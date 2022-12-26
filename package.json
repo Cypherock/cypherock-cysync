@@ -9,5 +9,8 @@
   "license": "ISC",
   "devDependencies": {
     "turbo": "^1.6.3"
+  },
+  "dependencies": {
+    "styled-components": "^5.3.6"
   }
 }
