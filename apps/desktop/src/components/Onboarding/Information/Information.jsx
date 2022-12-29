@@ -13,15 +13,15 @@ export const Information = () => {
             </h4>
             <ul className="information-popup-content__list">
               <li className="information-popup-content__list-items">
-                <span></span>
+                <div></div>
                 <h5>You are present in a safe and secure environment</h5>
               </li>
               <li className="information-popup-content__list-items">
-                <span></span>
+                <div></div>
                 <h5>You have atleast 15-30 minutes to setup your wallet</h5>
               </li>
               <li className="information-popup-content__list-items">
-                <span></span>
+                <div></div>
                 <h5>
                   Make sure the tamper-proof seal of the package was intact
                 </h5>
