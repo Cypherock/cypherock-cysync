@@ -1,5 +1,6 @@
-import colors from "./colors";
-import typography from "./typography";
+import { colors } from "./color.styled.js";
+import { typography } from "./typography.styled.js";
+import { spacing } from "./layout.styled.js";
 
 export const theme = {
   palette: {
@@ -29,13 +30,15 @@ export const theme = {
       blurBackground: colors.background.blurBackground,
       sepratorBackground: colors.background.sepratorBackground,
       contentBackground: colors.background.contentGradient,
-      sideBarBackground: colors.background.sideBarGradient,
+      sideBarBackground: colors.gradients.sideBarGradient,
+    },
+    border: {
+      main: colors.border.popupBorder,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
   typography: {
-    fontFamily: "Poppins",
     h1: {
       fontSize: typography.h1,
     },
@@ -54,5 +57,46 @@ export const theme = {
     h6: {
       fontSize: typography.h6,
     },
+  },
+  spacing: {
+    one: {
+      spacing: spacing.one,
+    },
+    two: {
+      spacing: spacing.two,
+    },
+    three: {
+      spacing: spacing.three,
+    },
+    four: {
+      spacing: spacing.four,
+    },
+    five: {
+      spacing: spacing.five,
+    },
+    six: {
+      spacing: spacing.six,
+    },
+    seven: {
+      spacing: spacing.seven,
+    },
+    eight: {
+      spacing: spacing.eight,
+    },
+    nine: {
+      spacing: spacing.nine,
+    },
+    ten: {
+      spacing: spacing.ten,
+    },
+    eleven: {
+      spacing: spacing.eleven,
+    },
+    twelve: {
+      spacing: spacing.twelve,
+    },
+  },
+  shadow: {
+    popupShadow: colors.shadow.popupShadow,
   },
 };
