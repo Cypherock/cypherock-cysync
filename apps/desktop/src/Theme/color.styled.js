@@ -24,7 +24,7 @@ export const colors = {
   },
   background: {
     progressBarBackground: "#1F1915",
-    inputBackground: "#1A1512",
+    inputBackground: "#27221D",
     blurBackground: "rgba(29, 25, 23, 0.4)",
     sepratorBackground: "#39322C",
   },

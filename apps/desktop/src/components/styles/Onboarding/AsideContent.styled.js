@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-export const SplashLoaderContent = styled.div`
+export const AsideContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .aside-logo {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+  }
 
   .splash-loader__img-container {
     background-color: ${({ theme }) =>
@@ -51,5 +57,17 @@ export const SplashLoaderContent = styled.div`
     color: ${({ theme }) => theme.palette.text.listText};
     font-weight: 400;
     text-align: center;
+    visibility: ${({ content }) => (content == "loader" ? "block" : "hidden")};
+  }
+
+  .splash-loader__muted-small-text-test {
+    margin-top: ${({ theme }) => theme.spacing.two.spacing};
+    color: ${({ theme }) => theme.palette.text.listText};
+    font-weight: 400;
+    text-align: center;
+    position: absolute;
+    bottom: 40px;
+    visibility: ${({ content }) =>
+      content == "welcomeAside" ? "block" : "hidden"};
   }
 `;

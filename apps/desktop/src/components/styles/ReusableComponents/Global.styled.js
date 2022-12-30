@@ -30,4 +30,7 @@ export const GlobalStyles = createGlobalStyle`
     h6{
         font-size: 16px;
     }
+    /* h7{
+        font-size: 14px;
+    } */
     `;

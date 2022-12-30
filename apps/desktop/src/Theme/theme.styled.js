@@ -29,7 +29,7 @@ export const theme = {
       inputBackground: colors.background.inputBackground,
       blurBackground: colors.background.blurBackground,
       sepratorBackground: colors.background.sepratorBackground,
-      contentBackground: colors.background.contentGradient,
+      contentBackground: colors.gradients.contentGradient,
       sideBarBackground: colors.gradients.sideBarGradient,
     },
     border: {

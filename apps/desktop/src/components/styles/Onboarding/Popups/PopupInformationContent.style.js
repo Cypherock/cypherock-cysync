@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InformationPopupContent = styled.div`
+export const PopupInformationContent = styled.div`
   .information-popup-content__heading {
     color: ${({ theme }) => theme.palette.text.headingText};
     font-weight: 500;

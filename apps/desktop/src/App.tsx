@@ -1,19 +1,17 @@
 import { useState } from "react";
 import styles from "styles/app.module.scss";
-import { Container } from "./components/styles/Container.styled.js";
+import { Container } from "./components/styles/ReusableComponents/Container.styled.js";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Theme/theme.styled.js";
-import { GlobalStyles } from "./components/styles/Global.styled.js";
-import { SplashLoader } from "./components/Onboarding/SplashLoader.jsx";
-import { Information } from "./components/Onboarding/Information/Information.jsx";
+import { GlobalStyles } from "./components/styles/ReusableComponents/Global.styled.js";
+import { Onboarding } from "./components/styles/ReusableComponents/OnboardingLayout/OnboardingLayout/OnboardingLayout.jsx";
 
 const App: React.FC = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        {/* <SplashLoader /> */}
-        <Information />
+        <Onboarding />
       </ThemeProvider>
     </>
   );
