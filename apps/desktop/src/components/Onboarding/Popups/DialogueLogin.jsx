@@ -5,45 +5,36 @@ import passwordHide from "./password-hide.png";
 import { Divider } from "../../styles/ReusableComponents/Divider.styled";
 import { Button } from "../../styles/ReusableComponents/button.style";
 
-export const DialogueSetPassword = () => {
+export const DialogueLogin = () => {
   return (
     <>
       <PopupContainer>
         <DialogueSetPasswordContent>
           <div className="popup-body">
-            <h5 className="popup-heading">Set your cySync password</h5>
-            <h6 className="popup-set-Password__active-text">
-              We do not store your password on our servers.
+            <h5 className="popup-heading">
+              Enter password to access your portfolio
+            </h5>
+            <h6 className="popup-subheading">
+              Your cySync password is always stored locally on your PC
             </h6>
-            <div className="popup-set-password__info active-text small-text">
-              This protects your privacy around your Crypto assets.
-            </div>
             <Input>
-              <label>New Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
-
-            <Input>
-              <label>Confirm Password</label>
+              <label>Enter Password</label>
               <input type="text" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </Input>
 
             <Divider></Divider>
             <h6 className="popup-set-password__error-text error-text">
-              Password mismatch and other error messages
+              Your password was incorrect
             </h6>
-            {/* <h6 className="">Password mismatch and other error messages</h6> */}
-            <Divider></Divider>
           </div>
 
           <div className="popup-footer">
             <Button button="secondary">
-              <span>Skip</span>
+              <span>Reset Password</span>
             </Button>
             <Button button="primary">
-              <span>confirm</span>
+              <span>Login</span>
             </Button>
           </div>
         </DialogueSetPasswordContent>

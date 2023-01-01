@@ -5,21 +5,21 @@ import passwordHide from "./password-hide.png";
 import { Divider } from "../../styles/ReusableComponents/Divider.styled";
 import { Button } from "../../styles/ReusableComponents/button.style";
 
-export const DialogueSetPassword = () => {
+export const DialogueResetPassword = () => {
   return (
     <>
       <PopupContainer>
         <DialogueSetPasswordContent>
           <div className="popup-body">
-            <h5 className="popup-heading">Set your cySync password</h5>
-            <h6 className="popup-set-Password__active-text">
-              We do not store your password on our servers.
+            <h5 className="popup-heading">
+              Resetting password will reset your cySync app data
+            </h5>
+            <h6 className="popup-subheading">
+              Your funds will remain intact, and you will still be able to sync
+              the data again through your X1 Vault
             </h6>
-            <div className="popup-set-password__info active-text small-text">
-              This protects your privacy around your Crypto assets.
-            </div>
             <Input>
-              <label>New Password</label>
+              <label>Enter Password</label>
               <input type="text" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </Input>
@@ -40,10 +40,10 @@ export const DialogueSetPassword = () => {
 
           <div className="popup-footer">
             <Button button="secondary">
-              <span>Skip</span>
+              <span>Go Back</span>
             </Button>
             <Button button="primary">
-              <span>confirm</span>
+              <span>Reset</span>
             </Button>
           </div>
         </DialogueSetPasswordContent>

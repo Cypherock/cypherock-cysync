@@ -1,7 +1,7 @@
 export const colors = {
   gradients: {
     gradientPrimary:
-      "-webkit-linear-gradient(90deg, #e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%);",
+      "linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)",
     gradientSecondary:
       "-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)",
     contentGradient: "linear-gradient(89.76deg, #16120F 0.23%, #1F1915 99.82%)",

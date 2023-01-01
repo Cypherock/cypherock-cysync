@@ -21,5 +21,7 @@ export const Button = styled.button`
     font-size: 14px;
     color: ${({ theme, button }) =>
       button == "secondary" ? theme.palette.text.mutedText : ""};
+    border: none;
+    line-height: 21px;
   }
 `;
