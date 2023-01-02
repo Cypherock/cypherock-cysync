@@ -1,15 +1,9 @@
 import styled from "styled-components";
 
 export const PopupInformationContent = styled.div`
-  .information-popup-content__heading {
-    color: ${({ theme }) => theme.palette.text.headingText};
-    font-weight: 500;
-    text-align: center;
-  }
-
   .information-popup-content__list {
     list-style: none;
-    margin-top: ${({ theme }) => theme.spacing.five.spacing};
+    /* margin-top: ${({ theme }) => theme.spacing.five.spacing}; */
 
     .information-popup-content__list-items {
       display: flex;
@@ -19,13 +13,13 @@ export const PopupInformationContent = styled.div`
       margin-top: ${({ theme }) => theme.spacing.two.spacing};
 
       div {
-        width: 15px;
-        height: 15px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         background-color: ${({ theme }) => theme.palette.text.headingText};
       }
 
-      h5 {
+      h6 {
         font-weight: 400;
         color: ${({ theme }) => theme.palette.text.mutedText};
       }

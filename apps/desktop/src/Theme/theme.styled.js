@@ -20,9 +20,9 @@ export const theme = {
       main: colors.success.main,
     },
     text: {
-      headingText: colors.text.headingText,
-      listText: colors.text.listText,
-      mutedText: colors.text.mutedText,
+      textHeading: colors.text.headingText,
+      textList: colors.text.listText,
+      textMuted: colors.text.mutedText,
     },
     background: {
       progressBarBackground: colors.background.progressBarBackground,
@@ -38,26 +38,26 @@ export const theme = {
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
-  typography: {
-    h1: {
-      fontSize: typography.h1,
-    },
-    h2: {
-      fontSize: typography.h2,
-    },
-    h3: {
-      fontSize: typography.h3,
-    },
-    h4: {
-      fontSize: typography.h4,
-    },
-    h5: {
-      fontSize: typography.h5,
-    },
-    h6: {
-      fontSize: typography.h6,
-    },
-  },
+  // typography: {
+  //   h1: {
+  //     fontSize: typography.h1,
+  //   },
+  //   h2: {
+  //     fontSize: typography.h2,
+  //   },
+  //   h3: {
+  //     fontSize: typography.h3,
+  //   },
+  //   h4: {
+  //     fontSize: typography.h4,
+  //   },
+  //   h5: {
+  //     fontSize: typography.h5,
+  //   },
+  //   h6: {
+  //     fontSize: typography.h6,
+  //   },
+  // },
   spacing: {
     one: {
       spacing: spacing.one,

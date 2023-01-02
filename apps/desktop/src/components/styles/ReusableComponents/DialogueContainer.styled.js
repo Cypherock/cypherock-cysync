@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const PopupContainer = styled.div`
+export const DialogueContainer = styled.div`
+  max-width: 600px;
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -9,7 +10,8 @@ export const PopupContainer = styled.div`
     theme.palette.background.sideBarBackground};
   box-shadow: ${({ theme }) => theme.shadow.popupShadow};
   border-color: ${({ theme }) => theme.palette.border.main};
-  .popup-header {
+
+  .dialogue-header {
     padding: ${({ theme }) => theme.spacing.two.spacing};
     font-weight: 400;
     color: ${({ theme }) => theme.palette.text.mutedText};
@@ -20,10 +22,10 @@ export const PopupContainer = styled.div`
     border-style: solid;
     border-color: ${({ theme }) => theme.palette.border.main};
   }
-  .popup-body {
+  .dialogue-body {
     padding: 42px 40px 32px 40px;
   }
-  .popup-footer {
+  .dialogue-footer {
     padding: 32px 0;
     display: flex;
     justify-content: center;
@@ -38,14 +40,15 @@ export const PopupContainer = styled.div`
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing.two.spacing};
   }
-  .popup-heading {
+  .dialogue-heading {
+    text-align: center;
     font-weight: 400;
-    max-width: 450px;
+    max-width: 500px;
     color: ${({ theme }) => theme.palette.text.headingText};
     margin-bottom: ${({ theme }) => theme.spacing.one.spacing};
   }
 
-  .popup-subheading {
+  .dialogue-subheading {
     font-weight: 400;
     max-width: 450px;
     margin-bottom: ${({ theme }) => theme.spacing.four.spacing};
@@ -58,10 +61,29 @@ export const PopupContainer = styled.div`
   .small-text {
     font-size: 14px;
   }
+  .muted-text {
+    color: ${({ theme }) => theme.palette.text.mutedText};
+  }
 
   .error-text {
     color: ${({ theme }) => theme.palette.warning.main};
     font-weight: 300;
     text-align: start;
+  }
+
+  .dialogue-list {
+    padding-top: ${({ theme }) => theme.spacing.two.spacing};
+    padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
+    padding-left: ${({ theme }) => theme.spacing.three.spacing};
+    padding-right: ${({ theme }) => theme.spacing.three.spacing};
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${({ theme }) => theme.palette.border.main};
+    background-color: ${({ theme }) =>
+      theme.palette.background.inputBackground};
+  }
+
+  .dialogue-list-items {
+    list-style: none;
   }
 `;

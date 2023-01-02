@@ -1,7 +1,8 @@
 import { Container } from "../../Container.styled";
 import { MainContainerContent } from "./OnboardingLayout";
 import { Aside } from "../aside/Aside";
-import { DialogueEmailConfirmation } from "../../../../Onboarding/Popups/DialogueEmailConfirmation";
+import { DialogueInformation } from "../../../../Onboarding/Popups/DialogueInformation";
+// import { DialogueEmailConfirmation } from "../../../../Onboarding/Popups/DialogueEmailConfirmation";
 
 export const Onboarding = () => {
   return (
@@ -9,7 +10,8 @@ export const Onboarding = () => {
       <MainContainerContent>
         <Aside />
         <Container>
-          <DialogueEmailConfirmation />
+          {/* <DialogueEmailConfirmation /> */}
+          <DialogueInformation />
         </Container>
       </MainContainerContent>
     </>

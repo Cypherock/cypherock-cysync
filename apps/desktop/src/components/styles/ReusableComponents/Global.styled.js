@@ -12,7 +12,7 @@ export const GlobalStyles = createGlobalStyle`
 
     }
 
-    h1{
+    /* h1{
         font-size: 40px;
     }
     h2{
@@ -32,5 +32,5 @@ export const GlobalStyles = createGlobalStyle`
     }
     /* h7{
         font-size: 14px;
-    } */
+    } */ */
     `;
