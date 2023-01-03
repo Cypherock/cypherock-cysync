@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const PopupInformationContent = styled.div`
-  .information-popup-content__list {
+  /* .information-popup-content__list {
     list-style: none;
     /* margin-top: ${({ theme }) => theme.spacing.five.spacing}; */
 
-    .information-popup-content__list-items {
+  /* .information-popup-content__list-items {
       display: flex;
       align-items: center;
       gap: 16px;
@@ -24,5 +24,5 @@ export const PopupInformationContent = styled.div`
         color: ${({ theme }) => theme.palette.text.mutedText};
       }
     }
-  }
+  }  */
 `;
