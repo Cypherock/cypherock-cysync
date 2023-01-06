@@ -7,6 +7,7 @@ import {
 } from "../../styles/ReusableComponents/Heading.styled";
 import { SquareCheckBox } from "../../styles/ReusableComponents/Checkbox/SquareCheckBox.styled";
 import { useState } from "react";
+import { FlexContainer } from "../../styles/ReusableComponents/Containers/FlexContainer.styled";
 
 export const DialogueTerms = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -28,17 +29,20 @@ export const DialogueTerms = () => {
           <div></div>
           <h7 className="popup-input-heading">Privacy Policy</h7>
         </div> */}
-        <SquareCheckBox>
-          <div>
-            <input
-              type="checkbox"
-              onClick={() => setIsChecked((wasCheched) => !wasCheched)}
-            />
-          </div>
-        </SquareCheckBox>
-        <HeadingSmallest textMuted center>
-          I have read and agree with the Terms of Use and Privacy Policy
-        </HeadingSmallest>
+
+        <FlexContainer alignCenter>
+          <SquareCheckBox>
+            <div>
+              <input
+                type="checkbox"
+                onClick={() => setIsChecked((wasCheched) => !wasCheched)}
+              />
+            </div>
+          </SquareCheckBox>
+          <HeadingSmallest textMuted center>
+            I have read and agree with the Terms of Use and Privacy Policy
+          </HeadingSmallest>
+        </FlexContainer>
       </div>
 
       <div className="default-dialogue__footer">

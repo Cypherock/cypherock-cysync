@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DefaultDialogueContainer = styled.div`
+export const DialogueBoxContainer = styled.section`
   max-width: 600px;
   border-width: 1px;
   border-style: solid;
@@ -9,35 +9,6 @@ export const DefaultDialogueContainer = styled.div`
     theme.palette.background.sideBarBackground};
   box-shadow: ${({ theme }) => theme.shadow.popupShadow};
   border-color: ${({ theme }) => theme.palette.border.main};
-
-  .default-dialogue__header {
-    border-top: 0;
-    border-bottom: 1px;
-    border-left: 0;
-    border-right: 0;
-    border-style: solid;
-    border-color: ${({ theme }) => theme.palette.border.main};
-    padding: ${({ theme }) => theme.spacing.two.spacing};
-    color: ${({ theme }) => theme.palette.text.mutedText};
-  }
-
-  .default-dialogue__body {
-    padding: 42px 40px 32px 40px;
-  }
-  .default-dialogue__footer {
-    padding: 32px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px;
-    border-bottom: 0;
-    border-left: 0;
-    border-right: 0;
-    border-style: solid;
-    border-color: ${({ theme }) => theme.palette.border.main};
-    gap: ${({ theme }) => theme.spacing.two.spacing};
-  }
 
   .default-dialogue__list {
     border-width: 1px;
@@ -54,4 +25,34 @@ export const DefaultDialogueContainer = styled.div`
   .default-dialogue__list-items {
     list-style: none;
   }
+`;
+
+export const DialogueBoxHeader = styled.div`
+  border-bottom: 1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: ${({ theme }) => theme.palette.border.main};
+  padding: ${({ theme }) => theme.spacing.two.spacing};
+  color: ${({ theme }) => theme.palette.text.mutedText};
+`;
+
+export const DialogueBoxBody = styled.div`
+  padding: 42px 40px 32px 40px;
+`;
+
+export const DialogueBoxFooter = styled.div`
+  padding: 32px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: ${({ theme }) => theme.palette.border.main};
+  gap: ${({ theme }) => theme.spacing.two.spacing};
 `;
