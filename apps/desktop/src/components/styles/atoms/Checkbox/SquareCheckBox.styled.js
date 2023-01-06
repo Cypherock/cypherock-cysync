@@ -10,8 +10,8 @@ export const SquareCheckBox = styled.div`
   background-image: ${({ theme }) => theme.palette.primary.primary};
 
   div {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     border-radius: 3px;
     background-image: ${({ theme }) =>
       theme.palette.background.sideBarBackground};

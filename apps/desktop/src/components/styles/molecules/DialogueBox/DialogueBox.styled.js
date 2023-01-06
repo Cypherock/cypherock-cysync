@@ -9,7 +9,7 @@ export const DialogueBoxContainer = styled.section`
     theme.palette.background.sideBarBackground};
   box-shadow: ${({ theme }) => theme.shadow.popupShadow};
   border-color: ${({ theme }) => theme.palette.border.main};
-
+  text-align: center;
   .default-dialogue__list {
     border-width: 1px;
     border-style: solid;

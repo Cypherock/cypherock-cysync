@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { theme } from "../../../Theme/theme.styled";
 
 export const baseStyle = css`
   ${(props) => {
@@ -31,26 +30,30 @@ export const baseStyle = css`
   }}
   color: ${(props) =>
     props.textHeading
-      ? theme.palette.text.textHeading
+      ? props.theme.palette.text.textHeading
       : props.textMuted
-      ? theme.palette.text.textMuted
+      ? props.theme.palette.text.textMuted
       : props.textList
-      ? theme.palette.text.textList
+      ? props.theme.palette.text.textList
       : ""};
   margin-bottom: ${(props) =>
     props.mbOne
-      ? theme.spacing.one.spacing
+      ? props.theme.spacing.one.spacing
       : props.mbTwo
-      ? theme.spacing.two.spacing
+      ? props.theme.spacing.two.spacing
       : props.mbThree
-      ? theme.spacing.three.spacing
+      ? props.theme.spacing.three.spacing
       : props.mbFour
-      ? theme.spacing.four.spacing
+      ? props.theme.spacing.four.spacing
       : props.mbFive
-      ? theme.spacing.five.spacing
+      ? props.theme.spacing.five.spacing
+      : props.mbSix
+      ? props.theme.spacing.six.spacing
+      : props.mb0
+      ? "0px"
       : ""};
-  text-align: ${(props) => {
-    props.center ? "center" : props.right ? "right" : props.left ? "left" : "";
+  text-align: ${({ right }) => {
+    right ? "right" : "";
   }};
   max-width: 100%;
 `;

@@ -1,4 +1,4 @@
-import { Container } from "../../Container.styled";
+import { Container } from "../../../atoms/Container/Container.styled";
 import { AsideContainer } from "./Aside.styled";
 import { SplashLoader } from "../../../../Onboarding/SplashLoader";
 

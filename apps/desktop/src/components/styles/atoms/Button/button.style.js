@@ -24,6 +24,7 @@ const buttonBaseStyle = css`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   font-weight: 500;
   font-size: 14px;
   line-height: 21px;

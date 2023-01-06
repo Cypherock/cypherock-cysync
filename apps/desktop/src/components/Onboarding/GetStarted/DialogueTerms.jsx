@@ -1,36 +1,64 @@
-import { DefaultDialogueContainer } from "../../styles/ReusableComponents/DefaultDialogueContainer.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
+import { useState } from "react";
+import {
+  DialogueBoxContainer,
+  DialogueBoxHeader,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
 import {
   HeadingFive,
   HeadingSix,
   HeadingSmallest,
-} from "../../styles/ReusableComponents/Heading.styled";
-import { SquareCheckBox } from "../../styles/ReusableComponents/Checkbox/SquareCheckBox.styled";
-import { useState } from "react";
-import { FlexContainer } from "../../styles/ReusableComponents/Containers/FlexContainer.styled";
+} from "../../styles/atoms/Headings/Heading.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
+import { DefaultContainer } from "../../styles/atoms/Container/Container.styled";
+import { Flex } from "../../styles/atoms/Flex/Flex.styled";
+import { Bullet } from "../../styles/atoms/Bullet/Bullet.styled";
+import linkImage from "./terms-link.png";
+import { SquareCheckBox } from "../../styles/atoms/Checkbox/SquareCheckBox.styled";
 
 export const DialogueTerms = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <DefaultDialogueContainer>
-      <div className="default-dialogue__body">
+    <DialogueBoxContainer>
+      <DialogueBoxBody>
         <HeadingFive textHeading center>
           Terms of use
         </HeadingFive>
-        <HeadingSix textMuted center mbThree>
+        <HeadingSix textMuted mbSix>
           Please take some time to review our Terms or Service and Privacy
           Policy
         </HeadingSix>
-        {/* <div className="popup-terms_input">
-          <div></div>
-          <h7 className="popup-input-heading">Terms of service</h7>
-          </div>
-          <div className="popup-terms_input">
-          <div></div>
-          <h7 className="popup-input-heading">Privacy Policy</h7>
-        </div> */}
 
-        <FlexContainer alignCenter>
+        <DefaultContainer bgSeparator borderRadiusOne mbTwo>
+          <Flex justifyBetween>
+            <Flex alignCenter gapTwo>
+              <Bullet></Bullet>
+              <HeadingSix textHeading mb0>
+                Terms of Service
+              </HeadingSix>
+            </Flex>
+            <a href="">
+              <img src={linkImage}></img>
+            </a>
+          </Flex>
+        </DefaultContainer>
+
+        <DefaultContainer bgSeparator borderRadiusOne mbThree>
+          <Flex justifyBetween>
+            <Flex alignCenter gapTwo>
+              <Bullet></Bullet>
+              <HeadingSix textHeading mb0>
+                Privacy Policy
+              </HeadingSix>
+            </Flex>
+            <a href="">
+              <img src={linkImage}></img>
+            </a>
+          </Flex>
+        </DefaultContainer>
+
+        <Flex alignCenter>
           <SquareCheckBox>
             <div>
               <input
@@ -39,25 +67,21 @@ export const DialogueTerms = () => {
               />
             </div>
           </SquareCheckBox>
-          <HeadingSmallest textMuted center>
+          <HeadingSmallest textMuted mb0>
             I have read and agree with the Terms of Use and Privacy Policy
           </HeadingSmallest>
-        </FlexContainer>
-      </div>
+        </Flex>
+      </DialogueBoxBody>
 
-      <div className="default-dialogue__footer">
+      <DialogueBoxFooter>
         {isChecked ? (
-          <Button button="primary">
-            <span>Confirm</span>
-          </Button>
+          <Button primary>Confirm</Button>
         ) : (
-          <Button button="secondary" disabled="true">
-            <span>Confirm</span>
+          <Button secondary disabled={true}>
+            Confirm
           </Button>
         )}
-      </div>
-
-      <div className="popup-footer"></div>
-    </DefaultDialogueContainer>
+      </DialogueBoxFooter>
+    </DialogueBoxContainer>
   );
 };

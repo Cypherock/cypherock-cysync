@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FlexContainer = styled.div`
+export const Flex = styled.div`
   display: flex;
   flex-wrap: ${(props) => {
     props.wrapReverse ? "wrap-reverse" : props.noWrap ? "nowrap" : "wrap";
@@ -31,6 +31,13 @@ export const FlexContainer = styled.div`
     return "stretch";
   }};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
+  gap: ${(props) =>
+    props.gapOne
+      ? props.theme.spacing.one.spacing.two
+      : props.gapTwo
+      ? props.theme.spacing.one.spacing.two
+      : ""};
+  gap: 16px;
 `;
 
 // export const Column = styled.div`

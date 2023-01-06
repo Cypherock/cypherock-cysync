@@ -1,4 +1,4 @@
-import { Container } from "../styles/ReusableComponents/Container.styled";
+import { Container } from "../styles/atoms/Container/Container.styled";
 import { AsideContent } from "../styles/Onboarding/AsideContent.styled";
 import cySync from "./logo-small.png";
 
