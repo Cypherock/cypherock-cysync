@@ -1,53 +1,60 @@
-import { PopupContainer } from "../../styles/ReusableComponents/PopupContainer.styled";
-import { DialogueSetPasswordContent } from "../../styles/Onboarding/Popups/DialogueSetPasswordContent.styled";
-import { Input } from "../../styles/ReusableComponents/Input.styled";
+import {
+  DialogueBoxContainer,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
+import {
+  HeadingFive,
+  HeadingSix,
+  HeadingSmallest,
+} from "../../styles/atoms/Headings/Heading.styled";
+import {
+  InputContainer,
+  InputLabel,
+  Input,
+} from "../../styles/atoms/Input/Input.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
+import { Divider } from "../../styles/atoms/Divider/Divider.styled";
 import passwordHide from "./password-hide.png";
-import { Divider } from "../../styles/ReusableComponents/Divider.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
 
 export const DialogueResetPassword = () => {
   return (
     <>
-      <PopupContainer>
-        <DialogueSetPasswordContent>
-          <div className="popup-body">
-            <h5 className="popup-heading">
-              Resetting password will reset your cySync app data
-            </h5>
-            <h6 className="popup-subheading">
-              Your funds will remain intact, and you will still be able to sync
-              the data again through your X1 Vault
-            </h6>
-            <Input>
-              <label>Enter Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+      <DialogueBoxContainer>
+        <DialogueBoxBody>
+          <HeadingFive textHeading>
+            Resetting password will reset your cySync app data
+          </HeadingFive>
+          <HeadingSix textMuted mbFive>
+            Your funds will remain intact, and you will still be able to sync
+            the data again through your X1 Vault
+          </HeadingSix>
 
-            <Input>
-              <label>Confirm Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+          <InputContainer>
+            <InputLabel>Enter Password</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
 
-            <Divider></Divider>
-            <h6 className="popup-set-password__error-text error-text">
-              Password mismatch and other error messages
-            </h6>
-            {/* <h6 className="">Password mismatch and other error messages</h6> */}
-            <Divider></Divider>
-          </div>
+          <InputContainer>
+            <InputLabel>Confirm Password</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
+          <Divider mbThree />
 
-          <div className="popup-footer">
-            <Button button="secondary">
-              <span>Go Back</span>
-            </Button>
-            <Button button="primary">
-              <span>Reset</span>
-            </Button>
-          </div>
-        </DialogueSetPasswordContent>
-      </PopupContainer>
+          <HeadingSix textError mbEight>
+            Your Password is incorrect
+          </HeadingSix>
+          <HeadingSmallest textMuted>
+            Use 8 or more charecters with a mix of letters, numberts & symbols
+          </HeadingSmallest>
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Button secondary>Go Back</Button>
+          <Button primary>Reset</Button>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
     </>
   );
 };

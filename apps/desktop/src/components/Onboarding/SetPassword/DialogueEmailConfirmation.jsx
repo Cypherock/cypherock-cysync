@@ -1,45 +1,50 @@
-import { PopupContainer } from "../../styles/ReusableComponents/PopupContainer.styled";
-import { DialogueSetPasswordContent } from "../../styles/Onboarding/Popups/DialogueSetPasswordContent.styled";
-import { Input } from "../../styles/ReusableComponents/Input.styled";
+import {
+  DialogueBoxContainer,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
+import {
+  HeadingFive,
+  HeadingSix,
+} from "../../styles/atoms/Headings/Heading.styled";
+import {
+  InputContainer,
+  InputLabel,
+  Input,
+} from "../../styles/atoms/Input/Input.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
+import { Divider } from "../../styles/atoms/Divider/Divider.styled";
 import passwordHide from "./password-hide.png";
-import { Divider } from "../../styles/ReusableComponents/Divider.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
 
 export const DialogueEmailConfirmation = () => {
   return (
     <>
-      <PopupContainer>
-        <DialogueSetPasswordContent>
-          <div className="popup-body">
-            <h5 className="popup-heading">
-              You are recommended to enter an email ID as a 2FA to get
-              authenticity results
-            </h5>
-            <h6 className="popup-subheading">
-              We do not store this email ID permanently on our servers (?)
-            </h6>
-            <Input>
-              <label>Your Email</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+      <DialogueBoxContainer>
+        <DialogueBoxBody>
+          <HeadingFive textHeading>
+            You are recommended to enter an email ID as a 2FA to get
+            authenticity results
+          </HeadingFive>
+          <HeadingSix textMuted mbFive>
+            We do not store this email ID permanently on our servers (?)
+          </HeadingSix>
 
-            <Divider></Divider>
-            <h6 className="popup-set-password__error-text error-text">
-              Password mismatch and other error messages
-            </h6>
-          </div>
+          <InputContainer>
+            <InputLabel>Your Email</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
+          <Divider mbThree />
 
-          <div className="popup-footer">
-            <Button button="secondary">
-              <span>Skip</span>
-            </Button>
-            <Button button="primary">
-              <span>Submit</span>
-            </Button>
-          </div>
-        </DialogueSetPasswordContent>
-      </PopupContainer>
+          <HeadingSix textError mbEight>
+            Email entered is invalid
+          </HeadingSix>
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Button secondary>Skip</Button>
+          <Button primary>Submit</Button>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
     </>
   );
 };

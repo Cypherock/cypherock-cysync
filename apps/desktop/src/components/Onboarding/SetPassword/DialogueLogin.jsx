@@ -1,44 +1,49 @@
-import { PopupContainer } from "../../styles/ReusableComponents/PopupContainer.styled";
-import { DialogueSetPasswordContent } from "../../styles/Onboarding/Popups/DialogueSetPasswordContent.styled";
-import { Input } from "../../styles/ReusableComponents/Input.styled";
+import {
+  DialogueBoxContainer,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
+import {
+  HeadingFive,
+  HeadingSix,
+} from "../../styles/atoms/Headings/Heading.styled";
+import {
+  InputContainer,
+  InputLabel,
+  Input,
+} from "../../styles/atoms/Input/Input.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
+import { Divider } from "../../styles/atoms/Divider/Divider.styled";
 import passwordHide from "./password-hide.png";
-import { Divider } from "../../styles/ReusableComponents/Divider.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
 
 export const DialogueLogin = () => {
   return (
     <>
-      <PopupContainer>
-        <DialogueSetPasswordContent>
-          <div className="popup-body">
-            <h5 className="popup-heading">
-              Enter password to access your portfolio
-            </h5>
-            <h6 className="popup-subheading">
-              Your cySync password is always stored locally on your PC
-            </h6>
-            <Input>
-              <label>Enter Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+      <DialogueBoxContainer>
+        <DialogueBoxBody>
+          <HeadingFive textHeading>
+            Enter password to access your portfolio
+          </HeadingFive>
+          <HeadingSix textMuted mbFive>
+            Your cySync password is always stored locally on your PC
+          </HeadingSix>
 
-            <Divider></Divider>
-            <h6 className="popup-set-password__error-text error-text">
-              Your password was incorrect
-            </h6>
-          </div>
+          <InputContainer>
+            <InputLabel>Your Email</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
+          <Divider mbThree />
 
-          <div className="popup-footer">
-            <Button button="secondary">
-              <span>Reset Password</span>
-            </Button>
-            <Button button="primary">
-              <span>Login</span>
-            </Button>
-          </div>
-        </DialogueSetPasswordContent>
-      </PopupContainer>
+          <HeadingSix textError mbEight>
+            Your Password is incorrect
+          </HeadingSix>
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Button secondary>Reset Password</Button>
+          <Button primary>Login</Button>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
     </>
   );
 };

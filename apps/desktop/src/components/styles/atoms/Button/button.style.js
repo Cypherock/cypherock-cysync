@@ -5,7 +5,7 @@ const buttonBaseStyle = css`
     return (
       props.secondary &&
       css`
-        border: 2px solid #49433e;
+        border: 0.6px solid #49433e;
         background-color: ${({ theme }) =>
           theme.palette.background.sepratorBackground};
         color: ${({ theme }) => theme.palette.text.textMuted};

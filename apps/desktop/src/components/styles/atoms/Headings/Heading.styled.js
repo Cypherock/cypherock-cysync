@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "../../util/spacing/Spacing.styled";
 
 export const baseStyle = css`
   ${(props) => {
@@ -28,6 +29,15 @@ export const baseStyle = css`
       `
     );
   }}
+
+${(props) => {
+    return (
+      props.textError &&
+      css`
+        color: ${({ theme }) => theme.palette.warning.main};
+      `
+    );
+  }}
   color: ${(props) =>
     props.textHeading
       ? props.theme.palette.text.textHeading
@@ -36,22 +46,7 @@ export const baseStyle = css`
       : props.textList
       ? props.theme.palette.text.textList
       : ""};
-  margin-bottom: ${(props) =>
-    props.mbOne
-      ? props.theme.spacing.one.spacing
-      : props.mbTwo
-      ? props.theme.spacing.two.spacing
-      : props.mbThree
-      ? props.theme.spacing.three.spacing
-      : props.mbFour
-      ? props.theme.spacing.four.spacing
-      : props.mbFive
-      ? props.theme.spacing.five.spacing
-      : props.mbSix
-      ? props.theme.spacing.six.spacing
-      : props.mb0
-      ? "0px"
-      : ""};
+
   text-align: ${({ right }) => {
     right ? "right" : "";
   }};
@@ -63,6 +58,7 @@ export const HeadingOne = styled.h1`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingTwo = styled.h2`
@@ -70,6 +66,7 @@ export const HeadingTwo = styled.h2`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingThree = styled.h3`
@@ -77,6 +74,7 @@ export const HeadingThree = styled.h3`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingFour = styled.h4`
@@ -84,6 +82,7 @@ export const HeadingFour = styled.h4`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingFive = styled.h5`
@@ -91,6 +90,7 @@ export const HeadingFive = styled.h5`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingSix = styled.h6`
@@ -98,6 +98,7 @@ export const HeadingSix = styled.h6`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;
 
 export const HeadingSmallest = styled.div`
@@ -105,4 +106,5 @@ export const HeadingSmallest = styled.div`
   font-weight: 400;
   margin-bottom: 4px;
   ${baseStyle};
+  ${margin};
 `;

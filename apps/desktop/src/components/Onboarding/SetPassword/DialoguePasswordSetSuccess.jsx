@@ -1,30 +1,34 @@
-import { PopupContainer } from "../../styles/ReusableComponents/PopupContainer.styled";
-import { DialogueSetPasswordContent } from "../../styles/Onboarding/Popups/DialogueSetPasswordContent.styled";
-import { Input } from "../../styles/ReusableComponents/Input.styled";
-import passwordHide from "./password-hide.png";
-import { Divider } from "../../styles/ReusableComponents/Divider.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
+import {
+  DialogueBoxContainer,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+  DialogueBoxHeader,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
+import {
+  HeadingFive,
+  HeadingSix,
+} from "../../styles/atoms/Headings/Heading.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
 
 export const DialoguePasswordSetSuccess = () => {
   return (
     <>
-      <PopupContainer>
-        <DialogueSetPasswordContent>
-          <div className="popup-header">Congratulations!</div>
-          <div className="popup-body">
-            <h5 className="popup-heading">Your new password is set</h5>
-            <h6 className="popup-subheading">
-              Please wait while take you to the login screen
-            </h6>
-          </div>
-
-          <div className="popup-footer">
-            <Button button="primary">
-              <span>Go to login</span>
-            </Button>
-          </div>
-        </DialogueSetPasswordContent>
-      </PopupContainer>
+      <DialogueBoxContainer>
+        <DialogueBoxHeader>
+          <HeadingSix textMuted mb0>
+            Congratulations!
+          </HeadingSix>
+        </DialogueBoxHeader>
+        <DialogueBoxBody>
+          <HeadingFive textHeading>Your new password is set</HeadingFive>
+          <HeadingSix textMuted>
+            Please wait while take you to the login screen
+          </HeadingSix>
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Button primary>Go to login</Button>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
     </>
   );
 };

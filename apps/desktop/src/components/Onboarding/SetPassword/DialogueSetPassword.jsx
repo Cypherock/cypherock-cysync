@@ -1,53 +1,58 @@
-import { PopupContainer } from "../../styles/ReusableComponents/PopupContainer.styled";
-import { DialogueSetPasswordContent } from "../../styles/Onboarding/Popups/DialogueSetPasswordContent.styled";
-import { Input } from "../../styles/ReusableComponents/Input.styled";
+import {
+  DialogueBoxContainer,
+  DialogueBoxBody,
+  DialogueBoxFooter,
+} from "../../styles/molecules/DialogueBox/DialogueBox.styled";
+import {
+  HeadingFive,
+  HeadingSix,
+  HeadingSmallest,
+} from "../../styles/atoms/Headings/Heading.styled";
+import {
+  InputContainer,
+  InputLabel,
+  Input,
+} from "../../styles/atoms/Input/Input.styled";
+import { Button } from "../../styles/atoms/Button/button.style";
+import { Divider } from "../../styles/atoms/Divider/Divider.styled";
 import passwordHide from "./password-hide.png";
-import { Divider } from "../../styles/ReusableComponents/Divider.styled";
-import { Button } from "../../styles/ReusableComponents/button.style";
 
 export const DialogueSetPassword = () => {
   return (
     <>
-      <PopupContainer>
-        <DialogueSetPasswordContent>
-          <div className="popup-body">
-            <h5 className="popup-heading">Set your cySync password</h5>
-            <h6 className="popup-set-Password__active-text">
-              We do not store your password on our servers.
-            </h6>
-            <div className="popup-set-password__info active-text small-text">
-              This protects your privacy around your Crypto assets.
-            </div>
-            <Input>
-              <label>New Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+      <DialogueBoxContainer>
+        <DialogueBoxBody>
+          <HeadingFive textHeading>Set your cySync password</HeadingFive>
+          <HeadingSix textMuted mbFive>
+            We do not store your password on our servers.
+          </HeadingSix>
 
-            <Input>
-              <label>Confirm Password</label>
-              <input type="text" placeholder="**************" />
-              <img src={passwordHide} alt="" />
-            </Input>
+          <InputContainer>
+            <InputLabel>New Password</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
 
-            <Divider></Divider>
-            <h6 className="popup-set-password__error-text error-text">
-              Password mismatch and other error messages
-            </h6>
-            {/* <h6 className="">Password mismatch and other error messages</h6> */}
-            <Divider></Divider>
-          </div>
+          <InputContainer>
+            <InputLabel>Confirm Password</InputLabel>
+            <Input type="text" placeholder="**************" />
+            <img src={passwordHide} alt="" />
+          </InputContainer>
+          <Divider mbThree />
 
-          <div className="popup-footer">
-            <Button button="secondary">
-              <span>Skip</span>
-            </Button>
-            <Button button="primary">
-              <span>confirm</span>
-            </Button>
-          </div>
-        </DialogueSetPasswordContent>
-      </PopupContainer>
+          <HeadingSix textError mbEight>
+            Password mismatch and other error messages
+          </HeadingSix>
+          <HeadingSmallest textMuted>
+            Use 8 or more charecters with a mix of letters, numberts & symbols
+          </HeadingSmallest>
+          <Divider />
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Button secondary>Skip</Button>
+          <Button primary>Confirm</Button>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
     </>
   );
 };
