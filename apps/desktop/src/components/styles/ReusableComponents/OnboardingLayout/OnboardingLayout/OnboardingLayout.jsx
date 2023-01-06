@@ -16,6 +16,10 @@ import {
   DeviceAuthTestFailedServerDown,
   DeviceAuthTestFailedDeviceMisconfigured,
 } from "../../../../Onboarding/DeviceAuthentication/DeviceAuthTestFailed";
+import { JoyStickToggle } from "../../../../Onboarding/JoystickGuide/JoystickToggle";
+import { JoyStickToggleCenterButton } from "../../../../Onboarding/JoystickGuide/JoyStickToggleCenterButton";
+import { JoyStickToggleSuccess } from "../../../../Onboarding/JoystickGuide/JoyStickSuccess";
+
 export const Onboarding = () => {
   return (
     <>
@@ -34,7 +38,10 @@ export const Onboarding = () => {
           {/* <DeviceAuthTestFailedServerError /> */}
           {/* <DeviceAuthTestFailedFrameWareError /> */}
           {/* <DeviceAuthTestFailedServerDown /> */}
-          <DeviceAuthTestFailedDeviceMisconfigured />
+          {/* <DeviceAuthTestFailedDeviceMisconfigured /> */}
+          {/* <JoyStickToggle /> */}
+          {/* <JoyStickToggleCenterButton /> */}
+          <JoyStickToggleSuccess />
         </Container>
       </MainContainerContent>
     </>

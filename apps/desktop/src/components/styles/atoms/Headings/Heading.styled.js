@@ -38,6 +38,16 @@ ${(props) => {
       `
     );
   }}
+
+  
+${(props) => {
+    return (
+      props.textSuccess &&
+      css`
+        color: ${({ theme }) => theme.palette.success.main};
+      `
+    );
+  }}
   color: ${(props) =>
     props.textHeading
       ? props.theme.palette.text.textHeading

@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { margin } from "../../util/spacing/Spacing.styled";
 
 export const Flex = styled.div`
+  ${margin};
   display: flex;
   flex-wrap: ${(props) => {
     props.wrapReverse ? "wrap-reverse" : props.noWrap ? "nowrap" : "wrap";
