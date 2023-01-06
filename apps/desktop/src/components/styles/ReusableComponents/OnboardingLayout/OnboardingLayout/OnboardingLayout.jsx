@@ -8,6 +8,14 @@ import { DialogueLogin } from "../../../../Onboarding/SetPassword/DialogueLogin"
 import { DialoguePasswordSetSuccess } from "../../../../Onboarding/SetPassword/DialoguePasswordSetSuccess";
 import { DialogueResetPassword } from "../../../../Onboarding/SetPassword/DialogueResetPassword";
 import { DialogueSetPassword } from "../../../../Onboarding/SetPassword/DialogueSetPassword";
+// import { DeviceAuthTest } from "../../../../Onboarding/DeviceAuthentication/DeviceAuthTest";
+import { DeviceAuthTestSuccess } from "../../../../Onboarding/DeviceAuthentication/DeviceAuthTestSucces";
+import {
+  DeviceAuthTestFailedServerError,
+  DeviceAuthTestFailedFrameWareError,
+  DeviceAuthTestFailedServerDown,
+  DeviceAuthTestFailedDeviceMisconfigured,
+} from "../../../../Onboarding/DeviceAuthentication/DeviceAuthTestFailed";
 export const Onboarding = () => {
   return (
     <>
@@ -20,7 +28,13 @@ export const Onboarding = () => {
           {/* <DialogueLogin /> */}
           {/* <DialoguePasswordSetSuccess /> */}
           {/* <DialogueResetPassword /> */}
-          <DialogueSetPassword />
+          {/* <DialogueSetPassword /> */}
+          {/* <DeviceAuthTest /> */}
+          {/* <DeviceAuthTestSuccess /> */}
+          {/* <DeviceAuthTestFailedServerError /> */}
+          {/* <DeviceAuthTestFailedFrameWareError /> */}
+          {/* <DeviceAuthTestFailedServerDown /> */}
+          <DeviceAuthTestFailedDeviceMisconfigured />
         </Container>
       </MainContainerContent>
     </>

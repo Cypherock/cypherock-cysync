@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const DialogueBoxContainer = styled.section`
   max-width: 600px;
+  min-width: 500px;
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
