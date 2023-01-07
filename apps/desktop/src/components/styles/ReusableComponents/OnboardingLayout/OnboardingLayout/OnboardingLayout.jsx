@@ -23,6 +23,8 @@ import { SingleTap } from "../../../../Onboarding/CardAuth/SingleTap";
 import { SingleTapWalletExist } from "../../../../Onboarding/CardAuth/SingleTapWalletExist";
 import { SupplyChainAttack } from "../../../../Onboarding/CardAuth/SupplyChainAttack";
 import { AppClose } from "../../../../Onboarding/CardAuth/AppClose";
+import { Support } from "../../../../Onboarding/CardAuth/Support";
+import { CardPairing } from "../../../../Onboarding/CardAuth/CardPairing";
 
 export const Onboarding = () => {
   return (
@@ -49,7 +51,9 @@ export const Onboarding = () => {
           {/* <SingleTap /> */}
           {/* <SingleTapWalletExist /> */}
           {/* <SupplyChainAttack /> */}
-          <AppClose />
+          {/* <AppClose /> */}
+          {/* <Support /> */}
+          <CardPairing />
         </Container>
       </MainContainerContent>
     </>

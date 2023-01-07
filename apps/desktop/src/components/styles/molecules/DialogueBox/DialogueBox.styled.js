@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const DialogueBoxContainer = styled.section`
-  max-width: 600px;
+  max-width: 650px;
   min-width: 500px;
   border-width: 1px;
   border-style: solid;
@@ -29,13 +29,16 @@ export const DialogueBoxContainer = styled.section`
 `;
 
 export const DialogueBoxHeader = styled.div`
+  padding-left: 32px;
+  padding-right: 32px;
   border-bottom: 1px;
   border-top: 0;
   border-left: 0;
   border-right: 0;
   border-style: solid;
   border-color: ${({ theme }) => theme.palette.border.main};
-  padding: ${({ theme }) => theme.spacing.two.spacing};
+  padding-top: ${({ theme }) => theme.spacing.two.spacing};
+  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: ${({ theme }) => theme.palette.text.mutedText};
 `;
 
