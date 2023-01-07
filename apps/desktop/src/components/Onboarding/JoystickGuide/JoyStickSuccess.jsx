@@ -2,18 +2,13 @@ import {
   DialogueBoxHeader,
   DialogueBoxContainer,
   DialogueBoxBody,
-  DialogueBoxFooter,
 } from "../../styles/molecules/DialogueBox/DialogueBox.styled";
 import {
-  HeadingFour,
   HeadingFive,
   HeadingSix,
-  HeadingSmallest,
 } from "../../styles/atoms/Headings/Heading.styled";
 import success from "./success.png";
 import { Image } from "../../styles/atoms/Image/Image.style";
-import { Bullet } from "../../styles/atoms/Bullet/Bullet.styled";
-import { Flex } from "../../styles/atoms/Flex/Flex.styled";
 
 export const JoyStickToggleSuccess = () => {
   return (

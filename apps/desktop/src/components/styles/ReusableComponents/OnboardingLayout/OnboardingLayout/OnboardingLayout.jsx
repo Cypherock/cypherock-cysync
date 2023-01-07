@@ -19,6 +19,10 @@ import {
 import { JoyStickToggle } from "../../../../Onboarding/JoystickGuide/JoystickToggle";
 import { JoyStickToggleCenterButton } from "../../../../Onboarding/JoystickGuide/JoyStickToggleCenterButton";
 import { JoyStickToggleSuccess } from "../../../../Onboarding/JoystickGuide/JoyStickSuccess";
+import { SingleTap } from "../../../../Onboarding/CardAuth/SingleTap";
+import { SingleTapWalletExist } from "../../../../Onboarding/CardAuth/SingleTapWalletExist";
+import { SupplyChainAttack } from "../../../../Onboarding/CardAuth/SupplyChainAttack";
+import { AppClose } from "../../../../Onboarding/CardAuth/AppClose";
 
 export const Onboarding = () => {
   return (
@@ -41,7 +45,11 @@ export const Onboarding = () => {
           {/* <DeviceAuthTestFailedDeviceMisconfigured /> */}
           {/* <JoyStickToggle /> */}
           {/* <JoyStickToggleCenterButton /> */}
-          <JoyStickToggleSuccess />
+          {/* <JoyStickToggleSuccess /> */}
+          {/* <SingleTap /> */}
+          {/* <SingleTapWalletExist /> */}
+          {/* <SupplyChainAttack /> */}
+          <AppClose />
         </Container>
       </MainContainerContent>
     </>
