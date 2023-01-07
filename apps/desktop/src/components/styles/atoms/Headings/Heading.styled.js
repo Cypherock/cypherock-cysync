@@ -74,6 +74,7 @@ export const HeadingOne = styled.h1`
 export const HeadingTwo = styled.h2`
   font-size: 32px;
   font-weight: 400;
+
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};

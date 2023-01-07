@@ -2,6 +2,7 @@ import { Container } from "../../../atoms/Container/Container.styled";
 import { MainContainerContent } from "./OnboardingLayout";
 import { Aside } from "../aside/Aside";
 import { DialogueWelcome } from "../../../../Onboarding/GetStarted/DialogueWelcome";
+import { DialogueInfo } from "../../../../Onboarding/GetStarted/DialogueInfo";
 import { DialogueTerms } from "../../../../Onboarding/GetStarted/DialogueTerms";
 import { DialogueEmailConfirmation } from "../../../../Onboarding/SetPassword/DialogueEmailConfirmation";
 import { DialogueLogin } from "../../../../Onboarding/SetPassword/DialogueLogin";
@@ -33,8 +34,9 @@ export const Onboarding = () => {
         <Aside />
         <Container>
           {/* <DialogueWelcome /> */}
+          {/* <DialogueInfo /> */}
           {/* <DialogueTerms /> */}
-          {/* <DialogueEmailConfirmation /> */}
+          <DialogueEmailConfirmation />
           {/* <DialogueLogin /> */}
           {/* <DialoguePasswordSetSuccess /> */}
           {/* <DialogueResetPassword /> */}
@@ -53,7 +55,7 @@ export const Onboarding = () => {
           {/* <SupplyChainAttack /> */}
           {/* <AppClose /> */}
           {/* <Support /> */}
-          <CardPairing />
+          {/* <CardPairing /> */}
         </Container>
       </MainContainerContent>
     </>
