@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
     "turbo": "^1.6.3"
   },
   "dependencies": {
