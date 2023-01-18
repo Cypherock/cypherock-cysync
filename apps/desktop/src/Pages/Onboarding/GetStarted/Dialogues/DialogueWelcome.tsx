@@ -9,7 +9,7 @@ import {
   DefaultContainer,
   Flex,
   Span,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import { useState } from "react";
 import { DialogueTerms } from "./DialogueTerms";
 

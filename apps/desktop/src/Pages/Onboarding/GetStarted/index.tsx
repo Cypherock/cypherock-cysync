@@ -1,6 +1,6 @@
 import { Aside } from "./Aside/Aside.jsx";
 import { DialogueInfo, DialogueTerms, DialogueWelcome } from "./Dialogues/";
-import { Flex, Container } from "@/components/styles";
+import { Flex, Container } from "@/cysync-ui";
 import {
   DeviceAuthTestFailedServerError,
   DeviceAuthTestFailedDeviceMisconfigured,
@@ -22,7 +22,7 @@ export const GetStarted = (): JSX.Element => {
           {/* <DeviceAuthTestFailedServerError /> */}
           {/* <DeviceAuthTestFailedDeviceMisconfigured /> */}
           {/* <DeviceAuthTestFailedServerDown /> */}
-          <CardPairing />
+          {/* <CardPairing /> */}
           {/* <DialogueInfo /> */}
         </Container>
       </Flex>

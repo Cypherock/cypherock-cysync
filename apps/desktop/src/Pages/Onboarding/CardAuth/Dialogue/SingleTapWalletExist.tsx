@@ -12,7 +12,7 @@ import {
   Bullet,
   DialogueBoxFooter,
   Button,
-} from "@/components/styles";
+} from "@/cysync-ui";
 
 import walletExist from "./walletExist.png";
 

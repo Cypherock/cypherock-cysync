@@ -8,7 +8,7 @@ import {
   bgColor,
   BgColorProps,
 } from "../../util/";
-import { theme } from "../../../../Theme/theme.styled.js";
+import { theme } from "@/theme/theme.styled.js";
 
 export type ContainerProps = {
   children?: ReactNode;

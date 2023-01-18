@@ -16,7 +16,7 @@ import {
   DialogueBoxFooter,
   Button,
   Divider,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import exiting from "./exiting.png";
 
 export const Support = () => {

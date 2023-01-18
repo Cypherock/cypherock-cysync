@@ -10,7 +10,7 @@ import {
   Button,
   HeadingFive,
   HeadingSix,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
 
 export const DialogueEmailConfirmation = (): JSX.Element => {

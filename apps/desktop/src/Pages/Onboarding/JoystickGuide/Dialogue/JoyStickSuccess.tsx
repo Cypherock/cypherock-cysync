@@ -5,7 +5,7 @@ import {
   Image,
   HeadingFive,
   HeadingSix,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import success from "@/assets/images/Onboarding/setPass/success.png";
 
 export const JoyStickToggleSuccess = () => {

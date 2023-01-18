@@ -7,7 +7,7 @@ import {
   DialogueBoxFooter,
   Button,
   HeadingSix,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import serverError from "@/assets/images/Onboarding/deviceAuth/server-off.png";
 import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
 import setting from "@/assets/images/Onboarding/deviceAuth/settings-wrong.png";

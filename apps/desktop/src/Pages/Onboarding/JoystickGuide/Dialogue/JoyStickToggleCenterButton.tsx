@@ -6,7 +6,7 @@ import {
   HeadingFive,
   HeadingSix,
   HeadingFour,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import centerButton from "@/assets/images/Onboarding/joystick/centerButton.png";
 import centerButtonSuccess from "@/assets/images/Onboarding/joystick/centerButtonSuccess.png";
 

@@ -12,7 +12,7 @@ import {
   Flex,
   Bullet,
   Button,
-} from "@/components/styles";
+} from "@/cysync-ui";
 
 export const CardPairing = () => {
   return (

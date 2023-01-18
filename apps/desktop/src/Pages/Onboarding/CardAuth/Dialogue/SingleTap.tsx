@@ -10,7 +10,7 @@ import {
   DefaultContainer,
   Flex,
   Bullet,
-} from "@/components/styles";
+} from "@/cysync-ui";
 
 export const SingleTap = () => {
   return (

@@ -10,7 +10,7 @@ import {
   Bullet,
   HeadingSmallest,
   DefaultContainer,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import joystick from "@/assets/images/Onboarding/joystick/joystick.png";
 
 export const JoyStickToggle = () => {

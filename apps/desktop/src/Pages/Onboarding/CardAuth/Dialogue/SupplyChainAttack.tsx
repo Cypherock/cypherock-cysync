@@ -12,7 +12,7 @@ import {
   Bullet,
   DialogueBoxFooter,
   Button,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
 
 export const SupplyChainAttack = () => {

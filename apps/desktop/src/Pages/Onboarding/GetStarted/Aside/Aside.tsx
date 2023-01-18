@@ -1,5 +1,5 @@
 import { AsideContainer } from "./Aside.styled";
-import { Flex, DefaultContainer, Container } from "@/components/styles";
+import { Flex, DefaultContainer, Container } from "@/cysync-ui";
 
 export const Aside = () => {
   return (

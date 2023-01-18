@@ -11,7 +11,7 @@ import {
   DefaultContainer,
   Flex,
   SquareCheckBox,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import linkImage from "@/assets/images/Onboarding/getStarted/terms-link.png";
 
 export const DialogueTerms = (): JSX.Element => {

@@ -8,7 +8,7 @@ import {
   HeadingSix,
   DefaultContainer,
   Flex,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import { useState } from "react";
 import { DialogueWelcome } from "./DialogueWelcome";
 

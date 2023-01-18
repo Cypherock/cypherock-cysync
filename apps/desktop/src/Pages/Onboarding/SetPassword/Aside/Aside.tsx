@@ -1,5 +1,5 @@
 import { AsideContainer } from "./Aside.styled";
-import { Container } from "@/components/styles";
+import { Container } from "@/cysync-ui";
 
 export const Aside = () => {
   return (

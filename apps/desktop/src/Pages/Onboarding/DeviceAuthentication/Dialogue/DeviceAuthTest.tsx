@@ -5,7 +5,7 @@ import {
   HeadingFive,
   HeadingSix,
   Image,
-} from "@/components/styles";
+} from "@/cysync-ui";
 import loader from "@/assets/images/Onboarding/deviceAuth/loader.png";
 
 export const DeviceAuthText = () => {
