@@ -1,37 +1,43 @@
 {
-  "name": "cysync-desktop",
-  "productName": "Electron",
-  "private": true,
-  "version": "2.1.0",
-  "description": "Vite React Electron boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
-  "license": "MIT",
-  "main": "dist-electron/electron/main/index.js",
+  "name": "desktop",
+  "productName": "desktop",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build && electron-builder"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "build": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
   },
-  "engines": {
-    "node": "^14.18.0 || >=16.0.0"
+  "keywords": [],
+  "author": {
+    "name": "Suraj Tiwari",
+    "email": "surajtiwari020@gmail.com"
   },
-  "dependencies": {},
+  "license": "MIT",
   "devDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
-    "@vitejs/plugin-react": "^3.0.0",
-    "electron": "^21.3.1",
-    "electron-builder": "^23.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.56.1",
-    "typescript": "^4.9.3",
-    "vite": "^4.0.0",
-    "vite-electron-plugin": "^0.5.2",
-    "vite-plugin-electron-renderer": "^0.11.3"
+    "@babel/core": "^7.20.12",
+    "@babel/preset-react": "^7.18.6",
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "@electron-forge/plugin-webpack": "^6.0.4",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.0.0",
+    "electron": "22.0.2",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.0.0"
   },
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777"
-    }
+  "dependencies": {
+    "electron-forge-plugin-vite": "^0.3.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

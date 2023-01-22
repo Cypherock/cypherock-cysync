@@ -21,22 +21,26 @@ module.exports = {
   ],
   plugins: [
     {
-      name: '@electron-forge/plugin-webpack',
+      name: 'electron-forge-plugin-vite',
       config: {
-        mainConfig: './webpack.main.config.js',
-        renderer: {
-          config: './webpack.renderer.config.js',
-          entryPoints: [
-            {
-              html: './src/index.html',
-              js: './src/renderer.js',
-              name: 'main_window',
-              preload: {
-                js: './src/preload.js',
-              },
-            },
-          ],
-        },
+        build: [
+          {
+            entry: 'src/main.js',
+            config: './config/vite/vite.main.config.mjs',
+          },
+          // loader screen
+          // {
+          //   entry: 'src/preload.js',
+          //   config: './config/vite/vite.preload.config.mjs',
+          // },
+        ],
+        renderer: [
+          // The first item will be used as the main entry.
+          {
+            name: 'main_window',
+            config: './config/vite/vite.renderer.config.mjs',
+          },
+        ],
       },
     },
   ],
