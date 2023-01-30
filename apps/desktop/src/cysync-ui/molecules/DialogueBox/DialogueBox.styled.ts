@@ -10,6 +10,8 @@ export type DialogueBoxProps = {
 export const DialogueBoxContainerStyle = styled.section`
   max-width: ${(props: DialogueBoxProps) =>
     props.lg ? "700px" : props.md ? "500px" : ""};
+  min-width: ${(props: DialogueBoxProps) =>
+    props.lg ? "700px" : props.md ? "500px" : ""};
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;

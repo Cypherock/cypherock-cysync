@@ -49,3 +49,20 @@ export const InputStyle = styled.input`
     line-height: 0;
   }
 `;
+
+export const SearchBarStyle = styled.input`
+  width: 100%;
+  border: 1px solid #39322c;
+  padding-top: ${({ theme }) => theme.spacing.two.spacing};
+  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  padding-left: ${({ theme }) => theme.spacing.three.spacing};
+  padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  background-color: ${({ theme }) => theme.palette.background.inputBackground};
+  border-radius: ${({ theme }) => theme.spacing.one.spacing};
+  color: ${({ theme }) => theme.palette.text.mutedText};
+  font-size: ${({ theme }) => theme.spacing.two.spacing};
+
+  input::placeholder {
+    color: ${({ theme }) => theme.palette.text.textMutted};
+  }
+`;

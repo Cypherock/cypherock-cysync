@@ -1,0 +1,68 @@
+[
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387",
+    "subCoinList": [
+      {
+        "coinName": "USD Coin",
+        "coin": "BITCOIN",
+        "wallet": "Cypherock Red",
+        "sync Status": "",
+        "Amount": "0.00007 BTC",
+        "Value": "2.387"
+      },
+      {
+        "coinName": "Something Else Coin",
+        "coin": "BITCOIN",
+        "wallet": "Cypherock Red",
+        "sync Status": "",
+        "Amount": "0.00007 BTC",
+        "Value": "2.387"
+      }
+    ]
+  },
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387"
+  },
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387"
+  },
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387"
+  },
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387"
+  },
+  {
+    "coinName": "Bitcoin",
+    "coin": "BITCOIN",
+    "wallet": "Cypherock Red",
+    "sync Status": "",
+    "Amount": "0.00007 BTC",
+    "Value": "2.387"
+  }
+]

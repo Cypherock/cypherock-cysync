@@ -7,6 +7,14 @@ import {
   BorderRadiusProps,
   bgColor,
   BgColorProps,
+  flex,
+  FlexProps,
+  padding,
+  PaddingProps,
+  width,
+  WidthProps,
+  position,
+  PositionProps,
 } from "../../util/";
 import { theme } from "@/theme/theme.styled";
 
@@ -16,9 +24,18 @@ export type ContainerProps = {
   borderRadiusOne?: Boolean;
   border?: Boolean;
   pThree?: Boolean;
+  p0?: Boolean;
+  scroll?: Boolean;
+  roundedListTop?: Boolean;
+  roundedListBottom?: Boolean;
+  shadow?: Boolean;
 } & MarginProps &
   BorderRadiusProps &
-  BgColorProps;
+  BgColorProps &
+  FlexProps &
+  PaddingProps &
+  WidthProps &
+  PositionProps;
 
 export const ContainerStyle = styled.div`
   ${margin}
@@ -34,13 +51,15 @@ export const ContainerStyle = styled.div`
 `;
 
 export const DefaultContainerStyle = styled.div`
-  ${margin}
-  ${borderRadius}
-  ${bgColor}
-
-
-
-   ${(props: ContainerProps) => {
+  ${(props: ContainerProps) => {
+    return (
+      props.shadow &&
+      css`
+        box-shadow: 4px 4px 32px 4px #0f0d0b;
+      `
+    );
+  }}
+  ${(props: ContainerProps) => {
     return (
       props.border &&
       css`
@@ -59,5 +78,69 @@ export const DefaultContainerStyle = styled.div`
         padding: 24px;
       `
     );
+  }};
+  border-top-left-radius: ${(props: ContainerProps) =>
+    props.roundedListTop ? "24px" : ""};
+  border-top-right-radius: ${(props: ContainerProps) =>
+    props.roundedListTop ? "24px" : ""};
+
+  border-bottom-left-radius: ${(props: ContainerProps) =>
+    props.roundedListBottom ? "24px" : ""};
+  border-bottom-right-radius: ${(props: ContainerProps) =>
+    props.roundedListBottom ? "24px" : ""};
+
+  ${(props: ContainerProps) => {
+    return (
+      props.p0 &&
+      css`
+        padding: 0;
+      `
+    );
+  }};
+
+  ${margin}
+  ${borderRadius}
+  ${bgColor}
+  ${flex}
+  ${padding}
+  ${width}
+  ${position}
+`;
+
+export const AsideContainerStyle = styled.div`
+  width: 300px;
+  min-height: 100vh;
+
+  ${(props: ContainerProps) => {
+    return (
+      props.border &&
+      css`
+        border-width: 1px;
+        border-style: solid;
+        border-color: ${theme.palette.background.sepratorBackground};
+      `
+    );
   }}
+  padding:48px 42px;
+
+  ${(props: ContainerProps) => {
+    return (
+      props.pThree &&
+      css`
+        padding: 24px;
+      `
+    );
+  }}
+
+  ${margin}
+  ${borderRadius}
+  ${bgColor}
+  ${flex}
+  ${padding}
+  ${position}
+`;
+
+export const MainContainerStyle = styled(DefaultContainerStyle)`
+  height: 89vh;
+  overflow-y: scroll;
 `;

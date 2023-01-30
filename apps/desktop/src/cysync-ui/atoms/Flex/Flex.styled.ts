@@ -1,6 +1,13 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { margin, MarginProps, BgColorProps, bgColor } from "../../util";
+import {
+  margin,
+  MarginProps,
+  BgColorProps,
+  bgColor,
+  width,
+  WidthProps,
+} from "../../util";
 import { theme } from "@/theme/theme.styled";
 
 export type FlexProps = {
@@ -27,12 +34,16 @@ export type FlexProps = {
   column?: Boolean;
   gapOne?: Boolean;
   gapTwo?: Boolean;
+  gap0?: Boolean;
+  hFull?: Boolean;
 } & MarginProps &
-  BgColorProps;
+  BgColorProps &
+  WidthProps;
 
-export const FlexStyle = styled.div`
+export const FlexStyle = styled.div<FlexProps>`
   ${margin};
   ${bgColor};
+  ${width};
 
   display: flex;
   flex-wrap: ${(props: FlexProps) => {
@@ -64,11 +75,13 @@ export const FlexStyle = styled.div`
     return "stretch";
   }};
   flex-direction: ${(props: FlexProps) => (props.column ? "column" : "row")};
+  gap: 2px;
   gap: ${(props: FlexProps) =>
     props.gapOne
-      ? theme.spacing.one.spacing.two
+      ? theme.spacing.one.spacing
       : props.gapTwo
-      ? theme.spacing.one.spacing.two
+      ? theme.spacing.two.spacing
+      : props.gap0
+      ? "0px"
       : ""};
-  gap: 16px;
 `;

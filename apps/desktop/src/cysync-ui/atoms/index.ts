@@ -7,3 +7,4 @@ export * from "./Flex/Flex";
 export * from "./Input/Input";
 export * from "./Headings/Heading";
 export * from "./Image/Image";
+export * from "./Badge/Badge";

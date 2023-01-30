@@ -1,6 +1,7 @@
 import { colors } from "./color.styled.js";
 import { typography } from "./typography.styled.js";
 import { spacing } from "./layout.styled.js";
+export type ThemeType = typeof theme;
 
 export const theme = {
   palette: {

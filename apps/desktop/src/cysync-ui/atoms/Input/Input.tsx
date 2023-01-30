@@ -3,6 +3,7 @@ import {
   InputLabelStyle,
   InputStyle,
   InputProps,
+  SearchBarStyle,
 } from "./Input.styled";
 
 export const InputLabel = ({ children }: InputProps) => {
@@ -29,8 +30,10 @@ export const InputContainer = ({ children }: InputProps) => {
   );
 };
 
-// Usage
-// <InputContainerStyle>
-// <InputLabel></InputLabel>
-// <Input />
-// </InputContainerStyle>
+export const SearchBar = ({ children }: InputProps) => {
+  return (
+    <>
+      <SearchBarStyle />
+    </>
+  );
+};

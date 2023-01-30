@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
-import { margin, MarginProps } from "../../util";
+import { margin, MarginProps, fontWeight, FontWeightProps } from "../../util";
 
 export type HeadingProps = {
   children: ReactNode;
@@ -13,7 +13,8 @@ export type HeadingProps = {
   textList?: Boolean;
   textRight?: Boolean;
   textLeft?: Boolean;
-} & MarginProps;
+} & MarginProps &
+  FontWeightProps;
 
 export const baseStyle = css<HeadingProps>`
   ${(props: HeadingProps) => {
@@ -80,6 +81,7 @@ export const HeadingOneStyle = styled.h1<HeadingProps>`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const HeadingTwo = styled.h2`
@@ -89,6 +91,7 @@ export const HeadingTwo = styled.h2`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const HeadingThree = styled.h3`
@@ -105,6 +108,7 @@ export const HeadingFourStyle = styled.h4`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const HeadingFiveStyle = styled.h5<HeadingProps>`
@@ -113,6 +117,7 @@ export const HeadingFiveStyle = styled.h5<HeadingProps>`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const HeadingSixStyle = styled.h6<HeadingProps>`
@@ -121,6 +126,7 @@ export const HeadingSixStyle = styled.h6<HeadingProps>`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const HeadingSmallestStyle = styled.div`
@@ -129,6 +135,7 @@ export const HeadingSmallestStyle = styled.div`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;
 
 export const SpanStyle = styled.span`
@@ -137,4 +144,5 @@ export const SpanStyle = styled.span`
   margin-bottom: 4px;
   ${baseStyle};
   ${margin};
+  ${fontWeight};
 `;

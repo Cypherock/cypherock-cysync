@@ -1,12 +1,14 @@
+import { width, WidthProps } from "@/cysync-ui/util";
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 export type ButtonProps = {
   variation?: "Primary" | "Secondary";
+  DashedBorder?: Boolean;
   children?: ReactNode;
   disabled?: any;
   onClick?: any;
-};
+} & WidthProps;
 
 const buttonBaseStyle = css<ButtonProps>`
   ${(props: ButtonProps) => {
@@ -20,6 +22,11 @@ const buttonBaseStyle = css<ButtonProps>`
       : props.variation === "Primary"
       ? css`
           background-image: ${({ theme }) => theme.palette.primary.primary};
+        `
+      : props.DashedBorder
+      ? css`
+          border: 1px dashed #49433e;
+          background: transparent;
         `
       : "";
   }}
@@ -37,4 +44,5 @@ export const ButtonStyle = styled.button<ButtonProps>`
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   ${buttonBaseStyle}
+  ${width}
 `;

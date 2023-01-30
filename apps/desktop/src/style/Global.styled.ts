@@ -12,25 +12,21 @@ export const GlobalStyles = createGlobalStyle`
 
     }
 
-    /* h1{
-        font-size: 40px;
-    }
-    h2{
-        font-size: 32px;
-    }
-    h3{
-        font-size: 28px;
-    }
-    h4{
-        font-size: 24px;
-    }
-    h5{
-        font-size: 20px;
-    }
-    h6{
-        font-size: 16px;
-    }
-    /* h7{
-        font-size: 14px;
-    } */ */
+    ::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: transparent;
+  border-radius: 6px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #46403C; 
+  border-radius: 6px;
+}
+
+
     `;

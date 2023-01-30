@@ -1,15 +1,20 @@
-import { Container } from "./components/styles/atoms/Container/Container.styled.js";
-import { themeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme.styled.js";
 import { GlobalStyles } from "./style/Global.styled.js";
 import { GetStarted } from "./Pages/Onboarding/GetStarted/index.js";
+import { MainApp } from "./Pages/MainApp/index.js";
+import { NavigationProvider } from "./context/navigationContext.js";
+
 const App: React.FC = () => {
   return (
     <>
-      <themeProvider theme={theme}>
-        <GlobalStyles />
-        <GetStarted />
-      </themeProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationProvider>
+          <GlobalStyles />
+          {/* <GetStarted /> */}
+          <MainApp />
+        </NavigationProvider>
+      </ThemeProvider>
     </>
   );
 };
