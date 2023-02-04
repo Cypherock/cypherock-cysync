@@ -3,92 +3,88 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   DialogueBoxFooter,
-  DialogueBoxTopBar,
-  Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
-  DefaultContainer,
+  Typography,
+  Container,
   Flex,
   Bullet,
   Button,
-} from "@/cysync-ui";
+} from "@/component";
 
 export const CardPairing = () => {
   return (
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFive textHeading mbOne>
+          <Typography variant="h5" mb="mbSix">
             Place X1 cards one by one below the X1 vault
-          </HeadingFive>
-          <HeadingSix textMuted mbSix>
+          </Typography>
+          <Typography variant="h6" mb="mbSix">
             Do not lift until you hear 3 beep sounds
-          </HeadingSix>
+          </Typography>
 
-          <DefaultContainer list roundedOne border mbOne>
+          <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
             <Flex alignCenter justifyBetween>
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" color="textMuted">
                 X1 Card #1
-              </HeadingSix>
+              </Typography>
 
               <Flex>
-                <Bullet lg muted />
-                <Bullet lg success />
-                <Bullet lg failed />
+                <Bullet size="lg" variant="muted" />
+                <Bullet size="lg" variant="success" />
+                <Bullet size="lg" variant="failed" />
               </Flex>
             </Flex>
-          </DefaultContainer>
+          </Container>
 
-          <DefaultContainer list roundedOne border mbOne>
+          <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
             <Flex alignCenter justifyBetween>
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" color="textMuted">
                 X1 Card #1
-              </HeadingSix>
+              </Typography>
 
               <Flex>
-                <Bullet lg muted />
-                <Bullet lg success />
-                <Bullet lg failed />
+                <Bullet size="lg" variant="muted" />
+                <Bullet size="lg" variant="success" />
+                <Bullet size="lg" variant="failed" />
               </Flex>
             </Flex>
-          </DefaultContainer>
+          </Container>
 
-          <DefaultContainer list roundedOne border mbOne>
+          <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
             <Flex alignCenter justifyBetween>
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" mb="mb0" color="textMuted">
                 X1 Card #1
-              </HeadingSix>
+              </Typography>
 
               <Flex>
-                <Bullet lg muted />
-                <Bullet lg success />
-                <Bullet lg failed />
+                <Bullet size="lg" variant="muted" />
+                <Bullet size="lg" variant="success" />
+                <Bullet size="lg" variant="failed" />
               </Flex>
             </Flex>
-          </DefaultContainer>
+          </Container>
 
-          <DefaultContainer list roundedOne border mbSix>
+          <Container bgColor="list" rounded="roundedOne" border mb="mbSix">
             <Flex alignCenter justifyBetween>
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" color="textMuted">
                 X1 Card #1
-              </HeadingSix>
+              </Typography>
 
               <Flex>
-                <Bullet lg muted />
-                <Bullet lg success />
-                <Bullet lg failed />
+                <Bullet size="lg" variant="muted" />
+                <Bullet size="lg" variant="success" />
+                <Bullet size="lg" variant="failed" />
               </Flex>
             </Flex>
-          </DefaultContainer>
-          <HeadingSix textError>
+          </Container>
+          <Typography variant="h6" color="textError">
             Wrong card! Make sure you use your card should belong to the same
             family
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary"> Support </Button>
-          <Button variation="Primary">Retry</Button>
+          <Button variation="secondary"> Support </Button>
+          <Button variation="primary">Retry</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

@@ -5,7 +5,8 @@ import {
   Image,
   HeadingFive,
   HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import success from "@/assets/images/Onboarding/setPass/success.png";
 
 export const DeviceAuthTestSuccess = () => {
@@ -14,12 +15,12 @@ export const DeviceAuthTestSuccess = () => {
       <DialogueBoxContainer md>
         <DialogueBoxBody>
           <Image src={success} />
-          <HeadingFive textHeading>
+          <Typography color="textHeading">
             Your X1 Vault is successfully authenticated
-          </HeadingFive>
-          <HeadingSix textMuted>
+          </Typography>
+          <Typography color="textMuted">
             Please wait while take you to the next screen
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

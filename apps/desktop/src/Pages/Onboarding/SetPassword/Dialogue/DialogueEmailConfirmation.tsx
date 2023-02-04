@@ -8,9 +8,8 @@ import {
   InputLabel,
   Divider,
   Button,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
 
 export const DialogueEmailConfirmation = (): JSX.Element => {
@@ -18,28 +17,33 @@ export const DialogueEmailConfirmation = (): JSX.Element => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFive textHeading>
+          <Typography variant="h5" color="textHeading">
             You are recommended to enter an email ID as a 2FA to get
             authenticity results
-          </HeadingFive>
-          <HeadingSix textMuted mbFive>
+          </Typography>
+          <Typography variant="h6" color="textMuted" mb="mbFive">
             We do not store this email ID permanently on our servers (?)
-          </HeadingSix>
+          </Typography>
 
           <InputContainer>
             <InputLabel>Your Email</InputLabel>
             <Input type="text" placeholder="**************" />
             <img src={passwordHide} alt="" />
           </InputContainer>
-          <Divider mbThree />
+          <Divider mb="mbThree" />
 
-          <HeadingSix textError mbEight textLeft>
+          <Typography
+            variant="h6"
+            color="textError"
+            mb="mbEight"
+            textAlign="left"
+          >
             Email entered is invalid
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary">Skip</Button>
-          <Button variation="Primary">Submit</Button>
+          <Button variation="secondary">Skip</Button>
+          <Button variation="rimary">Submit</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

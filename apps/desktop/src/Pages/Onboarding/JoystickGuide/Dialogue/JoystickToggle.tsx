@@ -3,14 +3,10 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
   Flex,
   Bullet,
-  HeadingSmallest,
-  DefaultContainer,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import joystick from "@/assets/images/Onboarding/joystick/joystick.png";
 
 export const JoyStickToggle = () => {
@@ -18,47 +14,40 @@ export const JoyStickToggle = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFour textHeading mbSeven>
+          <Typography variant="h4" color="textHeading" mb="mbSeven">
             Toggle Up
-          </HeadingFour>
+          </Typography>
 
-          <Flex alignCenter column mbTwo>
-            <HeadingSmallest textSuccess mb0>
-              Up
-            </HeadingSmallest>
-            <Bullet success lg />
+          <Flex alignCenter column mb="mbTwo">
+            <Typography color="textSuccess">Up</Typography>
+            <Bullet variant="success" size="lg" />
           </Flex>
 
-          <Flex alignCenter justifyCenter mbTwo>
+          <Flex alignCenter justifyCenter mb="mbTwo">
             <Flex alignCenter>
-              <HeadingSmallest textMuted mb0>
-                Left
-              </HeadingSmallest>
-              <Bullet outline />
+              <Typography color="textMuted"> Left</Typography>
+
+              <Bullet variant="outline" />
             </Flex>
 
             <Image src={joystick} />
             {/* <DefaultContainer list roundedFull pThree></DefaultContainer> */}
             <Flex alignCenter>
-              <Bullet lg gold />
-              <HeadingSmallest textGold mb0>
-                Right
-              </HeadingSmallest>
+              <Bullet size="lg" variant="gold" />
+              <Typography color="textGold"> Right</Typography>
             </Flex>
           </Flex>
 
-          <Flex alignCenter column mbSeven>
-            <Bullet failed lg />
-            <HeadingSmallest textError mb0>
-              Down
-            </HeadingSmallest>
+          <Flex alignCenter column mb="mbSeven">
+            <Bullet variant="failed" size="lg" />
+            <Typography color="textError"> Down</Typography>
           </Flex>
-          <HeadingFive textHeading>
+          <Typography variant="h5" color="textHeading">
             X1 Vault provides 4 way joystick for screen navigation
-          </HeadingFive>
-          <HeadingSix textMuted>
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             Follow the instruction on the device
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

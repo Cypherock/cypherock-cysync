@@ -3,9 +3,8 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   Image,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import success from "@/assets/images/Onboarding/setPass/success.png";
 
 export const DialoguePasswordSetSuccess = () => {
@@ -13,11 +12,13 @@ export const DialoguePasswordSetSuccess = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={success} mbFour />
-          <HeadingFive textHeading>Your new password is set</HeadingFive>
-          <HeadingSix textMuted>
+          <Image src={success} mb="mbFour" />
+          <Typography variant="h5" color="textHeading">
+            Your new password is set
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             Please wait while take you to the login screen
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

@@ -1,6 +1,6 @@
 import { Aside } from "./Aside/Aside";
-import { DialogueEmailConfirmation } from "./Dialogue/";
-import { Flex, Container } from "@/cysync-ui";
+import { DialogueEmailConfirmation } from "./Dialogue";
+import { Flex, Container } from "@/component";
 
 export const GetStarted = (): JSX.Element => {
   return (

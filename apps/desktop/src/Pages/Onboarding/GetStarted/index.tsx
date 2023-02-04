@@ -1,6 +1,6 @@
-import { Aside } from "./Aside/Aside.jsx";
-import { DialogueInfo, DialogueTerms, DialogueWelcome } from "./Dialogues/";
-import { Flex, Container } from "@/cysync-ui";
+import { Aside } from "./Aside/Aside.js";
+import { DialogueInfo, DialogueTerms, DialogueWelcome } from "./Dialogues";
+import { Flex, Container } from "@/component";
 import {
   DeviceAuthTestFailedServerError,
   DeviceAuthTestFailedDeviceMisconfigured,

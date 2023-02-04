@@ -3,11 +3,10 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   Image,
-  HeadingFive,
   DialogueBoxFooter,
   Button,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import serverError from "@/assets/images/Onboarding/deviceAuth/server-off.png";
 import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
 import setting from "@/assets/images/Onboarding/deviceAuth/settings-wrong.png";
@@ -17,22 +16,22 @@ export const DeviceAuthTestFailedServerError = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={serverError} mbFive />
-          <HeadingFive textHeading>
+          <Image src={serverError} mb="mbFive" />
+          <Typography variant="h5" color="textHeading">
             Device Authentication has failed
-          </HeadingFive>
+          </Typography>
 
-          <HeadingSix textMuted>
+          <Typography variant="h5" color="textMuted">
             Server data missing: There seems to be a server error. Retry by
             reconnecting the device first
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
 
         <DialogueBoxFooter>
-          <Button variation="Secondary" disabled={true}>
+          <Button variation="secondary" disabled={true}>
             Contact
           </Button>
-          <Button variation="Primary">Retry</Button>
+          <Button variation="primary">Retry</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>
@@ -44,19 +43,19 @@ export const DeviceAuthTestFailedFrameWareError = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={failed} mbFive />
-          <HeadingFive textHeading>
+          <Image src={failed} mb="mbFive" />
+          <Typography variant="h5" color="textHeading">
             Device Authentication has failed
-          </HeadingFive>
+          </Typography>
 
-          <HeadingSix textMuted>
+          <Typography variant="h5" color="textMuted">
             There seems to be error with the ATECC firmware. Contact Cypherock
             support immmediately
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
 
         <DialogueBoxFooter>
-          <Button variation="Primary">Contact Support</Button>
+          <Button variation="primary">Contact Support</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>
@@ -68,19 +67,17 @@ export const DeviceAuthTestFailedServerDown = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={failed} mbFive />
-
-          <HeadingFive textHeading>
-            Device authentication has failed
-          </HeadingFive>
-
-          <HeadingSix textMuted>
+          <Image src={failed} mb="mbFive" />
+          <Typography variant="h5" color="textHeading">
+            Device Authentication has failed
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             The server seems to be down try connecting again after some time
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
 
         <DialogueBoxFooter>
-          <Button variation="Primary">Retry</Button>
+          <Button variation="primary">Retry</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>
@@ -92,20 +89,19 @@ export const DeviceAuthTestFailedDeviceMisconfigured = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={setting} mbFive />
+          <Image src={setting} mb="mbFive" />
 
-          <HeadingFive textHeading>
-            Device authentication has failed
-          </HeadingFive>
-
-          <HeadingSix textMuted>
+          <Typography variant="h5" color="textHeading">
+            Device Authentication has failed
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             Device seems to be misconfigured. Contact Cypherock support
             immediately
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
 
         <DialogueBoxFooter>
-          <Button variation="Primary">Contact Support</Button>
+          <Button variation="primary">Contact Support</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

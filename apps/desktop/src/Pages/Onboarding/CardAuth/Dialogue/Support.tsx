@@ -3,20 +3,16 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   DialogueBoxTopBar,
-  Image,
-  HeadingFive,
-  HeadingSmallest,
-  HeadingSix,
   InputContainer,
   Input,
   InputLabel,
   Flex,
-  SquareCheckBox,
-  Bullet,
+  Typography,
+  CheckBox,
   DialogueBoxFooter,
   Button,
   Divider,
-} from "@/cysync-ui";
+} from "@/component";
 import exiting from "./exiting.png";
 
 export const Support = () => {
@@ -24,51 +20,48 @@ export const Support = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxTopBar>
-          <HeadingSix textMuted mb0>
+          <Typography variant="h6" color="textMuted">
             Contact us
-          </HeadingSix>
+          </Typography>
         </DialogueBoxTopBar>
         <DialogueBoxBody>
-          <HeadingFive textHeading>How can we help</HeadingFive>
-          <HeadingSix textMuted mbSix>
+          <Typography variant="h5" color="textHeading">
+            How can we help
+          </Typography>
+          <Typography variant="h6" color="textMuted" mb="mbSix">
             Our friendly team would love to hear from you
-          </HeadingSix>
+          </Typography>
 
           <InputContainer>
             <InputLabel> Email</InputLabel>
             <Input type="text" placeholder="Your email" />
             {/* <img src={passwordHide} alt="" /> */}
           </InputContainer>
-          <Flex alignCenter mbTwo>
-            <SquareCheckBox>
+          <Flex alignCenter mb="mbTwo">
+            <CheckBox variation="squareCheckBox">
               <div>
                 <input type="checkbox" />
               </div>
-            </SquareCheckBox>
-            <HeadingSmallest textMuted mb0>
-              Attach Application Logs
-            </HeadingSmallest>
+            </CheckBox>
+            <Typography color="textMuted">Attach Application Logs</Typography>
           </Flex>
 
-          <Flex alignCenter mbTwo>
-            <SquareCheckBox>
+          <Flex alignCenter mb="mbTwo">
+            <CheckBox variation="squareCheckBox">
               <div>
                 <input type="checkbox" />
               </div>
-            </SquareCheckBox>
-            <HeadingSmallest textMuted mb0>
-              Attach Device Logs
-            </HeadingSmallest>
+            </CheckBox>
+            <Typography color="textMuted">Attach Application Logs</Typography>
           </Flex>
-          <Divider mbThree />
-
-          <HeadingSix textError mbEight textLeft>
+          <Divider mb="mbThree" />
+          <Typography variant="h6" mb="mbEight" color="textMuted">
             Your Password is incorrect
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary"> Cancel </Button>
-          <Button variation="Primary">Submit & Close app</Button>
+          <Button variation="secondary"> Cancel </Button>
+          <Button variation="primary">Submit & Close app</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

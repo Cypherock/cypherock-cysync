@@ -1,16 +1,14 @@
 import {
-  DefaultContainer,
-  HeadingFive,
+  Container,
   UnOrderedList,
   ListItem,
-  HeadingSix,
   Divider,
   Image,
   SnackBar,
   SnackBarItem,
   Flex,
-  MainContainer,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import arrowUp from "@/assets/images/main-app/arrowUp.png";
 import arrowDown from "@/assets/images/main-app/arrowdown.png";
 import update from "@/assets/images/main-app/update.png";
@@ -19,62 +17,88 @@ import banner from "@/assets/images/main-app/banner.png";
 export const Portfolio = () => {
   return (
     <>
-      <MainContainer
-        contentGratient
-        ptFour
-        pbFour
-        plTwo
-        prTwo
-        wFull
+      <Container
+        variant="mainContainer"
+        bgColor="contentGratient"
+        pt="ptFour"
+        pb="pbFour"
+        pl="plTwo"
+        pr="prTwo"
+        width="wFull"
         border
         gap0
         column
       >
-        <SnackBar update ptOne pbOne plTwo prTwo mbTwo justifyBetween>
+        <SnackBar
+          variant="update"
+          pt="ptOne"
+          pb="pbOne"
+          pl="plTwo"
+          pr="prTwo"
+          mb="mbTwo"
+          justifyBetween
+        >
           <SnackBarItem gapOne alignCenter>
             <Image src={update} />
-            <HeadingSix mb0 fontSemiBold textGold>
+            <Typography variant="h6" font="fontSemiBold" color="textGold">
               Update to cySync version 1.0.11 is available
-            </HeadingSix>
+            </Typography>
           </SnackBarItem>
-          <HeadingSix mb0 fontSemiBold textGold>
+          <Typography variant="h6" font="fontSemiBold" color="textGold">
             Download update
-          </HeadingSix>
+          </Typography>
         </SnackBar>
 
-        <SnackBar banner ptTwo pbTwo plFive prFive mbTwo justifyBetween>
+        <SnackBar
+          variant="banner"
+          pt="ptTwo"
+          pb="pbTwo"
+          pl="plFive"
+          pr="prFive"
+          mb="mbTwo"
+          justifyBetween
+        >
           <SnackBarItem alignCenter gapOne>
             <Image src={banner} />
-            <HeadingSix mb0 textHeading>
+            <Typography variant="h6" color="textHeading">
               Manage your Metamask portfolio today through cySync App
-            </HeadingSix>
+            </Typography>
           </SnackBarItem>
 
-          <HeadingSix mb0 fontSemiBold textSilver>
+          <Typography variant="h6" font="fontSemiBold" color="textSilver">
             Know more
-          </HeadingSix>
+          </Typography>
         </SnackBar>
 
-        <DefaultContainer column gap0 wFull roundedTwo p0>
-          <DefaultContainer
-            sideBar
-            ptTwo
-            pbTwo
-            plFive
-            prFive
+        <Container column gap0 width="wFull" rounded="roundedTwo">
+          <Container
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
             column
-            wFull
+            width="wFull"
             roundedListTop
           >
-            <HeadingFive textMuted fontSemiBold>
+            <Typography variant="h5" color="textMuted" font="fontSemiBold">
               Asset Allocation
-            </HeadingFive>
-          </DefaultContainer>
+            </Typography>
+          </Container>
 
           <Divider />
-          <UnOrderedList list ptTwo pbTwo plFive prFive wFull gapTwo>
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>Asset</HeadingSix>
+          <UnOrderedList
+            bgColor="list"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
+            gapTwo
+          >
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                Asset
+              </Typography>
 
               <Flex column>
                 <Image src={arrowUp} />
@@ -82,181 +106,237 @@ export const Portfolio = () => {
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>Price</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                Price
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>Amount</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                Amount
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>Value</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                Value
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>Allocation</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                Allocation
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
           </UnOrderedList>
           <Divider />
           <UnOrderedList
-            contentGratient
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="contentGratient"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             alignCenter
           >
-            <ListItem w25 alignCenter justifyBetween>
+            <ListItem width="w25" alignCenter justifyBetween>
               <Flex column>
-                <HeadingSix textHeading fontBold mb0>
+                <Typography variant="h6" color="textHeading" font="fontBold">
                   BTC
-                </HeadingSix>
-                <HeadingSix textHeading fontSemiBold mb0>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color="textHeading"
+                  font="fontSemiBold"
+                >
                   Bitcoin
-                </HeadingSix>
+                </Typography>
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$ 16981.44</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $ 16981.44
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>0.0178 BTC</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                0.0178 BTC
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
           </UnOrderedList>
           <Divider />
           <UnOrderedList
-            list
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="list"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             alignCenter
           >
-            <ListItem w25 alignCenter justifyBetween>
+            <ListItem width="w25" alignCenter justifyBetween>
               <Flex column>
-                <HeadingSix textHeading fontBold mb0>
+                <Typography variant="h6" color="textHeading" font="fontBold">
                   BTC
-                </HeadingSix>
-                <HeadingSix textHeading fontSemiBold mb0>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color="textHeading"
+                  font="fontSemiBold"
+                >
                   Bitcoin
-                </HeadingSix>
+                </Typography>
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$ 16981.44</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $ 16981.44
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>0.0178 BTC</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                0.0178 BTC
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
           </UnOrderedList>
           <Divider />
           <UnOrderedList
-            contentGratient
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="contentGratient"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             alignCenter
           >
-            <ListItem w25 alignCenter justifyBetween>
+            <ListItem width="w25" alignCenter justifyBetween>
               <Flex column>
-                <HeadingSix textHeading fontBold mb0>
+                <Typography variant="h6" color="textHeading" font="fontBold">
                   BTC
-                </HeadingSix>
-                <HeadingSix textHeading fontSemiBold mb0>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color="textHeading"
+                  font="fontSemiBold"
+                >
                   Bitcoin
-                </HeadingSix>
+                </Typography>
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$ 16981.44</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $ 16981.44
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>0.0178 BTC</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                0.0178 BTC
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
           </UnOrderedList>
           <Divider />
           <UnOrderedList
-            list
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="list"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             alignCenter
-            roundedListBottom
+            // roundedListBottom
           >
-            <ListItem w25 alignCenter justifyBetween>
+            <ListItem width="w25" alignCenter justifyBetween>
               <Flex column>
-                <HeadingSix textHeading fontBold mb0>
+                <Typography variant="h6" color="textHeading" font="fontBold">
                   BTC
-                </HeadingSix>
-                <HeadingSix textHeading fontSemiBold mb0>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color="textHeading"
+                  font="fontSemiBold"
+                >
                   Bitcoin
-                </HeadingSix>
+                </Typography>
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$ 16981.44</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $ 16981.44
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>0.0178 BTC</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                0.0178 BTC
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted>$2.9827</HeadingSix>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
+                $2.9827
+              </Typography>
             </ListItem>
           </UnOrderedList>
-        </DefaultContainer>
-      </MainContainer>
+        </Container>
+      </Container>
     </>
   );
 };

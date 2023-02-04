@@ -1,29 +1,26 @@
 import {
-  DefaultContainer,
   UnOrderedList,
   ListItem,
-  HeadingSix,
   Divider,
   Image,
   Flex,
-  HeadingSmallest,
   Button,
-  HeadingFive,
-  MainContainer,
-} from "@/cysync-ui";
-import arrowUp from "@/assets/images/main-app/arrowUp.png";
-import arrowDown from "@/assets/images/main-app/arrowdown.png";
+  Container,
+  Typography,
+} from "@/component";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";
 import usdc from "@/assets/images/main-app/usdc.png";
-import eth from "@/assets/images/main-app/eth.png";
-import show from "@/assets/images/main-app/show.png";
 import arrow from "@/assets/images/main-app/arrow.png";
 import check from "@/assets/images/main-app/check.png";
-import rectangle from "@/assets/images/main-app/rectangle.png";
-import swapMuted from "@/assets/images/main-app/swap-muted.png";
-import transaction from "@/assets/images/main-app/transaction.png";
 import walletMuted from "@/assets/images/main-app/wallet-muted.png";
 import buySell from "@/assets/images/main-app/buy-sell.png";
+import swapMuted from "@/assets/images/main-app/swap-muted.png";
+import arrowUp from "@/assets/images/main-app/arrowUp.png";
+import arrowDown from "@/assets/images/main-app/arrowdown.png";
+import eth from "@/assets/images/main-app/eth.png";
+import show from "@/assets/images/main-app/show.png";
+import rectangle from "@/assets/images/main-app/rectangle.png";
+import transaction from "@/assets/images/main-app/transaction.png";
 import trade from "@/assets/images/main-app/trade-gold.png";
 import send from "@/assets/images/main-app/send-gold.png";
 import receive from "@/assets/images/main-app/receive-gold.png";
@@ -32,58 +29,59 @@ import data from "./coins.json";
 export const CoinEthereum = () => {
   return (
     <>
-      <MainContainer
-        contentGratient
-        ptFour
-        pbFour
-        plFour
-        prFour
-        wFull
+      <Container
+        variant="mainContainer"
+        bgColor="contentGratient"
+        pt="ptFour"
+        pb="pbFour"
+        pl="plFour"
+        pr="prFour"
+        width="wFull"
         border
         gap0
         column
         scroll
       >
-        <DefaultContainer mbFive alignCenter wFull justifyBetween>
+        <Container mb="mbFive" alignCenter width="wFull" justifyBetween>
           <Flex alignCenter gapOne>
             <Image src={rectangle} />
-            <HeadingSix textMuted mb0>
+            <Typography variant="h6" color="textMuted">
               Wallets /
-            </HeadingSix>
+            </Typography>
             <Image src={rectangle} />
-            <HeadingSix textHeading mb0>
+            <Typography variant="h6" color="textHeading">
               Cypherock Red
-            </HeadingSix>
+            </Typography>
             <Image src={show} />
           </Flex>
 
           <Flex gapOne>
-            <Button variation="Secondary">
+            <Button variation="secondary">
               <Image src={trade} /> Trade
             </Button>
-            <Button variation="Secondary">
+            <Button variation="secondary">
               <Image src={send} /> Send
             </Button>
-            <Button variation="Secondary">
+            <Button variation="secondary">
               <Image src={receive} /> Receive
             </Button>
           </Flex>
-        </DefaultContainer>
-        <DefaultContainer column gap0 wFull roundedTwo p0 mbTwo>
+        </Container>
+        <Container column width="wFull" rounded="roundedTwo" mb="mbTwo">
           <UnOrderedList
-            list
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="list"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             justifyBetween
           >
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Account
-              </HeadingSix>
+              </Typography>
 
               <Flex column>
                 <Image src={arrowUp} />
@@ -91,31 +89,31 @@ export const CoinEthereum = () => {
               </Flex>
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Wallet
-              </HeadingSix>
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Amount
-              </HeadingSix>
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Value
-              </HeadingSix>
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w25 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Allocation
-              </HeadingSix>
+              </Typography>
               <Image src={arrowUp} />
             </ListItem>
           </UnOrderedList>
@@ -126,59 +124,69 @@ export const CoinEthereum = () => {
               <>
                 <UnOrderedList
                   key={index}
-                  contentGratient
-                  ptTwo
-                  pbTwo
-                  plFive
-                  prFive
-                  wFull
+                  bgColor="contentGratient"
+                  pt="ptTwo"
+                  pb="pbTwo"
+                  pl="plFive"
+                  pr="prFive"
+                  width="wFull"
                   gapTwo
                   alignCenter
                   justifyBetween
                 >
-                  <ListItem w25 alignCenter justifyBetween>
+                  <ListItem width="w25" alignCenter justifyBetween>
                     <Flex gapTwo alignCenter>
                       <Image src={eth} />
                       <Flex column>
-                        <HeadingSix textHeading mb0>
+                        <Typography
+                          variant="h6"
+                          color="textHeading"
+                          font="fontNormal"
+                        >
                           {coin.coinName}
-                        </HeadingSix>
-                        <HeadingSmallest textMuted fontNormal mb0>
-                          {coin.coin}
-                        </HeadingSmallest>
+                        </Typography>
+                        <Typography color="textHeading">{coin.coin}</Typography>
                       </Flex>
                     </Flex>
                   </ListItem>
 
-                  <ListItem w25 alignCenter>
-                    <HeadingSix textMuted>{coin.wallet}</HeadingSix>
+                  <ListItem width="w25" alignCenter>
+                    <Typography variant="h6" color="textHeading">
+                      {coin.wallet}
+                    </Typography>
                   </ListItem>
 
-                  <ListItem w25 alignCenter>
-                    <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                  <ListItem width="w25" alignCenter>
+                    <Typography variant="h6" color="textHeading">
+                      {coin.Amount}
+                    </Typography>
                   </ListItem>
 
-                  <ListItem w25 alignCenter justifyBetween>
-                    <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                  <ListItem width="w25" alignCenter justifyBetween>
+                    <Typography variant="h6" color="textMuted">
+                      {coin.Amount}
+                    </Typography>
                   </ListItem>
 
-                  <ListItem w25 alignCenter justifyBetween>
-                    <HeadingSix textMuted>${coin.Value}</HeadingSix>
+                  <ListItem width="w25" alignCenter justifyBetween>
+                    <Typography variant="h6" color="textMuted">
+                      {coin.Value}
+                    </Typography>
                   </ListItem>
                 </UnOrderedList>
               </>
             );
           })}
-        </DefaultContainer>
-        <Button DashedBorder wFull>
+        </Container>
+        <Button variation="dashedBorder" width="wFull">
           <Flex justifyCenter gapOne>
             <Image src={transaction} />
-            <HeadingFive textMuted mb0>
-              Transactions
-            </HeadingFive>
+            <Typography variant="h5" color="textMuted">
+              Transactions{" "}
+            </Typography>
           </Flex>
         </Button>
-      </MainContainer>
+      </Container>
     </>
   );
 };

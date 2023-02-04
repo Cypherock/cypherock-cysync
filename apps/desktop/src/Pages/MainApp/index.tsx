@@ -1,4 +1,4 @@
-import { ListItem, UnOrderedList, Container, Flex } from "@/cysync-ui";
+import { ListItem, UnOrderedList, Container, Flex } from "@/component";
 import { Aside } from "./Aside/Aside";
 import { TopBar } from "./TopBar/TopBar";
 import { Portfolio } from "./Portfolio/Portfolio";

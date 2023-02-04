@@ -3,10 +3,8 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import centerButton from "@/assets/images/Onboarding/joystick/centerButton.png";
 import centerButtonSuccess from "@/assets/images/Onboarding/joystick/centerButtonSuccess.png";
 
@@ -15,20 +13,20 @@ export const JoyStickToggleCenterButton = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFour textHeading mbSeven>
+          <Typography variant="h4" color="textHeading" mb="mbSeven">
             Center click the joystick to proceed
-          </HeadingFour>
+          </Typography>
 
           {/* <Image src={centerButton} mbSeven /> */}
-          <Image src={centerButtonSuccess} mbSeven />
+          <Image src={centerButtonSuccess} mb="mbSeven" />
 
-          <HeadingFive textHeading mbOne>
+          <Typography variant="h5" color="textHeading" mb="mbOne">
             X1 Vault has a center button to perform click
-          </HeadingFive>
+          </Typography>
 
-          <HeadingSix textMuted>
+          <Typography variant="h6" color="textMuted">
             Follow the instruction on the device
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

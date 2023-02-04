@@ -8,10 +8,8 @@ import {
   InputLabel,
   Divider,
   Button,
-  HeadingSmallest,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
 
 export const DialogueSetPassword = () => {
@@ -19,10 +17,12 @@ export const DialogueSetPassword = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFive textHeading>Set your cySync password</HeadingFive>
-          <HeadingSix textMuted mbFive>
+          <Typography variant="h5" color="textHeading">
+            Set your cySync password
+          </Typography>
+          <Typography variant="h6" color="textMuted" mb="mbFive">
             We do not store your password on our servers.
-          </HeadingSix>
+          </Typography>
 
           <InputContainer>
             <InputLabel>New Password</InputLabel>
@@ -35,19 +35,25 @@ export const DialogueSetPassword = () => {
             <Input type="text" placeholder="**************" />
             <img src={passwordHide} alt="" />
           </InputContainer>
-          <Divider mbThree />
+          <Divider mb="mbThree" />
 
-          <HeadingSix textError mbEight textLeft>
+          <Typography
+            variant="h6"
+            color="textError"
+            mb="mbEight"
+            textAlign="left"
+          >
             Password mismatch and other error messages
-          </HeadingSix>
-          <HeadingSmallest textMuted>
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             Use 8 or more charecters with a mix of letters, numberts & symbols
-          </HeadingSmallest>
+          </Typography>
+
           <Divider />
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary">Skip</Button>
-          <Button variation="Primary">Confirm</Button>
+          <Button variation="secondary">Skip</Button>
+          <Button variation="primary">Confirm</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

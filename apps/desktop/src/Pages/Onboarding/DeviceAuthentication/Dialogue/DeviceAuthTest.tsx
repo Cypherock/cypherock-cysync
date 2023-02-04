@@ -2,10 +2,9 @@ import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
-  HeadingFive,
-  HeadingSix,
   Image,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import loader from "@/assets/images/Onboarding/deviceAuth/loader.png";
 
 export const DeviceAuthText = () => {
@@ -13,14 +12,15 @@ export const DeviceAuthText = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={loader} mbFive />
-          <HeadingFive textHeading>
+          <Image src={loader} mb="mbFive" />
+          <Typography variant="h6" color="textHeading">
             Your X1 Vault will now be authenticated through Cypherock to check
             its authenticity... (?)
-          </HeadingFive>
-          <HeadingSix textMuted>
+          </Typography>
+
+          <Typography variant="h5" color="textMuted">
             Do not disconnect your X1 Vault while the operation is being done
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

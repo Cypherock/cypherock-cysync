@@ -1,15 +1,13 @@
 import {
+  Container,
+  Typography,
   ListItem,
   UnOrderedList,
-  AsideContainer,
-  HeadingFive,
   Image,
-  HeadingSix,
   Flex,
   Divider,
-  DefaultContainer,
   Tab,
-} from "@/cysync-ui";
+} from "@/component";
 import portfolio from "@/assets/images/main-app/portfolio.png";
 import wallet from "@/assets/images/main-app/wallet.png";
 import sendCrypto from "@/assets/images/main-app/sendCrypto.png";
@@ -31,34 +29,42 @@ export const Aside = () => {
   const { clickHandler, currentScreen } = useNavigation();
   return (
     <>
-      <DefaultContainer p0 black alignCenter>
-        <AsideContainer sideBar column justifyBetween border>
-          <UnOrderedList column wFull>
-            <Flex alignCenter justifyBetween wFull mbFour>
+      <Container bgColor="black" alignCenter>
+        <Container variant="asideContainer" column justifyBetween border>
+          <UnOrderedList column width="wFull">
+            <Flex alignCenter justifyBetween width="wFull" mb="mbFour">
               <Flex alignCenter gapTwo>
                 <Image src={cysync} />
-                <HeadingFive textMuted fontMedium mb0>
+                <Typography color="textMuted" font="fontMedium">
                   cySync
-                </HeadingFive>
+                </Typography>
               </Flex>
               <Image src={exit} />
             </Flex>
 
-            <Tab value={ScreenTypes.Portfolio} onClick={clickHandler} mbFour>
+            <Tab
+              value={ScreenTypes.Portfolio}
+              onClick={clickHandler}
+              mb="mbFour"
+            >
               <ListItem alignCenter gapTwo>
                 {currentScreen === ScreenTypes.Portfolio ? (
                   <>
                     <Image src={portfolio} />
-                    <HeadingSix mb0 textGold fontMedium>
+                    <Typography variant="h6" color="textGold" font="fontMedium">
                       Portfolio
-                    </HeadingSix>
+                    </Typography>
                   </>
                 ) : (
                   <>
                     <Image src={portfolio} />
-                    <HeadingSix mb0 textMuted fontMedium>
+                    <Typography
+                      variant="h6"
+                      color="textMuted"
+                      font="fontMedium"
+                    >
                       Portfolio
-                    </HeadingSix>
+                    </Typography>
                   </>
                 )}
               </ListItem>
@@ -67,24 +73,32 @@ export const Aside = () => {
             <Tab
               value={ScreenTypes.Wallets}
               onClick={clickHandler}
-              mbFour
-              wFull
+              mb="mbFour"
+              width="wFull"
             >
-              <ListItem alignCenter justifyBetween wFull>
+              <ListItem alignCenter justifyBetween width="wFull">
                 <Flex alignCenter gapTwo>
                   {currentScreen === ScreenTypes.Wallets ? (
                     <>
                       <Image src={walletGold} />
-                      <HeadingSix mb0 textGold fontMedium>
+                      <Typography
+                        variant="h6"
+                        color="textGold"
+                        font="fontMedium"
+                      >
                         Wallets
-                      </HeadingSix>
+                      </Typography>
                     </>
                   ) : (
                     <>
                       <Image src={wallet} />
-                      <HeadingSix mb0 textMuted fontMedium>
+                      <Typography
+                        variant="h6"
+                        color="textMuted"
+                        font="fontMedium"
+                      >
                         Wallets
-                      </HeadingSix>
+                      </Typography>
                     </>
                   )}
                 </Flex>
@@ -92,21 +106,29 @@ export const Aside = () => {
               </ListItem>
             </Tab>
 
-            <Tab value={ScreenTypes.SendCrypto} onClick={clickHandler} mbFour>
+            <Tab
+              value={ScreenTypes.SendCrypto}
+              onClick={clickHandler}
+              mb="mbFour"
+            >
               <ListItem alignCenter gapTwo>
                 <Image src={sendCrypto} />
 
                 {currentScreen === ScreenTypes.SendCrypto ? (
                   <>
-                    <HeadingSix mb0 textGold fontMedium>
+                    <Typography variant="h6" color="textGold" font="fontMedium">
                       Send Crypto
-                    </HeadingSix>
+                    </Typography>
                   </>
                 ) : (
                   <>
-                    <HeadingSix mb0 textMuted fontMedium>
+                    <Typography
+                      variant="h6"
+                      color="textMuted"
+                      font="fontMedium"
+                    >
                       Send Crypto
-                    </HeadingSix>
+                    </Typography>
                   </>
                 )}
               </ListItem>
@@ -115,61 +137,73 @@ export const Aside = () => {
             <Tab
               value={ScreenTypes.ReceiveCrypto}
               onClick={clickHandler}
-              mbFour
+              mb="mbFour"
             >
               <ListItem alignCenter gapTwo>
                 <Image src={receiveCrypto} />
                 {currentScreen === ScreenTypes.ReceiveCrypto ? (
                   <>
-                    <HeadingSix mb0 textGold fontMedium>
+                    <Typography variant="h6" color="textGold" font="fontMedium">
                       Receive Crypto
-                    </HeadingSix>
+                    </Typography>
                   </>
                 ) : (
                   <>
-                    <HeadingSix mb0 textMuted fontMedium>
+                    <Typography
+                      variant="h6"
+                      color="textMuted"
+                      font="fontMedium"
+                    >
                       Receive Crypto
-                    </HeadingSix>
+                    </Typography>
                   </>
                 )}
               </ListItem>
             </Tab>
 
-            <Tab value={ScreenTypes.Swap} onClick={clickHandler} mbFour>
+            <Tab value={ScreenTypes.Swap} onClick={clickHandler} mb="mbFour">
               <ListItem alignCenter gapTwo>
                 {currentScreen === ScreenTypes.Swap ? (
                   <>
                     <Image src={swapGold} />
-                    <HeadingSix mb0 textGold fontMedium>
+                    <Typography variant="h6" color="textGold" font="fontMedium">
                       Swap
-                    </HeadingSix>
+                    </Typography>
                   </>
                 ) : (
                   <>
                     <Image src={swap} />
-                    <HeadingSix mb0 textMuted fontMedium>
+                    <Typography
+                      variant="h6"
+                      color="textMuted"
+                      font="fontMedium"
+                    >
                       Swap
-                    </HeadingSix>
+                    </Typography>
                   </>
                 )}
               </ListItem>
             </Tab>
 
-            <Tab value={ScreenTypes.History} onClick={clickHandler} mbFour>
+            <Tab value={ScreenTypes.History} onClick={clickHandler} mb="mbFour">
               <ListItem alignCenter gapTwo>
                 {currentScreen === ScreenTypes.History ? (
                   <>
                     <Image src={historyGold} />
-                    <HeadingSix mb0 textGold fontMedium>
+                    <Typography variant="h6" color="textGold" font="fontMedium">
                       History
-                    </HeadingSix>
+                    </Typography>
                   </>
                 ) : (
                   <>
                     <Image src={history} />
-                    <HeadingSix mb0 textMuted fontMedium>
+                    <Typography
+                      variant="h6"
+                      color="textMuted"
+                      font="fontMedium"
+                    >
                       History
-                    </HeadingSix>
+                    </Typography>
                   </>
                 )}
               </ListItem>
@@ -177,28 +211,32 @@ export const Aside = () => {
           </UnOrderedList>
 
           <UnOrderedList column>
-            <Tab value={ScreenTypes.Settings} onClick={clickHandler} mbFour>
+            <Tab
+              value={ScreenTypes.Settings}
+              onClick={clickHandler}
+              mb="mbFour"
+            >
               <ListItem alignCenter gapTwo>
                 <Image src={settings} />
-                <HeadingSix mb0 textMuted fontMedium>
+                <Typography variant="h6" color="textMuted" font="fontMedium">
                   Settings
-                </HeadingSix>
+                </Typography>
               </ListItem>
             </Tab>
 
-            <Tab value={ScreenTypes.Help} onClick={clickHandler} mbFour>
+            <Tab value={ScreenTypes.Help} onClick={clickHandler} mb="mbFour">
               <ListItem alignCenter gapTwo>
                 <Image src={support} />
-                <HeadingSix mb0 textMuted fontMedium>
+                <Typography variant="h6" color="textMuted" font="fontMedium">
                   Help
-                </HeadingSix>
+                </Typography>
               </ListItem>
             </Tab>
           </UnOrderedList>
-        </AsideContainer>
+        </Container>
 
-        <Divider verticalWhite roundedFull />
-      </DefaultContainer>
+        <Divider variant="vertical" rounded="roundedFull" />
+      </Container>
     </>
   );
 };

@@ -1,16 +1,12 @@
 import {
-  DialogueBoxContainer,
+  Container,
   DialogueBoxBody,
-  DialogueBoxTopBar,
-  Image,
-  HeadingFive,
-  HeadingSix,
   ListItem,
-  HeadingSmallest,
   Divider,
   Flex,
   Button,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import arrowUp from "@/assets/images/main-app/arrowUp.png";
 import arrowDown from "@/assets/images/main-app/arrowdown.png";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";
@@ -26,122 +22,124 @@ import buySell from "@/assets/images/main-app/buy-sell.png";
 
 export const ShowMoreDialogue = () => {
   return (
-    <DialogueBoxContainer lg>
+    <Container>
       <DialogueBoxBody>
         <ListItem justifyBetween>
-          <HeadingSix textMuted>Transaction Hash</HeadingSix>
-          <HeadingSix textList>
+          <Typography variant="h6" color="textMuted">
+            Transaction Hash
+          </Typography>
+          <Typography variant="h6" color="textList">
             0x23ab56asd7nsd38242hfu23472634hdf893
-          </HeadingSix>
+          </Typography>
         </ListItem>
-        <Divider mbEight />
+        <Divider mb="mbEight" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Value
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             -$ 39.05
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Fee
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             0.0004443 ETH = $ 0.569
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Data
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             01/12/2022 4:37 PM
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             type
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             Sent
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Status
-          </HeadingFive>
-          <HeadingFive textSuccess mb0>
-            SUCCESS{" "}
-          </HeadingFive>
+          </Typography>
+          <Typography variant="h5" color="textSuccess">
+            SUCCESS
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Wallet
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             Cypherock Red
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Account
-          </HeadingFive>
-          <HeadingFive textList mb0>
-            {/* <Image src={eth} /> */}
+          </Typography>
+          <Typography variant="h5" color="textList">
             Ethereum Main
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Asset
-          </HeadingFive>
-          <HeadingFive textList mb0>
+          </Typography>
+          <Typography variant="h5" color="textList">
             Ethereum
-          </HeadingFive>
+          </Typography>
         </ListItem>
-        <Divider mbOne />
+        <Divider mb="mbOne" />
 
-        <ListItem justifyBetween mbOne>
-          <HeadingFive textMuted mb0>
+        <ListItem justifyBetween mb="mbOne">
+          <Typography variant="h5" color="textMuted">
             Sender
-          </HeadingFive>
-          <HeadingFive textGold mb0>
-            0x23ab56asd7nsd38242hfu23472634hdf893
-          </HeadingFive>
-        </ListItem>
-        <Divider mbOne />
+          </Typography>
 
-        <ListItem justifyBetween mbFive>
-          <HeadingFive textMuted mb0>
-            Receiver
-          </HeadingFive>
-          <Flex column>
-            <HeadingFive textMuted mb0>
+          <Typography variant="h5" color="textGold">
+            0x23ab56asd7nsd38242hfu23472634hdf893
+          </Typography>
+        </ListItem>
+        <Divider mb="mbOne" />
+
+        <ListItem justifyBetween mb="mbFive">
+          <Flex>
+            <Typography variant="h5" color="textMuted">
+              Receiver
+            </Typography>
+            <Typography variant="h5" color="textMuted">
               0x23ab56asd7nsd38242hfu23472634hdf893
-            </HeadingFive>
-            <HeadingFive textGold mb0>
+            </Typography>
+            <Typography variant="h5" color="textGold">
               0x23ab56asd7nsd38242hfu23472634hdf893
-            </HeadingFive>
+            </Typography>
           </Flex>
         </ListItem>
-        <Button variation="Secondary">View on Explorer</Button>
+        <Button variation="secondary">View on Explorer</Button>
       </DialogueBoxBody>
-    </DialogueBoxContainer>
+    </Container>
   );
 };

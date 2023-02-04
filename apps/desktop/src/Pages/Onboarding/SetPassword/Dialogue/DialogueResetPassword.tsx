@@ -8,10 +8,8 @@ import {
   InputLabel,
   Divider,
   Button,
-  HeadingSmallest,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
 
 export const DialogueResetPassword = () => {
@@ -19,13 +17,13 @@ export const DialogueResetPassword = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFive textHeading>
+          <Typography variant="h5" color="textHeading">
             Resetting password will reset your cySync app
-          </HeadingFive>
-          <HeadingSix textMuted mbFive>
+          </Typography>
+          <Typography variant="h6" color="textMuted" mb="mbFive">
             Your funds will remain intact, and you will still be able to sync
             the data again through your X1 Vault
-          </HeadingSix>
+          </Typography>
 
           <InputContainer>
             <InputLabel>Enter Password</InputLabel>
@@ -38,19 +36,24 @@ export const DialogueResetPassword = () => {
             <Input type="text" placeholder="**************" />
             <img src={passwordHide} alt="" />
           </InputContainer>
-          <Divider mbThree />
-
-          <HeadingSix textError mbEight textLeft>
+          <Divider mb="mbThree" />
+          <Typography
+            variant="h6"
+            color="textError"
+            mb="mbEight"
+            textAlign="left"
+          >
             Your Password is incorrect
-          </HeadingSix>
-          <HeadingSmallest textMuted>
+          </Typography>
+
+          <Typography color="textMuted">
             Use 8 or more charecters with a mix of letters, numberts & symbols
-          </HeadingSmallest>
+          </Typography>
           <Divider />
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary">Go Back</Button>
-          <Button variation="Primary">Reset</Button>
+          <Button variation="secondary">Go Back</Button>
+          <Button variation="primary">Reset</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

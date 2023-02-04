@@ -8,9 +8,8 @@ import {
   InputLabel,
   Divider,
   Button,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
 
 export const DialogueLogin = () => {
@@ -18,27 +17,32 @@ export const DialogueLogin = () => {
     <>
       <DialogueBoxContainer>
         <DialogueBoxBody>
-          <HeadingFive textHeading>
+          <Typography variant="h5" color="textHeading">
             Enter password to access your portfolio
-          </HeadingFive>
-          <HeadingSix textMuted mbFive>
+          </Typography>
+
+          <Typography variant="h6" color="textMuted" mb="mbFive">
             Your cySync password is always stored locally on your PC
-          </HeadingSix>
+          </Typography>
 
           <InputContainer>
             <InputLabel>Your Email</InputLabel>
             <Input type="text" placeholder="**************" />
             <img src={passwordHide} alt="" />
           </InputContainer>
-          <Divider mbThree />
-
-          <HeadingSix textError mbEight textLeft>
+          <Divider mb="mbThree" />
+          <Typography
+            variant="h6"
+            mb="mbEight"
+            textAlign="left"
+            color="textError"
+          >
             Your Password is incorrect
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Secondary">Reset Password</Button>
-          <Button variation="Primary">Login</Button>
+          <Button variation="secondary">Reset Password</Button>
+          <Button variation="primary">Login</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

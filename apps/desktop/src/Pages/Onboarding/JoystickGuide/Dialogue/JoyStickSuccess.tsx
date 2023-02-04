@@ -3,9 +3,8 @@ import {
   DialogueBoxContainer,
   DialogueBoxBody,
   Image,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import success from "@/assets/images/Onboarding/setPass/success.png";
 
 export const JoyStickToggleSuccess = () => {
@@ -13,11 +12,13 @@ export const JoyStickToggleSuccess = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={success} mbThree />
-          <HeadingFive textHeading>Joystick test complete</HeadingFive>
-          <HeadingSix textMuted>
+          <Image src={success} mb="mbThree" />
+          <Typography variant="h5" color="textHeading">
+            Joystick test complete
+          </Typography>
+          <Typography variant="h6" color="textMuted">
             Please wait while take you to the next screen
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

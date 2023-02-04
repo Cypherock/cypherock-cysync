@@ -2,38 +2,33 @@ import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
-  DialogueBoxTopBar,
   Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
-  DefaultContainer,
-  Flex,
-  Bullet,
   DialogueBoxFooter,
   Button,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
 
 export const SupplyChainAttack = () => {
   return (
     <>
       <DialogueBoxContainer md>
-        <HeadingSix textMuted mb0>
+        <Typography variant="h6" color="textMuted">
           Card Authentication
-        </HeadingSix>
+        </Typography>
         <DialogueBoxBody>
-          <Image src={failed} mbThree />
-
-          <HeadingFive textHeading>Supply chain attack</HeadingFive>
-          <HeadingSix textMuted>
+          <Image src={failed} mb="mbThree" />
+          <Typography variant="h5" color="textHeading">
+            Supply chain attack
+          </Typography>
+          <Typography variant="h6" color="textHeading">
             Your Cypherock X1 might have been compromised. Contact Cypherock
             support immediately. Close the app after you have contacted the
             support
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="Primary"> Contact Support</Button>
+          <Button variation="primary"> Contact Support</Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
     </>

@@ -4,12 +4,11 @@ import {
   DialogueBoxFooter,
   Bullet,
   Button,
-  HeadingFive,
-  HeadingSix,
-  DefaultContainer,
+  Container,
   Flex,
   Span,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 import { useState } from "react";
 import { DialogueTerms } from "./DialogueTerms";
 
@@ -26,59 +25,62 @@ export const DialogueWelcome = (): JSX.Element => {
       ) : (
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <HeadingFive textHeading>
+            <Typography variant="h6" color="textHeading">
               Ensure the product contains the following
-            </HeadingFive>
-            <HeadingSix textMuted mbSix>
+            </Typography>
+            <Typography variant="h6" color="textHeading" mb="mbSix">
               Make sure the tamper-proof seal of the package was intact
-            </HeadingSix>
-            <DefaultContainer roundedOne list mbSix>
+            </Typography>
+            <Container rounded="roundedOne" bgColor="list" mb="mbSix">
               <Flex justifyBetween>
                 <Flex column>
                   <Flex alignCenter>
-                    <Bullet gold />
-                    <HeadingSix textGold mb0>
+                    <Bullet variant="gold" />
+
+                    <Typography variant="h6" color="textGold">
                       X1 Vault
-                    </HeadingSix>
+                    </Typography>
                   </Flex>
 
                   <Flex alignCenter>
                     <Bullet />
-                    <HeadingSix textMuted mb0>
+
+                    <Typography variant="h6" color="textMuted">
                       4 X1 Cards
-                    </HeadingSix>
+                    </Typography>
                   </Flex>
                 </Flex>
 
                 <Flex column>
                   <Flex alignCenter>
                     <Bullet />
-                    <HeadingSix textMuted mb0>
+
+                    <Typography variant="h6" color="textMuted">
                       4 Card Covers
-                    </HeadingSix>
+                    </Typography>
                   </Flex>
 
                   <Flex alignCenter>
                     <Bullet />
-                    <HeadingSix textMuted mb0>
+                    <Typography variant="h6" color="textMuted">
                       USB Cable
-                    </HeadingSix>
+                    </Typography>
                   </Flex>
                 </Flex>
               </Flex>
-            </DefaultContainer>
+            </Container>
 
-            <DefaultContainer roundedOne list border>
+            <Container rounded="roundedOne" bgColor="list" border>
               <Flex>
-                <HeadingSix textMuted>
-                  Please email at <Span textHeading>support@cypherock.com</Span>{" "}
-                  if your package does not contain any of these
-                </HeadingSix>
+                <Typography variant="h6" color="textMuted">
+                  Please email at support@cypherock.com if your package does not
+                  contain any of these
+                </Typography>
               </Flex>
-            </DefaultContainer>
+            </Container>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Button variation="Primary" onClick={clickHandler}>
+            <Button variation="primary" onClick={clickHandler}>
               Get Started
             </Button>
           </DialogueBoxFooter>

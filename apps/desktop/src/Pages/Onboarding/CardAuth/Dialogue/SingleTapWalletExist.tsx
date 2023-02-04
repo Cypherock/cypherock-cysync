@@ -2,17 +2,14 @@ import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
-  DialogueBoxTopBar,
   Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
-  DefaultContainer,
+  Container,
   Flex,
   Bullet,
   DialogueBoxFooter,
   Button,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 
 import walletExist from "./walletExist.png";
 
@@ -21,36 +18,39 @@ export const SingleTapWalletExist = () => {
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={walletExist} mbThree />
-
-          <HeadingFive textHeading>Existing wallet</HeadingFive>
-          <HeadingSix mbSix textMuted>
+          <Image src={walletExist} mb="mbThree" />
+          <Typography variant="h5" color="textHeading">
+            Existing wallet
+          </Typography>
+          <Typography variant="h6" mb="mbSix" color="textMuted">
             The following wallets exist inside the X1 cards. Click confirm if
             these wallets were created by you.
-          </HeadingSix>
+          </Typography>
 
-          <DefaultContainer list border>
-            <Flex alignCenter mbTwo>
+          <Container bgColor="list" border>
+            <Flex alignCenter mb="mbTwo">
               <Bullet />
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" color="textMuted">
                 Wallet 1
-              </HeadingSix>
+              </Typography>
             </Flex>
 
-            <Flex alignCenter mbTwo>
+            <Flex alignCenter mb="mbTwo">
               <Bullet />
-              <HeadingSix mb0 textMuted>
-                Wallet 2
-              </HeadingSix>
+
+              <Typography variant="h6" color="textMuted">
+                Wallet 1
+              </Typography>
             </Flex>
 
             <Flex alignCenter>
               <Bullet />
-              <HeadingSix mb0 textMuted>
-                Wallet 3
-              </HeadingSix>
+
+              <Typography variant="h6" color="textMuted">
+                Wallet 1
+              </Typography>
             </Flex>
-          </DefaultContainer>
+          </Container>
         </DialogueBoxBody>
         <DialogueBoxFooter>
           <Button>Not created by me</Button>

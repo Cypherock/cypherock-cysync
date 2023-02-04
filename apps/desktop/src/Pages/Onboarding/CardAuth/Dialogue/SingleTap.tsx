@@ -2,37 +2,33 @@ import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
-  DialogueBoxTopBar,
-  Image,
-  HeadingFive,
-  HeadingSix,
-  HeadingFour,
-  DefaultContainer,
+  Typography,
+  Container,
   Flex,
   Bullet,
-} from "@/cysync-ui";
+} from "@/component";
 
 export const SingleTap = () => {
   return (
     <>
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <HeadingFive textHeading>
+          <Typography variant="h5" color="textHeading">
             Tap any X1 Card below the X1 Vault to test card tapping
-          </HeadingFive>
-          <HeadingSix textMuted mbFive>
+          </Typography>
+          <Typography variant="h6" color="textMuted" mb="mbFive">
             Your X1 card communicates with the X1 Vault through encrypted NFC.
             Make sure you keep it tapped until you hear a beep sound
-          </HeadingSix>
+          </Typography>
 
-          <DefaultContainer list border roundedOne>
+          <Container bgColor="list" border rounded="roundedOne">
             <Flex alignCenter justifyBetween>
-              <HeadingSix mb0 textMuted>
+              <Typography variant="h6" mb="mb0" color="textMuted">
                 X1 Card
-              </HeadingSix>
-              <Bullet lg gold />
+              </Typography>
+              <Bullet size="lg" variant="gold" />
             </Flex>
-          </DefaultContainer>
+          </Container>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>

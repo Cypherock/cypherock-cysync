@@ -5,13 +5,11 @@ import {
   DialogueBoxFooter,
   Bullet,
   Button,
-  HeadingFive,
-  HeadingSix,
-  HeadingSmallest,
-  DefaultContainer,
+  Container,
   Flex,
-  SquareCheckBox,
-} from "@/cysync-ui";
+  CheckBox,
+  Typography,
+} from "@/component";
 import linkImage from "@/assets/images/Onboarding/getStarted/terms-link.png";
 
 export const DialogueTerms = (): JSX.Element => {
@@ -19,60 +17,63 @@ export const DialogueTerms = (): JSX.Element => {
   return (
     <DialogueBoxContainer md>
       <DialogueBoxBody>
-        <HeadingFive textHeading>Terms of use</HeadingFive>
-        <HeadingSix textMuted mbSix>
+        <Typography variant="h5" color="textHeading">
+          Terms of use
+        </Typography>
+        <Typography variant="h6" color="textHeading" mb="mbSix">
           Please take some time to review our Terms or Service and Privacy
           Policy
-        </HeadingSix>
+        </Typography>
 
-        <DefaultContainer mbTwo roundedOne list border>
+        <Container mb="mbTwo" rounded="roundedOne" bgColor="list" border>
           <Flex justifyBetween>
             <Flex alignCenter gapTwo>
               <Bullet></Bullet>
-              <HeadingSix textHeading mb0>
+              <Typography variant="h6" color="textHeading" mb="mbSix">
                 Terms of Service
-              </HeadingSix>
+              </Typography>
             </Flex>
             <a href="">
               <img src={linkImage}></img>
             </a>
           </Flex>
-        </DefaultContainer>
+        </Container>
 
-        <DefaultContainer mbThree roundedOne list border>
+        <Container mb="mbThree" rounded="roundedOne" bgColor="list" border>
           <Flex justifyBetween>
             <Flex alignCenter gapTwo>
               <Bullet></Bullet>
-              <HeadingSix textHeading mb0>
+
+              <Typography variant="h6" color="textHeading" mb="mbSix">
                 Privacy Policy
-              </HeadingSix>
+              </Typography>
             </Flex>
             <a href="">
               <img src={linkImage}></img>
             </a>
           </Flex>
-        </DefaultContainer>
+        </Container>
 
         <Flex alignCenter>
-          <SquareCheckBox>
+          <CheckBox variation="squareCheckBox">
             <div>
               <input
                 type="checkbox"
                 onClick={() => setIsChecked((wasCheched) => !wasCheched)}
               />
             </div>
-          </SquareCheckBox>
-          <HeadingSmallest textMuted mb0 textLeft>
+          </CheckBox>
+          <Typography color="textMuted" textAlign="left">
             I have read and agree with the Terms of Use and Privacy Policy
-          </HeadingSmallest>
+          </Typography>
         </Flex>
       </DialogueBoxBody>
 
       <DialogueBoxFooter>
         {isChecked ? (
-          <Button variation="Primary">Confirm</Button>
+          <Button variation="primary">Confirm</Button>
         ) : (
-          <Button variation="Secondary" disabled={true}>
+          <Button variation="secondary" disabled={true}>
             Confirm
           </Button>
         )}

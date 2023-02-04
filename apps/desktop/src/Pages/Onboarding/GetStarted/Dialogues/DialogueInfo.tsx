@@ -4,11 +4,10 @@ import {
   DialogueBoxFooter,
   Bullet,
   Button,
-  HeadingFive,
-  HeadingSix,
-  DefaultContainer,
+  Typography,
+  Container,
   Flex,
-} from "@/cysync-ui";
+} from "@/component";
 import { useState } from "react";
 import { DialogueWelcome } from "./DialogueWelcome";
 
@@ -26,53 +25,53 @@ export const DialogueInfo = (): JSX.Element => {
       ) : (
         <DialogueBoxContainer lg>
           <DialogueBoxBody>
-            <HeadingFive textHeading mbSix>
+            <Typography variant="h6" color="textHeading" mb="mbSix">
               Ensure the following before you continue
-            </HeadingFive>
+            </Typography>
 
-            <DefaultContainer list>
-              <Flex alignCenter mbTwo>
+            <Container bgColor="list">
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   You are present in a safe and secure environment
-                </HeadingSix>
+                </Typography>
               </Flex>
-              <Flex alignCenter mbTwo>
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   You have atleast 15-30 minutes to setup your wallet
-                </HeadingSix>
+                </Typography>
               </Flex>
-              <Flex alignCenter mbTwo>
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   You have an active internet connection
-                </HeadingSix>
+                </Typography>
               </Flex>
-              <Flex alignCenter mbTwo>
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   The tamper-proof seal of the package is intact
-                </HeadingSix>
+                </Typography>
               </Flex>
-              <Flex alignCenter mbTwo>
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   Cypherock will never ask you for your seed phrase nor will it
                   ever ask you to sign a transaction
-                </HeadingSix>
+                </Typography>
               </Flex>
-              <Flex alignCenter mbTwo>
+              <Flex alignCenter mb="mbTwo">
                 <Bullet />
-                <HeadingSix textMuted mb0 textLeft>
+                <Typography variant="h5" color="textMuted" textAlign="left">
                   Cypherock will only email you from cypherock.com. Do not trust
                   any email from any other website domain
-                </HeadingSix>
+                </Typography>
               </Flex>
-            </DefaultContainer>
+            </Container>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Button variation="Primary" onClick={clickHandler}>
+            <Button variation="primary" onClick={clickHandler}>
               Continue
             </Button>
           </DialogueBoxFooter>

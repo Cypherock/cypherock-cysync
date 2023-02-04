@@ -1,32 +1,23 @@
 import {
-  DefaultContainer,
-  HeadingFive,
+  Typography,
+  Container,
   UnOrderedList,
   ListItem,
-  HeadingSix,
   Divider,
   Image,
-  InputContainer,
   Flex,
-  Button,
-  InputLabel,
-  Input,
-  HeadingSmallest,
-  Badge,
-  BadgeTypography,
   SearchBar,
   DropdownSelect,
   Chip,
-  MainContainer,
-} from "@/cysync-ui";
-import arrowUp from "@/assets/images/main-app/arrowUp.png";
-import arrowDown from "@/assets/images/main-app/arrowdown.png";
+} from "@/component";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";
 import usdc from "@/assets/images/main-app/usdc.png";
-import eth from "@/assets/images/main-app/eth.png";
 import arrow from "@/assets/images/main-app/arrow.png";
 import check from "@/assets/images/main-app/check.png";
 import rectangle from "@/assets/images/main-app/rectangle.png";
+import eth from "@/assets/images/main-app/eth.png";
+import arrowDown from "@/assets/images/main-app/arrowdown.png";
+import arrowUp from "@/assets/images/main-app/arrowUp.png";
 import swapMuted from "@/assets/images/main-app/swap-muted.png";
 import transaction from "@/assets/images/main-app/transaction.png";
 import walletMuted from "@/assets/images/main-app/wallet-muted.png";
@@ -37,65 +28,66 @@ export const History = () => {
   console.log(data);
   return (
     <>
-      <MainContainer
-        contentGratient
-        ptFour
-        pbFour
-        plFour
-        prFour
-        wFull
+      <Container
+        variant="mainContainer"
+        bgColor="contentGratient"
+        pt="ptFour"
+        pb="pbFour"
+        pl="plFour"
+        pr="prFour"
+        width="wFull"
         border
         gap0
         column
       >
-        <DefaultContainer mbFive alignCenter wFull justifyBetween>
+        <Container mb="mbFive" alignCenter width="wFull" justifyBetween>
           <SearchBar />
-        </DefaultContainer>
+        </Container>
 
-        <DefaultContainer column gap0 wFull roundedTwo p0 mbTwo>
-          <DefaultContainer
+        <Container column gap0 width="wFull" rounded="roundedTwo" mb="mbTwo">
+          <Container
             borderRadiusOne
-            sideBar
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="sideBar"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             alignCenter
             gapTwo
           >
             <Flex gapTwo>
               <Chip>
                 <Image src={transaction} />
-                <HeadingSix mb0 textMuted>
+                <Typography variant="h6" color="textMuted">
                   Transactions
-                </HeadingSix>
+                </Typography>
               </Chip>
 
               <Chip>
                 <Image src={swapMuted} />
-                <HeadingSix mb0 textMuted>
+                <Typography variant="h6" color="textMuted">
                   Swap
-                </HeadingSix>
+                </Typography>
               </Chip>
               <Chip variation="active">
                 <Image src={buySell} />
-                <HeadingSix mb0 textGold>
+                <Typography variant="h6" color="textGold">
                   Buy/Sell
-                </HeadingSix>
+                </Typography>
               </Chip>
             </Flex>
-          </DefaultContainer>
+          </Container>
           <Divider />
 
-          <DefaultContainer
+          <Container
             borderRadiusOne
-            sideBar
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="sideBar"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             alignCenter
             gapTwo
           >
@@ -103,100 +95,106 @@ export const History = () => {
               <DropdownSelect alignCenter justifyBetween>
                 <Flex gapTwo>
                   <Image src={walletMuted} />
-                  <HeadingSix mb0 textMuted>
+                  <Typography variant="h6" color="textMuted">
                     All Wallets
-                  </HeadingSix>
+                  </Typography>
                 </Flex>
                 <Image src={arrowDown} />
               </DropdownSelect>
 
               <DropdownSelect alignCenter justifyBetween>
-                <HeadingSix mb0 textMuted>
+                textMuted
+                <Typography variant="h6" color="textMuted">
                   All Accounts
-                </HeadingSix>
+                </Typography>
                 <Image src={arrowDown} />
               </DropdownSelect>
 
               <DropdownSelect alignCenter justifyBetween>
-                <HeadingSix mb0 textMuted>
+                <Typography variant="h6" color="textMuted">
                   All Tokens
-                </HeadingSix>
+                </Typography>
                 <Image src={arrowDown} />
               </DropdownSelect>
             </Flex>
-          </DefaultContainer>
+          </Container>
           <Divider />
 
           <UnOrderedList
-            list
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="list"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             gapTwo
             justifyBetween
           >
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Time
-              </HeadingSix>
+              </Typography>
 
               <Image src={arrowDown} />
             </ListItem>
 
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Wallet
-              </HeadingSix>
+              </Typography>
+
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Assets
-              </HeadingSix>
+              </Typography>
+
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Amount
-              </HeadingSix>
+              </Typography>
+
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Value
-              </HeadingSix>
+              </Typography>
+
               <Image src={arrowUp} />
             </ListItem>
 
-            <ListItem w15 alignCenter justifyBetween>
-              <HeadingSix textMuted mb0>
+            <ListItem width="w25" alignCenter justifyBetween>
+              <Typography variant="h6" color="textMuted">
                 Status
-              </HeadingSix>
+              </Typography>
+
               <Image src={arrowUp} />
             </ListItem>
           </UnOrderedList>
           <Divider />
 
-          <DefaultContainer
+          <Container
             borderRadiusOne
-            sideBar
-            ptTwo
-            pbTwo
-            plFive
-            prFive
-            wFull
+            bgColor="sideBar"
+            pt="ptTwo"
+            pb="pbTwo"
+            pl="plFive"
+            pr="prFive"
+            width="wFull"
             alignCenter
             gapTwo
           >
-            <HeadingSix textHeading mb0>
+            <Typography variant="h6" color="textHeading">
               11/12/2022
-            </HeadingSix>
-          </DefaultContainer>
+            </Typography>
+          </Container>
           <Divider />
 
           {data.map((coin, index) => {
@@ -206,48 +204,80 @@ export const History = () => {
                   <>
                     <UnOrderedList
                       key={index}
-                      contentGratient
-                      ptTwo
-                      pbTwo
-                      plFive
-                      prFive
-                      wFull
+                      bgColor="contentGratient"
+                      pt="ptTwo"
+                      pb="pbTwo"
+                      pl="plFive"
+                      pr="prFive"
+                      width="wFull"
                       gapTwo
                       alignCenter
                       justifyBetween
                     >
-                      <ListItem w15 alignCenter justifyBetween>
+                      <ListItem width="w25" alignCenter justifyBetween>
                         <Flex gapTwo alignCenter>
                           <Image src={eth} />
                           <Flex column>
-                            <HeadingSix textHeading mb0>
+                            <Typography variant="h6" color="textHeading">
                               {coin.coinName}
-                            </HeadingSix>
-                            <HeadingSmallest textMuted fontNormal mb0>
+                            </Typography>
+
+                            <Typography color="textMuted" font="fontNormal">
                               {coin.coin}
-                            </HeadingSmallest>
+                            </Typography>
                           </Flex>
                         </Flex>
                       </ListItem>
 
-                      <ListItem w15 alignCenter>
-                        <HeadingSix textMuted>{coin.wallet}</HeadingSix>
+                      <ListItem width="w25" alignCenter>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.wallet}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter>
-                        <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                      <ListItem width="w25" alignCenter>
+                        {" "}
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.wallet}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.Amount}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textMuted>${coin.Value}</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.Value}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textSuccess>SUCCESS</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          SUCCESS
+                        </Typography>
                       </ListItem>
                     </UnOrderedList>
                     <Divider />
@@ -256,48 +286,78 @@ export const History = () => {
                   <>
                     <UnOrderedList
                       key={index}
-                      list
-                      ptTwo
-                      pbTwo
-                      plFive
-                      prFive
-                      wFull
+                      bgColor="list"
+                      pt="ptTwo"
+                      pb="pbTwo"
+                      pl="plFive"
+                      pr="prFive"
+                      width="wFull"
                       gapTwo
                       alignCenter
                       justifyBetween
                     >
-                      <ListItem w15 alignCenter justifyBetween>
+                      <ListItem width="w25" alignCenter justifyBetween>
                         <Flex gapTwo alignCenter>
                           <Image src={eth} />
                           <Flex column>
-                            <HeadingSix textHeading mb0>
-                              {coin.coinName}
-                            </HeadingSix>
-                            <HeadingSmallest textMuted fontNormal mb0>
+                            <Typography
+                              variant="h6"
+                              color="textMuted"
+                              font="fontNormal"
+                            >
+                              {coin.Amount}
+                            </Typography>
+                            <Typography color="textMuted" font="fontNormal">
                               {coin.coin}
-                            </HeadingSmallest>
+                            </Typography>
                           </Flex>
                         </Flex>
                       </ListItem>
 
-                      <ListItem w15 alignCenter>
-                        <HeadingSix textMuted>{coin.wallet}</HeadingSix>
+                      <ListItem width="w25" alignCenter>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.wallet}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter>
-                        <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                      <ListItem width="w25" alignCenter>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.Amount}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textMuted>${coin.Amount}</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.Amount}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textMuted>${coin.Value}</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography
+                          variant="h6"
+                          color="textMuted"
+                          font="fontNormal"
+                        >
+                          {coin.Value}
+                        </Typography>
                       </ListItem>
 
-                      <ListItem w15 alignCenter justifyBetween>
-                        <HeadingSix textSuccess>SUCCESS</HeadingSix>
+                      <ListItem width="w25" alignCenter justifyBetween>
+                        <Typography color="textSuccess" font="fontNormal">
+                          {coin.Amount}
+                        </Typography>
                       </ListItem>
                     </UnOrderedList>
                     <Divider />
@@ -306,8 +366,8 @@ export const History = () => {
               </>
             );
           })}
-        </DefaultContainer>
-      </MainContainer>
+        </Container>
+      </Container>
     </>
   );
 };

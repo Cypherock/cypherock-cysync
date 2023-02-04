@@ -4,9 +4,8 @@ import {
   DialogueBoxBody,
   DialogueBoxTopBar,
   Image,
-  HeadingFive,
-  HeadingSix,
-} from "@/cysync-ui";
+  Typography,
+} from "@/component";
 
 import loader from "@/assets/images/Onboarding/deviceAuth/loader.png";
 export const AppClose = () => {
@@ -14,20 +13,19 @@ export const AppClose = () => {
     <>
       <DialogueBoxContainer>
         <DialogueBoxTopBar>
-          <HeadingSix textMuted mb0>
+          <Typography variant="h6" color="textMuted">
             Exicting
-          </HeadingSix>
+          </Typography>
         </DialogueBoxTopBar>
         <DialogueBoxBody>
-          <Image src={loader} mbThree />
-
-          <HeadingFive textHeading>
+          <Image src={loader} mb="mbThree" />
+          <Typography variant="h5" color="textHeading">
             Thanks for contacting us. We will soon get in touch with you to
             assist you
-          </HeadingFive>
-          <HeadingSix textMuted>
+          </Typography>
+          <Typography variant="h5" color="textHeading">
             Please wait while we exit the app...
-          </HeadingSix>
+          </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </>
