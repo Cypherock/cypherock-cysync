@@ -10,24 +10,22 @@ import {
 import loader from "@/assets/images/Onboarding/deviceAuth/loader.png";
 export const AppClose = () => {
   return (
-    <>
-      <DialogueBoxContainer>
-        <DialogueBoxTopBar>
-          <Typography variant="h6" color="textMuted">
-            Exicting
-          </Typography>
-        </DialogueBoxTopBar>
-        <DialogueBoxBody>
-          <Image src={loader} mb="mbThree" />
-          <Typography variant="h5" color="textHeading">
-            Thanks for contacting us. We will soon get in touch with you to
-            assist you
-          </Typography>
-          <Typography variant="h5" color="textHeading">
-            Please wait while we exit the app...
-          </Typography>
-        </DialogueBoxBody>
-      </DialogueBoxContainer>
-    </>
+    <DialogueBoxContainer>
+      <DialogueBoxTopBar>
+        <Typography variant="h6" color="textMuted">
+          Exicting
+        </Typography>
+      </DialogueBoxTopBar>
+      <DialogueBoxBody>
+        <Image src={loader} mb="mbThree" />
+        <Typography variant="h5" color="textHeading">
+          Thanks for contacting us. We will soon get in touch with you to assist
+          you
+        </Typography>
+        <Typography variant="h5" color="textHeading">
+          Please wait while we exit the app...
+        </Typography>
+      </DialogueBoxBody>
+    </DialogueBoxContainer>
   );
 };

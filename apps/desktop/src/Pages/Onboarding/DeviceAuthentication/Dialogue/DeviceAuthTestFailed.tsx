@@ -13,97 +13,89 @@ import setting from "@/assets/images/Onboarding/deviceAuth/settings-wrong.png";
 
 export const DeviceAuthTestFailedServerError = () => {
   return (
-    <>
-      <DialogueBoxContainer md>
-        <DialogueBoxBody>
-          <Image src={serverError} mb="mbFive" />
-          <Typography variant="h5" color="textHeading">
-            Device Authentication has failed
-          </Typography>
+    <DialogueBoxContainer md>
+      <DialogueBoxBody>
+        <Image src={serverError} mb="mbFive" />
+        <Typography variant="h5" color="textHeading">
+          Device Authentication has failed
+        </Typography>
 
-          <Typography variant="h5" color="textMuted">
-            Server data missing: There seems to be a server error. Retry by
-            reconnecting the device first
-          </Typography>
-        </DialogueBoxBody>
+        <Typography variant="h5" color="textMuted">
+          Server data missing: There seems to be a server error. Retry by
+          reconnecting the device first
+        </Typography>
+      </DialogueBoxBody>
 
-        <DialogueBoxFooter>
-          <Button variation="secondary" disabled={true}>
-            Contact
-          </Button>
-          <Button variation="primary">Retry</Button>
-        </DialogueBoxFooter>
-      </DialogueBoxContainer>
-    </>
+      <DialogueBoxFooter>
+        <Button variation="secondary" disabled={true}>
+          Contact
+        </Button>
+        <Button variation="primary">Retry</Button>
+      </DialogueBoxFooter>
+    </DialogueBoxContainer>
   );
 };
 
 export const DeviceAuthTestFailedFrameWareError = () => {
   return (
-    <>
-      <DialogueBoxContainer md>
-        <DialogueBoxBody>
-          <Image src={failed} mb="mbFive" />
-          <Typography variant="h5" color="textHeading">
-            Device Authentication has failed
-          </Typography>
+    <DialogueBoxContainer md>
+      <DialogueBoxBody>
+        <Image src={failed} mb="mbFive" />
+        <Typography variant="h5" color="textHeading">
+          Device Authentication has failed
+        </Typography>
 
-          <Typography variant="h5" color="textMuted">
-            There seems to be error with the ATECC firmware. Contact Cypherock
-            support immmediately
-          </Typography>
-        </DialogueBoxBody>
+        <Typography variant="h5" color="textMuted">
+          There seems to be error with the ATECC firmware. Contact Cypherock
+          support immmediately
+        </Typography>
+      </DialogueBoxBody>
 
-        <DialogueBoxFooter>
-          <Button variation="primary">Contact Support</Button>
-        </DialogueBoxFooter>
-      </DialogueBoxContainer>
-    </>
+      <DialogueBoxFooter>
+        <Button variation="primary">Contact Support</Button>
+      </DialogueBoxFooter>
+    </DialogueBoxContainer>
   );
 };
 
 export const DeviceAuthTestFailedServerDown = () => {
   return (
-    <>
-      <DialogueBoxContainer md>
-        <DialogueBoxBody>
-          <Image src={failed} mb="mbFive" />
-          <Typography variant="h5" color="textHeading">
-            Device Authentication has failed
-          </Typography>
-          <Typography variant="h6" color="textMuted">
-            The server seems to be down try connecting again after some time
-          </Typography>
-        </DialogueBoxBody>
+    <DialogueBoxContainer md>
+      <DialogueBoxBody>
+        <Image src={failed} mb="mbFive" />
+        <Typography variant="h5" color="textHeading">
+          Device Authentication has failed
+        </Typography>
+        <Typography variant="h6" color="textMuted">
+          The server seems to be down try connecting again after some time
+        </Typography>
+      </DialogueBoxBody>
 
-        <DialogueBoxFooter>
-          <Button variation="primary">Retry</Button>
-        </DialogueBoxFooter>
-      </DialogueBoxContainer>
-    </>
+      <DialogueBoxFooter>
+        <Button variation="primary">Retry</Button>
+      </DialogueBoxFooter>
+    </DialogueBoxContainer>
   );
 };
 
 export const DeviceAuthTestFailedDeviceMisconfigured = () => {
   return (
-    <>
-      <DialogueBoxContainer md>
-        <DialogueBoxBody>
-          <Image src={setting} mb="mbFive" />
+    <DialogueBoxContainer md>
+      <DialogueBoxBody>
+        <Image src={setting} mb="mbFive" />
 
-          <Typography variant="h5" color="textHeading">
-            Device Authentication has failed
-          </Typography>
-          <Typography variant="h6" color="textMuted">
-            Device seems to be misconfigured. Contact Cypherock support
-            immediately
-          </Typography>
-        </DialogueBoxBody>
+        <Typography variant="h5" color="textHeading">
+          Device Authentication has failed
+        </Typography>
+        <Typography variant="h6" color="textMuted">
+          Device seems to be misconfigured. Contact Cypherock support
+          immediately
+        </Typography>
+      </DialogueBoxBody>
 
-        <DialogueBoxFooter>
-          <Button variation="primary">Contact Support</Button>
-        </DialogueBoxFooter>
-      </DialogueBoxContainer>
-    </>
+      <DialogueBoxFooter>
+        <Button variation="primary">Contact Support</Button>
+      </DialogueBoxFooter>
+    </DialogueBoxContainer>
   );
 };

@@ -10,25 +10,23 @@ import centerButtonSuccess from "@/assets/images/Onboarding/joystick/centerButto
 
 export const JoyStickToggleCenterButton = () => {
   return (
-    <>
-      <DialogueBoxContainer md>
-        <DialogueBoxBody>
-          <Typography variant="h4" color="textHeading" mb="mbSeven">
-            Center click the joystick to proceed
-          </Typography>
+    <DialogueBoxContainer md>
+      <DialogueBoxBody>
+        <Typography variant="h4" color="textHeading" mb="mbSeven">
+          Center click the joystick to proceed
+        </Typography>
 
-          {/* <Image src={centerButton} mbSeven /> */}
-          <Image src={centerButtonSuccess} mb="mbSeven" />
+        {/* <Image src={centerButton} mbSeven /> */}
+        <Image src={centerButtonSuccess} mb="mbSeven" />
 
-          <Typography variant="h5" color="textHeading" mb="mbOne">
-            X1 Vault has a center button to perform click
-          </Typography>
+        <Typography variant="h5" color="textHeading" mb="mbOne">
+          X1 Vault has a center button to perform click
+        </Typography>
 
-          <Typography variant="h6" color="textMuted">
-            Follow the instruction on the device
-          </Typography>
-        </DialogueBoxBody>
-      </DialogueBoxContainer>
-    </>
+        <Typography variant="h6" color="textMuted">
+          Follow the instruction on the device
+        </Typography>
+      </DialogueBoxBody>
+    </DialogueBoxContainer>
   );
 };

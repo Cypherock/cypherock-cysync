@@ -3,10 +3,8 @@ import { Flex, Container } from "@/component";
 
 export const Aside = () => {
   return (
-    <>
-      <AsideContainer>
-        <Container variant="container"></Container>
-      </AsideContainer>
-    </>
+    <AsideContainer>
+      <Container variant="container"></Container>
+    </AsideContainer>
   );
 };
