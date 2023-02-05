@@ -1,1 +1,1 @@
-import './app.jsx';
+import './main.jsx';
