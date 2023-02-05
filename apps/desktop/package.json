@@ -32,10 +32,11 @@
     "css-loader": "^6.0.0",
     "electron": "22.0.2",
     "node-loader": "^2.0.0",
-    "style-loader": "^3.0.0"
+    "style-loader": "^3.0.0",
+    "vite": "^4.1.1"
   },
   "dependencies": {
-    "electron-forge-plugin-vite": "^0.3.3",
+    "electron-forge-plugin-vite": "^0.3.6",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

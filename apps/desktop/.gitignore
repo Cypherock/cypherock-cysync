@@ -88,8 +88,8 @@ typings/
 # Electron-Forge
 out/
 
-# Vite
-.vite
+# need empty folder as build crashes if doesn't exist
+.vite/*
 
 # Turbo
 .turbo
