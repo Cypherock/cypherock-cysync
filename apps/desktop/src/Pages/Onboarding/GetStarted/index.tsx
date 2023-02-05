@@ -1,31 +1,10 @@
-import { Aside } from "./Aside/Aside.js";
-import { DialogueInfo, DialogueTerms, DialogueWelcome } from "./Dialogues";
-import { Flex, Container } from "@/component";
-import {
-  DeviceAuthTestFailedServerError,
-  DeviceAuthTestFailedDeviceMisconfigured,
-  DeviceAuthTestFailedServerDown,
-  DeviceAuthTestFailedFrameWareError,
-} from "../DeviceAuthentication/Dialogue/DeviceAuthTestFailed.js";
-import { DeviceAuthText } from "../DeviceAuthentication/Dialogue/DeviceAuthTest.js";
-import { JoyStickToggle } from "../JoystickGuide/Dialogue/JoystickToggle.js";
-import { JoyStickToggleCenterButton } from "../JoystickGuide/Dialogue/JoyStickToggleCenterButton.js";
-import { SingleTap } from "../CardAuth/Dialogue/SingleTap.js";
-import { CardPairing } from "../CardAuth/Dialogue/CardPairing.js";
+import { Container } from "@/component";
+import { Information } from "./Dialogues/Information";
 
 export const GetStarted = (): JSX.Element => {
   return (
-    <>
-      <Flex alignCenter contentGratient>
-        <Aside />
-        <Container>
-          {/* <DeviceAuthTestFailedServerError /> */}
-          {/* <DeviceAuthTestFailedDeviceMisconfigured /> */}
-          {/* <DeviceAuthTestFailedServerDown /> */}
-          {/* <CardPairing /> */}
-          {/* <DialogueInfo /> */}
-        </Container>
-      </Flex>
-    </>
+    <Container variant="container">
+      <Information />
+    </Container>
   );
 };

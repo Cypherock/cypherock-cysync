@@ -7,9 +7,9 @@ import {
   Button,
   Typography,
 } from "@/component";
-import serverError from "@/assets/images/Onboarding/deviceAuth/server-off.png";
-import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
-import setting from "@/assets/images/Onboarding/deviceAuth/settings-wrong.png";
+import serverError from "@/assets/images/onboarding/deviceAuth/server-off.png";
+import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
+import setting from "@/assets/images/onboarding/deviceAuth/settings-wrong.png";
 
 export const DeviceAuthTestFailedServerError = () => {
   return (

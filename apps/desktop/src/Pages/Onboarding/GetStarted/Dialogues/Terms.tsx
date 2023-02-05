@@ -10,9 +10,9 @@ import {
   CheckBox,
   Typography,
 } from "@/component";
-import linkImage from "@/assets/images/Onboarding/getStarted/terms-link.png";
+import linkImage from "@/assets/images/onboarding/getStarted/terms-link.png";
 
-export const DialogueTerms = (): JSX.Element => {
+export const Terms = (): JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <DialogueBoxContainer md>

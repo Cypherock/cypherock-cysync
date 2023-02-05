@@ -7,7 +7,7 @@ import {
   Bullet,
   Typography,
 } from "@/component";
-import joystick from "@/assets/images/Onboarding/joystick/joystick.png";
+import joystick from "@/assets/images/onboarding/joystick/joystick.png";
 
 export const JoyStickToggle = () => {
   return (

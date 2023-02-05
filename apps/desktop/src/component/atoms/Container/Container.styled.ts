@@ -16,6 +16,7 @@ export type ContainerProps = {
   roundedListTop?: Boolean;
   roundedListBottom?: Boolean;
   shadow?: Boolean;
+  size?: "lg";
 } & UtilsProps;
 
 export const ContainerStyle = styled.div`
@@ -76,6 +77,13 @@ export const AsideContainerStyle = styled.div`
         border-color: ${theme.palette.background.sepratorBackground};
       `
     );
+  }}
+  ${(props: ContainerProps) => {
+    return props.size === "lg"
+      ? css`
+          max-width: 500px;
+        `
+      : "";
   }}
   padding:48px 42px;
 

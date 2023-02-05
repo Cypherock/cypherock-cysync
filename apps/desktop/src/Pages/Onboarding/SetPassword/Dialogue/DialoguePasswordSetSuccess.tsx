@@ -5,7 +5,7 @@ import {
   Image,
   Typography,
 } from "@/component";
-import success from "@/assets/images/Onboarding/setPass/success.png";
+import success from "@/assets/images/onboarding/setPass/success.png";
 
 export const DialoguePasswordSetSuccess = () => {
   return (

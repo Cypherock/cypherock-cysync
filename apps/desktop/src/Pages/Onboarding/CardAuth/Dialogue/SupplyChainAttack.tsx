@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from "@/component";
-import failed from "@/assets/images/Onboarding/deviceAuth/fail.png";
+import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 
 export const SupplyChainAttack = () => {
   return (

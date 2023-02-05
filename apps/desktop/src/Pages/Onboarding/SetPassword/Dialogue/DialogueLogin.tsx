@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@/component";
-import passwordHide from "@/assets/images/Onboarding/setPass/password-hide.png";
+import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
 
 export const DialogueLogin = () => {
   return (

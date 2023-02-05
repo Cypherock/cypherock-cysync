@@ -5,8 +5,8 @@ import {
   Image,
   Typography,
 } from "@/component";
-import centerButton from "@/assets/images/Onboarding/joystick/centerButton.png";
-import centerButtonSuccess from "@/assets/images/Onboarding/joystick/centerButtonSuccess.png";
+import centerButton from "@/assets/images/onboarding/joystick/centerButton.png";
+import centerButtonSuccess from "@/assets/images/onboarding/joystick/centerButtonSuccess.png";
 
 export const JoyStickToggleCenterButton = () => {
   return (
