@@ -1,8 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "packages": {
+      "inputs": ["packages/*"]
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^packages"],
       "outputs": ["out/**"],
       "inputs": ["apps/*"]
     },
