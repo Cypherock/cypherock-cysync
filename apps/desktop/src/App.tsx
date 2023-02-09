@@ -1,18 +1,20 @@
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme.styled.js";
-import { GlobalStyles } from "./style/Global.styled.js";
-import { GetStarted } from "./pages/onboarding/GetStarted/index.js";
-import { MainApp } from "./pages/mainApp/index.js";
-import { NavigationProvider } from "./context/navigationContext.js";
+import { GlobalStyles } from "./style/Global.styled";
+import { OnboradingMain } from "@/pages/onboarding/index.jsx";
+import { Typography } from "./component/index.js";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationProvider>
+      {/* <NavigationProvider> */}
+      <Router>
         <GlobalStyles />
-        {/* <GetStarted /> */}
-        {/* <MainApp /> */}
-      </NavigationProvider>
+        <OnboradingMain></OnboradingMain>
+      </Router>
+
+      {/* </NavigationProvider> */}
     </ThemeProvider>
   );
 };

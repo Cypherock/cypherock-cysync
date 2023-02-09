@@ -11,26 +11,33 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from "@/component";
 import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
+import back from "@/assets/images/back.png";
+import { Link } from "react-router-dom";
+import { Aside } from "../Aside";
 
-export const DialogueResetPassword = () => {
+export const SetPassword = () => {
   return (
     <Flex gap0>
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+      <Aside />
       <Container variant="container" bgColor="contentGratient">
+        <Flex position="absolute" top="topThree" right="rightThree">
+          <Typography color="textMuted">Help</Typography>
+          <Typography color="textGold">?</Typography>
+        </Flex>
         <DialogueBoxContainer md>
           <DialogueBoxBody>
             <Typography variant="h5" color="textHeading">
-              Resetting password will reset your cySync app
+              Set your cySync password
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
-              Your funds will remain intact, and you will still be able to sync
-              the data again through your X1 Vault
+              We do not store your password on our servers.
             </Typography>
 
             <InputContainer>
-              <InputLabel>Enter Password</InputLabel>
+              <InputLabel>New Password</InputLabel>
               <Input type="text" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </InputContainer>
@@ -41,25 +48,43 @@ export const DialogueResetPassword = () => {
               <img src={passwordHide} alt="" />
             </InputContainer>
             <Divider mb="mbThree" />
+
             <Typography
               variant="h6"
               color="textError"
               mb="mbEight"
               textAlign="left"
             >
-              Your Password is incorrect
+              Password mismatch and other error messages
             </Typography>
-
-            <Typography color="textMuted">
+            <Typography variant="h6" color="textMuted">
               Use 8 or more charecters with a mix of letters, numberts & symbols
             </Typography>
+
             <Divider />
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Button variation="secondary">Go Back</Button>
-            <Button variation="primary">Reset</Button>
+            <Link to="/email2fa">
+              <Button variation="secondary">Skip</Button>
+            </Link>
+            <Link to="/setPasswordSucess">
+              <Button variation="primary">Confirm</Button>
+            </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
+
+        <Link to="/termsOfUse">
+          <Flex
+            position="absolute"
+            bottom="bottomThree"
+            left="backBottom"
+            gapOne
+            alignCenter
+          >
+            <Image src={back} />
+            <Typography color="textMuted">Back</Typography>
+          </Flex>
+        </Link>
       </Container>
     </Flex>
   );

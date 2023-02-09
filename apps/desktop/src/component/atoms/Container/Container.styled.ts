@@ -81,7 +81,7 @@ export const AsideContainerStyle = styled.div`
   ${(props: ContainerProps) => {
     return props.size === "lg"
       ? css`
-          max-width: 500px;
+          width: 500px;
         `
       : "";
   }}

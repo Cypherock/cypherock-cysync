@@ -12,13 +12,13 @@ import { useNavigation } from "@/context/navigationContext";
 import { ScreenTypes } from "@/enum";
 
 export const MainApp = () => {
-  const { currentScreen } = useNavigation();
-  console.log(currentScreen);
+  // const { currentScreen } = useNavigation();
+  // console.log(currentScreen);
   return (
     <>
-      <Flex gap0>
+      <Flex>
         <Aside />
-        <Flex column wFull gap0>
+        <Flex direction="column" width="wFull">
           <TopBar />
 
           {currentScreen === ScreenTypes.Portfolio ? <Portfolio /> : ""}

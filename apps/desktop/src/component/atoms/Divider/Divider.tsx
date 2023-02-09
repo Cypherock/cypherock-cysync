@@ -7,8 +7,8 @@ import {
 export const Divider = ({ variant, ...props }: DividerProps) => {
   switch (variant) {
     case "vertical":
-      return <DividerHorizontalStyle {...props} />;
-    default:
       return <DividerVerticalStyle {...props} />;
+    default:
+      return <DividerHorizontalStyle {...props} />;
   }
 };

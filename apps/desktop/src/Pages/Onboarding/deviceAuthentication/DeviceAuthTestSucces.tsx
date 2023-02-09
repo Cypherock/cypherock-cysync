@@ -4,23 +4,24 @@ import {
   DialogueBoxBody,
   Image,
   Typography,
-  Flex,
   Container,
+  Flex,
 } from "@/component";
 import success from "@/assets/images/onboarding/setPass/success.png";
+import { Aside } from "./Aside";
 
-export const JoyStickToggleSuccess = () => {
+export const DeviceAuthTestSuccess = () => {
   return (
     <Flex gap0>
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+      <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={success} mb="mbThree" />
-            <Typography variant="h5" color="textHeading">
-              Joystick test complete
+            <Image src={success} />
+            <Typography color="textHeading">
+              Your X1 Vault is successfully authenticated
             </Typography>
-            <Typography variant="h6" color="textMuted">
+            <Typography color="textMuted">
               Please wait while take you to the next screen
             </Typography>
           </DialogueBoxBody>

@@ -6,8 +6,8 @@ import {
   Image,
   Typography,
 } from "@/component";
+import loader from "@assets/images/onboarding/deviceAuth/loader.png";
 
-import loader from "@/assets/images/onboarding/deviceAuth/loader.png";
 export const AppClose = () => {
   return (
     <DialogueBoxContainer>

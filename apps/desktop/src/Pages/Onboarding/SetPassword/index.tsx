@@ -1,4 +1,4 @@
-import { Aside } from "./Aside/Aside";
+import { Aside } from "./Aside";
 import { DialogueEmailConfirmation } from "./Dialogue";
 import { Flex, Container } from "@/component";
 

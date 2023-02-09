@@ -1,6 +1,15 @@
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
-import { margin, MarginProps, fontWeight, FontWeightProps } from "../../util";
+import {
+  margin,
+  MarginProps,
+  fontWeight,
+  FontWeightProps,
+  width,
+  WidthProps,
+  position,
+  PositionProps,
+} from "../../util";
 
 export type HeadingProps = {
   color?:
@@ -13,7 +22,9 @@ export type HeadingProps = {
     | "textList";
   textAlign?: "center" | "left" | "right";
 } & MarginProps &
-  FontWeightProps;
+  FontWeightProps &
+  WidthProps &
+  PositionProps;
 
 export const baseStyle = css`
   ${(props: HeadingProps) => {
@@ -86,6 +97,8 @@ export const HeadingOneStyle = styled.h1<HeadingProps>`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const HeadingTwoStyle = styled.h2`
@@ -94,6 +107,8 @@ export const HeadingTwoStyle = styled.h2`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const HeadingThreeStyle = styled.h3`
@@ -101,6 +116,8 @@ export const HeadingThreeStyle = styled.h3`
   font-weight: 400;
   ${baseStyle};
   ${margin};
+  ${width};
+  ${position};
 `;
 
 export const HeadingFourStyle = styled.h4`
@@ -109,6 +126,8 @@ export const HeadingFourStyle = styled.h4`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const HeadingFiveStyle = styled.h5<HeadingProps>`
@@ -117,6 +136,8 @@ export const HeadingFiveStyle = styled.h5<HeadingProps>`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const HeadingSixStyle = styled.h6<HeadingProps>`
@@ -125,6 +146,8 @@ export const HeadingSixStyle = styled.h6<HeadingProps>`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const HeadingSmallestStyle = styled.div`
@@ -133,6 +156,8 @@ export const HeadingSmallestStyle = styled.div`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;
 
 export const SpanStyle = styled.span`
@@ -141,4 +166,6 @@ export const SpanStyle = styled.span`
   ${baseStyle};
   ${margin};
   ${fontWeight};
+  ${width};
+  ${position};
 `;

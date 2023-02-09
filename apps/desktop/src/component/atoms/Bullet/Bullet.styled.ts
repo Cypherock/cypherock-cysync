@@ -14,7 +14,7 @@ export const BulletStyle = styled.div`
   //size
   ${(props: BulletProps) => {
     return (
-      props.size === "lg" &&
+      props.size === "sm" &&
       css`
         width: 8px;
         height: 8px;

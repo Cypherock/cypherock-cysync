@@ -1,1 +1,1 @@
-export * from "./DialogueEmailConfirmation";
+export * from "./EmailConfirmation";
