@@ -4,6 +4,20 @@
     "paths": {
       "@*": ["src/*"],
       "styles/*": ["src/assets/styles/*"]
-    }
+    },
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "module": "commonjs",
+    "target": "es5",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
   }
 }
