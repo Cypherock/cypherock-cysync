@@ -9,7 +9,7 @@ import {
   DialogueBoxFooter,
   Button,
   Typography,
-} from "@/component";
+} from "@components";
 
 import walletExist from "./walletExist.png";
 

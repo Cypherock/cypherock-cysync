@@ -1,4 +1,4 @@
-import { Typography, Flex, Container } from "@/component";
+import { Typography, Flex, Container } from "@components";
 
 export const AsideOnboarding = (): JSX.Element => {
   return (

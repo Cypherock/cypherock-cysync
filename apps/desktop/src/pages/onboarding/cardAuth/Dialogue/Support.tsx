@@ -12,7 +12,7 @@ import {
   DialogueBoxFooter,
   Button,
   Divider,
-} from "@/component";
+} from "@components";
 import exiting from "./exiting.png";
 
 export const Support = () => {

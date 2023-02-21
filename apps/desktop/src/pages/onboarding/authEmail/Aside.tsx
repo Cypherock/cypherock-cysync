@@ -1,4 +1,4 @@
-import { Container, Image, Flex, Typography } from "@/component";
+import { Container, Image, Flex, Typography } from "@components";
 import sysync from "@/assets/images/logo-small.png";
 import aside from "@/assets/images/aside.png";
 import progress from "@/assets/images/set-pass-progression.png";

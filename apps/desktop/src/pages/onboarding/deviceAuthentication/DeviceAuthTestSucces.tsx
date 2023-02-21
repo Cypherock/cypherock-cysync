@@ -6,7 +6,7 @@ import {
   Typography,
   Container,
   Flex,
-} from "@/component";
+} from "@components";
 import success from "@/assets/images/onboarding/setPass/success.png";
 import { Aside } from "./Aside";
 

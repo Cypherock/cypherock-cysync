@@ -8,7 +8,7 @@ import {
   Button,
   HeadingFive,
   Typography,
-} from "@/component";
+} from "@components";
 import arrow from "@/assets/images/main-app/arrow.png";
 import check from "@/assets/images/main-app/check.png";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";

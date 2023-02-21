@@ -6,7 +6,7 @@ import {
   DialogueBoxFooter,
   Button,
   Typography,
-} from "@/component";
+} from "@components";
 import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 
 export const SupplyChainAttack = () => {

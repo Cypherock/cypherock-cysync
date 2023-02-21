@@ -6,7 +6,7 @@ import {
   Container,
   Flex,
   Bullet,
-} from "@/component";
+} from "@components";
 
 export const SingleTap = () => {
   return (

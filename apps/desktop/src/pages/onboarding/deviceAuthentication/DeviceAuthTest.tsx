@@ -6,7 +6,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import loader from "@/assets/images/onboarding/deviceAuth/loader.png";
 import { Aside } from "./Aside";
 

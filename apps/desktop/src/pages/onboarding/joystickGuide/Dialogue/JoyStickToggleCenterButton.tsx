@@ -6,7 +6,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import centerButton from "@/assets/images/onboarding/joystick/centerButton.png";
 import centerButtonSuccess from "@/assets/images/onboarding/joystick/centerButtonSuccess.png";
 

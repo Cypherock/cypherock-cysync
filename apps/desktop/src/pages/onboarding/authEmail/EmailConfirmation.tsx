@@ -12,7 +12,7 @@ import {
   Flex,
   Container,
   Image,
-} from "@/component";
+} from "@components";
 import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
 import back from "@/assets/images/back.png";
 import { Link } from "react-router-dom";

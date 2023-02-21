@@ -9,7 +9,7 @@ import {
   SearchBar,
   DropdownSelect,
   Chip,
-} from "@/component";
+} from "@components";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";
 import usdc from "@/assets/images/main-app/usdc.png";
 import arrow from "@/assets/images/main-app/arrow.png";

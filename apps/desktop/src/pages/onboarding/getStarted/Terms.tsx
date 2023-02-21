@@ -10,7 +10,7 @@ import {
   CheckBox,
   Typography,
   Image,
-} from "@/component";
+} from "@components";
 import linkImage from "@/assets/images/onboarding/getStarted/terms-link.png";
 import back from "@/assets/images/back.png";
 import { Link } from "react-router-dom";

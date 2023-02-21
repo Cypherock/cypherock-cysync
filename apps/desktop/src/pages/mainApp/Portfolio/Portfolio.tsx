@@ -8,7 +8,7 @@ import {
   SnackBarItem,
   Flex,
   Typography,
-} from "@/component";
+} from "@components";
 import arrowUp from "@/assets/images/main-app/arrowUp.png";
 import arrowDown from "@/assets/images/main-app/arrowdown.png";
 import update from "@/assets/images/main-app/update.png";

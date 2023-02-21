@@ -7,7 +7,7 @@ import {
   Flex,
   Divider,
   Tab,
-} from "@/component";
+} from "@components";
 import portfolio from "@/assets/images/main-app/portfolio.png";
 import wallet from "@/assets/images/main-app/wallet.png";
 import sendCrypto from "@/assets/images/main-app/sendCrypto.png";

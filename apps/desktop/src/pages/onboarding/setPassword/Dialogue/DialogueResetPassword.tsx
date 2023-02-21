@@ -11,7 +11,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
 
 export const DialogueResetPassword = () => {

@@ -8,7 +8,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import serverError from "@/assets/images/onboarding/deviceAuth/server-off.png";
 import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 import setting from "@/assets/images/onboarding/deviceAuth/settings-wrong.png";

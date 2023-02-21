@@ -6,7 +6,7 @@
 //   HeadingSix,
 //   Divider,
 //   Image,
-// } from"@/component";
+// } from "@components";
 
 // import connect from "@/assets/images/main-app/connected.png";
 // import sync from "@/assets/images/main-app/sync.png";

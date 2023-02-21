@@ -3,8 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@*": ["src/*"],
+      "@components": ["./src/component"],
       "styles/*": ["src/assets/styles/*"]
     },
     "jsx": "preserve",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
   }
 }

@@ -5,7 +5,7 @@ import {
   DialogueBoxTopBar,
   Image,
   Typography,
-} from "@/component";
+} from "@components";
 import loader from "@assets/images/onboarding/deviceAuth/loader.png";
 
 export const AppClose = () => {

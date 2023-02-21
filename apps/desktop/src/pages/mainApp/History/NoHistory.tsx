@@ -1,4 +1,4 @@
-import { Typography, Container, Image, Button } from "@/component";
+import { Typography, Container, Image, Button } from "@components";
 import noHistory from "@/assets/images/main-app/no-history.png";
 import data from "./coins.json";
 

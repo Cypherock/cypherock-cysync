@@ -1,4 +1,4 @@
-import { Container, Flex, Typography, Image } from "@/component";
+import { Container, Flex, Typography, Image } from "@components";
 import sysync from "@/assets/images/logo-small.png";
 import { Link } from "react-router-dom";
 

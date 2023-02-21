@@ -7,7 +7,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import joystick from "@/assets/images/onboarding/joystick/joystick.png";
 
 export const JoyStickToggle = () => {

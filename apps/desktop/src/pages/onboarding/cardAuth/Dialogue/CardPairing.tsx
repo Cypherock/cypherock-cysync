@@ -8,7 +8,7 @@ import {
   Flex,
   Bullet,
   Button,
-} from "@/component";
+} from "@components";
 
 export const CardPairing = () => {
   return (

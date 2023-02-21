@@ -8,7 +8,7 @@ import {
   Flex,
   Span,
   Typography,
-} from "@/component";
+} from "@components";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
 

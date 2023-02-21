@@ -6,7 +6,7 @@ import {
   Flex,
   Button,
   Typography,
-} from "@/component";
+} from "@components";
 import arrowUp from "@/assets/images/main-app/arrowUp.png";
 import arrowDown from "@/assets/images/main-app/arrowdown.png";
 import bitcoin from "@/assets/images/main-app/bitcoin.png";

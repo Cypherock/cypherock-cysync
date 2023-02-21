@@ -6,7 +6,7 @@ import {
   Typography,
   Flex,
   Container,
-} from "@/component";
+} from "@components";
 import success from "@/assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
