@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { utils, UtilsProps } from "../../util";
 
-export type DividerProps = {
+export interface DividerProps extends UtilsProps {
   variant?: "vertical" | "horizontal";
-} & UtilsProps;
+};
 
 export const DividerHorizontalStyle = styled.div<DividerProps>`
   width: 100%;

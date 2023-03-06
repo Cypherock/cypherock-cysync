@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-export type InputProps = {
+export interface InputProps {
   children?: ReactNode;
   type?: String;
   placeholder?: string;

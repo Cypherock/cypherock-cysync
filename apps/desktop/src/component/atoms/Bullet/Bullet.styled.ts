@@ -1,27 +1,29 @@
 import styled, { css } from "styled-components";
 import { margin } from "../../util";
 
-export type BulletProps = {
+export interface BulletProps {
   variant?: "outline" | "gold" | "success" | "failed" | "muted";
   size?: "lg" | "sm" | "md";
 };
 
-export const BulletStyle = styled.div`
+export const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.textHeading};
   ${margin}
 
   //size
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.size === "sm" &&
       css`
         width: 8px;
         height: 8px;
+        min-width: 8px;
+        min-width: 8px;
       `
     );
   }}
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.size === "lg" &&
       css`
@@ -32,7 +34,7 @@ export const BulletStyle = styled.div`
   }}
 
   //variant
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.variant === "outline" &&
       css`
@@ -44,7 +46,7 @@ export const BulletStyle = styled.div`
       `
     );
   }}
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.variant === "gold" &&
       css`
@@ -52,7 +54,7 @@ export const BulletStyle = styled.div`
       `
     );
   }}
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.variant === "success" &&
       css`
@@ -60,7 +62,7 @@ export const BulletStyle = styled.div`
       `
     );
   }}
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.variant === "failed" &&
       css`
@@ -69,7 +71,7 @@ export const BulletStyle = styled.div`
     );
   }}
 
-  ${(props: BulletProps) => {
+  ${(props) => {
     return (
       props.variant === "muted" &&
       css`

@@ -11,7 +11,7 @@ import {
   PositionProps,
 } from "../../util";
 
-export type HeadingProps = {
+export interface HeadingProps extends MarginProps, FontWeightProps, WidthProps, PositionProps{
   color?:
     | "textGold"
     | "textSilver"
@@ -21,13 +21,10 @@ export type HeadingProps = {
     | "textMuted"
     | "textList";
   textAlign?: "center" | "left" | "right";
-} & MarginProps &
-  FontWeightProps &
-  WidthProps &
-  PositionProps;
+};
 
-export const baseStyle = css`
-  ${(props: HeadingProps) => {
+export const baseStyle = css<HeadingProps>`
+  ${(props) => {
     return (
       props.color === "textGold" &&
       css`

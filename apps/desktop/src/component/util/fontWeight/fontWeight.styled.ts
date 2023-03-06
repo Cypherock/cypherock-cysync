@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-export type FontWeightProps = {
+export interface FontWeightProps {
   font?:
     | "fontThin"
     | "fontExtralight"
@@ -12,8 +12,8 @@ export type FontWeightProps = {
     | "fontExtraBold";
 };
 
-export const fontWeight = css`
-  font-weight: ${(props: FontWeightProps) =>
+export const fontWeight = css<FontWeightProps>`
+  font-weight: ${(props) =>
     props.font === "fontThin"
       ? "100"
       : props.font === "fontExtralight"

@@ -7,7 +7,6 @@ import {
   Typography,
   Container,
   Flex,
-  Image,
 } from "@components";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";

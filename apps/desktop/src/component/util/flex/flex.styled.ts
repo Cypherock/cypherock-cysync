@@ -2,71 +2,126 @@ import { ReactNode } from "react";
 import { css } from "styled-components";
 import { theme } from "@/theme/theme.styled";
 
-export type FlexProps = {
+export interface FlexProps {
   children?: ReactNode;
   wrapReverse?: Boolean;
   noWrap?: Boolean;
-  justifyContent?: Boolean;
-  justifyCenter?: Boolean;
-  justifyAround?: Boolean;
-  justifyBetween?: Boolean;
-  justifyEnd?: Boolean;
-  alignItems?: Boolean;
-  alignStretch?: Boolean;
-  alignEnd?: Boolean;
-  alignCenter?: Boolean;
-  alignBaseline?: Boolean;
-  alignContent?: Boolean;
-  content?: Boolean;
-  contentStart?: Boolean;
-  contentEnd?: Boolean;
-  contentCenter?: Boolean;
-  contentBetween?: Boolean;
-  contentAround?: Boolean;
-  column?: Boolean;
-  gapOne?: Boolean;
-  gapTwo?: Boolean;
-  gap0?: Boolean;
+  justify?: "center" | "around" | "between" | "end";
+  align?: "center" | "around" | "baseline" | "end" | "stretch";
+  content?:
+    | "contentStart"
+    | "contentEnd"
+    | "contentCenter"
+    | "contentBetween"
+    | "contentAround";
+  direction?: "row" | "column";
+  gap?: "gapTwo" | "gapOne" | "gap0";
 };
 
-export const flex = css`
+const justifyContent = css<FlexProps>`
+  ${(props) => {
+    return props.justify === "center"
+      ? css`
+          justify-content: center;
+        `
+      : props.justify === "around"
+      ? css`
+          justify-content: space-around;
+        `
+      : props.justify === "between"
+      ? css`
+          justify-content: space-between;
+        `
+      : props.justify === "end"
+      ? css`
+          justify-content: flex-end;
+        `
+      : "";
+  }}
+`;
+
+const align = css<FlexProps>`
+  ${(props) => {
+    return props.content === "contentStart"
+      ? css`
+          align-items: flex-start;
+        `
+      : props.content === "contentEnd"
+      ? css`
+          align-items: flex-end;
+        `
+      : props.content === "contentCenter"
+      ? css`
+          align-items: center;
+        `
+      : props.content === "contentBetween"
+      ? css`
+          align-items: space-between;
+        `
+      : css`
+          align-items: stretch;
+        `;
+  }}
+`;
+
+const direction = css<FlexProps>`
+  ${(props) => {
+    return props.direction === "column"
+      ? css`
+          flex-direction: column;
+        `
+      : css`
+          flex-direction: row;
+        `;
+  }}
+`;
+
+const gap = css<FlexProps>`
+  ${(props) => {
+    return props.gap === "gap0"
+      ? css`
+          gap: 0px;
+        `
+      : props.gap === "gapOne"
+      ? css`
+          gap: 8px;
+        `
+      : props.gap === "gapTwo"
+      ? css`
+          gap: 16px;
+        `
+      : "";
+  }}
+`;
+
+const content = css<FlexProps>`
+  ${(props) => {
+    return props.justify === "center"
+      ? css`
+          align-content: center;
+        `
+      : props.justify === "around"
+      ? css`
+          align-content: space-around;
+        `
+      : props.justify === "between"
+      ? css`
+          align-content: space-between;
+        `
+      : props.justify === "end"
+      ? css`
+          align-content: flex-end;
+        `
+      : "";
+  }}
+`;
+
+export const flex = css<FlexProps>`
   display: flex;
-  flex-wrap: ${(props: FlexProps) => {
-    props.wrapReverse ? "wrap-reverse" : props.noWrap ? "nowrap" : "wrap";
-  }};
-  justify-content: ${(props: FlexProps) => {
-    if (props.justifyContent) return props.justifyContent;
-    if (props.justifyCenter) return "center";
-    else if (props.justifyAround) return "space-around";
-    else if (props.justifyBetween) return "space-between";
-    else if (props.justifyEnd) return "flex-end";
-    return "flex-start";
-  }};
-  align-items: ${(props: FlexProps) => {
-    if (props.alignItems) return props.alignItems;
-    else if (props.alignStretch) return "stretch";
-    else if (props.alignEnd) return "flex-end";
-    if (props.alignCenter) return "center";
-    else if (props.alignBaseline) return "baseline";
-    return "flex-start";
-  }};
-  align-content: ${(props: FlexProps) => {
-    if (props.alignContent) return props.content;
-    else if (props.contentStart) return "flex-start";
-    else if (props.contentEnd) return "flex-end";
-    else if (props.contentCenter) return "center";
-    else if (props.contentBetween) return "space-between";
-    else if (props.contentAround) return "contentAround";
-    return "stretch";
-  }};
-  flex-direction: ${(props: FlexProps) => (props.column ? "column" : "row")};
-  gap: 2px;
-  gap: ${(props: FlexProps) =>
-    props.gapOne
-      ? theme.spacing.one.spacing
-      : props.gapTwo
-      ? theme.spacing.two.spacing
-      : props.gap0
-      ? "0px"
-      : ""};
+
+  ${justifyContent}
+  ${align}
+  ${content}
+  ${direction}
+  ${gap}
 `;

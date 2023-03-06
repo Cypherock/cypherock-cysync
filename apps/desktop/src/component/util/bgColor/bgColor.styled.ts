@@ -1,11 +1,11 @@
 import { css } from "styled-components";
 
-export type BgColorProps = {
+export interface BgColorProps {
   bgColor?: "contentGratient" | "sideBar" | "list" | "black" | "white";
 };
 
-export const bgColor = css`
-  ${(props: BgColorProps) => {
+export const bgColor = css<BgColorProps>`
+  ${(props) => {
     return (
       props.bgColor === "contentGratient" &&
       css`
@@ -15,7 +15,7 @@ export const bgColor = css`
     );
   }}
 
-  ${(props: BgColorProps) => {
+  ${(props) => {
     return (
       props.bgColor === "sideBar" &&
       css`
@@ -25,7 +25,7 @@ export const bgColor = css`
     );
   }}
 
-${(props: BgColorProps) => {
+${(props) => {
     return (
       props.bgColor === "list" &&
       css`
@@ -35,7 +35,7 @@ ${(props: BgColorProps) => {
   }}
 
 
-${(props: BgColorProps) => {
+${(props) => {
     return (
       props.bgColor === "black" &&
       css`
@@ -43,7 +43,7 @@ ${(props: BgColorProps) => {
       `
     );
   }}
-  ${(props: BgColorProps) => {
+  ${(props) => {
     return (
       props.bgColor === "white" &&
       css`

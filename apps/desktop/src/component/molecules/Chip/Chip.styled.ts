@@ -2,10 +2,10 @@ import { UtilsProps, utils } from "@/component/util";
 import styled, { css } from "styled-components";
 import { ReactNode } from "react";
 
-export type ClipProps = {
+export interface ClipProps extends UtilsProps{
   children?: ReactNode;
   variant?: "banner" | "update" | "active";
-} & UtilsProps;
+};
 
 export const ChipStyle = styled.div<ClipProps>`
   cursor: pointer;

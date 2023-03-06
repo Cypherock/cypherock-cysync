@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { utils, UtilsProps } from "../../util";
 import { theme } from "@/theme/theme.styled";
 
-export type ContainerProps = {
+export interface ContainerProps extends UtilsProps {
   variant?:
     | "defaultContainer"
     | "container"
@@ -17,7 +17,7 @@ export type ContainerProps = {
   roundedListBottom?: Boolean;
   shadow?: Boolean;
   size?: "lg";
-} & UtilsProps;
+}
 
 export const ContainerStyle = styled.div`
   ${utils}
@@ -30,8 +30,8 @@ export const ContainerStyle = styled.div`
   align-items: center;
 `;
 
-export const DefaultContainerStyle = styled.div`
-  ${(props: ContainerProps) => {
+export const DefaultContainerStyle = styled.div<ContainerProps>`
+  ${(props) => {
     return (
       props.shadow &&
       css`
@@ -39,7 +39,7 @@ export const DefaultContainerStyle = styled.div`
       `
     );
   }}
-  ${(props: ContainerProps) => {
+  ${(props) => {
     return (
       props.border &&
       css`
@@ -51,24 +51,24 @@ export const DefaultContainerStyle = styled.div`
   }}
   padding: 16px 24px;
 
-  border-top-left-radius: ${(props: ContainerProps) =>
+  border-top-left-radius: ${(props) =>
     props.roundedListTop ? "24px" : ""};
-  border-top-right-radius: ${(props: ContainerProps) =>
+  border-top-right-radius: ${(props) =>
     props.roundedListTop ? "24px" : ""};
 
-  border-bottom-left-radius: ${(props: ContainerProps) =>
+  border-bottom-left-radius: ${(props) =>
     props.roundedListBottom ? "24px" : ""};
-  border-bottom-right-radius: ${(props: ContainerProps) =>
+  border-bottom-right-radius: ${(props) =>
     props.roundedListBottom ? "24px" : ""};
 
   ${utils}
 `;
 
-export const AsideContainerStyle = styled.div`
+export const AsideContainerStyle = styled.div<ContainerProps>`
   width: 300px;
   min-height: 100vh;
 
-  ${(props: ContainerProps) => {
+  ${(props) => {
     return (
       props.border &&
       css`
@@ -78,7 +78,7 @@ export const AsideContainerStyle = styled.div`
       `
     );
   }}
-  ${(props: ContainerProps) => {
+  ${(props) => {
     return props.size === "lg"
       ? css`
           width: 500px;

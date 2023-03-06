@@ -3,10 +3,9 @@ import styled, { css } from "styled-components";
 import { HeadingSixStyle } from "@/component/atoms/Headings/Heading.styled";
 import { ReactNode } from "react";
 
-export type TabProps = {
+export interface TabProps extends UtilsProps, React.ComponentPropsWithoutRef<"button">  {
   children?: ReactNode;
-} & UtilsProps &
-  React.ComponentPropsWithoutRef<"button">;
+}
 
 export const TabStyle = styled.button<TabProps>`
   ${utils}

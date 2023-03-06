@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { margin, MarginProps, padding, PaddingProps } from "../../util";
 
-export type ImageProps = {
+export interface ImageProps extends MarginProps, PaddingProps{
   src?: any;
-} & MarginProps &
-  PaddingProps;
+};
 
 export const ImageStyle = styled.img`
   ${margin}

@@ -1,14 +1,15 @@
 import { css } from "styled-components";
 import { theme } from "@/theme/theme.styled";
 
-export type BorderRadiusProps = {
+export interface BorderRadiusProps {
   rounded?: "roundedOne" | "roundedTwo" | "roundedFull";
 };
-export type WidthProps = {
+export interface WidthProps {
   width?: "wFull" | "w25" | "w35" | "w15";
 };
-export const borderRadius = css`
-  border-radius: ${(props: BorderRadiusProps) =>
+
+export const borderRadius = css<BorderRadiusProps>`
+  border-radius: ${(props) =>
     props.rounded === "roundedOne"
       ? theme.spacing.one.spacing
       : props.rounded === "roundedTwo"
@@ -18,8 +19,8 @@ export const borderRadius = css`
       : ""};
 `;
 
-export const width = css`
-  width: ${(props: WidthProps) =>
+export const width = css<WidthProps>`
+  width: ${(props) =>
     props.width === "wFull"
       ? "100%"
       : props.width === "w25"

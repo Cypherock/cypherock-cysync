@@ -6,7 +6,6 @@ import {
   Button,
   Container,
   Flex,
-  Span,
   Typography,
 } from "@components";
 import { Link } from "react-router-dom";
@@ -23,7 +22,7 @@ export const Welcome = (): JSX.Element => {
         </Flex>
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Ensure the product contains the following
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbSix">
@@ -32,7 +31,7 @@ export const Welcome = (): JSX.Element => {
             <Container rounded="roundedOne" bgColor="list" mb="mbSix">
               <Flex justifyBetween width="wFull">
                 <Flex column>
-                  <Flex alignCenter gapTwo>
+                  <Flex alignCenter gapTwo mb="mbTwo">
                     <Bullet variant="gold" size="sm" />
 
                     <Typography variant="h6" color="textGold">
@@ -50,7 +49,7 @@ export const Welcome = (): JSX.Element => {
                 </Flex>
 
                 <Flex column>
-                  <Flex alignCenter gapTwo>
+                  <Flex alignCenter gapTwo mb="mbTwo">
                     <Bullet size="sm" />
 
                     <Typography variant="h6" color="textMuted">

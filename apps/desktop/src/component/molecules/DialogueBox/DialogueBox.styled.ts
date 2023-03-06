@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-export type DialogueBoxProps = {
+export interface DialogueBoxProps {
   children?: ReactNode;
   lg?: Boolean;
   md?: Boolean;
 };
 
-export const DialogueBoxContainerStyle = styled.section`
-  max-width: ${(props: DialogueBoxProps) =>
+export const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
+  max-width: ${(props) =>
     props.lg ? "700px" : props.md ? "500px" : ""};
-  min-width: ${(props: DialogueBoxProps) =>
+  min-width: ${(props) =>
     props.lg ? "700px" : props.md ? "500px" : ""};
   border-width: 1px;
   border-style: solid;

@@ -18,14 +18,14 @@ import {
   WidthProps,
 } from "../index";
 
-export type UtilsProps = {} & BgColorProps &
-  BorderRadiusProps &
-  FlexProps &
-  FontWeightProps &
-  PositionProps &
-  MarginProps &
-  PaddingProps &
-  WidthProps;
+export interface UtilsProps extends BgColorProps,
+  BorderRadiusProps ,
+  FlexProps,
+  FontWeightProps,
+  PositionProps,
+  MarginProps,
+  PaddingProps,
+  WidthProps {}
 
 export const utils = css<UtilsProps>`
   ${bgColor};

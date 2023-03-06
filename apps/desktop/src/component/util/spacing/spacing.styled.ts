@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 import { theme } from "@/theme/theme.styled";
 
-export type MarginProps = {
+export interface MarginProps {
   mb?:
     | "mb0"
     | "mbOne"
@@ -14,7 +14,7 @@ export type MarginProps = {
     | "mbEight";
 };
 
-export type PaddingProps = {
+export interface PaddingProps {
   pb?:
     | "pb0"
     | "pbOne"
@@ -60,8 +60,8 @@ export type PaddingProps = {
     | "prEight";
 };
 
-export const margin = css`
-  margin-bottom: ${(props: MarginProps) =>
+export const margin = css<MarginProps>`
+  margin-bottom: ${(props) =>
     props.mb === "mbOne"
       ? theme.spacing.one.spacing
       : props.mb === "mbTwo"
@@ -83,8 +83,8 @@ export const margin = css`
       : ""};
 `;
 
-export const padding = css`
-  padding-bottom: ${(props: PaddingProps) =>
+export const padding = css<PaddingProps>`
+  padding-bottom: ${(props) =>
     props.pb === "pbOne"
       ? theme.spacing.one.spacing
       : props.pb === "pbTwo"
@@ -105,7 +105,7 @@ export const padding = css`
       ? theme.spacing.eight.spacing
       : ""};
 
-  padding-top: ${(props: PaddingProps) =>
+  padding-top: ${(props) =>
     props.pt === "ptOne"
       ? theme.spacing.one.spacing
       : props.pt === "ptTwo"
@@ -126,7 +126,7 @@ export const padding = css`
       ? theme.spacing.eight.spacing
       : ""};
 
-  padding-left: ${(props: PaddingProps) =>
+  padding-left: ${(props) =>
     props.pl === "plOne"
       ? theme.spacing.one.spacing
       : props.pl === "plTwo"
@@ -147,7 +147,7 @@ export const padding = css`
       ? theme.spacing.eight.spacing
       : ""};
 
-  padding-right: ${(props: PaddingProps) =>
+  padding-right: ${(props) =>
     props.pr === "prOne"
       ? theme.spacing.one.spacing
       : props.pr === "prTwo"

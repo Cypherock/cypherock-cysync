@@ -2,13 +2,13 @@ import { width, WidthProps } from "@/component/util";
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
-export type ButtonProps = {
+export interface ButtonProps extends WidthProps {
   variation?: "primary" | "secondary" | "dashedBorder";
   children?: ReactNode;
-} & WidthProps;
+};
 
 const buttonBaseStyle = css<ButtonProps>`
-  ${(props: ButtonProps) => {
+  ${(props) => {
     return props.variation === "secondary"
       ? css`
           border: 0.6px solid #49433e;

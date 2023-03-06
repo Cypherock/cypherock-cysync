@@ -22,11 +22,11 @@ export const Usage = (): JSX.Element => {
       <Container variant="container" bgColor="contentGratient" gapTwo>
         <DialogueBoxContainer>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               I am using Cypherock X1 for the first time
             </Typography>
             <Typography variant="h6" color="textMuted">
-              I am using Cypherock X1 for the first time
+              This is dialogue text or sub heading
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
@@ -38,7 +38,7 @@ export const Usage = (): JSX.Element => {
 
         <DialogueBoxContainer>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               I have already used a Cypherock X1
             </Typography>
             <Typography variant="h6" color="textMuted">

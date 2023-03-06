@@ -3,17 +3,17 @@ import styled, { css } from "styled-components";
 import { HeadingSixStyle } from "@/component/atoms/Headings/Heading.styled";
 import { ReactNode } from "react";
 
-export type SnackBarProps = {
+export interface SnackBarProps extends UtilsProps {
   children?: ReactNode;
   variant?: "banner" | "update";
-} & UtilsProps;
+};
 
-export const SnackBarStyle = styled.div`
+export const SnackBarStyle = styled.div<SnackBarProps>`
   width: 100%;
   border-radius: 12px;
   box-shadow: 4px 4px 32px 4px #0f0d0b;
 
-  ${(props: SnackBarProps) => {
+  ${(props) => {
     return (
       props.variant === "update" &&
       css`
@@ -23,7 +23,7 @@ export const SnackBarStyle = styled.div`
     );
   }}
 
-  ${(props: SnackBarProps) => {
+  ${(props) => {
     return (
       props.variant === "banner" &&
       css`
@@ -43,10 +43,10 @@ export const SnackBarItemStyle = styled.div`
   ${utils};
 `;
 
-export const SnackBarBtnStyle = styled.button`
+export const SnackBarBtnStyle = styled.button<SnackBarProps>`
   ${utils};
 
-  ${(props: SnackBarProps) => {
+  ${(props) => {
     return (
       props.variant === "update" &&
       css`

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { UtilsProps, utils } from "../../util";
 
-export type FlexProps = {
+export interface FlexProps extends UtilsProps {
   justify?: "center" | "around" | "between" | "end";
   align?: "center" | "around" | "baseline" | "end" | "stretch";
   content?:
@@ -16,7 +16,7 @@ export type FlexProps = {
   children?: ReactNode;
   wrapReverse?: Boolean;
   noWrap?: Boolean;
-} & UtilsProps;
+};
 
 const justifyContent = css`
   ${(props: FlexProps) => {

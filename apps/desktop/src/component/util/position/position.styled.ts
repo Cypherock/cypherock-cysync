@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-export type PositionProps = {
+export interface PositionProps {
   position?: "absolute" | "relative" | "fixed" | "sticky";
   top?: "top0" | "topOne" | "topTwo" | "topThree";
   right?: "right0" | "rightOne" | "rightTwo" | "rightThree";
@@ -8,8 +8,8 @@ export type PositionProps = {
   bottom?: "bottom0" | "bottomOne" | "bottomTwo" | "bottomThree";
 };
 
-export const position = css`
-  position: ${(props: PositionProps) =>
+export const position = css<PositionProps>`
+  position: ${(props) =>
     props.position === "absolute"
       ? "absolute"
       : props.position === "relative"
@@ -20,7 +20,7 @@ export const position = css`
       ? "sticky"
       : ""};
 
-  top: ${(props: PositionProps) =>
+  top: ${(props) =>
     props.top === "top0"
       ? "0px"
       : props.top === "topOne"
@@ -30,7 +30,7 @@ export const position = css`
       : props.top === "topThree"
       ? "24px"
       : ""};
-  right: ${(props: PositionProps) =>
+  right: ${(props) =>
     props.right === "right0"
       ? "0px"
       : props.right === "rightOne"
@@ -41,7 +41,7 @@ export const position = css`
       ? "24px"
       : ""};
 
-  left: ${(props: PositionProps) =>
+  left: ${(props) =>
     props.left === "left0"
       ? "0px"
       : props.left === "leftOne"
@@ -54,7 +54,7 @@ export const position = css`
       ? "415px"
       : ""};
 
-  bottom: ${(props: PositionProps) =>
+  bottom: ${(props) =>
     props.bottom === "bottom0"
       ? "0px"
       : props.bottom === "bottomOne"

@@ -2,10 +2,10 @@ import { utils, UtilsProps } from "@/component/util";
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-export type ListProps = {
+export interface ListProps extends UtilsProps {
   children?: ReactNode;
   border?: "roundedListBottom" | "roundedListTop";
-} & UtilsProps;
+};
 
 export const UnOrderedListStyle = styled.ul`
   ${utils};
