@@ -1,6 +1,5 @@
 import { Container, Flex, Typography, Image } from "@components";
 import sysync from "@/assets/images/logo-small.png";
-import { Link } from "react-router-dom";
 
 export const Aside = (): JSX.Element => {
   return (
@@ -8,11 +7,12 @@ export const Aside = (): JSX.Element => {
       variant="asideContainer"
       bgColor="sideBar"
       size="lg"
-      column
-      justifyBetween
+      direction="column"
+      justify="between"
+      align="center"
     >
-      <Image src={sysync} />
-      <Flex column alignCenter>
+      <Image src={sysync} alignSelf="start" />
+      <Flex direction="column" align="center">
         <Container
           bgColor="list"
           rounded="roundedFull"

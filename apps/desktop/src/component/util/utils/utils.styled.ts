@@ -1,4 +1,5 @@
 import { css } from "styled-components";
+import { alignSelf, AlignSelfProps } from "../alignSelf/alignSelf.styled";
 import {
   BgColorProps,
   BorderRadiusProps,
@@ -25,7 +26,7 @@ export interface UtilsProps extends BgColorProps,
   PositionProps,
   MarginProps,
   PaddingProps,
-  WidthProps {}
+  WidthProps, AlignSelfProps {}
 
 export const utils = css<UtilsProps>`
   ${bgColor};
@@ -37,4 +38,5 @@ export const utils = css<UtilsProps>`
   ${margin};
   ${padding};
   ${width}
+  ${alignSelf}
 `;

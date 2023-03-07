@@ -6,14 +6,9 @@ export interface FlexProps {
   children?: ReactNode;
   wrapReverse?: Boolean;
   noWrap?: Boolean;
-  justify?: "center" | "around" | "between" | "end";
-  align?: "center" | "around" | "baseline" | "end" | "stretch";
-  content?:
-    | "contentStart"
-    | "contentEnd"
-    | "contentCenter"
-    | "contentBetween"
-    | "contentAround";
+  justify?: "start" | "center" | "around" | "between" | "end" | "evenly";
+  align?: "start" | "center" | "baseline" | "end" | "stretch";
+  content?: "start" | "end" | "center" | "between" | "around";
   direction?: "row" | "column";
   gap?: "gapTwo" | "gapOne" | "gap0";
 };
@@ -36,31 +31,39 @@ const justifyContent = css<FlexProps>`
       ? css`
           justify-content: flex-end;
         `
-      : "";
+      : props.justify === "start"
+      ? css`
+          justify-content: flex-start;
+      ` 
+      : props.justify === "evenly"
+      ? css`
+          justify-content: flex-end;
+      `:"";
   }}
 `;
 
 const align = css<FlexProps>`
   ${(props) => {
-    return props.content === "contentStart"
+    return props.align === "start"
       ? css`
           align-items: flex-start;
         `
-      : props.content === "contentEnd"
+      : props.align === "end"
       ? css`
           align-items: flex-end;
         `
-      : props.content === "contentCenter"
+      : props.align === "center"
       ? css`
           align-items: center;
         `
-      : props.content === "contentBetween"
+      : props.align === "baseline"
       ? css`
-          align-items: space-between;
+          align-items: baseline;
         `
-      : css`
+      : props.align === "stretch" 
+      ? css`
           align-items: stretch;
-        `;
+      ` : "";
   }}
 `;
 
@@ -96,21 +99,25 @@ const gap = css<FlexProps>`
 
 const content = css<FlexProps>`
   ${(props) => {
-    return props.justify === "center"
+    return props.content === "center"
       ? css`
           align-content: center;
         `
-      : props.justify === "around"
+      : props.content === "around"
       ? css`
           align-content: space-around;
         `
-      : props.justify === "between"
+      : props.content === "between"
       ? css`
           align-content: space-between;
         `
-      : props.justify === "end"
+      : props.content === "end"
       ? css`
           align-content: flex-end;
+        `
+      : props.content === "start"
+      ? css`
+          align-content: start;
         `
       : "";
   }}
