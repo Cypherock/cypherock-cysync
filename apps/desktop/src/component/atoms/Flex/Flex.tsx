@@ -1,9 +1,7 @@
-import { FlexStyle, FlexProps } from "./Flex.styled";
+import { FlexStyle } from "./Flex.styled";
 
-export const Flex = ({ children, ...props }: FlexProps) => {
+export const Flex = ({ children, ...props }) => {
   return (
-    <>
       <FlexStyle {...props}>{children}</FlexStyle>
-    </>
   );
 };

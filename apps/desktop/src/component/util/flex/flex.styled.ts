@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { css } from "styled-components";
-import { theme } from "@/theme/theme.styled";
 
 export interface FlexProps {
   children?: ReactNode;

@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import {
   margin,
@@ -11,7 +10,7 @@ import {
   PositionProps,
 } from "../../util";
 
-export interface HeadingProps extends MarginProps, FontWeightProps, WidthProps, PositionProps{
+export interface HeadingProps extends MarginProps, FontWeightProps, WidthProps, PositionProps {
   color?:
     | "textGold"
     | "textSilver"
@@ -85,6 +84,7 @@ ${(props) => {
       : props.textAlign === "center"
       ? "center"
       : ""};
+
   max-width: 100%;
 `;
 

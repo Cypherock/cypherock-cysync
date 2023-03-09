@@ -10,14 +10,15 @@ export const Aside = () => {
         variant="asideContainer"
         bgColor="sideBar"
         size="lg"
-        column
-        justifyBetween
+        direction="column"
+        justify="between"
+        align="center"
       >
-        <Image src={sysync} />
-        <Flex column alignCenter>
+        <Image src={sysync} alignSelf="start"/>
+        <Flex direction="column" align="center">
           <Image src={aside} />
         </Flex>
-        <Flex column width="wFull" alignCenter>
+        <Flex direction="column" width="wFull" align="center">
           <Typography
             variant="h4"
             color="textSilver"

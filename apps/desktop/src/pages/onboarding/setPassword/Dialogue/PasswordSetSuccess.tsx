@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -14,13 +13,13 @@ import back from "@/assets/images/back.png";
 
 export const PasswordSetSuccess = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
             <Image src={success} mb="mbFour" />
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               Your new password is set
             </Typography>
             <Typography variant="h6" color="textMuted">
@@ -34,8 +33,8 @@ export const PasswordSetSuccess = () => {
             position="absolute"
             bottom="bottomThree"
             left="backBottom"
-            gapOne
-            alignCenter
+            gap="gapOne"
+            align="center"
           >
             <Image src={back} />
             <Typography color="textMuted">Back</Typography>

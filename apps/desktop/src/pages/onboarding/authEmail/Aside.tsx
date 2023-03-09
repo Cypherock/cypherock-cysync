@@ -5,31 +5,30 @@ import progress from "@/assets/images/set-pass-progression.png";
 
 export const Aside = () => {
   return (
-    <>
-      <Container
-        variant="asideContainer"
-        bgColor="sideBar"
-        size="lg"
-        column
-        justifyBetween
-      >
-        <Image src={sysync} />
-        <Flex column alignCenter>
-          <Image src={aside} />
-        </Flex>
-        <Flex column width="wFull" alignCenter>
-          <Typography
-            variant="h4"
-            color="textSilver"
-            width="wFull"
-            textAlign="center"
-            mb="mbThree"
-          >
-            Email 2FA
-          </Typography>
-          <Image src={progress} />
-        </Flex>
-      </Container>
-    </>
+    <Container
+      variant="asideContainer"
+      bgColor="sideBar"
+      size="lg"
+      direction="column"
+      justify="between"
+      align="center"
+    >
+      <Image src={sysync} alignSelf="start"/>
+      <Flex direction="column" align="center">
+        <Image src={aside} />
+      </Flex>
+      <Flex direction="column" width="wFull" align="center">
+        <Typography
+          variant="h4"
+          color="textSilver"
+          width="wFull"
+          textAlign="center"
+          mb="mbThree"
+        >
+          Email 2FA
+        </Typography>
+        <Image src={progress} />
+      </Flex>
+    </Container>
   );
 };

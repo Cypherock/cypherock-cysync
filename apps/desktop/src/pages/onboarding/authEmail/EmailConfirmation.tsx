@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -20,7 +19,7 @@ import { Aside } from "./Aside";
 
 export const EmailConfirmation = (): JSX.Element => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <Flex position="absolute" top="topThree" right="rightThree">
@@ -29,12 +28,12 @@ export const EmailConfirmation = (): JSX.Element => {
         </Flex>
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               You are recommended to enter an email ID as a 2FA to get
               authenticity results
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
-              We do not store this email ID permanently on our servers (?)
+              We do not store this email ID permanently on servers (?)
             </Typography>
 
             <InputContainer>
@@ -50,7 +49,7 @@ export const EmailConfirmation = (): JSX.Element => {
               mb="mbEight"
               textAlign="left"
             >
-              Email entered is invalid
+              Password mismatch and other error messages
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
@@ -58,7 +57,7 @@ export const EmailConfirmation = (): JSX.Element => {
               <Button variation="secondary">Skip</Button>
             </Link>
             <Link to="/deviceAuthTest">
-              <Button variation="primary">Submit</Button>
+              <Button variation="primary">Continue</Button>
             </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
@@ -68,8 +67,8 @@ export const EmailConfirmation = (): JSX.Element => {
             position="absolute"
             bottom="bottomThree"
             left="backBottom"
-            gapOne
-            alignCenter
+            gap="gapOne"
+            align="center"
           >
             <Image src={back} />
             <Typography color="textMuted">Back</Typography>

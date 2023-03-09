@@ -16,7 +16,7 @@ import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
 
 export const DialogueResetPassword = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Container variant="asideContainer" bgColor="sideBar" size="lg" />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>

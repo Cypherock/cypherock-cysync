@@ -12,6 +12,36 @@ export interface MarginProps {
     | "mbSix"
     | "mbSeven"
     | "mbEight";
+  mr?:
+    | "mr0"
+    | "mrOne"
+    | "mrTwo"
+    | "mrThree"
+    | "mrFour"
+    | "mrFive"
+    | "mrSix"
+    | "mrSeven"
+    | "mrEight";
+  ml?:
+    | "ml0"
+    | "mlOne"
+    | "mlTwo"
+    | "mlThree"
+    | "mlFour"
+    | "mlFive"
+    | "mlSix"
+    | "mlSeven"
+    | "mlEight";
+  mt?:
+    | "mt0"
+    | "mtOne"
+    | "mtTwo"
+    | "mtThree"
+    | "mtFour"
+    | "mtFive"
+    | "mtSix"
+    | "mtSeven"
+    | "mtEight";
 };
 
 export interface PaddingProps {
@@ -79,6 +109,66 @@ export const margin = css<MarginProps>`
       : props.mb === "mbSeven"
       ? theme.spacing.seven.spacing
       : props.mb === "mbEight"
+      ? theme.spacing.eight.spacing
+      : ""};
+  margin-top: ${(props) =>
+    props.mt === "mtOne"
+      ? theme.spacing.one.spacing
+      : props.mt === "mtTwo"
+      ? theme.spacing.two.spacing
+      : props.mt === "mtThree"
+      ? theme.spacing.three.spacing
+      : props.mt === "mtFour"
+      ? theme.spacing.four.spacing
+      : props.mt === "mtFive"
+      ? theme.spacing.five.spacing
+      : props.mt === "mtSix"
+      ? theme.spacing.six.spacing
+      : props.mt === "mt0"
+      ? "0px"
+      : props.mt === "mtSeven"
+      ? theme.spacing.seven.spacing
+      : props.mt === "mtEight"
+      ? theme.spacing.eight.spacing
+      : ""};
+  margin-left: ${(props) =>
+    props.ml === "mlOne"
+      ? theme.spacing.one.spacing
+      : props.ml === "mlTwo"
+      ? theme.spacing.two.spacing
+      : props.ml === "mlThree"
+      ? theme.spacing.three.spacing
+      : props.ml === "mlFour"
+      ? theme.spacing.four.spacing
+      : props.ml === "mlFive"
+      ? theme.spacing.five.spacing
+      : props.ml === "mlSix"
+      ? theme.spacing.six.spacing
+      : props.ml === "ml0"
+      ? "0px"
+      : props.ml === "mlSeven"
+      ? theme.spacing.seven.spacing
+      : props.ml === "mlEight"
+      ? theme.spacing.eight.spacing
+      : ""};
+  margin-right: ${(props) =>
+    props.mr === "mrOne"
+      ? theme.spacing.one.spacing
+      : props.mr === "mrTwo"
+      ? theme.spacing.two.spacing
+      : props.mr === "mrThree"
+      ? theme.spacing.three.spacing
+      : props.mr === "mrFour"
+      ? theme.spacing.four.spacing
+      : props.mr === "mrFive"
+      ? theme.spacing.five.spacing
+      : props.mr === "mrSix"
+      ? theme.spacing.six.spacing
+      : props.mr === "mr0"
+      ? "0px"
+      : props.mr === "mrSeven"
+      ? theme.spacing.seven.spacing
+      : props.mr === "mrEight"
       ? theme.spacing.eight.spacing
       : ""};
 `;

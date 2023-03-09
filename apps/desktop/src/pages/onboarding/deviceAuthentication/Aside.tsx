@@ -5,19 +5,19 @@ import progress from "@/assets/images/deciceAuthProgressbar.png";
 
 export const Aside = () => {
   return (
-    <>
       <Container
         variant="asideContainer"
         bgColor="sideBar"
         size="lg"
-        column
-        justifyBetween
+        direction="column"
+        justify="between"
+        align="center"
       >
-        <Image src={sysync} />
-        <Flex column alignCenter>
+        <Image src={sysync} alignSelf="start"/>
+        <Flex direction="column" align="center">
           <Image src={aside} />
         </Flex>
-        <Flex column width="wFull" alignCenter>
+        <Flex direction="column" width="wFull" align="center">
           <Typography
             variant="h2"
             color="textSilver"
@@ -31,6 +31,5 @@ export const Aside = () => {
           <Image src={progress} />
         </Flex>
       </Container>
-    </>
   );
 };

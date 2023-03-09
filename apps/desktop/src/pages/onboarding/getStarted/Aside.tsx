@@ -1,5 +1,6 @@
 import { Container, Flex, Typography, Image } from "@components";
 import sysync from "@/assets/images/logo-small.png";
+import sysyncbig from "@/assets/images/logo-big.png";
 
 export const Aside = (): JSX.Element => {
   return (
@@ -22,7 +23,7 @@ export const Aside = (): JSX.Element => {
           pt="ptFive"
           mb="mbThree"
         >
-          <Image src={sysync} />
+          <Image src={sysyncbig} />
         </Container>
 
         <Typography variant="h3" color="textGold" mb="mbSeven">

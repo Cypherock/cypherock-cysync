@@ -17,9 +17,9 @@ import { useState } from "react";
 export const Usage = (): JSX.Element => {
   const [popup, setPopup] = useState(false);
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
-      <Container variant="container" bgColor="contentGratient" gapTwo>
+      <Container variant="container" bgColor="contentGratient" gap="gapTwo">
         <DialogueBoxContainer>
           <DialogueBoxBody>
             <Typography variant="h5" color="textHeading" mb="mbOne">
@@ -60,7 +60,7 @@ export const Usage = (): JSX.Element => {
         <Flex position="absolute">
           <DialogueBoxContainer>
             <DialogueBoxBody>
-              <Flex alignCenter justifyBetween>
+              <Flex align="center" justify="between">
                 <Flex>
                   <Typography color="textMuted">Help</Typography>
                   <Typography color="textGold">?</Typography>
@@ -75,14 +75,14 @@ export const Usage = (): JSX.Element => {
                 the 4 X1 cards with you.
               </Typography>
 
-              <Flex gapTwo>
+              <Flex gap="gapTwo">
                 <DialogueBoxContainer>
                   <DialogueBoxBody>
                     <Typography variant="h6" color="textHeading" mb="mbFive">
                       Create a new wallet
                     </Typography>
-                    <Container bgColor="list" column>
-                      <Flex alignCenter mb="mbTwo" gapTwo>
+                    <Container bgColor="list" direction="column">
+                      <Flex align="center" mb="mbTwo" gap="gapTwo">
                         <Bullet size="sm" />
                         <Typography
                           variant="h6"
@@ -108,8 +108,8 @@ export const Usage = (): JSX.Element => {
                       Import your wallet from a seed phrase
                     </Typography>
 
-                    <Container bgColor="list" column>
-                      <Flex alignCenter mb="mbTwo" gapTwo>
+                    <Container bgColor="list" direction="column">
+                      <Flex align="center" mb="mbTwo" gap="gapTwo">
                         <Bullet size="sm" />
                         <Typography
                           variant="h6"
@@ -121,7 +121,7 @@ export const Usage = (): JSX.Element => {
                         </Typography>
                       </Flex>
 
-                      <Flex alignCenter mb="mbTwo" gapTwo>
+                      <Flex align="center" mb="mbTwo" gap="gapTwo">
                         <Bullet size="sm" />
                         <Typography
                           variant="h6"
@@ -133,7 +133,7 @@ export const Usage = (): JSX.Element => {
                         </Typography>
                       </Flex>
 
-                      <Flex alignCenter mb="mbTwo" gapTwo>
+                      <Flex align="center" mb="mbTwo" gap="gapTwo">
                         <Bullet size="sm" />
                         <Typography
                           variant="h6"
@@ -154,8 +154,8 @@ export const Usage = (): JSX.Element => {
                 </DialogueBoxContainer>
               </Flex>
 
-              <Flex gapTwo alignCenter>
-                <Flex column>
+              <Flex gap="gapTwo" align="center">
+                <Flex direction="column">
                   <Typography variant="h5" color="textHeading" textAlign="left">
                     Transfer from old to new Cypherock X1
                   </Typography>

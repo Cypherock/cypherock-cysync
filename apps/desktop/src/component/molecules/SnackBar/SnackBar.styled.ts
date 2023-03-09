@@ -1,6 +1,5 @@
 import { utils, UtilsProps } from "@/component/util";
 import styled, { css } from "styled-components";
-import { HeadingSixStyle } from "@/component/atoms/Headings/Heading.styled";
 import { ReactNode } from "react";
 
 export interface SnackBarProps extends UtilsProps {

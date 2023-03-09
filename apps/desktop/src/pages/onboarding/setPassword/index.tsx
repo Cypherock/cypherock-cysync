@@ -5,7 +5,7 @@ import { Flex, Container } from "@components";
 export const GetStarted = (): JSX.Element => {
   return (
     <>
-      <Flex alignCenter contentGratient>
+      <Flex align="center" contentGratient>
         <Aside />
         <Container>
           <DialogueEmailConfirmation />

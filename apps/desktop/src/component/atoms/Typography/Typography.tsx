@@ -10,11 +10,11 @@ import {
 } from "./Typography.style";
 import { ReactNode } from "react";
 
-type TypographyProps = {
+interface TypographyProps extends HeadingProps {
   src?: any;
   children?: ReactNode;
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-} & HeadingProps;
+};
 
 export const Typography = ({
   variant,

@@ -2,7 +2,7 @@ import { width, WidthProps } from "@/component/util";
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
-export interface ButtonProps extends WidthProps {
+export interface ButtonProps extends WidthProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
   variation?: "primary" | "secondary" | "dashedBorder";
   children?: ReactNode;
 };
@@ -19,6 +19,9 @@ const buttonBaseStyle = css<ButtonProps>`
       : props.variation === "primary"
       ? css`
           background-image: ${({ theme }) => theme.palette.primary.primary};
+          border: none;
+          font-size: 14px;
+          font-weight: 500;
         `
       : props.variation === "dashedBorder"
       ? css`

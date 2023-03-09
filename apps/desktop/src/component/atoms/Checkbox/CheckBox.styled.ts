@@ -14,7 +14,7 @@ export const SquareCheckBoxStyle = styled.div<SquareCheckBoxProps>`
   align-items: center;
   border-radius: 3px;
   background-image: ${({ theme }) => theme.palette.primary.primary};
-
+  
   div {
     width: 13px;
     height: 13px;

@@ -12,7 +12,7 @@ import { Aside } from "./Aside";
 
 export const DeviceAuthTest = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <Flex position="absolute" top="topThree" right="rightThree">
@@ -23,7 +23,7 @@ export const DeviceAuthTest = () => {
         <DialogueBoxContainer md>
           <DialogueBoxBody>
             <Image src={loader} mb="mbFive" />
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbThree">
               Your X1 Vault will now be authenticated through Cypherock to check
               its authenticity... (?)
             </Typography>

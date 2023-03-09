@@ -19,7 +19,7 @@ import { Aside } from "./Aside";
 export const Terms = (): JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <Flex position="absolute" top="topThree" right="rightThree">
@@ -29,17 +29,17 @@ export const Terms = (): JSX.Element => {
 
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               Terms of use
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbSix">
-              Please take some time to review our Terms or Service and Privacy
+              Please take some time to review our Terms of Service and Privacy
               Policy
             </Typography>
 
             <Container mb="mbTwo" rounded="roundedOne" bgColor="list" border>
-              <Flex justifyBetween width="wFull">
-                <Flex alignCenter gapTwo>
+              <Flex justify="between" width="wFull">
+                <Flex align="center" gap="gapTwo">
                   <Bullet size="sm" />
                   <Typography variant="h6" color="textHeading">
                     Terms of Service
@@ -52,8 +52,8 @@ export const Terms = (): JSX.Element => {
             </Container>
 
             <Container mb="mbThree" rounded="roundedOne" bgColor="list" border>
-              <Flex justifyBetween width="wFull">
-                <Flex alignCenter gapTwo>
+              <Flex justify="between" width="wFull">
+                <Flex align="center" gap="gapTwo">
                   <Bullet size="sm" />
 
                   <Typography variant="h6" color="textHeading">
@@ -66,7 +66,7 @@ export const Terms = (): JSX.Element => {
               </Flex>
             </Container>
 
-            <Flex alignCenter>
+            <Flex align="center">
               <CheckBox variation="squareCheckBox">
                 <div>
                   <input
@@ -75,7 +75,7 @@ export const Terms = (): JSX.Element => {
                   />
                 </div>
               </CheckBox>
-              <Typography color="textMuted" textAlign="left">
+              <Typography color="textMuted" textAlign="left" ml="mlTwo">
                 I have read and agree with the Terms of Use and Privacy Policy
               </Typography>
             </Flex>
@@ -99,8 +99,8 @@ export const Terms = (): JSX.Element => {
             position="absolute"
             bottom="bottomThree"
             left="backBottom"
-            gapOne
-            alignCenter
+            gap="gapOne"
+            align="center"
           >
             <Image src={back} />
             <Typography color="textMuted">Back</Typography>

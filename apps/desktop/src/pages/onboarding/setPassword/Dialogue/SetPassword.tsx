@@ -20,7 +20,7 @@ import { Aside } from "../Aside";
 
 export const SetPassword = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <Flex position="absolute" top="topThree" right="rightThree">
@@ -29,7 +29,7 @@ export const SetPassword = () => {
         </Flex>
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               Set your cySync password
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
@@ -57,7 +57,7 @@ export const SetPassword = () => {
             >
               Password mismatch and other error messages
             </Typography>
-            <Typography variant="h6" color="textMuted">
+            <Typography variant="h6" color="textMuted" mb="mbTwo">
               Use 8 or more charecters with a mix of letters, numberts & symbols
             </Typography>
 
@@ -78,8 +78,8 @@ export const SetPassword = () => {
             position="absolute"
             bottom="bottomThree"
             left="backBottom"
-            gapOne
-            alignCenter
+            gap="gapOne"
+            align="center"
           >
             <Image src={back} />
             <Typography color="textMuted">Back</Typography>

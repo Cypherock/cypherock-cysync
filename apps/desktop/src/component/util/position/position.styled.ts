@@ -51,7 +51,7 @@ export const position = css<PositionProps>`
       : props.left === "leftThree"
       ? "24px"
       : props.left === "backBottom"
-      ? "415px"
+      ? "468px"
       : ""};
 
   bottom: ${(props) =>
