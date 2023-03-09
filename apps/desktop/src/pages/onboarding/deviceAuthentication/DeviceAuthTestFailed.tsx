@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -16,17 +15,17 @@ import { Aside } from "./Aside";
 
 export const DeviceAuthTestFailedServerError = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={serverError} mb="mbFive" />
-            <Typography variant="h5" color="textHeading">
+            <Image src={serverError} mb="mbFour" />
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Device Authentication has failed
             </Typography>
 
-            <Typography variant="h5" color="textMuted">
+            <Typography variant="h6" color="textMuted">
               Server data missing: There seems to be a server error. Retry by
               reconnecting the device first
             </Typography>
@@ -44,19 +43,19 @@ export const DeviceAuthTestFailedServerError = () => {
   );
 };
 
-export const DeviceAuthTestFailedFrameWareError = () => {
+export const DeviceAuthTestFailedFirmWareError = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={failed} mb="mbFive" />
-            <Typography variant="h5" color="textHeading">
+            <Image src={failed} mb="mbFour" />
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Device Authentication has failed
             </Typography>
 
-            <Typography variant="h5" color="textMuted">
+            <Typography variant="h6" color="textMuted">
               There seems to be error with the ATECC firmware. Contact Cypherock
               support immmediately
             </Typography>
@@ -73,13 +72,13 @@ export const DeviceAuthTestFailedFrameWareError = () => {
 
 export const DeviceAuthTestFailedServerDown = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={failed} mb="mbFive" />
-            <Typography variant="h5" color="textHeading">
+            <Image src={serverError} mb="mbFour" />
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Device Authentication has failed
             </Typography>
             <Typography variant="h6" color="textMuted">
@@ -98,14 +97,14 @@ export const DeviceAuthTestFailedServerDown = () => {
 
 export const DeviceAuthTestFailedDeviceMisconfigured = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={setting} mb="mbFive" />
+            <Image src={setting} mb="mbFour" />
 
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Device Authentication has failed
             </Typography>
             <Typography variant="h6" color="textMuted">

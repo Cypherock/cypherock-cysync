@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -12,13 +11,13 @@ import { Aside } from "./Aside";
 
 export const DeviceAuthTestSuccess = () => {
   return (
-    <Flex gap0>
+    <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Image src={success} />
-            <Typography color="textHeading">
+            <Image src={success} mb="mbFour" />
+            <Typography variant="h5" color="textHeading" mb="mbOne">
               Your X1 Vault is successfully authenticated
             </Typography>
             <Typography color="textMuted">
