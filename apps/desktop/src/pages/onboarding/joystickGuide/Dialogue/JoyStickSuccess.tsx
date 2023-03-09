@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -8,11 +7,12 @@ import {
   Container,
 } from "@components";
 import success from "@/assets/images/onboarding/setPass/success.png";
+import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggleSuccess = () => {
   return (
-    <Flex gap0>
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+    <Flex gap="gap0">
+      <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
@@ -20,7 +20,7 @@ export const JoyStickToggleSuccess = () => {
             <Typography variant="h5" color="textHeading">
               Joystick test complete
             </Typography>
-            <Typography variant="h6" color="textMuted">
+            <Typography variant="h6" color="textMuted" mt="mtOne">
               Please wait while take you to the next screen
             </Typography>
           </DialogueBoxBody>

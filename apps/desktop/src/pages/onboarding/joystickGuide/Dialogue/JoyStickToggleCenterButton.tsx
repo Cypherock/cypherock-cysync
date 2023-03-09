@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -7,13 +6,13 @@ import {
   Flex,
   Container,
 } from "@components";
-import centerButton from "@/assets/images/onboarding/joystick/centerButton.png";
 import centerButtonSuccess from "@/assets/images/onboarding/joystick/centerButtonSuccess.png";
+import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggleCenterButton = () => {
   return (
-    <Flex gap0>
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+    <Flex gap="gap0">
+      <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
@@ -21,7 +20,6 @@ export const JoyStickToggleCenterButton = () => {
               Center click the joystick to proceed
             </Typography>
 
-            {/* <Image src={centerButton} mbSeven /> */}
             <Image src={centerButtonSuccess} mb="mbSeven" />
 
             <Typography variant="h5" color="textHeading" mb="mbOne">

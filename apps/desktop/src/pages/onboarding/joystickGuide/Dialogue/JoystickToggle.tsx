@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -9,11 +8,12 @@ import {
   Container,
 } from "@components";
 import joystick from "@/assets/images/onboarding/joystick/joystick.png";
+import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggle = () => {
   return (
-    <Flex gap0>
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+    <Flex gap="gap0">
+      <Aside />
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
@@ -21,34 +21,34 @@ export const JoyStickToggle = () => {
               Toggle Up
             </Typography>
 
-            <Flex alignCenter column mb="mbTwo">
-              <Typography color="textSuccess">Up</Typography>
+            <Flex align="center" direction="column" mb="mbTwo">
+              <Typography color="textSuccess" mb="mbOne">Up</Typography>
               <Bullet variant="success" size="lg" />
             </Flex>
 
-            <Flex alignCenter justifyCenter mb="mbTwo">
-              <Flex alignCenter>
-                <Typography color="textMuted"> Left</Typography>
-
-                <Bullet variant="outline" />
+            <Flex align="center" justify="center" mb="mbTwo">
+              <Flex align="center">
+                <Typography color="textMuted" mr="mrOne"> Left</Typography>
+                <Bullet variant="outline"/>
               </Flex>
 
-              <Image src={joystick} />
-              {/* <DefaultContainer list roundedFull pThree></DefaultContainer> */}
-              <Flex alignCenter>
+              <Image src={joystick} ml="mlTwo" mr="mrTwo"/>
+              
+              <Flex align="center">
                 <Bullet size="lg" variant="gold" />
-                <Typography color="textGold"> Right</Typography>
+                <Typography color="textGold" ml="mlOne"> Right</Typography>
               </Flex>
             </Flex>
 
-            <Flex alignCenter column mb="mbSeven">
+            <Flex align="center" direction="column" mb="mbSeven">
               <Bullet variant="failed" size="lg" />
-              <Typography color="textError"> Down</Typography>
+              <Typography color="textError" mt="mtOne"> Down</Typography>
             </Flex>
+
             <Typography variant="h5" color="textHeading">
               X1 Vault provides 4 way joystick for screen navigation
             </Typography>
-            <Typography variant="h6" color="textMuted">
+            <Typography variant="h6" color="textMuted" mt="mtTwo">
               Follow the instruction on the device
             </Typography>
           </DialogueBoxBody>
