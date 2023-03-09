@@ -8,7 +8,8 @@ export interface ContainerProps extends UtilsProps {
     | "defaultContainer"
     | "container"
     | "asideContainer"
-    | "mainContainer";
+    | "mainContainer"
+    | "modalContainer";
   children?: ReactNode;
   borderRadiusOne?: Boolean;
   border?: Boolean;
@@ -93,4 +94,18 @@ export const AsideContainerStyle = styled.div<ContainerProps>`
 export const MainContainerStyle = styled(DefaultContainerStyle)`
   height: 89vh;
   overflow-y: scroll;
+`;
+
+export const ModalContainerStyle = styled.div`
+  ${utils}
+
+  height: 100vh;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
+  backdrop-filter: blur(3px);
 `;

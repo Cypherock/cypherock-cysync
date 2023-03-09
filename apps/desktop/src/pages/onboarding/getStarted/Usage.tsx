@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
 import close from "@/assets/images/close.png";
 import { useState } from "react";
+import addwallet from "@/assets/images/add-wallet.png";
+import importwallet from "@/assets/images/import-wallet.png";
+import recoverwallet from "@/assets/images/recover-wallet.png";
 
 export const Usage = (): JSX.Element => {
   const [popup, setPopup] = useState(false);
@@ -57,7 +60,8 @@ export const Usage = (): JSX.Element => {
       </Container>
 
       {popup ? (
-        <Flex position="absolute">
+      <Container position="absolute" variant="modalContainer" justify="center" align="center">
+        <Flex>
           <DialogueBoxContainer>
             <DialogueBoxBody>
               <Flex align="center" justify="between">
@@ -78,11 +82,12 @@ export const Usage = (): JSX.Element => {
               <Flex gap="gapTwo">
                 <DialogueBoxContainer>
                   <DialogueBoxBody>
+                    <Image src={addwallet} mb="mbFour" />
                     <Typography variant="h6" color="textHeading" mb="mbFive">
                       Create a new wallet
                     </Typography>
                     <Container bgColor="list" direction="column">
-                      <Flex align="center" mb="mbTwo" gap="gapTwo">
+                      <Flex align="center" mb="mbTwo" gap="gapTwo" pb="pbEight">
                         <Bullet size="sm" />
                         <Typography
                           variant="h6"
@@ -104,6 +109,7 @@ export const Usage = (): JSX.Element => {
 
                 <DialogueBoxContainer>
                   <DialogueBoxBody>
+                    <Image src={importwallet} mb="mbFour" />
                     <Typography variant="h6" color="textHeading" mb="mbFive">
                       Import your wallet from a seed phrase
                     </Typography>
@@ -154,23 +160,30 @@ export const Usage = (): JSX.Element => {
                 </DialogueBoxContainer>
               </Flex>
 
-              <Flex gap="gapTwo" align="center">
-                <Flex direction="column">
+              <Flex gap="gapTwo" align="center" mt="mtEight">
+                <Image src={recoverwallet}/>
+                <Flex direction="column" ml="mlTwo">
                   <Typography variant="h5" color="textHeading" textAlign="left">
                     Transfer from old to new Cypherock X1
                   </Typography>
                   <Typography variant="h6" color="textMuted" textAlign="left">
                     If you ever had a Cypherock X1 and want to migrate your
                     wallets to a new Cypherock X1. This might be required in
-                    case your lost your X1 wallet and one or more of the X1
+                    case your lost your X1 wallet
+                  </Typography>
+                  <Typography variant="h6" color="textMuted" textAlign="left">
+                    and one or more of the X1
                     cards whatsoever, we don’t judge
                   </Typography>
                 </Flex>
-                <Button variation="primary">Transfer</Button>
+                <Container ml="mlTwo">
+                  <Button variation="primary">Transfer</Button>
+                </Container>
               </Flex>
             </DialogueBoxBody>
           </DialogueBoxContainer>
         </Flex>
+      </Container>
       ) : (
         ""
       )}

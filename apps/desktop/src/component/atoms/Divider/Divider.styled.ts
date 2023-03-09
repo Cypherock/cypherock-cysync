@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { utils, UtilsProps } from "../../util";
 
 export interface DividerProps extends UtilsProps {

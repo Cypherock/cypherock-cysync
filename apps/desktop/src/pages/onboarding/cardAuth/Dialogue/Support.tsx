@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -13,7 +12,6 @@ import {
   Button,
   Divider,
 } from "@components";
-import exiting from "./exiting.png";
 
 export const Support = () => {
   return (
