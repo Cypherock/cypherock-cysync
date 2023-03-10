@@ -25,7 +25,7 @@ export const Welcome = (): JSX.Element => {
             <Typography variant="h5" color="textHeading" mb="mbOne">
               Ensure the product contains the following
             </Typography>
-            {/* TODO: Give it lesser width */}
+            
             <Typography variant="h6" color="textMuted" mb="mbSix">
               Make sure the tamper-proof seal of the package was intact
             </Typography>
@@ -71,9 +71,8 @@ export const Welcome = (): JSX.Element => {
 
             <Container rounded="roundedOne" bgColor="list" border>
               <Flex>
-              {/* TODO: Make the email white */}
                 <Typography variant="h6" color="textMuted">
-                  Please email at support@cypherock.com if your package does not
+                  Please email at <Typography variant="h6" color="textHeading" display="inline"> support@cypherock.com </Typography> if your package does not
                   contain any of these
                 </Typography>
               </Flex>

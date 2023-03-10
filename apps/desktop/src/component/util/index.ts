@@ -6,3 +6,4 @@ export * from "./fontWeight/fontWeight.styled";
 export * from "./position/position.styled";
 export * from "./utils/utils.styled";
 export * from "./alignSelf/alignSelf.styled";
+export * from "./display/display.styed";

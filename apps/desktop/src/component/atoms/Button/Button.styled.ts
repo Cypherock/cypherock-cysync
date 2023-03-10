@@ -1,8 +1,8 @@
-import { width, WidthProps } from "@/component/util";
+import { alignSelf, width, WidthProps, AlignSelfProps } from "@/component/util";
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
-export interface ButtonProps extends WidthProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends WidthProps, AlignSelfProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
   variation?: "primary" | "secondary" | "dashedBorder" | "warning";
   children?: ReactNode;
 };
@@ -52,4 +52,5 @@ export const ButtonStyle = styled.button<ButtonProps>`
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   ${buttonBaseStyle}
   ${width}
+  ${alignSelf}
 `;

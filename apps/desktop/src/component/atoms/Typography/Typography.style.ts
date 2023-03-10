@@ -8,9 +8,11 @@ import {
   WidthProps,
   position,
   PositionProps,
+  display,
+  DisplayProps
 } from "../../util";
 
-export interface HeadingProps extends MarginProps, FontWeightProps, WidthProps, PositionProps {
+export interface HeadingProps extends MarginProps, FontWeightProps, WidthProps, PositionProps, DisplayProps {
   color?:
     | "textGold"
     | "textSilver"
@@ -96,6 +98,7 @@ export const HeadingOneStyle = styled.h1<HeadingProps>`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingTwoStyle = styled.h2`
@@ -106,6 +109,7 @@ export const HeadingTwoStyle = styled.h2`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingThreeStyle = styled.h3`
@@ -115,6 +119,7 @@ export const HeadingThreeStyle = styled.h3`
   ${margin};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingFourStyle = styled.h4`
@@ -125,6 +130,7 @@ export const HeadingFourStyle = styled.h4`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingFiveStyle = styled.h5<HeadingProps>`
@@ -135,6 +141,7 @@ export const HeadingFiveStyle = styled.h5<HeadingProps>`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingSixStyle = styled.h6<HeadingProps>`
@@ -145,6 +152,7 @@ export const HeadingSixStyle = styled.h6<HeadingProps>`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const HeadingSmallestStyle = styled.div`
@@ -155,6 +163,7 @@ export const HeadingSmallestStyle = styled.div`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;
 
 export const SpanStyle = styled.span`
@@ -165,4 +174,5 @@ export const SpanStyle = styled.span`
   ${fontWeight};
   ${width};
   ${position};
+  ${display};
 `;

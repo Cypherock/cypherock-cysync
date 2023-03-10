@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 import { alignSelf, AlignSelfProps } from "../alignSelf/alignSelf.styled";
+import { display } from "../display/display.styed";
 import {
   BgColorProps,
   BorderRadiusProps,
@@ -29,7 +30,7 @@ export interface UtilsProps extends BgColorProps,
   WidthProps, AlignSelfProps {}
 
 export const utils = css<UtilsProps>`
-  ${bgColor};
+  ${display}
   ${bgColor};
   ${borderRadius};
   ${flex};
