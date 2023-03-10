@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@components";
 
-import walletExist from "./walletExist.png";
+import walletExist from "@/assets/images/onboarding/cardAuth/walletExist.png";
 
 export const SingleTapWalletExist = () => {
   return (
@@ -20,38 +20,36 @@ export const SingleTapWalletExist = () => {
         <Typography variant="h5" color="textHeading">
           Existing wallet
         </Typography>
-        <Typography variant="h6" mb="mbSix" color="textMuted">
+        <Typography variant="h6" mb="mbSix" color="textMuted" mt="mtTwo">
           The following wallets exist inside the X1 cards. Click confirm if
           these wallets were created by you.
         </Typography>
 
-        <Container bgColor="list" border>
-          <Flex alignCenter mb="mbTwo">
-            <Bullet />
-            <Typography variant="h6" color="textMuted">
+        <Container bgColor="list" border direction="column" gap="gapOne">
+          <Flex align="center">
+            <Bullet size="sm" />
+            <Typography variant="h6" color="textMuted" ml="mlTwo">
               Wallet 1
             </Typography>
           </Flex>
 
-          <Flex alignCenter mb="mbTwo">
-            <Bullet />
-
-            <Typography variant="h6" color="textMuted">
-              Wallet 1
+          <Flex align="center">
+            <Bullet size="sm" />
+            <Typography variant="h6" color="textMuted" ml="mlTwo">
+              Wallet 2
             </Typography>
           </Flex>
 
-          <Flex alignCenter>
-            <Bullet />
-
-            <Typography variant="h6" color="textMuted">
-              Wallet 1
+          <Flex align="center">
+            <Bullet size="sm" />
+            <Typography variant="h6" color="textMuted" ml="mlTwo">
+              Wallet 3
             </Typography>
           </Flex>
         </Container>
       </DialogueBoxBody>
       <DialogueBoxFooter>
-        <Button>Not created by me</Button>
+        <Button variation="warning"> Not created by me </Button>
       </DialogueBoxFooter>
     </DialogueBoxContainer>
   );

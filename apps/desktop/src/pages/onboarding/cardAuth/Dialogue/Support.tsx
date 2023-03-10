@@ -18,12 +18,12 @@ export const Support = () => {
     <DialogueBoxContainer md>
       <DialogueBoxTopBar>
         <Typography variant="h6" color="textMuted">
-          Contact us
+          Contact Support
         </Typography>
       </DialogueBoxTopBar>
       <DialogueBoxBody>
-        <Typography variant="h5" color="textHeading">
-          How can we help
+        <Typography variant="h5" color="textHeading" mb="mbTwo">
+          How can we help ?
         </Typography>
         <Typography variant="h6" color="textMuted" mb="mbSix">
           Our friendly team would love to hear from you
@@ -31,16 +31,27 @@ export const Support = () => {
 
         <InputContainer>
           <InputLabel> Email</InputLabel>
-          <Input type="text" placeholder="Your email" />
-          {/* <img src={passwordHide} alt="" /> */}
+          <Input type="email" placeholder="Your email" />
         </InputContainer>
+
+        <InputContainer>
+          <InputLabel> Category</InputLabel>
+          <Input type="text" placeholder="Supply Chain Attack" />
+        </InputContainer>
+
+        <InputContainer>
+          <InputLabel> Description</InputLabel>
+          <Input type="text" placeholder="Describe Your Issue here" />
+        </InputContainer>
+
+
         <Flex alignCenter mb="mbTwo">
           <CheckBox variation="squareCheckBox">
             <div>
               <input type="checkbox" />
             </div>
           </CheckBox>
-          <Typography color="textMuted">Attach Application Logs</Typography>
+          <Typography ml="mlTwo" color="textMuted">Attach Application Logs</Typography>
         </Flex>
 
         <Flex alignCenter mb="mbTwo">
@@ -49,7 +60,7 @@ export const Support = () => {
               <input type="checkbox" />
             </div>
           </CheckBox>
-          <Typography color="textMuted">Attach Application Logs</Typography>
+          <Typography ml="mlTwo" color="textMuted">Attach Device Logs</Typography>
         </Flex>
         <Divider mb="mbThree" />
         <Typography variant="h6" mb="mbEight" color="textMuted">

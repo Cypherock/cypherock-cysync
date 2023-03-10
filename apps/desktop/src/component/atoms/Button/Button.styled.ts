@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 export interface ButtonProps extends WidthProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variation?: "primary" | "secondary" | "dashedBorder";
+  variation?: "primary" | "secondary" | "dashedBorder" | "warning";
   children?: ReactNode;
 };
 
@@ -28,7 +28,14 @@ const buttonBaseStyle = css<ButtonProps>`
           border: 1px dashed #49433e;
           background: transparent;
         `
-      : "";
+      : props.variation === "warning"
+      ? css`
+        background: #FF624C;
+        border: 0.6px solid #FF3518;
+        border-radius: 6px;
+        color: #FFFFFF;
+        font-weight: 500;
+      `: "";
   }}
 `;
 

@@ -12,9 +12,9 @@ export const InputLabel = ({ children }: InputProps) => {
   );
 };
 
-export const Input = ({}: InputProps) => {
+export const Input = ({placeholder, type}: InputProps) => {
   return (
-      <InputStyle />
+      <InputStyle type={type} placeholder={placeholder}/>
   );
 };
 

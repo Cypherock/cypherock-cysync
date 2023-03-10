@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-export interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
-  type?: String;
+  type?: string;
   placeholder?: string;
 };
 
@@ -38,15 +38,16 @@ export const InputStyle = styled.input`
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   background-color: ${({ theme }) => theme.palette.background.inputBackground};
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
-  color: ${({ theme }) => theme.palette.text.mutedText};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
   margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  color: white;
 
-  input::placeholder {
-    letter-spacing: 4px;
-    font-size: 24px;
-    text-align: baseline;
-    line-height: 0;
+  ::placeholder {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.12em;
+    color: #8B8682;
   }
 `;
 

@@ -8,6 +8,8 @@ import { EmailConfirmation } from "./authEmail/EmailConfirmation";
 import { DeviceAuthTest } from "./deviceAuthentication/DeviceAuthTest";
 import { Usage } from "./getStarted/Usage";
 
+import { Support } from "./cardAuth/Dialogue/Support";
+
 export const OnboradingMain = (): JSX.Element => {
   return (
     <Routes>
@@ -18,7 +20,7 @@ export const OnboradingMain = (): JSX.Element => {
       <Route path="/setPassword" element={<SetPassword />}></Route>
       <Route path="/setPasswordSucess" element={<PasswordSetSuccess />}></Route>
       <Route path="/email2fa" element={<EmailConfirmation />}></Route>
-      <Route path="/deviceAuthTest" element={<DeviceAuthTest />}></Route>
+      <Route path="/deviceAuthTest" element={<Support />}></Route>
     </Routes>
   );
 };

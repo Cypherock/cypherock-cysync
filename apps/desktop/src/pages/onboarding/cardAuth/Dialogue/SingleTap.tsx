@@ -11,7 +11,7 @@ export const SingleTap = () => {
   return (
     <DialogueBoxContainer md>
       <DialogueBoxBody>
-        <Typography variant="h5" color="textHeading">
+        <Typography variant="h5" color="textHeading" mb="mbTwo">
           Tap any X1 Card below the X1 Vault to test card tapping
         </Typography>
         <Typography variant="h6" color="textMuted" mb="mbFive">
@@ -20,7 +20,7 @@ export const SingleTap = () => {
         </Typography>
 
         <Container bgColor="list" border rounded="roundedOne">
-          <Flex alignCenter justifyBetween>
+          <Flex align="center" justify="between" width="wFull">
             <Typography variant="h6" mb="mb0" color="textMuted">
               X1 Card
             </Typography>

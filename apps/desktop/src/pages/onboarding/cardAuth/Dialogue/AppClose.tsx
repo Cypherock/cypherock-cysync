@@ -5,11 +5,11 @@ import {
   Image,
   Typography,
 } from "@components";
-import loader from "@assets/images/onboarding/deviceAuth/loader.png";
+import loader from "@/assets/images/onboarding/deviceAuth/loader.png";
 
 export const AppClose = () => {
   return (
-    <DialogueBoxContainer>
+    <DialogueBoxContainer md>
       <DialogueBoxTopBar>
         <Typography variant="h6" color="textMuted">
           Exicting
@@ -21,7 +21,7 @@ export const AppClose = () => {
           Thanks for contacting us. We will soon get in touch with you to assist
           you
         </Typography>
-        <Typography variant="h5" color="textHeading">
+        <Typography variant="h6" color="textMuted" mt="mtTwo">
           Please wait while we exit the app...
         </Typography>
       </DialogueBoxBody>

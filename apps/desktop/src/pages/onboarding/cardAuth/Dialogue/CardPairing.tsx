@@ -11,22 +11,22 @@ import {
 
 export const CardPairing = () => {
   return (
-    <DialogueBoxContainer md>
+    <DialogueBoxContainer lg>
       <DialogueBoxBody>
-        <Typography variant="h5" mb="mbSix">
-          Place X1 cards one by one below the X1 vault
+        <Typography variant="h5" mb="mbTwo" color="textHeading">
+          Tap X1 cards one by one below the X1 vault
         </Typography>
-        <Typography variant="h6" mb="mbSix">
+        <Typography variant="h6" mb="mbSix" color="textMuted">
           Do not lift until you hear 3 beep sounds
         </Typography>
 
         <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
-          <Flex alignCenter justifyBetween>
+          <Flex align="center" justify="between" width="wFull">
             <Typography variant="h6" color="textMuted">
               X1 Card #1
             </Typography>
 
-            <Flex>
+            <Flex gap="gapTwo">
               <Bullet size="lg" variant="muted" />
               <Bullet size="lg" variant="success" />
               <Bullet size="lg" variant="failed" />
@@ -35,12 +35,12 @@ export const CardPairing = () => {
         </Container>
 
         <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
-          <Flex alignCenter justifyBetween>
+          <Flex align="center" justify="between" width="wFull">
             <Typography variant="h6" color="textMuted">
-              X1 Card #1
+              X1 Card #2
             </Typography>
 
-            <Flex>
+            <Flex gap="gapTwo">
               <Bullet size="lg" variant="muted" />
               <Bullet size="lg" variant="success" />
               <Bullet size="lg" variant="failed" />
@@ -49,12 +49,12 @@ export const CardPairing = () => {
         </Container>
 
         <Container bgColor="list" rounded="roundedOne" border mb="mbOne">
-          <Flex alignCenter justifyBetween>
+          <Flex align="center" justify="between" width="wFull">
             <Typography variant="h6" mb="mb0" color="textMuted">
-              X1 Card #1
+              X1 Card #3
             </Typography>
 
-            <Flex>
+            <Flex gap="gapTwo">
               <Bullet size="lg" variant="muted" />
               <Bullet size="lg" variant="success" />
               <Bullet size="lg" variant="failed" />
@@ -63,12 +63,12 @@ export const CardPairing = () => {
         </Container>
 
         <Container bgColor="list" rounded="roundedOne" border mb="mbSix">
-          <Flex alignCenter justifyBetween>
+          <Flex align="center" justify="between" width="wFull">
             <Typography variant="h6" color="textMuted">
-              X1 Card #1
+              X1 Card #4
             </Typography>
 
-            <Flex>
+            <Flex gap="gapTwo">
               <Bullet size="lg" variant="muted" />
               <Bullet size="lg" variant="success" />
               <Bullet size="lg" variant="failed" />

@@ -38,13 +38,13 @@ export const SetPassword = () => {
 
             <InputContainer>
               <InputLabel>New Password</InputLabel>
-              <Input type="text" placeholder="**************" />
+              <Input type="password" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </InputContainer>
 
             <InputContainer>
               <InputLabel>Confirm Password</InputLabel>
-              <Input type="text" placeholder="**************" />
+              <Input type="password" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </InputContainer>
             <Divider mb="mbThree" />
