@@ -23,6 +23,10 @@ export const Usage = (): JSX.Element => {
     <Flex gap="gap0">
       <Aside />
       <Container variant="container" bgColor="contentGratient" gap="gapTwo">
+        <Flex position="absolute" top="topThree" right="rightThree">
+          <Typography color="textMuted">Help</Typography>
+          <Typography color="textGold">?</Typography>
+        </Flex>
         <DialogueBoxContainer>
           <DialogueBoxBody>
             <Typography variant="h5" color="textHeading" mb="mbOne">

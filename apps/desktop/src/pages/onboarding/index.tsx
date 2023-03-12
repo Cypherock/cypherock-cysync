@@ -1,7 +1,7 @@
 import { Information } from "./getStarted/Information";
 import { Routes, Route } from "react-router-dom";
 import { Welcome } from "./getStarted/Welcome";
-import { Terms } from "./getStarted/Terms";
+import { Terms } from "./termsOfUse/Terms";
 import { SetPassword } from "./setPassword/Dialogue/SetPassword";
 import { PasswordSetSuccess } from "./setPassword/Dialogue/PasswordSetSuccess";
 import { EmailConfirmation } from "./authEmail/EmailConfirmation";

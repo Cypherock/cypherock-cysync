@@ -11,8 +11,8 @@ import {
   Typography,
   Image,
 } from "@components";
-import linkImage from "@/assets/images/onboarding/getStarted/terms-link.png";
-import back from "@/assets/images/back.png";
+import linkImage from "@assets/images/onboarding/getStarted/terms-link.png";
+import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
 

@@ -1,6 +1,6 @@
 import { Container, Flex, Typography, Image } from "@components";
-import sysync from "@/assets/images/logo-small.png";
-import sysyncbig from "@/assets/images/logo-big.png";
+import sysync from "@assets/images/logo-small.png";
+import sysyncbig from "@assets/images/logo-big.png";
 
 export const Aside = (): JSX.Element => {
   return (
