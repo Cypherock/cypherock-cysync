@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -7,7 +6,7 @@ import {
   Flex,
   Container,
 } from "@components";
-import loader from "@/assets/images/onboarding/deviceAuth/loader.png";
+import loader from "@assets/images/onboarding/deviceAuth/loader.png";
 import { Aside } from "./Aside";
 
 export const DeviceAuthTest = () => {
@@ -23,7 +22,7 @@ export const DeviceAuthTest = () => {
         <DialogueBoxContainer md>
           <DialogueBoxBody>
             <Image src={loader} mb="mbFive" />
-            <Typography variant="h5" color="textHeading" mb="mbThree">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               Your X1 Vault will now be authenticated through Cypherock to check
               its authenticity... (?)
             </Typography>

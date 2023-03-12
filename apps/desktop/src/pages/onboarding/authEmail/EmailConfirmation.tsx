@@ -12,8 +12,8 @@ import {
   Container,
   Image,
 } from "@components";
-import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
-import back from "@/assets/images/back.png";
+import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
+import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
 
@@ -33,7 +33,8 @@ export const EmailConfirmation = (): JSX.Element => {
               authenticity results
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
-              We do not store this email ID permanently on servers (?)
+              We do not store this email ID permanently on servers 
+              (<Typography color="textGold" display="inline" variant="h6">?</Typography>)
             </Typography>
 
             <InputContainer>

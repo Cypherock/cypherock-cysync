@@ -8,9 +8,9 @@ import {
   Flex,
   Container,
 } from "@components";
-import serverError from "@/assets/images/onboarding/deviceAuth/server-off.png";
-import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
-import setting from "@/assets/images/onboarding/deviceAuth/settings-wrong.png";
+import serverError from "@assets/images/onboarding/deviceAuth/server-off.png";
+import failed from "@assets/images/onboarding/deviceAuth/fail.png";
+import setting from "@assets/images/onboarding/deviceAuth/settings-wrong.png";
 import { Aside } from "./Aside";
 
 export const DeviceAuthTestFailedServerError = () => {
