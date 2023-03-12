@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 export interface DialogueBoxProps {
   children?: ReactNode;
-  lg?: Boolean;
-  md?: Boolean;
+  lg?: boolean;
+  md?: boolean;
 };
 
 export const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`

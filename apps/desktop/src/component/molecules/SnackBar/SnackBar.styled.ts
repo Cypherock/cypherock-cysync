@@ -1,4 +1,4 @@
-import { utils, UtilsProps } from "@/component/util";
+import { utils, UtilsProps } from "../../util";
 import styled, { css } from "styled-components";
 import { ReactNode } from "react";
 

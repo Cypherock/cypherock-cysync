@@ -1,4 +1,4 @@
-import { alignSelf, width, WidthProps, AlignSelfProps } from "@/component/util";
+import { alignSelf, width, WidthProps, AlignSelfProps } from "../../util";
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 

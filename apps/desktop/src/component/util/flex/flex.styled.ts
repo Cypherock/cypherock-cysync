@@ -3,8 +3,8 @@ import { css } from "styled-components";
 
 export interface FlexProps {
   children?: ReactNode;
-  wrapReverse?: Boolean;
-  noWrap?: Boolean;
+  wrapReverse?: boolean;
+  noWrap?: boolean;
   justify?: "start" | "center" | "around" | "between" | "end" | "evenly";
   align?: "start" | "center" | "baseline" | "end" | "stretch";
   content?: "start" | "end" | "center" | "between" | "around";

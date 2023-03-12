@@ -1,23 +1,25 @@
 import { css } from "styled-components";
-import { alignSelf, AlignSelfProps } from "../alignSelf/alignSelf.styled";
-import { display } from "../display/display.styed";
 import {
-  BgColorProps,
-  BorderRadiusProps,
-  FlexProps,
-  FontWeightProps,
-  PositionProps,
-  MarginProps,
-  PaddingProps,
   bgColor,
+  BgColorProps,
   borderRadius,
+  BorderRadiusProps,
   flex,
+  FlexProps,
   fontWeight,
+  FontWeightProps,
   position,
+  PositionProps,
   margin,
+  MarginProps,
   padding,
+  PaddingProps,
   width,
   WidthProps,
+  alignSelf,
+  AlignSelfProps,
+  display,
+  DisplayProps
 } from "../index";
 
 export interface UtilsProps extends BgColorProps,
@@ -27,10 +29,9 @@ export interface UtilsProps extends BgColorProps,
   PositionProps,
   MarginProps,
   PaddingProps,
-  WidthProps, AlignSelfProps {}
+  WidthProps, AlignSelfProps, DisplayProps {}
 
 export const utils = css<UtilsProps>`
-  ${display}
   ${bgColor};
   ${borderRadius};
   ${flex};
@@ -38,6 +39,7 @@ export const utils = css<UtilsProps>`
   ${position};
   ${margin};
   ${padding};
-  ${width}
-  ${alignSelf}
+  ${width};
+  ${display};
+  ${alignSelf};
 `;

@@ -4,6 +4,7 @@ export * from "./bgColor/bgColor.styled";
 export * from "./flex/flex.styled";
 export * from "./fontWeight/fontWeight.styled";
 export * from "./position/position.styled";
-export * from "./utils/utils.styled";
 export * from "./alignSelf/alignSelf.styled";
-export * from "./display/display.styed";
+export * from "./display/display.styled";
+export * from "./utils/utils.styled";
+

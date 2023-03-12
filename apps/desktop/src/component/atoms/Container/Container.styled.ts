@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { utils, UtilsProps } from "../../util";
-import { theme } from "@/theme/theme.styled";
 
 export interface ContainerProps extends UtilsProps {
   variant?:
@@ -11,12 +10,12 @@ export interface ContainerProps extends UtilsProps {
     | "mainContainer"
     | "modalContainer";
   children?: ReactNode;
-  borderRadiusOne?: Boolean;
-  border?: Boolean;
-  scroll?: Boolean;
-  roundedListTop?: Boolean;
-  roundedListBottom?: Boolean;
-  shadow?: Boolean;
+  borderRadiusOne?: boolean;
+  border?: boolean;
+  scroll?: boolean;
+  roundedListTop?: boolean;
+  roundedListBottom?: boolean;
+  shadow?: boolean;
   size?: "lg";
 }
 
@@ -46,7 +45,7 @@ export const DefaultContainerStyle = styled.div<ContainerProps>`
       css`
         border-width: 1px;
         border-style: solid;
-        border-color: ${theme.palette.background.sepratorBackground};
+        border-color: ${({ theme }) => theme.palette.background.sepratorBackground};
       `
     );
   }}
@@ -75,7 +74,7 @@ export const AsideContainerStyle = styled.div<ContainerProps>`
       css`
         border-width: 1px;
         border-style: solid;
-        border-color: ${theme.palette.background.sepratorBackground};
+        border-color: ${({ theme }) => theme.palette.background.sepratorBackground};
       `
     );
   }}
