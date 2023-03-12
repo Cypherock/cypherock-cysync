@@ -12,15 +12,15 @@ import {
   Container,
   Image,
 } from "@components";
-import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
-import back from "@/assets/images/back.png";
+import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
+import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "../Aside";
 
 export const SetPassword = () => {
   return (
     <Flex gap="gap0">
-      <Aside />
+      <Aside screenName="Set Password"/>
       <Container variant="container" bgColor="contentGratient">
         <Flex position="absolute" top="topThree" right="rightThree">
           <Typography color="textMuted">Help</Typography>
@@ -29,7 +29,7 @@ export const SetPassword = () => {
         <DialogueBoxContainer md>
           <DialogueBoxBody>
             <Typography variant="h5" color="textHeading" mb="mbTwo">
-              Set your cySync password
+              Set your cySync password (<Typography color="textGold" display="inline" variant="h5">?</Typography>)
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
               We do not store your password on our servers.

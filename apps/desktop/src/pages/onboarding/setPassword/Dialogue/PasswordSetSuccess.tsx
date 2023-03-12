@@ -6,15 +6,15 @@ import {
   Flex,
   Container,
 } from "@components";
-import success from "@/assets/images/onboarding/setPass/success.png";
+import success from "@assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
-import back from "@/assets/images/back.png";
+import back from "@assets/images/back.png";
 
 export const PasswordSetSuccess = () => {
   return (
     <Flex gap="gap0">
-      <Aside />
+      <Aside screenName="Set Password"/>
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>

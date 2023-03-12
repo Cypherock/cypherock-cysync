@@ -1,11 +1,13 @@
 import { Container, Image, Flex, Typography } from "@components";
-import sysync from "@/assets/images/logo-small.png";
-import aside from "@/assets/images/aside.png";
-import progress from "@/assets/images/setPassProgress.png";
+import sysync from "@assets/images/logo-small.png";
+import aside from "@assets/images/aside.png";
+import progress from "@assets/images/setPassProgress.png";
+interface AsideProps {
+  screenName: string;
+}
 
-export const Aside = () => {
+export const Aside = (props: AsideProps) => {
   return (
-    <>
       <Container
         variant="asideContainer"
         bgColor="sideBar"
@@ -26,11 +28,10 @@ export const Aside = () => {
             textAlign="center"
             mb="mbThree"
           >
-            Set Password
+            {props.screenName}
           </Typography>
           <Image src={progress} />
         </Flex>
       </Container>
-    </>
   );
 };

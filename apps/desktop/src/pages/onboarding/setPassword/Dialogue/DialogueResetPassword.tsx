@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -12,16 +12,17 @@ import {
   Flex,
   Container,
 } from "@components";
-import passwordHide from "@/assets/images/onboarding/setPass/password-hide.png";
+import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
+import { Aside } from "../Aside";
 
 export const DialogueResetPassword = () => {
   return (
     <Flex gap="gap0">
-      <Container variant="asideContainer" bgColor="sideBar" size="lg" />
+      <Aside screenName="Reset Password"/>
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            <Typography variant="h5" color="textHeading">
+            <Typography variant="h5" color="textHeading" mb="mbTwo">
               Resetting password will reset your cySync app
             </Typography>
             <Typography variant="h6" color="textMuted" mb="mbFive">
@@ -40,6 +41,7 @@ export const DialogueResetPassword = () => {
               <Input type="text" placeholder="**************" />
               <img src={passwordHide} alt="" />
             </InputContainer>
+
             <Divider mb="mbThree" />
             <Typography
               variant="h6"
@@ -56,8 +58,12 @@ export const DialogueResetPassword = () => {
             <Divider />
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Button variation="secondary">Go Back</Button>
-            <Button variation="primary">Reset</Button>
+            <Link to="/setPasswordLogin">
+              <Button variation="secondary">Go Back</Button>
+            </Link>
+            <Link to="/setPasswordLogin">
+              <Button variation="primary">Reset</Button>
+            </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
