@@ -6,7 +6,7 @@ import {
   Flex,
   Container,
 } from "@components";
-import success from "@/assets/images/onboarding/setPass/success.png";
+import success from "@assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggleSuccess = () => {

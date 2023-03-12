@@ -9,6 +9,12 @@ import { DialogueLogin } from "./setPassword/Dialogue/DialogueLogin";
 import { EmailConfirmation } from "./authEmail/EmailConfirmation";
 import { DeviceAuthTest } from "./deviceAuthentication/DeviceAuthTest";
 import { Usage } from "./getStarted/Usage";
+import { JoyStickToggle } from "./joystickGuide/Dialogue/JoystickToggle";
+import { SingleCardTap } from "./cardAuth/Dialogue/SingleCardTap";
+import { Support } from "./cardAuth/Dialogue/Support";
+import { SupplyChainAttack } from "./cardAuth/Dialogue/SupplyChainAttack";
+import { AppClose } from "./cardAuth/Dialogue/AppClose";
+import { CardPairing } from "./cardAuth/Dialogue/CardPairing";
 
 export const OnboradingMain = (): JSX.Element => {
   return (
@@ -23,6 +29,13 @@ export const OnboradingMain = (): JSX.Element => {
       <Route path="/setPasswordReset" element={<DialogueResetPassword />}></Route>
       <Route path="/email2fa" element={<EmailConfirmation />}></Route>
       <Route path="/deviceAuthTest" element={<DeviceAuthTest />}></Route>
+      <Route path="/joystick" element={<JoyStickToggle />}></Route>
+      <Route path="/cardTap" element={<SingleCardTap />}></Route>
+      <Route path="/supplyChainAttack" element={<SupplyChainAttack />}></Route>
+      <Route path="/contactSupport" element={<Support />}></Route>
+      <Route path="/closeApp" element={<AppClose />}></Route>
+      <Route path="/cardPair" element={<CardPairing/>}></Route>
+
     </Routes>
   );
 };

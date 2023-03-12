@@ -6,7 +6,7 @@ import {
   Flex,
   Container,
 } from "@components";
-import centerButtonSuccess from "@/assets/images/onboarding/joystick/centerButtonSuccess.png";
+import centerButtonSuccess from "@assets/images/onboarding/joystick/centerButtonSuccess.png";
 import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggleCenterButton = () => {

@@ -7,7 +7,7 @@ import {
   Flex,
   Container,
 } from "@components";
-import joystick from "@/assets/images/onboarding/joystick/joystick.png";
+import joystick from "@assets/images/onboarding/joystick/joystick.png";
 import { Aside } from "../Aside/Aside";
 
 export const JoyStickToggle = () => {
