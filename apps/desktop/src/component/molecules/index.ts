@@ -4,3 +4,4 @@ export * from "./SnackBar/SnackBar";
 export * from "./Chip/Chip";
 export * from "./Dropdown/Dropdown";
 export * from "./Tabs/Tabs";
+export * from "./ProgressBar/ProgressBar"

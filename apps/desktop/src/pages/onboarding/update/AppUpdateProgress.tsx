@@ -5,12 +5,10 @@ import {
     Typography,
     Flex,
     Container,
-    DialogueBoxFooter,
-    Button
+    ProgressBar
 } from "@components";
 import appupdate from "@assets/images/app-update-progress.png"
 import { Aside } from "./Aside";
-import { Link } from "react-router-dom";
   
 export const AppUpdateProgress = () => {
     return (
@@ -33,9 +31,11 @@ export const AppUpdateProgress = () => {
                         Wait while we update your cySync app
                     </Typography>
 
-                    <Typography variant="h6" color="textMuted" textAlign="left"> Version 0.2.56 </Typography>
+                    <Typography variant="h6" color="textMuted" textAlign="left" mb="mbTwo"> Version 0.2.56 </Typography>
                     
-                    {/* TODO: Create a Loading progress bar */}
+                    <ProgressBar completed={50}/>
+
+                    <Typography variant="h6" color="textMuted" textAlign="right" mt="mtOne"> 50% </Typography>
                 </DialogueBoxBody>
             </DialogueBoxContainer>
         </Container>
