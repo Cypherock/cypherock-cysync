@@ -21,7 +21,8 @@ export interface MarginProps {
     | "mrFive"
     | "mrSix"
     | "mrSeven"
-    | "mrEight";
+    | "mrEight"
+    | "mrAuto";
   ml?:
     | "ml0"
     | "mlOne"
@@ -31,7 +32,8 @@ export interface MarginProps {
     | "mlFive"
     | "mlSix"
     | "mlSeven"
-    | "mlEight";
+    | "mlEight"
+    | "mlAuto";
   mt?:
     | "mt0"
     | "mtOne"
@@ -150,6 +152,8 @@ export const margin = css<MarginProps>`
       ? theme.spacing.seven.spacing
       : props.ml === "mlEight"
       ? theme.spacing.eight.spacing
+      : props.ml === "mlAuto"
+      ? "auto"
       : ""};
   margin-right: ${(props) =>
     props.mr === "mrOne"
@@ -170,6 +174,8 @@ export const margin = css<MarginProps>`
       ? theme.spacing.seven.spacing
       : props.mr === "mrEight"
       ? theme.spacing.eight.spacing
+      : props.mr === "mrAuto"
+      ? "auto"
       : ""};
 `;
 

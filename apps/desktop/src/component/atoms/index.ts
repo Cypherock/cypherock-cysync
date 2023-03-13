@@ -8,3 +8,4 @@ export * from "./Input/Input";
 export * from "./Image/Image";
 export * from "./Badge/Badge";
 export * from "./Typography/Typography";
+export * from "./Select/Select";

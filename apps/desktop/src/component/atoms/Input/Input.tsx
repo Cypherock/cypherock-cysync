@@ -4,6 +4,7 @@ import {
   InputStyle,
   InputProps,
   SearchBarStyle,
+  InputTextAreaStyle
 } from "./Input.styled";
 
 export const InputLabel = ({ children }: InputProps) => {
@@ -18,6 +19,10 @@ export const Input = ({placeholder, type}: InputProps) => {
   );
 };
 
+export const InputTextArea = ({placeholder}: InputProps) => {
+  return <InputTextAreaStyle placeholder={placeholder}/>
+}
+
 export const InputContainer = ({ children }: InputProps) => {
   return (
       <InputContainerStyle>{children}</InputContainerStyle>
@@ -29,3 +34,4 @@ export const SearchBar = ({ children }: InputProps) => {
       <SearchBarStyle />
   );
 };
+

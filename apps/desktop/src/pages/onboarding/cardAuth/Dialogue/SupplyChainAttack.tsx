@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -11,8 +12,13 @@ import {
 import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
+import { Support } from "./Support";
 
 export const SupplyChainAttack = () => {
+  const [popup, setPopup] = useState(false);
+  const clickClose = () => {
+    setPopup(false);
+  }
   return (
     <Flex gap="gap0">
       <Aside />
@@ -30,12 +36,16 @@ export const SupplyChainAttack = () => {
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/contactSupport">
-              <Button variation="primary"> Contact Support</Button>
-            </Link>
+              <Button variation="primary"
+               onClick={() => setPopup((wasOpen) => !wasOpen)}
+              > 
+                Contact Support
+              </Button>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
+
+      {popup===true &&  <Support clickClose={clickClose}/>}
     </Flex>
   );
 };

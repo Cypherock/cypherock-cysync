@@ -11,21 +11,32 @@ import {
   DialogueBoxFooter,
   Button,
   Divider,
-  Container
+  Container,
+  Image,
+  InputTextArea,
+  SelectContainer
 } from "@components";
 import { Link } from "react-router-dom";
-import { Aside } from "../Aside";
+import close from "@/assets/images/close.png";
 
-export const Support = () => {
+interface SupportProps {
+  clickClose: () => void;
+};
+
+export const Support = (props: SupportProps) => {
   return (
-  <Flex gap="gap0">
-    <Aside />
-    <Container variant="container" bgColor="contentGratient">
+    <Container position="absolute" variant="modalContainer" justify="center" align="center">
+      <Flex>
       <DialogueBoxContainer md>
         <DialogueBoxTopBar>
-          <Typography variant="h6" color="textMuted">
-            Contact Support
-          </Typography>
+          <Flex justify="end">
+            <Typography variant="h6" color="textMuted" ml="mlAuto" mr="mrAuto">
+              Contact Support
+            </Typography>
+            <div onClick={() => props.clickClose()}>
+                <Image src={close} />
+            </div>
+          </Flex>
         </DialogueBoxTopBar>
         <DialogueBoxBody>
           <Typography variant="h5" color="textHeading" mb="mbTwo">
@@ -42,12 +53,16 @@ export const Support = () => {
 
           <InputContainer>
             <InputLabel> Category</InputLabel>
-            <Input type="text" placeholder="Supply Chain Attack" />
+            <SelectContainer>
+              <select>
+                <option value="supplychainattack">Supply Chain Attack</option>
+              </select>        
+            </SelectContainer>    
           </InputContainer>
 
           <InputContainer>
             <InputLabel> Description</InputLabel>
-            <Input type="text" placeholder="Describe Your Issue here" />
+            <InputTextArea type="text" placeholder="Describe Your Issue here" />
           </InputContainer>
 
 
@@ -74,13 +89,13 @@ export const Support = () => {
           </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="secondary"> Cancel </Button>
+          <Button variation="secondary" onClick={() => props.clickClose()}> Cancel </Button>
           <Link to="/closeApp">
             <Button variation="primary">Submit & Close app</Button>
           </Link>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
+      </Flex>
     </Container>
-  </Flex>
   );
 };

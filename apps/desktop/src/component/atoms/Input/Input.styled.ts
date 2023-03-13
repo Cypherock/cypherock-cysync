@@ -63,7 +63,32 @@ export const SearchBarStyle = styled.input`
   color: ${({ theme }) => theme.palette.text.mutedText};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
 
-  input::placeholder {
+  ::placeholder {
     color: ${({ theme }) => theme.palette.text.textMutted};
   }
 `;
+
+export const InputTextAreaStyle = styled.textarea `
+
+  position: relative;
+  width: 100%;
+  border: none;
+  padding-top: ${({ theme }) => theme.spacing.two.spacing};
+  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  padding-left: ${({ theme }) => theme.spacing.three.spacing};
+  padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  background-color: ${({ theme }) => theme.palette.background.inputBackground};
+  border-radius: ${({ theme }) => theme.spacing.one.spacing};
+  font-size: ${({ theme }) => theme.spacing.two.spacing};
+  margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  color: white;
+  height: 182px;
+
+  ::placeholder {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #8B8682;
+  }
+
+`
