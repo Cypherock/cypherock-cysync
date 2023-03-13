@@ -12,7 +12,7 @@ import {
 import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
-import { Support } from "./Support";
+import { Support } from "../../Support";
 
 export const SupplyChainAttack = () => {
   const [popup, setPopup] = useState(false);

@@ -56,6 +56,7 @@ export const Support = (props: SupportProps) => {
             <SelectContainer>
               <select>
                 <option value="supplychainattack">Supply Chain Attack</option>
+                <option value="updatefailed">Update Failed</option>
               </select>        
             </SelectContainer>    
           </InputContainer>
