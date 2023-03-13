@@ -15,11 +15,13 @@ import { Support } from "./cardAuth/Dialogue/Support";
 import { SupplyChainAttack } from "./cardAuth/Dialogue/SupplyChainAttack";
 import { AppClose } from "./cardAuth/Dialogue/AppClose";
 import { CardPairing } from "./cardAuth/Dialogue/CardPairing";
+import { Splash } from "./getStarted/Splash" 
 
 export const OnboradingMain = (): JSX.Element => {
   return (
     <Routes>
-      {/* <Route path="/" element={<Information />}></Route>
+      <Route path="/" element={<Splash />}></Route>
+      <Route path="/information" element={<Information />}></Route>
       <Route path="/usage" element={<Usage />}></Route>
       <Route path="/welcome" element={<Welcome />}></Route>
       <Route path="/termsOfUse" element={<Terms />}></Route>
@@ -30,11 +32,11 @@ export const OnboradingMain = (): JSX.Element => {
       <Route path="/email2fa" element={<EmailConfirmation />}></Route>
       <Route path="/deviceAuthTest" element={<DeviceAuthTest />}></Route>
       <Route path="/joystick" element={<JoyStickToggle />}></Route>
-      <Route path="/cardTap" element={<SingleCardTap />}></Route> */}
-      <Route path="/" element={<SupplyChainAttack />}></Route>
-      {/* <Route path="/contactSupport" element={<Support />}></Route>
+      <Route path="/cardTap" element={<SingleCardTap />}></Route>
+      <Route path="/supplyChainAttack" element={<SupplyChainAttack />}></Route>
+      <Route path="/contactSupport" element={<Support />}></Route>
       <Route path="/closeApp" element={<AppClose />}></Route>
-      <Route path="/cardPair" element={<CardPairing/>}></Route> */}
+      <Route path="/cardPair" element={<CardPairing/>}></Route>
 
     </Routes>
   );

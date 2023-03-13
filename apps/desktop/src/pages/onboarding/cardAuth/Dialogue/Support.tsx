@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import close from "@/assets/images/close.png";
 
 interface SupportProps {
-  clickClose: () => void;
+  clickClose?: () => void;
 };
 
 export const Support = (props: SupportProps) => {
