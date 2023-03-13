@@ -1,16 +1,19 @@
 import { ReactNode } from "react";
 import styled, {css} from "styled-components";
 import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
-
+import copy from "@assets/images/copy.png";
+import check from "@assets/images/check.png";
 export interface InputProps {
   children?: ReactNode;
   type?: string;
-  placeholder?: string;
+  placeholder?: string; 
 };
-
 interface EyeImageStyleProps {
   type: string
-}
+};
+interface CopyImageStyleProps {
+  isCopied: boolean
+};
 
 export const InputContainerStyle = styled.div`
   display: flex;
@@ -116,5 +119,31 @@ export const InputPasswordStyle = styled.div `
     right: 24px;
     bottom: 32px;
   }
+`
+
+export const ClipboardBarStyle = styled.div `
+  position: relative;
+  width: 100%;
+  .image-copy {
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
+  }
+`
+
+export const CopyImageStyle = styled.div<CopyImageStyleProps>`
+  height: 20px;
+  width: 25px;
+  ${(props) => {
+    return (
+      props.isCopied
+      ? css`
+        background-image: url(${check});
+      `
+      : css`
+        background-image: url(${copy});
+      `
+    );
+  }}
 `
 

@@ -5,9 +5,7 @@ import {
     Typography,
     Flex,
     Container,
-    DialogueBoxFooter,
-    Button,
-    SearchBar
+    ClipboardBar
 } from "@components";
 import updatefail from "@assets/images/update-fail.png"
 import { Aside } from "./Aside";
@@ -39,7 +37,7 @@ export const UpdateFailedAgain = () => {
                     </Typography>
 
                     {/* TODO: Add a copy icon here */}
-                    <SearchBar placeholder="https://www.cypherock.com/gs/"></SearchBar>
+                    <ClipboardBar placeholder="https://www.cypherock.com/gs/"></ClipboardBar>
 
                 </DialogueBoxBody>
             </DialogueBoxContainer>

@@ -1,4 +1,5 @@
 import {useState} from "react";
+import { Typography } from "../Typography/Typography";
 import {
   InputContainerStyle,
   InputLabelStyle,
@@ -7,7 +8,9 @@ import {
   SearchBarStyle,
   InputTextAreaStyle,
   InputPasswordStyle,
-  EyeImageStyle
+  EyeImageStyle,
+  ClipboardBarStyle,
+  CopyImageStyle
 } from "./Input.styled";
 
 export const InputLabel = ({ children }: InputProps) => {
@@ -55,3 +58,16 @@ export const InputPassword = ({placeholder}: InputProps) => {
   )
 }
 
+export const ClipboardBar = ({placeholder} : InputProps) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const toggleCopied = () => {
+    navigator.clipboard.writeText(placeholder)
+    setIsCopied(true);
+  }
+  return (
+    <ClipboardBarStyle>
+      <SearchBarStyle placeholder={placeholder}/>
+      <CopyImageStyle className="image-copy" onClick={toggleCopied} isCopied={isCopied}/>
+    </ClipboardBarStyle>
+  );
+}
