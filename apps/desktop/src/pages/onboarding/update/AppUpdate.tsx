@@ -37,7 +37,7 @@ export const AppUpdate = () => {
 
                 <DialogueBoxFooter>
                 
-                <Link to="/appInUpdate">
+                <Link to="/appUpdateProgress">
                     <Button variation="primary">Update</Button>
                 </Link>
                 

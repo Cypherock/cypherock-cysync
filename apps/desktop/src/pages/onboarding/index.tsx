@@ -11,7 +11,6 @@ import { DeviceAuthTest } from "./deviceAuthentication/DeviceAuthTest";
 import { Usage } from "./getStarted/Usage";
 import { JoyStickToggle } from "./joystickGuide/Dialogue/JoystickToggle";
 import { SingleCardTap } from "./cardAuth/Dialogue/SingleCardTap";
-import { Support } from "./Support";
 import { SupplyChainAttack } from "./cardAuth/Dialogue/SupplyChainAttack";
 import { AppClose } from "./cardAuth/Dialogue/AppClose";
 import { CardPairing } from "./cardAuth/Dialogue/CardPairing";
@@ -25,31 +24,53 @@ import { DeviceUpdateProgress } from "./update/DeviceUpdateProgress";
 import { DeviceUpdateSuccess } from "./update/DeviceUpdateSuccess";
 import { UpdateFailed } from "./update/UpdateFailed";
 import { UpdateFailedAgain } from "./update/UpdateFailedAgain";
+import { JoyStickToggleCenterButton } from "./joystickGuide/Dialogue/JoyStickToggleCenterButton";
+import { JoyStickToggleSuccess } from "./joystickGuide/Dialogue/JoyStickSuccess";
+import { SingleCardTapWalletExist } from "./cardAuth/Dialogue/SingleCardTapWalletExist";
+import { DeviceAuthTestSuccess } from "./deviceAuthentication/DeviceAuthTestSuccess";
+import { DeviceAuthTestFailedDeviceMisconfigured, DeviceAuthTestFailedFirmWareError, DeviceAuthTestFailedServerDown, DeviceAuthTestFailedServerError } from "./deviceAuthentication/DeviceAuthTestFailed";
 
 export const OnboradingMain = (): JSX.Element => {
   return (
     <Routes>
-      {/* <Route path="/" element={<Splash />}></Route>
+      <Route path="/" element={<Splash />}></Route>
       <Route path="/information" element={<Information />}></Route>
       <Route path="/usage" element={<Usage />}></Route>
       <Route path="/welcome" element={<Welcome />}></Route>
       <Route path="/termsOfUse" element={<Terms />}></Route>
+      
+      {/* Email and password routes */}
       <Route path="/setPassword" element={<SetPassword />}></Route>
       <Route path="/setPasswordSucess" element={<PasswordSetSuccess />}></Route>
       <Route path="/setPasswordLogin" element={<DialogueLogin />}></Route>
       <Route path="/setPasswordReset" element={<DialogueResetPassword />}></Route>
       <Route path="/email2fa" element={<EmailConfirmation />}></Route>
+      
+
+
+      {/* Device Auth Routes */}
       <Route path="/deviceAuthTest" element={<DeviceAuthTest />}></Route>
-      <Route path="/joystick" element={<JoyStickToggle />}></Route>
+      <Route path="/deviceAuthSuccess" element={<DeviceAuthTestSuccess />}> </Route>
+      <Route path="/deviceAuthServerFail" element={<DeviceAuthTestFailedServerError />}> </Route>
+      <Route path="/deviceAuthFirmwareError" element={<DeviceAuthTestFailedFirmWareError />}> </Route>
+      <Route path="/deviceAuthServerDown" element={<DeviceAuthTestFailedServerDown />}> </Route>
+      <Route path="/deviceAuthMisconfigure" element={<DeviceAuthTestFailedDeviceMisconfigured />}> </Route>
+
+
+      {/* Card screens routes */}
       <Route path="/cardTap" element={<SingleCardTap />}></Route>
+      <Route path="/cardExist" element={<SingleCardTapWalletExist />}></Route>
       <Route path="/supplyChainAttack" element={<SupplyChainAttack />}></Route>
-      <Route path="/contactSupport" element={<Support />}></Route>
-      <Route path="/closeApp" element={<AppClose />}></Route>
-      <Route path="/cardPair" element={<CardPairing/>}></Route> */}
+      <Route path="/cardPair" element={<CardPairing/>}></Route>
+
+      {/* Joystick screens routes */}
+      <Route path="/joystick" element={<JoyStickToggle />}></Route>
+      <Route path="/joystickCenter" element={<JoyStickToggleCenterButton />}></Route>
+      <Route path="/joystickSuccess" element={<JoyStickToggleSuccess />}></Route>
 
       {/* Update screens routes */}
       <Route path="/deviceConnect" element={<DeviceConnect />}></Route>
-      <Route path="/" element={<AppUpdate />}></Route>
+      <Route path="/appUpdate" element={<AppUpdate />}></Route>
       <Route path="/appUpdateProgress" element={<AppUpdateProgress />}></Route>
       <Route path="/appUpdateSuccess" element={<AppUpdateSuccess />}></Route>
       <Route path="/deviceUpdate" element={<DeviceUpdate />}></Route>
@@ -57,6 +78,8 @@ export const OnboradingMain = (): JSX.Element => {
       <Route path="/deviceUpdateSuccess" element={<DeviceUpdateSuccess />}></Route>
       <Route path="/updateFailed" element={<UpdateFailed />}></Route>
       <Route path="/updateFailedAgain" element={<UpdateFailedAgain />}></Route>
+
+      <Route path="/closeApp" element={<AppClose />}></Route>
 
     </Routes>
   );

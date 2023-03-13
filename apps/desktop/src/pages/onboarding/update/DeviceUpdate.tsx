@@ -36,7 +36,7 @@ export const DeviceUpdate = () => {
 
                 <DialogueBoxFooter>
                 
-                <Link to="/appInUpdate">
+                <Link to="/deviceUpdateProgress">
                     <Button variation="primary">Update</Button>
                 </Link>
                 
