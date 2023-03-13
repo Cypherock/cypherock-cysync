@@ -1,10 +1,13 @@
+import {useState} from "react";
 import {
   InputContainerStyle,
   InputLabelStyle,
   InputStyle,
   InputProps,
   SearchBarStyle,
-  InputTextAreaStyle
+  InputTextAreaStyle,
+  InputPasswordStyle,
+  EyeImageStyle
 } from "./Input.styled";
 
 export const InputLabel = ({ children }: InputProps) => {
@@ -34,4 +37,21 @@ export const SearchBar = ({ children }: InputProps) => {
       <SearchBarStyle />
   );
 };
+
+export const InputPassword = ({placeholder}: InputProps) => {
+  const [passwordType, setPasswordType] = useState("password");
+  const togglePassword = () => {
+    if(passwordType==="password") {
+      setPasswordType("text")
+    } else {
+      setPasswordType("password")
+    }
+  }
+  return (
+    <InputPasswordStyle>
+      <Input type={passwordType} placeholder={placeholder}/>
+      <EyeImageStyle className="image-pass" onClick={togglePassword} type={passwordType}/>
+    </InputPasswordStyle>
+  )
+}
 

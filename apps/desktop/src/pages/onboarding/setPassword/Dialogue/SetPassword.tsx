@@ -11,6 +11,7 @@ import {
   Flex,
   Container,
   Image,
+  InputPassword
 } from "@components";
 import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import back from "@assets/images/back.png";
@@ -37,14 +38,12 @@ export const SetPassword = () => {
 
             <InputContainer>
               <InputLabel>New Password</InputLabel>
-              <Input type="password" placeholder="**************" />
-              <img src={passwordHide} alt="" />
+              <InputPassword type="password" placeholder="**************" />
             </InputContainer>
 
             <InputContainer>
               <InputLabel>Confirm Password</InputLabel>
-              <Input type="password" placeholder="**************" />
-              <img src={passwordHide} alt="" />
+              <InputPassword type="password" placeholder="**************" />
             </InputContainer>
             <Divider mb="mbThree" />
 

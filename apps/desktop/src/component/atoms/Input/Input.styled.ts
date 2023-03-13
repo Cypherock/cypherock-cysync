@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
+import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 
 export interface InputProps {
   children?: ReactNode;
@@ -7,13 +8,16 @@ export interface InputProps {
   placeholder?: string;
 };
 
+interface EyeImageStyleProps {
+  type: string
+}
+
 export const InputContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
   position: relative;
-
   img {
     position: absolute;
     right: 24px;
@@ -41,7 +45,6 @@ export const InputStyle = styled.input`
   font-size: ${({ theme }) => theme.spacing.two.spacing};
   margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: white;
-
   ::placeholder {
     font-weight: 300;
     font-size: 14px;
@@ -62,14 +65,12 @@ export const SearchBarStyle = styled.input`
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
   color: ${({ theme }) => theme.palette.text.mutedText};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
-
   ::placeholder {
     color: ${({ theme }) => theme.palette.text.textMutted};
   }
 `;
 
 export const InputTextAreaStyle = styled.textarea `
-
   position: relative;
   width: 100%;
   border: none;
@@ -83,12 +84,37 @@ export const InputTextAreaStyle = styled.textarea `
   margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: white;
   height: 182px;
-
   ::placeholder {
     font-weight: 300;
     font-size: 14px;
     line-height: 21px;
     color: #8B8682;
   }
-
 `
+
+// TODO: change the image for password show
+export const EyeImageStyle = styled.div<EyeImageStyleProps>`
+  height: 20px;
+  width: 20px;
+  ${(props) => {
+    return (
+      props.type === "password"
+      ? css`
+        background-image: url(${passwordHide});
+      `
+      : css`
+        background-image: url(${passwordHide});
+      `
+    );
+  }}
+`
+
+export const InputPasswordStyle = styled.div `
+  width: 100%;
+  .image-pass {
+    position: absolute;
+    right: 24px;
+    bottom: 32px;
+  }
+`
+
