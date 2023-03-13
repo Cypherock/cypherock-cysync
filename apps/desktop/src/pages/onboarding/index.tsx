@@ -11,7 +11,7 @@ import { DeviceAuthTest } from "./deviceAuthentication/DeviceAuthTest";
 import { Usage } from "./getStarted/Usage";
 import { JoyStickToggle } from "./joystickGuide/Dialogue/JoystickToggle";
 import { SingleCardTap } from "./cardAuth/Dialogue/SingleCardTap";
-import { Support } from "./cardAuth/Dialogue/Support";
+import { Support } from "./Support";
 import { SupplyChainAttack } from "./cardAuth/Dialogue/SupplyChainAttack";
 import { AppClose } from "./cardAuth/Dialogue/AppClose";
 import { CardPairing } from "./cardAuth/Dialogue/CardPairing";
@@ -37,7 +37,6 @@ export const OnboradingMain = (): JSX.Element => {
       <Route path="/contactSupport" element={<Support />}></Route>
       <Route path="/closeApp" element={<AppClose />}></Route>
       <Route path="/cardPair" element={<CardPairing/>}></Route>
-
     </Routes>
   );
 };

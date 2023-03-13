@@ -32,9 +32,9 @@ export const InputContainer = ({ children }: InputProps) => {
   );
 };
 
-export const SearchBar = ({ children }: InputProps) => {
+export const SearchBar = ({ placeholder }: InputProps) => {
   return (
-      <SearchBarStyle />
+      <SearchBarStyle placeholder={placeholder}/>
   );
 };
 
