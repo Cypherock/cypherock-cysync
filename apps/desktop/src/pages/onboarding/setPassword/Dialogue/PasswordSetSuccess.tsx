@@ -6,12 +6,22 @@ import {
   Flex,
   Container,
 } from "@components";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import success from "@assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
 import back from "@assets/images/back.png";
 
 export const PasswordSetSuccess = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/setPasswordLogin');
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <Flex gap="gap0">
       <Aside screenName="Set Password"/>

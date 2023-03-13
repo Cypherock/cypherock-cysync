@@ -1,8 +1,20 @@
 import { Container, Flex, Typography, Image } from "@components";
-import sysync from "@assets/images/logo-small.png";
 import sysyncbig from "@assets/images/logo-big.png";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Splash = (): JSX.Element => {
+  
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/information');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <Container
       variant="modalContainer"
