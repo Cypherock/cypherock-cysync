@@ -30,7 +30,7 @@ import { SingleCardTapWalletExist } from "./cardAuth/Dialogue/SingleCardTapWalle
 import { DeviceAuthTestSuccess } from "./deviceAuthentication/DeviceAuthTestSuccess";
 import { DeviceAuthTestFailedDeviceMisconfigured, DeviceAuthTestFailedFirmWareError, DeviceAuthTestFailedServerDown, DeviceAuthTestFailedServerError } from "./deviceAuthentication/DeviceAuthTestFailed";
 
-export const OnboradingMain = (): JSX.Element => {
+export const OnboardingMain = (): JSX.Element => {
   return (
     <Routes>
       <Route path="/" element={<Splash />}></Route>

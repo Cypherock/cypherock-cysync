@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme.styled.js";
 import { GlobalStyles } from "./style/Global.styled";
-import { OnboradingMain } from "@/pages/onboarding/index.jsx";
+import { OnboardingMain } from "@/pages/onboarding/index.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const App: React.FC = () => {
@@ -10,7 +10,7 @@ const App: React.FC = () => {
       {/* <NavigationProvider> */}
       <Router>
         <GlobalStyles />
-        <OnboradingMain></OnboradingMain>
+        <OnboardingMain></OnboardingMain>
       </Router>
 
       {/* </NavigationProvider> */}
