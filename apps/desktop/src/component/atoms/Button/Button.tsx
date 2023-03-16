@@ -1,5 +1,12 @@
 import { ButtonStyle, ButtonProps } from "./Button.styled";
+import { FC } from "react";
 
-export const Button = ({ children, ...props }: ButtonProps): JSX.Element => {
-  return <ButtonStyle {...props}>{children}</ButtonStyle>;
+export const Button: FC<ButtonProps> = ({ children, ...props }) => { 
+  return (
+      <ButtonStyle
+        onClick={props.onClick}
+        disabled={props.disabled}
+        {...props}>{children}
+      </ButtonStyle>
+  );
 };

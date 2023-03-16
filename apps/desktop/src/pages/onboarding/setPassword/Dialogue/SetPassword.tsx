@@ -17,8 +17,14 @@ import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "../Aside";
+import { useCallback } from "react";
 
 export const SetPassword = () => {
+
+  const confirmPasswordOnClick = () => {
+    console.log("confirm password");
+  };  
+  
   return (
     <Flex gap="gap0">
       <Aside screenName="Set Password"/>
@@ -66,7 +72,7 @@ export const SetPassword = () => {
               <Button variation="secondary">Skip</Button>
             </Link>
             <Link to="/setPasswordSucess">
-              <Button variation="primary">Confirm</Button>
+              <Button onClick={confirmPasswordOnClick} variation="primary">Confirm</Button>
             </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
