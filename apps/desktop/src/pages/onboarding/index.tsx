@@ -32,6 +32,7 @@ import { DeviceAuthTestFailedDeviceMisconfigured, DeviceAuthTestFailedFirmWareEr
 
 export const OnboardingMain = (): JSX.Element => {
   return (
+    <div className="onboarding">
     <Routes>
       <Route path="/" element={<Splash />}></Route>
       <Route path="/information" element={<Information />}></Route>
@@ -82,5 +83,6 @@ export const OnboardingMain = (): JSX.Element => {
       <Route path="/closeApp" element={<AppClose />}></Route>
 
     </Routes>
+    </div>
   );
 };
