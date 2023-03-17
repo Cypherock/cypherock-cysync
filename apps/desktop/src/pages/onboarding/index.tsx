@@ -95,7 +95,7 @@ export const OnboardingMain = (): JSX.Element => {
       <Route path={ONBOARDING_ROUTE_CARD_TAP} element={<SingleCardTap />}></Route>
       <Route path={ONBOARDING_ROUTE_CARD_EXIST} element={<SingleCardTapWalletExist />}></Route>
       <Route path={ONBOARDING_ROUTE_CARD_SUPPLY_CHAIN_ATTACK} element={<CardPairing />}></Route>
-      <Route path={ONBOARDING_ROUTE_CARD_PAIRING} element={<CardPairing/>}></Route>
+      <Route path={ONBOARDING_ROUTE_CARD_PAIRING} element={<SupplyChainAttack/>}></Route>
 
       {/* Joystick screens routes */}
       <Route path={ONBOARDING_ROUTE_JOYSTICK_TOGGLE} element={<JoyStickToggle />}></Route>
