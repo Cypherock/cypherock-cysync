@@ -9,7 +9,6 @@ import {
 } from "@components";
 import updatefail from "@assets/images/update-fail.png"
 import { Aside } from "./Aside";
-import { Link } from "react-router-dom";
   
 export const UpdateFailedAgain = () => {
   return (
@@ -36,7 +35,7 @@ export const UpdateFailedAgain = () => {
                         Close this app before installing the latest cySync app from the link
                     </Typography>
 
-                    {/* TODO: Add a copy icon here */}
+                    {/* TODO: Add a notification bar here */}
                     <ClipboardBar placeholder="https://www.cypherock.com/gs/"></ClipboardBar>
 
                 </DialogueBoxBody>

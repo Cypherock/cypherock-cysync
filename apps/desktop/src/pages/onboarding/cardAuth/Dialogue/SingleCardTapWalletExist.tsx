@@ -12,6 +12,7 @@ import {
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
 import walletExist from "@assets/images/onboarding/cardAuth/walletExist.png";
+import { ONBOARDING_ROUTE_CARD_SUPPLY_CHAIN_ATTACK } from "../../../../routes/constantRoutePath";
 
 export const SingleCardTapWalletExist = () => {
   return (
@@ -53,7 +54,7 @@ export const SingleCardTapWalletExist = () => {
             </Container>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to ="/supplyChainAttack">
+            <Link to ={ONBOARDING_ROUTE_CARD_SUPPLY_CHAIN_ATTACK}>
               <Button variation="warning"> Not created by me </Button>
             </Link>
           </DialogueBoxFooter>

@@ -18,6 +18,7 @@ import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "../Aside";
 import { useCallback } from "react";
+import {ONBOARDING_ROUTE_TERMS_OF_USE, ONBOARDING_ROUTE_EMAIL_2FA, ONBOARDING_ROUTE_SET_PASSWORD_SUCCESS } from "../../../../routes/constantRoutePath";
 
 export const SetPassword = () => {
 
@@ -68,16 +69,16 @@ export const SetPassword = () => {
             <Divider />
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/email2fa">
+            <Link to={ONBOARDING_ROUTE_EMAIL_2FA}>
               <Button variation="secondary">Skip</Button>
             </Link>
-            <Link to="/setPasswordSucess">
+            <Link to={ONBOARDING_ROUTE_SET_PASSWORD_SUCCESS}>
               <Button onClick={confirmPasswordOnClick} variation="primary">Confirm</Button>
             </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
 
-        <Link to="/termsOfUse">
+        <Link to={ONBOARDING_ROUTE_TERMS_OF_USE}>
           <Flex
             position="absolute"
             bottom="bottomThree"

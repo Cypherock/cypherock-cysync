@@ -14,6 +14,7 @@ import {
 } from "@components";
 import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import { Aside } from "../Aside";
+import { ONBOARDING_ROUTE__RESET_PASSWORD, ONBOARDING_ROUTE_LOGIN } from "../../../../routes/constantRoutePath";
 
 export const DialogueResetPassword = () => {
   return (
@@ -58,10 +59,10 @@ export const DialogueResetPassword = () => {
             <Divider />
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/setPasswordLogin">
+            <Link to={ONBOARDING_ROUTE_LOGIN}>
               <Button variation="secondary">Go Back</Button>
             </Link>
-            <Link to="/setPasswordLogin">
+            <Link to={ONBOARDING_ROUTE__RESET_PASSWORD}>
               <Button variation="primary">Reset</Button>
             </Link>
           </DialogueBoxFooter>

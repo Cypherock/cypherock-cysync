@@ -11,6 +11,7 @@ import {
 import appupdate from "@assets/images/app-update.png"
 import { Aside } from "./Aside";
 import { Link } from "react-router-dom";
+import { ONBOARDING_ROUTE_UPDATE_APP_PROGRESS } from "../../../routes/constantRoutePath";
   
 export const AppUpdate = () => {
     return (
@@ -37,7 +38,7 @@ export const AppUpdate = () => {
 
                 <DialogueBoxFooter>
                 
-                <Link to="/appUpdateProgress">
+                <Link to={ONBOARDING_ROUTE_UPDATE_APP_PROGRESS}>
                     <Button variation="primary">Update</Button>
                 </Link>
                 

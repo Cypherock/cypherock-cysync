@@ -12,6 +12,7 @@ import success from "@assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
 import back from "@assets/images/back.png";
+import { ONBOARDING_ROUTE_SET_PASSWORD } from "../../../../routes/constantRoutePath";
 
 export const PasswordSetSuccess = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const PasswordSetSuccess = () => {
           </DialogueBoxBody>
         </DialogueBoxContainer>
 
-        <Link to="/setPassword">
+        <Link to={ONBOARDING_ROUTE_SET_PASSWORD}>
           <Flex
             position="absolute"
             bottom="bottomThree"

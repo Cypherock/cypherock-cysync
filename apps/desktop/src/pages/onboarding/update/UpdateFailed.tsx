@@ -13,6 +13,7 @@ import { Aside } from "./Aside";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Support } from "../Support";
+import { ONBOARDING_ROUTE_UPDATE_APP } from "../../../routes/constantRoutePath";
   
 export const UpdateFailed = () => {
     const [popup, setPopup] = useState(false);
@@ -47,7 +48,7 @@ export const UpdateFailed = () => {
                         Report
                     </Button>
 
-                    <Link to="/appInUpdate">
+                    <Link to={ONBOARDING_ROUTE_UPDATE_APP}>
                         <Button variation="primary">Retry</Button>
                     </Link>
                 </DialogueBoxFooter>

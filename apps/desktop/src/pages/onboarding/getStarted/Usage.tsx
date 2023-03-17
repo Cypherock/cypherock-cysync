@@ -11,11 +11,12 @@ import {
 } from "@components";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
-import close from "@/assets/images/close.png";
+import close from "@assets/images/close.png";
 import { useState } from "react";
-import addwallet from "@/assets/images/add-wallet.png";
-import importwallet from "@/assets/images/import-wallet.png";
-import recoverwallet from "@/assets/images/recover-wallet.png";
+import addwallet from "@assets/images/add-wallet.png";
+import importwallet from "@assets/images/import-wallet.png";
+import recoverwallet from "@assets/images/recover-wallet.png";
+import { ONBOARDING_ROUTE_TERMS_OF_USE } from "../../../routes/constantRoutePath";
 
 export const Usage = (): JSX.Element => {
   const [popup, setPopup] = useState(false);
@@ -37,7 +38,7 @@ export const Usage = (): JSX.Element => {
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/termsOfUse">
+            <Link to={ONBOARDING_ROUTE_TERMS_OF_USE}>
               <Button variation="primary">Button</Button>
             </Link>
           </DialogueBoxFooter>
@@ -105,7 +106,7 @@ export const Usage = (): JSX.Element => {
                     </Container>
                   </DialogueBoxBody>
                   <DialogueBoxFooter>
-                    <Link to="/termsOfUse">
+                    <Link to={ONBOARDING_ROUTE_TERMS_OF_USE}>
                       <Button variation="primary">Create</Button>
                     </Link>
                   </DialogueBoxFooter>
@@ -157,7 +158,7 @@ export const Usage = (): JSX.Element => {
                     </Container>
                   </DialogueBoxBody>
                   <DialogueBoxFooter>
-                    <Link to="/termsOfUse">
+                    <Link to={ONBOARDING_ROUTE_TERMS_OF_USE}>
                       <Button variation="primary">Import</Button>
                     </Link>
                   </DialogueBoxFooter>

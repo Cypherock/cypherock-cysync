@@ -15,6 +15,7 @@ import linkImage from "@assets/images/onboarding/getStarted/terms-link.png";
 import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
+import { ONBOARDING_ROUTE_SET_PASSWORD,ONBOARDING_ROUTE_WELCOME } from "../../../routes/constantRoutePath";
 
 export const Terms = (): JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
@@ -83,7 +84,7 @@ export const Terms = (): JSX.Element => {
 
           <DialogueBoxFooter>
             {isChecked ? (
-              <Link to="/setPassword">
+              <Link to={ONBOARDING_ROUTE_SET_PASSWORD}>
                 <Button variation="primary">Confirm</Button>
               </Link>
             ) : (
@@ -94,7 +95,7 @@ export const Terms = (): JSX.Element => {
           </DialogueBoxFooter>
         </DialogueBoxContainer>
 
-        <Link to="/welcome">
+        <Link to={ONBOARDING_ROUTE_WELCOME}>
           <Flex
             position="absolute"
             bottom="bottomThree"

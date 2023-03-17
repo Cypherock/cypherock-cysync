@@ -5,12 +5,9 @@ import {
     Typography,
     Flex,
     Container,
-    DialogueBoxFooter,
-    Button
 } from "@components";
 import appupdate from "@assets/images/app-update-progress.png"
 import { Aside } from "./Aside";
-import { Link } from "react-router-dom";
   
 export const DeviceUpdateProgress = () => {
     return (

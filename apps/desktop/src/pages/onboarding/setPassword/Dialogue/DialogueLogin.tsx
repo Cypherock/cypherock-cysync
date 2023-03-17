@@ -14,6 +14,7 @@ import {
 import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
+import { ONBOARDING_ROUTE_EMAIL_2FA, ONBOARDING_ROUTE__RESET_PASSWORD} from "../../../../routes/constantRoutePath";
 
 export const DialogueLogin = () => {
   return (
@@ -46,10 +47,10 @@ export const DialogueLogin = () => {
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/setPasswordReset">
+            <Link to={ONBOARDING_ROUTE__RESET_PASSWORD}>
               <Button variation="secondary">Reset Password</Button>
             </Link>
-            <Link to="/email2fa">
+            <Link to={ONBOARDING_ROUTE_EMAIL_2FA}>
               <Button variation="primary">Login</Button>
             </Link>
           </DialogueBoxFooter>

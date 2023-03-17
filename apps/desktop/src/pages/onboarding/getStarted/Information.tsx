@@ -10,6 +10,7 @@ import {
 } from "@components";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
+import { ONBOARDING_ROUTE_WELCOME } from "../../../routes/constantRoutePath";
 
 export const Information = (): JSX.Element => {
   return (
@@ -64,7 +65,7 @@ export const Information = (): JSX.Element => {
             </Container>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/welcome">
+            <Link to={ONBOARDING_ROUTE_WELCOME}>
               <Button variation="primary">Continue</Button>
             </Link>
           </DialogueBoxFooter>

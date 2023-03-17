@@ -16,6 +16,7 @@ import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import back from "@assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Aside } from "./Aside";
+import { ONBOARDING_ROUTE_DEVICE_AUTH_TEST,ONBOARDING_ROUTE_SET_PASSWORD } from "../../../routes/constantRoutePath";
 
 export const EmailConfirmation = (): JSX.Element => {
   return (
@@ -54,16 +55,16 @@ export const EmailConfirmation = (): JSX.Element => {
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to="/deviceAuthTest">
+            <Link to={ONBOARDING_ROUTE_DEVICE_AUTH_TEST}>
               <Button variation="secondary">Skip</Button>
             </Link>
-            <Link to="/deviceAuthTest">
+            <Link to={ONBOARDING_ROUTE_DEVICE_AUTH_TEST}>
               <Button variation="primary">Continue</Button>
             </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
 
-        <Link to="/setPassword">
+        <Link to={ONBOARDING_ROUTE_SET_PASSWORD}>
           <Flex
             position="absolute"
             bottom="bottomThree"
