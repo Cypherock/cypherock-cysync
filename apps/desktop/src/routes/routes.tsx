@@ -1,4 +1,4 @@
-import { OnboardingMain } from "@pages/onboarding";
+import { OnboardingMain } from "../pages/onboarding/index";
 import { ONBOARDING_ROUTE_ROOT } from "./constantRoutePath";
 import { Route, Routes } from "react-router-dom";
 

@@ -12,7 +12,6 @@ import { Usage } from "./getStarted/Usage";
 import { JoyStickToggle } from "./joystickGuide/Dialogue/JoystickToggle";
 import { SingleCardTap } from "./cardAuth/Dialogue/SingleCardTap";
 import { SupplyChainAttack } from "./cardAuth/Dialogue/SupplyChainAttack";
-import { AppClose } from "./cardAuth/Dialogue/AppClose";
 import { CardPairing } from "./cardAuth/Dialogue/CardPairing";
 import { Splash } from "./getStarted/Splash";
 import { DeviceConnect } from "./update/DeviceConnect";
@@ -113,8 +112,6 @@ export const OnboardingMain = (): JSX.Element => {
       <Route path={ONBOARDING_ROUTE_UPDATE_DEVICE_SUCCESS} element={<DeviceUpdateSuccess />}></Route>
       <Route path={ONBOARDING_ROUTE_UPDATE_APP_FAIL} element={<UpdateFailed />}></Route>
       <Route path={ONBOARDING_ROUTE_UPDATE_RETRY_FAIL} element={<UpdateFailedAgain />}></Route>
-
-      <Route path="/closeApp" element={<AppClose />}></Route>
 
     </Routes>
     </div>

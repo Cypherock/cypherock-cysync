@@ -20,7 +20,8 @@ import { Link } from "react-router-dom";
 import close from "@/assets/images/close.png";
 
 interface SupportProps {
-  clickClose?: () => void;
+  clickSupportClose?: () => void;
+  appCloseOpen?: () => void;
 };
 
 export const Support = (props: SupportProps) => {
@@ -33,7 +34,7 @@ export const Support = (props: SupportProps) => {
             <Typography variant="h6" color="textMuted" ml="mlAuto" mr="mrAuto">
               Contact Support
             </Typography>
-            <div onClick={() => props.clickClose()}>
+            <div onClick={() => props.clickSupportClose()}>
                 <Image src={close} />
             </div>
           </Flex>
@@ -90,10 +91,13 @@ export const Support = (props: SupportProps) => {
           </Typography>
         </DialogueBoxBody>
         <DialogueBoxFooter>
-          <Button variation="secondary" onClick={() => props.clickClose()}> Cancel </Button>
-          <Link to="/closeApp">
-            <Button variation="primary">Submit & Close app</Button>
-          </Link>
+          <Button variation="secondary" onClick={() => props.clickSupportClose()}> Cancel </Button>
+          <Button variation="primary" onClick={() => {
+            props.clickSupportClose()
+            props.appCloseOpen()
+          }}>
+            Submit & Close app
+          </Button>
         </DialogueBoxFooter>
       </DialogueBoxContainer>
       </Flex>

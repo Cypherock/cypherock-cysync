@@ -12,11 +12,16 @@ import {
 import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
 import { Aside } from "../Aside";
 import { Support } from "../../Support";
+import { AppClose } from "../../AppClose";
 
 export const SupplyChainAttack = () => {
-  const [popup, setPopup] = useState(false);
-  const clickClose = () => {
-    setPopup(false);
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupApClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
   }
   return (
     <Flex gap="gap0">
@@ -36,7 +41,7 @@ export const SupplyChainAttack = () => {
           </DialogueBoxBody>
           <DialogueBoxFooter>
               <Button variation="primary"
-               onClick={() => setPopup((wasOpen) => !wasOpen)}
+               onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
               > 
                 Contact Support
               </Button>
@@ -44,7 +49,8 @@ export const SupplyChainAttack = () => {
         </DialogueBoxContainer>
       </Container>
 
-      {popup===true &&  <Support clickClose={clickClose}/>}
+      {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+      {popupApClose===true && <AppClose />}
     </Flex>
   );
 };

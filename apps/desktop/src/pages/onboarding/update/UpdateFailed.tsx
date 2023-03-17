@@ -13,15 +13,20 @@ import { Aside } from "./Aside";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Support } from "../Support";
+import { AppClose } from "../AppClose";
 import { ONBOARDING_ROUTE_UPDATE_APP } from "../../../routes/constantRoutePath";
   
 export const UpdateFailed = () => {
-    const [popup, setPopup] = useState(false);
-    const clickClose = () => {
-        setPopup(false);
-    }
-    return (
-        <Flex gap="gap0">
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupApClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
+  }
+  return (
+    <Flex gap="gap0">
         <Aside screeName="App Update"/>
         <Container variant="container" bgColor="contentGratient">
             <Flex position="absolute" top="topThree" right="rightThree">
@@ -43,7 +48,7 @@ export const UpdateFailed = () => {
 
                 <DialogueBoxFooter>
                     <Button variation="secondary"
-                        onClick={() => setPopup((wasOpen) => !wasOpen)}
+                        onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
                     >
                         Report
                     </Button>
@@ -56,8 +61,9 @@ export const UpdateFailed = () => {
             </DialogueBoxContainer>
         </Container>
 
-        {popup===true &&  <Support clickClose={clickClose}/>}
-        </Flex>
+        {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+        {popupApClose===true && <AppClose />}
+    </Flex>
     );
 };
   
