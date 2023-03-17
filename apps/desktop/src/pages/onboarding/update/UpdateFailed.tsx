@@ -18,7 +18,7 @@ import { ONBOARDING_ROUTE_UPDATE_APP } from "../../../routes/constantRoutePath";
   
 export const UpdateFailed = () => {
   const [popupSupport, setPopupSupport] = useState(false);
-  const [popupApClose, setPopupAppClose] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
   const clickSupportClose = () => {
     setPopupSupport(false);
   }
@@ -62,7 +62,7 @@ export const UpdateFailed = () => {
         </Container>
 
         {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
-        {popupApClose===true && <AppClose />}
+        {popupAppClose===true && <AppClose />}
     </Flex>
     );
 };

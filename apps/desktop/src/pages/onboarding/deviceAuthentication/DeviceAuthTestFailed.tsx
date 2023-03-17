@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -12,8 +13,20 @@ import serverError from "@assets/images/onboarding/deviceAuth/server-off.png";
 import failed from "@assets/images/onboarding/deviceAuth/fail.png";
 import setting from "@assets/images/onboarding/deviceAuth/settings-wrong.png";
 import { Aside } from "./Aside";
+import { Link } from "react-router-dom";
+import { ONBOARDING_ROUTE_DEVICE_AUTH_TEST } from "../../../routes/constantRoutePath";
+import { Support } from "../Support";
+import { AppClose } from "../AppClose";
 
 export const DeviceAuthTestFailedServerError = () => {
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
+  }
   return (
     <Flex gap="gap0">
       <Aside />
@@ -32,18 +45,34 @@ export const DeviceAuthTestFailedServerError = () => {
           </DialogueBoxBody>
 
           <DialogueBoxFooter>
-            <Button variation="secondary" disabled={true}>
+            <Button variation="secondary"
+              onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
+            >
               Contact
             </Button>
-            <Button variation="primary">Retry</Button>
+            <Link to={ONBOARDING_ROUTE_DEVICE_AUTH_TEST}>
+              <Button variation="primary">Retry</Button>
+            </Link>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
+
+      {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+      {popupAppClose===true && <AppClose />}
+
     </Flex>
   );
 };
 
 export const DeviceAuthTestFailedFirmWareError = () => {
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
+  }
   return (
     <Flex gap="gap0">
       <Aside />
@@ -62,10 +91,18 @@ export const DeviceAuthTestFailedFirmWareError = () => {
           </DialogueBoxBody>
 
           <DialogueBoxFooter>
-            <Button variation="primary">Contact Support</Button>
+            <Button variation="primary"
+              onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
+            >
+              Contact Support
+            </Button>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
+
+      {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+      {popupAppClose===true && <AppClose />}
+
     </Flex>
   );
 };
@@ -87,7 +124,10 @@ export const DeviceAuthTestFailedServerDown = () => {
           </DialogueBoxBody>
 
           <DialogueBoxFooter>
-            <Button variation="primary">Retry</Button>
+            <Link to={ONBOARDING_ROUTE_DEVICE_AUTH_TEST}>
+              <Button variation="primary">Retry</Button>
+            </Link>
+            
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
@@ -96,6 +136,14 @@ export const DeviceAuthTestFailedServerDown = () => {
 };
 
 export const DeviceAuthTestFailedDeviceMisconfigured = () => {
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
+  }
   return (
     <Flex gap="gap0">
       <Aside />
@@ -114,10 +162,18 @@ export const DeviceAuthTestFailedDeviceMisconfigured = () => {
           </DialogueBoxBody>
 
           <DialogueBoxFooter>
-            <Button variation="primary">Contact Support</Button>
+            <Button variation="primary"
+            onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
+            >
+              Contact Support
+            </Button>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
+
+      {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+      {popupAppClose===true && <AppClose />}
+
     </Flex>
   );
 };

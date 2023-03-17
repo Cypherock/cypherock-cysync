@@ -16,7 +16,7 @@ import { AppClose } from "../../AppClose";
 
 export const SupplyChainAttack = () => {
   const [popupSupport, setPopupSupport] = useState(false);
-  const [popupApClose, setPopupAppClose] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
   const clickSupportClose = () => {
     setPopupSupport(false);
   }
@@ -50,7 +50,7 @@ export const SupplyChainAttack = () => {
       </Container>
 
       {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
-      {popupApClose===true && <AppClose />}
+      {popupAppClose===true && <AppClose />}
     </Flex>
   );
 };

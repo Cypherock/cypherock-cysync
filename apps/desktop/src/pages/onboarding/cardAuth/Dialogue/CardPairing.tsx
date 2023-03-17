@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
@@ -9,8 +10,18 @@ import {
   Button,
 } from "@components";
 import { Aside } from "../Aside";
+import { Support } from "../../Support";
+import { AppClose } from "../../AppClose";
 
 export const CardPairing = () => {
+  const [popupSupport, setPopupSupport] = useState(false);
+  const [popupAppClose, setPopupAppClose] = useState(false);
+  const clickSupportClose = () => {
+    setPopupSupport(false);
+  }
+  const toggleAppClose = () => {
+    setPopupAppClose((popup) => !popup);
+  }
   return (
     <Flex gap="gap0">
       <Aside />
@@ -85,11 +96,18 @@ export const CardPairing = () => {
             </Typography>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Button variation="secondary"> Support </Button>
+            <Button variation="secondary"
+              onClick={() => setPopupSupport((wasOpen) => !wasOpen)}
+            >
+              Support
+            </Button>
             <Button variation="primary">Retry</Button>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>
+
+      {popupSupport===true &&  <Support clickSupportClose={clickSupportClose} appCloseOpen={toggleAppClose}/>}
+      {popupAppClose===true && <AppClose />}
     </Flex>
   );
 };

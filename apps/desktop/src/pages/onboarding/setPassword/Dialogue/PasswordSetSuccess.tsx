@@ -12,13 +12,13 @@ import success from "@assets/images/onboarding/setPass/success.png";
 import { Aside } from "../Aside";
 import { Link } from "react-router-dom";
 import back from "@assets/images/back.png";
-import { ONBOARDING_ROUTE_SET_PASSWORD } from "../../../../routes/constantRoutePath";
+import { ONBOARDING_ROUTE_SET_PASSWORD, ONBOARDING_ROUTE_LOGIN } from "../../../../routes/constantRoutePath";
 
 export const PasswordSetSuccess = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/setPasswordLogin');
+      navigate(ONBOARDING_ROUTE_LOGIN);
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
