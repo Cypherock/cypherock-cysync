@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 const RoutesCore: React.FC = () => {
   return (
     <Routes>
-      <Route path={ONBOARDING_ROUTE_ROOT} element={<OnboardingMain />} />
+      <Route path={"*"} element={<OnboardingMain />} />
     </Routes>
   );
 };

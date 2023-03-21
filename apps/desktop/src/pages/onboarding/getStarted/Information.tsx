@@ -8,11 +8,23 @@ import {
   Container,
   Flex,
 } from "@components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Aside } from "./Aside";
 import { ONBOARDING_ROUTE_WELCOME } from "../../../routes/constantRoutePath";
+import { useCallback } from "react";
 
+// Information page of the onboarding process.
 export const Information = (): JSX.Element => {
+
+   let navigate = useNavigate();
+  // handler to set the local storage item and navigate to the next page.
+  const handleAgreeAndStartOnboarding = useCallback(() => {
+    console.log("inside handler")
+    // store the confirmation in the local storage.
+    localStorage.setItem("agreeAndStartOnboarding", "true");
+    navigate(ONBOARDING_ROUTE_WELCOME);
+
+  }, [navigate]);
   return (
     <Flex gap="gap0">
       <Aside />
@@ -65,9 +77,7 @@ export const Information = (): JSX.Element => {
             </Container>
           </DialogueBoxBody>
           <DialogueBoxFooter>
-            <Link to={ONBOARDING_ROUTE_WELCOME}>
-              <Button variation="primary">Continue</Button>
-            </Link>
+              <Button onClick={handleAgreeAndStartOnboarding} variation="primary">Continue</Button>
           </DialogueBoxFooter>
         </DialogueBoxContainer>
       </Container>

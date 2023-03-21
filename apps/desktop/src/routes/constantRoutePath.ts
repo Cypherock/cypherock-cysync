@@ -1,6 +1,6 @@
 // initial route path for onboarding.
 // Initial screen mostly contains the information about the product.
-const ONBOARDING_ROUTE_ROOT = '/onboarding';
+const ONBOARDING_ROUTE_ROOT = '/';
 const ONBOARDING_ROUTE_INFO = '/onboarding/info';
 const ONBOARDING_ROUTE_USAGE = '/onboarding/usage';
 const ONBOARDING_ROUTE_WELCOME = '/onboarding/welcome';
