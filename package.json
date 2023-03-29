@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "build": "set \"INLINE_RUNTIME_CHUNK=false\" && react-scripts build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

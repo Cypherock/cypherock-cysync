@@ -1,0 +1,35 @@
+server {                                                                           |server {
+    listen 80;                                                                     |        listen 80;
+    listen [::]:80;                                                                |        listen [::]:80;
+    server_name cypherock.com;                                                     |
+    access_log /var/log/nginx/cypherock-site.access.log;                           |        access_log /var/log/nginx/reverse-access-btc1.log;
+    error_log /var/log/nginx/cypherock-site.error.log;                             |        error_log /var/log/nginx/reverse-error-btc1.log;
+                                                                                   |
+    location / {                                                                   |        server_name btc1.cypherock.com;
+        resolver 8.8.8.8;                                                          |
+        set $bucket "cypherock.com.s3-website.ap-south-1.amazonaws.com";           |        location / {
+        rewrite ^([^.]*[^/])$ $1/ permanent;                                       |            deny all;
+                                                                                   |        }
+                                                                                   |
+        # matches: repository-name                                                 |        set $pass_host btcbook.nownodes.io;
+        if ($host ~ ^([^.]*)\.cypherock\.com$) {                                   |        set $pass_url https://$pass_host$request_uri;
+            set $repo $1;                                                          |
+            proxy_pass http://$bucket/${repo}/master${uri};                        |        set $socket_host wss-btc-cypherock.nownodes.io;
+        }                                                                          |        set $socket_url https://$socket_host;
+                                                                                   |
+        proxy_intercept_errors on;                                                 |        set $api_key "42c2ad08-305b-4a66-b8f6-56fa8b05b68b";
+        proxy_redirect off;                                                        |        set $auth_str "Basic bm93bm9kZXMtY3lwaGVyb2NrOmlhcmlWb2g1ZWVub2h2OG9od3VYZ
+        proxy_set_header Host $bucket;                                             |WtpMGZ1NG9vYw==";
+        proxy_set_header X-Real-IP $remote_addr;                                   |
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;               |        location ~* /api/v2/(((xpub|utxo|block|block-index|tx|tx-specific|balanceh
+        proxy_hide_header x-amz-id-2;                                              |istory)/[^/]+/?$)|((tickers|tickers-list)/[^/]*$)) {
+        proxy_hide_header x-amz-request-id;                                        |            resolver 8.8.4.4 8.8.8.8 valid=300s ipv6=off;
+    }                                                                              |            proxy_pass $pass_url;
+                                                                                   |            proxy_http_version 1.1;
+        location /shop {                                                           |            proxy_ssl_server_name on;
+                proxy_pass http://your_other_ip_address;                           |            proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header Host $host;                                       |            proxy_set_header HOST $pass_host;
+                proxy_set_header X-Real-IP $remote_addr;                           |            proxy_set_header api-key $api_key;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                }
+}

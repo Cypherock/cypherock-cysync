@@ -1,20 +1,18 @@
 import { Container, Flex, Typography, Image } from "@components";
 import sysyncbig from "@assets/images/logo-big.png";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { ONBOARDING_ROUTE_INFO } from "../../../routes/constantRoutePath";
 
-export const Splash = (): JSX.Element => {
-  
-  const navigate = useNavigate();
-  
+export const Splash = ({onNext}: {
+  onNext: () => void;
+}): JSX.Element => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate(ONBOARDING_ROUTE_INFO);
+      onNext();
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, []);
 
   return (
     <Container

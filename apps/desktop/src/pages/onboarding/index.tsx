@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import { Information } from "./getStarted/Information";
 import { Routes, Route } from "react-router-dom";
 import { Welcome } from "./getStarted/Welcome";
@@ -62,58 +64,66 @@ import { ONBOARDING_ROUTE_ROOT,
   ONBOARDING_ROUTE_UPDATE_DEVICE_PROGRESS,
   ONBOARDING_ROUTE_UPDATE_DEVICE_SUCCESS,
   ONBOARDING_ROUTE_UPDATE_DEVICE_FAIL, } from "../../routes/constantRoutePath";
+import { ServerStyleSheet } from "styled-components";
+import { useSteps } from "../../hooks/steps";
+
 
 export const OnboardingMain = (): JSX.Element => {
+  const { step, nextStep, prevStep } = useSteps();
+  const OnboardingStepsComponents = [
+    <Splash onNext={
+      () => {
+        nextStep();
+      }
+    } />,
+    <Information onNext=
+      {
+        () => {
+          nextStep();
+        } 
+      }
+    />,
+    <Usage />,
+    <Welcome />,
+    <Terms />,
+
+    <SetPassword />,
+    <PasswordSetSuccess />,
+    <DialogueLogin />,
+    <DialogueResetPassword />,
+    <EmailConfirmation />,
+    <DeviceAuthTest />,
+    <DeviceAuthTestSuccess />,
+    <DeviceAuthTestFailedServerError />,
+    <DeviceAuthTestFailedFirmWareError />,
+    <DeviceAuthTestFailedServerDown />,
+    <DeviceAuthTestFailedDeviceMisconfigured />,
+    <SingleCardTap />,
+    <SingleCardTapWalletExist />,
+    <SupplyChainAttack />,
+    <CardPairing />,
+    <JoyStickToggle />,
+    <JoyStickToggleCenterButton />,
+    <JoyStickToggleSuccess />,
+    <DeviceConnect />,
+    <AppUpdate />,
+    <AppUpdateProgress />,
+    <AppUpdateSuccess />,
+    <UpdateFailed />,
+    <UpdateFailedAgain />,
+    <DeviceUpdate />,
+    <DeviceUpdateProgress />,
+    <DeviceUpdateSuccess />,
+    <UpdateFailed />,
+    <UpdateFailedAgain />,
+
+
+  ];
+
   return (
     <div className="onboarding">
-    <Routes>
-      <Route path={ONBOARDING_ROUTE_ROOT} element={<Splash />}></Route>
-      <Route path={ONBOARDING_ROUTE_INFO} element={<Information />}></Route>
-      <Route path={ONBOARDING_ROUTE_USAGE} element={<Usage />}></Route>
-      <Route path={ONBOARDING_ROUTE_WELCOME} element={<Welcome />}></Route>
-      <Route path={ONBOARDING_ROUTE_TERMS_OF_USE} element={<Terms />}></Route>
-      
-      {/* Email and password routes */}
-      <Route path={ONBOARDING_ROUTE_SET_PASSWORD} element={<SetPassword />}></Route>
-      <Route path={ONBOARDING_ROUTE_SET_PASSWORD_SUCCESS} element={<PasswordSetSuccess />}></Route>
-      <Route path={ONBOARDING_ROUTE_LOGIN} element={<DialogueLogin />}></Route>
-      <Route path={ONBOARDING_ROUTE__RESET_PASSWORD} element={<DialogueResetPassword />}></Route>
-      <Route path={ONBOARDING_ROUTE_EMAIL_2FA} element={<EmailConfirmation />}></Route>
-      
-
-
-      {/* Device Auth Routes */}
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_TEST} element={<DeviceAuthTest />}></Route>
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_SUCCESS} element={<DeviceAuthTestSuccess />}> </Route>
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_SERVER_ERROR} element={<DeviceAuthTestFailedServerError />}> </Route>
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_FIRMWARE_ERROR} element={<DeviceAuthTestFailedFirmWareError />}> </Route>
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_SERVER_DOWN} element={<DeviceAuthTestFailedServerDown />}> </Route>
-      <Route path={ONBOARDING_ROUTE_DEVICE_AUTH_MISCONFIGURED_ERROR} element={<DeviceAuthTestFailedDeviceMisconfigured />}> </Route>
-
-
-      {/* Card screens routes */}
-      <Route path={ONBOARDING_ROUTE_CARD_TAP} element={<SingleCardTap />}></Route>
-      <Route path={ONBOARDING_ROUTE_CARD_EXIST} element={<SingleCardTapWalletExist />}></Route>
-      <Route path={ONBOARDING_ROUTE_CARD_SUPPLY_CHAIN_ATTACK} element={<CardPairing />}></Route>
-      <Route path={ONBOARDING_ROUTE_CARD_PAIRING} element={<SupplyChainAttack/>}></Route>
-
-      {/* Joystick screens routes */}
-      <Route path={ONBOARDING_ROUTE_JOYSTICK_TOGGLE} element={<JoyStickToggle />}></Route>
-      <Route path={ONBOARDING_ROUTE_JOYSTICK_TOGGLE_CENTER} element={<JoyStickToggleCenterButton />}></Route>
-      <Route path={ONBOARDING_ROUTE_JOYSTICK_SUCCESS} element={<JoyStickToggleSuccess />}></Route>
-
-      {/* Update screens routes */}
-      <Route path={ONBOARDING_ROUTE_CONNECT_DEVICE} element={<DeviceConnect />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_APP} element={<AppUpdate />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_APP_PROGRESS} element={<AppUpdateProgress />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_APP_SUCCESS} element={<AppUpdateSuccess />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_DEVICE} element={<DeviceUpdate />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_DEVICE_PROGRESS} element={<DeviceUpdateProgress />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_DEVICE_SUCCESS} element={<DeviceUpdateSuccess />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_APP_FAIL} element={<UpdateFailed />}></Route>
-      <Route path={ONBOARDING_ROUTE_UPDATE_RETRY_FAIL} element={<UpdateFailedAgain />}></Route>
-
-    </Routes>
+     {OnboardingStepsComponents[step]} 
+    
     </div>
   );
 };

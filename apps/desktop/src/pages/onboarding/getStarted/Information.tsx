@@ -14,7 +14,9 @@ import { ONBOARDING_ROUTE_WELCOME } from "../../../routes/constantRoutePath";
 import { useCallback } from "react";
 
 // Information page of the onboarding process.
-export const Information = (): JSX.Element => {
+export const Information = ({ onNext}: {
+  onNext: () => void;
+} ): JSX.Element => {
 
    let navigate = useNavigate();
   // handler to set the local storage item and navigate to the next page.
@@ -22,9 +24,11 @@ export const Information = (): JSX.Element => {
     console.log("inside handler")
     // store the confirmation in the local storage.
     localStorage.setItem("agreeAndStartOnboarding", "true");
-    navigate(ONBOARDING_ROUTE_WELCOME);
+    // navigate to the next page.
+    onNext();
 
-  }, [navigate]);
+  }, []);
+
   return (
     <Flex gap="gap0">
       <Aside />
