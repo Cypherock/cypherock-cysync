@@ -1,18 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["ES2015"],
-    "paths": {
-      "*": ["./src/types/*"]
-    }
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
-  "extends": "tsconfig/node.json",
-  "include": ["./src/**/*.ts"],
-  "exclude": [
-    "node_modules",
-    "src/coverage",
-    "src/**/__fixtures__/*.ts",
-    "src/**/__tests__/*.ts",
-    "src/**/__mocks__/*.ts"
-  ]
+  "extends": "@cypherock/tsconfig/browser.json",
+  "include": ["renderer"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -3,7 +3,7 @@
     "outDir": "dist",
     "lib": ["DOM"]
   },
-  "extends": "tsconfig/browser.json",
+  "extends": "@cypherock/tsconfig/browser.json",
   "include": ["./src/**/*"],
   "exclude": [
     "node_modules",

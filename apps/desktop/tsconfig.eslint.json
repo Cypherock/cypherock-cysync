@@ -3,7 +3,7 @@
     "outDir": "dist",
     "lib": ["ES2015"]
   },
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.node.json",
   "include": ["./src/**/*", "./tests/**/*"],
   "exclude": ["node_modules", "src/coverage"]
 }

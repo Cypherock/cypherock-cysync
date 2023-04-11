@@ -4,8 +4,8 @@
     "packages": {
       "inputs": ["packages/*"]
     },
-    "start": {
-      "dependsOn": ["^build", "^start"],
+    "dev": {
+      "dependsOn": ["^build", "^dev"],
       "cache": false
     },
     "build": {
@@ -13,8 +13,12 @@
       "inputs": ["."],
       "outputs": ["dist/**", ".vite/**"]
     },
+    "watch:build": {
+      "dependsOn": ["prebuild"],
+      "cache": false,
+      "persistent": true
+    },
     "prebuild": {
-      "cache": true,
       "inputs": ["scripts/prebuild.sh"]
     },
     "make": {

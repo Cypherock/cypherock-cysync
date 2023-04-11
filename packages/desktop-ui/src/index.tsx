@@ -1,8 +1,9 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import App from './app';
 
 export default function render(target?: HTMLElement) {
-  ReactDOM.render(<App />, target ?? document.body);
+  const root = ReactDOM.createRoot(target ?? document.body);
+  root.render(<App />);
 }

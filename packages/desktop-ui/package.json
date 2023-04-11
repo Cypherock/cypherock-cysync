@@ -11,11 +11,15 @@
     "pretty": "prettier --write 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "pretty:check": "prettier --check 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "build": "rimraf dist && tsc -p tsconfig.json",
+    "watch:build": "rimraf dist && tsc --watch -p tsconfig.json",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.4",
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
     "@jest/globals": "^29.4.1",
     "@stryker-mutator/core": "^6.4.1",
     "@stryker-mutator/jest-runner": "^6.4.1",

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['custom/node'],
+  extends: ['@cypherock/eslint-config/node'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
@@ -9,7 +9,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['src/*.ts'],
+        devDependencies: ['src/**/*.ts'],
       },
     ],
   },

@@ -4,15 +4,17 @@
   "description": "Cypherock CySync application",
   "private": true,
   "scripts": {
-    "start": "yarn turbo start",
-    "make": "yarn turbo make",
-    "build": "yarn turbo build"
+    "start": "concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build\"",
+    "dev": "pnpm turbo dev",
+    "make": "pnpm turbo make",
+    "build": "pnpm turbo build",
+    "watch:build": "pnpm turbo watch:build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^8.0.1",
     "turbo": "^1.8.8"
-  },
-  "workspaces": ["apps/*", "packages/*"]
+  }
 }
