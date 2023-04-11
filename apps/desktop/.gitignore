@@ -97,3 +97,5 @@ out/
 dist
 dist-electron
 release
+.turbo
+coverage

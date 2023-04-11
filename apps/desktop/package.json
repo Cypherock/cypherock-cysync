@@ -17,10 +17,10 @@
     "pree2e": "vite build --mode=test",
     "e2e": "playwright test",
     "prebuild": "bash scripts/prebuild.sh",
-    "lint": "eslint electron/* --fix",
-    "lint:check": "eslint --ext .ts,tsx,js,jsx,js electron/",
-    "pretty": "prettier --write '{src,tests,electron}/**/*.{{ts,js}?(x),json,md}'",
-    "pretty:check": "prettier --check '{src,tests,electron}/**/*.{{ts,js}?(x),json,md}'",
+    "lint": "eslint src/* --fix",
+    "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
+    "pretty": "prettier --write '{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}'",
+    "pretty:check": "prettier --check '{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}'",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
@@ -36,6 +36,7 @@
     "@cypherock/eslint-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
+    "@jest/globals": "^29.4.1",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
@@ -46,6 +47,7 @@
     "electron-builder": "^23.6.0",
     "eslint": "^8.38.0",
     "jest": "^29.5.0",
+    "lint-staged": "^13.2.0",
     "node-loader": "^2.0.0",
     "prettier": "^2.8.7",
     "style-loader": "^3.0.0",
@@ -61,7 +63,12 @@
     "react-dom": "^18.2.0"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --ext ts,tsx --quiet --fix --", "prettier --write"],
-    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": ["prettier --write"]
+    "*.{ts,tsx}": [
+      "eslint --ext ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
+      "prettier --write"
+    ]
   }
 }

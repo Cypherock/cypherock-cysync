@@ -9,7 +9,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['src/**/*.ts'],
+        devDependencies: true,
       },
     ],
   },

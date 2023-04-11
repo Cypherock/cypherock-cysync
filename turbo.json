@@ -25,6 +25,29 @@
       "dependsOn": ["build", "^make"],
       "inputs": ["."],
       "cache": false
+    },
+    "pre-commit": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "cache": false
+    },
+    "lint:check": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "lint": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty:check": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty": {
+      "inputs": ["."],
+      "outputs": []
     }
   }
 }

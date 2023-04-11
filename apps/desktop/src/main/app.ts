@@ -37,15 +37,16 @@ export default function createApp() {
       icon: join(icon, 'favicon.ico'),
       webPreferences: {
         preload,
-        // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-        // Consider using contextBridge.exposeInMainWorld
-        // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-        nodeIntegration: true,
-        contextIsolation: false,
+        nodeIntegration: false,
+        contextIsolation: true,
       },
     });
 
     if (process.env.VITE_DEV_SERVER_URL) {
+      if (!rendererUrl) {
+        throw new Error('VITE_DEV_SERVER_URL is undefined');
+      }
+
       // electron-vite-vue#298
       win.loadURL(rendererUrl);
       // Open devTool if the app is not packaged
