@@ -1,21 +1,27 @@
 {
-  "name": "desktop",
+  "name": "@cypherock/cysync-desktop",
   "productName": "desktop",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "private": true,
+  "description": "Cypherock CySync desktop application",
   "main": ".vite/build/main.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "yarn prebuild && electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
-    "build": "electron-forge make",
+    "make": "yarn prebuild && electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "prebuild": "bash scripts/prebuild.sh",
+    "lint": "eslint src/* --fix",
+    "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
+    "pretty": "prettier --write 'src/**/*.{{ts,js}?(x),json,md}' 'tests/**/*.{ts,js}?(x)'",
+    "pretty:check": "prettier --check 'src/**/*.{{ts,js}?(x),json,md}' 'tests/**/*.{ts,js}?(x)'",
+    "test": "jest",
+    "pre-commit": "lint-staged"
   },
   "keywords": [],
   "author": {
-    "name": "Suraj Tiwari",
-    "email": "surajtiwari020@gmail.com"
+    "name": "Cypherock",
+    "email": "support@cypherock.com"
   },
   "license": "MIT",
   "devDependencies": {
@@ -26,19 +32,30 @@
     "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
+    "@electron-forge/plugin-vite": "^6.1.1",
     "@electron-forge/plugin-webpack": "^6.0.4",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "@vitejs/plugin-react": "^3.1.0",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.0.0",
-    "electron": "22.0.2",
+    "electron": "^24.0.0",
+    "eslint": "^8.38.0",
+    "jest": "^29.5.0",
     "node-loader": "^2.0.0",
+    "prettier": "^2.8.7",
     "style-loader": "^3.0.0",
     "vite": "^4.1.1"
   },
   "dependencies": {
-    "electron-forge-plugin-vite": "^0.3.6",
-    "electron-squirrel-startup": "^1.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
+      "prettier --write"
+    ]
   }
 }

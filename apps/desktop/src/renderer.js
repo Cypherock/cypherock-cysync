@@ -1,1 +1,3 @@
-import './main.jsx';
+import render from '@cypherock/cysync-desktop-ui';
+
+render();

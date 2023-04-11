@@ -4,15 +4,22 @@
     "packages": {
       "inputs": ["packages/*"]
     },
+    "start": {
+      "dependsOn": ["^build", "^start"],
+      "cache": false
+    },
     "build": {
-      "dependsOn": ["^packages"],
-      "outputs": ["out/**"],
-      "inputs": ["apps/*"]
+      "dependsOn": ["prebuild", "^build"],
+      "inputs": ["."],
+      "outputs": ["dist/**", ".vite/**"]
     },
-    "lint": {
-      "outputs": []
+    "prebuild": {
+      "cache": true,
+      "inputs": ["scripts/prebuild.sh"]
     },
-    "dev": {
+    "make": {
+      "dependsOn": ["build", "^make"],
+      "inputs": ["."],
       "cache": false
     }
   }

@@ -1,13 +1,18 @@
 {
-  "name": "cysync-new",
+  "name": "cysync",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cypherock CySync application",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "start": "yarn turbo start",
+    "make": "yarn turbo make",
+    "build": "yarn turbo build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "turbo": "^1.6.3"
-  }
+    "turbo": "^1.8.8"
+  },
+  "workspaces": ["apps/*", "packages/*"]
 }
