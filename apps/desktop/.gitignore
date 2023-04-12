@@ -93,3 +93,9 @@ out/
 
 # Turbo
 .turbo
+
+dist
+dist-electron
+release
+.turbo
+coverage

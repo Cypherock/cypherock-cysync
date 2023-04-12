@@ -4,16 +4,50 @@
     "packages": {
       "inputs": ["packages/*"]
     },
-    "build": {
-      "dependsOn": ["^packages"],
-      "outputs": ["out/**"],
-      "inputs": ["apps/*"]
+    "dev": {
+      "dependsOn": ["^build", "^dev"],
+      "cache": false
     },
-    "lint": {
+    "build": {
+      "dependsOn": ["prebuild", "^build"],
+      "inputs": ["."],
+      "outputs": ["dist/**", ".vite/**"]
+    },
+    "watch:build": {
+      "dependsOn": ["prebuild"],
+      "cache": false,
+      "persistent": true
+    },
+    "prebuild": {
+      "inputs": ["scripts/prebuild.sh"]
+    },
+    "make": {
+      "dependsOn": ["build", "^make"],
+      "inputs": ["."],
+      "cache": false
+    },
+    "pre-commit": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "cache": false
+    },
+    "lint:check": {
+      "inputs": ["."],
       "outputs": []
     },
-    "dev": {
-      "cache": false
+    "lint": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty:check": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty": {
+      "inputs": ["."],
+      "outputs": []
     }
   }
 }

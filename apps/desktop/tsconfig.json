@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+  },
+  "extends": "@cypherock/tsconfig/browser.json",
+  "include": ["renderer"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
