@@ -16,7 +16,6 @@
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
     "e2e": "playwright test",
-    "prebuild": "bash scripts/prebuild.sh",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
     "pretty": "prettier --write '{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}'",
