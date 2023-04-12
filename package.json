@@ -19,7 +19,8 @@
     "pretty:check": "turbo run pretty:check",
     "test": "turbo run test",
     "pre-commit": "turbo run pre-commit --concurrency=1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clean": "node scripts/clean.js && bash scripts/clean.sh"
   },
   "keywords": [],
   "license": "ISC",
