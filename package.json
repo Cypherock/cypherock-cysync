@@ -20,7 +20,7 @@
     "test": "turbo run test",
     "pre-commit": "turbo run pre-commit --concurrency=1",
     "prepare": "husky install",
-    "clean": "node scripts/clean.js && bash scripts/clean.sh"
+    "clean": "node scripts/clean.js && bash ./scripts/clean.sh"
   },
   "keywords": [],
   "license": "ISC",
@@ -29,7 +29,7 @@
     "@commitlint/config-conventional": "^17.4.4",
     "concurrently": "^8.0.1",
     "husky": "^8.0.3",
-    "turbo": "^1.8.8"
+    "turbo": "^1.9.0"
   },
   "engines": {
     "node": ">=18.0.0"
