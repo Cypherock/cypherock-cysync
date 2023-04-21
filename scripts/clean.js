@@ -11,6 +11,8 @@ const packages = {
     ".turbo",
     "release",
   ],
+  "packages/coin-support": ["node_modules", "coverage", "dist", ".turbo"],
+  "packages/coins": ["node_modules", "coverage", "dist", ".turbo"],
   "packages/desktop-ui": ["node_modules", "coverage", "dist", ".turbo"],
   "packages/util-eslint-config": ["node_modules"],
   "packages/util-prettier-config": ["node_modules"],

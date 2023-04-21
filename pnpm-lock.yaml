@@ -22,9 +22,6 @@ importers:
 
   apps/desktop:
     dependencies:
-      '@cypherock/cysync-desktop-ui':
-        specifier: workspace:^
-        version: link:../../packages/desktop-ui
       electron-squirrel-startup:
         specifier: ^1.0.0
         version: 1.0.0
@@ -41,9 +38,18 @@ importers:
       '@babel/preset-react':
         specifier: ^7.18.6
         version: 7.18.6(@babel/core@7.21.4)
+      '@cypherock/coin-support':
+        specifier: workspace:^
+        version: link:../../packages/coin-support
+      '@cypherock/cysync-desktop-ui':
+        specifier: workspace:^
+        version: link:../../packages/desktop-ui
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../../packages/util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../../packages/util-jest-config
       '@cypherock/prettier-config':
         specifier: workspace:^
         version: link:../../packages/util-prettier-config
@@ -82,7 +88,7 @@ importers:
         version: 8.38.0
       jest:
         specifier: ^29.5.0
-        version: 29.5.0(@types/node@18.15.11)
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
       lint-staged:
         specifier: ^13.2.0
         version: 13.2.1
@@ -100,13 +106,121 @@ importers:
         version: 5.0.4
       vite:
         specifier: ^4.1.1
-        version: 4.2.1
+        version: 4.2.1(@types/node@18.15.11)
       vite-plugin-electron:
         specifier: ^0.11.1
         version: 0.11.1
       vite-plugin-electron-renderer:
         specifier: ^0.13.14
         version: 0.13.14
+
+  packages/coin-support:
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.4.1
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^6.4.1
+        version: 6.4.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^6.4.1
+        version: 6.4.2(@stryker-mutator/core@6.4.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^6.4.1
+        version: 6.4.2(@stryker-mutator/core@6.4.2)(typescript@5.0.4)
+      '@types/jest':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.38.0
+        version: 8.38.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.0
+        version: 13.2.1
+      prettier:
+        specifier: ^2.8.7
+        version: 2.8.7
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.0
+      ts-jest:
+        specifier: ^29.0.5
+        version: 29.1.0(@babel/core@7.21.4)(jest@29.5.0)(typescript@5.0.4)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+
+  packages/coins:
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.4.1
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^6.4.1
+        version: 6.4.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^6.4.1
+        version: 6.4.2(@stryker-mutator/core@6.4.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^6.4.1
+        version: 6.4.2(@stryker-mutator/core@6.4.2)(typescript@5.0.4)
+      '@types/jest':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.38.0
+        version: 8.38.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.0
+        version: 13.2.1
+      prettier:
+        specifier: ^2.8.7
+        version: 2.8.7
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.0
+      ts-jest:
+        specifier: ^29.0.5
+        version: 29.1.0(@babel/core@7.21.4)(jest@29.5.0)(typescript@5.0.4)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
 
   packages/desktop-ui:
     dependencies:
@@ -117,12 +231,12 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@babel/preset-typescript':
-        specifier: ^7.21.4
-        version: 7.21.4(@babel/core@7.21.4)
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
       '@cypherock/prettier-config':
         specifier: workspace:^
         version: link:../util-prettier-config
@@ -161,7 +275,7 @@ importers:
         version: 8.38.0
       jest:
         specifier: ^29.5.0
-        version: 29.5.0(@types/node@18.15.11)
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
       jest-environment-jsdom:
         specifier: ^29.5.0
         version: 29.5.0
@@ -222,6 +336,8 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
+
+  packages/util-jest-config: {}
 
   packages/util-prettier-config:
     dependencies:
@@ -1325,7 +1441,7 @@ packages:
       slash: 3.0.0
     dev: true
 
-  /@jest/core@29.5.0:
+  /@jest/core@29.5.0(ts-node@10.9.1):
     resolution: {integrity: sha512-28UzQc7ulUrOQw1IsN/kv1QES3q2kkbl/wGslyhAclqZ/8cMdB5M68BffkIdSJgKBUt50d3hbwJ92XESlE7LiQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
@@ -1346,7 +1462,7 @@ packages:
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.5.0
-      jest-config: 29.5.0(@types/node@18.15.11)
+      jest-config: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
       jest-haste-map: 29.5.0
       jest-message-util: 29.5.0
       jest-regex-util: 29.4.3
@@ -2176,7 +2292,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6(@babel/core@7.21.4)
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.2.1
+      vite: 4.2.1(@types/node@18.15.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5256,7 +5372,7 @@ packages:
       - supports-color
     dev: true
 
-  /jest-cli@29.5.0(@types/node@18.15.11):
+  /jest-cli@29.5.0(@types/node@18.15.11)(ts-node@10.9.1):
     resolution: {integrity: sha512-L1KcP1l4HtfwdxXNFCL5bmUbLQiKrakMUriBEcc1Vfz6gx31ORKdreuWvmQVBit+1ss9NNR3yxjwfwzZNdQXJw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -5266,14 +5382,14 @@ packages:
       node-notifier:
         optional: true
     dependencies:
-      '@jest/core': 29.5.0
+      '@jest/core': 29.5.0(ts-node@10.9.1)
       '@jest/test-result': 29.5.0
       '@jest/types': 29.5.0
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
       import-local: 3.1.0
-      jest-config: 29.5.0(@types/node@18.15.11)
+      jest-config: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
       jest-util: 29.5.0
       jest-validate: 29.5.0
       prompts: 2.4.2
@@ -5284,7 +5400,7 @@ packages:
       - ts-node
     dev: true
 
-  /jest-config@29.5.0(@types/node@18.15.11):
+  /jest-config@29.5.0(@types/node@18.15.11)(ts-node@10.9.1):
     resolution: {integrity: sha512-kvDUKBnNJPNBmFFOhDbm59iu1Fii1Q6SxyhXfvylq3UTHbg6o7j/g8k2dZyXWLvfdKB1vAPxNZnMgtKJcmu3kA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
@@ -5319,6 +5435,7 @@ packages:
       pretty-format: 29.5.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@5.0.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5641,7 +5758,7 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jest@29.5.0(@types/node@18.15.11):
+  /jest@29.5.0(@types/node@18.15.11)(ts-node@10.9.1):
     resolution: {integrity: sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -5651,10 +5768,10 @@ packages:
       node-notifier:
         optional: true
     dependencies:
-      '@jest/core': 29.5.0
+      '@jest/core': 29.5.0(ts-node@10.9.1)
       '@jest/types': 29.5.0
       import-local: 3.1.0
-      jest-cli: 29.5.0(@types/node@18.15.11)
+      jest-cli: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
@@ -7719,7 +7836,7 @@ packages:
       '@babel/core': 7.21.4
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0(@types/node@18.15.11)
+      jest: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
       jest-util: 29.5.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -8036,7 +8153,7 @@ packages:
     resolution: {integrity: sha512-pi9Wy4KCGjKIRvp7/5VUOT8BYEAJdZrpy3gI+GhGc5vYs2V9yPxLOtfCqNfSTYqH3uM6hYY6MyifFVku3Wg+2A==}
     dev: true
 
-  /vite@4.2.1:
+  /vite@4.2.1(@types/node@18.15.11):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -8061,6 +8178,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.15.11
       esbuild: 0.17.16
       postcss: 8.4.21
       resolve: 1.22.2
