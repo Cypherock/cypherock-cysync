@@ -1,3 +1,3 @@
 export interface IAsset {
-	id: string;
+  id: string;
 }

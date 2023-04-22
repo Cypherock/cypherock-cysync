@@ -1,12 +1,12 @@
-import { IBaseRepository } from "./BaseRepository";
-import { IPriceHistory } from "./PriceHistory";
+import { IBaseRepository } from './BaseRepository';
+import { IPriceHistory } from './PriceHistory';
 
 export interface IPriceInfo {
-	id: string;
-	currency: string;
-	latestPrice: boolean;
+  id: string;
+  currency: string;
+  latestPrice: boolean;
 }
 
 export interface IPriceInfoRepository extends IBaseRepository<IPriceInfo> {
-	getPriceHistory(IPriceInfo): Promise<IPriceHistory>;
+  getPriceHistory(IPriceInfo): Promise<IPriceHistory>;
 }
