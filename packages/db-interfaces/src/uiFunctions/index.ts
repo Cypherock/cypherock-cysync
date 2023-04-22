@@ -1,4 +1,4 @@
-import {
+import type {
   AccountId,
   IAccountInfo,
   AssetId,
@@ -6,11 +6,14 @@ import {
   WalletId,
   IWalletInfo,
 } from './common';
-import { IAssetAllocation, AssetSortOption } from './getAssetAllocations';
-import { IAccountDisplayInfo, AccountSortOption } from './getDisplayAccounts';
-import { IAssetBalanceHistory, PriceHistoryRange } from './getGraphData';
-import { IHistoryItemInfo } from './getHistoryItem';
-import { IHistoryListItemInfo, HistorySortOption } from './getHistoryList';
+import type { IAssetAllocation, AssetSortOption } from './getAssetAllocations';
+import type {
+  IAccountDisplayInfo,
+  AccountSortOption,
+} from './getDisplayAccounts';
+import type { IAssetBalanceHistory, PriceHistoryRange } from './getGraphData';
+import type { IHistoryItemInfo } from './getHistoryItem';
+import type { IHistoryListItemInfo, HistorySortOption } from './getHistoryList';
 
 export interface IUIFunctions {
   getGraphData(params: {

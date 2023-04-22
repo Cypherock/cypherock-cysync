@@ -18,10 +18,6 @@ export interface IRepoOptions {
 
 export interface IBaseRepository<Entity extends ObjectLiteral> {
   /**
-   * Creates a new entity instance.
-   */
-  create(): Entity;
-  /**
    * Creates new entities and copies all entity properties from given objects into their new entities.
    * Note that it copies only properties that are present in entity schema.
    */
@@ -30,7 +26,7 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
    * Creates a new entity instance and copies all entity properties from this object into a new entity.
    * Note that it copies only properties that are present in entity schema.
    */
-  create(entityLike: Partial<Entity>): Entity;
+  create(entityLike?: Partial<Entity>): Entity;
   /**
    * Saves all given entities in the database.
    * If entities do not exist in the database then inserts, otherwise updates.

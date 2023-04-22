@@ -1,6 +1,6 @@
-import { IAsset } from './Asset';
-import { IBaseRepository } from './BaseRepository';
-import { IWallet } from './Wallet';
+import type { IAsset } from './Asset';
+import type { IBaseRepository, ObjectLiteral } from './BaseRepository';
+import type { IWallet } from './Wallet';
 
 export interface IAccount {
   id: string;
@@ -10,7 +10,7 @@ export interface IAccount {
   unit: string;
   derivationPath: string;
   type: string;
-  assetSpecificData: any;
+  assetSpecificData: ObjectLiteral;
 }
 
 export interface IAccountRepository extends IBaseRepository<IAccount> {

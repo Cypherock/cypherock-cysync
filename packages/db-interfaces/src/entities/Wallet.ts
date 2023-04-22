@@ -1,6 +1,6 @@
-import { IBaseRepository } from './BaseRepository';
-import { IAccount } from './Account';
-import { IDevice } from './Device';
+import type { IBaseRepository } from './BaseRepository';
+import type { IAccount } from './Account';
+import type { IDevice } from './Device';
 
 export interface IWallet {
   id: string;

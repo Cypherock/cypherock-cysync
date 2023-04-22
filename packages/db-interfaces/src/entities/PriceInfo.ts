@@ -1,5 +1,5 @@
-import { IBaseRepository } from './BaseRepository';
-import { IPriceHistory } from './PriceHistory';
+import type { IBaseRepository } from './BaseRepository';
+import type { IPriceHistory } from './PriceHistory';
 
 export interface IPriceInfo {
   id: string;

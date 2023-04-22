@@ -110,6 +110,9 @@ importers:
 
   packages/db-interfaces:
     devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
       '@cypherock/prettier-config':
         specifier: workspace:^
         version: link:../util-prettier-config

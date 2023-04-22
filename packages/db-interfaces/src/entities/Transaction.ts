@@ -1,4 +1,4 @@
-import { IBaseRepository } from './BaseRepository';
+import type { IBaseRepository, ObjectLiteral } from './BaseRepository';
 
 export enum Status {
   Pending = 0,
@@ -32,7 +32,7 @@ export interface ITransaction {
   inputs: IAddressInfo[];
   outputs: IAddressInfo[];
   confirmations: number;
-  assetSpecificData: any;
+  assetSpecificData: ObjectLiteral;
 }
 export interface ITransactionRepository extends IBaseRepository<ITransaction> {
   getParent(ITransaction): Promise<ITransaction>;

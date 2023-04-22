@@ -1,10 +1,10 @@
-import { IAccountRepository } from './entities/Account';
-import { IDeviceRepository } from './entities/Device';
-import { IPriceHistoryRepository } from './entities/PriceHistory';
-import { IPriceInfoRepository } from './entities/PriceInfo';
-import { ITransactionRepository } from './entities/Transaction';
-import { IWalletRepository } from './entities/Wallet';
-import { IUIFunctions } from './uiFunctions';
+import type { IAccountRepository } from './entities/Account';
+import type { IDeviceRepository } from './entities/Device';
+import type { IPriceHistoryRepository } from './entities/PriceHistory';
+import type { IPriceInfoRepository } from './entities/PriceInfo';
+import type { ITransactionRepository } from './entities/Transaction';
+import type { IWalletRepository } from './entities/Wallet';
+import type { IUIFunctions } from './uiFunctions';
 
 interface IRepositories {
   device: IDeviceRepository;

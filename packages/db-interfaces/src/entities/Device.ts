@@ -1,5 +1,5 @@
-import { IBaseRepository } from './BaseRepository';
-import { IWallet } from './Wallet';
+import type { IBaseRepository } from './BaseRepository';
+import type { IWallet } from './Wallet';
 
 export interface IDevice {
   serial: string;
