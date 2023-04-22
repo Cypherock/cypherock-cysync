@@ -14,8 +14,8 @@ export interface IAccount {
 }
 
 export interface IAccountRepository extends IBaseRepository<IAccount> {
-  getWallets(IAccount): Promise<IWallet[]>;
-  getChildren(IAccount): Promise<IAccount[]>;
-  getParent(IAccount): Promise<IAccount>;
-  getAssets(IAccount): Promise<IAsset[]>;
+  getWallets(account: IAccount): Promise<IWallet[]>;
+  getChildren(account: IAccount): Promise<IAccount[]>;
+  getParent(account: IAccount): Promise<IAccount>;
+  getAssets(account: IAccount): Promise<IAsset[]>;
 }

@@ -8,5 +8,5 @@ export interface IPriceInfo {
 }
 
 export interface IPriceInfoRepository extends IBaseRepository<IPriceInfo> {
-  getPriceHistory(IPriceInfo): Promise<IPriceHistory>;
+  getPriceHistory(priceInfo: IPriceInfo): Promise<IPriceHistory>;
 }

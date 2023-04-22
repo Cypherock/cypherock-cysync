@@ -35,6 +35,6 @@ export interface ITransaction {
   assetSpecificData: ObjectLiteral;
 }
 export interface ITransactionRepository extends IBaseRepository<ITransaction> {
-  getParent(ITransaction): Promise<ITransaction>;
-  getChildren(ITransaction): Promise<ITransaction[]>;
+  getParent(transaction: ITransaction): Promise<ITransaction>;
+  getChildren(transaction: ITransaction): Promise<ITransaction[]>;
 }

@@ -8,5 +8,5 @@ export interface IDevice {
 }
 
 export interface IDeviceRepository extends IBaseRepository<IDevice> {
-  getWallets(IDevice): Promise<IWallet[]>;
+  getWallets(device: IDevice): Promise<IWallet[]>;
 }

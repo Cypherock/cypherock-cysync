@@ -10,6 +10,6 @@ export interface IWallet {
 }
 
 export interface IWalletRepository extends IBaseRepository<IWallet> {
-  getDevice(IWallet): Promise<IDevice>;
-  getAccounts(IWallet): Promise<IAccount[]>;
+  getDevice(wallet: IWallet): Promise<IDevice>;
+  getAccounts(wallet: IWallet): Promise<IAccount[]>;
 }
