@@ -1,7 +1,7 @@
 import { IBaseRepository } from "./BaseRepository";
 import { IPriceInfo } from "./PriceInfo";
 
-export interface PriceSnapshot {
+export interface IPriceSnapshot {
 	timestamp: number;
 	price: string;
 }
@@ -9,7 +9,7 @@ export interface PriceSnapshot {
 export interface IPriceHistory {
 	id: string;
 	days: number;
-	history: PriceSnapshot[];
+	history: IPriceSnapshot[];
 }
 
 export interface IPriceHistoryRepository

@@ -1,6 +1,6 @@
-import { AddressInfo } from "../entities/Transaction";
+import { IAddressInfo } from "../entities/Transaction";
 
-export interface HistoryItemInfo {
+export interface IHistoryItemInfo {
 	accountName: string;
 	walletName: string;
 	assetName: string;
@@ -10,8 +10,8 @@ export interface HistoryItemInfo {
 	time: "string"; // Human readable format
 	transactionType: "receive" | "send" | "swap";
 	status: "success" | "failed" | "pending";
-	sender: AddressInfo[];
-	receiver: AddressInfo[];
+	sender: IAddressInfo[];
+	receiver: IAddressInfo[];
 	extraInfo: Record<string, string>; // Need something like this to display details for specific coins
 	// Swap UI may be different, we might want to update this accordingly
 }

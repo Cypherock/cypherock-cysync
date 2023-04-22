@@ -1,7 +1,7 @@
 export type PriceHistoryRange = 1 | 30 | 365;
 
-export interface AssetBalanceHistory {
-	history: BalanceHistory[];
+export interface IAssetBalanceHistory {
+	history: IBalanceHistory[];
 	assetInfo: {
 		name: string;
 		symbol: string;
@@ -9,7 +9,7 @@ export interface AssetBalanceHistory {
 	};
 }
 
-export interface BalanceHistory {
+export interface IBalanceHistory {
 	timestamp: number; // Unix epoch timestamp
 	value: string; // ba lance in USD
 	amount: string; // balance in asset's currency

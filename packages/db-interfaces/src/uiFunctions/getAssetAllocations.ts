@@ -5,8 +5,8 @@ export type AssetSortOption =
 	| "value"
 	| "allocation";
 
-export interface AssetAllocation {
-	name: string;
+export interface IAssetAllocation {
+	name: string
 	symbol: string;
 	latestPrice: string;
 	value: string; // balance in USD

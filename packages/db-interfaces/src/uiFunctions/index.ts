@@ -1,33 +1,33 @@
 import {
 	AccountId,
-	AccountInfo,
+	IAccountInfo,
 	AssetId,
-	AssetInfo,
+	IAssetInfo,
 	WalletId,
-	WalletInfo,
+	IWalletInfo,
 } from "./common";
-import { AssetAllocation, AssetSortOption } from "./getAssetAllocations";
-import { AccountDisplayInfo, AccountSortOption } from "./getDisplayAccounts";
-import { AssetBalanceHistory, PriceHistoryRange } from "./getGraphData";
-import { HistoryItemInfo } from "./getHistoryItem";
-import { HistoryListItemInfo, HistorySortOption } from "./getHistoryList";
+import { IAssetAllocation, AssetSortOption } from "./getAssetAllocations";
+import { IAccountDisplayInfo, AccountSortOption } from "./getDisplayAccounts";
+import { IAssetBalanceHistory, PriceHistoryRange } from "./getGraphData";
+import { IHistoryItemInfo } from "./getHistoryItem";
+import { IHistoryListItemInfo, HistorySortOption } from "./getHistoryList";
 
 export interface IUIFunctions {
 	getGraphData(params: {
 		assets: AssetId[];
 		wallets: WalletId[];
 		range: PriceHistoryRange;
-	}): Promise<AssetBalanceHistory[]>;
+	}): Promise<IAssetBalanceHistory[]>;
 
 	getAssetAllocations(params: {
 		wallets: WalletId[];
 		sortBy: AssetSortOption;
-	}): Promise<AssetAllocation[]>;
+	}): Promise<IAssetAllocation[]>;
 
 	getDisplayAccounts: (params: {
 		wallet: WalletId;
 		sortBy: AccountSortOption;
-	}) => Promise<AccountDisplayInfo[]>;
+	}) => Promise<IAccountDisplayInfo[]>;
 
 	getHistoryList: (params: {
 		wallets: WalletId[];
@@ -35,20 +35,20 @@ export interface IUIFunctions {
 		assets: AssetId[];
 		sortBy?: HistorySortOption;
 		limit?: number;
-	}) => Promise<HistoryListItemInfo[]>;
+	}) => Promise<IHistoryListItemInfo[]>;
 
 	getHistoryItem: (params: {
 		transactionHash: string;
-	}) => Promise<HistoryItemInfo>;
+	}) => Promise<IHistoryItemInfo>;
 
-	getAllWallets: () => Promise<WalletInfo[]>;
+	getAllWallets: () => Promise<IWalletInfo[]>;
 
 	getAllAssets: (params: {
 		wallets?: WalletId[];
-	}) => Promise<AssetInfo[]>;
+	}) => Promise<IAssetInfo[]>;
 
 	getAllAccounts: (params: {
 		wallets?: WalletId[];
 		assets?: AssetId[];
-	}) => Promise<AccountInfo[]>;
+	}) => Promise<IAccountInfo[]>;
 }

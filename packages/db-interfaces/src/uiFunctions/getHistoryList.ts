@@ -5,7 +5,7 @@ export type HistorySortOption =
 	| "amount"
 	| "value";
 
-export interface HistoryListItemInfo {
+export interface IHistoryListItemInfo {
 	transactionHash: string;
 	accountName: string;
 	walletName: string;

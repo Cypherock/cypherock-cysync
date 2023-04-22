@@ -2,18 +2,18 @@ export type AssetId = string;
 export type WalletId = string;
 export type AccountId = string;
 
-export interface WalletInfo {
+export interface IWalletInfo {
 	id: WalletId;
 	name: string;
 }
 
-export interface AssetInfo {
+export interface IAssetInfo {
 	id: AssetId;
 	name: string;
 	symbol: string;
 }
 
-export interface AccountInfo {
+export interface IAccountInfo {
 	id: AccountId;
 	name: string;
 	address: string;

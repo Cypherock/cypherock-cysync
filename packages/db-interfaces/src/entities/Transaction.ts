@@ -12,7 +12,7 @@ export enum TransactionType {
 	Swap,
 }
 
-export interface AddressInfo {
+export interface IAddressInfo {
 	address: string;
 	value: string;
 	amount: string;
@@ -29,8 +29,8 @@ export interface ITransaction {
 	type: TransactionType;
 	time: string;
 	blockHeight: number;
-	inputs: AddressInfo[];
-	outputs: AddressInfo[];
+	inputs: IAddressInfo[];
+	outputs: IAddressInfo[];
 	confirmations: number;
 	assetSpecificData: any;
 }

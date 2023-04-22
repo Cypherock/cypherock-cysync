@@ -6,7 +6,7 @@ export type ObjectLiteral = Record<string, any>;
 /**
  * Special options passed to Repository methods.
  */
-export interface RepoOptions {
+export interface IRepoOptions {
 	/**
 	 * Breaks save execution into chunks of a given size.
 	 * For example, if you want to save 100,000 objects but you have issues with saving them,
@@ -37,7 +37,7 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	save<T extends Partial<Entity>>(
 		entities: T[],
-		options: RepoOptions & {
+		options: IRepoOptions & {
 			reload: false;
 		}
 	): Promise<T[]>;
@@ -47,7 +47,7 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	save<T extends Partial<Entity>>(
 		entities: T[],
-		options?: RepoOptions
+		options?: IRepoOptions
 	): Promise<(T & Entity)[]>;
 	/**
 	 * Saves a given entity in the database.
@@ -55,7 +55,7 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	save<T extends Partial<Entity>>(
 		entity: T,
-		options: RepoOptions & {
+		options: IRepoOptions & {
 			reload: false;
 		}
 	): Promise<T>;
@@ -65,22 +65,22 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	save<T extends Partial<Entity>>(
 		entity: T,
-		options?: RepoOptions
+		options?: IRepoOptions
 	): Promise<T & Entity>;
 	/**
 	 * Removes a given entities from the database.
 	 */
-	remove(entities: Entity[], options?: RepoOptions): Promise<Entity[]>;
+	remove(entities: Entity[], options?: IRepoOptions): Promise<Entity[]>;
 	/**
 	 * Removes a given entity from the database.
 	 */
-	remove(entity: Entity, options?: RepoOptions): Promise<Entity>;
+	remove(entity: Entity, options?: IRepoOptions): Promise<Entity>;
 	/**
 	 * Records the delete date of all given entities.
 	 */
 	softRemove<T extends Partial<Entity>>(
 		entities: T[],
-		options: RepoOptions & {
+		options: IRepoOptions & {
 			reload: false;
 		}
 	): Promise<T[]>;
@@ -89,14 +89,14 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	softRemove<T extends Partial<Entity>>(
 		entities: T[],
-		options?: RepoOptions
+		options?: IRepoOptions
 	): Promise<(T & Entity)[]>;
 	/**
 	 * Records the delete date of a given entity.
 	 */
 	softRemove<T extends Partial<Entity>>(
 		entity: T,
-		options: RepoOptions & {
+		options: IRepoOptions & {
 			reload: false;
 		}
 	): Promise<T>;
@@ -105,7 +105,7 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
 	 */
 	softRemove<T extends Partial<Entity>>(
 		entity: T,
-		options?: RepoOptions
+		options?: IRepoOptions
 	): Promise<T & Entity>;
 
 	/**
