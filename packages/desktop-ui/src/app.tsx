@@ -1,5 +1,13 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { theme } from './themes/theme.styled';
+import { GlobalStyles } from './styles/Global.styled.js';
 
-const App = () => <h2>Hello World</h2>;
-
-export default App;
+export const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <Router>
+      <GlobalStyles />
+    </Router>
+  </ThemeProvider>
+);

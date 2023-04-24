@@ -39,8 +39,11 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.26",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
+    "styled-components": "^5.3.9"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
