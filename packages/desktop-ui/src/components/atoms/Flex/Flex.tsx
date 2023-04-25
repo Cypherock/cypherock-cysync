@@ -6,6 +6,6 @@ interface FlexProps extends UtilsProps {
   children: ReactNode;
 }
 
-export const Flex = ({ children }: FlexProps) => (
-  <FlexStyle>{children}</FlexStyle>
+export const Flex = ({ children, ...props }: FlexProps) => (
+  <FlexStyle {...props}>{children}</FlexStyle>
 );

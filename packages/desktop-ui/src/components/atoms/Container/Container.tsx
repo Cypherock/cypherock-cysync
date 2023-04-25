@@ -11,27 +11,16 @@ import {
 export const Container = ({ children, variant, ...props }: ContainerProps) => {
   switch (variant) {
     case 'container':
-      return <ContainerStyle>{children}</ContainerStyle>;
+      return <ContainerStyle {...props}>{children}</ContainerStyle>;
     case 'asideContainer':
-      return (
-        <AsideContainerStyle border={props.border} size={props.size}>
-          {children}
-        </AsideContainerStyle>
-      );
+      return <AsideContainerStyle {...props}>{children}</AsideContainerStyle>;
     case 'mainContainer':
       return <MainContainerStyle>{children}</MainContainerStyle>;
     case 'modalContainer':
       return <ModalContainerStyle>{children}</ModalContainerStyle>;
     default:
       return (
-        <DefaultContainerStyle
-          shadow={props.shadow}
-          border={props.border}
-          roundedListTop={props.roundedListTop}
-          roundedListBottom={props.roundedListBottom}
-        >
-          {children}
-        </DefaultContainerStyle>
+        <DefaultContainerStyle {...props}>{children}</DefaultContainerStyle>
       );
   }
 };
