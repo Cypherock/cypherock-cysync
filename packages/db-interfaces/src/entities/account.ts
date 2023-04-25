@@ -1,6 +1,6 @@
-import type { IAsset } from './Asset';
-import type { IBaseRepository, ObjectLiteral } from './BaseRepository';
-import type { IWallet } from './Wallet';
+import type { IAsset } from './asset';
+import type { IBaseRepository, ObjectLiteral } from './baseRepository';
+import type { IWallet } from './wallet';
 
 export interface IAccount {
   id: string;
@@ -14,8 +14,8 @@ export interface IAccount {
 }
 
 export interface IAccountRepository extends IBaseRepository<IAccount> {
-  getWallets(account: IAccount): Promise<IWallet[]>;
+  getWallet(account: IAccount): Promise<IWallet>;
   getChildren(account: IAccount): Promise<IAccount[]>;
   getParent(account: IAccount): Promise<IAccount>;
-  getAssets(account: IAccount): Promise<IAsset[]>;
+  getAsset(account: IAccount): Promise<IAsset>;
 }

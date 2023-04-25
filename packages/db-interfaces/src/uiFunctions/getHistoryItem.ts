@@ -1,4 +1,4 @@
-import type { IAddressInfo } from '../entities/Transaction';
+import type { IAddressInfo } from '../entities/transaction';
 
 export interface IHistoryItemInfo {
   accountName: string;

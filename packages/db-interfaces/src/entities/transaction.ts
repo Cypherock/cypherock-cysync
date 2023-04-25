@@ -1,4 +1,5 @@
-import type { IBaseRepository, ObjectLiteral } from './BaseRepository';
+import type { IAccount } from './account';
+import type { IBaseRepository, ObjectLiteral } from './baseRepository';
 
 export enum Status {
   Pending = 0,
@@ -14,20 +15,18 @@ export enum TransactionType {
 
 export interface IAddressInfo {
   address: string;
-  value: string;
   amount: string;
-  mine: boolean;
+  isMine: boolean;
 }
 
 export interface ITransaction {
   id: string;
   hash: string;
-  total: string;
   fees: string;
   amount: string;
   status: Status;
   type: TransactionType;
-  time: string;
+  timestamp: number;
   blockHeight: number;
   inputs: IAddressInfo[];
   outputs: IAddressInfo[];
@@ -37,4 +36,5 @@ export interface ITransaction {
 export interface ITransactionRepository extends IBaseRepository<ITransaction> {
   getParent(transaction: ITransaction): Promise<ITransaction>;
   getChildren(transaction: ITransaction): Promise<ITransaction[]>;
+  getAccount(transaction: ITransaction): Promise<IAccount>;
 }

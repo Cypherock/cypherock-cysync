@@ -1,12 +1,12 @@
-import type { IBaseRepository } from './BaseRepository';
-import type { IAccount } from './Account';
-import type { IDevice } from './Device';
+import type { IBaseRepository } from './baseRepository';
+import type { IAccount } from './account';
+import type { IDevice } from './device';
 
 export interface IWallet {
   id: string;
   name: string;
-  pinExists: boolean;
-  passphraseExists: boolean;
+  hasPin: boolean;
+  hasPassphrase: boolean;
 }
 
 export interface IWalletRepository extends IBaseRepository<IWallet> {

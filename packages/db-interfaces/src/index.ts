@@ -1,9 +1,9 @@
-import type { IAccountRepository } from './entities/Account';
-import type { IDeviceRepository } from './entities/Device';
-import type { IPriceHistoryRepository } from './entities/PriceHistory';
-import type { IPriceInfoRepository } from './entities/PriceInfo';
-import type { ITransactionRepository } from './entities/Transaction';
-import type { IWalletRepository } from './entities/Wallet';
+import type { IAccountRepository } from './entities/account';
+import type { IDeviceRepository } from './entities/device';
+import type { IPriceHistoryRepository } from './entities/priceHistory';
+import type { IPriceInfoRepository } from './entities/priceInfo';
+import type { ITransactionRepository } from './entities/transaction';
+import type { IWalletRepository } from './entities/wallet';
 import type { IUIFunctions } from './uiFunctions';
 
 interface IRepositories {

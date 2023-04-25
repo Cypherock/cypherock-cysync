@@ -1,5 +1,5 @@
-import type { IBaseRepository } from './BaseRepository';
-import type { IPriceInfo } from './PriceInfo';
+import type { IBaseRepository } from './baseRepository';
+import type { IPriceInfo } from './priceInfo';
 
 export interface IPriceSnapshot {
   timestamp: number;

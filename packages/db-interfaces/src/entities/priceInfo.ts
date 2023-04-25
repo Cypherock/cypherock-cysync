@@ -1,10 +1,10 @@
-import type { IBaseRepository } from './BaseRepository';
-import type { IPriceHistory } from './PriceHistory';
+import type { IBaseRepository } from './baseRepository';
+import type { IPriceHistory } from './priceHistory';
 
 export interface IPriceInfo {
   id: string;
   currency: string;
-  latestPrice: boolean;
+  latestPrice: string;
 }
 
 export interface IPriceInfoRepository extends IBaseRepository<IPriceInfo> {

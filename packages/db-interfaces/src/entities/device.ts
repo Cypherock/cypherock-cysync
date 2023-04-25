@@ -1,10 +1,10 @@
-import type { IBaseRepository } from './BaseRepository';
-import type { IWallet } from './Wallet';
+import type { IBaseRepository } from './baseRepository';
+import type { IWallet } from './wallet';
 
 export interface IDevice {
   serial: string;
   version: string;
-  authenticated: boolean;
+  isAuthenticated: boolean;
 }
 
 export interface IDeviceRepository extends IBaseRepository<IDevice> {
