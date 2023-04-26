@@ -76,4 +76,15 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
    * Fetches first entity from given object from the repository.
    */
   getOne(entityLike: Partial<Entity>, options?: IGetOptions<Entity>): Entity;
+
+  /**
+   * Adds a listener to the repository for any changes
+   * the callback function is executed whenever there is a change in the repository
+   */
+  addListener(callback: () => void): void;
+
+  /**
+   * Removes previously added listener with the given callback function if it exists
+   */
+  removeListener(callback: () => void): void;
 }
