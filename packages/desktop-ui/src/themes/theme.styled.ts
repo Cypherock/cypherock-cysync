@@ -1,6 +1,6 @@
-import { colors } from './color.styled.js';
-import { typography } from './typography.styled.js';
-import { spacing } from './layout.styled.js';
+import { colors } from './color.styled';
+import { typography } from './typography.styled';
+import { spacing } from './layout.styled';
 
 export type ThemeType = typeof theme;
 
