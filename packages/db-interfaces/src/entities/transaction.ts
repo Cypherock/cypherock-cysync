@@ -1,5 +1,9 @@
-import type { IAccount } from './account';
-import type { IBaseRepository, ObjectLiteral } from './baseRepository';
+import type {
+  IBaseEntity,
+  IBaseRepository,
+  IGetOptions,
+  ObjectLiteral,
+} from './base';
 
 export enum Status {
   Pending = 0,
@@ -19,8 +23,7 @@ export interface IAddressInfo {
   isMine: boolean;
 }
 
-export interface ITransaction {
-  id: string;
+export interface ITransaction extends IBaseEntity {
   hash: string;
   fees: string;
   amount: string;
@@ -30,11 +33,21 @@ export interface ITransaction {
   blockHeight: number;
   inputs: IAddressInfo[];
   outputs: IAddressInfo[];
-  confirmations: number;
-  assetSpecificData: ObjectLiteral;
+  confirmations?: number;
+  extraData?: ObjectLiteral;
+  // foreign keys
+  accountId: string;
+  parentTransactionId?: string;
 }
+
+export interface IHistoryListItemInfo extends ITransaction {
+  accountName: string;
+  walletName: string;
+  value: string; // balance in unit fetched from price info
+}
+
 export interface ITransactionRepository extends IBaseRepository<ITransaction> {
-  getParent(transaction: ITransaction): Promise<ITransaction>;
-  getChildren(transaction: ITransaction): Promise<ITransaction[]>;
-  getAccount(transaction: ITransaction): Promise<IAccount>;
+  getHistoryList: (
+    params: IGetOptions<ITransaction>,
+  ) => Promise<IHistoryListItemInfo[]>;
 }

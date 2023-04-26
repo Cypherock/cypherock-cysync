@@ -1,18 +1,17 @@
-import type { IBaseRepository } from './baseRepository';
-import type { IPriceInfo } from './priceInfo';
+import type { IBaseEntity, IBaseRepository } from './base';
 
 export interface IPriceSnapshot {
   timestamp: number;
   price: string;
 }
 
-export interface IPriceHistory {
-  id: string;
+export interface IPriceHistory extends IBaseEntity {
   days: number;
   history: IPriceSnapshot[];
+  // foreign keys
+  priceInfoId: string;
+  assetId: string;
+  currency: string;
 }
 
-export interface IPriceHistoryRepository
-  extends IBaseRepository<IPriceHistory> {
-  getPriceInfo(priceHistory: IPriceHistory): Promise<IPriceInfo>;
-}
+export type IPriceHistoryRepository = IBaseRepository<IPriceHistory>;

@@ -1,21 +1,31 @@
-import type { IAsset } from './asset';
-import type { IBaseRepository, ObjectLiteral } from './baseRepository';
-import type { IWallet } from './wallet';
+import type {
+  IBaseEntity,
+  IBaseRepository,
+  IGetOptions,
+  ObjectLiteral,
+} from './base';
 
-export interface IAccount {
-  id: string;
+export interface IAccount extends IBaseEntity {
   name: string;
-  xpub: string;
+  xpubOrAddress: string;
   balance: string;
   unit: string;
   derivationPath: string;
   type: string;
-  assetSpecificData: ObjectLiteral;
+  extraData?: ObjectLiteral;
+  // foreign keys
+  assetId: string;
+  walletId: string;
+  parentAccountId?: string;
+}
+
+export interface IAccountDisplayInfo {
+  value: string; // balance in USD
+  childrenAccounts?: IAccountDisplayInfo[]; // tokens or custom accounts
 }
 
 export interface IAccountRepository extends IBaseRepository<IAccount> {
-  getWallet(account: IAccount): Promise<IWallet>;
-  getChildren(account: IAccount): Promise<IAccount[]>;
-  getParent(account: IAccount): Promise<IAccount>;
-  getAsset(account: IAccount): Promise<IAsset>;
+  getDisplayAccounts: (
+    params: IGetOptions<IAccount>,
+  ) => Promise<IAccountDisplayInfo[]>;
 }

@@ -1,15 +1,12 @@
-import type { IBaseRepository } from './baseRepository';
-import type { IAccount } from './account';
-import type { IDevice } from './device';
+import type { IBaseEntity, IBaseRepository } from './base';
 
-export interface IWallet {
-  id: string;
+export type WalletId = string;
+export interface IWallet extends IBaseEntity {
   name: string;
   hasPin: boolean;
   hasPassphrase: boolean;
+  // foreign keys
+  deviceId: string;
 }
 
-export interface IWalletRepository extends IBaseRepository<IWallet> {
-  getDevice(wallet: IWallet): Promise<IDevice>;
-  getAccounts(wallet: IWallet): Promise<IAccount[]>;
-}
+export type IWalletRepository = IBaseRepository<IWallet>;

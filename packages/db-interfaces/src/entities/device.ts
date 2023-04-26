@@ -1,12 +1,9 @@
-import type { IBaseRepository } from './baseRepository';
-import type { IWallet } from './wallet';
+import type { IBaseEntity, IBaseRepository } from './base';
 
-export interface IDevice {
+export interface IDevice extends IBaseEntity {
   serial: string;
   version: string;
   isAuthenticated: boolean;
 }
 
-export interface IDeviceRepository extends IBaseRepository<IDevice> {
-  getWallets(device: IDevice): Promise<IWallet[]>;
-}
+export type IDeviceRepository = IBaseRepository<IDevice>;

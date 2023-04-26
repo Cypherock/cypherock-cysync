@@ -109,6 +109,10 @@ importers:
         version: 0.13.14
 
   packages/db-interfaces:
+    dependencies:
+      events:
+        specifier: ^3.3.0
+        version: 3.3.0
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^
@@ -119,6 +123,9 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../util-tsconfig
+      '@types/events':
+        specifier: ^3.0.0
+        version: 3.0.0
       lint-staged:
         specifier: ^13.2.0
         version: 13.2.1
@@ -1879,6 +1886,10 @@ packages:
 
   /@types/estree@0.0.51:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
+    dev: true
+
+  /@types/events@3.0.0:
+    resolution: {integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==}
     dev: true
 
   /@types/fs-extra@9.0.13:
@@ -4217,7 +4228,6 @@ packages:
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
-    dev: true
 
   /execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
