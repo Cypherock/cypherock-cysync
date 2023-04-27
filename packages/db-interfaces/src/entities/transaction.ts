@@ -1,9 +1,4 @@
-import type {
-  IBaseEntity,
-  IBaseRepository,
-  IGetOptions,
-  ObjectLiteral,
-} from './base';
+import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
 
 export enum Status {
   Pending = 0,
@@ -23,7 +18,7 @@ export interface IAddressInfo {
   isMine: boolean;
 }
 
-export interface ITransaction extends IBaseEntity {
+export interface ITransaction extends IEntity {
   hash: string;
   fees: string;
   amount: string;
@@ -40,14 +35,14 @@ export interface ITransaction extends IBaseEntity {
   parentTransactionId?: string;
 }
 
-export interface IHistoryListItemInfo extends ITransaction {
+export interface IDetailedTransaction extends ITransaction {
   accountName: string;
   walletName: string;
   value: string; // balance in unit fetched from price info
 }
 
-export interface ITransactionRepository extends IBaseRepository<ITransaction> {
-  getHistoryList: (
+export interface ITransactionRepository extends IRepository<ITransaction> {
+  getTransactionList: (
     params: IGetOptions<ITransaction>,
-  ) => Promise<IHistoryListItemInfo[]>;
+  ) => Promise<IDetailedTransaction[]>;
 }

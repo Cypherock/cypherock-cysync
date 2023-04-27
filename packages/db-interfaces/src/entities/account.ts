@@ -1,11 +1,6 @@
-import type {
-  IBaseEntity,
-  IBaseRepository,
-  IGetOptions,
-  ObjectLiteral,
-} from './base';
+import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
 
-export interface IAccount extends IBaseEntity {
+export interface IAccount extends IEntity {
   name: string;
   xpubOrAddress: string;
   balance: string;
@@ -19,12 +14,12 @@ export interface IAccount extends IBaseEntity {
   parentAccountId?: string;
 }
 
-export interface IAccountDisplayInfo {
+export interface IAccountDisplayInfo extends IAccount {
   value: string; // balance in USD
   childrenAccounts?: IAccountDisplayInfo[]; // tokens or custom accounts
 }
 
-export interface IAccountRepository extends IBaseRepository<IAccount> {
+export interface IAccountRepository extends IRepository<IAccount> {
   getDisplayAccounts: (
     params: IGetOptions<IAccount>,
   ) => Promise<IAccountDisplayInfo[]>;

@@ -1,7 +1,6 @@
-import type { IBaseEntity, IBaseRepository } from './base';
+import type { IEntity, IRepository } from './base';
 
-export type WalletId = string;
-export interface IWallet extends IBaseEntity {
+export interface IWallet extends IEntity {
   name: string;
   hasPin: boolean;
   hasPassphrase: boolean;
@@ -9,4 +8,4 @@ export interface IWallet extends IBaseEntity {
   deviceId: string;
 }
 
-export type IWalletRepository = IBaseRepository<IWallet>;
+export type IWalletRepository = IRepository<IWallet>;

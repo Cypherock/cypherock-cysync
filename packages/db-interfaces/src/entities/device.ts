@@ -1,9 +1,9 @@
-import type { IBaseEntity, IBaseRepository } from './base';
+import type { IEntity, IRepository } from './base';
 
-export interface IDevice extends IBaseEntity {
+export interface IDevice extends IEntity {
   serial: string;
   version: string;
   isAuthenticated: boolean;
 }
 
-export type IDeviceRepository = IBaseRepository<IDevice>;
+export type IDeviceRepository = IRepository<IDevice>;

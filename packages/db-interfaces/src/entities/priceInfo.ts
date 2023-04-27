@@ -1,10 +1,10 @@
-import type { IBaseEntity, IBaseRepository } from './base';
+import type { IEntity, IRepository } from './base';
 
-export interface IPriceInfo extends IBaseEntity {
+export interface IPriceInfo extends IEntity {
   currency: string;
   latestPrice: string;
   // foreign keys
   assetId: string;
 }
 
-export type IPriceInfoRepository = IBaseRepository<IPriceInfo>;
+export type IPriceInfoRepository = IRepository<IPriceInfo>;

@@ -1,18 +1,22 @@
+import type { EventEmitter, Listener } from 'events';
+
 /**
  * These fields should be available in every entity
  */
-export interface IBaseEntity {
+export interface IEntity {
   __id: string;
   __version: number;
 }
 export interface IGetOptions<T> {
   /**
-   * Sorts the results according to this key
+   * Sorts the results using the key provided
    */
-  orderBy?: keyof T;
-  descending?: boolean;
+  sortBy?: {
+    key: keyof T;
+    descending?: boolean;
+  };
   /**
-   * Returns any entry that is superset of any entries in the list
+   * Returns any entry in the database that is superset of any entries in the list provided
    */
   match?: Partial<T>[];
   /**
@@ -29,7 +33,7 @@ export type ObjectLiteral = Record<string, any>;
  * Special options passed to Repository methods.
  */
 
-export interface IBaseRepository<Entity extends ObjectLiteral> {
+export interface IRepository<Entity extends ObjectLiteral> {
   /**
    * Creates new entities and copies all entity properties from given objects into their new entities.
    * Note that it copies only properties that are present in entity schema.
@@ -70,21 +74,30 @@ export interface IBaseRepository<Entity extends ObjectLiteral> {
   /**
    * Fetches all entities from given object from the repository.
    */
-  getAll(entityLike: Partial<Entity>, options?: IGetOptions<Entity>): Entity[];
+  getAll(
+    entityLike: Partial<Entity>,
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity[]>;
 
   /**
    * Fetches first entity from given object from the repository.
    */
-  getOne(entityLike: Partial<Entity>, options?: IGetOptions<Entity>): Entity;
+  getOne(
+    entityLike: Partial<Entity>,
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity | undefined>;
 
   /**
-   * Adds a listener to the repository for any changes
-   * the callback function is executed whenever there is a change in the repository
+   * Adds a listener to the repository for any changes denoted by type
    */
-  addListener(callback: () => void): void;
+  addListener(type: string | number, listener: Listener): EventEmitter;
 
   /**
-   * Removes previously added listener with the given callback function if it exists
+   * Removes previously added listener with the given listener and type function if it exists
    */
-  removeListener(callback: () => void): void;
+  removeListener(type: string | number, listener: Listener): EventEmitter;
+  /**
+   * Removes all previously added listener with the given type
+   */
+  removeAllListener(type?: string | number): EventEmitter;
 }
