@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["DOM"]
+    "lib": ["DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["src/*"],
+      "@components": ["./src/components"],
+      "styles/*": ["src/assets/styles/*"]
+    }
   },
   "extends": "@cypherock/tsconfig/browser.json",
   "include": ["./src/**/*"],

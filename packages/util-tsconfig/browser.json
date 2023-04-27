@@ -19,7 +19,11 @@
     "target": "ES2015",
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "exclude": ["node_modules", "src/coverage"]
 }

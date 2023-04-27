@@ -1,7 +1,7 @@
 export const routes = {
   onBoarding: {
-    imformation: {
-      index: '/imformation',
+    information: {
+      index: '/information',
     },
     getStarted: {
       index: '/getStarted',

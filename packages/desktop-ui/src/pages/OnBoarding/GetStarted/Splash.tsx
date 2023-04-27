@@ -8,8 +8,8 @@ export const Splash = (): ReactElement => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // navigate('/information');
-    }, 2000);
+      navigate('/information');
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
