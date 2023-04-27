@@ -15,5 +15,5 @@ export interface IDatabase {
   priceInfo: IPriceInfoRepository;
   createOrFetchRepository<T extends IEntity>(
     name: string,
-  ): Promise<IRepository<T> | null>;
+  ): Promise<IRepository<T>>;
 }
