@@ -21,14 +21,13 @@ const buttonBaseStyle = css<ButtonProps>`
       `;
     if (props.variation === 'primary')
       return css`
-        transition: all 3s;
         background-image: ${({ theme }) => theme.palette.primary.primary};
         border: none;
         font-size: 14px;
         font-weight: 500;
         &:hover {
           background-image: linear-gradient(
-            0deg,
+            180deg,
             #e9b873 0.19%,
             #fedd8f 37.17%,
             #b78d51 100.19%
@@ -58,6 +57,7 @@ export const ButtonStyle = styled.button<ButtonProps>`
   font-size: 14px;
   line-height: 21px;
   border-radius: 6px;
+  transition: all 0.6s ease-in-out;
   display: inline-block;
   padding-top: ${({ theme }) => theme.spacing.one.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.one.spacing};

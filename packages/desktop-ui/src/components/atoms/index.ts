@@ -4,4 +4,6 @@ export * from './Container/Container';
 export * from './Flex/Flex';
 export * from './Button/Button';
 export * from './Bullet/Bullet';
+export * from './Input/Input';
 export * from './Checkbox/CheckBox';
+export * from './Divider/Divider';

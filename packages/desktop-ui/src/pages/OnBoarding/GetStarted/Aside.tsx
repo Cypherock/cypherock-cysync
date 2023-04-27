@@ -3,7 +3,11 @@ import React, { ReactElement } from 'react';
 // import sysyncbig from '../../../assets/images/common/logo-big.png';
 import { Container, Flex, Typography } from '../../../components';
 
-export const Aside = (): ReactElement => (
+interface AsideProps {
+  text: string;
+}
+
+export const Aside = ({ ...props }: AsideProps): ReactElement => (
   <Container
     variant="asideContainer"
     bgColor="sideBar"
@@ -31,6 +35,9 @@ export const Aside = (): ReactElement => (
       </Typography>
       <Typography variant="h4" color="textSilver" font="fontMedium" mb="mbTwo">
         Welcome to Cypherock
+      </Typography>
+      <Typography variant="h4" color="textSilver" font="fontMedium" mb="mbTwo">
+        {props.text}
       </Typography>
       <Typography variant="h6" color="textMuted">
         Your Gateway to Self-Sovereignty

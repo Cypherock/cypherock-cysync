@@ -85,9 +85,14 @@ export const MainContainerStyle = styled(DefaultContainerStyle)`
   overflow-y: scroll;
 `;
 
-export const ModalContainerStyle = styled.div`
+export const ModalContainerStyle = styled.div<ContainerProps>`
   ${utils}
 
+  ${props =>
+    props.position &&
+    css`
+      position: ${props.position};
+    `}
   height: 100vh;
   width: 100%;
   padding: 40px;

@@ -15,9 +15,9 @@ export const Container = ({ children, variant, ...props }: ContainerProps) => {
     case 'asideContainer':
       return <AsideContainerStyle {...props}>{children}</AsideContainerStyle>;
     case 'mainContainer':
-      return <MainContainerStyle>{children}</MainContainerStyle>;
+      return <MainContainerStyle {...props}>{children}</MainContainerStyle>;
     case 'modalContainer':
-      return <ModalContainerStyle>{children}</ModalContainerStyle>;
+      return <ModalContainerStyle {...props}>{children}</ModalContainerStyle>;
     default:
       return (
         <DefaultContainerStyle {...props}>{children}</DefaultContainerStyle>
