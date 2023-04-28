@@ -1,13 +1,10 @@
 import React, { ReactElement } from 'react';
-import { Container, Flex, Typography } from '../../components';
-// import sysync from "@assets/images/logo-small.png";
+// import sysync from '@assets/';
+import { Container, Flex, Typography } from '../../../components';
 // import aside from "@assets/images/aside.png";
-// import progress from "@assets/images/setPassProgress.png";
-interface AsideProps {
-  screenName: string;
-}
+// import progress from "@assets/images/set-pass-progression.png";
 
-export const Aside = ({ screenName }: AsideProps): ReactElement => (
+export const Aside = (): ReactElement => (
   <Container
     variant="asideContainer"
     bgColor="sideBar"
@@ -28,7 +25,7 @@ export const Aside = ({ screenName }: AsideProps): ReactElement => (
         textAlign="center"
         mb="mbThree"
       >
-        {screenName}
+        Email 2FA
       </Typography>
       {/* <Image src={progress} /> */}
     </Flex>

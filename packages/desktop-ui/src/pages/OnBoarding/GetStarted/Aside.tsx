@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import { Container, Flex, Typography } from '../../../components';
 
 interface AsideProps {
-  text: string;
+  text?: string;
 }
 
 export const Aside = ({ ...props }: AsideProps): ReactElement => (
@@ -48,3 +48,7 @@ export const Aside = ({ ...props }: AsideProps): ReactElement => (
     </Typography>
   </Container>
 );
+
+Aside.defaultProps = {
+  text: '',
+};

@@ -2,7 +2,8 @@
   "compilerOptions": {
     "lib": ["ES2015"],
     "paths": {
-      "*": ["./src/types/*"]
+      "*": ["./src/types/*"],
+      "@/*": ["./src/*"]
     },
     "composite": true,
     "module": "ESNext",

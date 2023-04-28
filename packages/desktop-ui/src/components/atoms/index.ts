@@ -7,3 +7,4 @@ export * from './Bullet/Bullet';
 export * from './Input/Input';
 export * from './Checkbox/CheckBox';
 export * from './Divider/Divider';
+export * from './Select/Select';

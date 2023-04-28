@@ -12,8 +12,8 @@ import {
   Typography,
   Flex,
   Container,
-} from '../../../components';
-//   import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
+} from '../../../../components';
+// import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
 import { Aside } from '../Aside';
 
 export const DialogueLogin = (): ReactElement => (
