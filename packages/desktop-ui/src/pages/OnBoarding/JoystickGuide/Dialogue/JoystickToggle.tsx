@@ -6,8 +6,9 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../../components';
-// import joystick from "@assets/images/onboarding/joystick/joystick.png";
+import joystick from '../../../../assets/images/onboarding/joystick/joystick.png';
 import { Aside } from '../Aside/Aside';
 
 export const JoyStickToggle = (): ReactElement => (
@@ -36,7 +37,7 @@ export const JoyStickToggle = (): ReactElement => (
               <Bullet variant="outline" />
             </Flex>
 
-            {/* <Image src={joystick} ml="mlTwo" mr="mrTwo"/> */}
+            <Image src={joystick} ml="mlTwo" mr="mrTwo" />
 
             <Flex align="center">
               <Bullet size="lg" variant="gold" />

@@ -13,7 +13,7 @@ import {
   Flex,
   Container,
 } from '../../../../components';
-// import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
+import passwordHide from '../../../../assets/images/onboarding/setPass/password-hide.png';
 import { Aside } from '../Aside';
 
 export const DialogueLogin = (): ReactElement => (
@@ -33,7 +33,7 @@ export const DialogueLogin = (): ReactElement => (
           <InputContainer>
             <InputLabel>Enter Password</InputLabel>
             <Input type="password" placeholder="**************" />
-            {/* <img src={passwordHide} alt="" /> */}
+            <img src={passwordHide} alt="passwordHide" />
           </InputContainer>
           <Divider mb="mbThree" />
           <Typography

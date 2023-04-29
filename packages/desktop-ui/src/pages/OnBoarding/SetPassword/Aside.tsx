@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { Container, Flex, Typography } from '../../../components';
-// import sysync from "@assets/images/logo-small.png";
-// import aside from "@assets/images/aside.png";
-// import progress from "@assets/images/setPassProgress.png";
+import { Container, Flex, Image, Typography } from '../../../components';
+import sysync from '../../../assets/images/common/logo-small.png';
+import aside from '../../../assets/images/common/aside.png';
+import progress from '../../../assets/images/common/setPassProgress.png';
+
 interface AsideProps {
   screenName: string;
 }
@@ -16,9 +17,9 @@ export const Aside = ({ screenName }: AsideProps): ReactElement => (
     justify="between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start"/> */}
+    <Image src={sysync} alignSelf="start" />
     <Flex direction="column" align="center">
-      {/* <Image src={aside} /> */}
+      <Image src={aside} />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
@@ -30,7 +31,7 @@ export const Aside = ({ screenName }: AsideProps): ReactElement => (
       >
         {screenName}
       </Typography>
-      {/* <Image src={progress} /> */}
+      <Image src={progress} />
     </Flex>
   </Container>
 );

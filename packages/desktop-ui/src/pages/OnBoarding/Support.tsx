@@ -16,8 +16,9 @@ import {
   Container,
   InputTextArea,
   SelectContainer,
+  Image,
 } from '../../components';
-//   import close from "@/assets/images/close.png";
+import close from '../../assets/images/common/close.png';
 
 interface SupportProps {
   clickClose?: () => void;
@@ -37,9 +38,15 @@ export const Support = (props: SupportProps): ReactElement => (
             <Typography variant="h6" color="textMuted" ml="mlAuto" mr="mrAuto">
               Contact Support
             </Typography>
-            {/* <div onClick={() => props.clickClose()}> */}
-            {/* <Image src={close} /> */}
-            {/* </div> */}
+            <button
+              type="button"
+              onClick={() => {
+                const { clickClose } = props;
+                if (clickClose) clickClose();
+              }}
+            >
+              <Image src={close} />
+            </button>
           </Flex>
         </DialogueBoxTopBar>
         <DialogueBoxBody>

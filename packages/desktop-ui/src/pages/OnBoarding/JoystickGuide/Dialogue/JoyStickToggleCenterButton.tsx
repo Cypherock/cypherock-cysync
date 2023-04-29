@@ -5,8 +5,9 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../../components';
-// import centerButtonSuccess from "@assets/images/onboarding/joystick/centerButtonSuccess.png";
+import centerButtonSuccess from '../../../../assets/images/onboarding/joystick/centerButtonSuccess.png';
 import { Aside } from '../Aside/Aside';
 
 export const JoyStickToggleCenterButton = (): ReactElement => (
@@ -19,7 +20,7 @@ export const JoyStickToggleCenterButton = (): ReactElement => (
             Center click the joystick to proceed
           </Typography>
 
-          {/* <Image src={centerButtonSuccess} mb="mbSeven" /> */}
+          <Image src={centerButtonSuccess} mb="mbSeven" />
 
           <Typography variant="h5" color="textHeading" mb="mbOne">
             X1 Vault has a center button to perform click

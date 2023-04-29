@@ -9,9 +9,10 @@ import {
   DialogueBoxFooter,
   Button,
   Typography,
+  Image,
 } from '../../../../components';
 import { Aside } from '../Aside';
-// import walletExist from "@assets/images/onboarding/cardAuth/walletExist.png";
+import walletExist from '../../../../assets/images/onboarding/cardAuth/walletExist.png';
 
 export const SingleCardTapWalletExist = (): ReactElement => (
   <Flex gap="gap0">
@@ -19,7 +20,7 @@ export const SingleCardTapWalletExist = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={walletExist} mb="mbThree" /> */}
+          <Image src={walletExist} mb="mbThree" />
           <Typography variant="h5" color="textHeading">
             Existing wallet
           </Typography>

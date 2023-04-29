@@ -12,9 +12,10 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../components';
-//   import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
-//   import back from "@assets/images/back.png";
+import passwordHide from '../../../assets/images/onboarding/setPass/password-hide.png';
+import back from '../../../assets/images/common/back.png';
 import { Aside } from './Aside';
 
 export const EmailConfirmation = (): ReactElement => (
@@ -42,7 +43,7 @@ export const EmailConfirmation = (): ReactElement => (
           <InputContainer>
             <InputLabel>Your Email</InputLabel>
             <Input type="text" placeholder="**************" />
-            {/* <img src={passwordHide} alt="" /> */}
+            <img src={passwordHide} alt="" />
           </InputContainer>
           <Divider mb="mbThree" />
 
@@ -73,7 +74,7 @@ export const EmailConfirmation = (): ReactElement => (
           gap="gapOne"
           align="center"
         >
-          {/* <Image src={back} /> */}
+          <Image src={back} />
           <Typography color="textMuted">Back</Typography>
         </Flex>
       </Link>

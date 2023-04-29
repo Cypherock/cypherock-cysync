@@ -9,12 +9,13 @@ import {
   Typography,
   Container,
   Flex,
+  Image,
 } from '../../../components';
 import { Aside } from './Aside';
-//   import close from "../../../assets/images/common/close.png";
-//   import addwallet from "../../../assets/images/common/add-wallet.png";
-//   import importwallet from "../../../assets/images/common/import-wallet.png";
-//   import recoverwallet from "../../../assets/images/common/recover-wallet.png";
+import close from '../../../assets/images/common/close.png';
+import addwallet from '../../../assets/images/common/add-wallet.png';
+import importwallet from '../../../assets/images/common/import-wallet.png';
+import recoverwallet from '../../../assets/images/common/recover-wallet.png';
 
 export const Usage = (): ReactElement => {
   const [popup, setPopup] = useState(false);
@@ -77,9 +78,12 @@ export const Usage = (): ReactElement => {
                     <Typography color="textMuted">Help</Typography>
                     <Typography color="textGold">?</Typography>
                   </Flex>
-                  {/* <div onClick={() => setPopup(wasOpen => !wasOpen)}>
+                  <button
+                    type="button"
+                    onClick={() => setPopup(wasOpen => !wasOpen)}
+                  >
                     <Image src={close} />
-                  </div> */}
+                  </button>
                 </Flex>
 
                 <Typography variant="h5" color="textHeading" mb="mbSeven">
@@ -90,7 +94,7 @@ export const Usage = (): ReactElement => {
                 <Flex gap="gapTwo">
                   <DialogueBoxContainer>
                     <DialogueBoxBody>
-                      {/* <Image src={addwallet} mb="mbFour" /> */}
+                      <Image src={addwallet} mb="mbFour" />
                       <Typography variant="h6" color="textHeading" mb="mbFive">
                         Create a new wallet
                       </Typography>
@@ -122,7 +126,7 @@ export const Usage = (): ReactElement => {
 
                   <DialogueBoxContainer>
                     <DialogueBoxBody>
-                      {/* <Image src={importwallet} mb="mbFour" /> */}
+                      <Image src={importwallet} mb="mbFour" />
                       <Typography variant="h6" color="textHeading" mb="mbFive">
                         Import your wallet from a seed phrase
                       </Typography>
@@ -174,7 +178,7 @@ export const Usage = (): ReactElement => {
                 </Flex>
 
                 <Flex gap="gapTwo" align="center" mt="mtEight">
-                  {/* <Image src={recoverwallet} /> */}
+                  <Image src={recoverwallet} />
                   <Flex direction="column" ml="mlTwo">
                     <Typography
                       variant="h5"

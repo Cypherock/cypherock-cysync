@@ -6,10 +6,11 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../../components';
-// import success from "@assets/images/onboarding/setPass/success.png";
+import success from '../../../../assets/images/onboarding/setPass/success.png';
+import back from '../../../../assets/images/common/back.png';
 import { Aside } from '../Aside';
-// import back from "@assets/images/back.png";
 
 export const PasswordSetSuccess = (): ReactElement => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export const PasswordSetSuccess = (): ReactElement => {
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            {/* <Image src={success} mb="mbFour" /> */}
+            <Image src={success} mb="mbFour" />
             <Typography variant="h5" color="textHeading" mb="mbTwo">
               Your new password is set
             </Typography>
@@ -44,7 +45,7 @@ export const PasswordSetSuccess = (): ReactElement => {
             gap="gapOne"
             align="center"
           >
-            {/* <Image src={back} /> */}
+            <Image src={back} />
             <Typography color="textMuted">Back</Typography>
           </Flex>
         </Link>

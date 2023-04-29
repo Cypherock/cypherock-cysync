@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
-// import sysync from '../../../assets/images/common/logo-small.png';
-// import sysyncbig from '../../../assets/images/common/logo-big.png';
-import { Container, Flex, Typography } from '../../../components';
+import sysync from '../../../assets/images/common/logo-small.png';
+import sysyncbig from '../../../assets/images/common/logo-big.png';
+import { Container, Flex, Image, Typography } from '../../../components';
 
 interface AsideProps {
   text?: string;
@@ -16,7 +16,7 @@ export const Aside = ({ ...props }: AsideProps): ReactElement => (
     justify="between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start" /> */}
+    <Image src={sysync} alignSelf="start" />
     <Flex direction="column" align="center">
       <Container
         bgColor="list"
@@ -27,7 +27,7 @@ export const Aside = ({ ...props }: AsideProps): ReactElement => (
         pt="ptFive"
         mb="mbThree"
       >
-        {/* <Image src={sysyncbig} /> */}
+        <Image src={sysyncbig} />
       </Container>
 
       <Typography variant="h3" color="textGold" mb="mbSeven">

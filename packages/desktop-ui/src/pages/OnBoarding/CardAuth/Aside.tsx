@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { Container, Flex, Typography } from '../../../components';
-// import sysync from "@/assets/images/logo-small.png";
-// import aside from "@/assets/images/cardAuth.png";
-// import progress from "@/assets/images/card-progress.png";
+import { Container, Flex, Image, Typography } from '../../../components';
+import sysync from '../../../assets/images/common/logo-small.png';
+import aside from '../../../assets/images/common/cardAuth.png';
+import progress from '../../../assets/images/common/card-progress.png';
 
 export const Aside = (): ReactElement => (
   <Container
@@ -13,9 +13,9 @@ export const Aside = (): ReactElement => (
     justify="between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start"/> */}
+    <Image src={sysync} alignSelf="start" />
     <Flex direction="column" align="center">
-      {/* <Image src={aside} /> */}
+      <Image src={aside} />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
@@ -28,7 +28,7 @@ export const Aside = (): ReactElement => (
       >
         Card Authentication
       </Typography>
-      {/* <Image src={progress} /> */}
+      <Image src={progress} />
     </Flex>
   </Container>
 );

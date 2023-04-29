@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react';
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
-  // Image,
+  Image,
   Typography,
   Flex,
   Container,
 } from '../../../../components';
-// import success from "@assets/images/onboarding/setPass/success.png";
+import success from '../../../../assets/images/onboarding/setPass/success.png';
 import { Aside } from '../Aside/Aside';
 
 export const JoyStickToggleSuccess = (): ReactElement => (
@@ -16,7 +16,7 @@ export const JoyStickToggleSuccess = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={success} mb="mbThree" /> */}
+          <Image src={success} mb="mbThree" />
           <Typography variant="h5" color="textHeading">
             Joystick test complete
           </Typography>

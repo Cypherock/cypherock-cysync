@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { Container, Flex, Typography } from '../../../../components';
-// import sysync from "@/assets/images/logo-small.png";
-// import aside from "@/assets/images/deviceJoystick.png";
-// import progress from "@/assets/images/joystickProgress.png";
+import { Container, Flex, Image, Typography } from '../../../../components';
+import sysync from '../../../../assets/images/common/logo-small.png';
+import aside from '../../../../assets/images/common/deviceJoystick.png';
+import progress from '../../../../assets/images/common/joystickProgress.png';
 
 export const Aside = (): ReactElement => (
   <Container
@@ -13,9 +13,9 @@ export const Aside = (): ReactElement => (
     justify="between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start" /> */}
+    <Image src={sysync} alignSelf="start" />
     <Flex direction="column" align="center">
-      {/* <Image src={aside} /> */}
+      <Image src={aside} />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
@@ -28,7 +28,7 @@ export const Aside = (): ReactElement => (
       >
         Joystick Guide
       </Typography>
-      {/* <Image src={progress} /> */}
+      <Image src={progress} />
     </Flex>
   </Container>
 );

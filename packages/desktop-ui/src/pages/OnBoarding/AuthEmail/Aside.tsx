@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-// import sysync from '@assets/';
-import { Container, Flex, Typography } from '../../../components';
-// import aside from "@assets/images/aside.png";
-// import progress from "@assets/images/set-pass-progression.png";
+import sysync from '../../../assets/images/common/logo-small.png';
+import { Container, Flex, Image, Typography } from '../../../components';
+import aside from '../../../assets/images/common/aside.png';
+import progress from '../../../assets/images/common/set-pass-progression.png';
 
 export const Aside = (): ReactElement => (
   <Container
@@ -13,9 +13,9 @@ export const Aside = (): ReactElement => (
     justify="between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start"/> */}
+    <Image src={sysync} alignSelf="start" />
     <Flex direction="column" align="center">
-      {/* <Image src={aside} /> */}
+      <Image src={aside} />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
@@ -27,7 +27,7 @@ export const Aside = (): ReactElement => (
       >
         Email 2FA
       </Typography>
-      {/* <Image src={progress} /> */}
+      <Image src={progress} />
     </Flex>
   </Container>
 );

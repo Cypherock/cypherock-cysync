@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Flex, Typography } from '../../../components';
-// import sysyncbig from '../../../assets/images/common/logo-big.png';
+import { Container, Flex, Image, Typography } from '../../../components';
+import sysyncbig from '../../../assets/images/common/logo-big.png';
 
 export const Splash = (): ReactElement => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const Splash = (): ReactElement => {
           pt="ptFive"
           mb="mbThree"
         >
-          {/* <Image src={sysyncbig} /> */}
+          <Image src={sysyncbig} />
         </Container>
 
         <Typography variant="h3" color="textGold" mb="mbSeven">

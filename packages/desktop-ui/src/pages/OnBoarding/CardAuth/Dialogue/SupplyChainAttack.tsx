@@ -7,8 +7,9 @@ import {
   Typography,
   Container,
   Flex,
+  Image,
 } from '../../../../components';
-// import failed from "@/assets/images/onboarding/deviceAuth/fail.png";
+import failed from '../../../../assets/images/onboarding/deviceAuth/fail.png';
 import { Aside } from '../Aside';
 import { Support } from '../../Support';
 
@@ -23,7 +24,7 @@ export const SupplyChainAttack = (): ReactElement => {
       <Container variant="container" bgColor="contentGratient">
         <DialogueBoxContainer md>
           <DialogueBoxBody>
-            {/* <Image src={failed} mb="mbThree" /> */}
+            <Image src={failed} mb="mbThree" />
             <Typography variant="h5" color="textHeading">
               Supply chain compromised
             </Typography>

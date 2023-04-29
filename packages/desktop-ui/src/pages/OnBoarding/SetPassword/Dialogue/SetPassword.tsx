@@ -12,8 +12,9 @@ import {
   Flex,
   Container,
   InputPassword,
+  Image,
 } from '../../../../components';
-// import passwordHide from "@ass/es/back.png";
+import back from '../../../../assets/images/common/back.png';
 import { Aside } from '../Aside';
 
 export const SetPassword = (): ReactElement => (
@@ -80,7 +81,7 @@ export const SetPassword = (): ReactElement => (
           gap="gapOne"
           align="center"
         >
-          {/* <Image src={back} /> */}
+          <Image src={back} />
           <Typography color="textMuted">Back</Typography>
         </Flex>
       </Link>

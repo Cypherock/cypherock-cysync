@@ -6,8 +6,9 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../../components';
-// import loader from "@assets/images/onboarding/deviceAuth/loader.png";
+import loader from '../../../../assets/images/onboarding/deviceAuth/loader.png';
 import { Aside } from '../Aside';
 
 export const AppClose = (): ReactElement => (
@@ -21,7 +22,7 @@ export const AppClose = (): ReactElement => (
           </Typography>
         </DialogueBoxTopBar>
         <DialogueBoxBody>
-          {/* <Image src={loader} mb="mbThree" /> */}
+          <Image src={loader} mb="mbThree" />
           <Typography variant="h5" color="textHeading">
             Thanks for contacting us. We will soon get in touch with you to
             assist you

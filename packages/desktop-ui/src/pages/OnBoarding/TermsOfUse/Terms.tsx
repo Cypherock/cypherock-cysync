@@ -10,9 +10,10 @@ import {
   Flex,
   CheckBox,
   Typography,
+  Image,
 } from '../../../components';
-// import linkImage from '@assets/images/onboarding/getStarted/terms-link.png';
-// import back from '@assets/images/back.png';
+import linkImage from '../../../assets/images/onboarding/getStarted/terms-link.png';
+import back from '../../../assets/images/common/back.png';
 import { Aside } from './Aside';
 
 export const Terms = (): ReactElement => {
@@ -44,9 +45,9 @@ export const Terms = (): ReactElement => {
                     Terms of Service
                   </Typography>
                 </Flex>
-                {/* <a href="">
-                  <img src={linkImage}></img>
-                </a> */}
+                <a href="https://google.com/">
+                  <img src={linkImage} alt="linkImage" />
+                </a>
               </Flex>
             </Container>
 
@@ -59,9 +60,9 @@ export const Terms = (): ReactElement => {
                     Privacy Policy
                   </Typography>
                 </Flex>
-                {/* <a href="">
-                  <img src={linkImage}></img>
-                </a> */}
+                <a href="https://google.com/">
+                  <img src={linkImage} alt="linkImage" />
+                </a>
               </Flex>
             </Container>
 
@@ -101,7 +102,7 @@ export const Terms = (): ReactElement => {
             gap="gapOne"
             align="center"
           >
-            {/* <Image src={back} /> */}
+            <Image src={back} />
             <Typography color="textMuted">Back</Typography>
           </Flex>
         </Link>
