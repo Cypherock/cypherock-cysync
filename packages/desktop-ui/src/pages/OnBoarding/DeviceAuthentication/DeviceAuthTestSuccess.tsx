@@ -5,8 +5,9 @@ import {
   Typography,
   Container,
   Flex,
+  Image,
 } from '../../../components';
-// import success from "@assets/images/onboarding/setPass/success.png";
+import success from '../../../assets/images/onboarding/setPass/success.png';
 import { Aside } from './Aside';
 
 export const DeviceAuthTestSuccess = (): ReactElement => (
@@ -15,7 +16,7 @@ export const DeviceAuthTestSuccess = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={success} mb="mbFour" /> */}
+          <Image src={success} mb="mbFour" />
           <Typography variant="h5" color="textHeading" mb="mbOne">
             Your X1 Vault is successfully authenticated
           </Typography>

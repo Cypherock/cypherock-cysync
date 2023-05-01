@@ -2,17 +2,17 @@ import React, { ReactElement } from 'react';
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
+  Image,
   Typography,
   Flex,
   Container,
-  Image,
 } from '../../../components';
 import loader from '../../../assets/images/onboarding/deviceAuth/loader.png';
 import { Aside } from './Aside';
 
-export const DeviceAuthTest = (): ReactElement => (
+export const DeviceConnect = (): ReactElement => (
   <Flex gap="gap0">
-    <Aside />
+    <Aside screeName="Device Connection" />
     <Container variant="container" bgColor="contentGratient">
       <Flex position="absolute" top="topThree" right="rightThree">
         <Typography color="textMuted">Help</Typography>
@@ -23,12 +23,11 @@ export const DeviceAuthTest = (): ReactElement => (
         <DialogueBoxBody>
           <Image src={loader} mb="mbFive" />
           <Typography variant="h5" color="textHeading" mb="mbTwo">
-            Your X1 Vault will now be authenticated through Cypherock to check
-            its authenticity... (?)
+            Connecting X1 Vault
           </Typography>
 
           <Typography variant="h6" color="textMuted">
-            Do not disconnect your X1 Vault while the operation is being done
+            Connect your X1 Vault to your PC to proceed
           </Typography>
         </DialogueBoxBody>
       </DialogueBoxContainer>

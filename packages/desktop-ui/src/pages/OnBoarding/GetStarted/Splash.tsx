@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Flex, Image, Typography } from '../../../components';
+
 import sysyncbig from '../../../assets/images/common/logo-big.png';
 
 export const Splash = (): ReactElement => {

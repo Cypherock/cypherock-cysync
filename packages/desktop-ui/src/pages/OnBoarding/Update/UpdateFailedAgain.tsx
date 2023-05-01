@@ -2,17 +2,18 @@ import React, { ReactElement } from 'react';
 import {
   DialogueBoxContainer,
   DialogueBoxBody,
+  Image,
   Typography,
   Flex,
   Container,
-  Image,
+  ClipboardBar,
 } from '../../../components';
-import loader from '../../../assets/images/onboarding/deviceAuth/loader.png';
+import updatefail from '../../../assets/images/common/update-fail.png';
 import { Aside } from './Aside';
 
-export const DeviceAuthTest = (): ReactElement => (
+export const UpdateFailedAgain = (): ReactElement => (
   <Flex gap="gap0">
-    <Aside />
+    <Aside screeName="App Update" />
     <Container variant="container" bgColor="contentGratient">
       <Flex position="absolute" top="topThree" right="rightThree">
         <Typography color="textMuted">Help</Typography>
@@ -21,15 +22,21 @@ export const DeviceAuthTest = (): ReactElement => (
 
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          <Image src={loader} mb="mbFive" />
+          <Image src={updatefail} mb="mbFive" />
           <Typography variant="h5" color="textHeading" mb="mbTwo">
-            Your X1 Vault will now be authenticated through Cypherock to check
-            its authenticity... (?)
+            cySync app update to version 0.22.56 failed
           </Typography>
 
           <Typography variant="h6" color="textMuted">
-            Do not disconnect your X1 Vault while the operation is being done
+            Reinstall the desktop app from the link below and try again
           </Typography>
+
+          <Typography variant="h6" color="textMuted" mt="mtFour" mb="mbSix">
+            Close this app before installing the latest cySync app from the link
+          </Typography>
+
+          {/* TODO: Add a copy icon here */}
+          <ClipboardBar placeholder="https://www.cypherock.com/gs/" />
         </DialogueBoxBody>
       </DialogueBoxContainer>
     </Container>

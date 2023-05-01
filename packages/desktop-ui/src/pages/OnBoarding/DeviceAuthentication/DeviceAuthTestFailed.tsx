@@ -7,10 +7,11 @@ import {
   Typography,
   Flex,
   Container,
+  Image,
 } from '../../../components';
-// import serverError from "@assets/images/onboarding/deviceAuth/server-off.png";
-// import failed from "@assets/images/onboarding/deviceAuth/fail.png";
-// import setting from "@assets/images/onboarding/deviceAuth/settings-wrong.png";
+import serverError from '../../../assets/images/onboarding/deviceAuth/server-off.png';
+import failed from '../../../assets/images/onboarding/deviceAuth/fail.png';
+import setting from '../../../assets/images/onboarding/deviceAuth/settings-wrong.png';
 import { Aside } from './Aside';
 
 export const DeviceAuthTestFailedServerError = (): ReactElement => (
@@ -19,7 +20,7 @@ export const DeviceAuthTestFailedServerError = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={serverError} mb="mbFour" /> */}
+          <Image src={serverError} mb="mbFour" />
           <Typography variant="h5" color="textHeading" mb="mbOne">
             Device Authentication has failed
           </Typography>
@@ -47,7 +48,7 @@ export const DeviceAuthTestFailedFirmWareError = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={failed} mb="mbFour" /> */}
+          <Image src={failed} mb="mbFour" />
           <Typography variant="h5" color="textHeading" mb="mbOne">
             Device Authentication has failed
           </Typography>
@@ -72,7 +73,7 @@ export const DeviceAuthTestFailedServerDown = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={serverError} mb="mbFour" /> */}
+          <Image src={serverError} mb="mbFour" />
           <Typography variant="h5" color="textHeading" mb="mbOne">
             Device Authentication has failed
           </Typography>
@@ -95,7 +96,7 @@ export const DeviceAuthTestFailedDeviceMisconfigured = (): ReactElement => (
     <Container variant="container" bgColor="contentGratient">
       <DialogueBoxContainer md>
         <DialogueBoxBody>
-          {/* <Image src={setting} mb="mbFour" /> */}
+          <Image src={setting} mb="mbFour" />
 
           <Typography variant="h5" color="textHeading" mb="mbOne">
             Device Authentication has failed
