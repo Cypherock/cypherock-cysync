@@ -26,21 +26,22 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> = coinList.reduce(
-  (list, coin) => ({
-    ...list,
-    [coin.id]: {
-      family: 'solana',
-      id: coin.id,
-      name: coin.name,
-      isTest: coin.isTest,
-      coinGeckoId: coin.coinGeckoId,
-      coinIndex: coin.coinIndex,
-      feesUnit: coin.feesUnit,
-      network: coin.network,
-      curve: coin.curve,
-      units,
-    },
-  }),
-  {} as Record<SolanaIds, ISolanaCoinInfo>,
-);
+export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
+  coinList.reduce(
+    (list, coin) => ({
+      ...list,
+      [coin.id]: {
+        family: 'solana',
+        id: coin.id,
+        name: coin.name,
+        isTest: coin.isTest,
+        coinGeckoId: coin.coinGeckoId,
+        coinIndex: coin.coinIndex,
+        feesUnit: coin.feesUnit,
+        network: coin.network,
+        curve: coin.curve,
+        units,
+      },
+    }),
+    {} as Record<SolanaIds, ISolanaCoinInfo>,
+  );
