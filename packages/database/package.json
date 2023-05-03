@@ -1,0 +1,41 @@
+{
+  "name": "@cypherock/database",
+  "version": "0.0.1",
+  "description": "Contains database logic",
+  "type": "commonjs",
+  "scripts": {
+    "pretty": "prettier --write 'src/**/*.ts'",
+    "pretty:check": "prettier --check 'src/**/*.ts'",
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "lint": "eslint src/* --fix",
+    "lint:check": "eslint --ext .ts src/",
+    "pre-commit": "lint-staged",
+    "start": "ts-node src/index.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
+  "devDependencies": {
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
+    "@types/events": "^3.0.0",
+    "@types/node": "^16.11.10",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.1.2",
+    "ts-node": "10.7.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@cypherock/db-interfaces": "workspace:^",
+    "better-sqlite3": "^8.0.0",
+    "events": "^3.3.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "0.3.14"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --ext ts--quiet --fix --",
+      "prettier --write"
+    ]
+  }
+}
