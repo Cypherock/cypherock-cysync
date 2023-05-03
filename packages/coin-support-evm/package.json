@@ -1,13 +1,13 @@
 {
-  "name": "@cypherock/coin-support",
+  "name": "@cypherock/coin-support-evm",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint src/* --fix",
-    "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
+    "lint": "eslint --ext .ts,tsx,js,jsx src/ --fix",
+    "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
     "pretty": "prettier --write 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "pretty:check": "prettier --check 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "build": "rimraf dist && tsc -p tsconfig.json",
@@ -33,6 +33,13 @@
     "rimraf": "^5.0.0",
     "ts-jest": "^29.0.5",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@cypherock/coins": "workspace:^",
+    "@cypherock/db-interfaces": "workspace:^",
+    "@cypherock/sdk-app-evm": "^0.0.1",
+    "@cypherock/sdk-interfaces": "^0.0.1",
+    "@cypherock/sdk-utils": "^0.0.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
