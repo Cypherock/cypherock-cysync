@@ -213,6 +213,9 @@ importers:
 
   packages/desktop-ui:
     dependencies:
+      '@cypherock/cysync-core':
+        specifier: workspace:^
+        version: link:../cysync-core
       react:
         specifier: ^18.2.0
         version: 18.2.0

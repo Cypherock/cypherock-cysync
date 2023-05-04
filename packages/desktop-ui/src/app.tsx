@@ -1,5 +1,6 @@
 import React from 'react';
+import { Splash } from '@cypherock/cysync-core';
 
-const App = () => <h2>Hello World</h2>;
+const App = () => <Splash />;
 
 export default App;
