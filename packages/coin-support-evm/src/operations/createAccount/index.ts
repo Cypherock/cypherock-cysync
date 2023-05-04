@@ -1,29 +1,79 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { EvmApp, IGetPublicKeysDerivationPath } from '@cypherock/sdk-app-evm';
 import { evmCoinList } from '@cypherock/coins';
 
 import { derivationPathSchemes } from './schemes';
 import { DerivationSchemeName } from './schemes/types';
-import { ICreateAccountParams } from './types';
+import { ICreateAccountParams, IEvmAccount } from './types';
+import { getBalance, getTransactionCount } from '../../services';
 
 const DERIVATION_PATH_LIMIT = 50;
 
-export const createAccounts = async (params: ICreateAccountParams) => {
+function sleep(ms: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+
+export const createAccounts = async (
+  params: ICreateAccountParams,
+): Promise<IEvmAccount[]> => {
   const { connection, walletId, coinId } = params;
 
-  const derivationPaths = await generateDerivationPaths(params);
-  // console.log(derivationPaths);
-
-  const addresses = await generateAddresses(
+  const derivationPathsPerScheme = await generateDerivationPaths(params);
+  const addressesPerScheme = await generateAddresses(
     connection,
     walletId,
-    derivationPaths,
+    derivationPathsPerScheme,
     coinId,
   );
-  // console.log(addresses);
-  return Object.values(addresses).flat();
+
+  const schemeNameList = Object.keys(
+    addressesPerScheme,
+  ) as DerivationSchemeName[];
+
+  const accounts: IEvmAccount[] = [];
+
+  for (const schemeName of schemeNameList) {
+    const addresses = addressesPerScheme[schemeName];
+    const { threshold } = derivationPathSchemes[schemeName];
+
+    let zeroTxnAddressCount = 0;
+    let isThresholdReached = false;
+
+    for (const address of addresses) {
+      const txnCount = await getTransactionCount(address.address, coinId);
+      const balance = await getBalance(address.address, coinId);
+
+      if (txnCount <= 0) {
+        zeroTxnAddressCount += 1;
+        isThresholdReached = zeroTxnAddressCount >= threshold;
+      }
+
+      accounts.push({
+        // TODO: name to be decided later
+        name: '',
+        xpubOrAddress: address.address,
+        balance,
+        unit: evmCoinList[coinId].units[0].abbr.toLowerCase(),
+        derivationPath: address.derivationPath,
+        type: 'account',
+        assetId: coinId,
+        walletId,
+        extraData: {
+          derivationScheme: schemeName,
+        },
+      } as IEvmAccount);
+
+      await sleep(params.waitInMSBetweenEachAccountAPI ?? 500);
+
+      if (isThresholdReached) {
+        break;
+      }
+    }
+  }
+
+  return accounts;
 };
 
 // TODO: move this to SDK
@@ -54,25 +104,27 @@ async function generateAddresses(
     (a, b) => [...a, ...b],
     [],
   );
-  // const mappedDerivationPaths = allDerivationPaths.map(mapDerivationPath);
+  const mappedDerivationPaths = allDerivationPaths.map(mapDerivationPath);
 
-  const publicKeys = allDerivationPaths;
-  // TODO: Uncomment when SDK is working with the device
-  // const app = await EvmApp.create(connection);
-  // const { publicKeys } = await app.getPublicKeys({
-  //   walletId: hexToUint8Array(walletId),
-  //   derivationPaths: mappedDerivationPaths,
-  //   chainId: evmCoinList[coinId].chain,
-  // });
-  const publicKeysPerScheme: Record<string, string[]> = {};
+  const app = await EvmApp.create(connection);
+  const { publicKeys } = await app.getPublicKeys({
+    walletId: hexToUint8Array(walletId),
+    derivationPaths: mappedDerivationPaths,
+    chainId: evmCoinList[coinId].chain,
+  });
+  const publicKeysPerScheme: Record<
+    string,
+    Array<{ address: string; derivationPath: string }>
+  > = {};
 
   let index = 0;
   for (const schemeName of Object.keys(derivationPaths)) {
     const paths = derivationPaths[schemeName];
-    publicKeysPerScheme[schemeName] = publicKeys.slice(
-      index,
-      index + paths.length,
-    );
+    // eslint-disable-next-line no-loop-func
+    publicKeysPerScheme[schemeName] = paths.map((path, i) => ({
+      address: publicKeys[index + i].toLowerCase(),
+      derivationPath: path,
+    }));
     index += paths.length;
   }
 
@@ -97,6 +149,8 @@ async function generateDerivationPaths(params: ICreateAccountParams) {
 
   for (const schemeName of derivationSchemeNames) {
     const paths = derivationPathSchemes[schemeName].generator(
+      // This is done because there can be overlapping derivation paths
+      // between different schemes
       [...existingDerivationPaths, ...derivedPaths],
       pathLimitPerDerivationScheme,
     );

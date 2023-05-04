@@ -15,4 +15,5 @@ export type DerivationSchemeName =
 export interface IDerivationScheme {
   name: DerivationSchemeName;
   generator: IDerivationPathGenerator;
+  threshold: number;
 }
