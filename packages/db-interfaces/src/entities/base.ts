@@ -14,10 +14,6 @@ export interface IGetOptions<T> {
     descending?: boolean;
   };
   /**
-   * Returns any entry in the database that is superset of any entries in the list provided
-   */
-  match?: Partial<T>[];
-  /**
    * Limits number of entries to be returned
    */
   limit?: number;
@@ -53,35 +49,29 @@ export interface IRepository<Entity extends ObjectLiteral> {
    */
   insertOrUpdate<T extends Partial<Entity>>(entity: T): Promise<T>;
   /**
-   * Removes a given entities from the database.
+   * Removes entities matching any of the given entities from the database.
    */
-  remove(entities: Entity[]): Promise<Entity[]>;
+  remove(entityLikes: Partial<Entity>[]): Promise<Entity[]>;
   /**
-   * Removes a given entity from the database.
+   * Removes entities matching the given entity from the database.
    */
-  remove(entity: Entity): Promise<Entity>;
-  /**
-   * Records the delete date of all given entities.
-   */
-  softRemove<T extends Partial<Entity>>(entities: T[]): Promise<T[]>;
-  /**
-   * Records the delete date of a given entity.
-   */
-  softRemove<T extends Partial<Entity>>(entity: T): Promise<T>;
+  remove(entityLike: Partial<Entity>): Promise<Entity | undefined>;
 
   /**
    * Fetches all entities from given object from the repository.
+   * Returns any entry in the database that is superset of any of the entries in the list provided
    */
   getAll(
-    entityLike: Partial<Entity>,
+    entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]>;
 
   /**
    * Fetches first entity from given object from the repository.
+   * Returns first entry in the database that is superset of any of the entries in the list provided
    */
   getOne(
-    entityLike: Partial<Entity>,
+    entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity | undefined>;
 
@@ -101,4 +91,10 @@ export interface IRepository<Entity extends ObjectLiteral> {
    * Removes all previously added listener with the given type
    */
   removeAllListener(type?: string | symbol): void;
+
+  /**
+   * Sets version for the current repository
+   * all the operations use this version as __version parameter if not provided otherwise
+   */
+  setVersion(version: number): void;
 }
