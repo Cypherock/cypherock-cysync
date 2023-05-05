@@ -36,12 +36,15 @@
     "prettier": "^2.8.7",
     "rimraf": "^5.0.0",
     "ts-jest": "^29.0.5",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "styled-components": "^5.3.10"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@cypherock/cysync-core": "workspace:^"
+    "@cypherock/cysync-core": "workspace:^",
+    "@cypherock/cysync-ui": "workspace:^",
+    "@types/styled-components": "^5.1.26"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
