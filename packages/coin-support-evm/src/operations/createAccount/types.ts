@@ -1,7 +1,15 @@
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { IDatabase } from '@cypherock/db-interfaces';
 import { IAccount } from '@cypherock/db-interfaces/dist/entities/account';
+import { GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+
 import { DerivationSchemeName } from './schemes/types';
+
+export interface IEvmAccount extends IAccount {
+  extraData: {
+    derivationScheme: DerivationSchemeName;
+  };
+}
 
 export interface ICreateAccountParams {
   db: IDatabase;
@@ -11,8 +19,13 @@ export interface ICreateAccountParams {
   waitInMSBetweenEachAccountAPI?: number;
 }
 
-export interface IEvmAccount extends IAccount {
-  extraData: {
-    derivationScheme: DerivationSchemeName;
+export type ICreateAccountEventType = 'Account' | 'Device';
+
+export interface ICreateAccountEvent {
+  type: ICreateAccountEventType;
+  account?: IEvmAccount;
+  device?: {
+    isDone: boolean;
+    events: Record<GetPublicKeysStatus, boolean | undefined>;
   };
 }
