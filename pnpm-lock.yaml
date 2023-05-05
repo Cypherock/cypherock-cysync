@@ -22,6 +22,9 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@cypherock/cysync-desktop-ui':
+        specifier: workspace:^
+        version: link:../../packages/desktop-ui
       electron-squirrel-startup:
         specifier: ^1.0.0
         version: 1.0.0
@@ -38,12 +41,6 @@ importers:
       '@babel/preset-react':
         specifier: ^7.18.6
         version: 7.18.6(@babel/core@7.21.4)
-      '@cypherock/coin-support-evm':
-        specifier: workspace:^
-        version: link:../../packages/coin-support-evm
-      '@cypherock/cysync-desktop-ui':
-        specifier: workspace:^
-        version: link:../../packages/desktop-ui
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../../packages/util-eslint-config
@@ -249,6 +246,9 @@ importers:
       '@cypherock/cysync-ui':
         specifier: workspace:^
         version: link:../ui
+      '@cypherock/sdk-core':
+        specifier: ^0.0.1
+        version: 0.0.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
