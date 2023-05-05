@@ -16,7 +16,6 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "module": "CommonJS",
     "target": "ES2015",
     "noImplicitAny": true,
     "strictNullChecks": true,
