@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource, DataSourceOptions, ObjectLiteral } from 'typeorm';
 import Database from 'better-sqlite3';
 import { Database as DB, initializeDb } from '../../src/database';
 
@@ -16,7 +16,7 @@ class TestHelper {
     this.dbConnect = new DataSource({
       name: 'TestDB',
       type: 'better-sqlite3',
-      database: 'testdb.sqlite',
+      database: ':memory:',
       entities: ['src/entity/*.ts'],
       synchronize: true,
     } as DataSourceOptions);
@@ -29,4 +29,9 @@ class TestHelper {
   }
 }
 
+export const removeBaseFelids = (obj: ObjectLiteral) => ({
+  ...obj,
+  __id: undefined,
+  __version: undefined,
+});
 export const testHelper = new TestHelper();
