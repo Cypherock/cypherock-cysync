@@ -13,10 +13,7 @@ import type { Wallet } from './Wallet';
 
 @Entity()
 @Tree('closure-table')
-export class Account
-  extends AbstractEntity
-  implements Omit<IAccount, 'walletId' | 'parentAccountId'>
-{
+export class Account extends AbstractEntity implements IAccount {
   @Column()
   name: string;
 
@@ -49,4 +46,8 @@ export class Account
 
   @ManyToOne('Wallet', 'accounts')
   wallet: Wallet;
+
+  walletId: string;
+
+  parentAccountId: string;
 }

@@ -7,10 +7,13 @@ import { AbstractEntity } from './AbstractEntity';
 import type { PriceInfo } from './PriceInfo';
 
 @Entity()
-export class PriceHistory
-  extends AbstractEntity
-  implements Omit<IPriceHistory, 'priceInfoId' | 'currency' | 'assetId'>
-{
+export class PriceHistory extends AbstractEntity implements IPriceHistory {
+  priceInfoId: string;
+
+  assetId: string;
+
+  currency: string;
+
   @Column()
   days: number;
 

@@ -5,10 +5,9 @@ import type { Device } from './Device';
 import type { Account } from './Account';
 
 @Entity()
-export class Wallet
-  extends AbstractEntity
-  implements Omit<IWallet, 'deviceId'>
-{
+export class Wallet extends AbstractEntity implements IWallet {
+  deviceId: string;
+
   @Column()
   name: string;
 

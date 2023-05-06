@@ -10,10 +10,11 @@ import { AbstractEntity } from './AbstractEntity';
 
 @Entity()
 @Tree('closure-table')
-export class Transaction
-  extends AbstractEntity
-  implements Omit<ITransaction, 'walletId' | 'accountId'>
-{
+export class Transaction extends AbstractEntity implements ITransaction {
+  accountId: string;
+
+  parentTransactionId?: string | undefined;
+
   @Column()
   hash: string;
 
