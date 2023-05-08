@@ -15,7 +15,7 @@ export const getBalance = async (address: string, assetId: string) => {
 
   const { balance } = response.data;
   if (typeof balance !== 'string') {
-    throw new Error('Invalid data from server');
+    throw new Error('Invalid evm balance returned from server');
   }
 
   return balance;
@@ -31,7 +31,7 @@ export const getTransactionCount = async (address: string, assetId: string) => {
 
   const { count } = response.data;
   if (typeof count !== 'number') {
-    throw new Error('Invalid data from server');
+    throw new Error('Invalid evm txn count returned from server');
   }
 
   return count;

@@ -174,13 +174,14 @@ async function generateAddresses(params: {
   > = {};
 
   let index = 0;
+  const mapPublicKeys = (path: string, i: number) => ({
+    address: publicKeys[index + i].toLowerCase(),
+    derivationPath: path,
+  });
+
   for (const schemeName of Object.keys(derivationPathsPerScheme)) {
     const paths = derivationPathsPerScheme[schemeName];
-    // eslint-disable-next-line no-loop-func
-    publicKeysPerScheme[schemeName] = paths.map((path, i) => ({
-      address: publicKeys[index + i].toLowerCase(),
-      derivationPath: path,
-    }));
+    publicKeysPerScheme[schemeName] = paths.map(mapPublicKeys);
     index += paths.length;
   }
 
