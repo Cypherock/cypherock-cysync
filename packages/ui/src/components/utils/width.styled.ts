@@ -1,19 +1,20 @@
 import { css } from 'styled-components';
 
 export interface WidthProps {
-  width?: '100%' | '25%' | '35%' | '15%';
+  width?: string | number;
 }
 
-const widthObj: Record<string, string> = {
-  '100%': '100%',
-  '25%': '25%',
-  '35%': '35%',
-  '15%': '15%',
-};
-
 export const width = css<WidthProps>`
-  ${props =>
-    props.width &&
-    `
-    width: ${widthObj[props.width]};`}
+  ${props => {
+    if (props.width === 1 / 4) {
+      return `width: 25%;`;
+    }
+    if (props.width === 1 / 2) {
+      return `width: 50%;`;
+    }
+    if (props.width === 3 / 4) {
+      return `width: 75%;`;
+    }
+    return `width: ${props.width};`;
+  }}
 `;
