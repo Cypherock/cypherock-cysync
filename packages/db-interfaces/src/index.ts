@@ -7,6 +7,7 @@ import type {
   IWalletRepository,
   IEntity,
   IRepository,
+  ObjectLiteral,
 } from './entities';
 
 export interface IDatabase {
@@ -18,6 +19,7 @@ export interface IDatabase {
   priceInfo: IPriceInfoRepository;
   createOrFetchRepository<T extends IEntity>(
     name: string,
+    schema: ObjectLiteral,
   ): Promise<IRepository<T> | null>;
 }
 

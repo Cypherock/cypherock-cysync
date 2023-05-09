@@ -1,4 +1,7 @@
+import Database from 'better-sqlite3';
 import { initializeDb } from './database';
-import { AppDataSource } from './data-source';
 
-export const createDb = () => initializeDb(AppDataSource);
+const db = new Database('database.sqlite', { verbose: console.log });
+db.pragma('journal_mode = WAL');
+
+export const createDb = () => initializeDb(db);

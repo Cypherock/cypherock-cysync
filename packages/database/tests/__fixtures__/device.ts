@@ -1,9 +1,16 @@
-import { IDatabase, IDeviceRepository } from '@cypherock/db-interfaces';
+import {
+  IDatabase,
+  IDevice,
+  IDeviceRepository,
+} from '@cypherock/db-interfaces';
+import { ITestClass } from './types';
 
-class DeviceData {
+class DeviceData implements ITestClass<IDevice> {
+  name = 'Device';
+
   repo: IDeviceRepository;
 
-  allRequired = [
+  onlyRequired: IDevice[] = [
     {
       serial: '1234',
       isAuthenticated: false,
@@ -25,6 +32,10 @@ class DeviceData {
       version: '1.0.4',
     },
   ];
+
+  partial = [];
+
+  all = [];
 
   setRepository(db: IDatabase) {
     this.repo = db.device;

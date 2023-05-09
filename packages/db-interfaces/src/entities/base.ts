@@ -2,8 +2,8 @@
  * These fields should be available in every entity
  */
 export interface IEntity {
-  __id: string;
-  __version: number;
+  __id?: string;
+  __version?: number;
 }
 export interface IGetOptions<T> {
   /**
@@ -29,25 +29,15 @@ export type ObjectLiteral = Record<string, any>;
 
 export interface IRepository<Entity extends ObjectLiteral> {
   /**
-   * Creates new entities and copies all entity properties from given objects into their new entities.
-   * Note that it copies only properties that are present in entity schema.
-   */
-  instantiate(entityLikeArray: Partial<Entity>[]): Entity[];
-  /**
-   * Creates a new entity instance and copies all entity properties from this object into a new entity.
-   * Note that it copies only properties that are present in entity schema.
-   */
-  instantiate(entityLike?: Partial<Entity>): Entity;
-  /**
    * Saves all given entities in the database.
    * If entities do not exist in the database then inserts, otherwise updates.
    */
-  insertOrUpdate<T extends Partial<Entity>>(entities: T[]): Promise<T[]>;
+  insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
   /**
    * Saves a given entity in the database.
    * If entity does not exist in the database then inserts, otherwise updates.
    */
-  insertOrUpdate<T extends Partial<Entity>>(entity: T): Promise<T>;
+  insertOrUpdate(entity: Partial<Entity>): Promise<Entity>;
   /**
    * Removes entities matching any of the given entities from the database.
    */

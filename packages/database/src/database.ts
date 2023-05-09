@@ -1,27 +1,21 @@
 import {
   IAccountRepository,
   IDatabase,
+  IDevice,
   IDeviceRepository,
   IEntity,
   IPriceHistoryRepository,
   IPriceInfoRepository,
   IRepository,
   ITransactionRepository,
+  IWallet,
   IWalletRepository,
 } from '@cypherock/db-interfaces';
-import { DataSource, Table } from 'typeorm';
-import { Device } from './entity/Device';
-import { BaseRepository } from './repository/BaseRepository';
-import { Account } from './entity/Account';
-import { Transaction } from './entity/Transaction';
-import { PriceHistory } from './entity/PriceHistory';
-import { PriceInfo } from './entity/PriceInfo';
-import { Wallet } from './entity/Wallet';
-import { AccountRepository } from './repository/AccountRepository';
-import { TransactionRepository } from './repository/TransactionRepository';
+import { Database as DB } from 'better-sqlite3';
+import { ITableSchema, Repository } from './repository/Repository';
 
 export class Database implements IDatabase {
-  private readonly dataSource: DataSource;
+  private readonly database: DB;
 
   device: IDeviceRepository;
 
@@ -35,46 +29,38 @@ export class Database implements IDatabase {
 
   priceInfo: IPriceInfoRepository;
 
-  constructor(dataSource: DataSource) {
-    this.dataSource = dataSource;
-    this.device = new BaseRepository<Device>(
-      this.dataSource.getRepository(Device),
+  constructor(db: DB) {
+    this.database = db;
+
+    const deviceSchema: ITableSchema = {
+      serial: { type: 'string' },
+      isAuthenticated: { type: 'boolean' },
+      version: { type: 'string' },
+    };
+    this.device = new Repository<IDevice>(
+      this.database,
+      'device',
+      deviceSchema,
     );
-    this.account = new AccountRepository(
-      this.dataSource.getRepository(Account),
-    );
-    this.transaction = new TransactionRepository(
-      this.dataSource.getRepository(Transaction),
-    );
-    this.wallet = new BaseRepository<Wallet>(
-      this.dataSource.getRepository(Wallet),
-    );
-    this.priceHistory = new BaseRepository<PriceHistory>(
-      this.dataSource.getRepository(PriceHistory),
-    );
-    this.priceInfo = new BaseRepository<PriceInfo>(
-      this.dataSource.getRepository(PriceInfo),
+    const walletSchema: ITableSchema = {
+      name: { type: 'string' },
+      hasPin: { type: 'boolean' },
+      hasPassphrase: { type: 'boolean' },
+      deviceId: { type: 'string' },
+    };
+    this.wallet = new Repository<IWallet>(
+      this.database,
+      'wallet',
+      walletSchema,
     );
   }
 
-  async createOrFetchRepository<T extends IEntity>(
+  // eslint-disable-next-line class-methods-use-this
+  createOrFetchRepository<T extends IEntity>(
     name: string,
   ): Promise<IRepository<T> | null> {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.createTable(
-      new Table({
-        name,
-      }),
-      true,
-    );
-    await queryRunner.release();
-    const repo = await this.dataSource.getRepository<T>('name');
-    return new BaseRepository<T>(repo);
+    throw new Error(`Method not implemented. ${name}`);
   }
 }
 
-export const initializeDb = async (dataSource: DataSource) => {
-  await dataSource.initialize();
-  return new Database(dataSource);
-};
+export const initializeDb = async (database: DB) => new Database(database);

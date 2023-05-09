@@ -1,30 +1,21 @@
 /* eslint-disable no-use-before-define */
-import { DataSource, DataSourceOptions, ObjectLiteral } from 'typeorm';
 import Database from 'better-sqlite3';
+import { ObjectLiteral } from '@cypherock/db-interfaces';
 import { Database as DB, initializeDb } from '../../src/database';
 
 class TestHelper {
-  private dbConnect!: DataSource;
-
   private testdb!: any;
 
   public db!: DB;
 
   async setupTestDB() {
-    this.testdb = new Database(':memory:', { verbose: console.log });
+    this.testdb = new Database('test.sqlite', { verbose: console.log });
+    this.testdb.pragma('journal_mode = WAL');
 
-    this.dbConnect = new DataSource({
-      name: 'TestDB',
-      type: 'better-sqlite3',
-      database: ':memory:',
-      entities: ['src/entity/*.ts'],
-      synchronize: true,
-    } as DataSourceOptions);
-    this.db = await initializeDb(this.dbConnect);
+    this.db = await initializeDb(this.testdb);
   }
 
   teardownTestDB() {
-    this.dbConnect.destroy();
     this.testdb.close();
   }
 }

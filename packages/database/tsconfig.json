@@ -11,6 +11,10 @@
     "sourceMap": true
   },
   "extends": "@cypherock/tsconfig/node.json",
-  "include": ["./src/**/*", "./tests/**/*"],
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "src/repository/TestRepository/.ts"
+  ],
   "exclude": ["node_modules", "src/coverage"]
 }
