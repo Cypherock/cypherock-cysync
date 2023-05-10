@@ -1,8 +1,8 @@
 import { App } from 'electron';
-import jsonConfig from '../../config.json';
+import jsonConfig from '../../config';
 
 const validateJsonConfig = () => {
-  if (!jsonConfig.API_CYPHEROCK?.startsWith('http')) {
+  if (!jsonConfig.API_CYPHEROCK.startsWith('http')) {
     throw new Error('Invalid API_CYPHEROCK in json config');
   }
 
