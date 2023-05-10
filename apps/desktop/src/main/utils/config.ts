@@ -1,4 +1,4 @@
-import { App } from 'electron';
+import { app } from 'electron';
 import jsonConfig from '../../config';
 
 const validateJsonConfig = () => {
@@ -55,10 +55,14 @@ const validateJsonConfig = () => {
  * 1. Use to decide if we want to enable or disable a feature.
  * 2. Example: Websockets, Refresh on Startup etc.
  */
-export const setConfig = (app: App) => {
+export const setConfig = () => {
   validateJsonConfig();
 
-  process.env.USER_DATA_PATH = app.getPath('userData');
+  if (!app && process.env.NODE_ENV === 'test') {
+    process.env.USER_DATA_PATH = '.';
+  } else {
+    process.env.USER_DATA_PATH = app.getPath('userData');
+  }
 
   process.env.LOG_LEVEL = jsonConfig.LOG_LEVEL;
   process.env.BUILD_TYPE = jsonConfig.BUILD_TYPE;
@@ -82,6 +86,8 @@ export const setConfig = (app: App) => {
     process.env.IS_PRODUCTION = 'false';
   }
 };
+
+setConfig();
 
 export const config = {
   LOG_LEVEL: process.env.LOG_LEVEL,

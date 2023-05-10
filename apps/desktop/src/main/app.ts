@@ -2,11 +2,10 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
 import { setupIPC } from './ipc';
-import { config, setConfig } from './utils/config';
+import { config } from './utils/config';
 import logger from './utils/logger';
 
 function prepareApp() {
-  setConfig(app);
   setupIPC(ipcMain);
 }
 
@@ -31,12 +30,8 @@ export default function createApp() {
     process.exit(0);
   }
 
-  // Remove electron security warnings
-  // This warning only shows in development mode
-  // Read more on https://www.electronjs.org/docs/latest/tutorial/security
-  // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
   let win: BrowserWindow | null = null;
-  // Here, you can also use other preload
+
   const preload = join(__dirname, '../preload/index.js');
   const rendererUrl = process.env.VITE_DEV_SERVER_URL;
   const indexHtml = join(process.env.DIST, 'index.html');
@@ -58,11 +53,9 @@ export default function createApp() {
         throw new Error('VITE_DEV_SERVER_URL is undefined');
       }
 
-      // electron-vite-vue#298
       win.loadURL(rendererUrl);
 
       if (!config.IS_PRODUCTION && !config.IS_TEST) {
-        // Open devTool if the app is not packaged
         win.webContents.openDevTools();
       }
     } else {

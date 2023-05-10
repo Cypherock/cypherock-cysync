@@ -17,6 +17,9 @@ const transports = [loggerConfig.console];
 if (config.USER_DATA_PATH) {
   loggerConfig.file = new winston.transports.File({
     filename: `${config.USER_DATA_PATH}/CySync.log`,
+    maxsize: 10 * 1024 * 1024, // in bytes
+    tailable: true,
+    maxFiles: 1,
   });
   transports.push(loggerConfig.file);
 }
