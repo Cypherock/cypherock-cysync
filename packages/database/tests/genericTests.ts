@@ -15,36 +15,22 @@ describe('Basic tests', () => {
         entity.setRepository(testHelper.db);
       });
 
-      // describe('instantiate', () => {
-      //   test('Can create a new instance from a repository', async () => {
-      //     const obj = entity.repo.instantiate();
-      //     expect(obj).toBeTruthy();
-      //   });
-
-      //   test('Can create a new instance using a js object', async () => {
-      //     const JsObject = entity.onlyRequired[0];
-      //     const obj = entity.repo.instantiate(JsObject);
-      //     expect(JsObject).toEqual(obj);
-      //   });
-
-      //   test('Can create new instances using an array of js object', async () => {
-      //     const JsObjectArray = entity.onlyRequired.slice(0, 2);
-      //     const obj = entity.repo.instantiate(JsObjectArray);
-      //     expect(JsObjectArray).toEqual(obj);
-      //   });
-      // });
-
       describe('insertOrUpdate', () => {
         test('Can not store an empty entity instance', async () => {
           const obj = {};
           expect(entity.repo.insertOrUpdate(obj)).rejects.toThrow();
         });
 
-        test('Can store the entity with all required values', async () => {
+        test('Can not store an entity with invalid values', async () => {
           entity.repo.setVersion(0);
-          const obj = entity.onlyRequired[0];
-          const storedObj = await entity.repo.insertOrUpdate(obj);
-          expect(storedObj).toBeTruthy();
+          for (const invalidCase of entity.invalid) {
+            expect(entity.repo.insertOrUpdate(invalidCase)).rejects.toThrow();
+          }
+        });
+
+        test('Can not store an entity with invalid values', async () => {
+          entity.repo.setVersion(0);
+          expect(entity.repo.insertOrUpdate(entity.invalid)).rejects.toThrow();
         });
 
         test('Can store the entity array with all required values', async () => {
@@ -115,6 +101,10 @@ describe('Basic tests', () => {
           const fetchedObj = await entity.repo.getOne(storedObj);
           expect(storedObj).toEqual(fetchedObj);
         });
+        test('Can not fetch an entity with invalid values', async () => {
+          entity.repo.setVersion(0);
+          expect(entity.repo.getOne(entity.invalid)).rejects.toThrow();
+        });
       });
 
       describe('getAll', () => {
@@ -124,6 +114,11 @@ describe('Basic tests', () => {
           const storedObj = await entity.repo.insertOrUpdate(obj);
           const fetchedObj = await entity.repo.getAll(storedObj);
           expect(storedObj).toEqual(fetchedObj);
+        });
+
+        test('Can not fetch an entity with invalid values', async () => {
+          entity.repo.setVersion(0);
+          expect(entity.repo.getAll(entity.invalid)).rejects.toThrow();
         });
       });
 
@@ -152,6 +147,11 @@ describe('Basic tests', () => {
             allObjBeforeRemove,
           );
           expect(fetchedObj.length).toEqual(0);
+        });
+
+        test('Can not remove an entity with invalid parameter values', async () => {
+          entity.repo.setVersion(0);
+          expect(entity.repo.remove(entity.invalid)).rejects.toThrow();
         });
       });
 

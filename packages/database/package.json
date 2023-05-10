@@ -34,7 +34,8 @@
     "@cypherock/db-interfaces": "workspace:^",
     "better-sqlite3": "^8.0.0",
     "events": "^3.3.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zod": "^3.21.4"
   },
   "lint-staged": {
     "*.ts": [

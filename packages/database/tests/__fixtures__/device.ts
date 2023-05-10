@@ -37,6 +37,29 @@ class DeviceData implements ITestClass<IDevice> {
 
   all = [];
 
+  invalid: IDevice[] = [
+    {
+      serial: null as any,
+      isAuthenticated: true,
+      version: '1.0.1',
+    },
+    {
+      serial: '2345',
+      isAuthenticated: (() => 'random') as any,
+      version: '1.0.3',
+    },
+    {
+      serial: '3456',
+      isAuthenticated: false,
+      version: 34 as any,
+    },
+    {
+      serial: null as any,
+      isAuthenticated: (() => 'random') as any,
+      version: 34 as any,
+    },
+  ];
+
   setRepository(db: IDatabase) {
     this.repo = db.device;
   }

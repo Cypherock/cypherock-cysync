@@ -41,6 +41,39 @@ class WalletData implements ITestClass<IWallet> {
 
   all = [];
 
+  invalid: IWallet[] = [
+    {
+      name: null as any,
+      hasPassphrase: 45 as any,
+      hasPin: 'random' as any,
+      deviceId: 33 as any,
+    },
+    {
+      name: null as any,
+      hasPassphrase: false,
+      hasPin: true,
+      deviceId: '1',
+    },
+    {
+      name: 'DIFFERENT WALLET',
+      hasPassphrase: 45 as any,
+      hasPin: false,
+      deviceId: '2',
+    },
+    {
+      name: 'DIFFERENT WALLET AGAIN',
+      hasPassphrase: true,
+      hasPin: 'random' as any,
+      deviceId: '2',
+    },
+    {
+      name: 'Wallet name',
+      hasPassphrase: true,
+      hasPin: false,
+      deviceId: 33 as any,
+    },
+  ];
+
   setRepository(db: IDatabase) {
     this.repo = db.wallet;
   }

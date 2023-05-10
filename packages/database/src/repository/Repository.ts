@@ -7,6 +7,7 @@ import {
 import { Database } from 'better-sqlite3';
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
+import { ZodObject, z } from 'zod';
 
 type datatype =
   | 'number'
@@ -32,6 +33,8 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
   private readonly schema: ITableSchema;
 
+  private zodSchema: ZodObject<any>;
+
   private version: number | undefined;
 
   private readonly emitter = new EventEmitter();
@@ -40,7 +43,51 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.db = db;
     this.name = name;
     this.schema = schema;
+    this.setZodSchema(schema);
     this.createTableIfNotExists();
+  }
+
+  private setZodSchema(schema: ITableSchema) {
+    const shape: any = {};
+
+    for (const key in schema) {
+      if (Object.prototype.hasOwnProperty.call(schema, key)) {
+        const value = schema[key];
+        let zType;
+        switch (value.type) {
+          case 'object':
+            zType = z.any();
+            break;
+          case 'string':
+            zType = z.string();
+            break;
+          case 'symbol':
+            zType = z.symbol();
+            break;
+          case 'undefined':
+            zType = z.undefined();
+            break;
+          case 'function':
+            zType = z.function();
+            break;
+          case 'bigint':
+            zType = z.bigint();
+            break;
+          case 'number':
+            zType = z.number();
+            break;
+          case 'boolean':
+            zType = z.boolean();
+            break;
+          default:
+            throw new Error('Unexpected type in schema');
+            break;
+        }
+        if (value.isOptional) zType = zType.optional();
+        shape[key] = zType;
+      }
+    }
+    this.zodSchema = z.object(shape);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -64,7 +111,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
             values.push(JSON.stringify(value));
             break;
           default:
-            values.push(null);
+            values.push(undefined);
             break;
         }
       }
@@ -111,6 +158,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
               entity[key] = obj[key];
               break;
           }
+          if (value.isOptional && obj[key] === null) {
+            delete obj[key];
+            delete entity[key];
+          }
         }
       }
       entities.push({ ...obj, ...entity });
@@ -126,6 +177,17 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.db.prepare(statement).run();
   }
 
+  private validateInput(entityLike: Partial<Entity>[] | Partial<Entity>): void {
+    const entityArray = Array.isArray(entityLike) ? entityLike : [entityLike];
+    for (const entity of entityArray) {
+      const result = this.zodSchema.partial().safeParse(entity);
+      if (!result.success)
+        throw new Error(
+          `Invalid entity provided for ${this.name}.\n${result.error}`,
+        );
+    }
+  }
+
   insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
 
   insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
@@ -136,7 +198,6 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     entityLike: Partial<Entity> | Partial<Entity>[],
   ): Promise<Entity | Entity[]> {
     const entities = this.getVersionedEntities(entityLike);
-    console.log({ entities });
     const result: Entity[] = [];
 
     for (const entity of entities) {
@@ -239,6 +300,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         `SELECT * FROM ${this.name} ${whereClause} ${orderByClause} ${limitClause}`,
       )
       .all(entities.flatMap(entity => this.getValuesForSqlite(entity))) as any;
+    console.log({ result, entities });
     return result;
   }
 
@@ -266,6 +328,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private getVersionedEntities(
     entityLike: Partial<Entity> | Partial<Entity>[],
   ): Partial<Entity>[] {
+    this.validateInput(entityLike);
     const isArray = Array.isArray(entityLike);
     const entityArray = isArray ? entityLike : [entityLike];
     const versionError = (entity: Partial<Entity>) =>
@@ -276,6 +339,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       if (version === undefined) throw versionError(item);
       result.push({ ...item, __version: version });
     }
+    console.log({ result });
     return result;
   }
 

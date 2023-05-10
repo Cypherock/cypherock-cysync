@@ -13,6 +13,7 @@ import {
 } from '@cypherock/db-interfaces';
 import { Database as DB } from 'better-sqlite3';
 import { ITableSchema, Repository } from './repository/Repository';
+import { AccountRepository } from './repository/AccountRepository';
 
 export class Database implements IDatabase {
   private readonly database: DB;
@@ -52,6 +53,23 @@ export class Database implements IDatabase {
       this.database,
       'wallet',
       walletSchema,
+    );
+    const accountSchema: ITableSchema = {
+      name: { type: 'string' },
+      xpubOrAddress: { type: 'string' },
+      balance: { type: 'string' },
+      unit: { type: 'string' },
+      derivationPath: { type: 'string' },
+      type: { type: 'string' },
+      extraData: { type: 'object', isOptional: true },
+      assetId: { type: 'string' },
+      walletId: { type: 'string' },
+      parentAccountId: { type: 'string', isOptional: true },
+    };
+    this.account = new AccountRepository(
+      this.database,
+      'account',
+      accountSchema,
     );
   }
 

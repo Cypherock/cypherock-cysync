@@ -5,6 +5,7 @@ export interface ITestClass<Entity extends ObjectLiteral> {
   repo: IRepository<Entity>;
   name: string;
   onlyRequired: Entity[];
+  invalid: Entity[];
   partial: Partial<Entity>[];
   all: Entity[];
   setRepository: (db: Database) => void;

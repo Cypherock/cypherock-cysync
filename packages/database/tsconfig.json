@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "strict": true,
     "sourceMap": true
   },
   "extends": "@cypherock/tsconfig/node.json",
