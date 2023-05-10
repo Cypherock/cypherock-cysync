@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styled from 'styled-components';
 import {
@@ -20,7 +20,9 @@ export const ImageStyle = styled.img`
   ${alignSelf}
 `;
 
-export const Image = ({ ...props }: ImageProps) => <ImageStyle {...props} />;
+export const Image: FC<ImageProps> = ({ ...props }) => (
+  <ImageStyle {...props} />
+);
 
 Image.defaultProps = {
   src: null,

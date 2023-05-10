@@ -64,19 +64,10 @@ ${props =>
     css`
       color: ${({ theme }) => theme.palette.success.main};
     `}
-  color: ${props => {
-    if (props.color === 'heading') return props.theme.palette.text.heading;
-    if (props.color === 'muted') return props.theme.palette.text.muted;
-    if (props.color === 'list') return props.theme.palette.text.list;
-    return '';
-  }};
 
-  text-align: ${props => {
-    if (props.textAlign === 'right') return 'right';
-    if (props.textAlign === 'left') return 'left';
-    if (props.textAlign === 'center') return 'center';
-    return '';
-  }};
+  ${props => props.color && `color: ${props.theme.palatte.text[props.color]}`}
+
+  ${props => props.textAlign && `text-align: ${props.textAlign}`}
 
   max-width: 100%;
 `;

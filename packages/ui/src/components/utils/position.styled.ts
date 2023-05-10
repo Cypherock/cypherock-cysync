@@ -2,10 +2,10 @@ import { css } from 'styled-components';
 
 export interface PositionProps {
   position?: 'absolute' | 'relative' | 'fixed' | 'sticky' | 'static';
-  top?: string | number;
-  right?: string | number;
-  left?: string | number;
-  bottom?: string | number;
+  top?: number;
+  right?: number;
+  left?: number;
+  bottom?: number;
 }
 
 export const position = css<PositionProps>`
@@ -14,52 +14,28 @@ export const position = css<PositionProps>`
       return `position: ${props.position};`;
     }
     if (props.top) {
-      if (props.top === 1 / 4) {
-        return `top: 25%;`;
+      if (!Number.isInteger(props.top)) {
+        return `top: ${props.top * 100}%`;
       }
-      if (props.top === 1 / 2) {
-        return `top: 50%;`;
-      }
-      if (props.top === 3 / 4) {
-        return `top: 75%;`;
-      }
-      return `top: ${props.top};`;
+      return `top: ${props.top}px;`;
     }
     if (props.bottom) {
-      if (props.bottom === 1 / 4) {
-        return `bottom: 25%;`;
+      if (!Number.isInteger(props.bottom)) {
+        return `bottom: ${props.bottom * 100}%`;
       }
-      if (props.bottom === 1 / 2) {
-        return `bottom: 50%;`;
-      }
-      if (props.bottom === 3 / 4) {
-        return `bottom: 75%;`;
-      }
-      return `bottom: ${props.bottom};`;
+      return `bottom: ${props.bottom}px;`;
     }
     if (props.right) {
-      if (props.right === 1 / 4) {
-        return `right: 25%;`;
+      if (!Number.isInteger(props.right)) {
+        return `right: ${props.right * 100}%`;
       }
-      if (props.right === 1 / 2) {
-        return `right: 50%;`;
-      }
-      if (props.right === 3 / 4) {
-        return `right: 75%;`;
-      }
-      return `right: ${props.right};`;
+      return `right: ${props.right}px;`;
     }
     if (props.left) {
-      if (props.left === 1 / 4) {
-        return `left: 25%;`;
+      if (!Number.isInteger(props.left)) {
+        return `left: ${props.left * 100}%`;
       }
-      if (props.left === 1 / 2) {
-        return `left: 50%;`;
-      }
-      if (props.left === 3 / 4) {
-        return `left: 75%;`;
-      }
-      return `left: ${props.left};`;
+      return `left: ${props.left}px;`;
     }
     return null;
   }}

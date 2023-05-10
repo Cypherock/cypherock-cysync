@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface SquareCheckBoxProps {
@@ -63,16 +63,16 @@ export const SquareCheckBoxStyle = styled.div<SquareCheckBoxProps>`
   }
 `;
 
-export const CheckBox = ({
+export const CheckBox: FC<SquareCheckBoxProps> = ({
   children,
   variation,
   ...props
-}: SquareCheckBoxProps): ReactElement | null =>
+}) =>
   variation === 'squareCheckBox' ? (
     <SquareCheckBoxStyle {...props}>{children}</SquareCheckBoxStyle>
   ) : null;
 
 CheckBox.defaultProps = {
   children: null,
-  variation: '',
+  variation: undefined,
 };

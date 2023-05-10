@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { margin } from '../utils';
 
@@ -61,11 +61,11 @@ export const BulletStyle = styled.div<BulletProps>`
     `}
 `;
 
-export const Bullet = ({ ...props }: BulletProps): ReactElement => (
+export const Bullet: FC<BulletProps> = ({ ...props }) => (
   <BulletStyle {...props} />
 );
 
 Bullet.defaultProps = {
-  variant: '',
-  size: '',
+  variant: undefined,
+  size: undefined,
 };

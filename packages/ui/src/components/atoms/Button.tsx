@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
 
@@ -69,7 +69,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${alignSelf}
 `;
 
-export const Button = ({ children, ...props }: ButtonProps): ReactElement => (
+export const Button: FC<ButtonProps> = ({ children, ...props }) => (
   <ButtonStyle {...props}>{children}</ButtonStyle>
 );
 

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { utils, UtilsProps } from '../utils';
 
@@ -97,7 +97,11 @@ export const ModalContainerStyle = styled.div<ContainerProps>`
   backdrop-filter: blur(3px);
 `;
 
-export const Container = ({ children, variant, ...props }: ContainerProps) => {
+export const Container: FC<ContainerProps> = ({
+  children,
+  variant,
+  ...props
+}) => {
   switch (variant) {
     case 'container':
       return <ContainerStyle {...props}>{children}</ContainerStyle>;
@@ -115,7 +119,7 @@ export const Container = ({ children, variant, ...props }: ContainerProps) => {
 };
 
 Container.defaultProps = {
-  variant: '',
+  variant: undefined,
   children: null,
   borderRadiusOne: false,
   border: false,
@@ -123,5 +127,5 @@ Container.defaultProps = {
   roundedListTop: false,
   roundedListBottom: false,
   shadow: false,
-  size: '',
+  size: undefined,
 };

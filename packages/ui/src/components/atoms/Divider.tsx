@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { utils, UtilsProps } from '../utils';
 
@@ -20,7 +20,7 @@ export const DividerVerticalStyle = styled.div<DividerProps>`
   ${utils}
 `;
 
-export const Divider = ({ variant, ...props }: DividerProps) => {
+export const Divider: FC<DividerProps> = ({ variant, ...props }) => {
   switch (variant) {
     case 'vertical':
       return <DividerVerticalStyle {...props} />;
@@ -30,5 +30,5 @@ export const Divider = ({ variant, ...props }: DividerProps) => {
 };
 
 Divider.defaultProps = {
-  variant: '',
+  variant: undefined,
 };

@@ -15,10 +15,6 @@ interface EyeImageStyleProps {
   type: string;
 }
 
-interface CopyImageStyleProps {
-  isCopied: boolean;
-}
-
 export const InputContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,21 +110,6 @@ export const InputPasswordStyle = styled.div`
   }
 `;
 
-export const ClipboardBarStyle = styled.div`
-  position: relative;
-  width: 100%;
-  .image-copy {
-    position: absolute;
-    right: 24px;
-    bottom: 16px;
-  }
-`;
-
-export const CopyImageStyle = styled.div<CopyImageStyleProps>`
-  height: 20px;
-  width: 25px;
-`;
-
 export const InputLabel = ({ children }: InputProps) => (
   <InputLabelStyle>{children}</InputLabelStyle>
 );
@@ -174,29 +155,6 @@ export const InputPassword = ({ placeholder }: InputProps) => {
   );
 };
 
-export const ClipboardBar = ({ placeholder }: InputProps) => {
-  // states
-  const [isCopied, setIsCopied] = useState(false);
-
-  // functions
-  const toggleCopied = () => {
-    if (placeholder) {
-      navigator.clipboard.writeText(placeholder);
-      setIsCopied(true);
-    }
-  };
-  return (
-    <ClipboardBarStyle>
-      <SearchBarStyle placeholder={placeholder} />
-      <CopyImageStyle
-        className="image-copy"
-        onClick={toggleCopied}
-        isCopied={isCopied}
-      />
-    </ClipboardBarStyle>
-  );
-};
-
 Input.defaultProps = {
   children: null,
   type: '',
@@ -223,11 +181,6 @@ InputPassword.defaultProps = {
   placeholder: '',
 };
 SearchBar.defaultProps = {
-  children: null,
-  type: '',
-  placeholder: '',
-};
-ClipboardBar.defaultProps = {
   children: null,
   type: '',
   placeholder: '',
