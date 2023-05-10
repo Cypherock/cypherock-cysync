@@ -58,9 +58,11 @@
   },
   "dependencies": {
     "@cypherock/cysync-desktop-ui": "workspace:^",
+    "@cypherock/cysync-interfaces": "workspace:^",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "winston": "^3.8.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

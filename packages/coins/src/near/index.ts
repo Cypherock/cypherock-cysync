@@ -1,5 +1,5 @@
 import { ICoinInfo, ICoinUnit } from '../types';
-import coinList from './coins.json';
+import coinList from './coins';
 
 export interface INearCoinInfo extends ICoinInfo {
   family: 'near';

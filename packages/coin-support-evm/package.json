@@ -11,7 +11,7 @@
     "pretty": "prettier --write 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "pretty:check": "prettier --check 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "build": "rimraf dist && tsc -p tsconfig.json",
-    "watch:build": "rimraf dist && tsc --watch -p tsconfig.json",
+    "watch:build": "tsc --watch -p tsconfig.json",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
@@ -36,6 +36,8 @@
   },
   "dependencies": {
     "@cypherock/coins": "workspace:^",
+    "@cypherock/cysync-interfaces": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-app-evm": "^0.0.1",
     "@cypherock/sdk-interfaces": "^0.0.1",

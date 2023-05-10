@@ -1,0 +1,40 @@
+{
+  "name": "@cypherock/cysync-interfaces",
+  "version": "0.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "lint:check": "eslint 'src/**/*.{ts,tsx}'",
+    "pretty": "prettier --write 'src/**/*.ts?(x)'",
+    "pretty:check": "prettier --check 'src/**/*.ts?(x)'",
+    "build": "rimraf dist && tsc -p tsconfig.json && tsc -p tsconfig_cjs.json",
+    "watch:build": "tsc --watch -p tsconfig.json",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.21.4",
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
+    "@types/node": "18.15.11",
+    "eslint": "^8.38.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
+      "prettier --write"
+    ]
+  }
+}
