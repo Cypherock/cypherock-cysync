@@ -1,2 +1,9 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
+import { IElectronAPI } from '@cypherock/cysync-interfaces';
+import { contextBridge, ipcRenderer } from 'electron';
+
+const electronAPI: IElectronAPI = {
+  logWithServiceAndLevel: (...args: any[]) =>
+    ipcRenderer.invoke('logger:logWithServiceAndLevel', ...args),
+};
+
+contextBridge.exposeInMainWorld('electronAPI', electronAPI);

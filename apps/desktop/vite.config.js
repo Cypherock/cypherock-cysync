@@ -3,6 +3,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import electron from 'vite-plugin-electron';
 import renderer from 'vite-plugin-electron-renderer';
+import commonjs from 'vite-plugin-commonjs';
+
 import pkg from './package.json';
 
 // https://vitejs.dev/config/
@@ -15,6 +17,9 @@ export default defineConfig(({ command }) => {
 
   return {
     plugins: [
+      // This creates part of the magic.
+      commonjs(),
+
       react(),
       electron([
         {

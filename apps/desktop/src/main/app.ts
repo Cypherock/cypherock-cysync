@@ -1,8 +1,12 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
+import { config } from './utils/config';
+import logger from './utils/logger';
 
 export default function createApp() {
+  logger.info('Starting Application', { config });
+
   process.env.DIST_ELECTRON = join(__dirname, '../');
   process.env.DIST = join(process.env.DIST_ELECTRON, '../dist');
   process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -49,8 +53,11 @@ export default function createApp() {
 
       // electron-vite-vue#298
       win.loadURL(rendererUrl);
-      // Open devTool if the app is not packaged
-      win.webContents.openDevTools();
+
+      if (!config.IS_PRODUCTION && !config.IS_TEST) {
+        // Open devTool if the app is not packaged
+        win.webContents.openDevTools();
+      }
     } else {
       win.loadFile(indexHtml);
     }
@@ -83,23 +90,6 @@ export default function createApp() {
       allWindows[0].focus();
     } else {
       createWindow();
-    }
-  });
-
-  // New window example arg: new windows url
-  ipcMain.handle('open-win', (_, arg) => {
-    const childWindow = new BrowserWindow({
-      webPreferences: {
-        preload,
-        nodeIntegration: true,
-        contextIsolation: false,
-      },
-    });
-
-    if (process.env.VITE_DEV_SERVER_URL) {
-      childWindow.loadURL(`${rendererUrl}#${arg}`);
-    } else {
-      childWindow.loadFile(indexHtml, { hash: arg });
     }
   });
 }
