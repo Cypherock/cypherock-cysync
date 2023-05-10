@@ -1,2 +1,2 @@
 export * from './components/atoms/index';
-export * from './themes/theme.styled';
+export * from './themes';

@@ -3,7 +3,6 @@ import {
   createDefaultConsoleLogger,
   mergeLoggers,
 } from '@cypherock/cysync-utils';
-import * as evmCoinSupport from '@cypherock/coin-support-evm';
 
 export const loggerServiceName = 'cysync-core';
 
@@ -17,7 +16,7 @@ export const setLogger = (newLogger: ILogger) =>
   mergeLoggers({ currentLogger: logger, newLogger, defaultLogger });
 
 export const setInternalLoggers = (createLogger: LogCreator) => {
-  evmCoinSupport.setLogger(createLogger(evmCoinSupport.loggerServiceName));
+  // evmCoinSupport.setLogger(createLogger(evmCoinSupport.loggerServiceName));
 };
 
 export default logger;

@@ -5,7 +5,7 @@
       "inputs": ["packages/*"]
     },
     "dev": {
-      "dependsOn": ["^build", "^dev"],
+      "dependsOn": ["^dev"],
       "cache": false
     },
     "build": {

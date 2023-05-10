@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { Splash } from '@cypherock/cysync-core';
-import { theme } from '@cypherock/cysync-ui';
+import { Splash, ThemeProvider, getDefaultTheme } from '@cypherock/cysync-core';
+
+const theme = getDefaultTheme();
 
 const App = () => (
   <ThemeProvider theme={theme}>
