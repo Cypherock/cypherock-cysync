@@ -42,6 +42,7 @@
     "@cypherock/cysync-core": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-ui": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

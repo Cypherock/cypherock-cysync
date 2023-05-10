@@ -1,10 +1,17 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
-import { config } from './utils/config';
+import { setupIPC } from './ipc';
+import { config, setConfig } from './utils/config';
 import logger from './utils/logger';
 
+function prepareApp() {
+  setConfig(app);
+  setupIPC(ipcMain);
+}
+
 export default function createApp() {
+  prepareApp();
   logger.info('Starting Application', { config });
 
   process.env.DIST_ELECTRON = join(__dirname, '../');

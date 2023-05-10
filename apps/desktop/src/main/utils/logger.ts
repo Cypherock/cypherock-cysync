@@ -4,7 +4,6 @@ import {
   LogMethod,
   LogWithServiceAndMethod,
 } from '@cypherock/cysync-interfaces';
-import { ipcMain } from 'electron';
 import winston from 'winston';
 
 import { config } from './config';
@@ -67,10 +66,6 @@ export const logWithServiceAndLevel: LogWithServiceAndMethod = (
 
   logger.log(level, message, modifiedMeta);
 };
-
-ipcMain.handle('logger:logWithServiceAndLevel', (_, ...args) => {
-  logWithServiceAndLevel(args[0], args[1], args[2], args[3]);
-});
 
 const createLogMethod =
   (service: string, level: LogLevel): LogMethod =>

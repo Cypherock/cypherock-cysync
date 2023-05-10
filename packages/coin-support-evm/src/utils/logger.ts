@@ -1,18 +1,20 @@
-import { ILogger } from '@cypherock/cysync-interfaces';
+import { ILogger, LogCreator } from '@cypherock/cysync-interfaces';
 import {
   createDefaultConsoleLogger,
-  mergeLoggers,
+  updateLoggerObject,
 } from '@cypherock/cysync-utils';
 
 export const loggerServiceName = 'coin-support-evm';
 
-const defaultLogger: ILogger = createDefaultConsoleLogger(loggerServiceName);
-
 const logger: ILogger = {
-  ...defaultLogger,
+  ...createDefaultConsoleLogger(loggerServiceName),
 };
 
-export const setLogger = (newLogger: ILogger) =>
-  mergeLoggers({ currentLogger: logger, newLogger, defaultLogger });
+export const updateLogger = (createLogger: LogCreator) => {
+  updateLoggerObject({
+    currentLogger: logger,
+    newLogger: createLogger(loggerServiceName),
+  });
+};
 
 export default logger;

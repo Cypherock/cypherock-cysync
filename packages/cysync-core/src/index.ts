@@ -1,3 +1,3 @@
 export * from './pages/OnBoarding/GetStarted/Splash';
-export { setLogger, loggerServiceName } from './utils/logger';
+export { updateLogger } from './utils/logger';
 export * from './theme';

@@ -11,19 +11,15 @@ export const createDefaultConsoleLogger = (service: string): ILogger => ({
     console.error(message, { service, ...(meta ?? {}) }),
 });
 
-export const mergeLoggers = (params: {
+export const updateLoggerObject = (params: {
   newLogger: ILogger;
-  defaultLogger: ILogger;
   currentLogger: ILogger;
 }) => {
-  const { newLogger, currentLogger, defaultLogger } = params;
+  const { newLogger, currentLogger } = params;
 
   for (const key in newLogger) {
     if ((newLogger as any)[key]) {
-      (currentLogger as any)[key] = (...args: any[]) => {
-        (defaultLogger as any)[key](...args);
-        (newLogger as any)[key](...args);
-      };
+      (currentLogger as any)[key] = (newLogger as any)[key];
     }
   }
 };

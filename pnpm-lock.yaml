@@ -391,6 +391,9 @@ importers:
       '@cypherock/cysync-ui':
         specifier: workspace:^
         version: link:../ui
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
       react:
         specifier: ^18.2.0
         version: 18.2.0

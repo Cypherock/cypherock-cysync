@@ -1,47 +1,59 @@
-import {
-  setLogger as setCoreLogger,
-  loggerServiceName as coreLoggerServiceName,
-} from '@cypherock/cysync-core';
+import { updateLogger } from '@cypherock/cysync-core';
 import { ILogger } from '@cypherock/cysync-interfaces';
+import { createDefaultConsoleLogger } from '@cypherock/cysync-utils';
 
-const createServiceLogger = (serviceName: string): ILogger => ({
-  info: (message, meta) =>
-    window.electronAPI.logWithServiceAndLevel(
-      serviceName,
-      'info',
-      message,
-      meta,
-    ),
-  debug: (message, meta) =>
-    window.electronAPI.logWithServiceAndLevel(
-      serviceName,
-      'debug',
-      message,
-      meta,
-    ),
-  verbose: (message, meta) =>
-    window.electronAPI.logWithServiceAndLevel(
-      serviceName,
-      'verbose',
-      message,
-      meta,
-    ),
-  warn: (message, meta) =>
-    window.electronAPI.logWithServiceAndLevel(
-      serviceName,
-      'warn',
-      message,
-      meta,
-    ),
-  error: (message, meta) =>
-    window.electronAPI.logWithServiceAndLevel(
-      serviceName,
-      'error',
-      message,
-      meta,
-    ),
-});
+const createServiceLogger = (serviceName: string): ILogger => {
+  const consoleLogger = createDefaultConsoleLogger(serviceName);
 
-setCoreLogger(createServiceLogger(coreLoggerServiceName));
+  return {
+    info: (message, meta) => {
+      consoleLogger.info(message, meta);
+      window.electronAPI.logWithServiceAndLevel(
+        serviceName,
+        'info',
+        message,
+        meta,
+      );
+    },
+    debug: (message, meta) => {
+      consoleLogger.debug(message, meta);
+      window.electronAPI.logWithServiceAndLevel(
+        serviceName,
+        'debug',
+        message,
+        meta,
+      );
+    },
+    verbose: (message, meta) => {
+      consoleLogger.verbose(message, meta);
+      window.electronAPI.logWithServiceAndLevel(
+        serviceName,
+        'verbose',
+        message,
+        meta,
+      );
+    },
+    warn: (message, meta) => {
+      consoleLogger.warn(message, meta);
+      window.electronAPI.logWithServiceAndLevel(
+        serviceName,
+        'warn',
+        message,
+        meta,
+      );
+    },
+    error: (message, meta) => {
+      consoleLogger.error(message, meta);
+      window.electronAPI.logWithServiceAndLevel(
+        serviceName,
+        'error',
+        message,
+        meta,
+      );
+    },
+  };
+};
+
+updateLogger(createServiceLogger);
 
 export default createServiceLogger('desktop-ui');
