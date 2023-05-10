@@ -23,7 +23,7 @@
   ],
   "coverageThreshold": {},
   "modulePathIgnorePatterns": ["<rootDir>/.stryker-tmp"],
-  "setupFilesAfterEnv": ["./tests/setupTests.ts"],
+  "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
   "modulePaths": ["<rootDir>"]
 }

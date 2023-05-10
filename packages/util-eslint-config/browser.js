@@ -32,11 +32,11 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "**/*.test.ts",
-          "**/*.test.tsx",
-          "**/tests/**/*.ts",
-          "**/__mocks__/**/*.ts",
-          "**/__fixtures__/**/*.ts",
+          "**/*.test.ts?(x)",
+          "**/tests/**/*.ts?(x)",
+          "**/__mocks__/**/*.ts?(x)",
+          "**/__fixtures__/**/*.ts?(x)",
+          "**/__helpers__/**/*.ts?(x)",
         ],
       },
     ],

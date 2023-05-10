@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "lib": ["DOM"]
   },
   "extends": "@cypherock/tsconfig/browser.json",
