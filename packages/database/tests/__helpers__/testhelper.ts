@@ -9,7 +9,7 @@ class TestHelper {
   public db!: DB;
 
   async setupTestDB() {
-    this.testdb = new Database('test.sqlite', { verbose: console.log });
+    this.testdb = new Database(':memory:', { verbose: console.log });
     // this.testdb = new Database(':memory:');
     this.testdb.pragma('journal_mode = WAL');
 

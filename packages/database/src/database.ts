@@ -4,7 +4,9 @@ import {
   IDevice,
   IDeviceRepository,
   IEntity,
+  IPriceHistory,
   IPriceHistoryRepository,
+  IPriceInfo,
   IPriceInfoRepository,
   IRepository,
   ITransactionRepository,
@@ -12,8 +14,19 @@ import {
   IWalletRepository,
 } from '@cypherock/db-interfaces';
 import { Database as DB } from 'better-sqlite3';
-import { ITableSchema, Repository } from './repository/Repository';
-import { AccountRepository } from './repository/AccountRepository';
+import {
+  AccountRepository,
+  Repository,
+  TransactionRepository,
+} from './repository';
+import {
+  Account,
+  Device,
+  PriceHistory,
+  PriceInfo,
+  Transaction,
+  Wallet,
+} from './entity';
 
 export class Database implements IDatabase {
   private readonly database: DB;
@@ -33,43 +46,35 @@ export class Database implements IDatabase {
   constructor(db: DB) {
     this.database = db;
 
-    const deviceSchema: ITableSchema = {
-      serial: { type: 'string' },
-      isAuthenticated: { type: 'boolean' },
-      version: { type: 'string' },
-    };
     this.device = new Repository<IDevice>(
       this.database,
-      'device',
-      deviceSchema,
+      Device.name,
+      Device.schema,
     );
-    const walletSchema: ITableSchema = {
-      name: { type: 'string' },
-      hasPin: { type: 'boolean' },
-      hasPassphrase: { type: 'boolean' },
-      deviceId: { type: 'string' },
-    };
     this.wallet = new Repository<IWallet>(
       this.database,
-      'wallet',
-      walletSchema,
+      Wallet.name,
+      Wallet.schema,
     );
-    const accountSchema: ITableSchema = {
-      name: { type: 'string' },
-      xpubOrAddress: { type: 'string' },
-      balance: { type: 'string' },
-      unit: { type: 'string' },
-      derivationPath: { type: 'string' },
-      type: { type: 'string' },
-      extraData: { type: 'object', isOptional: true },
-      assetId: { type: 'string' },
-      walletId: { type: 'string' },
-      parentAccountId: { type: 'string', isOptional: true },
-    };
     this.account = new AccountRepository(
       this.database,
-      'account',
-      accountSchema,
+      Account.name,
+      Account.schema,
+    );
+    this.transaction = new TransactionRepository(
+      this.database,
+      Transaction.name,
+      Transaction.schema,
+    );
+    this.priceHistory = new Repository<IPriceHistory>(
+      this.database,
+      PriceHistory.name,
+      PriceHistory.schema,
+    );
+    this.priceInfo = new Repository<IPriceInfo>(
+      this.database,
+      PriceInfo.name,
+      PriceInfo.schema,
     );
   }
 

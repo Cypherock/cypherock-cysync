@@ -154,6 +154,9 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
             case 'boolean':
               entity[key] = !!obj[key];
               break;
+            case 'object':
+              entity[key] = JSON.parse(obj[key]);
+              break;
             default:
               entity[key] = obj[key];
               break;
@@ -173,7 +176,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     const { name: tableName } = this;
 
     const values = this.getSqlTypes().join(', ');
-    const statement = `CREATE TABLE IF NOT EXISTS ${tableName} ( __id TEXT PRIMARY KEY, __version NUMERIC NOT NULL, ${values})`;
+    const statement = `CREATE TABLE IF NOT EXISTS \`${tableName}\` ( __id TEXT PRIMARY KEY, __version NUMERIC NOT NULL, ${values})`;
     this.db.prepare(statement).run();
   }
 
@@ -206,7 +209,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       if (__id) {
         const { changes } = this.db
           .prepare(
-            `UPDATE ${this.name} SET ${Object.keys(rest)
+            `UPDATE \`${this.name}\` SET ${Object.keys(rest)
               .map(key => `${key} = ?`)
               .join(', ')} WHERE __id= ?`,
           )
@@ -221,7 +224,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         if (updated) result.push(updated);
       } else {
         const id = uuidv4();
-        const statement = `INSERT INTO ${this.name} ( __id, ${Object.keys(
+        const statement = `INSERT INTO \`${this.name}\` ( __id, ${Object.keys(
           rest,
         ).join(', ')}) VALUES (?, ${Object.keys(rest)
           .map(() => '?')
@@ -258,7 +261,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     const rows = await this.fetchAll(entityLike, options);
     const ids = rows.map(row => row.__id);
     const deleteStatement = this.db.prepare(
-      `DELETE FROM ${this.name} WHERE __id IN (${ids
+      `DELETE FROM \`${this.name}\` WHERE __id IN (${ids
         .map(() => '?')
         .join(', ')})`,
     );
@@ -297,10 +300,9 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
     const result = this.db
       .prepare(
-        `SELECT * FROM ${this.name} ${whereClause} ${orderByClause} ${limitClause}`,
+        `SELECT * FROM \`${this.name}\` ${whereClause} ${orderByClause} ${limitClause}`,
       )
       .all(entities.flatMap(entity => this.getValuesForSqlite(entity))) as any;
-    console.log({ result, entities });
     return result;
   }
 
@@ -339,7 +341,6 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       if (version === undefined) throw versionError(item);
       result.push({ ...item, __version: version });
     }
-    console.log({ result });
     return result;
   }
 
