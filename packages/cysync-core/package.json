@@ -41,6 +41,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.1",
     "@cypherock/cysync-ui": "workspace:^"
   },
   "lint-staged": {

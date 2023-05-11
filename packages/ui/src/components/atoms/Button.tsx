@@ -6,13 +6,13 @@ export interface ButtonProps
   extends WidthProps,
     AlignSelfProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variation?: 'primary' | 'secondary' | 'dashed' | 'warning';
+  variant?: 'primary' | 'secondary' | 'dashed' | 'warning';
   children?: ReactNode;
 }
 
 const buttonBaseStyle = css<ButtonProps>`
   ${props => {
-    if (props.variation === 'primary')
+    if (props.variant === 'primary')
       return css`
         background: ${({ theme }) => theme.palette.primary.primary};
         border: none;
@@ -28,19 +28,19 @@ const buttonBaseStyle = css<ButtonProps>`
           );
         }
       `;
-    if (props.variation === 'secondary')
+    if (props.variant === 'secondary')
       return css`
         border: 0.6px solid #49433e;
         background-color: ${({ theme }) =>
           theme.palette.background.sepratorBackground};
         color: ${({ theme }) => theme.palette.text.textMuted};
       `;
-    if (props.variation === 'dashed')
+    if (props.variant === 'dashed')
       return css`
         border: 1px dashed #49433e;
         background: transparent;
       `;
-    if (props.variation === 'warning')
+    if (props.variant === 'warning')
       return css`
         background: #ff624c;
         border: 0.6px solid #ff3518;
@@ -74,6 +74,6 @@ export const Button: FC<ButtonProps> = ({ children, ...props }) => (
 );
 
 Button.defaultProps = {
-  variation: 'primary',
+  variant: 'primary',
   children: null,
 };

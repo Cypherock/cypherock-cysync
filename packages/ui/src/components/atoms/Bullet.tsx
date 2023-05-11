@@ -66,6 +66,6 @@ export const Bullet: FC<BulletProps> = ({ ...props }) => (
 );
 
 Bullet.defaultProps = {
-  variant: undefined,
-  size: undefined,
+  variant: 'outline',
+  size: 'md',
 };

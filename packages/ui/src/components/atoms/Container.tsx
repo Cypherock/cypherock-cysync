@@ -119,7 +119,7 @@ export const Container: FC<ContainerProps> = ({
 };
 
 Container.defaultProps = {
-  variant: undefined,
+  variant: 'default',
   children: null,
   borderRadiusOne: false,
   border: false,
@@ -127,5 +127,5 @@ Container.defaultProps = {
   roundedListTop: false,
   roundedListBottom: false,
   shadow: false,
-  size: undefined,
+  size: 'lg',
 };

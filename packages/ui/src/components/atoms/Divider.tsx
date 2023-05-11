@@ -30,5 +30,5 @@ export const Divider: FC<DividerProps> = ({ variant, ...props }) => {
 };
 
 Divider.defaultProps = {
-  variant: undefined,
+  variant: 'vertical',
 };

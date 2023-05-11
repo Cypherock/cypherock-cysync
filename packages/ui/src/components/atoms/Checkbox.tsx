@@ -1,12 +1,12 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-export interface SquareCheckBoxProps {
+export interface CheckBoxProps {
   children?: ReactNode;
-  variation?: 'squareCheckBox' | 'roundCheckBox';
+  variant?: 'square' | 'round';
 }
 
-export const SquareCheckBoxStyle = styled.div<SquareCheckBoxProps>`
+export const CheckBoxStyle = styled.div<CheckBoxProps>`
   width: 16px;
   height: 16px;
   display: flex;
@@ -63,16 +63,11 @@ export const SquareCheckBoxStyle = styled.div<SquareCheckBoxProps>`
   }
 `;
 
-export const CheckBox: FC<SquareCheckBoxProps> = ({
-  children,
-  variation,
-  ...props
-}) =>
-  variation === 'squareCheckBox' ? (
-    <SquareCheckBoxStyle {...props}>{children}</SquareCheckBoxStyle>
-  ) : null;
+export const CheckBox: FC<CheckBoxProps> = ({ children, ...props }) => (
+  <CheckBoxStyle {...props}>{children}</CheckBoxStyle>
+);
 
 CheckBox.defaultProps = {
   children: null,
-  variation: undefined,
+  variant: 'square',
 };

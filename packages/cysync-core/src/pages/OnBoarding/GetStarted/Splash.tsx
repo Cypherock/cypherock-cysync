@@ -3,8 +3,8 @@ import React, { ReactElement } from 'react';
 
 export const Splash = (): ReactElement => (
   <>
-    <Button variation="primary">Get Started</Button>
-    <Button variation="secondary">Get Started</Button>
+    <Button variant="primary">Get Started</Button>
+    <Button variant="secondary">Get Started</Button>
     <Bullet size="lg" variant="gold" />
   </>
 );
