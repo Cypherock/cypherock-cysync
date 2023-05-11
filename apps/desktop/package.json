@@ -18,8 +18,8 @@
     "e2e": "playwright test",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
-    "pretty": "prettier --write '{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}'",
-    "pretty:check": "prettier --check '{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}'",
+    "pretty": "prettier --write \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
+    "pretty:check": "prettier --check \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
@@ -33,6 +33,7 @@
     "@babel/core": "^7.20.12",
     "@babel/preset-react": "^7.18.6",
     "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
     "@jest/globals": "^29.4.1",
@@ -57,9 +58,11 @@
   },
   "dependencies": {
     "@cypherock/cysync-desktop-ui": "workspace:^",
+    "@cypherock/cysync-interfaces": "workspace:^",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "winston": "^3.8.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

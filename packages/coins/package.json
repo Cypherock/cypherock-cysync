@@ -1,0 +1,47 @@
+{
+  "name": "@cypherock/coins",
+  "version": "0.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .ts,tsx,js,jsx, src/ --fix",
+    "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
+    "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
+    "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
+    "build": "rimraf dist && tsc -p tsconfig.json && tsc -p tsconfig_cjs.json",
+    "watch:build": "tsc --watch -p tsconfig.json",
+    "test": "jest",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/jest-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
+    "@jest/globals": "^29.4.1",
+    "@stryker-mutator/core": "^6.4.1",
+    "@stryker-mutator/jest-runner": "^6.4.1",
+    "@stryker-mutator/typescript-checker": "^6.4.1",
+    "@types/jest": "^29.5.0",
+    "@types/node": "18.15.11",
+    "eslint": "^8.38.0",
+    "jest": "^29.5.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
+      "prettier --write"
+    ]
+  }
+}

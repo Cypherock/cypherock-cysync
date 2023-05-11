@@ -1,8 +1,18 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
+import { setupIPC } from './ipc';
+import { config } from './utils/config';
+import logger from './utils/logger';
+
+function prepareApp() {
+  setupIPC(ipcMain);
+}
 
 export default function createApp() {
+  prepareApp();
+  logger.info('Starting Application', { config });
+
   process.env.DIST_ELECTRON = join(__dirname, '../');
   process.env.DIST = join(process.env.DIST_ELECTRON, '../dist');
   process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -20,12 +30,8 @@ export default function createApp() {
     process.exit(0);
   }
 
-  // Remove electron security warnings
-  // This warning only shows in development mode
-  // Read more on https://www.electronjs.org/docs/latest/tutorial/security
-  // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
   let win: BrowserWindow | null = null;
-  // Here, you can also use other preload
+
   const preload = join(__dirname, '../preload/index.js');
   const rendererUrl = process.env.VITE_DEV_SERVER_URL;
   const indexHtml = join(process.env.DIST, 'index.html');
@@ -47,10 +53,11 @@ export default function createApp() {
         throw new Error('VITE_DEV_SERVER_URL is undefined');
       }
 
-      // electron-vite-vue#298
       win.loadURL(rendererUrl);
-      // Open devTool if the app is not packaged
-      win.webContents.openDevTools();
+
+      if (!config.IS_PRODUCTION && !config.IS_TEST) {
+        win.webContents.openDevTools();
+      }
     } else {
       win.loadFile(indexHtml);
     }
@@ -83,23 +90,6 @@ export default function createApp() {
       allWindows[0].focus();
     } else {
       createWindow();
-    }
-  });
-
-  // New window example arg: new windows url
-  ipcMain.handle('open-win', (_, arg) => {
-    const childWindow = new BrowserWindow({
-      webPreferences: {
-        preload,
-        nodeIntegration: true,
-        contextIsolation: false,
-      },
-    });
-
-    if (process.env.VITE_DEV_SERVER_URL) {
-      childWindow.loadURL(`${rendererUrl}#${arg}`);
-    } else {
-      childWindow.loadFile(indexHtml, { hash: arg });
     }
   });
 }

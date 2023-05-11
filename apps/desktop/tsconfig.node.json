@@ -18,5 +18,5 @@
     "src/**/__tests__/*.ts",
     "src/**/__mocks__/*.ts"
   ],
-  "include": ["vite.config.ts", "package.json", "src"]
+  "include": ["vite.config.ts", "package.json", "src", "src/config.json"]
 }
