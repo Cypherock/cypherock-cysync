@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/database",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Contains database logic",
   "type": "commonjs",
   "scripts": {
