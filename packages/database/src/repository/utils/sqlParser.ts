@@ -1,4 +1,4 @@
-import { ObjectLiteral } from '@cypherock/db-interfaces';
+import { IGetOptions, ObjectLiteral } from '@cypherock/db-interfaces';
 import { ITableSchema, typeMap } from './types';
 
 export const sqlParser = {
@@ -24,6 +24,26 @@ export const sqlParser = {
     return `DELETE FROM \`${tableName}\` WHERE __id IN (${ids
       .map(() => '?')
       .join(', ')})`;
+  },
+
+  getSelectStatement<T>(
+    tableName: string,
+    tableColumns: string[][],
+    options?: IGetOptions<T>,
+  ) {
+    const whereClause =
+      tableColumns.length > 0
+        ? `WHERE ${tableColumns
+            .map(entity => entity.map(key => `${key} LIKE ?`).join(' AND '))
+            .join(' OR ')}`
+        : '';
+    const orderByClause = options?.sortBy
+      ? `ORDER BY ${options.sortBy.key.toString()} ${
+          options.sortBy.descending ? 'DESC' : 'ASC'
+        }`
+      : '';
+    const limitClause = options?.limit ? `LIMIT ${options.limit}` : '';
+    return `SELECT * FROM \`${tableName}\` ${whereClause} ${orderByClause} ${limitClause}`;
   },
 
   getValuesForSqlite(obj?: ObjectLiteral): any[] {

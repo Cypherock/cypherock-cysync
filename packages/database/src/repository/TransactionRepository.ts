@@ -10,7 +10,10 @@ export class TransactionRepository
   extends Repository<ITransaction>
   implements ITransactionRepository
 {
-  getTransactionList: (
+  // eslint-disable-next-line class-methods-use-this
+  getTransactionList(
     params: IGetOptions<ITransaction>,
-  ) => Promise<IDetailedTransaction[]>;
+  ): Promise<IDetailedTransaction[]> {
+    throw new Error(`Method not implemented. ${params}`);
+  }
 }

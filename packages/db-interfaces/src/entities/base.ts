@@ -44,15 +44,22 @@ export interface IRepository<Entity extends ObjectLiteral> {
   update(
     updateEntity: Partial<Entity>,
     searchEntityLike?: Partial<Entity>[] | Partial<Entity>,
+    options?: IGetOptions<Entity>,
   ): Promise<Entity[]>;
   /**
    * Removes entities matching any of the given entities from the database.
    */
-  remove(entityLikes: Partial<Entity>[]): Promise<Entity[]>;
+  remove(
+    entityLikes: Partial<Entity>[],
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity[]>;
   /**
    * Removes entities matching the given entity from the database.
    */
-  remove(entityLike: Partial<Entity>): Promise<Entity | undefined>;
+  remove(
+    entityLike: Partial<Entity>,
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity | undefined>;
 
   /**
    * Fetches all entities from given object from the repository.

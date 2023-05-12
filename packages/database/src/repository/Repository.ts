@@ -1,11 +1,18 @@
-import { IEntity, IGetOptions, IRepository } from '@cypherock/db-interfaces';
+import {
+  IEntity,
+  IGetOptions,
+  IRepository,
+  DatabaseError,
+  DatabaseErrorType,
+} from '@cypherock/db-interfaces';
 import { Database } from 'better-sqlite3';
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import { ZodObject } from 'zod';
-import { sqlParser } from './utils/sqlGenerator';
+import { sqlParser } from './utils/sqlParser';
 import { getValidatorSchema } from './utils/schemaValidator';
 import { ITableSchema } from './utils/types';
+import logger from '../utils/logger';
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private readonly db: Database;
@@ -51,7 +58,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
           .prepare(statement)
           .run(id, sqlParser.getValuesForSqlite(rest));
         if (changes === 0) {
-          throw new Error(`Entity could not be inserted`);
+          throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
         } else {
           this.emitChange();
         }
@@ -61,6 +68,11 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
           __id: id,
         } as any);
         if (inserted) result.push(inserted);
+      } else {
+        throw new DatabaseError(
+          DatabaseErrorType.INVALID_PARAMETER_PROVIDED,
+          '__id parameter should not be present while inserting an entity',
+        );
       }
     }
 
@@ -70,9 +82,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   async update(
     updateEntity: Partial<Entity>,
     searchEntityLike?: Partial<Entity> | Partial<Entity>[] | undefined,
+    options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
     const entity = this.getVersionedEntities(updateEntity)[0];
-    const matches = await this.getAll(searchEntityLike);
+    const matches = await this.getAll(searchEntityLike, options);
     const ids = matches.map(match => match.__id ?? '');
     const { __id, ...rest } = entity;
     const statement = sqlParser.getUpdateStatement(
@@ -85,7 +98,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       .run(sqlParser.getValuesForSqlite(rest), ids);
 
     if (changes === 0) {
-      throw new Error(`Entity with id ${__id} not found`);
+      logger.error(
+        `Couldn't update entities with ids : ${ids} with id:${__id}`,
+      );
+      throw new DatabaseError(DatabaseErrorType.UPDATE_FAILED);
     } else {
       this.emitChange();
     }
@@ -99,9 +115,16 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   }
 
   private createTableIfNotExists(): void {
-    const values = sqlParser.getSqlTypes(this.schema);
-    const statement = sqlParser.getCreateStatement(this.name, values);
-    this.db.prepare(statement).run();
+    const columns = sqlParser.getSqlTypes(this.schema);
+    const statement = sqlParser.getCreateStatement(this.name, columns);
+    try {
+      this.db.prepare(statement).run();
+    } catch (error) {
+      throw new DatabaseError(
+        DatabaseErrorType.DATABASE_CREATION_FAILED,
+        `Couldn't create tables\n${error}`,
+      );
+    }
   }
 
   private validateInput(entityLike: Partial<Entity>[] | Partial<Entity>): void {
@@ -109,15 +132,22 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     for (const entity of entityArray) {
       const result = this.validatorSchema.partial().safeParse(entity);
       if (!result.success)
-        throw new Error(
+        throw new DatabaseError(
+          DatabaseErrorType.INPUT_VALIDATION_FAILED,
           `Invalid entity provided for ${this.name}.\n${result.error}`,
         );
     }
   }
 
-  remove(entityLikes: Partial<Entity>[]): Promise<Entity[]>;
+  remove(
+    entityLikes: Partial<Entity>[],
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity[]>;
 
-  remove(entityLike: Partial<Entity>): Promise<Entity | undefined>;
+  remove(
+    entityLike: Partial<Entity>,
+    options?: IGetOptions<Entity>,
+  ): Promise<Entity | undefined>;
 
   async remove(
     entityLike?: Partial<Entity>[] | Partial<Entity>,
@@ -128,12 +158,11 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
     const statement = sqlParser.getDeleteStatement(this.name, ids);
     const { changes } = this.db.prepare(statement).run(ids);
-    if (changes === 0) {
-      throw new Error(`Couldn't delete any rows`);
+    if (changes === 0 && ids.length > 0) {
+      throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
     } else {
       this.emitChange();
     }
-
     return Array.isArray(entityLike) ? rows : rows[0];
   }
 
@@ -142,30 +171,18 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
     const entities = entityLike ? this.getVersionedEntities(entityLike) : [];
-    const whereClause =
-      entities.length > 0
-        ? `WHERE ${entities
-            .map(entity =>
-              Object.keys(entity as any)
-                .map(key => `${key} LIKE ?`)
-                .join(' AND '),
-            )
-            .join(' OR ')}`
-        : '';
-    const orderByClause = options?.sortBy
-      ? `ORDER BY ${options.sortBy.key.toString()} ${
-          options.sortBy.descending ? 'DESC' : 'ASC'
-        }`
-      : '';
-    const limitClause = options?.limit ? `LIMIT ${options.limit}` : '';
+    const columnArray = entities.map(entity => Object.keys(entity));
+
+    const statement = sqlParser.getSelectStatement(
+      this.name,
+      columnArray,
+      options,
+    );
 
     const result = this.db
-      .prepare(
-        `SELECT * FROM \`${this.name}\` ${whereClause} ${orderByClause} ${limitClause}`,
-      )
-      .all(
-        entities.flatMap(entity => sqlParser.getValuesForSqlite(entity)),
-      ) as any;
+      .prepare(statement)
+      .all(entities.flatMap(entity => sqlParser.getValuesForSqlite(entity)));
+
     return sqlParser.getInterfaceObj(result, this.schema);
   }
 
@@ -183,7 +200,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     const isArray = Array.isArray(entityLike);
     const entityArray = isArray ? entityLike : [entityLike];
     const versionError = (entity: Partial<Entity>) =>
-      new Error(`No version specified in ${JSON.stringify(entity)}`);
+      new DatabaseError(
+        DatabaseErrorType.VERSION_NOT_SPECIFIED,
+        `No version specified in ${JSON.stringify(entity)}`,
+      );
     const result = [];
     for (const item of entityArray) {
       const version = item.__version ?? this.version;

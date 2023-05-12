@@ -10,7 +10,10 @@ export class AccountRepository
   extends Repository<IAccount>
   implements IAccountRepository
 {
-  getDisplayAccounts: (
+  // eslint-disable-next-line class-methods-use-this
+  getDisplayAccounts(
     params: IGetOptions<IAccount>,
-  ) => Promise<IAccountDisplayInfo[]>;
+  ): Promise<IAccountDisplayInfo[]> {
+    throw new Error(`Method not implemented. ${params}`);
+  }
 }

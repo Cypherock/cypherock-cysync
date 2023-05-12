@@ -24,3 +24,4 @@ export interface IDatabase {
 }
 
 export * from './entities';
+export * from './errors';
