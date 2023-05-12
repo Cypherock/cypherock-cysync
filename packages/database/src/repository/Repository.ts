@@ -1,31 +1,10 @@
-import {
-  IEntity,
-  IGetOptions,
-  IRepository,
-  ObjectLiteral,
-} from '@cypherock/db-interfaces';
+import { IEntity, IGetOptions, IRepository } from '@cypherock/db-interfaces';
 import { Database } from 'better-sqlite3';
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
-import { ZodObject, z } from 'zod';
-
-type datatype =
-  | 'number'
-  | 'string'
-  | 'boolean'
-  | 'object'
-  | 'bigint'
-  | 'function'
-  | 'symbol'
-  | 'array'
-  | 'undefined';
-
-interface Type {
-  type: datatype;
-  isOptional?: boolean;
-}
-
-export type ITableSchema<T> = Record<keyof T, Type>;
+import { ZodObject } from 'zod';
+import { sqlParser } from './utils/sqlGenerator';
+import { ITableSchema, getValidatorSchema } from './utils/schemaValidator';
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private readonly db: Database;
@@ -34,7 +13,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
   private readonly schema: ITableSchema<Entity>;
 
-  private validatorSchema: ZodObject<any>;
+  private readonly validatorSchema: ZodObject<any>;
 
   private version: number | undefined;
 
@@ -44,144 +23,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.db = db;
     this.name = name;
     this.schema = schema;
-    this.setZodSchema(schema);
+    this.validatorSchema = getValidatorSchema(schema);
     this.createTableIfNotExists();
   }
 
-  private setZodSchema(schema: ITableSchema<Entity>) {
-    const shape: any = {};
-
-    for (const key in schema) {
-      if (Object.prototype.hasOwnProperty.call(schema, key)) {
-        const value = schema[key];
-        let zType;
-        switch (value.type) {
-          case 'array':
-            zType = z.any().array();
-            break;
-          case 'object':
-            zType = z.object({}).passthrough();
-            break;
-          case 'string':
-            zType = z.string();
-            break;
-          case 'symbol':
-            zType = z.symbol();
-            break;
-          case 'undefined':
-            zType = z.undefined();
-            break;
-          case 'function':
-            zType = z.function();
-            break;
-          case 'bigint':
-            zType = z.bigint();
-            break;
-          case 'number':
-            zType = z.number();
-            break;
-          case 'boolean':
-            zType = z.boolean();
-            break;
-          default:
-            throw new Error('Unexpected type in schema');
-            break;
-        }
-        if (value.isOptional) zType = zType.optional();
-        shape[key] = zType;
-      }
-    }
-    this.validatorSchema = z.object(shape);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private getValuesForSqlite(obj?: ObjectLiteral): any[] {
-    const values: any[] = [];
-
-    for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const value = obj[key];
-
-        switch (typeof value) {
-          case 'string':
-          case 'number':
-          case 'bigint':
-            values.push(value.toString());
-            break;
-          case 'boolean':
-            values.push(value ? '1' : '0');
-            break;
-          case 'object':
-            values.push(JSON.stringify(value));
-            break;
-          default:
-            values.push(undefined);
-            break;
-        }
-      }
-    }
-
-    return values;
-  }
-
-  private getSqlTypes() {
-    const values: string[] = [];
-    for (const key in this.schema) {
-      if (Object.prototype.hasOwnProperty.call(this.schema, key)) {
-        const value = this.schema[key];
-        let attribute = '';
-        switch (value.type) {
-          case 'bigint':
-          case 'number':
-          case 'boolean':
-            attribute = 'NUMERIC';
-            break;
-          default:
-            attribute = 'TEXT';
-            break;
-        }
-        if (!value.isOptional) attribute += ' NOT NULL';
-        values.push(`${key} ${attribute}`);
-      }
-    }
-    return values;
-  }
-
-  private getInterfaceObj(objs: any[]): Entity[] {
-    const entities: Entity[] = [];
-    for (const obj of objs) {
-      const entity: any = {};
-      for (const key in this.schema) {
-        if (Object.prototype.hasOwnProperty.call(this.schema, key)) {
-          const value = this.schema[key];
-          switch (value.type) {
-            case 'boolean':
-              entity[key] = !!obj[key];
-              break;
-            case 'array':
-            case 'object':
-              entity[key] = JSON.parse(obj[key]);
-              break;
-            default:
-              entity[key] = obj[key];
-              break;
-          }
-          if (value.isOptional && obj[key] === null) {
-            delete obj[key];
-            delete entity[key];
-          }
-        }
-      }
-      entities.push({ ...obj, ...entity });
-    }
-    return entities;
-  }
-
   private createTableIfNotExists(): void {
-    const { name: tableName } = this;
-
-    const values = this.getSqlTypes().join(', ');
-    const statement = `CREATE TABLE IF NOT EXISTS \`${tableName}\` ( __id TEXT PRIMARY KEY, __version NUMERIC NOT NULL, ${values})`;
+    const values = sqlParser.getSqlTypes(this.schema);
+    const statement = sqlParser.getCreateStatement(this.name, values);
     this.db.prepare(statement).run();
   }
 
@@ -210,13 +58,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       const { __id, ...rest } = entity as Entity;
 
       if (__id) {
+        const statement = sqlParser.getUpdateStatement(
+          this.name,
+          Object.keys(rest),
+        );
         const { changes } = this.db
-          .prepare(
-            `UPDATE \`${this.name}\` SET ${Object.keys(rest)
-              .map(key => `${key} = ?`)
-              .join(', ')} WHERE __id= ?`,
-          )
-          .run(this.getValuesForSqlite(rest), __id);
+          .prepare(statement)
+          .run(sqlParser.getValuesForSqlite(rest), __id);
 
         if (changes === 0) {
           throw new Error(`Entity with id ${__id} not found`);
@@ -227,14 +75,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         if (updated) result.push(updated);
       } else {
         const id = uuidv4();
-        const statement = `INSERT INTO \`${this.name}\` ( __id, ${Object.keys(
-          rest,
-        ).join(', ')}) VALUES (?, ${Object.keys(rest)
-          .map(() => '?')
-          .join(', ')})`;
+        const statement = sqlParser.getInsertStatement(
+          this.name,
+          Object.keys(rest),
+        );
         const { changes } = this.db
           .prepare(statement)
-          .run(id, this.getValuesForSqlite(rest));
+          .run(id, sqlParser.getValuesForSqlite(rest));
         if (changes === 0) {
           throw new Error(`Entity could not be inserted`);
         } else {
@@ -249,7 +96,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       }
     }
 
-    const parsedResult = this.getInterfaceObj(result);
+    const parsedResult = sqlParser.getInterfaceObj(result, this.schema);
     return Array.isArray(entityLike) ? parsedResult : parsedResult[0];
   }
 
@@ -262,20 +109,17 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     options?: IGetOptions<Entity>,
   ): Promise<Entity[] | Entity | undefined> {
     const rows = await this.fetchAll(entityLike, options);
-    const ids = rows.map(row => row.__id);
-    const deleteStatement = this.db.prepare(
-      `DELETE FROM \`${this.name}\` WHERE __id IN (${ids
-        .map(() => '?')
-        .join(', ')})`,
-    );
-    const { changes } = deleteStatement.run(ids);
+    const ids = rows.map(row => row.__id ?? '');
+
+    const statement = sqlParser.getDeleteStatement(this.name, ids);
+    const { changes } = this.db.prepare(statement).run(ids);
     if (changes === 0) {
       throw new Error(`Couldn't delete any rows`);
     } else {
       this.emitChange();
     }
 
-    const parsedResult = this.getInterfaceObj(rows);
+    const parsedResult = sqlParser.getInterfaceObj(rows, this.schema);
     return Array.isArray(entityLike) ? parsedResult : parsedResult[0];
   }
 
@@ -305,7 +149,9 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       .prepare(
         `SELECT * FROM \`${this.name}\` ${whereClause} ${orderByClause} ${limitClause}`,
       )
-      .all(entities.flatMap(entity => this.getValuesForSqlite(entity))) as any;
+      .all(
+        entities.flatMap(entity => sqlParser.getValuesForSqlite(entity)),
+      ) as any;
     return result;
   }
 
@@ -320,7 +166,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
-    return this.getInterfaceObj(await this.fetchAll(entityLike, options));
+    return sqlParser.getInterfaceObj(
+      await this.fetchAll(entityLike, options),
+      this.schema,
+    );
   }
 
   async getOne(
