@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
 
-export interface ButtonProps
+interface ButtonProps
   extends WidthProps,
     AlignSelfProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {

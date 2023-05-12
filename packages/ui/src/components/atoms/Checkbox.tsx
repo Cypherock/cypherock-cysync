@@ -1,12 +1,12 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-export interface CheckBoxProps {
+interface CheckBoxProps {
   children?: ReactNode;
   variant?: 'square' | 'round';
 }
 
-export const CheckBoxStyle = styled.div<CheckBoxProps>`
+const CheckBoxStyle = styled.div<CheckBoxProps>`
   width: 16px;
   height: 16px;
   display: flex;

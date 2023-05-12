@@ -1,11 +1,8 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, FC } from 'react';
 import styled from 'styled-components';
-// import passwordHide from "@assets/images/onboarding/setPass/password-hide.png";
-// import copy from "@assets/images/copy.png";
-// import check from "@assets/images/check.png";
 
-export interface InputProps {
+interface InputProps {
   children?: ReactNode;
   type?: string;
   placeholder?: string;
@@ -15,7 +12,7 @@ interface EyeImageStyleProps {
   type: string;
 }
 
-export const InputContainerStyle = styled.div`
+const InputContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -28,14 +25,14 @@ export const InputContainerStyle = styled.div`
   }
 `;
 
-export const InputLabelStyle = styled.label`
+const InputLabelStyle = styled.label`
   font-size: 14px;
   color: ${({ theme }) => theme.palette.text.textMuted};
   margin: ${({ theme }) => theme.spacing.one.spacing};
   letter-spacing: 0.12em;
 `;
 
-export const InputStyle = styled.input`
+const InputStyle = styled.input`
   position: relative;
   width: 100%;
   border: none;
@@ -73,7 +70,7 @@ export const SearchBarStyle = styled.input`
   }
 `;
 
-export const InputTextAreaStyle = styled.textarea`
+const InputTextAreaStyle = styled.textarea`
   position: relative;
   width: 100%;
   border: none;
@@ -96,12 +93,12 @@ export const InputTextAreaStyle = styled.textarea`
 `;
 
 // TODO: change the image for password show
-export const EyeImageStyle = styled.div<EyeImageStyleProps>`
+const EyeImageStyle = styled.div<EyeImageStyleProps>`
   height: 20px;
   width: 20px;
 `;
 
-export const InputPasswordStyle = styled.div`
+const InputPasswordStyle = styled.div`
   width: 100%;
   .image-pass {
     position: absolute;
@@ -110,27 +107,27 @@ export const InputPasswordStyle = styled.div`
   }
 `;
 
-export const InputLabel = ({ children }: InputProps) => (
+export const InputLabel: FC<InputProps> = ({ children }) => (
   <InputLabelStyle>{children}</InputLabelStyle>
 );
 
-export const Input = ({ placeholder, type }: InputProps) => (
+export const Input: FC<InputProps> = ({ placeholder, type }) => (
   <InputStyle type={type} placeholder={placeholder} />
 );
 
-export const InputTextArea = ({ placeholder }: InputProps) => (
+export const InputTextArea: FC<InputProps> = ({ placeholder }) => (
   <InputTextAreaStyle placeholder={placeholder} />
 );
 
-export const InputContainer = ({ children }: InputProps) => (
+export const InputContainer: FC<InputProps> = ({ children }) => (
   <InputContainerStyle>{children}</InputContainerStyle>
 );
 
-export const SearchBar = ({ placeholder }: InputProps) => (
+export const SearchBar: FC<InputProps> = ({ placeholder }) => (
   <SearchBarStyle placeholder={placeholder} />
 );
 
-export const InputPassword = ({ placeholder }: InputProps) => {
+export const InputPassword: FC<InputProps> = ({ placeholder }) => {
   // states
   const [passwordType, setPasswordType] = useState('password');
 

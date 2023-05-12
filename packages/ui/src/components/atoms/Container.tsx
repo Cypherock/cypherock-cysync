@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { utils, UtilsProps } from '../utils';
 
-export interface ContainerProps extends UtilsProps {
+interface ContainerProps extends UtilsProps {
   variant?: 'default' | 'container' | 'aside' | 'main' | 'modal';
   children?: ReactNode;
   borderRadiusOne?: boolean;
@@ -14,7 +14,7 @@ export interface ContainerProps extends UtilsProps {
   size?: 'lg';
 }
 
-export const ContainerStyle = styled.div`
+const ContainerStyle = styled.div`
   ${utils}
   height: 100vh;
   width: 100%;
@@ -24,7 +24,7 @@ export const ContainerStyle = styled.div`
   align-items: center;
 `;
 
-export const DefaultContainerStyle = styled.div<ContainerProps>`
+const DefaultContainerStyle = styled.div<ContainerProps>`
   ${props =>
     props.shadow &&
     css`
@@ -51,7 +51,7 @@ export const DefaultContainerStyle = styled.div<ContainerProps>`
   ${utils}
 `;
 
-export const AsideContainerStyle = styled.div<ContainerProps>`
+const AsideContainerStyle = styled.div<ContainerProps>`
   width: 300px;
   min-height: 100vh;
 
@@ -74,27 +74,9 @@ export const AsideContainerStyle = styled.div<ContainerProps>`
   ${utils}
 `;
 
-export const MainContainerStyle = styled(DefaultContainerStyle)`
+const MainContainerStyle = styled(DefaultContainerStyle)`
   height: 89vh;
   overflow-y: scroll;
-`;
-
-export const ModalContainerStyle = styled.div<ContainerProps>`
-  ${utils}
-
-  ${props =>
-    props.position &&
-    css`
-      position: ${props.position};
-    `}
-  height: 100vh;
-  width: 100%;
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
-  backdrop-filter: blur(3px);
 `;
 
 export const Container: FC<ContainerProps> = ({
@@ -109,8 +91,6 @@ export const Container: FC<ContainerProps> = ({
       return <AsideContainerStyle {...props}>{children}</AsideContainerStyle>;
     case 'main':
       return <MainContainerStyle {...props}>{children}</MainContainerStyle>;
-    case 'modal':
-      return <ModalContainerStyle {...props}>{children}</ModalContainerStyle>;
     default:
       return (
         <DefaultContainerStyle {...props}>{children}</DefaultContainerStyle>

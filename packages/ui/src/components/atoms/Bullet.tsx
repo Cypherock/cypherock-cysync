@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { margin } from '../utils';
 
-export interface BulletProps {
+interface BulletProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
   size?: 'lg' | 'sm' | 'md';
 }
 
-export const BulletStyle = styled.div<BulletProps>`
+const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.textHeading};
   ${margin}

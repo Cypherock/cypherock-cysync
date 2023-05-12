@@ -14,7 +14,7 @@ import {
   DisplayProps,
 } from '../utils';
 
-export interface HeadingProps
+interface HeadingProps
   extends MarginProps,
     FontWeightProps,
     WidthProps,
@@ -31,7 +31,7 @@ export interface HeadingProps
   textAlign?: 'center' | 'left' | 'right';
 }
 
-export const baseStyle = css<HeadingProps>`
+const baseStyle = css<HeadingProps>`
   ${props =>
     props.color === 'gold' &&
     css`
@@ -72,7 +72,7 @@ ${props =>
   max-width: 100%;
 `;
 
-export const HeadingOneStyle = styled.h1<HeadingProps>`
+const HeadingOneStyle = styled.h1<HeadingProps>`
   font-size: 40px;
   font-weight: 400;
   ${baseStyle};
@@ -83,7 +83,7 @@ export const HeadingOneStyle = styled.h1<HeadingProps>`
   ${display};
 `;
 
-export const HeadingTwoStyle = styled.h2`
+const HeadingTwoStyle = styled.h2`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
@@ -94,7 +94,7 @@ export const HeadingTwoStyle = styled.h2`
   ${display};
 `;
 
-export const HeadingThreeStyle = styled.h3`
+const HeadingThreeStyle = styled.h3`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
@@ -104,7 +104,7 @@ export const HeadingThreeStyle = styled.h3`
   ${display};
 `;
 
-export const HeadingFourStyle = styled.h4`
+const HeadingFourStyle = styled.h4`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
@@ -115,7 +115,7 @@ export const HeadingFourStyle = styled.h4`
   ${display};
 `;
 
-export const HeadingFiveStyle = styled.h5<HeadingProps>`
+const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
   ${baseStyle};
@@ -126,7 +126,7 @@ export const HeadingFiveStyle = styled.h5<HeadingProps>`
   ${display};
 `;
 
-export const HeadingSixStyle = styled.h6<HeadingProps>`
+const HeadingSixStyle = styled.h6<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
@@ -137,8 +137,8 @@ export const HeadingSixStyle = styled.h6<HeadingProps>`
   ${display};
 `;
 
-export const HeadingSmallestStyle = styled.div`
-  font-size: 14px;
+const SpanStyle = styled.span`
+  font-size: 16px;
   font-weight: 400;
   ${baseStyle};
   ${margin};
@@ -147,8 +147,7 @@ export const HeadingSmallestStyle = styled.div`
   ${position};
   ${display};
 `;
-
-export const SpanStyle = styled.span`
+const PStyle = styled.p`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
@@ -160,9 +159,8 @@ export const SpanStyle = styled.span`
 `;
 
 interface TypographyProps extends HeadingProps {
-  src?: any;
   children?: ReactNode;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
 }
 
 export const Typography = ({
@@ -183,7 +181,11 @@ export const Typography = ({
       return <HeadingFiveStyle {...props}>{children}</HeadingFiveStyle>;
     case 'h6':
       return <HeadingSixStyle {...props}>{children}</HeadingSixStyle>;
+    case 'p':
+      return <PStyle {...props}>{children}</PStyle>;
+    case 'span':
+      return <SpanStyle {...props}>{children}</SpanStyle>;
     default:
-      return <HeadingSmallestStyle {...props}>{children}</HeadingSmallestStyle>;
+      return <PStyle {...props}>{children}</PStyle>;
   }
 };

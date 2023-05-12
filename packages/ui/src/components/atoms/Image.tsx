@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-
 import styled from 'styled-components';
 import {
   margin,
@@ -10,20 +9,17 @@ import {
   AlignSelfProps,
 } from '../utils';
 
-export interface ImageProps extends MarginProps, PaddingProps, AlignSelfProps {
-  src?: any;
+interface ImageProps extends MarginProps, PaddingProps, AlignSelfProps {
+  src: string;
+  alt: string;
 }
 
-export const ImageStyle = styled.img`
+const ImageStyle = styled.img`
   ${margin}
   ${padding}
   ${alignSelf}
 `;
 
-export const Image: FC<ImageProps> = ({ ...props }) => (
-  <ImageStyle {...props} />
+export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
+  <ImageStyle src={src} alt={alt} {...props} />
 );
-
-Image.defaultProps = {
-  src: null,
-};

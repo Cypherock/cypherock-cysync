@@ -2,11 +2,11 @@ import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 // import dropdown from '../../../src/assets/images/common/dropdown.svg';
 
-export interface SelectProps {
+interface SelectProps {
   children?: ReactNode;
 }
 
-export const SelectContainerStyle = styled.div`
+const SelectContainerStyle = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.palette.background.inputBackground};
 

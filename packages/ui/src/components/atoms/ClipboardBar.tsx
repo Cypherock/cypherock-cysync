@@ -1,12 +1,21 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { InputProps, SearchBarStyle } from './Input';
+import { SearchBarStyle } from './Input';
 
 interface CopyImageStyleProps {
   isCopied: boolean;
 }
 
-export const ClipboardBarStyle = styled.div`
+interface ClipboardBarProps {
+  placeholder: string;
+}
+
+const CopyImageStyle = styled.div<CopyImageStyleProps>`
+  height: 20px;
+  width: 25px;
+`;
+
+const ClipboardBarStyle = styled.div`
   position: relative;
   width: 100%;
   .image-copy {
@@ -16,16 +25,9 @@ export const ClipboardBarStyle = styled.div`
   }
 `;
 
-export const CopyImageStyle = styled.div<CopyImageStyleProps>`
-  height: 20px;
-  width: 25px;
-`;
-
-export const ClipboardBar: FC<InputProps> = ({ placeholder }) => {
-  // states
+export const ClipboardBar: FC<ClipboardBarProps> = ({ placeholder }) => {
   const [isCopied, setIsCopied] = useState(false);
 
-  // functions
   const toggleCopied = () => {
     if (placeholder) {
       navigator.clipboard.writeText(placeholder);
