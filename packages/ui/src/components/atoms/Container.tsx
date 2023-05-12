@@ -1,9 +1,8 @@
 import React, { FC, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { utils, UtilsProps } from '../utils';
 
 interface ContainerProps extends UtilsProps {
-  variant?: 'default' | 'container' | 'aside' | 'main' | 'modal';
   children?: ReactNode;
   borderRadiusOne?: boolean;
   border?: boolean;
@@ -24,82 +23,11 @@ const ContainerStyle = styled.div`
   align-items: center;
 `;
 
-const DefaultContainerStyle = styled.div<ContainerProps>`
-  ${props =>
-    props.shadow &&
-    css`
-      box-shadow: 4px 4px 32px 4px #0f0d0b;
-    `}
-  ${props =>
-    props.border &&
-    css`
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${({ theme }) =>
-        theme.palette.background.sepratorBackground};
-    `}
-  padding: 16px 24px;
-
-  border-top-left-radius: ${props => (props.roundedListTop ? '24px' : '')};
-  border-top-right-radius: ${props => (props.roundedListTop ? '24px' : '')};
-
-  border-bottom-left-radius: ${props =>
-    props.roundedListBottom ? '24px' : ''};
-  border-bottom-right-radius: ${props =>
-    props.roundedListBottom ? '24px' : ''};
-
-  ${utils}
-`;
-
-const AsideContainerStyle = styled.div<ContainerProps>`
-  width: 300px;
-  min-height: 100vh;
-
-  ${props =>
-    props.border &&
-    css`
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${({ theme }) =>
-        theme.palette.background.sepratorBackground};
-    `}
-  ${props =>
-    props.size === 'lg'
-      ? css`
-          width: 500px;
-        `
-      : ''}
-  padding:48px 42px;
-
-  ${utils}
-`;
-
-const MainContainerStyle = styled(DefaultContainerStyle)`
-  height: 89vh;
-  overflow-y: scroll;
-`;
-
-export const Container: FC<ContainerProps> = ({
-  children,
-  variant,
-  ...props
-}) => {
-  switch (variant) {
-    case 'container':
-      return <ContainerStyle {...props}>{children}</ContainerStyle>;
-    case 'aside':
-      return <AsideContainerStyle {...props}>{children}</AsideContainerStyle>;
-    case 'main':
-      return <MainContainerStyle {...props}>{children}</MainContainerStyle>;
-    default:
-      return (
-        <DefaultContainerStyle {...props}>{children}</DefaultContainerStyle>
-      );
-  }
-};
+export const Container: FC<ContainerProps> = ({ children, ...props }) => (
+  <ContainerStyle {...props}>{children}</ContainerStyle>
+);
 
 Container.defaultProps = {
-  variant: 'default',
   children: null,
   borderRadiusOne: false,
   border: false,

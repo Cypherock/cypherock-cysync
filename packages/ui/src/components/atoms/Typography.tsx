@@ -181,10 +181,9 @@ export const Typography = ({
       return <HeadingFiveStyle {...props}>{children}</HeadingFiveStyle>;
     case 'h6':
       return <HeadingSixStyle {...props}>{children}</HeadingSixStyle>;
-    case 'p':
-      return <PStyle {...props}>{children}</PStyle>;
     case 'span':
       return <SpanStyle {...props}>{children}</SpanStyle>;
+    case 'p':
     default:
       return <PStyle {...props}>{children}</PStyle>;
   }

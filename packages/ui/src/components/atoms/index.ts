@@ -5,7 +5,7 @@ export * from './Container';
 export * from './Divider';
 export * from './Flex';
 export * from './Image';
-export * from './Input';
+export * from './Input/Input';
 export * from './Select';
 export * from './Typography';
 export * from './ClipboardBar';

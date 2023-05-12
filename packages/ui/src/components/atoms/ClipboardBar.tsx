@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { SearchBarStyle } from './Input';
+import { SearchBarStyle } from './SearchBar';
 
 interface CopyImageStyleProps {
   isCopied: boolean;

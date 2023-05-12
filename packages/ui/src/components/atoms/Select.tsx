@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
-// import dropdown from '../../../src/assets/images/common/dropdown.svg';
 
 interface SelectProps {
   children?: ReactNode;
@@ -32,7 +31,6 @@ const SelectContainerStyle = styled.div`
     background-position-y: 22px;
   }
 `;
-// background-image: url(${dropdown});
 
 export const SelectContainer: FC<SelectProps> = ({ children }) => (
   <SelectContainerStyle>{children}</SelectContainerStyle>
