@@ -1,5 +1,3 @@
-import type { EventEmitter, Listener } from 'events';
-
 /**
  * These fields should be available in every entity
  */
@@ -90,14 +88,17 @@ export interface IRepository<Entity extends ObjectLiteral> {
   /**
    * Adds a listener to the repository for any changes denoted by type
    */
-  addListener(type: string | number, listener: Listener): EventEmitter;
+  addListener(type: string | symbol, listener: (...args: any[]) => void): void;
 
   /**
    * Removes previously added listener with the given listener and type function if it exists
    */
-  removeListener(type: string | number, listener: Listener): EventEmitter;
+  removeListener(
+    type: string | symbol,
+    listener: (...args: any[]) => void,
+  ): void;
   /**
    * Removes all previously added listener with the given type
    */
-  removeAllListener(type?: string | number): EventEmitter;
+  removeAllListener(type?: string | symbol): void;
 }

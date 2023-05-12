@@ -1,0 +1,30 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
+    "!src/**/__fixtures__/*"
+  ],
+  "testTimeout": 500,
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "rootDir": ".",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/__fixtures__/",
+    "/dist/",
+    "/out/",
+    "/.vite/"
+  ],
+  "testMatch": [
+    "**/tests/**/*.[jt]s?(x)",
+    "**/__tests__/**/*.[jt]s?(x)",
+    "!**/__mocks__/**/*.[jt]s?(x)",
+    "!**/__helpers__/**/*.[jt]s?(x)",
+    "!**/.stryker-tmp/**/*.[jt]s?(x)"
+  ],
+  "coverageThreshold": {},
+  "modulePathIgnorePatterns": ["<rootDir>/.stryker-tmp"],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "modulePaths": ["<rootDir>"]
+}

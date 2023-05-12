@@ -5,12 +5,11 @@
       "inputs": ["packages/*"]
     },
     "dev": {
-      "dependsOn": ["^build", "^dev"],
+      "dependsOn": ["^dev"],
       "cache": false
     },
     "build": {
       "dependsOn": ["prebuild", "^build"],
-      "inputs": ["."],
       "outputs": ["dist/**", ".vite/**"]
     },
     "watch:build": {
@@ -23,7 +22,6 @@
     },
     "make": {
       "dependsOn": ["build", "^make"],
-      "inputs": ["."],
       "cache": false
     },
     "pre-commit": {

@@ -16,7 +16,9 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2015",
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["es2020", "dom"],
     "noImplicitAny": true,
     "strictNullChecks": true,
     "jsx": "react"

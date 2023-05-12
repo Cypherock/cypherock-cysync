@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import electron from 'vite-plugin-electron';
 import renderer from 'vite-plugin-electron-renderer';
+
 import pkg from './package.json';
 
 // https://vitejs.dev/config/
@@ -64,7 +65,13 @@ export default defineConfig(({ command }) => {
         },
       ]),
       // Use Node.js API in the Renderer-process
-      renderer(),
+      {
+        name: 'vite-plugin-electron-renderer',
+        config: async config => {
+          const plugin = renderer();
+          await plugin.config(config);
+        },
+      },
     ],
     server:
       process.env.VSCODE_DEBUG &&

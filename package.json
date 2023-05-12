@@ -8,7 +8,7 @@
     "email": "support@cypherock.com"
   },
   "scripts": {
-    "start": "concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build\"",
+    "start": "pnpm build && concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build --concurrency=15\" -k",
     "dev": "pnpm turbo dev",
     "make": "pnpm turbo make",
     "build": "pnpm turbo build",

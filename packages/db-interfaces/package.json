@@ -16,7 +16,6 @@
     "@cypherock/eslint-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
-    "@types/events": "^3.0.0",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "rimraf": "^4.1.2",
