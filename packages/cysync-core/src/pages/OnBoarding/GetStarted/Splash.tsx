@@ -6,10 +6,10 @@ import logger from '../../../utils/logger';
 
 export const Splash = (): ReactElement => (
   <>
-    <Button onClick={() => logger.info(SDK.create)} variation="primary">
+    <Button onClick={() => logger.info(SDK.create)} variant="primary">
       Get Started
     </Button>
-    <Button variation="secondary" onClick={() => logger.info(coinList)}>
+    <Button variant="secondary" onClick={() => logger.info(coinList)}>
       Get Started
     </Button>
   </>

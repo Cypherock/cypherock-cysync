@@ -276,6 +276,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-router-dom:
+        specifier: ^6.11.1
+        version: 6.11.1(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.21.4
@@ -2975,6 +2978,10 @@ packages:
       tiny-glob: 0.2.9
       tslib: 2.5.0
     dev: true
+
+  /@remix-run/router@1.6.1:
+    resolution: {integrity: sha512-YUkWj+xs0oOzBe74OgErsuR3wVn+efrFhXBWrit50kOiED+pvQe2r6MWY0iJMQU/mSVKxvNzL4ZaYvjdX+G7ZA==}
+    engines: {node: '>=14'}
 
   /@protobufjs/aspromise@1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -8748,6 +8755,29 @@ packages:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /react-router-dom@6.11.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-dPC2MhoPeTQ1YUOt5uIK376SMNWbwUxYRWk2ZmTT4fZfwlOvabF8uduRKKJIyfkCZvMgiF0GSCQckmkGGijIrg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.6.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router: 6.11.1(react@18.2.0)
+    dev: false
+
+  /react-router@6.11.1(react@18.2.0):
+    resolution: {integrity: sha512-OZINSdjJ2WgvAi7hgNLazrEV8SGn6xrKA+MkJe9wVDMZ3zQ6fdJocUjpCUCI0cNrelWjcvon0S/QK/j0NzL3KA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.6.1
+      react: 18.2.0
+    dev: false
 
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
