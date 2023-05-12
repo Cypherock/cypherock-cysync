@@ -31,15 +31,20 @@ export type ObjectLiteral = Record<string, any>;
 
 export interface IRepository<Entity extends ObjectLiteral> {
   /**
-   * Saves all given entities in the database.
-   * If entities do not exist in the database then inserts, otherwise updates.
+   * Inserts all given entities in the database.
    */
-  insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
+  insert(entities: Partial<Entity>[]): Promise<Entity[]>;
   /**
-   * Saves a given entity in the database.
-   * If entity does not exist in the database then inserts, otherwise updates.
+   * Insert a given entity in the database.
    */
-  insertOrUpdate(entity: Partial<Entity>): Promise<Entity>;
+  insert(entity: Partial<Entity>): Promise<Entity>;
+  /**
+   * Update all entities that matches the search entity in the database.
+   */
+  update(
+    updateEntity: Partial<Entity>,
+    searchEntityLike?: Partial<Entity>[] | Partial<Entity>,
+  ): Promise<Entity[]>;
   /**
    * Removes entities matching any of the given entities from the database.
    */

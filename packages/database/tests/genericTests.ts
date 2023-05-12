@@ -16,28 +16,28 @@ describe('Basic tests', () => {
         entity.setRepository(testHelper.db);
       });
 
-      describe('insertOrUpdate', () => {
+      describe('insert', () => {
         test('Can not store an empty entity instance', async () => {
           const obj = {};
-          expect(entity.repo.insertOrUpdate(obj)).rejects.toThrow();
+          expect(entity.repo.insert(obj)).rejects.toThrow();
         });
 
         test('Can not store an entity with invalid values', async () => {
           entity.repo.setVersion(0);
           for (const invalidCase of entity.invalid) {
-            expect(entity.repo.insertOrUpdate(invalidCase)).rejects.toThrow();
+            expect(entity.repo.insert(invalidCase)).rejects.toThrow();
           }
         });
 
         test('Can not store an entity array with invalid values', async () => {
           entity.repo.setVersion(0);
-          expect(entity.repo.insertOrUpdate(entity.invalid)).rejects.toThrow();
+          expect(entity.repo.insert(entity.invalid)).rejects.toThrow();
         });
 
         test('Can store the entity array with all required values', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 3);
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           expect(storedObj).toBeTruthy();
         });
 
@@ -47,24 +47,29 @@ describe('Basic tests', () => {
             ...entity.onlyRequired[0],
             __version: 1,
           };
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           expect(storedObj).toBeTruthy();
           const fetchedObj = await entity.repo.getOne(storedObj);
           expect(fetchedObj).toBeTruthy();
           expect(fetchedObj?.__version).toStrictEqual(obj.__version);
         });
+      });
 
+      describe('update', () => {
         test('Can update an entity', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired[0];
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           expect(removeBaseFelids(storedObj)).toEqual(obj);
           const newObj = {
             ...entity.onlyRequired[1],
-            __id: storedObj.__id,
           };
-          const newStoredObj = await entity.repo.insertOrUpdate(newObj);
-          expect(newStoredObj).toEqual({
+
+          const newStoredObjs = await entity.repo.update(newObj, {
+            __id: storedObj.__id,
+          });
+          expect(newStoredObjs.length).toEqual(1);
+          expect(newStoredObjs[0]).toEqual({
             ...newObj,
             __id: storedObj.__id,
             __version: storedObj.__version,
@@ -74,22 +79,23 @@ describe('Basic tests', () => {
         test('Can update multiple entities at once', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 2);
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
 
-          const newObj: IEntity[] = [];
+          const searchObj: IEntity[] = [];
+          const newObj = entity.onlyRequired[3];
           for (let i = 0; i < obj.length; i += 1) {
             expect(removeBaseFelids(storedObj[i])).toEqual(obj[i]);
-            newObj.push({
-              ...entity.onlyRequired[2 + i],
+            searchObj.push({
               __id: storedObj[i].__id,
-              __version: storedObj[i].__version,
             });
           }
 
-          const newStoredObj = await entity.repo.insertOrUpdate(newObj);
+          const newStoredObjs = await entity.repo.update(newObj, searchObj);
+
+          expect(newStoredObjs.length).toEqual(2);
 
           for (let i = 0; i < obj.length; i += 1) {
-            expect(newStoredObj[i]).toEqual(newObj[i]);
+            expect(removeBaseFelids(newStoredObjs[i])).toEqual({ ...newObj });
           }
         });
       });
@@ -98,7 +104,7 @@ describe('Basic tests', () => {
         test('The fetched entity should be same as the stored object', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired[0];
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           const fetchedObj = await entity.repo.getOne(storedObj);
           expect(storedObj).toEqual(fetchedObj);
         });
@@ -112,7 +118,7 @@ describe('Basic tests', () => {
         test('The fetched entity array should be the same as stored object array', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 2);
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           const fetchedObj = await entity.repo.getAll(storedObj);
           expect(storedObj).toEqual(fetchedObj);
         });
@@ -127,7 +133,7 @@ describe('Basic tests', () => {
         test('Can remove an entity', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired[0];
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           const allObjBeforeRemove = await entity.repo.getAll();
           await entity.repo.remove(storedObj);
           const fetchedObj = await entity.repo.getAll(storedObj);
@@ -139,7 +145,7 @@ describe('Basic tests', () => {
         test('Can remove multiple entities at once', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 2);
-          const storedObj = await entity.repo.insertOrUpdate(obj);
+          const storedObj = await entity.repo.insert(obj);
           const allObjBeforeRemove = await entity.repo.getAll();
           await entity.repo.remove(storedObj);
           const fetchedObj = await entity.repo.getAll(storedObj);
@@ -163,7 +169,7 @@ describe('Basic tests', () => {
           entity.repo.addListener('change', () => {
             changed = true;
           });
-          await entity.repo.insertOrUpdate(entity.onlyRequired[0]);
+          await entity.repo.insert(entity.onlyRequired[0]);
           expect(changed).toEqual(true);
         });
       });
@@ -175,11 +181,11 @@ describe('Basic tests', () => {
             changed = true;
           };
           entity.repo.addListener('change', listener);
-          await entity.repo.insertOrUpdate(entity.onlyRequired[0]);
+          await entity.repo.insert(entity.onlyRequired[0]);
           expect(changed).toEqual(true);
           changed = false;
           entity.repo.removeListener('change', listener);
-          await entity.repo.insertOrUpdate(entity.onlyRequired[1]);
+          await entity.repo.insert(entity.onlyRequired[1]);
           expect(changed).toEqual(false);
         });
       });
@@ -195,13 +201,13 @@ describe('Basic tests', () => {
           entity.repo.addListener('change', () => {
             listened = true;
           });
-          await entity.repo.insertOrUpdate(entity.onlyRequired[0]);
+          await entity.repo.insert(entity.onlyRequired[0]);
           expect(changed).toEqual(true);
           expect(listened).toEqual(true);
           changed = false;
           listened = false;
           entity.repo.removeAllListener('change');
-          await entity.repo.insertOrUpdate(entity.onlyRequired[1]);
+          await entity.repo.insert(entity.onlyRequired[1]);
           expect(changed).toEqual(false);
           expect(listened).toEqual(false);
         });

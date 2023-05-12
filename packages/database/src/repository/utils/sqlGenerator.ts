@@ -1,5 +1,5 @@
 import { ObjectLiteral } from '@cypherock/db-interfaces';
-import { ITableSchema } from './schemaValidator';
+import { ITableSchema, typeMap } from './types';
 
 export const sqlParser = {
   getCreateStatement(tableName: string, tableColumns: string[]) {
@@ -14,10 +14,10 @@ export const sqlParser = {
     )}) VALUES (?, ${tableColumns.map(() => '?').join(', ')})`;
   },
 
-  getUpdateStatement(tableName: string, tableColumns: string[]) {
+  getUpdateStatement(tableName: string, tableColumns: string[], ids: string[]) {
     return `UPDATE \`${tableName}\` SET ${tableColumns
       .map(key => `${key} = ?`)
-      .join(', ')} WHERE __id= ?`;
+      .join(', ')} WHERE __id IN (${ids.map(() => '?').join(', ')})`;
   },
 
   getDeleteStatement(tableName: string, ids: string[]) {
@@ -28,30 +28,12 @@ export const sqlParser = {
 
   getValuesForSqlite(obj?: ObjectLiteral): any[] {
     const values: any[] = [];
-
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
         const value = obj[key];
-
-        switch (typeof value) {
-          case 'string':
-          case 'number':
-          case 'bigint':
-            values.push(value.toString());
-            break;
-          case 'boolean':
-            values.push(value ? '1' : '0');
-            break;
-          case 'object':
-            values.push(JSON.stringify(value));
-            break;
-          default:
-            values.push(undefined);
-            break;
-        }
+        values.push(typeMap[typeof value].sqlSerializer(value));
       }
     }
-
     return values;
   },
 
@@ -60,17 +42,7 @@ export const sqlParser = {
     for (const key in schema) {
       if (Object.prototype.hasOwnProperty.call(schema, key)) {
         const value = schema[key];
-        let attribute = '';
-        switch (value.type) {
-          case 'bigint':
-          case 'number':
-          case 'boolean':
-            attribute = 'NUMERIC';
-            break;
-          default:
-            attribute = 'TEXT';
-            break;
-        }
+        let attribute = typeMap[value.type].sqlColumnType;
         if (!value.isOptional) attribute += ' NOT NULL';
         values.push(`${key} ${attribute}`);
       }
@@ -85,18 +57,7 @@ export const sqlParser = {
       for (const key in schema) {
         if (Object.prototype.hasOwnProperty.call(schema, key)) {
           const value = schema[key];
-          switch (value.type) {
-            case 'boolean':
-              entity[key] = !!obj[key];
-              break;
-            case 'array':
-            case 'object':
-              entity[key] = JSON.parse(obj[key]);
-              break;
-            default:
-              entity[key] = obj[key];
-              break;
-          }
+          entity[key] = typeMap[value.type].sqlDeserializer(obj[key]);
           if (value.isOptional && obj[key] === null) {
             delete obj[key];
             delete entity[key];
