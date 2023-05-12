@@ -1,20 +1,26 @@
-import { ITableDetails } from './types';
+import { ITransaction } from '@cypherock/db-interfaces';
+import { DefaultFields, ITableDetails } from './types';
 
-export const Transaction: ITableDetails = {
+export const Transaction: ITableDetails<Omit<ITransaction, DefaultFields>> = {
   name: 'transaction',
   schema: {
     hash: { type: 'string' },
     fees: { type: 'string' },
     amount: { type: 'string' },
-    status: { type: 'object' },
-    type: { type: 'object' },
+    status: { type: 'string' },
+    type: { type: 'string' },
     timestamp: { type: 'number' },
     blockHeight: { type: 'number' },
-    inputs: { type: 'object' },
-    outputs: { type: 'object' },
+    inputs: { type: 'array' },
+    outputs: { type: 'array' },
     accountId: { type: 'string' },
     confirmations: { type: 'number', isOptional: true },
     extraData: { type: 'object', isOptional: true },
+    assetId: { type: 'string' },
+    walletId: { type: 'string' },
+    familyId: { type: 'string' },
     parentTransactionId: { type: 'string', isOptional: true },
+    parentAccountId: { type: 'string', isOptional: true },
+    parentAssetId: { type: 'string', isOptional: true },
   },
 };

@@ -5,6 +5,8 @@ export interface IEntity {
   __id?: string;
   __version?: number;
 }
+
+export type ListenerType = 'change';
 export interface IGetOptions<T> {
   /**
    * Sorts the results using the key provided
@@ -68,19 +70,16 @@ export interface IRepository<Entity extends ObjectLiteral> {
   /**
    * Adds a listener to the repository for any changes denoted by type
    */
-  addListener(type: string | symbol, listener: (...args: any[]) => void): void;
+  addListener(type: ListenerType, listener: (...args: any[]) => void): void;
 
   /**
    * Removes previously added listener with the given listener and type function if it exists
    */
-  removeListener(
-    type: string | symbol,
-    listener: (...args: any[]) => void,
-  ): void;
+  removeListener(type: ListenerType, listener: (...args: any[]) => void): void;
   /**
    * Removes all previously added listener with the given type
    */
-  removeAllListener(type?: string | symbol): void;
+  removeAllListener(type?: ListenerType): void;
 
   /**
    * Sets version for the current repository

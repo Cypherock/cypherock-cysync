@@ -1,6 +1,7 @@
 import { ITableSchema } from '../repository/Repository';
 
-export interface ITableDetails {
+export type DefaultFields = '__id' | '__version';
+export interface ITableDetails<T> {
   name: string;
-  schema: ITableSchema;
+  schema: ITableSchema<T>;
 }

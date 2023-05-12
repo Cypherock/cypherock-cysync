@@ -17,6 +17,7 @@ type datatype =
   | 'bigint'
   | 'function'
   | 'symbol'
+  | 'array'
   | 'undefined';
 
 interface Type {
@@ -24,22 +25,22 @@ interface Type {
   isOptional?: boolean;
 }
 
-export type ITableSchema = Record<string, Type>;
+export type ITableSchema<T> = Record<keyof T, Type>;
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private readonly db: Database;
 
   private readonly name: string;
 
-  private readonly schema: ITableSchema;
+  private readonly schema: ITableSchema<Entity>;
 
-  private zodSchema: ZodObject<any>;
+  private validatorSchema: ZodObject<any>;
 
   private version: number | undefined;
 
   private readonly emitter = new EventEmitter();
 
-  constructor(db: Database, name: string, schema: ITableSchema) {
+  constructor(db: Database, name: string, schema: ITableSchema<Entity>) {
     this.db = db;
     this.name = name;
     this.schema = schema;
@@ -47,7 +48,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.createTableIfNotExists();
   }
 
-  private setZodSchema(schema: ITableSchema) {
+  private setZodSchema(schema: ITableSchema<Entity>) {
     const shape: any = {};
 
     for (const key in schema) {
@@ -55,8 +56,11 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         const value = schema[key];
         let zType;
         switch (value.type) {
+          case 'array':
+            zType = z.any().array();
+            break;
           case 'object':
-            zType = z.any();
+            zType = z.object({}).passthrough();
             break;
           case 'string':
             zType = z.string();
@@ -87,7 +91,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         shape[key] = zType;
       }
     }
-    this.zodSchema = z.object(shape);
+    this.validatorSchema = z.object(shape);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -154,6 +158,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
             case 'boolean':
               entity[key] = !!obj[key];
               break;
+            case 'array':
             case 'object':
               entity[key] = JSON.parse(obj[key]);
               break;
@@ -183,15 +188,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private validateInput(entityLike: Partial<Entity>[] | Partial<Entity>): void {
     const entityArray = Array.isArray(entityLike) ? entityLike : [entityLike];
     for (const entity of entityArray) {
-      const result = this.zodSchema.partial().safeParse(entity);
+      const result = this.validatorSchema.partial().safeParse(entity);
       if (!result.success)
         throw new Error(
           `Invalid entity provided for ${this.name}.\n${result.error}`,
         );
     }
   }
-
-  insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
 
   insertOrUpdate(entities: Partial<Entity>[]): Promise<Entity[]>;
 

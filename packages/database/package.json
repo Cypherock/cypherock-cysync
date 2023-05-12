@@ -10,13 +10,13 @@
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts src/",
     "pre-commit": "lint-staged",
-    "start": "ts-node src/index.ts",
     "test": "jest"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
+    "@cypherock/jest-config": "workspace:^",
     "@types/better-sqlite3": "^7.6.4",
     "@types/events": "^3.0.0",
     "@types/jest": "^29.5.0",
@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@cypherock/db-interfaces": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
+    "@cypherock/cysync-interfaces": "workspace:^",
     "better-sqlite3": "^8.0.0",
     "events": "^3.3.0",
     "uuid": "^9.0.0",

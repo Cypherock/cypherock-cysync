@@ -1,6 +1,7 @@
-import { ITableDetails } from './types';
+import { IWallet } from '@cypherock/db-interfaces';
+import { DefaultFields, ITableDetails } from './types';
 
-export const Wallet: ITableDetails = {
+export const Wallet: ITableDetails<Omit<IWallet, DefaultFields>> = {
   name: 'wallet',
   schema: {
     name: { type: 'string' },

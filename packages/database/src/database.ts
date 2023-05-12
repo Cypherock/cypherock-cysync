@@ -84,6 +84,8 @@ export class Database implements IDatabase {
   ): Promise<IRepository<T> | null> {
     throw new Error(`Method not implemented. ${name}`);
   }
-}
 
-export const initializeDb = async (database: DB) => new Database(database);
+  destroy(): void {
+    this.database.close();
+  }
+}

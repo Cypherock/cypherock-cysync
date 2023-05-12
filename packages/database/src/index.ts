@@ -1,7 +1,11 @@
 import Database from 'better-sqlite3';
-import { initializeDb } from './database';
+import { Database as DB } from './database';
+import logger from './utils/logger';
 
-const db = new Database('database.sqlite', { verbose: console.log });
-db.pragma('journal_mode = WAL');
-
-export const createDb = () => initializeDb(db);
+export const createDb = (path: string) => {
+  const db = new Database(path, {
+    verbose: logger.verbose as any,
+  });
+  db.pragma('journal_mode = WAL');
+  return new DB(db);
+};

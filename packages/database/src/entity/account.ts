@@ -1,6 +1,7 @@
-import { ITableDetails } from './types';
+import { IAccount } from '@cypherock/db-interfaces';
+import { DefaultFields, ITableDetails } from './types';
 
-export const Account: ITableDetails = {
+export const Account: ITableDetails<Omit<IAccount, DefaultFields>> = {
   name: 'account',
   schema: {
     name: { type: 'string' },
@@ -11,7 +12,9 @@ export const Account: ITableDetails = {
     type: { type: 'string' },
     extraData: { type: 'object', isOptional: true },
     assetId: { type: 'string' },
+    familyId: { type: 'string' },
     walletId: { type: 'string' },
     parentAccountId: { type: 'string', isOptional: true },
+    parentAssetId: { type: 'string', isOptional: true },
   },
 };

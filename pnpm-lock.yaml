@@ -349,6 +349,12 @@ importers:
 
   packages/database:
     dependencies:
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
@@ -368,6 +374,9 @@ importers:
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
       '@cypherock/prettier-config':
         specifier: workspace:^
         version: link:../util-prettier-config

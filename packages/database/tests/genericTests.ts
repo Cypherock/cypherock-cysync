@@ -1,3 +1,4 @@
+import { IEntity } from '@cypherock/db-interfaces';
 import { removeBaseFelids, testHelper } from './__helpers__/testHelper';
 import fixtures from './__fixtures__';
 
@@ -28,7 +29,7 @@ describe('Basic tests', () => {
           }
         });
 
-        test('Can not store an entity with invalid values', async () => {
+        test('Can not store an entity array with invalid values', async () => {
           entity.repo.setVersion(0);
           expect(entity.repo.insertOrUpdate(entity.invalid)).rejects.toThrow();
         });
@@ -75,7 +76,7 @@ describe('Basic tests', () => {
           const obj = entity.onlyRequired.slice(0, 2);
           const storedObj = await entity.repo.insertOrUpdate(obj);
 
-          const newObj = [];
+          const newObj: IEntity[] = [];
           for (let i = 0; i < obj.length; i += 1) {
             expect(removeBaseFelids(storedObj[i])).toEqual(obj[i]);
             newObj.push({
