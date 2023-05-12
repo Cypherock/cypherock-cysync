@@ -9,3 +9,5 @@ export * from './Input/Input';
 export * from './Select';
 export * from './Typography';
 export * from './ClipboardBar';
+export * from './AsideContainer';
+export * from './Modal';

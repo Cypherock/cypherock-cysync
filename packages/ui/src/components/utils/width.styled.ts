@@ -1,13 +1,16 @@
 import { css } from 'styled-components';
 
 export interface WidthProps {
-  width?: number;
+  width?: number | string;
 }
 
 export const width = css<WidthProps>`
   ${props => {
-    if (props.width && !Number.isInteger(props.width)) {
-      return `width: ${props.width * 100}%`;
+    if (props.width && typeof props.width === 'string') {
+      if (props.width === 'full') return `width: 100%;`;
+
+      const value = props.width!.substring(0, props.width.length - 1);
+      return `width : ${value}%;`;
     }
     return `width: ${props.width}px;`;
   }}
