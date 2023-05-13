@@ -2,7 +2,8 @@
   "name": "@cypherock/database",
   "version": "0.0.0",
   "description": "Contains database logic",
-  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "pretty": "prettier --write \"src/**/*.ts\"",
     "pretty:check": "prettier --check \"src/**/*.ts\"",

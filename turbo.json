@@ -1,52 +1,51 @@
 {
-	"$schema": "https://turbo.build/schema.json",
-	"pipeline": {
-		"packages": {
-			"inputs": ["packages/*"]
-		},
-		"dev": {
-			"dependsOn": ["^build", "^dev"],
-			"cache": false
-		},
-		"build": {
-			"dependsOn": ["prebuild", "^build"],
-			"outputs": ["dist/**", ".vite/**"]
-		},
-		"watch:build": {
-			"dependsOn": ["prebuild"],
-			"cache": false,
-			"persistent": true
-		},
-		"prebuild": {
-			"inputs": ["scripts/prebuild.sh"]
-		},
-		"make": {
-			"dependsOn": ["build", "^make"],
-			"inputs": ["."],
-			"cache": false
-		},
-		"pre-commit": {
-			"cache": false
-		},
-		"test": {
-			"dependsOn": ["^test"],
-			"cache": false
-		},
-		"lint:check": {
-			"inputs": ["."],
-			"outputs": []
-		},
-		"lint": {
-			"inputs": ["."],
-			"outputs": []
-		},
-		"pretty:check": {
-			"inputs": ["."],
-			"outputs": []
-		},
-		"pretty": {
-			"inputs": ["."],
-			"outputs": []
-		}
-	}
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "packages": {
+      "inputs": ["packages/*"]
+    },
+    "dev": {
+      "dependsOn": ["^dev"],
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**", ".vite/**"]
+    },
+    "watch:build": {
+      "dependsOn": ["prebuild"],
+      "cache": false,
+      "persistent": true
+    },
+    "prebuild": {
+      "inputs": ["scripts/prebuild.sh"]
+    },
+    "make": {
+      "dependsOn": ["build", "^make"],
+      "cache": false
+    },
+    "pre-commit": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "cache": false
+    },
+    "lint:check": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "lint": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty:check": {
+      "inputs": ["."],
+      "outputs": []
+    },
+    "pretty": {
+      "inputs": ["."],
+      "outputs": []
+    }
+  }
 }
