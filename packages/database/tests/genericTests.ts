@@ -1,6 +1,7 @@
 import { IEntity } from '@cypherock/db-interfaces';
 import { removeBaseFelids, testHelper } from './__helpers__/testHelper';
 import fixtures from './__fixtures__';
+import { createDb } from '../src/index';
 
 describe('Basic tests', () => {
   beforeAll(async () => {
@@ -10,6 +11,16 @@ describe('Basic tests', () => {
   afterAll(() => {
     testHelper.teardownTestDB();
   });
+
+  test('Can create a new database instance', async () => {
+    const db = createDb(':memory:');
+    expect(db).toBeDefined();
+    const devices = await db.device.getAll();
+    expect(devices.length).toEqual(0);
+    await db.destroy();
+    expect(db.device.getAll()).rejects.toThrow();
+  });
+
   fixtures.forEach(entity => {
     describe(`${entity.name}`, () => {
       beforeAll(async () => {
