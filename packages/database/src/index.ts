@@ -9,3 +9,5 @@ export const createDb = (path: string) => {
   db.pragma('journal_mode = WAL');
   return new DB(db);
 };
+
+export { updateLogger } from './utils/logger';
