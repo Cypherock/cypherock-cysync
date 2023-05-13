@@ -163,7 +163,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     } else {
       this.emitChange();
     }
-    return Array.isArray(entityLike) ? rows : rows[0];
+    return rows.length > 1 ? rows : rows[0];
   }
 
   async getAll(
