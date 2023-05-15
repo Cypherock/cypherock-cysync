@@ -4,6 +4,7 @@ import {
   IAccountRepository,
 } from '@cypherock/db-interfaces';
 import { ITestClass } from './types';
+import { DefaultFields } from '../../src/entity/types';
 
 class AccountData implements ITestClass<IAccount> {
   name = 'Account';
@@ -57,9 +58,51 @@ class AccountData implements ITestClass<IAccount> {
     },
   ];
 
-  partial = [];
+  partial: Partial<IAccount>[] = [
+    {
+      name: 'Ethereum 1',
+      xpubOrAddress: '0xdB352C27f213940BF6F61BccD5e3866A5B05F6a4',
+      unit: 'ETH',
+      derivationPath: "m/44'/60'/0'/0",
+      assetId: 'ethereum',
+      familyId: 'evm',
+      extraData: {},
+      parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      name: 'Big name 78b25d27-bb93-4df5-8cdc-e17af3bff890',
+      balance: '20.3434',
+      unit: 'USD',
+      derivationPath: 'm/44',
+      type: 'erc20',
+      familyId: 'evm',
+      extraData: { array: [1, 2, 3, 4], random: null },
+      parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      xpubOrAddress: '0x24u302482349243u9c9',
+      balance: '49.3434',
+      unit: 'ETH',
+      derivationPath: 'm/44/0/0',
+      type: 'account',
+      assetId: 'eth',
+      familyId: 'bitcoin',
+      extraData: { array: [1, 2, 3, 4] },
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      name: 'Bitcoin 3',
+      xpubOrAddress: 'xpub19249032209f980d028',
+      balance: '0',
+      unit: 'BTC',
+      assetId: 'btc',
+      walletId: '56789093876',
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+  ];
 
-  all: IAccount[] = [
+  all: Required<Omit<IAccount, DefaultFields>>[] = [
     {
       name: 'Ethereum 1',
       xpubOrAddress: '0xdB352C27f213940BF6F61BccD5e3866A5B05F6a4',
@@ -67,11 +110,53 @@ class AccountData implements ITestClass<IAccount> {
       unit: 'ETH',
       derivationPath: "m/44'/60'/0'/0",
       type: 'coin',
-      extraData: {},
       assetId: 'ethereum',
       familyId: 'evm',
       walletId:
         '2089A2FCAD0B5D7C090B7446CEEE4AF0BF060A4982DC5DC1EABDF26CE15B8CF0',
+      extraData: { test: 'test' },
+      parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      name: 'Big name 78b25d27-bb93-4df5-8cdc-e17af3bff890',
+      xpubOrAddress: 'address',
+      balance: '20.3434',
+      unit: 'USD',
+      derivationPath: 'm/44',
+      type: 'erc20',
+      assetId: 'etc',
+      walletId: '1234',
+      familyId: 'evm',
+      extraData: { array: [1, 2, 3, 4], random: null },
+      parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      name: 'Ethereum 1',
+      xpubOrAddress: '0x24u302482349243u9c9',
+      balance: '49.3434',
+      unit: 'ETH',
+      derivationPath: 'm/44/0/0',
+      type: 'account',
+      assetId: 'eth',
+      walletId: '3948',
+      familyId: 'bitcoin',
+      extraData: { array: [1, 2, 3, 4] },
+      parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+    },
+    {
+      name: 'Bitcoin 3',
+      xpubOrAddress: 'xpub19249032209f980d028',
+      balance: '0',
+      unit: 'BTC',
+      derivationPath: '',
+      type: 'child',
+      assetId: 'btc',
+      walletId: '56789093876',
+      familyId: 'near',
+      extraData: { random: 'test', something: true },
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
     },

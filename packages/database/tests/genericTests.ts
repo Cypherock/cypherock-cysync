@@ -40,14 +40,33 @@ describe('Basic tests', () => {
           }
         });
 
+        test('Can not store an entity with partial values', async () => {
+          entity.repo.setVersion(0);
+          for (const partialCase of entity.partial) {
+            expect(entity.repo.insert(partialCase)).rejects.toThrow();
+          }
+        });
+
         test('Can not store an entity array with invalid values', async () => {
           entity.repo.setVersion(0);
           expect(entity.repo.insert(entity.invalid)).rejects.toThrow();
         });
 
+        test('Can not store an entity array with partial values', async () => {
+          entity.repo.setVersion(0);
+          expect(entity.repo.insert(entity.partial)).rejects.toThrow();
+        });
+
         test('Can store the entity array with all required values', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 3);
+          const storedObj = await entity.repo.insert(obj);
+          expect(storedObj).toBeTruthy();
+        });
+
+        test('Can store the entity array with all values', async () => {
+          entity.repo.setVersion(0);
+          const obj = entity.all.slice(0, 3);
           const storedObj = await entity.repo.insert(obj);
           expect(storedObj).toBeTruthy();
         });

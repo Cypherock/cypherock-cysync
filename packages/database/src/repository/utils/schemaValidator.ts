@@ -6,7 +6,7 @@ export function getValidatorSchema<Entity>(schema: ITableSchema<Entity>) {
   for (const key in schema) {
     if (Object.prototype.hasOwnProperty.call(schema, key)) {
       const value = schema[key];
-      let zType = typeMap[value.type].validator();
+      let zType = typeMap[value.type].validator;
       if (value.isOptional) zType = zType.optional();
       shape[key] = zType;
     }

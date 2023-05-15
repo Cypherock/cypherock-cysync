@@ -33,9 +33,24 @@ class PriceInfoData implements ITestClass<IPriceInfo> {
     },
   ];
 
-  partial = [];
+  partial: Partial<IPriceInfo>[] = [
+    {
+      currency: 'USD',
+      latestPrice: '12.309',
+    },
+    {
+      assetId: 'assetId2',
+      latestPrice: '23.43',
+    },
+    {
+      assetId: 'assetId1',
+    },
+    {
+      currency: 'EUR',
+    },
+  ];
 
-  all = [];
+  all = this.onlyRequired;
 
   invalid: IPriceInfo[] = [
     {

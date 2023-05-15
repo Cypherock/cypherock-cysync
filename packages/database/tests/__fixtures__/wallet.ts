@@ -37,9 +37,30 @@ class WalletData implements ITestClass<IWallet> {
     },
   ];
 
-  partial = [];
+  partial: Partial<IWallet>[] = [
+    {
+      hasPassphrase: true,
+      hasPin: true,
+      deviceId: '1',
+    },
+    {
+      name: 'GMT',
+      hasPin: true,
+      deviceId: '1',
+    },
+    {
+      name: 'DIFFERENT WALLET',
+      hasPassphrase: false,
+      deviceId: '2',
+    },
+    {
+      name: 'DIFFERENT WALLET AGAIN',
+      hasPassphrase: true,
+      hasPin: false,
+    },
+  ];
 
-  all = [];
+  all = this.onlyRequired;
 
   invalid: IWallet[] = [
     {

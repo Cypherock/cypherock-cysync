@@ -52,9 +52,38 @@ class PriceHistoryData implements ITestClass<IPriceHistory> {
     },
   ];
 
-  partial = [];
+  partial: Partial<IPriceHistory>[] = [
+    {
+      assetId: 'assetId',
+      currency: 'USD',
+    },
+    {
+      days: 7,
+      history: [
+        { timestamp: 34, price: '0.002' },
+        { timestamp: 90, price: '0.001' },
+      ],
+      currency: 'INR',
+    },
+    {
+      history: [
+        { timestamp: 34, price: '0.002' },
+        { timestamp: 90, price: '0.001' },
+        { timestamp: 1000, price: '0.002' },
+        { timestamp: 10000, price: '0.001' },
+        { timestamp: 20000, price: '0.002' },
+        { timestamp: 30000, price: '0.001' },
+      ],
+      assetId: 'assetId3',
+    },
+    {
+      days: 365,
+      assetId: 'assetId0',
+      currency: 'INR',
+    },
+  ];
 
-  all = [];
+  all = this.onlyRequired;
 
   invalid: IPriceHistory[] = [
     {

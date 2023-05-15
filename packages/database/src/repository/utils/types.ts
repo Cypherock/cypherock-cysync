@@ -24,7 +24,7 @@ interface ITypeParser {
   sqlColumnType: string;
   sqlSerializer: genericFunction;
   sqlDeserializer: genericFunction;
-  validator: genericFunction;
+  validator: Zod.ZodType;
 }
 
 const numeric = 'NUMERIC';
@@ -41,54 +41,54 @@ export const typeMap: Record<datatype, ITypeParser> = {
     sqlColumnType: numeric,
     sqlSerializer: toString,
     sqlDeserializer: noChange,
-    validator: z.number,
+    validator: z.number(),
   },
   string: {
     sqlColumnType: text,
     sqlSerializer: toString,
     sqlDeserializer: noChange,
-    validator: z.string,
+    validator: z.string(),
   },
   bigint: {
     sqlColumnType: numeric,
     sqlSerializer: toString,
     sqlDeserializer: noChange,
-    validator: z.bigint,
+    validator: z.bigint(),
   },
   boolean: {
     sqlColumnType: numeric,
     sqlSerializer: value => (value ? '1' : '0'),
     sqlDeserializer: value => !!value,
-    validator: z.boolean,
+    validator: z.boolean(),
   },
   symbol: {
     sqlColumnType: text,
     sqlSerializer: unknown,
     sqlDeserializer: noChange,
-    validator: z.symbol,
+    validator: z.symbol(),
   },
   object: {
     sqlColumnType: text,
     sqlSerializer: stringify,
     sqlDeserializer: JSONparse,
-    validator: z.object({}).passthrough,
+    validator: z.object({}),
   },
   array: {
     sqlColumnType: text,
     sqlSerializer: unknown,
     sqlDeserializer: JSONparse,
-    validator: z.any().array,
+    validator: z.any().array(),
   },
   function: {
     sqlColumnType: text,
     sqlSerializer: unknown,
     sqlDeserializer: noChange,
-    validator: z.function,
+    validator: z.function(),
   },
   undefined: {
     sqlColumnType: text,
     sqlSerializer: unknown,
     sqlDeserializer: noChange,
-    validator: z.undefined,
+    validator: z.undefined(),
   },
 };

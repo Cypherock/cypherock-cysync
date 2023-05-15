@@ -33,9 +33,26 @@ class DeviceData implements ITestClass<IDevice> {
     },
   ];
 
-  partial = [];
+  partial: Partial<IDevice>[] = [
+    {
+      isAuthenticated: false,
+      version: '1.0.0',
+    },
+    {
+      serial: '2345',
+      version: '1.0.1',
+    },
+    {
+      isAuthenticated: false,
+      version: '1.0.3',
+    },
+    {
+      serial: '4567',
+      isAuthenticated: true,
+    },
+  ];
 
-  all = [];
+  all = this.onlyRequired;
 
   invalid: IDevice[] = [
     {
