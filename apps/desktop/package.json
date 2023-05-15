@@ -21,7 +21,9 @@
     "pretty": "prettier --write \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "pretty:check": "prettier --check \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "test": "jest",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "rebuild": "electron-rebuild -f -w better-sqlite3",
+    "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
   "author": {

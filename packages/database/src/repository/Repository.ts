@@ -4,6 +4,7 @@ import {
   IRepository,
   DatabaseError,
   DatabaseErrorType,
+  ListenerType,
 } from '@cypherock/db-interfaces';
 import { Database } from 'better-sqlite3';
 import EventEmitter from 'events';
@@ -42,41 +43,35 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   async insert(
     entityLike: Partial<Entity> | Partial<Entity>[],
   ): Promise<Entity[] | Entity> {
-    const entities = this.getVersionedEntities(entityLike);
-    const result: Entity[] = [];
+    this.validateInput(entityLike, true);
+    const entities = this.getVersionedEntities(entityLike).map(entity => ({
+      ...entity,
+      __id: uuidv4(),
+    }));
 
-    for (const entity of entities) {
-      const { __id, ...rest } = entity as Entity;
+    const changes = sqlParser.insertObjects(
+      this.name,
+      this.db,
+      this.schema,
+      entities,
+    );
 
-      if (!__id) {
-        const id = uuidv4();
-        const statement = sqlParser.getInsertStatement(
-          this.name,
-          Object.keys(rest),
-        );
-        const { changes } = this.db
-          .prepare(statement)
-          .run(id, sqlParser.getValuesForSqlite(rest));
-        if (changes === 0) {
-          throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
-        } else {
-          this.emitChange();
-        }
-
-        const inserted = await this.getOne({
-          ...rest,
-          __id: id,
-        } as any);
-        if (inserted) result.push(inserted);
-      } else {
-        throw new DatabaseError(
-          DatabaseErrorType.INVALID_PARAMETER_PROVIDED,
-          '__id parameter should not be present while inserting an entity',
-        );
-      }
+    if (changes === 0) {
+      throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
+    } else {
+      this.emitChange();
     }
 
-    return Array.isArray(entityLike) ? result : result[0];
+    const inserted = await this.getAll(
+      entities.map(
+        entity =>
+          ({
+            __id: entity.__id,
+            __version: entity.__version,
+          } as Partial<Entity>),
+      ),
+    );
+    return Array.isArray(entityLike) ? inserted : inserted[0];
   }
 
   async update(
@@ -84,19 +79,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     searchEntityLike?: Partial<Entity> | Partial<Entity>[] | undefined,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
+    this.validateInput(updateEntity);
     const entity = this.getVersionedEntities(updateEntity)[0];
     const matches = await this.getAll(searchEntityLike, options);
-    const ids = matches.map(match => match.__id ?? '');
+    const ids = matches.map(match => match.__id);
     const { __id, ...rest } = entity;
-    const statement = sqlParser.getUpdateStatement(
-      this.name,
-      Object.keys(rest),
-      ids,
-    );
-    const { changes } = this.db
-      .prepare(statement)
-      .run(sqlParser.getValuesForSqlite(rest), ids);
 
+    const changes = sqlParser.updateObjects(this.name, this.db, ids, rest);
     if (changes === 0) {
       logger.error(
         `Couldn't update entities with ids : ${ids} with id:${__id}`,
@@ -115,10 +104,8 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   }
 
   private createTableIfNotExists(): void {
-    const columns = sqlParser.getSqlTypes(this.schema);
-    const statement = sqlParser.getCreateStatement(this.name, columns);
     try {
-      this.db.prepare(statement).run();
+      sqlParser.createTable(this.name, this.db, this.schema);
     } catch (error) {
       throw new DatabaseError(
         DatabaseErrorType.DATABASE_CREATION_FAILED,
@@ -127,10 +114,15 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     }
   }
 
-  private validateInput(entityLike: Partial<Entity>[] | Partial<Entity>): void {
+  private validateInput(
+    entityLike: Partial<Entity>[] | Partial<Entity>,
+    isNotPartial?: boolean,
+  ): void {
     const entityArray = Array.isArray(entityLike) ? entityLike : [entityLike];
     for (const entity of entityArray) {
-      const result = this.validatorSchema.partial().safeParse(entity);
+      let result;
+      if (isNotPartial) result = this.validatorSchema.safeParse(entity);
+      else result = this.validatorSchema.partial().safeParse(entity);
       if (!result.success)
         throw new DatabaseError(
           DatabaseErrorType.INPUT_VALIDATION_FAILED,
@@ -154,10 +146,9 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     options?: IGetOptions<Entity>,
   ): Promise<Entity[] | Entity | undefined> {
     const rows = await this.getAll(entityLike, options);
-    const ids = rows.map(row => row.__id ?? '');
+    const ids = rows.map(row => row.__id);
 
-    const statement = sqlParser.getDeleteStatement(this.name, ids);
-    const { changes } = this.db.prepare(statement).run(ids);
+    const changes = sqlParser.removeObjects(this.name, this.db, ids);
     if (changes === 0 && ids.length > 0) {
       throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
     } else {
@@ -169,34 +160,30 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   async getAll(
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
-  ): Promise<Entity[]> {
+  ): Promise<(Entity & Required<IEntity>)[]> {
+    if (entityLike) this.validateInput(entityLike);
     const entities = entityLike ? this.getVersionedEntities(entityLike) : [];
-    const columnArray = entities.map(entity => Object.keys(entity));
 
-    const statement = sqlParser.getSelectStatement(
+    const result = sqlParser.selectObjects(
       this.name,
-      columnArray,
+      this.db,
+      entities,
       options,
     );
 
-    const result = this.db
-      .prepare(statement)
-      .all(entities.flatMap(entity => sqlParser.getValuesForSqlite(entity)));
-
-    return sqlParser.getInterfaceObj(result, this.schema);
+    return sqlParser.getInterfaceObj(result, this.schema) as any;
   }
 
   async getOne(
     entityLike: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
-  ): Promise<Entity | undefined> {
+  ): Promise<(Entity & Required<IEntity>) | undefined> {
     return (await this.getAll(entityLike, { ...options, limit: 1 }))[0];
   }
 
   private getVersionedEntities(
     entityLike: Partial<Entity> | Partial<Entity>[],
   ): Partial<Entity>[] {
-    this.validateInput(entityLike);
     const isArray = Array.isArray(entityLike);
     const entityArray = isArray ? entityLike : [entityLike];
     const versionError = (entity: Partial<Entity>) =>
@@ -213,18 +200,15 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     return result;
   }
 
-  addListener(type: string | symbol, listener: (...args: any[]) => void): void {
+  addListener(type: ListenerType, listener: (...args: any[]) => void): void {
     this.emitter.addListener(type, listener);
   }
 
-  removeListener(
-    type: string | symbol,
-    listener: (...args: any[]) => void,
-  ): void {
+  removeListener(type: ListenerType, listener: (...args: any[]) => void): void {
     this.emitter.removeListener(type, listener);
   }
 
-  removeAllListener(type?: string | symbol | undefined): void {
+  removeAllListener(type?: ListenerType): void {
     this.emitter.removeAllListeners(type);
   }
 

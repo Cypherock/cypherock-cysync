@@ -1,40 +1,75 @@
 import { IGetOptions, ObjectLiteral } from '@cypherock/db-interfaces';
+import { Database } from 'better-sqlite3';
 import { ITableSchema, typeMap } from './types';
 
 export const sqlParser = {
-  getCreateStatement(tableName: string, tableColumns: string[]) {
-    return `CREATE TABLE IF NOT EXISTS \`${tableName}\` ( __id TEXT PRIMARY KEY, __version NUMERIC NOT NULL, ${tableColumns.join(
+  createTable<T>(tableName: string, db: Database, schema: ITableSchema<T>) {
+    const tableColumns = this.getSqlTypes(schema);
+    const statement = `CREATE TABLE IF NOT EXISTS \`${tableName}\` ( __id TEXT PRIMARY KEY, __version NUMERIC NOT NULL, ${tableColumns.join(
       ', ',
     )})`;
+    db.prepare(statement).run();
   },
 
-  getInsertStatement(tableName: string, tableColumns: string[]) {
-    return `INSERT INTO \`${tableName}\` ( __id, ${tableColumns.join(
+  insertObjects<T>(
+    tableName: string,
+    db: Database,
+    schema: ITableSchema<T>,
+    entities: ObjectLiteral[],
+  ) {
+    const tableColumns = [...Object.keys(schema), '__version', '__id'];
+    const statement = `INSERT INTO \`${tableName}\` ( ${tableColumns.join(
       ', ',
-    )}) VALUES (?, ${tableColumns.map(() => '?').join(', ')})`;
+    )}) VALUES ${entities
+      .map(() => `(${tableColumns.map(() => '?').join(', ')})`)
+      .join(', ')}`;
+
+    const values = entities.flatMap(entity =>
+      this.getValuesForSqliteByColumns(entity, tableColumns),
+    );
+    const { changes } = db.prepare(statement).run(values);
+    return changes;
   },
 
-  getUpdateStatement(tableName: string, tableColumns: string[], ids: string[]) {
-    return `UPDATE \`${tableName}\` SET ${tableColumns
-      .map(key => `${key} = ?`)
-      .join(', ')} WHERE __id IN (${ids.map(() => '?').join(', ')})`;
+  updateObjects(
+    tableName: string,
+    db: Database,
+    ids: string[],
+    entity: ObjectLiteral,
+  ) {
+    const updateStatement = (tableColumns: string[]) =>
+      `UPDATE \`${tableName}\` SET ${tableColumns
+        .map(key => `${key} = ?`)
+        .join(', ')} WHERE __id IN (${ids.map(() => '?').join(', ')})`;
+
+    const statement = updateStatement(Object.keys(entity));
+    const { changes } = db
+      .prepare(statement)
+      .run(this.getValuesForSqlite(entity), ids);
+    return changes;
   },
 
-  getDeleteStatement(tableName: string, ids: string[]) {
-    return `DELETE FROM \`${tableName}\` WHERE __id IN (${ids
+  removeObjects(tableName: string, db: Database, ids: string[]) {
+    const statement = `DELETE FROM \`${tableName}\` WHERE __id IN (${ids
       .map(() => '?')
       .join(', ')})`;
+    const { changes } = db.prepare(statement).run(ids);
+    return changes;
   },
 
-  getSelectStatement<T>(
+  selectObjects<T>(
     tableName: string,
-    tableColumns: string[][],
+    db: Database,
+    entities: ObjectLiteral[],
     options?: IGetOptions<T>,
   ) {
+    const columnArray = entities.map(entity => Object.keys(entity));
     const whereClause =
-      tableColumns.length > 0
-        ? `WHERE ${tableColumns
-            .map(entity => entity.map(key => `${key} LIKE ?`).join(' AND '))
+      entities.length > 0
+        ? `WHERE ${columnArray
+            .map(entity =>
+              entity.map((key: string) => `${key} LIKE ?`).join(' AND '),
+            )
             .join(' OR ')}`
         : '';
     const orderByClause = options?.sortBy
@@ -43,7 +78,13 @@ export const sqlParser = {
         }`
       : '';
     const limitClause = options?.limit ? `LIMIT ${options.limit}` : '';
-    return `SELECT * FROM \`${tableName}\` ${whereClause} ${orderByClause} ${limitClause}`;
+    const statement = `SELECT * FROM \`${tableName}\` ${whereClause} ${orderByClause} ${limitClause}`;
+
+    const result = db
+      .prepare(statement)
+      .all(entities.flatMap(entity => this.getValuesForSqlite(entity)));
+
+    return result;
   },
 
   getValuesForSqlite(obj?: ObjectLiteral): any[] {
@@ -53,6 +94,19 @@ export const sqlParser = {
         const value = obj[key];
         values.push(typeMap[typeof value].sqlSerializer(value));
       }
+    }
+    return values;
+  },
+
+  getValuesForSqliteByColumns(
+    obj: ObjectLiteral,
+    columnArray: string[],
+  ): any[] {
+    const values: any[] = [];
+
+    for (const key of columnArray) {
+      const value = obj[key];
+      values.push(typeMap[typeof value].sqlSerializer(value));
     }
     return values;
   },
