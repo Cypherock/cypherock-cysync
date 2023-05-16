@@ -1,11 +1,11 @@
-// import sysync from "@assets/images/logo-small.png";
-// import sysyncbig from "@assets/images/logo-big.png";
-
 import {
   AsideContainer,
   Container,
   Flex,
+  Image,
   Typography,
+  cysyncLogoBig,
+  cysyncLogoSmall,
 } from '@cypherock/cysync-ui';
 import React, { ReactElement } from 'react';
 
@@ -13,11 +13,12 @@ export const Aside = (): ReactElement => (
   <AsideContainer
     bgColor="sideBar"
     size="lg"
+    height="screen"
     direction="column"
     justify="space-between"
     align="center"
   >
-    {/* <Image src={sysync} alignSelf="start" /> */}
+    <Image src={cysyncLogoSmall} alt="logo" alignSelf="start" />
     <Flex direction="column" align="center">
       <Container
         bgColor="list"
@@ -28,7 +29,7 @@ export const Aside = (): ReactElement => (
         pt={5}
         mb={3}
       >
-        {/* <Image src={sysyncbig} /> */}
+        <Image src={cysyncLogoBig} alt="logo" />
       </Container>
 
       <Typography variant="h3" color="gold" mb={7}>

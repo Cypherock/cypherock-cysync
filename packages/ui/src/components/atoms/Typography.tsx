@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import {
@@ -65,9 +64,12 @@ ${props =>
       color: ${({ theme }) => theme.palette.success.main};
     `}
 
-  ${props => props.color && `color: ${props.theme.palatte.text[props.color]}`}
+  // default case if no color is passed.
+  // the color is derived from the theme.
 
-  ${props => props.textAlign && `text-align: ${props.textAlign}`}
+  ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
+
+  ${props => props.textAlign && `text-align: ${props.textAlign};`}
 
   max-width: 100%;
 `;
@@ -164,7 +166,7 @@ interface TypographyProps extends HeadingProps {
 }
 
 export const Typography = ({
-  variant,
+  variant = 'p',
   children,
   ...props
 }: TypographyProps) => {
@@ -187,4 +189,11 @@ export const Typography = ({
     default:
       return <PStyle {...props}>{children}</PStyle>;
   }
+};
+
+Typography.defaultProps = {
+  variant: 'p',
+  children: null,
+  color: 'heading',
+  textAlign: 'left',
 };

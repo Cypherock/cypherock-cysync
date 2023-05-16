@@ -6,6 +6,9 @@ export type ThemeType = typeof theme;
 
 export const theme = {
   palette: {
+    bullet: {
+      white: colors.bullet.white,
+    },
     primary: {
       primary: colors.gradients.gradientPrimary,
     },
@@ -22,9 +25,9 @@ export const theme = {
       main: colors.success.main,
     },
     text: {
-      textHeading: colors.text.headingText,
-      textList: colors.text.listText,
-      textMuted: colors.text.mutedText,
+      heading: colors.text.heading,
+      list: colors.text.list,
+      muted: colors.text.muted,
     },
     background: {
       progressBarBackground: colors.background.progressBarBackground,
@@ -98,6 +101,7 @@ export const theme = {
       spacing: spacing.twelve,
     },
   },
+
   shadow: {
     popupShadow: colors.shadow.popupShadow,
   },

@@ -12,6 +12,7 @@ export const width = css<WidthProps>`
       const value = props.width!.substring(0, props.width.length - 1);
       return `width : ${value}%;`;
     }
-    return `width: ${props.width}px;`;
+    if (props.width) return `width: ${props.width}px;`;
+    return null;
   }}
 `;

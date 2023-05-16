@@ -1,4 +1,7 @@
 export const colors = {
+  bullet: {
+    white: '#ffffff',
+  },
   gradients: {
     gradientPrimary:
       'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
@@ -18,9 +21,9 @@ export const colors = {
     main: '#51C61A',
   },
   text: {
-    headingText: '#FFFFFF',
-    listText: '#827B77',
-    mutedText: '#8B8682',
+    heading: '#FFFFFF',
+    list: '#827B77',
+    muted: '#8B8682',
   },
   background: {
     progressBarBackground: '#1F1915',

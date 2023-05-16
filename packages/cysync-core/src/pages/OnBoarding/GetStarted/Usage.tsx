@@ -8,15 +8,15 @@ import {
   DialogueBoxContainer,
   DialogueBoxFooter,
   Flex,
+  Image,
   Modal,
   Typography,
+  addWalletIcon,
+  closeIcon,
+  importWalletIcon,
+  recoverWalletIcon,
 } from '@cypherock/cysync-ui';
 import { Aside } from './Aside';
-
-// import close from "@/assets/images/close.png";
-// import addwallet from "@/assets/images/add-wallet.png";
-// import importwallet from "@/assets/images/import-wallet.png";
-// import recoverwallet from "@/assets/images/recover-wallet.png";
 
 export const Usage = (): ReactElement => {
   const [popup, setPopup] = useState(false);
@@ -74,9 +74,12 @@ export const Usage = (): ReactElement => {
                     <Typography color="muted">Help</Typography>
                     <Typography color="gold">?</Typography>
                   </Flex>
-                  {/* <div onClick={() => setPopup(wasOpen => !wasOpen)}>
-                    <Image src={close} />
-                  </div> */}
+                  <button
+                    type="button"
+                    onClick={() => setPopup(wasOpen => !wasOpen)}
+                  >
+                    <Image src={closeIcon} alt="close" />
+                  </button>
                 </Flex>
 
                 <Typography variant="h5" color="heading" mb={7}>
@@ -87,7 +90,7 @@ export const Usage = (): ReactElement => {
                 <Flex gap={2}>
                   <DialogueBoxContainer>
                     <DialogueBoxBody>
-                      {/* <Image src={addwallet} mb="mbFour" /> */}
+                      <Image src={addWalletIcon} alt="addWallet" mb={4} />
                       <Typography variant="h6" color="heading" mb={5}>
                         Create a new wallet
                       </Typography>
@@ -114,7 +117,7 @@ export const Usage = (): ReactElement => {
 
                   <DialogueBoxContainer>
                     <DialogueBoxBody>
-                      {/* <Image src={importwallet} mb="mbFour" /> */}
+                      <Image src={importWalletIcon} alt="importWallet" mb={4} />
                       <Typography variant="h6" color="heading" mb={5}>
                         Import your wallet from a seed phrase
                       </Typography>
@@ -166,7 +169,7 @@ export const Usage = (): ReactElement => {
                 </Flex>
 
                 <Flex gap={2} align="center" mt={8}>
-                  {/* <Image src={recoverwallet}/> */}
+                  <Image src={recoverWalletIcon} alt="recoverWallet" />
                   <Flex direction="column" ml={2}>
                     <Typography variant="h5" color="heading" textAlign="left">
                       Transfer from old to new Cypherock X1

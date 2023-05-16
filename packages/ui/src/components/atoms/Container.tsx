@@ -15,7 +15,6 @@ interface ContainerProps extends UtilsProps {
 
 const ContainerStyle = styled.div`
   ${utils}
-  height: 100vh;
   width: 100%;
   padding: 40px;
   display: flex;

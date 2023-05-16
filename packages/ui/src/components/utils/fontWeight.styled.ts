@@ -24,5 +24,5 @@ const fontWeightObj = {
 };
 
 export const fontWeight = css<FontWeightProps>`
-  ${props => `font-weight: ${props.font && fontWeightObj[props.font]}`};
+  ${props => props.font && `font-weight: ${fontWeightObj[props.font]};`};
 `;

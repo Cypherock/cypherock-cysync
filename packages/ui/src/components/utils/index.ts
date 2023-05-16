@@ -8,6 +8,7 @@ import { position, PositionProps } from './position.styled';
 import { width, WidthProps } from './width.styled';
 import { bgColor, BgColorProps } from './bgColor.styled';
 import { margin, MarginProps, padding, PaddingProps } from './spacing.styled';
+import { height, HeightProps } from './height.styled';
 
 export interface UtilsProps
   extends BgColorProps,
@@ -19,19 +20,21 @@ export interface UtilsProps
     PaddingProps,
     WidthProps,
     AlignSelfProps,
-    DisplayProps {}
+    DisplayProps,
+    HeightProps {}
 
 export const utils = css<UtilsProps>`
-  ${bgColor};
-  ${borderRadius};
-  ${flex};
-  ${fontWeight};
-  ${position};
-  ${margin};
-  ${padding};
-  ${width};
-  ${display};
-  ${alignSelf};
+  ${bgColor}
+  ${borderRadius}
+  ${flex}
+  ${fontWeight}
+  ${position}
+  ${margin}
+  ${padding}
+  ${width}
+  ${height}
+  ${display}
+  ${alignSelf}
 `;
 
 export * from './borderRadius.styled';

@@ -19,5 +19,5 @@ const alignSelfObj: Record<string, string> = {
 export const alignSelf = css<AlignSelfProps>`
   ${props =>
     props.alignSelf &&
-    `align-self: ${alignSelfObj[props.alignSelf] ?? props.alignSelf}`}
+    `align-self: ${alignSelfObj[props.alignSelf] ?? props.alignSelf};`}
 `;
