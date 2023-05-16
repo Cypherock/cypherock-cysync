@@ -1,12 +1,12 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
-import { setupIPC } from './ipc';
+import { setupIPCHandlers } from './ipc';
 import { config } from './utils/config';
 import logger from './utils/logger';
 
 function prepareApp() {
-  setupIPC(ipcMain);
+  setupIPCHandlers(ipcMain);
 }
 
 export default function createApp() {

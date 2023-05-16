@@ -20,7 +20,8 @@
     "test": "turbo run test",
     "pre-commit": "turbo run pre-commit --concurrency=1",
     "prepare": "husky install",
-    "clean": "node scripts/clean.js && bash ./scripts/clean.sh"
+    "clean": "node scripts/clean.js && bash ./scripts/clean.sh",
+    "build:submodules": "node scripts/submodules.js build"
   },
   "keywords": [],
   "license": "ISC",

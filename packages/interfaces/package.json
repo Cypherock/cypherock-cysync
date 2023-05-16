@@ -36,5 +36,8 @@
     "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@cypherock/sdk-interfaces": "^0.0.1"
   }
 }

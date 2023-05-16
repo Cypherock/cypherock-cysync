@@ -8,20 +8,16 @@ import winston from 'winston';
 
 import { config } from './config';
 
-const loggerConfig: Record<string, winston.transport> = {
-  console: new winston.transports.Console(),
-};
-
-const transports = [loggerConfig.console];
+const transports: any[] = [new winston.transports.Console()];
 
 if (config.USER_DATA_PATH) {
-  loggerConfig.file = new winston.transports.File({
+  const fileConfig = new winston.transports.File({
     filename: `${config.USER_DATA_PATH}/CySync.log`,
     maxsize: 10 * 1024 * 1024, // in bytes
     tailable: true,
     maxFiles: 1,
   });
-  transports.push(loggerConfig.file);
+  transports.push(fileConfig);
 }
 
 const logger = winston.createLogger({
