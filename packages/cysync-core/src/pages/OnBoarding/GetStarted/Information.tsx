@@ -27,33 +27,33 @@ export const Information = (): ReactElement => (
           <Container bgColor="list" direction="column">
             <ListContainer width="full">
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   You are present in a safe and secure environment
                 </Typography>
               </ListItem>
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   You have atleast 15-30 minutes to setup your wallet
                 </Typography>
               </ListItem>
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   You have an active internet connection
                 </Typography>
               </ListItem>
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   The tamper-proof seal of the package is intact
                 </Typography>
               </ListItem>
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   Cypherock will never ask you for your seed phrase nor will it
                   ever ask you to sign a transaction{' '}
                 </Typography>
               </ListItem>
               <ListItem width="full">
-                <Typography variant="h5" color="muted" textAlign="left">
+                <Typography variant="h6" color="muted" textAlign="left" mb={2}>
                   Cypherock will only email you from cypherock.com. Do not trust
                   any email from any other website domain{' '}
                 </Typography>
