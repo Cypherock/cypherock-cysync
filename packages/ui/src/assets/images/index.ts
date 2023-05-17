@@ -7,6 +7,7 @@ import recoverWalletIcon from './common/recover-wallet.png';
 import asideIcon from './common/aside.png';
 import termsProgressIcon from './common/terms-progress.png';
 import backIcon from './common/back.png';
+import cardProgressIcon from './common/card-progress.png';
 
 export {
   addWalletIcon,
@@ -18,4 +19,5 @@ export {
   importWalletIcon,
   recoverWalletIcon,
   termsProgressIcon,
+  cardProgressIcon,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import {
+  DeviceAuthTest,
   Information,
   Terms,
   ThemeProvider,
@@ -17,10 +18,11 @@ const App = () => (
     <Router>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Information />} />
+        <Route path="/" element={<DeviceAuthTest />} />
         <Route path="/usage" element={<Usage />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/termsOfUse" element={<Terms />} />
+        <Route path="/deviceAuthTest" element={<Information />} />
       </Routes>
     </Router>
   </ThemeProvider>

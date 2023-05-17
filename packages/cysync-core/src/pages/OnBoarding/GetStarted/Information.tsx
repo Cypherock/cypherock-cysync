@@ -16,7 +16,6 @@ import { Aside } from './Aside';
 export const Information = (): ReactElement => (
   <Flex gap={0}>
     <Aside />
-
     <Container bgColor="contentGratient">
       <DialogueBoxContainer lg>
         <DialogueBoxBody>

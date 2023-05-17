@@ -45,8 +45,7 @@
     "@cypherock/cysync-utils": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1",
-    "styled-components": "^6.0.0-rc.1"
+    "react-router-dom": "^6.11.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

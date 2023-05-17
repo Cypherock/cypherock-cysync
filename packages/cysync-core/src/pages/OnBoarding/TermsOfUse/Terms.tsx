@@ -13,14 +13,14 @@ import {
   Typography,
   backIcon,
 } from '@cypherock/cysync-ui';
-import { AsideTerms } from './Aside';
+import { Aside } from './Aside';
 import { termsLinkImage } from '../../../assets/images/onboarding';
 
 export const Terms = (): ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Flex gap={0}>
-      <AsideTerms />
+      <Aside />
       <Container bgColor="contentGratient">
         <Flex position="absolute" top={3} right={3}>
           <Typography color="muted">Help</Typography>

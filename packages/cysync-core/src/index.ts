@@ -1,4 +1,3 @@
-export * from './pages/OnBoarding/GetStarted';
-export * from './pages/OnBoarding/TermsOfUse';
+export * from './pages';
 export { updateLogger } from './utils/logger';
 export * from './theme';

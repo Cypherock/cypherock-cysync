@@ -4,10 +4,10 @@ import {
   Flex,
   Image,
   Typography,
-  asideIcon,
+  cardProgressIcon,
   cysyncLogoSmall,
-  termsProgressIcon,
 } from '@cypherock/cysync-ui';
+import { deviceImage } from '../../../assets/images/onboarding';
 
 export const Aside = (): ReactElement => (
   <AsideContainer
@@ -19,20 +19,20 @@ export const Aside = (): ReactElement => (
   >
     <Image src={cysyncLogoSmall} alt="logo" alignSelf="start" />
     <Flex direction="column" align="center">
-      <Image src={asideIcon} alt="aside" />
+      <Image src={deviceImage} alt="device" />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
         variant="h2"
         color="silver"
-        width="full"
+        width="wFull"
         textAlign="center"
         mb={3}
         font="medium"
       >
-        Terms of Use
+        Device Authentication
       </Typography>
-      <Image src={termsProgressIcon} alt="termsProgress" />
+      <Image src={cardProgressIcon} alt="cardProgress" />
     </Flex>
   </AsideContainer>
 );
