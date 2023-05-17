@@ -20,7 +20,7 @@ export const Information = (): ReactElement => (
     <Container bgColor="contentGratient">
       <DialogueBoxContainer lg>
         <DialogueBoxBody>
-          <Typography variant="h5" color="heading" mb={6}>
+          <Typography variant="h5" color="heading" mb={6} textAlign="center">
             Ensure the following before you continue
           </Typography>
 
