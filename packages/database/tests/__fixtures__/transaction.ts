@@ -4,7 +4,7 @@ import {
   ITransactionRepository,
 } from '@cypherock/db-interfaces';
 import { ITestClass } from './types';
-import { DefaultFields } from '../../src/entity/types';
+import { BaseFields } from '../../src/entity/types';
 
 class TransactionData implements ITestClass<ITransaction> {
   name = 'Transaction';
@@ -147,7 +147,7 @@ class TransactionData implements ITestClass<ITransaction> {
     },
   ];
 
-  all: Required<Omit<ITransaction, DefaultFields>>[] = [
+  all: Required<Omit<ITransaction, BaseFields>>[] = [
     {
       hash: '0xdc6c72433a898aaf5a808efcd376527d5d07613587a21fe9f59866f7e6b277ac',
       fees: '0.00503734101166152',
@@ -794,6 +794,52 @@ class TransactionData implements ITestClass<ITransaction> {
       parentTransactionId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAccountId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAssetId: 90 as any,
+    },
+  ];
+
+  optionalRandomUndefined?: Partial<ITransaction>[] = [
+    {
+      confirmations: undefined,
+      extraData: undefined,
+      parentTransactionId: undefined,
+      parentAccountId: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      extraData: undefined,
+      parentTransactionId: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      extraData: undefined,
+      parentTransactionId: undefined,
+      parentAccountId: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      confirmations: undefined,
+      extraData: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      confirmations: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      parentAssetId: undefined,
+    },
+    {
+      extraData: undefined,
+      parentAccountId: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      confirmations: undefined,
+      extraData: undefined,
+      parentTransactionId: undefined,
+    },
+    {
+      confirmations: undefined,
     },
   ];
 

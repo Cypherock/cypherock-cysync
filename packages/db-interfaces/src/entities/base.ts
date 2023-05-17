@@ -7,6 +7,7 @@ export interface IEntity {
 }
 
 export type ListenerType = 'change';
+export type ListenerFunction = (...args: any[]) => void;
 export interface IGetOptions<T> {
   /**
    * Sorts the results using the key provided
@@ -33,33 +34,26 @@ export interface IRepository<Entity extends ObjectLiteral> {
   /**
    * Inserts all given entities in the database.
    */
-  insert(entities: Partial<Entity>[]): Promise<Entity[]>;
+  insert(entities: Entity[]): Promise<Entity[]>;
   /**
    * Insert a given entity in the database.
    */
-  insert(entity: Partial<Entity>): Promise<Entity>;
+  insert(entity: Entity): Promise<Entity>;
   /**
    * Update all entities that matches the search entity in the database.
    */
   update(
+    filter: Partial<Entity>[] | Partial<Entity> | undefined,
     updateEntity: Partial<Entity>,
-    searchEntityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]>;
   /**
    * Removes entities matching any of the given entities from the database.
    */
   remove(
-    entityLikes: Partial<Entity>[],
+    entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]>;
-  /**
-   * Removes entities matching the given entity from the database.
-   */
-  remove(
-    entityLike: Partial<Entity>,
-    options?: IGetOptions<Entity>,
-  ): Promise<Entity | undefined>;
 
   /**
    * Fetches all entities from given object from the repository.
@@ -68,7 +62,7 @@ export interface IRepository<Entity extends ObjectLiteral> {
   getAll(
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
-  ): Promise<Entity[]>;
+  ): Promise<(Entity & Required<IEntity>)[]>;
 
   /**
    * Fetches first entity from given object from the repository.
@@ -77,17 +71,17 @@ export interface IRepository<Entity extends ObjectLiteral> {
   getOne(
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
-  ): Promise<Entity | undefined>;
+  ): Promise<(Entity & Required<IEntity>) | undefined>;
 
   /**
    * Adds a listener to the repository for any changes denoted by type
    */
-  addListener(type: ListenerType, listener: (...args: any[]) => void): void;
+  addListener(type: ListenerType, listener: ListenerFunction): void;
 
   /**
    * Removes previously added listener with the given listener and type function if it exists
    */
-  removeListener(type: ListenerType, listener: (...args: any[]) => void): void;
+  removeListener(type: ListenerType, listener: ListenerFunction): void;
   /**
    * Removes all previously added listener with the given type
    */

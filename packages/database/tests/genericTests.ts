@@ -95,9 +95,12 @@ describe('Basic tests', () => {
             ...entity.onlyRequired[1],
           };
 
-          const newStoredObjs = await entity.repo.update(newObj, {
-            __id: storedObj.__id,
-          });
+          const newStoredObjs = await entity.repo.update(
+            {
+              __id: storedObj.__id,
+            },
+            newObj,
+          );
           expect(newStoredObjs.length).toEqual(1);
           expect(newStoredObjs[0]).toEqual({
             ...newObj,
@@ -120,7 +123,7 @@ describe('Basic tests', () => {
             });
           }
 
-          const newStoredObjs = await entity.repo.update(newObj, searchObj);
+          const newStoredObjs = await entity.repo.update(searchObj, newObj);
 
           expect(newStoredObjs.length).toEqual(2);
 
@@ -128,6 +131,33 @@ describe('Basic tests', () => {
             expect(removeBaseFelids(newStoredObjs[i])).toEqual({ ...newObj });
           }
         });
+        if (entity.optionalRandomUndefined) {
+          test('Can update an optional field back to undefined', async () => {
+            entity.repo.setVersion(0);
+            const obj = entity.all[0];
+            const storedObj = await entity.repo.insert(obj);
+            expect(removeBaseFelids(storedObj)).toEqual(obj);
+            for (const testCase of entity.optionalRandomUndefined!) {
+              const newObj = {
+                ...entity.all[0],
+                ...testCase,
+              };
+
+              const newStoredObjs = await entity.repo.update(
+                {
+                  __id: storedObj.__id,
+                },
+                newObj,
+              );
+              expect(newStoredObjs.length).toEqual(1);
+              expect(newStoredObjs[0]).toEqual({
+                ...newObj,
+                __id: storedObj.__id,
+                __version: storedObj.__version,
+              });
+            }
+          });
+        }
       });
 
       describe('getOne', () => {

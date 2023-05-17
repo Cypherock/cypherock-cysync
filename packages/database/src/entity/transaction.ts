@@ -1,7 +1,7 @@
 import { ITransaction } from '@cypherock/db-interfaces';
-import { DefaultFields, ITableDetails } from './types';
+import { BaseFields, ITableDetails } from './types';
 
-export const Transaction: ITableDetails<Omit<ITransaction, DefaultFields>> = {
+export const Transaction: ITableDetails<Omit<ITransaction, BaseFields>> = {
   name: 'transaction',
   schema: {
     hash: { type: 'string' },

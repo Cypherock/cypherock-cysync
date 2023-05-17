@@ -4,7 +4,7 @@ import {
   IAccountRepository,
 } from '@cypherock/db-interfaces';
 import { ITestClass } from './types';
-import { DefaultFields } from '../../src/entity/types';
+import { BaseFields } from '../../src/entity/types';
 
 class AccountData implements ITestClass<IAccount> {
   name = 'Account';
@@ -102,7 +102,7 @@ class AccountData implements ITestClass<IAccount> {
     },
   ];
 
-  all: Required<Omit<IAccount, DefaultFields>>[] = [
+  all: Required<Omit<IAccount, BaseFields>>[] = [
     {
       name: 'Ethereum 1',
       xpubOrAddress: '0xdB352C27f213940BF6F61BccD5e3866A5B05F6a4',
@@ -355,6 +355,31 @@ class AccountData implements ITestClass<IAccount> {
         '2089A2FCAD0B5D7C090B7446CEEE4AF0BF060A4982DC5DC1EABDF26CE15B8CF0',
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: null as any,
+    },
+  ];
+
+  optionalRandomUndefined: Partial<IAccount>[] = [
+    {
+      extraData: undefined,
+      parentAccountId: undefined,
+      parentAssetId: undefined,
+    },
+    {
+      extraData: undefined,
+      parentAccountId: undefined,
+    },
+    {
+      extraData: undefined,
+    },
+    {
+      parentAccountId: undefined,
+    },
+    {
+      parentAssetId: undefined,
+    },
+    {
+      parentAccountId: undefined,
+      parentAssetId: undefined,
     },
   ];
 

@@ -1,7 +1,9 @@
 import { z } from 'zod';
+import { IEntity } from '@cypherock/db-interfaces';
 import { ITableSchema, typeMap } from './types';
+import { BaseSchema } from '../../entity';
 
-export function getValidatorSchema<Entity>(schema: ITableSchema<Entity>) {
+export function getValidators<Entity>(schema: ITableSchema<Entity>) {
   const shape: any = {};
   for (const key in schema) {
     if (Object.prototype.hasOwnProperty.call(schema, key)) {
@@ -11,5 +13,22 @@ export function getValidatorSchema<Entity>(schema: ITableSchema<Entity>) {
       shape[key] = zType;
     }
   }
-  return z.object(shape);
+  for (const key in BaseSchema) {
+    if (Object.prototype.hasOwnProperty.call(BaseSchema, key)) {
+      const value = BaseSchema[key as keyof IEntity];
+      const zType = typeMap[value.type].validator.optional();
+      shape[key] = zType;
+    }
+  }
+  const schemaValidator = z.object(shape);
+  const optionsValidator = z.object({
+    sortBy: z
+      .object({
+        key: schemaValidator.keyof(),
+        descending: z.boolean().optional(),
+      })
+      .optional(),
+    limit: z.number().optional(),
+  });
+  return { schemaValidator, optionsValidator };
 }

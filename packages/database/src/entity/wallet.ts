@@ -1,7 +1,7 @@
 import { IWallet } from '@cypherock/db-interfaces';
-import { DefaultFields, ITableDetails } from './types';
+import { BaseFields, ITableDetails } from './types';
 
-export const Wallet: ITableDetails<Omit<IWallet, DefaultFields>> = {
+export const Wallet: ITableDetails<Omit<IWallet, BaseFields>> = {
   name: 'wallet',
   schema: {
     name: { type: 'string' },

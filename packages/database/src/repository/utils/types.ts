@@ -6,10 +6,7 @@ export type datatype =
   | 'boolean'
   | 'object'
   | 'bigint'
-  | 'function'
-  | 'symbol'
-  | 'array'
-  | 'undefined';
+  | 'array';
 
 interface Type {
   type: datatype;
@@ -33,7 +30,6 @@ const text = 'TEXT';
 const toString: genericFunction = value => value.toString();
 const stringify: genericFunction = value => JSON.stringify(value);
 const JSONparse: genericFunction = value => JSON.parse(value);
-const unknown: genericFunction = () => undefined;
 const noChange: genericFunction = value => value;
 
 export const typeMap: Record<datatype, ITypeParser> = {
@@ -61,12 +57,6 @@ export const typeMap: Record<datatype, ITypeParser> = {
     sqlDeserializer: value => !!value,
     validator: z.boolean(),
   },
-  symbol: {
-    sqlColumnType: text,
-    sqlSerializer: unknown,
-    sqlDeserializer: noChange,
-    validator: z.symbol(),
-  },
   object: {
     sqlColumnType: text,
     sqlSerializer: stringify,
@@ -75,20 +65,8 @@ export const typeMap: Record<datatype, ITypeParser> = {
   },
   array: {
     sqlColumnType: text,
-    sqlSerializer: unknown,
+    sqlSerializer: stringify,
     sqlDeserializer: JSONparse,
     validator: z.any().array(),
-  },
-  function: {
-    sqlColumnType: text,
-    sqlSerializer: unknown,
-    sqlDeserializer: noChange,
-    validator: z.function(),
-  },
-  undefined: {
-    sqlColumnType: text,
-    sqlSerializer: unknown,
-    sqlDeserializer: noChange,
-    validator: z.undefined(),
   },
 };

@@ -37,9 +37,11 @@ describe('Benchmark', () => {
     await transaction.repo.insert(objs);
     const startTime = performance.now();
     const output = await transaction.repo.update(
-      { hash: 'test' } as any,
       undefined,
-      { limit: num },
+      { hash: 'test' } as any,
+      {
+        limit: num,
+      },
     );
     const endTime = performance.now();
     console.log(

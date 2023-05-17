@@ -1,7 +1,7 @@
 import { IDevice } from '@cypherock/db-interfaces';
-import { DefaultFields, ITableDetails } from './types';
+import { BaseFields, ITableDetails } from './types';
 
-export const Device: ITableDetails<Omit<IDevice, DefaultFields>> = {
+export const Device: ITableDetails<Omit<IDevice, BaseFields>> = {
   name: 'device',
   schema: {
     serial: { type: 'string' },
