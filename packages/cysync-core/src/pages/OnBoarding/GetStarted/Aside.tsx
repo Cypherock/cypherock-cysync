@@ -11,17 +11,17 @@ import React, { ReactElement } from 'react';
 
 export const Aside = (): ReactElement => (
   <AsideContainer
-    bgColor="sideBar"
+    $bgColor="sideBar"
     size="lg"
     height="screen"
     direction="column"
     justify="space-between"
     align="center"
   >
-    <Image src={cysyncLogoSmall} alt="logo" alignSelf="start" />
+    <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" align="center">
       <Container
-        bgColor="list"
+        $bgColor="list"
         rounded="full"
         pb={5}
         pl={5}
@@ -42,7 +42,7 @@ export const Aside = (): ReactElement => (
         Your Gateway to Self-Sovereignty
       </Typography>
     </Flex>
-    <Typography color="muted" textAlign="center" width="full">
+    <Typography color="muted" $textAlign="center" width="full">
       ver 2. 314. 3094
     </Typography>
   </AsideContainer>

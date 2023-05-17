@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
+import { $alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
 
 interface ButtonProps
   extends WidthProps,
@@ -66,7 +66,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   ${buttonBaseStyle}
   ${width}
-  ${alignSelf}
+  ${$alignSelf}
 `;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => (

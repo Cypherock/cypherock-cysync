@@ -1,6 +1,7 @@
 import { colors } from './color.styled';
 import { typography } from './typography.styled';
 import { spacing } from './layout.styled';
+import { shadows } from './shadow.styled';
 
 export type ThemeType = typeof theme;
 
@@ -10,10 +11,10 @@ export const theme = {
       white: colors.bullet.white,
     },
     primary: {
-      primary: colors.gradients.gradientPrimary,
+      primary: colors.gradients.primary,
     },
     secondary: {
-      secondary: colors.gradients.gradientSecondary,
+      secondary: colors.gradients.secondary,
     },
     info: {
       main: colors.info.main,
@@ -30,15 +31,17 @@ export const theme = {
       muted: colors.text.muted,
     },
     background: {
-      progressBarBackground: colors.background.progressBarBackground,
-      inputBackground: colors.background.inputBackground,
-      blurBackground: colors.background.blurBackground,
-      sepratorBackground: colors.background.sepratorBackground,
-      contentBackground: colors.gradients.contentGradient,
-      sideBarBackground: colors.gradients.sideBarGradient,
+      progress: colors.background.progressBar,
+      input: colors.background.input,
+      blur: colors.background.blur,
+      primary: colors.gradients.primary,
+      secondary: colors.gradients.secondary,
+      seprator: colors.background.seprator,
+      content: colors.gradients.content,
+      sideBar: colors.gradients.sideBar,
     },
     border: {
-      main: colors.border.popupBorder,
+      popup: colors.border.popup,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -103,6 +106,6 @@ export const theme = {
   },
 
   shadow: {
-    popupShadow: colors.shadow.popupShadow,
+    popup: shadows.popup,
   },
 };

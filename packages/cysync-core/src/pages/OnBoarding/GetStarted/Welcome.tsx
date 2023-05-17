@@ -15,7 +15,7 @@ import { Aside } from './Aside';
 export const Welcome = (): ReactElement => (
   <Flex gap={0}>
     <Aside />
-    <Container bgColor="contentGratient">
+    <Container $bgColor="contentGradient">
       <Flex position="absolute" top={3} right={3}>
         <Typography color="muted">Help</Typography>
         <Typography color="gold">?</Typography>
@@ -29,7 +29,7 @@ export const Welcome = (): ReactElement => (
           <Typography variant="h6" color="muted" mb={6}>
             Make sure the tamper-proof seal of the package was intact
           </Typography>
-          <Container rounded={1} bgColor="list" mb={6}>
+          <Container rounded={1} $bgColor="list" mb={6}>
             <Flex justify="space-between" width="full">
               <Flex direction="column">
                 <Flex align="center" gap={2} mb={2}>
@@ -69,7 +69,7 @@ export const Welcome = (): ReactElement => (
             </Flex>
           </Container>
 
-          <Container rounded={1} bgColor="list" border>
+          <Container rounded={1} $bgColor="list" border="popup">
             <Flex>
               <Typography variant="h6" color="muted">
                 Please email at{' '}

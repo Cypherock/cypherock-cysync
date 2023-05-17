@@ -1,38 +1,53 @@
 import { css } from 'styled-components';
 
 export interface BgColorProps {
-  bgColor?: 'contentGratient' | 'sideBar' | 'list' | 'black' | 'white';
+  $bgColor?:
+    | 'contentGradient'
+    | 'primary'
+    | 'secondary'
+    | 'sideBar'
+    | 'list'
+    | 'black'
+    | 'white';
 }
 
-export const bgColor = css<BgColorProps>`
+export const $bgColor = css<BgColorProps>`
   ${props =>
-    props.bgColor === 'contentGratient' &&
+    props.$bgColor === 'contentGradient' &&
     css`
-      background-image: ${({ theme }) =>
-        theme.palette.background.contentBackground};
+      background-image: ${({ theme }) => theme.palette.background.content};
+    `}
+  ${props =>
+    props.$bgColor === 'primary' &&
+    css`
+      background-image: ${({ theme }) => theme.palette.background.primary};
+    `}
+  ${props =>
+    props.$bgColor === 'secondary' &&
+    css`
+      background-image: ${({ theme }) => theme.palette.background.secondary};
     `}
 
   ${props =>
-    props.bgColor === 'sideBar' &&
+    props.$bgColor === 'sideBar' &&
     css`
-      background-image: ${({ theme }) =>
-        theme.palette.background.sideBarBackground};
+      background-image: ${({ theme }) => theme.palette.background.sideBar};
     `}
 
 ${props =>
-    props.bgColor === 'list' &&
+    props.$bgColor === 'list' &&
     css`
       background-color: #27221d;
     `}
 
 
 ${props =>
-    props.bgColor === 'black' &&
+    props.$bgColor === 'black' &&
     css`
       background-color: #000;
     `}
   ${props =>
-    props.bgColor === 'white' &&
+    props.$bgColor === 'white' &&
     css`
       background-color: #fff;
     `}

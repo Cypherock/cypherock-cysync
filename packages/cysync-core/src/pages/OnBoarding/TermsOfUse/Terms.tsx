@@ -21,7 +21,7 @@ export const Terms = (): ReactElement => {
   return (
     <Flex gap={0}>
       <Aside />
-      <Container bgColor="contentGratient">
+      <Container $bgColor="contentGradient">
         <Flex position="absolute" top={3} right={3}>
           <Typography color="muted">Help</Typography>
           <Typography color="gold">?</Typography>
@@ -37,7 +37,7 @@ export const Terms = (): ReactElement => {
               Policy
             </Typography>
 
-            <Container mb={2} rounded={1} bgColor="list" border>
+            <Container mb={2} rounded={1} $bgColor="list" border="popup">
               <Flex justify="space-between" width="wFull">
                 <Flex align="center" gap={2}>
                   <Bullet size="sm" />
@@ -50,7 +50,7 @@ export const Terms = (): ReactElement => {
               </Flex>
             </Container>
 
-            <Container mb={3} rounded={1} bgColor="list" border>
+            <Container mb={3} rounded={1} $bgColor="list" border="popup">
               <Flex justify="space-between" width="wFull">
                 <Flex align="center" gap={2}>
                   <Bullet size="sm" />
@@ -73,7 +73,7 @@ export const Terms = (): ReactElement => {
                   />
                 </div>
               </CheckBox>
-              <Typography color="muted" textAlign="left" ml={2}>
+              <Typography color="muted" $textAlign="left" ml={2}>
                 I have read and agree with the Terms of Use and Privacy Policy
               </Typography>
             </Flex>

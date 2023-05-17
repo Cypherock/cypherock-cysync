@@ -4,12 +4,7 @@ import { UtilsProps, utils } from '../utils';
 
 interface AsideContainerProps extends UtilsProps {
   children?: ReactNode;
-  borderRadiusOne?: boolean;
-  border?: boolean;
-  scroll?: boolean;
-  roundedListTop?: boolean;
-  roundedListBottom?: boolean;
-  shadow?: boolean;
+
   size?: 'lg';
 }
 
@@ -43,11 +38,6 @@ export const AsideContainer: FC<AsideContainerProps> = ({
 
 AsideContainer.defaultProps = {
   children: null,
-  borderRadiusOne: false,
-  border: false,
-  scroll: false,
-  roundedListTop: false,
-  roundedListBottom: false,
-  shadow: false,
+
   size: 'lg',
 };

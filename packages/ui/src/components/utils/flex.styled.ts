@@ -47,7 +47,7 @@ export const flex = css<FlexProps>`
   display: flex;
   ${justifyContent}
   ${align}
-${content}
-${direction}
-${gap}
+  ${content}
+  ${direction}
+  ${gap}
 `;

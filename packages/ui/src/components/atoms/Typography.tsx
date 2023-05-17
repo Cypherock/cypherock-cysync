@@ -27,7 +27,7 @@ interface HeadingProps
     | 'heading'
     | 'muted'
     | 'list';
-  textAlign?: 'center' | 'left' | 'right';
+  $textAlign?: 'center' | 'left' | 'right';
 }
 
 const baseStyle = css<HeadingProps>`
@@ -69,7 +69,7 @@ ${props =>
 
   ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
 
-  ${props => props.textAlign && `text-align: ${props.textAlign};`}
+  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
 
   max-width: 100%;
 `;
@@ -195,5 +195,5 @@ Typography.defaultProps = {
   variant: 'p',
   children: null,
   color: 'heading',
-  textAlign: 'left',
+  $textAlign: 'left',
 };

@@ -5,7 +5,7 @@ import {
   MarginProps,
   padding,
   PaddingProps,
-  alignSelf,
+  $alignSelf,
   AlignSelfProps,
 } from '../utils';
 
@@ -14,10 +14,12 @@ interface ImageProps extends MarginProps, PaddingProps, AlignSelfProps {
   alt: string;
 }
 
-const ImageStyle = styled.img`
+const ImageStyle = styled.img.withConfig({
+  shouldForwardProp: prop => !['alignSelf'].includes(prop),
+})<ImageProps>`
   ${margin}
   ${padding}
-  ${alignSelf}
+  ${$alignSelf}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (

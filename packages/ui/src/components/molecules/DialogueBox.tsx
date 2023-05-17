@@ -23,7 +23,7 @@ const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
   border-radius: 16px;
   background-image: ${({ theme }) =>
     theme.palette.background.sideBarBackground};
-  box-shadow: ${({ theme }) => theme.shadow.popupShadow};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
   border-color: ${({ theme }) => theme.palette.border.main};
   text-align: center;
 `;
