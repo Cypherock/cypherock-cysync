@@ -14,9 +14,7 @@ interface ImageProps extends MarginProps, PaddingProps, AlignSelfProps {
   alt: string;
 }
 
-const ImageStyle = styled.img.withConfig({
-  shouldForwardProp: prop => !['alignSelf'].includes(prop),
-})<ImageProps>`
+const ImageStyle = styled.img<ImageProps>`
   ${margin}
   ${padding}
   ${$alignSelf}

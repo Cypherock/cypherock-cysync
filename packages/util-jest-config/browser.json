@@ -25,5 +25,8 @@
   "modulePathIgnorePatterns": ["<rootDir>/.stryker-tmp"],
   "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-  "modulePaths": ["<rootDir>"]
+  "modulePaths": ["<rootDir>"],
+  "moduleNameMapper": {
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+  }
 }
