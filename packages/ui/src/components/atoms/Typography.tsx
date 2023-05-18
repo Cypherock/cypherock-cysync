@@ -149,6 +149,17 @@ const SpanStyle = styled.span`
   ${position};
   ${display};
 `;
+const FinePrintStyle = styled.span`
+  font-size: 14px;
+  font-weight: 300;
+  ${baseStyle};
+  ${margin};
+  ${fontWeight};
+  ${width};
+  ${position};
+  ${display};
+`;
+
 const PStyle = styled.p`
   font-size: 16px;
   font-weight: 400;
@@ -162,7 +173,16 @@ const PStyle = styled.p`
 
 interface TypographyProps extends HeadingProps {
   children?: ReactNode;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+  variant?:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'p'
+    | 'span'
+    | 'fineprint';
 }
 
 export const Typography = ({
@@ -185,6 +205,9 @@ export const Typography = ({
       return <HeadingSixStyle {...props}>{children}</HeadingSixStyle>;
     case 'span':
       return <SpanStyle {...props}>{children}</SpanStyle>;
+    case 'fineprint':
+      return <FinePrintStyle {...props}>{children}</FinePrintStyle>;
+
     case 'p':
     default:
       return <PStyle {...props}>{children}</PStyle>;

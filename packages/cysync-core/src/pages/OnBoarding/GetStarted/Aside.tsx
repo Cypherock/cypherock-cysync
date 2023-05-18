@@ -33,16 +33,27 @@ export const Aside = (): ReactElement => (
       </Container>
 
       <Typography variant="h3" color="gold" mb={7}>
-        cySync App
+        CYPHEROCK
       </Typography>
-      <Typography variant="h4" color="silver" font="medium" mb={2}>
-        Welcome to Cypherock
+      <Typography
+        variant="h3"
+        textAlign="center"
+        color="silver"
+        font="medium"
+        mb={2}
+      >
+        Welcome to CySync app
       </Typography>
-      <Typography variant="h6" color="muted">
+      <Typography variant="h5" color="muted" font="light">
         Your Gateway to Self-Sovereignty
       </Typography>
     </Flex>
-    <Typography color="muted" textAlign="center" width="full">
+    <Typography
+      color="muted"
+      textAlign="center"
+      width="full"
+      variant="fineprint"
+    >
       ver 2. 314. 3094
     </Typography>
   </AsideContainer>
