@@ -38,10 +38,7 @@ const BulletStyle = styled.div<BulletProps>`
       border-color: ${({ theme }) => theme.palette.text.textMuted};
       background-color: transparent;
     `}
-
-    // default variant if not specified.
-    // return a white bullet as the default.
-${props =>
+  ${props =>
     !props.variant &&
     css`
       background-color: ${({ theme }) => theme.palette.bullet.white};

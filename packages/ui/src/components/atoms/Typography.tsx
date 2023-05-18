@@ -64,9 +64,6 @@ ${props =>
       color: ${({ theme }) => theme.palette.success.main};
     `}
 
-  // default case if no color is passed.
-  // the color is derived from the theme.
-
   ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
 
   ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
@@ -166,7 +163,7 @@ interface TypographyProps extends HeadingProps {
 }
 
 export const Typography = ({
-  variant = 'p',
+  variant,
   children,
   ...props
 }: TypographyProps) => {

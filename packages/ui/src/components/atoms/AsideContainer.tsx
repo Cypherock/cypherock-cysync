@@ -4,7 +4,6 @@ import { UtilsProps, utils } from '../utils';
 
 interface AsideContainerProps extends UtilsProps {
   children?: ReactNode;
-
   size?: 'lg';
 }
 
@@ -38,6 +37,5 @@ export const AsideContainer: FC<AsideContainerProps> = ({
 
 AsideContainer.defaultProps = {
   children: null,
-
   size: 'lg',
 };

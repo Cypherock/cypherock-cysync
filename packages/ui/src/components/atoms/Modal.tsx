@@ -14,10 +14,6 @@ const ModalStyle = styled.div<ModalProps>`
     css`
       position: ${props.position};
     `}
-  height: 100vh;
-  width: 100%;
-  padding: 40px;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
