@@ -8,7 +8,7 @@ interface AsideContainerProps extends UtilsProps {
 }
 
 const AsideContainerStyle = styled.div<AsideContainerProps>`
-  width: 300px;
+  min-width: 280px;
   min-height: 100vh;
 
   ${props =>
@@ -19,15 +19,13 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
       border-color: ${({ theme }) =>
         theme.palette.background.sepratorBackground};
     `}
-  ${props =>
-    props.size === 'lg'
-      ? css`
-          width: 500px;
-        `
-      : ''}
   padding:48px 42px;
 
   ${utils}
+
+  @media ${({ theme }) => theme.screens.laptopL} {
+    min-width: 500px;
+  }
 `;
 
 export const AsideContainer: FC<AsideContainerProps> = ({

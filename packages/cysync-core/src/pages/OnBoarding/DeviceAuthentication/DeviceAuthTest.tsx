@@ -11,6 +11,7 @@ export const DeviceAuthTest = (): ReactElement => (
       height="screen"
       width="full"
       align="center"
+      position="relative"
       justify="center"
       shadow="popup"
     >
@@ -20,6 +21,8 @@ export const DeviceAuthTest = (): ReactElement => (
         justify="center"
         width="1/2"
         shadow="popup"
+        px={3}
+        py={3}
       >
         <Flex direction="column" gap={26} align="center" justify="center">
           <Image src={loader} alt="loader" />

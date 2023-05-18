@@ -2,10 +2,16 @@ import { colors } from './color.styled';
 import { typography } from './typography.styled';
 import { spacing } from './layout.styled';
 import { shadows } from './shadow.styled';
+import { screens } from './screens.styled';
 
 export type ThemeType = typeof theme;
 
 export const theme = {
+  screens: {
+    laptop: `(min-width: ${screens.laptop})`,
+    laptopL: `(min-width: ${screens.laptopL})`,
+    desktop: `(min-width: ${screens.desktop})`,
+  },
   palette: {
     bullet: {
       white: colors.bullet.white,

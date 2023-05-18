@@ -82,7 +82,7 @@ const HeadingOneStyle = styled.h1<HeadingProps>`
   ${display};
 `;
 
-const HeadingTwoStyle = styled.h2`
+const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
@@ -93,7 +93,7 @@ const HeadingTwoStyle = styled.h2`
   ${display};
 `;
 
-const HeadingThreeStyle = styled.h3`
+const HeadingThreeStyle = styled.h3<HeadingProps>`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
@@ -103,7 +103,7 @@ const HeadingThreeStyle = styled.h3`
   ${display};
 `;
 
-const HeadingFourStyle = styled.h4`
+const HeadingFourStyle = styled.h4<HeadingProps>`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
@@ -136,7 +136,7 @@ const HeadingSixStyle = styled.h6<HeadingProps>`
   ${display};
 `;
 
-const SpanStyle = styled.span`
+const SpanStyle = styled.span<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
@@ -146,7 +146,7 @@ const SpanStyle = styled.span`
   ${position};
   ${display};
 `;
-const FinePrintStyle = styled.span`
+const FinePrintStyle = styled.span<HeadingProps>`
   font-size: 14px;
   font-weight: 300;
   ${baseStyle};
@@ -157,7 +157,7 @@ const FinePrintStyle = styled.span`
   ${display};
 `;
 
-const PStyle = styled.p`
+const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};

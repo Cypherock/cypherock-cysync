@@ -12,14 +12,13 @@ import { deviceImage } from '../../../assets/images/onboarding';
 export const Aside = (): ReactElement => (
   <AsideContainer
     $bgColor="sideBar"
-    size="lg"
     direction="column"
     justify="space-between"
     align="center"
   >
     <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" align="center">
-      <Image src={deviceImage} alt="device" />
+      <Image src={deviceImage} alt="device" width="full" />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
