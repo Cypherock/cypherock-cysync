@@ -4,7 +4,7 @@ import { SDK } from '@cypherock/sdk-core';
 import { coinList } from '@cypherock/coins';
 import logger from '../../../utils/logger';
 import { useDevice } from '../../../context';
-import { DeviceConnectionState } from '../../../context/device/helpers';
+import { DeviceConnectionStatus } from '../../../context/device/helpers';
 
 export const Splash = (): ReactElement => {
   const { connection } = useDevice();
@@ -20,12 +20,10 @@ export const Splash = (): ReactElement => {
         </Button>
       </div>
       <div style={{ whiteSpace: 'pre-line' }}>
-        {(!connection ||
-          connection?.state === DeviceConnectionState.NOT_CONNECTED) &&
-          `No device connected`}
-        {connection?.state === DeviceConnectionState.CONNECTED &&
+        {!connection && `No device connected`}
+        {connection?.status === DeviceConnectionStatus.CONNECTED &&
           `Device connected: ${JSON.stringify(connection, undefined, 2)}`}
-        {connection?.state === DeviceConnectionState.UNKNOWN_ERROR &&
+        {connection?.status === DeviceConnectionStatus.UNKNOWN_ERROR &&
           `Error connecting device: ${JSON.stringify(
             connection,
             undefined,

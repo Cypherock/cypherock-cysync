@@ -8,7 +8,7 @@ import { createLoggerWithPrefix } from '../../utils/logger';
 import { useStateWithRef } from '../../hooks/useStateWithRef';
 import {
   createDeviceConnectionInfo,
-  DeviceConnectionState,
+  DeviceConnectionStatus,
   DEVICE_LISTENER_INTERVAL,
   IDeviceConnectionInfo,
   IDeviceConnectionRetry,
@@ -56,7 +56,7 @@ export const DeviceProvider: React.FC<Props> = ({
   ) => {
     const deviceConnectionInfo = createDeviceConnectionInfo(
       device,
-      DeviceConnectionState.CONNECTED,
+      DeviceConnectionStatus.CONNECTED,
       info,
     );
     setConnectionInfo(deviceConnectionInfo);
@@ -82,7 +82,7 @@ export const DeviceProvider: React.FC<Props> = ({
       setConnectionInfo(
         createDeviceConnectionInfo(
           device,
-          action.state ?? DeviceConnectionState.UNKNOWN_ERROR,
+          action.state ?? DeviceConnectionStatus.UNKNOWN_ERROR,
         ),
       );
     } else if (action.type === 'retry') {

@@ -13,8 +13,7 @@ import { uint8ArrayToHex } from '@cypherock/sdk-utils';
 export const DEVICE_LISTENER_INTERVAL = 1000;
 export const MAX_CONNECTION_RETRY = 3;
 
-export enum DeviceConnectionState {
-  NOT_CONNECTED,
+export enum DeviceConnectionStatus {
   CONNECTED,
   UPDATE_REQUIRED,
   UNKNOWN_ERROR,
@@ -29,7 +28,7 @@ export interface IDeviceConnectionInfo {
   isMain: boolean;
   isInitial: boolean;
   isBootloader: boolean;
-  state: DeviceConnectionState;
+  status: DeviceConnectionStatus;
 }
 
 export interface IDeviceConnectionRetry {
@@ -73,11 +72,11 @@ export const getDeviceState = (
 
 export const createDeviceConnectionInfo = (
   device: IDevice,
-  state: DeviceConnectionState,
+  state: DeviceConnectionStatus,
   info?: IGetDeviceInfoResultResponse,
 ): IDeviceConnectionInfo => ({
   device,
-  state,
+  status: state,
   firmwareVersion: info?.firmwareVersion
     ? `${info.firmwareVersion.major}.${info.firmwareVersion.minor}.${info.firmwareVersion.patch}`
     : undefined,
@@ -145,7 +144,7 @@ export const tryEstablishingDeviceConnection = async (
 
 export interface IDeviceConnectionErrorAction {
   type: 'error' | 'retry';
-  state?: DeviceConnectionState;
+  state?: DeviceConnectionStatus;
   updatedRetry?: IDeviceConnectionRetry;
 }
 
@@ -157,7 +156,7 @@ export const parseDeviceConnectionError = (
   let action: IDeviceConnectionErrorAction;
 
   if ((connectionRetry?.retries ?? 0) >= MAX_CONNECTION_RETRY) {
-    action = { type: 'error', state: DeviceConnectionState.UNKNOWN_ERROR };
+    action = { type: 'error', state: DeviceConnectionStatus.UNKNOWN_ERROR };
   } else {
     const isSameDeviceRetry = connectionRetry
       ? checkIfSameDevice(connectionRetry.device, device)

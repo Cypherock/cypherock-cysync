@@ -16,7 +16,7 @@
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.5",
     "@cypherock/eslint-config": "workspace:^",
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
@@ -27,7 +27,7 @@
     "@stryker-mutator/typescript-checker": "^6.4.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/jest": "^29.5.0",
+    "@types/jest": "^29.5.1",
     "@types/node": "18.15.11",
     "@types/prop-types": "^15.7.5",
     "@types/react": "^18.0.33",
@@ -35,9 +35,9 @@
     "eslint": "^8.38.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.7",
-    "rimraf": "^5.0.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
     "ts-jest": "^29.0.5",
     "typescript": "^5.0.4"
   },
@@ -46,14 +46,14 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-ui": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.1",
-    "@cypherock/sdk-core": "^0.0.1",
-    "@cypherock/sdk-interfaces": "^0.0.1",
-    "@cypherock/sdk-utils": "^0.0.1",
+    "@cypherock/sdk-app-manager": "^0.0.3",
+    "@cypherock/sdk-core": "^0.0.3",
+    "@cypherock/sdk-interfaces": "^0.0.3",
+    "@cypherock/sdk-utils": "^0.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
