@@ -34,11 +34,10 @@ export interface IDeviceConnectionInfo {
 export interface IDeviceConnectionRetry {
   device: IDevice;
   retries: number;
-  maxTriesExceeded: boolean;
 }
 
 export interface IParseDeviceAction {
-  type: 'not-connected' | 'try-connection';
+  type: 'disconnected' | 'try-connection';
   device?: IDevice;
 }
 
@@ -93,7 +92,7 @@ export const parseNewDevices = (
 
   if (devices.length <= 0) {
     if (connectionInfo || connectionRetry) {
-      actions.push({ type: 'not-connected' });
+      actions.push({ type: 'disconnected' });
     }
   } else {
     const isNewDeviceConnected = !connectionInfo;
@@ -102,16 +101,10 @@ export const parseNewDevices = (
 
     // Connected device is removed
     if (connectionInfo && !isSameDeviceStillConnected) {
-      actions.push({ type: 'not-connected' });
+      actions.push({ type: 'disconnected' });
     }
 
-    if (
-      connectionRetry &&
-      checkIfDeviceInList(devices, connectionRetry.device) &&
-      connectionRetry.maxTriesExceeded
-    ) {
-      // Do not retry
-    } else if (isNewDeviceConnected || !isSameDeviceStillConnected) {
+    if (isNewDeviceConnected || !isSameDeviceStillConnected) {
       actions.push({ type: 'try-connection', device: devices[0] });
     }
   }
@@ -165,7 +158,6 @@ export const parseDeviceConnectionError = (
     const updatedRetry: IDeviceConnectionRetry = {
       device,
       retries: isSameDeviceRetry ? (connectionRetry?.retries ?? 0) + 1 : 1,
-      maxTriesExceeded: false,
     };
     action = { type: 'retry', updatedRetry };
   }

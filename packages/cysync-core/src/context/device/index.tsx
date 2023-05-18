@@ -86,7 +86,7 @@ export const DeviceProvider: React.FC<Props> = ({
         ),
       );
     } else if (action.type === 'retry') {
-      logger.info('Retrying device connection...', { device });
+      logger.info('Will retry device connection in next iteration');
       connectionRetryRef.current = action.updatedRetry;
     }
   };
@@ -102,7 +102,7 @@ export const DeviceProvider: React.FC<Props> = ({
 
     let isConnecting = false;
     for (const action of actions) {
-      if (action.type === 'not-connected') {
+      if (action.type === 'disconnected') {
         logger.info('Connected device was removed');
         markDeviceAsNotConnected();
       } else if (action.type === 'try-connection' && action.device) {
@@ -118,12 +118,11 @@ export const DeviceProvider: React.FC<Props> = ({
 
   const tryToConnect = async (device: IDevice) => {
     try {
-      logger.info('Tyring to establish device connection', { device });
+      logger.info('Trying to establish device connection', { device });
       const info = await tryEstablishingDeviceConnection(connectDevice, device);
       markDeviceAsConnected(device, info);
     } catch (error) {
-      logger.warn('Error connecting device', { device });
-      logger.warn(error, error);
+      logger.warn('Error connecting device', { device, error });
       markDeviceAsConnectionError(device, error);
     } finally {
       restartDeviceListener();

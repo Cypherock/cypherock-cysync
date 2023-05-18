@@ -18,17 +18,19 @@ const getDevices: GetDevices = async () => {
   return [...hidDevices, ...serialDevices];
 };
 
-let connectedDevices: { device: IDevice; connection: IDeviceConnection }[] = [];
+let connectedDevice:
+  | { device: IDevice; connection: IDeviceConnection }
+  | undefined;
 
-const removeConnectedDevices = async () => {
-  for (const dev of connectedDevices) {
-    await dev.connection.destroy();
+const removeConnectedDevice = async () => {
+  if (connectedDevice) {
+    await connectedDevice.connection.destroy();
+    connectedDevice = undefined;
   }
-  connectedDevices = [];
 };
 
 const connectDevice = async (device: IDevice) => {
-  await removeConnectedDevices();
+  await removeConnectedDevice();
   let connection: IDeviceConnection;
 
   if (device.type === ConnectionTypeMap.HID) {
@@ -37,7 +39,7 @@ const connectDevice = async (device: IDevice) => {
     connection = await DeviceConnectionSerialPort.connect(device);
   }
 
-  connectedDevices.push({ device, connection });
+  connectedDevice = { device, connection };
   return device.path;
 };
 
@@ -46,13 +48,11 @@ const connectedDeviceMethodCall = async (
   method: string,
   ...args: any[]
 ) => {
-  const connection = connectedDevices.find(e => e.device.path === device.path);
-
-  if (!connection) {
+  if (device.path !== connectedDevice?.device.path) {
     throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
   }
 
-  return (connection.connection as any)[method](...args);
+  return (connectedDevice.connection as any)[method](...args);
 };
 
 export const getDeviceIPCHandlers = () => [
