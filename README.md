@@ -30,13 +30,25 @@ Before you get started, please make sure you have the following setup -
 ## Understanding the directory structure
 
 ```
-├── apps                # Contains all the applications 
+├── apps                # Contains all the applications
 │   └── desktop             # CySync desktop application, contains all electron code
 │
 ├── packages            # All packages required for apps
+│   └── ui                  # UI library for cysync containing all components
+│   └── interfaces          # Contains all `types` which needs to be shared between packages
 │   └── desktop-ui          # Renderer part of desktop application
+│   └── coins               # Static coin information
+│   └── coin-support-*      # Coin support functionalities
+│   └── cysync-core         # Contains all business logic of cysync, like pages,context etc
+│   └── db-interfaces       # Interface for `database`
+│   └── database            # Database implementation for electron
 │   └── util-*              # Common utilities shared between packages
 │
+├── submodules          # Packages used by cysync but exist on different repository
+│   └── sdk                 # SDK for communicating with Cypherock hardware
+│
+├── scripts             # Contains scripts to be used by the build system
+
 ├── package.json
 
 ```
@@ -65,6 +77,17 @@ pnpm i        # Install packages
 - `pnpm test`: Run all tests
 - `pnpm lint`: Lint all files
 - `pnpm pretty`: Prettify all files
+- `pnpm build:submodules`: Build submodules if you are changing them
+
+### Editing submodules
+
+- Submodules are contains in `submodules` folder.
+- Submodules are packages which are used by `CySync` but are managed in a different
+  repository. (Example: [`sdk`](https://github.com/Cypherock/sdk))
+- When you edit something in the `submodules`, you'll need to run `pnpm build:submodues`
+  to see the changes on cysync apps.
+- You may have to delete the `./apps/desktop/node_modules/.vite` folder if the
+  changes does not reflect on cysync apps.
 
 ## Contributing
 

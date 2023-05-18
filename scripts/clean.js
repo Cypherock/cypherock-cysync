@@ -2,20 +2,22 @@ const readline = require('readline/promises');
 const path = require('path');
 const fs = require('fs/promises');
 
+const commonFolders = ['node_modules', 'coverage', 'dist', '.turbo'];
+
 const packages = {
-  'apps/desktop': [
-    'node_modules',
-    'coverage',
-    'dist',
-    'dist-electron',
-    '.turbo',
-    'release',
-  ],
-  'packages/desktop-ui': ['node_modules', 'coverage', 'dist', '.turbo'],
-  'packages/database': ['node_modules', 'coverage', 'dist', '.turbo'],
-  'packages/db-interfaces': ['node_modules', 'coverage', 'dist', '.turbo'],
+  'apps/desktop': [...commonFolders, 'dist-electron', 'release'],
+  'packages/coin-support': [...commonFolders],
+  'packages/coins': [...commonFolders],
+  'packages/desktop-ui': [...commonFolders],
+  'packages/database': [...commonFolders],
+  'packages/db-interfaces': [...commonFolders],
+  'packages/cysync-core': [...commonFolders],
+  'packages/interfaces': [...commonFolders],
+  'packages/utils': [...commonFolders],
   'packages/util-eslint-config': ['node_modules'],
   'packages/util-prettier-config': ['node_modules'],
+  'packages/util-jest-config': ['node_modules'],
+  'packages/util-tsconfig': ['node_modules'],
 };
 
 const rl = readline.createInterface({

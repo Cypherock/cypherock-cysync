@@ -1,8 +1,9 @@
-import { IpcMain } from 'electron';
 import { logWithServiceAndLevel } from '../utils/logger';
+import { ipcConfig } from './config';
 
-export const setupLoggerIPC = (ipcMain: IpcMain) => {
-  ipcMain.handle('logger:logWithServiceAndLevel', (_, ...args) => {
-    logWithServiceAndLevel(args[0], args[1], args[2], args[3]);
-  });
-};
+export const getLoggerIPCHandlers = () => [
+  {
+    name: ipcConfig.logWithServiceAndLevel,
+    func: logWithServiceAndLevel,
+  },
+];

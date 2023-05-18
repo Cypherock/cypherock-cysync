@@ -1,11 +1,21 @@
 import React from 'react';
-import { Splash, ThemeProvider, getDefaultTheme } from '@cypherock/cysync-core';
+import {
+  Splash,
+  ThemeProvider,
+  getDefaultTheme,
+  DeviceProvider,
+} from '@cypherock/cysync-core';
 
 const theme = getDefaultTheme();
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <Splash />
+    <DeviceProvider
+      getDevices={window.electronAPI.getDevices}
+      connectDevice={window.electronAPI.connectDevice}
+    >
+      <Splash />
+    </DeviceProvider>
   </ThemeProvider>
 );
 
