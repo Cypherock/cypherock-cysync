@@ -1,29 +1,29 @@
-const fs = require("fs/promises");
-const path = require("path");
-const { execSync } = require("child_process");
+const fs = require('fs/promises');
+const path = require('path');
+const { execSync } = require('child_process');
 
 const config = {
-  subModuleRoot: "submodules",
+  subModuleRoot: 'submodules',
   submodules: [
     {
-      name: "sdk",
-      packagesFolders: ["packages"],
+      name: 'sdk',
+      packagesFolders: ['packages'],
       // Exact match
       ignorePackages: [
-        "util-eslint-config",
-        "util-prettier-config",
-        "util-tsconfig",
+        'util-eslint-config',
+        'util-prettier-config',
+        'util-tsconfig',
       ],
     },
   ],
-  appFolders: ["apps", "packages"],
-  pnpmStore: ["node_modules/.pnpm"],
+  appFolders: ['apps', 'packages'],
+  pnpmStore: ['node_modules/.pnpm'],
 };
 
-const ROOT = path.join(__dirname, "..");
+const ROOT = path.join(__dirname, '..');
 
 async function copyDir(src, dest) {
-  if (src.endsWith("node_modules")) return;
+  if (src.endsWith('node_modules')) return;
   await fs.mkdir(dest, { recursive: true });
   let entries = await fs.readdir(src, { withFileTypes: true });
 
@@ -46,16 +46,16 @@ async function parsePackages() {
     const submodulePath = path.join(subModuleRootPath, submodule.name);
 
     console.log(`Running build in submodule: ${submodule.name}`);
-    execSync("pnpm build", { cwd: submodulePath });
+    execSync('pnpm build', { cwd: submodulePath });
 
     for (const packagesFolder of submodule.packagesFolders) {
       const packageNames = (
         await fs.readdir(path.join(submodulePath, packagesFolder))
-      ).filter((e) => !(submodule.ignorePackages ?? []).includes(e));
+      ).filter(e => !(submodule.ignorePackages ?? []).includes(e));
 
       for (const pkg of packageNames) {
         const pkgPath = path.join(submodulePath, packagesFolder, pkg);
-        const pkgJsonPath = path.join(pkgPath, "package.json");
+        const pkgJsonPath = path.join(pkgPath, 'package.json');
         const pkgJson = JSON.parse(await fs.readFile(pkgJsonPath));
 
         packages[pkgJson.name] = {
@@ -80,7 +80,7 @@ async function copyPackages() {
     for (const appPkg of appPackages) {
       const appPkgPath = path.join(appPath, appPkg);
       const appPkgJson = JSON.parse(
-        await fs.readFile(path.join(appPkgPath, "package.json"))
+        await fs.readFile(path.join(appPkgPath, 'package.json')),
       );
       for (const dependency of Object.keys(appPkgJson.dependencies ?? {})) {
         const pkg = packages[dependency];
@@ -88,13 +88,13 @@ async function copyPackages() {
           const copySource = pkg.path;
           const copyDestination = path.join(
             appPkgPath,
-            "node_modules",
-            pkg.name
+            'node_modules',
+            pkg.name,
           );
           console.log(
             `Copying '${copySource.split(ROOT)[1]}' to '${
               copyDestination.split(ROOT)[1]
-            }'`
+            }'`,
           );
 
           await copyDir(copySource, copyDestination);
@@ -110,8 +110,8 @@ async function copyPackages() {
     const pnpmPackageName = await fs.readdir(path.join(pnpmPath));
 
     for (const pnpmPackage of pnpmPackageName) {
-      const pkg = packagesList.find((pkg) =>
-        pnpmPackage.startsWith(pkg.name.replace("/", "+"))
+      const pkg = packagesList.find(pkg =>
+        pnpmPackage.startsWith(pkg.name.replace('/', '+')),
       );
       if (pkg) {
         const copySource = pkg.path;
@@ -119,7 +119,7 @@ async function copyPackages() {
         console.log(
           `Copying '${copySource.split(ROOT)[1]}' to '${
             copyDestination.split(ROOT)[1]
-          }'`
+          }'`,
         );
 
         await copyDir(copySource, copyDestination);
@@ -130,9 +130,9 @@ async function copyPackages() {
 
 async function main() {
   const args = process.argv.slice(2);
-  const usage = "Usage: node scripts/submodules.js <build>";
+  const usage = 'Usage: node scripts/submodules.js <build>';
 
-  if (args.length < 1 || args[0] !== "build") {
+  if (args.length < 1 || args[0] !== 'build') {
     console.error(usage);
     process.exit(1);
   }
