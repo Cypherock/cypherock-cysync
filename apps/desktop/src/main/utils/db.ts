@@ -4,7 +4,7 @@ import { config } from './config';
 import logger from './logger';
 
 export async function initDb() {
-  const db = createDb(path.join(config.USER_DATA_PATH, 'db.sqlite'));
+  const db = createDb(path.join(config.USER_DATA_PATH, 'database/'));
 
   db.device.setVersion(0);
   const stored = await db.device.insert({
@@ -17,4 +17,12 @@ export async function initDb() {
 
   logger.info({ stored, allDevices });
   await db.device.remove(stored);
+
+  db.storage.setItem('random', 'item');
+  const item = db.storage.getItem('random');
+  const count = db.storage.getLength();
+
+  logger.info({ item, count });
+
+  db.storage.clear();
 }
