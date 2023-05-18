@@ -6,6 +6,7 @@ import {
 } from '@cypherock/cysync-interfaces';
 import winston from 'winston';
 
+import { updateLogger } from '@cypherock/database';
 import { config } from './config';
 
 const loggerConfig: Record<string, winston.transport> = {
@@ -84,4 +85,5 @@ export const createServiceLogger = (serviceName: string): ILogger => ({
   verbose: createLogMethod(serviceName, 'verbose'),
 });
 
+updateLogger(createServiceLogger);
 export default createServiceLogger('CySync');

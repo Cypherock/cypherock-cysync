@@ -1,10 +1,14 @@
-import type { IAccountRepository } from './entities/account';
-import { IEntity, IRepository } from './entities/base';
-import type { IDeviceRepository } from './entities/device';
-import type { IPriceHistoryRepository } from './entities/priceHistory';
-import type { IPriceInfoRepository } from './entities/priceInfo';
-import type { ITransactionRepository } from './entities/transaction';
-import type { IWalletRepository } from './entities/wallet';
+import type {
+  IAccountRepository,
+  IDeviceRepository,
+  IPriceHistoryRepository,
+  IPriceInfoRepository,
+  ITransactionRepository,
+  IWalletRepository,
+  IEntity,
+  IRepository,
+  ObjectLiteral,
+} from './entities';
 
 export interface IDatabase {
   device: IDeviceRepository;
@@ -15,5 +19,9 @@ export interface IDatabase {
   priceInfo: IPriceInfoRepository;
   createOrFetchRepository<T extends IEntity>(
     name: string,
-  ): Promise<IRepository<T>>;
+    schema: ObjectLiteral,
+  ): Promise<IRepository<T> | null>;
 }
+
+export * from './entities';
+export * from './errors';

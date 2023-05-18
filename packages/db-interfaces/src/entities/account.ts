@@ -10,7 +10,9 @@ export interface IAccount extends IEntity {
   extraData?: ObjectLiteral;
   // foreign keys
   assetId: string;
+  familyId: string;
   walletId: string;
+  parentAssetId?: string;
   parentAccountId?: string;
 }
 
