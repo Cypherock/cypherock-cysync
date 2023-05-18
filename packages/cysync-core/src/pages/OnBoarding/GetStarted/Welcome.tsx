@@ -35,7 +35,7 @@ export const Welcome = (): ReactElement => (
                 <Flex align="center" gap={2} mb={2}>
                   <Bullet variant="gold" size="sm" />
 
-                  <Typography variant="h6" color="gold">
+                  <Typography variant="h6" color="gold" ml={1}>
                     X1 Vault
                   </Typography>
                 </Flex>
@@ -43,7 +43,7 @@ export const Welcome = (): ReactElement => (
                 <Flex align="center" gap={2}>
                   <Bullet size="sm" />
 
-                  <Typography variant="h6" color="muted">
+                  <Typography variant="h6" color="muted" ml={1}>
                     4 X1 Cards
                   </Typography>
                 </Flex>
@@ -53,7 +53,7 @@ export const Welcome = (): ReactElement => (
                 <Flex align="center" gap={2} mb={2}>
                   <Bullet size="sm" />
 
-                  <Typography variant="h6" color="muted">
+                  <Typography variant="h6" color="muted" ml={1}>
                     4 Card Covers
                   </Typography>
                 </Flex>
@@ -61,7 +61,7 @@ export const Welcome = (): ReactElement => (
                 <Flex align="center" gap={2}>
                   <Bullet size="sm" />
 
-                  <Typography variant="h6" color="muted">
+                  <Typography variant="h6" color="muted" ml={1}>
                     USB Cable
                   </Typography>
                 </Flex>
