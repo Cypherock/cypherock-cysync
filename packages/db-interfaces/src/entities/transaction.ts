@@ -1,16 +1,8 @@
 import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
 
-export enum Status {
-  Pending = 0,
-  Failed,
-  Success,
-}
+export type Status = 'pending' | 'failed' | 'success';
 
-export enum TransactionType {
-  Receive = 0,
-  Send,
-  Swap,
-}
+export type TransactionType = 'receive' | 'send' | 'swap';
 
 export interface IAddressInfo {
   address: string;
@@ -32,7 +24,12 @@ export interface ITransaction extends IEntity {
   extraData?: ObjectLiteral;
   // foreign keys
   accountId: string;
+  walletId: string;
+  assetId: string;
+  familyId: string;
   parentTransactionId?: string;
+  parentAccountId?: string;
+  parentAssetId?: string;
 }
 
 export interface IDetailedTransaction extends ITransaction {

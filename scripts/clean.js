@@ -1,6 +1,6 @@
-const readline = require("readline/promises");
-const path = require("path");
-const fs = require("fs/promises");
+const readline = require('readline/promises');
+const path = require('path');
+const fs = require('fs/promises');
 
 const commonFolders = ["node_modules", "coverage", "dist", ".turbo"];
 
@@ -9,6 +9,7 @@ const packages = {
   "packages/coin-support": [...commonFolders],
   "packages/coins": [...commonFolders],
   "packages/desktop-ui": [...commonFolders],
+  'packages/database': [...commonFolders],
   "packages/db-interfaces": [...commonFolders],
   "packages/cysync-core": [...commonFolders],
   "packages/interfaces": [...commonFolders],
@@ -27,9 +28,9 @@ const rl = readline.createInterface({
 const confirmFromUser = async (
   question,
   positiveResponse,
-  negativeResponse
+  negativeResponse,
 ) => {
-  let response = "";
+  let response = '';
   do {
     response = await rl.question(`${question}: `);
 
@@ -39,7 +40,7 @@ const confirmFromUser = async (
   } while (!positiveResponse.includes(response.toLowerCase()));
 };
 
-const doExists = async (folderPath) => {
+const doExists = async folderPath => {
   try {
     await fs.access(folderPath);
     return true;
@@ -60,7 +61,7 @@ const removeFolders = async (parentDirectory, folders) => {
 };
 
 const run = async () => {
-  const parentDir = path.join(__dirname, "..");
+  const parentDir = path.join(__dirname, '..');
   const allFoldersToDelete = [];
 
   for (const pkgName in packages) {
@@ -71,19 +72,19 @@ const run = async () => {
 
   console.log(allFoldersToDelete);
   await confirmFromUser(
-    "Do you want to delete all the above folders? (y/n)",
-    ["y", "yes"],
-    ["n", "no"]
+    'Do you want to delete all the above folders? (y/n)',
+    ['y', 'yes'],
+    ['n', 'no'],
   );
 
   console.log();
   console.log(`Working dir: ${parentDir}`);
   await confirmFromUser(
     `Please type the parent directory to confirm: (${path.basename(
-      parentDir
+      parentDir,
     )}/n)`,
     [path.basename(parentDir)],
-    ["n", "no"]
+    ['n', 'no'],
   );
 
   await removeFolders(parentDir, allFoldersToDelete);

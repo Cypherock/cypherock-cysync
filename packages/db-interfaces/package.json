@@ -5,8 +5,8 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "pretty": "prettier --write 'src/**/*.ts'",
-    "pretty:check": "prettier --check 'src/**/*.ts'",
+    "pretty": "prettier --write \"src/**/*.ts\"",
+    "pretty:check": "prettier --check \"src/**/*.ts\"",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts src/",
