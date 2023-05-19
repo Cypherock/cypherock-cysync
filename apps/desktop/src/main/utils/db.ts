@@ -4,7 +4,7 @@ import { config } from './config';
 import logger from './logger';
 
 export async function initDb() {
-  const db = createDb(path.join(config.USER_DATA_PATH, 'database/'));
+  const db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
 
   db.device.setVersion(0);
   const stored = await db.device.insert({

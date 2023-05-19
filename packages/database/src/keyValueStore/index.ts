@@ -22,7 +22,7 @@ export class KeyValueStore implements IKeyValueStore {
     }
   }
 
-  getLength(): number {
+  async getLength(): Promise<number> {
     try {
       return sqlParser.countTableRows(this.db) as any;
     } catch (error: any) {
@@ -33,7 +33,7 @@ export class KeyValueStore implements IKeyValueStore {
     }
   }
 
-  key(index: number): string | null {
+  async key(index: number): Promise<string | null> {
     validator.validateIndex(index);
     try {
       return sqlParser.getNthKey(this.db, index);
@@ -45,7 +45,7 @@ export class KeyValueStore implements IKeyValueStore {
     }
   }
 
-  getItem(keyName: string): string | null {
+  async getItem(keyName: string): Promise<string | null> {
     validator.validateStrings(keyName);
     try {
       return sqlParser.getValue(this.db, keyName);
@@ -57,7 +57,7 @@ export class KeyValueStore implements IKeyValueStore {
     }
   }
 
-  setItem(keyName: string, keyValue: string): void {
+  async setItem(keyName: string, keyValue: string): Promise<void> {
     validator.validateStrings(keyName, keyValue);
     let changes = 0;
     try {
@@ -71,7 +71,7 @@ export class KeyValueStore implements IKeyValueStore {
     if (changes === 0) throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
   }
 
-  removeItem(keyName: string): void {
+  async removeItem(keyName: string): Promise<void> {
     validator.validateStrings(keyName);
     let changes = 0;
     try {
@@ -85,7 +85,7 @@ export class KeyValueStore implements IKeyValueStore {
     if (changes === 0) throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
   }
 
-  clear(): void {
+  async clear(): Promise<void> {
     let changes = 0;
     try {
       changes = sqlParser.truncateTable(this.db);
