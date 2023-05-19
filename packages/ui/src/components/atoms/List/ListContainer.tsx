@@ -1,13 +1,16 @@
 import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { UtilsProps } from '../../utils';
+import { UtilsProps, utils } from '../../utils';
 
 interface ListContainerProps extends UtilsProps {
   children?: ReactNode;
   size?: 'lg' | 'sm' | 'md';
 }
 
-const ListContainerStyle = styled.ul<ListContainerProps>``;
+const ListContainerStyle = styled.ul<ListContainerProps>`
+  ${utils}
+  display: flex;
+`;
 
 export const ListContainer: FC<ListContainerProps> = ({
   children,

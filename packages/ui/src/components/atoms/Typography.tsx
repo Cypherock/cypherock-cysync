@@ -34,7 +34,7 @@ const baseStyle = css<HeadingProps>`
   ${props =>
     props.color === 'gold' &&
     css`
-      background: ${({ theme }) => theme.palette.primary.primary};
+      background: ${({ theme }) => theme.palette.golden};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -94,13 +94,17 @@ const HeadingTwoStyle = styled.h2<HeadingProps>`
 `;
 
 const HeadingThreeStyle = styled.h3<HeadingProps>`
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 400;
   ${baseStyle};
   ${margin};
   ${width};
   ${position};
   ${display};
+
+  @media ${({ theme }) => theme.screens.laptopL} {
+    font-size: 28px;
+  }
 `;
 
 const HeadingFourStyle = styled.h4<HeadingProps>`
@@ -115,7 +119,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   ${baseStyle};
   ${margin};
@@ -123,6 +127,10 @@ const HeadingFiveStyle = styled.h5<HeadingProps>`
   ${width};
   ${position};
   ${display};
+
+  @media ${({ theme }) => theme.screens.laptopL} {
+    font-size: 20px;
+  }
 `;
 
 const HeadingSixStyle = styled.h6<HeadingProps>`

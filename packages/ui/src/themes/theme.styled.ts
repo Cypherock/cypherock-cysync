@@ -28,6 +28,7 @@ export const theme = {
     warning: {
       main: colors.warning.main,
     },
+    golden: colors.gradients.golden,
     success: {
       main: colors.success.main,
     },
@@ -46,6 +47,7 @@ export const theme = {
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
     },
+
     border: {
       popup: colors.border.popup,
     },

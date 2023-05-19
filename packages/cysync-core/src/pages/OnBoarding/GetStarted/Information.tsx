@@ -16,7 +16,7 @@ import { Aside } from './Aside';
 export const Information = (): ReactElement => (
   <Flex gap={0}>
     <Aside />
-    <Container $bgColor="contentGradient">
+    <Container width="full" $bgColor="contentGradient">
       <DialogueBoxContainer lg>
         <DialogueBoxBody>
           <Typography variant="h5" color="heading" mb={6} $textAlign="center">
@@ -24,7 +24,7 @@ export const Information = (): ReactElement => (
           </Typography>
 
           <Container $bgColor="list" direction="column">
-            <ListContainer width="full">
+            <ListContainer p={4} direction="column" width="full">
               <ListItem width="full">
                 <Typography variant="h6" color="muted" $textAlign="left" mb={2}>
                   You are present in a safe and secure environment

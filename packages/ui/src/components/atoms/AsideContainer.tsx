@@ -10,6 +10,7 @@ interface AsideContainerProps extends UtilsProps {
 const AsideContainerStyle = styled.div<AsideContainerProps>`
   min-width: 280px;
   min-height: 100vh;
+  padding: 32px;
 
   ${props =>
     props.border &&
@@ -19,12 +20,12 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
       border-color: ${({ theme }) =>
         theme.palette.background.sepratorBackground};
     `}
-  padding:48px 42px;
 
   ${utils}
-
-  @media ${({ theme }) => theme.screens.laptopL} {
+    
+    @media ${({ theme }) => theme.screens.laptopL} {
     min-width: 500px;
+    padding: 104px 32px 40px;
   }
 `;
 

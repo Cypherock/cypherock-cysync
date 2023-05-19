@@ -10,6 +10,8 @@ export const colors = {
     content: 'linear-gradient(89.76deg, #16120F 0.23%, #1F1915 99.82%)',
     sideBar:
       'linear-gradient(102.78deg, #211C18 0%, #211A16 59.38%, #252219 100%)',
+    golden:
+      'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
   },
   info: {
     main: '#F1AE4A',

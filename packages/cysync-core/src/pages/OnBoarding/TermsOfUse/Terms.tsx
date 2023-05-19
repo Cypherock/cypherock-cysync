@@ -81,7 +81,7 @@ export const Terms = (): ReactElement => {
 
           <DialogueBoxFooter>
             {isChecked ? (
-              <Link to="/setPassword">
+              <Link to="/deviceAuthTest">
                 <Button variant="primary">Confirm</Button>
               </Link>
             ) : (

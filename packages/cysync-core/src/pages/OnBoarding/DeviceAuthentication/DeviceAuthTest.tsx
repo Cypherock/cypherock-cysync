@@ -4,16 +4,15 @@ import { Aside } from './Aside';
 import { loader } from '../../../assets/images/onboarding';
 
 export const DeviceAuthTest = (): ReactElement => (
-  <Container $bgColor="sideBar">
+  <Container height="screen" $bgColor="sideBar">
     <Aside />
     <Container
       $bgColor="contentGradient"
-      height="screen"
+      height="full"
       width="full"
       align="center"
       position="relative"
       justify="center"
-      shadow="popup"
     >
       <Container
         $bgColor="primary"
@@ -28,7 +27,7 @@ export const DeviceAuthTest = (): ReactElement => (
           <Image src={loader} alt="loader" />
           <Typography variant="h5" $textAlign="center">
             Your X1 Vault will now be authenticated through Cypherock to check
-            its authenticity (?)
+            its authenticity(?)
           </Typography>
         </Flex>
       </Container>

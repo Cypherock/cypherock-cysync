@@ -18,11 +18,11 @@ const App = () => (
     <Router>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<DeviceAuthTest />} />
+        <Route path="/" element={<Information />} />
         <Route path="/usage" element={<Usage />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/termsOfUse" element={<Terms />} />
-        <Route path="/deviceAuthTest" element={<Information />} />
+        <Route path="/deviceAuthTest" element={<DeviceAuthTest />} />
       </Routes>
     </Router>
   </ThemeProvider>

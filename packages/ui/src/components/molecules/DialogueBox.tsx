@@ -21,8 +21,7 @@ const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
-  background-image: ${({ theme }) =>
-    theme.palette.background.sideBarBackground};
+  background-image: ${({ theme }) => theme.palette.background.primary};
   box-shadow: ${({ theme }) => theme.shadow.popup};
   border-color: ${({ theme }) => theme.palette.border.main};
   text-align: center;
@@ -57,7 +56,7 @@ const DialogueBoxFooterStyle = styled.div`
   border-left: 0;
   border-right: 0;
   border-style: solid;
-  border-color: ${({ theme }) => theme.palette.border.main};
+  border-color: ${({ theme }) => theme.palette.border.popup};
   gap: ${({ theme }) => theme.spacing.two.spacing};
 `;
 

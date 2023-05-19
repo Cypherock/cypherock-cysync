@@ -4,7 +4,7 @@ import {
   Flex,
   Image,
   Typography,
-  cardProgressIcon,
+  deviceAuthProgressIcon,
   cysyncLogoSmall,
 } from '@cypherock/cysync-ui';
 import { deviceImage } from '../../../assets/images/onboarding';
@@ -18,11 +18,11 @@ export const Aside = (): ReactElement => (
   >
     <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" align="center">
-      <Image src={deviceImage} alt="device" width="full" />
+      <Image src={deviceImage} alt="device" width={250} />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography
-        variant="h2"
+        variant="h3"
         color="silver"
         width="wFull"
         $textAlign="center"
@@ -31,7 +31,7 @@ export const Aside = (): ReactElement => (
       >
         Device Authentication
       </Typography>
-      <Image src={cardProgressIcon} alt="cardProgress" />
+      <Image src={deviceAuthProgressIcon} alt="cardProgress" />
     </Flex>
   </AsideContainer>
 );

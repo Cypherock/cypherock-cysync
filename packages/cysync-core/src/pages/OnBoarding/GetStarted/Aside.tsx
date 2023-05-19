@@ -33,7 +33,7 @@ export const Aside = (): ReactElement => (
       </Container>
 
       <Typography variant="h3" color="gold" mb={7}>
-        CYPHEROCK
+        cySync App
       </Typography>
       <Typography
         variant="h3"
@@ -42,9 +42,9 @@ export const Aside = (): ReactElement => (
         font="medium"
         mb={2}
       >
-        Welcome to CySync app
+        Welcome to Cypherock
       </Typography>
-      <Typography variant="h5" color="muted" font="light">
+      <Typography $textAlign="center" variant="h5" color="muted" font="light">
         Your Gateway to Self-Sovereignty
       </Typography>
     </Flex>

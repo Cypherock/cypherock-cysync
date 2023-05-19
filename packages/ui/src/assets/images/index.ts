@@ -8,6 +8,7 @@ import asideIcon from './common/aside.png';
 import termsProgressIcon from './common/terms-progress.png';
 import backIcon from './common/back.png';
 import cardProgressIcon from './common/card-progress.png';
+import deviceAuthProgressIcon from './common/deviceAuthProgressbar.png';
 import emailIcon from './common/email.png';
 
 export {
@@ -21,5 +22,6 @@ export {
   recoverWalletIcon,
   termsProgressIcon,
   cardProgressIcon,
+  deviceAuthProgressIcon,
   emailIcon,
 };

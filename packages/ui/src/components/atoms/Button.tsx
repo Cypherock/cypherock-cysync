@@ -14,7 +14,7 @@ const buttonBaseStyle = css<ButtonProps>`
   ${props => {
     if (props.variant === 'primary')
       return css`
-        background: ${({ theme }) => theme.palette.primary.primary};
+        background: ${({ theme }) => theme.palette.golden};
         border: none;
         font-size: 14px;
         font-weight: 500;
