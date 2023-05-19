@@ -4,6 +4,7 @@ import {
   IDevice,
   IDeviceRepository,
   IEntity,
+  IKeyValueStore,
   IPriceHistory,
   IPriceHistoryRepository,
   IPriceInfo,
@@ -27,6 +28,7 @@ import {
   Transaction,
   Wallet,
 } from './entity';
+import { KeyValueStore } from './keyValueStore';
 
 export class Database implements IDatabase {
   private readonly database: DB;
@@ -43,8 +45,11 @@ export class Database implements IDatabase {
 
   priceInfo: IPriceInfoRepository;
 
-  constructor(db: DB) {
+  storage: IKeyValueStore;
+
+  constructor(db: DB, kvsDb: DB) {
     this.database = db;
+    this.storage = new KeyValueStore(kvsDb);
 
     this.device = new Repository<IDevice>(
       this.database,
