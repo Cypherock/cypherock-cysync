@@ -1,0 +1,49 @@
+{
+  "name": "@cypherock/database",
+  "version": "0.0.0",
+  "description": "Contains database logic",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "pretty": "prettier --write \"src/**/*.ts\"",
+    "pretty:check": "prettier --check \"src/**/*.ts\"",
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "lint": "eslint src/* --fix",
+    "lint:check": "eslint --ext .ts src/",
+    "pre-commit": "lint-staged",
+    "test": "cross-env ELECTRON_RUN_AS_NODE=true ../../node_modules/.bin/electron ./node_modules/jest/bin/jest.js"
+  },
+  "devDependencies": {
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/jest-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
+    "@types/better-sqlite3": "^7.6.4",
+    "@types/events": "^3.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^16.11.10",
+    "@types/uuid": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "jest": "^29.5.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.1.2",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@cypherock/cysync-interfaces": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
+    "@cypherock/db-interfaces": "workspace:^",
+    "better-sqlite3": "^8.3.0",
+    "events": "^3.3.0",
+    "uuid": "^9.0.0",
+    "zod": "^3.21.4"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --ext ts--quiet --fix --",
+      "prettier --write"
+    ]
+  }
+}

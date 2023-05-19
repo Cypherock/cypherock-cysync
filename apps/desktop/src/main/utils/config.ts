@@ -89,13 +89,20 @@ export const setConfig = () => {
 
 setConfig();
 
+const getEnv = (name: string) => {
+  const value = process.env[name];
+  if (!value)
+    throw new Error(`Assertion Error: ENV variable ${name} not defined`);
+  return value;
+};
+
 export const config = {
-  LOG_LEVEL: process.env.LOG_LEVEL,
-  BUILD_TYPE: process.env.BUILD_TYPE,
-  API_CYPHEROCK: process.env.API_CYPHEROCK,
-  BUILD_VERSION: process.env.BUILD_VERSION,
-  IS_PRODUCTION: process.env.IS_PRODUCTION === 'true',
+  LOG_LEVEL: getEnv('LOG_LEVEL'),
+  BUILD_TYPE: getEnv('BUILD_TYPE'),
+  API_CYPHEROCK: getEnv('API_CYPHEROCK'),
+  BUILD_VERSION: getEnv('BUILD_VERSION'),
+  IS_PRODUCTION: getEnv('IS_PRODUCTION') === 'true',
   IS_TEST: process.env.NODE_ENV?.toLowerCase() === 'test',
-  ALLOW_PRERELEASE: process.env.ALLOW_PRERELEASE === 'true',
-  USER_DATA_PATH: process.env.USER_DATA_PATH,
+  ALLOW_PRERELEASE: getEnv('ALLOW_PRERELEASE') === 'true',
+  USER_DATA_PATH: getEnv('USER_DATA_PATH'),
 };

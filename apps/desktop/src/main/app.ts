@@ -1,18 +1,20 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { release } from 'node:os';
 import { join } from 'node:path';
-import { setupIPC } from './ipc';
+import { setupIPCHandlers } from './ipc';
 import { config } from './utils/config';
 import logger from './utils/logger';
+import { initDb } from './utils/db';
 
 function prepareApp() {
-  setupIPC(ipcMain);
+  setupIPCHandlers(ipcMain);
 }
 
 export default function createApp() {
   prepareApp();
   logger.info('Starting Application', { config });
 
+  initDb();
   process.env.DIST_ELECTRON = join(__dirname, '../');
   process.env.DIST = join(process.env.DIST_ELECTRON, '../dist');
   process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL

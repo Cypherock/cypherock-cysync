@@ -9,7 +9,6 @@ export interface IPriceHistory extends IEntity {
   days: number;
   history: IPriceSnapshot[];
   // foreign keys
-  priceInfoId: string;
   assetId: string;
   currency: string;
 }
