@@ -1,14 +1,11 @@
 import React from 'react';
-import { Route, HashRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import {
-  DeviceAuthTest,
-  Information,
-  Terms,
   ThemeProvider,
-  Usage,
-  Welcome,
   getDefaultTheme,
   DeviceProvider,
+  DeviceDetection,
+  DeviceAuthentication,
 } from '@cypherock/cysync-core';
 import { GlobalStyles } from '@cypherock/cysync-core/src/styles/global.styled';
 
@@ -23,11 +20,8 @@ const App = () => (
       <Router>
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<Information />} />
-          <Route path="/usage" element={<Usage />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/termsOfUse" element={<Terms />} />
-          <Route path="/deviceAuthTest" element={<DeviceAuthTest />} />
+          <Route path="/" element={<DeviceDetection />} />
+          <Route path="/auth" element={<DeviceAuthentication />} />
         </Routes>
       </Router>
     </DeviceProvider>

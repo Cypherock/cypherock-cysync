@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import {
   margin,
   MarginProps,
-  fontWeight,
-  FontWeightProps,
+  font,
+  FontProps,
   width,
   WidthProps,
   position,
@@ -15,7 +15,7 @@ import {
 
 interface HeadingProps
   extends MarginProps,
-    FontWeightProps,
+    FontProps,
     WidthProps,
     PositionProps,
     DisplayProps {
@@ -76,7 +76,7 @@ const HeadingOneStyle = styled.h1<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -87,24 +87,20 @@ const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
 
 const HeadingThreeStyle = styled.h3<HeadingProps>`
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 400;
   ${baseStyle};
   ${margin};
   ${width};
   ${position};
   ${display};
-
-  @media ${({ theme }) => theme.screens.laptopL} {
-    font-size: 28px;
-  }
 `;
 
 const HeadingFourStyle = styled.h4<HeadingProps>`
@@ -112,25 +108,21 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
-
-  @media ${({ theme }) => theme.screens.laptopL} {
-    font-size: 20px;
-  }
 `;
 
 const HeadingSixStyle = styled.h6<HeadingProps>`
@@ -138,7 +130,7 @@ const HeadingSixStyle = styled.h6<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -149,7 +141,7 @@ const SpanStyle = styled.span<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -159,7 +151,7 @@ const FinePrintStyle = styled.span<HeadingProps>`
   font-weight: 300;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -170,7 +162,7 @@ const PStyle = styled.p<HeadingProps>`
   font-weight: 400;
   ${baseStyle};
   ${margin};
-  ${fontWeight};
+  ${font};
   ${width};
   ${position};
   ${display};

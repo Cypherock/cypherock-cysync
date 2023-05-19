@@ -31,9 +31,8 @@ const buttonBaseStyle = css<ButtonProps>`
     if (props.variant === 'secondary')
       return css`
         border: 0.6px solid #49433e;
-        background-color: ${({ theme }) =>
-          theme.palette.background.sepratorBackground};
-        color: ${({ theme }) => theme.palette.text.textMuted};
+        background-color: ${({ theme }) => theme.palette.background.separator};
+        color: ${({ theme }) => theme.palette.text.muted};
       `;
     if (props.variant === 'dashed')
       return css`

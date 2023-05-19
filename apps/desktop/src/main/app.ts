@@ -48,6 +48,9 @@ export default function createApp() {
         nodeIntegration: false,
         contextIsolation: true,
       },
+      autoHideMenuBar: true,
+      minWidth: 1024,
+      minHeight: 700,
     });
 
     if (process.env.VITE_DEV_SERVER_URL) {

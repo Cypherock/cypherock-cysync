@@ -11,6 +11,7 @@ const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
   ${width}
   ${height}
   ${flex}
+  display:flex;
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -40,6 +41,7 @@ const DialogueBoxBodyStyle = styled.div<DialogueBoxProps>`
 `;
 
 const DialogueBoxFooterStyle = styled.div<DialogueBoxProps>`
+  width: 100%;
   padding: 32px 0;
   display: flex;
   flex-direction: row;

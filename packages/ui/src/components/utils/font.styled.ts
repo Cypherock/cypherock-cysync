@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export interface FontWeightProps {
+export interface FontProps {
   font?:
     | 'thin'
     | 'extralight'
@@ -10,6 +10,7 @@ export interface FontWeightProps {
     | 'semibold'
     | 'bold'
     | 'extrabold';
+  fontSize?: number;
 }
 
 const fontWeightObj = {
@@ -23,6 +24,7 @@ const fontWeightObj = {
   extrabold: '800',
 };
 
-export const fontWeight = css<FontWeightProps>`
+export const font = css<FontProps>`
   ${props => props.font && `font-weight: ${fontWeightObj[props.font]};`};
+  ${props => props.fontSize && `font-size: ${props.fontSize}px;`};
 `;

@@ -4,12 +4,17 @@ import cysyncLogoSmall from './common/logo-small.png';
 import closeIcon from './common/close.png';
 import importWalletIcon from './common/import-wallet.png';
 import recoverWalletIcon from './common/recover-wallet.png';
-import asideIcon from './common/aside.png';
+import asideIcon from './common/aside.svg';
+import successIcon from './common/success.svg';
 import termsProgressIcon from './common/terms-progress.png';
-import backIcon from './common/back.png';
+import backIcon from './common/back.svg';
 import cardProgressIcon from './common/card-progress.png';
 import deviceAuthProgressIcon from './common/deviceAuthProgressbar.png';
-import emailIcon from './common/email.png';
+import emailIcon from './common/email-icon.svg';
+import blockSelected from './common/Block.svg';
+import block from './common/Block-unselectedsvg.svg';
+import disconnected from './common/disconnected.svg';
+import failIcon from './common/fail.svg';
 
 export {
   addWalletIcon,
@@ -24,4 +29,9 @@ export {
   cardProgressIcon,
   deviceAuthProgressIcon,
   emailIcon,
+  block,
+  blockSelected,
+  disconnected,
+  successIcon,
+  failIcon,
 };

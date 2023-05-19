@@ -4,7 +4,12 @@
     "lib": ["DOM"]
   },
   "extends": "@cypherock/tsconfig/browser.json",
-  "include": ["./src/**/*", "src/styles"],
+  "include": [
+    "./src/**/*",
+    "src/styles",
+    "../ui/src/components/molecules/Milestone.tsx",
+    "../ui/src/components/molecules/Aside.tsx"
+  ],
   "exclude": [
     "node_modules",
     "src/coverage",

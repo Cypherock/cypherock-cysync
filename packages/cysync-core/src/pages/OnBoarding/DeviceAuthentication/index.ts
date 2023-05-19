@@ -1,1 +1,1 @@
-export * from './DeviceAuthTest';
+export * from './DeviceAuthentication';

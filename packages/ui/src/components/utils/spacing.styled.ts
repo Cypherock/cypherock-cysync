@@ -1,26 +1,8 @@
 import { css } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
+import { BreakPoint } from '../../themes/screens.styled';
 
-export interface MarginProps {
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  mr?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  ml?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  mt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  m?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  mx?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  my?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-}
-export interface PaddingProps {
-  pb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pr?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pl?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  p?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  px?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  py?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-}
-
-const spacingObj: Record<string, string> = {
+const spacingObj = {
   0: '0px',
   1: theme.spacing.one.spacing,
   2: theme.spacing.two.spacing,
@@ -32,68 +14,80 @@ const spacingObj: Record<string, string> = {
   8: theme.spacing.eight.spacing,
   auto: 'auto',
 };
+type SpacingOptions = keyof typeof spacingObj;
+
+type MediaQuery<T> = Partial<Record<BreakPoint, T>> | T;
+export interface MarginProps {
+  mb?: MediaQuery<SpacingOptions>;
+  mr?: MediaQuery<SpacingOptions>;
+  ml?: MediaQuery<SpacingOptions>;
+  mt?: MediaQuery<SpacingOptions>;
+  m?: MediaQuery<SpacingOptions>;
+  mx?: MediaQuery<SpacingOptions>;
+  my?: MediaQuery<SpacingOptions>;
+}
+export interface PaddingProps {
+  pb?: MediaQuery<SpacingOptions>;
+  pr?: MediaQuery<SpacingOptions>;
+  pl?: MediaQuery<SpacingOptions>;
+  pt?: MediaQuery<SpacingOptions>;
+  p?: MediaQuery<SpacingOptions>;
+  px?: MediaQuery<SpacingOptions>;
+  py?: MediaQuery<SpacingOptions>;
+}
 
 export const margin = css<MarginProps>`
   ${props => {
-    const tempCss = [];
-    if (props.mb) {
-      tempCss.push(`margin-bottom: ${spacingObj[props.mb]};`);
-    }
-    if (props.mr) {
-      tempCss.push(`margin-right: ${spacingObj[props.mr]};`);
-    }
-    if (props.mt) {
-      tempCss.push(`margin-top: ${spacingObj[props.mt]};`);
-    }
-    if (props.ml) {
-      tempCss.push(`margin-left: ${spacingObj[props.ml]};`);
-    }
-    if (props.m) {
-      tempCss.push(`margin: ${spacingObj[props.m]};`);
-    }
-    if (props.mx) {
-      tempCss.push(`
-      margin-left: ${spacingObj[props.mx]}; 
-      margin-right: ${spacingObj[props.mx]};`);
-    }
-    if (props.my) {
-      tempCss.push(`
-      margin-top: ${spacingObj[props.my]}; 
-      margin-bottom: ${spacingObj[props.my]};`);
-    }
+    const finalCss = [];
 
-    return tempCss.length ? tempCss.join(' ') : null;
+    finalCss.push(...getCss(['margin-bottom'], props.mb));
+    finalCss.push(...getCss(['margin-right'], props.mr));
+    finalCss.push(...getCss(['margin-top'], props.mt));
+    finalCss.push(...getCss(['margin-left'], props.ml));
+    finalCss.push(...getCss(['margin'], props.m));
+    finalCss.push(...getCss(['margin-left', 'margin-right'], props.mx));
+    finalCss.push(...getCss(['margin-top', 'margin-bottom'], props.my));
+
+    return finalCss.length ? finalCss.join(' ') : null;
   }}
 `;
 export const padding = css<PaddingProps>`
   ${props => {
-    const tempCss = [];
+    const finalCss = [];
 
-    if (props.pb) {
-      tempCss.push(`padding-bottom: ${spacingObj[props.pb]};`);
-    }
-    if (props.pr) {
-      tempCss.push(`padding-right: ${spacingObj[props.pr]};`);
-    }
-    if (props.pt) {
-      tempCss.push(`padding-top: ${spacingObj[props.pt]};`);
-    }
-    if (props.pl) {
-      tempCss.push(`padding-left: ${spacingObj[props.pl]};`);
-    }
-    if (props.p) {
-      tempCss.push(`padding: ${spacingObj[props.p]};`);
-    }
-    if (props.px) {
-      tempCss.push(`
-      padding-left: ${spacingObj[props.px]}; 
-      padding-right: ${spacingObj[props.px]};`);
-    }
-    if (props.py) {
-      tempCss.push(`padding-top: ${spacingObj[props.py]}; 
-      padding-bottom: ${spacingObj[props.py]};`);
-    }
+    finalCss.push(...getCss(['padding-bottom'], props.pb));
+    finalCss.push(...getCss(['padding-right'], props.pr));
+    finalCss.push(...getCss(['padding-top'], props.pt));
+    finalCss.push(...getCss(['padding-left'], props.pl));
+    finalCss.push(...getCss(['padding'], props.p));
+    finalCss.push(...getCss(['padding-left', 'padding-right'], props.px));
+    finalCss.push(...getCss(['padding-top', 'padding-bottom'], props.py));
 
-    return tempCss.length ? tempCss.join(' ') : null;
+    return finalCss.length ? finalCss.join(' ') : null;
   }}
 `;
+
+const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
+  const result: any = [];
+  if (obj) {
+    if (typeof obj === 'object') {
+      for (const bp in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, bp)) {
+          const value = obj[bp as BreakPoint] as SpacingOptions;
+          names.forEach(name => {
+            result.push(`
+              @media ${theme.screens[bp as BreakPoint]} {
+                ${name}: ${spacingObj[value]};
+              }
+            `);
+          });
+        }
+      }
+    } else {
+      names.forEach(name => {
+        result.push(`${name}: ${spacingObj[obj]};`);
+      });
+    }
+  }
+  return result;
+};

@@ -14,29 +14,26 @@ export const position = css<PositionProps>`
     if (props.position) {
       positionCss.push(`position: ${props.position};`);
     }
-    if (props.top) {
-      if (!Number.isInteger(props.top)) {
+    if (props.top !== undefined) {
+      if (!Number.isInteger(props.top))
         positionCss.push(`top: ${props.top * 100}%;`);
-      }
-      positionCss.push(`top: ${props.top}px;`);
+      else positionCss.push(`top: ${props.top}px;`);
     }
-    if (props.bottom) {
+    if (props.bottom !== undefined) {
       if (!Number.isInteger(props.bottom)) {
         positionCss.push(`bottom: ${props.bottom * 100}%;`);
-      }
-      positionCss.push(`bottom: ${props.bottom}px;`);
+      } else positionCss.push(`bottom: ${props.bottom}px;`);
     }
-    if (props.right) {
+    if (props.right !== undefined) {
       if (!Number.isInteger(props.right)) {
         positionCss.push(`right: ${props.right * 100}%;`);
       }
       positionCss.push(`right: ${props.right}px;`);
     }
-    if (props.left) {
+    if (props.left !== undefined) {
       if (!Number.isInteger(props.left)) {
         positionCss.push(`left: ${props.left * 100}%;`);
-      }
-      positionCss.push(`left: ${props.left}px;`);
+      } else positionCss.push(`left: ${props.left}px;`);
     }
     return positionCss.join(' ');
   }}

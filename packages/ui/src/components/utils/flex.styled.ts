@@ -48,7 +48,6 @@ const content = css<FlexProps>`
 `;
 
 export const flex = css<FlexProps>`
-  display: flex;
   ${justifyContent}
   ${align}
   ${content}
