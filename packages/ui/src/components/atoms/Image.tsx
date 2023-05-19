@@ -18,6 +18,7 @@ interface ImageProps
     AlignSelfProps,
     WidthProps,
     HeightProps {
+  type?: 'progressBar';
   src: string;
   alt: string;
 }
@@ -28,8 +29,22 @@ const ImageStyle = styled.img<ImageProps>`
   ${$alignSelf}
   ${width}
   ${height}
+
+  ${props =>
+    props.type === 'progressBar' &&
+    `
+    width: 216px;
+
+    @media ${props.theme.screens.laptopL} {
+     width: 237.52px;
+    }
+  `}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
   <ImageStyle src={src} alt={alt} {...props} />
 );
+
+Image.defaultProps = {
+  type: undefined,
+};

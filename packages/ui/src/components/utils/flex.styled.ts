@@ -20,7 +20,9 @@ export interface FlexProps {
     | 'space-between'
     | 'space-around';
   direction?: 'row' | 'column';
+  directionL?: 'column' | 'row';
   gap?: number;
+  gapL?: number;
   grow?: number;
 }
 
@@ -35,9 +37,21 @@ const align = css<FlexProps>`
 const direction = css<FlexProps>`
   ${props => props.direction && `flex-direction: ${props.direction};`}
 `;
+const directionL = css<FlexProps>`
+  ${props =>
+    props.directionL &&
+    `@media ${props.theme.screens.laptopL} {
+        flex-direction: ${props.directionL};
+    }`}
+`;
 
 const gap = css<FlexProps>`
   ${props => props.gap && `gap: ${props.gap}px;`}
+`;
+const gapL = css<FlexProps>`
+  ${props =>
+    props.gapL &&
+    `@media ${props.theme.screens.laptopL} { gap: ${props.gapL}px;}`}
 `;
 const grow = css<FlexProps>`
   ${props => props.grow && `flex-grow: ${props.grow};`}
@@ -53,6 +67,8 @@ export const flex = css<FlexProps>`
   ${align}
   ${content}
   ${direction}
+  ${directionL}
   ${gap}
+  ${gapL}
   ${grow}
 `;

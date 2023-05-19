@@ -22,7 +22,7 @@ export const Terms = (): ReactElement => {
     <Flex gap={0}>
       <Aside />
       <Container position="relative" width="full" $bgColor="contentGradient">
-        <Flex position="absolute" top={3} right={3}>
+        <Flex position="absolute" top={30} right={26} gap={12}>
           <Typography color="muted">Help</Typography>
           <Typography color="gold">?</Typography>
         </Flex>

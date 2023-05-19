@@ -4,7 +4,7 @@ import {
   Flex,
   Image,
   Typography,
-  asideIcon,
+  commonAsideImage,
   cysyncLogoSmall,
   termsProgressIcon,
 } from '@cypherock/cysync-ui';
@@ -19,7 +19,7 @@ export const Aside = (): ReactElement => (
   >
     <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" align="center">
-      <Image src={asideIcon} alt="aside" />
+      <Image src={commonAsideImage} alt="aside" />
     </Flex>
     <Flex direction="column" width="wFull" align="center">
       <Typography

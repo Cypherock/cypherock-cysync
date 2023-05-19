@@ -11,6 +11,8 @@ import {
   PositionProps,
   display,
   DisplayProps,
+  AlignSelfProps,
+  $alignSelf,
 } from '../utils';
 
 interface HeadingProps
@@ -18,7 +20,8 @@ interface HeadingProps
     FontWeightProps,
     WidthProps,
     PositionProps,
-    DisplayProps {
+    DisplayProps,
+    AlignSelfProps {
   color?:
     | 'gold'
     | 'silver'
@@ -31,6 +34,7 @@ interface HeadingProps
 }
 
 const baseStyle = css<HeadingProps>`
+  ${$alignSelf}
   ${props =>
     props.color === 'gold' &&
     css`
