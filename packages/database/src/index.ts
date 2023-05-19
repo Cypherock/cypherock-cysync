@@ -4,7 +4,7 @@ import logger from './utils/logger';
 
 export const createDb = (path: string) => {
   const db = new Database(path, {
-    verbose: logger.verbose as any,
+    verbose: logger.debug as any,
   });
   db.pragma('journal_mode = WAL');
   return new DB(db);

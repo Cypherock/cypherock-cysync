@@ -1,7 +1,7 @@
 import { createDb } from '@cypherock/database';
 import path from 'path';
 import { config } from './config';
-import logger from './logger';
+import { logger } from './logger';
 
 export async function initDb() {
   const db = createDb(path.join(config.USER_DATA_PATH, 'db.sqlite'));
@@ -15,6 +15,6 @@ export async function initDb() {
 
   const allDevices = await db.device.getAll();
 
-  logger.info({ stored, allDevices });
+  logger.debug({ stored, allDevices });
   await db.device.remove(stored);
 }

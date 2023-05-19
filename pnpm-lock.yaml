@@ -80,6 +80,9 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../../packages/util-tsconfig
+      '@electron/notarize':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@jest/globals':
         specifier: ^29.4.1
         version: 29.5.0
@@ -101,6 +104,9 @@ importers:
       css-loader:
         specifier: ^6.0.0
         version: 6.7.3(webpack@5.83.1)
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
       electron:
         specifier: ^24.3.1
         version: 24.3.1
@@ -140,6 +146,9 @@ importers:
       vite-plugin-electron-renderer:
         specifier: ^0.13.14
         version: 0.13.14
+      vite-plugin-multiple:
+        specifier: ^0.2.0
+        version: 0.2.0
 
   packages/coin-support-evm:
     dependencies:
@@ -2638,6 +2647,16 @@ packages:
       sumchecker: 3.0.1
     optionalDependencies:
       global-agent: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@electron/notarize@1.2.3:
+    resolution: {integrity: sha512-9oRzT56rKh5bspk3KpAVF8lPKHYQrBnRwcgiOeR0hdilVEQmszDaAu0IPCPrwwzJN0ugNs0rRboTreHMt/6mBQ==}
+    engines: {node: '>= 10.0.0'}
+    dependencies:
+      debug: 4.3.4
+      fs-extra: 9.1.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5821,6 +5840,11 @@ packages:
 
   /dotenv-expand@5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
+    dev: true
+
+  /dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv@9.0.2:
@@ -11026,7 +11050,7 @@ packages:
       '@babel/core': 7.21.8
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      jest: 29.5.0(@types/node@16.11.10)(ts-node@10.9.1)
       jest-util: 29.5.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -11431,6 +11455,10 @@ packages:
 
   /vite-plugin-electron@0.11.1:
     resolution: {integrity: sha512-pi9Wy4KCGjKIRvp7/5VUOT8BYEAJdZrpy3gI+GhGc5vYs2V9yPxLOtfCqNfSTYqH3uM6hYY6MyifFVku3Wg+2A==}
+    dev: true
+
+  /vite-plugin-multiple@0.2.0:
+    resolution: {integrity: sha512-oE7ZrL+0iVvpCrcRSOnSlxo6O+CaJyzspDkSRsJG3keyPMxmDroWzLP0S3k+tL0SCFv5BrFki16xxKF2FMfYuQ==}
     dev: true
 
   /vite@4.2.1(@types/node@16.11.10):

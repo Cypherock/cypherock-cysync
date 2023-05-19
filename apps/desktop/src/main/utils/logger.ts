@@ -21,7 +21,7 @@ if (config.USER_DATA_PATH) {
   transports.push(fileConfig);
 }
 
-const logger = winston.createLogger({
+const rootLogger = winston.createLogger({
   format: winston.format.combine(
     winston.format(info => {
       let newInfo = { ...info };
@@ -45,7 +45,7 @@ const logger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json(),
   ),
-  level: config.LOG_LEVEL ?? 'info',
+  level: config.LOG_LEVEL,
   transports,
 });
 
@@ -64,7 +64,7 @@ export const logWithServiceAndLevel: LogWithServiceAndMethod = (
     modifiedMeta = { service };
   }
 
-  logger.log(level, message, modifiedMeta);
+  rootLogger.log(level, message, modifiedMeta);
 };
 
 const createLogMethod =
@@ -82,4 +82,5 @@ export const createServiceLogger = (serviceName: string): ILogger => ({
 });
 
 updateLogger(createServiceLogger);
-export default createServiceLogger('CySync');
+
+export const logger = createServiceLogger('CySync');
