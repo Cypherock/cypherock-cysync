@@ -10,12 +10,14 @@ import {
   WidthProps,
   width,
 } from '../utils';
+import { HeightProps, height } from '../utils/height.styled';
 
 interface ImageProps
   extends MarginProps,
     PaddingProps,
     AlignSelfProps,
-    WidthProps {
+    WidthProps,
+    HeightProps {
   src: string;
   alt: string;
 }
@@ -25,6 +27,7 @@ const ImageStyle = styled.img<ImageProps>`
   ${padding}
   ${$alignSelf}
   ${width}
+  ${height}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (

@@ -25,7 +25,7 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
     
     @media ${({ theme }) => theme.screens.laptopL} {
     min-width: 500px;
-    padding: 104px 32px 40px;
+    padding: 32px 40px;
   }
 `;
 

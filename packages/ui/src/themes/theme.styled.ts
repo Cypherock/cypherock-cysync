@@ -43,13 +43,14 @@ export const theme = {
       blur: colors.background.blur,
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
-      seprator: colors.background.seprator,
+      seprator: colors.background.seperator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
     },
 
     border: {
       popup: colors.border.popup,
+      input: colors.border.input,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

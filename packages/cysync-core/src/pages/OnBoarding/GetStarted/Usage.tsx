@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import {
-  Bullet,
   Button,
   Container,
   DialogueBoxBody,
@@ -9,191 +8,74 @@ import {
   DialogueBoxFooter,
   Flex,
   Image,
-  Modal,
   Typography,
-  addWalletIcon,
-  closeIcon,
-  importWalletIcon,
-  recoverWalletIcon,
 } from '@cypherock/cysync-ui';
 import { Aside } from './Aside';
+import { usageIcon } from '../../../assets/images/onboarding';
 
-export const Usage = (): ReactElement => {
-  const [popup, setPopup] = useState(false);
-  return (
-    <Flex gap={0}>
-      <Aside />
-      <Container $bgColor="contentGradient" gap={2}>
-        <Flex position="absolute" top={3} right={3}>
-          <Typography color="muted">Help</Typography>
-          <Typography color="gold">?</Typography>
-        </Flex>
-        <DialogueBoxContainer>
-          <DialogueBoxBody>
+export const Usage = (): ReactElement => (
+  <Flex gap={0} position="relative">
+    <Aside />
+    <Container width="full" $bgColor="contentGradient" gap={16}>
+      <Flex position="absolute" top={30} right={26}>
+        <Typography color="muted">Help</Typography>
+        <Typography color="gold">?</Typography>
+      </Flex>
+      <DialogueBoxContainer direction="column" width={500} height={483}>
+        <DialogueBoxBody
+          grow={2}
+          align="center"
+          gap={50}
+          direction="column"
+          height="full"
+        >
+          <Image width={45} src={usageIcon} alt="usageIcon" />
+          <Flex direction="column">
             <Typography variant="h5" color="heading" mb={1}>
               I am using Cypherock X1 for the first time
             </Typography>
-            <Typography variant="h6" color="muted">
-              This is dialogue text or sub heading
-            </Typography>
-          </DialogueBoxBody>
-          <DialogueBoxFooter>
-            <Link to="/termsOfUse">
-              <Button variant="primary">Button</Button>
-            </Link>
-          </DialogueBoxFooter>
-        </DialogueBoxContainer>
-
-        <DialogueBoxContainer>
-          <DialogueBoxBody>
-            <Typography variant="h5" color="heading" mb={1}>
+            <Container $bgColor="input" px={2} py={3}>
+              <Typography $textAlign="center" variant="h6" color="muted">
+                Choose this if you have never used Cypherock X1 before
+              </Typography>
+            </Container>
+          </Flex>
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Link to="/termsOfUse">
+            <Button variant="primary">Continue</Button>
+          </Link>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
+      <DialogueBoxContainer direction="column" width={500} height={483}>
+        <DialogueBoxBody
+          align="center"
+          direction="column"
+          grow={1}
+          gap={50}
+          justify="evenly"
+          height="full"
+        >
+          <Image src={usageIcon} alt="usageIcon" />
+          <Flex direction="column">
+            <Typography $textAlign="center" variant="h5" color="heading" mb={1}>
               I have already used a Cypherock X1
             </Typography>
-            <Typography variant="h6" color="muted">
-              This is dialogue text or sub heading
-            </Typography>
-          </DialogueBoxBody>
-          <DialogueBoxFooter>
-            <Button
-              variant="primary"
-              onClick={() => setPopup(wasOpen => !wasOpen)}
-            >
-              Button
-            </Button>
-          </DialogueBoxFooter>
-        </DialogueBoxContainer>
-      </Container>
-
-      {popup ? (
-        <Modal position="absolute" justify="center" align="center">
-          <Flex>
-            <DialogueBoxContainer>
-              <DialogueBoxBody>
-                <Flex align="center" justify="space-between">
-                  <Flex>
-                    <Typography color="muted">Help</Typography>
-                    <Typography color="gold">?</Typography>
-                  </Flex>
-                  <button
-                    type="button"
-                    onClick={() => setPopup(wasOpen => !wasOpen)}
-                  >
-                    <Image src={closeIcon} alt="close" />
-                  </button>
-                </Flex>
-
-                <Typography variant="h5" color="heading" mb={7}>
-                  Let&apos;s create a wallet before we proceed. Make sure you
-                  have all the 4 X1 cards with you.
-                </Typography>
-
-                <Flex gap={2}>
-                  <DialogueBoxContainer>
-                    <DialogueBoxBody>
-                      <Image src={addWalletIcon} alt="addWallet" mb={4} />
-                      <Typography variant="h6" color="heading" mb={5}>
-                        Create a new wallet
-                      </Typography>
-                      <Container $bgColor="list" direction="column">
-                        <Flex align="center" mb={2} gap={2} pb={8}>
-                          <Bullet size="sm" />
-                          <Typography
-                            variant="h6"
-                            color="muted"
-                            $textAlign="left"
-                          >
-                            If you have bought a brand new Cypherock X1 and want
-                            to setup a new wallet
-                          </Typography>
-                        </Flex>
-                      </Container>
-                    </DialogueBoxBody>
-                    <DialogueBoxFooter>
-                      <Link to="/termsOfUse">
-                        <Button variant="primary">Create</Button>
-                      </Link>
-                    </DialogueBoxFooter>
-                  </DialogueBoxContainer>
-
-                  <DialogueBoxContainer>
-                    <DialogueBoxBody>
-                      <Image src={importWalletIcon} alt="importWallet" mb={4} />
-                      <Typography variant="h6" color="heading" mb={5}>
-                        Import your wallet from a seed phrase
-                      </Typography>
-
-                      <Container $bgColor="list" direction="column">
-                        <Flex align="center" mb={2} gap={2}>
-                          <Bullet size="sm" />
-                          <Typography
-                            variant="h6"
-                            color="muted"
-                            $textAlign="left"
-                          >
-                            You want to transfer your assets from your other
-                            wallets into Cypherock X1. (?)
-                          </Typography>
-                        </Flex>
-
-                        <Flex align="center" mb={2} gap={2}>
-                          <Bullet size="sm" />
-                          <Typography
-                            variant="h6"
-                            color="muted"
-                            $textAlign="left"
-                          >
-                            You want to transfer your assets from your other
-                            wallets into Cypherock X1. (?)
-                          </Typography>
-                        </Flex>
-
-                        <Flex align="center" mb={2} gap={2}>
-                          <Bullet size="sm" />
-                          <Typography
-                            variant="h6"
-                            color="muted"
-                            $textAlign="left"
-                          >
-                            You want to see all portfolio of your other wallets
-                            through Cypherock X1. (?)
-                          </Typography>
-                        </Flex>
-                      </Container>
-                    </DialogueBoxBody>
-                    <DialogueBoxFooter>
-                      <Link to="/termsOfUse">
-                        <Button variant="primary">Import</Button>
-                      </Link>
-                    </DialogueBoxFooter>
-                  </DialogueBoxContainer>
-                </Flex>
-
-                <Flex gap={2} align="center" mt={8}>
-                  <Image src={recoverWalletIcon} alt="recoverWallet" />
-                  <Flex direction="column" ml={2}>
-                    <Typography variant="h5" color="heading" $textAlign="left">
-                      Transfer from old to new Cypherock X1
-                    </Typography>
-                    <Typography variant="h6" color="muted" $textAlign="left">
-                      If you ever had a Cypherock X1 and want to migrate your
-                      wallets to a new Cypherock X1. This might be required in
-                      case your lost your X1 wallet
-                    </Typography>
-                    <Typography variant="h6" color="muted" $textAlign="left">
-                      and one or more of the X1 cards whatsoever, we don’t judge
-                    </Typography>
-                  </Flex>
-                  <Container ml={2}>
-                    <Button variant="primary">Transfer</Button>
-                  </Container>
-                </Flex>
-              </DialogueBoxBody>
-            </DialogueBoxContainer>
+            <Container $bgColor="input" px={2} py={3}>
+              <Typography variant="h6" color="muted">
+                Choose this if you want to migrate your wallets to a new
+                Cypherock X1. This might be required in case your lost your X1
+                wallet and one or more of the X1 cards.
+              </Typography>
+            </Container>
           </Flex>
-        </Modal>
-      ) : (
-        ''
-      )}
-    </Flex>
-  );
-};
+        </DialogueBoxBody>
+        <DialogueBoxFooter>
+          <Link to="/termsOfUse">
+            <Button variant="primary">Continue</Button>
+          </Link>
+        </DialogueBoxFooter>
+      </DialogueBoxContainer>
+    </Container>
+  </Flex>
+);
