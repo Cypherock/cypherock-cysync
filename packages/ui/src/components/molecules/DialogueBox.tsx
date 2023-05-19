@@ -1,23 +1,16 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
+import { WidthProps, width, flex, FlexProps } from '../utils';
+import { HeightProps, height } from '../utils/height.styled';
 
-export interface DialogueBoxProps {
+export interface DialogueBoxProps extends WidthProps, HeightProps, FlexProps {
   children?: ReactNode;
-  lg?: boolean;
-  md?: boolean;
 }
 
 const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
-  max-width: ${props => {
-    if (props.lg) return '700px';
-    if (props.md) return '500px';
-    return '';
-  }};
-  min-width: ${props => {
-    if (props.lg) return '700px';
-    if (props.md) return '500px';
-    return '';
-  }};
+  ${width}
+  ${height}
+  ${flex}
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -27,7 +20,7 @@ const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
   text-align: center;
 `;
 
-const DialogueBoxTopBarStyle = styled.div`
+const DialogueBoxTopBarStyle = styled.div<DialogueBoxProps>`
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -41,11 +34,12 @@ const DialogueBoxTopBarStyle = styled.div`
   color: ${({ theme }) => theme.palette.text.mutedText};
 `;
 
-const DialogueBoxBodyStyle = styled.div`
+const DialogueBoxBodyStyle = styled.div<DialogueBoxProps>`
+  ${flex}
   padding: 42px 40px 32px 40px;
 `;
 
-const DialogueBoxFooterStyle = styled.div`
+const DialogueBoxFooterStyle = styled.div<DialogueBoxProps>`
   padding: 32px 0;
   display: flex;
   flex-direction: row;
@@ -84,21 +78,13 @@ export const DialogueBoxFooter: FC<DialogueBoxProps> = ({
 
 DialogueBoxContainer.defaultProps = {
   children: null,
-  lg: false,
-  md: false,
 };
 DialogueBoxBody.defaultProps = {
   children: null,
-  lg: false,
-  md: false,
 };
 DialogueBoxFooter.defaultProps = {
   children: null,
-  lg: false,
-  md: false,
 };
 DialogueBoxTopBar.defaultProps = {
   children: null,
-  lg: false,
-  md: false,
 };

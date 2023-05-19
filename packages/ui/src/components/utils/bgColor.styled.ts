@@ -8,6 +8,8 @@ export interface BgColorProps {
     | 'sideBar'
     | 'list'
     | 'black'
+    | 'separator'
+    | 'input'
     | 'white';
 }
 
@@ -32,6 +34,16 @@ export const $bgColor = css<BgColorProps>`
     props.$bgColor === 'sideBar' &&
     css`
       background-image: ${({ theme }) => theme.palette.background.sideBar};
+    `}
+  ${props =>
+    props.$bgColor === 'input' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.input};
+    `}
+  ${props =>
+    props.$bgColor === 'separator' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.separator};
     `}
 
 ${props =>

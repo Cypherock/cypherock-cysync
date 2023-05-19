@@ -21,6 +21,7 @@ export interface FlexProps {
     | 'space-around';
   direction?: 'row' | 'column';
   gap?: number;
+  grow?: number;
 }
 
 const justifyContent = css<FlexProps>`
@@ -36,7 +37,10 @@ const direction = css<FlexProps>`
 `;
 
 const gap = css<FlexProps>`
-  ${props => props.gap && `gap: ${props.gap}px`}
+  ${props => props.gap && `gap: ${props.gap}px;`}
+`;
+const grow = css<FlexProps>`
+  ${props => props.grow && `flex-grow: ${props.grow};`}
 `;
 
 const content = css<FlexProps>`
@@ -50,4 +54,5 @@ export const flex = css<FlexProps>`
   ${content}
   ${direction}
   ${gap}
+  ${grow}
 `;

@@ -10,33 +10,34 @@ export interface PositionProps {
 
 export const position = css<PositionProps>`
   ${props => {
+    const positionCss = [];
     if (props.position) {
-      return `position: ${props.position};`;
+      positionCss.push(`position: ${props.position};`);
     }
     if (props.top) {
       if (!Number.isInteger(props.top)) {
-        return `top: ${props.top * 100}%;`;
+        positionCss.push(`top: ${props.top * 100}%;`);
       }
-      return `top: ${props.top}px;`;
+      positionCss.push(`top: ${props.top}px;`);
     }
     if (props.bottom) {
       if (!Number.isInteger(props.bottom)) {
-        return `bottom: ${props.bottom * 100}%;`;
+        positionCss.push(`bottom: ${props.bottom * 100}%;`);
       }
-      return `bottom: ${props.bottom}px;`;
+      positionCss.push(`bottom: ${props.bottom}px;`);
     }
     if (props.right) {
       if (!Number.isInteger(props.right)) {
-        return `right: ${props.right * 100}%;`;
+        positionCss.push(`right: ${props.right * 100}%;`);
       }
-      return `right: ${props.right}px;`;
+      positionCss.push(`right: ${props.right}px;`);
     }
     if (props.left) {
       if (!Number.isInteger(props.left)) {
-        return `left: ${props.left * 100}%;`;
+        positionCss.push(`left: ${props.left * 100}%;`);
       }
-      return `left: ${props.left}px;`;
+      positionCss.push(`left: ${props.left}px;`);
     }
-    return null;
+    return positionCss.join(' ');
   }}
 `;

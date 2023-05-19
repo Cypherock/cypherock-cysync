@@ -5,6 +5,7 @@ import serverError from './deviceAuth/server-off.png';
 import failedDeviceAuth from './deviceAuth/fail.png';
 import settingsWrong from './deviceAuth/settings-wrong.png';
 import setPassSuccess from './setPass/success.png';
+import usageIcon from './getStarted/usageIcon.png';
 
 export {
   termsLinkImage,
@@ -14,4 +15,5 @@ export {
   serverError,
   settingsWrong,
   setPassSuccess,
+  usageIcon,
 };

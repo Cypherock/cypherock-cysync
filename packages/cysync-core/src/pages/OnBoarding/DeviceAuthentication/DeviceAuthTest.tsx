@@ -1,5 +1,12 @@
 import React, { ReactElement } from 'react';
-import { Container, Flex, Image, Typography } from '@cypherock/cysync-ui';
+import { Link } from 'react-router-dom';
+import {
+  Container,
+  Flex,
+  Image,
+  Typography,
+  backIcon,
+} from '@cypherock/cysync-ui';
 import { Aside } from './Aside';
 import { loader } from '../../../assets/images/onboarding';
 
@@ -31,6 +38,12 @@ export const DeviceAuthTest = (): ReactElement => (
           </Typography>
         </Flex>
       </Container>
+      <Link to="/">
+        <Flex position="absolute" left={16} bottom={16} gap={12} align="center">
+          <Image src={backIcon} alt="back" />
+          <Typography color="muted">Back</Typography>
+        </Flex>
+      </Link>
     </Container>
   </Container>
 );

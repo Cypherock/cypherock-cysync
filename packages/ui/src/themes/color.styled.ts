@@ -31,9 +31,10 @@ export const colors = {
     progressBar: '#1F1915',
     input: '#27221D',
     blur: 'rgba(29, 25, 23, 0.4)',
-    seprator: '#39322C',
+    seperator: '#39322C',
   },
   border: {
     popup: '#2C2520',
+    input: '#3C3937',
   },
 };

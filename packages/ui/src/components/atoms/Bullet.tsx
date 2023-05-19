@@ -47,7 +47,7 @@ const BulletStyle = styled.div<BulletProps>`
   ${props =>
     props.variant === 'gold' &&
     css`
-      background-image: ${({ theme }) => theme.palette.primary.primary};
+      background-image: ${({ theme }) => theme.palette.golden};
     `}
   ${props =>
     props.variant === 'success' &&
