@@ -1,6 +1,6 @@
 export default {
   BUILD_TYPE: 'debug',
-  LOG_LEVEL: 'silly',
+  LOG_LEVEL: 'verbose',
   API_CYPHEROCK: 'https://dev-api.cypherock.com',
   ALLOW_PRERELEASE: true,
   SIMULATE_PRODUCTION: false,

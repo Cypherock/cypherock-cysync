@@ -1,14 +1,22 @@
 import { ILogger } from '@cypherock/cysync-interfaces';
 
+const createDefaultMeta = (service: string, meta: any) => ({
+  service,
+  ...(meta ?? {}),
+  timestamp: new Date(),
+});
+
 export const createDefaultConsoleLogger = (service: string): ILogger => ({
-  info: (message, meta) => console.info(message, { service, ...(meta ?? {}) }),
+  info: (message, meta) =>
+    console.info(message, createDefaultMeta(service, meta)),
   debug: (message, meta) =>
-    console.debug(message, { service, ...(meta ?? {}) }),
+    console.debug(message, createDefaultMeta(service, meta)),
   verbose: (message, meta) =>
-    console.debug(message, { service, ...(meta ?? {}) }),
-  warn: (message, meta) => console.warn(message, { service, ...(meta ?? {}) }),
+    console.debug(message, createDefaultMeta(service, meta)),
+  warn: (message, meta) =>
+    console.warn(message, createDefaultMeta(service, meta)),
   error: (message, meta) =>
-    console.error(message, { service, ...(meta ?? {}) }),
+    console.error(message, createDefaultMeta(service, meta)),
 });
 
 export const updateLoggerObject = (params: {
