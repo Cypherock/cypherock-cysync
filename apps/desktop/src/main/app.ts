@@ -7,6 +7,7 @@ import {
   fadeInWindow,
   initDb,
   logger,
+  setupProcessEventHandlers,
   windowUrls,
 } from './utils';
 
@@ -33,6 +34,7 @@ const setupIntitialState = async () => {
 };
 
 const prepareApp = () => {
+  setupProcessEventHandlers();
   setupIPCHandlers(ipcMain);
 
   // Disable GPU Acceleration for Windows 7
