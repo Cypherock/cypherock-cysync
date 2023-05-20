@@ -17,7 +17,7 @@ const DialogueBoxContainerStyle = styled.section<DialogueBoxProps>`
   border-radius: 16px;
   background-image: ${({ theme }) => theme.palette.background.primary};
   box-shadow: ${({ theme }) => theme.shadow.popup};
-  border-color: ${({ theme }) => theme.palette.border.main};
+  border-color: ${({ theme }) => theme.palette.border.popup};
   text-align: center;
 `;
 
@@ -29,7 +29,7 @@ const DialogueBoxTopBarStyle = styled.div<DialogueBoxProps>`
   border-left: 0;
   border-right: 0;
   border-style: solid;
-  border-color: ${({ theme }) => theme.palette.border.main};
+  border-color: ${({ theme }) => theme.palette.border.popup};
   padding-top: ${({ theme }) => theme.spacing.two.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: ${({ theme }) => theme.palette.text.mutedText};

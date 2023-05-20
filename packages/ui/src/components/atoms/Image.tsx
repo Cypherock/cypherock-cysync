@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import {
-  margin,
-  MarginProps,
-  padding,
-  PaddingProps,
+  spacing,
+  SpacingProps,
   $alignSelf,
   AlignSelfProps,
   WidthProps,
@@ -15,8 +13,8 @@ import {
 import { HeightProps, height } from '../utils/height.styled';
 
 interface ImageProps
-  extends MarginProps,
-    PaddingProps,
+  extends SpacingProps,
+    SpacingProps,
     AlignSelfProps,
     AnimateProps,
     WidthProps,
@@ -26,8 +24,7 @@ interface ImageProps
 }
 
 const ImageStyle = styled.img<ImageProps>`
-  ${margin}
-  ${padding}
+  ${spacing}
   ${$alignSelf}
   ${width}
   ${height}

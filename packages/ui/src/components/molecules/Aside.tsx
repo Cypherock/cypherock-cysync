@@ -27,6 +27,7 @@ export const Aside = (props: IAsideProps): ReactElement => {
       direction="column"
       justify="space-between"
       align="center"
+      height="full"
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
       <Flex direction="column" align="center" width="full">

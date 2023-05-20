@@ -6,7 +6,7 @@ interface ButtonProps
   extends WidthProps,
     AlignSelfProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'dashed' | 'warning';
+  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
 }
 
@@ -46,6 +46,12 @@ const buttonBaseStyle = css<ButtonProps>`
         border-radius: 6px;
         color: #ffffff;
         font-weight: 500;
+      `;
+    if (props.variant === 'none')
+      return css`
+        background: transparent;
+        border: none;
+        padding: 0px;
       `;
     return '';
   }}

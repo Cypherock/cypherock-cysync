@@ -7,7 +7,7 @@ import { font, FontProps } from './font.styled';
 import { position, PositionProps } from './position.styled';
 import { width, WidthProps } from './width.styled';
 import { $bgColor, BgColorProps } from './bgColor.styled';
-import { margin, MarginProps, padding, PaddingProps } from './spacing.styled';
+import { spacing, SpacingProps } from './spacing.styled';
 import { height, HeightProps } from './height.styled';
 import { ShadowProps, shadow } from './shadow.styled';
 import { BorderProps, border } from './border.styled';
@@ -20,8 +20,7 @@ export interface UtilsProps
     FlexProps,
     FontProps,
     PositionProps,
-    MarginProps,
-    PaddingProps,
+    SpacingProps,
     WidthProps,
     AlignSelfProps,
     DisplayProps,
@@ -38,8 +37,7 @@ export const utils = css<UtilsProps>`
   ${flex}
   ${font}
   ${position}
-  ${margin}
-  ${padding}
+  ${spacing}
   ${width}
   ${height}
   ${display}

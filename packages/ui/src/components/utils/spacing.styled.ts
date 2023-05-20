@@ -17,55 +17,61 @@ const spacingObj = {
 type SpacingOptions = keyof typeof spacingObj;
 
 type MediaQuery<T> = Partial<Record<BreakPoint, T>> | T;
-export interface MarginProps {
-  mb?: MediaQuery<SpacingOptions>;
-  mr?: MediaQuery<SpacingOptions>;
-  ml?: MediaQuery<SpacingOptions>;
-  mt?: MediaQuery<SpacingOptions>;
-  m?: MediaQuery<SpacingOptions>;
-  mx?: MediaQuery<SpacingOptions>;
-  my?: MediaQuery<SpacingOptions>;
-}
-export interface PaddingProps {
-  pb?: MediaQuery<SpacingOptions>;
-  pr?: MediaQuery<SpacingOptions>;
-  pl?: MediaQuery<SpacingOptions>;
-  pt?: MediaQuery<SpacingOptions>;
-  p?: MediaQuery<SpacingOptions>;
-  px?: MediaQuery<SpacingOptions>;
-  py?: MediaQuery<SpacingOptions>;
-}
 
-export const margin = css<MarginProps>`
+type SpacingType<T extends string> =
+  | `${T}b`
+  | `${T}r`
+  | `${T}l`
+  | `${T}t`
+  | `${T}`
+  | `${T}x`
+  | `${T}y`;
+
+export type SpacingProps = {
+  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<SpacingOptions>;
+};
+
+const cssMap: Record<string, string[]> = {
+  m: ['margin'],
+  p: ['padding'],
+  l: ['left'],
+  r: ['right'],
+  x: ['left', 'right'],
+  t: ['top'],
+  b: ['bottom'],
+  y: ['top', 'bottom'],
+};
+
+export const spacing = css<SpacingProps>`
   ${props => {
     const finalCss = [];
 
-    finalCss.push(...getCss(['margin-bottom'], props.mb));
-    finalCss.push(...getCss(['margin-right'], props.mr));
-    finalCss.push(...getCss(['margin-top'], props.mt));
-    finalCss.push(...getCss(['margin-left'], props.ml));
-    finalCss.push(...getCss(['margin'], props.m));
-    finalCss.push(...getCss(['margin-left', 'margin-right'], props.mx));
-    finalCss.push(...getCss(['margin-top', 'margin-bottom'], props.my));
+    for (const key in props) {
+      if (Object.prototype.hasOwnProperty.call(props, key)) {
+        finalCss.push(
+          ...getCss(getProperties(key as any), (props as any)[key]),
+        );
+      }
+    }
 
     return finalCss.length ? finalCss.join(' ') : null;
   }}
 `;
-export const padding = css<PaddingProps>`
-  ${props => {
-    const finalCss = [];
 
-    finalCss.push(...getCss(['padding-bottom'], props.pb));
-    finalCss.push(...getCss(['padding-right'], props.pr));
-    finalCss.push(...getCss(['padding-top'], props.pt));
-    finalCss.push(...getCss(['padding-left'], props.pl));
-    finalCss.push(...getCss(['padding'], props.p));
-    finalCss.push(...getCss(['padding-left', 'padding-right'], props.px));
-    finalCss.push(...getCss(['padding-top', 'padding-bottom'], props.py));
-
-    return finalCss.length ? finalCss.join(' ') : null;
-  }}
-`;
+const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
+  const [first, second] = key.split('');
+  const properties = [];
+  for (const i of cssMap[first] ?? []) {
+    if (second) {
+      for (const j of cssMap[second] ?? []) {
+        properties.push(`${i}-${j}`);
+      }
+    } else {
+      properties.push(i);
+    }
+  }
+  return properties;
+};
 
 const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
   const result: any = [];

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import {
-  margin,
-  MarginProps,
+  spacing,
+  SpacingProps,
   font,
   FontProps,
   width,
@@ -14,7 +14,7 @@ import {
 } from '../utils';
 
 interface HeadingProps
-  extends MarginProps,
+  extends SpacingProps,
     FontProps,
     WidthProps,
     PositionProps,
@@ -75,7 +75,7 @@ const HeadingOneStyle = styled.h1<HeadingProps>`
   font-size: 40px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -86,7 +86,7 @@ const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -97,7 +97,7 @@ const HeadingThreeStyle = styled.h3<HeadingProps>`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${width};
   ${position};
   ${display};
@@ -107,7 +107,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -118,7 +118,7 @@ const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -129,7 +129,7 @@ const HeadingSixStyle = styled.h6<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -140,7 +140,7 @@ const SpanStyle = styled.span<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -150,7 +150,7 @@ const FinePrintStyle = styled.span<HeadingProps>`
   font-size: 14px;
   font-weight: 300;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};
@@ -161,7 +161,7 @@ const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${font};
   ${width};
   ${position};

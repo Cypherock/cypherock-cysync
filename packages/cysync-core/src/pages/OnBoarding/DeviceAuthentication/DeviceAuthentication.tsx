@@ -1,10 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import {
+  BackgroundContainer,
+  BackgroundHeaderBar,
   Container,
-  Flex,
-  Image,
-  Typography,
-  emailIcon,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { Aside } from '@cypherock/cysync-ui/src/components/molecules/Aside';
@@ -37,6 +35,7 @@ export const DeviceAuthentication = (): ReactElement => {
       navigate('/');
     }
   }, [connection]);
+
   return (
     <Container height="screen" $bgColor="sideBar" display="flex">
       <Aside
@@ -45,45 +44,12 @@ export const DeviceAuthentication = (): ReactElement => {
         currentState={4}
         totalState={8}
       />
-      <Container
-        $bgColor="contentGradient"
-        height="full"
-        width="full"
-        align="center"
-        position="relative"
-        justify="center"
-        display="flex"
-        grow={1}
-      >
-        <Flex
-          position="absolute"
-          top={0}
-          width="full"
-          justify="space-between"
-          p={{
-            def: 1,
-            lg: 5,
-          }}
-        >
-          <Flex gap={16} $bgColor="highlight" rounded={10} pr={1}>
-            <Image src={emailIcon} width={24} alt="Email Icon" />
-            <Typography color="muted" fontSize={14}>
-              user@email.com
-            </Typography>
-          </Flex>
-          <Flex gap={8}>
-            <Typography color="muted" fontSize={14}>
-              Help
-            </Typography>
-            <Typography color="gold" fontSize={14}>
-              ?
-            </Typography>
-          </Flex>
-        </Flex>
+      <BackgroundContainer>
+        <BackgroundHeaderBar email help />
         {result === undefined && <Authenticating />}
-        {result === true && <Success />}
         {result === false && <Failure />}
-      </Container>
+        {result === true && <Success />}
+      </BackgroundContainer>
     </Container>
   );
 };

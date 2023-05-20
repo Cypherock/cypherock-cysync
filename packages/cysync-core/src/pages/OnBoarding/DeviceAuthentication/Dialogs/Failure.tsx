@@ -16,7 +16,15 @@ export const Failure: React.FC = () => (
     width={500}
     direction="column"
   >
-    <Container display="flex" direction="column" gap={32} px={5} pb={4} pt={4}>
+    <Container
+      display="flex"
+      direction="column"
+      gap={32}
+      px={5}
+      pb={4}
+      pt={4}
+      width={500}
+    >
       <Image src={failIcon} alt="Failure Icon" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
