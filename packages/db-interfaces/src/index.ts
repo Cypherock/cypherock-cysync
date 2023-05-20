@@ -9,6 +9,7 @@ import type {
   IRepository,
   ObjectLiteral,
 } from './entities';
+import { IKeyValueStore } from './keyValueStore';
 
 export interface IDatabase {
   device: IDeviceRepository;
@@ -17,6 +18,7 @@ export interface IDatabase {
   wallet: IWalletRepository;
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;
+  storage: IKeyValueStore;
   createOrFetchRepository<T extends IEntity>(
     name: string,
     schema: ObjectLiteral,
@@ -25,3 +27,4 @@ export interface IDatabase {
 
 export * from './entities';
 export * from './errors';
+export * from './keyValueStore';
