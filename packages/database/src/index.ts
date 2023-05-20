@@ -16,12 +16,12 @@ export const createDb = (dirPath: string) => {
   }
 
   const db = new Database(dbPath, {
-    verbose: logger.verbose as any,
+    verbose: logger.debug as any,
   });
   db.pragma('journal_mode = WAL');
 
   const storageDb = new Database(storagePath, {
-    verbose: logger.verbose as any,
+    verbose: logger.debug as any,
   });
   storageDb.pragma('journal_mode = WAL');
   return new DB(db, storageDb);
