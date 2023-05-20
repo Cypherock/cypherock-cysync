@@ -9,3 +9,4 @@ node_modules
 !.yarn/versions
 *.zip
 .pnpm-store
+.DS_Store

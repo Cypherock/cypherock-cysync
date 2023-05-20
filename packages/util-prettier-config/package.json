@@ -2,7 +2,7 @@
   "name": "@cypherock/prettier-config",
   "version": "0.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "publishConfig": {
     "access": "public"
   },

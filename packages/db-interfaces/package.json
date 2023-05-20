@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "scripts": {
     "pretty": "prettier --write \"src/**/*.ts\"",
     "pretty:check": "prettier --check \"src/**/*.ts\"",

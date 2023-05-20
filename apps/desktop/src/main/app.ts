@@ -1,91 +1,109 @@
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { release } from 'node:os';
-import { join } from 'node:path';
 import { setupIPCHandlers } from './ipc';
-import { config } from './utils/config';
-import logger from './utils/logger';
-import { initDb } from './utils/db';
+import {
+  config,
+  createWindowAndOpenUrl,
+  fadeInWindow,
+  initDb,
+  logger,
+  setupProcessEventHandlers,
+  windowUrls,
+} from './utils';
 
-function prepareApp() {
-  setupIPCHandlers(ipcMain);
-}
+const shouldStartApp = () => {
+  // Locks the current application instance.
+  const applicationLock = app.requestSingleInstanceLock();
 
-export default function createApp() {
-  prepareApp();
-  logger.info('Starting Application', { config });
+  // If unable to get the lock, then the application is already running.
+  if (!applicationLock) {
+    logger.info('An instance of CyCync is already running.');
+    return false;
+  }
 
+  // eslint-disable-next-line global-require
+  if (require('electron-squirrel-startup')) {
+    return false;
+  }
+
+  return true;
+};
+
+const setupIntitialState = async () => {
   initDb();
-  process.env.DIST_ELECTRON = join(__dirname, '../');
-  process.env.DIST = join(process.env.DIST_ELECTRON, '../dist');
-  process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-    ? join(process.env.DIST_ELECTRON, '../public')
-    : process.env.DIST;
+};
+
+const prepareApp = () => {
+  setupProcessEventHandlers();
+  setupIPCHandlers(ipcMain);
 
   // Disable GPU Acceleration for Windows 7
   if (release().startsWith('6.1')) app.disableHardwareAcceleration();
 
   // Set application name for Windows 10+ notifications
   if (process.platform === 'win32') app.setAppUserModelId(app.getName());
+};
 
-  if (!app.requestSingleInstanceLock()) {
+export default function createApp() {
+  if (!shouldStartApp()) {
     app.quit();
     process.exit(0);
   }
 
-  let win: BrowserWindow | null = null;
+  logger.info('Starting Application', { config });
+  prepareApp();
 
-  const preload = join(__dirname, '../preload/index.js');
-  const rendererUrl = process.env.VITE_DEV_SERVER_URL;
-  const indexHtml = join(process.env.DIST, 'index.html');
-  const icon = process.env.PUBLIC;
+  let mainWindow: BrowserWindow | null = null;
+  let loadingWindow: BrowserWindow | null = null;
 
-  async function createWindow() {
-    win = new BrowserWindow({
-      title: 'Main window',
-      icon: join(icon, 'favicon.ico'),
-      webPreferences: {
-        preload,
-        nodeIntegration: false,
-        contextIsolation: true,
-      },
-      autoHideMenuBar: true,
-      minWidth: 1024,
-      minHeight: 700,
-    });
+  const createMainWindow = async () => {
+    logger.debug('Starting main window');
+    mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
 
-    if (process.env.VITE_DEV_SERVER_URL) {
-      if (!rendererUrl) {
-        throw new Error('VITE_DEV_SERVER_URL is undefined');
+    mainWindow.once('ready-to-show', () => {
+      logger.info('Main Window loaded');
+      if (!mainWindow || mainWindow.isDestroyed()) {
+        return;
       }
 
-      win.loadURL(rendererUrl);
+      mainWindow.show();
+      fadeInWindow(mainWindow);
 
-      if (!config.IS_PRODUCTION && !config.IS_TEST) {
-        win.webContents.openDevTools();
+      if (loadingWindow && !loadingWindow.isDestroyed()) {
+        loadingWindow.hide();
+        loadingWindow.destroy();
       }
-    } else {
-      win.loadFile(indexHtml);
-    }
-
-    // Make all links open with the browser, not with the application
-    win.webContents.setWindowOpenHandler(({ url }) => {
-      if (url.startsWith('https:')) shell.openExternal(url);
-      return { action: 'deny' };
     });
-  }
+  };
 
-  app.whenReady().then(createWindow);
+  const createLoadingWindow = () => {
+    logger.debug('Starting loading window');
+    loadingWindow = createWindowAndOpenUrl(windowUrls.loadingWindowUrl, true);
+
+    loadingWindow.once('ready-to-show', async () => {
+      logger.debug('Loading window loaded');
+      if (loadingWindow && !loadingWindow.isDestroyed()) {
+        loadingWindow.show();
+        fadeInWindow(loadingWindow);
+
+        await setupIntitialState();
+        await createMainWindow();
+      }
+    });
+  };
+
+  app.whenReady().then(createLoadingWindow);
 
   app.on('window-all-closed', () => {
-    win = null;
+    mainWindow = null;
     if (process.platform !== 'darwin') app.quit();
   });
 
   app.on('second-instance', () => {
-    if (win) {
+    if (mainWindow) {
       // Focus on the main window if the user tried to open another
-      if (win.isMinimized()) win.restore();
-      win.focus();
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
     }
   });
 
@@ -94,7 +112,7 @@ export default function createApp() {
     if (allWindows.length) {
       allWindows[0].focus();
     } else {
-      createWindow();
+      createMainWindow();
     }
   });
 }

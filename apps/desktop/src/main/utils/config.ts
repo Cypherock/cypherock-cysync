@@ -1,37 +1,35 @@
 import { app } from 'electron';
 import jsonConfig from '../../config';
 
+const configValidators = {
+  API_CYPHEROCK: (val?: string) => val?.startsWith('http') ?? false,
+  BUILD_TYPE: (val?: string) => ['production', 'debug'].includes(val as any),
+  LOG_LEVEL: (val?: string) =>
+    ['error', 'warn', 'info', 'verbose', 'debug'].includes(val as any),
+  BUILD_VERSION: (val?: string) => !!val,
+  SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
+  ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
+} as const;
+
 const validateJsonConfig = () => {
-  if (!jsonConfig.API_CYPHEROCK.startsWith('http')) {
-    throw new Error('Invalid API_CYPHEROCK in json config');
+  for (const key in configValidators) {
+    if (!(configValidators as any)[key]((jsonConfig as any)[key])) {
+      throw new Error(`Invalid ${key} in json config`);
+    }
   }
+};
 
-  if (!['production', 'debug'].includes(jsonConfig.BUILD_TYPE)) {
-    throw new Error('Invalid BUILD_TYPE in json config');
-  }
-
+const getFromExternalEnv = (key: string) => {
+  const validator = (configValidators as any)[key];
   if (
-    !['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'].includes(
-      jsonConfig.LOG_LEVEL,
-    )
+    validator &&
+    typeof process.env[key] !== 'undefined' &&
+    validator(process.env[key])
   ) {
-    throw new Error('Invalid LOG_LEVEL in json config');
+    return process.env[key];
   }
 
-  // Build version is just the commit hash
-  if (!jsonConfig.BUILD_VERSION) {
-    throw new Error('No BUILD_VERSION in json config');
-  }
-
-  // When you want to enable production features on development (`pnpm start`)
-  if (typeof jsonConfig.SIMULATE_PRODUCTION !== 'boolean') {
-    throw new Error('Invalid SIMULATE_PRODUCTION in json config');
-  }
-
-  // When you want to enable the donwload of prerelease firmware
-  if (typeof jsonConfig.ALLOW_PRERELEASE !== 'boolean') {
-    throw new Error('Invalid ALLOW_PRERELEASE in json config');
-  }
+  return undefined;
 };
 
 /**
@@ -55,54 +53,47 @@ const validateJsonConfig = () => {
  * 1. Use to decide if we want to enable or disable a feature.
  * 2. Example: Websockets, Refresh on Startup etc.
  */
-export const setConfig = () => {
+const getConfig = () => {
   validateJsonConfig();
 
+  const config = {
+    LOG_LEVEL: '',
+    BUILD_TYPE: '',
+    API_CYPHEROCK: '',
+    BUILD_VERSION: '',
+    IS_PRODUCTION: true,
+    IS_TEST: false,
+    ALLOW_PRERELEASE: false,
+    USER_DATA_PATH: '',
+  };
+
+  config.BUILD_TYPE = jsonConfig.BUILD_TYPE;
+  config.BUILD_VERSION = jsonConfig.BUILD_VERSION;
+  config.ALLOW_PRERELEASE = jsonConfig.ALLOW_PRERELEASE;
+
   if (!app && process.env.NODE_ENV === 'test') {
-    process.env.USER_DATA_PATH = '.';
+    config.USER_DATA_PATH = '.';
   } else {
-    process.env.USER_DATA_PATH = app.getPath('userData');
-  }
-
-  process.env.LOG_LEVEL = jsonConfig.LOG_LEVEL;
-  process.env.BUILD_TYPE = jsonConfig.BUILD_TYPE;
-  process.env.API_CYPHEROCK = jsonConfig.API_CYPHEROCK;
-  process.env.BUILD_VERSION = jsonConfig.BUILD_VERSION;
-
-  if (jsonConfig.ALLOW_PRERELEASE) {
-    process.env.ALLOW_PRERELEASE = 'true';
-  } else {
-    process.env.ALLOW_PRERELEASE = 'false';
+    config.USER_DATA_PATH = app.getPath('userData');
   }
 
   // Treat test as a production environment
   if (
     ['production', 'test'].includes(process.env.NODE_ENV?.toLowerCase() as any)
   ) {
-    process.env.IS_PRODUCTION = 'true';
+    config.IS_PRODUCTION = true;
   } else if (jsonConfig.SIMULATE_PRODUCTION) {
-    process.env.IS_PRODUCTION = 'true';
+    config.IS_PRODUCTION = true;
   } else {
-    process.env.IS_PRODUCTION = 'false';
+    config.IS_PRODUCTION = false;
   }
+
+  // These variables can be overridden from external env
+  config.LOG_LEVEL = getFromExternalEnv('LOG_LEVEL') ?? jsonConfig.LOG_LEVEL;
+  config.API_CYPHEROCK =
+    getFromExternalEnv('API_CYPHEROCK') ?? jsonConfig.API_CYPHEROCK;
+
+  return config;
 };
 
-setConfig();
-
-const getEnv = (name: string) => {
-  const value = process.env[name];
-  if (!value)
-    throw new Error(`Assertion Error: ENV variable ${name} not defined`);
-  return value;
-};
-
-export const config = {
-  LOG_LEVEL: getEnv('LOG_LEVEL'),
-  BUILD_TYPE: getEnv('BUILD_TYPE'),
-  API_CYPHEROCK: getEnv('API_CYPHEROCK'),
-  BUILD_VERSION: getEnv('BUILD_VERSION'),
-  IS_PRODUCTION: getEnv('IS_PRODUCTION') === 'true',
-  IS_TEST: process.env.NODE_ENV?.toLowerCase() === 'test',
-  ALLOW_PRERELEASE: getEnv('ALLOW_PRERELEASE') === 'true',
-  USER_DATA_PATH: getEnv('USER_DATA_PATH'),
-};
+export const config = getConfig();
