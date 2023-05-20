@@ -12,7 +12,6 @@ import React, { ReactElement } from 'react';
 export const Aside = (): ReactElement => (
   <AsideContainer
     $bgColor="sideBar"
-    size="lg"
     height="screen"
     direction="column"
     justify="space-between"

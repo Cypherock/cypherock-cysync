@@ -46,12 +46,12 @@ export const DeviceAuthTest = (): ReactElement => {
       const statesArray = Object.keys(deviceAuthStatesObj);
       let idx = statesArray.indexOf(state);
 
-      if (idx + 1 === statesArray.length) {
+      if (idx + 1 > statesArray.length - 1) {
         idx = 0;
-      } else idx += idx;
+      } else idx += 1;
 
       setState(statesArray[idx]);
-    }, 5000);
+    }, 4000);
   }, []);
 
   return (

@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export interface HeightProps {
   height?: number | string;
-  heightL?: number | string;
+  $heightL?: number | string;
 }
 
 export const height = css<HeightProps>`
@@ -21,18 +21,18 @@ export const height = css<HeightProps>`
       } else heightCss.push(`height: ${props.height}px;`);
     }
 
-    if (props.heightL) {
-      if (props.heightL === 'full')
+    if (props.$heightL) {
+      if (props.$heightL === 'full')
         heightCss.push(`@media ${props.theme.screens.laptopL} {
           height: 100%;
         }`);
-      else if (props.heightL === 'screen')
+      else if (props.$heightL === 'screen')
         heightCss.push(`@media ${props.theme.screens.laptopL} {
           height: 100vh;
         }`);
-      else if (typeof props.heightL === 'string') {
-        if (props.heightL.includes('/')) {
-          const numberArray = props.heightL.split('/');
+      else if (typeof props.$heightL === 'string') {
+        if (props.$heightL.includes('/')) {
+          const numberArray = props.$heightL.split('/');
           const firstNumber = parseInt(numberArray[0], 10);
           const secondNumber = parseInt(numberArray[1], 10);
           heightCss.push(
@@ -44,7 +44,7 @@ export const height = css<HeightProps>`
       } else
         heightCss.push(
           `@media ${props.theme.screens.laptopL} {
-            height: ${props.heightL}px;
+            height: ${props.$heightL}px;
           }`,
         );
     }

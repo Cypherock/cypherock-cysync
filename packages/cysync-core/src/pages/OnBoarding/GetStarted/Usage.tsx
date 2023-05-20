@@ -17,7 +17,7 @@ export const Usage = (): ReactElement => (
   <Flex gap={0} position="relative">
     <Aside />
     <Container width="full" $bgColor="contentGradient">
-      <Flex directionL="row" direction="column" gap={16}>
+      <Flex $directionL="row" direction="column" gap={16}>
         <Flex position="absolute" top={30} right={26} gap={12}>
           <Typography color="muted">Help</Typography>
           <Typography color="gold">?</Typography>
@@ -25,14 +25,14 @@ export const Usage = (): ReactElement => (
         <DialogueBoxContainer
           direction="column"
           width={458}
-          widthL={500}
+          $widthL={500}
           height={276}
-          heightL={483}
+          $heightL={483}
         >
           <DialogueBoxBody
             grow={2}
             align="center"
-            gapL={43.5}
+            $gapL={43.5}
             gap={26}
             direction="column"
             height="full"
@@ -46,7 +46,7 @@ export const Usage = (): ReactElement => (
                 height="full"
                 rounded={8}
                 display="none"
-                displayL="block"
+                $displayL="block"
                 $bgColor="input"
                 px={2}
                 py={3}
@@ -67,15 +67,15 @@ export const Usage = (): ReactElement => (
         <DialogueBoxContainer
           direction="column"
           width={458}
-          widthL={500}
+          $widthL={500}
           height={276}
-          heightL={483}
+          $heightL={483}
         >
           <DialogueBoxBody
             align="center"
             direction="column"
             grow={1}
-            gapL={43.5}
+            $gapL={43.5}
             gap={26}
             justify="evenly"
             height="full"
@@ -96,7 +96,7 @@ export const Usage = (): ReactElement => (
                 $bgColor="input"
                 align="flex-start"
                 display="none"
-                displayL="block"
+                $displayL="block"
                 px={2}
                 py={3}
               >

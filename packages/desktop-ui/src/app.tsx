@@ -6,7 +6,6 @@ import {
   Terms,
   ThemeProvider,
   Usage,
-  Welcome,
   getDefaultTheme,
 } from '@cypherock/cysync-core';
 import { GlobalStyles } from '@cypherock/cysync-core/src/styles/global.styled';
@@ -20,7 +19,6 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Information />} />
         <Route path="/usage" element={<Usage />} />
-        <Route path="/welcome" element={<Welcome />} />
         <Route path="/termsOfUse" element={<Terms />} />
         <Route path="/deviceAuthTest" element={<DeviceAuthTest />} />
       </Routes>

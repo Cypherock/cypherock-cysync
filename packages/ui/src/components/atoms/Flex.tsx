@@ -4,17 +4,17 @@ import { UtilsProps, utils } from '../utils';
 
 interface FlexProps extends UtilsProps {
   children: ReactNode;
-  directionL?: 'column' | 'row';
+  $directionL?: 'column' | 'row';
 }
 
 const FlexStyle = styled.div<FlexProps>`
   ${utils}
 
   ${props =>
-    props.directionL &&
+    props.$directionL &&
     `
   @media ${props.theme.screens.laptopL} {
-    flex-direction: ${props.directionL};
+    flex-direction: ${props.$directionL};
   }
   `}
 `;
@@ -24,5 +24,5 @@ export const Flex: FC<FlexProps> = ({ children, ...props }) => (
 );
 
 Flex.defaultProps = {
-  directionL: undefined,
+  $directionL: undefined,
 };

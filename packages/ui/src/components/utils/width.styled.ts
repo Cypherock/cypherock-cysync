@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export interface WidthProps {
   width?: number | string;
-  widthL?: number | string;
+  $widthL?: number | string;
 }
 
 export const width = css<WidthProps>`
@@ -21,18 +21,18 @@ export const width = css<WidthProps>`
       } else widthCss.push(`width: ${props.width}px;`);
     }
 
-    if (props.widthL) {
-      if (props.widthL === 'full')
+    if (props.$widthL) {
+      if (props.$widthL === 'full')
         widthCss.push(`@media ${props.theme.screens.laptopL} {
           width: 100%;
         }`);
-      else if (props.widthL === 'screen')
+      else if (props.$widthL === 'screen')
         widthCss.push(`@media ${props.theme.screens.laptopL} {
           width: 100vh;
         }`);
-      else if (typeof props.widthL === 'string') {
-        if (props.widthL.includes('/')) {
-          const numberArray = props.widthL.split('/');
+      else if (typeof props.$widthL === 'string') {
+        if (props.$widthL.includes('/')) {
+          const numberArray = props.$widthL.split('/');
           const firstNumber = parseInt(numberArray[0], 10);
           const secondNumber = parseInt(numberArray[1], 10);
           widthCss.push(
@@ -44,7 +44,7 @@ export const width = css<WidthProps>`
       } else
         widthCss.push(
           `@media ${props.theme.screens.laptopL} {
-            width: ${props.widthL}px;
+            width: ${props.$widthL}px;
           }`,
         );
     }

@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  Aside,
   Bullet,
   Button,
   CheckBox,
@@ -13,14 +14,13 @@ import {
   Typography,
   backIcon,
 } from '@cypherock/cysync-ui';
-import { Aside } from './Aside';
 import { termsLinkImage } from '../../../assets/images/onboarding';
 
 export const Terms = (): ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Flex gap={0}>
-      <Aside />
+      <Aside asideImage="common" progress={1} title="Terms of Use" />
       <Container position="relative" width="full" $bgColor="contentGradient">
         <Flex position="absolute" top={30} right={26} gap={12}>
           <Typography color="muted">Help</Typography>

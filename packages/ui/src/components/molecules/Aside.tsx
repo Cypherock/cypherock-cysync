@@ -31,6 +31,12 @@ const AsideStyle = styled.div<UtilsProps>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(
+    102.78deg,
+    #211c18 0%,
+    #211a16 59.38%,
+    #252219 100%
+  );
   @media ${({ theme }) => theme.screens.laptopL} {
     min-width: 500px;
     padding: 32px 40px;
