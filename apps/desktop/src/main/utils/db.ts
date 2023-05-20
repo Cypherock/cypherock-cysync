@@ -1,28 +1,14 @@
 import { createDb } from '@cypherock/database';
+import { IDatabase } from '@cypherock/db-interfaces';
 import path from 'path';
 import { config } from './config';
-import { logger } from './logger';
 
-export async function initDb() {
-  const db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
+let db: IDatabase | undefined;
 
-  db.device.setVersion(0);
-  const stored = await db.device.insert({
-    serial: 'tets',
-    isAuthenticated: false,
-    version: '123',
-  });
+export function initializeAndGetDb() {
+  if (db) return db;
 
-  const allDevices = await db.device.getAll();
+  db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
 
-  logger.debug({ stored, allDevices });
-  await db.device.remove(stored);
-
-  db.storage.setItem('random', 'item');
-  const item = db.storage.getItem('random');
-  const count = db.storage.getLength();
-
-  logger.info({ item, count });
-
-  db.storage.clear();
+  return db;
 }

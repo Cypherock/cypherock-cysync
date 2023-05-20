@@ -5,7 +5,7 @@ import {
   config,
   createWindowAndOpenUrl,
   fadeInWindow,
-  initDb,
+  initializeAndGetDb,
   logger,
   setupProcessEventHandlers,
   windowUrls,
@@ -29,19 +29,19 @@ const shouldStartApp = () => {
   return true;
 };
 
-const setupIntitialState = async () => {
-  initDb();
-};
-
 const prepareApp = () => {
   setupProcessEventHandlers();
-  setupIPCHandlers(ipcMain);
 
   // Disable GPU Acceleration for Windows 7
   if (release().startsWith('6.1')) app.disableHardwareAcceleration();
 
   // Set application name for Windows 10+ notifications
   if (process.platform === 'win32') app.setAppUserModelId(app.getName());
+};
+
+const setupIntitialState = async () => {
+  initializeAndGetDb();
+  setupIPCHandlers(ipcMain);
 };
 
 export default function createApp() {
