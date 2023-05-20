@@ -18,14 +18,11 @@ export const getAppWindowSize = (isLoadingWindow = false) => {
   const MIN_REDUCTION_FACTOR = 0.7;
   const MAX_REDUCTION_FACTOR = 1;
 
-  let minHeight = 700;
-  let minWidth = 1024;
-
   const { width: deviceWidth, height: deviceHeight } =
     screen.getPrimaryDisplay().workAreaSize;
 
-  let newHeight = 0;
-  let newWidth = 0;
+  const minHeight = Math.min(700, deviceHeight);
+  const minWidth = Math.min(1024, deviceWidth);
 
   // Calculate the optimal reduction factor for the window size
   const reductionFactor = Math.max(
@@ -34,26 +31,11 @@ export const getAppWindowSize = (isLoadingWindow = false) => {
   );
 
   // Calculate the new window sizes
-  newWidth = deviceWidth * reductionFactor;
-  newHeight = (newWidth * heightRatio) / widthRatio;
+  let newWidth = deviceWidth * reductionFactor;
+  let newHeight = Math.min((newWidth * heightRatio) / widthRatio, deviceHeight);
 
-  // When only the calculated height is bigger than the device height
-  if (newHeight > deviceHeight) {
-    newHeight = deviceHeight;
-    minHeight = deviceHeight;
-  }
-
-  // When the calculated width cant be accomodated
-  if (newWidth < minWidth) {
-    newWidth = deviceWidth;
-    minWidth = newWidth;
-  }
-
-  // When the calculated height cant be accomodated
-  if (newHeight < minHeight) {
-    newHeight = minHeight;
-    minHeight = newHeight;
-  }
+  newHeight = Math.max(newHeight, minHeight);
+  newWidth = Math.max(newWidth, minWidth);
 
   return {
     width: Math.floor(newWidth),
