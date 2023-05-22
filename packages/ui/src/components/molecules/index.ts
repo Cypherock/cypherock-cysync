@@ -1,3 +1,4 @@
-export * from './DialogueBox';
+export * from './DialogBox';
 export * from './Milestone';
-export * from './BackgroundContainer';
+export * from './DialogBoxBackground';
+export * from './OnboardingLayout';

@@ -2,15 +2,14 @@ import React from 'react';
 import { Container, Flex, Typography, Image, Button } from '../atoms';
 import { backIcon, emailIcon } from '../../assets/images';
 
-interface BackgroundHeaderBarProps {
+interface DialogBoxBackgroundHeaderProps {
   email: boolean | undefined;
   help: boolean | undefined;
 }
 
-export const BackgroundHeaderBar: React.FC<BackgroundHeaderBarProps> = ({
-  email,
-  help,
-}) => (
+export const DialogBoxBackgroundHeader: React.FC<
+  DialogBoxBackgroundHeaderProps
+> = ({ email, help }) => (
   <Flex
     position="absolute"
     top={0}
@@ -48,7 +47,7 @@ export const BackgroundHeaderBar: React.FC<BackgroundHeaderBarProps> = ({
   </Flex>
 );
 
-export const BackgroundFooterBar = () => (
+export const DialogBoxBackgroundFooter = () => (
   <Flex
     position="absolute"
     bottom={0}
@@ -70,7 +69,7 @@ export const BackgroundFooterBar = () => (
   </Flex>
 );
 
-export const BackgroundContainer: React.FC<{ children: React.ReactNode }> = ({
+export const DialogBoxBackground: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <Container

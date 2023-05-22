@@ -18,11 +18,11 @@ export async function initDb() {
   logger.debug({ stored, allDevices });
   await db.device.remove(stored);
 
-  db.storage.setItem('random', 'item');
-  const item = db.storage.getItem('random');
-  const count = db.storage.getLength();
+  await db.storage.setItem('random', 'item');
+  const item = await db.storage.getItem('random');
+  const count = await db.storage.getLength();
 
-  logger.info({ item, count });
+  logger.debug({ item, count });
 
-  db.storage.clear();
+  await db.storage.clear();
 }

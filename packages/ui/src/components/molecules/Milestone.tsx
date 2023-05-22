@@ -4,7 +4,7 @@ import { theme } from '../../themes/theme.styled';
 import { Flex, Image } from '../atoms';
 import { block, blockSelected } from '../../assets/images';
 
-interface IMilestoneProps {
+interface MilestoneProps {
   currentState: number;
   totalState: number;
   blockSize?: number;
@@ -20,7 +20,7 @@ const Line = styled.div<{ bg: string }>`
   }
 `;
 
-export const Milestone = (props: IMilestoneProps): ReactElement => {
+export const Milestone = (props: MilestoneProps): ReactElement => {
   const { currentState, totalState, blockSize } = props;
   const selectedBlocks = Array(currentState)
     .fill(0)

@@ -5,7 +5,7 @@ import { AsideContainer, Flex, Image, Typography } from '../atoms';
 import { cysyncLogoSmall } from '../../assets/images';
 import { Milestone } from './Milestone';
 
-interface IAsideProps {
+export interface AsideProps {
   img: string;
   text: string;
   currentState: number;
@@ -19,7 +19,7 @@ const Text = styled.span`
     font-size: 40px;
   }
 `;
-export const Aside = (props: IAsideProps): ReactElement => {
+export const Aside = (props: AsideProps): ReactElement => {
   const { img, text, currentState, totalState } = props;
   return (
     <AsideContainer

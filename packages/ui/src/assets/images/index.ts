@@ -11,9 +11,9 @@ import backIcon from './common/back.svg';
 import cardProgressIcon from './common/card-progress.png';
 import deviceAuthProgressIcon from './common/deviceAuthProgressbar.png';
 import emailIcon from './common/email-icon.svg';
-import blockSelected from './common/Block.svg';
-import block from './common/Block-unselectedsvg.svg';
-import disconnected from './common/disconnected.svg';
+import blockSelectedIcon from './common/Block.svg';
+import blockIcon from './common/Block-unselectedsvg.svg';
+import disconnectedIcon from './common/disconnected.svg';
 import failIcon from './common/fail.svg';
 
 export {
@@ -29,9 +29,9 @@ export {
   cardProgressIcon,
   deviceAuthProgressIcon,
   emailIcon,
-  block,
-  blockSelected,
-  disconnected,
+  blockIcon as block,
+  blockSelectedIcon as blockSelected,
+  disconnectedIcon as disconnected,
   successIcon,
   failIcon,
 };
