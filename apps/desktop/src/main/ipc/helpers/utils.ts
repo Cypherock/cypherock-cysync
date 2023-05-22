@@ -5,9 +5,10 @@ const getMethodListFromProperty = (
   currentDepth = 1,
 ) => {
   const methodList: string[] = [];
+  const obj = rootObj[property];
+
   if (currentDepth > maxDepth) return methodList;
 
-  const obj = rootObj[property];
   if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
     const rootMethodList = Object.getOwnPropertyNames(
       Object.getPrototypeOf(obj),
@@ -17,13 +18,18 @@ const getMethodListFromProperty = (
     const properties = Object.keys(obj);
 
     for (const innerProperty of properties) {
-      const innerMethods = getMethodListFromProperty(
-        obj,
-        innerProperty,
-        maxDepth,
-        currentDepth + 1,
-      );
-      methodList.push(...innerMethods.map(e => `${property}.${e}`));
+      if (typeof obj[innerProperty] === 'function') {
+        methodList.push(innerProperty);
+      } else {
+        const innerMethods = getMethodListFromProperty(
+          obj,
+          innerProperty,
+          maxDepth,
+          currentDepth + 1,
+        );
+
+        methodList.push(...innerMethods.map(e => `${property}.${e}`));
+      }
     }
   }
 
@@ -41,18 +47,22 @@ export const getMethodListFromObject = (rootObj: any, maxDepth = 2) => {
   const properties = Object.keys(rootObj);
 
   for (const property of properties) {
-    const innerMethods = getMethodListFromProperty(
-      rootObj,
-      property,
-      maxDepth - 1,
-    );
-    methodList.push(...innerMethods.map(e => `${property}.${e}`));
+    if (typeof rootObj[property] === 'function') {
+      methodList.push(`${property}`);
+    } else {
+      const innerMethods = getMethodListFromProperty(
+        rootObj,
+        property,
+        maxDepth - 1,
+      );
+      methodList.push(...innerMethods.map(e => `${property}.${e}`));
+    }
   }
 
   return methodList;
 };
 
-export const callMethodOnObject = async (
+export const callMethodOnObject = (
   rootObj: any,
   method: string,
   ...args: any[]
