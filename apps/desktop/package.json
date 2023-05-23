@@ -27,7 +27,8 @@
     "pretty:check": "prettier --check \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "test": "jest",
     "pre-commit": "lint-staged",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "devsetup": "node scripts/setupDevTools.js"
   },
   "keywords": [],
   "author": {
@@ -50,7 +51,9 @@
     "@vitejs/plugin-react": "^3.1.0",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.0.0",
+    "decompress": "^4.2.1",
     "dotenv": "^16.0.3",
+    "download": "^8.0.0",
     "electron": "^24.3.1",
     "electron-builder": "^23.6.0",
     "electron-rebuild": "^3.2.9",
@@ -74,6 +77,7 @@
     "@cypherock/sdk-hw-hid": "^0.0.3",
     "@cypherock/sdk-hw-serialport": "^0.0.3",
     "@cypherock/sdk-interfaces": "^0.0.3",
+    "electron-devtools-installer": "^3.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

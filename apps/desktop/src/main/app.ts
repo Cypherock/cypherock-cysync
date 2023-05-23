@@ -6,6 +6,7 @@ import {
   createWindowAndOpenUrl,
   fadeInWindow,
   initializeAndGetDb,
+  installDeveloperExtensions,
   logger,
   setupProcessEventHandlers,
   windowUrls,
@@ -59,6 +60,7 @@ export default function createApp() {
   const createMainWindow = async () => {
     logger.debug('Starting main window');
     mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    installDeveloperExtensions(mainWindow);
 
     mainWindow.once('ready-to-show', () => {
       logger.info('Main Window loaded');
