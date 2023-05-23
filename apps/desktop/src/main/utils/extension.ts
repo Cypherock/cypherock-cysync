@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { BrowserWindow } from 'electron';
-import * as devToolsInstaller from 'electron-devtools-installer';
 
 import { logger } from './logger';
 import { config } from './config';
@@ -27,14 +26,15 @@ async function manuallyInstallReactDevTools(win: BrowserWindow) {
 
 export const installDeveloperExtensions = async (win: BrowserWindow) => {
   try {
+    // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+    const devToolsInstaller = require('electron-devtools-installer');
     if (config.IS_PRODUCTION) return;
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
     const extensions = [devToolsInstaller.REDUX_DEVTOOLS];
 
-    await (devToolsInstaller.default as any).default(extensions, forceDownload);
+    await (devToolsInstaller.default as any)(extensions, forceDownload);
     await manuallyInstallReactDevTools(win);
   } catch (error: any) {
     logger.warn('An error occurred while installing extension', error);
-    console.log(error);
   }
 };
