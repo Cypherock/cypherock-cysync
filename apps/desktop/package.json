@@ -28,7 +28,7 @@
     "test": "jest",
     "pre-commit": "lint-staged",
     "postinstall": "electron-builder install-app-deps",
-    "devsetup": "node scripts/setupDevTools.js"
+    "dev:setup": "node scripts/setupDevTools.js"
   },
   "keywords": [],
   "author": {

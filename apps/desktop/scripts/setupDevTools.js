@@ -42,9 +42,12 @@ const run = async () => {
   const unzipPath = path.join(USER_DATA_PATH, 'extensions', 'reactDevTools');
 
   if (!fs.existsSync(unzipPath)) {
+    console.log('Downloading react devtools...');
     await fs.promises.mkdir(zipPath, { recursive: true });
     await download(reactDevToolsLink, zipPath);
     await decompress(zipFilePath, unzipPath);
+  } else {
+    console.log('React devtools already exists');
   }
 };
 
