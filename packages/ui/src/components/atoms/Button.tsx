@@ -1,12 +1,12 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
+import { $alignSelf, width, WidthProps, AlignSelfProps } from '../utils';
 
 interface ButtonProps
   extends WidthProps,
     AlignSelfProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'dashed' | 'warning';
+  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
 }
 
@@ -14,7 +14,7 @@ const buttonBaseStyle = css<ButtonProps>`
   ${props => {
     if (props.variant === 'primary')
       return css`
-        background: ${({ theme }) => theme.palette.primary.primary};
+        background: ${({ theme }) => theme.palette.golden};
         border: none;
         font-size: 14px;
         font-weight: 500;
@@ -31,9 +31,8 @@ const buttonBaseStyle = css<ButtonProps>`
     if (props.variant === 'secondary')
       return css`
         border: 0.6px solid #49433e;
-        background-color: ${({ theme }) =>
-          theme.palette.background.sepratorBackground};
-        color: ${({ theme }) => theme.palette.text.textMuted};
+        background-color: ${({ theme }) => theme.palette.background.separator};
+        color: ${({ theme }) => theme.palette.text.muted};
       `;
     if (props.variant === 'dashed')
       return css`
@@ -47,6 +46,12 @@ const buttonBaseStyle = css<ButtonProps>`
         border-radius: 6px;
         color: #ffffff;
         font-weight: 500;
+      `;
+    if (props.variant === 'none')
+      return css`
+        background: transparent;
+        border: none;
+        padding: 0px;
       `;
     return '';
   }}
@@ -66,7 +71,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   ${buttonBaseStyle}
   ${width}
-  ${alignSelf}
+  ${$alignSelf}
 `;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => (

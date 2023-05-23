@@ -25,4 +25,5 @@ const handleUncaughtError = async (error: any, promise?: any) => {
 export const setupProcessEventHandlers = () => {
   process.on('uncaughtException', handleUncaughtError);
   process.on('unhandledRejection', handleUncaughtError);
+  process.on('SIGTERM', () => app.exit(0));
 };

@@ -1,16 +1,27 @@
 import { colors } from './color.styled';
 import { typography } from './typography.styled';
 import { spacing } from './layout.styled';
+import { shadows } from './shadow.styled';
+import { screens } from './screens.styled';
 
 export type ThemeType = typeof theme;
 
 export const theme = {
+  screens: {
+    def: `(min-width: ${screens.def})`,
+    md: `(min-width: ${screens.md})`,
+    lg: `(min-width: ${screens.lg})`,
+    xl: `(min-width: ${screens.xl})`,
+  },
   palette: {
+    bullet: {
+      white: colors.bullet.white,
+    },
     primary: {
-      primary: colors.gradients.gradientPrimary,
+      primary: colors.gradients.primary,
     },
     secondary: {
-      secondary: colors.gradients.gradientSecondary,
+      secondary: colors.gradients.secondary,
     },
     info: {
       main: colors.info.main,
@@ -18,24 +29,30 @@ export const theme = {
     warning: {
       main: colors.warning.main,
     },
+    golden: colors.gradients.golden,
+    highlight: colors.gradients.highlight,
     success: {
       main: colors.success.main,
     },
     text: {
-      textHeading: colors.text.headingText,
-      textList: colors.text.listText,
-      textMuted: colors.text.mutedText,
+      heading: colors.text.heading,
+      list: colors.text.list,
+      muted: colors.text.muted,
     },
     background: {
-      progressBarBackground: colors.background.progressBarBackground,
-      inputBackground: colors.background.inputBackground,
-      blurBackground: colors.background.blurBackground,
-      sepratorBackground: colors.background.sepratorBackground,
-      contentBackground: colors.gradients.contentGradient,
-      sideBarBackground: colors.gradients.sideBarGradient,
+      progress: colors.background.progressBar,
+      input: colors.background.input,
+      blur: colors.background.blur,
+      primary: colors.gradients.primary,
+      secondary: colors.gradients.secondary,
+      separator: colors.background.separator,
+      content: colors.gradients.content,
+      sideBar: colors.gradients.sideBar,
     },
+
     border: {
-      main: colors.border.popupBorder,
+      popup: colors.border.popup,
+      input: colors.border.input,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -98,7 +115,8 @@ export const theme = {
       spacing: spacing.twelve,
     },
   },
+
   shadow: {
-    popupShadow: colors.shadow.popupShadow,
+    popup: shadows.popup,
   },
 };

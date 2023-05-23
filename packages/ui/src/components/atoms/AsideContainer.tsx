@@ -1,37 +1,33 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { UtilsProps, utils } from '../utils';
+import { theme } from '../../themes/theme.styled';
 
 interface AsideContainerProps extends UtilsProps {
   children?: ReactNode;
-  borderRadiusOne?: boolean;
-  border?: boolean;
-  scroll?: boolean;
-  roundedListTop?: boolean;
-  roundedListBottom?: boolean;
-  shadow?: boolean;
   size?: 'lg';
 }
 
 const AsideContainerStyle = styled.div<AsideContainerProps>`
-  width: 300px;
+  min-width: 280px;
+  width: 27%;
   min-height: 100vh;
+  padding: 32px;
+  display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @media (${theme.screens.lg}) {
+    min-width: 500px;
+    padding: 32px 40px;
+  }
 
   ${props =>
     props.border &&
     css`
       border-width: 1px;
       border-style: solid;
-      border-color: ${({ theme }) =>
-        theme.palette.background.sepratorBackground};
+      border-color: ${theme.palette.background.separator};
     `}
-  ${props =>
-    props.size === 'lg'
-      ? css`
-          width: 500px;
-        `
-      : ''}
-  padding:48px 42px;
 
   ${utils}
 `;
@@ -43,11 +39,5 @@ export const AsideContainer: FC<AsideContainerProps> = ({
 
 AsideContainer.defaultProps = {
   children: null,
-  borderRadiusOne: false,
-  border: false,
-  scroll: false,
-  roundedListTop: false,
-  roundedListBottom: false,
-  shadow: false,
   size: 'lg',
 };

@@ -8,7 +8,8 @@
   "testTimeout": 500,
   "preset": "ts-jest",
   "transform": {
-    "^.+\\.tsx?$": ["ts-jest", {}]
+    "^.+\\.tsx?$": ["ts-jest", {}],
+    "^.+\\.svg$": "<rootDir>/svgTransform.js"
   },
   "testEnvironment": "jsdom",
   "rootDir": ".",
@@ -25,5 +26,8 @@
   "modulePathIgnorePatterns": ["<rootDir>/.stryker-tmp"],
   "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-  "modulePaths": ["<rootDir>"]
+  "modulePaths": ["<rootDir>"],
+  "moduleNameMapper": {
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+  }
 }

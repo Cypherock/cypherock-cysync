@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { margin } from '../utils';
+import { spacing } from '../utils';
 
 interface BulletProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
@@ -10,7 +10,7 @@ interface BulletProps {
 const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.textHeading};
-  ${margin}
+  ${spacing}
 
   //size
   ${props =>
@@ -39,9 +39,15 @@ const BulletStyle = styled.div<BulletProps>`
       background-color: transparent;
     `}
   ${props =>
+    !props.variant &&
+    css`
+      background-color: ${({ theme }) => theme.palette.bullet.white};
+    `}
+
+  ${props =>
     props.variant === 'gold' &&
     css`
-      background-image: ${({ theme }) => theme.palette.primary.primary};
+      background-image: ${({ theme }) => theme.palette.golden};
     `}
   ${props =>
     props.variant === 'success' &&
@@ -66,6 +72,6 @@ export const Bullet: FC<BulletProps> = ({ ...props }) => (
 );
 
 Bullet.defaultProps = {
-  variant: 'outline',
+  variant: undefined,
   size: 'md',
 };
