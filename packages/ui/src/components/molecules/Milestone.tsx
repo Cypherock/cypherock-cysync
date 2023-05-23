@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
 import { Flex, Image } from '../atoms';
-import { block, blockSelected } from '../../assets/images';
+import { blockIcon, blockSelectedIcon } from '../../assets/images';
 
 interface MilestoneProps {
   currentState: number;
@@ -25,19 +25,19 @@ export const Milestone = (props: MilestoneProps): ReactElement => {
   const selectedBlocks = Array(currentState)
     .fill(0)
     .map((_, i) => (
-      <React.Fragment key={`test1-${i + 1}`}>
-        <Image src={blockSelected} alt="device" width={blockSize} />
+      <React.Fragment key={`selected-${i + 1}`}>
+        <Image src={blockSelectedIcon} alt="device" width={blockSize} />
         {i === currentState - 1 || <Line bg={theme.palette.golden} />}
       </React.Fragment>
     ));
   const unSelectedBlocks = Array(Math.max(totalState - currentState, 0))
     .fill(0)
     .map((_, i) => (
-      <React.Fragment key={`test2-${i + 1}`}>
+      <React.Fragment key={`unselected-${i + 1}`}>
         {i === totalState - currentState + 1 || (
           <Line bg={theme.palette.text.muted} />
         )}
-        <Image src={block} alt="device" width={blockSize} />
+        <Image src={blockIcon} alt="device" width={blockSize} />
       </React.Fragment>
     ));
 

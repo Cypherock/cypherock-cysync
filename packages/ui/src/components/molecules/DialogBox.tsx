@@ -97,7 +97,7 @@ export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
   <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
 );
 
-export const DialogBoxTopBar: FC<DialogBoxProps> = ({ children, ...props }) => (
+export const DialogBoxHeader: FC<DialogBoxProps> = ({ children, ...props }) => (
   <DialogBoxHeaderBarStyle {...props}> {children} </DialogBoxHeaderBarStyle>
 );
 
@@ -118,6 +118,6 @@ DialogBoxBody.defaultProps = {
 DialogBoxFooter.defaultProps = {
   children: null,
 };
-DialogBoxTopBar.defaultProps = {
+DialogBoxHeader.defaultProps = {
   children: null,
 };

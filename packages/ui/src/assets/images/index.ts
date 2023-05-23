@@ -29,9 +29,9 @@ export {
   cardProgressIcon,
   deviceAuthProgressIcon,
   emailIcon,
-  blockIcon as block,
-  blockSelectedIcon as blockSelected,
-  disconnectedIcon as disconnected,
+  blockIcon,
+  blockSelectedIcon,
+  disconnectedIcon,
   successIcon,
   failIcon,
 };

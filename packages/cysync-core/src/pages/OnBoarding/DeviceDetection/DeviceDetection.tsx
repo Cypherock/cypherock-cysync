@@ -8,7 +8,7 @@ import {
   Image,
   Typography,
   asideIcon,
-  disconnected,
+  disconnectedIcon,
   DialogBoxBody,
   OnboardingLayout,
 } from '@cypherock/cysync-ui';
@@ -37,7 +37,7 @@ export const DeviceDetection = (): ReactElement => {
         <DialogBoxBackgroundHeader help email={false} />
         <DialogBox width={500}>
           <DialogBoxBody pb={8}>
-            <Image src={disconnected} alt="Device not connected" />
+            <Image src={disconnectedIcon} alt="Device not connected" />
             <Container display="flex" direction="column" gap={4}>
               <Typography variant="h5" $textAlign="center">
                 Connect your X1 Vault to your PC to proceed
