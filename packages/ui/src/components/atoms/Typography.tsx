@@ -1,11 +1,10 @@
-/* eslint-disable react/require-default-props */
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import {
-  margin,
-  MarginProps,
-  fontWeight,
-  FontWeightProps,
+  spacing,
+  SpacingProps,
+  font,
+  FontProps,
   width,
   WidthProps,
   position,
@@ -15,8 +14,8 @@ import {
 } from '../utils';
 
 interface HeadingProps
-  extends MarginProps,
-    FontWeightProps,
+  extends SpacingProps,
+    FontProps,
     WidthProps,
     PositionProps,
     DisplayProps {
@@ -28,14 +27,14 @@ interface HeadingProps
     | 'heading'
     | 'muted'
     | 'list';
-  textAlign?: 'center' | 'left' | 'right';
+  $textAlign?: 'center' | 'left' | 'right';
 }
 
 const baseStyle = css<HeadingProps>`
   ${props =>
     props.color === 'gold' &&
     css`
-      background: ${({ theme }) => theme.palette.primary.primary};
+      background: ${({ theme }) => theme.palette.golden};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -65,9 +64,9 @@ ${props =>
       color: ${({ theme }) => theme.palette.success.main};
     `}
 
-  ${props => props.color && `color: ${props.theme.palatte.text[props.color]}`}
+  ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
 
-  ${props => props.textAlign && `text-align: ${props.textAlign}`}
+  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
 
   max-width: 100%;
 `;
@@ -76,40 +75,40 @@ const HeadingOneStyle = styled.h1<HeadingProps>`
   font-size: 40px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
 
-const HeadingTwoStyle = styled.h2`
+const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
 
-const HeadingThreeStyle = styled.h3`
+const HeadingThreeStyle = styled.h3<HeadingProps>`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
+  ${spacing};
   ${width};
   ${position};
   ${display};
 `;
 
-const HeadingFourStyle = styled.h4`
+const HeadingFourStyle = styled.h4<HeadingProps>`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -119,8 +118,8 @@ const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -130,29 +129,40 @@ const HeadingSixStyle = styled.h6<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
 
-const SpanStyle = styled.span`
+const SpanStyle = styled.span<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
 `;
-const PStyle = styled.p`
+const FinePrintStyle = styled.span<HeadingProps>`
+  font-size: 14px;
+  font-weight: 300;
+  ${baseStyle};
+  ${spacing};
+  ${font};
+  ${width};
+  ${position};
+  ${display};
+`;
+
+const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${margin};
-  ${fontWeight};
+  ${spacing};
+  ${font};
   ${width};
   ${position};
   ${display};
@@ -160,7 +170,16 @@ const PStyle = styled.p`
 
 interface TypographyProps extends HeadingProps {
   children?: ReactNode;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+  variant?:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'p'
+    | 'span'
+    | 'fineprint';
 }
 
 export const Typography = ({
@@ -183,8 +202,18 @@ export const Typography = ({
       return <HeadingSixStyle {...props}>{children}</HeadingSixStyle>;
     case 'span':
       return <SpanStyle {...props}>{children}</SpanStyle>;
+    case 'fineprint':
+      return <FinePrintStyle {...props}>{children}</FinePrintStyle>;
+
     case 'p':
     default:
       return <PStyle {...props}>{children}</PStyle>;
   }
+};
+
+Typography.defaultProps = {
+  variant: 'p',
+  children: null,
+  color: 'heading',
+  $textAlign: 'left',
 };

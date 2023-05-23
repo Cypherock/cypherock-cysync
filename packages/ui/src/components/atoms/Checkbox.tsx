@@ -13,14 +13,13 @@ const CheckBoxStyle = styled.div<CheckBoxProps>`
   justify-content: center;
   align-items: center;
   border-radius: 3px;
-  background-image: ${({ theme }) => theme.palette.primary.primary};
+  background-image: ${({ theme }) => theme.palette.golden};
 
   div {
     width: 13px;
     height: 13px;
     border-radius: 3px;
-    background-image: ${({ theme }) =>
-      theme.palette.background.sideBarBackground};
+    background-image: ${({ theme }) => theme.palette.background.sideBar};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,13 +31,12 @@ const CheckBoxStyle = styled.div<CheckBoxProps>`
     width: 8px;
     height: 8px;
     border-radius: 2px;
-    background-image: ${({ theme }) =>
-      theme.palette.background.sideBarBackground};
+    background-image: ${({ theme }) => theme.palette.background.sideBar};
     cursor: pointer;
   }
 
   input:checked {
-    background-image: ${({ theme }) => theme.palette.primary.primary};
+    background-image: ${({ theme }) => theme.palette.golden};
   }
 
   input::before {

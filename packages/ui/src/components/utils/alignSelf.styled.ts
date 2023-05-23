@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export interface AlignSelfProps {
-  alignSelf?:
+  $alignSelf?:
     | 'auto'
     | 'stretch'
     | 'center'
@@ -16,8 +16,8 @@ const alignSelfObj: Record<string, string> = {
   start: 'flex-start',
   end: 'flex-end',
 };
-export const alignSelf = css<AlignSelfProps>`
+export const $alignSelf = css<AlignSelfProps>`
   ${props =>
-    props.alignSelf &&
-    `align-self: ${alignSelfObj[props.alignSelf] ?? props.alignSelf}`}
+    props.$alignSelf &&
+    `align-self: ${alignSelfObj[props.$alignSelf] ?? props.$alignSelf};`}
 `;

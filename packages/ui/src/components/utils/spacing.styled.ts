@@ -1,20 +1,8 @@
 import { css } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
+import { BreakPoint } from '../../themes/screens.styled';
 
-export interface MarginProps {
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  mr?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  ml?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  mt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-}
-export interface PaddingProps {
-  pb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pr?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pl?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-  pt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto';
-}
-
-const spacingObj: Record<string, string> = {
+const spacingObj = {
   0: '0px',
   1: theme.spacing.one.spacing,
   2: theme.spacing.two.spacing,
@@ -26,40 +14,86 @@ const spacingObj: Record<string, string> = {
   8: theme.spacing.eight.spacing,
   auto: 'auto',
 };
+type SpacingOptions = keyof typeof spacingObj;
 
-export const margin = css<MarginProps>`
+type MediaQuery<T> = Partial<Record<BreakPoint, T>> | T;
+
+type SpacingType<T extends string> =
+  | `${T}b`
+  | `${T}r`
+  | `${T}l`
+  | `${T}t`
+  | `${T}`
+  | `${T}x`
+  | `${T}y`;
+
+export type SpacingProps = {
+  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<SpacingOptions>;
+};
+
+const cssMap: Record<string, string[]> = {
+  m: ['margin'],
+  p: ['padding'],
+  l: ['left'],
+  r: ['right'],
+  x: ['left', 'right'],
+  t: ['top'],
+  b: ['bottom'],
+  y: ['top', 'bottom'],
+};
+
+export const spacing = css<SpacingProps>`
   ${props => {
-    if (props.mb) {
-      return `margin-bottom: ${spacingObj[props.mb]};`;
-    }
-    if (props.mr) {
-      return `margin-right: ${spacingObj[props.mr]};`;
-    }
-    if (props.mt) {
-      return `margin-top: ${spacingObj[props.mt]};`;
-    }
-    if (props.ml) {
-      return `margin-left: ${spacingObj[props.ml]};`;
+    const finalCss = [];
+
+    for (const key in props) {
+      if (Object.prototype.hasOwnProperty.call(props, key)) {
+        finalCss.push(
+          ...getCss(getProperties(key as any), (props as any)[key]),
+        );
+      }
     }
 
-    return null;
+    return finalCss.length ? finalCss.join(' ') : null;
   }}
 `;
-export const padding = css<PaddingProps>`
-  ${props => {
-    if (props.pb) {
-      return `padding-bottom: ${spacingObj[props.pb]};`;
-    }
-    if (props.pr) {
-      return `padding-right: ${spacingObj[props.pr]};`;
-    }
-    if (props.pt) {
-      return `padding-top: ${spacingObj[props.pt]};`;
-    }
-    if (props.pl) {
-      return `padding-left: ${spacingObj[props.pl]};`;
-    }
 
-    return null;
-  }}
-`;
+const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
+  const [first, second] = key.split('');
+  const properties = [];
+  for (const i of cssMap[first] ?? []) {
+    if (second) {
+      for (const j of cssMap[second] ?? []) {
+        properties.push(`${i}-${j}`);
+      }
+    } else {
+      properties.push(i);
+    }
+  }
+  return properties;
+};
+
+const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
+  const result: any = [];
+  if (obj) {
+    if (typeof obj === 'object') {
+      for (const bp in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, bp)) {
+          const value = obj[bp as BreakPoint] as SpacingOptions;
+          names.forEach(name => {
+            result.push(`
+              @media ${theme.screens[bp as BreakPoint]} {
+                ${name}: ${spacingObj[value]};
+              }
+            `);
+          });
+        }
+      }
+    } else {
+      names.forEach(name => {
+        result.push(`${name}: ${spacingObj[obj]};`);
+      });
+    }
+  }
+  return result;
+};

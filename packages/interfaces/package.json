@@ -38,6 +38,6 @@
     ]
   },
   "dependencies": {
-    "@cypherock/sdk-interfaces": "^0.0.3"
+    "@cypherock/sdk-interfaces": "^0.0.4"
   }
 }

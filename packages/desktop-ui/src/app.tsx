@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Splash,
   ThemeProvider,
   getDefaultTheme,
   DeviceProvider,
+  GlobalStyles,
 } from '@cypherock/cysync-core';
+import { AppRouter } from './Router';
 
 const theme = getDefaultTheme();
 
@@ -14,7 +15,8 @@ const App = () => (
       getDevices={window.electronAPI.getDevices}
       connectDevice={window.electronAPI.connectDevice}
     >
-      <Splash />
+      <GlobalStyles />
+      <AppRouter />
     </DeviceProvider>
   </ThemeProvider>
 );
