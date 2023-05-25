@@ -8,6 +8,10 @@
       "dependsOn": ["^dev"],
       "cache": false
     },
+    "dev:setup": {
+      "dependsOn": ["^dev:setup"],
+      "cache": false
+    },
     "build": {
       "dependsOn": ["prebuild", "^build"],
       "outputs": ["dist/**", ".vite/**"]

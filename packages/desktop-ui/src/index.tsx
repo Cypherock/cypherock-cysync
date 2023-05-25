@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './utils/logger';
 
 import App from './app';
+import { setupCoreDependencies } from './utils/setupCore';
 
-export function render(target?: HTMLElement) {
+export async function render(target?: HTMLElement) {
+  await setupCoreDependencies();
+
   const root = ReactDOM.createRoot(target ?? document.body);
   root.render(<App />);
 }

@@ -1,8 +1,7 @@
-import { updateLogger } from '@cypherock/cysync-core';
 import { ILogger } from '@cypherock/cysync-interfaces';
 import { createDefaultConsoleLogger } from '@cypherock/cysync-utils';
 
-const createServiceLogger = (serviceName: string): ILogger => {
+export const createServiceLogger = (serviceName: string): ILogger => {
   const consoleLogger = createDefaultConsoleLogger(serviceName);
 
   return {
@@ -53,7 +52,5 @@ const createServiceLogger = (serviceName: string): ILogger => {
     },
   };
 };
-
-updateLogger(createServiceLogger);
 
 export default createServiceLogger('desktop-ui');
