@@ -51,14 +51,11 @@ const getAssetFiles = assetFolders => {
 };
 
 const uploadAllAssets = async allAssets => {
-  console.log(allAssets);
-
   for (const asset of allAssets) {
     const assetName = path.basename(asset);
 
-    console.log(asset);
     console.log(`Uploading ${assetName}...`);
-    // await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
+    await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
     console.log(`Uploaded ${assetName}\n`);
   }
 };
