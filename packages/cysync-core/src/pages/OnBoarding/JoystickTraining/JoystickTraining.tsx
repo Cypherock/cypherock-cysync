@@ -23,8 +23,9 @@ export const JoystickTraining = (): ReactElement => {
 
     const app = await ManagerApp.create(await connectDevice(connection.device));
     await app.trainJoystick(s => {
-      setState(s);
+      if (s < 5) setState(s);
     });
+    setState(5);
     await app.destroy();
   };
   useEffect(() => {
