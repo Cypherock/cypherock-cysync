@@ -54,6 +54,7 @@ jobs:
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.snap
             apps/desktop/release/**/*.yml
+            !apps/desktop/release/**/builder-debug.yml
           retention-days: 1
 
   build-win:
@@ -102,6 +103,8 @@ jobs:
           path: |
             apps/desktop/release/**/*.exe
             apps/desktop/release/**/*.yml
+            !apps/desktop/release/**/builder-debug.yml
+            !apps/desktop/release/**/win-unpacked/*
           retention-days: 1
 
   build-macos-intel:
@@ -167,6 +170,7 @@ jobs:
             apps/desktop/release/**/*.dmg
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.yml
+            !apps/desktop/release/**/*.app/*
           retention-days: 1
 
   release-build:
@@ -208,4 +212,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_S3_UPLOAD_URL: ${{ secrets.AWS_S3_UPLOAD_URL }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/postbuild.js "build-win,build-linux,build-macos-intel"
