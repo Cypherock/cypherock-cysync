@@ -1,13 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const semver = require('semver');
-const childProcess = require('child_process');
 
-const TAG_NAME = process.env.GITHUB_REF_NAME;
-
-const DESKTOP_APP_PACKAGE_NAME = '@cypherock/cysync-desktop';
-const DESKTOP_APP_PATH = path.join(__dirname, '..', 'apps', 'desktop');
-const DESKTOP_APP_PRODUCT_NAME = 'cypherock-cysync';
+const { getReleaseParams, config, execCommand } = require('./helpers');
 
 const CHANNEL_CONFIG = {
   default: {
@@ -24,7 +19,7 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
   },
-  latest: {
+  [config.RELEASE_CHANNEL]: {
     BUILD_TYPE: 'production',
     LOG_LEVEL: 'info',
     API_CYPHEROCK: 'https://api.cypherock.com',
@@ -33,38 +28,14 @@ const CHANNEL_CONFIG = {
   },
 };
 
-const getArgs = () => {
-  const name = TAG_NAME;
-
-  if (!name.startsWith(DESKTOP_APP_PACKAGE_NAME)) {
-    throw new Error(`Invalid tag for build: ${name}`);
-  }
-  const version = name.replace(`${DESKTOP_APP_PACKAGE_NAME}@`, '');
-
-  const parsedVersion = semver.parse(version);
-  if (!parsedVersion) {
-    throw new Error(`Invalid version in tag: ${name}`);
-  }
-
-  let channel;
-
-  if (parsedVersion.prerelease.length <= 0) {
-    channel = 'latest';
-  } else {
-    channel = parsedVersion.prerelease[0];
-  }
-
-  return { tagName: name, version: parsedVersion, channel };
-};
-
-const setConfig = async args => {
-  const configPath = path.join(DESKTOP_APP_PATH, 'src', 'config.ts');
+const setDesktopAppConfig = async params => {
+  const configPath = path.join(params.appPath, 'src', 'config.ts');
   const commitHash = await getCommitHash();
 
   const configJson = {
-    ...(CHANNEL_CONFIG[args.channel] ?? CHANNEL_CONFIG.default),
+    ...(CHANNEL_CONFIG[params.channel] ?? CHANNEL_CONFIG.default),
     BUILD_VERSION: commitHash.slice(0, 7),
-    CHANNEL: args.channel,
+    CHANNEL: params.channel,
   };
 
   let configStr = '{\n';
@@ -77,57 +48,43 @@ const setConfig = async args => {
 };
 
 const getCommitHash = () => {
-  return new Promise((resolve, reject) => {
-    childProcess.exec(
-      'git log -n 1 --pretty=format:"%H"',
-      (err, stdout, stderr) => {
-        if (err || stderr) {
-          reject(err || stderr);
-          return;
-        }
-
-        resolve(stdout.trim());
-      },
-    );
-  });
+  return execCommand('git log -n 1 --pretty=format:"%H"');
 };
 
-const setVersion = async args => {
-  const packageJsonPath = path.join(DESKTOP_APP_PATH, 'package.json');
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath));
-
-  const pkgJsonVersion = semver.parse(packageJson.version);
+const setDesktopAppVersion = async params => {
+  const pkgJsonVersion = semver.parse(params.pkgJson.version);
   if (!pkgJsonVersion) {
     throw new Error('Invalid version in package json');
   }
 
   if (
     !(
-      pkgJsonVersion.major === args.version.major &&
-      pkgJsonVersion.minor === args.version.minor &&
-      pkgJsonVersion.patch === args.version.patch
+      pkgJsonVersion.major === params.version.major &&
+      pkgJsonVersion.minor === params.version.minor &&
+      pkgJsonVersion.patch === params.version.patch
     )
   ) {
     throw new Error(
-      `Version in package.json (${packageJson.version}) and tag ${args.tagName} is different.`,
+      `Version in package.json (${params.pkgJson.version}) and tag ${params.tagName} is different.`,
     );
   }
 
-  packageJson.version = args.version.version;
-  if (args.channel === 'latest') {
-    packageJson.productName = DESKTOP_APP_PRODUCT_NAME;
-  } else {
-    packageJson.productName = `${DESKTOP_APP_PRODUCT_NAME}-${args.channel}`;
+  params.pkgJson.version = params.version.version;
+  if (params.channel !== config.RELEASE_CHANNEL) {
+    params.pkgJson.productName = `${params.pkgJson.productName}-${params.channel}`;
   }
 
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, undefined, 2));
+  fs.writeFileSync(
+    path.join(params.appPath, 'package.json'),
+    JSON.stringify(params.pkgJson, undefined, 2),
+  );
 };
 
 const run = async () => {
   try {
-    const args = getArgs();
-    await setConfig(args);
-    await setVersion(args);
+    const params = await getReleaseParams();
+    await setDesktopAppConfig(params);
+    await setDesktopAppVersion(params);
   } catch (error) {
     console.error(error);
     process.exit(1);

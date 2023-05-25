@@ -1,21 +1,14 @@
 const path = require('path');
 const fs = require('fs');
-const childProcess = require('child_process');
 
-const S3_URL = 's3://updater.cypherock.com/cysync-desktop';
+const {
+  config,
+  getReleaseParams,
+  genReleaseNotes,
+  execCommand,
+} = require('./helpers');
 
-const execCommand = command => {
-  return new Promise((resolve, reject) => {
-    childProcess.exec(command, (err, stdout, stderr) => {
-      if (err || stderr) {
-        reject(err || stderr);
-        return;
-      }
-
-      resolve(stdout.trim());
-    });
-  });
-};
+const S3_URL = config.S3_URL;
 
 const getArgs = () => {
   const CMD_ERROR_MSG =
@@ -48,26 +41,62 @@ const walk = directoryName => {
   return allFiles;
 };
 
-const uploadAllAssets = async assetFolders => {
+const getAssetFiles = assetFolders => {
   let allAssets = [];
   for (const folder of assetFolders) {
     allAssets.push(...walk(path.join(__dirname, '..', folder)));
   }
 
+  return allAssets;
+};
+
+const uploadAllAssets = async allAssets => {
+  console.log(allAssets);
+
   for (const asset of allAssets) {
     const assetName = path.basename(asset);
 
+    console.log(asset);
     console.log(`Uploading ${assetName}...`);
-    await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
+    // await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
     console.log(`Uploaded ${assetName}\n`);
   }
+};
+
+const updateReleaseSummary = async (params, allAssets) => {
+  // TODO: Add release summary to server
+};
+
+const createGithubRelease = async (params, allAssets) => {
+  // Don't upload YML files to github
+  const filteredAssets = allAssets.filter(a => !a.endsWith('yml'));
+
+  const releaseNotesPath = await genReleaseNotes();
+
+  await execCommand(
+    `gh release create ${params.tagName} -F "${releaseNotesPath}" --verify-tag`,
+  );
+  await execCommand(
+    `gh release upload ${params.tagName} ${filteredAssets
+      .map(e => `"${e}"`)
+      .join(' ')}`,
+  );
 };
 
 const run = async () => {
   try {
     const { assetFolders } = getArgs();
 
-    await uploadAllAssets(assetFolders);
+    let allAssets = getAssetFiles(assetFolders);
+    await uploadAllAssets(allAssets);
+
+    const params = await getReleaseParams();
+
+    if (params.channel === config.RELEASE_CHANNEL) {
+      await createGithubRelease(params, allAssets);
+    }
+
+    await updateReleaseSummary(params, allAssets);
   } catch (error) {
     console.error(error);
     process.exit(1);
