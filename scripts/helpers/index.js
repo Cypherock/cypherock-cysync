@@ -7,5 +7,5 @@ module.exports = {
   config,
   getReleaseParams,
   genReleaseNotes,
-  execCommand
+  execCommand,
 };
