@@ -23,7 +23,7 @@ const config = {
     artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
   },
   linux: {
-    target: ['flatpak', 'snap', 'deb', 'rpm'],
+    target: ['snap', 'deb', 'rpm'],
     category: 'Utility',
     executableName: 'Cypherock CySync',
     artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',

@@ -49,7 +49,11 @@ jobs:
         with:
           name: build-linux
           path: |
-            apps/desktop/release/**/*.{deb,rpm,yml,zip}
+            apps/desktop/release/**/*.deb
+            apps/desktop/release/**/*.rpm
+            apps/desktop/release/**/*.zip
+            apps/desktop/release/**/*.snap
+            apps/desktop/release/**/*.yml
           retention-days: 1
 
   build-win:
@@ -96,7 +100,8 @@ jobs:
         with:
           name: build-win
           path: |
-            apps/desktop/release/**/*.{exe,yml}
+            apps/desktop/release/**/*.exe
+            apps/desktop/release/**/*.yml
           retention-days: 1
 
   build-macos-intel:
@@ -159,7 +164,9 @@ jobs:
         with:
           name: build-macos-intel
           path: |
-            apps/desktop/release/**/*.{dmg,yml,zip}
+            apps/desktop/release/**/*.dmg
+            apps/desktop/release/**/*.zip
+            apps/desktop/release/**/*.yml
           retention-days: 1
 
   release-build:
@@ -194,4 +201,3 @@ jobs:
       - run: node scripts/prebuild.js
 
       # - run: node scripts/postbuild.js "build-win,build-linux,build-macos-intel"
-
