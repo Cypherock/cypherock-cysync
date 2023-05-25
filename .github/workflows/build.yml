@@ -9,7 +9,97 @@ env:
   NODE_OPTIONS: '--max-old-space-size=8192'
 
 jobs:
-  build-macos:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-7
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: Install linux dependencies
+        run: sudo apt-get install fakeroot dpkg rpm -y
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: Prebuild config
+        run: node scripts/prebuild.js
+
+      - name: Build
+        run: pnpm make
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-linux
+          path: |
+            apps/desktop/release/**/*.{deb,rpm,yml,zip}
+          retention-days: 1
+
+  build-win:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-7
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: pnpm install
+        run: pnpm install
+
+      # - name: Windows Certificate Config
+      #   id: write_file
+      #   uses: timheuer/base64-to-file@v1
+      #   with:
+      #     fileName: 'win-certificate.pfx'
+      #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+
+      - name: Build
+        # env:
+        #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+        #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+        run: pnpm make
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-win
+          path: |
+            apps/desktop/release/**/*.{exe,yml}
+          retention-days: 1
+
+  build-macos-intel:
     runs-on: macos-latest
 
     strategy:
@@ -57,7 +147,7 @@ jobs:
       #     security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
       #     security list-keychain -d user -s $KEYCHAIN_PATH
 
-      - name: Build Macos Intel
+      - name: Build
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
@@ -67,6 +157,41 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: build-macos
-          path: apps/desktop/release/*
+          name: build-macos-intel
+          path: |
+            apps/desktop/release/**/*.{dmg,yml,zip}
           retention-days: 1
+
+  release-build:
+    runs-on: ubuntu-latest
+    needs: [build-win, build-linux, build-macos-intel]
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-7
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - uses: actions/download-artifact@v3
+
+      - run: pnpm i --ignore-scripts
+
+      - run: node scripts/prebuild.js
+
+      # - run: node scripts/postbuild.js "build-win,build-linux,build-macos-intel"
+
