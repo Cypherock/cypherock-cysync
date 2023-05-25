@@ -10,6 +10,7 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
+import { setupAutoUpdate } from './utils/autoUpdater';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -31,6 +32,7 @@ const shouldStartApp = () => {
 
 const setupIntitialState = async () => {
   initDb();
+  setupAutoUpdate();
 };
 
 const prepareApp = () => {

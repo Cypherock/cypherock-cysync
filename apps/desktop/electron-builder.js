@@ -8,7 +8,7 @@ const config = {
   },
   files: ['dist-electron', 'dist'],
   mac: {
-    artifactName: '${productName}_${version}.${ext}',
+    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
     entitlements: 'entitlements.plist',
     entitlementsInherit: 'entitlements.plist',
     target: ['dmg', 'zip'],
@@ -20,7 +20,7 @@ const config = {
         arch: ['x64'],
       },
     ],
-    artifactName: '${productName}_${version}.${ext}',
+    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
   },
   linux: {
     target: ['flatpak', 'snap', 'deb', 'rpm'],
@@ -32,6 +32,10 @@ const config = {
     deleteAppDataOnUninstall: false,
   },
   afterSign: 'scripts/notarize.js',
+  publish: {
+    provider: 'generic',
+    url: 'https://updater.cypherock.com/cysync-desktop',
+  },
 };
 
 module.exports = config;

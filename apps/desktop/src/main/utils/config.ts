@@ -7,6 +7,7 @@ const configValidators = {
   LOG_LEVEL: (val?: string) =>
     ['error', 'warn', 'info', 'verbose', 'debug'].includes(val as any),
   BUILD_VERSION: (val?: string) => !!val,
+  CHANNEL: (val?: string) => !!val,
   SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
   ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
 } as const;
@@ -65,10 +66,12 @@ const getConfig = () => {
     IS_TEST: false,
     ALLOW_PRERELEASE: false,
     USER_DATA_PATH: '',
+    CHANNEL: '',
   };
 
   config.BUILD_TYPE = jsonConfig.BUILD_TYPE;
   config.BUILD_VERSION = jsonConfig.BUILD_VERSION;
+  config.CHANNEL = jsonConfig.CHANNEL;
   config.ALLOW_PRERELEASE = jsonConfig.ALLOW_PRERELEASE;
 
   if (!app && process.env.NODE_ENV === 'test') {
