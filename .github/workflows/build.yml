@@ -203,12 +203,12 @@ jobs:
 
       - run: node scripts/prebuild.js
 
-      - name: Install AWS CLI
-        run: |
-          # Install AWS CLI
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
+#       - name: Install AWS CLI
+#         run: |
+#           # Install AWS CLI
+#           curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+#           unzip awscliv2.zip
+#           sudo ./aws/install
 
       # - run: node scripts/postbuild.js "build-win,build-linux,build-macos-intel"
       - name: Upload release files
