@@ -1,54 +1,44 @@
 import { css } from 'styled-components';
+import { MediaQuery } from '../../types/types';
+import { generateCss } from './generateCss';
+
+type HeightType = 'full' | 'screen' | 'inherit';
+type IImageType = number | string | HeightType;
 
 export interface HeightProps {
-  height?: number | string;
-  $heightL?: number | string;
+  height?: MediaQuery<IImageType>;
+}
+export interface ImageHeightProps {
+  height?: IImageType;
 }
 
+const heightMap: Record<HeightType, string> = {
+  full: '100%;',
+  screen: '100vh;',
+  inherit: 'inherit;',
+};
+
+const getHeight = (height: HeightType | number | string) => {
+  const heightCss = [];
+  if (height !== undefined) {
+    if (typeof height === 'string') {
+      if (heightMap[height as HeightType]) {
+        heightCss.push(heightMap[height as HeightType]);
+      } else if (height.includes('/')) {
+        const numberArray = height.split('/');
+        const firstNumber = parseInt(numberArray[0], 10);
+        const secondNumber = parseInt(numberArray[1], 10);
+        heightCss.push(`${(firstNumber / secondNumber) * 100}%;`);
+      } else {
+        heightCss.push(`${height}px;`);
+      }
+    } else if (typeof height === 'number') {
+      heightCss.push(`${height}px;`);
+    }
+  }
+  return heightCss.join(' ');
+};
+
 export const height = css<HeightProps>`
-  ${props => {
-    const heightCss = [];
-    if (props.height) {
-      if (props.height === 'full') heightCss.push(`height: 100%;`);
-      else if (props.height === 'screen') heightCss.push(`height: 100vh;`);
-      else if (typeof props.height === 'string') {
-        if (props.height.includes('/')) {
-          const numberArray = props.height.split('/');
-          const firstNumber = parseInt(numberArray[0], 10);
-          const secondNumber = parseInt(numberArray[1], 10);
-          heightCss.push(`height : ${(firstNumber / secondNumber) * 100}%;`);
-        }
-      } else heightCss.push(`height: ${props.height}px;`);
-    }
-
-    if (props.$heightL) {
-      if (props.$heightL === 'full')
-        heightCss.push(`@media ${props.theme.screens.laptopL} {
-          height: 100%;
-        }`);
-      else if (props.$heightL === 'screen')
-        heightCss.push(`@media ${props.theme.screens.laptopL} {
-          height: 100vh;
-        }`);
-      else if (typeof props.$heightL === 'string') {
-        if (props.$heightL.includes('/')) {
-          const numberArray = props.$heightL.split('/');
-          const firstNumber = parseInt(numberArray[0], 10);
-          const secondNumber = parseInt(numberArray[1], 10);
-          heightCss.push(
-            `@media ${props.theme.screens.laptopL} {
-              height : ${(firstNumber / secondNumber) * 100}%;
-          }`,
-          );
-        }
-      } else
-        heightCss.push(
-          `@media ${props.theme.screens.laptopL} {
-            height: ${props.$heightL}px;
-          }`,
-        );
-    }
-
-    return heightCss.join(' ');
-  }}
+  ${props => props.height && generateCss(['height'], getHeight, props.height)}
 `;

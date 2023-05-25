@@ -8,9 +8,10 @@ export type ThemeType = typeof theme;
 
 export const theme = {
   screens: {
-    laptop: `(min-width: ${screens.laptop})`,
-    laptopL: `(min-width: ${screens.laptopL})`,
-    desktop: `(min-width: ${screens.desktop})`,
+    def: `(min-width: ${screens.def})`,
+    md: `(min-width: ${screens.md})`,
+    lg: `(min-width: ${screens.lg})`,
+    xl: `(min-width: ${screens.xl})`,
   },
   palette: {
     bullet: {
@@ -29,6 +30,7 @@ export const theme = {
       main: colors.warning.main,
     },
     golden: colors.gradients.golden,
+    highlight: colors.gradients.highlight,
     success: {
       main: colors.success.main,
     },
@@ -43,7 +45,7 @@ export const theme = {
       blur: colors.background.blur,
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
-      seprator: colors.background.seperator,
+      separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
     },

@@ -41,14 +41,14 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-hw-serialport':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       electron-squirrel-startup:
         specifier: ^1.0.0
         version: 1.0.0
@@ -80,6 +80,9 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../../packages/util-tsconfig
+      '@electron/notarize':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@jest/globals':
         specifier: ^29.4.1
         version: 29.5.0
@@ -101,6 +104,9 @@ importers:
       css-loader:
         specifier: ^6.0.0
         version: 6.7.3(webpack@5.78.0)
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
       electron:
         specifier: ^24.3.1
         version: 24.3.1
@@ -140,6 +146,9 @@ importers:
       vite-plugin-electron-renderer:
         specifier: ^0.13.14
         version: 0.13.14
+      vite-plugin-multiple:
+        specifier: ^0.2.0
+        version: 0.2.0
 
   packages/coin-support-evm:
     dependencies:
@@ -156,14 +165,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-utils':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -292,17 +301,17 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-core':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-utils':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -586,8 +595,8 @@ importers:
   packages/interfaces:
     dependencies:
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.21.5
@@ -2516,12 +2525,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypherock/sdk-app-evm@0.0.3:
-    resolution: {integrity: sha512-/ZAXDJ16ilnPBJ508Mlk15matIxDKRYmqbHopoPaOxDewcY+VVkWJv40WViNZu/S6B6wd0O7+NN96Lvnbv6vLA==}
+  /@cypherock/sdk-app-evm@0.0.4:
+    resolution: {integrity: sha512-enKDFz//smKWJmdvKP7OWmBOKBkwpTKXtqcdRj/7//MtvN+itHebjQEJ8NCT0KuXsVNNbPSf7a3nc8nE/7GhIg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.3
-      '@cypherock/sdk-interfaces': 0.0.3
-      '@cypherock/sdk-utils': 0.0.3
+      '@cypherock/sdk-core': 0.0.4
+      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-utils': 0.0.4
       ethers: 6.3.0
       long: 5.2.3
       protobufjs: 7.2.3
@@ -2530,12 +2539,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.3:
-    resolution: {integrity: sha512-kZi2rky/Bv2dM7x9OG7IpWMKc4oDzwP8iUKPpMP5ashJl4KpsF2qMrql92nUh+nWP+DkqAmf+6ZBvCR2hzOt+g==}
+  /@cypherock/sdk-app-manager@0.0.4:
+    resolution: {integrity: sha512-vqYKM9hLJ5POOra46UvN84T3YkfxpWOeJCWi6sWjbAz4SpEBPY5sVYX6fImi0Bk/H946ledH1+gW9YZvgmFRbQ==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.3
-      '@cypherock/sdk-interfaces': 0.0.3
-      '@cypherock/sdk-utils': 0.0.3
+      '@cypherock/sdk-core': 0.0.4
+      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-utils': 0.0.4
       axios: 1.4.0
       crypto-js: 4.1.1
       protobufjs: 7.2.3
@@ -2544,46 +2553,46 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-core@0.0.3:
-    resolution: {integrity: sha512-h+cpLfMNTIexdc8RDjc+qcKwt3QH3fCAijBgFd/dFRHORcKcEvg34c1ovVm9j7e1EsQmZbga0VbdHqsssOR8hw==}
+  /@cypherock/sdk-core@0.0.4:
+    resolution: {integrity: sha512-AytY2jHz4U1aBGo2IakI290Ci11llFFudGYlQOlD7WoT/Xij4pyBOKy2d//9PvEr47odyBrkTAkrfINeTtDSSQ==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.3
-      '@cypherock/sdk-utils': 0.0.3
+      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-utils': 0.0.4
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-hid@0.0.3:
-    resolution: {integrity: sha512-BNOAUhSNXnQue9qXB9IGqacxN3a9jVun+qjL2iwLCD7+hZlvTKz9IlMrPHCy6OTRKLZlR1EMyV9jpONWZ/MmJA==}
+  /@cypherock/sdk-hw-hid@0.0.4:
+    resolution: {integrity: sha512-9OrB3NICwqH6rO1vFKHvYGkdIVOd4e8OkU4dGLKVBFeBtK4AAQn02GCnUpHMm6KbL9zXVy3ZsuNiE2IaVHaVMQ==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.3
+      '@cypherock/sdk-interfaces': 0.0.4
       node-hid: 2.1.2
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-serialport@0.0.3:
-    resolution: {integrity: sha512-SYh2nCdhEM9C1j/YF0N6R2OXabUMXpHN06+WjerirBg8O5vDPj15FkO70VXFMsaaIbVxsWjWfrLeVLzL5p6Pnw==}
+  /@cypherock/sdk-hw-serialport@0.0.4:
+    resolution: {integrity: sha512-qli9WIw8zpEOf05fgVrpqcgHYjQukWsQJqHaL9GU5G8sxliSX9TzYirypSE9BM2f0erWnluQ8TJ6KV5Y0jTGQQ==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.3
+      '@cypherock/sdk-interfaces': 0.0.4
       serialport: 10.0.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@cypherock/sdk-interfaces@0.0.3:
-    resolution: {integrity: sha512-MoTOwycFW8WG//jz5we2b1oU8739IIW9wITFUDmdWwNm/kKKhiCHAWzxcmiRscXqARMNJWU1DSltc5zdz2h8ew==}
+  /@cypherock/sdk-interfaces@0.0.4:
+    resolution: {integrity: sha512-AgGEqQ4fHUW0qQJCQkW0QGd6mqwwQYsuOuqVAB0fcLfgBonkhJUJVfBz/5ba/0Lu2ttGevMd4O4weRkNZkvtDA==}
     dependencies:
       '@types/events': 3.0.0
       events: 3.3.0
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-utils@0.0.3:
-    resolution: {integrity: sha512-NTabXyYDGvf0jHuka1FWXC4hFo2V72232RwSbyr41qPwyafAqq1rxSUk9fPszA690XEmtl3skg+NmiK5M2m4Tg==}
+  /@cypherock/sdk-utils@0.0.4:
+    resolution: {integrity: sha512-95zXQKZi9Qt10LQWIaseiJQkHFHMQ5NgKyuMeB3pixHsvhhhewlphWK/CO9+PMTAyFyYhbKjd3icQV49ZsZhSg==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.3
+      '@cypherock/sdk-interfaces': 0.0.4
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
       uuid: 9.0.0
@@ -2618,6 +2627,16 @@ packages:
       sumchecker: 3.0.1
     optionalDependencies:
       global-agent: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@electron/notarize@1.2.3:
+    resolution: {integrity: sha512-9oRzT56rKh5bspk3KpAVF8lPKHYQrBnRwcgiOeR0hdilVEQmszDaAu0IPCPrwwzJN0ugNs0rRboTreHMt/6mBQ==}
+    engines: {node: '>= 10.0.0'}
+    dependencies:
+      debug: 4.3.4
+      fs-extra: 9.1.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5801,6 +5820,11 @@ packages:
 
   /dotenv-expand@5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
+    dev: true
+
+  /dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv@9.0.2:
@@ -11425,6 +11449,10 @@ packages:
 
   /vite-plugin-electron@0.11.1:
     resolution: {integrity: sha512-pi9Wy4KCGjKIRvp7/5VUOT8BYEAJdZrpy3gI+GhGc5vYs2V9yPxLOtfCqNfSTYqH3uM6hYY6MyifFVku3Wg+2A==}
+    dev: true
+
+  /vite-plugin-multiple@0.2.0:
+    resolution: {integrity: sha512-oE7ZrL+0iVvpCrcRSOnSlxo6O+CaJyzspDkSRsJG3keyPMxmDroWzLP0S3k+tL0SCFv5BrFki16xxKF2FMfYuQ==}
     dev: true
 
   /vite@4.2.1(@types/node@16.11.10):

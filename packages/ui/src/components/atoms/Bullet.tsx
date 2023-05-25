@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { margin } from '../utils';
+import { spacing } from '../utils';
 
 interface BulletProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
@@ -10,7 +10,7 @@ interface BulletProps {
 const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.textHeading};
-  ${margin}
+  ${spacing}
 
   //size
   ${props =>

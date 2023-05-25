@@ -3,9 +3,11 @@ import React, { ReactElement } from 'react';
 import {
   Button,
   Container,
-  DialogueBoxBody,
-  DialogueBoxContainer,
-  DialogueBoxFooter,
+  DialogBox,
+  DialogBoxBackground,
+  DialogBoxBackgroundHeader,
+  DialogBoxBody,
+  DialogBoxFooter,
   Flex,
   Image,
   Typography,
@@ -17,36 +19,46 @@ export const Usage = (): ReactElement => (
   <Flex gap={0} position="relative">
     <Aside />
     <Container width="full" $bgColor="contentGradient">
-      <Flex $directionL="row" direction="column" gap={16}>
-        <Flex position="absolute" top={30} right={26} gap={12}>
-          <Typography color="muted">Help</Typography>
-          <Typography color="gold">?</Typography>
-        </Flex>
-        <DialogueBoxContainer
+      <DialogBoxBackground
+        gap={20}
+        direction={{
+          def: 'column',
+          lg: 'row',
+        }}
+      >
+        <DialogBoxBackgroundHeader email={false} help />
+        <DialogBox
           direction="column"
-          width={458}
-          $widthL={500}
-          height={276}
-          $heightL={483}
+          width={{
+            def: 458,
+            lg: 500,
+          }}
+          height={{
+            def: 276,
+            lg: 483,
+          }}
         >
-          <DialogueBoxBody
+          <DialogBoxBody
             grow={2}
             align="center"
-            $gapL={43.5}
-            gap={26}
+            gap={{ def: 26, lg: 43.5 }}
             direction="column"
             height="full"
           >
             <Image width={45} src={usageIcon} alt="usageIcon" />
             <Flex gap={16} direction="column" height="full">
-              <Typography variant="h5" color="heading" mb={1}>
+              <Typography
+                $alignSelf="center"
+                variant="h5"
+                color="heading"
+                mb={1}
+              >
                 I am using Cypherock X1 for the first time
               </Typography>
               <Container
                 height="full"
                 rounded={8}
-                display="none"
-                $displayL="block"
+                display={{ def: 'none', lg: 'block' }}
                 $bgColor="input"
                 px={2}
                 py={3}
@@ -57,26 +69,23 @@ export const Usage = (): ReactElement => (
                 </Typography>
               </Container>
             </Flex>
-          </DialogueBoxBody>
-          <DialogueBoxFooter>
-            <Link to="/termsOfUse">
+          </DialogBoxBody>
+          <DialogBoxFooter>
+            <Link to="/terms">
               <Button variant="primary">Continue</Button>
             </Link>
-          </DialogueBoxFooter>
-        </DialogueBoxContainer>
-        <DialogueBoxContainer
+          </DialogBoxFooter>
+        </DialogBox>
+        <DialogBox
           direction="column"
-          width={458}
-          $widthL={500}
-          height={276}
-          $heightL={483}
+          width={{ def: 458, lg: 500 }}
+          height={{ def: 276, lg: 483 }}
         >
-          <DialogueBoxBody
+          <DialogBoxBody
             align="center"
             direction="column"
             grow={1}
-            $gapL={43.5}
-            gap={26}
+            gap={{ def: 26, lg: 43.5 }}
             justify="evenly"
             height="full"
           >
@@ -95,8 +104,7 @@ export const Usage = (): ReactElement => (
                 rounded={8}
                 $bgColor="input"
                 align="flex-start"
-                display="none"
-                $displayL="block"
+                display={{ def: 'none', lg: 'block' }}
                 px={2}
                 py={3}
               >
@@ -107,14 +115,14 @@ export const Usage = (): ReactElement => (
                 </Typography>
               </Container>
             </Flex>
-          </DialogueBoxBody>
-          <DialogueBoxFooter>
-            <Link to="/termsOfUse">
+          </DialogBoxBody>
+          <DialogBoxFooter>
+            <Link to="/terms">
               <Button variant="primary">Continue</Button>
             </Link>
-          </DialogueBoxFooter>
-        </DialogueBoxContainer>
-      </Flex>
+          </DialogBoxFooter>
+        </DialogBox>
+      </DialogBoxBackground>
     </Container>
   </Flex>
 );

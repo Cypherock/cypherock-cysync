@@ -1,89 +1,50 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { UtilsProps, utils } from '../utils';
-import { Image } from '../atoms/Image';
-import { Flex } from '../atoms/Flex';
-import {
-  cardProgressIcon,
-  commonAsideImage,
-  cysyncLogoSmall,
-  deviceAuthAsideImage,
-  deviceAuthProgressIcon,
-  emailAuthProgressIcon,
-  joyStickProgressIcon,
-  setPassProgressIcon,
-  termsProgressIcon,
-} from '../../assets/images';
-import { Typography } from '../atoms/Typography';
+import React, { ReactElement } from 'react';
+import { styled } from 'styled-components';
+import { theme } from '../../themes/theme.styled';
+import { AsideContainer, Flex, Image, Typography } from '../atoms';
+import { cysyncLogoSmall } from '../../assets/images';
+import { Milestone } from './Milestone';
 
-interface AsideProps extends UtilsProps {
-  progress: number;
-  title: string;
-  asideImage: 'common' | 'deviceAuth';
+export interface AsideProps {
+  img: string;
+  text: string;
+  currentState: number;
+  totalState: number;
 }
 
-const AsideStyle = styled.div<UtilsProps>`
-  ${utils}
-  min-width: 280px;
-  min-height: 100vh;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(
-    102.78deg,
-    #211c18 0%,
-    #211a16 59.38%,
-    #252219 100%
-  );
-  @media ${({ theme }) => theme.screens.laptopL} {
-    min-width: 500px;
-    padding: 32px 40px;
+const Text = styled.span`
+  font-size: 27px;
+
+  @media ${theme.screens.lg} {
+    font-size: 40px;
   }
 `;
-
-const asideImageObj: Record<string, string> = {
-  common: commonAsideImage,
-  deviceAuth: deviceAuthAsideImage,
+export const Aside = (props: AsideProps): ReactElement => {
+  const { img, text, currentState, totalState } = props;
+  return (
+    <AsideContainer
+      $bgColor="sideBar"
+      direction="column"
+      justify="space-between"
+      align="center"
+      height="full"
+    >
+      <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+      <Flex direction="column" align="center" width="full">
+        <Image src={img} alt="device" width="full" />
+      </Flex>
+      <Flex direction="column" width="wFull" align="center" px={4}>
+        <Typography
+          color="silver"
+          width="wFull"
+          $textAlign="center"
+          font="medium"
+          mb={4}
+        >
+          <Text>{text}</Text>
+        </Typography>
+        <Milestone currentState={currentState} totalState={totalState} />
+      </Flex>
+    </AsideContainer>
+  );
 };
-
-const progressIconsObj: Record<number, string> = {
-  1: termsProgressIcon,
-  2: setPassProgressIcon,
-  3: emailAuthProgressIcon,
-  4: deviceAuthProgressIcon,
-  5: joyStickProgressIcon,
-  6: cardProgressIcon,
-};
-
-export const Aside: FC<AsideProps> = ({
-  progress,
-  title,
-  asideImage,
-  ...props
-}) => (
-  <AsideStyle {...props}>
-    <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
-    <Flex direction="column" align="center">
-      <Image src={asideImageObj[asideImage]} alt="device" width={250} />
-    </Flex>
-    <Flex direction="column" width="full" align="center">
-      <Typography
-        variant="h3"
-        color="silver"
-        width="full"
-        $textAlign="center"
-        mb={3}
-        font="medium"
-      >
-        {title}
-      </Typography>
-      <Image
-        type="progressBar"
-        src={progressIconsObj[progress]}
-        alt="progress"
-      />
-    </Flex>
-  </AsideStyle>
-);

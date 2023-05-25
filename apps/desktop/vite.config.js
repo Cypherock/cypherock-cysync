@@ -1,7 +1,9 @@
+import path from 'path';
 import { rmSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import electron from 'vite-plugin-electron';
+import multiple from 'vite-plugin-multiple';
 import renderer from 'vite-plugin-electron-renderer';
 
 import pkg from './package.json';
@@ -65,14 +67,21 @@ export default defineConfig(({ command }) => {
         },
       ]),
       // Use Node.js API in the Renderer-process
-      {
-        name: 'vite-plugin-electron-renderer',
-        config: async config => {
-          const plugin = renderer();
-          await plugin.config(config);
+      multiple([
+        {
+          name: 'loading',
+          config: 'vite.loading.config.js',
         },
-      },
+      ]),
+      renderer(),
     ],
+    build: {
+      outDir: 'dist',
+      emptyOutDir: false,
+      rollupOptions: {
+        input: path.join(__dirname, 'html/index.html'),
+      },
+    },
     server:
       process.env.VSCODE_DEBUG &&
       (() => {

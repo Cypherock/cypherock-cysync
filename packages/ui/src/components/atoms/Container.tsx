@@ -7,10 +7,10 @@ interface ContainerProps extends UtilsProps {
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
+  ${utils}
   display: flex;
   justify-content: center;
   align-items: center;
-  ${utils}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (

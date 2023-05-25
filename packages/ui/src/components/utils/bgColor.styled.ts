@@ -10,7 +10,8 @@ export interface BgColorProps {
     | 'black'
     | 'separator'
     | 'input'
-    | 'white';
+    | 'white'
+    | 'highlight';
 }
 
 export const $bgColor = css<BgColorProps>`
@@ -50,6 +51,12 @@ ${props =>
     props.$bgColor === 'list' &&
     css`
       background-color: #27221d;
+    `}
+
+${props =>
+    props.$bgColor === 'highlight' &&
+    css`
+      background: ${({ theme }) => theme.palette.highlight};
     `}
 
 

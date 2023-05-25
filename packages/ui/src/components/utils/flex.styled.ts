@@ -1,74 +1,72 @@
 import { ReactNode } from 'react';
 import { css } from 'styled-components';
+import { MediaQuery } from '../../types/types';
+import { generateCss } from './generateCss';
+
+type JustifyType =
+  | 'flex-start'
+  | 'center'
+  | 'space-around'
+  | 'space-between'
+  | 'flex-end'
+  | 'evenly';
+
+type AlignType = 'flex-start' | 'center' | 'baseline' | 'flex-end' | 'stretch';
+
+type DirectionType = 'row' | 'column';
 
 export interface FlexProps {
   children?: ReactNode;
-  wrapReverse?: boolean;
-  noWrap?: boolean;
-  justify?:
-    | 'flex-start'
-    | 'center'
-    | 'space-around'
-    | 'space-between'
-    | 'flex-end'
-    | 'evenly';
-  align?: 'flex-start' | 'center' | 'baseline' | 'flex-end' | 'stretch';
-  content?:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around';
-  direction?: 'row' | 'column';
-  $directionL?: 'column' | 'row';
-  gap?: number;
-  $gapL?: number;
-  grow?: number;
+  wrapReverse?: MediaQuery<boolean>;
+  noWrap?: MediaQuery<boolean>;
+  justify?: MediaQuery<JustifyType>;
+  align?: MediaQuery<AlignType>;
+  direction?: MediaQuery<DirectionType>;
+  gap?: MediaQuery<number>;
+  grow?: MediaQuery<number>;
 }
 
 const justifyContent = css<FlexProps>`
-  ${props => props.justify && `justify-content: ${props.justify};`}
+  ${props =>
+    props.justify &&
+    generateCss(
+      ['justify-content'],
+      (item: JustifyType) => `${item}`,
+      props.justify,
+    )}
 `;
 
 const align = css<FlexProps>`
-  ${props => props.align && `align-items: ${props.align};`}
+  ${props =>
+    props.align &&
+    generateCss(['align-items'], (item: AlignType) => `${item}`, props.align)}
 `;
 
 const direction = css<FlexProps>`
-  ${props => props.direction && `flex-direction: ${props.direction};`}
-`;
-const $directionL = css<FlexProps>`
   ${props =>
-    props.$directionL &&
-    `@media ${props.theme.screens.laptopL} {
-        flex-direction: ${props.$directionL};
-    }`}
+    props.direction &&
+    generateCss(
+      ['flex-direction'],
+      (item: DirectionType) => item,
+      props.direction,
+    )}
 `;
 
 const gap = css<FlexProps>`
-  ${props => props.gap && `gap: ${props.gap}px;`}
-`;
-const $gapL = css<FlexProps>`
   ${props =>
-    props.$gapL &&
-    `@media ${props.theme.screens.laptopL} { gap: ${props.$gapL}px;}`}
+    props.gap && generateCss(['gap'], (item: number) => `${item}px`, props.gap)}
 `;
 const grow = css<FlexProps>`
-  ${props => props.grow && `flex-grow: ${props.grow};`}
-`;
-
-const content = css<FlexProps>`
-  ${props => props.content && `align-content: ${props.content};`}
+  ${props =>
+    props.grow &&
+    generateCss(['flex-grow'], (item: number) => `${item}`, props.grow)}
 `;
 
 export const flex = css<FlexProps>`
   display: flex;
   ${justifyContent}
   ${align}
-  ${content}
   ${direction}
-  ${$directionL}
   ${gap}
-  ${$gapL}
   ${grow}
 `;

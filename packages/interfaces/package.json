@@ -4,7 +4,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "private": true,
   "scripts": {
     "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
@@ -38,6 +38,6 @@
     ]
   },
   "dependencies": {
-    "@cypherock/sdk-interfaces": "^0.0.3"
+    "@cypherock/sdk-interfaces": "^0.0.4"
   }
 }

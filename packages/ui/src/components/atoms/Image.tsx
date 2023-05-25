@@ -1,50 +1,36 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import {
-  margin,
-  MarginProps,
-  padding,
-  PaddingProps,
+  spacing,
   $alignSelf,
+  animate,
+  SpacingProps,
+  AnimateProps,
   AlignSelfProps,
-  WidthProps,
+  height,
   width,
+  ImageHeightProps,
+  ImageWidthProps,
 } from '../utils';
-import { HeightProps, height } from '../utils/height.styled';
 
 interface ImageProps
-  extends MarginProps,
-    PaddingProps,
+  extends SpacingProps,
+    AnimateProps,
     AlignSelfProps,
-    WidthProps,
-    HeightProps {
-  type?: 'progressBar';
+    ImageHeightProps,
+    ImageWidthProps {
   src: string;
   alt: string;
 }
 
 const ImageStyle = styled.img<ImageProps>`
-  ${margin}
-  ${padding}
+  ${spacing}
   ${$alignSelf}
-  ${width}
+  ${animate}
   ${height}
-
-  ${props =>
-    props.type === 'progressBar' &&
-    `
-    width: 216px;
-
-    @media ${props.theme.screens.laptopL} {
-     width: 237.52px;
-    }
-  `}
+  ${width}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
-  <ImageStyle src={src} alt={alt} {...props} />
+  <ImageStyle {...props} src={src} alt={alt} />
 );
-
-Image.defaultProps = {
-  type: undefined,
-};

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .ts,tsx,js,jsx src/ --fix",
@@ -39,9 +39,9 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-evm": "^0.0.3",
-    "@cypherock/sdk-interfaces": "^0.0.3",
-    "@cypherock/sdk-utils": "^0.0.3",
+    "@cypherock/sdk-app-evm": "^0.0.4",
+    "@cypherock/sdk-interfaces": "^0.0.4",
+    "@cypherock/sdk-utils": "^0.0.4",
     "axios": "^1.4.0",
     "rxjs": "^7.8.1"
   },

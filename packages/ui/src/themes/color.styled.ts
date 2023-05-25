@@ -12,6 +12,8 @@ export const colors = {
       'linear-gradient(102.78deg, #211C18 0%, #211A16 59.38%, #252219 100%)',
     golden:
       'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
+    highlight:
+      'linear-gradient(269.94deg, #312B26 0.05%, rgba(26, 22, 18, 0) 51.82%)',
   },
   info: {
     main: '#F1AE4A',
@@ -31,7 +33,7 @@ export const colors = {
     progressBar: '#1F1915',
     input: '#27221D',
     blur: 'rgba(29, 25, 23, 0.4)',
-    seperator: '#39322C',
+    separator: '#39322C',
   },
   border: {
     popup: '#2C2520',

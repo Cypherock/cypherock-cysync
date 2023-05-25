@@ -4,20 +4,24 @@ import cysyncLogoSmall from './common/logo-small.png';
 import closeIcon from './common/close.png';
 import importWalletIcon from './common/import-wallet.png';
 import recoverWalletIcon from './common/recover-wallet.png';
-import commonAsideImage from './common/aside.png';
-import termsProgressIcon from './common/terms-progress.png';
-import cardProgressIcon from './common/card-progress.png';
 import joyStickProgressIcon from './common/joystickProgress.png';
 import emailAuthProgressIcon from './common/emailAuthProgress.png';
-import setPassProgressIcon from './common/setPassProgress.png';
-import deviceAuthProgressIcon from './common/deviceAuthProgressbar.png';
 import deviceAuthAsideImage from './common/deviceAuth.png';
-import backIcon from './common/back.png';
-import emailIcon from './common/email.png';
+import asideIcon from './common/aside.svg';
+import successIcon from './common/success.svg';
+import termsProgressIcon from './common/terms-progress.png';
+import backIcon from './common/back.svg';
+import cardProgressIcon from './common/card-progress.png';
+import deviceAuthProgressIcon from './common/deviceAuthProgressbar.png';
+import emailIcon from './common/email-icon.svg';
+import blockSelectedIcon from './common/Block.svg';
+import blockIcon from './common/Block-unselectedsvg.svg';
+import disconnectedIcon from './common/disconnected.svg';
+import failIcon from './common/fail.svg';
 
 export {
   addWalletIcon,
-  commonAsideImage,
+  asideIcon,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -28,8 +32,12 @@ export {
   cardProgressIcon,
   emailAuthProgressIcon,
   joyStickProgressIcon,
-  setPassProgressIcon,
-  deviceAuthProgressIcon,
   deviceAuthAsideImage,
   emailIcon,
+  deviceAuthProgressIcon,
+  blockIcon,
+  blockSelectedIcon,
+  disconnectedIcon,
+  successIcon,
+  failIcon,
 };

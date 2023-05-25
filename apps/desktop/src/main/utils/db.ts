@@ -1,7 +1,7 @@
 import { createDb } from '@cypherock/database';
 import path from 'path';
 import { config } from './config';
-import logger from './logger';
+import { logger } from './logger';
 
 export async function initDb() {
   const db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
@@ -15,14 +15,14 @@ export async function initDb() {
 
   const allDevices = await db.device.getAll();
 
-  logger.info({ stored, allDevices });
+  logger.debug({ stored, allDevices });
   await db.device.remove(stored);
 
-  db.storage.setItem('random', 'item');
-  const item = db.storage.getItem('random');
-  const count = db.storage.getLength();
+  await db.storage.setItem('random', 'item');
+  const item = await db.storage.getItem('random');
+  const count = await db.storage.getLength();
 
-  logger.info({ item, count });
+  logger.debug({ item, count });
 
-  db.storage.clear();
+  await db.storage.clear();
 }
