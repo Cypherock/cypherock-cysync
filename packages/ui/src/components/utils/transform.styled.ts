@@ -1,11 +1,12 @@
 import { css } from 'styled-components';
 
-export interface TranslateProps {
+export interface TransformProps {
   translateX?: number;
   translateY?: number;
+  rotate?: number;
 }
 
-export const translate = css<TranslateProps>`
+export const transform = css<TransformProps>`
   ${props => {
     let xVal = '0px';
     let yVal = '0px';
@@ -19,6 +20,8 @@ export const translate = css<TranslateProps>`
         xVal = `${props.translateX * 100}%`;
       else xVal = `${props.translateX}px`;
     }
-    return `transform: translate(${xVal},${yVal})`;
+    return `transform: translate(${xVal},${yVal}) rotate(${
+      props.rotate ?? 0
+    }deg);`;
   }}
 `;

@@ -15,7 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
-import { onboardingRoutes } from '../../../config';
+import { routes } from '../../../config';
 
 export const DeviceDetection = (): ReactElement => {
   const { connection } = useDevice();
@@ -23,7 +23,7 @@ export const DeviceDetection = (): ReactElement => {
 
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      navigate(onboardingRoutes.deviceAuthentication.path);
+      navigate(routes.onboarding.deviceAuthentication.path);
     }
   }, [connection]);
   return (
