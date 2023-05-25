@@ -24,6 +24,9 @@ const config = {
   },
   linux: {
     target: ['flatpak', 'snap', 'deb', 'rpm'],
+    category: 'Utility',
+    executableName: 'Cypherock CySync',
+    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
   },
   nsis: {
     oneClick: false,
