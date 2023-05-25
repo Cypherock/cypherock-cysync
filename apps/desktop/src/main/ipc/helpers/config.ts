@@ -7,6 +7,7 @@ export const ipcConfig = {
     dbMethodCall: 'db:method:call',
     dbMethodList: 'db:method:list',
   },
+  // Environment variables to inject in renderer
   env: [
     'LOG_LEVEL',
     'BUILD_TYPE',
@@ -15,6 +16,7 @@ export const ipcConfig = {
     'IS_PRODUCTION',
     'IS_TEST',
     'ALLOW_PRERELEASE',
-    'USER_DATA_PATH',
+    'VERSION',
+    'CHANNEL',
   ],
 };
