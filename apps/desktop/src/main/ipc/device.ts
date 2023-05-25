@@ -8,7 +8,8 @@ import {
   IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
 import { GetDevices } from '@cypherock/cysync-interfaces';
-import { ipcConfig } from './config';
+import { ipcConfig } from './helpers/config';
+import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
 
 const getDevices: GetDevices = async () => {
   const hidDevices = await DeviceConnectionHID.list();
@@ -40,7 +41,7 @@ const connectDevice = async (device: IDevice) => {
   }
 
   connectedDevice = { device, connection };
-  return device.path;
+  return getMethodListFromObject(connection, 1);
 };
 
 const connectedDeviceMethodCall = async (
@@ -52,20 +53,20 @@ const connectedDeviceMethodCall = async (
     throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
   }
 
-  return (connectedDevice.connection as any)[method](...args);
+  return callMethodOnObject(connectedDevice.connection, method, ...args);
 };
 
 export const getDeviceIPCHandlers = () => [
   {
-    name: ipcConfig.connectDevice,
+    name: ipcConfig.methods.connectDevice,
     func: connectDevice,
   },
   {
-    name: ipcConfig.getDevices,
+    name: ipcConfig.methods.getDevices,
     func: getDevices,
   },
   {
-    name: ipcConfig.connectedDeviceMethodCall,
+    name: ipcConfig.methods.connectedDeviceMethodCall,
     func: connectedDeviceMethodCall,
   },
 ];
