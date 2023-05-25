@@ -34,6 +34,9 @@ const config = {
     allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false,
   },
+  rpm: {
+    fpm: ['--iteration=1.0.0'],
+  },
   afterSign: 'scripts/notarize.js',
   publish: {
     provider: 'generic',
