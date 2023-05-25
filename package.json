@@ -8,10 +8,11 @@
     "email": "support@cypherock.com"
   },
   "scripts": {
-    "start": "pnpm build && concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build --concurrency=20\" -k",
+    "start": "pnpm dev:setup && pnpm build && concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build --concurrency=20\" -k",
     "dev": "turbo dev",
     "make": "turbo make",
     "build": "turbo build",
+    "dev:setup": "turbo dev:setup",
     "watch:build": "turbo watch:build",
     "lint": "turbo run lint",
     "pretty": "pnpm pretty:root && turbo run pretty",

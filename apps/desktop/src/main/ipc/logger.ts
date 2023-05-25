@@ -1,9 +1,9 @@
 import { logWithServiceAndLevel } from '../utils/logger';
-import { ipcConfig } from './config';
+import { ipcConfig } from './helpers/config';
 
 export const getLoggerIPCHandlers = () => [
   {
-    name: ipcConfig.logWithServiceAndLevel,
+    name: ipcConfig.methods.logWithServiceAndLevel,
     func: logWithServiceAndLevel,
   },
 ];

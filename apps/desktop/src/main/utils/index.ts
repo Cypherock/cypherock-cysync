@@ -4,3 +4,4 @@ export * from './db';
 export * from './logger';
 export * from './urls';
 export * from './window';
+export * from './extension';
