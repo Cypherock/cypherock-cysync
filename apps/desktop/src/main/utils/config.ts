@@ -97,3 +97,8 @@ const getConfig = () => {
 };
 
 export const config = getConfig();
+for (const key in config) {
+  if (key in config) {
+    process.env[key] = (config as any)[key];
+  }
+}

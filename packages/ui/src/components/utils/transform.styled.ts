@@ -10,18 +10,33 @@ export const transform = css<TransformProps>`
   ${props => {
     let xVal = '0px';
     let yVal = '0px';
+    let rotateVal = '0deg';
+    let changeCount = 0;
+
     if (props.translateY !== undefined) {
-      if (!Number.isInteger(props.translateY))
-        yVal = `${props.translateY * 100}%`;
-      else yVal = `${props.translateY}px`;
+      yVal = Number.isInteger(props.translateY)
+        ? `${props.translateY}px`
+        : `${props.translateY * 100}%`;
+
+      changeCount += 1;
     }
+
     if (props.translateX !== undefined) {
-      if (!Number.isInteger(props.translateX))
-        xVal = `${props.translateX * 100}%`;
-      else xVal = `${props.translateX}px`;
+      xVal = Number.isInteger(props.translateX)
+        ? `${props.translateX}px`
+        : `${props.translateX * 100}%`;
+      changeCount += 1;
     }
-    return `transform: translate(${xVal},${yVal}) rotate(${
-      props.rotate ?? 0
-    }deg);`;
+
+    if (props.rotate !== undefined) {
+      rotateVal = Number.isInteger(props.rotate)
+        ? `${props.rotate}deg`
+        : `${props.rotate}turn`;
+      changeCount += 1;
+    }
+
+    return changeCount
+      ? `transform: translate(${xVal},${yVal}) rotate(${rotateVal});`
+      : '';
   }}
 `;
