@@ -1,0 +1,49 @@
+name: Test CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-8
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: Run build
+        run: pnpm build
+
+      - name: Run linter checks
+        run: pnpm lint:check
+
+      - name: Run perttier checks
+        run: pnpm pretty:check
+
+      - name: Run tests
+        run: pnpm test
