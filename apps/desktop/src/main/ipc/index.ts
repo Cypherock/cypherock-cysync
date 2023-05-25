@@ -1,11 +1,13 @@
 import { IpcMain } from 'electron';
 import { getLoggerIPCHandlers } from './logger';
 import { getDeviceIPCHandlers } from './device';
+import { getDbIPCHandlers } from './db';
 
 export const setupIPCHandlers = (ipcMain: IpcMain) => {
   const exportedFunctions = [
     ...getLoggerIPCHandlers(),
     ...getDeviceIPCHandlers(),
+    ...getDbIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

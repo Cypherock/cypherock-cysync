@@ -33,4 +33,9 @@ export default {
    * Commit hash of the build
    */
   BUILD_VERSION: 'DEVELOPMENT',
+
+  /**
+   * Auto update channel
+   */
+  CHANNEL: 'latest',
 };
