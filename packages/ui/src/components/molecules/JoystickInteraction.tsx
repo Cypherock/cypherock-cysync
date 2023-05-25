@@ -67,24 +67,24 @@ const directionMap: Record<DirectionType, Partial<ImageProps>> = {
     rotate: -90,
     top: 24,
     left: 0.5,
-    translateX: -0.5,
+    $translateX: -0.5,
   },
   down: {
     rotate: 90,
     bottom: 24,
     left: 0.5,
-    translateX: -0.5,
+    $translateX: -0.5,
   },
   left: {
     rotate: -180,
     left: 24,
     top: 0.5,
-    translateY: -0.5,
+    $translateY: -0.5,
   },
   right: {
     right: 24,
     top: 0.5,
-    translateY: -0.5,
+    $translateY: -0.5,
   },
   center: {},
 };
@@ -145,8 +145,8 @@ export const JoystickInteraction: React.FC<
                 position="absolute"
                 top={0.5}
                 left={0.5}
-                translateX={-0.5}
-                translateY={-0.5}
+                $translateX={-0.5}
+                $translateY={-0.5}
               />
               <JoystickArrow type="down" state={down} />
               <JoystickArrow type="left" state={left} />
