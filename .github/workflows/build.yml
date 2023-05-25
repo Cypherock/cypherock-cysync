@@ -200,4 +200,9 @@ jobs:
 
       - run: node scripts/prebuild.js
 
+      - run: node scripts/prebuild.js
+
+      - run: ls
+      - run: ls -R build-macos-intel
+
       # - run: node scripts/postbuild.js "build-win,build-linux,build-macos-intel"

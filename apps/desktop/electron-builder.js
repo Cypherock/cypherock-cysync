@@ -23,7 +23,8 @@ const config = {
     artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
   },
   linux: {
-    target: ['snap', 'deb', 'rpm'],
+    // TODO: Add RPM later
+    target: ['snap', 'deb'],
     category: 'Utility',
     executableName: 'Cypherock CySync',
     artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
@@ -33,9 +34,6 @@ const config = {
     perMachine: false,
     allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false,
-  },
-  rpm: {
-    fpm: ['--iteration=1.0.0'],
   },
   afterSign: 'scripts/notarize.js',
   publish: {
