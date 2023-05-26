@@ -7,8 +7,10 @@ const commonFolders = ['node_modules', 'coverage', 'dist', '.turbo'];
 const packages = {
   'apps/desktop': [...commonFolders, 'dist-electron', 'release'],
   'packages/coin-support': [...commonFolders],
+  'packages/coin-support-evm': [...commonFolders],
   'packages/coins': [...commonFolders],
   'packages/desktop-ui': [...commonFolders],
+  'packages/ui': [...commonFolders],
   'packages/database': [...commonFolders],
   'packages/db-interfaces': [...commonFolders],
   'packages/cysync-core': [...commonFolders],
@@ -63,6 +65,8 @@ const removeFolders = async (parentDirectory, folders) => {
 const run = async () => {
   const parentDir = path.join(__dirname, '..');
   const allFoldersToDelete = [];
+  const isForce =
+    process.argv.includes('--force') || process.argv.includes('-f');
 
   for (const pkgName in packages) {
     for (const folder of packages[pkgName]) {
@@ -71,21 +75,26 @@ const run = async () => {
   }
 
   console.log(allFoldersToDelete);
-  await confirmFromUser(
-    'Do you want to delete all the above folders? (y/n)',
-    ['y', 'yes'],
-    ['n', 'no'],
-  );
+  if (!isForce) {
+    await confirmFromUser(
+      'Do you want to delete all the above folders? (y/n)',
+      ['y', 'yes'],
+      ['n', 'no'],
+    );
+  }
 
   console.log();
   console.log(`Working dir: ${parentDir}`);
-  await confirmFromUser(
-    `Please type the parent directory to confirm: (${path.basename(
-      parentDir,
-    )}/n)`,
-    [path.basename(parentDir)],
-    ['n', 'no'],
-  );
+
+  if (!isForce) {
+    await confirmFromUser(
+      `Please type the parent directory to confirm: (${path.basename(
+        parentDir,
+      )}/n)`,
+      [path.basename(parentDir)],
+      ['n', 'no'],
+    );
+  }
 
   await removeFolders(parentDir, allFoldersToDelete);
 

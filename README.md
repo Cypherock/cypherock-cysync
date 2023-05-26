@@ -91,14 +91,25 @@ pnpm i        # Install packages
 - You may have to delete the `./apps/desktop/node_modules/.vite` folder if the
   changes does not reflect on cysync apps.
 
+### Turorepo Remote Caching
+
+- Create a new file `.turbo/config.json` and add the following content -
+  ```json
+  {
+    "teamid": "team_<TEAMID>",
+    "apiurl": "<CACHE API URL>"
+  }
+  ```
+- Set the `TURBO_TOKEN=yourToken` environment variable
+
 ## Contributing
 
 Please consider making a contribution to the project. Contributions can include bug fixes, feature proposal, or optimizations to the current code.
 
-[1]: https://nodejs.org/en/download/package-manager/#nvm "How to use NVM"
-[2]: https://pnpm.io/ "Pnpm documentation"
-[3]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools "MS VS Build Tools"
-[4]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community "MS VS Community"
-[5]: https://github.com/nodejs/node-gyp "node-gyp documentation"
-[6]: https://github.com/nodejs/node-gyp#on-windows "Configure node-gyp on Windows"
-[7]: https://www.python.org/downloads "Download Python"
+[1]: https://nodejs.org/en/download/package-manager/#nvm 'How to use NVM'
+[2]: https://pnpm.io/ 'Pnpm documentation'
+[3]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools 'MS VS Build Tools'
+[4]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community 'MS VS Community'
+[5]: https://github.com/nodejs/node-gyp 'node-gyp documentation'
+[6]: https://github.com/nodejs/node-gyp#on-windows 'Configure node-gyp on Windows'
+[7]: https://www.python.org/downloads 'Download Python'

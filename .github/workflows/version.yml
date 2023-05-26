@@ -7,6 +7,7 @@ on:
 
 env:
   CI: true
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
 jobs:
   version:
@@ -31,6 +32,12 @@ jobs:
 
       - name: pnpm install
         run: pnpm install
+
+      - name: Setup turbo cache
+        env:
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          TURBO_API: ${{ secrets.TURBO_API }}
+        run: node scripts/setupTurboCache.js
 
       - name: Run build
         run: pnpm build

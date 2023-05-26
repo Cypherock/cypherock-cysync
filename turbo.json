@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["turbo.json"],
   "pipeline": {
     "packages": {
       "inputs": ["packages/*"]
@@ -13,16 +14,13 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["prebuild", "^build"],
-      "outputs": ["dist/**", ".vite/**"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".vite/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
     "watch:build": {
-      "dependsOn": ["prebuild"],
       "cache": false,
       "persistent": true
-    },
-    "prebuild": {
-      "inputs": ["scripts/prebuild.sh"]
     },
     "make": {
       "dependsOn": ["build", "^make"],
@@ -32,24 +30,22 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["^test"],
-      "cache": false
+      "dependsOn": ["build"],
+      "inputs": ["src/**", "tests/**"]
     },
     "lint:check": {
-      "inputs": ["."],
-      "outputs": []
+      "inputs": ["src/**", "tests/**"]
     },
     "lint": {
-      "inputs": ["."],
-      "outputs": []
+      "inputs": ["src/**", "tests/**"],
+      "cache": false
     },
     "pretty:check": {
-      "inputs": ["."],
-      "outputs": []
+      "inputs": ["src/**", "tests/**"]
     },
     "pretty": {
-      "inputs": ["."],
-      "outputs": []
+      "inputs": ["src/**", "tests/**"],
+      "cache": false
     }
   }
 }

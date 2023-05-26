@@ -10,3 +10,4 @@ node_modules
 *.zip
 .pnpm-store
 .DS_Store
+.turbo
