@@ -62,6 +62,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Setup git identity
+        uses: fregante/setup-git-user@v2
+
       - name: Update versions
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
