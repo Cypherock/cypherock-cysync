@@ -38,7 +38,7 @@ export const DeviceAuthentication = (): ReactElement => {
 
   useEffect(() => {
     if (result === true) {
-      navigateTo(routes.onboarding.deviceDetection.path, 3000);
+      navigateTo(routes.onboarding.joystickTraining.path, 3000);
     }
   }, [result]);
 
