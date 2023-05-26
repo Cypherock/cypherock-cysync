@@ -5,8 +5,6 @@ import {
   OnboardingLayout,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { useNavigate } from 'react-router-dom';
-import { sleep } from '@cypherock/cysync-utils';
 import { deviceImage } from '../../../assets/images/onboarding';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
@@ -14,11 +12,12 @@ import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
 import { routes } from '../../../config';
+import useNavigateTo from '../../../hooks/useNavigateTo';
 
 export const DeviceAuthentication = (): ReactElement => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
   const { connection, connectDevice } = useDevice();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const deviceAuth = async () => {
     if (!connection) return;
@@ -33,18 +32,13 @@ export const DeviceAuthentication = (): ReactElement => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
       deviceAuth();
     } else {
-      navigate(routes.onboarding.deviceDetection.path);
+      navigateTo(routes.onboarding.deviceDetection.path);
     }
   }, [connection]);
 
-  const gotoNextScreen = async () => {
-    await sleep(3000);
-    navigate(routes.onboarding.joystickTraining.path);
-  };
-
   useEffect(() => {
     if (result === true) {
-      gotoNextScreen();
+      navigateTo(routes.onboarding.deviceDetection.path, 3000);
     }
   }, [result]);
 

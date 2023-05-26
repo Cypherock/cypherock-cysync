@@ -56,9 +56,8 @@ const steps: {
 
 export const JoystickDialog: React.FC<{ state: number }> = props => {
   const { state } = props;
-  const title = steps[state].title ?? 'Center click joystick to\nproceed';
-  const states = steps[state].states ?? {};
-  const subTitle = steps[state].bottomText ?? '';
+  if (steps[state] === undefined) return null;
+  const { title, states, bottomText: subTitle } = steps[state];
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={0}>
