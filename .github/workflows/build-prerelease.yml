@@ -6,6 +6,7 @@ on:
       ref:
         description: the branch to prerelease from
         required: true
+
   push:
     branches:
       - 'prerelease/1.0.0+'
