@@ -9,7 +9,7 @@ on:
 
   push:
     branches:
-      - 'prerelease/1.0.0+'
+      - '**'
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
