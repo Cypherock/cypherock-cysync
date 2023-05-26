@@ -1,5 +1,11 @@
 # @cypherock/eslint-config
 
+## 0.0.1-beta.1
+
+### Patch Changes
+
+- [`ea30511`](https://github.com/Cypherock/cypherock-cysync/commit/ea305117f1481fd8bb22923ed08e490d5e03a2ff) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - demo changeset
+
 ## 0.0.1-beta.0
 
 ### Patch Changes

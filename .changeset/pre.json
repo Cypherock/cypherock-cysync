@@ -18,6 +18,7 @@
     "@cypherock/cysync-utils": "0.0.0"
   },
   "changesets": [
-    "curly-actors-sell"
+    "curly-actors-sell",
+    "honest-peaches-sort"
   ]
 }
