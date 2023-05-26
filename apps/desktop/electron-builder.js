@@ -8,10 +8,19 @@ const config = {
   },
   files: ['dist-electron', 'dist'],
   mac: {
-    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
+    artifactName: '${productName}_${version}_${platform}.${ext}',
     entitlements: 'entitlements.plist',
     entitlementsInherit: 'entitlements.plist',
-    target: ['dmg', 'zip'],
+    target: [
+      {
+        target: 'dmg',
+        arch: ['universal'],
+      },
+      {
+        target: 'zip',
+        arch: ['universal'],
+      },
+    ],
   },
   win: {
     target: [
