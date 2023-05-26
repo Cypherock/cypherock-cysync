@@ -9,103 +9,103 @@ env:
   NODE_OPTIONS: '--max-old-space-size=8192'
 
 jobs:
-  # build-linux:
-  #   runs-on: ubuntu-latest
+  build-linux:
+    runs-on: ubuntu-latest
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-  #   steps:
-  #     - name: Checkout Commit
-  #       uses: actions/checkout@v3
-  #       with:
-  #         submodules: 'recursive'
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
 
-  #     - name: Install pnpm
-  #       uses: pnpm/action-setup@v2.2.4
-  #       with:
-  #         version: next-8
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-8
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node }}
-  #         cache: 'pnpm'
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
 
-  #     - name: Install linux dependencies
-  #       run: sudo apt-get install fakeroot dpkg rpm -y
+      - name: Install linux dependencies
+        run: sudo apt-get install fakeroot dpkg rpm -y
 
-  #     - name: pnpm install
-  #       run: pnpm install
+      - name: pnpm install
+        run: pnpm install
 
-  #     - name: Prebuild config
-  #       run: node scripts/prebuild.js
+      - name: Prebuild config
+        run: node scripts/prebuild.js
 
-  #     - name: Build
-  #       run: pnpm make
+      - name: Build
+        run: pnpm make
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: build-linux
-  #         path: |
-  #           apps/desktop/release/**/*.deb
-  #           apps/desktop/release/**/*.rpm
-  #           apps/desktop/release/**/*.zip
-  #           apps/desktop/release/**/*.snap
-  #           apps/desktop/release/**/*.yml
-  #           !apps/desktop/release/**/builder-debug.yml
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-linux
+          path: |
+            apps/desktop/release/**/*.deb
+            apps/desktop/release/**/*.rpm
+            apps/desktop/release/**/*.zip
+            apps/desktop/release/**/*.snap
+            apps/desktop/release/**/*.yml
+            !apps/desktop/release/**/builder-debug.yml
+          retention-days: 1
 
-  # build-win:
-  #   runs-on: windows-latest
+  build-win:
+    runs-on: windows-latest
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-  #   steps:
-  #     - name: Checkout Commit
-  #       uses: actions/checkout@v3
-  #       with:
-  #         submodules: 'recursive'
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
 
-  #     - name: Install pnpm
-  #       uses: pnpm/action-setup@v2.2.4
-  #       with:
-  #         version: next-8
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-8
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node }}
-  #         cache: 'pnpm'
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
 
-  #     - name: pnpm install
-  #       run: pnpm install
+      - name: pnpm install
+        run: pnpm install
 
-  #     # - name: Windows Certificate Config
-  #     #   id: write_file
-  #     #   uses: timheuer/base64-to-file@v1
-  #     #   with:
-  #     #     fileName: 'win-certificate.pfx'
-  #     #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+      # - name: Windows Certificate Config
+      #   id: write_file
+      #   uses: timheuer/base64-to-file@v1
+      #   with:
+      #     fileName: 'win-certificate.pfx'
+      #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
-  #     - name: Build
-  #       # env:
-  #       #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-  #       #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-  #       run: pnpm make
+      - name: Build
+        # env:
+        #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+        #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+        run: pnpm make
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: build-win
-  #         path: |
-  #           apps/desktop/release/**/*.exe
-  #           apps/desktop/release/**/*.yml
-  #           !apps/desktop/release/**/builder-debug.yml
-  #           !apps/desktop/release/**/win-unpacked/*
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-win
+          path: |
+            apps/desktop/release/**/*.exe
+            apps/desktop/release/**/*.yml
+            !apps/desktop/release/**/builder-debug.yml
+            !apps/desktop/release/**/win-unpacked/*
+          retention-days: 1
 
   build-macos:
     runs-on: mac-m1
@@ -175,7 +175,7 @@ jobs:
 
   release-build:
     runs-on: ubuntu-latest
-    needs: [build-macos]
+    needs: [build-win, build-linux, build-macos]
 
     strategy:
       matrix:
@@ -213,4 +213,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_S3_UPLOAD_URL: ${{ secrets.AWS_S3_UPLOAD_URL }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: node scripts/postbuild.js "build-macos"
+        run: node scripts/postbuild.js "build-win,build-linux,build-macos"

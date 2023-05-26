@@ -18,7 +18,7 @@ Before you get started, please make sure you have the following setup -
   ```
   npm i -g pnpm
   ```
-- Python >=3.6
+- Python >=3.6 (But less than 3.10)
   - [Download][7] and install the latest Python version.
   - Run `npm config set python /path/to/executable/python` to configure.
 - Install and set up [node-gyp][6] -
@@ -26,6 +26,8 @@ Before you get started, please make sure you have the following setup -
   - For Windows, follow an additional step -
     - Install Visual C++ 2017 Build Environment: [Visual Studio Build Tools][3] (using "Visual C++ build tools" workload) or [Visual Studio Community][4] (using the "Desktop development with C++" workload).
   - For more details, please refer to the [node-gyp documentation][5].
+- Dependencies for MacOS
+  `brew install pkg-config pixman cairo pango`
 
 ## Understanding the directory structure
 
