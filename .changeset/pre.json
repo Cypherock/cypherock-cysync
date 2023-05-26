@@ -1,0 +1,23 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@cypherock/cysync-desktop": "1.0.0",
+    "@cypherock/coin-support-evm": "0.0.0",
+    "@cypherock/coins": "0.0.0",
+    "@cypherock/cysync-core": "0.0.0",
+    "@cypherock/database": "0.0.0",
+    "@cypherock/db-interfaces": "0.0.0",
+    "@cypherock/cysync-desktop-ui": "0.0.0",
+    "@cypherock/cysync-interfaces": "0.0.0",
+    "@cypherock/cysync-ui": "0.0.0",
+    "@cypherock/eslint-config": "0.0.0",
+    "@cypherock/jest-config": "0.0.0",
+    "@cypherock/prettier-config": "0.0.0",
+    "@cypherock/tsconfig": "0.0.0",
+    "@cypherock/cysync-utils": "0.0.0"
+  },
+  "changesets": [
+    "curly-actors-sell"
+  ]
+}

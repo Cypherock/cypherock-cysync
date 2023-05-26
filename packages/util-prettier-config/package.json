@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/prettier-config",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "main": "index.js",
   "license": "AGPL-3.0",
   "publishConfig": {
