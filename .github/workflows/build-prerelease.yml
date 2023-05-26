@@ -32,7 +32,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Verify if prerelease
-        run: wc .changesets/pre.json
+        run: wc .changeset/pre.json
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
