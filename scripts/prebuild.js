@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const semver = require('semver');
 
 const { getReleaseParams, config, execCommand } = require('./helpers');
 
@@ -12,7 +11,7 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
   },
-  debug: {
+  beta: {
     BUILD_TYPE: 'production',
     LOG_LEVEL: 'debug',
     API_CYPHEROCK: 'https://api.cypherock.com',
@@ -51,40 +50,11 @@ const getCommitHash = () => {
   return execCommand('git log -n 1 --pretty=format:"%H"');
 };
 
-const setDesktopAppVersion = async params => {
-  const pkgJsonVersion = semver.parse(params.pkgJson.version);
-  if (!pkgJsonVersion) {
-    throw new Error('Invalid version in package json');
-  }
-
-  if (
-    !(
-      pkgJsonVersion.major === params.version.major &&
-      pkgJsonVersion.minor === params.version.minor &&
-      pkgJsonVersion.patch === params.version.patch
-    )
-  ) {
-    throw new Error(
-      `Version in package.json (${params.pkgJson.version}) and tag ${params.tagName} is different.`,
-    );
-  }
-
-  params.pkgJson.version = params.version.version;
-  if (params.channel !== config.RELEASE_CHANNEL) {
-    params.pkgJson.productName = `${params.pkgJson.productName}-${params.channel}`;
-  }
-
-  fs.writeFileSync(
-    path.join(params.appPath, 'package.json'),
-    JSON.stringify(params.pkgJson, undefined, 2),
-  );
-};
-
 const run = async () => {
   try {
     const params = await getReleaseParams();
+
     await setDesktopAppConfig(params);
-    await setDesktopAppVersion(params);
   } catch (error) {
     console.error(error);
     process.exit(1);

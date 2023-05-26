@@ -20,7 +20,7 @@ const getReleaseParams = async () => {
       await fs.promises.readFile(path.join(appDirPath, 'package.json')),
     );
 
-    if (config.TAG_NAME.startsWith(_appPkgJson.name)) {
+    if (config.APP_NAME === _appPkgJson.name) {
       appName = _appPkgJson.name;
       appPath = appDirPath;
       appPkgJson = _appPkgJson;
@@ -29,20 +29,12 @@ const getReleaseParams = async () => {
   }
 
   if (!appName || !appPath) {
-    throw new Error(`Invalid tag for build: ${config.TAG_NAME}`);
+    throw new Error(`Invalid app name for build: ${config.APP_NAME}`);
   }
 
-  if (appName !== '@cypherock/cysync-desktop') {
-    throw new Error(
-      `This script is not configured for the given app: ${config.TAG_NAME}`,
-    );
-  }
-
-  const version = config.TAG_NAME.replace(`${appName}@`, '');
-
-  const parsedVersion = semver.parse(version);
+  const parsedVersion = semver.parse(appPkgJson.version);
   if (!parsedVersion) {
-    throw new Error(`Invalid version in tag: ${config.TAG_NAME}`);
+    throw new Error(`Invalid version in package.json: ${appPkgJson.version}`);
   }
 
   let channel;
@@ -54,7 +46,6 @@ const getReleaseParams = async () => {
   }
 
   return {
-    tagName: config.TAG_NAME,
     version: parsedVersion,
     channel,
     appName,

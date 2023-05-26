@@ -1,13 +1,16 @@
-name: Build CI
+name: Build Prerelease
 
 on:
-  push:
-    tags:
-      - '**'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: the branch to prerelease from
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  APP_NAME: '@cypherock/cysync-desktop'
 
 jobs:
   integrity-check:
@@ -21,7 +24,11 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Verify if prerelease
+        run: wc .changesets/pre.json
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -46,8 +53,29 @@ jobs:
           TURBO_API: ${{ secrets.TURBO_API }}
         run: node scripts/setupTurboCache.js
 
+      - name: Pretty check
+        run: pnpm pretty:check
+
+      - name: Lint check
+        run: pnpm lint:check
+
       - name: Test
         run: pnpm test
+
+      - name: Update versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:version
+
+      - name: Commit version changes
+        run: |
+          git add .
+          git commit -m "chore: updated versions" ||
+          echo "" # Ignore if no changes to commit
+
+      - name: Push changes
+        run: |
+          git push origin ${{ inputs.ref }}
 
   build-linux:
     runs-on: ubuntu-latest
@@ -61,6 +89,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
       - name: Install pnpm
@@ -116,6 +145,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
       - name: Install pnpm
@@ -173,6 +203,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
       - name: Install pnpm
@@ -246,6 +277,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
       - name: Install pnpm
@@ -262,10 +294,6 @@ jobs:
       - uses: actions/download-artifact@v3
 
       - run: pnpm i --ignore-scripts
-
-      - run: node scripts/prebuild.js
-
-      - run: node scripts/prebuild.js
 
       - name: Upload release files
         env:

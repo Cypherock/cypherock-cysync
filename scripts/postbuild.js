@@ -70,11 +70,10 @@ const createGithubRelease = async (params, allAssets) => {
 
   const releaseNotesPath = await genReleaseNotes();
 
+  const tagName = `${config.APP_NAME}@${params.version.version}`;
+  await execCommand(`gh release create ${tagName} -F "${releaseNotesPath}"`);
   await execCommand(
-    `gh release create ${params.tagName} -F "${releaseNotesPath}" --verify-tag`,
-  );
-  await execCommand(
-    `gh release upload ${params.tagName} ${filteredAssets
+    `gh release upload ${tagName} ${filteredAssets
       .map(e => `"${e}"`)
       .join(' ')}`,
   );
