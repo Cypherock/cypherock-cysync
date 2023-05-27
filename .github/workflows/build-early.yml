@@ -34,9 +34,6 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
-      - name: Verify if release
-        run: ! wc .changeset/pre.json
-
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
