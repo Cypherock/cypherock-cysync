@@ -1,5 +1,17 @@
 # @cypherock/cysync-desktop
 
+## 1.0.2-beta.0
+
+### Patch Changes
+
+- [`e608333`](https://github.com/Cypherock/cypherock-cysync/commit/e608333608c9a8de7edcbf8c08215b9bcdf1707f) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - demo changeset 1
+
+- Updated dependencies [[`e608333`](https://github.com/Cypherock/cypherock-cysync/commit/e608333608c9a8de7edcbf8c08215b9bcdf1707f)]:
+  - @cypherock/db-interfaces@0.0.2-beta.0
+  - @cypherock/cysync-desktop-ui@0.0.2-beta.0
+  - @cypherock/cysync-interfaces@0.0.2-beta.0
+  - @cypherock/database@0.0.2-beta.0
+
 ## 1.0.1
 
 ### Patch Changes

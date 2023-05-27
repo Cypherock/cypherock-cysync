@@ -17,5 +17,7 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "lucky-points-brush"
+  ]
 }
