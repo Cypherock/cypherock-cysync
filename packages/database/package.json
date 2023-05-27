@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/database",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "Contains database logic",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
