@@ -55,7 +55,7 @@ const uploadAllAssets = async allAssets => {
     const assetName = path.basename(asset);
 
     console.log(`Uploading ${assetName}...`);
-    // await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
+    await execCommand(`aws s3 cp "${asset}" "${S3_URL}/${assetName}"`);
     console.log(`Uploaded ${assetName}\n`);
   }
 };
@@ -65,9 +65,15 @@ const createGithubRelease = async (params, allAssets) => {
 
   console.log(`Adding tag ${tagName}...`);
   await execCommand(`git tag ${tagName}`);
-  console.log(`Pushing tag ${tagName}...`);
-  await execCommand(`git push -u origin ${tagName}`);
-  console.log(`Pushed tah ${tagName}`);
+  console.log(`Pushing tag...`);
+  try {
+    await execCommand(`git push -u origin ${tagName}`);
+  } catch (error) {
+    // For some reason, the above script exits with error code even when successful
+    console.warn(error);
+  }
+
+  console.log(`Pushed tag`);
 
   if (config.CHANNEL === config.RELEASE_CHANNEL) {
     console.log('Creating a github release...');
@@ -90,7 +96,7 @@ const createGithubRelease = async (params, allAssets) => {
 
 const run = async () => {
   try {
-    // const { assetFolders } = getArgs();
+    const { assetFolders } = getArgs();
 
     const params = await getReleaseParams();
 
@@ -100,16 +106,10 @@ const run = async () => {
       );
     }
 
-    // let allAssets = getAssetFiles(assetFolders);
-    let allAssets = [];
+    let allAssets = getAssetFiles(assetFolders);
 
     await uploadAllAssets(allAssets);
-    try {
-      await createGithubRelease(params, allAssets);
-    } catch (error) {
-      console.log('Failed createGithubRelease', { error });
-      console.log(error);
-    }
+    await createGithubRelease(params, allAssets);
   } catch (error) {
     console.log('Postscript failed', { error });
     console.error(error);
