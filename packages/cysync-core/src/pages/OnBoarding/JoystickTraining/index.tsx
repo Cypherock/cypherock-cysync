@@ -11,13 +11,13 @@ import { Success } from './Dialogs/Success';
 import { useDevice } from '../../../context';
 import { routes } from '../../../config';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
-import useNavigateTo from '../../../hooks/useNavigateTo';
+import { useNavigateTo } from '../../../hooks';
 
 export const JoystickTraining = (): ReactElement => {
   const [state, setState] = React.useState<TrainJoystickStatus>(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
   );
-  const finalState = useMemo(
+  const isFinalState = useMemo(
     () => state === TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
     [state],
   );
@@ -50,8 +50,8 @@ export const JoystickTraining = (): ReactElement => {
     >
       <DialogBoxBackground>
         <DialogBoxBackgroundHeader email help />
-        {finalState || <JoystickDialog state={state} />}
-        {finalState && <Success />}
+        {isFinalState || <JoystickDialog state={state} />}
+        {isFinalState && <Success />}
       </DialogBoxBackground>
     </OnboardingLayout>
   );

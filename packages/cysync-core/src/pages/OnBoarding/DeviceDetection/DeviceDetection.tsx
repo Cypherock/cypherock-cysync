@@ -15,7 +15,7 @@ import {
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
 import { routes } from '../../../config';
-import useNavigateTo from '../../../hooks/useNavigateTo';
+import { useNavigateTo } from '../../../hooks';
 
 export const DeviceDetection = (): ReactElement => {
   const { connection } = useDevice();

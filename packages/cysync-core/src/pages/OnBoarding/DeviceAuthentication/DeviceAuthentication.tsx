@@ -12,7 +12,7 @@ import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
 import { routes } from '../../../config';
-import useNavigateTo from '../../../hooks/useNavigateTo';
+import { useNavigateTo } from '../../../hooks';
 
 export const DeviceAuthentication = (): ReactElement => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
