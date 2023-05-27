@@ -47,6 +47,7 @@ const setDesktopAppVersion = async params => {
     const existingTags = await execCommand(
       `git tag -l "${tagNameWithoutChannelPostfix}*"`,
     );
+    console.log(existingTags);
     const channelVersions = existingTags
       .trim()
       .split('\n')
