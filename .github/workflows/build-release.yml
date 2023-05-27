@@ -28,6 +28,9 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
+      - name: Get tags
+        run: git fetch --tags origin
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
@@ -93,6 +96,9 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
+      - name: Get tags
+        run: git fetch --tags origin
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
@@ -148,6 +154,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -206,6 +215,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -280,6 +292,12 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
+
+      - name: Setup git identity
+        uses: fregante/setup-git-user@v2
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
