@@ -1,5 +1,13 @@
 # @cypherock/cysync-ui
 
+## 0.0.2
+
+### Patch Changes
+
+- [`e608333`](https://github.com/Cypherock/cypherock-cysync/commit/e608333608c9a8de7edcbf8c08215b9bcdf1707f) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - demo changeset 1
+
+- [`28cf94d`](https://github.com/Cypherock/cypherock-cysync/commit/28cf94d61336c213c1c68f536547df9f57f407b2) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - demo changeset 2
+
 ## 0.0.2-beta.1
 
 ### Patch Changes

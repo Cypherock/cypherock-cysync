@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/tsconfig",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2",
   "private": true,
   "license": "AGPL-3.0",
   "files": [
