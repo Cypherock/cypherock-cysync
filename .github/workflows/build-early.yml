@@ -1,0 +1,17 @@
+name: Build Early Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: TO BE IMPLEMENTED
+        run: echo "===============> TO BE IMPLEMENTED"
