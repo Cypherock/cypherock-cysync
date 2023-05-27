@@ -33,7 +33,7 @@ const config = {
   },
   linux: {
     // TODO: Add RPM later
-    target: ['snap', 'deb'],
+    target: ['snap'],
     category: 'Utility',
     executableName: 'Cypherock CySync',
     artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',

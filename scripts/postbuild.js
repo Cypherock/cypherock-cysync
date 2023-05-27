@@ -71,12 +71,16 @@ const createGithubRelease = async (params, allAssets) => {
   await execCommand(`git push -u origin ${tagName}`);
 
   if (config.CHANNEL === config.RELEASE_CHANNEL) {
+    console.log('Creating a github release...');
     // Don't upload YML files to github
     const filteredAssets = allAssets.filter(a => !a.endsWith('yml'));
+    console.log(filteredAssets);
 
     const releaseNotesPath = await genReleaseNotes();
+    console.log(releaseNotesPath);
 
     await execCommand(`gh release create ${tagName} -F "${releaseNotesPath}"`);
+    console.log('Uploading github release assets...');
     await execCommand(
       `gh release upload ${tagName} ${filteredAssets
         .map(e => `"${e}"`)
