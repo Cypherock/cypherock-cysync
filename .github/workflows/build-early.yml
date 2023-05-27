@@ -169,6 +169,9 @@ jobs:
       #     fileName: 'win-certificate.pfx'
       #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
+      - name: Prebuild config
+        run: node scripts/prebuild.js
+
       - name: Build
         # env:
         #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}

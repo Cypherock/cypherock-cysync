@@ -39,6 +39,7 @@ const setDesktopAppVersion = async params => {
     throw new Error('Invalid version in package json');
   }
 
+  console.log(config);
   if (config.DO_UPDATE_APP_VERSION) {
     const versionWithoutChannelPostfix = `${params.version.major}.${params.version.minor}.${params.version.patch}-${config.CHANNEL}`;
     const tagNameWithoutChannelPostfix = `${config.APP_NAME}@${versionWithoutChannelPostfix}`;
