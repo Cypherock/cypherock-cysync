@@ -1,10 +1,10 @@
-name: Build Prerelease
+name: Build Final Release
 
 on:
   workflow_dispatch:
     inputs:
       ref:
-        description: the branch to prerelease from
+        description: the branch to release from
         required: true
 
 env:
@@ -27,8 +27,8 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
-      - name: Verify if prerelease
-        run: wc .changeset/pre.json
+      - name: Verify if release
+        run: ! wc .changeset/pre.json
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
