@@ -65,33 +65,42 @@ const updateReleaseSummary = async (params, allAssets) => {
 };
 
 const createGithubRelease = async (params, allAssets) => {
-  // Don't upload YML files to github
-  const filteredAssets = allAssets.filter(a => !a.endsWith('yml'));
-
-  const releaseNotesPath = await genReleaseNotes();
-
   const tagName = `${config.APP_NAME}@${params.version.version}`;
-  await execCommand(`gh release create ${tagName} -F "${releaseNotesPath}"`);
-  await execCommand(
-    `gh release upload ${tagName} ${filteredAssets
-      .map(e => `"${e}"`)
-      .join(' ')}`,
-  );
+
+  await execCommand(`git tag ${tagName}`);
+  await execCommand(`git push -u origin ${tagName}`);
+
+  if (config.CHANNEL === config.RELEASE_CHANNEL) {
+    // Don't upload YML files to github
+    const filteredAssets = allAssets.filter(a => !a.endsWith('yml'));
+
+    const releaseNotesPath = await genReleaseNotes();
+
+    await execCommand(`gh release create ${tagName} -F "${releaseNotesPath}"`);
+    await execCommand(
+      `gh release upload ${tagName} ${filteredAssets
+        .map(e => `"${e}"`)
+        .join(' ')}`,
+    );
+  }
 };
 
 const run = async () => {
   try {
     const { assetFolders } = getArgs();
 
-    let allAssets = getAssetFiles(assetFolders);
-    await uploadAllAssets(allAssets);
-
     const params = await getReleaseParams();
 
-    if (params.channel === config.RELEASE_CHANNEL) {
-      await createGithubRelease(params, allAssets);
+    if (params.channel !== config.CHANNEL) {
+      throw new Error(
+        `Channel in package.json (${params.channel}) does not match with the workflow (${config.CHANNEL})`,
+      );
     }
 
+    let allAssets = getAssetFiles(assetFolders);
+
+    await uploadAllAssets(allAssets);
+    await createGithubRelease(params, allAssets);
     await updateReleaseSummary(params, allAssets);
   } catch (error) {
     console.error(error);

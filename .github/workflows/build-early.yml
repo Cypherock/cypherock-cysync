@@ -1,17 +1,23 @@
-name: Build Prerelease
+name: Build Early Release
 
 on:
   workflow_dispatch:
     inputs:
       ref:
-        description: the branch to prerelease from
+        description: the branch to release from
+        required: true
+      channel:
+        description: the channel to release to
+        default: 'dev'
+        type: string
         required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   APP_NAME: '@cypherock/cysync-desktop'
-  CHANNEL: 'beta'
+  CHANNEL: ${{ inputs.channel }}
+  DO_UPDATE_APP_VERSION: 'true'
 
 jobs:
   integrity-check:
@@ -28,8 +34,8 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
-      - name: Verify if prerelease
-        run: wc .changeset/pre.json
+      - name: Verify if release
+        run: ! wc .changeset/pre.json
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
