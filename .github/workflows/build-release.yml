@@ -54,6 +54,9 @@ jobs:
           TURBO_API: ${{ secrets.TURBO_API }}
         run: node scripts/setupTurboCache.js
 
+      - name: Build
+        run: pnpm build
+
       - name: Pretty check
         run: pnpm pretty:check
 
