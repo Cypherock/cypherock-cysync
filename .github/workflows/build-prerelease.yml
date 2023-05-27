@@ -269,7 +269,7 @@ jobs:
             !apps/desktop/release/**/*.app/*
           retention-days: 1
 
-  release-build:
+  publish-build:
     runs-on: ubuntu-latest
     needs: [build-win, build-linux, build-macos]
 
