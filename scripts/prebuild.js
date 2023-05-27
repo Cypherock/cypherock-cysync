@@ -45,7 +45,6 @@ const setDesktopAppVersion = async params => {
     const tagNameWithoutChannelPostfix = `${config.APP_NAME}@${versionWithoutChannelPostfix}`;
     let version = versionWithoutChannelPostfix;
 
-    await execCommand('git fetch --tags');
     const existingTags = await execCommand(
       `git tag -l "${tagNameWithoutChannelPostfix}*"`,
     );
