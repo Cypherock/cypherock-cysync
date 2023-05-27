@@ -11,6 +11,7 @@ env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   APP_NAME: '@cypherock/cysync-desktop'
+  CHANNEL: 'latest'
 
 jobs:
   integrity-check:
@@ -298,7 +299,10 @@ jobs:
 
       - run: pnpm i --ignore-scripts
 
-      - name: Upload release files
+      - name: Prebuild config
+        run: node scripts/prebuild.js
+
+      - name: Publish release
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
