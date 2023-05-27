@@ -11,7 +11,9 @@ export interface BgColorProps {
     | 'separator'
     | 'input'
     | 'white'
-    | 'highlight';
+    | 'highlight'
+    | 'golden'
+    | 'muted';
 }
 
 export const $bgColor = css<BgColorProps>`
@@ -45,6 +47,17 @@ export const $bgColor = css<BgColorProps>`
     props.$bgColor === 'separator' &&
     css`
       background: ${({ theme }) => theme.palette.background.separator};
+    `}
+  ${props =>
+    props.$bgColor === 'muted' &&
+    css`
+      background: ${({ theme }) => theme.palette.text.muted};
+    `}
+
+  ${props =>
+    props.$bgColor === 'golden' &&
+    css`
+      background: ${({ theme }) => theme.palette.golden};
     `}
 
 ${props =>
