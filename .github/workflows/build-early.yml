@@ -265,6 +265,8 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          # no hardlinks so dependencies are copied
+          USE_HARD_LINKS: false
         run: |
           pnpm make
 
