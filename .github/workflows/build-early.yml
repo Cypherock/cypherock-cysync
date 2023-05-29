@@ -178,6 +178,11 @@ jobs:
           TURBO_API: ${{ secrets.TURBO_API }}
         run: node scripts/setupTurboCache.js
 
+      - name: Update versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:version
+
       - name: Prebuild config
         run: node scripts/prebuild.js
 
@@ -285,6 +290,7 @@ jobs:
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.yml
             !apps/desktop/release/**/*.app/*
+            !apps/desktop/release/**/builder-debug.yml
           retention-days: 1
 
   publish-build:
