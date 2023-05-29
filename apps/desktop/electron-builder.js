@@ -51,4 +51,9 @@ const config = {
   },
 };
 
+if (process.env.WINDOWS_PFX_FILE && process.env.WINDOWS_PFX_PASSWORD) {
+  config.win.certificateFile = process.env.WINDOWS_PFX_FILE;
+  config.win.certificatePassword = process.env.WINDOWS_PFX_PASSWORD;
+}
+
 module.exports = config;
