@@ -60,23 +60,32 @@ const uploadAllAssets = async allAssets => {
   }
 };
 
-const updateReleaseSummary = async (params, allAssets) => {
-  // TODO: Add release summary to server
-};
-
 const createGithubRelease = async (params, allAssets) => {
   const tagName = `${config.APP_NAME}@${params.version.version}`;
 
+  console.log(`Adding tag ${tagName}...`);
   await execCommand(`git tag ${tagName}`);
-  await execCommand(`git push -u origin ${tagName}`);
+  console.log(`Pushing tag...`);
+  try {
+    await execCommand(`git push -u origin ${tagName}`);
+  } catch (error) {
+    // For some reason, the above script exits with error code even when successful
+    console.warn(error);
+  }
+
+  console.log(`Pushed tag`);
 
   if (config.CHANNEL === config.RELEASE_CHANNEL) {
+    console.log('Creating a github release...');
     // Don't upload YML files to github
     const filteredAssets = allAssets.filter(a => !a.endsWith('yml'));
+    console.log(filteredAssets);
 
     const releaseNotesPath = await genReleaseNotes();
+    console.log(releaseNotesPath);
 
     await execCommand(`gh release create ${tagName} -F "${releaseNotesPath}"`);
+    console.log('Uploading github release assets...');
     await execCommand(
       `gh release upload ${tagName} ${filteredAssets
         .map(e => `"${e}"`)
@@ -101,8 +110,8 @@ const run = async () => {
 
     await uploadAllAssets(allAssets);
     await createGithubRelease(params, allAssets);
-    await updateReleaseSummary(params, allAssets);
   } catch (error) {
+    console.log('Postscript failed', { error });
     console.error(error);
     process.exit(1);
   }

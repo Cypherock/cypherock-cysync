@@ -40,6 +40,7 @@ const setDesktopAppVersion = async params => {
   }
 
   if (config.DO_UPDATE_APP_VERSION) {
+    console.log('Updating version in package.json...');
     const versionWithoutChannelPostfix = `${params.version.major}.${params.version.minor}.${params.version.patch}-${config.CHANNEL}`;
     const tagNameWithoutChannelPostfix = `${config.APP_NAME}@${versionWithoutChannelPostfix}`;
     let version = versionWithoutChannelPostfix;
@@ -63,6 +64,7 @@ const setDesktopAppVersion = async params => {
       version += `.${channelVersions[0] + 1}`;
     }
 
+    console.log(`New version: ${version}`);
     params.pkgJson.version = version;
   }
 

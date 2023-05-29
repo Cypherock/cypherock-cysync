@@ -28,6 +28,9 @@ jobs:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
 
+      - name: Get tags
+        run: git fetch --tags origin
+
       - name: Verify if prerelease
         run: wc .changeset/pre.json
 
@@ -53,6 +56,9 @@ jobs:
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
           TURBO_API: ${{ secrets.TURBO_API }}
         run: node scripts/setupTurboCache.js
+
+      - name: Build
+        run: pnpm build
 
       - name: Pretty check
         run: pnpm pretty:check
@@ -95,6 +101,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -151,6 +160,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -209,6 +221,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -269,7 +284,7 @@ jobs:
             !apps/desktop/release/**/*.app/*
           retention-days: 1
 
-  release-build:
+  publish-build:
     runs-on: ubuntu-latest
     needs: [build-win, build-linux, build-macos]
 
@@ -283,6 +298,12 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+
+      - name: Get tags
+        run: git fetch --tags origin
+
+      - name: Setup git identity
+        uses: fregante/setup-git-user@v2
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4

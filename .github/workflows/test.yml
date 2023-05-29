@@ -51,7 +51,7 @@ jobs:
       - name: Run linter checks
         run: pnpm lint:check
 
-      - name: Run perttier checks
+      - name: Run prettier checks
         run: pnpm pretty:check
 
       - name: Run tests
