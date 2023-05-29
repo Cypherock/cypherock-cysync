@@ -12,18 +12,18 @@ import {
   DialogBoxBody,
   OnboardingLayout,
 } from '@cypherock/cysync-ui';
-import { useNavigate } from 'react-router-dom';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
-import { onboardingRoutes } from '../../../config';
+import { routes } from '../../../config';
+import { useNavigateTo } from '../../../hooks';
 
 export const DeviceDetection = (): ReactElement => {
   const { connection } = useDevice();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      navigate(onboardingRoutes.deviceAuthentication.path);
+      navigateTo(routes.onboarding.deviceAuthentication.path);
     }
   }, [connection]);
   return (

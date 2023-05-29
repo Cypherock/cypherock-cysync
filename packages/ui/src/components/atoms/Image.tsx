@@ -9,16 +9,22 @@ import {
   width,
   AnimateProps,
   animate,
+  TransformProps,
+  transform,
+  PositionProps,
+  position,
 } from '../utils';
 import { HeightProps, height } from '../utils/height.styled';
 
-interface ImageProps
+export interface ImageProps
   extends SpacingProps,
     SpacingProps,
     AlignSelfProps,
     AnimateProps,
     WidthProps,
-    HeightProps {
+    HeightProps,
+    TransformProps,
+    PositionProps {
   src: string;
   alt: string;
 }
@@ -29,6 +35,8 @@ const ImageStyle = styled.img<ImageProps>`
   ${width}
   ${height}
   ${animate}
+  ${transform}
+  ${position}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (

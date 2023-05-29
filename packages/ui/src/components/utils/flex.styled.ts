@@ -37,10 +37,10 @@ const direction = css<FlexProps>`
 `;
 
 const gap = css<FlexProps>`
-  ${props => props.gap && `gap: ${props.gap}px;`}
+  ${props => props.gap !== undefined && `gap: ${props.gap}px;`}
 `;
 const grow = css<FlexProps>`
-  ${props => props.grow && `flex-grow: ${props.grow};`}
+  ${props => props.grow !== undefined && `flex-grow: ${props.grow};`}
 `;
 
 const content = css<FlexProps>`
