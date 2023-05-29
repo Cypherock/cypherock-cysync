@@ -30,7 +30,7 @@ const CHANNEL_CONFIG = {
 
 const setDesktopAppVersion = async params => {
   if (config.CHANNEL !== config.RELEASE_CHANNEL) {
-    params.pkgJson.productName = `${params.pkgJson.productName}-${config.channel}`;
+    params.pkgJson.productName = `${params.pkgJson.productName}-${config.CHANNEL}`;
   }
 
   const pkgJsonVersion = semver.parse(params.pkgJson.version);

@@ -28,6 +28,12 @@ jobs:
         node-version: [18.x]
 
     steps:
+      - name: Verify channel
+        if: "${{ inputs.channel == 'latest' || inputs.channel == 'beta' }}"
+        run: |
+          echo "Channel cannot be 'latest' or 'beta'"
+          exit 1
+
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
