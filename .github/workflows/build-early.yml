@@ -132,6 +132,7 @@ jobs:
           name: build-linux
           path: |
             apps/desktop/release/**/*.deb
+            apps/desktop/release/**/*.AppImage
             apps/desktop/release/**/*.rpm
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.snap

@@ -136,6 +136,7 @@ jobs:
           name: build-linux
           path: |
             apps/desktop/release/**/*.deb
+            apps/desktop/release/**/*.AppImage
             apps/desktop/release/**/*.rpm
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.snap
@@ -283,6 +284,7 @@ jobs:
             apps/desktop/release/**/*.zip
             apps/desktop/release/**/*.yml
             !apps/desktop/release/**/*.app/*
+            !apps/desktop/release/**/builder-debug.yml
           retention-days: 1
 
   publish-build:
