@@ -11,6 +11,7 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
+import { removeConnectedDevice } from './ipc/device';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -96,8 +97,9 @@ export default function createApp() {
 
   app.whenReady().then(createLoadingWindow);
 
-  app.on('window-all-closed', () => {
+  app.on('window-all-closed', async () => {
     mainWindow = null;
+    await removeConnectedDevice();
     if (process.platform !== 'darwin') app.quit();
   });
 

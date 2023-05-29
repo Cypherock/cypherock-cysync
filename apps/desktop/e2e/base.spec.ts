@@ -45,22 +45,28 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-let page: Page;
+let appWindow: Page;
 
-// test("record", async () => {
-// 	test.setTimeout(300000);
-// 	page = await electronApp.firstWindow();
-// 	await page.waitForTimeout(5000);
-// 	const page2 = await electronApp.windows()
-// 	await page2[0].pause();
-// 	console.log('pausing..')
-// 	await page.pause();
-// 	console.log('resuming...')
+test.beforeEach(async () => {
+  const splash = await electronApp.firstWindow();
+  await splash.waitForEvent('close');
+  appWindow = await electronApp.firstWindow();
+});
 
-// });
+test('record', async () => {
+  await appWindow.pause();
+});
 
 test('check the title of window', async () => {
-  page = await electronApp.firstWindow();
-  const title = await page.title();
+  const title = await appWindow.title();
   expect(title).toBe('Cypherock CySync');
+});
+
+test('Device authentication successful', async () => {
+  // appWindow.getByRole('heading', { name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)' });
+  const newwindow = appWindow.getByRole('heading', {
+    name: 'Your X1 Vault is successfully authenticated',
+  });
+  await newwindow.waitFor();
+  expect(newwindow).toBeVisible();
 });
