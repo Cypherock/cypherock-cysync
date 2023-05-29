@@ -1,6 +1,17 @@
+const productName = 'Cypherock CySync';
+const productNameInArtifact = 'cypherock-cysync';
+
+const getArtifactName = (withoutArch = false) => {
+  if (withoutArch) {
+    return `${productNameInArtifact}-\${version}-\${platform}.\${ext}`;
+  }
+
+  return `${productNameInArtifact}-\${version}-\${platform}-\${arch}.\${ext}`;
+};
+
 const config = {
   appId: 'com.hodl.cypherock',
-  productName: 'Cypherock CySync',
+  productName,
   asar: true,
   directories: {
     output: 'release/${version}',
@@ -8,7 +19,7 @@ const config = {
   },
   files: ['dist-electron', 'dist'],
   mac: {
-    artifactName: '${productName}_${version}_${platform}.${ext}',
+    artifactName: getArtifactName(),
     entitlements: 'entitlements.plist',
     entitlementsInherit: 'entitlements.plist',
     target: [
@@ -29,14 +40,14 @@ const config = {
         arch: ['x64'],
       },
     ],
-    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
+    artifactName: getArtifactName(),
   },
   linux: {
     // TODO: Add RPM later
     target: ['snap', 'AppImage'],
     category: 'Utility',
     executableName: 'Cypherock CySync',
-    artifactName: '${productName}_${version}_${platform}-${arch}.${ext}',
+    artifactName: getArtifactName(),
   },
   nsis: {
     oneClick: false,
