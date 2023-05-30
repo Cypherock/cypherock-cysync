@@ -8,6 +8,8 @@ import {
   DisplayProps,
   SpacingProps,
   spacing,
+  PositionProps,
+  position,
 } from '../utils';
 import { HeightProps, height } from '../utils/height.styled';
 
@@ -16,7 +18,8 @@ export interface DialogBoxProps
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {
+    SpacingProps,
+    PositionProps {
   children?: ReactNode;
 }
 
@@ -36,6 +39,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${width}
   ${height}
   ${spacing}
+  ${position}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`

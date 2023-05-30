@@ -6,7 +6,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
-import { loader } from '../../../../assets/images/onboarding';
+import { loader } from '@cypherock/cysync-ui/src/assets/images/onboarding';
 
 export const Authenticating: React.FC = () => (
   <DialogBox width={500}>

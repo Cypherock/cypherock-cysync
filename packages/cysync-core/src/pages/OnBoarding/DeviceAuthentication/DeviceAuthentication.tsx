@@ -5,7 +5,7 @@ import {
   OnboardingLayout,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { deviceImage } from '../../../assets/images/onboarding';
+import { deviceImage } from '@cypherock/cysync-ui/src/assets/images/onboarding';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
 import { Authenticating } from './Dialogs/Authenticating';

@@ -2,14 +2,15 @@ import {
   DeviceAuthentication,
   DeviceDetection,
   JoystickTraining,
+  WalletActionsDialogBox,
   routes,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
-
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
 const onboardingComponents: Record<keyof typeof routes.onboarding, ReactNode> =
   {
+    walletActions: <WalletActionsDialogBox />,
     deviceDetection: <DeviceDetection />,
     deviceAuthentication: <DeviceAuthentication />,
     joystickTraining: <JoystickTraining />,

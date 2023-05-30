@@ -20,6 +20,8 @@ import joystickArrowIcon from './common/JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './common/JoystickArrowSelected.svg';
 import joystickArrowCompletedIcon from './common/JoystickArrowCompleted.svg';
 
+export * from './onboarding';
+
 export {
   addWalletIcon,
   asideIcon,
