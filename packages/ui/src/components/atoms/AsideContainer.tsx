@@ -28,10 +28,10 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
       border-color: ${theme.palette.background.separator};
     `}
 
-  ${utils}
   min-width: 280px;
   min-height: 100vh;
   padding: 32px;
+  ${utils}
 `;
 
 export const AsideContainer: FC<AsideContainerProps> = ({

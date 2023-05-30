@@ -4,13 +4,13 @@ import {
   Information,
   Terms,
   Usage,
-  onboardingRoutes,
+  routes,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
 
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
-const components: Record<keyof typeof onboardingRoutes, ReactNode> = {
+const components: Record<keyof typeof routes.onboardingRoutes, ReactNode> = {
   information: <Information />,
   usage: <Usage />,
   terms: <Terms />,
@@ -18,13 +18,13 @@ const components: Record<keyof typeof onboardingRoutes, ReactNode> = {
   deviceAuthentication: <DeviceAuthentication />,
 };
 export const AppRouter = memo(() => {
-  const routes = Object.keys(onboardingRoutes).map(key => {
-    const obj = onboardingRoutes[key];
+  const routesObj = Object.keys(routes.onboardingRoutes).map(key => {
+    const obj = routes.onboardingRoutes[key];
     return <Route key={obj.name} path={obj.path} element={components[key]} />;
   });
   return (
     <Router>
-      <Routes>{routes}</Routes>
+      <Routes>{routesObj}</Routes>
     </Router>
   );
 });

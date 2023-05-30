@@ -8,8 +8,8 @@ interface ListContainerProps extends UtilsProps {
 }
 
 const ListContainerStyle = styled.ul<ListContainerProps>`
-  ${utils}
   display: flex;
+  ${utils}
 `;
 
 export const ListContainer: FC<ListContainerProps> = ({

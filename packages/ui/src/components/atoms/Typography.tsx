@@ -34,7 +34,6 @@ interface HeadingProps
 }
 
 const baseStyle = css<HeadingProps>`
-  ${$alignSelf}
   ${props =>
     props.color === 'gold' &&
     css`
@@ -67,12 +66,14 @@ ${props =>
     css`
       color: ${({ theme }) => theme.palette.success.main};
     `}
-
-  ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
-
-  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
-
-  max-width: 100%;
+    
+    ${props =>
+    props.color && `color: ${props.theme.palette.text[props.color]};`}
+    
+    ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
+    
+    max-width: 100%;
+  ${$alignSelf}
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`

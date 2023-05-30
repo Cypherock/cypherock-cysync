@@ -21,10 +21,6 @@ export interface DialogBoxProps
 }
 
 const DialogBoxStyle = styled.section<DialogBoxProps>`
-  ${flex}
-  ${width}
-  ${height}
-  ${spacing}
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -32,13 +28,13 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   box-shadow: ${({ theme }) => theme.shadow.popup};
   border-color: ${({ theme }) => theme.palette.border.popup};
   text-align: center;
+  ${flex}
+  ${width}
+  ${height}
+  ${spacing}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
-  ${flex}
-  ${width}
-${height}
-${spacing}
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -49,12 +45,16 @@ ${spacing}
   border-color: ${({ theme }) => theme.palette.border.popup};
   padding-top: ${({ theme }) => theme.spacing.two.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  color: ${({ theme }) => theme.palette.text.mutedText};
+  color: ${({ theme }) => theme.palette.text.muted};
+  ${flex}
+  ${width}
+  ${height}
+  ${spacing}
 `;
 
 const DialogBoxBodyStyle = styled.div<DialogBoxProps>`
-  ${flex}
   padding: 42px 40px 32px 40px;
+  ${flex}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxProps>`

@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Flex, Typography, Image, Button } from '../atoms';
 import { backIcon, emailIcon } from '../../assets/images';
 import { UtilsProps } from '../utils';
@@ -59,22 +60,24 @@ export const DialogBoxBackgroundFooter = () => (
       lg: 5,
     }}
   >
-    <Button variant="none">
-      <Flex gap={8}>
-        <Image src={backIcon} alt="Back" />
-        <Typography color="muted" fontSize={14}>
-          Back
-        </Typography>
-      </Flex>
-    </Button>
+    <Link to="/">
+      <Button variant="none">
+        <Flex gap={8}>
+          <Image src={backIcon} alt="Back" />
+          <Typography color="muted" fontSize={14}>
+            Back
+          </Typography>
+        </Flex>
+      </Button>
+    </Link>
   </Flex>
 );
 
-interface DialogBoxBackgroundType extends UtilsProps {
+interface DialogBoxBackgroundProps extends UtilsProps {
   children: ReactNode;
 }
 
-export const DialogBoxBackground: React.FC<DialogBoxBackgroundType> = ({
+export const DialogBoxBackground: React.FC<DialogBoxBackgroundProps> = ({
   children,
   ...props
 }) => (

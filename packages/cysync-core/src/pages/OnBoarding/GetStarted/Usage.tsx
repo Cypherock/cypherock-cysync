@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { ReactElement } from 'react';
 import {
+  Aside,
   Button,
   Container,
   DialogBox,
@@ -11,13 +12,14 @@ import {
   Flex,
   Image,
   Typography,
+  cysyncLogoBig,
+  usageIcon,
 } from '@cypherock/cysync-ui';
-import { Aside } from './Aside';
-import { usageIcon } from '../../../assets/images/onboarding';
+import { routes } from '../../../config';
 
 export const Usage = (): ReactElement => (
   <Flex gap={0} position="relative">
-    <Aside />
+    <Aside type="getStarted" img={cysyncLogoBig} />
     <Container width="full" $bgColor="contentGradient">
       <DialogBoxBackground
         gap={20}
@@ -117,7 +119,7 @@ export const Usage = (): ReactElement => (
             </Flex>
           </DialogBoxBody>
           <DialogBoxFooter>
-            <Link to="/terms">
+            <Link to={routes.onboardingRoutes.terms.path}>
               <Button variant="primary">Continue</Button>
             </Link>
           </DialogBoxFooter>

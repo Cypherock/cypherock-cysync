@@ -18,27 +18,6 @@ const widthMap: Record<WidthType, string> = {
   inherit: 'inherit;',
 };
 
-// const getCss = (obj?: MediaQuery<HeightType | string | number>) => {
-//   const result: any = [];
-//   if (obj) {
-//     if (typeof obj === 'object') {
-//       for (const bp in obj) {
-//         if (Object.prototype.hasOwnProperty.call(obj, bp)) {
-//           const value = obj[bp as BreakPoint] as HeightType | string | number;
-//           result.push(`
-//               @media ${theme.screens[bp as BreakPoint]} {
-//                 height: ${getHeight(value)};
-//               }
-//             `);
-//         }
-//       }
-//     } else {
-//       result.push(`height:${getHeight(obj)};`);
-//     }
-//   }
-//   return result;
-// };
-
 const getWidth = (width: WidthType | number | string) => {
   const widthCss = [];
   if (width !== undefined) {

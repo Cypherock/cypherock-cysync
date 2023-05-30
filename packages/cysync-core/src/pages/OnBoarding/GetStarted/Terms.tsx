@@ -9,14 +9,15 @@ import {
   Flex,
   Image,
   asideIcon,
+  termsLinkImage,
   Typography,
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
+  DialogBoxHeader,
 } from '@cypherock/cysync-ui';
-import { termsLinkImage } from '../../../assets/images/onboarding';
 
 export const Terms = (): ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
@@ -31,19 +32,13 @@ export const Terms = (): ReactElement => {
       <Container width="full" $bgColor="contentGradient">
         <DialogBoxBackground gap={20}>
           <DialogBoxBackgroundHeader email={false} help />
-          <DialogBox direction="column" align="center">
+          <DialogBox direction="column">
+            <DialogBoxHeader justify="center" width="full" px={3} py={4}>
+              <Typography variant="h5" color="heading" mb={2}>
+                Terms of use
+              </Typography>
+            </DialogBoxHeader>
             <DialogBoxBody direction="column" align="center">
-              <Container px={3} py={4}>
-                <Typography variant="h4" color="heading" mb={2}>
-                  Terms of use
-                </Typography>
-              </Container>
-              <Container>
-                <Typography variant="h6" color="muted" mb={6}>
-                  Please take some time to review our Terms of Service and
-                  Privacy Policy
-                </Typography>
-              </Container>
               <Container
                 mb={2}
                 width="full"
@@ -93,14 +88,10 @@ export const Terms = (): ReactElement => {
                 </Flex>
               </Container>
               <Flex align="center">
-                <CheckBox variant="square">
-                  <div>
-                    <input
-                      type="checkbox"
-                      onClick={() => setIsChecked(wasCheched => !wasCheched)}
-                    />
-                  </div>
-                </CheckBox>
+                <CheckBox
+                  onChange={() => setIsChecked(!isChecked)}
+                  variant="square"
+                />
                 <Typography color="muted" $textAlign="left" ml={2}>
                   I have read and agree with the Terms of Use and Privacy Policy
                 </Typography>

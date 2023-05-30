@@ -3,10 +3,10 @@ import {
   Image,
   DialogBox,
   DialogBoxBody,
+  loader,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
-import { loader } from '../../../../assets/images/onboarding';
 
 export const Authenticating: React.FC = () => (
   <DialogBox width={500}>

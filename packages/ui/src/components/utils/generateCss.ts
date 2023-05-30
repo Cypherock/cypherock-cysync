@@ -3,28 +3,28 @@ import { theme } from '../../themes/theme.styled';
 import { MediaQuery } from '../../types/types';
 
 export function generateCss<T>(
-  names: string[],
-  parsingFunc: (params: T) => string,
-  obj?: MediaQuery<T>,
+  properties: string[],
+  parsingFunction: (params: T) => string,
+  propsValue?: MediaQuery<T>,
 ) {
   const result: any = [];
-  if (obj) {
-    if (typeof obj === 'object') {
-      for (const bp in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, bp)) {
-          const value = (obj as any)[bp as BreakPoint] as T;
-          names.forEach(name => {
+  if (propsValue) {
+    if (typeof propsValue === 'object') {
+      for (const breakpoint in propsValue) {
+        if (Object.prototype.hasOwnProperty.call(propsValue, breakpoint)) {
+          const value = (propsValue as any)[breakpoint as BreakPoint] as T;
+          properties.forEach(name => {
             result.push(`
-                @media ${theme.screens[bp as BreakPoint]} {
-                  ${name}: ${parsingFunc(value)};
+                @media ${theme.screens[breakpoint as BreakPoint]} {
+                  ${name}: ${parsingFunction(value)};
                 }
               `);
           });
         }
       }
     } else {
-      names.forEach(name => {
-        result.push(`${name}: ${parsingFunc(obj)};`);
+      properties.forEach(name => {
+        result.push(`${name}: ${parsingFunction(propsValue)};`);
       });
     }
   }

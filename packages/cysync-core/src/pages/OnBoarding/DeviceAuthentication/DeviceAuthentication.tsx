@@ -3,16 +3,16 @@ import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   OnboardingLayout,
+  deviceImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { useNavigate } from 'react-router-dom';
-import { deviceImage } from '../../../assets/images/onboarding';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
 import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
-import { onboardingRoutes } from '../../../config';
+import { routes } from '../../../config';
 
 export const DeviceAuthentication = (): ReactElement => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
@@ -32,7 +32,7 @@ export const DeviceAuthentication = (): ReactElement => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
       deviceAuth();
     } else {
-      navigate(onboardingRoutes.deviceDetection.path);
+      navigate(routes.onboardingRoutes.deviceDetection.path);
     }
   }, [connection]);
 

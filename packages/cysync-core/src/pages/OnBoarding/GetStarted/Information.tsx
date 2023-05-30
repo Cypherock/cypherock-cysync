@@ -12,8 +12,9 @@ import {
   ListContainer,
   ListItem,
   Typography,
+  Aside,
+  cysyncLogoBig,
 } from '@cypherock/cysync-ui';
-import { Aside } from './Aside';
 
 const list: Array<{ index: number; text: string }> = [
   {
@@ -52,7 +53,7 @@ const listItems = list.map(li => (
 
 export const Information = (): ReactElement => (
   <Flex width="full" gap={0}>
-    <Aside />
+    <Aside type="getStarted" img={cysyncLogoBig} />
     <Container width="full" $bgColor="contentGradient">
       <DialogBoxBackground>
         <DialogBoxBackgroundHeader email={false} help />

@@ -7,8 +7,8 @@ interface FlexProps extends UtilsProps {
 }
 
 const FlexStyle = styled.div<FlexProps>`
-  ${utils}
   display: flex;
+  ${utils}
 `;
 
 export const Flex: FC<FlexProps> = ({ children, ...props }) => (

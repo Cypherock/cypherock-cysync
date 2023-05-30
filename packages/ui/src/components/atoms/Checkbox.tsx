@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface CheckBoxProps {
   children?: ReactNode;
+  onChange: () => void;
   variant?: 'square' | 'round';
 }
 
@@ -61,8 +62,12 @@ const CheckBoxStyle = styled.div<CheckBoxProps>`
   }
 `;
 
-export const CheckBox: FC<CheckBoxProps> = ({ children, ...props }) => (
-  <CheckBoxStyle {...props}>{children}</CheckBoxStyle>
+export const CheckBox: FC<CheckBoxProps> = ({ onChange, ...props }) => (
+  <CheckBoxStyle onChange={onChange} {...props}>
+    <div>
+      <input type="checkbox" onClick={onChange} />
+    </div>
+  </CheckBoxStyle>
 );
 
 CheckBox.defaultProps = {
