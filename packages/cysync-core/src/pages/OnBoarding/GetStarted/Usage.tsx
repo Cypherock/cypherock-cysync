@@ -119,7 +119,7 @@ export const Usage = (): ReactElement => (
             </Flex>
           </DialogBoxBody>
           <DialogBoxFooter>
-            <Link to={routes.onboardingRoutes.terms.path}>
+            <Link to={routes.onboarding.terms.path}>
               <Button variant="primary">Continue</Button>
             </Link>
           </DialogBoxFooter>

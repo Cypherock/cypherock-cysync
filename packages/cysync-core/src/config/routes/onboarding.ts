@@ -1,9 +1,10 @@
-interface IRouteInfo {
-  name: string;
-  path: string;
-}
+import { IRouteInfo } from './types';
 
-export const onboardingRoutes: Record<string, IRouteInfo> = {
+export const onboarding: Record<string, IRouteInfo> = {
+  joystickTraining: {
+    name: 'joystick-training',
+    path: '/joystick',
+  },
   information: {
     name: 'information',
     path: '/',

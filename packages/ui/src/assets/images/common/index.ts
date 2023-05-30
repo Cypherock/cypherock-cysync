@@ -18,6 +18,10 @@ import blockSelectedIcon from './Block.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import disconnectedIcon from './disconnected.svg';
 import failIcon from './fail.svg';
+import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
+import joystickArrowIcon from './JoystickArrowDisabled.svg';
+import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
+import joystickIcon from './Joystick.png';
 
 export {
   addWalletIcon,
@@ -40,4 +44,8 @@ export {
   disconnectedIcon,
   successIcon,
   failIcon,
+  joystickArrowCompletedIcon,
+  joystickArrowIcon,
+  joystickArrowSelectedIcon,
+  joystickIcon,
 };

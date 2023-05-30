@@ -11,6 +11,7 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
+import { setupAutoUpdate } from './utils/autoUpdater';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -43,6 +44,7 @@ const prepareApp = () => {
 const setupIntitialState = async () => {
   initializeAndGetDb();
   setupIPCHandlers(ipcMain);
+  setupAutoUpdate();
 };
 
 export default function createApp() {

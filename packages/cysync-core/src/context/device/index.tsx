@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 import { createLoggerWithPrefix } from '../../utils/logger';
-import { useStateWithRef } from '../../hooks/useStateWithRef';
+import { useStateWithRef } from '../../hooks';
 import {
   createDeviceConnectionInfo,
   DeviceConnectionStatus,

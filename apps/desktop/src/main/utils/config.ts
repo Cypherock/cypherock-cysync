@@ -1,12 +1,26 @@
 import { app } from 'electron';
 import jsonConfig from '../../config';
 
+export interface IConfig {
+  BUILD_TYPE: string;
+  BUILD_VERSION: string;
+  IS_PRODUCTION: boolean;
+  IS_TEST: boolean;
+  ALLOW_PRERELEASE: boolean;
+  USER_DATA_PATH: string;
+  CHANNEL: string;
+  VERSION: string;
+  LOG_LEVEL: string;
+  API_CYPHEROCK: string;
+}
+
 const configValidators = {
   API_CYPHEROCK: (val?: string) => val?.startsWith('http') ?? false,
   BUILD_TYPE: (val?: string) => ['production', 'debug'].includes(val as any),
   LOG_LEVEL: (val?: string) =>
     ['error', 'warn', 'info', 'verbose', 'debug'].includes(val as any),
   BUILD_VERSION: (val?: string) => !!val,
+  CHANNEL: (val?: string) => !!val,
   SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
   ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
 } as const;
@@ -19,17 +33,20 @@ const validateJsonConfig = () => {
   }
 };
 
-const getFromExternalEnv = (key: string) => {
+const getFromExternalEnv = (key: string, defaultValue: string) => {
   const validator = (configValidators as any)[key];
+
+  const externalVal = process.env[key];
+
   if (
     validator &&
-    typeof process.env[key] !== 'undefined' &&
-    validator(process.env[key])
+    typeof externalVal !== 'undefined' &&
+    validator(externalVal)
   ) {
-    return process.env[key];
+    return externalVal;
   }
 
-  return undefined;
+  return defaultValue;
 };
 
 /**
@@ -53,52 +70,57 @@ const getFromExternalEnv = (key: string) => {
  * 1. Use to decide if we want to enable or disable a feature.
  * 2. Example: Websockets, Refresh on Startup etc.
  */
-const getConfig = () => {
+const getConfig = (): IConfig => {
   validateJsonConfig();
 
-  const config = {
-    LOG_LEVEL: '',
-    BUILD_TYPE: '',
-    API_CYPHEROCK: '',
-    BUILD_VERSION: '',
-    IS_PRODUCTION: true,
-    IS_TEST: false,
-    ALLOW_PRERELEASE: false,
-    USER_DATA_PATH: '',
-  };
-
-  config.BUILD_TYPE = jsonConfig.BUILD_TYPE;
-  config.BUILD_VERSION = jsonConfig.BUILD_VERSION;
-  config.ALLOW_PRERELEASE = jsonConfig.ALLOW_PRERELEASE;
+  let USER_DATA_PATH: string;
+  let IS_PRODUCTION: boolean;
+  let VERSION: string;
 
   if (!app && process.env.NODE_ENV === 'test') {
-    config.USER_DATA_PATH = '.';
+    USER_DATA_PATH = '.';
+    VERSION = '';
   } else {
-    config.USER_DATA_PATH = app.getPath('userData');
+    USER_DATA_PATH = app.getPath('userData');
+    VERSION = app.getVersion();
   }
 
   // Treat test as a production environment
   if (
     ['production', 'test'].includes(process.env.NODE_ENV?.toLowerCase() as any)
   ) {
-    config.IS_PRODUCTION = true;
+    IS_PRODUCTION = true;
   } else if (jsonConfig.SIMULATE_PRODUCTION) {
-    config.IS_PRODUCTION = true;
+    IS_PRODUCTION = true;
   } else {
-    config.IS_PRODUCTION = false;
+    IS_PRODUCTION = false;
   }
 
-  // These variables can be overridden from external env
-  config.LOG_LEVEL = getFromExternalEnv('LOG_LEVEL') ?? jsonConfig.LOG_LEVEL;
-  config.API_CYPHEROCK =
-    getFromExternalEnv('API_CYPHEROCK') ?? jsonConfig.API_CYPHEROCK;
+  const config = {
+    BUILD_TYPE: jsonConfig.BUILD_TYPE,
+    BUILD_VERSION: jsonConfig.BUILD_VERSION,
+    IS_PRODUCTION,
+    IS_TEST: process.env.NODE_ENV === 'test',
+    ALLOW_PRERELEASE: jsonConfig.ALLOW_PRERELEASE,
+    USER_DATA_PATH,
+    CHANNEL: jsonConfig.CHANNEL,
+    VERSION,
+    // These variables can be overridden from external env
+    LOG_LEVEL: getFromExternalEnv('LOG_LEVEL', jsonConfig.LOG_LEVEL),
+    API_CYPHEROCK: getFromExternalEnv('API_CYPHEROCK', jsonConfig.LOG_LEVEL),
+  };
 
   return config;
 };
 
-export const config = getConfig();
-for (const key in config) {
-  if (key in config) {
-    process.env[key] = (config as any)[key];
+const updateProcessEnvWithConfig = (config: IConfig) => {
+  for (const key in config) {
+    if (key in config) {
+      process.env[key] = (config as any)[key];
+    }
   }
-}
+};
+
+export const config = getConfig();
+
+updateProcessEnvWithConfig(config);

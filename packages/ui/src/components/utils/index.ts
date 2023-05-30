@@ -11,7 +11,7 @@ import { spacing, SpacingProps } from './spacing.styled';
 import { height, HeightProps } from './height.styled';
 import { ShadowProps, shadow } from './shadow.styled';
 import { BorderProps, border } from './border.styled';
-import { TranslateProps, translate } from './translate.styled';
+import { TransformProps, transform } from './transform.styled';
 import { AnimateProps, animate } from './animate.styled';
 
 export interface UtilsProps
@@ -28,7 +28,7 @@ export interface UtilsProps
     BorderProps,
     HeightProps,
     AnimateProps,
-    TranslateProps {}
+    TransformProps {}
 
 export const utils = css<UtilsProps>`
   ${$bgColor}
@@ -43,7 +43,7 @@ export const utils = css<UtilsProps>`
   ${display}
   ${shadow}
   ${$alignSelf}
-  ${translate}
+  ${transform}
   ${animate}
 `;
 
@@ -52,7 +52,7 @@ export * from './spacing.styled';
 export * from './bgColor.styled';
 export * from './flex.styled';
 export * from './font.styled';
-export * from './translate.styled';
+export * from './transform.styled';
 export * from './position.styled';
 export * from './alignSelf.styled';
 export * from './display.styled';

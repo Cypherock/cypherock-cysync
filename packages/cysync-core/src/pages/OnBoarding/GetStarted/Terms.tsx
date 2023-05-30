@@ -18,6 +18,7 @@ import {
   DialogBoxFooter,
   DialogBoxHeader,
 } from '@cypherock/cysync-ui';
+import { routes } from '../../../config';
 
 export const Terms = (): ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
@@ -99,7 +100,7 @@ export const Terms = (): ReactElement => {
             </DialogBoxBody>
             <DialogBoxFooter>
               {isChecked ? (
-                <Link to="/device-authentication">
+                <Link to={routes.onboarding.deviceAuthentication.path}>
                   <Button variant="primary">Confirm</Button>
                 </Link>
               ) : (

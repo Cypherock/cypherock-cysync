@@ -6,18 +6,18 @@ import {
   deviceImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { useNavigate } from 'react-router-dom';
 import { useDevice } from '../../../context';
 import { DeviceConnectionStatus } from '../../../context/device/helpers';
 import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
 import { routes } from '../../../config';
+import { useNavigateTo } from '../../../hooks';
 
 export const DeviceAuthentication = (): ReactElement => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
   const { connection, connectDevice } = useDevice();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const deviceAuth = async () => {
     if (!connection) return;
@@ -32,9 +32,15 @@ export const DeviceAuthentication = (): ReactElement => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
       deviceAuth();
     } else {
-      navigate(routes.onboardingRoutes.deviceDetection.path);
+      navigateTo(routes.onboarding.deviceDetection.path);
     }
   }, [connection]);
+
+  useEffect(() => {
+    if (result === true) {
+      navigateTo(routes.onboarding.joystickTraining.path, 3000);
+    }
+  }, [result]);
 
   return (
     <OnboardingLayout
