@@ -1,4 +1,6 @@
 export * from './DeviceAuthentication';
 export * from './DeviceDetection';
-export * from './GetStarted';
+export * from './Information';
+export * from './Terms';
+export * from './Usage';
 export * from './JoystickTraining';

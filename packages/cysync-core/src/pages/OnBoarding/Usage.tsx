@@ -15,7 +15,7 @@ import {
   cysyncLogoBig,
   usageIcon,
 } from '@cypherock/cysync-ui';
-import { routes } from '../../../config';
+import { routes } from '../../config';
 
 export const Usage = (): ReactElement => (
   <Flex gap={0} position="relative">

@@ -18,7 +18,7 @@ import {
   DialogBoxFooter,
   DialogBoxHeader,
 } from '@cypherock/cysync-ui';
-import { routes } from '../../../config';
+import { routes } from '../../config';
 
 export const Terms = (): ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
@@ -90,8 +90,8 @@ export const Terms = (): ReactElement => {
               </Container>
               <Flex align="center">
                 <CheckBox
+                  checked={isChecked}
                   onChange={() => setIsChecked(!isChecked)}
-                  variant="square"
                 />
                 <Typography color="muted" $textAlign="left" ml={2}>
                   I have read and agree with the Terms of Use and Privacy Policy
