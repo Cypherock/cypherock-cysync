@@ -1,8 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { Container } from '../atoms';
 import { Aside, AsideProps } from './Aside';
+import { SpacingProps } from '../utils';
 
-interface OnboardingLayoutProps extends AsideProps {
+interface OnboardingLayoutProps extends AsideProps, SpacingProps {
   children: ReactNode | undefined;
 }
 
