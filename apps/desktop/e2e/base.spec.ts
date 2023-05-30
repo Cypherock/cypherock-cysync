@@ -45,28 +45,53 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-let appWindow: Page;
+let screen: Page;
 
 test.beforeEach(async () => {
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
-  appWindow = await electronApp.firstWindow();
+  screen = await electronApp.firstWindow();
 });
 
 test('record', async () => {
-  await appWindow.pause();
+  await screen.pause();
 });
 
 test('check the title of window', async () => {
-  const title = await appWindow.title();
+  const title = await screen.title();
   expect(title).toBe('Cypherock CySync');
 });
 
+test('Device connection screen', async () => {
+  const newwindow = screen.getByRole('heading', {
+    name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
+  });
+  await newwindow.waitFor();
+  expect(newwindow).toBeVisible();
+});
+
 test('Device authentication successful', async () => {
-  // appWindow.getByRole('heading', { name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)' });
-  const newwindow = appWindow.getByRole('heading', {
+  const newwindow = screen.getByRole('heading', {
     name: 'Your X1 Vault is successfully authenticated',
   });
   await newwindow.waitFor();
   expect(newwindow).toBeVisible();
+});
+
+test('Joystick training', async () => {
+  test.setTimeout(12000000);
+  await screen
+    .getByRole('heading', {
+      name: 'X1 Vault provides 4 way joystick for screen navigation',
+    })
+    .waitFor();
+  const upwindow = screen.getByRole('heading', { name: 'Toggle Right' });
+  await upwindow.waitFor();
+  expect(upwindow).toBeVisible();
+  const downwindow = screen.getByRole('heading', { name: 'Toggle Down' });
+  await downwindow.waitFor();
+  expect(downwindow).toBeVisible();
+  const finalwindow = screen.getByRole('img', { name: 'Success Icon' });
+  await finalwindow.waitFor();
+  expect(finalwindow).toBeVisible();
 });
