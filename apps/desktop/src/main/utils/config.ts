@@ -8,6 +8,7 @@ export interface IConfig {
   IS_TEST: boolean;
   ALLOW_PRERELEASE: boolean;
   USER_DATA_PATH: string;
+  IS_RELEASE_CHANNEL: boolean;
   CHANNEL: string;
   VERSION: string;
   LOG_LEVEL: string;
@@ -104,10 +105,14 @@ const getConfig = (): IConfig => {
     ALLOW_PRERELEASE: jsonConfig.ALLOW_PRERELEASE,
     USER_DATA_PATH,
     CHANNEL: jsonConfig.CHANNEL,
+    IS_RELEASE_CHANNEL: jsonConfig.CHANNEL === 'latest',
     VERSION,
     // These variables can be overridden from external env
     LOG_LEVEL: getFromExternalEnv('LOG_LEVEL', jsonConfig.LOG_LEVEL),
-    API_CYPHEROCK: getFromExternalEnv('API_CYPHEROCK', jsonConfig.LOG_LEVEL),
+    API_CYPHEROCK: getFromExternalEnv(
+      'API_CYPHEROCK',
+      jsonConfig.API_CYPHEROCK,
+    ),
   };
 
   return config;
