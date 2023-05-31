@@ -1,0 +1,195 @@
+{
+  "emitters": [
+    {
+      "fill": true,
+      "life": {
+        "count": 1,
+        "duration": 0.1,
+        "delay": 0.4,
+        "wait": 0.4
+      },
+      "rate": {
+        "delay": 0.1,
+        "quantity": 250
+      },
+      "shape": "square",
+      "startCount": 0,
+      "size": {
+        "mode": "percent",
+        "height": 0,
+        "width": 0
+      },
+      "direction": "right",
+      "particles": {},
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "fill": true,
+      "life": {
+        "count": 1,
+        "duration": 0.1,
+        "delay": 0.4,
+        "wait": 0.4
+      },
+      "rate": {
+        "delay": 0.1,
+        "quantity": 250
+      },
+      "direction": "left",
+      "shape": "square",
+      "startCount": 0,
+      "size": {
+        "mode": "percent",
+        "height": 0,
+        "width": 0
+      },
+      "particles": {},
+      "position": {
+        "x": 100,
+        "y": 0
+      }
+    },
+    {
+      "fill": true,
+      "life": {
+        "count": 1,
+        "duration": 0.1,
+        "delay": 0.4
+      },
+      "rate": {
+        "delay": 0.1,
+        "quantity": 500
+      },
+      "shape": "square",
+      "startCount": 0,
+      "size": {
+        "mode": "percent",
+        "height": 0,
+        "width": 0
+      },
+      "particles": {},
+      "position": {
+        "x": 50,
+        "y": 5
+      }
+    }
+  ],
+  "fullScreen": {
+    "zIndex": 1
+  },
+  "particles": {
+    "color": {
+      "value": [
+        "#d7974a",
+        "#d6a05f",
+        "#b18758",
+        "#69431e",
+        "#996830",
+        "#7d5327",
+        "#85592b",
+        "#99672f"
+      ]
+    },
+    "move": {
+      "enable": true,
+      "gravity": {
+        "enable": true,
+        "acceleration": 10
+      },
+      "speed": {
+        "min": 20,
+        "max": 30
+      },
+      "decay": 0.09,
+      "direction": "none",
+      "straight": false,
+      "outModes": {
+        "default": "none"
+      }
+    },
+    "number": {
+      "value": 0
+    },
+    "opacity": {
+      "value": {
+        "max": 1,
+        "min": 0
+      },
+      "animation": {
+        "enable": true,
+        "startValue": "random",
+        "destroy": "min",
+        "speed": 1,
+        "sync": true
+      }
+    },
+    "life": {
+      "duration": {
+        "sync": true
+      },
+      "count": 1
+    },
+    "rotate": {
+      "value": {
+        "min": 0,
+        "max": 360
+      },
+      "direction": "random",
+      "move": true,
+      "animation": {
+        "enable": true,
+        "speed": 60
+      }
+    },
+    "tilt": {
+      "direction": "random",
+      "enable": true,
+      "move": true,
+      "value": {
+        "min": 0,
+        "max": 360
+      },
+      "animation": {
+        "enable": true,
+        "speed": 60
+      }
+    },
+    "shape": {
+      "type": ["circle", "square", "triangle"],
+      "options": {}
+    },
+    "size": {
+      "value": {
+        "min": 2,
+        "max": 6
+      }
+    },
+    "roll": {
+      "darken": {
+        "enable": true,
+        "value": 5
+      },
+      "enlighten": {
+        "enable": true,
+        "value": 30
+      },
+      "enable": true,
+      "speed": {
+        "min": 15,
+        "max": 25
+      }
+    },
+    "wobble": {
+      "distance": 30,
+      "enable": true,
+      "move": true,
+      "speed": {
+        "min": -15,
+        "max": 15
+      }
+    }
+  }
+}
