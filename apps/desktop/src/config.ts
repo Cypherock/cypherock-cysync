@@ -15,7 +15,7 @@ export default {
    *  debug,
    * ]
    */
-  LOG_LEVEL: 'verbose',
+  LOG_LEVEL: 'debug',
 
   API_CYPHEROCK: 'https://dev-api.cypherock.com',
 

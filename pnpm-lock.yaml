@@ -40,12 +40,18 @@ importers:
       '@cypherock/cysync-interfaces':
         specifier: workspace:^
         version: link:../../packages/interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       '@cypherock/database':
         specifier: workspace:^
         version: link:../../packages/database
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../../packages/db-interfaces
+      '@cypherock/sdk-core':
+        specifier: ^0.0.4
+        version: 0.0.4
       '@cypherock/sdk-hw-hid':
         specifier: ^0.0.4
         version: 0.0.4
@@ -3921,10 +3927,10 @@ packages:
 
   /@types/node@16.11.10:
     resolution: {integrity: sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==}
-    dev: true
 
   /@types/node@18.15.11:
     resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
+    dev: true
 
   /@types/node@18.16.12:
     resolution: {integrity: sha512-tIRrjbY9C277MOfP8M3zjMIhtMlUJ6YVqkGgLjz+74jVsdf4/UjC6Hku4+1N0BS0qyC0JAS6tJLUk9H6JUKviQ==}
@@ -9979,7 +9985,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 18.15.11
+      '@types/node': 16.11.10
       long: 5.2.3
     dev: false
 

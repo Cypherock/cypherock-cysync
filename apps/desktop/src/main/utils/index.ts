@@ -5,3 +5,4 @@ export * from './logger';
 export * from './urls';
 export * from './window';
 export * from './extension';
+export * from './hooks';

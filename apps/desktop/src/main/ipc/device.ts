@@ -1,15 +1,14 @@
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
 import {
-  ConnectionTypeMap,
   DeviceConnectionError,
   DeviceConnectionErrorType,
   IDevice,
-  IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
 import { GetDevices } from '@cypherock/cysync-interfaces';
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
+import * as deviceUtils from '../utils/device';
 
 const getDevices: GetDevices = async () => {
   const hidDevices = await DeviceConnectionHID.list();
@@ -19,29 +18,10 @@ const getDevices: GetDevices = async () => {
   return [...hidDevices, ...serialDevices];
 };
 
-let connectedDevice:
-  | { device: IDevice; connection: IDeviceConnection }
-  | undefined;
-
-const removeConnectedDevice = async () => {
-  if (connectedDevice) {
-    await connectedDevice.connection.destroy();
-    connectedDevice = undefined;
-  }
-};
-
 const connectDevice = async (device: IDevice) => {
-  await removeConnectedDevice();
-  let connection: IDeviceConnection;
+  const connectedDevice = await deviceUtils.connectDevice(device);
 
-  if (device.type === ConnectionTypeMap.HID) {
-    connection = await DeviceConnectionHID.connect(device);
-  } else {
-    connection = await DeviceConnectionSerialPort.connect(device);
-  }
-
-  connectedDevice = { device, connection };
-  return getMethodListFromObject(connection, 1);
+  return getMethodListFromObject(connectedDevice.connection, 1);
 };
 
 const connectedDeviceMethodCall = async (
@@ -49,6 +29,7 @@ const connectedDeviceMethodCall = async (
   method: string,
   ...args: any[]
 ) => {
+  const connectedDevice = deviceUtils.getConnectedDevice();
   if (device.path !== connectedDevice?.device.path) {
     throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
   }
