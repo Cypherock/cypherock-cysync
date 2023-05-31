@@ -3,23 +3,27 @@ import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   OnboardingLayout,
-  deviceImage,
+  deviceAuthAsideImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { useDevice } from '../../../context';
-import { DeviceConnectionStatus } from '../../../context/device/helpers';
 import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
 import { routes } from '../../../config';
-import { useNavigateTo } from '../../../hooks';
+import {
+  OnConnectCallback,
+  useNavigateTo,
+  useWhenDeviceConnected,
+} from '../../../hooks';
 
 export const DeviceAuthentication = (): ReactElement => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
-  const { connection, connectDevice } = useDevice();
   const navigateTo = useNavigateTo();
 
-  const deviceAuth = async () => {
+  const deviceAuth: OnConnectCallback = async ({
+    connection,
+    connectDevice,
+  }) => {
     if (!connection) return;
 
     const app = await ManagerApp.create(await connectDevice(connection.device));
@@ -28,13 +32,7 @@ export const DeviceAuthentication = (): ReactElement => {
     setResult(res);
   };
 
-  useEffect(() => {
-    if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      deviceAuth();
-    } else {
-      navigateTo(routes.onboarding.deviceDetection.path);
-    }
-  }, [connection]);
+  useWhenDeviceConnected(deviceAuth);
 
   useEffect(() => {
     if (result === true) {
@@ -44,7 +42,7 @@ export const DeviceAuthentication = (): ReactElement => {
 
   return (
     <OnboardingLayout
-      img={deviceImage}
+      img={deviceAuthAsideImage}
       text="Device Authentication"
       currentState={4}
       totalState={8}

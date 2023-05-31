@@ -1,30 +1,32 @@
-import React, { ReactElement, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   OnboardingLayout,
-  joystickIcon,
+  joystickTrainingAsideImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
 import { JoystickDialog } from './Dialogs/Joystick';
 import { Success } from './Dialogs/Success';
-import { useDevice } from '../../../context';
 import { routes } from '../../../config';
-import { DeviceConnectionStatus } from '../../../context/device/helpers';
-import { useNavigateTo } from '../../../hooks';
+import {
+  OnConnectCallback,
+  useNavigateTo,
+  useStateWithFinality,
+  useWhenDeviceConnected,
+} from '../../../hooks';
 
 export const JoystickTraining = (): ReactElement => {
-  const [state, setState] = React.useState<TrainJoystickStatus>(
+  const [state, setState, isFinalState] = useStateWithFinality(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
+    TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
   );
-  const isFinalState = useMemo(
-    () => state === TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
-    [state],
-  );
-  const { connection, connectDevice } = useDevice();
   const navigateTo = useNavigateTo();
 
-  const trainJoystick = async () => {
+  const trainJoystick: OnConnectCallback = async ({
+    connection,
+    connectDevice,
+  }) => {
     if (!connection) return;
 
     const app = await ManagerApp.create(await connectDevice(connection.device));
@@ -34,16 +36,16 @@ export const JoystickTraining = (): ReactElement => {
     setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER);
     await app.destroy();
   };
+
+  useWhenDeviceConnected(trainJoystick);
+
   useEffect(() => {
-    if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      trainJoystick();
-    } else {
-      navigateTo(routes.onboarding.deviceDetection.path);
-    }
-  }, [connection]);
+    if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 3000);
+  }, [isFinalState]);
+
   return (
     <OnboardingLayout
-      img={joystickIcon}
+      img={joystickTrainingAsideImage}
       text="Joystick Checkup"
       currentState={5}
       totalState={8}

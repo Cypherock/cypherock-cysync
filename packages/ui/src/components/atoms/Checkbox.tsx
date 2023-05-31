@@ -89,7 +89,7 @@ const CheckBoxIcon = styled.div`
   position: absolute;
   top: 61.75%;
   left: 22%;
-  transform: translate(-51%, -51%);
+  transform: translate(-50%, -42%);
 `;
 
 export const CheckBox: FC<CheckBoxProps> = ({ checked, onChange }) => (

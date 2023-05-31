@@ -13,6 +13,8 @@ import {
   DisplayProps,
   AlignSelfProps,
   $alignSelf,
+  FlexProps,
+  flex,
 } from '../utils';
 
 interface HeadingProps
@@ -21,7 +23,8 @@ interface HeadingProps
     WidthProps,
     PositionProps,
     DisplayProps,
-    AlignSelfProps {
+    AlignSelfProps,
+    FlexProps {
   color?:
     | 'gold'
     | 'silver'
@@ -74,28 +77,24 @@ ${props =>
     
     max-width: 100%;
   ${$alignSelf}
+  ${flex};
+  ${spacing};
+  ${font};
+  ${width};
+  ${position};
+  ${display};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
   font-size: 40px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingThreeStyle = styled.h3<HeadingProps>`
@@ -116,11 +115,6 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
@@ -142,43 +136,23 @@ const HeadingSixStyle = styled.h6<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const SpanStyle = styled.span<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 const FinePrintStyle = styled.span<HeadingProps>`
   font-size: 14px;
   font-weight: 300;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 interface TypographyProps extends HeadingProps {

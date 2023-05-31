@@ -22,6 +22,9 @@ import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import joystickIcon from './Joystick.png';
+import cardTapAsideImage from './CardTapAsideImage.png';
+import LogoOutlinedAsideImage from './LogoOutlineAside.png';
+import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 
 export {
   addWalletIcon,
@@ -48,4 +51,7 @@ export {
   joystickArrowIcon,
   joystickArrowSelectedIcon,
   joystickIcon,
+  cardTapAsideImage,
+  LogoOutlinedAsideImage,
+  joystickTrainingAsideImage,
 };

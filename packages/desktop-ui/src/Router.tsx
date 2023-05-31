@@ -1,4 +1,7 @@
 import {
+  CardAuthentication,
+  CardTraining,
+  Congratulations,
   DeviceAuthentication,
   DeviceDetection,
   Information,
@@ -18,6 +21,9 @@ const components: Record<keyof typeof routes.onboarding, ReactNode> = {
   deviceDetection: <DeviceDetection />,
   deviceAuthentication: <DeviceAuthentication />,
   joystickTraining: <JoystickTraining />,
+  cardTraining: <CardTraining />,
+  cardAuthentication: <CardAuthentication />,
+  congratulations: <Congratulations />,
 };
 export const AppRouter = memo(() => {
   const routesObj = Object.keys(routes.onboarding).map(key => {

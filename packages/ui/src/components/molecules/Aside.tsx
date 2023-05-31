@@ -30,6 +30,7 @@ export const Aside = (props: AsideProps): ReactElement => {
       justify="space-between"
       align="center"
       height="full"
+      position="relative"
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
       {type === 'getStarted' ? (

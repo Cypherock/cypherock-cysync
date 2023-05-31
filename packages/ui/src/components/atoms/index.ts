@@ -6,6 +6,7 @@ export * from './Typography';
 export * from './ClipboardBar';
 export * from './Modal';
 export * from './List';
+export * from './Indicator';
 export * from './AsideContainer';
 export * from './Checkbox';
 export * from './Bullet';

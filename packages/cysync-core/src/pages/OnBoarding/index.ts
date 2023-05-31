@@ -4,3 +4,6 @@ export * from './Information';
 export * from './Terms';
 export * from './Usage';
 export * from './JoystickTraining';
+export * from './CardTraining';
+export * from './CardAuthentication';
+export * from './Congratulations';

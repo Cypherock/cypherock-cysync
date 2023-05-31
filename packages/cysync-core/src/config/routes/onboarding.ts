@@ -1,10 +1,6 @@
 import { IRouteInfo } from './types';
 
 export const onboarding: Record<string, IRouteInfo> = {
-  joystickTraining: {
-    name: 'joystick-training',
-    path: '/joystick',
-  },
   information: {
     name: 'information',
     path: '/',
@@ -24,5 +20,22 @@ export const onboarding: Record<string, IRouteInfo> = {
   deviceAuthentication: {
     name: 'device-authentication',
     path: '/device-authentication',
+  },
+  joystickTraining: {
+    name: 'joystick-training',
+    path: '/joystick',
+  },
+  cardTraining: {
+    name: 'card-training',
+    path: '/card-training',
+  },
+  cardAuthentication: {
+    name: 'card-authentication',
+    path: '/card-auth',
+  },
+
+  congratulations: {
+    name: 'congratulations',
+    path: '/congo',
   },
 };
