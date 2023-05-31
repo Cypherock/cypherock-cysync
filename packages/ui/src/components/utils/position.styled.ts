@@ -6,6 +6,7 @@ export interface PositionProps {
   right?: number;
   left?: number;
   bottom?: number;
+  $zIndex?: number;
 }
 
 export const position = css<PositionProps>`
@@ -34,6 +35,9 @@ export const position = css<PositionProps>`
       if (!Number.isInteger(props.left)) {
         positionCss.push(`left: ${props.left * 100}%;`);
       } else positionCss.push(`left: ${props.left}px;`);
+    }
+    if (props.$zIndex !== undefined) {
+      positionCss.push(`z-index: ${props.$zIndex};`);
     }
     return positionCss.join(' ');
   }}

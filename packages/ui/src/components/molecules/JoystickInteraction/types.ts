@@ -4,6 +4,7 @@ import {
   joystickArrowSelectedIcon,
 } from '../../../assets/images';
 import { ImageProps } from '../../atoms';
+import { IndicatorState } from '../../atoms/Indicator';
 
 export type JoystickState = 'unselected' | 'selected' | 'completed';
 export type DirectionType = 'up' | 'right' | 'down' | 'left' | 'center';
@@ -22,6 +23,11 @@ export interface JoystickArrowProps {
 export const textColorMap: Record<JoystickState, string> = {
   unselected: 'muted',
   selected: 'gold',
+  completed: 'success',
+};
+export const indicatorMap: Record<JoystickState, IndicatorState> = {
+  unselected: 'disabled',
+  selected: 'focused',
   completed: 'success',
 };
 

@@ -28,15 +28,23 @@ export const Aside = (props: AsideProps): ReactElement => {
       justify="space-between"
       align="center"
       height="full"
+      position="relative"
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
-      <Flex direction="column" align="center" width="full">
-        <Image src={img} alt="device" width="full" />
-      </Flex>
-      <Flex direction="column" width="wFull" align="center" px={4}>
+      <Image
+        src={img}
+        alt="device"
+        width="full"
+        position="absolute"
+        top={0.5}
+        left={0.5}
+        $translateY={-0.5}
+        $translateX={-0.5}
+      />
+      <Flex direction="column" width="full" align="center" $zIndex={2}>
         <Typography
           color="silver"
-          width="wFull"
+          width="full"
           $textAlign="center"
           font="medium"
           mb={4}

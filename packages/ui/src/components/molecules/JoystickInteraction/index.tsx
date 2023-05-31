@@ -1,5 +1,11 @@
 import React from 'react';
-import { Circle, Indicator, JoystickArrow, Ring, Text } from './Elements';
+import {
+  Circle,
+  JoystickArrow,
+  Ring,
+  Text,
+  JoystickIndicator as Indicator,
+} from './Elements';
 import { JoystickInteractionProps } from './types';
 import { Container, Typography } from '../../atoms';
 
