@@ -5,10 +5,10 @@ import { windowUrls } from './urls';
 export const getAppWindowSize = (isLoadingWindow = false) => {
   if (isLoadingWindow) {
     return {
-      width: 600,
-      height: 400,
-      minWidth: 600,
-      minHeight: 400,
+      width: 800,
+      height: 600,
+      minWidth: 800,
+      minHeight: 600,
     };
   }
 
