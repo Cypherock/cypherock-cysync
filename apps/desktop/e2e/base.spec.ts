@@ -78,8 +78,24 @@ test('Device authentication successful', async () => {
   expect(newwindow).toBeVisible();
 });
 
+// test('Device auth fail due to internet disconnection', async () => {
+//
+// })
+
+test('Device disconnection during device auth', async () => {
+  await screen
+    .getByRole('heading', {
+      name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
+    })
+    .waitFor({ timeout: 300000 });
+  const newwindow = screen.getByRole('heading', {
+    name: 'Connect your X1 Vault to your PC to proceed',
+  });
+  await newwindow.waitFor();
+  expect(newwindow).toBeVisible();
+});
+
 test('Joystick training', async () => {
-  test.setTimeout(12000000);
   await screen
     .getByRole('heading', {
       name: 'X1 Vault provides 4 way joystick for screen navigation',
