@@ -3,20 +3,21 @@ import {
   Image,
   DialogBox,
   DialogBoxBody,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
-import { loader } from '../../../../assets/images/onboarding';
 
-export const Authenticating: React.FC = () => (
+import { loader } from '~/assets/images/onboarding';
+import { defaultConnector, DefaultConnectorProps } from '~/store';
+
+const BaseAuthenticating: React.FC<DefaultConnectorProps> = ({ lang }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
       <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
       <Typography variant="h5" $textAlign="center">
-        Your X1 Vault will now be authenticated
-        <br />
-        through Cypherock to check its
-        <br /> authenticity...(
+        <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
+        ...(
         <span
           style={{
             background: theme.palette.golden,
@@ -31,3 +32,5 @@ export const Authenticating: React.FC = () => (
     </DialogBoxBody>
   </DialogBox>
 );
+
+export const Authenticating = defaultConnector(BaseAuthenticating);

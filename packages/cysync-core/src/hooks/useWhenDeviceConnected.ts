@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { ConnectDevice } from '@cypherock/cysync-interfaces';
+
+import { routes } from '~/constants';
 import {
   DeviceConnectionStatus,
   IDeviceConnectionInfo,
-} from '../context/device/helpers';
-import { useDevice } from '../context';
+  useDevice,
+} from '~/context';
 import { useNavigateTo } from './useNavigateTo';
-import { routes } from '../config';
 
 export type OnConnectCallback = (params: {
   connection?: IDeviceConnectionInfo;

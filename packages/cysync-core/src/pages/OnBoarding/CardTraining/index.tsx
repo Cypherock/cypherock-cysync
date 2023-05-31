@@ -1,12 +1,13 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   OnboardingLayout,
   cardTapAsideImage,
 } from '@cypherock/cysync-ui';
+import { DefaultConnectorProps, defaultConnector } from '~/store';
 import { CardTap } from './Dialogs/CardTap';
-import { routes } from '../../../config';
+import { routes } from '../../../constants';
 import {
   addKeyboardEvents,
   useNavigateTo,
@@ -14,7 +15,7 @@ import {
 } from '../../../hooks';
 import { useStateWithFinality } from '../../../hooks/useStateWithFinality';
 
-export const CardTraining = (): ReactElement => {
+const BaseCardTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
   const navigateTo = useNavigateTo();
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 1);
@@ -35,7 +36,7 @@ export const CardTraining = (): ReactElement => {
   return (
     <OnboardingLayout
       img={cardTapAsideImage}
-      text="Card Tap Checkup"
+      text={lang.strings.onboarding.cardTraining.heading}
       currentState={6}
       totalState={8}
     >
@@ -46,3 +47,5 @@ export const CardTraining = (): ReactElement => {
     </OnboardingLayout>
   );
 };
+
+export const CardTraining = defaultConnector(BaseCardTraining);

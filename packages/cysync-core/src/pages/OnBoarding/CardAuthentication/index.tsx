@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
   OnboardingLayout,
   cardTapAsideImage,
 } from '@cypherock/cysync-ui';
+import { DefaultConnectorProps, defaultConnector } from '~/store';
 import { CardTap } from './Dialogs/CardTap';
 import {
   addKeyboardEvents,
@@ -12,9 +13,9 @@ import {
   useStateWithFinality,
   useWhenDeviceConnected,
 } from '../../../hooks';
-import { routes } from '../../../config';
+import { routes } from '../../../constants';
 
-export const CardAuthentication = (): ReactElement => {
+const BaseCardAuthentication: React.FC<DefaultConnectorProps> = ({ lang }) => {
   // number of card taps needed for authentication 3 taps per card for 4 cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 12);
@@ -36,7 +37,7 @@ export const CardAuthentication = (): ReactElement => {
   return (
     <OnboardingLayout
       img={cardTapAsideImage}
-      text="Card Authentication"
+      text={lang.strings.onboarding.cardAuth.heading}
       currentState={7}
       totalState={8}
     >
@@ -47,3 +48,5 @@ export const CardAuthentication = (): ReactElement => {
     </OnboardingLayout>
   );
 };
+
+export const CardAuthentication = defaultConnector(BaseCardAuthentication);

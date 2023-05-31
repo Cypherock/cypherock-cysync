@@ -5,16 +5,20 @@ import {
   CardTapList,
   Container,
   Button,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => (
+import { DefaultConnectorProps, defaultConnector } from '~/store';
+
+export const BaseCardTap: React.FC<
+  DefaultConnectorProps & { tapState: number }
+> = ({ tapState, lang }) => (
   <DialogBox width={500}>
     <DialogBoxBody gap={48}>
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
-          Tap X1 Cards one by one below the <br />
-          X1 Vault (
+          <LangDisplay text={lang.strings.onboarding.cardAuth.title} /> (
           <Button variant="none" color="golden">
             <Typography variant="h5" color="gold">
               ?
@@ -23,20 +27,28 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => (
           )
         </Typography>
         <Typography variant="h6" $textAlign="center" color="muted">
-          Do not lift until you hear 3 beep sounds
+          <LangDisplay text={lang.strings.onboarding.cardAuth.subtext} />
         </Typography>
       </Container>
       <CardTapList
         items={[
-          { text: 'X1 Card #1', currentState: tapState, totalState: 3 },
-          { text: 'X1 Card #2', currentState: tapState - 3, totalState: 3 },
           {
-            text: 'X1 Card #3',
+            text: `${lang.strings.x1Card} #1`,
+            currentState: tapState,
+            totalState: 3,
+          },
+          {
+            text: `${lang.strings.x1Card} #2`,
+            currentState: tapState - 3,
+            totalState: 3,
+          },
+          {
+            text: `${lang.strings.x1Card} #3`,
             currentState: tapState - 3 * 2,
             totalState: 3,
           },
           {
-            text: 'X1 Card #4',
+            text: `${lang.strings.x1Card} #4`,
             currentState: tapState - 3 * 3,
             totalState: 3,
           },
@@ -45,3 +57,5 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => (
     </DialogBoxBody>
   </DialogBox>
 );
+
+export const CardTap = defaultConnector(BaseCardTap);

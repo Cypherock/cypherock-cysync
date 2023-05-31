@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Container,
   DialogBox,
@@ -7,11 +7,14 @@ import {
   Image,
   Typography,
   ConfettiBlast,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
-import { useNavigateTo } from '../../../hooks';
-import { routes } from '../../../config';
 
-export const Congratulations = (): ReactElement => {
+import { useNavigateTo } from '~/hooks';
+import { routes } from '~/constants';
+import { DefaultConnectorProps, defaultConnector } from '~/store';
+
+const BaseCongratulations: React.FC<DefaultConnectorProps> = ({ lang }) => {
   const navigateTo = useNavigateTo();
   useEffect(() => {
     // will be replaced for navigating to main app
@@ -25,10 +28,10 @@ export const Congratulations = (): ReactElement => {
           <Image src={successIcon} alt="Success Icon" />
           <Container display="flex" direction="column" gap={4} mb={4}>
             <Typography variant="h5" $textAlign="center">
-              Congratulations
+              <LangDisplay text={lang.strings.onboarding.success.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
-              Cypherock X1 is now ready to use
+              <LangDisplay text={lang.strings.onboarding.success.subtext} />
             </Typography>
           </Container>
         </DialogBoxBody>
@@ -36,3 +39,5 @@ export const Congratulations = (): ReactElement => {
     </Container>
   );
 };
+
+export const Congratulations = defaultConnector(BaseCongratulations);

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
@@ -6,17 +6,22 @@ import {
   deviceAuthAsideImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { Authenticating } from './Dialogs/Authenticating';
-import { Success } from './Dialogs/Success';
-import { Failure } from './Dialogs/Failure';
-import { routes } from '../../../config';
+
 import {
   OnConnectCallback,
   useNavigateTo,
   useWhenDeviceConnected,
-} from '../../../hooks';
+} from '~/hooks';
+import { DefaultConnectorProps, defaultConnector } from '~/store';
+import { routes } from '~/constants';
 
-export const DeviceAuthentication = (): ReactElement => {
+import { Authenticating } from './Dialogs/Authenticating';
+import { Success } from './Dialogs/Success';
+import { Failure } from './Dialogs/Failure';
+
+const BaseDeviceAuthentication: React.FC<DefaultConnectorProps> = ({
+  lang,
+}) => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
   const navigateTo = useNavigateTo();
 
@@ -43,7 +48,7 @@ export const DeviceAuthentication = (): ReactElement => {
   return (
     <OnboardingLayout
       img={deviceAuthAsideImage}
-      text="Device Authentication"
+      text={lang.strings.onboarding.deviceAuth.heading}
       currentState={4}
       totalState={8}
     >
@@ -56,3 +61,5 @@ export const DeviceAuthentication = (): ReactElement => {
     </OnboardingLayout>
   );
 };
+
+export const DeviceAuthentication = defaultConnector(BaseDeviceAuthentication);

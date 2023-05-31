@@ -4,16 +4,21 @@ import {
   successIcon,
   DialogBox,
   DialogBoxBody,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export const Success: React.FC = () => (
+import { DefaultConnectorProps, defaultConnector } from '~/store';
+
+const BaseSuccess: React.FC<DefaultConnectorProps> = ({ lang }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
       <Typography variant="h5" $textAlign="center">
-        Joystick checkup complete
+        <LangDisplay text={lang.strings.onboarding.joystickTraining.success} />
       </Typography>
     </DialogBoxBody>
   </DialogBox>
 );
+
+export const Success = defaultConnector(BaseSuccess);

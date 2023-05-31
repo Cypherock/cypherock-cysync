@@ -5,73 +5,88 @@ import {
   Container,
   JoystickInteractionProps,
   JoystickInteraction,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-const bottomText = (
-  <Typography variant="h5" $textAlign="center">
-    X1 Vault provides 4 way joystick for
-    <br />
-    screen navigation
-  </Typography>
-);
-const steps: {
+import { LanguageStrings } from '~/constants';
+import { DefaultConnectorProps, defaultConnector } from '~/store';
+
+interface StepContent {
   title: string;
   states: JoystickInteractionProps;
-  bottomText: ReactNode;
-}[] = [
-  { title: 'Toggle Up', states: { up: 'selected' }, bottomText },
-  {
-    title: 'Toggle Right',
-    states: { up: 'completed', right: 'selected' },
-    bottomText,
-  },
-  {
-    title: 'Toggle Down',
-    states: { up: 'completed', right: 'completed', down: 'selected' },
-    bottomText,
-  },
-  {
-    title: 'Toggle Left',
-    states: {
-      up: 'completed',
-      right: 'completed',
-      down: 'completed',
-      left: 'selected',
-    },
-    bottomText,
-  },
-  {
-    title: 'Center click the joystick to proceed',
-    states: { center: 'selected' },
-    bottomText: (
-      <Typography variant="h5" $textAlign="center">
-        X1 Vault has a center button to
-        <br />
-        perform click
-      </Typography>
-    ),
-  },
-];
+  bottomText: string;
+}
 
-export const JoystickDialog: React.FC<{ state: number }> = props => {
-  const { state } = props;
-  if (steps[state] === undefined) return null;
-  const { title, states, bottomText: subTitle } = steps[state];
+const getStepContent = (state: number, lang: LanguageStrings): StepContent => {
+  const training = lang.onboarding.joystickTraining;
+
+  const stepContentMap: StepContent[] = [
+    {
+      title: training.upTitle,
+      states: { up: 'selected' },
+      bottomText: training.subtext,
+    },
+    {
+      title: training.rightTitle,
+      states: { up: 'completed', right: 'selected' },
+      bottomText: training.subtext,
+    },
+    {
+      title: training.downTitle,
+      states: { up: 'completed', right: 'completed', down: 'selected' },
+      bottomText: training.subtext,
+    },
+    {
+      title: training.leftTitle,
+      states: {
+        up: 'completed',
+        right: 'completed',
+        down: 'completed',
+        left: 'selected',
+      },
+      bottomText: training.subtext,
+    },
+    {
+      title: training.centerTitle,
+      states: { center: 'selected' },
+      bottomText: training.centerSubtext,
+    },
+  ];
+
+  return stepContentMap[state];
+};
+
+const BaseJoystickDialog: React.FC<
+  DefaultConnectorProps & { state: number }
+> = ({ state, lang }) => {
+  const content = React.useMemo<StepContent>(
+    () => getStepContent(state, lang.strings),
+    [state, lang],
+  );
+
+  if (!content) return null;
+
+  const { title, states, bottomText } = content;
+
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={0}>
         <Typography variant="h4" $textAlign="center" font="medium" mb={7}>
-          {title}
+          <LangDisplay text={title} />
         </Typography>
         <JoystickInteraction {...states} />
         <Container display="flex" direction="column" gap={8}>
-          {subTitle}
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay text={bottomText} />
+          </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
-            Follow the instruction on the device
+            {lang.strings.onboarding.joystickTraining.footer}
           </Typography>
         </Container>
       </DialogBoxBody>
     </DialogBox>
   );
 };
+
+export const JoystickDialog = defaultConnector(BaseJoystickDialog);

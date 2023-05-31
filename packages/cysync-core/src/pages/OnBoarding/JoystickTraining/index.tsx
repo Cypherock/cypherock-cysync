@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundHeader,
@@ -6,9 +6,10 @@ import {
   joystickTrainingAsideImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
+import { defaultConnector, DefaultConnectorProps } from '~/store';
 import { JoystickDialog } from './Dialogs/Joystick';
 import { Success } from './Dialogs/Success';
-import { routes } from '../../../config';
+import { routes } from '../../../constants';
 import {
   OnConnectCallback,
   useNavigateTo,
@@ -16,7 +17,7 @@ import {
   useWhenDeviceConnected,
 } from '../../../hooks';
 
-export const JoystickTraining = (): ReactElement => {
+const BaseJoystickTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
   const [state, setState, isFinalState] = useStateWithFinality(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
     TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
@@ -46,7 +47,7 @@ export const JoystickTraining = (): ReactElement => {
   return (
     <OnboardingLayout
       img={joystickTrainingAsideImage}
-      text="Joystick Checkup"
+      text={lang.strings.onboarding.joystickTraining.heading}
       currentState={5}
       totalState={8}
     >
@@ -58,3 +59,5 @@ export const JoystickTraining = (): ReactElement => {
     </OnboardingLayout>
   );
 };
+
+export const JoystickTraining = defaultConnector(BaseJoystickTraining);
