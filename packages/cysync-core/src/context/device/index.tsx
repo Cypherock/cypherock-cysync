@@ -8,15 +8,19 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useStateWithRef } from '../../hooks';
 import {
   createDeviceConnectionInfo,
-  DeviceConnectionStatus,
   DEVICE_LISTENER_INTERVAL,
-  IDeviceConnectionInfo,
-  IDeviceConnectionRetry,
   parseDeviceConnectionError,
   parseNewDevices,
   tryEstablishingDeviceConnection,
 } from './helpers';
+import {
+  DeviceConnectionStatus,
+  IDeviceConnectionInfo,
+  IDeviceConnectionRetry,
+} from './types';
 import baseLogger from '../../utils/logger';
+
+export * from './types';
 
 const logger = createLoggerWithPrefix(baseLogger, 'DeviceConnection');
 

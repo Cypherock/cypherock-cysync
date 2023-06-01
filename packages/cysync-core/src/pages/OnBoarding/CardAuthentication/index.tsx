@@ -1,20 +1,21 @@
-import React, { ReactElement, useEffect } from 'react';
-import {
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  OnboardingLayout,
-  cardTapAsideImage,
-} from '@cypherock/cysync-ui';
-import { CardTap } from './Dialogs/CardTap';
+import React, { useEffect } from 'react';
+import { cardTapAsideImage } from '@cypherock/cysync-ui';
+
 import {
   addKeyboardEvents,
   useNavigateTo,
   useStateWithFinality,
   useWhenDeviceConnected,
-} from '../../../hooks';
-import { routes } from '../../../config';
+} from '~/hooks';
+import { routes } from '~/constants';
+import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardAuthentication = (): ReactElement => {
+import { CardTap } from './Dialogs/CardTap';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
+
+export const CardAuthentication: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
   // number of card taps needed for authentication 3 taps per card for 4 cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 12);
@@ -34,16 +35,15 @@ export const CardAuthentication = (): ReactElement => {
   }, [isFinalCardTapState]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={cardTapAsideImage}
-      text="Card Authentication"
+      text={lang.strings.onboarding.cardAuth.heading}
       currentState={7}
       totalState={8}
+      withEmail
+      withHelp
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email help />
-        <CardTap tapState={cardTapState} />
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      <CardTap tapState={cardTapState} />
+    </OnboardingPageLayout>
   );
 };

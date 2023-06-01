@@ -5,3 +5,4 @@ export * from './Image';
 export * from './Typography';
 export * from './Indicator';
 export * from './AsideContainer';
+export * from './LangDisplay';

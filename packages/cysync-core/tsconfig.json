@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "lib": ["DOM"]
+    "outDir": "dist/esm",
+    "lib": ["DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "extends": "@cypherock/tsconfig/browser.json",
   "include": ["./src/**/*"],
@@ -11,5 +15,6 @@
     "src/**/__fixtures__/*.ts",
     "src/**/__tests__/*.ts",
     "src/**/__mocks__/*.ts"
-  ]
+  ],
+  "assets": ["src/assets/**/*"]
 }
