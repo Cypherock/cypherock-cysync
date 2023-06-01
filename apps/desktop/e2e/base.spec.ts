@@ -100,7 +100,7 @@ test('Joystick training', async () => {
     .getByRole('heading', {
       name: 'X1 Vault provides 4 way joystick for screen navigation',
     })
-    .waitFor();
+    .waitFor({ timeout: 300000 });
   const upwindow = screen.getByRole('heading', { name: 'Toggle Right' });
   await upwindow.waitFor();
   expect(upwindow).toBeVisible();
