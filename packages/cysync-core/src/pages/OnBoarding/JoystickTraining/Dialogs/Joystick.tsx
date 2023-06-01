@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import { LanguageStrings } from '~/constants';
-import { DefaultConnectorProps, defaultConnector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 interface StepContent {
   title: string;
@@ -57,9 +57,9 @@ const getStepContent = (state: number, lang: LanguageStrings): StepContent => {
   return stepContentMap[state];
 };
 
-const BaseJoystickDialog: React.FC<
-  DefaultConnectorProps & { state: number }
-> = ({ state, lang }) => {
+export const JoystickDialog: React.FC<{ state: number }> = ({ state }) => {
+  const lang = useAppSelector(selectLanguage);
+
   const content = React.useMemo<StepContent>(
     () => getStepContent(state, lang.strings),
     [state, lang],
@@ -88,5 +88,3 @@ const BaseJoystickDialog: React.FC<
     </DialogBox>
   );
 };
-
-export const JoystickDialog = defaultConnector(BaseJoystickDialog);

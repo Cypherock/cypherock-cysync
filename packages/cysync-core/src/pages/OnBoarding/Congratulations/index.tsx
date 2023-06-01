@@ -12,14 +12,17 @@ import {
 
 import { useNavigateTo } from '~/hooks';
 import { routes } from '~/constants';
-import { DefaultConnectorProps, defaultConnector } from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 
-const BaseCongratulations: React.FC<DefaultConnectorProps> = ({ lang }) => {
+export const Congratulations: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+
   useEffect(() => {
     // will be replaced for navigating to main app
     navigateTo(routes.onboarding.deviceDetection.path, 3800);
   }, []);
+
   return (
     <Container height="screen" $bgColor="sideBar" display="flex">
       <ConfettiBlast />
@@ -39,5 +42,3 @@ const BaseCongratulations: React.FC<DefaultConnectorProps> = ({ lang }) => {
     </Container>
   );
 };
-
-export const Congratulations = defaultConnector(BaseCongratulations);

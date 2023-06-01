@@ -5,17 +5,21 @@ import {
   OnboardingLayout,
   cardTapAsideImage,
 } from '@cypherock/cysync-ui';
-import { DefaultConnectorProps, defaultConnector } from '~/store';
-import { CardTap } from './Dialogs/CardTap';
-import { routes } from '../../../constants';
+
+import { routes } from '~/constants';
 import {
   addKeyboardEvents,
   useNavigateTo,
   useWhenDeviceConnected,
-} from '../../../hooks';
-import { useStateWithFinality } from '../../../hooks/useStateWithFinality';
+  useStateWithFinality,
+} from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
 
-const BaseCardTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
+import { CardTap } from './Dialogs/CardTap';
+
+export const CardTraining: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
   const navigateTo = useNavigateTo();
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 1);
@@ -47,5 +51,3 @@ const BaseCardTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
     </OnboardingLayout>
   );
 };
-
-export const CardTraining = defaultConnector(BaseCardTraining);

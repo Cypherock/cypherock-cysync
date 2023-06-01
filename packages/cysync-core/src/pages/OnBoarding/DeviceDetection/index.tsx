@@ -16,8 +16,8 @@ import {
 
 import { useDevice, DeviceConnectionStatus } from '~/context';
 import { routes } from '~/constants';
-import { defaultConnector, DefaultConnectorProps } from '~/store';
 import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 const DeviceNotConnectedDialogBox: React.FC<{
   title: string;
@@ -38,11 +38,10 @@ const DeviceNotConnectedDialogBox: React.FC<{
   </DialogBox>
 );
 
-const BaseDeviceDetection: React.FC<DefaultConnectorProps> = ({
-  lang,
-}): ReactElement => {
+export const DeviceDetection: React.FC = (): ReactElement => {
   const { connection } = useDevice();
   const navigateTo = useNavigateTo();
+  const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
@@ -68,5 +67,3 @@ const BaseDeviceDetection: React.FC<DefaultConnectorProps> = ({
     </OnboardingLayout>
   );
 };
-
-export const DeviceDetection = defaultConnector(BaseDeviceDetection);

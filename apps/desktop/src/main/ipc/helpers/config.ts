@@ -15,6 +15,7 @@ export const ipcConfig = {
     'BUILD_VERSION',
     'IS_PRODUCTION',
     'IS_TEST',
+    'USER_DATA_PATH',
     'ALLOW_PRERELEASE',
     'VERSION',
     'CHANNEL',

@@ -5,17 +5,21 @@ import {
   OnboardingLayout,
   cardTapAsideImage,
 } from '@cypherock/cysync-ui';
-import { DefaultConnectorProps, defaultConnector } from '~/store';
-import { CardTap } from './Dialogs/CardTap';
+
 import {
   addKeyboardEvents,
   useNavigateTo,
   useStateWithFinality,
   useWhenDeviceConnected,
-} from '../../../hooks';
-import { routes } from '../../../constants';
+} from '~/hooks';
+import { routes } from '~/constants';
+import { selectLanguage, useAppSelector } from '~/store';
 
-const BaseCardAuthentication: React.FC<DefaultConnectorProps> = ({ lang }) => {
+import { CardTap } from './Dialogs/CardTap';
+
+export const CardAuthentication: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
   // number of card taps needed for authentication 3 taps per card for 4 cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 12);
@@ -48,5 +52,3 @@ const BaseCardAuthentication: React.FC<DefaultConnectorProps> = ({ lang }) => {
     </OnboardingLayout>
   );
 };
-
-export const CardAuthentication = defaultConnector(BaseCardAuthentication);

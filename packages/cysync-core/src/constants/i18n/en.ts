@@ -1,6 +1,4 @@
-import { LanguageStrings } from './type';
-
-const en: LanguageStrings = {
+const en = {
   x1Card: 'X1 Card',
   onboarding: {
     deviceDetection: {
@@ -42,5 +40,7 @@ const en: LanguageStrings = {
     },
   },
 };
+
+export type LanguageStrings = typeof en;
 
 export default en;

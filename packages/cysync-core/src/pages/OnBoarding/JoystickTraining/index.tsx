@@ -6,18 +6,21 @@ import {
   joystickTrainingAsideImage,
 } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
-import { defaultConnector, DefaultConnectorProps } from '~/store';
-import { JoystickDialog } from './Dialogs/Joystick';
-import { Success } from './Dialogs/Success';
-import { routes } from '../../../constants';
+
+import { routes } from '~/constants';
 import {
   OnConnectCallback,
   useNavigateTo,
   useStateWithFinality,
   useWhenDeviceConnected,
-} from '../../../hooks';
+} from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
+import { Success } from './Dialogs/Success';
+import { JoystickDialog } from './Dialogs/Joystick';
 
-const BaseJoystickTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
+export const JoystickTraining: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
   const [state, setState, isFinalState] = useStateWithFinality(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
     TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
@@ -59,5 +62,3 @@ const BaseJoystickTraining: React.FC<DefaultConnectorProps> = ({ lang }) => {
     </OnboardingLayout>
   );
 };
-
-export const JoystickTraining = defaultConnector(BaseJoystickTraining);

@@ -1,7 +1,6 @@
-import en from './en';
-import { LanguageStrings } from './type';
+import en, { LanguageStrings } from './en';
 
-export * from './type';
+export type { LanguageStrings } from './en';
 
 export const LanguageMap = {
   en: 'en',

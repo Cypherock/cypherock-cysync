@@ -12,18 +12,17 @@ import {
   useNavigateTo,
   useWhenDeviceConnected,
 } from '~/hooks';
-import { DefaultConnectorProps, defaultConnector } from '~/store';
 import { routes } from '~/constants';
 
 import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
+import { selectLanguage, useAppSelector } from '../../../store';
 
-const BaseDeviceAuthentication: React.FC<DefaultConnectorProps> = ({
-  lang,
-}) => {
+export const DeviceAuthentication: React.FC = () => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
   const navigateTo = useNavigateTo();
+  const lang = useAppSelector(selectLanguage);
 
   const deviceAuth: OnConnectCallback = async ({
     connection,
@@ -61,5 +60,3 @@ const BaseDeviceAuthentication: React.FC<DefaultConnectorProps> = ({
     </OnboardingLayout>
   );
 };
-
-export const DeviceAuthentication = defaultConnector(BaseDeviceAuthentication);

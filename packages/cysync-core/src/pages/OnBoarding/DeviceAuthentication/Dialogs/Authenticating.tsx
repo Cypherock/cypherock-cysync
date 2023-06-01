@@ -9,28 +9,30 @@ import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
 
 import { loader } from '~/assets/images/onboarding';
-import { defaultConnector, DefaultConnectorProps } from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 
-const BaseAuthenticating: React.FC<DefaultConnectorProps> = ({ lang }) => (
-  <DialogBox width={500}>
-    <DialogBoxBody>
-      <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
-      <Typography variant="h5" $textAlign="center">
-        <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
-        ...(
-        <span
-          style={{
-            background: theme.palette.golden,
-            WebkitTextFillColor: 'transparent',
-            WebkitBackgroundClip: 'text',
-          }}
-        >
-          ?
-        </span>
-        )
-      </Typography>
-    </DialogBoxBody>
-  </DialogBox>
-);
+export const Authenticating: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
 
-export const Authenticating = defaultConnector(BaseAuthenticating);
+  return (
+    <DialogBox width={500}>
+      <DialogBoxBody>
+        <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
+        <Typography variant="h5" $textAlign="center">
+          <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
+          ...(
+          <span
+            style={{
+              background: theme.palette.golden,
+              WebkitTextFillColor: 'transparent',
+              WebkitBackgroundClip: 'text',
+            }}
+          >
+            ?
+          </span>
+          )
+        </Typography>
+      </DialogBoxBody>
+    </DialogBox>
+  );
+};
