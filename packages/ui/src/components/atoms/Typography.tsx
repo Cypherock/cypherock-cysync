@@ -13,8 +13,6 @@ import {
   DisplayProps,
   AlignSelfProps,
   $alignSelf,
-  FlexProps,
-  flex,
 } from '../utils';
 
 interface HeadingProps
@@ -23,8 +21,7 @@ interface HeadingProps
     WidthProps,
     PositionProps,
     DisplayProps,
-    AlignSelfProps,
-    FlexProps {
+    AlignSelfProps {
   color?:
     | 'gold'
     | 'silver'
@@ -76,8 +73,7 @@ ${props =>
     ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
     
     max-width: 100%;
-  ${$alignSelf}
-  ${flex};
+  ${$alignSelf};
   ${spacing};
   ${font};
   ${width};
