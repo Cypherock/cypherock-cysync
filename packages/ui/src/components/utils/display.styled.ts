@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { generateCss } from './generateCss';
-import { MediaQuery } from '../../types/types';
+import { MediaQuery } from '../../types';
 
 type DisplayType = 'none' | 'inline' | 'block' | 'inline-block' | 'flex';
 export interface DisplayProps {

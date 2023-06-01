@@ -1,6 +1,6 @@
 import { BreakPoint } from '../../themes/screens.styled';
 import { theme } from '../../themes/theme.styled';
-import { MediaQuery } from '../../types/types';
+import { MediaQuery } from '../../types';
 
 export function generateCss<T>(
   properties: string[],

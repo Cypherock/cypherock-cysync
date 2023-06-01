@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { css } from 'styled-components';
-import { MediaQuery } from '../../types/types';
+import { MediaQuery } from '../../types';
 import { generateCss } from './generateCss';
 
 type JustifyType =
