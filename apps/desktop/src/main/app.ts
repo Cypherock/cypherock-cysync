@@ -12,6 +12,7 @@ import {
   windowUrls,
 } from './utils';
 import { setupAutoUpdate } from './utils/autoUpdater';
+import { removeConnectedDevice } from './ipc/device';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
