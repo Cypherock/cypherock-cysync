@@ -11,6 +11,8 @@ import {
   PositionProps,
   display,
   DisplayProps,
+  flex,
+  FlexProps,
 } from '../utils';
 
 interface HeadingProps
@@ -18,7 +20,8 @@ interface HeadingProps
     FontProps,
     WidthProps,
     PositionProps,
-    DisplayProps {
+    DisplayProps,
+    FlexProps {
   color?:
     | 'gold'
     | 'silver'
@@ -69,103 +72,65 @@ ${props =>
   ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
 
   max-width: 100%;
+  ${spacing};
+  ${flex}
+  ${font};
+  ${width};
+  ${position};
+  ${display};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
   font-size: 40px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingTwoStyle = styled.h2<HeadingProps>`
   font-size: 32px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingThreeStyle = styled.h3<HeadingProps>`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingFourStyle = styled.h4<HeadingProps>`
   font-size: 24px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const HeadingSixStyle = styled.h6<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const SpanStyle = styled.span<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 const FinePrintStyle = styled.span<HeadingProps>`
   font-size: 14px;
   font-weight: 300;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
 `;
 
 interface TypographyProps extends HeadingProps {

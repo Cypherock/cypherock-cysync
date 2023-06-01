@@ -19,6 +19,7 @@ const BlurOverlayStyle = styled.div`
   align-items: center;
   padding: 64px;
   gap: 10px;
+  z-index: 99;
 `;
 
 export const BlurOverlay: FC<BlurOverlayProps> = ({ children }) => (

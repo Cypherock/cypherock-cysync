@@ -23,11 +23,6 @@ const shouldStartApp = () => {
     return false;
   }
 
-  // eslint-disable-next-line global-require
-  if (require('electron-squirrel-startup')) {
-    return false;
-  }
-
   return true;
 };
 
