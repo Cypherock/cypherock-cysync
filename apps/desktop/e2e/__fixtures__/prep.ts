@@ -1,21 +1,24 @@
-import { findLatestBuild, parseElectronApp } from 'electron-playwright-helpers';
+import path from 'path';
 import { _electron as electron } from '@playwright/test';
-import { version } from '../../package.json';
 
 export async function prepElectronApp() {
-  // find the latest build in the out directory
-  const latestBuild = findLatestBuild(`release/${version}`);
-  // parse the directory and find paths and other info
-  const appInfo = parseElectronApp(latestBuild);
-  // set the CI environment variable to true
-  process.env.CI = 'e2e';
+  const appPath = path.join(
+    __dirname,
+    '..',
+    '..',
+    'dist-electron',
+    'main',
+    'index.js',
+  );
+
   const electronApp = await electron.launch({
-    args: [appInfo.main],
-    executablePath: appInfo.executable,
+    args: [appPath],
   });
+
   electronApp.on('window', async page => {
     const filename = page.url().split('/').pop();
     console.log(`Window opened: ${filename}`);
   });
+
   return electronApp;
 }

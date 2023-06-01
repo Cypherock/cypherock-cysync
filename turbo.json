@@ -15,8 +15,23 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".vite/**"],
+      "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
+    },
+    "@cypherock/cysync-desktop#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "dist-electron/**"],
+      "inputs": [
+        "src/**",
+        "renderer/**",
+        "public/**",
+        "html/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.js",
+        "vite.loading.config.js"
+      ]
     },
     "watch:build": {
       "cache": false,
@@ -35,7 +50,7 @@
     },
     "e2e": {
       "dependsOn": ["build"],
-      "inputs": ["src/**", "e2e/**"]
+      "inputs": ["e2e/**"]
     },
     "lint:check": {
       "inputs": ["src/**", "tests/**"]

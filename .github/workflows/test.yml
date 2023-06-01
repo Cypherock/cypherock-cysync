@@ -13,7 +13,7 @@ env:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -51,11 +51,11 @@ jobs:
       - name: Run linter checks
         run: pnpm lint:check
 
-      # - name: Run prettier checks
-      #   run: pnpm pretty:check
+      - name: Run prettier checks
+        run: pnpm pretty:check
 
       - name: Run tests
         run: pnpm test
 
-      - name: Run end to end automated tests
-        run: pnpm make && pnpm e2e
+      - name: Run end to end tests
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
