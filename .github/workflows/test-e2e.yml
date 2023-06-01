@@ -67,6 +67,9 @@ jobs:
           DO_UPDATE_APP_VERSION: 'true'
         run: node scripts/prebuild.js
 
+      - name: Run tests
+        run: pnpm test
+
       - name: Run end to end tests
         run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
 
