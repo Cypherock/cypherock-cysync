@@ -74,6 +74,7 @@ jobs:
         run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
 
       - uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: playwright-report
           path: |
