@@ -1,10 +1,10 @@
 import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
 import { IDevice } from '@cypherock/sdk-interfaces';
+import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { IGetDeviceInfoResultResponse } from '@cypherock/sdk-app-manager';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useRef } from 'react';
 
-import { createLoggerWithPrefix } from '../../utils/logger';
 import { useStateWithRef } from '../../hooks';
 import {
   createDeviceConnectionInfo,
@@ -16,8 +16,9 @@ import {
   parseNewDevices,
   tryEstablishingDeviceConnection,
 } from './helpers';
+import baseLogger from '../../utils/logger';
 
-const logger = createLoggerWithPrefix('DeviceConnection');
+const logger = createLoggerWithPrefix(baseLogger, 'DeviceConnection');
 
 export interface DeviceContextInterface {
   connection?: IDeviceConnectionInfo;
