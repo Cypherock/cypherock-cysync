@@ -13,6 +13,8 @@ import {
   DisplayProps,
   AlignSelfProps,
   $alignSelf,
+  flex,
+  FlexProps,
 } from '../utils';
 
 interface HeadingProps
@@ -21,7 +23,8 @@ interface HeadingProps
     WidthProps,
     PositionProps,
     DisplayProps,
-    AlignSelfProps {
+    AlignSelfProps,
+    FlexProps {
   color?:
     | 'gold'
     | 'silver'
@@ -79,6 +82,7 @@ ${props =>
   ${width};
   ${position};
   ${display};
+  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`

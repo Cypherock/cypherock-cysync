@@ -63,7 +63,6 @@ const grow = css<FlexProps>`
 `;
 
 export const flex = css<FlexProps>`
-  display: flex;
   ${justifyContent}
   ${align}
   ${direction}

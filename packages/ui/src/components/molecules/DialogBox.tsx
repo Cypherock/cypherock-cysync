@@ -8,6 +8,7 @@ import {
   DisplayProps,
   SpacingProps,
   spacing,
+  display,
 } from '../utils';
 import { HeightProps, height } from '../utils/height.styled';
 
@@ -21,6 +22,7 @@ export interface DialogBoxProps
 }
 
 const DialogBoxStyle = styled.section<DialogBoxProps>`
+  display: flex;
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -32,9 +34,11 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${width}
   ${height}
   ${spacing}
+  ${display}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
+  display: flex;
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -53,6 +57,7 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
 `;
 
 const DialogBoxBodyStyle = styled.div<DialogBoxProps>`
+  display: flex;
   padding: 42px 40px 32px 40px;
   display: flex;
   flex-direction: column;
