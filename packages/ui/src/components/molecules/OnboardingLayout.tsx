@@ -1,24 +1,45 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Container } from '../atoms';
 import { Aside, AsideProps } from './Aside';
+import {
+  DialogBoxBackground,
+  DialogBoxBackgroundFooter,
+  DialogBoxBackgroundFooterProps,
+  DialogBoxBackgroundHeader,
+  DialogBoxBackgroundHeaderProps,
+} from './DialogBoxBackground';
 
-interface OnboardingLayoutProps extends AsideProps {
+export interface OnboardingLayoutProps extends AsideProps {
   children: ReactNode | undefined;
+  headerProps?: DialogBoxBackgroundHeaderProps;
+  footerProps?: DialogBoxBackgroundFooterProps;
 }
 
-export const OnboardingLayout = (
-  props: OnboardingLayoutProps,
-): ReactElement => {
-  const { children, text, img, currentState, totalState } = props;
-  return (
-    <Container height="screen" $bgColor="sideBar" display="flex">
-      <Aside
-        img={img}
-        text={text}
-        currentState={currentState}
-        totalState={totalState}
-      />
+export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
+  children,
+  text,
+  img,
+  currentState,
+  totalState,
+  headerProps,
+  footerProps,
+}) => (
+  <Container height="screen" $bgColor="sideBar" display="flex">
+    <Aside
+      img={img}
+      text={text}
+      currentState={currentState}
+      totalState={totalState}
+    />
+    <DialogBoxBackground>
+      {headerProps && <DialogBoxBackgroundHeader {...headerProps} />}
       {children}
-    </Container>
-  );
+      {footerProps && <DialogBoxBackgroundFooter {...footerProps} />}
+    </DialogBoxBackground>
+  </Container>
+);
+
+OnboardingLayout.defaultProps = {
+  headerProps: undefined,
+  footerProps: undefined,
 };

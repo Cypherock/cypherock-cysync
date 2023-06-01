@@ -6,4 +6,11 @@ module.exports = {
     project: ['./tsconfig.eslint.json'],
   },
   rules: { 'no-param-reassign': ['error', { props: false }] },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: ['./tsconfig.eslint.json'],
+      },
+    },
+  },
 };

@@ -1,41 +1,44 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
-  DialogBoxBackground,
-  DialogBoxBackgroundFooter,
-  DialogBoxBackgroundHeader,
   Container,
   DialogBox,
   Image,
   Typography,
   disconnectedIcon,
   DialogBoxBody,
-  OnboardingLayout,
   LogoOutlinedAsideImage,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
-import { useDevice } from '../../../context';
-import { DeviceConnectionStatus } from '../../../context/device/helpers';
-import { routes } from '../../../config';
-import { useNavigateTo } from '../../../hooks';
 
-const DeviceNotConnectedDialogBox = () => (
+import { useDevice, DeviceConnectionStatus } from '~/context';
+import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
+
+const DeviceNotConnectedDialogBox: React.FC<{
+  title: string;
+  subtext: string;
+}> = ({ title, subtext }) => (
   <DialogBox width={500}>
     <DialogBoxBody pb={8}>
       <Image src={disconnectedIcon} alt="Device not connected" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
-          Connect your X1 Vault to your PC to proceed
+          <LangDisplay text={title} />
         </Typography>
         <Typography variant="h6" $textAlign="center" color="muted">
-          Use the USB cable provided in your product packaging to connect
+          <LangDisplay text={subtext} />
         </Typography>
       </Container>
     </DialogBoxBody>
   </DialogBox>
 );
 
-export const DeviceDetection = (): ReactElement => {
+export const DeviceDetection: React.FC = () => {
   const { connection } = useDevice();
   const navigateTo = useNavigateTo();
+  const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
@@ -44,19 +47,18 @@ export const DeviceDetection = (): ReactElement => {
   }, [connection]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={LogoOutlinedAsideImage}
-      text="Device Connection"
+      text={lang.strings.onboarding.deviceDetection.heading}
       currentState={3}
       totalState={8}
+      withHelp
+      withBack
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader help email={false} />
-        <DeviceNotConnectedDialogBox />
-        <DialogBoxBackgroundFooter />
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      <DeviceNotConnectedDialogBox
+        title={lang.strings.onboarding.deviceDetection.title}
+        subtext={lang.strings.onboarding.deviceDetection.subtext}
+      />
+    </OnboardingPageLayout>
   );
 };
-
-export default DeviceDetection;
