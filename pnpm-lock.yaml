@@ -671,9 +671,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.11.2(react-dom@18.2.0)(react@18.2.0)
       react-tsparticles:
         specifier: ^2.9.3
         version: 2.9.3(react@18.2.0)
