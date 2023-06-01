@@ -1,6 +1,17 @@
+const productName = 'Cypherock CySync';
+const productNameInArtifact = 'cypherock-cysync';
+
+const getArtifactName = (withoutArch = false) => {
+  if (withoutArch) {
+    return `${productNameInArtifact}-\${version}-\${platform}.\${ext}`;
+  }
+
+  return `${productNameInArtifact}-\${version}-\${platform}-\${arch}.\${ext}`;
+};
+
 const config = {
   appId: 'com.hodl.cypherock',
-  productName: 'Cypherock CySync',
+  productName,
   asar: true,
   directories: {
     output: 'release/${version}',
@@ -8,10 +19,19 @@ const config = {
   },
   files: ['dist-electron', 'dist'],
   mac: {
-    artifactName: '${productName}_${version}.${ext}',
+    artifactName: getArtifactName(),
     entitlements: 'entitlements.plist',
     entitlementsInherit: 'entitlements.plist',
-    target: ['dmg', 'zip'],
+    target: [
+      {
+        target: 'dmg',
+        arch: ['universal'],
+      },
+      {
+        target: 'zip',
+        arch: ['universal'],
+      },
+    ],
   },
   win: {
     target: [
@@ -20,10 +40,14 @@ const config = {
         arch: ['x64'],
       },
     ],
-    artifactName: '${productName}_${version}.${ext}',
+    artifactName: getArtifactName(),
   },
   linux: {
-    target: ['flatpak', 'snap', 'deb', 'rpm'],
+    // TODO: Add RPM later
+    target: ['snap', 'AppImage'],
+    category: 'Utility',
+    executableName: 'Cypherock CySync',
+    artifactName: getArtifactName(),
   },
   nsis: {
     oneClick: false,
@@ -32,6 +56,15 @@ const config = {
     deleteAppDataOnUninstall: false,
   },
   afterSign: 'scripts/notarize.js',
+  publish: {
+    provider: 'generic',
+    url: 'https://updater.cypherock.com/cysync-desktop',
+  },
 };
+
+if (process.env.WINDOWS_PFX_FILE && process.env.WINDOWS_PFX_PASSWORD) {
+  config.win.certificateFile = process.env.WINDOWS_PFX_FILE;
+  config.win.certificatePassword = process.env.WINDOWS_PFX_PASSWORD;
+}
 
 module.exports = config;

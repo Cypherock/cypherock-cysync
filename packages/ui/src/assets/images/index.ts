@@ -15,10 +15,13 @@ import blockSelectedIcon from './common/Block.svg';
 import blockIcon from './common/Block-unselectedsvg.svg';
 import disconnectedIcon from './common/disconnected.svg';
 import failIcon from './common/fail.svg';
-import joystickIcon from './common/Joystick.png';
 import joystickArrowIcon from './common/JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './common/JoystickArrowSelected.svg';
 import joystickArrowCompletedIcon from './common/JoystickArrowCompleted.svg';
+import cardTapAsideImage from './common/CardTapAsideImage.png';
+import deviceAuthAsideImage from './common/DeviceAuthAside.png';
+import joystickTrainingAsideImage from './common/JoystickTrainingAside.png';
+import LogoOutlinedAsideImage from './common/LogoOutlineAside.png';
 
 export {
   addWalletIcon,
@@ -38,8 +41,11 @@ export {
   disconnectedIcon,
   successIcon,
   failIcon,
-  joystickIcon,
   joystickArrowIcon,
   joystickArrowSelectedIcon,
   joystickArrowCompletedIcon,
+  deviceAuthAsideImage,
+  joystickTrainingAsideImage,
+  LogoOutlinedAsideImage,
+  cardTapAsideImage,
 };

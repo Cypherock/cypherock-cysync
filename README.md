@@ -18,7 +18,7 @@ Before you get started, please make sure you have the following setup -
   ```
   npm i -g pnpm
   ```
-- Python >=3.6
+- Python >=3.6 (But less than 3.10)
   - [Download][7] and install the latest Python version.
   - Run `npm config set python /path/to/executable/python` to configure.
 - Install and set up [node-gyp][6] -
@@ -26,6 +26,8 @@ Before you get started, please make sure you have the following setup -
   - For Windows, follow an additional step -
     - Install Visual C++ 2017 Build Environment: [Visual Studio Build Tools][3] (using "Visual C++ build tools" workload) or [Visual Studio Community][4] (using the "Desktop development with C++" workload).
   - For more details, please refer to the [node-gyp documentation][5].
+- Dependencies for MacOS
+  `brew install pkg-config pixman cairo pango`
 
 ## Understanding the directory structure
 
@@ -89,14 +91,25 @@ pnpm i        # Install packages
 - You may have to delete the `./apps/desktop/node_modules/.vite` folder if the
   changes does not reflect on cysync apps.
 
+### Turorepo Remote Caching
+
+- Create a new file `.turbo/config.json` and add the following content -
+  ```json
+  {
+    "teamid": "team_<TEAMID>",
+    "apiurl": "<CACHE API URL>"
+  }
+  ```
+- Set the `TURBO_TOKEN=yourToken` environment variable
+
 ## Contributing
 
 Please consider making a contribution to the project. Contributions can include bug fixes, feature proposal, or optimizations to the current code.
 
-[1]: https://nodejs.org/en/download/package-manager/#nvm "How to use NVM"
-[2]: https://pnpm.io/ "Pnpm documentation"
-[3]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools "MS VS Build Tools"
-[4]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community "MS VS Community"
-[5]: https://github.com/nodejs/node-gyp "node-gyp documentation"
-[6]: https://github.com/nodejs/node-gyp#on-windows "Configure node-gyp on Windows"
-[7]: https://www.python.org/downloads "Download Python"
+[1]: https://nodejs.org/en/download/package-manager/#nvm 'How to use NVM'
+[2]: https://pnpm.io/ 'Pnpm documentation'
+[3]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools 'MS VS Build Tools'
+[4]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community 'MS VS Community'
+[5]: https://github.com/nodejs/node-gyp 'node-gyp documentation'
+[6]: https://github.com/nodejs/node-gyp#on-windows 'Configure node-gyp on Windows'
+[7]: https://www.python.org/downloads 'Download Python'

@@ -11,7 +11,7 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
-import { removeConnectedDevice } from './ipc/device';
+import { setupAutoUpdate } from './utils/autoUpdater';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -20,11 +20,6 @@ const shouldStartApp = () => {
   // If unable to get the lock, then the application is already running.
   if (!applicationLock) {
     logger.info('An instance of CyCync is already running.');
-    return false;
-  }
-
-  // eslint-disable-next-line global-require
-  if (require('electron-squirrel-startup')) {
     return false;
   }
 
@@ -44,6 +39,7 @@ const prepareApp = () => {
 const setupIntitialState = async () => {
   initializeAndGetDb();
   setupIPCHandlers(ipcMain);
+  setupAutoUpdate();
 };
 
 export default function createApp() {

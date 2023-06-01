@@ -42,6 +42,7 @@ export const $bgColor = css<BgColorProps>`
     props.$bgColor === 'input' &&
     css`
       background: ${({ theme }) => theme.palette.background.input};
+      border: 1px solid ${({ theme }) => theme.palette.border.input};
     `}
   ${props =>
     props.$bgColor === 'separator' &&
