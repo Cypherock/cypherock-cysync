@@ -23,7 +23,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
-          submodules: "recursive"
+          submodules: 'recursive'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
@@ -56,3 +56,6 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+
+      - name: Run end to end automated tests
+        run: pnpm make && pnpm e2e

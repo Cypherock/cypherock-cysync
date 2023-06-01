@@ -4,6 +4,6 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
   "extends": "@cypherock/tsconfig/browser.json",
-  "include": ["renderer", "playwright.config.ts"],
+  "include": ["renderer"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

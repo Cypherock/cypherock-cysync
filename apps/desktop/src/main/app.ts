@@ -12,7 +12,6 @@ import {
   windowUrls,
 } from './utils';
 import { setupAutoUpdate } from './utils/autoUpdater';
-import { removeConnectedDevice } from './ipc/device';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -96,7 +95,6 @@ export default function createApp() {
 
   app.on('window-all-closed', async () => {
     mainWindow = null;
-    await removeConnectedDevice();
     if (process.platform !== 'darwin') app.quit();
   });
 

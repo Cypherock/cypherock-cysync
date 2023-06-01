@@ -33,6 +33,10 @@
       "dependsOn": ["build"],
       "inputs": ["src/**", "tests/**"]
     },
+    "e2e": {
+      "dependsOn": ["build"],
+      "inputs": ["src/**", "e2e/**"]
+    },
     "lint:check": {
       "inputs": ["src/**", "tests/**"]
     },

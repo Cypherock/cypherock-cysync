@@ -20,7 +20,7 @@
     "make": "tsc && vite build && electron-builder",
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
-    "e2e": "playwright test",
+    "e2e": "playwright test e2e/automated --project=chromium",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
     "pretty": "prettier --write \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",

@@ -23,7 +23,7 @@ let connectedDevice:
   | { device: IDevice; connection: IDeviceConnection }
   | undefined;
 
-export const removeConnectedDevice = async () => {
+const removeConnectedDevice = async () => {
   if (connectedDevice) {
     await connectedDevice.connection.destroy();
     connectedDevice = undefined;

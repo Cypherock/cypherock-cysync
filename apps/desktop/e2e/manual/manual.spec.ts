@@ -1,30 +1,11 @@
-import {
-  expect,
-  test,
-  ElectronApplication,
-  Page,
-  _electron as electron,
-} from '@playwright/test';
-import { findLatestBuild, parseElectronApp } from 'electron-playwright-helpers';
+import { expect, test, ElectronApplication, Page } from '@playwright/test';
+import { prepElectronApp } from '../__fixtures__/prep';
 
 let electronApp: ElectronApplication;
 let screen: Page;
 
 test.beforeEach(async () => {
-  // find the latest build in the out directory
-  const latestBuild = findLatestBuild('release/1.0.0');
-  // parse the directory and find paths and other info
-  const appInfo = parseElectronApp(latestBuild);
-  // set the CI environment variable to true
-  process.env.CI = 'e2e';
-  electronApp = await electron.launch({
-    args: [appInfo.main],
-    executablePath: appInfo.executable,
-  });
-  electronApp.on('window', async page => {
-    const filename = page.url().split('/').pop();
-    console.log(`Window opened: ${filename}`);
-  });
+  electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
   screen = await electronApp.firstWindow();
