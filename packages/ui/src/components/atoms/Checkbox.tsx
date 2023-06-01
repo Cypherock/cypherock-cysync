@@ -61,11 +61,27 @@ interface CheckBoxProps {
 //   }
 // `;
 
-const CheckBoxStyle = styled.input.attrs({ type: 'checkbox' })`
+const CheckBoxStyle = styled.input.attrs({
+  type: 'checkbox',
+  id: 'checkbox_id',
+})`
+  -webkit-appearance: none;
+`;
+
+const CheckBoxIcon = styled.div`
+  background-image: ${({ theme }) => theme.palette.golden};
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transform: translate(0%, 0%);
+`;
+
+const CheckBoxLabelStyle = styled.label.attrs({ htmlFor: 'checkbox_id' })`
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  -webkit-appearance: none;
   background-image: ${({ theme }) => theme.palette.golden};
   position: relative;
 
@@ -77,24 +93,14 @@ const CheckBoxStyle = styled.input.attrs({ type: 'checkbox' })`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-51%, -51%);
+    transform: translate(-50%, -50%);
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
-`;
-
-const CheckBoxIcon = styled.div`
-  background-image: ${({ theme }) => theme.palette.golden};
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  top: 61.75%;
-  left: 22%;
-  transform: translate(-50%, -42%);
 `;
 
 export const CheckBox: FC<CheckBoxProps> = ({ checked, onChange }) => (
   <>
     <CheckBoxStyle checked={checked} onChange={onChange} />
-    {checked && <CheckBoxIcon />}
+    <CheckBoxLabelStyle>{checked && <CheckBoxIcon />}</CheckBoxLabelStyle>
   </>
 );

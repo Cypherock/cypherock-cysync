@@ -54,6 +54,12 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
 
 const DialogBoxBodyStyle = styled.div<DialogBoxProps>`
   padding: 42px 40px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  gap: 32px;
   ${flex}
 `;
 
