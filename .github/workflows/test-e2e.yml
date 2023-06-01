@@ -55,9 +55,6 @@ jobs:
           TURBO_API: ${{ secrets.TURBO_API }}
         run: node scripts/setupTurboCache.js
 
-      - name: Run build
-        run: pnpm build
-
       - name: Update versions
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
