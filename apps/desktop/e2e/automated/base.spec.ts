@@ -21,5 +21,6 @@ test.beforeEach(async () => {
 
 test('check the title of window', async () => {
   const title = await screen.title();
+  await screen.screenshot({ path: './screenshots/title.png' });
   expect(title).toBe('Cypherock CySync');
 });

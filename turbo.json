@@ -50,7 +50,13 @@
     },
     "e2e": {
       "dependsOn": ["build"],
-      "inputs": ["e2e/**"]
+      "inputs": ["e2e/**"],
+      "outputs": [
+        "playwright-report/**",
+        "test-results/**",
+        "screenshots/**",
+        "videos/**"
+      ]
     },
     "lint:check": {
       "inputs": ["src/**", "tests/**"]
