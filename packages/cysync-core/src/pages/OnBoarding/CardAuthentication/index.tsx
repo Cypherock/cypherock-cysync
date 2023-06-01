@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  OnboardingLayout,
-  cardTapAsideImage,
-} from '@cypherock/cysync-ui';
+import { cardTapAsideImage } from '@cypherock/cysync-ui';
 
 import {
   addKeyboardEvents,
@@ -16,6 +11,7 @@ import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { CardTap } from './Dialogs/CardTap';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const CardAuthentication: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -39,16 +35,15 @@ export const CardAuthentication: React.FC = () => {
   }, [isFinalCardTapState]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={cardTapAsideImage}
       text={lang.strings.onboarding.cardAuth.heading}
       currentState={7}
       totalState={8}
+      withEmail
+      withHelp
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email help />
-        <CardTap tapState={cardTapState} />
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      <CardTap tapState={cardTapState} />
+    </OnboardingPageLayout>
   );
 };

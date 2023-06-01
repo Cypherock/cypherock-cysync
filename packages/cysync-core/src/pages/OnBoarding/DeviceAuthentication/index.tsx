@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  OnboardingLayout,
-  deviceAuthAsideImage,
-} from '@cypherock/cysync-ui';
+import { deviceAuthAsideImage } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 
 import {
@@ -18,6 +13,7 @@ import { Authenticating } from './Dialogs/Authenticating';
 import { Success } from './Dialogs/Success';
 import { Failure } from './Dialogs/Failure';
 import { selectLanguage, useAppSelector } from '../../../store';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const DeviceAuthentication: React.FC = () => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
@@ -45,18 +41,17 @@ export const DeviceAuthentication: React.FC = () => {
   }, [result]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={deviceAuthAsideImage}
       text={lang.strings.onboarding.deviceAuth.heading}
       currentState={4}
       totalState={8}
+      withEmail
+      withHelp
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email help />
-        {result === undefined && <Authenticating />}
-        {result === false && <Failure />}
-        {result === true && <Success />}
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      {result === undefined && <Authenticating />}
+      {result === false && <Failure />}
+      {result === true && <Success />}
+    </OnboardingPageLayout>
   );
 };

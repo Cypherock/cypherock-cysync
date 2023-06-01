@@ -1,5 +1,7 @@
 const en = {
   x1Card: 'X1 Card',
+  help: 'Help',
+  back: 'Back',
   onboarding: {
     deviceDetection: {
       heading: 'Device Connection',

@@ -1,15 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
-  DialogBoxBackground,
-  DialogBoxBackgroundFooter,
-  DialogBoxBackgroundHeader,
   Container,
   DialogBox,
   Image,
   Typography,
   disconnectedIcon,
   DialogBoxBody,
-  OnboardingLayout,
   LogoOutlinedAsideImage,
   LangDisplay,
 } from '@cypherock/cysync-ui';
@@ -18,6 +14,7 @@ import { useDevice, DeviceConnectionStatus } from '~/context';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 const DeviceNotConnectedDialogBox: React.FC<{
   title: string;
@@ -38,7 +35,7 @@ const DeviceNotConnectedDialogBox: React.FC<{
   </DialogBox>
 );
 
-export const DeviceDetection: React.FC = (): ReactElement => {
+export const DeviceDetection: React.FC = () => {
   const { connection } = useDevice();
   const navigateTo = useNavigateTo();
   const lang = useAppSelector(selectLanguage);
@@ -50,20 +47,18 @@ export const DeviceDetection: React.FC = (): ReactElement => {
   }, [connection]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={LogoOutlinedAsideImage}
       text={lang.strings.onboarding.deviceDetection.heading}
       currentState={3}
       totalState={8}
+      withHelp
+      withBack
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader help email={false} />
-        <DeviceNotConnectedDialogBox
-          title={lang.strings.onboarding.deviceDetection.title}
-          subtext={lang.strings.onboarding.deviceDetection.subtext}
-        />
-        <DialogBoxBackgroundFooter />
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      <DeviceNotConnectedDialogBox
+        title={lang.strings.onboarding.deviceDetection.title}
+        subtext={lang.strings.onboarding.deviceDetection.subtext}
+      />
+    </OnboardingPageLayout>
   );
 };
