@@ -7,6 +7,7 @@
     "./src/**/*",
     "./tests/**/*",
     "./e2e/**/*",
+    "./me2e/**/*",
     "renderer",
     "playwright.config.ts"
   ],

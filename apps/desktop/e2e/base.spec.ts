@@ -53,61 +53,7 @@ test.beforeEach(async () => {
   screen = await electronApp.firstWindow();
 });
 
-test('record', async () => {
-  await screen.pause();
-});
-
 test('check the title of window', async () => {
   const title = await screen.title();
   expect(title).toBe('Cypherock CySync');
-});
-
-test('Device connection screen', async () => {
-  const newwindow = screen.getByRole('heading', {
-    name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
-  });
-  await newwindow.waitFor();
-  expect(newwindow).toBeVisible();
-});
-
-test('Device authentication successful', async () => {
-  const newwindow = screen.getByRole('heading', {
-    name: 'Your X1 Vault is successfully authenticated',
-  });
-  await newwindow.waitFor();
-  expect(newwindow).toBeVisible();
-});
-
-// test('Device auth fail due to internet disconnection', async () => {
-//
-// })
-
-test('Device disconnection during device auth', async () => {
-  await screen
-    .getByRole('heading', {
-      name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
-    })
-    .waitFor({ timeout: 300000 });
-  const newwindow = screen.getByRole('heading', {
-    name: 'Connect your X1 Vault to your PC to proceed',
-  });
-  await newwindow.waitFor();
-  expect(newwindow).toBeVisible();
-});
-
-test('Joystick training', async () => {
-  await screen
-    .getByRole('heading', {
-      name: 'X1 Vault provides 4 way joystick for screen navigation',
-    })
-    .waitFor({ timeout: 300000 });
-  const upwindow = screen.getByRole('heading', { name: 'Toggle Right' });
-  await upwindow.waitFor();
-  expect(upwindow).toBeVisible();
-  const downwindow = screen.getByRole('heading', { name: 'Toggle Down' });
-  await downwindow.waitFor();
-  expect(downwindow).toBeVisible();
-  const finalwindow = screen.getByRole('img', { name: 'Success Icon' });
-  await finalwindow.waitFor();
-  expect(finalwindow).toBeVisible();
 });
