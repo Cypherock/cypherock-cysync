@@ -46,6 +46,7 @@ export const theme = {
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
       separator: colors.background.separator,
+      separatorSecondary: colors.background.separatorSecondary,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
     },
@@ -53,6 +54,7 @@ export const theme = {
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      separator: colors.border.separator,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

@@ -79,6 +79,7 @@ const DialogBoxFooterStyle = styled.div<DialogBoxProps>`
   border-left: 0;
   border-right: 0;
   border-style: solid;
+  width: 100%;
   border-color: ${({ theme }) => theme.palette.border.popup};
   gap: ${({ theme }) => theme.spacing.two.spacing};
   ${flex}

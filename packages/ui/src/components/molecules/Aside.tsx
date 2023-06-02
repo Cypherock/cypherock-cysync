@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
 import { AsideContainer, Container, Flex, Image, Typography } from '../atoms';
-import { cysyncLogoSmall } from '../../assets/images';
+import { cysyncLogoSmall, logoText } from '../../assets/images';
 import { Milestone } from './Milestone';
 
 export interface AsideProps {
@@ -37,28 +37,25 @@ export const Aside = (props: AsideProps): ReactElement => {
         <>
           <Flex direction="column" align="center">
             <Container
-              $bgColor="list"
+              $bgColor="separator"
               rounded="full"
-              pb={5}
-              pl={5}
-              pr={5}
-              pt={5}
+              width={176}
+              height={176}
+              p={5}
               mb={3}
             >
               <Image src={img} alt="image" />
             </Container>
-
-            <Typography variant="h3" color="gold" mb={7}>
-              cySync App
-            </Typography>
+            <Image width="full" src={logoText} alt="logoText" mb={4} />
             <Typography
-              variant="h3"
+              variant="h4"
               $textAlign="center"
               color="silver"
               font="medium"
+              width="full"
               mb={2}
             >
-              Welcome to Cypherock
+              Welcome to CySync App
             </Typography>
             <Typography
               $textAlign="center"

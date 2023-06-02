@@ -33,20 +33,19 @@ export const Terms = (): ReactElement => {
       <Container width="full" $bgColor="contentGradient">
         <DialogBoxBackground gap={20}>
           <DialogBoxBackgroundHeader email={false} help />
-          <DialogBox direction="column">
-            <DialogBoxHeader justify="center" width="full" px={3} py={4}>
-              <Typography variant="h5" color="heading" mb={2}>
+          <DialogBox width={500} height={454} direction="column">
+            <DialogBoxHeader mt={2} justify="center" width="full">
+              <Typography variant="h5" color="heading">
                 Terms of use
               </Typography>
             </DialogBoxHeader>
-            <DialogBoxBody direction="column" align="center">
+            <DialogBoxBody gap={16} direction="column" align="center">
               <Container
-                mb={2}
                 width="full"
-                rounded={1}
-                px={2}
-                py={2}
-                $bgColor="list"
+                rounded={8}
+                px={3}
+                py={10}
+                $bgColor="separatorSecondary"
                 border="popup"
               >
                 <Flex justify="space-between" align="center" width="full">
@@ -65,12 +64,11 @@ export const Terms = (): ReactElement => {
                 </Flex>
               </Container>
               <Container
-                mb={3}
                 width="full"
-                rounded={1}
-                px={2}
-                py={2}
-                $bgColor="list"
+                rounded={8}
+                px={3}
+                py={10}
+                $bgColor="separatorSecondary"
                 border="popup"
               >
                 <Flex justify="space-between" align="center" width="full">
@@ -93,7 +91,12 @@ export const Terms = (): ReactElement => {
                   checked={isChecked}
                   onChange={() => setIsChecked(!isChecked)}
                 />
-                <Typography color="muted" $textAlign="left" ml={2}>
+                <Typography
+                  fontSize={14}
+                  color="muted"
+                  $textAlign="left"
+                  ml={2}
+                >
                   I have read and agree with the Terms of Use and Privacy Policy
                 </Typography>
               </Flex>

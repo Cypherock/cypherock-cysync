@@ -1,5 +1,5 @@
 import addWalletIcon from './add-wallet.png';
-import cysyncLogoBig from './logo-big.png';
+import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import closeIcon from './close.png';
 import importWalletIcon from './import-wallet.png';
@@ -25,6 +25,7 @@ import joystickIcon from './Joystick.png';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
+import logoText from './logo-text.svg';
 
 export {
   addWalletIcon,
@@ -53,5 +54,6 @@ export {
   joystickIcon,
   cardTapAsideImage,
   LogoOutlinedAsideImage,
+  logoText,
   joystickTrainingAsideImage,
 };

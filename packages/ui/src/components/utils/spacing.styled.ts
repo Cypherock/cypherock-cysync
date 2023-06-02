@@ -28,7 +28,9 @@ type SpacingType<T extends string> =
   | `${T}y`;
 
 export type SpacingProps = {
-  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<SpacingOptions>;
+  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<
+    SpacingOptions | number
+  >;
 };
 
 const cssMap: Record<string, string[]> = {
@@ -83,7 +85,9 @@ const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
           names.forEach(name => {
             result.push(`
               @media ${theme.screens[bp as BreakPoint]} {
-                ${name}: ${spacingObj[value]};
+                ${name}: ${
+              spacingObj[value] !== undefined ? spacingObj[value] : `${value}px`
+            }};
               }
             `);
           });
@@ -91,7 +95,11 @@ const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
       }
     } else {
       names.forEach(name => {
-        result.push(`${name}: ${spacingObj[obj]};`);
+        result.push(
+          `${name}: ${
+            spacingObj[obj] !== undefined ? spacingObj[obj] : `${obj}px`
+          };`,
+        );
       });
     }
   }

@@ -14,7 +14,8 @@ export const DialogBoxBackgroundHeader: React.FC<
 > = ({ email, help }) => (
   <Flex
     position="absolute"
-    top={0}
+    top={6}
+    right={6}
     width="full"
     justify="space-between"
     p={{
@@ -53,6 +54,7 @@ export const DialogBoxBackgroundFooter = () => (
   <Flex
     position="absolute"
     bottom={0}
+    left={0}
     width="full"
     justify="flex-start"
     p={{

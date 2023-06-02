@@ -59,10 +59,9 @@ export const Information = (): ReactElement => (
         <DialogBoxBackgroundHeader email={false} help />
         <DialogBox direction="column" align="center" width={700}>
           <DialogBoxBody direction="column" align="center">
-            <Typography variant="h5" color="heading" mb={6} $textAlign="center">
+            <Typography variant="h5" color="heading" $textAlign="center">
               Ensure the following before you continue
             </Typography>
-
             <Container $bgColor="list" direction="column">
               <ListContainer p={4} direction="column" width="full">
                 {listItems}
