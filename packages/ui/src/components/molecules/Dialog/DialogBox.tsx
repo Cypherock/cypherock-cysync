@@ -1,15 +1,16 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
+
 import {
   WidthProps,
-  width,
-  flex,
   FlexProps,
   DisplayProps,
   SpacingProps,
+  flex,
+  width,
   spacing,
-} from '../utils';
-import { HeightProps, height } from '../utils/height.styled';
+} from '../../utils';
+import { HeightProps, height } from '../../utils/height.styled';
 
 export interface DialogBoxProps
   extends WidthProps,

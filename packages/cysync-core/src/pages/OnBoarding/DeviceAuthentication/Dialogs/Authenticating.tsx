@@ -11,7 +11,7 @@ import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
 import { loader } from '~/assets/images/onboarding';
 import { useAppSelector, selectLanguage } from '~/store';
 
-export const Authenticating: React.FC = () => {
+export const DeviceAuthenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   return (
