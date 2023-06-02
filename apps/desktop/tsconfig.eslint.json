@@ -3,6 +3,13 @@
     "lib": ["ES2015"]
   },
   "extends": "./tsconfig.node.json",
-  "include": ["renderer", "playwright.config.ts"],
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "./e2e/**/*",
+    "./me2e/**/*",
+    "renderer",
+    "playwright.config.ts"
+  ],
   "exclude": ["node_modules", "src/coverage"]
 }
