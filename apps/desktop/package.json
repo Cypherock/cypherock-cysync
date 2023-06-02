@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "dev": "rimraf node_modules/.vite && vite --force",
+    "dev": "rimraf node_modules/.vite && vite",
     "build": "tsc && vite build",
     "make": "electron-builder",
     "preview": "vite preview",
