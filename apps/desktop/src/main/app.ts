@@ -94,7 +94,7 @@ export default function createApp() {
 
   app.whenReady().then(createLoadingWindow);
 
-  app.on('window-all-closed', async () => {
+  app.on('window-all-closed', () => {
     mainWindow = null;
     if (process.platform !== 'darwin') {
       app.quit();
