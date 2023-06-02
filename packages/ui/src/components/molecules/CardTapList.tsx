@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Flex, Indicator, Typography } from '../atoms';
+import { Container, Flex, Indicator, LangDisplay, Typography } from '../atoms';
 
 interface CardTapItemProps {
   text: string;
@@ -49,7 +49,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
       gap={16}
     >
       <Typography variant="h6" color="muted" font="medium" grow={1}>
-        {text}
+        <LangDisplay text={text} />
       </Typography>
 
       {indicators}

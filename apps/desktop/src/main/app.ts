@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { release } from 'node:os';
 import { setupIPCHandlers } from './ipc';
 import {
+  addAppHooks,
   config,
   createWindowAndOpenUrl,
   fadeInWindow,
@@ -45,7 +46,7 @@ const setupIntitialState = async () => {
 export default function createApp() {
   if (!shouldStartApp()) {
     app.quit();
-    process.exit(0);
+    return;
   }
 
   logger.info('Starting Application', { config });
@@ -95,7 +96,9 @@ export default function createApp() {
 
   app.on('window-all-closed', () => {
     mainWindow = null;
-    if (process.platform !== 'darwin') app.quit();
+    if (process.platform !== 'darwin') {
+      app.quit();
+    }
   });
 
   app.on('second-instance', () => {
@@ -114,4 +117,6 @@ export default function createApp() {
       createMainWindow();
     }
   });
+
+  addAppHooks(app);
 }

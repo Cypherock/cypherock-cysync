@@ -10,3 +10,4 @@ export * from './Indicator';
 export * from './AsideContainer';
 export * from './Checkbox';
 export * from './Bullet';
+export * from './LangDisplay';

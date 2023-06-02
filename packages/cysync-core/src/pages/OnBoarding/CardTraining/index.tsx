@@ -1,20 +1,21 @@
-import React, { ReactElement, useEffect } from 'react';
-import {
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  OnboardingLayout,
-  cardTapAsideImage,
-} from '@cypherock/cysync-ui';
-import { CardTap } from './Dialogs/CardTap';
-import { routes } from '../../../config';
+import React, { useEffect } from 'react';
+import { cardTapAsideImage } from '@cypherock/cysync-ui';
+
+import { routes } from '~/constants';
 import {
   addKeyboardEvents,
   useNavigateTo,
   useWhenDeviceConnected,
-} from '../../../hooks';
-import { useStateWithFinality } from '../../../hooks/useStateWithFinality';
+  useStateWithFinality,
+} from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
 
-export const CardTraining = (): ReactElement => {
+import { CardTap } from './Dialogs/CardTap';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
+
+export const CardTraining: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
   const navigateTo = useNavigateTo();
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, 1);
@@ -33,16 +34,15 @@ export const CardTraining = (): ReactElement => {
   }, [isFinalCardTapState]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={cardTapAsideImage}
-      text="Card Tap Checkup"
+      text={lang.strings.onboarding.cardTraining.heading}
       currentState={6}
       totalState={8}
+      withEmail
+      withHelp
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email help />
-        <CardTap tapState={cardTapState} />
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      <CardTap tapState={cardTapState} />
+    </OnboardingPageLayout>
   );
 };

@@ -56,7 +56,7 @@ export const Information = (): ReactElement => (
     <Aside type="getStarted" img={cysyncLogoBig} />
     <Container width="full" $bgColor="contentGradient">
       <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email={false} help />
+        <DialogBoxBackgroundHeader />
         <DialogBox direction="column" align="center" width={700}>
           <DialogBoxBody direction="column" align="center">
             <Typography variant="h5" color="heading" $textAlign="center">

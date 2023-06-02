@@ -1,17 +1,24 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Flex, Typography, Image, Button } from '../atoms';
-import { backIcon, emailIcon } from '../../assets/images';
+import {
+  Container,
+  Flex,
+  Typography,
+  Image,
+  Button,
+  LangDisplay,
+} from '../atoms';
+import { backIcon } from '../../assets/images';
 import { UtilsProps } from '../utils';
 
-interface DialogBoxBackgroundHeaderProps {
-  email: boolean | undefined;
-  help: boolean | undefined;
+export interface DialogBoxBackgroundHeaderProps {
+  topLeftComponent?: React.ReactNode | undefined;
+  topRightComponent?: React.ReactNode | undefined;
 }
 
 export const DialogBoxBackgroundHeader: React.FC<
   DialogBoxBackgroundHeaderProps
-> = ({ email, help }) => (
+> = ({ topLeftComponent, topRightComponent }) => (
   <Flex
     position="absolute"
     top={6}
@@ -23,34 +30,23 @@ export const DialogBoxBackgroundHeader: React.FC<
       lg: 5,
     }}
   >
-    <Container>
-      {email && (
-        <Flex gap={16} $bgColor="highlight" rounded={10} pr={1}>
-          <Image src={emailIcon} width={24} alt="Email Icon" />
-          <Typography color="muted" fontSize={14}>
-            user@email.com
-          </Typography>
-        </Flex>
-      )}
-    </Container>
-    <Container>
-      {help && (
-        <Button variant="none">
-          <Flex gap={8}>
-            <Typography color="muted" fontSize={14}>
-              Help
-            </Typography>
-            <Typography color="gold" fontSize={14}>
-              ?
-            </Typography>
-          </Flex>
-        </Button>
-      )}
-    </Container>
+    <Container>{topLeftComponent}</Container>
+    <Container>{topRightComponent}</Container>
   </Flex>
 );
 
-export const DialogBoxBackgroundFooter = () => (
+DialogBoxBackgroundHeader.defaultProps = {
+  topLeftComponent: undefined,
+  topRightComponent: undefined,
+};
+
+export interface DialogBoxBackgroundFooterProps {
+  backText: string | undefined;
+}
+
+export const DialogBoxBackgroundFooter: React.FC<
+  DialogBoxBackgroundFooterProps
+> = ({ backText }) => (
   <Flex
     position="absolute"
     bottom={0}
@@ -62,16 +58,18 @@ export const DialogBoxBackgroundFooter = () => (
       lg: 5,
     }}
   >
-    <Link to="/">
-      <Button variant="none">
-        <Flex gap={8}>
-          <Image src={backIcon} alt="Back" />
-          <Typography color="muted" fontSize={14}>
-            Back
-          </Typography>
-        </Flex>
-      </Button>
-    </Link>
+    {backText && (
+      <Link to="/">
+        <Button variant="none">
+          <Flex gap={8}>
+            <Image src={backIcon} alt="Back" />
+            <Typography color="muted" fontSize={14}>
+              <LangDisplay text={backText} />
+            </Typography>
+          </Flex>
+        </Button>
+      </Link>
+    )}
   </Flex>
 );
 

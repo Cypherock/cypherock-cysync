@@ -1,4 +1,5 @@
 import { app, dialog } from 'electron';
+import { beforeQuitHook } from './hooks';
 import { logger } from './logger';
 
 const handleUncaughtError = async (error: any, promise?: any) => {
@@ -19,11 +20,12 @@ const handleUncaughtError = async (error: any, promise?: any) => {
 
   dialog.showErrorBox(title, errorMsg);
 
+  await beforeQuitHook();
   app.exit(1);
 };
 
 export const setupProcessEventHandlers = () => {
   process.on('uncaughtException', handleUncaughtError);
   process.on('unhandledRejection', handleUncaughtError);
-  process.on('SIGTERM', () => app.exit(0));
+  process.on('SIGTERM', () => beforeQuitHook(app));
 };
