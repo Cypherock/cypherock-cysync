@@ -10,9 +10,6 @@ interface BulletProps {
 const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.textHeading};
-  ${spacing}
-
-  //size
   ${props =>
     props.size === 'sm' &&
     css`
@@ -28,7 +25,6 @@ const BulletStyle = styled.div<BulletProps>`
       height: 16px;
     `}
 
-  //variant
   ${props =>
     props.variant === 'outline' &&
     css`
@@ -43,28 +39,29 @@ const BulletStyle = styled.div<BulletProps>`
     css`
       background-color: ${({ theme }) => theme.palette.bullet.white};
     `}
-
-  ${props =>
+      
+    ${props =>
     props.variant === 'gold' &&
     css`
       background-image: ${({ theme }) => theme.palette.golden};
     `}
-  ${props =>
+    ${props =>
     props.variant === 'success' &&
     css`
       background-color: ${({ theme }) => theme.palette.success.main};
     `}
-  ${props =>
+    ${props =>
     props.variant === 'failed' &&
     css`
       background-color: ${({ theme }) => theme.palette.warning.main};
     `}
-
-  ${props =>
+            
+    ${props =>
     props.variant === 'muted' &&
     css`
       background-color: ${({ theme }) => theme.palette.text.textMuted};
     `}
+    ${spacing}
 `;
 
 export const Bullet: FC<BulletProps> = ({ ...props }) => (

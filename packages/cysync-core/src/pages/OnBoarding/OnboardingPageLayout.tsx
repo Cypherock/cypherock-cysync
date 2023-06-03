@@ -69,6 +69,8 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   withHelp,
   withBack,
   withEmail,
+  title,
+  subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
 
@@ -78,6 +80,9 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
       text={text}
       currentState={currentState}
       totalState={totalState}
+      title={title}
+      subTitle={subTitle}
+      version={(window as any).cysyncEnv.VERSION}
       headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
       footerProps={parseFooterProps({ withBack, lang })}
     >

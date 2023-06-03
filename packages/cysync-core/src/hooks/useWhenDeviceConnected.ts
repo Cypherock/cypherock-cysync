@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { ConnectDevice } from '@cypherock/cysync-interfaces';
-
 import { routes } from '~/constants';
 import {
   DeviceConnectionStatus,

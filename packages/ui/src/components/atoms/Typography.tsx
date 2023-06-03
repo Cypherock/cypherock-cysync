@@ -11,8 +11,8 @@ import {
   PositionProps,
   display,
   DisplayProps,
-  FlexProps,
   flex,
+  FlexProps,
 } from '../utils';
 
 interface HeadingProps
@@ -66,18 +66,19 @@ ${props =>
     css`
       color: ${({ theme }) => theme.palette.success.main};
     `}
-
-  ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
-
-  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
-
-  max-width: 100%;
-  ${flex};
+    
+    ${props =>
+    props.color && `color: ${props.theme.palette.text[props.color]};`}
+    
+    ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
+    
+    max-width: 100%;
   ${spacing};
   ${font};
   ${width};
   ${position};
   ${display};
+  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
@@ -105,7 +106,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   ${baseStyle};
 `;

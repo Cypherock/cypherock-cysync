@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["ES2015"]
+    "lib": ["ES2015"],
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "extends": "./tsconfig.json",
   "include": ["./src/**/*", "./tests/**/*"],

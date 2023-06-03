@@ -19,6 +19,7 @@ const Text = styled.span`
     font-size: 40px;
   }
 `;
+
 export const Aside = (props: AsideProps): ReactElement => {
   const { img, text, currentState, totalState } = props;
   return (
@@ -31,6 +32,7 @@ export const Aside = (props: AsideProps): ReactElement => {
       position="relative"
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+
       <Image
         src={img}
         alt="device"
