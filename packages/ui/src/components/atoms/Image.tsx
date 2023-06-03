@@ -2,15 +2,15 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import {
   spacing,
-  $alignSelf,
   animate,
   SpacingProps,
   AnimateProps,
-  AlignSelfProps,
   height,
   width,
   ImageHeightProps,
   ImageWidthProps,
+  FlexProps,
+  flex,
   TransformProps,
   transform,
   PositionProps,
@@ -20,23 +20,23 @@ import {
 export interface ImageProps
   extends SpacingProps,
     AnimateProps,
-    AlignSelfProps,
     ImageHeightProps,
     ImageWidthProps,
     TransformProps,
-    PositionProps {
+    PositionProps,
+    FlexProps {
   src: string;
   alt: string;
 }
 
 const ImageStyle = styled.img<ImageProps>`
   ${spacing}
-  ${$alignSelf}
   ${animate}
   ${height}
   ${width}
   ${transform}
   ${position}
+  ${flex}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (

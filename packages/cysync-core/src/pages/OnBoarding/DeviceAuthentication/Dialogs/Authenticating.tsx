@@ -3,8 +3,8 @@ import {
   Image,
   DialogBox,
   DialogBoxBody,
-  loader,
   LangDisplay,
+  loader,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
@@ -17,7 +17,7 @@ export const Authenticating: React.FC = () => {
     <DialogBox width={500}>
       <DialogBoxBody>
         <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
-        <Typography variant="h5" $textAlign="center">
+        <Typography variant="h6" $textAlign="center">
           <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
           ...(
           <span

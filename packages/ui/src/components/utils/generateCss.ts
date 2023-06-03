@@ -28,5 +28,5 @@ export function generateCss<T>(
       });
     }
   }
-  return result;
+  return result.join(' ');
 }

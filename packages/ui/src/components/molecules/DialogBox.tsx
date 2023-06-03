@@ -8,7 +8,6 @@ import {
   DisplayProps,
   SpacingProps,
   spacing,
-  display,
 } from '../utils';
 import { HeightProps, height } from '../utils/height.styled';
 
@@ -23,6 +22,9 @@ export interface DialogBoxProps
 
 const DialogBoxStyle = styled.section<DialogBoxProps>`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
@@ -34,11 +36,9 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${width}
   ${height}
   ${spacing}
-  ${display}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
-  display: flex;
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -49,7 +49,7 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
   border-color: ${({ theme }) => theme.palette.border.popup};
   padding-top: ${({ theme }) => theme.spacing.two.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  color: ${({ theme }) => theme.palette.text.muted};
+  color: ${({ theme }) => theme.palette.text.mutedText};
   ${flex}
   ${width}
   ${height}
@@ -58,17 +58,23 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
 
 const DialogBoxBodyStyle = styled.div<DialogBoxProps>`
   display: flex;
-  padding: 42px 40px 32px 40px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: inherit;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   gap: 32px;
   ${flex}
+  ${width}
+  ${height}
+  ${spacing}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxProps>`
+  width: 100%;
   padding: 32px 0;
   display: flex;
   flex-direction: row;
@@ -79,7 +85,6 @@ const DialogBoxFooterStyle = styled.div<DialogBoxProps>`
   border-left: 0;
   border-right: 0;
   border-style: solid;
-  width: 100%;
   border-color: ${({ theme }) => theme.palette.border.popup};
   gap: ${({ theme }) => theme.spacing.two.spacing};
   ${flex}

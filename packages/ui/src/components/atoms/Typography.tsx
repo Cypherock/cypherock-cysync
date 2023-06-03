@@ -11,8 +11,6 @@ import {
   PositionProps,
   display,
   DisplayProps,
-  AlignSelfProps,
-  $alignSelf,
   flex,
   FlexProps,
 } from '../utils';
@@ -23,7 +21,6 @@ interface HeadingProps
     WidthProps,
     PositionProps,
     DisplayProps,
-    AlignSelfProps,
     FlexProps {
   color?:
     | 'gold'
@@ -76,7 +73,6 @@ ${props =>
     ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
     
     max-width: 100%;
-  ${$alignSelf};
   ${spacing};
   ${font};
   ${width};
@@ -101,14 +97,6 @@ const HeadingThreeStyle = styled.h3<HeadingProps>`
   font-size: 28px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${width};
-  ${position};
-  ${display};
-
-  @media ${({ theme }) => theme.screens.lg} {
-    font-size: 28px;
-  }
 `;
 
 const HeadingFourStyle = styled.h4<HeadingProps>`
@@ -118,18 +106,9 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   ${baseStyle};
-  ${spacing};
-  ${font};
-  ${width};
-  ${position};
-  ${display};
-
-  @media ${({ theme }) => theme.screens.lg} {
-    font-size: 20px;
-  }
 `;
 
 const HeadingSixStyle = styled.h6<HeadingProps>`

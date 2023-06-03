@@ -9,7 +9,7 @@ export const border = css<BorderProps>`
   ${props => {
     if (props.border) {
       if (props.border === 'popup')
-        return `border: 1px solid ${theme.palette.border.separator};`;
+        return `border: 1px solid ${theme.palette.border.popup};`;
     }
     return null;
   }}

@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import { $alignSelf, AlignSelfProps } from './alignSelf.styled';
 import { borderRadius, BorderRadiusProps } from './borderRadius.styled';
 import { display, DisplayProps } from './display.styled';
 import { flex, FlexProps } from './flex.styled';
@@ -22,7 +21,6 @@ export interface UtilsProps
     PositionProps,
     SpacingProps,
     WidthProps,
-    AlignSelfProps,
     DisplayProps,
     ShadowProps,
     BorderProps,
@@ -42,7 +40,6 @@ export const utils = css<UtilsProps>`
   ${height}
   ${display}
   ${shadow}
-  ${$alignSelf}
   ${transform}
   ${animate}
 `;
@@ -54,7 +51,6 @@ export * from './flex.styled';
 export * from './font.styled';
 export * from './transform.styled';
 export * from './position.styled';
-export * from './alignSelf.styled';
 export * from './display.styled';
 export * from './width.styled';
 export * from './shadow.styled';

@@ -4,6 +4,7 @@ import { utils, UtilsProps } from '../utils';
 
 interface ContainerProps extends UtilsProps {
   children?: ReactNode;
+  size?: 'lg';
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
@@ -19,4 +20,5 @@ export const Container: FC<ContainerProps> = ({ children, ...props }) => (
 
 Container.defaultProps = {
   children: null,
+  size: 'lg',
 };

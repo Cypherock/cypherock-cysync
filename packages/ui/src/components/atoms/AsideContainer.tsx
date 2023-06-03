@@ -5,6 +5,7 @@ import { theme } from '../../themes/theme.styled';
 
 interface AsideContainerProps extends UtilsProps {
   children?: ReactNode;
+  size?: 'lg';
 }
 
 const AsideContainerStyle = styled.div<AsideContainerProps>`
@@ -28,9 +29,6 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
       border-color: ${theme.palette.background.separator};
     `}
 
-  min-width: 280px;
-  min-height: 100vh;
-  padding: 32px;
   ${utils}
 `;
 
@@ -41,4 +39,5 @@ export const AsideContainer: FC<AsideContainerProps> = ({
 
 AsideContainer.defaultProps = {
   children: null,
+  size: 'lg',
 };

@@ -17,10 +17,10 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
     <DialogBox width={500}>
       <DialogBoxBody gap={48}>
         <Container display="flex" direction="column" gap={4}>
-          <Typography variant="h5" $textAlign="center">
+          <Typography variant="h6" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.cardAuth.title} /> (
             <Button variant="none" color="golden">
-              <Typography variant="h5" color="gold">
+              <Typography variant="h6" color="gold">
                 ?
               </Typography>
             </Button>

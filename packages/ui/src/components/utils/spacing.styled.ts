@@ -14,7 +14,7 @@ const spacingObj = {
   8: theme.spacing.eight.spacing,
   auto: 'auto',
 };
-type SpacingOptions = keyof typeof spacingObj;
+type SpacingOptions = keyof typeof spacingObj | string;
 
 type MediaQuery<T> = Partial<Record<BreakPoint, T>> | T;
 
@@ -28,9 +28,7 @@ type SpacingType<T extends string> =
   | `${T}y`;
 
 export type SpacingProps = {
-  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<
-    SpacingOptions | number
-  >;
+  [key in SpacingType<'m'> | SpacingType<'p'>]?: MediaQuery<SpacingOptions>;
 };
 
 const cssMap: Record<string, string[]> = {
@@ -75,6 +73,13 @@ const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
   return properties;
 };
 
+const getSpacingValue = (param: SpacingOptions) => {
+  if (typeof param === 'string') {
+    return `${param}px`;
+  }
+  return spacingObj[param];
+};
+
 const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
   const result: any = [];
   if (obj) {
@@ -85,9 +90,7 @@ const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
           names.forEach(name => {
             result.push(`
               @media ${theme.screens[bp as BreakPoint]} {
-                ${name}: ${
-              spacingObj[value] !== undefined ? spacingObj[value] : `${value}px`
-            }};
+                ${name}: ${getSpacingValue(value)};
               }
             `);
           });
@@ -95,11 +98,7 @@ const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
       }
     } else {
       names.forEach(name => {
-        result.push(
-          `${name}: ${
-            spacingObj[obj] !== undefined ? spacingObj[obj] : `${obj}px`
-          };`,
-        );
+        result.push(`${name}: ${getSpacingValue(obj)};`);
       });
     }
   }

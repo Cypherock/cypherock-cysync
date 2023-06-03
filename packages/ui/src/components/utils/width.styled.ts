@@ -13,30 +13,30 @@ export interface ImageWidthProps {
 }
 
 const widthMap: Record<WidthType, string> = {
-  full: '100%;',
-  screen: '100vw;',
-  inherit: 'inherit;',
+  full: '100%',
+  screen: '100vw',
+  inherit: 'inherit',
 };
 
 const getWidth = (width: WidthType | number | string) => {
-  const widthCss = [];
+  let widthCss = '';
   if (width !== undefined) {
     if (typeof width === 'string') {
       if (widthMap[width as WidthType]) {
-        widthCss.push(widthMap[width as WidthType]);
+        widthCss = widthMap[width as WidthType];
       } else if (width.includes('/')) {
         const numberArray = width.split('/');
         const firstNumber = parseInt(numberArray[0], 10);
         const secondNumber = parseInt(numberArray[1], 10);
-        widthCss.push(`${(firstNumber / secondNumber) * 100}%;`);
+        widthCss = `${(firstNumber / secondNumber) * 100}%`;
       } else {
-        widthCss.push(`${width}px;`);
+        widthCss = `${width}px`;
       }
     } else if (typeof width === 'number') {
-      widthCss.push(`${width}px;`);
+      widthCss = `${width}px`;
     }
   }
-  return widthCss.join(' ');
+  return widthCss;
 };
 
 export const width = css<WidthProps>`

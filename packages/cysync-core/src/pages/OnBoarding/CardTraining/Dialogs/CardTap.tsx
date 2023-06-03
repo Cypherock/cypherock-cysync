@@ -15,7 +15,7 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={48}>
-        <Typography variant="h5" $textAlign="center">
+        <Typography variant="h6" $textAlign="center">
           <LangDisplay text={lang.strings.onboarding.cardTraining.title} />
         </Typography>
         <CardTapList

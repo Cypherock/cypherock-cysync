@@ -15,6 +15,21 @@ type AlignType = 'flex-start' | 'center' | 'baseline' | 'flex-end' | 'stretch';
 
 type DirectionType = 'row' | 'column';
 
+type AlignSelfType =
+  | 'auto'
+  | 'stretch'
+  | 'center'
+  | 'start'
+  | 'end'
+  | 'baseline'
+  | 'initial'
+  | 'inherit';
+
+const alignSelfObj: Record<string, string> = {
+  start: 'flex-start',
+  end: 'flex-end',
+};
+
 export interface FlexProps {
   children?: ReactNode;
   wrapReverse?: MediaQuery<boolean>;
@@ -24,6 +39,7 @@ export interface FlexProps {
   direction?: MediaQuery<DirectionType>;
   gap?: MediaQuery<number>;
   grow?: MediaQuery<number>;
+  $alignSelf?: MediaQuery<AlignSelfType>;
 }
 
 const justifyContent = css<FlexProps>`
@@ -62,10 +78,21 @@ const grow = css<FlexProps>`
     generateCss(['flex-grow'], (item: number) => `${item}`, props.grow)}
 `;
 
+const $alignSelf = css<FlexProps>`
+  ${props =>
+    props.$alignSelf &&
+    generateCss(
+      ['align-self'],
+      (item: string) => `${alignSelfObj[item] ?? item}`,
+      props.$alignSelf,
+    )}
+`;
+
 export const flex = css<FlexProps>`
   ${justifyContent}
   ${align}
   ${direction}
   ${gap}
   ${grow}
+  ${$alignSelf}
 `;

@@ -21,7 +21,7 @@ const CheckBoxIcon = styled.div`
   top: 1px;
   left: 1px;
   border-radius: 2px;
-  transform: translate(21%, 40%);
+  transform: translate(19%, 34%);
 `;
 
 const CheckBoxLabelStyle = styled.label.attrs({ htmlFor: 'checkbox_id' })`
@@ -33,13 +33,13 @@ const CheckBoxLabelStyle = styled.label.attrs({ htmlFor: 'checkbox_id' })`
 
   &:before {
     content: '';
-    width: 11.5px;
-    height: 11px;
+    width: 13px;
+    height: 13px;
     border-radius: 2px;
     position: absolute;
     top: 1px;
     left: 1px;
-    transform: translate(0%, 15%);
+    transform: translate(-6%, 3%);
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
 `;

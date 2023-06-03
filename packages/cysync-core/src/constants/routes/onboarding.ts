@@ -1,13 +1,9 @@
 import { IRouteInfo } from './types';
 
 export const onboarding: Record<string, IRouteInfo> = {
-  information: {
-    name: 'information',
+  info: {
+    name: 'info',
     path: '/',
-  },
-  usage: {
-    name: 'usage',
-    path: '/usage',
   },
   terms: {
     name: 'terms',

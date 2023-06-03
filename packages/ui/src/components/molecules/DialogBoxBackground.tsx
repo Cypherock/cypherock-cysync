@@ -1,5 +1,4 @@
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import {
   Container,
   Flex,
@@ -9,7 +8,6 @@ import {
   LangDisplay,
 } from '../atoms';
 import { backIcon } from '../../assets/images';
-import { UtilsProps } from '../utils';
 
 export interface DialogBoxBackgroundHeaderProps {
   topLeftComponent?: React.ReactNode | undefined;
@@ -21,8 +19,7 @@ export const DialogBoxBackgroundHeader: React.FC<
 > = ({ topLeftComponent, topRightComponent }) => (
   <Flex
     position="absolute"
-    top={6}
-    right={6}
+    top={0}
     width="full"
     justify="space-between"
     p={{
@@ -50,7 +47,6 @@ export const DialogBoxBackgroundFooter: React.FC<
   <Flex
     position="absolute"
     bottom={0}
-    left={0}
     width="full"
     justify="flex-start"
     p={{
@@ -59,27 +55,20 @@ export const DialogBoxBackgroundFooter: React.FC<
     }}
   >
     {backText && (
-      <Link to="/">
-        <Button variant="none">
-          <Flex gap={8}>
-            <Image src={backIcon} alt="Back" />
-            <Typography color="muted" fontSize={14}>
-              <LangDisplay text={backText} />
-            </Typography>
-          </Flex>
-        </Button>
-      </Link>
+      <Button variant="none">
+        <Flex gap={8}>
+          <Image src={backIcon} alt="Back" />
+          <Typography color="muted" fontSize={14}>
+            <LangDisplay text={backText} />
+          </Typography>
+        </Flex>
+      </Button>
     )}
   </Flex>
 );
 
-interface DialogBoxBackgroundProps extends UtilsProps {
-  children: ReactNode;
-}
-
-export const DialogBoxBackground: React.FC<DialogBoxBackgroundProps> = ({
+export const DialogBoxBackground: React.FC<{ children: React.ReactNode }> = ({
   children,
-  ...props
 }) => (
   <Container
     $bgColor="contentGradient"
@@ -90,7 +79,6 @@ export const DialogBoxBackground: React.FC<DialogBoxBackgroundProps> = ({
     justify="center"
     display="flex"
     grow={1}
-    {...props}
   >
     {children}
   </Container>

@@ -8,6 +8,7 @@ interface ModalProps extends UtilsProps {
 }
 
 const ModalStyle = styled.div<ModalProps>`
+  ${utils}
   ${props =>
     props.position &&
     css`
@@ -17,7 +18,6 @@ const ModalStyle = styled.div<ModalProps>`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
   backdrop-filter: blur(3px);
-  ${utils}
 `;
 
 export const Modal: FC<ModalProps> = ({ children, ...props }) => (

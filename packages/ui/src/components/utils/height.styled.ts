@@ -13,9 +13,9 @@ export interface ImageHeightProps {
 }
 
 const heightMap: Record<HeightType, string> = {
-  full: '100%;',
-  screen: '100vh;',
-  inherit: 'inherit;',
+  full: '100%',
+  screen: '100vh',
+  inherit: 'inherit',
 };
 
 const getHeight = (height: HeightType | number | string) => {
@@ -28,12 +28,12 @@ const getHeight = (height: HeightType | number | string) => {
         const numberArray = height.split('/');
         const firstNumber = parseInt(numberArray[0], 10);
         const secondNumber = parseInt(numberArray[1], 10);
-        heightCss.push(`${(firstNumber / secondNumber) * 100}%;`);
+        heightCss.push(`${(firstNumber / secondNumber) * 100}%`);
       } else {
-        heightCss.push(`${height}px;`);
+        heightCss.push(`${height}px`);
       }
     } else if (typeof height === 'number') {
-      heightCss.push(`${height}px;`);
+      heightCss.push(`${height}px`);
     }
   }
   return heightCss.join(' ');

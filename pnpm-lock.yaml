@@ -438,7 +438,7 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       ts-jest:
-        specifier: ^29.0.5
+        specifier: ^29.1.0
         version: 29.1.0(@babel/core@7.22.1)(jest@29.5.0)(typescript@5.0.4)
       tsc-alias:
         specifier: ^1.8.6
@@ -686,9 +686,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.11.2(react-dom@18.2.0)(react@18.2.0)
       react-tsparticles:
         specifier: ^2.9.3
         version: 2.9.3(react@18.2.0)
@@ -11049,7 +11046,6 @@ packages:
   /slice-ansi@3.0.0:
     resolution: {integrity: sha512-pSyv7bSTC7ig9Dcgbw9AuRNUb5k5V6oDudjZoMBSr13qpLBG7tB+zgCkARjq7xIUgdz5P1Qe8u+rSGdouOOIyQ==}
     engines: {node: '>=8'}
-    requiresBuild: true
     dependencies:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
