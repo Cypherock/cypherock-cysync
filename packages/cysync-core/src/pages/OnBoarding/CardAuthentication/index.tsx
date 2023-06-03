@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { cardTapAsideImage } from '@cypherock/cysync-ui';
 
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import {
-  addKeyboardEvents,
+  OnConnectCallback,
   useNavigateTo,
   useStateWithFinality,
   useWhenDeviceConnected,
@@ -16,19 +17,33 @@ import { OnboardingPageLayout } from '../OnboardingPageLayout';
 export const CardAuthentication: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  // number of card taps needed for authentication 3 taps per card for 4 cards
+  const tapsPerCard = 3;
+  const totalCards = 4;
+
+  // number of card taps needed for authentication for 4 cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
-    useStateWithFinality(0, 12);
+    useStateWithFinality(0, tapsPerCard * totalCards);
   const navigateTo = useNavigateTo();
 
-  useWhenDeviceConnected();
+  const cardAuth: OnConnectCallback = async ({ connection, connectDevice }) => {
+    if (!connection) return;
 
-  // replace this with cardAuth function
-  addKeyboardEvents({
-    ' ': () => {
-      setCardTapState(s => s + 1);
-    },
-  });
+    const app = await ManagerApp.create(await connectDevice(connection.device));
+    for (let cardNumber = 1; cardNumber <= totalCards; cardNumber += 1) {
+      await app.authCard({
+        cardIndex: cardNumber,
+        isPairRequired: tapsPerCard === 3,
+        onEvent: flowStatus => {
+          const newState =
+            Math.min(flowStatus - 1, tapsPerCard) +
+            (cardNumber - 1) * tapsPerCard;
+          setCardTapState(newState);
+        },
+      });
+    }
+    await app.destroy();
+  };
+  useWhenDeviceConnected(cardAuth);
 
   useEffect(() => {
     if (isFinalCardTapState) navigateTo(routes.onboarding.congratulations.path);
@@ -43,7 +58,11 @@ export const CardAuthentication: React.FC = () => {
       withEmail
       withHelp
     >
-      <CardTap tapState={cardTapState} />
+      <CardTap
+        tapState={cardTapState}
+        tapsPerCard={tapsPerCard}
+        totalCards={totalCards}
+      />
     </OnboardingPageLayout>
   );
 };
