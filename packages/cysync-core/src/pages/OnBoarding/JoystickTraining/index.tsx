@@ -40,7 +40,7 @@ export const JoystickTraining: React.FC = () => {
   useWhenDeviceConnected(trainJoystick);
 
   useEffect(() => {
-    if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 3000);
+    if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 6000);
   }, [isFinalState]);
 
   return (

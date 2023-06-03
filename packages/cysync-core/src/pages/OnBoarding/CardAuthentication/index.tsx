@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cardTapAsideImage } from '@cypherock/cysync-ui';
 
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import {
   OnConnectCallback,
   useNavigateTo,
+  useQuery,
   useStateWithFinality,
   useWhenDeviceConnected,
 } from '~/hooks';
@@ -15,12 +16,13 @@ import { CardTap } from './Dialogs/CardTap';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const CardAuthentication: React.FC = () => {
+  const query = useQuery();
   const lang = useAppSelector(selectLanguage);
 
-  const tapsPerCard = 3;
   const totalCards = 4;
 
-  // number of card taps needed for authentication for 4 cards
+  const [tapsPerCard, setTapsPerCard] = useState(3);
+  // total number of card taps needed for authentication for all cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, tapsPerCard * totalCards);
   const navigateTo = useNavigateTo();
@@ -31,7 +33,7 @@ export const CardAuthentication: React.FC = () => {
     const app = await ManagerApp.create(await connectDevice(connection.device));
     for (let cardNumber = 1; cardNumber <= totalCards; cardNumber += 1) {
       await app.authCard({
-        cardIndex: cardNumber,
+        cardNumber,
         isPairRequired: tapsPerCard === 3,
         onEvent: flowStatus => {
           const newState =
@@ -48,6 +50,11 @@ export const CardAuthentication: React.FC = () => {
   useEffect(() => {
     if (isFinalCardTapState) navigateTo(routes.onboarding.congratulations.path);
   }, [isFinalCardTapState]);
+
+  useEffect(() => {
+    const isPaired = query.get('isPaired') === 'true';
+    setTapsPerCard(isPaired ? 2 : 3);
+  }, []);
 
   return (
     <OnboardingPageLayout
