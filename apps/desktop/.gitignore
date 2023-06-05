@@ -99,3 +99,8 @@ dist-electron
 release
 .turbo
 coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
+screenshots
+videos

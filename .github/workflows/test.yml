@@ -10,6 +10,7 @@ permissions:
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  CI: true
 
 jobs:
   test:
@@ -23,7 +24,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v3
         with:
-          submodules: "recursive"
+          submodules: 'recursive'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
