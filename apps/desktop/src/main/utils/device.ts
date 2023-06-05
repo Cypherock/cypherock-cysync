@@ -15,6 +15,10 @@ let connectedDevice:
   | { device: IDevice; connection: IDeviceConnection }
   | undefined;
 
+export const removeConnectedDevice = () => {
+  connectedDevice = undefined;
+};
+
 export const abortAndRemoveConnectedDevice = async () => {
   try {
     logger.debug('DeviceCleanup Started');
@@ -36,8 +40,8 @@ export const abortAndRemoveConnectedDevice = async () => {
     await sdk.sendAbort();
     await sdk.destroy();
   } catch (error) {
-    logger.warn('Error while device connection cleanup');
-    logger.warn(error);
+    logger.debug('Error while device connection cleanup');
+    logger.debug(error);
   } finally {
     if (connectedDevice) {
       try {
@@ -45,6 +49,7 @@ export const abortAndRemoveConnectedDevice = async () => {
         // eslint-disable-next-line no-empty
       } catch (error) {}
     }
+    connectedDevice = undefined;
   }
 };
 

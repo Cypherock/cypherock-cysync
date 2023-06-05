@@ -4,6 +4,7 @@ import { SDK } from '@cypherock/sdk-core';
 import * as lodash from 'lodash';
 
 import { aquireDeviceLock, releaseDeviceLock, useDevice } from '~/context';
+import logger from '~/utils/logger';
 
 export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
@@ -39,6 +40,7 @@ export function useDeviceTask<T>(handler: DeviceTask<T>) {
       isAbortedRef.current = true;
     } catch (error: any) {
       if (!isAbortedRef.current) {
+        logger.error(error);
         setTaskError(error);
       }
 

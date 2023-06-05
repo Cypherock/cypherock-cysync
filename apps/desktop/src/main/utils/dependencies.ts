@@ -4,8 +4,11 @@ import { updateLogger as updateLoggerSerialPort } from '@cypherock/sdk-hw-serial
 
 import { createServiceLogger } from './logger';
 
+const createMainServiceLogger = (name: string) =>
+  createServiceLogger(`main-${name}`);
+
 export const setupDependencies = () => {
-  updateLoggerHID(createServiceLogger);
-  updateLoggerSerialPort(createServiceLogger);
-  updateLoggerCore(createServiceLogger);
+  updateLoggerHID(createMainServiceLogger);
+  updateLoggerSerialPort(createMainServiceLogger);
+  updateLoggerCore(createMainServiceLogger);
 };
