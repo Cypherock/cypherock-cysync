@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { cardTapAsideImage } from '@cypherock/cysync-ui';
 
-import { ManagerApp } from '@cypherock/sdk-app-manager';
+import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import {
   OnConnectCallback,
   useNavigateTo,
@@ -37,7 +37,10 @@ export const CardAuthentication: React.FC = () => {
         isPairRequired: tapsPerCard === 3,
         onEvent: flowStatus => {
           const newState =
-            Math.min(flowStatus - 1, tapsPerCard) +
+            Math.min(
+              flowStatus - AuthCardStatus.AUTH_CARD_STATUS_SERIAL_SIGNED + 1,
+              tapsPerCard,
+            ) +
             (cardNumber - 1) * tapsPerCard;
           setCardTapState(newState);
         },

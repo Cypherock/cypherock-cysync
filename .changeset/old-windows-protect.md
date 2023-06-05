@@ -3,4 +3,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-sdk integration for card flows
+sdk integration for onboarding card flows
