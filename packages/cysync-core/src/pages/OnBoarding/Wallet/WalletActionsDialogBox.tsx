@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import {
   Button,
   Container,
@@ -14,96 +14,241 @@ import {
   addWalletIcon,
   importWalletIcon,
   getDefaultTheme,
+  recoverWalletIcon,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 const theme = getDefaultTheme();
 
-const createWalletList: Array<{ index: number; text: string | ReactNode }> = [
-  {
-    index: 1,
-    text: (
-      <Typography variant="h6" color="muted" $textAlign="left" mb={2}>
-        If you have bought a brand new Cypherock X1 and want to setup a new
-        wallet
-      </Typography>
-    ),
-  },
-];
-const importWalletList: Array<{ index: number; text: string | ReactNode }> = [
-  {
-    index: 1,
-    text: (
-      <Typography variant="h6" color="muted" $textAlign="left" mb={2}>
-        You want to transfer your assets from your other wallets into Cypherock
-        X1. (
-        <span
-          style={{
-            background: theme.palette.golden,
-            WebkitTextFillColor: 'transparent',
-            WebkitBackgroundClip: 'text',
+const WalletActionsDialogBox: FC<{
+  help: string;
+  title: string;
+  subTitle: string;
+  createWallet: {
+    title: string;
+    button: string;
+    list: Array<string>;
+  };
+  importWallet: {
+    title: string;
+    button: string;
+    list: Array<string>;
+  };
+  footer: {
+    title: string;
+    subTitle: string;
+    button: string;
+  };
+}> = ({ createWallet, footer, help, importWallet, title, subTitle }) => (
+  <DialogBox width="full">
+    <Container width="full" p={2} justify="flex-start">
+      <Button variant="none">
+        <Typography color="muted" fontSize={14}>
+          <LangDisplay text={help} />
+          <span
+            style={{
+              background: theme.palette.golden,
+              WebkitTextFillColor: 'transparent',
+              WebkitBackgroundClip: 'text',
+            }}
+          >
+            ?
+          </span>
+        </Typography>
+      </Button>
+    </Container>
+    <DialogBoxBody
+      p="20"
+      grow={2}
+      align="center"
+      gap={110}
+      direction="column"
+      height="full"
+    >
+      <Flex align="center" direction="column">
+        <Typography
+          width={{
+            def: 582,
+            lg: 1141,
           }}
-        >
-          ?
-        </span>
-        )
-      </Typography>
-    ),
-  },
-  {
-    index: 2,
-    text: (
-      <Typography variant="h6" color="muted" $textAlign="left" mb={2}>
-        You want to transfer your assets from your other wallets into Cypherock
-        X1.(
-        <span
-          style={{
-            background: theme.palette.golden,
-            WebkitTextFillColor: 'transparent',
-            WebkitBackgroundClip: 'text',
+          $textAlign="center"
+          fontSize={{
+            def: 20,
+            lg: 24,
           }}
+          variant="h4"
+          color="heading"
+          mb={1}
         >
-          ?
-        </span>
-        )
-      </Typography>
-    ),
-  },
-  {
-    index: 3,
-    text: (
-      <Typography variant="h6" color="muted" $textAlign="left" mb={2}>
-        You want to see all portfolio of your other wallets through Cypherock
-        X1. (
-        <span
-          style={{
-            background: theme.palette.golden,
-            WebkitTextFillColor: 'transparent',
-            WebkitBackgroundClip: 'text',
+          <LangDisplay text={title} />
+        </Typography>
+        <Typography
+          display={{
+            def: 'none',
+            lg: 'block',
           }}
+          width={964}
+          $textAlign="center"
+          variant="h5"
+          color="muted"
+          mb={1}
         >
-          ?
-        </span>
-        )
-      </Typography>
-    ),
-  },
-];
+          <LangDisplay text={subTitle} />
+        </Typography>
+      </Flex>
+      <Flex gap={20} px={{ def: '40', lg: '150' }}>
+        <DialogBox width="full">
+          <DialogBoxBody height="full">
+            <Image width={45} src={addWalletIcon} alt="importWalletIcon" />
+            <Flex gap={48} direction="column" height="full">
+              <Typography
+                $textAlign="center"
+                variant="h5"
+                color="heading"
+                mb={1}
+              >
+                <LangDisplay text={createWallet.title} />
+              </Typography>
+              <Container
+                display={{
+                  def: 'none',
+                  lg: 'flex',
+                }}
+                justify="flex-start"
+                height="full"
+                $bgColor="list"
+                direction="column"
+              >
+                <ListContainer p={4} direction="column" width="full">
+                  {createWallet.list.map((item, index) => (
+                    <ListItem
+                      key={`create-wallet-list-${index + 1}`}
+                      width="full"
+                    >
+                      <Typography
+                        variant="h6"
+                        color="muted"
+                        $textAlign="left"
+                        mb={2}
+                      >
+                        {item}(
+                        <span
+                          style={{
+                            background: theme.palette.golden,
+                            WebkitTextFillColor: 'transparent',
+                            WebkitBackgroundClip: 'text',
+                          }}
+                        >
+                          ?
+                        </span>
+                        )
+                      </Typography>
+                    </ListItem>
+                  ))}
+                </ListContainer>
+              </Container>
+            </Flex>
+          </DialogBoxBody>
+          <DialogBoxFooter>
+            <Button variant="primary">
+              <LangDisplay text={createWallet.button} />
+            </Button>
+          </DialogBoxFooter>
+        </DialogBox>
+        <DialogBox width="full">
+          <DialogBoxBody height="full">
+            <Image width={45} src={importWalletIcon} alt="importWalletIcon" />
+            <Flex gap={48} direction="column" height="full">
+              <Typography
+                $textAlign="center"
+                variant="h5"
+                color="heading"
+                mb={1}
+              >
+                <LangDisplay text={importWallet.title} />
+              </Typography>
+              <Container
+                display={{
+                  def: 'none',
+                  lg: 'flex',
+                }}
+                justify="flex-start"
+                height="full"
+                $bgColor="list"
+                direction="column"
+              >
+                <ListContainer p={4} direction="column" width="full">
+                  {importWallet.list.map((item, index) => (
+                    <ListItem
+                      key={`import-wallet-list-${index + 1}`}
+                      width="full"
+                    >
+                      <Typography
+                        variant="h6"
+                        color="muted"
+                        $textAlign="left"
+                        mb={2}
+                      >
+                        {item}(
+                        <span
+                          style={{
+                            background: theme.palette.golden,
+                            WebkitTextFillColor: 'transparent',
+                            WebkitBackgroundClip: 'text',
+                          }}
+                        >
+                          ?
+                        </span>
+                        )
+                      </Typography>
+                    </ListItem>
+                  ))}
+                </ListContainer>
+              </Container>
+            </Flex>
+          </DialogBoxBody>
+          <DialogBoxFooter>
+            <Button variant="primary">
+              <LangDisplay text={importWallet.button} />
+            </Button>
+          </DialogBoxFooter>
+        </DialogBox>
+      </Flex>
+    </DialogBoxBody>
+    <DialogBoxFooter>
+      <Flex
+        align="center"
+        gap={{ def: 16, lg: 32 }}
+        px={{ def: '20', lg: '250' }}
+      >
+        <Image src={recoverWalletIcon} alt="recoverWallet" />
+        <Flex direction="column">
+          <Typography variant="h5" color="heading" mb={1}>
+            <LangDisplay text={footer.title} />
+          </Typography>
+          <Typography
+            display={{
+              def: 'none',
+              lg: 'block',
+            }}
+            variant="h5"
+            color="muted"
+            mb={1}
+          >
+            <LangDisplay text={footer.subTitle} />
+          </Typography>
+        </Flex>
+        <Button variant="primary">
+          <LangDisplay text={footer.button} />
+        </Button>
+      </Flex>
+    </DialogBoxFooter>
+  </DialogBox>
+);
 
-const createWalletListItems = createWalletList.map(li => (
-  <ListItem key={li.index} width="full">
-    {li.text}
-  </ListItem>
-));
-
-const importWalletListItems = importWalletList.map(li => (
-  <ListItem key={li.index} width="full">
-    {li.text}
-  </ListItem>
-));
-
-export const WalletActionsDialogBox: FC<{}> = () => {
+export const WalletActions: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
   return (
     <OnboardingPageLayout
@@ -115,137 +260,18 @@ export const WalletActionsDialogBox: FC<{}> = () => {
       withHelp
       withBack
     >
-      <DialogBox width="full" pb={{ def: '60', lg: '102.5' }}>
-        <Container width="full" p={2} justify="flex-start">
-          <Button variant="none">
-            <Typography color="muted" fontSize={14}>
-              Help
-              <span
-                style={{
-                  background: theme.palette.golden,
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBackgroundClip: 'text',
-                }}
-              >
-                ?
-              </span>
-            </Typography>
-          </Button>
-        </Container>
-        <DialogBoxBody
-          p={{ def: '20', lg: '40' }}
-          grow={2}
-          align="center"
-          gap={110}
-          direction="column"
-          height="full"
-        >
-          <Flex align="center" direction="column">
-            <Typography
-              width={{
-                def: 582,
-                lg: 1141,
-              }}
-              $textAlign="center"
-              fontSize={{
-                def: 20,
-                lg: 24,
-              }}
-              variant="h4"
-              color="heading"
-              mb={1}
-            >
-              Let&apos;s create a wallet before we proceed. Make sure you have
-              all the 4 X1 cards with you.
-            </Typography>
-            <Typography
-              display={{
-                def: 'none',
-                lg: 'block',
-              }}
-              width={964}
-              $textAlign="center"
-              variant="h5"
-              color="muted"
-              mb={1}
-            >
-              The following tutorials are just there to guide you on your X1
-              vault. You can create a wallet even without these tutorials
-              independently on your Cypherock X1
-            </Typography>
-          </Flex>
-          <Flex gap={20} px={{ def: '40', lg: '150' }}>
-            <DialogBox width="full">
-              <DialogBoxBody height="full">
-                <Image width={45} src={addWalletIcon} alt="importWalletIcon" />
-                <Flex gap={48} direction="column" height="full">
-                  <Typography
-                    $textAlign="center"
-                    variant="h5"
-                    color="heading"
-                    mb={1}
-                  >
-                    Create a new wallet
-                  </Typography>
-                  <Container
-                    display={{
-                      def: 'none',
-                      lg: 'flex',
-                    }}
-                    justify="flex-start"
-                    height="full"
-                    $bgColor="list"
-                    direction="column"
-                  >
-                    <ListContainer p={4} direction="column" width="full">
-                      {createWalletListItems}
-                    </ListContainer>
-                  </Container>
-                </Flex>
-              </DialogBoxBody>
-              <DialogBoxFooter>
-                <Button variant="primary">Create</Button>
-              </DialogBoxFooter>
-            </DialogBox>
-            <DialogBox width="full">
-              <DialogBoxBody height="full">
-                <Image
-                  width={45}
-                  src={importWalletIcon}
-                  alt="importWalletIcon"
-                />
-                <Flex gap={48} direction="column" height="full">
-                  <Typography
-                    $textAlign="center"
-                    variant="h5"
-                    color="heading"
-                    mb={1}
-                  >
-                    Import your wallet from a seed phrase
-                  </Typography>
-                  <Container
-                    display={{
-                      def: 'none',
-                      lg: 'flex',
-                    }}
-                    justify="flex-start"
-                    height="full"
-                    $bgColor="list"
-                    direction="column"
-                  >
-                    <ListContainer p={4} direction="column" width="full">
-                      {importWalletListItems}
-                    </ListContainer>
-                  </Container>
-                </Flex>
-              </DialogBoxBody>
-              <DialogBoxFooter>
-                <Button variant="primary">Import</Button>
-              </DialogBoxFooter>
-            </DialogBox>
-          </Flex>
-        </DialogBoxBody>
-      </DialogBox>
+      <WalletActionsDialogBox
+        createWallet={
+          lang.strings.onboarding.walletActionsDialogBox.createWallet
+        }
+        importWallet={
+          lang.strings.onboarding.walletActionsDialogBox.importWallet
+        }
+        footer={lang.strings.onboarding.walletActionsDialogBox.footer}
+        help={lang.strings.help}
+        subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
+        title={lang.strings.onboarding.walletActionsDialogBox.title}
+      />
     </OnboardingPageLayout>
   );
 };

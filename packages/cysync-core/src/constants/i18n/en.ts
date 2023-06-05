@@ -36,6 +36,35 @@ const en = {
       title: 'Tap X1 Cards one by one below the\nX1 Vault',
       subtext: 'Do not lift until you hear 3 beep sounds',
     },
+    walletActionsDialogBox: {
+      title: `Let's create a wallet before we proceed. Make sure you have all the 4 X1 cards with you`,
+      subTitle:
+        'The following tutorials are just there to guide you on your X1 vault. You can create a wallet even without these tutorials independently on your Cypherock X1',
+      createWallet: {
+        title: 'Create a new wallet',
+        list: [
+          'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
+        ],
+        button: 'Create',
+      },
+      importWallet: {
+        title: 'Import your wallet from a seed phrase',
+        list: [
+          `You want to transfer your assets from your other wallets into Cypherock
+          X1.`,
+          ` You want to transfer your assets from your other wallets into Cypherock
+          X1.`,
+          `You want to see all portfolio of your other wallets through Cypherock
+          X1.`,
+        ],
+        button: 'Import',
+      },
+      footer: {
+        title: 'Transfer from old to new Cypherock X1',
+        subTitle: `If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards whatsoever, we don't judge`,
+        button: 'Transfer',
+      },
+    },
     success: {
       title: 'Congratulations',
       subtext: 'Cypherock X1 is now ready to use',

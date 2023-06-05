@@ -3,7 +3,7 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import closeIcon from './close.png';
 import importWalletIcon from './import-wallet.png';
-import recoverWalletIcon from './recover-wallet.png';
+import recoverWalletIcon from './recover-wallet.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
 import asideIcon from './aside.svg';
 import successIcon from './success.svg';
