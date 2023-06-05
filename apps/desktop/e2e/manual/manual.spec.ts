@@ -15,7 +15,7 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-test.skip('record', async () => {
+test('record', async () => {
   await screen.pause();
 });
 
