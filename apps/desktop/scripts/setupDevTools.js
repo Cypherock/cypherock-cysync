@@ -31,6 +31,8 @@ if (process.platform === 'darwin') {
     'Roaming',
     pkg.productName,
   );
+} else if (process.platform === 'linux') {
+  USER_DATA_PATH = path.join(os.homedir(), '.config', pkg.productName);
 } else {
   console.error('This script is not configured for your OS');
   process.exit(1);
