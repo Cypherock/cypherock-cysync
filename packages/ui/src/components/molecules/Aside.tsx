@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
-import { AsideContainer, Flex, Image, Typography } from '../atoms';
+import { AsideContainer, Flex, Image, LangDisplay, Typography } from '../atoms';
 import { cysyncLogoSmall } from '../../assets/images';
 import { Milestone } from './Milestone';
 
@@ -49,7 +49,9 @@ export const Aside = (props: AsideProps): ReactElement => {
           font="medium"
           mb={4}
         >
-          <Text>{text}</Text>
+          <Text>
+            <LangDisplay text={text} />
+          </Text>
         </Typography>
         <Milestone currentState={currentState} totalState={totalState} />
       </Flex>

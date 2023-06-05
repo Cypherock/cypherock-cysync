@@ -1,25 +1,24 @@
 import React, { FC, ReactNode } from 'react';
 import {
-  BlurOverlay,
   Button,
   Container,
   DialogBox,
-  DialogBoxBackground,
-  DialogBoxBackgroundFooter,
-  DialogBoxBackgroundHeader,
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
   Image,
   ListContainer,
   ListItem,
-  OnboardingLayout,
+  LogoOutlinedAsideImage,
   Typography,
   addWalletIcon,
-  deviceImage,
   importWalletIcon,
-  theme,
+  getDefaultTheme,
 } from '@cypherock/cysync-ui';
+import { selectLanguage, useAppSelector } from '~/store';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
+
+const theme = getDefaultTheme();
 
 const createWalletList: Array<{ index: number; text: string | ReactNode }> = [
   {
@@ -104,19 +103,19 @@ const importWalletListItems = importWalletList.map(li => (
   </ListItem>
 ));
 
-export const WalletActionsDialogBox: FC<{}> = () => (
-  <OnboardingLayout
-    img={deviceImage}
-    text="Device Authentication"
-    currentState={4}
-    totalState={8}
-  >
-    <DialogBoxBackground>
-      <DialogBoxBackgroundHeader email help />
-      <DialogBoxBackgroundFooter />
-    </DialogBoxBackground>
-    <BlurOverlay>
-      <DialogBox width="full">
+export const WalletActionsDialogBox: FC<{}> = () => {
+  const lang = useAppSelector(selectLanguage);
+  return (
+    <OnboardingPageLayout
+      img={LogoOutlinedAsideImage}
+      text={lang.strings.onboarding.deviceDetection.heading}
+      currentState={3}
+      isDialogOpen
+      totalState={8}
+      withHelp
+      withBack
+    >
+      <DialogBox width="full" pb={{ def: '60', lg: '102.5' }}>
         <Container width="full" p={2} justify="flex-start">
           <Button variant="none">
             <Typography color="muted" fontSize={14}>
@@ -134,19 +133,37 @@ export const WalletActionsDialogBox: FC<{}> = () => (
           </Button>
         </Container>
         <DialogBoxBody
+          p={{ def: '20', lg: '40' }}
           grow={2}
           align="center"
-          gap={26}
+          gap={110}
           direction="column"
           height="full"
         >
           <Flex align="center" direction="column">
-            <Typography $textAlign="center" variant="h5" color="heading" mb={1}>
+            <Typography
+              width={{
+                def: 582,
+                lg: 1141,
+              }}
+              $textAlign="center"
+              fontSize={{
+                def: 20,
+                lg: 24,
+              }}
+              variant="h4"
+              color="heading"
+              mb={1}
+            >
               Let&apos;s create a wallet before we proceed. Make sure you have
               all the 4 X1 cards with you.
             </Typography>
             <Typography
-              px={4}
+              display={{
+                def: 'none',
+                lg: 'block',
+              }}
+              width={964}
               $textAlign="center"
               variant="h5"
               color="muted"
@@ -157,11 +174,11 @@ export const WalletActionsDialogBox: FC<{}> = () => (
               independently on your Cypherock X1
             </Typography>
           </Flex>
-          <Flex gap={20}>
-            <DialogBox>
+          <Flex gap={20} px={{ def: '40', lg: '150' }}>
+            <DialogBox width="full">
               <DialogBoxBody height="full">
                 <Image width={45} src={addWalletIcon} alt="importWalletIcon" />
-                <Flex gap={16} direction="column" height="full">
+                <Flex gap={48} direction="column" height="full">
                   <Typography
                     $textAlign="center"
                     variant="h5"
@@ -171,6 +188,10 @@ export const WalletActionsDialogBox: FC<{}> = () => (
                     Create a new wallet
                   </Typography>
                   <Container
+                    display={{
+                      def: 'none',
+                      lg: 'flex',
+                    }}
                     justify="flex-start"
                     height="full"
                     $bgColor="list"
@@ -186,14 +207,14 @@ export const WalletActionsDialogBox: FC<{}> = () => (
                 <Button variant="primary">Create</Button>
               </DialogBoxFooter>
             </DialogBox>
-            <DialogBox>
+            <DialogBox width="full">
               <DialogBoxBody height="full">
                 <Image
                   width={45}
                   src={importWalletIcon}
                   alt="importWalletIcon"
                 />
-                <Flex gap={16} direction="column" height="full">
+                <Flex gap={48} direction="column" height="full">
                   <Typography
                     $textAlign="center"
                     variant="h5"
@@ -203,6 +224,10 @@ export const WalletActionsDialogBox: FC<{}> = () => (
                     Import your wallet from a seed phrase
                   </Typography>
                   <Container
+                    display={{
+                      def: 'none',
+                      lg: 'flex',
+                    }}
                     justify="flex-start"
                     height="full"
                     $bgColor="list"
@@ -221,6 +246,6 @@ export const WalletActionsDialogBox: FC<{}> = () => (
           </Flex>
         </DialogBoxBody>
       </DialogBox>
-    </BlurOverlay>
-  </OnboardingLayout>
-);
+    </OnboardingPageLayout>
+  );
+};

@@ -9,37 +9,15 @@ import {
   IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
+import {
+  DeviceConnectionStatus,
+  IDeviceConnectionInfo,
+  IDeviceConnectionRetry,
+  IParseDeviceAction,
+} from './types';
 
 export const DEVICE_LISTENER_INTERVAL = 1000;
 export const MAX_CONNECTION_RETRY = 3;
-
-export enum DeviceConnectionStatus {
-  CONNECTED,
-  UPDATE_REQUIRED,
-  UNKNOWN_ERROR,
-}
-
-export interface IDeviceConnectionInfo {
-  device: IDevice;
-  deviceState: DeviceState;
-  firmwareVersion?: string;
-  serial?: string;
-  isAuthenticated?: boolean;
-  isMain: boolean;
-  isInitial: boolean;
-  isBootloader: boolean;
-  status: DeviceConnectionStatus;
-}
-
-export interface IDeviceConnectionRetry {
-  device: IDevice;
-  retries: number;
-}
-
-export interface IParseDeviceAction {
-  type: 'disconnected' | 'try-connection';
-  device?: IDevice;
-}
 
 export const checkIfSameDevice = (a: IDevice, b: IDevice) =>
   a.path === b.path &&

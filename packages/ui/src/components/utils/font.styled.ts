@@ -1,19 +1,23 @@
 import { css } from 'styled-components';
+import { generateCss } from './generateCss';
+import { MediaQuery } from '../../types';
+
+type fontType =
+  | 'thin'
+  | 'extralight'
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold'
+  | 'extrabold';
 
 export interface FontProps {
-  font?:
-    | 'thin'
-    | 'extralight'
-    | 'light'
-    | 'normal'
-    | 'medium'
-    | 'semibold'
-    | 'bold'
-    | 'extrabold';
-  fontSize?: number;
+  font?: MediaQuery<fontType>;
+  fontSize?: MediaQuery<number>;
 }
 
-const fontWeightObj = {
+const fontWeightObj: Record<string, string> = {
   thin: '100',
   extralight: '200',
   light: '300',
@@ -25,6 +29,14 @@ const fontWeightObj = {
 };
 
 export const font = css<FontProps>`
-  ${props => props.font && `font-weight: ${fontWeightObj[props.font]};`};
-  ${props => props.fontSize && `font-size: ${props.fontSize}px;`};
+  ${props =>
+    props.font &&
+    generateCss(
+      ['font-weight'],
+      (item: keyof typeof fontWeightObj) => `${fontWeightObj[item]}`,
+      props.font,
+    )}
+  ${props =>
+    props.fontSize &&
+    generateCss(['font-size'], (item: number) => `${item}px`, props.fontSize)};
 `;

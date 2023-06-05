@@ -7,3 +7,4 @@ export * from './Indicator';
 export * from './AsideContainer';
 export * from './BlurOverlay';
 export * from './List';
+export * from './LangDisplay';

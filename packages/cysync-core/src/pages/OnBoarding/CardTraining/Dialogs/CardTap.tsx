@@ -3,18 +3,31 @@ import {
   DialogBox,
   DialogBoxBody,
   CardTapList,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => (
-  <DialogBox width={500}>
-    <DialogBoxBody gap={48}>
-      <Typography variant="h5" $textAlign="center">
-        Tap any X1 Card below the X1 Vault to test card tapping
-      </Typography>
-      <CardTapList
-        items={[{ text: 'X1 Card', currentState: tapState, totalState: 1 }]}
-      />
-    </DialogBoxBody>
-  </DialogBox>
-);
+import { selectLanguage, useAppSelector } from '~/store';
+
+export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
+  const lang = useAppSelector(selectLanguage);
+
+  return (
+    <DialogBox width={500}>
+      <DialogBoxBody gap={48}>
+        <Typography variant="h5" $textAlign="center">
+          <LangDisplay text={lang.strings.onboarding.cardTraining.title} />
+        </Typography>
+        <CardTapList
+          items={[
+            {
+              text: lang.strings.x1Card,
+              currentState: tapState,
+              totalState: 1,
+            },
+          ]}
+        />
+      </DialogBoxBody>
+    </DialogBox>
+  );
+};

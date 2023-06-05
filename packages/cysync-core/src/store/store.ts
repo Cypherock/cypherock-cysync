@@ -11,14 +11,17 @@ import {
   useDispatch,
 } from 'react-redux';
 import walletReducer, { IWalletState } from './wallet';
+import langReducers, { ILangState } from './lang';
 
 export type RootState = {
   wallet: IWalletState;
+  lang: ILangState;
 };
 
 export const store = configureStore({
   reducer: {
     wallet: walletReducer,
+    lang: langReducers,
   },
 });
 

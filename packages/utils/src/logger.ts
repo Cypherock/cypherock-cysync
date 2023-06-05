@@ -31,3 +31,24 @@ export const updateLoggerObject = (params: {
     }
   }
 };
+
+export const createLoggerWithPrefix = (logger: ILogger, name: string) => {
+  const newLogger: any = { ...logger };
+
+  for (const key of Object.keys(newLogger)) {
+    newLogger[key] = (message: any, meta: any) => {
+      const newMeta = {
+        component: name,
+        ...(meta ?? {}),
+      };
+
+      if (typeof message === 'string') {
+        (logger as any)[key](`${name}: ${message}`, newMeta);
+      } else {
+        (logger as any)[key](message, newMeta);
+      }
+    };
+  }
+
+  return newLogger;
+};

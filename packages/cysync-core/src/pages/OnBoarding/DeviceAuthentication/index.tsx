@@ -1,24 +1,24 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import {
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  OnboardingLayout,
-  deviceAuthAsideImage,
-} from '@cypherock/cysync-ui';
+import React, { useEffect, useState } from 'react';
+import { deviceAuthAsideImage } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { Authenticating } from './Dialogs/Authenticating';
-import { Success } from './Dialogs/Success';
-import { Failure } from './Dialogs/Failure';
-import { routes } from '../../../config';
+
 import {
   OnConnectCallback,
   useNavigateTo,
   useWhenDeviceConnected,
-} from '../../../hooks';
+} from '~/hooks';
+import { routes } from '~/constants';
 
-export const DeviceAuthentication = (): ReactElement => {
+import { Authenticating } from './Dialogs/Authenticating';
+import { Success } from './Dialogs/Success';
+import { Failure } from './Dialogs/Failure';
+import { selectLanguage, useAppSelector } from '../../../store';
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
+
+export const DeviceAuthentication: React.FC = () => {
   const [result, setResult] = useState<boolean | undefined>(undefined);
   const navigateTo = useNavigateTo();
+  const lang = useAppSelector(selectLanguage);
 
   const deviceAuth: OnConnectCallback = async ({
     connection,
@@ -41,18 +41,17 @@ export const DeviceAuthentication = (): ReactElement => {
   }, [result]);
 
   return (
-    <OnboardingLayout
+    <OnboardingPageLayout
       img={deviceAuthAsideImage}
-      text="Device Authentication"
+      text={lang.strings.onboarding.deviceAuth.heading}
       currentState={4}
       totalState={8}
+      withEmail
+      withHelp
     >
-      <DialogBoxBackground>
-        <DialogBoxBackgroundHeader email help />
-        {result === undefined && <Authenticating />}
-        {result === false && <Failure />}
-        {result === true && <Success />}
-      </DialogBoxBackground>
-    </OnboardingLayout>
+      {result === undefined && <Authenticating />}
+      {result === false && <Failure />}
+      {result === true && <Success />}
+    </OnboardingPageLayout>
   );
 };
