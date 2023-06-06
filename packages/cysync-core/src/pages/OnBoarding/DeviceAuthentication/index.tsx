@@ -36,7 +36,7 @@ export const DeviceAuthentication: React.FC = () => {
 
   useEffect(() => {
     if (result === true) {
-      navigateTo(routes.onboarding.joystickTraining.path, 3000);
+      navigateTo(routes.onboarding.joystickTraining.path, 6000);
     }
   }, [result]);
 
