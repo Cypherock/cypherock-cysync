@@ -97,4 +97,8 @@ export class KeyValueStore implements IKeyValueStore {
     }
     if (changes === 0) throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
   }
+
+  async close() {
+    this.db.close();
+  }
 }

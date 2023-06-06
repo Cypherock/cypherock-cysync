@@ -5,10 +5,10 @@ import { config } from './config';
 
 let db: IDatabase | undefined;
 
-export function initializeAndGetDb() {
+export async function initializeAndGetDb() {
   if (db) return db;
 
-  db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
+  db = await createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
 
   return db;
 }

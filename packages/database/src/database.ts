@@ -1,10 +1,11 @@
+import path from 'path';
+import fs from 'fs';
 import {
   IAccountRepository,
   IDatabase,
   IDevice,
   IDeviceRepository,
   IEntity,
-  IKeyValueStore,
   IPriceHistory,
   IPriceHistoryRepository,
   IPriceInfo,
@@ -14,7 +15,7 @@ import {
   IWallet,
   IWalletRepository,
 } from '@cypherock/db-interfaces';
-import { Database as DB } from 'better-sqlite3';
+import SQLDatabase from 'better-sqlite3';
 import {
   AccountRepository,
   Repository,
@@ -29,9 +30,11 @@ import {
   Wallet,
 } from './entity';
 import { KeyValueStore } from './keyValueStore';
+import logger from './utils/logger';
+import { EncryptedDB } from './encryptedDb';
 
 export class Database implements IDatabase {
-  private readonly database: DB;
+  private readonly database: EncryptedDB;
 
   device: IDeviceRepository;
 
@@ -45,42 +48,96 @@ export class Database implements IDatabase {
 
   priceInfo: IPriceInfoRepository;
 
-  storage: IKeyValueStore;
+  storage: KeyValueStore;
 
-  constructor(db: DB, kvsDb: DB) {
-    this.database = db;
-    this.storage = new KeyValueStore(kvsDb);
+  constructor(params: {
+    database: EncryptedDB;
+    device: IDeviceRepository;
+    account: IAccountRepository;
+    transaction: ITransactionRepository;
+    wallet: IWalletRepository;
+    priceHistory: IPriceHistoryRepository;
+    priceInfo: IPriceInfoRepository;
+    storage: KeyValueStore;
+  }) {
+    this.database = params.database;
+    this.storage = params.storage;
 
-    this.device = new Repository<IDevice>(
-      this.database,
+    this.device = params.device;
+    this.account = params.account;
+    this.transaction = params.transaction;
+    this.wallet = params.wallet;
+    this.priceHistory = params.priceHistory;
+    this.priceInfo = params.priceInfo;
+  }
+
+  public static async create(dirPath: string) {
+    const { database, storageDb } = await Database.createDb(dirPath);
+
+    const storage = new KeyValueStore(storageDb);
+
+    const device = await Repository.create<IDevice>(
+      database,
       Device.name,
       Device.schema,
     );
-    this.wallet = new Repository<IWallet>(
-      this.database,
+    const wallet = await Repository.create<IWallet>(
+      database,
       Wallet.name,
       Wallet.schema,
     );
-    this.account = new AccountRepository(
-      this.database,
+    const account = await AccountRepository.build(
+      database,
       Account.name,
       Account.schema,
     );
-    this.transaction = new TransactionRepository(
-      this.database,
+    const transaction = await TransactionRepository.build(
+      database,
       Transaction.name,
       Transaction.schema,
     );
-    this.priceHistory = new Repository<IPriceHistory>(
-      this.database,
+    const priceHistory = await Repository.create<IPriceHistory>(
+      database,
       PriceHistory.name,
       PriceHistory.schema,
     );
-    this.priceInfo = new Repository<IPriceInfo>(
-      this.database,
+    const priceInfo = await Repository.create<IPriceInfo>(
+      database,
       PriceInfo.name,
       PriceInfo.schema,
     );
+
+    return new Database({
+      database,
+      storage,
+      device,
+      wallet,
+      account,
+      transaction,
+      priceHistory,
+      priceInfo,
+    });
+  }
+
+  private static async createDb(dirPath: string) {
+    let dbPath = path.join(dirPath, 'db.sqlite');
+    let storagePath = path.join(dirPath, 'storage.sqlite');
+
+    if (dirPath === ':memory:') {
+      dbPath = dirPath;
+      storagePath = dirPath;
+    } else if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+
+    const database = await EncryptedDB.create(dbPath);
+
+    const storageDb = new SQLDatabase(storagePath, {
+      verbose: logger.debug as any,
+    });
+    storageDb.pragma('journal_mode = WAL');
+
+    return { database, dbPath, storageDb };
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -90,7 +147,8 @@ export class Database implements IDatabase {
     throw new Error(`Method not implemented. ${name}`);
   }
 
-  destroy(): void {
-    this.database.close();
+  async close() {
+    await this.database.close();
+    await this.storage.close();
   }
 }

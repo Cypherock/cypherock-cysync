@@ -7,7 +7,6 @@ import {
   ListenerType,
   ListenerFunction,
 } from '@cypherock/db-interfaces';
-import { Database } from 'better-sqlite3';
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import { ZodObject } from 'zod';
@@ -15,9 +14,10 @@ import * as sqlParser from './utils/sqlParser';
 import { getValidators } from './utils/schemaValidator';
 import { ITableSchema } from './utils/types';
 import logger from '../utils/logger';
+import { EncryptedDB } from '../encryptedDb';
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
-  private readonly db: Database;
+  private readonly encDb: EncryptedDB;
 
   private readonly name: string;
 
@@ -31,14 +31,43 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
   private version: number | undefined;
 
-  constructor(db: Database, name: string, schema: ITableSchema<Entity>) {
-    this.db = db;
+  protected constructor(
+    encDb: EncryptedDB,
+    name: string,
+    schema: ITableSchema<Entity>,
+  ) {
+    this.encDb = encDb;
     this.name = name;
     this.schema = schema;
     const { schemaValidator, optionsValidator } = getValidators(schema);
     this.schemaValidator = schemaValidator;
     this.optionsValidator = optionsValidator;
-    this.createTableIfNotExists();
+  }
+
+  public static async create<T extends IEntity>(
+    encDb: EncryptedDB,
+    name: string,
+    schema: ITableSchema<T>,
+  ) {
+    await Repository.createTableIfNotExists(encDb, name, schema);
+    return new Repository<T>(encDb, name, schema);
+  }
+
+  protected static async createTableIfNotExists<T extends IEntity>(
+    encDb: EncryptedDB,
+    name: string,
+    schema: ITableSchema<T>,
+  ) {
+    const db = await encDb.getDB();
+
+    try {
+      sqlParser.createTable(name, db, schema);
+    } catch (error: any) {
+      throw new DatabaseError(
+        DatabaseErrorType.DATABASE_CREATION_FAILED,
+        `Couldn't create tables [${error.code}]: ${error.message}`,
+      );
+    }
   }
 
   insert(entities: Entity[]): Promise<Entity[]>;
@@ -56,7 +85,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     try {
       changes = sqlParser.insertObjects(
         this.name,
-        this.db,
+        await this.encDb.getDB(),
         this.schema,
         entities,
       );
@@ -99,7 +128,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     try {
       changes = sqlParser.updateObjects(
         this.name,
-        this.db,
+        await this.encDb.getDB(),
         this.schema,
         ids,
         rest,
@@ -126,17 +155,6 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     }));
 
     return this.getAll(updatedIds as any);
-  }
-
-  private createTableIfNotExists(): void {
-    try {
-      sqlParser.createTable(this.name, this.db, this.schema);
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.DATABASE_CREATION_FAILED,
-        `Couldn't create tables [${error.code}]: ${error.message}`,
-      );
-    }
   }
 
   private validateInput(
@@ -175,12 +193,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
+    const db = await this.encDb.getDB();
     const rows = await this.getAll(entityLike, options);
     const ids = rows.map(row => row.__id);
 
     let changes = 0;
     try {
-      changes = sqlParser.removeObjects(this.name, this.db, ids);
+      changes = sqlParser.removeObjects(this.name, db, ids);
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
@@ -204,7 +223,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     try {
       result = sqlParser.selectObjects(
         this.name,
-        this.db,
+        await this.encDb.getDB(),
         this.schema,
         entities,
         options,
@@ -262,6 +281,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   }
 
   emitChange() {
+    this.encDb.onChange();
     this.emitter.emit('change', true);
   }
 }
