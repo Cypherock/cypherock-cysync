@@ -1,34 +1,53 @@
-/* eslint-disable no-use-before-define */
-import Database, { Database as DatabaseType } from 'better-sqlite3';
 import { ObjectLiteral } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
 import { Database as DB } from '../../src/database';
 
 class TestHelper {
-  private testDb!: DatabaseType;
-
-  private storageDb!: DatabaseType;
-
-  public db!: DB;
+  public db: DB;
 
   async setupTestDB() {
-    // const logger = console.log;
-    const logger = undefined;
-    this.testDb = new Database(':memory:', { verbose: logger });
-    this.testDb.pragma('journal_mode = WAL');
-    this.storageDb = new Database(':memory:', { verbose: logger });
-    this.storageDb.pragma('journal_mode = WAL');
-
-    this.db = new DB(this.testDb, this.storageDb);
+    this.db = await DB.create(':memory:');
   }
 
   teardownTestDB() {
-    this.testDb.close();
+    if (this.db) {
+      this.db.close();
+    }
   }
 }
 
-export const removeBaseFelids = (obj: ObjectLiteral) => ({
-  ...obj,
-  __id: undefined,
-  __version: undefined,
-});
+export const removeBaseFelids = (obj: ObjectLiteral): ObjectLiteral => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeBaseFelids);
+  }
+
+  const newObj = { ...obj };
+
+  delete newObj.__id;
+  delete newObj.__version;
+  delete newObj.meta;
+  delete newObj.$loki;
+
+  return newObj;
+};
+
+export const removeLokiFields = (obj: ObjectLiteral): ObjectLiteral => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeLokiFields);
+  }
+
+  const newObj = { ...obj };
+
+  delete newObj.meta;
+  delete newObj.$loki;
+
+  return newObj;
+};
+
+export const compareEntityArray = (a: any[], b: any[]) => {
+  expect(removeLokiFields(lodash.sortBy(a, '__id'))).toEqual(
+    removeLokiFields(lodash.sortBy(b, '__id')),
+  );
+};
+
 export const testHelper = new TestHelper();

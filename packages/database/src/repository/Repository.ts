@@ -10,18 +10,18 @@ import {
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import { ZodObject } from 'zod';
-import * as sqlParser from './utils/sqlParser';
+import lodash from 'lodash';
+
 import { getValidators } from './utils/schemaValidator';
 import { ITableSchema } from './utils/types';
 import logger from '../utils/logger';
 import { EncryptedDB } from '../encryptedDb';
+import { isSubsetOf } from '../utils/isSubset';
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private readonly encDb: EncryptedDB;
 
   private readonly name: string;
-
-  private readonly schema: ITableSchema<Entity>;
 
   private readonly schemaValidator: ZodObject<any>;
 
@@ -38,7 +38,6 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   ) {
     this.encDb = encDb;
     this.name = name;
-    this.schema = schema;
     const { schemaValidator, optionsValidator } = getValidators(schema);
     this.schemaValidator = schemaValidator;
     this.optionsValidator = optionsValidator;
@@ -49,25 +48,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     name: string,
     schema: ITableSchema<T>,
   ) {
-    await Repository.createTableIfNotExists(encDb, name, schema);
     return new Repository<T>(encDb, name, schema);
-  }
-
-  protected static async createTableIfNotExists<T extends IEntity>(
-    encDb: EncryptedDB,
-    name: string,
-    schema: ITableSchema<T>,
-  ) {
-    const db = await encDb.getDB();
-
-    try {
-      sqlParser.createTable(name, db, schema);
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.DATABASE_CREATION_FAILED,
-        `Couldn't create tables [${error.code}]: ${error.message}`,
-      );
-    }
   }
 
   insert(entities: Entity[]): Promise<Entity[]>;
@@ -81,14 +62,9 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       __id: uuidv4(),
     }));
 
-    let changes = 0;
+    const collection = await this.getCollection();
     try {
-      changes = sqlParser.insertObjects(
-        this.name,
-        await this.encDb.getDB(),
-        this.schema,
-        entities,
-      );
+      collection.insert(entities);
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.UPDATE_FAILED,
@@ -96,18 +72,18 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       );
     }
 
-    if (changes === 0) throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
     this.emitChange();
 
     const inserted = await this.getAll(
       entities.map(
-        entity =>
+        e =>
           ({
-            __id: entity.__id,
-            __version: entity.__version,
+            __id: e.__id,
+            __version: e.__version,
           } as unknown as Partial<Entity>),
       ),
     );
+
     return Array.isArray(entityLike) ? inserted : inserted[0];
   }
 
@@ -117,21 +93,24 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
     this.validateInput(updateEntity, false, options);
+
+    const rows = await this.getAll(filter, options);
+    const ids = rows.map(row => row.__id);
+
     const entity = this.getVersionedEntities(updateEntity)[0];
-    const matches = await this.getAll(filter, options);
-    const ids = matches.map(match => match.__id);
     const { __id, ...rest } = entity;
 
     if (__id) logger.warn('Unnecessary __id field provided for updating');
 
-    let changes = 0;
+    const collection = await this.getCollection();
+
     try {
-      changes = sqlParser.updateObjects(
-        this.name,
-        await this.encDb.getDB(),
-        this.schema,
-        ids,
-        rest,
+      collection.updateWhere(
+        e => (e.__id ? ids.includes(e.__id) : false),
+        e => ({
+          ...e,
+          ...rest,
+        }),
       );
     } catch (error: any) {
       throw new DatabaseError(
@@ -139,22 +118,16 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
         `Couldn't update data [${error.code}]: ${error.message}`,
       );
     }
-    if (changes === 0 && ids.length > 0) {
-      logger.debug(
-        `Couldn't update entities with ids : ${ids} with ${JSON.stringify(
-          entity,
-        )}`,
-      );
-      throw new DatabaseError(DatabaseErrorType.UPDATE_FAILED);
-    }
-    if (changes > 0) this.emitChange();
 
-    const updatedIds = matches.map(match => ({
-      __id: match.__id,
-      __version: rest.__version,
-    }));
-
-    return this.getAll(updatedIds as any);
+    return this.getAll(
+      ids.map(
+        e =>
+          ({
+            __id: e,
+          } as unknown as Partial<Entity>),
+      ),
+      options,
+    );
   }
 
   private validateInput(
@@ -193,22 +166,19 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     entityLike?: Partial<Entity>[] | Partial<Entity>,
     options?: IGetOptions<Entity>,
   ): Promise<Entity[]> {
-    const db = await this.encDb.getDB();
     const rows = await this.getAll(entityLike, options);
     const ids = rows.map(row => row.__id);
 
-    let changes = 0;
+    const collection = await this.getCollection();
     try {
-      changes = sqlParser.removeObjects(this.name, db, ids);
+      collection.removeWhere(e => (e.__id ? ids.includes(e.__id) : false));
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
         `Couldn't remove data [${error.code}]: ${error.message}`,
       );
     }
-    if (changes === 0 && ids.length > 0)
-      throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
-    if (changes > 0) this.emitChange();
+    this.emitChange();
     return rows;
   }
 
@@ -217,17 +187,27 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     options?: IGetOptions<Entity>,
   ): Promise<(Entity & Required<IEntity>)[]> {
     if (entityLike) this.validateInput(entityLike, false, options);
-    const entities = entityLike ? this.getVersionedEntities(entityLike) : [];
+    const entities = entityLike ? this.getVersionedEntities(entityLike) : [{}];
 
     let result = [];
+    const collection = await this.getCollection();
+
     try {
-      result = sqlParser.selectObjects(
-        this.name,
-        await this.encDb.getDB(),
-        this.schema,
-        entities,
-        options,
-      );
+      for (const ent of entities) {
+        let res = collection.chain().where(d => isSubsetOf(ent, d));
+
+        if (options?.limit) {
+          res = res.limit(options.limit);
+        }
+
+        if (res) {
+          result.push(...res.data());
+        }
+
+        if (options?.limit && result.length > options.limit) {
+          break;
+        }
+      }
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
@@ -235,7 +215,15 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       );
     }
 
-    return sqlParser.getInterfaceObj(result, this.schema) as any;
+    if (options?.limit) {
+      result = result.slice(0, options.limit);
+    }
+
+    if (options?.sortBy) {
+      result = lodash.sortBy(result, options.sortBy.key);
+    }
+
+    return lodash.uniqBy(result, e => e.__id) as any;
   }
 
   async getOne(
@@ -259,7 +247,13 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     for (const item of entityArray) {
       const version = item.__version ?? this.version;
       if (version === undefined) throw versionError(item);
-      result.push({ ...item, __version: version });
+      const obj: any = { ...item, __version: version };
+
+      // Remove Loki specific details if present
+      delete obj.$loki;
+      delete obj.meta;
+
+      result.push(obj);
     }
     return result;
   }
@@ -283,5 +277,16 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   emitChange() {
     this.encDb.onChange();
     this.emitter.emit('change', true);
+  }
+
+  private async getCollection() {
+    const db = await this.encDb.getDB();
+    const collection = db.getCollection<IEntity>(this.name);
+
+    if (collection) {
+      return collection;
+    }
+
+    return db.addCollection<IEntity>(this.name);
   }
 }

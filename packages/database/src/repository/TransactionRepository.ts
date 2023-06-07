@@ -24,7 +24,6 @@ export class TransactionRepository
     name: string,
     schema: ITableSchema<T>,
   ) {
-    await Repository.createTableIfNotExists(encDb, name, schema);
     return new TransactionRepository(encDb, name, schema);
   }
 }

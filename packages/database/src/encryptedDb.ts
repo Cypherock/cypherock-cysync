@@ -1,55 +1,56 @@
+import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import fs from 'fs';
-import { debounce, DebouncedFunc } from 'lodash';
-import SQLDatabase, { Database as DB } from 'better-sqlite3';
+import { throttle, DebouncedFunc } from 'lodash';
+import JsonDB from 'lokijs';
 import logger from './utils/logger';
 
 export class EncryptedDB {
-  private readonly database: DB;
+  private readonly database: JsonDB;
 
   private readonly key?: string;
 
   private readonly dbPath: string;
 
-  private readonly debouncedHandleChange: DebouncedFunc<() => Promise<void>>;
+  private readonly throttledHandleChange: DebouncedFunc<() => Promise<void>>;
 
-  private constructor(dbPath: string, db: DB, key?: string) {
+  private isClosed = false;
+
+  private constructor(dbPath: string, db: JsonDB, key?: string) {
     this.database = db;
     this.key = key;
     this.dbPath = dbPath;
-    this.debouncedHandleChange = debounce(this.handleChange.bind(this), 500);
+    this.throttledHandleChange = throttle(this.handleChange.bind(this), 500);
   }
 
   public static async create(dbPath: string, key?: string) {
-    let db: DB;
+    let data = '';
 
-    if (dbPath === ':memory:') {
-      db = new SQLDatabase(dbPath, {
-        verbose: logger.debug as any,
-      });
-    } else {
-      const data = await EncryptedDB.readFile(dbPath);
-
-      db = new SQLDatabase(data, {
-        verbose: logger.debug as any,
-      });
+    if (dbPath !== ':memory:') {
+      data = await EncryptedDB.loadDB(dbPath);
     }
 
-    db.pragma('journal_mode = WAL');
+    const db = new JsonDB(dbPath);
+    db.loadJSON(data);
 
     return new EncryptedDB(dbPath, db, key);
   }
 
-  public async getDB(): Promise<DB> {
+  public async getDB(): Promise<JsonDB> {
+    if (this.isClosed) {
+      throw new DatabaseError(DatabaseErrorType.DATABASE_CLOSED);
+    }
+
     return this.database;
   }
 
   public async onChange() {
     if (this.dbPath === ':memory:') return;
 
-    await this.debouncedHandleChange();
+    await this.throttledHandleChange();
   }
 
   public async close() {
+    this.isClosed = true;
     await this.saveDB();
     this.database.close();
   }
@@ -62,19 +63,25 @@ export class EncryptedDB {
     if (this.dbPath === ':memory:') return;
 
     const data = this.database.serialize();
-    await EncryptedDB.writeFile(this.dbPath, data);
+    await fs.promises.writeFile(this.dbPath, JSON.stringify({ data }));
   }
 
-  private static async writeFile(path: string, data: Buffer) {
-    await fs.promises.writeFile(path, data);
-  }
+  private static async loadDB(path: string) {
+    if (path === ':memory:') return '';
 
-  private static async readFile(path: string) {
     if (fs.existsSync(path)) {
       const data = await fs.promises.readFile(path);
-      return data;
+      try {
+        return JSON.parse(data.toString()).data ?? '';
+      } catch (error) {
+        logger.error(error);
+        logger.error('Corrupt data found in database file, removing...');
+        await fs.promises.writeFile(path, JSON.stringify({ data: '' }));
+
+        return '';
+      }
     }
 
-    return Buffer.from('');
+    return '';
   }
 }

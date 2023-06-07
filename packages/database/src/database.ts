@@ -15,7 +15,8 @@ import {
   IWallet,
   IWalletRepository,
 } from '@cypherock/db-interfaces';
-import SQLDatabase from 'better-sqlite3';
+import JsonDB, { LokiFsAdapter } from 'lokijs';
+
 import {
   AccountRepository,
   Repository,
@@ -30,7 +31,6 @@ import {
   Wallet,
 } from './entity';
 import { KeyValueStore } from './keyValueStore';
-import logger from './utils/logger';
 import { EncryptedDB } from './encryptedDb';
 
 export class Database implements IDatabase {
@@ -132,10 +132,17 @@ export class Database implements IDatabase {
 
     const database = await EncryptedDB.create(dbPath);
 
-    const storageDb = new SQLDatabase(storagePath, {
-      verbose: logger.debug as any,
-    });
-    storageDb.pragma('journal_mode = WAL');
+    const storageDb = new JsonDB(
+      storagePath,
+      storagePath !== ':memory:'
+        ? {
+            adapter: new LokiFsAdapter(),
+            autoload: true,
+            autosave: true,
+            autosaveInterval: 4000,
+          }
+        : undefined,
+    );
 
     return { database, dbPath, storageDb };
   }

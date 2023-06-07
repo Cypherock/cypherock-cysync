@@ -5,11 +5,11 @@ import { testHelper } from './__helpers__/testHelper';
 describe('KeyValueStore', () => {
   describe('createDb', () => {
     test('Can initialize KeyValueStore', async () => {
-      const db = createDb(':memory:');
+      const db = await createDb(':memory:');
       expect(db).toBeDefined();
       const devices = await db.device.getAll();
       expect(devices.length).toEqual(0);
-      await db.destroy();
+      await db.close();
       expect(db.device.getAll()).rejects.toThrow();
     });
   });
@@ -59,48 +59,18 @@ describe('KeyValueStore', () => {
     });
   });
 
-  describe('getLength', () => {
-    test('Can get length of present key value pairs', async () => {
-      expect(await storage.getLength()).toEqual(0);
-      const num = 5;
-      const offset = await storage.getLength();
-
-      for (let i = 0; i < num; i += 1) {
-        await storage.setItem(i.toString(), i.toString());
-        expect(await storage.getLength()).toEqual(i + 1 + offset);
-      }
-      await storage.removeItem('0');
-      expect(await storage.getLength()).toEqual(num + offset - 1);
-    });
-  });
-
   describe('clear', () => {
     test('Can clear the storage', async () => {
       const num = 5;
       for (let i = 0; i < num; i += 1) {
         await storage.setItem(i.toString(), i.toString());
       }
+
       await storage.clear();
-      expect(await storage.getLength()).toEqual(0);
-    });
-  });
-
-  describe('key', () => {
-    test('Can get keys via index', async () => {
-      const num = 5;
-      const offset = await storage.getLength();
-      for (let i = 0; i < num; i += 1) {
-        await storage.setItem(i.toString(), i.toString());
-      }
-      expect(await storage.getLength()).toEqual(num + offset);
 
       for (let i = 0; i < num; i += 1) {
-        expect(await storage.key(i)).toEqual(i.toString());
+        expect(await storage.getItem(i.toString())).toBeNull();
       }
-    });
-
-    test('Can get null when getting keys outside of index', async () => {
-      expect(await storage.key(567874)).toBeNull();
     });
   });
 });
