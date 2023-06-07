@@ -31,6 +31,7 @@ interface HeadingProps
     | 'muted'
     | 'list';
   $textAlign?: 'center' | 'left' | 'right';
+  $letterSpacing?: number;
 }
 
 const baseStyle = css<HeadingProps>`
@@ -71,6 +72,12 @@ ${props =>
     props.color && `color: ${props.theme.palette.text[props.color]};`}
     
     ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
+
+${props =>
+    props.$letterSpacing !== undefined &&
+    css`
+      letter-spacing: ${props.$letterSpacing}em;
+    `}
     
     max-width: 100%;
   ${spacing};
@@ -106,7 +113,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   ${baseStyle};
 `;
@@ -182,4 +189,5 @@ Typography.defaultProps = {
   children: null,
   color: 'heading',
   $textAlign: 'left',
+  $letterSpacing: 0,
 };
