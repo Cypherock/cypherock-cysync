@@ -25,7 +25,7 @@ const en = {
       centerTitle: 'Center click the joystick to proceed',
       centerSubtext: 'X1 Vault has a center button to\nperform click',
       footer: 'Follow the instruction on the device',
-      success: 'Your X1 Vault is successfully authenticated',
+      success: 'Joystick test complete',
     },
     cardTraining: {
       heading: 'Card Tap Checkup',

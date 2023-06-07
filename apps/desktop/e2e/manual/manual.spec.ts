@@ -63,4 +63,23 @@ test('Joystick training', async () => {
   const finalwindow = screen.getByRole('img', { name: 'Success Icon' });
   await finalwindow.waitFor();
   expect(finalwindow).toBeVisible();
+  const SuccessWindow = screen.getByRole('heading', {
+    name: 'Joystick test complete',
+  });
+  await SuccessWindow.waitFor({ timeout: 3000 });
+  expect(SuccessWindow).toBeVisible();
+});
+
+test('Tap card screen', async () => {
+  await screen
+    .getByRole('heading', {
+      name: 'Tap any X1 Card below the X1 Vault to test card tapping',
+    })
+    .waitFor({ timeout: 600000 });
+  const tapWindow = screen.getByRole('heading', {
+    name: 'X1 Card',
+    exact: true,
+  });
+  await tapWindow.waitFor();
+  expect(tapWindow).toBeVisible();
 });
