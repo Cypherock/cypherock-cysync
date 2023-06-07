@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { cardTapAsideImage } from '@cypherock/cysync-ui';
 
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { routes } from '~/constants';
 import {
-  addKeyboardEvents,
   useNavigateTo,
   useWhenDeviceConnected,
-  useStateWithFinality,
+  OnConnectCallback,
 } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 
@@ -17,21 +17,24 @@ export const CardTraining: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const navigateTo = useNavigateTo();
-  const [cardTapState, setCardTapState, isFinalCardTapState] =
-    useStateWithFinality(0, 1);
-  useWhenDeviceConnected();
+  const [cardTapState, setCardTapState] = useState(0);
+  const cardTrain: OnConnectCallback = async ({
+    connection,
+    connectDevice,
+  }) => {
+    if (!connection) return;
 
-  // replace this with trainCard function
-  addKeyboardEvents({
-    ' ': () => {
-      setCardTapState(s => s + 1);
-    },
-  });
-
-  useEffect(() => {
-    if (isFinalCardTapState)
-      navigateTo(routes.onboarding.cardAuthentication.path, 3000);
-  }, [isFinalCardTapState]);
+    const app = await ManagerApp.create(await connectDevice(connection.device));
+    const res = (await app.trainCard({ onWallets: async () => false }))
+      .cardPaired;
+    setCardTapState(1);
+    navigateTo(
+      `${routes.onboarding.cardAuthentication.path}?isPaired=${res}`,
+      6000,
+    );
+    await app.destroy();
+  };
+  useWhenDeviceConnected(cardTrain);
 
   return (
     <OnboardingPageLayout
