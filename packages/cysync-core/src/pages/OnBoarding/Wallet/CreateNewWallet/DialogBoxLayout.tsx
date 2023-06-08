@@ -27,7 +27,13 @@ export const DialogBoxLayout: FC<{
           <LangDisplay text={heading} />
         </Typography>
       </DialogBoxHeader>
-      <DialogBoxBody p="0">
+      <DialogBoxBody
+        gap={{
+          def: 12,
+          lg: 32,
+        }}
+        p="0"
+      >
         <Image src={image} alt="device" />
         <Flex gap={5} direction="column" align="center">
           <Typography px={8} $textAlign="center" variant="h5">

@@ -23,7 +23,7 @@ export const EnterWalletName: FC<{
       image={enterWalletName}
       title={lang.strings.onboarding.createWallet.enterWalletName.title}
     >
-      <Flex direction="column" gap={48} px={7}>
+      <Flex direction="column" gap={{ def: 24, lg: 48 }} px={7}>
         <Container
           $bgColor="input"
           direction="column"

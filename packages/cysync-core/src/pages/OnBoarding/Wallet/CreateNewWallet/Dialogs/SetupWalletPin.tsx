@@ -23,12 +23,12 @@ export const SetupWalletPin: FC<{
       image={setupPin}
       title={lang.strings.onboarding.createWallet.enterPin.title}
     >
-      <Flex direction="column" gap={48} px={7}>
+      <Flex direction="column" gap={{ def: 18, lg: 48 }} px={7}>
         <Container
           $bgColor="input"
           direction="column"
           align="flex-start"
-          gap={16}
+          gap={{ def: 8, lg: 16 }}
           rounded={8}
           px={3}
           py={2}
@@ -37,7 +37,7 @@ export const SetupWalletPin: FC<{
             (item, index) => (
               <Flex
                 key={`create-wallet-list-${index + 1}`}
-                gap={16}
+                gap={{ def: 8, lg: 16 }}
                 align="center"
               >
                 <Bullet size="sm" />

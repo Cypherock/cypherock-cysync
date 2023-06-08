@@ -3,14 +3,12 @@ import {
   DialogBox,
   DialogBoxBody,
   LogoOutlinedAsideImage,
-  LangDisplay,
-  Typography,
+  HelpHeader,
   Container,
   Flex,
   Button,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getDefaultTheme } from '~/theme';
 import { OnboardingPageLayout } from '../../OnboardingPageLayout';
 import { Aside } from './Aside';
 import { Instructions } from './Dialogs/Instructions';
@@ -19,8 +17,6 @@ import { ConfirmWalletName } from './Dialogs/ConfirmWalletName';
 import { WalletPinConsent } from './Dialogs/WalletPinConsent';
 import { SetupWalletPin } from './Dialogs/SetupWalletPin';
 import { ConfirmPin } from './Dialogs/ConfirmPin';
-
-const theme = getDefaultTheme();
 
 export const CreateNewWallet: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
@@ -45,18 +41,7 @@ export const CreateNewWallet: FC<{}> = () => {
         >
           <Container width="full" p={2} justify="flex-start">
             <Button variant="none">
-              <Typography color="muted" fontSize={14} gap={10}>
-                <LangDisplay text={lang.strings.help} />
-                <span
-                  style={{
-                    background: theme.palette.golden,
-                    WebkitTextFillColor: 'transparent',
-                    WebkitBackgroundClip: 'text',
-                  }}
-                >
-                  ?
-                </span>
-              </Typography>
+              <HelpHeader text={lang.strings.help} />
             </Button>
           </Container>
           <DialogBoxBody

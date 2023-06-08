@@ -19,6 +19,7 @@ export const ConfirmPin: FC<{
       setState={setState}
       heading={lang.strings.onboarding.createWallet.confirmPin.heading}
       image={confirmPin}
+      isLoading
       title={lang.strings.onboarding.createWallet.confirmPin.title}
     >
       <Flex direction="column" gap={48} px={7}>

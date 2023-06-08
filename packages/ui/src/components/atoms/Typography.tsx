@@ -9,8 +9,6 @@ import {
   WidthProps,
   position,
   PositionProps,
-  display,
-  DisplayProps,
   flex,
   FlexProps,
 } from '../utils';
@@ -20,7 +18,6 @@ interface HeadingProps
     FontProps,
     WidthProps,
     PositionProps,
-    DisplayProps,
     FlexProps {
   color?:
     | 'gold'
@@ -29,6 +26,7 @@ interface HeadingProps
     | 'success'
     | 'heading'
     | 'muted'
+    | 'info'
     | 'separator'
     | 'list';
   $textAlign?: 'center' | 'left' | 'right';
@@ -78,7 +76,6 @@ ${props =>
   ${font};
   ${width};
   ${position};
-  ${display};
   ${flex};
 `;
 
