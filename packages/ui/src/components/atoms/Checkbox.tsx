@@ -4,12 +4,13 @@ import styled from 'styled-components';
 interface CheckBoxProps {
   checked: boolean;
   onChange: () => void;
+  id: string;
 }
 
-const CheckBoxStyle = styled.input.attrs({
+const CheckBoxStyle = styled.input.attrs(props => ({
   type: 'checkbox',
-  id: 'checkbox_id',
-})`
+  id: props.id,
+}))`
   -webkit-appearance: none;
 `;
 
@@ -18,14 +19,15 @@ const CheckBoxIcon = styled.div`
   width: 8px;
   height: 8px;
   position: absolute;
-  top: 1px;
-  left: 1px;
+  top: 4px;
+  left: 4px;
   border-radius: 2px;
-  transform: translate(19%, 34%);
 `;
 
-const CheckBoxLabelStyle = styled.label.attrs({ htmlFor: 'checkbox_id' })`
-  width: 16px;
+const CheckBoxLabelStyle = styled.label.attrs(props => ({
+  htmlFor: props.id,
+}))`
+  width: 18px;
   height: 16px;
   border-radius: 3px;
   background-image: ${({ theme }) => theme.palette.golden};
@@ -33,20 +35,21 @@ const CheckBoxLabelStyle = styled.label.attrs({ htmlFor: 'checkbox_id' })`
 
   &:before {
     content: '';
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     border-radius: 2px;
     position: absolute;
-    top: 1px;
-    left: 1px;
-    transform: translate(-6%, 3%);
+    top: 2px;
+    left: 2px;
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
 `;
 
-export const CheckBox: FC<CheckBoxProps> = ({ checked, onChange }) => (
+export const CheckBox: FC<CheckBoxProps> = ({ checked, onChange, id }) => (
   <>
-    <CheckBoxStyle checked={checked} onChange={onChange} />
-    <CheckBoxLabelStyle>{checked && <CheckBoxIcon />}</CheckBoxLabelStyle>
+    <CheckBoxStyle checked={checked} onChange={onChange} id={id} />
+    <CheckBoxLabelStyle id={id}>
+      {checked && <CheckBoxIcon id={id} />}
+    </CheckBoxLabelStyle>
   </>
 );

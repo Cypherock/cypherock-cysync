@@ -82,7 +82,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
       totalState={totalState}
       title={title}
       subTitle={subTitle}
-      version={(window as any).cysyncEnv.VERSION}
+      version={`ver ${(window as any).cysyncEnv.VERSION}`}
       headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
       footerProps={parseFooterProps({ withBack, lang })}
     >

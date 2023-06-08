@@ -3,7 +3,6 @@ import {
   Container,
   DialogBox,
   DialogBoxBody,
-  DialogBoxHeader,
   Flex,
   Typography,
   Bullet,
@@ -15,10 +14,35 @@ import {
   CheckBox,
   LogoOutlinedAsideImage,
 } from '@cypherock/cysync-ui';
-import { Link } from 'react-router-dom';
 import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
+import { useNavigateTo } from '~/hooks';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
+
+const ExternalLinkItem: React.FC<{
+  text: string;
+}> = ({ text }) => (
+  <Container
+    width="full"
+    rounded={8}
+    px={3}
+    py="10"
+    $bgColor="input"
+    border="popup"
+  >
+    <Flex justify="space-between" align="center" width="full">
+      <Flex align="center" gap={16}>
+        <Bullet size="sm" />
+        <Typography variant="h6" color="heading">
+          <LangDisplay text={text} />
+        </Typography>
+      </Flex>
+      <Button variant="none">
+        <Image src={termsLinkImage} width={12} height={12} alt="termsLink" />
+      </Button>
+    </Flex>
+  </Container>
+);
 
 const TermsDialogBox: FC<{
   isChecked: boolean;
@@ -37,78 +61,47 @@ const TermsDialogBox: FC<{
   isChecked,
   setIsChecked,
   title,
-}) => (
-  <DialogBox width={500} height={454} direction="column">
-    <DialogBoxHeader display="flex" justify="center" width="full">
-      <Typography $textAlign="center" variant="h5" color="heading">
-        <LangDisplay text={title} />
-      </Typography>
-    </DialogBoxHeader>
-    <DialogBoxBody gap={16} direction="column" align="center">
-      <Container
-        width="full"
-        rounded={8}
-        px={3}
-        py="10"
-        $bgColor="input"
-        border="popup"
-      >
-        <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Bullet size="sm" />
-            <Typography variant="h6" color="heading">
-              <LangDisplay text={bulletPoints.terms} />
-            </Typography>
-          </Flex>
-          <Image src={termsLinkImage} width={12} height={12} alt="termsLink" />
-        </Flex>
-      </Container>
-      <Container
-        width="full"
-        rounded={8}
-        px={3}
-        py="10"
-        $bgColor="input"
-        border="popup"
-      >
-        <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Bullet size="sm" />
-            <Typography variant="h6" color="heading">
-              <LangDisplay text={bulletPoints.privacyPolicy} />
-            </Typography>
-          </Flex>
-          <Image src={termsLinkImage} width={12} height={12} alt="termsLink" />
-        </Flex>
-      </Container>
-      <Flex align="center">
-        <CheckBox
-          checked={isChecked}
-          onChange={() => setIsChecked(!isChecked)}
-        />
-        <Typography fontSize={14} color="muted" $textAlign="left" ml={2}>
-          <LangDisplay text={consent} />
+}) => {
+  const navigateTo = useNavigateTo();
+  const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
+  return (
+    <DialogBox width={500} direction="column">
+      <DialogBoxBody gap={32} direction="column" align="center">
+        <Typography $textAlign="center" variant="h5" color="heading" mb={6}>
+          <LangDisplay text={title} />
         </Typography>
-      </Flex>
-    </DialogBoxBody>
-    <DialogBoxFooter>
-      {isChecked ? (
-        <Link to={routes.onboarding.deviceAuthentication.path}>
-          <Button variant="primary">
-            {' '}
-            <LangDisplay text={buttonText} />
-          </Button>
-        </Link>
-      ) : (
-        <Button variant="secondary" disabled>
+        <Flex width="full" direction="column" gap={16}>
+          <ExternalLinkItem text={bulletPoints.terms} />
+          <ExternalLinkItem text={bulletPoints.privacyPolicy} />
+        </Flex>
+        <Flex align="center">
+          <CheckBox
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+            id="terms_accepted"
+          />
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label htmlFor="terms_accepted">
+            <Typography fontSize={14} color="muted" $textAlign="left" ml={2}>
+              <LangDisplay text={consent} />
+            </Typography>
+          </label>
+        </Flex>
+      </DialogBoxBody>
+      <DialogBoxFooter>
+        <Button
+          variant={isChecked ? 'primary' : 'secondary'}
+          disabled={!isChecked}
+          onClick={toNextPage}
+        >
           <LangDisplay text={buttonText} />
         </Button>
-      )}
-    </DialogBoxFooter>
-  </DialogBox>
-);
+      </DialogBoxFooter>
+    </DialogBox>
+  );
+};
 
-export const Terms: FC<{}> = () => {
+export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
 
