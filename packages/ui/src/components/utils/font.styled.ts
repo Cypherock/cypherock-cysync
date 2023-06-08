@@ -1,20 +1,17 @@
 import { css } from 'styled-components';
 import { generateCss } from './generateCss';
-import { MediaQuery } from '../../types';
-
-type fontType =
-  | 'thin'
-  | 'extralight'
-  | 'light'
-  | 'normal'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extrabold';
 
 export interface FontProps {
-  font?: MediaQuery<fontType>;
-  fontSize?: MediaQuery<number>;
+  font?:
+    | 'thin'
+    | 'extralight'
+    | 'light'
+    | 'normal'
+    | 'medium'
+    | 'semibold'
+    | 'bold'
+    | 'extrabold';
+  fontSize?: number;
 }
 
 const fontWeightObj: Record<string, string> = {

@@ -29,6 +29,7 @@ interface HeadingProps
     | 'success'
     | 'heading'
     | 'muted'
+    | 'separator'
     | 'list';
   $textAlign?: 'center' | 'left' | 'right';
 }

@@ -1,8 +1,8 @@
 import { IRouteInfo } from './types';
 
 export const onboarding: Record<string, IRouteInfo> = {
-  walletActions: {
-    name: 'wallet-actions',
+  createNewWallet: {
+    name: 'create-new-wallet',
     path: '/',
   },
   deviceDetection: {
@@ -25,7 +25,6 @@ export const onboarding: Record<string, IRouteInfo> = {
     name: 'card-authentication',
     path: '/card-auth',
   },
-
   congratulations: {
     name: 'congratulations',
     path: '/congo',

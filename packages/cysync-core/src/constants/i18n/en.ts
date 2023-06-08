@@ -65,6 +65,63 @@ const en = {
         button: 'Transfer',
       },
     },
+    createWallet: {
+      aside: {
+        tabs: {
+          device: 'Device',
+          syncX1Cards: 'Sync X1 Cards',
+          confirmation: 'Confirmation',
+        },
+      },
+      followInfo: {
+        heading: 'Setup Wallet Name',
+        title: 'Follow Instructions on the X1 Vault',
+        list: {
+          first: {
+            first: 'Your X1 Vault should be on the ',
+            second: 'Main Menu',
+          },
+          second: {
+            first: 'On the Main Menu, Click on "',
+            second: 'Create Wallet',
+            third: '" and then Select "',
+            fourth: 'Generate a new Wallet',
+            fifth: '"',
+          },
+        },
+      },
+      enterWalletName: {
+        heading: 'Setup Wallet Name',
+        title: 'Enter a wallet name on your X1 Vault',
+        list: [`Upto 13 characters allowed`, `It can be alphanumeric`],
+        note: 'Make sure that the wallet name is unique to other wallet names on the device',
+      },
+      confirmWallet: {
+        heading: 'Setup Wallet Name',
+        title: 'Confirm wallet name on the X1 Vault',
+      },
+      setupPinConsent: {
+        heading: 'Setup Wallet Security',
+        title: 'Do you want to setup a PIN for your wallet?',
+        subTitle:
+          'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+      },
+      enterPin: {
+        heading: 'Setup Wallet Security',
+        title: 'Setup a PIN on the X1 Vault',
+        list: ['Use between 4 and 8 characters', 'The PIN can be alphanumeric'],
+        note: 'Make sure you make a backup of your PIN, if you lose it , you lose access to your funds',
+      },
+      confirmPin: {
+        heading: 'Setup Wallet Security',
+        title: 'Confirm the entered PIN on the  X1 Vault again',
+        loading: 'Please wait...',
+        list: [
+          `Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets`,
+          `Backup it up in a safe place`,
+        ],
+      },
+    },
     success: {
       title: 'Congratulations',
       subtext: 'Cypherock X1 is now ready to use',

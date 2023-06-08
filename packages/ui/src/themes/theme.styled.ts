@@ -37,7 +37,10 @@ export const theme = {
     text: {
       heading: colors.text.heading,
       list: colors.text.list,
+      separator: colors.background.separator,
       muted: colors.text.muted,
+      warning: colors.warning.main,
+      info: colors.info.main,
     },
     background: {
       progress: colors.background.progressBar,

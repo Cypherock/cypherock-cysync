@@ -1,1 +1,1 @@
-export * from './WalletActionsDialogBox';
+export * from './CreateNewWallet';

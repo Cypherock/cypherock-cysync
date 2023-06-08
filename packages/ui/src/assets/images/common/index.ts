@@ -20,10 +20,16 @@ import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import loader from './loader.png';
+import arrow from './arrow.svg';
+import arrowForward from './arrow-forward.svg';
+import info from './info.svg';
+import goldInfo from './gold_info.svg';
 
 export {
   addWalletIcon,
   asideIcon,
+  arrow,
+  arrowForward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -36,6 +42,8 @@ export {
   blockSelectedIcon,
   disconnectedIcon,
   successIcon,
+  info,
+  goldInfo,
   failIcon,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
