@@ -63,7 +63,7 @@ const WalletActionsDialogBox: FC<{
       p="20"
       grow={2}
       align="center"
-      gap={110}
+      gap={40}
       direction="column"
       height="full"
     >
@@ -98,7 +98,7 @@ const WalletActionsDialogBox: FC<{
           <LangDisplay text={subTitle} />
         </Typography>
       </Flex>
-      <Flex gap={20} px={{ def: '40', lg: '150' }}>
+      <Flex gap={20} px={{ def: '20', lg: '150' }}>
         <DialogBox width="full">
           <DialogBoxBody height="full">
             <Image width={45} src={addWalletIcon} alt="importWalletIcon" />
@@ -215,10 +215,78 @@ const WalletActionsDialogBox: FC<{
             </Button>
           </DialogBoxFooter>
         </DialogBox>
+        <DialogBox
+          display={{
+            def: 'flex',
+            lg: 'none',
+          }}
+          width="full"
+        >
+          <DialogBoxBody height="full">
+            <Image width={45} src={importWalletIcon} alt="importWalletIcon" />
+            <Flex gap={48} direction="column" height="full">
+              <Typography
+                $textAlign="center"
+                variant="h5"
+                color="heading"
+                mb={1}
+              >
+                <LangDisplay text={footer.title} />
+              </Typography>
+              <Container
+                display={{
+                  def: 'none',
+                  lg: 'flex',
+                }}
+                justify="flex-start"
+                height="full"
+                $bgColor="list"
+                direction="column"
+              >
+                <ListContainer p={4} direction="column" width="full">
+                  {importWallet.list.map((item, index) => (
+                    <ListItem
+                      key={`import-wallet-list-${index + 1}`}
+                      width="full"
+                    >
+                      <Typography
+                        variant="h6"
+                        color="muted"
+                        $textAlign="left"
+                        mb={2}
+                      >
+                        {item}(
+                        <span
+                          style={{
+                            background: theme.palette.golden,
+                            WebkitTextFillColor: 'transparent',
+                            WebkitBackgroundClip: 'text',
+                          }}
+                        >
+                          ?
+                        </span>
+                        )
+                      </Typography>
+                    </ListItem>
+                  ))}
+                </ListContainer>
+              </Container>
+            </Flex>
+          </DialogBoxBody>
+          <DialogBoxFooter>
+            <Button variant="primary">
+              <LangDisplay text={footer.button} />
+            </Button>
+          </DialogBoxFooter>
+        </DialogBox>
       </Flex>
     </DialogBoxBody>
     <DialogBoxFooter>
       <Flex
+        display={{
+          def: 'none',
+          lg: 'flex',
+        }}
         align="center"
         gap={{ def: 16, lg: 32 }}
         px={{ def: '20', lg: '250' }}
@@ -228,15 +296,7 @@ const WalletActionsDialogBox: FC<{
           <Typography variant="h5" color="heading" mb={1}>
             <LangDisplay text={footer.title} />
           </Typography>
-          <Typography
-            display={{
-              def: 'none',
-              lg: 'block',
-            }}
-            variant="h5"
-            color="muted"
-            mb={1}
-          >
+          <Typography variant="h5" color="muted" mb={1}>
             <LangDisplay text={footer.subTitle} />
           </Typography>
         </Flex>
