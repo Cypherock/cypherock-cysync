@@ -6,7 +6,6 @@ import {
   HelpHeader,
   Container,
   Flex,
-  Button,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 import { OnboardingPageLayout } from '../../OnboardingPageLayout';
@@ -40,9 +39,7 @@ export const CreateNewWallet: FC<{}> = () => {
           $bgColor="contentGradient"
         >
           <Container width="full" p={2} justify="flex-start">
-            <Button variant="none">
-              <HelpHeader text={lang.strings.help} />
-            </Button>
+            <HelpHeader text={lang.strings.help} />
           </Container>
           <DialogBoxBody
             p="20"

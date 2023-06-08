@@ -19,11 +19,11 @@ permissions:
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  CI: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     strategy:
       matrix:

@@ -54,8 +54,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-core':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@cypherock/sdk-hw-hid':
         specifier: ^0.0.4
         version: 0.0.4
@@ -193,14 +193,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.4
         version: 0.0.4
       '@cypherock/sdk-utils':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -332,17 +332,17 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
+        specifier: ^0.0.7
+        version: 0.0.7
+      '@cypherock/sdk-core':
         specifier: ^0.0.6
         version: 0.0.6
-      '@cypherock/sdk-core':
-        specifier: ^0.0.5
-        version: 0.0.5
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.4
         version: 0.0.4
       '@cypherock/sdk-utils':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.0.5)(react@18.2.0)
@@ -917,6 +917,67 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
+
+  /@aws-crypto/ie11-detection@4.0.0:
+    resolution: {integrity: sha512-0zM8cbr1sEwjuTwx846nDvD1w0/rDcL4FsEPGwkX+CtJr5G0/ccxpmYAWPYOgAkD+qTyXwSgRBlHOBFS0dXXfw==}
+    dependencies:
+      tslib: 1.14.1
+    dev: false
+
+  /@aws-crypto/sha256-browser@4.0.0:
+    resolution: {integrity: sha512-9UIcHXJhUac5m5W07y1iWMGZzfvosekm+OPRRIgS1Mdo7OEUgtRRLmP0aY29eubNyj3TqoB9I4Q5NckD1Ge/8Q==}
+    dependencies:
+      '@aws-crypto/ie11-detection': 4.0.0
+      '@aws-crypto/sha256-js': 4.0.0
+      '@aws-crypto/supports-web-crypto': 4.0.0
+      '@aws-crypto/util': 4.0.0
+      '@aws-sdk/types': 3.347.0
+      '@aws-sdk/util-locate-window': 3.310.0
+      '@aws-sdk/util-utf8-browser': 3.259.0
+      tslib: 1.14.1
+    dev: false
+
+  /@aws-crypto/sha256-js@4.0.0:
+    resolution: {integrity: sha512-MHGJyjE7TX9aaqXj7zk2ppnFUOhaDs5sP+HtNS0evOxn72c+5njUmyJmpGd7TfyoDznZlHMmdo/xGUdu2NIjNQ==}
+    dependencies:
+      '@aws-crypto/util': 4.0.0
+      '@aws-sdk/types': 3.347.0
+      tslib: 1.14.1
+    dev: false
+
+  /@aws-crypto/supports-web-crypto@4.0.0:
+    resolution: {integrity: sha512-F+fpeuMgDCUgV/0gPLjERcwV94L8xapfGP0xzyADeCfyKDcJV8nKrG+HVlcQXV3UztEsUS/sjfJzBTPe/ukEUA==}
+    dependencies:
+      tslib: 1.14.1
+    dev: false
+
+  /@aws-crypto/util@4.0.0:
+    resolution: {integrity: sha512-2EnmPy2gsFZ6m8bwUQN4jq+IyXV3quHAcwPOS6ZA3k+geujiqI8aRokO2kFJe+idJ/P3v4qWI186rVMo0+zLDQ==}
+    dependencies:
+      '@aws-sdk/types': 3.347.0
+      '@aws-sdk/util-utf8-browser': 3.259.0
+      tslib: 1.14.1
+    dev: false
+
+  /@aws-sdk/types@3.347.0:
+    resolution: {integrity: sha512-GkCMy79mdjU9OTIe5KT58fI/6uqdf8UmMdWqVHmFJ+UpEzOci7L/uw4sOXWo7xpPzLs6cJ7s5ouGZW4GRPmHFA==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
+
+  /@aws-sdk/util-locate-window@3.310.0:
+    resolution: {integrity: sha512-qo2t/vBTnoXpjKxlsC2e1gBrRm80M3bId27r0BRB2VniSSe7bL1mmzM+/HFtujm0iAxtPM+aLEflLJlJeDPg0w==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
+
+  /@aws-sdk/util-utf8-browser@3.259.0:
+    resolution: {integrity: sha512-UvFa/vR+e19XookZF8RzFZBrw2EUkQWxiBW0yYQAhvk3C+QVGl0H3ouca8LDBlBfQKXwmW3huo/59H8rwb1wJw==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
 
   /@babel/cli@7.21.5(@babel/core@7.21.8):
     resolution: {integrity: sha512-TOKytQ9uQW9c4np8F+P7ZfPINy5Kv+pizDIUwSVH8X5zHgYHV4AA8HE5LA450xXeu4jEfmUckTYvv1I4S26M/g==}
@@ -2640,12 +2701,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypherock/sdk-app-evm@0.0.5:
-    resolution: {integrity: sha512-KwQLlJpRyrxDrFGnqwSGmwHJZY3MvwH5hBcciAHIaIsRAk0vsyWABr4Cxa7uDVl7aJuqfKBqUOXKDFc2avXeZQ==}
+  /@cypherock/sdk-app-evm@0.0.6:
+    resolution: {integrity: sha512-WKm9AVyvS6to01zkUtBOdj5+WVLzEomjdc50Qrl9jEohSy+d1YlNY1q0aekd2y51vrxRfBV44r3J0ev+9X4hKw==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.5
+      '@cypherock/sdk-core': 0.0.6
       '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.4
+      '@cypherock/sdk-utils': 0.0.5
       ethers: 6.3.0
       long: 5.2.3
       protobufjs: 7.2.3
@@ -2654,12 +2715,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.6:
-    resolution: {integrity: sha512-eeioC9hRsNJ1DmoGkC0kqGUQxrk7uXHD+H04SU6xfkxWt23bYMZVx0IVYSST2GsugLlajMnzd8M6oiE0JIR/MQ==}
+  /@cypherock/sdk-app-manager@0.0.7:
+    resolution: {integrity: sha512-GJMLHx4ekIgEAd+E4FOF56AeMMpzWBPaWZ+knxZ8mGuSROIQXWeQJlSc79V1/fQyZv8JBfyD7joLQSYpG0ru5Q==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.5
+      '@cypherock/sdk-core': 0.0.6
       '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.4
+      '@cypherock/sdk-utils': 0.0.5
       axios: 1.4.0
       crypto-js: 4.1.1
       protobufjs: 7.2.3
@@ -2668,11 +2729,11 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-core@0.0.5:
-    resolution: {integrity: sha512-QyY5UZsk5zDRzFXmbBjbu8Sd8Vm45vw8Kz0ayUwJVkrfsOAZKiHdC2CSiY0dfnD7kzCKGYaAQ5PxvXED7gmzgQ==}
+  /@cypherock/sdk-core@0.0.6:
+    resolution: {integrity: sha512-HdmPxvswXTLB9NagufK9/hEIzakt/oiUmO5f7pw+Aw5ZhoqgR6bJOGPhv5qwZhs7RvMRXbudpOxXFIc6tG88NA==}
     dependencies:
       '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.4
+      '@cypherock/sdk-utils': 0.0.5
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
       uuid: 9.0.0
@@ -2704,9 +2765,10 @@ packages:
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-utils@0.0.4:
-    resolution: {integrity: sha512-95zXQKZi9Qt10LQWIaseiJQkHFHMQ5NgKyuMeB3pixHsvhhhewlphWK/CO9+PMTAyFyYhbKjd3icQV49ZsZhSg==}
+  /@cypherock/sdk-utils@0.0.5:
+    resolution: {integrity: sha512-0iLLI3XZ0/UxM6ujlm36qup0RtLTGPjV/3FF6R4hW9yQZhcDCBXB12Ak25r/icRa5YlVc4a8AOr1n/2m6W2qnw==}
     dependencies:
+      '@aws-crypto/sha256-browser': 4.0.0
       '@cypherock/sdk-interfaces': 0.0.4
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
@@ -11596,7 +11658,6 @@ packages:
 
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
 
   /tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
