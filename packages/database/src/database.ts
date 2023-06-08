@@ -15,7 +15,6 @@ import {
   IWallet,
   IWalletRepository,
 } from '@cypherock/db-interfaces';
-import JsonDB, { LokiFsAdapter } from 'lokijs';
 
 import {
   AccountRepository,
@@ -30,7 +29,6 @@ import {
   Transaction,
   Wallet,
 } from './entity';
-import { KeyValueStore } from './keyValueStore';
 import { EncryptedDB } from './encryptedDb';
 
 export class Database implements IDatabase {
@@ -48,8 +46,6 @@ export class Database implements IDatabase {
 
   priceInfo: IPriceInfoRepository;
 
-  storage: KeyValueStore;
-
   constructor(params: {
     database: EncryptedDB;
     device: IDeviceRepository;
@@ -58,10 +54,8 @@ export class Database implements IDatabase {
     wallet: IWalletRepository;
     priceHistory: IPriceHistoryRepository;
     priceInfo: IPriceInfoRepository;
-    storage: KeyValueStore;
   }) {
     this.database = params.database;
-    this.storage = params.storage;
 
     this.device = params.device;
     this.account = params.account;
@@ -72,9 +66,7 @@ export class Database implements IDatabase {
   }
 
   public static async create(dirPath: string) {
-    const { database, storageDb } = await Database.createDb(dirPath);
-
-    const storage = new KeyValueStore(storageDb);
+    const database = await Database.createDb(dirPath);
 
     const device = await Repository.create<IDevice>(
       database,
@@ -109,7 +101,6 @@ export class Database implements IDatabase {
 
     return new Database({
       database,
-      storage,
       device,
       wallet,
       account,
@@ -119,43 +110,44 @@ export class Database implements IDatabase {
     });
   }
 
+  public async load(key?: string) {
+    return this.database.load(key);
+  }
+
+  public async unload() {
+    return this.database.unload();
+  }
+
+  public async isLoaded() {
+    return this.database.isLoaded();
+  }
+
+  public async changeEncryptionKey(encryptionKey?: string) {
+    await this.database.changeEncryptionKey(encryptionKey);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public createOrFetchRepository<T extends IEntity>(
+    name: string,
+  ): Promise<IRepository<T> | null> {
+    throw new Error(`Method not implemented. ${name}`);
+  }
+
+  public async close() {
+    await this.database.close();
+  }
+
   private static async createDb(dirPath: string) {
-    let dbPath = path.join(dirPath, 'db.sqlite');
-    let storagePath = path.join(dirPath, 'storage.sqlite');
+    let dbPath = path.join(dirPath, 'data.db');
 
     if (dirPath === ':memory:') {
       dbPath = dirPath;
-      storagePath = dirPath;
     } else if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
     }
 
     const database = await EncryptedDB.create(dbPath);
 
-    const storageDb = new JsonDB(
-      storagePath,
-      storagePath !== ':memory:'
-        ? {
-            adapter: new LokiFsAdapter(),
-            autoload: true,
-            autosave: true,
-            autosaveInterval: 4000,
-          }
-        : undefined,
-    );
-
-    return { database, dbPath, storageDb };
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  createOrFetchRepository<T extends IEntity>(
-    name: string,
-  ): Promise<IRepository<T> | null> {
-    throw new Error(`Method not implemented. ${name}`);
-  }
-
-  async close() {
-    await this.database.close();
-    await this.storage.close();
+    return database;
   }
 }

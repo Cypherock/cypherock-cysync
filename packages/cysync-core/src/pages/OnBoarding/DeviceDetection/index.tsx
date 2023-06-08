@@ -14,7 +14,6 @@ import { useDevice, DeviceConnectionStatus } from '~/context';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getDB } from '~/utils';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 const DeviceNotConnectedDialogBox: React.FC<{
@@ -46,46 +45,6 @@ export const DeviceDetection: React.FC = () => {
       navigateTo(routes.onboarding.deviceAuthentication.path);
     }
   }, [connection]);
-
-  const getKey = async () => {
-    console.log('Getting key');
-    const db = getDB();
-    const value = await db.storage.getItem('device');
-    console.log({ value });
-  };
-
-  const insertKey = async () => {
-    console.log('Inserting key...');
-    const db = getDB();
-
-    await db.storage.setItem('device', 'Hello');
-
-    await getKey();
-  };
-
-  const getDevice = async () => {
-    console.log('Getting Device');
-    getDB().device.getAll().then(console.log);
-  };
-
-  const insertDevice = async () => {
-    console.log('Inserting db...');
-    const db = getDB();
-
-    await db.device.insert({
-      isAuthenticated: true,
-      serial: 'test',
-      version: 'test',
-      __version: 0,
-    });
-
-    await getDevice();
-  };
-
-  useEffect(() => {
-    insertKey();
-    insertDevice();
-  }, []);
 
   return (
     <OnboardingPageLayout

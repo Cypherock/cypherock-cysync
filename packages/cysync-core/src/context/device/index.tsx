@@ -32,18 +32,18 @@ export interface DeviceContextInterface {
 export const DeviceContext: React.Context<DeviceContextInterface> =
   React.createContext<DeviceContextInterface>({} as DeviceContextInterface);
 
-type Props = {
+export interface DeviceProviderProps {
   children?: React.ReactNode;
   getDevices: GetDevices;
   connectDevice: ConnectDevice;
-};
+}
 
 /**
  * ***************************** WARNING *****************************
  * To be only used via `useConnection`. Only 1 instance of DeviceProvider
  * should be active in the whole application.
  */
-export const DeviceProvider: React.FC<Props> = ({
+export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   children,
   getDevices,
   connectDevice,

@@ -274,7 +274,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.version = version;
   }
 
-  emitChange() {
+  private emitChange() {
     this.encDb.onChange();
     this.emitter.emit('change', true);
   }
@@ -287,6 +287,6 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       return collection;
     }
 
-    return db.addCollection<IEntity>(this.name);
+    return db.addCollection<IEntity>(this.name, { unique: ['__id'] });
   }
 }

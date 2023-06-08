@@ -1,55 +1,50 @@
+import fs from 'fs';
 import {
   DatabaseError,
   DatabaseErrorType,
   IKeyValueStore,
 } from '@cypherock/db-interfaces';
-import JsonDB, { Collection } from 'lokijs';
+import path from 'path';
+import { EncryptedDB } from '../encryptedDb';
 
 import * as validator from './utils/validator';
 
-interface KeyCollection {
-  index: number;
+interface IKeyCollection {
   key: string;
   value: string;
 }
 
 export class KeyValueStore implements IKeyValueStore {
-  private readonly db: JsonDB;
+  private readonly encDb: EncryptedDB;
 
-  private readonly collection: Collection<KeyCollection>;
+  private readonly name: 'keyvalue';
 
-  constructor(db: JsonDB) {
-    this.db = db;
-    this.collection = db.addCollection<KeyCollection>('keyvalue');
+  private constructor(db: EncryptedDB) {
+    this.encDb = db;
   }
 
-  async getLength(): Promise<number> {
-    try {
-      return this.collection.count();
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.GET_FAILED,
-        `Couldn't fetch length [${error.code}]: ${error.message}`,
-      );
-    }
-  }
+  public static async create(dirPath: string) {
+    let storagePath = path.join(dirPath, 'storage.db');
 
-  async key(index: number): Promise<string | null> {
-    validator.validateIndex(index);
-    try {
-      return this.collection.findOne({ index })?.value ?? null;
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.GET_FAILED,
-        `Couldn't fetch key [${error.code}]: ${error.message}`,
-      );
+    if (dirPath === ':memory:') {
+      storagePath = dirPath;
+    } else if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
     }
+
+    const storageDb = await EncryptedDB.create(storagePath);
+    await storageDb.load();
+
+    return new KeyValueStore(storageDb);
   }
 
   async getItem(keyName: string): Promise<string | null> {
     validator.validateStrings(keyName);
+
+    const collection = await this.getCollection();
+
     try {
-      return this.collection.findOne({ key: keyName })?.value ?? null;
+      return collection.where(e => e.key === keyName).at(0)?.value ?? null;
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.GET_FAILED,
@@ -60,17 +55,20 @@ export class KeyValueStore implements IKeyValueStore {
 
   async setItem(keyName: string, keyValue: string): Promise<void> {
     validator.validateStrings(keyName, keyValue);
+    const collection = await this.getCollection();
+
     try {
-      const obj = this.collection.findOne({ key: keyName });
+      const obj = collection.where(e => e.key === keyName).at(0);
+
       if (obj) {
-        this.collection.update({ ...obj, value: keyValue });
+        collection.update({ ...obj, value: keyValue });
       } else {
-        this.collection.insert({
-          index: await this.getLength(),
+        collection.insert({
           key: keyName,
           value: keyValue,
         });
       }
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.INSERT_FAILED,
@@ -81,8 +79,11 @@ export class KeyValueStore implements IKeyValueStore {
 
   async removeItem(keyName: string): Promise<void> {
     validator.validateStrings(keyName);
+    const collection = await this.getCollection();
+
     try {
-      this.collection.removeWhere({ key: keyName });
+      collection.removeWhere({ key: keyName });
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
@@ -92,8 +93,11 @@ export class KeyValueStore implements IKeyValueStore {
   }
 
   async clear(): Promise<void> {
+    const collection = await this.getCollection();
+
     try {
-      this.collection.clear({ removeIndices: true });
+      collection.clear({ removeIndices: true });
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
@@ -103,6 +107,21 @@ export class KeyValueStore implements IKeyValueStore {
   }
 
   async close() {
-    this.db.close();
+    this.encDb.close();
+  }
+
+  private async getCollection() {
+    const db = await this.encDb.getDB();
+    const collection = db.getCollection<IKeyCollection>(this.name);
+
+    if (collection) {
+      return collection;
+    }
+
+    return db.addCollection<IKeyCollection>(this.name, { unique: ['key'] });
+  }
+
+  private emitChange() {
+    this.encDb.onChange();
   }
 }
