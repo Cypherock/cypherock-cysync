@@ -1,30 +1,35 @@
-import React, { useEffect } from 'react';
+import { ManagerApp } from '@cypherock/sdk-app-manager';
+import React, { useEffect, useState } from 'react';
 
 import { routes } from '~/constants';
-import {
-  addKeyboardEvents,
-  useNavigateTo,
-  useStateWithFinality,
-} from '~/hooks';
+import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
 
 import { CardTap } from './CardTap';
 
 export const CardTrainingDialog: React.FC = () => {
   const navigateTo = useNavigateTo();
-  const [cardTapState, setCardTapState, isFinalCardTapState] =
-    useStateWithFinality(0, 1);
+  const [cardTapState, setCardTapState] = useState(0);
 
-  // replace this with trainCard function
-  addKeyboardEvents({
-    ' ': () => {
-      setCardTapState(s => s + 1);
-    },
-  });
+  const trainCard: DeviceTask<void> = async connection => {
+    const app = await ManagerApp.create(connection);
+    const res = (await app.trainCard({ onWallets: async () => false }))
+      .cardPaired;
+    setCardTapState(1);
+    navigateTo(
+      `${routes.onboarding.cardAuthentication.path}?isPaired=${res}`,
+      6000,
+    );
+  };
+
+  const task = useDeviceTask(trainCard);
 
   useEffect(() => {
-    if (isFinalCardTapState)
-      navigateTo(routes.onboarding.cardAuthentication.path, 3000);
-  }, [isFinalCardTapState]);
+    task.run();
+
+    return () => {
+      task.abort();
+    };
+  }, []);
 
   return <CardTap tapState={cardTapState} />;
 };
