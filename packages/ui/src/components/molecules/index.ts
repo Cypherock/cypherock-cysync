@@ -7,3 +7,4 @@ export * from './CardTapList';
 export * from './ConfettiBlast';
 export * from './EmailHeader';
 export * from './HelpHeader';
+export * from './Aside';
