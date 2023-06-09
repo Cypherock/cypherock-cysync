@@ -42,15 +42,7 @@ export const CardAuthenticationDialog: React.FC = () => {
     }
   };
 
-  const task = useDeviceTask(cardAuth);
-
-  useEffect(() => {
-    task.run();
-
-    return () => {
-      task.abort();
-    };
-  }, []);
+  useDeviceTask(cardAuth);
 
   useEffect(() => {
     if (isFinalCardTapState) navigateTo(routes.onboarding.congratulations.path);

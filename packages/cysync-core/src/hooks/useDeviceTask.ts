@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { SDK } from '@cypherock/sdk-core';
 import * as lodash from 'lodash';
 
-import { aquireDeviceLock, releaseDeviceLock, useDevice } from '~/context';
+import { deviceLock, useDevice } from '~/context';
 import logger from '~/utils/logger';
 
 export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
-export function useDeviceTask<T>(handler: DeviceTask<T>) {
+export interface DeviceTaskOptions {
+  dontExecuteTask: boolean;
+}
+
+export function useDeviceTask<T>(
+  handler: DeviceTask<T>,
+  options?: DeviceTaskOptions,
+) {
   const { connection, connectDevice } = useDevice();
 
   const [taskError, setTaskError] = React.useState<Error | undefined>();
@@ -21,6 +28,8 @@ export function useDeviceTask<T>(handler: DeviceTask<T>) {
 
   const run = async () => {
     let conn: IDeviceConnection | undefined;
+    const taskId = lodash.uniqueId('task-');
+
     try {
       isAbortedRef.current = false;
       setTaskError(undefined);
@@ -28,8 +37,7 @@ export function useDeviceTask<T>(handler: DeviceTask<T>) {
 
       if (!connection) return;
 
-      const taskId = lodash.uniqueId('task-');
-      await aquireDeviceLock(connection.device, taskId);
+      await deviceLock.acquire(connection.device, taskId);
       conn = await connectDevice(connection.device);
       connectedRef.current = { connection: conn, device: connection.device };
       const res = await handler(conn);
@@ -48,7 +56,7 @@ export function useDeviceTask<T>(handler: DeviceTask<T>) {
       isAbortedRef.current = true;
     } finally {
       if (connection?.device) {
-        releaseDeviceLock(connection.device);
+        deviceLock.release(connection.device, taskId);
       }
       conn?.destroy().catch(() => {});
     }
@@ -69,6 +77,20 @@ export function useDeviceTask<T>(handler: DeviceTask<T>) {
       // eslint-disable-next-line no-empty
     } catch (error) {}
   };
+
+  useEffect(() => {
+    const doExecute = !options?.dontExecuteTask;
+
+    if (doExecute) {
+      run();
+    }
+
+    return () => {
+      if (doExecute) {
+        abort();
+      }
+    };
+  }, []);
 
   return {
     run,

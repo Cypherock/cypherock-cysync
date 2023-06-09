@@ -1,5 +1,5 @@
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
@@ -21,15 +21,7 @@ export const CardTrainingDialog: React.FC = () => {
     );
   };
 
-  const task = useDeviceTask(trainCard);
-
-  useEffect(() => {
-    task.run();
-
-    return () => {
-      task.abort();
-    };
-  }, []);
+  useDeviceTask(trainCard);
 
   return <CardTap tapState={cardTapState} />;
 };

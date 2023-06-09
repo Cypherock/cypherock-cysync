@@ -34,14 +34,6 @@ export const JoystickTrainingDialog: React.FC = () => {
   const task = useDeviceTask(trainJoystick);
 
   useEffect(() => {
-    task.run();
-
-    return () => {
-      task.abort();
-    };
-  }, []);
-
-  useEffect(() => {
     if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 6000);
   }, [isFinalState]);
 

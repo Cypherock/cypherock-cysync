@@ -22,14 +22,6 @@ export const DeviceAuthDialog: React.FC = () => {
   const task = useDeviceTask(deviceAuth);
 
   useEffect(() => {
-    task.run();
-
-    return () => {
-      task.abort();
-    };
-  }, []);
-
-  useEffect(() => {
     if (task.result === true) {
       navigateTo(routes.onboarding.joystickTraining.path, 3000);
     }
