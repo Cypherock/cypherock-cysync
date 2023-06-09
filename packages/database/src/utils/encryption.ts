@@ -1,22 +1,31 @@
 import crypto from 'crypto';
 
-export const encryptData = async (data: string, key: string) => {
+export const createHash = (message: string): Buffer =>
+  crypto.createHash('sha256').update(message).digest();
+
+export const encryptData = async (data: string, key: Buffer) => {
   const algorithm = 'aes-256-cbc';
 
-  const cipher = crypto.createCipher(algorithm, key);
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(algorithm, key, iv);
 
   let encrypted = cipher.update(data, 'utf8', 'hex');
   encrypted += cipher.final('hex');
 
-  return encrypted;
+  return `${iv.toString('hex')}.${encrypted}`;
 };
 
-export const decryptData = async (data: string, key: string) => {
+export const decryptData = async (data: string, key: Buffer) => {
   const algorithm = 'aes-256-cbc';
+  const [iv, encryptedData] = data.split('.');
 
-  const decipher = crypto.createDecipher(algorithm, key);
+  const decipher = crypto.createDecipheriv(
+    algorithm,
+    key,
+    Buffer.from(iv, 'hex'),
+  );
 
-  let decrypted = decipher.update(data, 'hex', 'utf8');
+  let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
 
   return decrypted;

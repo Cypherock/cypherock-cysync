@@ -5,12 +5,16 @@ import { getKeyDB } from './db';
 
 const PASSWORD_KEY = 'password';
 
-const createHash = async (data: string | Uint8Array) => {
-  const hash = new Sha256();
-  hash.update(data);
-  const result = await hash.digest();
+const createHash = async (data: string) => {
+  let encoded = new TextEncoder().encode(data);
 
-  return uint8ArrayToHex(result);
+  for (let i = 0; i < 20; i += 1) {
+    const hash = new Sha256();
+    hash.update(data);
+    encoded = await hash.digest();
+  }
+
+  return uint8ArrayToHex(encoded);
 };
 
 const createDoubleHash = async (passHash: string): Promise<string> =>

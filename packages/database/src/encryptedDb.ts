@@ -5,7 +5,7 @@ import JsonDB from 'lokijs';
 import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 
 import logger from './utils/logger';
-import { encryptData, decryptData } from './utils/encryption';
+import { encryptData, decryptData, createHash } from './utils/encryption';
 
 interface IFileData {
   isEncrypted: boolean;
@@ -21,7 +21,7 @@ export class EncryptedDB {
 
   private isLoadedFromFile = false;
 
-  private key?: string;
+  private key?: Buffer;
 
   private database: JsonDB;
 
@@ -42,10 +42,10 @@ export class EncryptedDB {
   }
 
   public async load(key?: string) {
-    this.key = key;
+    this.updateKey(key);
 
     if (this.dbPath !== ':memory:') {
-      const data = await EncryptedDB.loadDB(this.dbPath, key);
+      const data = await EncryptedDB.loadDB(this.dbPath, this.key);
       this.database.loadJSON(data);
     }
 
@@ -80,7 +80,7 @@ export class EncryptedDB {
   }
 
   public async changeEncryptionKey(key?: string) {
-    this.key = key;
+    this.updateKey(key);
     await this.saveDB();
   }
 
@@ -110,7 +110,7 @@ export class EncryptedDB {
     await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
   }
 
-  private static async loadDB(dbPath: string, key?: string) {
+  private static async loadDB(dbPath: string, key?: Buffer) {
     if (dbPath === ':memory:') return '';
 
     if (fs.existsSync(dbPath)) {
@@ -153,5 +153,13 @@ export class EncryptedDB {
 
     const db = new JsonDB(dbName);
     return db;
+  }
+
+  private updateKey(key?: string) {
+    if (key) {
+      this.key = createHash(key);
+    } else {
+      this.key = undefined;
+    }
   }
 }
