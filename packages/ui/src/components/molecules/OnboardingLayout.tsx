@@ -8,7 +8,7 @@ import {
   DialogBoxBackgroundHeader,
   DialogBoxBackgroundHeaderProps,
 } from './DialogBoxBackground';
-import { InfoAside, InfoAsideProps } from './InfoAside';
+import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
 
 export interface OnboardingLayoutProps
   extends Partial<AsideProps>,

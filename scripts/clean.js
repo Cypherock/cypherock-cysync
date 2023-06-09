@@ -5,7 +5,15 @@ const fs = require('fs/promises');
 const commonFolders = ['node_modules', 'coverage', 'dist', '.turbo'];
 
 const packages = {
-  'apps/desktop': [...commonFolders, 'dist-electron', 'release'],
+  'apps/desktop': [
+    ...commonFolders,
+    'dist-electron',
+    'release',
+    'playwright-report',
+    'test-results',
+    'screenshots',
+    'videos',
+  ],
   'packages/coin-support': [...commonFolders],
   'packages/coin-support-evm': [...commonFolders],
   'packages/coins': [...commonFolders],

@@ -5,6 +5,10 @@ export const onboarding: Record<string, IRouteInfo> = {
     name: 'info',
     path: '/',
   },
+  usage: {
+    name: 'terms',
+    path: '/usage',
+  },
   terms: {
     name: 'terms',
     path: '/terms',

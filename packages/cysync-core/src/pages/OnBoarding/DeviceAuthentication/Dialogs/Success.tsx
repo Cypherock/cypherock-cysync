@@ -17,7 +17,7 @@ export const Success: React.FC = () => {
     <DialogBox width={500}>
       <DialogBoxBody>
         <Image src={successIcon} alt="Success Icon" />
-        <Typography variant="h6" $textAlign="center">
+        <Typography variant="h5" $textAlign="center">
           <LangDisplay text={lang.strings.onboarding.deviceAuth.success} />
         </Typography>
       </DialogBoxBody>

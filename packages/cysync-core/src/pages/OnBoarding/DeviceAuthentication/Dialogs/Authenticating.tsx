@@ -17,7 +17,7 @@ export const Authenticating: React.FC = () => {
     <DialogBox width={500}>
       <DialogBoxBody>
         <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
-        <Typography variant="h6" $textAlign="center">
+        <Typography variant="h5" $textAlign="center">
           <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
           ...(
           <span

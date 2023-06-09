@@ -4,7 +4,8 @@ import {
   Congratulations,
   DeviceAuthentication,
   DeviceDetection,
-  Info,
+  Information,
+  Usage,
   JoystickTraining,
   routes,
   Terms,
@@ -14,7 +15,8 @@ import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
 const onboardingComponents: Record<keyof typeof routes.onboarding, ReactNode> =
   {
-    info: <Info />,
+    info: <Information />,
+    usage: <Usage />,
     terms: <Terms />,
     deviceDetection: <DeviceDetection />,
     deviceAuthentication: <DeviceAuthentication />,

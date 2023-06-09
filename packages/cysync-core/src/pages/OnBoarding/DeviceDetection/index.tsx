@@ -24,7 +24,7 @@ const DeviceNotConnectedDialogBox: React.FC<{
     <DialogBoxBody pb={8}>
       <Image src={disconnectedIcon} alt="Device not connected" />
       <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h6" $textAlign="center">
+        <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />
         </Typography>
         <Typography variant="h6" $textAlign="center" color="muted">

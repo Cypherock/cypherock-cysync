@@ -77,7 +77,7 @@ export const JoystickDialog: React.FC<{ state: number }> = ({ state }) => {
         </Typography>
         <JoystickInteraction {...states} />
         <Container display="flex" direction="column" gap={8}>
-          <Typography variant="h6" $textAlign="center">
+          <Typography variant="h5" $textAlign="center">
             <LangDisplay text={bottomText} />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">

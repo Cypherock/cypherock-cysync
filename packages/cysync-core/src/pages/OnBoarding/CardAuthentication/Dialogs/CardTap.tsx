@@ -11,16 +11,27 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
+export const CardTap: React.FC<{
+  tapState: number;
+  tapsPerCard: number;
+  totalCards: number;
+}> = ({ tapState, tapsPerCard, totalCards }) => {
   const lang = useAppSelector(selectLanguage);
+  const items = Array(totalCards)
+    .fill(0)
+    .map((_, i) => ({
+      text: `${lang.strings.x1Card} #${i + 1}`,
+      currentState: tapState - tapsPerCard * i,
+      totalState: tapsPerCard,
+    }));
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={48}>
         <Container display="flex" direction="column" gap={4}>
-          <Typography variant="h6" $textAlign="center">
+          <Typography variant="h5" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.cardAuth.title} /> (
             <Button variant="none" color="golden">
-              <Typography variant="h6" color="gold">
+              <Typography variant="h5" color="gold">
                 ?
               </Typography>
             </Button>
@@ -30,30 +41,7 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
             <LangDisplay text={lang.strings.onboarding.cardAuth.subtext} />
           </Typography>
         </Container>
-        <CardTapList
-          items={[
-            {
-              text: `${lang.strings.x1Card} #1`,
-              currentState: tapState,
-              totalState: 3,
-            },
-            {
-              text: `${lang.strings.x1Card} #2`,
-              currentState: tapState - 3,
-              totalState: 3,
-            },
-            {
-              text: `${lang.strings.x1Card} #3`,
-              currentState: tapState - 3 * 2,
-              totalState: 3,
-            },
-            {
-              text: `${lang.strings.x1Card} #4`,
-              currentState: tapState - 3 * 3,
-              totalState: 3,
-            },
-          ]}
-        />
+        <CardTapList items={items} />
       </DialogBoxBody>
     </DialogBox>
   );

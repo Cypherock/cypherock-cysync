@@ -21,7 +21,7 @@ const CenterClickPrompt: React.FC = () => (
     <Ring position="absolute">
       <Container gap={8} direction="column">
         <Container width={12} height={12} rounded={6} $bgColor="golden" />
-        <Typography variant="h6" color="gold">
+        <Typography variant="h5" color="gold">
           Press
         </Typography>
       </Container>

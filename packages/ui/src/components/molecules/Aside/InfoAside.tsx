@@ -1,8 +1,14 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
-import { theme } from '../../themes/theme.styled';
-import { AsideContainer, Flex, Image, LangDisplay, Typography } from '../atoms';
-import { cysyncLogoBig, cysyncLogoSmall } from '../../assets/images';
+import { theme } from '../../../themes/theme.styled';
+import {
+  AsideContainer,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+} from '../../atoms';
+import { cysyncLogoBig, cysyncLogoSmall } from '../../../assets/images';
 
 export interface InfoAsideProps {
   title: string;
@@ -53,6 +59,7 @@ export const InfoAside = (props: InfoAsideProps): ReactElement => {
         $textAlign="center"
         width="full"
         variant="fineprint"
+        $letterSpacing={0.12}
       >
         <LangDisplay text={version} />
       </Typography>

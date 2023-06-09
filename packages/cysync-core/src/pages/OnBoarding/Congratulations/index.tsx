@@ -30,7 +30,7 @@ export const Congratulations: React.FC = () => {
         <DialogBoxBody>
           <Image src={successIcon} alt="Success Icon" />
           <Container display="flex" direction="column" gap={4} mb={4}>
-            <Typography variant="h6" $textAlign="center">
+            <Typography variant="h5" $textAlign="center">
               <LangDisplay text={lang.strings.onboarding.success.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
