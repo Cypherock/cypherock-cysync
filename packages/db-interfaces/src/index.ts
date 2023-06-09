@@ -24,6 +24,7 @@ export interface IDatabase {
     name: string,
     schema: ObjectLiteral,
   ): Promise<IRepository<T> | null>;
+  close(): Promise<void>;
 }
 
 export * from './entities';

@@ -19,6 +19,7 @@ describe('Basic tests', () => {
 
   test('Can create a new database instance', async () => {
     const db = await createDb(':memory:');
+    await db.load();
     expect(db).toBeDefined();
     const devices = await db.device.getAll();
     expect(devices.length).toEqual(0);

@@ -1,17 +1,29 @@
-import { ObjectLiteral } from '@cypherock/db-interfaces';
+import {
+  IDatabase,
+  IKeyValueStore,
+  ObjectLiteral,
+} from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-import { Database as DB } from '../../src/database';
+import { createDb, createKeyValueStore } from '../../src';
 
 class TestHelper {
-  public db: DB;
+  public db: IDatabase;
+
+  public keyValueStore: IKeyValueStore;
 
   async setupTestDB() {
-    this.db = await DB.create(':memory:');
+    this.db = await createDb(':memory:');
+    await this.db.load();
+
+    this.keyValueStore = await createKeyValueStore(':memory:');
   }
 
   teardownTestDB() {
     if (this.db) {
       this.db.close();
+    }
+    if (this.keyValueStore) {
+      this.keyValueStore.close();
     }
   }
 }

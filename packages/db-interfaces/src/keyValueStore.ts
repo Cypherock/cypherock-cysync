@@ -34,4 +34,6 @@ export interface IKeyValueStore {
    * @returns None
    */
   clear(): Promise<void>;
+
+  close(): Promise<void>;
 }

@@ -1,23 +1,23 @@
 import { IKeyValueStore } from '@cypherock/db-interfaces';
-import { createDb } from '../src';
+import { createKeyValueStore } from '../src';
 import { testHelper } from './__helpers__/testHelper';
 
 describe('KeyValueStore', () => {
   describe('createDb', () => {
     test('Can initialize KeyValueStore', async () => {
-      const db = await createDb(':memory:');
+      const db = await createKeyValueStore(':memory:');
       expect(db).toBeDefined();
-      const devices = await db.device.getAll();
-      expect(devices.length).toEqual(0);
+      const testValue = await db.getItem('test');
+      expect(testValue).toBeNull();
       await db.close();
-      expect(db.device.getAll()).rejects.toThrow();
+      expect(db.getItem('test')).rejects.toThrow();
     });
   });
 
   let storage!: IKeyValueStore;
   beforeAll(async () => {
     await testHelper.setupTestDB();
-    storage = testHelper.db.storage;
+    storage = testHelper.keyValueStore;
   });
 
   afterAll(() => {

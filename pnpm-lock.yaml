@@ -473,9 +473,6 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
-      better-sqlite3:
-        specifier: ^8.3.0
-        version: 8.3.0
       events:
         specifier: ^3.3.0
         version: 3.3.0
@@ -504,9 +501,6 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../util-tsconfig
-      '@types/better-sqlite3':
-        specifier: ^7.6.4
-        version: 7.6.4
       '@types/events':
         specifier: ^3.0.0
         version: 3.0.0
@@ -4221,12 +4215,6 @@ packages:
     resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
     dev: true
 
-  /@types/better-sqlite3@7.6.4:
-    resolution: {integrity: sha512-dzrRZCYPXIXfSR1/surNbJ/grU3scTaygS0OMzjlGf71i9sc2fGyHPXXiXmEvNIoE0cGwsanEFMVJxPXmco9Eg==}
-    dependencies:
-      '@types/node': 16.11.10
-    dev: true
-
   /@types/cacheable-request@6.0.3:
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
     dependencies:
@@ -5267,14 +5255,6 @@ packages:
     dependencies:
       is-windows: 1.0.2
     dev: true
-
-  /better-sqlite3@8.3.0:
-    resolution: {integrity: sha512-JTmvBZL/JLTc+3Msbvq6gK6elbU9/wVMqiudplHrVJpr7sVMR9KJrNhZAbW+RhXKlpMcuEhYkdcHa3TXKNXQ1w==}
-    requiresBuild: true
-    dependencies:
-      bindings: 1.5.0
-      prebuild-install: 7.1.1
-    dev: false
 
   /big-integer@1.6.51:
     resolution: {integrity: sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg==}
