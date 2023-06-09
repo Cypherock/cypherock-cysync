@@ -11,8 +11,8 @@ import {
   PositionProps,
   display,
   DisplayProps,
-  FlexProps,
   flex,
+  FlexProps,
 } from '../utils';
 
 interface HeadingProps
@@ -31,6 +31,7 @@ interface HeadingProps
     | 'muted'
     | 'list';
   $textAlign?: 'center' | 'left' | 'right';
+  $letterSpacing?: number;
 }
 
 const baseStyle = css<HeadingProps>`
@@ -66,18 +67,25 @@ ${props =>
     css`
       color: ${({ theme }) => theme.palette.success.main};
     `}
+    
+    ${props =>
+    props.color && `color: ${props.theme.palette.text[props.color]};`}
+    
+    ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
 
-  ${props => props.color && `color: ${props.theme.palette.text[props.color]};`}
-
-  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
-
-  max-width: 100%;
-  ${flex};
+${props =>
+    props.$letterSpacing !== undefined &&
+    css`
+      letter-spacing: ${props.$letterSpacing}em;
+    `}
+    
+    max-width: 100%;
   ${spacing};
   ${font};
   ${width};
   ${position};
   ${display};
+  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
@@ -181,4 +189,5 @@ Typography.defaultProps = {
   children: null,
   color: 'heading',
   $textAlign: 'left',
+  $letterSpacing: 0,
 };

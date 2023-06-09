@@ -1,13 +1,25 @@
 import { IRouteInfo } from './types';
 
 export const onboarding: Record<string, IRouteInfo> = {
+  info: {
+    name: 'info',
+    path: '/',
+  },
+  usage: {
+    name: 'terms',
+    path: '/usage',
+  },
+  terms: {
+    name: 'terms',
+    path: '/terms',
+  },
   deviceDetection: {
     name: 'device-detection',
-    path: '/',
+    path: '/device-detection',
   },
   deviceAuthentication: {
     name: 'device-authentication',
-    path: '/auth',
+    path: '/device-authentication',
   },
   joystickTraining: {
     name: 'joystick-training',
