@@ -1,9 +1,14 @@
 import { css } from 'styled-components';
+import { generateCss } from './generateCss';
+import { MediaQuery } from '../../types';
 
+type DisplayType = 'none' | 'inline' | 'block' | 'inline-block' | 'flex';
 export interface DisplayProps {
-  display?: 'none' | 'inline' | 'block' | 'inline-block' | 'flex';
+  display?: MediaQuery<DisplayType>;
 }
 
 export const display = css<DisplayProps>`
-  display: ${props => props.display};
+  ${props =>
+    props.display &&
+    generateCss(['display'], (item: string) => `${item}`, props.display)}
 `;

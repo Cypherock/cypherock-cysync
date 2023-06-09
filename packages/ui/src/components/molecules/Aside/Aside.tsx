@@ -1,9 +1,15 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
-import { theme } from '../../themes/theme.styled';
-import { AsideContainer, Flex, Image, LangDisplay, Typography } from '../atoms';
-import { cysyncLogoSmall } from '../../assets/images';
-import { Milestone } from './Milestone';
+import { theme } from '../../../themes/theme.styled';
+import {
+  AsideContainer,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+} from '../../atoms';
+import { cysyncLogoSmall } from '../../../assets/images';
+import { Milestone } from '../Milestone';
 
 export interface AsideProps {
   img: string;
@@ -19,6 +25,7 @@ const Text = styled.span`
     font-size: 40px;
   }
 `;
+
 export const Aside = (props: AsideProps): ReactElement => {
   const { img, text, currentState, totalState } = props;
   return (
@@ -31,6 +38,7 @@ export const Aside = (props: AsideProps): ReactElement => {
       position="relative"
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+
       <Image
         src={img}
         alt="device"

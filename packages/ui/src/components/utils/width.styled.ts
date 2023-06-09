@@ -1,25 +1,27 @@
 import { css } from 'styled-components';
+import { MediaQuery } from '../../types';
+import { generateCss } from './generateCss';
+import { getHeightWidth } from '../../utils/getHeightWidth';
+
+type WidthType = 'full' | 'screen' | 'inherit';
+type IImageType = number | string | WidthType;
 
 export interface WidthProps {
-  width?: number | string;
+  width?: MediaQuery<IImageType>;
+}
+export interface ImageWidthProps {
+  width?: IImageType;
 }
 
-export const width = css<WidthProps>`
-  ${props => {
-    if (props.width) {
-      if (props.width === 'full') return `width: 100%;`;
-      if (props.width === 'screen') return `width: 100vh;`;
+const widthMap: Record<WidthType, string> = {
+  full: '100%',
+  screen: '100vw',
+  inherit: 'inherit',
+};
 
-      if (typeof props.width === 'string') {
-        if (props.width.includes('/')) {
-          const numberArray = props.width.split('/');
-          const firstNumber = parseInt(numberArray[0], 10);
-          const secondNumber = parseInt(numberArray[1], 10);
-          return `width : ${(firstNumber / secondNumber) * 100}%;`;
-        }
-      }
-      return `width: ${props.width}px;`;
-    }
-    return null;
-  }}
+const getWidth = (item: WidthType | number | string) =>
+  getHeightWidth(item, widthMap);
+
+export const width = css<WidthProps>`
+  ${props => props.width && generateCss(['width'], getWidth, props.width)}
 `;
