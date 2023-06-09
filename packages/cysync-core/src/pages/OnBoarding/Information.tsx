@@ -75,8 +75,6 @@ export const Information: React.FC = () => {
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}
-      currentState={3}
-      totalState={8}
     >
       <InfoDialogBox
         title={lang.strings.onboarding.info.dialogBox.title}

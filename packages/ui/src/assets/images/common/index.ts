@@ -20,6 +20,7 @@ import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import loader from './loader.png';
+import openExternalLink from './open-external-link.svg';
 
 export {
   addWalletIcon,
@@ -44,4 +45,5 @@ export {
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,
   loader,
+  openExternalLink,
 };

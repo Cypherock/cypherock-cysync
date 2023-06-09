@@ -18,7 +18,7 @@ export interface OnboardingLayoutProps
   footerProps?: DialogBoxBackgroundFooterProps;
 }
 
-const aside: FC<Partial<AsideProps> & Partial<InfoAsideProps>> = ({
+const GetAside: FC<Partial<AsideProps> & Partial<InfoAsideProps>> = ({
   text,
   title,
   subTitle,
@@ -56,7 +56,15 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
   footerProps,
 }) => (
   <Container height="screen" $bgColor="sideBar" display="flex">
-    {aside({ text, title, subTitle, version, img, currentState, totalState })}
+    <GetAside
+      currentState={currentState}
+      img={img}
+      subTitle={subTitle}
+      text={text}
+      title={title}
+      totalState={totalState}
+      version={version}
+    />{' '}
     <DialogBoxBackground>
       {headerProps && <DialogBoxBackgroundHeader {...headerProps} />}
       {children}
