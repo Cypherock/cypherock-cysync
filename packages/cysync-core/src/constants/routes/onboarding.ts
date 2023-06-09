@@ -1,9 +1,13 @@
 import { IRouteInfo } from './types';
 
 export const onboarding: Record<string, IRouteInfo> = {
+  walletActions: {
+    name: 'wallet-actions',
+    path: '/',
+  },
   createNewWallet: {
     name: 'create-new-wallet',
-    path: '/',
+    path: '/create-new-wallet',
   },
   deviceDetection: {
     name: 'device-detection',

@@ -51,11 +51,11 @@ const en = {
         title: 'Import your wallet from a seed phrase',
         list: [
           `You want to transfer your assets from your other wallets into Cypherock
-          X1.`,
+          X1. `,
           ` You want to transfer your assets from your other wallets into Cypherock
-          X1.`,
+          X1. `,
           `You want to see all portfolio of your other wallets through Cypherock
-          X1.`,
+          X1. `,
         ],
         button: 'Import',
       },

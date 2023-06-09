@@ -10,6 +10,7 @@ import {
   spacing,
   PositionProps,
   position,
+  display,
 } from '../utils';
 import { HeightProps, height } from '../utils/height.styled';
 
@@ -19,7 +20,8 @@ export interface DialogBoxProps
     FlexProps,
     DisplayProps,
     SpacingProps,
-    PositionProps {
+    PositionProps,
+    DisplayProps {
   children?: ReactNode;
 }
 
@@ -36,6 +38,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   border-color: ${({ theme }) => theme.palette.border.popup};
   text-align: center;
   ${flex}
+  ${display}
   ${width}
   ${height}
   ${spacing}
