@@ -4,15 +4,20 @@ import {
   Congratulations,
   DeviceAuthentication,
   DeviceDetection,
+  Information,
+  Usage,
   JoystickTraining,
   routes,
+  Terms,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
-
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
 const onboardingComponents: Record<keyof typeof routes.onboarding, ReactNode> =
   {
+    info: <Information />,
+    usage: <Usage />,
+    terms: <Terms />,
     deviceDetection: <DeviceDetection />,
     deviceAuthentication: <DeviceAuthentication />,
     joystickTraining: <JoystickTraining />,

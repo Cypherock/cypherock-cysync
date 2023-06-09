@@ -4,11 +4,10 @@ import {
   DialogBox,
   DialogBoxBody,
   LangDisplay,
+  loader,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
-
-import { loader } from '~/assets/images/onboarding';
 import { useAppSelector, selectLanguage } from '~/store';
 
 export const DeviceAuthenticating: React.FC = () => {

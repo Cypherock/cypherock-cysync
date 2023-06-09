@@ -34,9 +34,11 @@ export const colors = {
     input: '#27221D',
     blur: 'rgba(29, 25, 23, 0.4)',
     separator: '#39322C',
+    separatorSecondary: '#272320',
   },
   border: {
     popup: '#2C2520',
     input: '#3C3937',
+    separator: '#39322C',
   },
 };

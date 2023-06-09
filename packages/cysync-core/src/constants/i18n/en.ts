@@ -83,7 +83,44 @@ const en = {
   x1Card: 'X1 Card',
   help: 'Help',
   back: 'Back',
+  buttons: {
+    continue: 'Continue',
+    confirm: 'Confirm',
+  },
   onboarding: {
+    info: {
+      aside: {
+        title: 'Welcome to CySync App',
+        subTitle: 'Your Gateway to Self-Sovereignty',
+      },
+      dialogBox: {
+        title: 'Ensure the following before you continue',
+        listItems: [
+          'You are present in a safe and secure environment',
+          'You have atleast 15-30 minutes to setup your wallet',
+          'You have an active internet connection',
+          'The tamper-proof seal of the package is intact',
+          'Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction',
+          'Cypherock will only email you from cypherock.com. Do not trust any email from any other website domain',
+        ],
+      },
+    },
+    usage: {
+      titleFirst: 'I am using Cypherock X1 for the first time',
+      titleSecond: 'I have already used a Cypherock X1',
+      subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
+      subTitleSecond:
+        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
+    },
+    terms: {
+      title: 'Terms of use',
+      bulletPoints: {
+        terms: 'Terms Of Service',
+        privacyPolicy: 'Privacy Policy',
+      },
+      consent:
+        ' I have read and agree with the Terms of Use and Privacy Policy',
+    },
     deviceDetection: {
       heading: 'Device Connection',
       title: 'Connect your X1 Vault to your PC to proceed',
