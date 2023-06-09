@@ -8,17 +8,14 @@ let db: IDatabase | undefined;
 let keyDb: IKeyValueStore | undefined;
 
 export async function initializeAndGetDb() {
+  const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
+
   if (!db) {
-    db = await createDb(
-      path.join(config.USER_DATA_PATH, 'cysync-data/'),
-      'uhRE19Aq',
-    );
+    db = await createDb(dbPath);
   }
 
   if (!keyDb) {
-    keyDb = await createKeyValueStore(
-      path.join(config.USER_DATA_PATH, 'cysync-data/'),
-    );
+    keyDb = await createKeyValueStore(dbPath);
   }
 
   return { db, keyDb };

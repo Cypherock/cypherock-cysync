@@ -33,7 +33,7 @@ export const databaseErrorTypeDetails: CodeToErrorMap = {
     message: 'Database instance was closed',
   },
   [DatabaseErrorType.DATABASE_NOT_LOADED]: {
-    message: "Database is not loaded",
+    message: 'Database is not loaded',
   },
   [DatabaseErrorType.INPUT_VALIDATION_FAILED]: {
     message: 'The parameters provided do not satisfy the requirements',
