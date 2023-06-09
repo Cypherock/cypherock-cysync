@@ -46,6 +46,9 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   border-top: 0;
   border-left: 0;
   border-right: 0;

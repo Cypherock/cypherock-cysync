@@ -49,14 +49,24 @@ export const DialogBoxLayout: FC<{
         </Flex>
         {children}
       </DialogBoxBody>
-      <DialogBoxFooter gap={10}>
+      <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
         <ArrowButton
           direction="left"
-          onClick={() => setState(prevProps => prevProps - 1)}
+          onClick={() =>
+            setState(prevProps => {
+              if (prevProps - 1 < 0) return prevProps;
+              return prevProps - 1;
+            })
+          }
         />
         <ArrowButton
           direction="right"
-          onClick={() => setState(prevProps => prevProps + 1)}
+          onClick={() =>
+            setState(prevProps => {
+              if (prevProps + 1 > 5) return prevProps;
+              return prevProps + 1;
+            })
+          }
         />
       </DialogBoxFooter>
     </>
