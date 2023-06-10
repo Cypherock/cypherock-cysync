@@ -63,7 +63,7 @@ const TermsDialogBox: FC<{
   title,
 }) => {
   const navigateTo = useNavigateTo();
-  const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
+  const toNextPage = () => navigateTo(routes.onboarding.setPassword.path);
   return (
     <DialogBox width={500} direction="column">
       <DialogBoxBody gap={32} direction="column" align="center">

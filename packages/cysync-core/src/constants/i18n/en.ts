@@ -40,6 +40,21 @@ const en = {
       consent:
         ' I have read and agree with the Terms of Use and Privacy Policy',
     },
+    setPassword: {
+      heading: 'Set Password',
+      title: 'Set your cySync password ',
+      success: 'Your new password is set',
+      newPasswordLabel: 'New Password',
+      confirmPasswordLabel: 'Confirm Password',
+      hint: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+    },
+    emailAuth: {
+      heading: 'Email Auth',
+      title:
+        'You are recommended to enter an email ID as a 2FA to get authenticity results ',
+      success: 'Your new password is set',
+      enterEmailLabel: 'Your Email',
+    },
     deviceDetection: {
       heading: 'Device Connection',
       title: 'Connect your X1 Vault to your PC to proceed',

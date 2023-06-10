@@ -1,30 +1,24 @@
 import {
   Typography,
   Image,
+  successIcon,
   DialogBox,
   DialogBoxBody,
   LangDisplay,
-  loader,
-  Button,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { useAppSelector, selectLanguage } from '~/store';
 
-export const Authenticating: React.FC = () => {
+export const Success: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   return (
     <DialogBox width={500}>
       <DialogBoxBody>
-        <Image src={loader} alt="loader" animate="spin" $animDuration={3} />
+        <Image src={successIcon} alt="Success Icon" />
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
-          ...
-          <Button variant="none" color="golden">
-            <Typography variant="h5" color="gold">
-              ?
-            </Typography>
-          </Button>
+          <LangDisplay text={lang.strings.onboarding.setPassword.success} />
         </Typography>
       </DialogBoxBody>
     </DialogBox>

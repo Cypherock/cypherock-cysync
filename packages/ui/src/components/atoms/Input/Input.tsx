@@ -1,33 +1,73 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
+import { SpacingProps, WidthProps } from '../../utils';
+import { HeightProps } from '../../utils/height.styled';
+import { theme } from '../../../themes/theme.styled';
+import { Button, Image, Container } from '..';
+import { eyeDisabledIcon } from '../../../assets';
 
-interface InputProps {
-  type: string;
-  placeholder: string;
+type InputContainerProps = WidthProps & HeightProps & SpacingProps;
+type InputType = 'text' | 'password';
+interface InputProps extends InputContainerProps {
+  type: InputType;
 }
 
-const InputStyle = styled.input`
-  position: relative;
+const InputStyle = styled.input.attrs(props => ({
+  type: props.type,
+}))`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
   width: 100%;
-  border: none;
-  padding-top: ${({ theme }) => theme.spacing.two.spacing};
-  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  padding-left: ${({ theme }) => theme.spacing.three.spacing};
-  padding-right: ${({ theme }) => theme.spacing.three.spacing};
-  background-color: ${({ theme }) => theme.palette.background.inputBackground};
-  border-radius: ${({ theme }) => theme.spacing.one.spacing};
-  font-size: ${({ theme }) => theme.spacing.two.spacing};
-  margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  color: white;
-  ::placeholder {
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: 0.12em;
-    color: #8b8682;
+  height: 100%;
+  gap: 24px;
+
+  background: ${theme.palette.background.input};
+  color: ${theme.palette.text.muted};
+  border: 1px solid ${theme.palette.background.separator};
+  border-radius: 8px;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
   }
 `;
 
-export const Input: FC<InputProps> = ({ placeholder, type }) => (
-  <InputStyle type={type} placeholder={placeholder} />
-);
+export const Input: FC<InputProps> = ({ type, ...containerProps }) => {
+  const isPasswordInput = type === 'password';
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [inputType, setInputType] = React.useState<InputType>(type);
+  const getType = () => {
+    if (isPasswordInput) {
+      if (isPasswordVisible) return 'text';
+      return 'password';
+    }
+    return type;
+  };
+  useEffect(() => {
+    setInputType(getType());
+  }, [isPasswordVisible]);
+  return (
+    <Container {...containerProps} position="relative">
+      <Container
+        position="absolute"
+        right={24}
+        display={isPasswordInput ? 'flex' : 'none'}
+      >
+        <Button
+          variant="none"
+          align="center"
+          display="flex"
+          onClick={() => {
+            setIsPasswordVisible(!isPasswordVisible);
+          }}
+        >
+          <Image src={eyeDisabledIcon} alt="Show Password" width="full" />
+        </Button>
+      </Container>
+      <InputStyle type={inputType} />
+    </Container>
+  );
+};

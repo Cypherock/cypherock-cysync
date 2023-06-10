@@ -1,10 +1,18 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { flex, width, WidthProps, FlexProps } from '../utils';
+import {
+  flex,
+  width,
+  WidthProps,
+  FlexProps,
+  DisplayProps,
+  display,
+} from '../utils';
 
 interface ButtonProps
   extends WidthProps,
     FlexProps,
+    DisplayProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
@@ -70,6 +78,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
   ${buttonBaseStyle}
+  ${display}
   ${width}
   ${flex}
 `;

@@ -13,6 +13,14 @@ export const onboarding: Record<string, IRouteInfo> = {
     name: 'terms',
     path: '/terms',
   },
+  setPassword: {
+    name: 'set-password',
+    path: '/password',
+  },
+  emailAuth: {
+    name: 'email-auth',
+    path: '/email',
+  },
   deviceDetection: {
     name: 'device-detection',
     path: '/device-detection',
@@ -33,7 +41,6 @@ export const onboarding: Record<string, IRouteInfo> = {
     name: 'card-authentication',
     path: '/card-auth',
   },
-
   congratulations: {
     name: 'congratulations',
     path: '/congo',
