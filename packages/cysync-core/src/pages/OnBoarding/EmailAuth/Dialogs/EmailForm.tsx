@@ -1,6 +1,6 @@
 import {
+  LabeledInput,
   DialogBoxFooter,
-  Input,
   Button,
   Typography,
   DialogBox,
@@ -11,33 +11,37 @@ import {
   Image,
   emailIconOutlined,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
-
-const LabeledInput: React.FC<{ label: string }> = ({ label }) => (
-  <Flex direction="column" width="full" align="flex-start" gap={8}>
-    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-    <label>
-      <Typography
-        variant="fineprint"
-        color="muted"
-        ml={1}
-        $letterSpacing={0.12}
-      >
-        {label}
-      </Typography>
-    </label>
-    <Input width="full" type="text" />
-  </Flex>
-);
+import { getDB, validateEmail } from '~/utils';
 
 export const EmailForm: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
   const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
+  const [emailAddress, setEmailAddress] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const tryStoringEmail = async () => {
+    const validation = validateEmail(emailAddress);
+    if (!validation.success) {
+      setErrorMessage(validation.error.issues[0].message);
+      return;
+    }
+    const db = await getDB();
+    await db.storage.setItem('email', emailAddress);
+    toNextPage();
+  };
+
+  const removeEmail = async () => {
+    // we want to remove email on skipping to make sure there is no previous data stored
+    const db = await getDB();
+    await db.storage.setItem('email', emailAddress);
+    toNextPage();
+  };
 
   return (
     <DialogBox width={500}>
@@ -56,24 +60,30 @@ export const EmailForm: React.FC = () => {
         <Flex direction="column" gap={16} width="full">
           <LabeledInput
             label={lang.strings.onboarding.emailAuth.enterEmailLabel}
+            type="text"
+            value={emailAddress}
+            onChange={(e: any) => setEmailAddress(e.target.value)}
           />
-          <Container display="block" border="top" py={3}>
-            <Typography
-              variant="h6"
-              color="error"
-              font="light"
-              $textAlign="left"
-            >
-              Email related error messages
-            </Typography>
-          </Container>
+
+          {errorMessage && (
+            <Container display="block" border="top" py={3}>
+              <Typography
+                variant="h6"
+                color="error"
+                font="light"
+                $textAlign="left"
+              >
+                {errorMessage}
+              </Typography>
+            </Container>
+          )}
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={toNextPage}>
+        <Button variant="secondary" onClick={removeEmail}>
           Skip
         </Button>
-        <Button variant="primary" onClick={toNextPage}>
+        <Button variant="primary" onClick={tryStoringEmail}>
           Confirm
         </Button>
       </DialogBoxFooter>

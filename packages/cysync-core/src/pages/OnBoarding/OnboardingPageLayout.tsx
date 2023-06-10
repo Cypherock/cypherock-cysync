@@ -6,9 +6,10 @@ import {
   DialogBoxBackgroundFooterProps,
   DialogBoxBackgroundHeaderProps,
 } from '@cypherock/cysync-ui';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { useAppSelector, selectLanguage, ILangState } from '~/store';
+import { getDB } from '~/utils';
 
 export interface OnboardingPageLayoutProps
   extends Omit<OnboardingLayoutProps, 'headerProps' | 'footerProps'> {
@@ -17,31 +18,6 @@ export interface OnboardingPageLayoutProps
   withEmail?: boolean;
   withBack?: boolean;
 }
-
-const parseHeaderProps = ({
-  withHelp,
-  withEmail,
-  lang,
-}: {
-  withHelp?: boolean;
-  withEmail?: boolean;
-  lang: ILangState;
-}) => {
-  let headerProps: DialogBoxBackgroundHeaderProps | undefined;
-
-  if (withHelp || withEmail) {
-    headerProps = {};
-
-    if (withHelp) {
-      headerProps.topRightComponent = <HelpHeader text={lang.strings.help} />;
-    }
-    if (withEmail) {
-      headerProps.topLeftComponent = <EmailHeader email="user@example.com" />;
-    }
-  }
-
-  return headerProps;
-};
 
 const parseFooterProps = ({
   withBack,
@@ -73,6 +49,29 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
+  const [email, setEmail] = useState('');
+  const fetchEmail = async () =>
+    setEmail((await getDB().storage.getItem('email')) ?? '');
+  useEffect(() => {
+    fetchEmail();
+  }, []);
+
+  const parseHeaderProps = () => {
+    let headerProps: DialogBoxBackgroundHeaderProps | undefined;
+
+    if (withHelp || withEmail) {
+      headerProps = {};
+
+      if (withHelp) {
+        headerProps.topRightComponent = <HelpHeader text={lang.strings.help} />;
+      }
+      if (withEmail && email) {
+        headerProps.topLeftComponent = <EmailHeader email={email} />;
+      }
+    }
+
+    return headerProps;
+  };
 
   return (
     <OnboardingLayout
@@ -83,7 +82,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
       title={title}
       subTitle={subTitle}
       version={`ver ${window.cysyncEnv.VERSION}`}
-      headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
+      headerProps={parseHeaderProps()}
       footerProps={parseFooterProps({ withBack, lang })}
     >
       {children}

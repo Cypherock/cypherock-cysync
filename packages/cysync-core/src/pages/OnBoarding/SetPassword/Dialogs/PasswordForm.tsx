@@ -1,6 +1,5 @@
 import {
   DialogBoxFooter,
-  Input,
   Button,
   Typography,
   DialogBox,
@@ -8,35 +7,37 @@ import {
   LangDisplay,
   Flex,
   Container,
+  LabeledInput,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
-
-const LabeledInput: React.FC<{ label: string }> = ({ label }) => (
-  <Flex direction="column" width="full" align="flex-start" gap={8}>
-    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-    <label>
-      <Typography
-        variant="fineprint"
-        color="muted"
-        ml={1}
-        $letterSpacing={0.12}
-      >
-        {label}
-      </Typography>
-    </label>
-    <Input width="full" type="password" />
-  </Flex>
-);
+import { validatePassword } from '~/utils';
 
 export const PasswordForm: React.FC<{
   passwordSetter: (val: boolean) => void;
 }> = ({ passwordSetter }) => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const tryStoringPassword = async () => {
+    const validation = validatePassword({ password, confirm: confirmPassword });
+    if (!validation.success) {
+      setErrorMessage(validation.error.issues[0].message);
+      return;
+    }
+    // store password hash here
+    passwordSetter(true);
+    navigateTo(routes.onboarding.emailAuth.path, 3000);
+  };
+  useEffect(() => {
+    console.log({ password, confirmPassword });
+  }, [password, confirmPassword]);
 
   return (
     <DialogBox width={500}>
@@ -52,21 +53,29 @@ export const PasswordForm: React.FC<{
         </Typography>
         <Flex direction="column" gap={16} width="full" mb={7}>
           <LabeledInput
+            type="password"
             label={lang.strings.onboarding.setPassword.newPasswordLabel}
+            value={password}
+            onChange={(e: any) => setPassword(e.target.value)}
           />
           <LabeledInput
+            type="password"
             label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
+            value={confirmPassword}
+            onChange={(e: any) => setConfirmPassword(e.target.value)}
           />
-          <Container display="block" border="top" py={3}>
-            <Typography
-              variant="h6"
-              color="error"
-              font="light"
-              $textAlign="left"
-            >
-              Password mismatch and other error messages
-            </Typography>
-          </Container>
+          {errorMessage && (
+            <Container display="block" border="top" py={3}>
+              <Typography
+                variant="h6"
+                color="error"
+                font="light"
+                $textAlign="left"
+              >
+                {errorMessage}
+              </Typography>
+            </Container>
+          )}
         </Flex>
         <Container display="block" border="bottom" pb={2}>
           <Typography variant="fineprint" color="muted" $textAlign="center">
@@ -81,13 +90,7 @@ export const PasswordForm: React.FC<{
         >
           Skip
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => {
-            passwordSetter(true);
-            navigateTo(routes.onboarding.emailAuth.path, 3000);
-          }}
-        >
+        <Button variant="primary" onClick={tryStoringPassword}>
           Confirm
         </Button>
       </DialogBoxFooter>

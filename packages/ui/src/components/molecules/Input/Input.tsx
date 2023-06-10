@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SpacingProps, WidthProps } from '../../utils';
 import { HeightProps } from '../../utils/height.styled';
 import { theme } from '../../../themes/theme.styled';
-import { Button, Image, Container } from '..';
+import { Button, Image, Container } from '../..';
 import { eyeDisabledIcon } from '../../../assets';
 
 type InputContainerProps = WidthProps & HeightProps & SpacingProps;
