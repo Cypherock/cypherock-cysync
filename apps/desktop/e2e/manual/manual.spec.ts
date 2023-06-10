@@ -36,11 +36,6 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-// To record locators
-// test('record', async () => {
-//   await screen.pause();
-// });
-
 test('Device connection screen', async () => {
   const newWindow = screen.getByRole('heading', {
     name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',

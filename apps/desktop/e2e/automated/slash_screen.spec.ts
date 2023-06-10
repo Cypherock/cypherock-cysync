@@ -11,12 +11,6 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-// To record locators
-// test('record', async () => {
-//   const splash = await electronApp.firstWindow();
-//   await splash.pause();
-// });
-
 test('Splash screen test', async () => {
   const splashScreen = await electronApp.firstWindow();
   const title = splashScreen.getByText('Welcome to CySync app');
