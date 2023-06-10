@@ -1,4 +1,10 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Container,
   DialogBox,
@@ -17,6 +23,7 @@ import {
 import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useNavigateTo } from '~/hooks';
+import { getDB } from '~/utils';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
@@ -105,6 +112,24 @@ export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
 
+  const fetchTerms = async () => {
+    const db = await getDB();
+    setIsChecked((await db.storage.getItem('isTermsAccepted')) === 'true');
+  };
+
+  const updateTerms = async () => {
+    const db = await getDB();
+    await db.storage.setItem('isTermsAccepted', isChecked.toString());
+  };
+
+  useEffect(() => {
+    fetchTerms();
+  }, []);
+
+  useEffect(() => {
+    updateTerms();
+  }, [isChecked]);
+
   return (
     <OnboardingPageLayout
       img={LogoOutlinedAsideImage}
@@ -112,7 +137,7 @@ export const Terms: FC = () => {
       currentState={1}
       totalState={8}
       withHelp
-      withBack
+      backTo={routes.onboarding.usage.path}
     >
       <TermsDialogBox
         isChecked={isChecked}

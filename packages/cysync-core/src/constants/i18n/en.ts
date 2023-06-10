@@ -180,7 +180,20 @@ const en = {
   },
   errors: {
     deviceErrors,
-    default: 'Some internal error occured',
+    default: 'Some internal error occurred',
+  },
+  validation: {
+    generic: {
+      required: 'This field is required',
+    },
+    email: {
+      invalid: 'This is not a valid email',
+    },
+    password: {
+      mismatch: 'Passwords do not match',
+      required: 'Password is required',
+      confirmRequired: 'Confirm Password is required',
+    },
   },
 };
 

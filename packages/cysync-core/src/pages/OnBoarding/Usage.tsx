@@ -136,7 +136,7 @@ export const Usage: React.FC = () => {
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}
-      withBack
+      backTo={routes.onboarding.info.path}
       withHelp
       currentState={3}
       totalState={8}

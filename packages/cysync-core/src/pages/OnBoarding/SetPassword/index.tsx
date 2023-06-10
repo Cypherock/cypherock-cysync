@@ -1,10 +1,10 @@
 import React from 'react';
-import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import { LogoOutlinedAsideImage, SuccessDialog } from '@cypherock/cysync-ui';
 
+import { routes } from '~/constants';
 import { PasswordForm } from './Dialogs/PasswordForm';
 import { selectLanguage, useAppSelector } from '../../../store';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
-import { Success } from './Dialogs/Success';
 
 export const SetPassword: React.FC = () => {
   const [isPasswordSet, setIsPasswordSet] = React.useState(false);
@@ -17,10 +17,12 @@ export const SetPassword: React.FC = () => {
       currentState={2}
       totalState={8}
       withHelp
-      withBack
+      backTo={isPasswordSet ? undefined : routes.onboarding.terms.path}
     >
       {isPasswordSet || <PasswordForm passwordSetter={setIsPasswordSet} />}
-      {isPasswordSet && <Success />}
+      {isPasswordSet && (
+        <SuccessDialog title={lang.strings.onboarding.setPassword.success} />
+      )}
     </OnboardingPageLayout>
   );
 };

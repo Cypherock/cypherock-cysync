@@ -1,14 +1,15 @@
 import {
-  HelpHeader,
-  EmailHeader,
+  BackButton,
+  DialogBoxBackgroundBarProps,
+  EmailDisplay,
+  HelpButton,
   OnboardingLayout,
   OnboardingLayoutProps,
-  DialogBoxBackgroundFooterProps,
-  DialogBoxBackgroundHeaderProps,
 } from '@cypherock/cysync-ui';
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useNavigateTo } from '~/hooks';
 
-import { useAppSelector, selectLanguage, ILangState } from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 import { getDB } from '~/utils';
 
 export interface OnboardingPageLayoutProps
@@ -16,25 +17,8 @@ export interface OnboardingPageLayoutProps
   children: ReactNode | undefined;
   withHelp?: boolean;
   withEmail?: boolean;
-  withBack?: boolean;
+  backTo?: string;
 }
-
-const parseFooterProps = ({
-  withBack,
-  lang,
-}: {
-  withBack?: boolean;
-  lang: ILangState;
-}) => {
-  let footerProps: DialogBoxBackgroundFooterProps | undefined;
-  if (withBack) {
-    footerProps = {
-      backText: lang.strings.back,
-    };
-  }
-
-  return footerProps;
-};
 
 export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   children,
@@ -43,34 +27,52 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   currentState,
   totalState,
   withHelp,
-  withBack,
+  backTo,
   withEmail,
   title,
   subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const [email, setEmail] = useState('');
+  const navigateTo = useNavigateTo();
+
   const fetchEmail = async () =>
     setEmail((await getDB().storage.getItem('email')) ?? '');
+
   useEffect(() => {
     fetchEmail();
   }, []);
 
   const parseHeaderProps = () => {
-    let headerProps: DialogBoxBackgroundHeaderProps | undefined;
+    let headerProps: DialogBoxBackgroundBarProps | undefined;
 
     if (withHelp || withEmail) {
       headerProps = {};
 
       if (withHelp) {
-        headerProps.topRightComponent = <HelpHeader text={lang.strings.help} />;
+        headerProps.rightComponent = <HelpButton text={lang.strings.help} />;
       }
       if (withEmail && email) {
-        headerProps.topLeftComponent = <EmailHeader email={email} />;
+        headerProps.leftComponent = <EmailDisplay email={email} />;
       }
     }
 
     return headerProps;
+  };
+
+  const parseFooterProps = () => {
+    let footerProps: DialogBoxBackgroundBarProps | undefined;
+    if (backTo) {
+      footerProps = {
+        leftComponent: (
+          <BackButton
+            text={lang.strings.back}
+            onClick={() => navigateTo(backTo)}
+          />
+        ),
+      };
+    }
+    return footerProps;
   };
 
   return (
@@ -83,7 +85,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
       subTitle={subTitle}
       version={`ver ${window.cysyncEnv.VERSION}`}
       headerProps={parseHeaderProps()}
-      footerProps={parseFooterProps({ withBack, lang })}
+      footerProps={parseFooterProps()}
     >
       {children}
     </OnboardingLayout>
@@ -93,5 +95,5 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
 OnboardingPageLayout.defaultProps = {
   withEmail: false,
   withHelp: false,
-  withBack: false,
+  backTo: undefined,
 };

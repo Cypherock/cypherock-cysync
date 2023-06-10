@@ -1,22 +1,33 @@
 import { z } from 'zod';
+import { ILangState } from '..';
 
-const EmailSchema = z
-  .string()
-  .min(1, { message: 'This field has to be filled.' })
-  .email('This is not a valid email.');
+export const validateEmail = (email: string, lang: ILangState) => {
+  const EmailSchema = z
+    .string()
+    .min(1, { message: lang.strings.validation.generic.required })
+    .email({ message: lang.strings.validation.email.invalid });
 
-const PasswordSchema = z
-  .object({
-    password: z.string().min(1, { message: 'Password is required' }),
-    confirm: z.string().min(1, { message: 'Confirm password is required' }),
-  })
-  .refine(data => data.password === data.confirm, {
-    message: "Passwords don't match",
-    path: ['confirm'],
-  });
-
-export const validateEmail = (email: string) => EmailSchema.safeParse(email);
-export const validatePassword = (passwordObj: {
-  password: string;
-  confirm: string;
-}) => PasswordSchema.safeParse(passwordObj);
+  return EmailSchema.safeParse(email);
+};
+export const validatePassword = (
+  passwordObj: {
+    password: string;
+    confirm: string;
+  },
+  lang: ILangState,
+) => {
+  const PasswordSchema = z
+    .object({
+      password: z
+        .string()
+        .min(1, { message: lang.strings.validation.password.required }),
+      confirm: z
+        .string()
+        .min(1, { message: lang.strings.validation.password.confirmRequired }),
+    })
+    .refine(data => data.password === data.confirm, {
+      message: lang.strings.validation.password.mismatch,
+      path: ['confirm'],
+    });
+  return PasswordSchema.safeParse(passwordObj);
+};

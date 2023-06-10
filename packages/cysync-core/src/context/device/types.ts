@@ -1,3 +1,4 @@
+import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { DeviceState, IDevice } from '@cypherock/sdk-interfaces';
 
 export enum DeviceConnectionStatus {
@@ -16,6 +17,7 @@ export interface IDeviceConnectionInfo {
   isInitial: boolean;
   isBootloader: boolean;
   status: DeviceConnectionStatus;
+  onboardingStep: OnboardingStep;
 }
 
 export interface IDeviceConnectionRetry {

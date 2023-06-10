@@ -1,4 +1,5 @@
 import {
+  QuestionMarkButton,
   LabeledInput,
   DialogBoxFooter,
   Button,
@@ -26,7 +27,7 @@ export const EmailForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const tryStoringEmail = async () => {
-    const validation = validateEmail(emailAddress);
+    const validation = validateEmail(emailAddress, lang);
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
       return;
@@ -39,7 +40,7 @@ export const EmailForm: React.FC = () => {
   const removeEmail = async () => {
     // we want to remove email on skipping to make sure there is no previous data stored
     const db = await getDB();
-    await db.storage.setItem('email', emailAddress);
+    if (await db.storage.getItem('email')) await db.storage.removeItem('email');
     toNextPage();
   };
 
@@ -49,12 +50,7 @@ export const EmailForm: React.FC = () => {
         <Image src={emailIconOutlined} alt="Email Icon" />
         <Typography variant="h5" $textAlign="center" mb={2}>
           <LangDisplay text={lang.strings.onboarding.emailAuth.title} /> (
-          <Button variant="none" color="golden">
-            <Typography variant="h5" color="gold">
-              ?
-            </Typography>
-          </Button>
-          )
+          <QuestionMarkButton />)
         </Typography>
 
         <Flex direction="column" gap={16} width="full">

@@ -1,4 +1,5 @@
 import {
+  QuestionMarkButton,
   DialogBoxFooter,
   Button,
   Typography,
@@ -9,7 +10,7 @@ import {
   Container,
   LabeledInput,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 
@@ -26,7 +27,10 @@ export const PasswordForm: React.FC<{
   const [errorMessage, setErrorMessage] = useState('');
 
   const tryStoringPassword = async () => {
-    const validation = validatePassword({ password, confirm: confirmPassword });
+    const validation = validatePassword(
+      { password, confirm: confirmPassword },
+      lang,
+    );
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
       return;
@@ -35,21 +39,13 @@ export const PasswordForm: React.FC<{
     passwordSetter(true);
     navigateTo(routes.onboarding.emailAuth.path, 3000);
   };
-  useEffect(() => {
-    console.log({ password, confirmPassword });
-  }, [password, confirmPassword]);
 
   return (
     <DialogBox width={500}>
       <DialogBoxBody>
         <Typography variant="h5" $textAlign="center" mb={2}>
           <LangDisplay text={lang.strings.onboarding.setPassword.title} /> (
-          <Button variant="none" color="golden">
-            <Typography variant="h5" color="gold">
-              ?
-            </Typography>
-          </Button>
-          )
+          <QuestionMarkButton />)
         </Typography>
         <Flex direction="column" gap={16} width="full" mb={7}>
           <LabeledInput

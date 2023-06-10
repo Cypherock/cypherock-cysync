@@ -10,7 +10,7 @@ import {
   LangDisplay,
 } from '@cypherock/cysync-ui';
 
-import { ManagerApp, OnboardingStep } from '@cypherock/sdk-app-manager';
+import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { useDevice, DeviceConnectionStatus } from '~/context';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
@@ -44,7 +44,7 @@ const OnboardingMap: Record<OnboardingStep, string> = {
   [OnboardingStep.ONBOARDING_STEP_JOYSTICK_TRAINING]:
     routes.onboarding.cardTraining.path,
   [OnboardingStep.ONBOARDING_STEP_CARD_CHECKUP]:
-    routes.onboarding.cardAuthentication.path,
+    routes.onboarding.cardTraining.path,
   [OnboardingStep.ONBOARDING_STEP_CARD_AUTHENTICATION]:
     routes.onboarding.congratulations.path,
   [OnboardingStep.ONBOARDING_STEP_COMPLETE]:
@@ -53,20 +53,14 @@ const OnboardingMap: Record<OnboardingStep, string> = {
 };
 
 export const DeviceDetection: React.FC = () => {
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const navigateTo = useNavigateTo();
   const lang = useAppSelector(selectLanguage);
 
-  const gotoNextPage = async () => {
-    if (!connection) return;
-    const app = await ManagerApp.create(await connectDevice(connection.device));
-    const res = (await app.getDeviceInfo()).onboardingStep;
-    console.log({ res });
-    navigateTo(OnboardingMap[res]);
-  };
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      gotoNextPage();
+      const step = connection.onboardingStep;
+      navigateTo(OnboardingMap[step]);
     }
   }, [connection]);
 
@@ -77,7 +71,7 @@ export const DeviceDetection: React.FC = () => {
       currentState={3}
       totalState={8}
       withHelp
-      withBack
+      backTo={routes.onboarding.emailAuth.path}
     >
       <DeviceNotConnectedDialogBox
         title={lang.strings.onboarding.deviceDetection.title}

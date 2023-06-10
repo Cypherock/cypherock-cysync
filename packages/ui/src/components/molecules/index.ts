@@ -4,7 +4,6 @@ export * from './OnboardingLayout';
 export * from './JoystickInteraction';
 export * from './CardTapList';
 export * from './ConfettiBlast';
-export * from './EmailHeader';
-export * from './HelpHeader';
+export * from './Prefabs';
 export * from './Aside';
 export * from './Input';
