@@ -37,8 +37,7 @@ const LabeledInput: React.FC<{ label: string }> = ({ label }) => (
 export const EmailForm: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
-  const toNextPage = () =>
-    navigateTo(routes.onboarding.deviceAuthentication.path);
+  const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
 
   return (
     <DialogBox width={500}>

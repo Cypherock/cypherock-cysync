@@ -8,8 +8,10 @@ import { eyeDisabledIcon } from '../../../assets';
 
 type InputContainerProps = WidthProps & HeightProps & SpacingProps;
 type InputType = 'text' | 'password';
-interface InputProps extends InputContainerProps {
+export interface InputProps extends InputContainerProps {
   type: InputType;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  value?: string | number | readonly string[];
 }
 
 const InputStyle = styled.input.attrs(props => ({
@@ -35,7 +37,12 @@ const InputStyle = styled.input.attrs(props => ({
   }
 `;
 
-export const Input: FC<InputProps> = ({ type, ...containerProps }) => {
+export const Input: FC<InputProps> = ({
+  type,
+  onChange,
+  value,
+  ...containerProps
+}) => {
   const isPasswordInput = type === 'password';
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const [inputType, setInputType] = React.useState<InputType>(type);
@@ -67,7 +74,12 @@ export const Input: FC<InputProps> = ({ type, ...containerProps }) => {
           <Image src={eyeDisabledIcon} alt="Show Password" width="full" />
         </Button>
       </Container>
-      <InputStyle type={inputType} />
+      <InputStyle type={inputType} onChange={onChange} value={value} />
     </Container>
   );
+};
+
+Input.defaultProps = {
+  onChange: undefined,
+  value: undefined,
 };
