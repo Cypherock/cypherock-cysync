@@ -1,41 +1,42 @@
-import { IRoute } from './types';
-
-export const onboarding: Record<string, IRoute> = {
+export const onboarding = {
   info: {
-    name: 'info',
+    name: 'onboarding-info',
     path: '/',
   },
   usage: {
-    name: 'terms',
+    name: 'onboarding-usage',
     path: '/onboarding/usage',
   },
   terms: {
-    name: 'terms',
+    name: 'onboarding-terms',
     path: '/onboarding/terms',
   },
   deviceDetection: {
-    name: 'device-detection',
+    name: 'onboarding-device-detection',
     path: '/onboarding/device-detection',
   },
   deviceAuthentication: {
-    name: 'device-authentication',
+    name: 'onboarding-device-authentication',
     path: '/onboarding/device-authentication',
   },
   joystickTraining: {
-    name: 'joystick-training',
+    name: 'onboarding-joystick-training',
     path: '/onboarding/joystick',
   },
   cardTraining: {
-    name: 'card-training',
+    name: 'onboarding-card-training',
     path: '/onboarding/card-training',
   },
   cardAuthentication: {
-    name: 'card-authentication',
+    name: 'onboarding-card-authentication',
     path: '/onboarding/card-auth',
   },
 
   congratulations: {
-    name: 'congratulations',
+    name: 'onboarding-congratulations',
     path: '/onboarding/congo',
   },
-};
+} as const;
+
+export type OnboardingRouteName =
+  (typeof onboarding)[keyof typeof onboarding]['name'];

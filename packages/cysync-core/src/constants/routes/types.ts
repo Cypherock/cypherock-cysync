@@ -1,8 +1,6 @@
+import { RouteName } from '~/constants';
+
 export interface IRoute {
-  name: string;
+  name: RouteName;
   path: string;
 }
-
-export type InternalRoute = Record<string, IRoute>;
-
-export type Routes = Record<string, IRoute | InternalRoute>;
