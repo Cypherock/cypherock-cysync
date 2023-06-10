@@ -54,17 +54,17 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-core':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       '@cypherock/sdk-hw-serialport':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       electron-playwright-helpers:
         specifier: ^1.5.4
         version: 1.5.4
@@ -122,10 +122,10 @@ importers:
         version: 3.1.0(vite@4.2.1)
       babel-loader:
         specifier: ^9.1.2
-        version: 9.1.2(@babel/core@7.21.8)(webpack@5.85.0)
+        version: 9.1.2(@babel/core@7.21.8)(webpack@5.86.0)
       css-loader:
         specifier: ^6.0.0
-        version: 6.0.0(webpack@5.85.0)
+        version: 6.0.0(webpack@5.86.0)
       decompress:
         specifier: ^4.2.1
         version: 4.2.1
@@ -155,13 +155,13 @@ importers:
         version: 13.2.2
       node-loader:
         specifier: ^2.0.0
-        version: 2.0.0(webpack@5.85.0)
+        version: 2.0.0(webpack@5.86.0)
       prettier:
         specifier: ^2.8.8
         version: 2.8.8
       style-loader:
         specifier: ^3.0.0
-        version: 3.0.0(webpack@5.85.0)
+        version: 3.0.0(webpack@5.86.0)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -193,14 +193,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.4
-        version: 0.0.4
-      '@cypherock/sdk-utils':
         specifier: ^0.0.5
         version: 0.0.5
+      '@cypherock/sdk-utils':
+        specifier: ^0.0.6
+        version: 0.0.6
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -309,7 +309,7 @@ importers:
         version: 5.0.1
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -332,20 +332,23 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
+        specifier: ^0.0.8
+        version: 0.0.8
+      '@cypherock/sdk-core':
         specifier: ^0.0.7
         version: 0.0.7
-      '@cypherock/sdk-core':
-        specifier: ^0.0.6
-        version: 0.0.6
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.4
-        version: 0.0.4
-      '@cypherock/sdk-utils':
         specifier: ^0.0.5
         version: 0.0.5
+      '@cypherock/sdk-utils':
+        specifier: ^0.0.6
+        version: 0.0.6
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.0.5)(react@18.2.0)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -401,6 +404,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.1
         version: 29.5.1
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
       '@types/node':
         specifier: 18.15.11
         version: 18.15.11
@@ -521,7 +527,7 @@ importers:
         version: 4.1.2
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -636,7 +642,7 @@ importers:
         version: 5.0.1
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -647,12 +653,12 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.21.5
-        version: 7.21.5(@babel/core@7.21.8)
+        version: 7.21.5(@babel/core@7.22.1)
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../util-eslint-config
@@ -679,7 +685,7 @@ importers:
         version: 5.0.1
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -704,7 +710,7 @@ importers:
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.21.5
-        version: 7.21.5(@babel/core@7.21.8)
+        version: 7.21.5(@babel/core@7.22.1)
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../util-eslint-config
@@ -776,7 +782,7 @@ importers:
         version: 5.0.1
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -892,7 +898,7 @@ importers:
         version: 5.0.1
       ts-jest:
         specifier: ^29.0.5
-        version: 29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -906,6 +912,10 @@ packages:
   /@adobe/css-tools@4.2.0:
     resolution: {integrity: sha512-E09FiIft46CmH5Qnjb0wsW54/YQd69LsxeKUOWawmws1XWvyFGURnAChH0mlr7YPFR1ofwvUQfcL0J3lMxXqPA==}
     dev: true
+
+  /@adraffy/ens-normalize@1.9.2:
+    resolution: {integrity: sha512-0h+FrQDqe2Wn+IIGFkTCd4aAwTJ+7834Ek1COohCyV26AXhwQ7WQaz+4F/nLOeVl/3BtWHOHLPsq46V8YB46Eg==}
+    dev: false
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
@@ -927,7 +937,7 @@ packages:
       '@aws-crypto/sha256-js': 4.0.0
       '@aws-crypto/supports-web-crypto': 4.0.0
       '@aws-crypto/util': 4.0.0
-      '@aws-sdk/types': 3.342.0
+      '@aws-sdk/types': 3.347.0
       '@aws-sdk/util-locate-window': 3.310.0
       '@aws-sdk/util-utf8-browser': 3.259.0
       tslib: 1.14.1
@@ -937,7 +947,7 @@ packages:
     resolution: {integrity: sha512-MHGJyjE7TX9aaqXj7zk2ppnFUOhaDs5sP+HtNS0evOxn72c+5njUmyJmpGd7TfyoDznZlHMmdo/xGUdu2NIjNQ==}
     dependencies:
       '@aws-crypto/util': 4.0.0
-      '@aws-sdk/types': 3.342.0
+      '@aws-sdk/types': 3.347.0
       tslib: 1.14.1
     dev: false
 
@@ -950,13 +960,13 @@ packages:
   /@aws-crypto/util@4.0.0:
     resolution: {integrity: sha512-2EnmPy2gsFZ6m8bwUQN4jq+IyXV3quHAcwPOS6ZA3k+geujiqI8aRokO2kFJe+idJ/P3v4qWI186rVMo0+zLDQ==}
     dependencies:
-      '@aws-sdk/types': 3.342.0
+      '@aws-sdk/types': 3.347.0
       '@aws-sdk/util-utf8-browser': 3.259.0
       tslib: 1.14.1
     dev: false
 
-  /@aws-sdk/types@3.342.0:
-    resolution: {integrity: sha512-5uyXVda/AgUpdZNJ9JPHxwyxr08miPiZ/CKSMcRdQVjcNnrdzY9m/iM9LvnQT44sQO+IEEkF2IoZIWvZcq199A==}
+  /@aws-sdk/types@3.347.0:
+    resolution: {integrity: sha512-GkCMy79mdjU9OTIe5KT58fI/6uqdf8UmMdWqVHmFJ+UpEzOci7L/uw4sOXWo7xpPzLs6cJ7s5ouGZW4GRPmHFA==}
     engines: {node: '>=14.0.0'}
     dependencies:
       tslib: 2.5.3
@@ -1183,6 +1193,7 @@ packages:
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@babel/helper-create-class-features-plugin@7.22.1(@babel/core@7.22.1):
     resolution: {integrity: sha512-SowrZ9BWzYFgzUMwUmowbPSGu6CXL5MSuuCkG3bejahSpSymioPmuLdhPxNOc9MjuNGjy7M/HaXvJ8G82Lywlw==}
@@ -2011,6 +2022,7 @@ packages:
       '@babel/helper-simple-access': 7.21.5
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@babel/plugin-transform-modules-commonjs@7.21.5(@babel/core@7.22.1):
     resolution: {integrity: sha512-OVryBEgKUbtqMoB7eG2rs6UFexJi6Zj6FDXx+esBLPTCxCNxAY9o+8Di7IsUGJ+AVhp5ncK0fxWUBd0/1gPhrQ==}
@@ -2356,6 +2368,7 @@ packages:
       '@babel/plugin-syntax-typescript': 7.21.4(@babel/core@7.21.8)
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@babel/plugin-transform-typescript@7.22.3(@babel/core@7.22.1):
     resolution: {integrity: sha512-pyjnCIniO5PNaEuGxT28h0HbMru3qCVrMqVgVOz/krComdIrY9W6FCLBq9NWHY8HDGaUlan+UhmZElDENIfCcw==}
@@ -2561,6 +2574,7 @@ packages:
       '@babel/plugin-transform-typescript': 7.22.3(@babel/core@7.21.8)
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@babel/preset-typescript@7.21.5(@babel/core@7.22.1):
     resolution: {integrity: sha512-iqe3sETat5EOrORXiQ6rWfoOg2y68Cs75B9wNxdPW4kixJxh7aXQE1KPdWLDniC24T/6dSnguF33W9j/ZZQcmA==}
@@ -3008,13 +3022,13 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypherock/sdk-app-evm@0.0.6:
-    resolution: {integrity: sha512-WKm9AVyvS6to01zkUtBOdj5+WVLzEomjdc50Qrl9jEohSy+d1YlNY1q0aekd2y51vrxRfBV44r3J0ev+9X4hKw==}
+  /@cypherock/sdk-app-evm@0.0.7:
+    resolution: {integrity: sha512-QUr3O94bjOmrYA7laZWhtsXy2Nkuzvbb9LmC/HqRICQz4tTEEM54SLwFrOaqugT+lq8XU30t9OjX+h83R+/HTA==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.6
-      '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.5
-      ethers: 6.4.1
+      '@cypherock/sdk-core': 0.0.7
+      '@cypherock/sdk-interfaces': 0.0.5
+      '@cypherock/sdk-utils': 0.0.6
+      ethers: 6.5.1
       long: 5.2.3
       protobufjs: 7.2.3
     transitivePeerDependencies:
@@ -3022,12 +3036,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.7:
-    resolution: {integrity: sha512-GJMLHx4ekIgEAd+E4FOF56AeMMpzWBPaWZ+knxZ8mGuSROIQXWeQJlSc79V1/fQyZv8JBfyD7joLQSYpG0ru5Q==}
+  /@cypherock/sdk-app-manager@0.0.8:
+    resolution: {integrity: sha512-HuVfQC1wW1IbECq6FVb6UubHdPSRqZGW+L8jw1nssHNLieOo7BabGJIepZZ7/qQdn9OTbH/q0yRP/RmjzRw44w==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.6
-      '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.5
+      '@cypherock/sdk-core': 0.0.7
+      '@cypherock/sdk-interfaces': 0.0.5
+      '@cypherock/sdk-utils': 0.0.6
       axios: 1.4.0
       crypto-js: 4.1.1
       protobufjs: 7.2.3
@@ -3036,47 +3050,49 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-core@0.0.6:
-    resolution: {integrity: sha512-HdmPxvswXTLB9NagufK9/hEIzakt/oiUmO5f7pw+Aw5ZhoqgR6bJOGPhv5qwZhs7RvMRXbudpOxXFIc6tG88NA==}
+  /@cypherock/sdk-core@0.0.7:
+    resolution: {integrity: sha512-IGNk71XzvlexOVCj7LdWDM5M4qP/bi/N8SoX2QeAEVf0sE1ua4K0oT3LfIFiSHldkf7eyV5Ny/XtpwwV3i9L6A==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.4
-      '@cypherock/sdk-utils': 0.0.5
+      '@cypherock/sdk-interfaces': 0.0.5
+      '@cypherock/sdk-utils': 0.0.6
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-hid@0.0.4:
-    resolution: {integrity: sha512-9OrB3NICwqH6rO1vFKHvYGkdIVOd4e8OkU4dGLKVBFeBtK4AAQn02GCnUpHMm6KbL9zXVy3ZsuNiE2IaVHaVMQ==}
+  /@cypherock/sdk-hw-hid@0.0.5:
+    resolution: {integrity: sha512-fAVKbAK61P85lxykJLmriCvC+0o/YTrk4aRdjYvgkr8qvAIGgB5CIHb7XWYe7QSsIYSnTLuPxOYLwu8opwPnHg==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-interfaces': 0.0.5
+      '@cypherock/sdk-utils': 0.0.6
       node-hid: 2.1.2
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-serialport@0.0.4:
-    resolution: {integrity: sha512-qli9WIw8zpEOf05fgVrpqcgHYjQukWsQJqHaL9GU5G8sxliSX9TzYirypSE9BM2f0erWnluQ8TJ6KV5Y0jTGQQ==}
+  /@cypherock/sdk-hw-serialport@0.0.5:
+    resolution: {integrity: sha512-eWugdh1b1K3cZl8MQgrSLOPmGvEyjL6poiwocoNWZuK8GLb8Ol7X5RtEx7aOOJxAfDsRt9pwNtZxlVpgB/8F7g==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-interfaces': 0.0.5
+      '@cypherock/sdk-utils': 0.0.6
       serialport: 10.0.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@cypherock/sdk-interfaces@0.0.4:
-    resolution: {integrity: sha512-AgGEqQ4fHUW0qQJCQkW0QGd6mqwwQYsuOuqVAB0fcLfgBonkhJUJVfBz/5ba/0Lu2ttGevMd4O4weRkNZkvtDA==}
+  /@cypherock/sdk-interfaces@0.0.5:
+    resolution: {integrity: sha512-3LsKxOVaY41lb7dqyGBUUVQVk7HMP3VH6MrbGDVC7X+ye+8O0IXh/HJfVqbLQ3UvmhiCecBVAIS6HMDPEKlRYQ==}
     dependencies:
       '@types/events': 3.0.0
       events: 3.3.0
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-utils@0.0.5:
-    resolution: {integrity: sha512-0iLLI3XZ0/UxM6ujlm36qup0RtLTGPjV/3FF6R4hW9yQZhcDCBXB12Ak25r/icRa5YlVc4a8AOr1n/2m6W2qnw==}
+  /@cypherock/sdk-utils@0.0.6:
+    resolution: {integrity: sha512-FZi1LYFZjQn8WJsu/8ssuUaMGmfvPIL4tqr/YEJjnrRgsE4xJtahqCABW0c8AoduJrigl/KgOeeLrQpN8uTRZA==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
-      '@cypherock/sdk-interfaces': 0.0.4
+      '@cypherock/sdk-interfaces': 0.0.5
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.3
       uuid: 9.0.0
@@ -4358,6 +4374,10 @@ packages:
       '@types/node': 20.2.5
     dev: true
 
+  /@types/lodash@4.14.195:
+    resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
+    dev: true
+
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
@@ -5157,7 +5177,7 @@ packages:
       - supports-color
     dev: true
 
-  /babel-loader@9.1.2(@babel/core@7.21.8)(webpack@5.85.0):
+  /babel-loader@9.1.2(@babel/core@7.21.8)(webpack@5.86.0):
     resolution: {integrity: sha512-mN14niXW43tddohGl8HPu5yfQq70iUThvFL/4QzESA7GcZoC0eVOhvWdQ8+3UlSjaDE9MVtsW9mxDY07W7VpVA==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -5167,7 +5187,7 @@ packages:
       '@babel/core': 7.21.8
       find-cache-dir: 3.3.2
       schema-utils: 4.0.1
-      webpack: 5.85.0
+      webpack: 5.86.0
     dev: true
 
   /babel-plugin-istanbul@6.1.1:
@@ -5987,7 +6007,7 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /css-loader@6.0.0(webpack@5.85.0):
+  /css-loader@6.0.0(webpack@5.86.0):
     resolution: {integrity: sha512-xi3iTbHekvk5dWWdqfQKNsEm2g3Vr20uRwHzfXF+pHsaFGMuxTrqR1y8PY+st5G7wqid4/pBSiaqZsO6iaGN5g==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -6001,7 +6021,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.24)
       postcss-value-parser: 4.2.0
       semver: 7.5.1
-      webpack: 5.85.0
+      webpack: 5.86.0
     dev: true
 
   /css-to-react-native@3.2.0:
@@ -7182,11 +7202,11 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  /ethers@6.4.1:
-    resolution: {integrity: sha512-dBY7rBmoqI7ndCOsaafWEk1Snh2ilSRrLcRghb1FwY51Jze0NKGgn4ZjYAqDcji1lvUzFPEG0/u6w/nH6xJ6pw==}
+  /ethers@6.5.1:
+    resolution: {integrity: sha512-jDpCnUGcyn39hnRUEtrulDZOtJcIPEz4Whccl3N9qhwdLsn1ELuDM9TgGgGJq6ph0p8/Uri+Wezmo/r69E+xkA==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      '@adraffy/ens-normalize': github.com/ricmoo/ens-normalize.js/2d040533e57e4f25f9a7cc4715e219658ad454b5
+      '@adraffy/ens-normalize': 1.9.2
       '@noble/hashes': 1.1.2
       '@noble/secp256k1': 1.7.1
       '@types/node': 18.15.13
@@ -9559,7 +9579,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols@5.1.0:
     resolution: {integrity: sha512-l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==}
@@ -9949,8 +9968,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /node-abi@3.43.0:
-    resolution: {integrity: sha512-QB0MMv+tn9Ur2DtJrc8y09n0n6sw88CyDniWSX2cHW10goQXYPK9ZpFJOktDS4ron501edPX6h9i7Pg+RnH5nQ==}
+  /node-abi@3.44.0:
+    resolution: {integrity: sha512-MYjZTiAETGG28/7fBH1RjuY7vzDwYC5q5U4whCgM4jNEQcC0gAvN339LxXukmL2T2tGpzYTfp+LZ5RN7E5DwEg==}
     engines: {node: '>=10'}
     dependencies:
       semver: 7.5.1
@@ -9997,14 +10016,14 @@ packages:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
     dev: true
 
-  /node-loader@2.0.0(webpack@5.85.0):
+  /node-loader@2.0.0(webpack@5.86.0):
     resolution: {integrity: sha512-I5VN34NO4/5UYJaUBtkrODPWxbobrE4hgDqPrjB25yPkonFhCmZ146vTH+Zg417E9Iwoh1l/MbRs1apc5J295Q==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
       loader-utils: 2.0.4
-      webpack: 5.85.0
+      webpack: 5.86.0
     dev: true
 
   /node-releases@2.0.12:
@@ -10515,7 +10534,7 @@ packages:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
-      node-abi: 3.43.0
+      node-abi: 3.44.0
       pump: 3.0.0
       rc: 1.2.8
       simple-get: 4.0.1
@@ -11167,8 +11186,8 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /schema-utils@3.1.2:
-    resolution: {integrity: sha512-pvjEHOgWc9OWA/f/DE3ohBWTD6EleVLf7iFUkoSwAxttdBhB9QUebQgxER2kWueOvRJXPHNnyrvvh9eZINB8Eg==}
+  /schema-utils@3.2.0:
+    resolution: {integrity: sha512-0zTyLGyDJYd/MBxG1AhJkKa6fpEBds4OQO2ut0w7OYG+ZGhGea09lijvzsqegYSik88zc7cUtIlnnO+/BvD6gQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
       '@types/json-schema': 7.0.12
@@ -11712,13 +11731,13 @@ packages:
       escape-string-regexp: 1.0.5
     dev: true
 
-  /style-loader@3.0.0(webpack@5.85.0):
+  /style-loader@3.0.0(webpack@5.86.0):
     resolution: {integrity: sha512-pqJTDiCtLr8D2eyVWXPiwNkLsAMDuvPHnu+Z/Edo9hu+DzdJwdO5eZv9zUBF6tWI8GJGhAkenWJaVjXI+sHnuQ==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.85.0
+      webpack: 5.86.0
     dev: true
 
   /styled-components@6.0.0-rc.1(react-dom@18.2.0)(react@18.2.0):
@@ -11864,7 +11883,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser-webpack-plugin@5.3.9(webpack@5.85.0):
+  /terser-webpack-plugin@5.3.9(webpack@5.86.0):
     resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -11882,10 +11901,10 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.18
       jest-worker: 27.5.1
-      schema-utils: 3.1.2
+      schema-utils: 3.2.0
       serialize-javascript: 6.0.1
       terser: 5.17.7
-      webpack: 5.85.0
+      webpack: 5.86.0
     dev: true
 
   /terser@5.17.7:
@@ -12032,40 +12051,6 @@ packages:
     resolution: {integrity: sha512-95Pu1QXQvruGEhv62XCMO3Mm90GscOCClvrIUwCM0PYOXK3kaF3l3sIHxx71ThJfcbM2O5Au6SO3AWCSEfW4mQ==}
     dependencies:
       utf8-byte-length: 1.0.4
-    dev: true
-
-  /ts-jest@29.0.5(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-PL3UciSgIpQ7f6XjVOmbi96vmDHUqAyqDr8YxzopDqX3kfgYtX1cuNeBjP+L9sFXi6nzsGGA6R3fP3DDDJyrxA==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': '>=7.0.0-beta.0 <8'
-      '@jest/types': ^29.0.0
-      babel-jest: ^29.0.0
-      esbuild: '*'
-      jest: ^29.0.0
-      typescript: '>=4.3'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@jest/types':
-        optional: true
-      babel-jest:
-        optional: true
-      esbuild:
-        optional: true
-    dependencies:
-      '@babel/core': 7.21.8
-      bs-logger: 0.2.6
-      fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
-      jest-util: 29.5.0
-      json5: 2.2.3
-      lodash.memoize: 4.1.2
-      make-error: 1.3.6
-      semver: 7.5.1
-      typescript: 4.9.5
-      yargs-parser: 21.1.1
     dev: true
 
   /ts-jest@29.0.5(@babel/core@7.22.1)(jest@29.5.0)(typescript@4.9.5):
@@ -12891,8 +12876,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: true
 
-  /webpack@5.85.0:
-    resolution: {integrity: sha512-7gazTiYqwo5OSqwH1tigLDL2r3qDeP2dOKYgd+LlXpsUMqDTklg6tOghexqky0/+6QY38kb/R/uRPUleuL43zg==}
+  /webpack@5.86.0:
+    resolution: {integrity: sha512-3BOvworZ8SO/D4GVP+GoRC3fVeg5MO4vzmq8TJJEkdmopxyazGDxN8ClqN12uzrZW9Tv8EED8v5VSb6Sqyi0pg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -12920,9 +12905,9 @@ packages:
       loader-runner: 4.3.0
       mime-types: 2.1.35
       neo-async: 2.6.2
-      schema-utils: 3.1.2
+      schema-utils: 3.2.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9(webpack@5.85.0)
+      terser-webpack-plugin: 5.3.9(webpack@5.86.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
@@ -13239,10 +13224,4 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-    dev: false
-
-  github.com/ricmoo/ens-normalize.js/2d040533e57e4f25f9a7cc4715e219658ad454b5:
-    resolution: {tarball: https://codeload.github.com/ricmoo/ens-normalize.js/tar.gz/2d040533e57e4f25f9a7cc4715e219658ad454b5}
-    name: '@adraffy/ens-normalize'
-    version: 1.9.0
     dev: false
