@@ -23,26 +23,8 @@ if (config.USER_DATA_PATH) {
 
 const rootLogger = winston.createLogger({
   format: winston.format.combine(
-    winston.format(info => {
-      let newInfo = { ...info };
-
-      // If `toJSON` is present, timestamp fails to be added
-      if (newInfo.toJSON) {
-        delete newInfo.toJSON;
-      }
-
-      if (info instanceof Error) {
-        newInfo = {
-          ...newInfo,
-          level: info.level,
-          message: info.message,
-          stack: info.stack,
-        };
-      }
-
-      return newInfo;
-    })(),
     winston.format.timestamp(),
+    winston.format.errors(),
     winston.format.json(),
   ),
   level: config.LOG_LEVEL,
@@ -55,6 +37,7 @@ export const logWithServiceAndLevel: LogWithServiceAndMethod = (
   message,
   meta,
 ) => {
+  let modifiedMessage = message;
   let modifiedMeta = meta;
 
   // Injects default meta (service name) before logging
@@ -64,7 +47,18 @@ export const logWithServiceAndLevel: LogWithServiceAndMethod = (
     modifiedMeta = { service };
   }
 
-  rootLogger.log(level, message, modifiedMeta);
+  // If message is object
+  if (message && typeof message === 'object') {
+    let messageJson = message;
+    if (message.toJSON) {
+      messageJson = message.toJSON();
+    }
+
+    modifiedMeta = { ...messageJson, ...modifiedMeta, message: undefined };
+    modifiedMessage = messageJson.message;
+  }
+
+  rootLogger.log(level, modifiedMessage, modifiedMeta);
 };
 
 const createLogMethod =

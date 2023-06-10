@@ -1,14 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Container,
-  DialogBox,
-  DialogBoxBody,
-  successIcon,
-  Image,
-  Typography,
-  ConfettiBlast,
-  LangDisplay,
-} from '@cypherock/cysync-ui';
+import { Container, ConfettiBlast, SuccessDialog } from '@cypherock/cysync-ui';
 
 import { useNavigateTo } from '~/hooks';
 import { routes } from '~/constants';
@@ -26,19 +17,10 @@ export const Congratulations: React.FC = () => {
   return (
     <Container height="screen" $bgColor="sideBar" display="flex">
       <ConfettiBlast />
-      <DialogBox width={500}>
-        <DialogBoxBody>
-          <Image src={successIcon} alt="Success Icon" />
-          <Container display="flex" direction="column" gap={4} mb={4}>
-            <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={lang.strings.onboarding.success.title} />
-            </Typography>
-            <Typography variant="h6" $textAlign="center" color="muted">
-              <LangDisplay text={lang.strings.onboarding.success.subtext} />
-            </Typography>
-          </Container>
-        </DialogBoxBody>
-      </DialogBox>
+      <SuccessDialog
+        title={lang.strings.onboarding.success.title}
+        subtext={lang.strings.onboarding.success.subtext}
+      />
     </Container>
   );
 };

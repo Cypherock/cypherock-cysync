@@ -39,9 +39,9 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-evm": "^0.0.6",
-    "@cypherock/sdk-interfaces": "^0.0.4",
-    "@cypherock/sdk-utils": "^0.0.5",
+    "@cypherock/sdk-app-evm": "^0.0.7",
+    "@cypherock/sdk-interfaces": "^0.0.5",
+    "@cypherock/sdk-utils": "^0.0.6",
     "axios": "^1.4.0",
     "rxjs": "^7.8.1"
   },
