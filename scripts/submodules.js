@@ -79,6 +79,8 @@ async function copyPackages() {
 
     for (const appPkg of appPackages) {
       const appPkgPath = path.join(appPath, appPkg);
+      if (!(await fs.stat(appPkgPath)).isDirectory()) continue;
+
       const appPkgJson = JSON.parse(
         await fs.readFile(path.join(appPkgPath, 'package.json')),
       );

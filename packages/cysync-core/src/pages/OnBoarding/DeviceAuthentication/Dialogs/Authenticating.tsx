@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import { useAppSelector, selectLanguage } from '~/store';
 
-export const Authenticating: React.FC = () => {
+export const DeviceAuthenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   return (

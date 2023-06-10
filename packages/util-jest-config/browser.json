@@ -22,7 +22,6 @@
     "!**/__helpers__/**/*.[jt]s?(x)",
     "!**/.stryker-tmp/**/*.[jt]s?(x)"
   ],
-  "coverageThreshold": {},
   "modulePathIgnorePatterns": ["<rootDir>/.stryker-tmp"],
   "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
