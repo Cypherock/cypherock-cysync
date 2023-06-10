@@ -80,11 +80,11 @@ test('Joystick training', async () => {
   const finalWindow = screen.getByRole('img', { name: 'Success Icon' });
   await finalWindow.waitFor();
   expect(finalWindow).toBeVisible();
-  const SuccessWindow = screen.getByRole('heading', {
+  const successWindow = screen.getByRole('heading', {
     name: 'Joystick test complete',
   });
-  await SuccessWindow.waitFor({ timeout: 3000 });
-  expect(SuccessWindow).toBeVisible();
+  await successWindow.waitFor({ timeout: 3000 });
+  expect(successWindow).toBeVisible();
 });
 
 test('Tap card screen', async () => {
@@ -118,9 +118,9 @@ test('Tap card screen', async () => {
       expect(indicator).toHaveCSS('background', /^rgb\(81, 198, 26\)/);
     }
   }
-  const SuccessWindow = screen.getByRole('heading', {
+  const successWindow = screen.getByRole('heading', {
     name: 'Cypherock X1 is now ready to use',
   });
-  await SuccessWindow.waitFor({ timeout: 600000 });
-  expect(SuccessWindow).toBeVisible();
+  await successWindow.waitFor({ timeout: 600000 });
+  expect(successWindow).toBeVisible();
 });
