@@ -11,39 +11,61 @@ import {
   routes,
   Terms,
   SetPassword,
+  IRoute,
+  RouteName,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
-const onboardingComponents: Record<keyof typeof routes.onboarding, ReactNode> =
-  {
-    info: <Information />,
-    usage: <Usage />,
-    terms: <Terms />,
-    setPassword: <SetPassword />,
-    emailAuth: <EmailAuth />,
-    deviceDetection: <DeviceDetection />,
-    deviceAuthentication: <DeviceAuthentication />,
-    joystickTraining: <JoystickTraining />,
-    cardTraining: <CardTraining />,
-    cardAuthentication: <CardAuthentication />,
-    congratulations: <Congratulations />,
-  };
+const components: Record<RouteName, ReactNode> = {
+  'onboarding-info': <Information />,
+  'onboarding-usage': <Usage />,
+  'onboarding-terms': <Terms />,
+  'set-password': <SetPassword />,
+  'email-auth': <EmailAuth />,
+  'onboarding-device-detection': <DeviceDetection />,
+  'onboarding-device-authentication': <DeviceAuthentication />,
+  'onboarding-joystick-training': <JoystickTraining />,
+  'onboarding-card-training': <CardTraining />,
+  'onboarding-card-authentication': <CardAuthentication />,
+  'onboarding-congratulations': <Congratulations />,
+  portfolio: <div>portfolio</div>,
+};
 
-export const AppRouter = memo(() => {
-  const allRoutes = Object.keys(onboardingComponents).map(key => {
-    const obj = routes.onboarding[key];
-    return (
-      <Route
-        key={obj.name}
-        path={obj.path}
-        element={onboardingComponents[key]}
-      />
-    );
-  });
-  return (
-    <Router>
-      <Routes>{allRoutes}</Routes>
-    </Router>
-  );
-});
+export type InternalRoute = Record<string, IRoute>;
+export type IRoutes = Record<string, IRoute | InternalRoute>;
+
+const getPaths = (route: IRoute | InternalRoute): IRoute[] => {
+  if (route.path === undefined) {
+    const internalRoute = route as InternalRoute;
+    const allRoutes: IRoute[] = [];
+    for (const internalRouteKey in internalRoute) {
+      if (internalRoute[internalRouteKey])
+        allRoutes.push(...getPaths(internalRoute[internalRouteKey]));
+    }
+    return allRoutes;
+  }
+  return [route as IRoute];
+};
+
+const getRoute = (parseRoutes: IRoutes) => {
+  const allRoutes: IRoute[] = [];
+  for (const route in parseRoutes) {
+    if (parseRoutes[route]) allRoutes.push(...getPaths(parseRoutes[route]));
+  }
+  return allRoutes;
+};
+
+export const AppRouter = memo(() => (
+  <Router>
+    <Routes>
+      {getRoute(routes).map(route => (
+        <Route
+          key={route.name}
+          path={route.path}
+          element={components[route.name]}
+        />
+      ))}
+    </Routes>
+  </Router>
+));
