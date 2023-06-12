@@ -9,6 +9,7 @@ import {
   JoystickTraining,
   routes,
   Terms,
+  AppUpdate,
   IRoute,
   RouteName,
   PermissionSetup,
@@ -27,6 +28,8 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-training': <CardTraining />,
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
+  'onboarding-app-update': <AppUpdate />,
+  'onboarding-app-updating': <div>app updating</div>,
   portfolio: <div>portfolio</div>,
 };
 

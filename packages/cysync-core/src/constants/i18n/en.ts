@@ -168,6 +168,14 @@ const en = {
       title: 'Congratulations',
       subtext: 'Cypherock X1 is now ready to use',
     },
+    appUpdate: {
+      heading: 'App Update',
+      title:
+        'A new update is available for your cySync app. Update the app to v1.2 to continue',
+      buttons: {
+        update: 'Update',
+      },
+    },
   },
   errors: {
     deviceErrors,

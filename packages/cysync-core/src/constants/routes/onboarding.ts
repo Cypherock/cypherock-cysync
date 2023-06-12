@@ -1,7 +1,7 @@
 export const onboarding = {
   info: {
     name: 'onboarding-info',
-    path: '/onboarding/info',
+    path: '/',
   },
   usage: {
     name: 'onboarding-usage',
@@ -31,10 +31,17 @@ export const onboarding = {
     name: 'onboarding-card-authentication',
     path: '/onboarding/card-auth',
   },
-
   congratulations: {
     name: 'onboarding-congratulations',
     path: '/onboarding/congo',
+  },
+  appUpdate: {
+    name: 'onboarding-app-update',
+    path: '/onboarding/app-update',
+  },
+  appUpdating: {
+    name: 'onboarding-app-updating',
+    path: '/onboarding/app-updating',
   },
 } as const;
 
