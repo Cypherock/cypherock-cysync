@@ -40,7 +40,7 @@ const prepareApp = () => {
 };
 
 const setupIntitialState = async () => {
-  initializeAndGetDb();
+  await initializeAndGetDb();
   setupIPCHandlers(ipcMain);
   setupAutoUpdate();
 };

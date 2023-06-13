@@ -2,6 +2,8 @@ export enum DatabaseErrorType {
   UNKNOWN_ERROR = 'DB_0000',
 
   DATABASE_CREATION_FAILED = 'DB_0100',
+  DATABASE_CLOSED = 'DB_0101',
+  DATABASE_NOT_LOADED = 'DB_0102',
 
   INPUT_VALIDATION_FAILED = 'DB_0200',
   VERSION_NOT_SPECIFIED = 'DB_0201',
@@ -26,6 +28,12 @@ export const databaseErrorTypeDetails: CodeToErrorMap = {
   },
   [DatabaseErrorType.DATABASE_CREATION_FAILED]: {
     message: "Can't create database instance",
+  },
+  [DatabaseErrorType.DATABASE_CLOSED]: {
+    message: 'Database instance was closed',
+  },
+  [DatabaseErrorType.DATABASE_NOT_LOADED]: {
+    message: 'Database is not loaded',
   },
   [DatabaseErrorType.INPUT_VALIDATION_FAILED]: {
     message: 'The parameters provided do not satisfy the requirements',
@@ -61,5 +69,14 @@ export class DatabaseError extends Error {
     super();
     this.code = errorCode;
     this.message = message ?? databaseErrorTypeDetails[errorCode].message;
+  }
+
+  public toJSON() {
+    return {
+      isDatabaseError: this.isDatabaseError,
+      code: this.code,
+      message: `${this.code}: ${this.message}`,
+      stack: this.stack,
+    };
   }
 }

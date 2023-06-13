@@ -9,20 +9,22 @@ import type {
   IRepository,
   ObjectLiteral,
 } from './entities';
-import { IKeyValueStore } from './keyValueStore';
 
 export interface IDatabase {
+  load(key?: string): Promise<void>;
+  unload(): Promise<void>;
   device: IDeviceRepository;
   account: IAccountRepository;
   transaction: ITransactionRepository;
   wallet: IWalletRepository;
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;
-  storage: IKeyValueStore;
+  changeEncryptionKey(encryptionKey?: string): Promise<void>;
   createOrFetchRepository<T extends IEntity>(
     name: string,
     schema: ObjectLiteral,
   ): Promise<IRepository<T> | null>;
+  close(): Promise<void>;
 }
 
 export * from './entities';

@@ -1,54 +1,50 @@
+import fs from 'fs';
 import {
   DatabaseError,
   DatabaseErrorType,
   IKeyValueStore,
 } from '@cypherock/db-interfaces';
-import { Database } from 'better-sqlite3';
-import * as sqlParser from './utils/sqlParser';
+import path from 'path';
+import { EncryptedDB } from '../encryptedDb';
+
 import * as validator from './utils/validator';
 
+interface IKeyCollection {
+  key: string;
+  value: string;
+}
+
 export class KeyValueStore implements IKeyValueStore {
-  private readonly db: Database;
+  private readonly encDb: EncryptedDB;
 
-  constructor(db: Database) {
-    this.db = db;
-    try {
-      sqlParser.createTable(db);
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.DATABASE_CREATION_FAILED,
-        `Couldn't create tables [${error.code}]: ${error.message}`,
-      );
-    }
+  private readonly name: 'keyvalue';
+
+  private constructor(db: EncryptedDB) {
+    this.encDb = db;
   }
 
-  async getLength(): Promise<number> {
-    try {
-      return sqlParser.countTableRows(this.db) as any;
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.GET_FAILED,
-        `Couldn't fetch length [${error.code}]: ${error.message}`,
-      );
-    }
-  }
+  public static async create(dirPath: string) {
+    let storagePath = path.join(dirPath, 'storage.db');
 
-  async key(index: number): Promise<string | null> {
-    validator.validateIndex(index);
-    try {
-      return sqlParser.getNthKey(this.db, index);
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.GET_FAILED,
-        `Couldn't fetch key [${error.code}]: ${error.message}`,
-      );
+    if (dirPath === ':memory:') {
+      storagePath = dirPath;
+    } else if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
     }
+
+    const storageDb = await EncryptedDB.create(storagePath);
+    await storageDb.load();
+
+    return new KeyValueStore(storageDb);
   }
 
   async getItem(keyName: string): Promise<string | null> {
     validator.validateStrings(keyName);
+
+    const collection = await this.getCollection();
+
     try {
-      return sqlParser.getValue(this.db, keyName);
+      return collection.where(e => e.key === keyName).at(0)?.value ?? null;
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.GET_FAILED,
@@ -59,42 +55,73 @@ export class KeyValueStore implements IKeyValueStore {
 
   async setItem(keyName: string, keyValue: string): Promise<void> {
     validator.validateStrings(keyName, keyValue);
-    let changes = 0;
+    const collection = await this.getCollection();
+
     try {
-      changes = sqlParser.insertPair(this.db, keyName, keyValue);
+      const obj = collection.where(e => e.key === keyName).at(0);
+
+      if (obj) {
+        collection.update({ ...obj, value: keyValue });
+      } else {
+        collection.insert({
+          key: keyName,
+          value: keyValue,
+        });
+      }
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.INSERT_FAILED,
         `Couldn't set item [${error.code}]: ${error.message}`,
       );
     }
-    if (changes === 0) throw new DatabaseError(DatabaseErrorType.INSERT_FAILED);
   }
 
   async removeItem(keyName: string): Promise<void> {
     validator.validateStrings(keyName);
-    let changes = 0;
+    const collection = await this.getCollection();
+
     try {
-      changes = sqlParser.removePair(this.db, keyName);
+      collection.removeWhere({ key: keyName });
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
         `Couldn't remove item [${error.code}]: ${error.message}`,
       );
     }
-    if (changes === 0) throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
   }
 
   async clear(): Promise<void> {
-    let changes = 0;
+    const collection = await this.getCollection();
+
     try {
-      changes = sqlParser.truncateTable(this.db);
+      collection.clear({ removeIndices: true });
+      this.emitChange();
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
         `Couldn't clear the storage [${error.code}]: ${error.message}`,
       );
     }
-    if (changes === 0) throw new DatabaseError(DatabaseErrorType.REMOVE_FAILED);
+  }
+
+  async close() {
+    this.encDb.close();
+  }
+
+  private async getCollection() {
+    const db = await this.encDb.getDB();
+    const collection = db.getCollection<IKeyCollection>(this.name);
+
+    if (collection) {
+      return collection;
+    }
+
+    return db.addCollection<IKeyCollection>(this.name, { unique: ['key'] });
+  }
+
+  private emitChange() {
+    this.encDb.onChange();
   }
 }

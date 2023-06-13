@@ -2,7 +2,6 @@ import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import { z } from 'zod';
 
 const stringValidator = z.string();
-const indexValidator = z.number().nonnegative();
 
 const throwErrorIfNeeded = (
   name: string,
@@ -14,11 +13,6 @@ const throwErrorIfNeeded = (
       `invalid ${name} provided : ${result.error}`,
     );
 };
-
-export function validateIndex(index: number) {
-  const result = indexValidator.safeParse(index);
-  throwErrorIfNeeded('index', result);
-}
 
 export function validateStrings(key: string, value?: string) {
   let result = stringValidator.safeParse(key);
