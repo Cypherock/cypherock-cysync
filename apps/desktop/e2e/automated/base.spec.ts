@@ -16,11 +16,6 @@ test.afterEach(async () => {
   await electronApp.close();
 });
 
-test('record', async () => {
-  const splash = await electronApp.firstWindow();
-  await splash.pause();
-});
-
 test('check the title of window', async () => {
   const title = await screen.title();
   await screen.screenshot({ path: './screenshots/title.png' });
