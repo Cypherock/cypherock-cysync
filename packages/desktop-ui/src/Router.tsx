@@ -29,7 +29,6 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
   'onboarding-app-update': <AppUpdate />,
-  'onboarding-app-updating': <div>app updating</div>,
   portfolio: <div>portfolio</div>,
 };
 

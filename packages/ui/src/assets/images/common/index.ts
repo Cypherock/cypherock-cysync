@@ -26,6 +26,7 @@ import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import checkIcon from './check.png';
+import shieldAlert from './shield-alert.svg';
 
 export {
   addWalletIcon,
@@ -43,6 +44,7 @@ export {
   disconnectedIcon,
   successIcon,
   failIcon,
+  shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
   joystickArrowSelectedIcon,

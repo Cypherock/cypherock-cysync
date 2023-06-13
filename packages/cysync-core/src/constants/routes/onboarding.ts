@@ -39,10 +39,6 @@ export const onboarding = {
     name: 'onboarding-app-update',
     path: '/onboarding/app-update',
   },
-  appUpdating: {
-    name: 'onboarding-app-updating',
-    path: '/onboarding/app-updating',
-  },
 } as const;
 
 export type OnboardingRouteName =

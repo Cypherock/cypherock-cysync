@@ -176,6 +176,17 @@ const en = {
         update: 'Update',
       },
     },
+    appUpdating: {
+      heading: 'Updating...',
+      subtext: 'Please wait while we update your cySync app',
+    },
+    appUpdateSuccessful: {
+      heading: 'cySync app updated successfully',
+      subtext:
+        'Please wait while we restart the app to apply the latest update',
+      bubbleText:
+        'In case, the app does not restart itself, manually start it again',
+    },
   },
   errors: {
     deviceErrors,
