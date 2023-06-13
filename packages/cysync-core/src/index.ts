@@ -1,5 +1,5 @@
 export * from './pages';
-export { updateLogger, setDB } from './utils';
+export { updateLogger, setDB, setAutoUpdater } from './utils';
 export * from './theme';
 export * from './styles';
 export * from './constants';

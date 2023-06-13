@@ -9,4 +9,5 @@ export interface ICysyncEnv {
   ALLOW_PRERELEASE: string;
   VERSION: string;
   CHANNEL: string;
+  RELEASE_NOTES: string;
 }
