@@ -28,6 +28,7 @@ describe('Benchmark', () => {
     );
     expect(output.length).toEqual(num);
   });
+
   test(`Should be able to update ${num} entities in database`, async () => {
     transaction.repo.setVersion(0);
     const objs: IEntity[] = [];
@@ -49,6 +50,7 @@ describe('Benchmark', () => {
     );
     expect(output.length).toEqual(num);
   });
+
   test(`Should be able to remove ${num} entities in database`, async () => {
     transaction.repo.setVersion(0);
     const objs: IEntity[] = [];

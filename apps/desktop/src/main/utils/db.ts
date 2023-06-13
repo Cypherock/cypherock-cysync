@@ -1,14 +1,22 @@
-import { createDb } from '@cypherock/database';
-import { IDatabase } from '@cypherock/db-interfaces';
+import { createDb, createKeyValueStore } from '@cypherock/database';
+import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import path from 'path';
 import { config } from './config';
 
 let db: IDatabase | undefined;
 
-export function initializeAndGetDb() {
-  if (db) return db;
+let keyDb: IKeyValueStore | undefined;
 
-  db = createDb(path.join(config.USER_DATA_PATH, 'cysync-data/'));
+export async function initializeAndGetDb() {
+  const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
 
-  return db;
+  if (!db) {
+    db = await createDb(dbPath);
+  }
+
+  if (!keyDb) {
+    keyDb = await createKeyValueStore(dbPath);
+  }
+
+  return { db, keyDb };
 }
