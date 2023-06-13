@@ -98,3 +98,77 @@ test('check usage screen', async () => {
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
 });
+
+test('check x1 device usage for first time', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  const continueButton = screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  expect(continueButton).toBeTruthy();
+  const backButton = screen.getByRole('button', { name: 'Back' });
+  await expect(backButton).toHaveText(['Back']);
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
+  const termsOfUse = screen.getByRole('heading', { name: 'Terms of use' });
+  await expect(termsOfUse).toBeVisible();
+  const termsOfService = screen.getByRole('heading', {
+    name: 'Terms Of Service',
+  });
+  await expect(termsOfService).toBeVisible();
+  const privacyPolicy = screen.getByRole('heading', { name: 'Privacy Policy' });
+  await expect(privacyPolicy).toBeVisible();
+  const sidePanelFirst = screen.locator('span');
+  await expect(sidePanelFirst).toBeVisible();
+  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  await expect(statusBar).toBeVisible();
+  const confirmButton = screen.getByRole('button', { name: 'Confirm' });
+  await expect(confirmButton).toBeDisabled();
+  const checkBox = screen
+    .getByText('I have read and agree with the Terms of Use and Privacy Policy')
+    .click();
+  expect(checkBox).toBeTruthy();
+  await expect(confirmButton).toBeEnabled();
+  await confirmButton.click();
+});
+
+test('check x1 device have been already used before', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  const continueButton = screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I have already used a Cypherock X1Choose this if you want to migrate your wallet',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  expect(continueButton).toBeTruthy();
+  const backButton = screen.getByRole('button', { name: 'Back' });
+  await expect(backButton).toHaveText(['Back']);
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
+  const termsOfUse = screen.getByRole('heading', { name: 'Terms of use' });
+  await expect(termsOfUse).toBeVisible();
+  const termsOfService = screen.getByRole('heading', {
+    name: 'Terms Of Service',
+  });
+  await expect(termsOfService).toBeVisible();
+  const privacyPolicy = screen.getByRole('heading', { name: 'Privacy Policy' });
+  await expect(privacyPolicy).toBeVisible();
+  const sidePanelFirst = screen.locator('span');
+  await expect(sidePanelFirst).toBeVisible();
+  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  await expect(statusBar).toBeVisible();
+  const confirmButton = screen.getByRole('button', { name: 'Confirm' });
+  await expect(confirmButton).toBeDisabled();
+  const checkBox = screen
+    .getByText('I have read and agree with the Terms of Use and Privacy Policy')
+    .click();
+  expect(checkBox).toBeTruthy();
+  await expect(confirmButton).toBeEnabled();
+  await confirmButton.click();
+});
