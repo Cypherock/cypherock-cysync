@@ -8,16 +8,16 @@ import {
   LangDisplay,
   Image,
   info,
+  CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import { DialogBoxLayout } from '../DialogBoxLayout';
 
 export const EnterWalletName: FC<{
   setState: Dispatch<SetStateAction<number>>;
 }> = ({ setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <DialogBoxLayout
+    <CreateWalletDialogBoxLayout
       setState={setState}
       heading={lang.strings.onboarding.createWallet.enterWalletName.heading}
       image={enterWalletName}
@@ -57,6 +57,6 @@ export const EnterWalletName: FC<{
           </Typography>
         </Container>
       </Flex>
-    </DialogBoxLayout>
+    </CreateWalletDialogBoxLayout>
   );
 };

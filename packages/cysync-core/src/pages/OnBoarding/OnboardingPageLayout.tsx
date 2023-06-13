@@ -6,8 +6,7 @@ import {
   DialogBoxBackgroundFooterProps,
   DialogBoxBackgroundHeaderProps,
 } from '@cypherock/cysync-ui';
-import React, { ReactNode } from 'react';
-
+import React, { FC, ReactNode } from 'react';
 import { useAppSelector, selectLanguage, ILangState } from '~/store';
 
 export interface OnboardingPageLayoutProps
@@ -16,7 +15,7 @@ export interface OnboardingPageLayoutProps
   withHelp?: boolean;
   withEmail?: boolean;
   withBack?: boolean;
-  isDialogOpen?: boolean;
+  showBlurBackground?: boolean;
 }
 
 const parseHeaderProps = ({
@@ -29,7 +28,6 @@ const parseHeaderProps = ({
   lang: ILangState;
 }) => {
   let headerProps: DialogBoxBackgroundHeaderProps | undefined;
-
   if (withHelp || withEmail) {
     headerProps = {};
 
@@ -40,7 +38,6 @@ const parseHeaderProps = ({
       headerProps.topLeftComponent = <EmailHeader email="user@example.com" />;
     }
   }
-
   return headerProps;
 };
 
@@ -57,11 +54,10 @@ const parseFooterProps = ({
       backText: lang.strings.back,
     };
   }
-
   return footerProps;
 };
 
-export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
+export const OnboardingPageLayout: FC<OnboardingPageLayoutProps> = ({
   children,
   img,
   text,
@@ -70,17 +66,16 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   withHelp,
   withBack,
   withEmail,
-  isDialogOpen,
+  showBlurBackground,
 }) => {
   const lang = useAppSelector(selectLanguage);
-
   return (
     <OnboardingLayout
       img={img}
       text={text}
       currentState={currentState}
       totalState={totalState}
-      isDialogOpen={isDialogOpen}
+      showBlurBackground={showBlurBackground}
       headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
       footerProps={parseFooterProps({ withBack, lang })}
     >
@@ -93,5 +88,5 @@ OnboardingPageLayout.defaultProps = {
   withEmail: false,
   withHelp: false,
   withBack: false,
-  isDialogOpen: false,
+  showBlurBackground: false,
 };

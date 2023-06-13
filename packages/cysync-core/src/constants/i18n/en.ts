@@ -67,11 +67,7 @@ const en = {
     },
     createWallet: {
       aside: {
-        tabs: {
-          device: 'Device',
-          syncX1Cards: 'Sync X1 Cards',
-          confirmation: 'Confirmation',
-        },
+        tabs: ['Device', 'Sync X1 Cards', 'Confirmation'],
       },
       followInfo: {
         heading: 'Setup Wallet Name',

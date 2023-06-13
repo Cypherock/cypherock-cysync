@@ -1,22 +1,22 @@
-import React, { ReactNode } from 'react';
-import { BlurOverlay, Container } from '../atoms';
-import { Aside, AsideProps } from './Aside';
+import React, { FC, ReactNode } from 'react';
+import { BlurOverlay, Container } from '../../atoms';
+import { Aside, AsideProps } from '../Asides/Aside';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundFooter,
   DialogBoxBackgroundFooterProps,
   DialogBoxBackgroundHeader,
   DialogBoxBackgroundHeaderProps,
-} from './DialogBoxBackground';
+} from '../DialogBoxBackground';
 
 export interface OnboardingLayoutProps extends AsideProps {
   children: ReactNode | undefined;
-  isDialogOpen?: boolean;
+  showBlurBackground?: boolean;
   headerProps?: DialogBoxBackgroundHeaderProps;
   footerProps?: DialogBoxBackgroundFooterProps;
 }
 
-export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
+export const OnboardingLayout: FC<OnboardingLayoutProps> = ({
   children,
   text,
   img,
@@ -24,10 +24,10 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
   totalState,
   headerProps,
   footerProps,
-  isDialogOpen,
+  showBlurBackground,
 }) => (
   <Container height="screen" $bgColor="sideBar" display="flex">
-    {isDialogOpen && <BlurOverlay>{children}</BlurOverlay>}
+    {showBlurBackground && <BlurOverlay>{children}</BlurOverlay>}
     <Aside
       img={img}
       text={text}
@@ -36,7 +36,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
     />
     <DialogBoxBackground>
       {headerProps && <DialogBoxBackgroundHeader {...headerProps} />}
-      {!isDialogOpen && children}
+      {!showBlurBackground && children}
       {footerProps && <DialogBoxBackgroundFooter {...footerProps} />}
     </DialogBoxBackground>
   </Container>
@@ -45,5 +45,5 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 OnboardingLayout.defaultProps = {
   headerProps: undefined,
   footerProps: undefined,
-  isDialogOpen: false,
+  showBlurBackground: false,
 };

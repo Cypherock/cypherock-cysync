@@ -1,9 +1,15 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
-import { theme } from '../../themes/theme.styled';
-import { AsideContainer, Flex, Image, LangDisplay, Typography } from '../atoms';
-import { cysyncLogoSmall } from '../../assets/images';
-import { Milestone } from './Milestone';
+import { theme } from '../../../themes/theme.styled';
+import {
+  AsideContainer,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+} from '../../atoms';
+import { cysyncLogoSmall } from '../../../assets/images';
+import { Milestone } from '../Milestone';
 
 export interface AsideProps {
   img: string;

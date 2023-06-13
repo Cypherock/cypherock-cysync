@@ -5,14 +5,14 @@ import {
   DialogBoxBody,
   LangDisplay,
   loader,
-  getDefaultTheme,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+import { useTheme } from 'styled-components';
 import { useAppSelector, selectLanguage } from '~/store';
 
 export const Authenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const theme = getDefaultTheme();
+  const theme = useTheme();
 
   return (
     <DialogBox width={500}>
@@ -23,7 +23,7 @@ export const Authenticating: React.FC = () => {
           ...(
           <span
             style={{
-              background: theme.palette.golden,
+              background: theme?.palette.golden,
               WebkitTextFillColor: 'transparent',
               WebkitBackgroundClip: 'text',
             }}

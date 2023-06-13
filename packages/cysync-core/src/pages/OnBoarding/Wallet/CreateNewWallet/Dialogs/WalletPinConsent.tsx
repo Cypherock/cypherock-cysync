@@ -2,17 +2,17 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   LangDisplay,
   Typography,
+  CreateWalletDialogBoxLayout,
   pinDeviceConsent,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import { DialogBoxLayout } from '../DialogBoxLayout';
 
 export const WalletPinConsent: FC<{
   setState: Dispatch<SetStateAction<number>>;
 }> = ({ setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <DialogBoxLayout
+    <CreateWalletDialogBoxLayout
       setState={setState}
       heading={lang.strings.onboarding.createWallet.setupPinConsent.heading}
       image={pinDeviceConsent}
@@ -23,6 +23,6 @@ export const WalletPinConsent: FC<{
           text={lang.strings.onboarding.createWallet.setupPinConsent.subTitle}
         />
       </Typography>
-    </DialogBoxLayout>
+    </CreateWalletDialogBoxLayout>
   );
 };

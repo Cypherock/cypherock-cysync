@@ -6,10 +6,10 @@ import {
   HelpHeader,
   Container,
   Flex,
+  WalletDialogAside,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 import { OnboardingPageLayout } from '../../OnboardingPageLayout';
-import { Aside } from './Aside';
 import { Instructions } from './Dialogs/Instructions';
 import { EnterWalletName } from './Dialogs/EnterWalletName';
 import { ConfirmWalletName } from './Dialogs/ConfirmWalletName';
@@ -25,13 +25,15 @@ export const CreateNewWallet: FC<{}> = () => {
       img={LogoOutlinedAsideImage}
       text={lang.strings.onboarding.deviceDetection.heading}
       currentState={3}
-      isDialogOpen
+      showBlurBackground
       totalState={8}
       withHelp
       withBack
     >
       <DialogBox direction="row" gap={0} width="full">
-        <Aside />
+        <WalletDialogAside
+          tabs={lang.strings.onboarding.createWallet.aside.tabs}
+        />
         <Flex
           width="full"
           height="full"

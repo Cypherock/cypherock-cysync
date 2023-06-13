@@ -6,20 +6,21 @@ import {
   LangDisplay,
   Typography,
   confirmPin,
+  CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import { DialogBoxLayout } from '../DialogBoxLayout';
 
 export const ConfirmPin: FC<{
   setState: Dispatch<SetStateAction<number>>;
 }> = ({ setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <DialogBoxLayout
+    <CreateWalletDialogBoxLayout
       setState={setState}
       heading={lang.strings.onboarding.createWallet.confirmPin.heading}
       image={confirmPin}
       isLoading
+      loadingText={lang.strings.onboarding.createWallet.confirmPin.loading}
       title={lang.strings.onboarding.createWallet.confirmPin.title}
     >
       <Flex direction="column" gap={48} px={7}>
@@ -48,6 +49,6 @@ export const ConfirmPin: FC<{
           )}
         </Container>
       </Flex>
-    </DialogBoxLayout>
+    </CreateWalletDialogBoxLayout>
   );
 };

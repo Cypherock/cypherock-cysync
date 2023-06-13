@@ -1,3 +1,5 @@
+import React, { Dispatch, FC, SetStateAction } from 'react';
+import { useTheme } from 'styled-components';
 import {
   Container,
   Flex,
@@ -6,24 +8,22 @@ import {
   Typography,
   arrowForward,
   followInfo,
-  getDefaultTheme,
+  CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
-import { DialogBoxLayout } from '../DialogBoxLayout';
 
-const theme = getDefaultTheme();
+const theme = useTheme();
 
 export const Instructions: FC<{
   setState: Dispatch<SetStateAction<number>>;
 }> = ({ setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <DialogBoxLayout
-      setState={setState}
+    <CreateWalletDialogBoxLayout
       heading={lang.strings.onboarding.createWallet.followInfo.heading}
-      image={followInfo}
       title={lang.strings.onboarding.createWallet.followInfo.title}
+      setState={setState}
+      image={followInfo}
     >
       <Flex gap={8} px={5} direction="column">
         <Container
@@ -46,7 +46,7 @@ export const Instructions: FC<{
             />
             <span
               style={{
-                background: theme.palette.golden,
+                background: theme?.palette.golden,
                 WebkitTextFillColor: 'transparent',
                 WebkitBackgroundClip: 'text',
               }}
@@ -81,7 +81,7 @@ export const Instructions: FC<{
             />
             <span
               style={{
-                background: theme.palette.golden,
+                background: theme?.palette.golden,
                 WebkitTextFillColor: 'transparent',
                 WebkitBackgroundClip: 'text',
               }}
@@ -101,7 +101,7 @@ export const Instructions: FC<{
             />
             <span
               style={{
-                background: theme.palette.golden,
+                background: theme?.palette.golden,
                 WebkitTextFillColor: 'transparent',
                 WebkitBackgroundClip: 'text',
               }}
@@ -122,6 +122,6 @@ export const Instructions: FC<{
           </Typography>
         </Container>
       </Flex>
-    </DialogBoxLayout>
+    </CreateWalletDialogBoxLayout>
   );
 };

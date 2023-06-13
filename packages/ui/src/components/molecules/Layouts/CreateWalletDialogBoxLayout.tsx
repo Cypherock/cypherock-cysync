@@ -1,25 +1,38 @@
-import {
-  ArrowButton,
-  DialogBoxBody,
-  DialogBoxFooter,
-  DialogBoxHeader,
-  Flex,
-  Image,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
+import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../DialogBox';
+import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
 
-export const DialogBoxLayout: FC<{
+export const CreateWalletDialogBoxLayout: FC<{
   heading: string;
   title: string;
   image: string;
   setState: Dispatch<SetStateAction<number>>;
   children?: ReactNode;
   isLoading?: boolean;
-}> = ({ heading, image, title, children, isLoading, setState }) => {
-  const lang = useAppSelector(selectLanguage);
+  loadingText: string;
+}> = ({
+  heading,
+  image,
+  title,
+  children,
+  isLoading,
+  setState,
+  loadingText,
+}) => {
+  const onPrevious = () => {
+    setState(prevProps => {
+      if (prevProps - 1 < 0) return prevProps;
+      return prevProps - 1;
+    });
+  };
+
+  const onNext = () => {
+    setState(prevProps => {
+      if (prevProps + 1 > 5) return prevProps;
+      return prevProps + 1;
+    });
+  };
+
   return (
     <>
       <DialogBoxHeader p={2}>
@@ -41,38 +54,21 @@ export const DialogBoxLayout: FC<{
           </Typography>
           {isLoading && (
             <Typography color="muted">
-              <LangDisplay
-                text={lang.strings.onboarding.createWallet.confirmPin.loading}
-              />
+              <LangDisplay text={loadingText} />
             </Typography>
           )}
         </Flex>
         {children}
       </DialogBoxBody>
       <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
-        <ArrowButton
-          direction="left"
-          onClick={() =>
-            setState(prevProps => {
-              if (prevProps - 1 < 0) return prevProps;
-              return prevProps - 1;
-            })
-          }
-        />
-        <ArrowButton
-          direction="right"
-          onClick={() =>
-            setState(prevProps => {
-              if (prevProps + 1 > 5) return prevProps;
-              return prevProps + 1;
-            })
-          }
-        />
+        <ArrowButton direction="left" onClick={onPrevious} />
+        <ArrowButton direction="right" onClick={onNext} />
       </DialogBoxFooter>
     </>
   );
 };
-DialogBoxLayout.defaultProps = {
+
+CreateWalletDialogBoxLayout.defaultProps = {
   children: null,
   isLoading: false,
 };
