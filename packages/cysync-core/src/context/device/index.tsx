@@ -21,6 +21,7 @@ import {
 import baseLogger from '../../utils/logger';
 
 export * from './types';
+export * from './utils';
 
 const logger = createLoggerWithPrefix(baseLogger, 'DeviceConnection');
 

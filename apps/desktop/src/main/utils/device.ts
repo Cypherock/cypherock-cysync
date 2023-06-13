@@ -15,28 +15,9 @@ let connectedDevice:
   | { device: IDevice; connection: IDeviceConnection }
   | undefined;
 
-export const removeConnectedDevice = async () => {
-  if (connectedDevice) {
-    await connectedDevice.connection.destroy();
-    connectedDevice = undefined;
-  }
+export const removeConnectedDevice = () => {
+  connectedDevice = undefined;
 };
-
-export const connectDevice = async (device: IDevice) => {
-  await removeConnectedDevice();
-  let connection: IDeviceConnection;
-
-  if (device.type === ConnectionTypeMap.HID) {
-    connection = await DeviceConnectionHID.connect(device);
-  } else {
-    connection = await DeviceConnectionSerialPort.connect(device);
-  }
-
-  connectedDevice = { device, connection };
-  return connectedDevice;
-};
-
-export const getConnectedDevice = () => connectedDevice;
 
 export const abortAndRemoveConnectedDevice = async () => {
   try {
@@ -59,7 +40,32 @@ export const abortAndRemoveConnectedDevice = async () => {
     await sdk.sendAbort();
     await sdk.destroy();
   } catch (error) {
-    logger.warn('Error while device connection cleanup');
-    logger.warn(error);
+    logger.debug('Error while device connection cleanup');
+    logger.debug(error);
+  } finally {
+    if (connectedDevice) {
+      try {
+        await connectedDevice.connection.destroy();
+        // eslint-disable-next-line no-empty
+      } catch (error) {}
+    }
+    connectedDevice = undefined;
   }
 };
+
+export const connectDevice = async (device: IDevice) => {
+  await abortAndRemoveConnectedDevice();
+
+  let connection: IDeviceConnection;
+
+  if (device.type === ConnectionTypeMap.HID) {
+    connection = await DeviceConnectionHID.connect(device);
+  } else {
+    connection = await DeviceConnectionSerialPort.connect(device);
+  }
+
+  connectedDevice = { device, connection };
+  return connectedDevice;
+};
+
+export const getConnectedDevice = () => connectedDevice;

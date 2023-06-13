@@ -57,7 +57,9 @@ const getStepContent = (state: number, lang: LanguageStrings): StepContent => {
   return stepContentMap[state];
 };
 
-export const JoystickDialog: React.FC<{ state: number }> = ({ state }) => {
+export const JoystickTrainingInteraction: React.FC<{ state: number }> = ({
+  state,
+}) => {
   const lang = useAppSelector(selectLanguage);
 
   const content = React.useMemo<StepContent>(

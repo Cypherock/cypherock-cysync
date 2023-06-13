@@ -13,6 +13,7 @@ import {
   windowUrls,
 } from './utils';
 import { setupAutoUpdate } from './utils/autoUpdater';
+import { setupDependencies } from './utils/dependencies';
 
 const shouldStartApp = () => {
   // Locks the current application instance.
@@ -29,6 +30,7 @@ const shouldStartApp = () => {
 
 const prepareApp = () => {
   setupProcessEventHandlers();
+  setupDependencies();
 
   // Disable GPU Acceleration for Windows 7
   if (release().startsWith('6.1')) app.disableHardwareAcceleration();

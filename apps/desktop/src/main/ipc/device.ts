@@ -34,7 +34,17 @@ const connectedDeviceMethodCall = async (
     throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
   }
 
-  return callMethodOnObject(connectedDevice.connection, method, ...args);
+  const res = await callMethodOnObject(
+    connectedDevice.connection,
+    method,
+    ...args,
+  );
+
+  if (method === 'destroy') {
+    deviceUtils.removeConnectedDevice();
+  }
+
+  return res;
 };
 
 export const getDeviceIPCHandlers = () => [

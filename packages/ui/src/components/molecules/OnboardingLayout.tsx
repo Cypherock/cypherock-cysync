@@ -2,12 +2,12 @@ import React, { FC, ReactNode } from 'react';
 import { Container } from '../atoms';
 import { Aside, AsideProps } from './Aside';
 import {
-  DialogBoxBackground,
-  DialogBoxBackgroundFooter,
-  DialogBoxBackgroundFooterProps,
-  DialogBoxBackgroundHeader,
   DialogBoxBackgroundHeaderProps,
-} from './DialogBoxBackground';
+  DialogBoxBackgroundFooterProps,
+  DialogBoxBackground,
+  DialogBoxBackgroundHeader,
+  DialogBoxBackgroundFooter,
+} from './Dialog';
 import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
 
 export interface OnboardingLayoutProps

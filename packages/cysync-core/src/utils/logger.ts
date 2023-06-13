@@ -3,6 +3,8 @@ import {
   createDefaultConsoleLogger,
   updateLoggerObject,
 } from '@cypherock/cysync-utils';
+import { updateLogger as updateLoggerManager } from '@cypherock/sdk-app-manager';
+import { updateLogger as updateLoggerCore } from '@cypherock/sdk-core';
 
 export const loggerServiceName = 'cysync-core';
 
@@ -15,6 +17,8 @@ export const updateLogger = (createLogger: LogCreator) => {
     currentLogger: logger,
     newLogger: createLogger(loggerServiceName),
   });
+  updateLoggerManager(createLogger);
+  updateLoggerCore(createLogger);
 };
 
 export default logger;
