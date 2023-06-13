@@ -1,3 +1,1 @@
-import appUpdate from './appUpdate.svg';
-
-export { appUpdate };
+export * from './AppUpdateIcon';

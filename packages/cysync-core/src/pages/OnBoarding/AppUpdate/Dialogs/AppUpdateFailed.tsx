@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   AppUpdateIcon,
   Button,
@@ -8,16 +9,21 @@ import {
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
 
-export const AppUpdateConfirmation: FC<{
+interface AppUpdateFailedProps {
   title: string;
   buttonText: string;
   handleClick: () => void;
-}> = ({ title, buttonText, handleClick }) => (
+}
+
+export const AppUpdateFailed: FC<AppUpdateFailedProps> = ({
+  title,
+  buttonText,
+  handleClick,
+}) => (
   <DialogBox width={500}>
     <DialogBoxBody>
-      <AppUpdateIcon />
+      <AppUpdateIcon color="#FF624C" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />

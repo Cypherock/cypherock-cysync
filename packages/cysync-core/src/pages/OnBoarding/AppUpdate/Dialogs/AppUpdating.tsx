@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import {
-  appUpdate,
+  AppUpdateIcon,
   Container,
   DialogBox,
   DialogBoxBody,
-  Image,
   LangDisplay,
   ProgressBar,
   Typography,
@@ -18,7 +17,6 @@ export const AppUpdating: FC<{
   const [progress, setProgress] = React.useState(0);
 
   useEffect(() => {
-    console.log(progress);
     if (progress < 100) {
       setTimeout(() => {
         setProgress(progress + 1);
@@ -31,7 +29,7 @@ export const AppUpdating: FC<{
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={8}>
-        <Image src={appUpdate} alt="App updating" />
+        <AppUpdateIcon />
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={title} />

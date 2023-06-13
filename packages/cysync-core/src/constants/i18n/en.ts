@@ -86,6 +86,7 @@ const en = {
   buttons: {
     continue: 'Continue',
     confirm: 'Confirm',
+    retry: 'Retry',
   },
   permissionSetup: {
     title:
@@ -187,10 +188,16 @@ const en = {
       bubbleText:
         'In case, the app does not restart itself, manually start it again',
     },
+    appUpdateFailed: {
+      heading: 'cySync update to version #{version} failed',
+      buttons: {
+        retry: 'Retry',
+      },
+    },
   },
   errors: {
     deviceErrors,
-    default: 'Some internal error occured',
+    default: 'Some internal error occurred',
   },
 };
 
