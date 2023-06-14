@@ -19,9 +19,10 @@
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
-    "@types/better-sqlite3": "^7.6.4",
     "@types/events": "^3.0.0",
     "@types/jest": "^29.5.0",
+    "@types/lodash": "^4.14.195",
+    "@types/lokijs": "^1.5.8",
     "@types/node": "^16.11.10",
     "@types/uuid": "^9.0.1",
     "cross-env": "^7.0.3",
@@ -36,12 +37,16 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "better-sqlite3": "^8.3.0",
     "events": "^3.3.0",
+    "lodash": "^4.17.21",
+    "lokijs": "^1.5.12",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },
   "lint-staged": {
-    "*.ts": ["eslint --ext ts--quiet --fix --", "prettier --write"]
+    "*.ts": [
+      "eslint --ext ts--quiet --fix --",
+      "prettier --write"
+    ]
   }
 }

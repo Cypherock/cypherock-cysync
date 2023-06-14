@@ -1,13 +1,14 @@
 import React from 'react';
+
+import { backIcon } from '../../../assets/images';
 import {
-  Container,
   Flex,
-  Typography,
-  Image,
+  Container,
   Button,
+  Typography,
   LangDisplay,
-} from '../atoms';
-import { backIcon } from '../../assets/images';
+  Image,
+} from '../../atoms';
 
 export interface DialogBoxBackgroundHeaderProps {
   topLeftComponent?: React.ReactNode | undefined;

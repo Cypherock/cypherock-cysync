@@ -24,6 +24,7 @@ import arrow from './arrow.svg';
 import arrowForward from './arrow-forward.svg';
 import info from './info.svg';
 import goldInfo from './gold_info.svg';
+import openExternalLink from './open-external-link.svg';
 
 export {
   addWalletIcon,
@@ -52,4 +53,5 @@ export {
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,
   loader,
+  openExternalLink,
 };

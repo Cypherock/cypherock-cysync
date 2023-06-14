@@ -15,7 +15,11 @@ export const setupIPCHandlers = (ipcMain: IpcMain) => {
       try {
         const result = await (func.func as any)(...args);
         return { result };
-      } catch (error) {
+      } catch (error: any) {
+        if (error.toJSON) {
+          return { error: error.toJSON() };
+        }
+
         return { error };
       }
     });

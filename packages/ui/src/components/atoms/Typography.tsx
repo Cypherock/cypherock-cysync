@@ -33,6 +33,7 @@ interface HeadingProps
     | 'separator'
     | 'list';
   $textAlign?: 'center' | 'left' | 'right';
+  $letterSpacing?: number;
 }
 
 const baseStyle = css<HeadingProps>`
@@ -73,6 +74,12 @@ ${props =>
     props.color && `color: ${props.theme.palette.text[props.color]};`}
     
     ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
+
+${props =>
+    props.$letterSpacing !== undefined &&
+    css`
+      letter-spacing: ${props.$letterSpacing}em;
+    `}
     
     max-width: 100%;
   ${spacing};
@@ -81,6 +88,7 @@ ${props =>
   ${position};
   ${flex};
   ${display};
+  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
@@ -184,4 +192,5 @@ Typography.defaultProps = {
   children: null,
   color: 'heading',
   $textAlign: 'left',
+  $letterSpacing: 0,
 };

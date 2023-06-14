@@ -10,16 +10,12 @@ import {
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 import { OnboardingPageLayout } from '../../OnboardingPageLayout';
-import { Instructions } from './Dialogs/Instructions';
-import { EnterWalletName } from './Dialogs/EnterWalletName';
-import { ConfirmWalletName } from './Dialogs/ConfirmWalletName';
-import { WalletPinConsent } from './Dialogs/WalletPinConsent';
-import { SetupWalletPin } from './Dialogs/SetupWalletPin';
-import { ConfirmPin } from './Dialogs/ConfirmPin';
+import { DeviceTab } from './DeviceTab';
 
 export const CreateNewWallet: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
   const [state, setState] = useState<number>(0);
+
   return (
     <OnboardingPageLayout
       img={LogoOutlinedAsideImage}
@@ -33,6 +29,7 @@ export const CreateNewWallet: FC<{}> = () => {
       <DialogBox direction="row" gap={0} width="full">
         <WalletDialogAside
           tabs={lang.strings.onboarding.createWallet.aside.tabs}
+          state={state}
         />
         <Flex
           width="full"
@@ -53,12 +50,7 @@ export const CreateNewWallet: FC<{}> = () => {
           >
             <DialogBox width={500}>
               <DialogBoxBody p="0">
-                {state === 0 && <Instructions setState={setState} />}
-                {state === 1 && <EnterWalletName setState={setState} />}
-                {state === 2 && <ConfirmWalletName setState={setState} />}
-                {state === 3 && <WalletPinConsent setState={setState} />}
-                {state === 4 && <SetupWalletPin setState={setState} />}
-                {state === 5 && <ConfirmPin setState={setState} />}
+                {state <= 5 && <DeviceTab state={state} setState={setState} />}
               </DialogBoxBody>
             </DialogBox>
           </DialogBoxBody>

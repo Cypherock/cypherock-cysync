@@ -1,36 +1,45 @@
-import { IRouteInfo } from './types';
-
-export const onboarding: Record<string, IRouteInfo> = {
-  walletActions: {
-    name: 'wallet-actions',
-    path: '/',
-  },
+export const onboarding = {
   createNewWallet: {
     name: 'create-new-wallet',
-    path: '/create-new-wallet',
+    path: '/',
+  },
+  info: {
+    name: 'onboarding-info',
+    path: '/onboarding/info',
+  },
+  usage: {
+    name: 'onboarding-usage',
+    path: '/onboarding/usage',
+  },
+  terms: {
+    name: 'onboarding-terms',
+    path: '/onboarding/terms',
   },
   deviceDetection: {
-    name: 'device-detection',
-    path: '/device-detection',
+    name: 'onboarding-device-detection',
+    path: '/onboarding/device-detection',
   },
   deviceAuthentication: {
-    name: 'device-authentication',
-    path: '/auth',
+    name: 'onboarding-device-authentication',
+    path: '/onboarding/device-authentication',
   },
   joystickTraining: {
-    name: 'joystick-training',
-    path: '/joystick',
+    name: 'onboarding-joystick-training',
+    path: '/onboarding/joystick',
   },
   cardTraining: {
-    name: 'card-training',
-    path: '/card-training',
+    name: 'onboarding-card-training',
+    path: '/onboarding/card-training',
   },
   cardAuthentication: {
-    name: 'card-authentication',
-    path: '/card-auth',
+    name: 'onboarding-card-authentication',
+    path: '/onboarding/card-auth',
   },
   congratulations: {
-    name: 'congratulations',
-    path: '/congo',
+    name: 'onboarding-congratulations',
+    path: '/onboarding/congo',
   },
-};
+} as const;
+
+export type OnboardingRouteName =
+  (typeof onboarding)[keyof typeof onboarding]['name'];

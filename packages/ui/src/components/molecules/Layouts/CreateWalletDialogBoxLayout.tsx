@@ -1,5 +1,5 @@
 import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../DialogBox';
+import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
 import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
 
 export const CreateWalletDialogBoxLayout: FC<{
@@ -9,7 +9,7 @@ export const CreateWalletDialogBoxLayout: FC<{
   setState: Dispatch<SetStateAction<number>>;
   children?: ReactNode;
   isLoading?: boolean;
-  loadingText: string;
+  loadingText?: string;
 }> = ({
   heading,
   image,
@@ -52,7 +52,7 @@ export const CreateWalletDialogBoxLayout: FC<{
           <Typography px={8} $textAlign="center" variant="h5">
             <LangDisplay text={title} />
           </Typography>
-          {isLoading && (
+          {isLoading && loadingText && (
             <Typography color="muted">
               <LangDisplay text={loadingText} />
             </Typography>
@@ -71,4 +71,5 @@ export const CreateWalletDialogBoxLayout: FC<{
 CreateWalletDialogBoxLayout.defaultProps = {
   children: null,
   isLoading: false,
+  loadingText: '',
 };

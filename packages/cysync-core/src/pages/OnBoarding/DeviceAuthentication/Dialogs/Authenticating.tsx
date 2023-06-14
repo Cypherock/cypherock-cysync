@@ -10,7 +10,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { useAppSelector, selectLanguage } from '~/store';
 
-export const Authenticating: React.FC = () => {
+export const DeviceAuthenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const theme = useTheme();
 

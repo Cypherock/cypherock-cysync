@@ -1,6 +1,5 @@
-export * from './DialogBox';
+export * from './Dialog';
 export * from './Milestone';
-export * from './DialogBoxBackground';
 export * from './Layouts';
 export * from './JoystickInteraction';
 export * from './CardTapList';

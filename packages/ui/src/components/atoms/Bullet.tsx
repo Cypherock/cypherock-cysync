@@ -44,12 +44,12 @@ const BulletStyle = styled.div<BulletProps>`
     css`
       background-image: ${({ theme }) => theme.palette.golden};
     `}
-  ${props =>
+    ${props =>
     props.variant === 'success' &&
     css`
       background-color: ${({ theme }) => theme.palette.success.main};
     `}
-  ${props =>
+    ${props =>
     props.variant === 'failed' &&
     css`
       background-color: ${({ theme }) => theme.palette.warning.main};

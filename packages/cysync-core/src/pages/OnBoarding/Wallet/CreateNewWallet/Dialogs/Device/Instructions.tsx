@@ -12,12 +12,11 @@ import {
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 
-const theme = useTheme();
-
 export const Instructions: FC<{
   setState: Dispatch<SetStateAction<number>>;
 }> = ({ setState }) => {
   const lang = useAppSelector(selectLanguage);
+  const theme = useTheme();
   return (
     <CreateWalletDialogBoxLayout
       heading={lang.strings.onboarding.createWallet.followInfo.heading}

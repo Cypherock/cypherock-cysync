@@ -42,6 +42,19 @@ const electronAPI = {
       methods,
     });
   },
+
+  getKeyDb: async () => {
+    const { error, result: methods } = await ipcRenderer.invoke(
+      ipcConfig.methods.keyDbMethodList,
+    );
+
+    if (error) throw error;
+
+    return createObjectProxy({
+      key: ipcConfig.methods.keyDbMethodCall,
+      methods,
+    });
+  },
 };
 
 for (const func of exportedFunctions) {

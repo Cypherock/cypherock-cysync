@@ -1,3 +1,4 @@
+import React, { FC, ReactNode } from 'react';
 import {
   HelpHeader,
   EmailHeader,
@@ -6,7 +7,6 @@ import {
   DialogBoxBackgroundFooterProps,
   DialogBoxBackgroundHeaderProps,
 } from '@cypherock/cysync-ui';
-import React, { FC, ReactNode } from 'react';
 import { useAppSelector, selectLanguage, ILangState } from '~/store';
 
 export interface OnboardingPageLayoutProps
@@ -67,6 +67,8 @@ export const OnboardingPageLayout: FC<OnboardingPageLayoutProps> = ({
   withBack,
   withEmail,
   showBlurBackground,
+  title,
+  subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
   return (
@@ -76,6 +78,9 @@ export const OnboardingPageLayout: FC<OnboardingPageLayoutProps> = ({
       currentState={currentState}
       totalState={totalState}
       showBlurBackground={showBlurBackground}
+      title={title}
+      subTitle={subTitle}
+      version={`ver ${window.cysyncEnv.VERSION}`}
       headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
       footerProps={parseFooterProps({ withBack, lang })}
     >
