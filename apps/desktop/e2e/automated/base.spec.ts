@@ -41,10 +41,10 @@ test('check first screen', async () => {
   await expect(firstBullet).toHaveText([
     'You are present in a safe and secure environment',
   ]);
-  const secondtBullet = screen.getByRole('heading', {
+  const secondBullet = screen.getByRole('heading', {
     name: 'You have atleast 15-30 minutes to setup your wallet',
   });
-  await expect(secondtBullet).toHaveText([
+  await expect(secondBullet).toHaveText([
     'You have atleast 15-30 minutes to setup your wallet',
   ]);
   const thirdBullet = screen.getByRole('heading', {
