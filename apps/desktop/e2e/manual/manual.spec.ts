@@ -5,7 +5,7 @@ import {
   Page,
   Locator,
 } from '@playwright/test';
-import { prepElectronApp } from '../__fixtures__/prep';
+import { prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 let screen: Page;

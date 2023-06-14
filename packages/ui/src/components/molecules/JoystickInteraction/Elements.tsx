@@ -29,7 +29,11 @@ export const Circle = styled.div`
 export const Text: React.FC<{ text: string } & DirectionProps> = props => {
   const { text, state = 'unselected' } = props;
   return (
-    <Typography variant="h6" font="medium" color={textColorMap[state] as any}>
+    <Typography
+      variant="h6"
+      $fontWeight="medium"
+      color={textColorMap[state] as any}
+    >
       {text}
     </Typography>
   );

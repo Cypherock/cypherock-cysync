@@ -54,7 +54,7 @@ export const Aside = (props: AsideProps): ReactElement => {
           color="silver"
           width="full"
           $textAlign="center"
-          font="medium"
+          $fontWeight="medium"
           mb={4}
         >
           <Text>

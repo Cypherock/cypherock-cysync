@@ -74,7 +74,12 @@ export const JoystickTrainingInteraction: React.FC<{ state: number }> = ({
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={0}>
-        <Typography variant="h4" $textAlign="center" font="medium" mb={7}>
+        <Typography
+          variant="h4"
+          $textAlign="center"
+          $fontWeight="medium"
+          mb={7}
+        >
           <LangDisplay text={title} />
         </Typography>
         <JoystickInteraction {...states} />

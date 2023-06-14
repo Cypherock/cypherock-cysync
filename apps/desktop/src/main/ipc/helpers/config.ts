@@ -21,5 +21,6 @@ export const ipcConfig = {
     'ALLOW_PRERELEASE',
     'VERSION',
     'CHANNEL',
+    'OS',
   ],
 };

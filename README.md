@@ -28,12 +28,9 @@ Before you get started, please make sure you have the following setup -
   - For more details, please refer to the [node-gyp documentation][5].
 - Dependencies for MacOS
   `brew install pkg-config pixman cairo pango`
-- If you are using linux you will have to add a new file at `/etc/udev/rules.d` with the following content save the file with the name `51-cypherock.rules`
-  After creating the file use `sudo udevadm control --reload-rules` to reload the rules.
+- If you are using linux, run the following command to configure usb.
   ```sh
-  SUBSYSTEM=="input", GROUP="input", MODE="0666"
-  SUBSYSTEM=="usb", ATTRS{idVendor}=="3503", ATTRS{idProduct}=="0103", MODE:="666", GROUP="plugdev"
-  KERNEL=="hidraw*", ATTRS{idVendor}=="3503", ATTRS{idProduct}=="0103", MODE="0666", GROUP="plugdev"
+  wget -q -O - https://raw.githubusercontent.com/Cypherock/cysync-scripts/main/configure-usb.sh | sudo bash
   ```
 
 ## Understanding the directory structure

@@ -1,3 +1,4 @@
+import os from 'os';
 import { app } from 'electron';
 import jsonConfig from '../../config';
 
@@ -6,6 +7,7 @@ export interface IConfig {
   BUILD_VERSION: string;
   IS_PRODUCTION: boolean;
   IS_TEST: boolean;
+  IS_E2E: boolean;
   ALLOW_PRERELEASE: boolean;
   USER_DATA_PATH: string;
   IS_RELEASE_CHANNEL: boolean;
@@ -13,6 +15,7 @@ export interface IConfig {
   VERSION: string;
   LOG_LEVEL: string;
   API_CYPHEROCK: string;
+  OS: 'win32' | 'darwin' | 'linux' | string;
 }
 
 const configValidators = {
@@ -97,11 +100,12 @@ const getConfig = (): IConfig => {
     IS_PRODUCTION = false;
   }
 
-  const config = {
+  const config: IConfig = {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
     BUILD_VERSION: jsonConfig.BUILD_VERSION,
     IS_PRODUCTION,
     IS_TEST: process.env.NODE_ENV === 'test',
+    IS_E2E: process.env.NODE_ENV === 'e2e',
     ALLOW_PRERELEASE: jsonConfig.ALLOW_PRERELEASE,
     USER_DATA_PATH,
     CHANNEL: jsonConfig.CHANNEL,
@@ -113,6 +117,7 @@ const getConfig = (): IConfig => {
       'API_CYPHEROCK',
       jsonConfig.API_CYPHEROCK,
     ),
+    OS: os.platform(),
   };
 
   return config;
