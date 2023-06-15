@@ -12,13 +12,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'import'],
+  plugins: ['react', '@typescript-eslint', 'import', 'no-null'],
   settings: {
     'import/resolver': {
       typescript: {},
     },
   },
   rules: {
+    'no-null/no-null': 'warn',
     'import/extensions': 0,
     'import/prefer-default-export': 0,
     'no-await-in-loop': 0,
