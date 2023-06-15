@@ -77,6 +77,7 @@ Once you have cloned the repository, follow these steps -
 
 ```sh
 pnpm i        # Install packages
+pnpm start    # Start desktop application
 ```
 
 ### Other commands
@@ -112,6 +113,9 @@ pnpm i        # Install packages
 ## Contributing
 
 Please consider making a contribution to the project. Contributions can include bug fixes, feature proposal, or optimizations to the current code.
+
+- [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
+- [CODING_GUIDELINES.md](./docs/CODING_GUIDELINES.md)
 
 [1]: https://nodejs.org/en/download/package-manager/#nvm 'How to use NVM'
 [2]: https://pnpm.io/ 'Pnpm documentation'
