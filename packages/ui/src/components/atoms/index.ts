@@ -12,3 +12,4 @@ export * from './LangDisplay';
 export * from './ArrowButton';
 export * from './List';
 export * from './Checkbox';
+export * from './CloseButton';

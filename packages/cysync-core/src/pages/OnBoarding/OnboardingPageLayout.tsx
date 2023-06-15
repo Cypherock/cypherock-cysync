@@ -15,7 +15,6 @@ export interface OnboardingPageLayoutProps
   withHelp?: boolean;
   withEmail?: boolean;
   withBack?: boolean;
-  showBlurBackground?: boolean;
 }
 
 const parseHeaderProps = ({
@@ -68,6 +67,7 @@ export const OnboardingPageLayout: FC<OnboardingPageLayoutProps> = ({
   withEmail,
   showBlurBackground,
   title,
+  showAside,
   subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -80,6 +80,7 @@ export const OnboardingPageLayout: FC<OnboardingPageLayoutProps> = ({
       showBlurBackground={showBlurBackground}
       title={title}
       subTitle={subTitle}
+      showAside={showAside}
       version={`ver ${window.cysyncEnv.VERSION}`}
       headerProps={parseHeaderProps({ withHelp, withEmail, lang })}
       footerProps={parseFooterProps({ withBack, lang })}
@@ -93,5 +94,4 @@ OnboardingPageLayout.defaultProps = {
   withEmail: false,
   withHelp: false,
   withBack: false,
-  showBlurBackground: false,
 };

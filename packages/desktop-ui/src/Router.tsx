@@ -7,7 +7,7 @@ import {
   Information,
   Usage,
   JoystickTraining,
-  CreateNewWallet,
+  WalletActions,
   routes,
   Terms,
   IRoute,
@@ -26,7 +26,7 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-training': <CardTraining />,
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
-  'create-new-wallet': <CreateNewWallet />,
+  'onboarding-wallet-actions': <WalletActions />,
   portfolio: <div>portfolio</div>,
 };
 

@@ -1,76 +1,94 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Button,
-  Container,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
+  Image,
   LangDisplay,
   Typography,
+  recoverWalletIcon,
 } from '@cypherock/cysync-ui';
-import { useTheme } from 'styled-components';
+import { selectLanguage, useAppSelector } from '~/store';
+import { OnboardingPageLayout } from '../../OnboardingPageLayout';
 import { Header } from './Header';
 import { CreateWalletDialogBox } from './CreateWalletDialogBox';
 import { ImportWalletDialogBox } from './ImportWalletDialogBox';
 import { TransferWallet } from './TransferWallet';
+import { CreateNewWallet } from '../CreateNewWallet';
 
-export const WalletActionsDialogBox: FC<{
-  help: string;
-  title: string;
-  subTitle: string;
-  createWallet: {
-    title: string;
-    button: string;
-    list: Array<string>;
-  };
-  importWallet: {
-    title: string;
-    button: string;
-    list: Array<string>;
-  };
-  footer: {
-    title: string;
-    subTitle: string;
-    button: string;
-  };
-}> = ({ createWallet, footer, help, importWallet, title, subTitle }) => {
-  const theme = useTheme();
+export const WalletActions: FC<{}> = () => {
+  const lang = useAppSelector(selectLanguage);
+  const [showCreateWalletDialogBox, setShowCreateWalletDialogBox] =
+    useState(false);
   return (
-    <DialogBox width="full">
-      <Container width="full" p={2} justify="flex-start">
-        <Button variant="none">
-          <Typography color="muted" fontSize={14}>
-            <LangDisplay text={help} />
-            <span
-              style={{
-                background: theme?.palette.golden,
-                WebkitTextFillColor: 'transparent',
-                WebkitBackgroundClip: 'text',
-              }}
-            >
-              ?
-            </span>
-          </Typography>
-        </Button>
-      </Container>
-      <DialogBoxBody
-        p="20"
-        grow={2}
-        align="center"
-        gap={40}
-        direction="column"
-        height="full"
-      >
-        <Header subTitle={subTitle} title={title} />
-        <Flex gap={20} px={{ def: '20', lg: '150' }}>
-          <CreateWalletDialogBox createWallet={createWallet} />
-          <ImportWalletDialogBox importWallet={importWallet} />
+    <OnboardingPageLayout
+      $bgColor="primary"
+      showBlurBackground={showCreateWalletDialogBox}
+      showAside={false}
+      withHelp
+    >
+      {showCreateWalletDialogBox ? (
+        <CreateNewWallet
+          setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+        />
+      ) : (
+        <Flex direction="column" align="center" gap={{ def: 40, md: 60 }}>
+          <Header
+            subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
+            title={lang.strings.onboarding.walletActionsDialogBox.title}
+          />
+          <Flex gap={20} px={{ def: '20', lg: '150' }}>
+            <CreateWalletDialogBox
+              createWallet={
+                lang.strings.onboarding.walletActionsDialogBox.createWallet
+              }
+              setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+            />
+            <ImportWalletDialogBox
+              importWallet={
+                lang.strings.onboarding.walletActionsDialogBox.importWallet
+              }
+            />
+            <DialogBox display={{ def: 'flex', lg: 'none' }} width="full">
+              <DialogBoxBody height="full">
+                <Image width={45} src={recoverWalletIcon} alt="recoverWallet" />
+                <Flex gap={48} direction="column" height="full">
+                  <Typography
+                    $textAlign="center"
+                    variant="h5"
+                    color="heading"
+                    mb={1}
+                  >
+                    <LangDisplay
+                      text={
+                        lang.strings.onboarding.walletActionsDialogBox
+                          .transferWallet.title
+                      }
+                    />
+                  </Typography>
+                </Flex>
+              </DialogBoxBody>
+              <DialogBoxFooter>
+                <Button variant="primary">
+                  <LangDisplay
+                    text={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .transferWallet.button
+                    }
+                  />
+                </Button>
+              </DialogBoxFooter>
+            </DialogBox>
+          </Flex>
+          <TransferWallet
+            transferWallet={
+              lang.strings.onboarding.walletActionsDialogBox.transferWallet
+            }
+          />
         </Flex>
-      </DialogBoxBody>
-      <DialogBoxFooter>
-        <TransferWallet footer={footer} />
-      </DialogBoxFooter>
-    </DialogBox>
+      )}
+    </OnboardingPageLayout>
   );
 };

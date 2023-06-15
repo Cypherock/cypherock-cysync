@@ -1,5 +1,4 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   Button,
   Container,
@@ -15,7 +14,6 @@ import {
   addWalletIcon,
 } from '@cypherock/cysync-ui';
 import { useTheme } from 'styled-components';
-import { routes } from '~/constants';
 
 export const CreateWalletDialogBox: FC<{
   createWallet: {
@@ -23,7 +21,8 @@ export const CreateWalletDialogBox: FC<{
     button: string;
     list: Array<string>;
   };
-}> = ({ createWallet }) => {
+  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
+}> = ({ createWallet, setShowCreateWalletDialogBox }) => {
   const theme = useTheme();
   return (
     <DialogBox width="full">
@@ -71,11 +70,12 @@ export const CreateWalletDialogBox: FC<{
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Link to={routes.onboarding.createNewWallet.path}>
-          <Button variant="primary">
-            <LangDisplay text={createWallet.button} />
-          </Button>
-        </Link>
+        <Button
+          onClick={() => setShowCreateWalletDialogBox(true)}
+          variant="primary"
+        >
+          <LangDisplay text={createWallet.button} />
+        </Button>
       </DialogBoxFooter>
     </DialogBox>
   );

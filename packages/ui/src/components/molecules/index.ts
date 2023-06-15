@@ -7,3 +7,4 @@ export * from './ConfettiBlast';
 export * from './EmailHeader';
 export * from './HelpHeader';
 export * from './Asides';
+export * from './WalletDialogMainContainer';

@@ -159,7 +159,7 @@ const en = {
       subtext: 'Do not lift until you hear 3 beep sounds',
     },
     walletActionsDialogBox: {
-      title: `Let's create a wallet before we proceed. Make sure you have all the 4 X1 cards with you`,
+      title: `Let's add a wallet before we proceed. Make sure you have all the 4 X1 cards with you`,
       subTitle:
         'The following tutorials are just there to guide you on your X1 vault. You can create a wallet even without these tutorials independently on your Cypherock X1',
       createWallet: {
@@ -181,7 +181,7 @@ const en = {
         ],
         button: 'Import',
       },
-      footer: {
+      transferWallet: {
         title: 'Transfer from old to new Cypherock X1',
         subTitle: `If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards whatsoever, we don't judge`,
         button: 'Transfer',

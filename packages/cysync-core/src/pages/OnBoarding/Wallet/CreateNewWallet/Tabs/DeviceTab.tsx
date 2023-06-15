@@ -6,7 +6,7 @@ import {
   Instructions,
   SetupWalletPin,
   WalletPinConsent,
-} from './Dialogs';
+} from '../Dialogs';
 
 export const DeviceTab: FC<{
   state: number;

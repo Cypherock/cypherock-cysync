@@ -9,12 +9,12 @@ import {
 } from '@cypherock/cysync-ui';
 
 export const TransferWallet: FC<{
-  footer: {
+  transferWallet: {
     title: string;
     subTitle: string;
     button: string;
   };
-}> = ({ footer }) => (
+}> = ({ transferWallet }) => (
   <Flex
     display={{
       def: 'none',
@@ -27,14 +27,14 @@ export const TransferWallet: FC<{
     <Image src={recoverWalletIcon} alt="recoverWallet" />
     <Flex direction="column">
       <Typography variant="h5" color="heading" mb={1}>
-        <LangDisplay text={footer.title} />
+        <LangDisplay text={transferWallet.title} />
       </Typography>
       <Typography variant="h5" color="muted" mb={1}>
-        <LangDisplay text={footer.subTitle} />
+        <LangDisplay text={transferWallet.subTitle} />
       </Typography>
     </Flex>
     <Button variant="primary">
-      <LangDisplay text={footer.button} />
+      <LangDisplay text={transferWallet.button} />
     </Button>
   </Flex>
 );

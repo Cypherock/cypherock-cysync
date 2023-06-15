@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, MouseEventHandler, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { flex, width, WidthProps, FlexProps } from '../utils';
 
@@ -8,6 +8,7 @@ interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const buttonBaseStyle = css<ButtonProps>`
@@ -74,11 +75,14 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${flex}
 `;
 
-export const Button: FC<ButtonProps> = ({ children, ...props }) => (
-  <ButtonStyle {...props}>{children}</ButtonStyle>
+export const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => (
+  <ButtonStyle onClick={onClick} {...props}>
+    {children}
+  </ButtonStyle>
 );
 
 Button.defaultProps = {
   variant: 'primary',
   children: null,
+  onClick: () => null,
 };

@@ -18,6 +18,7 @@ const AsideStyle = styled.div`
   min-height: 80vh;
   height: 100%;
   padding: 48px 29px;
+  border-radius: 16px 0 0 16px;
   background-image: ${({ theme }) => theme.palette.background.sideBar};
 `;
 

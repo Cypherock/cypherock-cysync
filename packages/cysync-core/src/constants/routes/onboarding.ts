@@ -1,8 +1,4 @@
 export const onboarding = {
-  createNewWallet: {
-    name: 'create-new-wallet',
-    path: '/',
-  },
   info: {
     name: 'onboarding-info',
     path: '/onboarding/info',
@@ -38,6 +34,10 @@ export const onboarding = {
   congratulations: {
     name: 'onboarding-congratulations',
     path: '/onboarding/congo',
+  },
+  walletActions: {
+    name: 'onboarding-wallet-actions',
+    path: '/',
   },
 } as const;
 

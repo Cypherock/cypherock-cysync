@@ -9,12 +9,15 @@ import {
   DialogBoxBackgroundFooter,
 } from '../Dialog';
 import { InfoAside, InfoAsideProps } from '../Asides/InfoAside';
+import { BgColorProps } from '../../utils';
 
 export interface OnboardingLayoutProps
   extends Partial<AsideProps>,
-    Partial<InfoAsideProps> {
+    Partial<InfoAsideProps>,
+    BgColorProps {
   children: ReactNode | undefined;
   showBlurBackground?: boolean;
+  showAside?: boolean;
   headerProps?: DialogBoxBackgroundHeaderProps;
   footerProps?: DialogBoxBackgroundFooterProps;
 }
@@ -56,18 +59,22 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
   headerProps,
   footerProps,
   showBlurBackground,
+  showAside,
+  $bgColor = 'sideBar',
 }) => (
-  <Container height="screen" $bgColor="sideBar" display="flex">
+  <Container height="screen" $bgColor={$bgColor} display="flex">
     {showBlurBackground && <BlurOverlay>{children}</BlurOverlay>}
-    <GetAside
-      currentState={currentState}
-      img={img}
-      subTitle={subTitle}
-      text={text}
-      title={title}
-      totalState={totalState}
-      version={version}
-    />
+    {showAside && (
+      <GetAside
+        currentState={currentState}
+        img={img}
+        subTitle={subTitle}
+        text={text}
+        title={title}
+        totalState={totalState}
+        version={version}
+      />
+    )}
     <DialogBoxBackground>
       {headerProps && <DialogBoxBackgroundHeader {...headerProps} />}
       {!showBlurBackground && children}
@@ -80,4 +87,5 @@ OnboardingLayout.defaultProps = {
   headerProps: undefined,
   footerProps: undefined,
   showBlurBackground: false,
+  showAside: true,
 };
