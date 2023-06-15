@@ -54,7 +54,7 @@
 
 ### Reusability
 
-- Follow `DRY`
+- Follow `DRY`, `KISS`, and `YAGNI`
 
 ### Naming convention
 
@@ -62,6 +62,8 @@
 - Use `PascalCase` for enum values.
 - Use `camelCase` for function names.
 - Use `camelCase` for property names and local variables.
+- Use `camelCase` for file names. Except for react components, which should be
+  in `PascalCase`.
 - Do not use \_ as a prefix for private properties.
 - Use whole words in names when possible.
 - `boolean` variables should start with `is`, `has`, `do` or similar, to indicate
@@ -192,7 +194,7 @@ not exist in the actual code.
   const displayName = user.firstName ?? user.lastName;
   ```
 
-- Do not use `ternary` operator for more than two conditions
+- Do not use `ternary` operator for more than one condition
 
   ```ts
   // ✅
@@ -255,7 +257,7 @@ not exist in the actual code.
 
   ```tsx
   // ✅
-  <Button variant="primary" noBoarder={true}>Continue</Button>
+  <Button variant="primary" noBorder={true}>Continue</Button>
   ```
 
 #### Logic
@@ -285,6 +287,8 @@ not exist in the actual code.
 
   ```tsx
   // ✅
+  import { setDatabasePassword } from '~/database';
+
   const SetPassword = () => {
       const handleSetPassword = (password: string) => {
           setDatabasePassword(password);
