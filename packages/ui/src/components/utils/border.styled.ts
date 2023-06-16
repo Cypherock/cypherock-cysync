@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import { theme } from '../../themes/theme.styled';
 
 export interface BorderProps {
-  border?: 'popup' | 'input';
+  border?: 'popup' | 'input' | 'info';
 }
 
 export const border = css<BorderProps>`

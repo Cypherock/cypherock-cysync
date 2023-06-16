@@ -9,7 +9,7 @@ import {
   CloseButton,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import { DeviceTab } from './Tabs/DeviceTab';
+import { DeviceTab, SyncX1CardsTab, ConfirmationTab } from './Tabs';
 
 export const CreateNewWallet: FC<{
   setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
@@ -38,6 +38,12 @@ export const CreateNewWallet: FC<{
           <DialogBox width={500}>
             <DialogBoxBody p="0">
               {state <= 5 && <DeviceTab state={state} setState={setState} />}
+              {state === 6 && (
+                <SyncX1CardsTab state={state} setState={setState} />
+              )}
+              {state >= 7 && (
+                <ConfirmationTab state={state} setState={setState} />
+              )}
             </DialogBoxBody>
           </DialogBox>
         </DialogBoxBody>

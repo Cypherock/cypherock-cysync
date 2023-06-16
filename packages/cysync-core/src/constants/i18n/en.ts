@@ -239,6 +239,59 @@ const en = {
           `Backup it up in a safe place`,
         ],
       },
+      syncX1Cards: {
+        heading: 'Create New Wallet',
+        title: 'Tap X1 Cards one by one below the X1 Vault',
+        subTitle: 'Do not lift until you hear a beep sound',
+        list: [
+          'Make sure your X1 Cards belong to the same family',
+          'Make sure you tap the X1 Cards in the correct order',
+        ],
+      },
+      walletCreationSuccess: {
+        heading: 'Congratulations',
+        titles: {
+          first: 'Congratulations, your wallet is now successfully created',
+          second:
+            'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+          third:
+            'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+        },
+      },
+      finalMessage: {
+        cardSafety: {
+          heading: 'Final Message',
+          title: 'Important Note',
+          note: 'In case you need to add another wallet, you will need to fetch all of the 4 X1 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
+        },
+        addAnotherWallet: {
+          heading: 'Final Message',
+          title:
+            'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be:',
+          list: [
+            'Homes of your family members or your friends',
+            'Secret hideout',
+            'Bank locker',
+          ],
+        },
+        addAccount: {
+          heading: 'Final Message',
+          title:
+            'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you.',
+          buttons: {
+            skip: 'Skip',
+            addAccount: 'Add Account',
+          },
+        },
+        walletNotCreatedDialog: {
+          title: "Seems like you haven't created a wallet yet",
+          subTitle: 'To add an account you have to first create a wallet',
+          buttons: {
+            later: 'I will do it later',
+            createWallet: 'Create Wallet',
+          },
+        },
+      },
     },
     success: {
       title: 'Congratulations',

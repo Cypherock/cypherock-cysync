@@ -6,7 +6,7 @@ import {
   Image,
   LangDisplay,
   Typography,
-  arrowForward,
+  arrowGoldenForward,
   followInfo,
   CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
@@ -36,7 +36,7 @@ export const Instructions: FC<{
           border="input"
           p="12"
         >
-          <Image src={arrowForward} alt="arrowForward" />
+          <Image src={arrowGoldenForward} alt="arrowGoldenForward" />
           <Typography variant="h6" color="muted">
             <LangDisplay
               text={
@@ -70,7 +70,7 @@ export const Instructions: FC<{
           border="input"
           p="12"
         >
-          <Image src={arrowForward} alt="arrowForward" />
+          <Image src={arrowGoldenForward} alt="arrowGoldenForward" />
           <Typography variant="h6" color="muted">
             <LangDisplay
               text={
