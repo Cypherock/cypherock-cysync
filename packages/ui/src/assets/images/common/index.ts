@@ -21,6 +21,9 @@ import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import loader from './loader.png';
 import openExternalLink from './open-external-link.svg';
+import cysyncLockedLogo from './cysync-locked.svg';
+import visibilityHideIcon from './visibility-hide.svg';
+import visibilityIcon from './visibility.svg';
 
 export {
   addWalletIcon,
@@ -46,4 +49,7 @@ export {
   joystickTrainingAsideImage,
   loader,
   openExternalLink,
+  cysyncLockedLogo,
+  visibilityIcon,
+  visibilityHideIcon,
 };

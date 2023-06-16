@@ -6,10 +6,16 @@ interface InputLabelProps {
 }
 
 const InputLabelStyle = styled.label`
+  display: block;
+  text-align: left;
+  width: 100%;
+
   font-size: 14px;
-  color: ${({ theme }) => theme.palette.text.textMuted};
-  margin: ${({ theme }) => theme.spacing.one.spacing};
+  font-weight: 300;
   letter-spacing: 0.12em;
+
+  color: ${({ theme }) => theme.palette.text.muted};
+  margin: ${({ theme }) => theme.spacing.one.spacing};
 `;
 
 export const InputLabel: FC<InputLabelProps> = ({ children }) => (

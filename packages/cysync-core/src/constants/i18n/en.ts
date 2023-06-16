@@ -87,6 +87,13 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
   },
+  lockscreen: {
+    title: 'Your Gateway to Self-Sovereignty',
+    passwordLabel: 'Enter Password',
+    forgotPassword: 'Forgot password?',
+    incorrectPassword: 'Incorrect password',
+    button: 'Unlock',
+  },
   onboarding: {
     info: {
       aside: {
