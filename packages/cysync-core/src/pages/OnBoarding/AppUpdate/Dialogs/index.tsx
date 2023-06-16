@@ -1,10 +1,13 @@
 import React, { FC } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
-import { AppUpdateFailed } from '~/pages/OnBoarding/AppUpdate/Dialogs/AppUpdateFailed';
-import { AppUpdateFailedFallback } from '~/pages/OnBoarding/AppUpdate/Dialogs/AppUpdateFailedFallback';
-import { AppUpdateConfirmation } from './AppUpdateConfirmation';
-import { AppUpdating } from './AppUpdating';
-import { AppUpdateSuccessful } from './AppUpdateSuccessful';
+import {
+  AppUpdateIcon,
+  UpdatingDialog,
+  SuccessDialog,
+  FailedDialog,
+  UpdateConfirmationDialog,
+} from '@cypherock/cysync-ui';
+import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
 enum appUpdateStates {
   confirmation,
@@ -23,7 +26,7 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const maxTries = 3;
-  const [state, setState] = React.useState(appUpdateStates.failedFallback);
+  const [state, setState] = React.useState(appUpdateStates.confirmation);
   const [tries, setTries] = React.useState(0);
   const onConfirm = () => {
     setBack(false);
@@ -31,7 +34,7 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
   };
 
   const onUpdate = () => {
-    setState(appUpdateStates.failed);
+    setState(appUpdateStates.successful);
   };
 
   const onRetry = () => {
@@ -47,33 +50,38 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
   switch (state) {
     case appUpdateStates.confirmation:
       return (
-        <AppUpdateConfirmation
+        <UpdateConfirmationDialog
           title={lang.strings.onboarding.appUpdate.title}
-          buttonText={lang.strings.onboarding.appUpdate.buttons.update}
+          subtext={lang.strings.onboarding.appUpdate.subtext}
+          buttonText={lang.strings.buttons.update}
+          Icon={AppUpdateIcon}
           handleClick={onConfirm}
         />
       );
     case appUpdateStates.updating:
       return (
-        <AppUpdating
+        <UpdatingDialog
           title={lang.strings.onboarding.appUpdating.heading}
           subtext={lang.strings.onboarding.appUpdating.subtext}
+          Icon={AppUpdateIcon}
           handleComplete={onUpdate}
         />
       );
     case appUpdateStates.successful:
       return (
-        <AppUpdateSuccessful
+        <SuccessDialog
           title={lang.strings.onboarding.appUpdateSuccessful.heading}
           subtext={lang.strings.onboarding.appUpdateSuccessful.subtext}
-          infoText={lang.strings.onboarding.appUpdateSuccessful.bubbleText}
+          alertText={lang.strings.onboarding.appUpdateSuccessful.bubbleText}
         />
       );
     case appUpdateStates.failed:
       return (
-        <AppUpdateFailed
+        <FailedDialog
           title={lang.strings.onboarding.appUpdateFailed.heading}
+          subtext={lang.strings.onboarding.appUpdateFailed.subtext}
           buttonText={lang.strings.buttons.retry}
+          Icon={AppUpdateIcon}
           handleClick={onRetry}
         />
       );
@@ -89,9 +97,11 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
 
     default:
       return (
-        <AppUpdateConfirmation
+        <UpdateConfirmationDialog
           title={lang.strings.onboarding.appUpdate.title}
-          buttonText={lang.strings.onboarding.appUpdate.buttons.update}
+          subtext={lang.strings.onboarding.appUpdate.subtext}
+          buttonText={lang.strings.buttons.update}
+          Icon={AppUpdateIcon}
           handleClick={onConfirm}
         />
       );

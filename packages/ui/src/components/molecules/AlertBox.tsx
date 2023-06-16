@@ -86,6 +86,6 @@ export const AlertBox: FC<AlertBoxProps> = ({ imageSrc, alert, ...props }) => {
 };
 
 AlertBox.defaultProps = {
-  variant: 'none',
+  variant: 'info',
   imageSrc: shieldAlert,
 };

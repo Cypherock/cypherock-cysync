@@ -10,6 +10,7 @@ import {
   routes,
   Terms,
   AppUpdate,
+  DeviceUpdate,
   IRoute,
   RouteName,
   PermissionSetup,
@@ -29,6 +30,7 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
   'onboarding-app-update': <AppUpdate />,
+  'onboarding-device-update': <DeviceUpdate />,
   portfolio: <div>portfolio</div>,
 };
 

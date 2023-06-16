@@ -1,10 +1,7 @@
 import React from 'react';
+import { IconProps } from '../../common/DeviceUpdateIcon';
 
-interface appUpdateIconProps {
-  color?: string;
-}
-
-export const AppUpdateIcon: React.FC<appUpdateIconProps> = ({ color }) => (
+export const AppUpdateIcon: React.FC<IconProps> = ({ color }) => (
   <svg
     width="56"
     height="48"
@@ -33,4 +30,4 @@ export const AppUpdateIcon: React.FC<appUpdateIconProps> = ({ color }) => (
 
 AppUpdateIcon.defaultProps = {
   color: '#8B8682',
-};
+} as IconProps;

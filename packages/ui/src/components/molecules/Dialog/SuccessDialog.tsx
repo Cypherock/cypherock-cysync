@@ -1,17 +1,24 @@
 import React from 'react';
 
 import { successIcon } from '../../../assets/images';
-import { Typography, LangDisplay, Image, Container } from '../../atoms';
-import { DialogBox, DialogBoxBody } from './DialogBox';
+import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
+import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+import { AlertBox } from '../AlertBox';
 
 export interface SuccessDialogProps {
   title: string;
   subtext?: string;
+  buttonText?: string;
+  alertText?: string;
+  handleClick?: () => void;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
   subtext,
+  buttonText,
+  alertText,
+  handleClick,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
@@ -25,11 +32,22 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
             <LangDisplay text={subtext} />
           </Typography>
         )}
+        {alertText && <AlertBox mt="48" alert={alertText} variant="info" />}
       </Container>
     </DialogBoxBody>
+    {buttonText && handleClick && (
+      <DialogBoxFooter>
+        <Button onClick={handleClick} variant="primary">
+          <LangDisplay text={buttonText} />
+        </Button>
+      </DialogBoxFooter>
+    )}
   </DialogBox>
 );
 
 SuccessDialog.defaultProps = {
   subtext: undefined,
+  buttonText: undefined,
+  handleClick: undefined,
+  alertText: undefined,
 };

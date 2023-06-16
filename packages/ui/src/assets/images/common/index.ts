@@ -28,6 +28,7 @@ import copyIcon from './copy.png';
 import checkIcon from './check.png';
 import shieldAlert from './shield-alert.svg';
 import infoIcon from './info.svg';
+import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 
 export {
   addWalletIcon,
@@ -60,4 +61,5 @@ export {
   copyIcon,
   checkIcon,
   infoIcon,
+  DeviceUpdateIcon,
 };

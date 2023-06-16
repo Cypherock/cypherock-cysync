@@ -87,6 +87,7 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     retry: 'Retry',
+    update: 'Update',
   },
   permissionSetup: {
     title:
@@ -173,9 +174,8 @@ const en = {
       heading: 'App Update',
       title:
         'A new update is available for your cySync app. Update the app to v1.2 to continue',
-      buttons: {
-        update: 'Update',
-      },
+      subtext:
+        'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
     },
     appUpdating: {
       heading: 'Updating...',
@@ -190,6 +190,7 @@ const en = {
     },
     appUpdateFailed: {
       heading: 'cySync update to version #{version} failed',
+      subtext: 'Something went wrong, try updating again or contact support',
       buttons: {
         retry: 'Retry',
       },
@@ -199,7 +200,26 @@ const en = {
       subtext: 'Download and reinstall the desktop app from the link below',
       alertText: 'Close this app before reinstalling the latest cySync app',
     },
+    deviceUpdate: {
+      heading: 'Device Update',
+      title:
+        'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
+      subtext: 'Follow the instruction on the device',
+    },
+    deviceUpdating: {
+      heading: 'Updating...',
+      subtext: 'Please wait while we update your X1 Vault',
+    },
+    deviceUpdateSuccessful: {
+      heading: 'X1 Vault updated successfully',
+      subtext: 'Your X1 Vault is now operating on the latest software version',
+    },
+    deviceUpdateFailed: {
+      heading: 'Firmware update failed',
+      subtext: 'Reconnect the device to proceed',
+    },
   },
+
   errors: {
     deviceErrors,
     default: 'Some internal error occurred',

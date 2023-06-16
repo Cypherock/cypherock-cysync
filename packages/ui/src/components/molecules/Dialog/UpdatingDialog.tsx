@@ -1,19 +1,22 @@
 import React, { FC, useEffect } from 'react';
-import {
-  AppUpdateIcon,
-  Container,
-  DialogBox,
-  DialogBoxBody,
-  LangDisplay,
-  ProgressBar,
-  Typography,
-} from '@cypherock/cysync-ui';
+import { Typography, LangDisplay, Container } from '../../atoms';
+import { DialogBox, DialogBoxBody } from './DialogBox';
+import { ProgressBar } from '../ProgressBar';
+import { IconProps } from '../../../assets/images/common/DeviceUpdateIcon';
 
-export const AppUpdating: FC<{
+interface UpdatingDialogProps {
   title: string;
   subtext: string;
+  Icon: FC<IconProps>;
   handleComplete: () => void;
-}> = ({ title, subtext, handleComplete }) => {
+}
+
+export const UpdatingDialog: FC<UpdatingDialogProps> = ({
+  title,
+  subtext,
+  Icon,
+  handleComplete,
+}) => {
   const [progress, setProgress] = React.useState(0);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export const AppUpdating: FC<{
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={8}>
-        <AppUpdateIcon />
+        <Icon />
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={title} />
