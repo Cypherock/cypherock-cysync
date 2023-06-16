@@ -830,7 +830,14 @@ importers:
         version: 2.27.5(@typescript-eslint/parser@5.59.11)(eslint-import-resolver-typescript@3.5.5)(eslint@8.42.0)
       eslint-plugin-jsx-a11y:
         specifier: ^6.7.1
+<<<<<<< HEAD
         version: 6.7.1(eslint@8.42.0)
+=======
+        version: 6.7.1(eslint@8.38.0)
+      eslint-plugin-no-null:
+        specifier: ^1.0.2
+        version: 1.0.2(eslint@8.38.0)
+>>>>>>> develop
       eslint-plugin-react:
         specifier: ^7.32.2
         version: 7.32.2(eslint@8.42.0)
@@ -6888,7 +6895,20 @@ packages:
       semver: 6.3.0
     dev: true
 
+<<<<<<< HEAD
   /eslint-plugin-react-hooks@4.6.0(eslint@8.42.0):
+=======
+  /eslint-plugin-no-null@1.0.2(eslint@8.38.0):
+    resolution: {integrity: sha512-uRDiz88zCO/2rzGfgG15DBjNsgwWtWiSo4Ezy7zzajUgpnFIqd1TjepKeRmJZHEfBGu58o2a8S0D7vglvvhkVA==}
+    engines: {node: '>=5.0.0'}
+    peerDependencies:
+      eslint: '>=3.0.0'
+    dependencies:
+      eslint: 8.38.0
+    dev: true
+
+  /eslint-plugin-react-hooks@4.6.0(eslint@8.38.0):
+>>>>>>> develop
     resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
     engines: {node: '>=10'}
     peerDependencies:
