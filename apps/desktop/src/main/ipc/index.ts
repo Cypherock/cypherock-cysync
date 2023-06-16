@@ -1,13 +1,18 @@
-import { IpcMain } from 'electron';
+import { IpcMain, WebContents } from 'electron';
 import { getLoggerIPCHandlers } from './logger';
 import { getDeviceIPCHandlers } from './device';
 import { getDbIPCHandlers } from './db';
+import { getResetIPCHandlers } from './reset';
 
-export const setupIPCHandlers = (ipcMain: IpcMain) => {
+export const setupIPCHandlers = (
+  ipcMain: IpcMain,
+  webContents: WebContents,
+) => {
   const exportedFunctions = [
     ...getLoggerIPCHandlers(),
     ...getDeviceIPCHandlers(),
     ...getDbIPCHandlers(),
+    ...getResetIPCHandlers(webContents),
   ];
 
   for (const func of exportedFunctions) {

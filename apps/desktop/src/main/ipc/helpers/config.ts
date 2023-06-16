@@ -8,6 +8,7 @@ export const ipcConfig = {
     dbMethodList: 'db:method:list',
     keyDbMethodCall: 'keydb:method:call',
     keyDbMethodList: 'keydb:method:list',
+    resetCySync: 'reset',
   },
   // Environment variables to inject in renderer
   env: [

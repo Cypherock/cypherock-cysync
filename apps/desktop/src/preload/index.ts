@@ -12,6 +12,10 @@ const exportedFunctions = [
     name: 'getDevices',
     key: ipcConfig.methods.getDevices,
   },
+  {
+    name: 'resetCySync',
+    key: ipcConfig.methods.resetCySync,
+  },
 ];
 
 const electronAPI = {

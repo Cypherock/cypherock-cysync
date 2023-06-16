@@ -86,6 +86,7 @@ const en = {
   buttons: {
     continue: 'Continue',
     confirm: 'Confirm',
+    cancel: 'Cancel',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -93,6 +94,11 @@ const en = {
     forgotPassword: 'Forgot password?',
     incorrectPassword: 'Incorrect password',
     button: 'Unlock',
+    forgotPasswordDialog: {
+      title: 'CySync will be reset',
+      subtext:
+        'You will lose all your data on cysync, however you can recover it again by using your Cypherock X1 Vault.',
+    },
   },
   onboarding: {
     info: {

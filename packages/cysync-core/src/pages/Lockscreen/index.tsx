@@ -13,6 +13,7 @@ import {
 import React, { useState } from 'react';
 import { useLockscreen } from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
+import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
 export const Lockscreen: React.FC = () => {
   const { unlock } = useLockscreen();
@@ -21,6 +22,9 @@ export const Lockscreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
+
+  const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
+    useState(false);
 
   const onPasswordSubmit: React.FormEventHandler<
     HTMLFormElement
@@ -41,53 +45,66 @@ export const Lockscreen: React.FC = () => {
   };
 
   return (
-    <Flex
-      $bgColor="contentGradient"
-      justify="center"
-      align="center"
-      width="screen"
-      height="screen"
-    >
-      <form onSubmit={onPasswordSubmit}>
-        <DialogBox width={500}>
-          <DialogBoxBody gap={0}>
-            <Image src={cysyncLockedLogo} alt="CySync Locked" mb={3} />
-            <Typography variant="h5" $textAlign="center" color="muted" mb={6}>
-              <LangDisplay text={lang.strings.lockscreen.title} />
-            </Typography>
+    <>
+      <Flex
+        $bgColor="contentGradient"
+        justify="center"
+        align="center"
+        width="screen"
+        height="screen"
+      >
+        <form onSubmit={onPasswordSubmit}>
+          <DialogBox width={500}>
+            <DialogBoxBody gap={0}>
+              <Image src={cysyncLockedLogo} alt="CySync Locked" mb={3} />
+              <Typography variant="h5" $textAlign="center" color="muted" mb={6}>
+                <LangDisplay text={lang.strings.lockscreen.title} />
+              </Typography>
 
-            <PasswordInput
-              label={lang.strings.lockscreen.passwordLabel}
-              name="password"
-              placeholder="Password"
-              onChange={setPassword}
-              value={password}
-              disabled={isLoading}
-            />
-            <Button type="button" variant="none" $alignSelf="end" mt={1}>
-              <Typography
-                color="muted"
-                fontSize={14}
-                font="light"
-                $letterSpacing={0.12}
+              <PasswordInput
+                label={lang.strings.lockscreen.passwordLabel}
+                name="password"
+                placeholder="Password"
+                onChange={setPassword}
+                value={password}
+                disabled={isLoading}
+              />
+              <Button
+                type="button"
+                variant="none"
+                $alignSelf="end"
+                mt={1}
+                onClick={() => setShowForgotPasswordDialog(true)}
               >
-                <LangDisplay text={lang.strings.lockscreen.forgotPassword} />
-              </Typography>
-            </Button>
+                <Typography
+                  color="muted"
+                  fontSize={14}
+                  font="light"
+                  $letterSpacing={0.12}
+                >
+                  <LangDisplay text={lang.strings.lockscreen.forgotPassword} />
+                </Typography>
+              </Button>
 
-            {error && (
-              <Typography color="error" fontSize={16} mt={2}>
-                {error}
-              </Typography>
-            )}
-          </DialogBoxBody>
-          <DialogBoxFooter>
-            <Button type="submit" disabled={isLoading}>
-              <LangDisplay text={lang.strings.lockscreen.button} />
-            </Button>
-          </DialogBoxFooter>
-        </DialogBox>
-      </form>
-    </Flex>
+              {error && (
+                <Typography color="error" fontSize={16} mt={2}>
+                  {error}
+                </Typography>
+              )}
+            </DialogBoxBody>
+            <DialogBoxFooter>
+              <Button type="submit" disabled={isLoading}>
+                <LangDisplay text={lang.strings.lockscreen.button} />
+              </Button>
+            </DialogBoxFooter>
+          </DialogBox>
+        </form>
+      </Flex>
+      {showForgotPasswordDialog && (
+        <ForgotPasswordDialog
+          onCancel={() => setShowForgotPasswordDialog(false)}
+        />
+      )}
+    </>
   );
 };
