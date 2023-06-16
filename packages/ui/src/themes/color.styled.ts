@@ -46,5 +46,6 @@ export const colors = {
     popup: '#2C2520',
     input: '#3C3937',
     separator: '#39322C',
+    warning: '#644D2B',
   },
 };

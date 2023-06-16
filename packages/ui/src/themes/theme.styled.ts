@@ -51,6 +51,7 @@ export const theme = {
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      warning: colors.border.warning,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

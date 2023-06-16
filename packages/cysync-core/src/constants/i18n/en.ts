@@ -194,6 +194,11 @@ const en = {
         retry: 'Retry',
       },
     },
+    appUpdateFailedFallback: {
+      heading: 'cySync app update to version #{version} failed',
+      subtext: 'Download and reinstall the desktop app from the link below',
+      alertText: 'Close this app before reinstalling the latest cySync app',
+    },
   },
   errors: {
     deviceErrors,

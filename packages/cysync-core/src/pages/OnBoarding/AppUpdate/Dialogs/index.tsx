@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { AppUpdateFailed } from '~/pages/OnBoarding/AppUpdate/Dialogs/AppUpdateFailed';
+import { AppUpdateFailedFallback } from '~/pages/OnBoarding/AppUpdate/Dialogs/AppUpdateFailedFallback';
 import { AppUpdateConfirmation } from './AppUpdateConfirmation';
 import { AppUpdating } from './AppUpdating';
 import { AppUpdateSuccessful } from './AppUpdateSuccessful';
@@ -10,6 +11,7 @@ enum appUpdateStates {
   updating,
   successful,
   failed,
+  failedFallback,
 }
 
 interface AppUpdateDialogBoxProps {
@@ -21,7 +23,7 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const maxTries = 3;
-  const [state, setState] = React.useState(appUpdateStates.failed);
+  const [state, setState] = React.useState(appUpdateStates.failedFallback);
   const [tries, setTries] = React.useState(0);
   const onConfirm = () => {
     setBack(false);
@@ -38,7 +40,7 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
       setState(appUpdateStates.updating);
       setTries(tries + 1);
     } else {
-      setState(appUpdateStates.confirmation);
+      setState(appUpdateStates.failedFallback);
     }
   };
 
@@ -73,6 +75,15 @@ export const AppUpdateDialogBox: FC<AppUpdateDialogBoxProps> = ({
           title={lang.strings.onboarding.appUpdateFailed.heading}
           buttonText={lang.strings.buttons.retry}
           handleClick={onRetry}
+        />
+      );
+    case appUpdateStates.failedFallback:
+      return (
+        <AppUpdateFailedFallback
+          title={lang.strings.onboarding.appUpdateFailedFallback.heading}
+          subtext={lang.strings.onboarding.appUpdateFailedFallback.subtext}
+          linkText="download Link"
+          alertText={lang.strings.onboarding.appUpdateFailedFallback.alertText}
         />
       );
 

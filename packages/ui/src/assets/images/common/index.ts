@@ -27,6 +27,7 @@ import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import checkIcon from './check.png';
 import shieldAlert from './shield-alert.svg';
+import infoIcon from './info.svg';
 
 export {
   addWalletIcon,
@@ -58,4 +59,5 @@ export {
   goldCopyIcon,
   copyIcon,
   checkIcon,
+  infoIcon,
 };
