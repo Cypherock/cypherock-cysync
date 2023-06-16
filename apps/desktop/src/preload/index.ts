@@ -80,10 +80,57 @@ const electronAPI = {
 
     if (error) throw error;
 
-    return createObjectProxy({
+    const db = createObjectProxy({
       key: ipcConfig.methods.dbMethodCall,
       methods,
     });
+
+    const collectionNameList = [
+      'account',
+      'wallet',
+      'transaction',
+      'device',
+      'priceHistory',
+      'priceInfo',
+    ];
+
+    const eventNames = ['change'];
+
+    for (const collectionName of collectionNameList) {
+      const collection = db[collectionName];
+      if (!collection) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      collection.addListener = (event: string, listener: any) => {
+        createProxyListener({
+          key: `${ipcConfig.listeners.dbListenerPrefix}:${collectionName}:${event}`,
+        })(listener);
+      };
+
+      // eslint-disable-next-line no-loop-func
+      collection.removeAllListener = (event?: string) => {
+        let removeListeners: string[];
+
+        if (event) {
+          removeListeners = [
+            `${ipcConfig.listeners.dbListenerPrefix}:${collectionName}:${event}`,
+          ];
+        } else {
+          removeListeners = eventNames.map(
+            e =>
+              `${ipcConfig.listeners.dbListenerPrefix}:${collectionName}:${e}`,
+          );
+        }
+
+        createProxyListener({
+          remove: removeListeners,
+        })(undefined);
+      };
+    }
+
+    return db;
   },
 
   getKeyDb: async () => {

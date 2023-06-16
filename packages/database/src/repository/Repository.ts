@@ -59,7 +59,7 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
     this.validateInput(entityLike, true);
     const entities = this.getVersionedEntities(entityLike).map(entity => ({
       ...entity,
-      __id: uuidv4(),
+      __id: entity.__id ?? uuidv4(),
     }));
 
     const collection = await this.getCollection();

@@ -1,7 +1,6 @@
 import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
 import { IDevice } from '@cypherock/sdk-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
-import { IGetDeviceInfoResultResponse } from '@cypherock/sdk-app-manager';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useRef } from 'react';
 
@@ -9,6 +8,7 @@ import { useStateWithRef } from '../../hooks';
 import {
   createDeviceConnectionInfo,
   DEVICE_LISTENER_INTERVAL,
+  IConnectedDeviceInfo,
   parseDeviceConnectionError,
   parseNewDevices,
   tryEstablishingDeviceConnection,
@@ -59,7 +59,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
 
   const markDeviceAsConnected = (
     device: IDevice,
-    info?: IGetDeviceInfoResultResponse,
+    info?: IConnectedDeviceInfo,
   ) => {
     const deviceConnectionInfo = createDeviceConnectionInfo(
       device,
