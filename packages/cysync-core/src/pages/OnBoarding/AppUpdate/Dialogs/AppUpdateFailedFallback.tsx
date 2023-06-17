@@ -6,8 +6,9 @@ import {
   DialogBox,
   DialogBoxBody,
   LangDisplay,
-  CopyLink,
+  CopyContainer,
   Typography,
+  getDefaultTheme,
 } from '@cypherock/cysync-ui';
 
 interface AppUpdateFailedFallbackProps {
@@ -17,6 +18,8 @@ interface AppUpdateFailedFallbackProps {
   alertText: string;
 }
 
+const theme = getDefaultTheme();
+
 export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
   title,
   subtext,
@@ -25,7 +28,7 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody pb={8}>
-      <AppUpdateIcon color="#FF624C" />
+      <AppUpdateIcon color={theme.palette.warn.main} />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />
@@ -35,7 +38,7 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
         </Typography>
       </Container>
       <Container width="full" display="flex" direction="column" gap={4}>
-        <CopyLink link={linkText} />
+        <CopyContainer link={linkText} />
       </Container>
       <AlertBox mt="10" variant="warning" alert={alertText} />
     </DialogBoxBody>

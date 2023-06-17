@@ -1,26 +1,26 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Typography, LangDisplay, Container, Button } from '../../atoms';
 import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
-import { IconProps } from '../../../assets/images/common/DeviceUpdateIcon';
 
-interface UpdateConfirmationDialogProps {
+interface ConfirmationDialogProps {
   title: string;
   subtext: string;
   buttonText?: string;
-  Icon: FC<IconProps>;
+  icon: ReactNode;
   handleClick?: () => void;
 }
+console.log('ConfirmationDialogProps');
 
-export const UpdateConfirmationDialog: FC<UpdateConfirmationDialogProps> = ({
+export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   title,
   subtext,
-  Icon,
+  icon,
   buttonText,
   handleClick,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
-      <Icon />
+      {icon}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />
@@ -40,7 +40,7 @@ export const UpdateConfirmationDialog: FC<UpdateConfirmationDialogProps> = ({
   </DialogBox>
 );
 
-UpdateConfirmationDialog.defaultProps = {
+ConfirmationDialog.defaultProps = {
   buttonText: undefined,
   handleClick: undefined,
 };

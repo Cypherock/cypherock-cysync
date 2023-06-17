@@ -12,7 +12,7 @@ import emailIcon from './email-icon.svg';
 import blockSelectedIcon from './Block.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import disconnectedIcon from './disconnected.svg';
-import failIcon from './fail.svg';
+import { FailIcon } from './FailIcon';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -45,7 +45,6 @@ export {
   blockSelectedIcon,
   disconnectedIcon,
   successIcon,
-  failIcon,
   shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
@@ -57,9 +56,10 @@ export {
   goldLoaderIcon,
   openExternalLink,
   usbIcon,
-  goldCopyIcon,
   copyIcon,
   checkIcon,
   infoIcon,
   DeviceUpdateIcon,
+  FailIcon,
+  goldCopyIcon,
 };

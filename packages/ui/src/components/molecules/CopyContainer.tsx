@@ -1,27 +1,26 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { utils, UtilsProps } from '../utils';
-import { theme } from '../../themes/theme.styled';
-import { Image, Typography } from '../atoms';
+import { Button, Image, Typography } from '../atoms';
 import { checkIcon, copyIcon } from '../../assets';
 
-interface CopyLinkProps extends UtilsProps {
+interface CopyContainerProps extends UtilsProps {
   link: string;
 }
 
-const MaskStyle = styled.div<Omit<CopyLinkProps, 'link'>>`
+const MaskStyle = styled.div<Omit<CopyContainerProps, 'link'>>`
   width: 100%;
   border-radius: 8px;
-  background: ${theme.palette.background.input};
+  background: ${({ theme }) => theme.palette.background.input};
   display: flex;
-  border: 1px solid ${theme.palette.border.input};
+  border: 1px solid ${({ theme }) => theme.palette.border.input};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
   ${utils}
 `;
-export const CopyLink: FC<CopyLinkProps> = ({ link, ...props }) => {
+export const CopyContainer: FC<CopyContainerProps> = ({ link, ...props }) => {
   const [copied, setCopied] = useState(false);
   const handleClick = async () => {
     setCopied(true);
@@ -38,7 +37,9 @@ export const CopyLink: FC<CopyLinkProps> = ({ link, ...props }) => {
         {link}
       </Typography>
       {!copied ? (
-        <Image src={copyIcon} height="20" alt="Copy" onClick={handleClick} />
+        <Button onClick={handleClick} variant="none" display="flex">
+          <Image src={copyIcon} height="20" alt="Copy" />
+        </Button>
       ) : (
         <Image src={checkIcon} alt="copied" />
       )}

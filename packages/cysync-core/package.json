@@ -14,7 +14,7 @@
     "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
     "build:esm": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg} dist/esm",
     "build:cjs": "tsc -p tsconfig_cjs.json && tsc-alias -p tsconfig_cjs.json && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg} dist/cjs",
-    "watch:build": "watch \"pnpm build:esm && pnpm build:cjs\" src",
+    "watch:build": "concurrently \"tsc --watch -p tsconfig.json\" \"tsc-alias --watch\"",
     "test": "jest",
     "pre-commit": "lint-staged"
   },

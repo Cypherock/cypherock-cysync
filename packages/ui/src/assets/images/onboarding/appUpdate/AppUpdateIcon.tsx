@@ -1,5 +1,6 @@
 import React from 'react';
 import { IconProps } from '../../common/DeviceUpdateIcon';
+import { theme } from '../../../../themes/theme.styled';
 
 export const AppUpdateIcon: React.FC<IconProps> = ({ color }) => (
   <svg
@@ -29,5 +30,5 @@ export const AppUpdateIcon: React.FC<IconProps> = ({ color }) => (
 );
 
 AppUpdateIcon.defaultProps = {
-  color: '#8B8682',
+  color: theme.palette.muted.main,
 } as IconProps;

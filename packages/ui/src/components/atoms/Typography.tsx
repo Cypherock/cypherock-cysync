@@ -23,6 +23,7 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
+  | 'info'
   | 'list';
 
 interface HeadingProps

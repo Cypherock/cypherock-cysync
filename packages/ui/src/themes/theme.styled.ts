@@ -29,6 +29,9 @@ export const theme = {
     warn: {
       main: colors.warning.main,
     },
+    muted: {
+      main: colors.text.muted,
+    },
     golden: colors.gradients.golden,
     highlight: colors.gradients.highlight,
     success: {

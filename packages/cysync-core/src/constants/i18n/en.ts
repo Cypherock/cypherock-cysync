@@ -172,51 +172,63 @@ const en = {
     },
     appUpdate: {
       heading: 'App Update',
-      title:
-        'A new update is available for your cySync app. Update the app to v1.2 to continue',
-      subtext:
-        'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
-    },
-    appUpdating: {
-      heading: 'Updating...',
-      subtext: 'Please wait while we update your cySync app',
-    },
-    appUpdateSuccessful: {
-      heading: 'cySync app updated successfully',
-      subtext:
-        'Please wait while we restart the app to apply the latest update',
-      bubbleText:
-        'In case, the app does not restart itself, manually start it again',
-    },
-    appUpdateFailed: {
-      heading: 'cySync update to version #{version} failed',
-      subtext: 'Something went wrong, try updating again or contact support',
-      buttons: {
-        retry: 'Retry',
+      dialogs: {
+        confirmation: {
+          heading: 'App Update',
+          title:
+            'A new update is available for your cySync app. Update the app to v1.2 to continue',
+          subtext:
+            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
+        },
+        updating: {
+          heading: 'Updating...',
+          subtext: 'Please wait while we update your cySync app',
+        },
+        updateSuccessful: {
+          heading: 'cySync app updated successfully',
+          subtext:
+            'Please wait while we restart the app to apply the latest update',
+          bubbleText:
+            'In case, the app does not restart itself, manually start it again',
+        },
+        updateFailed: {
+          heading: 'cySync update to version #{version} failed',
+          subtext:
+            'Something went wrong, try updating again or contact support',
+          buttons: {
+            retry: 'Retry',
+          },
+        },
+        updateFailedFallback: {
+          heading: 'cySync app update to version #{version} failed',
+          subtext: 'Download and reinstall the desktop app from the link below',
+          alertText: 'Close this app before reinstalling the latest cySync app',
+        },
       },
-    },
-    appUpdateFailedFallback: {
-      heading: 'cySync app update to version #{version} failed',
-      subtext: 'Download and reinstall the desktop app from the link below',
-      alertText: 'Close this app before reinstalling the latest cySync app',
     },
     deviceUpdate: {
       heading: 'Device Update',
-      title:
-        'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
-      subtext: 'Follow the instruction on the device',
-    },
-    deviceUpdating: {
-      heading: 'Updating...',
-      subtext: 'Please wait while we update your X1 Vault',
-    },
-    deviceUpdateSuccessful: {
-      heading: 'X1 Vault updated successfully',
-      subtext: 'Your X1 Vault is now operating on the latest software version',
-    },
-    deviceUpdateFailed: {
-      heading: 'Firmware update failed',
-      subtext: 'Reconnect the device to proceed',
+      dialogs: {
+        confirmation: {
+          heading: 'Device Update',
+          title:
+            'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
+          subtext: 'Follow the instruction on the device',
+        },
+        updating: {
+          heading: 'Updating...',
+          subtext: 'Please wait while we update your X1 Vault',
+        },
+        updateSuccessful: {
+          heading: 'X1 Vault updated successfully',
+          subtext:
+            'Your X1 Vault is now operating on the latest software version',
+        },
+        updateFailed: {
+          heading: 'Firmware update failed',
+          subtext: 'Reconnect the device to proceed',
+        },
+      },
     },
   },
 

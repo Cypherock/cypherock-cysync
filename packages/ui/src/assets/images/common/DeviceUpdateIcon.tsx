@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { theme } from '../../../themes/theme.styled';
 
 export interface IconProps {
   color?: string;
@@ -27,5 +28,5 @@ export const DeviceUpdateIcon: FC<IconProps> = ({ color }) => (
 );
 
 DeviceUpdateIcon.defaultProps = {
-  color: '#8B8682',
+  color: theme.palette.muted.main,
 };

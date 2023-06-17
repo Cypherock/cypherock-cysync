@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { theme } from '../../themes/theme.styled';
+import styled from 'styled-components';
 import { Typography } from '../atoms';
 
 interface ProgressBarProps {
@@ -11,73 +11,72 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   versionText,
   progress,
 }): ReactElement => {
-  const holder = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'end',
-    width: '110%',
-    height: '100%',
-    position: 'relative',
-    flexDirection: 'column',
-    marginTop: '25px',
-    marginBottom: -30,
-  } as React.CSSProperties;
+  const HolderStyle = styled.div`
+    width: 110%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    margin-top: 25px;
+    margin-bottom: -30px;
+  `;
 
-  const versionStyle = {
-    display: 'flex',
-    justifyContent: 'start',
-    alignItems: 'start',
-    width: '100%',
-    padding: 5,
-  } as React.CSSProperties;
+  const VersionHolder = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 5px;
+  `;
 
-  const mask = {
-    height: '17px',
-    width: '100%',
-    position: 'relative',
-    borderRadius: 50,
-    background: theme.palette.golden,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  } as React.CSSProperties;
+  const MaskStyle = styled.div`
+    width: 100%;
+    height: 17px;
+    position: relative;
+    border-radius: 50px;
+    background: ${({ theme }) => theme.palette.golden};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
 
-  const background = {
-    height: 'calc(100% - 4px)',
-    width: 'calc(100% - 4px)',
-    borderRadius: 50,
-    background: theme.palette.background.primary,
-  } as React.CSSProperties;
-
-  const fillerStyles = {
-    height: '102%',
-    width: `${progress}%`,
-    top: 0,
-    left: -1,
-    position: 'absolute',
-    background: theme.palette.golden,
-    borderRadius: 'inherit',
-    borderBottomRightRadius: progress === 100 ? 50 : 0,
-    borderTopRightRadius: progress === 100 ? 50 : 0,
-  } as React.CSSProperties;
+  const BackgroundStyle = styled.div`
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    border-radius: 50px;
+    background: ${({ theme }) => theme.palette.background.primary};
+  `;
+  const FillerStyle = styled.div`
+    height: 102%;
+    width: ${progress}%;
+    top: 0;
+    left: -1px;
+    position: absolute;
+    background: ${({ theme }) => theme.palette.golden};
+    border-radius: inherit;
+    border-bottom-right-radius: ${progress === 100 ? 50 : 0}px;
+    border-top-right-radius: ${progress === 100 ? 50 : 0}px;
+  `;
 
   return (
-    <div style={holder}>
+    <HolderStyle>
       {versionText && (
-        <div style={versionStyle}>
+        <VersionHolder>
           <Typography variant="h6" $textAlign="center" color="muted">
             {versionText}
           </Typography>
-        </div>
+        </VersionHolder>
       )}
-      <div style={mask}>
-        <div style={background}>
-          <div style={fillerStyles} />
-        </div>
-      </div>
+      <MaskStyle>
+        <BackgroundStyle>
+          <FillerStyle />
+        </BackgroundStyle>
+      </MaskStyle>
       <Typography variant="h6" $textAlign="center" color="muted">
         {progress}%
       </Typography>
-    </div>
+    </HolderStyle>
   );
 };

@@ -7,7 +7,6 @@ import { AppUpdateDialogBox } from './Dialogs';
 
 export const AppUpdate: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const [back, setBack] = React.useState(true);
 
   return (
     <OnboardingPageLayout
@@ -16,10 +15,9 @@ export const AppUpdate: FC = () => {
       currentState={3}
       totalState={8}
       withHelp
-      withBack={back}
     >
       <WithConnectedDevice>
-        <AppUpdateDialogBox setBack={setBack} />
+        <AppUpdateDialogBox />
       </WithConnectedDevice>
     </OnboardingPageLayout>
   );

@@ -1,38 +1,42 @@
-import React, { FC, useEffect } from 'react';
-import { Typography, LangDisplay, Container } from '../../atoms';
+import React, { FC, ReactNode, useEffect } from 'react';
+import { Container, LangDisplay, Typography } from '../../atoms';
 import { DialogBox, DialogBoxBody } from './DialogBox';
 import { ProgressBar } from '../ProgressBar';
-import { IconProps } from '../../../assets/images/common/DeviceUpdateIcon';
 
-interface UpdatingDialogProps {
+interface ProgressDialogProps {
   title: string;
   subtext: string;
-  Icon: FC<IconProps>;
+  icon: ReactNode;
   handleComplete: () => void;
 }
 
-export const UpdatingDialog: FC<UpdatingDialogProps> = ({
+export const ProgressDialog: FC<ProgressDialogProps> = ({
   title,
   subtext,
-  Icon,
+  icon,
   handleComplete,
 }) => {
   const [progress, setProgress] = React.useState(0);
-
+  // eslint-disable-next-line
+  let timeout: NodeJS.Timeout | null = null;
   useEffect(() => {
     if (progress < 100) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         setProgress(progress + 1);
       }, 50);
     } else if (progress === 100) {
       handleComplete();
+      if (timeout) clearTimeout(timeout);
     }
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [progress]);
 
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={8}>
-        <Icon />
+        {icon}
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={title} />

@@ -42,7 +42,6 @@ export const onboarding = {
   deviceUpdate: {
     name: 'onboarding-device-update',
     path: '/onboarding/device-update',
-    // path: '/',
   },
 } as const;
 

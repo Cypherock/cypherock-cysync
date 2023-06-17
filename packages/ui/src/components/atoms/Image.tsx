@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import {
   spacing,
@@ -27,7 +27,6 @@ export interface ImageProps
     FlexProps {
   src: string;
   alt: string;
-  onClick?: MouseEventHandler<HTMLImageElement> | undefined;
 }
 
 const ImageStyle = styled.img<ImageProps>`
@@ -41,9 +40,5 @@ const ImageStyle = styled.img<ImageProps>`
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
-  <ImageStyle {...props} src={src} alt={alt} onClick={props.onClick} />
+  <ImageStyle {...props} src={src} alt={alt} />
 );
-
-Image.defaultProps = {
-  onClick: () => {},
-};

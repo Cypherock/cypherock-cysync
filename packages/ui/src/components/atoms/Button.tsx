@@ -1,10 +1,18 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { flex, width, WidthProps, FlexProps } from '../utils';
+import {
+  flex,
+  width,
+  WidthProps,
+  FlexProps,
+  utils,
+  UtilsProps,
+} from '../utils';
 
 interface ButtonProps
   extends WidthProps,
     FlexProps,
+    UtilsProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
@@ -41,7 +49,7 @@ const buttonBaseStyle = css<ButtonProps>`
       `;
     if (props.variant === 'warning')
       return css`
-        background: #ff624c;
+        background: ${({ theme }) => theme.palette.warning};
         border: 0.6px solid #ff3518;
         border-radius: 6px;
         color: #ffffff;
@@ -51,7 +59,7 @@ const buttonBaseStyle = css<ButtonProps>`
       return css`
         background: transparent;
         border: none;
-        padding: 0px;
+        padding: 0;
       `;
     return '';
   }}
@@ -72,6 +80,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${buttonBaseStyle}
   ${width}
   ${flex}
+  ${utils}
 `;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => (
