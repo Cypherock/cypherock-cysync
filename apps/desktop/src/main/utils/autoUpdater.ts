@@ -4,6 +4,7 @@ import {
   autoUpdater as electronAutoUpdater,
   CancellationToken,
   UpdateDownloadedEvent,
+  UpdateInfo as ElectronUpdateInfo,
 } from 'electron-updater';
 import { ipcConfig } from '../ipc/helpers/config';
 import { config } from './config';
@@ -50,7 +51,7 @@ class AutoUpdater {
 
     if (update) {
       this.isUpdateAvailable = true;
-      return update.updateInfo;
+      return this.parseUpdateInfo(update.updateInfo);
     }
 
     this.isUpdateAvailable = false;
@@ -80,6 +81,19 @@ class AutoUpdater {
     electronAutoUpdater.quitAndInstall();
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private parseUpdateInfo(info: ElectronUpdateInfo | UpdateInfo): UpdateInfo {
+    return {
+      ...info,
+      releaseNotes:
+        info.releaseNotes && Array.isArray(info.releaseNotes)
+          ? info.releaseNotes.map(note =>
+              typeof note === 'string' ? note : note.note ?? '',
+            )
+          : info.releaseNotes,
+    };
+  }
+
   private onProgress(percent: number) {
     if (this.webContents) {
       this.webContents.send(
@@ -90,7 +104,7 @@ class AutoUpdater {
   }
 
   private onComplete(info: UpdateDownloadedEvent | UpdateInfo) {
-    this.downloadedInfo = info;
+    this.downloadedInfo = this.parseUpdateInfo(info);
 
     if (this.webContents) {
       this.webContents.send(

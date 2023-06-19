@@ -19,6 +19,7 @@ export interface IConfig {
   VERSION: string;
   LOG_LEVEL: string;
   API_CYPHEROCK: string;
+  RELEASE_NOTES: string;
   OS: 'win32' | 'darwin' | 'linux' | string;
 }
 
