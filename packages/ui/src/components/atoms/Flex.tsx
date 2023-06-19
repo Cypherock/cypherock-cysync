@@ -7,10 +7,14 @@ const FlexStyle = styled.div<UtilsProps>`
   ${utils}
 `;
 
-interface FlexProps extends UtilsProps {
-  children: ReactNode;
+export interface FlexProps extends UtilsProps {
+  children?: ReactNode;
 }
 
 export const Flex: FC<FlexProps> = ({ children, ...props }) => (
   <FlexStyle {...props}>{children}</FlexStyle>
 );
+
+Flex.defaultProps = {
+  children: undefined,
+};

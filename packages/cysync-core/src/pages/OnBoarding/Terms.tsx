@@ -74,19 +74,12 @@ const TermsDialogBox: FC<{
           <ExternalLinkItem text={bulletPoints.terms} />
           <ExternalLinkItem text={bulletPoints.privacyPolicy} />
         </Flex>
-        <Flex align="center">
-          <CheckBox
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-            id="terms_accepted"
-          />
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="terms_accepted">
-            <Typography fontSize={14} color="muted" $textAlign="left" ml={2}>
-              <LangDisplay text={consent} />
-            </Typography>
-          </label>
-        </Flex>
+        <CheckBox
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+          id="terms_accepted"
+          label={consent}
+        />
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button

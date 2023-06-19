@@ -1,11 +1,16 @@
 import { OnboardingRouteName, onboarding } from './onboarding';
 
 const rootRoutes = {
+  permissionSetup: {
+    name: 'permission-setup',
+    path: '/',
+  },
   portfolio: {
     name: 'portfolio',
-    path: '/portfolio', // TODO: change to '/'
+    path: '/portfolio',
   },
 } as const;
+
 export const routes = {
   onboarding,
   ...rootRoutes,
