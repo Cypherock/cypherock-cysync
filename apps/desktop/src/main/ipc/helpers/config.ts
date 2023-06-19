@@ -30,5 +30,6 @@ export const ipcConfig = {
     'VERSION',
     'CHANNEL',
     'RELEASE_NOTES',
+    'OS',
   ],
 };

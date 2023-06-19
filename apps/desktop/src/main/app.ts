@@ -16,6 +16,7 @@ import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
 const shouldStartApp = () => {
+  if (config.IS_E2E) return true;
   // Locks the current application instance.
   const applicationLock = app.requestSingleInstanceLock();
 

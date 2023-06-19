@@ -123,6 +123,9 @@ importers:
       babel-loader:
         specifier: ^9.1.2
         version: 9.1.2(@babel/core@7.21.8)(webpack@5.86.0)
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       css-loader:
         specifier: ^6.0.0
         version: 6.0.0(webpack@5.86.0)
@@ -831,6 +834,9 @@ importers:
       eslint-plugin-jsx-a11y:
         specifier: ^6.7.1
         version: 6.7.1(eslint@8.38.0)
+      eslint-plugin-no-null:
+        specifier: ^1.0.2
+        version: 1.0.2(eslint@8.38.0)
       eslint-plugin-react:
         specifier: ^7.32.2
         version: 7.32.2(eslint@8.38.0)
@@ -6940,6 +6946,15 @@ packages:
       object.entries: 1.1.6
       object.fromentries: 2.0.6
       semver: 6.3.0
+    dev: true
+
+  /eslint-plugin-no-null@1.0.2(eslint@8.38.0):
+    resolution: {integrity: sha512-uRDiz88zCO/2rzGfgG15DBjNsgwWtWiSo4Ezy7zzajUgpnFIqd1TjepKeRmJZHEfBGu58o2a8S0D7vglvvhkVA==}
+    engines: {node: '>=5.0.0'}
+    peerDependencies:
+      eslint: '>=3.0.0'
+    dependencies:
+      eslint: 8.38.0
     dev: true
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.38.0):

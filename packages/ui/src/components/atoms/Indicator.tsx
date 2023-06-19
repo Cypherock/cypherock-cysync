@@ -15,7 +15,7 @@ export const Indicator = styled.div<IndicatorProps>`
   background: ${props => {
     if (props.state === 'success') return theme.palette.success.main;
     if (props.state === 'focused') return theme.palette.golden;
-    if (props.state === 'failed') return theme.palette.warning.main;
+    if (props.state === 'failed') return theme.palette.warn.main;
     return 'transparent';
   }};
   ${props =>
