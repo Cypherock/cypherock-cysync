@@ -11,8 +11,8 @@
     "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
     "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
-    "build": "rimraf dist && tsc -p tsconfig.json && tsc -p tsconfig_cjs.json",
-    "watch:build": "tsc --watch -p tsconfig.json",
+    "build": "rimraf dist && pnpm build:dirty",
+    "build:dirty": "tsc -p tsconfig.json && tsc -p tsconfig_cjs.json",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
