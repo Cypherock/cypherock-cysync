@@ -1,7 +1,11 @@
 import { IDevice } from '@cypherock/sdk-interfaces';
 import { contextBridge, ipcRenderer } from 'electron';
 import { ipcConfig } from '../main/ipc/helpers/config';
-import { createObjectProxy, createProxyFunction } from './utils';
+import {
+  createObjectProxy,
+  createProxyFunction,
+  createProxyListener,
+} from './utils';
 
 const exportedFunctions = [
   {
@@ -11,6 +15,41 @@ const exportedFunctions = [
   {
     name: 'getDevices',
     key: ipcConfig.methods.getDevices,
+  },
+  {
+    name: 'checkForUpdates',
+    key: ipcConfig.methods.checkForUpdates,
+  },
+  {
+    name: 'downloadUpdate',
+    key: ipcConfig.methods.downloadUpdate,
+  },
+  {
+    name: 'installUpdate',
+    key: ipcConfig.methods.installUpdates,
+  },
+];
+
+const exportedListeners = [
+  {
+    name: 'addUpdateDownloadProgressListener',
+    key: ipcConfig.listeners.downloadUpdateProgress,
+  },
+  {
+    name: 'addUpdateDownloadCompletedListener',
+    key: ipcConfig.listeners.downloadUpdateCompleted,
+  },
+  {
+    name: 'addUpdateDownloadErrorListener',
+    key: ipcConfig.listeners.downloadUpdateError,
+  },
+  {
+    name: 'removeUpdateDownloadListeners',
+    remove: [
+      ipcConfig.listeners.downloadUpdateCompleted,
+      ipcConfig.listeners.downloadUpdateProgress,
+      ipcConfig.listeners.downloadUpdateError,
+    ],
   },
 ];
 
@@ -59,6 +98,10 @@ const electronAPI = {
 
 for (const func of exportedFunctions) {
   (electronAPI as any)[func.name] = createProxyFunction(func.key);
+}
+
+for (const func of exportedListeners) {
+  (electronAPI as any)[func.name] = createProxyListener(func);
 }
 
 const cysyncEnv: any = {};
