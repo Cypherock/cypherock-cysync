@@ -12,10 +12,11 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
-import { setupAutoUpdate } from './utils/autoUpdater';
+import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
 const shouldStartApp = () => {
+  if (config.IS_E2E) return true;
   // Locks the current application instance.
   const applicationLock = app.requestSingleInstanceLock();
 
@@ -41,7 +42,6 @@ const prepareApp = () => {
 
 const setupIntitialState = async () => {
   await initializeAndGetDb();
-  setupAutoUpdate();
 };
 
 export default function createApp() {
@@ -60,6 +60,7 @@ export default function createApp() {
     logger.debug('Starting main window');
     mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
     setupIPCHandlers(ipcMain, mainWindow.webContents);
+    autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
 
     mainWindow.once('ready-to-show', () => {

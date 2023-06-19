@@ -42,7 +42,7 @@ export const InfoAside = (props: InfoAsideProps): ReactElement => {
           variant="h5"
           $textAlign="center"
           color="silver"
-          font="medium"
+          $fontWeight="medium"
           width="full"
           mb={2}
         >
@@ -50,7 +50,12 @@ export const InfoAside = (props: InfoAsideProps): ReactElement => {
             <LangDisplay text={title} />
           </HeadingFiveText>
         </Typography>
-        <Typography $textAlign="center" variant="h6" color="muted" font="light">
+        <Typography
+          $textAlign="center"
+          variant="h6"
+          color="muted"
+          $fontWeight="light"
+        >
           <LangDisplay text={subTitle} />
         </Typography>
       </Flex>

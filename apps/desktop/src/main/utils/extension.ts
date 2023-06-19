@@ -26,9 +26,9 @@ async function manuallyInstallReactDevTools(win: BrowserWindow) {
 
 export const installDeveloperExtensions = async (win: BrowserWindow) => {
   try {
+    if (config.IS_PRODUCTION) return;
     // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
     const devToolsInstaller = require('electron-devtools-installer');
-    if (config.IS_PRODUCTION) return;
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
     const extensions = [devToolsInstaller.REDUX_DEVTOOLS];
 

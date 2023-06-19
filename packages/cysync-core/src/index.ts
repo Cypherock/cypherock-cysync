@@ -1,5 +1,11 @@
 export * from './pages';
-export { updateLogger, setDB, setKeyDB, setResetCySyncMethod } from './utils';
+export {
+  updateLogger,
+  setDB,
+  setKeyDB,
+  setAutoUpdater,
+  setResetCySyncMethod,
+} from './utils';
 export * from './theme';
 export * from './styles';
 export * from './constants';

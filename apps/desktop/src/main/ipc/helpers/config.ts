@@ -9,6 +9,14 @@ export const ipcConfig = {
     keyDbMethodCall: 'keydb:method:call',
     keyDbMethodList: 'keydb:method:list',
     resetCySync: 'reset',
+    checkForUpdates: 'autoUpdater:checkForUpdates',
+    downloadUpdate: 'autoUpdater:downloadUpdate',
+    installUpdates: 'autoUpdater:installUpdate',
+  },
+  listeners: {
+    downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',
+    downloadUpdateCompleted: 'autoUpdater:downloadUpdate:completed',
+    downloadUpdateError: 'autoUpdater:downloadUpdate:error',
   },
   // Environment variables to inject in renderer
   env: [
@@ -22,5 +30,7 @@ export const ipcConfig = {
     'ALLOW_PRERELEASE',
     'VERSION',
     'CHANNEL',
+    'RELEASE_NOTES',
+    'OS',
   ],
 };

@@ -3,6 +3,7 @@ import { getLoggerIPCHandlers } from './logger';
 import { getDeviceIPCHandlers } from './device';
 import { getDbIPCHandlers } from './db';
 import { getResetIPCHandlers } from './reset';
+import { getAutoUpdateIPCHandlers } from './autoUpdater';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
@@ -13,6 +14,7 @@ export const setupIPCHandlers = (
     ...getDeviceIPCHandlers(),
     ...getDbIPCHandlers(),
     ...getResetIPCHandlers(webContents),
+    ...getAutoUpdateIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

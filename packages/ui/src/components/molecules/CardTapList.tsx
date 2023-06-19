@@ -48,7 +48,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
       py={1}
       gap={16}
     >
-      <Typography variant="h6" color="muted" font="medium" grow={1}>
+      <Typography variant="h6" color="muted" $fontWeight="medium" grow={1}>
         <LangDisplay text={text} />
       </Typography>
 

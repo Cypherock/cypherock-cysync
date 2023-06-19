@@ -77,8 +77,8 @@ export const Lockscreen: React.FC = () => {
               >
                 <Typography
                   color="muted"
-                  fontSize={14}
-                  font="light"
+                  $fontSize={14}
+                  $fontWeight="light"
                   $letterSpacing={0.12}
                 >
                   <LangDisplay text={lang.strings.lockscreen.forgotPassword} />
@@ -91,7 +91,7 @@ export const Lockscreen: React.FC = () => {
                   pt={3}
                   border="top"
                   color="error"
-                  fontSize={16}
+                  $fontSize={16}
                   mt={2}
                   $textAlign="center"
                 >

@@ -7,7 +7,7 @@ import { InputLabel } from './InputLabel';
 
 export interface InputProps {
   type: string;
-  placeholder: string;
+  placeholder?: string;
   name: string;
   label?: string;
   onChange?: (val: string) => void;
@@ -92,6 +92,7 @@ export const Input: FC<InputProps> = ({
 
 Input.defaultProps = {
   label: undefined,
+  placeholder: undefined,
   onChange: undefined,
   value: undefined,
   disabled: false,

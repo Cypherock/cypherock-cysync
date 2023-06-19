@@ -19,12 +19,17 @@ import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
-import loader from './loader.png';
+import loaderIcon from './loader.png';
 import openExternalLink from './open-external-link.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
 import errorIcon from './error.svg';
+import goldLoaderIcon from './loader-gold.svg';
+import usbIcon from './usb.svg';
+import goldCopyIcon from './copy-gold.svg';
+import copyIcon from './copy.png';
+import checkIcon from './check.png';
 
 export {
   addWalletIcon,
@@ -48,10 +53,15 @@ export {
   cardTapAsideImage,
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,
-  loader,
+  loaderIcon,
+  goldLoaderIcon,
   openExternalLink,
   cysyncLockedLogo,
   visibilityIcon,
   visibilityHideIcon,
   errorIcon,
+  usbIcon,
+  goldCopyIcon,
+  copyIcon,
+  checkIcon,
 };

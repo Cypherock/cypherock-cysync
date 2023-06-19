@@ -102,6 +102,12 @@ const en = {
         'This will erase all your data on your cySync app. Note this will not result in loss of assets',
     },
   },
+  permissionSetup: {
+    title:
+      'Press run the following command on your terminal to allow the application to access usb port',
+    subtext: 'Restart the application after running the script',
+    checkbox: 'I have already ran the command',
+  },
   onboarding: {
     info: {
       aside: {
