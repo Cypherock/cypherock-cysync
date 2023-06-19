@@ -1,34 +1,65 @@
-/* eslint-disable no-use-before-define */
-import Database, { Database as DatabaseType } from 'better-sqlite3';
-import { ObjectLiteral } from '@cypherock/db-interfaces';
-import { Database as DB } from '../../src/database';
+import {
+  IDatabase,
+  IKeyValueStore,
+  ObjectLiteral,
+} from '@cypherock/db-interfaces';
+import lodash from 'lodash';
+import { createDb, createKeyValueStore } from '../../src';
 
 class TestHelper {
-  private testDb!: DatabaseType;
+  public db: IDatabase;
 
-  private storageDb!: DatabaseType;
-
-  public db!: DB;
+  public keyValueStore: IKeyValueStore;
 
   async setupTestDB() {
-    // const logger = console.log;
-    const logger = undefined;
-    this.testDb = new Database(':memory:', { verbose: logger });
-    this.testDb.pragma('journal_mode = WAL');
-    this.storageDb = new Database(':memory:', { verbose: logger });
-    this.storageDb.pragma('journal_mode = WAL');
+    this.db = await createDb(':memory:');
+    await this.db.load();
 
-    this.db = new DB(this.testDb, this.storageDb);
+    this.keyValueStore = await createKeyValueStore(':memory:');
   }
 
   teardownTestDB() {
-    this.testDb.close();
+    if (this.db) {
+      this.db.close();
+    }
+    if (this.keyValueStore) {
+      this.keyValueStore.close();
+    }
   }
 }
 
-export const removeBaseFelids = (obj: ObjectLiteral) => ({
-  ...obj,
-  __id: undefined,
-  __version: undefined,
-});
+export const removeBaseFelids = (obj: ObjectLiteral): ObjectLiteral => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeBaseFelids);
+  }
+
+  const newObj = { ...obj };
+
+  delete newObj.__id;
+  delete newObj.__version;
+  delete newObj.meta;
+  delete newObj.$loki;
+
+  return newObj;
+};
+
+export const removeLokiFields = (obj: ObjectLiteral): ObjectLiteral => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeLokiFields);
+  }
+
+  const newObj = { ...obj };
+
+  delete newObj.meta;
+  delete newObj.$loki;
+
+  return newObj;
+};
+
+export const compareEntityArray = (a: any[], b: any[]) => {
+  expect(removeLokiFields(lodash.sortBy(a, '__id'))).toEqual(
+    removeLokiFields(lodash.sortBy(b, '__id')),
+  );
+};
+
 export const testHelper = new TestHelper();

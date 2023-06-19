@@ -11,7 +11,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ text, onClick }) => (
   <Button variant="none" onClick={onClick}>
     <Flex gap={8}>
       <Image src={backIcon} alt="Back" />
-      <Typography color="muted" fontSize={14}>
+      <Typography color="muted" $fontSize={14}>
         <LangDisplay text={text} />
       </Typography>
     </Flex>

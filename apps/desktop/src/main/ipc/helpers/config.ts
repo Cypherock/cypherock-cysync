@@ -6,6 +6,8 @@ export const ipcConfig = {
     connectedDeviceMethodCall: 'device:method:call',
     dbMethodCall: 'db:method:call',
     dbMethodList: 'db:method:list',
+    keyDbMethodCall: 'keydb:method:call',
+    keyDbMethodList: 'keydb:method:list',
   },
   // Environment variables to inject in renderer
   env: [
@@ -19,5 +21,6 @@ export const ipcConfig = {
     'ALLOW_PRERELEASE',
     'VERSION',
     'CHANNEL',
+    'OS',
   ],
 };

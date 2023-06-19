@@ -1,5 +1,8 @@
-import { IRepository, ObjectLiteral } from '@cypherock/db-interfaces';
-import { Database } from '../../src/database';
+import {
+  IDatabase,
+  IRepository,
+  ObjectLiteral,
+} from '@cypherock/db-interfaces';
 import { BaseFields } from '../../src/entity/types';
 
 export interface ITestClass<Entity extends ObjectLiteral> {
@@ -10,5 +13,5 @@ export interface ITestClass<Entity extends ObjectLiteral> {
   partial: Partial<Entity>[];
   all: Required<Omit<Entity, BaseFields>>[];
   optionalRandomUndefined?: Partial<Entity>[];
-  setRepository: (db: Database) => void;
+  setRepository: (db: IDatabase) => void;
 }

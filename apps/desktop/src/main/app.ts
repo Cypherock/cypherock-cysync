@@ -16,6 +16,7 @@ import { setupAutoUpdate } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
 const shouldStartApp = () => {
+  if (config.IS_E2E) return true;
   // Locks the current application instance.
   const applicationLock = app.requestSingleInstanceLock();
 
@@ -40,7 +41,7 @@ const prepareApp = () => {
 };
 
 const setupIntitialState = async () => {
-  initializeAndGetDb();
+  await initializeAndGetDb();
   setupIPCHandlers(ipcMain);
   setupAutoUpdate();
 };

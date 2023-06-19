@@ -123,6 +123,9 @@ importers:
       babel-loader:
         specifier: ^9.1.2
         version: 9.1.2(@babel/core@7.21.8)(webpack@5.86.0)
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       css-loader:
         specifier: ^6.0.0
         version: 6.0.0(webpack@5.86.0)
@@ -316,6 +319,9 @@ importers:
 
   packages/cysync-core:
     dependencies:
+      '@aws-crypto/sha256-browser':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
@@ -346,6 +352,9 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.0.5)(react@18.2.0)
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -404,6 +413,9 @@ importers:
       '@testing-library/react':
         specifier: ^14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/bcryptjs':
+        specifier: ^2.4.2
+        version: 2.4.2
       '@types/jest':
         specifier: ^29.5.1
         version: 29.5.1
@@ -473,12 +485,15 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
-      better-sqlite3:
-        specifier: ^8.3.0
-        version: 8.3.0
       events:
         specifier: ^3.3.0
         version: 3.3.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lokijs:
+        specifier: ^1.5.12
+        version: 1.5.12
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
@@ -498,15 +513,18 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../util-tsconfig
-      '@types/better-sqlite3':
-        specifier: ^7.6.4
-        version: 7.6.4
       '@types/events':
         specifier: ^3.0.0
         version: 3.0.0
       '@types/jest':
         specifier: ^29.5.0
         version: 29.5.1
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
+      '@types/lokijs':
+        specifier: ^1.5.8
+        version: 1.5.8
       '@types/node':
         specifier: ^16.11.10
         version: 16.11.10
@@ -819,6 +837,9 @@ importers:
       eslint-plugin-jsx-a11y:
         specifier: ^6.7.1
         version: 6.7.1(eslint@8.38.0)
+      eslint-plugin-no-null:
+        specifier: ^1.0.2
+        version: 1.0.2(eslint@8.38.0)
       eslint-plugin-react:
         specifier: ^7.32.2
         version: 7.32.2(eslint@8.38.0)
@@ -3819,7 +3840,7 @@ packages:
       is-glob: 4.0.3
       open: 9.1.0
       picocolors: 1.0.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@playwright/test@1.34.3:
@@ -4211,10 +4232,8 @@ packages:
       '@babel/types': 7.22.4
     dev: true
 
-  /@types/better-sqlite3@7.6.4:
-    resolution: {integrity: sha512-dzrRZCYPXIXfSR1/surNbJ/grU3scTaygS0OMzjlGf71i9sc2fGyHPXXiXmEvNIoE0cGwsanEFMVJxPXmco9Eg==}
-    dependencies:
-      '@types/node': 16.11.10
+  /@types/bcryptjs@2.4.2:
+    resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
     dev: true
 
   /@types/cacheable-request@6.0.3:
@@ -4337,6 +4356,10 @@ packages:
 
   /@types/lodash@4.14.195:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
+    dev: true
+
+  /@types/lokijs@1.5.8:
+    resolution: {integrity: sha512-HN4vmoYHqF0mx91Cci6xaH1uN1JAMbakqNFXggpbd2L/RTUMrvx//dJTJehEtEF+a/qXfLbVSeO6p3Oegx/hDg==}
     dev: true
 
   /@types/minimatch@5.1.2:
@@ -4860,7 +4883,7 @@ packages:
     resolution: {integrity: sha512-x9SLf2jNNh3nG+haVIwKX/GVW8PcvSRmkeT9WqTDYSAVuwT9IzwEyVm09FCZpOo/dtFRxE9vaNXqcAf/MIxphg==}
     engines: {node: '>= 14'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /ansi-colors@4.1.3:
@@ -5247,20 +5270,16 @@ packages:
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
+  /bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+    dev: false
+
   /better-path-resolve@1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
     dependencies:
       is-windows: 1.0.2
     dev: true
-
-  /better-sqlite3@8.3.0:
-    resolution: {integrity: sha512-JTmvBZL/JLTc+3Msbvq6gK6elbU9/wVMqiudplHrVJpr7sVMR9KJrNhZAbW+RhXKlpMcuEhYkdcHa3TXKNXQ1w==}
-    requiresBuild: true
-    dependencies:
-      bindings: 1.5.0
-      prebuild-install: 7.1.1
-    dev: false
 
   /big-integer@1.6.51:
     resolution: {integrity: sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg==}
@@ -6930,6 +6949,15 @@ packages:
       object.entries: 1.1.6
       object.fromentries: 2.0.6
       semver: 6.3.0
+    dev: true
+
+  /eslint-plugin-no-null@1.0.2(eslint@8.38.0):
+    resolution: {integrity: sha512-uRDiz88zCO/2rzGfgG15DBjNsgwWtWiSo4Ezy7zzajUgpnFIqd1TjepKeRmJZHEfBGu58o2a8S0D7vglvvhkVA==}
+    engines: {node: '>=5.0.0'}
+    peerDependencies:
+      eslint: '>=3.0.0'
+    dependencies:
+      eslint: 8.38.0
     dev: true
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.38.0):
@@ -9370,6 +9398,10 @@ packages:
       ms: 2.1.3
       safe-stable-stringify: 2.4.3
       triple-beam: 1.3.0
+    dev: false
+
+  /lokijs@1.5.12:
+    resolution: {integrity: sha512-Q5ALD6JiS6xAUWCwX3taQmgwxyveCtIIuL08+ml0nHwT3k0S/GIFJN+Hd38b1qYIMaE5X++iqsqWVksz7SYW+Q==}
     dev: false
 
   /long@5.2.3:
@@ -11901,7 +11933,6 @@ packages:
 
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
-    dev: false
 
   /tsparticles-engine@2.9.3:
     resolution: {integrity: sha512-iAD8LyRH//kx10fDMm6AfQV6dRHs1ZacUUHqVwfutcqM4x1IV2ygpjk0X87LKCnBxYeIMG78+tlxXpnpwUccOg==}

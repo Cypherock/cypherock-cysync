@@ -1,5 +1,5 @@
 import { expect, test, ElectronApplication } from '@playwright/test';
-import { prepElectronApp } from '../__fixtures__/prep';
+import { prepElectronApp } from '../__helpers__/prep';
 
 let electronApp: ElectronApplication;
 

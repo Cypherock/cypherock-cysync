@@ -1,5 +1,10 @@
 import { IEntity } from '@cypherock/db-interfaces';
-import { removeBaseFelids, testHelper } from './__helpers__/testHelper';
+import {
+  compareEntityArray as expectEqualEntityArray,
+  removeBaseFelids,
+  removeLokiFields,
+  testHelper,
+} from './__helpers__/testHelper';
 import fixtures from './__fixtures__';
 import { createDb } from '../src/index';
 
@@ -13,11 +18,12 @@ describe('Basic tests', () => {
   });
 
   test('Can create a new database instance', async () => {
-    const db = createDb(':memory:');
+    const db = await createDb(':memory:');
+    await db.load();
     expect(db).toBeDefined();
     const devices = await db.device.getAll();
     expect(devices.length).toEqual(0);
-    await db.destroy();
+    await db.close();
     expect(db.device.getAll()).rejects.toThrow();
   });
 
@@ -101,8 +107,9 @@ describe('Basic tests', () => {
             },
             newObj,
           );
+
           expect(newStoredObjs.length).toEqual(1);
-          expect(newStoredObjs[0]).toEqual({
+          expect(removeLokiFields(newStoredObjs[0])).toEqual({
             ...newObj,
             __id: storedObj.__id,
             __version: storedObj.__version,
@@ -150,7 +157,7 @@ describe('Basic tests', () => {
                 newObj,
               );
               expect(newStoredObjs.length).toEqual(1);
-              expect(newStoredObjs[0]).toEqual({
+              expect(removeLokiFields(newStoredObjs[0])).toEqual({
                 ...newObj,
                 __id: storedObj.__id,
                 __version: storedObj.__version,
@@ -166,6 +173,8 @@ describe('Basic tests', () => {
           const obj = entity.onlyRequired[0];
           const storedObj = await entity.repo.insert(obj);
           const fetchedObj = await entity.repo.getOne(storedObj);
+          expect(fetchedObj).toBeDefined();
+          expect(removeBaseFelids(fetchedObj ?? {})).toEqual(obj);
           expect(storedObj).toEqual(fetchedObj);
         });
         test('Can not fetch an entity with invalid values', async () => {
@@ -175,6 +184,21 @@ describe('Basic tests', () => {
       });
 
       describe('getAll', () => {
+        test('Get multiple entities', async () => {
+          const entitiesBeforeInsert = await entity.repo.getAll();
+
+          entity.repo.setVersion(0);
+          const obj = entity.onlyRequired.slice(0, 2);
+
+          const storedObj = await entity.repo.insert(obj);
+          const fetchedObj = await entity.repo.getAll();
+
+          expectEqualEntityArray(
+            [...entitiesBeforeInsert, ...storedObj],
+            fetchedObj,
+          );
+        });
+
         test('The fetched entity array should be the same as stored object array', async () => {
           entity.repo.setVersion(0);
           const obj = entity.onlyRequired.slice(0, 2);
@@ -198,7 +222,10 @@ describe('Basic tests', () => {
           await entity.repo.remove(storedObj);
           const fetchedObj = await entity.repo.getAll(storedObj);
           const allObjAfterRemove = await entity.repo.getAll();
-          expect([...allObjAfterRemove, storedObj]).toEqual(allObjBeforeRemove);
+          expectEqualEntityArray(
+            [...allObjAfterRemove, storedObj],
+            allObjBeforeRemove,
+          );
           expect(fetchedObj.length).toEqual(0);
         });
 
@@ -210,7 +237,8 @@ describe('Basic tests', () => {
           await entity.repo.remove(storedObj);
           const fetchedObj = await entity.repo.getAll(storedObj);
           const allObjAfterRemove = await entity.repo.getAll();
-          expect([...allObjAfterRemove, ...storedObj]).toEqual(
+          expectEqualEntityArray(
+            [...allObjAfterRemove, ...storedObj],
             allObjBeforeRemove,
           );
           expect(fetchedObj.length).toEqual(0);

@@ -25,9 +25,15 @@ export const colors = {
     main: '#51C61A',
   },
   text: {
+    gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
+    silver:
+      '-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
     heading: '#FFFFFF',
     list: '#827B77',
     muted: '#8B8682',
+    warn: '#F1AE4A',
+    error: '#FF624C',
+    success: '#51C61A',
   },
   background: {
     progressBar: '#1F1915',

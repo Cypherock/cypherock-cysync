@@ -65,7 +65,7 @@ export const PasswordForm: React.FC<{
               <Typography
                 variant="h6"
                 color="error"
-                font="light"
+                $fontWeight="light"
                 $textAlign="left"
               >
                 {errorMessage}

@@ -17,7 +17,7 @@ import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
-import { getDB, validateEmail } from '~/utils';
+import { getKeyDB, validateEmail } from '~/utils';
 
 export const EmailForm: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -32,15 +32,15 @@ export const EmailForm: React.FC = () => {
       setErrorMessage(validation.error.issues[0].message);
       return;
     }
-    const db = await getDB();
-    await db.storage.setItem('email', emailAddress);
+    const db = await getKeyDB();
+    await db.setItem('email', emailAddress);
     toNextPage();
   };
 
   const removeEmail = async () => {
     // we want to remove email on skipping to make sure there is no previous data stored
-    const db = await getDB();
-    if (await db.storage.getItem('email')) await db.storage.removeItem('email');
+    const db = await getKeyDB();
+    if (await db.getItem('email')) await db.removeItem('email');
     toNextPage();
   };
 
@@ -66,7 +66,7 @@ export const EmailForm: React.FC = () => {
               <Typography
                 variant="h6"
                 color="error"
-                font="light"
+                $fontWeight="light"
                 $textAlign="left"
               >
                 {errorMessage}

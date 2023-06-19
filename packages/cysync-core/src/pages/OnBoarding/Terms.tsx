@@ -23,7 +23,7 @@ import {
 import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useNavigateTo } from '~/hooks';
-import { getDB } from '~/utils';
+import { getKeyDB } from '~/utils';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
@@ -81,19 +81,12 @@ const TermsDialogBox: FC<{
           <ExternalLinkItem text={bulletPoints.terms} />
           <ExternalLinkItem text={bulletPoints.privacyPolicy} />
         </Flex>
-        <Flex align="center">
-          <CheckBox
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-            id="terms_accepted"
-          />
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="terms_accepted">
-            <Typography fontSize={14} color="muted" $textAlign="left" ml={2}>
-              <LangDisplay text={consent} />
-            </Typography>
-          </label>
-        </Flex>
+        <CheckBox
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+          id="terms_accepted"
+          label={consent}
+        />
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
@@ -113,13 +106,13 @@ export const Terms: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const fetchTerms = async () => {
-    const db = await getDB();
-    setIsChecked((await db.storage.getItem('isTermsAccepted')) === 'true');
+    const db = await getKeyDB();
+    setIsChecked((await db.getItem('isTermsAccepted')) === 'true');
   };
 
   const updateTerms = async () => {
-    const db = await getDB();
-    await db.storage.setItem('isTermsAccepted', isChecked.toString());
+    const db = await getKeyDB();
+    await db.setItem('isTermsAccepted', isChecked.toString());
   };
 
   useEffect(() => {

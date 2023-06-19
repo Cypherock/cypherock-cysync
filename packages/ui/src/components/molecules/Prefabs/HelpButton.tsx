@@ -9,10 +9,10 @@ export interface HelpButtonProps {
 export const HelpButton: React.FC<HelpButtonProps> = ({ text, onClick }) => (
   <Button variant="none" onClick={onClick}>
     <Flex gap={8}>
-      <Typography color="muted" fontSize={14}>
+      <Typography color="muted" $fontSize={14}>
         <LangDisplay text={text} />
       </Typography>
-      <Typography color="gold" fontSize={14}>
+      <Typography color="gold" $fontSize={14}>
         ?
       </Typography>
     </Flex>

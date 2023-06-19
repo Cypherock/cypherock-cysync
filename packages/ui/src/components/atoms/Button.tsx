@@ -26,7 +26,7 @@ const buttonBaseStyle = css<ButtonProps>`
         border: none;
         font-size: 14px;
         font-weight: 500;
-        transition: all 3s ease-out;
+        transition: all 0.6s ease-out;
         &:hover {
           background: linear-gradient(
             180deg,
