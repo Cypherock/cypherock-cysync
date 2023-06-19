@@ -10,7 +10,7 @@ export interface UpdateInfo {
   /**
    * The release notes. List if `updater.fullChangelog` is set to `true`, `string` otherwise.
    */
-  releaseNotes?: string | null;
+  releaseNotes?: string | string[] | null;
   /**
    * The release date.
    */
