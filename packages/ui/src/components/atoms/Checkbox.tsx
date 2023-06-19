@@ -47,12 +47,12 @@ const CheckBoxLabelStyle = styled.label.attrs(props => ({
 
   &:before {
     content: '';
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     border-radius: 2px;
     position: absolute;
-    top: 1.5px;
-    left: 1.5px;
+    top: 2px;
+    left: 2px;
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
 `;
