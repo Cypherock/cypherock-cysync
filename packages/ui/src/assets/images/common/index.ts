@@ -24,6 +24,7 @@ import openExternalLink from './open-external-link.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
+import errorIcon from './error.svg';
 
 export {
   addWalletIcon,
@@ -52,4 +53,5 @@ export {
   cysyncLockedLogo,
   visibilityIcon,
   visibilityHideIcon,
+  errorIcon,
 };

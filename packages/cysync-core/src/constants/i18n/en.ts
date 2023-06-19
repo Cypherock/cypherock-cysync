@@ -87,17 +87,19 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     cancel: 'Cancel',
+    reset: 'Reset',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
-    passwordLabel: 'Enter Password',
+    passwordLabel: 'Enter Password to unlock cySync',
     forgotPassword: 'Forgot password?',
     incorrectPassword: 'Incorrect password',
     button: 'Unlock',
     forgotPasswordDialog: {
-      title: 'CySync will be reset',
+      title:
+        'Resetting password will reset your cySync app do you want to proceed?',
       subtext:
-        'You will lose all your data on cysync, however you can recover it again by using your Cypherock X1 Vault.',
+        'This will erase all your data on your cySync app. Note this will not result in loss of assets',
     },
   },
   onboarding: {

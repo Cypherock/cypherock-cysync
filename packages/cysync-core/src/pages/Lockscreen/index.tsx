@@ -64,7 +64,6 @@ export const Lockscreen: React.FC = () => {
               <PasswordInput
                 label={lang.strings.lockscreen.passwordLabel}
                 name="password"
-                placeholder="Password"
                 onChange={setPassword}
                 value={password}
                 disabled={isLoading}
@@ -87,7 +86,15 @@ export const Lockscreen: React.FC = () => {
               </Button>
 
               {error && (
-                <Typography color="error" fontSize={16} mt={2}>
+                <Typography
+                  width="full"
+                  pt={3}
+                  border="top"
+                  color="error"
+                  fontSize={16}
+                  mt={2}
+                  $textAlign="center"
+                >
                   {error}
                 </Typography>
               )}

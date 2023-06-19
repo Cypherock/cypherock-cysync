@@ -14,12 +14,14 @@ import {
   flex,
   FlexProps,
 } from '../utils';
+import { border, BorderProps } from '../utils/border.styled';
 
 interface HeadingProps
   extends SpacingProps,
     FontProps,
     WidthProps,
     PositionProps,
+    BorderProps,
     DisplayProps,
     FlexProps {
   color?:
@@ -80,6 +82,7 @@ ${props =>
     `}
     
     max-width: 100%;
+  ${border};
   ${spacing};
   ${font};
   ${width};

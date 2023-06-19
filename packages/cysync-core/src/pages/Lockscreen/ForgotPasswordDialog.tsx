@@ -6,6 +6,8 @@ import {
   DialogBoxFooter,
   LangDisplay,
   Typography,
+  Image,
+  errorIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useAppSelector, selectLanguage } from '~/store';
@@ -21,7 +23,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   const lang = useAppSelector(selectLanguage);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const onConfirm = async () => {
+  const onReset = async () => {
     setIsLoading(true);
     await getResetCySyncMethod()();
     setIsLoading(false);
@@ -30,6 +32,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   return (
     <DialogBox width={500} $isModal>
       <DialogBoxBody>
+        <Image src={errorIcon} alt="Error" />
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay
@@ -48,8 +51,8 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
           <LangDisplay text={lang.strings.buttons.cancel} />
         </Button>
 
-        <Button variant="primary" onClick={onConfirm} disabled={isLoading}>
-          <LangDisplay text={lang.strings.buttons.confirm} />
+        <Button variant="primary" onClick={onReset} disabled={isLoading}>
+          <LangDisplay text={lang.strings.buttons.reset} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>
