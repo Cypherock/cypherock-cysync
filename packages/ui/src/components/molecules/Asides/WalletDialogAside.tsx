@@ -8,7 +8,7 @@ import {
   LangDisplay,
   Typography,
 } from '../../atoms';
-import { cysyncLogoSmall } from '../../../assets';
+import { cysyncLogoSmall, greenTick } from '../../../assets';
 
 const AsideStyle = styled.div`
   display: flex;
@@ -22,6 +22,18 @@ const AsideStyle = styled.div`
   background-image: ${({ theme }) => theme.palette.background.sideBar};
 `;
 
+const bgColor = (activeTab: number, index: number) => {
+  if (index > activeTab) return 'muted';
+  if (index < activeTab) return 'golden';
+  return 'white';
+};
+
+const textColor = (activeTab: number, index: number) => {
+  if (index > activeTab) return 'muted';
+  if (index < activeTab) return 'gold';
+  return undefined;
+};
+
 const ProgressLine: FC<{
   index: number;
   length: number;
@@ -32,13 +44,13 @@ const ProgressLine: FC<{
       <Flex height={60} align="flex-end">
         <Flex>
           <Container
-            $bgColor={activeTab >= 1 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 1)}
             width={1}
             height={30.5}
             rounded="full"
           />
           <Container
-            $bgColor={activeTab >= 1 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 1)}
             width={16}
             height={1}
             rounded="full"
@@ -52,13 +64,13 @@ const ProgressLine: FC<{
       <Flex height={60} align="flex-start">
         <Flex align="flex-end">
           <Container
-            $bgColor={activeTab >= 2 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 3)}
             width={1}
             height={30.5}
             rounded="full"
           />
           <Container
-            $bgColor={activeTab >= 2 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 3)}
             width={16}
             height={1}
             rounded="full"
@@ -72,20 +84,20 @@ const ProgressLine: FC<{
       <Flex align="center">
         <Flex direction="column">
           <Container
-            $bgColor={activeTab >= 3 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 2)}
             width={1}
             height={30.5}
             rounded="full"
           />
           <Container
-            $bgColor={activeTab >= 3 ? 'white' : 'muted'}
+            $bgColor={bgColor(activeTab, 2)}
             width={1}
             height={30.5}
             rounded="full"
           />
         </Flex>
         <Container
-          $bgColor={activeTab >= 3 ? 'white' : 'muted'}
+          $bgColor={bgColor(activeTab, 2)}
           width={16}
           height={1}
           rounded="full"
@@ -126,22 +138,19 @@ export const WalletDialogAside: FC<{
                   width={28}
                   height={28}
                 >
-                  <Typography
-                    color={index + 1 <= activeTab ? undefined : 'muted'}
-                  >
+                  <Typography color={textColor(activeTab, index + 1)}>
                     {index + 1}
                   </Typography>
                 </Container>
-                <Typography
-                  color={index + 1 <= activeTab ? undefined : 'muted'}
-                >
+                <Typography color={textColor(activeTab, index + 1)}>
                   <LangDisplay text={tab} />
                 </Typography>
               </Flex>
-              <Bullet
-                size="sm"
-                variant={index + 1 <= activeTab ? undefined : 'muted'}
-              />
+              {index + 1 < activeTab ? (
+                <Image src={greenTick} alt="greenTick" />
+              ) : (
+                <Bullet size="sm" variant={textColor(activeTab, index + 1)} />
+              )}
             </Flex>
           </Flex>
         ))}

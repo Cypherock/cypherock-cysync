@@ -20,17 +20,21 @@ import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import loader from './loader.png';
-import arrow from './arrow.svg';
-import arrowForward from './arrow-forward.svg';
+import arrowBlackBackward from './arrow-black-backward.svg';
+import arrowGoldenForward from './arrow-golden-forward.svg';
+import arrowWhiteBackward from './arrow-white-backward.svg';
 import info from './info.svg';
 import goldInfo from './gold_info.svg';
 import openExternalLink from './open-external-link.svg';
+import informationIcon from './information.svg';
+import greenTick from './green-tick.svg';
 
 export {
   addWalletIcon,
   asideIcon,
-  arrow,
-  arrowForward,
+  arrowBlackBackward,
+  arrowGoldenForward,
+  arrowWhiteBackward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -54,4 +58,6 @@ export {
   joystickTrainingAsideImage,
   loader,
   openExternalLink,
+  informationIcon,
+  greenTick,
 };

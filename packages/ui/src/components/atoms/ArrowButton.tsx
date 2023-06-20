@@ -1,9 +1,10 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { styled } from 'styled-components';
-import { arrow } from '../../assets';
+import { arrowBlackBackward, arrowWhiteBackward } from '../../assets';
 
 interface ArrowButtonProps {
   direction: 'left' | 'right';
+  variant?: 'disabled' | 'enabled';
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -31,17 +32,26 @@ const ArrowButtonStyle = styled.button<ArrowButtonProps>`
   ${({ direction }) => direction === 'right' && `rotate: 180deg;`}
 `;
 
-const ArrowImage = styled.img.attrs({
-  src: arrow,
-  alt: 'arrow',
+const BlackArrowImage = styled.img.attrs({
+  src: arrowBlackBackward,
+  alt: 'arrowBlackBackward',
+})``;
+const WhiteArrowImage = styled.img.attrs({
+  src: arrowWhiteBackward,
+  alt: 'arrowWhiteBackward',
 })``;
 
 export const ArrowButton: FC<ArrowButtonProps> = ({
   direction,
+  variant,
   onClick,
   ...props
 }) => (
   <ArrowButtonStyle direction={direction} onClick={onClick} {...props}>
-    <ArrowImage />
+    {variant === 'enabled' ? <BlackArrowImage /> : <WhiteArrowImage />}
   </ArrowButtonStyle>
 );
+
+ArrowButton.defaultProps = {
+  variant: 'enabled',
+};
