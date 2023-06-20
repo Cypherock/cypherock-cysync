@@ -22,7 +22,12 @@ export const CreateWalletDialogBox: FC<{
     list: Array<string>;
   };
   setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ createWallet, setShowCreateWalletDialogBox }) => {
+  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
+}> = ({
+  createWallet,
+  setShowCreateWalletDialogBox,
+  setShowWalletActionsDialogBox,
+}) => {
   const theme = useTheme();
   return (
     <DialogBox width="full">
@@ -71,7 +76,10 @@ export const CreateWalletDialogBox: FC<{
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
-          onClick={() => setShowCreateWalletDialogBox(true)}
+          onClick={() => {
+            setShowCreateWalletDialogBox(true);
+            setShowWalletActionsDialogBox(false);
+          }}
           variant="primary"
         >
           <LangDisplay text={createWallet.button} />
