@@ -42,7 +42,6 @@ const prepareApp = () => {
 
 const setupIntitialState = async () => {
   await initializeAndGetDb();
-  setupIPCHandlers(ipcMain);
 };
 
 export default function createApp() {
@@ -60,6 +59,7 @@ export default function createApp() {
   const createMainWindow = async () => {
     logger.debug('Starting main window');
     mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    setupIPCHandlers(ipcMain, mainWindow.webContents);
     autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
 

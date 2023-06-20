@@ -8,7 +8,7 @@ export function generateCss<T>(
   propsValue?: MediaQuery<T>,
 ) {
   const result: any = [];
-  if (propsValue) {
+  if (propsValue !== undefined) {
     if (typeof propsValue === 'object') {
       for (const breakpoint in propsValue) {
         if (Object.prototype.hasOwnProperty.call(propsValue, breakpoint)) {

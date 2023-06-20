@@ -1,33 +1,102 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Button } from '../Button';
+import { LangDisplay } from '../LangDisplay';
+import { Image } from '../Image';
+import { InputLabel } from './InputLabel';
 
-interface InputProps {
+export interface InputProps {
   type: string;
-  placeholder: string;
+  placeholder?: string;
+  name: string;
+  label?: string;
+  onChange?: (val: string) => void;
+  value?: string;
+  disabled?: boolean;
+  postfixIcon?: string;
+  postfixIconAlt?: string;
+  onPostfixIconClick?: () => void;
 }
 
 const InputStyle = styled.input`
   position: relative;
   width: 100%;
   border: none;
-  padding-top: ${({ theme }) => theme.spacing.two.spacing};
-  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  padding-left: ${({ theme }) => theme.spacing.three.spacing};
-  padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  padding: 12px 24px;
   background-color: ${({ theme }) => theme.palette.background.inputBackground};
-  border-radius: ${({ theme }) => theme.spacing.one.spacing};
-  font-size: ${({ theme }) => theme.spacing.two.spacing};
-  margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  color: white;
-  ::placeholder {
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: 0.12em;
-    color: #8b8682;
+  font-size: 16px;
+  background: #272320;
+  border: 1px solid #39322c;
+  border-radius: 8px;
+  color: ${({ theme }) => theme.palette.text.muted};
+
+  &:focus-visible {
+    outline: none;
   }
 `;
 
-export const Input: FC<InputProps> = ({ placeholder, type }) => (
-  <InputStyle type={type} placeholder={placeholder} />
+const InputWrapper = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+const PostfixIcon = styled.div`
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+export const Input: FC<InputProps> = ({
+  placeholder,
+  type,
+  name,
+  label,
+  onChange,
+  value,
+  disabled,
+  postfixIcon,
+  postfixIconAlt,
+  onPostfixIconClick,
+}) => (
+  <>
+    {label && (
+      <InputLabel>
+        <LangDisplay text={label} />
+      </InputLabel>
+    )}
+    <InputWrapper>
+      <InputStyle
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        disabled={disabled}
+        value={value}
+        onChange={e => onChange && onChange(e.target.value)}
+      />
+      {postfixIcon && postfixIconAlt && (
+        <PostfixIcon>
+          <Button
+            type="button"
+            variant="none"
+            display="flex"
+            onClick={onPostfixIconClick}
+          >
+            <Image src={postfixIcon} alt={postfixIconAlt} height={20} />
+          </Button>
+        </PostfixIcon>
+      )}
+    </InputWrapper>
+  </>
 );
+
+Input.defaultProps = {
+  label: undefined,
+  placeholder: undefined,
+  onChange: undefined,
+  value: undefined,
+  disabled: false,
+  postfixIcon: undefined,
+  postfixIconAlt: undefined,
+  onPostfixIconClick: undefined,
+};

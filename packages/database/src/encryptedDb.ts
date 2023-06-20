@@ -90,6 +90,19 @@ export class EncryptedDB {
     this.database.close();
   }
 
+  public async clear() {
+    await this.unload();
+
+    if (this.dbPath === ':memory:') return;
+    try {
+      await fs.promises.unlink(this.dbPath);
+    } catch (error: any) {
+      if (error.code !== 'ENOENT') {
+        throw error;
+      }
+    }
+  }
+
   private async handleChange() {
     await this.saveDB();
   }

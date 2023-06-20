@@ -14,6 +14,7 @@ import {
   flex,
   FlexProps,
 } from '../utils';
+import { border, BorderProps } from '../utils/border.styled';
 
 export type TypographyColor =
   | 'gold'
@@ -30,6 +31,7 @@ interface HeadingProps
     FontProps,
     WidthProps,
     PositionProps,
+    BorderProps,
     DisplayProps,
     FlexProps {
   color?: TypographyColor;
@@ -80,6 +82,8 @@ const baseStyle = css<HeadingProps>`
       letter-spacing: ${props.$letterSpacing}em;
     `}
     
+  max-width: 100%;
+  ${border};
   ${spacing};
   ${font};
   ${width};

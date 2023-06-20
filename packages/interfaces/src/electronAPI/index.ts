@@ -18,6 +18,7 @@ export type GetDevices = () => Promise<IDevice[]>;
 export type ConnectDevice = (device: IDevice) => Promise<IDeviceConnection>;
 export type GetDb = () => Promise<IDatabase>;
 export type GetKeyDb = () => Promise<IKeyValueStore>;
+export type ResetCySync = () => Promise<void>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
@@ -25,6 +26,7 @@ export interface IElectronAPI {
   connectDevice: ConnectDevice;
   getDb: GetDb;
   getKeyDb: GetKeyDb;
+  resetCySync: ResetCySync;
   checkForUpdates: CheckForUpdates;
   downloadUpdate: DownloadUpdate;
   installUpdate: InstallUpdate;

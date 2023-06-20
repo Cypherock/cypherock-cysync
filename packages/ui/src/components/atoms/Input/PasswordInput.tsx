@@ -1,50 +1,27 @@
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
-import { Input } from './Input';
+import { Input, InputProps } from './Input';
+import { visibilityHideIcon, visibilityIcon } from '../../../assets';
 
-interface PasswordInputProps {
-  placeholder: string;
-}
+interface PasswordInputProps
+  extends Omit<
+    InputProps,
+    'type' | 'postfixIcon' | 'postfixIconAlt' | 'onPostfixIconClick'
+  > {}
 
-interface EyeImageStyleProps {
-  type: string;
-}
+export const PasswordInput: FC<PasswordInputProps> = props => {
+  const [showPassword, setShowPassword] = useState(false);
 
-const EyeImageStyle = styled.div<EyeImageStyleProps>`
-  height: 20px;
-  width: 20px;
-`;
-
-const PasswordInputStyle = styled.div`
-  width: 100%;
-  .image-pass {
-    position: absolute;
-    right: 24px;
-    bottom: 32px;
-  }
-`;
-
-export const PasswordInput: FC<PasswordInputProps> = ({ placeholder }) => {
-  // states
-  const [passwordType, setPasswordType] = useState('password');
-
-  // functions
   const togglePassword = () => {
-    if (passwordType === 'password') {
-      setPasswordType('text');
-    } else {
-      setPasswordType('password');
-    }
+    setShowPassword(!showPassword);
   };
 
   return (
-    <PasswordInputStyle>
-      <Input type={passwordType} placeholder={placeholder} />
-      <EyeImageStyle
-        className="image-pass"
-        onClick={togglePassword}
-        type={passwordType}
-      />
-    </PasswordInputStyle>
+    <Input
+      type={showPassword ? 'text' : 'password'}
+      {...props}
+      postfixIcon={showPassword ? visibilityHideIcon : visibilityIcon}
+      postfixIconAlt="Show password"
+      onPostfixIconClick={togglePassword}
+    />
   );
 };
