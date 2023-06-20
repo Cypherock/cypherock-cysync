@@ -79,7 +79,7 @@ export const AlertBox: FC<AlertBoxProps> = ({ imageSrc, alert, ...props }) => {
   return (
     <MaskStyle {...props}>
       <Image width="20" mr="20" src={imageSource} alt="Alert" />
-      <Typography variant="p" color={textObj[variantCurr]}>
+      <Typography variant="fineprint" color={textObj[variantCurr]}>
         <LangDisplay text={alert} />
       </Typography>
     </MaskStyle>
