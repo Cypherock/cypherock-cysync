@@ -7,7 +7,7 @@ import {
   Information,
   Usage,
   JoystickTraining,
-  WalletActions,
+  Portfolio,
   routes,
   Terms,
   IRoute,
@@ -26,8 +26,7 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-training': <CardTraining />,
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
-  'onboarding-wallet-actions': <WalletActions />,
-  portfolio: <div>portfolio</div>,
+  portfolio: <Portfolio />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

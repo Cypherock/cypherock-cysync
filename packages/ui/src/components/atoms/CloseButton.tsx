@@ -1,8 +1,9 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { styled } from 'styled-components';
 import { closeIcon } from '../../assets';
+import { UtilsProps, utils } from '../utils';
 
-interface CloseImageProps {
+interface CloseImageProps extends UtilsProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -11,7 +12,7 @@ const CloseImage = styled.img.attrs({
   alt: 'close',
 })``;
 
-const CloseButtonStyle = styled.button`
+const CloseButtonStyle = styled.button<CloseImageProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,10 +21,11 @@ const CloseButtonStyle = styled.button`
   padding: 4px;
   border: none;
   cursor: pointer;
+  ${utils}
 `;
 
-export const CloseButton: FC<CloseImageProps> = ({ onClick }) => (
-  <CloseButtonStyle onClick={onClick}>
+export const CloseButton: FC<CloseImageProps> = ({ onClick, ...props }) => (
+  <CloseButtonStyle onClick={onClick} {...props}>
     <CloseImage />
   </CloseButtonStyle>
 );

@@ -35,10 +35,6 @@ export const onboarding = {
     name: 'onboarding-congratulations',
     path: '/onboarding/congo',
   },
-  walletActions: {
-    name: 'onboarding-wallet-actions',
-    path: '/onboarding/wallet-actions',
-  },
 } as const;
 
 export type OnboardingRouteName =
