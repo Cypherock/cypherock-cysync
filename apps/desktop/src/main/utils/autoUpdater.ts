@@ -83,14 +83,19 @@ class AutoUpdater {
 
   // eslint-disable-next-line class-methods-use-this
   private parseUpdateInfo(info: ElectronUpdateInfo | UpdateInfo): UpdateInfo {
+    let releaseNotes: UpdateInfo['releaseNotes'];
+
+    if (info.releaseNotes && Array.isArray(info.releaseNotes)) {
+      releaseNotes = info.releaseNotes.map(note =>
+        typeof note === 'string' ? note : note.note ?? '',
+      );
+    } else {
+      releaseNotes = info.releaseNotes;
+    }
+
     return {
       ...info,
-      releaseNotes:
-        info.releaseNotes && Array.isArray(info.releaseNotes)
-          ? info.releaseNotes.map(note =>
-              typeof note === 'string' ? note : note.note ?? '',
-            )
-          : info.releaseNotes,
+      releaseNotes,
     };
   }
 
