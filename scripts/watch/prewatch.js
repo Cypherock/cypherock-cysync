@@ -1,12 +1,9 @@
-const { spawn } = require('child_process');
+const { createChildProcess } = require('./spawn');
 const config = require('./config');
 
 const runScript = async script => {
   return new Promise((resolve, reject) => {
-    const childProcess = spawn(script, {
-      shell: true,
-      stdio: 'inherit',
-    });
+    const childProcess = createChildProcess(script, [], true);
 
     childProcess.on('close', code => {
       if (code === 0) {

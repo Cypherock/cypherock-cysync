@@ -1,7 +1,6 @@
 const path = require('path');
 const watch = require('watch');
 const lodash = require('lodash');
-const { spawn } = require('child_process');
 
 const config = require('./config');
 const {
@@ -11,6 +10,8 @@ const {
   loggerWithNoPrefix,
 } = require('./logger');
 const { parseTurboLogs } = require('./turbo');
+const { getParsedPackages } = require('./packages');
+const { createChildProcess } = require('./spawn');
 
 const logger = createLoggerWithPrefix('Watcher', config.logColors.watcher);
 const buildLogger = createLoggerWithPrefix('Builder', config.logColors.builder);
@@ -22,20 +23,27 @@ let stdOuts = [];
 let spinner;
 let updateSpinnerInterval;
 let hasBuildError = false;
+let changedFiles = [];
+
+const parsedPackages = getParsedPackages();
 
 const getIsBuilding = () => !!buildProcess;
 
 const abortBuild = async () => {
   clearUpdateSpinnerInterval();
 
+  if (spinner) {
+    spinner.stop();
+    spinner = undefined;
+  }
+
   if (buildProcess) {
     const chalk = await getChalk();
-    spinner.stop();
-
     buildLogger.info(chalk.blue(`Aborting build`));
 
-    buildProcess.removeAllListeners();
     buildProcess.kill();
+    buildProcess.removeAllListeners();
+    buildProcess = undefined;
   }
 };
 
@@ -53,6 +61,36 @@ const updateSpinnerText = async () => {
   }
 };
 
+const getBuildOptions = () => {
+  const argsSet = new Set();
+  let doBuild = false;
+
+  if (!config.buildDependents) {
+    for (const changedFile of changedFiles) {
+      const packagePaths = Object.keys(parsedPackages);
+
+      const packagePath = packagePaths.find(packagePath =>
+        changedFile.includes(packagePath),
+      );
+
+      if (!packagePath) continue;
+
+      doBuild = true;
+      argsSet.add(`--filter=${parsedPackages[packagePath].name}`);
+    }
+  } else {
+    doBuild = true;
+  }
+
+  const args = Array.from(argsSet);
+
+  if (!config.enableRemoteCache) {
+    argsSet.add('--remote-cache-timeout="0.1"');
+  }
+
+  return { doBuild, args };
+};
+
 const clearUpdateSpinnerInterval = () => {
   if (updateSpinnerInterval) {
     clearInterval(updateSpinnerInterval);
@@ -65,6 +103,13 @@ const runBuild = async () => {
 
   await abortBuild();
 
+  const { args, doBuild } = getBuildOptions();
+
+  if (!doBuild) {
+    logger.info('No packages to build, skipping...');
+    return;
+  }
+
   buildStartTime = Date.now();
   stdOuts = [];
 
@@ -72,14 +117,10 @@ const runBuild = async () => {
     text: chalk.blue('Rebuilding...'),
     color: config.logColors.builder.replace('bg', '').toLowerCase(),
   }).start();
+
   updateSpinnerInterval = setInterval(updateSpinnerText, 1000);
 
-  let buildProcess;
-  if (process.platform === 'win32') {
-    buildProcess = spawn('cmd', ['/s', '/c', 'pnpm', 'build:dirty']);
-  } else {
-    buildProcess = spawn('pnpm', ['build:dirty']);
-  }
+  buildProcess = createChildProcess('pnpm', ['build:dirty', ...args]);
 
   buildProcess.stdout.setEncoding('utf8');
   buildProcess.stderr.setEncoding('utf8');
@@ -102,8 +143,9 @@ const runBuild = async () => {
 
     buildProcess = undefined;
     if (code === 0) {
+      changedFiles = [];
       hasBuildError = false;
-      console.clear();
+
       const result = parseTurboLogs(stdOuts);
       spinner.succeed(
         chalk.green(`Built `) +
@@ -141,23 +183,25 @@ const startWatching = async () => {
     monitor.on('created', function (f) {
       const name = path.basename(f);
       logger.info(chalk.cyan(`File created: ${name}`));
+      changedFiles.push(f);
       onChange();
     });
 
     monitor.on('changed', function (f) {
       const name = path.basename(f);
       logger.info(chalk.blue(`File updated: ${name}`));
+      changedFiles.push(f);
       onChange();
     });
 
     monitor.on('removed', function (f) {
       const name = path.basename(f);
       logger.info(chalk.blue(`File removed: ${name}`));
+      changedFiles.push(f);
       onChange();
     });
 
     cleanUp = async () => {
-      console.log(chalk.red('Stopping watch...'));
       monitor.stop();
       await abortBuild();
     };

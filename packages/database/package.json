@@ -44,9 +44,6 @@
     "zod": "^3.21.4"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --ext ts--quiet --fix --",
-      "prettier --write"
-    ]
+    "*.ts": ["eslint --ext ts--quiet --fix --", "prettier --write"]
   }
 }

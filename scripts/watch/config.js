@@ -24,15 +24,15 @@ const watchIgnoreTerms = [
 const watchIgnoreExtensions = ['.log', '.txt'];
 
 const watchFilter = file => {
-  if (watchIgnoreTerms.some(term => file.includes(term))) {
-    return false;
-  }
+  const containsIgnoreTerms = watchIgnoreTerms.some(term =>
+    file.includes(term),
+  );
 
-  if (watchIgnoreExtensions.some(term => file.endsWith(term))) {
-    return false;
-  }
+  const containsIgnoreExtensions = watchIgnoreExtensions.some(ext =>
+    file.endsWith(ext),
+  );
 
-  return true;
+  return !containsIgnoreTerms && !containsIgnoreExtensions;
 };
 
 const watchOptions = {
@@ -47,9 +47,10 @@ const logColors = {
   cysync: 'bgCyan',
 };
 
-const runDesktopIgnoreLogTerms = ['[vite] hmr update', '[vite] page reload'];
+const runDesktopIgnoreLogTerms = ['[vite]'];
 
 module.exports = {
+  ROOT: path.join(__dirname, '..', '..'),
   watchOptions,
   watchDir,
   logColors,
@@ -62,4 +63,8 @@ module.exports = {
   isLongLog: !(
     process.argv.includes('--short-log') || process.argv.includes('-s')
   ),
+  buildDependents:
+    process.argv.includes('--build-dependents') || process.argv.includes('-d'),
+  enableRemoteCache:
+    process.argv.includes('--remote-cache') || process.argv.includes('-rc'),
 };

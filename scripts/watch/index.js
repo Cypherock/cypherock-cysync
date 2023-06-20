@@ -1,5 +1,4 @@
-const { spawn } = require('child_process');
-
+const lodash = require('lodash');
 const {
   startWatching,
   stopWatching,
@@ -10,18 +9,14 @@ const { createLoggerWithPrefix } = require('./logger');
 const { parseRawLog } = require('./logParser');
 const { runPrewatchScripts } = require('./prewatch');
 const config = require('./config');
+const { createChildProcess } = require('./spawn');
 
 const logger = createLoggerWithPrefix('CySync', config.logColors.cysync);
 
 const runDesktopApp = async () => {
   await runPrewatchScripts();
 
-  let runDesktopProcess;
-  if (process.platform === 'win32') {
-    runDesktopProcess = spawn('cmd', ['/s', '/c', 'pnpm', 'dev']);
-  } else {
-    runDesktopProcess = spawn('pnpm', ['dev']);
-  }
+  const runDesktopProcess = createChildProcess('pnpm', ['dev']);
 
   runDesktopProcess.stdout.setEncoding('utf8');
   runDesktopProcess.stderr.setEncoding('utf8');
@@ -74,4 +69,19 @@ const runDesktopApp = async () => {
   });
 };
 
+if (process.argv.includes('--help') || process.argv.includes('-h')) {
+  const printFlags = (flag, description) => {
+    const paddedFlag = lodash.padEnd(flag, 25, ' ');
+    console.log(`\t${paddedFlag} ${description}`);
+  };
+
+  console.log(`Usage: pnpm start [options]`);
+  console.log();
+  printFlags('-h, --help', 'Show this help message');
+  printFlags('-v, --verbose', 'Show verbose output');
+  printFlags('-s, --short-log', 'Show logs in short log format');
+  printFlags('-d, --build-dependents', 'Build dependents when packages change');
+  printFlags('-rc, --remote-cache', 'Enable remote cache while watching');
+  process.exit(0);
+}
 runDesktopApp();
