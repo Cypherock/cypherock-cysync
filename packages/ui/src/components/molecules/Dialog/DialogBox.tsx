@@ -54,6 +54,7 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
   display: flex;
   position: relative;
   justify-content: center;
+  position: relative;
   width: 100%;
   border-top: 0;
   border-left: 0;
@@ -62,7 +63,7 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`
   border-color: ${({ theme }) => theme.palette.border.popup};
   padding-top: ${({ theme }) => theme.spacing.two.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
-  color: ${({ theme }) => theme.palette.text.mutedText};
+  color: ${({ theme }) => theme.palette.text.muted};
   ${flex}
   ${width}
   ${height}
