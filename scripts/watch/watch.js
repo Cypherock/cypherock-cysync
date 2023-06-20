@@ -74,7 +74,12 @@ const runBuild = async () => {
   }).start();
   updateSpinnerInterval = setInterval(updateSpinnerText, 1000);
 
-  buildProcess = spawn('pnpm', ['build:dirty']);
+  let buildProcess;
+  if (process.platform === 'win32') {
+    buildProcess = spawn('cmd', ['/s', '/c', 'pnpm', 'build:dirty']);
+  } else {
+    buildProcess = spawn('pnpm', ['build:dirty']);
+  }
 
   buildProcess.stdout.setEncoding('utf8');
   buildProcess.stderr.setEncoding('utf8');

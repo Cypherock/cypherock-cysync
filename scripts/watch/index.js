@@ -16,7 +16,12 @@ const logger = createLoggerWithPrefix('CySync', config.logColors.cysync);
 const runDesktopApp = async () => {
   await runPrewatchScripts();
 
-  const runDesktopProcess = spawn('pnpm', ['dev']);
+  let runDesktopProcess;
+  if (process.platform === 'win32') {
+    runDesktopProcess = spawn('cmd', ['/s', '/c', 'pnpm', 'dev']);
+  } else {
+    runDesktopProcess = spawn('pnpm', ['dev']);
+  }
 
   runDesktopProcess.stdout.setEncoding('utf8');
   runDesktopProcess.stderr.setEncoding('utf8');
