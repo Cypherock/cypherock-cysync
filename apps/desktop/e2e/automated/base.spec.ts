@@ -1,5 +1,5 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
-import { prepElectronApp } from '../__fixtures__/prep';
+import { prepElectronApp, toFirstScreen } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 
@@ -23,6 +23,7 @@ test('check the title of window', async () => {
 });
 
 test('check first screen', async () => {
+  await toFirstScreen(screen);
   const header = screen.getByRole('heading', {
     name: 'Ensure the following before you continue',
   });

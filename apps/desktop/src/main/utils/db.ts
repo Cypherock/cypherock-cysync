@@ -20,3 +20,12 @@ export async function initializeAndGetDb() {
 
   return { db, keyDb };
 }
+
+export const clearDatabase = async () => {
+  if (db) {
+    await db.clear();
+  }
+  if (keyDb) {
+    await keyDb.clear();
+  }
+};

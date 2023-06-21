@@ -93,17 +93,8 @@ export class KeyValueStore implements IKeyValueStore {
   }
 
   async clear(): Promise<void> {
-    const collection = await this.getCollection();
-
-    try {
-      collection.clear({ removeIndices: true });
-      this.emitChange();
-    } catch (error: any) {
-      throw new DatabaseError(
-        DatabaseErrorType.REMOVE_FAILED,
-        `Couldn't clear the storage [${error.code}]: ${error.message}`,
-      );
-    }
+    await this.encDb.clear();
+    await this.encDb.load();
   }
 
   async close() {

@@ -38,7 +38,7 @@ export const CardSafety: FC<{
           rounded={8}
           p={2}
         >
-          <Typography $textAlign="center" color="info">
+          <Typography $textAlign="center" color="warn">
             <LangDisplay
               text={
                 lang.strings.onboarding.createWallet.finalMessage.cardSafety

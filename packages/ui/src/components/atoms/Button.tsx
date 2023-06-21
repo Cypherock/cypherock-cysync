@@ -1,10 +1,21 @@
 import React, { FC, MouseEventHandler, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { flex, width, WidthProps, FlexProps } from '../utils';
+import {
+  flex,
+  width,
+  WidthProps,
+  FlexProps,
+  display,
+  DisplayProps,
+  spacing,
+  SpacingProps,
+} from '../utils';
 
 interface ButtonProps
   extends WidthProps,
+    DisplayProps,
     FlexProps,
+    SpacingProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
     | 'primary'
@@ -25,7 +36,7 @@ const buttonBaseStyle = css<ButtonProps>`
         border: none;
         font-size: 14px;
         font-weight: 500;
-        transition: all 3s ease-out;
+        transition: all 0.6s ease-out;
         &:hover {
           background: linear-gradient(
             180deg,
@@ -99,6 +110,8 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-bottom: ${({ theme }) => theme.spacing.one.spacing};
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  ${spacing}
+  ${display}
   ${buttonBaseStyle}
   ${width}
   ${flex}

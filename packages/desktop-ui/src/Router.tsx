@@ -12,11 +12,13 @@ import {
   Terms,
   IRoute,
   RouteName,
+  PermissionSetup,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
 const components: Record<RouteName, ReactNode> = {
+  'permission-setup': <PermissionSetup />,
   'onboarding-info': <Information />,
   'onboarding-usage': <Usage />,
   'onboarding-terms': <Terms />,

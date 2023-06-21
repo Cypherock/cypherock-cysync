@@ -8,10 +8,10 @@ export interface HelpHeaderProps {
 export const HelpHeader: React.FC<HelpHeaderProps> = ({ text }) => (
   <Button variant="none">
     <Flex gap={8}>
-      <Typography color="muted" fontSize={14}>
+      <Typography color="muted" $fontSize={14}>
         <LangDisplay text={text} />
       </Typography>
-      <Typography color="gold" fontSize={14}>
+      <Typography color="gold" $fontSize={14}>
         ?
       </Typography>
     </Flex>

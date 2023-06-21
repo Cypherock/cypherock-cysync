@@ -59,7 +59,7 @@ export const DialogBoxBackgroundFooter: React.FC<
       <Button variant="none">
         <Flex gap={8}>
           <Image src={backIcon} alt="Back" />
-          <Typography color="muted" fontSize={14}>
+          <Typography color="muted" $fontSize={14}>
             <LangDisplay text={backText} />
           </Typography>
         </Flex>

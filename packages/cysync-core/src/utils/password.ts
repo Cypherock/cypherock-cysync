@@ -1,9 +1,7 @@
 import { Sha256 } from '@aws-crypto/sha256-browser';
 import bcrypt from 'bcryptjs';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
-import { getKeyDB } from './db';
-
-const PASSWORD_KEY = 'password';
+import { keyValueStore } from './keyValueStore';
 
 const createHash = async (data: string) => {
   let encoded = new TextEncoder().encode(data);
@@ -26,8 +24,7 @@ const verifyDoubleHash = async (
 ): Promise<boolean> => bcrypt.compare(passHash, doubleHash);
 
 export const getPasswordHash = async () => {
-  const db = getKeyDB();
-  const passwordHash = await db.getItem(PASSWORD_KEY);
+  const passwordHash = await keyValueStore.passwordHash.get();
 
   return passwordHash;
 };
@@ -52,15 +49,13 @@ export const getEncryptionKey = async (password: string) =>
   createHash(password);
 
 export const changePassword = async (password?: string) => {
-  const db = getKeyDB();
-
   if (!password) {
-    await db.removeItem(PASSWORD_KEY);
+    await keyValueStore.passwordHash.remove();
     return;
   }
 
   const passHash = await createHash(password);
   const doubleHash = await createDoubleHash(passHash);
 
-  await db.setItem(PASSWORD_KEY, doubleHash);
+  await keyValueStore.passwordHash.set(doubleHash);
 };

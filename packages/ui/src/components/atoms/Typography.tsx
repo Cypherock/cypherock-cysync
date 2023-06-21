@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, RuleSet } from 'styled-components';
 import {
   spacing,
   SpacingProps,
@@ -14,75 +14,77 @@ import {
   DisplayProps,
   display,
 } from '../utils';
+import { border, BorderProps } from '../utils/border.styled';
+
+export type TypographyColor =
+  | 'gold'
+  | 'silver'
+  | 'error'
+  | 'success'
+  | 'heading'
+  | 'muted'
+  | 'warn'
+  | 'list'
+  | 'black';
 
 interface HeadingProps
   extends SpacingProps,
     FontProps,
     WidthProps,
     PositionProps,
-    FlexProps,
-    DisplayProps {
-  color?:
-    | 'gold'
-    | 'silver'
-    | 'error'
-    | 'success'
-    | 'heading'
-    | 'muted'
-    | 'info'
-    | 'separator'
-    | 'list'
-    | string;
+    BorderProps,
+    DisplayProps,
+    FlexProps {
+  color?: TypographyColor;
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: number;
+  $userSelect?: 'all' | 'auto' | 'none' | 'text';
 }
 
+const getColorCss = (color?: TypographyColor) => {
+  if (!color) return css`color: ${({ theme }) => theme.palette.text.heading}}`;
+
+  let colorCss: RuleSet<object>;
+
+  if (['gold', 'silver'].includes(color)) {
+    colorCss = css`
+      background: ${({ theme }) => theme.palette.text[color]};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    `;
+  } else {
+    colorCss = css`
+      color: ${({ theme }) => theme.palette.text[color]};
+    `;
+  }
+
+  return colorCss;
+};
+
 const baseStyle = css<HeadingProps>`
-  ${props =>
-    props.color === 'gold' &&
-    css`
-      background: ${({ theme }) => theme.palette.golden};
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-    `}
+  max-width: 100%;
 
   ${props =>
-    props.color === 'silver' &&
+    props.$userSelect &&
     css`
-      background: ${({ theme }) => theme.palette.secondary.secondary};
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
+      user-select: ${props.$userSelect};
     `}
 
-${props =>
-    props.color === 'error' &&
-    css`
-      color: ${({ theme }) => theme.palette.warning.main};
-    `}
+  ${props => getColorCss(props.color)}
 
-  
-${props =>
-    props.color === 'success' &&
-    css`
-      color: ${({ theme }) => theme.palette.success.main};
-    `}
-    
-    ${props =>
-    props.color && `color: ${props.theme.palette.text[props.color]};`}
-    
+  ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
     ${props => props.$textAlign && `text-align: ${props.$textAlign};`}
 
-${props =>
+  ${props =>
     props.$letterSpacing !== undefined &&
     css`
       letter-spacing: ${props.$letterSpacing}em;
     `}
     
-    max-width: 100%;
+  max-width: 100%;
+  ${border};
   ${spacing};
   ${font};
   ${width};
@@ -194,4 +196,5 @@ Typography.defaultProps = {
   color: 'heading',
   $textAlign: 'left',
   $letterSpacing: 0,
+  $userSelect: undefined,
 };

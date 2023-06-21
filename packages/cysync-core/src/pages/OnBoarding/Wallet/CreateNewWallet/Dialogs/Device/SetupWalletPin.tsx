@@ -60,7 +60,7 @@ export const SetupWalletPin: FC<{
         </Container>
         <Container $bgColor="input" align="center" rounded={8} gap={18} p={1}>
           <Image src={goldInfo} alt="info" />
-          <Typography color="info">
+          <Typography color="warn">
             <LangDisplay
               text={lang.strings.onboarding.createWallet.enterPin.note}
             />

@@ -19,17 +19,26 @@ import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
-import loader from './loader.png';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import info from './info.svg';
 import goldInfo from './gold_info.svg';
-import openExternalLink from './open-external-link.svg';
 import informationIcon from './information.svg';
 import greenTick from './green-tick.svg';
 import redDisconnectedIcon from './red-disconnected.svg';
 import goldFail from './gold_fail.svg';
+import loaderIcon from './loader.png';
+import openExternalLink from './open-external-link.svg';
+import cysyncLockedLogo from './cysync-locked.svg';
+import visibilityHideIcon from './visibility-hide.svg';
+import visibilityIcon from './visibility.svg';
+import errorIcon from './error.svg';
+import goldLoaderIcon from './loader-gold.svg';
+import usbIcon from './usb.svg';
+import goldCopyIcon from './copy-gold.svg';
+import copyIcon from './copy.png';
+import checkIcon from './check.png';
 
 export {
   addWalletIcon,
@@ -58,10 +67,19 @@ export {
   cardTapAsideImage,
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,
-  loader,
+  loaderIcon,
+  goldLoaderIcon,
   openExternalLink,
   informationIcon,
   greenTick,
   redDisconnectedIcon,
   goldFail,
+  cysyncLockedLogo,
+  visibilityIcon,
+  visibilityHideIcon,
+  errorIcon,
+  usbIcon,
+  goldCopyIcon,
+  copyIcon,
+  checkIcon,
 };

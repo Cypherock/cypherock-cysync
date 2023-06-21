@@ -2,19 +2,29 @@ import { css } from 'styled-components';
 import { generateCss } from './generateCss';
 import { MediaQuery } from '../../types';
 
-type FontType =
-  | 'thin'
-  | 'extralight'
-  | 'light'
+export type FontFamily = 'normal' | 'monospace';
+
+export type WordBreak =
+  | 'break-all'
+  | 'keep-all'
   | 'normal'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extrabold';
+  | 'break-word'
+  | 'initial';
 
 export interface FontProps {
-  font?: MediaQuery<FontType>;
-  fontSize?: MediaQuery<number>;
+  $fontWeight?: MediaQuery<
+    | 'thin'
+    | 'extralight'
+    | 'light'
+    | 'normal'
+    | 'medium'
+    | 'semibold'
+    | 'bold'
+    | 'extrabold'
+  >;
+  $fontSize?: MediaQuery<number>;
+  $fontFamily?: MediaQuery<FontFamily>;
+  $wordBreak?: MediaQuery<WordBreak>;
 }
 
 const fontWeightObj: Record<string, string> = {
@@ -28,15 +38,33 @@ const fontWeightObj: Record<string, string> = {
   extrabold: '800',
 };
 
+const fontFamilyMap: Record<FontFamily, string> = {
+  normal: 'Poppins',
+  monospace: 'JetBrains Mono',
+};
+
 export const font = css<FontProps>`
   ${props =>
-    props.font &&
+    props.$fontWeight &&
     generateCss(
       ['font-weight'],
       (item: keyof typeof fontWeightObj) => `${fontWeightObj[item]}`,
-      props.font,
+      props.$fontWeight,
     )}
+
   ${props =>
-    props.fontSize &&
-    generateCss(['font-size'], (item: number) => `${item}px`, props.fontSize)};
+    props.$fontSize &&
+    generateCss(['font-size'], (item: number) => `${item}px`, props.$fontSize)};
+
+  ${props =>
+    props.$fontFamily &&
+    generateCss<FontFamily>(
+      ['font-family'],
+      fontFamily => fontFamilyMap[fontFamily],
+      props.$fontFamily,
+    )};
+
+  ${props =>
+    props.$wordBreak &&
+    generateCss<WordBreak>(['word-break'], val => val, props.$wordBreak)};
 `;

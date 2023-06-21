@@ -1,11 +1,17 @@
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 import { app } from 'electron';
 import jsonConfig from '../../config';
+
+const RELEASE_NOTES_FILENAME = 'RELEASE_NOTES.md';
 
 export interface IConfig {
   BUILD_TYPE: string;
   BUILD_VERSION: string;
   IS_PRODUCTION: boolean;
   IS_TEST: boolean;
+  IS_E2E: boolean;
   ALLOW_PRERELEASE: boolean;
   USER_DATA_PATH: string;
   IS_RELEASE_CHANNEL: boolean;
@@ -13,7 +19,35 @@ export interface IConfig {
   VERSION: string;
   LOG_LEVEL: string;
   API_CYPHEROCK: string;
+  RELEASE_NOTES: string;
+  OS: 'win32' | 'darwin' | 'linux' | string;
 }
+
+const getResourcesPath = () => {
+  if (app && app.isPackaged) {
+    return path.join(process.resourcesPath);
+  }
+
+  if (process.env.NODE_ENV === 'test') {
+    return path.join(__dirname, '..', '..', '..');
+  }
+
+  return path.join(__dirname, '..', '..');
+};
+
+const getReleaseNotes = () => {
+  const filePath = path.join(
+    getResourcesPath(),
+    'extraResources',
+    RELEASE_NOTES_FILENAME,
+  );
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Release notes does not exist in file: ${filePath}.`);
+  }
+
+  return fs.readFileSync(filePath, 'utf8');
+};
 
 const configValidators = {
   API_CYPHEROCK: (val?: string) => val?.startsWith('http') ?? false,
@@ -97,11 +131,12 @@ const getConfig = (): IConfig => {
     IS_PRODUCTION = false;
   }
 
-  const config = {
+  const config: IConfig = {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
     BUILD_VERSION: jsonConfig.BUILD_VERSION,
     IS_PRODUCTION,
     IS_TEST: process.env.NODE_ENV === 'test',
+    IS_E2E: process.env.NODE_ENV === 'e2e',
     ALLOW_PRERELEASE: jsonConfig.ALLOW_PRERELEASE,
     USER_DATA_PATH,
     CHANNEL: jsonConfig.CHANNEL,
@@ -113,6 +148,8 @@ const getConfig = (): IConfig => {
       'API_CYPHEROCK',
       jsonConfig.API_CYPHEROCK,
     ),
+    RELEASE_NOTES: getReleaseNotes(),
+    OS: os.platform(),
   };
 
   return config;

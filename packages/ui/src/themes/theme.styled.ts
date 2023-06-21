@@ -26,7 +26,7 @@ export const theme = {
     info: {
       main: colors.info.main,
     },
-    warning: {
+    warn: {
       main: colors.warning.main,
     },
     golden: colors.gradients.golden,
@@ -35,12 +35,7 @@ export const theme = {
       main: colors.success.main,
     },
     text: {
-      heading: colors.text.heading,
-      list: colors.text.list,
-      separator: colors.background.separator,
-      muted: colors.text.muted,
-      warning: colors.warning.main,
-      info: colors.info.main,
+      ...colors.text,
     },
     background: {
       progress: colors.background.progressBar,

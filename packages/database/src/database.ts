@@ -137,6 +137,10 @@ export class Database implements IDatabase {
     await this.database.close();
   }
 
+  public async clear() {
+    await this.database.clear();
+  }
+
   private static async createDb(dirPath: string) {
     let dbPath = path.join(dirPath, 'data.db');
 

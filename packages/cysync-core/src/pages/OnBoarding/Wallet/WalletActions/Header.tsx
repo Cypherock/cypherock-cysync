@@ -16,7 +16,7 @@ export const Header: FC<{ title: string; subTitle: string }> = ({
         lg: 1141,
       }}
       $textAlign="center"
-      fontSize={{
+      $fontSize={{
         def: 20,
         lg: 24,
       }}

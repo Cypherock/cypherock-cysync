@@ -15,9 +15,13 @@ const config = {
   asar: true,
   directories: {
     output: 'release/${version}',
-    buildResources: 'public',
+    buildResources: 'build',
   },
   files: ['dist-electron', 'dist'],
+  extraResources: ['extraResources/RELEASE_NOTES.md'],
+  releaseInfo: {
+    releaseNotesFile: './extraResources/RELEASE_NOTES.md',
+  },
   mac: {
     artifactName: getArtifactName(),
     entitlements: 'entitlements.plist',

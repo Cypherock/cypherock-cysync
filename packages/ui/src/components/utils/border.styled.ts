@@ -1,15 +1,23 @@
 import { css } from 'styled-components';
-import { theme } from '../../themes/theme.styled';
 
 export interface BorderProps {
-  border?: 'popup' | 'input' | 'info';
+  border?: 'popup' | 'input' | 'info' | 'top' | 'bottom';
+  $borderSize?: number;
 }
+
+const borderPropertyMap: Record<string, string> = {
+  top: 'border-top',
+  bottom: 'border-bottom',
+};
 
 export const border = css<BorderProps>`
   ${props => {
     if (props.border) {
-      return `border: 1px solid ${theme.palette.border[props.border]};`;
+      return `${borderPropertyMap[props.border]}: ${
+        props.$borderSize ?? 1
+      }px solid ${props.theme.palette.border[props.border]};`;
     }
-    return null;
+
+    return undefined;
   }}
 `;

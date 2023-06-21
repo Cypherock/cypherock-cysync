@@ -69,8 +69,11 @@ const direction = css<FlexProps>`
 `;
 
 const gap = css<FlexProps>`
-  ${props => generateCss(['gap'], (item: number) => `${item}px`, props.gap)}
+  ${props =>
+    props.gap !== undefined &&
+    generateCss(['gap'], (item: number) => `${item}px`, props.gap)}
 `;
+
 const grow = css<FlexProps>`
   ${props =>
     props.grow &&
