@@ -49,8 +49,7 @@
     "rimraf": "^5.0.1",
     "ts-jest": "^29.0.5",
     "tsc-alias": "^1.8.6",
-    "typescript": "^4.9.5",
-    "watch": "^1.0.2"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",

@@ -23,8 +23,8 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   <DialogBox width={500}>
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
-      <Container display="flex" direction="column" gap={4} mb={4}>
-        <Typography variant="h5" $textAlign="center">
+      <Container display="flex" direction="column" gap={4}>
+        <Typography variant="h4" $textAlign="center">
           <LangDisplay text={title} />
         </Typography>
         {subtext && (
@@ -36,7 +36,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       </Container>
     </DialogBoxBody>
     {buttonText && handleClick && (
-      <DialogBoxFooter>
+      <DialogBoxFooter height={101}>
         <Button onClick={handleClick} variant="primary">
           <LangDisplay text={buttonText} />
         </Button>

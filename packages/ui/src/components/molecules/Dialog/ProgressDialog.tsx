@@ -16,20 +16,17 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
   icon,
   handleComplete,
 }) => {
-  const [progress, setProgress] = React.useState(0);
   // eslint-disable-next-line
-  let timeout: NodeJS.Timeout | null = null;
+  const timer = React.useRef<NodeJS.Timeout | null>(null);
+  const [progress, setProgress] = React.useState(0);
+
   useEffect(() => {
-    if (progress < 100) {
-      timeout = setTimeout(() => {
-        setProgress(progress + 1);
-      }, 50);
-    } else if (progress === 100) {
-      handleComplete();
-      if (timeout) clearTimeout(timeout);
-    }
+    timer.current = setTimeout(() => {
+      if (progress < 100) setProgress(progress + 1);
+      else handleComplete();
+    }, 50);
     return () => {
-      if (timeout) clearTimeout(timeout);
+      if (timer.current) clearTimeout(timer.current);
     };
   }, [progress]);
 

@@ -47,11 +47,8 @@ const BackgroundStyle = styled.div`
 const FillerStyle = styled.div<{ progress: number }>`
   height: 102%;
   width: ${({ progress }) => progress}%;
-  top: 0;
-  left: -1px;
-  position: absolute;
   background: ${({ theme }) => theme.palette.golden};
-  border-radius: inherit;
+  border-radius: 50px;
   border-bottom-right-radius: ${({ progress }) =>
     progress === 100 ? 50 : 0}px;
   border-top-right-radius: ${({ progress }) => (progress === 100 ? 50 : 0)}px;

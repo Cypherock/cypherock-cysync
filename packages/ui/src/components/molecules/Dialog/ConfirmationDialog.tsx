@@ -9,7 +9,6 @@ interface ConfirmationDialogProps {
   icon: ReactNode;
   handleClick?: () => void;
 }
-console.log('ConfirmationDialogProps');
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   title,

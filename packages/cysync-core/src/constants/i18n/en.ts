@@ -215,6 +215,9 @@ const en = {
             'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
           subtext: 'Follow the instruction on the device',
         },
+        loading: {
+          text: 'Please wait while we check for X1 Vault updates',
+        },
         updating: {
           heading: 'Updating...',
           subtext: 'Please wait while we update your X1 Vault',
@@ -222,7 +225,7 @@ const en = {
         updateSuccessful: {
           heading: 'X1 Vault updated successfully',
           subtext:
-            'Your X1 Vault is now operating on the latest software version',
+            'Your device is now operating on the latest software version',
         },
         updateFailed: {
           heading: 'Firmware update failed',
