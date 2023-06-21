@@ -17,6 +17,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.getDevices,
   },
   {
+    name: 'resetCySync',
+    key: ipcConfig.methods.resetCySync,
+  },
+  {
     name: 'checkForUpdates',
     key: ipcConfig.methods.checkForUpdates,
   },

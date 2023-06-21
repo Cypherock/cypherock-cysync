@@ -88,6 +88,21 @@ const en = {
     confirm: 'Confirm',
     retry: 'Retry',
     update: 'Update',
+    cancel: 'Cancel',
+    reset: 'Reset',
+  },
+  lockscreen: {
+    title: 'Your Gateway to Self-Sovereignty',
+    passwordLabel: 'Enter Password to unlock cySync',
+    forgotPassword: 'Forgot password?',
+    incorrectPassword: 'Incorrect password',
+    button: 'Unlock',
+    forgotPasswordDialog: {
+      title:
+        'Resetting password will reset your cySync app do you want to proceed?',
+      subtext:
+        'This will erase all your data on your cySync app. Note this will not result in loss of assets',
+    },
   },
   permissionSetup: {
     title:

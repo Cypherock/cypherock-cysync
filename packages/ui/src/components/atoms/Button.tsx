@@ -7,12 +7,18 @@ import {
   FlexProps,
   utils,
   UtilsProps,
+  display,
+  DisplayProps,
+  spacing,
+  SpacingProps,
 } from '../utils';
 
 interface ButtonProps
   extends WidthProps,
+    DisplayProps,
     FlexProps,
     UtilsProps,
+    SpacingProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
   children?: ReactNode;
@@ -77,6 +83,8 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-bottom: ${({ theme }) => theme.spacing.one.spacing};
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  ${spacing}
+  ${display}
   ${buttonBaseStyle}
   ${width}
   ${flex}

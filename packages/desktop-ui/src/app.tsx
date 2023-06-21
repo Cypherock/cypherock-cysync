@@ -16,18 +16,18 @@ const theme = getDefaultTheme();
 const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
-    <LockscreenProvider>
-      <LockscreenBoundary>
-        <StoreProvider store={store}>
+    <StoreProvider store={store}>
+      <LockscreenProvider>
+        <LockscreenBoundary>
           <DeviceProvider
             getDevices={window.electronAPI.getDevices}
             connectDevice={window.electronAPI.connectDevice}
           >
             <AppRouter />
           </DeviceProvider>
-        </StoreProvider>
-      </LockscreenBoundary>
-    </LockscreenProvider>
+        </LockscreenBoundary>
+      </LockscreenProvider>
+    </StoreProvider>
   </ThemeProvider>
 );
 
