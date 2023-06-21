@@ -28,8 +28,8 @@ test('check first screen', async () => {
     name: 'Ensure the following before you continue',
   });
   await expect(header).toHaveText(['Ensure the following before you continue']);
-  const sidePanelFirst = screen.getByText('Welcome to CySync App');
-  await expect(sidePanelFirst).toHaveText(['Welcome to CySync App']);
+  const sidePanelFirst = screen.getByText('Welcome to cySync app');
+  await expect(sidePanelFirst).toHaveText(['Welcome to cySync app']);
   const sidePanelSecond = screen.getByRole('heading', {
     name: 'Your Gateway to Self-Sovereignty',
   });
@@ -43,10 +43,10 @@ test('check first screen', async () => {
     'You are present in a safe and secure environment',
   ]);
   const secondtBullet = screen.getByRole('heading', {
-    name: 'You have atleast 15-30 minutes to setup your wallet',
+    name: 'You have atleast 10-15 minutes to setup your wallet',
   });
   await expect(secondtBullet).toHaveText([
-    'You have atleast 15-30 minutes to setup your wallet',
+    'You have atleast 10-15 minutes to setup your wallet',
   ]);
   const thirdBullet = screen.getByRole('heading', {
     name: 'You have an active internet connection',
@@ -76,8 +76,8 @@ test('check first screen', async () => {
 
 test('check usage screen', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
-  const sidePanelFirst = screen.getByText('Welcome to CySync App');
-  await expect(sidePanelFirst).toHaveText(['Welcome to CySync App']);
+  const sidePanelFirst = screen.getByText('Welcome to cySync app');
+  await expect(sidePanelFirst).toHaveText(['Welcome to cySync app']);
   const sidePanelSecond = screen.getByRole('heading', {
     name: 'Your Gateway to Self-Sovereignty',
   });
