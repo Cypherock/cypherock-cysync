@@ -13,18 +13,28 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const Instructions: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   const theme = useTheme();
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       heading={lang.strings.onboarding.createWallet.followInfo.heading}
       title={lang.strings.onboarding.createWallet.followInfo.title}
       setState={setState}
       image={followInfo}
     >
-      <Flex gap={8} px={5} direction="column">
+      <Flex
+        gap={8}
+        px={5}
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+        direction="column"
+      >
         <Container
           $alignSelf="start"
           align="center"

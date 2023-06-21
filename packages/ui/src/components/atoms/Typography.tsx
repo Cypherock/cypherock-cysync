@@ -31,7 +31,8 @@ interface HeadingProps
     | 'muted'
     | 'info'
     | 'separator'
-    | 'list';
+    | 'list'
+    | string;
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: number;
 }

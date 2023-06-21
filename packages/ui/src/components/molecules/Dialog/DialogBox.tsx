@@ -14,6 +14,8 @@ import {
   display,
   HeightProps,
   height,
+  BgColorProps,
+  $bgColor,
 } from '../../utils';
 
 export interface DialogBoxProps
@@ -23,7 +25,8 @@ export interface DialogBoxProps
     DisplayProps,
     SpacingProps,
     PositionProps,
-    DisplayProps {
+    DisplayProps,
+    BgColorProps {
   children?: ReactNode;
 }
 
@@ -45,6 +48,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${height}
   ${spacing}
   ${position}
+  ${$bgColor}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxProps>`

@@ -8,17 +8,27 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const WalletPinConsent: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       setState={setState}
       heading={lang.strings.onboarding.createWallet.setupPinConsent.heading}
       image={pinDeviceConsent}
       title={lang.strings.onboarding.createWallet.setupPinConsent.title}
     >
-      <Typography px={5} $textAlign="center" color="muted">
+      <Typography
+        px={5}
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+        $textAlign="center"
+        color="muted"
+      >
         <LangDisplay
           text={lang.strings.onboarding.createWallet.setupPinConsent.subTitle}
         />

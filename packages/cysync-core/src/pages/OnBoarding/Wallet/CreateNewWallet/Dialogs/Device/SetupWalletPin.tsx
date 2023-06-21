@@ -13,17 +13,27 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const SetupWalletPin: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       setState={setState}
       heading={lang.strings.onboarding.createWallet.enterPin.heading}
       image={setupPin}
       title={lang.strings.onboarding.createWallet.enterPin.title}
     >
-      <Flex direction="column" gap={{ def: 18, lg: 48 }} px={7}>
+      <Flex
+        direction="column"
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+        gap={{ def: 18, lg: 48 }}
+        px={7}
+      >
         <Container
           $bgColor="input"
           direction="column"

@@ -6,11 +6,13 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const ConfirmWalletName: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       setState={setState}
       heading={lang.strings.onboarding.createWallet.confirmWallet.heading}
       image={confirmWalletName}

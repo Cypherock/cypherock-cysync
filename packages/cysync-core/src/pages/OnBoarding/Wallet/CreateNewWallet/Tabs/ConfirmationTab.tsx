@@ -11,12 +11,28 @@ import {
 export const ConfirmationTab: FC<{
   state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState, state }) => {
-  if (state === 7) return <SuccessMessage setState={setState} />;
-  if (state === 8) return <WalletNote setState={setState} />;
-  if (state === 9) return <CardNote setState={setState} />;
-  if (state === 10) return <CardSafety setState={setState} />;
-  if (state === 11) return <AddAnotherWallet setState={setState} />;
-  if (state === 12) return <AddAccount setState={setState} />;
+  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
+  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
+}> = ({
+  setState,
+  state,
+  setShowCreateWalletDialogBox,
+  setShowWalletActionsDialogBox,
+}) => {
+  if (state === 7) return <SuccessMessage state={state} setState={setState} />;
+  if (state === 8) return <WalletNote state={state} setState={setState} />;
+  if (state === 9) return <CardNote state={state} setState={setState} />;
+  if (state === 10) return <CardSafety state={state} setState={setState} />;
+  if (state === 11)
+    return <AddAnotherWallet state={state} setState={setState} />;
+  if (state === 12)
+    return (
+      <AddAccount
+        state={state}
+        setState={setState}
+        setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+        setShowWalletActionsDialogBox={setShowWalletActionsDialogBox}
+      />
+    );
   return null;
 };

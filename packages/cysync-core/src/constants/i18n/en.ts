@@ -292,6 +292,14 @@ const en = {
           },
         },
       },
+      onClose: {
+        title: 'You can start this guide from the sidebar',
+        subTitle: 'Are you sure you want to exit?',
+        buttons: {
+          cancel: 'Cancel',
+          exit: 'Exit',
+        },
+      },
     },
     success: {
       title: 'Congratulations',

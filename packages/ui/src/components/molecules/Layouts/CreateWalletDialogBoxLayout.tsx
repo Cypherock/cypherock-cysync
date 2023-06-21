@@ -12,6 +12,7 @@ export const CreateWalletDialogBoxLayout: FC<{
   loadingText?: string;
   subTitle?: string;
   footer?: ReactNode;
+  state: number;
 }> = ({
   heading,
   image,
@@ -22,6 +23,7 @@ export const CreateWalletDialogBoxLayout: FC<{
   loadingText,
   subTitle,
   footer,
+  state,
 }) => {
   const onPrevious = () => {
     setState(prevProps => {
@@ -70,14 +72,18 @@ export const CreateWalletDialogBoxLayout: FC<{
               <LangDisplay text={loadingText} />
             </Typography>
           )}
+          {children}
         </Flex>
-        {children}
       </DialogBoxBody>
       <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
         {footer}
         {!footer && (
           <>
-            <ArrowButton direction="left" onClick={onPrevious} />
+            <ArrowButton
+              variant={state === 0 ? 'disabled' : 'enabled'}
+              direction="left"
+              onClick={onPrevious}
+            />
             <ArrowButton direction="right" onClick={onNext} />
           </>
         )}

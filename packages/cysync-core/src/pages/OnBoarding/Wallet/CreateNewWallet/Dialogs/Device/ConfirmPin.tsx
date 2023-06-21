@@ -11,11 +11,13 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const ConfirmPin: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       setState={setState}
       heading={lang.strings.onboarding.createWallet.confirmPin.heading}
       image={confirmPin}
@@ -23,7 +25,15 @@ export const ConfirmPin: FC<{
       loadingText={lang.strings.onboarding.createWallet.confirmPin.loading}
       title={lang.strings.onboarding.createWallet.confirmPin.title}
     >
-      <Flex direction="column" gap={48} px={7}>
+      <Flex
+        direction="column"
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+        gap={48}
+        px={7}
+      >
         <Container
           $bgColor="input"
           direction="column"

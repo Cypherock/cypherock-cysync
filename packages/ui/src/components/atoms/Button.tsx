@@ -6,7 +6,13 @@ interface ButtonProps
   extends WidthProps,
     FlexProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'dashed'
+    | 'warning'
+    | 'none'
+    | 'primary-outlined';
   children?: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -47,6 +53,29 @@ const buttonBaseStyle = css<ButtonProps>`
         border-radius: 6px;
         color: #ffffff;
         font-weight: 500;
+      `;
+    if (props.variant === 'primary-outlined')
+      return css`
+        display: flex;
+        align-items: center;
+        margin: auto;
+        position: relative;
+        box-sizing: border-box;
+        background: ${({ theme }) => theme.palette.background.sideBar};
+        border: solid 0px transparent;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: -1;
+          margin: -1.5px;
+          border-radius: 7px;
+          background: ${({ theme }) => theme.palette.golden};
+        }
       `;
     if (props.variant === 'none')
       return css`

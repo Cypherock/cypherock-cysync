@@ -7,6 +7,8 @@ export const Portfolio: FC<{}> = () => {
     useState(true);
   const [showCreateWalletDialogBox, setShowCreateWalletDialogBox] =
     useState<boolean>(false);
+  const [showOnClose, setShowOnClose] = useState<boolean>(false);
+
   return (
     <Container height="screen" $bgColor="sideBar" display="flex">
       {showWalletActionsDialogBox && (
@@ -22,6 +24,9 @@ export const Portfolio: FC<{}> = () => {
         <BlurOverlay>
           <CreateNewWallet
             setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+            setShowOnClose={setShowOnClose}
+            setShowWalletActionsDialogBox={setShowWalletActionsDialogBox}
+            showOnClose={showOnClose}
           />
         </BlurOverlay>
       )}

@@ -3,8 +3,9 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const WalletNote: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
@@ -14,6 +15,7 @@ export const WalletNote: FC<{
       title={
         lang.strings.onboarding.createWallet.walletCreationSuccess.titles.second
       }
+      state={state}
       setState={setState}
       image={successIcon}
     />

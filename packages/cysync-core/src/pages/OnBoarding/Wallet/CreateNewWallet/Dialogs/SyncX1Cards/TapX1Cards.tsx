@@ -12,18 +12,28 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const TapX1Cards: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
+      state={state}
       heading={lang.strings.onboarding.createWallet.syncX1Cards.heading}
       title={lang.strings.onboarding.createWallet.syncX1Cards.title}
       setState={setState}
       image={syncX1Cards}
       subTitle={lang.strings.onboarding.createWallet.syncX1Cards.subTitle}
     >
-      <Flex gap={8} px={5} direction="column">
+      <Flex
+        gap={8}
+        px={5}
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+        direction="column"
+      >
         {lang.strings.onboarding.createWallet.syncX1Cards.list.map(
           (item, index) => (
             <Container

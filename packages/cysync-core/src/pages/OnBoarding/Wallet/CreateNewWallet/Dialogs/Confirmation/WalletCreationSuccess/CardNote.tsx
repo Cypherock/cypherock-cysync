@@ -9,8 +9,9 @@ import { useTheme } from 'styled-components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const CardNote: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   const theme = useTheme();
   return (
@@ -18,6 +19,7 @@ export const CardNote: FC<{
       heading={
         lang.strings.onboarding.createWallet.walletCreationSuccess.heading
       }
+      state={state}
       setState={setState}
       image={successIcon}
     >

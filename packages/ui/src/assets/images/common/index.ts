@@ -28,6 +28,8 @@ import goldInfo from './gold_info.svg';
 import openExternalLink from './open-external-link.svg';
 import informationIcon from './information.svg';
 import greenTick from './green-tick.svg';
+import redDisconnectedIcon from './red-disconnected.svg';
+import goldFail from './gold_fail.svg';
 
 export {
   addWalletIcon,
@@ -60,4 +62,6 @@ export {
   openExternalLink,
   informationIcon,
   greenTick,
+  redDisconnectedIcon,
+  goldFail,
 };

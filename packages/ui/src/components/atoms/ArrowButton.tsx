@@ -29,6 +29,11 @@ const ArrowButtonStyle = styled.button<ArrowButtonProps>`
       #b78d51 100.19%
     );
   }
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme }) => theme.palette.background.separator};
+    border: 1px solid ${({ theme }) => theme.palette.border.input};
+  }
   ${({ direction }) => direction === 'right' && `rotate: 180deg;`}
 `;
 
@@ -47,7 +52,12 @@ export const ArrowButton: FC<ArrowButtonProps> = ({
   onClick,
   ...props
 }) => (
-  <ArrowButtonStyle direction={direction} onClick={onClick} {...props}>
+  <ArrowButtonStyle
+    disabled={variant === 'disabled' && true}
+    direction={direction}
+    onClick={onClick}
+    {...props}
+  >
     {variant === 'enabled' ? <BlackArrowImage /> : <WhiteArrowImage />}
   </ArrowButtonStyle>
 );

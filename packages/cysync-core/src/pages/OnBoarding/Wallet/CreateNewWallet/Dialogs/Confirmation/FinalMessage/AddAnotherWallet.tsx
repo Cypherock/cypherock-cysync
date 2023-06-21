@@ -11,8 +11,9 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const AddAnotherWallet: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
@@ -23,10 +24,17 @@ export const AddAnotherWallet: FC<{
       title={
         lang.strings.onboarding.createWallet.finalMessage.addAnotherWallet.title
       }
+      state={state}
       setState={setState}
       image={informationIcon}
     >
-      <Flex px={7}>
+      <Flex
+        px={7}
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+      >
         <Container
           $bgColor="input"
           direction="column"

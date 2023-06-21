@@ -9,7 +9,7 @@ const BlurOverlayStyle = styled.div`
   background: rgba(0, 0, 0, 0.03);
   backdrop-filter: blur(3px);
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   left: 0px;
   top: 0px;

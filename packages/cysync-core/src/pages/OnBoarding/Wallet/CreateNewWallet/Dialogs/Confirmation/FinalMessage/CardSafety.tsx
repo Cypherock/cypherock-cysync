@@ -6,13 +6,13 @@ import {
   Typography,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const CardSafety: FC<{
+  state: number;
   setState: Dispatch<SetStateAction<number>>;
-}> = ({ setState }) => {
+}> = ({ state, setState }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <CreateWalletDialogBoxLayout
@@ -20,10 +20,17 @@ export const CardSafety: FC<{
         lang.strings.onboarding.createWallet.finalMessage.cardSafety.heading
       }
       title={lang.strings.onboarding.createWallet.finalMessage.cardSafety.title}
+      state={state}
       setState={setState}
       image={informationIcon}
     >
-      <Flex px={5}>
+      <Flex
+        px={5}
+        pt={{
+          def: 2,
+          lg: 6,
+        }}
+      >
         <Container
           $bgColor="input"
           border="info"

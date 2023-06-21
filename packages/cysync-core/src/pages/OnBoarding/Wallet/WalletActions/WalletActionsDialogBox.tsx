@@ -5,8 +5,8 @@ import {
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  DialogBoxHeader,
   Flex,
+  HelpHeader,
   Image,
   LangDisplay,
   Typography,
@@ -26,13 +26,10 @@ export const WalletActionsDialogBox: FC<{
 
   return (
     <DialogBox py={2} width="full">
-      <DialogBoxHeader>
-        <CloseButton
-          position="absolute"
-          right={25}
-          onClick={() => setShowWalletActionsDialogBox(false)}
-        />
-      </DialogBoxHeader>
+      <Flex width="full" px={3} justify="space-between">
+        <HelpHeader text={lang.strings.help} />
+        <CloseButton onClick={() => setShowWalletActionsDialogBox(false)} />
+      </Flex>
       <DialogBoxBody
         p="20"
         grow={2}
