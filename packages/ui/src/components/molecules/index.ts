@@ -7,5 +7,8 @@ export * from './ConfettiBlast';
 export * from './EmailHeader';
 export * from './HelpHeader';
 export * from './Aside';
+export * from './ProgressBar';
+export * from './AlertBox';
 export * from './FullPageLoader';
 export * from './Clipboard';
+export * from './CopyContainer';
