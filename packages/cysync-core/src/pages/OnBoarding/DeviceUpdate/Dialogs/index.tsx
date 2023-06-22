@@ -6,7 +6,6 @@ import {
   ErrorDialog,
   ProgressDialog,
   SuccessDialog,
-  useTheme,
 } from '@cypherock/cysync-ui';
 import { useNavigateTo } from '~/hooks';
 import { routes } from '~/constants';
@@ -23,7 +22,6 @@ enum DeviceUpdateStates {
 export const DeviceUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [state, setState] = React.useState(DeviceUpdateStates.Confirmation);
-  const theme = useTheme();
   const navigateTo = useNavigateTo();
   const onRetry = () => {
     setState(DeviceUpdateStates.Updating);
@@ -75,7 +73,6 @@ export const DeviceUpdateDialogBox: FC = () => {
         subtext={
           lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
         }
-        icon={<DeviceUpdateIcon color={theme.palette.warn.main} />}
         onRetry={onRetry}
         showRetry
       />
