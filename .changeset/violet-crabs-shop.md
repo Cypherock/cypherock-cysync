@@ -5,4 +5,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-Added device update and firmware update ui for onboarding
+Added device update and app update ui for onboarding

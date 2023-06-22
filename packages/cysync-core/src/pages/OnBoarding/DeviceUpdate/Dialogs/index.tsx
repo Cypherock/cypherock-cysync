@@ -22,7 +22,7 @@ enum DeviceUpdateStates {
 
 export const DeviceUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const [state, setState] = React.useState(DeviceUpdateStates.Loading);
+  const [state, setState] = React.useState(DeviceUpdateStates.Confirmation);
   const theme = useTheme();
   const navigateTo = useNavigateTo();
   const onRetry = () => {
