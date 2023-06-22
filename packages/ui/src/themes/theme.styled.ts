@@ -48,11 +48,13 @@ export const theme = {
       separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
+      bar: colors.background.bar,
     },
 
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      bar: colors.border.bar,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
