@@ -86,6 +86,8 @@ const en = {
   buttons: {
     continue: 'Continue',
     confirm: 'Confirm',
+    retry: 'Retry',
+    update: 'Update',
     cancel: 'Cancel',
     reset: 'Reset',
   },
@@ -111,14 +113,14 @@ const en = {
   onboarding: {
     info: {
       aside: {
-        title: 'Welcome to CySync App',
+        title: 'Welcome to cySync app',
         subTitle: 'Your Gateway to Self-Sovereignty',
       },
       dialogBox: {
         title: 'Ensure the following before you continue',
         listItems: [
           'You are present in a safe and secure environment',
-          'You have atleast 15-30 minutes to setup your wallet',
+          'You have atleast 10-15 minutes to setup your wallet',
           'You have an active internet connection',
           'The tamper-proof seal of the package is intact',
           'Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction',
@@ -134,7 +136,7 @@ const en = {
         'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
     },
     terms: {
-      title: 'Terms of use',
+      title: 'Terms of Use',
       bulletPoints: {
         terms: 'Terms Of Service',
         privacyPolicy: 'Privacy Policy',
@@ -183,6 +185,69 @@ const en = {
       title: 'Congratulations',
       subtext: 'Cypherock X1 is now ready to use',
     },
+    appUpdate: {
+      heading: 'App Update',
+      dialogs: {
+        confirmation: {
+          heading: 'App Update',
+          title:
+            'A new update is available for your cySync app. Update the app to v1.2 to continue',
+          subtext:
+            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
+        },
+        updating: {
+          heading: 'Updating...',
+          subtext: 'Please wait while we update your cySync app',
+        },
+        updateSuccessful: {
+          heading: 'cySync app updated successfully',
+          subtext:
+            'Please wait while we restart the app to apply the latest update',
+          bubbleText:
+            'In case, the app does not restart itself, manually start it again',
+        },
+        updateFailed: {
+          heading: 'cySync update to version #{version} failed',
+          subtext:
+            'Something went wrong, try updating again or contact support',
+          buttons: {
+            retry: 'Retry',
+          },
+        },
+        updateFailedFallback: {
+          heading: 'cySync app update to version #{version} failed',
+          subtext: 'Download and reinstall the desktop app from the link below',
+          alertText: 'Close this app before reinstalling the latest cySync app',
+        },
+      },
+    },
+    deviceUpdate: {
+      heading: 'Device Update',
+      dialogs: {
+        confirmation: {
+          heading: 'Device Update',
+          title:
+            'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
+          subtext: 'Follow the instruction on the device',
+        },
+        loading: {
+          text: 'Please wait while we check for X1 Vault updates',
+        },
+        updating: {
+          heading: 'Updating...',
+          subtext: 'Please wait while we update your X1 Vault',
+        },
+        updateSuccessful: {
+          heading: 'X1 Vault updated successfully',
+          subtext:
+            'Your device is now operating on the latest software version',
+        },
+        updateFailed: {
+          heading: 'Firmware update failed',
+          subtext: 'Reconnect the device to proceed',
+        },
+      },
+    },
   },
   portfolio: {
     topbar: {
@@ -199,7 +264,7 @@ const en = {
   },
   errors: {
     deviceErrors,
-    default: 'Some internal error occured',
+    default: 'Some internal error occurred',
   },
 };
 

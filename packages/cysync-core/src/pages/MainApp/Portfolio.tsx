@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FC, useState } from 'react';
 import { Topbar } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';

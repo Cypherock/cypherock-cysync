@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-import { failIcon } from '../../../assets/images';
-import { Container, Typography, LangDisplay, Button, Image } from '../../atoms';
+import { Button, Container, LangDisplay, Typography } from '../../atoms';
 import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 
 export interface ErrorDialogProps {
   title: string;
+  icon: ReactNode;
   subtext?: string;
   showRetry?: boolean;
   showSupport?: boolean;
@@ -14,6 +14,7 @@ export interface ErrorDialogProps {
 
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
+  icon,
   subtext,
   showRetry,
   showSupport,
@@ -21,7 +22,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
-      <Image src={failIcon} alt="Failure Icon" />
+      {icon}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />
