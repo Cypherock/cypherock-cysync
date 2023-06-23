@@ -20,7 +20,7 @@ interface ButtonProps
     UtilsProps,
     SpacingProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
+  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'text' | 'none';
   children?: ReactNode;
 }
 
@@ -60,6 +60,18 @@ const buttonBaseStyle = css<ButtonProps>`
         border-radius: 6px;
         color: #ffffff;
         font-weight: 500;
+      `;
+    if (props.variant === 'text')
+      return css`
+        background: none;
+        outline: none;
+        border: none;
+        transition: none;
+        padding: 0;
+        &:hover {
+          filter: brightness(150%);
+          cursor: pointer;
+        }
       `;
     if (props.variant === 'none')
       return css`
