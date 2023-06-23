@@ -28,7 +28,7 @@ const ExternalLinkItem: React.FC<{
     px={3}
     py="10"
     $bgColor="input"
-    border="popup"
+    $border={1}
   >
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={16}>

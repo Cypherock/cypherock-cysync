@@ -26,10 +26,20 @@ import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
 import errorIcon from './error.svg';
 import goldLoaderIcon from './loader-gold.svg';
+import redDisconnectedIcon from './red-disconnected.svg';
 import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
-import checkIcon from './check.png';
+import checkIcon from './check.svg';
+import show from './eye.svg';
+import hide from './eye-closed.svg';
+import lock from './lock.svg';
+import lockOpen from './lock-open.svg';
+import noNotifications from './no-notifications.svg';
+import notifications from './notifications.svg';
+import syncronizing from './syncronizing.svg';
+import syncProblem from './sync-problem.svg';
+import connected from './connected.svg';
 
 export {
   addWalletIcon,
@@ -64,4 +74,14 @@ export {
   goldCopyIcon,
   copyIcon,
   checkIcon,
+  redDisconnectedIcon,
+  show,
+  hide,
+  lock,
+  lockOpen,
+  noNotifications,
+  notifications,
+  syncronizing,
+  syncProblem,
+  connected,
 };

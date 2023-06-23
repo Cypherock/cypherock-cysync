@@ -184,6 +184,19 @@ const en = {
       subtext: 'Cypherock X1 is now ready to use',
     },
   },
+  portfolio: {
+    topbar: {
+      title: 'Portfolio',
+      statuses: {
+        syncronized: 'Syncronized',
+        connected: 'Connected',
+        syncronizing: 'Syncronizing...',
+        syncError: 'Sync error!',
+        disconnected: 'Disconnected',
+        connectionError: 'Connection error!',
+      },
+    },
+  },
   errors: {
     deviceErrors,
     default: 'Some internal error occured',

@@ -14,7 +14,7 @@ import {
   flex,
   FlexProps,
 } from '../utils';
-import { border, BorderProps } from '../utils/border.styled';
+import { $border, BorderProps } from '../utils/border.styled';
 
 export type TypographyColor =
   | 'gold'
@@ -83,7 +83,7 @@ const baseStyle = css<HeadingProps>`
     `}
     
   max-width: 100%;
-  ${border};
+  ${$border};
   ${spacing};
   ${font};
   ${width};

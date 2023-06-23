@@ -9,7 +9,7 @@ import { $bgColor, BgColorProps } from './bgColor.styled';
 import { spacing, SpacingProps } from './spacing.styled';
 import { height, HeightProps } from './height.styled';
 import { ShadowProps, shadow } from './shadow.styled';
-import { BorderProps, border } from './border.styled';
+import { $border, BorderProps } from './border.styled';
 import { TransformProps, transform } from './transform.styled';
 import { AnimateProps, animate } from './animate.styled';
 
@@ -30,7 +30,7 @@ export interface UtilsProps
 
 export const utils = css<UtilsProps>`
   ${$bgColor}
-  ${border}
+  ${$border}
   ${borderRadius}
   ${flex}
   ${font}

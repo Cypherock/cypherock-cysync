@@ -47,10 +47,10 @@ export const theme = {
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
     },
-
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      separator: colors.background.separator,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
