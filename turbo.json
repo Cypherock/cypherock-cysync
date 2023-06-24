@@ -18,6 +18,11 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
+    "build:dirty": {
+      "dependsOn": ["^build:dirty"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
+    },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "dist-electron/**"],
@@ -32,10 +37,6 @@
         "vite.config.js",
         "vite.loading.config.js"
       ]
-    },
-    "watch:build": {
-      "cache": false,
-      "persistent": true
     },
     "make": {
       "dependsOn": ["build", "^make"],

@@ -12,9 +12,9 @@
     "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:dirty": "pnpm build:esm",
     "build:esm": "tsc -p tsconfig.json && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg} dist/esm",
     "build:cjs": "tsc -p tsconfig_cjs.json && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg} dist/cjs",
-    "watch:build": "tsc --watch -p tsconfig.json",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
