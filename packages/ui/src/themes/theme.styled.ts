@@ -29,6 +29,9 @@ export const theme = {
     warn: {
       main: colors.warning.main,
     },
+    muted: {
+      main: colors.text.muted,
+    },
     golden: colors.gradients.golden,
     highlight: colors.gradients.highlight,
     success: {
@@ -52,6 +55,7 @@ export const theme = {
       popup: colors.border.popup,
       input: colors.border.input,
       info: colors.info.main,
+      warning: colors.border.warning,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

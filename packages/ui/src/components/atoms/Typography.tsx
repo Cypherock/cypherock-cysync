@@ -25,7 +25,8 @@ export type TypographyColor =
   | 'muted'
   | 'warn'
   | 'list'
-  | 'black';
+  | 'black'
+  | 'info';
 
 interface HeadingProps
   extends SpacingProps,
@@ -136,7 +137,7 @@ const SpanStyle = styled.span<HeadingProps>`
   ${baseStyle};
 `;
 const FinePrintStyle = styled.span<HeadingProps>`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   ${baseStyle};
 `;

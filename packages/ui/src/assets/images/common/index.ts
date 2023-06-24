@@ -12,7 +12,7 @@ import emailIcon from './email-icon.svg';
 import blockSelectedIcon from './Block.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import disconnectedIcon from './disconnected.svg';
-import failIcon from './fail.svg';
+import { FailIcon } from './FailIcon';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -39,6 +39,8 @@ import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import checkIcon from './check.png';
+import shieldAlert from './shield-alert.svg';
+import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 
 export {
   addWalletIcon,
@@ -60,7 +62,7 @@ export {
   successIcon,
   info,
   goldInfo,
-  failIcon,
+  shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
   joystickArrowSelectedIcon,
@@ -79,7 +81,9 @@ export {
   visibilityHideIcon,
   errorIcon,
   usbIcon,
-  goldCopyIcon,
   copyIcon,
   checkIcon,
+  DeviceUpdateIcon,
+  FailIcon,
+  goldCopyIcon,
 };

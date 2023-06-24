@@ -1,10 +1,10 @@
-import { ErrorDialog, SuccessDialog } from '@cypherock/cysync-ui';
+import { ErrorDialog, FailIcon, SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
 
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { ErrorHandlerDialog } from '~/components';
 
 import { DeviceAuthenticating } from './Authenticating';
@@ -22,7 +22,7 @@ export const DeviceAuthDialog: React.FC = () => {
   const task = useDeviceTask(deviceAuth);
 
   useEffect(() => {
-    if (task.result === true) {
+    if (task.result) {
       navigateTo(routes.onboarding.joystickTraining.path, 3000);
     }
   }, [task.result]);
@@ -38,9 +38,10 @@ export const DeviceAuthDialog: React.FC = () => {
         <ErrorDialog
           title={lang.strings.onboarding.deviceAuth.error}
           subtext={lang.strings.onboarding.deviceAuth.errorSubtext}
+          icon={<FailIcon />}
         />
       )}
-      {task.result === true && (
+      {task.result && (
         <SuccessDialog title={lang.strings.onboarding.deviceAuth.success} />
       )}
     </ErrorHandlerDialog>

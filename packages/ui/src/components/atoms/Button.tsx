@@ -5,6 +5,8 @@ import {
   width,
   WidthProps,
   FlexProps,
+  utils,
+  UtilsProps,
   display,
   DisplayProps,
   spacing,
@@ -15,6 +17,7 @@ interface ButtonProps
   extends WidthProps,
     DisplayProps,
     FlexProps,
+    UtilsProps,
     SpacingProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
@@ -59,7 +62,7 @@ const buttonBaseStyle = css<ButtonProps>`
       `;
     if (props.variant === 'warning')
       return css`
-        background: #ff624c;
+        background: ${({ theme }) => theme.palette.warning};
         border: 0.6px solid #ff3518;
         border-radius: 6px;
         color: #ffffff;
@@ -92,7 +95,7 @@ const buttonBaseStyle = css<ButtonProps>`
       return css`
         background: transparent;
         border: none;
-        padding: 0px;
+        padding: 0;
       `;
     return '';
   }}
@@ -115,6 +118,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${buttonBaseStyle}
   ${width}
   ${flex}
+  ${utils}
 `;
 
 export const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => (
