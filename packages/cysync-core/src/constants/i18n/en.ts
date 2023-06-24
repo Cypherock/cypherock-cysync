@@ -113,14 +113,14 @@ const en = {
   onboarding: {
     info: {
       aside: {
-        title: 'Welcome to CySync App',
+        title: 'Welcome to cySync app',
         subTitle: 'Your Gateway to Self-Sovereignty',
       },
       dialogBox: {
         title: 'Ensure the following before you continue',
         listItems: [
           'You are present in a safe and secure environment',
-          'You have atleast 15-30 minutes to setup your wallet',
+          'You have atleast 10-15 minutes to setup your wallet',
           'You have an active internet connection',
           'The tamper-proof seal of the package is intact',
           'Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction',
@@ -136,7 +136,7 @@ const en = {
         'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
     },
     terms: {
-      title: 'Terms of use',
+      title: 'Terms of Use',
       bulletPoints: {
         terms: 'Terms Of Service',
         privacyPolicy: 'Privacy Policy',
