@@ -24,11 +24,11 @@ const ExternalLinkItem: React.FC<{
 }> = ({ text }) => (
   <Container
     width="full"
-    rounded={8}
+    $borderRadius={8}
     px={3}
     py="10"
     $bgColor="input"
-    $border={1}
+    $borderWidth={1}
   >
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={16}>

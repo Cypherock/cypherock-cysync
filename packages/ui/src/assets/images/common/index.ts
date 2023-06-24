@@ -31,8 +31,6 @@ import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import checkIcon from './check.svg';
-import show from './eye.svg';
-import hide from './eye-closed.svg';
 import lock from './lock.svg';
 import lockOpen from './lock-open.svg';
 import noNotifications from './no-notifications.svg';
@@ -77,8 +75,6 @@ export {
   copyIcon,
   checkIcon,
   redDisconnectedIcon,
-  show,
-  hide,
   lock,
   lockOpen,
   noNotifications,

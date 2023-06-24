@@ -54,7 +54,7 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
 
             <Container
               width="full"
-              rounded={8}
+              $borderRadius={8}
               $bgColor="input"
               align="center"
               py={1}

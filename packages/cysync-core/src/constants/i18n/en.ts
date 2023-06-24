@@ -249,18 +249,22 @@ const en = {
       },
     },
   },
-  portfolio: {
-    topbar: {
-      title: 'Portfolio',
-      statuses: {
-        syncronized: 'Syncronized',
+  topbar: {
+    statusTexts: {
+      connection: {
         connected: 'Connected',
-        syncronizing: 'Syncronizing...',
-        syncError: 'Sync error!',
         disconnected: 'Disconnected',
-        connectionError: 'Connection error!',
+        error: 'Connection error!',
+      },
+      sync: {
+        syncronized: 'Syncronized',
+        syncronizing: 'Syncronizing...',
+        error: 'Sync error!',
       },
     },
+  },
+  portfolio: {
+    title: 'Portfolio',
   },
   errors: {
     deviceErrors,

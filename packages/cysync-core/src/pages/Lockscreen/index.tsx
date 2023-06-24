@@ -89,7 +89,7 @@ export const Lockscreen: React.FC = () => {
                 <Typography
                   width="full"
                   pt={3}
-                  $borderT={1}
+                  $borderWidthT={1}
                   color="error"
                   $fontSize={16}
                   mt={2}

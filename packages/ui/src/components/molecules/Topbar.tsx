@@ -1,24 +1,24 @@
 import React, { FC } from 'react';
-import { Container, Flex, Image, LangDisplay, Typography } from '../../atoms';
+import { Container, Flex, Image, LangDisplay, Typography } from '../atoms';
 import {
   checkIcon,
   connected,
-  hide,
+  visibilityHideIcon,
+  visibilityIcon,
   lock,
   lockOpen,
   noNotifications,
   notifications,
   redDisconnectedIcon,
-  show,
   syncProblem,
   syncronizing,
-} from '../../../assets';
+} from '../../assets';
 
-const connectionStatesMap = {
+const connectionStatusMap = {
   connected: {
     src: connected,
   },
-  connectionError: {
+  error: {
     src: redDisconnectedIcon,
   },
   disconnected: {
@@ -26,41 +26,48 @@ const connectionStatesMap = {
   },
 };
 
-const syncStatesMap = {
+const syncStatusMap = {
   syncronized: {
     src: checkIcon,
   },
   syncronizing: {
     src: syncronizing,
   },
-  syncError: {
+  error: {
     src: syncProblem,
   },
 };
 
+export type ISyncStatus = 'syncronized' | 'syncronizing' | 'error';
+export type IConnectionStatus = 'connected' | 'error' | 'disconnected';
+
 export const Topbar: FC<{
   title: string;
-  statuses: {
-    syncronized: string;
-    connected: string;
-    syncronizing: string;
-    syncError: string;
-    disconnected: string;
-    connectionError: string;
+  statusTexts: {
+    connection: {
+      connected: string;
+      error: string;
+      disconnected: string;
+    };
+    sync: {
+      syncronized: string;
+      syncronizing: string;
+      error: string;
+    };
   };
   isVisible: boolean;
   isLock: boolean;
   haveNotifications: boolean;
-  syncState: 'syncronized' | 'syncronizing' | 'syncError';
-  connectionState: 'connected' | 'connectionError' | 'disconnected';
+  syncStatus: ISyncStatus;
+  connectionStatus: IConnectionStatus;
 }> = ({
   title,
-  statuses,
-  connectionState,
+  statusTexts,
+  connectionStatus,
   haveNotifications,
   isLock,
   isVisible,
-  syncState,
+  syncStatus,
 }) => (
   <Container
     p={3}
@@ -72,33 +79,33 @@ export const Topbar: FC<{
       <LangDisplay text={title} />
     </Typography>
     <Flex align="center">
-      <Flex pr={2} $borderR={1} align="center" gap={16}>
-        <Image src={syncStatesMap[syncState].src} alt="syncState" />
+      <Flex pr={2} $borderWidthR={1} align="center" gap={16}>
+        <Image src={syncStatusMap[syncStatus].src} alt="syncState" />
         <Typography color="muted">
-          <LangDisplay text={statuses[syncState]} />
+          <LangDisplay text={statusTexts.sync[syncStatus]} />
         </Typography>
       </Flex>
       <Flex
         px={2}
-        $borderR={1}
-        $borderVariant="separator"
+        $borderWidthR={1}
+        $borderColor="separator"
         align="center"
         gap={16}
       >
         <Image
-          src={connectionStatesMap[connectionState].src}
+          src={connectionStatusMap[connectionStatus].src}
           alt="connectionState"
         />
         <Typography color="muted">
-          <LangDisplay text={statuses[connectionState]} />
+          <LangDisplay text={statusTexts.connection[connectionStatus]} />
         </Typography>
       </Flex>
       <Flex
         px={2}
         py="3"
         height="full"
-        $borderR={1}
-        $borderVariant="separator"
+        $borderWidthR={1}
+        $borderColor="separator"
         align="center"
         gap={16}
       >
@@ -110,12 +117,15 @@ export const Topbar: FC<{
       <Flex
         px={2}
         py="3"
-        $borderR={1}
-        $borderVariant="separator"
+        $borderWidthR={1}
+        $borderColor="separator"
         align="center"
         gap={16}
       >
-        <Image src={isVisible ? show : hide} alt="visiblity" />
+        <Image
+          src={isVisible ? visibilityIcon : visibilityHideIcon}
+          alt="visiblity"
+        />
       </Flex>
       <Flex px={2} py="3" align="center" gap={16}>
         <Image src={isLock ? lock : lockOpen} alt="lock" />

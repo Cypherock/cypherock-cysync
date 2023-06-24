@@ -3,7 +3,7 @@ import { OnboardingRouteName, onboarding } from './onboarding';
 const rootRoutes = {
   permissionSetup: {
     name: 'permission-setup',
-    path: '/permission-setup',
+    path: '/',
   },
   portfolio: {
     name: 'portfolio',
