@@ -3,12 +3,11 @@ import {
   Bullet,
   Container,
   Flex,
-  Image,
   LangDisplay,
   Typography,
-  goldInfo,
   setupPin,
   CreateWalletDialogBoxLayout,
+  InfoIcon,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -59,7 +58,7 @@ export const SetupWalletPin: FC<{
           )}
         </Container>
         <Container $bgColor="input" align="center" rounded={8} gap={18} p={1}>
-          <Image src={goldInfo} alt="info" />
+          <InfoIcon color="yellow" />
           <Typography color="warn">
             <LangDisplay
               text={lang.strings.onboarding.createWallet.enterPin.note}

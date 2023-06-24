@@ -22,8 +22,6 @@ import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
-import info from './info.svg';
-import goldInfo from './gold_info.svg';
 import informationIcon from './information.svg';
 import greenTick from './green-tick.svg';
 import redDisconnectedIcon from './red-disconnected.svg';
@@ -40,6 +38,7 @@ import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import checkIcon from './check.png';
 import shieldAlert from './shield-alert.svg';
+import { InfoIcon } from './InfoIcon';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 
 export {
@@ -60,8 +59,6 @@ export {
   blockSelectedIcon,
   disconnectedIcon,
   successIcon,
-  info,
-  goldInfo,
   shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
@@ -83,6 +80,7 @@ export {
   usbIcon,
   copyIcon,
   checkIcon,
+  InfoIcon,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,

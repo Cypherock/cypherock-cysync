@@ -6,8 +6,7 @@ import {
   Bullet,
   Typography,
   LangDisplay,
-  Image,
-  info,
+  InfoIcon,
   CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -59,7 +58,7 @@ export const EnterWalletName: FC<{
           )}
         </Container>
         <Container $bgColor="input" align="center" rounded={8} gap={18} p={1}>
-          <Image src={info} alt="info" />
+          <InfoIcon width={36} height={36} />
           <Typography>
             <LangDisplay
               text={lang.strings.onboarding.createWallet.enterWalletName.note}

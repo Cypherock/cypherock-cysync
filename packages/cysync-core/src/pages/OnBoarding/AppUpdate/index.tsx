@@ -1,6 +1,6 @@
+import React, { FC } from 'react';
 import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
-import React, { FC } from 'react';
 import { WithConnectedDevice } from '~/components';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 import { AppUpdateDialogBox } from './Dialogs';

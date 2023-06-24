@@ -26,7 +26,8 @@ interface ButtonProps
     | 'dashed'
     | 'warning'
     | 'none'
-    | 'primary-outlined';
+    | 'primary-outlined'
+    | 'text';
   children?: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -91,6 +92,16 @@ const buttonBaseStyle = css<ButtonProps>`
           background: ${({ theme }) => theme.palette.golden};
         }
       `;
+    if (props.variant === 'text')
+      return css`
+        background: none;
+        outline: none;
+        border: none;
+        transition: none;
+        padding: 0;
+        &:hover {
+          filter: brightness(150%);
+          cursor: pointer;`;
     if (props.variant === 'none')
       return css`
         background: transparent;

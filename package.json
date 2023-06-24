@@ -8,12 +8,12 @@
     "email": "support@cypherock.com"
   },
   "scripts": {
-    "start": "pnpm dev:setup && pnpm build && concurrently \"pnpm turbo dev\" \"pnpm turbo watch:build --no-daemon --concurrency=20\" -k",
+    "start": "node scripts/watch/index.js",
     "dev": "turbo dev --no-daemon",
     "make": "turbo make --no-daemon",
     "build": "turbo build --no-daemon",
+    "build:dirty": "turbo build:dirty --no-daemon",
     "dev:setup": "turbo dev:setup --no-daemon",
-    "watch:build": "turbo watch:build --no-daemon",
     "lint": "turbo run lint --no-daemon",
     "pretty": "pnpm pretty:root && turbo run pretty --no-daemon",
     "pretty:root": "prettier --write scripts *.json",
@@ -37,10 +37,13 @@
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
     "@cypherock/prettier-config": "workspace:^",
-    "concurrently": "^8.2.0",
-    "husky": "^8.0.3",
     "semver": "^7.5.2",
-    "turbo": "^1.10.3"
+    "turbo": "^1.10.3",
+    "chalk": "^5.2.0",
+    "husky": "^8.0.3",
+    "lodash": "^4.17.21",
+    "ora": "^6.3.1",
+    "watch": "^1.0.2"
   },
   "engines": {
     "node": ">=18.0.0"

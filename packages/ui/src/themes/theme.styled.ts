@@ -49,6 +49,7 @@ export const theme = {
       separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
+      bar: colors.background.bar,
     },
 
     border: {
@@ -56,6 +57,7 @@ export const theme = {
       input: colors.border.input,
       info: colors.info.main,
       warning: colors.border.warning,
+      bar: colors.border.bar,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
