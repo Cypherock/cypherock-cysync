@@ -73,8 +73,9 @@ git clone git@github.com:Cypherock/cypherock-cysync.git --recurse-submodules
 Once you have cloned the repository, follow these steps -
 
 ```sh
-pnpm i        # Install packages
-pnpm start    # Start desktop application
+pnpm i         # Install packages
+pnpm start     # Start desktop application
+pnpm start -s  # Start desktop application with short log format
 ```
 
 ### Other commands
