@@ -41,10 +41,13 @@ export const colors = {
     blur: 'rgba(29, 25, 23, 0.4)',
     separator: '#39322C',
     separatorSecondary: '#272320',
+    bar: '#3A3937',
   },
   border: {
     popup: '#2C2520',
     input: '#3C3937',
     separator: '#39322C',
+    warning: '#644D2B',
+    bar: '#474747',
   },
 };

@@ -7,8 +7,8 @@
   "scripts": {
     "pretty": "prettier --write \"src/**/*.ts\"",
     "pretty:check": "prettier --check \"src/**/*.ts\"",
-    "build": "rimraf dist && tsc -p tsconfig.json",
-    "watch:build": "tsc --watch -p tsconfig.json",
+    "build": "rimraf dist && pnpm build:dirty",
+    "build:dirty": "tsc -p tsconfig.json",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts src/",
     "pre-commit": "lint-staged",
@@ -44,9 +44,6 @@
     "zod": "^3.21.4"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --ext ts--quiet --fix --",
-      "prettier --write"
-    ]
+    "*.ts": ["eslint --ext ts--quiet --fix --", "prettier --write"]
   }
 }
