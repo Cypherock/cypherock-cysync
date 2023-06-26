@@ -99,7 +99,6 @@ const electronAPI = {
     for (const collectionName of collectionNameList) {
       const collection = db[collectionName];
       if (!collection) {
-        // eslint-disable-next-line no-continue
         continue;
       }
 
