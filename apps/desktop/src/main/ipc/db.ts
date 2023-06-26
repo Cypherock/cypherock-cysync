@@ -1,6 +1,32 @@
+import { IDatabase } from '@cypherock/db-interfaces';
+import { WebContents } from 'electron';
 import { initializeAndGetDb } from '../utils';
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
+
+export const setupDbListeners = async (webContents: WebContents) => {
+  const { db } = await initializeAndGetDb();
+  const collectionNameList: (keyof IDatabase)[] = [
+    'account',
+    'wallet',
+    'transaction',
+    'device',
+    'priceHistory',
+    'priceInfo',
+  ];
+
+  for (const collectionName of collectionNameList) {
+    const collection = db[collectionName] as any;
+
+    if (collection.addListener) {
+      collection.addListener('change', () =>
+        webContents.send(
+          `${ipcConfig.listeners.dbListenerPrefix}:${collectionName}:change`,
+        ),
+      );
+    }
+  }
+};
 
 const dbMethodList = async () =>
   getMethodListFromObject((await initializeAndGetDb()).db, 2);

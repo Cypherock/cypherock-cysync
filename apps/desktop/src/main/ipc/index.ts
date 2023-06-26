@@ -1,7 +1,7 @@
 import { IpcMain, WebContents } from 'electron';
 import { getLoggerIPCHandlers } from './logger';
 import { getDeviceIPCHandlers } from './device';
-import { getDbIPCHandlers } from './db';
+import { getDbIPCHandlers, setupDbListeners } from './db';
 import { getResetIPCHandlers } from './reset';
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
 
@@ -31,4 +31,6 @@ export const setupIPCHandlers = (
       }
     });
   }
+
+  setupDbListeners(webContents);
 };
