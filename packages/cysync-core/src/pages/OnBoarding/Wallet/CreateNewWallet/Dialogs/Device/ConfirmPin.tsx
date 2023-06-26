@@ -39,7 +39,7 @@ export const ConfirmPin: FC<{
           direction="column"
           align="flex-start"
           gap={16}
-          rounded={8}
+          $borderRadius={8}
           px={3}
           py={2}
         >

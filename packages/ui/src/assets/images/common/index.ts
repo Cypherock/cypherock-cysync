@@ -12,7 +12,6 @@ import emailIcon from './email-icon.svg';
 import blockSelectedIcon from './Block.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import disconnectedIcon from './disconnected.svg';
-import { FailIcon } from './FailIcon';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -36,10 +35,20 @@ import goldLoaderIcon from './loader-gold.svg';
 import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
-import checkIcon from './check.png';
+import checkIcon from './check.svg';
+import lock from './lock.svg';
+import lockOpen from './lock-open.svg';
+import noNotifications from './no-notifications.svg';
+import notifications from './notifications.svg';
+import syncronizing from './syncronizing.svg';
+import syncProblem from './sync-problem.svg';
+import connected from './connected.svg';
 import shieldAlert from './shield-alert.svg';
 import { InfoIcon } from './InfoIcon';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
+import { DeviceUpdateFailedIcon } from './DeviceUpdateFailedIcon';
+import { FailIcon } from './FailIcon';
+import { SettingsWrongIcon } from './SettingsWrongIcon';
 
 export {
   addWalletIcon,
@@ -59,6 +68,7 @@ export {
   blockSelectedIcon,
   disconnectedIcon,
   successIcon,
+  FailIcon,
   shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
@@ -81,7 +91,15 @@ export {
   copyIcon,
   checkIcon,
   InfoIcon,
+  lock,
+  lockOpen,
+  noNotifications,
+  notifications,
+  syncronizing,
+  syncProblem,
+  connected,
   DeviceUpdateIcon,
-  FailIcon,
   goldCopyIcon,
+  DeviceUpdateFailedIcon,
+  SettingsWrongIcon,
 };

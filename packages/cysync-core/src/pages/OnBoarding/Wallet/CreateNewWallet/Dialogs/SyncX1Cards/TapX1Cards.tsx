@@ -43,9 +43,9 @@ export const TapX1Cards: FC<{
               gap={17}
               width="full"
               justify="flex-start"
-              rounded={8}
+              $borderRadius={8}
               $bgColor="input"
-              border="input"
+              $borderColor="input"
               p="12"
             >
               <Image src={arrowGoldenForward} alt="arrowGoldenForward" />

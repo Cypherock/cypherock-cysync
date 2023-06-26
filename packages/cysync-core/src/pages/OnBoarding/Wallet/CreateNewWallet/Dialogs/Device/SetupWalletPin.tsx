@@ -38,7 +38,7 @@ export const SetupWalletPin: FC<{
           direction="column"
           align="flex-start"
           gap={{ def: 8, lg: 16 }}
-          rounded={8}
+          $borderRadius={8}
           px={3}
           py={2}
         >
@@ -57,7 +57,13 @@ export const SetupWalletPin: FC<{
             ),
           )}
         </Container>
-        <Container $bgColor="input" align="center" rounded={8} gap={18} p={1}>
+        <Container
+          $bgColor="input"
+          align="center"
+          $borderRadius={8}
+          gap={18}
+          p={1}
+        >
           <InfoIcon color="yellow" />
           <Typography color="warn">
             <LangDisplay

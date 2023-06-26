@@ -1,28 +1,40 @@
 import React, { ReactNode } from 'react';
 
+import {
+  DeviceUpdateFailedIcon,
+  FailIcon,
+  SettingsWrongIcon,
+} from '../../../assets';
 import { Button, Container, LangDisplay, Typography } from '../../atoms';
 import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 
+type IconType = 'device' | 'misconfigured' | 'default';
+
 export interface ErrorDialogProps {
   title: string;
-  icon: ReactNode;
   subtext?: string;
   showRetry?: boolean;
-  showSupport?: boolean;
+  showReport?: boolean;
   onRetry?: () => void;
+  iconType?: IconType;
 }
 
+const iconMap: Record<IconType, ReactNode> = {
+  default: <FailIcon />,
+  device: <DeviceUpdateFailedIcon />,
+  misconfigured: <SettingsWrongIcon />,
+};
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
-  icon,
   subtext,
   showRetry,
-  showSupport,
+  showReport,
   onRetry,
+  iconType,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
-      {icon}
+      {iconMap[iconType ?? 'default']}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} />
@@ -35,7 +47,11 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
       </Container>
     </DialogBoxBody>
     <DialogBoxFooter>
-      {showSupport && <Button variant="primary">Support</Button>}
+      {showReport && (
+        <Button variant="primary" disabled>
+          Report
+        </Button>
+      )}
       {showRetry && (
         <Button variant="primary" onClick={onRetry}>
           Retry
@@ -48,6 +64,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
 ErrorDialog.defaultProps = {
   subtext: undefined,
   showRetry: false,
-  showSupport: false,
+  showReport: false,
   onRetry: undefined,
+  iconType: 'default',
 };

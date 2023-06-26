@@ -47,13 +47,13 @@ const ProgressLine: FC<{
             $bgColor={bgColor(activeTab, 1)}
             width={1}
             height={30.5}
-            rounded="full"
+            $borderRadius="full"
           />
           <Container
             $bgColor={bgColor(activeTab, 1)}
             width={16}
             height={1}
-            rounded="full"
+            $borderRadius="full"
           />
         </Flex>
       </Flex>
@@ -67,13 +67,13 @@ const ProgressLine: FC<{
             $bgColor={bgColor(activeTab, 3)}
             width={1}
             height={30.5}
-            rounded="full"
+            $borderRadius="full"
           />
           <Container
             $bgColor={bgColor(activeTab, 3)}
             width={16}
             height={1}
-            rounded="full"
+            $borderRadius="full"
           />
         </Flex>
       </Flex>
@@ -87,20 +87,20 @@ const ProgressLine: FC<{
             $bgColor={bgColor(activeTab, 2)}
             width={1}
             height={30.5}
-            rounded="full"
+            $borderRadius="full"
           />
           <Container
             $bgColor={bgColor(activeTab, 2)}
             width={1}
             height={30.5}
-            rounded="full"
+            $borderRadius="full"
           />
         </Flex>
         <Container
           $bgColor={bgColor(activeTab, 2)}
           width={16}
           height={1}
-          rounded="full"
+          $borderRadius="full"
         />
       </Flex>
     </Flex>
@@ -134,7 +134,7 @@ export const WalletDialogAside: FC<{
               <Flex align="center" gap={16}>
                 <Container
                   $bgColor="separator"
-                  rounded="full"
+                  $borderRadius="full"
                   width={28}
                   height={28}
                 >

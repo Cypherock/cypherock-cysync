@@ -1,21 +1,115 @@
 import { css } from 'styled-components';
+import { generateCss } from './generateCss';
 
-export interface BorderProps {
-  border?: 'popup' | 'input' | 'info' | 'top' | 'bottom';
-  $borderSize?: number;
+type BorderType<T extends string> =
+  | `${T}B`
+  | `${T}R`
+  | `${T}L`
+  | `${T}T`
+  | `${T}`
+  | `${T}X`
+  | `${T}Y`;
+type Borders = {
+  [key in BorderType<'$borderWidth'>]?: number;
+};
+type BorderColor = 'popup' | 'separator' | 'info' | 'input';
+type BorderRadius = number | 'full';
+type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
+
+export interface BorderProps extends Borders {
+  $borderColor?: BorderColor;
+  $borderRadius?: BorderRadius;
+  $borderStyle?: BorderStyle;
 }
 
-const borderPropertyMap: Record<string, string> = {
-  top: 'border-top',
-  bottom: 'border-bottom',
+const borderPropertyMap: Record<string, string[]> = {
+  L: ['left'],
+  R: ['right'],
+  X: ['left', 'right'],
+  T: ['top'],
+  B: ['bottom'],
+  Y: ['top', 'bottom'],
+};
+
+const getProperties = (key: BorderType<'border'>, prop: string) => {
+  const properties = [];
+  const lastElement = key[key.length - 1];
+  if (Object.keys(borderPropertyMap).indexOf(lastElement) >= 0) {
+    for (const j of borderPropertyMap[lastElement] ?? []) {
+      properties.push(`border-${j}-${prop}`);
+    }
+  } else {
+    properties.push(`border-${prop}`);
+  }
+  return properties;
+};
+
+const hasBorderProperty = (props: any) => {
+  const keys = Object.keys(props);
+  for (const key of keys) {
+    if (key.includes('$border')) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const getBorderCss = (props: any) => {
+  const finalCss: any[] = [];
+  const defaultBorderWidth = `border-width: 0px;`;
+  finalCss.push(defaultBorderWidth);
+
+  const borderCss = {
+    width: 'border-width: 1px;',
+    style: 'border-style: solid;',
+    color: `border-color: ${props.theme.palette.border.popup};`,
+    radius: 'border-radius: 0px;',
+  };
+
+  for (const key in props) {
+    if (Object.prototype.hasOwnProperty.call(props, key)) {
+      if (key.includes('$borderStyle')) {
+        borderCss.style = generateCss(
+          getProperties(key as BorderType<'border'>, 'style'),
+          (item: BorderStyle) => `${item}`,
+          (props as any)[key],
+        );
+      }
+
+      if (key.includes('$borderWidth')) {
+        borderCss.width = generateCss(
+          getProperties(key as BorderType<'border'>, 'width'),
+          (item: number) => `${item}px`,
+          (props as any)[key],
+        );
+      }
+
+      if (key.includes('$borderColor')) {
+        borderCss.color = generateCss(
+          getProperties(key as BorderType<'border'>, 'color'),
+          (item: BorderColor) => `${props.theme.palette.border[item]}`,
+          (props as any)[key],
+        );
+      }
+
+      if (key.includes('$borderRadius')) {
+        borderCss.radius = generateCss(
+          getProperties(key as BorderType<'border'>, 'radius'),
+          (item: BorderRadius) => (item === 'full' ? '9999px' : `${item}px`),
+          (props as any)[key],
+        );
+      }
+    }
+  }
+
+  finalCss.push(...Object.values(borderCss));
+  return finalCss.join(' ');
 };
 
 export const border = css<BorderProps>`
   ${props => {
-    if (props.border) {
-      return `${borderPropertyMap[props.border]}: ${
-        props.$borderSize ?? 1
-      }px solid ${props.theme.palette.border[props.border]};`;
+    if (hasBorderProperty(props)) {
+      return getBorderCss(props);
     }
 
     return undefined;

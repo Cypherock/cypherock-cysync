@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorDialog, FailIcon } from '@cypherock/cysync-ui';
+import { ErrorDialog } from '@cypherock/cysync-ui';
 
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -57,11 +57,10 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   return (
     <ErrorDialog
       showRetry={errorToShow.showRetry}
-      showSupport={errorToShow.showSupport}
+      showReport={errorToShow.showSupport}
       onRetry={onRetry}
       title={title}
       subtext={errorToShow.msg}
-      icon={<FailIcon />}
     />
   );
 };

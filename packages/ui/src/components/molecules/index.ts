@@ -13,4 +13,5 @@ export * from './AlertBox';
 export * from './FullPageLoader';
 export * from './Clipboard';
 export * from './CopyContainer';
+export * from './Topbar';
 export * from './UpdateBar';

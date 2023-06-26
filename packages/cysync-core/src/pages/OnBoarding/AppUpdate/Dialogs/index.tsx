@@ -2,11 +2,10 @@ import React, { FC, ReactElement } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import {
   AppUpdateIcon,
-  ErrorDialog,
-  SuccessDialog,
   ConfirmationDialog,
+  ErrorDialog,
   ProgressDialog,
-  useTheme,
+  SuccessDialog,
 } from '@cypherock/cysync-ui';
 import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
@@ -23,7 +22,6 @@ export const AppUpdateDialogBox: FC = () => {
   const maxTries = 3;
   const [state, setState] = React.useState(AppUpdateStates.Confirmation);
   const [tries, setTries] = React.useState(0);
-  const theme = useTheme();
   const onConfirm = () => {
     setState(AppUpdateStates.Updating);
   };
@@ -76,7 +74,6 @@ export const AppUpdateDialogBox: FC = () => {
       <ErrorDialog
         title={lang.strings.onboarding.appUpdate.dialogs.updateFailed.heading}
         subtext={lang.strings.onboarding.appUpdate.dialogs.updateFailed.subtext}
-        icon={<AppUpdateIcon color={theme.palette.warn.main} />}
         onRetry={onRetry}
         showRetry
       />

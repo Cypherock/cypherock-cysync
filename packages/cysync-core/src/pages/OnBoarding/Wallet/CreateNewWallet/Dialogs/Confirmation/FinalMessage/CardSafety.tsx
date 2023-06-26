@@ -33,9 +33,9 @@ export const CardSafety: FC<{
       >
         <Container
           $bgColor="input"
-          border="info"
+          $borderColor="info"
           align="center"
-          rounded={8}
+          $borderRadius={8}
           p={2}
         >
           <Typography $textAlign="center" color="warn">

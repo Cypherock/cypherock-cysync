@@ -40,7 +40,7 @@ export const AddAnotherWallet: FC<{
           direction="column"
           align="flex-start"
           gap={{ def: 8, lg: 16 }}
-          rounded={8}
+          $borderRadius={8}
           px={3}
           py={2}
         >
