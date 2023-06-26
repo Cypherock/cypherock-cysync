@@ -35,51 +35,45 @@ export const CreateNewWallet: FC<{
           setState={setState}
         />
       )}
-      {!showOnClose && (
-        <>
-          <WalletDialogAside
-            tabs={lang.strings.onboarding.createWallet.aside.tabs}
-            state={state}
-          />
-          <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="space-between">
-              <HelpHeader text={lang.strings.help} />
-              <CloseButton onClick={() => setShowOnClose(true)} />
-            </Container>
-            <DialogBoxBody
-              p="20"
-              grow={2}
-              align="center"
-              gap={110}
-              direction="column"
-              height="full"
-            >
-              <DialogBox width={500}>
-                <DialogBoxBody p="0">
-                  {state <= 5 && (
-                    <DeviceTab state={state} setState={setState} />
-                  )}
-                  {state === 6 && (
-                    <SyncX1CardsTab state={state} setState={setState} />
-                  )}
-                  {state >= 7 && (
-                    <ConfirmationTab
-                      state={state}
-                      setState={setState}
-                      setShowCreateWalletDialogBox={
-                        setShowCreateWalletDialogBox
-                      }
-                      setShowWalletActionsDialogBox={
-                        setShowWalletActionsDialogBox
-                      }
-                    />
-                  )}
-                </DialogBoxBody>
-              </DialogBox>
-            </DialogBoxBody>
-          </WalletDialogMainContainer>
-        </>
-      )}
+      <>
+        <WalletDialogAside
+          tabs={lang.strings.onboarding.createWallet.aside.tabs}
+          state={state}
+        />
+        <WalletDialogMainContainer>
+          <Container width="full" p={2} justify="space-between">
+            <HelpHeader text={lang.strings.help} />
+            <CloseButton onClick={() => setShowOnClose(true)} />
+          </Container>
+          <DialogBoxBody
+            p="20"
+            grow={2}
+            align="center"
+            gap={110}
+            direction="column"
+            height="full"
+          >
+            <DialogBox width={500}>
+              <DialogBoxBody p="0">
+                {state <= 5 && <DeviceTab state={state} setState={setState} />}
+                {state === 6 && (
+                  <SyncX1CardsTab state={state} setState={setState} />
+                )}
+                {state >= 7 && (
+                  <ConfirmationTab
+                    state={state}
+                    setState={setState}
+                    setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+                    setShowWalletActionsDialogBox={
+                      setShowWalletActionsDialogBox
+                    }
+                  />
+                )}
+              </DialogBoxBody>
+            </DialogBox>
+          </DialogBoxBody>
+        </WalletDialogMainContainer>
+      </>
     </DialogBox>
   );
 };

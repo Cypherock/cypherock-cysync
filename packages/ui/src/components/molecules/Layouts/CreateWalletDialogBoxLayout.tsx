@@ -1,6 +1,12 @@
 import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import { styled } from 'styled-components';
 import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
-import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
+import { ArrowButton, Image, LangDisplay, Typography } from '../../atoms';
+
+const InnerContainer = styled.div`
+  max-height: 58vh;
+  overflow-y: auto;
+`;
 
 export const CreateWalletDialogBoxLayout: FC<{
   heading?: string;
@@ -48,15 +54,15 @@ export const CreateWalletDialogBoxLayout: FC<{
           </Typography>
         </DialogBoxHeader>
       )}
-      <DialogBoxBody
-        gap={{
-          def: 12,
-          lg: 32,
-        }}
-        p="0"
-      >
-        <Image src={image} alt="device" />
-        <Flex gap={5} direction="column" align="center">
+      <InnerContainer>
+        <DialogBoxBody
+          gap={{
+            def: 12,
+            lg: 32,
+          }}
+          p="0"
+        >
+          <Image src={image} alt="device" />
           {title && (
             <Typography px={8} $textAlign="center" variant="h5">
               <LangDisplay text={title} />
@@ -73,8 +79,8 @@ export const CreateWalletDialogBoxLayout: FC<{
             </Typography>
           )}
           {children}
-        </Flex>
-      </DialogBoxBody>
+        </DialogBoxBody>
+      </InnerContainer>
       <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
         {footer}
         {!footer && (
@@ -93,11 +99,11 @@ export const CreateWalletDialogBoxLayout: FC<{
 };
 
 CreateWalletDialogBoxLayout.defaultProps = {
-  children: null,
+  children: undefined,
   isLoading: false,
   loadingText: undefined,
   subTitle: undefined,
   title: undefined,
-  footer: null,
+  footer: undefined,
   heading: undefined,
 };

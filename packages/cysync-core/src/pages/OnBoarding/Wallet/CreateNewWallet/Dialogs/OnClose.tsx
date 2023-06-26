@@ -5,9 +5,9 @@ import {
   Typography,
   LangDisplay,
   goldFail,
-  DialogBoxBody,
-  DialogBox,
   BlurOverlay,
+  DialogBox,
+  DialogBoxBody,
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -58,24 +58,22 @@ export const OnClose: FC<{
   const lang = useAppSelector(selectLanguage);
   return (
     <BlurOverlay>
-      <DialogBox $bgColor="contentGradient" py={2} width="full" height="full">
-        <DialogBox width={500}>
-          <DialogBoxBody p="0" pt={2}>
-            <CreateWalletDialogBoxLayout
-              title={lang.strings.onboarding.createWallet.onClose.title}
-              subTitle={lang.strings.onboarding.createWallet.onClose.subTitle}
-              footer={
-                <Buttons
-                  setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
-                  setShowOnClose={setShowOnClose}
-                />
-              }
-              state={state}
-              setState={setState}
-              image={goldFail}
-            />
-          </DialogBoxBody>
-        </DialogBox>
+      <DialogBox width={500}>
+        <DialogBoxBody p="0" pt={2}>
+          <CreateWalletDialogBoxLayout
+            title={lang.strings.onboarding.createWallet.onClose.title}
+            subTitle={lang.strings.onboarding.createWallet.onClose.subTitle}
+            footer={
+              <Buttons
+                setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+                setShowOnClose={setShowOnClose}
+              />
+            }
+            state={state}
+            setState={setState}
+            image={goldFail}
+          />
+        </DialogBoxBody>
       </DialogBox>
     </BlurOverlay>
   );
