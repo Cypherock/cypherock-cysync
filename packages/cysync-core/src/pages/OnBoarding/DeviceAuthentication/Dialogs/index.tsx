@@ -1,4 +1,4 @@
-import { ErrorDialog, FailIcon, SuccessDialog } from '@cypherock/cysync-ui';
+import { ErrorDialog, SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
 
@@ -38,7 +38,9 @@ export const DeviceAuthDialog: React.FC = () => {
         <ErrorDialog
           title={lang.strings.onboarding.deviceAuth.error}
           subtext={lang.strings.onboarding.deviceAuth.errorSubtext}
-          icon={<FailIcon />}
+          showRetry
+          showReport
+          iconType="misconfigured"
         />
       )}
       {task.result && (

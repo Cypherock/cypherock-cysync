@@ -136,7 +136,9 @@ const en = {
         'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
     },
     terms: {
-      title: 'Terms of Use',
+      title: 'Terms of use',
+      subtext:
+        'Take some time to review our Terms of Service and Privacy Policy',
       bulletPoints: {
         terms: 'Terms Of Service',
         privacyPolicy: 'Privacy Policy',
@@ -152,8 +154,10 @@ const en = {
     },
     deviceAuth: {
       heading: 'Device Authentication',
-      subtext:
+      title:
         'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity',
+      subtext:
+        'Do not disconnect your device while the operation is being done',
       success: 'Your X1 Vault is successfully authenticated',
       error: 'Device Authentication has failed',
       errorSubtext:
