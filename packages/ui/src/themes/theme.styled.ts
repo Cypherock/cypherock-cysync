@@ -51,10 +51,10 @@ export const theme = {
       sideBar: colors.gradients.sideBar,
       bar: colors.background.bar,
     },
-
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      separator: colors.background.separator,
       warning: colors.border.warning,
       bar: colors.border.bar,
     },
