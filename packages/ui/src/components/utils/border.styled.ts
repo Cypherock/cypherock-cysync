@@ -44,7 +44,7 @@ const getProperties = (key: BorderType<'border'>, prop: string) => {
   return properties;
 };
 
-const isBorderProperty = (props: any) => {
+const hasBorderProperty = (props: any) => {
   const keys = Object.keys(props);
   for (const key of keys) {
     if (key.includes('$border')) {
@@ -108,7 +108,7 @@ const getBorderCss = (props: any) => {
 
 export const border = css<BorderProps>`
   ${props => {
-    if (isBorderProperty(props)) {
+    if (hasBorderProperty(props)) {
       return getBorderCss(props);
     }
 

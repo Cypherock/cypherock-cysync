@@ -38,8 +38,8 @@ const syncStatusMap = {
   },
 };
 
-export type ISyncStatus = 'syncronized' | 'syncronizing' | 'error';
-export type IConnectionStatus = 'connected' | 'error' | 'disconnected';
+export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
+export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
 export const Topbar: FC<{
   title: string;
@@ -58,8 +58,8 @@ export const Topbar: FC<{
   isVisible: boolean;
   isLock: boolean;
   haveNotifications: boolean;
-  syncStatus: ISyncStatus;
-  connectionStatus: IConnectionStatus;
+  syncStatus: SyncStatusType;
+  connectionStatus: ConnectionStatusType;
 }> = ({
   title,
   statusTexts,

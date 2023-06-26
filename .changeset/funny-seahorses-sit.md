@@ -4,4 +4,4 @@
 '@cypherock/cysync-desktop-ui': minor
 ---
 
-In this topbar of the portfolio page was added and border utility revamped
+added main application topbar ui, refactored border utility
