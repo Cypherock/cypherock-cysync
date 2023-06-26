@@ -42,7 +42,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
     <Container
       $bgColor="input"
       width="full"
-      rounded={8}
+      $borderRadius={8}
       display="flex"
       px={2}
       py={1}

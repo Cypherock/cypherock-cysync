@@ -249,7 +249,23 @@ const en = {
       },
     },
   },
-
+  topbar: {
+    statusTexts: {
+      connection: {
+        connected: 'Connected',
+        disconnected: 'Disconnected',
+        error: 'Connection error!',
+      },
+      sync: {
+        syncronized: 'Syncronized',
+        syncronizing: 'Syncronizing...',
+        error: 'Sync error!',
+      },
+    },
+  },
+  portfolio: {
+    title: 'Portfolio',
+  },
   errors: {
     deviceErrors,
     default: 'Some internal error occurred',

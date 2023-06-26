@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { UtilsProps, utils } from '../utils';
 import { theme } from '../../themes/theme.styled';
 
@@ -20,14 +20,6 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
     min-width: 500px;
     padding: 40px 32px;
   }
-
-  ${props =>
-    props.border &&
-    css`
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${theme.palette.background.separator};
-    `}
 
   ${utils}
 `;
