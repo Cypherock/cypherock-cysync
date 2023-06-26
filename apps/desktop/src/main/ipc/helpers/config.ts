@@ -17,6 +17,7 @@ export const ipcConfig = {
     downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',
     downloadUpdateCompleted: 'autoUpdater:downloadUpdate:completed',
     downloadUpdateError: 'autoUpdater:downloadUpdate:error',
+    dbListenerPrefix: 'db:listener',
   },
   // Environment variables to inject in renderer
   env: [
