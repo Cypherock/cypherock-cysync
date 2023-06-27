@@ -12,11 +12,11 @@ export const onboarding = {
     path: '/onboarding/terms',
   },
   setPassword: {
-    name: 'set-password',
+    name: 'onboarding-set-password',
     path: '/onboarding/password',
   },
   emailAuth: {
-    name: 'email-auth',
+    name: 'onboarding-email-auth',
     path: '/onboarding/email',
   },
   deviceDetection: {

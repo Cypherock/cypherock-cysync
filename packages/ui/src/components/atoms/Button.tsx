@@ -144,7 +144,9 @@ const ButtonStyle = styled.button<ButtonProps>`
 `;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => (
-  <ButtonStyle {...props}>{children}</ButtonStyle>
+  <ButtonStyle type="button" {...props}>
+    {children}
+  </ButtonStyle>
 );
 
 Button.defaultProps = {

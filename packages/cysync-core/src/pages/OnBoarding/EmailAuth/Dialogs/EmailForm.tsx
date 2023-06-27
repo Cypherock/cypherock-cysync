@@ -33,9 +33,9 @@ export const EmailForm: React.FC = () => {
   const tryStoringEmail: React.FormEventHandler<
     HTMLFormElement
   > = async event => {
+    event.preventDefault();
     if (isLoading) return;
 
-    event.preventDefault();
     setIsLoading(true);
 
     const validation = validateEmail(emailAddress, lang);
@@ -104,7 +104,7 @@ export const EmailForm: React.FC = () => {
           <Button variant="secondary" onClick={removeEmail}>
             {lang.strings.buttons.skip}
           </Button>
-          <Button variant="primary" type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} name="email">
             {isLoading ? 'Loading...' : 'Confirm'}
           </Button>
         </DialogBoxFooter>

@@ -24,6 +24,7 @@ import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useNavigateTo } from '~/hooks';
 import { keyValueStore } from '~/utils';
+import { useLockscreen } from '~/context';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
@@ -73,10 +74,10 @@ const TermsDialogBox: FC<{
   isLoading,
   subtext,
 }) => {
+  const { isPasswordSet } = useLockscreen();
   const navigateTo = useNavigateTo();
   const toNextPage = async () => {
-    if (await keyValueStore.passwordHash.get())
-      navigateTo(routes.onboarding.emailAuth.path);
+    if (isPasswordSet) navigateTo(routes.onboarding.emailAuth.path);
     else navigateTo(routes.onboarding.setPassword.path);
   };
   return (

@@ -12,11 +12,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { routes } from '~/constants';
+import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
 import { validatePassword } from '~/utils';
-import { changePassword } from '~/utils/password';
 
 export const PasswordForm: React.FC<{
   passwordSetter: (val: boolean) => void;
@@ -27,13 +27,15 @@ export const PasswordForm: React.FC<{
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const { setPassword: updatePassword } = useLockscreen();
 
   const tryStoringPassword: React.FormEventHandler<
     HTMLFormElement
   > = async event => {
+    event.preventDefault();
+
     if (isLoading) return;
 
-    event.preventDefault();
     setIsLoading(true);
 
     const validation = validatePassword(
@@ -45,10 +47,14 @@ export const PasswordForm: React.FC<{
       setIsLoading(false);
       return;
     }
-    await changePassword(password);
-    passwordSetter(true);
+    const updated = await updatePassword(password);
     setIsLoading(false);
-    navigateTo(routes.onboarding.emailAuth.path);
+    if (updated) {
+      passwordSetter(true);
+      navigateTo(routes.onboarding.emailAuth.path, 3000);
+    } else {
+      setErrorMessage("Couldn't store password");
+    }
   };
 
   return (
