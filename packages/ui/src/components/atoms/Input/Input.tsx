@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { LangDisplay } from '../LangDisplay';
 import { Image } from '../Image';
 import { InputLabel } from './InputLabel';
+import { Flex } from '../Flex';
 
 export interface InputProps {
   type: string;
@@ -59,7 +60,7 @@ export const Input: FC<InputProps> = ({
   postfixIconAlt,
   onPostfixIconClick,
 }) => (
-  <>
+  <Flex direction="column" width="full" align="center" justify="center">
     {label && (
       <InputLabel>
         <LangDisplay text={label} />
@@ -87,7 +88,7 @@ export const Input: FC<InputProps> = ({
         </PostfixIcon>
       )}
     </InputWrapper>
-  </>
+  </Flex>
 );
 
 Input.defaultProps = {

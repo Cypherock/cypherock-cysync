@@ -18,6 +18,7 @@ import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
+import emailIconOutlined from './email.svg';
 import loaderIcon from './loader.png';
 import openExternalLink from './open-external-link.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
@@ -70,6 +71,7 @@ export {
   loaderIcon,
   goldLoaderIcon,
   openExternalLink,
+  emailIconOutlined,
   cysyncLockedLogo,
   visibilityIcon,
   visibilityHideIcon,

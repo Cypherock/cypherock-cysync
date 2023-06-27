@@ -1,4 +1,5 @@
 import {
+  QuestionMarkButton,
   DialogBox,
   DialogBoxBody,
   Image,
@@ -8,8 +9,7 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
-import { selectLanguage, useAppSelector } from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 
 export const DeviceAuthenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -21,17 +21,8 @@ export const DeviceAuthenticating: React.FC = () => {
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.title} />
-            ...(
-            <span
-              style={{
-                background: theme.palette.golden,
-                WebkitTextFillColor: 'transparent',
-                WebkitBackgroundClip: 'text',
-              }}
-            >
-              ?
-            </span>
-            )
+            ...
+            <QuestionMarkButton />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />

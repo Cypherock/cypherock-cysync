@@ -10,8 +10,8 @@ export const Congratulations: React.FC = () => {
   const navigateTo = useNavigateTo();
 
   useEffect(() => {
-    // will be replaced for navigating to main app
-    navigateTo(routes.onboarding.deviceDetection.path, 3800);
+    // delay chosen according to confetti blast animation
+    navigateTo(routes.portfolio.path, 3800);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Container,
   DialogBox,
@@ -15,6 +15,7 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
+import { keyValueStore } from '~/utils';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const UsageDialogBox: FC<{
@@ -31,7 +32,15 @@ const UsageDialogBox: FC<{
   titleSecond,
 }) => {
   const navigateTo = useNavigateTo();
-  const toNextPage = () => navigateTo(routes.onboarding.terms.path);
+  const [isNewUserButtonLoading, setIsNewUserButtonLoading] = useState(false);
+  const [isExistingUserButtonLoading, setIsExistingUserButtonLoading] =
+    useState(false);
+  const toNextPage = async (isNewUser: boolean) => {
+    await keyValueStore.isNewUser.set(isNewUser);
+    setIsExistingUserButtonLoading(false);
+    setIsNewUserButtonLoading(false);
+    navigateTo(routes.onboarding.terms.path);
+  };
   return (
     <Flex
       gap={20}
@@ -79,7 +88,14 @@ const UsageDialogBox: FC<{
           </Flex>
         </DialogBoxBody>
         <DialogBoxFooter>
-          <Button variant="primary" onClick={toNextPage}>
+          <Button
+            variant="primary"
+            disabled={isNewUserButtonLoading}
+            onClick={() => {
+              setIsNewUserButtonLoading(true);
+              toNextPage(true);
+            }}
+          >
             <LangDisplay text={buttonText} />
           </Button>
         </DialogBoxFooter>
@@ -118,7 +134,14 @@ const UsageDialogBox: FC<{
           </Flex>
         </DialogBoxBody>
         <DialogBoxFooter>
-          <Button variant="primary" onClick={toNextPage}>
+          <Button
+            variant="primary"
+            disabled={isExistingUserButtonLoading}
+            onClick={() => {
+              setIsExistingUserButtonLoading(true);
+              toNextPage(false);
+            }}
+          >
             <LangDisplay text={buttonText} />
           </Button>
         </DialogBoxFooter>
@@ -136,7 +159,7 @@ export const Usage: React.FC = () => {
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}
-      withBack
+      backTo={routes.onboarding.info.path}
       withHelp
       currentState={3}
       totalState={8}

@@ -14,6 +14,8 @@ export const colors = {
       'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
     highlight:
       'linear-gradient(269.94deg, #312B26 0.05%, rgba(26, 22, 18, 0) 51.82%)',
+    silver:
+      'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
   },
   info: {
     main: '#F1AE4A',
@@ -23,6 +25,10 @@ export const colors = {
   },
   success: {
     main: '#51C61A',
+  },
+  disabled: {
+    background: '#332E29',
+    text: '#433C35',
   },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',

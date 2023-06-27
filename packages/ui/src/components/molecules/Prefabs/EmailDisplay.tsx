@@ -1,12 +1,12 @@
 import React from 'react';
-import { Flex, Typography, Image } from '../atoms';
-import { emailIcon } from '../../assets/images';
+import { Flex, Typography, Image } from '../../atoms';
+import { emailIcon } from '../../../assets/images';
 
-export interface EmailHeaderProps {
+export interface EmailDisplayProps {
   email: string;
 }
 
-export const EmailHeader: React.FC<EmailHeaderProps> = ({ email }) => (
+export const EmailDisplay: React.FC<EmailDisplayProps> = ({ email }) => (
   <Flex gap={16} $bgColor="highlight" $borderRadius={10} pr={1}>
     <Image src={emailIcon} width={24} alt="Email Icon" />
     <Typography color="muted" $fontSize={14}>

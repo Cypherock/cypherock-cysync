@@ -3,6 +3,7 @@ import {
   IGetDeviceInfoResultResponse,
   IGetWalletsResultResponse,
   ManagerApp,
+  OnboardingStep,
 } from '@cypherock/sdk-app-manager';
 import {
   DeviceState,
@@ -50,6 +51,7 @@ export const getDeviceState = (
     isMain: deviceState === DeviceState.MAIN,
     isInitial: deviceState === DeviceState.INITIAL,
     isBootloader: deviceState === DeviceState.BOOTLOADER,
+    onboardingStep: info?.onboardingStep ?? OnboardingStep.UNRECOGNIZED,
   };
 };
 
