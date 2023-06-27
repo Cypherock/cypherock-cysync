@@ -29,6 +29,9 @@ export const theme = {
     warn: {
       main: colors.warning.main,
     },
+    muted: {
+      main: colors.text.muted,
+    },
     golden: colors.gradients.golden,
     silver: colors.gradients.silver,
     highlight: colors.gradients.highlight,
@@ -49,11 +52,14 @@ export const theme = {
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
+      bar: colors.background.bar,
     },
-
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      separator: colors.background.separator,
+      warning: colors.border.warning,
+      bar: colors.border.bar,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

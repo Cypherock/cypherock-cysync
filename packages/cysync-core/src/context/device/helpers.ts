@@ -1,6 +1,7 @@
 import { ConnectDevice } from '@cypherock/cysync-interfaces';
 import {
   IGetDeviceInfoResultResponse,
+  IGetWalletsResultResponse,
   ManagerApp,
   OnboardingStep,
 } from '@cypherock/sdk-app-manager';
@@ -10,6 +11,7 @@ import {
   IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
+
 import {
   DeviceConnectionStatus,
   IDeviceConnectionInfo,
@@ -19,6 +21,10 @@ import {
 
 export const DEVICE_LISTENER_INTERVAL = 1000;
 export const MAX_CONNECTION_RETRY = 3;
+
+export interface IConnectedDeviceInfo
+  extends IGetDeviceInfoResultResponse,
+    IGetWalletsResultResponse {}
 
 export const checkIfSameDevice = (a: IDevice, b: IDevice) =>
   a.path === b.path &&
@@ -52,7 +58,7 @@ export const getDeviceState = (
 export const createDeviceConnectionInfo = (
   device: IDevice,
   state: DeviceConnectionStatus,
-  info?: IGetDeviceInfoResultResponse,
+  info?: IConnectedDeviceInfo,
 ): IDeviceConnectionInfo => ({
   device,
   status: state,
@@ -60,6 +66,7 @@ export const createDeviceConnectionInfo = (
     ? `${info.firmwareVersion.major}.${info.firmwareVersion.minor}.${info.firmwareVersion.patch}`
     : undefined,
   serial: info?.deviceSerial ? uint8ArrayToHex(info.deviceSerial) : undefined,
+  walletList: info?.walletList,
   ...getDeviceState(device, info),
 });
 
@@ -95,17 +102,23 @@ export const parseNewDevices = (
 export const tryEstablishingDeviceConnection = async (
   connectDevice: ConnectDevice,
   device: IDevice,
-): Promise<IGetDeviceInfoResultResponse | undefined> => {
+): Promise<IConnectedDeviceInfo | undefined> => {
   let connection: IDeviceConnection | undefined;
 
   try {
-    let info: IGetDeviceInfoResultResponse | undefined;
+    let info: IConnectedDeviceInfo | undefined;
 
     if (device.deviceState !== DeviceState.BOOTLOADER) {
       connection = await connectDevice(device);
       const app = await ManagerApp.create(connection);
-      info = await app.getDeviceInfo();
-      connection.destroy();
+      info = { ...(await app.getDeviceInfo()), walletList: [] };
+
+      if (device.deviceState !== DeviceState.INITIAL) {
+        const { walletList } = await app.getWallets();
+        info.walletList = walletList;
+      }
+
+      await connection.destroy();
     }
 
     return info;

@@ -67,24 +67,20 @@ export const PasswordForm: React.FC<{
             </Typography>
           </Flex>
           <Flex direction="column" gap={16} width="full">
-            <Flex direction="column" gap={8}>
-              <PasswordInput
-                name="password"
-                label={lang.strings.onboarding.setPassword.newPasswordLabel}
-                value={password}
-                onChange={setPassword}
-              />
-            </Flex>
-            <Flex direction="column" gap={8}>
-              <PasswordInput
-                name="confirm password"
-                label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
-                value={confirmPassword}
-                onChange={setConfirmPassword}
-              />
-            </Flex>
+            <PasswordInput
+              name="password"
+              label={lang.strings.onboarding.setPassword.newPasswordLabel}
+              value={password}
+              onChange={setPassword}
+            />
+            <PasswordInput
+              name="confirm password"
+              label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
+              value={confirmPassword}
+              onChange={setConfirmPassword}
+            />
             {errorMessage.length > 0 && (
-              <Container display="block" border="top" py={3}>
+              <Container display="block" $borderWidthT={1} py={3}>
                 <Typography
                   key={errorMessage}
                   variant="h6"

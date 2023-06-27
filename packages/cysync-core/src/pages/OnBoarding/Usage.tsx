@@ -74,7 +74,7 @@ const UsageDialogBox: FC<{
             </Typography>
             <Container
               height="full"
-              rounded={8}
+              $borderRadius={8}
               display={{ def: 'none', lg: 'block' }}
               $bgColor="input"
               px={2}
@@ -120,7 +120,7 @@ const UsageDialogBox: FC<{
             </Typography>
             <Container
               height="full"
-              rounded={8}
+              $borderRadius={8}
               $bgColor="input"
               align="flex-start"
               display={{ def: 'none', lg: 'block' }}

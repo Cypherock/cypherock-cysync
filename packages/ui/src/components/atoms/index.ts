@@ -10,3 +10,4 @@ export * from './AsideContainer';
 export * from './LangDisplay';
 export * from './List';
 export * from './Checkbox';
+export * from './Input';

@@ -1,4 +1,7 @@
-import { OnboardingStep } from '@cypherock/sdk-app-manager';
+import {
+  IGetWalletsResultResponse,
+  OnboardingStep,
+} from '@cypherock/sdk-app-manager';
 import { DeviceState, IDevice } from '@cypherock/sdk-interfaces';
 
 export enum DeviceConnectionStatus {
@@ -18,6 +21,7 @@ export interface IDeviceConnectionInfo {
   isBootloader: boolean;
   status: DeviceConnectionStatus;
   onboardingStep: OnboardingStep;
+  walletList?: IGetWalletsResultResponse['walletList'];
 }
 
 export interface IDeviceConnectionRetry {

@@ -4,11 +4,12 @@ import { Button } from '../Button';
 import { LangDisplay } from '../LangDisplay';
 import { Image } from '../Image';
 import { InputLabel } from './InputLabel';
+import { Flex } from '../Flex';
 
 export interface InputProps {
   type: string;
-  name: string;
   placeholder?: string;
+  name: string;
   label?: string;
   onChange?: (val: string) => void;
   value?: string;
@@ -59,7 +60,7 @@ export const Input: FC<InputProps> = ({
   postfixIconAlt,
   onPostfixIconClick,
 }) => (
-  <>
+  <Flex direction="column" width="full" align="center" justify="center">
     {label && (
       <InputLabel>
         <LangDisplay text={label} />
@@ -87,13 +88,13 @@ export const Input: FC<InputProps> = ({
         </PostfixIcon>
       )}
     </InputWrapper>
-  </>
+  </Flex>
 );
 
 Input.defaultProps = {
   label: undefined,
-  onChange: undefined,
   placeholder: undefined,
+  onChange: undefined,
   value: undefined,
   disabled: false,
   postfixIcon: undefined,

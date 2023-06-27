@@ -14,6 +14,7 @@ import {
   flex,
   FlexProps,
 } from '../utils';
+import { border, BorderProps } from '../utils/border.styled';
 
 export type TypographyColor =
   | 'gold'
@@ -23,6 +24,7 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
+  | 'info'
   | 'list';
 
 interface HeadingProps
@@ -30,6 +32,7 @@ interface HeadingProps
     FontProps,
     WidthProps,
     PositionProps,
+    BorderProps,
     DisplayProps,
     FlexProps {
   color?: TypographyColor;
@@ -80,6 +83,8 @@ const baseStyle = css<HeadingProps>`
       letter-spacing: ${props.$letterSpacing}em;
     `}
     
+  max-width: 100%;
+  ${border};
   ${spacing};
   ${font};
   ${width};
@@ -130,7 +135,7 @@ const SpanStyle = styled.span<HeadingProps>`
   ${baseStyle};
 `;
 const FinePrintStyle = styled.span<HeadingProps>`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   ${baseStyle};
 `;

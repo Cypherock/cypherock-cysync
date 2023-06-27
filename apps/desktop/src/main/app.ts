@@ -12,7 +12,7 @@ import {
   setupProcessEventHandlers,
   windowUrls,
 } from './utils';
-import { setupAutoUpdate } from './utils/autoUpdater';
+import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
 const shouldStartApp = () => {
@@ -42,8 +42,6 @@ const prepareApp = () => {
 
 const setupIntitialState = async () => {
   await initializeAndGetDb();
-  setupIPCHandlers(ipcMain);
-  setupAutoUpdate();
 };
 
 export default function createApp() {
@@ -61,6 +59,8 @@ export default function createApp() {
   const createMainWindow = async () => {
     logger.debug('Starting main window');
     mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    setupIPCHandlers(ipcMain, mainWindow.webContents);
+    autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
 
     mainWindow.once('ready-to-show', () => {

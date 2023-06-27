@@ -9,3 +9,5 @@ export * from './Usage';
 export * from './Terms';
 export * from './SetPassword';
 export * from './EmailAuth';
+export * from './AppUpdate';
+export * from './DeviceUpdate';

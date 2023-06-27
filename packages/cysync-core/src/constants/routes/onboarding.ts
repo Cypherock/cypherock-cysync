@@ -1,7 +1,7 @@
 export const onboarding = {
   info: {
     name: 'onboarding-info',
-    path: '/onboarding/info',
+    path: '/onboarding-info',
   },
   usage: {
     name: 'onboarding-usage',
@@ -42,6 +42,14 @@ export const onboarding = {
   congratulations: {
     name: 'onboarding-congratulations',
     path: '/onboarding/congo',
+  },
+  appUpdate: {
+    name: 'onboarding-app-update',
+    path: '/onboarding/app-update',
+  },
+  deviceUpdate: {
+    name: 'onboarding-device-update',
+    path: '/onboarding/device-update',
   },
 } as const;
 

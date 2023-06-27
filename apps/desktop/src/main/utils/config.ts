@@ -1,6 +1,10 @@
+import fs from 'fs';
+import path from 'path';
 import os from 'os';
 import { app } from 'electron';
 import jsonConfig from '../../config';
+
+const RELEASE_NOTES_FILENAME = 'RELEASE_NOTES.md';
 
 export interface IConfig {
   BUILD_TYPE: string;
@@ -15,8 +19,35 @@ export interface IConfig {
   VERSION: string;
   LOG_LEVEL: string;
   API_CYPHEROCK: string;
+  RELEASE_NOTES: string;
   OS: 'win32' | 'darwin' | 'linux' | string;
 }
+
+const getResourcesPath = () => {
+  if (app && app.isPackaged) {
+    return path.join(process.resourcesPath);
+  }
+
+  if (process.env.NODE_ENV === 'test') {
+    return path.join(__dirname, '..', '..', '..');
+  }
+
+  return path.join(__dirname, '..', '..');
+};
+
+const getReleaseNotes = () => {
+  const filePath = path.join(
+    getResourcesPath(),
+    'extraResources',
+    RELEASE_NOTES_FILENAME,
+  );
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Release notes does not exist in file: ${filePath}.`);
+  }
+
+  return fs.readFileSync(filePath, 'utf8');
+};
 
 const configValidators = {
   API_CYPHEROCK: (val?: string) => val?.startsWith('http') ?? false,
@@ -117,6 +148,7 @@ const getConfig = (): IConfig => {
       'API_CYPHEROCK',
       jsonConfig.API_CYPHEROCK,
     ),
+    RELEASE_NOTES: getReleaseNotes(),
     OS: os.platform(),
   };
 

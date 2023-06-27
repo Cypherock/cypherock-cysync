@@ -77,19 +77,17 @@ export const EmailForm: React.FC = () => {
           </Flex>
 
           <Flex direction="column" gap={16} width="full">
-            <Flex gap={8} direction="column">
-              <Input
-                type="text"
-                name="email"
-                label={lang.strings.onboarding.emailAuth.enterEmailLabel}
-                value={emailAddress}
-                onChange={setEmailAddress}
-                placeholder={lang.strings.onboarding.emailAuth.placeholder}
-              />
-            </Flex>
+            <Input
+              type="text"
+              name="email"
+              label={lang.strings.onboarding.emailAuth.enterEmailLabel}
+              value={emailAddress}
+              onChange={setEmailAddress}
+              placeholder={lang.strings.onboarding.emailAuth.placeholder}
+            />
 
             {errorMessage && (
-              <Container display="block" border="top" py={3}>
+              <Container display="block" $borderWidthT={1} py={3}>
                 <Typography
                   variant="h6"
                   color="error"

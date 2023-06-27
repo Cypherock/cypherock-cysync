@@ -11,9 +11,12 @@ import {
   routes,
   Terms,
   SetPassword,
+  AppUpdate,
+  DeviceUpdate,
   IRoute,
   RouteName,
   PermissionSetup,
+  Portfolio,
 } from '@cypherock/cysync-core';
 import React, { ReactNode, memo } from 'react';
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
@@ -31,7 +34,9 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-card-training': <CardTraining />,
   'onboarding-card-authentication': <CardAuthentication />,
   'onboarding-congratulations': <Congratulations />,
-  portfolio: <div>portfolio</div>,
+  'onboarding-app-update': <AppUpdate />,
+  'onboarding-device-update': <DeviceUpdate />,
+  portfolio: <Portfolio />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
