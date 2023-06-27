@@ -16,7 +16,7 @@ export const DeviceUpdate = () => {
       totalState={8}
       withHelp
     >
-      <WithConnectedDevice>
+      <WithConnectedDevice onInitial>
         <DeviceUpdateDialogBox />
       </WithConnectedDevice>
     </OnboardingPageLayout>

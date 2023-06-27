@@ -8,23 +8,41 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { DeviceConnectionStatus, useDevice } from '~/context';
+import {
+  DeviceConnectionStatus,
+  IDeviceConnectionInfo,
+  useDevice,
+} from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
 
 export interface WithConnectedDeviceProps {
   children: React.ReactNode;
+  onInitial?: boolean;
 }
+
+const isValidConnectedDevice = (
+  connection: IDeviceConnectionInfo | undefined,
+  props: Omit<WithConnectedDeviceProps, 'children'>,
+) => {
+  if (!connection) return false;
+
+  if (connection.status !== DeviceConnectionStatus.CONNECTED) return false;
+
+  if (props.onInitial && connection.isInitial) {
+    return true;
+  }
+
+  return false;
+};
 
 export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   children,
+  ...props
 }) => {
   const lang = useAppSelector(selectLanguage);
   const { connection } = useDevice();
 
-  if (
-    connection?.status === DeviceConnectionStatus.CONNECTED &&
-    connection.isInitial
-  ) {
+  if (isValidConnectedDevice(connection, props)) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
@@ -39,4 +57,8 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
       </DialogBoxBody>
     </DialogBox>
   );
+};
+
+WithConnectedDevice.defaultProps = {
+  onInitial: false,
 };

@@ -78,6 +78,7 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceAppErrorType.NO_WALLET_EXISTS]: 'No wallet exists on the device',
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
   [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
+  [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
 };
 
 const en = {

@@ -19,7 +19,7 @@ export const JoystickTraining: React.FC = () => {
       withEmail
       withHelp
     >
-      <WithConnectedDevice>
+      <WithConnectedDevice onInitial>
         <JoystickTrainingDialog />
       </WithConnectedDevice>
     </OnboardingPageLayout>
