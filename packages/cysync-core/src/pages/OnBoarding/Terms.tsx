@@ -1,18 +1,18 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
+  Bullet,
+  Button,
+  CheckBox,
   Container,
   DialogBox,
   DialogBoxBody,
-  Flex,
-  Typography,
-  Bullet,
-  openExternalLink,
-  Image,
   DialogBoxFooter,
-  Button,
+  Flex,
+  Image,
   LangDisplay,
-  CheckBox,
   LogoOutlinedAsideImage,
+  openExternalLink,
+  Typography,
 } from '@cypherock/cysync-ui';
 import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -24,11 +24,11 @@ const ExternalLinkItem: React.FC<{
 }> = ({ text }) => (
   <Container
     width="full"
-    rounded={8}
+    $borderRadius={8}
     px={3}
     py="10"
     $bgColor="input"
-    border="popup"
+    $borderWidth={1}
   >
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={16}>
@@ -48,6 +48,7 @@ const TermsDialogBox: FC<{
   isChecked: boolean;
   setIsChecked: Dispatch<SetStateAction<boolean>>;
   title: string;
+  subtext: string;
   bulletPoints: {
     terms: string;
     privacyPolicy: string;
@@ -61,32 +62,31 @@ const TermsDialogBox: FC<{
   isChecked,
   setIsChecked,
   title,
+  subtext,
 }) => {
   const navigateTo = useNavigateTo();
   const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
   return (
     <DialogBox width={500} direction="column">
       <DialogBoxBody gap={32} direction="column" align="center">
-        <Typography $textAlign="center" variant="h5" color="heading" mb={6}>
-          <LangDisplay text={title} />
-        </Typography>
+        <Container display="flex" direction="column" gap={4}>
+          <Typography $textAlign="center" variant="h5" color="heading">
+            <LangDisplay text={title} />
+          </Typography>
+          <Typography variant="p" $textAlign="center" color="muted" mb={2}>
+            <LangDisplay text={subtext} />
+          </Typography>
+        </Container>
         <Flex width="full" direction="column" gap={16}>
           <ExternalLinkItem text={bulletPoints.terms} />
           <ExternalLinkItem text={bulletPoints.privacyPolicy} />
         </Flex>
-        <Flex align="center">
-          <CheckBox
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-            id="terms_accepted"
-          />
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="terms_accepted">
-            <Typography fontSize={14} color="muted" $textAlign="left" ml={2}>
-              <LangDisplay text={consent} />
-            </Typography>
-          </label>
-        </Flex>
+        <CheckBox
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+          id="terms_accepted"
+          label={consent}
+        />
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
@@ -120,6 +120,7 @@ export const Terms: FC = () => {
         bulletPoints={lang.strings.onboarding.terms.bulletPoints}
         consent={lang.strings.onboarding.terms.consent}
         title={lang.strings.onboarding.terms.title}
+        subtext={lang.strings.onboarding.terms.subtext}
         buttonText={lang.strings.buttons.confirm}
       />
     </OnboardingPageLayout>

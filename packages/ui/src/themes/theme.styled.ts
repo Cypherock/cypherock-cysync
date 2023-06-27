@@ -26,8 +26,11 @@ export const theme = {
     info: {
       main: colors.info.main,
     },
-    warning: {
+    warn: {
       main: colors.warning.main,
+    },
+    muted: {
+      main: colors.text.muted,
     },
     golden: colors.gradients.golden,
     highlight: colors.gradients.highlight,
@@ -35,9 +38,7 @@ export const theme = {
       main: colors.success.main,
     },
     text: {
-      heading: colors.text.heading,
-      list: colors.text.list,
-      muted: colors.text.muted,
+      ...colors.text,
     },
     background: {
       progress: colors.background.progressBar,
@@ -48,11 +49,14 @@ export const theme = {
       separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
+      bar: colors.background.bar,
     },
-
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      separator: colors.background.separator,
+      warning: colors.border.warning,
+      bar: colors.border.bar,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

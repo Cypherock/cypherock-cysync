@@ -29,7 +29,11 @@ export const Circle = styled.div`
 export const Text: React.FC<{ text: string } & DirectionProps> = props => {
   const { text, state = 'unselected' } = props;
   return (
-    <Typography variant="h6" font="medium" color={textColorMap[state] as any}>
+    <Typography
+      variant="h6"
+      $fontWeight="medium"
+      color={textColorMap[state] as any}
+    >
       {text}
     </Typography>
   );
@@ -48,8 +52,14 @@ export const JoystickArrow: React.FC<JoystickArrowProps> = props => {
 };
 
 export const Ring: React.FC<UtilsProps> = ({ children, ...props }) => (
-  <Container height={120} width={120} $bgColor="golden" rounded={60} {...props}>
-    <Container height={116} width={116} $bgColor="primary" rounded={58}>
+  <Container
+    height={120}
+    width={120}
+    $bgColor="golden"
+    $borderRadius={60}
+    {...props}
+  >
+    <Container height={116} width={116} $bgColor="primary" $borderRadius={58}>
       {children}
     </Container>
   </Container>

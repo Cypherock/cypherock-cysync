@@ -57,7 +57,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   return (
     <ErrorDialog
       showRetry={errorToShow.showRetry}
-      showSupport={errorToShow.showSupport}
+      showReport={errorToShow.showSupport}
       onRetry={onRetry}
       title={title}
       subtext={errorToShow.msg}

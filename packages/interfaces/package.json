@@ -11,8 +11,10 @@
     "lint:check": "eslint \"src/**/*.{ts,tsx}\"",
     "pretty": "prettier --write \"src/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
-    "build": "rimraf dist && tsc -p tsconfig.json && tsc -p tsconfig_cjs.json",
-    "watch:build": "tsc --watch -p tsconfig.json",
+    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig_cjs.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:dirty": "pnpm build:esm",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -21,7 +23,7 @@
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
     "@types/node": "18.15.11",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",

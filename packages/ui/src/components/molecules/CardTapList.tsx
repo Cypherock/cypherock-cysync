@@ -42,13 +42,13 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
     <Container
       $bgColor="input"
       width="full"
-      rounded={8}
+      $borderRadius={8}
       display="flex"
       px={2}
       py={1}
       gap={16}
     >
-      <Typography variant="h6" color="muted" font="medium" grow={1}>
+      <Typography variant="h6" color="muted" $fontWeight="medium" grow={1}>
         <LangDisplay text={text} />
       </Typography>
 

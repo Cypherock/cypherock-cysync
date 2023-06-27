@@ -1,16 +1,21 @@
 import React, { FC, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { utils, UtilsProps } from '../utils';
 
 interface ContainerProps extends UtilsProps {
   children?: ReactNode;
   size?: 'lg';
+  $noFlex?: boolean;
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${props =>
+    !props.$noFlex &&
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `}
   ${utils}
 `;
 
@@ -21,4 +26,5 @@ export const Container: FC<ContainerProps> = ({ children, ...props }) => (
 Container.defaultProps = {
   children: null,
   size: 'lg',
+  $noFlex: false,
 };

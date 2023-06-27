@@ -1,12 +1,26 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { flex, width, WidthProps, FlexProps } from '../utils';
+import {
+  flex,
+  width,
+  WidthProps,
+  FlexProps,
+  utils,
+  UtilsProps,
+  display,
+  DisplayProps,
+  spacing,
+  SpacingProps,
+} from '../utils';
 
 interface ButtonProps
   extends WidthProps,
+    DisplayProps,
     FlexProps,
+    UtilsProps,
+    SpacingProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'none';
+  variant?: 'primary' | 'secondary' | 'dashed' | 'warning' | 'text' | 'none';
   children?: ReactNode;
 }
 
@@ -18,7 +32,7 @@ const buttonBaseStyle = css<ButtonProps>`
         border: none;
         font-size: 14px;
         font-weight: 500;
-        transition: all 3s ease-out;
+        transition: all 0.6s ease-out;
         &:hover {
           background: linear-gradient(
             180deg,
@@ -41,17 +55,29 @@ const buttonBaseStyle = css<ButtonProps>`
       `;
     if (props.variant === 'warning')
       return css`
-        background: #ff624c;
+        background: ${({ theme }) => theme.palette.warning};
         border: 0.6px solid #ff3518;
         border-radius: 6px;
         color: #ffffff;
         font-weight: 500;
       `;
+    if (props.variant === 'text')
+      return css`
+        background: none;
+        outline: none;
+        border: none;
+        transition: none;
+        padding: 0;
+        &:hover {
+          filter: brightness(150%);
+          cursor: pointer;
+        }
+      `;
     if (props.variant === 'none')
       return css`
         background: transparent;
         border: none;
-        padding: 0px;
+        padding: 0;
       `;
     return '';
   }}
@@ -69,9 +95,12 @@ const ButtonStyle = styled.button<ButtonProps>`
   padding-bottom: ${({ theme }) => theme.spacing.one.spacing};
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
+  ${spacing}
+  ${display}
   ${buttonBaseStyle}
   ${width}
   ${flex}
+  ${utils}
 `;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => (

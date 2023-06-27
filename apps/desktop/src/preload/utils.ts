@@ -10,6 +10,18 @@ export const createProxyFunction =
     return result;
   };
 
+export const createProxyListener =
+  ({ key, remove }: { key?: string; remove?: string[] }) =>
+  async (listener?: (...args: any[]) => void) => {
+    if (remove && remove.length > 0) {
+      remove.forEach(e => ipcRenderer.removeAllListeners(e));
+    } else if (key && listener) {
+      ipcRenderer.on(key, (_, ...args) => listener(...args));
+    } else {
+      throw new Error('No key or listener provided');
+    }
+  };
+
 export const createObjectProxy = (params: {
   key: string;
   methods: string[];

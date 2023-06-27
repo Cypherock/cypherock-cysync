@@ -9,4 +9,6 @@ export interface ICysyncEnv {
   ALLOW_PRERELEASE: string;
   VERSION: string;
   CHANNEL: string;
+  RELEASE_NOTES: string;
+  OS: 'darwin' | 'win32' | 'linux' | string;
 }

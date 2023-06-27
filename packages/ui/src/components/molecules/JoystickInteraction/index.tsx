@@ -20,7 +20,7 @@ const CenterClickPrompt: React.FC = () => (
     <Ring position="absolute" animate="pulse" $animDuration={2} />
     <Ring position="absolute">
       <Container gap={8} direction="column">
-        <Container width={12} height={12} rounded={6} $bgColor="golden" />
+        <Container width={12} height={12} $borderRadius={6} $bgColor="golden" />
         <Typography variant="h5" color="gold">
           Press
         </Typography>
@@ -53,7 +53,7 @@ const DirectionButtonPrompt: React.FC<JoystickInteractionProps> = ({
         <Container
           width={14}
           height={14}
-          rounded={7}
+          $borderRadius={7}
           $bgColor="muted"
           position="absolute"
           top={0.5}

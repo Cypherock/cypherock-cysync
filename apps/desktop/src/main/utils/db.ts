@@ -7,7 +7,7 @@ let db: IDatabase | undefined;
 
 let keyDb: IKeyValueStore | undefined;
 
-export async function initializeAndGetDb() {
+export const initializeAndGetDb = async () => {
   const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
 
   if (!db) {
@@ -19,4 +19,13 @@ export async function initializeAndGetDb() {
   }
 
   return { db, keyDb };
-}
+};
+
+export const clearDatabase = async () => {
+  if (db) {
+    await db.clear();
+  }
+  if (keyDb) {
+    await keyDb.clear();
+  }
+};

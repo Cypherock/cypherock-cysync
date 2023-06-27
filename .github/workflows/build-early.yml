@@ -39,6 +39,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Get tags
         run: git fetch --tags origin
@@ -89,6 +90,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Get tags
         run: git fetch --tags origin
@@ -154,6 +156,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Get tags
         run: git fetch --tags origin
@@ -224,6 +227,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Get tags
         run: git fetch --tags origin
@@ -308,6 +312,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Get tags
         run: git fetch --tags origin
