@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { Typography, Flex, Image, Button } from '../atoms';
 
 export type UpdateState = 'normal' | 'progress' | 'success' | 'error';

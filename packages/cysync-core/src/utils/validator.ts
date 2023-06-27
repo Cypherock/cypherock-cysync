@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { ILangState } from '..';
 
 export const validateEmail = (email: string, lang: ILangState) => {

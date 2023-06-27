@@ -1,5 +1,5 @@
-import React from 'react';
 import { ErrorDialog } from '@cypherock/cysync-ui';
+import React from 'react';
 
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
 import { selectLanguage, useAppSelector } from '~/store';

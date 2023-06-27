@@ -1,5 +1,6 @@
-import { ICoinInfo, ICoinUnit } from '../types';
 import coinList from './coins';
+
+import { ICoinInfo, ICoinUnit } from '../types';
 
 export interface IBtcCoinInfo extends ICoinInfo {
   family: 'bitcoin';
@@ -37,7 +38,9 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce(
+export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
+  Record<BtcIds, IBtcCoinInfo>
+>(
   (list, coin) => ({
     ...list,
     [coin.id]: {
@@ -51,5 +54,5 @@ export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce(
       units,
     },
   }),
-  {} as Record<BtcIds, IBtcCoinInfo>,
+  {},
 );

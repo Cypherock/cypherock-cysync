@@ -1,5 +1,7 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
+
 import type { IWalletState } from '~/store';
+
 import { addDeleteWalletsReducer } from './deleteWallets';
 
 export * from './deleteWallets';

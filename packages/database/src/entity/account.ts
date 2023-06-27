@@ -1,4 +1,5 @@
 import { IAccount } from '@cypherock/db-interfaces';
+
 import { BaseFields, ITableDetails } from './types';
 
 export const Account: ITableDetails<Omit<IAccount, BaseFields>> = {

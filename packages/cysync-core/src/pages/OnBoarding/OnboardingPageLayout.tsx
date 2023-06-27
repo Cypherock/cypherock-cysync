@@ -7,8 +7,8 @@ import {
   OnboardingLayoutProps,
 } from '@cypherock/cysync-ui';
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useNavigateTo } from '~/hooks';
 
+import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore } from '~/utils';
 

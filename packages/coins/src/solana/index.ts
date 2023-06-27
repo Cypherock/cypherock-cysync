@@ -1,5 +1,6 @@
-import { ICoinInfo, ICoinUnit } from '../types';
 import coinList from './coins';
+
+import { ICoinInfo, ICoinUnit } from '../types';
 
 export interface ISolanaCoinInfo extends ICoinInfo {
   family: 'solana';
@@ -27,7 +28,7 @@ const units: ICoinUnit[] = [
 ];
 
 export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
-  coinList.reduce(
+  coinList.reduce<Record<SolanaIds, ISolanaCoinInfo>>(
     (list, coin) => ({
       ...list,
       [coin.id]: {
@@ -43,5 +44,5 @@ export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
         units,
       },
     }),
-    {} as Record<SolanaIds, ISolanaCoinInfo>,
+    {},
   );

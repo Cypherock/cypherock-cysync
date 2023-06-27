@@ -1,10 +1,3 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
 import {
   Bullet,
   Button,
@@ -20,11 +13,20 @@ import {
   openExternalLink,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
+
 import { routes } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useNavigateTo } from '~/hooks';
-import { keyValueStore } from '~/utils';
 import { useLockscreen } from '~/context';
+import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+import { keyValueStore } from '~/utils';
+
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{

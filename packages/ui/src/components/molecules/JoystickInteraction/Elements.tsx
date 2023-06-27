@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+
 import {
   DirectionProps,
   JoystickArrowProps,
@@ -8,10 +9,11 @@ import {
   textColorMap,
   typeMap,
 } from './types';
+
 import { theme } from '../../../themes/theme.styled';
 import { Typography, Image, Container } from '../../atoms';
-import { UtilsProps } from '../../utils';
 import { Indicator } from '../../atoms/Indicator';
+import { UtilsProps } from '../../utils';
 
 export const JoystickIndicator: React.FC<DirectionProps> = ({ state }) => (
   <Indicator state={state ? indicatorMap[state] : undefined} />

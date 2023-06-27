@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
 import { Container, ConfettiBlast, SuccessDialog } from '@cypherock/cysync-ui';
+import React, { useEffect } from 'react';
 
-import { useNavigateTo } from '~/hooks';
 import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 
 export const Congratulations: React.FC = () => {

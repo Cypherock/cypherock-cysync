@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { Image, LangDisplay, TypographyColor, Typography } from '../atoms';
+
 import { shieldAlert, infoIcon } from '../../assets';
+import { Image, LangDisplay, TypographyColor, Typography } from '../atoms';
 import { utils, UtilsProps } from '../utils';
 
 export type AlertBoxVariantType = 'warning' | 'info' | 'none';

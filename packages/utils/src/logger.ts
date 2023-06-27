@@ -1,4 +1,5 @@
 import { ILogger } from '@cypherock/cysync-interfaces';
+
 import { config } from './config';
 
 const logLevelPriority: Record<string, number | undefined> = {

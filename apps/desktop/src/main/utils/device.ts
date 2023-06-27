@@ -7,6 +7,7 @@ import {
   IDevice,
   IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
+
 import { logger as baseLogger } from './logger';
 
 const logger = createLoggerWithPrefix(baseLogger, 'DeviceConnection');

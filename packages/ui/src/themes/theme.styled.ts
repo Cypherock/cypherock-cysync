@@ -1,8 +1,8 @@
 import { colors } from './color.styled';
-import { typography } from './typography.styled';
 import { spacing } from './layout.styled';
-import { shadows } from './shadow.styled';
 import { screens } from './screens.styled';
+import { shadows } from './shadow.styled';
+import { typography } from './typography.styled';
 
 export type ThemeType = typeof theme;
 

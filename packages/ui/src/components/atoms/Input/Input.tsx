@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Button } from '../Button';
-import { LangDisplay } from '../LangDisplay';
-import { Image } from '../Image';
+
 import { InputLabel } from './InputLabel';
+
+import { Button } from '../Button';
 import { Flex } from '../Flex';
+import { Image } from '../Image';
+import { LangDisplay } from '../LangDisplay';
 
 export interface InputProps {
   type: string;

@@ -1,8 +1,10 @@
 import { IDatabase } from '@cypherock/db-interfaces';
 import { WebContents } from 'electron';
-import { initializeAndGetDb } from '../utils';
+
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
+
+import { initializeAndGetDb } from '../utils';
 
 export const setupDbListeners = async (webContents: WebContents) => {
   const { db } = await initializeAndGetDb();

@@ -1,4 +1,3 @@
-import React, { FC, useState } from 'react';
 import {
   Container,
   DialogBox,
@@ -12,10 +11,13 @@ import {
   Image,
   usageIcon,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
+import React, { FC, useState } from 'react';
+
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
+
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const UsageDialogBox: FC<{

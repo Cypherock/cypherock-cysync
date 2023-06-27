@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
-import { theme } from '../../themes/theme.styled';
+
 import { BreakPoint } from '../../themes/screens.styled';
+import { theme } from '../../themes/theme.styled';
 
 const spacingObj = {
   0: '0px',
@@ -86,7 +87,7 @@ const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
     if (typeof obj === 'object') {
       for (const bp in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, bp)) {
-          const value = obj[bp as BreakPoint] as SpacingOptions;
+          const value = obj[bp as BreakPoint]!;
           names.forEach(name => {
             result.push(`
               @media ${theme.screens[bp as BreakPoint]} {

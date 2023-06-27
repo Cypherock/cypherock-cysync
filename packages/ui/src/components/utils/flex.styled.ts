@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 import { css } from 'styled-components';
-import { MediaQuery } from '../../types';
+
 import { generateCss } from './generateCss';
+
+import { MediaQuery } from '../../types';
 
 type JustifyType =
   | 'flex-start'
