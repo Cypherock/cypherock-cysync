@@ -1,9 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
-import { Typography } from '../atoms';
+import { LangDisplay, Typography } from '../atoms';
 
 interface ProgressBarProps {
-  versionText: string | undefined;
+  text?: string;
+  textVariables?: object;
   progress: number;
 }
 
@@ -55,14 +56,15 @@ const FillerStyle = styled.div<{ progress: number }>`
 `;
 
 export const ProgressBar: FC<ProgressBarProps> = ({
-  versionText,
+  text,
+  textVariables,
   progress,
 }): ReactElement => (
   <HolderStyle>
-    {versionText && (
+    {text && (
       <VersionHolder>
         <Typography variant="h6" $textAlign="center" color="muted">
-          {versionText}
+          <LangDisplay text={text} variables={textVariables} />
         </Typography>
       </VersionHolder>
     )}
@@ -76,3 +78,8 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     </Typography>
   </HolderStyle>
 );
+
+ProgressBar.defaultProps = {
+  text: undefined,
+  textVariables: undefined,
+};

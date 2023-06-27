@@ -103,7 +103,7 @@ class AutoUpdater {
     if (this.webContents) {
       this.webContents.send(
         ipcConfig.listeners.downloadUpdateProgress,
-        percent,
+        Number(percent.toFixed(0)),
       );
     }
   }

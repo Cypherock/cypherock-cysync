@@ -26,9 +26,12 @@ export const DeviceUpdateDialogBox: FC = () => {
   const onRetry = () => {
     setState(DeviceUpdateStates.Updating);
   };
+
+  /**
   const onUpdate = () => {
     setState(DeviceUpdateStates.Successful);
   };
+   */
 
   const onContinue = () => {
     navigateTo(`${routes.onboarding.deviceAuthentication.path}`);
@@ -50,7 +53,7 @@ export const DeviceUpdateDialogBox: FC = () => {
         title={lang.strings.onboarding.deviceUpdate.dialogs.updating.heading}
         subtext={lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext}
         icon={<DeviceUpdateIcon />}
-        handleComplete={onUpdate}
+        progress={0}
       />
     ),
     [DeviceUpdateStates.Successful]: (

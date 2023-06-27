@@ -113,7 +113,6 @@ export class EncryptedDB {
     let data = this.database.serialize();
     let isEncrypted = false;
 
-    logger.info('Saving DB', { key: this.key });
     if (this.key) {
       data = await encryptData(data, this.key);
       isEncrypted = true;
@@ -139,7 +138,7 @@ export class EncryptedDB {
         return '';
       }
 
-      logger.info('Loading database', { key });
+      logger.info('Loading database...');
       if (fileData.isEncrypted) {
         if (!key) {
           throw new Error('The database is encrypted but no key was provided');

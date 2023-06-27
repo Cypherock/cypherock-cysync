@@ -4,7 +4,8 @@ import { IconProps } from '../../common/DeviceUpdateIcon';
 
 export const AppUpdateIcon: React.FC<IconProps> = ({ color }) => {
   const theme = useTheme();
-  const svgColor = color ?? theme!.palette.warn.main;
+  const svgColor = color ?? theme!.palette.muted.main;
+
   return (
     <svg
       width="56"

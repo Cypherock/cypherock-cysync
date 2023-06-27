@@ -3,7 +3,7 @@ import { logger } from '@cypherock/sdk-core/dist/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 
-import { IDeviceConnectionInfo } from '~/context';
+import { DeviceConnectionStatus, IDeviceConnectionInfo } from '~/context';
 import { RootState, setDeletedWallets } from '~/store';
 import { getDB } from '~/utils';
 
@@ -47,7 +47,10 @@ const getWalletDifferenceAnalysis = (
 const syncWalletsWithConnectedDevice = async (
   connection?: IDeviceConnectionInfo,
 ) => {
-  if (!connection?.isMain) {
+  if (
+    !connection?.isMain ||
+    connection?.status !== DeviceConnectionStatus.CONNECTED
+  ) {
     return undefined;
   }
 

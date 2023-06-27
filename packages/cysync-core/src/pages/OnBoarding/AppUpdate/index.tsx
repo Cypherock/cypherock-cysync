@@ -1,7 +1,8 @@
 import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
 import React, { FC } from 'react';
-import { WithConnectedDevice } from '~/components';
+
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 import { AppUpdateDialogBox } from './Dialogs';
 
@@ -16,9 +17,7 @@ export const AppUpdate: FC = () => {
       totalState={8}
       withHelp
     >
-      <WithConnectedDevice>
-        <AppUpdateDialogBox />
-      </WithConnectedDevice>
+      <AppUpdateDialogBox />
     </OnboardingPageLayout>
   );
 };

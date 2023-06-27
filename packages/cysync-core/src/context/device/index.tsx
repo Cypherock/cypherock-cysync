@@ -59,11 +59,12 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
 
   const markDeviceAsConnected = (
     device: IDevice,
+    status: DeviceConnectionStatus,
     info?: IConnectedDeviceInfo,
   ) => {
     const deviceConnectionInfo = createDeviceConnectionInfo(
       device,
-      DeviceConnectionStatus.CONNECTED,
+      status,
       info,
     );
     setConnectionInfo(deviceConnectionInfo);
@@ -126,8 +127,11 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const tryToConnect = async (device: IDevice) => {
     try {
       logger.info('Trying to establish device connection', { device });
-      const info = await tryEstablishingDeviceConnection(connectDevice, device);
-      markDeviceAsConnected(device, info);
+      const { info, status } = await tryEstablishingDeviceConnection(
+        connectDevice,
+        device,
+      );
+      markDeviceAsConnected(device, status, info);
     } catch (error) {
       logger.warn('Error connecting device', { device, error });
       markDeviceAsConnectionError(device, error);

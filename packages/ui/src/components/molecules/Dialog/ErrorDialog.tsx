@@ -17,6 +17,7 @@ export interface ErrorDialogProps {
   showReport?: boolean;
   onRetry?: () => void;
   iconType?: IconType;
+  textVariables?: object;
 }
 
 const iconMap: Record<IconType, ReactNode> = {
@@ -31,17 +32,18 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   showReport,
   onRetry,
   iconType,
+  textVariables,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
       {iconMap[iconType ?? 'default']}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={title} />
+          <LangDisplay text={title} variables={textVariables} />
         </Typography>
         {subtext && (
           <Typography variant="h6" $textAlign="center" color="muted">
-            <LangDisplay text={subtext} />
+            <LangDisplay text={subtext} variables={textVariables} />
           </Typography>
         )}
       </Container>
@@ -67,4 +69,5 @@ ErrorDialog.defaultProps = {
   showReport: false,
   onRetry: undefined,
   iconType: 'default',
+  textVariables: undefined,
 };

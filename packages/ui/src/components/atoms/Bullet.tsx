@@ -9,7 +9,7 @@ interface BulletProps {
 
 const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.palette.text.textHeading};
+  background-color: ${({ theme }) => theme.palette.text.heading};
   ${props =>
     props.size === 'sm' &&
     css`
@@ -31,7 +31,7 @@ const BulletStyle = styled.div<BulletProps>`
       width: 16px;
       height: 16px;
       border: 2px solid red;
-      border-color: ${({ theme }) => theme.palette.text.textMuted};
+      border-color: ${({ theme }) => theme.palette.text.muted};
       background-color: transparent;
     `}
   ${props =>
@@ -53,13 +53,13 @@ const BulletStyle = styled.div<BulletProps>`
     ${props =>
     props.variant === 'failed' &&
     css`
-      background-color: ${({ theme }) => theme.palette.warning.main};
+      background-color: ${({ theme }) => theme.palette.warn.main};
     `}
             
     ${props =>
     props.variant === 'muted' &&
     css`
-      background-color: ${({ theme }) => theme.palette.text.textMuted};
+      background-color: ${({ theme }) => theme.palette.text.muted};
     `}
     ${spacing}
 `;

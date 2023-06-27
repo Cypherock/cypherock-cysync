@@ -16,6 +16,7 @@ interface AppUpdateFailedFallbackProps {
   subtext: string;
   linkText: string;
   alertText: string;
+  textVariables?: object;
 }
 
 export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
@@ -23,6 +24,7 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
   subtext,
   linkText,
   alertText,
+  textVariables,
 }) => {
   const theme = useTheme();
 
@@ -32,10 +34,10 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
         <AppUpdateIcon color={theme.palette.warn.main} />
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={title} />
+            <LangDisplay text={title} variables={textVariables} />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
-            <LangDisplay text={subtext} />
+            <LangDisplay text={subtext} variables={textVariables} />
           </Typography>
         </Container>
         <Container width="full" display="flex" direction="column" gap={4}>
@@ -45,4 +47,8 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
       </DialogBoxBody>
     </DialogBox>
   );
+};
+
+AppUpdateFailedFallback.defaultProps = {
+  textVariables: undefined,
 };

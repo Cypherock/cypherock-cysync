@@ -94,7 +94,7 @@ const buttonBaseStyle = css<ButtonProps>`
       `;
     if (props.variant === 'warning')
       return css`
-        background: ${({ theme }) => theme.palette.warning};
+        background: ${({ theme }) => theme.palette.warn.main};
         border: 0.6px solid #ff3518;
         border-radius: 6px;
         color: #ffffff;
