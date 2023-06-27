@@ -42,7 +42,7 @@ test('Device connection screen', async () => {
     .locator('section')
     .filter({
       hasText:
-        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
     })
     .getByRole('button', { name: 'Continue' })
     .click();
@@ -73,7 +73,7 @@ test('Device authentication successful', async () => {
     .locator('section')
     .filter({
       hasText:
-        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
     })
     .getByRole('button', { name: 'Continue' })
     .click();

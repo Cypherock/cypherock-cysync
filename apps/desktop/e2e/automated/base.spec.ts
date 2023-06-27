@@ -26,7 +26,7 @@ test('check first screen', async () => {
   const header = screen.getByRole('heading', {
     name: 'Ensure the following before you continue',
   });
-  await expect(header).toHaveText(['Ensure the following before you continue']);
+  await expect(header).toBeVisible();
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
   await expect(sidePanelFirst).toBeVisible();
   const sidePanelSecond = screen.getByRole('heading', {
@@ -62,7 +62,7 @@ test('check first screen', async () => {
 test('check usage screen', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
-  await expect(sidePanelFirst).toHaveText(['Welcome to cySync app']);
+  await expect(sidePanelFirst).toBeVisible();
   const sidePanelSecond = screen.getByRole('heading', {
     name: 'Your Gateway to Self-Sovereignty',
   });
