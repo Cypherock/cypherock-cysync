@@ -22,7 +22,10 @@ import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import emailIconOutlined from './email.svg';
 import loaderIcon from './loader.png';
 import openExternalLink from './open-external-link.svg';
-import eyeDisabledIcon from './eyeDisabled.svg';
+import cysyncLockedLogo from './cysync-locked.svg';
+import visibilityHideIcon from './visibility-hide.svg';
+import visibilityIcon from './visibility.svg';
+import errorIcon from './error.svg';
 import goldLoaderIcon from './loader-gold.svg';
 import usbIcon from './usb.svg';
 import goldCopyIcon from './copy-gold.svg';
@@ -55,7 +58,10 @@ export {
   goldLoaderIcon,
   openExternalLink,
   emailIconOutlined,
-  eyeDisabledIcon,
+  cysyncLockedLogo,
+  visibilityIcon,
+  visibilityHideIcon,
+  errorIcon,
   usbIcon,
   goldCopyIcon,
   copyIcon,

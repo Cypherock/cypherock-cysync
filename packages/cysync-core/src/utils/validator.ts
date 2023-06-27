@@ -9,6 +9,23 @@ export const validateEmail = (email: string, lang: ILangState) => {
 
   return EmailSchema.safeParse(email);
 };
+
+const passwordPrefixed = (prefix: string, lang: ILangState) =>
+  z
+    .string()
+    .min(1, { message: prefix + lang.strings.validation.password.required })
+    .min(8, {
+      message: prefix + lang.strings.validation.password.minLength,
+    })
+    .refine(
+      val => /.*?[0-9].*/.test(val),
+      prefix + lang.strings.validation.password.containNumber,
+    )
+    .refine(
+      val => /.*?[!@#$%^&*()_+=-].*/.test(val),
+      prefix + lang.strings.validation.password.containSymbol,
+    );
+
 export const validatePassword = (
   passwordObj: {
     password: string;
@@ -18,12 +35,11 @@ export const validatePassword = (
 ) => {
   const PasswordSchema = z
     .object({
-      password: z
-        .string()
-        .min(1, { message: lang.strings.validation.password.required }),
-      confirm: z
-        .string()
-        .min(1, { message: lang.strings.validation.password.confirmRequired }),
+      password: passwordPrefixed(
+        lang.strings.validation.password.passwordFieldPrefix,
+        lang,
+      ),
+      confirm: z.string(),
     })
     .refine(data => data.password === data.confirm, {
       message: lang.strings.validation.password.mismatch,

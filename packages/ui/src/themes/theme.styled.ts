@@ -30,12 +30,14 @@ export const theme = {
       main: colors.warning.main,
     },
     golden: colors.gradients.golden,
+    silver: colors.gradients.silver,
     highlight: colors.gradients.highlight,
     success: {
       main: colors.success.main,
     },
     text: {
       ...colors.text,
+      disabled: colors.disabled.text,
     },
     background: {
       progress: colors.background.progressBar,
@@ -46,6 +48,7 @@ export const theme = {
       separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
+      disabled: colors.disabled.background,
     },
 
     border: {

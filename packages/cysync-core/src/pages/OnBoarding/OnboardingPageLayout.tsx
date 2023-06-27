@@ -10,7 +10,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
-import { getKeyDB } from '~/utils';
+import { keyValueStore } from '~/utils';
 
 export interface OnboardingPageLayoutProps
   extends Omit<OnboardingLayoutProps, 'headerProps' | 'footerProps'> {
@@ -37,7 +37,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   const navigateTo = useNavigateTo();
 
   const fetchEmail = async () =>
-    setEmail((await getKeyDB().getItem('email')) ?? '');
+    setEmail((await keyValueStore.email.get()) ?? '');
 
   useEffect(() => {
     fetchEmail();

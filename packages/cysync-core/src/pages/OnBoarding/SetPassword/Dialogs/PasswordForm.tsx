@@ -1,4 +1,5 @@
 import {
+  PasswordInput,
   QuestionMarkButton,
   DialogBoxFooter,
   Button,
@@ -8,7 +9,6 @@ import {
   LangDisplay,
   Flex,
   Container,
-  LabeledInput,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { routes } from '~/constants';
@@ -16,6 +16,7 @@ import { useNavigateTo } from '~/hooks';
 
 import { useAppSelector, selectLanguage } from '~/store';
 import { validatePassword } from '~/utils';
+import { changePassword } from '~/utils/password';
 
 export const PasswordForm: React.FC<{
   passwordSetter: (val: boolean) => void;
@@ -24,72 +25,96 @@ export const PasswordForm: React.FC<{
   const navigateTo = useNavigateTo();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const tryStoringPassword = async () => {
+  const tryStoringPassword: React.FormEventHandler<
+    HTMLFormElement
+  > = async event => {
+    if (isLoading) return;
+
+    event.preventDefault();
+    setIsLoading(true);
+
     const validation = validatePassword(
       { password, confirm: confirmPassword },
       lang,
     );
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
+      setIsLoading(false);
       return;
     }
-    // store password hash here
+    await changePassword(password);
     passwordSetter(true);
-    navigateTo(routes.onboarding.emailAuth.path, 3000);
+    setIsLoading(false);
+    navigateTo(routes.onboarding.emailAuth.path);
   };
 
   return (
     <DialogBox width={500}>
-      <DialogBoxBody>
-        <Typography variant="h5" $textAlign="center" mb={2}>
-          <LangDisplay text={lang.strings.onboarding.setPassword.title} /> (
-          <QuestionMarkButton />)
-        </Typography>
-        <Flex direction="column" gap={16} width="full" mb={7}>
-          <LabeledInput
-            type="password"
-            label={lang.strings.onboarding.setPassword.newPasswordLabel}
-            value={password}
-            onChange={(e: any) => setPassword(e.target.value)}
-          />
-          <LabeledInput
-            type="password"
-            label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
-            value={confirmPassword}
-            onChange={(e: any) => setConfirmPassword(e.target.value)}
-          />
-          {errorMessage && (
-            <Container display="block" border="top" py={3}>
-              <Typography
-                variant="h6"
-                color="error"
-                $fontWeight="light"
-                $textAlign="left"
-              >
-                {errorMessage}
-              </Typography>
-            </Container>
-          )}
-        </Flex>
-        <Container display="block" border="bottom" pb={2}>
-          <Typography variant="fineprint" color="muted" $textAlign="center">
-            {lang.strings.onboarding.setPassword.hint}
-          </Typography>
-        </Container>
-      </DialogBoxBody>
-      <DialogBoxFooter>
-        <Button
-          variant="secondary"
-          onClick={() => navigateTo(routes.onboarding.emailAuth.path)}
-        >
-          Skip
-        </Button>
-        <Button variant="primary" onClick={tryStoringPassword}>
-          Confirm
-        </Button>
-      </DialogBoxFooter>
+      <form onSubmit={tryStoringPassword}>
+        <DialogBoxBody>
+          <Flex direction="column" gap={4}>
+            <Typography variant="h5" $textAlign="center">
+              <LangDisplay text={lang.strings.onboarding.setPassword.title} /> (
+              <QuestionMarkButton />)
+            </Typography>
+            <Typography variant="h6" $textAlign="center" mb={2} color="muted">
+              <LangDisplay
+                text={lang.strings.onboarding.setPassword.subtitle}
+              />
+            </Typography>
+          </Flex>
+          <Flex direction="column" gap={16} width="full">
+            <Flex direction="column" gap={8}>
+              <PasswordInput
+                name="password"
+                label={lang.strings.onboarding.setPassword.newPasswordLabel}
+                value={password}
+                onChange={setPassword}
+              />
+            </Flex>
+            <Flex direction="column" gap={8}>
+              <PasswordInput
+                name="confirm password"
+                label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
+                value={confirmPassword}
+                onChange={setConfirmPassword}
+              />
+            </Flex>
+            {errorMessage.length > 0 && (
+              <Container display="block" border="top" py={3}>
+                <Typography
+                  key={errorMessage}
+                  variant="h6"
+                  color="error"
+                  $fontWeight="light"
+                  $textAlign="left"
+                >
+                  {errorMessage}
+                </Typography>
+              </Container>
+            )}
+          </Flex>
+          <Container display="block" pb={2}>
+            <Typography variant="fineprint" color="muted" $textAlign="center">
+              {lang.strings.onboarding.setPassword.hint}
+            </Typography>
+          </Container>
+        </DialogBoxBody>
+        <DialogBoxFooter>
+          <Button
+            variant="secondary"
+            onClick={() => navigateTo(routes.onboarding.emailAuth.path)}
+          >
+            {lang.strings.buttons.skip}
+          </Button>
+          <Button variant="primary" type="submit" disabled={isLoading}>
+            {lang.strings.buttons.confirm}
+          </Button>
+        </DialogBoxFooter>
+      </form>
     </DialogBox>
   );
 };
