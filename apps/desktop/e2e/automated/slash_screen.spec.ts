@@ -13,8 +13,8 @@ test.afterAll(async () => {
 
 test('Splash screen test', async () => {
   const splashScreen = await electronApp.firstWindow();
-  const title = splashScreen.getByText('Welcome to CySync app');
-  await expect(title).toHaveText(['Welcome to CySync app']);
+  const title = splashScreen.getByText('Welcome to cySync app');
+  await expect(title).toBeVisible();
   const subTitle = splashScreen.getByText('Your Gateway to Self-Sovereignty');
-  await expect(subTitle).toHaveText(['Your Gateway to Self-Sovereignty']);
+  await expect(subTitle).toBeVisible();
 });
