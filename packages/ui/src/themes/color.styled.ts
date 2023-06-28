@@ -44,6 +44,7 @@ export const colors = {
   background: {
     progressBar: '#1F1915',
     input: '#27221D',
+    inputSecondary: '#3C3937',
     blur: 'rgba(29, 25, 23, 0.4)',
     separator: '#39322C',
     separatorSecondary: '#272320',
@@ -55,5 +56,6 @@ export const colors = {
     separator: '#39322C',
     warning: '#644D2B',
     bar: '#474747',
+    table: '#2C2929',
   },
 };

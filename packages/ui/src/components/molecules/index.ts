@@ -13,3 +13,4 @@ export * from './Clipboard';
 export * from './CopyContainer';
 export * from './Topbar';
 export * from './UpdateBar';
+export * from './Table';

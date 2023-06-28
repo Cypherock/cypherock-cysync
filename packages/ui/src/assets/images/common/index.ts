@@ -1,6 +1,7 @@
 import addWalletIcon from './add-wallet.png';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import { BitcoinIcon } from './BitcoinIcon';
 import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
@@ -17,6 +18,7 @@ import disconnectedIcon from './disconnected.svg';
 import emailIcon from './email-icon.svg';
 import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
+import { EthereumIcon } from './EthereumIcon';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
 import infoIcon from './info.svg';
@@ -60,7 +62,6 @@ export {
   blockSelectedIcon,
   disconnectedIcon,
   successIcon,
-  FailIcon,
   shieldAlert,
   joystickArrowCompletedIcon,
   joystickArrowIcon,
@@ -89,6 +90,9 @@ export {
   connected,
   infoIcon,
   DeviceUpdateIcon,
+  FailIcon,
+  EthereumIcon,
+  BitcoinIcon,
   goldCopyIcon,
   DeviceUpdateFailedIcon,
   SettingsWrongIcon,
