@@ -1,6 +1,7 @@
 import { app, WebContents } from 'electron';
 
 import { ipcConfig } from './helpers/config';
+
 import { clearDatabase, logger } from '../utils';
 
 const createResetCySyncMethod = (webContents: WebContents) => async () => {

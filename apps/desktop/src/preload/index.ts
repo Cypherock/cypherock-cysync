@@ -1,11 +1,13 @@
 import { IDevice } from '@cypherock/sdk-interfaces';
 import { contextBridge, ipcRenderer } from 'electron';
-import { ipcConfig } from '../main/ipc/helpers/config';
+
 import {
   createObjectProxy,
   createProxyFunction,
   createProxyListener,
 } from './utils';
+
+import { ipcConfig } from '../main/ipc/helpers/config';
 
 const exportedFunctions = [
   {

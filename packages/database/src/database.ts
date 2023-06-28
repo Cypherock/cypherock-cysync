@@ -1,5 +1,6 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
 import {
   IAccountRepository,
   IDatabase,
@@ -16,11 +17,7 @@ import {
   IWalletRepository,
 } from '@cypherock/db-interfaces';
 
-import {
-  AccountRepository,
-  Repository,
-  TransactionRepository,
-} from './repository';
+import { EncryptedDB } from './encryptedDb';
 import {
   Account,
   Device,
@@ -29,7 +26,11 @@ import {
   Transaction,
   Wallet,
 } from './entity';
-import { EncryptedDB } from './encryptedDb';
+import {
+  AccountRepository,
+  Repository,
+  TransactionRepository,
+} from './repository';
 
 export class Database implements IDatabase {
   private readonly database: EncryptedDB;

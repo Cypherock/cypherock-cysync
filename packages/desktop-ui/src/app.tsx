@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ThemeProvider,
   getDefaultTheme,
@@ -10,6 +9,8 @@ import {
   LockscreenProvider,
   BackgroundTasks,
 } from '@cypherock/cysync-core';
+import React from 'react';
+
 import { AppRouter } from './Router';
 
 const theme = getDefaultTheme();

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { SDK } from '@cypherock/sdk-core';
+import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import * as lodash from 'lodash';
+import React, { useEffect } from 'react';
 
 import { deviceLock, useDevice } from '~/context';
 import logger from '~/utils/logger';
@@ -58,6 +58,7 @@ export function useDeviceTask<T>(
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       conn?.destroy().catch(() => {});
     }
   };

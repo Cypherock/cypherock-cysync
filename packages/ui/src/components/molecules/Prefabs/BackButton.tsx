@@ -1,6 +1,7 @@
 import React from 'react';
-import { Flex, Typography, Button, LangDisplay, Image } from '../../atoms';
+
 import { backIcon } from '../../..';
+import { Flex, Typography, Button, LangDisplay, Image } from '../../atoms';
 
 export interface BackButtonProps {
   text: string;

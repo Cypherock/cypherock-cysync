@@ -13,9 +13,9 @@ import {
   Input,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
+
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
-
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
 

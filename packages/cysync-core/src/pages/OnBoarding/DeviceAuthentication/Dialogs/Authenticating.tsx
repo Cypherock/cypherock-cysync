@@ -9,6 +9,7 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { useAppSelector, selectLanguage } from '~/store';
 
 export const DeviceAuthenticating: React.FC = () => {

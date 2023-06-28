@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import type { Engine } from 'tsparticles-engine';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import type { Engine } from 'tsparticles-engine';
+
 import tripleBlastOptions from './tripleBlast.json';
 
 export const ConfettiBlast = () => {

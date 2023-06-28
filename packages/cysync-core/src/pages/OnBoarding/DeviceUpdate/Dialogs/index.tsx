@@ -1,5 +1,3 @@
-import React, { FC, ReactElement } from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
 import {
   ConfirmationDialog,
   DeviceUpdateIcon,
@@ -7,9 +5,12 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import { useNavigateTo } from '~/hooks';
+import React, { FC, ReactElement } from 'react';
+
 import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
 import { DeviceUpdateLoading } from '~/pages/OnBoarding/DeviceUpdate/Dialogs/DeviceUpdateLoading';
+import { selectLanguage, useAppSelector } from '~/store';
 
 enum DeviceUpdateStates {
   Confirmation,

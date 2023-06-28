@@ -1,5 +1,3 @@
-import React, { FC, ReactElement } from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
 import {
   AppUpdateIcon,
   ConfirmationDialog,
@@ -7,6 +5,10 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
+import React, { FC, ReactElement } from 'react';
+
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
 enum AppUpdateStates {

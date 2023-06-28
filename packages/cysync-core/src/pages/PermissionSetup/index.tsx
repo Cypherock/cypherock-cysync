@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { FullPageLoader } from '@cypherock/cysync-ui';
-import { keyValueStore } from '~/utils';
-import { useNavigateTo } from '~/hooks';
+import React, { useEffect, useState } from 'react';
+
 import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
+import { keyValueStore } from '~/utils';
+
 import { PermissionSetupDialog } from './PermissionDialog';
 
 export const PermissionSetup: React.FC = () => {

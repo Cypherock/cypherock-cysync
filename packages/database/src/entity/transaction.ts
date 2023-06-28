@@ -1,4 +1,5 @@
 import { ITransaction } from '@cypherock/db-interfaces';
+
 import { BaseFields, ITableDetails } from './types';
 
 export const Transaction: ITableDetails<Omit<ITransaction, BaseFields>> = {

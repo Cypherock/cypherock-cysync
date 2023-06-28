@@ -11,10 +11,10 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { routes } from '~/constants';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
-
 import { useAppSelector, selectLanguage } from '~/store';
 import { validatePassword } from '~/utils';
 

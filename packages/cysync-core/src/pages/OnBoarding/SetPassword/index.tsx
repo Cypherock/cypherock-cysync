@@ -1,8 +1,10 @@
-import React from 'react';
 import { LogoOutlinedAsideImage, SuccessDialog } from '@cypherock/cysync-ui';
+import React from 'react';
 
 import { routes } from '~/constants';
+
 import { PasswordForm } from './Dialogs/PasswordForm';
+
 import { selectLanguage, useAppSelector } from '../../../store';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 

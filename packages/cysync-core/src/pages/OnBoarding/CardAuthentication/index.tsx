@@ -1,11 +1,12 @@
-import React from 'react';
 import { cardTapAsideImage } from '@cypherock/cysync-ui';
+import React from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
 import { WithConnectedDevice } from '~/components';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { CardAuthenticationDialog } from './Dialogs';
 
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
-import { CardAuthenticationDialog } from './Dialogs';
 
 export const CardAuthentication: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   Container,
   DialogBox,
@@ -11,14 +10,17 @@ import {
   DialogBoxFooter,
   Button,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useNavigateTo } from '~/hooks';
+import React, { FC } from 'react';
+
 import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const InfoDialogBox: FC<{
   title: string;
-  listItems: Array<string>;
+  listItems: string[];
   buttonText: string;
 }> = ({ title, listItems, buttonText }) => {
   const navigateTo = useNavigateTo();

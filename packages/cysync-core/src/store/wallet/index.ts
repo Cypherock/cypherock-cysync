@@ -1,13 +1,14 @@
 // Issue with reduxjs/toolkit: https://github.com/reduxjs/redux-toolkit/issues/1806
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'immer';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWallet } from '@cypherock/db-interfaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { addExtraWalletReducers } from '~/actions';
 
-import type { RootState } from '../store';
 import { IWalletState } from './types';
+
+import type { RootState } from '../store';
 
 export * from './types';
 

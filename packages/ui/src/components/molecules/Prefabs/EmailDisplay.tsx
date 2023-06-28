@@ -1,6 +1,7 @@
 import React from 'react';
-import { Flex, Typography, Image } from '../../atoms';
+
 import { emailIcon } from '../../../assets/images';
+import { Flex, Typography, Image } from '../../atoms';
 
 export interface EmailDisplayProps {
   email: string;

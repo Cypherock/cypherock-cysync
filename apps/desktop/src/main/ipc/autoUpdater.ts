@@ -1,5 +1,6 @@
-import { autoUpdater } from '../utils/autoUpdater';
 import { ipcConfig } from './helpers/config';
+
+import { autoUpdater } from '../utils/autoUpdater';
 
 const checkForUpdates = async () => autoUpdater.checkForUpdates();
 

@@ -1,5 +1,6 @@
-import { ICoinInfo, ICoinUnit } from '../types';
 import coinList from './coins';
+
+import { ICoinInfo, ICoinUnit } from '../types';
 
 export interface INearCoinInfo extends ICoinInfo {
   family: 'near';
@@ -26,7 +27,9 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce(
+export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce<
+  Record<NearIds, INearCoinInfo>
+>(
   (list, coin) => ({
     ...list,
     [coin.id]: {
@@ -42,5 +45,5 @@ export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce(
       units,
     },
   }),
-  {} as Record<NearIds, INearCoinInfo>,
+  {},
 );

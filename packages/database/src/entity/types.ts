@@ -1,4 +1,5 @@
 import { IEntity } from '@cypherock/db-interfaces';
+
 import { ITableSchema } from '../repository/utils/types';
 
 export interface ITableDetails<T> {

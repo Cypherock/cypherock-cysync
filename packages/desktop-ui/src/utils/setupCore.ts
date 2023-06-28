@@ -5,6 +5,7 @@ import {
   setResetCySyncMethod,
   setAutoUpdater,
 } from '@cypherock/cysync-core';
+
 import { createServiceLogger } from './logger';
 
 export const setupCoreDependencies = async () => {

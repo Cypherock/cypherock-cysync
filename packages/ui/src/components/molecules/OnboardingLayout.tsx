@@ -1,12 +1,14 @@
 import React, { FC, ReactNode } from 'react';
-import { Container } from '../atoms';
+
 import { Aside, AsideProps } from './Aside';
+import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundBar,
   DialogBoxBackgroundBarProps,
 } from './Dialog';
-import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
+
+import { Container } from '../atoms';
 
 export interface OnboardingLayoutProps
   extends Partial<AsideProps>,
