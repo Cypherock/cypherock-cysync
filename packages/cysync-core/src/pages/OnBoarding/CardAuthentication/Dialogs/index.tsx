@@ -1,5 +1,7 @@
+import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useState } from 'react';
 
+import { routes } from '~/constants';
 import {
   DeviceTask,
   useDeviceTask,
@@ -7,9 +9,7 @@ import {
   useQuery,
   useStateWithFinality,
 } from '~/hooks';
-import { routes } from '~/constants';
 
-import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { CardTap } from './CardTap';
 
 export const CardAuthenticationDialog: React.FC = () => {

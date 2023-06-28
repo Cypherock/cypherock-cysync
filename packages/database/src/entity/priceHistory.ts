@@ -1,4 +1,5 @@
 import { IPriceHistory } from '@cypherock/db-interfaces';
+
 import { BaseFields, ITableDetails } from './types';
 
 export const PriceHistory: ITableDetails<Omit<IPriceHistory, BaseFields>> = {

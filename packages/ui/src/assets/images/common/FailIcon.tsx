@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IconProps } from './DeviceUpdateIcon';
+
 import { theme } from '../../../themes/theme.styled';
 
 export const FailIcon: React.FC<IconProps> = ({ color }) => (

@@ -1,72 +1,36 @@
 import React from 'react';
 
-import { backIcon } from '../../../assets/images';
-import {
-  Flex,
-  Container,
-  Button,
-  Typography,
-  LangDisplay,
-  Image,
-} from '../../atoms';
+import { Flex, Container } from '../../atoms';
 
-export interface DialogBoxBackgroundHeaderProps {
-  topLeftComponent?: React.ReactNode | undefined;
-  topRightComponent?: React.ReactNode | undefined;
+export interface DialogBoxBackgroundBarProps {
+  leftComponent?: React.ReactNode;
+  rightComponent?: React.ReactNode;
 }
-
-export const DialogBoxBackgroundHeader: React.FC<
-  DialogBoxBackgroundHeaderProps
-> = ({ topLeftComponent, topRightComponent }) => (
-  <Flex
-    position="absolute"
-    top={0}
-    width="full"
-    justify="space-between"
-    p={{
-      def: 1,
-      lg: 5,
-    }}
-  >
-    <Container>{topLeftComponent}</Container>
-    <Container>{topRightComponent}</Container>
-  </Flex>
-);
-
-DialogBoxBackgroundHeader.defaultProps = {
-  topLeftComponent: undefined,
-  topRightComponent: undefined,
+export const DialogBoxBackgroundBar: React.FC<
+  DialogBoxBackgroundBarProps & { position: 'top' | 'bottom' }
+> = ({ leftComponent, rightComponent, position }) => {
+  const positionProps = position === 'top' ? { top: 0 } : { bottom: 0 };
+  return (
+    <Flex
+      position="absolute"
+      {...positionProps}
+      width="full"
+      justify="space-between"
+      p={{
+        def: 1,
+        lg: 5,
+      }}
+    >
+      <Container>{leftComponent}</Container>
+      <Container>{rightComponent}</Container>
+    </Flex>
+  );
 };
 
-export interface DialogBoxBackgroundFooterProps {
-  backText: string | undefined;
-}
-
-export const DialogBoxBackgroundFooter: React.FC<
-  DialogBoxBackgroundFooterProps
-> = ({ backText }) => (
-  <Flex
-    position="absolute"
-    bottom={0}
-    width="full"
-    justify="flex-start"
-    p={{
-      def: 1,
-      lg: 5,
-    }}
-  >
-    {backText && (
-      <Button variant="none">
-        <Flex gap={8}>
-          <Image src={backIcon} alt="Back" />
-          <Typography color="muted" $fontSize={14}>
-            <LangDisplay text={backText} />
-          </Typography>
-        </Flex>
-      </Button>
-    )}
-  </Flex>
-);
+DialogBoxBackgroundBar.defaultProps = {
+  leftComponent: undefined,
+  rightComponent: undefined,
+};
 
 export const DialogBoxBackground: React.FC<{ children: React.ReactNode }> = ({
   children,

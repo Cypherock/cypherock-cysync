@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Container,
   DialogBox,
@@ -7,6 +6,7 @@ import {
   loaderIcon,
   Typography,
 } from '@cypherock/cysync-ui';
+import React from 'react';
 
 export const DeviceUpdateLoading = () => (
   <DialogBox width={500}>

@@ -1,3 +1,5 @@
+import EventEmitter from 'events';
+
 import {
   IEntity,
   IGetOptions,
@@ -7,16 +9,16 @@ import {
   ListenerType,
   ListenerFunction,
 } from '@cypherock/db-interfaces';
-import EventEmitter from 'events';
+import lodash from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { ZodObject } from 'zod';
-import lodash from 'lodash';
 
 import { getValidators } from './utils/schemaValidator';
 import { ITableSchema } from './utils/types';
-import logger from '../utils/logger';
+
 import { EncryptedDB } from '../encryptedDb';
 import { isSubsetOf } from '../utils/isSubset';
+import logger from '../utils/logger';
 
 export class Repository<Entity extends IEntity> implements IRepository<Entity> {
   private readonly encDb: EncryptedDB;

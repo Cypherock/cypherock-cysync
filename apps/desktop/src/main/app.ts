@@ -1,5 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
 import { release } from 'node:os';
+
+import { app, BrowserWindow, ipcMain } from 'electron';
+
 import { setupIPCHandlers } from './ipc';
 import {
   addAppHooks,

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { Flex, FlexProps } from './Flex';
 import { LangDisplay } from './LangDisplay';
 import { Typography } from './Typography';
@@ -10,6 +11,7 @@ interface CheckBoxProps {
   id: string;
   label?: string;
   flexProps?: FlexProps;
+  isDisabled?: boolean;
 }
 
 const CheckBoxWrapper = styled.div`
@@ -69,10 +71,16 @@ export const CheckBox: FC<CheckBoxProps> = ({
   id,
   label,
   flexProps,
+  isDisabled,
 }) => (
   <Flex align="center" $alignSelf="start" {...flexProps}>
     <CheckBoxWrapper>
-      <CheckBoxStyle checked={checked} onChange={onChange} id={id} />
+      <CheckBoxStyle
+        checked={checked}
+        onChange={onChange}
+        id={id}
+        disabled={isDisabled}
+      />
       <CheckBoxLabelStyle id={id}>
         {checked && <CheckBoxIcon id={id} />}
       </CheckBoxLabelStyle>
@@ -91,4 +99,5 @@ export const CheckBox: FC<CheckBoxProps> = ({
 CheckBox.defaultProps = {
   label: undefined,
   flexProps: undefined,
+  isDisabled: false,
 };

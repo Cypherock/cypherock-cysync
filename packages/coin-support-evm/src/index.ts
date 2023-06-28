@@ -1,5 +1,5 @@
-import { ICreateAccountParams } from './operations/createAccount/types';
 import * as operations from './operations';
+import { ICreateAccountParams } from './operations/createAccount/types';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';

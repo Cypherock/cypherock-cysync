@@ -4,9 +4,11 @@ import {
   IAccountRepository,
   IGetOptions,
 } from '@cypherock/db-interfaces';
-import { EncryptedDB } from '../encryptedDb';
+
 import { Repository } from './Repository';
 import { ITableSchema } from './utils/types';
+
+import { EncryptedDB } from '../encryptedDb';
 
 export class AccountRepository
   extends Repository<IAccount>

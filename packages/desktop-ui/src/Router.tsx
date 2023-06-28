@@ -1,4 +1,5 @@
 import {
+  EmailAuth,
   CardAuthentication,
   CardTraining,
   Congratulations,
@@ -9,6 +10,7 @@ import {
   JoystickTraining,
   routes,
   Terms,
+  SetPassword,
   AppUpdate,
   DeviceUpdate,
   IRoute,
@@ -24,6 +26,8 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-info': <Information />,
   'onboarding-usage': <Usage />,
   'onboarding-terms': <Terms />,
+  'onboarding-set-password': <SetPassword />,
+  'onboarding-email-auth': <EmailAuth />,
   'onboarding-device-detection': <DeviceDetection />,
   'onboarding-device-authentication': <DeviceAuthentication />,
   'onboarding-joystick-training': <JoystickTraining />,
@@ -59,7 +63,7 @@ const getRoute = (parseRoutes: IRoutes) => {
   return allRoutes;
 };
 
-export const AppRouter = memo(() => (
+const BaseAppRouter = () => (
   <Router>
     <Routes>
       {getRoute(routes).map(route => (
@@ -71,4 +75,6 @@ export const AppRouter = memo(() => (
       ))}
     </Routes>
   </Router>
-));
+);
+
+export const AppRouter = memo(BaseAppRouter);

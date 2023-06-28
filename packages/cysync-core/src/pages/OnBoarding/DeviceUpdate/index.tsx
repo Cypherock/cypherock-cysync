@@ -1,8 +1,10 @@
 import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import React from 'react';
+
 import { WithConnectedDevice } from '~/components';
 import { OnboardingPageLayout } from '~/pages/OnBoarding/OnboardingPageLayout';
-import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { DeviceUpdateDialogBox } from './Dialogs';
 
 export const DeviceUpdate = () => {

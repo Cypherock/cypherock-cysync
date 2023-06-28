@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import {
   Container,
   DialogBox,
@@ -13,10 +12,11 @@ import {
   Clipboard,
   CheckBox,
 } from '@cypherock/cysync-ui';
+import React, { useEffect } from 'react';
 
+import { constants } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
-import { constants } from '~/constants';
 
 export interface PermissionSetupDialogProps {
   onComplete: () => void;

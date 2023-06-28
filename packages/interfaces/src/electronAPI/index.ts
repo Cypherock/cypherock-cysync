@@ -10,6 +10,7 @@ import {
   InstallUpdate,
   RemoveUpdateDownloadListeners,
 } from './updater';
+
 import { LogWithServiceAndMethod } from '../logger';
 
 export * from './updater';

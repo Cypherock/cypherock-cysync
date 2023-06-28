@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+
 import { BrowserWindow } from 'electron';
 
-import { logger } from './logger';
 import { config } from './config';
+import { logger } from './logger';
 
 /**
  * Issue with electron supporting the latest react dev tools

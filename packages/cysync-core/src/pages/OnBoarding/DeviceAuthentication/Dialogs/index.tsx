@@ -2,10 +2,10 @@ import { ErrorDialog, SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
 
+import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { ErrorHandlerDialog } from '~/components';
 
 import { DeviceAuthenticating } from './Authenticating';
 

@@ -1,7 +1,8 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
-import { UtilsProps, utils } from '../utils';
+
 import { theme } from '../../themes/theme.styled';
+import { UtilsProps, utils } from '../utils';
 
 interface AsideContainerProps extends UtilsProps {
   children?: ReactNode;

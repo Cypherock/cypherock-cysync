@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
+
 import { goldCopyIcon, copyIcon, checkIcon } from '../../assets';
 import { Button, Image } from '../atoms';
 

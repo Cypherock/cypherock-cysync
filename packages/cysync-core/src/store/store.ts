@@ -10,13 +10,14 @@ import {
   useSelector,
   useDispatch,
 } from 'react-redux';
-import walletReducer, { IWalletState } from './wallet';
-import langReducers, { ILangState } from './lang';
 
-export type RootState = {
+import langReducers, { ILangState } from './lang';
+import walletReducer, { IWalletState } from './wallet';
+
+export interface RootState {
   wallet: IWalletState;
   lang: ILangState;
-};
+}
 
 export const store = configureStore({
   reducer: {
@@ -28,7 +29,7 @@ export const store = configureStore({
 export const StoreProvider = Provider;
 
 export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction> &
-  Dispatch<AnyAction>;
+  Dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 

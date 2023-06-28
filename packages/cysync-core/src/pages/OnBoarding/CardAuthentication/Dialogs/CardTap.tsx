@@ -1,10 +1,10 @@
 import {
+  QuestionMarkButton,
   Typography,
   DialogBox,
   DialogBoxBody,
   CardTapList,
   Container,
-  Button,
   LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -30,12 +30,7 @@ export const CardTap: React.FC<{
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.cardAuth.title} /> (
-            <Button variant="none" color="golden">
-              <Typography variant="h5" color="gold">
-                ?
-              </Typography>
-            </Button>
-            )
+            <QuestionMarkButton />)
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay text={lang.strings.onboarding.cardAuth.subtext} />

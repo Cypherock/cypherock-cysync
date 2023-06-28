@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+
 import { theme } from '../../themes/theme.styled';
 
 export type IndicatorState = 'disabled' | 'focused' | 'success' | 'failed';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLockscreen } from '~/context';
 import { Lockscreen } from '~/pages/Lockscreen';
 

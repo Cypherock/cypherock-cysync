@@ -1,4 +1,5 @@
 import { app, dialog } from 'electron';
+
 import { beforeQuitHook } from './hooks';
 import { logger } from './logger';
 

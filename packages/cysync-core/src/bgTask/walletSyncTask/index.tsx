@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
+import { syncWalletsWithDevice } from '~/actions';
 import { useDevice } from '~/context';
 import { useAppDispatch } from '~/store';
-import { syncWalletsWithDevice } from '~/actions';
 
 export const WalletSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();

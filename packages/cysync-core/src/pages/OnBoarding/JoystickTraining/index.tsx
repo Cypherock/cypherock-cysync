@@ -1,11 +1,12 @@
-import React from 'react';
 import { joystickTrainingAsideImage } from '@cypherock/cysync-ui';
+import React from 'react';
 
-import { useAppSelector, selectLanguage } from '~/store';
 import { WithConnectedDevice } from '~/components';
+import { useAppSelector, selectLanguage } from '~/store';
+
+import { JoystickTrainingDialog } from './Dialogs';
 
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
-import { JoystickTrainingDialog } from './Dialogs';
 
 export const JoystickTraining: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

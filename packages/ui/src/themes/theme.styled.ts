@@ -1,8 +1,8 @@
 import { colors } from './color.styled';
-import { typography } from './typography.styled';
 import { spacing } from './layout.styled';
-import { shadows } from './shadow.styled';
 import { screens } from './screens.styled';
+import { shadows } from './shadow.styled';
+import { typography } from './typography.styled';
 
 export type ThemeType = typeof theme;
 
@@ -33,12 +33,14 @@ export const theme = {
       main: colors.text.muted,
     },
     golden: colors.gradients.golden,
+    silver: colors.gradients.silver,
     highlight: colors.gradients.highlight,
     success: {
       main: colors.success.main,
     },
     text: {
       ...colors.text,
+      disabled: colors.disabled.text,
     },
     background: {
       progress: colors.background.progressBar,
@@ -49,6 +51,7 @@ export const theme = {
       separator: colors.background.separator,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
+      disabled: colors.disabled.background,
       bar: colors.background.bar,
     },
     border: {

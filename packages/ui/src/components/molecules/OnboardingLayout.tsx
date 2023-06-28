@@ -1,21 +1,21 @@
 import React, { FC, ReactNode } from 'react';
-import { Container } from '../atoms';
+
 import { Aside, AsideProps } from './Aside';
-import {
-  DialogBoxBackgroundHeaderProps,
-  DialogBoxBackgroundFooterProps,
-  DialogBoxBackground,
-  DialogBoxBackgroundHeader,
-  DialogBoxBackgroundFooter,
-} from './Dialog';
 import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
+import {
+  DialogBoxBackground,
+  DialogBoxBackgroundBar,
+  DialogBoxBackgroundBarProps,
+} from './Dialog';
+
+import { Container } from '../atoms';
 
 export interface OnboardingLayoutProps
   extends Partial<AsideProps>,
     Partial<InfoAsideProps> {
   children: ReactNode | undefined;
-  headerProps?: DialogBoxBackgroundHeaderProps;
-  footerProps?: DialogBoxBackgroundFooterProps;
+  headerProps?: DialogBoxBackgroundBarProps;
+  footerProps?: DialogBoxBackgroundBarProps;
 }
 
 const GetAside: FC<Partial<AsideProps> & Partial<InfoAsideProps>> = ({
@@ -66,9 +66,13 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
       version={version}
     />{' '}
     <DialogBoxBackground>
-      {headerProps && <DialogBoxBackgroundHeader {...headerProps} />}
+      {headerProps && (
+        <DialogBoxBackgroundBar {...headerProps} position="top" />
+      )}
       {children}
-      {footerProps && <DialogBoxBackgroundFooter {...footerProps} />}
+      {footerProps && (
+        <DialogBoxBackgroundBar {...footerProps} position="bottom" />
+      )}
     </DialogBoxBackground>
   </Container>
 );
