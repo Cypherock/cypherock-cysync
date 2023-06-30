@@ -2,6 +2,7 @@ import {
   ThemeProvider as RawThemeProvider,
   useTheme as useStyledTheme,
 } from 'styled-components';
+
 import { theme } from './theme.styled';
 
 export const getDefaultTheme = () => theme;

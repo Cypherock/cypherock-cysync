@@ -1,4 +1,3 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   Bullet,
   Button,
@@ -14,9 +13,20 @@ import {
   openExternalLink,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
+
 import { routes } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
+import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+import { keyValueStore } from '~/utils';
+
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
@@ -55,6 +65,7 @@ const TermsDialogBox: FC<{
   };
   buttonText: string;
   consent: string;
+  isLoading: boolean;
 }> = ({
   bulletPoints,
   consent,
@@ -62,10 +73,15 @@ const TermsDialogBox: FC<{
   isChecked,
   setIsChecked,
   title,
+  isLoading,
   subtext,
 }) => {
+  const { isPasswordSet } = useLockscreen();
   const navigateTo = useNavigateTo();
-  const toNextPage = () => navigateTo(routes.onboarding.deviceDetection.path);
+  const toNextPage = async () => {
+    if (isPasswordSet) navigateTo(routes.onboarding.emailAuth.path);
+    else navigateTo(routes.onboarding.setPassword.path);
+  };
   return (
     <DialogBox width={500} direction="column">
       <DialogBoxBody gap={32} direction="column" align="center">
@@ -84,6 +100,7 @@ const TermsDialogBox: FC<{
         <CheckBox
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
+          isDisabled={isLoading}
           id="terms_accepted"
           label={consent}
         />
@@ -92,7 +109,7 @@ const TermsDialogBox: FC<{
         <Button
           variant={isChecked ? 'primary' : 'secondary'}
           disabled={!isChecked}
-          onClick={toNextPage}
+          onClick={() => toNextPage()}
         >
           <LangDisplay text={buttonText} />
         </Button>
@@ -104,6 +121,27 @@ const TermsDialogBox: FC<{
 export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchTerms = async () => {
+    setIsLoading(true);
+    setIsChecked(await keyValueStore.isTermsAccepted.get());
+    setIsLoading(false);
+  };
+
+  const updateTerms = async () => {
+    setIsLoading(true);
+    await keyValueStore.isTermsAccepted.set(isChecked);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTerms();
+  }, []);
+
+  useEffect(() => {
+    updateTerms();
+  }, [isChecked]);
 
   return (
     <OnboardingPageLayout
@@ -112,7 +150,7 @@ export const Terms: FC = () => {
       currentState={1}
       totalState={8}
       withHelp
-      withBack
+      backTo={routes.onboarding.usage.path}
     >
       <TermsDialogBox
         isChecked={isChecked}
@@ -122,6 +160,7 @@ export const Terms: FC = () => {
         title={lang.strings.onboarding.terms.title}
         subtext={lang.strings.onboarding.terms.subtext}
         buttonText={lang.strings.buttons.confirm}
+        isLoading={isLoading}
       />
     </OnboardingPageLayout>
   );

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
+
+import { blockIcon, blockSelectedIcon } from '../../assets/images';
 import { theme } from '../../themes/theme.styled';
 import { Flex, Image } from '../atoms';
-import { blockIcon, blockSelectedIcon } from '../../assets/images';
 
 interface MilestoneProps {
   currentState: number;

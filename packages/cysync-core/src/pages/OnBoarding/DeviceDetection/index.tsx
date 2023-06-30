@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import {
   Container,
   DialogBox,
@@ -9,11 +8,14 @@ import {
   LogoOutlinedAsideImage,
   LangDisplay,
 } from '@cypherock/cysync-ui';
+import { OnboardingStep } from '@cypherock/sdk-app-manager';
+import React, { useEffect } from 'react';
 
-import { useDevice, DeviceConnectionStatus } from '~/context';
 import { routes } from '~/constants';
+import { useDevice, DeviceConnectionStatus } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 const DeviceNotConnectedDialogBox: React.FC<{
@@ -35,6 +37,22 @@ const DeviceNotConnectedDialogBox: React.FC<{
   </DialogBox>
 );
 
+const OnboardingMap: Record<OnboardingStep, string> = {
+  [OnboardingStep.ONBOARDING_STEP_VIRGIN_DEVICE]:
+    routes.onboarding.deviceAuthentication.path,
+  [OnboardingStep.ONBOARDING_STEP_DEVICE_AUTH]:
+    routes.onboarding.joystickTraining.path,
+  [OnboardingStep.ONBOARDING_STEP_JOYSTICK_TRAINING]:
+    routes.onboarding.cardTraining.path,
+  [OnboardingStep.ONBOARDING_STEP_CARD_CHECKUP]:
+    routes.onboarding.cardTraining.path,
+  [OnboardingStep.ONBOARDING_STEP_CARD_AUTHENTICATION]:
+    routes.onboarding.congratulations.path,
+  [OnboardingStep.ONBOARDING_STEP_COMPLETE]:
+    routes.onboarding.congratulations.path,
+  [OnboardingStep.UNRECOGNIZED]: routes.onboarding.deviceAuthentication.path,
+};
+
 export const DeviceDetection: React.FC = () => {
   const { connection } = useDevice();
   const navigateTo = useNavigateTo();
@@ -42,7 +60,8 @@ export const DeviceDetection: React.FC = () => {
 
   useEffect(() => {
     if (connection && connection.status === DeviceConnectionStatus.CONNECTED) {
-      navigateTo(routes.onboarding.deviceAuthentication.path);
+      const step = connection.onboardingStep;
+      navigateTo(OnboardingMap[step]);
     }
   }, [connection]);
 
@@ -53,7 +72,7 @@ export const DeviceDetection: React.FC = () => {
       currentState={3}
       totalState={8}
       withHelp
-      withBack
+      backTo={routes.onboarding.emailAuth.path}
     >
       <DeviceNotConnectedDialogBox
         title={lang.strings.onboarding.deviceDetection.title}

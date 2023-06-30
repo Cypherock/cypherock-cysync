@@ -86,6 +86,7 @@ const en = {
   buttons: {
     continue: 'Continue',
     confirm: 'Confirm',
+    skip: 'Skip',
     retry: 'Retry',
     update: 'Update',
     cancel: 'Cancel',
@@ -145,6 +146,24 @@ const en = {
       },
       consent:
         ' I have read and agree with the Terms of Use and Privacy Policy',
+    },
+    setPassword: {
+      heading: 'Set Password',
+      title: 'Set your cySync password ',
+      subtitle: 'We do not store your password on our servers',
+      success: 'Your new password is set',
+      newPasswordLabel: 'New Password',
+      confirmPasswordLabel: 'Confirm Password',
+      hint: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+    },
+    emailAuth: {
+      heading: 'Email Auth',
+      title:
+        'You are recommended to enter an email ID as a 2FA to get authenticity results ',
+      subtitle: 'We do not store this email ID permanently on our servers ',
+      success: 'Your new password is set',
+      enterEmailLabel: 'Email',
+      placeholder: 'Email',
     },
     deviceDetection: {
       heading: 'Device Connection',
@@ -424,6 +443,23 @@ const en = {
   errors: {
     deviceErrors,
     default: 'Some internal error occurred',
+  },
+  validation: {
+    generic: {
+      required: 'This field is required',
+    },
+    email: {
+      invalid: 'This is not a valid email',
+    },
+    password: {
+      mismatch: 'Passwords do not match',
+      passwordFieldPrefix: 'Password ',
+      confirmPasswordFieldPrefix: 'Confirm Password ',
+      minLength: 'must be at least 8 characters',
+      containNumber: 'must contain at least 1 number',
+      containSymbol: 'must contain at least 1 symbol',
+      required: 'is required',
+    },
   },
 };
 

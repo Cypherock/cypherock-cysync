@@ -1,4 +1,5 @@
 import { app, BrowserWindow, screen, shell } from 'electron';
+
 import { config } from './config';
 import { windowUrls } from './urls';
 

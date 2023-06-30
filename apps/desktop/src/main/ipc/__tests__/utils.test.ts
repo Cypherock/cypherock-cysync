@@ -1,6 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
-import { callMethodOnObject, getMethodListFromObject } from '../helpers/utils';
+
 import { fixtures } from '../__fixtures__/utils';
+import { callMethodOnObject, getMethodListFromObject } from '../helpers/utils';
 
 describe('IPC Helpers', () => {
   describe('getMethodListFromObject', () => {

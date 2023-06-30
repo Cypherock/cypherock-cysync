@@ -1,16 +1,18 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   DialogBox,
   DialogBoxBody,
-  HelpHeader,
+  HelpButton,
   Container,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
+import React, { Dispatch, FC, SetStateAction } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { OnClose } from './Dialogs';
 
 export const CreateNewWallet: FC<{
@@ -43,7 +45,7 @@ export const CreateNewWallet: FC<{
           <MilestoneAside tabs={tabs} activeTab={tab} />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="space-between">
-              <HelpHeader text={lang.strings.help} />
+              <HelpButton text={lang.strings.help} />
               <CloseButton onClick={() => setShowOnClose(true)} />
             </Container>
             <DialogBoxBody

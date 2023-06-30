@@ -17,5 +17,8 @@ export const keyValueStore = {
   isLinuxPermissionSetupDone: createBooleanValueStore(
     'isLinuxPermissionSetupDone',
   ),
+  isNewUser: createBooleanValueStore('isNewUser'),
+  isTermsAccepted: createBooleanValueStore('isTermsAccepted'),
   passwordHash: createStringValueStore('passwordHash'),
+  email: createStringValueStore('email'),
 };

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { utils, UtilsProps } from '../utils';
 
 interface DividerProps extends UtilsProps {

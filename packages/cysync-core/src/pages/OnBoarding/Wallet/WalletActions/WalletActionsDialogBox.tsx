@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   BlurOverlay,
   Button,
@@ -7,20 +6,23 @@ import {
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
-  HelpHeader,
+  HelpButton,
   Image,
   LangDisplay,
   Typography,
   recoverWalletIcon,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
+import React, { FC } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
-import { Header } from './Header';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { CreateWalletDialogBox } from './CreateWalletDialogBox';
+import { Header } from './Header';
 import { ImportWalletDialogBox } from './ImportWalletDialogBox';
 import { TransferWallet } from './TransferWallet';
 
-export const WalletActionsDialogBox: FC<{}> = () => {
+export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { showWalletActionsDialogBox, setShowWalletActionsDialogBox } =
     useCreateNewWallet();
@@ -29,7 +31,7 @@ export const WalletActionsDialogBox: FC<{}> = () => {
     <BlurOverlay>
       <DialogBox py={2} width="full">
         <Flex width="full" px={3} justify="space-between">
-          <HelpHeader text={lang.strings.help} />
+          <HelpButton text={lang.strings.help} />
           <CloseButton onClick={() => setShowWalletActionsDialogBox(false)} />
         </Flex>
         <DialogBoxBody

@@ -2,7 +2,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'immer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import type { RootState } from './store';
+
 import {
   getDefaultLang,
   getLangStrings,
@@ -10,7 +12,10 @@ import {
   LanguageStrings,
 } from '../constants';
 
-export type ILangState = { strings: LanguageStrings; lang: Language };
+export interface ILangState {
+  strings: LanguageStrings;
+  lang: Language;
+}
 
 const initialState: ILangState = {
   strings: getLangStrings(getDefaultLang()),

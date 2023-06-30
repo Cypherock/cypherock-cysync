@@ -1,6 +1,7 @@
 import React from 'react';
-import { Flex, Image } from '../atoms';
+
 import { goldLoaderIcon } from '../../assets/images';
+import { Flex, Image } from '../atoms';
 
 export const FullPageLoader: React.FC = () => (
   <Flex

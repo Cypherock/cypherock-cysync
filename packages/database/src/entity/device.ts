@@ -1,4 +1,5 @@
 import { IDevice } from '@cypherock/db-interfaces';
+
 import { BaseFields, ITableDetails } from './types';
 
 export const Device: ITableDetails<Omit<IDevice, BaseFields>> = {

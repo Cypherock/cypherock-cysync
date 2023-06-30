@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+
+import { InfoIcon, shieldAlert } from '../../assets';
 import {
   Image,
   LangDisplay,
@@ -7,7 +9,6 @@ import {
   Typography,
   Flex,
 } from '../atoms';
-import { shieldAlert, InfoIcon } from '../../assets';
 import { utils, UtilsProps } from '../utils';
 
 export type AlertBoxVariantType = 'warning' | 'info' | 'none';

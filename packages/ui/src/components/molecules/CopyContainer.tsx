@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { utils, UtilsProps } from '../utils';
-import { Typography } from '../atoms';
+
 import { Clipboard } from './Clipboard';
+
+import { Typography } from '../atoms';
+import { utils, UtilsProps } from '../utils';
 
 interface CopyContainerProps extends UtilsProps {
   link: string;

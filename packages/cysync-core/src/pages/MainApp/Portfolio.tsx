@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { FC, useState } from 'react';
 import {
   SyncStatusType,
   ConnectionStatusType,
   Topbar,
   Flex,
 } from '@cypherock/cysync-ui';
+import React, { FC, useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
 import { CreateNewWalletProvider } from '~/context/createNewWallet';
 import { CreateNewWallet, WalletActionsDialogBox } from '../OnBoarding';
 
-export const Portfolio: FC<{}> = () => {
+export const Portfolio: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [showOnClose, setShowOnClose] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);

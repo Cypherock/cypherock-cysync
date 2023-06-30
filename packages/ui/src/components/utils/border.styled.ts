@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+
 import { generateCss } from './generateCss';
 
 type BorderType<T extends string> =
@@ -40,7 +41,7 @@ const borderPropertyMap: Record<string, string[]> = {
 const getProperties = (key: BorderType<'border'>, prop: string) => {
   const properties = [];
   const lastElement = key[key.length - 1];
-  if (Object.keys(borderPropertyMap).indexOf(lastElement) >= 0) {
+  if (Object.keys(borderPropertyMap).includes(lastElement)) {
     for (const j of borderPropertyMap[lastElement] ?? []) {
       properties.push(`border-${j}-${prop}`);
     }

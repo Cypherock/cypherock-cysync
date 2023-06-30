@@ -1,16 +1,17 @@
 import { css } from 'styled-components';
+
+import { AnimateProps, animate } from './animate.styled';
+import { $bgColor, BgColorProps } from './bgColor.styled';
+import { border, BorderProps } from './border.styled';
 import { display, DisplayProps } from './display.styled';
 import { flex, FlexProps } from './flex.styled';
 import { font, FontProps } from './font.styled';
-import { position, PositionProps } from './position.styled';
-import { width, WidthProps } from './width.styled';
-import { $bgColor, BgColorProps } from './bgColor.styled';
-import { spacing, SpacingProps } from './spacing.styled';
 import { height, HeightProps } from './height.styled';
+import { position, PositionProps } from './position.styled';
 import { ShadowProps, shadow } from './shadow.styled';
-import { border, BorderProps } from './border.styled';
+import { spacing, SpacingProps } from './spacing.styled';
 import { TransformProps, transform } from './transform.styled';
-import { AnimateProps, animate } from './animate.styled';
+import { width, WidthProps } from './width.styled';
 
 export interface UtilsProps
   extends BgColorProps,

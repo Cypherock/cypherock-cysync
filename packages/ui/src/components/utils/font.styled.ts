@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+
 import { generateCss } from './generateCss';
 import { MediaQuery } from '../../types';
 
