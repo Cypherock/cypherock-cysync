@@ -1,0 +1,164 @@
+import React, { FC, ReactNode, useState } from 'react';
+import { useTheme } from 'styled-components';
+
+import { CaretIcon, SvgProps } from '../../../assets';
+import { Flex, Typography, Button, TypographyColor } from '../../atoms';
+import { svgGradients } from '../../GlobalStyles';
+
+export enum SideBarState {
+  disabled,
+  normal,
+  selected,
+  error,
+}
+
+export interface SideBarItemProps {
+  Icon?: FC<SvgProps>;
+  svgStroke?: boolean;
+  text: string;
+  state?: SideBarState;
+  child?: 'regular' | 'last';
+  extraLeft?: ReactNode;
+  extraRight?: ReactNode;
+  children?: ReactNode;
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export const SideBarItem: FC<SideBarItemProps> = ({
+  Icon,
+  svgStroke,
+  text,
+  state,
+  child,
+  extraLeft,
+  extraRight,
+  children,
+  onButtonClick,
+}) => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const theme = useTheme()!;
+
+  const int = (x: string) => parseInt(x, 10);
+
+  const textColorMap: Record<SideBarState, TypographyColor> = {
+    [SideBarState.disabled]: 'disabled',
+    [SideBarState.normal]: 'muted',
+    [SideBarState.selected]: 'gold',
+    [SideBarState.error]: 'error',
+  };
+  const textColor: TypographyColor = textColorMap[state!];
+
+  const svgColor: string = {
+    [SideBarState.disabled]: theme.palette.text.disabled,
+    [SideBarState.normal]: theme.palette.text.heading,
+    [SideBarState.selected]: `url(#${svgGradients.gold})`,
+    [SideBarState.error]: theme.palette.warn.main,
+  }[state!];
+
+  const lineProps = {
+    stroke: theme.palette.muted.main,
+    strokeWidth: 1,
+    vectorEffect: 'non-scaling-stroke',
+  };
+
+  return (
+    <Flex direction="column" width="full">
+      <Flex gap={int(theme.spacing.two.spacing)} width="full">
+        <Flex
+          gap={int(theme.spacing.two.spacing)}
+          width="full"
+          align="center"
+          $overflowX="hidden"
+        >
+          {child && (
+            <svg
+              width={theme.spacing.two.spacing}
+              style={{ flexShrink: 0 }}
+              height="100%"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <line x1={0} y1={0} x2={0} y2={50} {...lineProps} />
+              <line x1={0} y1={50} x2={100} y2={50} {...lineProps} />
+              {child === 'regular' && collapsed && (
+                <line x1={0} y1={50} x2={0} y2={100} {...lineProps} />
+              )}
+            </svg>
+          )}
+          <Button
+            variant="text"
+            disabled={state === SideBarState.disabled}
+            py={1}
+            onClick={children ? () => setCollapsed(!collapsed) : onButtonClick}
+            title={text}
+            align="center"
+            $overflowX="hidden"
+          >
+            {Icon && (
+              <Flex align="center">
+                {' '}
+                <Icon
+                  fill={svgStroke ? 'none' : svgColor}
+                  stroke={svgStroke ? svgColor : 'none'}
+                />{' '}
+              </Flex>
+            )}
+            <Typography
+              variant="h6"
+              color={textColor}
+              py={1}
+              $whiteSpace="nowrap"
+              $textOverflow="ellipsis"
+              grow={1}
+            >
+              {text}
+            </Typography>
+          </Button>
+          {extraLeft}
+        </Flex>
+        <Flex
+          justify="flex-end"
+          gap={int(theme.spacing.two.spacing)}
+          align="center"
+        >
+          {extraRight}
+          {children && (
+            <Button
+              variant="text"
+              disabled={state === SideBarState.disabled}
+              onClick={() => setCollapsed(!collapsed)}
+              title="Collapse"
+              align="center"
+            >
+              <CaretIcon
+                rotate={collapsed ? 90 : 0}
+                fill={
+                  state === SideBarState.disabled
+                    ? theme.palette.text.disabled
+                    : theme.palette.muted.main
+                }
+              />
+            </Button>
+          )}
+        </Flex>
+      </Flex>
+      {!collapsed && (
+        <Flex pl={2} direction="column">
+          {children}
+        </Flex>
+      )}
+    </Flex>
+  );
+};
+
+SideBarItem.defaultProps = {
+  Icon: undefined,
+  svgStroke: false,
+  state: SideBarState.normal,
+  child: undefined,
+  extraLeft: undefined,
+  extraRight: undefined,
+  children: undefined,
+  onButtonClick: undefined,
+};

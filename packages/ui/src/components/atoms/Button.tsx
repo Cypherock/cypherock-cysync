@@ -120,9 +120,11 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     border: none;
     transition: none;
     padding: 0;
-    &:hover {
+    &:not([disabled]):hover {
       filter: brightness(150%);
-      cursor: pointer;
+    }
+    &:disabled {
+      cursor: auto;
     }
   `,
   none: css<ButtonProps>`
@@ -134,13 +136,14 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
 const buttonStyle = css<ButtonProps>`
   ${props => {
-    if (props.disabled)
+    if (props.disabled && props.variant !== 'text')
       return css`
         background-color: ${({ theme }) => theme.palette.background.disabled};
         color: ${({ theme }) => theme.palette.text.disabled};
         border: 1px solid transparent;
         cursor: not-allowed;
       `;
+
     return buttonVariantCssMap[props.variant ?? 'primary'];
   }}
 `;

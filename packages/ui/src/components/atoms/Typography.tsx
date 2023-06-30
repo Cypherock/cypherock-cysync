@@ -27,6 +27,7 @@ export type TypographyColor =
   | 'warn'
   | 'list'
   | 'black'
+  | 'disabled'
   | 'info';
 
 interface HeadingProps
@@ -41,6 +42,8 @@ interface HeadingProps
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
+  $whiteSpace?: 'normal' | 'nowrap';
+  $textOverflow?: 'clip' | 'ellipsis' | 'fade';
 }
 
 const getColorCss = (color?: TypographyColor) => {
@@ -85,6 +88,19 @@ const baseStyle = css<HeadingProps>`
       letter-spacing: ${props.$letterSpacing}em;
     `}
     
+  ${props =>
+    props.$whiteSpace !== undefined &&
+    css`
+      white-space: ${props.$whiteSpace};
+    `}
+
+  ${props =>
+    props.$textOverflow !== undefined &&
+    css`
+      text-overflow: ${props.$textOverflow};
+      overflow: hidden;
+    `}
+
   max-width: 100%;
   ${border};
   ${spacing};
@@ -199,4 +215,6 @@ Typography.defaultProps = {
   $textAlign: 'left',
   $letterSpacing: 0,
   $userSelect: undefined,
+  $whiteSpace: 'normal',
+  $textOverflow: 'clip',
 };

@@ -62,6 +62,7 @@ export const theme = {
       successSecondary: colors.success.secondary,
       muted: colors.background.muted,
       inputSecondary: colors.background.inputSecondary,
+      sidebar: colors.background.sidebar,
     },
     border: {
       popup: colors.border.popup,
