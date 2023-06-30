@@ -78,12 +78,14 @@ export const PasswordForm: React.FC<{
               label={lang.strings.onboarding.setPassword.newPasswordLabel}
               value={password}
               onChange={setPassword}
+              disabled={isLoading}
             />
             <PasswordInput
               name="confirm password"
               label={lang.strings.onboarding.setPassword.confirmPasswordLabel}
               value={confirmPassword}
               onChange={setConfirmPassword}
+              disabled={isLoading}
             />
             {errorMessage.length > 0 && (
               <Container display="block" $borderWidthT={1} py={3}>
@@ -112,7 +114,7 @@ export const PasswordForm: React.FC<{
           >
             {lang.strings.buttons.skip}
           </Button>
-          <Button variant="primary" type="submit" disabled={isLoading}>
+          <Button variant="primary" type="submit" isLoading={isLoading}>
             {lang.strings.buttons.confirm}
           </Button>
         </DialogBoxFooter>

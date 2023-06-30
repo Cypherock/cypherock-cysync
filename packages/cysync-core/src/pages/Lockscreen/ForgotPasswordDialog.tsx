@@ -48,11 +48,11 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
+        <Button variant="secondary" onClick={onCancel} isLoading={isLoading}>
           <LangDisplay text={lang.strings.buttons.cancel} />
         </Button>
 
-        <Button variant="primary" onClick={onReset} disabled={isLoading}>
+        <Button variant="primary" onClick={onReset} isLoading={isLoading}>
           <LangDisplay text={lang.strings.buttons.reset} />
         </Button>
       </DialogBoxFooter>
