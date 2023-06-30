@@ -6,10 +6,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardNote: FC<{}> = () => {
+export const CardNote: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const theme = useTheme();
   const { onNext, onPrevious } = useCreateNewWallet();

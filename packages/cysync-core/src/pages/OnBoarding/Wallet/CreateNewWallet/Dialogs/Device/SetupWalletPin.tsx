@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
 import { setupPin, CreateWalletDialogBoxLayout } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import React, { FC } from 'react';
 
-export const SetupWalletPin: FC<{}> = () => {
+import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
+export const SetupWalletPin: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (

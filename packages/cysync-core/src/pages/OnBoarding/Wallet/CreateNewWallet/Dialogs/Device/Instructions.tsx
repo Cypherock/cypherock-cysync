@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
-import { useTheme } from 'styled-components';
 import {
   LangDisplay,
   followInfo,
   CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import React, { FC } from 'react';
+import { useTheme } from 'styled-components';
 
-export const Instructions: FC<{}> = () => {
+import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
+export const Instructions: FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();

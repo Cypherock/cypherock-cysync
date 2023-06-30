@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
 import { syncX1Cards, CreateWalletDialogBoxLayout } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import React, { FC } from 'react';
 
-export const TapX1Cards: FC<{}> = () => {
+import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
+export const TapX1Cards: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (

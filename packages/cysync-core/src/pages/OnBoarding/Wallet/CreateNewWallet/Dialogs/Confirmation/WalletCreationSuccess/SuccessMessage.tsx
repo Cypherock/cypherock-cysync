@@ -5,10 +5,11 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SuccessMessage: FC<{}> = () => {
+export const SuccessMessage: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (

@@ -1,4 +1,3 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   Flex,
   CreateWalletDialogBoxLayout,
@@ -9,6 +8,8 @@ import {
   DialogBox,
   DialogBoxBody,
 } from '@cypherock/cysync-ui';
+import React, { Dispatch, FC, SetStateAction } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
 
 const Buttons: FC<{

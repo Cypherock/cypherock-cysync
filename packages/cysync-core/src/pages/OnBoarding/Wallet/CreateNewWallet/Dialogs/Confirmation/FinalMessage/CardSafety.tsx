@@ -3,10 +3,11 @@ import {
   informationIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardSafety: FC<{}> = () => {
+export const CardSafety: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (

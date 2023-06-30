@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   Flex,
   CreateWalletDialogBoxLayout,
@@ -10,10 +9,12 @@ import {
   Typography,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import React, { FC } from 'react';
 
-const Buttons: FC<{}> = () => {
+import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
+const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const {
     setTab,
@@ -55,7 +56,7 @@ const Buttons: FC<{}> = () => {
   );
 };
 
-export const WalletNotCreatedDialog: FC<{}> = () => {
+export const WalletNotCreatedDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (

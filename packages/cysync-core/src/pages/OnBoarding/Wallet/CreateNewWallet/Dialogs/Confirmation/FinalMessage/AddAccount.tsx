@@ -1,4 +1,3 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   CreateWalletDialogBoxLayout,
   Flex,
@@ -6,8 +5,11 @@ import {
   Button,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
 
 const Buttons: FC<{
@@ -39,7 +41,7 @@ const Buttons: FC<{
   );
 };
 
-export const AddAccount: FC<{}> = () => {
+export const AddAccount: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
