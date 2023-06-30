@@ -28,6 +28,7 @@ const logger = createLoggerWithPrefix(baseLogger, 'DeviceConnection');
 export interface DeviceContextInterface {
   connection?: IDeviceConnectionInfo;
   connectDevice: ConnectDevice;
+  getDevices: GetDevices;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -157,8 +158,8 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   }, []);
 
   const ctx = useMemo(
-    () => ({ connection: connectionInfo, connectDevice }),
-    [connectionInfo, connectDevice],
+    () => ({ connection: connectionInfo, connectDevice, getDevices }),
+    [connectionInfo, connectDevice, getDevices],
   );
 
   return (

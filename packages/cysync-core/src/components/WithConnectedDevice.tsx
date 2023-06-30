@@ -18,6 +18,8 @@ import { useAppSelector, selectLanguage } from '~/store';
 export interface WithConnectedDeviceProps {
   children: React.ReactNode;
   onInitial?: boolean;
+  allowIncompatible?: boolean;
+  allowBootloader?: boolean;
 }
 
 const isValidConnectedDevice = (
@@ -26,13 +28,28 @@ const isValidConnectedDevice = (
 ) => {
   if (!connection) return false;
 
+  if (
+    props.allowIncompatible &&
+    connection.status === DeviceConnectionStatus.INCOMPATIBLE
+  )
+    return true;
+
+  if (
+    props.allowBootloader &&
+    connection.status === DeviceConnectionStatus.CONNECTED &&
+    connection.isBootloader
+  )
+    return true;
+
   if (connection.status !== DeviceConnectionStatus.CONNECTED) return false;
 
-  if (props.onInitial && connection.isInitial) {
-    return true;
+  if (props.onInitial) {
+    return connection.isInitial;
   }
 
-  return false;
+  if (connection.isBootloader) return false;
+
+  return true;
 };
 
 export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
@@ -61,4 +78,6 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
 
 WithConnectedDevice.defaultProps = {
   onInitial: false,
+  allowIncompatible: false,
+  allowBootloader: false,
 };

@@ -60,6 +60,11 @@ export const DeviceDetection: React.FC = () => {
   useEffect(() => {
     if (connection?.status === DeviceConnectionStatus.INCOMPATIBLE) {
       navigateTo(routes.onboarding.appUpdate.path);
+    } else if (
+      connection?.status === DeviceConnectionStatus.CONNECTED &&
+      connection.isBootloader
+    ) {
+      navigateTo(routes.onboarding.deviceUpdate.path);
     } else if (connection?.status === DeviceConnectionStatus.CONNECTED) {
       const step = connection.onboardingStep;
       navigateTo(OnboardingMap[step]);

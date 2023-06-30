@@ -6,10 +6,12 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { getParsedError, IParsedError } from '~/utils/error';
 
 export interface ErrorHandlerDialogProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   error?: any;
+  defaultMsg?: string;
   title: string;
   onRetry?: () => void;
+  textVariables?: object;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -17,6 +19,8 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   error,
   title,
   onRetry,
+  textVariables,
+  defaultMsg,
 }) => {
   const [errorToShow, setErrorToShow] = React.useState<
     IParsedError | undefined
@@ -24,7 +28,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   const lang = useAppSelector(selectLanguage);
 
   const errorMsg = React.useMemo(
-    () => (error ? getParsedError({ error, lang }) : undefined),
+    () => (error ? getParsedError({ error, defaultMsg, lang }) : undefined),
     [error, lang],
   );
 
@@ -51,8 +55,11 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
     };
   }, [errorMsg]);
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!errorToShow) return <>{children}</>;
+  if (!errorToShow) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    if (children) return <>{children}</>;
+    return null;
+  }
 
   return (
     <ErrorDialog
@@ -61,11 +68,15 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
       onRetry={onRetry}
       title={title}
       subtext={errorToShow.msg}
+      textVariables={textVariables}
     />
   );
 };
 
 ErrorHandlerDialog.defaultProps = {
+  children: undefined,
   error: undefined,
   onRetry: undefined,
+  textVariables: undefined,
+  defaultMsg: undefined,
 };

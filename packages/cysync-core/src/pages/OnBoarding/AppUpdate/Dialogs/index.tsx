@@ -16,7 +16,7 @@ import logger from '~/utils/logger';
 import { AppUpdateChecking } from './AppUpdateChecking';
 import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
-enum AppUpdateStates {
+enum AppUpdateState {
   Checking,
   Confirmation,
   Downloading,
@@ -25,7 +25,7 @@ enum AppUpdateStates {
   FailedFallback,
 }
 
-export enum UpdateState {
+export enum InternalAppUpdateState {
   Checking,
   Downloading,
   Installing,
@@ -35,13 +35,15 @@ export const AppUpdateDialogBox: FC = () => {
   const maxTries = 3;
 
   const lang = useAppSelector(selectLanguage);
-  const navigate = useNavigateTo();
+  const navigateTo = useNavigateTo();
 
-  const [state, setState] = React.useState(AppUpdateStates.Checking);
+  const [state, setState] = React.useState(AppUpdateState.Checking);
   const [, setTries, triesRef] = useStateWithRef(0);
   const [updateInfo, setUpdateInfo] = React.useState<UpdateInfo | undefined>();
   const [downloadProgress, setDownloadProgress] = React.useState(0);
-  const [updateState, setUpdateState] = React.useState(UpdateState.Checking);
+  const [internalState, setInternalState] = React.useState(
+    InternalAppUpdateState.Checking,
+  );
 
   const onError = (error: any) => {
     setTries(triesRef.current + 1);
@@ -49,17 +51,17 @@ export const AppUpdateDialogBox: FC = () => {
     logger.error(error);
 
     if (triesRef.current > maxTries) {
-      setState(AppUpdateStates.FailedFallback);
+      setState(AppUpdateState.FailedFallback);
     } else {
-      setState(AppUpdateStates.Failed);
+      setState(AppUpdateState.Failed);
     }
   };
 
   const downloadUpdate = async () => {
     try {
-      setUpdateState(UpdateState.Downloading);
+      setInternalState(InternalAppUpdateState.Downloading);
       setDownloadProgress(0);
-      setState(AppUpdateStates.Downloading);
+      setState(AppUpdateState.Downloading);
       await autoUpdater.downloadUpdate();
     } catch (error) {
       onError(error);
@@ -68,34 +70,34 @@ export const AppUpdateDialogBox: FC = () => {
 
   const installUpdate = async () => {
     try {
-      setUpdateState(UpdateState.Installing);
+      setInternalState(InternalAppUpdateState.Installing);
       await autoUpdater.installUpdate();
-      setState(AppUpdateStates.Successful);
+      setState(AppUpdateState.Successful);
     } catch (error) {
       onError(error);
     }
   };
 
   const onRetry = () => {
-    const retryFuncMap: Record<UpdateState, () => Promise<void>> = {
-      [UpdateState.Checking]: checkForUpdates,
-      [UpdateState.Downloading]: downloadUpdate,
-      [UpdateState.Installing]: installUpdate,
+    const retryFuncMap: Record<InternalAppUpdateState, () => Promise<void>> = {
+      [InternalAppUpdateState.Checking]: checkForUpdates,
+      [InternalAppUpdateState.Downloading]: downloadUpdate,
+      [InternalAppUpdateState.Installing]: installUpdate,
     };
 
-    retryFuncMap[updateState]();
+    retryFuncMap[internalState]();
   };
 
   const checkForUpdates = async () => {
     try {
-      setState(AppUpdateStates.Checking);
+      setState(AppUpdateState.Checking);
       const result = await autoUpdater.checkForUpdates();
       setUpdateInfo(result);
 
       if (!result) {
-        navigate(routes.onboarding.deviceUpdate.path);
+        navigateTo(routes.onboarding.deviceUpdate.path);
       } else {
-        setState(AppUpdateStates.Confirmation);
+        setState(AppUpdateState.Confirmation);
       }
     } catch (error) {
       onError(error);
@@ -113,13 +115,13 @@ export const AppUpdateDialogBox: FC = () => {
     checkForUpdates();
   }, []);
 
-  const AppUpdateDialogs: Record<AppUpdateStates, ReactElement> = {
-    [AppUpdateStates.Checking]: (
+  const AppUpdateDialogs: Record<AppUpdateState, ReactElement> = {
+    [AppUpdateState.Checking]: (
       <AppUpdateChecking
         text={lang.strings.onboarding.appUpdate.dialogs.checking.title}
       />
     ),
-    [AppUpdateStates.Confirmation]: (
+    [AppUpdateState.Confirmation]: (
       <ConfirmationDialog
         title={lang.strings.onboarding.appUpdate.dialogs.confirmation.title}
         subtext={lang.strings.onboarding.appUpdate.dialogs.confirmation.subtext}
@@ -129,7 +131,7 @@ export const AppUpdateDialogBox: FC = () => {
         handleClick={downloadUpdate}
       />
     ),
-    [AppUpdateStates.Downloading]: (
+    [AppUpdateState.Downloading]: (
       <ProgressDialog
         title={lang.strings.onboarding.appUpdate.dialogs.downloading.heading}
         subtext={lang.strings.onboarding.appUpdate.dialogs.downloading.subtext}
@@ -141,7 +143,7 @@ export const AppUpdateDialogBox: FC = () => {
         progress={downloadProgress}
       />
     ),
-    [AppUpdateStates.Successful]: (
+    [AppUpdateState.Successful]: (
       <SuccessDialog
         title={
           lang.strings.onboarding.appUpdate.dialogs.updateSuccessful.heading
@@ -154,15 +156,15 @@ export const AppUpdateDialogBox: FC = () => {
         }
       />
     ),
-    [AppUpdateStates.Failed]: (
+    [AppUpdateState.Failed]: (
       <ErrorDialog
         title={
-          updateState === UpdateState.Checking
+          internalState === InternalAppUpdateState.Checking
             ? lang.strings.onboarding.appUpdate.dialogs.checkingFailed.title
             : lang.strings.onboarding.appUpdate.dialogs.updateFailed.heading
         }
         subtext={
-          updateState === UpdateState.Checking
+          internalState === InternalAppUpdateState.Checking
             ? lang.strings.onboarding.appUpdate.dialogs.checkingFailed.subtext
             : lang.strings.onboarding.appUpdate.dialogs.updateFailed.subtext
         }
@@ -171,7 +173,7 @@ export const AppUpdateDialogBox: FC = () => {
         textVariables={updateInfo}
       />
     ),
-    [AppUpdateStates.FailedFallback]: (
+    [AppUpdateState.FailedFallback]: (
       <AppUpdateFailedFallback
         title={
           lang.strings.onboarding.appUpdate.dialogs.updateFailedFallback.heading

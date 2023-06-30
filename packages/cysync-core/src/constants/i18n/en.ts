@@ -260,10 +260,13 @@ const en = {
     deviceUpdate: {
       heading: 'Device Update',
       dialogs: {
+        checking: {
+          title: 'Please wait while we check for X1 Vault updates',
+        },
         confirmation: {
           heading: 'Device Update',
           title:
-            'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
+            'A new update is available for your X1 Vault. Update the device to v${version} to continue',
           subtext: 'Follow the instruction on the device',
         },
         loading: {
