@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   Flex,
   CreateWalletDialogBoxLayout,
@@ -9,17 +10,20 @@ import {
   Typography,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 
-const Buttons: FC<{
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ setShowCreateWalletDialogBox, setShowWalletActionsDialogBox }) => {
+const Buttons: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const {
+    setTab,
+    setDialogBox,
+    setShowCreateWalletDialogBox,
+    setShowWalletActionsDialogBox,
+  } = useCreateNewWallet();
   return (
     <Flex gap={16} $zIndex={1}>
-      <Button variant="primary-outlined">
+      <Button variant="secondary">
         <Typography color="gold">
           <LangDisplay
             text={
@@ -33,6 +37,8 @@ const Buttons: FC<{
         onClick={() => {
           setShowCreateWalletDialogBox(false);
           setShowWalletActionsDialogBox(true);
+          setTab(0);
+          setDialogBox(0);
         }}
         variant="primary"
       >
@@ -49,23 +55,17 @@ const Buttons: FC<{
   );
 };
 
-export const WalletNotCreatedDialog: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({
-  state,
-  setState,
-  setShowCreateWalletDialogBox,
-  setShowWalletActionsDialogBox,
-}) => {
+export const WalletNotCreatedDialog: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <BlurOverlay>
       <DialogBox width={500}>
         <DialogBoxBody p="0" pt={2}>
           <CreateWalletDialogBoxLayout
+            image={redDisconnectedIcon}
+            onNext={onNext}
+            onPrevious={onPrevious}
             title={
               lang.strings.onboarding.createWallet.finalMessage
                 .walletNotCreatedDialog.title
@@ -74,15 +74,7 @@ export const WalletNotCreatedDialog: FC<{
               lang.strings.onboarding.createWallet.finalMessage
                 .walletNotCreatedDialog.subTitle
             }
-            state={state}
-            footer={
-              <Buttons
-                setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
-                setShowWalletActionsDialogBox={setShowWalletActionsDialogBox}
-              />
-            }
-            setState={setState}
-            image={redDisconnectedIcon}
+            footer={<Buttons />}
           />
         </DialogBoxBody>
       </DialogBox>

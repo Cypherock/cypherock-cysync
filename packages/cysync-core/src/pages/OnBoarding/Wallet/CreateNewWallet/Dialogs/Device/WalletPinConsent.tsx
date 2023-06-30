@@ -1,38 +1,22 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import {
-  LangDisplay,
-  Typography,
   CreateWalletDialogBoxLayout,
   pinDeviceConsent,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 
-export const WalletPinConsent: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const WalletPinConsent: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <CreateWalletDialogBoxLayout
-      state={state}
-      setState={setState}
-      heading={lang.strings.onboarding.createWallet.setupPinConsent.heading}
       image={pinDeviceConsent}
+      onNext={onNext}
+      onPrevious={onPrevious}
+      heading={lang.strings.onboarding.createWallet.setupPinConsent.heading}
       title={lang.strings.onboarding.createWallet.setupPinConsent.title}
-    >
-      <Typography
-        px={5}
-        pt={{
-          def: 2,
-          lg: 6,
-        }}
-        $textAlign="center"
-        color="muted"
-      >
-        <LangDisplay
-          text={lang.strings.onboarding.createWallet.setupPinConsent.subTitle}
-        />
-      </Typography>
-    </CreateWalletDialogBoxLayout>
+      subTitle={lang.strings.onboarding.createWallet.setupPinConsent.subTitle}
+    />
   );
 };

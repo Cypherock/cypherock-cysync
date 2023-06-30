@@ -4,17 +4,19 @@ import {
   successIcon,
   Container,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SuccessMessage: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const SuccessMessage: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <>
       <CreateWalletDialogBoxLayout
+        image={successIcon}
+        onNext={onNext}
+        onPrevious={onPrevious}
         heading={
           lang.strings.onboarding.createWallet.walletCreationSuccess.heading
         }
@@ -22,9 +24,6 @@ export const SuccessMessage: FC<{
           lang.strings.onboarding.createWallet.walletCreationSuccess.titles
             .first
         }
-        state={state}
-        setState={setState}
-        image={successIcon}
       />
       <Container position="absolute">
         <ConfettiBlast />

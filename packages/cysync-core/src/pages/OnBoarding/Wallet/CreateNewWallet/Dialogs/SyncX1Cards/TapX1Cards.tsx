@@ -1,61 +1,20 @@
-import {
-  Container,
-  Flex,
-  Image,
-  arrowGoldenForward,
-  syncX1Cards,
-  CreateWalletDialogBoxLayout,
-  Typography,
-  LangDisplay,
-} from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
+import { syncX1Cards, CreateWalletDialogBoxLayout } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 
-export const TapX1Cards: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const TapX1Cards: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <CreateWalletDialogBoxLayout
-      state={state}
+      image={syncX1Cards}
+      onNext={onNext}
+      onPrevious={onPrevious}
       heading={lang.strings.onboarding.createWallet.syncX1Cards.heading}
       title={lang.strings.onboarding.createWallet.syncX1Cards.title}
-      setState={setState}
-      image={syncX1Cards}
       subTitle={lang.strings.onboarding.createWallet.syncX1Cards.subTitle}
-    >
-      <Flex
-        gap={8}
-        px={5}
-        pt={{
-          def: 2,
-          lg: 6,
-        }}
-        direction="column"
-      >
-        {lang.strings.onboarding.createWallet.syncX1Cards.list.map(
-          (item, index) => (
-            <Container
-              key={`syncX1Cards-list-index-${index + 1}`}
-              $alignSelf="start"
-              align="center"
-              gap={17}
-              width="full"
-              justify="flex-start"
-              $borderRadius={8}
-              $bgColor="input"
-              $borderColor="input"
-              p="12"
-            >
-              <Image src={arrowGoldenForward} alt="arrowGoldenForward" />
-              <Typography variant="h6" color="muted">
-                <LangDisplay text={item} />
-              </Typography>
-            </Container>
-          ),
-        )}
-      </Flex>
-    </CreateWalletDialogBoxLayout>
+      goldenArrowList={lang.strings.onboarding.createWallet.syncX1Cards.list}
+    />
   );
 };

@@ -1,7 +1,10 @@
-import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
-import { ArrowButton, Image, LangDisplay, Typography } from '../../atoms';
+import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
+import { GoldenArrowList } from '../GoldenArrowList';
+import { BulletList } from '../BulletList';
+import { Info } from '../Info';
 
 const InnerContainer = styled.div`
   max-height: 58vh;
@@ -12,91 +15,116 @@ export const CreateWalletDialogBoxLayout: FC<{
   heading?: string;
   title?: string;
   image: string;
-  setState: Dispatch<SetStateAction<number>>;
   children?: ReactNode;
   isLoading?: boolean;
   loadingText?: string;
   subTitle?: string;
   footer?: ReactNode;
-  state: number;
+  goldenArrowList?: Array<any>;
+  bulletList?: Array<any>;
+  infoText?: string;
+  infoColor?: 'white' | 'yellow';
+  showInfoIcon?: boolean;
+  disableLeftArrowButton?: boolean;
+  disableRightArrowButton?: boolean;
+  onNext: React.MouseEventHandler<HTMLButtonElement>;
+  onPrevious: React.MouseEventHandler<HTMLButtonElement>;
 }> = ({
   heading,
   image,
   title,
   children,
   isLoading,
-  setState,
   loadingText,
   subTitle,
   footer,
-  state,
-}) => {
-  const onPrevious = () => {
-    setState(prevProps => {
-      if (prevProps - 1 < 0) return prevProps;
-      return prevProps - 1;
-    });
-  };
-
-  const onNext = () => {
-    setState(prevProps => {
-      if (prevProps + 1 > 12) return prevProps;
-      return prevProps + 1;
-    });
-  };
-
-  return (
-    <>
-      {heading && (
-        <DialogBoxHeader p={2}>
-          <Typography variant="h6" color="muted">
-            <LangDisplay text={heading} />
-          </Typography>
-        </DialogBoxHeader>
-      )}
-      <InnerContainer>
-        <DialogBoxBody
-          gap={{
-            def: 12,
-            lg: 32,
-          }}
-          p="0"
+  goldenArrowList,
+  bulletList,
+  infoColor,
+  infoText,
+  showInfoIcon,
+  onNext,
+  onPrevious,
+  disableLeftArrowButton,
+  disableRightArrowButton,
+}) => (
+  <>
+    {heading && (
+      <DialogBoxHeader p={2}>
+        <Typography variant="h6" color="muted">
+          <LangDisplay text={heading} />
+        </Typography>
+      </DialogBoxHeader>
+    )}
+    <InnerContainer>
+      <DialogBoxBody
+        gap={{
+          def: 12,
+          lg: 48,
+        }}
+        p="0"
+      >
+        <Flex
+          gap={{ def: 12, lg: 32 }}
+          align="center"
+          justify="center"
+          width="inherit"
+          direction="column"
         >
           <Image src={image} alt="device" />
-          {title && (
-            <Typography px={8} $textAlign="center" variant="h5">
-              <LangDisplay text={title} />
-            </Typography>
-          )}
-          {subTitle && (
-            <Typography px={5} $textAlign="center" color="muted">
-              <LangDisplay text={subTitle} />
-            </Typography>
-          )}
-          {isLoading && loadingText && (
-            <Typography color="muted">
-              <LangDisplay text={loadingText} />
-            </Typography>
-          )}
-          {children}
-        </DialogBoxBody>
-      </InnerContainer>
-      <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
-        {footer}
-        {!footer && (
-          <>
-            <ArrowButton
-              variant={state === 0 ? 'disabled' : 'enabled'}
-              direction="left"
-              onClick={onPrevious}
-            />
-            <ArrowButton direction="right" onClick={onNext} />
-          </>
+          <Flex direction="column" align="center" gap={4}>
+            {title && (
+              <Typography px={5} $textAlign="center" variant="h5">
+                <LangDisplay text={title} />
+              </Typography>
+            )}
+            {subTitle && (
+              <Typography px={5} $textAlign="center" color="muted">
+                <LangDisplay text={subTitle} />
+              </Typography>
+            )}
+            {isLoading && loadingText && (
+              <Typography color="muted">
+                <LangDisplay text={loadingText} />
+              </Typography>
+            )}
+            {children}
+          </Flex>
+        </Flex>
+        {(goldenArrowList || bulletList || infoText) && (
+          <Flex direction="column" gap={{ def: 24, lg: 48 }} px={5}>
+            {goldenArrowList && <GoldenArrowList items={goldenArrowList} />}
+            {bulletList && <BulletList items={bulletList} />}
+            {infoText && (
+              <Info
+                showInfoIcon={showInfoIcon ?? true}
+                variant={infoColor === 'white' ? 'white' : 'yellow'}
+                text={infoText}
+              />
+            )}
+          </Flex>
         )}
-      </DialogBoxFooter>
-    </>
-  );
-};
+      </DialogBoxBody>
+    </InnerContainer>
+    <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+      {footer}
+      {!footer && (
+        <>
+          <ArrowButton
+            direction="left"
+            onClick={onPrevious}
+            variant={disableLeftArrowButton ? 'disabled' : 'enabled'}
+          />
+          <ArrowButton
+            direction="right"
+            onClick={onNext}
+            variant={disableRightArrowButton ? 'disabled' : 'enabled'}
+          />
+        </>
+      )}
+    </DialogBoxFooter>
+  </>
+);
 
 CreateWalletDialogBoxLayout.defaultProps = {
   children: undefined,
@@ -106,4 +134,11 @@ CreateWalletDialogBoxLayout.defaultProps = {
   title: undefined,
   footer: undefined,
   heading: undefined,
+  goldenArrowList: undefined,
+  bulletList: undefined,
+  infoColor: 'white',
+  infoText: undefined,
+  showInfoIcon: true,
+  disableLeftArrowButton: false,
+  disableRightArrowButton: false,
 };

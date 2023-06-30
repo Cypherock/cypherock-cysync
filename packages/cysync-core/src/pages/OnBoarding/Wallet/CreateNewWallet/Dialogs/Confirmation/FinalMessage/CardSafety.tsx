@@ -1,53 +1,28 @@
 import {
-  Container,
-  Flex,
   CreateWalletDialogBoxLayout,
   informationIcon,
-  Typography,
-  LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardSafety: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const CardSafety: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <CreateWalletDialogBoxLayout
+      image={informationIcon}
+      onNext={onNext}
+      onPrevious={onPrevious}
       heading={
         lang.strings.onboarding.createWallet.finalMessage.cardSafety.heading
       }
       title={lang.strings.onboarding.createWallet.finalMessage.cardSafety.title}
-      state={state}
-      setState={setState}
-      image={informationIcon}
-    >
-      <Flex
-        px={5}
-        pt={{
-          def: 2,
-          lg: 6,
-        }}
-      >
-        <Container
-          $bgColor="input"
-          $borderColor="info"
-          align="center"
-          $borderRadius={8}
-          p={2}
-        >
-          <Typography $textAlign="center" color="warn">
-            <LangDisplay
-              text={
-                lang.strings.onboarding.createWallet.finalMessage.cardSafety
-                  .note
-              }
-            />
-          </Typography>
-        </Container>
-      </Flex>
-    </CreateWalletDialogBoxLayout>
+      showInfoIcon={false}
+      infoColor="yellow"
+      infoText={
+        lang.strings.onboarding.createWallet.finalMessage.cardSafety.note
+      }
+    />
   );
 };

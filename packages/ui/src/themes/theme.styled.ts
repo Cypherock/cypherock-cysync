@@ -58,6 +58,7 @@ export const theme = {
       separator: colors.background.separator,
       warning: colors.border.warning,
       bar: colors.border.bar,
+      white: colors.border.white,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

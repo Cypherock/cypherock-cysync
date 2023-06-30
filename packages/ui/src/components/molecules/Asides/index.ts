@@ -1,3 +1,3 @@
 export * from './Aside';
-export * from './WalletDialogAside';
+export * from './MilestoneAside';
 export * from './InfoAside';

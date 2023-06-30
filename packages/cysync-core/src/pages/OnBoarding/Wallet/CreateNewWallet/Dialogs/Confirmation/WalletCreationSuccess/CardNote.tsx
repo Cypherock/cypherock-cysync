@@ -4,26 +4,25 @@ import {
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const CardNote: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const CardNote: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
   const theme = useTheme();
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <CreateWalletDialogBoxLayout
       heading={
         lang.strings.onboarding.createWallet.walletCreationSuccess.heading
       }
-      state={state}
-      setState={setState}
       image={successIcon}
+      onNext={onNext}
+      onPrevious={onPrevious}
     >
-      <Typography px={8} $textAlign="center" variant="h5">
+      <Typography px={5} $textAlign="center" variant="h5">
         <LangDisplay
           text={
             lang.strings.onboarding.createWallet.walletCreationSuccess.titles

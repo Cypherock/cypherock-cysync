@@ -120,7 +120,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 `;
 
 const HeadingFiveStyle = styled.h5<HeadingProps>`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   ${baseStyle};
 `;
@@ -193,7 +193,7 @@ export const Typography = ({
 
 Typography.defaultProps = {
   variant: 'p',
-  children: null,
+  children: undefined,
   color: 'heading',
   $textAlign: 'left',
   $letterSpacing: 0,

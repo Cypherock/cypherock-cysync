@@ -216,11 +216,17 @@ const en = {
     },
     createWallet: {
       aside: {
-        tabs: ['Device', 'Sync X1 Cards', 'Confirmation'],
+        tabs: {
+          device: 'Device',
+          syncX1Cards: 'Sync X1 Cards',
+          confirmation: 'Confirmation',
+        },
       },
       followInfo: {
         heading: 'Setup Wallet Name',
         title: 'Follow Instructions on the X1 Vault',
+        subTitle:
+          'The wallet name once set cannot be changed afterwards. You have to delete and recreate the wallet again if you need to change the wallet name in the future',
         list: {
           first: {
             first: 'Your X1 Vault should be on the ',
@@ -254,6 +260,8 @@ const en = {
       enterPin: {
         heading: 'Setup Wallet Security',
         title: 'Setup a PIN on the X1 Vault',
+        subTitle:
+          'Make sure you make a backup of your PIN. If you lose the PIN, you will lose access to your funds. Even Cypherock will not be able to help recover your assets (?)',
         list: ['Use between 4 and 8 characters', 'The PIN can be alphanumeric'],
         note: 'Make sure you make a backup of your PIN, if you lose it , you lose access to your funds',
       },

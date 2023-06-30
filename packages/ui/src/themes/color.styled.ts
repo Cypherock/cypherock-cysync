@@ -49,5 +49,6 @@ export const colors = {
     separator: '#39322C',
     warning: '#644D2B',
     bar: '#474747',
+    white: '#ffffff',
   },
 };

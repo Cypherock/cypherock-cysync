@@ -1,15 +1,14 @@
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   Flex,
   CreateWalletDialogBoxLayout,
   Button,
-  Typography,
   LangDisplay,
   goldFail,
   BlurOverlay,
   DialogBox,
   DialogBoxBody,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 const Buttons: FC<{
@@ -24,13 +23,11 @@ const Buttons: FC<{
           setShowCreateWalletDialogBox(true);
           setShowOnClose(false);
         }}
-        variant="primary-outlined"
+        variant="secondary"
       >
-        <Typography color="gold">
-          <LangDisplay
-            text={lang.strings.onboarding.createWallet.onClose.buttons.cancel}
-          />
-        </Typography>
+        <LangDisplay
+          text={lang.strings.onboarding.createWallet.onClose.buttons.cancel}
+        />
       </Button>
       <Button
         onClick={() => {
@@ -39,28 +36,29 @@ const Buttons: FC<{
         }}
         variant="primary"
       >
-        <Typography color="black">
-          <LangDisplay
-            text={lang.strings.onboarding.createWallet.onClose.buttons.exit}
-          />
-        </Typography>
+        <LangDisplay
+          text={lang.strings.onboarding.createWallet.onClose.buttons.exit}
+        />
       </Button>
     </Flex>
   );
 };
 
 export const OnClose: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
+  onNext: React.MouseEventHandler<HTMLButtonElement>;
+  onPrevious: React.MouseEventHandler<HTMLButtonElement>;
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
   setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ state, setState, setShowOnClose, setShowCreateWalletDialogBox }) => {
+}> = ({ onNext, onPrevious, setShowOnClose, setShowCreateWalletDialogBox }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <BlurOverlay>
       <DialogBox width={500}>
         <DialogBoxBody p="0" pt={2}>
           <CreateWalletDialogBoxLayout
+            image={goldFail}
+            onNext={onNext}
+            onPrevious={onPrevious}
             title={lang.strings.onboarding.createWallet.onClose.title}
             subTitle={lang.strings.onboarding.createWallet.onClose.subTitle}
             footer={
@@ -69,9 +67,6 @@ export const OnClose: FC<{
                 setShowOnClose={setShowOnClose}
               />
             }
-            state={state}
-            setState={setState}
-            image={goldFail}
           />
         </DialogBoxBody>
       </DialogBox>

@@ -1,21 +1,20 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import {
   confirmWalletName,
   CreateWalletDialogBoxLayout,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 
-export const ConfirmWalletName: FC<{
-  state: number;
-  setState: Dispatch<SetStateAction<number>>;
-}> = ({ state, setState }) => {
+export const ConfirmWalletName: FC<{}> = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <CreateWalletDialogBoxLayout
-      state={state}
-      setState={setState}
-      heading={lang.strings.onboarding.createWallet.confirmWallet.heading}
       image={confirmWalletName}
+      onNext={onNext}
+      onPrevious={onPrevious}
+      heading={lang.strings.onboarding.createWallet.confirmWallet.heading}
       title={lang.strings.onboarding.createWallet.confirmWallet.title}
     />
   );

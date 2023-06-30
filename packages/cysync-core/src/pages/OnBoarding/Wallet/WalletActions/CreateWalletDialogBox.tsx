@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import {
   Button,
   Container,
@@ -14,6 +14,7 @@ import {
   addWalletIcon,
 } from '@cypherock/cysync-ui';
 import { useTheme } from 'styled-components';
+import { useCreateNewWallet } from '~/context/createNewWallet';
 
 export const CreateWalletDialogBox: FC<{
   createWallet: {
@@ -21,14 +22,10 @@ export const CreateWalletDialogBox: FC<{
     button: string;
     list: Array<string>;
   };
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({
-  createWallet,
-  setShowCreateWalletDialogBox,
-  setShowWalletActionsDialogBox,
-}) => {
+}> = ({ createWallet }) => {
   const theme = useTheme();
+  const { setShowCreateWalletDialogBox, setShowWalletActionsDialogBox } =
+    useCreateNewWallet();
   return (
     <DialogBox width="full">
       <DialogBoxBody height="full">
