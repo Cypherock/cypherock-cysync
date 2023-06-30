@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+
 import { successIcon } from '../../../assets/images';
 import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
-import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 import { AlertBox } from '../AlertBox';
 
 export interface SuccessDialogProps {

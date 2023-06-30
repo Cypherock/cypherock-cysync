@@ -1,6 +1,8 @@
-import { z } from 'zod';
 import { IEntity } from '@cypherock/db-interfaces';
+import { z } from 'zod';
+
 import { ITableSchema, typeMap } from './types';
+
 import { BaseSchema } from '../../entity';
 
 export function getValidators<Entity>(schema: ITableSchema<Entity>) {

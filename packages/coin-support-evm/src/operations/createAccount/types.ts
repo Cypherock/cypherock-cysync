@@ -1,6 +1,6 @@
-import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { IDatabase, IAccount } from '@cypherock/db-interfaces';
 import { GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 import { DerivationSchemeName } from './schemes/types';
 

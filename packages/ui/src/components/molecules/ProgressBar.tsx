@@ -1,5 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
+
 import { LangDisplay, Typography } from '../atoms';
 
 interface ProgressBarProps {

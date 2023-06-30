@@ -1,11 +1,12 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
+import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import { throttle, DebouncedFunc } from 'lodash';
 import JsonDB from 'lokijs';
-import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 
-import logger from './utils/logger';
 import { encryptData, decryptData, createHash } from './utils/encryption';
+import logger from './utils/logger';
 
 interface IFileData {
   isEncrypted: boolean;

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Container, Flex, Image, LangDisplay, Typography } from '../atoms';
+
 import {
   checkIcon,
   connected,
@@ -13,6 +13,7 @@ import {
   syncProblem,
   syncronizing,
 } from '../../assets';
+import { Container, Flex, Image, LangDisplay, Typography } from '../atoms';
 
 const connectionStatusMap = {
   connected: {

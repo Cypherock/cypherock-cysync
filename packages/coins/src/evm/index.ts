@@ -1,5 +1,6 @@
-import { ICoinInfo, ICoinUnit } from '../types';
 import coinList from './coins';
+
+import { ICoinInfo, ICoinUnit } from '../types';
 
 export interface IEvmCoinInfo extends ICoinInfo {
   family: 'evm';
@@ -42,7 +43,9 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce(
+export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce<
+  Record<EvmIds, IEvmCoinInfo>
+>(
   (list, coin) => ({
     ...list,
     [coin.id]: {
@@ -61,5 +64,5 @@ export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce(
       ],
     },
   }),
-  {} as Record<EvmIds, IEvmCoinInfo>,
+  {},
 );

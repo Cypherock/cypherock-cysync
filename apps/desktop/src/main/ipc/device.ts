@@ -1,3 +1,4 @@
+import { GetDevices } from '@cypherock/cysync-interfaces';
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
 import {
@@ -5,9 +6,10 @@ import {
   DeviceConnectionErrorType,
   IDevice,
 } from '@cypherock/sdk-interfaces';
-import { GetDevices } from '@cypherock/cysync-interfaces';
+
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
+
 import * as deviceUtils from '../utils/device';
 
 const getDevices: GetDevices = async () => {

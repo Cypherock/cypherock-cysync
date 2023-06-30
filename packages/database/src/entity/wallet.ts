@@ -1,4 +1,5 @@
 import { IWallet } from '@cypherock/db-interfaces';
+
 import { BaseFields, ITableDetails } from './types';
 
 export const Wallet: ITableDetails<Omit<IWallet, BaseFields>> = {

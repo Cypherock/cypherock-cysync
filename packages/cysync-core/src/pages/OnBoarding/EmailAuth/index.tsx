@@ -1,9 +1,10 @@
-import React from 'react';
 import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import React from 'react';
+
+import { EmailForm } from './Dialogs/EmailForm';
 
 import { selectLanguage, useAppSelector } from '../../../store';
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
-import { EmailForm } from './Dialogs/EmailForm';
 
 export const EmailAuth: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

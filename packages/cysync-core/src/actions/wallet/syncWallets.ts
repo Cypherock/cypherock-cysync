@@ -49,7 +49,7 @@ const syncWalletsWithConnectedDevice = async (
 ) => {
   if (
     !connection?.isMain ||
-    connection?.status !== DeviceConnectionStatus.CONNECTED
+    connection.status !== DeviceConnectionStatus.CONNECTED
   ) {
     return undefined;
   }

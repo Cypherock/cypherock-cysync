@@ -1,7 +1,9 @@
 import fs from 'fs';
-import path from 'path';
 import os from 'os';
+import path from 'path';
+
 import { app } from 'electron';
+
 import jsonConfig from '../../config';
 
 const RELEASE_NOTES_FILENAME = 'RELEASE_NOTES.md';

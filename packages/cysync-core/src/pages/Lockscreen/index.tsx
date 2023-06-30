@@ -11,8 +11,10 @@ import {
   PasswordInput,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { useLockscreen } from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
+
 import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
 export const Lockscreen: React.FC = () => {

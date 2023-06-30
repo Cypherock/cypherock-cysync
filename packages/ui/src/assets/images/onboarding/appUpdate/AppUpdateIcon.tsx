@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
+
 import { IconProps } from '../../common/DeviceUpdateIcon';
 
 export const AppUpdateIcon: React.FC<IconProps> = ({ color }) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Container,
   DialogBox,
@@ -8,6 +7,7 @@ import {
   loaderIcon,
   Typography,
 } from '@cypherock/cysync-ui';
+import React from 'react';
 
 export interface DeviceUpdateLoadingProps {
   text: string;

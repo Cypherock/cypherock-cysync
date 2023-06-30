@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import { UpdateInfo } from '@cypherock/cysync-interfaces';
 import {
   AppUpdateIcon,
   ConfirmationDialog,
@@ -6,13 +6,14 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import { UpdateInfo } from '@cypherock/cysync-interfaces';
+import React, { FC, ReactElement, useEffect } from 'react';
 
-import { autoUpdater } from '~/utils';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useNavigateTo, useStateWithRef } from '~/hooks';
 import { constants, routes } from '~/constants';
+import { useNavigateTo, useStateWithRef } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+import { autoUpdater } from '~/utils';
 import logger from '~/utils/logger';
+
 import { AppUpdateChecking } from './AppUpdateChecking';
 import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 

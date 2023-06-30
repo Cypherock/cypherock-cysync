@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import {
   Container,
   DialogBox,
@@ -9,12 +8,14 @@ import {
   LogoOutlinedAsideImage,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
-import { useDevice, DeviceConnectionStatus } from '~/context';
+import React, { useEffect } from 'react';
+
 import { routes } from '~/constants';
+import { useDevice, DeviceConnectionStatus } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 const DeviceNotConnectedDialogBox: React.FC<{

@@ -1,10 +1,9 @@
 import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
-import { IDevice } from '@cypherock/sdk-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
+import { IDevice } from '@cypherock/sdk-interfaces';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useRef } from 'react';
 
-import { useStateWithRef } from '../../hooks';
 import {
   createDeviceConnectionInfo,
   DEVICE_LISTENER_INTERVAL,
@@ -18,6 +17,8 @@ import {
   IDeviceConnectionInfo,
   IDeviceConnectionRetry,
 } from './types';
+
+import { useStateWithRef } from '../../hooks';
 import baseLogger from '../../utils/logger';
 
 export * from './types';

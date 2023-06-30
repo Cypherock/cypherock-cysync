@@ -1,11 +1,11 @@
-import { Observable, Subscriber } from 'rxjs';
-import { hexToUint8Array } from '@cypherock/sdk-utils';
+import { evmCoinList } from '@cypherock/coins';
 import {
   EvmApp,
   IGetPublicKeysDerivationPath,
   GetPublicKeysStatus,
 } from '@cypherock/sdk-app-evm';
-import { evmCoinList } from '@cypherock/coins';
+import { hexToUint8Array } from '@cypherock/sdk-utils';
+import { Observable, Subscriber } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
 import { DerivationSchemeName } from './schemes/types';
@@ -14,6 +14,7 @@ import {
   ICreateAccountEvent,
   IEvmAccount,
 } from './types';
+
 import { getBalance, getTransactionCount } from '../../services';
 
 const DERIVATION_PATH_LIMIT = 50;
@@ -170,7 +171,7 @@ async function generateAddresses(params: {
 
   const publicKeysPerScheme: Record<
     string,
-    Array<{ address: string; derivationPath: string }>
+    { address: string; derivationPath: string }[]
   > = {};
 
   let index = 0;

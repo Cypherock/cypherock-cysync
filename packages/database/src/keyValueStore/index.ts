@@ -1,13 +1,15 @@
 import fs from 'fs';
+import path from 'path';
+
 import {
   DatabaseError,
   DatabaseErrorType,
   IKeyValueStore,
 } from '@cypherock/db-interfaces';
-import path from 'path';
-import { EncryptedDB } from '../encryptedDb';
 
 import * as validator from './utils/validator';
+
+import { EncryptedDB } from '../encryptedDb';
 
 interface IKeyCollection {
   key: string;

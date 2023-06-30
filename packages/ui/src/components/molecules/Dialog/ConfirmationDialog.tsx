@@ -1,6 +1,8 @@
 import React, { FC, ReactNode } from 'react';
-import { Typography, LangDisplay, Container, Button } from '../../atoms';
+
 import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+
+import { Typography, LangDisplay, Container, Button } from '../../atoms';
 
 interface ConfirmationDialogProps {
   title: string;

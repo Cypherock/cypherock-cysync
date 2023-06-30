@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 
+import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+
 import {
   DeviceUpdateFailedIcon,
   FailIcon,
   SettingsWrongIcon,
 } from '../../../assets';
 import { Button, Container, LangDisplay, Typography } from '../../atoms';
-import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 
 type IconType = 'device' | 'misconfigured' | 'default';
 

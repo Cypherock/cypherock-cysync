@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { theme } from '../../../themes/theme.styled';
 
 export interface IconProps {

@@ -3,8 +3,9 @@ import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { OnboardingPageLayout } from '../OnboardingPageLayout';
 import { AppUpdateDialogBox } from './Dialogs';
+
+import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const AppUpdate: FC = () => {
   const lang = useAppSelector(selectLanguage);

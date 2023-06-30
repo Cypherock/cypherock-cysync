@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 import { styled } from 'styled-components';
+
+import { cysyncLogoBig, cysyncLogoSmall } from '../../../assets/images';
 import { theme } from '../../../themes/theme.styled';
 import {
   AsideContainer,
@@ -8,7 +10,6 @@ import {
   LangDisplay,
   Typography,
 } from '../../atoms';
-import { cysyncLogoBig, cysyncLogoSmall } from '../../../assets/images';
 
 export interface InfoAsideProps {
   title: string;

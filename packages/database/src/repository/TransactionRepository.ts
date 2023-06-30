@@ -4,9 +4,11 @@ import {
   IGetOptions,
   IDetailedTransaction,
 } from '@cypherock/db-interfaces';
-import { EncryptedDB } from '../encryptedDb';
+
 import { Repository } from './Repository';
 import { ITableSchema } from './utils/types';
+
+import { EncryptedDB } from '../encryptedDb';
 
 export class TransactionRepository
   extends Repository<ITransaction>

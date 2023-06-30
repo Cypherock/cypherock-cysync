@@ -1,17 +1,19 @@
-import React, { FC, ReactElement, useEffect, useRef } from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
 import {
   ConfirmationDialog,
   DeviceUpdateIcon,
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
-import { routes } from '~/constants';
 import { ManagerApp, UpdateFirmwareStatus } from '@cypherock/sdk-app-manager';
+import React, { FC, useRef, useEffect, ReactElement } from 'react';
 import semver from 'semver';
-import { IDeviceConnectionInfo, useDevice } from '~/context';
+
 import { ErrorHandlerDialog } from '~/components';
+import { routes } from '~/constants';
+import { useDevice, IDeviceConnectionInfo } from '~/context';
+import { useNavigateTo, DeviceTask, useDeviceTask } from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
+
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
 
 enum DeviceUpdateState {

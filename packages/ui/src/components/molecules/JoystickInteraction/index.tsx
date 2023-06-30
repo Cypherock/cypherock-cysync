@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Circle,
   JoystickArrow,
@@ -7,6 +8,7 @@ import {
   JoystickIndicator as Indicator,
 } from './Elements';
 import { JoystickInteractionProps } from './types';
+
 import { Container, Typography } from '../../atoms';
 
 const CenterClickPrompt: React.FC = () => (

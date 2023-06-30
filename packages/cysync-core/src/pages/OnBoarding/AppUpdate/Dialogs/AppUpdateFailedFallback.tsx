@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   AlertBox,
   AppUpdateIcon,
@@ -10,6 +9,7 @@ import {
   Typography,
   useTheme,
 } from '@cypherock/cysync-ui';
+import React, { FC } from 'react';
 
 interface AppUpdateFailedFallbackProps {
   title: string;

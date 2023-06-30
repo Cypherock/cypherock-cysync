@@ -1,11 +1,12 @@
-import React from 'react';
 import { deviceAuthAsideImage } from '@cypherock/cysync-ui';
+import React from 'react';
 
-import { useAppSelector, selectLanguage } from '~/store';
 import { WithConnectedDevice } from '~/components';
+import { useAppSelector, selectLanguage } from '~/store';
+
+import { DeviceAuthDialog } from './Dialogs';
 
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
-import { DeviceAuthDialog } from './Dialogs';
 
 export const DeviceAuthentication: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

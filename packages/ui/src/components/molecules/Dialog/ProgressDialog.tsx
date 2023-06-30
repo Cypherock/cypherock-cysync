@@ -1,6 +1,8 @@
 import React, { FC, ReactNode } from 'react';
-import { Container, LangDisplay, Typography } from '../../atoms';
+
 import { DialogBox, DialogBoxBody } from './DialogBox';
+
+import { Container, LangDisplay, Typography } from '../../atoms';
 import { ProgressBar } from '../ProgressBar';
 
 interface ProgressDialogProps {

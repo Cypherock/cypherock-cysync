@@ -1,9 +1,10 @@
 import { IpcMain, WebContents } from 'electron';
-import { getLoggerIPCHandlers } from './logger';
-import { getDeviceIPCHandlers } from './device';
-import { getDbIPCHandlers, setupDbListeners } from './db';
-import { getResetIPCHandlers } from './reset';
+
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
+import { getDbIPCHandlers, setupDbListeners } from './db';
+import { getDeviceIPCHandlers } from './device';
+import { getLoggerIPCHandlers } from './logger';
+import { getResetIPCHandlers } from './reset';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,

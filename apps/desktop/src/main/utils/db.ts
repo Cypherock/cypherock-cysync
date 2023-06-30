@@ -1,6 +1,8 @@
+import path from 'path';
+
 import { createDb, createKeyValueStore } from '@cypherock/database';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
-import path from 'path';
+
 import { config } from './config';
 
 let db: IDatabase | undefined;

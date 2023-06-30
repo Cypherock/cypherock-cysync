@@ -63,7 +63,7 @@ const getRoute = (parseRoutes: IRoutes) => {
   return allRoutes;
 };
 
-export const AppRouter = memo(() => (
+const BaseAppRouter = () => (
   <Router>
     <Routes>
       {getRoute(routes).map(route => (
@@ -75,4 +75,6 @@ export const AppRouter = memo(() => (
       ))}
     </Routes>
   </Router>
-));
+);
+
+export const AppRouter = memo(BaseAppRouter);

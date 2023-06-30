@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+
 import { spacing } from '../utils';
 
 interface BulletProps {

@@ -6,9 +6,11 @@ import {
   UpdateDownloadedEvent,
   UpdateInfo as ElectronUpdateInfo,
 } from 'electron-updater';
-import { ipcConfig } from '../ipc/helpers/config';
+
 import { config } from './config';
 import { createServiceLogger } from './logger';
+
+import { ipcConfig } from '../ipc/helpers/config';
 
 class AutoUpdater {
   private cancellationToken?: CancellationToken;

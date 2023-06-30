@@ -4,9 +4,9 @@ import {
   LogMethod,
   LogWithServiceAndMethod,
 } from '@cypherock/cysync-interfaces';
+import { updateLogger } from '@cypherock/database';
 import winston from 'winston';
 
-import { updateLogger } from '@cypherock/database';
 import { config } from './config';
 
 const transports: any[] = [new winston.transports.Console()];
