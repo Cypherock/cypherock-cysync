@@ -92,7 +92,7 @@ const UsageDialogBox: FC<{
         <DialogBoxFooter>
           <Button
             variant="primary"
-            disabled={isNewUserButtonLoading}
+            isLoading={isNewUserButtonLoading}
             onClick={() => {
               setIsNewUserButtonLoading(true);
               toNextPage(true);
@@ -138,7 +138,7 @@ const UsageDialogBox: FC<{
         <DialogBoxFooter>
           <Button
             variant="primary"
-            disabled={isExistingUserButtonLoading}
+            isLoading={isExistingUserButtonLoading}
             onClick={() => {
               setIsExistingUserButtonLoading(true);
               toNextPage(false);
