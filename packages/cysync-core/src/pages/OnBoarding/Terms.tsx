@@ -109,6 +109,7 @@ const TermsDialogBox: FC<{
         <Button
           variant={isChecked ? 'primary' : 'secondary'}
           disabled={!isChecked}
+          isLoading={isLoading}
           onClick={() => toNextPage()}
         >
           <LangDisplay text={buttonText} />

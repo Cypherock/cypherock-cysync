@@ -80,6 +80,7 @@ export const EmailForm: React.FC = () => {
             <Input
               type="text"
               name="email"
+              disabled={isLoading}
               label={lang.strings.onboarding.emailAuth.enterEmailLabel}
               value={emailAddress}
               onChange={setEmailAddress}
@@ -104,8 +105,8 @@ export const EmailForm: React.FC = () => {
           <Button variant="secondary" onClick={removeEmail}>
             {lang.strings.buttons.skip}
           </Button>
-          <Button type="submit" disabled={isLoading} name="email">
-            {isLoading ? 'Loading...' : 'Confirm'}
+          <Button type="submit" isLoading={isLoading} name="email">
+            {lang.strings.buttons.confirm}
           </Button>
         </DialogBoxFooter>
       </form>
