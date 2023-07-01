@@ -5,6 +5,7 @@ import {
   Page,
   Locator,
 } from '@playwright/test';
+
 import { prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
@@ -91,7 +92,7 @@ test('Device authentication successful', async () => {
   const newWindow = screen.getByRole('heading', {
     name: 'Your X1 Vault is successfully authenticated',
   });
-  expect(newWindow).toBeVisible();
+  await expect(newWindow).toBeVisible();
   await expect(sidePanelFirst).toBeVisible();
   await expect(helpButton).toBeVisible();
 });

@@ -1,4 +1,4 @@
-# Cypherock CySync
+# Cypherock cySync
 
 ## Table of contents
 

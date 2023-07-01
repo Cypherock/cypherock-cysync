@@ -34,13 +34,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The device sdk does not support this function',
   [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]:
     'The connected device is not supported by this SDK',
-  [DeviceConnectionErrorType.DEVICE_DISCONNECTED_IN_FLOW]:
-    'Device disconnected in flow',
-  [DeviceConnectionErrorType.CONNECTION_CLOSED]:
-    'Connection was closed while in process',
-  [DeviceConnectionErrorType.CONNECTION_NOT_OPEN]: 'Connection was not open',
-  [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
-    'Failed to create device connection',
   [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]:
     'The device is not in bootloader mode',
   [DeviceBootloaderErrorType.FIRMWARE_SIZE_LIMIT_EXCEEDED]:
@@ -100,7 +93,7 @@ const en = {
     button: 'Unlock',
     forgotPasswordDialog: {
       title:
-        'Resetting password will reset your cySync app do you want to proceed?',
+        'Resetting password will reset your cySync app do you want to proceed ?',
       subtext:
         'This will erase all your data on your cySync app. Note this will not result in loss of assets',
     },
@@ -134,14 +127,14 @@ const en = {
       titleSecond: 'I have already used a Cypherock X1',
       subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
       subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
+        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 wallet and one or more of the X1 Cards',
     },
     terms: {
-      title: 'Terms of use',
+      title: 'Terms of Use',
       subtext:
         'Take some time to review our Terms of Service and Privacy Policy',
       bulletPoints: {
-        terms: 'Terms Of Service',
+        terms: 'Terms of Service',
         privacyPolicy: 'Privacy Policy',
       },
       consent:
@@ -151,7 +144,7 @@ const en = {
       heading: 'Set Password',
       title: 'Set your cySync password ',
       subtitle: 'We do not store your password on our servers',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       newPasswordLabel: 'New Password',
       confirmPasswordLabel: 'Confirm Password',
       hint: 'Use 8 or more characters with a mix of letters, numbers & symbols',
@@ -161,7 +154,7 @@ const en = {
       title:
         'You are recommended to enter an email ID as a 2FA to get authenticity results ',
       subtitle: 'We do not store this email ID permanently on our servers ',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       enterEmailLabel: 'Email',
       placeholder: 'Email',
     },
@@ -174,7 +167,7 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: 'Your X1 Vault is successfully authenticated',
@@ -183,7 +176,7 @@ const en = {
         'Device seems to be Compromised. Contact Cypherock support immediately',
     },
     joystickTraining: {
-      heading: 'Joystick Checkup',
+      heading: 'Joystick Instructions',
       subtext: 'X1 Vault provides 4 way joystick for\nscreen navigation',
       upTitle: 'Toggle Up',
       rightTitle: 'Toggle Right',
@@ -192,11 +185,11 @@ const en = {
       centerTitle: 'Center click the joystick to proceed',
       centerSubtext: 'X1 Vault has a center button to\nperform click',
       footer: 'Follow the instruction on the device',
-      success: 'Joystick test complete',
-      error: 'Joystick Training has failed',
+      success: 'Joystick instructions complete',
+      error: 'Joystick instructions has failed',
     },
     cardTraining: {
-      heading: 'Card Tap Checkup',
+      heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
     },
     cardAuth: {
@@ -251,7 +244,7 @@ const en = {
           heading: 'Device Update',
           title:
             'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
-          subtext: 'Follow the instruction on the device',
+          subtext: 'Follow the instructions on the device',
         },
         loading: {
           text: 'Please wait while we check for X1 Vault updates',
@@ -262,8 +255,7 @@ const en = {
         },
         updateSuccessful: {
           heading: 'X1 Vault updated successfully',
-          subtext:
-            'Your device is now operating on the latest software version',
+          subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {
           heading: 'Firmware update failed',

@@ -1,4 +1,5 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
+
 import { prepElectronApp, toFirstScreen } from '../__helpers__';
 
 let electronApp: ElectronApplication;
@@ -84,7 +85,7 @@ test('check usage screen', async () => {
 
 test('check X1 usage for first time', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
-  const continueButton = screen
+  await screen
     .locator('section')
     .filter({
       hasText:
@@ -92,7 +93,6 @@ test('check X1 usage for first time', async () => {
     })
     .getByRole('button', { name: 'Continue' })
     .click();
-  expect(continueButton).toBeTruthy();
   const backButton = screen.getByRole('button', { name: 'Back' });
   await expect(backButton).toBeVisible();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
@@ -123,15 +123,11 @@ test('check X1 usage for first time', async () => {
 
 test('check X1 have been already used before', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
-  const continueButton = screen
+  await screen
     .locator('section')
-    .filter({
-      hasText:
-        'I have already used a Cypherock X1Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
-    })
+    .filter({ hasText: 'I have already used a Cypherock X1' })
     .getByRole('button', { name: 'Continue' })
     .click();
-  expect(continueButton).toBeTruthy();
   const backButton = screen.getByRole('button', { name: 'Back' });
   await expect(backButton).toBeVisible();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });

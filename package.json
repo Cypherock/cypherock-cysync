@@ -1,7 +1,7 @@
 {
   "name": "cysync",
   "version": "1.0.0",
-  "description": "Cypherock CySync application",
+  "description": "Cypherock cySync app",
   "private": true,
   "author": {
     "name": "Cypherock",
