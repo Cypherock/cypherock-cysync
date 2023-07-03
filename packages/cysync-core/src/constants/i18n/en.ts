@@ -11,11 +11,8 @@ import { DeviceErrorCodes } from './types';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',
-  [DeviceConnectionErrorType.DEVICE_DISCONNECTED_IN_FLOW]:
-    'Device disconnected in flow',
   [DeviceConnectionErrorType.CONNECTION_CLOSED]:
     'Connection was closed while in process',
-  [DeviceConnectionErrorType.CONNECTION_NOT_OPEN]: 'Connection was not open',
   [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
     'Failed to create device connection',
   [DeviceCommunicationErrorType.IN_BOOTLOADER]: 'Device is in bootloader mode',
@@ -23,8 +20,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The write packet operation was rejected by the device',
   [DeviceCommunicationErrorType.WRITE_ERROR]:
     'Unable to write packet to the device',
-  [DeviceCommunicationErrorType.TIMEOUT_ERROR]:
-    'Timeout Error due to write/read',
   [DeviceCommunicationErrorType.WRITE_TIMEOUT]:
     'Did not receive ACK of sent packet on time',
   [DeviceCommunicationErrorType.READ_TIMEOUT]:
@@ -35,11 +30,8 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The device sdk does not support this function',
   [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]:
     'The connected device is not supported by this SDK',
-  [DeviceConnectionErrorType.DEVICE_DISCONNECTED_IN_FLOW]:
-    'Device disconnected in flow',
   [DeviceConnectionErrorType.CONNECTION_CLOSED]:
     'Connection was closed while in process',
-  [DeviceConnectionErrorType.CONNECTION_NOT_OPEN]: 'Connection was not open',
   [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
     'Failed to create device connection',
   [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]:
@@ -57,8 +49,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceBootloaderErrorType.NOT_IN_RECEIVING_MODE]:
     'The device is in fault state',
   [DeviceAppErrorType.UNKNOWN_ERROR]: 'Unknown application error',
-  [DeviceAppErrorType.NO_WORKING_PACKET_VERSION]:
-    'No working packet version found',
   [DeviceAppErrorType.EXECUTING_OTHER_COMMAND]:
     'The device is executing some other command',
   [DeviceAppErrorType.PROCESS_ABORTED]: 'The process was aborted',
