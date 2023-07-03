@@ -71,7 +71,6 @@ export const Lockscreen: React.FC = () => {
                 disabled={isLoading}
               />
               <Button
-                type="button"
                 variant="none"
                 $alignSelf="end"
                 mt={1}
@@ -102,7 +101,7 @@ export const Lockscreen: React.FC = () => {
               )}
             </DialogBoxBody>
             <DialogBoxFooter>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" isLoading={isLoading}>
                 <LangDisplay text={lang.strings.lockscreen.button} />
               </Button>
             </DialogBoxFooter>
