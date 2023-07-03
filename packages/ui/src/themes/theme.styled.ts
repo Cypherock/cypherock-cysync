@@ -62,6 +62,7 @@ export const theme = {
       warning: colors.border.warning,
       bar: colors.border.bar,
       table: colors.border.table,
+      muted: colors.border.muted,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

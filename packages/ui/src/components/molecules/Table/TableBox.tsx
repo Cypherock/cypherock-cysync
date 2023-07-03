@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { TriangleIcon } from '../../../assets';
-import { Container, Typography } from '../../atoms';
+import { triangleIcon } from '../../../assets';
+import { Container, Image, Typography } from '../../atoms';
 import {
   DisplayProps,
   flex,
@@ -20,21 +20,19 @@ export interface TableBoxUtilityProps
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {
-  $noFlex?: boolean;
-  padding?: string;
-}
+    SpacingProps {}
 
 interface TableHeaderDataProps extends TableBoxUtilityProps {
   data: string;
-  ascending: boolean;
+  $ascending: boolean;
   onClick: (name: string) => void;
   selected?: boolean;
+  $noFlex?: boolean;
 }
 
 interface TableBoxDataRowProps extends TableBoxUtilityProps {
   $last?: boolean;
-  index: number;
+  $noFlex?: boolean;
 }
 
 const TableBoxStyle = styled.div`
@@ -83,13 +81,13 @@ const TableHeaderStyle = styled.div`
   ${spacing}
 `;
 
-const TableHeaderDataStyle = styled.div<TableBoxUtilityProps>`
+const TableHeaderDataStyle = styled.div<TableHeaderDataProps>`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: space-between;
   flex: ${({ $noFlex }) => ($noFlex ? 'unset' : '1')};
-  padding: ${({ padding }) => padding ?? '16px 20px 16px 40px'};
+  padding: 16px 20px 16px 40px;
   ${flex}
   ${width}
   ${height}
@@ -120,71 +118,56 @@ const TableDataRowStyle = styled.div<TableBoxDataRowProps>`
   flex: ${({ $noFlex }) => ($noFlex ? 'unset' : '1')};
   border-bottom-right-radius: ${({ $last }) => ($last ? '24px' : '0')};
   border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
-  background: ${({ theme, index }) =>
-    index % 2 === 0
-      ? theme.palette.background.content
-      : theme.palette.background.sideBar};
+  background: ${({ theme }) => theme.palette.background.content};
+
   ${flex}
   ${width}
   ${height}
   ${spacing}
+  &:hover {
+    background: ${({ theme }) => theme.palette.background.sideBar};
+  }
 `;
 
 export const TableBox: FC<TableBoxUtilityProps> = ({ children, ...props }) => (
   <TableBoxStyle {...props}>{children}</TableBoxStyle>
 );
-TableBox.defaultProps = {
-  $noFlex: false,
-  padding: undefined,
-};
 
 export const TableBoxTitle: FC<TableBoxUtilityProps> = ({
   children,
   ...props
 }) => <TableBoxTitleStyle {...props}>{children}</TableBoxTitleStyle>;
 
-TableBoxTitle.defaultProps = {
-  $noFlex: false,
-  padding: undefined,
-};
-
 export const TableBoxHeader: FC<TableBoxUtilityProps> = ({
   children,
   ...props
 }) => <TableHeaderStyle {...props}>{children}</TableHeaderStyle>;
 
-TableBoxHeader.defaultProps = {
-  $noFlex: false,
-  padding: undefined,
-};
-
 export const TableBoxHeaderData: FC<TableHeaderDataProps> = ({
-  ascending,
   onClick,
   selected,
-  data,
   ...props
 }) => (
   <TableHeaderDataStyle
-    style={{ padding: props.padding }}
     {...props}
     onClick={() => {
-      onClick(data);
+      onClick(props.data);
     }}
   >
-    <Typography align="center">{data}</Typography>
+    <Typography align="center">{props.data}</Typography>
     <Container display="flex" direction="column" gap={2}>
-      {(() => {
-        if (!selected)
-          return (
-            <>
-              <TriangleIcon direction="up" />
-              <TriangleIcon direction="down" />
-            </>
-          );
-        if (ascending && selected) return <TriangleIcon direction="up" />;
-        return <TriangleIcon direction="down" />;
-      })()}
+      {!selected ? (
+        <>
+          <Image src={triangleIcon} alt="triangle up" />
+          <Image src={triangleIcon} alt="triangle down" rotate={180} />
+        </>
+      ) : (
+        <Image
+          src={triangleIcon}
+          alt="triangle"
+          rotate={props.$ascending ? 0 : 180}
+        />
+      )}
     </Container>
   </TableHeaderDataStyle>
 );
@@ -192,16 +175,11 @@ export const TableBoxHeaderData: FC<TableHeaderDataProps> = ({
 TableBoxHeaderData.defaultProps = {
   selected: false,
   $noFlex: false,
-  padding: undefined,
 };
 
 export const TableBody: FC<TableBoxUtilityProps> = ({ children, ...props }) => (
   <TableBodyStyle {...props}>{children}</TableBodyStyle>
 );
-TableBody.defaultProps = {
-  $noFlex: false,
-  padding: undefined,
-};
 
 export const TableBoxDataRow: FC<TableBoxDataRowProps> = ({
   children,
@@ -210,5 +188,4 @@ export const TableBoxDataRow: FC<TableBoxDataRowProps> = ({
 TableBoxDataRow.defaultProps = {
   $noFlex: false,
   $last: false,
-  padding: undefined,
 };

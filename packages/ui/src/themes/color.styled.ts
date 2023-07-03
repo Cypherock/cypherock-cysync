@@ -57,5 +57,6 @@ export const colors = {
     warning: '#644D2B',
     bar: '#474747',
     table: '#2C2929',
+    muted: '#8B8682',
   },
 };

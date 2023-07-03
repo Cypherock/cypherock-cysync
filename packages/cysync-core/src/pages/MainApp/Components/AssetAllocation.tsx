@@ -1,17 +1,17 @@
 import {
   AllocationShare,
-  IconNameBox,
+  AssetIconNameBox,
   NameBox,
+  NameVariants,
   TableBody,
   TableBox,
   TableBoxDataRow,
   TableBoxHeader,
   TableBoxHeaderData,
   TableBoxTitle,
-  NameVariants,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface HeadersData {
   name: string;
@@ -53,7 +53,9 @@ interface AssetDataType {
 }
 
 export const AssetAllocation = () => {
-  const data: AssetDataType[] = [
+  const [sortedBy, setSortedBy] = React.useState(headersData[0].name);
+  const [ascending, setAscending] = useState(true);
+  const [data, setData] = useState<AssetDataType[]>([
     {
       name: 'Bitcoin',
       symbol: 'BTC',
@@ -66,13 +68,11 @@ export const AssetAllocation = () => {
       name: 'Ethereum',
       symbol: 'ETH',
       price: '$ 674.44',
-      amount: '0.0178 ETH',
+      amount: '0.0179 ETH',
       value: '$45.4527',
       allocation: 74.47,
     },
-  ];
-  const [sortedBy, setSortedBy] = React.useState(headersData[0].name);
-  const [ascending, setAscending] = useState(true);
+  ]);
 
   const handleClick = (columnName: string) => {
     if (sortedBy === columnName) {
@@ -82,6 +82,45 @@ export const AssetAllocation = () => {
     setSortedBy(columnName);
     setAscending(true);
   };
+
+  const comparator = (a: AssetDataType, b: AssetDataType) => {
+    if (sortedBy === 'Asset') {
+      return ascending
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
+    }
+    if (sortedBy === 'Price') {
+      return ascending
+        ? parseFloat(a.price.replace('$ ', '')) -
+            parseFloat(b.price.replace('$ ', ''))
+        : parseFloat(b.price.replace('$ ', '')) -
+            parseFloat(a.price.replace('$ ', ''));
+    }
+    if (sortedBy === 'Amount') {
+      return ascending
+        ? parseFloat(a.amount.replace(' BTC', '')) -
+            parseFloat(b.amount.replace(' BTC', ''))
+        : parseFloat(b.amount.replace(' BTC', '')) -
+            parseFloat(a.amount.replace(' BTC', ''));
+    }
+    if (sortedBy === 'Value') {
+      return ascending
+        ? parseFloat(a.value.replace('$', '')) -
+            parseFloat(b.value.replace('$', ''))
+        : parseFloat(b.value.replace('$', '')) -
+            parseFloat(a.value.replace('$', ''));
+    }
+    if (sortedBy === 'Allocation') {
+      return ascending
+        ? a.allocation - b.allocation
+        : b.allocation - a.allocation;
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    setData(data.sort(comparator));
+  }, [ascending, sortedBy, data]);
 
   return (
     <TableBox width="full">
@@ -96,9 +135,9 @@ export const AssetAllocation = () => {
             key={header.name}
             data={header.name}
             onClick={handleClick}
-            ascending={ascending}
+            $ascending={ascending}
             width={header.width}
-            padding={header.padding}
+            p={header.padding}
             $noFlex={header.$noFlex}
             selected={sortedBy === header.name}
           />
@@ -109,16 +148,20 @@ export const AssetAllocation = () => {
           <TableBoxDataRow
             key={asset.name}
             $last={index === data.length - 1}
-            index={index}
             width="full"
           >
-            <IconNameBox name={asset.name} symbol={asset.symbol} />
+            <AssetIconNameBox
+              name={asset.name}
+              symbol={asset.symbol}
+              size="big"
+            />
             <NameBox text={asset.price} />
             <NameBox text={asset.value} />
             <NameBox text={asset.amount} />
             <AllocationShare
               percentage={asset.allocation}
               variant={asset.name}
+              size="big"
             />
           </TableBoxDataRow>
         ))}

@@ -1,6 +1,7 @@
 import addWalletIcon from './add-wallet.png';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import bitcoinIcon from './bitcoin-icon.svg';
 import { BitcoinIcon } from './BitcoinIcon';
 import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
@@ -18,6 +19,7 @@ import disconnectedIcon from './disconnected.svg';
 import emailIcon from './email-icon.svg';
 import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
+import ethereumIcon from './ethereum-icon.svg';
 import { EthereumIcon } from './EthereumIcon';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
@@ -43,6 +45,7 @@ import shieldAlert from './shield-alert.svg';
 import successIcon from './success.svg';
 import syncProblem from './sync-problem.svg';
 import syncronizing from './syncronizing.svg';
+import triangleIcon from './triangle-icon.svg';
 import usbIcon from './usb.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
@@ -96,4 +99,7 @@ export {
   goldCopyIcon,
   DeviceUpdateFailedIcon,
   SettingsWrongIcon,
+  bitcoinIcon,
+  ethereumIcon,
+  triangleIcon,
 };

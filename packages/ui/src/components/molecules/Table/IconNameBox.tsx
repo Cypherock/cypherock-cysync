@@ -1,40 +1,60 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { BitcoinIcon, EthereumIcon } from '../../../assets';
-import { Container, Typography } from '../../atoms';
+import { MutedTextBox } from './MutedTextBox';
+
+import { Container, Image, Typography } from '../../atoms';
 
 export type NameVariants = 'Bitcoin' | 'Ethereum';
 
 interface IconNameBoxProps {
-  name: NameVariants;
-  symbol: string;
+  icon: string;
+  title: string;
+  subtitle?: string;
+  mutedSubtitle?: string;
+  mutedBox?: string;
+  size?: 'small' | 'big';
 }
 
-const iconMap: Record<NameVariants, FC> = {
-  Bitcoin: BitcoinIcon,
-  Ethereum: EthereumIcon,
-};
-
-const IconNameBoxStyle = styled.div`
-  padding: 16px 0 16px 40px;
-  width: 300px;
+const IconNameBoxStyle = styled.div<IconNameBoxProps>`
+  padding: ${({ size }) =>
+    size === 'small' ? '16px 16px 16px 24px' : '16px 20px 16px 40px'};
+  width: ${({ size }) => (size === 'small' ? '200px' : '300px')};
+  gap: ${({ size }) => (size === 'small' ? '16px' : '24px')};
   display: flex;
   flex-direction: row;
-  gap: 24px;
   align-items: center;
 `;
 
-export const IconNameBox: FC<IconNameBoxProps> = ({ name, symbol }) => (
-  <IconNameBoxStyle>
-    {React.createElement(iconMap[name])}
+export const IconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
+  <IconNameBoxStyle {...props}>
+    <Image src={props.icon} alt="Asset Icon" />
     <Container direction="column" gap={0} align="flex-start">
       <Typography variant="p" $fontWeight="semibold">
-        {symbol}
+        {props.title}
       </Typography>
-      <Typography variant="p" $fontWeight="semibold">
-        {name}
-      </Typography>
+      {props.subtitle && (
+        <Typography variant="p" $fontWeight="semibold">
+          {props.subtitle}
+        </Typography>
+      )}
+      {props.mutedSubtitle && (
+        <Container gap={8} display="flex" direction="row">
+          <Typography variant="p" $fontSize={12} color="muted">
+            {props.mutedSubtitle}
+          </Typography>
+          {props.mutedBox && props.size === 'big' && (
+            <MutedTextBox text={props.mutedBox} />
+          )}
+        </Container>
+      )}
     </Container>
   </IconNameBoxStyle>
 );
+
+IconNameBox.defaultProps = {
+  size: 'big',
+  subtitle: undefined,
+  mutedSubtitle: undefined,
+  mutedBox: undefined,
+};
