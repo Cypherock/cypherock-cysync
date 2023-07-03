@@ -6,7 +6,7 @@ import { DeviceState, IDevice } from '@cypherock/sdk-interfaces';
 
 export enum DeviceConnectionStatus {
   CONNECTED,
-  UPDATE_REQUIRED,
+  INCOMPATIBLE,
   UNKNOWN_ERROR,
 }
 

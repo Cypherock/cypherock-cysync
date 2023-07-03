@@ -9,7 +9,6 @@ export interface BgColorProps {
     | 'list'
     | 'black'
     | 'separator'
-    | 'separatorSecondary'
     | 'input'
     | 'white'
     | 'highlight'
@@ -49,11 +48,6 @@ export const $bgColor = css<BgColorProps>`
     props.$bgColor === 'separator' &&
     css`
       background: ${({ theme }) => theme.palette.background.separator};
-    `}
-  ${props =>
-    props.$bgColor === 'separatorSecondary' &&
-    css`
-      background: ${({ theme }) => theme.palette.background.separatorSecondary};
     `}
   ${props =>
     props.$bgColor === 'muted' &&

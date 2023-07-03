@@ -32,7 +32,10 @@ const connectedDeviceMethodCall = async (
   ...args: any[]
 ) => {
   const connectedDevice = deviceUtils.getConnectedDevice();
+
   if (device.path !== connectedDevice?.device.path) {
+    if (method === 'isConnected') return false;
+
     throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
   }
 

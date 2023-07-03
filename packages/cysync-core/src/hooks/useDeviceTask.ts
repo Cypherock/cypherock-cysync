@@ -20,23 +20,26 @@ export function useDeviceTask<T>(
 
   const [taskError, setTaskError] = React.useState<Error | undefined>();
   const [taskResult, setTaskResult] = React.useState<T | undefined>();
+  const [isRunning, setIsRunning] = React.useState(false);
 
   const connectedRef = React.useRef<
     { connection: IDeviceConnection; device: IDevice } | undefined
   >();
   const isAbortedRef = React.useRef<boolean>(false);
 
-  const run = async () => {
+  const run = async (): Promise<Error | undefined> => {
     let conn: IDeviceConnection | undefined;
     const taskId = lodash.uniqueId('task-');
+    let error: Error | undefined;
 
     try {
       isAbortedRef.current = false;
       setTaskError(undefined);
       connectedRef.current = undefined;
 
-      if (!connection) return;
+      if (!connection) return undefined;
 
+      setIsRunning(true);
       await deviceLock.acquire(connection.device, taskId);
       conn = await connectDevice(connection.device);
       connectedRef.current = { connection: conn, device: connection.device };
@@ -46,21 +49,25 @@ export function useDeviceTask<T>(
 
       // Don't abort if no error
       isAbortedRef.current = true;
-    } catch (error: any) {
+    } catch (e: any) {
       if (!isAbortedRef.current) {
-        logger.error(error);
-        setTaskError(error);
+        logger.error(e);
+        setTaskError(e);
       }
 
       // If an error occured, no need to abort
       isAbortedRef.current = true;
+      error = e;
     } finally {
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       conn?.destroy().catch(() => {});
+      setIsRunning(false);
     }
+
+    return error;
   };
 
   const abort = async () => {
@@ -98,5 +105,6 @@ export function useDeviceTask<T>(
     abort,
     error: taskError,
     result: taskResult,
+    isRunning,
   };
 }

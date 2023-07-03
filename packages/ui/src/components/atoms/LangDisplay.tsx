@@ -2,10 +2,19 @@ import React from 'react';
 
 interface LangDisplayProps {
   text: string;
+  variables?: object;
 }
 
-// TODO: Additional parsing of lang text should be done here
-export const LangDisplay: React.FC<LangDisplayProps> = ({ text }) => (
+const getText = (templateStr: string, variables = {}) =>
+  templateStr.replace(/\${(.*?)}/g, (x, g) => (variables as any)[g] ?? '');
+
+const BaseLangDisplay: React.FC<LangDisplayProps> = ({ text, variables }) => (
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  <>{text}</>
+  <>{getText(text, variables)}</>
 );
+
+BaseLangDisplay.defaultProps = {
+  variables: undefined,
+};
+
+export const LangDisplay = React.memo(BaseLangDisplay);

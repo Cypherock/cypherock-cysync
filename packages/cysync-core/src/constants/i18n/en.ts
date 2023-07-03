@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -77,6 +78,7 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceAppErrorType.NO_WALLET_EXISTS]: 'No wallet exists on the device',
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
   [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
+  [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
 };
 
 const en = {
@@ -211,16 +213,27 @@ const en = {
     appUpdate: {
       heading: 'App Update',
       dialogs: {
+        checking: {
+          heading: 'App Update',
+          title: 'Please wait while we check for Cypherock CySync updates',
+        },
+        checkingFailed: {
+          heading: 'App Update',
+          title: 'An error occurred while checking for update',
+          subtext:
+            'Something went wrong, check your internet connection and try again',
+        },
         confirmation: {
           heading: 'App Update',
           title:
-            'A new update is available for your cySync app. Update the app to v1.2 to continue',
+            'A new update is available for your cySync app. Update the app to v${version} to continue',
           subtext:
-            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
+            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v${version} to continue',
         },
-        updating: {
+        downloading: {
           heading: 'Updating...',
           subtext: 'Please wait while we update your cySync app',
+          version: 'Version ${version}',
         },
         updateSuccessful: {
           heading: 'cySync app updated successfully',
@@ -230,7 +243,7 @@ const en = {
             'In case, the app does not restart itself, manually start it again',
         },
         updateFailed: {
-          heading: 'cySync update to version #{version} failed',
+          heading: 'cySync update to version ${version} failed',
           subtext:
             'Something went wrong, try updating again or contact support',
           buttons: {
@@ -238,7 +251,7 @@ const en = {
           },
         },
         updateFailedFallback: {
-          heading: 'cySync app update to version #{version} failed',
+          heading: 'cySync app update to version ${version} failed',
           subtext: 'Download and reinstall the desktop app from the link below',
           alertText: 'Close this app before reinstalling the latest cySync app',
         },
@@ -247,10 +260,13 @@ const en = {
     deviceUpdate: {
       heading: 'Device Update',
       dialogs: {
+        checking: {
+          title: 'Please wait while we check for X1 Vault updates',
+        },
         confirmation: {
           heading: 'Device Update',
           title:
-            'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
+            'A new update is available for your X1 Vault. Update the device to v${version} to continue',
           subtext: 'Follow the instruction on the device',
         },
         loading: {
