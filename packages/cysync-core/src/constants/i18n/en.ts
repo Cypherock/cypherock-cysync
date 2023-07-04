@@ -93,7 +93,7 @@ const en = {
     button: 'Unlock',
     forgotPasswordDialog: {
       title:
-        'Resetting password will reset your cySync app do you want to proceed ?',
+        'Resetting password will reset your cySync app do you want to proceed?',
       subtext:
         'This will erase all your data on your cySync app. Note this will not result in loss of assets',
     },
@@ -127,7 +127,7 @@ const en = {
       titleSecond: 'I have already used a Cypherock X1',
       subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
       subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 wallet and one or more of the X1 Cards',
+        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
     },
     terms: {
       title: 'Terms of Use',
@@ -167,25 +167,25 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity',
+        'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: 'Your X1 Vault is successfully authenticated',
-      error: 'Device Authentication has failed',
+      error: 'X1 Vault authentication has failed',
       errorSubtext:
         'Device seems to be Compromised. Contact Cypherock support immediately',
     },
     joystickTraining: {
       heading: 'Joystick Instructions',
-      subtext: 'X1 Vault provides 4 way joystick for\nscreen navigation',
+      subtext: 'X1 Vault provides 4 way joystick for screen navigation',
       upTitle: 'Toggle Up',
       rightTitle: 'Toggle Right',
       downTitle: 'Toggle Down',
       leftTitle: 'Toggle Left',
       centerTitle: 'Center click the joystick to proceed',
-      centerSubtext: 'X1 Vault has a center button to\nperform click',
-      footer: 'Follow the instruction on the device',
-      success: 'Joystick instructions complete',
+      centerSubtext: 'X1 Vault has a center button to perform click',
+      footer: 'Follow the instructions on the device',
+      success: 'Joystick instructions completed',
       error: 'Joystick instructions has failed',
     },
     cardTraining: {
@@ -194,7 +194,7 @@ const en = {
     },
     cardAuth: {
       heading: 'Card Authentication',
-      title: 'Tap X1 Cards one by one below the\nX1 Vault',
+      title: 'Tap X1 Cards one by one below the X1 Vault',
       subtext: 'Do not lift until you hear 3 beep sounds',
     },
     success: {
