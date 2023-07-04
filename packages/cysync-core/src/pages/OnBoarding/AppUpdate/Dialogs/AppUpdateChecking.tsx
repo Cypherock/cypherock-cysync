@@ -3,17 +3,16 @@ import {
   DialogBox,
   DialogBoxBody,
   Image,
-  LangDisplay,
   loaderIcon,
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export interface DeviceUpdateLoadingProps {
+export interface AppUpdateCheckingProps {
   text: string;
 }
 
-export const DeviceUpdateLoading: React.FC<DeviceUpdateLoadingProps> = ({
+export const AppUpdateChecking: React.FC<AppUpdateCheckingProps> = ({
   text,
 }) => (
   <DialogBox width={500}>
@@ -21,7 +20,7 @@ export const DeviceUpdateLoading: React.FC<DeviceUpdateLoadingProps> = ({
       <Container display="flex" direction="column" gap={34}>
         <Image src={loaderIcon} alt="loader" animate="spin" $animDuration={3} />
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={text} />
+          {text}
         </Typography>
       </Container>
     </DialogBoxBody>

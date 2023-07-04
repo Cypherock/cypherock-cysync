@@ -10,7 +10,7 @@ interface DividerProps extends UtilsProps {
 const DividerStyle = styled.div<DividerProps>`
   width: ${({ variant }) => (variant === 'vertical' ? '1px' : '100%')};
   height: ${({ variant }) => (variant === 'vertical' ? '24px' : '1px')};
-  background-color: ${({ theme }) => theme.palette.border.main};
+  background-color: ${({ theme }) => theme.palette.border.separator};
   ${utils}
 `;
 

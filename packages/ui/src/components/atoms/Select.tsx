@@ -7,14 +7,13 @@ interface SelectProps {
 
 const SelectContainerStyle = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.palette.background.inputBackground};
+  background-color: ${({ theme }) => theme.palette.background.input};
 
   select {
     appearance: none;
     outline: none;
     height: 51px;
-    background-color: ${({ theme }) =>
-      theme.palette.background.inputBackground};
+    background-color: ${({ theme }) => theme.palette.background.input};
     border: none;
     padding: 0 1em 0 0;
     margin: 0;

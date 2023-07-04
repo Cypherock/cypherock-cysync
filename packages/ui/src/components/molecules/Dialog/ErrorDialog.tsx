@@ -34,6 +34,7 @@ export interface ErrorDialogProps {
   dropdownItems?: DropdownItems;
   setSelectedDropdownItems?: Dispatch<SetStateAction<DropdownItems>>;
   checkBoxHandler?: () => void;
+  textVariables?: object;
 }
 
 const iconMap: Record<IconType, ReactNode> = {
@@ -56,6 +57,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   dropdownItems,
   isChecked,
   setSelectedDropdownItems,
+  textVariables,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody
@@ -76,11 +78,11 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
         {iconMap[iconType ?? 'default']}
         <Flex direction="column" align="center" gap={4} px={5}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={title} />
+            <LangDisplay text={title} variables={textVariables} />
           </Typography>
           {subtext && (
             <Typography variant="h6" $textAlign="center" color="muted">
-              <LangDisplay text={subtext} />
+              <LangDisplay text={subtext} variables={textVariables} />
             </Typography>
           )}
         </Flex>
@@ -136,4 +138,5 @@ ErrorDialog.defaultProps = {
   dropdownItems: undefined,
   isChecked: undefined,
   setSelectedDropdownItems: undefined,
+  textVariables: undefined,
 };
