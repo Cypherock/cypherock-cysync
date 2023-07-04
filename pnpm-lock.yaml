@@ -63,17 +63,17 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-core':
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.8
+        version: 0.0.8
       '@cypherock/sdk-hw-serialport':
+        specifier: ^0.0.8
+        version: 0.0.8
+      '@cypherock/sdk-interfaces':
         specifier: ^0.0.7
         version: 0.0.7
-      '@cypherock/sdk-interfaces':
-        specifier: ^0.0.6
-        version: 0.0.6
       electron-playwright-helpers:
         specifier: ^1.5.4
         version: 1.5.4
@@ -205,14 +205,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-utils':
-        specifier: ^0.0.8
-        version: 0.0.8
+        specifier: ^0.0.9
+        version: 0.0.9
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -347,17 +347,17 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
+        specifier: ^0.0.12
+        version: 0.0.12
+      '@cypherock/sdk-core':
         specifier: ^0.0.11
         version: 0.0.11
-      '@cypherock/sdk-core':
-        specifier: ^0.0.10
-        version: 0.0.10
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-utils':
-        specifier: ^0.0.8
-        version: 0.0.8
+        specifier: ^0.0.9
+        version: 0.0.9
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.1.1)(react@18.2.0)
@@ -689,8 +689,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.22.5
@@ -2942,12 +2942,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypherock/sdk-app-evm@0.0.10:
-    resolution: {integrity: sha512-0kr4T+gDnS/roWG33CklNfhIVVaS34mgb4n9rHm+OhKcgK7iUvMcEr2M8CWh/u4A/RelMxvf0ccYGKhKPpa3PA==}
+  /@cypherock/sdk-app-evm@0.0.11:
+    resolution: {integrity: sha512-uQqo0Jba35anv9B74Iqrt4cc8sSIW5DeZFMoTtb9KcwxBChBE+C7PwYMYoqnp60v6oET52BwTRmhiGvd1nyAxg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.10
-      '@cypherock/sdk-interfaces': 0.0.6
-      '@cypherock/sdk-utils': 0.0.8
+      '@cypherock/sdk-core': 0.0.11
+      '@cypherock/sdk-interfaces': 0.0.7
+      '@cypherock/sdk-utils': 0.0.9
       ethers: 6.6.2
       long: 5.2.3
       protobufjs: 7.2.4
@@ -2956,12 +2956,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.11:
-    resolution: {integrity: sha512-eRQK0LqBdMIyy05sUWyzF5xu8tv4Q3vW0j8eVqyP3hIETX0Xll/4UT6YV6fEUwStOsFg8hGI7qeyuNmIBTB82g==}
+  /@cypherock/sdk-app-manager@0.0.12:
+    resolution: {integrity: sha512-7ArXl307LRIS63XpHu4/uETX+HtDhS9RANT0U9lr0TKIW5Z4Yfwap827fnSkb7AwD8kEcYdKPC/HG9EBzmTjgA==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.10
-      '@cypherock/sdk-interfaces': 0.0.6
-      '@cypherock/sdk-utils': 0.0.8
+      '@cypherock/sdk-core': 0.0.11
+      '@cypherock/sdk-interfaces': 0.0.7
+      '@cypherock/sdk-utils': 0.0.9
       axios: 1.4.0
       crypto-js: 4.1.1
       protobufjs: 7.2.4
@@ -2970,49 +2970,49 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-core@0.0.10:
-    resolution: {integrity: sha512-jk2bReUos4XzhaGshLPtKKl2btgCul3aFgLcKvTCE4XOzOGnPyJ+0YNjgAdi/1yLc7rONq4c0eiTLODOby/4Pg==}
+  /@cypherock/sdk-core@0.0.11:
+    resolution: {integrity: sha512-AXZBa/i2Q6AjnaoTMxW0q7iEI2aPJP1tW9NoL3giaIzbSyzz8D10IBmfp1TqP7omCSzJ7DFun1w9T3Twz6aYBg==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.6
-      '@cypherock/sdk-utils': 0.0.8
+      '@cypherock/sdk-interfaces': 0.0.7
+      '@cypherock/sdk-utils': 0.0.9
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.4
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-hid@0.0.7:
-    resolution: {integrity: sha512-57Yp5jNxRTndxfk7Hsr93AvhjojV9CHDQol8lkm5XOQJN8Vsv0sLIdemXyOwGtG45AJFIEfjlk3u/ttaFbBS7Q==}
+  /@cypherock/sdk-hw-hid@0.0.8:
+    resolution: {integrity: sha512-9r0JtlpDZXJbsjb8jeuhIycTHg47RcB/VlmAkVPMudU57jdiS4VD3dhI0z8d6KtgY8hxmZzg6f4UsYlm4DlaCw==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.6
-      '@cypherock/sdk-utils': 0.0.8
+      '@cypherock/sdk-interfaces': 0.0.7
+      '@cypherock/sdk-utils': 0.0.9
       node-hid: 2.1.2
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-serialport@0.0.7:
-    resolution: {integrity: sha512-+NJsxzjOzeLvGy//2PNd82KogLDJcEeHbRbDuogp3bPOUEbtHEH2X04HX/yzXINML1kz5jq/j4EaC9BPSUrR9Q==}
+  /@cypherock/sdk-hw-serialport@0.0.8:
+    resolution: {integrity: sha512-AGme2cp9GL27egLwfHL8rA3ur/5OzlNiUWOPV7d9jpU0Yyo4Qv2qlCDnKnvkqc7wmzI3RlkrYusfREoMhILzbA==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.6
-      '@cypherock/sdk-utils': 0.0.8
+      '@cypherock/sdk-interfaces': 0.0.7
+      '@cypherock/sdk-utils': 0.0.9
       serialport: 10.0.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@cypherock/sdk-interfaces@0.0.6:
-    resolution: {integrity: sha512-GzE7UuWRMtWYIQkpij/1m4EL70k1LFn0jk0tyLMjr1SM26MY5VZTvnkDTjOskVAlgauH+tb5fTsQ6/2oQCAhow==}
+  /@cypherock/sdk-interfaces@0.0.7:
+    resolution: {integrity: sha512-QDGdfo8d7xvSGOaRXBAC3ibWigiwWTwxt/w6u1SXH/WRjs0JiHy1JldGG0kSNAqJxFcY8p4pe/rHcD2CSlrHnQ==}
     dependencies:
       '@types/events': 3.0.0
       events: 3.3.0
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-utils@0.0.8:
-    resolution: {integrity: sha512-m9RWm97T+A9y0/b3DfzBEYNREXlurRxK2mfymLvYOTcGbPiN+fFg+Z1wewgVDvqMjADHkpx4oq24p8mBMEGxyA==}
+  /@cypherock/sdk-utils@0.0.9:
+    resolution: {integrity: sha512-WK/8a4pAGEH/44BDImAgy33ZjBd3Jx4dE9OkWXgmwIcwrufM2Yoysbi/kgKz9zvoQJQwbhkypG46V4Sit1IpUg==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
-      '@cypherock/sdk-interfaces': 0.0.6
+      '@cypherock/sdk-interfaces': 0.0.7
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.4
       semver: 7.5.3
@@ -3651,8 +3651,11 @@ packages:
     resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
 
-  /@jridgewell/source-map@0.3.4:
-    resolution: {integrity: sha512-KE/SxsDqNs3rrWwFHcRh15ZLVFrI0YoZtgAdIyIq9k5hUNmiWRXXThPomIxHuL20sLdgzbDFyvkUMna14bvtrw==}
+  /@jridgewell/source-map@0.3.5:
+    resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
   /@jridgewell/sourcemap-codec@1.4.14:
@@ -8463,7 +8466,7 @@ packages:
       '@jest/expect': 29.5.0
       '@jest/test-result': 29.5.0
       '@jest/types': 29.5.0
-      '@types/node': 20.3.1
+      '@types/node': 18.15.11
       chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
@@ -8783,7 +8786,7 @@ packages:
       '@jest/environment': 29.5.0
       '@jest/fake-timers': 29.5.0
       '@jest/types': 29.5.0
-      '@types/node': 20.3.1
+      '@types/node': 18.15.11
       jest-mock: 29.5.0
       jest-util: 29.5.0
     dev: true
@@ -11801,7 +11804,7 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      '@jridgewell/source-map': 0.3.4
+      '@jridgewell/source-map': 0.3.5
       acorn: 8.9.0
       commander: 2.20.3
       source-map-support: 0.5.21
