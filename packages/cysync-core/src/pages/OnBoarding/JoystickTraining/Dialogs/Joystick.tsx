@@ -84,7 +84,7 @@ export const JoystickTrainingInteraction: React.FC<{ state: number }> = ({
         </Typography>
         <JoystickInteraction {...states} />
         <Container display="flex" direction="column" gap={8}>
-          <Typography variant="h5" $textAlign="center">
+          <Typography variant="h5" $letterSpacing={0.0625} $textAlign="center">
             <LangDisplay text={bottomText} />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">

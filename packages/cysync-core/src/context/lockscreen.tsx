@@ -88,6 +88,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
       logger.info('Password successfully changed');
     } else {
       await db.changeEncryptionKey(undefined);
+      setIsPasswordSet(false);
       logger.info('Password removed');
     }
 
