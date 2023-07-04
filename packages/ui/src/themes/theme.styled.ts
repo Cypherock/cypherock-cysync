@@ -49,6 +49,7 @@ export const theme = {
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
       separator: colors.background.separator,
+      separatorSecondary: colors.background.separatorSecondary,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,

@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-import { shieldAlert, infoIcon } from '../../assets';
-import { Image, LangDisplay, TypographyColor, Typography } from '../atoms';
+import { InfoIcon, shieldAlert } from '../../assets';
+import {
+  Image,
+  LangDisplay,
+  TypographyColor,
+  Typography,
+  Flex,
+} from '../atoms';
 import { utils, UtilsProps } from '../utils';
 
 export type AlertBoxVariantType = 'warning' | 'info' | 'none';
@@ -11,7 +17,7 @@ export interface AlertBoxProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLDivElement> {
   alert: string;
-  imageSrc?: string;
+  icon?: React.JSX.Element;
   variant?: AlertBoxVariantType;
 }
 
@@ -61,10 +67,10 @@ const MaskStyle = styled.div<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
   ${utils}
 `;
 
-const imageObj: Record<AlertBoxVariantType, string> = {
-  warning: infoIcon,
-  info: shieldAlert,
-  none: shieldAlert,
+const iconObj: Record<AlertBoxVariantType, React.JSX.Element> = {
+  warning: <InfoIcon color="yellow" />,
+  info: <Image width="20" src={shieldAlert} alt="alert" />,
+  none: <Image width="20" src={shieldAlert} alt="alert" />,
 };
 
 const textObj: Record<AlertBoxVariantType, TypographyColor> = {
@@ -73,13 +79,12 @@ const textObj: Record<AlertBoxVariantType, TypographyColor> = {
   none: 'info',
 };
 
-export const AlertBox: FC<AlertBoxProps> = ({ imageSrc, alert, ...props }) => {
+export const AlertBox: FC<AlertBoxProps> = ({ icon, alert, ...props }) => {
   const variantCurr = props.variant ? props.variant : 'none';
-  const imageSource = !imageSrc ? shieldAlert : imageObj[variantCurr];
 
   return (
     <MaskStyle {...props}>
-      <Image width="20" mr="20" src={imageSource} alt="Alert" />
+      <Flex mr="20">{icon ?? iconObj[variantCurr]}</Flex>
       <Typography variant="fineprint" color={textObj[variantCurr]}>
         <LangDisplay text={alert} />
       </Typography>
@@ -89,5 +94,5 @@ export const AlertBox: FC<AlertBoxProps> = ({ imageSrc, alert, ...props }) => {
 
 AlertBox.defaultProps = {
   variant: 'info',
-  imageSrc: shieldAlert,
+  icon: undefined,
 };

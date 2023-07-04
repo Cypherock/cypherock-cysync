@@ -1,4 +1,7 @@
 import addWalletIcon from './add-wallet.png';
+import arrowBlackBackward from './arrow-black-backward.svg';
+import arrowGoldenForward from './arrow-right-forward.svg';
+import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import blockIcon from './Block-unselectedsvg.svg';
@@ -6,7 +9,6 @@ import blockSelectedIcon from './Block.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
 import closeIcon from './close.png';
-import syncProblem from './sync-problem.svg';
 import connected from './connected.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
@@ -20,7 +22,7 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
-import infoIcon from './info.svg';
+import { InfoIcon } from './InfoIcon';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -40,14 +42,19 @@ import redDisconnectedIcon from './red-disconnected.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
 import successIcon from './success.svg';
+import syncProblem from './sync-problem.svg';
 import syncronizing from './syncronizing.svg';
 import usbIcon from './usb.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
+import walletErrorIcon from './wallet-error.svg';
 
 export {
   addWalletIcon,
   asideIcon,
+  arrowBlackBackward,
+  arrowGoldenForward,
+  arrowWhiteBackward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -80,6 +87,7 @@ export {
   copyIcon,
   checkIcon,
   redDisconnectedIcon,
+  InfoIcon,
   lock,
   lockOpen,
   noNotifications,
@@ -87,9 +95,9 @@ export {
   syncronizing,
   syncProblem,
   connected,
-  infoIcon,
   DeviceUpdateIcon,
   goldCopyIcon,
   DeviceUpdateFailedIcon,
   SettingsWrongIcon,
+  walletErrorIcon,
 };

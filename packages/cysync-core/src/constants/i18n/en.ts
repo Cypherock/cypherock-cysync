@@ -286,6 +286,70 @@ const en = {
       },
     },
   },
+  walletSync: {
+    recreatedWithDiffName: {
+      title: {
+        first: 'Seems like you have re-created the wallet',
+        second: 'in X1 Vault with a different name',
+      },
+      subTitle: 'Lets sync the wallet name in cySync as well',
+      button: 'Sync',
+    },
+    freshOneCreated: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
+      subTitle: 'You can chose which one to keep and which one to delete',
+      dropdown: {
+        cypherockRed: 'Cypherock Red',
+        official: 'Official',
+        personal: 'Personal',
+      },
+      checkboxText: "Don't show this again",
+      buttons: {
+        keepAll: 'Keep All',
+        delete: 'Delete',
+      },
+    },
+    multipleWalletsDeleted: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which one to keep and which one to delete',
+      dropdown: {
+        cypherockRed: 'Cypherock Red',
+        official: 'Official',
+        personal: 'Personal',
+      },
+      checkboxText: "Don't show this again",
+      buttons: {
+        keepAll: 'Keep All',
+        delete: 'Delete',
+      },
+    },
+    walletConflict: {
+      title: {
+        first: 'Seems like you have deleted the wallet',
+        second:
+          'from the X1 Vault while creating a new one by the same name. Do you want to delete the old wallet on cySync?',
+      },
+      checkboxText: "Don't show this again",
+      buttons: {
+        keepAll: 'Keep All',
+        delete: 'Delete',
+      },
+    },
+    walletNotFound: {
+      title: {
+        first: 'Seems like you have deleted the wallet',
+        second:
+          'from the X1 Vault. Do you want to delete it on cySync as well?',
+      },
+      checkboxText: "Don't show this again",
+      buttons: {
+        keepAll: 'Keep All',
+        delete: 'Delete',
+      },
+    },
+  },
   portfolio: {
     title: 'Portfolio',
   },

@@ -8,7 +8,7 @@ import { Typography } from './Typography';
 interface CheckBoxProps {
   checked: boolean;
   onChange: () => void;
-  id: string;
+  id?: string;
   label?: string;
   flexProps?: FlexProps;
   isDisabled?: boolean;
@@ -100,4 +100,5 @@ CheckBox.defaultProps = {
   label: undefined,
   flexProps: undefined,
   isDisabled: false,
+  id: undefined,
 };

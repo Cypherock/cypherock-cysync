@@ -13,7 +13,13 @@ type BorderType<T extends string> =
 type Borders = {
   [key in BorderType<'$borderWidth'>]?: number;
 };
-type BorderColor = 'popup' | 'separator';
+type BorderColor =
+  | 'popup'
+  | 'separator'
+  | 'info'
+  | 'input'
+  | 'warning'
+  | 'white';
 type BorderRadius = number | 'full';
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
 
