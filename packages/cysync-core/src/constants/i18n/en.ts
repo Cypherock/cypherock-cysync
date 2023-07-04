@@ -7,7 +7,7 @@ import {
   DeviceConnectionErrorType,
 } from '@cypherock/sdk-interfaces';
 
-import { DeviceErrorCodes } from './types';
+import { DeviceErrorCodes } from '~/types/deviceError';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',

@@ -41,6 +41,7 @@ export const DeviceUpdateDialogBox: FC = () => {
   );
   const [version, setVersion] = React.useState<string | undefined>();
   const [errorToShow, setErrorToShow] = React.useState<Error | undefined>();
+  const [retries, setRetries] = React.useState(0);
 
   const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
 
@@ -116,6 +117,7 @@ export const DeviceUpdateDialogBox: FC = () => {
   };
 
   const onRetry = () => {
+    setRetries(r => r + 1);
     const retryFuncMap: Record<InternalState, () => Promise<void>> = {
       [InternalState.Checking]: checkForUpdates,
       [InternalState.Installing]: installUpdate,
@@ -183,6 +185,7 @@ export const DeviceUpdateDialogBox: FC = () => {
         lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
       }
       onRetry={onRetry}
+      retries={retries}
       textVariables={{ version }}
     >
       {DeviceUpdateDialogs[state]}

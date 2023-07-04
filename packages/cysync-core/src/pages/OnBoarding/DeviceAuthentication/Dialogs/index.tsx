@@ -13,6 +13,8 @@ export const DeviceAuthDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
 
+  const [retries, setRetries] = React.useState(0);
+
   const deviceAuth: DeviceTask<boolean> = async connection => {
     const app = await ManagerApp.create(connection);
     const res = await app.authDevice();
@@ -20,6 +22,11 @@ export const DeviceAuthDialog: React.FC = () => {
   };
 
   const task = useDeviceTask(deviceAuth);
+
+  const onRetry = () => {
+    setRetries(r => r + 1);
+    task.run();
+  };
 
   useEffect(() => {
     if (task.result) {
@@ -31,7 +38,8 @@ export const DeviceAuthDialog: React.FC = () => {
     <ErrorHandlerDialog
       error={task.error}
       title={lang.strings.onboarding.deviceAuth.error}
-      onRetry={() => task.run()}
+      onRetry={onRetry}
+      retries={retries}
     >
       {task.result === undefined && <DeviceAuthenticating />}
       {task.result === false && (

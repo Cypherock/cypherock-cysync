@@ -12,6 +12,7 @@ export interface ErrorHandlerDialogProps {
   title: string;
   onRetry?: () => void;
   textVariables?: object;
+  retries?: number;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -21,6 +22,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   onRetry,
   textVariables,
   defaultMsg,
+  retries,
 }) => {
   const [errorToShow, setErrorToShow] = React.useState<
     IParsedError | undefined
@@ -28,8 +30,9 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   const lang = useAppSelector(selectLanguage);
 
   const errorMsg = React.useMemo(
-    () => (error ? getParsedError({ error, defaultMsg, lang }) : undefined),
-    [error, lang],
+    () =>
+      error ? getParsedError({ error, defaultMsg, lang, retries }) : undefined,
+    [error, lang, retries],
   );
 
   /**
@@ -63,8 +66,9 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
 
   return (
     <ErrorDialog
+      iconType={errorToShow.iconName}
       showRetry={errorToShow.showRetry}
-      showReport={errorToShow.showSupport}
+      showReport={errorToShow.showReport}
       onRetry={onRetry}
       title={title}
       subtext={errorToShow.msg}
@@ -79,4 +83,5 @@ ErrorHandlerDialog.defaultProps = {
   onRetry: undefined,
   textVariables: undefined,
   defaultMsg: undefined,
+  retries: undefined,
 };
