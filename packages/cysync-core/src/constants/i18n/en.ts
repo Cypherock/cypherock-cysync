@@ -166,11 +166,16 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity ',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
-      success: 'Your X1 Vault is successfully authenticated',
+      success: {
+        title: 'Your X1 Vault is successfully authenticated',
+        subtext: 'Wait while we take you to the next screen',
+      },
       error: 'X1 Vault authentication has failed',
+      errorSubtext:
+        'Device seems to be Compromised. Contact Cypherock support immediately',
     },
     joystickTraining: {
       heading: 'Joystick Instructions',
