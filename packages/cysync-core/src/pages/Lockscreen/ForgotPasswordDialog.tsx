@@ -31,7 +31,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   };
 
   return (
-    <DialogBox width={500} $isModal>
+    <DialogBox width={500}>
       <DialogBoxBody>
         <Image src={errorIcon} alt="Error" />
         <Container display="flex" direction="column" gap={4}>
