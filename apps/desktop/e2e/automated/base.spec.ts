@@ -1,5 +1,6 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
-import { prepElectronApp, toFirstScreen } from '../__helpers__';
+
+import { clearKeyDb, prepElectronApp, toFirstScreen } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 
@@ -10,6 +11,7 @@ test.beforeEach(async () => {
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
   screen = await electronApp.firstWindow();
+  await clearKeyDb(screen);
 });
 
 test.afterEach(async () => {
@@ -125,7 +127,7 @@ test('check x1 device usage for first time', async () => {
   await expect(privacyPolicy).toBeVisible();
   const sidePanelFirst = screen.locator('span');
   await expect(sidePanelFirst).toBeVisible();
-  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();
   const confirmButton = screen.getByRole('button', { name: 'Confirm' });
   await expect(confirmButton).toBeDisabled();
@@ -162,7 +164,7 @@ test('check x1 device have been already used before', async () => {
   await expect(privacyPolicy).toBeVisible();
   const sidePanelFirst = screen.locator('span');
   await expect(sidePanelFirst).toBeVisible();
-  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();
   const confirmButton = screen.getByRole('button', { name: 'Confirm' });
   await expect(confirmButton).toBeDisabled();
