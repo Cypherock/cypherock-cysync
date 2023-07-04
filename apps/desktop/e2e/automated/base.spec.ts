@@ -77,6 +77,7 @@ test('check first screen', async () => {
 });
 
 test('check usage screen', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
   await expect(sidePanelFirst).toHaveText(['Welcome to cySync app']);
@@ -103,6 +104,7 @@ test('check usage screen', async () => {
 });
 
 test('check x1 device usage for first time', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   const continueButton = screen
     .locator('section')
@@ -140,6 +142,7 @@ test('check x1 device usage for first time', async () => {
 });
 
 test('check x1 device have been already used before', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   const continueButton = screen
     .locator('section')
