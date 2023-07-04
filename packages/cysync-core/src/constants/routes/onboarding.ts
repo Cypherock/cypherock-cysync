@@ -1,7 +1,7 @@
 export const onboarding = {
   info: {
     name: 'onboarding-info',
-    path: '/',
+    path: '/onboarding-info',
   },
   usage: {
     name: 'onboarding-usage',

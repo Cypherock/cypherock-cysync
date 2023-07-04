@@ -15,14 +15,14 @@ import {
   WidthProps,
 } from '../../utils';
 
-export interface TableBoxUtilityProps
+export interface TableUtilityProps
   extends WidthProps,
     HeightProps,
     FlexProps,
     DisplayProps,
     SpacingProps {}
 
-interface TableHeaderDataProps extends TableBoxUtilityProps {
+interface TableHeaderDataProps extends TableUtilityProps {
   data: string;
   $ascending: boolean;
   onClick: (name: string) => void;
@@ -30,12 +30,12 @@ interface TableHeaderDataProps extends TableBoxUtilityProps {
   $noFlex?: boolean;
 }
 
-interface TableBoxDataRowProps extends TableBoxUtilityProps {
+interface TableDataRowProps extends TableUtilityProps {
   $last?: boolean;
   $noFlex?: boolean;
 }
 
-const TableBoxStyle = styled.div`
+const TableStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,7 +53,7 @@ const TableBoxStyle = styled.div`
   ${spacing}
 `;
 
-const TableBoxTitleStyle = styled.div`
+const TableTitleStyle = styled.div`
   border-bottom: 1px;
   border-top: 0;
   border-left: 0;
@@ -111,7 +111,7 @@ const TableBodyStyle = styled.div`
   ${spacing}
 `;
 
-const TableDataRowStyle = styled.div<TableBoxDataRowProps>`
+const TableDataRowStyle = styled.div<TableDataRowProps>`
   display: flex;
   flex: 1;
   align-items: center;
@@ -131,21 +131,19 @@ const TableDataRowStyle = styled.div<TableBoxDataRowProps>`
   ${spacing}
 `;
 
-export const TableBox: FC<TableBoxUtilityProps> = ({ children, ...props }) => (
-  <TableBoxStyle {...props}>{children}</TableBoxStyle>
+export const Table: FC<TableUtilityProps> = ({ children, ...props }) => (
+  <TableStyle {...props}>{children}</TableStyle>
 );
 
-export const TableBoxTitle: FC<TableBoxUtilityProps> = ({
-  children,
-  ...props
-}) => <TableBoxTitleStyle {...props}>{children}</TableBoxTitleStyle>;
+export const TableTitle: FC<TableUtilityProps> = ({ children, ...props }) => (
+  <TableTitleStyle {...props}>{children}</TableTitleStyle>
+);
 
-export const TableBoxHeader: FC<TableBoxUtilityProps> = ({
-  children,
-  ...props
-}) => <TableHeaderStyle {...props}>{children}</TableHeaderStyle>;
+export const TableHeader: FC<TableUtilityProps> = ({ children, ...props }) => (
+  <TableHeaderStyle {...props}>{children}</TableHeaderStyle>
+);
 
-export const TableBoxHeaderData: FC<TableHeaderDataProps> = ({
+export const TableHeaderData: FC<TableHeaderDataProps> = ({
   onClick,
   selected,
   ...props
@@ -174,20 +172,19 @@ export const TableBoxHeaderData: FC<TableHeaderDataProps> = ({
   </TableHeaderDataStyle>
 );
 
-TableBoxHeaderData.defaultProps = {
+TableHeaderData.defaultProps = {
   selected: false,
   $noFlex: false,
 };
 
-export const TableBody: FC<TableBoxUtilityProps> = ({ children, ...props }) => (
+export const TableBody: FC<TableUtilityProps> = ({ children, ...props }) => (
   <TableBodyStyle {...props}>{children}</TableBodyStyle>
 );
 
-export const TableBoxDataRow: FC<TableBoxDataRowProps> = ({
-  children,
-  ...props
-}) => <TableDataRowStyle {...props}>{children}</TableDataRowStyle>;
-TableBoxDataRow.defaultProps = {
+export const TableDataRow: FC<TableDataRowProps> = ({ children, ...props }) => (
+  <TableDataRowStyle {...props}>{children}</TableDataRowStyle>
+);
+TableDataRow.defaultProps = {
   $noFlex: false,
   $last: false,
 };

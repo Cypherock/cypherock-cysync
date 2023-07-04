@@ -1,23 +1,20 @@
 import {
-  TableNameBox,
+  AllocationShare,
+  Table,
   TableBody,
-  TableBox,
-  TableBoxDataRow,
-  TableBoxHeader,
-  TableBoxHeaderData,
-  TableBoxTitle,
+  TableDataRow,
+  TableHeader,
+  TableHeaderData,
+  TableNameBox,
+  TableTitle,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
-import { AllocationShare } from '~/pages/MainApp/Components/AllocationShare';
-import {
-  AssetIconNameBox,
-  AssetVariants,
-} from '~/pages/MainApp/Components/AssetIconNameBox';
+import { AssetIconNameBox } from '~/pages/MainApp/Components/AssetIconNameBox';
+import { CoinTypes } from '@cypherock/coins';
 
 type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
-export type NameVariants = 'Bitcoin' | 'Ethereum';
 
 interface HeadersData {
   comparator: (a: any, b: any) => number;
@@ -27,7 +24,8 @@ interface HeadersData {
 }
 
 interface AssetDataType {
-  name: AssetVariants;
+  id: CoinTypes;
+  name: string;
   symbol: string;
   price: number;
   amount: number;
@@ -56,7 +54,7 @@ export const AssetAllocation = () => {
       padding: '16px 20px 16px 96px',
       width: '300',
       $noFlex: true,
-      comparator: createComparator('name'),
+      comparator: createComparator('id'),
     },
     Price: {
       comparator: createComparator('price'),
@@ -76,6 +74,7 @@ export const AssetAllocation = () => {
 
   const [data, setData] = useState<AssetDataType[]>([
     {
+      id: 'bitcoin',
       name: 'Bitcoin',
       symbol: 'BTC',
       price: 16981.44,
@@ -85,6 +84,7 @@ export const AssetAllocation = () => {
       color: '#F89C2D',
     },
     {
+      id: 'ethereum',
       name: 'Ethereum',
       symbol: 'ETH',
       price: 674.44,
@@ -108,17 +108,17 @@ export const AssetAllocation = () => {
   }, [isAscending, sortedBy]);
 
   return (
-    <TableBox width="full">
-      <TableBoxTitle width="full">
+    <Table width="full">
+      <TableTitle width="full">
         <Typography variant="h5" color="muted">
           Asset Allocation
         </Typography>
-      </TableBoxTitle>
-      <TableBoxHeader width="full">
+      </TableTitle>
+      <TableHeader width="full">
         {Object.keys(headersData).map(headerName => {
           const header = headersData[headerName as TableHeaderNames];
           return (
-            <TableBoxHeaderData
+            <TableHeaderData
               key={headerName}
               data={headerName}
               onClick={handleHeaderClick as any}
@@ -130,15 +130,16 @@ export const AssetAllocation = () => {
             />
           );
         })}
-      </TableBoxHeader>
+      </TableHeader>
       <TableBody width="full">
         {data.map((asset, index) => (
-          <TableBoxDataRow
-            key={asset.name}
+          <TableDataRow
+            key={asset.id}
             $last={index === data.length - 1}
             width="full"
           >
             <AssetIconNameBox
+              id={asset.id}
               name={asset.name}
               symbol={asset.symbol}
               size="big"
@@ -148,13 +149,12 @@ export const AssetAllocation = () => {
             <TableNameBox text={`$ ${asset.value}`} />
             <AllocationShare
               percentage={asset.allocation}
-              variant={asset.name}
               size="big"
               color={asset.color}
             />
-          </TableBoxDataRow>
+          </TableDataRow>
         ))}
       </TableBody>
-    </TableBox>
+    </Table>
   );
 };

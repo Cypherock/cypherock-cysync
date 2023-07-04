@@ -1,12 +1,10 @@
-import { Typography } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { AssetVariants } from '~/pages/MainApp/Components/AssetIconNameBox';
+import { Typography } from '../../atoms';
 
 interface AllocationShareProps {
   percentage: number;
-  variant: AssetVariants;
   color: string;
   size?: 'small' | 'big';
 }
@@ -41,11 +39,7 @@ export const AllocationShare: FC<AllocationShareProps> = ({ ...props }) => (
       {props.percentage}%
     </Typography>
     <BackgroundStyle {...props}>
-      <FillerStyle
-        percentage={props.percentage}
-        variant={props.variant}
-        color={props.color}
-      />
+      <FillerStyle percentage={props.percentage} color={props.color} />
     </BackgroundStyle>
   </AllocationShareStyle>
 );
