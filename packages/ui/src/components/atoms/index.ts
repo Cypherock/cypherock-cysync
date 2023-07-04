@@ -9,6 +9,5 @@ export * from './Indicator';
 export * from './AsideContainer';
 export * from './LangDisplay';
 export * from './List';
-export * from './ArrowButton';
 export * from './Checkbox';
 export * from './BlurOverlay';

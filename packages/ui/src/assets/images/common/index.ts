@@ -1,7 +1,5 @@
 import addWalletIcon from './add-wallet.png';
-import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-right-forward.svg';
-import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import blockIcon from './Block-unselectedsvg.svg';
@@ -52,9 +50,7 @@ import walletErrorIcon from './wallet-error.svg';
 export {
   addWalletIcon,
   asideIcon,
-  arrowBlackBackward,
   arrowGoldenForward,
-  arrowWhiteBackward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
