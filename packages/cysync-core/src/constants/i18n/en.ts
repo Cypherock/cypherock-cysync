@@ -329,6 +329,8 @@ const en = {
       containNumber: 'must contain at least 1 number',
       containSymbol: 'must contain at least 1 symbol',
       required: 'is required',
+      containUppercase: 'must contain at least 1 uppercase letter',
+      containLowercase: 'must contain at least 1 lowercase letter',
     },
   },
 };
