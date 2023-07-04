@@ -98,6 +98,7 @@ const TableBodyStyle = styled.div`
   display: flex;
   align-items: flex-start;
   align-self: flex-start;
+  height: fit-content;
   flex-direction: column;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.table};
   justify-content: space-between;
@@ -120,13 +121,14 @@ const TableDataRowStyle = styled.div<TableBoxDataRowProps>`
   border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
   background: ${({ theme }) => theme.palette.background.content};
 
+  &:hover {
+    background: ${({ theme }) => theme.palette.background.sideBar};
+  }
+
   ${flex}
   ${width}
   ${height}
   ${spacing}
-  &:hover {
-    background: ${({ theme }) => theme.palette.background.sideBar};
-  }
 `;
 
 export const TableBox: FC<TableBoxUtilityProps> = ({ children, ...props }) => (

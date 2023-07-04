@@ -16,7 +16,7 @@ const NameBoxStyle = styled.div`
   align-items: center;
 `;
 
-export const NameBox: FC<NameBoxProps> = ({ text }) => (
+export const TableNameBox: FC<NameBoxProps> = ({ text }) => (
   <NameBoxStyle>
     <Typography variant="p" color="muted">
       {text}

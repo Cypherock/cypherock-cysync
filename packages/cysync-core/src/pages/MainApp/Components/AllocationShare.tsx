@@ -1,20 +1,15 @@
+import { Typography } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { NameVariants } from './IconNameBox';
-
-import { Typography } from '../../atoms';
+import { AssetVariants } from '~/pages/MainApp/Components/AssetIconNameBox';
 
 interface AllocationShareProps {
   percentage: number;
-  variant: NameVariants;
+  variant: AssetVariants;
+  color: string;
   size?: 'small' | 'big';
 }
-
-const assetColorMap: Record<NameVariants, string> = {
-  Bitcoin: '#F89C2D',
-  Ethereum: '#0085FF',
-};
 
 const AllocationShareStyle = styled.div<AllocationShareProps>`
   padding: ${({ size }) =>
@@ -36,7 +31,7 @@ const BackgroundStyle = styled.div<AllocationShareProps>`
 const FillerStyle = styled.div<AllocationShareProps>`
   height: 102%;
   width: ${({ percentage }) => percentage}%;
-  background: ${({ variant }) => assetColorMap[variant]};
+  background: ${({ color }) => color};
   border-radius: 5px;
 `;
 
@@ -46,7 +41,11 @@ export const AllocationShare: FC<AllocationShareProps> = ({ ...props }) => (
       {props.percentage}%
     </Typography>
     <BackgroundStyle {...props}>
-      <FillerStyle percentage={props.percentage} variant={props.variant} />
+      <FillerStyle
+        percentage={props.percentage}
+        variant={props.variant}
+        color={props.color}
+      />
     </BackgroundStyle>
   </AllocationShareStyle>
 );

@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { MutedTextBox } from './MutedTextBox';
+import { TableMutedTextBox } from './TableMutedTextBox';
 
 import { Container, Image, Typography } from '../../atoms';
-
-export type NameVariants = 'Bitcoin' | 'Ethereum';
 
 interface IconNameBoxProps {
   icon: string;
@@ -26,7 +24,7 @@ const IconNameBoxStyle = styled.div<IconNameBoxProps>`
   align-items: center;
 `;
 
-export const IconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
+export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
   <IconNameBoxStyle {...props}>
     <Image src={props.icon} alt="Asset Icon" />
     <Container direction="column" gap={0} align="flex-start">
@@ -44,7 +42,7 @@ export const IconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
             {props.mutedSubtitle}
           </Typography>
           {props.mutedBox && props.size === 'big' && (
-            <MutedTextBox text={props.mutedBox} />
+            <TableMutedTextBox text={props.mutedBox} />
           )}
         </Container>
       )}
@@ -52,7 +50,7 @@ export const IconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
   </IconNameBoxStyle>
 );
 
-IconNameBox.defaultProps = {
+TableIconNameBox.defaultProps = {
   size: 'big',
   subtitle: undefined,
   mutedSubtitle: undefined,

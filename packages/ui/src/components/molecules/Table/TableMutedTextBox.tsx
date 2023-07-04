@@ -13,7 +13,7 @@ const MutedTextBoxStyle = styled.div`
   border-radius: 4px;
 `;
 
-export const MutedTextBox: FC<MutedTextBoxProps> = ({ text }) => (
+export const TableMutedTextBox: FC<MutedTextBoxProps> = ({ text }) => (
   <MutedTextBoxStyle>
     <Typography variant="p" $fontSize={12} color="muted">
       {text}

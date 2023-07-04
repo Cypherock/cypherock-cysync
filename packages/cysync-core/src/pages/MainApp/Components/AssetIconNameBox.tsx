@@ -1,8 +1,9 @@
+import {
+  bitcoinIcon,
+  ethereumIcon,
+  TableIconNameBox,
+} from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-
-import { IconNameBox, NameVariants } from './IconNameBox';
-
-import { bitcoinIcon, ethereumIcon } from '../../../assets';
 
 export type AssetVariants = 'Bitcoin' | 'Ethereum';
 
@@ -12,13 +13,13 @@ interface AssetIconNameBoxProps {
   size?: 'small' | 'big';
 }
 
-const iconMap: Record<NameVariants, string> = {
+const iconMap: Record<AssetVariants, string> = {
   Bitcoin: bitcoinIcon,
   Ethereum: ethereumIcon,
 };
 
 export const AssetIconNameBox: FC<AssetIconNameBoxProps> = ({ ...props }) => (
-  <IconNameBox
+  <TableIconNameBox
     icon={iconMap[props.name]}
     title={props.symbol}
     subtitle={props.name}
