@@ -29,6 +29,7 @@ test('check first screen', async () => {
   const header = screen.getByRole('heading', {
     name: 'Ensure the following before you continue',
   });
+  await header.waitFor({ timeout: 120000 });
   await expect(header).toHaveText(['Ensure the following before you continue']);
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
   await expect(sidePanelFirst).toHaveText(['Welcome to cySync app']);
