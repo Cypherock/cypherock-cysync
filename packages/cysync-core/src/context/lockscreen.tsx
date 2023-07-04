@@ -84,6 +84,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
     if (password) {
       const encryptionKey = await passwordUtils.getEncryptionKey(password);
       await db.changeEncryptionKey(encryptionKey);
+      setIsPasswordSet(true);
       logger.info('Password successfully changed');
     } else {
       await db.changeEncryptionKey(undefined);
