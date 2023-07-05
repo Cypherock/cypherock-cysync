@@ -7,11 +7,11 @@ let electronApp: ElectronApplication;
 let screen: Page;
 
 test.beforeEach(async () => {
+  await clearKeyDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
   screen = await electronApp.firstWindow();
-  await clearKeyDb(screen);
 });
 
 test.afterEach(async () => {

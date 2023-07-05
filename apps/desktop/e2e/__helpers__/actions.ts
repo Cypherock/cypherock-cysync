@@ -1,13 +1,30 @@
 import { Page } from '@playwright/test';
 
-export function sleep(ms: number) {
+import { removeCysyncDatabase } from './databaseHandler';
+
+const HARD_TIMEOUT_MS = 10000;
+const PEEK_TIME_MS = 250;
+
+export const sleep = (ms: number) =>
   // eslint-disable-next-line no-promise-executor-return
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  new Promise(resolve => setTimeout(resolve, ms));
+
+export const waitUntil = async (callback: () => Promise<boolean>) => {
+  const start = performance.now();
+  let current = start;
+  while (current - start < HARD_TIMEOUT_MS) {
+    if (await callback()) return;
+    await sleep(PEEK_TIME_MS);
+    current = performance.now();
+  }
+};
 
 export const toFirstScreen = async (screen: Page) => {
-  // CI can be slow so we need to wait before we can grab the locator
-  sleep(3000);
+  // We wait until loader icon is not visible
+  await waitUntil(
+    async () =>
+      !(await screen.getByRole('img', { name: 'Loader Icon' }).isVisible()),
+  );
   const hasCheckbox = await screen.getByText('I have already ran the command');
   if (await hasCheckbox.isVisible()) {
     await screen.getByText('I have already ran the command').click();
@@ -15,17 +32,10 @@ export const toFirstScreen = async (screen: Page) => {
   }
 };
 
-const clearDatabase = async (screen: Page, dbName: string) => {
-  const dbHandle = await screen.evaluateHandle(
-    `window.electronAPI.get${dbName}()`,
-  );
-  await screen.evaluateHandle((db: any) => db.clear(), dbHandle);
+export const clearKeyDb = async () => {
+  removeCysyncDatabase('KeyDb');
 };
 
-export const clearKeyDb = async (screen: Page) => {
-  clearDatabase(screen, 'KeyDb');
-};
-
-export const clearDb = async (screen: Page) => {
-  clearDatabase(screen, 'Db');
+export const clearDb = async () => {
+  removeCysyncDatabase('Db');
 };
