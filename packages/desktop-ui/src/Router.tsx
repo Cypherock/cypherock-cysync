@@ -5,21 +5,21 @@ import {
   Congratulations,
   DeviceAuthentication,
   DeviceDetection,
-  Information,
-  Usage,
-  JoystickTraining,
-  routes,
-  Terms,
-  SetPassword,
-  AppUpdate,
   DeviceUpdate,
+  Information,
   IRoute,
-  RouteName,
+  JoystickTraining,
   PermissionSetup,
   Portfolio,
+  RouteName,
+  routes,
+  Terms,
+  Usage,
+  SetPassword,
+  AppUpdate,
 } from '@cypherock/cysync-core';
-import React, { ReactNode, memo } from 'react';
-import { Route, HashRouter as Router, Routes } from 'react-router-dom';
+import React, { memo, ReactNode } from 'react';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 const components: Record<RouteName, ReactNode> = {
   'permission-setup': <PermissionSetup />,
