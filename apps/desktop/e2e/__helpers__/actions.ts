@@ -20,11 +20,15 @@ export const waitUntil = async (callback: () => Promise<boolean>) => {
 };
 
 export const toFirstScreen = async (screen: Page) => {
+  // CI doesn't seem to work without this
+  await sleep(3000);
+
   // We wait until loader icon is not visible
   await waitUntil(
     async () =>
       !(await screen.getByRole('img', { name: 'Loader Icon' }).isVisible()),
   );
+
   const hasCheckbox = await screen.getByText('I have already ran the command');
   if (await hasCheckbox.isVisible()) {
     await screen.getByText('I have already ran the command').click();
