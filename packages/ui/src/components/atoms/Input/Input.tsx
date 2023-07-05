@@ -26,7 +26,7 @@ const InputStyle = styled.input`
   width: 100%;
   border: none;
   padding: 12px 24px;
-  background-color: ${({ theme }) => theme.palette.background.inputBackground};
+  background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
   background: #272320;
   border: 1px solid #39322c;

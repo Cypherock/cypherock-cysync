@@ -1,60 +1,167 @@
 import {
   ConfirmationDialog,
   DeviceUpdateIcon,
-  ErrorDialog,
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import React, { FC, ReactElement } from 'react';
+import { ManagerApp, UpdateFirmwareStatus } from '@cypherock/sdk-app-manager';
+import React, { FC, useRef, useEffect, ReactElement } from 'react';
+import semver from 'semver';
 
+import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
-import { useNavigateTo } from '~/hooks';
-import { DeviceUpdateLoading } from '~/pages/OnBoarding/DeviceUpdate/Dialogs/DeviceUpdateLoading';
-import { selectLanguage, useAppSelector } from '~/store';
+import { useDevice, IDeviceConnectionInfo } from '~/context';
+import { useNavigateTo, DeviceTask, useDeviceTask } from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
 
-enum DeviceUpdateStates {
+import { DeviceUpdateLoading } from './DeviceUpdateLoading';
+
+enum DeviceUpdateState {
+  Checking,
   Confirmation,
   Updating,
   Successful,
-  Failed,
-  Loading,
+}
+
+export enum InternalState {
+  Checking,
+  Installing,
 }
 
 export const DeviceUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const [state, setState] = React.useState(DeviceUpdateStates.Confirmation);
+
+  const { connection, connectDevice, getDevices } = useDevice();
   const navigateTo = useNavigateTo();
+
+  const [state, setState] = React.useState(DeviceUpdateState.Checking);
+  const [downloadProgress, setDownloadProgress] = React.useState(0);
+  const [internalState, setInternalState] = React.useState(
+    InternalState.Checking,
+  );
+  const [version, setVersion] = React.useState<string | undefined>();
+  const [errorToShow, setErrorToShow] = React.useState<Error | undefined>();
+
+  const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
+
+  useEffect(() => {
+    connectionRef.current = connection;
+  }, []);
+
+  const setStateWithResetError = (s: DeviceUpdateState) => {
+    setErrorToShow(undefined);
+    setState(s);
+  };
+
+  const updateFirmwareTask: DeviceTask<void> = async con => {
+    const app = await ManagerApp.create(con);
+
+    await app.updateFirmware({
+      getDevices,
+      createConnection: connectDevice,
+      onProgress: setDownloadProgress,
+      allowPrerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
+      onEvent: e => {
+        if (e === UpdateFirmwareStatus.UPDATE_FIRMWARE_STATUS_USER_CONFIRMED) {
+          setState(DeviceUpdateState.Updating);
+        }
+      },
+    });
+  };
+
+  const task = useDeviceTask(updateFirmwareTask, { dontExecuteTask: true });
+
+  const onError = (error: any) => {
+    setErrorToShow(error);
+  };
+
+  const installUpdate = async () => {
+    try {
+      if (task.isRunning) return;
+
+      setInternalState(InternalState.Installing);
+      setStateWithResetError(DeviceUpdateState.Confirmation);
+      setDownloadProgress(0);
+
+      const error = await task.run();
+      if (error) throw error;
+
+      setStateWithResetError(DeviceUpdateState.Successful);
+    } catch (error) {
+      onError(error);
+    }
+  };
+
+  const checkForUpdates = async () => {
+    try {
+      setStateWithResetError(DeviceUpdateState.Checking);
+      const result = await ManagerApp.getLatestFirmware({
+        prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
+      });
+      setVersion(result.version);
+
+      if (
+        connection?.firmwareVersion &&
+        semver.gte(connection.firmwareVersion, result.version)
+      ) {
+        toNextPage();
+        return;
+      }
+
+      installUpdate();
+      setStateWithResetError(DeviceUpdateState.Confirmation);
+    } catch (error) {
+      onError(error);
+    }
+  };
+
   const onRetry = () => {
-    setState(DeviceUpdateStates.Updating);
-  };
-  const onUpdate = () => {
-    setState(DeviceUpdateStates.Successful);
+    const retryFuncMap: Record<InternalState, () => Promise<void>> = {
+      [InternalState.Checking]: checkForUpdates,
+      [InternalState.Installing]: installUpdate,
+    };
+
+    retryFuncMap[internalState]();
   };
 
-  const onContinue = () => {
-    navigateTo(`${routes.onboarding.deviceAuthentication.path}`);
+  const toNextPage = () => {
+    navigateTo(routes.onboarding.deviceAuthentication.path);
   };
 
-  const DeviceUpdateDialogs: Record<DeviceUpdateStates, ReactElement> = {
-    [DeviceUpdateStates.Confirmation]: (
+  useEffect(() => {
+    checkForUpdates();
+
+    return () => {
+      task.abort();
+    };
+  }, []);
+
+  const DeviceUpdateDialogs: Record<DeviceUpdateState, ReactElement> = {
+    [DeviceUpdateState.Checking]: (
+      <DeviceUpdateLoading
+        text={lang.strings.onboarding.deviceUpdate.dialogs.checking.title}
+      />
+    ),
+    [DeviceUpdateState.Confirmation]: (
       <ConfirmationDialog
         title={lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title}
         icon={<DeviceUpdateIcon />}
         subtext={
           lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
         }
+        textVariables={{ version }}
       />
     ),
-    [DeviceUpdateStates.Loading]: <DeviceUpdateLoading />,
-    [DeviceUpdateStates.Updating]: (
+    [DeviceUpdateState.Updating]: (
       <ProgressDialog
         title={lang.strings.onboarding.deviceUpdate.dialogs.updating.heading}
         subtext={lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext}
         icon={<DeviceUpdateIcon />}
-        handleComplete={onUpdate}
+        progress={Number(downloadProgress.toFixed(0))}
+        versionTextVaribles={{ version }}
       />
     ),
-    [DeviceUpdateStates.Successful]: (
+    [DeviceUpdateState.Successful]: (
       <SuccessDialog
         title={
           lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful.heading
@@ -63,22 +170,22 @@ export const DeviceUpdateDialogBox: FC = () => {
           lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful.subtext
         }
         buttonText={lang.strings.buttons.continue}
-        handleClick={onContinue}
-      />
-    ),
-    [DeviceUpdateStates.Failed]: (
-      <ErrorDialog
-        title={
-          lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.heading
-        }
-        subtext={
-          lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
-        }
-        onRetry={onRetry}
-        showRetry
+        handleClick={toNextPage}
       />
     ),
   };
 
-  return DeviceUpdateDialogs[state];
+  return (
+    <ErrorHandlerDialog
+      title={lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.heading}
+      error={errorToShow}
+      defaultMsg={
+        lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
+      }
+      onRetry={onRetry}
+      textVariables={{ version }}
+    >
+      {DeviceUpdateDialogs[state]}
+    </ErrorHandlerDialog>
+  );
 };
