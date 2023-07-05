@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { _electron as electron } from '@playwright/test';
 
 export async function prepElectronApp() {
