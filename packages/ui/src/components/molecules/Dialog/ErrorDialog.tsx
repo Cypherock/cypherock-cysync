@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react';
 
-import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+import {
+  DialogBox,
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxProps,
+} from './DialogBox';
 
 import {
   DeviceUpdateFailedIcon,
@@ -11,7 +16,7 @@ import { Button, Container, LangDisplay, Typography } from '../../atoms';
 
 type IconType = 'device' | 'misconfigured' | 'default';
 
-export interface ErrorDialogProps {
+export interface ErrorDialogProps extends DialogBoxProps {
   title: string;
   subtext?: string;
   showRetry?: boolean;
@@ -34,8 +39,9 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   onRetry,
   iconType,
   textVariables,
+  ...props
 }) => (
-  <DialogBox width={500}>
+  <DialogBox width={500} {...props}>
     <DialogBoxBody>
       {iconMap[iconType ?? 'default']}
       <Container display="flex" direction="column" gap={4}>
