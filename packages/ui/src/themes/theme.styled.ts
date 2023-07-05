@@ -54,6 +54,7 @@ export const theme = {
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
       bar: colors.background.bar,
+      inputSecondary: colors.background.inputSecondary,
     },
     border: {
       popup: colors.border.popup,
@@ -61,6 +62,8 @@ export const theme = {
       separator: colors.background.separator,
       warning: colors.border.warning,
       bar: colors.border.bar,
+      table: colors.border.table,
+      muted: colors.border.muted,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
