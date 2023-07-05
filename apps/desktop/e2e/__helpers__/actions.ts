@@ -1,9 +1,15 @@
 import { Page } from '@playwright/test';
 
-export const toFirstScreen = async (screen: Page) => {
-  const hasCheckbox = await screen.$$('text="I have already ran the command"');
+export function sleep(ms: number) {
+  // eslint-disable-next-line no-promise-executor-return
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  if (hasCheckbox.length > 0) {
+export const toFirstScreen = async (screen: Page) => {
+  // CI can be slow so we need to wait before we can grab the locator
+  sleep(3000);
+  const hasCheckbox = await screen.getByText('I have already ran the command');
+  if (await hasCheckbox.isVisible()) {
     await screen.getByText('I have already ran the command').click();
     await screen.getByRole('button', { name: 'Continue' }).click();
   }
