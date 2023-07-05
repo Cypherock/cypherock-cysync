@@ -1,5 +1,4 @@
 import addWalletIcon from './add-wallet.png';
-import arrowGoldenForward from './arrow-right-forward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import blockIcon from './Block-unselectedsvg.svg';
@@ -20,7 +19,7 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
-import { InfoIcon } from './InfoIcon';
+import { infoIcon } from './info.svg';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -50,7 +49,6 @@ import walletErrorIcon from './wallet-error.svg';
 export {
   addWalletIcon,
   asideIcon,
-  arrowGoldenForward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -83,7 +81,7 @@ export {
   copyIcon,
   checkIcon,
   redDisconnectedIcon,
-  InfoIcon,
+  infoIcon,
   lock,
   lockOpen,
   noNotifications,
