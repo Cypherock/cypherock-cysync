@@ -11,7 +11,8 @@ type ButtonVariant =
   | 'warning'
   | 'danger'
   | 'text'
-  | 'none';
+  | 'none'
+  | 'gold';
 type ButtonSize = 'lg' | 'md' | 'sm';
 interface ButtonProps
   extends UtilsProps,
@@ -129,6 +130,18 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     background: transparent;
     border: none;
     padding: 0;
+  `,
+  gold: css<ButtonProps>`
+    // New variant
+    background: linear-gradient(
+      90deg,
+      #e9b873 0.19%,
+      #fedd8f 37.17%,
+      #b78d51 100.19%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 1px solid #b78d51;
   `,
 };
 

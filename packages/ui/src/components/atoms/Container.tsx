@@ -7,6 +7,7 @@ interface ContainerProps extends UtilsProps {
   children?: ReactNode;
   size?: 'lg';
   $noFlex?: boolean;
+  padding?: string;
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
@@ -18,6 +19,8 @@ const ContainerStyle = styled.div<ContainerProps>`
       align-items: center;
     `}
   ${utils}
+
+  padding: ${props => props.padding ?? '0'};
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (
@@ -28,4 +31,5 @@ Container.defaultProps = {
   children: null,
   size: 'lg',
   $noFlex: false,
+  padding: undefined,
 };

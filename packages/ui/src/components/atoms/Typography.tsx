@@ -40,6 +40,7 @@ interface HeadingProps
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
+  padding?: string;
 }
 
 const getColorCss = (color?: TypographyColor) => {
@@ -88,6 +89,11 @@ const baseStyle = css<HeadingProps>`
   ${border};
   ${spacing};
   ${font};
+  ${props =>
+    props.padding &&
+    css`
+      padding: ${props.padding};
+    `};
   ${width};
   ${position};
   ${display};
@@ -121,6 +127,7 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
+  line-height: 0%;
   ${baseStyle};
 `;
 
@@ -197,4 +204,5 @@ Typography.defaultProps = {
   $textAlign: 'left',
   $letterSpacing: 0,
   $userSelect: undefined,
+  padding: undefined,
 };

@@ -14,3 +14,4 @@ export * from './CopyContainer';
 export * from './Topbar';
 export * from './UpdateBar';
 export * from './Table';
+export * from './LeanBox';

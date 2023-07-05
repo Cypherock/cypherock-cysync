@@ -21,6 +21,10 @@ import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
+import VerifyCoinIcon from './verify-coin.svg';
+import loaderGrayIcon from './loader-grey.svg';
+import etheriumBlueIcon from './etherium-blue.svg';
+import halfLoaderGold from './half-loader-gold.svg';
 import infoIcon from './info.svg';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
@@ -50,6 +54,10 @@ import visibilityIcon from './visibility.svg';
 
 export {
   addWalletIcon,
+  etheriumBlueIcon,
+  VerifyCoinIcon,
+  halfLoaderGold,
+  loaderGrayIcon,
   asideIcon,
   backIcon,
   closeIcon,

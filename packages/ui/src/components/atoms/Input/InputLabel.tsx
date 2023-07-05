@@ -1,15 +1,12 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, LabelHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface InputLabelProps {
+interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   children?: ReactNode;
+  margin?: string;
 }
 
-const InputLabelStyle = styled.label`
-  display: block;
-  text-align: left;
-  width: 100%;
-
+const InputLabelStyle = styled.label<InputLabelProps>`
   display: block;
   text-align: left;
   width: 100%;
@@ -21,12 +18,14 @@ const InputLabelStyle = styled.label`
   color: ${({ theme }) => theme.palette.text.muted};
   padding: 0px 10px 0px 10px;
   margin-bottom: 8px;
+  margin: ${({ margin, theme }) => margin ?? theme.spacing.one.spacing};
 `;
 
-export const InputLabel: FC<InputLabelProps> = ({ children }) => (
-  <InputLabelStyle>{children}</InputLabelStyle>
+export const InputLabel: FC<InputLabelProps> = ({ children, ...props }) => (
+  <InputLabelStyle {...props}>{children}</InputLabelStyle>
 );
 
 InputLabel.defaultProps = {
   children: null,
+  margin: undefined,
 };

@@ -17,6 +17,9 @@ import {
   Usage,
   SetPassword,
   AppUpdate,
+  AddAccount,
+  SyncAccount,
+  NoAccount,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -37,6 +40,9 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-app-update': <AppUpdate />,
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
+  'addAccount-add': <AddAccount />,
+  'addAccount-sync': <SyncAccount />,
+  'addAccount-noAccount': <NoAccount />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
