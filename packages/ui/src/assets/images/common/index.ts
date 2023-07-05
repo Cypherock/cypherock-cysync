@@ -12,7 +12,6 @@ import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import cysyncLockedLogo from './cysync-locked.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
-import { DeviceUpdateFailedIcon } from './DeviceUpdateFailedIcon';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
 import emailIcon from './email-icon.svg';
@@ -38,6 +37,7 @@ import notifications from './notifications.svg';
 import openExternalLink from './open-external-link.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
+import { ServerErrorIcon } from './ServerErrorIcon';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
 import successIcon from './success.svg';
@@ -93,7 +93,7 @@ export {
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,
-  DeviceUpdateFailedIcon,
+  ServerErrorIcon,
   SettingsWrongIcon,
   bitcoinIcon,
   ethereumIcon,

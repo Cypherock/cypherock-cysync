@@ -2,14 +2,10 @@ import React, { ReactNode } from 'react';
 
 import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 
-import {
-  DeviceUpdateFailedIcon,
-  FailIcon,
-  SettingsWrongIcon,
-} from '../../../assets';
+import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
 import { Button, Container, LangDisplay, Typography } from '../../atoms';
 
-export type ErrorIconType = 'device' | 'misconfigured' | 'default';
+export type ErrorIconType = 'device' | 'default' | 'server';
 
 export interface ErrorDialogProps {
   title: string;
@@ -24,8 +20,8 @@ export interface ErrorDialogProps {
 
 const iconMap: Record<ErrorIconType, ReactNode> = {
   default: <FailIcon />,
-  device: <DeviceUpdateFailedIcon />,
-  misconfigured: <SettingsWrongIcon />,
+  device: <SettingsWrongIcon />,
+  server: <ServerErrorIcon />,
 };
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,

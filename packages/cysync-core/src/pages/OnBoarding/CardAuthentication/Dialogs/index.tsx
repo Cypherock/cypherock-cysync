@@ -5,6 +5,7 @@ import { routes } from '~/constants';
 import {
   DeviceTask,
   useDeviceTask,
+  useErrorHandler,
   useNavigateTo,
   useQuery,
   useStateWithFinality,
@@ -21,11 +22,18 @@ export const CardAuthenticationDialog: React.FC = () => {
   // total number of card taps needed for authentication for all cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, tapsPerCard * totalCards);
+
   const navigateTo = useNavigateTo();
 
   const cardAuth: DeviceTask<void> = async connection => {
+    const cardNumberToStart = Math.floor(cardTapState / tapsPerCard) + 1;
+
     const app = await ManagerApp.create(connection);
-    for (let cardNumber = 1; cardNumber <= totalCards; cardNumber += 1) {
+    for (
+      let cardNumber = cardNumberToStart;
+      cardNumber <= totalCards;
+      cardNumber += 1
+    ) {
       await app.authCard({
         cardNumber,
         isPairRequired: tapsPerCard === 3,
@@ -42,7 +50,16 @@ export const CardAuthenticationDialog: React.FC = () => {
     }
   };
 
-  useDeviceTask(cardAuth);
+  const task = useDeviceTask(cardAuth);
+
+  const onRetry = () => {
+    task.run();
+  };
+
+  const { errorToShow, handleRetry } = useErrorHandler({
+    error: task.error,
+    onRetry,
+  });
 
   useEffect(() => {
     if (isFinalCardTapState) navigateTo(routes.onboarding.congratulations.path);
@@ -58,6 +75,8 @@ export const CardAuthenticationDialog: React.FC = () => {
       tapState={cardTapState}
       tapsPerCard={tapsPerCard}
       totalCards={totalCards}
+      error={errorToShow}
+      onRetry={handleRetry}
     />
   );
 };

@@ -1,3 +1,4 @@
+import { CoinTypes } from '@cypherock/coins';
 import {
   AllocationShare,
   Table,
@@ -12,7 +13,6 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { AssetIconNameBox } from '~/pages/MainApp/Components/AssetIconNameBox';
-import { CoinTypes } from '@cypherock/coins';
 
 type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
 

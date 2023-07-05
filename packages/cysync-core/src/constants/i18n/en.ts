@@ -65,6 +65,10 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
   [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
   [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
+  [DeviceAppErrorType.DEVICE_AUTH_FAILED]:
+    'Device seems to be Compromised. Contact Cypherock support immediately',
+  [DeviceAppErrorType.CARD_AUTH_FAILED]:
+    'Card seems to be Compromised. Contact Cypherock support immediately',
 };
 
 const en = {
@@ -167,8 +171,6 @@ const en = {
         'Do not disconnect your device while the operation is being done',
       success: 'Your X1 Vault is successfully authenticated',
       error: 'X1 Vault authentication has failed',
-      errorSubtext:
-        'Device seems to be Compromised. Contact Cypherock support immediately',
     },
     joystickTraining: {
       heading: 'Joystick Instructions',
@@ -186,6 +188,7 @@ const en = {
     cardTraining: {
       heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
+      error: 'Card Tapping has failed',
     },
     cardAuth: {
       heading: 'Card Authentication',

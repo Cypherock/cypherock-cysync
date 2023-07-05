@@ -22,7 +22,6 @@ export const JoystickTrainingDialog: React.FC = () => {
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
     TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
   );
-  const [retries, setRetries] = React.useState(0);
 
   const trainJoystick: DeviceTask<void> = async connection => {
     const app = await ManagerApp.create(connection);
@@ -35,7 +34,6 @@ export const JoystickTrainingDialog: React.FC = () => {
   const task = useDeviceTask(trainJoystick);
 
   const onRetry = () => {
-    setRetries(r => r + 1);
     task.run();
   };
 
@@ -48,7 +46,6 @@ export const JoystickTrainingDialog: React.FC = () => {
       error={task.error}
       title={lang.strings.onboarding.joystickTraining.error}
       onRetry={onRetry}
-      retries={retries}
     >
       {isFinalState || <JoystickTrainingInteraction state={state} />}
       {isFinalState && (
