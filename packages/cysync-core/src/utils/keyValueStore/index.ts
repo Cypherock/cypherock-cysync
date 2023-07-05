@@ -21,4 +21,5 @@ export const keyValueStore = {
   isTermsAccepted: createBooleanValueStore('isTermsAccepted'),
   passwordHash: createStringValueStore('passwordHash'),
   email: createStringValueStore('email'),
+  checkpointPath: createStringValueStore('checkpointPath'),
 };
