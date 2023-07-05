@@ -19,7 +19,7 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import { FailIcon } from './FailIcon';
 import importWalletIcon from './import-wallet.png';
-import { infoIcon } from './info.svg';
+import infoIcon from './info.svg';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';

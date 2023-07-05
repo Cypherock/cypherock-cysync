@@ -11,6 +11,7 @@ interface IconDialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
+  isModal?: boolean;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -20,8 +21,9 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   afterTextComponent,
   footerComponent,
   textVariables,
+  isModal,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox $isModal={isModal} width={500}>
     <DialogBoxBody
       gap={{
         def: 12,
@@ -68,4 +70,5 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
+  isModal: undefined,
 };

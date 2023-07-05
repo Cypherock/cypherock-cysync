@@ -1,5 +1,4 @@
 import {
-  BlurOverlay,
   CheckboxListItems,
   CheckboxList,
   Flex,
@@ -34,34 +33,33 @@ export const WalletSyncErrorDialogBox: FC = () => {
     ]);
 
   return (
-    <BlurOverlay>
-      <IconDialogBox
-        title={lang.strings.walletSync.freshOneCreated.title}
-        subtext={lang.strings.walletSync.freshOneCreated.subTitle}
-        icon={<Image src={walletErrorIcon} alt="walletSync" />}
-        afterTextComponent={
-          <>
-            <CheckboxList
-              items={selectedCheckboxListItems}
-              setSelectedItems={setSelectedCheckboxListItems}
+    <IconDialogBox
+      isModal
+      title={lang.strings.walletSync.freshOneCreated.title}
+      subtext={lang.strings.walletSync.freshOneCreated.subTitle}
+      icon={<Image src={walletErrorIcon} alt="walletSync" />}
+      afterTextComponent={
+        <>
+          <CheckboxList
+            items={selectedCheckboxListItems}
+            setSelectedItems={setSelectedCheckboxListItems}
+          />
+          <Flex align="center" justify="center" width="full">
+            <CheckBox
+              checked={isChecked}
+              onChange={() => setIsChecked(prevProps => !prevProps)}
+              id="wallet_checkbox"
+              label={lang.strings.walletSync.freshOneCreated.checkboxText}
             />
-            <Flex align="center" justify="center" width="full">
-              <CheckBox
-                checked={isChecked}
-                onChange={() => setIsChecked(prevProps => !prevProps)}
-                id="wallet_checkbox"
-                label={lang.strings.walletSync.freshOneCreated.checkboxText}
-              />
-            </Flex>
-          </>
-        }
-        footerComponent={
-          <>
-            <Button variant="secondary">Keep it all</Button>
-            <Button variant="primary">Delete</Button>
-          </>
-        }
-      />
-    </BlurOverlay>
+          </Flex>
+        </>
+      }
+      footerComponent={
+        <>
+          <Button variant="secondary">Keep it all</Button>
+          <Button variant="primary">Delete</Button>
+        </>
+      }
+    />
   );
 };
