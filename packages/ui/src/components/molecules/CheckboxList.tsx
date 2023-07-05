@@ -30,7 +30,7 @@ export const CheckboxList: FC<{
       {items.map((item, index) => (
         <Flex
           $borderWidthB={1}
-          $borderColor="popup"
+          $borderColor="list"
           px={3}
           py="12"
           key={`checkbox-${index + 1}`}
@@ -41,6 +41,7 @@ export const CheckboxList: FC<{
             id={`checkbox-${index + 1}`}
             onChange={() => onSelectOption(index)}
             checked={item.checked}
+            size="small"
             label={item.label}
           />
         </Flex>

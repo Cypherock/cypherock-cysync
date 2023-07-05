@@ -5,7 +5,10 @@ import { Flex, FlexProps } from './Flex';
 import { LangDisplay } from './LangDisplay';
 import { Typography } from './Typography';
 
-interface CheckBoxProps {
+interface ISize {
+  size?: 'small' | 'big';
+}
+interface CheckBoxProps extends ISize {
   checked: boolean;
   onChange: () => void;
   id?: string;
@@ -14,9 +17,10 @@ interface CheckBoxProps {
   isDisabled?: boolean;
 }
 
-const CheckBoxWrapper = styled.div`
-  width: 16px;
-  height: 16px;
+const CheckBoxWrapper = styled.div<ISize>`
+  display: flex;
+  width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
+  height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
 `;
 
 const CheckBoxStyle = styled.input.attrs(props => ({
@@ -26,35 +30,35 @@ const CheckBoxStyle = styled.input.attrs(props => ({
   -webkit-appearance: none;
 `;
 
-const CheckBoxIcon = styled.div`
+const CheckBoxIcon = styled.div<ISize>`
   background-image: ${({ theme }) => theme.palette.golden};
-  width: 8px;
-  height: 8px;
+  width: ${({ size }) => (size === 'big' ? '8px' : '7px')};
+  height: ${({ size }) => (size === 'big' ? '8px' : '7px')};
   position: absolute;
-  top: 4px;
-  left: 4px;
+  top: ${({ size }) => (size === 'big' ? '4px' : '2.75px')};
+  left: ${({ size }) => (size === 'big' ? '4px' : '2.5px')};
   border-radius: 1px;
 `;
 
-const CheckBoxLabelStyle = styled.label.attrs(props => ({
+const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
   htmlFor: props.id,
 }))`
   display: inline-block;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
+  height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   border-radius: 3px;
   background-image: ${({ theme }) => theme.palette.golden};
   position: relative;
 
   &:before {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: ${({ size }) => (size === 'big' ? '12px' : '9px')};
+    height: ${({ size }) => (size === 'big' ? '12px' : '9px')};
     border-radius: 2px;
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: ${({ size }) => (size === 'big' ? '2px' : '1.75px')};
+    left: ${({ size }) => (size === 'big' ? '2px' : '1.5px')};
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
 `;
@@ -71,24 +75,30 @@ export const CheckBox: FC<CheckBoxProps> = ({
   id,
   label,
   flexProps,
+  size,
   isDisabled,
 }) => (
   <Flex align="center" $alignSelf="start" {...flexProps}>
-    <CheckBoxWrapper>
+    <CheckBoxWrapper size={size}>
       <CheckBoxStyle
         checked={checked}
         onChange={onChange}
         id={id}
         disabled={isDisabled}
       />
-      <CheckBoxLabelStyle id={id}>
-        {checked && <CheckBoxIcon id={id} />}
+      <CheckBoxLabelStyle id={id} size={size}>
+        {checked && <CheckBoxIcon id={id} size={size} />}
       </CheckBoxLabelStyle>
     </CheckBoxWrapper>
 
     {label && (
       <CheckBoxTextLabelStyle id={id}>
-        <Typography $fontSize={14} color="muted" $textAlign="left" ml={2}>
+        <Typography
+          $fontSize={size === 'big' ? 16 : 14}
+          color="muted"
+          $textAlign="left"
+          ml={2}
+        >
           <LangDisplay text={label} />
         </Typography>
       </CheckBoxTextLabelStyle>
@@ -101,4 +111,5 @@ CheckBox.defaultProps = {
   flexProps: undefined,
   isDisabled: false,
   id: undefined,
+  size: 'big',
 };

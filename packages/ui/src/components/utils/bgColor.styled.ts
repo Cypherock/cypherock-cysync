@@ -52,8 +52,7 @@ export const $bgColor = css<BgColorProps>`
     ${props =>
     props.$bgColor === 'separatorSecondary' &&
     css`
-      background-image: ${({ theme }) =>
-        theme.palette.background.separatorSecondary};
+      background: ${({ theme }) => theme.palette.background.separatorSecondary};
     `}
   ${props =>
     props.$bgColor === 'muted' &&
