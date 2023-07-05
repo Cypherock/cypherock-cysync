@@ -297,7 +297,7 @@ const en = {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
       subTitle: 'You can chose which one to keep and which one to delete',
-      dropdown: {
+      checkboxList: {
         cypherockRed: 'Cypherock Red',
         official: 'Official',
         personal: 'Personal',

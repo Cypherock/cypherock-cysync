@@ -2,11 +2,11 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import { CheckBox, Flex } from '../atoms';
 
-export type DropdownItems = { label: string; checked: boolean }[];
+export type CheckboxListItems = { label: string; checked: boolean }[];
 
-export const Dropdown: FC<{
-  items: DropdownItems;
-  setSelectedItems: Dispatch<SetStateAction<DropdownItems>>;
+export const CheckboxList: FC<{
+  items: CheckboxListItems;
+  setSelectedItems: Dispatch<SetStateAction<CheckboxListItems>>;
 }> = ({ items, setSelectedItems }) => {
   const onSelectOption = (index: number) => {
     setSelectedItems(prevProps =>
