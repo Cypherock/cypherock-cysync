@@ -1,12 +1,13 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
 
-import { prepElectronApp, toFirstScreen } from '../__helpers__';
+import { clearKeyDb, prepElectronApp, toFirstScreen } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 
 let screen: Page;
 
 test.beforeEach(async () => {
+  await clearKeyDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
@@ -28,7 +29,8 @@ test('check first screen', async () => {
   const header = screen.getByRole('heading', {
     name: 'Ensure the following before you continue',
   });
-  await expect(header).toBeVisible();
+  await header.waitFor();
+  await expect(header).toHaveText(['Ensure the following before you continue']);
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
   await expect(sidePanelFirst).toBeVisible();
   const sidePanelSecond = screen.getByRole('heading', {
@@ -62,6 +64,7 @@ test('check first screen', async () => {
 });
 
 test('check usage screen', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   const sidePanelFirst = screen.getByText('Welcome to cySync app');
   await expect(sidePanelFirst).toBeVisible();
@@ -83,7 +86,8 @@ test('check usage screen', async () => {
   await expect(helpButton).toBeVisible();
 });
 
-test('check X1 usage for first time', async () => {
+test('check x1 device usage for first time', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
     .locator('section')
@@ -109,7 +113,7 @@ test('check X1 usage for first time', async () => {
     .locator('span')
     .filter({ hasText: 'Terms of use' });
   await expect(sidePanelFirst).toBeVisible();
-  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();
   const confirmButton = screen.getByRole('button', { name: 'Confirm' });
   await expect(confirmButton).toBeDisabled();
@@ -121,7 +125,8 @@ test('check X1 usage for first time', async () => {
   await confirmButton.click();
 });
 
-test('check X1 have been already used before', async () => {
+test('check x1 device have been already used before', async () => {
+  await toFirstScreen(screen);
   await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
     .locator('section')
@@ -144,7 +149,7 @@ test('check X1 have been already used before', async () => {
     .locator('span')
     .filter({ hasText: 'Terms of use' });
   await expect(sidePanelFirst).toBeVisible();
-  const statusBar = screen.locator('.sc-buuUZy > img').first();
+  const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();
   const confirmButton = screen.getByRole('button', { name: 'Confirm' });
   await expect(confirmButton).toBeDisabled();
