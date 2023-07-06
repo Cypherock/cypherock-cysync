@@ -25,7 +25,7 @@ export interface ErrorAction {
   reportWithRetry?: boolean;
 
   /**
-   * Show retry button, but only after retrying a certain number of times
+   * Show retry button, and after retrying a certain number of times
    * show only report
    */
   reportAfterRetry?: {

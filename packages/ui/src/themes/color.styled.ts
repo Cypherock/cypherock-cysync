@@ -52,6 +52,7 @@ export const colors = {
   },
   border: {
     popup: '#2C2520',
+    list: '#2C2824',
     input: '#3C3937',
     separator: '#39322C',
     warning: '#644D2B',

@@ -5,3 +5,4 @@ export * from './addKeyboardEvents';
 export * from './useStateWithFinality';
 export * from './useQuery';
 export * from './useErrorHandler';
+export * from './useOnboardingCheckpoint';
