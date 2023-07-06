@@ -137,7 +137,7 @@ const en = {
         privacyPolicy: 'Privacy Policy',
       },
       consent:
-        ' I have read and agree with the Terms of Use and Privacy Policy',
+        ' I have read and #{agree} with the Terms of Use and Privacy Policy',
     },
     setPassword: {
       heading: 'Set Password',
