@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-interfaces": "^0.0.7"
+    "@cypherock/sdk-interfaces": "^0.0.8"
   }
 }

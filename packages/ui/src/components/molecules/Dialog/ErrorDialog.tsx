@@ -2,14 +2,10 @@ import React, { ReactNode } from 'react';
 
 import { IconDialogBox } from './IconDialogBox';
 
-import {
-  DeviceUpdateFailedIcon,
-  FailIcon,
-  SettingsWrongIcon,
-} from '../../../assets';
+import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
 import { Button } from '../../atoms';
 
-type IconType = 'device' | 'misconfigured' | 'default';
+export type ErrorIconType = 'device' | 'default' | 'server';
 
 export interface ErrorDialogProps {
   title: string;
@@ -17,14 +13,15 @@ export interface ErrorDialogProps {
   showRetry?: boolean;
   showReport?: boolean;
   onRetry?: () => void;
-  iconType?: IconType;
+  onReport?: () => void;
+  iconType?: ErrorIconType;
   textVariables?: object;
 }
 
-const iconMap: Record<IconType, ReactNode> = {
+const iconMap: Record<ErrorIconType, ReactNode> = {
   default: <FailIcon />,
-  device: <DeviceUpdateFailedIcon />,
-  misconfigured: <SettingsWrongIcon />,
+  device: <SettingsWrongIcon />,
+  server: <ServerErrorIcon />,
 };
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
@@ -32,6 +29,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   showRetry,
   showReport,
   onRetry,
+  onReport,
   iconType,
   textVariables,
 }) => (
@@ -43,7 +41,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
     footerComponent={
       <>
         {showReport && (
-          <Button variant="primary" disabled>
+          <Button variant="primary" onClick={onReport}>
             Report
           </Button>
         )}
@@ -62,6 +60,7 @@ ErrorDialog.defaultProps = {
   showRetry: false,
   showReport: false,
   onRetry: undefined,
+  onReport: undefined,
   iconType: 'default',
   textVariables: undefined,
 };
