@@ -1,11 +1,11 @@
 import {
-  Typography,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Container,
-  JoystickInteractionProps,
   JoystickInteraction,
+  JoystickInteractionProps,
   LangDisplay,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -48,8 +48,23 @@ const getStepContent = (state: number, lang: LanguageStrings): StepContent => {
       bottomText: training.subtext,
     },
     {
+      title: training.leftTitle,
+      states: {
+        up: 'completed',
+        right: 'completed',
+        down: 'completed',
+        left: 'completed',
+      },
+      bottomText: training.subtext,
+    },
+    {
       title: training.centerTitle,
       states: { center: 'selected' },
+      bottomText: training.centerSubtext,
+    },
+    {
+      title: training.centerTitle,
+      states: { center: 'completed' },
       bottomText: training.centerSubtext,
     },
   ];
