@@ -1,13 +1,17 @@
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useState } from 'react';
 
+import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
 
 import { CardTap } from './CardTap';
 
 export const CardTrainingDialog: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+
   const [cardTapState, setCardTapState] = useState(0);
 
   const trainCard: DeviceTask<void> = async connection => {
@@ -21,7 +25,19 @@ export const CardTrainingDialog: React.FC = () => {
     );
   };
 
-  useDeviceTask(trainCard);
+  const task = useDeviceTask(trainCard);
 
-  return <CardTap tapState={cardTapState} />;
+  const onRetry = () => {
+    task.run();
+  };
+
+  return (
+    <ErrorHandlerDialog
+      error={task.error}
+      title={lang.strings.onboarding.cardTraining.error}
+      onRetry={onRetry}
+    >
+      <CardTap tapState={cardTapState} />;
+    </ErrorHandlerDialog>
+  );
 };
