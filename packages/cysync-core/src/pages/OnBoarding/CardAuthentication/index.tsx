@@ -2,7 +2,6 @@ import { cardTapAsideImage } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
-import { useQuery } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { CardAuthenticationDialog } from './Dialogs';
@@ -11,7 +10,6 @@ import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const CardAuthentication: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const fromCardTraining = useQuery().get('cardTrained') === 'true';
 
   return (
     <OnboardingPageLayout
@@ -22,7 +20,7 @@ export const CardAuthentication: React.FC = () => {
       withEmail
       withHelp
     >
-      <WithConnectedDevice onInitial disableNavigation={fromCardTraining}>
+      <WithConnectedDevice onInitial>
         <CardAuthenticationDialog />
       </WithConnectedDevice>
     </OnboardingPageLayout>

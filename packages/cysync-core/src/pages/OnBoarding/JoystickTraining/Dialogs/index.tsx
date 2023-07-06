@@ -38,7 +38,11 @@ export const JoystickTrainingDialog: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 6000);
+    if (isFinalState)
+      navigateTo(
+        `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
+        6000,
+      );
   }, [isFinalState]);
 
   return (
