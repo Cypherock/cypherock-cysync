@@ -6,6 +6,7 @@ import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+import { keyValueStore } from '~/utils';
 
 import { DeviceAuthenticating } from './Authenticating';
 
@@ -15,8 +16,11 @@ export const DeviceAuthDialog: React.FC = () => {
 
   const deviceAuth: DeviceTask<boolean> = async connection => {
     const app = await ManagerApp.create(connection);
-    const res = await app.authDevice();
-    return res;
+    await app.authDevice({
+      email: (await keyValueStore.email.get()) ?? undefined,
+      cysyncVersion: window.cysyncEnv.VERSION,
+    });
+    return true;
   };
 
   const task = useDeviceTask(deviceAuth);

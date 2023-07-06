@@ -1,5 +1,5 @@
 import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { routes } from '~/constants';
 import {
@@ -21,12 +21,14 @@ export const CardAuthenticationDialog: React.FC = () => {
   // total number of card taps needed for authentication for all cards
   const [cardTapState, setCardTapState, isFinalCardTapState] =
     useStateWithFinality(0, tapsPerCard * totalCards);
+  const sessionIdRef = useRef<string | undefined>();
+
   const navigateTo = useNavigateTo();
 
   const cardAuth: DeviceTask<void> = async connection => {
     const app = await ManagerApp.create(connection);
     for (let cardNumber = 1; cardNumber <= totalCards; cardNumber += 1) {
-      await app.authCard({
+      const { sessionId } = await app.authCard({
         cardNumber,
         isPairRequired: tapsPerCard === 3,
         onEvent: flowStatus => {
@@ -38,7 +40,11 @@ export const CardAuthenticationDialog: React.FC = () => {
             (cardNumber - 1) * tapsPerCard;
           setCardTapState(newState);
         },
+        onlyFailure: cardNumber !== totalCards,
+        cysyncVersion: window.cysyncEnv.VERSION,
+        sessionId: sessionIdRef.current,
       });
+      sessionIdRef.current = sessionId;
     }
   };
 
