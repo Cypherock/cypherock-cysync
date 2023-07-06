@@ -1,9 +1,10 @@
 import {
-  Typography,
+  CardTapList,
+  Container,
   DialogBox,
   DialogBoxBody,
-  CardTapList,
   LangDisplay,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -15,9 +16,14 @@ export const CardTap: React.FC<{ tapState: number }> = ({ tapState }) => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody gap={48}>
-        <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={lang.strings.onboarding.cardTraining.title} />
-        </Typography>
+        <Container gap={4} direction="column">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay text={lang.strings.onboarding.cardTraining.title} />
+          </Typography>
+          <Typography variant="h6" $textAlign="center" color="muted">
+            <LangDisplay text={lang.strings.onboarding.cardTraining.subtext} />
+          </Typography>
+        </Container>
         <CardTapList
           items={[
             {
