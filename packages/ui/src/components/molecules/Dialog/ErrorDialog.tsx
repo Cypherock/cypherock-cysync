@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+import { DialogBoxProps } from './DialogBox';
 import { IconDialogBox } from './IconDialogBox';
 
 import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
@@ -7,7 +8,7 @@ import { Button } from '../../atoms';
 
 export type ErrorIconType = 'device' | 'default' | 'server';
 
-export interface ErrorDialogProps {
+export interface ErrorDialogProps extends DialogBoxProps {
   title: string;
   subtext?: string;
   showRetry?: boolean;
@@ -32,6 +33,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   onReport,
   iconType,
   textVariables,
+  ...props
 }) => (
   <IconDialogBox
     icon={iconMap[iconType ?? 'default']}
@@ -52,6 +54,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
         )}
       </>
     }
+    {...props}
   />
 );
 
