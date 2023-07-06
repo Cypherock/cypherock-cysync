@@ -7,6 +7,7 @@ import {
   walletErrorIcon,
   Image,
   IconDialogBox,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -65,10 +66,10 @@ export const WalletSyncError: FC = () => {
       footerComponent={
         <>
           <Button variant="secondary" onClick={onClose}>
-            Keep it all
+            <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
           </Button>
           <Button variant="primary" onClick={onClose}>
-            Delete
+            <LangDisplay text={lang.strings.walletSync.buttons.delete} />
           </Button>
         </>
       }

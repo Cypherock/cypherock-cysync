@@ -298,10 +298,10 @@ const en = {
         personal: 'Personal',
       },
       checkboxText: "Don't show this again",
-      buttons: {
-        keepAll: 'Keep All',
-        delete: 'Delete',
-      },
+    },
+    buttons: {
+      keepAll: 'Keep All',
+      delete: 'Delete',
     },
   },
   portfolio: {
