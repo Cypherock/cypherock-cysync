@@ -1,10 +1,10 @@
+import { CoinTypes } from '@cypherock/coins';
 import {
   bitcoinIcon,
   ethereumIcon,
   TableIconNameBox,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import { CoinTypes } from '@cypherock/coins';
 
 interface AssetIconNameBoxProps {
   id: CoinTypes;

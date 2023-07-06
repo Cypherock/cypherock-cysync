@@ -1,17 +1,21 @@
 import React, { FC, ReactNode } from 'react';
 
-import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+import {
+  DialogBox,
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxProps,
+} from './DialogBox';
 
 import { Flex, LangDisplay, Typography } from '../../atoms';
 
-interface IconDialogBoxProps {
+interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
   title?: string;
   subtext?: string;
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
-  isModal?: boolean;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -21,9 +25,9 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   afterTextComponent,
   footerComponent,
   textVariables,
-  isModal,
+  ...props
 }) => (
-  <DialogBox $isModal={isModal} width={500}>
+  <DialogBox width={500} {...props}>
     <DialogBoxBody
       gap={{
         def: 12,
@@ -70,5 +74,4 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
-  isModal: undefined,
 };

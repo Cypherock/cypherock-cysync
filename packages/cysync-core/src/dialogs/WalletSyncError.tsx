@@ -7,13 +7,18 @@ import {
   walletErrorIcon,
   Image,
   IconDialogBox,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
+import { closeDialog, useAppDispatch } from '~/store';
+
 import { selectLanguage, useAppSelector } from '..';
 
-export const WalletSyncErrorDialogBox: FC = () => {
+export const WalletSyncError: FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
+
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =
     useState<CheckboxListItems>([
@@ -32,9 +37,13 @@ export const WalletSyncErrorDialogBox: FC = () => {
       },
     ]);
 
+  const onClose = () => {
+    dispatch(closeDialog('walletSyncError'));
+  };
+
   return (
     <IconDialogBox
-      isModal
+      $isModal
       title={lang.strings.walletSync.freshOneCreated.title}
       subtext={lang.strings.walletSync.freshOneCreated.subTitle}
       icon={<Image src={walletErrorIcon} alt="walletSync" />}
@@ -56,8 +65,12 @@ export const WalletSyncErrorDialogBox: FC = () => {
       }
       footerComponent={
         <>
-          <Button variant="secondary">Keep it all</Button>
-          <Button variant="primary">Delete</Button>
+          <Button variant="secondary" onClick={onClose}>
+            <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
+          </Button>
+          <Button variant="primary" onClick={onClose}>
+            <LangDisplay text={lang.strings.walletSync.buttons.delete} />
+          </Button>
         </>
       }
     />

@@ -9,13 +9,14 @@ import {
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
+import { useLocation, Location } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
   IDeviceConnectionInfo,
   useDevice,
 } from '~/context';
-import { useNavigateTo } from '~/hooks';
+import { useNavigateTo, useQuery } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 
 import { routes } from '../constants';
@@ -25,6 +26,7 @@ export interface WithConnectedDeviceProps {
   onInitial?: boolean;
   allowIncompatible?: boolean;
   allowBootloader?: boolean;
+  disableNavigation?: boolean;
 }
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -42,6 +44,7 @@ const OnboardingMap: Record<OnboardingStep, string> = {
     routes.onboarding.congratulations.path,
   [OnboardingStep.UNRECOGNIZED]: routes.onboarding.deviceAuthentication.path,
 };
+
 const isValidConnectedDevice = (
   connection: IDeviceConnectionInfo | undefined,
   props: Omit<WithConnectedDeviceProps, 'children'>,
@@ -72,30 +75,80 @@ const isValidConnectedDevice = (
   return true;
 };
 
+const getRedirectionPath = (
+  connection: IDeviceConnectionInfo | undefined,
+  location: Location,
+  query: URLSearchParams,
+  props: Omit<WithConnectedDeviceProps, 'children'>,
+) => {
+  const result: { path: string | undefined; doRender: boolean } = {
+    path: undefined,
+    doRender: true,
+  };
+
+  if (!props.onInitial || props.disableNavigation) {
+    return result;
+  }
+
+  if (!connection && query.get('disableNavigation') === 'true') {
+    // Remove query param when device is removed
+    result.path = location.pathname;
+  } else if (connection?.status === DeviceConnectionStatus.INCOMPATIBLE) {
+    result.path = routes.onboarding.appUpdate.path;
+    result.doRender = false;
+  } else if (
+    connection?.status === DeviceConnectionStatus.CONNECTED &&
+    connection.isBootloader
+  ) {
+    result.path = `${routes.onboarding.deviceUpdate.path}?disableNavigation=true`;
+    result.doRender = false;
+  } else if (
+    connection?.status === DeviceConnectionStatus.CONNECTED &&
+    query.get('disableNavigation') !== 'true'
+  ) {
+    const step = connection.onboardingStep;
+    result.path = `${OnboardingMap[step]}?disableNavigation=true`;
+    result.doRender = false;
+  }
+
+  return result;
+};
+
 export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   children,
   ...props
 }) => {
   const lang = useAppSelector(selectLanguage);
+
   const { connection } = useDevice();
   const navigateTo = useNavigateTo();
+  const location = useLocation();
+  const query = useQuery();
+
+  const [showChildren, setShowChildren] = React.useState(false);
 
   useEffect(() => {
-    if (!props.onInitial) return;
-    if (connection?.status === DeviceConnectionStatus.INCOMPATIBLE) {
-      navigateTo(routes.onboarding.appUpdate.path);
-    } else if (
-      connection?.status === DeviceConnectionStatus.CONNECTED &&
-      connection.isBootloader
-    ) {
-      navigateTo(routes.onboarding.deviceUpdate.path);
-    } else if (connection?.status === DeviceConnectionStatus.CONNECTED) {
-      const step = connection.onboardingStep;
-      navigateTo(OnboardingMap[step]);
-    }
-  }, [connection]);
+    const { path, doRender } = getRedirectionPath(
+      connection,
+      location,
+      query,
+      props,
+    );
 
-  if (isValidConnectedDevice(connection, props)) {
+    if (path) navigateTo(path);
+
+    setShowChildren(doRender && isValidConnectedDevice(connection, props));
+  }, [
+    connection,
+    location,
+    query,
+    props.onInitial,
+    props.allowBootloader,
+    props.allowIncompatible,
+    props.disableNavigation,
+  ]);
+
+  if (showChildren) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
@@ -124,4 +177,5 @@ WithConnectedDevice.defaultProps = {
   onInitial: false,
   allowIncompatible: false,
   allowBootloader: false,
+  disableNavigation: false,
 };
