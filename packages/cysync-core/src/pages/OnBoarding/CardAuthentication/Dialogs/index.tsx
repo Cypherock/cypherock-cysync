@@ -10,6 +10,7 @@ import {
   useQuery,
   useStateWithFinality,
 } from '~/hooks';
+import { keyValueStore } from '~/utils';
 
 import { CardTap } from './CardTap';
 
@@ -47,6 +48,7 @@ export const CardAuthenticationDialog: React.FC = () => {
             (cardNumber - 1) * tapsPerCard;
           setCardTapState(newState);
         },
+        email: (await keyValueStore.email.get()) ?? undefined,
         onlyFailure: cardNumber !== totalCards,
         cysyncVersion: window.cysyncEnv.VERSION,
         sessionId: sessionIdRef.current,
