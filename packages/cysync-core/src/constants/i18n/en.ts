@@ -199,8 +199,10 @@ const en = {
     },
     cardAuth: {
       heading: 'Card Authentication',
-      title: 'Tap X1 Cards one by one below the X1 Vault',
-      subtext: 'Do not lift until you hear 3 beep sounds',
+      title:
+        'Tap X1 Cards one by one below the \n' +
+        'X1 Vault till you hear 3 beep sounds',
+      subtext: 'Lift your card after 3 beep sounds',
     },
     success: {
       title: 'Congratulations',
