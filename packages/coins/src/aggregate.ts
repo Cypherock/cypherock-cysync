@@ -13,3 +13,5 @@ export const coinList: Record<
   ...nearCoinList,
   ...solanaCoinList,
 };
+
+export type CoinTypes = BtcIds | EvmIds | SolanaIds | NearIds;

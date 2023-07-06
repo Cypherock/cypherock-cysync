@@ -14,3 +14,5 @@ export * from './Clipboard';
 export * from './CopyContainer';
 export * from './Topbar';
 export * from './UpdateBar';
+export * from './CheckboxList';
+export * from './Table';

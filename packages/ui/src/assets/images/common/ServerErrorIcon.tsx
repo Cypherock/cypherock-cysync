@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const DeviceUpdateFailedIcon: React.FC = () => (
+export const ServerErrorIcon: React.FC = () => (
   <svg
     width="48"
     height="48"

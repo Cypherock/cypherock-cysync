@@ -50,7 +50,7 @@ const getColorCss = (color?: TypographyColor) => {
 
   if (['gold', 'silver'].includes(color)) {
     colorCss = css`
-      background: ${({ theme }) => theme.palette.text[color]};
+      background: ${({ theme }) => (theme.palette.text as any)[color]};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -58,7 +58,7 @@ const getColorCss = (color?: TypographyColor) => {
     `;
   } else {
     colorCss = css`
-      color: ${({ theme }) => theme.palette.text[color]};
+      color: ${({ theme }) => (theme.palette.text as any)[color]};
     `;
   }
 

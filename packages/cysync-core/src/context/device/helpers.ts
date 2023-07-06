@@ -102,26 +102,32 @@ export const parseNewDevices = (
 export const tryEstablishingDeviceConnection = async (
   connectDevice: ConnectDevice,
   device: IDevice,
-): Promise<IConnectedDeviceInfo | undefined> => {
+) => {
   let connection: IDeviceConnection | undefined;
 
   try {
     let info: IConnectedDeviceInfo | undefined;
+    let status = DeviceConnectionStatus.CONNECTED;
 
     if (device.deviceState !== DeviceState.BOOTLOADER) {
       connection = await connectDevice(device);
       const app = await ManagerApp.create(connection);
-      info = { ...(await app.getDeviceInfo()), walletList: [] };
 
-      if (device.deviceState !== DeviceState.INITIAL) {
-        const { walletList } = await app.getWallets();
-        info.walletList = walletList;
+      if (!(await app.isSupported())) {
+        status = DeviceConnectionStatus.INCOMPATIBLE;
+      } else {
+        info = { ...(await app.getDeviceInfo()), walletList: [] };
+
+        if (device.deviceState !== DeviceState.INITIAL) {
+          const { walletList } = await app.getWallets();
+          info.walletList = walletList;
+        }
+
+        await connection.destroy();
       }
-
-      await connection.destroy();
     }
 
-    return info;
+    return { info, status };
   } catch (error) {
     connection?.destroy();
     throw error;

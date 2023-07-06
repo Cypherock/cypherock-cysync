@@ -10,6 +10,7 @@ interface ConfirmationDialogProps {
   buttonText?: string;
   icon: ReactNode;
   handleClick?: () => void;
+  textVariables?: object;
 }
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
@@ -18,16 +19,17 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   icon,
   buttonText,
   handleClick,
+  textVariables,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody>
       {icon}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={title} />
+          <LangDisplay text={title} variables={textVariables} />
         </Typography>
         <Typography variant="p" $textAlign="center" color="muted">
-          <LangDisplay text={subtext} />
+          <LangDisplay text={subtext} variables={textVariables} />
         </Typography>
       </Container>
     </DialogBoxBody>
@@ -44,4 +46,5 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
 ConfirmationDialog.defaultProps = {
   buttonText: undefined,
   handleClick: undefined,
+  textVariables: undefined,
 };

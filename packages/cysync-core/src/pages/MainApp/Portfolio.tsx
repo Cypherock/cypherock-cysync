@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  SyncStatusType,
   ConnectionStatusType,
+  SyncStatusType,
   Topbar,
   Flex,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
 import { CreateNewWalletProvider } from '~/context/createNewWallet';
+import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { CreateNewWallet, WalletActionsDialogBox } from '../OnBoarding';
 
 export const Portfolio: FC = () => {
@@ -39,6 +41,7 @@ export const Portfolio: FC = () => {
           showOnClose={showOnClose}
           setShowOnClose={setShowOnClose}
         />
+        <AssetAllocation />
       </Flex>
     </CreateNewWalletProvider>
   );

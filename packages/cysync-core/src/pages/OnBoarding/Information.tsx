@@ -24,6 +24,7 @@ const InfoDialogBox: FC<{
   buttonText: string;
 }> = ({ title, listItems, buttonText }) => {
   const navigateTo = useNavigateTo();
+
   return (
     <DialogBox direction="column" align="center" width={700}>
       <DialogBoxBody direction="column" align="center" gap={48}>

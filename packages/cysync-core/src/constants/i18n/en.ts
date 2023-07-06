@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -6,15 +7,12 @@ import {
   DeviceConnectionErrorType,
 } from '@cypherock/sdk-interfaces';
 
-import { DeviceErrorCodes } from './types';
+import { DeviceErrorCodes } from '~/types/deviceError';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',
-  [DeviceConnectionErrorType.DEVICE_DISCONNECTED_IN_FLOW]:
-    'Device disconnected in flow',
   [DeviceConnectionErrorType.CONNECTION_CLOSED]:
     'Connection was closed while in process',
-  [DeviceConnectionErrorType.CONNECTION_NOT_OPEN]: 'Connection was not open',
   [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
     'Failed to create device connection',
   [DeviceCommunicationErrorType.IN_BOOTLOADER]: 'Device is in bootloader mode',
@@ -22,8 +20,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The write packet operation was rejected by the device',
   [DeviceCommunicationErrorType.WRITE_ERROR]:
     'Unable to write packet to the device',
-  [DeviceCommunicationErrorType.TIMEOUT_ERROR]:
-    'Timeout Error due to write/read',
   [DeviceCommunicationErrorType.WRITE_TIMEOUT]:
     'Did not receive ACK of sent packet on time',
   [DeviceCommunicationErrorType.READ_TIMEOUT]:
@@ -34,13 +30,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The device sdk does not support this function',
   [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]:
     'The connected device is not supported by this SDK',
-  [DeviceConnectionErrorType.DEVICE_DISCONNECTED_IN_FLOW]:
-    'Device disconnected in flow',
-  [DeviceConnectionErrorType.CONNECTION_CLOSED]:
-    'Connection was closed while in process',
-  [DeviceConnectionErrorType.CONNECTION_NOT_OPEN]: 'Connection was not open',
-  [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
-    'Failed to create device connection',
   [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]:
     'The device is not in bootloader mode',
   [DeviceBootloaderErrorType.FIRMWARE_SIZE_LIMIT_EXCEEDED]:
@@ -56,8 +45,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceBootloaderErrorType.NOT_IN_RECEIVING_MODE]:
     'The device is in fault state',
   [DeviceAppErrorType.UNKNOWN_ERROR]: 'Unknown application error',
-  [DeviceAppErrorType.NO_WORKING_PACKET_VERSION]:
-    'No working packet version found',
   [DeviceAppErrorType.EXECUTING_OTHER_COMMAND]:
     'The device is executing some other command',
   [DeviceAppErrorType.PROCESS_ABORTED]: 'The process was aborted',
@@ -77,6 +64,11 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceAppErrorType.NO_WALLET_EXISTS]: 'No wallet exists on the device',
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
   [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
+  [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
+  [DeviceAppErrorType.DEVICE_AUTH_FAILED]:
+    'Device seems to be Compromised. Contact Cypherock support immediately',
+  [DeviceAppErrorType.CARD_AUTH_FAILED]:
+    'Card seems to be Compromised. Contact Cypherock support immediately',
 };
 
 const en = {
@@ -134,14 +126,14 @@ const en = {
       titleSecond: 'I have already used a Cypherock X1',
       subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
       subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
+        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
     },
     terms: {
-      title: 'Terms of use',
+      title: 'Terms of Use',
       subtext:
         'Take some time to review our Terms of Service and Privacy Policy',
       bulletPoints: {
-        terms: 'Terms Of Service',
+        terms: 'Terms of Service',
         privacyPolicy: 'Privacy Policy',
       },
       consent:
@@ -151,7 +143,7 @@ const en = {
       heading: 'Set Password',
       title: 'Set your cySync password ',
       subtitle: 'We do not store your password on our servers',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       newPasswordLabel: 'New Password',
       confirmPasswordLabel: 'Confirm Password',
       hint: 'Use 8 or more characters with a mix of letters, numbers & symbols',
@@ -161,7 +153,7 @@ const en = {
       title:
         'You are recommended to enter an email ID as a 2FA to get authenticity results ',
       subtitle: 'We do not store this email ID permanently on our servers ',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       enterEmailLabel: 'Email',
       placeholder: 'Email',
     },
@@ -174,34 +166,33 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity',
+        'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: 'Your X1 Vault is successfully authenticated',
-      error: 'Device Authentication has failed',
-      errorSubtext:
-        'Device seems to be Compromised. Contact Cypherock support immediately',
+      error: 'X1 Vault authentication has failed',
     },
     joystickTraining: {
-      heading: 'Joystick Checkup',
-      subtext: 'X1 Vault provides 4 way joystick for\nscreen navigation',
+      heading: 'Joystick Instructions',
+      subtext: 'X1 Vault provides 4 way joystick for screen navigation',
       upTitle: 'Toggle Up',
       rightTitle: 'Toggle Right',
       downTitle: 'Toggle Down',
       leftTitle: 'Toggle Left',
       centerTitle: 'Center click the joystick to proceed',
-      centerSubtext: 'X1 Vault has a center button to\nperform click',
-      footer: 'Follow the instruction on the device',
-      success: 'Joystick test complete',
-      error: 'Joystick Training has failed',
+      centerSubtext: 'X1 Vault has a center button to perform click',
+      footer: 'Follow the instructions on the device',
+      success: 'Joystick instructions completed',
+      error: 'Joystick instructions has failed',
     },
     cardTraining: {
-      heading: 'Card Tap Checkup',
+      heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
+      error: 'Card Tapping has failed',
     },
     cardAuth: {
       heading: 'Card Authentication',
-      title: 'Tap X1 Cards one by one below the\nX1 Vault',
+      title: 'Tap X1 Cards one by one below the X1 Vault',
       subtext: 'Do not lift until you hear 3 beep sounds',
     },
     walletActionsDialogBox: {
@@ -362,16 +353,27 @@ const en = {
     appUpdate: {
       heading: 'App Update',
       dialogs: {
+        checking: {
+          heading: 'App Update',
+          title: 'Please wait while we check for Cypherock CySync updates',
+        },
+        checkingFailed: {
+          heading: 'App Update',
+          title: 'An error occurred while checking for update',
+          subtext:
+            'Something went wrong, check your internet connection and try again',
+        },
         confirmation: {
           heading: 'App Update',
           title:
-            'A new update is available for your cySync app. Update the app to v1.2 to continue',
+            'A new update is available for your cySync app. Update the app to v${version} to continue',
           subtext:
-            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v1.2 to continue',
+            'Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v${version} to continue',
         },
-        updating: {
+        downloading: {
           heading: 'Updating...',
           subtext: 'Please wait while we update your cySync app',
+          version: 'Version ${version}',
         },
         updateSuccessful: {
           heading: 'cySync app updated successfully',
@@ -381,7 +383,7 @@ const en = {
             'In case, the app does not restart itself, manually start it again',
         },
         updateFailed: {
-          heading: 'cySync update to version #{version} failed',
+          heading: 'cySync update to version ${version} failed',
           subtext:
             'Something went wrong, try updating again or contact support',
           buttons: {
@@ -389,7 +391,7 @@ const en = {
           },
         },
         updateFailedFallback: {
-          heading: 'cySync app update to version #{version} failed',
+          heading: 'cySync app update to version ${version} failed',
           subtext: 'Download and reinstall the desktop app from the link below',
           alertText: 'Close this app before reinstalling the latest cySync app',
         },
@@ -398,11 +400,14 @@ const en = {
     deviceUpdate: {
       heading: 'Device Update',
       dialogs: {
+        checking: {
+          title: 'Please wait while we check for X1 Vault updates',
+        },
         confirmation: {
           heading: 'Device Update',
           title:
-            'A new update is available for your X1 Vault. Update the device to v1.2 to continue',
-          subtext: 'Follow the instruction on the device',
+            'A new update is available for your X1 Vault. Update the device to v${version} to continue',
+          subtext: 'Follow the instructions on the device',
         },
         loading: {
           text: 'Please wait while we check for X1 Vault updates',
@@ -413,8 +418,7 @@ const en = {
         },
         updateSuccessful: {
           heading: 'X1 Vault updated successfully',
-          subtext:
-            'Your device is now operating on the latest software version',
+          subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {
           heading: 'Firmware update failed',
@@ -435,6 +439,23 @@ const en = {
         syncronizing: 'Syncronizing...',
         error: 'Sync error!',
       },
+    },
+  },
+  walletSync: {
+    freshOneCreated: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
+      subTitle: 'You can chose which one to keep and which one to delete',
+      checkboxList: {
+        cypherockRed: 'Cypherock Red',
+        official: 'Official',
+        personal: 'Personal',
+      },
+      checkboxText: "Don't show this again",
+    },
+    buttons: {
+      keepAll: 'Keep All',
+      delete: 'Delete',
     },
   },
   portfolio: {

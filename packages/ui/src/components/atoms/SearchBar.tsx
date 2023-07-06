@@ -12,12 +12,12 @@ export const SearchBarStyle = styled.input`
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   padding-left: ${({ theme }) => theme.spacing.three.spacing};
   padding-right: ${({ theme }) => theme.spacing.three.spacing};
-  background-color: ${({ theme }) => theme.palette.background.inputBackground};
+  background-color: ${({ theme }) => theme.palette.background.input};
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
-  color: ${({ theme }) => theme.palette.text.mutedText};
+  color: ${({ theme }) => theme.palette.text.muted};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
   ::placeholder {
-    color: ${({ theme }) => theme.palette.text.textMutted};
+    color: ${({ theme }) => theme.palette.text.muted};
   }
 `;
 

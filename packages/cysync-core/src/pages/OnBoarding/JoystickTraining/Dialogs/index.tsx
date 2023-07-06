@@ -16,12 +16,12 @@ import { JoystickTrainingInteraction } from './Joystick';
 
 export const JoystickTrainingDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const navigateTo = useNavigateTo();
 
   const [state, setState, isFinalState] = useStateWithFinality(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
     TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
   );
-  const navigateTo = useNavigateTo();
 
   const trainJoystick: DeviceTask<void> = async connection => {
     const app = await ManagerApp.create(connection);
@@ -33,15 +33,23 @@ export const JoystickTrainingDialog: React.FC = () => {
 
   const task = useDeviceTask(trainJoystick);
 
+  const onRetry = () => {
+    task.run();
+  };
+
   useEffect(() => {
-    if (isFinalState) navigateTo(routes.onboarding.cardTraining.path, 6000);
+    if (isFinalState)
+      navigateTo(
+        `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
+        6000,
+      );
   }, [isFinalState]);
 
   return (
     <ErrorHandlerDialog
       error={task.error}
       title={lang.strings.onboarding.joystickTraining.error}
-      onRetry={() => task.run()}
+      onRetry={onRetry}
     >
       {isFinalState || <JoystickTrainingInteraction state={state} />}
       {isFinalState && (

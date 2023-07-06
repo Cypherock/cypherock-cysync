@@ -17,19 +17,21 @@ export interface UpdateInfo {
   releaseDate: string;
 }
 
-export type OnUpdateDownloadProgress = (percent: number) => Promise<void>;
+export type OnUpdateDownloadProgress = (percent: number) => void;
 
-export type OnUpdateDownloaded = (updateInfo: UpdateInfo) => Promise<void>;
+export type OnUpdateDownloaded = (updateInfo: UpdateInfo) => void;
+
+export type OnUpdateError = (error: Error) => void;
 
 export type AddUpdateDownloadProgressListener = (
-  onProgress: OnUpdateDownloadProgress,
-) => Promise<void>;
+  listener: OnUpdateDownloadProgress,
+) => void;
 
 export type AddUpdateDownloadCompleteListener = (
-  onProgress: OnUpdateDownloadProgress,
-) => Promise<void>;
+  listener: OnUpdateDownloaded,
+) => void;
 
-export type AddUpdateDownloadErrorListener = (error: Error) => Promise<void>;
+export type AddUpdateDownloadErrorListener = (listener: OnUpdateError) => void;
 
 export type RemoveUpdateDownloadListeners = () => Promise<void>;
 

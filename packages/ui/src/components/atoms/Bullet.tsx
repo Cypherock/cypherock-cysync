@@ -53,7 +53,7 @@ const BulletStyle = styled.div<BulletProps>`
     ${props =>
     props.variant === 'failed' &&
     css`
-      background-color: ${({ theme }) => theme.palette.warning.main};
+      background-color: ${({ theme }) => theme.palette.warn.main};
     `}
   ${props =>
     props.variant === 'muted' &&
