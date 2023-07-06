@@ -43,7 +43,7 @@ const UsageDialogBox: FC<{
     setIsNewUserButtonLoading(false);
     navigateTo(routes.onboarding.terms.path);
   };
-  useOnboardingCheckpoint(routes.onboarding.usage.path);
+  useOnboardingCheckpoint();
 
   return (
     <Flex

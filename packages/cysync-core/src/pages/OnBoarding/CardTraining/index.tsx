@@ -2,7 +2,6 @@ import { cardTapAsideImage } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
-import { routes } from '~/constants';
 import { useOnboardingCheckpoint } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 
@@ -12,7 +11,7 @@ import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const CardTraining: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  useOnboardingCheckpoint(routes.onboarding.cardTraining.path);
+  useOnboardingCheckpoint();
 
   return (
     <OnboardingPageLayout

@@ -21,7 +21,7 @@ export const PermissionSetup: React.FC = () => {
       navigateTo(routes.portfolio.path, withDelay ? 500 : undefined);
     } else {
       const path =
-        (await keyValueStore.checkpointPath.get()) ??
+        (await keyValueStore.onboardingCheckpointPath.get()) ??
         routes.onboarding.info.path;
       navigateTo(path, withDelay ? 500 : undefined);
     }

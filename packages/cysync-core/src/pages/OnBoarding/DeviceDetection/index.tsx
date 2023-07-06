@@ -10,7 +10,7 @@ import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const DeviceDetection: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  useOnboardingCheckpoint(routes.onboarding.deviceDetection.path);
+  useOnboardingCheckpoint();
 
   return (
     <OnboardingPageLayout

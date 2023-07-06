@@ -12,7 +12,7 @@ import { OnboardingPageLayout } from '../OnboardingPageLayout';
 export const SetPassword: React.FC = () => {
   const [isPasswordSet, setIsPasswordSet] = React.useState(false);
   const lang = useAppSelector(selectLanguage);
-  useOnboardingCheckpoint(routes.onboarding.setPassword.path);
+  useOnboardingCheckpoint();
 
   return (
     <OnboardingPageLayout

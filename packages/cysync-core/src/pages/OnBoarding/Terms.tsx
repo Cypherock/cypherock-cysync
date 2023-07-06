@@ -124,7 +124,7 @@ export const Terms: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useOnboardingCheckpoint(routes.onboarding.terms.path);
+  useOnboardingCheckpoint();
 
   const fetchTerms = async () => {
     setIsLoading(true);
