@@ -9,16 +9,25 @@ export const ErrorIconNameMap = {
  * Only one of these actions should be specified
  */
 export interface ErrorAction {
-  // Show only retry button
+  /*
+   * Show only retry button
+   */
   retry?: boolean;
 
-  // Show only report button
+  /*
+   * Show only report button
+   */
   report?: boolean;
 
-  // Show both retry and report buttons
+  /*
+   * Show both retry and report buttons
+   */
   reportWithRetry?: boolean;
 
-  // Show both retry and report buttons, but only after retrying a certain number of times
+  /**
+   * Show retry button, but only after retrying a certain number of times
+   * show only report
+   */
   reportAfterRetry?: {
     maxRetries: number;
   };
