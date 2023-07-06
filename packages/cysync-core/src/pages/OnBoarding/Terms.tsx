@@ -23,7 +23,7 @@ import React, {
 
 import { routes } from '~/constants';
 import { useLockscreen } from '~/context';
-import { useNavigateTo } from '~/hooks';
+import { useNavigateTo, useOnboardingCheckpoint } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -123,6 +123,8 @@ export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useOnboardingCheckpoint();
 
   const fetchTerms = async () => {
     setIsLoading(true);
