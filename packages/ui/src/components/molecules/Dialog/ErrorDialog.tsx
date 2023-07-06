@@ -1,18 +1,14 @@
 import React, { ReactNode } from 'react';
 
-import {
-  DialogBox,
-  DialogBoxBody,
-  DialogBoxFooter,
-  DialogBoxProps,
-} from './DialogBox';
+import { DialogBoxProps } from './DialogBox';
+import { IconDialogBox } from './IconDialogBox';
 
 import {
   DeviceUpdateFailedIcon,
   FailIcon,
   SettingsWrongIcon,
 } from '../../../assets';
-import { Button, Container, LangDisplay, Typography } from '../../atoms';
+import { Button } from '../../atoms';
 
 type IconType = 'device' | 'misconfigured' | 'default';
 
@@ -22,6 +18,7 @@ export interface ErrorDialogProps extends DialogBoxProps {
   showRetry?: boolean;
   showReport?: boolean;
   onRetry?: () => void;
+  onReport?: () => void;
   iconType?: IconType;
   textVariables?: object;
 }
@@ -37,37 +34,32 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   showRetry,
   showReport,
   onRetry,
+  onReport,
   iconType,
   textVariables,
   ...props
 }) => (
-  <DialogBox width={500} {...props}>
-    <DialogBoxBody>
-      {iconMap[iconType ?? 'default']}
-      <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={title} variables={textVariables} />
-        </Typography>
-        {subtext && (
-          <Typography variant="h6" $textAlign="center" color="muted">
-            <LangDisplay text={subtext} variables={textVariables} />
-          </Typography>
+  <IconDialogBox
+    icon={iconMap[iconType ?? 'default']}
+    title={title}
+    textVariables={textVariables}
+    subtext={subtext}
+    footerComponent={
+      <>
+        {showReport && (
+          <Button variant="primary" onClick={onReport}>
+            Report
+          </Button>
         )}
-      </Container>
-    </DialogBoxBody>
-    <DialogBoxFooter>
-      {showReport && (
-        <Button variant="primary" disabled>
-          Report
-        </Button>
-      )}
-      {showRetry && (
-        <Button variant="primary" onClick={onRetry}>
-          Retry
-        </Button>
-      )}
-    </DialogBoxFooter>
-  </DialogBox>
+        {showRetry && (
+          <Button variant="primary" onClick={onRetry}>
+            Retry
+          </Button>
+        )}
+      </>
+    }
+    {...props}
+  />
 );
 
 ErrorDialog.defaultProps = {
@@ -75,6 +67,7 @@ ErrorDialog.defaultProps = {
   showRetry: false,
   showReport: false,
   onRetry: undefined,
+  onReport: undefined,
   iconType: 'default',
   textVariables: undefined,
 };

@@ -47,6 +47,7 @@ import triangleIcon from './triangle-icon.svg';
 import usbIcon from './usb.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
+import walletErrorIcon from './wallet-error.svg';
 
 export {
   addWalletIcon,
@@ -82,6 +83,7 @@ export {
   copyIcon,
   checkIcon,
   redDisconnectedIcon,
+  infoIcon,
   lock,
   lockOpen,
   noNotifications,
@@ -89,12 +91,12 @@ export {
   syncronizing,
   syncProblem,
   connected,
-  infoIcon,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,
   DeviceUpdateFailedIcon,
   SettingsWrongIcon,
+  walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
   triangleIcon,

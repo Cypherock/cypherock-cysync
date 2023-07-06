@@ -14,7 +14,7 @@ import {
 import React, { FC, useState } from 'react';
 
 import { routes } from '~/constants';
-import { useNavigateTo } from '~/hooks';
+import { useNavigateTo, useOnboardingCheckpoint } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -43,6 +43,8 @@ const UsageDialogBox: FC<{
     setIsNewUserButtonLoading(false);
     navigateTo(routes.onboarding.terms.path);
   };
+  useOnboardingCheckpoint();
+
   return (
     <Flex
       gap={20}

@@ -9,6 +9,7 @@ export interface BgColorProps {
     | 'list'
     | 'black'
     | 'separator'
+    | 'separatorSecondary'
     | 'input'
     | 'white'
     | 'highlight'
@@ -32,7 +33,6 @@ export const $bgColor = css<BgColorProps>`
     css`
       background-image: ${({ theme }) => theme.palette.background.secondary};
     `}
-
   ${props =>
     props.$bgColor === 'sideBar' &&
     css`
@@ -49,32 +49,33 @@ export const $bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.background.separator};
     `}
+    ${props =>
+    props.$bgColor === 'separatorSecondary' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.separatorSecondary};
+    `}
   ${props =>
     props.$bgColor === 'muted' &&
     css`
       background: ${({ theme }) => theme.palette.text.muted};
     `}
-
   ${props =>
     props.$bgColor === 'golden' &&
     css`
       background: ${({ theme }) => theme.palette.golden};
     `}
-
-${props =>
+  ${props =>
     props.$bgColor === 'list' &&
     css`
       background-color: #27221d;
     `}
 
-${props =>
+  ${props =>
     props.$bgColor === 'highlight' &&
     css`
       background: ${({ theme }) => theme.palette.highlight};
     `}
-
-
-${props =>
+  ${props =>
     props.$bgColor === 'black' &&
     css`
       background-color: #000;

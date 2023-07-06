@@ -4,3 +4,4 @@ export * from './useDeviceTask';
 export * from './addKeyboardEvents';
 export * from './useStateWithFinality';
 export * from './useQuery';
+export * from './useOnboardingCheckpoint';
