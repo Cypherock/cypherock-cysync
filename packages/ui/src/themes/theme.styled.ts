@@ -54,6 +54,10 @@ export const theme = {
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
       bar: colors.background.bar,
+      gold: colors.gradients.golden,
+      success: colors.success.main,
+      successSecondary: colors.success.secondary,
+      muted: colors.background.muted,
       inputSecondary: colors.background.inputSecondary,
     },
     border: {
