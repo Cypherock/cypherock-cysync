@@ -25,6 +25,7 @@ export interface WithConnectedDeviceProps {
   onInitial?: boolean;
   allowIncompatible?: boolean;
   allowBootloader?: boolean;
+  disableNavigation?: boolean;
 }
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -81,7 +82,7 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   const navigateTo = useNavigateTo();
 
   useEffect(() => {
-    if (!props.onInitial) return;
+    if (!props.onInitial || props.disableNavigation) return;
     if (connection?.status === DeviceConnectionStatus.INCOMPATIBLE) {
       navigateTo(routes.onboarding.appUpdate.path);
     } else if (
@@ -124,4 +125,5 @@ WithConnectedDevice.defaultProps = {
   onInitial: false,
   allowIncompatible: false,
   allowBootloader: false,
+  disableNavigation: false,
 };

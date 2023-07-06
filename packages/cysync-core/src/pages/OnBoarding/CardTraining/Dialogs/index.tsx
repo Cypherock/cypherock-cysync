@@ -20,7 +20,9 @@ export const CardTrainingDialog: React.FC = () => {
       .cardPaired;
     setCardTapState(1);
     navigateTo(
-      `${routes.onboarding.cardAuthentication.path}?isPaired=${res}`,
+      `${
+        routes.onboarding.cardAuthentication.path
+      }?isPaired=${res}&cardTrained=${true}`,
       6000,
     );
   };
