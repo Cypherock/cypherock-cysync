@@ -27,7 +27,10 @@ export const DeviceAuthDialog: React.FC = () => {
 
   useEffect(() => {
     if (task.result) {
-      navigateTo(routes.onboarding.joystickTraining.path, 3000);
+      navigateTo(
+        `${routes.onboarding.joystickTraining.path}?disableNavigation=true`,
+        3000,
+      );
     }
   }, [task.result]);
 
