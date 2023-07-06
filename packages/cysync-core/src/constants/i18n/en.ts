@@ -193,6 +193,8 @@ const en = {
     cardTraining: {
       heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
+      subtext:
+        'Your cards communicate with the device through encrypted NFC. Make sure you keep it tapped until you hear a beep sound',
       error: 'Card Tapping has failed',
     },
     cardAuth: {

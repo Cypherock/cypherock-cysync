@@ -1,5 +1,6 @@
 import { SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
+import { sleep } from '@cypherock/sdk-utils';
 import React, { useEffect } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
@@ -11,7 +12,6 @@ import {
   useStateWithFinality,
 } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { sleep } from '@cypherock/sdk-utils';
 
 import { JoystickTrainingInteraction } from './Joystick';
 
