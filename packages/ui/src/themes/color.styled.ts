@@ -25,6 +25,7 @@ export const colors = {
   },
   success: {
     main: '#51C61A',
+    secondary: '#3A5E2A',
   },
   disabled: {
     background: '#332E29',
@@ -49,6 +50,7 @@ export const colors = {
     separator: '#39322C',
     separatorSecondary: '#272320',
     bar: '#3A3937',
+    muted: '#8B8682',
   },
   border: {
     popup: '#2C2520',
