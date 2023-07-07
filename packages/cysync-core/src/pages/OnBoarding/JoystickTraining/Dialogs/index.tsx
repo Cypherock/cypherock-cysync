@@ -1,7 +1,7 @@
 import { SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
 import { sleep } from '@cypherock/sdk-utils';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
@@ -37,7 +37,10 @@ export const JoystickTrainingDialog: React.FC = () => {
     setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER + 1);
     await sleep(600);
     setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER + 2);
-    navigateTo(routes.onboarding.cardTraining.path, 3000);
+    navigateTo(
+      `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
+      3000,
+    );
   };
 
   const task = useDeviceTask(trainJoystick);
@@ -45,14 +48,6 @@ export const JoystickTrainingDialog: React.FC = () => {
   const onRetry = () => {
     task.run();
   };
-
-  useEffect(() => {
-    if (isFinalState)
-      navigateTo(
-        `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
-        6000,
-      );
-  }, [isFinalState]);
 
   return (
     <ErrorHandlerDialog
