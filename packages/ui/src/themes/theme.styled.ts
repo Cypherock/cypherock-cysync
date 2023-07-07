@@ -12,6 +12,7 @@ export const theme = {
     md: `(min-width: ${screens.md})`,
     lg: `(min-width: ${screens.lg})`,
     xl: `(min-width: ${screens.xl})`,
+    hlg: `(min-height: ${screens.hlg})`,
   },
   palette: {
     bullet: {

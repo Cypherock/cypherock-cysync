@@ -174,8 +174,6 @@ const en = {
         subtext: 'Wait while we take you to the next screen',
       },
       error: 'X1 Vault authentication has failed',
-      errorSubtext:
-        'Device seems to be Compromised. Contact Cypherock support immediately',
     },
     joystickTraining: {
       heading: 'Joystick Instructions',
