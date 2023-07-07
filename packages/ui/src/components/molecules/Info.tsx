@@ -1,31 +1,27 @@
 import React, { FC } from 'react';
-import { Container, LangDisplay, Typography } from '../atoms';
+
 import { InfoIcon } from '../../assets';
+import { Container, LangDisplay, Typography } from '../atoms';
 
 export const Info: FC<{
-  showInfoIcon: boolean;
+  showIcon: boolean;
+  iconVariant: 'white' | 'yellow';
   text: string;
-  variant: 'white' | 'yellow';
-}> = ({ showInfoIcon, text, variant }) => (
+  textVariant: 'warn' | 'muted' | 'white';
+}> = ({ showIcon, text, iconVariant, textVariant }) => (
   <Container
-    $borderColor={variant === 'white' ? 'input' : 'warning'}
+    $borderColor={textVariant === 'warn' ? 'warning' : 'input'}
     $bgColor="input"
     align="center"
     $borderRadius={8}
     gap={18}
     p={1}
   >
-    {showInfoIcon && (
-      <InfoIcon
-        color={variant === 'white' ? 'white' : 'yellow'}
-        width={36}
-        height={36}
-      />
-    )}
+    {showIcon && <InfoIcon color={iconVariant} width={36} height={36} />}
     <Typography
       variant="fineprint"
-      $textAlign={showInfoIcon ? 'left' : 'center'}
-      color={variant === 'white' ? undefined : 'warn'}
+      $textAlign={showIcon ? 'left' : 'center'}
+      color={textVariant === 'white' ? undefined : textVariant}
     >
       <LangDisplay text={text} />
     </Typography>

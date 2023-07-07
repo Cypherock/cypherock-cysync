@@ -20,7 +20,7 @@ export const CardSafety: FC = () => {
       }
       title={lang.strings.onboarding.createWallet.finalMessage.cardSafety.title}
       showInfoIcon={false}
-      infoColor="yellow"
+      infoTextVariant="warn"
       infoText={
         lang.strings.onboarding.createWallet.finalMessage.cardSafety.note
       }

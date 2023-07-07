@@ -209,12 +209,9 @@ const en = {
       importWallet: {
         title: 'Import your wallet from a seed phrase',
         list: [
-          `You want to transfer your assets from your other wallets into Cypherock
-          X1. `,
-          ` You want to transfer your assets from your other wallets into Cypherock
-          X1. `,
-          `You want to see all portfolio of your other wallets through Cypherock
-          X1. `,
+          `You want to use Cypherock X1 as a backup of your other wallets `,
+          `You want to transfer your assets from your other wallets into Cypherock X1 `,
+          `You want to manage and track portfolio of your other wallets through Cypherock X1 `,
         ],
         button: 'Import',
       },
@@ -254,7 +251,7 @@ const en = {
       enterWalletName: {
         heading: 'Setup Wallet Name',
         title: 'Enter a wallet name on your X1 Vault',
-        list: [`Upto 13 characters allowed`, `It can be alphanumeric`],
+        list: [`Upto 15 characters allowed`, `It can be alphanumeric`],
         note: 'Make sure that the wallet name is unique to other wallet names on the device',
       },
       confirmWallet: {
@@ -271,9 +268,11 @@ const en = {
         heading: 'Setup Wallet Security',
         title: 'Setup a PIN on the X1 Vault',
         subTitle:
+          // todo: change the question mark color to gold.
           'Make sure you make a backup of your PIN. If you lose the PIN, you will lose access to your funds. Even Cypherock will not be able to help recover your assets (?)',
         list: ['Use between 4 and 8 characters', 'The PIN can be alphanumeric'],
-        note: 'Make sure you make a backup of your PIN, if you lose it , you lose access to your funds',
+        // todo: change the question mark color to gold.
+        note: 'Make sure you make a backup of your PIN, if you lose it , you lose access to your funds (?)',
       },
       confirmPin: {
         heading: 'Setup Wallet Security',
@@ -299,8 +298,9 @@ const en = {
           first: 'Congratulations, your wallet is now successfully created',
           second:
             'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+          // todo: change the question mark color to gold.
           third:
-            'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+            'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards (?)',
         },
       },
       finalMessage: {

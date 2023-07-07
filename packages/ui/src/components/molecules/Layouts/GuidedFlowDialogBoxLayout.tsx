@@ -24,7 +24,8 @@ export const GuidedFlowDialogBoxLayout: FC<{
   goldenArrowList?: any[];
   bulletList?: any[];
   infoText?: string;
-  infoColor?: 'white' | 'yellow';
+  infoTextVariant?: 'warn' | 'muted' | 'white';
+  infoIconVariant?: 'white' | 'yellow';
   showInfoIcon?: boolean;
   disableLeftArrowButton?: boolean;
   disableRightArrowButton?: boolean;
@@ -41,7 +42,8 @@ export const GuidedFlowDialogBoxLayout: FC<{
   footer,
   goldenArrowList,
   bulletList,
-  infoColor,
+  infoIconVariant,
+  infoTextVariant,
   infoText,
   showInfoIcon,
   onNext,
@@ -98,8 +100,9 @@ export const GuidedFlowDialogBoxLayout: FC<{
             {bulletList && <BulletList items={bulletList} />}
             {infoText && (
               <Info
-                showInfoIcon={showInfoIcon ?? true}
-                variant={infoColor === 'white' ? 'white' : 'yellow'}
+                showIcon={showInfoIcon ?? true}
+                iconVariant={infoIconVariant ?? 'white'}
+                textVariant={infoTextVariant ?? 'muted'}
                 text={infoText}
               />
             )}
@@ -137,7 +140,8 @@ GuidedFlowDialogBoxLayout.defaultProps = {
   heading: undefined,
   goldenArrowList: undefined,
   bulletList: undefined,
-  infoColor: 'white',
+  infoIconVariant: undefined,
+  infoTextVariant: undefined,
   infoText: undefined,
   showInfoIcon: true,
   disableLeftArrowButton: false,

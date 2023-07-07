@@ -9,7 +9,6 @@ import {
   LangDisplay,
   ListContainer,
   ListItem,
-  QuestionMarkButton,
   Typography,
   addWalletIcon,
 } from '@cypherock/cysync-ui';
@@ -53,8 +52,7 @@ export const CreateWalletDialogBox: FC<{
                     $textAlign="left"
                     mb={2}
                   >
-                    {item}(
-                    <QuestionMarkButton />)
+                    {item}
                   </Typography>
                 </ListItem>
               ))}

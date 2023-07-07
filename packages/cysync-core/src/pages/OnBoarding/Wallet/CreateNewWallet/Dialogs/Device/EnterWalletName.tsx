@@ -19,7 +19,8 @@ export const EnterWalletName: FC = () => {
       title={lang.strings.onboarding.createWallet.enterWalletName.title}
       bulletList={lang.strings.onboarding.createWallet.enterWalletName.list}
       infoText={lang.strings.onboarding.createWallet.enterWalletName.note}
-      infoColor="white"
+      infoIconVariant="white"
+      infoTextVariant="white"
     />
   );
 };

@@ -17,7 +17,8 @@ export const SetupWalletPin: FC = () => {
       subTitle={lang.strings.onboarding.createWallet.enterPin.subTitle}
       bulletList={lang.strings.onboarding.createWallet.enterPin.list}
       infoText={lang.strings.onboarding.createWallet.enterPin.note}
-      infoColor="yellow"
+      infoTextVariant="muted"
+      infoIconVariant="yellow"
     />
   );
 };
