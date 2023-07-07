@@ -48,7 +48,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={onCancel} isLoading={isLoading}>
+        <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
           <LangDisplay text={lang.strings.buttons.cancel} />
         </Button>
 
