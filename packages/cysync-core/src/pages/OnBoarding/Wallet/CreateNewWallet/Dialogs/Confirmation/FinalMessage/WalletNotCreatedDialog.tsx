@@ -1,6 +1,6 @@
 import {
   Flex,
-  CreateWalletDialogBoxLayout,
+  GuidedFlowDialogBoxLayout,
   redDisconnectedIcon,
   Button,
   BlurOverlay,
@@ -63,7 +63,7 @@ export const WalletNotCreatedDialog: FC = () => {
     <BlurOverlay>
       <DialogBox width={500}>
         <DialogBoxBody p="0" pt={2}>
-          <CreateWalletDialogBoxLayout
+          <GuidedFlowDialogBoxLayout
             image={redDisconnectedIcon}
             onNext={onNext}
             onPrevious={onPrevious}

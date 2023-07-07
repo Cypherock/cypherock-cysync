@@ -30,7 +30,7 @@ export const WalletActionsDialogBox: FC = () => {
   return showWalletActionsDialogBox ? (
     <BlurOverlay>
       <DialogBox py={2} width="full">
-        <Flex width="full" px={3} justify="space-between">
+        <Flex width="full" height="full" px={3} justify="space-between">
           <HelpButton text={lang.strings.help} />
           <CloseButton onClick={() => setShowWalletActionsDialogBox(false)} />
         </Flex>

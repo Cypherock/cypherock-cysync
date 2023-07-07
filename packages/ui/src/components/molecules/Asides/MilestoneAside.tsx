@@ -1,5 +1,8 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
+
+import { cysyncLogoSmall, greenTick } from '../../../assets';
+import { ITabs } from '../../../types';
 import {
   Bullet,
   Container,
@@ -8,9 +11,7 @@ import {
   LangDisplay,
   Typography,
 } from '../../atoms';
-import { cysyncLogoSmall, greenTick } from '../../../assets';
 import { ProgressLine } from '../ProgressLine';
-import { ITabs } from '../../../types';
 
 const AsideStyle = styled.div`
   display: flex;

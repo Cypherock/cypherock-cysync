@@ -1,9 +1,10 @@
 import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
+
 import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
-import { GoldenArrowList } from '../GoldenArrowList';
 import { BulletList } from '../BulletList';
+import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
+import { GoldenArrowList } from '../GoldenArrowList';
 import { Info } from '../Info';
 
 const InnerContainer = styled.div`
@@ -11,7 +12,7 @@ const InnerContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const CreateWalletDialogBoxLayout: FC<{
+export const GuidedFlowDialogBoxLayout: FC<{
   heading?: string;
   title?: string;
   image: string;
@@ -20,8 +21,8 @@ export const CreateWalletDialogBoxLayout: FC<{
   loadingText?: string;
   subTitle?: string;
   footer?: ReactNode;
-  goldenArrowList?: Array<any>;
-  bulletList?: Array<any>;
+  goldenArrowList?: any[];
+  bulletList?: any[];
   infoText?: string;
   infoColor?: 'white' | 'yellow';
   showInfoIcon?: boolean;
@@ -126,7 +127,7 @@ export const CreateWalletDialogBoxLayout: FC<{
   </>
 );
 
-CreateWalletDialogBoxLayout.defaultProps = {
+GuidedFlowDialogBoxLayout.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,

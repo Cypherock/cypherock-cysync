@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   Button,
   Container,
@@ -10,20 +9,21 @@ import {
   LangDisplay,
   ListContainer,
   ListItem,
+  QuestionMarkButton,
   Typography,
   addWalletIcon,
 } from '@cypherock/cysync-ui';
-import { useTheme } from 'styled-components';
+import React, { FC } from 'react';
+
 import { useCreateNewWallet } from '~/context/createNewWallet';
 
 export const CreateWalletDialogBox: FC<{
   createWallet: {
     title: string;
     button: string;
-    list: Array<string>;
+    list: string[];
   };
 }> = ({ createWallet }) => {
-  const theme = useTheme();
   const { setShowCreateWalletDialogBox, setShowWalletActionsDialogBox } =
     useCreateNewWallet();
   return (
@@ -54,16 +54,7 @@ export const CreateWalletDialogBox: FC<{
                     mb={2}
                   >
                     {item}(
-                    <span
-                      style={{
-                        background: theme?.palette.golden,
-                        WebkitTextFillColor: 'transparent',
-                        WebkitBackgroundClip: 'text',
-                      }}
-                    >
-                      ?
-                    </span>
-                    )
+                    <QuestionMarkButton />)
                   </Typography>
                 </ListItem>
               ))}

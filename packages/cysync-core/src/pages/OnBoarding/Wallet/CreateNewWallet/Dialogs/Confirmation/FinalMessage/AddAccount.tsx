@@ -1,5 +1,5 @@
 import {
-  CreateWalletDialogBoxLayout,
+  GuidedFlowDialogBoxLayout,
   Flex,
   informationIcon,
   Button,
@@ -50,7 +50,7 @@ export const AddAccount: FC = () => {
   return (
     <>
       {showWalletNotCreatedDialog && <WalletNotCreatedDialog />}
-      <CreateWalletDialogBoxLayout
+      <GuidedFlowDialogBoxLayout
         image={informationIcon}
         onNext={onNext}
         onPrevious={onPrevious}

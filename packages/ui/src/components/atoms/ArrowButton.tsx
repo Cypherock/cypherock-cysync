@@ -1,5 +1,6 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { styled } from 'styled-components';
+
 import { arrowBlackBackward, arrowWhiteBackward } from '../../assets';
 
 interface ArrowButtonProps {
@@ -53,7 +54,7 @@ export const ArrowButton: FC<ArrowButtonProps> = ({
   ...props
 }) => (
   <ArrowButtonStyle
-    disabled={variant === 'disabled' && true}
+    disabled={variant === 'disabled'}
     direction={direction}
     onClick={onClick}
     {...props}

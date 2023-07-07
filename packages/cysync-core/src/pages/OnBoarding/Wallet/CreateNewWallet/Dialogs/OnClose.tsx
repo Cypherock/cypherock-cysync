@@ -1,6 +1,6 @@
 import {
   Flex,
-  CreateWalletDialogBoxLayout,
+  GuidedFlowDialogBoxLayout,
   Button,
   LangDisplay,
   goldFail,
@@ -56,7 +56,7 @@ export const OnClose: FC<{
     <BlurOverlay>
       <DialogBox width={500}>
         <DialogBoxBody p="0" pt={2}>
-          <CreateWalletDialogBoxLayout
+          <GuidedFlowDialogBoxLayout
             image={goldFail}
             onNext={onNext}
             onPrevious={onPrevious}

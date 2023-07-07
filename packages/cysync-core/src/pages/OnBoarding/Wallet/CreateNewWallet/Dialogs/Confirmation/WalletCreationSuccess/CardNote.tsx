@@ -1,5 +1,5 @@
 import {
-  CreateWalletDialogBoxLayout,
+  GuidedFlowDialogBoxLayout,
   successIcon,
   LangDisplay,
   Typography,
@@ -15,7 +15,7 @@ export const CardNote: FC = () => {
   const theme = useTheme();
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <CreateWalletDialogBoxLayout
+    <GuidedFlowDialogBoxLayout
       heading={
         lang.strings.onboarding.createWallet.walletCreationSuccess.heading
       }
@@ -42,6 +42,6 @@ export const CardNote: FC = () => {
         </span>
         )
       </Typography>
-    </CreateWalletDialogBoxLayout>
+    </GuidedFlowDialogBoxLayout>
   );
 };

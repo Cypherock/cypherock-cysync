@@ -1,2 +1,2 @@
-export * from './CreateWalletDialogBoxLayout';
+export * from './GuidedFlowDialogBoxLayout';
 export * from './OnboardingLayout';

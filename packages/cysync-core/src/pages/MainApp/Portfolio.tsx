@@ -26,23 +26,21 @@ export const Portfolio: FC = () => {
 
   return (
     <CreateNewWalletProvider>
-      <Flex height="screen" align="flex-start" $bgColor="sideBar">
-        <Topbar
-          title={lang.strings.portfolio.title}
-          statusTexts={lang.strings.topbar.statusTexts}
-          isVisible={isVisible}
-          isLock={isLock}
-          haveNotifications={haveNotifications}
-          syncStatus={syncState}
-          connectionStatus={connectionState}
-        />
-        <WalletActionsDialogBox />
-        <CreateNewWallet
-          showOnClose={showOnClose}
-          setShowOnClose={setShowOnClose}
-        />
-        <AssetAllocation />
-      </Flex>
+      <Topbar
+        title={lang.strings.portfolio.title}
+        statusTexts={lang.strings.topbar.statusTexts}
+        isVisible={isVisible}
+        isLock={isLock}
+        haveNotifications={haveNotifications}
+        syncStatus={syncState}
+        connectionStatus={connectionState}
+      />
+      <WalletActionsDialogBox />
+      <CreateNewWallet
+        showOnClose={showOnClose}
+        setShowOnClose={setShowOnClose}
+      />
+      <AssetAllocation />
     </CreateNewWalletProvider>
   );
 };

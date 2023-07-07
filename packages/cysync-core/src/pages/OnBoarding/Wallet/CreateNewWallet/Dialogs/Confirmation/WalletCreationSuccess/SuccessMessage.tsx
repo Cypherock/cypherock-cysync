@@ -1,5 +1,5 @@
 import {
-  CreateWalletDialogBoxLayout,
+  GuidedFlowDialogBoxLayout,
   ConfettiBlast,
   successIcon,
   Container,
@@ -14,7 +14,7 @@ export const SuccessMessage: FC = () => {
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
     <>
-      <CreateWalletDialogBoxLayout
+      <GuidedFlowDialogBoxLayout
         image={successIcon}
         onNext={onNext}
         onPrevious={onPrevious}
