@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { styled } from 'styled-components';
 
 import { cysyncLogoSmall, greenTick } from '../../../assets';
-import { ITabs } from '../../../types';
 import {
   Bullet,
   Container,
@@ -32,18 +31,18 @@ const textColor = (activeTab: number, index: number) => {
 };
 
 export const MilestoneAside: FC<{
-  tabs: ITabs;
+  milestones: string[];
   activeTab: number;
-}> = ({ tabs, activeTab }) => (
+}> = ({ milestones, activeTab }) => (
   <AsideStyle>
     <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" py={8}>
-      {tabs.map((tab, index) => (
-        <Flex key={`tab-index-${index + 1}`} gap={16}>
+      {milestones.map((milestone, index) => (
+        <Flex key={`milestone-index-${index + 1}`} gap={16}>
           <ProgressLine
             index={index}
             activeTab={activeTab}
-            length={tabs.length}
+            length={milestones.length}
           />
           <Flex align="center" justify="space-between" width="full">
             <Flex align="center" gap={16}>
@@ -58,7 +57,7 @@ export const MilestoneAside: FC<{
                 </Typography>
               </Container>
               <Typography color={textColor(activeTab, index)}>
-                <LangDisplay text={tab.name} />
+                <LangDisplay text={milestone} />
               </Typography>
             </Flex>
             {activeTab > index ? (

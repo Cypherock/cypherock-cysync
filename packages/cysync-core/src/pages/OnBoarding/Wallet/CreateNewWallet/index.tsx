@@ -42,7 +42,7 @@ export const CreateNewWallet: FC<{
           />
         )}
         <>
-          <MilestoneAside tabs={tabs} activeTab={tab} />
+          <MilestoneAside milestones={tabs.map(t => t.name)} activeTab={tab} />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="space-between">
               <HelpButton text={lang.strings.help} />

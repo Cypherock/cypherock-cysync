@@ -350,8 +350,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.13
-        version: 0.0.13
+        specifier: ^0.0.14
+        version: 0.0.14
       '@cypherock/sdk-core':
         specifier: ^0.0.12
         version: 0.0.12
@@ -2862,8 +2862,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.13:
-    resolution: {integrity: sha512-Ho0cv1f9T9RKLzUeSjf5c58CsNbwCS2hF7Tk70mTebihLU0PBdzT/zGifz6bo0xXcyt3OJ6XTahgwFxzVorkqA==}
+  /@cypherock/sdk-app-manager@0.0.14:
+    resolution: {integrity: sha512-pCUIUTvfWnmhbtFX2jxxZ5j3wXHgoPI6Ok6N5UMqtjObR4iM6Nv6ZfX0WweDhdcz0CXpuMD2W8LP9IBl+jkTMQ==}
     dependencies:
       '@cypherock/sdk-core': 0.0.12
       '@cypherock/sdk-interfaces': 0.0.8
