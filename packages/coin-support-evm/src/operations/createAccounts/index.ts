@@ -10,7 +10,7 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
-import { ICreateEVMAccountParams, ICreateEVMAccountEvent } from './types';
+import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
 
 import * as services from '../../services';
 
@@ -58,16 +58,16 @@ const createApp = async (connection: IDeviceConnection) =>
 
 const getBalanceAndTxnCount = async (
   address: string,
-  params: ICreateEVMAccountParams,
+  params: ICreateEvmAccountParams,
 ) => ({
   balance: await services.getBalance(address, params.coinId),
   txnCount: await services.getTransactionCount(address, params.coinId),
 });
 
 export const createAccounts = (
-  params: ICreateEVMAccountParams,
-): Observable<ICreateEVMAccountEvent> =>
-  createAccountsObservable<EvmApp, ICreateEVMAccountEvent>({
+  params: ICreateEvmAccountParams,
+): Observable<ICreateEvmAccountEvent> =>
+  createAccountsObservable<EvmApp, ICreateEvmAccountEvent>({
     ...params,
     createAccountFromAddress,
     getBalanceAndTxnCount,

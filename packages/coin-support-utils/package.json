@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "eslint --ext .ts,tsx,js,jsx src/ --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
-    "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
-    "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
+    "pretty": "prettier --write \"src/**/*.ts?(x)\"",
+    "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
     "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
     "build:cjs": "tsc -p tsconfig_cjs.json",
     "build:esm": "tsc -p tsconfig.json",
