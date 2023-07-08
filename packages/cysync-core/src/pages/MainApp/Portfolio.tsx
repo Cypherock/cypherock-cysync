@@ -18,6 +18,7 @@ export const Portfolio: FC = () => {
   const [syncState, setSyncState] = useState<SyncStatusType>('syncronized');
   const [connectionState, setConnectionState] =
     useState<ConnectionStatusType>('connected');
+
   return (
     <>
       <Topbar

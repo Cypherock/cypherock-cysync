@@ -56,13 +56,13 @@ const createAccountFromAddress: ICreateAccountsObservableParams<EvmApp>['createA
 const createApp = async (connection: IDeviceConnection) =>
   EvmApp.create(connection);
 
-const getBalance = (address: string, params: ICreateEVMAccountParams) =>
-  services.getBalance(address, params.coinId);
-
-const getTransactionCount = (
+const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateEVMAccountParams,
-) => services.getTransactionCount(address, params.coinId);
+) => ({
+  balance: await services.getBalance(address, params.coinId),
+  txnCount: await services.getTransactionCount(address, params.coinId),
+});
 
 export const createAccounts = (
   params: ICreateEVMAccountParams,
@@ -70,8 +70,7 @@ export const createAccounts = (
   createAccountsObservable<EvmApp, ICreateEVMAccountEvent>({
     ...params,
     createAccountFromAddress,
-    getBalance,
-    getTransactionCount,
+    getBalanceAndTxnCount,
     getAddressesFromDevice,
     createApp,
     derivationPathSchemes,

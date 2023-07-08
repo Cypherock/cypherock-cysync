@@ -195,6 +195,12 @@ importers:
 
   packages/coin-support-btc:
     dependencies:
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../coin-support-utils
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
@@ -207,7 +213,7 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
-      '@cypherock/sdk-app-evm':
+      '@cypherock/sdk-app-btc':
         specifier: ^0.0.13
         version: 0.0.13
       '@cypherock/sdk-interfaces':
@@ -538,6 +544,9 @@ importers:
       '@aws-crypto/sha256-browser':
         specifier: ^4.0.0
         version: 4.0.0
+      '@cypherock/coin-support-btc':
+        specifier: workspace:^
+        version: link:../coin-support-btc
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
@@ -3439,6 +3448,16 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
+
+  /@cypherock/sdk-app-btc@0.0.13:
+    resolution: {integrity: sha512-h+HIfH/95XDGoy0pPt1WChvX5B2948eC3+QcJDwr8G3X6v9vu//XSk41Vi1hNG5CYAVvMvmsyIswKU1F1cc4Gw==}
+    dependencies:
+      '@cypherock/sdk-core': 0.0.13
+      '@cypherock/sdk-interfaces': 0.0.8
+      '@cypherock/sdk-utils': 0.0.10
+      long: 5.2.3
+      protobufjs: 7.2.4
+    dev: false
 
   /@cypherock/sdk-app-evm@0.0.13:
     resolution: {integrity: sha512-qoXn/vEMK3UNUJJAjPozk7D4vGENqrrWNhEhAfvwF/0+Ui3yFpAyvNYUiBuZn0LlKK+Jn2vd38hBUjqndV55+Q==}

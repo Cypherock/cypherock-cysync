@@ -23,14 +23,7 @@ const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
   store.dispatch(setWallets(wallets));
 });
 
-const setDatabaseVersions = () => {
-  const db = getDB();
-
-  db.wallet.setVersion(0);
-};
-
 export const syncAllDb = async () => {
-  setDatabaseVersions();
   await syncWalletsDb();
 };
 
