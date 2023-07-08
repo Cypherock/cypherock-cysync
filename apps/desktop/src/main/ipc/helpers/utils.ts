@@ -17,7 +17,7 @@ const getMethodListFromProperty = (
     if (includeParentMethods) {
       rootMethodList.push(
         ...Object.getOwnPropertyNames(
-          Object.getPrototypeOf(Object.getPrototypeOf(obj)),
+          Object.getPrototypeOf(Object.getPrototypeOf(obj)) ?? {},
         ),
       );
     }
@@ -58,7 +58,7 @@ export const getMethodListFromObject = (
   if (includeParentMethods) {
     rootMethods.push(
       ...Object.getOwnPropertyNames(
-        Object.getPrototypeOf(Object.getPrototypeOf(rootObj)),
+        Object.getPrototypeOf(Object.getPrototypeOf(rootObj)) ?? {},
       ),
     );
   }

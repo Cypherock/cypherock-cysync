@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { config } from '../config';
 
-const baseURL = `${config.CYPHEROCK_API}/v2`;
+const baseURL = `${config.API_CYPHEROCK}/v2`;
 
 export interface IXpubDetails {
   page: number;

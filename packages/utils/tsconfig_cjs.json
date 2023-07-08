@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist/cjs",
-    "lib": ["DOM", "ES2015"],
+    "lib": ["ES2015", "DOM"],
     "module": "CommonJS"
   },
   "extends": "@cypherock/tsconfig/browser.json",
