@@ -16,6 +16,8 @@ const packages = {
   ],
   'packages/coin-support': [...commonFolders],
   'packages/coin-support-evm': [...commonFolders],
+  'packages/coin-support-btc': [...commonFolders],
+  'packages/coin-support-utils': [...commonFolders],
   'packages/coins': [...commonFolders],
   'packages/desktop-ui': [...commonFolders],
   'packages/ui': [...commonFolders],

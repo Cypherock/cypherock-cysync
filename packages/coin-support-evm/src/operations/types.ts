@@ -1,1 +1,1 @@
-export * from './createAccount/types';
+export * from './createAccounts/types';
