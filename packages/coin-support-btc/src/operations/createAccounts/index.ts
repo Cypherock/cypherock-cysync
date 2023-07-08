@@ -21,11 +21,6 @@ const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
 
   const events: Record<GetXpubsStatus, boolean | undefined> = {} as any;
 
-  console.log({
-    walletId: hexToUint8Array(walletId),
-    derivationPaths: derivationPaths.map(e => ({ path: e })),
-  });
-
   const { xpubs } = await app.getXpubs({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e })),
@@ -34,7 +29,6 @@ const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   });
-  console.log({ xpubs });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
@@ -58,15 +52,7 @@ const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createA
     },
   });
 
-const createApp = async (connection: IDeviceConnection) => {
-  try {
-    const app = await BtcApp.create(connection);
-    return app;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+const createApp = (connection: IDeviceConnection) => BtcApp.create(connection);
 
 const getBalanceAndTxnCount = async (
   address: string,
