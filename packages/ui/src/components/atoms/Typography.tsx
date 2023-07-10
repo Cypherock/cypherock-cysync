@@ -194,7 +194,7 @@ export const Typography = ({
 
 Typography.defaultProps = {
   variant: 'p',
-  children: undefined,
+  children: null,
   color: 'heading',
   $textAlign: 'left',
   $letterSpacing: 0,

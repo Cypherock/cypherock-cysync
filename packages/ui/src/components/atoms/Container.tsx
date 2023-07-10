@@ -25,7 +25,7 @@ export const Container: FC<ContainerProps> = ({ children, ...props }) => (
 );
 
 Container.defaultProps = {
-  children: undefined,
+  children: null,
   size: 'lg',
   $noFlex: false,
 };
