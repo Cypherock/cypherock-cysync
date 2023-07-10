@@ -40,11 +40,6 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-// To record locators
-test('record', async () => {
-  await screen.pause();
-});
-
 test('Device connection screen', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
