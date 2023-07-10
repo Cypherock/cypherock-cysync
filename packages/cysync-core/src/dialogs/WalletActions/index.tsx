@@ -14,8 +14,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { useCreateNewWallet } from '~/context/createNewWallet';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { CreateWalletDialogBox } from './CreateWalletDialogBox';
 import { Header } from './Header';
@@ -24,15 +28,17 @@ import { TransferWallet } from './TransferWallet';
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { showWalletActionsDialogBox, setShowWalletActionsDialogBox } =
-    useCreateNewWallet();
+  const dispatch = useAppDispatch();
+  const onClose = () => {
+    dispatch(closeDialog('walletActions'));
+  };
 
-  return showWalletActionsDialogBox ? (
+  return (
     <BlurOverlay>
       <DialogBox py={2} width="full">
         <Flex width="full" height="full" px={3} justify="space-between">
           <HelpButton text={lang.strings.help} />
-          <CloseButton onClick={() => setShowWalletActionsDialogBox(false)} />
+          <CloseButton onClick={onClose} />
         </Flex>
         <DialogBoxBody
           p="20"
@@ -99,5 +105,5 @@ export const WalletActionsDialogBox: FC = () => {
         </DialogBoxFooter>
       </DialogBox>
     </BlurOverlay>
-  ) : null;
+  );
 };

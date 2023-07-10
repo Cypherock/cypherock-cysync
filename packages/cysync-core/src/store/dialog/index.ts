@@ -16,6 +16,9 @@ const initialState: IDialogState = {
   walletSyncError: {
     isOpen: false,
   },
+  walletActions: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

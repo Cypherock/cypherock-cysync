@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
   Button,
   Flex,
@@ -7,6 +6,7 @@ import {
   Typography,
   recoverWalletIcon,
 } from '@cypherock/cysync-ui';
+import React, { FC } from 'react';
 
 export const TransferWallet: FC<{
   transferWallet: {

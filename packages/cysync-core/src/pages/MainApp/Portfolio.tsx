@@ -6,13 +6,11 @@ import {
   Topbar,
   Flex,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { CreateNewWalletProvider } from '~/context/createNewWallet';
+import { openWalletActionsDialog } from '~/actions';
 import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
-import { selectLanguage, useAppSelector } from '~/store';
-
-import { CreateNewWallet, WalletActionsDialogBox } from '../OnBoarding';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 export const Portfolio: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -23,9 +21,14 @@ export const Portfolio: FC = () => {
   const [syncState, setSyncState] = useState<SyncStatusType>('syncronized');
   const [connectionState, setConnectionState] =
     useState<ConnectionStatusType>('connected');
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(openWalletActionsDialog());
+  }, []);
 
   return (
-    <CreateNewWalletProvider>
+    <>
       <Topbar
         title={lang.strings.portfolio.title}
         statusTexts={lang.strings.topbar.statusTexts}
@@ -35,12 +38,7 @@ export const Portfolio: FC = () => {
         syncStatus={syncState}
         connectionStatus={connectionState}
       />
-      <WalletActionsDialogBox />
-      <CreateNewWallet
-        showOnClose={showOnClose}
-        setShowOnClose={setShowOnClose}
-      />
       <AssetAllocation />
-    </CreateNewWalletProvider>
+    </>
   );
 };
