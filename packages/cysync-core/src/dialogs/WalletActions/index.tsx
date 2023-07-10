@@ -1,19 +1,18 @@
 import {
-  BlurOverlay,
-  Button,
-  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
   HelpButton,
-  Image,
-  LangDisplay,
-  Typography,
+  addWalletIcon,
+  importWalletIcon,
   recoverWalletIcon,
+  BlurOverlay,
+  CloseButton,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
+import { openCreateWalletGuideDialog } from '~/actions';
 import {
   closeDialog,
   selectLanguage,
@@ -21,16 +20,18 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { CreateWalletDialogBox } from './CreateWalletDialogBox';
-import { Header } from './Header';
-import { ImportWalletDialogBox } from './ImportWalletDialogBox';
-import { TransferWallet } from './TransferWallet';
+import { WalletActionSection, Header, TransferWallet } from './Sections';
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const onClose = () => {
     dispatch(closeDialog('walletActions'));
+  };
+
+  const switchToCreateWalletDialog = () => {
+    dispatch(closeDialog('walletActions'));
+    dispatch(openCreateWalletGuideDialog());
   };
 
   return (
@@ -54,46 +55,20 @@ export const WalletActionsDialogBox: FC = () => {
           />
 
           <Flex gap={20} px={{ def: '20', lg: '150' }}>
-            <CreateWalletDialogBox
-              createWallet={
-                lang.strings.onboarding.walletActionsDialogBox.createWallet
-              }
+            <WalletActionSection
+              icon={addWalletIcon}
+              {...lang.strings.onboarding.walletActionsDialogBox.createWallet}
+              onClick={switchToCreateWalletDialog}
             />
-            <ImportWalletDialogBox
-              importWallet={
-                lang.strings.onboarding.walletActionsDialogBox.importWallet
-              }
+            <WalletActionSection
+              icon={importWalletIcon}
+              {...lang.strings.onboarding.walletActionsDialogBox.importWallet}
             />
-            <DialogBox display={{ def: 'flex', lg: 'none' }} width="full">
-              <DialogBoxBody height="full">
-                <Image width={45} src={recoverWalletIcon} alt="recoverWallet" />
-                <Flex gap={48} direction="column" height="full">
-                  <Typography
-                    $textAlign="center"
-                    variant="h5"
-                    color="heading"
-                    mb={1}
-                  >
-                    <LangDisplay
-                      text={
-                        lang.strings.onboarding.walletActionsDialogBox
-                          .transferWallet.title
-                      }
-                    />
-                  </Typography>
-                </Flex>
-              </DialogBoxBody>
-              <DialogBoxFooter>
-                <Button variant="primary">
-                  <LangDisplay
-                    text={
-                      lang.strings.onboarding.walletActionsDialogBox
-                        .transferWallet.button
-                    }
-                  />
-                </Button>
-              </DialogBoxFooter>
-            </DialogBox>
+            <WalletActionSection
+              isMiniOnly
+              icon={recoverWalletIcon}
+              {...lang.strings.onboarding.walletActionsDialogBox.transferWallet}
+            />
           </Flex>
         </DialogBoxBody>
         <DialogBoxFooter>
