@@ -353,8 +353,8 @@ importers:
         specifier: ^0.0.15
         version: 0.0.15
       '@cypherock/sdk-core':
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.8
         version: 0.0.8

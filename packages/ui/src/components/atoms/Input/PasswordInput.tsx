@@ -20,6 +20,8 @@ export const PasswordInput: FC<PasswordInputProps> = props => {
     <Input
       type={showPassword ? 'text' : 'password'}
       {...props}
+      copyAllowed={false}
+      pasteAllowed={false}
       postfixIcon={showPassword ? visibilityIcon : visibilityHideIcon}
       postfixIconAlt="Show password"
       onPostfixIconClick={togglePassword}

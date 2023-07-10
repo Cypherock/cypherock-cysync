@@ -101,7 +101,7 @@ const en = {
     title:
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
-    checkbox: 'I have already ran the command',
+    checkbox: 'I have already run the command',
   },
   onboarding: {
     info: {
