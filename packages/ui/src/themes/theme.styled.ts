@@ -59,9 +59,11 @@ export const theme = {
     border: {
       popup: colors.border.popup,
       input: colors.border.input,
+      info: colors.info.main,
       separator: colors.background.separator,
       warning: colors.border.warning,
       bar: colors.border.bar,
+      white: colors.border.white,
       table: colors.border.table,
       list: colors.border.list,
       muted: colors.border.muted,
