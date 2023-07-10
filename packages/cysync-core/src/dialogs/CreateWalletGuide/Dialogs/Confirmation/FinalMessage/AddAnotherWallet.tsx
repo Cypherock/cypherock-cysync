@@ -1,7 +1,7 @@
 import { GuidedFlowDialogBox, informationIcon } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { useCreateWalletGuide } from '~/context/createWalletGuide';
+import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const AddAnotherWallet: FC = () => {

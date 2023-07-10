@@ -12,7 +12,7 @@ import {
 import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { useCreateWalletGuide } from '~/context/createWalletGuide';
+import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
 import {
   closeDialog,
   selectLanguage,

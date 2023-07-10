@@ -7,7 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { useCreateWalletGuide } from '~/context/createWalletGuide';
+import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';

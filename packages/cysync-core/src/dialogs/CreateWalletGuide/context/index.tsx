@@ -27,7 +27,7 @@ import {
   WalletPinConsent,
 } from '~/dialogs/CreateWalletGuide/Dialogs';
 
-import { selectLanguage, useAppSelector } from '..';
+import { selectLanguage, useAppSelector } from '../../..';
 
 export interface CreateWalletGuideContextInterface {
   tabs: ITabs;

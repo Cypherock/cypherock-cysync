@@ -6,7 +6,7 @@ import {
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { useCreateWalletGuide } from '~/context/createWalletGuide';
+import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const Instructions: FC = () => {

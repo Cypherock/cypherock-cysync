@@ -10,12 +10,9 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  CreateWalletGuideProvider,
-  useCreateWalletGuide,
-} from '~/context/createWalletGuide';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { CreateWalletGuideProvider, useCreateWalletGuide } from './context';
 import { CloseConfirmation } from './Dialogs';
 
 export const CreateNewWallet: FC = () => {
