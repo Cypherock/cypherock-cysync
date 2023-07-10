@@ -2,9 +2,8 @@ const lodash = require('lodash');
 const {
   startWatching,
   stopWatching,
-  getIsBuilding,
-  getHasBuildError,
 } = require('./watch');
+const build = require('./build');
 const { createLoggerWithPrefix } = require('./logger');
 const { parseRawLog } = require('./logParser');
 const { runPrewatchScripts } = require('./prewatch');
@@ -29,11 +28,11 @@ const runDesktopApp = async () => {
       return;
     }
 
-    if (getIsBuilding()) {
+    if (build.isBuilding()) {
       return;
     }
 
-    if (getHasBuildError()) {
+    if (build.hasError()) {
       return;
     }
 
