@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 import { InfoIcon, shieldAlert } from '../../assets';
@@ -17,7 +17,7 @@ export interface AlertBoxProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLDivElement> {
   alert: string;
-  icon?: React.JSX.Element;
+  icon?: ReactNode;
   variant?: AlertBoxVariantType;
 }
 
