@@ -11,6 +11,7 @@ interface BulletProps {
 const BulletStyle = styled.div<BulletProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.palette.text.heading};
+
   ${props =>
     props.size === 'sm' &&
     css`
@@ -25,7 +26,6 @@ const BulletStyle = styled.div<BulletProps>`
       width: 16px;
       height: 16px;
     `}
-
   ${props =>
     props.variant === 'outline' &&
     css`
@@ -40,8 +40,7 @@ const BulletStyle = styled.div<BulletProps>`
     css`
       background-color: ${({ theme }) => theme.palette.bullet.white};
     `}
-      
-    ${props =>
+  ${props =>
     props.variant === 'gold' &&
     css`
       background-image: ${({ theme }) => theme.palette.golden};
@@ -56,13 +55,12 @@ const BulletStyle = styled.div<BulletProps>`
     css`
       background-color: ${({ theme }) => theme.palette.warn.main};
     `}
-            
-    ${props =>
+  ${props =>
     props.variant === 'muted' &&
     css`
       background-color: ${({ theme }) => theme.palette.text.muted};
     `}
-    ${spacing}
+  ${spacing}
 `;
 
 export const Bullet: FC<BulletProps> = ({ ...props }) => (
@@ -71,5 +69,5 @@ export const Bullet: FC<BulletProps> = ({ ...props }) => (
 
 Bullet.defaultProps = {
   variant: undefined,
-  size: 'md',
+  size: 'sm',
 };
