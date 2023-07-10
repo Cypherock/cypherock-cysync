@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { InfoIcon } from '../../assets';
-import { Container, LangDisplay, Typography } from '../atoms';
+import { Container, Flex, LangDisplay, Typography } from '../atoms';
 
 export const Info: FC<{
   showIcon: boolean;
@@ -17,7 +17,11 @@ export const Info: FC<{
     gap={18}
     p={1}
   >
-    {showIcon && <InfoIcon color={iconVariant} width={36} height={36} />}
+    {showIcon && (
+      <Flex align="center" width={20} height={16}>
+        <InfoIcon color={iconVariant} width={36} height={36} />
+      </Flex>
+    )}
     <Typography
       variant="fineprint"
       $textAlign={showIcon ? 'left' : 'center'}

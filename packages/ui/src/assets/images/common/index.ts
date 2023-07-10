@@ -23,7 +23,7 @@ import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import { FailIcon } from './FailIcon';
 import goldFail from './gold_fail.svg';
-import greenTick from './green-tick.svg';
+import greenTickIcon from './green-tick.svg';
 import importWalletIcon from './import-wallet.png';
 import { InfoIcon } from './InfoIcon';
 import informationIcon from './information.svg';
@@ -84,7 +84,6 @@ export {
   goldLoaderIcon,
   openExternalLink,
   informationIcon,
-  greenTick,
   redDisconnectedIcon,
   goldFail,
   emailIconOutlined,
@@ -112,4 +111,5 @@ export {
   bitcoinIcon,
   ethereumIcon,
   triangleIcon,
+  greenTickIcon,
 };

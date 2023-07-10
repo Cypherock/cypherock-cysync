@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
 
-import { cysyncLogoSmall, greenTick } from '../../../assets';
+import { cysyncLogoSmall, greenTickIcon } from '../../../assets';
 import {
   Bullet,
   Container,
@@ -61,7 +61,7 @@ export const MilestoneAside: FC<{
               </Typography>
             </Flex>
             {activeTab > index ? (
-              <Image src={greenTick} alt="greenTick" />
+              <Image src={greenTickIcon} alt="greenTick" />
             ) : (
               <Bullet size="sm" variant={textColor(activeTab, index)} />
             )}
