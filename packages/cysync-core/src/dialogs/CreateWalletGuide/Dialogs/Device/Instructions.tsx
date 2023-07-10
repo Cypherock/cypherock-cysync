@@ -9,8 +9,24 @@ import { useTheme } from 'styled-components';
 import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const Instructions: FC = () => {
+const GoldFont: React.FC<{
+  text: string;
+}> = ({ text }) => {
   const theme = useTheme();
+  return (
+    <span
+      style={{
+        background: theme?.palette.golden,
+        WebkitTextFillColor: 'transparent',
+        WebkitBackgroundClip: 'text',
+      }}
+    >
+      <LangDisplay text={text} />
+    </span>
+  );
+};
+
+export const Instructions: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateWalletGuide();
 
@@ -19,53 +35,27 @@ export const Instructions: FC = () => {
       <LangDisplay
         text={lang.strings.onboarding.createWallet.followInfo.list.first.first}
       />
-      <span
-        style={{
-          background: theme?.palette.golden,
-          WebkitTextFillColor: 'transparent',
-          WebkitBackgroundClip: 'text',
-        }}
-      >
-        <LangDisplay
-          text={
-            lang.strings.onboarding.createWallet.followInfo.list.first.second
-          }
-        />
-      </span>
+      <GoldFont
+        text={lang.strings.onboarding.createWallet.followInfo.list.first.second}
+      />
     </>,
     <>
       <LangDisplay
         text={lang.strings.onboarding.createWallet.followInfo.list.second.first}
       />
-      <span
-        style={{
-          background: theme?.palette.golden,
-          WebkitTextFillColor: 'transparent',
-          WebkitBackgroundClip: 'text',
-        }}
-      >
-        <LangDisplay
-          text={
-            lang.strings.onboarding.createWallet.followInfo.list.second.second
-          }
-        />
-      </span>
+      <GoldFont
+        text={
+          lang.strings.onboarding.createWallet.followInfo.list.second.second
+        }
+      />
       <LangDisplay
         text={lang.strings.onboarding.createWallet.followInfo.list.second.third}
       />
-      <span
-        style={{
-          background: theme?.palette.golden,
-          WebkitTextFillColor: 'transparent',
-          WebkitBackgroundClip: 'text',
-        }}
-      >
-        <LangDisplay
-          text={
-            lang.strings.onboarding.createWallet.followInfo.list.second.fourth
-          }
-        />
-      </span>
+      <GoldFont
+        text={
+          lang.strings.onboarding.createWallet.followInfo.list.second.fourth
+        }
+      />
       <LangDisplay
         text={lang.strings.onboarding.createWallet.followInfo.list.second.fifth}
       />

@@ -44,7 +44,7 @@ export const CreateNewWallet: FC = () => {
             >
               <DialogBox width={500}>
                 <DialogBoxBody p="0">
-                  {tabs[currentTab]?.dialogs[currentDialog]?.component}
+                  {tabs[currentTab]?.dialogs[currentDialog]}
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>

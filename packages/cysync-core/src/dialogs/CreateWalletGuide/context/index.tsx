@@ -1,4 +1,5 @@
-import { ITabs } from '@cypherock/cysync-ui';
+// The ReactNodes won't be rendered as list so key is not required
+/* eslint-disable react/jsx-key */
 import React, {
   Context,
   Dispatch,
@@ -28,6 +29,11 @@ import {
 } from '~/dialogs/CreateWalletGuide/Dialogs';
 
 import { selectLanguage, useAppSelector } from '../../..';
+
+type ITabs = {
+  name: string;
+  dialogs: ReactNode[];
+}[];
 
 export interface CreateWalletGuideContextInterface {
   tabs: ITabs;
@@ -59,68 +65,27 @@ export const CreateWalletGuideProvider: FC<
     {
       name: lang.strings.onboarding.createWallet.aside.tabs.device,
       dialogs: [
-        {
-          name: 'instructions',
-          component: <Instructions />,
-        },
-        {
-          name: 'enterWalletName',
-          component: <EnterWalletName />,
-        },
-        {
-          name: 'confirmWalletName',
-          component: <ConfirmWalletName />,
-        },
-        {
-          name: 'walletPinConsent',
-          component: <WalletPinConsent />,
-        },
-        {
-          name: 'setupWalletPin',
-          component: <SetupWalletPin />,
-        },
-        {
-          name: 'confirmPin',
-          component: <ConfirmPin />,
-        },
+        <Instructions />,
+        <EnterWalletName />,
+        <ConfirmWalletName />,
+        <WalletPinConsent />,
+        <SetupWalletPin />,
+        <ConfirmPin />,
       ],
     },
     {
       name: lang.strings.onboarding.createWallet.aside.tabs.syncX1Cards,
-      dialogs: [
-        {
-          name: 'tapX1Cards',
-          component: <TapX1Cards />,
-        },
-      ],
+      dialogs: [<TapX1Cards />],
     },
     {
       name: lang.strings.onboarding.createWallet.aside.tabs.confirmation,
       dialogs: [
-        {
-          name: 'successMessage',
-          component: <SuccessMessage />,
-        },
-        {
-          name: 'walletNote',
-          component: <WalletNote />,
-        },
-        {
-          name: 'cardNote',
-          component: <CardNote />,
-        },
-        {
-          name: 'cardSafety',
-          component: <CardSafety />,
-        },
-        {
-          name: 'addAnotherWallet',
-          component: <AddAnotherWallet />,
-        },
-        {
-          name: 'addAccount',
-          component: <AddAccount />,
-        },
+        <SuccessMessage />,
+        <WalletNote />,
+        <CardNote />,
+        <CardSafety />,
+        <AddAnotherWallet />,
+        <AddAccount />,
       ],
     },
   ];

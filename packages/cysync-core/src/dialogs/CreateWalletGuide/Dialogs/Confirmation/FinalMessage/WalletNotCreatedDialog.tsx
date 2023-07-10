@@ -1,13 +1,10 @@
 import {
   Flex,
-  GuidedFlowDialogBox,
   redDisconnectedIcon,
   Button,
-  BlurOverlay,
-  DialogBox,
-  DialogBoxBody,
-  Typography,
   LangDisplay,
+  IconDialogBox,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -28,14 +25,12 @@ const Buttons: FC = () => {
   return (
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary">
-        <Typography color="gold">
-          <LangDisplay
-            text={
-              lang.strings.onboarding.createWallet.finalMessage
-                .walletNotCreatedDialog.buttons.later
-            }
-          />
-        </Typography>
+        <LangDisplay
+          text={
+            lang.strings.onboarding.createWallet.finalMessage
+              .walletNotCreatedDialog.buttons.later
+          }
+        />
       </Button>
       <Button
         onClick={() => {
@@ -46,14 +41,12 @@ const Buttons: FC = () => {
         }}
         variant="primary"
       >
-        <Typography color="black">
-          <LangDisplay
-            text={
-              lang.strings.onboarding.createWallet.finalMessage
-                .walletNotCreatedDialog.buttons.createWallet
-            }
-          />
-        </Typography>
+        <LangDisplay
+          text={
+            lang.strings.onboarding.createWallet.finalMessage
+              .walletNotCreatedDialog.buttons.createWallet
+          }
+        />
       </Button>
     </Flex>
   );
@@ -61,27 +54,19 @@ const Buttons: FC = () => {
 
 export const WalletNotCreatedDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useCreateWalletGuide();
   return (
-    <BlurOverlay>
-      <DialogBox width={500}>
-        <DialogBoxBody p="0" pt={2}>
-          <GuidedFlowDialogBox
-            image={redDisconnectedIcon}
-            onNext={onNext}
-            onPrevious={onPrevious}
-            title={
-              lang.strings.onboarding.createWallet.finalMessage
-                .walletNotCreatedDialog.title
-            }
-            subTitle={
-              lang.strings.onboarding.createWallet.finalMessage
-                .walletNotCreatedDialog.subTitle
-            }
-            footer={<Buttons />}
-          />
-        </DialogBoxBody>
-      </DialogBox>
-    </BlurOverlay>
+    <IconDialogBox
+      $isModal
+      icon={<Image src={redDisconnectedIcon} alt="Disconnected icon" />}
+      title={
+        lang.strings.onboarding.createWallet.finalMessage.walletNotCreatedDialog
+          .title
+      }
+      subtext={
+        lang.strings.onboarding.createWallet.finalMessage.walletNotCreatedDialog
+          .subTitle
+      }
+      footerComponent={<Buttons />}
+    />
   );
 };
