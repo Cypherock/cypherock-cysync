@@ -97,6 +97,7 @@ test('check x1 device usage for first time', async () => {
     .locator('section')
     .filter({
       hasText: 'I am using Cypherock X1 for the first time',
+      hasText: 'I am using Cypherock X1 for the first time',
     })
     .getByRole('button', { name: 'Continue' })
     .click();
