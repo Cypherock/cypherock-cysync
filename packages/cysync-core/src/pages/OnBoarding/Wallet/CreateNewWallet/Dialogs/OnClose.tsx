@@ -1,12 +1,11 @@
 import {
   Flex,
-  GuidedFlowDialogBoxLayout,
   Button,
   LangDisplay,
   goldFail,
   BlurOverlay,
-  DialogBox,
-  DialogBoxBody,
+  IconDialogBox,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
@@ -46,31 +45,23 @@ const Buttons: FC<{
 };
 
 export const OnClose: FC<{
-  onNext: React.MouseEventHandler<HTMLButtonElement>;
-  onPrevious: React.MouseEventHandler<HTMLButtonElement>;
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
   setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ onNext, onPrevious, setShowOnClose, setShowCreateWalletDialogBox }) => {
+}> = ({ setShowOnClose, setShowCreateWalletDialogBox }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <BlurOverlay>
-      <DialogBox width={500}>
-        <DialogBoxBody p="0" pt={2}>
-          <GuidedFlowDialogBoxLayout
-            image={goldFail}
-            onNext={onNext}
-            onPrevious={onPrevious}
-            title={lang.strings.onboarding.createWallet.onClose.title}
-            subTitle={lang.strings.onboarding.createWallet.onClose.subTitle}
-            footer={
-              <Buttons
-                setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
-                setShowOnClose={setShowOnClose}
-              />
-            }
+      <IconDialogBox
+        icon={<Image src={goldFail} alt="gold cross" />}
+        title={lang.strings.onboarding.createWallet.onClose.title}
+        subtext={lang.strings.onboarding.createWallet.onClose.subTitle}
+        footerComponent={
+          <Buttons
+            setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
+            setShowOnClose={setShowOnClose}
           />
-        </DialogBoxBody>
-      </DialogBox>
+        }
+      />
     </BlurOverlay>
   );
 };

@@ -1,7 +1,7 @@
 import {
   LangDisplay,
   followInfo,
-  GuidedFlowDialogBoxLayout,
+  GuidedFlowDialogBox,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
@@ -73,7 +73,7 @@ export const Instructions: FC = () => {
   ];
 
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       image={followInfo}
       onNext={onNext}
       onPrevious={onPrevious}

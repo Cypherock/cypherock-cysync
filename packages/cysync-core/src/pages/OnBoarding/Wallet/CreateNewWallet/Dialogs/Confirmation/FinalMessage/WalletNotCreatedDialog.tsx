@@ -1,6 +1,6 @@
 import {
   Flex,
-  GuidedFlowDialogBoxLayout,
+  GuidedFlowDialogBox,
   redDisconnectedIcon,
   Button,
   BlurOverlay,
@@ -17,8 +17,8 @@ import { selectLanguage, useAppSelector } from '~/store';
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const {
-    setTab,
-    setDialogBox,
+    setCurrentTab: setTab,
+    setCurrentDialog: setDialogBox,
     setShowCreateWalletDialogBox,
     setShowWalletActionsDialogBox,
   } = useCreateNewWallet();
@@ -63,7 +63,7 @@ export const WalletNotCreatedDialog: FC = () => {
     <BlurOverlay>
       <DialogBox width={500}>
         <DialogBoxBody p="0" pt={2}>
-          <GuidedFlowDialogBoxLayout
+          <GuidedFlowDialogBox
             image={redDisconnectedIcon}
             onNext={onNext}
             onPrevious={onPrevious}

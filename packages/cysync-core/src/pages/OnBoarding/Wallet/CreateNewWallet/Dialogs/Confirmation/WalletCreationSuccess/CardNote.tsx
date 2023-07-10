@@ -1,4 +1,4 @@
-import { GuidedFlowDialogBoxLayout, successIcon } from '@cypherock/cysync-ui';
+import { GuidedFlowDialogBox, successIcon } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { useCreateNewWallet } from '~/context/createNewWallet';
@@ -8,7 +8,7 @@ export const CardNote: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       heading={
         lang.strings.onboarding.createWallet.walletCreationSuccess.heading
       }

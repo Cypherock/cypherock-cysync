@@ -1,4 +1,4 @@
-import { syncX1Cards, GuidedFlowDialogBoxLayout } from '@cypherock/cysync-ui';
+import { syncX1Cards, GuidedFlowDialogBox } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { useCreateNewWallet } from '~/context/createNewWallet';
@@ -8,7 +8,7 @@ export const TapX1Cards: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       image={syncX1Cards}
       onNext={onNext}
       onPrevious={onPrevious}

@@ -1,4 +1,4 @@
-import { setupPin, GuidedFlowDialogBoxLayout } from '@cypherock/cysync-ui';
+import { setupPin, GuidedFlowDialogBox } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { useCreateNewWallet } from '~/context/createNewWallet';
@@ -8,7 +8,7 @@ export const SetupWalletPin: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       image={setupPin}
       onNext={onNext}
       onPrevious={onPrevious}

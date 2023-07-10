@@ -1,7 +1,4 @@
-import {
-  GuidedFlowDialogBoxLayout,
-  informationIcon,
-} from '@cypherock/cysync-ui';
+import { GuidedFlowDialogBox, informationIcon } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { useCreateNewWallet } from '~/context/createNewWallet';
@@ -11,7 +8,7 @@ export const CardSafety: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       image={informationIcon}
       onNext={onNext}
       onPrevious={onPrevious}

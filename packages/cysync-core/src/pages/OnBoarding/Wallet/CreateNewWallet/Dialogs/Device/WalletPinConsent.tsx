@@ -1,7 +1,4 @@
-import {
-  GuidedFlowDialogBoxLayout,
-  pinDeviceConsent,
-} from '@cypherock/cysync-ui';
+import { GuidedFlowDialogBox, pinDeviceConsent } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { useCreateNewWallet } from '~/context/createNewWallet';
@@ -11,7 +8,7 @@ export const WalletPinConsent: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateNewWallet();
   return (
-    <GuidedFlowDialogBoxLayout
+    <GuidedFlowDialogBox
       image={pinDeviceConsent}
       onNext={onNext}
       onPrevious={onPrevious}

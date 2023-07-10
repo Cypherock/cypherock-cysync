@@ -22,10 +22,8 @@ export const CreateNewWallet: FC<{
   const lang = useAppSelector(selectLanguage);
   const {
     tabs,
-    tab,
-    dialogBox,
-    onNext,
-    onPrevious,
+    currentTab,
+    currentDialog,
     showCreateWalletDialogBox,
     setShowCreateWalletDialogBox,
   } = useCreateNewWallet();
@@ -35,14 +33,15 @@ export const CreateNewWallet: FC<{
       <DialogBox direction="row" gap={0} width="full">
         {showOnClose && (
           <OnClose
-            onNext={onNext}
-            onPrevious={onPrevious}
             setShowOnClose={setShowOnClose}
             setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
           />
         )}
         <>
-          <MilestoneAside milestones={tabs.map(t => t.name)} activeTab={tab} />
+          <MilestoneAside
+            milestones={tabs.map(t => t.name)}
+            activeTab={currentTab}
+          />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="space-between">
               <HelpButton text={lang.strings.help} />
@@ -58,7 +57,7 @@ export const CreateNewWallet: FC<{
             >
               <DialogBox width={500}>
                 <DialogBoxBody p="0">
-                  {tabs[tab]?.dialogs[dialogBox]?.component}
+                  {tabs[currentTab]?.dialogs[currentDialog]?.component}
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>

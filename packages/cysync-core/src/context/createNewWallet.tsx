@@ -1,3 +1,4 @@
+import { ITabs } from '@cypherock/cysync-ui';
 import React, {
   Context,
   Dispatch,
@@ -9,7 +10,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ITabs } from '@cypherock/cysync-ui';
+
 import {
   AddAccount,
   AddAnotherWallet,
@@ -25,14 +26,15 @@ import {
   WalletNote,
   WalletPinConsent,
 } from '~/pages/OnBoarding/Wallet/CreateNewWallet/Dialogs';
+
 import { selectLanguage, useAppSelector } from '..';
 
 export interface CreateNewWalletContextInterface {
   tabs: ITabs;
-  tab: number;
-  setTab: Dispatch<SetStateAction<number>>;
-  dialogBox: number;
-  setDialogBox: Dispatch<SetStateAction<number>>;
+  currentTab: number;
+  setCurrentTab: Dispatch<SetStateAction<number>>;
+  currentDialog: number;
+  setCurrentDialog: Dispatch<SetStateAction<number>>;
   showWalletActionsDialogBox: boolean;
   setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
   showCreateWalletDialogBox: boolean;
@@ -54,8 +56,8 @@ export const CreateNewWalletProvider: FC<
   CreateNewWalletContextProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
-  const [tab, setTab] = useState<number>(0);
-  const [dialogBox, setDialogBox] = useState<number>(0);
+  const [currentTab, setCurrentTab] = useState<number>(0);
+  const [currentDialog, setCurrentDialog] = useState<number>(0);
   const [showWalletActionsDialogBox, setShowWalletActionsDialogBox] =
     useState<boolean>(true);
   const [showCreateWalletDialogBox, setShowCreateWalletDialogBox] =
@@ -132,37 +134,37 @@ export const CreateNewWalletProvider: FC<
   ];
 
   const onNext = () => {
-    if (dialogBox + 1 > tabs[tab].dialogs.length - 1) {
-      setTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
-      if (tab !== tabs.length - 1) {
-        setDialogBox(0);
+    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
+      setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
+      if (currentTab !== tabs.length - 1) {
+        setCurrentDialog(0);
       }
     } else {
-      setDialogBox(prevProps =>
-        Math.min(tabs[tab].dialogs.length - 1, prevProps + 1),
+      setCurrentDialog(prevProps =>
+        Math.min(tabs[currentTab].dialogs.length - 1, prevProps + 1),
       );
     }
   };
 
   const onPrevious = () => {
-    if (dialogBox - 1 < 0) {
-      if (tab === 0) {
-        setDialogBox(0);
+    if (currentDialog - 1 < 0) {
+      if (currentTab === 0) {
+        setCurrentDialog(0);
       } else {
-        setDialogBox(tabs[tab - 1].dialogs.length - 1);
-        setTab(prevProps => Math.max(0, prevProps - 1));
+        setCurrentDialog(tabs[currentTab - 1].dialogs.length - 1);
+        setCurrentTab(prevProps => Math.max(0, prevProps - 1));
       }
     } else {
-      setDialogBox(prevProps => Math.max(0, prevProps - 1));
+      setCurrentDialog(prevProps => Math.max(0, prevProps - 1));
     }
   };
 
   const ctx = useMemo(
     () => ({
-      tab,
-      setTab,
-      dialogBox,
-      setDialogBox,
+      currentTab,
+      setCurrentTab,
+      currentDialog,
+      setCurrentDialog,
       tabs,
       onNext,
       onPrevious,
@@ -172,10 +174,10 @@ export const CreateNewWalletProvider: FC<
       setShowWalletActionsDialogBox,
     }),
     [
-      tab,
-      setTab,
-      dialogBox,
-      setDialogBox,
+      currentTab,
+      setCurrentTab,
+      currentDialog,
+      setCurrentDialog,
       tabs,
       onNext,
       onPrevious,

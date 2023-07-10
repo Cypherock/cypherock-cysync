@@ -3,16 +3,17 @@ import { styled } from 'styled-components';
 
 import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
 import { BulletList } from '../BulletList';
-import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '../Dialog';
 import { GoldenArrowList } from '../GoldenArrowList';
 import { Info } from '../Info';
+
+import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
 
 const InnerContainer = styled.div`
   max-height: 58vh;
   overflow-y: auto;
 `;
 
-export const GuidedFlowDialogBoxLayout: FC<{
+export const GuidedFlowDialogBox: FC<{
   heading?: string;
   title?: string;
   image: string;
@@ -130,7 +131,7 @@ export const GuidedFlowDialogBoxLayout: FC<{
   </>
 );
 
-GuidedFlowDialogBoxLayout.defaultProps = {
+GuidedFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,

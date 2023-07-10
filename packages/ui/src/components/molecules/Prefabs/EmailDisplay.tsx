@@ -8,7 +8,13 @@ export interface EmailDisplayProps {
 }
 
 export const EmailDisplay: React.FC<EmailDisplayProps> = ({ email }) => (
-  <Flex gap={16} $bgColor="highlight" $borderRadius={10} pr={1}>
+  <Flex
+    gap={16}
+    $bgColor="highlight"
+    $borderRadius={10}
+    pr={1}
+    $borderWidth={0}
+  >
     <Image src={emailIcon} width={24} alt="Email Icon" />
     <Typography color="muted" $fontSize={14}>
       {email}
