@@ -4,7 +4,7 @@ export * from './Layouts';
 export * from './JoystickInteraction';
 export * from './CardTapList';
 export * from './ConfettiBlast';
-export * from './Aside';
+export * from './Asides';
 export * from './WalletDialogMainContainer';
 export * from './Prefabs';
 export * from './ProgressBar';

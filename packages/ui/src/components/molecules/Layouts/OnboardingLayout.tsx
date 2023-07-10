@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react';
 
 import { BlurOverlay, Container } from '../../atoms';
 import { BgColorProps } from '../../utils';
-import { Aside, AsideProps, InfoAside, InfoAsideProps } from '../Aside';
+import { Aside, AsideProps, InfoAside, InfoAsideProps } from '../Asides';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundBar,
