@@ -1,8 +1,5 @@
 const lodash = require('lodash');
-const {
-  startWatching,
-  stopWatching,
-} = require('./watch');
+const { startWatching, stopWatching } = require('./watch');
 const build = require('./build');
 const { createLoggerWithPrefix } = require('./logger');
 const { parseRawLog } = require('./logParser');
@@ -76,6 +73,7 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
 
   console.log(`Usage: pnpm start [options]`);
   console.log();
+  printFlags('-t, --turbo', 'Use turbo to build packages');
   printFlags('-h, --help', 'Show this help message');
   printFlags('-v, --verbose', 'Show verbose output');
   printFlags('-s, --short-log', 'Show logs in short log format');
