@@ -92,8 +92,7 @@ test('check x1 device usage for first time', async () => {
   await screen
     .locator('section')
     .filter({
-      hasText:
-        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
+      hasText: 'I am using Cypherock X1 for the first time',
     })
     .getByRole('button', { name: 'Continue' })
     .click();
@@ -101,7 +100,7 @@ test('check x1 device usage for first time', async () => {
   await expect(backButton).toBeVisible();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
-  const termsofUse = screen.getByRole('heading', { name: 'Terms of use' });
+  const termsofUse = screen.getByRole('heading', { name: 'Terms of Use' });
   await expect(termsofUse).toBeVisible();
   const termsofService = screen.getByRole('heading', {
     name: 'Terms of Service',
@@ -111,7 +110,7 @@ test('check x1 device usage for first time', async () => {
   await expect(privacyPolicy).toBeVisible();
   const sidePanelFirst = screen
     .locator('span')
-    .filter({ hasText: 'Terms of use' });
+    .filter({ hasText: 'Terms of Use' });
   await expect(sidePanelFirst).toBeVisible();
   const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();
@@ -147,7 +146,7 @@ test('check x1 device have been already used before', async () => {
   await expect(privacyPolicy).toBeVisible();
   const sidePanelFirst = screen
     .locator('span')
-    .filter({ hasText: 'Terms of use' });
+    .filter({ hasText: 'Terms of Use' });
   await expect(sidePanelFirst).toBeVisible();
   const statusBar = screen.locator('.sc-erJYPI > img').first();
   await expect(statusBar).toBeVisible();

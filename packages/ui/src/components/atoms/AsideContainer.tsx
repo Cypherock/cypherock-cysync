@@ -18,7 +18,7 @@ const AsideContainerStyle = styled.div<AsideContainerProps>`
   display: flex;
   overflow-y: hidden;
   overflow-x: hidden;
-  @media (${theme.screens.lg} and ${theme.screens.hlg}) {
+  @media (${theme.screens.lg} and ${theme.screensHeight.lg}) {
     min-width: 500px;
     padding: 40px 32px;
   }
