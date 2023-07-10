@@ -25,7 +25,6 @@ import {
   AddAccount,
   AddAnotherWallet,
 } from '~/dialogs/WalletActions/Common';
-import { CreateNewWalletCardSafety } from '~/dialogs/WalletActions/CreateNewWallet/Dialogs';
 import {
   ImportWalletCardSafety,
   CountWords,
@@ -36,7 +35,6 @@ import {
 import { selectLanguage, useAppSelector } from '..';
 
 export interface WalletActionsContextInterface {
-  createNewWalletTabs: IWalletActionsTabs;
   importWalletTabs: IWalletActionsTabs;
   currentTab: number;
   setCurrentTab: Dispatch<SetStateAction<number>>;
@@ -125,28 +123,6 @@ export const WalletActionsProvider: FC<WalletActionsContextProviderProps> = ({
     },
   };
 
-  const createNewWalletTabs: IWalletActionsTabs = [
-    {
-      name: lang.strings.walletActions.aside.tabs.device,
-      dialogs: [...commonTabs.device],
-    },
-    {
-      name: lang.strings.walletActions.aside.tabs.syncX1Cards,
-      dialogs: [...commonTabs.syncX1Cards],
-    },
-    {
-      name: lang.strings.walletActions.aside.tabs.confirmation,
-      dialogs: [
-        ...commonTabs.confirmation.walletCreationSuccess,
-        {
-          name: 'cardSafety',
-          component: <CreateNewWalletCardSafety />,
-        },
-        ...commonTabs.confirmation.finalMessage,
-      ],
-    },
-  ];
-
   const importWalletTabs: IWalletActionsTabs = [
     {
       name: lang.strings.walletActions.aside.tabs.device,
@@ -217,7 +193,6 @@ export const WalletActionsProvider: FC<WalletActionsContextProviderProps> = ({
       setCurrentDialogBox,
       tabs,
       importWalletTabs,
-      createNewWalletTabs,
       onNext,
       onPrevious,
       setTabs,
@@ -229,7 +204,6 @@ export const WalletActionsProvider: FC<WalletActionsContextProviderProps> = ({
       setCurrentDialogBox,
       tabs,
       importWalletTabs,
-      createNewWalletTabs,
       onNext,
       onPrevious,
       setTabs,

@@ -34,7 +34,6 @@ const Buttons: FC<{
       <Button
         onClick={() => {
           setShowOnClose(false);
-          dispatch(closeDialog('createWalletGuide'));
           dispatch(closeDialog('importWalletGuide'));
         }}
         variant="primary"

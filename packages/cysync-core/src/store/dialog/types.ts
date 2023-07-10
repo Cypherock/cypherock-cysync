@@ -10,14 +10,6 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
-  walletCreation: {
-    isOpen: boolean;
-    data?: undefined;
-  };
-  createWalletGuide: {
-    isOpen: boolean;
-    data?: undefined;
-  };
   importWalletGuide: {
     isOpen: boolean;
     data?: undefined;

@@ -6,8 +6,8 @@ import {
   Topbar,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect, useState } from 'react';
-import { openWalletCreationDialog } from '~/actions';
 
+import { openImportWalletGuideDialog } from '~/actions';
 import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
@@ -23,7 +23,7 @@ export const Portfolio: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(openWalletCreationDialog());
+    dispatch(openImportWalletGuideDialog());
   }, []);
   return (
     <>

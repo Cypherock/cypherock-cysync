@@ -13,15 +13,15 @@ export const AddAnotherWallet: FC = () => {
       onNext={onNext}
       onPrevious={onPrevious}
       heading={
-        lang.strings.walletActions.createNewWallet.confirmation.finalMessage
+        lang.strings.walletActions.common.confirmation.finalMessage
           .addAnotherWallet.heading
       }
       title={
-        lang.strings.walletActions.createNewWallet.confirmation.finalMessage
+        lang.strings.walletActions.common.confirmation.finalMessage
           .addAnotherWallet.title
       }
       bulletList={
-        lang.strings.walletActions.createNewWallet.confirmation.finalMessage
+        lang.strings.walletActions.common.confirmation.finalMessage
           .addAnotherWallet.list
       }
     />

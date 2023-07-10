@@ -16,12 +16,6 @@ const initialState: IDialogState = {
   walletSyncError: {
     isOpen: false,
   },
-  walletCreation: {
-    isOpen: false,
-  },
-  createWalletGuide: {
-    isOpen: false,
-  },
   importWalletGuide: {
     isOpen: false,
   },

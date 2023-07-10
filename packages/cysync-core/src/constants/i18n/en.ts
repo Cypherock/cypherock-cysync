@@ -455,32 +455,6 @@ const en = {
         exit: 'Exit',
       },
     },
-    createNewWallet: {
-      confirmation: {
-        finalMessage: {
-          addAnotherWallet: {
-            heading: 'Final Message',
-            // question mark should be golden
-            title:
-              'As a next step, keep your X1 Cards safely inside the card sleeves (?) and distribute them into different places. Some examples of the places could be:',
-            list: [
-              'Homes of your family members or your friends',
-              'Secret hideout',
-              'Bank locker',
-            ],
-          },
-          addAccount: {
-            heading: 'Final Message',
-            title:
-              'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you.',
-            buttons: {
-              skip: 'Skip',
-              addAccount: 'Add Account',
-            },
-          },
-        },
-      },
-    },
     importWallet: {
       device: {
         countNumberOfWords: {
