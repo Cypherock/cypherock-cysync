@@ -59,5 +59,6 @@ export const colors = {
     bar: '#474747',
     table: '#2C2929',
     muted: '#8B8682',
+    white: '#ffffff',
   },
 };

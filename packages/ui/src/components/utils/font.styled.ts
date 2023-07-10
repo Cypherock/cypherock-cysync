@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 
 import { generateCss } from './generateCss';
+import { MediaQuery } from '../../types';
 
 export type FontFamily = 'normal' | 'monospace';
 
@@ -12,7 +13,7 @@ export type WordBreak =
   | 'initial';
 
 export interface FontProps {
-  $fontWeight?:
+  $fontWeight?: MediaQuery<
     | 'thin'
     | 'extralight'
     | 'light'
@@ -20,10 +21,11 @@ export interface FontProps {
     | 'medium'
     | 'semibold'
     | 'bold'
-    | 'extrabold';
-  $fontSize?: number;
-  $fontFamily?: FontFamily;
-  $wordBreak?: WordBreak;
+    | 'extrabold'
+  >;
+  $fontSize?: MediaQuery<number>;
+  $fontFamily?: MediaQuery<FontFamily>;
+  $wordBreak?: MediaQuery<WordBreak>;
 }
 
 const fontWeightObj: Record<string, string> = {
