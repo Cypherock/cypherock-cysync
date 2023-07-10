@@ -6,9 +6,10 @@ import {
   Locator,
 } from '@playwright/test';
 
-import { prepElectronApp } from '../__helpers__';
+import { clearKeyDb, prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
+
 let screen: Page;
 
 function sleep(ms: number) {
@@ -27,6 +28,7 @@ const waitForAttribute = async (
 };
 
 test.beforeEach(async () => {
+  await clearKeyDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
@@ -35,6 +37,11 @@ test.beforeEach(async () => {
 
 test.afterAll(async () => {
   await electronApp.close();
+});
+
+// To record locators
+test('record', async () => {
+  await screen.pause();
 });
 
 test('Device connection screen', async () => {
