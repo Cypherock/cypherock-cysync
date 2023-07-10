@@ -10,7 +10,12 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  openDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 export const Portfolio: FC = () => {
   const lang = useAppSelector(selectLanguage);

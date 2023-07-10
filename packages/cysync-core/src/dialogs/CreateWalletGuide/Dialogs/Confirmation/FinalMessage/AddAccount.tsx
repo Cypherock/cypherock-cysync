@@ -7,7 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import { useCreateWalletGuide } from '~/context/createWalletGuide';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
@@ -43,7 +43,7 @@ const Buttons: FC<{
 
 export const AddAccount: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useCreateNewWallet();
+  const { onNext, onPrevious } = useCreateWalletGuide();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
     useState(false);
 

@@ -14,6 +14,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
+import { openCreateWalletGuideDialog } from '~/actions';
 import { closeDialog, useAppDispatch } from '~/store';
 
 export const CreateWalletDialogBox: FC<{
@@ -26,6 +27,7 @@ export const CreateWalletDialogBox: FC<{
   const dispatch = useAppDispatch();
   const switchToCreateWalletDialog = () => {
     dispatch(closeDialog('walletActions'));
+    dispatch(openCreateWalletGuideDialog());
   };
   return (
     <DialogBox width="full">

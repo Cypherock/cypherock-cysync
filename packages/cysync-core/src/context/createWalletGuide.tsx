@@ -25,43 +25,35 @@ import {
   TapX1Cards,
   WalletNote,
   WalletPinConsent,
-} from '~/pages/OnBoarding/Wallet/CreateNewWallet/Dialogs';
+} from '~/dialogs/CreateWalletGuide/Dialogs';
 
 import { selectLanguage, useAppSelector } from '..';
 
-export interface CreateNewWalletContextInterface {
+export interface CreateWalletGuideContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: Dispatch<SetStateAction<number>>;
   currentDialog: number;
   setCurrentDialog: Dispatch<SetStateAction<number>>;
-  showWalletActionsDialogBox: boolean;
-  setShowWalletActionsDialogBox: Dispatch<SetStateAction<boolean>>;
-  showCreateWalletDialogBox: boolean;
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
   onNext: () => void;
   onPrevious: () => void;
 }
 
-export const CreateNewWalletContext: Context<CreateNewWalletContextInterface> =
-  createContext<CreateNewWalletContextInterface>(
-    {} as CreateNewWalletContextInterface,
+export const CreateWalletGuideContext: Context<CreateWalletGuideContextInterface> =
+  createContext<CreateWalletGuideContextInterface>(
+    {} as CreateWalletGuideContextInterface,
   );
 
-export interface CreateNewWalletContextProviderProps {
+export interface CreateWalletGuideContextProviderProps {
   children: ReactNode;
 }
 
-export const CreateNewWalletProvider: FC<
-  CreateNewWalletContextProviderProps
+export const CreateWalletGuideProvider: FC<
+  CreateWalletGuideContextProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
-  const [showWalletActionsDialogBox, setShowWalletActionsDialogBox] =
-    useState<boolean>(true);
-  const [showCreateWalletDialogBox, setShowCreateWalletDialogBox] =
-    useState<boolean>(false);
 
   const tabs: ITabs = [
     {
@@ -168,10 +160,6 @@ export const CreateNewWalletProvider: FC<
       tabs,
       onNext,
       onPrevious,
-      showCreateWalletDialogBox,
-      showWalletActionsDialogBox,
-      setShowCreateWalletDialogBox,
-      setShowWalletActionsDialogBox,
     }),
     [
       currentTab,
@@ -181,20 +169,16 @@ export const CreateNewWalletProvider: FC<
       tabs,
       onNext,
       onPrevious,
-      showCreateWalletDialogBox,
-      showWalletActionsDialogBox,
-      setShowCreateWalletDialogBox,
-      setShowWalletActionsDialogBox,
     ],
   );
 
   return (
-    <CreateNewWalletContext.Provider value={ctx}>
+    <CreateWalletGuideContext.Provider value={ctx}>
       {children}
-    </CreateNewWalletContext.Provider>
+    </CreateWalletGuideContext.Provider>
   );
 };
 
-export function useCreateNewWallet(): CreateNewWalletContextInterface {
-  return useContext(CreateNewWalletContext);
+export function useCreateWalletGuide(): CreateWalletGuideContextInterface {
+  return useContext(CreateWalletGuideContext);
 }

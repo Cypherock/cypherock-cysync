@@ -9,18 +9,22 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 const Buttons: FC<{
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ setShowCreateWalletDialogBox, setShowOnClose }) => {
+}> = ({ setShowOnClose }) => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>
       <Button
         onClick={() => {
-          setShowCreateWalletDialogBox(true);
           setShowOnClose(false);
         }}
         variant="secondary"
@@ -31,8 +35,8 @@ const Buttons: FC<{
       </Button>
       <Button
         onClick={() => {
-          setShowCreateWalletDialogBox(false);
           setShowOnClose(false);
+          dispatch(closeDialog('createWalletGuide'));
         }}
         variant="primary"
       >
@@ -44,10 +48,9 @@ const Buttons: FC<{
   );
 };
 
-export const OnClose: FC<{
+export const CloseConfirmation: FC<{
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
-  setShowCreateWalletDialogBox: Dispatch<SetStateAction<boolean>>;
-}> = ({ setShowOnClose, setShowCreateWalletDialogBox }) => {
+}> = ({ setShowOnClose }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <BlurOverlay>
@@ -55,12 +58,7 @@ export const OnClose: FC<{
         icon={<Image src={goldFail} alt="gold cross" />}
         title={lang.strings.onboarding.createWallet.onClose.title}
         subtext={lang.strings.onboarding.createWallet.onClose.subTitle}
-        footerComponent={
-          <Buttons
-            setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
-            setShowOnClose={setShowOnClose}
-          />
-        }
+        footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
       />
     </BlurOverlay>
   );

@@ -19,6 +19,9 @@ const initialState: IDialogState = {
   walletActions: {
     isOpen: false,
   },
+  createWalletGuide: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

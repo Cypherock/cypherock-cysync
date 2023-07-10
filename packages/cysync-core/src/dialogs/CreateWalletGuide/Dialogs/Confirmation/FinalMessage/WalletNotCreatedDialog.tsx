@@ -11,17 +11,20 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { useCreateNewWallet } from '~/context/createNewWallet';
-import { selectLanguage, useAppSelector } from '~/store';
+import { openWalletActionsDialog } from '~/actions';
+import { useCreateWalletGuide } from '~/context/createWalletGuide';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const {
-    setCurrentTab: setTab,
-    setCurrentDialog: setDialogBox,
-    setShowCreateWalletDialogBox,
-    setShowWalletActionsDialogBox,
-  } = useCreateNewWallet();
+  const { setCurrentTab: setTab, setCurrentDialog: setDialogBox } =
+    useCreateWalletGuide();
+  const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary">
@@ -36,10 +39,10 @@ const Buttons: FC = () => {
       </Button>
       <Button
         onClick={() => {
-          setShowCreateWalletDialogBox(false);
-          setShowWalletActionsDialogBox(true);
           setTab(0);
           setDialogBox(0);
+          dispatch(openWalletActionsDialog());
+          dispatch(closeDialog('createWalletGuide'));
         }}
         variant="primary"
       >
@@ -58,7 +61,7 @@ const Buttons: FC = () => {
 
 export const WalletNotCreatedDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useCreateNewWallet();
+  const { onNext, onPrevious } = useCreateWalletGuide();
   return (
     <BlurOverlay>
       <DialogBox width={500}>

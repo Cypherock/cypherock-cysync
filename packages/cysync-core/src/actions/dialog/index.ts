@@ -9,3 +9,6 @@ export const openWalletSyncErrorDialog = () =>
 
 export const openWalletActionsDialog = () =>
   openDialog({ name: 'walletActions', data: undefined });
+
+export const openCreateWalletGuideDialog = () =>
+  openDialog({ name: 'createWalletGuide', data: undefined });

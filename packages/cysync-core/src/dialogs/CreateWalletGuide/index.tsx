@@ -8,35 +8,25 @@ import {
   CloseButton,
   BlurOverlay,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import {
+  CreateWalletGuideProvider,
+  useCreateWalletGuide,
+} from '~/context/createWalletGuide';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { OnClose } from './Dialogs';
+import { CloseConfirmation } from './Dialogs';
 
-export const CreateNewWallet: FC<{
-  showOnClose: boolean;
-  setShowOnClose: Dispatch<SetStateAction<boolean>>;
-}> = ({ showOnClose, setShowOnClose }) => {
+export const CreateNewWallet: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const {
-    tabs,
-    currentTab,
-    currentDialog,
-    showCreateWalletDialogBox,
-    setShowCreateWalletDialogBox,
-  } = useCreateNewWallet();
+  const { tabs, currentTab, currentDialog } = useCreateWalletGuide();
+  const [showOnClose, setShowOnClose] = React.useState(false);
 
-  return showCreateWalletDialogBox ? (
+  return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && (
-          <OnClose
-            setShowOnClose={setShowOnClose}
-            setShowCreateWalletDialogBox={setShowCreateWalletDialogBox}
-          />
-        )}
+        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
@@ -65,5 +55,11 @@ export const CreateNewWallet: FC<{
         </>
       </DialogBox>
     </BlurOverlay>
-  ) : null;
+  );
 };
+
+export const CreateWalletGuide: FC = () => (
+  <CreateWalletGuideProvider>
+    <CreateNewWallet />
+  </CreateWalletGuideProvider>
+);

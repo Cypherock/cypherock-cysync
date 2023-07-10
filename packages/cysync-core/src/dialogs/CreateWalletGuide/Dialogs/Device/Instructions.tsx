@@ -6,13 +6,13 @@ import {
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { useCreateNewWallet } from '~/context/createNewWallet';
+import { useCreateWalletGuide } from '~/context/createWalletGuide';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const Instructions: FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useCreateNewWallet();
+  const { onNext, onPrevious } = useCreateWalletGuide();
 
   const goldenArrowList = [
     <>
