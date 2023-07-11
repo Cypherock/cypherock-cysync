@@ -20,7 +20,7 @@ export interface InfoAsideProps {
 const HeadingFiveText = styled.span`
   font-size: 18px;
 
-  @media ${theme.screens.lg} {
+  @media ${theme.screens.lg} and ${theme.screensHeight.lg} {
     font-size: 24px;
   }
 `;

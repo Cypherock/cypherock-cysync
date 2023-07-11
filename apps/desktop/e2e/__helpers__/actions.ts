@@ -29,9 +29,9 @@ export const toFirstScreen = async (screen: Page) => {
       !(await screen.getByRole('img', { name: 'Loader Icon' }).isVisible()),
   );
 
-  const hasCheckbox = await screen.getByText('I have already ran the command');
+  const hasCheckbox = await screen.getByText('I have already run the command');
   if (await hasCheckbox.isVisible()) {
-    await screen.getByText('I have already ran the command').click();
+    await screen.getByText('I have already run the command').click();
     await screen.getByRole('button', { name: 'Continue' }).click();
   }
 };

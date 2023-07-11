@@ -31,7 +31,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   };
 
   return (
-    <DialogBox width={500} $isModal>
+    <DialogBox width={500}>
       <DialogBoxBody>
         <Image src={errorIcon} alt="Error" />
         <Container display="flex" direction="column" gap={4}>
@@ -48,7 +48,7 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={onCancel} isLoading={isLoading}>
+        <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
           <LangDisplay text={lang.strings.buttons.cancel} />
         </Button>
 

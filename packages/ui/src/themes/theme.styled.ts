@@ -13,6 +13,9 @@ export const theme = {
     lg: `(min-width: ${screens.lg})`,
     xl: `(min-width: ${screens.xl})`,
   },
+  screensHeight: {
+    lg: `(min-height: ${screens.lg})`,
+  },
   palette: {
     bullet: {
       white: colors.bullet.white,
@@ -54,6 +57,10 @@ export const theme = {
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
       bar: colors.background.bar,
+      gold: colors.gradients.golden,
+      success: colors.success.main,
+      successSecondary: colors.success.secondary,
+      muted: colors.background.muted,
       inputSecondary: colors.background.inputSecondary,
     },
     border: {

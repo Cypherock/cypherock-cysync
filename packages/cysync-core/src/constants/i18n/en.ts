@@ -101,7 +101,7 @@ const en = {
     title:
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
-    checkbox: 'I have already ran the command',
+    checkbox: 'I have already run the command',
   },
   onboarding: {
     info: {
@@ -166,10 +166,13 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity ',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
-      success: 'Your X1 Vault is successfully authenticated',
+      success: {
+        title: 'Your X1 Vault is successfully authenticated',
+        subtext: 'Wait while we take you to the next screen',
+      },
       error: 'X1 Vault authentication has failed',
     },
     joystickTraining: {
@@ -188,12 +191,16 @@ const en = {
     cardTraining: {
       heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
+      subtext:
+        'Your cards communicate with the device through encrypted NFC. Make sure you keep it tapped until you hear a beep sound',
       error: 'Card Tapping has failed',
     },
     cardAuth: {
       heading: 'Card Authentication',
-      title: 'Tap X1 Cards one by one below the X1 Vault',
-      subtext: 'Do not lift until you hear 3 beep sounds',
+      title:
+        'Tap X1 Cards one by one below the \n' +
+        'X1 Vault till you hear 3 beep sounds',
+      subtext: 'Lift your card after 3 beep sounds',
     },
     success: {
       title: 'Congratulations',
@@ -329,6 +336,8 @@ const en = {
       containNumber: 'must contain at least 1 number',
       containSymbol: 'must contain at least 1 symbol',
       required: 'is required',
+      containUppercase: 'must contain at least 1 uppercase letter',
+      containLowercase: 'must contain at least 1 lowercase letter',
     },
   },
 };
