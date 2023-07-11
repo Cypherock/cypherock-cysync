@@ -73,20 +73,20 @@ const ScrollableContainer = styled.div`
 interface LeanBoxData {
   id: string;
   leftImageSrc: any;
-  rightText: string;
+  rightText?: string;
   text: string;
   checkBox: boolean;
-  tag: string;
+  tag?: string;
   forceUncheck?: boolean;
 }
 
 const RenderLeanBox: FC<LeanBoxData> = ({
   id,
   leftImageSrc,
-  rightText = undefined,
+  rightText = '',
   text,
   checkBox,
-  tag = undefined,
+  tag = '',
   forceUncheck = false,
 }) => {
   const [forceUncheckState, setForceUncheck] = useState(forceUncheck);
@@ -220,5 +220,7 @@ export const AddAccountSingleChainDialog: FC<
 };
 
 RenderLeanBox.defaultProps = {
+  rightText: '',
+  tag: '',
   forceUncheck: false,
 };
