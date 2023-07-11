@@ -5,7 +5,6 @@ import {
   goldFail,
   IconDialogBox,
   Image,
-  BlurOverlay,
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
@@ -53,13 +52,12 @@ export const CloseConfirmation: FC<{
 }> = ({ setShowOnClose }) => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <BlurOverlay>
-      <IconDialogBox
-        icon={<Image src={goldFail} alt="gold cross" />}
-        title={lang.strings.onboarding.createWallet.onClose.title}
-        subtext={lang.strings.onboarding.createWallet.onClose.subTitle}
-        footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
-      />
-    </BlurOverlay>
+    <IconDialogBox
+      $isModal
+      icon={<Image src={goldFail} alt="gold cross" />}
+      title={lang.strings.onboarding.createWallet.onClose.title}
+      subtext={lang.strings.onboarding.createWallet.onClose.subTitle}
+      footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
+    />
   );
 };
