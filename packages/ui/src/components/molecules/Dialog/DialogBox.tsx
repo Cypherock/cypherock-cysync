@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   WidthProps,
@@ -34,22 +34,25 @@ export interface DialogBoxProps extends DialogBoxUtilityProps {
   $isModal?: boolean;
 }
 
+const modalCss = css`
+  z-index: 100;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 // CSS for modal overlay background
 const ModalOverlay = styled.div`
   position: fixed;
   z-index: 99;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 64px;
 `;
 
 const DialogBoxStyle = styled.section<DialogBoxProps>`
@@ -64,6 +67,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   box-shadow: ${({ theme }) => theme.shadow.popup};
   border-color: ${({ theme }) => theme.palette.border.popup};
   text-align: center;
+  ${props => props.$isModal && modalCss}
   ${flex}
   ${display}
   ${width}
@@ -133,14 +137,12 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
   ${spacing}
 `;
 
-export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) =>
-  props.$isModal ? (
-    <ModalOverlay>
-      <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
-    </ModalOverlay>
-  ) : (
+export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
+  <>
+    {props.$isModal && <ModalOverlay />}
     <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
-  );
+  </>
+);
 
 export const DialogBoxHeader: FC<DialogBoxUtilityProps> = ({
   children,

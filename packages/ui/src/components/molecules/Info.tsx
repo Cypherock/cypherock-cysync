@@ -17,11 +17,9 @@ export const Info: FC<{
     gap={18}
     p={1}
   >
-    {showIcon && (
-      <Flex align="center" width={20} height={16}>
-        <InfoIcon color={iconVariant} width={36} height={36} />
-      </Flex>
-    )}
+    <Flex>
+      <InfoIcon color={iconVariant} width={20} height={16} />
+    </Flex>
     <Typography
       variant="fineprint"
       $textAlign={showIcon ? 'left' : 'center'}

@@ -16,4 +16,3 @@ export * from './Topbar';
 export * from './UpdateBar';
 export * from './CheckboxList';
 export * from './Table';
-export * from './ProgressLine';

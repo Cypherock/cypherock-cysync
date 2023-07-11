@@ -3,7 +3,7 @@ import React from 'react';
 
 import { DialogName } from '~/store';
 
-import { ImportWalletGuide } from './WalletActions/ImportWallet';
+import { ImportWalletGuide } from './ImportWalletGuide';
 import { WalletSyncError } from './WalletSyncError';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
