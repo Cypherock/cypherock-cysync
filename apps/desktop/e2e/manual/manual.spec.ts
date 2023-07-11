@@ -6,9 +6,10 @@ import {
   Locator,
 } from '@playwright/test';
 
-import { prepElectronApp } from '../__helpers__';
+import { clearDb, clearKeyDb, prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
+
 let screen: Page;
 
 function sleep(ms: number) {
@@ -27,6 +28,8 @@ const waitForAttribute = async (
 };
 
 test.beforeEach(async () => {
+  await clearKeyDb();
+  await clearDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');

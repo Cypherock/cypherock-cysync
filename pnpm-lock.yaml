@@ -350,11 +350,11 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.14
-        version: 0.0.14
+        specifier: ^0.0.15
+        version: 0.0.15
       '@cypherock/sdk-core':
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.8
         version: 0.0.8
@@ -2862,10 +2862,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.14:
-    resolution: {integrity: sha512-pCUIUTvfWnmhbtFX2jxxZ5j3wXHgoPI6Ok6N5UMqtjObR4iM6Nv6ZfX0WweDhdcz0CXpuMD2W8LP9IBl+jkTMQ==}
+  /@cypherock/sdk-app-manager@0.0.15:
+    resolution: {integrity: sha512-MfL/08ZbJh6RKKD8KrIfcd/E6+LVQ64h0QUSVE8vhjRLMKSDqzavckVcb1NrIFmuthyeOffThzAFtrQbJObNzg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.12
+      '@cypherock/sdk-core': 0.0.13
       '@cypherock/sdk-interfaces': 0.0.8
       '@cypherock/sdk-utils': 0.0.10
       axios: 1.4.0
@@ -2878,6 +2878,16 @@ packages:
 
   /@cypherock/sdk-core@0.0.12:
     resolution: {integrity: sha512-Xd+Bn/tuS7Kfc/XWUCrDbv5OqO3uAA7K4jxS95hdc6Wz2bGNQ2vNfiPlAJWe3IXORjInHGNLzffXs8t8xqk7EA==}
+    dependencies:
+      '@cypherock/sdk-interfaces': 0.0.8
+      '@cypherock/sdk-utils': 0.0.10
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.2.3
+      uuid: 9.0.0
+    dev: false
+
+  /@cypherock/sdk-core@0.0.13:
+    resolution: {integrity: sha512-qLKWCUPX9b9oAsalE68HemCFwKYmQECTabAL2h3LkSvW5jW8GiyHXegpFrFnrO4xQ9v7B7wTGlVNpUofdKVyow==}
     dependencies:
       '@cypherock/sdk-interfaces': 0.0.8
       '@cypherock/sdk-utils': 0.0.10

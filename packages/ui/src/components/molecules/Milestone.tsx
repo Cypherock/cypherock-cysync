@@ -16,7 +16,7 @@ const Line = styled.div<{ bg: string }>`
   height: 1px;
   background: ${props => props.bg};
 
-  @media ${theme.screens.lg} {
+  @media ${theme.screens.lg} and ${theme.screensHeight.lg} {
     width: 24px;
   }
 `;
