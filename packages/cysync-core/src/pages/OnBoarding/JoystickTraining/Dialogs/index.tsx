@@ -1,6 +1,7 @@
 import { SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp, TrainJoystickStatus } from '@cypherock/sdk-app-manager';
-import React, { useEffect } from 'react';
+import { sleep } from '@cypherock/sdk-utils';
+import React from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
@@ -10,7 +11,7 @@ import {
   useNavigateTo,
   useStateWithFinality,
 } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { JoystickTrainingInteraction } from './Joystick';
 
@@ -20,15 +21,26 @@ export const JoystickTrainingDialog: React.FC = () => {
 
   const [state, setState, isFinalState] = useStateWithFinality(
     TrainJoystickStatus.TRAIN_JOYSTICK_INIT,
-    TrainJoystickStatus.TRAIN_JOYSTICK_CENTER,
+    TrainJoystickStatus.TRAIN_JOYSTICK_CENTER + 2,
   );
 
   const trainJoystick: DeviceTask<void> = async connection => {
     const app = await ManagerApp.create(connection);
-    await app.trainJoystick(s => {
-      if (s < TrainJoystickStatus.TRAIN_JOYSTICK_CENTER) setState(s);
+    await app.trainJoystick(async s => {
+      if (s < TrainJoystickStatus.TRAIN_JOYSTICK_LEFT) setState(s);
+      if (s === TrainJoystickStatus.TRAIN_JOYSTICK_LEFT) {
+        setState(s);
+        await sleep(600);
+        setState(TrainJoystickStatus.TRAIN_JOYSTICK_LEFT + 1);
+      }
     });
-    setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER);
+    setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER + 1);
+    await sleep(600);
+    setState(TrainJoystickStatus.TRAIN_JOYSTICK_CENTER + 2);
+    navigateTo(
+      `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
+      3000,
+    );
   };
 
   const task = useDeviceTask(trainJoystick);
@@ -36,14 +48,6 @@ export const JoystickTrainingDialog: React.FC = () => {
   const onRetry = () => {
     task.run();
   };
-
-  useEffect(() => {
-    if (isFinalState)
-      navigateTo(
-        `${routes.onboarding.cardTraining.path}?disableNavigation=true`,
-        6000,
-      );
-  }, [isFinalState]);
 
   return (
     <ErrorHandlerDialog

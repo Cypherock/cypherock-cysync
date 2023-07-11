@@ -6,5 +6,12 @@ export const openAddAccountDialog = (
 
 export const openWalletSyncErrorDialog = () =>
   openDialog({ name: 'walletSyncError', data: undefined });
+
+export const openWalletActionsDialog = () =>
+  openDialog({ name: 'walletActions', data: undefined });
+
+export const openCreateWalletGuideDialog = () =>
+  openDialog({ name: 'createWalletGuide', data: undefined });
+
 export const openImportWalletGuideDialog = () =>
   openDialog({ name: 'importWalletGuide', data: undefined });

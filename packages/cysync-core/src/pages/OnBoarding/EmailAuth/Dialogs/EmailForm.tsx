@@ -106,7 +106,7 @@ export const EmailForm: React.FC = () => {
             {lang.strings.buttons.skip}
           </Button>
           <Button type="submit" isLoading={isLoading} name="email">
-            {lang.strings.buttons.confirm}
+            {lang.strings.buttons.continue}
           </Button>
         </DialogBoxFooter>
       </form>

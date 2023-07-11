@@ -46,7 +46,10 @@ export const DeviceAuthDialog: React.FC = () => {
     >
       {task.result === undefined && <DeviceAuthenticating />}
       {task.result && (
-        <SuccessDialog title={lang.strings.onboarding.deviceAuth.success} />
+        <SuccessDialog
+          title={lang.strings.onboarding.deviceAuth.success.title}
+          subtext={lang.strings.onboarding.deviceAuth.success.subtext}
+        />
       )}
     </ErrorHandlerDialog>
   );

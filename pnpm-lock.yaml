@@ -350,11 +350,11 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.14
-        version: 0.0.14
+        specifier: ^0.0.15
+        version: 0.0.15
       '@cypherock/sdk-core':
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.8
         version: 0.0.8
@@ -3241,10 +3241,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.14:
-    resolution: {integrity: sha512-pCUIUTvfWnmhbtFX2jxxZ5j3wXHgoPI6Ok6N5UMqtjObR4iM6Nv6ZfX0WweDhdcz0CXpuMD2W8LP9IBl+jkTMQ==}
+  /@cypherock/sdk-app-manager@0.0.15:
+    resolution: {integrity: sha512-MfL/08ZbJh6RKKD8KrIfcd/E6+LVQ64h0QUSVE8vhjRLMKSDqzavckVcb1NrIFmuthyeOffThzAFtrQbJObNzg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.12
+      '@cypherock/sdk-core': 0.0.13
       '@cypherock/sdk-interfaces': 0.0.8
       '@cypherock/sdk-utils': 0.0.10
       axios: 1.4.0
@@ -3257,6 +3257,16 @@ packages:
 
   /@cypherock/sdk-core@0.0.12:
     resolution: {integrity: sha512-Xd+Bn/tuS7Kfc/XWUCrDbv5OqO3uAA7K4jxS95hdc6Wz2bGNQ2vNfiPlAJWe3IXORjInHGNLzffXs8t8xqk7EA==}
+    dependencies:
+      '@cypherock/sdk-interfaces': 0.0.8
+      '@cypherock/sdk-utils': 0.0.10
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.2.4
+      uuid: 9.0.0
+    dev: false
+
+  /@cypherock/sdk-core@0.0.13:
+    resolution: {integrity: sha512-qLKWCUPX9b9oAsalE68HemCFwKYmQECTabAL2h3LkSvW5jW8GiyHXegpFrFnrO4xQ9v7B7wTGlVNpUofdKVyow==}
     dependencies:
       '@cypherock/sdk-interfaces': 0.0.8
       '@cypherock/sdk-utils': 0.0.10
@@ -4781,7 +4791,6 @@ packages:
 
   /@types/node@16.18.36:
     resolution: {integrity: sha512-8egDX8dE50XyXWH6C6PRCNkTP106DuUrvdrednFouDSmCi7IOvrqr0frznfZaHifHH/3aq/7a7v9N4wdXMqhBQ==}
-    dev: true
 
   /@types/node@18.15.11:
     resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
@@ -4794,10 +4803,6 @@ packages:
   /@types/node@20.3.1:
     resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
     dev: true
-
-  /@types/node@20.4.0:
-    resolution: {integrity: sha512-jfT7iTf/4kOQ9S7CHV9BIyRaQqHu67mOjsIQBC3BKZvzvUB6zLxEwJ6sBE3ozcvP8kF6Uk5PXN0Q+c0dfhGX0g==}
-    dev: false
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -11336,7 +11341,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.4.0
+      '@types/node': 16.18.36
       long: 5.2.3
     dev: false
 

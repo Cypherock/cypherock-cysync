@@ -4,15 +4,17 @@ import {
   ConnectionStatusType,
   SyncStatusType,
   Topbar,
+  Flex,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect, useState } from 'react';
 
-import { openImportWalletGuideDialog } from '~/actions';
+import { openWalletActionsDialog } from '~/actions';
 import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 export const Portfolio: FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const [showOnClose, setShowOnClose] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isLock, setIsLock] = useState<boolean>(true);
   const [haveNotifications, setHaveNotifications] = useState<boolean>(false);
@@ -23,8 +25,9 @@ export const Portfolio: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(openImportWalletGuideDialog());
+    dispatch(openWalletActionsDialog());
   }, []);
+
   return (
     <>
       <Topbar

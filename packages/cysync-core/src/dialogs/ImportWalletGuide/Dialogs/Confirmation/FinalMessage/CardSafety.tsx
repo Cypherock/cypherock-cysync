@@ -6,6 +6,7 @@ import {
   informationIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+import { openWalletActionsDialog } from '~/actions';
 
 import { useImportWalletGuide } from '~/dialogs/ImportWalletGuide/context';
 import {
@@ -31,6 +32,7 @@ const Buttons: FC = () => {
       </Button>
       <Button
         onClick={() => {
+          dispatch(openWalletActionsDialog());
           dispatch(closeDialog('importWalletGuide'));
           setCurrentTab(0);
           setCurrentDialog(0);

@@ -1,19 +1,19 @@
 import {
-  DialogBoxFooter,
   Button,
+  cysyncLockedLogo,
   DialogBox,
   DialogBoxBody,
+  DialogBoxFooter,
   Flex,
-  LangDisplay,
-  Typography,
-  cysyncLockedLogo,
   Image,
+  LangDisplay,
   PasswordInput,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
 import { useLockscreen } from '~/context';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
@@ -47,14 +47,14 @@ export const Lockscreen: React.FC = () => {
   };
 
   return (
-    <>
-      <Flex
-        $bgColor="contentGradient"
-        justify="center"
-        align="center"
-        width="screen"
-        height="screen"
-      >
+    <Flex
+      $bgColor="contentGradient"
+      justify="center"
+      align="center"
+      width="screen"
+      height="screen"
+    >
+      {!showForgotPasswordDialog ? (
         <form onSubmit={onPasswordSubmit}>
           <DialogBox width={500}>
             <DialogBoxBody gap={0}>
@@ -107,12 +107,11 @@ export const Lockscreen: React.FC = () => {
             </DialogBoxFooter>
           </DialogBox>
         </form>
-      </Flex>
-      {showForgotPasswordDialog && (
+      ) : (
         <ForgotPasswordDialog
           onCancel={() => setShowForgotPasswordDialog(false)}
         />
       )}
-    </>
+    </Flex>
   );
 };
