@@ -15,7 +15,7 @@ export const SyncAccount: React.FC = () => {
   const addAcc = lang.strings.addAccount;
   const { initAccount, noAccount } = lang.strings;
   const { selectCrypto } = lang.strings;
-  console.log('selectCrypto', selectCrypto);
+
   return (
     <div>
       <AddAccountDialog addAccount={addAcc} />
