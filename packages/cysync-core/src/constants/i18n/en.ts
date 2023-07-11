@@ -8,6 +8,11 @@ import {
 } from '@cypherock/sdk-interfaces';
 
 import { DeviceErrorCodes } from './types';
+import {
+  bitcoinIcon,
+  bnbChainIcon,
+  etheriumBlueIcon,
+} from '@cypherock/cysync-ui';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',
@@ -102,6 +107,172 @@ const en = {
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
     checkbox: 'I have already ran the command',
+  },
+  initAccount: {},
+  syncAccount: {},
+  noAccount: {},
+  addAccount: {
+    info: {
+      dialogBox: {
+        title: 'Add Coin/Account',
+        header: 'Add new accounts',
+        subheader: 'New Accounts',
+        submitButton: 'Add Accounts',
+        advanced: 'Advanced',
+        dataArray: [
+          {
+            id: '1', // Add a unique identifier to each data object
+            leftImageSrc: bnbChainIcon,
+            // rightText: '2.35 ETH',
+            text: 'BNB Chain 1',
+            checkBox: true,
+            displayRadioButton: true,
+          },
+          {
+            id: '2',
+            leftImageSrc: bitcoinIcon,
+            // rightText: '0.77 ETH',
+            text: 'Bitcoin 1',
+            checkBox: true,
+            tag: 'TAPROOT',
+            displayRadioButton: true,
+          },
+          {
+            id: '3',
+            leftImageSrc: etheriumBlueIcon,
+            // rightText: '0.08 ETH',
+            text: 'Etherium 3',
+            checkBox: true,
+            displayRadioButton: true,
+          },
+        ],
+      },
+    },
+  },
+  selectCrypto: {
+    info: {
+      dialogBox: {
+        title: 'Add Coin/Account',
+        header: 'Select the Wallet & Coins you want to add',
+        subTitle: 'Add a coin/account to wallet',
+        constant: 'Cypherock Red',
+        buttonName: 'continue',
+        dropDownData: [
+          {
+            id: '1', // Add a unique identifier to each data object
+            leftImageSrc: bnbChainIcon,
+            text: 'BNB Chain 1',
+            displayRadioButton: true,
+          },
+          {
+            id: '2',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 1',
+            tag: 'TAPROOT',
+            displayRadioButton: true,
+          },
+          {
+            id: '3',
+            leftImageSrc: etheriumBlueIcon,
+            text: 'Etherium 3',
+            displayRadioButton: true,
+          },
+        ],
+        dropDownDataWithWallet: [
+          {
+            id: '41', // Add a unique identifier to each data object
+            text: 'Official',
+            displayRadioButton: true,
+          },
+          {
+            id: '42',
+            text: 'Cypherock Red',
+            displayRadioButton: true,
+          },
+          {
+            id: '43',
+            text: 'Personal',
+            displayRadioButton: true,
+          },
+          {
+            id: '44',
+            text: 'Business',
+            displayRadioButton: true,
+          },
+        ],
+      },
+    },
+  },
+  addAccountSingleChain: {
+    info: {
+      dialogBox: {
+        title: 'Add Coin/Account',
+        header: 'Add new accounts',
+        subheader: 'New Accounts',
+        subheader2: 'Account not yet synced',
+        subheader3: 'Accounts already in portfolio',
+        subheaderright: 'Deselect all',
+        submitButton: 'Add Accounts',
+        advanced: 'Show all address types (?)',
+        dataArray: [
+          {
+            id: '2',
+            leftImageSrc: bitcoinIcon,
+            // rightText: '0.77 ETH',
+            text: 'Bitcoin 1',
+            checkBox: true,
+            tag: 'TAPROOT',
+          },
+        ],
+        accountNotSynced: [
+          {
+            id: '1',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 2',
+            checkBox: true,
+            tag: 'TAPROOT',
+          },
+          {
+            id: '22',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 2',
+            checkBox: true,
+            tag: 'TAPROOT',
+          },
+          {
+            id: '3',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 2',
+            checkBox: true,
+            tag: 'SEGWIT',
+          },
+          {
+            id: '4',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 2',
+            checkBox: true,
+            tag: 'NATIVE SEGWIT',
+          },
+        ],
+        accountsInPortfolio: [
+          {
+            id: '31',
+            leftImageSrc: bitcoinIcon,
+            text: 'Bitcoin 1',
+            checkBox: true,
+            tag: 'SEGWIT',
+          },
+          {
+            id: '32',
+            leftImageSrc: bitcoinIcon,
+            // rightText: '0.77 ETH',
+            text: 'Bitcoin 1',
+            checkBox: true,
+            tag: 'NATIVE SEGWIT',
+          },
+        ],
+      },
+    },
   },
   onboarding: {
     info: {

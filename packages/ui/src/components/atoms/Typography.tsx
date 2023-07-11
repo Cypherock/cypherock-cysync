@@ -21,6 +21,7 @@ export type TypographyColor =
   | 'gold'
   | 'silver'
   | 'error'
+  | 'white'
   | 'success'
   | 'heading'
   | 'muted'
@@ -154,7 +155,7 @@ const PStyle = styled.p<HeadingProps>`
   ${baseStyle};
 `;
 
-interface TypographyProps extends HeadingProps {
+export interface TypographyProps extends HeadingProps {
   children?: ReactNode;
   variant?:
     | 'h1'

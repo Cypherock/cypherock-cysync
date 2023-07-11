@@ -19,6 +19,12 @@ export interface DialogBoxUtilityProps
     DisplayProps,
     SpacingProps {
   children?: ReactNode;
+  bgColor?: string;
+  paddingTop?: string;
+  paddingRight?: string;
+  paddingBottom?: string;
+  paddingLeft?: string;
+  overflowY?: string;
 }
 
 export interface DialogBoxProps extends DialogBoxUtilityProps {
@@ -66,6 +72,8 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
+  position: sticky;
+  top: 0;
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -89,15 +97,35 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   justify-content: center;
   align-items: center;
   width: inherit;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-left: ${props => props.paddingLeft ?? '40px'};
+  padding-right: ${props => props.paddingRight ?? '40px'};
+  padding-top: ${props => props.paddingTop ?? '32px'};
+  padding-bottom: ${props => props.paddingBottom ?? '32px'};
   gap: 32px;
+  background-color: ${props => props.bgColor ?? 'inherit'};
+  /* overflow-y: auto;
+  overflow-x: hidden; Prevent horizontal scrollbar */
   ${flex}
   ${width}
   ${height}
   ${spacing}
+  // Set a fixed height
+ // height: 300px; // adjust this value as per your need
+  
+  // or set a max-height
+  max-height: calc(100vh - 200px); // adjust this value as per your need
+
+  /* overflow-y: auto;
+  overflow-x: hidden; // Prevent horizontal scrollbar */
+  overflow: visible;
+
+  ${({ overflowY }) =>
+    overflowY &&
+    css`
+      overflow-y: ${overflowY};
+    `}
+  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  position: relative;
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
@@ -147,13 +175,40 @@ export const DialogBoxFooter: FC<DialogBoxUtilityProps> = ({
 DialogBox.defaultProps = {
   children: undefined,
   $isModal: false,
+  paddingTop: undefined,
+  paddingRight: undefined,
+  paddingBottom: undefined,
+  paddingLeft: undefined,
+  bgColor: undefined,
+  overflowY: undefined,
 };
+
 DialogBoxBody.defaultProps = {
   children: undefined,
+  bgColor: undefined,
+  paddingTop: undefined,
+  paddingRight: undefined,
+  paddingBottom: undefined,
+  paddingLeft: undefined,
+  overflowY: undefined,
 };
+
 DialogBoxFooter.defaultProps = {
   children: undefined,
+  bgColor: undefined,
+  paddingTop: undefined,
+  paddingRight: undefined,
+  paddingBottom: undefined,
+  paddingLeft: undefined,
+  overflowY: undefined,
 };
+
 DialogBoxHeader.defaultProps = {
   children: undefined,
+  bgColor: undefined,
+  paddingTop: undefined,
+  paddingRight: undefined,
+  paddingBottom: undefined,
+  paddingLeft: undefined,
+  overflowY: undefined,
 };

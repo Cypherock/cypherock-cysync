@@ -19,16 +19,18 @@ export interface InputProps {
   postfixIcon?: string;
   postfixIconAlt?: string;
   onPostfixIconClick?: () => void;
+  bgColor?: string;
+  onClick?: () => void;
 }
 
-const InputStyle = styled.input`
+const InputStyle = styled.input<{ bgColor?: string }>`
   position: relative;
   width: 100%;
   border: none;
   padding: 12px 24px;
   background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
-  background: #272320;
+  background: ${({ bgColor }) => bgColor ?? '#272320'};
   border: 1px solid #39322c;
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
@@ -61,6 +63,8 @@ export const Input: FC<InputProps> = ({
   postfixIcon,
   postfixIconAlt,
   onPostfixIconClick,
+  bgColor,
+  onClick,
 }) => (
   <Flex direction="column" width="full" align="center" justify="center">
     {label && (
@@ -74,7 +78,9 @@ export const Input: FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         disabled={disabled}
+        bgColor={bgColor}
         value={value}
+        onClick={onClick}
         onChange={e => onChange && onChange(e.target.value)}
       />
       {postfixIcon && postfixIconAlt && (
@@ -102,4 +108,6 @@ Input.defaultProps = {
   postfixIcon: undefined,
   postfixIconAlt: undefined,
   onPostfixIconClick: undefined,
+  bgColor: undefined,
+  onClick: undefined,
 };

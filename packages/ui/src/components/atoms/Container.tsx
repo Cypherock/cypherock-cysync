@@ -8,6 +8,7 @@ interface ContainerProps extends UtilsProps {
   size?: 'lg';
   $noFlex?: boolean;
   padding?: string;
+  border?: string; // Add the border prop here
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
@@ -32,4 +33,5 @@ Container.defaultProps = {
   size: 'lg',
   $noFlex: false,
   padding: undefined,
+  border: undefined,
 };
