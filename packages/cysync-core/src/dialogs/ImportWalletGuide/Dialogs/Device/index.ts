@@ -4,3 +4,6 @@ export * from './EnterWalletName';
 export * from './Instructions';
 export * from './SetupWalletPin';
 export * from './WalletPinConsent';
+export * from './CountWords';
+export * from './EnterSeedPhrase';
+export * from './VerifySeedPhrase';
