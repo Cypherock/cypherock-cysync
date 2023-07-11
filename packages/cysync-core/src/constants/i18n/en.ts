@@ -12,6 +12,8 @@ import {
   bitcoinIcon,
   bnbChainIcon,
   etheriumBlueIcon,
+  checkIcon,
+  halfLoaderGold,
 } from '@cypherock/cysync-ui';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
@@ -108,9 +110,66 @@ const en = {
     subtext: 'Restart the application after running the script',
     checkbox: 'I have already ran the command',
   },
-  initAccount: {},
+  initAccount: {
+    info: {
+      dialogBox: {
+        title: 'Add Coin/Account',
+        header: 'Follow instructions on the X1 Vault',
+        subheader: 'Add a coin/account Wallet',
+        subheader1: 'Cypherock Red',
+        dataArray: [
+          {
+            id: '1', // Add a unique identifier to each data object
+            leftImageSrc: bnbChainIcon,
+            text: 'BNB Chain 1',
+            rightImageSrc: checkIcon,
+          },
+          {
+            id: '2',
+            leftImageSrc: bitcoinIcon,
+            // rightText: '0.77 ETH',
+            text: 'Bitcoin 1',
+            rightImageSrc: halfLoaderGold,
+          },
+          {
+            id: '3',
+            leftImageSrc: etheriumBlueIcon,
+            text: 'Etherium 3',
+          },
+        ],
+      },
+    },
+  },
   syncAccount: {},
-  noAccount: {},
+  noAccount: {
+    info: {
+      dialogBox: {
+        title: 'Add Coin/Account',
+        header: 'No account found yet',
+        subheader: 'Accounts already in portfolio',
+        dataArray: [
+          {
+            id: '21', // Add a unique identifier to each data object
+            leftImageSrc: etheriumBlueIcon,
+            rightText: '2.35 ETH',
+            text: 'Etherium 1',
+          },
+          {
+            id: '22',
+            leftImageSrc: etheriumBlueIcon,
+            rightText: '0.77 ETH',
+            text: 'Etherium 2',
+          },
+          {
+            id: '23',
+            leftImageSrc: etheriumBlueIcon,
+            rightText: '0.08 ETH',
+            text: 'Etherium 3',
+          },
+        ],
+      },
+    },
+  },
   addAccount: {
     info: {
       dialogBox: {
@@ -121,29 +180,26 @@ const en = {
         advanced: 'Advanced',
         dataArray: [
           {
-            id: '1', // Add a unique identifier to each data object
+            id: '31', // Add a unique identifier to each data object
             leftImageSrc: bnbChainIcon,
             // rightText: '2.35 ETH',
             text: 'BNB Chain 1',
             checkBox: true,
-            displayRadioButton: true,
           },
           {
-            id: '2',
+            id: '32',
             leftImageSrc: bitcoinIcon,
             // rightText: '0.77 ETH',
             text: 'Bitcoin 1',
             checkBox: true,
             tag: 'TAPROOT',
-            displayRadioButton: true,
           },
           {
-            id: '3',
+            id: '33',
             leftImageSrc: etheriumBlueIcon,
             // rightText: '0.08 ETH',
             text: 'Etherium 3',
             checkBox: true,
-            displayRadioButton: true,
           },
         ],
       },
@@ -159,20 +215,20 @@ const en = {
         buttonName: 'continue',
         dropDownData: [
           {
-            id: '1', // Add a unique identifier to each data object
+            id: '41', // Add a unique identifier to each data object
             leftImageSrc: bnbChainIcon,
             text: 'BNB Chain 1',
             displayRadioButton: true,
           },
           {
-            id: '2',
+            id: '42',
             leftImageSrc: bitcoinIcon,
             text: 'Bitcoin 1',
             tag: 'TAPROOT',
             displayRadioButton: true,
           },
           {
-            id: '3',
+            id: '43',
             leftImageSrc: etheriumBlueIcon,
             text: 'Etherium 3',
             displayRadioButton: true,
@@ -180,22 +236,22 @@ const en = {
         ],
         dropDownDataWithWallet: [
           {
-            id: '41', // Add a unique identifier to each data object
+            id: '51', // Add a unique identifier to each data object
             text: 'Official',
             displayRadioButton: true,
           },
           {
-            id: '42',
+            id: '52',
             text: 'Cypherock Red',
             displayRadioButton: true,
           },
           {
-            id: '43',
+            id: '53',
             text: 'Personal',
             displayRadioButton: true,
           },
           {
-            id: '44',
+            id: '54',
             text: 'Business',
             displayRadioButton: true,
           },

@@ -13,27 +13,42 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export const NoAccountDialog: React.FC<{ dataArray: any[] }> = ({
-  dataArray,
+interface Info {
+  dialogBox: {
+    title: string;
+    header: string;
+    subheader: string;
+    dataArray: {
+      id: string;
+      leftImageSrc?: any;
+      rightText?: string;
+      text: string;
+    }[];
+  };
+}
+
+export const NoAccountDialog: React.FC<{ noAccount: Info }> = ({
+  noAccount,
 }) => (
   <div>
     <DialogBox width={500} height={544}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
-          Add Coin/Account
+          {noAccount.dialogBox.title}
         </Typography>
       </DialogBoxHeader>
       <DialogBoxBody>
         <Image src={loaderGrayIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center" padding="0px 0px 0px 0px">
-          No accounts found yet
+          {noAccount.dialogBox.header}
         </Typography>
         <div>
           <InputLabel margin="32px 8px 8px 0px">
-            Accounts already in portfolio ({dataArray.length})
+            {noAccount.dialogBox.subheader} (
+            {noAccount.dialogBox.dataArray.length})
           </InputLabel>
           <LeanBoxContainer padding="0px">
-            {dataArray.map(data => (
+            {noAccount.dialogBox.dataArray.map(data => (
               <LeanBox
                 key={data.id}
                 leftImageSrc={data.leftImageSrc}
