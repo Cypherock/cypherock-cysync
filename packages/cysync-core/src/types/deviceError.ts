@@ -4,6 +4,7 @@ import {
   DeviceCommunicationErrorType,
   DeviceCompatibilityErrorType,
   DeviceConnectionErrorType,
+  CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
 export type DeviceErrorCodes =
@@ -11,4 +12,5 @@ export type DeviceErrorCodes =
   | DeviceBootloaderErrorType
   | DeviceCommunicationErrorType
   | DeviceConnectionErrorType
-  | DeviceCompatibilityErrorType;
+  | DeviceCompatibilityErrorType
+  | CardAppErrorType;
