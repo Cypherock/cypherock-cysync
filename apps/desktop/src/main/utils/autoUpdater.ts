@@ -51,7 +51,7 @@ class AutoUpdater {
   public async checkForUpdates(): Promise<UpdateInfo | undefined> {
     const update = await electronAutoUpdater.checkForUpdates();
 
-    if (update) {
+    if (update && update.versionInfo.version !== config.VERSION) {
       this.isUpdateAvailable = true;
       return this.parseUpdateInfo(update.updateInfo);
     }
