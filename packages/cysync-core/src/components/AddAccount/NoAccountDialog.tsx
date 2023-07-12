@@ -39,11 +39,11 @@ export const NoAccountDialog: React.FC<{ noAccount: Info }> = ({
       </DialogBoxHeader>
       <DialogBoxBody>
         <Image src={loaderGrayIcon} alt="Loader" />
-        <Typography variant="h5" $textAlign="center" padding="0px 0px 0px 0px">
+        <Typography variant="h5" $textAlign="center">
           {noAccount.dialogBox.header}
         </Typography>
         <div>
-          <InputLabel margin="32px 8px 8px 0px">
+          <InputLabel mt={4} mr={2} mb={2}>
             {noAccount.dialogBox.subheader} (
             {noAccount.dialogBox.dataArray.length})
           </InputLabel>

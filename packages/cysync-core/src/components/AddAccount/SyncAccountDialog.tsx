@@ -25,11 +25,11 @@ export const SyncAccountDialog: React.FC<{ dataArray: any[] }> = ({
       </DialogBoxHeader>
       <DialogBoxBody>
         <Image src={loaderGrayIcon} alt="Loader" />
-        <Typography variant="h5" $textAlign="center" padding="0px 0px 0px 0px">
+        <Typography variant="h5" $textAlign="center">
           Syncing the accounts
         </Typography>
         <div>
-          <InputLabel margin="32px 8px 8px 0px">
+          <InputLabel mt={4} mr={2} mb={2}>
             Accounts already in portfolio ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer padding="0px">

@@ -16,6 +16,8 @@ import {
   transform,
   PositionProps,
   position,
+  BorderProps,
+  border,
 } from '../utils';
 
 export interface ImageProps
@@ -25,12 +27,13 @@ export interface ImageProps
     ImageWidthProps,
     TransformProps,
     PositionProps,
-    FlexProps {
+    FlexProps,
+    BorderProps {
   src: string;
   alt: string;
-  border?: string;
-  padding?: string;
-  margin?: string;
+  $borderColor?: string;
+  $borderRadius?: number;
+  $borderStyle?: string;
 }
 
 const ImageStyle = styled.img<ImageProps>`
@@ -41,9 +44,7 @@ const ImageStyle = styled.img<ImageProps>`
   ${transform}
   ${position}
   ${flex}
-  border: ${props => props.border ?? 'none'};
-  padding: ${props => props.padding ?? 'none'};
-  margin: ${props => props.margin ?? 'none'};
+  ${border}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
@@ -51,7 +52,7 @@ export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
 );
 
 Image.defaultProps = {
-  border: undefined,
-  padding: undefined,
-  margin: undefined,
+  $borderColor: undefined,
+  $borderRadius: undefined,
+  $borderStyle: undefined,
 };

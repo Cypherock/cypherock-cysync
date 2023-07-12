@@ -17,10 +17,10 @@ interface AddAccountDialogProps {
   addAccount: {
     info: {
       dialogBox: {
-        title: string;
-        header: string;
+        title?: string;
+        header?: string;
         subheader: string;
-        submitButton: string;
+        submitButton?: string;
         advanced: string;
         dataArray: Array<{
           id: string;
@@ -52,15 +52,13 @@ export const AddAccountDialog: React.FC<AddAccountDialogProps> = ({
         </DialogBoxHeader>
         <DialogBoxBody>
           <Image src={settingsIcon} alt="Loader" />
-          <Typography
-            variant="h5"
-            $textAlign="center"
-            padding="0px 0px 0px 0px"
-          >
+          <Typography variant="h5" $textAlign="center">
             {header}
           </Typography>
           <div>
-            <InputLabel margin="32px 8px 8px 0px">{subheader}</InputLabel>
+            <InputLabel mt={4} mr={2} mb={1}>
+              {subheader}
+            </InputLabel>
             <LeanBoxContainer padding="0px">
               {dataArray.map(data => (
                 <LeanBox
@@ -82,6 +80,7 @@ export const AddAccountDialog: React.FC<AddAccountDialogProps> = ({
               fontSize="13px"
               fontWeight="400"
               textAlign="right"
+              mt={1}
             >
               {advanced}
             </InputLabel>

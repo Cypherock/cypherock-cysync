@@ -1,14 +1,19 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { utils, UtilsProps } from '../utils';
+import {
+  spacing,
+  SpacingProps,
+  BorderProps,
+  border,
+  utils,
+  UtilsProps,
+} from '../utils';
 
-interface ContainerProps extends UtilsProps {
+interface ContainerProps extends UtilsProps, SpacingProps, BorderProps {
   children?: ReactNode;
   size?: 'lg';
   $noFlex?: boolean;
-  padding?: string;
-  border?: string; // Add the border prop here
 }
 
 const ContainerStyle = styled.div<ContainerProps>`
@@ -20,8 +25,8 @@ const ContainerStyle = styled.div<ContainerProps>`
       align-items: center;
     `}
   ${utils}
-
-  padding: ${props => props.padding ?? '0'};
+  ${spacing}
+  ${border}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (
@@ -32,6 +37,15 @@ Container.defaultProps = {
   children: null,
   size: 'lg',
   $noFlex: false,
-  padding: undefined,
-  border: undefined,
 };
+
+export const CustomContainer = styled(Container)`
+  flex-direction: column;
+  gap: 32px;
+  z-index: 1;
+`;
+
+export const ScrollableContainer = styled.div`
+  max-height: 100%;
+  overflow-y: auto;
+`;

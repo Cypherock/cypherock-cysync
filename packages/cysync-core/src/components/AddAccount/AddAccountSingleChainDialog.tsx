@@ -1,4 +1,6 @@
 import {
+  ScrollableContainer,
+  CustomContainer,
   DialogBox,
   DialogBoxHeader,
   DialogBoxBody,
@@ -10,14 +12,11 @@ import {
   DialogBoxFooter,
   Button,
   settingsIcon,
-  Container,
   Flex,
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 
-// ... (other code)
 interface AddAccountSingleChainDialogProps {
   addAccount: {
     info: {
@@ -58,17 +57,6 @@ interface AddAccountSingleChainDialogProps {
     };
   };
 }
-
-const CustomContainer = styled(Container)`
-  flex-direction: column;
-  gap: 32px;
-  z-index: 1;
-`;
-
-const ScrollableContainer = styled.div`
-  max-height: 100%;
-  overflow-y: auto;
-`;
 
 interface LeanBoxData {
   id: string;
@@ -132,10 +120,10 @@ export const AddAccountSingleChainDialog: FC<
     },
   },
 }) => {
-  const [forceUncheck, setForceUncheck] = useState(false); // Add this state
+  const [forceUncheck, setForceUncheck] = useState(false);
 
   const handleClick = () => {
-    setForceUncheck(true); // Uncheck all checkboxes when "subheaderright" is clicked
+    setForceUncheck(true);
     setTimeout(() => setForceUncheck(false), 100);
   };
 
@@ -146,7 +134,7 @@ export const AddAccountSingleChainDialog: FC<
           {title}
         </Typography>
       </DialogBoxHeader>
-      <CustomContainer padding="32px 40px 0px 40px">
+      <CustomContainer pt={4} pr={5} pl={5}>
         <Image src={settingsIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           {header}
@@ -155,7 +143,9 @@ export const AddAccountSingleChainDialog: FC<
       <ScrollableContainer>
         <DialogBoxBody overflowY="auto">
           <div>
-            <InputLabel margin="32px 8px 8px 0px">{subheader}</InputLabel>
+            <InputLabel mt={4} mr={1} mb={1}>
+              {subheader}
+            </InputLabel>
             <LeanBoxContainer padding="0px">
               {dataArray.map(data => (
                 <RenderLeanBox key={data.id} {...data} />
@@ -172,15 +162,19 @@ export const AddAccountSingleChainDialog: FC<
                 noWrap
                 fontSize="13px"
                 fontWeight="400"
-                padding="0px 0px 0px 10px"
-                margin="16px 8px 8px 0px"
+                pl={1}
+                mt={2}
+                mr={1}
+                mb={1}
               >
                 {subheader2} ({accountNotSynced.length})
               </InputLabel>
               <InputLabel
                 className="gold-label"
-                padding="0px 0px 0px 10px"
-                margin="16px 8px 8px 0px"
+                pl={1}
+                mt={2}
+                mr={1}
+                mb={1}
                 noWrap
                 textAlign="right"
                 onClick={handleClick}
@@ -201,7 +195,7 @@ export const AddAccountSingleChainDialog: FC<
           </div>
 
           <div>
-            <InputLabel padding="0px 0px 0px 10px" margin="0px 8px 8px 0px">
+            <InputLabel pl={1} mr={1} mb={1}>
               {subheader3}
             </InputLabel>
             <LeanBoxContainer padding="0px">

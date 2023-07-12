@@ -15,7 +15,7 @@ type Borders = {
 };
 type BorderColor = 'popup' | 'separator' | string;
 type BorderRadius = number | 'full';
-type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
+type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | string;
 
 export interface BorderProps extends Borders {
   $borderColor?: BorderColor;
