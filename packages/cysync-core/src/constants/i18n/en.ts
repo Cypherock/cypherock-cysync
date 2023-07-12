@@ -6,8 +6,6 @@ import {
   DeviceCompatibilityErrorType,
   DeviceConnectionErrorType,
 } from '@cypherock/sdk-interfaces';
-
-import { DeviceErrorCodes } from './types';
 import {
   bitcoinIcon,
   bnbChainIcon,
@@ -15,6 +13,7 @@ import {
   checkIcon,
   halfLoaderGold,
 } from '@cypherock/cysync-ui';
+import { DeviceErrorCodes } from '~/types/deviceError';
 
 const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',
@@ -37,10 +36,6 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'The device sdk does not support this function',
   [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]:
     'The connected device is not supported by this SDK',
-  [DeviceConnectionErrorType.CONNECTION_CLOSED]:
-    'Connection was closed while in process',
-  [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
-    'Failed to create device connection',
   [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]:
     'The device is not in bootloader mode',
   [DeviceBootloaderErrorType.FIRMWARE_SIZE_LIMIT_EXCEEDED]:
@@ -76,6 +71,10 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
   [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
   [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
+  [DeviceAppErrorType.DEVICE_AUTH_FAILED]:
+    'Device seems to be Compromised. Contact Cypherock support immediately',
+  [DeviceAppErrorType.CARD_AUTH_FAILED]:
+    'Card seems to be Compromised. Contact Cypherock support immediately',
 };
 
 const en = {
@@ -108,7 +107,7 @@ const en = {
     title:
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
-    checkbox: 'I have already ran the command',
+    checkbox: 'I have already run the command',
   },
   initAccount: {
     info: {
@@ -353,14 +352,14 @@ const en = {
       titleSecond: 'I have already used a Cypherock X1',
       subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
       subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards.',
+        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
     },
     terms: {
-      title: 'Terms of use',
+      title: 'Terms of Use',
       subtext:
         'Take some time to review our Terms of Service and Privacy Policy',
       bulletPoints: {
-        terms: 'Terms Of Service',
+        terms: 'Terms of Service',
         privacyPolicy: 'Privacy Policy',
       },
       consent:
@@ -370,7 +369,7 @@ const en = {
       heading: 'Set Password',
       title: 'Set your cySync password ',
       subtitle: 'We do not store your password on our servers',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       newPasswordLabel: 'New Password',
       confirmPasswordLabel: 'Confirm Password',
       hint: 'Use 8 or more characters with a mix of letters, numbers & symbols',
@@ -380,7 +379,7 @@ const en = {
       title:
         'You are recommended to enter an email ID as a 2FA to get authenticity results ',
       subtitle: 'We do not store this email ID permanently on our servers ',
-      success: 'Your new password is set',
+      success: 'Your cySync password has been successfully set',
       enterEmailLabel: 'Email',
       placeholder: 'Email',
     },
@@ -393,35 +392,192 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
-      success: 'Your X1 Vault is successfully authenticated',
-      error: 'Device Authentication has failed',
-      errorSubtext:
-        'Device seems to be Compromised. Contact Cypherock support immediately',
+      success: {
+        title: 'Your X1 Vault is successfully authenticated',
+        subtext: 'Wait while we take you to the next screen',
+      },
+      error: 'X1 Vault authentication has failed',
     },
     joystickTraining: {
-      heading: 'Joystick Checkup',
-      subtext: 'X1 Vault provides 4 way joystick for\nscreen navigation',
+      heading: 'Joystick Instructions',
+      subtext: 'X1 Vault provides 4 way joystick for screen navigation',
       upTitle: 'Toggle Up',
       rightTitle: 'Toggle Right',
       downTitle: 'Toggle Down',
       leftTitle: 'Toggle Left',
       centerTitle: 'Center click the joystick to proceed',
-      centerSubtext: 'X1 Vault has a center button to\nperform click',
-      footer: 'Follow the instruction on the device',
-      success: 'Joystick test complete',
-      error: 'Joystick Training has failed',
+      centerSubtext: 'X1 Vault has a center button to perform click',
+      footer: 'Follow the instructions on the device',
+      success: 'Joystick instructions completed',
+      error: 'Joystick instructions has failed',
     },
     cardTraining: {
-      heading: 'Card Tap Checkup',
+      heading: 'Card Tapping Instructions',
       title: 'Tap any X1 Card below the X1 Vault to test card tapping',
+      subtext:
+        'Your cards communicate with the device through encrypted NFC. Make sure you keep it tapped until you hear a beep sound',
+      error: 'Card Tapping has failed',
     },
     cardAuth: {
       heading: 'Card Authentication',
-      title: 'Tap X1 Cards one by one below the\nX1 Vault',
-      subtext: 'Do not lift until you hear 3 beep sounds',
+      title:
+        'Tap X1 Cards one by one below the \n' +
+        'X1 Vault till you hear 3 beep sounds',
+      subtext: 'Lift your card after 3 beep sounds',
+    },
+    walletActionsDialogBox: {
+      title: `Let's add a wallet before we proceed. Make sure you have all the 4 X1 cards with you`,
+      subTitle:
+        'The following tutorials are just there to guide you on your X1 vault. You can create a wallet even without these tutorials independently on your Cypherock X1',
+      createWallet: {
+        title: 'Create a new wallet',
+        list: [
+          'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
+        ],
+        button: 'Create',
+      },
+      importWallet: {
+        title: 'Import your wallet from a seed phrase',
+        list: [
+          `You want to use Cypherock X1 as a backup of your other wallets `,
+          `You want to transfer your assets from your other wallets into Cypherock X1 `,
+          `You want to manage and track portfolio of your other wallets through Cypherock X1 `,
+        ],
+        button: 'Import',
+      },
+      transferWallet: {
+        title: 'Transfer from old to new Cypherock X1',
+        subTitle: `If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards whatsoever, we don't judge`,
+        button: 'Transfer',
+      },
+    },
+    createWallet: {
+      aside: {
+        tabs: {
+          device: 'Device',
+          syncX1Cards: 'Sync X1 Cards',
+          confirmation: 'Confirmation',
+        },
+      },
+      followInfo: {
+        heading: 'Setup Wallet Name',
+        title: 'Follow Instructions on the X1 Vault',
+        subTitle:
+          'The wallet name once set cannot be changed afterwards. You have to delete and recreate the wallet again if you need to change the wallet name in the future',
+        list: {
+          first: {
+            first: 'Your X1 Vault should be on the ',
+            second: 'Main Menu',
+          },
+          second: {
+            first: 'On the Main Menu, Click on "',
+            second: 'Create Wallet',
+            third: '" and then Select "',
+            fourth: 'Generate a new Wallet',
+            fifth: '"',
+          },
+        },
+      },
+      enterWalletName: {
+        heading: 'Setup Wallet Name',
+        title: 'Enter a wallet name on your X1 Vault',
+        list: [`Upto 15 characters allowed`, `It can be alphanumeric`],
+        note: 'Make sure that the wallet name is unique to other wallet names on the device',
+      },
+      confirmWallet: {
+        heading: 'Setup Wallet Name',
+        title: 'Confirm wallet name on the X1 Vault',
+      },
+      setupPinConsent: {
+        heading: 'Setup Wallet Security',
+        title: 'Do you want to setup a PIN for your wallet?',
+        subTitle:
+          'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+      },
+      enterPin: {
+        heading: 'Setup Wallet Security',
+        title: 'Setup a PIN on the X1 Vault',
+        subTitle:
+          // todo: change the question mark color to gold.
+          'Make sure you make a backup of your PIN. If you lose the PIN, you will lose access to your funds. Even Cypherock will not be able to help recover your assets (?)',
+        list: ['Use between 4 and 8 characters', 'The PIN can be alphanumeric'],
+        // todo: change the question mark color to gold.
+        note: 'Make sure you make a backup of your PIN, if you lose it , you lose access to your funds (?)',
+      },
+      confirmPin: {
+        heading: 'Setup Wallet Security',
+        title: 'Confirm the entered PIN on the  X1 Vault again',
+        loading: 'Please wait...',
+        list: [
+          `Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets`,
+          `Backup it up in a safe place`,
+        ],
+      },
+      syncX1Cards: {
+        heading: 'Create New Wallet',
+        title: 'Tap X1 Cards one by one below the X1 Vault',
+        subTitle: 'Do not lift until you hear a beep sound',
+        list: [
+          'Make sure your X1 Cards belong to the same family',
+          'Make sure you tap the X1 Cards in the correct order',
+        ],
+      },
+      walletCreationSuccess: {
+        heading: 'Congratulations',
+        titles: {
+          first: 'Congratulations, your wallet is now successfully created',
+          second:
+            'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+          // todo: change the question mark color to gold.
+          third:
+            'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards (?)',
+        },
+      },
+      finalMessage: {
+        cardSafety: {
+          heading: 'Final Message',
+          title: 'Important Note',
+          note: 'In case you need to add another wallet, you will need to fetch all of the 4 X1 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
+        },
+        addAnotherWallet: {
+          heading: 'Final Message',
+          title:
+            'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be:',
+          list: [
+            'Homes of your family members or your friends',
+            'Secret hideout',
+            'Bank locker',
+          ],
+        },
+        addAccount: {
+          heading: 'Final Message',
+          title:
+            'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you.',
+          buttons: {
+            skip: 'Skip',
+            addAccount: 'Add Account',
+          },
+        },
+        walletNotCreatedDialog: {
+          title: "Seems like you haven't created a wallet yet",
+          subTitle: 'To add an account you have to first create a wallet',
+          buttons: {
+            later: 'I will do it later',
+            createWallet: 'Create Wallet',
+          },
+        },
+      },
+      onClose: {
+        title: 'You can start this guide from the sidebar',
+        subTitle: 'Are you sure you want to exit?',
+        buttons: {
+          cancel: 'Cancel',
+          exit: 'Exit',
+        },
+      },
     },
     success: {
       title: 'Congratulations',
@@ -484,7 +640,7 @@ const en = {
           heading: 'Device Update',
           title:
             'A new update is available for your X1 Vault. Update the device to v${version} to continue',
-          subtext: 'Follow the instruction on the device',
+          subtext: 'Follow the instructions on the device',
         },
         loading: {
           text: 'Please wait while we check for X1 Vault updates',
@@ -495,8 +651,7 @@ const en = {
         },
         updateSuccessful: {
           heading: 'X1 Vault updated successfully',
-          subtext:
-            'Your device is now operating on the latest software version',
+          subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {
           heading: 'Firmware update failed',
@@ -517,6 +672,23 @@ const en = {
         syncronizing: 'Syncronizing...',
         error: 'Sync error!',
       },
+    },
+  },
+  walletSync: {
+    freshOneCreated: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
+      subTitle: 'You can chose which one to keep and which one to delete',
+      checkboxList: {
+        cypherockRed: 'Cypherock Red',
+        official: 'Official',
+        personal: 'Personal',
+      },
+      checkboxText: "Don't show this again",
+    },
+    buttons: {
+      keepAll: 'Keep All',
+      delete: 'Delete',
     },
   },
   portfolio: {
@@ -541,6 +713,8 @@ const en = {
       containNumber: 'must contain at least 1 number',
       containSymbol: 'must contain at least 1 symbol',
       required: 'is required',
+      containUppercase: 'must contain at least 1 uppercase letter',
+      containLowercase: 'must contain at least 1 lowercase letter',
     },
   },
 };

@@ -11,18 +11,21 @@ import {
   useDispatch,
 } from 'react-redux';
 
+import dialogReducer, { IDialogState } from './dialog';
 import langReducers, { ILangState } from './lang';
 import walletReducer, { IWalletState } from './wallet';
 
 export interface RootState {
   wallet: IWalletState;
   lang: ILangState;
+  dialog: IDialogState;
 }
 
 export const store = configureStore({
   reducer: {
     wallet: walletReducer,
     lang: langReducers,
+    dialog: dialogReducer,
   },
 });
 

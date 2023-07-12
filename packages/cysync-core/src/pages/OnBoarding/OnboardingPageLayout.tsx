@@ -29,7 +29,9 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   withHelp,
   backTo,
   withEmail,
+  showBlurBackground,
   title,
+  showAside,
   subTitle,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -81,8 +83,10 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
       text={text}
       currentState={currentState}
       totalState={totalState}
+      showBlurBackground={showBlurBackground}
       title={title}
       subTitle={subTitle}
+      showAside={showAside}
       version={`ver ${window.cysyncEnv.VERSION}`}
       headerProps={parseHeaderProps()}
       footerProps={parseFooterProps()}

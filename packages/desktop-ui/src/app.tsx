@@ -8,6 +8,7 @@ import {
   LockscreenBoundary,
   LockscreenProvider,
   BackgroundTasks,
+  DialogManager,
 } from '@cypherock/cysync-core';
 import React from 'react';
 
@@ -25,6 +26,7 @@ const App = () => (
             getDevices={window.electronAPI.getDevices}
             connectDevice={window.electronAPI.connectDevice}
           >
+            <DialogManager />
             <BackgroundTasks />
             <AppRouter />
           </DeviceProvider>

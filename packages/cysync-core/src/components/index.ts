@@ -7,3 +7,4 @@ export * from './AddAccount/SyncAccountDialog';
 export * from './AddAccount/AddAccountDialog';
 export * from './AddAccount/AddAccountSingleChainDialog';
 export * from './AddAccount/SelectCryptoDialog';
+export * from './DialogManager';

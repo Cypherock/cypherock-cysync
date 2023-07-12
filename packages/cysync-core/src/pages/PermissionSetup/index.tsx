@@ -16,11 +16,14 @@ export const PermissionSetup: React.FC = () => {
   >();
   const navigateTo = useNavigateTo();
 
-  const toNextPage = (onboardingDone: boolean, withDelay?: boolean) => {
+  const toNextPage = async (onboardingDone: boolean, withDelay?: boolean) => {
     if (onboardingDone) {
       navigateTo(routes.portfolio.path, withDelay ? 500 : undefined);
     } else {
-      navigateTo(routes.onboarding.info.path, withDelay ? 500 : undefined);
+      const path =
+        (await keyValueStore.onboardingCheckpointPath.get()) ??
+        routes.onboarding.info.path;
+      navigateTo(path, withDelay ? 500 : undefined);
     }
   };
 

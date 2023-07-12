@@ -8,12 +8,13 @@ import {
   indicatorMap,
   textColorMap,
   typeMap,
+  bgColorMap,
+  JoystickCenterProps,
 } from './types';
 
 import { theme } from '../../../themes/theme.styled';
 import { Typography, Image, Container } from '../../atoms';
 import { Indicator } from '../../atoms/Indicator';
-import { UtilsProps } from '../../utils';
 
 export const JoystickIndicator: React.FC<DirectionProps> = ({ state }) => (
   <Indicator state={state ? indicatorMap[state] : undefined} />
@@ -53,11 +54,11 @@ export const JoystickArrow: React.FC<JoystickArrowProps> = props => {
   );
 };
 
-export const Ring: React.FC<UtilsProps> = ({ children, ...props }) => (
+export const Ring: React.FC<JoystickCenterProps> = ({ children, ...props }) => (
   <Container
     height={120}
     width={120}
-    $bgColor="golden"
+    $bgColor={bgColorMap[props.state ?? 'selected'] as any}
     $borderRadius={60}
     {...props}
   >

@@ -22,7 +22,7 @@ export interface AsideProps {
 const Text = styled.span`
   font-size: 27px;
 
-  @media ${theme.screens.lg} {
+  @media ${theme.screens.lg} and ${theme.screensHeight.lg} {
     font-size: 40px;
   }
 `;

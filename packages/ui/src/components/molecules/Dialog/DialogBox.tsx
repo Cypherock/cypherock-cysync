@@ -9,15 +9,24 @@ import {
   flex,
   width,
   spacing,
+  PositionProps,
+  position,
+  display,
+  HeightProps,
+  height,
+  BgColorProps,
+  $bgColor,
 } from '../../utils';
-import { HeightProps, height } from '../../utils/height.styled';
 
 export interface DialogBoxUtilityProps
   extends WidthProps,
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {
+    SpacingProps,
+    PositionProps,
+    DisplayProps,
+    BgColorProps {
   children?: ReactNode;
   bgColor?: string;
   paddingTop?: string;
@@ -66,9 +75,12 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   text-align: center;
   ${props => props.$isModal && modalCss}
   ${flex}
+  ${display}
   ${width}
   ${height}
   ${spacing}
+  ${position}
+  ${$bgColor}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -77,6 +89,11 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  position: relative;
+  width: 100%;
   border-top: 0;
   border-left: 0;
   border-right: 0;

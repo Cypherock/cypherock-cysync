@@ -12,16 +12,16 @@ interface AsideContainerProps extends UtilsProps {
 const AsideContainerStyle = styled.div<AsideContainerProps>`
   min-width: 280px;
   width: 27%;
+  max-width: 400px;
   min-height: 100vh;
   padding: 32px;
   display: flex;
   overflow-y: hidden;
   overflow-x: hidden;
-  @media (${theme.screens.lg}) {
+  @media (${theme.screens.lg} and ${theme.screensHeight.lg}) {
     min-width: 500px;
     padding: 40px 32px;
   }
-
   ${utils}
 `;
 

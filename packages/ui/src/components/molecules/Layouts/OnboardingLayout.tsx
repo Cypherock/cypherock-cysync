@@ -1,19 +1,21 @@
 import React, { FC, ReactNode } from 'react';
 
-import { Aside, AsideProps } from './Aside';
-import { InfoAside, InfoAsideProps } from './Aside/InfoAside';
+import { BlurOverlay, Container } from '../../atoms';
+import { BgColorProps } from '../../utils';
+import { Aside, AsideProps, InfoAside, InfoAsideProps } from '../Asides';
 import {
   DialogBoxBackground,
   DialogBoxBackgroundBar,
   DialogBoxBackgroundBarProps,
-} from './Dialog';
-
-import { Container } from '../atoms';
+} from '../Dialog';
 
 export interface OnboardingLayoutProps
   extends Partial<AsideProps>,
-    Partial<InfoAsideProps> {
+    Partial<InfoAsideProps>,
+    BgColorProps {
   children: ReactNode | undefined;
+  showBlurBackground?: boolean;
+  showAside?: boolean;
   headerProps?: DialogBoxBackgroundBarProps;
   footerProps?: DialogBoxBackgroundBarProps;
 }
@@ -54,17 +56,23 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
   totalState,
   headerProps,
   footerProps,
+  showBlurBackground,
+  showAside,
+  $bgColor = 'sideBar',
 }) => (
-  <Container height="screen" $bgColor="sideBar" display="flex">
-    <GetAside
-      currentState={currentState}
-      img={img}
-      subTitle={subTitle}
-      text={text}
-      title={title}
-      totalState={totalState}
-      version={version}
-    />{' '}
+  <Container height="screen" $bgColor={$bgColor} display="flex">
+    {showBlurBackground && <BlurOverlay>{children}</BlurOverlay>}
+    {showAside && (
+      <GetAside
+        currentState={currentState}
+        img={img}
+        subTitle={subTitle}
+        text={text}
+        title={title}
+        totalState={totalState}
+        version={version}
+      />
+    )}
     <DialogBoxBackground>
       {headerProps && (
         <DialogBoxBackgroundBar {...headerProps} position="top" />
@@ -80,4 +88,6 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 OnboardingLayout.defaultProps = {
   headerProps: undefined,
   footerProps: undefined,
+  showBlurBackground: false,
+  showAside: true,
 };
