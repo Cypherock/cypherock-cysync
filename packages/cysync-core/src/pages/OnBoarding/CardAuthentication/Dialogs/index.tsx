@@ -69,7 +69,8 @@ export const CardAuthenticationDialog: React.FC = () => {
   });
 
   useEffect(() => {
-    if (isFinalCardTapState) navigateTo(routes.onboarding.congratulations.path);
+    if (isFinalCardTapState)
+      navigateTo(routes.onboarding.congratulations.path, 1000);
   }, [isFinalCardTapState]);
 
   useEffect(() => {

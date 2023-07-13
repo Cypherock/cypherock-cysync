@@ -1,11 +1,11 @@
 import {
-  Typography,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Container,
-  JoystickInteractionProps,
   JoystickInteraction,
+  JoystickInteractionProps,
   LangDisplay,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -48,8 +48,23 @@ const getStepContent = (state: number, lang: LanguageStrings): StepContent => {
       bottomText: training.subtext,
     },
     {
+      title: training.leftTitle,
+      states: {
+        up: 'completed',
+        right: 'completed',
+        down: 'completed',
+        left: 'completed',
+      },
+      bottomText: training.subtext,
+    },
+    {
       title: training.centerTitle,
       states: { center: 'selected' },
+      bottomText: training.centerSubtext,
+    },
+    {
+      title: training.centerTitle,
+      states: { center: 'completed' },
       bottomText: training.centerSubtext,
     },
   ];
@@ -84,7 +99,7 @@ export const JoystickTrainingInteraction: React.FC<{ state: number }> = ({
         </Typography>
         <JoystickInteraction {...states} />
         <Container display="flex" direction="column" gap={8}>
-          <Typography variant="h5" $textAlign="center">
+          <Typography variant="h5" $letterSpacing={0.0625} $textAlign="center">
             <LangDisplay text={bottomText} />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">

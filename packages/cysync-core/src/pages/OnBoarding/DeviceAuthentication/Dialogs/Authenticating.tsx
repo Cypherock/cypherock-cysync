@@ -1,16 +1,16 @@
 import {
-  QuestionMarkButton,
+  Container,
   DialogBox,
   DialogBoxBody,
   Image,
   LangDisplay,
   loaderIcon,
+  QuestionMarkButton,
   Typography,
-  Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const DeviceAuthenticating: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -22,8 +22,7 @@ export const DeviceAuthenticating: React.FC = () => {
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.title} />
-            ...
-            <QuestionMarkButton />
+            (<QuestionMarkButton />)
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />

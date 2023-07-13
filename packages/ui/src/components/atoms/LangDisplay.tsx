@@ -5,12 +5,13 @@ interface LangDisplayProps {
   variables?: object;
 }
 
-const getText = (templateStr: string, variables = {}) =>
+const parseVariables = (templateStr: string, variables = {}) =>
   templateStr.replace(/\${(.*?)}/g, (x, g) => (variables as any)[g] ?? '');
 
 const BaseLangDisplay: React.FC<LangDisplayProps> = ({ text, variables }) => (
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  <>{getText(text, variables)}</>
+  <span style={{ whiteSpace: 'pre-wrap' }}>
+    {parseVariables(text, variables)}
+  </span>
 );
 
 BaseLangDisplay.defaultProps = {

@@ -1,4 +1,4 @@
-import { IDatabase } from '@cypherock/db-interfaces';
+import { IDatabase, IAccount } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface ICreateAccountParams {
@@ -13,7 +13,7 @@ export type ICreateAccountEventType = 'Account' | 'Device';
 
 export interface ICreateAccountEvent {
   type: ICreateAccountEventType;
-  account?: any;
+  account?: IAccount;
   device?: {
     isDone: boolean;
     events: Record<number, boolean | undefined>;

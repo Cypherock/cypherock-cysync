@@ -1,4 +1,7 @@
 import addWalletIcon from './add-wallet.png';
+import arrowBlackBackward from './arrow-black-backward.svg';
+import arrowGoldenForward from './arrow-golden-forward.svg';
+import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
@@ -6,7 +9,7 @@ import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
-import closeIcon from './close.png';
+import closeIcon from './close.svg';
 import connected from './connected.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
@@ -19,8 +22,11 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import { FailIcon } from './FailIcon';
+import goldFail from './gold_fail.svg';
+import greenTick from './green-tick.svg';
 import importWalletIcon from './import-wallet.png';
-import infoIcon from './info.svg';
+import { InfoIcon } from './InfoIcon';
+import informationIcon from './information.svg';
 import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
 import joystickArrowIcon from './JoystickArrowDisabled.svg';
 import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
@@ -52,6 +58,9 @@ import walletErrorIcon from './wallet-error.svg';
 export {
   addWalletIcon,
   asideIcon,
+  arrowBlackBackward,
+  arrowGoldenForward,
+  arrowWhiteBackward,
   backIcon,
   closeIcon,
   cysyncLogoBig,
@@ -74,6 +83,10 @@ export {
   loaderIcon,
   goldLoaderIcon,
   openExternalLink,
+  informationIcon,
+  greenTick,
+  redDisconnectedIcon,
+  goldFail,
   emailIconOutlined,
   cysyncLockedLogo,
   visibilityIcon,
@@ -82,8 +95,7 @@ export {
   usbIcon,
   copyIcon,
   checkIcon,
-  redDisconnectedIcon,
-  infoIcon,
+  InfoIcon,
   lock,
   lockOpen,
   noNotifications,

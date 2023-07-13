@@ -14,6 +14,7 @@ export interface BgColorProps {
     | 'white'
     | 'highlight'
     | 'golden'
+    | 'success'
     | 'muted';
 }
 
@@ -65,6 +66,12 @@ export const $bgColor = css<BgColorProps>`
       background: ${({ theme }) => theme.palette.golden};
     `}
   ${props =>
+    props.$bgColor === 'success' &&
+    css`
+      background: ${({ theme }) => theme.palette.success.main};
+    `}
+
+${props =>
     props.$bgColor === 'list' &&
     css`
       background-color: #27221d;
