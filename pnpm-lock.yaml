@@ -66,8 +66,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-core':
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       '@cypherock/sdk-hw-hid':
         specifier: ^0.0.9
         version: 0.0.9
@@ -195,6 +195,12 @@ importers:
 
   packages/coin-support-evm:
     dependencies:
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../coin-support-utils
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
@@ -208,8 +214,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.8
         version: 0.0.8
@@ -219,6 +225,122 @@ importers:
       axios:
         specifier: ^1.4.0
         version: 1.4.0
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^7.0.2
+        version: 7.0.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)(typescript@4.9.5)
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.2
+        version: 13.2.2
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ts-jest:
+        specifier: ^29.1.0
+        version: 29.1.0(@babel/core@7.22.5)(jest@29.5.0)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
+
+  packages/coin-support-interfaces:
+    dependencies:
+      '@cypherock/db-interfaces':
+        specifier: workspace:^
+        version: link:../db-interfaces
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.8
+        version: 0.0.8
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@babel/preset-typescript':
+        specifier: ^7.22.5
+        version: 7.22.5(@babel/core@7.22.5)
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      lint-staged:
+        specifier: ^13.2.2
+        version: 13.2.2
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ts-jest:
+        specifier: ^29.1.0
+        version: 29.1.0(@babel/core@7.22.5)(jest@29.5.0)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
+
+  packages/coin-support-utils:
+    dependencies:
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../coin-support-interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@cypherock/db-interfaces':
+        specifier: workspace:^
+        version: link:../db-interfaces
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.8
+        version: 0.0.8
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
@@ -2848,10 +2970,10 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@cypherock/sdk-app-evm@0.0.12:
-    resolution: {integrity: sha512-MqutdXx0PMxbqfrfUvtQWj/S/D44c3uDAQJbX6LxbioTpv60iTWWGAG6zLRXTNXW7B85343Hjk3cPUm4qLDniA==}
+  /@cypherock/sdk-app-evm@0.0.13:
+    resolution: {integrity: sha512-qoXn/vEMK3UNUJJAjPozk7D4vGENqrrWNhEhAfvwF/0+Ui3yFpAyvNYUiBuZn0LlKK+Jn2vd38hBUjqndV55+Q==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.12
+      '@cypherock/sdk-core': 0.0.13
       '@cypherock/sdk-interfaces': 0.0.8
       '@cypherock/sdk-utils': 0.0.10
       ethers: 6.4.1
@@ -2874,16 +2996,6 @@ packages:
       uuid: 9.0.0
     transitivePeerDependencies:
       - debug
-    dev: false
-
-  /@cypherock/sdk-core@0.0.12:
-    resolution: {integrity: sha512-Xd+Bn/tuS7Kfc/XWUCrDbv5OqO3uAA7K4jxS95hdc6Wz2bGNQ2vNfiPlAJWe3IXORjInHGNLzffXs8t8xqk7EA==}
-    dependencies:
-      '@cypherock/sdk-interfaces': 0.0.8
-      '@cypherock/sdk-utils': 0.0.10
-      compare-versions: 6.0.0-rc.1
-      protobufjs: 7.2.3
-      uuid: 9.0.0
     dev: false
 
   /@cypherock/sdk-core@0.0.13:
@@ -3866,7 +3978,7 @@ packages:
       npm-run-path: 5.1.0
       progress: 2.0.3
       rxjs: 7.8.1
-      semver: 7.5.2
+      semver: 7.5.3
       source-map: 0.7.4
       tree-kill: 1.2.2
       tslib: 2.5.3
@@ -3904,7 +4016,7 @@ packages:
       '@stryker-mutator/api': 7.0.2
       '@stryker-mutator/core': 7.0.2
       '@stryker-mutator/util': 7.0.2
-      semver: 7.5.2
+      semver: 7.5.3
       tslib: 2.5.3
     dev: true
 
@@ -3918,7 +4030,7 @@ packages:
       '@stryker-mutator/api': 7.0.2
       '@stryker-mutator/core': 7.0.2
       '@stryker-mutator/util': 7.0.2
-      semver: 7.5.2
+      semver: 7.5.3
       typescript: 4.9.5
     dev: true
 
@@ -8450,7 +8562,7 @@ packages:
       '@jest/fake-timers': 29.5.0
       '@jest/types': 29.5.0
       '@types/jsdom': 20.0.1
-      '@types/node': 16.11.10
+      '@types/node': 16.18.36
       jest-mock: 29.5.0
       jest-util: 29.5.0
       jsdom: 20.0.3
@@ -10708,7 +10820,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
 
   /safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
