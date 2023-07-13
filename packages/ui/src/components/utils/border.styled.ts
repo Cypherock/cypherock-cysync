@@ -23,7 +23,7 @@ type BorderColor =
   | 'list'
   | string;
 type BorderRadius = number | 'full';
-type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | string;
+type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
 
 export interface BorderProps extends Borders {
   $borderColor?: BorderColor;

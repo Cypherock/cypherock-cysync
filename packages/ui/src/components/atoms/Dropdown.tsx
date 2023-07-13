@@ -9,7 +9,16 @@ import {
   searchIcon,
   triangleInverseIcon,
 } from '../../assets';
-import { LeanBoxProps, TempListItem } from '../molecules';
+import { LeanBoxProps, DropDownListItem } from '../molecules';
+
+interface DropdownProps {
+  items: LeanBoxProps[];
+  shouldChangeColor?: boolean;
+  searchText: string;
+  placeholderText: string;
+  onSelectionChange?: (selectedItemId: string | null) => void;
+  disabled?: boolean;
+}
 
 const List = styled.ul`
   position: absolute;
@@ -34,9 +43,6 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   background-color: #46403c;
-  &:hover {
-    background-color: #272320;
-  }
   /* margin-left: 40px; */
 `;
 
@@ -67,49 +73,73 @@ const IconContainer = styled.div`
   transform: translateY(-50%);
 `;
 
-interface DropdownProps {
-  items: LeanBoxProps[];
-  shouldChangeColor?: boolean;
-}
-
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
   shouldChangeColor,
+  searchText,
+  placeholderText,
+  onSelectionChange,
+  disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const [selectedItem, setSelectedItem] = useState<LeanBoxProps | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredItemId, setHoveredItemId] = useState<any | null>(null);
+  const [checkedStates, setCheckedStates] = React.useState<
+    Record<string, boolean>
+  >({});
+
+  const handleCheckedChange = (id: string, checked: boolean) => {
+    setCheckedStates(prevStates => ({ ...prevStates, [id]: checked }));
+  };
 
   const filteredItems = items.filter(item =>
     item.text.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleInputChange = (value: string) => {
-    setSearch(value);
+    if (!disabled) {
+      // Only allow input change when not disabled
+      setSearch(value);
+    }
   };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-    setSearch('');
+    if (!disabled) {
+      // Only allow dropdown to toggle when not disabled
+      setIsOpen(!isOpen);
+      setSearch('');
+    }
   };
 
   const handleItemSelection = (item: LeanBoxProps) => {
-    setSelectedItem(item);
+    const id = item.id ?? '';
+    setSelectedItem(id);
+    handleCheckedChange(id, true); // Update checked state when an item is selected
     toggleDropdown();
+    if (onSelectionChange) {
+      onSelectionChange(id); // Call the callback function with the new selected item
+    }
   };
 
   return (
-    <Container isOpen={isOpen}>
+    <Container isOpen={isOpen} style={{ opacity: disabled ? 0.5 : 1 }}>
       {selectedItem ? (
-        <TempListItem
-          {...selectedItem}
+        <DropDownListItem
+          checked={checkedStates[selectedItem]}
+          onCheckedChange={checked =>
+            handleCheckedChange(selectedItem, checked)
+          }
+          id={selectedItem}
+          text={items.find(item => item.id === selectedItem)?.text ?? ''}
           onClick={toggleDropdown}
           restrictedItem
           shouldChangeColor={shouldChangeColor}
           leftImageSrc={
-            shouldChangeColor ? cypherockRedIcon : selectedItem?.leftImageSrc
+            shouldChangeColor
+              ? cypherockRedIcon
+              : items.find(item => item.id === selectedItem)?.leftImageSrc
           }
+          tag={items.find(item => item.id === selectedItem)?.tag}
         />
       ) : (
         <Input
@@ -119,7 +149,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           onClick={toggleDropdown}
           onChange={handleInputChange}
           bgColor="#272320"
-          placeholder={isOpen ? 'Search' : 'Choose a coin'}
+          placeholder={isOpen ? searchText : placeholderText}
         />
       )}
       <IconContainer>
@@ -131,20 +161,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
       {isOpen && (
         <List onMouseLeave={toggleDropdown}>
-          {filteredItems.map(item => (
-            <ListItem
-              key={item.id}
-              onClick={() => handleItemSelection(item)}
-              onMouseEnter={() => setHoveredItemId(item.id)}
-              onMouseLeave={() => setHoveredItemId(null)}
-            >
-              <TempListItem
-                {...item}
-                selectedItem={selectedItem}
-                isHovered={item.id === hoveredItemId}
-              />
-            </ListItem>
-          ))}
+          {filteredItems.map(item => {
+            const itemId = item.id ?? '';
+            return (
+              <ListItem key={itemId} onClick={() => handleItemSelection(item)}>
+                <DropDownListItem
+                  checked={checkedStates[itemId]}
+                  onCheckedChange={checked =>
+                    handleCheckedChange(itemId, checked)
+                  }
+                  {...item}
+                  selectedItem={selectedItem}
+                />
+              </ListItem>
+            );
+          })}
         </List>
       )}
     </Container>
@@ -153,4 +184,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
 Dropdown.defaultProps = {
   shouldChangeColor: false,
+  onSelectionChange: undefined,
+  disabled: false,
 };

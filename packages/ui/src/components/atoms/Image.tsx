@@ -31,9 +31,6 @@ export interface ImageProps
     BorderProps {
   src: string;
   alt: string;
-  $borderColor?: string;
-  $borderRadius?: number;
-  $borderStyle?: string;
 }
 
 const ImageStyle = styled.img<ImageProps>`
@@ -50,9 +47,3 @@ const ImageStyle = styled.img<ImageProps>`
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
   <ImageStyle {...props} src={src} alt={alt} />
 );
-
-Image.defaultProps = {
-  $borderColor: undefined,
-  $borderRadius: undefined,
-  $borderStyle: undefined,
-};

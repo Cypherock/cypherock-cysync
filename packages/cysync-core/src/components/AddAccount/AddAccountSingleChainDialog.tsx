@@ -1,6 +1,7 @@
 import {
+  LangDisplay,
   ScrollableContainer,
-  CustomContainer,
+  FlexGapContainer,
   DialogBox,
   DialogBoxHeader,
   DialogBoxBody,
@@ -16,47 +17,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useEffect, useState } from 'react';
-
-interface AddAccountSingleChainDialogProps {
-  addAccount: {
-    info: {
-      dialogBox: {
-        title: string;
-        header: string;
-        subheader: string;
-        subheader2: string;
-        subheader3: string;
-        submitButton: string;
-        subheaderright: string;
-        advanced: string;
-        dataArray: {
-          id: string;
-          leftImageSrc: any;
-          rightText?: string;
-          text: string;
-          checkBox: boolean;
-          tag?: string;
-        }[];
-        accountNotSynced: {
-          id: string;
-          leftImageSrc: any;
-          rightText?: string;
-          text: string;
-          checkBox: boolean;
-          tag?: string;
-        }[];
-        accountsInPortfolio: {
-          id: string;
-          leftImageSrc: any;
-          rightText?: string;
-          text: string;
-          checkBox: boolean;
-          tag?: string;
-        }[];
-      };
-    };
-  };
-}
+import { useAppSelector } from '~/store';
 
 interface LeanBoxData {
   id: string;
@@ -99,27 +60,7 @@ const RenderLeanBox: FC<LeanBoxData> = ({
   );
 };
 
-export const AddAccountSingleChainDialog: FC<
-  AddAccountSingleChainDialogProps
-> = ({
-  addAccount: {
-    info: {
-      dialogBox: {
-        title,
-        header,
-        subheader,
-        subheader2,
-        subheader3,
-        subheaderright,
-        submitButton,
-        advanced,
-        dataArray,
-        accountNotSynced,
-        accountsInPortfolio,
-      },
-    },
-  },
-}) => {
+export const AddAccountSingleChainDialog: FC = () => {
   const [forceUncheck, setForceUncheck] = useState(false);
 
   const handleClick = () => {
@@ -127,32 +68,52 @@ export const AddAccountSingleChainDialog: FC<
     setTimeout(() => setForceUncheck(false), 100);
   };
 
+  const lang = useAppSelector(state => state.addAccount.strings);
+  const singleChain = lang.addAccount.addAccountSingleChain.info.dialogBox;
+
   return (
     <DialogBox width={500} height={700}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
-          {title}
+          <LangDisplay text={singleChain.title} />
         </Typography>
       </DialogBoxHeader>
-      <CustomContainer pt={4} pr={5} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={settingsIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
-          {header}
+          <LangDisplay text={singleChain.header} />
         </Typography>
-      </CustomContainer>
+      </FlexGapContainer>
       <ScrollableContainer>
-        <DialogBoxBody overflowY="auto">
+        <DialogBoxBody pt={4} pr={5} pb={4} pl={5} overflowY="auto">
           <div>
-            <InputLabel mt={4} mr={1} mb={1}>
-              {subheader}
+            <InputLabel
+              mt={4}
+              mr={1}
+              mb={1}
+              display={{ def: 'inline-block' }}
+              fontSize={14}
+            >
+              <LangDisplay text={singleChain.subheader} />
             </InputLabel>
-            <LeanBoxContainer padding="0px">
-              {dataArray.map(data => (
+            <LeanBoxContainer>
+              {singleChain.dataArray.map(data => (
                 <RenderLeanBox key={data.id} {...data} />
               ))}
             </LeanBoxContainer>
-            <InputLabel fontSize="13px" fontWeight="400" textAlign="right">
-              {advanced} <Toggle />
+            <InputLabel
+              fontSize={13}
+              fontWeight="normal"
+              textAlign="right"
+              pt={1}
+              display={{ def: 'inline-block' }}
+            >
+              <LangDisplay text={singleChain.advanced} />
+              <Toggle
+                onToggle={() => {
+                  // Do something with the checked state...
+                }}
+              />
             </InputLabel>
           </div>
 
@@ -160,17 +121,25 @@ export const AddAccountSingleChainDialog: FC<
             <Flex justify="flex-start" fullWidth>
               <InputLabel
                 noWrap
-                fontSize="13px"
-                fontWeight="400"
+                display={{ def: 'inline-block' }}
+                fontSize={14}
+                fontWeight="normal"
                 pl={1}
                 mt={2}
                 mr={1}
                 mb={1}
               >
-                {subheader2} ({accountNotSynced.length})
+                <LangDisplay
+                  text={singleChain.subheader2}
+                  variables={{
+                    length: singleChain.accountNotSynced.length.toString(),
+                  }}
+                />
               </InputLabel>
               <InputLabel
-                className="gold-label"
+                color="gold"
+                display={{ def: 'inline-block' }}
+                fontSize={14}
                 pl={1}
                 mt={2}
                 mr={1}
@@ -180,11 +149,16 @@ export const AddAccountSingleChainDialog: FC<
                 onClick={handleClick}
                 clickable
               >
-                {subheaderright} ({accountNotSynced.length})
+                <LangDisplay
+                  text={singleChain.subheaderright}
+                  variables={{
+                    length: singleChain.accountNotSynced.length.toString(),
+                  }}
+                />
               </InputLabel>
             </Flex>
-            <LeanBoxContainer padding="0px">
-              {accountNotSynced.map(data => (
+            <LeanBoxContainer>
+              {singleChain.accountNotSynced.map(data => (
                 <RenderLeanBox
                   key={data.id}
                   {...data}
@@ -195,11 +169,17 @@ export const AddAccountSingleChainDialog: FC<
           </div>
 
           <div>
-            <InputLabel pl={1} mr={1} mb={1}>
-              {subheader3}
+            <InputLabel
+              pl={1}
+              mr={1}
+              mb={1}
+              display={{ def: 'inline-block' }}
+              fontSize={14}
+            >
+              <LangDisplay text={singleChain.subheader3} />
             </InputLabel>
-            <LeanBoxContainer padding="0px">
-              {accountsInPortfolio.map(data => (
+            <LeanBoxContainer>
+              {singleChain.accountsInPortfolio.map(data => (
                 <RenderLeanBox key={data.id} {...data} />
               ))}
             </LeanBoxContainer>
@@ -207,7 +187,9 @@ export const AddAccountSingleChainDialog: FC<
         </DialogBoxBody>
       </ScrollableContainer>
       <DialogBoxFooter>
-        <Button variant="primary">{submitButton}</Button>
+        <Button variant="primary">
+          <LangDisplay text={singleChain.submitButton} />
+        </Button>
       </DialogBoxFooter>
     </DialogBox>
   );

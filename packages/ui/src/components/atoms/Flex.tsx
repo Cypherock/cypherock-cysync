@@ -5,10 +5,6 @@ import { UtilsProps, utils } from '../utils';
 
 const FlexStyle = styled.div<UtilsProps>`
   display: flex;
-  justify-content: flex-start;
-  ${({ fullWidth }) =>
-    fullWidth &&
-    'width: 100%;'} /* Apply width: 100% if fullWidth prop is true */
   ${utils}
 `;
 
