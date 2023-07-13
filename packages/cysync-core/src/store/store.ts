@@ -14,15 +14,19 @@ import {
 import langReducers, { ILangState } from './lang';
 import walletReducer, { IWalletState } from './wallet';
 
+import addAccountReducer, { IAddAccountState } from './addAccountSlice'; // Import the addAccount reducer
+
 export interface RootState {
   wallet: IWalletState;
   lang: ILangState;
+  addAccount: IAddAccountState; // Add a new slice for addAccount
 }
 
 export const store = configureStore({
   reducer: {
     wallet: walletReducer,
     lang: langReducers,
+    addAccount: addAccountReducer, // add the addAccount reducer here
   },
 });
 

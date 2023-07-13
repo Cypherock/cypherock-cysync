@@ -1,6 +1,9 @@
-// ToggleSwitch.tsx
 import styled from 'styled-components';
 import React, { useState, ChangeEvent } from 'react';
+
+interface ToggleProps {
+  onToggle?: (checked: boolean) => void;
+}
 
 const ToggleSwitch = styled.label`
   position: relative;
@@ -41,10 +44,14 @@ const Checkbox = styled.input`
   height: 0;
 `;
 
-export const Toggle: React.FC = () => {
+export const Toggle: React.FC<ToggleProps> = ({ onToggle }) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const handleCheck = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+    if (onToggle) {
+      onToggle(event.target.checked);
+    }
+  };
 
   return (
     <ToggleSwitch>
@@ -52,4 +59,8 @@ export const Toggle: React.FC = () => {
       <Slider checked={checked} />
     </ToggleSwitch>
   );
+};
+
+Toggle.defaultProps = {
+  onToggle: undefined,
 };

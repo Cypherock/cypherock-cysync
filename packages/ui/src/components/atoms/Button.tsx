@@ -21,6 +21,7 @@ interface ButtonProps
   isLoading?: boolean;
   leadingIcon?: ReactNode;
   children?: ReactNode;
+  disabled?: boolean;
 }
 
 const buttonSizeMap: Record<ButtonSize, RuleSet<ButtonProps>> = {
@@ -158,10 +159,10 @@ const ButtonStyle = styled.button<ButtonProps>`
 
   &:active {
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.4) inset;
-    transition: box-shadow ${buttonAnimationData.duration}
-      ${buttonAnimationData.curve};
+    transition: box-shadow ${buttonAnimationData.duration};
+    ${buttonAnimationData.curve};
   }
-
+  ${props => props.disabled && 'opacity: 0.5;'}
   ${utils}
 `;
 
@@ -190,4 +191,5 @@ Button.defaultProps = {
   children: undefined,
   leadingIcon: undefined,
   isLoading: false,
+  disabled: false,
 };

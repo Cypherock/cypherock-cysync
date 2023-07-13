@@ -39,7 +39,7 @@ Container.defaultProps = {
   $noFlex: false,
 };
 
-export const CustomContainer = styled(Container)`
+export const FlexGapContainer = styled(Container)`
   flex-direction: column;
   gap: 32px;
   z-index: 1;

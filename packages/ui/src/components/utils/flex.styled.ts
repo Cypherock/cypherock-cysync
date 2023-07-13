@@ -42,7 +42,6 @@ export interface FlexProps {
   gap?: MediaQuery<number>;
   grow?: MediaQuery<number>;
   $alignSelf?: MediaQuery<AlignSelfType>;
-  fullWidth?: boolean;
 }
 
 const justifyContent = css<FlexProps>`

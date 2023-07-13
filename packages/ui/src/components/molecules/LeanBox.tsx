@@ -100,13 +100,17 @@ export const LeanBox: FC<LeanBoxProps> = ({
     }
   };
 
+  const handleRadioButtonChange = () => {
+    // state code to be added here
+  };
+
   return (
     <HorizontalBox isChecked={isChecked}>
       {displayRadioButton && (
         <RadioButton
           checked={selectedItem?.id === id}
           value={radioButtonValue}
-          onChange={value => console.log(`Radio button value: ${value}`)}
+          onChange={handleRadioButtonChange}
         />
       )}
       {leftImageSrc && (

@@ -20,10 +20,6 @@ export interface DialogBoxUtilityProps
     SpacingProps {
   children?: ReactNode;
   bgColor?: string;
-  paddingTop?: string;
-  paddingRight?: string;
-  paddingBottom?: string;
-  paddingLeft?: string;
   overflowY?: string;
 }
 
@@ -72,8 +68,6 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
-  position: sticky;
-  top: 0;
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
@@ -97,10 +91,6 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   justify-content: center;
   align-items: center;
   width: inherit;
-  padding-left: ${props => props.paddingLeft ?? '40px'};
-  padding-right: ${props => props.paddingRight ?? '40px'};
-  padding-top: ${props => props.paddingTop ?? '32px'};
-  padding-bottom: ${props => props.paddingBottom ?? '32px'};
   gap: 32px;
   background-color: ${props => props.bgColor ?? 'inherit'};
   /* overflow-y: auto;
@@ -175,10 +165,6 @@ export const DialogBoxFooter: FC<DialogBoxUtilityProps> = ({
 DialogBox.defaultProps = {
   children: undefined,
   $isModal: false,
-  paddingTop: undefined,
-  paddingRight: undefined,
-  paddingBottom: undefined,
-  paddingLeft: undefined,
   bgColor: undefined,
   overflowY: undefined,
 };
@@ -186,29 +172,17 @@ DialogBox.defaultProps = {
 DialogBoxBody.defaultProps = {
   children: undefined,
   bgColor: undefined,
-  paddingTop: undefined,
-  paddingRight: undefined,
-  paddingBottom: undefined,
-  paddingLeft: undefined,
   overflowY: undefined,
 };
 
 DialogBoxFooter.defaultProps = {
   children: undefined,
   bgColor: undefined,
-  paddingTop: undefined,
-  paddingRight: undefined,
-  paddingBottom: undefined,
-  paddingLeft: undefined,
   overflowY: undefined,
 };
 
 DialogBoxHeader.defaultProps = {
   children: undefined,
   bgColor: undefined,
-  paddingTop: undefined,
-  paddingRight: undefined,
-  paddingBottom: undefined,
-  paddingLeft: undefined,
   overflowY: undefined,
 };

@@ -1,4 +1,5 @@
 import {
+  LangDisplay,
   DialogBox,
   DialogBoxHeader,
   DialogBoxBody,
@@ -10,56 +11,46 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+import { useAppSelector } from '~/store';
 
-interface Info {
-  dialogBox: {
-    title: string;
-    header: string;
-    subheader: string;
-    subheader1: string;
-    dataArray: {
-      id: string;
-      leftImageSrc?: any;
-      rightImageSrc?: any;
-      text: string;
-    }[];
-  };
-}
+export const InitialiseAccountDialog: React.FC = () => {
+  const lang = useAppSelector(state => state.addAccount.strings);
+  const initAccount = lang.addAccount.initAccount.info.dialogBox;
 
-export const InitialiseAccountDialog: React.FC<{ initAccount: Info }> = ({
-  initAccount,
-}) => (
-  <div>
-    <DialogBox width={500} height={544}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          {initAccount.dialogBox.title}
-        </Typography>
-      </DialogBoxHeader>
-      <DialogBoxBody>
-        <Image src={verifyCoinIcon} alt="Verify Coin" />
-        <Container display="flex" direction="column" gap={20} width="full">
-          <Typography variant="h5" $textAlign="center">
-            {initAccount.dialogBox.header}
+  return (
+    <div>
+      <DialogBox width={500} height={480}>
+        <DialogBoxHeader height={56} width={500}>
+          <Typography variant="fineprint" width="100%" color="muted">
+            <LangDisplay text={initAccount.title} />
           </Typography>
-          <Typography variant="span" $textAlign="center" color="muted">
-            {initAccount.dialogBox.subheader}
-            <strong style={{ color: 'white' }}>
-              {initAccount.dialogBox.subheader1}
-            </strong>
-          </Typography>
-        </Container>
-        <LeanBoxContainer>
-          {initAccount.dialogBox.dataArray.map(data => (
-            <LeanBox
-              key={data.id}
-              leftImageSrc={data.leftImageSrc}
-              rightImageSrc={data.rightImageSrc}
-              text={data.text}
-            />
-          ))}
-        </LeanBoxContainer>
-      </DialogBoxBody>
-    </DialogBox>
-  </div>
-);
+        </DialogBoxHeader>
+        <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+          <Image src={verifyCoinIcon} alt="Verify Coin" />
+          <Container display="flex" direction="column" gap={20} width="full">
+            <Typography variant="h5" $textAlign="center">
+              <LangDisplay text={initAccount.header} />
+            </Typography>
+            <Typography variant="span" $textAlign="center" color="muted">
+              <LangDisplay text={initAccount.subheader} />
+              <strong style={{ color: 'white' }}>
+                {' '}
+                <LangDisplay text={initAccount.subheader1} />
+              </strong>
+            </Typography>
+          </Container>
+          <LeanBoxContainer>
+            {initAccount.dataArray.map(data => (
+              <LeanBox
+                key={data.id}
+                leftImageSrc={data.leftImageSrc}
+                rightImageSrc={data.rightImageSrc}
+                text={data.text}
+              />
+            ))}
+          </LeanBoxContainer>
+        </DialogBoxBody>
+      </DialogBox>
+    </div>
+  );
+};
