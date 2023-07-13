@@ -3,14 +3,13 @@ import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
 import { routes } from '~/constants';
-import { useOnboardingCheckpoint } from '~/hooks';
+
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
 
 export const DeviceDetection: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  useOnboardingCheckpoint();
 
   return (
     <OnboardingPageLayout

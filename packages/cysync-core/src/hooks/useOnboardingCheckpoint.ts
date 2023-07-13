@@ -12,5 +12,5 @@ export const useOnboardingCheckpoint = () => {
 
   useEffect(() => {
     updateCheckpoint();
-  }, []);
+  }, [location.pathname]);
 };
