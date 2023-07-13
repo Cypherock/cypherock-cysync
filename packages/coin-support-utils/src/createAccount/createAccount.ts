@@ -20,18 +20,14 @@ export interface App {
 
 export interface ICreateAccountsObservableParams<T extends App>
   extends ICreateAccountParams {
-  derivationPathSchemes: Record<string, IDerivationScheme>;
+  derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   derivationPathLimit: number;
   createApp: (connection: IDeviceConnection) => Promise<T>;
   getAddressesFromDevice: GetAddressesFromDevice<T>;
-  getTransactionCount: (
+  getBalanceAndTxnCount: (
     address: string,
     params: ICreateAccountParams,
-  ) => Promise<number>;
-  getBalance: (
-    address: string,
-    params: ICreateAccountParams,
-  ) => Promise<string>;
+  ) => Promise<{ balance: string; txnCount: number }>;
   createAccountFromAddress: (
     addressDetails: {
       address: string;
@@ -88,8 +84,16 @@ export function createAccountsObservable<
         const schemeNameList = Object.keys(addressesPerScheme);
 
         for (const schemeName of schemeNameList) {
+          const derivationSchemeDetails =
+            params.derivationPathSchemes[schemeName];
+
+          // Some derivation scheme might not be supported by the coin
+          if (!derivationSchemeDetails) {
+            continue;
+          }
+
+          const { threshold } = derivationSchemeDetails;
           const addresses = addressesPerScheme[schemeName];
-          const { threshold } = params.derivationPathSchemes[schemeName];
 
           let zeroTxnAddressCount = 0;
           let isThresholdReached = false;
@@ -97,11 +101,10 @@ export function createAccountsObservable<
           for (const address of addresses) {
             if (finished) return;
 
-            const txnCount = await params.getTransactionCount(
+            const { balance, txnCount } = await params.getBalanceAndTxnCount(
               address.address,
               params,
             );
-            const balance = await params.getBalance(address.address, params);
 
             if (txnCount <= 0) {
               zeroTxnAddressCount += 1;

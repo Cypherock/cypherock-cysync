@@ -3,28 +3,27 @@ import {
   createAccountsObservable,
   ICreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
-import { evmCoinList } from '@cypherock/coins';
-import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { btcCoinList } from '@cypherock/coins';
+import { BtcApp, GetXpubsStatus } from '@cypherock/sdk-app-btc';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
-import { derivationPathSchemes } from './schemes';
-import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
+import { createDerivationPathSchemes } from './schemes';
+import { ICreateBtcAccountParams, ICreateBtcAccountEvent } from './types';
 
 import * as services from '../../services';
 
 const DERIVATION_PATH_LIMIT = 50;
 
-const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
-  const { app, walletId, coinId, derivationPaths, observer } = params;
+const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
+  const { app, walletId, derivationPaths, observer } = params;
 
-  const events: Record<GetPublicKeysStatus, boolean | undefined> = {} as any;
+  const events: Record<GetXpubsStatus, boolean | undefined> = {} as any;
 
-  const { publicKeys } = await app.getPublicKeys({
+  const { xpubs } = await app.getXpubs({
     walletId: hexToUint8Array(walletId),
-    derivationPaths: derivationPaths as any,
-    chainId: evmCoinList[coinId].chain,
+    derivationPaths: derivationPaths.map(e => ({ path: e })),
     onEvent: event => {
       events[event] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });
@@ -33,16 +32,16 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return publicKeys;
+  return xpubs;
 };
 
-const createAccountFromAddress: ICreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
+const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createAccountFromAddress'] =
   async (addressDetails, params) => ({
     // TODO: name to be decided later
     name: '',
     xpubOrAddress: addressDetails.address,
     balance: addressDetails.balance,
-    unit: evmCoinList[params.coinId].units[0].abbr.toLowerCase(),
+    unit: btcCoinList[params.coinId].units[0].abbr.toLowerCase(),
     derivationPath: addressDetails.derivationPath,
     type: 'account',
     familyId: params.coinId,
@@ -53,26 +52,33 @@ const createAccountFromAddress: ICreateAccountsObservableParams<EvmApp>['createA
     },
   });
 
-const createApp = async (connection: IDeviceConnection) =>
-  EvmApp.create(connection);
+const createApp = (connection: IDeviceConnection) => BtcApp.create(connection);
 
 const getBalanceAndTxnCount = async (
   address: string,
-  params: ICreateEvmAccountParams,
-) => ({
-  balance: await services.getBalance(address, params.coinId),
-  txnCount: await services.getTransactionCount(address, params.coinId),
-});
+  params: ICreateBtcAccountParams,
+) => {
+  const result = await services.getXpubDetails({
+    xpub: address,
+    coinId: params.coinId,
+    page: 1,
+  });
+
+  return {
+    balance: result.balance,
+    txnCount: result.txs,
+  };
+};
 
 export const createAccounts = (
-  params: ICreateEvmAccountParams,
-): Observable<ICreateEvmAccountEvent> =>
-  createAccountsObservable<EvmApp, ICreateEvmAccountEvent>({
+  params: ICreateBtcAccountParams,
+): Observable<ICreateBtcAccountEvent> =>
+  createAccountsObservable<BtcApp, ICreateBtcAccountEvent>({
     ...params,
     createAccountFromAddress,
     getBalanceAndTxnCount,
     getAddressesFromDevice,
     createApp,
-    derivationPathSchemes,
+    derivationPathSchemes: createDerivationPathSchemes(params.coinId),
     derivationPathLimit: DERIVATION_PATH_LIMIT,
   });

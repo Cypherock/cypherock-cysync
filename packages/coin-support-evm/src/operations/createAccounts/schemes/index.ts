@@ -1,10 +1,10 @@
 import { createDerivationPathGenerator } from '@cypherock/coin-support-utils';
 
-import { EVMDerivationSchemeName, IEVMDerivationScheme } from './types';
+import { EvmDerivationSchemeName, IEvmDerivationScheme } from './types';
 
 export const derivationPathSchemes: Record<
-  EVMDerivationSchemeName,
-  IEVMDerivationScheme
+  EvmDerivationSchemeName,
+  IEvmDerivationScheme
 > = {
   ledger: {
     name: 'ledger',
