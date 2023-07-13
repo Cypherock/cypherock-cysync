@@ -4,7 +4,7 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import * as evmAppMock from './__mocks__/evmApp';
 import * as serviceMock from './__mocks__/services';
-import { EvmSupport, ICreateAccountEvent, IEvmAccount } from '../src';
+import { EvmSupport, ICreateEVMAccountEvent, IEvmAccount } from '../src';
 
 describe('02. Create Account', () => {
   let support: EvmSupport;
@@ -34,7 +34,7 @@ describe('02. Create Account', () => {
     const accounts: IEvmAccount[] = [];
     let isDeviceDone = false;
 
-    const observer: Observer<ICreateAccountEvent> = {
+    const observer: Observer<ICreateEVMAccountEvent> = {
       next: data => {
         if (data.type === 'Account' && data.account) {
           accounts.push(data.account);
@@ -103,7 +103,7 @@ describe('02. Create Account', () => {
     const accounts: IEvmAccount[] = [];
     let isDeviceDone = false;
 
-    const observer: Observer<ICreateAccountEvent> = {
+    const observer: Observer<ICreateEVMAccountEvent> = {
       next: data => {
         if (data.type === 'Account' && data.account) {
           accounts.push(data.account);
