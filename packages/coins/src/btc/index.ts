@@ -4,6 +4,7 @@ import { ICoinInfo, ICoinUnit } from '../types';
 
 export interface IBtcCoinInfo extends ICoinInfo {
   family: 'bitcoin';
+  apiCoinType: string;
 }
 
 export const BtcIdMap = {
@@ -51,6 +52,7 @@ export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
+      apiCoinType: coin.apiCoinType,
       units,
     },
   }),

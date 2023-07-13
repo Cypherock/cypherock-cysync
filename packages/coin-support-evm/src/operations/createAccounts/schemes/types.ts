@@ -1,14 +1,14 @@
 import { IDerivationScheme } from '@cypherock/coin-support-interfaces';
 
-export const EVMDerivationSchemeMap = {
+export const EvmDerivationSchemeMap = {
   ledger: 'ledger',
   metamask: 'metamask',
   legacy: 'legacy',
 } as const;
 
-export type EVMDerivationSchemeName =
-  (typeof EVMDerivationSchemeMap)[keyof typeof EVMDerivationSchemeMap];
+export type EvmDerivationSchemeName =
+  (typeof EvmDerivationSchemeMap)[keyof typeof EvmDerivationSchemeMap];
 
-export interface IEVMDerivationScheme extends IDerivationScheme {
-  name: EVMDerivationSchemeName;
+export interface IEvmDerivationScheme extends IDerivationScheme {
+  name: EvmDerivationSchemeName;
 }

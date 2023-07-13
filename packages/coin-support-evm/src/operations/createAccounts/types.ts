@@ -5,17 +5,17 @@ import {
 import { IAccount } from '@cypherock/db-interfaces';
 import { GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
 
-import { EVMDerivationSchemeName } from './schemes/types';
+import { EvmDerivationSchemeName } from './schemes/types';
 
 export interface IEvmAccount extends IAccount {
   extraData: {
-    derivationScheme: EVMDerivationSchemeName;
+    derivationScheme: EvmDerivationSchemeName;
   };
 }
 
-export type ICreateEVMAccountParams = ICreateAccountParams;
+export type ICreateEvmAccountParams = ICreateAccountParams;
 
-export interface ICreateEVMAccountEvent extends ICreateAccountEvent {
+export interface ICreateEvmAccountEvent extends ICreateAccountEvent {
   account?: IEvmAccount;
   device?: {
     isDone: boolean;

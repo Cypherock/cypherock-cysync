@@ -27,7 +27,7 @@ export const createDerivationPathGenerator =
 
 export interface IGenerateDerivationPathsPerSchemeParams
   extends ICreateAccountParams {
-  derivationPathSchemes: Record<string, IDerivationScheme>;
+  derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   limit: number;
 }
 
@@ -39,7 +39,9 @@ export const generateDerivationPathsPerScheme = async (
   const accounts = await db.account.getAll({ walletId });
   const existingDerivationPaths = accounts.map(e => e.derivationPath);
 
-  const derivationSchemeNames = Object.keys(derivationPathSchemes);
+  const derivationSchemeNames = Object.keys(derivationPathSchemes).filter(
+    n => !!derivationPathSchemes[n],
+  );
   const pathLimitPerDerivationScheme = Math.floor(
     limit / derivationSchemeNames.length,
   );
@@ -48,7 +50,10 @@ export const generateDerivationPathsPerScheme = async (
   const derivedPaths: string[] = [];
 
   for (const schemeName of derivationSchemeNames) {
-    const paths = derivationPathSchemes[schemeName].generator(
+    const derivationPathSchemeDetails = derivationPathSchemes[schemeName];
+    if (!derivationPathSchemeDetails) continue;
+
+    const paths = derivationPathSchemeDetails.generator(
       // This is done because there can be overlapping derivation paths
       // between different schemes
       [...existingDerivationPaths, ...derivedPaths],
