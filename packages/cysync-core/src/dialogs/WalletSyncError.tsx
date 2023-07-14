@@ -1,45 +1,55 @@
 import {
-  CheckboxListItems,
-  CheckboxList,
-  Flex,
-  CheckBox,
   Button,
-  walletErrorIcon,
-  Image,
+  CheckBox,
+  CheckboxList,
+  CheckboxListItems,
+  Flex,
   IconDialogBox,
+  Image,
   LangDisplay,
+  walletErrorIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
+import { deleteWallets } from '~/actions';
+import { closeDialog, selectWallets, useAppDispatch } from '~/store';
 
 import { selectLanguage, useAppSelector } from '..';
 
 export const WalletSyncError: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-
+  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =
-    useState<CheckboxListItems>([
-      {
-        label:
-          lang.strings.walletSync.freshOneCreated.checkboxList.cypherockRed,
+    useState<CheckboxListItems>(
+      deletedWallets.map(wallet => ({
+        label: wallet.name,
         checked: true,
-      },
-      {
-        label: lang.strings.walletSync.freshOneCreated.checkboxList.official,
-        checked: true,
-      },
-      {
-        label: lang.strings.walletSync.freshOneCreated.checkboxList.personal,
-        checked: true,
-      },
-    ]);
+        id: wallet.__id,
+      })),
+    );
 
-  const onClose = () => {
+  const keepAllWallets = () => {
     dispatch(closeDialog('walletSyncError'));
   };
+
+  const deleteSelectedWallets = () => {
+    const selectedWalletIds = selectedCheckboxListItems
+      .filter(i => i.checked)
+      .map(i => i.id);
+    const selectedWallets = deletedWallets.filter(d =>
+      selectedWalletIds.includes(d.__id),
+    );
+
+    dispatch(deleteWallets(selectedWallets));
+  };
+
+  useEffect(() => {
+    if (deleteWalletStatus === 'succeeded') {
+      dispatch(closeDialog('walletSyncError'));
+    }
+  }, [deleteWalletStatus]);
 
   return (
     <IconDialogBox
@@ -65,10 +75,14 @@ export const WalletSyncError: FC = () => {
       }
       footerComponent={
         <>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={keepAllWallets}>
             <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
           </Button>
-          <Button variant="primary" onClick={onClose}>
+          <Button
+            variant="primary"
+            onClick={deleteSelectedWallets}
+            isLoading={deleteWalletStatus === 'loading'}
+          >
             <LangDisplay text={lang.strings.walletSync.buttons.delete} />
           </Button>
         </>
