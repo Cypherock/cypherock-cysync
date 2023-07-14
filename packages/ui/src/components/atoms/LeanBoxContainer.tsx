@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { spacing } from '../utils';
 
-interface LeanBoxContainerProps {
-  padding?: string;
-}
-
-export const LeanBoxContainer = styled.div<LeanBoxContainerProps>`
+export const LeanBoxContainer = styled.div`
   display: flex;
   ${spacing};
   flex-direction: column;

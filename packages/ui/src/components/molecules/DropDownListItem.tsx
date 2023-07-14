@@ -10,6 +10,7 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
+import { theme } from '../../themes/theme.styled';
 
 export interface DropDownListItemProps {
   leftImageSrc?: string;
@@ -27,7 +28,7 @@ export interface DropDownListItemProps {
   id?: string;
   onClick?: () => void;
   selectedItem?: string | null;
-  shouldChangeColor?: boolean;
+  changeColorWhite?: boolean;
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }
@@ -59,7 +60,8 @@ export const DropDownListItemStretchedTypography = styled(Typography)<{
   changeColor?: boolean;
 }>`
   flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')};
-  color: 'white';
+  color: ${({ changeColor }) =>
+    changeColor ? 'white' : theme.palette.text.muted};
 `;
 
 export const DropDownListItemRightContent = styled.div`
@@ -86,7 +88,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   id,
   onClick,
   restrictedItem = false,
-  shouldChangeColor = false,
+  changeColorWhite = false,
   onCheckedChange,
 }): ReactElement => {
   const [isChecked, setChecked] = useState(false);
@@ -140,7 +142,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       <DropDownListItemStretchedTypography
         shouldStretch={!tag}
         variant={textVariant}
-        changeColor={shouldChangeColor || isHovered}
+        changeColor={changeColorWhite || isHovered}
+        $fontWeight="medium"
       >
         {text}
       </DropDownListItemStretchedTypography>
@@ -188,7 +191,7 @@ DropDownListItem.defaultProps = {
   onClick: undefined,
   restrictedItem: false,
   selectedItem: undefined,
-  shouldChangeColor: false,
+  changeColorWhite: false,
   checked: false,
   onCheckedChange: undefined,
 };

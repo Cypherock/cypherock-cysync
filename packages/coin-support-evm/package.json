@@ -1,8 +1,9 @@
 {
   "name": "@cypherock/coin-support-evm",
   "version": "0.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",
   "private": true,
   "scripts": {
@@ -10,8 +11,10 @@
     "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
     "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
-    "build": "rimraf dist && pnpm build:dirty",
-    "build:dirty": "tsc -p tsconfig.json",
+    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig_cjs.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:dirty": "pnpm build:esm",
     "test": "jest",
     "pre-commit": "lint-staged"
   },
@@ -31,17 +34,19 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
-    "ts-jest": "^29.0.5",
+    "ts-jest": "^29.1.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@cypherock/coin-support-interfaces": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-evm": "^0.0.11",
-    "@cypherock/sdk-interfaces": "^0.0.7",
-    "@cypherock/sdk-utils": "^0.0.9",
+    "@cypherock/sdk-app-evm": "^0.0.13",
+    "@cypherock/sdk-interfaces": "^0.0.8",
+    "@cypherock/sdk-utils": "^0.0.10",
     "axios": "^1.4.0",
     "rxjs": "^7.8.1"
   },

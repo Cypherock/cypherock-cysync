@@ -68,6 +68,25 @@ const addAccount = {
         },
       },
     },
+    connectDevice: {
+      info: {
+        dialogBox: {
+          title: 'Add Coin/Account',
+          header: 'Connect your X1 Vault to your PC to proceed',
+        },
+      },
+    },
+    congrats: {
+      info: {
+        dialogBox: {
+          title: 'Accounts added successfully',
+          header: 'Add Coin/Account',
+          subtext: 'Add other accounts or return to portfolio',
+          buttonName: 'Done',
+          secButtonName: 'Add more',
+        },
+      },
+    },
     noAccount: {
       info: {
         dialogBox: {

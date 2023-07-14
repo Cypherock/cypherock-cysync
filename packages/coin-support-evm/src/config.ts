@@ -1,3 +1,7 @@
+// import { getEnvVariable } from '@cypherock/cysync-utils';
+
+import { getEnvVariable } from '@cypherock/sdk-utils';
+
 export const config = {
-  CYPHEROCK_API: 'https://api.cypherock.com',
+  API_CYPHEROCK: getEnvVariable('API_CYPHEROCK', 'https://api.cypherock.com'),
 };

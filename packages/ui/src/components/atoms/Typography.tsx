@@ -10,10 +10,10 @@ import {
   WidthProps,
   position,
   PositionProps,
-  display,
-  DisplayProps,
   flex,
   FlexProps,
+  DisplayProps,
+  display,
 } from '../utils';
 import { border, BorderProps } from '../utils/border.styled';
 
@@ -26,8 +26,9 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
-  | 'info'
-  | 'list';
+  | 'list'
+  | 'black'
+  | 'info';
 
 interface HeadingProps
   extends SpacingProps,
@@ -122,7 +123,6 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
-  line-height: 0%;
   ${baseStyle};
 `;
 

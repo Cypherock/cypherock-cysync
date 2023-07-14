@@ -1,5 +1,10 @@
 import { SDK } from '@cypherock/sdk-core';
-import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
+import {
+  DeviceConnectionError,
+  DeviceConnectionErrorType,
+  IDevice,
+  IDeviceConnection,
+} from '@cypherock/sdk-interfaces';
 import * as lodash from 'lodash';
 import React, { useEffect } from 'react';
 
@@ -9,7 +14,8 @@ import logger from '~/utils/logger';
 export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
 export interface DeviceTaskOptions {
-  dontExecuteTask: boolean;
+  dontExecuteTask?: boolean;
+  dontDestroy?: boolean;
 }
 
 export function useDeviceTask<T>(
@@ -37,7 +43,10 @@ export function useDeviceTask<T>(
       setTaskError(undefined);
       connectedRef.current = undefined;
 
-      if (!connection) return undefined;
+      if (!connection)
+        throw new DeviceConnectionError(
+          DeviceConnectionErrorType.NOT_CONNECTED,
+        );
 
       setIsRunning(true);
       await deviceLock.acquire(connection.device, taskId);
@@ -62,8 +71,10 @@ export function useDeviceTask<T>(
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      conn?.destroy().catch(() => {});
+      if (!options?.dontDestroy) {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        conn?.destroy().catch(() => {});
+      }
       setIsRunning(false);
     }
 

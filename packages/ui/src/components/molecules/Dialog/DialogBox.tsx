@@ -9,15 +9,24 @@ import {
   flex,
   width,
   spacing,
+  PositionProps,
+  position,
+  display,
+  HeightProps,
+  height,
+  BgColorProps,
+  $bgColor,
 } from '../../utils';
-import { HeightProps, height } from '../../utils/height.styled';
 
 export interface DialogBoxUtilityProps
   extends WidthProps,
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {
+    SpacingProps,
+    PositionProps,
+    DisplayProps,
+    BgColorProps {
   children?: ReactNode;
   bgColor?: string;
   overflowY?: string;
@@ -35,7 +44,6 @@ const modalCss = css`
   transform: translate(-50%, -50%);
 `;
 
-// CSS for modal overlay background
 const ModalOverlay = styled.div`
   position: fixed;
   z-index: 99;
@@ -62,15 +70,23 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   text-align: center;
   ${props => props.$isModal && modalCss}
   ${flex}
+  ${display}
   ${width}
   ${height}
   ${spacing}
+  ${position}
+  ${$bgColor}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
   padding-left: 32px;
   padding-right: 32px;
   border-bottom: 1px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  position: relative;
+  width: 100%;
   border-top: 0;
   border-left: 0;
   border-right: 0;
@@ -91,22 +107,12 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   justify-content: center;
   align-items: center;
   width: inherit;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   gap: 32px;
-  background-color: ${props => props.bgColor ?? 'inherit'};
-  /* overflow-y: auto;
-  overflow-x: hidden; Prevent horizontal scrollbar */
-  ${flex}
-  ${width}
-  ${height}
-  ${spacing}
-  // Set a fixed height
- // height: 300px; // adjust this value as per your need
-  
-  // or set a max-height
-  max-height: calc(100vh - 200px); // adjust this value as per your need
 
-  /* overflow-y: auto;
-  overflow-x: hidden; // Prevent horizontal scrollbar */
   overflow: visible;
 
   ${({ overflowY }) =>
@@ -116,6 +122,11 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
     `}
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   position: relative;
+
+  ${flex}
+  ${width}
+  ${height}
+  ${spacing}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`

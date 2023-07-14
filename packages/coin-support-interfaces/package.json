@@ -1,0 +1,47 @@
+{
+  "name": "@cypherock/coin-support-interfaces",
+  "version": "0.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "license": "AGPL-3.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "lint:check": "eslint \"src/**/*.{ts,tsx}\"",
+    "pretty": "prettier --write \"src/**/*.ts?(x)\"",
+    "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
+    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig_cjs.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:dirty": "pnpm build:esm",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.22.5",
+    "@cypherock/eslint-config": "workspace:^",
+    "@cypherock/prettier-config": "workspace:^",
+    "@cypherock/tsconfig": "workspace:^",
+    "@types/node": "18.15.11",
+    "eslint": "^8.43.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
+    "ts-jest": "^29.1.0",
+    "typescript": "^4.9.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{js,jsx,md,mdx,mjs,yml,yaml,css,json}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@cypherock/db-interfaces": "workspace:^",
+    "@cypherock/sdk-interfaces": "^0.0.8",
+    "rxjs": "^7.8.1"
+  }
+}

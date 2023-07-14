@@ -21,6 +21,8 @@ export interface InputProps {
   onPostfixIconClick?: () => void;
   bgColor?: string;
   onClick?: () => void;
+  pasteAllowed?: boolean;
+  copyAllowed?: boolean;
 }
 
 const InputStyle = styled.input<{ bgColor?: string }>`
@@ -65,6 +67,8 @@ export const Input: FC<InputProps> = ({
   onPostfixIconClick,
   bgColor,
   onClick,
+  pasteAllowed,
+  copyAllowed,
 }) => (
   <Flex direction="column" width="full" align="center" justify="center">
     {label && (
@@ -81,6 +85,16 @@ export const Input: FC<InputProps> = ({
         bgColor={bgColor}
         value={value}
         onClick={onClick}
+        onPaste={e => {
+          if (pasteAllowed) return true;
+          e.preventDefault();
+          return false;
+        }}
+        onCopy={e => {
+          if (copyAllowed) return true;
+          e.preventDefault();
+          return false;
+        }}
         onChange={e => onChange && onChange(e.target.value)}
       />
       {postfixIcon && postfixIconAlt && (
@@ -110,4 +124,6 @@ Input.defaultProps = {
   onPostfixIconClick: undefined,
   bgColor: undefined,
   onClick: undefined,
+  pasteAllowed: true,
+  copyAllowed: true,
 };

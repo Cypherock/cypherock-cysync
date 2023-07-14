@@ -5,9 +5,11 @@ import {
   Page,
   Locator,
 } from '@playwright/test';
-import { prepElectronApp } from '../__helpers__';
+
+import { clearDb, clearKeyDb, prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
+
 let screen: Page;
 
 function sleep(ms: number) {
@@ -26,6 +28,8 @@ const waitForAttribute = async (
 };
 
 test.beforeEach(async () => {
+  await clearKeyDb();
+  await clearDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
@@ -37,72 +41,165 @@ test.afterAll(async () => {
 });
 
 test('Device connection screen', async () => {
-  const newWindow = screen.getByRole('heading', {
-    name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  await screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
+  const sidePanelFirst = screen
+    .locator('span')
+    .filter({ hasText: 'Device Connection' });
+  await expect(sidePanelFirst).toBeVisible();
+  const backButton = screen.getByRole('button', { name: 'Back' });
+  await expect(backButton).toBeVisible();
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
+  const disconnectedWindow = screen.getByRole('heading', {
+    name: 'Connect your X1 Vault to your PC to proceed',
   });
-  await newWindow.waitFor();
-  expect(newWindow).toBeVisible();
+  await expect(disconnectedWindow).toBeVisible();
+  await expect(
+    screen.getByRole('heading', {
+      name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
+    }),
+  ).toBeVisible();
 });
 
 test('Device authentication successful', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  await screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
+  await screen.getByRole('heading', {
+    name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
+  });
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
+  const sidePanelFirst = screen
+    .locator('span')
+    .filter({ hasText: 'Device Authentication' });
+  await expect(sidePanelFirst).toBeVisible();
   const newWindow = screen.getByRole('heading', {
     name: 'Your X1 Vault is successfully authenticated',
   });
-  await newWindow.waitFor();
-  expect(newWindow).toBeVisible();
+  await expect(newWindow).toBeVisible();
+  await expect(sidePanelFirst).toBeVisible();
+  await expect(helpButton).toBeVisible();
 });
 
 test('Device disconnection during device auth', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  await screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
   await screen
     .getByRole('heading', {
-      name: 'Your X1 Vault will now be authenticated through Cypherock to check its authenticity...(?)',
+      name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
     })
     .waitFor({ timeout: 300000 });
   const newWindow = screen.getByRole('heading', {
     name: 'Connect your X1 Vault to your PC to proceed',
   });
-  await newWindow.waitFor();
   expect(newWindow).toBeVisible();
+  const sidePanelFirst = screen
+    .locator('span')
+    .filter({ hasText: 'Device Authentication' });
+  await expect(sidePanelFirst).toBeVisible();
 });
 
-test('Joystick training', async () => {
+test('Joystick Instructions', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  await screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
   await screen
     .getByRole('heading', {
-      name: 'X1 Vault provides 4 way joystick for screen navigation',
+      name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
     })
     .waitFor({ timeout: 300000 });
-  const upWindow = screen.getByRole('heading', { name: 'Toggle Right' });
-  await upWindow.waitFor();
-  expect(upWindow).toBeVisible();
-  const downWindow = screen.getByRole('heading', { name: 'Toggle Down' });
-  await downWindow.waitFor();
-  expect(downWindow).toBeVisible();
-  const finalWindow = screen.getByRole('img', { name: 'Success Icon' });
-  await finalWindow.waitFor();
-  expect(finalWindow).toBeVisible();
-  const successWindow = screen.getByRole('heading', {
-    name: 'Joystick test complete',
+  const newWindow = screen.getByRole('heading', {
+    name: 'X1 Vault provides 4 way joystick for screen navigation',
   });
-  await successWindow.waitFor({ timeout: 3000 });
-  expect(successWindow).toBeVisible();
+  expect(newWindow).toBeVisible();
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
+  const upWindow = screen.getByRole('heading', { name: 'Toggle Up' });
+  expect(upWindow).toBeVisible();
+  const rightWindow = screen.getByRole('heading', { name: 'Toggle Right' });
+  expect(rightWindow).toBeVisible();
+  await expect(helpButton).toBeVisible();
+  const downWindow = screen.getByRole('heading', { name: 'Toggle Down' });
+  expect(downWindow).toBeVisible();
+  await expect(helpButton).toBeVisible();
+  const finalWindow = screen.getByRole('img', { name: 'Success Icon' });
+  expect(finalWindow).toBeVisible();
+  await expect(helpButton).toBeVisible();
+  const successWindow = screen.getByRole('heading', {
+    name: 'Joystick instructions complete',
+  });
+  expect(successWindow).toBeVisible({ timeout: 3000 });
 });
 
 test('Tap card screen', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
-    .getByRole('heading', {
-      name: 'Tap any X1 Card below the X1 Vault to test card tapping',
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cyp',
     })
-    .waitFor({ timeout: 600000 });
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
+  const tapCard = screen.getByRole('heading', {
+    name: 'Tap any X1 Card below the X1 Vault to test card tapping',
+  });
+  expect(tapCard).toBeVisible();
+  const sidePanelFirst = screen
+    .locator('span')
+    .filter({ hasText: 'Card Tapping Instructions' });
+  await expect(sidePanelFirst).toBeVisible();
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
+  await expect(helpButton).toBeVisible();
   const tapWindow = screen.getByRole('heading', {
     name: 'X1 Card',
     exact: true,
   });
-  await tapWindow.waitFor();
   expect(tapWindow).toBeVisible();
   const cardPairing = screen.getByRole('heading', {
     name: 'Tap X1 Cards one by one below the\nX1 Vault ( ? )',
   });
-  await cardPairing.waitFor();
+  const backButton = screen.getByRole('button', { name: 'Back' });
+  await expect(backButton).toBeVisible();
+  await expect(helpButton).toBeVisible();
   expect(cardPairing).toBeVisible();
   for (let cardNo = 1; cardNo <= 4; cardNo += 1) {
     const cardExp = new RegExp(`^X1 Card #${cardNo}$`);
@@ -121,6 +218,5 @@ test('Tap card screen', async () => {
   const successWindow = screen.getByRole('heading', {
     name: 'Cypherock X1 is now ready to use',
   });
-  await successWindow.waitFor({ timeout: 600000 });
-  expect(successWindow).toBeVisible();
+  await expect(successWindow).toBeVisible();
 });
