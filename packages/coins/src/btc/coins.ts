@@ -7,6 +7,7 @@ export default [
     coinGeckoId: 'bitcoin',
     coinIndex: '80000000',
     feesUnit: 'sat/byte',
+    apiCoinType: 'btc',
     supportedAccountTypes: [
       {
         id: 'btc-native-segwit',
@@ -33,6 +34,7 @@ export default [
     tokenList: {},
     coinIndex: '80000002',
     feesUnit: 'sat/byte',
+    apiCoinType: 'ltc',
     supportedAccountTypes: [],
   },
   {
@@ -44,6 +46,7 @@ export default [
     tokenList: {},
     coinIndex: '80000003',
     feesUnit: 'sat/byte',
+    apiCoinType: 'doge',
     supportedAccountTypes: [],
   },
   {
@@ -55,6 +58,7 @@ export default [
     tokenList: {},
     coinIndex: '80000005',
     feesUnit: 'sat/byte',
+    apiCoinType: 'dash',
     supportedAccountTypes: [],
   },
 ];
