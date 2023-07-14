@@ -10,19 +10,22 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import { AddAccountGuideProvider, useAddAccountGuide } from './context';
-import { CloseConfirmation } from './Dialogs';
 
 export const AddNewAccount: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { tabs, currentTab, currentDialog } = useAddAccountGuide();
-  const [showOnClose, setShowOnClose] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
@@ -31,7 +34,9 @@ export const AddNewAccount: FC = () => {
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="space-between">
               <HelpButton text={lang.strings.help} />
-              <CloseButton onClick={() => setShowOnClose(true)} />
+              <CloseButton
+                onClick={() => dispatch(closeDialog('addAccountGuide'))}
+              />
             </Container>
             <DialogBoxBody
               p="20"

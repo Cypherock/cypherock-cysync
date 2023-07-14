@@ -34,7 +34,7 @@ const Buttons: FC<{
       </Button>
       <Button
         onClick={() => {
-          setShowOnClose(false);
+          setShowOnClose(true);
           dispatch(closeDialog('addAccountGuide'));
         }}
         variant="primary"

@@ -102,12 +102,16 @@ export const LeanBox: FC<LeanBoxProps> = ({
     }
   };
 
+  const handleBoxClick = () => {
+    if (checkBox) handleCheckBoxChange();
+  };
+
   const handleRadioButtonChange = () => {
     // state code to be added here
   };
 
   return (
-    <HorizontalBox isChecked={isChecked}>
+    <HorizontalBox isChecked={isChecked} onClick={handleBoxClick}>
       {displayRadioButton && (
         <RadioButton
           checked={selectedItem?.id === id}

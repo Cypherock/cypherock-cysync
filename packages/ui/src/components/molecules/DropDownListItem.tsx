@@ -115,9 +115,14 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
     // state code to be added here
   };
 
+  const handleBoxClick = () => {
+    if (showCheckBox) handleCheckBoxChange();
+    if (onClick) onClick();
+  };
+
   return (
     <DropDownListItemHorizontalBox
-      onClick={onClick}
+      onClick={handleBoxClick}
       isChecked={checked}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
