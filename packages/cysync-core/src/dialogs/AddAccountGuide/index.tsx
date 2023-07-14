@@ -42,11 +42,7 @@ export const AddNewAccount: FC = () => {
               direction="column"
               height="full"
             >
-              <DialogBox width={500}>
-                <DialogBoxBody p="0">
-                  {tabs[currentTab]?.dialogs[currentDialog]}
-                </DialogBoxBody>
-              </DialogBox>
+              {tabs[currentTab]?.dialogs[currentDialog]}
             </DialogBoxBody>
           </WalletDialogMainContainer>
         </>
