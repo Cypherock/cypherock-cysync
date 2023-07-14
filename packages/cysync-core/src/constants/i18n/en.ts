@@ -159,7 +159,7 @@ const en = {
     },
     deviceDetection: {
       heading: 'Device Connection',
-      title: 'Connect  X2 Vault to your PC to proceed',
+      title: 'Connect your X1 Vault to your PC to proceed',
       subtext:
         'Use the USB cable provided in your product packaging to connect',
     },
@@ -271,7 +271,7 @@ const en = {
         },
         updateFailed: {
           heading: 'Firmware update failed',
-          subtext: 'Reconnect t device to proceed',
+          subtext: 'Reconnect the device to proceed',
         },
       },
     },
