@@ -1,5 +1,5 @@
 import en, { LanguageStrings } from './en';
-import addAccount, { AddAccountStrings } from './addAccount';
+// import addAccount, { AddAccountStrings } from './addAccount';
 
 export type { LanguageStrings } from './en';
 export type { AddAccountStrings } from './addAccount';
@@ -11,12 +11,11 @@ export const LanguageMap = {
 export type Language = (typeof LanguageMap)[keyof typeof LanguageMap];
 
 // Updated to include the AddAccountStrings
-type LanguageContent = LanguageStrings & AddAccountStrings;
+type LanguageContent = LanguageStrings;
 
 const langs: Record<Language, LanguageContent> = {
   en: {
     ...en,
-    ...addAccount,
   },
 };
 

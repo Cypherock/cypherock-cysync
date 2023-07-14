@@ -14,10 +14,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useAppSelector } from '~/store';
+import { useAddAccountGuide } from '../../context';
 
 export const NoAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const noAccount = lang.addAccount.noAccount.info.dialogBox;
+  const { onPrevious } = useAddAccountGuide();
 
   return (
     <div>
@@ -53,7 +55,15 @@ export const NoAccountDialog: React.FC = () => {
           </div>
         </DialogBoxBody>
         <DialogBoxFooter>
-          <Button variant="secondary">Sync Again</Button>
+          <Button
+            variant="secondary"
+            onClick={e => {
+              e.preventDefault();
+              onPrevious?.();
+            }}
+          >
+            Sync Again
+          </Button>
           <Button variant="primary">Close</Button>
         </DialogBoxFooter>
       </DialogBox>

@@ -7,6 +7,11 @@ export interface IDialogState {
     };
   };
 
+  addAccountGuide: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   walletSyncError: {
     isOpen: boolean;
     data?: undefined;
@@ -21,6 +26,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  // addAccountGuide: {
+  //   isOpen: boolean;
+  //   data?: undefined;
+  // };
 }
 
 export type DialogName = keyof IDialogState;

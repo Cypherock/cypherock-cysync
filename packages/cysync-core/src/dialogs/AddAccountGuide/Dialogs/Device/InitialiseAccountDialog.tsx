@@ -9,13 +9,68 @@ import {
   Typography,
   Image,
   Container,
+  bnbChainIcon,
+  checkIcon,
+  bitcoinIcon,
+  halfLoaderGold,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '~/store';
+import { useAddAccountGuide } from '../../context';
 
+const dataArray = [
+  {
+    id: '1', // Add a unique identifier to each data object
+    leftImageSrc: bnbChainIcon,
+    text: 'BNB Chain 1',
+    rightImageSrc: checkIcon,
+  },
+  {
+    id: '2',
+    leftImageSrc: bitcoinIcon,
+    // rightText: '0.77 ETH',
+    text: 'Bitcoin 1',
+    rightImageSrc: halfLoaderGold,
+    animate: true,
+  },
+  {
+    id: '3',
+    leftImageSrc: etheriumBlueIcon,
+    text: 'Etherium 3',
+  },
+];
 export const InitialiseAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const initAccount = lang.addAccount.initAccount.info.dialogBox;
+  const { onNext } = useAddAccountGuide();
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+
+  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState<
+    Record<string, boolean>
+  >({});
+
+  useEffect(() => {
+    const newTimeoutId = setTimeout(() => {
+      onNext(1, 1); // Pass the parameter to onNext
+    }, 2000);
+
+    setTimeoutId(newTimeoutId);
+
+    return () => {
+      // Clear the timeout when the component unmounts or onNext is called
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, []);
+
+  const handleCheckboxChange = (id: string, isChecked: boolean) => {
+    setSelectedCheckboxes(prevState => ({
+      ...prevState,
+      [id]: isChecked,
+    }));
+  };
 
   return (
     <div>
@@ -40,12 +95,19 @@ export const InitialiseAccountDialog: React.FC = () => {
             </Typography>
           </Container>
           <LeanBoxContainer>
-            {initAccount.dataArray.map(data => (
+            {dataArray.map(data => (
               <LeanBox
                 key={data.id}
                 leftImageSrc={data.leftImageSrc}
                 rightImageSrc={data.rightImageSrc}
                 text={data.text}
+                forceUncheck={false}
+                onCheckBoxChange={isChecked =>
+                  handleCheckboxChange(data.id, isChecked)
+                }
+                id={data.id}
+                selectedItem={selectedCheckboxes[data.id] ? data : null}
+                animate={data.animate}
               />
             ))}
           </LeanBoxContainer>

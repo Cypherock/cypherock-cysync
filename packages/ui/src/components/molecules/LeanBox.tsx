@@ -28,6 +28,7 @@ export interface LeanBoxProps {
   id?: string;
   forceUncheck?: boolean;
   selectedItem?: LeanBoxProps | null;
+  animate?: boolean;
 }
 
 export interface HorizontalBoxProps {
@@ -83,6 +84,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   onCheckBoxChange,
   forceUncheck = false,
   id,
+  animate = false,
 }): ReactElement => {
   const [isChecked, setIsChecked] = React.useState(false);
 
@@ -139,12 +141,22 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {rightImageSrc && (
           <ImageContainer>
-            <Image
-              src={rightImageSrc}
-              alt="Right Image"
-              width="15px"
-              height="12px"
-            />
+            {animate ? (
+              <Image
+                src={rightImageSrc}
+                alt="Right Image"
+                width="15px"
+                height="12px"
+                animate="spin"
+              />
+            ) : (
+              <Image
+                src={rightImageSrc}
+                alt="Right Image"
+                width="15px"
+                height="12px"
+              />
+            )}
           </ImageContainer>
         )}
         {checkBox && (
@@ -175,4 +187,5 @@ LeanBox.defaultProps = {
   tag: undefined,
   onCheckBoxChange: undefined,
   selectedItem: undefined,
+  animate: false,
 };

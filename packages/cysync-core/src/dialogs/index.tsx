@@ -3,6 +3,7 @@ import React from 'react';
 
 import { DialogName } from '~/store';
 
+import { AddAccountGuide } from './AddAccountGuide';
 import { CreateWalletGuide } from './CreateWalletGuide';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
@@ -12,4 +13,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   createWalletGuide: CreateWalletGuide,
+  addAccountGuide: AddAccountGuide,
 };

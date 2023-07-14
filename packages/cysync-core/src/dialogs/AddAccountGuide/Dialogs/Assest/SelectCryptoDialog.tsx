@@ -13,10 +13,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { useAppSelector } from '~/store';
+import { useAddAccountGuide } from '../../context';
 
 export const SelectCryptoDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const crypto = lang.addAccount.selectCrypto.info.dialogBox;
+  const { onNext } = useAddAccountGuide();
 
   const [firstDropdownSelection, setFirstDropdownSelection] = useState<
     string | null
@@ -79,7 +81,14 @@ export const SelectCryptoDialog: React.FC = () => {
       </DialogBoxBody>
 
       <DialogBoxFooter>
-        <Button variant="primary" disabled={!secondDropdownSelection}>
+        <Button
+          variant="primary"
+          disabled={!secondDropdownSelection}
+          onClick={e => {
+            e.preventDefault();
+            onNext?.();
+          }}
+        >
           <LangDisplay text={crypto.buttonName} />
         </Button>
       </DialogBoxFooter>
