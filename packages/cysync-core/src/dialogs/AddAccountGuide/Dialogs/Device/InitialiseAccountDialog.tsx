@@ -22,7 +22,7 @@ import { addKeyboardEvents } from '~/hooks';
 
 const dataArray = [
   {
-    id: '1', // Add a unique identifier to each data object
+    id: '1',
     leftImageSrc: bnbChainIcon,
     text: 'BNB Chain 1',
     rightImageSrc: checkIcon,
@@ -30,7 +30,7 @@ const dataArray = [
   {
     id: '2',
     leftImageSrc: bitcoinIcon,
-    // rightText: '0.77 ETH',
+
     text: 'Bitcoin 1',
     rightImageSrc: halfLoaderGold,
     animate: true,

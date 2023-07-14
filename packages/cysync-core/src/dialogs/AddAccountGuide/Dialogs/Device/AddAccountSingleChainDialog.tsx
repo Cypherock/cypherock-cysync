@@ -71,7 +71,6 @@ export const AddAccountSingleChainDialog: FC = () => {
     {
       id: '2',
       leftImageSrc: bitcoinIcon,
-      // rightText: '0.77 ETH',
       text: 'Bitcoin 1',
       checkBox: true,
       tag: 'TAPROOT',
@@ -118,7 +117,6 @@ export const AddAccountSingleChainDialog: FC = () => {
     {
       id: '32',
       leftImageSrc: bitcoinIcon,
-      // rightText: '0.77 ETH',
       text: 'Bitcoin 1',
       checkBox: true,
       tag: 'NATIVE SEGWIT',
@@ -135,8 +133,7 @@ export const AddAccountSingleChainDialog: FC = () => {
   };
 
   const handleButtonClick = () => {
-    console.log('Button clicked');
-    onNext(1, 0);
+    onNext(2, 1);
   };
 
   const lang = useAppSelector(state => state.addAccount.strings);

@@ -26,6 +26,7 @@ import {
   useAppSelector,
   AddAccountCongrats,
 } from '../../..';
+import { SuccessMessage } from '~/dialogs/CreateWalletGuide/Dialogs';
 
 type ITabs = {
   name: string;
@@ -61,14 +62,7 @@ export const AddAccountGuideProvider: FC<
   const tabs: ITabs = [
     {
       name: lang.strings.addAccount.aside.tabs.asset,
-      dialogs: [
-        <SelectCryptoDialog />,
-        // <EnterWalletName />,
-        // <ConfirmWalletName />,
-        // <WalletPinConsent />,
-        // <SetupWalletPin />,
-        // <ConfirmPin />,
-      ],
+      dialogs: [<SelectCryptoDialog />],
     },
     {
       name: lang.strings.addAccount.aside.tabs.device,
@@ -83,15 +77,7 @@ export const AddAccountGuideProvider: FC<
     },
     {
       name: lang.strings.addAccount.aside.tabs.confirmation,
-      dialogs: [
-        <AddAccountCongrats />,
-        // <SuccessMessage />,
-        // <WalletNote />,
-        // <CardNote />,
-        // <CardSafety />,
-        // <AddAnotherWallet />,
-        // <AddAccount />,
-      ],
+      dialogs: [<SuccessMessage />, <AddAccountCongrats />],
     },
   ];
 

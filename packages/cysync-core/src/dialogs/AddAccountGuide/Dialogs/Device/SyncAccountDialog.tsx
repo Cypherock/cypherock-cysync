@@ -38,7 +38,7 @@ export const SyncAccountDialog: React.FC = () => {
 
   const dataArray = [
     {
-      id: '21', // Add a unique identifier to each data object
+      id: '21',
       leftImageSrc: etheriumBlueIcon,
       rightText: '2.35 ETH',
       text: 'Etherium 1',

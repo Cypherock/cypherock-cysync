@@ -28,16 +28,16 @@ export const AddAccountDialog: React.FC = () => {
   const { onNext } = useAddAccountGuide();
   const dataArray = [
     {
-      id: '31', // Add a unique identifier to each data object
+      id: '31',
       leftImageSrc: bnbChainIcon,
-      // rightText: '2.35 ETH',
+
       text: 'BNB Chain 1',
       checkBox: true,
     },
     {
       id: '32',
       leftImageSrc: bitcoinIcon,
-      // rightText: '0.77 ETH',
+
       text: 'Bitcoin 1',
       checkBox: true,
       tag: 'TAPROOT',
@@ -45,7 +45,7 @@ export const AddAccountDialog: React.FC = () => {
     {
       id: '33',
       leftImageSrc: etheriumBlueIcon,
-      // rightText: '0.08 ETH',
+
       text: 'Etherium 3',
       checkBox: true,
     },

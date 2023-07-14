@@ -60,8 +60,6 @@ export const DropDownListItemStretchedTypography = styled(Typography)<{
   changeColor?: boolean;
 }>`
   flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')};
-  /* color: 'white'; */
-  // based on changeColor change the color to either grey or white
   color: ${({ changeColor }) =>
     changeColor ? 'white' : theme.palette.text.muted};
 `;

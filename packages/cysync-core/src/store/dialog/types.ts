@@ -26,11 +26,6 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
-
-  // addAccountGuide: {
-  //   isOpen: boolean;
-  //   data?: undefined;
-  // };
 }
 
 export type DialogName = keyof IDialogState;

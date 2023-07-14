@@ -32,7 +32,7 @@ export const SelectCryptoDialog: React.FC = () => {
 
   const dropDownData = [
     {
-      id: '41', // Add a unique identifier to each data object
+      id: '41',
       leftImageSrc: bnbChainIcon,
       text: 'BNB Chain 1',
       displayRadioButton: true,
@@ -53,7 +53,7 @@ export const SelectCryptoDialog: React.FC = () => {
   ];
   const dropDownDataWithWallet = [
     {
-      id: '51', // Add a unique identifier to each data object
+      id: '51',
       text: 'Official',
       displayRadioButton: true,
     },
