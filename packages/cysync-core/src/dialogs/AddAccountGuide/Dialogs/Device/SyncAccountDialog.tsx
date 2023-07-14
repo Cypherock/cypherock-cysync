@@ -11,6 +11,7 @@ import {
   DialogBoxFooter,
   Button,
   LangDisplay,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
@@ -24,6 +25,27 @@ export const SyncAccountDialog: React.FC = () => {
   const { onNext } = useAddAccountGuide();
 
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+
+  const dataArray = [
+    {
+      id: '21', // Add a unique identifier to each data object
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '2.35 ETH',
+      text: 'Etherium 1',
+    },
+    {
+      id: '22',
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '0.77 ETH',
+      text: 'Etherium 2',
+    },
+    {
+      id: '23',
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '0.08 ETH',
+      text: 'Etherium 3',
+    },
+  ];
 
   useEffect(() => {
     const newTimeoutId = setTimeout(() => {
@@ -65,7 +87,7 @@ export const SyncAccountDialog: React.FC = () => {
               {sync.subheader} ({sync.dataArray.length})
             </InputLabel>
             <LeanBoxContainer>
-              {sync.dataArray.map(data => (
+              {dataArray.map(data => (
                 <LeanBox
                   key={data.id}
                   leftImageSrc={data.leftImageSrc}

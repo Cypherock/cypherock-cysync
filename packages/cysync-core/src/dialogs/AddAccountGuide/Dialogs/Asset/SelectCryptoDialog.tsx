@@ -10,6 +10,9 @@ import {
   Button,
   Dropdown,
   addIcon,
+  bnbChainIcon,
+  bitcoinIcon,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { useAppSelector } from '~/store';
@@ -26,6 +29,50 @@ export const SelectCryptoDialog: React.FC = () => {
   const [secondDropdownSelection, setSecondDropdownSelection] = useState<
     string | null
   >(null);
+
+  const dropDownData = [
+    {
+      id: '41', // Add a unique identifier to each data object
+      leftImageSrc: bnbChainIcon,
+      text: 'BNB Chain 1',
+      displayRadioButton: true,
+    },
+    {
+      id: '42',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 1',
+      tag: 'TAPROOT',
+      displayRadioButton: true,
+    },
+    {
+      id: '43',
+      leftImageSrc: etheriumBlueIcon,
+      text: 'Etherium 3',
+      displayRadioButton: true,
+    },
+  ];
+  const dropDownDataWithWallet = [
+    {
+      id: '51', // Add a unique identifier to each data object
+      text: 'Official',
+      displayRadioButton: true,
+    },
+    {
+      id: '52',
+      text: 'Cypherock Red',
+      displayRadioButton: true,
+    },
+    {
+      id: '53',
+      text: 'Personal',
+      displayRadioButton: true,
+    },
+    {
+      id: '54',
+      text: 'Business',
+      displayRadioButton: true,
+    },
+  ];
 
   const handleFirstDropdownSelectionChange = (
     selectedItemId: string | null,
@@ -64,14 +111,14 @@ export const SelectCryptoDialog: React.FC = () => {
         </Container>
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
-            items={crypto.dropDownDataWithWallet}
+            items={dropDownDataWithWallet}
             shouldChangeColor
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onSelectionChange={handleFirstDropdownSelectionChange}
           />
           <Dropdown
-            items={crypto.dropDownData}
+            items={dropDownData}
             disabled={!firstDropdownSelection}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}

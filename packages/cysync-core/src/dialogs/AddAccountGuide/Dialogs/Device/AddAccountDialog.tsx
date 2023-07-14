@@ -11,6 +11,9 @@ import {
   DialogBoxFooter,
   Button,
   settingsIcon,
+  bnbChainIcon,
+  etheriumBlueIcon,
+  bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useAppSelector } from '~/store';
@@ -18,8 +21,32 @@ import { useAppSelector } from '~/store';
 export const AddAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
 
-  const { title, header, subheader, submitButton, advanced, dataArray } =
+  const { title, header, subheader, submitButton, advanced } =
     lang.addAccount.add.info.dialogBox;
+  const dataArray = [
+    {
+      id: '31', // Add a unique identifier to each data object
+      leftImageSrc: bnbChainIcon,
+      // rightText: '2.35 ETH',
+      text: 'BNB Chain 1',
+      checkBox: true,
+    },
+    {
+      id: '32',
+      leftImageSrc: bitcoinIcon,
+      // rightText: '0.77 ETH',
+      text: 'Bitcoin 1',
+      checkBox: true,
+      tag: 'TAPROOT',
+    },
+    {
+      id: '33',
+      leftImageSrc: etheriumBlueIcon,
+      // rightText: '0.08 ETH',
+      text: 'Etherium 3',
+      checkBox: true,
+    },
+  ];
 
   return (
     <DialogBox width={500} height={544}>

@@ -6,5 +6,5 @@ export * from '../dialogs/AddAccountGuide/Dialogs/Device/NoAccountDialog';
 export * from '../dialogs/AddAccountGuide/Dialogs/Device/SyncAccountDialog';
 export * from '../dialogs/AddAccountGuide/Dialogs/Device/AddAccountDialog';
 export * from '../dialogs/AddAccountGuide/Dialogs/Device/AddAccountSingleChainDialog';
-export * from '../dialogs/AddAccountGuide/Dialogs/Assest/SelectCryptoDialog';
+export * from '../dialogs/AddAccountGuide/Dialogs/Asset/SelectCryptoDialog';
 export * from './DialogManager';

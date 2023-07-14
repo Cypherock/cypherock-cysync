@@ -11,6 +11,7 @@ import {
   InputLabel,
   DialogBoxFooter,
   Button,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useAppSelector } from '~/store';
@@ -20,7 +21,26 @@ export const NoAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const noAccount = lang.addAccount.noAccount.info.dialogBox;
   const { onPrevious } = useAddAccountGuide();
-
+  const dataArray = [
+    {
+      id: '21',
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '2.35 ETH',
+      text: 'Etherium 1',
+    },
+    {
+      id: '22',
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '0.77 ETH',
+      text: 'Etherium 2',
+    },
+    {
+      id: '23',
+      leftImageSrc: etheriumBlueIcon,
+      rightText: '0.08 ETH',
+      text: 'Etherium 3',
+    },
+  ];
   return (
     <div>
       <DialogBox width={500} height={544}>
@@ -39,7 +59,7 @@ export const NoAccountDialog: React.FC = () => {
               {noAccount.subheader} ({noAccount.dataArray.length})
             </InputLabel>
             <LeanBoxContainer>
-              {noAccount.dataArray.map(data => (
+              {dataArray.map(data => (
                 <LeanBox
                   key={data.id}
                   leftImageSrc={data.leftImageSrc}

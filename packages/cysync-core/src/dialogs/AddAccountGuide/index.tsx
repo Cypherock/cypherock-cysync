@@ -12,8 +12,7 @@ import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 import { AddAccountGuideProvider, useAddAccountGuide } from './context';
-
-import { CloseConfirmation } from '../CreateWalletGuide/Dialogs';
+import { CloseConfirmation } from './Dialogs';
 
 export const AddNewAccount: FC = () => {
   const lang = useAppSelector(selectLanguage);

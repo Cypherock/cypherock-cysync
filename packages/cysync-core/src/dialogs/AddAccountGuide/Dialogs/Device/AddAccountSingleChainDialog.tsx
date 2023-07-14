@@ -14,6 +14,7 @@ import {
   Button,
   settingsIcon,
   Flex,
+  bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useEffect, useState } from 'react';
@@ -63,6 +64,63 @@ const RenderLeanBox: FC<LeanBoxData> = ({
 
 export const AddAccountSingleChainDialog: FC = () => {
   const [forceUncheck, setForceUncheck] = useState(false);
+  const dataArray = [
+    {
+      id: '2',
+      leftImageSrc: bitcoinIcon,
+      // rightText: '0.77 ETH',
+      text: 'Bitcoin 1',
+      checkBox: true,
+      tag: 'TAPROOT',
+    },
+  ];
+  const accountNotSynced = [
+    {
+      id: '1',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 2',
+      checkBox: true,
+      tag: 'TAPROOT',
+    },
+    {
+      id: '22',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 2',
+      checkBox: true,
+      tag: 'TAPROOT',
+    },
+    {
+      id: '3',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 2',
+      checkBox: true,
+      tag: 'SEGWIT',
+    },
+    {
+      id: '4',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 2',
+      checkBox: true,
+      tag: 'NATIVE SEGWIT',
+    },
+  ];
+  const accountsInPortfolio = [
+    {
+      id: '31',
+      leftImageSrc: bitcoinIcon,
+      text: 'Bitcoin 1',
+      checkBox: true,
+      tag: 'SEGWIT',
+    },
+    {
+      id: '32',
+      leftImageSrc: bitcoinIcon,
+      // rightText: '0.77 ETH',
+      text: 'Bitcoin 1',
+      checkBox: true,
+      tag: 'NATIVE SEGWIT',
+    },
+  ];
 
   const handleClick = () => {
     setForceUncheck(true);
@@ -99,7 +157,7 @@ export const AddAccountSingleChainDialog: FC = () => {
               <LangDisplay text={singleChain.subheader} />
             </InputLabel>
             <LeanBoxContainer>
-              {singleChain.dataArray.map(data => (
+              {dataArray.map(data => (
                 <RenderLeanBox key={data.id} {...data} />
               ))}
             </LeanBoxContainer>
@@ -160,7 +218,7 @@ export const AddAccountSingleChainDialog: FC = () => {
               </InputLabel>
             </Flex>
             <LeanBoxContainer>
-              {singleChain.accountNotSynced.map(data => (
+              {accountNotSynced.map(data => (
                 <RenderLeanBox
                   key={data.id}
                   {...data}
@@ -181,7 +239,7 @@ export const AddAccountSingleChainDialog: FC = () => {
               <LangDisplay text={singleChain.subheader3} />
             </InputLabel>
             <LeanBoxContainer>
-              {singleChain.accountsInPortfolio.map(data => (
+              {accountsInPortfolio.map(data => (
                 <RenderLeanBox key={data.id} {...data} />
               ))}
             </LeanBoxContainer>
