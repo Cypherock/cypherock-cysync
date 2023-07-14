@@ -52,7 +52,10 @@ export const InitialiseAccountDialog: React.FC = () => {
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(1, 1);
+      onNext(1, 2);
+    },
+    ArrowUp: () => {
+      onNext(1, 5);
     },
     ArrowLeft: () => {
       onPrevious();

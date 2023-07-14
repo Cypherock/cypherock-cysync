@@ -16,7 +16,6 @@ import logger from '~/utils/logger';
 
 import {
   AddAccountDialog,
-  AddAccountCongrats,
   AddAccountSingleChainDialog,
   InitialiseAccountDialog,
   ConnectDevice,
@@ -25,6 +24,7 @@ import {
   SyncAccountDialog,
   selectLanguage,
   useAppSelector,
+  AddAccountCongrats,
 } from '../../..';
 
 type ITabs = {
@@ -73,12 +73,12 @@ export const AddAccountGuideProvider: FC<
     {
       name: lang.strings.addAccount.aside.tabs.device,
       dialogs: [
-        <InitialiseAccountDialog />,
         <ConnectDevice />,
+        <InitialiseAccountDialog />,
         <SyncAccountDialog />,
         <NoAccountDialog />,
-        <AddAccountDialog />,
         <AddAccountSingleChainDialog />,
+        <AddAccountDialog />,
       ],
     },
     {
@@ -99,6 +99,8 @@ export const AddAccountGuideProvider: FC<
     logger.info('currentTab');
 
     if (tab && dialog) {
+      console.log('tab', tab);
+      console.log('dialog', dialog);
       setCurrentTab(tab);
       setCurrentDialog(dialog);
     } else if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {

@@ -65,6 +65,7 @@ const RenderLeanBox: FC<LeanBoxData> = ({
 export const AddAccountSingleChainDialog: FC = () => {
   const [forceUncheck, setForceUncheck] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const { onNext } = useAddAccountGuide();
 
   const dataArray = [
     {
@@ -133,9 +134,13 @@ export const AddAccountSingleChainDialog: FC = () => {
     setTimeout(() => setForceUncheck(false), 100);
   };
 
+  const handleButtonClick = () => {
+    console.log('Button clicked');
+    onNext(1, 0);
+  };
+
   const lang = useAppSelector(state => state.addAccount.strings);
   const singleChain = lang.addAccount.addAccountSingleChain.info.dialogBox;
-  const { onNext } = useAddAccountGuide();
 
   return (
     <DialogBox width={500} height={700}>
@@ -249,12 +254,7 @@ export const AddAccountSingleChainDialog: FC = () => {
         </DialogBoxBody>
       </ScrollableContainer>
       <DialogBoxFooter>
-        <Button
-          variant="primary"
-          onClick={() => {
-            onNext(2, 0);
-          }}
-        >
+        <Button variant="primary" onClick={handleButtonClick}>
           <LangDisplay text={singleChain.submitButton} />
         </Button>
       </DialogBoxFooter>
