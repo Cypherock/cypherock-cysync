@@ -4,12 +4,14 @@ import {
   DeviceProvider,
   StoreProvider,
   store,
-  GlobalStyles,
   LockscreenBoundary,
   LockscreenProvider,
   BackgroundTasks,
   DialogManager,
 } from '@cypherock/cysync-core';
+
+import { GlobalStyles } from '@cypherock/cysync-ui';
+
 import React from 'react';
 
 import { AppRouter } from './Router';

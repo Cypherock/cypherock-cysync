@@ -9,7 +9,7 @@ module.exports = {
     return tpl`
 import React from 'react'
 import { SvgStyle as Svg, SvgProps } from '../Svg';
-
+${'\n'}
 const ${componentNameWithType} = ({stroke, fill, ...props}) => (
     ${variables.jsx}
 );

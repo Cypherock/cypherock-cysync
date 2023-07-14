@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { Input, InputProps } from './Input';
 
-import { visibilityHideIcon, visibilityIcon } from '../../../assets';
+import { Visibility, VisibilityHide } from '../../../assets';
 
 type PasswordInputProps = Omit<
   InputProps,
@@ -22,8 +22,7 @@ export const PasswordInput: FC<PasswordInputProps> = props => {
       {...props}
       copyAllowed={false}
       pasteAllowed={false}
-      postfixIcon={showPassword ? visibilityIcon : visibilityHideIcon}
-      postfixIconAlt="Show password"
+      PostfixIcon={showPassword ? Visibility : VisibilityHide}
       onPostfixIconClick={togglePassword}
     />
   );
