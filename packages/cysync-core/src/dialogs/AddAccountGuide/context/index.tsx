@@ -12,20 +12,14 @@ import React, {
   useState,
 } from 'react';
 
-import {
-  AddAccount,
-  AddAnotherWallet,
-  CardNote,
-  CardSafety,
-  SuccessMessage,
-  WalletNote,
-} from '~/dialogs/CreateWalletGuide/Dialogs';
 import logger from '~/utils/logger';
 
 import {
   AddAccountDialog,
+  AddAccountCongrats,
   AddAccountSingleChainDialog,
   InitialiseAccountDialog,
+  ConnectDevice,
   NoAccountDialog,
   SelectCryptoDialog,
   SyncAccountDialog,
@@ -80,6 +74,7 @@ export const AddAccountGuideProvider: FC<
       name: lang.strings.addAccount.aside.tabs.device,
       dialogs: [
         <InitialiseAccountDialog />,
+        <ConnectDevice />,
         <SyncAccountDialog />,
         <NoAccountDialog />,
         <AddAccountDialog />,
@@ -89,12 +84,13 @@ export const AddAccountGuideProvider: FC<
     {
       name: lang.strings.addAccount.aside.tabs.confirmation,
       dialogs: [
-        <SuccessMessage />,
-        <WalletNote />,
-        <CardNote />,
-        <CardSafety />,
-        <AddAnotherWallet />,
-        <AddAccount />,
+        <AddAccountCongrats />,
+        // <SuccessMessage />,
+        // <WalletNote />,
+        // <CardNote />,
+        // <CardSafety />,
+        // <AddAnotherWallet />,
+        // <AddAccount />,
       ],
     },
   ];

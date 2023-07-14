@@ -78,7 +78,7 @@ export const NoAccountDialog: React.FC = () => {
           variant="secondary"
           onClick={e => {
             e.preventDefault();
-            onPrevious?.();
+            onPrevious();
           }}
         >
           Sync Again

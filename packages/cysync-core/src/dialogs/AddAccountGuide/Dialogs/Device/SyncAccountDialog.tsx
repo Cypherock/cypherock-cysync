@@ -13,18 +13,28 @@ import {
   LangDisplay,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { useAppSelector } from '~/store';
 
 import { useAddAccountGuide } from '../../context';
+import { addKeyboardEvents } from '~/hooks';
 
 export const SyncAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const sync = lang.addAccount.syncAccount.info.dialogBox;
-  const { onNext } = useAddAccountGuide();
+  const { onNext, onPrevious } = useAddAccountGuide();
 
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const keyboardActions = {
+    ArrowRight: () => {
+      onNext(1, 4);
+    },
+    ArrowLeft: () => {
+      onPrevious();
+    },
+  };
+
+  addKeyboardEvents(keyboardActions);
 
   const dataArray = [
     {
@@ -47,26 +57,8 @@ export const SyncAccountDialog: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    const newTimeoutId = setTimeout(() => {
-      onNext(1, 4); // Pass the parameter to onNext
-    }, 3000);
-
-    setTimeoutId(newTimeoutId);
-
-    return () => {
-      // Clear the timeout when the component unmounts or onNext is called
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []); // Empty dependency array to simulate component mount effect
-
   const handleNextWithTimeout = () => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-    onNext(); // Pass the parameter to onNext
+    onNext();
   };
 
   return (

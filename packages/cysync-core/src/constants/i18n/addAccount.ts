@@ -76,6 +76,17 @@ const addAccount = {
         },
       },
     },
+    congrats: {
+      info: {
+        dialogBox: {
+          title: 'Accounts added successfully',
+          header: 'Add Coin/Account',
+          subtext: 'Add other accounts or return to portfolio',
+          buttonName: 'Done',
+          secButtonName: 'Add more',
+        },
+      },
+    },
     noAccount: {
       info: {
         dialogBox: {

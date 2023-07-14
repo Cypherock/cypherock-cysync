@@ -15,9 +15,10 @@ import {
   halfLoaderGold,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
+import { addKeyboardEvents } from '~/hooks';
 
 const dataArray = [
   {
@@ -43,27 +44,22 @@ const dataArray = [
 export const InitialiseAccountDialog: React.FC = () => {
   const lang = useAppSelector(state => state.addAccount.strings);
   const initAccount = lang.addAccount.initAccount.info.dialogBox;
-  const { onNext } = useAddAccountGuide();
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const { onNext, onPrevious } = useAddAccountGuide();
 
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState<
     Record<string, boolean>
   >({});
 
-  useEffect(() => {
-    const newTimeoutId = setTimeout(() => {
-      onNext(1, 1); // Pass the parameter to onNext
-    }, 2000);
+  const keyboardActions = {
+    ArrowRight: () => {
+      onNext(1, 1);
+    },
+    ArrowLeft: () => {
+      onPrevious();
+    },
+  };
 
-    setTimeoutId(newTimeoutId);
-
-    return () => {
-      // Clear the timeout when the component unmounts or onNext is called
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
+  addKeyboardEvents(keyboardActions);
 
   const handleCheckboxChange = (id: string, isChecked: boolean) => {
     setSelectedCheckboxes(prevState => ({
