@@ -65,7 +65,7 @@ export async function generateAddressesPerScheme<T>(
 
   let index = 0;
   const mapAddresses = (path: string, i: number) => ({
-    address: addresses[index + i].toLowerCase(),
+    address: addresses[index + i],
     derivationPath: path,
   });
 
