@@ -13,10 +13,11 @@ import { LeanBoxProps, DropDownListItem } from '../molecules';
 
 interface DropdownProps {
   items: LeanBoxProps[];
-  shouldChangeColor?: boolean;
+  changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
-  onSelectionChange?: (selectedItemId: string | null) => void;
+  selectedItem: string | null;
+  onChange: (selectedItemId: string | null) => void;
   disabled?: boolean;
 }
 
@@ -25,9 +26,6 @@ const List = styled.ul`
   top: 100%;
   right: 0;
   width: 100%;
-  /* min-width: 420px; */
-  /* height: 192px; */
-  /* padding: 16px 0; */
   list-style: none;
   background-color: #2c2520;
   border-radius: 8px;
@@ -43,7 +41,6 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   background-color: #46403c;
-  /* margin-left: 40px; */
 `;
 
 const Container = styled.div<{ isOpen: boolean }>`
@@ -75,14 +72,14 @@ const IconContainer = styled.div`
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  shouldChangeColor,
+  changeColorWhite,
   searchText,
   placeholderText,
-  onSelectionChange,
+  selectedItem,
+  onChange,
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [checkedStates, setCheckedStates] = React.useState<
     Record<string, boolean>
@@ -113,12 +110,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const handleItemSelection = (item: LeanBoxProps) => {
     const id = item.id ?? '';
-    setSelectedItem(id);
-    handleCheckedChange(id, true); // Update checked state when an item is selected
+    onChange(id);
+    handleCheckedChange(id, true);
     toggleDropdown();
-    if (onSelectionChange) {
-      onSelectionChange(id); // Call the callback function with the new selected item
-    }
   };
 
   return (
@@ -133,9 +127,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
           text={items.find(item => item.id === selectedItem)?.text ?? ''}
           onClick={toggleDropdown}
           restrictedItem
-          shouldChangeColor={shouldChangeColor}
+          changeColorWhite
           leftImageSrc={
-            shouldChangeColor
+            changeColorWhite
               ? cypherockRedIcon
               : items.find(item => item.id === selectedItem)?.leftImageSrc
           }
@@ -183,7 +177,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 };
 
 Dropdown.defaultProps = {
-  shouldChangeColor: false,
-  onSelectionChange: undefined,
+  changeColorWhite: false,
   disabled: false,
 };

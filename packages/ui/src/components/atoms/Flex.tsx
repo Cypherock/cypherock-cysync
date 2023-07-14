@@ -11,7 +11,6 @@ const FlexStyle = styled.div<UtilsProps>`
 export interface FlexProps extends UtilsProps {
   children?: ReactNode;
   flex?: string;
-  fullWidth?: boolean; // Add fullWidth prop definition here
 }
 
 export const Flex: FC<FlexProps> = ({ children, ...props }) => (
@@ -21,5 +20,4 @@ export const Flex: FC<FlexProps> = ({ children, ...props }) => (
 Flex.defaultProps = {
   children: undefined,
   flex: undefined,
-  fullWidth: false, // Set the default value of fullWidth to false
 };

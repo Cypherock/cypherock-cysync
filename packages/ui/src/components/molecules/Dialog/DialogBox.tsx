@@ -108,22 +108,12 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   justify-content: center;
   align-items: center;
   width: inherit;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   gap: 32px;
-  background-color: ${props => props.bgColor ?? 'inherit'};
-  /* overflow-y: auto;
-  overflow-x: hidden; Prevent horizontal scrollbar */
-  ${flex}
-  ${width}
-  ${height}
-  ${spacing}
-  // Set a fixed height
- // height: 300px; // adjust this value as per your need
-  
-  // or set a max-height
-  max-height: calc(100vh - 200px); // adjust this value as per your need
 
-  /* overflow-y: auto;
-  overflow-x: hidden; // Prevent horizontal scrollbar */
   overflow: visible;
 
   ${({ overflowY }) =>
@@ -133,6 +123,11 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
     `}
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   position: relative;
+
+  ${flex}
+  ${width}
+  ${height}
+  ${spacing}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`

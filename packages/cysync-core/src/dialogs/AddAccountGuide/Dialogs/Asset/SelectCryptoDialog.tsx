@@ -83,7 +83,6 @@ export const SelectCryptoDialog: React.FC = () => {
   const handleSecondDropdownSelectionChange = (
     selectedItemId: string | null,
   ) => {
-    // Handle the selection change of the second dropdown here
     setSecondDropdownSelection(selectedItemId);
   };
 
@@ -112,17 +111,19 @@ export const SelectCryptoDialog: React.FC = () => {
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={dropDownDataWithWallet}
-            shouldChangeColor
+            selectedItem={firstDropdownSelection}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
-            onSelectionChange={handleFirstDropdownSelectionChange}
+            onChange={handleFirstDropdownSelectionChange}
+            changeColorWhite
           />
           <Dropdown
             items={dropDownData}
+            selectedItem={secondDropdownSelection}
             disabled={!firstDropdownSelection}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
-            onSelectionChange={handleSecondDropdownSelectionChange}
+            onChange={handleSecondDropdownSelectionChange}
           />
         </Container>
       </DialogBoxBody>

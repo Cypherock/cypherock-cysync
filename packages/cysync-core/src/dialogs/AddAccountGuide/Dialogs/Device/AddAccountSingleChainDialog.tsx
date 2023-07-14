@@ -64,6 +64,8 @@ const RenderLeanBox: FC<LeanBoxData> = ({
 
 export const AddAccountSingleChainDialog: FC = () => {
   const [forceUncheck, setForceUncheck] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
   const dataArray = [
     {
       id: '2',
@@ -122,6 +124,10 @@ export const AddAccountSingleChainDialog: FC = () => {
     },
   ];
 
+  const handleToggleChange = (checked: boolean) => {
+    setIsChecked(checked);
+  };
+
   const handleClick = () => {
     setForceUncheck(true);
     setTimeout(() => setForceUncheck(false), 100);
@@ -169,16 +175,12 @@ export const AddAccountSingleChainDialog: FC = () => {
               display={{ def: 'inline-block' }}
             >
               <LangDisplay text={singleChain.advanced} />
-              <Toggle
-                onToggle={() => {
-                  // Do something with the checked state...
-                }}
-              />
+              <Toggle checked={isChecked} onToggle={handleToggleChange} />
             </InputLabel>
           </div>
 
           <div>
-            <Flex justify="flex-start" fullWidth>
+            <Flex justify="flex-start">
               <InputLabel
                 noWrap
                 display={{ def: 'inline-block' }}

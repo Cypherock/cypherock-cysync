@@ -30,16 +30,12 @@ interface InputLabelProps
 }
 
 const InputLabelStyle = styled.label<InputLabelProps>`
-  ${font} // Utilize the font utility
-  ${display} // Utilize the display utility
   text-align: right;
   width: 100%;
 
   color: ${({ theme, color }) => color ?? theme.palette.text.muted};
   ${({ textAlign }) => textAlign === 'left' && 'text-align: left;'}
   white-space: ${({ noWrap }) => (noWrap ? 'nowrap' : 'normal')};
-  ${spacing}
-  ${border}
 
   ${({ clickable }) =>
     clickable &&
@@ -50,6 +46,10 @@ const InputLabelStyle = styled.label<InputLabelProps>`
         text-decoration: underline;
       }
     `}
+  ${spacing}
+  ${border}
+  ${font} 
+  ${display}
 `;
 
 export const InputLabel: FC<InputLabelProps> = ({
