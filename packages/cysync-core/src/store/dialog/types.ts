@@ -6,7 +6,18 @@ export interface IDialogState {
       coinId?: string;
     };
   };
+
   walletSyncError: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  walletActions: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  createWalletGuide: {
     isOpen: boolean;
     data?: undefined;
   };

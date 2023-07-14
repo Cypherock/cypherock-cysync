@@ -19,6 +19,14 @@ const passwordPrefixed = (prefix: string, lang: ILangState) =>
       message: prefix + lang.strings.validation.password.minLength,
     })
     .refine(
+      val => /.*?[A-Z].*/.test(val),
+      prefix + lang.strings.validation.password.containUppercase,
+    )
+    .refine(
+      val => /.*?[a-z].*/.test(val),
+      prefix + lang.strings.validation.password.containLowercase,
+    )
+    .refine(
       val => /.*?[0-9].*/.test(val),
       prefix + lang.strings.validation.password.containNumber,
     )

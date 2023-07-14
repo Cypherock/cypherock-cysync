@@ -7,23 +7,37 @@ import {
   Text,
   JoystickIndicator as Indicator,
 } from './Elements';
-import { JoystickInteractionProps } from './types';
+import { bgColorMap, JoystickInteractionProps, textColorMap } from './types';
 
 import { Container, Typography } from '../../atoms';
 
-const CenterClickPrompt: React.FC = () => (
+const CenterClickPrompt: React.FC<JoystickInteractionProps> = ({ center }) => (
   <Container height={192} position="relative">
     <Ring
       position="absolute"
+      state={center}
       $animDelay={0.6}
       animate="pulse"
       $animDuration={2}
     />
-    <Ring position="absolute" animate="pulse" $animDuration={2} />
-    <Ring position="absolute">
+    <Ring
+      position="absolute"
+      animate="pulse"
+      $animDuration={2}
+      state={center}
+    />
+    <Ring position="absolute" state={center}>
       <Container gap={8} direction="column">
-        <Container width={12} height={12} $borderRadius={6} $bgColor="golden" />
-        <Typography variant="h5" color="gold">
+        <Container
+          width={12}
+          height={12}
+          $borderRadius={6}
+          $bgColor={bgColorMap[center ?? 'selected'] as any}
+        />
+        <Typography
+          variant="h5"
+          color={textColorMap[center ?? 'selected'] as any}
+        >
           Press
         </Typography>
       </Container>
@@ -91,7 +105,7 @@ export const JoystickInteraction: React.FC<JoystickInteractionProps> = ({
     {center === undefined && (
       <DirectionButtonPrompt down={down} left={left} right={right} up={up} />
     )}
-    {center !== undefined && <CenterClickPrompt />}
+    {center !== undefined && <CenterClickPrompt center={center} />}
   </Container>
 );
 
