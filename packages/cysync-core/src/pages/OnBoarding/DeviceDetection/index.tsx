@@ -3,7 +3,6 @@ import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
 import { routes } from '~/constants';
-
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { OnboardingPageLayout } from '../OnboardingPageLayout';
