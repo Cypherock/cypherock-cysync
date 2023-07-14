@@ -52,7 +52,7 @@ export const AddAccountDialog: React.FC = () => {
   ];
 
   return (
-    <DialogBox width={500} height={544}>
+    <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
           <LangDisplay text={title} />

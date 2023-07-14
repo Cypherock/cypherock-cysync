@@ -4,6 +4,7 @@ import { openAddAccountGuideDialog } from '~/actions';
 import {
   AddAccountDialog,
   AddAccountSingleChainDialog,
+  ConnectDevice,
   InitialiseAccountDialog,
   NoAccountDialog,
   SelectCryptoDialog,
@@ -20,6 +21,7 @@ export const SyncAccount: React.FC = () => {
 
   return (
     <div>
+      <ConnectDevice />
       <AddAccountDialog />
       <SelectCryptoDialog />
       <AddAccountSingleChainDialog />

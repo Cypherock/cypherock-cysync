@@ -133,7 +133,7 @@ export const AddAccountSingleChainDialog: FC = () => {
   };
 
   const handleButtonClick = () => {
-    onNext(2, 1);
+    onNext(2, 0);
   };
 
   const lang = useAppSelector(state => state.addAccount.strings);

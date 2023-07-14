@@ -26,7 +26,6 @@ import {
   useAppSelector,
   AddAccountCongrats,
 } from '../../..';
-import { SuccessMessage } from '~/dialogs/CreateWalletGuide/Dialogs';
 
 type ITabs = {
   name: string;
@@ -77,16 +76,14 @@ export const AddAccountGuideProvider: FC<
     },
     {
       name: lang.strings.addAccount.aside.tabs.confirmation,
-      dialogs: [<SuccessMessage />, <AddAccountCongrats />],
+      dialogs: [<AddAccountCongrats />],
     },
   ];
 
   const onNext = (tab?: number, dialog?: number) => {
     logger.info('currentTab');
 
-    if (tab && dialog) {
-      console.log('tab', tab);
-      console.log('dialog', dialog);
+    if (typeof tab === 'number' && typeof dialog === 'number') {
       setCurrentTab(tab);
       setCurrentDialog(dialog);
     } else if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {

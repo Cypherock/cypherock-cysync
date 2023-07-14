@@ -4,9 +4,9 @@ import {
   DialogBox,
   DialogBoxHeader,
   DialogBoxBody,
-  Flex,
   Typography,
   Image,
+  Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
@@ -30,23 +30,20 @@ export const ConnectDevice: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <div>
-      <DialogBox width={500}>
-        <DialogBoxHeader height={56} width={500}>
-          <Typography variant="fineprint" width="100%" color="muted">
-            <LangDisplay text={connect.title} />
+    <DialogBox width={500}>
+      <DialogBoxHeader height={56} width={500}>
+        <Typography variant="fineprint" width="100%" color="muted">
+          <LangDisplay text={connect.title} />
+        </Typography>
+      </DialogBoxHeader>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+        <Image src={disconnectedIcon} alt="Verify Coin" />
+        <Container display="flex" direction="column" gap={20} width="full">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay text={connect.header} />
           </Typography>
-        </DialogBoxHeader>
-
-        <DialogBoxBody pb={4} pt={4}>
-          <Image src={disconnectedIcon} alt="Device not connected" />
-          <Flex direction="column" gap={4}>
-            <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={connect.header} />
-            </Typography>
-          </Flex>
-        </DialogBoxBody>
-      </DialogBox>
-    </div>
+        </Container>
+      </DialogBoxBody>
+    </DialogBox>
   );
 };

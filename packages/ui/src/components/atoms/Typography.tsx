@@ -92,7 +92,6 @@ const baseStyle = css<HeadingProps>`
   ${font};
   ${width};
   ${position};
-  ${flex};
   ${display};
   ${flex};
 `;
@@ -124,7 +123,6 @@ const HeadingFourStyle = styled.h4<HeadingProps>`
 const HeadingFiveStyle = styled.h5<HeadingProps>`
   font-size: 20px;
   font-weight: 400;
-  line-height: 0%;
   ${baseStyle};
 `;
 

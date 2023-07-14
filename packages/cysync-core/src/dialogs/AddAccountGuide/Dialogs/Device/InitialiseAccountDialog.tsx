@@ -72,7 +72,7 @@ export const InitialiseAccountDialog: React.FC = () => {
   };
 
   return (
-    <DialogBox width={500} height={480}>
+    <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
           <LangDisplay text={initAccount.title} />

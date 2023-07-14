@@ -87,7 +87,7 @@ export const SelectCryptoDialog: React.FC = () => {
   };
 
   return (
-    <DialogBox width={500} height={500}>
+    <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
           <LangDisplay text={crypto.title} />

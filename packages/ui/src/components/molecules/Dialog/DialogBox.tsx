@@ -44,7 +44,6 @@ const modalCss = css`
   transform: translate(-50%, -50%);
 `;
 
-// CSS for modal overlay background
 const ModalOverlay = styled.div`
   position: fixed;
   z-index: 99;
