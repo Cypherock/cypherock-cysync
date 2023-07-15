@@ -38,6 +38,7 @@ Before you get started, please make sure you have the following setup -
 ```
 ├── apps                # Contains all the applications
 │   └── desktop             # CySync desktop application, contains all electron code
+│   └── cli                 # CySync cli application
 │
 ├── packages            # All packages required for apps
 │   └── ui                  # UI library for cysync containing all components
@@ -80,12 +81,18 @@ pnpm start -s  # Start desktop application with short log format
 
 ### Other commands
 
-- `pnpm start`: Start desktop application (Hot reload enabled)
-- `pnpm make`: Created packaged desktop application
 - `pnpm test`: Run all tests
 - `pnpm lint`: Lint all files
 - `pnpm pretty`: Prettify all files
 - `pnpm build:submodules`: Build submodules if you are changing them
+
+- Desktop App
+    - `pnpm start`: Start desktop application (Hot reload enabled)
+    - `pnpm make`: Created packaged desktop application
+
+- CLI App
+    - `pnpm dev:cli -- <ARGS>`: Run cli application
+    - `pnpm make:cli`: Created packaged cli application
 
 ### Editing submodules
 

@@ -13,6 +13,7 @@
 ```
 ├── apps                # Contains all the applications
 │   └── desktop             # CySync desktop application, contains all electron code
+│   └── cli                 # CySync cli application
 │
 ├── packages            # All packages required for apps
 │   └── ui                  # UI library for cysync containing all components
