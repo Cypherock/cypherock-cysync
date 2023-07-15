@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { openAddAccountGuideDialog } from '~/actions';
 
 import {
+  AddAccountCongrats,
   AddAccountDialog,
   AddAccountSingleChainDialog,
   ConnectDevice,
@@ -30,6 +31,7 @@ export const SyncAccount: React.FC = () => {
       <InitialiseAccountDialog />
       <SyncAccountDialog />
       <NoAccountDialog />
+      <AddAccountCongrats />
       {/* {addAcc.info.dialogBox.dropDownData.map((item) => (
               <DropDownListItem key={item.id} {...item}/>
           ))} */}

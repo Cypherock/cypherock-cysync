@@ -14,12 +14,13 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
 export const NoAccountDialog: React.FC = () => {
-  const lang = useAppSelector(state => state.addAccount.strings);
-  const noAccount = lang.addAccount.noAccount.info.dialogBox;
+  const lang = useAppSelector(selectLanguage);
+
+  const noAccount = lang.strings.addAccount.addAccount.noAccount.info.dialogBox;
   const { onPrevious } = useAddAccountGuide();
   const dataArray = [
     {
@@ -55,7 +56,7 @@ export const NoAccountDialog: React.FC = () => {
         </Typography>
         <div>
           <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
-            {noAccount.subheader} ({noAccount.dataArray.length})
+            {noAccount.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
             {dataArray.map(data => (

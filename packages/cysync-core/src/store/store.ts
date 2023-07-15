@@ -15,13 +15,10 @@ import dialogReducer, { IDialogState } from './dialog';
 import langReducers, { ILangState } from './lang';
 import walletReducer, { IWalletState } from './wallet';
 
-import addAccountReducer, { IAddAccountState } from './addAccountSlice'; // Import the addAccount reducer
-
 export interface RootState {
   wallet: IWalletState;
   lang: ILangState;
   dialog: IDialogState;
-  addAccount: IAddAccountState; // Add a new slice for addAccount
 }
 
 export const store = configureStore({
@@ -29,7 +26,6 @@ export const store = configureStore({
     wallet: walletReducer,
     lang: langReducers,
     dialog: dialogReducer,
-    addAccount: addAccountReducer, // add the addAccount reducer here
   },
 });
 

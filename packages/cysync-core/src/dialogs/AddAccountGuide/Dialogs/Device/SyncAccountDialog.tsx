@@ -15,14 +15,15 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountGuide } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 
 export const SyncAccountDialog: React.FC = () => {
-  const lang = useAppSelector(state => state.addAccount.strings);
-  const sync = lang.addAccount.syncAccount.info.dialogBox;
+  const lang = useAppSelector(selectLanguage);
+
+  const sync = lang.strings.addAccount.addAccount.syncAccount.info.dialogBox;
   const { onNext, onPrevious } = useAddAccountGuide();
 
   const keyboardActions = {
@@ -75,7 +76,7 @@ export const SyncAccountDialog: React.FC = () => {
         </Typography>
         <div>
           <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
-            {sync.subheader} ({sync.dataArray.length})
+            {sync.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
             {dataArray.map(data => (

@@ -16,14 +16,15 @@ import {
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
 export const AddAccountDialog: React.FC = () => {
-  const lang = useAppSelector(state => state.addAccount.strings);
+  // const lang = useAppSelector(state => state.addAccount.strings);
+  const lang = useAppSelector(selectLanguage);
 
   const { title, header, subheader, submitButton, advanced } =
-    lang.addAccount.add.info.dialogBox;
+    lang.strings.addAccount.addAccount.add.info.dialogBox;
 
   const { onNext } = useAddAccountGuide();
   const dataArray = [

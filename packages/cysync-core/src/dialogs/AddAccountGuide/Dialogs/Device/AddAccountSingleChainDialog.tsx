@@ -18,7 +18,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useEffect, useState } from 'react';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
 interface LeanBoxData {
@@ -136,8 +136,9 @@ export const AddAccountSingleChainDialog: FC = () => {
     onNext(2, 0);
   };
 
-  const lang = useAppSelector(state => state.addAccount.strings);
-  const singleChain = lang.addAccount.addAccountSingleChain.info.dialogBox;
+  const lang = useAppSelector(selectLanguage);
+  const singleChain =
+    lang.strings.addAccount.addAccount.addAccountSingleChain.info.dialogBox;
 
   return (
     <DialogBox width={500} height={700}>
@@ -196,7 +197,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 <LangDisplay
                   text={singleChain.subheader2}
                   variables={{
-                    length: singleChain.accountNotSynced.length.toString(),
+                    length: accountNotSynced.length.toString(),
                   }}
                 />
               </InputLabel>
@@ -216,7 +217,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 <LangDisplay
                   text={singleChain.subheaderright}
                   variables={{
-                    length: singleChain.accountNotSynced.length.toString(),
+                    length: accountNotSynced.length.toString(),
                   }}
                 />
               </InputLabel>

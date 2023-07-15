@@ -2,7 +2,6 @@ import en, { LanguageStrings } from './en';
 // import addAccount, { AddAccountStrings } from './addAccount';
 
 export type { LanguageStrings } from './en';
-export type { AddAccountStrings } from './addAccount';
 
 export const LanguageMap = {
   en: 'en',

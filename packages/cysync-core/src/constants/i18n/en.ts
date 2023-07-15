@@ -133,6 +133,17 @@ const en = {
           },
         },
       },
+      congrats: {
+        info: {
+          dialogBox: {
+            header: 'Add Coin/Account',
+            subtext: 'Add other accounts or return to portfolio',
+            title: 'Accounts added successfully',
+            buttonName: 'Done',
+            secButtonName: 'Add more',
+          },
+        },
+      },
       noAccount: {
         info: {
           dialogBox: {

@@ -16,7 +16,7 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 
@@ -42,8 +42,9 @@ const dataArray = [
   },
 ];
 export const InitialiseAccountDialog: React.FC = () => {
-  const lang = useAppSelector(state => state.addAccount.strings);
-  const initAccount = lang.addAccount.initAccount.info.dialogBox;
+  const lang = useAppSelector(selectLanguage);
+  const initAccount =
+    lang.strings.addAccount.addAccount.initAccount.info.dialogBox;
   const { onNext, onPrevious } = useAddAccountGuide();
 
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState<

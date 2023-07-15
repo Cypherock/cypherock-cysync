@@ -15,12 +15,12 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
 export const SelectCryptoDialog: React.FC = () => {
-  const lang = useAppSelector(state => state.addAccount.strings);
-  const crypto = lang.addAccount.selectCrypto.info.dialogBox;
+  const lang = useAppSelector(selectLanguage);
+  const crypto = lang.strings.addAccount.addAccount.selectCrypto.info.dialogBox;
   const { onNext } = useAddAccountGuide();
 
   const [firstDropdownSelection, setFirstDropdownSelection] = useState<
