@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { openAddAccountGuideDialog } from '~/actions';
-
 import {
   AddAccountCongrats,
   AddAccountDialog,
@@ -10,7 +9,8 @@ import {
   NoAccountDialog,
   SelectCryptoDialog,
   SyncAccountDialog,
-} from '~/components';
+} from '~/dialogs/AddAccountGuide/Dialogs';
+
 import { useAppDispatch } from '~/store';
 
 export const SyncAccount: React.FC = () => {

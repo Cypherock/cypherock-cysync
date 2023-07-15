@@ -95,14 +95,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const handleInputChange = (value: string) => {
     if (!disabled) {
-      // Only allow input change when not disabled
       setSearch(value);
     }
   };
 
   const toggleDropdown = () => {
     if (!disabled) {
-      // Only allow dropdown to toggle when not disabled
       setIsOpen(!isOpen);
       setSearch('');
     }

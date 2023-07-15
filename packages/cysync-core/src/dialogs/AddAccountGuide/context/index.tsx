@@ -13,6 +13,7 @@ import React, {
 } from 'react';
 
 import logger from '~/utils/logger';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import {
   AddAccountDialog,
@@ -22,10 +23,8 @@ import {
   NoAccountDialog,
   SelectCryptoDialog,
   SyncAccountDialog,
-  selectLanguage,
-  useAppSelector,
   AddAccountCongrats,
-} from '../../..';
+} from '../Dialogs';
 
 type ITabs = {
   name: string;
