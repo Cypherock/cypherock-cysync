@@ -31,7 +31,8 @@ export const Styles = createGlobalStyle`
 }`;
 
 export const GlobalStyles: React.FC = () => (
-  <Styles>
+  <>
+    <Styles />
     <svg xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id={svgGradients.gold}>
@@ -41,5 +42,5 @@ export const GlobalStyles: React.FC = () => (
         </linearGradient>
       </defs>
     </svg>
-  </Styles>
+  </>
 );
