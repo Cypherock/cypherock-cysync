@@ -1,11 +1,10 @@
-import {
-  joystickArrowCompletedIcon,
-  joystickArrowIcon,
-  joystickArrowSelectedIcon,
-} from '../../../assets/images';
-import { ImageProps, IndicatorState } from '../../atoms';
+import { SvgProps } from '../../../assets';
+import { getDefaultTheme } from '../../../themes';
+import { IndicatorState } from '../../atoms';
+import { svgGradients } from '../../GlobalStyles';
 import { UtilsProps } from '../../utils';
 
+const theme = getDefaultTheme();
 export type JoystickState = 'unselected' | 'selected' | 'completed';
 export type DirectionType = 'up' | 'right' | 'down' | 'left' | 'center';
 export interface DirectionProps {
@@ -41,7 +40,7 @@ export const bgColorMap: Record<JoystickState, string> = {
   completed: 'success',
 };
 
-export const directionMap: Record<DirectionType, Partial<ImageProps>> = {
+export const directionMap: Record<DirectionType, Partial<SvgProps>> = {
   up: {
     rotate: -90,
     top: 24,
@@ -68,8 +67,8 @@ export const directionMap: Record<DirectionType, Partial<ImageProps>> = {
   center: {},
 };
 
-export const typeMap: Record<JoystickState, string> = {
-  unselected: joystickArrowIcon,
-  selected: joystickArrowSelectedIcon,
-  completed: joystickArrowCompletedIcon,
+export const arrowColorMap: Record<JoystickState, string> = {
+  unselected: theme.palette.muted.main,
+  selected: `url(#${svgGradients.gold})`,
+  completed: theme.palette.success.main,
 };

@@ -26,9 +26,6 @@ import greenTick from './green-tick.svg';
 import importWalletIcon from './import-wallet.png';
 import { InfoIcon } from './InfoIcon';
 import informationIcon from './information.svg';
-import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
-import joystickArrowIcon from './JoystickArrowDisabled.svg';
-import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderIcon from './loader.png';
@@ -67,9 +64,6 @@ export {
   disconnectedIcon,
   successIcon,
   shieldAlert,
-  joystickArrowCompletedIcon,
-  joystickArrowIcon,
-  joystickArrowSelectedIcon,
   cardTapAsideImage,
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,

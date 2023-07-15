@@ -7,13 +7,14 @@ import {
   directionMap,
   indicatorMap,
   textColorMap,
-  typeMap,
+  arrowColorMap,
   bgColorMap,
   JoystickCenterProps,
 } from './types';
 
+import { JoystickArrowIcon } from '../../../assets';
 import { theme } from '../../../themes/theme.styled';
-import { Typography, Image, Container } from '../../atoms';
+import { Typography, Container } from '../../atoms';
 import { Indicator } from '../../atoms/Indicator';
 
 export const JoystickIndicator: React.FC<DirectionProps> = ({ state }) => (
@@ -45,12 +46,7 @@ export const Text: React.FC<{ text: string } & DirectionProps> = props => {
 export const JoystickArrow: React.FC<JoystickArrowProps> = props => {
   const { type, state = 'unselected' } = props;
   return (
-    <Image
-      src={typeMap[state]}
-      alt="Arrow"
-      position="absolute"
-      {...directionMap[type]}
-    />
+    <JoystickArrowIcon fill={arrowColorMap[state]} {...directionMap[type]} />
   );
 };
 
