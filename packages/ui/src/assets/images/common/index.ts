@@ -41,7 +41,6 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
 import successIcon from './success.svg';
-import triangleIcon from './triangle-icon.svg';
 import usbIcon from './usb.svg';
 import walletErrorIcon from './wallet-error.svg';
 
@@ -91,5 +90,4 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
-  triangleIcon,
 };
