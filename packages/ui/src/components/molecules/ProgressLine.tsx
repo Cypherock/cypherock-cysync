@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Container, Flex } from '../atoms';
 
 const bgColor = (activeTab: number, index: number) => {
