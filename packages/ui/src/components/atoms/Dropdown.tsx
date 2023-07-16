@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { Image } from './Image';
 import { Input } from './Input';
 
-import {
-  cypherockRedIcon,
-  searchIcon,
-  triangleInverseIcon,
-} from '../../assets';
+import { searchIcon, triangleInverseIcon, walletIcon } from '../../assets';
+import { theme } from '../../themes/theme.styled';
 import { LeanBoxProps, DropDownListItem } from '../molecules';
 
 interface DropdownProps {
@@ -16,50 +13,49 @@ interface DropdownProps {
   changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
-  selectedItem: string | null;
-  onChange: (selectedItemId: string | null) => void;
+  selectedItem: string | undefined;
+  onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
 }
 
-const List = styled.ul`
+const List = styled.ul<{ disabled?: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
   width: 100%;
   list-style: none;
-  background-color: #2c2520;
   border-radius: 8px;
-  box-shadow: 4px 4px 32px 4px #0f0d0b;
-  max-height: 200px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  box-shadow: 4px 4px 32px 4px ${theme.palette.shadow.dropdown};
+  padding: 16px 0px 16px 0px;
   z-index: 10;
+  background-color: ${theme.palette.background.input};
   &:hover {
-    background-color: #272320;
+    cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
   }
 `;
 
 const ListItem = styled.li`
-  background-color: #46403c;
+  background-color: ${theme.palette.border.list};
 `;
 
-const Container = styled.div<{ isOpen: boolean }>`
+const Container = styled.div<{ isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
-  background-color: #272320;
+  background-color: ${theme.palette.border.dropdown};
+  border: 2px solid
+    ${props =>
+      props.isOpen ? theme.palette.border.gold : theme.palette.border.dropdown};
+  &:hover {
+    border: 2px solid
+      ${props =>
+        !props.disabled
+          ? theme.palette.border.gold
+          : theme.palette.border.dropdown};
+  }
   input {
     padding-right: 30px;
-    border-color: ${props => (props.isOpen ? '#D4AF37' : '#272320')};
-  }
-  &:hover {
-    input {
-      border-color: #d4af37;
-    }
-    ${List} {
-      background-color: #191715;
-      cursor: pointer;
-    }
+    cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   }
 `;
 
@@ -75,7 +71,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   changeColorWhite,
   searchText,
   placeholderText,
-  selectedItem,
+  selectedItem = undefined,
   onChange,
   disabled = false,
 }) => {
@@ -112,11 +108,35 @@ export const Dropdown: React.FC<DropdownProps> = ({
     handleCheckedChange(id, true);
     toggleDropdown();
   };
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <Container isOpen={isOpen} style={{ opacity: disabled ? 0.5 : 1 }}>
+    <Container
+      ref={containerRef}
+      isOpen={isOpen}
+      disabled={disabled}
+      onClick={toggleDropdown}
+    >
       {selectedItem ? (
         <DropDownListItem
+          $borderRadius={8}
           checked={checkedStates[selectedItem]}
           onCheckedChange={checked =>
             handleCheckedChange(selectedItem, checked)
@@ -128,10 +148,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
           changeColorWhite
           leftImageSrc={
             changeColorWhite
-              ? cypherockRedIcon
+              ? walletIcon
               : items.find(item => item.id === selectedItem)?.leftImageSrc
           }
           tag={items.find(item => item.id === selectedItem)?.tag}
+          shortForm={items.find(item => item.id === selectedItem)?.shortForm}
         />
       ) : (
         <Input
@@ -140,8 +161,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          bgColor="#272320"
+          bgColor={theme.palette.background.dropdown}
           placeholder={isOpen ? searchText : placeholderText}
+          disabled={disabled}
         />
       )}
       <IconContainer>
@@ -152,7 +174,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       </IconContainer>
 
       {isOpen && (
-        <List onMouseLeave={toggleDropdown}>
+        <List onMouseLeave={toggleDropdown} disabled={disabled}>
           {filteredItems.map(item => {
             const itemId = item.id ?? '';
             return (

@@ -5,6 +5,7 @@ import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import binanceIcon from './binance.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
@@ -26,9 +27,9 @@ import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
 import { FailIcon } from './FailIcon';
-import halfLoaderGold from './half-loader-gold.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
+import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
 import { InfoIcon } from './InfoIcon';
 import informationIcon from './information.svg';
@@ -50,10 +51,11 @@ import openExternalLink from './open-external-link.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
-import settingsIcon from './settings.svg';
 import { ServerErrorIcon } from './ServerErrorIcon';
+import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
+import solanaIcon from './solana.svg';
 import successIcon from './success.svg';
 import syncProblem from './sync-problem.svg';
 import syncronizing from './syncronizing.svg';
@@ -64,9 +66,12 @@ import verifyCoinIcon from './verify-coin.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
 import walletErrorIcon from './wallet-error.svg';
+import walletIcon from './wallet.svg';
 
 export {
   addWalletIcon,
+  walletIcon,
+  binanceIcon,
   etheriumBlueIcon,
   addIcon,
   cypherockRedIcon,
@@ -83,6 +88,7 @@ export {
   arrowWhiteBackward,
   backIcon,
   closeIcon,
+  solanaIcon,
   cysyncLogoBig,
   cysyncLogoSmall,
   importWalletIcon,

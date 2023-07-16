@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { theme } from '../../themes/theme.styled';
 
 interface ToggleProps {
   checked: boolean;
@@ -21,7 +22,10 @@ const Slider = styled.span<{ checked: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({ checked }) => (checked ? '#D4AF37' : '#39322C')};
+  background-color: ${({ checked }) =>
+    checked
+      ? `${theme.palette.border.gold}`
+      : theme.palette.background.separator};
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 41px;
@@ -32,7 +36,10 @@ const Slider = styled.span<{ checked: boolean }>`
     width: 10px;
     left: ${({ checked }) => (checked ? '16px' : '3px')};
     bottom: 3px;
-    background-color: ${({ checked }) => (checked ? '#000000' : '#544D43')};
+    background-color: ${({ checked }) =>
+      checked
+        ? theme.palette.background.toggleActive
+        : theme.palette.background.toggle};
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 50%;

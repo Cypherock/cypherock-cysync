@@ -8,12 +8,8 @@ export const LanguageMap = {
 
 export type Language = (typeof LanguageMap)[keyof typeof LanguageMap];
 
-type LanguageContent = LanguageStrings;
-
-const langs: Record<Language, LanguageContent> = {
-  en: {
-    ...en,
-  },
+const langs: Record<Language, LanguageStrings> = {
+  en,
 };
 
 const defaultLang: Language = 'en';

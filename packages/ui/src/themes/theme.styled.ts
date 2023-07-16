@@ -45,6 +45,9 @@ export const theme = {
       ...colors.text,
       disabled: colors.disabled.text,
     },
+    shadow: {
+      dropdown: colors.shadow.dropdown,
+    },
     background: {
       progress: colors.background.progressBar,
       input: colors.background.input,
@@ -52,7 +55,6 @@ export const theme = {
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
       separator: colors.background.separator,
-      separatorSecondary: colors.background.separatorSecondary,
       content: colors.gradients.content,
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
@@ -62,6 +64,10 @@ export const theme = {
       successSecondary: colors.success.secondary,
       muted: colors.background.muted,
       inputSecondary: colors.background.inputSecondary,
+      dropdown: colors.background.dropdown,
+      dropdownHover: colors.background.dropdownHover,
+      toggleActive: colors.background.black,
+      toggle: colors.background.toggleOff,
     },
     border: {
       popup: colors.border.popup,
@@ -74,6 +80,8 @@ export const theme = {
       table: colors.border.table,
       list: colors.border.list,
       muted: colors.border.muted,
+      gold: colors.border.gold,
+      dropdown: colors.border.dropdown,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

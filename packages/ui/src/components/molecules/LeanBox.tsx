@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   CheckBox,
   Image,
+  LangDisplay,
   RadioButton,
   Tag,
   Typography,
@@ -17,6 +18,7 @@ export interface LeanBoxProps {
   rightText?: string;
   tag?: string;
   text: string;
+  shortForm?: string;
   displayRadioButton?: boolean;
   radioButtonValue?: string;
   rightTextColor?: TypographyColor;
@@ -42,9 +44,9 @@ export const HorizontalBox = styled.div<HorizontalBoxProps>`
   gap: 16px;
   align-self: stretch;
   border-radius: 8px;
-  border: 1px solid #3c3937;
-  background: ${({ isChecked }) =>
-    isChecked ? '#2C2824' : 'var(--input-background, #27221d)'};
+  border: 1px solid ${({ theme }) => theme.palette.border.input};
+  background: ${({ isChecked, theme }) =>
+    isChecked ? theme.palette.border.list : theme.palette.background.input};
   width: 422px;
   height: 42px;
 `;
@@ -74,6 +76,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   radioButtonValue,
   rightText,
   selectedItem,
+  shortForm = '',
   text,
   tag,
   textVariant = 'fineprint',
@@ -136,6 +139,9 @@ export const LeanBox: FC<LeanBoxProps> = ({
       >
         {text}
       </StretchedTypography>
+      <Typography $fontSize={13} $fontWeight="medium" color="muted">
+        <LangDisplay text={shortForm} />
+      </Typography>
       {tag && <Tag>{tag}</Tag>}
       <RightContent>
         {rightText && (
@@ -192,4 +198,5 @@ LeanBox.defaultProps = {
   onCheckBoxChange: undefined,
   selectedItem: undefined,
   animate: false,
+  shortForm: '',
 };

@@ -32,11 +32,11 @@ const InputStyle = styled.input<{ bgColor?: string }>`
   padding: 12px 24px;
   background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
-  background: ${({ bgColor }) => bgColor ?? '#272320'};
-  border: 1px solid #39322c;
+  background: ${({ bgColor, theme }) =>
+    bgColor ?? theme.palette.background.dropdown};
+  border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
-
   &:focus-visible {
     outline: none;
   }

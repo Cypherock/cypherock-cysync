@@ -49,9 +49,13 @@ export const colors = {
     inputSecondary: '#3C3937',
     blur: 'rgba(29, 25, 23, 0.4)',
     separator: '#39322C',
-    separatorSecondary: '#272320',
     bar: '#3A3937',
     muted: '#8B8682',
+    dropdown: '#272320',
+    gold: '#E9B873',
+    dropdownHover: '#191715',
+    black: '#000000',
+    toggleOff: '#544D43',
   },
   border: {
     popup: '#2C2520',
@@ -63,5 +67,10 @@ export const colors = {
     table: '#2C2929',
     muted: '#8B8682',
     white: '#ffffff',
+    dropdown: '#272320',
+    gold: 'gold',
+  },
+  shadow: {
+    dropdown: '#0f0d0b',
   },
 };

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   CheckBox,
   Image,
+  LangDisplay,
   RadioButton,
   Tag,
   Typography,
@@ -11,8 +12,9 @@ import {
   TypographyProps,
 } from '../atoms';
 import { theme } from '../../themes/theme.styled';
+import { BorderProps, border } from '../utils';
 
-export interface DropDownListItemProps {
+export interface DropDownListItemProps extends BorderProps {
   leftImageSrc?: string;
   rightIconSrc?: string;
   rightText?: string;
@@ -22,12 +24,12 @@ export interface DropDownListItemProps {
   radioButtonValue?: string;
   restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
-  textVariant?: TypographyProps['variant'];
+  shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
   showCheckBox?: boolean;
   id?: string;
   onClick?: () => void;
-  selectedItem?: string | null;
+  selectedItem?: string | undefined;
   changeColorWhite?: boolean;
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -35,19 +37,31 @@ export interface DropDownListItemProps {
 
 export interface DropDownListItemHorizontalBoxProps {
   isChecked: boolean;
+  borderRadius?: string; // Change the type to string or use a custom type alias
 }
 
-export const DropDownListItemHorizontalBox = styled.div<DropDownListItemHorizontalBoxProps>`
+const ShortFormTag = styled.div`
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  color: ${theme.palette.text.muted};
+  padding-left: 5px;
+`;
+
+export const DropDownListItemHorizontalBox = styled.div<
+  DropDownListItemHorizontalBoxProps & BorderProps
+>`
   display: flex;
   padding: 12px 24px;
   align-items: center;
   gap: 16px;
   align-self: stretch;
-  border-bottom: 1px solid #2c2824;
-  background-color: ${({ isChecked }) => (isChecked ? '#272320' : '#46403c')};
+  border-bottom: 1px solid ${theme.palette.border.list};
+  background-color: ${theme.palette.background.dropdown};
   &:hover {
-    background-color: #272320;
+    background-color: ${theme.palette.background.dropdownHover};
   }
+  ${border}
 `;
 
 export const DropDownListItemIconContainer = styled.div`
@@ -59,7 +73,7 @@ export const DropDownListItemStretchedTypography = styled(Typography)<{
   shouldStretch: boolean;
   changeColor?: boolean;
 }>`
-  flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')};
+  /* flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')}; */
   color: ${({ changeColor }) =>
     changeColor ? 'white' : theme.palette.text.muted};
 `;
@@ -77,10 +91,10 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   displayRadioButton,
   radioButtonValue,
   rightText,
-  selectedItem,
+  selectedItem = undefined,
   text,
+  shortForm = '',
   tag,
-  textVariant = 'fineprint',
   rightTextVariant = 'fineprint',
   rightTextColor = 'gold',
   showCheckBox = false,
@@ -90,6 +104,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   restrictedItem = false,
   changeColorWhite = false,
   onCheckedChange,
+  $borderRadius,
 }): ReactElement => {
   const [isChecked, setChecked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -126,6 +141,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       isChecked={checked}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      $borderRadius={$borderRadius}
     >
       {!restrictedItem && displayRadioButton && (
         <RadioButton
@@ -146,11 +162,13 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       )}
       <DropDownListItemStretchedTypography
         shouldStretch={!tag}
-        variant={textVariant}
+        variant="h6"
         changeColor={changeColorWhite || isHovered}
-        $fontWeight="medium"
       >
-        {text}
+        <LangDisplay text={text} />
+        <ShortFormTag>
+          <LangDisplay text={shortForm} />
+        </ShortFormTag>
       </DropDownListItemStretchedTypography>
       {tag && <Tag>{tag}</Tag>}
       <DropDownListItemRightContent>
@@ -186,7 +204,6 @@ DropDownListItem.defaultProps = {
   leftImageSrc: undefined,
   rightText: undefined,
   rightTextColor: 'muted',
-  textVariant: 'fineprint',
   displayRadioButton: false,
   radioButtonValue: '',
   rightTextVariant: 'fineprint',
@@ -199,4 +216,5 @@ DropDownListItem.defaultProps = {
   changeColorWhite: false,
   checked: false,
   onCheckedChange: undefined,
+  shortForm: '',
 };
