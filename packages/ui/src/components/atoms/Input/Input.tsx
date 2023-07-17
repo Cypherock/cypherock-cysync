@@ -26,12 +26,12 @@ const InputStyle = styled.input`
   width: 100%;
   border: none;
   padding: 12px 24px;
-  background-color: $({theme}) => {theme.palette.background.input};
+  background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
   background: #272320;
   border: 1px solid #39322c;
   border-radius: 8px;
-  color: $({theme}) => {theme.palette.text.muted};
+  color: ${({ theme }) => theme.palette.text.muted};
 
   &:focus-visible {
     outline: none;
