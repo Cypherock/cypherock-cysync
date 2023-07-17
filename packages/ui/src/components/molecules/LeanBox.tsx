@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useCallback } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -26,18 +26,15 @@ export interface LeanBoxProps {
   rightTextVariant?: TypographyProps['variant'];
   color?: TypographyColor;
   checkBox?: boolean;
-  onCheckBoxChange?: (isChecked: boolean) => void;
   id?: string;
-  forceUncheck?: boolean;
-  selectedItem?: LeanBoxProps | null;
   animate?: boolean;
+  isChecked?: boolean;
+  onCheckChange?: (isChecked: boolean) => void;
+  radioButtonSelected?: boolean;
+  onRadioButtonChange?: (isSelected: boolean) => void;
 }
 
-export interface HorizontalBoxProps {
-  isChecked: boolean;
-}
-
-export const HorizontalBox = styled.div<HorizontalBoxProps>`
+export const HorizontalBox = styled.div<{ isChecked: boolean }>`
   display: flex;
   padding: 8px 16px;
   align-items: center;
@@ -46,7 +43,7 @@ export const HorizontalBox = styled.div<HorizontalBoxProps>`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.input};
   background: ${({ isChecked, theme }) =>
-    isChecked ? theme.palette.border.list : theme.palette.background.input};
+    isChecked ? theme.palette.background.list : theme.palette.background.input};
   width: 422px;
   height: 42px;
 `;
@@ -75,7 +72,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
   displayRadioButton,
   radioButtonValue,
   rightText,
-  selectedItem,
   shortForm = '',
   text,
   tag,
@@ -84,40 +80,44 @@ export const LeanBox: FC<LeanBoxProps> = ({
   color = 'muted',
   rightTextColor = 'gold',
   checkBox = false,
-  onCheckBoxChange,
-  forceUncheck = false,
   id,
   animate = false,
+  isChecked = false,
+  onCheckChange,
+  radioButtonSelected = false,
+  onRadioButtonChange,
 }): ReactElement => {
-  const [isChecked, setIsChecked] = React.useState(false);
+  const handleCheckBoxChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { checked } = event.target;
+      if (onCheckChange) {
+        onCheckChange(checked);
+      }
+    },
+    [onCheckChange],
+  );
 
-  React.useEffect(() => {
-    if (forceUncheck) {
-      setIsChecked(false);
+  const handleBoxClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+      if (onCheckChange) {
+        onCheckChange(!isChecked);
+      }
+    },
+    [isChecked, onCheckChange],
+  );
+
+  const handleRadioButtonChange = useCallback(() => {
+    if (onRadioButtonChange) {
+      onRadioButtonChange(!radioButtonSelected);
     }
-  }, [forceUncheck]);
-
-  const handleCheckBoxChange = () => {
-    setIsChecked(!isChecked);
-
-    if (onCheckBoxChange) {
-      onCheckBoxChange(!isChecked);
-    }
-  };
-
-  const handleBoxClick = () => {
-    if (checkBox) handleCheckBoxChange();
-  };
-
-  const handleRadioButtonChange = () => {
-    // state code to be added here
-  };
+  }, [onRadioButtonChange, radioButtonSelected]);
 
   return (
     <HorizontalBox isChecked={isChecked} onClick={handleBoxClick}>
       {displayRadioButton && (
         <RadioButton
-          checked={selectedItem?.id === id}
+          checked={radioButtonSelected}
           value={radioButtonValue}
           onChange={handleRadioButtonChange}
         />
@@ -193,10 +193,11 @@ LeanBox.defaultProps = {
   color: 'muted',
   checkBox: false,
   id: undefined,
-  forceUncheck: false,
-  tag: undefined,
-  onCheckBoxChange: undefined,
-  selectedItem: undefined,
   animate: false,
+  isChecked: false,
+  onCheckChange: undefined,
+  radioButtonSelected: false,
+  onRadioButtonChange: undefined,
+  tag: '',
   shortForm: '',
 };

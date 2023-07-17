@@ -17,56 +17,11 @@ import {
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
-interface LeanBoxData {
-  id: string;
-  leftImageSrc: any;
-  rightText?: string;
-  text: string;
-  checkBox: boolean;
-  tag?: string;
-  forceUncheck?: boolean;
-}
-
-const RenderLeanBox: FC<LeanBoxData> = ({
-  id,
-  leftImageSrc,
-  rightText = '',
-  text,
-  checkBox,
-  tag = '',
-  forceUncheck = false,
-}) => {
-  const [forceUncheckState, setForceUncheck] = useState(forceUncheck);
-
-  useEffect(() => {
-    setForceUncheck(forceUncheck);
-  }, [forceUncheckState]);
-
-  return (
-    <LeanBox
-      key={id}
-      leftImageSrc={leftImageSrc}
-      rightText={rightText}
-      text={text}
-      color="heading"
-      textVariant="fineprint"
-      tag={tag}
-      checkBox={checkBox}
-      id={id}
-      forceUncheck={forceUncheck}
-    />
-  );
-};
-
 export const AddAccountSingleChainDialog: FC = () => {
-  const [forceUncheck, setForceUncheck] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const { onNext } = useAddAccountGuide();
-
   const dataArray = [
     {
       id: '2',
@@ -108,14 +63,14 @@ export const AddAccountSingleChainDialog: FC = () => {
   ];
   const accountsInPortfolio = [
     {
-      id: '31',
+      id: '1',
       leftImageSrc: bitcoinIcon,
       text: 'Bitcoin 1',
       checkBox: true,
       tag: 'SEGWIT',
     },
     {
-      id: '32',
+      id: '2',
       leftImageSrc: bitcoinIcon,
       text: 'Bitcoin 1',
       checkBox: true,
@@ -123,13 +78,27 @@ export const AddAccountSingleChainDialog: FC = () => {
     },
   ];
 
+  const [isChecked, setIsChecked] = useState(false);
+  const { onNext } = useAddAccountGuide();
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+
+  const handleCheckBoxChange = (id: string) => {
+    if (checkedItems.includes(id)) {
+      setCheckedItems(prevItems => prevItems.filter(item => item !== id));
+    } else {
+      setCheckedItems(prevItems => [...prevItems, id]);
+    }
+  };
+
   const handleToggleChange = (checked: boolean) => {
     setIsChecked(checked);
   };
 
   const handleClick = () => {
-    setForceUncheck(true);
-    setTimeout(() => setForceUncheck(false), 100);
+    const uncheckedItems = accountNotSynced.map(data => data.id);
+    setCheckedItems(prevItems =>
+      prevItems.filter(item => !uncheckedItems.includes(item)),
+    );
   };
 
   const handleButtonClick = () => {
@@ -167,7 +136,16 @@ export const AddAccountSingleChainDialog: FC = () => {
             </InputLabel>
             <LeanBoxContainer>
               {dataArray.map(data => (
-                <RenderLeanBox key={data.id} {...data} />
+                <LeanBox
+                  key={data.id}
+                  leftImageSrc={data.leftImageSrc}
+                  text={data.text}
+                  tag={data.tag}
+                  checkBox={data.checkBox}
+                  id={data.id}
+                  onCheckChange={() => handleCheckBoxChange(data.id)}
+                  isChecked={checkedItems.includes(data.id)}
+                />
               ))}
             </LeanBoxContainer>
             <InputLabel
@@ -195,10 +173,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 mb={1}
               >
                 <LangDisplay
-                  text={singleChain.subheader2}
-                  variables={{
-                    length: accountNotSynced.length.toString(),
-                  }}
+                  text={`${singleChain.subheader2} (${accountNotSynced.length})`}
                 />
               </InputLabel>
               <InputLabel
@@ -214,20 +189,20 @@ export const AddAccountSingleChainDialog: FC = () => {
                 onClick={handleClick}
                 clickable
               >
-                <LangDisplay
-                  text={singleChain.subheaderright}
-                  variables={{
-                    length: accountNotSynced.length.toString(),
-                  }}
-                />
+                <LangDisplay text={singleChain.subheaderright} />
               </InputLabel>
             </Flex>
             <LeanBoxContainer>
               {accountNotSynced.map(data => (
-                <RenderLeanBox
+                <LeanBox
                   key={data.id}
-                  {...data}
-                  forceUncheck={forceUncheck}
+                  leftImageSrc={data.leftImageSrc}
+                  text={data.text}
+                  tag={data.tag}
+                  checkBox={data.checkBox}
+                  id={data.id}
+                  onCheckChange={() => handleCheckBoxChange(data.id)}
+                  isChecked={checkedItems.includes(data.id)}
                 />
               ))}
             </LeanBoxContainer>
@@ -245,7 +220,16 @@ export const AddAccountSingleChainDialog: FC = () => {
             </InputLabel>
             <LeanBoxContainer>
               {accountsInPortfolio.map(data => (
-                <RenderLeanBox key={data.id} {...data} />
+                <LeanBox
+                  key={data.id}
+                  leftImageSrc={data.leftImageSrc}
+                  text={data.text}
+                  tag={data.tag}
+                  checkBox={data.checkBox}
+                  id={data.id}
+                  onCheckChange={() => handleCheckBoxChange(data.id)}
+                  isChecked={checkedItems.includes(data.id)}
+                />
               ))}
             </LeanBoxContainer>
           </div>
@@ -258,10 +242,4 @@ export const AddAccountSingleChainDialog: FC = () => {
       </DialogBoxFooter>
     </DialogBox>
   );
-};
-
-RenderLeanBox.defaultProps = {
-  rightText: '',
-  tag: '',
-  forceUncheck: false,
 };

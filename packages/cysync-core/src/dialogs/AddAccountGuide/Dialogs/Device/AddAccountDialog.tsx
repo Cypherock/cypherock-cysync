@@ -15,7 +15,7 @@ import {
   etheriumBlueIcon,
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 
@@ -26,18 +26,17 @@ export const AddAccountDialog: React.FC = () => {
     lang.strings.addAccount.addAccount.add.info.dialogBox;
 
   const { onNext } = useAddAccountGuide();
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const dataArray = [
     {
       id: '31',
       leftImageSrc: bnbChainIcon,
-
       text: 'BNB Chain 1',
       checkBox: true,
     },
     {
       id: '32',
       leftImageSrc: bitcoinIcon,
-
       text: 'Bitcoin 1',
       checkBox: true,
       tag: 'TAPROOT',
@@ -45,11 +44,18 @@ export const AddAccountDialog: React.FC = () => {
     {
       id: '33',
       leftImageSrc: etheriumBlueIcon,
-
       text: 'Etherium 3',
       checkBox: true,
     },
   ];
+
+  const handleCheckChange = (id: string, isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedItems(prevItems => [...prevItems, id]);
+    } else {
+      setCheckedItems(prevItems => prevItems.filter(item => item !== id));
+    }
+  };
 
   return (
     <DialogBox width={500}>
@@ -84,6 +90,11 @@ export const AddAccountDialog: React.FC = () => {
                 tag={data.tag}
                 checkBox={data.checkBox}
                 id={data.id}
+                isChecked={checkedItems.includes(data.id)}
+                onCheckChange={(isChecked: boolean) => {
+                  console.log('isChecked:', isChecked);
+                  handleCheckChange(data.id, isChecked);
+                }}
               />
             ))}
           </LeanBoxContainer>

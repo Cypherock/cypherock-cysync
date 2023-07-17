@@ -47,10 +47,6 @@ export const InitialiseAccountDialog: React.FC = () => {
     lang.strings.addAccount.addAccount.initAccount.info.dialogBox;
   const { onNext, onPrevious } = useAddAccountGuide();
 
-  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState<
-    Record<string, boolean>
-  >({});
-
   const keyboardActions = {
     ArrowRight: () => {
       onNext(1, 2);
@@ -64,13 +60,6 @@ export const InitialiseAccountDialog: React.FC = () => {
   };
 
   addKeyboardEvents(keyboardActions);
-
-  const handleCheckboxChange = (id: string, isChecked: boolean) => {
-    setSelectedCheckboxes(prevState => ({
-      ...prevState,
-      [id]: isChecked,
-    }));
-  };
 
   return (
     <DialogBox width={500}>
@@ -100,12 +89,7 @@ export const InitialiseAccountDialog: React.FC = () => {
               leftImageSrc={data.leftImageSrc}
               rightImageSrc={data.rightImageSrc}
               text={data.text}
-              forceUncheck={false}
-              onCheckBoxChange={isChecked =>
-                handleCheckboxChange(data.id, isChecked)
-              }
               id={data.id}
-              selectedItem={selectedCheckboxes[data.id] ? data : null}
               animate={data.animate}
             />
           ))}

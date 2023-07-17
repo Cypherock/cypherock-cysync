@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState } from 'react';
 import styled from 'styled-components';
 
+import { theme } from '../../themes/theme.styled';
 import {
   CheckBox,
   Image,
@@ -11,7 +12,6 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
-import { theme } from '../../themes/theme.styled';
 import { BorderProps, border } from '../utils';
 
 export interface DropDownListItemProps extends BorderProps {

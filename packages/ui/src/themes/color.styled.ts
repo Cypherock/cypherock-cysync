@@ -56,6 +56,7 @@ export const colors = {
     dropdownHover: '#191715',
     black: '#000000',
     toggleOff: '#544D43',
+    list: '#2C2824',
   },
   border: {
     popup: '#2C2520',

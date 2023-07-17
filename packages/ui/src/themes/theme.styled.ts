@@ -68,6 +68,7 @@ export const theme = {
       dropdownHover: colors.background.dropdownHover,
       toggleActive: colors.background.black,
       toggle: colors.background.toggleOff,
+      list: colors.background.list,
     },
     border: {
       popup: colors.border.popup,
