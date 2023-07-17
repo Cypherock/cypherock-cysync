@@ -11,10 +11,10 @@ import {
   Disconnected,
   SyncProblem,
   Syncronizing,
-  noNotifications,
-  notifications,
+  NoNotifications,
+  Notifications,
 } from '../../assets';
-import { Container, Flex, Image, LangDisplay, Typography } from '../atoms';
+import { Container, Flex, LangDisplay, Typography } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
@@ -100,10 +100,7 @@ export const Topbar: FC<{
           align="center"
           gap={16}
         >
-          <Image
-            src={haveNotifications ? notifications : noNotifications}
-            alt="notifications"
-          />
+          {haveNotifications ? <Notifications /> : <NoNotifications />}
         </Flex>
         <Flex
           px={2}

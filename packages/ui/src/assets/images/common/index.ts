@@ -32,8 +32,6 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import noNotifications from './no-notifications.svg';
-import notifications from './notifications.svg';
 import openExternalLink from './open-external-link.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
@@ -80,8 +78,6 @@ export {
   copyIcon,
   checkIcon,
   InfoIcon,
-  noNotifications,
-  notifications,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,
