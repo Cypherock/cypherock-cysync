@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { config } from '../config';
 
-const baseURL = `${config.CYPHEROCK_API}/eth`;
+const baseURL = `${config.API_CYPHEROCK}/eth`;
 
 export const getBalance = async (address: string, assetId: string) => {
   const url = `${baseURL}/wallet/balance`;

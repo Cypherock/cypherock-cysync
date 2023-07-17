@@ -2,3 +2,8 @@ export * from './store';
 export * from './wallet';
 export * from './lang';
 export * from './dialog';
+export * from './account';
+export * from './device';
+export * from './transaction';
+export * from './priceHistroy';
+export * from './priceInfo';

@@ -1,9 +1,11 @@
 import coinList from './coins';
 
-import { ICoinInfo, ICoinUnit } from '../types';
+import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+type NearFamily = typeof coinFamiliesMap.near;
 
 export interface INearCoinInfo extends ICoinInfo {
-  family: 'near';
+  family: NearFamily;
   network: string;
   curve: string;
 }
@@ -33,7 +35,7 @@ export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce<
   (list, coin) => ({
     ...list,
     [coin.id]: {
-      family: 'near',
+      family: coinFamiliesMap.near,
       id: coin.id,
       name: coin.name,
       isTest: coin.isTest,

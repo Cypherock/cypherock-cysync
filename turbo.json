@@ -31,6 +31,10 @@
       "outputs": ["src/assets/icons/generated/**"],
       "inputs": ["icons/**"]
     },
+    "@cypherock/cysync-cli#dev": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "dist-electron/**"],

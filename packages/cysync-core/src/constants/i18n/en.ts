@@ -5,6 +5,7 @@ import {
   DeviceCommunicationErrorType,
   DeviceCompatibilityErrorType,
   DeviceConnectionErrorType,
+  CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
 import { DeviceErrorCodes } from '~/types/deviceError';
@@ -69,6 +70,32 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'Device seems to be Compromised. Contact Cypherock support immediately',
   [DeviceAppErrorType.CARD_AUTH_FAILED]:
     'Card seems to be Compromised. Contact Cypherock support immediately',
+  [CardAppErrorType.UNKNOWN]: 'Unknown card error',
+  [CardAppErrorType.NOT_PAIRED]: 'Card is not paired',
+  [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: 'Incompatible applet version',
+  [CardAppErrorType.SW_NULL_POINTER_EXCEPTION]: 'Null pointer exception',
+  [CardAppErrorType.SW_TRANSACTION_EXCEPTION]:
+    'Operation failed on card (Tx Exp)',
+  [CardAppErrorType.SW_FILE_INVALID]: 'Tapped card family id mismatch',
+  [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]:
+    'Security conditions not satisfied, i.e. pairing session invalid',
+  [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]: 'Wrong card sequence',
+  [CardAppErrorType.SW_WRONG_DATA]: 'Invalid APDU length',
+  [CardAppErrorType.SW_FILE_NOT_FOUND]: 'Corrupted card',
+  [CardAppErrorType.SW_RECORD_NOT_FOUND]: 'Wallet does not exist on device',
+  [CardAppErrorType.SW_FILE_FULL]: 'Card is full',
+  [CardAppErrorType.SW_CORRECT_LENGTH_00]: 'Incorrect pin entered',
+  [CardAppErrorType.SW_INVALID_INS]: 'Applet unknown error',
+  [CardAppErrorType.SW_NOT_PAIRED]: 'Card pairing to device missing',
+  [CardAppErrorType.SW_CRYPTO_EXCEPTION]:
+    'Operation failed on card (Crypto Exp)',
+  [CardAppErrorType.POW_SW_WALLET_LOCKED]:
+    'Locked wallet status word, POW meaning proof of word',
+  [CardAppErrorType.SW_INS_BLOCKED]: 'Card health critical, migration required',
+  [CardAppErrorType.SW_OUT_OF_BOUNDARY]:
+    'Operation failed on card (Out of boundary)',
+  [CardAppErrorType.UNRECOGNIZED]:
+    'Card operation failed with unrecognized error',
 };
 
 const en = {

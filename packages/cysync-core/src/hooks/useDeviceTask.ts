@@ -14,7 +14,8 @@ import logger from '~/utils/logger';
 export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
 export interface DeviceTaskOptions {
-  dontExecuteTask: boolean;
+  dontExecuteTask?: boolean;
+  dontDestroy?: boolean;
 }
 
 export function useDeviceTask<T>(
@@ -70,8 +71,10 @@ export function useDeviceTask<T>(
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      conn?.destroy().catch(() => {});
+      if (!options?.dontDestroy) {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        conn?.destroy().catch(() => {});
+      }
       setIsRunning(false);
     }
 

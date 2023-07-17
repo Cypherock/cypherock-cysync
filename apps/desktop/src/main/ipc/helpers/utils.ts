@@ -2,6 +2,7 @@ const getMethodListFromProperty = (
   rootObj: any,
   property: string,
   maxDepth: number,
+  includeParentMethods: boolean,
   currentDepth = 1,
 ) => {
   const methodList: string[] = [];
@@ -13,6 +14,13 @@ const getMethodListFromProperty = (
     const rootMethodList = Object.getOwnPropertyNames(
       Object.getPrototypeOf(obj),
     );
+    if (includeParentMethods) {
+      rootMethodList.push(
+        ...Object.getOwnPropertyNames(
+          Object.getPrototypeOf(Object.getPrototypeOf(obj)) ?? {},
+        ),
+      );
+    }
     methodList.push(...rootMethodList);
 
     const properties = Object.keys(obj);
@@ -25,6 +33,7 @@ const getMethodListFromProperty = (
           obj,
           innerProperty,
           maxDepth,
+          includeParentMethods,
           currentDepth + 1,
         );
 
@@ -36,12 +45,23 @@ const getMethodListFromProperty = (
   return methodList;
 };
 
-export const getMethodListFromObject = (rootObj: any, maxDepth = 2) => {
+export const getMethodListFromObject = (
+  rootObj: any,
+  maxDepth = 2,
+  includeParentMethods = true,
+) => {
   const methodList = [];
 
   const rootMethods = Object.getOwnPropertyNames(
     Object.getPrototypeOf(rootObj),
   );
+  if (includeParentMethods) {
+    rootMethods.push(
+      ...Object.getOwnPropertyNames(
+        Object.getPrototypeOf(Object.getPrototypeOf(rootObj)) ?? {},
+      ),
+    );
+  }
   methodList.push(...rootMethods);
 
   const properties = Object.keys(rootObj);
@@ -54,6 +74,7 @@ export const getMethodListFromObject = (rootObj: any, maxDepth = 2) => {
         rootObj,
         property,
         maxDepth - 1,
+        includeParentMethods,
       );
       methodList.push(...innerMethods.map(e => `${property}.${e}`));
     }

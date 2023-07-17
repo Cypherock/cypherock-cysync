@@ -1,13 +1,11 @@
 const { spawn } = require('child_process');
 
-const createChildProcess = (command, args, independent = false) => {
+const createChildProcess = (command, args, options, independent = false) => {
   let childProcess;
-
-  let options = {};
 
   if (independent === true) {
     options = {
-      ...options,
+      ...(options ?? {}),
       shell: true,
       stdio: 'inherit',
     };

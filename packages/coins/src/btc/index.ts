@@ -1,9 +1,12 @@
 import coinList from './coins';
 
-import { ICoinInfo, ICoinUnit } from '../types';
+import { ICoinInfo, ICoinUnit, coinFamiliesMap } from '../types';
+
+type BtcFamily = typeof coinFamiliesMap.bitcoin;
 
 export interface IBtcCoinInfo extends ICoinInfo {
-  family: 'bitcoin';
+  family: BtcFamily;
+  apiCoinType: string;
 }
 
 export const BtcIdMap = {
@@ -44,13 +47,14 @@ export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
   (list, coin) => ({
     ...list,
     [coin.id]: {
-      family: 'bitcoin',
+      family: coinFamiliesMap.bitcoin,
       id: coin.id,
       name: coin.name,
       isTest: coin.isTest,
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
+      apiCoinType: coin.apiCoinType,
       units,
     },
   }),
