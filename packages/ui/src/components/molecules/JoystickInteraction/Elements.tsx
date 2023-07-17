@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 
 import {
   DirectionProps,
@@ -7,7 +7,7 @@ import {
   directionMap,
   indicatorMap,
   textColorMap,
-  arrowColorMap,
+  getArrowColorMap,
   bgColorMap,
   JoystickCenterProps,
 } from './types';
@@ -45,8 +45,13 @@ export const Text: React.FC<{ text: string } & DirectionProps> = props => {
 
 export const JoystickArrow: React.FC<JoystickArrowProps> = props => {
   const { type, state = 'unselected' } = props;
+  const arrowColorMap = getArrowColorMap(useTheme());
   return (
-    <JoystickArrowIcon fill={arrowColorMap[state]} {...directionMap[type]} />
+    <JoystickArrowIcon
+      position="absolute"
+      fill={arrowColorMap[state]}
+      {...directionMap[type]}
+    />
   );
 };
 

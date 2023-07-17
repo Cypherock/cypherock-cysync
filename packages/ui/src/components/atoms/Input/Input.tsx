@@ -3,13 +3,9 @@ import styled from 'styled-components';
 
 import { InputLabel } from './InputLabel';
 
-import { SvgProps } from '../../../assets';
-import { getDefaultTheme } from '../../../themes';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
-
-const theme = getDefaultTheme();
 
 export interface InputProps {
   type: string;
@@ -19,7 +15,7 @@ export interface InputProps {
   onChange?: (val: string) => void;
   value?: string;
   disabled?: boolean;
-  PostfixIcon?: React.FC<SvgProps>;
+  postfixIcon?: React.ReactNode;
   onPostfixIconClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
@@ -30,12 +26,12 @@ const InputStyle = styled.input`
   width: 100%;
   border: none;
   padding: 12px 24px;
-  background-color: ${theme.palette.background.input};
+  background-color: $({theme}) => {theme.palette.background.input};
   font-size: 16px;
   background: #272320;
   border: 1px solid #39322c;
   border-radius: 8px;
-  color: ${theme.palette.text.muted};
+  color: $({theme}) => {theme.palette.text.muted};
 
   &:focus-visible {
     outline: none;
@@ -62,7 +58,7 @@ export const Input: FC<InputProps> = ({
   onChange,
   value,
   disabled,
-  PostfixIcon,
+  postfixIcon,
   onPostfixIconClick,
   pasteAllowed,
   copyAllowed,
@@ -92,7 +88,7 @@ export const Input: FC<InputProps> = ({
         }}
         onChange={e => onChange && onChange(e.target.value)}
       />
-      {PostfixIcon && (
+      {postfixIcon && (
         <PostfixIconStyle>
           <Button
             type="button"
@@ -100,11 +96,7 @@ export const Input: FC<InputProps> = ({
             display="flex"
             onClick={onPostfixIconClick}
           >
-            <PostfixIcon
-              fill={theme.palette.muted.main}
-              height={20}
-              width={26}
-            />
+            {postfixIcon}
           </Button>
         </PostfixIconStyle>
       )}
@@ -118,7 +110,7 @@ Input.defaultProps = {
   onChange: undefined,
   value: undefined,
   disabled: false,
-  PostfixIcon: undefined,
+  postfixIcon: undefined,
   onPostfixIconClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
