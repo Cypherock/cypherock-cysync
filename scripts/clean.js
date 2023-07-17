@@ -14,6 +14,7 @@ const packages = {
     'screenshots',
     'videos',
   ],
+  'apps/cli': [...commonFolders, 'release'],
   'packages/coin-support': [...commonFolders],
   'packages/coin-support-evm': [...commonFolders],
   'packages/coin-support-btc': [...commonFolders],

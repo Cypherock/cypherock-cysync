@@ -9,8 +9,10 @@
   },
   "scripts": {
     "start": "node scripts/watch/index.js",
-    "dev": "turbo dev --no-daemon",
-    "make": "turbo make --no-daemon",
+    "dev": "turbo dev --no-daemon --filter @cypherock/cysync-desktop",
+    "dev:cli": "turbo dev --no-daemon --filter @cypherock/cysync-cli",
+    "make": "turbo make --no-daemon --filter @cypherock/cysync-desktop",
+    "make:cli": "turbo make --no-daemon --filter @cypherock/cysync-cli",
     "build": "turbo build --no-daemon",
     "build:dirty": "turbo build:dirty --no-daemon",
     "dev:setup": "turbo dev:setup --no-daemon",

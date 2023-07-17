@@ -1,9 +1,11 @@
 import coinList from './coins';
 
-import { ICoinInfo, ICoinUnit } from '../types';
+import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+type SolanaFamily = typeof coinFamiliesMap.solana;
 
 export interface ISolanaCoinInfo extends ICoinInfo {
-  family: 'solana';
+  family: SolanaFamily;
   network: string;
   curve: string;
 }
@@ -32,7 +34,7 @@ export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
     (list, coin) => ({
       ...list,
       [coin.id]: {
-        family: 'solana',
+        family: coinFamiliesMap.solana,
         id: coin.id,
         name: coin.name,
         isTest: coin.isTest,
