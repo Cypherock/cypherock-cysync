@@ -5,6 +5,7 @@ export {
   setKeyDB,
   setAutoUpdater,
   setResetCySyncMethod,
+  setCloseAppMethod,
 } from './utils';
 export * from './theme';
 export * from './styles';

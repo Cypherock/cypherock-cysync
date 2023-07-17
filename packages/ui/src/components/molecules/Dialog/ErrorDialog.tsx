@@ -11,10 +11,10 @@ export type ErrorIconType = 'device' | 'default' | 'server';
 export interface ErrorDialogProps extends DialogBoxProps {
   title: string;
   subtext?: string;
-  showRetry?: boolean;
-  showReport?: boolean;
-  onRetry?: () => void;
-  onReport?: () => void;
+  primaryActionText?: string;
+  secondaryActionText?: string;
+  onPrimaryClick?: () => void;
+  onSecondaryClick?: () => void;
   iconType?: ErrorIconType;
   textVariables?: object;
 }
@@ -27,10 +27,10 @@ const iconMap: Record<ErrorIconType, ReactNode> = {
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
   subtext,
-  showRetry,
-  showReport,
-  onRetry,
-  onReport,
+  primaryActionText,
+  secondaryActionText,
+  onPrimaryClick,
+  onSecondaryClick,
   iconType,
   textVariables,
   ...props
@@ -42,14 +42,14 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
     subtext={subtext}
     footerComponent={
       <>
-        {showReport && (
-          <Button variant="primary" onClick={onReport}>
-            Report
+        {secondaryActionText && (
+          <Button variant="primary" onClick={onSecondaryClick}>
+            {secondaryActionText}
           </Button>
         )}
-        {showRetry && (
-          <Button variant="primary" onClick={onRetry}>
-            Retry
+        {primaryActionText && (
+          <Button variant="primary" onClick={onPrimaryClick}>
+            {primaryActionText}
           </Button>
         )}
       </>
@@ -60,10 +60,10 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
 
 ErrorDialog.defaultProps = {
   subtext: undefined,
-  showRetry: false,
-  showReport: false,
-  onRetry: undefined,
-  onReport: undefined,
+  primaryActionText: undefined,
+  secondaryActionText: undefined,
+  onPrimaryClick: undefined,
+  onSecondaryClick: undefined,
   iconType: 'default',
   textVariables: undefined,
 };

@@ -10,7 +10,7 @@ import {
   useQuery,
   useStateWithFinality,
 } from '~/hooks';
-import { keyValueStore } from '~/utils';
+import { getCloseAppMethod, keyValueStore } from '~/utils';
 
 import { CardTap } from './CardTap';
 
@@ -63,9 +63,11 @@ export const CardAuthenticationDialog: React.FC = () => {
     task.run();
   };
 
-  const { errorToShow, handleRetry } = useErrorHandler({
+  const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error: task.error,
     onRetry,
+    isOnboarding: true,
+    onClose: getCloseAppMethod(),
   });
 
   useEffect(() => {
@@ -84,7 +86,8 @@ export const CardAuthenticationDialog: React.FC = () => {
       tapsPerCard={tapsPerCard}
       totalCards={totalCards}
       error={errorToShow}
-      onRetry={handleRetry}
+      onPrimaryClick={onPrimaryClick}
+      onSecondaryClick={onSecondaryClick}
     />
   );
 };

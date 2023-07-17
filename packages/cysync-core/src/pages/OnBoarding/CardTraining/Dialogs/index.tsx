@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { getCloseAppMethod } from '~/utils';
 
 import { CardTap } from './CardTap';
 
 export const CardTrainingDialog: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
 
   const [cardTapState, setCardTapState] = useState(0);
@@ -34,8 +33,9 @@ export const CardTrainingDialog: React.FC = () => {
   return (
     <ErrorHandlerDialog
       error={task.error}
-      title={lang.strings.onboarding.cardTraining.error}
       onRetry={onRetry}
+      isOnboarding
+      onClose={getCloseAppMethod()}
     >
       <CardTap tapState={cardTapState} />;
     </ErrorHandlerDialog>
