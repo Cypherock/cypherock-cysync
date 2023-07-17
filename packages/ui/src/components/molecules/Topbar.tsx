@@ -111,18 +111,10 @@ export const Topbar: FC<{
         align="center"
         gap={16}
       >
-        {isVisible ? (
-          <Visibility fill={theme.palette.muted.main} />
-        ) : (
-          <VisibilityHide fill={theme.palette.muted.main} />
-        )}
+        {isVisible ? <Visibility /> : <VisibilityHide />}
       </Flex>
       <Flex px={2} py="3" align="center" gap={16}>
-        {isLock ? (
-          <Lock fill={theme.palette.muted.main} />
-        ) : (
-          <LockOpen fill={theme.palette.muted.main} />
-        )}
+        {isLock ? <Lock /> : <LockOpen />}
       </Flex>
     </Flex>
   </Container>

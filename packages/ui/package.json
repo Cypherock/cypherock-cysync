@@ -49,8 +49,6 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@svgr/babel-plugin-add-jsx-attribute": "^8.0.0",
-    "@svgr/babel-plugin-remove-jsx-attribute": "^8.0.0",
     "@svgr/cli": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

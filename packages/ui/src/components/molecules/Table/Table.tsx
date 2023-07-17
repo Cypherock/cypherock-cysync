@@ -158,11 +158,11 @@ export const TableHeaderData: FC<TableHeaderDataProps> = ({
     <Container display="flex" direction="column" gap={2}>
       {!selected ? (
         <>
-          <TriangleIcon fill="white" />
-          <TriangleIcon fill="white" rotate={180} />
+          <TriangleIcon />
+          <TriangleIcon rotate={180} />
         </>
       ) : (
-        <TriangleIcon fill="white" rotate={props.$ascending ? 0 : 180} />
+        <TriangleIcon rotate={props.$ascending ? 0 : 180} />
       )}
     </Container>
   </TableHeaderDataStyle>

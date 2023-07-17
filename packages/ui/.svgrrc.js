@@ -1,6 +1,8 @@
+const addJSXAttribute = require('./scripts/addJSXAttribtue');
+
 module.exports = {
   typescript: true,
-  template: (variables, { tpl, options }) => {
+  template: (variables, { tpl }) => {
     // use SvgProps and SvgStyle from the import
     const componentNameWithType = `${variables.componentName}: React.FC<SvgProps>`;
     variables.jsx.openingElement.name.name =
@@ -21,7 +23,7 @@ ${variables.exports};
     babelConfig: {
       plugins: [
         [
-          '@svgr/babel-plugin-add-jsx-attribute',
+          addJSXAttribute,
           {
             elements: ['path', 'rect', 'circle', 'line'],
             attributes: [
