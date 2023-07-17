@@ -57,7 +57,7 @@ export const SyncAccount: React.FC = () => {
     Record<string, boolean>
   >({});
 
-  const handleCheckChange = (id: string) => (isChecked: boolean) => {
+  const handleCheckChange = (id: string, isChecked: boolean) => {
     setCheckedAccounts(prevState => ({
       ...prevState,
       [id]: isChecked,
@@ -97,7 +97,9 @@ export const SyncAccount: React.FC = () => {
               tag={data.tag}
               checkBox={data.checkBox}
               id={data.id}
-              onCheckChange={handleCheckChange(data.id)}
+              onCheckChange={(isChecked: boolean) =>
+                handleCheckChange(data.id, isChecked)
+              }
               isChecked={checkedAccounts[data.id] || false}
             />
           ))}

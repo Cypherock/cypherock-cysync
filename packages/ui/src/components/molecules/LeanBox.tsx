@@ -6,6 +6,7 @@ import {
   Image,
   LangDisplay,
   RadioButton,
+  InputLabel,
   Tag,
   Typography,
   TypographyColor,
@@ -87,25 +88,9 @@ export const LeanBox: FC<LeanBoxProps> = ({
   radioButtonSelected = false,
   onRadioButtonChange,
 }): ReactElement => {
-  const handleCheckBoxChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { checked } = event.target;
-      if (onCheckChange) {
-        onCheckChange(checked);
-      }
-    },
-    [onCheckChange],
-  );
-
-  const handleBoxClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      event.stopPropagation();
-      if (onCheckChange) {
-        onCheckChange(!isChecked);
-      }
-    },
-    [isChecked, onCheckChange],
-  );
+  const handleCheckBoxChange = () => {
+    onCheckChange?.(!isChecked);
+  };
 
   const handleRadioButtonChange = useCallback(() => {
     if (onRadioButtonChange) {
@@ -114,70 +99,72 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [onRadioButtonChange, radioButtonSelected]);
 
   return (
-    <HorizontalBox isChecked={isChecked} onClick={handleBoxClick}>
-      {displayRadioButton && (
-        <RadioButton
-          checked={radioButtonSelected}
-          value={radioButtonValue}
-          onChange={handleRadioButtonChange}
-        />
-      )}
-      {leftImageSrc && (
-        <ImageContainer>
-          <Image
-            src={leftImageSrc}
-            alt="Left Image"
-            width="20px"
-            height="16px"
+    <InputLabel>
+      <HorizontalBox isChecked={isChecked}>
+        {displayRadioButton && (
+          <RadioButton
+            checked={radioButtonSelected}
+            value={radioButtonValue}
+            onChange={handleRadioButtonChange}
           />
-        </ImageContainer>
-      )}
-      <StretchedTypography
-        shouldStretch={!tag}
-        variant={textVariant}
-        color={color}
-      >
-        {text}
-      </StretchedTypography>
-      <Typography $fontSize={13} $fontWeight="medium" color="muted">
-        <LangDisplay text={shortForm} />
-      </Typography>
-      {tag && <Tag>{tag}</Tag>}
-      <RightContent>
-        {rightText && (
-          <Typography variant={rightTextVariant} color={rightTextColor}>
-            {rightText}
-          </Typography>
         )}
-        {rightImageSrc && (
+        {leftImageSrc && (
           <ImageContainer>
-            {animate ? (
-              <Image
-                src={rightImageSrc}
-                alt="Right Image"
-                width="15px"
-                height="12px"
-                animate="spin"
-              />
-            ) : (
-              <Image
-                src={rightImageSrc}
-                alt="Right Image"
-                width="15px"
-                height="12px"
-              />
-            )}
+            <Image
+              src={leftImageSrc}
+              alt="Left Image"
+              width="20px"
+              height="16px"
+            />
           </ImageContainer>
         )}
-        {checkBox && (
-          <CheckBox
-            checked={isChecked}
-            onChange={handleCheckBoxChange}
-            id={id ?? 'default-id'}
-          />
-        )}
-      </RightContent>
-    </HorizontalBox>
+        <StretchedTypography
+          shouldStretch={!tag}
+          variant={textVariant}
+          color={color}
+        >
+          {text}
+        </StretchedTypography>
+        <Typography $fontSize={13} $fontWeight="medium" color="muted">
+          <LangDisplay text={shortForm} />
+        </Typography>
+        {tag && <Tag>{tag}</Tag>}
+        <RightContent>
+          {rightText && (
+            <Typography variant={rightTextVariant} color={rightTextColor}>
+              {rightText}
+            </Typography>
+          )}
+          {rightImageSrc && (
+            <ImageContainer>
+              {animate ? (
+                <Image
+                  src={rightImageSrc}
+                  alt="Right Image"
+                  width="15px"
+                  height="12px"
+                  animate="spin"
+                />
+              ) : (
+                <Image
+                  src={rightImageSrc}
+                  alt="Right Image"
+                  width="15px"
+                  height="12px"
+                />
+              )}
+            </ImageContainer>
+          )}
+          {checkBox && (
+            <CheckBox
+              checked={isChecked}
+              onChange={handleCheckBoxChange}
+              id={id ?? 'default-id'}
+            />
+          )}
+        </RightContent>
+      </HorizontalBox>
+    </InputLabel>
   );
 };
 
