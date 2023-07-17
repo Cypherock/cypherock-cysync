@@ -23,6 +23,10 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
+    "@cypherock/cysync-cli#dev": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "dist-electron/**"],
