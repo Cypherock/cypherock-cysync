@@ -11,9 +11,15 @@
 
 ## Icons
 
-- React components for the icons can be generated from the SVGs in `./icons`
-  using `pnpm build:icons` -`fill` and `stroke` can be passed to such components and those will replace
-  the fill and stroke props of the child elements such as `path` ,`circle`,
-  `line`, and `rect`.
-- All the other SVG attributes such as `width` and `height` will be passed to
-  the root `<svg>` tag instead
+- Put the SVG in `./icons`.
+- Run `pnpm build:icons` to generate the components at `src/assets/icons/generated`.
+- Import the components from the aforementioned path.
+
+### Notes
+
+- `fill` and `stroke` can be passed to such components and those will
+  replace the fill and stroke props of the child elements such as `path`,
+  `circle`, `line`, and `rect`.
+- All the other SVG attributes such as `width` and `height` will be passed
+  to the root `<svg>` tag instead.
+- Check `/src/assets/icons/Svg.tsx` for all possible props
