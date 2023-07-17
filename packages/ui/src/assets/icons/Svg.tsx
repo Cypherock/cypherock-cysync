@@ -6,10 +6,6 @@ import {
   animate,
   SpacingProps,
   AnimateProps,
-  height,
-  width,
-  HeightProps,
-  WidthProps,
   FlexProps,
   flex,
   TransformProps,
@@ -20,8 +16,6 @@ import {
 
 export type SvgProps = SpacingProps &
   AnimateProps &
-  HeightProps &
-  WidthProps &
   TransformProps &
   PositionProps &
   FlexProps &
@@ -30,8 +24,6 @@ export type SvgProps = SpacingProps &
 export const SvgStyle = styled.svg<SvgProps>`
   ${spacing}
   ${animate}
-  ${height}
-  ${width}
   ${transform}
   ${position}
   ${flex}
