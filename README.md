@@ -93,6 +93,7 @@ pnpm start -s  # Start desktop application with short log format
 - CLI App
     - `pnpm dev:cli -- <ARGS>`: Run cli application
     - `pnpm make:cli`: Created packaged cli application
+        - NOTE: You need to install `pkg` via `npm i -g pkg` before running `pnpm make:cli`
 
 ### Editing submodules
 

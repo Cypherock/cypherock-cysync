@@ -18,5 +18,7 @@ export default class WalletSync extends Command {
     const { walletList } = await app.getWallets();
 
     this.logJson(walletList.map(e => ({ ...e, id: uint8ArrayToHex(e.id) })));
+
+    await app.destroy();
   }
 }
