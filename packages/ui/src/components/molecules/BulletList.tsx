@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
+
 import { Bullet, Flex, LangDisplay, Typography } from '../atoms';
 
-export const BulletList: FC<{ items: Array<any> }> = ({ items }) => (
+export const BulletList: FC<{ items: any[] }> = ({ items }) => (
   <Flex
     $bgColor="input"
     direction="column"
