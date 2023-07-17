@@ -34,7 +34,7 @@ export const Styles = createGlobalStyle`
 export const GlobalStyles: React.FC = () => (
   <>
     <Styles />
-    <SvgStyle width={0} height={0} position="absolute">
+    <SvgStyle width={0} height={0} position="absolute" $zIndex={-50}>
       <defs>
         <linearGradient id={svgGradients.gold}>
           <stop stopColor="#E9B873" />
