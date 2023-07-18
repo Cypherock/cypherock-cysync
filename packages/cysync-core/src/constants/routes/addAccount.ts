@@ -5,5 +5,5 @@ export const addAccount = {
   },
 } as const;
 
-export type addAccountRouteName =
+export type AddAccountRouteName =
   (typeof addAccount)[keyof typeof addAccount]['name'];

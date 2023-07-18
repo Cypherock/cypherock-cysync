@@ -1,3 +1,4 @@
+import React, { useReducer } from 'react';
 import {
   LangDisplay,
   DialogBox,
@@ -14,105 +15,118 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
-import React, { useState } from 'react';
-
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { useAddAccountGuide } from '../../context';
+
+const dropDownData = [
+  {
+    id: '41',
+    leftImageSrc: bitcoinIcon,
+    shortForm: '(BTC)',
+    text: 'Bitcoin',
+    displayRadioButton: true,
+  },
+  {
+    id: '42',
+    leftImageSrc: etheriumBlueIcon,
+    text: 'Ethereum',
+    shortForm: '(ETH)',
+    displayRadioButton: true,
+  },
+  {
+    id: '43',
+    leftImageSrc: solanaIcon,
+    shortForm: '(SOL)',
+    text: 'Solana',
+    displayRadioButton: true,
+  },
+  {
+    id: '44',
+    leftImageSrc: binanceIcon,
+    shortForm: '(BTC)',
+    text: 'Binance Smart Chain',
+    displayRadioButton: true,
+  },
+];
+
+const dropDownDataWithWallet = [
+  {
+    id: '51',
+    text: 'Official',
+    displayRadioButton: true,
+  },
+  {
+    id: '52',
+    text: 'Cypherock Red',
+    displayRadioButton: true,
+  },
+  {
+    id: '53',
+    text: 'Personal',
+    displayRadioButton: true,
+  },
+  {
+    id: '54',
+    text: 'Business',
+    displayRadioButton: true,
+  },
+];
+
+interface State {
+  isFirstDropdownSelected: boolean;
+  isSecondDropdownSelected: boolean;
+  firstDropdownSelection: string;
+  secondDropdownSelection: string | undefined;
+}
+
+type Action =
+  | { type: 'SET_FIRST_DROPDOWN'; payload: string | undefined }
+  | { type: 'SET_SECOND_DROPDOWN'; payload: string | undefined };
+
+const initialState: State = {
+  isFirstDropdownSelected: false,
+  isSecondDropdownSelected: true,
+  firstDropdownSelection: '',
+  secondDropdownSelection: undefined,
+};
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'SET_FIRST_DROPDOWN':
+      return {
+        ...state,
+        firstDropdownSelection: action.payload ?? '',
+        isFirstDropdownSelected: !!action.payload,
+      };
+    case 'SET_SECOND_DROPDOWN':
+      return {
+        ...state,
+        secondDropdownSelection: action.payload ?? '',
+        isSecondDropdownSelected: !!action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
 export const SelectCryptoDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const crypto = lang.strings.addAccount.addAccount.selectCrypto.info.dialogBox;
   const { onNext } = useAddAccountGuide();
 
-  const dropDownData = [
-    {
-      id: '41',
-      leftImageSrc: bitcoinIcon,
-      shortForm: '(BTC)',
-      text: 'Bitcoin',
-      displayRadioButton: true,
-    },
-    {
-      id: '42',
-      leftImageSrc: etheriumBlueIcon,
-      text: 'Ethereum',
-      shortForm: '(ETH)',
-      displayRadioButton: true,
-    },
-    {
-      id: '43',
-      leftImageSrc: solanaIcon,
-      shortForm: '(SOL)',
-      text: 'Solana',
-      displayRadioButton: true,
-    },
-    {
-      id: '44',
-      leftImageSrc: binanceIcon,
-      shortForm: '(BTC)',
-      text: 'Binance Smart Chain',
-      displayRadioButton: true,
-    },
-  ];
-  const dropDownDataWithWallet = [
-    {
-      id: '51',
-      text: 'Official',
-      displayRadioButton: true,
-    },
-    {
-      id: '52',
-      text: 'Cypherock Red',
-      displayRadioButton: true,
-    },
-    {
-      id: '53',
-      text: 'Personal',
-      displayRadioButton: true,
-    },
-    {
-      id: '54',
-      text: 'Business',
-      displayRadioButton: true,
-    },
-  ];
-
-  const [isFirstDropdownSelected, setIsFirstDropdownSelected] =
-    useState<boolean>(false);
-  const [isSecondDropdownSelected, setIsSecondDropdownSelected] =
-    useState<boolean>(true);
-  const [firstDropdownSelection, setFirstDropdownSelection] = useState<
-    string | undefined
-  >('');
-  const [secondDropdownSelection, setSecondDropdownSelection] = useState<
-    string | undefined
-  >();
+  const [dropdownState, dispatch] = useReducer(reducer, initialState);
 
   const handleFirstDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    // Set string state
-    setFirstDropdownSelection(selectedItemId ?? '');
-    // Set boolean state
-    setIsFirstDropdownSelected(!!selectedItemId);
+    dispatch({ type: 'SET_FIRST_DROPDOWN', payload: selectedItemId });
   };
 
   const handleSecondDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    // Set string state
-    setSecondDropdownSelection(selectedItemId ?? '');
-    // Set boolean state
-    setIsSecondDropdownSelected(!!selectedItemId);
+    dispatch({ type: 'SET_SECOND_DROPDOWN', payload: selectedItemId });
   };
-
-  console.log('First Dropdown Selected:', isFirstDropdownSelected);
-  console.log('Second Dropdown Selected:', isSecondDropdownSelected);
-
-  // Adjusted console logs
-  console.log('First Dropdown Selected:', firstDropdownSelection);
-  console.log('Second Dropdown Selected:', secondDropdownSelection);
 
   return (
     <DialogBox width={500}>
@@ -139,7 +153,7 @@ export const SelectCryptoDialog: React.FC = () => {
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={dropDownDataWithWallet}
-            selectedItem={firstDropdownSelection}
+            selectedItem={dropdownState.firstDropdownSelection}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
@@ -147,19 +161,18 @@ export const SelectCryptoDialog: React.FC = () => {
           />
           <Dropdown
             items={dropDownData}
-            selectedItem={secondDropdownSelection}
-            disabled={!isFirstDropdownSelected}
+            selectedItem={dropdownState.secondDropdownSelection}
+            disabled={!dropdownState.isFirstDropdownSelected}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
           />
         </Container>
       </DialogBoxBody>
-
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={!secondDropdownSelection}
+          disabled={!dropdownState.secondDropdownSelection}
           onClick={e => {
             e.preventDefault();
             onNext();
