@@ -20,6 +20,27 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useAddAccountGuide } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 
+const dataArray = [
+  {
+    id: '21',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '2.35 ETH',
+    text: 'Ethereum 1',
+  },
+  {
+    id: '22',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.77 ETH',
+    text: 'Ethereum 2',
+  },
+  {
+    id: '23',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.08 ETH',
+    text: 'Ethereum 3',
+  },
+];
+
 export const SyncAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
@@ -36,27 +57,6 @@ export const SyncAccountDialog: React.FC = () => {
   };
 
   addKeyboardEvents(keyboardActions);
-
-  const dataArray = [
-    {
-      id: '21',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '2.35 ETH',
-      text: 'Etherium 1',
-    },
-    {
-      id: '22',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.77 ETH',
-      text: 'Etherium 2',
-    },
-    {
-      id: '23',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.08 ETH',
-      text: 'Etherium 3',
-    },
-  ];
 
   const handleNextWithTimeout = () => {
     onNext();

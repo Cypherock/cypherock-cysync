@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { theme } from '../../themes/theme.styled';
 
 interface RadioButtonProps {
   checked: boolean;
@@ -12,7 +13,7 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid goldenrod;
+  border: 2px solid ${theme.palette.text.goldenrod};
   position: relative;
   cursor: pointer;
 
@@ -24,7 +25,7 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
     left: 50%;
     width: 5px;
     height: 5px;
-    background-color: goldenrod;
+    background-color: ${theme.palette.text.goldenrod};
     border-radius: 50%;
     transform: translate(-50%, -50%);
   }

@@ -150,6 +150,8 @@ const en = {
             title: 'Add Coin/Account',
             header: 'No account found yet',
             subheader: 'Accounts already in portfolio',
+            buttonSync: 'Sync Again',
+            buttonClose: 'Close',
           },
         },
       },

@@ -1,4 +1,3 @@
-import React, { useReducer } from 'react';
 import {
   LangDisplay,
   DialogBox,
@@ -13,9 +12,13 @@ import {
   addIcon,
   bitcoinIcon,
   etheriumBlueIcon,
+  solanaIcon,
+  binanceIcon,
 } from '@cypherock/cysync-ui';
-import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
+import React, { useReducer } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useAddAccountGuide } from '../../context';
 
 const dropDownData = [
@@ -25,6 +28,7 @@ const dropDownData = [
     shortForm: '(BTC)',
     text: 'Bitcoin',
     displayRadioButton: true,
+    tag: 'Taproot',
   },
   {
     id: '42',

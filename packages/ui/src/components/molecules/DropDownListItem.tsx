@@ -126,10 +126,6 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
     }
   };
 
-  const handleRadioButtonChange = () => {
-    // state code to be added here
-  };
-
   const handleBoxClick = () => {
     if (showCheckBox) handleCheckBoxChange();
     if (onClick) onClick();
@@ -144,11 +140,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       $borderRadius={$borderRadius}
     >
       {!restrictedItem && displayRadioButton && (
-        <RadioButton
-          checked={selectedItem === id}
-          value={radioButtonValue}
-          onChange={handleRadioButtonChange}
-        />
+        <RadioButton checked={selectedItem === id} value={radioButtonValue} />
       )}
       {leftImageSrc && (
         <DropDownListItemIconContainer>

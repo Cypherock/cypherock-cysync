@@ -14,34 +14,37 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useAddAccountGuide } from '../../context';
+
+const dataArray = [
+  {
+    id: '21',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '2.35 ETH',
+    text: 'Etherium 1',
+  },
+  {
+    id: '22',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.77 ETH',
+    text: 'Etherium 2',
+  },
+  {
+    id: '23',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.08 ETH',
+    text: 'Etherium 3',
+  },
+];
 
 export const NoAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const noAccount = lang.strings.addAccount.addAccount.noAccount.info.dialogBox;
   const { onPrevious } = useAddAccountGuide();
-  const dataArray = [
-    {
-      id: '21',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '2.35 ETH',
-      text: 'Etherium 1',
-    },
-    {
-      id: '22',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.77 ETH',
-      text: 'Etherium 2',
-    },
-    {
-      id: '23',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.08 ETH',
-      text: 'Etherium 3',
-    },
-  ];
   return (
     <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
@@ -82,9 +85,11 @@ export const NoAccountDialog: React.FC = () => {
             onPrevious();
           }}
         >
-          Sync Again
+          <LangDisplay text={noAccount.buttonSync} />
         </Button>
-        <Button variant="primary">Close</Button>
+        <Button variant="primary">
+          <LangDisplay text={noAccount.buttonClose} />
+        </Button>
       </DialogBoxFooter>
     </DialogBox>
   );

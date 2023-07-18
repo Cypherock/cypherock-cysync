@@ -42,6 +42,7 @@ export const colors = {
     error: '#FF624C',
     success: '#51C61A',
     white: '#ffffff',
+    goldenrod: '#daa520',
   },
   background: {
     progressBar: '#1F1915',

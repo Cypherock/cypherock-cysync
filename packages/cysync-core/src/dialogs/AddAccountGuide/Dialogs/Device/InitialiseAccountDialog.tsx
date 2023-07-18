@@ -38,7 +38,7 @@ const dataArray = [
   {
     id: '3',
     leftImageSrc: etheriumBlueIcon,
-    text: 'Etherium 3',
+    text: 'Ethereum 3',
   },
 ];
 export const InitialiseAccountDialog: React.FC = () => {

@@ -44,7 +44,7 @@ export const AddAccountDialog: React.FC = () => {
     {
       id: '33',
       leftImageSrc: etheriumBlueIcon,
-      text: 'Etherium 3',
+      text: 'Ethereum 3',
       checkBox: true,
     },
   ];

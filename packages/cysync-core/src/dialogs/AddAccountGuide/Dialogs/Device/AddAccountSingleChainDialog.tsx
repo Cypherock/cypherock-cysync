@@ -18,66 +18,68 @@ import {
 } from '@cypherock/cysync-ui';
 import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useAddAccountGuide } from '../../context';
 
-export const AddAccountSingleChainDialog: FC = () => {
-  const dataArray = [
-    {
-      id: '2',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 1',
-      checkBox: true,
-      tag: 'TAPROOT',
-    },
-  ];
-  const accountNotSynced = [
-    {
-      id: '1',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'TAPROOT',
-    },
-    {
-      id: '22',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'TAPROOT',
-    },
-    {
-      id: '3',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'SEGWIT',
-    },
-    {
-      id: '4',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'NATIVE SEGWIT',
-    },
-  ];
-  const accountsInPortfolio = [
-    {
-      id: '1',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 1',
-      checkBox: true,
-      tag: 'SEGWIT',
-    },
-    {
-      id: '2',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 1',
-      checkBox: true,
-      tag: 'NATIVE SEGWIT',
-    },
-  ];
+const dataArray = [
+  {
+    id: '10',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 1',
+    checkBox: true,
+    tag: 'TAPROOT',
+  },
+];
+const accountNotSynced = [
+  {
+    id: '1',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 2',
+    checkBox: true,
+    tag: 'TAPROOT',
+  },
+  {
+    id: '2',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 2',
+    checkBox: true,
+    tag: 'TAPROOT',
+  },
+  {
+    id: '3',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 2',
+    checkBox: true,
+    tag: 'SEGWIT',
+  },
+  {
+    id: '4',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 2',
+    checkBox: true,
+    tag: 'NATIVE SEGWIT',
+  },
+];
+const accountsInPortfolio = [
+  {
+    id: '11',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 1',
+    checkBox: true,
+    tag: 'SEGWIT',
+  },
+  {
+    id: '12',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 1',
+    checkBox: true,
+    tag: 'NATIVE SEGWIT',
+  },
+];
 
+export const AddAccountSingleChainDialog: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { onNext } = useAddAccountGuide();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
