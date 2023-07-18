@@ -19,7 +19,8 @@ interface ButtonProps
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
-  leadingIcon?: ReactNode;
+  $isIconLeading?: boolean;
+  icon?: ReactNode;
   children?: ReactNode;
 }
 
@@ -146,7 +147,7 @@ const buttonStyle = css<ButtonProps>`
 `;
 
 const buttonSizeStyle = css<ButtonProps>`
-  ${props => buttonSizeMap[props.size ?? 'md']}
+  ${props => !props.$isIconLeading && buttonSizeMap[props.size ?? 'md']}
 `;
 
 const ButtonStyle = styled.button<ButtonProps>`
@@ -166,19 +167,25 @@ const ButtonStyle = styled.button<ButtonProps>`
 `;
 
 export const Button: FC<ButtonProps> = ({
-  leadingIcon,
+  icon,
+  $isIconLeading,
   isLoading,
   children,
   ...props
 }) => {
-  const Leading = isLoading ? (
+  const Icon = isLoading ? (
     <Throbber size={throbberSizeMap[props.size ?? 'md']} strokeWidth={2} />
   ) : (
-    leadingIcon
+    icon
   );
   return (
-    <ButtonStyle type="button" disabled={isLoading} {...props}>
-      {Leading}
+    <ButtonStyle
+      type="button"
+      disabled={isLoading}
+      $isIconLeading={$isIconLeading}
+      {...props}
+    >
+      {Icon}
       {children}
     </ButtonStyle>
   );
@@ -188,6 +195,7 @@ Button.defaultProps = {
   variant: 'primary',
   size: 'md',
   children: undefined,
-  leadingIcon: undefined,
+  icon: undefined,
   isLoading: false,
+  $isIconLeading: false,
 };

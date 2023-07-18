@@ -1,19 +1,28 @@
 import React, { FC } from 'react';
+import styled from 'styled-components';
 
 import {
   checkIcon,
   connected,
   visibilityHideIcon,
   visibilityIcon,
-  lock,
-  lockOpen,
-  noNotifications,
-  notifications,
+  lockIcon,
+  lockOpenIcon,
+  noNotificationsIcon,
+  notificationsIcon,
   redDisconnectedIcon,
-  syncProblem,
-  syncronizing,
+  syncProblemIcon,
+  syncronizingIcon,
 } from '../../assets';
-import { Container, Flex, Image, LangDisplay, Typography } from '../atoms';
+import { theme } from '../../themes/theme.styled';
+import {
+  Button,
+  Container,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+} from '../atoms';
 
 const connectionStatusMap = {
   connected: {
@@ -26,21 +35,26 @@ const connectionStatusMap = {
     src: redDisconnectedIcon,
   },
 };
-
 const syncStatusMap = {
   syncronized: {
     src: checkIcon,
   },
   syncronizing: {
-    src: syncronizing,
+    src: syncronizingIcon,
   },
   error: {
-    src: syncProblem,
+    src: syncProblemIcon,
   },
 };
 
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
+
+const DividingLine = styled.div`
+  width: 1px;
+  background-color: ${theme.palette.background.separatorSecondary};
+  height: 23.33px;
+`;
 
 export const Topbar: FC<{
   title: string;
@@ -56,19 +70,27 @@ export const Topbar: FC<{
       error: string;
     };
   };
-  isVisible: boolean;
-  isLock: boolean;
+  isDiscreetMode: boolean;
+  lock: () => void;
+  isPasswordSet: boolean;
+  isLocked: boolean;
+  isLockscreenLoading: boolean;
   haveNotifications: boolean;
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
+  toggleDiscreetMode: () => void;
 }> = ({
   title,
   statusTexts,
   connectionStatus,
   haveNotifications,
-  isLock,
-  isVisible,
+  isLocked,
+  isLockscreenLoading,
+  lock,
+  isPasswordSet,
+  isDiscreetMode,
   syncStatus,
+  toggleDiscreetMode,
 }) => (
   <Container
     p={3}
@@ -80,20 +102,16 @@ export const Topbar: FC<{
       <LangDisplay text={title} />
     </Typography>
     <Flex align="center">
-      <Flex pr={2} $borderWidthR={1} align="center" gap={16}>
+      <Flex pr={2} align="center" gap={16}>
         <Image src={syncStatusMap[syncStatus].src} alt="syncState" />
         <Typography color="muted">
           <LangDisplay text={statusTexts.sync[syncStatus]} />
         </Typography>
       </Flex>
-      <Flex
-        px={2}
-        $borderWidthR={1}
-        $borderColor="separator"
-        align="center"
-        gap={16}
-      >
+      <DividingLine />
+      <Flex px={2} align="center" gap={16}>
         <Image
+          width={31}
           src={connectionStatusMap[connectionStatus].src}
           alt="connectionState"
         />
@@ -101,36 +119,33 @@ export const Topbar: FC<{
           <LangDisplay text={statusTexts.connection[connectionStatus]} />
         </Typography>
       </Flex>
-      <Flex
-        px={2}
-        py="3"
-        height="full"
-        $borderWidthR={1}
-        $borderColor="separator"
-        align="center"
-        gap={16}
-      >
+      <DividingLine />
+      <Flex px={2} py="3" height="full" align="center" gap={16}>
         <Image
-          src={haveNotifications ? notifications : noNotifications}
+          src={haveNotifications ? notificationsIcon : noNotificationsIcon}
           alt="notifications"
         />
       </Flex>
-      <Flex
-        px={2}
-        py="3"
-        $borderWidthR={1}
-        $borderColor="separator"
-        align="center"
-        gap={16}
-      >
-        <Image
-          src={isVisible ? visibilityIcon : visibilityHideIcon}
-          alt="visiblity"
-        />
-      </Flex>
-      <Flex px={2} py="3" align="center" gap={16}>
-        <Image src={isLock ? lock : lockOpen} alt="lock" />
-      </Flex>
+      <DividingLine />
+      <Button variant="text" onClick={toggleDiscreetMode}>
+        <Flex px={2} py="3" align="center" gap={16}>
+          <Image
+            src={isDiscreetMode ? visibilityIcon : visibilityHideIcon}
+            alt="visiblity"
+          />
+        </Flex>
+      </Button>
+
+      {isPasswordSet && !isLockscreenLoading && (
+        <>
+          <DividingLine />
+          <Button variant="text" onClick={lock}>
+            <Flex px={2} py="3" align="center" gap={16}>
+              <Image src={isLocked ? lockIcon : lockOpenIcon} alt="lock" />
+            </Flex>
+          </Button>
+        </>
+      )}
     </Flex>
   </Container>
 );
