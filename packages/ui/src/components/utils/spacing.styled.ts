@@ -62,6 +62,7 @@ export const spacing = css<SpacingProps>`
 const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
   const [first, second] = key.split('');
   const properties = [];
+
   for (const i of cssMap[first] ?? []) {
     if (second) {
       for (const j of cssMap[second] ?? []) {

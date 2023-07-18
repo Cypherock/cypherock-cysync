@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { triangleIcon } from '../../../assets';
-import { Container, Image, Typography } from '../../atoms';
+import { TriangleIcon } from '../../../assets';
+import { Container, Typography } from '../../atoms';
 import {
   DisplayProps,
   flex,
@@ -158,15 +158,11 @@ export const TableHeaderData: FC<TableHeaderDataProps> = ({
     <Container display="flex" direction="column" gap={2}>
       {!selected ? (
         <>
-          <Image src={triangleIcon} alt="triangle up" />
-          <Image src={triangleIcon} alt="triangle down" rotate={180} />
+          <TriangleIcon />
+          <TriangleIcon rotate={180} />
         </>
       ) : (
-        <Image
-          src={triangleIcon}
-          alt="triangle"
-          rotate={props.$ascending ? 0 : 180}
-        />
+        <TriangleIcon rotate={props.$ascending ? 0 : 180} />
       )}
     </Container>
   </TableHeaderDataStyle>
