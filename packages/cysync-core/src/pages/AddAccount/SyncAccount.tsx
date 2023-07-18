@@ -12,6 +12,7 @@ import {
   AddAccountSingleChainDialog,
   InitialiseAccountDialog,
 } from '~/dialogs/AddAccountGuide/Dialogs';
+import { SummaryDialog } from '~/dialogs/SendGuide/Dialogs/SummaryDialog';
 
 import { useAppDispatch } from '~/store';
 
@@ -72,6 +73,7 @@ export const SyncAccount: React.FC = () => {
     <div>
       <AddAccountSingleChainDialog />
       <InitialiseAccountDialog />
+      <SummaryDialog />
       <DialogBoxBody>
         <InputLabel
           color="gold"

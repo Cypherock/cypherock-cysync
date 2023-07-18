@@ -26,6 +26,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  sendGuide: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export type DialogName = keyof IDialogState;

@@ -7,6 +7,7 @@ import { AddAccountGuide } from './AddAccountGuide';
 import { CreateWalletGuide } from './CreateWalletGuide';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
+import { SendGuide } from './SendGuide';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   addAccount: () => <div>Test</div>,
@@ -14,4 +15,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletActions: WalletActionsDialogBox,
   createWalletGuide: CreateWalletGuide,
   addAccountGuide: AddAccountGuide,
+  sendGuide: SendGuide,
 };
