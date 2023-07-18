@@ -24,19 +24,19 @@ const dataArray = [
     id: '21',
     leftImageSrc: etheriumBlueIcon,
     rightText: '2.35 ETH',
-    text: 'Etherium 1',
+    text: 'Ethereum 1',
   },
   {
     id: '22',
     leftImageSrc: etheriumBlueIcon,
     rightText: '0.77 ETH',
-    text: 'Etherium 2',
+    text: 'Ethereum 2',
   },
   {
     id: '23',
     leftImageSrc: etheriumBlueIcon,
     rightText: '0.08 ETH',
-    text: 'Etherium 3',
+    text: 'Ethereum 3',
   },
 ];
 
