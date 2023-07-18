@@ -8,13 +8,14 @@ import {
   Container,
   ImageContainer,
   bitcoinIcon,
+  Divider,
   StretchedTypography,
   Flex,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { addKeyboardEvents } from '~/hooks';
 import { useSendGuide } from '../context';
 import { styled } from 'styled-components';
+import { addKeyboardEvents } from '~/hooks';
 
 export const SummaryDialog: React.FC = () => {
   const { onNext, onPrevious } = useSendGuide();
@@ -32,29 +33,34 @@ export const SummaryDialog: React.FC = () => {
 
   const Main = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 8px 8px;
+    gap: 24px;
+    align-self: stretch;
+    align-items: flex-start;
   `;
 
   const LeftContainer = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   `;
 
   const Icon = styled.img`
-    width: 24px; /* Adjust the width of the icon as needed */
-    height: 24px; /* Adjust the height of the icon as needed */
+    width: 12px; /* Adjust the width of the icon as needed */
+    height: 12px; /* Adjust the height of the icon as needed */
     margin-right: 5px;
   `;
 
   const RightContainer = styled.div`
+    margin-left: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
   `;
 
   const Text = styled.span`
-    margin-right: 5px;
-    font-size: 2px;
+    margin-right: 15px;
+    font-size: 12px;
+    color: white;
   `;
 
   return (
@@ -91,14 +97,16 @@ export const SummaryDialog: React.FC = () => {
           <Main>
             <LeftContainer>
               <Icon src={bitcoinIcon} alt="Icon" />
-              <Text>Left-aligned text</Text>
+              <Text>From</Text>
             </LeftContainer>
             <RightContainer>
-              <Text>Right-aligned text</Text>
+              <Text>Cypherock Red</Text>
               <Text>/</Text>
-              <Text>Another right-aligned text</Text>
+              <Text>Another text</Text>
             </RightContainer>
           </Main>
+
+          <Divider variant="horizontal" />
         </Container>
       </DialogBoxBody>
     </DialogBox>

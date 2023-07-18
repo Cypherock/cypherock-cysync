@@ -73,7 +73,7 @@ export const SyncAccount: React.FC = () => {
     <div>
       <AddAccountSingleChainDialog />
       <InitialiseAccountDialog />
-      <SummaryDialog />
+
       <DialogBoxBody>
         <InputLabel
           color="gold"
@@ -106,6 +106,7 @@ export const SyncAccount: React.FC = () => {
             />
           ))}
         </LeanBoxContainer>
+        <SummaryDialog />
       </DialogBoxBody>
     </div>
   );
