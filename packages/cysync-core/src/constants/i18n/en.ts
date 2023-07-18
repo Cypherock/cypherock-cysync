@@ -209,6 +209,79 @@ const en = {
       },
     },
   },
+  receive: {
+    deviceConnection: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Connect your X1 Vault to proceed',
+          subheader: 'Looks like your device is not connected',
+          buttonName: "Don't have your device?",
+        },
+      },
+    },
+    deviceConfirmCancelled: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Request was cancelled from the X1 Vault',
+          subheader: 'This is dialogue text or sub heading',
+          buttonRetry: 'Retry',
+          buttonReport: 'Report',
+        },
+      },
+    },
+    deviceConfirmForTroubleshoot: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          snackBar: {
+            text: 'Having trouble connecting the device?',
+            buttonName: 'Fix it',
+          },
+        },
+      },
+    },
+    deviceConfirmForToken: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          InfoBox: {
+            text: 'Remember you will receive Tether on your Ethereum Account address',
+          },
+        },
+      },
+    },
+    deviceConfirm: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+        },
+      },
+    },
+    deviceVerifyAddress: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        source: 'Source',
+        device: 'Device',
+        receive: 'Receive',
+      },
+    },
+  },
   onboarding: {
     info: {
       aside: {

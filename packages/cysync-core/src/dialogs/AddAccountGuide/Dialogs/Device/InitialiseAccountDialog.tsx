@@ -9,11 +9,9 @@ import {
   Typography,
   Image,
   Container,
-  bnbChainIcon,
   checkIcon,
-  bitcoinIcon,
   halfLoaderGold,
-  etheriumBlueIcon,
+  arrowGoldenForward,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -23,22 +21,22 @@ import { addKeyboardEvents } from '~/hooks';
 const dataArray = [
   {
     id: '1',
-    leftImageSrc: bnbChainIcon,
-    text: 'BNB Chain 1',
+    leftImageSrc: arrowGoldenForward,
+    text: 'Verify the coins on the X1 Vault',
     rightImageSrc: checkIcon,
   },
   {
     id: '2',
-    leftImageSrc: bitcoinIcon,
+    leftImageSrc: arrowGoldenForward,
 
-    text: 'Bitcoin 1',
+    text: 'Enter passphrase',
     rightImageSrc: halfLoaderGold,
     animate: true,
   },
   {
     id: '3',
-    leftImageSrc: etheriumBlueIcon,
-    text: 'Etherium 3',
+    leftImageSrc: arrowGoldenForward,
+    text: 'Enter the PIN and tap any X1 Card',
   },
 ];
 export const InitialiseAccountDialog: React.FC = () => {

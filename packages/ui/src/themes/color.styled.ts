@@ -42,6 +42,7 @@ export const colors = {
     error: '#FF624C',
     success: '#51C61A',
     white: '#ffffff',
+    red: '#FF624C',
   },
   background: {
     progressBar: '#1F1915',

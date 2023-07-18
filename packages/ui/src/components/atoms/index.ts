@@ -20,3 +20,4 @@ export * from './Toggle';
 export * from './Dropdown';
 export * from './RadioButton';
 export * from './CloseButton';
+export * from './InformationBox';

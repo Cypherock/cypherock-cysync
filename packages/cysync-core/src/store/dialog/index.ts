@@ -25,6 +25,9 @@ const initialState: IDialogState = {
   addAccountGuide: {
     isOpen: false,
   },
+  receiveGuide: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

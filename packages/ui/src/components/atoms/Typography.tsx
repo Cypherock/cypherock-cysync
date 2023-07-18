@@ -28,7 +28,8 @@ export type TypographyColor =
   | 'warn'
   | 'list'
   | 'black'
-  | 'info';
+  | 'info'
+  | 'red';
 
 interface HeadingProps
   extends SpacingProps,

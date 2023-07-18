@@ -11,8 +11,9 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
+import { SpacingProps, spacing } from '../utils';
 
-export interface LeanBoxProps {
+export interface LeanBoxProps extends SpacingProps {
   leftImageSrc?: string;
   rightImageSrc?: string;
   rightText?: string;
@@ -34,7 +35,7 @@ export interface LeanBoxProps {
   onRadioButtonChange?: (isSelected: boolean) => void;
 }
 
-export const HorizontalBox = styled.div<{ isChecked: boolean }>`
+const HorizontalBox = styled.div<{ isChecked: boolean } & SpacingProps>`
   display: flex;
   padding: 8px 16px;
   align-items: center;
@@ -44,8 +45,9 @@ export const HorizontalBox = styled.div<{ isChecked: boolean }>`
   border: 1px solid ${({ theme }) => theme.palette.border.input};
   background: ${({ isChecked, theme }) =>
     isChecked ? theme.palette.background.list : theme.palette.background.input};
-  width: 422px;
+  width: 100%;
   height: 42px;
+  ${spacing};
 `;
 
 export const ImageContainer = styled.div`
@@ -86,6 +88,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   onCheckChange,
   radioButtonSelected = false,
   onRadioButtonChange,
+  ...props
 }): ReactElement => {
   const handleCheckBoxChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +117,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [onRadioButtonChange, radioButtonSelected]);
 
   return (
-    <HorizontalBox isChecked={isChecked} onClick={handleBoxClick}>
+    <HorizontalBox isChecked={isChecked} onClick={handleBoxClick} {...props}>
       {displayRadioButton && (
         <RadioButton
           checked={radioButtonSelected}

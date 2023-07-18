@@ -12,6 +12,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  receiveGuide: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   walletSyncError: {
     isOpen: boolean;
     data?: undefined;

@@ -15,3 +15,6 @@ export const openCreateWalletGuideDialog = () =>
 
 export const openAddAccountGuideDialog = () =>
   openDialog({ name: 'addAccountGuide', data: undefined });
+
+export const openReceiveGuideDialog = () =>
+  openDialog({ name: 'receiveGuide', data: undefined });

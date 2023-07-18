@@ -8,4 +8,5 @@ export const LeanBoxContainer = styled.div`
   align-items: flex-start;
   gap: 8px;
   align-self: stretch;
+  width: 100%;
 `;

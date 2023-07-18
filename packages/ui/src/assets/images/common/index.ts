@@ -67,13 +67,21 @@ import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
+import confirmIcon from './confirm.svg';
+import informationWhiteIcon from './information-icon.svg';
+import spinnerGoldIcon from './spinner-gold.svg';
+import questionMarkGoldIcon from './question-gold.svg';
 
 export {
   addWalletIcon,
   walletIcon,
+  questionMarkGoldIcon,
+  spinnerGoldIcon,
+  informationWhiteIcon,
   binanceIcon,
   etheriumBlueIcon,
   addIcon,
+  confirmIcon,
   cypherockRedIcon,
   triangleInverseIcon,
   searchIcon,
