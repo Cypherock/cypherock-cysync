@@ -22,7 +22,7 @@ const packages = {
   'packages/coin-support-interfaces': [...commonFolders],
   'packages/coins': [...commonFolders],
   'packages/desktop-ui': [...commonFolders],
-  'packages/ui': [...commonFolders],
+  'packages/ui': [...commonFolders, 'src/assets/icons/generated'],
   'packages/database': [...commonFolders],
   'packages/db-interfaces': [...commonFolders],
   'packages/cysync-core': [...commonFolders],

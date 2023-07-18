@@ -5,7 +5,6 @@ import { InputLabel } from './InputLabel';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
-import { Image } from '../Image';
 import { LangDisplay } from '../LangDisplay';
 
 export interface InputProps {
@@ -16,8 +15,7 @@ export interface InputProps {
   onChange?: (val: string) => void;
   value?: string;
   disabled?: boolean;
-  postfixIcon?: string;
-  postfixIconAlt?: string;
+  postfixIcon?: React.ReactNode;
   onPostfixIconClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
@@ -45,7 +43,7 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 
-const PostfixIcon = styled.div`
+const PostfixIconStyle = styled.div`
   position: absolute;
   right: 12px;
   top: 50%;
@@ -61,7 +59,6 @@ export const Input: FC<InputProps> = ({
   value,
   disabled,
   postfixIcon,
-  postfixIconAlt,
   onPostfixIconClick,
   pasteAllowed,
   copyAllowed,
@@ -91,17 +88,17 @@ export const Input: FC<InputProps> = ({
         }}
         onChange={e => onChange && onChange(e.target.value)}
       />
-      {postfixIcon && postfixIconAlt && (
-        <PostfixIcon>
+      {postfixIcon && (
+        <PostfixIconStyle>
           <Button
             type="button"
             variant="none"
             display="flex"
             onClick={onPostfixIconClick}
           >
-            <Image src={postfixIcon} alt={postfixIconAlt} height={20} />
+            {postfixIcon}
           </Button>
-        </PostfixIcon>
+        </PostfixIconStyle>
       )}
     </InputWrapper>
   </Flex>
@@ -114,7 +111,6 @@ Input.defaultProps = {
   value: undefined,
   disabled: false,
   postfixIcon: undefined,
-  postfixIconAlt: undefined,
   onPostfixIconClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,

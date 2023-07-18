@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
+import { useTheme } from 'styled-components';
 
 import { Input, InputProps } from './Input';
 
-import { visibilityHideIcon, visibilityIcon } from '../../../assets';
+import { Visibility, VisibilityHide } from '../../../assets';
 
 type PasswordInputProps = Omit<
   InputProps,
@@ -11,9 +12,16 @@ type PasswordInputProps = Omit<
 
 export const PasswordInput: FC<PasswordInputProps> = props => {
   const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const iconProps = {
+    width: 26,
+    height: 20,
+    fill: theme!.palette.muted.main,
   };
 
   return (
@@ -22,8 +30,13 @@ export const PasswordInput: FC<PasswordInputProps> = props => {
       {...props}
       copyAllowed={false}
       pasteAllowed={false}
-      postfixIcon={showPassword ? visibilityIcon : visibilityHideIcon}
-      postfixIconAlt="Show password"
+      postfixIcon={
+        showPassword ? (
+          <Visibility {...iconProps} />
+        ) : (
+          <VisibilityHide {...iconProps} />
+        )
+      }
       onPostfixIconClick={togglePassword}
     />
   );
