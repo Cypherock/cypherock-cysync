@@ -5,11 +5,12 @@ import {
   SyncStatusType,
   Topbar,
   Flex,
+  Container,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect, useState } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
+import { AssetAllocation, SideBar } from '~/pages/MainApp/Components';
 import {
   openDialog,
   selectLanguage,
@@ -33,17 +34,20 @@ export const Portfolio: FC = () => {
   }, []);
 
   return (
-    <>
-      <Topbar
-        title={lang.strings.portfolio.title}
-        statusTexts={lang.strings.topbar.statusTexts}
-        isVisible={isVisible}
-        isLock={isLock}
-        haveNotifications={haveNotifications}
-        syncStatus={syncState}
-        connectionStatus={connectionState}
-      />
-      <AssetAllocation />
-    </>
+    <Container height="screen" display="flex">
+      <SideBar />
+      <Flex direction="column" grow={1} $alignSelf="start">
+        <Topbar
+          title={lang.strings.portfolio.title}
+          statusTexts={lang.strings.topbar.statusTexts}
+          isVisible={isVisible}
+          isLock={isLock}
+          haveNotifications={haveNotifications}
+          syncStatus={syncState}
+          connectionStatus={connectionState}
+        />
+        <AssetAllocation />
+      </Flex>
+    </Container>
   );
 };
