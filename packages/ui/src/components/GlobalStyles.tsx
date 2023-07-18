@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createGlobalStyle } from 'styled-components';
+
 import { SvgStyle } from '../assets';
 
 export const svgGradients = {
