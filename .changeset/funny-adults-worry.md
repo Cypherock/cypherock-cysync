@@ -1,6 +1,6 @@
 ---
-'@cypherock/cysync-core': major
-'@cypherock/cysync-ui': major
+'@cypherock/cysync-core': patch
+'@cypherock/cysync-ui': patch
 ---
 
 Wallet Sync Error Dialog Box added
