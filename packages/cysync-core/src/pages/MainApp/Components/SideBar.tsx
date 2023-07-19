@@ -30,7 +30,7 @@ export const SideBar: FC = () => {
           <SideBarItem
             text={strings.portfolio}
             Icon={PortfolioIcon}
-            state={State.normal}
+            state={State.selected}
           />
           <SideBarItem
             text={strings.wallets}
@@ -46,10 +46,9 @@ export const SideBar: FC = () => {
               </Button>
             }
             Icon={WalletIcon}
-            state={State.selected}
           >
-            <SideBarItem text="Foo" state={State.normal} child="regular" />
-            <SideBarItem text="Bar" state={State.disabled} child="regular" />
+            <SideBarItem text="Foo" state={State.active} child="regular" />
+            <SideBarItem text="Bar" child="regular" />
             <SideBarItem
               text="Baz"
               state={State.error}
@@ -67,16 +66,8 @@ export const SideBar: FC = () => {
               }
             />
           </SideBarItem>
-          <SideBarItem
-            text={strings.sendCrypto}
-            Icon={ArrowSentIcon}
-            state={State.normal}
-          />
-          <SideBarItem
-            text={strings.receiveCrypto}
-            Icon={ArrowReceivedIcon}
-            state={State.normal}
-          />
+          <SideBarItem text={strings.sendCrypto} Icon={ArrowSentIcon} />
+          <SideBarItem text={strings.receiveCrypto} Icon={ArrowReceivedIcon} />
           <SideBarItem
             text={strings.history}
             Icon={HistoryIcon}
@@ -84,17 +75,8 @@ export const SideBar: FC = () => {
           />
         </Flex>
         <Flex direction="column" gap={8}>
-          <SideBarItem
-            text={strings.settings}
-            Icon={SettingsIcon}
-            state={State.normal}
-          />
-          <SideBarItem
-            text={strings.help}
-            Icon={SupportIcon}
-            state={State.normal}
-            svgStroke
-          />
+          <SideBarItem text={strings.settings} Icon={SettingsIcon} />
+          <SideBarItem text={strings.help} Icon={SupportIcon} svgStroke />
         </Flex>
       </Flex>
     </SideBarWrapper>

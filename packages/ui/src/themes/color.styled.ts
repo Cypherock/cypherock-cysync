@@ -40,8 +40,10 @@ export const colors = {
     muted: '#8B8682',
     warn: '#F1AE4A',
     error: '#FF624C',
+    errorDark: '#74271C',
     success: '#51C61A',
     disabled: '#423D39',
+    normal: '#CCC4BE',
   },
   background: {
     progressBar: '#1F1915',

@@ -8,6 +8,7 @@ import { svgGradients } from '../../GlobalStyles';
 export enum SideBarState {
   disabled,
   normal,
+  active,
   selected,
   error,
 }
@@ -62,14 +63,16 @@ export const SideBarItem: FC<SideBarItemProps> = ({
   const textColorMap: Record<SideBarState, TypographyColor> = {
     [SideBarState.disabled]: 'disabled',
     [SideBarState.normal]: 'muted',
+    [SideBarState.active]: 'heading',
     [SideBarState.selected]: 'gold',
-    [SideBarState.error]: 'error',
+    [SideBarState.error]: 'errorDark',
   };
   const textColor: TypographyColor = textColorMap[state!];
 
   const svgColor: string = {
     [SideBarState.disabled]: theme.palette.text.disabled,
-    [SideBarState.normal]: theme.palette.text.heading,
+    [SideBarState.normal]: theme.palette.text.normal,
+    [SideBarState.active]: theme.palette.text.heading,
     [SideBarState.selected]: `url(#${svgGradients.gold})`,
     [SideBarState.error]: theme.palette.warn.main,
   }[state!];
@@ -126,6 +129,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               variant="h6"
               color={textColor}
               py={1}
+              $fontWeight="medium"
               $whiteSpace="nowrap"
               $textOverflow="ellipsis"
             >
@@ -154,7 +158,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
         </ClickableFlex>
       </Flex>
       {!collapsed && (
-        <Flex pl={2} direction="column">
+        <Flex pl="13" direction="column">
           {children}
         </Flex>
       )}

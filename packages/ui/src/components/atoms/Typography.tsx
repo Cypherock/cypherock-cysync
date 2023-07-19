@@ -21,6 +21,7 @@ export type TypographyColor =
   | 'gold'
   | 'silver'
   | 'error'
+  | 'errorDark'
   | 'success'
   | 'heading'
   | 'muted'
