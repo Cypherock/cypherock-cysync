@@ -38,10 +38,11 @@ export const SideBar: FC = () => {
               <Button
                 variant="text"
                 align="center"
-                onClick={() => console.log('Syncronizing wallets')}
+                onClick={e => {
+                  e.stopPropagation();
+                }}
               >
-                {' '}
-                <Syncronizing fill={theme.palette.muted.main} />{' '}
+                <Syncronizing fill={theme.palette.muted.main} />
               </Button>
             }
             Icon={WalletIcon}
@@ -54,9 +55,14 @@ export const SideBar: FC = () => {
               state={State.error}
               child="last"
               extraRight={
-                <Button variant="text" align="center">
-                  {' '}
-                  <WalletInfoIcon fill={theme.palette.muted.main} />{' '}
+                <Button
+                  variant="text"
+                  align="center"
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <WalletInfoIcon fill={theme.palette.muted.main} />
                 </Button>
               }
             />
