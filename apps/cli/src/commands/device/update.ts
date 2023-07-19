@@ -2,26 +2,62 @@
 import config from '../../config';
 
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { Command } from '@oclif/core';
+import { DeviceState, IDeviceConnection } from '@cypherock/sdk-interfaces';
+import { Command, Flags } from '@oclif/core';
+import colors from 'colors/safe';
+import semver from 'semver';
 
-import { connectDevice, createConnection, getDevices } from '../../services';
+import { updateFirmwareAndGetApp } from '~/services';
+import { runWithDevice } from '~/utils';
 
 export default class DeviceUpdate extends Command {
   static description = 'Update firmware on device';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
 
-  async run(): Promise<void> {
-    const connection = await createConnection();
+  static flags = {
+    force: Flags.boolean({
+      char: 'f',
+      description: 'Force update even when device is already up to date',
+    }),
+  };
+
+  async main(connection: IDeviceConnection): Promise<void> {
+    this.log(colors.blue('Starting device firmware update'));
+
+    const { flags } = await this.parse(DeviceUpdate);
+
     const app = await ManagerApp.create(connection);
 
-    await app.updateFirmware({
-      getDevices,
-      createConnection: connectDevice,
-      onProgress: p => this.log(p.toFixed(0)),
-      allowPrerelease: config.ALLOW_PRERELEASE,
-    });
+    if (
+      !flags.force &&
+      (await connection.getDeviceState()) !== DeviceState.BOOTLOADER
+    ) {
+      const latestVersion = await ManagerApp.getLatestFirmware({
+        prerelease: config.ALLOW_PRERELEASE,
+      });
 
-    this.log('Update successful');
+      const deviceInfo = await app.getDeviceInfo();
+
+      if (
+        deviceInfo.firmwareVersion &&
+        semver.gte(
+          `${deviceInfo.firmwareVersion.major}.${deviceInfo.firmwareVersion.minor}.${deviceInfo.firmwareVersion.patch}`,
+          latestVersion.version,
+        )
+      ) {
+        this.log(colors.green('Device firmware is already up to date'));
+        return;
+      }
+    }
+
+    await updateFirmwareAndGetApp(app);
+
+    this.log(colors.green('Device firmware Update successful'));
+    await app.destroy();
+  }
+
+  async run(): Promise<void> {
+    await runWithDevice(this.main.bind(this));
   }
 }
