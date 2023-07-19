@@ -21,6 +21,6 @@ const StyledTag = styled.div<TagProps>`
   ${font}
 `;
 
-export const Tag: FC<TagProps> = ({ children }) => (
-  <StyledTag>{children}</StyledTag>
+export const Tag: FC<TagProps> = ({ children, ...props }) => (
+  <StyledTag {...props}>{children}</StyledTag>
 );

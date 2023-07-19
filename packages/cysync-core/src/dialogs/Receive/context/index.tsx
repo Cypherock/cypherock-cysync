@@ -12,7 +12,6 @@ import React, {
   useState,
 } from 'react';
 
-import { SyncAccountDialog } from '~/dialogs/AddAccountGuide/Dialogs';
 import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
 
@@ -23,8 +22,12 @@ import {
   ReceiveDeviceConfirmForToken,
   ReceiveDeviceConfirmTroubleShoot,
   ReceiveDeviceConnection,
-  ReceiveVerifyAddress,
 } from '../Dialogs/Device';
+import {
+  ReceiveAddressNotVerified,
+  ReceiveAddressVerified,
+  ReceiveVerifyAddress,
+} from '../Dialogs/Receive';
 
 // import {
 //   ReceiveDialog,
@@ -81,7 +84,6 @@ export const ReceiveGuideProvider: FC<ReceiveGuideContextProviderProps> = ({
         <ReceiveDeviceConfirmTroubleShoot />,
         <ReceiveDeviceConfirmForToken />,
         <ReceiveDeviceConfirm />,
-        <ReceiveVerifyAddress />,
         // <SyncAccountDialog />,
         // <NoAccountDialog />,
         // <ReceiveSingleChainDialog />,
@@ -90,7 +92,11 @@ export const ReceiveGuideProvider: FC<ReceiveGuideContextProviderProps> = ({
     },
     {
       name: lang.strings.receive.aside.tabs.receive,
-      dialogs: [<SyncAccountDialog />],
+      dialogs: [
+        <ReceiveVerifyAddress />,
+        <ReceiveAddressNotVerified />,
+        <ReceiveAddressVerified />,
+      ],
     },
   ];
 

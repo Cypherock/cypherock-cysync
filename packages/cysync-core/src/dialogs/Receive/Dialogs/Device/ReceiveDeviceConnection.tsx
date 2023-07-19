@@ -28,6 +28,9 @@ export const ReceiveDeviceConnection: React.FC = () => {
     ArrowLeft: () => {
       onPrevious();
     },
+    ArrowUp: () => {
+      onNext(2, 1);
+    },
   };
 
   addKeyboardEvents(keyboardActions);

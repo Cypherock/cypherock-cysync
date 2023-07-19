@@ -58,6 +58,7 @@ export const colors = {
     black: '#000000',
     toggleOff: '#544D43',
     list: '#2C2824',
+    infoBackground: '#4A2D00',
   },
   border: {
     popup: '#2C2520',
@@ -71,6 +72,8 @@ export const colors = {
     white: '#ffffff',
     dropdown: '#272320',
     gold: 'gold',
+    infoBox: '#3c3c3c',
+    infoBoxOrange: '#4A2D00',
   },
   shadow: {
     dropdown: '#0f0d0b',

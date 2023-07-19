@@ -23,7 +23,10 @@
 // import SnackBar from '@cypherock/cysync-ui/src/components/molecules/SnackBar';
 // import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
 import React, { useEffect } from 'react';
-import { ReceiveVerifyAddress } from '~/dialogs/Receive/Dialogs/Device';
+// import { openAddAccountGuideDialog, openReceiveGuideDialog } from '~/actions';
+import { SelectCryptoDialog } from '~/dialogs/AddAccountGuide/Dialogs';
+import { ReceiveAddressNotVerified } from '~/dialogs/Receive/Dialogs/Receive';
+// import { useAppDispatch } from '~/store';
 // import { openAddAccountGuideDialog, openReceiveGuideDialog } from '~/actions';
 // import {
 //   AddAccountSingleChainDialog,
@@ -39,34 +42,9 @@ export const SyncAccount: React.FC = () => {
   // const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(openReceiveGuideDialog());
+    // dispatch(openAddAccountGuideDialog());
   }, []);
 
-  // const dataArray = [
-  //   {
-  //     id: '1',
-  //     leftImageSrc: arrowGoldenForward,
-  //     text: 'Fetching a new address from the wallet',
-  //     rightImageSrc: checkIcon,
-  //   },
-  //   {
-  //     id: '2',
-  //     leftImageSrc: arrowGoldenForward,
-
-  //     text: 'Verify the account on the X1 Vault',
-  //     animate: true,
-  //   },
-  //   {
-  //     id: '3',
-  //     leftImageSrc: arrowGoldenForward,
-  //     text: 'Enter passphrase',
-  //   },
-  //   {
-  //     id: '4',
-  //     leftImageSrc: arrowGoldenForward,
-  //     text: 'Enter the PIN and tap any X1 card',
-  //   },
-  // ];
   // const lang = useAppSelector(selectLanguage);
 
   // const connect =
@@ -75,7 +53,8 @@ export const SyncAccount: React.FC = () => {
 
   return (
     <div>
-      <ReceiveVerifyAddress />
+      <SelectCryptoDialog />
+      <ReceiveAddressNotVerified />
       {/* <ReceiveDeviceConfirmTroubleShoot /> */}
       {/* <ReceiveDeviceConfirmForToken /> */}
       {/* <ReceiveDeviceConnection /> */}

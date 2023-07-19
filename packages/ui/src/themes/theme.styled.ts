@@ -69,6 +69,7 @@ export const theme = {
       toggleActive: colors.background.black,
       toggle: colors.background.toggleOff,
       list: colors.background.list,
+      infoBackground: colors.background.infoBackground,
     },
     border: {
       popup: colors.border.popup,
@@ -83,6 +84,8 @@ export const theme = {
       muted: colors.border.muted,
       gold: colors.border.gold,
       dropdown: colors.border.dropdown,
+      infoBox: colors.border.infoBox,
+      infoBoxOrange: colors.border.infoBoxOrange,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

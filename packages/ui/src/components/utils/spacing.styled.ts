@@ -76,7 +76,7 @@ const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
 
 const getSpacingValue = (param: SpacingOptions) => {
   if (typeof param === 'string') {
-    return `${param}px`;
+    return param === 'auto' ? 'auto' : `${param}px`;
   }
   return spacingObj[param];
 };

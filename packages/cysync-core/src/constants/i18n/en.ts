@@ -271,6 +271,41 @@ const en = {
           title: 'Receive Crypto',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+        },
+      },
+    },
+    deviceAddressVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+        },
+      },
+    },
+    deviceAddressNotVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+          InfoBox: {
+            text: 'This Receive Address was NOT VERIFIED by the device. Use it at your own risk.',
+          },
         },
       },
     },

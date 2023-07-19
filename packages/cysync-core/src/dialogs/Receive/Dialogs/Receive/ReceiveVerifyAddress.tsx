@@ -63,19 +63,17 @@ export const ReceiveVerifyAddress: React.FC = () => {
         <Flex gap={5} direction="column">
           <Flex gap={5} direction="row">
             <Typography variant="h5" width="100%">
-              <LangDisplay text="Address for " />
+              <LangDisplay text={connect.text} />
             </Typography>
             <Image src={bitcoinIcon} alt="Bitcoin" />
             <Typography variant="h5" width="100%">
-              <LangDisplay text=" Bitcoin 1 " />
+              <LangDisplay text={connect.coinText} />
             </Typography>
 
-            <Tag mt={5} $fontSize={12}>
-              NATIVE SEGWIT
-            </Tag>
+            <Tag $fontSize={12}>{connect.tag}</Tag>
           </Flex>
-          <Typography variant="h5" width="100%" ml={8}>
-            <LangDisplay text=" in Cypherock Red" />
+          <Typography variant="h5" width="100%" ml="auto" mr="auto">
+            <LangDisplay text={connect.finaltext} />
           </Typography>
         </Flex>
         <Container
