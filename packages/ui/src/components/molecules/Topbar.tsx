@@ -106,7 +106,7 @@ export const Topbar: FC<{
           {haveNotifications ? <Notifications /> : <NoNotifications />}
         </Flex>
         <DividingLine />
-        <Button variant="text" onClick={toggleDiscreetMode}>
+        <Button variant="icon" onClick={toggleDiscreetMode}>
           <Flex px={2} py="3" align="center" gap={16}>
             {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
           </Flex>
@@ -115,7 +115,7 @@ export const Topbar: FC<{
         {isPasswordSet && !isLockscreenLoading && (
           <>
             <DividingLine />
-            <Button variant="text" onClick={lock}>
+            <Button variant="icon" onClick={lock}>
               <Flex px={2} py="3" align="center" gap={16}>
                 {isLocked ? <Lock /> : <LockOpen />}
               </Flex>
