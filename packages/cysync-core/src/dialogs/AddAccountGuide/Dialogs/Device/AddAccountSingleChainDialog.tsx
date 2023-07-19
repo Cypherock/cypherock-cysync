@@ -125,7 +125,7 @@ export const AddAccountSingleChainDialog: FC = () => {
         </Typography>
       </FlexGapContainer>
       <ScrollableContainer>
-        <DialogBoxBody pt={4} pr={5} pb={4} pl={5} overflowY="auto">
+        <DialogBoxBody py={4} px={5} overflowY="auto">
           <div>
             <InputLabel
               mt={4}
