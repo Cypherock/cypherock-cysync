@@ -188,7 +188,7 @@ const en = {
             subheader: 'New Accounts',
             subheader2: 'Account not yet synced',
             subheader3: 'Accounts already in portfolio',
-            subheaderright: 'Deselect all',
+            deselectAllButton: 'Deselect all',
             submitButton: 'Add Accounts',
             advanced: 'Show all address types (?)',
           },
