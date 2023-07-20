@@ -2,11 +2,11 @@ import '../../config';
 
 import { Flags } from '@oclif/core';
 
-import { listWallets } from '~/services';
+import { listAccounts } from '~/services';
 import { BaseCommand } from '~/utils';
 
-export default class WalletList extends BaseCommand<typeof WalletList> {
-  static description = 'List wallets present on CLI';
+export default class AccountList extends BaseCommand<typeof AccountList> {
+  static description = 'List accounts present on CLI';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
 
@@ -20,8 +20,8 @@ export default class WalletList extends BaseCommand<typeof WalletList> {
   protected connectToDatabase = true;
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(WalletList);
+    const { flags } = await this.parse(AccountList);
 
-    await listWallets(this.db, { flags });
+    await listAccounts(this.db, { flags });
   }
 }

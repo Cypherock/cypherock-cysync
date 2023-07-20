@@ -28,7 +28,12 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@cypherock/coin-support": "workspace:^",
+    "@cypherock/coin-support-interfaces": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
+    "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/database": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-app-manager": "^0.0.18",
@@ -43,6 +48,7 @@
     "colors": "^1.4.0",
     "lodash": "^4.17.21",
     "ora": "^6.3.1",
+    "rxjs": "^7.8.1",
     "semver": "^7.5.3"
   },
   "devDependencies": {

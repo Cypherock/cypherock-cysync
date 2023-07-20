@@ -47,9 +47,24 @@ importers:
 
   apps/cli:
     dependencies:
+      '@cypherock/coin-support':
+        specifier: workspace:^
+        version: link:../../packages/coin-support
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-utils
+      '@cypherock/coins':
+        specifier: workspace:^
+        version: link:../../packages/coins
       '@cypherock/cysync-core-services':
         specifier: workspace:^
         version: link:../../packages/core-services
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       '@cypherock/database':
         specifier: workspace:^
         version: link:../../packages/database
@@ -92,6 +107,9 @@ importers:
       ora:
         specifier: ^6.3.1
         version: 6.3.1
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
       semver:
         specifier: ^7.5.3
         version: 7.5.4
@@ -593,6 +611,9 @@ importers:
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces
+      '@cypherock/coins':
+        specifier: workspace:^
+        version: link:../coins
       '@cypherock/cysync-utils':
         specifier: workspace:^
         version: link:../utils
@@ -1348,6 +1369,9 @@ importers:
       '@cypherock/cysync-interfaces':
         specifier: workspace:^
         version: link:../interfaces
+      bignumber.js:
+        specifier: ^9.1.1
+        version: 9.1.1
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^
@@ -6393,6 +6417,10 @@ packages:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
     dev: true
 
+  /bignumber.js@9.1.1:
+    resolution: {integrity: sha512-pHm4LsMJ6lzgNGVfZHjMoO8sdoRhOzOH4MLmY65Jg70bpxCKu5iOHNJyfF6OyvYw7t8Fpf35RuzUyqnQsj8Vig==}
+    dev: false
+
   /bin-links@3.0.3:
     resolution: {integrity: sha512-zKdnMPWEdh4F5INR07/eBrodC7QrF5JKvqskjz/ZZRXg5YSAZIbn8zGhbhUrElzHBZ2fvEQdOU59RHcTG3GiwA==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -10298,7 +10326,7 @@ packages:
       pretty-format: 29.6.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10338,7 +10366,7 @@ packages:
       pretty-format: 29.6.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
