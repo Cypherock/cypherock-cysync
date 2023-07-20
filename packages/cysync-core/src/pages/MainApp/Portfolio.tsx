@@ -10,6 +10,7 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
+import { AppUpdateBar } from '~/components/AppUpdateBar';
 import { AssetAllocation, SideBar } from '~/pages/MainApp/Components';
 import {
   openDialog,
@@ -37,6 +38,7 @@ export const Portfolio: FC = () => {
     <Container height="screen" display="flex">
       <SideBar />
       <Flex direction="column" grow={1} $alignSelf="start">
+        <AppUpdateBar />
         <Topbar
           title={lang.strings.portfolio.title}
           statusTexts={lang.strings.topbar.statusTexts}

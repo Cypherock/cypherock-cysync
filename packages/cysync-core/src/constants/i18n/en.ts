@@ -461,6 +461,17 @@ const en = {
       },
     },
   },
+  appUpdateBar: {
+    confirmation: 'Update to cySync version ${version} is available',
+    downloading: 'Downloading cySync version ${version}',
+    error: 'Error downloading cySync update',
+    successful: 'cySync update version ${version} downloaded',
+    buttons: {
+      download: 'Download',
+      tryAgain: 'Try Again',
+      installUpdate: 'Install Update',
+    },
+  },
   topbar: {
     statusTexts: {
       connection: {

@@ -1,21 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Typography, Flex, Image, Button } from '../atoms';
+import { Typography, Flex, Button } from '../atoms';
 
 export type UpdateState = 'normal' | 'progress' | 'success' | 'error';
 
 interface UpdateBarProps {
-  text: string;
-  buttonText?: string;
+  text: ReactNode;
+  buttonText?: ReactNode;
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   progress?: number;
-  icon?: string;
+  icon?: ReactNode;
   state?: UpdateState;
 }
 
 const UpdateBarWrap = styled.div`
   width: 100%;
+  position: relative;
+  z-index: 1;
   height: ${({ theme }) => theme.spacing.five.spacing};
   padding-top: ${({ theme }) => theme.spacing.one.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.one.spacing};
@@ -53,8 +55,8 @@ export const UpdateBar: FC<UpdateBarProps> = ({
   return (
     <UpdateBarWrap>
       <Flex justify="space-between">
-        <Flex gap={16}>
-          {icon && <Image alt="update" width={16} src={icon} />}
+        <Flex gap={16} align="center">
+          {icon}
           <Typography
             color={state === 'success' || state === 'error' ? state : 'heading'}
           >
@@ -66,6 +68,7 @@ export const UpdateBar: FC<UpdateBarProps> = ({
             <Typography color="gold"> {buttonText} </Typography>
           </Button>
         )}
+        {state === 'progress' && <Typography>{progressM}%</Typography>}
       </Flex>
       {state === 'progress' && <UpdateBarWrapProgress progress={progressM} />}
     </UpdateBarWrap>
