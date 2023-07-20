@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import {
   Check,
@@ -14,11 +14,18 @@ import {
   NoNotifications,
   Notifications,
 } from '../../assets';
-import { Container, Flex, LangDisplay, Typography } from '../atoms';
+import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
+
+const DividingLine = styled.div`
+  width: 1px;
+  background-color: ${props =>
+    props.theme.palette.background.separatorSecondary};
+  height: 23.33px;
+`;
 
 export const Topbar: FC<{
   title: string;
@@ -34,32 +41,40 @@ export const Topbar: FC<{
       error: string;
     };
   };
-  isVisible: boolean;
-  isLock: boolean;
+  isDiscreetMode: boolean;
+  lock: () => void;
+  isPasswordSet: boolean;
+  isLocked: boolean;
+  isLockscreenLoading: boolean;
   haveNotifications: boolean;
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
+  toggleDiscreetMode: () => void;
 }> = ({
   title,
   statusTexts,
   connectionStatus,
   haveNotifications,
-  isLock,
-  isVisible,
+  isLocked,
+  isLockscreenLoading,
+  lock,
+  isPasswordSet,
+  isDiscreetMode,
   syncStatus,
+  toggleDiscreetMode,
 }) => {
   const theme = useTheme();
 
   const connectionStatusMap = {
-    connected: <Connected fill={theme!.palette.success.main} />,
-    error: <Disconnected fill={theme!.palette.warn.main} />,
-    disconnected: <Disconnected fill={theme!.palette.warn.main} />,
+    connected: <Connected fill={theme?.palette.success.main} />,
+    error: <Disconnected fill={theme?.palette.warn.main} />,
+    disconnected: <Disconnected fill={theme?.palette.warn.main} />,
   };
 
   const syncStatusMap = {
-    syncronized: <Check stroke={theme!.palette.success.main} />,
+    syncronized: <Check stroke={theme?.palette.success.main} />,
     syncronizing: <Syncronizing fill={`url(#${svgGradients.gold})`} />,
-    error: <SyncProblem fill={theme!.palette.warn.main} />,
+    error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
 
   return (
@@ -73,48 +88,40 @@ export const Topbar: FC<{
         <LangDisplay text={title} />
       </Typography>
       <Flex align="center">
-        <Flex pr={2} $borderWidthR={1} align="center" gap={16}>
+        <Flex pr={2} align="center" gap={16}>
           {syncStatusMap[syncStatus]}
           <Typography color="muted">
             <LangDisplay text={statusTexts.sync[syncStatus]} />
           </Typography>
         </Flex>
-        <Flex
-          px={2}
-          $borderWidthR={1}
-          $borderColor="separator"
-          align="center"
-          gap={16}
-        >
+        <DividingLine />
+        <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
           <Typography color="muted">
             <LangDisplay text={statusTexts.connection[connectionStatus]} />
           </Typography>
         </Flex>
-        <Flex
-          px={2}
-          py="3"
-          height="full"
-          $borderWidthR={1}
-          $borderColor="separator"
-          align="center"
-          gap={16}
-        >
+        <DividingLine />
+        <Flex px={2} py="3" height="full" align="center" gap={16}>
           {haveNotifications ? <Notifications /> : <NoNotifications />}
         </Flex>
-        <Flex
-          px={2}
-          py="3"
-          $borderWidthR={1}
-          $borderColor="separator"
-          align="center"
-          gap={16}
-        >
-          {isVisible ? <Visibility /> : <VisibilityHide />}
-        </Flex>
-        <Flex px={2} py="3" align="center" gap={16}>
-          {isLock ? <Lock /> : <LockOpen />}
-        </Flex>
+        <DividingLine />
+        <Button variant="icon" onClick={toggleDiscreetMode}>
+          <Flex px={2} py="3" align="center" gap={16}>
+            {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
+          </Flex>
+        </Button>
+
+        {isPasswordSet && !isLockscreenLoading && (
+          <>
+            <DividingLine />
+            <Button variant="icon" onClick={lock}>
+              <Flex px={2} py="3" align="center" gap={16}>
+                {isLocked ? <Lock /> : <LockOpen />}
+              </Flex>
+            </Button>
+          </>
+        )}
       </Flex>
     </Container>
   );

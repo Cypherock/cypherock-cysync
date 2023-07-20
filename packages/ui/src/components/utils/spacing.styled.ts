@@ -63,7 +63,7 @@ const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
   const [first, second] = key.split('');
   const properties = [];
 
-  if (key.length === 2)
+  if (key.length <= 2)
     for (const i of cssMap[first] ?? []) {
       if (second) {
         for (const j of cssMap[second] ?? []) {

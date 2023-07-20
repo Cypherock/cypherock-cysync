@@ -2,8 +2,8 @@
 import '../../config';
 
 import { ManagerApp, OnboardingStep } from '@cypherock/sdk-app-manager';
-import { DeviceState, IDeviceConnection } from '@cypherock/sdk-interfaces';
-import { Command, Flags } from '@oclif/core';
+import { DeviceState } from '@cypherock/sdk-interfaces';
+import { Flags } from '@oclif/core';
 import colors from 'colors/safe';
 
 import {
@@ -13,9 +13,11 @@ import {
   trainJoystick,
   updateFirmwareAndGetApp,
 } from '~/services';
-import { runWithDevice } from '~/utils';
+import { BaseCommand } from '~/utils';
 
-export default class OnboardingSetup extends Command {
+export default class OnboardingSetup extends BaseCommand<
+  typeof OnboardingSetup
+> {
   static description = 'Onboard new device';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
@@ -28,6 +30,8 @@ export default class OnboardingSetup extends Command {
       description: 'Onboarding step to start from',
     }),
   };
+
+  protected connectToDevice = true;
 
   // eslint-disable-next-line class-methods-use-this
   async runOnboardingSteps(app: ManagerApp, deviceStep: OnboardingStep) {
@@ -76,13 +80,13 @@ export default class OnboardingSetup extends Command {
     }
   }
 
-  async main(connection: IDeviceConnection): Promise<void> {
+  async run(): Promise<void> {
     const { flags } = await this.parse(OnboardingSetup);
 
     this.log(colors.blue('Starting onboarding'));
 
-    let app = await ManagerApp.create(connection);
-    const deviceState = await connection.getDeviceState();
+    let app = await ManagerApp.create(this.connection);
+    const deviceState = await this.connection.getDeviceState();
 
     if (deviceState === DeviceState.BOOTLOADER) {
       this.log(colors.yellow('Device is in bootloader mode, updating...'));
@@ -105,9 +109,5 @@ export default class OnboardingSetup extends Command {
 
     this.log(colors.green('Onboarding Completed'));
     await app.destroy();
-  }
-
-  async run(): Promise<void> {
-    await runWithDevice(this.main.bind(this));
   }
 }

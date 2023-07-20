@@ -11,6 +11,7 @@ type ButtonVariant =
   | 'warning'
   | 'danger'
   | 'text'
+  | 'icon'
   | 'none';
 type ButtonSize = 'lg' | 'md' | 'sm';
 interface ButtonProps
@@ -19,7 +20,7 @@ interface ButtonProps
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
-  leadingIcon?: ReactNode;
+  icon?: ReactNode;
   children?: ReactNode;
 }
 
@@ -127,6 +128,17 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
       cursor: auto;
     }
   `,
+  icon: css<ButtonProps>`
+    background: none;
+    outline: none;
+    border: none;
+    transition: none;
+    padding: 0;
+    &:hover {
+      filter: brightness(150%);
+      cursor: pointer;
+    }
+  `,
   none: css<ButtonProps>`
     background: transparent;
     border: none;
@@ -149,7 +161,7 @@ const buttonStyle = css<ButtonProps>`
 `;
 
 const buttonSizeStyle = css<ButtonProps>`
-  ${props => buttonSizeMap[props.size ?? 'md']}
+  ${props => props.variant !== 'icon' && buttonSizeMap[props.size ?? 'md']}
 `;
 
 const ButtonStyle = styled.button<ButtonProps>`
@@ -169,19 +181,19 @@ const ButtonStyle = styled.button<ButtonProps>`
 `;
 
 export const Button: FC<ButtonProps> = ({
-  leadingIcon,
+  icon,
   isLoading,
   children,
   ...props
 }) => {
-  const Leading = isLoading ? (
+  const Icon = isLoading ? (
     <Throbber size={throbberSizeMap[props.size ?? 'md']} strokeWidth={2} />
   ) : (
-    leadingIcon
+    icon
   );
   return (
     <ButtonStyle type="button" disabled={isLoading} {...props}>
-      {Leading}
+      {Icon}
       {children}
     </ButtonStyle>
   );
@@ -191,6 +203,6 @@ Button.defaultProps = {
   variant: 'primary',
   size: 'md',
   children: undefined,
-  leadingIcon: undefined,
+  icon: undefined,
   isLoading: false,
 };
