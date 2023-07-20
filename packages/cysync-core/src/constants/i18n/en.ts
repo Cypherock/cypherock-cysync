@@ -475,6 +475,15 @@ const en = {
       },
     },
   },
+  sidebar: {
+    portfolio: 'Portfolio',
+    wallets: 'Wallets',
+    sendCrypto: 'Send Crypto',
+    receiveCrypto: 'Receive Crypto',
+    history: 'History',
+    settings: 'Settings',
+    help: 'Help',
+  },
   walletSync: {
     freshOneCreated: {
       title:
