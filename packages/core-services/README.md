@@ -1,3 +1,3 @@
-# Coins
+# Core Services
 
-- Static coin informations are stored here
+- Business logic for cysync

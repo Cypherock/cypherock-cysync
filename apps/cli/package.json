@@ -41,6 +41,7 @@
     "@inquirer/select": "^1.2.5",
     "@oclif/core": "^2.9.0",
     "colors": "^1.4.0",
+    "lodash": "^4.17.21",
     "ora": "^6.3.1",
     "semver": "^7.5.3"
   },
