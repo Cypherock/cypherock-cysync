@@ -14,6 +14,7 @@ import {
 import accountReducer, { IAccountState } from './account';
 import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
+import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
 import langReducers, { ILangState } from './lang';
 import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
@@ -29,6 +30,7 @@ export interface RootState {
   priceInfo: IPriceInfoState;
   priceHistory: IPriceHistoryState;
   transaction: ITransactionState;
+  discreetMode: IDiscreetModeState;
 }
 
 export const store = configureStore({
@@ -41,6 +43,7 @@ export const store = configureStore({
     priceInfo: priceInfoReducer,
     priceHistory: priceHistoryReducer,
     transaction: transactionReducer,
+    discreetMode: discreetModeReducer,
   },
 });
 
