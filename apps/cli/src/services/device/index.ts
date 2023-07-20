@@ -3,3 +3,4 @@ export * from './authDevice';
 export * from './authCard';
 export * from './trainCard';
 export * from './trainJoystick';
+export * from './getDeviceInfo';

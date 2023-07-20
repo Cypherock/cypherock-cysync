@@ -1,0 +1,94 @@
+// eslint-disable-next-line max-classes-per-file
+import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
+import { IDeviceConnection } from '@cypherock/sdk-interfaces';
+import { Command, Flags, Interfaces } from '@oclif/core';
+
+import { initializeAndGetDb } from './db';
+import { cleanUpDeviceConnection, createConnection } from './device';
+
+export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
+  (typeof BaseCommand)['baseFlags'] & T['flags']
+>;
+export type Args<T extends typeof Command> = Interfaces.InferredArgs<T['args']>;
+
+export abstract class BaseCommand<T extends typeof Command> extends Command {
+  // define flags that can be inherited by any command that extends BaseCommand
+  static baseFlags = {};
+
+  protected connectToDevice = false;
+
+  protected connectToDatabase = false;
+
+  protected flags!: Flags<T>;
+
+  protected args!: Args<T>;
+
+  private connectionInstance: IDeviceConnection | undefined;
+
+  private dbInstance: IDatabase | undefined;
+
+  private keyDbInstance: IKeyValueStore | undefined;
+
+  protected get connection(): IDeviceConnection {
+    if (!this.connectionInstance) {
+      throw new Error('No device connection found');
+    }
+
+    return this.connectionInstance;
+  }
+
+  protected set connection(instance: IDeviceConnection) {
+    this.connectionInstance = instance;
+  }
+
+  protected get db(): IDatabase {
+    if (!this.dbInstance) {
+      throw new Error('No database connection found');
+    }
+
+    return this.dbInstance;
+  }
+
+  protected get keyDb(): IKeyValueStore {
+    if (!this.keyDbInstance) {
+      throw new Error('No key database connection found');
+    }
+
+    return this.keyDbInstance;
+  }
+
+  public async init(): Promise<void> {
+    await super.init();
+    const { args, flags } = await this.parse({
+      flags: this.ctor.flags,
+      baseFlags: (super.ctor as typeof BaseCommand).baseFlags,
+      args: this.ctor.args,
+      strict: this.ctor.strict,
+    });
+    this.flags = flags as Flags<T>;
+    this.args = args as Args<T>;
+
+    if (this.connectToDevice) {
+      this.connection = await createConnection();
+    }
+
+    if (this.connectToDatabase) {
+      const createdDb = await initializeAndGetDb(this.config.dataDir);
+      this.dbInstance = createdDb.db;
+      this.keyDbInstance = createdDb.keyDb;
+
+      await this.dbInstance.load();
+    }
+  }
+
+  protected async catch(err: Error & { exitCode?: number }): Promise<any> {
+    // add any custom logic to handle errors from the command
+    // or simply return the parent class error handling
+    return super.catch(err);
+  }
+
+  protected async finally(_: Error | undefined): Promise<any> {
+    await cleanUpDeviceConnection();
+    return super.finally(_);
+  }
+}
