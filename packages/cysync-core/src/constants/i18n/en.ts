@@ -680,6 +680,15 @@ const en = {
     help: 'Help',
   },
   walletSync: {
+    deletedOne: {
+      title:
+        'Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?',
+    },
+    deletedMany: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which ones to keep and which ones to delete',
+    },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',

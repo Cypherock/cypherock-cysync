@@ -6,7 +6,7 @@ import { selectWallets, useAppDispatch, useAppSelector } from '~/store';
 
 export const WalletSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { deletedWallets } = useAppSelector(selectWallets);
+  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
 
   const { connection } = useDevice();
 
@@ -23,7 +23,8 @@ export const WalletSyncTask: React.FC = () => {
   }, [connection]);
 
   useEffect(() => {
-    if (deletedWallets.length > 0) onDeleteChange();
+    if (deletedWallets.length > 0 && deleteWalletStatus === 'idle')
+      onDeleteChange();
   }, [deletedWallets]);
 
   return null;

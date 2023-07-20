@@ -1,9 +1,7 @@
 import {
   Button,
-  CheckBox,
   CheckboxList,
   CheckboxListItems,
-  Flex,
   IconDialogBox,
   Image,
   LangDisplay,
@@ -20,7 +18,6 @@ export const WalletSyncError: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =
     useState<CheckboxListItems>(
       deletedWallets.map(wallet => ({
@@ -29,12 +26,18 @@ export const WalletSyncError: FC = () => {
         id: wallet.__id,
       })),
     );
+  const syncErrorType =
+    deletedWallets.length > 1 ? 'deletedMany' : 'deletedOne';
 
   const keepAllWallets = () => {
     dispatch(closeDialog('walletSyncError'));
   };
 
   const deleteSelectedWallets = () => {
+    if (syncErrorType === 'deletedOne') {
+      dispatch(deleteWallets(deletedWallets));
+      return;
+    }
     const selectedWalletIds = selectedCheckboxListItems
       .filter(i => i.checked)
       .map(i => i.id);
@@ -54,24 +57,24 @@ export const WalletSyncError: FC = () => {
   return (
     <IconDialogBox
       $isModal
-      title={lang.strings.walletSync.freshOneCreated.title}
-      subtext={lang.strings.walletSync.freshOneCreated.subTitle}
+      title={lang.strings.walletSync[syncErrorType].title}
+      subtext={
+        syncErrorType === 'deletedMany'
+          ? lang.strings.walletSync.deletedMany.subTitle
+          : undefined
+      }
+      textVariables={{
+        walletName:
+          deletedWallets.length > 0 ? deletedWallets[0].name : 'dfwew',
+      }}
       icon={<Image src={walletErrorIcon} alt="walletSync" />}
       afterTextComponent={
-        <>
+        syncErrorType === 'deletedMany' && (
           <CheckboxList
             items={selectedCheckboxListItems}
             setSelectedItems={setSelectedCheckboxListItems}
           />
-          <Flex align="center" justify="center" width="full">
-            <CheckBox
-              checked={isChecked}
-              onChange={() => setIsChecked(prevProps => !prevProps)}
-              id="wallet_checkbox"
-              label={lang.strings.walletSync.freshOneCreated.checkboxText}
-            />
-          </Flex>
-        </>
+        )
       }
       footerComponent={
         <>
@@ -79,6 +82,10 @@ export const WalletSyncError: FC = () => {
             <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
           </Button>
           <Button
+            disabled={
+              selectedCheckboxListItems.filter(({ checked }) => checked)
+                .length === 0
+            }
             variant="primary"
             onClick={deleteSelectedWallets}
             isLoading={deleteWalletStatus === 'loading'}
