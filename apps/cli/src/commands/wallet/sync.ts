@@ -1,30 +1,35 @@
 import '../../config';
 
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { IDeviceConnection } from '@cypherock/sdk-interfaces';
-import { uint8ArrayToHex } from '@cypherock/sdk-utils';
-import { Command } from '@oclif/core';
 import colors from 'colors/safe';
 
-import { runWithDevice } from '~/utils';
+import { getDeviceInfo, syncWallets } from '~/services';
+import { BaseCommand } from '~/utils';
 
-export default class WalletSync extends Command {
+export default class WalletSync extends BaseCommand<typeof WalletSync> {
   static description = 'Sync wallets with device';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
 
-  async main(connection: IDeviceConnection): Promise<void> {
-    this.log(colors.blue('Getting wallets from device'));
-    const app = await ManagerApp.create(connection);
+  protected connectToDevice = true;
 
-    const { walletList } = await app.getWallets();
-
-    this.logJson(walletList.map(e => ({ ...e, id: uint8ArrayToHex(e.id) })));
-
-    await app.destroy();
-  }
+  protected connectToDatabase = true;
 
   async run(): Promise<void> {
-    await runWithDevice(this.main.bind(this));
+    this.log(colors.blue('Getting wallets from device'));
+
+    const app = await ManagerApp.create(this.connection);
+
+    const deviceInfo = await getDeviceInfo(app);
+    const { walletList } = await app.getWallets();
+    await app.destroy();
+
+    await syncWallets({
+      db: this.db,
+      wallets: walletList,
+      deviceId: deviceInfo.deviceSerial,
+    });
+
+    this.log(colors.green('Synced wallets from device'));
   }
 }

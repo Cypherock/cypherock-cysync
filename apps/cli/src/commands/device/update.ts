@@ -2,15 +2,15 @@
 import config from '../../config';
 
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import { DeviceState, IDeviceConnection } from '@cypherock/sdk-interfaces';
-import { Command, Flags } from '@oclif/core';
+import { DeviceState } from '@cypherock/sdk-interfaces';
+import { Flags } from '@oclif/core';
 import colors from 'colors/safe';
 import semver from 'semver';
 
 import { updateFirmwareAndGetApp } from '~/services';
-import { runWithDevice } from '~/utils';
+import { BaseCommand } from '~/utils';
 
-export default class DeviceUpdate extends Command {
+export default class DeviceUpdate extends BaseCommand<typeof DeviceUpdate> {
   static description = 'Update firmware on device';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
@@ -22,16 +22,18 @@ export default class DeviceUpdate extends Command {
     }),
   };
 
-  async main(connection: IDeviceConnection): Promise<void> {
+  protected connectToDevice = true;
+
+  async run(): Promise<void> {
     this.log(colors.blue('Starting device firmware update'));
 
     const { flags } = await this.parse(DeviceUpdate);
 
-    const app = await ManagerApp.create(connection);
+    const app = await ManagerApp.create(this.connection);
 
     if (
       !flags.force &&
-      (await connection.getDeviceState()) !== DeviceState.BOOTLOADER
+      (await this.connection.getDeviceState()) !== DeviceState.BOOTLOADER
     ) {
       const latestVersion = await ManagerApp.getLatestFirmware({
         prerelease: config.ALLOW_PRERELEASE,
@@ -55,9 +57,5 @@ export default class DeviceUpdate extends Command {
 
     this.log(colors.green('Device firmware Update successful'));
     await app.destroy();
-  }
-
-  async run(): Promise<void> {
-    await runWithDevice(this.main.bind(this));
   }
 }

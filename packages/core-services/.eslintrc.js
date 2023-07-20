@@ -1,12 +1,8 @@
 module.exports = {
   root: true,
-  extends: ['@cypherock/eslint-config/node.js'],
+  extends: ['@cypherock/eslint-config/browser'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
-  },
-  rules: {
-    'no-use-before-define': 'off',
-    'no-console': 'off',
   },
 };
