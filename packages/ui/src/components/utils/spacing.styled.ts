@@ -83,7 +83,7 @@ const getSpacingValue = (param: SpacingOptions) => {
 
 const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
   const result: any = [];
-  if (obj) {
+  if (typeof obj !== 'undefined') {
     if (typeof obj === 'object') {
       for (const bp in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, bp)) {

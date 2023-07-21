@@ -57,7 +57,7 @@ export const ReceiveAddressVerified: React.FC = () => {
           gap={5}
           justify="flex-start"
         >
-          <InputLabel>{connect.label}</InputLabel>
+          <InputLabel my={0}>{connect.label}</InputLabel>
           <CopyContainer link={connect.address} />
         </Container>
       </DialogBoxBody>

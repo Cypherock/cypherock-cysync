@@ -131,9 +131,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const handleItemSelection = (item: DropDownListItemProps) => {
     const id = item.id ?? '';
-    onChange(id);
-    handleCheckedChange(id, true);
-    toggleDropdown();
+    if (!item.subMenu) {
+      onChange(id);
+      handleCheckedChange(id, true);
+      toggleDropdown();
+    } else {
+      // Here you might want to handle submenu items click differently, such as expand the submenu.
+      console.log('Submenu item clicked');
+    }
   };
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -202,7 +207,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         />
       </IconContainer>
 
-      {isOpen && (
+      {true && (
         <List onMouseLeave={toggleDropdown} disabled={disabled}>
           {filteredItems.map(item => {
             const itemId = item.id ?? '';
