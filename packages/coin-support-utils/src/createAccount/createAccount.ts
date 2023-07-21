@@ -32,11 +32,12 @@ export interface ICreateAccountsObservableParams<T extends App>
     addressDetails: {
       address: string;
       derivationPath: string;
+      index: number;
       schemeName: string;
       balance: string;
       txnCount: number;
     },
-    params: ICreateAccountParams,
+    params: ICreateAccountParams & { existingAccounts: IAccount[] },
   ) => Promise<IAccount>;
 }
 
@@ -64,10 +65,16 @@ export function createAccountsObservable<
 
     const main = async () => {
       try {
+        const existingAccounts = await params.db.account.getAll({
+          walletId: params.walletId,
+          assetId: params.coinId,
+        });
+
         const derivationPathsPerScheme = await generateDerivationPathsPerScheme(
           {
             ...params,
             limit: params.derivationPathLimit,
+            existingAccounts,
           },
         );
         if (finished) return;
@@ -118,7 +125,7 @@ export function createAccountsObservable<
                 balance,
                 txnCount,
               },
-              params,
+              { ...params, existingAccounts },
             );
 
             observer.next({ type: 'Account', account } as any);
