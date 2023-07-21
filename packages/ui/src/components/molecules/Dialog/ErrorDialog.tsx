@@ -43,7 +43,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
     footerComponent={
       <>
         {secondaryActionText && (
-          <Button variant="primary" onClick={onSecondaryClick}>
+          <Button variant="secondary" onClick={onSecondaryClick}>
             {secondaryActionText}
           </Button>
         )}
