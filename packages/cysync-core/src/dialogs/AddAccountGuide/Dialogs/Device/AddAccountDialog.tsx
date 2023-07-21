@@ -16,7 +16,9 @@ import {
   Toggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useAddAccountDialog } from '../../context';
 
 export const AddAccountDialog: React.FC = () => {

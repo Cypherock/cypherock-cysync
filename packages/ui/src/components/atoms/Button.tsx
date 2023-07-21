@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
+import { goldenGradient } from './Gradient';
 import { Throbber } from './Throbber';
 
 import { UtilsProps, utils } from '../utils';
-import { goldenGradient } from './Gradient';
 
 type ButtonVariant =
   | 'primary'
@@ -12,6 +12,7 @@ type ButtonVariant =
   | 'warning'
   | 'danger'
   | 'text'
+  | 'icon'
   | 'none';
 type ButtonSize = 'lg' | 'md' | 'sm';
 interface ButtonProps
@@ -20,7 +21,7 @@ interface ButtonProps
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
-  leadingIcon?: ReactNode;
+  icon?: ReactNode;
   children?: ReactNode;
   disabled?: boolean;
 }
@@ -126,6 +127,19 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     border: none;
     transition: none;
     padding: 0;
+    &:not([disabled]):hover {
+      filter: brightness(150%);
+    }
+    &:disabled {
+      cursor: auto;
+    }
+  `,
+  icon: css<ButtonProps>`
+    background: none;
+    outline: none;
+    border: none;
+    transition: none;
+    padding: 0;
     &:hover {
       filter: brightness(150%);
       cursor: pointer;
@@ -140,19 +154,20 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
 const buttonStyle = css<ButtonProps>`
   ${props => {
-    if (props.disabled)
+    if (props.disabled && props.variant !== 'text')
       return css`
         background-color: ${({ theme }) => theme.palette.background.disabled};
         color: ${({ theme }) => theme.palette.text.disabled};
         border: 1px solid transparent;
         cursor: not-allowed;
       `;
+
     return buttonVariantCssMap[props.variant ?? 'primary'];
   }}
 `;
 
 const buttonSizeStyle = css<ButtonProps>`
-  ${props => buttonSizeMap[props.size ?? 'md']}
+  ${props => props.variant !== 'icon' && buttonSizeMap[props.size ?? 'md']}
 `;
 
 const ButtonStyle = styled.button<ButtonProps>`
@@ -177,19 +192,19 @@ const ButtonStyle = styled.button<ButtonProps>`
 `;
 
 export const Button: FC<ButtonProps> = ({
-  leadingIcon,
+  icon,
   isLoading,
   children,
   ...props
 }) => {
-  const Leading = isLoading ? (
+  const Icon = isLoading ? (
     <Throbber size={throbberSizeMap[props.size ?? 'md']} strokeWidth={2} />
   ) : (
-    leadingIcon
+    icon
   );
   return (
     <ButtonStyle type="button" disabled={isLoading} {...props}>
-      {Leading}
+      {Icon}
       {children}
     </ButtonStyle>
   );
@@ -199,7 +214,7 @@ Button.defaultProps = {
   variant: 'primary',
   size: 'md',
   children: undefined,
-  leadingIcon: undefined,
+  icon: undefined,
   isLoading: false,
   disabled: false,
 };

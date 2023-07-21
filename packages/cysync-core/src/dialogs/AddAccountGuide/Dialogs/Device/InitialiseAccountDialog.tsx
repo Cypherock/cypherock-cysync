@@ -16,9 +16,11 @@ import {
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useAddAccountDialog } from '../../context';
+
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { useAddAccountDialog } from '../../context';
 
 const dataArray = [
   {

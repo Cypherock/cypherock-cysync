@@ -7,12 +7,12 @@
 //   bitcoinIcon,
 // } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
+
 import { openAddAccountDialog } from '~/actions';
 import {
   AddAccountDialog,
   AddAccountSingleChainDialog,
 } from '~/dialogs/AddAccountGuide/Dialogs';
-
 import { useAppDispatch } from '~/store';
 
 export const SyncAccount: React.FC = () => {

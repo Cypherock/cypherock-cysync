@@ -9,8 +9,10 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useAddAccountDialog } from '../../context';
 
 export const ConnectDevice: React.FC = () => {

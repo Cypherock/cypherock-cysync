@@ -1,6 +1,6 @@
 ---
-'@cypherock/cysync-core': major
-'@cypherock/cysync-ui': minor
+'@cypherock/cysync-core': patch
+'@cypherock/cysync-ui': patch
 '@cypherock/cysync-desktop-ui': patch
 ---
 

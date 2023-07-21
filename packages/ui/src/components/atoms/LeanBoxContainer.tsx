@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { spacing } from '../utils';
 
 export const LeanBoxContainer = styled.div`

@@ -10,6 +10,7 @@ import {
 import React, { FC } from 'react';
 
 import { closeDialog, useAppDispatch } from '~/store';
+
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
 export const AddNewAccount: FC = () => {

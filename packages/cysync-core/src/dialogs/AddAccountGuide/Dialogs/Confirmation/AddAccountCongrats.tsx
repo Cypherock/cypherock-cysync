@@ -1,11 +1,13 @@
 import { ConfettiBlast, SuccessDialog } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import {
   useAppSelector,
   useAppDispatch,
   closeDialog,
   selectLanguage,
 } from '~/store';
+
 import { useAddAccountDialog } from '../../context';
 
 export const AddAccountCongrats: React.FC = () => {

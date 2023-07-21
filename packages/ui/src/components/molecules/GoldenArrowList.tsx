@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { Container, Flex, Image, Typography } from '../atoms';
+
 import { arrowGoldenForward } from '../../assets';
+import { Container, Flex, Image, Typography } from '../atoms';
 
 export const GoldenArrowList: FC<{
-  items: Array<any>;
+  items: any[];
 }> = ({ items }) => (
   <Flex direction="column" gap={8}>
     {items.map((item, index) => (
