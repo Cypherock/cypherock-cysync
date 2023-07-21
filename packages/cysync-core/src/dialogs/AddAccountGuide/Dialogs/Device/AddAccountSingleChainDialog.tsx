@@ -158,7 +158,7 @@ export const AddAccountSingleChainDialog: FC = () => {
             <InputLabel $fontSize={13} $fontWeight="normal" textAlign="right">
               <LangDisplay text={singleChain.advanced} />(
               <InputLabel
-                pl={0}
+                px={0}
                 color="gradient"
                 display="inline"
                 $fontWeight="normal"
