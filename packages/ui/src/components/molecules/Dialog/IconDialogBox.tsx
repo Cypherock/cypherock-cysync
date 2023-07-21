@@ -3,6 +3,7 @@ import React, { FC, ReactNode } from 'react';
 import {
   DialogBox,
   DialogBoxBody,
+  DialogBoxHeader,
   DialogBoxFooter,
   DialogBoxProps,
 } from './DialogBox';
@@ -11,6 +12,7 @@ import { Flex, LangDisplay, Typography } from '../../atoms';
 
 interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
+  header?: string;
   title?: string;
   subtext?: string;
   afterTextComponent?: ReactNode;
@@ -20,6 +22,7 @@ interface IconDialogBoxProps extends DialogBoxProps {
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
   icon,
+  header,
   title,
   subtext,
   afterTextComponent,
@@ -28,6 +31,14 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   ...props
 }) => (
   <DialogBox width={500} {...props}>
+    {header && (
+      <DialogBoxHeader height={56} width={500}>
+        <Typography variant="fineprint" width="100%" color="muted">
+          <LangDisplay text={header} />
+        </Typography>
+      </DialogBoxHeader>
+    )}
+
     <DialogBoxBody
       gap={{
         def: 12,
@@ -69,6 +80,7 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
 
 IconDialogBox.defaultProps = {
   icon: undefined,
+  header: undefined,
   title: undefined,
   subtext: undefined,
   afterTextComponent: undefined,

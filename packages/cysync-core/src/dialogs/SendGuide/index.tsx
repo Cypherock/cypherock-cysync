@@ -1,7 +1,6 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   Container,
   WalletDialogMainContainer,
   MilestoneAside,
@@ -10,16 +9,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { closeDialog, useAppDispatch } from '~/store';
 import { SendGuideProvider, useSendGuide } from './context';
 
 export const SendFlow: FC = () => {
-  const lang = useAppSelector(selectLanguage);
   const { tabs, currentTab, currentDialog } = useSendGuide();
   const dispatch = useAppDispatch();
 
@@ -32,8 +25,7 @@ export const SendFlow: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="space-between">
-              <HelpButton text={lang.strings.help} />
+            <Container width="full" p={2} justify="flex-end">
               <CloseButton onClick={() => dispatch(closeDialog('sendGuide'))} />
             </Container>
             <DialogBoxBody

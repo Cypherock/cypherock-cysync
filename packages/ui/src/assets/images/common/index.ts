@@ -19,6 +19,7 @@ import copyIcon from './copy.png';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
+import qrImage from './qr.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
 import emailIcon from './email-icon.svg';
@@ -26,6 +27,7 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
+import qrCodeIcon from './qr-code.svg';
 import { FailIcon } from './FailIcon';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
@@ -63,10 +65,14 @@ import triangleIcon from './triangle-icon.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
+import verifyAmountIcon from './verify-amount.svg';
 import visibilityHideIcon from './visibility-hide.svg';
 import visibilityIcon from './visibility.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
+import warningIcon from './warning.svg';
+
+import goldSendIcon from './gold-send.svg';
 
 export {
   addWalletIcon,
@@ -137,5 +143,10 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
+  qrCodeIcon,
+  qrImage,
   triangleIcon,
+  goldSendIcon,
+  warningIcon,
+  verifyAmountIcon,
 };

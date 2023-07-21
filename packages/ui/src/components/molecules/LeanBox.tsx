@@ -49,9 +49,10 @@ export const HorizontalBox = styled.div<{ isChecked: boolean }>`
   height: 42px;
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<{ gap?: number }>`
   display: flex;
   align-items: center;
+  gap: ${props => (props.gap ? `${props.gap}px` : '0')};
 `;
 
 export const StretchedTypography = styled(Typography)<{

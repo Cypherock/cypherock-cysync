@@ -39,7 +39,7 @@ export const ConnectDevice: React.FC = () => {
         </Typography>
       </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={disconnectedIcon} alt="Verify Coin" />
+        <Image src={disconnectedIcon} alt="Device disconnected" />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={connect.header} />

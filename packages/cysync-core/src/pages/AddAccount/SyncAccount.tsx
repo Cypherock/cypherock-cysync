@@ -7,12 +7,16 @@ import {
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
-import { openAddAccountGuideDialog } from '~/actions';
-import {
-  AddAccountSingleChainDialog,
-  InitialiseAccountDialog,
-} from '~/dialogs/AddAccountGuide/Dialogs';
+import { openSendGuideDialog } from '~/actions';
+import { ConnectDevice } from '~/dialogs/AddAccountGuide/Dialogs';
+import { DeniedOnDevice } from '~/dialogs/SendGuide/Dialogs/DeniedOnDevice';
+import { LoadingDialog } from '~/dialogs/SendGuide/Dialogs/LoadingDialog';
+import { SelectSend } from '~/dialogs/SendGuide/Dialogs/SelectSend';
+import { SendConfirmToken } from '~/dialogs/SendGuide/Dialogs/SendConfirmToken';
+import { SendDone } from '~/dialogs/SendGuide/Dialogs/SendDone';
+import { SendProblem } from '~/dialogs/SendGuide/Dialogs/SendProblem';
 import { SummaryDialog } from '~/dialogs/SendGuide/Dialogs/SummaryDialog';
+import { SummaryScrollDialog } from '~/dialogs/SendGuide/Dialogs/SummaryScrollDialog';
 
 import { useAppDispatch } from '~/store';
 
@@ -51,7 +55,7 @@ export const SyncAccount: React.FC = () => {
   ];
 
   useEffect(() => {
-    dispatch(openAddAccountGuideDialog());
+    dispatch(openSendGuideDialog());
   }, []);
 
   const [checkedAccounts, setCheckedAccounts] = useState<
@@ -71,9 +75,6 @@ export const SyncAccount: React.FC = () => {
 
   return (
     <div>
-      <AddAccountSingleChainDialog />
-      <InitialiseAccountDialog />
-
       <DialogBoxBody>
         <InputLabel
           color="gold"
@@ -107,6 +108,14 @@ export const SyncAccount: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <SummaryDialog />
+        <SummaryScrollDialog />
+        <LoadingDialog />
+        <SendProblem />
+        <ConnectDevice />
+        <SendConfirmToken />
+        <SendDone />
+        <DeniedOnDevice />
+        <SelectSend />
       </DialogBoxBody>
     </div>
   );

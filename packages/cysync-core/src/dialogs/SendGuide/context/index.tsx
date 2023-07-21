@@ -11,20 +11,15 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-
-import logger from '~/utils/logger';
-import { selectLanguage, useAppSelector } from '~/store';
-
-import {
-  AddAccountDialog,
-  AddAccountSingleChainDialog,
-  InitialiseAccountDialog,
-  ConnectDevice,
-  NoAccountDialog,
-  SelectCryptoDialog,
-  SyncAccountDialog,
-  AddAccountCongrats,
-} from '../../AddAccountGuide/Dialogs';
+import { ConnectDevice } from '../../AddAccountGuide/Dialogs';
+import { SelectSend } from '../Dialogs/SelectSend';
+import { DeniedOnDevice } from '../Dialogs/DeniedOnDevice';
+import { LoadingDialog } from '../Dialogs/LoadingDialog';
+import { SendConfirmToken } from '../Dialogs/SendConfirmToken';
+import { SendDone } from '../Dialogs/SendDone';
+import { SummaryDialog } from '../Dialogs/SummaryDialog';
+import { SummaryScrollDialog } from '../Dialogs/SummaryScrollDialog';
+import { SendProblem } from '../Dialogs/SendProblem';
 
 type ITabs = {
   name: string;
@@ -51,35 +46,38 @@ export interface SendGuideContextProviderProps {
 export const SendGuideProvider: FC<SendGuideContextProviderProps> = ({
   children,
 }) => {
-  const lang = useAppSelector(selectLanguage);
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
 
   const tabs: ITabs = [
     {
-      name: lang.strings.addAccount.aside.tabs.asset,
-      dialogs: [<SelectCryptoDialog />],
+      name: 'Source',
+      dialogs: [<SelectSend />],
     },
     {
-      name: lang.strings.addAccount.aside.tabs.device,
+      name: 'Recipient',
       dialogs: [
+        <DeniedOnDevice />,
+        <LoadingDialog />,
+        <SendConfirmToken />,
         <ConnectDevice />,
-        <InitialiseAccountDialog />,
-        <SyncAccountDialog />,
-        <NoAccountDialog />,
-        <AddAccountSingleChainDialog />,
-        <AddAccountDialog />,
       ],
     },
     {
-      name: lang.strings.addAccount.aside.tabs.confirmation,
-      dialogs: [<AddAccountCongrats />],
+      name: 'Summary',
+      dialogs: [<SummaryDialog />, <SummaryScrollDialog />],
+    },
+    {
+      name: 'Device',
+      dialogs: [<SendProblem />],
+    },
+    {
+      name: 'Confirmation',
+      dialogs: [<SendDone />],
     },
   ];
 
   const onNext = (tab?: number, dialog?: number) => {
-    logger.info('currentTab');
-
     if (typeof tab === 'number' && typeof dialog === 'number') {
       setCurrentTab(tab);
       setCurrentDialog(dialog);
