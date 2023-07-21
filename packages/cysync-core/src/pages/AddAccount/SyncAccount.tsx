@@ -1,82 +1,64 @@
 // import {
-//   Button,
-//   Container,
-//   DialogBox,
 //   DialogBoxBody,
-//   DialogBoxFooter,
-//   DialogBoxHeader,
-//   Image,
 //   InputLabel,
 //   LangDisplay,
 //   LeanBox,
 //   LeanBoxContainer,
-//   Typography,
-//   arrowGoldenForward,
 //   bitcoinIcon,
-//   checkIcon,
-//   confirmIcon,
-//   disconnectedIcon,
-//   informationIcon,
-//   informationWhiteIcon,
-//   verifyCoinIcon,
 // } from '@cypherock/cysync-ui';
-// import SnackBar from '@cypherock/cysync-ui/src/components/molecules/SnackBar';
-// import { theme } from '@cypherock/cysync-ui/src/themes/theme.styled';
 import React, { useEffect } from 'react';
-// import { openAddAccountGuideDialog, openReceiveGuideDialog } from '~/actions';
-import { SelectCryptoDialog } from '~/dialogs/AddAccountGuide/Dialogs';
-import { ReceiveAddressNotVerified } from '~/dialogs/Receive/Dialogs/Receive';
-// import { useAppDispatch } from '~/store';
-// import { openAddAccountGuideDialog, openReceiveGuideDialog } from '~/actions';
-// import {
-//   AddAccountSingleChainDialog,
-//   InitialiseAccountDialog,
-// } from '~/dialogs/AddAccountGuide/Dialogs';
-// import { useAddAccountGuide } from '~/dialogs/AddAccountGuide/context';
-// import { ReceiveDevice } from '~/dialogs/Receive/Dialogs';
-// import { ReceiveDeviceConfirmCancelled, ReceiveDeviceConfirmForToken, ReceiveDeviceConfirmTroubleShoot, ReceiveDeviceConnection, ReceiveVerifyAddress } from '~/dialogs/Receive/Dialogs/Device';
 
-// import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { openAddAccountDialog } from '~/actions';
+import {
+  AddAccountDialog,
+  AddAccountSingleChainDialog,
+} from '~/dialogs/AddAccountGuide/Dialogs';
+import { useAppDispatch } from '~/store';
 
 export const SyncAccount: React.FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(openAddAccountGuideDialog());
+    dispatch(openAddAccountDialog());
   }, []);
 
-  // const lang = useAppSelector(selectLanguage);
+  // const [checkedAccounts, setCheckedAccounts] = useState<
+  //   Record<string, boolean>
+  // >({});
 
-  // const connect =
-  //   lang.strings.receive.deviceConfirmForToken.info.dialogBox;
-  // const { onNext, onPrevious } = useAddAccountGuide();
+  // const handleCheckChange = (id: string) => (isChecked: boolean) => {
+  //   setCheckedAccounts(prevState => ({
+  //     ...prevState,
+  //     [id]: isChecked,
+  //   }));
+  // };
+
+  // const handleUncheckAll = () => {
+  //   setCheckedAccounts({});
+  // };
 
   return (
     <div>
-      <SelectCryptoDialog />
-      <ReceiveAddressNotVerified />
-      {/* <ReceiveDeviceConfirmTroubleShoot /> */}
-      {/* <ReceiveDeviceConfirmForToken /> */}
-      {/* <ReceiveDeviceConnection /> */}
-      {/* <ReceiveDeviceConfirmCancelled /> */}
-      {/* <SnackBar text="Having trouble connecting the device?" imageAlt='informationIcon' imageSrc={informationWhiteIcon} buttonName="fix it"/> */}
+      {/* <SelectCryptoDialog /> */}
+      <AddAccountDialog />
+      <AddAccountSingleChainDialog />
       {/* <InitialiseAccountDialog /> */}
-      {/* <DialogBox width={600}>
-      <DialogBoxHeader height={56} width={600}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={confirmIcon} alt="Verify Coin" />
-        <Container display="flex" direction="column" width="full">
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={connect.header} />
-          </Typography>
-          <Typography variant="span" $textAlign="center" $fontSize={14} $fontWeight="normal" color="muted">
-            <LangDisplay text={connect.subheader} />
-          </Typography>
-        </Container>
+      {/* <DialogBoxBody>
+        <InputLabel
+          color="gold"
+          display={{ def: 'inline-block' }}
+          fontSize={14}
+          pl={1}
+          mt={2}
+          mr={1}
+          mb={1}
+          noWrap
+          textAlign="right"
+          onClick={handleUncheckAll}
+          clickable
+        >
+          <LangDisplay text="UncheckAll" />
+        </InputLabel>
         <LeanBoxContainer>
           {dataArray.map(data => (
             <LeanBox
@@ -89,8 +71,7 @@ export const SyncAccount: React.FC = () => {
             />
           ))}
         </LeanBoxContainer>
-      </DialogBoxBody>      
-      </DialogBox> */}
+      </DialogBoxBody> */}
     </div>
   );
 };

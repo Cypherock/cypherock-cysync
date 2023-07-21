@@ -1,5 +1,5 @@
+import { addAccount, AddAccountRouteName } from './addAccount';
 import { OnboardingRouteName, onboarding } from './onboarding';
-import { addAccount, addAccountRouteName } from './addAccount';
 
 const rootRoutes = {
   permissionSetup: {
@@ -24,4 +24,4 @@ export * from './types';
 export type RouteName =
   | RootRouteName
   | OnboardingRouteName
-  | addAccountRouteName;
+  | AddAccountRouteName;

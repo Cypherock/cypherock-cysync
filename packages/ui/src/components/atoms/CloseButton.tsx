@@ -1,5 +1,6 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { styled } from 'styled-components';
+
 import { closeIcon } from '../../assets';
 import { UtilsProps, utils } from '../utils';
 

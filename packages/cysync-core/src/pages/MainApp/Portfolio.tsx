@@ -1,49 +1,27 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  ConnectionStatusType,
-  SyncStatusType,
-  Topbar,
-  Flex,
-} from '@cypherock/cysync-ui';
-import React, { FC, useEffect, useState } from 'react';
+import { Container, Flex } from '@cypherock/cysync-ui';
+import React, { FC, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { openWalletActionsDialog } from '~/actions';
+import { Topbar } from '~/components';
 import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
-import {
-  openDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+
+import { SideBar } from './Components';
 
 export const Portfolio: FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const [showOnClose, setShowOnClose] = useState<boolean>(false);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isLock, setIsLock] = useState<boolean>(true);
-  const [haveNotifications, setHaveNotifications] = useState<boolean>(false);
-  const [syncState, setSyncState] = useState<SyncStatusType>('syncronized');
-  const [connectionState, setConnectionState] =
-    useState<ConnectionStatusType>('connected');
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(openWalletActionsDialog());
   }, []);
 
   return (
-    <>
-      <Topbar
-        title={lang.strings.portfolio.title}
-        statusTexts={lang.strings.topbar.statusTexts}
-        isVisible={isVisible}
-        isLock={isLock}
-        haveNotifications={haveNotifications}
-        syncStatus={syncState}
-        connectionStatus={connectionState}
-      />
-      <AssetAllocation />
-    </>
+    <Container height="screen" display="flex">
+      <SideBar />
+      <Flex direction="column" grow={1} $alignSelf="start">
+        <Topbar />
+        <AssetAllocation />
+      </Flex>
+    </Container>
   );
 };

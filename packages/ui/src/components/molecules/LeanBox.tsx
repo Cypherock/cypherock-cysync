@@ -6,6 +6,7 @@ import {
   Image,
   LangDisplay,
   RadioButton,
+  InputLabel,
   Tag,
   Typography,
   TypographyColor,
@@ -20,19 +21,16 @@ export interface LeanBoxProps extends SpacingProps {
   tag?: string;
   text: string;
   shortForm?: string;
-  displayRadioButton?: boolean;
-  radioButtonValue?: string;
   rightTextColor?: TypographyColor;
   textVariant?: TypographyProps['variant'];
   rightTextVariant?: TypographyProps['variant'];
   color?: TypographyColor;
-  checkBox?: boolean;
+  checkType?: 'checkbox' | 'radio';
   id?: string;
   animate?: boolean;
   isChecked?: boolean;
-  onCheckChange?: (isChecked: boolean) => void;
-  radioButtonSelected?: boolean;
-  onRadioButtonChange?: (isSelected: boolean) => void;
+  onCheckChanged?: (isChecked: boolean) => void;
+  value?: string;
 }
 
 const HorizontalBox = styled.div<{ isChecked: boolean } & SpacingProps>`
@@ -71,8 +69,6 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImageSrc,
   rightImageSrc,
-  displayRadioButton,
-  radioButtonValue,
   rightText,
   shortForm = '',
   text,
@@ -81,106 +77,88 @@ export const LeanBox: FC<LeanBoxProps> = ({
   rightTextVariant = 'fineprint',
   color = 'muted',
   rightTextColor = 'gold',
-  checkBox = false,
+  checkType = undefined,
   id,
   animate = false,
   isChecked = false,
-  onCheckChange,
-  radioButtonSelected = false,
-  onRadioButtonChange,
-  ...props
+  onCheckChanged,
+  value,
 }): ReactElement => {
-  const handleCheckBoxChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { checked } = event.target;
-      if (onCheckChange) {
-        onCheckChange(checked);
-      }
-    },
-    [onCheckChange],
-  );
-
-  const handleBoxClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      event.stopPropagation();
-      if (onCheckChange) {
-        onCheckChange(!isChecked);
-      }
-    },
-    [isChecked, onCheckChange],
-  );
-
-  const handleRadioButtonChange = useCallback(() => {
-    if (onRadioButtonChange) {
-      onRadioButtonChange(!radioButtonSelected);
+  const handleCheckChange = useCallback(() => {
+    if (onCheckChanged) {
+      onCheckChanged(!isChecked);
     }
-  }, [onRadioButtonChange, radioButtonSelected]);
+  }, [onCheckChanged, isChecked]);
 
   return (
-    <HorizontalBox isChecked={isChecked} onClick={handleBoxClick} {...props}>
-      {displayRadioButton && (
-        <RadioButton
-          checked={radioButtonSelected}
-          value={radioButtonValue}
-          onChange={handleRadioButtonChange}
-        />
-      )}
-      {leftImageSrc && (
-        <ImageContainer>
-          <Image
-            src={leftImageSrc}
-            alt="Left Image"
-            width="20px"
-            height="16px"
+    <InputLabel>
+      <HorizontalBox isChecked={isChecked}>
+        {checkType === 'radio' && (
+          <RadioButton
+            checked={isChecked}
+            value={value}
+            onChange={handleCheckChange}
           />
-        </ImageContainer>
-      )}
-      <StretchedTypography
-        shouldStretch={!tag}
-        variant={textVariant}
-        color={color}
-      >
-        {text}
-      </StretchedTypography>
-      <Typography $fontSize={13} $fontWeight="medium" color="muted">
-        <LangDisplay text={shortForm} />
-      </Typography>
-      {tag && <Tag>{tag}</Tag>}
-      <RightContent>
-        {rightText && (
-          <Typography variant={rightTextVariant} color={rightTextColor}>
-            {rightText}
-          </Typography>
         )}
-        {rightImageSrc && (
+        {leftImageSrc && (
           <ImageContainer>
-            {animate ? (
-              <Image
-                src={rightImageSrc}
-                alt="Right Image"
-                width="15px"
-                height="12px"
-                animate="spin"
-              />
-            ) : (
-              <Image
-                src={rightImageSrc}
-                alt="Right Image"
-                width="15px"
-                height="12px"
-              />
-            )}
+            <Image
+              src={leftImageSrc}
+              alt="Left Image"
+              width="20px"
+              height="16px"
+            />
           </ImageContainer>
         )}
-        {checkBox && (
-          <CheckBox
-            checked={isChecked}
-            onChange={handleCheckBoxChange}
-            id={id ?? 'default-id'}
-          />
+        <StretchedTypography
+          shouldStretch={!tag}
+          variant={textVariant}
+          color={color}
+        >
+          {text}
+        </StretchedTypography>
+        {shortForm && (
+          <Typography $fontSize={13} $fontWeight="medium" color="muted">
+            <LangDisplay text={shortForm} />
+          </Typography>
         )}
-      </RightContent>
-    </HorizontalBox>
+        {tag && <Tag>{tag}</Tag>}
+        <RightContent>
+          {rightText && (
+            <Typography variant={rightTextVariant} color={rightTextColor}>
+              {rightText}
+            </Typography>
+          )}
+          {rightImageSrc && (
+            <ImageContainer>
+              {animate ? (
+                <Image
+                  src={rightImageSrc}
+                  alt="Right Image"
+                  width="15px"
+                  height="12px"
+                  animate="spin"
+                />
+              ) : (
+                <Image
+                  src={rightImageSrc}
+                  alt="Right Image"
+                  width="15px"
+                  height="12px"
+                />
+              )}
+            </ImageContainer>
+          )}
+          {checkType === 'checkbox' && (
+            <CheckBox
+              checked={isChecked}
+              onChange={handleCheckChange}
+              id={id ?? 'default-id'}
+            />
+          )}
+        </RightContent>
+      </HorizontalBox>
+    </InputLabel>
   );
 };
 
@@ -190,17 +168,14 @@ LeanBox.defaultProps = {
   rightText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
-  displayRadioButton: false,
-  radioButtonValue: '',
   rightTextVariant: 'fineprint',
   color: 'muted',
-  checkBox: false,
+  checkType: undefined,
   id: undefined,
   animate: false,
   isChecked: false,
-  onCheckChange: undefined,
-  radioButtonSelected: false,
-  onRadioButtonChange: undefined,
+  onCheckChanged: undefined,
+  value: '',
   tag: '',
   shortForm: '',
 };

@@ -15,7 +15,7 @@ import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
 import closeIcon from './close.svg';
 import confirmIcon from './confirm.svg';
-import connected from './connected.svg';
+// import connected from './connected.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import cypherockRedIcon from './cypherock-red.svg';
@@ -35,21 +35,15 @@ import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
 import { InfoIcon } from './InfoIcon';
 import informationWhiteIcon from './information-icon.svg';
+import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
-import joystickArrowCompletedIcon from './JoystickArrowCompleted.svg';
-import joystickArrowIcon from './JoystickArrowDisabled.svg';
-import joystickArrowSelectedIcon from './JoystickArrowSelected.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
-import lockOpen from './lock-open.svg';
-import lock from './lock.svg';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import noNotifications from './no-notifications.svg';
-import notifications from './notifications.svg';
 import openExternalLink from './open-external-link.svg';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
@@ -63,17 +57,11 @@ import shieldAlert from './shield-alert.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
-import syncProblem from './sync-problem.svg';
-import syncronizing from './syncronizing.svg';
-import triangleIcon from './triangle-icon.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
-import visibilityHideIcon from './visibility-hide.svg';
-import visibilityIcon from './visibility.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
-import informationOrangeIcon from './information-orange-icon.svg';
 
 export {
   addWalletIcon,
@@ -86,6 +74,7 @@ export {
   circledCheckIcon,
   binanceIcon,
   etheriumBlueIcon,
+  verifyCoinIcon,
   addIcon,
   confirmIcon,
   cypherockRedIcon,
@@ -93,7 +82,6 @@ export {
   searchIcon,
   bnbChainIcon,
   settingsIcon,
-  verifyCoinIcon,
   halfLoaderGold,
   loaderGrayIcon,
   asideIcon,
@@ -114,9 +102,6 @@ export {
   disconnectedIcon,
   successIcon,
   shieldAlert,
-  joystickArrowCompletedIcon,
-  joystickArrowIcon,
-  joystickArrowSelectedIcon,
   cardTapAsideImage,
   LogoOutlinedAsideImage,
   joystickTrainingAsideImage,
@@ -129,20 +114,11 @@ export {
   goldFail,
   emailIconOutlined,
   cysyncLockedLogo,
-  visibilityIcon,
-  visibilityHideIcon,
   errorIcon,
   usbIcon,
   copyIcon,
   checkIcon,
   InfoIcon,
-  lock,
-  lockOpen,
-  noNotifications,
-  notifications,
-  syncronizing,
-  syncProblem,
-  connected,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,
@@ -151,5 +127,4 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
-  triangleIcon,
 };

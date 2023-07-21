@@ -1,9 +1,11 @@
 import coinList from './coins';
 
-import { ICoinInfo, ICoinUnit } from '../types';
+import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+type EvmFamily = typeof coinFamiliesMap.evm;
 
 export interface IEvmCoinInfo extends ICoinInfo {
-  family: 'evm';
+  family: EvmFamily;
   chain: number;
   network: string;
 }
@@ -49,7 +51,7 @@ export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce<
   (list, coin) => ({
     ...list,
     [coin.id]: {
-      family: 'evm',
+      family: coinFamiliesMap.evm,
       id: coin.id,
       name: coin.name,
       isTest: coin.isTest,

@@ -10,14 +10,14 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { ReceiveGuideProvider, useReceiveGuide } from './context';
-
 import {
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+
+import { ReceiveGuideProvider, useReceiveGuide } from './context';
 
 export const Receive: FC = () => {
   const lang = useAppSelector(selectLanguage);

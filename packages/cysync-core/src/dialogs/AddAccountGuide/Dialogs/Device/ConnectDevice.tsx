@@ -9,16 +9,18 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { useAddAccountGuide } from '../../context';
+
+import { useAddAccountDialog } from '../../context';
 
 export const ConnectDevice: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect =
     lang.strings.addAccount.addAccount.connectDevice.info.dialogBox;
-  const { onNext, onPrevious } = useAddAccountGuide();
+  const { onNext, onPrevious } = useAddAccountDialog();
 
   const keyboardActions = {
     ArrowRight: () => {

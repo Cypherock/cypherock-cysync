@@ -12,11 +12,14 @@ import {
   checkIcon,
   halfLoaderGold,
   arrowGoldenForward,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useAddAccountGuide } from '../../context';
+
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { useAddAccountDialog } from '../../context';
 
 const dataArray = [
   {
@@ -35,22 +38,22 @@ const dataArray = [
   },
   {
     id: '3',
-    leftImageSrc: arrowGoldenForward,
-    text: 'Enter the PIN and tap any X1 Card',
+    leftImageSrc: etheriumBlueIcon,
+    text: 'Ethereum 3',
   },
 ];
 export const InitialiseAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const initAccount =
     lang.strings.addAccount.addAccount.initAccount.info.dialogBox;
-  const { onNext, onPrevious } = useAddAccountGuide();
+  const { goTo, onPrevious } = useAddAccountDialog();
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(1, 2);
+      goTo(1, 2);
     },
     ArrowUp: () => {
-      onNext(1, 5);
+      goTo(1, 5);
     },
     ArrowLeft: () => {
       onPrevious();

@@ -40,9 +40,13 @@ export const colors = {
     muted: '#8B8682',
     warn: '#F1AE4A',
     error: '#FF624C',
+    errorDark: '#74271C',
     success: '#51C61A',
     white: '#ffffff',
     red: '#FF624C',
+    goldenrod: '#daa520',
+    disabled: '#423D39',
+    normal: '#CCC4BE',
   },
   background: {
     progressBar: '#1F1915',
@@ -59,6 +63,8 @@ export const colors = {
     toggleOff: '#544D43',
     list: '#2C2824',
     infoBackground: '#4A2D00',
+    lightBlack: '#1B1712',
+    sidebar: '#1E1A15',
   },
   border: {
     popup: '#2C2520',

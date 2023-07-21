@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Flex, FlexProps } from './Flex';
@@ -10,7 +10,7 @@ interface ISize {
 }
 interface CheckBoxProps extends ISize {
   checked: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: () => void;
   id?: string;
   label?: string;
   flexProps?: FlexProps;
@@ -82,10 +82,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
     <CheckBoxWrapper size={size}>
       <CheckBoxStyle
         checked={checked}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          e.stopPropagation();
-          onChange?.(e);
-        }}
+        onChange={onChange}
         id={id}
         disabled={isDisabled}
       />
@@ -116,5 +113,4 @@ CheckBox.defaultProps = {
   isDisabled: false,
   id: undefined,
   size: 'big',
-  onChange: undefined,
 };

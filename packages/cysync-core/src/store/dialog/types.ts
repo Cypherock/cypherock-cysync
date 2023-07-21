@@ -1,15 +1,10 @@
 export interface IDialogState {
-  addAccount: {
+  addAccountDialog: {
     isOpen: boolean;
     data?: {
       walletId?: string;
       coinId?: string;
     };
-  };
-
-  addAccountGuide: {
-    isOpen: boolean;
-    data?: undefined;
   };
 
   receiveGuide: {

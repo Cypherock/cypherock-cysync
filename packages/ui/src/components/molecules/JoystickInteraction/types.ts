@@ -1,9 +1,8 @@
-import {
-  joystickArrowCompletedIcon,
-  joystickArrowIcon,
-  joystickArrowSelectedIcon,
-} from '../../../assets/images';
-import { ImageProps, IndicatorState } from '../../atoms';
+import { DefaultTheme } from 'styled-components';
+
+import { SvgProps } from '../../../assets';
+import { IndicatorState } from '../../atoms';
+import { svgGradients } from '../../GlobalStyles';
 import { UtilsProps } from '../../utils';
 
 export type JoystickState = 'unselected' | 'selected' | 'completed';
@@ -41,7 +40,7 @@ export const bgColorMap: Record<JoystickState, string> = {
   completed: 'success',
 };
 
-export const directionMap: Record<DirectionType, Partial<ImageProps>> = {
+export const directionMap: Record<DirectionType, Partial<SvgProps>> = {
   up: {
     rotate: -90,
     top: 24,
@@ -68,8 +67,10 @@ export const directionMap: Record<DirectionType, Partial<ImageProps>> = {
   center: {},
 };
 
-export const typeMap: Record<JoystickState, string> = {
-  unselected: joystickArrowIcon,
-  selected: joystickArrowSelectedIcon,
-  completed: joystickArrowCompletedIcon,
-};
+export const getArrowColorMap = (
+  theme: DefaultTheme | undefined,
+): Record<JoystickState, string> => ({
+  unselected: theme!.palette.muted.main,
+  selected: `url(#${svgGradients.gold})`,
+  completed: theme!.palette.success.main,
+});

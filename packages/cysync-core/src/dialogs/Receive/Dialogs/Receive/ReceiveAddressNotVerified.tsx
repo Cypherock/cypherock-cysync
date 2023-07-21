@@ -19,12 +19,14 @@ import {
   informationOrangeIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import {
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+
 import { useReceiveGuide } from '../../context';
 
 export const ReceiveAddressNotVerified: React.FC = () => {

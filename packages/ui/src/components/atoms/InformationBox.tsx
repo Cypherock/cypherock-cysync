@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Image } from './Image';
 import { Typography } from './Typography';
+
 import { theme } from '../../themes/theme.styled';
 
 // Define types for theme.palette.background and theme.palette.border

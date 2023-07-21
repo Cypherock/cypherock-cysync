@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button, Image } from '../atoms';
 import { StretchedTypography } from './LeanBox';
+
 import { theme } from '../../themes/theme.styled';
+import { Button, Image } from '../atoms';
 
 const SnackBarWrapper = styled.div`
   position: fixed;

@@ -70,6 +70,8 @@ export const theme = {
       toggle: colors.background.toggleOff,
       list: colors.background.list,
       infoBackground: colors.background.infoBackground,
+      lightBlack: colors.background.lightBlack,
+      sidebar: colors.background.sidebar,
     },
     border: {
       popup: colors.border.popup,

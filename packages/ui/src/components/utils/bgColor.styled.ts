@@ -15,7 +15,8 @@ export interface BgColorProps {
     | 'highlight'
     | 'golden'
     | 'success'
-    | 'muted';
+    | 'muted'
+    | 'lightBlack';
 }
 
 export const $bgColor = css<BgColorProps>`
@@ -81,6 +82,11 @@ ${props =>
     props.$bgColor === 'highlight' &&
     css`
       background: ${({ theme }) => theme.palette.highlight};
+    `}
+  ${props =>
+    props.$bgColor === 'lightBlack' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.lightBlack};
     `}
   ${props =>
     props.$bgColor === 'black' &&

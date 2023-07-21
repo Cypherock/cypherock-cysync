@@ -12,8 +12,10 @@ import {
   verifyCoinIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 // import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useReceiveGuide } from '../../context';
 
 export const ReceiveDeviceConfirmCancelled: React.FC = () => {

@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { theme } from '../../themes/theme.styled';
+
+import { goldenGradient } from './Gradient';
 
 interface ToggleProps {
   checked: boolean;
@@ -22,10 +23,12 @@ const Slider = styled.span<{ checked: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({ checked }) =>
+
+  ${({ checked, theme }) =>
     checked
-      ? `${theme.palette.border.gold}`
-      : theme.palette.background.separator};
+      ? goldenGradient('background')
+      : `background-color: ${theme.palette.background.separator}`};
+
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 41px;
@@ -36,7 +39,7 @@ const Slider = styled.span<{ checked: boolean }>`
     width: 10px;
     left: ${({ checked }) => (checked ? '16px' : '3px')};
     bottom: 3px;
-    background-color: ${({ checked }) =>
+    background-color: ${({ checked, theme }) =>
       checked
         ? theme.palette.background.toggleActive
         : theme.palette.background.toggle};

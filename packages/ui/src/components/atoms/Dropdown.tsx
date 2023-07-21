@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import styled, { useTheme } from 'styled-components';
 
 import { Image } from './Image';
 import { Input } from './Input';
 
 import { searchIcon, triangleInverseIcon, walletIcon } from '../../assets';
-import { theme } from '../../themes/theme.styled';
-import { LeanBoxProps, DropDownListItem } from '../molecules';
+import { DropDownListItem, DropDownListItemProps } from '../molecules';
 
 interface DropdownProps {
-  items: LeanBoxProps[];
+  items: DropDownListItemProps[];
   changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
@@ -25,37 +24,55 @@ const List = styled.ul<{ disabled?: boolean }>`
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  box-shadow: 4px 4px 32px 4px ${theme.palette.shadow.dropdown};
+  box-shadow: 4px 4px 32px 4px ${({ theme }) => theme.palette.shadow.dropdown};
   padding: 16px 0px 16px 0px;
   z-index: 10;
-  background-color: ${theme.palette.background.input};
+  background-color: ${({ theme }) => theme.palette.background.input};
   &:hover {
     cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
   }
 `;
 
 const ListItem = styled.li`
-  background-color: ${theme.palette.border.list};
+  background-color: ${({ theme }) => theme.palette.border.list};
 `;
+
+const buttonAnimationData = {
+  duration: '0.3s',
+  curve: 'ease-out',
+};
 
 const Container = styled.div<{ isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
-  background-color: ${theme.palette.border.dropdown};
-  border: 2px solid
-    ${props =>
-      props.isOpen ? theme.palette.border.gold : theme.palette.border.dropdown};
-  &:hover {
-    border: 2px solid
-      ${props =>
-        !props.disabled
-          ? theme.palette.border.gold
-          : theme.palette.border.dropdown};
+  background-color: ${({ theme }) => theme.palette.border.dropdown};
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: ${({ isOpen, theme }) =>
+        isOpen ? theme.palette.golden : 'transparent'}
+      border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: all ${buttonAnimationData.duration} ${buttonAnimationData.curve};
   }
+
+  &:hover::before {
+    background: ${({ disabled, theme }) =>
+        !disabled ? theme.palette.golden : 'transparent'}
+      border-box;
+  }
+
   input {
     padding-right: 30px;
-    cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
 `;
 
@@ -80,13 +97,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [checkedStates, setCheckedStates] = React.useState<
     Record<string, boolean>
   >({});
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleCheckedChange = (id: string, checked: boolean) => {
     setCheckedStates(prevStates => ({ ...prevStates, [id]: checked }));
   };
 
-  const filteredItems = items.filter(item =>
-    item.text.toLowerCase().includes(search.toLowerCase()),
+  const filteredItems = useMemo(
+    () =>
+      items.filter(item =>
+        item.text.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [items, search],
+  );
+
+  const selectedDropdownItem = useMemo(
+    () => items.find(item => item.id === selectedItem),
+    [items, selectedItem],
   );
 
   const handleInputChange = (value: string) => {
@@ -102,13 +129,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  const handleItemSelection = (item: LeanBoxProps) => {
+  const handleItemSelection = (item: DropDownListItemProps) => {
     const id = item.id ?? '';
     onChange(id);
     handleCheckedChange(id, true);
     toggleDropdown();
   };
+
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -130,9 +159,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <Container
       ref={containerRef}
-      isOpen={isOpen}
+      isOpen={isOpen ?? isHovered}
       disabled={disabled}
       onClick={toggleDropdown}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {selectedItem ? (
         <DropDownListItem
@@ -142,17 +173,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
             handleCheckedChange(selectedItem, checked)
           }
           id={selectedItem}
-          text={items.find(item => item.id === selectedItem)?.text ?? ''}
+          text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
           restrictedItem
           changeColorWhite
           leftImageSrc={
-            changeColorWhite
-              ? walletIcon
-              : items.find(item => item.id === selectedItem)?.leftImageSrc
+            changeColorWhite ? walletIcon : selectedDropdownItem?.leftImageSrc
           }
-          tag={items.find(item => item.id === selectedItem)?.tag}
-          shortForm={items.find(item => item.id === selectedItem)?.shortForm}
+          tag={selectedDropdownItem?.tag}
+          shortForm={selectedDropdownItem?.shortForm}
         />
       ) : (
         <Input
@@ -161,7 +190,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          bgColor={theme.palette.background.dropdown}
+          bgColor={theme?.palette.background.dropdown}
           placeholder={isOpen ? searchText : placeholderText}
           disabled={disabled}
         />
