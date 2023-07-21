@@ -19,7 +19,8 @@ export interface CardTapProps {
   tapsPerCard: number;
   totalCards: number;
   error?: IParsedError;
-  onRetry: () => void;
+  onPrimaryClick: () => void;
+  onSecondaryClick: () => void;
 }
 
 const createCardTapListItem = (params: {
@@ -62,7 +63,8 @@ export const CardTap: React.FC<CardTapProps> = ({
   tapsPerCard,
   totalCards,
   error,
-  onRetry,
+  onPrimaryClick,
+  onSecondaryClick,
 }) => {
   const lang = useAppSelector(selectLanguage);
 
@@ -95,19 +97,32 @@ export const CardTap: React.FC<CardTapProps> = ({
               $fontWeight="light"
               $textAlign="center"
             >
-              {error.msg}
+              {`${error.heading} (${error.code})`}
             </Typography>
+            {error.subtext && (
+              <Typography
+                color="muted"
+                $fontWeight="light"
+                $textAlign="center"
+                $fontSize={14}
+                mt={1}
+              >
+                {error.subtext}
+              </Typography>
+            )}
           </Container>
         )}
       </DialogBoxBody>
       {error && (
         <DialogBoxFooter>
-          {error.showReport && <Button variant="primary">Report</Button>}
-          {error.showRetry && (
-            <Button variant="primary" onClick={onRetry}>
-              Retry
+          {error.secondaryAction && (
+            <Button variant="primary" onClick={onSecondaryClick}>
+              {error.secondaryAction.text}
             </Button>
           )}
+          <Button variant="primary" onClick={onPrimaryClick}>
+            {error.primaryAction.text}
+          </Button>
         </DialogBoxFooter>
       )}
     </DialogBox>

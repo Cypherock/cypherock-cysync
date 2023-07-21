@@ -12,6 +12,7 @@ import {
   useStateWithFinality,
 } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+import { getCloseAppMethod } from '~/utils';
 
 import { JoystickTrainingInteraction } from './Joystick';
 
@@ -52,7 +53,8 @@ export const JoystickTrainingDialog: React.FC = () => {
   return (
     <ErrorHandlerDialog
       error={task.error}
-      title={lang.strings.onboarding.joystickTraining.error}
+      isOnboarding
+      onClose={getCloseAppMethod()}
       onRetry={onRetry}
     >
       {isFinalState || <JoystickTrainingInteraction state={state} />}

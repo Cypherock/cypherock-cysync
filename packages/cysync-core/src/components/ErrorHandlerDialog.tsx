@@ -5,21 +5,23 @@ import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
 
 export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;
-  title: string;
   textVariables?: object;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   children,
   error,
-  title,
   onRetry,
+  onClose,
+  isOnboarding,
   textVariables,
   defaultMsg,
 }) => {
-  const { errorToShow, handleRetry } = useErrorHandler({
+  const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
+    isOnboarding,
     onRetry,
+    onClose,
     defaultMsg,
   });
 
@@ -32,11 +34,12 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   return (
     <ErrorDialog
       iconType={errorToShow.iconName}
-      showRetry={errorToShow.showRetry}
-      showReport={errorToShow.showReport}
-      onRetry={handleRetry}
-      title={title}
-      subtext={errorToShow.msg}
+      primaryActionText={errorToShow.primaryAction.text}
+      secondaryActionText={errorToShow.secondaryAction?.text}
+      onPrimaryClick={onPrimaryClick}
+      onSecondaryClick={onSecondaryClick}
+      title={`${errorToShow.heading} (${errorToShow.code})`}
+      subtext={errorToShow.subtext}
       textVariables={textVariables}
     />
   );
