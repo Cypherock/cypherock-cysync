@@ -1,4 +1,3 @@
-import { UpdateInfo } from '@cypherock/cysync-interfaces';
 import {
   Check,
   CloudDownload,
@@ -6,27 +5,12 @@ import {
   UpdateBar,
   UpdateState,
 } from '@cypherock/cysync-ui';
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { autoUpdater } from '~/utils';
-import logger from '~/utils/logger';
+import { AppUpdateState, useAppUpdate } from '~/hooks';
 
 import { selectLanguage, useAppSelector } from '..';
-
-enum AppUpdateState {
-  Checking,
-  Confirmation,
-  Downloading,
-  Successful,
-  Failed,
-}
-
-enum InternalAppUpdateState {
-  Checking,
-  Downloading,
-  Installing,
-}
 
 type UpdateBarType = {
   [key in AppUpdateState]?: {
@@ -41,67 +25,14 @@ type UpdateBarType = {
 export const AppUpdateBar: FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
-  const [state, setState] = useState<AppUpdateState>(AppUpdateState.Checking);
-  const [updateInfo, setUpdateInfo] = useState<UpdateInfo | undefined>();
-  const [downloadProgress, setDownloadProgress] = useState(57);
-  const [internalState, setInternalState] = useState(
-    InternalAppUpdateState.Checking,
-  );
-
-  const onError = (error: any) => {
-    logger.error('App update error');
-    logger.error(error);
-    setState(AppUpdateState.Failed);
-  };
-
-  const downloadUpdate = async () => {
-    try {
-      setInternalState(InternalAppUpdateState.Downloading);
-      setDownloadProgress(0);
-      setState(AppUpdateState.Downloading);
-      await autoUpdater.downloadUpdate();
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const installUpdate = async () => {
-    try {
-      setInternalState(InternalAppUpdateState.Installing);
-      await autoUpdater.installUpdate();
-      setState(AppUpdateState.Successful);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const onRetry = () => {
-    const retryFuncMap: Record<InternalAppUpdateState, () => Promise<void>> = {
-      [InternalAppUpdateState.Checking]: checkForUpdates,
-      [InternalAppUpdateState.Downloading]: downloadUpdate,
-      [InternalAppUpdateState.Installing]: installUpdate,
-    };
-
-    retryFuncMap[internalState]();
-  };
-
-  const checkForUpdates = async () => {
-    try {
-      setState(AppUpdateState.Checking);
-      const result = await autoUpdater.checkForUpdates();
-      setUpdateInfo(result);
-
-      if (result) setState(AppUpdateState.Confirmation);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const addListeners = () => {
-    autoUpdater.addUpdateErrorListener(onError);
-    autoUpdater.addUpdateProgressListener(p => setDownloadProgress(p));
-    autoUpdater.addUpdateCompletedListener(installUpdate);
-  };
+  const {
+    updateInfo,
+    downloadProgress,
+    appUpdateState,
+    onRetry,
+    downloadUpdate,
+    installUpdate,
+  } = useAppUpdate();
 
   const updateBarMap: UpdateBarType = {
     [AppUpdateState.Confirmation]: {
@@ -132,23 +63,18 @@ export const AppUpdateBar: FC = () => {
     },
   };
 
-  useEffect(() => {
-    addListeners();
-    checkForUpdates();
-  }, []);
-
   return updateInfo ? (
     <UpdateBar
       progress={downloadProgress}
-      icon={updateBarMap[state]?.icon}
-      state={updateBarMap[state]?.updateState}
-      onButtonClick={updateBarMap[state]?.onButtonClick}
+      icon={updateBarMap[appUpdateState]?.icon}
+      state={updateBarMap[appUpdateState]?.updateState}
+      onButtonClick={updateBarMap[appUpdateState]?.onButtonClick}
       text={
-        updateBarMap[state]?.text && (
+        updateBarMap[appUpdateState]?.text && (
           <LangDisplay
             text={
               (lang.strings.appUpdateBar as any)[
-                updateBarMap[state]?.text ?? ''
+                updateBarMap[appUpdateState]?.text ?? ''
               ]
             }
             variables={updateInfo}
@@ -156,11 +82,11 @@ export const AppUpdateBar: FC = () => {
         )
       }
       buttonText={
-        updateBarMap[state]?.buttonText && (
+        updateBarMap[appUpdateState]?.buttonText && (
           <LangDisplay
             text={
               (lang.strings.appUpdateBar as any)[
-                updateBarMap[state]?.buttonText ?? ''
+                updateBarMap[appUpdateState]?.buttonText ?? ''
               ]
             }
           />
