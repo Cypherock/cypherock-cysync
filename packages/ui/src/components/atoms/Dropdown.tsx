@@ -48,27 +48,32 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   border-radius: 8px;
   background-color: ${({ theme }) => theme.palette.border.dropdown};
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    background: ${({ $isOpen, theme }) =>
-        $isOpen ? theme.palette.golden : 'transparent'}
-      border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    transition: all ${buttonAnimationData.duration} ${buttonAnimationData.curve};
-  }
-
-  &:hover::before {
-    background: ${({ disabled, theme }) =>
-        !disabled ? theme.palette.golden : 'transparent'}
-      border-box;
-  }
+  ${({ disabled, theme }) =>
+    !disabled &&
+    `
+      &:hover {  
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            z-index: 10;
+            background: ${theme.palette.golden};
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+              linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+          }
+      
+          &:hover::before {
+            background: ${theme.palette.golden} border-box;
+            transition: all ${buttonAnimationData.duration};
+            ${buttonAnimationData.curve};
+          }
+        cursor: pointer;
+      }      
+    `}
 
   input {
     padding-right: 30px;

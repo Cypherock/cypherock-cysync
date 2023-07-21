@@ -1,4 +1,3 @@
-import { addAccount, AddAccountRouteName } from './addAccount';
 import { OnboardingRouteName, onboarding } from './onboarding';
 
 const rootRoutes = {
@@ -14,14 +13,10 @@ const rootRoutes = {
 
 export const routes = {
   onboarding,
-  addAccount,
   ...rootRoutes,
 };
 
 type RootRouteName = (typeof rootRoutes)[keyof typeof rootRoutes]['name'];
 
 export * from './types';
-export type RouteName =
-  | RootRouteName
-  | OnboardingRouteName
-  | AddAccountRouteName;
+export type RouteName = RootRouteName | OnboardingRouteName;
