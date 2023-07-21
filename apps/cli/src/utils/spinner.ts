@@ -18,8 +18,11 @@ export const getOra = async () => {
 export class Spinner {
   private readonly spinner: Ora;
 
+  private _isCompleted: boolean;
+
   private constructor(spinner: Ora) {
     this.spinner = spinner;
+    this._isCompleted = false;
   }
 
   static async create(text: string) {
@@ -29,12 +32,18 @@ export class Spinner {
     return new Spinner(spinner);
   }
 
+  get isCompleted() {
+    return this._isCompleted;
+  }
+
   succeed(text?: string) {
     this.spinner.succeed(text);
+    this._isCompleted = true;
   }
 
   fail(text?: string) {
     this.spinner.fail(text);
+    this._isCompleted = true;
   }
 
   updateText(text: string) {

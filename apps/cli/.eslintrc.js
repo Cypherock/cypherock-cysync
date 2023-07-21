@@ -5,4 +5,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
   },
+  rules: {
+    'no-use-before-define': 'off',
+    'no-console': 'off',
+  },
 };

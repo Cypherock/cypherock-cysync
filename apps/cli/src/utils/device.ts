@@ -44,27 +44,6 @@ export const createConnection = async () => {
   return connectDevice(devices[0]);
 };
 
-const getConnection = async () => {
-  if (!connectionInstance) {
-    return createConnection();
-  }
-
-  return connectionInstance;
-};
-
-const cleanUp = async () => {
-  (await getConnection()).destroy();
-};
-
-export type IMain = (connection: IDeviceConnection) => Promise<void>;
-
-export const runWithDevice = async (main: IMain) => {
-  try {
-    const connection = await createConnection();
-    await main(connection);
-    await cleanUp();
-  } catch (error: any) {
-    await cleanUp();
-    console.error(error);
-  }
+export const cleanUpDeviceConnection = async () => {
+  await connectionInstance?.destroy();
 };

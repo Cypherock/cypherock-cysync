@@ -22,10 +22,10 @@ export const mapWalletsToDbInstance = (
 export const sameWalletIdComparator = (walletA: IWallet, walletB: IWallet) =>
   walletA.__id === walletB.__id;
 
-export const walletFileds = ['name', 'hasPassphrase', 'hasPin', 'deviceId'];
+export const walletFields = ['name', 'hasPassphrase', 'hasPin', 'deviceId'];
 
 export const walletDetailsComparator = (walletA: any, walletB: any) =>
-  walletFileds.reduce(
+  walletFields.reduce(
     (result, field) => result && walletA[field] === walletB[field],
     true,
   );

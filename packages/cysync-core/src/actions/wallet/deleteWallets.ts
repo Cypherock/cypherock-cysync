@@ -1,3 +1,4 @@
+import { deleteWallets as deleteWalletsOnDb } from '@cypherock/cysync-core-services';
 import { IWallet } from '@cypherock/db-interfaces';
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import lodash from 'lodash';
@@ -14,13 +15,7 @@ export const deleteWallets = createAsyncThunk<
 
   const { deletedWallets } = getState().wallet;
 
-  for (const deletedWallet of wallets) {
-    if (deletedWallet.__id === undefined) {
-      continue;
-    }
-
-    await db.wallet.remove({ __id: deletedWallet.__id });
-  }
+  await deleteWalletsOnDb(db, deletedWallets);
 
   return lodash.differenceWith(
     deletedWallets,
