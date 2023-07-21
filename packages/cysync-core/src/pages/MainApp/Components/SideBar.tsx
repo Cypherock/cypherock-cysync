@@ -17,10 +17,11 @@ import {
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 
 export const SideBar: FC = () => {
   const strings = useAppSelector(selectLanguage).strings.sidebar;
+  const { wallets, deletedWallets } = useAppSelector(selectWallets);
   const theme = useTheme()!;
 
   return (
@@ -47,24 +48,43 @@ export const SideBar: FC = () => {
             }
             Icon={WalletIcon}
           >
-            <SideBarItem text="Foo" state={State.active} child="regular" />
-            <SideBarItem text="Bar" child="regular" />
-            <SideBarItem
-              text="Baz"
-              state={State.error}
-              child="last"
-              extraRight={
-                <Button
-                  variant="text"
-                  align="center"
-                  onClick={e => {
-                    e.stopPropagation();
-                  }}
-                >
-                  <WalletInfoIcon fill={theme.palette.muted.main} />
-                </Button>
-              }
-            />
+            {wallets.map((wallet, idx) => {
+              const child =
+                idx === wallets.length - 1 && deletedWallets.length === 0
+                  ? 'last'
+                  : 'regular';
+              return (
+                <SideBarItem
+                  key={`wallet-${idx + 1}`}
+                  text={wallet.name}
+                  state={State.normal}
+                  child={child}
+                />
+              );
+            })}
+            {deletedWallets.map((wallet, idx) => {
+              const child =
+                idx === deletedWallets.length - 1 ? 'last' : 'regular';
+              return (
+                <SideBarItem
+                  key={`deleted-wallet-${idx + 1}`}
+                  text={wallet.name}
+                  state={State.error}
+                  extraRight={
+                    <Button
+                      variant="text"
+                      align="center"
+                      onClick={e => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <WalletInfoIcon fill={theme.palette.muted.main} />
+                    </Button>
+                  }
+                  child={child}
+                />
+              );
+            })}
           </SideBarItem>
           <SideBarItem text={strings.sendCrypto} Icon={ArrowSentIcon} />
           <SideBarItem text={strings.receiveCrypto} Icon={ArrowReceivedIcon} />
