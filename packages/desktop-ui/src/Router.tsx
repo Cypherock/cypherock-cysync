@@ -37,6 +37,10 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-app-update': <AppUpdate />,
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
+  wallet: <> </>,
+  history: <> </>,
+  settings: <> </>,
+  help: <> </>,
 };
 
 export type InternalRoute = Record<string, IRoute>;

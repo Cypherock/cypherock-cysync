@@ -14,15 +14,42 @@ import {
   Syncronizing,
   WalletInfoIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTheme } from 'styled-components';
 
+import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 
+type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
+
 export const SideBar: FC = () => {
+  const [active, setActive] = useState<string>(routes.portfolio.name);
   const strings = useAppSelector(selectLanguage).strings.sidebar;
   const { wallets, deletedWallets } = useAppSelector(selectWallets);
   const theme = useTheme()!;
+
+  const navigateTo = useNavigateTo();
+  const navigate = (page: Page) => {
+    setActive(routes[page].name);
+    navigateTo(routes[page].path);
+  };
+
+  const navigateWallet = (id: string | undefined) => {
+    if (!id) return;
+    setActive(`wallet-${id}`);
+    navigateTo(`${routes.wallet.path}?id=${id}`);
+  };
+
+  const getState = (page: Page): State => {
+    if (active === routes[page].name) return State.selected;
+    return State.normal;
+  };
+
+  const getStateWallet = (id: string | undefined): State => {
+    if (id && active === `wallet-${id}`) return State.active;
+    return State.normal;
+  };
 
   return (
     <SideBarWrapper title="cySync" width={312} height="full">
@@ -31,7 +58,8 @@ export const SideBar: FC = () => {
           <SideBarItem
             text={strings.portfolio}
             Icon={PortfolioIcon}
-            state={State.selected}
+            state={getState('portfolio')}
+            onClick={() => navigate('portfolio')}
           />
           <SideBarItem
             text={strings.wallets}
@@ -55,9 +83,10 @@ export const SideBar: FC = () => {
                   : 'regular';
               return (
                 <SideBarItem
-                  key={`wallet-${idx + 1}`}
+                  key={`wallet-${wallet.__id}`}
                   text={wallet.name}
-                  state={State.normal}
+                  onClick={() => navigateWallet(wallet.__id)}
+                  state={getStateWallet(wallet.__id)}
                   child={child}
                 />
               );
@@ -67,7 +96,7 @@ export const SideBar: FC = () => {
                 idx === deletedWallets.length - 1 ? 'last' : 'regular';
               return (
                 <SideBarItem
-                  key={`deleted-wallet-${idx + 1}`}
+                  key={`wallet-${wallet.__id}`}
                   text={wallet.name}
                   state={State.error}
                   extraRight={
@@ -91,12 +120,24 @@ export const SideBar: FC = () => {
           <SideBarItem
             text={strings.history}
             Icon={HistoryIcon}
-            state={State.disabled}
+            state={getState('history')}
+            onClick={() => navigate('history')}
           />
         </Flex>
         <Flex direction="column" gap={8}>
-          <SideBarItem text={strings.settings} Icon={SettingsIcon} />
-          <SideBarItem text={strings.help} Icon={SupportIcon} svgStroke />
+          <SideBarItem
+            text={strings.settings}
+            Icon={SettingsIcon}
+            state={getState('settings')}
+            onClick={() => navigate('settings')}
+          />
+          <SideBarItem
+            text={strings.help}
+            Icon={SupportIcon}
+            svgStroke
+            state={getState('help')}
+            onClick={() => navigate('help')}
+          />
         </Flex>
       </Flex>
     </SideBarWrapper>
