@@ -37,7 +37,7 @@ export const AppUpdateDialogBox: FC = () => {
     if (isUpdatesChecked && !updateInfo) {
       navigateTo(routes.onboarding.deviceUpdate.path);
     }
-  }, [isUpdatesChecked]);
+  }, [isUpdatesChecked, updateInfo]);
 
   const AppUpdateDialogs: Record<AppUpdateState, ReactElement> = {
     [AppUpdateState.Checking]: (
