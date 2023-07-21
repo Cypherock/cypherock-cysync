@@ -17,21 +17,21 @@ export interface InputProps {
   disabled?: boolean;
   postfixIcon?: React.ReactNode;
   onPostfixIconClick?: () => void;
-  bgColor?: string;
+  $bgColor?: string;
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
 }
 
-const InputStyle = styled.input<{ bgColor?: string }>`
+const InputStyle = styled.input<{ $bgColor?: string }>`
   position: relative;
   width: 100%;
   border: none;
   padding: 12px 24px;
   background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
-  background: ${({ bgColor, theme }) =>
-    bgColor ?? theme.palette.background.dropdown};
+  background: ${({ $bgColor, theme }) =>
+    $bgColor ?? theme.palette.background.dropdown};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
@@ -62,7 +62,7 @@ export const Input: FC<InputProps> = ({
   disabled,
   postfixIcon,
   onPostfixIconClick,
-  bgColor,
+  $bgColor,
   onClick,
   pasteAllowed,
   copyAllowed,
@@ -79,7 +79,7 @@ export const Input: FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        bgColor={bgColor}
+        $bgColor={$bgColor}
         value={value}
         onClick={onClick}
         onPaste={e => {
@@ -118,7 +118,7 @@ Input.defaultProps = {
   disabled: false,
   postfixIcon: undefined,
   onPostfixIconClick: undefined,
-  bgColor: undefined,
+  $bgColor: undefined,
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,

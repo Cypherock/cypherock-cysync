@@ -42,7 +42,7 @@ const buttonAnimationData = {
   curve: 'ease-out',
 };
 
-const Container = styled.div<{ isOpen: boolean; disabled?: boolean }>`
+const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
@@ -54,8 +54,8 @@ const Container = styled.div<{ isOpen: boolean; disabled?: boolean }>`
     inset: 0;
     border-radius: 8px;
     border: 1px solid transparent;
-    background: ${({ isOpen, theme }) =>
-        isOpen ? theme.palette.golden : 'transparent'}
+    background: ${({ $isOpen, theme }) =>
+        $isOpen ? theme.palette.golden : 'transparent'}
       border-box;
     -webkit-mask: linear-gradient(#fff 0 0) padding-box,
       linear-gradient(#fff 0 0);
@@ -93,7 +93,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
   const [checkedStates, setCheckedStates] = React.useState<
     Record<string, boolean>
   >({});
@@ -124,7 +124,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const toggleDropdown = () => {
     if (!disabled) {
-      setIsOpen(!isOpen);
+      setisOpen(!isOpen);
       setSearch('');
     }
   };
@@ -145,7 +145,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        setisOpen(false);
       }
     };
 
@@ -159,7 +159,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <Container
       ref={containerRef}
-      isOpen={isOpen ?? isHovered}
+      $isOpen={isOpen || isHovered}
       disabled={disabled}
       onClick={toggleDropdown}
       onMouseEnter={() => setIsHovered(true)}
@@ -190,7 +190,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          bgColor={theme?.palette.background.dropdown}
+          $bgColor={theme?.palette.background.dropdown}
           placeholder={isOpen ? searchText : placeholderText}
           disabled={disabled}
         />

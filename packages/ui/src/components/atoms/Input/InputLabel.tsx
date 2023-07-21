@@ -20,13 +20,13 @@ interface InputLabelProps
     FontProps,
     DisplayProps {
   children?: ReactNode;
-  noWrap?: boolean;
-  textAlign?: 'left' | 'center' | 'right';
+  $noWrap?: boolean;
+  $textAlign?: 'left' | 'center' | 'right';
 }
 
 const InputLabelStyle = styled.label<InputLabelProps>`
   display: block;
-  text-align: ${({ textAlign }) => textAlign ?? 'left'};
+  text-align: ${({ $textAlign }) => $textAlign ?? 'left'};
 
   width: 100%;
   font-size: 14px;
@@ -47,7 +47,7 @@ const InputLabelStyle = styled.label<InputLabelProps>`
   padding: 0px 10px 0px 10px;
   margin-bottom: 8px;
 
-  ${({ noWrap }) => noWrap && 'white-space: nowrap;'}
+  ${({ $noWrap }) => $noWrap && 'white-space: nowrap;'}
 
   ${spacing}
   ${border}
@@ -57,17 +57,17 @@ const InputLabelStyle = styled.label<InputLabelProps>`
 
 export const InputLabel: FC<InputLabelProps> = ({
   children,
-  noWrap,
-  textAlign,
+  $noWrap = false,
+  $textAlign,
   ...props
 }) => (
-  <InputLabelStyle noWrap={noWrap} textAlign={textAlign} {...props}>
+  <InputLabelStyle $noWrap={$noWrap} $textAlign={$textAlign} {...props}>
     {children}
   </InputLabelStyle>
 );
 
 InputLabel.defaultProps = {
   children: undefined,
-  noWrap: false,
-  textAlign: 'left',
+  $noWrap: false,
+  $textAlign: 'left',
 };

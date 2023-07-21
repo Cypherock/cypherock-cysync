@@ -34,7 +34,7 @@ export interface DropDownListItemProps extends BorderProps {
 }
 
 export interface DropDownListItemHorizontalBoxProps {
-  isChecked: boolean;
+  $isChecked: boolean;
 }
 
 const ShortFormTag = styled.div`
@@ -46,11 +46,11 @@ const ShortFormTag = styled.div`
 `;
 
 export const DropDownListItemStretchedTypography = styled(Typography)<{
-  shouldStretch: boolean;
-  changeColor?: boolean;
+  $shouldStretch: boolean;
+  $changeColor?: boolean;
 }>`
-  color: ${({ changeColor, theme }) =>
-    changeColor ? theme.palette.text.white : theme.palette.text.muted};
+  color: ${({ $changeColor, theme }) =>
+    $changeColor ? theme.palette.text.white : theme.palette.text.muted};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
@@ -124,7 +124,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   return (
     <DropDownListItemHorizontalBox
       onClick={handleBoxClick}
-      isChecked={checked}
+      $isChecked={checked}
       $borderRadius={$borderRadius}
     >
       {!restrictedItem && checkType && checkType === 'radio' && (
@@ -141,9 +141,9 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         </DropDownListItemIconContainer>
       )}
       <DropDownListItemStretchedTypography
-        shouldStretch={!tag}
+        $shouldStretch={!tag}
         variant="h6"
-        changeColor={changeColorWhite}
+        $changeColor={changeColorWhite}
       >
         <LangDisplay text={text} />
         <ShortFormTag>

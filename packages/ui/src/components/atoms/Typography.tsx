@@ -109,6 +109,7 @@ const baseStyle = css<HeadingProps>`
   ${font};
   ${width};
   ${position};
+  ${flex};
   ${display};
   ${flex};
 `;

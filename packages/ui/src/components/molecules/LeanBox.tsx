@@ -27,12 +27,12 @@ export interface LeanBoxProps {
   checkType?: 'checkbox' | 'radio';
   id?: string;
   animate?: boolean;
-  isChecked?: boolean;
-  onCheckChanged?: (isChecked: boolean) => void;
+  $isChecked?: boolean;
+  onCheckChanged?: ($isChecked: boolean) => void;
   value?: string;
 }
 
-export const HorizontalBox = styled.div<{ isChecked: boolean }>`
+export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
   display: flex;
   padding: 8px 16px;
   align-items: center;
@@ -40,8 +40,10 @@ export const HorizontalBox = styled.div<{ isChecked: boolean }>`
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.input};
-  background: ${({ isChecked, theme }) =>
-    isChecked ? theme.palette.background.list : theme.palette.background.input};
+  background: ${({ $isChecked, theme }) =>
+    $isChecked
+      ? theme.palette.background.list
+      : theme.palette.background.input};
   width: 422px;
   height: 42px;
 `;
@@ -52,9 +54,9 @@ export const ImageContainer = styled.div`
 `;
 
 export const StretchedTypography = styled(Typography)<{
-  shouldStretch: boolean;
+  $shouldStretch: boolean;
 }>`
-  flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')};
+  flex: ${({ $shouldStretch }) => ($shouldStretch ? '1' : 'unset')};
 `;
 
 export const RightContent = styled.div`
@@ -78,22 +80,22 @@ export const LeanBox: FC<LeanBoxProps> = ({
   checkType = undefined,
   id,
   animate = false,
-  isChecked = false,
+  $isChecked = false,
   onCheckChanged,
   value,
 }): ReactElement => {
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
-      onCheckChanged(!isChecked);
+      onCheckChanged(!$isChecked);
     }
-  }, [onCheckChanged, isChecked]);
+  }, [onCheckChanged, $isChecked]);
 
   return (
     <InputLabel>
-      <HorizontalBox isChecked={isChecked}>
+      <HorizontalBox $isChecked={$isChecked}>
         {checkType === 'radio' && (
           <RadioButton
-            checked={isChecked}
+            checked={$isChecked}
             value={value}
             onChange={handleCheckChange}
           />
@@ -109,7 +111,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
           </ImageContainer>
         )}
         <StretchedTypography
-          shouldStretch={!tag}
+          $shouldStretch={!tag}
           variant={textVariant}
           color={color}
         >
@@ -149,7 +151,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
           )}
           {checkType === 'checkbox' && (
             <CheckBox
-              checked={isChecked}
+              checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
             />
@@ -171,7 +173,7 @@ LeanBox.defaultProps = {
   checkType: undefined,
   id: undefined,
   animate: false,
-  isChecked: false,
+  $isChecked: false,
   onCheckChanged: undefined,
   value: '',
   tag: '',
