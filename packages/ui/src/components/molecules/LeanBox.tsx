@@ -20,19 +20,16 @@ export interface LeanBoxProps {
   tag?: string;
   text: string;
   shortForm?: string;
-  displayRadioButton?: boolean;
-  radioButtonValue?: string;
   rightTextColor?: TypographyColor;
   textVariant?: TypographyProps['variant'];
   rightTextVariant?: TypographyProps['variant'];
   color?: TypographyColor;
-  checkBox?: boolean;
+  checkType?: 'checkbox' | 'radio';
   id?: string;
   animate?: boolean;
   isChecked?: boolean;
-  onCheckChange?: (isChecked: boolean) => void;
-  radioButtonSelected?: boolean;
-  onRadioButtonChange?: (isSelected: boolean) => void;
+  onCheckChanged?: (isChecked: boolean) => void;
+  value?: string;
 }
 
 export const HorizontalBox = styled.div<{ isChecked: boolean }>`
@@ -70,8 +67,6 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImageSrc,
   rightImageSrc,
-  displayRadioButton,
-  radioButtonValue,
   rightText,
   shortForm = '',
   text,
@@ -80,32 +75,27 @@ export const LeanBox: FC<LeanBoxProps> = ({
   rightTextVariant = 'fineprint',
   color = 'muted',
   rightTextColor = 'gold',
-  checkBox = false,
+  checkType = undefined,
   id,
   animate = false,
   isChecked = false,
-  onCheckChange,
-  radioButtonSelected = false,
-  onRadioButtonChange,
+  onCheckChanged,
+  value,
 }): ReactElement => {
-  const handleCheckBoxChange = () => {
-    onCheckChange?.(!isChecked);
-  };
-
-  const handleRadioButtonChange = useCallback(() => {
-    if (onRadioButtonChange) {
-      onRadioButtonChange(!radioButtonSelected);
+  const handleCheckChange = useCallback(() => {
+    if (onCheckChanged) {
+      onCheckChanged(!isChecked);
     }
-  }, [onRadioButtonChange, radioButtonSelected]);
+  }, [onCheckChanged, isChecked]);
 
   return (
     <InputLabel>
       <HorizontalBox isChecked={isChecked}>
-        {displayRadioButton && (
+        {checkType === 'radio' && (
           <RadioButton
-            checked={radioButtonSelected}
-            value={radioButtonValue}
-            onChange={handleRadioButtonChange}
+            checked={isChecked}
+            value={value}
+            onChange={handleCheckChange}
           />
         )}
         {leftImageSrc && (
@@ -125,9 +115,11 @@ export const LeanBox: FC<LeanBoxProps> = ({
         >
           {text}
         </StretchedTypography>
-        <Typography $fontSize={13} $fontWeight="medium" color="muted">
-          <LangDisplay text={shortForm} />
-        </Typography>
+        {shortForm && (
+          <Typography $fontSize={13} $fontWeight="medium" color="muted">
+            <LangDisplay text={shortForm} />
+          </Typography>
+        )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
           {rightText && (
@@ -155,10 +147,10 @@ export const LeanBox: FC<LeanBoxProps> = ({
               )}
             </ImageContainer>
           )}
-          {checkBox && (
+          {checkType === 'checkbox' && (
             <CheckBox
               checked={isChecked}
-              onChange={handleCheckBoxChange}
+              onChange={handleCheckChange}
               id={id ?? 'default-id'}
             />
           )}
@@ -174,17 +166,14 @@ LeanBox.defaultProps = {
   rightText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
-  displayRadioButton: false,
-  radioButtonValue: '',
   rightTextVariant: 'fineprint',
   color: 'muted',
-  checkBox: false,
+  checkType: undefined,
   id: undefined,
   animate: false,
   isChecked: false,
-  onCheckChange: undefined,
-  radioButtonSelected: false,
-  onRadioButtonChange: undefined,
+  onCheckChanged: undefined,
+  value: '',
   tag: '',
   shortForm: '',
 };

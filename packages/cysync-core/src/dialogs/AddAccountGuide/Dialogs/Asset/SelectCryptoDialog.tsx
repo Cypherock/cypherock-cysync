@@ -12,124 +12,106 @@ import {
   addIcon,
   bitcoinIcon,
   etheriumBlueIcon,
-  solanaIcon,
-  binanceIcon,
+  DropDownListItemProps,
 } from '@cypherock/cysync-ui';
-import React, { useReducer } from 'react';
+import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
+import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAddAccountGuide } from '../../context';
+import { useAddAccountDialog } from '../../context';
 
-const dropDownData = [
+const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
     leftImageSrc: bitcoinIcon,
     shortForm: '(BTC)',
     text: 'Bitcoin',
-    displayRadioButton: true,
-    tag: 'Taproot',
+    checkType: 'radio',
   },
   {
     id: '42',
     leftImageSrc: etheriumBlueIcon,
     text: 'Ethereum',
     shortForm: '(ETH)',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
   {
     id: '43',
     leftImageSrc: solanaIcon,
     shortForm: '(SOL)',
     text: 'Solana',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
   {
     id: '44',
     leftImageSrc: binanceIcon,
     shortForm: '(BTC)',
     text: 'Binance Smart Chain',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
 ];
-
-const dropDownDataWithWallet = [
+const dropDownDataWithWallet: DropDownListItemProps[] = [
   {
     id: '51',
     text: 'Official',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
   {
     id: '52',
     text: 'Cypherock Red',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
   {
     id: '53',
     text: 'Personal',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
   {
     id: '54',
     text: 'Business',
-    displayRadioButton: true,
+    checkType: 'radio',
   },
 ];
 
-interface State {
+interface DropdownState {
   isFirstDropdownSelected: boolean;
   isSecondDropdownSelected: boolean;
   firstDropdownSelection: string;
   secondDropdownSelection: string | undefined;
 }
 
-type Action =
-  | { type: 'SET_FIRST_DROPDOWN'; payload: string | undefined }
-  | { type: 'SET_SECOND_DROPDOWN'; payload: string | undefined };
-
-const initialState: State = {
-  isFirstDropdownSelected: false,
-  isSecondDropdownSelected: true,
-  firstDropdownSelection: '',
-  secondDropdownSelection: undefined,
-};
-
-const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'SET_FIRST_DROPDOWN':
-      return {
-        ...state,
-        firstDropdownSelection: action.payload ?? '',
-        isFirstDropdownSelected: !!action.payload,
-      };
-    case 'SET_SECOND_DROPDOWN':
-      return {
-        ...state,
-        secondDropdownSelection: action.payload ?? '',
-        isSecondDropdownSelected: !!action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
 export const SelectCryptoDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const crypto = lang.strings.addAccount.addAccount.selectCrypto.info.dialogBox;
-  const { onNext } = useAddAccountGuide();
+  const button = lang.strings.buttons;
+  const { onNext } = useAddAccountDialog();
 
-  const [dropdownState, dispatch] = useReducer(reducer, initialState);
+  const [dropdownState, setDropdownState] = useState<DropdownState>({
+    isFirstDropdownSelected: false,
+    isSecondDropdownSelected: false,
+    firstDropdownSelection: '',
+    secondDropdownSelection: '',
+  });
 
   const handleFirstDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    dispatch({ type: 'SET_FIRST_DROPDOWN', payload: selectedItemId });
+    setDropdownState(prev => ({
+      ...prev,
+      firstDropdownSelection: selectedItemId ?? '',
+      isFirstDropdownSelected: !!selectedItemId,
+    }));
   };
 
   const handleSecondDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    dispatch({ type: 'SET_SECOND_DROPDOWN', payload: selectedItemId });
+    setDropdownState(prev => ({
+      ...prev,
+      secondDropdownSelection: selectedItemId ?? '',
+      isSecondDropdownSelected: !!selectedItemId,
+    }));
   };
 
   return (
@@ -150,7 +132,7 @@ export const SelectCryptoDialog: React.FC = () => {
               <LangDisplay text={crypto.subTitle} />
             </Typography>
             <Typography variant="span" color="white">
-              Cypherock Red
+              {crypto.text}
             </Typography>
           </Container>
         </Container>
@@ -173,6 +155,7 @@ export const SelectCryptoDialog: React.FC = () => {
           />
         </Container>
       </DialogBoxBody>
+
       <DialogBoxFooter>
         <Button
           variant="primary"
@@ -182,7 +165,7 @@ export const SelectCryptoDialog: React.FC = () => {
             onNext();
           }}
         >
-          <LangDisplay text={crypto.buttonName} />
+          <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

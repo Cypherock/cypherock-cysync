@@ -1,7 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '../../themes/theme.styled';
 import {
   CheckBox,
   Image,
@@ -20,13 +19,12 @@ export interface DropDownListItemProps extends BorderProps {
   rightText?: string;
   tag?: string;
   text: string;
-  displayRadioButton?: boolean;
   radioButtonValue?: string;
   restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
-  showCheckBox?: boolean;
+  checkType?: 'checkbox' | 'radio';
   id?: string;
   onClick?: () => void;
   selectedItem?: string | undefined;
@@ -37,15 +35,22 @@ export interface DropDownListItemProps extends BorderProps {
 
 export interface DropDownListItemHorizontalBoxProps {
   isChecked: boolean;
-  borderRadius?: string; // Change the type to string or use a custom type alias
 }
 
 const ShortFormTag = styled.div`
   font-size: 13px;
   font-weight: 600;
   display: inline-block;
-  color: ${theme.palette.text.muted};
+  color: ${({ theme }) => theme.palette.text.muted};
   padding-left: 5px;
+`;
+
+export const DropDownListItemStretchedTypography = styled(Typography)<{
+  shouldStretch: boolean;
+  changeColor?: boolean;
+}>`
+  color: ${({ changeColor, theme }) =>
+    changeColor ? theme.palette.text.white : theme.palette.text.muted};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
@@ -56,26 +61,21 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-items: center;
   gap: 16px;
   align-self: stretch;
-  border-bottom: 1px solid ${theme.palette.border.list};
-  background-color: ${theme.palette.background.dropdown};
+  border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
+  background-color: ${({ theme }) => theme.palette.background.dropdown};
   &:hover {
-    background-color: ${theme.palette.background.dropdownHover};
+    background-color: ${({ theme }) => theme.palette.background.dropdownHover};
+    ${DropDownListItemStretchedTypography} {
+      color: ${({ theme }) => theme.palette.text.white};
+    }
   }
+  color: ${({ theme }) => theme.palette.text.muted};
   ${border}
 `;
 
 export const DropDownListItemIconContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-export const DropDownListItemStretchedTypography = styled(Typography)<{
-  shouldStretch: boolean;
-  changeColor?: boolean;
-}>`
-  /* flex: ${({ shouldStretch }) => (shouldStretch ? '1' : 'unset')}; */
-  color: ${({ changeColor }) =>
-    changeColor ? 'white' : theme.palette.text.muted};
 `;
 
 export const DropDownListItemRightContent = styled.div`
@@ -88,7 +88,6 @@ export const DropDownListItemRightContent = styled.div`
 export const DropDownListItem: FC<DropDownListItemProps> = ({
   leftImageSrc,
   rightIconSrc,
-  displayRadioButton,
   radioButtonValue,
   rightText,
   selectedItem = undefined,
@@ -97,27 +96,18 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   tag,
   rightTextVariant = 'fineprint',
   rightTextColor = 'gold',
-  showCheckBox = false,
+  checkType = undefined,
   checked = false,
+  changeColorWhite = false,
   id,
   onClick,
   restrictedItem = false,
-  changeColorWhite = false,
   onCheckedChange,
   $borderRadius,
 }): ReactElement => {
   const [isChecked, setChecked] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleCheckBoxChange = () => {
+  const handleCheckChange = () => {
     const newChecked = !isChecked;
     setChecked(newChecked);
 
@@ -127,7 +117,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   };
 
   const handleBoxClick = () => {
-    if (showCheckBox) handleCheckBoxChange();
+    if (checkType) handleCheckChange();
     if (onClick) onClick();
   };
 
@@ -135,11 +125,9 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
     <DropDownListItemHorizontalBox
       onClick={handleBoxClick}
       isChecked={checked}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       $borderRadius={$borderRadius}
     >
-      {!restrictedItem && displayRadioButton && (
+      {!restrictedItem && checkType && checkType === 'radio' && (
         <RadioButton checked={selectedItem === id} value={radioButtonValue} />
       )}
       {leftImageSrc && (
@@ -155,7 +143,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       <DropDownListItemStretchedTypography
         shouldStretch={!tag}
         variant="h6"
-        changeColor={changeColorWhite || isHovered}
+        changeColor={changeColorWhite}
       >
         <LangDisplay text={text} />
         <ShortFormTag>
@@ -179,10 +167,10 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
             />
           </DropDownListItemIconContainer>
         )}
-        {!restrictedItem && showCheckBox && (
+        {!restrictedItem && checkType && checkType === 'checkbox' && (
           <CheckBox
             checked={checked}
-            onChange={handleCheckBoxChange}
+            onChange={handleCheckChange}
             id={id ?? 'default-id'}
           />
         )}
@@ -196,10 +184,9 @@ DropDownListItem.defaultProps = {
   leftImageSrc: undefined,
   rightText: undefined,
   rightTextColor: 'muted',
-  displayRadioButton: false,
   radioButtonValue: '',
   rightTextVariant: 'fineprint',
-  showCheckBox: false,
+  checkType: undefined,
   id: undefined,
   tag: undefined,
   onClick: undefined,

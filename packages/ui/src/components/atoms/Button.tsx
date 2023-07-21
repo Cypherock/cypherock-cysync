@@ -4,6 +4,7 @@ import styled, { RuleSet, css } from 'styled-components';
 import { Throbber } from './Throbber';
 
 import { UtilsProps, utils } from '../utils';
+import { goldenGradient } from './Gradient';
 
 type ButtonVariant =
   | 'primary'
@@ -59,24 +60,28 @@ const buttonAnimationData = {
   curve: 'ease-out',
 };
 
+export const goldenGradientBackground = css`
+  @property --a {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 90deg;
+  }
+
+  transition: --a ${buttonAnimationData.duration} ${buttonAnimationData.curve};
+  background: linear-gradient(
+    var(--a),
+    #e9b873 0.19%,
+    #fedd8f 37.17%,
+    #b78d51 100.19%
+  );
+  &:hover {
+    --a: 180deg;
+  }
+`;
+
 const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
   primary: css<ButtonProps>`
-    @property --a {
-      syntax: '<angle>';
-      inherits: false;
-      initial-value: 90deg;
-    }
-
-    transition: --a ${buttonAnimationData.duration} ${buttonAnimationData.curve};
-    background: linear-gradient(
-      var(--a),
-      #e9b873 0.19%,
-      #fedd8f 37.17%,
-      #b78d51 100.19%
-    );
-    &:hover {
-      --a: 180deg;
-    }
+    ${goldenGradient('background')};
     border: 1px solid transparent;
   `,
   secondary: css<ButtonProps>`
@@ -95,8 +100,8 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
     &:hover::before {
       background: ${props => props.theme.palette.silver} border-box;
-      transition: all ${buttonAnimationData.duration}
-        ${buttonAnimationData.curve};
+      transition: all ${buttonAnimationData.duration};
+      ${buttonAnimationData.curve};
     }
 
     position: relative;
@@ -162,7 +167,12 @@ const ButtonStyle = styled.button<ButtonProps>`
     transition: box-shadow ${buttonAnimationData.duration};
     ${buttonAnimationData.curve};
   }
-  ${props => props.disabled && 'opacity: 0.5;'}
+  ${({ disabled, theme }) =>
+    disabled &&
+    `
+    background-color: ${theme.palette.background.disabled};
+    cursor: not-allowed;
+  `}
   ${utils}
 `;
 

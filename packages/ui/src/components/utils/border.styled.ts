@@ -20,8 +20,7 @@ type BorderColor =
   | 'input'
   | 'warning'
   | 'white'
-  | 'list'
-  | string;
+  | 'list';
 type BorderRadius = number | 'full';
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
 

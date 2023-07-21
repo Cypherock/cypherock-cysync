@@ -1,16 +1,16 @@
-import React, { FC, ReactNode, LabelHTMLAttributes } from 'react';
+import React, { FC, LabelHTMLAttributes, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-
 import {
-  spacing,
-  SpacingProps,
   BorderProps,
-  border,
-  font,
-  display,
   DisplayProps,
   FontProps,
+  SpacingProps,
+  border,
+  display,
+  font,
+  spacing,
 } from '../../utils';
+import { goldenGradient } from '../Gradient';
 
 interface InputLabelProps
   extends LabelHTMLAttributes<HTMLLabelElement>,
@@ -19,33 +19,35 @@ interface InputLabelProps
     FontProps,
     DisplayProps {
   children?: ReactNode;
-  className?: string;
-  fontSize?: number;
-  fontWeight?: FontProps['$fontWeight'];
-  textAlign?: 'left' | 'right';
   noWrap?: boolean;
-  clickable?: boolean;
-  inline?: boolean;
-  color?: string;
+  textAlign?: 'left' | 'center' | 'right';
 }
 
 const InputLabelStyle = styled.label<InputLabelProps>`
-  text-align: right;
+  display: block;
+  text-align: ${({ textAlign }) => textAlign ?? 'left'};
+
   width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
 
-  color: ${({ theme, color }) => color ?? theme.palette.text.muted};
-  ${({ textAlign }) => textAlign === 'left' && 'text-align: left;'}
-  white-space: ${({ noWrap }) => (noWrap ? 'nowrap' : 'normal')};
+  ${({ theme, color }) => {
+    if (color === 'gradient') {
+      return css`
+        ${goldenGradient('color')}
+      `;
+    }
+    return css`
+      color: ${color ? theme.palette[color] : theme.palette.text.muted};
+    `;
+  }}
 
-  ${({ clickable }) =>
-    clickable &&
-    css`
-      cursor: pointer;
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 8px;
 
-      &:hover {
-        text-decoration: underline;
-      }
-    `}
+  ${({ noWrap }) => noWrap && 'white-space: nowrap;'}
+
   ${spacing}
   ${border}
   ${font} 
@@ -54,37 +56,17 @@ const InputLabelStyle = styled.label<InputLabelProps>`
 
 export const InputLabel: FC<InputLabelProps> = ({
   children,
-  className,
-  fontSize,
-  fontWeight = 'normal',
-  textAlign = 'left',
-  noWrap = false,
-  clickable = false,
-  color,
+  noWrap,
+  textAlign,
   ...props
 }) => (
-  <InputLabelStyle
-    className={className}
-    $fontSize={fontSize}
-    $fontWeight={fontWeight}
-    textAlign={textAlign}
-    noWrap={noWrap}
-    clickable={clickable}
-    color={color}
-    {...props}
-  >
+  <InputLabelStyle noWrap={noWrap} textAlign={textAlign} {...props}>
     {children}
   </InputLabelStyle>
 );
 
 InputLabel.defaultProps = {
-  children: null,
-  className: '',
-  fontSize: undefined,
-  fontWeight: 'normal',
+  children: undefined,
   noWrap: false,
-  clickable: false,
-  textAlign: undefined,
-  inline: false,
-  color: undefined,
+  textAlign: 'left',
 };

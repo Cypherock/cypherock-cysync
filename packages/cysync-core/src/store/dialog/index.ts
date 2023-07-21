@@ -10,9 +10,6 @@ import type { RootState } from '../store';
 export * from './types';
 
 const initialState: IDialogState = {
-  addAccount: {
-    isOpen: false,
-  },
   walletSyncError: {
     isOpen: false,
   },
@@ -22,7 +19,7 @@ const initialState: IDialogState = {
   createWalletGuide: {
     isOpen: false,
   },
-  addAccountGuide: {
+  addAccountDialog: {
     isOpen: false,
   },
 };

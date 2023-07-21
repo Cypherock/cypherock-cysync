@@ -58,6 +58,7 @@ export const colors = {
     black: '#000000',
     toggleOff: '#544D43',
     list: '#2C2824',
+    lightBlack: '#1B1712',
   },
   border: {
     popup: '#2C2520',

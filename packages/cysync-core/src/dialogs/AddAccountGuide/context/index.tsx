@@ -12,7 +12,6 @@ import React, {
   useState,
 } from 'react';
 
-import logger from '~/utils/logger';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -31,27 +30,28 @@ type ITabs = {
   dialogs: ReactNode[];
 }[];
 
-export interface AddAccountGuideContextInterface {
+export interface AddAccountDialogContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: Dispatch<SetStateAction<number>>;
   currentDialog: number;
   setCurrentDialog: Dispatch<SetStateAction<number>>;
-  onNext: (tab?: number, dialog?: number) => void;
+  onNext: () => void;
+  goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
 }
 
-export const AddAccountGuideContext: Context<AddAccountGuideContextInterface> =
-  createContext<AddAccountGuideContextInterface>(
-    {} as AddAccountGuideContextInterface,
+export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
+  createContext<AddAccountDialogContextInterface>(
+    {} as AddAccountDialogContextInterface,
   );
 
-export interface AddAccountGuideContextProviderProps {
+export interface AddAccountDialogContextProviderProps {
   children: ReactNode;
 }
 
-export const AddAccountGuideProvider: FC<
-  AddAccountGuideContextProviderProps
+export const AddAccountDialogProvider: FC<
+  AddAccountDialogContextProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -79,21 +79,33 @@ export const AddAccountGuideProvider: FC<
     },
   ];
 
-  const onNext = (tab?: number, dialog?: number) => {
-    logger.info('currentTab');
-
-    if (typeof tab === 'number' && typeof dialog === 'number') {
-      setCurrentTab(tab);
-      setCurrentDialog(dialog);
-    } else if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
-      if (currentTab !== tabs.length - 1) {
-        setCurrentDialog(0);
-      }
+  const onNext = () => {
+    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
+      goToNextTab();
     } else {
-      setCurrentDialog(prevProps =>
-        Math.min(tabs[currentTab].dialogs.length - 1, prevProps + 1),
-      );
+      goToNextDialog();
+    }
+  };
+
+  const goToNextTab = () => {
+    setCurrentTab(prevTab => Math.min(tabs.length - 1, prevTab + 1));
+    if (currentTab !== tabs.length - 1) {
+      setCurrentDialog(0);
+    }
+  };
+
+  const goToNextDialog = () => {
+    setCurrentDialog(prevDialog =>
+      Math.min(tabs[currentTab].dialogs.length - 1, prevDialog + 1),
+    );
+  };
+
+  const goTo = (tab: number, dialog?: number) => {
+    setCurrentTab(tab);
+    if (dialog !== undefined) {
+      setCurrentDialog(dialog);
+    } else {
+      setCurrentDialog(0);
     }
   };
 
@@ -118,6 +130,7 @@ export const AddAccountGuideProvider: FC<
       setCurrentDialog,
       tabs,
       onNext,
+      goTo,
       onPrevious,
     }),
     [
@@ -127,17 +140,18 @@ export const AddAccountGuideProvider: FC<
       setCurrentDialog,
       tabs,
       onNext,
+      goTo,
       onPrevious,
     ],
   );
 
   return (
-    <AddAccountGuideContext.Provider value={ctx}>
+    <AddAccountDialogContext.Provider value={ctx}>
       {children}
-    </AddAccountGuideContext.Provider>
+    </AddAccountDialogContext.Provider>
   );
 };
 
-export function useAddAccountGuide(): AddAccountGuideContextInterface {
-  return useContext(AddAccountGuideContext);
+export function useAddAccountDialog(): AddAccountDialogContextInterface {
+  return useContext(AddAccountDialogContext);
 }

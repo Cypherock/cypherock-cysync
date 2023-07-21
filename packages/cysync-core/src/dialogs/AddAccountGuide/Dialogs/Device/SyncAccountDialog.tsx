@@ -15,10 +15,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAddAccountGuide } from '../../context';
-import { addKeyboardEvents } from '~/hooks';
+import { useAddAccountDialog } from '../../context';
 
 const dataArray = [
   {
@@ -45,11 +45,11 @@ export const SyncAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const sync = lang.strings.addAccount.addAccount.syncAccount.info.dialogBox;
-  const { onNext, onPrevious } = useAddAccountGuide();
+  const { goTo, onNext, onPrevious } = useAddAccountDialog();
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(1, 4);
+      goTo(1, 4);
     },
     ArrowLeft: () => {
       onPrevious();
@@ -96,7 +96,7 @@ export const SyncAccountDialog: React.FC = () => {
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleNextWithTimeout}>
-          <LangDisplay text={sync.end} />
+          <LangDisplay text={sync.buttonStopSync} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

@@ -1,16 +1,16 @@
+// import {
+//   DialogBoxBody,
+//   InputLabel,
+//   LangDisplay,
+//   LeanBox,
+//   LeanBoxContainer,
+//   bitcoinIcon,
+// } from '@cypherock/cysync-ui';
+import React, { useEffect } from 'react';
+import { openAddAccountDialog } from '~/actions';
 import {
-  DialogBoxBody,
-  InputLabel,
-  LangDisplay,
-  LeanBox,
-  LeanBoxContainer,
-  bitcoinIcon,
-} from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
-import { openAddAccountGuideDialog } from '~/actions';
-import {
+  AddAccountDialog,
   AddAccountSingleChainDialog,
-  InitialiseAccountDialog,
 } from '~/dialogs/AddAccountGuide/Dialogs';
 
 import { useAppDispatch } from '~/store';
@@ -18,61 +18,32 @@ import { useAppDispatch } from '~/store';
 export const SyncAccount: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const accountNotSynced = [
-    {
-      id: '1',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'TAPROOT',
-    },
-    {
-      id: '22',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'TAPROOT',
-    },
-    {
-      id: '3',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'SEGWIT',
-    },
-    {
-      id: '4',
-      leftImageSrc: bitcoinIcon,
-      text: 'Bitcoin 2',
-      checkBox: true,
-      tag: 'NATIVE SEGWIT',
-    },
-  ];
-
   useEffect(() => {
-    dispatch(openAddAccountGuideDialog());
+    dispatch(openAddAccountDialog());
   }, []);
 
-  const [checkedAccounts, setCheckedAccounts] = useState<
-    Record<string, boolean>
-  >({});
+  // const [checkedAccounts, setCheckedAccounts] = useState<
+  //   Record<string, boolean>
+  // >({});
 
-  const handleCheckChange = (id: string) => (isChecked: boolean) => {
-    setCheckedAccounts(prevState => ({
-      ...prevState,
-      [id]: isChecked,
-    }));
-  };
+  // const handleCheckChange = (id: string) => (isChecked: boolean) => {
+  //   setCheckedAccounts(prevState => ({
+  //     ...prevState,
+  //     [id]: isChecked,
+  //   }));
+  // };
 
-  const handleUncheckAll = () => {
-    setCheckedAccounts({});
-  };
+  // const handleUncheckAll = () => {
+  //   setCheckedAccounts({});
+  // };
 
   return (
     <div>
+      {/* <SelectCryptoDialog /> */}
+      <AddAccountDialog />
       <AddAccountSingleChainDialog />
-      <InitialiseAccountDialog />
-      <DialogBoxBody>
+      {/* <InitialiseAccountDialog /> */}
+      {/* <DialogBoxBody>
         <InputLabel
           color="gold"
           display={{ def: 'inline-block' }}
@@ -102,7 +73,7 @@ export const SyncAccount: React.FC = () => {
             />
           ))}
         </LeanBoxContainer>
-      </DialogBoxBody>
+      </DialogBoxBody> */}
     </div>
   );
 };

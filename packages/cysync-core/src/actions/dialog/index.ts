@@ -9,5 +9,5 @@ export const openWalletActionsDialog = () =>
 export const openCreateWalletGuideDialog = () =>
   openDialog({ name: 'createWalletGuide', data: undefined });
 
-export const openAddAccountGuideDialog = () =>
-  openDialog({ name: 'addAccountGuide', data: undefined });
+export const openAddAccountDialog = () =>
+  openDialog({ name: 'addAccountDialog', data: undefined });

@@ -1,6 +1,5 @@
 import {
   LangDisplay,
-  ScrollableContainer,
   FlexGapContainer,
   DialogBox,
   DialogBoxHeader,
@@ -15,20 +14,20 @@ import {
   settingsIcon,
   Flex,
   bitcoinIcon,
+  Toggle,
 } from '@cypherock/cysync-ui';
-import { Toggle } from '@cypherock/cysync-ui/dist/esm/components/atoms/Toggle';
 import React, { FC, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAddAccountGuide } from '../../context';
+import { useAddAccountDialog } from '../../context';
 
 const dataArray = [
   {
     id: '10',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 1',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'TAPROOT',
   },
 ];
@@ -37,28 +36,28 @@ const accountNotSynced = [
     id: '1',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 2',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'TAPROOT',
   },
   {
     id: '2',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 2',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'TAPROOT',
   },
   {
     id: '3',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 2',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'SEGWIT',
   },
   {
     id: '4',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 2',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'NATIVE SEGWIT',
   },
 ];
@@ -67,21 +66,21 @@ const accountsInPortfolio = [
     id: '11',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 1',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'SEGWIT',
   },
   {
     id: '12',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 1',
-    checkBox: true,
+    checkType: 'checkbox',
     tag: 'NATIVE SEGWIT',
   },
 ];
 
 export const AddAccountSingleChainDialog: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const { onNext } = useAddAccountGuide();
+  const { goTo } = useAddAccountDialog();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
   const handleCheckBoxChange = (id: string) => {
@@ -96,15 +95,19 @@ export const AddAccountSingleChainDialog: FC = () => {
     setIsChecked(checked);
   };
 
-  const handleClick = () => {
+  const handleDeselectAll = () => {
     const uncheckedItems = accountNotSynced.map(data => data.id);
     setCheckedItems(prevItems =>
       prevItems.filter(item => !uncheckedItems.includes(item)),
     );
   };
 
+  const checkedItemsCount = checkedItems.filter(item =>
+    accountNotSynced.some(data => data.id === item),
+  ).length;
+
   const handleButtonClick = () => {
-    onNext(2, 0);
+    goTo(2, 0);
   };
 
   const lang = useAppSelector(selectLanguage);
@@ -112,7 +115,7 @@ export const AddAccountSingleChainDialog: FC = () => {
     lang.strings.addAccount.addAccount.addAccountSingleChain.info.dialogBox;
 
   return (
-    <DialogBox width={500} height={700}>
+    <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
           <LangDisplay text={singleChain.title} />
@@ -124,122 +127,126 @@ export const AddAccountSingleChainDialog: FC = () => {
           <LangDisplay text={singleChain.header} />
         </Typography>
       </FlexGapContainer>
-      <ScrollableContainer>
-        <DialogBoxBody py={4} px={5} overflowY="auto">
-          <div>
-            <InputLabel
-              mt={4}
-              mr={1}
-              mb={1}
-              display={{ def: 'inline-block' }}
-              fontSize={14}
-            >
-              <LangDisplay text={singleChain.subheader} />
-            </InputLabel>
-            <LeanBoxContainer>
-              {dataArray.map(data => (
-                <LeanBox
-                  key={data.id}
-                  leftImageSrc={data.leftImageSrc}
-                  text={data.text}
-                  tag={data.tag}
-                  checkBox={data.checkBox}
-                  id={data.id}
-                  onCheckChange={() => handleCheckBoxChange(data.id)}
-                  isChecked={checkedItems.includes(data.id)}
-                />
-              ))}
-            </LeanBoxContainer>
-            <InputLabel
-              fontSize={13}
-              fontWeight="normal"
-              textAlign="right"
-              pt={1}
-              display={{ def: 'inline-block' }}
-            >
-              <LangDisplay text={singleChain.advanced} />
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
-            </InputLabel>
-          </div>
-
-          <div>
-            <Flex justify="flex-start">
+      <DialogBoxBody py={4} px={5}>
+        <Flex direction="column">
+          <InputLabel
+            mt={4}
+            mr={1}
+            mb={1}
+            display="inline-block"
+            $fontSize={14}
+            $fontWeight="normal"
+          >
+            <LangDisplay text={singleChain.subheader} />
+          </InputLabel>
+          <LeanBoxContainer>
+            {dataArray.map(data => (
+              <LeanBox
+                key={data.id}
+                leftImageSrc={data.leftImageSrc}
+                text={data.text}
+                tag={data.tag}
+                {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                id={data.id}
+                onCheckChanged={() => handleCheckBoxChange(data.id)}
+                isChecked={checkedItems.includes(data.id)}
+                color="white"
+              />
+            ))}
+          </LeanBoxContainer>
+          <Flex direction="row" pr={1}>
+            <InputLabel $fontSize={13} $fontWeight="normal" textAlign="right">
+              <LangDisplay text={singleChain.advanced} />(
               <InputLabel
-                noWrap
-                display={{ def: 'inline-block' }}
-                fontSize={14}
-                fontWeight="normal"
-                pl={1}
-                mt={2}
-                mr={1}
-                mb={1}
+                pl={0}
+                color="gradient"
+                display="inline"
+                $fontWeight="normal"
               >
+                <LangDisplay text={singleChain.questionMark} />
+              </InputLabel>
+              )
+            </InputLabel>
+            <Toggle checked={isChecked} onToggle={handleToggleChange} />
+          </Flex>
+        </Flex>
+      </DialogBoxBody>
+      <DialogBoxBody pt={2} pb={4} px={5} $bgColor="lightBlack">
+        <Flex direction="column" gap={8}>
+          <Flex justify="space-between" align="center" px={1}>
+            <div>
+              <InputLabel $fontSize={14} $fontWeight="normal" px={0} mb={0}>
                 <LangDisplay
                   text={`${singleChain.subheader2} (${accountNotSynced.length})`}
                 />
               </InputLabel>
+            </div>
+            <div>
               <InputLabel
-                color="gold"
-                display={{ def: 'inline-block' }}
-                fontSize={14}
-                pl={1}
-                mt={2}
-                mr={1}
-                mb={1}
-                noWrap
-                textAlign="right"
-                onClick={handleClick}
-                clickable
+                px={0}
+                mb={0}
+                color="gradient"
+                $fontSize={14}
+                onClick={handleDeselectAll}
               >
-                <LangDisplay text={singleChain.subheaderright} />
+                <LangDisplay
+                  text={`${singleChain.deselectAllButton} (${checkedItemsCount})`}
+                />
               </InputLabel>
-            </Flex>
-            <LeanBoxContainer>
-              {accountNotSynced.map(data => (
-                <LeanBox
-                  key={data.id}
-                  leftImageSrc={data.leftImageSrc}
-                  text={data.text}
-                  tag={data.tag}
-                  checkBox={data.checkBox}
-                  id={data.id}
-                  onCheckChange={() => handleCheckBoxChange(data.id)}
-                  isChecked={checkedItems.includes(data.id)}
-                />
-              ))}
-            </LeanBoxContainer>
-          </div>
+            </div>
+          </Flex>
+          <LeanBoxContainer>
+            {accountNotSynced.map(data => (
+              <LeanBox
+                key={data.id}
+                leftImageSrc={data.leftImageSrc}
+                text={data.text}
+                tag={data.tag}
+                {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                id={data.id}
+                onCheckChanged={() => handleCheckBoxChange(data.id)}
+                isChecked={checkedItems.includes(data.id)}
+                color="white"
+              />
+            ))}
+          </LeanBoxContainer>
+        </Flex>
+      </DialogBoxBody>
 
-          <div>
-            <InputLabel
-              pl={1}
-              mr={1}
-              mb={1}
-              display={{ def: 'inline-block' }}
-              fontSize={14}
-            >
-              <LangDisplay text={singleChain.subheader3} />
-            </InputLabel>
-            <LeanBoxContainer>
-              {accountsInPortfolio.map(data => (
-                <LeanBox
-                  key={data.id}
-                  leftImageSrc={data.leftImageSrc}
-                  text={data.text}
-                  tag={data.tag}
-                  checkBox={data.checkBox}
-                  id={data.id}
-                  onCheckChange={() => handleCheckBoxChange(data.id)}
-                  isChecked={checkedItems.includes(data.id)}
-                />
-              ))}
-            </LeanBoxContainer>
-          </div>
-        </DialogBoxBody>
-      </ScrollableContainer>
+      <DialogBoxBody pt={2} pb={4}>
+        <div>
+          <InputLabel
+            pl={1}
+            mr={1}
+            mb={1}
+            display="inline-block"
+            $fontSize={14}
+            $fontWeight="normal"
+          >
+            <LangDisplay
+              text={`${singleChain.subheader3} (${accountsInPortfolio.length})`}
+            />
+          </InputLabel>
+          <LeanBoxContainer>
+            {accountsInPortfolio.map(data => (
+              <LeanBox
+                key={data.id}
+                leftImageSrc={data.leftImageSrc}
+                text={data.text}
+                tag={data.tag}
+                {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                id={data.id}
+                onCheckChanged={() => handleCheckBoxChange(data.id)}
+                isChecked={checkedItems.includes(data.id)}
+                color="white"
+              />
+            ))}
+          </LeanBoxContainer>
+        </div>
+      </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="primary" onClick={handleButtonClick}>
-          <LangDisplay text={singleChain.submitButton} />
+          <LangDisplay text={singleChain.buttonAddAccount} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

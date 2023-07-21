@@ -17,7 +17,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAddAccountGuide } from '../../context';
+import { useAddAccountDialog } from '../../context';
 
 const dataArray = [
   {
@@ -44,7 +44,8 @@ export const NoAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const noAccount = lang.strings.addAccount.addAccount.noAccount.info.dialogBox;
-  const { onPrevious } = useAddAccountGuide();
+  const button = lang.strings.buttons;
+  const { onPrevious } = useAddAccountDialog();
   return (
     <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
@@ -85,10 +86,10 @@ export const NoAccountDialog: React.FC = () => {
             onPrevious();
           }}
         >
-          <LangDisplay text={noAccount.buttonSync} />
+          <LangDisplay text={noAccount.buttonSyncAgain} />
         </Button>
         <Button variant="primary">
-          <LangDisplay text={noAccount.buttonClose} />
+          <LangDisplay text={button.close} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>
