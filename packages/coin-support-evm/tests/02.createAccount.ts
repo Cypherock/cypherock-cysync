@@ -49,13 +49,13 @@ describe('02. Create Account', () => {
         expect(accounts).toBeDefined();
         expect(accounts.length).toEqual(6);
         const ledgerAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'ledger',
+          e => e.derivationScheme === 'ledger',
         );
         const metaMaskAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'metamask',
+          e => e.derivationScheme === 'metamask',
         );
         const legacyAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'legacy',
+          e => e.derivationScheme === 'legacy',
         );
 
         expect(ledgerAccounts.length).toEqual(2);
@@ -118,13 +118,13 @@ describe('02. Create Account', () => {
         expect(accounts).toBeDefined();
         expect(accounts.length).toEqual(6);
         const ledgerAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'ledger',
+          e => e.derivationScheme === 'ledger',
         );
         const metaMaskAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'metamask',
+          e => e.derivationScheme === 'metamask',
         );
         const legacyAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'legacy',
+          e => e.derivationScheme === 'legacy',
         );
 
         expect(ledgerAccounts.length).toEqual(2);
