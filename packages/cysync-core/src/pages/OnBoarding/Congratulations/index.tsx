@@ -4,12 +4,18 @@ import React, { useEffect } from 'react';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
+import { keyValueStore } from '~/utils';
 
 export const Congratulations: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
 
+  const updateIsOnboardingCompleted = async () => {
+    await keyValueStore.isOnboardingCompleted.set(true);
+  };
+
   useEffect(() => {
+    updateIsOnboardingCompleted();
     // delay chosen according to confetti blast animation
     navigateTo(routes.portfolio.path, 3800);
   }, []);

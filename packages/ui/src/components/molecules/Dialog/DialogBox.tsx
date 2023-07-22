@@ -28,7 +28,6 @@ export interface DialogBoxUtilityProps
     DisplayProps,
     BgColorProps {
   children?: ReactNode;
-  bgColor?: string;
   overflowY?: string;
 }
 
@@ -127,6 +126,7 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   ${width}
   ${height}
   ${spacing}
+  ${$bgColor}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
@@ -176,24 +176,20 @@ export const DialogBoxFooter: FC<DialogBoxUtilityProps> = ({
 DialogBox.defaultProps = {
   children: undefined,
   $isModal: false,
-  bgColor: undefined,
   overflowY: undefined,
 };
 
 DialogBoxBody.defaultProps = {
   children: undefined,
-  bgColor: undefined,
   overflowY: undefined,
 };
 
 DialogBoxFooter.defaultProps = {
   children: undefined,
-  bgColor: undefined,
   overflowY: undefined,
 };
 
 DialogBoxHeader.defaultProps = {
   children: undefined,
-  bgColor: undefined,
   overflowY: undefined,
 };

@@ -5,7 +5,6 @@ import { InputLabel } from './InputLabel';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
-import { Image } from '../Image';
 import { LangDisplay } from '../LangDisplay';
 
 export interface InputProps {
@@ -16,24 +15,23 @@ export interface InputProps {
   onChange?: (val: string) => void;
   value?: string;
   disabled?: boolean;
-  postfixIcon?: string;
-  postfixIconAlt?: string;
+  postfixIcon?: React.ReactNode;
   onPostfixIconClick?: () => void;
-  bgColor?: string;
+  $bgColor?: string;
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
 }
 
-const InputStyle = styled.input<{ bgColor?: string }>`
+const InputStyle = styled.input<{ $bgColor?: string }>`
   position: relative;
   width: 100%;
   border: none;
   padding: 12px 24px;
   background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
-  background: ${({ bgColor, theme }) =>
-    bgColor ?? theme.palette.background.dropdown};
+  background: ${({ $bgColor, theme }) =>
+    $bgColor ?? theme.palette.background.dropdown};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
@@ -47,7 +45,7 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 
-const PostfixIcon = styled.div`
+const PostfixIconStyle = styled.div`
   position: absolute;
   right: 12px;
   top: 50%;
@@ -63,9 +61,8 @@ export const Input: FC<InputProps> = ({
   value,
   disabled,
   postfixIcon,
-  postfixIconAlt,
   onPostfixIconClick,
-  bgColor,
+  $bgColor,
   onClick,
   pasteAllowed,
   copyAllowed,
@@ -82,7 +79,7 @@ export const Input: FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        bgColor={bgColor}
+        $bgColor={$bgColor}
         value={value}
         onClick={onClick}
         onPaste={e => {
@@ -97,17 +94,17 @@ export const Input: FC<InputProps> = ({
         }}
         onChange={e => onChange && onChange(e.target.value)}
       />
-      {postfixIcon && postfixIconAlt && (
-        <PostfixIcon>
+      {postfixIcon && (
+        <PostfixIconStyle>
           <Button
             type="button"
             variant="none"
             display="flex"
             onClick={onPostfixIconClick}
           >
-            <Image src={postfixIcon} alt={postfixIconAlt} height={20} />
+            {postfixIcon}
           </Button>
-        </PostfixIcon>
+        </PostfixIconStyle>
       )}
     </InputWrapper>
   </Flex>
@@ -120,9 +117,8 @@ Input.defaultProps = {
   value: undefined,
   disabled: false,
   postfixIcon: undefined,
-  postfixIconAlt: undefined,
   onPostfixIconClick: undefined,
-  bgColor: undefined,
+  $bgColor: undefined,
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,

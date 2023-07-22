@@ -11,14 +11,26 @@ import {
   useDispatch,
 } from 'react-redux';
 
+import accountReducer, { IAccountState } from './account';
+import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
+import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
 import langReducers, { ILangState } from './lang';
+import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
+import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
 
 export interface RootState {
   wallet: IWalletState;
   lang: ILangState;
   dialog: IDialogState;
+  account: IAccountState;
+  device: IDeviceState;
+  priceInfo: IPriceInfoState;
+  priceHistory: IPriceHistoryState;
+  transaction: ITransactionState;
+  discreetMode: IDiscreetModeState;
 }
 
 export const store = configureStore({
@@ -26,6 +38,12 @@ export const store = configureStore({
     wallet: walletReducer,
     lang: langReducers,
     dialog: dialogReducer,
+    account: accountReducer,
+    device: deviceReducer,
+    priceInfo: priceInfoReducer,
+    priceHistory: priceHistoryReducer,
+    transaction: transactionReducer,
+    discreetMode: discreetModeReducer,
   },
 });
 

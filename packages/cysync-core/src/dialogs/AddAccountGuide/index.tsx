@@ -1,7 +1,6 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   Container,
   WalletDialogMainContainer,
   MilestoneAside,
@@ -10,17 +9,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
-import { AddAccountGuideProvider, useAddAccountGuide } from './context';
+import { closeDialog, useAppDispatch } from '~/store';
+
+import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
 export const AddNewAccount: FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog } = useAddAccountGuide();
+  const { tabs, currentTab, currentDialog } = useAddAccountDialog();
   const dispatch = useAppDispatch();
 
   return (
@@ -32,10 +26,9 @@ export const AddNewAccount: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="space-between">
-              <HelpButton text={lang.strings.help} />
+            <Container width="full" p={2} justify="flex-end">
               <CloseButton
-                onClick={() => dispatch(closeDialog('addAccountGuide'))}
+                onClick={() => dispatch(closeDialog('addAccountDialog'))}
               />
             </Container>
             <DialogBoxBody
@@ -55,8 +48,8 @@ export const AddNewAccount: FC = () => {
   );
 };
 
-export const AddAccountGuide: FC = () => (
-  <AddAccountGuideProvider>
+export const AddAccountDialog: FC = () => (
+  <AddAccountDialogProvider>
     <AddNewAccount />
-  </AddAccountGuideProvider>
+  </AddAccountDialogProvider>
 );

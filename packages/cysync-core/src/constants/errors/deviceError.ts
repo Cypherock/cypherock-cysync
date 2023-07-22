@@ -4,6 +4,7 @@ import {
   DeviceCompatibilityErrorType,
   DeviceBootloaderErrorType,
   DeviceAppErrorType,
+  CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
 import { DeviceErrorCodes } from '~/types/deviceError';
@@ -97,4 +98,28 @@ export const deviceErrorHandlingDetails: Record<
       report: true,
     },
   },
+  [CardAppErrorType.UNKNOWN]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.NOT_PAIRED]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_NULL_POINTER_EXCEPTION]:
+    defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_TRANSACTION_EXCEPTION]:
+    defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_FILE_INVALID]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]:
+    defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]:
+    defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_WRONG_DATA]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_FILE_NOT_FOUND]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_RECORD_NOT_FOUND]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_FILE_FULL]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_CORRECT_LENGTH_00]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_INVALID_INS]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_NOT_PAIRED]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_CRYPTO_EXCEPTION]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.POW_SW_WALLET_LOCKED]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_INS_BLOCKED]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.SW_OUT_OF_BOUNDARY]: defaultDeviceErrorHandlingDetails,
+  [CardAppErrorType.UNRECOGNIZED]: defaultDeviceErrorHandlingDetails,
 };

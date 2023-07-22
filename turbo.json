@@ -5,6 +5,9 @@
     "packages": {
       "inputs": ["packages/*"]
     },
+    "prebuild": {
+      "cache": true
+    },
     "dev": {
       "dependsOn": ["^dev"],
       "cache": false
@@ -14,7 +17,7 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["prebuild", "^build"],
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
@@ -22,6 +25,15 @@
       "dependsOn": ["^build:dirty"],
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
+    },
+    "@cypherock/cysync-ui#prebuild": {
+      "cache": true,
+      "outputs": ["src/assets/icons/generated/**"],
+      "inputs": ["icons/**"]
+    },
+    "@cypherock/cysync-cli#dev": {
+      "dependsOn": ["build"],
+      "cache": false
     },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["^build"],

@@ -1,19 +1,18 @@
 import { ReactComponentLike } from 'prop-types';
-import React from 'react';
 
 import { DialogName } from '~/store';
 
-import { AddAccountGuide } from './AddAccountGuide';
+import { AddAccountDialog } from './AddAccountGuide';
 import { CreateWalletGuide } from './CreateWalletGuide';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
 import { SendGuide } from './SendGuide';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
-  addAccount: () => <div>Test</div>,
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   createWalletGuide: CreateWalletGuide,
-  addAccountGuide: AddAccountGuide,
+  // addAccountGuide: AddAccountGuide,
   sendGuide: SendGuide,
+  addAccountDialog: AddAccountDialog,
 };

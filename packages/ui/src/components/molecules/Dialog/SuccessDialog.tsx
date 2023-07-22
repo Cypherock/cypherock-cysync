@@ -16,7 +16,7 @@ export interface SuccessDialogProps {
   subtext?: string;
   headerText?: string;
   buttonText?: string;
-  secText?: string;
+  secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
   handleSecButtonClick?: () => void;
@@ -27,7 +27,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   headerText,
   subtext,
   buttonText,
-  secText,
+  secondaryButtonText,
   alertText,
   handleClick,
   handleSecButtonClick,
@@ -57,9 +57,9 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
     </DialogBoxBody>
     {buttonText && handleClick && (
       <DialogBoxFooter height={101}>
-        {secText && handleSecButtonClick && (
+        {secondaryButtonText && handleSecButtonClick && (
           <Button onClick={handleSecButtonClick} variant="secondary">
-            <LangDisplay text={secText} />
+            <LangDisplay text={secondaryButtonText} />
           </Button>
         )}
 
@@ -74,7 +74,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
 SuccessDialog.defaultProps = {
   subtext: undefined,
   headerText: undefined,
-  secText: undefined,
+  secondaryButtonText: undefined,
   buttonText: undefined,
   handleClick: undefined,
   handleSecButtonClick: undefined,

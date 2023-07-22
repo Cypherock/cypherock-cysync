@@ -15,20 +15,41 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAddAccountGuide } from '../../context';
-import { addKeyboardEvents } from '~/hooks';
+import { useAddAccountDialog } from '../../context';
+
+const dataArray = [
+  {
+    id: '21',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '2.35 ETH',
+    text: 'Ethereum 1',
+  },
+  {
+    id: '22',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.77 ETH',
+    text: 'Ethereum 2',
+  },
+  {
+    id: '23',
+    leftImageSrc: etheriumBlueIcon,
+    rightText: '0.08 ETH',
+    text: 'Ethereum 3',
+  },
+];
 
 export const SyncAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const sync = lang.strings.addAccount.addAccount.syncAccount.info.dialogBox;
-  const { onNext, onPrevious } = useAddAccountGuide();
+  const { goTo, onNext, onPrevious } = useAddAccountDialog();
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(1, 4);
+      goTo(1, 4);
     },
     ArrowLeft: () => {
       onPrevious();
@@ -36,27 +57,6 @@ export const SyncAccountDialog: React.FC = () => {
   };
 
   addKeyboardEvents(keyboardActions);
-
-  const dataArray = [
-    {
-      id: '21',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '2.35 ETH',
-      text: 'Etherium 1',
-    },
-    {
-      id: '22',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.77 ETH',
-      text: 'Etherium 2',
-    },
-    {
-      id: '23',
-      leftImageSrc: etheriumBlueIcon,
-      rightText: '0.08 ETH',
-      text: 'Etherium 3',
-    },
-  ];
 
   const handleNextWithTimeout = () => {
     onNext();
@@ -96,7 +96,7 @@ export const SyncAccountDialog: React.FC = () => {
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleNextWithTimeout}>
-          <LangDisplay text={sync.end} />
+          <LangDisplay text={sync.buttonStopSync} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

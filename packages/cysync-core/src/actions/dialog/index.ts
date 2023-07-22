@@ -1,8 +1,4 @@
-import { IDialogState, openDialog } from '~/store';
-
-export const openAddAccountDialog = (
-  data: IDialogState['addAccount']['data'],
-) => openDialog({ name: 'addAccount', data });
+import { openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
   openDialog({ name: 'walletSyncError', data: undefined });
@@ -13,8 +9,10 @@ export const openWalletActionsDialog = () =>
 export const openCreateWalletGuideDialog = () =>
   openDialog({ name: 'createWalletGuide', data: undefined });
 
-export const openAddAccountGuideDialog = () =>
-  openDialog({ name: 'addAccountGuide', data: undefined });
+// export const openAddAccountGuideDialog = () =>
+//   openDialog({ name: 'addAccountGuide', data: undefined });
 
 export const openSendGuideDialog = () =>
   openDialog({ name: 'sendGuide', data: undefined });
+export const openAddAccountDialog = () =>
+  openDialog({ name: 'addAccountDialog', data: undefined });

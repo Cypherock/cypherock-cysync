@@ -10,7 +10,7 @@ interface ISize {
 }
 interface CheckBoxProps extends ISize {
   checked: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange: () => void;
   id?: string;
   label?: string;
   flexProps?: FlexProps;
@@ -63,7 +63,7 @@ const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
   }
 `;
 
-const CheckBoxTextLabelStyle = styled.span.attrs(props => ({
+const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
   htmlFor: props.id,
 }))`
   cursor: pointer;
@@ -77,41 +77,35 @@ export const CheckBox: FC<CheckBoxProps> = ({
   flexProps,
   size,
   isDisabled,
-}) => {
-  const handleCheckBoxChange = () => {
-    onChange?.(!checked);
-  };
+}) => (
+  <Flex align="center" $alignSelf="start" {...flexProps}>
+    <CheckBoxWrapper size={size}>
+      <CheckBoxStyle
+        checked={checked}
+        onChange={onChange}
+        id={id}
+        disabled={isDisabled}
+      />
 
-  return (
-    <Flex align="center" $alignSelf="start" {...flexProps}>
-      <CheckBoxWrapper size={size}>
-        <CheckBoxStyle
-          checked={checked}
-          onChange={handleCheckBoxChange}
-          id={id}
-          disabled={isDisabled}
-        />
+      <CheckBoxLabelStyle id={id} size={size}>
+        {checked && <CheckBoxIcon id={id} size={size} />}
+      </CheckBoxLabelStyle>
+    </CheckBoxWrapper>
 
-        <CheckBoxLabelStyle id={id} size={size}>
-          {checked && <CheckBoxIcon id={id} size={size} />}
-        </CheckBoxLabelStyle>
-      </CheckBoxWrapper>
-
-      {label && (
-        <CheckBoxTextLabelStyle id={id}>
-          <Typography
-            $fontSize={size === 'big' ? 16 : 14}
-            color="muted"
-            $textAlign="left"
-            ml={2}
-          >
-            <LangDisplay text={label} />
-          </Typography>
-        </CheckBoxTextLabelStyle>
-      )}
-    </Flex>
-  );
-};
+    {label && (
+      <CheckBoxTextLabelStyle id={id}>
+        <Typography
+          $fontSize={size === 'big' ? 16 : 14}
+          color="muted"
+          $textAlign="left"
+          ml={2}
+        >
+          <LangDisplay text={label} />
+        </Typography>
+      </CheckBoxTextLabelStyle>
+    )}
+  </Flex>
+);
 
 CheckBox.defaultProps = {
   label: undefined,
@@ -119,5 +113,4 @@ CheckBox.defaultProps = {
   isDisabled: false,
   id: undefined,
   size: 'big',
-  onChange: undefined,
 };

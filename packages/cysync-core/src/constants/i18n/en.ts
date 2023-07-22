@@ -5,6 +5,7 @@ import {
   DeviceCommunicationErrorType,
   DeviceCompatibilityErrorType,
   DeviceConnectionErrorType,
+  CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
 import { DeviceErrorCodes } from '~/types/deviceError';
@@ -69,6 +70,32 @@ const deviceErrors: Record<DeviceErrorCodes, string> = {
     'Device seems to be Compromised. Contact Cypherock support immediately',
   [DeviceAppErrorType.CARD_AUTH_FAILED]:
     'Card seems to be Compromised. Contact Cypherock support immediately',
+  [CardAppErrorType.UNKNOWN]: 'Unknown card error',
+  [CardAppErrorType.NOT_PAIRED]: 'Card is not paired',
+  [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: 'Incompatible applet version',
+  [CardAppErrorType.SW_NULL_POINTER_EXCEPTION]: 'Null pointer exception',
+  [CardAppErrorType.SW_TRANSACTION_EXCEPTION]:
+    'Operation failed on card (Tx Exp)',
+  [CardAppErrorType.SW_FILE_INVALID]: 'Tapped card family id mismatch',
+  [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]:
+    'Security conditions not satisfied, i.e. pairing session invalid',
+  [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]: 'Wrong card sequence',
+  [CardAppErrorType.SW_WRONG_DATA]: 'Invalid APDU length',
+  [CardAppErrorType.SW_FILE_NOT_FOUND]: 'Corrupted card',
+  [CardAppErrorType.SW_RECORD_NOT_FOUND]: 'Wallet does not exist on device',
+  [CardAppErrorType.SW_FILE_FULL]: 'Card is full',
+  [CardAppErrorType.SW_CORRECT_LENGTH_00]: 'Incorrect pin entered',
+  [CardAppErrorType.SW_INVALID_INS]: 'Applet unknown error',
+  [CardAppErrorType.SW_NOT_PAIRED]: 'Card pairing to device missing',
+  [CardAppErrorType.SW_CRYPTO_EXCEPTION]:
+    'Operation failed on card (Crypto Exp)',
+  [CardAppErrorType.POW_SW_WALLET_LOCKED]:
+    'Locked wallet status word, POW meaning proof of word',
+  [CardAppErrorType.SW_INS_BLOCKED]: 'Card health critical, migration required',
+  [CardAppErrorType.SW_OUT_OF_BOUNDARY]:
+    'Operation failed on card (Out of boundary)',
+  [CardAppErrorType.UNRECOGNIZED]:
+    'Card operation failed with unrecognized error',
 };
 
 const en = {
@@ -83,6 +110,8 @@ const en = {
     update: 'Update',
     cancel: 'Cancel',
     reset: 'Reset',
+    done: 'Done',
+    close: 'Close',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -121,7 +150,7 @@ const en = {
             title: 'Add Coin/Account',
             header: 'Syncing the account',
             subheader: 'Accounts already in portfolio',
-            end: 'Stop Syncing',
+            buttonStopSync: 'Stop Syncing',
           },
         },
       },
@@ -139,8 +168,7 @@ const en = {
             header: 'Add Coin/Account',
             subtext: 'Add other accounts or return to portfolio',
             title: 'Accounts added successfully',
-            buttonName: 'Done',
-            secButtonName: 'Add more',
+            buttonAddMore: 'Add more',
           },
         },
       },
@@ -150,6 +178,7 @@ const en = {
             title: 'Add Coin/Account',
             header: 'No account found yet',
             subheader: 'Accounts already in portfolio',
+            buttonSyncAgain: 'Sync Again',
           },
         },
       },
@@ -159,8 +188,9 @@ const en = {
             title: 'Add Coin/Account',
             header: 'Add new accounts',
             subheader: 'New Accounts',
-            submitButton: 'Add Accounts',
-            advanced: 'Advanced',
+            buttonAddAccount: 'Add Accounts',
+            advanced: 'Show all address types',
+            questionMark: '?',
           },
         },
       },
@@ -171,10 +201,10 @@ const en = {
             header: 'Select the Wallet & Coins you want to add',
             subTitle: 'Add a coin/account to wallet',
             constant: 'Cypherock Red',
-            buttonName: 'continue',
             searchText: 'Search',
             placeholderText: 'Choose a coin',
             placeholderWalletText: 'Choose a wallet',
+            text: 'Cypherock Red',
           },
         },
       },
@@ -186,9 +216,10 @@ const en = {
             subheader: 'New Accounts',
             subheader2: 'Account not yet synced',
             subheader3: 'Accounts already in portfolio',
-            subheaderright: 'Deselect all',
-            submitButton: 'Add Accounts',
-            advanced: 'Show all address types (?)',
+            deselectAllButton: 'Deselect all',
+            buttonAddAccount: 'Add Accounts',
+            advanced: 'Show all address types',
+            questionMark: '?',
           },
         },
       },
@@ -553,6 +584,15 @@ const en = {
         error: 'Sync error!',
       },
     },
+  },
+  sidebar: {
+    portfolio: 'Portfolio',
+    wallets: 'Wallets',
+    sendCrypto: 'Send Crypto',
+    receiveCrypto: 'Receive Crypto',
+    history: 'History',
+    settings: 'Settings',
+    help: 'Help',
   },
   walletSync: {
     freshOneCreated: {

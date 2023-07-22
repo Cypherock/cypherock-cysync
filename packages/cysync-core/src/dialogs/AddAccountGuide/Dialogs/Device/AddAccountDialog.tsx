@@ -11,50 +11,45 @@ import {
   DialogBoxFooter,
   Button,
   settingsIcon,
-  bnbChainIcon,
-  etheriumBlueIcon,
   bitcoinIcon,
+  Flex,
+  Toggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
-import { useAddAccountGuide } from '../../context';
+
+import { useAddAccountDialog } from '../../context';
 
 export const AddAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const { title, header, subheader, submitButton, advanced } =
+  const { title, header, subheader, buttonAddAccount, advanced, questionMark } =
     lang.strings.addAccount.addAccount.add.info.dialogBox;
+  const [isToggledChecked, setToggledChecked] = useState(false);
 
-  const { onNext } = useAddAccountGuide();
+  const { onNext } = useAddAccountDialog();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const dataArray = [
-    {
-      id: '31',
-      leftImageSrc: bnbChainIcon,
-      text: 'BNB Chain 1',
-      checkBox: true,
-    },
     {
       id: '32',
       leftImageSrc: bitcoinIcon,
       text: 'Bitcoin 1',
-      checkBox: true,
+      checkType: 'checkbox',
       tag: 'TAPROOT',
-    },
-    {
-      id: '33',
-      leftImageSrc: etheriumBlueIcon,
-      text: 'Etherium 3',
-      checkBox: true,
     },
   ];
 
-  const handleCheckChange = (id: string, isChecked: boolean) => {
-    if (isChecked) {
+  const handleCheckChange = (id: string, $isChecked: boolean) => {
+    if ($isChecked) {
       setCheckedItems(prevItems => [...prevItems, id]);
     } else {
       setCheckedItems(prevItems => prevItems.filter(item => item !== id));
     }
+  };
+
+  const handleToggleChange = (checked: boolean) => {
+    setToggledChecked(checked);
   };
 
   return (
@@ -74,8 +69,9 @@ export const AddAccountDialog: React.FC = () => {
             mt={4}
             mr={2}
             mb={1}
-            display={{ def: 'inline-block' }}
-            fontSize={14}
+            display="inline-block"
+            $fontSize={14}
+            $fontWeight="normal"
           >
             <LangDisplay text={subheader} />
           </InputLabel>
@@ -88,31 +84,41 @@ export const AddAccountDialog: React.FC = () => {
                 color="heading"
                 textVariant="fineprint"
                 tag={data.tag}
-                checkBox={data.checkBox}
+                {...(data.checkType ? { checkType: 'checkbox' } : {})}
                 id={data.id}
-                isChecked={checkedItems.includes(data.id)}
-                onCheckChange={(isChecked: boolean) => {
-                  console.log('isChecked:', isChecked);
-                  handleCheckChange(data.id, isChecked);
+                $isChecked={checkedItems.includes(data.id)}
+                onCheckChanged={($isChecked: boolean) => {
+                  handleCheckChange(data.id, $isChecked);
                 }}
               />
             ))}
           </LeanBoxContainer>
-          <InputLabel
-            fontSize={13}
-            fontWeight="normal"
-            textAlign="right"
-            mt={1}
-            display={{ def: 'inline-block' }}
-            color="gold"
-          >
-            <LangDisplay text={advanced} />
-          </InputLabel>
+          <Flex direction="row" pr={1}>
+            <InputLabel
+              $fontSize={13}
+              $fontWeight="normal"
+              ml="auto"
+              $textAlign="right"
+              px={0}
+            >
+              <LangDisplay text={advanced} />(
+              <InputLabel
+                px={0}
+                color="gradient"
+                display="inline"
+                $fontWeight="normal"
+              >
+                <LangDisplay text={questionMark} />
+              </InputLabel>
+              )
+            </InputLabel>
+            <Toggle checked={isToggledChecked} onToggle={handleToggleChange} />
+          </Flex>
         </div>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button onClick={() => onNext()} variant="primary">
-          <LangDisplay text={submitButton} />
+          <LangDisplay text={buttonAddAccount} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

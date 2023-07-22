@@ -14,100 +14,104 @@ import {
   solanaIcon,
   bitcoinIcon,
   etheriumBlueIcon,
+  DropDownListItemProps,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-
 import { selectLanguage, useAppSelector } from '~/store';
 import { useSendGuide } from '../context';
+
+const dropDownData: DropDownListItemProps[] = [
+  {
+    id: '41',
+    leftImageSrc: bitcoinIcon,
+    shortForm: '(BTC)',
+    text: 'Bitcoin',
+    checkType: 'radio',
+  },
+  {
+    id: '42',
+    leftImageSrc: etheriumBlueIcon,
+    text: 'Ethereum',
+    shortForm: '(ETH)',
+    checkType: 'radio',
+  },
+  {
+    id: '43',
+    leftImageSrc: solanaIcon,
+    shortForm: '(SOL)',
+    text: 'Solana',
+    checkType: 'radio',
+  },
+  {
+    id: '44',
+    leftImageSrc: binanceIcon,
+    shortForm: '(BTC)',
+    text: 'Binance Smart Chain',
+    checkType: 'radio',
+  },
+];
+const dropDownDataWithWallet: DropDownListItemProps[] = [
+  {
+    id: '51',
+    text: 'Official',
+    checkType: 'radio',
+  },
+  {
+    id: '52',
+    text: 'Cypherock Red',
+    checkType: 'radio',
+  },
+  {
+    id: '53',
+    text: 'Personal',
+    checkType: 'radio',
+  },
+  {
+    id: '54',
+    text: 'Business',
+    checkType: 'radio',
+  },
+];
+
+interface DropdownState {
+  isFirstDropdownSelected: boolean;
+  isSecondDropdownSelected: boolean;
+  firstDropdownSelection: string;
+  secondDropdownSelection: string | undefined;
+}
 
 export const SelectSend: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const crypto = lang.strings.addAccount.addAccount.selectCrypto.info.dialogBox;
+  const button = lang.strings.buttons;
   const { onNext } = useSendGuide();
 
-  const dropDownData = [
-    {
-      id: '41',
-      leftImageSrc: bitcoinIcon,
-      shortForm: '(BTC)',
-      text: 'Bitcoin',
-      displayRadioButton: true,
-    },
-    {
-      id: '42',
-      leftImageSrc: etheriumBlueIcon,
-      text: 'Ethereum',
-      shortForm: '(ETH)',
-      displayRadioButton: true,
-    },
-    {
-      id: '43',
-      leftImageSrc: solanaIcon,
-      shortForm: '(SOL)',
-      text: 'Solana',
-      displayRadioButton: true,
-    },
-    {
-      id: '44',
-      leftImageSrc: binanceIcon,
-      shortForm: '(BTC)',
-      text: 'Binance Smart Chain',
-      displayRadioButton: true,
-    },
-  ];
-  const dropDownDataWithWallet = [
-    {
-      id: '51',
-      text: 'Official',
-      displayRadioButton: true,
-    },
-    {
-      id: '52',
-      text: 'Cypherock Red',
-      displayRadioButton: true,
-    },
-    {
-      id: '53',
-      text: 'Personal',
-      displayRadioButton: true,
-    },
-    {
-      id: '54',
-      text: 'Business',
-      displayRadioButton: true,
-    },
-  ];
-
-  const [isFirstDropdownSelected, setIsFirstDropdownSelected] =
-    useState<boolean>(false);
-  const [isSecondDropdownSelected, setIsSecondDropdownSelected] =
-    useState<boolean>(true);
-  const [firstDropdownSelection, setFirstDropdownSelection] = useState<
-    string | undefined
-  >('');
-  const [secondDropdownSelection, setSecondDropdownSelection] = useState<
-    string | undefined
-  >();
+  const [dropdownState, setDropdownState] = useState<DropdownState>({
+    isFirstDropdownSelected: false,
+    isSecondDropdownSelected: false,
+    firstDropdownSelection: '',
+    secondDropdownSelection: '',
+  });
 
   const handleFirstDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    // Set string state
-    setFirstDropdownSelection(selectedItemId ?? '');
-    // Set boolean state
-    setIsFirstDropdownSelected(!!selectedItemId);
+    setDropdownState(prev => ({
+      ...prev,
+      firstDropdownSelection: selectedItemId ?? '',
+      isFirstDropdownSelected: !!selectedItemId,
+    }));
   };
 
   const handleSecondDropdownSelectionChange = (
     selectedItemId: string | undefined,
   ) => {
-    // Set string state
-    setSecondDropdownSelection(selectedItemId ?? '');
-    // Set boolean state
-    setIsSecondDropdownSelected(!!selectedItemId);
+    setDropdownState(prev => ({
+      ...prev,
+      secondDropdownSelection: selectedItemId ?? '',
+      isSecondDropdownSelected: !!selectedItemId,
+    }));
   };
-
-  console.log('Second Dropdown Selected:', isSecondDropdownSelected);
 
   return (
     <DialogBox width={500}>
@@ -129,7 +133,7 @@ export const SelectSend: React.FC = () => {
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={dropDownDataWithWallet}
-            selectedItem={firstDropdownSelection}
+            selectedItem={dropdownState.firstDropdownSelection}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
@@ -137,8 +141,8 @@ export const SelectSend: React.FC = () => {
           />
           <Dropdown
             items={dropDownData}
-            selectedItem={secondDropdownSelection}
-            disabled={!isFirstDropdownSelected}
+            selectedItem={dropdownState.secondDropdownSelection}
+            disabled={!dropdownState.isFirstDropdownSelected}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
@@ -149,13 +153,13 @@ export const SelectSend: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={!secondDropdownSelection}
+          disabled={!dropdownState.secondDropdownSelection}
           onClick={e => {
             e.preventDefault();
             onNext();
           }}
         >
-          <LangDisplay text={crypto.buttonName} />
+          <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

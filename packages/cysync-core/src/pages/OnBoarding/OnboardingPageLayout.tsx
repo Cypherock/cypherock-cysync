@@ -8,7 +8,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { useNavigateTo } from '~/hooks';
+import { useNavigateTo, useOnboardingCheckpoint } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -37,6 +37,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   const lang = useAppSelector(selectLanguage);
   const [email, setEmail] = useState('');
   const navigateTo = useNavigateTo();
+  useOnboardingCheckpoint();
 
   const fetchEmail = async () =>
     setEmail((await keyValueStore.email.get()) ?? '');
