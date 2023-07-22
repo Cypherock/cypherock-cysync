@@ -4,17 +4,17 @@ import styled, { useTheme } from 'styled-components';
 import { Image } from './Image';
 import { Input } from './Input';
 
-import { searchIcon, triangleInverseIcon, walletIcon } from '../../assets';
+import { searchIcon, triangleInverseIcon } from '../../assets';
 import { DropDownListItem, DropDownListItemProps } from '../molecules';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
-  changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
+  shouldShowIcon?: boolean;
 }
 
 const List = styled.ul<{ disabled?: boolean }>`
@@ -90,7 +90,7 @@ const IconContainer = styled.div`
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  changeColorWhite,
+  shouldShowIcon,
   searchText,
   placeholderText,
   selectedItem = undefined,
@@ -181,12 +181,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
           text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
           restrictedItem
-          changeColorWhite
-          leftImageSrc={
-            changeColorWhite ? walletIcon : selectedDropdownItem?.leftImageSrc
-          }
+          leftImageSrc={selectedDropdownItem?.leftImageSrc}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
+          color="white"
         />
       ) : (
         <Input
@@ -220,6 +218,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   }
                   {...item}
                   selectedItem={selectedItem}
+                  leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                 />
               </ListItem>
             );
@@ -231,6 +230,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 };
 
 Dropdown.defaultProps = {
-  changeColorWhite: false,
   disabled: false,
+  shouldShowIcon: false,
 };

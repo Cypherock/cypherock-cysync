@@ -13,6 +13,7 @@ import {
   bitcoinIcon,
   etheriumBlueIcon,
   DropDownListItemProps,
+  walletIcon,
 } from '@cypherock/cysync-ui';
 import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
 import React, { useState } from 'react';
@@ -56,21 +57,25 @@ const dropDownDataWithWallet: DropDownListItemProps[] = [
     id: '51',
     text: 'Official',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '52',
     text: 'Cypherock Red',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '53',
     text: 'Personal',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '54',
     text: 'Business',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
 ];
 
@@ -143,7 +148,6 @@ export const SelectCryptoDialog: React.FC = () => {
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            changeColorWhite
           />
           <Dropdown
             items={dropDownData}
@@ -152,6 +156,7 @@ export const SelectCryptoDialog: React.FC = () => {
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
+            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

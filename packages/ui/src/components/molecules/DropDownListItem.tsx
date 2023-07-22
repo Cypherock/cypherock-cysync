@@ -28,9 +28,9 @@ export interface DropDownListItemProps extends BorderProps {
   id?: string;
   onClick?: () => void;
   selectedItem?: string | undefined;
-  changeColorWhite?: boolean;
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  color?: TypographyColor;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -47,10 +47,9 @@ const ShortFormTag = styled.div`
 
 export const DropDownListItemStretchedTypography = styled(Typography)<{
   $shouldStretch: boolean;
-  $changeColor?: boolean;
+  $color: TypographyColor;
 }>`
-  color: ${({ $changeColor, theme }) =>
-    $changeColor ? theme.palette.text.white : theme.palette.text.muted};
+  color: ${({ $color, theme }) => theme.palette.text[$color]};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
@@ -98,8 +97,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   rightTextColor = 'gold',
   checkType = undefined,
   checked = false,
-  changeColorWhite = false,
   id,
+  color,
   onClick,
   restrictedItem = false,
   onCheckedChange,
@@ -143,7 +142,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
       <DropDownListItemStretchedTypography
         $shouldStretch={!tag}
         variant="h6"
-        $changeColor={changeColorWhite}
+        $color={color ?? 'muted'}
       >
         <LangDisplay text={text} />
         <ShortFormTag>
@@ -192,8 +191,8 @@ DropDownListItem.defaultProps = {
   onClick: undefined,
   restrictedItem: false,
   selectedItem: undefined,
-  changeColorWhite: false,
   checked: false,
   onCheckedChange: undefined,
   shortForm: '',
+  color: 'muted',
 };
