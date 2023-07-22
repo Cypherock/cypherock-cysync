@@ -696,6 +696,7 @@ const en = {
       checkboxText: "Don't show this again",
     },
     buttons: {
+      keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
     },

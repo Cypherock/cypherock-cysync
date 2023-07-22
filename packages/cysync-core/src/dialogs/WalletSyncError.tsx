@@ -18,16 +18,19 @@ export const WalletSyncError: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
+  const [deletedWalletsCopy] = useState(deletedWallets);
+
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =
     useState<CheckboxListItems>(
-      deletedWallets.map(wallet => ({
+      deletedWalletsCopy.map(wallet => ({
         label: wallet.name,
         checked: true,
         id: wallet.__id,
       })),
     );
+
   const syncErrorType =
-    deletedWallets.length > 1 ? 'deletedMany' : 'deletedOne';
+    deletedWalletsCopy.length > 1 ? 'deletedMany' : 'deletedOne';
 
   const keepAllWallets = () => {
     dispatch(closeDialog('walletSyncError'));
@@ -35,13 +38,13 @@ export const WalletSyncError: FC = () => {
 
   const deleteSelectedWallets = () => {
     if (syncErrorType === 'deletedOne') {
-      dispatch(deleteWallets(deletedWallets));
+      dispatch(deleteWallets(deletedWalletsCopy));
       return;
     }
     const selectedWalletIds = selectedCheckboxListItems
       .filter(i => i.checked)
       .map(i => i.id);
-    const selectedWallets = deletedWallets.filter(d =>
+    const selectedWallets = deletedWalletsCopy.filter(d =>
       selectedWalletIds.includes(d.__id),
     );
 
@@ -65,7 +68,7 @@ export const WalletSyncError: FC = () => {
       }
       textVariables={{
         walletName:
-          deletedWallets.length > 0 ? deletedWallets[0].name : 'dfwew',
+          deletedWalletsCopy.length > 0 ? deletedWalletsCopy[0].name : '',
       }}
       icon={<Image src={walletErrorIcon} alt="walletSync" />}
       afterTextComponent={
@@ -79,7 +82,13 @@ export const WalletSyncError: FC = () => {
       footerComponent={
         <>
           <Button variant="secondary" onClick={keepAllWallets}>
-            <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
+            <LangDisplay
+              text={
+                syncErrorType === 'deletedMany'
+                  ? lang.strings.walletSync.buttons.keepAll
+                  : lang.strings.walletSync.buttons.keepIt
+              }
+            />
           </Button>
           <Button
             disabled={
