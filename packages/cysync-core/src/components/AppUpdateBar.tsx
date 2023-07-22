@@ -85,7 +85,7 @@ export const AppUpdateBar: FC = () => {
         updateBarMap[appUpdateState]?.buttonText && (
           <LangDisplay
             text={
-              (lang.strings.appUpdateBar as any)[
+              (lang.strings.appUpdateBar.buttons as any)[
                 updateBarMap[appUpdateState]?.buttonText ?? ''
               ]
             }
