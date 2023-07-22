@@ -46,7 +46,7 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.palette.border.dropdown};
+  background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
 
   ${({ disabled, theme }) =>
     !disabled &&
@@ -193,7 +193,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          $bgColor={theme?.palette.background.dropdown}
+          $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
           disabled={disabled}
         />

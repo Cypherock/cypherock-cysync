@@ -61,7 +61,8 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ theme }) => theme.palette.background.dropdown};
+  background-color: ${({ theme }) =>
+    theme.palette.background.separatorSecondary};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${DropDownListItemStretchedTypography} {

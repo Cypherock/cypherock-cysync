@@ -31,7 +31,7 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
   background-color: ${({ theme }) => theme.palette.background.input};
   font-size: 16px;
   background: ${({ $bgColor, theme }) =>
-    $bgColor ?? theme.palette.background.dropdown};
+    $bgColor ?? theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
