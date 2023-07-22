@@ -8,20 +8,26 @@ export default [
     coinIndex: '80000000',
     feesUnit: 'sat/byte',
     apiCoinType: 'btc',
-    supportedAccountTypes: [
+    units: [
       {
-        id: 'btc-native-segwit',
-        name: 'Native Segwit',
-        tag: 'Native Segwit',
-        identifier: '0001',
-        allowMultiple: true,
+        name: 'bitcoin',
+        abbr: 'BTC',
+        magnitude: 8,
       },
       {
-        id: 'btc-legacy',
-        name: 'Legacy',
-        tag: 'Legacy',
-        identifier: '0000',
-        allowMultiple: true,
+        name: 'mBTC',
+        abbr: 'mBTC',
+        magnitude: 5,
+      },
+      {
+        name: 'bit',
+        abbr: 'bit',
+        magnitude: 2,
+      },
+      {
+        name: 'satoshi',
+        abbr: 'sat',
+        magnitude: 0,
       },
     ],
   },
@@ -35,7 +41,23 @@ export default [
     coinIndex: '80000002',
     feesUnit: 'sat/byte',
     apiCoinType: 'ltc',
-    supportedAccountTypes: [],
+    units: [
+      {
+        name: 'litecoin',
+        abbr: 'LTC',
+        magnitude: 8,
+      },
+      {
+        name: 'mLTC',
+        abbr: 'mLTC',
+        magnitude: 5,
+      },
+      {
+        name: 'litoshi',
+        abbr: 'litoshi',
+        magnitude: 0,
+      },
+    ],
   },
   {
     id: 'dogecoin',
@@ -47,7 +69,18 @@ export default [
     coinIndex: '80000003',
     feesUnit: 'sat/byte',
     apiCoinType: 'doge',
-    supportedAccountTypes: [],
+    units: [
+      {
+        name: 'dogecoin',
+        abbr: 'DOGE',
+        magnitude: 8,
+      },
+      {
+        name: 'satoshi',
+        abbr: 'sat',
+        magnitude: 0,
+      },
+    ],
   },
   {
     id: 'dash',
@@ -59,6 +92,17 @@ export default [
     coinIndex: '80000005',
     feesUnit: 'sat/byte',
     apiCoinType: 'dash',
-    supportedAccountTypes: [],
+    units: [
+      {
+        name: 'dash',
+        abbr: 'DASH',
+        magnitude: 8,
+      },
+      {
+        name: 'satoshi',
+        abbr: 'sat',
+        magnitude: 0,
+      },
+    ],
   },
 ];

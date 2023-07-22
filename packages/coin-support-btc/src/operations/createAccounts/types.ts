@@ -8,9 +8,7 @@ import { GetXpubsStatus } from '@cypherock/sdk-app-btc';
 import { BTCDerivationSchemeName } from './schemes/types';
 
 export interface IBtcAccount extends IAccount {
-  extraData: {
-    derivationScheme: BTCDerivationSchemeName;
-  };
+  derivationScheme: BTCDerivationSchemeName;
 }
 
 export type ICreateBtcAccountParams = ICreateAccountParams;

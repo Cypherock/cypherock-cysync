@@ -2,22 +2,37 @@ import React from 'react';
 
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getParsedError, IParsedError } from '~/utils/error';
+import {
+  ErrorActionButtonHandler,
+  ErrorActionButtonHandlerMap,
+  getParsedError,
+  IErrorActionButtonDetails,
+  IParsedError,
+} from '~/utils/error';
+import logger from '~/utils/logger';
+
+import { useNavigateTo } from './useNavigateTo';
+
+import { routes } from '..';
 
 export interface IErrorHandlerParams {
   error?: Error;
   defaultMsg?: string;
   onRetry?: () => void;
+  onClose: () => void;
+  isOnboarding?: boolean;
 }
 
 export const useErrorHandler = (params: IErrorHandlerParams) => {
-  const { error, defaultMsg, onRetry } = params;
+  const { error, defaultMsg, onRetry, onClose, isOnboarding } = params;
+
+  const lang = useAppSelector(selectLanguage);
+  const navigateTo = useNavigateTo();
 
   const [errorToShow, setErrorToShow] = React.useState<
     IParsedError | undefined
   >();
   const [retries, setRetries] = React.useState<number>(0);
-  const lang = useAppSelector(selectLanguage);
 
   const errorMsg = React.useMemo(
     () =>
@@ -25,11 +40,76 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
     [error, lang, retries],
   );
 
-  const handleRetry = () => {
-    if (onRetry) {
-      setRetries(r => r + 1);
-      onRetry();
-    }
+  const onClickHandler = (details: IErrorActionButtonDetails) => {
+    const onClickHandlersMap: Record<ErrorActionButtonHandler, () => void> = {
+      [ErrorActionButtonHandlerMap.retry]: () => {
+        if (onRetry) {
+          setRetries(r => r + 1);
+          onRetry();
+        }
+      },
+      [ErrorActionButtonHandlerMap.report]: () => {
+        // TODO: Add Report button handling
+        logger.warn(
+          `Unimplemented handler ${ErrorActionButtonHandlerMap.report}`,
+        );
+      },
+      [ErrorActionButtonHandlerMap.help]: () => {
+        // TODO: Add Help button handling
+        logger.warn(
+          `Unimplemented handler ${ErrorActionButtonHandlerMap.help}`,
+        );
+      },
+      [ErrorActionButtonHandlerMap.updateFirmware]: () => {
+        onClose();
+        if (isOnboarding) {
+          navigateTo(routes.onboarding.deviceUpdate.path);
+        } else {
+          // TODO: Add support for updating firmware on main application
+          logger.warn(
+            `Unimplemented handler ${ErrorActionButtonHandlerMap.updateFirmware}`,
+          );
+        }
+      },
+      [ErrorActionButtonHandlerMap.update]: () => {
+        if (isOnboarding) {
+          navigateTo(routes.onboarding.appUpdate.path);
+        } else {
+          // TODO: Add support for updating on main application
+          logger.warn(
+            `Unimplemented handler ${ErrorActionButtonHandlerMap.update}`,
+          );
+        }
+      },
+      [ErrorActionButtonHandlerMap.toOnboarding]: () => {
+        navigateTo(routes.onboarding.info.path);
+      },
+      [ErrorActionButtonHandlerMap.deleteWallets]: () => {
+        // TODO: Add support for deleting wallet
+        logger.warn(
+          `Unimplemented handler ${ErrorActionButtonHandlerMap.deleteWallets}`,
+        );
+      },
+      [ErrorActionButtonHandlerMap.close]: () => {
+        onClose();
+      },
+    };
+
+    const handler = onClickHandlersMap[details.handler];
+
+    if (handler) handler();
+  };
+
+  const onPrimaryClick = () => {
+    if (!errorToShow?.primaryAction.handler) return;
+
+    onClickHandler(errorToShow.primaryAction);
+  };
+
+  const onSecondaryClick = () => {
+    if (!errorToShow?.secondaryAction?.handler) return;
+
+    onClickHandler(errorToShow.secondaryAction);
   };
 
   /**
@@ -57,6 +137,7 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
 
   return {
     errorToShow,
-    handleRetry,
+    onPrimaryClick,
+    onSecondaryClick,
   };
 };

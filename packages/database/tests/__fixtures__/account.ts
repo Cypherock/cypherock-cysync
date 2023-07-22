@@ -3,7 +3,9 @@ import {
   IAccount,
   IAccountRepository,
 } from '@cypherock/db-interfaces';
+
 import { ITestClass } from './types';
+
 import { BaseFields } from '../../src/entity/types';
 
 class AccountData implements ITestClass<IAccount> {
@@ -109,6 +111,7 @@ class AccountData implements ITestClass<IAccount> {
       balance: '0.053366411524468058',
       unit: 'ETH',
       derivationPath: "m/44'/60'/0'/0",
+      derivationScheme: 'legacy',
       type: 'coin',
       assetId: 'ethereum',
       familyId: 'evm',
@@ -124,6 +127,7 @@ class AccountData implements ITestClass<IAccount> {
       balance: '20.3434',
       unit: 'USD',
       derivationPath: 'm/44',
+      derivationScheme: 'legacy',
       type: 'erc20',
       assetId: 'etc',
       walletId: '1234',
@@ -138,6 +142,7 @@ class AccountData implements ITestClass<IAccount> {
       balance: '49.3434',
       unit: 'ETH',
       derivationPath: 'm/44/0/0',
+      derivationScheme: 'legacy',
       type: 'account',
       assetId: 'eth',
       walletId: '3948',
@@ -152,6 +157,7 @@ class AccountData implements ITestClass<IAccount> {
       balance: '0',
       unit: 'BTC',
       derivationPath: '',
+      derivationScheme: 'legacy',
       type: 'child',
       assetId: 'btc',
       walletId: '56789093876',
