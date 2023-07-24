@@ -20,6 +20,7 @@ export type ConnectDevice = (device: IDevice) => Promise<IDeviceConnection>;
 export type GetDb = () => Promise<IDatabase>;
 export type GetKeyDb = () => Promise<IKeyValueStore>;
 export type ResetCySync = () => Promise<void>;
+export type CloseApp = () => Promise<void>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
@@ -35,4 +36,5 @@ export interface IElectronAPI {
   addUpdateDownloadCompletedListener: AddUpdateDownloadCompleteListener;
   addUpdateDownloadErrorListener: AddUpdateDownloadErrorListener;
   removeUpdateDownloadListeners: RemoveUpdateDownloadListeners;
+  closeApp: CloseApp;
 }

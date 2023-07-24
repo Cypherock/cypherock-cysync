@@ -13,6 +13,7 @@ import { routes } from '~/constants';
 import { useDevice, IDeviceConnectionInfo } from '~/context';
 import { useNavigateTo, DeviceTask, useDeviceTask } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
+import { getCloseAppMethod } from '~/utils';
 
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
 
@@ -177,13 +178,14 @@ export const DeviceUpdateDialogBox: FC = () => {
 
   return (
     <ErrorHandlerDialog
-      title={lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.heading}
       error={errorToShow}
       defaultMsg={
         lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
       }
       onRetry={onRetry}
       textVariables={{ version }}
+      isOnboarding
+      onClose={getCloseAppMethod()}
     >
       {DeviceUpdateDialogs[state]}
     </ErrorHandlerDialog>

@@ -5,6 +5,7 @@ export interface IAccount extends IEntity {
   xpubOrAddress: string;
   balance: string;
   unit: string;
+  derivationScheme?: string;
   derivationPath: string;
   type: string;
   extraData?: ObjectLiteral;

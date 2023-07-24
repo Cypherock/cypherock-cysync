@@ -48,10 +48,10 @@ describe('02. Create Account', () => {
         expect(accounts).toBeDefined();
         expect(accounts.length).toEqual(4);
         const nativeSegwitAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'nativeSegwit',
+          e => e.derivationScheme === 'nativeSegwit',
         );
         const legacyAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'legacy',
+          e => e.derivationScheme === 'legacy',
         );
 
         expect(nativeSegwitAccounts.length).toEqual(2);
@@ -108,10 +108,10 @@ describe('02. Create Account', () => {
         expect(accounts).toBeDefined();
         expect(accounts.length).toEqual(4);
         const nativeSegwitAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'nativeSegwit',
+          e => e.derivationScheme === 'nativeSegwit',
         );
         const legacyAccounts = accounts.filter(
-          e => e.extraData.derivationScheme === 'legacy',
+          e => e.derivationScheme === 'legacy',
         );
 
         expect(nativeSegwitAccounts.length).toEqual(2);

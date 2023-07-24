@@ -3,6 +3,7 @@ import {
   setKeyDB,
   updateLogger,
   setResetCySyncMethod,
+  setCloseAppMethod,
   setAutoUpdater,
 } from '@cypherock/cysync-core';
 
@@ -13,6 +14,7 @@ export const setupCoreDependencies = async () => {
   setDB(await window.electronAPI.getDb());
   setKeyDB(await window.electronAPI.getKeyDb());
   setResetCySyncMethod(window.electronAPI.resetCySync);
+  setCloseAppMethod(window.electronAPI.closeApp);
   setAutoUpdater({
     checkForUpdates: window.electronAPI.checkForUpdates,
     downloadUpdate: window.electronAPI.downloadUpdate,
