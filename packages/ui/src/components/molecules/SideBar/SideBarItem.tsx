@@ -153,7 +153,6 @@ export const SideBarItem: FC<SideBarItemProps> = ({
                     ? theme.palette.text.disabled
                     : theme.palette.muted.main
                 }
-                onClick={() => console.log('huh')}
               />
             )}
           </Flex>
