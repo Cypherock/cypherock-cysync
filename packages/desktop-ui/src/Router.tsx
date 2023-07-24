@@ -11,6 +11,10 @@ import {
   JoystickTraining,
   PermissionSetup,
   Portfolio,
+  Wallet,
+  History,
+  Settings,
+  Help,
   RouteName,
   routes,
   Terms,
@@ -37,6 +41,10 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-app-update': <AppUpdate />,
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
+  wallet: <Wallet />,
+  history: <History />,
+  settings: <Settings />,
+  help: <Help />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
