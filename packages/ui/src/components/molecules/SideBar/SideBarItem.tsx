@@ -37,6 +37,7 @@ export interface SideBarItemProps {
   text: string;
   state?: SideBarState;
   child?: 'regular' | 'last';
+  isCollapsed?: boolean;
   extraLeft?: ReactNode;
   extraRight?: ReactNode;
   children?: ReactNode;
@@ -49,12 +50,13 @@ export const SideBarItem: FC<SideBarItemProps> = ({
   text,
   state,
   child,
+  isCollapsed,
   extraLeft,
   extraRight,
   children,
   onClick,
 }) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(isCollapsed);
 
   const theme = useTheme()!;
 
@@ -171,6 +173,7 @@ SideBarItem.defaultProps = {
   svgStroke: false,
   state: SideBarState.normal,
   child: undefined,
+  isCollapsed: true,
   extraLeft: undefined,
   extraRight: undefined,
   children: undefined,
