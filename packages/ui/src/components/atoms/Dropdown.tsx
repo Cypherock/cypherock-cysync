@@ -4,17 +4,17 @@ import styled, { useTheme } from 'styled-components';
 import { Image } from './Image';
 import { Input } from './Input';
 
-import { searchIcon, triangleInverseIcon, walletIcon } from '../../assets';
+import { searchIcon, triangleInverseIcon } from '../../assets';
 import { DropDownListItem, DropDownListItemProps } from '../molecules';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
-  changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
+  shouldShowIcon?: boolean;
 }
 
 const List = styled.ul<{ disabled?: boolean }>`
@@ -42,33 +42,38 @@ const buttonAnimationData = {
   curve: 'ease-out',
 };
 
-const Container = styled.div<{ isOpen: boolean; disabled?: boolean }>`
+const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.palette.border.dropdown};
+  background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    background: ${({ isOpen, theme }) =>
-        isOpen ? theme.palette.golden : 'transparent'}
-      border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    transition: all ${buttonAnimationData.duration} ${buttonAnimationData.curve};
-  }
-
-  &:hover::before {
-    background: ${({ disabled, theme }) =>
-        !disabled ? theme.palette.golden : 'transparent'}
-      border-box;
-  }
+  ${({ disabled, theme }) =>
+    !disabled &&
+    `
+      &:hover {  
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            z-index: 10;
+            background: ${theme.palette.golden};
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+              linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+          }
+      
+          &:hover::before {
+            background: ${theme.palette.golden} border-box;
+            transition: all ${buttonAnimationData.duration};
+            ${buttonAnimationData.curve};
+          }
+        cursor: pointer;
+      }      
+    `}
 
   input {
     padding-right: 30px;
@@ -85,7 +90,7 @@ const IconContainer = styled.div`
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  changeColorWhite,
+  shouldShowIcon,
   searchText,
   placeholderText,
   selectedItem = undefined,
@@ -93,7 +98,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
   const [checkedStates, setCheckedStates] = React.useState<
     Record<string, boolean>
   >({});
@@ -124,7 +129,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const toggleDropdown = () => {
     if (!disabled) {
-      setIsOpen(!isOpen);
+      setisOpen(!isOpen);
       setSearch('');
     }
   };
@@ -150,7 +155,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        setisOpen(false);
       }
     };
 
@@ -164,7 +169,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <Container
       ref={containerRef}
-      isOpen={isOpen ?? isHovered}
+      $isOpen={isOpen || isHovered}
       disabled={disabled}
       onClick={toggleDropdown}
       onMouseEnter={() => setIsHovered(true)}
@@ -181,12 +186,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
           text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
           restrictedItem
-          changeColorWhite
-          leftImageSrc={
-            changeColorWhite ? walletIcon : selectedDropdownItem?.leftImageSrc
-          }
+          leftImageSrc={selectedDropdownItem?.leftImageSrc}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
+          color="white"
         />
       ) : (
         <Input
@@ -195,7 +198,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          bgColor={theme?.palette.background.dropdown}
+          $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
           disabled={disabled}
         />
@@ -220,6 +223,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   }
                   {...item}
                   selectedItem={selectedItem}
+                  leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                 />
               </ListItem>
             );
@@ -231,6 +235,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 };
 
 Dropdown.defaultProps = {
-  changeColorWhite: false,
   disabled: false,
+  shouldShowIcon: false,
 };

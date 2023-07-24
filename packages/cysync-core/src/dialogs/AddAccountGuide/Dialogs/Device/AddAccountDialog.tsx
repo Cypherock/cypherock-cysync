@@ -40,8 +40,8 @@ export const AddAccountDialog: React.FC = () => {
     },
   ];
 
-  const handleCheckChange = (id: string, isChecked: boolean) => {
-    if (isChecked) {
+  const handleCheckChange = (id: string, $isChecked: boolean) => {
+    if ($isChecked) {
       setCheckedItems(prevItems => [...prevItems, id]);
     } else {
       setCheckedItems(prevItems => prevItems.filter(item => item !== id));
@@ -86,9 +86,9 @@ export const AddAccountDialog: React.FC = () => {
                 tag={data.tag}
                 {...(data.checkType ? { checkType: 'checkbox' } : {})}
                 id={data.id}
-                isChecked={checkedItems.includes(data.id)}
-                onCheckChanged={(isChecked: boolean) => {
-                  handleCheckChange(data.id, isChecked);
+                $isChecked={checkedItems.includes(data.id)}
+                onCheckChanged={($isChecked: boolean) => {
+                  handleCheckChange(data.id, $isChecked);
                 }}
               />
             ))}
@@ -98,7 +98,7 @@ export const AddAccountDialog: React.FC = () => {
               $fontSize={13}
               $fontWeight="normal"
               ml="auto"
-              textAlign="right"
+              $textAlign="right"
               px={0}
             >
               <LangDisplay text={advanced} />(

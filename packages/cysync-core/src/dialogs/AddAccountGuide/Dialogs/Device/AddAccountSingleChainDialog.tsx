@@ -149,13 +149,13 @@ export const AddAccountSingleChainDialog: FC = () => {
                 {...(data.checkType ? { checkType: 'checkbox' } : {})}
                 id={data.id}
                 onCheckChanged={() => handleCheckBoxChange(data.id)}
-                isChecked={checkedItems.includes(data.id)}
+                $isChecked={checkedItems.includes(data.id)}
                 color="white"
               />
             ))}
           </LeanBoxContainer>
           <Flex direction="row" pr={1}>
-            <InputLabel $fontSize={13} $fontWeight="normal" textAlign="right">
+            <InputLabel $fontSize={13} $fontWeight="normal" $textAlign="right">
               <LangDisplay text={singleChain.advanced} />(
               <InputLabel
                 px={0}
@@ -205,7 +205,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 {...(data.checkType ? { checkType: 'checkbox' } : {})}
                 id={data.id}
                 onCheckChanged={() => handleCheckBoxChange(data.id)}
-                isChecked={checkedItems.includes(data.id)}
+                $isChecked={checkedItems.includes(data.id)}
                 color="white"
               />
             ))}
@@ -237,7 +237,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 {...(data.checkType ? { checkType: 'checkbox' } : {})}
                 id={data.id}
                 onCheckChanged={() => handleCheckBoxChange(data.id)}
-                isChecked={checkedItems.includes(data.id)}
+                $isChecked={checkedItems.includes(data.id)}
                 color="white"
               />
             ))}
