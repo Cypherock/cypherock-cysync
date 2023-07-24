@@ -11,7 +11,7 @@ import {
   font,
   spacing,
 } from '../../utils';
-import { goldenGradient } from '../Gradient';
+import { goldenGradient } from '../../utils/Gradient';
 
 interface InputLabelProps
   extends LabelHTMLAttributes<HTMLLabelElement>,

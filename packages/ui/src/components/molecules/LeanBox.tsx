@@ -46,6 +46,7 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
       : theme.palette.background.input};
   width: 422px;
   height: 42px;
+  cursor: pointer;
 `;
 
 export const ImageContainer = styled.div`

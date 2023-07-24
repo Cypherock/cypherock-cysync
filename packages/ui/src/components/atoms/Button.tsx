@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
-import { goldenGradient } from './Gradient';
+import { goldenGradient } from '../utils/Gradient';
 import { Throbber } from './Throbber';
 
 import { UtilsProps, utils } from '../utils';
@@ -60,25 +60,6 @@ const buttonAnimationData = {
   duration: '0.3s',
   curve: 'ease-out',
 };
-
-export const goldenGradientBackground = css`
-  @property --a {
-    syntax: '<angle>';
-    inherits: false;
-    initial-value: 90deg;
-  }
-
-  transition: --a ${buttonAnimationData.duration} ${buttonAnimationData.curve};
-  background: linear-gradient(
-    var(--a),
-    #e9b873 0.19%,
-    #fedd8f 37.17%,
-    #b78d51 100.19%
-  );
-  &:hover {
-    --a: 180deg;
-  }
-`;
 
 const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
   primary: css<ButtonProps>`
@@ -179,8 +160,8 @@ const ButtonStyle = styled.button<ButtonProps>`
 
   &:active {
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.4) inset;
-    transition: box-shadow ${buttonAnimationData.duration};
-    ${buttonAnimationData.curve};
+    transition: box-shadow ${buttonAnimationData.duration}
+      ${buttonAnimationData.curve};
   }
   ${({ disabled, theme }) =>
     disabled &&

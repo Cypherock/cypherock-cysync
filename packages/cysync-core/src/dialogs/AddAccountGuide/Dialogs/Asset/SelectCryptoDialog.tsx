@@ -14,8 +14,9 @@ import {
   etheriumBlueIcon,
   DropDownListItemProps,
   walletIcon,
+  solanaIcon,
+  binanceIcon,
 } from '@cypherock/cysync-ui';
-import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
 import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';

@@ -5,10 +5,9 @@ const buttonAnimationData = {
   curve: 'ease-out',
 };
 
-export const goldenGradient = (cssProperty: string) => {
+export const goldenGradient = (cssProperty: 'background' | 'color') => {
   switch (cssProperty) {
     case 'background':
-    case 'border':
       return css`
         @property --a {
           syntax: '<angle>';
