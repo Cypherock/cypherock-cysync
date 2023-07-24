@@ -59,7 +59,6 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
             inset: 0;
             border-radius: 8px;
             border: 1px solid transparent;
-            // z-index: 10;
             background: ${theme.palette.golden};
             -webkit-mask: linear-gradient(#fff 0 0) padding-box,
               linear-gradient(#fff 0 0);
