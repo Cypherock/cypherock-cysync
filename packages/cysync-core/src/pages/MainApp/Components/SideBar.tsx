@@ -14,40 +14,44 @@ import {
   Syncronizing,
   WalletInfoIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
 import { routes } from '~/constants';
-import { useNavigateTo } from '~/hooks';
+import { useNavigateTo, useQuery } from '~/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 
 type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
 
-export const SideBar: FC = () => {
-  const [active, setActive] = useState<string>(routes.portfolio.name);
+export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
+  const location = useLocation();
+  const query = useQuery();
+
   const strings = useAppSelector(selectLanguage).strings.sidebar;
   const { wallets, deletedWallets } = useAppSelector(selectWallets);
   const theme = useTheme()!;
 
   const navigateTo = useNavigateTo();
   const navigate = (page: Page) => {
-    setActive(routes[page].name);
     navigateTo(routes[page].path);
   };
-
   const navigateWallet = (id: string | undefined) => {
     if (!id) return;
-    setActive(`wallet-${id}`);
     navigateTo(`${routes.wallet.path}?id=${id}`);
   };
 
   const getState = (page: Page): State => {
-    if (active === routes[page].name) return State.selected;
+    if (location.pathname === routes[page].path) return State.selected;
     return State.normal;
   };
-
   const getStateWallet = (id: string | undefined): State => {
-    if (id && active === `wallet-${id}`) return State.active;
+    if (
+      id &&
+      location.pathname === routes.wallet.path &&
+      query.get('id') === id
+    )
+      return State.active;
     return State.normal;
   };
 
@@ -74,41 +78,37 @@ export const SideBar: FC = () => {
                 <Syncronizing fill={theme.palette.muted.main} />
               </Button>
             }
+            isCollapsed={location.pathname !== routes.wallet.path}
+            state={
+              location.pathname === routes.wallet.path
+                ? State.selected
+                : undefined
+            }
             Icon={WalletIcon}
           >
             {wallets.map((wallet, idx) => {
-              const child =
-                idx === wallets.length - 1 && deletedWallets.length === 0
-                  ? 'last'
-                  : 'regular';
+              const child = idx === wallets.length - 1 ? 'last' : 'regular';
+              const deleted = deletedWallets.some(
+                deletedWallet => wallet.__id === deletedWallet.__id,
+              );
               return (
                 <SideBarItem
                   key={`wallet-${wallet.__id}`}
                   text={wallet.name}
                   onClick={() => navigateWallet(wallet.__id)}
-                  state={getStateWallet(wallet.__id)}
-                  child={child}
-                />
-              );
-            })}
-            {deletedWallets.map((wallet, idx) => {
-              const child =
-                idx === deletedWallets.length - 1 ? 'last' : 'regular';
-              return (
-                <SideBarItem
-                  key={`wallet-${wallet.__id}`}
-                  text={wallet.name}
-                  state={State.error}
+                  state={deleted ? State.error : getStateWallet(wallet.__id)}
                   extraRight={
-                    <Button
-                      variant="text"
-                      align="center"
-                      onClick={e => {
-                        e.stopPropagation();
-                      }}
-                    >
-                      <WalletInfoIcon fill={theme.palette.muted.main} />
-                    </Button>
+                    deleted && (
+                      <Button
+                        variant="text"
+                        align="center"
+                        onClick={e => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <WalletInfoIcon fill={theme.palette.muted.main} />
+                      </Button>
+                    )
                   }
                   child={child}
                 />

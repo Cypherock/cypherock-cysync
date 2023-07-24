@@ -504,6 +504,9 @@ const en = {
   portfolio: {
     title: 'Portfolio',
   },
+  wallet: {
+    title: 'Wallet',
+  },
   errors: {
     deviceErrors,
     default: 'Some internal error occurred',

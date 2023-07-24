@@ -24,11 +24,15 @@ export const walletSlice = createSlice({
   initialState,
   reducers: {
     setWallets: (state, payload: PayloadAction<IWallet[]>) => {
-      state.wallets = payload.payload;
+      state.wallets = payload.payload.sort((a, b) =>
+        a.name.localeCompare(b.name),
+      );
       state.isLoaded = true;
     },
     setDeletedWallets: (state, payload: PayloadAction<IWallet[]>) => {
-      state.deletedWallets = payload.payload;
+      state.deletedWallets = payload.payload.sort((a, b) =>
+        a.name.localeCompare(b.name),
+      );
       state.deleteWalletStatus = 'idle';
     },
   },
