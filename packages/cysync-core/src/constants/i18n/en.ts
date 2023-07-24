@@ -699,6 +699,9 @@ const en = {
   portfolio: {
     title: 'Portfolio',
   },
+  wallet: {
+    title: 'Wallet',
+  },
   errors: {
     deviceErrors,
     databaseError,
