@@ -18,21 +18,31 @@ import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
+import { fetchWalletsAndSync } from '~/actions';
 import { routes } from '~/constants';
+import { DeviceConnectionStatus, useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
-import { selectLanguage, selectWallets, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectWallets,
+  useAppSelector,
+  useAppDispatch,
+} from '~/store';
 
 type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
 
 export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
   const location = useLocation();
   const query = useQuery();
-
+  const dispatch = useAppDispatch();
   const strings = useAppSelector(selectLanguage).strings.sidebar;
   const { wallets, deletedWallets } = useAppSelector(selectWallets);
   const theme = useTheme()!;
-
   const navigateTo = useNavigateTo();
+  const { connection, connectDevice } = useDevice();
+
+  const connected = connection?.status === DeviceConnectionStatus.CONNECTED;
+
   const navigate = (page: Page) => {
     navigateTo(routes[page].path);
   };
@@ -70,12 +80,21 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
             extraLeft={
               <Button
                 variant="text"
+                disabled={!connected}
                 align="center"
+                title="Sync Wallets"
                 onClick={e => {
+                  dispatch(fetchWalletsAndSync({ connection, connectDevice }));
                   e.stopPropagation();
                 }}
               >
-                <Syncronizing fill={theme.palette.muted.main} />
+                <Syncronizing
+                  fill={
+                    connected
+                      ? theme.palette.muted.main
+                      : theme.palette.text.disabled
+                  }
+                />
               </Button>
             }
             isCollapsed={location.pathname !== routes.wallet.path}
