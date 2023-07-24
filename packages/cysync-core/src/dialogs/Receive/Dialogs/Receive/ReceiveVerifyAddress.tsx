@@ -42,7 +42,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext();
+      onNext(2, 2);
     },
     ArrowLeft: () => {
       onPrevious();
@@ -83,7 +83,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
           gap={5}
           justify="flex-start"
         >
-          <InputLabel>{connect.label}</InputLabel>
+          <InputLabel mb={0}>{connect.label}</InputLabel>
           <CopyContainer link={connect.address} />
         </Container>
         <LeanBoxContainer>
@@ -95,8 +95,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
               text={data.text}
               id={data.id}
               animate={data.animate}
-              py={4}
-              mt={4}
+              px={6}
             />
           ))}
         </LeanBoxContainer>

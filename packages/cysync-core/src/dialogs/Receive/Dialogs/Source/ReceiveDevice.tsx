@@ -59,7 +59,9 @@ export const ReceiveDevice: React.FC = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary">{connect.buttonName}</Button>
+        <Button variant="secondary" onClick={() => onNext(2, 1)}>
+          {connect.buttonName}
+        </Button>
       </DialogBoxFooter>
     </DialogBox>
   );

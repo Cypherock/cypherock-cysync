@@ -241,6 +241,19 @@ const en = {
     },
   },
   receive: {
+    receive: {
+      info: {
+        dialogBox: {
+          title: 'Receive',
+          header: 'Receive',
+          subheader: 'Choose a wallet and account to credit',
+          searchText: 'Search',
+          placeholderText: 'Choose a coin',
+          placeholderWalletText: 'Choose a wallet',
+          text: 'Cypherock Red',
+        },
+      },
+    },
     deviceConnection: {
       info: {
         dialogBox: {

@@ -15,7 +15,7 @@ import React, {
 import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
 
-import { ReceiveDevice } from '../Dialogs';
+import { Receive, ReceiveDevice } from '../Dialogs';
 import {
   ReceiveDeviceConfirm,
   ReceiveDeviceConfirmCancelled,
@@ -74,20 +74,17 @@ export const ReceiveGuideProvider: FC<ReceiveGuideContextProviderProps> = ({
   const tabs: ITabs = [
     {
       name: lang.strings.receive.aside.tabs.source,
-      dialogs: [<ReceiveDevice />],
+      dialogs: [<Receive />],
     },
     {
       name: lang.strings.receive.aside.tabs.device,
       dialogs: [
+        <ReceiveDevice />,
         <ReceiveDeviceConnection />,
         <ReceiveDeviceConfirmCancelled />,
         <ReceiveDeviceConfirmTroubleShoot />,
         <ReceiveDeviceConfirmForToken />,
         <ReceiveDeviceConfirm />,
-        // <SyncAccountDialog />,
-        // <NoAccountDialog />,
-        // <ReceiveSingleChainDialog />,
-        // <ReceiveDialog />,
       ],
     },
     {

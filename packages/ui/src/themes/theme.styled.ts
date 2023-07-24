@@ -88,6 +88,7 @@ export const theme = {
       dropdown: colors.border.separatorSecondary,
       infoBox: colors.border.infoBox,
       infoBoxOrange: colors.border.infoBoxOrange,
+      subMenuLeft: colors.border.subMenuLeft,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

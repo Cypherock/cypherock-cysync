@@ -53,7 +53,7 @@ export const SnackBar: React.FC<SnackBarProps> = ({
   <SnackBarWrapper>
     <SnackBarPadding>
       <Image src={imageSrc} alt={imageAlt} />
-      <StretchedTypography variant="h6" shouldStretch>
+      <StretchedTypography variant="h6" $shouldStretch>
         {text}
       </StretchedTypography>
     </SnackBarPadding>

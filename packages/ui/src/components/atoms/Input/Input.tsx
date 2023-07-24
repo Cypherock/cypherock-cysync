@@ -6,8 +6,9 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
+import { SpacingProps } from '../../utils';
 
-export interface InputProps {
+export interface InputProps extends SpacingProps {
   type: string;
   placeholder?: string;
   name: string;

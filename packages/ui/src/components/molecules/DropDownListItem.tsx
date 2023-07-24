@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,12 +11,13 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
-import { BorderProps, border } from '../utils';
+import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
 export interface DropDownListItemProps extends BorderProps {
   leftImageSrc?: string;
   rightIconSrc?: string;
   rightText?: string;
+  $hasRightText?: boolean;
   tag?: string;
   text: string;
   radioButtonValue?: string;
@@ -28,9 +29,10 @@ export interface DropDownListItemProps extends BorderProps {
   id?: string;
   onClick?: () => void;
   selectedItem?: string | undefined;
-  changeColorWhite?: boolean;
   checked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
+  onCheckedChange?: (id: string) => void;
+  color?: TypographyColor;
+  subMenu?: DropDownListItemProps[];
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -47,22 +49,27 @@ const ShortFormTag = styled.div`
 
 export const DropDownListItemStretchedTypography = styled(Typography)<{
   $shouldStretch: boolean;
-  $changeColor?: boolean;
+  $color: TypographyColor;
 }>`
-  color: ${({ $changeColor, theme }) =>
-    $changeColor ? theme.palette.text.white : theme.palette.text.muted};
+  color: ${({ $color, theme }) => theme.palette.text[$color]};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
-  DropDownListItemHorizontalBoxProps & BorderProps
+  DropDownListItemHorizontalBoxProps &
+    BorderProps &
+    SpacingProps & { $hasRightText?: boolean }
 >`
   display: flex;
-  padding: 12px 24px;
+  padding-top: 12px;
+  padding-right: ${({ $hasRightText }) => ($hasRightText ? '48px' : '24px')};
+  padding-bottom: 12px;
+  padding-left: 24px;
   align-items: center;
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ theme }) => theme.palette.background.dropdown};
+  background-color: ${({ theme }) =>
+    theme.palette.background.separatorSecondary};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${DropDownListItemStretchedTypography} {
@@ -71,6 +78,7 @@ export const DropDownListItemHorizontalBox = styled.div<
   }
   color: ${({ theme }) => theme.palette.text.muted};
   ${border}
+  ${spacing}
 `;
 
 export const DropDownListItemIconContainer = styled.div`
@@ -83,6 +91,22 @@ export const DropDownListItemRightContent = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+`;
+
+const DropDownItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SubMenuItemWrapper = styled.div`
+  /* Add the left border and margin to the left only when SubMenu is rendered */
+  border-left: 1px solid ${({ theme }) => theme.palette.border.subMenuLeft};
+  margin-left: 30px;
+`;
+
+const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
+  font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
+  font-weight: 400;
 `;
 
 export const DropDownListItem: FC<DropDownListItemProps> = ({
@@ -98,84 +122,103 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   rightTextColor = 'gold',
   checkType = undefined,
   checked = false,
-  changeColorWhite = false,
+  $hasRightText = false,
   id,
+  color,
   onClick,
   restrictedItem = false,
   onCheckedChange,
   $borderRadius,
+  subMenu = [],
 }): ReactElement => {
-  const [isChecked, setChecked] = useState(false);
-
   const handleCheckChange = () => {
-    const newChecked = !isChecked;
-    setChecked(newChecked);
-
-    if (onCheckedChange) {
-      onCheckedChange(newChecked);
-    }
+    onCheckedChange?.(id ?? 'default-id');
   };
 
   const handleBoxClick = () => {
     if (checkType) handleCheckChange();
     if (onClick) onClick();
   };
-
+  // console.log("selecteditem ", selectedItem, " id ", id )
   return (
-    <DropDownListItemHorizontalBox
-      onClick={handleBoxClick}
-      $isChecked={checked}
-      $borderRadius={$borderRadius}
-    >
-      {!restrictedItem && checkType && checkType === 'radio' && (
-        <RadioButton checked={selectedItem === id} value={radioButtonValue} />
-      )}
-      {leftImageSrc && (
-        <DropDownListItemIconContainer>
-          <Image
-            src={leftImageSrc}
-            alt="Left Icon"
-            width="20px"
-            height="16px"
-          />
-        </DropDownListItemIconContainer>
-      )}
-      <DropDownListItemStretchedTypography
-        $shouldStretch={!tag}
-        variant="h6"
-        $changeColor={changeColorWhite}
+    <DropDownItemWrapper>
+      <DropDownListItemHorizontalBox
+        onClick={handleBoxClick}
+        $isChecked={checked}
+        $borderRadius={$borderRadius}
+        $hasRightText={$hasRightText}
       >
-        <LangDisplay text={text} />
-        <ShortFormTag>
-          <LangDisplay text={shortForm} />
-        </ShortFormTag>
-      </DropDownListItemStretchedTypography>
-      {tag && <Tag>{tag}</Tag>}
-      <DropDownListItemRightContent>
-        {rightText && (
-          <Typography variant={rightTextVariant} color={rightTextColor}>
-            {rightText}
-          </Typography>
+        {!restrictedItem && checkType && checkType === 'radio' && (
+          <RadioButton
+            checked={checked}
+            value={radioButtonValue}
+            onChange={handleCheckChange}
+          />
         )}
-        {rightIconSrc && (
+        {leftImageSrc && (
           <DropDownListItemIconContainer>
             <Image
-              src={rightIconSrc}
-              alt="Right Icon"
-              width="15px"
-              height="12px"
+              src={leftImageSrc}
+              alt="Left Icon"
+              width="20px"
+              height="16px"
             />
           </DropDownListItemIconContainer>
         )}
-        {!restrictedItem && checkType && checkType === 'checkbox' && (
-          <CheckBox
-            checked={checked}
-            onChange={handleCheckChange}
-            id={id ?? 'default-id'}
-          />
-        )}
-      </DropDownListItemRightContent>
-    </DropDownListItemHorizontalBox>
+        <DropDownListItemStretchedTypography
+          $shouldStretch={!tag}
+          variant="h6"
+          $color={color ?? 'muted'}
+        >
+          <LangDisplay text={text} />
+          <ShortFormTag>
+            <LangDisplay text={shortForm} />
+          </ShortFormTag>
+        </DropDownListItemStretchedTypography>
+        {tag && <Tag>{tag}</Tag>}
+        <DropDownListItemRightContent>
+          {rightText && (
+            <RightTextTypography
+              variant={rightTextVariant}
+              color={rightTextColor}
+              $hasRightText={$hasRightText}
+            >
+              {rightText}
+            </RightTextTypography>
+          )}
+          {rightIconSrc && (
+            <DropDownListItemIconContainer>
+              <Image
+                src={rightIconSrc}
+                alt="Right Icon"
+                width="15px"
+                height="12px"
+              />
+            </DropDownListItemIconContainer>
+          )}
+          {!restrictedItem && checkType && checkType === 'checkbox' && (
+            <CheckBox
+              checked={checked}
+              onChange={handleCheckChange}
+              id={id ?? 'default-id'}
+            />
+          )}
+        </DropDownListItemRightContent>
+      </DropDownListItemHorizontalBox>
+      {subMenu.length > 0 && (
+        <div>
+          {subMenu.map(item => (
+            <SubMenuItemWrapper key={item.id}>
+              <DropDownListItem
+                {...item}
+                checked={selectedItem === item.id}
+                onCheckedChange={onCheckedChange}
+              />
+            </SubMenuItemWrapper>
+          ))}
+        </div>
+      )}
+    </DropDownItemWrapper>
   );
 };
 
@@ -192,8 +235,10 @@ DropDownListItem.defaultProps = {
   onClick: undefined,
   restrictedItem: false,
   selectedItem: undefined,
-  changeColorWhite: false,
   checked: false,
   onCheckedChange: undefined,
   shortForm: '',
+  color: 'muted',
+  subMenu: [],
+  $hasRightText: false,
 };

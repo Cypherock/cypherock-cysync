@@ -6,7 +6,6 @@ import { Input } from './Input';
 
 import { searchIcon, triangleInverseIcon } from '../../assets';
 import { DropDownListItem, DropDownListItemProps } from '../molecules';
-import { findSelectedItem, searchInItems } from '../utils';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
@@ -28,7 +27,7 @@ const List = styled.ul<{ disabled?: boolean }>`
   box-shadow: 4px 4px 32px 4px ${({ theme }) => theme.palette.shadow.dropdown};
   padding: 16px 0px 16px 0px;
   z-index: 10;
-  background-color: ${({ theme }) => theme.palette.border.list};
+  background-color: ${({ theme }) => theme.palette.background.input};
   &:hover {
     cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
   }
@@ -48,7 +47,7 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   width: 100%;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
-  padding: 1px;
+
   ${({ disabled, theme }) =>
     !disabled &&
     `
@@ -59,7 +58,7 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
             inset: 0;
             border-radius: 8px;
             border: 1px solid transparent;
-            // z-index: 10;
+            z-index: 10;
             background: ${theme.palette.golden};
             -webkit-mask: linear-gradient(#fff 0 0) padding-box,
               linear-gradient(#fff 0 0);
@@ -107,18 +106,42 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onChange(id);
   };
 
+  const filteredItems = useMemo(
+    () =>
+      items.filter(item =>
+        item.text.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [items, search],
+  );
+
+  const findSelectedItem = (
+    menuItems: DropDownListItemProps[],
+    selectedId: string | undefined,
+  ): DropDownListItemProps | undefined => {
+    for (const item of menuItems) {
+      if (item.id === selectedId) {
+        return item;
+      }
+      if (item.subMenu && item.subMenu.length > 0) {
+        const foundItem = findSelectedItem(item.subMenu, selectedId);
+        if (foundItem) {
+          return foundItem;
+        }
+      }
+    }
+    return undefined;
+  };
+
   const selectedDropdownItem = useMemo(
     () => findSelectedItem(items, selectedItem),
     [items, selectedItem],
   );
 
-  const filteredItems = useMemo(
-    () => searchInItems(items, search, selectedItem),
-    [items, search],
-  );
-
   const handleInputChange = (value: string) => {
+    // console.log("value ", value, "disabled ", disabled)
+    // if (!disabled) {
     setSearch(value);
+    // }
   };
 
   const toggleDropdown = () => {

@@ -9,6 +9,10 @@ const rootRoutes = {
     name: 'portfolio',
     path: '/portfolio',
   },
+  test: {
+    name: 'test',
+    path: '/test',
+  },
 } as const;
 
 export const routes = {

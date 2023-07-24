@@ -1,10 +1,9 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
-import { goldenGradient } from './Gradient';
 import { Throbber } from './Throbber';
 
-import { UtilsProps, utils } from '../utils';
+import { UtilsProps, goldenGradient, utils } from '../utils';
 
 type ButtonVariant =
   | 'primary'

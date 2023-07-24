@@ -80,6 +80,7 @@ export const colors = {
     gold: 'gold',
     infoBox: '#3c3c3c',
     infoBoxOrange: '#4A2D00',
+    subMenuLeft: '#534B44',
   },
   shadow: {
     dropdown: '#0f0d0b',
