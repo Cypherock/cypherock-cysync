@@ -1,20 +1,11 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { Topbar } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SideBar } from './Components';
+import { MainAppLayout } from './Components';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);
 
-  return (
-    <Container height="screen" display="flex">
-      <SideBar />
-      <Flex direction="column" grow={1} $alignSelf="start">
-        <Topbar title={strings.sidebar.settings} />
-      </Flex>
-    </Container>
-  );
+  return <MainAppLayout title={strings.sidebar.settings} />;
 };
