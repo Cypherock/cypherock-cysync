@@ -146,7 +146,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 leftImageSrc={data.leftImageSrc}
                 text={data.text}
                 tag={data.tag}
-                {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                checkType={data.checkType as 'checkbox' | 'radio' | undefined}
                 id={data.id}
                 onCheckChanged={() => handleCheckBoxChange(data.id)}
                 $isChecked={checkedItems.includes(data.id)}

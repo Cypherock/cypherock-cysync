@@ -45,6 +45,7 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
+  cursor: pointer;
   ${spacing};
 `;
 

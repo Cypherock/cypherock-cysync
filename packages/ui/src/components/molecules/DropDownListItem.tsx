@@ -99,7 +99,6 @@ const DropDownItemWrapper = styled.div`
 `;
 
 const SubMenuItemWrapper = styled.div`
-  /* Add the left border and margin to the left only when SubMenu is rendered */
   border-left: 1px solid ${({ theme }) => theme.palette.border.subMenuLeft};
   margin-left: 30px;
 `;
@@ -139,7 +138,6 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
     if (checkType) handleCheckChange();
     if (onClick) onClick();
   };
-  // console.log("selecteditem ", selectedItem, " id ", id )
   return (
     <DropDownItemWrapper>
       <DropDownListItemHorizontalBox
