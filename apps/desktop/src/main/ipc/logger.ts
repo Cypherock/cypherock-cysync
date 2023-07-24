@@ -1,6 +1,6 @@
 import { ipcConfig } from './helpers/config';
 
-import { logWithServiceAndLevel } from '../utils/logger';
+import { logWithServiceAndLevel } from '../utils';
 
 export const getLoggerIPCHandlers = () => [
   {

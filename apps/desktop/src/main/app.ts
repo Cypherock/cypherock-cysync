@@ -2,7 +2,7 @@ import { release } from 'node:os';
 
 import { app, BrowserWindow, ipcMain } from 'electron';
 
-import { setupIPCHandlers } from './ipc';
+import { setupIPCHandlers, setupListeners } from './ipc';
 import {
   addAppHooks,
   config,
@@ -16,6 +16,16 @@ import {
 } from './utils';
 import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
+
+let mainWindow: BrowserWindow | null = null;
+
+const getWebContents = () => {
+  if (!mainWindow) {
+    throw new Error('Main window not initialized');
+  }
+
+  return mainWindow.webContents;
+};
 
 const shouldStartApp = () => {
   if (config.IS_E2E) return true;
@@ -34,6 +44,7 @@ const shouldStartApp = () => {
 const prepareApp = () => {
   setupProcessEventHandlers();
   setupDependencies();
+  setupIPCHandlers(ipcMain, getWebContents);
 
   // Disable GPU Acceleration for Windows 7
   if (release().startsWith('6.1')) app.disableHardwareAcceleration();
@@ -55,13 +66,12 @@ export default function createApp() {
   logger.info('Starting Application', { config });
   prepareApp();
 
-  let mainWindow: BrowserWindow | null = null;
   let loadingWindow: BrowserWindow | null = null;
 
   const createMainWindow = async () => {
     logger.debug('Starting main window');
     mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
-    setupIPCHandlers(ipcMain, mainWindow.webContents);
+    setupListeners(mainWindow.webContents);
     autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
 
