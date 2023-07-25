@@ -26,7 +26,7 @@ export const mapDerivationPath = (derivationPath: string) => {
 };
 
 export interface IGetAddressesFromDeviceParams<T> extends ICreateAccountParams {
-  derivationPaths: number[][];
+  derivationPaths: { derivationPath: number[]; index: number }[];
   observer: Subscriber<ICreateAccountEvent>;
   app: T;
 }
@@ -37,7 +37,10 @@ export type GetAddressesFromDevice<T> = (
 
 export interface IGenerateAddressesPerSchemeParams<T>
   extends ICreateAccountParams {
-  derivationPathsPerScheme: Record<string, string[]>;
+  derivationPathsPerScheme: Record<
+    string,
+    { derivationPath: string; index: number }[]
+  >;
   observer: Subscriber<ICreateAccountEvent>;
   getAddressesFromDevice: GetAddressesFromDevice<T>;
   app: T;
@@ -51,7 +54,10 @@ export async function generateAddressesPerScheme<T>(
     (a, b) => [...a, ...b],
     [],
   );
-  const mappedDerivationPaths = allDerivationPaths.map(mapDerivationPath);
+  const mappedDerivationPaths = allDerivationPaths.map(d => ({
+    derivationPath: mapDerivationPath(d.derivationPath),
+    index: startIndex,
+  }));
 
   const addresses = await params.getAddressesFromDevice({
     ...params,
@@ -60,19 +66,24 @@ export async function generateAddressesPerScheme<T>(
 
   const addressesPerScheme: Record<
     string,
-    { address: string; derivationPath: string }[]
+    { address: string; derivationPath: string; index: number }[]
   > = {};
 
-  let index = 0;
-  const mapAddresses = (path: string, i: number) => ({
-    address: addresses[index + i],
-    derivationPath: path,
+  let startIndex = 0;
+
+  const mapAddresses = (
+    { derivationPath, index }: { derivationPath: string; index: number },
+    i: number,
+  ) => ({
+    address: addresses[startIndex + i],
+    derivationPath,
+    index,
   });
 
   for (const schemeName of Object.keys(derivationPathsPerScheme)) {
     const paths = derivationPathsPerScheme[schemeName];
     addressesPerScheme[schemeName] = paths.map(mapAddresses);
-    index += paths.length;
+    startIndex += paths.length;
   }
 
   return addressesPerScheme;

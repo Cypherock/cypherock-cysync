@@ -15,7 +15,7 @@ export const deleteWallets = createAsyncThunk<
 
   const { deletedWallets } = getState().wallet;
 
-  await deleteWalletsOnDb(db, deletedWallets);
+  await deleteWalletsOnDb(db, wallets);
 
   return lodash.differenceWith(
     deletedWallets,

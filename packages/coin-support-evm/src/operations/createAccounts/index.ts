@@ -23,7 +23,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   const { publicKeys } = await app.getPublicKeys({
     walletId: hexToUint8Array(walletId),
-    derivationPaths: derivationPaths as any,
+    derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     chainId: evmCoinList[coinId].chain,
     onEvent: event => {
       events[event] = true;
@@ -37,21 +37,24 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 };
 
 const createAccountFromAddress: ICreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
-  async (addressDetails, params) => ({
-    // TODO: name to be decided later
-    name: '',
-    xpubOrAddress: addressDetails.address,
-    balance: addressDetails.balance,
-    unit: evmCoinList[params.coinId].units[0].abbr.toLowerCase(),
-    derivationPath: addressDetails.derivationPath,
-    type: 'account',
-    familyId: params.coinId,
-    assetId: params.coinId,
-    walletId: params.walletId,
-    extraData: {
+  async (addressDetails, params) => {
+    const coin = evmCoinList[params.coinId];
+    const name = `${coin.name} ${addressDetails.index + 1}`;
+
+    return {
+      // TODO: name to be decided later
+      name,
+      xpubOrAddress: addressDetails.address,
+      balance: addressDetails.balance,
+      unit: coin.units[0].abbr.toLowerCase(),
+      derivationPath: addressDetails.derivationPath,
+      type: 'account',
+      familyId: coin.family,
+      assetId: params.coinId,
+      walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
-    },
-  });
+    };
+  };
 
 const createApp = async (connection: IDeviceConnection) =>
   EvmApp.create(connection);

@@ -8,94 +8,287 @@ import {
   CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
-import { DeviceErrorCodes } from '~/types/deviceError';
+import { ServerErrorType } from '~/errors';
+import { DeviceErrorCodes, IErrorMsg } from '~/types/deviceError';
 
-const deviceErrors: Record<DeviceErrorCodes, string> = {
-  [DeviceConnectionErrorType.NOT_CONNECTED]: 'No device connected',
-  [DeviceConnectionErrorType.CONNECTION_CLOSED]:
-    'Connection was closed while in process',
-  [DeviceConnectionErrorType.FAILED_TO_CONNECT]:
-    'Failed to create device connection',
-  [DeviceCommunicationErrorType.IN_BOOTLOADER]: 'Device is in bootloader mode',
-  [DeviceCommunicationErrorType.WRITE_REJECTED]:
-    'The write packet operation was rejected by the device',
-  [DeviceCommunicationErrorType.WRITE_ERROR]:
-    'Unable to write packet to the device',
-  [DeviceCommunicationErrorType.WRITE_TIMEOUT]:
-    'Did not receive ACK of sent packet on time',
-  [DeviceCommunicationErrorType.READ_TIMEOUT]:
-    'Did not receive the expected data from device on time',
-  [DeviceCommunicationErrorType.UNKNOWN_COMMUNICATION_ERROR]:
-    'Unknown Error at communication module',
-  [DeviceCompatibilityErrorType.INVALID_SDK_OPERATION]:
-    'The device sdk does not support this function',
-  [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]:
-    'The connected device is not supported by this SDK',
-  [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]:
-    'The device is not in bootloader mode',
-  [DeviceBootloaderErrorType.FIRMWARE_SIZE_LIMIT_EXCEEDED]:
-    'Firmware Size Limit Exceed',
-  [DeviceBootloaderErrorType.WRONG_HARDWARE_VERSION]: 'Wrong Hardware version',
-  [DeviceBootloaderErrorType.WRONG_MAGIC_NUMBER]: 'Wrong Magic Number',
-  [DeviceBootloaderErrorType.SIGNATURE_NOT_VERIFIED]: 'Signature not verified',
-  [DeviceBootloaderErrorType.LOWER_FIRMWARE_VERSION]: 'Lower Firmware version',
-  [DeviceBootloaderErrorType.FLASH_WRITE_ERROR]: 'Flash Write Error',
-  [DeviceBootloaderErrorType.FLASH_CRC_MISMATCH]: 'Flash CRC Mismatch',
-  [DeviceBootloaderErrorType.FLASH_TIMEOUT_ERROR]: 'Flash Timeout Error',
-  [DeviceBootloaderErrorType.FLASH_NACK]: 'Flash Negative Acknowledgement',
-  [DeviceBootloaderErrorType.NOT_IN_RECEIVING_MODE]:
-    'The device is in fault state',
-  [DeviceAppErrorType.UNKNOWN_ERROR]: 'Unknown application error',
-  [DeviceAppErrorType.EXECUTING_OTHER_COMMAND]:
-    'The device is executing some other command',
-  [DeviceAppErrorType.PROCESS_ABORTED]: 'The process was aborted',
-  [DeviceAppErrorType.DEVICE_ABORT]: 'The request was timed out on the device',
-  [DeviceAppErrorType.INVALID_MSG_FROM_DEVICE]:
-    'Invalid result received from device',
-  [DeviceAppErrorType.INVALID_APP_ID_FROM_DEVICE]:
-    'Invalid appId received from device',
-  [DeviceAppErrorType.INVALID_MSG]: 'Invalid result sent from app',
-  [DeviceAppErrorType.UNKNOWN_APP]: 'The app does not exist on device',
-  [DeviceAppErrorType.APP_NOT_ACTIVE]: 'The app is active on the device',
-  [DeviceAppErrorType.DEVICE_SETUP_REQUIRED]: 'Device setup is required',
-  [DeviceAppErrorType.WALLET_NOT_FOUND]:
-    'Selected wallet is not present on the device',
-  [DeviceAppErrorType.WALLET_PARTIAL_STATE]:
-    'Selected wallet is in partial state',
-  [DeviceAppErrorType.NO_WALLET_EXISTS]: 'No wallet exists on the device',
-  [DeviceAppErrorType.CARD_OPERATION_FAILED]: 'Card operation failed',
-  [DeviceAppErrorType.USER_REJECTION]: 'User rejected the operation',
-  [DeviceAppErrorType.CORRUPT_DATA]: 'Corrupt data error from device',
-  [DeviceAppErrorType.DEVICE_AUTH_FAILED]:
-    'Device seems to be Compromised. Contact Cypherock support immediately',
-  [DeviceAppErrorType.CARD_AUTH_FAILED]:
-    'Card seems to be Compromised. Contact Cypherock support immediately',
-  [CardAppErrorType.UNKNOWN]: 'Unknown card error',
-  [CardAppErrorType.NOT_PAIRED]: 'Card is not paired',
-  [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: 'Incompatible applet version',
-  [CardAppErrorType.SW_NULL_POINTER_EXCEPTION]: 'Null pointer exception',
-  [CardAppErrorType.SW_TRANSACTION_EXCEPTION]:
-    'Operation failed on card (Tx Exp)',
-  [CardAppErrorType.SW_FILE_INVALID]: 'Tapped card family id mismatch',
-  [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]:
-    'Security conditions not satisfied, i.e. pairing session invalid',
-  [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]: 'Wrong card sequence',
-  [CardAppErrorType.SW_WRONG_DATA]: 'Invalid APDU length',
-  [CardAppErrorType.SW_FILE_NOT_FOUND]: 'Corrupted card',
-  [CardAppErrorType.SW_RECORD_NOT_FOUND]: 'Wallet does not exist on device',
-  [CardAppErrorType.SW_FILE_FULL]: 'Card is full',
-  [CardAppErrorType.SW_CORRECT_LENGTH_00]: 'Incorrect pin entered',
-  [CardAppErrorType.SW_INVALID_INS]: 'Applet unknown error',
-  [CardAppErrorType.SW_NOT_PAIRED]: 'Card pairing to device missing',
-  [CardAppErrorType.SW_CRYPTO_EXCEPTION]:
-    'Operation failed on card (Crypto Exp)',
-  [CardAppErrorType.POW_SW_WALLET_LOCKED]:
-    'Locked wallet status word, POW meaning proof of word',
-  [CardAppErrorType.SW_INS_BLOCKED]: 'Card health critical, migration required',
-  [CardAppErrorType.SW_OUT_OF_BOUNDARY]:
-    'Operation failed on card (Out of boundary)',
-  [CardAppErrorType.UNRECOGNIZED]:
-    'Card operation failed with unrecognized error',
+const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
+  // Connection Errors
+  [DeviceConnectionErrorType.NOT_CONNECTED]: {
+    heading: 'Connect the X1 Vault to your PC to proceed',
+  },
+  [DeviceConnectionErrorType.CONNECTION_CLOSED]: {
+    heading: 'Connect the X1 Vault to your PC to proceed',
+  },
+  [DeviceConnectionErrorType.FAILED_TO_CONNECT]: {
+    heading: 'Your X1 Vault is unable to connect',
+    subtext: 'Try reconnecting the device',
+  },
+
+  // Communication Errors
+  [DeviceCommunicationErrorType.IN_BOOTLOADER]: {
+    heading: 'Your X1 Vault is misconfigured',
+    subtext: 'Update your device to proceed',
+  },
+  [DeviceCommunicationErrorType.WRITE_REJECTED]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceCommunicationErrorType.WRITE_ERROR]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceCommunicationErrorType.WRITE_TIMEOUT]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceCommunicationErrorType.READ_TIMEOUT]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceCommunicationErrorType.UNKNOWN_COMMUNICATION_ERROR]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+
+  // Compatibility Errors
+  [DeviceCompatibilityErrorType.INVALID_SDK_OPERATION]: {
+    heading: 'Your X1 Vault does not support this operation',
+    subtext: 'Update the cySync app and the device to the latest version',
+  },
+  [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]: {
+    heading: 'Your X1 Vault is not compatible with the cySync app',
+    subtext: 'Update the app and the device to the latest version',
+  },
+
+  // Bootloader Errors
+  [DeviceBootloaderErrorType.NOT_IN_BOOTLOADER]: {
+    heading: 'Operation failed on the X1 Vault',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceBootloaderErrorType.FIRMWARE_SIZE_LIMIT_EXCEEDED]: {
+    heading: 'Your X1 Vault does not support this firmware',
+    subtext: 'Contact Cypherock support for assistance',
+  },
+  [DeviceBootloaderErrorType.WRONG_HARDWARE_VERSION]: {
+    heading: 'Your X1 Vault does not support this firmware',
+    subtext: 'Contact Cypherock support for assistance',
+  },
+  [DeviceBootloaderErrorType.WRONG_MAGIC_NUMBER]: {
+    heading: 'Your X1 Vault does not support this firmware',
+    subtext: 'Contact Cypherock support for assistance',
+  },
+  [DeviceBootloaderErrorType.SIGNATURE_NOT_VERIFIED]: {
+    heading: "Your X1 Vault's firmware is not authentic",
+    subtext:
+      'It usually happens when you are trying to install a firmware not developed by Cypherock',
+  },
+  [DeviceBootloaderErrorType.LOWER_FIRMWARE_VERSION]: {
+    heading: 'Your X1 Vault failed to update to a lower firmware version',
+    subtext:
+      'The device only supports updating the firmware to a higher version',
+  },
+  [DeviceBootloaderErrorType.FLASH_WRITE_ERROR]: {
+    heading: 'X1 Vault update failed',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [DeviceBootloaderErrorType.FLASH_CRC_MISMATCH]: {
+    heading: 'Your X1 Vault does not support this firmware',
+    subtext: 'Contact Cypherock support for assistance',
+  },
+  [DeviceBootloaderErrorType.FLASH_TIMEOUT_ERROR]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceBootloaderErrorType.FLASH_NACK]: {
+    heading: 'Something went wrong',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceBootloaderErrorType.NOT_IN_RECEIVING_MODE]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device and try again',
+  },
+
+  // App Errors
+  [DeviceAppErrorType.UNKNOWN_ERROR]: {
+    heading: 'Something went wrong',
+    subtext: 'Reconnect the device and try again',
+  },
+  [DeviceAppErrorType.EXECUTING_OTHER_COMMAND]: {
+    heading: 'Your X1 Vault is currently busy',
+    subtext: 'Try again after sometime',
+  },
+  [DeviceAppErrorType.PROCESS_ABORTED]: {
+    heading: 'Your X1 Vault aborted this operation',
+    subtext: 'You can resume it from where you last left',
+  },
+  [DeviceAppErrorType.DEVICE_ABORT]: {
+    heading: 'Your X1 Vault aborted this operation',
+    subtext:
+      'Reconnect the device try again and if the problem persists, contact Cypherock support for assistance',
+  },
+  [DeviceAppErrorType.INVALID_MSG_FROM_DEVICE]: {
+    heading: 'our X1 Vault is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [DeviceAppErrorType.INVALID_APP_ID_FROM_DEVICE]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [DeviceAppErrorType.INVALID_MSG]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device try again or click Help to find a solution',
+  },
+  [DeviceAppErrorType.UNKNOWN_APP]: {
+    heading: 'The app does not exist on device',
+  },
+  [DeviceAppErrorType.APP_NOT_ACTIVE]: {
+    heading: 'Your X1 Vault is currently busy',
+    subtext: 'Try again after sometime',
+  },
+  [DeviceAppErrorType.DEVICE_SETUP_REQUIRED]: {
+    heading: 'Your X1 Vault is currently not setup properly',
+    subtext: 'Press continue to start the setup',
+  },
+  [DeviceAppErrorType.WALLET_NOT_FOUND]: {
+    heading:
+      'You have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it from the cySync app as well?',
+  },
+  [DeviceAppErrorType.WALLET_PARTIAL_STATE]: {
+    heading:
+      'Your wallet ${walletName} is currently misconfigured on your X1 Vault',
+    subtext:
+      'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
+  },
+  [DeviceAppErrorType.NO_WALLET_EXISTS]: {
+    heading: 'Your X1 Vault currently does not have any wallets',
+    subtext:
+      'If you have already created a wallet, retry after selecting it on the device',
+  },
+  [DeviceAppErrorType.CARD_OPERATION_FAILED]: {
+    heading: 'Unknown X1 Card error',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [DeviceAppErrorType.USER_REJECTION]: {
+    heading: 'You canceled the operation on your X1 Vault',
+    subtext:
+      'Please make sure to authorize the operation on your device before attempting it again',
+  },
+  [DeviceAppErrorType.CORRUPT_DATA]: {
+    heading: 'Your X1 Vault is facing some communication issues',
+    subtext: 'Reconnect the device try again or click Help to find a solution',
+  },
+  [DeviceAppErrorType.DEVICE_AUTH_FAILED]: {
+    heading:
+      'Device seems to be Compromised. Contact Cypherock support immediately',
+  },
+  [DeviceAppErrorType.CARD_AUTH_FAILED]: {
+    heading:
+      'Card seems to be Compromised. Contact Cypherock support immediately',
+  },
+
+  // Card Errors
+  [CardAppErrorType.UNKNOWN]: {
+    heading: 'Unknown X1 Card error',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.NOT_PAIRED]: {
+    heading: 'Your X1 Card is currently not paired with your X1 Vault',
+    subtext:
+      'Pair your card by going to settings from the main menu on your device before performing an operation',
+  },
+  [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: {
+    heading: 'Your X1 Card authentication failed',
+    subtext:
+      'Try a different card and if the problem persists, contact Cypherock support for assistance',
+  },
+  [CardAppErrorType.SW_NULL_POINTER_EXCEPTION]: {
+    heading: 'Your X1 Card has malfunctioned',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_TRANSACTION_EXCEPTION]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_FILE_INVALID]: {
+    heading: 'You tapped an incorrect X1 Card',
+    subtext: 'Make sure your card belongs to the same family',
+  },
+  [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]: {
+    heading: 'You tapped an incorrect X1 Card',
+    subtext: 'Please tap the cards in the correct sequence',
+  },
+  [CardAppErrorType.SW_WRONG_DATA]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_FILE_NOT_FOUND]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_RECORD_NOT_FOUND]: {
+    heading: 'Your X1 Card is out of sync with your X1 Vault',
+    subtext:
+      'Resync your card by going to wallet ${walletName} from the main menu on your device before performing an operation',
+  },
+  [CardAppErrorType.SW_FILE_FULL]: {
+    heading: "Your X1 Card's memory is full",
+    subtext:
+      'You can delete a wallet to add a new one or buy another Cypherock X1',
+  },
+  [CardAppErrorType.SW_CORRECT_LENGTH_00]: {
+    heading: 'You entered an incorrect PIN',
+    subtext: 'Enter the correct PIN before the card gets locked',
+  },
+  [CardAppErrorType.SW_INVALID_INS]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.SW_NOT_PAIRED]: {
+    heading: 'Your X1 Card needs to be paired with your X1 Vault',
+    subtext:
+      'You can start card pairing from settings in the device or you can use a different set of cards',
+  },
+  [CardAppErrorType.SW_CRYPTO_EXCEPTION]: {
+    heading: 'Your X1 Card is facing some communication issues',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.POW_SW_WALLET_LOCKED]: {
+    heading: 'The wallet ${walletName} is currently locked on your X1 Vault',
+    subtext: 'Unlock the wallet first before trying again',
+  },
+  [CardAppErrorType.SW_INS_BLOCKED]: {
+    heading: 'Your X1 Card has malfunctioned',
+    subtext: 'Click Help to find a solution',
+  },
+  [CardAppErrorType.SW_OUT_OF_BOUNDARY]: {
+    heading: 'Your X1 Card has malfunctioned',
+    subtext: 'Retry or click Help to find a solution',
+  },
+  [CardAppErrorType.UNRECOGNIZED]: {
+    heading: 'Unknown X1 Card error',
+    subtext: 'Retry or click Help to find a solution',
+  },
+};
+
+const databaseError = {
+  heading: 'Your cySync app is facing some internal issue',
+  subtext:
+    'Try again and if the problem persists, contact Cypherock support for assistance',
+};
+
+const serverErrors: Record<ServerErrorType, IErrorMsg> = {
+  [ServerErrorType.UNKNOWN_ERROR]: {
+    heading: 'Your cySync app is facing some connectivity issue',
+    subtext:
+      'Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance',
+  },
+  [ServerErrorType.CONNOT_CONNECT]: {
+    heading: 'Please connect to the internet to continue',
+  },
 };
 
 const en = {
@@ -112,6 +305,8 @@ const en = {
     reset: 'Reset',
     done: 'Done',
     close: 'Close',
+    report: 'Report',
+    help: 'Help',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -595,18 +790,23 @@ const en = {
     help: 'Help',
   },
   walletSync: {
+    deletedOne: {
+      title:
+        'Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?',
+    },
+    deletedMany: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which ones to keep and which ones to delete',
+    },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
       subTitle: 'You can chose which one to keep and which one to delete',
-      checkboxList: {
-        cypherockRed: 'Cypherock Red',
-        official: 'Official',
-        personal: 'Personal',
-      },
       checkboxText: "Don't show this again",
     },
     buttons: {
+      keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
     },
@@ -614,8 +814,13 @@ const en = {
   portfolio: {
     title: 'Portfolio',
   },
+  wallet: {
+    title: 'Wallet',
+  },
   errors: {
     deviceErrors,
+    databaseError,
+    serverErrors,
     default: 'Some internal error occurred',
   },
   validation: {

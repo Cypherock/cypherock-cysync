@@ -14,3 +14,8 @@ export type DeviceErrorCodes =
   | DeviceConnectionErrorType
   | DeviceCompatibilityErrorType
   | CardAppErrorType;
+
+export interface IErrorMsg {
+  heading: string;
+  subtext?: string;
+}

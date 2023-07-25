@@ -1,30 +1,30 @@
-import checkbox from '@inquirer/checkbox';
+import checkbox, { Choice } from '@inquirer/checkbox';
 import input from '@inquirer/input';
+import { confirm } from '@inquirer/prompts';
 import select from '@inquirer/select';
 
-export interface ISelection {
-  name: string;
-  value: string;
-  description?: string;
-  disabled?: boolean;
-}
+export type Selection<T> = Choice<T>;
 
-export const querySelect = async (
-  selections: ISelection[],
+export async function querySelect<T>(
+  selections: Selection<T>[],
   message = 'Select your option',
-) =>
-  select({
+) {
+  return select<T>({
     message,
     choices: selections,
   });
+}
 
 export const queryInput = async (message: string) => input({ message });
 
-export const queryCheckbox = async (
-  selections: ISelection[],
+export const queryConfirm = async (message: string) => confirm({ message });
+
+export async function queryCheckbox<T>(
+  selections: Selection<T>[],
   message = 'Choose your options',
-) =>
-  checkbox({
+) {
+  return checkbox<T>({
     message,
     choices: selections,
   });
+}
