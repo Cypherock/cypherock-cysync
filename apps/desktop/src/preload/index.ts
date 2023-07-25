@@ -23,6 +23,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.resetCySync,
   },
   {
+    name: 'closeApp',
+    key: ipcConfig.methods.closeApp,
+  },
+  {
     name: 'checkForUpdates',
     key: ipcConfig.methods.checkForUpdates,
   },

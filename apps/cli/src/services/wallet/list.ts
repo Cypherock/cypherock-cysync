@@ -25,6 +25,11 @@ export const listWallets = async (
 ) => {
   const wallets = await db.wallet.getAll();
 
+  if (wallets.length <= 0) {
+    console.log(colors.grey('No wallets found'));
+    return;
+  }
+
   if (options.flags.short) {
     const walletsToDisplay = wallets.map(mapWalletToShortDisplay);
     walletsToDisplay.forEach(w => console.log(w));

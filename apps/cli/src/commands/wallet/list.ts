@@ -6,7 +6,7 @@ import { listWallets } from '~/services';
 import { BaseCommand } from '~/utils';
 
 export default class WalletList extends BaseCommand<typeof WalletList> {
-  static description = 'Sync wallets with device';
+  static description = 'List wallets present on CLI';
 
   static examples = [`$ <%= config.bin %> <%= command.id %>`];
 

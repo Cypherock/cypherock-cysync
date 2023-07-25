@@ -8,10 +8,11 @@ export const ipcConfig = {
     dbMethodList: 'db:method:list',
     keyDbMethodCall: 'keydb:method:call',
     keyDbMethodList: 'keydb:method:list',
-    resetCySync: 'reset',
     checkForUpdates: 'autoUpdater:checkForUpdates',
     downloadUpdate: 'autoUpdater:downloadUpdate',
     installUpdates: 'autoUpdater:installUpdate',
+    resetCySync: 'app:reset',
+    closeApp: 'app:close',
   },
   listeners: {
     downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',

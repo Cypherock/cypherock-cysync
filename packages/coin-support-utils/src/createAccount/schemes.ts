@@ -3,11 +3,12 @@ import {
   IDerivationPathGenerator,
   IDerivationScheme,
 } from '@cypherock/coin-support-interfaces';
+import { IAccount } from '@cypherock/db-interfaces';
 
 export const createDerivationPathGenerator =
   (basePath: string): IDerivationPathGenerator =>
   (existingDerivationPaths, limit) => {
-    const derivationPaths: string[] = [];
+    const derivationPaths: { derivationPath: string; index: number }[] = [];
 
     let startIndex = 0;
 
@@ -16,7 +17,10 @@ export const createDerivationPathGenerator =
 
       // Skip if an account already exists with the same derivationPath
       if (!existingDerivationPaths.includes(nextDerivationPath)) {
-        derivationPaths.push(nextDerivationPath);
+        derivationPaths.push({
+          derivationPath: nextDerivationPath,
+          index: startIndex,
+        });
       }
 
       startIndex += 1;
@@ -29,15 +33,15 @@ export interface IGenerateDerivationPathsPerSchemeParams
   extends ICreateAccountParams {
   derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   limit: number;
+  existingAccounts: IAccount[];
 }
 
 export const generateDerivationPathsPerScheme = async (
   params: IGenerateDerivationPathsPerSchemeParams,
 ) => {
-  const { db, walletId, derivationPathSchemes, limit } = params;
+  const { derivationPathSchemes, limit, existingAccounts } = params;
 
-  const accounts = await db.account.getAll({ walletId });
-  const existingDerivationPaths = accounts.map(e => e.derivationPath);
+  const existingDerivationPaths = existingAccounts.map(e => e.derivationPath);
 
   const derivationSchemeNames = Object.keys(derivationPathSchemes).filter(
     n => !!derivationPathSchemes[n],
@@ -46,7 +50,10 @@ export const generateDerivationPathsPerScheme = async (
     limit / derivationSchemeNames.length,
   );
 
-  const derivedPathsPerScheme: Record<string, string[]> = {};
+  const derivedPathsPerScheme: Record<
+    string,
+    { derivationPath: string; index: number }[]
+  > = {};
   const derivedPaths: string[] = [];
 
   for (const schemeName of derivationSchemeNames) {
@@ -60,7 +67,7 @@ export const generateDerivationPathsPerScheme = async (
       pathLimitPerDerivationScheme,
     );
     derivedPathsPerScheme[schemeName] = paths;
-    derivedPaths.push(...paths);
+    derivedPaths.push(...paths.map(p => p.derivationPath));
   }
 
   return derivedPathsPerScheme;

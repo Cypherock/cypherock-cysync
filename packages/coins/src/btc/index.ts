@@ -1,6 +1,6 @@
 import coinList from './coins';
 
-import { ICoinInfo, ICoinUnit, coinFamiliesMap } from '../types';
+import { ICoinInfo, coinFamiliesMap } from '../types';
 
 type BtcFamily = typeof coinFamiliesMap.bitcoin;
 
@@ -18,29 +18,6 @@ export const BtcIdMap = {
 
 export type BtcIds = (typeof BtcIdMap)[keyof typeof BtcIdMap] | string;
 
-const units: ICoinUnit[] = [
-  {
-    name: 'bitcoin',
-    abbr: 'BTC',
-    magnitude: 8,
-  },
-  {
-    name: 'mBTC',
-    abbr: 'mBTC',
-    magnitude: 5,
-  },
-  {
-    name: 'bit',
-    abbr: 'bit',
-    magnitude: 2,
-  },
-  {
-    name: 'satoshi',
-    abbr: 'sat',
-    magnitude: 0,
-  },
-];
-
 export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
   Record<BtcIds, IBtcCoinInfo>
 >(
@@ -55,7 +32,7 @@ export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
       apiCoinType: coin.apiCoinType,
-      units,
+      units: coin.units,
     },
   }),
   {},

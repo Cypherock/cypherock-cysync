@@ -37,7 +37,7 @@ export const AppUpdateDialogBox: FC = () => {
     if (isUpdatesChecked && !updateInfo) {
       navigateTo(routes.onboarding.deviceUpdate.path);
     }
-  }, [isUpdatesChecked]);
+  }, [isUpdatesChecked, updateInfo]);
 
   const AppUpdateDialogs: Record<AppUpdateState, ReactElement> = {
     [AppUpdateState.Checking]: (
@@ -92,8 +92,8 @@ export const AppUpdateDialogBox: FC = () => {
             ? lang.strings.onboarding.appUpdate.dialogs.checkingFailed.subtext
             : lang.strings.onboarding.appUpdate.dialogs.updateFailed.subtext
         }
-        onRetry={onRetry}
-        showRetry
+        onPrimaryClick={onRetry}
+        primaryActionText={lang.strings.buttons.retry}
         textVariables={updateInfo}
       />
     ),
