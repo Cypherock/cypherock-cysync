@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
-import { goldenGradient } from '../utils/Gradient';
 import { Throbber } from './Throbber';
 
 import { UtilsProps, utils } from '../utils';
+import { goldenGradient } from '../utils/Gradient';
 
 type ButtonVariant =
   | 'primary'
@@ -82,8 +82,8 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
     &:hover::before {
       background: ${props => props.theme.palette.silver} border-box;
-      transition: all ${buttonAnimationData.duration};
-      ${buttonAnimationData.curve};
+      transition: all ${buttonAnimationData.duration}
+        ${buttonAnimationData.curve};
     }
 
     position: relative;
