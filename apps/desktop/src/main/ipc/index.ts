@@ -1,6 +1,7 @@
 import { IpcMain, WebContents } from 'electron';
 
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
+import { getCloseIPCHandlers } from './close';
 import { getDbIPCHandlers, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
@@ -8,14 +9,15 @@ import { getResetIPCHandlers } from './reset';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
-  webContents: WebContents,
+  getWebContents: () => WebContents,
 ) => {
   const exportedFunctions = [
     ...getLoggerIPCHandlers(),
     ...getDeviceIPCHandlers(),
     ...getDbIPCHandlers(),
-    ...getResetIPCHandlers(webContents),
+    ...getResetIPCHandlers(getWebContents),
     ...getAutoUpdateIPCHandlers(),
+    ...getCloseIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {
@@ -32,6 +34,8 @@ export const setupIPCHandlers = (
       }
     });
   }
+};
 
+export const setupListeners = (webContents: WebContents) => {
   setupDbListeners(webContents);
 };

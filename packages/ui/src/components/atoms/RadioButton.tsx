@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { goldenGradient } from '../utils';
 
 interface RadioButtonProps {
@@ -21,7 +22,7 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     background: ${props => props.theme.palette.golden} border-box;
     -webkit-mask: linear-gradient(#fff 0 0) padding-box,
       linear-gradient(#fff 0 0);

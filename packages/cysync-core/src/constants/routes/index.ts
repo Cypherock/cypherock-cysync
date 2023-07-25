@@ -13,6 +13,22 @@ const rootRoutes = {
     name: 'test',
     path: '/test',
   },
+  wallet: {
+    name: 'wallet',
+    path: '/wallet',
+  },
+  history: {
+    name: 'history',
+    path: '/history',
+  },
+  settings: {
+    name: 'settings',
+    path: '/settings',
+  },
+  help: {
+    name: 'help',
+    path: '/help',
+  },
 } as const;
 
 export const routes = {

@@ -8,9 +8,7 @@ import { GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
 import { EvmDerivationSchemeName } from './schemes/types';
 
 export interface IEvmAccount extends IAccount {
-  extraData: {
-    derivationScheme: EvmDerivationSchemeName;
-  };
+  derivationScheme: EvmDerivationSchemeName;
 }
 
 export type ICreateEvmAccountParams = ICreateAccountParams;

@@ -22,7 +22,6 @@ interface ButtonProps
   isLoading?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
-  disabled?: boolean;
 }
 
 const buttonSizeMap: Record<ButtonSize, RuleSet<ButtonProps>> = {
@@ -81,8 +80,8 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
     &:hover::before {
       background: ${props => props.theme.palette.silver} border-box;
-      transition: all ${buttonAnimationData.duration};
-      ${buttonAnimationData.curve};
+      transition: all ${buttonAnimationData.duration}
+        ${buttonAnimationData.curve};
     }
 
     position: relative;
@@ -196,5 +195,4 @@ Button.defaultProps = {
   children: undefined,
   icon: undefined,
   isLoading: false,
-  disabled: false,
 };

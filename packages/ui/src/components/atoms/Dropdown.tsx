@@ -101,6 +101,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [search, setSearch] = useState('');
   const [isOpen, setisOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleCheckedChange = (id: string) => {
     onChange(id);
@@ -135,6 +136,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const theme = useTheme();
 
   useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         containerRef.current &&
@@ -160,7 +167,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {selectedItem ? (
+      {selectedItem && !isOpen ? (
         <DropDownListItem
           $borderRadius={8}
           checked={!!selectedItem || false}
@@ -181,6 +188,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       ) : (
         <Input
           type="text"
+          ref={inputRef}
           value={search}
           name="choose"
           onClick={toggleDropdown}

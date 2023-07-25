@@ -1,2 +1,2 @@
 export * from './AssetAllocation';
-export * from './SideBar';
+export * from './MainAppLayout';

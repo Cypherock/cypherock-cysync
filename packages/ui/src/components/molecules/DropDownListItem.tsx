@@ -47,15 +47,19 @@ const ShortFormTag = styled.div`
   padding-left: 5px;
 `;
 
-export const DropDownListItemStretchedTypography = styled(Typography)<{
-  $shouldStretch: boolean;
-  $color: TypographyColor;
-}>`
-  color: ${({ $color, theme }) => theme.palette.text[$color]};
+export const DropDownListItemStretchedTypography = styled(Typography)<
+  DropDownListItemHorizontalBoxProps & {
+    $shouldStretch: boolean;
+    $color: TypographyColor;
+  }
+>`
+  color: ${({ $isChecked, $color, theme }) =>
+    $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
   DropDownListItemHorizontalBoxProps &
+    DropDownListItemProps &
     BorderProps &
     SpacingProps & { $hasRightText?: boolean }
 >`
@@ -68,8 +72,15 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ theme }) =>
-    theme.palette.background.separatorSecondary};
+  background-color: ${({ restrictedItem, $isChecked, theme }) => {
+    if (restrictedItem) {
+      return theme.palette.background.separatorSecondary;
+    }
+    if ($isChecked) {
+      return theme.palette.background.dropdownHover;
+    }
+    return theme.palette.background.separatorSecondary;
+  }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${DropDownListItemStretchedTypography} {
@@ -145,6 +156,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $isChecked={checked}
         $borderRadius={$borderRadius}
         $hasRightText={$hasRightText}
+        restrictedItem={restrictedItem}
+        text={text}
       >
         {!restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
@@ -167,6 +180,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
           $shouldStretch={!tag}
           variant="h6"
           $color={color ?? 'muted'}
+          $isChecked={checked}
         >
           <LangDisplay text={text} />
           <ShortFormTag>
