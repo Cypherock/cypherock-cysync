@@ -1,10 +1,13 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { autoUpdater } from '~/utils';
 import logger from '~/utils/logger';
 
 import { useStateWithRef } from './useStateWithRef';
+
+import { routes } from '..';
 
 export enum AppUpdateState {
   Checking,
@@ -24,6 +27,7 @@ export enum InternalAppUpdateState {
 export const useAppUpdate = () => {
   const maxTries = 3;
 
+  const location = useLocation();
   const [appUpdateState, setAppUpdateState] = useState<AppUpdateState>(
     AppUpdateState.Checking,
   );
@@ -58,7 +62,7 @@ export const useAppUpdate = () => {
     }
   };
 
-  const installUpdate = async () => {
+  const installUpdateHandler = async () => {
     try {
       setInternalState(InternalAppUpdateState.Installing);
       await autoUpdater.installUpdate();
@@ -68,11 +72,25 @@ export const useAppUpdate = () => {
     }
   };
 
+  const addInstallUpdateListener = () => {
+    autoUpdater.addUpdateCompletedListener(installUpdate);
+  };
+
+  const installUpdate = async () => {
+    try {
+      if (routes.onboarding.appUpdate.path !== location.pathname)
+        addInstallUpdateListener();
+      await installUpdateHandler();
+    } catch (error) {
+      onError(error);
+    }
+  };
+
   const onRetry = () => {
     const retryFuncMap: Record<InternalAppUpdateState, () => Promise<void>> = {
       [InternalAppUpdateState.Checking]: checkForUpdates,
       [InternalAppUpdateState.Downloading]: downloadUpdate,
-      [InternalAppUpdateState.Installing]: installUpdate,
+      [InternalAppUpdateState.Installing]: installUpdateHandler,
     };
 
     retryFuncMap[internalState]();
@@ -98,13 +116,14 @@ export const useAppUpdate = () => {
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
     autoUpdater.addUpdateProgressListener(p => setDownloadProgress(p));
-    autoUpdater.addUpdateCompletedListener(installUpdate);
+    if (routes.onboarding.appUpdate.path === location.pathname)
+      addInstallUpdateListener();
   };
 
   useEffect(() => {
     addListeners();
     checkForUpdates();
-  }, []);
+  }, [routes, location.pathname]);
 
   return {
     updateInfo,

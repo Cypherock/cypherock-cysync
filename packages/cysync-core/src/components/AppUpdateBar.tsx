@@ -61,6 +61,13 @@ export const AppUpdateBar: FC = () => {
       updateState: 'error',
       onButtonClick: onRetry,
     },
+    [AppUpdateState.FailedFallback]: {
+      icon: <CloudDownload fill={theme?.palette.warn.main} />,
+      text: 'error',
+      buttonText: 'tryAgain',
+      updateState: 'error',
+      onButtonClick: onRetry,
+    },
   };
 
   return updateInfo ? (
