@@ -14,7 +14,7 @@ import {
 } from './generateAddresses';
 import { generateDerivationPathsPerScheme } from './schemes';
 
-export interface App {
+interface App {
   destroy: () => Promise<void>;
 }
 

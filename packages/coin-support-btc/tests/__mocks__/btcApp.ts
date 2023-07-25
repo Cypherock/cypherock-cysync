@@ -26,9 +26,16 @@ export const getXpubs = jest
   .fn<BtcApp['getXpubs']>()
   .mockReturnValue(Promise.resolve({ xpubs: DUMMY_XPUBS }));
 
+export const getPublicKey = jest
+  .fn<BtcApp['getPublicKey']>()
+  .mockReturnValue(
+    Promise.resolve({ publicKey: new Uint8Array([1, 2, 3]), address: '' }),
+  );
+
 export const create = jest.fn(async () =>
   Promise.resolve({
     getXpubs,
+    getPublicKey,
   }),
 );
 
