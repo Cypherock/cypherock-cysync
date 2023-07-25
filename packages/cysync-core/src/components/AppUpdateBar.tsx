@@ -32,7 +32,7 @@ export const AppUpdateBar: FC = () => {
     onRetry,
     downloadUpdate,
     installUpdate,
-  } = useAppUpdate();
+  } = useAppUpdate({ shouldInstallAfterUpdate: false });
 
   const updateBarMap: UpdateBarType = {
     [AppUpdateState.Confirmation]: {

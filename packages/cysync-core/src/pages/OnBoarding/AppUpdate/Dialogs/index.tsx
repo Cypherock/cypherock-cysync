@@ -31,7 +31,7 @@ export const AppUpdateDialogBox: FC = () => {
     downloadProgress,
     appUpdateState,
     isUpdatesChecked,
-  } = useAppUpdate();
+  } = useAppUpdate({ shouldInstallAfterUpdate: true });
 
   useEffect(() => {
     if (isUpdatesChecked && !updateInfo) {
