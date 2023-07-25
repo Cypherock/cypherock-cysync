@@ -84,7 +84,7 @@ export const theme = {
       list: colors.border.list,
       muted: colors.border.muted,
       gold: colors.border.gold,
-      dropdown: colors.border.separatorSecondary,
+      separatorSecondary: colors.border.separatorSecondary,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
