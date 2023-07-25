@@ -13,6 +13,7 @@ import {
   SupportIcon,
   Syncronizing,
   WalletInfoIcon,
+  svgGradients,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -20,7 +21,7 @@ import { useTheme } from 'styled-components';
 
 import { fetchWalletsAndSync } from '~/actions';
 import { routes } from '~/constants';
-import { DeviceConnectionStatus, useDevice } from '~/context';
+import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
 import {
   selectLanguage,
@@ -36,12 +37,11 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
   const query = useQuery();
   const dispatch = useAppDispatch();
   const strings = useAppSelector(selectLanguage).strings.sidebar;
-  const { wallets, deletedWallets } = useAppSelector(selectWallets);
+  const { wallets, deletedWallets, syncWalletStatus } =
+    useAppSelector(selectWallets);
   const theme = useTheme()!;
   const navigateTo = useNavigateTo();
   const { connection, connectDevice } = useDevice();
-
-  const connected = connection?.status === DeviceConnectionStatus.CONNECTED;
 
   const navigate = (page: Page) => {
     navigateTo(routes[page].path);
@@ -80,19 +80,21 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
             extraLeft={
               <Button
                 variant="text"
-                disabled={!connected}
                 align="center"
                 title="Sync Wallets"
                 onClick={e => {
-                  dispatch(fetchWalletsAndSync({ connection, connectDevice }));
                   e.stopPropagation();
+                  dispatch(fetchWalletsAndSync({ connection, connectDevice }));
                 }}
               >
                 <Syncronizing
                   fill={
-                    connected
-                      ? theme.palette.muted.main
-                      : theme.palette.text.disabled
+                    {
+                      idle: theme.palette.muted.main,
+                      succeeded: theme.palette.success.main,
+                      loading: `url(#${svgGradients.gold})`,
+                      failed: theme.palette.warn.main,
+                    }[syncWalletStatus]
                   }
                 />
               </Button>
