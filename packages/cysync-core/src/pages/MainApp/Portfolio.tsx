@@ -1,14 +1,12 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { openWalletActionsDialog } from '~/actions';
-import { AppUpdateBar, Topbar } from '~/components';
-import { AssetAllocation } from '~/pages/MainApp/Components/AssetAllocation';
-
-import { SideBar } from './Components';
+import { AssetAllocation, MainAppLayout } from '~/pages/MainApp/Components';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const Portfolio: FC = () => {
+  const { strings } = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,13 +14,8 @@ export const Portfolio: FC = () => {
   }, []);
 
   return (
-    <Container height="screen" display="flex">
-      <SideBar />
-      <Flex direction="column" grow={1} $alignSelf="start">
-        <AppUpdateBar />
-        <Topbar />
-        <AssetAllocation />
-      </Flex>
-    </Container>
+    <MainAppLayout title={strings.portfolio.title}>
+      <AssetAllocation />
+    </MainAppLayout>
   );
 };

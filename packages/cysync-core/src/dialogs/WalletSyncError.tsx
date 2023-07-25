@@ -1,74 +1,104 @@
 import {
-  CheckboxListItems,
-  CheckboxList,
-  Flex,
-  CheckBox,
   Button,
-  walletErrorIcon,
-  Image,
+  CheckboxList,
+  CheckboxListItems,
   IconDialogBox,
+  Image,
   LangDisplay,
+  walletErrorIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
+import { deleteWallets } from '~/actions';
+import { closeDialog, selectWallets, useAppDispatch } from '~/store';
 
 import { selectLanguage, useAppSelector } from '..';
 
 export const WalletSyncError: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
+  const [deletedWalletsCopy] = useState(deletedWallets);
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =
-    useState<CheckboxListItems>([
-      {
-        label:
-          lang.strings.walletSync.freshOneCreated.checkboxList.cypherockRed,
+    useState<CheckboxListItems>(
+      deletedWalletsCopy.map(wallet => ({
+        label: wallet.name,
         checked: true,
-      },
-      {
-        label: lang.strings.walletSync.freshOneCreated.checkboxList.official,
-        checked: true,
-      },
-      {
-        label: lang.strings.walletSync.freshOneCreated.checkboxList.personal,
-        checked: true,
-      },
-    ]);
+        id: wallet.__id,
+      })),
+    );
 
-  const onClose = () => {
+  const syncErrorType =
+    deletedWalletsCopy.length > 1 ? 'deletedMany' : 'deletedOne';
+
+  const keepAllWallets = () => {
     dispatch(closeDialog('walletSyncError'));
   };
+
+  const deleteSelectedWallets = () => {
+    if (syncErrorType === 'deletedOne') {
+      dispatch(deleteWallets(deletedWalletsCopy));
+      return;
+    }
+    const selectedWalletIds = selectedCheckboxListItems
+      .filter(i => i.checked)
+      .map(i => i.id);
+    const selectedWallets = deletedWalletsCopy.filter(d =>
+      selectedWalletIds.includes(d.__id),
+    );
+
+    dispatch(deleteWallets(selectedWallets));
+  };
+
+  useEffect(() => {
+    if (deleteWalletStatus === 'succeeded') {
+      dispatch(closeDialog('walletSyncError'));
+    }
+  }, [deleteWalletStatus]);
 
   return (
     <IconDialogBox
       $isModal
-      title={lang.strings.walletSync.freshOneCreated.title}
-      subtext={lang.strings.walletSync.freshOneCreated.subTitle}
+      title={lang.strings.walletSync[syncErrorType].title}
+      subtext={
+        syncErrorType === 'deletedMany'
+          ? lang.strings.walletSync.deletedMany.subTitle
+          : undefined
+      }
+      textVariables={{
+        walletName:
+          deletedWalletsCopy.length > 0 ? deletedWalletsCopy[0].name : '',
+      }}
       icon={<Image src={walletErrorIcon} alt="walletSync" />}
       afterTextComponent={
-        <>
+        syncErrorType === 'deletedMany' && (
           <CheckboxList
             items={selectedCheckboxListItems}
             setSelectedItems={setSelectedCheckboxListItems}
           />
-          <Flex align="center" justify="center" width="full">
-            <CheckBox
-              checked={isChecked}
-              onChange={() => setIsChecked(prevProps => !prevProps)}
-              id="wallet_checkbox"
-              label={lang.strings.walletSync.freshOneCreated.checkboxText}
-            />
-          </Flex>
-        </>
+        )
       }
       footerComponent={
         <>
-          <Button variant="secondary" onClick={onClose}>
-            <LangDisplay text={lang.strings.walletSync.buttons.keepAll} />
+          <Button variant="secondary" onClick={keepAllWallets}>
+            <LangDisplay
+              text={
+                syncErrorType === 'deletedMany'
+                  ? lang.strings.walletSync.buttons.keepAll
+                  : lang.strings.walletSync.buttons.keepIt
+              }
+            />
           </Button>
-          <Button variant="primary" onClick={onClose}>
+          <Button
+            disabled={
+              selectedCheckboxListItems.filter(({ checked }) => checked)
+                .length === 0
+            }
+            variant="primary"
+            onClick={deleteSelectedWallets}
+            isLoading={deleteWalletStatus === 'loading'}
+          >
             <LangDisplay text={lang.strings.walletSync.buttons.delete} />
           </Button>
         </>
