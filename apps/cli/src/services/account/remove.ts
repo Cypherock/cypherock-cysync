@@ -11,7 +11,7 @@ const queryAccountSelection = async (accounts: IAccount[]) => {
     value: a,
   }));
 
-  return queryCheckbox(list, 'Select accounts you want to add');
+  return queryCheckbox(list, 'Select accounts you want to remove');
 };
 
 export const removeAccount = async (db: IDatabase) => {

@@ -1,10 +1,23 @@
 import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
 
-export type Status = 'pending' | 'failed' | 'success';
+export const TransactionStatusMap = {
+  pending: 'pending',
+  failed: 'failed',
+  success: 'success',
+} as const;
 
-export type TransactionType = 'receive' | 'send' | 'swap';
+export type TransactionStatus =
+  (typeof TransactionStatusMap)[keyof typeof TransactionStatusMap];
 
-export interface IAddressInfo {
+export const TransactionTypeMap = {
+  receive: 'receive',
+  send: 'send',
+};
+
+export type TransactionType =
+  (typeof TransactionTypeMap)[keyof typeof TransactionTypeMap];
+
+export interface ITransactionInputOutput {
   address: string;
   amount: string;
   isMine: boolean;
@@ -14,12 +27,12 @@ export interface ITransaction extends IEntity {
   hash: string;
   fees: string;
   amount: string;
-  status: Status;
+  status: TransactionStatus;
   type: TransactionType;
   timestamp: number;
   blockHeight: number;
-  inputs: IAddressInfo[];
-  outputs: IAddressInfo[];
+  inputs: ITransactionInputOutput[];
+  outputs: ITransactionInputOutput[];
   confirmations?: number;
   extraData?: ObjectLiteral;
   // foreign keys

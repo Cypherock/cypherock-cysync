@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
 
 import * as operations from './operations';
@@ -7,8 +8,11 @@ export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class EvmSupport implements CoinSupport {
-  // eslint-disable-next-line class-methods-use-this
   public createAccounts(params: ICreateEvmAccountParams) {
     return operations.createAccounts(params);
+  }
+
+  public async syncAccounts() {
+    throw new Error('Not implemented');
   }
 }
