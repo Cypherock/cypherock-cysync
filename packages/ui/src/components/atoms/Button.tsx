@@ -23,7 +23,6 @@ interface ButtonProps
   isLoading?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
-  disabled?: boolean;
 }
 
 const buttonSizeMap: Record<ButtonSize, RuleSet<ButtonProps>> = {
@@ -197,5 +196,4 @@ Button.defaultProps = {
   children: undefined,
   icon: undefined,
   isLoading: false,
-  disabled: false,
 };

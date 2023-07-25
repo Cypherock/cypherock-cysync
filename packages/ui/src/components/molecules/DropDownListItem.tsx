@@ -59,6 +59,7 @@ export const DropDownListItemStretchedTypography = styled(Typography)<
 
 export const DropDownListItemHorizontalBox = styled.div<
   DropDownListItemHorizontalBoxProps &
+    DropDownListItemProps &
     BorderProps &
     SpacingProps & { $hasRightText?: boolean }
 >`
@@ -71,10 +72,15 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ $isChecked, theme }) =>
-    $isChecked
-      ? theme.palette.background.dropdownHover
-      : theme.palette.background.separatorSecondary};
+  background-color: ${({ restrictedItem, $isChecked, theme }) => {
+    if (restrictedItem) {
+      return theme.palette.background.separatorSecondary;
+    }
+    if ($isChecked) {
+      return theme.palette.background.dropdownHover;
+    }
+    return theme.palette.background.separatorSecondary;
+  }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${DropDownListItemStretchedTypography} {
@@ -151,6 +157,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $isChecked={checked}
         $borderRadius={$borderRadius}
         $hasRightText={$hasRightText}
+        restrictedItem={restrictedItem}
+        text={text}
       >
         {!restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton

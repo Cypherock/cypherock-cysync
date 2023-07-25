@@ -64,7 +64,7 @@ export const theme = {
       successSecondary: colors.success.secondary,
       muted: colors.background.muted,
       inputSecondary: colors.background.inputSecondary,
-      dropdown: colors.background.separatorSecondary,
+      separatorSecondary: colors.background.separatorSecondary,
       dropdownHover: colors.background.dropdownHover,
       toggleActive: colors.background.black,
       toggle: colors.background.toggleOff,
