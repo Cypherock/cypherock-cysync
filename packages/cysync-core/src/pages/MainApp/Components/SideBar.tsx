@@ -13,13 +13,12 @@ import {
   SupportIcon,
   Syncronizing,
   WalletInfoIcon,
-  svgGradients,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
-import { fetchWalletsAndSync } from '~/actions';
+import { syncWalletsWithDevice } from '~/actions';
 import { routes } from '~/constants';
 import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
@@ -84,18 +83,18 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                 title="Sync Wallets"
                 onClick={e => {
                   e.stopPropagation();
-                  dispatch(fetchWalletsAndSync({ connection, connectDevice }));
+                  dispatch(
+                    syncWalletsWithDevice({
+                      connection,
+                      connectDevice,
+                      doFetchFromDevice: true,
+                    }),
+                  );
                 }}
               >
                 <Syncronizing
-                  fill={
-                    {
-                      idle: theme.palette.muted.main,
-                      succeeded: theme.palette.success.main,
-                      loading: `url(#${svgGradients.gold})`,
-                      failed: theme.palette.warn.main,
-                    }[syncWalletStatus]
-                  }
+                  fill={theme.palette.muted.main}
+                  animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
                 />
               </Button>
             }
