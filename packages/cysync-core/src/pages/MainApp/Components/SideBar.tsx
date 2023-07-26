@@ -18,21 +18,30 @@ import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
+import { syncWalletsWithDevice } from '~/actions';
 import { routes } from '~/constants';
+import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
-import { selectLanguage, selectWallets, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectWallets,
+  useAppSelector,
+  useAppDispatch,
+} from '~/store';
 
 type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
 
 export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
   const location = useLocation();
   const query = useQuery();
-
+  const dispatch = useAppDispatch();
   const strings = useAppSelector(selectLanguage).strings.sidebar;
-  const { wallets, deletedWallets } = useAppSelector(selectWallets);
+  const { wallets, deletedWallets, syncWalletStatus } =
+    useAppSelector(selectWallets);
   const theme = useTheme()!;
-
   const navigateTo = useNavigateTo();
+  const { connection, connectDevice } = useDevice();
+
   const navigate = (page: Page) => {
     navigateTo(routes[page].path);
   };
@@ -71,11 +80,22 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
               <Button
                 variant="text"
                 align="center"
+                title="Sync Wallets"
                 onClick={e => {
                   e.stopPropagation();
+                  dispatch(
+                    syncWalletsWithDevice({
+                      connection,
+                      connectDevice,
+                      doFetchFromDevice: true,
+                    }),
+                  );
                 }}
               >
-                <Syncronizing fill={theme.palette.muted.main} />
+                <Syncronizing
+                  fill={theme.palette.muted.main}
+                  animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
+                />
               </Button>
             }
             isCollapsed={location.pathname !== routes.wallet.path}
