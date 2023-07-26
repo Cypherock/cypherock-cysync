@@ -16,6 +16,8 @@ import {
   transform,
   PositionProps,
   position,
+  BorderProps,
+  border,
 } from '../utils';
 
 export interface ImageProps
@@ -25,7 +27,8 @@ export interface ImageProps
     ImageWidthProps,
     TransformProps,
     PositionProps,
-    FlexProps {
+    FlexProps,
+    BorderProps {
   src: string;
   alt: string;
 }
@@ -38,6 +41,7 @@ const ImageStyle = styled.img<ImageProps>`
   ${transform}
   ${position}
   ${flex}
+  ${border}
 `;
 
 export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (

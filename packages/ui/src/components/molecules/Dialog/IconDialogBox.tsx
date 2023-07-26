@@ -46,12 +46,12 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
         {icon}
         <Flex direction="column" align="center" gap={4} px={5}>
           {title && (
-            <Typography variant="h5" $textAlign="center">
+            <Typography variant="h5" $textAlign="center" pt={3}>
               <LangDisplay text={title} variables={textVariables} />
             </Typography>
           )}
           {subtext && (
-            <Typography variant="h6" $textAlign="center" color="muted">
+            <Typography variant="h6" $textAlign="center" color="muted" pt={3}>
               <LangDisplay text={subtext} variables={textVariables} />
             </Typography>
           )}
