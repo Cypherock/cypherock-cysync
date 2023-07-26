@@ -26,14 +26,14 @@ const TabContent = styled.div`
   padding: 12px;
 `;
 
-const StyledTypography = styled(Typography)<{ active: boolean }>`
+const StyledTypography = styled(Typography)<{ $active: boolean }>`
   padding: 12px 24px;
   position: relative;
   display: inline-block;
-  color: ${({ theme, active }) =>
-    active ? `${goldenGradient('color')}` : theme.palette.text.muted};
+  color: ${({ theme, $active }) =>
+    $active ? `${goldenGradient('color')}` : theme.palette.text.muted};
   &::before {
-    content: ${({ active }) => (active ? "''" : 'none')};
+    content: ${({ $active }) => ($active ? "''" : 'none')};
     position: absolute;
     inset: 0;
     border-bottom: 1px solid transparent;
@@ -57,7 +57,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
           <TabHeader key={tab.label} onClick={() => handleTabClick(index)}>
             <StyledTypography
               variant="span"
-              active={index === activeTab}
+              $active={index === activeTab}
               $fontSize={16}
               $fontWeight="normal"
             >

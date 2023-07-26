@@ -6,26 +6,49 @@ import {
   Button,
   DialogBoxBody,
   Tabs,
-  Slider,
   ButtonGroup,
   Typography,
+  Slider,
+  SliderCaption,
+  ButtonAttributes,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { useSendGuide } from '../context';
-import { addKeyboardEvents } from '~/hooks';
 import { styled } from 'styled-components';
+
+import { addKeyboardEvents } from '~/hooks';
+
+import { useSendGuide } from '../context';
 
 const TabContentContainer = styled.div`
   min-height: 200px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  /* align-items: center; */
   color: white;
 `;
+const captions = [
+  { id: 1, name: 'Min' },
+  { id: 2, name: 'Average' },
+  { id: 3, name: 'Max' },
+];
+
+const buttons: ButtonAttributes[] = [
+  { id: 1, label: 'Sandard' },
+  { id: 2, label: 'Advanced' },
+];
 
 export const RecipientError: React.FC = () => {
-  const [sliderValue, setSliderValue] = useState(50);
+  const [sliderValue, setSliderValue] = useState(20);
+  const [activeButtonId, setActiveButtonId] = useState(1);
+
+  const handleButtonClick = (id: number) => {
+    console.log('clicked ', id);
+    setActiveButtonId(id);
+  };
+
   const handleSliderChange = (newValue: number) => {
+    console.log('slider value ', newValue);
     setSliderValue(newValue);
   };
   const { onNext, onPrevious } = useSendGuide();
@@ -41,21 +64,18 @@ export const RecipientError: React.FC = () => {
 
   addKeyboardEvents(keyboardActions);
 
-  const buttons = ['Standard', 'Advanced'];
-
   const tabs = [
     {
       label: 'Single Transaction',
       content: (
         <TabContentContainer>
-          <Slider
-            min={0}
-            max={100}
-            value={sliderValue}
-            onChange={handleSliderChange}
+          <Slider initialValue={sliderValue} onChange={handleSliderChange} />
+          <SliderCaption captions={captions} />
+          <ButtonGroup
+            buttons={buttons}
+            activeButtonId={activeButtonId}
+            onButtonClick={handleButtonClick}
           />
-
-          <ButtonGroup buttons={buttons} />
         </TabContentContainer>
       ),
     },

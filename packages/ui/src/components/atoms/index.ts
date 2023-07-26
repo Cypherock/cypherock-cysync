@@ -23,3 +23,4 @@ export * from './CloseButton';
 export * from './Divider';
 export * from './InformationBox';
 export * from './VerticalLine';
+export * from './SliderCaption';

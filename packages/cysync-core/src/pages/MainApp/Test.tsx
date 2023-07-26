@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { openReceiveDialog } from '~/actions';
 
-import { ReceiveVerifyAddress } from '~/dialogs/Receive/Dialogs/Receive';
+import { RecipientError } from '~/dialogs/SendGuide/Dialogs/RecipientError';
 
 export const Test: FC = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const Test: FC = () => {
         <AssetAllocation /> */}
         {/* <Receive /> */}
         {/* HERLLO */}
-        <ReceiveVerifyAddress />
+        <RecipientError />
       </Flex>
     </Container>
   );

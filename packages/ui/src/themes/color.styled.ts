@@ -65,6 +65,7 @@ export const colors = {
     infoBackground: '#4A2D00',
     lightBlack: '#1B1712',
     sidebar: '#1E1A15',
+    slider: '#3A3531',
   },
   border: {
     popup: '#2C2520',

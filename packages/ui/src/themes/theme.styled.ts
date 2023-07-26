@@ -72,6 +72,7 @@ export const theme = {
       infoBackground: colors.background.infoBackground,
       lightBlack: colors.background.lightBlack,
       sidebar: colors.background.sidebar,
+      slider: colors.background.slider,
     },
     border: {
       popup: colors.border.popup,
