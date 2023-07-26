@@ -9,5 +9,5 @@ export * from './schemes';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
-  syncAccounts(params: ISyncAccountsParams): Promise<void>;
+  syncAccounts(params: ISyncAccountsParams): Observable<void>;
 }

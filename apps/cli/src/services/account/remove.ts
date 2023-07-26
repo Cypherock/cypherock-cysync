@@ -31,5 +31,6 @@ export const removeAccount = async (db: IDatabase) => {
 
   for (const account of selectedAccounts) {
     await db.account.remove(account);
+    await db.transaction.remove({ accountId: account.__id });
   }
 };
