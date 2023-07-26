@@ -3,12 +3,40 @@ import {
   IPriceInfo,
   IPriceInfoRepository,
 } from '@cypherock/db-interfaces';
+
 import { ITestClass } from './types';
 
 class PriceInfoData implements ITestClass<IPriceInfo> {
   name = 'PriceInfo';
 
+  sortKey = 'currency';
+
+  isSortDescending = true;
+
   repo: IPriceInfoRepository;
+
+  sorted: IPriceInfo[] = [
+    {
+      assetId: 'assetId1',
+      currency: 'USD',
+      latestPrice: '12.309',
+    },
+    {
+      assetId: 'assetId1',
+      currency: 'INR',
+      latestPrice: '890.309',
+    },
+    {
+      assetId: 'assetId2',
+      currency: 'INR',
+      latestPrice: '23.43',
+    },
+    {
+      assetId: 'assetId3',
+      currency: 'EUR',
+      latestPrice: '0.002',
+    },
+  ];
 
   onlyRequired: IPriceInfo[] = [
     {

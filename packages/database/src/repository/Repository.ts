@@ -196,18 +196,10 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
 
     try {
       for (const ent of entities) {
-        let res = collection.chain().where(d => isSubsetOf(ent, d));
-
-        if (options?.limit) {
-          res = res.limit(options.limit);
-        }
+        const res = collection.chain().where(d => isSubsetOf(ent, d));
 
         if (res) {
           result.push(...res.data());
-        }
-
-        if (options?.limit && result.length > options.limit) {
-          break;
         }
       }
     } catch (error: any) {
@@ -217,12 +209,16 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       );
     }
 
-    if (options?.limit) {
-      result = result.slice(0, options.limit);
+    if (options?.sortBy) {
+      result = lodash.orderBy(
+        result,
+        [options.sortBy.key],
+        [options.sortBy.descending ? 'desc' : 'asc'],
+      );
     }
 
-    if (options?.sortBy) {
-      result = lodash.sortBy(result, options.sortBy.key);
+    if (options?.limit) {
+      result = result.slice(0, options.limit);
     }
 
     return lodash.uniqBy(result, e => e.__id) as any;
