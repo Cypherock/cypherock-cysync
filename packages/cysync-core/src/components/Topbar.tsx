@@ -16,7 +16,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-export const Topbar: FC = () => {
+export const Topbar: FC<{ title: string }> = ({ title }) => {
   const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
   const discreetModeState = useAppSelector(selectDiscreetMode);
@@ -41,7 +41,7 @@ export const Topbar: FC = () => {
 
   return (
     <TopbarUI
-      title={lang.strings.portfolio.title}
+      title={title}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}

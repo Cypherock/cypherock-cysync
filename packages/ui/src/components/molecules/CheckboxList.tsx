@@ -2,7 +2,11 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import { CheckBox, Flex } from '../atoms';
 
-export type CheckboxListItems = { label: string; checked: boolean }[];
+export type CheckboxListItems = {
+  label: string;
+  checked: boolean;
+  id: string | undefined;
+}[];
 
 export const CheckboxList: FC<{
   items: CheckboxListItems;

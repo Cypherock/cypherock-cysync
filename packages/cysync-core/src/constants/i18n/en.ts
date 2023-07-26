@@ -303,6 +303,8 @@ const en = {
     update: 'Update',
     cancel: 'Cancel',
     reset: 'Reset',
+    done: 'Done',
+    close: 'Close',
     report: 'Report',
     help: 'Help',
   },
@@ -324,6 +326,114 @@ const en = {
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
     checkbox: 'I have already run the command',
+  },
+  addAccount: {
+    addAccount: {
+      initAccount: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Follow instructions on the X1 Vault',
+            subheader: 'Add a coin/account Wallet',
+            subheader1: 'Cypherock Red',
+          },
+        },
+      },
+      syncAccount: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Syncing the account',
+            subheader: 'Accounts already in portfolio',
+            buttonStopSync: 'Stop Syncing',
+          },
+        },
+      },
+      connectDevice: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Connect your X1 Vault to your PC to proceed',
+          },
+        },
+      },
+      congrats: {
+        info: {
+          dialogBox: {
+            header: 'Add Coin/Account',
+            subtext: 'Add other accounts or return to portfolio',
+            title: 'Accounts added successfully',
+            buttonAddMore: 'Add more',
+          },
+        },
+      },
+      noAccount: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'No account found yet',
+            subheader: 'Accounts already in portfolio',
+            buttonSyncAgain: 'Sync Again',
+          },
+        },
+      },
+      add: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Add new accounts',
+            subheader: 'New Accounts',
+            buttonAddAccount: 'Add Accounts',
+            advanced: 'Show all address types',
+            questionMark: '?',
+          },
+        },
+      },
+      selectCrypto: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Select the Wallet & Coins you want to add',
+            subTitle: 'Add a coin/account to wallet',
+            constant: 'Cypherock Red',
+            searchText: 'Search',
+            placeholderText: 'Choose a coin',
+            placeholderWalletText: 'Choose a wallet',
+            text: 'Cypherock Red',
+          },
+        },
+      },
+      addAccountSingleChain: {
+        info: {
+          dialogBox: {
+            title: 'Add Coin/Account',
+            header: 'Add new accounts',
+            subheader: 'New Accounts',
+            subheader2: 'Account not yet synced',
+            subheader3: 'Accounts already in portfolio',
+            deselectAllButton: 'Deselect all',
+            buttonAddAccount: 'Add Accounts',
+            advanced: 'Show all address types',
+            questionMark: '?',
+          },
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        asset: 'Asset',
+        device: 'Device',
+        confirmation: 'Confirmation',
+      },
+    },
+    onClose: {
+      title: 'You can start this guide from the sidebar',
+      subTitle: 'Are you sure you want to exit?',
+      buttons: {
+        cancel: 'Cancel',
+        exit: 'Exit',
+      },
+    },
   },
   onboarding: {
     info: {
@@ -680,24 +790,32 @@ const en = {
     help: 'Help',
   },
   walletSync: {
+    deletedOne: {
+      title:
+        'Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?',
+    },
+    deletedMany: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which ones to keep and which ones to delete',
+    },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
       subTitle: 'You can chose which one to keep and which one to delete',
-      checkboxList: {
-        cypherockRed: 'Cypherock Red',
-        official: 'Official',
-        personal: 'Personal',
-      },
       checkboxText: "Don't show this again",
     },
     buttons: {
+      keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
     },
   },
   portfolio: {
     title: 'Portfolio',
+  },
+  wallet: {
+    title: 'Wallet',
   },
   errors: {
     deviceErrors,

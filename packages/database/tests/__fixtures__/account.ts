@@ -11,7 +11,58 @@ import { BaseFields } from '../../src/entity/types';
 class AccountData implements ITestClass<IAccount> {
   name = 'Account';
 
+  sortKey = 'name';
+
+  isSortDescending = false;
+
   repo: IAccountRepository;
+
+  sorted: IAccount[] = [
+    {
+      name: 'Big name 78b25d27-bb93-4df5-8cdc-e17af3bff890',
+      xpubOrAddress: 'address',
+      balance: '20.3434',
+      unit: 'USD',
+      derivationPath: 'm/44',
+      type: 'erc20',
+      assetId: 'etc',
+      walletId: '1234',
+      familyId: 'evm',
+    },
+    {
+      name: 'Bitcoin 3',
+      xpubOrAddress: 'xpub19249032209f980d028',
+      balance: '0',
+      unit: 'BTC',
+      derivationPath: '',
+      type: 'child',
+      assetId: 'btc',
+      walletId: '56789093876',
+      familyId: 'near',
+    },
+    {
+      name: 'Ethereum 1',
+      xpubOrAddress: '0x24u302482349243u9c9',
+      balance: '49.3434',
+      unit: 'ETH',
+      derivationPath: 'm/44/0/0',
+      type: 'account',
+      assetId: 'eth',
+      walletId: '3948',
+      familyId: 'bitcoin',
+    },
+    {
+      name: 'account name',
+      xpubOrAddress: '0838408347237408d0s8a08r80a8d9f08',
+      balance: '0.0000000000003434',
+      unit: 'Near',
+      derivationPath: 'm/44/0/0/185',
+      type: 'asset',
+      assetId: 'near',
+      walletId: '6789087',
+      familyId: 'solana',
+    },
+  ];
 
   onlyRequired: IAccount[] = [
     {

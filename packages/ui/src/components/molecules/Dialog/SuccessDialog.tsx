@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
+import {
+  DialogBox,
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxHeader,
+} from './DialogBox';
 
 import { successIcon } from '../../../assets/images';
 import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
@@ -9,19 +14,33 @@ import { AlertBox } from '../AlertBox';
 export interface SuccessDialogProps {
   title: string;
   subtext?: string;
+  headerText?: string;
   buttonText?: string;
+  secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
+  handleSecButtonClick?: () => void;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
+  headerText,
   subtext,
   buttonText,
+  secondaryButtonText,
   alertText,
   handleClick,
+  handleSecButtonClick,
 }) => (
   <DialogBox width={500}>
+    {headerText && (
+      <DialogBoxHeader height={56} width={500}>
+        <Typography variant="fineprint" width="100%" color="muted">
+          <LangDisplay text={headerText} />
+        </Typography>
+      </DialogBoxHeader>
+    )}
+
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
@@ -38,6 +57,12 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
     </DialogBoxBody>
     {buttonText && handleClick && (
       <DialogBoxFooter height={101}>
+        {secondaryButtonText && handleSecButtonClick && (
+          <Button onClick={handleSecButtonClick} variant="secondary">
+            <LangDisplay text={secondaryButtonText} />
+          </Button>
+        )}
+
         <Button onClick={handleClick} variant="primary">
           <LangDisplay text={buttonText} />
         </Button>
@@ -48,7 +73,10 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
 
 SuccessDialog.defaultProps = {
   subtext: undefined,
+  headerText: undefined,
+  secondaryButtonText: undefined,
   buttonText: undefined,
   handleClick: undefined,
+  handleSecButtonClick: undefined,
   alertText: undefined,
 };

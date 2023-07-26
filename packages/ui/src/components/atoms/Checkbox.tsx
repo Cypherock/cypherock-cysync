@@ -86,6 +86,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
         id={id}
         disabled={isDisabled}
       />
+
       <CheckBoxLabelStyle id={id} size={size}>
         {checked && <CheckBoxIcon id={id} size={size} />}
       </CheckBoxLabelStyle>

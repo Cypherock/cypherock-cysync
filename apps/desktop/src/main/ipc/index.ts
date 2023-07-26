@@ -9,13 +9,13 @@ import { getResetIPCHandlers } from './reset';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
-  webContents: WebContents,
+  getWebContents: () => WebContents,
 ) => {
   const exportedFunctions = [
     ...getLoggerIPCHandlers(),
     ...getDeviceIPCHandlers(),
     ...getDbIPCHandlers(),
-    ...getResetIPCHandlers(webContents),
+    ...getResetIPCHandlers(getWebContents),
     ...getAutoUpdateIPCHandlers(),
     ...getCloseIPCHandlers(),
   ];
@@ -34,6 +34,8 @@ export const setupIPCHandlers = (
       }
     });
   }
+};
 
+export const setupListeners = (webContents: WebContents) => {
   setupDbListeners(webContents);
 };
