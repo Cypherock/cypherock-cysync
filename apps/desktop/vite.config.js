@@ -24,9 +24,6 @@ export default defineConfig(({ command }) => {
           // Main-Process entry file of the Electron App.
           entry: 'src/main/index.ts',
           onstart(options) {
-            console.log({
-              out: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
-            });
             if (process.env.VSCODE_DEBUG) {
               console.log(
                 /* For `.vscode/.debug.script.mjs` */ '[startup] Electron App',
@@ -41,10 +38,9 @@ export default defineConfig(({ command }) => {
               minify: isBuild,
               outDir: 'dist-electron/main',
               rollupOptions: {
-                external: [
-                  ...Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
-                  'bitcoinjs-lib',
-                ],
+                external: Object.keys(
+                  'dependencies' in pkg ? pkg.dependencies : {},
+                ),
               },
             },
           },
@@ -62,10 +58,9 @@ export default defineConfig(({ command }) => {
               minify: isBuild,
               outDir: 'dist-electron/preload',
               rollupOptions: {
-                external: [
-                  ...Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
-                  'bitcoinjs-lib',
-                ],
+                external: Object.keys(
+                  'dependencies' in pkg ? pkg.dependencies : {},
+                ),
               },
             },
           },

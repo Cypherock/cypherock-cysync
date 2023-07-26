@@ -4,7 +4,7 @@ export const getXpubDetails = jest
   .fn()
   .mockReturnValue(Promise.resolve({ balance: '0', txs: 0 }));
 
-export const getDerivedAddress = jest.fn().mockReturnValue(
+export const getDerivedAddresses = jest.fn().mockReturnValue(
   Promise.resolve({
     address:
       'tpubDDYcLPSnp4JVjnTdTUC43LMLDWshar5tW9uKcVwdhaTNhJFrQzKvHFEALwoVh4sbEpn5LR9mFvhQo6QkJMFv4E88LcmCPNpYDeqTMzDLZJX',
@@ -58,5 +58,5 @@ export const getDerivedAddress = jest.fn().mockReturnValue(
 jest.mock('../../src/services', () => ({
   __esModule: true,
   getXpubDetails,
-  getDerivedAddress,
+  getDerivedAddresses,
 }));

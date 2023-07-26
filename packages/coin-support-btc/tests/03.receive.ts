@@ -8,7 +8,7 @@ import * as serviceMock from './__mocks__/services';
 
 import { BtcSupport, IBtcReceiveEvent } from '../src';
 
-describe('02. Receive', () => {
+describe('03. Receive', () => {
   let support: BtcSupport;
   let connection: IDeviceConnection;
   let db: IDatabase;
@@ -26,7 +26,7 @@ describe('02. Receive', () => {
     btcAppMock.create.mockClear();
     btcAppMock.getPublicKey.mockClear();
 
-    serviceMock.getDerivedAddress.mockClear();
+    serviceMock.getDerivedAddresses.mockClear();
 
     getOneMock.mockClear();
   });
