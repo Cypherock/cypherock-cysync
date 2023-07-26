@@ -11,9 +11,7 @@ import {
   confirmIcon,
   LeanBoxContainer,
   LeanBox,
-  // informationWhiteIcon,
 } from '@cypherock/cysync-ui';
-// import SnackBar from '@cypherock/cysync-ui/src/components/molecules/SnackBar';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
@@ -25,7 +23,6 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const connect =
     lang.strings.receive.deviceConfirmForTroubleshoot.info.dialogBox;
-  // const snackBarIcon = informationWhiteIcon;
   const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
@@ -100,7 +97,6 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
           </LeanBoxContainer>
         </DialogBoxBody>
       </DialogBox>
-      {/* <SnackBar text={connect.snackBar.text} imageAlt='information icon' imageSrc={snackBarIcon} buttonName={connect.snackBar.buttonName}/> */}
     </div>
   );
 };

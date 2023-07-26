@@ -15,7 +15,6 @@ import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
 import closeIcon from './close.svg';
 import confirmIcon from './confirm.svg';
-// import connected from './connected.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import cypherockRedIcon from './cypherock-red.svg';

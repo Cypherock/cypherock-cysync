@@ -1,6 +1,5 @@
 import {
   LangDisplay,
-  // disconnectedIcon,
   DialogBox,
   DialogBoxHeader,
   DialogBoxBody,
@@ -13,7 +12,6 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-// import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
@@ -24,16 +22,6 @@ export const ReceiveDeviceConfirmCancelled: React.FC = () => {
   const connect = lang.strings.receive.deviceConfirmCancelled.info.dialogBox;
   const { onNext } = useReceiveDialog();
 
-  // const keyboardActions = {
-  //   ArrowRight: () => {
-  //     onNext();
-  //   },
-  //   ArrowLeft: () => {
-  //     onPrevious();
-  //   },
-  // };
-
-  // addKeyboardEvents(keyboardActions);
   const handleButtonClick = () => {
     onNext();
   };

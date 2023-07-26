@@ -29,17 +29,6 @@ import {
   ReceiveVerifyAddress,
 } from '../Dialogs/Receive';
 
-// import {
-//   ReceiveDialog,
-//   ReceiveSingleChainDialog,
-//   InitialiseAccountDialog,
-//   ConnectDevice,
-//   NoAccountDialog,
-//   SelectCryptoDialog,
-//   SyncAccountDialog,
-//   ReceiveCongrats,
-// } from '../Dialogs';
-
 type ITabs = {
   name: string;
   dialogs: ReactNode[];

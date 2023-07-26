@@ -79,8 +79,8 @@ export const ReceiveAddressNotVerified: React.FC = () => {
         <InformationBox
           text={connect.InfoBox.text}
           imagePath={informationOrangeIcon}
-          backgroundColor="infoBackground"
-          borderColor="infoBoxOrange"
+          $backgroundColor="infoBackground"
+          $borderColor="infoBoxOrange"
         />
       </DialogBoxBody>
       <DialogBoxFooter>

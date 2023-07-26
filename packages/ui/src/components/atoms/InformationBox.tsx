@@ -6,13 +6,12 @@ import { Typography } from './Typography';
 
 import { theme } from '../../themes/theme.styled';
 
-// Define types for theme.palette.background and theme.palette.border
 type BackgroundColorKey = keyof typeof theme.palette.background;
 type BorderColorKey = keyof typeof theme.palette.border;
 
 interface StyledInfoBoxProps {
-  backgroundColor?: BackgroundColorKey;
-  borderColor?: BorderColorKey;
+  $backgroundColor?: BackgroundColorKey;
+  $borderColor?: BorderColorKey;
 }
 
 interface InformationBoxProps extends StyledInfoBoxProps {
@@ -27,15 +26,15 @@ const InfoBox = styled.div<StyledInfoBoxProps>`
   gap: 16px;
   align-self: stretch;
   justify-content: flex-start;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor && theme.palette.background[backgroundColor]
-      ? theme.palette.background[backgroundColor]
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor && theme.palette.background[$backgroundColor]
+      ? theme.palette.background[$backgroundColor]
       : theme.palette.background.input};
   border-radius: 8px;
   border: 1px solid
-    ${({ borderColor }) =>
-      borderColor && theme.palette.border[borderColor]
-        ? theme.palette.border[borderColor]
+    ${({ $borderColor }) =>
+      $borderColor && theme.palette.border[$borderColor]
+        ? theme.palette.border[$borderColor]
         : theme.palette.border.infoBox};
   margin-top: 40px;
 `;
@@ -51,10 +50,10 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
   imagePath,
   text,
   iconImagePath,
-  backgroundColor,
-  borderColor,
+  $backgroundColor,
+  $borderColor,
 }) => (
-  <InfoBox backgroundColor={backgroundColor} borderColor={borderColor}>
+  <InfoBox $backgroundColor={$backgroundColor} $borderColor={$borderColor}>
     <InfoBoxPadding>
       <Image src={imagePath} alt="Image" />
       <Typography
@@ -72,6 +71,6 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
 
 InformationBox.defaultProps = {
   iconImagePath: undefined,
-  backgroundColor: undefined,
-  borderColor: undefined,
+  $backgroundColor: undefined,
+  $borderColor: undefined,
 };

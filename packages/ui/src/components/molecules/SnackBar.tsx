@@ -62,5 +62,3 @@ export const SnackBar: React.FC<SnackBarProps> = ({
     </SnackBarButton>
   </SnackBarWrapper>
 );
-
-// export default SnackBar;
