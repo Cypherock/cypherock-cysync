@@ -7,6 +7,7 @@ import {
   DialogBoxBody,
   Tabs,
   Slider,
+  ButtonGroup,
   Typography,
   Image,
   verifyAmountIcon,
@@ -42,6 +43,8 @@ export const RecipientError: React.FC = () => {
 
   addKeyboardEvents(keyboardActions);
 
+  const buttons = ['Standard', 'Advanced'];
+
   const tabs = [
     {
       label: 'Single Transaction',
@@ -53,6 +56,8 @@ export const RecipientError: React.FC = () => {
             value={sliderValue}
             onChange={handleSliderChange}
           />
+
+          <ButtonGroup buttons={buttons} />
         </TabContentContainer>
       ),
     },

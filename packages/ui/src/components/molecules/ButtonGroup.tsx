@@ -8,11 +8,15 @@ const ButtonGroupContainer = styled.div`
 `;
 
 const PillButton = styled.button<{ active: boolean }>`
-  padding: 8px 16px;
   border: none;
-  background-color: ${({ active, theme }) =>
-    active ? `${theme.palette.background.gold}` : 'transparent'};
-  color: ${({ active }) => (active ? '#fff' : '#333')};
+  background: ${({ theme, active }) =>
+    active
+      ? `${theme.palette.background.gold}`
+      : `${theme.palette.background.dropdown}`};
+  color: ${({ theme, active }) =>
+    active
+      ? `${theme.palette.background.toggleActive}`
+      : `${theme.palette.text.muted}`};
   border-radius: 0;
   cursor: pointer;
   outline: none;
@@ -24,12 +28,19 @@ const PillButton = styled.button<{ active: boolean }>`
     border-right: none; /* Remove right border for the last button */
     border-radius: 0 20px 20px 0;
   }
-  width: auto;
-  flex-grow: 1;
+  width: 56px;
   height: 16px;
+  display: flex; /* Add this to enable flex layout */
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1px;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping to a new line */
 `;
 
 interface PillButtonGroupProps {
