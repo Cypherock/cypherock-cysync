@@ -17,6 +17,7 @@ const initialState: IWalletState = {
   wallets: [],
   deletedWallets: [],
   deleteWalletStatus: 'idle',
+  syncWalletStatus: 'idle',
 } as IWalletState;
 
 export const walletSlice = createSlice({

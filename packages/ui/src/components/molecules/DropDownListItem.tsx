@@ -149,6 +149,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
     if (checkType) handleCheckChange();
     if (onClick) onClick();
   };
+
   return (
     <DropDownItemWrapper>
       <DropDownListItemHorizontalBox

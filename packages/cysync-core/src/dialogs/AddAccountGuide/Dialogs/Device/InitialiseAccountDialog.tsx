@@ -12,6 +12,10 @@ import {
   checkIcon,
   halfLoaderGold,
   arrowGoldenForward,
+  bnbChainIcon,
+  checkIcon,
+  bitcoinIcon,
+  halfLoaderGold,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -31,7 +35,6 @@ const dataArray = [
   {
     id: '2',
     leftImageSrc: arrowGoldenForward,
-
     text: 'Enter passphrase',
     rightImageSrc: halfLoaderGold,
     animate: true,

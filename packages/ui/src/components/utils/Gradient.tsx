@@ -14,8 +14,8 @@ export const goldenGradient = (cssProperty: 'background' | 'color') => {
           inherits: false;
           initial-value: 90deg;
         }
-        transition: --a ${buttonAnimationData.duration};
-        ${buttonAnimationData.curve};
+        transition: --a ${buttonAnimationData.duration}
+          ${buttonAnimationData.curve};
         ${cssProperty}: linear-gradient(
             var(--a),
             #e9b873 0.19%,

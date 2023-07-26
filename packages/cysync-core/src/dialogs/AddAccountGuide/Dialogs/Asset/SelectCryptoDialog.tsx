@@ -169,7 +169,7 @@ export const SelectCryptoDialog: React.FC = () => {
           <Dropdown
             items={dropDownData}
             selectedItem={dropdownState.secondDropdownSelection}
-            disabled
+            disabled={!dropdownState.isFirstDropdownSelected}
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
             onChange={handleSecondDropdownSelectionChange}

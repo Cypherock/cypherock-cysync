@@ -49,9 +49,9 @@ export const spacing = css<SpacingProps>`
 
     for (const key in props) {
       if (Object.prototype.hasOwnProperty.call(props, key)) {
-        finalCss.push(
-          ...getCss(getProperties(key as any), (props as any)[key]),
-        );
+        const cssTemp = getCss(getProperties(key as any), (props as any)[key]);
+
+        finalCss.push(...cssTemp);
       }
     }
 
@@ -62,10 +62,14 @@ export const spacing = css<SpacingProps>`
 const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
   const [first, second] = key.split('');
   const properties = [];
-  for (const i of cssMap[first] ?? []) {
-    if (second) {
-      for (const j of cssMap[second] ?? []) {
-        properties.push(`${i}-${j}`);
+  if (key.length <= 2)
+    for (const i of cssMap[first] ?? []) {
+      if (second) {
+        for (const j of cssMap[second] ?? []) {
+          properties.push(`${i}-${j}`);
+        }
+      } else {
+        properties.push(i);
       }
     } else {
       properties.push(i);
@@ -78,6 +82,7 @@ const getSpacingValue = (param: SpacingOptions) => {
   if (typeof param === 'string') {
     return param === 'auto' ? 'auto' : `${param}px`;
   }
+
   return spacingObj[param];
 };
 
