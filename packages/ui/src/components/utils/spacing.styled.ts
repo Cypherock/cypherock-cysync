@@ -71,10 +71,7 @@ const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
       } else {
         properties.push(i);
       }
-    } else {
-      properties.push(i);
     }
-  }
   return properties;
 };
 

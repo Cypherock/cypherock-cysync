@@ -9,12 +9,8 @@ import {
   Typography,
   Image,
   Container,
-  checkIcon,
-  halfLoaderGold,
   arrowGoldenForward,
-  bnbChainIcon,
   checkIcon,
-  bitcoinIcon,
   halfLoaderGold,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
