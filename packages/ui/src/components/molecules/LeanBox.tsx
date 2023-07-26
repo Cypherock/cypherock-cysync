@@ -12,8 +12,9 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
+import { SpacingProps, spacing } from '../utils';
 
-export interface LeanBoxProps {
+export interface LeanBoxProps extends SpacingProps {
   leftImageSrc?: string;
   rightImageSrc?: string;
   rightText?: string;
@@ -44,8 +45,8 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
-  width: 422px;
-  height: 42px;
+  cursor: pointer;
+  ${spacing};
 `;
 
 export const ImageContainer = styled.div<{ gap?: number }>`
@@ -92,7 +93,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [onCheckChanged, $isChecked]);
 
   return (
-    <InputLabel>
+    <InputLabel px={0}>
       <HorizontalBox $isChecked={$isChecked}>
         {checkType === 'radio' && (
           <RadioButton

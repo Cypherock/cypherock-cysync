@@ -9,9 +9,8 @@ import {
   Typography,
   Image,
   Container,
-  bnbChainIcon,
+  arrowGoldenForward,
   checkIcon,
-  bitcoinIcon,
   halfLoaderGold,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
@@ -25,15 +24,14 @@ import { useAddAccountDialog } from '../../context';
 const dataArray = [
   {
     id: '1',
-    leftImageSrc: bnbChainIcon,
-    text: 'BNB Chain 1',
+    leftImageSrc: arrowGoldenForward,
+    text: 'Verify the coins on the X1 Vault',
     rightImageSrc: checkIcon,
   },
   {
     id: '2',
-    leftImageSrc: bitcoinIcon,
-
-    text: 'Bitcoin 1',
+    leftImageSrc: arrowGoldenForward,
+    text: 'Enter passphrase',
     rightImageSrc: halfLoaderGold,
     animate: true,
   },

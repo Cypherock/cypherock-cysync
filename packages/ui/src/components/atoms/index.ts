@@ -21,3 +21,5 @@ export * from './Dropdown';
 export * from './RadioButton';
 export * from './CloseButton';
 export * from './Divider';
+export * from './InformationBox';
+export * from './VerticalLine';

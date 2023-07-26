@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { goldenGradient } from '../utils';
+
 interface RadioButtonProps {
   checked: boolean;
   value?: string;
@@ -12,9 +14,21 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.palette.text.goldenrod};
   position: relative;
   cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: ${props => props.theme.palette.golden} border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 
   &:after {
     content: '';
@@ -24,7 +38,7 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
     left: 50%;
     width: 5px;
     height: 5px;
-    background-color: ${({ theme }) => theme.palette.text.goldenrod};
+    ${goldenGradient('background')};
     border-radius: 50%;
     transform: translate(-50%, -50%);
   }

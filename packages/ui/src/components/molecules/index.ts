@@ -19,6 +19,7 @@ export * from './Table';
 export * from './LeanBox';
 export * from './DropDownListItem';
 export * from './Info';
+export * from './SnackBar';
 export * from './SideBar';
 export * from './Tabs';
 export * from './Slider';

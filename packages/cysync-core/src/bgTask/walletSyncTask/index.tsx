@@ -1,21 +1,31 @@
 import React, { useEffect } from 'react';
 
-import { syncWalletsWithDevice } from '~/actions';
+import { openWalletSyncErrorDialog, syncWalletsWithDevice } from '~/actions';
 import { useDevice } from '~/context';
-import { useAppDispatch } from '~/store';
+import { selectWallets, useAppDispatch, useAppSelector } from '~/store';
 
 export const WalletSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
 
-  const { connection } = useDevice();
+  const { connection, connectDevice } = useDevice();
 
   const onConnectionChange = async () => {
-    dispatch(syncWalletsWithDevice(connection));
+    dispatch(syncWalletsWithDevice({ connection, connectDevice }));
+  };
+
+  const onDeleteChange = () => {
+    dispatch(openWalletSyncErrorDialog());
   };
 
   useEffect(() => {
     onConnectionChange();
   }, [connection]);
+
+  useEffect(() => {
+    if (deletedWallets.length > 0 && deleteWalletStatus === 'idle')
+      onDeleteChange();
+  }, [deletedWallets]);
 
   return null;
 };

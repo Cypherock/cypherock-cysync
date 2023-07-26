@@ -33,7 +33,9 @@ const textColor = (activeTab: number, index: number) => {
 export const MilestoneAside: FC<{
   milestones: string[];
   activeTab: number;
-}> = ({ milestones, activeTab }) => (
+  currentDialog: number;
+  totalDialogs: number;
+}> = ({ milestones, activeTab, currentDialog, totalDialogs }) => (
   <AsideStyle>
     <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     <Flex direction="column" py={8}>
@@ -60,7 +62,8 @@ export const MilestoneAside: FC<{
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-            {activeTab > index ? (
+            {activeTab > index ||
+            (activeTab === index && currentDialog === totalDialogs - 1) ? (
               <Image src={greenTick} alt="greenTick" />
             ) : (
               <Bullet size="sm" variant={textColor(activeTab, index)} />

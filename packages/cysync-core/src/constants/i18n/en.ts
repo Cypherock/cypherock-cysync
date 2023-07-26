@@ -435,6 +435,127 @@ const en = {
       },
     },
   },
+  receive: {
+    receive: {
+      info: {
+        dialogBox: {
+          title: 'Receive',
+          header: 'Receive',
+          subheader: 'Choose a wallet and account to credit',
+          searchText: 'Search',
+          placeholderText: 'Choose a coin',
+          placeholderWalletText: 'Choose a wallet',
+          text: 'Cypherock Red',
+        },
+      },
+    },
+    deviceConnection: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Connect your X1 Vault to proceed',
+          subheader: 'Looks like your device is not connected',
+          buttonName: "Don't have your device?",
+        },
+      },
+    },
+    deviceConfirmCancelled: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Request was cancelled from the X1 Vault',
+          subheader: 'This is dialogue text or sub heading',
+          buttonRetry: 'Retry',
+          buttonReport: 'Report',
+        },
+      },
+    },
+    deviceConfirmForTroubleshoot: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          snackBar: {
+            text: 'Having trouble connecting the device?',
+            buttonName: 'Fix it',
+          },
+        },
+      },
+    },
+    deviceConfirmForToken: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          InfoBox: {
+            text: 'Remember you will receive Tether on your Ethereum Account address',
+          },
+        },
+      },
+    },
+    deviceConfirm: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+        },
+      },
+    },
+    deviceVerifyAddress: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+        },
+      },
+    },
+    deviceAddressVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+        },
+      },
+    },
+    deviceAddressNotVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+          InfoBox: {
+            text: 'This Receive Address was NOT VERIFIED by the device. Use it at your own risk.',
+          },
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        source: 'Source',
+        device: 'Device',
+        receive: 'Receive',
+      },
+    },
+  },
   onboarding: {
     info: {
       aside: {
@@ -790,24 +911,32 @@ const en = {
     help: 'Help',
   },
   walletSync: {
+    deletedOne: {
+      title:
+        'Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?',
+    },
+    deletedMany: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which ones to keep and which ones to delete',
+    },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
       subTitle: 'You can chose which one to keep and which one to delete',
-      checkboxList: {
-        cypherockRed: 'Cypherock Red',
-        official: 'Official',
-        personal: 'Personal',
-      },
       checkboxText: "Don't show this again",
     },
     buttons: {
+      keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
     },
   },
   portfolio: {
     title: 'Portfolio',
+  },
+  wallet: {
+    title: 'Wallet',
   },
   errors: {
     deviceErrors,

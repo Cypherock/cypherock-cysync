@@ -13,8 +13,10 @@ import {
   bitcoinIcon,
   etheriumBlueIcon,
   DropDownListItemProps,
+  walletIcon,
+  solanaIcon,
+  binanceIcon,
 } from '@cypherock/cysync-ui';
-import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
 import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -28,6 +30,22 @@ const dropDownData: DropDownListItemProps[] = [
     shortForm: '(BTC)',
     text: 'Bitcoin',
     checkType: 'radio',
+    subMenu: [
+      {
+        id: '143',
+        leftImageSrc: solanaIcon,
+        shortForm: '(SOL)',
+        text: 'Solana',
+        checkType: 'radio',
+      },
+      {
+        id: '144',
+        leftImageSrc: binanceIcon,
+        shortForm: '(BTC)',
+        text: 'Binance Smart Chain',
+        checkType: 'radio',
+      },
+    ],
   },
   {
     id: '42',
@@ -56,21 +74,25 @@ const dropDownDataWithWallet: DropDownListItemProps[] = [
     id: '51',
     text: 'Official',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '52',
     text: 'Cypherock Red',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '53',
     text: 'Personal',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
   {
     id: '54',
     text: 'Business',
     checkType: 'radio',
+    leftImageSrc: walletIcon,
   },
 ];
 
@@ -143,7 +165,6 @@ export const SelectCryptoDialog: React.FC = () => {
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            changeColorWhite
           />
           <Dropdown
             items={dropDownData}
@@ -152,6 +173,7 @@ export const SelectCryptoDialog: React.FC = () => {
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
+            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

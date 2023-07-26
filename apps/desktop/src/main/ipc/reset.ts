@@ -4,19 +4,20 @@ import { ipcConfig } from './helpers/config';
 
 import { clearDatabase, logger } from '../utils';
 
-const createResetCySyncMethod = (webContents: WebContents) => async () => {
-  logger.info('Resetting CySync');
+const createResetCySyncMethod =
+  (getWebContents: () => WebContents) => async () => {
+    logger.info('Resetting CySync');
+    const webContents = getWebContents();
+    await clearDatabase();
+    await webContents.session.clearCache();
+    await webContents.session.clearStorageData();
+    app.relaunch();
+    app.exit();
+  };
 
-  await clearDatabase();
-  await webContents.session.clearCache();
-  await webContents.session.clearStorageData();
-  app.relaunch();
-  app.exit();
-};
-
-export const getResetIPCHandlers = (webContents: WebContents) => [
+export const getResetIPCHandlers = (getWebContents: () => WebContents) => [
   {
     name: ipcConfig.methods.resetCySync,
-    func: createResetCySyncMethod(webContents),
+    func: createResetCySyncMethod(getWebContents),
   },
 ];
