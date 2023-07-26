@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { StretchedTypography } from './LeanBox';
 
-import { theme } from '../../themes/theme.styled';
 import { Button, Image } from '../atoms';
 
 const SnackBarWrapper = styled.div`
@@ -14,14 +13,14 @@ const SnackBarWrapper = styled.div`
   width: 680px;
   max-width: calc(40% + 40px);
   height: 40px;
-  background-color: ${theme.palette.background.input};
+  background-color: ${({ theme }) => theme.palette.background.input};
   display: flex;
   flex-direction: row;
   gap: 16px;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  border: 1px solid ${theme.palette.border.input};
+  border: 1px solid ${({ theme }) => theme.palette.border.input};
   z-index: 100;
 `;
 

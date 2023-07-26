@@ -21,7 +21,7 @@ export interface DropDownListItemProps extends BorderProps {
   tag?: string;
   text: string;
   radioButtonValue?: string;
-  restrictedItem?: boolean;
+  $restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
@@ -72,14 +72,14 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ restrictedItem, $isChecked, theme }) => {
-    if (restrictedItem) {
+  background-color: ${({ $restrictedItem, $isChecked, theme }) => {
+    if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
     if ($isChecked) {
       return theme.palette.background.dropdownHover;
     }
-    return theme.palette.background.separatorSecondary;
+    return theme.palette.background.list;
   }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
@@ -136,7 +136,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   id,
   color,
   onClick,
-  restrictedItem = false,
+  $restrictedItem = false,
   onCheckedChange,
   $borderRadius,
   subMenu = [],
@@ -157,10 +157,10 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $isChecked={checked}
         $borderRadius={$borderRadius}
         $hasRightText={$hasRightText}
-        restrictedItem={restrictedItem}
+        $restrictedItem={$restrictedItem}
         text={text}
       >
-        {!restrictedItem && checkType && checkType === 'radio' && (
+        {!$restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
             checked={checked}
             value={radioButtonValue}
@@ -209,7 +209,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
               />
             </DropDownListItemIconContainer>
           )}
-          {!restrictedItem && checkType && checkType === 'checkbox' && (
+          {!$restrictedItem && checkType && checkType === 'checkbox' && (
             <CheckBox
               checked={checked}
               onChange={handleCheckChange}
@@ -246,7 +246,7 @@ DropDownListItem.defaultProps = {
   id: undefined,
   tag: undefined,
   onClick: undefined,
-  restrictedItem: false,
+  $restrictedItem: false,
   selectedItem: undefined,
   checked: false,
   onCheckedChange: undefined,

@@ -13,7 +13,6 @@ import React, {
 } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
-import logger from '~/utils/logger';
 
 import { Receive, ReceiveDevice } from '../Dialogs';
 import {
@@ -87,8 +86,6 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   ];
 
   const onNext = (tab?: number, dialog?: number) => {
-    logger.info('currentTab');
-
     if (typeof tab === 'number' && typeof dialog === 'number') {
       setCurrentTab(tab);
       setCurrentDialog(dialog);

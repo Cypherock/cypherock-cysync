@@ -4,14 +4,9 @@ import styled from 'styled-components';
 import { Image } from './Image';
 import { Typography } from './Typography';
 
-import { theme } from '../../themes/theme.styled';
-
-type BackgroundColorKey = keyof typeof theme.palette.background;
-type BorderColorKey = keyof typeof theme.palette.border;
-
 interface StyledInfoBoxProps {
-  $backgroundColor?: BackgroundColorKey;
-  $borderColor?: BorderColorKey;
+  $backgroundColor?: string;
+  $borderColor?: string;
 }
 
 interface InformationBoxProps extends StyledInfoBoxProps {
@@ -26,13 +21,13 @@ const InfoBox = styled.div<StyledInfoBoxProps>`
   gap: 16px;
   align-self: stretch;
   justify-content: flex-start;
-  background-color: ${({ $backgroundColor }) =>
+  background-color: ${({ $backgroundColor, theme }) =>
     $backgroundColor && theme.palette.background[$backgroundColor]
       ? theme.palette.background[$backgroundColor]
       : theme.palette.background.input};
   border-radius: 8px;
   border: 1px solid
-    ${({ $borderColor }) =>
+    ${({ $borderColor, theme }) =>
       $borderColor && theme.palette.border[$borderColor]
         ? theme.palette.border[$borderColor]
         : theme.palette.border.infoBox};

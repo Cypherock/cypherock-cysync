@@ -177,7 +177,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           id={selectedDropdownItem?.id}
           text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
-          restrictedItem
+          $restrictedItem
           leftImageSrc={selectedDropdownItem?.leftImageSrc}
           rightText={selectedDropdownItem?.rightText}
           $hasRightText={!!selectedDropdownItem?.rightText}
