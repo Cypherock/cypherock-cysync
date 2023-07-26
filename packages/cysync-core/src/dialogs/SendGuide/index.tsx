@@ -23,6 +23,8 @@ export const SendFlow: FC = () => {
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
+            currentDialog={currentDialog}
+            totalDialogs={tabs[currentTab].dialogs.length}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">

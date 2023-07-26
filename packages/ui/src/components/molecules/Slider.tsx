@@ -14,17 +14,22 @@ const SliderInput = styled.input<{ min: number; value: number; max: number }>`
   width: 100%;
   -webkit-appearance: none;
   background: grey;
+
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 16px;
-    width: 16px;
+    height: 26px; // Increase the height and width to account for padding and border
+    width: 26px;
     border-radius: 50%;
     background: ${({ theme }) => theme.palette.golden};
+    box-sizing: border-box;
+    border: 12px solid red; // Black border of 2px
+    padding: 5px; // Padding of 5px to create the gap
     cursor: pointer;
-    margin-top: -7px;
+    margin-top: -13px; // Adjusted to center the thumb
     position: relative;
     z-index: 2;
   }
+
   &::-webkit-slider-runnable-track {
     width: 100%;
     height: 2px; /* Reduce this to adjust the thickness of the track */

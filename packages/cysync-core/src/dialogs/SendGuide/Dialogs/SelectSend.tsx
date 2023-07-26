@@ -137,7 +137,6 @@ export const SelectSend: React.FC = () => {
             searchText={crypto.searchText}
             placeholderText={crypto.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            changeColorWhite
           />
           <Dropdown
             items={dropDownData}

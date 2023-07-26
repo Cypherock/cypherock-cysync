@@ -9,8 +9,6 @@ import {
   Slider,
   ButtonGroup,
   Typography,
-  Image,
-  verifyAmountIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { useSendGuide } from '../context';
@@ -77,7 +75,6 @@ export const RecipientError: React.FC = () => {
         </Typography>
       </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={verifyAmountIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text="Recipient" />
         </Typography>

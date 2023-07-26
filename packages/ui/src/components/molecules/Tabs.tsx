@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { utils } from '../utils';
-import { goldenGradient } from '../atoms/Gradient';
+import { goldenGradient, utils } from '../utils';
+import { Typography } from '../atoms';
 
 interface Tab {
   label: string;
@@ -18,18 +18,33 @@ const TabsContainer = styled.div`
 const TabHeaders = styled.div`
   display: flex;
 `;
-const TabHeader = styled.div<{ active: boolean }>`
-  padding: 12px 24px;
+const TabHeader = styled.div`
   cursor: pointer;
   font-weight: 400;
-  color: ${({ theme, active }) =>
-    active ? `${goldenGradient('color')}` : theme.palette.text.muted};
-  border-bottom: 2px solid
-    ${({ theme, active }) => (active ? `${theme.palette.border.gold}` : 'none')};
 `;
 const TabContent = styled.div`
   padding: 12px;
 `;
+
+const StyledTypography = styled(Typography)<{ active: boolean }>`
+  padding: 12px 24px;
+  position: relative;
+  display: inline-block;
+  color: ${({ theme, active }) =>
+    active ? `${goldenGradient('color')}` : theme.palette.text.muted};
+  &::before {
+    content: ${({ active }) => (active ? "''" : 'none')};
+    position: absolute;
+    inset: 0;
+    border-bottom: 1px solid transparent;
+    background: ${props => props.theme.palette.golden} border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+`;
+
 export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
   const handleTabClick = (index: number) => {
@@ -39,12 +54,15 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
     <TabsContainer>
       <TabHeaders>
         {tabs.map((tab, index) => (
-          <TabHeader
-            key={tab.label}
-            active={index === activeTab}
-            onClick={() => handleTabClick(index)}
-          >
-            {tab.label}
+          <TabHeader key={tab.label} onClick={() => handleTabClick(index)}>
+            <StyledTypography
+              variant="span"
+              active={index === activeTab}
+              $fontSize={16}
+              $fontWeight="normal"
+            >
+              {tab.label}
+            </StyledTypography>
           </TabHeader>
         ))}
       </TabHeaders>
