@@ -17,11 +17,11 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { ReceiveGuideProvider, useReceiveGuide } from './context';
+import { ReceiveDialogProvider, useReceiveDialog } from './context';
 
 export const Receive: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog } = useReceiveGuide();
+  const { tabs, currentTab, currentDialog } = useReceiveDialog();
   const dispatch = useAppDispatch();
 
   return (
@@ -38,7 +38,7 @@ export const Receive: FC = () => {
             <Container width="full" p={2} justify="space-between">
               <HelpButton text={lang.strings.help} />
               <CloseButton
-                onClick={() => dispatch(closeDialog('receiveGuide'))}
+                onClick={() => dispatch(closeDialog('receiveDialog'))}
               />
             </Container>
             <DialogBoxBody
@@ -58,8 +58,8 @@ export const Receive: FC = () => {
   );
 };
 
-export const ReceiveGuide: FC = () => (
-  <ReceiveGuideProvider>
+export const ReceiveDialog: FC = () => (
+  <ReceiveDialogProvider>
     <Receive />
-  </ReceiveGuideProvider>
+  </ReceiveDialogProvider>
 );

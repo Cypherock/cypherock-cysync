@@ -45,7 +45,7 @@ type ITabs = {
   dialogs: ReactNode[];
 }[];
 
-export interface ReceiveGuideContextInterface {
+export interface ReceiveDialogContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: Dispatch<SetStateAction<number>>;
@@ -55,16 +55,16 @@ export interface ReceiveGuideContextInterface {
   onPrevious: () => void;
 }
 
-export const ReceiveGuideContext: Context<ReceiveGuideContextInterface> =
-  createContext<ReceiveGuideContextInterface>(
-    {} as ReceiveGuideContextInterface,
+export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
+  createContext<ReceiveDialogContextInterface>(
+    {} as ReceiveDialogContextInterface,
   );
 
-export interface ReceiveGuideContextProviderProps {
+export interface ReceiveDialogContextProviderProps {
   children: ReactNode;
 }
 
-export const ReceiveGuideProvider: FC<ReceiveGuideContextProviderProps> = ({
+export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -150,12 +150,12 @@ export const ReceiveGuideProvider: FC<ReceiveGuideContextProviderProps> = ({
   );
 
   return (
-    <ReceiveGuideContext.Provider value={ctx}>
+    <ReceiveDialogContext.Provider value={ctx}>
       {children}
-    </ReceiveGuideContext.Provider>
+    </ReceiveDialogContext.Provider>
   );
 };
 
-export function useReceiveGuide(): ReceiveGuideContextInterface {
-  return useContext(ReceiveGuideContext);
+export function useReceiveDialog(): ReceiveDialogContextInterface {
+  return useContext(ReceiveDialogContext);
 }

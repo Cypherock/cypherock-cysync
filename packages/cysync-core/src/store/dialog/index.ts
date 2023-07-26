@@ -22,7 +22,7 @@ const initialState: IDialogState = {
   addAccountDialog: {
     isOpen: false,
   },
-  receiveGuide: {
+  receiveDialog: {
     isOpen: false,
   },
 };

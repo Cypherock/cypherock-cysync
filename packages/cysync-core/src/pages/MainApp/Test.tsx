@@ -2,7 +2,7 @@ import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { openReceiveGuideDialog } from '~/actions';
+import { openReceiveDialog } from '~/actions';
 
 import { ReceiveVerifyAddress } from '~/dialogs/Receive/Dialogs/Receive';
 
@@ -10,7 +10,7 @@ export const Test: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(openReceiveGuideDialog());
+    dispatch(openReceiveDialog());
   }, []);
 
   return (

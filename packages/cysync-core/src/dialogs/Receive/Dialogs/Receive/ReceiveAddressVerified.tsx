@@ -22,13 +22,13 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 
 export const ReceiveAddressVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceAddressVerified.info.dialogBox;
-  const { onNext } = useReceiveGuide();
+  const { onNext } = useReceiveDialog();
   const dispatch = useAppDispatch();
 
   const handleVerificationAgain = () => {
@@ -67,7 +67,7 @@ export const ReceiveAddressVerified: React.FC = () => {
         </Button>
         <Button
           variant="primary"
-          onClick={() => dispatch(closeDialog('receiveGuide'))}
+          onClick={() => dispatch(closeDialog('receiveDialog'))}
         >
           {connect.buttonDone}
         </Button>

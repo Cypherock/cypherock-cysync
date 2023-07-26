@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 import SvgArrowReceivedIcon from '@cypherock/cysync-ui/src/assets/icons/generated/ArrowReceivedIcon';
 
 const dropDownData: DropDownListItemProps[] = [
@@ -113,7 +113,7 @@ export const Receive: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const receive = lang.strings.receive.receive.info.dialogBox;
   const button = lang.strings.buttons;
-  const { onNext } = useReceiveGuide();
+  const { onNext } = useReceiveDialog();
 
   const [dropdownState, setDropdownState] = useState<DropdownState>({
     isFirstDropdownSelected: false,

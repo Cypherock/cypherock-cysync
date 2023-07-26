@@ -21,14 +21,14 @@ import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 
 export const ReceiveDeviceConfirmForToken: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmForToken.info.dialogBox;
   const imageIcon = questionMarkGoldIcon;
-  const { onNext, onPrevious } = useReceiveGuide();
+  const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
     {

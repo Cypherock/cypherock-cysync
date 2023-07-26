@@ -27,14 +27,14 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 
 export const ReceiveAddressNotVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const connect = lang.strings.receive.deviceAddressNotVerified.info.dialogBox;
 
   const dispatch = useAppDispatch();
-  const { onNext } = useReceiveGuide();
+  const { onNext } = useReceiveDialog();
 
   const handleVerificationAgain = () => {
     onNext(1, 0);
@@ -89,7 +89,7 @@ export const ReceiveAddressNotVerified: React.FC = () => {
         </Button>
         <Button
           variant="primary"
-          onClick={() => dispatch(closeDialog('receiveGuide'))}
+          onClick={() => dispatch(closeDialog('receiveDialog'))}
         >
           {connect.buttonDone}
         </Button>

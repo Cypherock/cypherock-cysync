@@ -21,13 +21,13 @@ import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 
 export const ReceiveVerifyAddress: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceVerifyAddress.info.dialogBox;
-  const { onNext, onPrevious } = useReceiveGuide();
+  const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
     {

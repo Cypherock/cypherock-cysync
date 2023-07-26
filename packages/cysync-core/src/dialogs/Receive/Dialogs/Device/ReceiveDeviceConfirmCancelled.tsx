@@ -16,13 +16,13 @@ import React from 'react';
 // import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveGuide } from '../../context';
+import { useReceiveDialog } from '../../context';
 
 export const ReceiveDeviceConfirmCancelled: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmCancelled.info.dialogBox;
-  const { onNext } = useReceiveGuide();
+  const { onNext } = useReceiveDialog();
 
   // const keyboardActions = {
   //   ArrowRight: () => {
