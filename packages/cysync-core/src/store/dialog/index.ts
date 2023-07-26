@@ -10,9 +10,6 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
-  addAccount: {
-    isOpen: false,
-  },
   walletSyncError: {
     isOpen: false,
   },
@@ -20,6 +17,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   createWalletGuide: {
+    isOpen: false,
+  },
+  addAccountDialog: {
     isOpen: false,
   },
 };

@@ -3,19 +3,107 @@ import {
   IPriceHistory,
   IPriceHistoryRepository,
 } from '@cypherock/db-interfaces';
+
 import { ITestClass } from './types';
 
 class PriceHistoryData implements ITestClass<IPriceHistory> {
   name = 'PriceHistory';
 
+  sortKey = 'currency';
+
+  isSortDescending = false;
+
   repo: IPriceHistoryRepository;
+
+  sorted: IPriceHistory[] = [
+    {
+      days: 7,
+      history: [
+        {
+          timestamp: 34,
+          price: '0.002',
+        },
+        {
+          timestamp: 90,
+          price: '0.001',
+        },
+      ],
+      assetId: 'assetId2',
+      currency: 'INR',
+    },
+    {
+      days: 365,
+      history: [
+        {
+          timestamp: 1000,
+          price: '0',
+        },
+        {
+          timestamp: 10000,
+          price: '1',
+        },
+        {
+          timestamp: 20000,
+          price: '2',
+        },
+        {
+          timestamp: 30000,
+          price: '3',
+        },
+      ],
+      assetId: 'assetId0',
+      currency: 'INS',
+    },
+    {
+      days: 1,
+      history: [
+        {
+          timestamp: 0,
+          price: 'test',
+        },
+      ],
+      assetId: 'assetId',
+      currency: 'USC',
+    },
+    {
+      days: 30,
+      history: [
+        {
+          timestamp: 34,
+          price: '0.002',
+        },
+        {
+          timestamp: 90,
+          price: '0.001',
+        },
+        {
+          timestamp: 1000,
+          price: '0.002',
+        },
+        {
+          timestamp: 10000,
+          price: '0.001',
+        },
+        {
+          timestamp: 20000,
+          price: '0.002',
+        },
+        {
+          timestamp: 30000,
+          price: '0.001',
+        },
+      ],
+      assetId: 'assetId3',
+      currency: 'USD',
+    },
+  ];
 
   onlyRequired: IPriceHistory[] = [
     {
       days: 1,
       history: [{ timestamp: 0, price: 'test' }],
       assetId: 'assetId',
-      currency: 'USD',
+      currency: 'USC',
     },
     {
       days: 7,
@@ -48,7 +136,7 @@ class PriceHistoryData implements ITestClass<IPriceHistory> {
         { timestamp: 30000, price: '3' },
       ],
       assetId: 'assetId0',
-      currency: 'INR',
+      currency: 'INS',
     },
   ];
 
