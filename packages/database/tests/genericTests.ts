@@ -1,11 +1,14 @@
 import { IEntity } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
+
+import fixtures from './__fixtures__';
 import {
   compareEntityArray as expectEqualEntityArray,
   removeBaseFelids,
   removeLokiFields,
   testHelper,
 } from './__helpers__/testHelper';
-import fixtures from './__fixtures__';
+
 import { createDb } from '../src/index';
 
 describe('Basic tests', () => {
@@ -210,6 +213,59 @@ describe('Basic tests', () => {
         test('Can not fetch an entity with invalid values', async () => {
           entity.repo.setVersion(0);
           expect(entity.repo.getAll(entity.invalid)).rejects.toThrow();
+        });
+
+        test('Get multiple entities in sorted order', async () => {
+          const entitiesBeforeInsert = await entity.repo.getAll();
+
+          entity.repo.setVersion(0);
+          const objectsToInsert = entity.onlyRequired;
+          const storedObj = await entity.repo.insert(objectsToInsert);
+          const fetchedObj = await entity.repo.getAll(undefined, {
+            sortBy: {
+              key: entity.sortKey as any,
+              descending: entity.isSortDescending,
+            },
+          });
+
+          expectEqualEntityArray(
+            [...entitiesBeforeInsert, ...storedObj],
+            fetchedObj,
+          );
+
+          const newStoredObjects = lodash.difference(
+            fetchedObj,
+            entitiesBeforeInsert,
+          );
+
+          for (let i = 0; i < newStoredObjects.length; i += 1) {
+            const storedEntity: any = newStoredObjects[i];
+            delete storedEntity.__id;
+            delete storedEntity.__version;
+
+            expectEqualEntityArray([entity.sorted[i]], [storedEntity]);
+          }
+        });
+
+        test('Get limited entities in sorted order', async () => {
+          await entity.repo.remove({});
+
+          entity.repo.setVersion(0);
+          const objectsToInsert = entity.onlyRequired;
+          await entity.repo.insert(objectsToInsert);
+          const fetchedObj = await entity.repo.getAll(undefined, {
+            sortBy: {
+              key: entity.sortKey as any,
+              descending: entity.isSortDescending,
+            },
+            limit: 1,
+          });
+
+          const storedEntity: any = fetchedObj[0];
+          delete storedEntity.__id;
+          delete storedEntity.__version;
+
+          expectEqualEntityArray([entity.sorted[0]], [storedEntity]);
         });
       });
 
