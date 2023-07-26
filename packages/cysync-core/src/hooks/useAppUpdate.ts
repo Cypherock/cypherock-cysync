@@ -10,6 +10,7 @@ export enum AppUpdateState {
   Checking,
   Confirmation,
   Downloading,
+  Downloaded,
   Successful,
   Failed,
   FailedFallback,
@@ -110,6 +111,11 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
     addListeners();
     checkForUpdates();
   }, []);
+
+  useEffect(() => {
+    if (!shouldInstallAfterUpdate && downloadProgress === 100)
+      setAppUpdateState(AppUpdateState.Downloaded);
+  }, [shouldInstallAfterUpdate, downloadProgress]);
 
   return {
     updateInfo,

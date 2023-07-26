@@ -39,7 +39,7 @@ export const AppUpdateDialogBox: FC = () => {
     }
   }, [isUpdatesChecked, updateInfo]);
 
-  const AppUpdateDialogs: Record<AppUpdateState, ReactElement> = {
+  const AppUpdateDialogs: { [key in AppUpdateState]?: ReactElement } = {
     [AppUpdateState.Checking]: (
       <AppUpdateChecking
         text={lang.strings.onboarding.appUpdate.dialogs.checking.title}
@@ -115,5 +115,5 @@ export const AppUpdateDialogBox: FC = () => {
     ),
   };
 
-  return AppUpdateDialogs[appUpdateState];
+  return AppUpdateDialogs[appUpdateState] ?? null;
 };

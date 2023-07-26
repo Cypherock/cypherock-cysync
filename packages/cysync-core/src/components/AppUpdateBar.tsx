@@ -47,7 +47,7 @@ export const AppUpdateBar: FC = () => {
       text: 'downloading',
       updateState: 'progress',
     },
-    [AppUpdateState.Successful]: {
+    [AppUpdateState.Downloaded]: {
       icon: <Check />,
       text: 'successful',
       buttonText: 'installUpdate',
@@ -70,7 +70,7 @@ export const AppUpdateBar: FC = () => {
     },
   };
 
-  return updateInfo ? (
+  return updateInfo && updateBarMap[appUpdateState] ? (
     <UpdateBar
       progress={downloadProgress}
       icon={updateBarMap[appUpdateState]?.icon}
