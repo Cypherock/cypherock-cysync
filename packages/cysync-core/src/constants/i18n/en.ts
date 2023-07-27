@@ -307,6 +307,8 @@ const en = {
     close: 'Close',
     report: 'Report',
     help: 'Help',
+    stop: 'Stop',
+    resync: 'Resync',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -343,9 +345,8 @@ const en = {
         info: {
           dialogBox: {
             title: 'Add Coin/Account',
-            header: 'Syncing the account',
+            header: 'Syncing the Accounts',
             subheader: 'Accounts already in portfolio',
-            buttonStopSync: 'Stop Syncing',
           },
         },
       },
@@ -411,7 +412,8 @@ const en = {
             subheader: 'New Accounts',
             subheader2: 'Account not yet synced',
             subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect all',
+            deselectAllButton: 'Deselect All',
+            selectAllButton: 'Select All',
             buttonAddAccount: 'Add Accounts',
             advanced: 'Show all address types',
             questionMark: '?',
@@ -422,7 +424,7 @@ const en = {
     aside: {
       tabs: {
         asset: 'Asset',
-        device: 'Device',
+        device: 'X1 Vault',
         confirmation: 'Confirmation',
       },
     },

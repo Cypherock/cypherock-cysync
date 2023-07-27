@@ -66,14 +66,14 @@ const accountsInPortfolio = [
     id: '11',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 1',
-    checkType: 'checkbox',
+    rightText: '0.18 BTC',
     tag: 'SEGWIT',
   },
   {
     id: '12',
     leftImageSrc: bitcoinIcon,
     text: 'Bitcoin 1',
-    checkType: 'checkbox',
+    rightText: '2.02 BTC',
     tag: 'NATIVE SEGWIT',
   },
 ];
@@ -100,6 +100,11 @@ export const AddAccountSingleChainDialog: FC = () => {
     setCheckedItems(prevItems =>
       prevItems.filter(item => !uncheckedItems.includes(item)),
     );
+  };
+
+  const handleSelectAll = () => {
+    const allItemIds = accountNotSynced.map(data => data.id);
+    setCheckedItems(allItemIds);
   };
 
   const checkedItemsCount = checkedItems.filter(item =>
@@ -182,17 +187,33 @@ export const AddAccountSingleChainDialog: FC = () => {
               </InputLabel>
             </div>
             <div>
-              <InputLabel
-                px={0}
-                mb={0}
-                color="gradient"
-                $fontSize={14}
-                onClick={handleDeselectAll}
-              >
-                <LangDisplay
-                  text={`${singleChain.deselectAllButton} (${checkedItemsCount})`}
-                />
-              </InputLabel>
+              {checkedItemsCount > 0 ? (
+                <InputLabel
+                  px={0}
+                  mb={0}
+                  color="gradient"
+                  $fontSize={14}
+                  onClick={handleDeselectAll}
+                  $cursor
+                >
+                  <LangDisplay
+                    text={`${singleChain.deselectAllButton} (${checkedItemsCount})`}
+                  />
+                </InputLabel>
+              ) : (
+                <InputLabel
+                  px={0}
+                  mb={0}
+                  color="gradient"
+                  $fontSize={14}
+                  onClick={handleSelectAll}
+                  $cursor
+                >
+                  <LangDisplay
+                    text={`${singleChain.selectAllButton} (${checkedItemsCount})`}
+                  />
+                </InputLabel>
+              )}
             </div>
           </Flex>
           <LeanBoxContainer>
@@ -234,7 +255,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                 leftImageSrc={data.leftImageSrc}
                 text={data.text}
                 tag={data.tag}
-                {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                rightText={data.rightText}
                 id={data.id}
                 onCheckChanged={() => handleCheckBoxChange(data.id)}
                 $isChecked={checkedItems.includes(data.id)}

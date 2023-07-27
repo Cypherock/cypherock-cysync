@@ -30,6 +30,7 @@ const dropDownData: DropDownListItemProps[] = [
     shortForm: '(BTC)',
     text: 'Bitcoin',
     checkType: 'radio',
+    tag: 'Taproot',
   },
   {
     id: '42',
@@ -48,7 +49,7 @@ const dropDownData: DropDownListItemProps[] = [
   {
     id: '44',
     leftImageSrc: binanceIcon,
-    shortForm: '(BTC)',
+    shortForm: '(BNB)',
     text: 'Binance Smart Chain',
     checkType: 'radio',
   },

@@ -197,7 +197,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           onChange={handleInputChange}
           $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
-          disabled={disabled}
+          disabled={!isOpen}
         />
       )}
       <IconContainer>

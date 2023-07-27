@@ -32,7 +32,10 @@ export interface LeanBoxProps {
   value?: string;
 }
 
-export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
+export const HorizontalBox = styled.div<{
+  $isChecked: boolean;
+  $isCheckable: boolean;
+}>`
   display: flex;
   padding: 8px 16px;
   align-items: center;
@@ -46,7 +49,7 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
       : theme.palette.background.input};
   width: 422px;
   height: 42px;
-  cursor: pointer;
+  cursor: ${({ $isCheckable }) => ($isCheckable ? 'pointer' : 'default')};
 `;
 
 export const ImageContainer = styled.div`
@@ -93,7 +96,10 @@ export const LeanBox: FC<LeanBoxProps> = ({
 
   return (
     <InputLabel>
-      <HorizontalBox $isChecked={$isChecked}>
+      <HorizontalBox
+        $isChecked={$isChecked}
+        $isCheckable={checkType === 'radio' || checkType === 'checkbox'}
+      >
         {checkType === 'radio' && (
           <RadioButton
             checked={$isChecked}
@@ -126,7 +132,12 @@ export const LeanBox: FC<LeanBoxProps> = ({
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
           {rightText && (
-            <Typography variant={rightTextVariant} color={rightTextColor}>
+            <Typography
+              variant={rightTextVariant}
+              color={rightTextColor}
+              $fontSize={14}
+              $fontWeight="normal"
+            >
               {rightText}
             </Typography>
           )}

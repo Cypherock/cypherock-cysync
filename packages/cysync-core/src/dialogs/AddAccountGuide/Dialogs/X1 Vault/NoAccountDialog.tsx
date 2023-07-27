@@ -1,4 +1,5 @@
 import {
+  LangDisplay,
   loaderGrayIcon,
   DialogBox,
   DialogBoxHeader,
@@ -10,13 +11,16 @@ import {
   InputLabel,
   DialogBoxFooter,
   Button,
-  LangDisplay,
   etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { addKeyboardEvents } from '~/hooks';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { useAddAccountDialog } from '../../context';
 
@@ -41,42 +45,29 @@ const dataArray = [
   },
 ];
 
-export const SyncAccountDialog: React.FC = () => {
+export const NoAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const sync = lang.strings.addAccount.addAccount.syncAccount.info.dialogBox;
-  const { goTo, onNext, onPrevious } = useAddAccountDialog();
-
-  const keyboardActions = {
-    ArrowRight: () => {
-      goTo(1, 4);
-    },
-    ArrowLeft: () => {
-      onPrevious();
-    },
-  };
-
-  addKeyboardEvents(keyboardActions);
-
-  const handleNextWithTimeout = () => {
-    onNext();
-  };
+  const noAccount = lang.strings.addAccount.addAccount.noAccount.info.dialogBox;
+  const button = lang.strings.buttons;
+  const { onPrevious } = useAddAccountDialog();
+  const dispatch = useAppDispatch();
 
   return (
     <DialogBox width={500}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={sync.title} />
+          <LangDisplay text={noAccount.title} />
         </Typography>
       </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={loaderGrayIcon} alt="Loader" animate="spin" />
+        <Image src={loaderGrayIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={sync.header} />
+          <LangDisplay text={noAccount.header} />
         </Typography>
         <div>
           <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
-            {sync.subheader} ({dataArray.length})
+            {noAccount.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
             {dataArray.map(data => (
@@ -95,8 +86,20 @@ export const SyncAccountDialog: React.FC = () => {
         </div>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={handleNextWithTimeout}>
-          <LangDisplay text={sync.buttonStopSync} />
+        <Button
+          variant="secondary"
+          onClick={e => {
+            e.preventDefault();
+            onPrevious();
+          }}
+        >
+          <LangDisplay text={button.resync} />
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => dispatch(closeDialog('addAccountDialog'))}
+        >
+          <LangDisplay text={button.close} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>
