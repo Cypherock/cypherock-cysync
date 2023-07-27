@@ -19,8 +19,6 @@ const mapAccountToDisplay = async (db: IDatabase, account: IAccount) => {
   const wallet = await getWalletFromAccount(db, account);
 
   return {
-    __id: account.__id,
-    wi: account.walletId,
     name: account.name,
     wallet: wallet.name,
     tag: lodash.upperCase(account.derivationScheme),
