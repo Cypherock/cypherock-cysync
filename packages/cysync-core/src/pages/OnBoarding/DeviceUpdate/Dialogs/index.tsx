@@ -4,138 +4,39 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import { ManagerApp, UpdateFirmwareStatus } from '@cypherock/sdk-app-manager';
-import React, { FC, useRef, useEffect, ReactElement } from 'react';
-import semver from 'semver';
+import React, { FC, useEffect, ReactElement } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
-import { useDevice, IDeviceConnectionInfo } from '~/context';
-import { useNavigateTo, DeviceTask, useDeviceTask } from '~/hooks';
+import { DeviceUpdateState, useDeviceUpdate, useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { getCloseAppMethod } from '~/utils';
 
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
 
-enum DeviceUpdateState {
-  Checking,
-  Confirmation,
-  Updating,
-  Successful,
-}
-
-export enum InternalState {
-  Checking,
-  Installing,
-}
-
 export const DeviceUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
-
-  const { connection, connectDevice, getDevices } = useDevice();
   const navigateTo = useNavigateTo();
 
-  const [state, setState] = React.useState(DeviceUpdateState.Checking);
-  const [downloadProgress, setDownloadProgress] = React.useState(0);
-  const [internalState, setInternalState] = React.useState(
-    InternalState.Checking,
-  );
-  const [version, setVersion] = React.useState<string | undefined>();
-  const [errorToShow, setErrorToShow] = React.useState<Error | undefined>();
-
-  const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
-
-  useEffect(() => {
-    connectionRef.current = connection;
-  }, []);
-
-  const setStateWithResetError = (s: DeviceUpdateState) => {
-    setErrorToShow(undefined);
-    setState(s);
-  };
-
-  const updateFirmwareTask: DeviceTask<void> = async con => {
-    const app = await ManagerApp.create(con);
-
-    await app.updateFirmware({
-      getDevices,
-      createConnection: connectDevice,
-      onProgress: setDownloadProgress,
-      allowPrerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
-      onEvent: e => {
-        if (e === UpdateFirmwareStatus.UPDATE_FIRMWARE_STATUS_USER_CONFIRMED) {
-          setState(DeviceUpdateState.Updating);
-        }
-      },
-    });
-  };
-
-  const task = useDeviceTask(updateFirmwareTask, { dontExecuteTask: true });
-
-  const onError = (error: any) => {
-    setErrorToShow(error);
-  };
-
-  const installUpdate = async () => {
-    try {
-      if (task.isRunning) return;
-
-      setInternalState(InternalState.Installing);
-      setStateWithResetError(DeviceUpdateState.Confirmation);
-      setDownloadProgress(0);
-
-      const error = await task.run();
-      if (error) throw error;
-
-      setStateWithResetError(DeviceUpdateState.Successful);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const checkForUpdates = async () => {
-    try {
-      setStateWithResetError(DeviceUpdateState.Checking);
-      const result = await ManagerApp.getLatestFirmware({
-        prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
-      });
-      setVersion(result.version);
-
-      if (
-        connection?.firmwareVersion &&
-        semver.gte(connection.firmwareVersion, result.version)
-      ) {
-        toNextPage();
-        return;
-      }
-
-      installUpdate();
-      setStateWithResetError(DeviceUpdateState.Confirmation);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const onRetry = () => {
-    const retryFuncMap: Record<InternalState, () => Promise<void>> = {
-      [InternalState.Checking]: checkForUpdates,
-      [InternalState.Installing]: installUpdate,
-    };
-
-    retryFuncMap[internalState]();
-  };
+  const {
+    version,
+    deviceUpdateState,
+    downloadProgress,
+    errorToShow,
+    shouldUpdateInstall,
+    isUpdatesChecked,
+    onRetry,
+  } = useDeviceUpdate();
 
   const toNextPage = () => {
     navigateTo(routes.onboarding.deviceAuthentication.path);
   };
 
   useEffect(() => {
-    checkForUpdates();
-
-    return () => {
-      task.abort();
-    };
-  }, []);
+    if (!shouldUpdateInstall && isUpdatesChecked) {
+      toNextPage();
+    }
+  }, [shouldUpdateInstall, isUpdatesChecked]);
 
   const DeviceUpdateDialogs: Record<DeviceUpdateState, ReactElement> = {
     [DeviceUpdateState.Checking]: (
@@ -187,7 +88,7 @@ export const DeviceUpdateDialogBox: FC = () => {
       isOnboarding
       onClose={getCloseAppMethod()}
     >
-      {DeviceUpdateDialogs[state]}
+      {DeviceUpdateDialogs[deviceUpdateState]}
     </ErrorHandlerDialog>
   );
 };

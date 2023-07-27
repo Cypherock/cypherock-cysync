@@ -776,6 +776,16 @@ const en = {
       tryAgain: 'Try Again',
       installUpdate: 'Install Update',
     },
+    deviceUpdateBar: {
+      confirmation: 'Firmware update version ${version} available',
+      installing: 'Installing Firmware update ${version}',
+      error: 'Error downloading Firmware update',
+      successful: 'Firmware update version ${version} downloaded',
+      buttons: {
+        tryAgain: 'Try Again',
+        installUpdate: 'Install Update',
+      },
+    },
   },
   topbar: {
     statusTexts: {
