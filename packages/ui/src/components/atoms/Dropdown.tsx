@@ -25,10 +25,12 @@ const List = styled.ul<{ disabled?: boolean }>`
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  box-shadow: 4px 4px 32px 4px ${({ theme }) => theme.palette.shadow.dropdown};
+  box-shadow: 4px 4px 32px 4px
+    ${({ theme }) => theme.palette.background.separatorSecondary};
   padding: 16px 0px 16px 0px;
   z-index: 10;
-  background-color: ${({ theme }) => theme.palette.border.list};
+  background-color: ${({ theme }) =>
+    theme.palette.background.separatorSecondary};
   &:hover {
     cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
   }
