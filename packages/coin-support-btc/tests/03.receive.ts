@@ -62,7 +62,6 @@ describe('03. Receive', () => {
         connection,
         db,
         accountId: 'account1',
-        coinId: 'bitcoin',
         walletId: '1234',
         waitInMSBetweenEachAccountAPI: 1,
       })

@@ -49,7 +49,7 @@ const getReceiveAddressFromDevice = async (
 
   const events: Record<GetPublicKeyStatus, boolean | undefined> = {} as any;
 
-  const { publicKey } = await app.getPublicKey({
+  const { address } = await app.getPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
     onEvent: (event: GetPublicKeyStatus) => {
@@ -60,7 +60,7 @@ const getReceiveAddressFromDevice = async (
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return Buffer.from(publicKey).toString('hex');
+  return address;
 };
 
 const createApp = (connection: IDeviceConnection) => BtcApp.create(connection);

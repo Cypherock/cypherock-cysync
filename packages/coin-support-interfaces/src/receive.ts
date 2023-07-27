@@ -4,9 +4,8 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 export interface IReceiveParams {
   db: IDatabase;
   connection: IDeviceConnection;
-  walletId: string;
   accountId: string;
-  coinId: string;
+  walletId: string;
   waitInMSBetweenEachAccountAPI?: number;
 }
 
