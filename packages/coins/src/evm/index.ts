@@ -54,6 +54,7 @@ export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce<
       family: coinFamiliesMap.evm,
       id: coin.id,
       name: coin.name,
+      abbr: coin.abbr,
       isTest: coin.isTest,
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,

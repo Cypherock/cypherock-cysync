@@ -40,11 +40,13 @@ const CheckBoxIcon = styled.div<ISize>`
   border-radius: 1px;
 `;
 
-const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
-  htmlFor: props.id,
-}))`
+const CheckBoxLabelStyle = styled.label.attrs<ISize & { disabled?: boolean }>(
+  props => ({
+    htmlFor: props.id,
+  }),
+)`
   display: inline-block;
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   border-radius: 3px;
@@ -63,10 +65,12 @@ const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
   }
 `;
 
-const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
-  htmlFor: props.id,
-}))`
-  cursor: pointer;
+const CheckBoxTextLabelStyle = styled.label.attrs<{ disabled: boolean }>(
+  props => ({
+    htmlFor: props.id,
+  }),
+)`
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
 export const CheckBox: FC<CheckBoxProps> = ({
@@ -87,13 +91,13 @@ export const CheckBox: FC<CheckBoxProps> = ({
         disabled={isDisabled}
       />
 
-      <CheckBoxLabelStyle id={id} size={size}>
+      <CheckBoxLabelStyle id={id} size={size} disabled={isDisabled}>
         {checked && <CheckBoxIcon id={id} size={size} />}
       </CheckBoxLabelStyle>
     </CheckBoxWrapper>
 
     {label && (
-      <CheckBoxTextLabelStyle id={id}>
+      <CheckBoxTextLabelStyle id={id} disabled={isDisabled}>
         <Typography
           $fontSize={size === 'big' ? 16 : 14}
           color="muted"

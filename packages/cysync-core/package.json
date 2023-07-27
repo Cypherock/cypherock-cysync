@@ -54,7 +54,10 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
+    "@cypherock/coin-support": "workspace:^",
     "@cypherock/coin-support-btc": "workspace:^",
+    "@cypherock/coin-support-interfaces": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
@@ -73,6 +76,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.13.0",
+    "rxjs": "^7.8.1",
     "semver": "^7.5.3",
     "styled-components": "^6.0.0-rc.1",
     "zod": "^3.21.4"

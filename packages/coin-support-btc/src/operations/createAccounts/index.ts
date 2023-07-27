@@ -1,3 +1,4 @@
+import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
   createAccountsObservable,
@@ -14,18 +15,35 @@ import { ICreateBtcAccountParams, ICreateBtcAccountEvent } from './types';
 
 import * as services from '../../services';
 
-const DERIVATION_PATH_LIMIT = 50;
+const DERIVATION_PATH_LIMIT = 30;
 
 const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
   const { app, walletId, derivationPaths, observer } = params;
 
-  const events: Record<GetXpubsStatus, boolean | undefined> = {} as any;
+  const events: Record<CreateAccountDeviceEvent, boolean | undefined> =
+    {} as any;
+
+  const btcToDeviceEventMap: Partial<
+    Record<GetXpubsStatus, CreateAccountDeviceEvent | undefined>
+  > = {
+    [GetXpubsStatus.GET_XPUBS_STATUS_INIT]: CreateAccountDeviceEvent.INIT,
+    [GetXpubsStatus.GET_XPUBS_STATUS_CONFIRM]:
+      CreateAccountDeviceEvent.CONFIRMED,
+    [GetXpubsStatus.GET_XPUBS_STATUS_PASSPHRASE]:
+      CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
+    [GetXpubsStatus.GET_XPUBS_STATUS_CARD]:
+      CreateAccountDeviceEvent.CARD_TAPPED,
+  };
 
   const { xpubs } = await app.getXpubs({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     onEvent: event => {
-      events[event] = true;
+      const deviceEvent = btcToDeviceEventMap[event];
+      if (deviceEvent !== undefined) {
+        events[deviceEvent] = true;
+      }
+
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   });
@@ -52,6 +70,7 @@ const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createA
       assetId: params.coinId,
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
+      isNew: addressDetails.txnCount <= 0,
     };
   };
 

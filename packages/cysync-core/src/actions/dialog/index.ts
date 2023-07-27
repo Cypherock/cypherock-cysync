@@ -10,4 +10,4 @@ export const openCreateWalletGuideDialog = () =>
   openDialog({ name: 'createWalletGuide', data: undefined });
 
 export const openAddAccountDialog = () =>
-  openDialog({ name: 'addAccountDialog', data: undefined });
+  openDialog({ name: 'addAccount', data: undefined });
