@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ButtonGroupContainer = styled.div`
   display: inline-flex;
-  border-radius: 20px;
+  border-radius: 43px;
   padding: 2px;
 `;
 
@@ -21,16 +21,16 @@ const PillButton = styled.button<{ active: boolean }>`
   cursor: pointer;
   outline: none;
   &:first-child {
-    border-radius: 20px 0 0 20px;
+    border-radius: 43px 0 0 43px;
   }
 
   &:last-child {
-    border-right: none; /* Remove right border for the last button */
-    border-radius: 0 20px 20px 0;
+    border-right: none;
+    border-radius: 0 43px 43px 0;
   }
   width: 56px;
   height: 16px;
-  display: flex; /* Add this to enable flex layout */
+  display: flex;
   font-size: 8px;
   font-style: normal;
   font-weight: 500;
@@ -38,9 +38,9 @@ const PillButton = styled.button<{ active: boolean }>`
   letter-spacing: 1px;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Hide overflowing content */
-  text-overflow: ellipsis; /* Display ellipsis (...) for overflowing text */
-  white-space: nowrap; /* Prevent text from wrapping to a new line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 interface PillButtonGroupProps {

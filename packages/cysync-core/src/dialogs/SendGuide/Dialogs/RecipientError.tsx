@@ -6,13 +6,11 @@ import {
   Button,
   DialogBoxBody,
   Tabs,
-  Slider,
-  ButtonGroup,
   Typography,
   Image,
   verifyAmountIcon,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSendGuide } from '../context';
 import { addKeyboardEvents } from '~/hooks';
 import { styled } from 'styled-components';
@@ -26,10 +24,6 @@ const TabContentContainer = styled.div`
 `;
 
 export const RecipientError: React.FC = () => {
-  const [sliderValue, setSliderValue] = useState(50);
-  const handleSliderChange = (newValue: number) => {
-    setSliderValue(newValue);
-  };
   const { onNext, onPrevious } = useSendGuide();
 
   const keyboardActions = {
@@ -43,22 +37,11 @@ export const RecipientError: React.FC = () => {
 
   addKeyboardEvents(keyboardActions);
 
-  const buttons = ['Standard', 'Advanced'];
-
   const tabs = [
     {
       label: 'Single Transaction',
       content: (
-        <TabContentContainer>
-          <Slider
-            min={0}
-            max={100}
-            value={sliderValue}
-            onChange={handleSliderChange}
-          />
-
-          <ButtonGroup buttons={buttons} />
-        </TabContentContainer>
+        <TabContentContainer>Content of Single Transaction</TabContentContainer>
       ),
     },
     {

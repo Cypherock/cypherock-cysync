@@ -23,3 +23,4 @@ export * from './SideBar';
 export * from './Tabs';
 export * from './Slider';
 export * from './ButtonGroup';
+export * from './MessageBox';

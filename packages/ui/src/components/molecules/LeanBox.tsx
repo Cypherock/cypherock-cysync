@@ -19,6 +19,7 @@ export interface LeanBoxProps {
   rightText?: string;
   tag?: string;
   text: string;
+  fontSize?: number;
   shortForm?: string;
   rightTextColor?: TypographyColor;
   textVariant?: TypographyProps['variant'];
@@ -56,8 +57,10 @@ export const ImageContainer = styled.div<{ gap?: number }>`
 
 export const StretchedTypography = styled(Typography)<{
   $shouldStretch: boolean;
+  fontSize?: number;
 }>`
   flex: ${({ $shouldStretch }) => ($shouldStretch ? '1' : 'unset')};
+  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : 'inherit')};
 `;
 
 export const RightContent = styled.div`
@@ -73,6 +76,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   rightText,
   shortForm = '',
   text,
+  fontSize = 16,
   tag,
   textVariant = 'fineprint',
   rightTextVariant = 'fineprint',
@@ -115,6 +119,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
           $shouldStretch={!tag}
           variant={textVariant}
           color={color}
+          fontSize={fontSize}
         >
           {text}
         </StretchedTypography>
@@ -178,5 +183,6 @@ LeanBox.defaultProps = {
   onCheckChanged: undefined,
   value: '',
   tag: '',
+  fontSize: 16,
   shortForm: '',
 };
