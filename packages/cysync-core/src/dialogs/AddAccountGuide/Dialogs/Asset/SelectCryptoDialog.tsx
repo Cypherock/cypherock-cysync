@@ -30,22 +30,6 @@ const dropDownData: DropDownListItemProps[] = [
     shortForm: '(BTC)',
     text: 'Bitcoin',
     checkType: 'radio',
-    subMenu: [
-      {
-        id: '143',
-        leftImageSrc: solanaIcon,
-        shortForm: '(SOL)',
-        text: 'Solana',
-        checkType: 'radio',
-      },
-      {
-        id: '144',
-        leftImageSrc: binanceIcon,
-        shortForm: '(BTC)',
-        text: 'Binance Smart Chain',
-        checkType: 'radio',
-      },
-    ],
   },
   {
     id: '42',

@@ -12,7 +12,6 @@ import {
   arrowGoldenForward,
   checkIcon,
   halfLoaderGold,
-  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -37,8 +36,8 @@ const dataArray = [
   },
   {
     id: '3',
-    leftImageSrc: etheriumBlueIcon,
-    text: 'Ethereum 3',
+    leftImageSrc: arrowGoldenForward,
+    text: 'Enter the PIN and tap any card',
   },
 ];
 export const InitialiseAccountDialog: React.FC = () => {
