@@ -3,7 +3,6 @@ import {
   FlexGapContainer,
   DialogBox,
   DialogBoxHeader,
-  DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
   Typography,
@@ -16,19 +15,34 @@ import {
   bitcoinIcon,
   Toggle,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, HTMLAttributes, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../../context';
+import { styled } from 'styled-components';
 
 const dataArray = [
   {
     id: '10',
     leftImageSrc: bitcoinIcon,
-    text: 'Bitcoin 1',
+    text: 'Bitcoin 3',
     checkType: 'checkbox',
     tag: 'TAPROOT',
+  },
+  {
+    id: '111',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 3',
+    checkType: 'checkbox',
+    tag: 'SEGWIT',
+  },
+  {
+    id: '121',
+    leftImageSrc: bitcoinIcon,
+    text: 'Bitcoin 1',
+    checkType: 'checkbox',
+    tag: 'LEGACY',
   },
 ];
 const accountNotSynced = [
@@ -78,6 +92,32 @@ const accountsInPortfolio = [
   },
 ];
 
+const ScrollableContainer = styled.div`
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+type ScrollableBoxProps = {
+  backgroundColor?: string;
+} & HTMLAttributes<HTMLDivElement>;
+
+const ScrollableBox = styled.div<ScrollableBoxProps>`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 32px 40px;
+  background: ${({ theme, backgroundColor }) =>
+    backgroundColor ? theme.palette.background[backgroundColor] : 'none'};
+`;
+
 export const AddAccountSingleChainDialog: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { goTo } = useAddAccountDialog();
@@ -120,7 +160,7 @@ export const AddAccountSingleChainDialog: FC = () => {
     lang.strings.addAccount.addAccount.addAccountSingleChain.info.dialogBox;
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={500} height={700}>
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
           <LangDisplay text={singleChain.title} />
@@ -132,8 +172,8 @@ export const AddAccountSingleChainDialog: FC = () => {
           <LangDisplay text={singleChain.header} />
         </Typography>
       </FlexGapContainer>
-      <DialogBoxBody py={4} px={5}>
-        <Flex direction="column">
+      <ScrollableContainer>
+        <ScrollableBox>
           <InputLabel
             mt={4}
             mr={1}
@@ -144,21 +184,19 @@ export const AddAccountSingleChainDialog: FC = () => {
           >
             <LangDisplay text={singleChain.subheader} />
           </InputLabel>
-          <LeanBoxContainer>
-            {dataArray.map(data => (
-              <LeanBox
-                key={data.id}
-                leftImageSrc={data.leftImageSrc}
-                text={data.text}
-                tag={data.tag}
-                checkType={data.checkType as 'checkbox' | 'radio' | undefined}
-                id={data.id}
-                onCheckChanged={() => handleCheckBoxChange(data.id)}
-                $isChecked={checkedItems.includes(data.id)}
-                color="white"
-              />
-            ))}
-          </LeanBoxContainer>
+          {dataArray.map(data => (
+            <LeanBox
+              key={data.id}
+              leftImageSrc={data.leftImageSrc}
+              text={data.text}
+              tag={data.tag}
+              checkType={data.checkType as 'checkbox' | 'radio' | undefined}
+              id={data.id}
+              onCheckChanged={() => handleCheckBoxChange(data.id)}
+              $isChecked={checkedItems.includes(data.id)}
+              color="white"
+            />
+          ))}
           <Flex direction="row" pr={1}>
             <InputLabel $fontSize={13} $fontWeight="normal" $textAlign="right">
               <LangDisplay text={singleChain.advanced} />(
@@ -174,68 +212,66 @@ export const AddAccountSingleChainDialog: FC = () => {
             </InputLabel>
             <Toggle checked={isChecked} onToggle={handleToggleChange} />
           </Flex>
-        </Flex>
-      </DialogBoxBody>
-      <DialogBoxBody pt={2} pb={4} px={5} $bgColor="lightBlack">
-        <Flex direction="column" gap={8}>
-          <Flex justify="space-between" align="center" px={1}>
-            <div>
-              <InputLabel $fontSize={14} $fontWeight="normal" px={0} mb={0}>
-                <LangDisplay
-                  text={`${singleChain.subheader2} (${accountNotSynced.length})`}
-                />
-              </InputLabel>
-            </div>
-            <div>
-              {checkedItemsCount > 0 ? (
-                <InputLabel
-                  px={0}
-                  mb={0}
-                  color="gradient"
-                  $fontSize={14}
-                  onClick={handleDeselectAll}
-                  $cursor
-                >
-                  <LangDisplay
-                    text={`${singleChain.deselectAllButton} (${checkedItemsCount})`}
-                  />
-                </InputLabel>
-              ) : (
-                <InputLabel
-                  px={0}
-                  mb={0}
-                  color="gradient"
-                  $fontSize={14}
-                  onClick={handleSelectAll}
-                  $cursor
-                >
-                  <LangDisplay
-                    text={`${singleChain.selectAllButton} (${checkedItemsCount})`}
-                  />
-                </InputLabel>
-              )}
-            </div>
-          </Flex>
-          <LeanBoxContainer>
-            {accountNotSynced.map(data => (
-              <LeanBox
-                key={data.id}
-                leftImageSrc={data.leftImageSrc}
-                text={data.text}
-                tag={data.tag}
-                {...(data.checkType ? { checkType: 'checkbox' } : {})}
-                id={data.id}
-                onCheckChanged={() => handleCheckBoxChange(data.id)}
-                $isChecked={checkedItems.includes(data.id)}
-                color="white"
-              />
-            ))}
-          </LeanBoxContainer>
-        </Flex>
-      </DialogBoxBody>
+        </ScrollableBox>
 
-      <DialogBoxBody pt={2} pb={4}>
-        <div>
+        <ScrollableBox backgroundColor="lightBlack">
+          <Flex direction="column" gap={8}>
+            <Flex justify="space-between" align="center" px={1}>
+              <div>
+                <InputLabel $fontSize={14} $fontWeight="normal" px={0} mb={0}>
+                  <LangDisplay
+                    text={`${singleChain.subheader2} (${accountNotSynced.length})`}
+                  />
+                </InputLabel>
+              </div>
+              <div>
+                {checkedItemsCount > 0 ? (
+                  <InputLabel
+                    px={0}
+                    mb={0}
+                    color="gradient"
+                    $fontSize={14}
+                    onClick={handleDeselectAll}
+                    $cursor
+                  >
+                    <LangDisplay
+                      text={`${singleChain.deselectAllButton} (${checkedItemsCount})`}
+                    />
+                  </InputLabel>
+                ) : (
+                  <InputLabel
+                    px={0}
+                    mb={0}
+                    color="gradient"
+                    $fontSize={14}
+                    onClick={handleSelectAll}
+                    $cursor
+                  >
+                    <LangDisplay
+                      text={`${singleChain.selectAllButton} (${checkedItemsCount})`}
+                    />
+                  </InputLabel>
+                )}
+              </div>
+            </Flex>
+            <LeanBoxContainer>
+              {accountNotSynced.map(data => (
+                <LeanBox
+                  key={data.id}
+                  leftImageSrc={data.leftImageSrc}
+                  text={data.text}
+                  tag={data.tag}
+                  {...(data.checkType ? { checkType: 'checkbox' } : {})}
+                  id={data.id}
+                  onCheckChanged={() => handleCheckBoxChange(data.id)}
+                  $isChecked={checkedItems.includes(data.id)}
+                  color="white"
+                />
+              ))}
+            </LeanBoxContainer>
+          </Flex>
+        </ScrollableBox>
+        <ScrollableBox>
           <InputLabel
             pl={1}
             mr={1}
@@ -263,8 +299,8 @@ export const AddAccountSingleChainDialog: FC = () => {
               />
             ))}
           </LeanBoxContainer>
-        </div>
-      </DialogBoxBody>
+        </ScrollableBox>
+      </ScrollableContainer>
       <DialogBoxFooter>
         <Button variant="primary" onClick={handleButtonClick}>
           <LangDisplay text={singleChain.buttonAddAccount} />
