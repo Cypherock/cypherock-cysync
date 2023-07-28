@@ -85,6 +85,7 @@ export const theme = {
       muted: colors.border.muted,
       gold: colors.border.gold,
       separatorSecondary: colors.border.separatorSecondary,
+      topbar: colors.border.topbar,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

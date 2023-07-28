@@ -4,6 +4,7 @@ import {
   LangDisplay,
   UpdateBar,
   UpdateState,
+  Container,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode } from 'react';
 import { useTheme } from 'styled-components';
@@ -71,34 +72,36 @@ export const AppUpdateBar: FC = () => {
   };
 
   return updateInfo && updateBarMap[appUpdateState] ? (
-    <UpdateBar
-      progress={downloadProgress}
-      icon={updateBarMap[appUpdateState]?.icon}
-      state={updateBarMap[appUpdateState]?.updateState}
-      onButtonClick={updateBarMap[appUpdateState]?.onButtonClick}
-      text={
-        updateBarMap[appUpdateState]?.text && (
-          <LangDisplay
-            text={
-              (lang.strings.appUpdateBar as any)[
-                updateBarMap[appUpdateState]?.text ?? ''
-              ]
-            }
-            variables={updateInfo}
-          />
-        )
-      }
-      buttonText={
-        updateBarMap[appUpdateState]?.buttonText && (
-          <LangDisplay
-            text={
-              (lang.strings.appUpdateBar.buttons as any)[
-                updateBarMap[appUpdateState]?.buttonText ?? ''
-              ]
-            }
-          />
-        )
-      }
-    />
+    <Container px={2} pt={2} pb={1} $bgColor="contentGradient" width="full">
+      <UpdateBar
+        progress={downloadProgress}
+        icon={updateBarMap[appUpdateState]?.icon}
+        state={updateBarMap[appUpdateState]?.updateState}
+        onButtonClick={updateBarMap[appUpdateState]?.onButtonClick}
+        text={
+          updateBarMap[appUpdateState]?.text && (
+            <LangDisplay
+              text={
+                (lang.strings.appUpdateBar as any)[
+                  updateBarMap[appUpdateState]?.text ?? ''
+                ]
+              }
+              variables={updateInfo}
+            />
+          )
+        }
+        buttonText={
+          updateBarMap[appUpdateState]?.buttonText && (
+            <LangDisplay
+              text={
+                (lang.strings.appUpdateBar.buttons as any)[
+                  updateBarMap[appUpdateState]?.buttonText ?? ''
+                ]
+              }
+            />
+          )
+        }
+      />
+    </Container>
   ) : null;
 };
