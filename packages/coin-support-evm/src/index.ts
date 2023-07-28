@@ -20,4 +20,8 @@ export class EvmSupport implements CoinSupport {
   public createAccounts(params: ICreateEvmAccountParams) {
     return operations.createAccounts(params);
   }
+
+  public syncAccounts(): Observable<void> {
+    throw new Error('Not implemented');
+  }
 }
