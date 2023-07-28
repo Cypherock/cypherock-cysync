@@ -8,7 +8,6 @@ export const Account: ITableDetails<Omit<IAccount, BaseFields>> = {
     name: { type: 'string' },
     xpubOrAddress: { type: 'string' },
     balance: { type: 'string' },
-    unconfirmedBalance: { type: 'string', isOptional: true },
     unit: { type: 'string' },
     derivationScheme: { type: 'string', isOptional: true },
     derivationPath: { type: 'string' },

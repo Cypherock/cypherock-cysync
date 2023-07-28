@@ -27,7 +27,9 @@ const getAddressDetails: IGetAddressDetails<{
 
   const updatedAccountInfo = {
     balance: account.balance,
-    unconfirmedBalance: account.unconfirmedBalance,
+    extraData: {
+      ...(account.extraData ?? {}),
+    },
   };
 
   const xpubDetails = await getXpubDetails({
@@ -39,7 +41,8 @@ const getAddressDetails: IGetAddressDetails<{
   });
 
   updatedAccountInfo.balance = xpubDetails.balance;
-  updatedAccountInfo.unconfirmedBalance = xpubDetails.unconfirmedBalance;
+  updatedAccountInfo.extraData.unconfirmedBalance =
+    xpubDetails.unconfirmedBalance;
 
   const transactions = mapBlockbookTxnToDb(
     account,

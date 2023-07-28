@@ -34,10 +34,7 @@ export function createSyncAccountsObservable<T>(
         const transactions: ITransaction[] = [];
         let nextIterationContext: T | undefined;
 
-        let updatedAccountInfo = {
-          balance: account.balance,
-          unconfirmedBalance: account.unconfirmedBalance,
-        };
+        let updatedAccountInfo = {};
 
         do {
           if (finished) break;
