@@ -1,9 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
-import {
-  bitcoinJsLibType,
-  setBitcoinJSLib,
-} from '@cypherock/sdk-app-btc/dist/utils';
+import { setBitcoinJSLib, bitcoinJsLibType } from '@cypherock/sdk-app-btc';
 
 import * as operations from './operations';
 import { IBtcReceiveParams, ICreateBtcAccountParams } from './operations/types';

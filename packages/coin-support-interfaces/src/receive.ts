@@ -5,18 +5,24 @@ export interface IReceiveParams {
   db: IDatabase;
   connection: IDeviceConnection;
   accountId: string;
-  walletId: string;
-  waitInMSBetweenEachAccountAPI?: number;
 }
 
 export type IReceiveEventType = 'Address' | 'Device' | 'AddressMatched';
 
+export enum ReceiveFlowStatus {
+  INIT = 0,
+  CONFIRM = 1,
+  PASSPHRASE = 2,
+  PIN = 3,
+  CARD = 4,
+  VERIFY = 5,
+}
 export interface IReceiveEvent {
   type: IReceiveEventType;
-  addressMatched?: boolean;
+  didAddressMatched?: boolean;
   address?: string;
   device?: {
     isDone: boolean;
-    events: Record<number, boolean | undefined>;
+    events: Record<ReceiveFlowStatus, boolean | undefined>;
   };
 }

@@ -12,7 +12,11 @@ describe('03. Receive', () => {
   let support: BtcSupport;
   let connection: IDeviceConnection;
   let db: IDatabase;
-  const getOneMock = jest.fn().mockReturnValue({});
+  const getOneMock = jest.fn().mockReturnValue({
+    walletId: '00000000',
+    assetId: 'bitcoin',
+    xpubOrAddress: 'xpub1234',
+  });
 
   beforeEach(() => {
     support = new BtcSupport();
@@ -34,11 +38,16 @@ describe('03. Receive', () => {
   test('should be able to verify receive address', done => {
     let isFlowCompleted = false;
     let generatedAddress = '';
+    let didAddressMatched = false;
 
     const observer: Observer<IBtcReceiveEvent> = {
       next: data => {
         if (data.type === 'Address' && data.address) {
           generatedAddress = data.address;
+        }
+
+        if (data.type === 'AddressMatched' && data.didAddressMatched) {
+          didAddressMatched = data.didAddressMatched;
         }
 
         if (data.type === 'Device' && data.device?.isDone) {
@@ -49,6 +58,8 @@ describe('03. Receive', () => {
         expect(isFlowCompleted).toEqual(true);
 
         expect(generatedAddress).toBeTruthy();
+
+        expect(didAddressMatched).toBe(true);
 
         done();
       },
@@ -62,8 +73,6 @@ describe('03. Receive', () => {
         connection,
         db,
         accountId: 'account1',
-        walletId: '1234',
-        waitInMSBetweenEachAccountAPI: 1,
       })
       .subscribe(observer);
   });

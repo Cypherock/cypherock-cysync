@@ -1,7 +1,7 @@
 import {
   GetAddressesFromDevice,
-  createAccountsObservable,
-  ICreateAccountsObservableParams,
+  makeCreateAccountsObservable,
+  IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
 import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
@@ -36,7 +36,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
   return publicKeys;
 };
 
-const createAccountFromAddress: ICreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
+const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
   async (addressDetails, params) => {
     const coin = evmCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
@@ -70,7 +70,7 @@ const getBalanceAndTxnCount = async (
 export const createAccounts = (
   params: ICreateEvmAccountParams,
 ): Observable<ICreateEvmAccountEvent> =>
-  createAccountsObservable<EvmApp, ICreateEvmAccountEvent>({
+  makeCreateAccountsObservable<EvmApp, ICreateEvmAccountEvent>({
     ...params,
     createAccountFromAddress,
     getBalanceAndTxnCount,

@@ -1,6 +1,9 @@
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import {
-  ReceiveObservable,
+  IReceiveEvent,
+  ReceiveFlowStatus,
+} from '@cypherock/coin-support-interfaces';
+import {
+  makeReceiveObservable,
   mapDerivationPath,
   IGenerateReceiveAddressParams,
   IReceiveAddressInfo,
@@ -12,34 +15,35 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
-import { IBtcReceiveEvent, IBtcReceiveParams } from './types';
+import { IBtcReceiveEvent, IBtcReceiveParams, statusMap } from './types';
 
 import * as services from '../../services';
 
 const getFirstUnusedExternalAddress = async (
   params: IGenerateReceiveAddressParams,
-) => {
-  const { db, accountId } = params;
-
-  const account = await db.account.getOne({ __id: accountId });
-  assert(account, 'Invalid AccountId');
+): Promise<IReceiveAddressInfo> => {
+  const { account } = params;
 
   const result = await services.getDerivedAddresses({
     xpub: account.xpubOrAddress,
     coinId: account.assetId,
   });
 
-  const firstUnusedAddressInfo = result.tokens.filter(tokenItem => {
+  const unusedAddressInfo = result.tokens.filter(tokenItem => {
     const isUnused = tokenItem.transfers === 0;
     const isExternalAddress = tokenItem.path.split('/')[4] === '1';
     return isUnused && isExternalAddress;
-  })[0];
+  });
+
+  assert(unusedAddressInfo.length > 0, 'No unused addresses found');
+
+  const firstUnusedAddressInfo = unusedAddressInfo[0];
 
   return {
     address: firstUnusedAddressInfo.name,
     expectedFromDevice: firstUnusedAddressInfo.name,
     derivationPath: firstUnusedAddressInfo.path,
-  } as IReceiveAddressInfo;
+  };
 };
 
 const getReceiveAddressFromDevice = async (
@@ -47,13 +51,14 @@ const getReceiveAddressFromDevice = async (
 ) => {
   const { app, derivationPath, walletId, observer } = params;
 
-  const events: Record<GetPublicKeyStatus, boolean | undefined> = {} as any;
+  const events: Record<ReceiveFlowStatus, boolean | undefined> = {} as any;
 
   const { address } = await app.getPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
     onEvent: (event: GetPublicKeyStatus) => {
-      events[event] = true;
+      const receiveStatus = statusMap[event];
+      if (receiveStatus) events[receiveStatus] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   });
@@ -66,7 +71,7 @@ const getReceiveAddressFromDevice = async (
 const createApp = (connection: IDeviceConnection) => BtcApp.create(connection);
 
 export const receive = (params: IBtcReceiveParams): Observable<IReceiveEvent> =>
-  ReceiveObservable({
+  makeReceiveObservable({
     ...params,
     createApp,
     generateReceiveAddress: getFirstUnusedExternalAddress,

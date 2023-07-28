@@ -1,10 +1,11 @@
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { assert } from '@cypherock/cysync-utils';
 import { Observable } from 'rxjs';
 
-import { App, IReceiveObservableParams } from './types';
+import { App, IMakeReceiveObservableParams } from './types';
 
-export function ReceiveObservable<T extends App, K extends IReceiveEvent>(
-  params: IReceiveObservableParams<T, K>,
+export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
+  params: IMakeReceiveObservableParams<T, K>,
 ) {
   return new Observable<K>(observer => {
     let finished = false;
@@ -28,11 +29,17 @@ export function ReceiveObservable<T extends App, K extends IReceiveEvent>(
       try {
         if (finished) return;
 
+        const account = await params.db.account.getOne({
+          __id: params.accountId,
+        });
+        assert(account, 'Invalid AccountId');
+
+        if (finished) return;
+
         app = await params.createApp(params.connection);
         const { address, expectedFromDevice, derivationPath } =
           await params.generateReceiveAddress({
-            accountId: params.accountId,
-            db: params.db,
+            account,
           });
         observer.next({ type: 'Address', address } as any);
 
@@ -41,12 +48,12 @@ export function ReceiveObservable<T extends App, K extends IReceiveEvent>(
         const addressFromDevice = await params.getReceiveAddressFromDevice({
           app,
           derivationPath,
-          walletId: params.walletId,
+          walletId: account.walletId,
           observer,
         });
         observer.next({
           type: 'AddressMatched',
-          addressMatched: addressFromDevice === expectedFromDevice,
+          didAddressMatched: addressFromDevice === expectedFromDevice,
         } as any);
 
         observer.complete();
