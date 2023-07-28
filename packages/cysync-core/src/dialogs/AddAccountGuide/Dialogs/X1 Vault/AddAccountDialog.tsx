@@ -14,6 +14,8 @@ import {
   bitcoinIcon,
   Flex,
   Toggle,
+  FlexGapContainer,
+  Container,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -59,12 +61,14 @@ export const AddAccountDialog: React.FC = () => {
           <LangDisplay text={title} />
         </Typography>
       </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={settingsIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={header} />
         </Typography>
-        <div>
+      </FlexGapContainer>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+        <Container display="flex" direction="column" gap={5} width="full">
           <InputLabel
             mt={4}
             mr={2}
@@ -93,7 +97,7 @@ export const AddAccountDialog: React.FC = () => {
               />
             ))}
           </LeanBoxContainer>
-          <Flex direction="row" pr={1}>
+          <Flex direction="row" pr={1} ml="auto">
             <InputLabel
               $fontSize={13}
               $fontWeight="normal"
@@ -114,7 +118,7 @@ export const AddAccountDialog: React.FC = () => {
             </InputLabel>
             <Toggle checked={isToggledChecked} onToggle={handleToggleChange} />
           </Flex>
-        </div>
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button onClick={() => onNext()} variant="primary">

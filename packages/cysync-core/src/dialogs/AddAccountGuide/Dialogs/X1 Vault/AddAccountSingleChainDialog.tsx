@@ -96,12 +96,6 @@ const ScrollableContainer = styled.div`
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 type ScrollableBoxProps = {
@@ -122,6 +116,9 @@ export const AddAccountSingleChainDialog: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { goTo } = useAddAccountDialog();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const lang = useAppSelector(selectLanguage);
+  const singleChain =
+    lang.strings.addAccount.addAccount.addAccountSingleChain.info.dialogBox;
 
   const handleCheckBoxChange = (id: string) => {
     if (checkedItems.includes(id)) {
@@ -154,10 +151,6 @@ export const AddAccountSingleChainDialog: FC = () => {
   const handleButtonClick = () => {
     goTo(2, 0);
   };
-
-  const lang = useAppSelector(selectLanguage);
-  const singleChain =
-    lang.strings.addAccount.addAccount.addAccountSingleChain.info.dialogBox;
 
   return (
     <DialogBox width={500} height={700}>

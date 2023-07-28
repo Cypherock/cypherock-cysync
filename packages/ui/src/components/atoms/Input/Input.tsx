@@ -21,6 +21,7 @@ export interface InputProps {
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -69,6 +70,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onClick = undefined,
         pasteAllowed = true,
         copyAllowed = true,
+        onKeyDown = undefined,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -98,7 +100,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               e.preventDefault();
               return false;
             }}
-            onChange={e => onChange && onChange(e.target.value)}
+            onChange={e => onChange?.(e.target.value)}
+            onKeyDown={onKeyDown}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -129,6 +132,7 @@ Input.defaultProps = {
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
+  onKeyDown: undefined,
 };
 
 Input.displayName = 'Input';

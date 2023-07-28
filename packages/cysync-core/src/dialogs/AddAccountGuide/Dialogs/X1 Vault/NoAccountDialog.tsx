@@ -12,6 +12,8 @@ import {
   DialogBoxFooter,
   Button,
   etheriumBlueIcon,
+  FlexGapContainer,
+  Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -60,13 +62,15 @@ export const NoAccountDialog: React.FC = () => {
           <LangDisplay text={noAccount.title} />
         </Typography>
       </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={loaderGrayIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={noAccount.header} />
         </Typography>
-        <div>
-          <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
+      </FlexGapContainer>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5} align="flex-start">
+        <Container display="flex" direction="column" gap={5} width="full">
+          <InputLabel>
             {noAccount.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
@@ -83,7 +87,7 @@ export const NoAccountDialog: React.FC = () => {
               />
             ))}
           </LeanBoxContainer>
-        </div>
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button

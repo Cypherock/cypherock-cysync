@@ -17,6 +17,6 @@ export * from './Select';
 export * from './LeanBoxContainer';
 export * from './Tag';
 export * from './Toggle';
-export * from './Dropdown';
+export * from './Dropdown/Dropdown';
 export * from './RadioButton';
 export * from './CloseButton';

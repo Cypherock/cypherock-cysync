@@ -21,7 +21,7 @@ export interface DropDownListItemProps extends BorderProps {
   tag?: string;
   text: string;
   radioButtonValue?: string;
-  restrictedItem?: boolean;
+  $restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
@@ -33,6 +33,7 @@ export interface DropDownListItemProps extends BorderProps {
   onCheckedChange?: (id: string) => void;
   color?: TypographyColor;
   subMenu?: DropDownListItemProps[];
+  $isFocused?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -72,8 +73,11 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ restrictedItem, $isChecked, theme }) => {
-    if (restrictedItem) {
+  background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
+    if ($isFocused) {
+      return theme.palette.background.dropdownHover;
+    }
+    if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
     if ($isChecked) {
@@ -104,9 +108,11 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
-const DropDownItemWrapper = styled.div`
+const DropDownItemWrapper = styled.div<{ $isFocused: boolean }>`
   display: flex;
   flex-direction: column;
+  background-color: ${({ $isFocused, theme }) =>
+    $isFocused ? theme.palette.background.dropdownHover : 'inherit'};
 `;
 
 const SubMenuItemWrapper = styled.div`
@@ -136,10 +142,11 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   id,
   color,
   onClick,
-  restrictedItem = false,
+  $restrictedItem = false,
   onCheckedChange,
   $borderRadius,
   subMenu = [],
+  $isFocused = false,
 }): ReactElement => {
   const handleCheckChange = () => {
     onCheckedChange?.(id ?? 'default-id');
@@ -151,16 +158,17 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   };
 
   return (
-    <DropDownItemWrapper>
+    <DropDownItemWrapper $isFocused={$isFocused}>
       <DropDownListItemHorizontalBox
         onClick={handleBoxClick}
         $isChecked={checked}
         $borderRadius={$borderRadius}
         $hasRightText={$hasRightText}
-        restrictedItem={restrictedItem}
+        $restrictedItem={$restrictedItem}
         text={text}
+        $isFocused={$isFocused}
       >
-        {!restrictedItem && checkType && checkType === 'radio' && (
+        {!$restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
             checked={checked}
             value={radioButtonValue}
@@ -209,7 +217,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
               />
             </DropDownListItemIconContainer>
           )}
-          {!restrictedItem && checkType && checkType === 'checkbox' && (
+          {!$restrictedItem && checkType && checkType === 'checkbox' && (
             <CheckBox
               checked={checked}
               onChange={handleCheckChange}
@@ -246,7 +254,7 @@ DropDownListItem.defaultProps = {
   id: undefined,
   tag: undefined,
   onClick: undefined,
-  restrictedItem: false,
+  $restrictedItem: false,
   selectedItem: undefined,
   checked: false,
   onCheckedChange: undefined,
@@ -254,4 +262,5 @@ DropDownListItem.defaultProps = {
   color: 'muted',
   subMenu: [],
   $hasRightText: false,
+  $isFocused: false,
 };

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Flex, FlexProps } from './Flex';
@@ -61,6 +61,11 @@ const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
     left: ${({ size }) => (size === 'big' ? '2px' : '1.5px')};
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
+
+  ${CheckBoxStyle}:focus + & {
+    outline: 2px solid ${({ theme }) => theme.palette.background.sideBar};
+    outline: 2px solid #eef209;
+  }
 `;
 
 const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
@@ -69,43 +74,40 @@ const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
   cursor: pointer;
 `;
 
-export const CheckBox: FC<CheckBoxProps> = ({
-  checked,
-  onChange,
-  id,
-  label,
-  flexProps,
-  size,
-  isDisabled,
-}) => (
-  <Flex align="center" $alignSelf="start" {...flexProps}>
-    <CheckBoxWrapper size={size}>
-      <CheckBoxStyle
-        checked={checked}
-        onChange={onChange}
-        id={id}
-        disabled={isDisabled}
-      />
+export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
+  ({ checked, onChange, id, label, flexProps, size, isDisabled }, ref) => (
+    <Flex align="center" $alignSelf="start" {...flexProps}>
+      <CheckBoxWrapper size={size}>
+        <CheckBoxStyle
+          checked={checked}
+          onChange={onChange}
+          id={id}
+          disabled={isDisabled}
+          ref={ref}
+        />
 
-      <CheckBoxLabelStyle id={id} size={size}>
-        {checked && <CheckBoxIcon id={id} size={size} />}
-      </CheckBoxLabelStyle>
-    </CheckBoxWrapper>
+        <CheckBoxLabelStyle id={id} size={size}>
+          {checked && <CheckBoxIcon id={id} size={size} />}
+        </CheckBoxLabelStyle>
+      </CheckBoxWrapper>
 
-    {label && (
-      <CheckBoxTextLabelStyle id={id}>
-        <Typography
-          $fontSize={size === 'big' ? 16 : 14}
-          color="muted"
-          $textAlign="left"
-          ml={2}
-        >
-          <LangDisplay text={label} />
-        </Typography>
-      </CheckBoxTextLabelStyle>
-    )}
-  </Flex>
+      {label && (
+        <CheckBoxTextLabelStyle id={id}>
+          <Typography
+            $fontSize={size === 'big' ? 16 : 14}
+            color="muted"
+            $textAlign="left"
+            ml={2}
+          >
+            <LangDisplay text={label} />
+          </Typography>
+        </CheckBoxTextLabelStyle>
+      )}
+    </Flex>
+  ),
 );
+
+CheckBox.displayName = 'CheckBox';
 
 CheckBox.defaultProps = {
   label: undefined,

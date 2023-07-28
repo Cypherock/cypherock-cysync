@@ -60,6 +60,7 @@ export const theme = {
       disabled: colors.disabled.background,
       bar: colors.background.bar,
       gold: colors.gradients.golden,
+      golden: colors.background.gold,
       success: colors.success.main,
       successSecondary: colors.success.secondary,
       muted: colors.background.muted,
