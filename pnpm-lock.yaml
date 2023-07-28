@@ -617,6 +617,9 @@ importers:
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
       '@cypherock/cysync-utils':
         specifier: workspace:^
         version: link:../utils
@@ -10428,7 +10431,7 @@ packages:
       pretty-format: 29.6.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
     transitivePeerDependencies:
       - supports-color
     dev: true

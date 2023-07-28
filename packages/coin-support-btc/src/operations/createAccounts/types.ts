@@ -9,6 +9,9 @@ import { BTCDerivationSchemeName } from './schemes/types';
 
 export interface IBtcAccount extends IAccount {
   derivationScheme: BTCDerivationSchemeName;
+  extraData?: {
+    unconfirmedBalance?: string;
+  };
 }
 
 export type ICreateBtcAccountParams = ICreateAccountParams;
