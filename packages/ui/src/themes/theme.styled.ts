@@ -80,7 +80,10 @@ export const theme = {
       warning: colors.border.warning,
       bar: colors.border.bar,
       white: colors.border.white,
-      table: colors.border.table,
+      table: {
+        title: colors.border.table.title,
+        row: colors.border.table.row,
+      },
       list: colors.border.list,
       muted: colors.border.muted,
       gold: colors.border.gold,

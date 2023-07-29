@@ -71,7 +71,10 @@ export const colors = {
     separator: '#39322C',
     warning: '#644D2B',
     bar: '#474747',
-    table: '#363535',
+    table: {
+      title: '#363535',
+      row: '#2C2929',
+    },
     muted: '#8B8682',
     white: '#ffffff',
     separatorSecondary: '#272320',
