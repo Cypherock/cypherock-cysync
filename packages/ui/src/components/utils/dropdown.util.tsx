@@ -63,17 +63,18 @@ export const handleKeyDown =
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
   ) =>
-  (event: React.KeyboardEvent<HTMLInputElement>) => {
-    event.stopPropagation();
+  (event: React.KeyboardEvent<HTMLInputElement>) => {    
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
+        event.stopPropagation();
         setFocusedIndex(prevIndex =>
           prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
         );
         break;
       case 'ArrowUp':
         event.preventDefault();
+        event.stopPropagation();
         setFocusedIndex(prevIndex =>
           prevIndex === null ? itemsCount - 1 : Math.max(prevIndex - 1, 0),
         );
@@ -81,6 +82,7 @@ export const handleKeyDown =
       case 'Enter':
       case ' ':
         event.preventDefault();
+        event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
@@ -92,6 +94,7 @@ export const handleKeyDown =
       case 'Tab':
         if (isOpen) {
           event.preventDefault();
+          event.stopPropagation();
           toggleDropdown();
         }
         break;
