@@ -26,6 +26,7 @@ import React, {
 } from 'react';
 
 import { selectLanguage, useAppSelector } from '../../..';
+import { FinalMessage } from '../Dialogs/FinalMessage';
 
 type ITabs = {
   name: string;
@@ -40,6 +41,7 @@ export interface CreateWalletGuideContextInterface {
   setCurrentDialog: Dispatch<SetStateAction<number>>;
   onNext: () => void;
   onPrevious: () => void;
+  isConfettiBlastDone: boolean;
 }
 
 export const CreateWalletGuideContext: Context<CreateWalletGuideContextInterface> =
@@ -68,7 +70,6 @@ const dialogsImages = {
     successIcon,
     informationIcon,
     informationIcon,
-    informationIcon,
   ],
 };
 
@@ -85,8 +86,14 @@ export const CreateWalletGuideProvider: FC<
   const lang = useAppSelector(selectLanguage);
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
+  const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
+
+  const checkConfettiBlastDone = () => {
+    if (currentTab === 2 && currentDialog === 0) setIsConfettiBlastDone(true);
+  };
 
   const onNext = () => {
+    checkConfettiBlastDone();
     if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
       setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
       if (currentTab !== tabs.length - 1) {
@@ -100,6 +107,7 @@ export const CreateWalletGuideProvider: FC<
   };
 
   const onPrevious = () => {
+    checkConfettiBlastDone();
     if (currentDialog - 1 < 0) {
       if (currentTab === 0) {
         setCurrentDialog(0);
@@ -112,7 +120,11 @@ export const CreateWalletGuideProvider: FC<
     }
   };
 
-  const getDialogArray = (images: string[], contents: IGuidedDialogContent[]) =>
+  const getDialogArray = (
+    images: string[],
+    contents: IGuidedDialogContent[],
+    first?: boolean,
+  ) =>
     contents.map((content, index) => (
       <GuidedFlowDialogBox
         key={`${index + 1}`}
@@ -120,6 +132,7 @@ export const CreateWalletGuideProvider: FC<
         {...content}
         onNext={onNext}
         onPrevious={onPrevious}
+        disablePrev={first && index === 0}
       />
     ));
 
@@ -129,6 +142,7 @@ export const CreateWalletGuideProvider: FC<
       dialogs: getDialogArray(
         dialogsImages.device,
         lang.strings.guidedFlows.createWallet.device.pages as any,
+        true,
       ),
     },
     {
@@ -140,10 +154,13 @@ export const CreateWalletGuideProvider: FC<
     },
     {
       name: lang.strings.guidedFlows.createWallet.confirmation.asideTitle,
-      dialogs: getDialogArray(
-        dialogsImages.confirmation,
-        lang.strings.guidedFlows.createWallet.confirmation.pages as any,
-      ),
+      dialogs: [
+        ...getDialogArray(
+          dialogsImages.confirmation,
+          lang.strings.guidedFlows.createWallet.confirmation.pages as any,
+        ),
+        <FinalMessage />,
+      ],
     },
   ];
 
@@ -156,6 +173,7 @@ export const CreateWalletGuideProvider: FC<
       tabs,
       onNext,
       onPrevious,
+      isConfettiBlastDone,
     }),
     [
       currentTab,
@@ -165,6 +183,7 @@ export const CreateWalletGuideProvider: FC<
       tabs,
       onNext,
       onPrevious,
+      isConfettiBlastDone,
     ],
   );
 

@@ -2,39 +2,54 @@ import {
   DialogBox,
   DialogBoxBody,
   HelpButton,
-  Container,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
+  DialogBoxBackgroundBar,
+  BackButton,
+  ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { openWalletActionsDialog } from '~/actions';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { CreateWalletGuideProvider, useCreateWalletGuide } from './context';
+import { CloseConfirmation } from './Dialogs';
 
 export const CreateNewWallet: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog } = useCreateWalletGuide();
+  const { tabs, currentTab, currentDialog, isConfettiBlastDone } =
+    useCreateWalletGuide();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
+  const dispatch = useAppDispatch();
+  const backToWalletActions = () => {
+    dispatch(closeDialog('createWalletGuide'));
+    dispatch(openWalletActionsDialog());
+  };
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <div>test</div>}
+        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
+            heading={lang.strings.guidedFlows.createWallet.title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="space-between">
-              <HelpButton text={lang.strings.help} />
-              <CloseButton onClick={() => setShowOnClose(true)} />
-            </Container>
+            {!isConfettiBlastDone &&
+              currentTab === 2 &&
+              currentDialog === 0 && <ConfettiBlast />}
             <DialogBoxBody
-              p="20"
+              p={0}
               grow={2}
               align="center"
               gap={110}
@@ -47,6 +62,27 @@ export const CreateNewWallet: FC = () => {
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>
+
+            <DialogBoxBackgroundBar
+              leftComponent={<HelpButton text={lang.strings.help} />}
+              rightComponent={
+                <CloseButton onClick={() => setShowOnClose(true)} />
+              }
+              position="top"
+              useLightPadding
+            />
+            {currentTab === 0 && currentDialog === 0 && (
+              <DialogBoxBackgroundBar
+                leftComponent={
+                  <BackButton
+                    text={lang.strings.back}
+                    onClick={backToWalletActions}
+                  />
+                }
+                position="bottom"
+                useLightPadding
+              />
+            )}
           </WalletDialogMainContainer>
         </>
       </DialogBox>

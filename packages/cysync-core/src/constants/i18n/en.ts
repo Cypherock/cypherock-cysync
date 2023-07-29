@@ -852,15 +852,15 @@ const en = {
               'Bank locker',
             ],
           },
-          {
-            title:
-              'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you',
-            buttons: {
-              secondary: 'Skip',
-              primary: 'Add Account',
-            },
-          },
         ],
+        finalMessage: {
+          title:
+            'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you',
+          buttons: {
+            secondary: 'Skip',
+            primary: 'Add Account',
+          },
+        },
       },
 
       walletNotCreatedDialog: {

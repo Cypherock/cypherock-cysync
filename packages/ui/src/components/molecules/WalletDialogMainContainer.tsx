@@ -11,6 +11,7 @@ const WalletDialogMainContainerStyle = styled.div`
   flex-direction: column;
   background-image: ${({ theme }) => theme.palette.background.content};
   border-radius: 0 16px 16px 0;
+  position: relative;
 `;
 
 export const WalletDialogMainContainer: FC<WalletDialogMainContainerProps> = ({

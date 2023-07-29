@@ -28,8 +28,8 @@ export interface GuidedFlowDialogBoxProps {
   loadingText?: string;
   footer?: ReactNode;
   goldenArrowList?: any[];
-  disableLeftArrowButton?: boolean;
-  disableRightArrowButton?: boolean;
+  disablePrev?: boolean;
+  disableNext?: boolean;
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -47,8 +47,8 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
   messageBoxList,
   onNext,
   onPrevious,
-  disableLeftArrowButton,
-  disableRightArrowButton,
+  disablePrev,
+  disableNext,
 }) => (
   <>
     {heading && (
@@ -100,11 +100,15 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
         )}
         {messageBoxList && (
           <Flex direction="column" gap={8} pt={2} pb={4} width="full">
-            {messageBoxList.map(messageBox => {
+            {messageBoxList.map((messageBox, index) => {
               const type = Object.keys(messageBox)[0] as MessageBoxType;
               if (!type) return null;
               return (
-                <MessageBox key={type} text={messageBox[type]} type={type} />
+                <MessageBox
+                  key={`${type}-${index + 1}`}
+                  text={messageBox[type]}
+                  type={type}
+                />
               );
             })}
           </Flex>
@@ -118,12 +122,12 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           <ArrowButton
             direction="left"
             onClick={onPrevious}
-            variant={disableLeftArrowButton ? 'disabled' : 'enabled'}
+            variant={disablePrev ? 'disabled' : 'enabled'}
           />
           <ArrowButton
             direction="right"
             onClick={onNext}
-            variant={disableRightArrowButton ? 'disabled' : 'enabled'}
+            variant={disableNext ? 'disabled' : 'enabled'}
           />
         </>
       )}
@@ -142,6 +146,6 @@ GuidedFlowDialogBox.defaultProps = {
   goldenArrowList: undefined,
   bulletList: undefined,
   messageBoxList: undefined,
-  disableLeftArrowButton: false,
-  disableRightArrowButton: false,
+  disablePrev: false,
+  disableNext: false,
 };
