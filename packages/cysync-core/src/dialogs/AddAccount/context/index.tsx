@@ -208,7 +208,6 @@ export const AddAccountDialogProvider: FC<
 
   const startAddAccounts = async () => {
     logger.info('Started add account');
-    goTo(1, 0);
 
     if (!connection || !selectedCoin || !selectedWallet) {
       return;

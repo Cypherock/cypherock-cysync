@@ -19,7 +19,7 @@ export class BigNumber {
     return this.num;
   }
 
-  add(n: NumberLike, base?: number) {
+  plus(n: NumberLike, base?: number) {
     return new BigNumber(this.num.plus(BigNumber.getNumberLike(n), base));
   }
 
@@ -47,6 +47,18 @@ export class BigNumber {
 
   pow(n: NumberLike, base?: number) {
     return new BigNumber(this.num.pow(BigNumber.getNumberLike(n), base));
+  }
+
+  abs() {
+    return new BigNumber(this.num.abs());
+  }
+
+  isNegative() {
+    return this.num.isNegative();
+  }
+
+  isPositive() {
+    return this.num.isPositive();
   }
 
   toNumber() {

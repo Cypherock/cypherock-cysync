@@ -439,7 +439,7 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: {
@@ -705,6 +705,17 @@ const en = {
           subtext: 'Reconnect the device to proceed',
         },
       },
+    },
+  },
+  appUpdateBar: {
+    confirmation: 'Update to cySync version ${version} is available',
+    downloading: 'Downloading cySync version ${version}',
+    error: 'Error downloading cySync update',
+    successful: 'cySync update version ${version} downloaded',
+    buttons: {
+      download: 'Download',
+      tryAgain: 'Try Again',
+      installUpdate: 'Install Update',
     },
   },
   topbar: {

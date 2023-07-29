@@ -15,12 +15,12 @@ import {
 } from './generateAddresses';
 import { generateDerivationPathsPerScheme } from './schemes';
 
-export interface App {
+interface App {
   destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
-export interface ICreateAccountsObservableParams<T extends App>
+export interface IMakeCreateAccountsObservableParams<T extends App>
   extends ICreateAccountParams {
   derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   derivationPathLimit: number;
@@ -43,10 +43,10 @@ export interface ICreateAccountsObservableParams<T extends App>
   ) => Promise<ICreatedAccount>;
 }
 
-export function createAccountsObservable<
+export function makeCreateAccountsObservable<
   T extends App,
   K extends ICreateAccountEvent,
->(params: ICreateAccountsObservableParams<T>) {
+>(params: IMakeCreateAccountsObservableParams<T>) {
   return new Observable<K>(observer => {
     let finished = false;
     let app: T | undefined;

@@ -89,6 +89,8 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
   protected async finally(_: Error | undefined): Promise<any> {
     await cleanUpDeviceConnection();
+    await this.dbInstance?.close();
+    await this.keyDbInstance?.close();
     return super.finally(_);
   }
 }

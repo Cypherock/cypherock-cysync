@@ -36,7 +36,7 @@
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/database": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.18",
+    "@cypherock/sdk-app-manager": "^0.0.19",
     "@cypherock/sdk-hw-hid": "^0.0.12",
     "@cypherock/sdk-hw-serialport": "^0.0.12",
     "@cypherock/sdk-interfaces": "^0.0.11",
