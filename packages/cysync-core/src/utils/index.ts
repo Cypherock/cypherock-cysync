@@ -6,3 +6,4 @@ export * from './autoUpdater';
 export * as passwordUtils from './password';
 export * from './keyValueStore';
 export * from './close';
+export * from './dependencies';
