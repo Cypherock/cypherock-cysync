@@ -57,8 +57,8 @@ const getReceiveAddressFromDevice = async (
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
     onEvent: (event: GetPublicKeyStatus) => {
-      const receiveStatus = statusMap[event];
-      if (receiveStatus) events[receiveStatus] = true;
+      const receiveEvent = statusMap[event];
+      if (receiveEvent !== undefined) events[receiveEvent] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   });
