@@ -2,6 +2,7 @@ import { getCoinSupport } from '@cypherock/coin-support';
 import { IDatabase } from '@cypherock/db-interfaces';
 import colors from 'colors/safe';
 import { lastValueFrom } from 'rxjs';
+
 import { Spinner } from '~/utils';
 
 const syncSpinnerText = 'Syncing accounts';
