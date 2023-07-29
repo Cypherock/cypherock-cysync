@@ -40,10 +40,6 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-test('record', async () => {
-  await screen.pause();
-});
-
 test('Device connection screen and email on device connection', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
