@@ -21,8 +21,8 @@ const Buttons: FC<{
       <Button variant="secondary">
         <LangDisplay
           text={
-            lang.strings.onboarding.createWallet.finalMessage.addAccount.buttons
-              .skip
+            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
+              .buttons.secondary
           }
         />
       </Button>
@@ -32,8 +32,8 @@ const Buttons: FC<{
       >
         <LangDisplay
           text={
-            lang.strings.onboarding.createWallet.finalMessage.addAccount.buttons
-              .addAccount
+            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
+              .buttons.primary
           }
         />
       </Button>
@@ -41,7 +41,7 @@ const Buttons: FC<{
   );
 };
 
-export const AddAccount: FC = () => {
+export const FinalMessage: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext, onPrevious } = useCreateWalletGuide();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
@@ -54,11 +54,8 @@ export const AddAccount: FC = () => {
         image={informationIcon}
         onNext={onNext}
         onPrevious={onPrevious}
-        heading={
-          lang.strings.onboarding.createWallet.finalMessage.addAccount.heading
-        }
         title={
-          lang.strings.onboarding.createWallet.finalMessage.addAccount.title
+          lang.strings.guidedFlows.createWallet.confirmation.finalMessage.title
         }
         footer={
           <Buttons

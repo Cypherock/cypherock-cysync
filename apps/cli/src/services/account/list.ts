@@ -3,9 +3,7 @@ import { IDatabase, IAccount } from '@cypherock/db-interfaces';
 import colors from 'colors/safe';
 import lodash from 'lodash';
 
-import { formatAccountDisplay } from './helpers';
-
-import { getWalletFromAccount } from '../helpers';
+import { getWalletFromAccount, formatAccountDisplay } from '../helpers';
 
 export interface IListAccountFlags {
   short?: boolean;

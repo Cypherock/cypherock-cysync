@@ -27,8 +27,8 @@ const Buttons: FC = () => {
       <Button variant="secondary">
         <LangDisplay
           text={
-            lang.strings.onboarding.createWallet.finalMessage
-              .walletNotCreatedDialog.buttons.later
+            lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.buttons
+              .secondary
           }
         />
       </Button>
@@ -43,8 +43,8 @@ const Buttons: FC = () => {
       >
         <LangDisplay
           text={
-            lang.strings.onboarding.createWallet.finalMessage
-              .walletNotCreatedDialog.buttons.createWallet
+            lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.buttons
+              .primary
           }
         />
       </Button>
@@ -58,13 +58,9 @@ export const WalletNotCreatedDialog: FC = () => {
     <IconDialogBox
       $isModal
       icon={<Image src={redDisconnectedIcon} alt="Disconnected icon" />}
-      title={
-        lang.strings.onboarding.createWallet.finalMessage.walletNotCreatedDialog
-          .title
-      }
+      title={lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.title}
       subtext={
-        lang.strings.onboarding.createWallet.finalMessage.walletNotCreatedDialog
-          .subTitle
+        lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.subtitle
       }
       footerComponent={<Buttons />}
     />
