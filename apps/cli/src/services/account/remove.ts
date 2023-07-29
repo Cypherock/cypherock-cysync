@@ -3,7 +3,7 @@ import colors from 'colors/safe';
 
 import { queryCheckbox } from '~/utils';
 
-import { formatAccountDisplay } from './helpers';
+import { formatAccountDisplay } from '../helpers';
 
 const queryAccountSelection = async (accounts: IAccount[]) => {
   const list = Object.values(accounts).map(a => ({
