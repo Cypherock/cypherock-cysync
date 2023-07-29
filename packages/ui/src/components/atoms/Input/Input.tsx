@@ -6,9 +6,8 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
-import { SpacingProps } from '../../utils';
 
-export interface InputProps extends SpacingProps {
+export interface InputProps {
   type: string;
   placeholder?: string;
   name: string;
@@ -22,6 +21,7 @@ export interface InputProps extends SpacingProps {
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -70,6 +70,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onClick = undefined,
         pasteAllowed = true,
         copyAllowed = true,
+        onKeyDown = undefined,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -99,7 +100,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               e.preventDefault();
               return false;
             }}
-            onChange={e => onChange && onChange(e.target.value)}
+            onChange={e => onChange?.(e.target.value)}
+            onKeyDown={onKeyDown}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -130,6 +132,7 @@ Input.defaultProps = {
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
+  onKeyDown: undefined,
 };
 
 Input.displayName = 'Input';

@@ -2,16 +2,14 @@
 /* eslint-disable react/jsx-key */
 import React, {
   Context,
-  Dispatch,
   FC,
   ReactNode,
-  SetStateAction,
   createContext,
   useContext,
   useMemo,
-  useState,
 } from 'react';
 
+import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { Receive, ReceiveDevice } from '../Dialogs';
@@ -35,12 +33,10 @@ type ITabs = {
 
 export interface ReceiveDialogContextInterface {
   tabs: ITabs;
-  currentTab: number;
-  setCurrentTab: Dispatch<SetStateAction<number>>;
-  currentDialog: number;
-  setCurrentDialog: Dispatch<SetStateAction<number>>;
   onNext: (tab?: number, dialog?: number) => void;
   onPrevious: () => void;
+  currentTab: number;
+  currentDialog: number;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -56,8 +52,9 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
 }) => {
   const lang = useAppSelector(selectLanguage);
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [currentDialog, setCurrentDialog] = useState<number>(0);
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
+    1: [0],
+  };
 
   const tabs: ITabs = [
     {
@@ -85,53 +82,36 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     },
   ];
 
-  const onNext = (tab?: number, dialog?: number) => {
-    if (typeof tab === 'number' && typeof dialog === 'number') {
-      setCurrentTab(tab);
-      setCurrentDialog(dialog);
-    } else if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
-      if (currentTab !== tabs.length - 1) {
-        setCurrentDialog(0);
-      }
-    } else {
-      setCurrentDialog(prevProps =>
-        Math.min(tabs[currentTab].dialogs.length - 1, prevProps + 1),
-      );
-    }
-  };
-
-  const onPrevious = () => {
-    if (currentDialog - 1 < 0) {
-      if (currentTab === 0) {
-        setCurrentDialog(0);
-      } else {
-        setCurrentDialog(tabs[currentTab - 1].dialogs.length - 1);
-        setCurrentTab(prevProps => Math.max(0, prevProps - 1));
-      }
-    } else {
-      setCurrentDialog(prevProps => Math.max(0, prevProps - 1));
-    }
-  };
+  const {
+    onNext,
+    onPrevious,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+  } = useTabsAndDialogs({
+    deviceRequiredDialogsMap,
+    tabs,
+  });
 
   const ctx = useMemo(
     () => ({
-      currentTab,
-      setCurrentTab,
-      currentDialog,
-      setCurrentDialog,
-      tabs,
       onNext,
       onPrevious,
+      tabs,
+      goTo,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
     }),
     [
-      currentTab,
-      setCurrentTab,
-      currentDialog,
-      setCurrentDialog,
-      tabs,
       onNext,
       onPrevious,
+      goTo,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
+      tabs,
     ],
   );
 
