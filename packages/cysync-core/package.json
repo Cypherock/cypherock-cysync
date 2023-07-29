@@ -43,6 +43,7 @@
     "browserify": "^17.0.0",
     "buffer": "^6.0.3",
     "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "identity-obj-proxy": "^3.0.0",
