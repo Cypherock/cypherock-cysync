@@ -9,13 +9,12 @@ export interface IReceiveParams {
 
 export type IReceiveEventType = 'Address' | 'Device' | 'AddressMatched';
 
-export enum ReceiveFlowStatus {
+export enum ReceiveDeviceEvent {
   INIT = 0,
-  CONFIRM = 1,
-  PASSPHRASE = 2,
-  PIN = 3,
-  CARD = 4,
-  VERIFY = 5,
+  CONFIRMED = 1,
+  PASSPHRASE_ENTERED = 2,
+  CARD_TAPPED = 3,
+  VERIFIED = 4,
 }
 export interface IReceiveEvent {
   type: IReceiveEventType;
@@ -23,6 +22,6 @@ export interface IReceiveEvent {
   address?: string;
   device?: {
     isDone: boolean;
-    events: Record<ReceiveFlowStatus, boolean | undefined>;
+    events: Record<ReceiveDeviceEvent, boolean | undefined>;
   };
 }

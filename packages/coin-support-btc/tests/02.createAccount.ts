@@ -34,7 +34,6 @@ describe('02. Create Account', () => {
   test('should be able to create new accounts', done => {
     const accounts: IBtcAccount[] = [];
     let isDeviceDone = false;
-    expect(accounts).toBeDefined();
 
     const observer: Observer<ICreateBtcAccountEvent> = {
       next: data => {

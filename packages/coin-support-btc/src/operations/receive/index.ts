@@ -1,6 +1,6 @@
 import {
   IReceiveEvent,
-  ReceiveFlowStatus,
+  ReceiveDeviceEvent,
 } from '@cypherock/coin-support-interfaces';
 import {
   makeReceiveObservable,
@@ -51,7 +51,7 @@ const getReceiveAddressFromDevice = async (
 ) => {
   const { app, derivationPath, walletId, observer } = params;
 
-  const events: Record<ReceiveFlowStatus, boolean | undefined> = {} as any;
+  const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
 
   const { address } = await app.getPublicKey({
     walletId: hexToUint8Array(walletId),

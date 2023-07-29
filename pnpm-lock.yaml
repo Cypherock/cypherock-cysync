@@ -389,9 +389,6 @@ importers:
 
   packages/coin-support-btc:
     dependencies:
-      '@bitcoin-js/tiny-secp256k1-asmjs':
-        specifier: ^2.2.3
-        version: 2.2.3
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces
@@ -7616,7 +7613,7 @@ packages:
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
     requiresBuild: true
     dependencies:
-      buffer: 5.2.1
+      buffer: 5.7.1
     dev: true
     optional: true
 
