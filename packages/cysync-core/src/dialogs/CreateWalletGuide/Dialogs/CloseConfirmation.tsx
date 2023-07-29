@@ -29,7 +29,7 @@ const Buttons: FC<{
         variant="secondary"
       >
         <LangDisplay
-          text={lang.strings.onboarding.createWallet.onClose.buttons.cancel}
+          text={lang.strings.guidedFlows.closeDialog.buttons.secondary}
         />
       </Button>
       <Button
@@ -40,7 +40,7 @@ const Buttons: FC<{
         variant="primary"
       >
         <LangDisplay
-          text={lang.strings.onboarding.createWallet.onClose.buttons.exit}
+          text={lang.strings.guidedFlows.closeDialog.buttons.primary}
         />
       </Button>
     </Flex>
@@ -55,8 +55,8 @@ export const CloseConfirmation: FC<{
     <IconDialogBox
       $isModal
       icon={<Image src={goldFail} alt="gold cross" />}
-      title={lang.strings.onboarding.createWallet.onClose.title}
-      subtext={lang.strings.onboarding.createWallet.onClose.subTitle}
+      title={lang.strings.guidedFlows.closeDialog.title}
+      subtext={lang.strings.guidedFlows.closeDialog.subtitle}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
     />
   );

@@ -5,10 +5,11 @@ import { Flex, Container } from '../../atoms';
 export interface DialogBoxBackgroundBarProps {
   leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
+  useLightPadding?: boolean;
 }
 export const DialogBoxBackgroundBar: React.FC<
   DialogBoxBackgroundBarProps & { position: 'top' | 'bottom' }
-> = ({ leftComponent, rightComponent, position }) => {
+> = ({ leftComponent, rightComponent, position, useLightPadding }) => {
   const positionProps = position === 'top' ? { top: 0 } : { bottom: 0 };
   return (
     <Flex
@@ -18,7 +19,7 @@ export const DialogBoxBackgroundBar: React.FC<
       justify="space-between"
       p={{
         def: 1,
-        lg: 5,
+        lg: useLightPadding ? '20' : 5,
       }}
     >
       <Container>{leftComponent}</Container>
@@ -30,6 +31,7 @@ export const DialogBoxBackgroundBar: React.FC<
 DialogBoxBackgroundBar.defaultProps = {
   leftComponent: undefined,
   rightComponent: undefined,
+  useLightPadding: undefined,
 };
 
 export const DialogBoxBackground: React.FC<{ children: React.ReactNode }> = ({
