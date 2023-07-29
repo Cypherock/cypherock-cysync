@@ -14,7 +14,6 @@ const bgColorMap: Record<MessageBoxType, BgColor> = {
   info: 'input',
   warning: 'warning',
 };
-// const iconVariantMap: Record<MessageBoxType, string> = {};
 export const MessageBox: FC<{
   text: string;
   type: MessageBoxType;
