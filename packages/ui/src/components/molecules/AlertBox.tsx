@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { InfoIcon, shieldAlert } from '../../assets';
+import { InfoItalicsIcon, shieldAlert } from '../../assets';
 import {
   Image,
   LangDisplay,
@@ -63,12 +63,12 @@ const MaskStyle = styled.div<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
   flex-direction: row;
   align-items: center;
   padding: 8px 16px;
-  ${maskBaseStyle},
+  ${maskBaseStyle}
   ${utils}
 `;
 
 const iconObj: Record<AlertBoxVariantType, React.JSX.Element> = {
-  warning: <InfoIcon color="yellow" />,
+  warning: <InfoItalicsIcon color="yellow" />,
   info: <Image width="20" src={shieldAlert} alt="alert" />,
   none: <Image width="20" src={shieldAlert} alt="alert" />,
 };

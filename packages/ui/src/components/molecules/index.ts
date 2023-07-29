@@ -19,3 +19,4 @@ export * from './Table';
 export * from './LeanBox';
 export * from './DropDownListItem';
 export * from './SideBar';
+export * from './MessageBox';

@@ -13,7 +13,6 @@ import React, { FC } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { CreateWalletGuideProvider, useCreateWalletGuide } from './context';
-import { CloseConfirmation } from './Dialogs';
 
 export const CreateNewWallet: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -23,7 +22,7 @@ export const CreateNewWallet: FC = () => {
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+        {showOnClose && <div>test</div>}
         <>
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
@@ -43,7 +42,7 @@ export const CreateNewWallet: FC = () => {
               height="full"
             >
               <DialogBox width={500}>
-                <DialogBoxBody p="0">
+                <DialogBoxBody p="0" gap={0}>
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </DialogBoxBody>
               </DialogBox>

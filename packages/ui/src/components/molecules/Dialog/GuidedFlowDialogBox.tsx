@@ -4,49 +4,47 @@ import { styled } from 'styled-components';
 import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
 import { BulletList } from '../BulletList';
 import { GoldenArrowList } from '../GoldenArrowList';
-import { Info } from '../Info';
+import { MessageBox, MessageBoxType } from '../MessageBox';
 
 import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
 
 const InnerContainer = styled.div`
+  padding-top: 32px;
+  padding-left: 40px;
+  padding-right: 40px;
   max-height: 58vh;
   overflow-y: auto;
 `;
 
-export const GuidedFlowDialogBox: FC<{
-  heading?: string;
+export interface GuidedFlowDialogBoxProps {
   title?: string;
+  subtitle?: string;
+  bulletList?: string[];
+  messageBoxList?: Record<MessageBoxType, string>[];
+  heading?: string;
   image: string;
   children?: ReactNode;
   isLoading?: boolean;
   loadingText?: string;
-  subTitle?: string;
   footer?: ReactNode;
   goldenArrowList?: any[];
-  bulletList?: any[];
-  infoText?: string;
-  infoTextVariant?: 'warn' | 'muted' | 'white';
-  infoIconVariant?: 'white' | 'yellow';
-  showInfoIcon?: boolean;
   disableLeftArrowButton?: boolean;
   disableRightArrowButton?: boolean;
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
-}> = ({
+}
+export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
   heading,
   image,
   title,
   children,
   isLoading,
   loadingText,
-  subTitle,
+  subtitle,
   footer,
   goldenArrowList,
   bulletList,
-  infoIconVariant,
-  infoTextVariant,
-  infoText,
-  showInfoIcon,
+  messageBoxList,
   onNext,
   onPrevious,
   disableLeftArrowButton,
@@ -61,30 +59,25 @@ export const GuidedFlowDialogBox: FC<{
       </DialogBoxHeader>
     )}
     <InnerContainer>
-      <DialogBoxBody
-        gap={{
-          def: 12,
-          lg: 48,
-        }}
-        p="0"
-      >
+      <DialogBoxBody p={0} gap={0}>
         <Flex
           gap={{ def: 12, lg: 32 }}
           align="center"
           justify="center"
           width="inherit"
           direction="column"
+          pb={4}
         >
           <Image src={image} alt="device" />
           <Flex direction="column" align="center" gap={4}>
             {title && (
-              <Typography px={5} $textAlign="center" variant="h5">
+              <Typography $textAlign="center" variant="h5">
                 <LangDisplay text={title} />
               </Typography>
             )}
-            {subTitle && (
-              <Typography px={5} $textAlign="center" color="muted">
-                <LangDisplay text={subTitle} />
+            {subtitle && (
+              <Typography $textAlign="center" color="muted">
+                <LangDisplay text={subtitle} />
               </Typography>
             )}
             {isLoading && loadingText && (
@@ -95,18 +88,25 @@ export const GuidedFlowDialogBox: FC<{
             {children}
           </Flex>
         </Flex>
-        {(goldenArrowList || bulletList || infoText) && (
-          <Flex direction="column" gap={{ def: 24, lg: 48 }} px={5}>
-            {goldenArrowList && <GoldenArrowList items={goldenArrowList} />}
-            {bulletList && <BulletList items={bulletList} />}
-            {infoText && (
-              <Info
-                showIcon={showInfoIcon ?? true}
-                iconVariant={infoIconVariant ?? 'white'}
-                textVariant={infoTextVariant ?? 'muted'}
-                text={infoText}
-              />
-            )}
+        {goldenArrowList && (
+          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+            <GoldenArrowList items={goldenArrowList} />
+          </Flex>
+        )}
+        {bulletList && (
+          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+            <BulletList items={bulletList} />
+          </Flex>
+        )}
+        {messageBoxList && (
+          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+            {messageBoxList.map(messageBox => {
+              const type = Object.keys(messageBox)[0] as MessageBoxType;
+              if (!type) return null;
+              return (
+                <MessageBox key={type} text={messageBox[type]} type={type} />
+              );
+            })}
           </Flex>
         )}
       </DialogBoxBody>
@@ -135,16 +135,13 @@ GuidedFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,
-  subTitle: undefined,
+  subtitle: undefined,
   title: undefined,
   footer: undefined,
   heading: undefined,
   goldenArrowList: undefined,
   bulletList: undefined,
-  infoIconVariant: undefined,
-  infoTextVariant: undefined,
-  infoText: undefined,
-  showInfoIcon: true,
+  messageBoxList: undefined,
   disableLeftArrowButton: false,
   disableRightArrowButton: false,
 };
