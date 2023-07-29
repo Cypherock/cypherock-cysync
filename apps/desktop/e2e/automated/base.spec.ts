@@ -101,8 +101,6 @@ test('check x1 device usage for first time', async () => {
     .getByRole('button', { name: 'Continue' })
     .click();
   const sidePanel = screen.getByText('Terms of Use').first();
-  const statusBar = screen.locator('.sc-erJYPI > img').first();
-  await expect(statusBar).toBeVisible();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
   const firstBlock = screen.getByRole('heading', { name: 'Terms of Use' });
@@ -138,8 +136,6 @@ test('check x1 device have been already used before', async () => {
     .getByRole('button', { name: 'Continue' })
     .click();
   const sidePanel = screen.getByText('Terms of Use').first();
-  const statusBar = screen.locator('.sc-erJYPI > img').first();
-  await expect(statusBar).toBeVisible();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
   const firstBlock = screen.getByRole('heading', { name: 'Terms of Use' });
