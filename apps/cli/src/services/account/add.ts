@@ -7,9 +7,7 @@ import { Observer, Subscription } from 'rxjs';
 
 import { queryCheckbox, querySelect, Spinner } from '~/utils';
 
-import { formatAccountDisplay } from './helpers';
-
-import { queryWallet } from '../wallet';
+import { formatAccountDisplay, queryWallet } from '../helpers';
 
 const deviceSpinnerText = 'Getting keys from device';
 const syncSpinnerText = 'Getting account information';
