@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -9,9 +8,9 @@ import {
   Typography,
   Image,
   Container,
-  arrowGoldenForward,
   checkIcon,
   halfLoaderGold,
+  arrowGoldenForward,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -24,7 +23,7 @@ const dataArray = [
   {
     id: '1',
     leftImageSrc: arrowGoldenForward,
-    text: 'Verify the coins on the X1 Vault',
+    text: 'Verify the coins on the device',
     rightImageSrc: checkIcon,
   },
   {
@@ -62,11 +61,6 @@ export const InitialiseAccountDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={initAccount.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyCoinIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">

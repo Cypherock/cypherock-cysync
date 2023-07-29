@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -30,6 +29,7 @@ const dropDownData: DropDownListItemProps[] = [
     shortForm: '(BTC)',
     text: 'Bitcoin',
     checkType: 'radio',
+    tag: 'Taproot',
   },
   {
     id: '42',
@@ -48,7 +48,7 @@ const dropDownData: DropDownListItemProps[] = [
   {
     id: '44',
     leftImageSrc: binanceIcon,
-    shortForm: '(BTC)',
+    shortForm: '(BNB)',
     text: 'Binance Smart Chain',
     checkType: 'radio',
   },
@@ -122,11 +122,6 @@ export const SelectCryptoDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={crypto.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={addIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">

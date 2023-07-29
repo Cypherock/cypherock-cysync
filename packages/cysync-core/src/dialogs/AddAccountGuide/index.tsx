@@ -9,13 +9,13 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
-
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
+
+import { useCloseDialogBox } from '../../hooks/closeDialogBox';
 
 export const AddNewAccount: FC = () => {
   const { tabs, currentTab, currentDialog } = useAddAccountDialog();
-  const dispatch = useAppDispatch();
+  const closeDialogBox = useCloseDialogBox();
 
   return (
     <BlurOverlay>
@@ -26,12 +26,11 @@ export const AddNewAccount: FC = () => {
             activeTab={currentTab}
             currentDialog={currentDialog}
             totalDialogs={tabs[currentTab].dialogs.length}
+            header={tabs[0].header}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">
-              <CloseButton
-                onClick={() => dispatch(closeDialog('addAccountDialog'))}
-              />
+              <CloseButton onClick={() => closeDialogBox('addAccountDialog')} />
             </Container>
             <DialogBoxBody
               p="20"

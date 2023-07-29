@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -14,6 +13,9 @@ import {
   bitcoinIcon,
   Flex,
   Toggle,
+  FlexGapContainer,
+  Container,
+  questionMarkIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -24,7 +26,7 @@ import { useAddAccountDialog } from '../../context';
 export const AddAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const { title, header, subheader, buttonAddAccount, advanced, questionMark } =
+  const { header, subheader, buttonAddAccount, advanced } =
     lang.strings.addAccount.addAccount.add.info.dialogBox;
   const [isToggledChecked, setToggledChecked] = useState(false);
 
@@ -54,17 +56,14 @@ export const AddAccountDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={title} />
-        </Typography>
-      </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={settingsIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={header} />
         </Typography>
-        <div>
+      </FlexGapContainer>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+        <Container display="flex" direction="column" gap={5} width="full">
           <InputLabel
             mt={4}
             mr={2}
@@ -93,7 +92,7 @@ export const AddAccountDialog: React.FC = () => {
               />
             ))}
           </LeanBoxContainer>
-          <Flex direction="row" pr={1}>
+          <Flex direction="row" pr={1} ml="auto">
             <InputLabel
               $fontSize={13}
               $fontWeight="normal"
@@ -102,19 +101,11 @@ export const AddAccountDialog: React.FC = () => {
               px={0}
             >
               <LangDisplay text={advanced} />(
-              <InputLabel
-                px={0}
-                color="gradient"
-                display="inline"
-                $fontWeight="normal"
-              >
-                <LangDisplay text={questionMark} />
-              </InputLabel>
-              )
+              <Image src={questionMarkIcon} alt="Question Mark" />)
             </InputLabel>
             <Toggle checked={isToggledChecked} onToggle={handleToggleChange} />
           </Flex>
-        </div>
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button onClick={() => onNext()} variant="primary">

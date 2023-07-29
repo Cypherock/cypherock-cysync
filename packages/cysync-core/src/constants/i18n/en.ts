@@ -307,6 +307,8 @@ const en = {
     close: 'Close',
     report: 'Report',
     help: 'Help',
+    stop: 'Stop',
+    resync: 'Resync',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -328,11 +330,11 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
+    header: 'Add Coin/Account',
     addAccount: {
       initAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Follow instructions on the X1 Vault',
             subheader: 'Add a coin/account Wallet',
             subheader1: 'Cypherock Red',
@@ -342,17 +344,14 @@ const en = {
       syncAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Syncing the account',
+            header: 'Syncing the Accounts',
             subheader: 'Accounts already in portfolio',
-            buttonStopSync: 'Stop Syncing',
           },
         },
       },
       connectDevice: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Connect your X1 Vault to your PC to proceed',
           },
         },
@@ -360,7 +359,6 @@ const en = {
       congrats: {
         info: {
           dialogBox: {
-            header: 'Add Coin/Account',
             subtext: 'Add other accounts or return to portfolio',
             title: 'Accounts added successfully',
             buttonAddMore: 'Add more',
@@ -370,7 +368,6 @@ const en = {
       noAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'No account found yet',
             subheader: 'Accounts already in portfolio',
             buttonSyncAgain: 'Sync Again',
@@ -380,7 +377,6 @@ const en = {
       add: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Add new accounts',
             subheader: 'New Accounts',
             buttonAddAccount: 'Add Accounts',
@@ -392,7 +388,6 @@ const en = {
       selectCrypto: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Select the Wallet & Coins you want to add',
             subTitle: 'Add a coin/account to wallet',
             constant: 'Cypherock Red',
@@ -406,12 +401,12 @@ const en = {
       addAccountSingleChain: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Add new accounts',
             subheader: 'New Accounts',
             subheader2: 'Account not yet synced',
             subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect all',
+            deselectAllButton: 'Deselect All',
+            selectAllButton: 'Select All',
             buttonAddAccount: 'Add Accounts',
             advanced: 'Show all address types',
             questionMark: '?',
@@ -422,7 +417,7 @@ const en = {
     aside: {
       tabs: {
         asset: 'Asset',
-        device: 'Device',
+        device: 'X1 Vault',
         confirmation: 'Confirmation',
       },
     },
@@ -619,7 +614,7 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: {
@@ -885,6 +880,17 @@ const en = {
           subtext: 'Reconnect the device to proceed',
         },
       },
+    },
+  },
+  appUpdateBar: {
+    confirmation: 'Update to cySync version ${version} is available',
+    downloading: 'Downloading cySync version ${version}',
+    error: 'Error downloading cySync update',
+    successful: 'cySync update version ${version} downloaded',
+    buttons: {
+      download: 'Download',
+      tryAgain: 'Try Again',
+      installUpdate: 'Install Update',
     },
   },
   topbar: {

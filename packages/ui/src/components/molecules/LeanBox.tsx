@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from 'react';
+import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -33,7 +33,10 @@ export interface LeanBoxProps extends SpacingProps {
   value?: string;
 }
 
-export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
+export const HorizontalBox = styled.div<{
+  $isChecked: boolean;
+  $isCheckable: boolean;
+}>`
   display: flex;
   padding: 8px 16px;
   align-items: center;
@@ -45,8 +48,10 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
-  cursor: pointer;
   ${spacing};
+  width: 100%;
+  height: 42px;
+  cursor: ${({ $isCheckable }) => ($isCheckable ? 'pointer' : 'default')};
 `;
 
 export const ImageContainer = styled.div`
@@ -85,15 +90,43 @@ export const LeanBox: FC<LeanBoxProps> = ({
   onCheckChanged,
   value,
 }): ReactElement => {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
       onCheckChanged(!$isChecked);
     }
   }, [onCheckChanged, $isChecked]);
 
+  const handleHover = useCallback(() => {
+    setIsHovered(true);
+    if (
+      checkboxRef.current &&
+      (checkType === 'checkbox' || checkType === 'radio')
+    ) {
+      checkboxRef.current.focus();
+    }
+  }, [checkType]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    if (checkboxRef.current) {
+      checkboxRef.current.blur();
+    }
+  }, []);
+
   return (
-    <InputLabel px={0}>
-      <HorizontalBox $isChecked={$isChecked}>
+    <InputLabel
+      px={0}
+      py={0}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleMouseLeave}
+    >
+      <HorizontalBox
+        $isChecked={$isChecked}
+        $isCheckable={checkType === 'radio' || checkType === 'checkbox'}
+      >
         {checkType === 'radio' && (
           <RadioButton
             checked={$isChecked}
@@ -126,7 +159,12 @@ export const LeanBox: FC<LeanBoxProps> = ({
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
           {rightText && (
-            <Typography variant={rightTextVariant} color={rightTextColor}>
+            <Typography
+              variant={rightTextVariant}
+              color={rightTextColor}
+              $fontSize={14}
+              $fontWeight="normal"
+            >
               {rightText}
             </Typography>
           )}
@@ -155,6 +193,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
               checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
+              $isHovered={isHovered}
+              ref={checkboxRef}
             />
           )}
         </RightContent>

@@ -1,10 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'styled-components';
 
-import { Container, IconContainer, List, ListItem } from './DropdownStyles';
+import {
+  DropdownContainer,
+  DropdownListItem,
+  IconContainer,
+  List,
+} from './DropdownStyles';
 
 import { searchIcon, triangleInverseIcon } from '../../../assets';
-import { DropDownListItem, DropDownListItemProps } from '../../molecules';
+
 import {
   findSelectedItem,
   handleClickOutside,
@@ -12,8 +17,9 @@ import {
   handleKeyDown,
   searchInItems,
 } from '../../utils';
-import { Image } from '../Image';
-import { Input } from '../Input';
+
+import { Image, Input } from '..';
+import { DropDownListItem, DropDownListItemProps } from '../../molecules';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
@@ -35,7 +41,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -61,7 +67,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const toggleDropdown = () => {
     if (!disabled) {
-      setisOpen(!isOpen);
+      setIsOpen(!isOpen);
       setSearch('');
     }
   };
@@ -80,8 +86,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    const escapeKeyHandler = handleEscapeKey(setisOpen);
-    const clickOutsideHandler = handleClickOutside(setisOpen, containerRef);
+    const escapeKeyHandler = handleEscapeKey(setIsOpen);
+    const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
     window.addEventListener('keydown', escapeKeyHandler);
     window.addEventListener('click', clickOutsideHandler);
@@ -93,7 +99,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, []);
 
   return (
-    <Container
+    <DropdownContainer
       ref={containerRef}
       $isOpen={isOpen || isHovered}
       disabled={disabled}
@@ -181,7 +187,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             const isItemSelected = selectedIndex === index;
 
             return (
-              <ListItem
+              <DropdownListItem
                 key={itemId}
                 onClick={handleItemSelection}
                 role="option"
@@ -199,12 +205,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                   $isFocused={isItemFocused}
                 />
-              </ListItem>
+              </DropdownListItem>
             );
           })}
         </List>
       )}
-    </Container>
+    </DropdownContainer>
   );
 };
 

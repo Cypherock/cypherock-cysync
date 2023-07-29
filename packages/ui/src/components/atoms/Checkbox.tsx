@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Flex, FlexProps } from './Flex';
@@ -40,9 +40,15 @@ const CheckBoxIcon = styled.div<ISize>`
   border-radius: 1px;
 `;
 
-const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
-  htmlFor: props.id,
-}))`
+interface StyledLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  $isHovered?: boolean;
+}
+
+const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
+  props => ({
+    htmlFor: props.id,
+  }),
+)`
   display: inline-block;
   cursor: pointer;
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
@@ -61,6 +67,12 @@ const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
     left: ${({ size }) => (size === 'big' ? '2px' : '1.5px')};
     background-image: ${({ theme }) => theme.palette.background.sideBar};
   }
+
+  ${CheckBoxStyle}:focus + & {
+    outline: 1px solid ${({ theme }) => theme.palette.background.golden};
+  }
+  outline: ${({ $isHovered, theme }) =>
+    $isHovered ? `1px solid ${theme.palette.background.golden}` : 'none'};
 `;
 
 const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
@@ -69,43 +81,45 @@ const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
   cursor: pointer;
 `;
 
-export const CheckBox: FC<CheckBoxProps> = ({
-  checked,
-  onChange,
-  id,
-  label,
-  flexProps,
-  size,
-  isDisabled,
-}) => (
-  <Flex align="center" $alignSelf="start" {...flexProps}>
-    <CheckBoxWrapper size={size}>
-      <CheckBoxStyle
-        checked={checked}
-        onChange={onChange}
-        id={id}
-        disabled={isDisabled}
-      />
+export const CheckBox = React.forwardRef<
+  HTMLInputElement,
+  CheckBoxProps & { $isHovered?: boolean }
+>(
+  (
+    { checked, onChange, id, label, flexProps, size, isDisabled, $isHovered },
+    ref,
+  ) => (
+    <Flex align="center" $alignSelf="start" {...flexProps}>
+      <CheckBoxWrapper size={size}>
+        <CheckBoxStyle
+          checked={checked}
+          onChange={onChange}
+          id={id}
+          disabled={isDisabled}
+          ref={ref}
+        />
+        <CheckBoxLabelStyle id={id} size={size} $isHovered={$isHovered}>
+          {checked && <CheckBoxIcon id={id} size={size} />}
+        </CheckBoxLabelStyle>
+      </CheckBoxWrapper>
 
-      <CheckBoxLabelStyle id={id} size={size}>
-        {checked && <CheckBoxIcon id={id} size={size} />}
-      </CheckBoxLabelStyle>
-    </CheckBoxWrapper>
-
-    {label && (
-      <CheckBoxTextLabelStyle id={id}>
-        <Typography
-          $fontSize={size === 'big' ? 16 : 14}
-          color="muted"
-          $textAlign="left"
-          ml={2}
-        >
-          <LangDisplay text={label} />
-        </Typography>
-      </CheckBoxTextLabelStyle>
-    )}
-  </Flex>
+      {label && (
+        <CheckBoxTextLabelStyle id={id}>
+          <Typography
+            $fontSize={size === 'big' ? 16 : 14}
+            color="muted"
+            $textAlign="left"
+            ml={2}
+          >
+            <LangDisplay text={label} />
+          </Typography>
+        </CheckBoxTextLabelStyle>
+      )}
+    </Flex>
+  ),
 );
+
+CheckBox.displayName = 'CheckBox';
 
 CheckBox.defaultProps = {
   label: undefined,
@@ -113,4 +127,5 @@ CheckBox.defaultProps = {
   isDisabled: false,
   id: undefined,
   size: 'big',
+  $isHovered: false,
 };

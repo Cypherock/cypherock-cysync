@@ -31,6 +31,11 @@
       "outputs": ["src/assets/icons/generated/**"],
       "inputs": ["icons/**"]
     },
+    "@cypherock/cysync-core#prebuild": {
+      "cache": true,
+      "outputs": ["src/generated/**"],
+      "inputs": ["package.json", "scripts/prebuild.sh"]
+    },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],
       "cache": false
