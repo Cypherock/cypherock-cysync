@@ -498,7 +498,7 @@ const en = {
     deviceAuth: {
       heading: 'Device Authentication',
       title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock to check its\nauthenticity ',
+        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity ',
       subtext:
         'Do not disconnect your device while the operation is being done',
       success: {
