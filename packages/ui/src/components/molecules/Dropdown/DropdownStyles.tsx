@@ -21,7 +21,7 @@ export const List = styled.ul<{ disabled?: boolean }>`
   }
 `;
 
-export const ListItem = styled.li<{ $isFocused?: boolean }>`
+export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
   background-color: ${({ theme, $isFocused }) =>
     $isFocused
       ? theme.palette.background.dropdownHover
@@ -33,7 +33,10 @@ const buttonAnimationData = {
   curve: 'ease-out',
 };
 
-export const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
+export const DropdownContainer = styled.div<{
+  $isOpen: boolean;
+  disabled?: boolean;
+}>`
   position: relative;
   width: 100%;
   border-radius: 8px;

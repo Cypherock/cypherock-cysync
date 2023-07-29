@@ -33,9 +33,17 @@ const textColor = (activeTab: number, index: number) => {
 export const MilestoneAside: FC<{
   milestones: string[];
   activeTab: number;
-}> = ({ milestones, activeTab }) => (
+  header?: string;
+}> = ({ milestones, activeTab, header }) => (
   <AsideStyle>
-    <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+    {header && (
+      <Typography px={0} color="white" $fontSize={18} $fontWeight="normal">
+        <LangDisplay text={header} />
+      </Typography>
+    )}
+    {!header && (
+      <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+    )}
     <Flex direction="column" py={8}>
       {milestones.map((milestone, index) => (
         <Flex key={`milestone-index-${index + 1}`} gap={16}>
@@ -71,3 +79,7 @@ export const MilestoneAside: FC<{
     </Flex>
   </AsideStyle>
 );
+
+MilestoneAside.defaultProps = {
+  header: '',
+};

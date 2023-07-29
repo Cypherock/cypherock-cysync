@@ -2,7 +2,6 @@ import {
   LangDisplay,
   loaderGrayIcon,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -12,12 +11,15 @@ import {
   DialogBoxFooter,
   Button,
   etheriumBlueIcon,
+  FlexGapContainer,
+  Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../../context';
+import { useCloseDialogBox } from '~/hooks';
 
 const dataArray = [
   {
@@ -46,20 +48,19 @@ export const NoAccountDialog: React.FC = () => {
   const noAccount = lang.strings.addAccount.addAccount.noAccount.info.dialogBox;
   const button = lang.strings.buttons;
   const { onPrevious } = useAddAccountDialog();
+  const closeDialogBox = useCloseDialogBox();
+
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={noAccount.title} />
-        </Typography>
-      </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={loaderGrayIcon} alt="Loader" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={noAccount.header} />
         </Typography>
-        <div>
-          <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
+      </FlexGapContainer>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5} align="flex-start">
+        <Container display="flex" direction="column" gap={5} width="full">
+          <InputLabel>
             {noAccount.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
@@ -76,7 +77,7 @@ export const NoAccountDialog: React.FC = () => {
               />
             ))}
           </LeanBoxContainer>
-        </div>
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
@@ -86,9 +87,12 @@ export const NoAccountDialog: React.FC = () => {
             onPrevious();
           }}
         >
-          <LangDisplay text={noAccount.buttonSyncAgain} />
+          <LangDisplay text={button.resync} />
         </Button>
-        <Button variant="primary">
+        <Button
+          variant="primary"
+          onClick={() => closeDialogBox('addAccountDialog')}
+        >
           <LangDisplay text={button.close} />
         </Button>
       </DialogBoxFooter>

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback, useRef } from 'react';
+import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -89,6 +89,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
   value,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
       onCheckChanged(!$isChecked);
@@ -96,6 +98,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [onCheckChanged, $isChecked]);
 
   const handleHover = useCallback(() => {
+    setIsHovered(true);
     if (
       checkboxRef.current &&
       (checkType === 'checkbox' || checkType === 'radio')
@@ -105,6 +108,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [checkType]);
 
   const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
     if (checkboxRef.current) {
       checkboxRef.current.blur();
     }
@@ -187,6 +191,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
+              $isHovered={isHovered}
               ref={checkboxRef}
             />
           )}

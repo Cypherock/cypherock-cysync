@@ -40,9 +40,15 @@ const CheckBoxIcon = styled.div<ISize>`
   border-radius: 1px;
 `;
 
-const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
-  htmlFor: props.id,
-}))`
+interface StyledLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  $isHovered?: boolean;
+}
+
+const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
+  props => ({
+    htmlFor: props.id,
+  }),
+)`
   display: inline-block;
   cursor: pointer;
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
@@ -63,9 +69,10 @@ const CheckBoxLabelStyle = styled.label.attrs<ISize>(props => ({
   }
 
   ${CheckBoxStyle}:focus + & {
-    outline: 2px solid ${({ theme }) => theme.palette.background.sideBar};
-    outline: 2px solid #eef209;
+    outline: 1px solid ${({ theme }) => theme.palette.background.golden};
   }
+  outline: ${({ $isHovered, theme }) =>
+    $isHovered ? `1px solid ${theme.palette.background.golden}` : 'none'};
 `;
 
 const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
@@ -74,8 +81,14 @@ const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
   cursor: pointer;
 `;
 
-export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
-  ({ checked, onChange, id, label, flexProps, size, isDisabled }, ref) => (
+export const CheckBox = React.forwardRef<
+  HTMLInputElement,
+  CheckBoxProps & { $isHovered?: boolean }
+>(
+  (
+    { checked, onChange, id, label, flexProps, size, isDisabled, $isHovered },
+    ref,
+  ) => (
     <Flex align="center" $alignSelf="start" {...flexProps}>
       <CheckBoxWrapper size={size}>
         <CheckBoxStyle
@@ -85,7 +98,7 @@ export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
           disabled={isDisabled}
           ref={ref}
         />
-        <CheckBoxLabelStyle id={id} size={size}>
+        <CheckBoxLabelStyle id={id} size={size} $isHovered={$isHovered}>
           {checked && <CheckBoxIcon id={id} size={size} />}
         </CheckBoxLabelStyle>
       </CheckBoxWrapper>
@@ -114,4 +127,5 @@ CheckBox.defaultProps = {
   isDisabled: false,
   id: undefined,
   size: 'big',
+  $isHovered: false,
 };

@@ -2,7 +2,6 @@ import {
   LangDisplay,
   disconnectedIcon,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -35,11 +34,6 @@ export const ConnectDevice: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={disconnectedIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">

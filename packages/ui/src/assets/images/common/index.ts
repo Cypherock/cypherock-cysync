@@ -40,6 +40,7 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
+import questionMarkIcon from './question-mark.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -58,6 +59,7 @@ import walletIcon from './wallet.svg';
 export {
   addWalletIcon,
   walletIcon,
+  questionMarkIcon,
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,

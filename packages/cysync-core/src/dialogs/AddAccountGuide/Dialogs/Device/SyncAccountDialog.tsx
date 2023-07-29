@@ -1,7 +1,6 @@
 import {
   loaderGrayIcon,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -12,6 +11,8 @@ import {
   Button,
   LangDisplay,
   etheriumBlueIcon,
+  FlexGapContainer,
+  Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -45,6 +46,7 @@ export const SyncAccountDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const sync = lang.strings.addAccount.addAccount.syncAccount.info.dialogBox;
+  const { buttons } = lang.strings;
   const { goTo, onNext, onPrevious } = useAddAccountDialog();
 
   const keyboardActions = {
@@ -64,18 +66,15 @@ export const SyncAccountDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={sync.title} />
-        </Typography>
-      </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <FlexGapContainer pt={4} pr={5} pl={5}>
         <Image src={loaderGrayIcon} alt="Loader" animate="spin" />
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={sync.header} />
         </Typography>
-        <div>
-          <InputLabel mt={4} mr={2} mb={1} display={{ def: 'inline-block' }}>
+      </FlexGapContainer>
+      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+        <Container display="flex" direction="column" gap={5} width="full">
+          <InputLabel>
             {sync.subheader} ({dataArray.length})
           </InputLabel>
           <LeanBoxContainer>
@@ -92,11 +91,11 @@ export const SyncAccountDialog: React.FC = () => {
               />
             ))}
           </LeanBoxContainer>
-        </div>
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleNextWithTimeout}>
-          <LangDisplay text={sync.buttonStopSync} />
+          <LangDisplay text={buttons.stop} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

@@ -1,3 +1,3 @@
 export * from './Asset';
-export * from './X1 Vault';
+export * from './Device';
 export * from './Confirmation';

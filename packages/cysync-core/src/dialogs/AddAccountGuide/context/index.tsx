@@ -28,6 +28,7 @@ import {
 type ITabs = {
   name: string;
   dialogs: ReactNode[];
+  header: string;
 }[];
 
 export interface AddAccountDialogContextInterface {
@@ -54,6 +55,7 @@ export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
+  const { header } = lang.strings.addAccount;
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
 
@@ -61,6 +63,7 @@ export const AddAccountDialogProvider: FC<
     {
       name: lang.strings.addAccount.aside.tabs.asset,
       dialogs: [<SelectCryptoDialog />],
+      header,
     },
     {
       name: lang.strings.addAccount.aside.tabs.device,
@@ -72,10 +75,12 @@ export const AddAccountDialogProvider: FC<
         <AddAccountSingleChainDialog />,
         <AddAccountDialog />,
       ],
+      header,
     },
     {
       name: lang.strings.addAccount.aside.tabs.confirmation,
       dialogs: [<AddAccountCongrats />],
+      header,
     },
   ];
 

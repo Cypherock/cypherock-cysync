@@ -63,21 +63,29 @@ export const handleKeyDown =
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
   ) =>
-  (event: React.KeyboardEvent<HTMLInputElement>) => {    
+  (event: React.KeyboardEvent<HTMLInputElement>) => {
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
         event.stopPropagation();
-        setFocusedIndex(prevIndex =>
-          prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
-        );
+        if (!isOpen) {
+          toggleDropdown();
+        } else {
+          setFocusedIndex(prevIndex =>
+            prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
+          );
+        }
         break;
       case 'ArrowUp':
         event.preventDefault();
         event.stopPropagation();
-        setFocusedIndex(prevIndex =>
-          prevIndex === null ? itemsCount - 1 : Math.max(prevIndex - 1, 0),
-        );
+        if (!isOpen) {
+          toggleDropdown();
+        } else {
+          setFocusedIndex(prevIndex =>
+            prevIndex === null ? itemsCount - 1 : Math.max(prevIndex - 1, 0),
+          );
+        }
         break;
       case 'Enter':
       case ' ':
@@ -104,16 +112,16 @@ export const handleKeyDown =
   };
 
 export const handleEscapeKey =
-  (setisOpen: React.Dispatch<React.SetStateAction<boolean>>) =>
+  (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) =>
   (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-      setisOpen(false);
+      setIsOpen(false);
     }
   };
 
 export const handleClickOutside =
   (
-    setisOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     containerRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: MouseEvent) => {
@@ -121,6 +129,6 @@ export const handleClickOutside =
       containerRef.current &&
       !containerRef.current.contains(event.target as Node)
     ) {
-      setisOpen(false);
+      setIsOpen(false);
     }
   };
