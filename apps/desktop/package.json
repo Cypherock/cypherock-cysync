@@ -20,7 +20,7 @@
     "build": "tsc && vite build",
     "make": "electron-builder",
     "preview": "vite preview",
-    "e2e": "cross-env NODE_ENV=e2e playwright test e2e/automated --project=chromium",
+    "e2e": "cross-env NODE_ENV=e2e playwright test e2e/automated --project=chromium --workers=1",
     "me2e": "cross-env NODE_ENV=e2e playwright test e2e/manual --project=chromium --workers=1",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",

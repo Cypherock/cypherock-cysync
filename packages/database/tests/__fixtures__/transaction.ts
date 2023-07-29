@@ -3,13 +3,130 @@ import {
   ITransaction,
   ITransactionRepository,
 } from '@cypherock/db-interfaces';
+
 import { ITestClass } from './types';
+
 import { BaseFields } from '../../src/entity/types';
 
 class TransactionData implements ITestClass<ITransaction> {
   name = 'Transaction';
 
+  sortKey = 'timestamp';
+
+  isSortDescending = true;
+
   repo: ITransactionRepository;
+
+  sorted: ITransaction[] = [
+    {
+      hash: 'hash',
+      fees: '0.002',
+      amount: '1',
+      status: 'failed',
+      type: 'receive',
+      timestamp: 912837,
+      blockHeight: 20934,
+      inputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      outputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      accountId: 'account1',
+      assetId: 'asset1',
+      familyId: 'family1',
+      walletId: 'wallet1',
+    },
+    {
+      hash: 'hash',
+      fees: '0.002',
+      amount: '1',
+      status: 'failed',
+      type: 'receive',
+      timestamp: 823714,
+      blockHeight: 20934,
+      inputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      outputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      accountId: 'account1',
+      assetId: 'asset1',
+      familyId: 'family1',
+      walletId: 'wallet1',
+    },
+    {
+      hash: 'hash',
+      fees: '0.002',
+      amount: '1',
+      status: 'failed',
+      type: 'receive',
+      timestamp: 1234,
+      blockHeight: 20934,
+      inputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      outputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      accountId: 'account1',
+      assetId: 'asset1',
+      familyId: 'family1',
+      walletId: 'wallet1',
+    },
+    {
+      hash: 'hash',
+      fees: '0.002',
+      amount: '1',
+      status: 'failed',
+      type: 'receive',
+      timestamp: 879,
+      blockHeight: 20934,
+      inputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      outputs: [
+        {
+          address: 'address1',
+          amount: 'amount1',
+          isMine: false,
+        },
+      ],
+      accountId: 'account1',
+      assetId: 'asset1',
+      familyId: 'family1',
+      walletId: 'wallet1',
+    },
+  ];
 
   onlyRequired: ITransaction[] = [
     {
@@ -33,7 +150,7 @@ class TransactionData implements ITestClass<ITransaction> {
       amount: '1',
       status: 'failed',
       type: 'receive',
-      timestamp: 1234,
+      timestamp: 879,
       blockHeight: 20934,
       inputs: [{ address: 'address1', amount: 'amount1', isMine: false }],
       outputs: [{ address: 'address1', amount: 'amount1', isMine: false }],
@@ -48,7 +165,7 @@ class TransactionData implements ITestClass<ITransaction> {
       amount: '1',
       status: 'failed',
       type: 'receive',
-      timestamp: 1234,
+      timestamp: 823714,
       blockHeight: 20934,
       inputs: [{ address: 'address1', amount: 'amount1', isMine: false }],
       outputs: [{ address: 'address1', amount: 'amount1', isMine: false }],
@@ -63,7 +180,7 @@ class TransactionData implements ITestClass<ITransaction> {
       amount: '1',
       status: 'failed',
       type: 'receive',
-      timestamp: 1234,
+      timestamp: 912837,
       blockHeight: 20934,
       inputs: [{ address: 'address1', amount: 'amount1', isMine: false }],
       outputs: [{ address: 'address1', amount: 'amount1', isMine: false }],

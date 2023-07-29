@@ -89,7 +89,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
   value,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
-
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
       onCheckChanged(!$isChecked);

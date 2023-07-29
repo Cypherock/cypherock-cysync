@@ -3,12 +3,44 @@ import {
   IWallet,
   IWalletRepository,
 } from '@cypherock/db-interfaces';
+
 import { ITestClass } from './types';
 
 class WalletData implements ITestClass<IWallet> {
   name = 'Wallet';
 
+  sortKey = 'name';
+
+  isSortDescending = false;
+
   repo: IWalletRepository;
+
+  sorted: IWallet[] = [
+    {
+      name: 'DEF',
+      hasPassphrase: true,
+      hasPin: true,
+      deviceId: '1',
+    },
+    {
+      name: 'DIFFERENT WALLET',
+      hasPassphrase: false,
+      hasPin: false,
+      deviceId: '2',
+    },
+    {
+      name: 'DIFFERENT WALLET AGAIN',
+      hasPassphrase: true,
+      hasPin: false,
+      deviceId: '2',
+    },
+    {
+      name: 'GMT',
+      hasPassphrase: false,
+      hasPin: true,
+      deviceId: '1',
+    },
+  ];
 
   onlyRequired: IWallet[] = [
     {

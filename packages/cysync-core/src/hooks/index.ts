@@ -6,3 +6,4 @@ export * from './useStateWithFinality';
 export * from './useQuery';
 export * from './useErrorHandler';
 export * from './useOnboardingCheckpoint';
+export * from './useAppUpdate';

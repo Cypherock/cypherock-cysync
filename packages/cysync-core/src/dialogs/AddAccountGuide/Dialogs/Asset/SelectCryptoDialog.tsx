@@ -52,22 +52,6 @@ const dropDownData: DropDownListItemProps[] = [
     shortForm: '(BNB)',
     text: 'Binance Smart Chain',
     checkType: 'radio',
-    subMenu: [
-      {
-        id: '144',
-        leftImageSrc: binanceIcon,
-        shortForm: '(BNB)',
-        text: 'Binance Smart Chain',
-        checkType: 'radio',
-      },
-      {
-        id: '143',
-        leftImageSrc: solanaIcon,
-        shortForm: '(SOL)',
-        text: 'Solana',
-        checkType: 'radio',
-      },
-    ],
   },
 ];
 const dropDownDataWithWallet: DropDownListItemProps[] = [

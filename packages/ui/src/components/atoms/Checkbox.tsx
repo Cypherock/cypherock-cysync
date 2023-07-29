@@ -85,7 +85,6 @@ export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
           disabled={isDisabled}
           ref={ref}
         />
-
         <CheckBoxLabelStyle id={id} size={size}>
           {checked && <CheckBoxIcon id={id} size={size} />}
         </CheckBoxLabelStyle>
