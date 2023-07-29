@@ -40,38 +40,11 @@ test.afterAll(async () => {
   await electronApp.close();
 });
 
-test('Device connection screen', async () => {
-  await screen.getByRole('button', { name: 'Continue' }).click();
-  await screen
-    .locator('section')
-    .filter({
-      hasText:
-        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
-    })
-    .getByRole('button', { name: 'Continue' })
-    .click();
-  await screen.locator('#terms_accepted').nth(1).click();
-  await screen.getByRole('button', { name: 'Confirm' }).click();
-  const sidePanelFirst = screen
-    .locator('span')
-    .filter({ hasText: 'Device Connection' });
-  await expect(sidePanelFirst).toBeVisible();
-  const backButton = screen.getByRole('button', { name: 'Back' });
-  await expect(backButton).toBeVisible();
-  const helpButton = screen.getByRole('button', { name: 'Help ?' });
-  await expect(helpButton).toBeVisible();
-  const disconnectedWindow = screen.getByRole('heading', {
-    name: 'Connect your X1 Vault to your PC to proceed',
-  });
-  await expect(disconnectedWindow).toBeVisible();
-  await expect(
-    screen.getByRole('heading', {
-      name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
-    }),
-  ).toBeVisible();
+test('record', async () => {
+  await screen.pause();
 });
 
-test('Device authentication successful', async () => {
+test('Device connection screen and email on device connection', async () => {
   await screen.getByRole('button', { name: 'Continue' }).click();
   await screen
     .locator('section')
@@ -83,20 +56,68 @@ test('Device authentication successful', async () => {
     .click();
   await screen.locator('#terms_accepted').nth(1).click();
   await screen.getByRole('button', { name: 'Confirm' }).click();
-  await screen.getByRole('heading', {
-    name: 'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
-  });
+  await screen.getByRole('button', { name: 'Skip' }).click();
+  const emailInput = screen.getByPlaceholder('Email');
+  await emailInput.click();
+  const emailExample = 'tejasvi@tejasvi.com';
+  await emailInput.fill(emailExample);
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  const backButton = screen.getByRole('button', { name: 'Back Back' });
+  await backButton.click();
+  const emailValue = await emailInput.inputValue();
+  expect(emailValue).toEqual(emailExample);
+  await screen.getByRole('button', { name: 'Continue' }).click();
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
-  const sidePanelFirst = screen
-    .locator('span')
-    .filter({ hasText: 'Device Authentication' });
-  await expect(sidePanelFirst).toBeVisible();
-  const newWindow = screen.getByRole('heading', {
-    name: 'Your X1 Vault is successfully authenticated',
-  });
-  await expect(newWindow).toBeVisible();
-  await expect(sidePanelFirst).toBeVisible();
+  const firstBlock = screen.getByText(
+    'Connect your X1 Vault to your PC to proceed',
+  );
+  await expect(firstBlock).toBeVisible();
+  const secondBlock = screen.getByText(
+    'Use the USB cable provided in your product packaging to connect',
+  );
+  await expect(secondBlock).toBeVisible();
+  await screen
+    .getByText(
+      'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
+    )
+    .waitFor({ timeout: 300000 });
+  const subtext = screen.getByText(
+    'Do not disconnect your device while the operation is being done',
+  );
+  await expect(subtext).toBeVisible();
+  const setEmail = screen.getByText('tejasvi@tejasvi.com');
+  await expect(setEmail).toBeVisible();
+  await expect(helpButton).toBeVisible();
+});
+
+test('Device authentication successful and email on device auth screen', async () => {
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  await screen
+    .locator('section')
+    .filter({
+      hasText:
+        'I am using Cypherock X1 for the first timeChoose this if you have never used Cypherock X1 before',
+    })
+    .getByRole('button', { name: 'Continue' })
+    .click();
+  await screen.locator('#terms_accepted').nth(1).click();
+  await screen.getByRole('button', { name: 'Confirm' }).click();
+  await screen.getByRole('button', { name: 'Skip' }).click();
+  const emailInput = screen.getByPlaceholder('Email');
+  await emailInput.click();
+  const emailExample = 'tejasvi@tejasvi.com';
+  await emailInput.fill(emailExample);
+  await screen.getByRole('button', { name: 'Continue' }).click();
+  const authHeader = screen.getByText(
+    'Your X1 Vault is successfully authenticated',
+  );
+  await expect(authHeader).toBeVisible({ timeout: 60000 });
+  const subText = screen.getByText('Wait while we take you to the next screen');
+  await expect(subText).toBeVisible();
+  const setEmail = screen.getByText('tejasvi@tejasvi.com');
+  await expect(setEmail).toBeVisible();
+  const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
 });
 
