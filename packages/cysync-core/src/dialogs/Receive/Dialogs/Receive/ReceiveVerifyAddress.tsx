@@ -27,7 +27,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceVerifyAddress.info.dialogBox;
-  const { onNext, onPrevious } = useReceiveDialog();
+  const { goTo, onPrevious } = useReceiveDialog();
 
   const dataArray = [
     {
@@ -42,7 +42,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(2, 2);
+      goTo(2, 2);
     },
     ArrowLeft: () => {
       onPrevious();

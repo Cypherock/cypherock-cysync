@@ -28,11 +28,11 @@ export const ReceiveAddressVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceAddressVerified.info.dialogBox;
-  const { onNext } = useReceiveDialog();
+  const { goTo } = useReceiveDialog();
   const dispatch = useAppDispatch();
 
   const handleVerificationAgain = () => {
-    onNext(1, 0);
+    goTo(1, 0);
   };
 
   return (

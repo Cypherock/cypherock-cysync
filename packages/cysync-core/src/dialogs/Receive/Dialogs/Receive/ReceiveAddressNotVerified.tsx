@@ -34,10 +34,10 @@ export const ReceiveAddressNotVerified: React.FC = () => {
   const connect = lang.strings.receive.deviceAddressNotVerified.info.dialogBox;
 
   const dispatch = useAppDispatch();
-  const { onNext } = useReceiveDialog();
+  const { goTo } = useReceiveDialog();
 
   const handleVerificationAgain = () => {
-    onNext(1, 0);
+    goTo(1, 0);
   };
 
   return (

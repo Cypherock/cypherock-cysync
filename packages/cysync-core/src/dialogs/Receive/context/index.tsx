@@ -12,7 +12,7 @@ import React, {
 import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { Receive, ReceiveDevice } from '../Dialogs';
+import { Receive } from '../Dialogs';
 import {
   ReceiveDeviceConfirm,
   ReceiveDeviceConfirmCancelled,
@@ -25,6 +25,7 @@ import {
   ReceiveAddressVerified,
   ReceiveVerifyAddress,
 } from '../Dialogs/Receive';
+import { ReceiveDeviceTroubleshoot } from '../Dialogs/Device/ReceiveDeviceTroubleshoot';
 
 type ITabs = {
   name: string;
@@ -34,6 +35,7 @@ type ITabs = {
 export interface ReceiveDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
+  goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   currentTab: number;
   currentDialog: number;
@@ -64,7 +66,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     {
       name: lang.strings.receive.aside.tabs.device,
       dialogs: [
-        <ReceiveDevice />,
+        <ReceiveDeviceTroubleshoot />,
         <ReceiveDeviceConnection />,
         <ReceiveDeviceConfirmCancelled />,
         <ReceiveDeviceConfirmTroubleShoot />,

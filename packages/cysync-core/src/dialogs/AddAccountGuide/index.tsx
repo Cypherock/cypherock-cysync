@@ -24,8 +24,6 @@ export const AddNewAccount: FC = () => {
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
-            currentDialog={currentDialog}
-            totalDialogs={tabs[currentTab].dialogs.length}
             header={tabs[0].header}
           />
           <WalletDialogMainContainer>

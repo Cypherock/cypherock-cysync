@@ -1,7 +1,6 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   Container,
   WalletDialogMainContainer,
   MilestoneAside,
@@ -10,17 +9,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { closeDialog, useAppDispatch } from '~/store';
 
 import { ReceiveDialogProvider, useReceiveDialog } from './context';
 
 export const Receive: FC = () => {
-  const lang = useAppSelector(selectLanguage);
   const { tabs, currentTab, currentDialog } = useReceiveDialog();
   const dispatch = useAppDispatch();
 
@@ -31,12 +24,9 @@ export const Receive: FC = () => {
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
-            currentDialog={currentDialog}
-            totalDialogs={tabs[currentTab].dialogs.length}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="space-between">
-              <HelpButton text={lang.strings.help} />
               <CloseButton
                 onClick={() => dispatch(closeDialog('receiveDialog'))}
               />

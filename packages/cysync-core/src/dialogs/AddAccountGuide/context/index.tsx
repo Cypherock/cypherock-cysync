@@ -2,14 +2,11 @@
 /* eslint-disable react/jsx-key */
 import React, {
   Context,
-  Dispatch,
   FC,
   ReactNode,
-  SetStateAction,
   createContext,
   useContext,
   useMemo,
-  useState,
 } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -24,6 +21,7 @@ import {
   SyncAccountDialog,
   AddAccountCongrats,
 } from '../Dialogs';
+import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
 
 type ITabs = {
   name: string;
@@ -34,9 +32,7 @@ type ITabs = {
 export interface AddAccountDialogContextInterface {
   tabs: ITabs;
   currentTab: number;
-  setCurrentTab: Dispatch<SetStateAction<number>>;
   currentDialog: number;
-  setCurrentDialog: Dispatch<SetStateAction<number>>;
   onNext: () => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
@@ -56,8 +52,10 @@ export const AddAccountDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const { header } = lang.strings.addAccount;
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [currentDialog, setCurrentDialog] = useState<number>(0);
+
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
+    1: [0],
+  };
 
   const tabs: ITabs = [
     {
@@ -84,69 +82,36 @@ export const AddAccountDialogProvider: FC<
     },
   ];
 
-  const onNext = () => {
-    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      goToNextTab();
-    } else {
-      goToNextDialog();
-    }
-  };
-
-  const goToNextTab = () => {
-    setCurrentTab(prevTab => Math.min(tabs.length - 1, prevTab + 1));
-    if (currentTab !== tabs.length - 1) {
-      setCurrentDialog(0);
-    }
-  };
-
-  const goToNextDialog = () => {
-    setCurrentDialog(prevDialog =>
-      Math.min(tabs[currentTab].dialogs.length - 1, prevDialog + 1),
-    );
-  };
-
-  const goTo = (tab: number, dialog?: number) => {
-    setCurrentTab(tab);
-    if (dialog !== undefined) {
-      setCurrentDialog(dialog);
-    } else {
-      setCurrentDialog(0);
-    }
-  };
-
-  const onPrevious = () => {
-    if (currentDialog - 1 < 0) {
-      if (currentTab === 0) {
-        setCurrentDialog(0);
-      } else {
-        setCurrentDialog(tabs[currentTab - 1].dialogs.length - 1);
-        setCurrentTab(prevProps => Math.max(0, prevProps - 1));
-      }
-    } else {
-      setCurrentDialog(prevProps => Math.max(0, prevProps - 1));
-    }
-  };
+  const {
+    onNext,
+    onPrevious,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+  } = useTabsAndDialogs({
+    deviceRequiredDialogsMap,
+    tabs,
+  });
 
   const ctx = useMemo(
     () => ({
       currentTab,
-      setCurrentTab,
       currentDialog,
-      setCurrentDialog,
       tabs,
       onNext,
-      goTo,
       onPrevious,
+      goTo,
+      isDeviceRequired,
     }),
     [
       currentTab,
-      setCurrentTab,
       currentDialog,
-      setCurrentDialog,
       tabs,
       onNext,
-      goTo,
       onPrevious,
+      goTo,
+      isDeviceRequired,
     ],
   );
 

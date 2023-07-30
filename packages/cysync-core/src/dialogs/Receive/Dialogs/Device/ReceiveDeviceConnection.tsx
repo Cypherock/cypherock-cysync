@@ -21,7 +21,7 @@ export const ReceiveDeviceConnection: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConnection.info.dialogBox;
-  const { onNext, onPrevious } = useReceiveDialog();
+  const { onNext, goTo, onPrevious } = useReceiveDialog();
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -29,9 +29,6 @@ export const ReceiveDeviceConnection: React.FC = () => {
     },
     ArrowLeft: () => {
       onPrevious();
-    },
-    ArrowUp: () => {
-      onNext(2, 1);
     },
   };
 
@@ -62,7 +59,9 @@ export const ReceiveDeviceConnection: React.FC = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary">{connect.buttonName}</Button>
+        <Button variant="secondary" onClick={() => goTo(2, 1)}>
+          {connect.buttonName}
+        </Button>
       </DialogBoxFooter>
     </DialogBox>
   );

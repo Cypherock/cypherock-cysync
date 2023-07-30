@@ -50,7 +50,6 @@ export const HorizontalBox = styled.div<{
       : theme.palette.background.input};
   ${spacing};
   width: 100%;
-  height: 42px;
   cursor: ${({ $isCheckable }) => ($isCheckable ? 'pointer' : 'default')};
 `;
 

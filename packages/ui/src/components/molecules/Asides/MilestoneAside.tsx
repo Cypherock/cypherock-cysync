@@ -68,8 +68,7 @@ export const MilestoneAside: FC<{
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-            {activeTab > index ||
-            (activeTab === index && currentDialog === totalDialogs - 1) ? (
+            {activeTab > index ? (
               <Image src={greenTick} alt="greenTick" />
             ) : (
               <Bullet size="sm" variant={textColor(activeTab, index)} />

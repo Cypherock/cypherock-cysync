@@ -17,7 +17,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
 
-export const ReceiveDevice: React.FC = () => {
+export const ReceiveDeviceTroubleshoot: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConnection.info.dialogBox;
@@ -59,9 +59,7 @@ export const ReceiveDevice: React.FC = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={() => onNext(2, 1)}>
-          {connect.buttonName}
-        </Button>
+        <Button variant="secondary">{connect.buttonName}</Button>
       </DialogBoxFooter>
     </DialogBox>
   );
