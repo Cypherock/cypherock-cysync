@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -18,7 +17,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
-import { useSendGuide } from '../context';
+import { useSendGuide } from '../../context';
 
 const dropDownData: DropDownListItemProps[] = [
   {
@@ -82,8 +81,8 @@ interface DropdownState {
 
 export const SelectSend: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const crypto = lang.strings.addAccount.addAccount.selectCrypto.info.dialogBox;
   const button = lang.strings.buttons;
+  const select = lang.strings.send.selectSend.info.dialogBox;
   const { onNext } = useSendGuide();
 
   const [dropdownState, setDropdownState] = useState<DropdownState>({
@@ -115,36 +114,30 @@ export const SelectSend: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text="Send crypto" />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={goldSendIcon} alt="Send Coin" />
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text="Source" />
+            <LangDisplay text={select.title} />
           </Typography>
           <Typography variant="span" color="muted">
-            <LangDisplay text="Choose an account and recipient" />
+            <LangDisplay text={select.subTitle} />
           </Typography>
         </Container>
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={dropDownDataWithWallet}
             selectedItem={dropdownState.firstDropdownSelection}
-            searchText={crypto.searchText}
-            placeholderText={crypto.placeholderWalletText}
+            searchText={select.searchText}
+            placeholderText={select.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            changeColorWhite
           />
           <Dropdown
             items={dropDownData}
             selectedItem={dropdownState.secondDropdownSelection}
             disabled={!dropdownState.isFirstDropdownSelected}
-            searchText={crypto.searchText}
-            placeholderText={crypto.placeholderText}
+            searchText={select.searchText}
+            placeholderText={select.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
           />
         </Container>

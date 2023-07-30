@@ -11,15 +11,22 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ConnectDevice } from '../../AddAccountGuide/Dialogs';
-import { SelectSend } from '../Dialogs/SelectSend';
-import { DeniedOnDevice } from '../Dialogs/DeniedOnDevice';
-import { LoadingDialog } from '../Dialogs/LoadingDialog';
-import { SendConfirmToken } from '../Dialogs/SendConfirmToken';
-import { SendDone } from '../Dialogs/SendDone';
-import { SummaryDialog } from '../Dialogs/SummaryDialog';
-import { SummaryScrollDialog } from '../Dialogs/SummaryScrollDialog';
-import { SendProblem } from '../Dialogs/SendProblem';
+
+import {
+  SelectSend,
+  DeniedOnDevice,
+  LoadingDialog,
+  StandardEthereum,
+  StandardOptimism,
+  SendConfirmToken,
+  SummaryDialog,
+  SummaryScrollDialog,
+  BitcoinTransaction,
+  ConnectDevice,
+  SendProblem,
+  SendDone,
+} from '../Dialogs';
+import { selectLanguage, useAppSelector } from '~/store';
 
 type ITabs = {
   name: string;
@@ -49,31 +56,33 @@ export const SendGuideProvider: FC<SendGuideContextProviderProps> = ({
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
 
+  const lang = useAppSelector(selectLanguage);
+
   const tabs: ITabs = [
     {
-      name: 'Source',
+      name: lang.strings.send.aside.tabs.source,
       dialogs: [<SelectSend />],
     },
     {
-      name: 'Recipient',
+      name: lang.strings.send.aside.tabs.recipient,
       dialogs: [
         <DeniedOnDevice />,
-        <LoadingDialog />,
-        <SendConfirmToken />,
-        <ConnectDevice />,
+        <BitcoinTransaction />,
+        <StandardEthereum />,
+        <StandardOptimism />,
       ],
     },
     {
-      name: 'Summary',
+      name: lang.strings.send.aside.tabs.summary,
       dialogs: [<SummaryDialog />, <SummaryScrollDialog />],
     },
     {
-      name: 'Device',
-      dialogs: [<SendProblem />],
+      name: lang.strings.send.aside.tabs.x1vault,
+      dialogs: [<SendConfirmToken />, <ConnectDevice />],
     },
     {
-      name: 'Confirmation',
-      dialogs: [<SendDone />],
+      name: lang.strings.send.aside.tabs.confirm,
+      dialogs: [<LoadingDialog />, <SendProblem />, <SendDone />],
     },
   ];
 

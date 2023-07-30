@@ -11,12 +11,17 @@ import {
   JoystickTraining,
   PermissionSetup,
   Portfolio,
+  Wallet,
+  History,
+  Settings,
+  Help,
   RouteName,
   routes,
   Terms,
   Usage,
   SetPassword,
   AppUpdate,
+  Test,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -37,6 +42,11 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-app-update': <AppUpdate />,
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
+  test: <Test />,
+  wallet: <Wallet />,
+  history: <History />,
+  settings: <Settings />,
+  help: <Help />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

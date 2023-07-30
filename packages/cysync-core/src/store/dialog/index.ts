@@ -3,9 +3,9 @@
 import 'immer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { DialogName, IDialogState } from './types';
+import type { RootState } from '~/store';
 
-import type { RootState } from '../store';
+import { DialogName, IDialogState } from './types';
 
 export * from './types';
 
@@ -23,6 +23,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   sendGuide: {
+    isOpen: false,
+  },
+  receiveDialog: {
     isOpen: false,
   },
 };

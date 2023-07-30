@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const ButtonGroupContainer = styled.div`
@@ -7,14 +7,14 @@ const ButtonGroupContainer = styled.div`
   padding: 2px;
 `;
 
-const PillButton = styled.button<{ active: boolean }>`
+const PillButton = styled.button<{ $active: boolean }>`
   border: none;
-  background: ${({ theme, active }) =>
-    active
+  background: ${({ theme, $active }) =>
+    $active
       ? `${theme.palette.background.gold}`
-      : `${theme.palette.background.dropdown}`};
-  color: ${({ theme, active }) =>
-    active
+      : `${theme.palette.background.separatorSecondary}`};
+  color: ${({ theme, $active }) =>
+    $active
       ? `${theme.palette.background.toggleActive}`
       : `${theme.palette.text.muted}`};
   border-radius: 0;
@@ -43,28 +43,33 @@ const PillButton = styled.button<{ active: boolean }>`
   white-space: nowrap;
 `;
 
-interface PillButtonGroupProps {
-  buttons: string[];
+export interface ButtonAttributes {
+  id: number;
+  label: string;
 }
 
-export const ButtonGroup: React.FC<PillButtonGroupProps> = ({ buttons }) => {
-  const [activeButton, setActiveButton] = useState(0);
+interface PillButtonGroupProps {
+  buttons: ButtonAttributes[];
+  activeButtonId: number; // Active button index provided from parent component
+  onButtonClick: (index: number) => void; // Callback function to handle button clicks in parent component
+}
 
-  const handleButtonClick = (index: number) => {
-    setActiveButton(index);
-  };
+export const ButtonGroup: React.FC<PillButtonGroupProps> = ({
+  buttons,
+  activeButtonId,
+  onButtonClick,
+}) => (
+  <ButtonGroupContainer>
+    {buttons.map(({ id, label }) => (
+      <PillButton
+        key={id}
+        $active={activeButtonId === id}
+        onClick={() => onButtonClick(id)} // Call the callback function with the button id
+      >
+        {label}
+      </PillButton>
+    ))}
+  </ButtonGroupContainer>
+);
 
-  return (
-    <ButtonGroupContainer>
-      {buttons.map((label, index) => (
-        <PillButton
-          key={label}
-          active={activeButton === index}
-          onClick={() => handleButtonClick(index)}
-        >
-          {label}
-        </PillButton>
-      ))}
-    </ButtonGroupContainer>
-  );
-};
+export default ButtonGroup;

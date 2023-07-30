@@ -2,7 +2,6 @@ import React from 'react';
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   DialogBoxFooter,
   Button,
@@ -18,11 +17,15 @@ import {
   qrImage,
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
-import { useSendGuide } from '../context';
+import { useSendGuide } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const SendDone: React.FC = () => {
   const { onNext, onPrevious } = useSendGuide();
+  const lang = useAppSelector(selectLanguage);
+
+  const confirm = lang.strings.send.sendConfirm.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -39,17 +42,11 @@ export const SendDone: React.FC = () => {
     <>
       <ConfettiBlast />
       <DialogBox width={500}>
-        <DialogBoxHeader height={56} width={500}>
-          <Typography variant="fineprint" width="100%" color="muted">
-            <LangDisplay text="Send crypto" />
-          </Typography>
-        </DialogBoxHeader>
-
         <DialogBoxBody>
           <Image src={successIcon} alt="Success Icon" />
           <Container display="flex" direction="column" gap={32}>
             <Typography variant="h4" $textAlign="center">
-              <LangDisplay text="Transaction Sent" />
+              <LangDisplay text={confirm.text} />
             </Typography>
 
             <Image src={qrImage} alt="QR image" width="195px" height="195px" />
@@ -58,22 +55,19 @@ export const SendDone: React.FC = () => {
                 <Flex justify="space-between" align="center" width="full">
                   <Flex align="center" gap={16}>
                     <Typography variant="span" color="muted" $fontSize={14}>
-                      <LangDisplay text="Transaction Hash" />
+                      <LangDisplay text={confirm.leftText} />
                     </Typography>
                   </Flex>
                   <Flex align="center" direction="row" gap={8}>
                     <Typography variant="span" color="muted" $fontSize={14}>
                       <LangDisplay text="Copy" />
                     </Typography>
-                    <Clipboard
-                      content="#2c70b9a11fcd.........6c31acda28"
-                      size="sm"
-                    />
+                    <Clipboard content={confirm.clipboard} size="sm" />
                   </Flex>
                 </Flex>
 
                 <LeanBox
-                  text="#2c70b9a11fcd.........6c31acda28"
+                  text={confirm.clipboard}
                   color="white"
                   rightImageSrc={openExternalLink}
                 />
@@ -82,7 +76,7 @@ export const SendDone: React.FC = () => {
                 showIcon
                 iconVariant="yellow"
                 textVariant="warn"
-                text="Your account balance will be updated when the blockchain confirms the transaction"
+                text={confirm.InfoBox.text}
               />
             </Container>
           </Container>
@@ -90,7 +84,7 @@ export const SendDone: React.FC = () => {
 
         <DialogBoxFooter height={101}>
           <Button variant="primary">
-            <LangDisplay text="Check transactions" />
+            <LangDisplay text={confirm.buttonCheck} />
           </Button>
         </DialogBoxFooter>
       </DialogBox>

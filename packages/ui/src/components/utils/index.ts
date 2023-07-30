@@ -54,3 +54,5 @@ export * from './shadow.styled';
 export * from './height.styled';
 export * from './animate.styled';
 export * from './border.styled';
+export * from './Gradient';
+export * from './MenuFilter';

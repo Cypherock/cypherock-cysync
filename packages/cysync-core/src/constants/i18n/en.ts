@@ -299,6 +299,7 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    back: 'Back',
     retry: 'Retry',
     update: 'Update',
     cancel: 'Cancel',
@@ -432,6 +433,403 @@ const en = {
       buttons: {
         cancel: 'Cancel',
         exit: 'Exit',
+      },
+    },
+  },
+  receive: {
+    receive: {
+      info: {
+        dialogBox: {
+          title: 'Receive',
+          header: 'Receive',
+          subheader: 'Choose a wallet and account to credit',
+          searchText: 'Search',
+          placeholderText: 'Choose a coin',
+          placeholderWalletText: 'Choose a wallet',
+          text: 'Cypherock Red',
+        },
+      },
+    },
+    deviceConnection: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Connect your X1 Vault to proceed',
+          subheader: 'Looks like your device is not connected',
+          buttonName: "Don't have your device?",
+        },
+      },
+    },
+    deviceConfirmCancelled: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Request was cancelled from the X1 Vault',
+          subheader: 'This is dialogue text or sub heading',
+          buttonRetry: 'Retry',
+          buttonReport: 'Report',
+        },
+      },
+    },
+    deviceConfirmForTroubleshoot: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          snackBar: {
+            text: 'Having trouble connecting the device?',
+            buttonName: 'Fix it',
+          },
+        },
+      },
+    },
+    deviceConfirmForToken: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          InfoBox: {
+            text: 'Remember you will receive Tether on your Ethereum Account address',
+          },
+        },
+      },
+    },
+    deviceConfirm: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+        },
+      },
+    },
+    deviceVerifyAddress: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+        },
+      },
+    },
+    deviceAddressVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+        },
+      },
+    },
+    deviceAddressNotVerified: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          buttonVerify: 'Verify Again',
+          buttonDone: 'Done',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+          InfoBox: {
+            text: 'This Receive Address was NOT VERIFIED by the device. Use it at your own risk.',
+          },
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        source: 'Source',
+        device: 'Device',
+        receive: 'Receive',
+      },
+    },
+  },
+  send: {
+    selectSend: {
+      info: {
+        dialogBox: {
+          title: 'Source',
+          subTitle: 'Choose an account and recipient',
+          constant: 'Cypherock Red',
+          searchText: 'Search',
+          placeholderText: 'Choose a coin',
+          placeholderWalletText: 'Choose a wallet',
+        },
+      },
+    },
+    deviceConnection: {
+      info: {
+        dialogBox: {
+          title: 'Send Crypto',
+          header: 'Connect your X1 Vault to your PC to proceed',
+        },
+      },
+    },
+    deviceConfirmCancelled: {
+      info: {
+        dialogBox: {
+          title: 'Receive Crypto',
+          header: 'Request was cancelled from the X1 Vault',
+          subheader: 'This is dialogue text or sub heading',
+          buttonRetry: 'Retry',
+          buttonReport: 'Report',
+        },
+      },
+    },
+    loading: {
+      info: {
+        dialogBox: {
+          header: 'Send crypto',
+          text: 'Broadcasting the transaction',
+        },
+      },
+    },
+    confirmToken: {
+      info: {
+        dialogBox: {
+          header: 'Follow instructions on the X1 Vault',
+          infoBox: {
+            info: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)',
+            warning:
+              'Always verify the address displayed on your device exactly matches the address given by the recipient',
+          },
+        },
+      },
+    },
+
+    bitcoin: {
+      info: {
+        dialogBox: {
+          transaction: {
+            tabs: {
+              tab1: 'Single Transaction',
+              tab2: 'Batch Transaction',
+            },
+            dialogBox: {
+              title: 'Recipient',
+              text: 'Enter the amount and the address of the recipient to whom you want to send the funds',
+            },
+          },
+          single: {
+            title: 'Send Crypto',
+            recipient: {
+              text: 'Recipient Address',
+              error: 'Error message for recipient address',
+              placeholder: 'Enter Ethereum address',
+            },
+            amount: {
+              text: 'Amount to send',
+              toggle: 'Send Max',
+              eth: 'ETH',
+              dollar: '$',
+              error: 'Error message for amount',
+            },
+
+            fees: {
+              title: 'Fees',
+              error: 'Error message for fee',
+              btc: '0.0002 BTC',
+              usd: '$5.51',
+              network: 'Network Fees',
+            },
+            message: '9 sat per byte',
+            inputPostfix: 'Sat per byte',
+            warning: 'Transaction might cancel if fees is very low',
+            toggleText: {
+              replace: 'Allow the transaction to be replaced (Replace by fees)',
+              unconfirmed:
+                'Include coins from unconfirmed, replaceable transactions',
+            },
+            InfoBox: {
+              text: 'Maximum spendable amount is',
+              altText: '~0.8436 BTC',
+            },
+          },
+          batch: {
+            title: 'Send Crypto',
+            fees: {
+              title: 'Fees',
+              error: 'Error message for fee',
+              btc: '0.0002 BTC',
+              usd: '$5.51',
+              network: 'Network Fees',
+            },
+            message: '9 sat per byte',
+            inputPostfix: 'Sat per byte',
+            warning: 'Transaction might cancel if fees is very low',
+            toggleText: {
+              replace: 'Allow the transaction to be replaced (Replace by fees)',
+              unconfirmed:
+                'Include coins from unconfirmed, replaceable transactions',
+            },
+            InfoBox: {
+              text: 'Maximum spendable amount is',
+              altText: '~0.8436 BTC',
+            },
+          },
+        },
+      },
+    },
+    ethereum: {
+      info: {
+        dialogBox: {
+          title: 'Send Crypto',
+          text: 'Recipient',
+          subText:
+            'Enter the amount and the address of the recipient to whom you want to send the funds',
+          recipient: {
+            text: 'Recipient Address',
+            error: 'Error message for recipient address',
+            placeholder: 'Enter Ethereum address',
+          },
+          amount: {
+            text: 'Amount to send',
+            toggle: 'Send Max',
+            eth: 'ETH',
+            dollar: '$',
+            error: 'Error message for amount',
+          },
+          fees: {
+            title: 'Fees',
+            error: 'Error message for fee',
+            fee: '0.0002 ETH',
+            usd: '$5.51',
+            network: 'Network Fees',
+          },
+          gas: 'Gas Price',
+          message: '53.2 GWEI',
+          inputPostfix: 'GWEI',
+          limit: 'Gas limit',
+          warning: 'Transaction might cancel if fees is very low',
+          InfoBox: {
+            text: 'Maximum spendable amount is',
+            altText: '~0.8436 BTC',
+          },
+        },
+      },
+    },
+    optimism: {
+      info: {
+        dialogBox: {
+          title: 'Send Crypto',
+          text: 'Recipient',
+          subText:
+            'Enter the amount and the address of the recipient to whom you want to send the funds',
+          recipient: {
+            text: 'Recipient Address',
+            error: 'Error message for recipient address',
+            placeholder: 'Enter Ethereum address',
+          },
+          amount: {
+            text: 'Amount to send',
+            toggle: 'Send Max',
+            eth: 'ETH',
+            dollar: '$',
+            error: 'Error message for amount',
+          },
+
+          fees: {
+            l1: {
+              text: 'Fees(L1)',
+              fee: '0 GWEI',
+              error: 'Error message for L1 fee',
+            },
+            l2: {
+              text: 'Fees(L2)',
+              error: 'Error message for L2 fee',
+            },
+            network: 'Network Fees (L1 + L2)',
+            fee: '0.0002 ETH',
+            usd: '$5.51',
+          },
+          gas: 'Gas Price',
+          message: '53.2 GWEI',
+          inputPostfix: 'GWEI',
+          limit: 'Gas limit',
+
+          warning: 'Transaction might cancel if fees is very low',
+          InfoBox: {
+            text: 'Maximum spendable amount is',
+            altText: '~0.8436 BTC',
+          },
+        },
+      },
+    },
+
+    transactionProblem: {
+      info: {
+        dialogBox: {
+          title: 'There was some problem broadcasting the transaction',
+        },
+      },
+    },
+    summary: {
+      info: {
+        dialogBox: {
+          title: 'Summary',
+          from: 'From',
+          walletName: 'Cypherock Red',
+          ethereum: 'Ethereum 1',
+          toAddress: '0xA4028f8dC64D18F0a66668d97473C47444A561Ea',
+          amountEth: '0.016686419917276198',
+          amountUsd: '19.89',
+          networkFeeEth: '0.00035448',
+          networkFeeUsd: '0.42',
+          totalEth: '0.017040899917276198',
+          totalUsd: '20.31',
+        },
+      },
+      scroll: {
+        dialogBox: {
+          title: 'Summary',
+          text: 'Cypherock Red',
+          ethereumText: 'Ethereum 1',
+          from: 'From',
+          toAddress: '0xA4028f8dC64D18F0a66668d97473C47444A561Ea',
+          amountEth: '0.016686419917276198 ETH',
+          amountInDollar: '$19.89',
+          networkFeeEth: '0.00035448 ETH',
+          networkFeeInDollar: '$0.42',
+          totalDebitEth: '0.017040899917276198 ETH',
+          totalDebitInDollar: '$20.31',
+        },
+      },
+    },
+    sendConfirm: {
+      info: {
+        dialogBox: {
+          title: 'Send Crypto',
+          copy: 'Copy',
+          clipboard: '#2c70b9a11fcd.........6c31acda28',
+          buttonCheck: 'Check transactions',
+          text: 'Transaction Sent',
+          leftText: 'Transaction Hash',
+          InfoBox: {
+            text: 'Your account balance will be updated when the blockchain confirms the transaction',
+          },
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        source: 'Source',
+        recipient: 'Recipient',
+        summary: 'Summary',
+        x1vault: 'X1 Vault',
+        confirm: 'Confirmation',
       },
     },
   },
@@ -790,24 +1188,32 @@ const en = {
     help: 'Help',
   },
   walletSync: {
+    deletedOne: {
+      title:
+        'Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?',
+    },
+    deletedMany: {
+      title:
+        'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
+      subTitle: 'You can chose which ones to keep and which ones to delete',
+    },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
       subTitle: 'You can chose which one to keep and which one to delete',
-      checkboxList: {
-        cypherockRed: 'Cypherock Red',
-        official: 'Official',
-        personal: 'Personal',
-      },
       checkboxText: "Don't show this again",
     },
     buttons: {
+      keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
     },
   },
   portfolio: {
     title: 'Portfolio',
+  },
+  wallet: {
+    title: 'Wallet',
   },
   errors: {
     deviceErrors,

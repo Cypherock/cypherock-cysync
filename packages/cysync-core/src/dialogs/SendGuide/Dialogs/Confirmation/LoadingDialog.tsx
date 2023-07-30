@@ -2,17 +2,20 @@ import {
   LangDisplay,
   loaderGrayIcon,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendGuide } from '../context';
+import { useSendGuide } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const LoadingDialog: React.FC = () => {
   const { onNext, onPrevious } = useSendGuide();
+  const lang = useAppSelector(selectLanguage);
+
+  const loading = lang.strings.send.loading.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -27,15 +30,10 @@ export const LoadingDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text="Send crypto" />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={loaderGrayIcon} alt="Loader" animate="spin" />
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text="Broadcasting the transaction" />
+          <LangDisplay text={loading.text} />
         </Typography>
       </DialogBoxBody>
     </DialogBox>

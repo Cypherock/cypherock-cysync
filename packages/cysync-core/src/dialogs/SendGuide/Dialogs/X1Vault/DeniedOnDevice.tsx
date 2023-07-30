@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxFooter,
   Button,
   DialogBoxBody,
@@ -12,7 +11,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../context';
+import { useSendGuide } from '../../context';
 
 export const DeniedOnDevice: React.FC = () => {
   const { onNext, onPrevious } = useSendGuide();
@@ -31,11 +30,6 @@ export const DeniedOnDevice: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text="Send crypto" />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyAmountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={12} width="full">

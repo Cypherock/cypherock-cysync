@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from 'react';
+import React, { FC, ReactElement, ReactNode, useCallback } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,14 +11,18 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
+  Flex,
 } from '../atoms';
+import { SpacingProps, spacing } from '../utils';
 
-export interface LeanBoxProps {
+export interface LeanBoxProps extends SpacingProps {
   leftImageSrc?: string;
   rightImageSrc?: string;
+  icon?: ReactNode;
   rightText?: string;
   tag?: string;
   text: string;
+  altText?: string;
   fontSize?: number;
   shortForm?: string;
   rightTextColor?: TypographyColor;
@@ -45,8 +49,10 @@ export const HorizontalBox = styled.div<{ $isChecked: boolean }>`
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
-  width: 422px;
+  cursor: pointer;
+  width: 100%;
   height: 42px;
+  ${spacing};
 `;
 
 export const ImageContainer = styled.div<{ gap?: number }>`
@@ -73,9 +79,11 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImageSrc,
   rightImageSrc,
+  icon,
   rightText,
   shortForm = '',
   text,
+  altText,
   fontSize = 16,
   tag,
   textVariant = 'fineprint',
@@ -96,7 +104,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   }, [onCheckChanged, $isChecked]);
 
   return (
-    <InputLabel>
+    <InputLabel px={0}>
       <HorizontalBox $isChecked={$isChecked}>
         {checkType === 'radio' && (
           <RadioButton
@@ -121,8 +129,16 @@ export const LeanBox: FC<LeanBoxProps> = ({
           color={color}
           fontSize={fontSize}
         >
-          {text}
+          <Flex align="center" gap={5}>
+            {text}
+            {altText && (
+              <Typography $fontSize={fontSize} variant="span">
+                <LangDisplay text={altText} />
+              </Typography>
+            )}
+          </Flex>
         </StretchedTypography>
+
         {shortForm && (
           <Typography $fontSize={13} $fontWeight="medium" color="muted">
             <LangDisplay text={shortForm} />
@@ -155,6 +171,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               )}
             </ImageContainer>
           )}
+          {icon && icon}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
@@ -171,7 +188,9 @@ export const LeanBox: FC<LeanBoxProps> = ({
 LeanBox.defaultProps = {
   leftImageSrc: undefined,
   rightImageSrc: undefined,
+  icon: undefined,
   rightText: undefined,
+  altText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
   rightTextVariant: 'fineprint',

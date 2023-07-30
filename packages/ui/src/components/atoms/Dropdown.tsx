@@ -4,17 +4,18 @@ import styled, { useTheme } from 'styled-components';
 import { Image } from './Image';
 import { Input } from './Input';
 
-import { searchIcon, triangleInverseIcon, walletIcon } from '../../assets';
+import { searchIcon, triangleInverseIcon } from '../../assets';
 import { DropDownListItem, DropDownListItemProps } from '../molecules';
+import { findSelectedItem, searchInItems } from '../utils';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
-  changeColorWhite?: boolean;
   searchText: string;
   placeholderText: string;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
+  shouldShowIcon?: boolean;
 }
 
 const List = styled.ul<{ disabled?: boolean }>`
@@ -27,7 +28,7 @@ const List = styled.ul<{ disabled?: boolean }>`
   box-shadow: 4px 4px 32px 4px ${({ theme }) => theme.palette.shadow.dropdown};
   padding: 16px 0px 16px 0px;
   z-index: 10;
-  background-color: ${({ theme }) => theme.palette.background.input};
+  background-color: ${({ theme }) => theme.palette.border.list};
   &:hover {
     cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
   }
@@ -46,8 +47,8 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
   position: relative;
   width: 100%;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.palette.border.dropdown};
-
+  background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
+  padding: 1px;
   ${({ disabled, theme }) =>
     !disabled &&
     `
@@ -58,7 +59,6 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
             inset: 0;
             border-radius: 8px;
             border: 1px solid transparent;
-            z-index: 10;
             background: ${theme.palette.golden};
             -webkit-mask: linear-gradient(#fff 0 0) padding-box,
               linear-gradient(#fff 0 0);
@@ -84,13 +84,14 @@ const Container = styled.div<{ $isOpen: boolean; disabled?: boolean }>`
 const IconContainer = styled.div`
   position: absolute;
   right: 24px;
+  padding-bottom: 8px;
   top: 60%;
   transform: translateY(-50%);
 `;
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  changeColorWhite,
+  shouldShowIcon,
   searchText,
   placeholderText,
   selectedItem = undefined,
@@ -99,32 +100,25 @@ export const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setisOpen] = useState(false);
-  const [checkedStates, setCheckedStates] = React.useState<
-    Record<string, boolean>
-  >({});
   const [isHovered, setIsHovered] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleCheckedChange = (id: string, checked: boolean) => {
-    setCheckedStates(prevStates => ({ ...prevStates, [id]: checked }));
+  const handleCheckedChange = (id: string) => {
+    onChange(id);
   };
 
-  const filteredItems = useMemo(
-    () =>
-      items.filter(item =>
-        item.text.toLowerCase().includes(search.toLowerCase()),
-      ),
-    [items, search],
-  );
-
   const selectedDropdownItem = useMemo(
-    () => items.find(item => item.id === selectedItem),
+    () => findSelectedItem(items, selectedItem),
     [items, selectedItem],
   );
 
+  const filteredItems = useMemo(
+    () => searchInItems(items, search, selectedItem),
+    [items, search],
+  );
+
   const handleInputChange = (value: string) => {
-    if (!disabled) {
-      setSearch(value);
-    }
+    setSearch(value);
   };
 
   const toggleDropdown = () => {
@@ -134,15 +128,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  const handleItemSelection = (item: DropDownListItemProps) => {
-    const id = item.id ?? '';
-    onChange(id);
-    handleCheckedChange(id, true);
+  const handleItemSelection = () => {
     toggleDropdown();
   };
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const theme = useTheme();
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -170,32 +167,33 @@ export const Dropdown: React.FC<DropdownProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {selectedItem ? (
+      {selectedItem && !isOpen ? (
         <DropDownListItem
           $borderRadius={8}
-          checked={checkedStates[selectedItem]}
-          onCheckedChange={checked =>
-            handleCheckedChange(selectedItem, checked)
+          checked={!!selectedItem || false}
+          onCheckedChange={() =>
+            handleCheckedChange(selectedDropdownItem?.id ?? '')
           }
-          id={selectedItem}
+          id={selectedDropdownItem?.id}
           text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
-          restrictedItem
-          changeColorWhite
-          leftImageSrc={
-            changeColorWhite ? walletIcon : selectedDropdownItem?.leftImageSrc
-          }
+          $restrictedItem
+          leftImageSrc={selectedDropdownItem?.leftImageSrc}
+          rightText={selectedDropdownItem?.rightText}
+          $hasRightText={!!selectedDropdownItem?.rightText}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
+          color="white"
         />
       ) : (
         <Input
           type="text"
+          ref={inputRef}
           value={search}
           name="choose"
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          $bgColor={theme?.palette.background.dropdown}
+          $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
           disabled={disabled}
         />
@@ -212,14 +210,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {filteredItems.map(item => {
             const itemId = item.id ?? '';
             return (
-              <ListItem key={itemId} onClick={() => handleItemSelection(item)}>
+              <ListItem key={itemId} onClick={() => handleItemSelection()}>
                 <DropDownListItem
-                  checked={checkedStates[itemId]}
-                  onCheckedChange={checked =>
-                    handleCheckedChange(itemId, checked)
-                  }
+                  checked={selectedItem === item.id}
+                  onCheckedChange={handleCheckedChange}
                   {...item}
                   selectedItem={selectedItem}
+                  id={item.id}
+                  leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                 />
               </ListItem>
             );
@@ -231,6 +229,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 };
 
 Dropdown.defaultProps = {
-  changeColorWhite: false,
   disabled: false,
+  shouldShowIcon: false,
 };

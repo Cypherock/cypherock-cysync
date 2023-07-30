@@ -13,11 +13,12 @@ export const Info: FC<{
     $borderColor={textVariant === 'warn' ? 'warning' : 'input'}
     $bgColor="input"
     align="center"
+    width="full"
     $borderRadius={8}
-    gap={18}
+    gap={16}
     p={1}
   >
-    {showIcon && <InfoIcon color={iconVariant} width={36} height={36} />}
+    {showIcon && <InfoIcon color={iconVariant} width={20} height={18} />}
     <Typography
       variant="fineprint"
       $textAlign={showIcon ? 'left' : 'center'}

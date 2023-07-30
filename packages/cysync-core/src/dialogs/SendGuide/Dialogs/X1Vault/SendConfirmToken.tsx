@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -17,13 +16,14 @@ import {
 import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../context';
+import { useSendGuide } from '../../context';
 
 const dataArray = [
   {
     id: '1',
     leftImageSrc: arrowGoldenForward,
-    text: 'Verify Tether',
+    text: 'Verify',
+    altText: 'Tether',
     rightImageSrc: checkIcon,
   },
   {
@@ -35,14 +35,16 @@ const dataArray = [
   {
     id: '3',
     leftImageSrc: arrowGoldenForward,
-    text: 'Verify Amount: 0.0166864199 USDT',
+    text: 'Verify Amount:',
+    altText: '0.0166864199 USDT',
     rightImageSrc: halfLoaderGold,
     animate: true,
   },
   {
     id: '4',
     leftImageSrc: arrowGoldenForward,
-    text: 'Verify fees: 0.00035448 ETH',
+    text: 'Verify fees:',
+    altText: '0.00035448 ETH',
   },
   {
     id: '5',
@@ -56,10 +58,9 @@ const dataArray = [
   },
 ];
 export const SendConfirmToken: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const initAccount =
-    lang.strings.addAccount.addAccount.initAccount.info.dialogBox;
   const { onNext, onPrevious } = useSendGuide();
+  const lang = useAppSelector(selectLanguage);
+  const confirm = lang.strings.send.confirmToken.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -74,16 +75,11 @@ export const SendConfirmToken: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxHeader height={56} width={600}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={initAccount.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyAmountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={initAccount.header} />
+            <LangDisplay text={confirm.header} />
           </Typography>
         </Container>
         <LeanBoxContainer>
@@ -93,6 +89,7 @@ export const SendConfirmToken: React.FC = () => {
               leftImageSrc={data.leftImageSrc}
               rightImageSrc={data.rightImageSrc}
               text={data.text}
+              altText={data.altText}
               id={data.id}
               animate={data.animate}
             />
@@ -103,14 +100,14 @@ export const SendConfirmToken: React.FC = () => {
           showIcon
           iconVariant="white"
           textVariant="muted"
-          text="Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)"
+          text={confirm.infoBox.info}
         />
 
         <Info
           showIcon
           iconVariant="yellow"
           textVariant="warn"
-          text="Always verify the address displayed on your device exactly matches the address given by the recipient"
+          text={confirm.infoBox.warning}
         />
       </DialogBoxBody>
     </DialogBox>
