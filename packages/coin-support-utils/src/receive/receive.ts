@@ -36,7 +36,6 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
 
         if (finished) return;
 
-        app = await params.createApp(params.connection);
         const { address, expectedFromDevice, derivationPath } =
           await params.generateReceiveAddress({
             account,
@@ -45,16 +44,19 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
 
         if (finished) return;
 
-        const addressFromDevice = await params.getReceiveAddressFromDevice({
-          app,
-          derivationPath,
-          walletId: account.walletId,
-          observer,
-        });
-        observer.next({
-          type: 'AddressMatched',
-          didAddressMatched: addressFromDevice === expectedFromDevice,
-        } as any);
+        if (params.connection) {
+          app = await params.createApp(params.connection);
+          const addressFromDevice = await params.getReceiveAddressFromDevice({
+            app,
+            derivationPath,
+            walletId: account.walletId,
+            observer,
+          });
+          observer.next({
+            type: 'AddressMatched',
+            didAddressMatched: addressFromDevice === expectedFromDevice,
+          } as any);
+        }
 
         observer.complete();
       } catch (error) {

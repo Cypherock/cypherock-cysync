@@ -119,7 +119,6 @@ export {
   usbIcon,
   copyIcon,
   checkIcon,
-  InfoIcon,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,

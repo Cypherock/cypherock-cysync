@@ -73,6 +73,7 @@ export const theme = {
       infoBackground: colors.background.infoBackground,
       lightBlack: colors.background.lightBlack,
       sidebar: colors.background.sidebar,
+      warning: colors.background.warning,
     },
     border: {
       popup: colors.border.popup,

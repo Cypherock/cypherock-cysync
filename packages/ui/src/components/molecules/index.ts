@@ -21,3 +21,4 @@ export * from './DropDownListItem';
 export * from './SnackBar';
 export * from './SideBar';
 export * from './Dropdown';
+export * from './MessageBox';

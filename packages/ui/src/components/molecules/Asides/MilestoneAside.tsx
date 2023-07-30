@@ -31,6 +31,7 @@ const textColor = (activeTab: number, index: number) => {
 };
 
 export const MilestoneAside: FC<{
+  heading?: string;
   milestones: string[];
   activeTab: number;
   header?: string;
@@ -42,6 +43,7 @@ export const MilestoneAside: FC<{
       </Typography>
     )}
     {!header && (
+
       <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     )}
     <Flex direction="column" py={8}>

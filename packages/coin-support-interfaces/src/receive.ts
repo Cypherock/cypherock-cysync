@@ -3,7 +3,7 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface IReceiveParams {
   db: IDatabase;
-  connection: IDeviceConnection;
+  connection?: IDeviceConnection;
   accountId: string;
 }
 
@@ -16,6 +16,7 @@ export enum ReceiveDeviceEvent {
   CARD_TAPPED = 3,
   VERIFIED = 4,
 }
+
 export interface IReceiveEvent {
   type: IReceiveEventType;
   didAddressMatched?: boolean;
