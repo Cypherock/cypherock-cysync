@@ -71,7 +71,9 @@ const getRoute = (parseRoutes: IRoutes) => {
   return allRoutes;
 };
 
-const BaseAppRouter = () => (
+const BaseAppRouter: React.FC<{ children: ReactNode | undefined }> = ({
+  children,
+}) => (
   <Router>
     <Routes>
       {getRoute(routes).map(route => (
@@ -82,6 +84,7 @@ const BaseAppRouter = () => (
         />
       ))}
     </Routes>
+    {children}
   </Router>
 );
 

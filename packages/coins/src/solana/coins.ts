@@ -2,6 +2,7 @@ export default [
   {
     id: 'solana',
     name: 'Solana',
+    abbr: 'SOL',
     isTest: false,
     coinGeckoId: 'solana',
     coinIndex: '800001f5',

@@ -79,8 +79,12 @@ export const Topbar: FC<{
 
   return (
     <Container
-      p={3}
+      px={5}
+      pt={3}
+      pb="10"
       $bgColor="contentGradient"
+      $borderWidthB={1}
+      $borderColor="topbar"
       width="full"
       justify="space-between"
     >

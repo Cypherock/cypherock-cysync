@@ -72,11 +72,15 @@ export const colors = {
     separator: '#39322C',
     warning: '#4A2D00',
     bar: '#474747',
-    table: '#2C2929',
+    table: {
+      title: '#363535',
+      row: '#2C2929',
+    },
     muted: '#8B8682',
     white: '#ffffff',
     separatorSecondary: '#272320',
     gold: 'gold',
+    topbar: '#342C26',
   },
   shadow: {
     dropdown: '#0f0d0b',

@@ -1,4 +1,4 @@
-import { openDialog } from '~/store';
+import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
   openDialog({ name: 'walletSyncError', data: undefined });
@@ -6,8 +6,8 @@ export const openWalletSyncErrorDialog = () =>
 export const openWalletActionsDialog = () =>
   openDialog({ name: 'walletActions', data: undefined });
 
-export const openCreateWalletGuideDialog = () =>
-  openDialog({ name: 'createWalletGuide', data: undefined });
+export const openGuidedFlowDialog = (type: GuidedFlowType) =>
+  openDialog({ name: 'guidedFlow', data: { type } });
 
 export const openAddAccountDialog = () =>
-  openDialog({ name: 'addAccountDialog', data: undefined });
+  openDialog({ name: 'addAccount', data: undefined });

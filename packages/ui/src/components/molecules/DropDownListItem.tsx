@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import {
   CheckBox,
-  Image,
   LangDisplay,
   RadioButton,
   Tag,
@@ -14,14 +13,14 @@ import {
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
 export interface DropDownListItemProps extends BorderProps {
-  leftImageSrc?: string;
-  rightIconSrc?: string;
+  leftImage?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   rightText?: string;
   $hasRightText?: boolean;
   tag?: string;
   text: string;
   radioButtonValue?: string;
-  restrictedItem?: boolean;
+  $restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
@@ -72,8 +71,8 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ restrictedItem, $isChecked, theme }) => {
-    if (restrictedItem) {
+  background-color: ${({ $restrictedItem, $isChecked, theme }) => {
+    if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
     if ($isChecked) {
@@ -120,8 +119,8 @@ const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
 `;
 
 export const DropDownListItem: FC<DropDownListItemProps> = ({
-  leftImageSrc,
-  rightIconSrc,
+  leftImage,
+  rightIcon,
   radioButtonValue,
   rightText,
   selectedItem = undefined,
@@ -136,7 +135,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   id,
   color,
   onClick,
-  restrictedItem = false,
+  $restrictedItem = false,
   onCheckedChange,
   $borderRadius,
   subMenu = [],
@@ -157,24 +156,19 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $isChecked={checked}
         $borderRadius={$borderRadius}
         $hasRightText={$hasRightText}
-        restrictedItem={restrictedItem}
+        $restrictedItem={$restrictedItem}
         text={text}
       >
-        {!restrictedItem && checkType && checkType === 'radio' && (
+        {!$restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
             checked={checked}
             value={radioButtonValue}
             onChange={handleCheckChange}
           />
         )}
-        {leftImageSrc && (
+        {leftImage && (
           <DropDownListItemIconContainer>
-            <Image
-              src={leftImageSrc}
-              alt="Left Icon"
-              width="20px"
-              height="16px"
-            />
+            {leftImage}
           </DropDownListItemIconContainer>
         )}
         <DropDownListItemStretchedTypography
@@ -199,17 +193,12 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
               {rightText}
             </RightTextTypography>
           )}
-          {rightIconSrc && (
+          {rightIcon && (
             <DropDownListItemIconContainer>
-              <Image
-                src={rightIconSrc}
-                alt="Right Icon"
-                width="15px"
-                height="12px"
-              />
+              {rightIcon}
             </DropDownListItemIconContainer>
           )}
-          {!restrictedItem && checkType && checkType === 'checkbox' && (
+          {!$restrictedItem && checkType && checkType === 'checkbox' && (
             <CheckBox
               checked={checked}
               onChange={handleCheckChange}
@@ -236,8 +225,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
 };
 
 DropDownListItem.defaultProps = {
-  rightIconSrc: undefined,
-  leftImageSrc: undefined,
+  rightIcon: undefined,
+  leftImage: undefined,
   rightText: undefined,
   rightTextColor: 'muted',
   radioButtonValue: '',
@@ -246,7 +235,7 @@ DropDownListItem.defaultProps = {
   id: undefined,
   tag: undefined,
   onClick: undefined,
-  restrictedItem: false,
+  $restrictedItem: false,
   selectedItem: undefined,
   checked: false,
   onCheckedChange: undefined,
