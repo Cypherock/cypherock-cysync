@@ -85,7 +85,12 @@ const TableHeaderDataStyle = styled.div<TableHeaderDataProps>`
   align-items: center;
   justify-content: space-between;
   flex: ${({ $noFlex }) => ($noFlex ? 'unset' : '1')};
-  padding: 16px 20px 16px 40px;
+  padding: 16px;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    padding: 16px 20px 16px 40px;
+  }
+
   ${flex}
   ${width}
   ${height}

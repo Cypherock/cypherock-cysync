@@ -8,3 +8,4 @@ export * from './useErrorHandler';
 export * from './useOnboardingCheckpoint';
 export * from './useTabsAndDialogs';
 export * from './useAppUpdate';
+export * from './useMediaQuery';

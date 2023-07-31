@@ -10,6 +10,7 @@ export type BgColor =
   | 'separator'
   | 'separatorSecondary'
   | 'input'
+  | 'inputSecondary'
   | 'white'
   | 'highlight'
   | 'golden'

@@ -1,28 +1,36 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
+import { Flex } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode } from 'react';
 
 import { AppUpdateBar, Topbar } from '~/components';
 
 import { SideBar } from './SideBar';
+import styled from 'styled-components';
 
 interface MainAppLayoutProps {
   title: string;
   children?: ReactNode;
 }
 
-export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => (
-  <Container height="screen" display="flex" $bgColor="contentGradient">
+const MainAppLayoutStyle = styled.div<MainAppLayoutProps>`
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: ${({ theme }) => theme.palette.background.content};
+`;
+
+export const MainAppLayout: FC<MainAppLayoutProps> = ({ ...props }) => (
+  <MainAppLayoutStyle {...props}>
     <SideBar />
-    <Flex direction="column" grow={1} $alignSelf="start">
+    <Flex width="full" direction="column">
       <Flex direction="column" gap={16}>
         <AppUpdateBar />
-        <Topbar title={title} />
+        <Topbar title={props.title} />
       </Flex>
       <Flex direction="column" gap={16} p="20">
-        {children}
+        {props.children}
       </Flex>
     </Flex>
-  </Container>
+  </MainAppLayoutStyle>
 );
 
 MainAppLayout.defaultProps = {

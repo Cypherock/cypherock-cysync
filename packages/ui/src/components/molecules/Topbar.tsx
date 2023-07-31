@@ -20,14 +20,7 @@ import { svgGradients } from '../GlobalStyles';
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
-const DividingLine = styled.div`
-  width: 1px;
-  background-color: ${props =>
-    props.theme.palette.background.separatorSecondary};
-  height: 23.33px;
-`;
-
-export const Topbar: FC<{
+interface ITopbar {
   title: string;
   statusTexts: {
     connection: {
@@ -50,7 +43,17 @@ export const Topbar: FC<{
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
-}> = ({
+  size?: 'small' | 'big';
+}
+
+const DividingLine = styled.div`
+  width: 1px;
+  background-color: ${props =>
+    props.theme.palette.background.separatorSecondary};
+  height: 23.33px;
+`;
+
+export const Topbar: FC<ITopbar> = ({
   title,
   statusTexts,
   connectionStatus,
@@ -62,6 +65,7 @@ export const Topbar: FC<{
   isDiscreetMode,
   syncStatus,
   toggleDiscreetMode,
+  size,
 }) => {
   const theme = useTheme();
 
@@ -79,9 +83,9 @@ export const Topbar: FC<{
 
   return (
     <Container
-      px={{ def: 4, md: 5 }}
-      pt={{ def: '8', md: '50' }}
-      pb={{ def: '8', md: '10' }}
+      px={{ def: 4, lg: 5 }}
+      pt={{ def: '8', lg: '50' }}
+      pb={{ def: '8', lg: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
       $borderColor="topbar"
@@ -95,16 +99,20 @@ export const Topbar: FC<{
       <Flex align="center">
         <Flex pr={2} align="center" gap={16}>
           {syncStatusMap[syncStatus]}
-          <Typography color="muted">
-            <LangDisplay text={statusTexts.sync[syncStatus]} />
-          </Typography>
+          {size === 'big' && (
+            <Typography color="muted">
+              <LangDisplay text={statusTexts.sync[syncStatus]} />
+            </Typography>
+          )}
         </Flex>
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
-          <Typography color="muted">
-            <LangDisplay text={statusTexts.connection[connectionStatus]} />
-          </Typography>
+          {size === 'big' && (
+            <Typography color="muted">
+              <LangDisplay text={statusTexts.connection[connectionStatus]} />
+            </Typography>
+          )}
         </Flex>
         <DividingLine />
         <Flex px={2} py="3" height="full" align="center" gap={16}>
@@ -130,4 +138,8 @@ export const Topbar: FC<{
       </Flex>
     </Container>
   );
+};
+
+Topbar.defaultProps = {
+  size: 'big',
 };
