@@ -31,7 +31,7 @@ export interface DropDownListItemProps extends BorderProps {
   checked?: boolean;
   onCheckedChange?: (id: string) => void;
   color?: TypographyColor;
-  parentId?: string;
+  $parentId?: string;
   $isFocused?: boolean;
 }
 
@@ -91,8 +91,8 @@ export const DropDownListItemHorizontalBox = styled.div<
     }
   }
   color: ${({ theme }) => theme.palette.text.muted};
-  ${({ parentId, $restrictedItem }) =>
-    parentId &&
+  ${({ $parentId, $restrictedItem }) =>
+    $parentId &&
     !$restrictedItem &&
     css`
       border-left: 0.5px solid
@@ -135,7 +135,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   rightIconSrc,
   radioButtonValue,
   rightText,
-  parentId = '',
+  $parentId = '',
   text,
   shortForm = '',
   tag,
@@ -171,7 +171,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $restrictedItem={$restrictedItem}
         text={text}
         $isFocused={$isFocused}
-        parentId={parentId}
+        $parentId={$parentId}
       >
         {!$restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
@@ -253,5 +253,5 @@ DropDownListItem.defaultProps = {
   color: 'muted',
   $hasRightText: false,
   $isFocused: false,
-  parentId: '',
+  $parentId: '',
 };

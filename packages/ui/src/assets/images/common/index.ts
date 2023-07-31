@@ -51,6 +51,7 @@ import shieldAlert from './shield-alert.svg';
 import solanaIcon from './solana.svg';
 import successIcon from './success.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
+import triangleGreyIcon from './triangleGrey.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
@@ -60,6 +61,7 @@ export {
   addWalletIcon,
   walletIcon,
   questionMarkIcon,
+  triangleGreyIcon,
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,

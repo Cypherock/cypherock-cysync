@@ -8,7 +8,12 @@ import {
   List,
 } from './DropdownStyles';
 
-import { searchIcon, triangleInverseIcon } from '../../../assets';
+import {
+  searchIcon,
+  triangleGreyIcon,
+  triangleInverseIcon,
+} from '../../../assets';
+import { Image, Input } from '../../atoms';
 import {
   findSelectedItem,
   handleClickOutside,
@@ -16,7 +21,6 @@ import {
   handleKeyDown,
   searchInItems,
 } from '../../utils';
-import { Image, Input } from '../../atoms';
 import { DropDownListItem, DropDownListItemProps } from '../DropDownListItem';
 
 interface DropdownProps {
@@ -44,6 +48,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
 
   const handleCheckedChange = (id: string) => {
     onChange(id);
@@ -84,7 +89,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    const escapeKeyHandler = handleEscapeKey(setIsOpen);
+    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen, containerRef);
+
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
     window.addEventListener('keydown', escapeKeyHandler);
@@ -94,7 +100,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       window.removeEventListener('keydown', escapeKeyHandler);
       window.removeEventListener('click', clickOutsideHandler);
     };
-  }, []);
+  }, [isOpen, setIsOpen, containerRef]);
 
   return (
     <DropdownContainer
@@ -113,6 +119,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setSelectedIndex,
         handleCheckedChange,
         filteredItems,
+        listRef,
       )}
       tabIndex={disabled ? -1 : 0}
     >
@@ -132,7 +139,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           $hasRightText={!!selectedDropdownItem?.rightText}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
-          parentId={selectedDropdownItem?.parentId}
+          $parentId={selectedDropdownItem?.$parentId}
           color="white"
         />
       ) : (
@@ -152,6 +159,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             setSelectedIndex,
             handleCheckedChange,
             filteredItems,
+            listRef,
           )}
           $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
@@ -165,14 +173,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
         />
       )}
       <IconContainer>
-        <Image
-          src={isOpen ? searchIcon : triangleInverseIcon}
-          alt={isOpen ? 'Search Icon' : 'Dropdown Icon'}
-        />
+        {disabled ? (
+          <Image src={triangleGreyIcon} alt="triangle icon" />
+        ) : (
+          <Image
+            src={isOpen ? searchIcon : triangleInverseIcon}
+            alt={isOpen ? 'Search Icon' : 'Dropdown Icon'}
+          />
+        )}
       </IconContainer>
 
       {isOpen && (
         <List
+          ref={listRef}
           onMouseLeave={toggleDropdown}
           disabled={disabled}
           id="dropdown-list"
@@ -184,7 +197,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
             const itemId = item.id ?? '';
             const isItemFocused = focusedIndex === index;
             const isItemSelected = selectedIndex === index;
-
             return (
               <DropdownListItem
                 key={itemId}

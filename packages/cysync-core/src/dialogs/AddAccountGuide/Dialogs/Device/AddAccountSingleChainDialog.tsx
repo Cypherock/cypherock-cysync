@@ -227,9 +227,7 @@ export const AddAccountSingleChainDialog: FC = () => {
                     onClick={handleSelectAll}
                     $cursor
                   >
-                    <LangDisplay
-                      text={`${singleChain.selectAllButton} (${checkedItemsCount})`}
-                    />
+                    <LangDisplay text={singleChain.selectAllButton} />
                   </InputLabel>
                 )}
               </div>
