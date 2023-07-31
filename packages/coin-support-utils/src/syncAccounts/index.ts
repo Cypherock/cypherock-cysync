@@ -1,10 +1,10 @@
 import { sleep } from '@cypherock/cysync-utils';
-
-import { Observable } from 'rxjs';
 import { ITransaction } from '@cypherock/db-interfaces';
-import { insertOrUpdateTransactions } from '../db';
+import { Observable } from 'rxjs';
+
 import { ICreateSyncAccountsObservableParams } from './types';
 
+import { insertOrUpdateTransactions } from '../db';
 import logger from '../utils/logger';
 
 export * from './types';

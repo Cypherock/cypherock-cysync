@@ -30,7 +30,6 @@ import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
-import { InfoIcon } from './InfoIcon';
 import informationIcon from './information.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
@@ -107,7 +106,6 @@ export {
   usbIcon,
   copyIcon,
   checkIcon,
-  InfoIcon,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,

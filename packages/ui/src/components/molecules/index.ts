@@ -20,3 +20,4 @@ export * from './LeanBox';
 export * from './DropDownListItem';
 export * from './SideBar';
 export * from './Dropdown';
+export * from './MessageBox';
