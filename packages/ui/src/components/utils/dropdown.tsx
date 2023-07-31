@@ -10,12 +10,12 @@ export const findSelectedItem = (
     if (item.id === selectedId) {
       return item;
     }
-    if (item.subMenu && item.subMenu.length > 0) {
-      const foundItem = findSelectedItem(item.subMenu, selectedId);
-      if (foundItem) {
-        return foundItem;
-      }
-    }
+    // if (item.subMenu && item.subMenu.length > 0) {
+    //   const foundItem = findSelectedItem(item.subMenu, selectedId);
+    //   if (foundItem) {
+    //     return foundItem;
+    //   }
+    // }
   }
   return undefined;
 };
@@ -31,25 +31,15 @@ export const searchInItems = (
       item.id === selectedItem ||
       item.text.toLowerCase().includes(searchString.toLowerCase());
 
-    if (item.subMenu && item.subMenu.length > 0) {
-      const subMenuFiltered = searchInItems(
-        item.subMenu,
-        searchString,
-        selectedItem,
-      );
-      if (subMenuFiltered.length > 0) {
-        filteredItems.push({
-          ...item,
-          subMenu: subMenuFiltered,
-        });
-      } else if (shouldAdd) {
-        filteredItems.push(item);
-      }
-    } else if (shouldAdd) {
+    if (shouldAdd) {
       filteredItems.push(item);
     }
   }
   return filteredItems;
+};
+
+type MenuItem = DropDownListItemProps & {
+  subMenu?: MenuItem[];
 };
 
 export const handleKeyDown =
@@ -57,13 +47,16 @@ export const handleKeyDown =
     isOpen: boolean,
     toggleDropdown: () => void,
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    itemsCount: number,
+    items: MenuItem[],
     focusedIndex: number | null,
     setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // const flatItems = flattenItems(items);
+    const itemsCount = items.length;
+    // console.log(flatItems)
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
@@ -71,9 +64,12 @@ export const handleKeyDown =
         if (!isOpen) {
           toggleDropdown();
         } else {
-          setFocusedIndex(prevIndex =>
-            prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
-          );
+          setFocusedIndex(prevIndex => {
+            console.log('prevIndex ', prevIndex, itemsCount - 1);
+            return prevIndex === null
+              ? 0
+              : Math.min(prevIndex + 1, itemsCount - 1);
+          });
         }
         break;
       case 'ArrowUp':

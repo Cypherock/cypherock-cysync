@@ -15,21 +15,18 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
+import { useCloseDialogBox } from '~/hooks';
 
 export const ReceiveAddressVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceAddressVerified.info.dialogBox;
+  const { buttons } = lang.strings;
   const { goTo } = useReceiveDialog();
-  const dispatch = useAppDispatch();
+  const closeDialogBox = useCloseDialogBox();
 
   const handleVerificationAgain = () => {
     goTo(1, 0);
@@ -67,9 +64,9 @@ export const ReceiveAddressVerified: React.FC = () => {
         </Button>
         <Button
           variant="primary"
-          onClick={() => dispatch(closeDialog('receiveDialog'))}
+          onClick={() => closeDialogBox('receiveDialog')}
         >
-          {connect.buttonDone}
+          {buttons.done}
         </Button>
       </DialogBoxFooter>
     </DialogBox>

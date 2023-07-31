@@ -70,7 +70,7 @@ export const theme = {
       toggleActive: colors.background.black,
       toggle: colors.background.toggleOff,
       list: colors.background.list,
-      infoBackground: colors.background.infoBackground,
+      info: colors.background.info,
       lightBlack: colors.background.lightBlack,
       sidebar: colors.background.sidebar,
       warning: colors.background.warning,

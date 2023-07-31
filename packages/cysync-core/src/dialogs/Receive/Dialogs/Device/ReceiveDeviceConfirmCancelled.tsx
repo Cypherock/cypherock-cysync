@@ -20,6 +20,7 @@ export const ReceiveDeviceConfirmCancelled: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmCancelled.info.dialogBox;
+  const { buttons } = lang.strings;
   const { onNext } = useReceiveDialog();
 
   const handleButtonClick = () => {
@@ -36,7 +37,7 @@ export const ReceiveDeviceConfirmCancelled: React.FC = () => {
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyCoinIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" width="full">
-          <Typography variant="h5" $textAlign="center" color="red">
+          <Typography variant="h5" $textAlign="center" color="error">
             <LangDisplay text={connect.header} />
           </Typography>
           <Typography
@@ -51,9 +52,9 @@ export const ReceiveDeviceConfirmCancelled: React.FC = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary">{connect.buttonReport}</Button>
+        <Button variant="secondary">{buttons.report}</Button>
         <Button variant="primary" onClick={handleButtonClick}>
-          {connect.buttonRetry}
+          {buttons.retry}
         </Button>
       </DialogBoxFooter>
     </DialogBox>

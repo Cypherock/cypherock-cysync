@@ -108,7 +108,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         isOpen,
         toggleDropdown,
         setFocusedIndex,
-        filteredItems.length,
+        items,
         focusedIndex,
         setSelectedIndex,
         handleCheckedChange,
@@ -132,6 +132,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           $hasRightText={!!selectedDropdownItem?.rightText}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
+          parentId={selectedDropdownItem?.parentId}
           color="white"
         />
       ) : (
@@ -146,7 +147,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             isOpen,
             toggleDropdown,
             setFocusedIndex,
-            filteredItems.length,
+            items,
             focusedIndex,
             setSelectedIndex,
             handleCheckedChange,
@@ -183,7 +184,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             const itemId = item.id ?? '';
             const isItemFocused = focusedIndex === index;
             const isItemSelected = selectedIndex === index;
-
+            console.log(item);
             return (
               <DropdownListItem
                 key={itemId}

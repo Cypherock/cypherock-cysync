@@ -32,7 +32,6 @@ import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
-import { InfoIcon } from './InfoIcon';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';

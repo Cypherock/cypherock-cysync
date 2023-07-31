@@ -9,13 +9,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
-
 import { ReceiveDialogProvider, useReceiveDialog } from './context';
+import { useCloseDialogBox } from '~/hooks';
 
 export const Receive: FC = () => {
   const { tabs, currentTab, currentDialog } = useReceiveDialog();
-  const dispatch = useAppDispatch();
+  const closeDialogBox = useCloseDialogBox();
 
   return (
     <BlurOverlay>
@@ -26,10 +25,8 @@ export const Receive: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="space-between">
-              <CloseButton
-                onClick={() => dispatch(closeDialog('receiveDialog'))}
-              />
+            <Container width="full" p={2} justify="flex-end">
+              <CloseButton onClick={() => closeDialogBox('receiveDialog')} />
             </Container>
             <DialogBoxBody
               p="20"

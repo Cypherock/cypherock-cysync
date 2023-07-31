@@ -13,27 +13,23 @@ import {
   CopyContainer,
   Flex,
   bitcoinIcon,
+  InformationBox,
   Tag,
   qrcodeIcon,
-  InformationBox,
   informationOrangeIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { useCloseDialogBox } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
 
 export const ReceiveAddressNotVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const connect = lang.strings.receive.deviceAddressNotVerified.info.dialogBox;
-
-  const dispatch = useAppDispatch();
+  const { buttons } = lang.strings;
+  const closeDialogBox = useCloseDialogBox();
   const { goTo } = useReceiveDialog();
 
   const handleVerificationAgain = () => {
@@ -89,9 +85,9 @@ export const ReceiveAddressNotVerified: React.FC = () => {
         </Button>
         <Button
           variant="primary"
-          onClick={() => dispatch(closeDialog('receiveDialog'))}
+          onClick={() => closeDialogBox('receiveDialog')}
         >
-          {connect.buttonDone}
+          {buttons.done}
         </Button>
       </DialogBoxFooter>
     </DialogBox>
