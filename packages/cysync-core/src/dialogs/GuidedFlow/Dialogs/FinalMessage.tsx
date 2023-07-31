@@ -5,28 +5,66 @@ import {
   Button,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 
+import { openAddAccountDialog, syncWalletsWithDevice } from '~/actions';
+import { useDevice } from '~/context';
 import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
+
+const selectWalletsAndLang = createSelector(
+  [selectLanguage, selectWallets],
+  (a, b) => ({ lang: a, ...b }),
+);
 
 const Buttons: FC<{
   setShowWalletNotCreatedDialog: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowWalletNotCreatedDialog }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { onCloseDialog } = useGuidedFlow();
+  const { lang, wallets } = useAppSelector(selectWalletsAndLang);
+  const dispatch = useAppDispatch();
+  const { connection, connectDevice } = useDevice();
+  const tryOpeningAddAccount = () => {
+    if (wallets.length > 0) {
+      onCloseDialog();
+      dispatch(openAddAccountDialog());
+    } else {
+      setShowWalletNotCreatedDialog(true);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(
+      syncWalletsWithDevice({
+        connection,
+        connectDevice,
+        doFetchFromDevice: true,
+      }),
+    );
+  }, []);
+
   return (
     <Flex gap={16} $zIndex={1}>
-      <Button variant="secondary">
+      <Button variant="secondary" onClick={onCloseDialog}>
         <LangDisplay
           text={lang.strings.guidedFlows.finalMessage.buttons.secondary}
         />
       </Button>
-      <Button
-        variant="primary"
-        onClick={() => setShowWalletNotCreatedDialog(true)}
-      >
+      <Button variant="primary" onClick={tryOpeningAddAccount}>
         <LangDisplay
           text={lang.strings.guidedFlows.finalMessage.buttons.primary}
         />

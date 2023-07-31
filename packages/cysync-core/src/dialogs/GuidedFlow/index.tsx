@@ -26,8 +26,14 @@ import { CloseConfirmation } from './Dialogs';
 
 export const GuidedFlowDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog, blastConfetti, showBackButton } =
-    useGuidedFlow();
+  const {
+    tabs,
+    currentTab,
+    currentDialog,
+    blastConfetti,
+    showBackButton,
+    title,
+  } = useGuidedFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const dispatch = useAppDispatch();
@@ -41,7 +47,7 @@ export const GuidedFlowDialog: FC = () => {
         {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
-            heading={lang.strings.guidedFlows.createWallet.title}
+            heading={title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
           />

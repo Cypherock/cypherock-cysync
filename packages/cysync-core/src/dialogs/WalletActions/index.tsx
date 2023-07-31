@@ -14,6 +14,7 @@ import React, { FC } from 'react';
 
 import { openGuidedFlowDialog } from '~/actions';
 import {
+  GuidedFlowType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -29,9 +30,9 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  const switchToCreateWalletDialog = () => {
+  const switchToGuidedFlow = (type: GuidedFlowType) => {
     dispatch(closeDialog('walletActions'));
-    dispatch(openGuidedFlowDialog('createWallet'));
+    dispatch(openGuidedFlowDialog(type));
   };
 
   return (
@@ -58,11 +59,12 @@ export const WalletActionsDialogBox: FC = () => {
             <WalletActionSection
               icon={addWalletIcon}
               {...lang.strings.onboarding.walletActionsDialogBox.createWallet}
-              onClick={switchToCreateWalletDialog}
+              onClick={() => switchToGuidedFlow('createWallet')}
             />
             <WalletActionSection
               icon={importWalletIcon}
               {...lang.strings.onboarding.walletActionsDialogBox.importWallet}
+              onClick={() => switchToGuidedFlow('importWallet')}
             />
             <WalletActionSection
               isMiniOnly
