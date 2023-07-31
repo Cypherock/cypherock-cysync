@@ -9,7 +9,7 @@ import {
 import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
+import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
 import {
   closeDialog,
   selectLanguage,
@@ -20,15 +20,14 @@ import {
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { setCurrentTab: setTab, setCurrentDialog: setDialogBox } =
-    useCreateWalletGuide();
+    useGuidedFlow();
   const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary">
         <LangDisplay
           text={
-            lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.buttons
-              .secondary
+            lang.strings.guidedFlows.walletNotCreatedDialog.buttons.secondary
           }
         />
       </Button>
@@ -37,15 +36,12 @@ const Buttons: FC = () => {
           setTab(0);
           setDialogBox(0);
           dispatch(openWalletActionsDialog());
-          dispatch(closeDialog('createWalletGuide'));
+          dispatch(closeDialog('guidedFlow'));
         }}
         variant="primary"
       >
         <LangDisplay
-          text={
-            lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.buttons
-              .primary
-          }
+          text={lang.strings.guidedFlows.walletNotCreatedDialog.buttons.primary}
         />
       </Button>
     </Flex>
@@ -58,10 +54,8 @@ export const WalletNotCreatedDialog: FC = () => {
     <IconDialogBox
       $isModal
       icon={<Image src={redDisconnectedIcon} alt="Disconnected icon" />}
-      title={lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.title}
-      subtext={
-        lang.strings.guidedFlows.createWallet.walletNotCreatedDialog.subtitle
-      }
+      title={lang.strings.guidedFlows.walletNotCreatedDialog.title}
+      subtext={lang.strings.guidedFlows.walletNotCreatedDialog.subtitle}
       footerComponent={<Buttons />}
     />
   );
