@@ -15,7 +15,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { Receive } from '../Dialogs';
 import {
   ReceiveDeviceConfirm,
-  ReceiveDeviceConfirmCancelled,
   ReceiveDeviceConfirmForToken,
   ReceiveDeviceConfirmTroubleShoot,
   ReceiveDeviceConnection,
@@ -68,7 +67,6 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       dialogs: [
         <ReceiveDeviceTroubleshoot />,
         <ReceiveDeviceConnection />,
-        <ReceiveDeviceConfirmCancelled />,
         <ReceiveDeviceConfirmTroubleShoot />,
         <ReceiveDeviceConfirmForToken />,
         <ReceiveDeviceConfirm />,

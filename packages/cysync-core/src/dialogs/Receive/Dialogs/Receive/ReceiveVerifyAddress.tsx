@@ -14,7 +14,7 @@ import {
   Flex,
   Tag,
 } from '@cypherock/cysync-ui';
-import { bitcoinIcon, spinnerGoldIcon } from '@cypherock/cysync-ui/src';
+import { bitcoinIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
@@ -32,10 +32,8 @@ export const ReceiveVerifyAddress: React.FC = () => {
     {
       id: '2',
       leftImageSrc: arrowGoldenForward,
-
       text: 'Verify the address on X1 Vault exactly matches the address displayed above',
-      rightImageSrc: spinnerGoldIcon,
-      animate: true,
+      throbber: true,
     },
   ];
 
@@ -85,11 +83,10 @@ export const ReceiveVerifyAddress: React.FC = () => {
             <LeanBox
               key={data.id}
               leftImageSrc={data.leftImageSrc}
-              rightImageSrc={data.rightImageSrc}
               text={data.text}
               id={data.id}
-              animate={data.animate}
               px={6}
+              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

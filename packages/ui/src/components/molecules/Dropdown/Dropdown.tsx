@@ -9,6 +9,7 @@ import {
 } from './DropdownStyles';
 
 import { searchIcon, triangleInverseIcon } from '../../../assets';
+import { Image, Input } from '../../atoms';
 import {
   findSelectedItem,
   handleClickOutside,
@@ -16,7 +17,6 @@ import {
   handleKeyDown,
   searchInItems,
 } from '../../utils';
-import { Image, Input } from '../../atoms';
 import { DropDownListItem, DropDownListItemProps } from '../DropDownListItem';
 
 interface DropdownProps {
@@ -85,7 +85,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    const escapeKeyHandler = handleEscapeKey(setIsOpen);
+    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen, containerRef);
+
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
     window.addEventListener('keydown', escapeKeyHandler);
@@ -95,7 +96,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       window.removeEventListener('keydown', escapeKeyHandler);
       window.removeEventListener('click', clickOutsideHandler);
     };
-  }, []);
+  }, [isOpen, setIsOpen, containerRef]);
 
   return (
     <DropdownContainer
@@ -134,7 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           $hasRightText={!!selectedDropdownItem?.rightText}
           tag={selectedDropdownItem?.tag}
           shortForm={selectedDropdownItem?.shortForm}
-          parentId={selectedDropdownItem?.parentId}
+          $parentId={selectedDropdownItem?.$parentId}
           color="white"
         />
       ) : (

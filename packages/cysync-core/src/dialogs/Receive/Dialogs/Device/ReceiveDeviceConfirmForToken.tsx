@@ -90,6 +90,7 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
               rightImageSrc={data.rightImageSrc}
               text={data.text}
               id={data.id}
+              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

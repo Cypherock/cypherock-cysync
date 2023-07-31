@@ -30,7 +30,6 @@ const dataArray = [
     leftImageSrc: arrowGoldenForward,
     text: 'Enter passphrase',
     throbber: true,
-    animate: true,
   },
   {
     id: '3',
@@ -83,7 +82,6 @@ export const InitialiseAccountDialog: React.FC = () => {
               throbber={data.throbber}
               text={data.text}
               id={data.id}
-              animate={data.animate}
             />
           ))}
         </LeanBoxContainer>

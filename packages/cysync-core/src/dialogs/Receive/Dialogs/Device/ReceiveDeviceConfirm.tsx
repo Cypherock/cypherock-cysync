@@ -11,7 +11,6 @@ import {
   LeanBoxContainer,
   LeanBox,
 } from '@cypherock/cysync-ui';
-import { spinnerGoldIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
@@ -35,10 +34,8 @@ export const ReceiveDeviceConfirm: React.FC = () => {
     {
       id: '2',
       leftImageSrc: arrowGoldenForward,
-
-      text: 'Verify the account on the X1 Vault',
-      rightImageSrc: spinnerGoldIcon,
-      animate: true,
+      text: 'Verify the account on the device',
+      throbber: true,
     },
     {
       id: '3',
@@ -48,7 +45,7 @@ export const ReceiveDeviceConfirm: React.FC = () => {
     {
       id: '4',
       leftImageSrc: arrowGoldenForward,
-      text: 'Enter the PIN and tap any X1 card',
+      text: 'Enter the PIN and tap any card',
     },
   ];
 
@@ -89,7 +86,7 @@ export const ReceiveDeviceConfirm: React.FC = () => {
               rightImageSrc={data.rightImageSrc}
               text={data.text}
               id={data.id}
-              animate={data.animate}
+              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

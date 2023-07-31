@@ -128,10 +128,15 @@ export const handleKeyDown =
   };
 
 export const handleEscapeKey =
-  (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) =>
+  (
+    isOpen: boolean,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    dropdownRef: React.MutableRefObject<HTMLDivElement | null>,
+  ) =>
   (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && isOpen) {
       setIsOpen(false);
+      dropdownRef.current?.focus();
     }
   };
 

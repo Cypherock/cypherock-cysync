@@ -37,7 +37,7 @@ const dropDownData: DropDownListItemProps[] = [
     text: 'DAI Stable Coin v2',
     checkType: 'radio',
     rightText: '0.234 DAI',
-    parentId: '41',
+    $parentId: '41',
   },
   {
     id: '144',
@@ -46,7 +46,7 @@ const dropDownData: DropDownListItemProps[] = [
     text: 'USD COIN',
     checkType: 'radio',
     rightText: '0.234 USD',
-    parentId: '41',
+    $parentId: '41',
   },
   {
     id: '42',
