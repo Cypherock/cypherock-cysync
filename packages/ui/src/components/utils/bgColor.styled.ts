@@ -1,22 +1,24 @@
 import { css } from 'styled-components';
 
+export type BgColor =
+  | 'contentGradient'
+  | 'primary'
+  | 'secondary'
+  | 'sideBar'
+  | 'list'
+  | 'black'
+  | 'separator'
+  | 'separatorSecondary'
+  | 'input'
+  | 'white'
+  | 'highlight'
+  | 'golden'
+  | 'success'
+  | 'muted'
+  | 'lightBlack'
+  | 'warning';
 export interface BgColorProps {
-  $bgColor?:
-    | 'contentGradient'
-    | 'primary'
-    | 'secondary'
-    | 'sideBar'
-    | 'list'
-    | 'black'
-    | 'separator'
-    | 'separatorSecondary'
-    | 'input'
-    | 'white'
-    | 'highlight'
-    | 'golden'
-    | 'success'
-    | 'muted'
-    | 'lightBlack';
+  $bgColor?: BgColor;
 }
 
 export const $bgColor = css<BgColorProps>`
@@ -97,5 +99,10 @@ ${props =>
     props.$bgColor === 'white' &&
     css`
       background-color: #fff;
+    `}
+  ${props =>
+    props.$bgColor === 'warning' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.warning};
     `}
 `;

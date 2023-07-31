@@ -11,10 +11,10 @@ import {
   Divider,
   ButtonGroup,
   MessageBox,
+  InfoBox,
   Slider,
   SliderCaption,
   ButtonAttributes,
-  Info,
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -94,7 +94,7 @@ export const BatchTransaction: React.FC = () => {
       </Flex>
       <Container display="flex" direction="column" gap={16} width="full">
         <Flex justify="flex-end" align="center" width="full">
-          {activeButtonId === 1 && <MessageBox message={batch.message} />}
+          {activeButtonId === 1 && <InfoBox text={batch.message} />}
         </Flex>
 
         {activeButtonId === 2 && (
@@ -185,12 +185,7 @@ export const BatchTransaction: React.FC = () => {
           </Typography>
         </Flex>
       </Flex>
-      <Info
-        showIcon
-        iconVariant="yellow"
-        textVariant="warn"
-        text={batch.warning}
-      />
+      <MessageBox type="warning" text={batch.warning} />
     </Container>
   );
 };

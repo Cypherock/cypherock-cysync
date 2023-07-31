@@ -21,6 +21,7 @@ export const TabContentContainer = styled.div`
 const TabsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   ${utils}
 `;
 const TabHeaders = styled.div`

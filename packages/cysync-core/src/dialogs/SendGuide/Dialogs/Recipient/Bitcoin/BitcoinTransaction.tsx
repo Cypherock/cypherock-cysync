@@ -52,7 +52,7 @@ export const BitcoinTransaction: React.FC = () => {
   ];
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={bitcoin.dialogBox.title} />

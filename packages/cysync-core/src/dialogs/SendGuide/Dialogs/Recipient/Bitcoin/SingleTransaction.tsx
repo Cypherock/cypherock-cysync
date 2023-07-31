@@ -12,9 +12,9 @@ import {
   Divider,
   ButtonGroup,
   MessageBox,
+  InfoBox,
   Slider,
   SliderCaption,
-  Info,
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -154,7 +154,7 @@ export const SingleTransaction: React.FC = () => {
       </Flex>
       <Container display="flex" direction="column" gap={16} width="full">
         <Flex justify="flex-end" align="center" width="full">
-          {activeButtonId === 1 && <MessageBox message={single.message} />}
+          {activeButtonId === 1 && <InfoBox text={single.message} />}
         </Flex>
 
         {activeButtonId === 2 && (
@@ -245,12 +245,7 @@ export const SingleTransaction: React.FC = () => {
           </Typography>
         </Flex>
       </Flex>
-      <Info
-        showIcon
-        iconVariant="yellow"
-        textVariant="warn"
-        text={single.warning}
-      />
+      <MessageBox type="warning" text={single.warning} />
     </Container>
   );
 };

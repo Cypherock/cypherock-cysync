@@ -16,9 +16,9 @@ import {
   Divider,
   ButtonGroup,
   MessageBox,
+  InfoBox,
   Slider,
   SliderCaption,
-  Info,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { addKeyboardEvents } from '~/hooks';
@@ -61,7 +61,7 @@ export const StandardOptimism: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Container display="flex" direction="column" gap={16} width="full">
           <Typography variant="h5" $textAlign="center">
@@ -212,7 +212,7 @@ export const StandardOptimism: React.FC = () => {
               </Flex>
               {activeButtonId === 1 && (
                 <Flex align="center" direction="row" gap={8}>
-                  <MessageBox message={standard.message} />
+                  <InfoBox text={standard.message} />
                 </Flex>
               )}
             </Flex>
@@ -300,12 +300,7 @@ export const StandardOptimism: React.FC = () => {
               </Typography>
             </Flex>
           </Flex>
-          <Info
-            showIcon
-            iconVariant="yellow"
-            textVariant="warn"
-            text={standard.warning}
-          />
+          <MessageBox type="warning" text={standard.warning} />
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

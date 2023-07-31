@@ -9,9 +9,9 @@ import {
   Image,
   Container,
   arrowGoldenForward,
+  MessageBox,
   checkIcon,
   halfLoaderGold,
-  Info,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -96,19 +96,9 @@ export const SendConfirmToken: React.FC = () => {
           ))}
         </LeanBoxContainer>
 
-        <Info
-          showIcon
-          iconVariant="white"
-          textVariant="muted"
-          text={confirm.infoBox.info}
-        />
+        <MessageBox type="info" text={confirm.infoBox.info} />
 
-        <Info
-          showIcon
-          iconVariant="yellow"
-          textVariant="warn"
-          text={confirm.infoBox.warning}
-        />
+        <MessageBox type="warning" text={confirm.infoBox.warning} />
       </DialogBoxBody>
     </DialogBox>
   );

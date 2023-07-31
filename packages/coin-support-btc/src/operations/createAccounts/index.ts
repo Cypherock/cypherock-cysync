@@ -1,7 +1,7 @@
 import {
   GetAddressesFromDevice,
-  createAccountsObservable,
-  ICreateAccountsObservableParams,
+  makeCreateAccountsObservable,
+  IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { btcCoinList } from '@cypherock/coins';
 import { BtcApp, GetXpubsStatus } from '@cypherock/sdk-app-btc';
@@ -35,7 +35,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
   return xpubs;
 };
 
-const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createAccountFromAddress'] =
+const createAccountFromAddress: IMakeCreateAccountsObservableParams<BtcApp>['createAccountFromAddress'] =
   async (addressDetails, params) => {
     const coin = btcCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
@@ -76,7 +76,7 @@ const getBalanceAndTxnCount = async (
 export const createAccounts = (
   params: ICreateBtcAccountParams,
 ): Observable<ICreateBtcAccountEvent> =>
-  createAccountsObservable<BtcApp, ICreateBtcAccountEvent>({
+  makeCreateAccountsObservable<BtcApp, ICreateBtcAccountEvent>({
     ...params,
     createAccountFromAddress,
     getBalanceAndTxnCount,

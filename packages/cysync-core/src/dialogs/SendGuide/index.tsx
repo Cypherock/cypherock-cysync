@@ -9,12 +9,18 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import { SendGuideProvider, useSendGuide } from './context';
 
 export const SendFlow: FC = () => {
   const { tabs, currentTab, currentDialog } = useSendGuide();
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(selectLanguage);
 
   return (
     <BlurOverlay>
@@ -22,6 +28,7 @@ export const SendFlow: FC = () => {
         <>
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
+            heading={lang.strings.send.aside.tabs.heading}
             activeTab={currentTab}
             currentDialog={currentDialog}
             totalDialogs={tabs[currentTab].dialogs.length}

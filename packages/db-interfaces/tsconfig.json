@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "lib": ["ES2015"]
+    "outDir": "dist/esm",
+    "lib": ["DOM"]
   },
-  "extends": "@cypherock/tsconfig/node.json",
+  "extends": "@cypherock/tsconfig/browser.json",
   "include": ["./src/**/*"],
   "exclude": [
     "node_modules",

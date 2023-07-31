@@ -11,7 +11,7 @@ import {
   Image,
   Container,
   successIcon,
-  Info,
+  MessageBox,
   LeanBox,
   openExternalLink,
   qrImage,
@@ -72,12 +72,7 @@ export const SendDone: React.FC = () => {
                   rightImageSrc={openExternalLink}
                 />
               </Container>
-              <Info
-                showIcon
-                iconVariant="yellow"
-                textVariant="warn"
-                text={confirm.InfoBox.text}
-              />
+              <MessageBox type="warning" text={confirm.InfoBox.text} />
             </Container>
           </Container>
         </DialogBoxBody>

@@ -35,7 +35,6 @@ import qrImage from './qr.png';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
-import { InfoIcon } from './InfoIcon';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
@@ -124,7 +123,6 @@ export {
   usbIcon,
   copyIcon,
   checkIcon,
-  InfoIcon,
   DeviceUpdateIcon,
   FailIcon,
   goldCopyIcon,

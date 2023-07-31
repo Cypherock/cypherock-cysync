@@ -16,11 +16,11 @@ import {
   Divider,
   ButtonGroup,
   MessageBox,
+  InfoBox,
   Slider,
   SliderCaption,
   etheriumBlueIcon,
   ButtonAttributes,
-  Info,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { addKeyboardEvents } from '~/hooks';
@@ -72,7 +72,7 @@ export const StandardEthereum: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Container display="flex" direction="column" gap={16} width="full">
           <Typography variant="h5" $textAlign="center">
@@ -191,7 +191,7 @@ export const StandardEthereum: React.FC = () => {
               </Flex>
               {activeButtonId === 1 && (
                 <Flex align="center" direction="row" gap={8}>
-                  <MessageBox message={eth.message} />
+                  <InfoBox text={eth.message} />
                 </Flex>
               )}
             </Flex>
@@ -275,12 +275,7 @@ export const StandardEthereum: React.FC = () => {
               </Typography>
             </Flex>
           </Flex>
-          <Info
-            showIcon
-            iconVariant="yellow"
-            textVariant="warn"
-            text={eth.warning}
-          />
+          <MessageBox type="warning" text={eth.warning} />
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

@@ -31,13 +31,18 @@ const textColor = (activeTab: number, index: number) => {
 };
 
 export const MilestoneAside: FC<{
+  heading?: string;
   milestones: string[];
   activeTab: number;
   currentDialog: number;
   totalDialogs: number;
-}> = ({ milestones, activeTab, currentDialog, totalDialogs }) => (
+}> = ({ milestones, activeTab, heading, currentDialog, totalDialogs }) => (
   <AsideStyle>
-    <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+    {heading ? (
+      <Typography $fontSize={18}>{heading}</Typography>
+    ) : (
+      <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+    )}
     <Flex direction="column" py={8}>
       {milestones.map((milestone, index) => (
         <Flex key={`milestone-index-${index + 1}`} gap={16}>
@@ -74,3 +79,7 @@ export const MilestoneAside: FC<{
     </Flex>
   </AsideStyle>
 );
+
+MilestoneAside.defaultProps = {
+  heading: undefined,
+};

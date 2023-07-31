@@ -1,26 +1,45 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FC } from 'react';
+import { useTheme } from 'styled-components';
 
-const MessageContainer = styled.div`
-  display: flex;
-  padding: 4px 12px;
-  align-items: center;
-  height: 21px auto;
-  gap: 16px;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.palette.background.content};
-  color: ${({ theme }) => theme.palette.text.muted};
-  border: 1px solid ${({ theme }) => theme.palette.border.popup};
-`;
+import { InfoItalicsIcon } from '../../assets';
+import { Container, LangDisplay, Typography } from '../atoms';
+import { BgColor, BorderColor } from '../utils';
 
-interface MessageProps {
-  message: string;
-}
-
-export const MessageBox: React.FC<MessageProps> = ({ message }) => (
-  <MessageContainer>{message}</MessageContainer>
-);
+export type MessageBoxType = 'info' | 'warning';
+const borderColorMap: Record<MessageBoxType, BorderColor> = {
+  info: 'input',
+  warning: 'warning',
+};
+const bgColorMap: Record<MessageBoxType, BgColor> = {
+  info: 'input',
+  warning: 'warning',
+};
+export const MessageBox: FC<{
+  text: string;
+  type: MessageBoxType;
+}> = ({ text, type }) => {
+  const theme = useTheme();
+  const iconFillMap: Record<MessageBoxType, string> = {
+    info: theme?.palette.bullet.white,
+    warning: theme?.palette.info.main,
+  };
+  return (
+    <Container
+      $borderColor={borderColorMap[type]}
+      $bgColor={bgColorMap[type]}
+      align="center"
+      $borderRadius={8}
+      gap={18}
+      p={1}
+      px={2}
+      justify="flex-start"
+    >
+      <div>
+        <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
+      </div>
+      <Typography variant="fineprint" color="muted">
+        <LangDisplay text={text} />
+      </Typography>
+    </Container>
+  );
+};
