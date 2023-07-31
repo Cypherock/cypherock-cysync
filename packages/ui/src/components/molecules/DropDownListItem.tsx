@@ -233,19 +233,6 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
           )}
         </DropDownListItemRightContent>
       </DropDownListItemHorizontalBox>
-      {/* {subMenu.length > 0 && (
-        <div>
-          {subMenu.map(item => (
-            <SubMenuItemWrapper key={item.id}>
-              <DropDownListItem
-                {...item}
-                checked={selectedItem === item.id}
-                onCheckedChange={onCheckedChange}
-              />
-            </SubMenuItemWrapper>
-          ))}
-        </div>
-      )} */}
     </DropDownItemWrapper>
   );
 };
