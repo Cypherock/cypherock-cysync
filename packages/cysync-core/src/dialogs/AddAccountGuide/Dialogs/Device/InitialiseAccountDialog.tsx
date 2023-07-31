@@ -9,7 +9,6 @@ import {
   Image,
   Container,
   checkIcon,
-  halfLoaderGold,
   arrowGoldenForward,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -30,7 +29,7 @@ const dataArray = [
     id: '2',
     leftImageSrc: arrowGoldenForward,
     text: 'Enter passphrase',
-    rightImageSrc: halfLoaderGold,
+    throbber: true,
     animate: true,
   },
   {
@@ -81,6 +80,7 @@ export const InitialiseAccountDialog: React.FC = () => {
               key={data.id}
               leftImageSrc={data.leftImageSrc}
               rightImageSrc={data.rightImageSrc}
+              throbber={data.throbber}
               text={data.text}
               id={data.id}
               animate={data.animate}

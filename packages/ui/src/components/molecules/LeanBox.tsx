@@ -12,6 +12,7 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
+import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps {
   leftImageSrc?: string;
@@ -30,6 +31,7 @@ export interface LeanBoxProps {
   $isChecked?: boolean;
   onCheckChanged?: ($isChecked: boolean) => void;
   value?: string;
+  throbber?: boolean;
 }
 
 export const HorizontalBox = styled.div<{
@@ -85,6 +87,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   id,
   animate = false,
   $isChecked = false,
+  throbber = false,
   onCheckChanged,
   value,
 }): ReactElement => {
@@ -156,6 +159,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
+          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
             <Typography
               variant={rightTextVariant}
@@ -217,4 +221,5 @@ LeanBox.defaultProps = {
   value: '',
   tag: '',
   shortForm: '',
+  throbber: false,
 };
