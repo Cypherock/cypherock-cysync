@@ -46,19 +46,37 @@ export const handleKeyDown =
     setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
+    listRef: MutableRefObject<HTMLUListElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const itemsCount = items.length;
+    const visibleItemsCount = filteredItems.length;
+
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
+          setFocusedIndex(0); // Focus on the first item when the dropdown is opened.
         } else {
           setFocusedIndex(prevIndex =>
-            prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
+            prevIndex === null
+              ? 0
+              : Math.min(prevIndex + 1, visibleItemsCount - 1),
           );
+          listRef.current?.focus();
+
+          // Calculate the scroll offset for the next item to ensure it is visible
+          if (focusedIndex === visibleItemsCount - 2) {
+            const nextItem = listRef.current?.children[
+              focusedIndex + 1
+            ] as HTMLElement;
+            const scrollOffset =
+              (nextItem?.offsetTop ?? 0) -
+              (listRef.current?.offsetHeight ?? 0) +
+              (nextItem?.offsetHeight ?? 0);
+            listRef.current?.scrollTo({ top: scrollOffset });
+          }
         }
         break;
       case 'ArrowUp':
@@ -66,10 +84,23 @@ export const handleKeyDown =
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
+          setFocusedIndex(visibleItemsCount - 1); // Focus on the last item when the dropdown is opened.
         } else {
           setFocusedIndex(prevIndex =>
-            prevIndex === null ? itemsCount - 1 : Math.max(prevIndex - 1, 0),
+            prevIndex === null
+              ? visibleItemsCount - 1
+              : Math.max(prevIndex - 1, 0),
           );
+          listRef.current?.focus();
+
+          // Calculate the scroll offset for the previous item to ensure it is visible
+          if (focusedIndex === 0) {
+            const prevItem = listRef.current?.children[
+              focusedIndex - 1
+            ] as HTMLElement;
+            const scrollOffset = prevItem?.offsetTop;
+            listRef.current?.scrollTo({ top: scrollOffset });
+          }
         }
         break;
       case 'Enter':

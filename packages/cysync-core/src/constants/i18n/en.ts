@@ -431,10 +431,10 @@ const en = {
     },
   },
   receive: {
+    header: 'Receive',
     receive: {
       info: {
         dialogBox: {
-          title: 'Receive',
           header: 'Receive',
           subheader: 'Choose a wallet and account to credit',
           searchText: 'Search',
@@ -447,7 +447,6 @@ const en = {
     deviceConnection: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Connect your X1 Vault to proceed',
           subheader: 'Looks like your device is not connected',
           buttonName: "Don't have your device?",
@@ -457,7 +456,6 @@ const en = {
     deviceConfirmCancelled: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Request was cancelled from the X1 Vault',
           subheader: 'This is dialogue text or sub heading',
         },
@@ -466,7 +464,6 @@ const en = {
     deviceConfirmForTroubleshoot: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
           snackBar: {
@@ -479,7 +476,6 @@ const en = {
     deviceConfirmForToken: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
           InfoBox: {
@@ -491,7 +487,6 @@ const en = {
     deviceConfirm: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
         },
@@ -500,7 +495,6 @@ const en = {
     deviceVerifyAddress: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
           tag: 'NATIVE SEGWIT',
@@ -513,7 +507,6 @@ const en = {
     deviceAddressVerified: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
@@ -524,7 +517,6 @@ const en = {
     deviceAddressNotVerified: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',

@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -53,11 +52,6 @@ export const ReceiveVerifyAddress: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxHeader height={56} width={600}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
         <Flex gap={5} direction="column">

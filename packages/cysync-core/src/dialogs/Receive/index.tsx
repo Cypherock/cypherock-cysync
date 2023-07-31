@@ -11,9 +11,11 @@ import React, { FC } from 'react';
 
 import { ReceiveDialogProvider, useReceiveDialog } from './context';
 import { useCloseDialogBox } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const Receive: FC = () => {
   const { tabs, currentTab, currentDialog } = useReceiveDialog();
+  const lang = useAppSelector(selectLanguage);
   const closeDialogBox = useCloseDialogBox();
 
   return (
@@ -23,6 +25,7 @@ export const Receive: FC = () => {
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
+            heading={lang.strings.receive.header}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">

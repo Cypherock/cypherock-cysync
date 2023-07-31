@@ -13,6 +13,7 @@ import {
   TypographyProps,
 } from '../atoms';
 import { SpacingProps, spacing } from '../utils';
+import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps extends SpacingProps {
   leftImageSrc?: string;
@@ -27,10 +28,10 @@ export interface LeanBoxProps extends SpacingProps {
   color?: TypographyColor;
   checkType?: 'checkbox' | 'radio';
   id?: string;
-  animate?: boolean;
   $isChecked?: boolean;
   onCheckChanged?: ($isChecked: boolean) => void;
   value?: string;
+  throbber?: boolean;
 }
 
 export const HorizontalBox = styled.div<{
@@ -84,8 +85,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
   rightTextColor = 'gold',
   checkType = undefined,
   id,
-  animate = false,
   $isChecked = false,
+  throbber = false,
   onCheckChanged,
   value,
 }): ReactElement => {
@@ -157,6 +158,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
+          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
             <Typography
               variant={rightTextVariant}
@@ -169,22 +171,12 @@ export const LeanBox: FC<LeanBoxProps> = ({
           )}
           {rightImageSrc && (
             <ImageContainer>
-              {animate ? (
-                <Image
-                  src={rightImageSrc}
-                  alt="Right Image"
-                  width="15px"
-                  height="12px"
-                  animate="spin"
-                />
-              ) : (
-                <Image
-                  src={rightImageSrc}
-                  alt="Right Image"
-                  width="15px"
-                  height="12px"
-                />
-              )}
+              <Image
+                src={rightImageSrc}
+                alt="Right Image"
+                width="15px"
+                height="12px"
+              />
             </ImageContainer>
           )}
           {checkType === 'checkbox' && (
@@ -212,10 +204,10 @@ LeanBox.defaultProps = {
   color: 'muted',
   checkType: undefined,
   id: undefined,
-  animate: false,
   $isChecked: false,
   onCheckChanged: undefined,
   value: '',
   tag: '',
   shortForm: '',
+  throbber: false,
 };

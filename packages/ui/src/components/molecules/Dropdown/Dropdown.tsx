@@ -44,6 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
 
   const handleCheckedChange = (id: string) => {
     onChange(id);
@@ -113,6 +114,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setSelectedIndex,
         handleCheckedChange,
         filteredItems,
+        listRef,
       )}
       tabIndex={disabled ? -1 : 0}
     >
@@ -152,6 +154,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             setSelectedIndex,
             handleCheckedChange,
             filteredItems,
+            listRef,
           )}
           $bgColor={theme?.palette.background.separatorSecondary}
           placeholder={isOpen ? searchText : placeholderText}
@@ -173,6 +176,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
       {isOpen && (
         <List
+          ref={listRef}
           onMouseLeave={toggleDropdown}
           disabled={disabled}
           id="dropdown-list"
@@ -198,7 +202,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
                   {...item}
-                  selectedItem={selectedItem}
                   id={item.id}
                   leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                   $isFocused={isItemFocused}
