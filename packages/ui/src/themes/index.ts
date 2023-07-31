@@ -3,17 +3,17 @@ import {
   useTheme as useStyledTheme,
 } from 'styled-components';
 
-import { theme } from './theme.styled';
+import { theme, ThemeType } from './theme.styled';
 
 export const getDefaultTheme = () => theme;
 
-export const useTheme = () => {
+export const useTheme = (): ThemeType => {
   const currTheme = useStyledTheme();
 
   if (!currTheme) {
     throw new Error('No theme set in ThemeProvider');
   }
 
-  return currTheme;
+  return currTheme as any;
 };
 export const ThemeProvider = RawThemeProvider;

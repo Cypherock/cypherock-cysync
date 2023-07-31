@@ -26,9 +26,10 @@ const App = () => (
             getDevices={window.electronAPI.getDevices}
             connectDevice={window.electronAPI.connectDevice}
           >
-            <DialogManager />
-            <BackgroundTasks />
-            <AppRouter />
+            <AppRouter>
+              <DialogManager />
+              <BackgroundTasks />
+            </AppRouter>
           </DeviceProvider>
         </LockscreenBoundary>
       </LockscreenProvider>

@@ -10,4 +10,4 @@ export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
 export const openAddAccountDialog = () =>
-  openDialog({ name: 'addAccountDialog', data: undefined });
+  openDialog({ name: 'addAccount', data: undefined });

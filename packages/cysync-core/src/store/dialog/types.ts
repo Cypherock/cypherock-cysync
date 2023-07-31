@@ -1,5 +1,5 @@
 export interface IDialogState {
-  addAccountDialog: {
+  addAccount: {
     isOpen: boolean;
     data?: {
       walletId?: string;

@@ -37,6 +37,7 @@ export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
         family: coinFamiliesMap.solana,
         id: coin.id,
         name: coin.name,
+        abbr: coin.abbr,
         isTest: coin.isTest,
         coinGeckoId: coin.coinGeckoId,
         coinIndex: coin.coinIndex,

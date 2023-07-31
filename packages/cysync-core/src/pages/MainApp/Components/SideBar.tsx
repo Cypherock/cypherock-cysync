@@ -18,7 +18,7 @@ import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
-import { syncWalletsWithDevice } from '~/actions';
+import { openAddAccountDialog, syncWalletsWithDevice } from '~/actions';
 import { routes } from '~/constants';
 import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
@@ -137,6 +137,14 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
           </SideBarItem>
           <SideBarItem text={strings.sendCrypto} Icon={ArrowSentIcon} />
           <SideBarItem text={strings.receiveCrypto} Icon={ArrowReceivedIcon} />
+          {/* TODO: Remove add account sidebar item */}
+          <SideBarItem
+            text="Add Account"
+            Icon={ArrowSentIcon}
+            onClick={() => {
+              dispatch(openAddAccountDialog());
+            }}
+          />
           <SideBarItem
             text={strings.history}
             Icon={HistoryIcon}

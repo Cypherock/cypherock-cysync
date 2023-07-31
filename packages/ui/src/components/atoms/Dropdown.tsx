@@ -15,7 +15,6 @@ interface DropdownProps {
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
-  shouldShowIcon?: boolean;
 }
 
 const List = styled.ul<{ disabled?: boolean }>`
@@ -91,7 +90,6 @@ const IconContainer = styled.div`
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  shouldShowIcon,
   searchText,
   placeholderText,
   selectedItem = undefined,
@@ -167,22 +165,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {selectedItem && !isOpen ? (
+      {selectedDropdownItem && !isOpen ? (
         <DropDownListItem
+          {...selectedDropdownItem}
           $borderRadius={8}
           checked={!!selectedItem || false}
           onCheckedChange={() =>
-            handleCheckedChange(selectedDropdownItem?.id ?? '')
+            handleCheckedChange(selectedDropdownItem.id ?? '')
           }
-          id={selectedDropdownItem?.id}
-          text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
-          restrictedItem
-          leftImageSrc={selectedDropdownItem?.leftImageSrc}
-          rightText={selectedDropdownItem?.rightText}
-          $hasRightText={!!selectedDropdownItem?.rightText}
-          tag={selectedDropdownItem?.tag}
-          shortForm={selectedDropdownItem?.shortForm}
+          $restrictedItem
           color="white"
         />
       ) : (
@@ -212,12 +204,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
             return (
               <ListItem key={itemId} onClick={() => handleItemSelection()}>
                 <DropDownListItem
+                  {...item}
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
-                  {...item}
                   selectedItem={selectedItem}
                   id={item.id}
-                  leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
                 />
               </ListItem>
             );
@@ -230,5 +221,4 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
 Dropdown.defaultProps = {
   disabled: false,
-  shouldShowIcon: false,
 };

@@ -19,7 +19,7 @@ const initialState: IDialogState = {
   guidedFlow: {
     isOpen: false,
   },
-  addAccountDialog: {
+  addAccount: {
     isOpen: false,
   },
 };
