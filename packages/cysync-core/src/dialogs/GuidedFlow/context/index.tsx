@@ -5,8 +5,9 @@ import {
   MessageBoxType,
   confirmAlphabeticDeviceImage,
   confirmGenericDeviceImage,
-  confirmNumericDeviceImage,
+  confirmSeedDeviceImage,
   confirmPinDeviceImage,
+  confirmNumericDeviceImage,
   informationIcon,
   inputAlphabeticDeviceImage,
   inputNumericDeviceImage,
@@ -26,7 +27,13 @@ import React, {
 
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
-import { GuidedFlowType, selectLanguage, useAppSelector } from '../../..';
+import {
+  GuidedFlowType,
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
 
 type ITabs = {
@@ -44,6 +51,8 @@ export interface GuidedFlowContextInterface {
   onPrevious: () => void;
   blastConfetti: boolean;
   showBackButton: boolean;
+  onCloseDialog: () => void;
+  title: string;
 }
 
 export const GuidedFlowContext: Context<GuidedFlowContextInterface> =
@@ -68,6 +77,24 @@ const dialogsImages: Record<GuidedFlowType, string[][]> = {
     [tapCardsDeviceImage],
     [successIcon, successIcon, successIcon, informationIcon, informationIcon],
   ],
+  importWallet: [
+    [
+      confirmGenericDeviceImage,
+      confirmGenericDeviceImage,
+      inputAlphabeticDeviceImage,
+      confirmAlphabeticDeviceImage,
+      confirmPinDeviceImage,
+      inputNumericDeviceImage,
+      confirmNumericDeviceImage,
+    ],
+    [
+      confirmNumericDeviceImage,
+      confirmSeedDeviceImage,
+      confirmSeedDeviceImage,
+      tapCardsDeviceImage,
+    ],
+    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+  ],
 };
 
 interface IGuidedDialogContent {
@@ -88,6 +115,9 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
   const [blastConfetti, setBlastConfetti] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
+  const [title, setTitle] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const checkConfettiBlastDone = () => {
     if (tabRef.current === 2 && dialogRef.current === 0)
@@ -100,10 +130,14 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
       dialogRef.current + 1 >
       tabsRef.current[tabRef.current].dialogs.length - 1
     ) {
-      setCurrentTab(Math.min(tabsRef.current.length - 1, tabRef.current + 1));
+      const newCurrentTab = Math.min(
+        tabsRef.current.length - 1,
+        tabRef.current + 1,
+      );
       if (tabRef.current !== tabsRef.current.length - 1) {
         setCurrentDialog(0);
       }
+      setCurrentTab(newCurrentTab);
     } else {
       setCurrentDialog(
         Math.min(
@@ -162,6 +196,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     }));
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
+    setTitle(lang.strings.guidedFlows[type].title);
   };
 
   useEffect(() => {
@@ -175,6 +210,12 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     setShowBackButton(currentTab === 0 && currentDialog === 0);
   }, [currentTab, currentDialog]);
 
+  const onCloseDialog = () => {
+    setCurrentTab(0);
+    setCurrentDialog(0);
+    dispatch(closeDialog('guidedFlow'));
+  };
+
   const ctx = useMemo(
     () => ({
       currentTab,
@@ -186,6 +227,8 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
       onPrevious,
       blastConfetti,
       showBackButton,
+      onCloseDialog,
+      title,
     }),
     [
       currentTab,
@@ -197,6 +240,8 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
       onPrevious,
       blastConfetti,
       showBackButton,
+      onCloseDialog,
+      title,
     ],
   );
 

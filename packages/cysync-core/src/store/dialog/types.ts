@@ -27,6 +27,7 @@ export interface IDialogState {
 
 export const GuidedFlowMap = {
   createWallet: 'createWallet',
+  importWallet: 'importWallet',
 } as const;
 
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];

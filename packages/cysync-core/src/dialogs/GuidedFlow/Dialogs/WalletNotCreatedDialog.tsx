@@ -10,21 +10,20 @@ import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { setCurrentTab: setTab, setCurrentDialog: setDialogBox } =
-    useGuidedFlow();
+  const { onCloseDialog } = useGuidedFlow();
   const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>
-      <Button variant="secondary">
+      <Button
+        variant="secondary"
+        onClick={() => {
+          onCloseDialog();
+        }}
+      >
         <LangDisplay
           text={
             lang.strings.guidedFlows.walletNotCreatedDialog.buttons.secondary
@@ -33,10 +32,8 @@ const Buttons: FC = () => {
       </Button>
       <Button
         onClick={() => {
-          setTab(0);
-          setDialogBox(0);
+          onCloseDialog();
           dispatch(openWalletActionsDialog());
-          dispatch(closeDialog('guidedFlow'));
         }}
         variant="primary"
       >
