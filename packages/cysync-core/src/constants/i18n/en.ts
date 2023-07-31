@@ -307,6 +307,7 @@ const en = {
     close: 'Close',
     report: 'Report',
     help: 'Help',
+    stop: 'Stop',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -328,110 +329,50 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
-    addAccount: {
-      initAccount: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Follow instructions on the X1 Vault',
-            subheader: 'Add a coin/account Wallet',
-            subheader1: 'Cypherock Red',
-          },
-        },
+    select: {
+      dialogTitle: 'Add Coin/Account',
+      header: 'Select the Wallet & Coins you want to add',
+      searchText: 'Search',
+      walletPlaceholder: 'Choose a wallet',
+      coinPlaceholder: 'Choose a coin',
+    },
+    deviceActions: {
+      dialogTitle: 'Add Coin/Account',
+      header: 'Follow instructions on the X1 Vault',
+      subtext: 'Add a coin/account to wallet',
+      walletName: '${walletName}',
+      actions: {
+        verifyCoin: 'Verify the coins on the device',
+        enterPassphrase: 'Enter passphrase',
+        enterPin: 'Enter the PIN and tap any card',
+        tapCard: 'Tap any card',
+        processing: 'Getting keys from device',
       },
-      syncAccount: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Syncing the account',
-            subheader: 'Accounts already in portfolio',
-            buttonStopSync: 'Stop Syncing',
-          },
-        },
-      },
-      connectDevice: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Connect your X1 Vault to your PC to proceed',
-          },
-        },
-      },
-      congrats: {
-        info: {
-          dialogBox: {
-            header: 'Add Coin/Account',
-            subtext: 'Add other accounts or return to portfolio',
-            title: 'Accounts added successfully',
-            buttonAddMore: 'Add more',
-          },
-        },
-      },
-      noAccount: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'No account found yet',
-            subheader: 'Accounts already in portfolio',
-            buttonSyncAgain: 'Sync Again',
-          },
-        },
-      },
-      add: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
-      selectCrypto: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Select the Wallet & Coins you want to add',
-            subTitle: 'Add a coin/account to wallet',
-            constant: 'Cypherock Red',
-            searchText: 'Search',
-            placeholderText: 'Choose a coin',
-            placeholderWalletText: 'Choose a wallet',
-            text: 'Cypherock Red',
-          },
-        },
-      },
-      addAccountSingleChain: {
-        info: {
-          dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            subheader2: 'Account not yet synced',
-            subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect all',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
+    },
+    sync: {
+      dialogTitle: 'Add Coin/Account',
+      syncingHeader: 'Syncing the account',
+      header: 'Add new accounts',
+      newAccount: 'New Accounts',
+      advancedButton: 'Show all address types',
+      accountsNotSynced: 'Account not yet synced (${count})',
+      deselectAllButton: 'Deselect all (${count})',
+      selectAllButton: 'Select all (${count})',
+      accountsInPortfolio: 'Accounts already in portfolio (${count})',
+      addAccountButton: 'Add Accounts',
+      resyncButton: 'Re-sync',
+    },
+    congrats: {
+      header: 'Add Coin/Account',
+      subtext: 'Add other accounts or return to portfolio',
+      title: 'Accounts added successfully',
+      buttonAddMore: 'Add more',
     },
     aside: {
       tabs: {
         asset: 'Asset',
         device: 'Device',
         confirmation: 'Confirmation',
-      },
-    },
-    onClose: {
-      title: 'You can start this guide from the sidebar',
-      subTitle: 'Are you sure you want to exit?',
-      buttons: {
-        cancel: 'Cancel',
-        exit: 'Exit',
       },
     },
   },

@@ -19,7 +19,7 @@ const initialState: IDialogState = {
   createWalletGuide: {
     isOpen: false,
   },
-  addAccountDialog: {
+  addAccount: {
     isOpen: false,
   },
 };
