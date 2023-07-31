@@ -5,13 +5,17 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { btcCoinList } from '@cypherock/coins';
-import { BtcApp, GetXpubsStatus } from '@cypherock/sdk-app-btc';
+import { BtcApp } from '@cypherock/sdk-app-btc';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { createDerivationPathSchemes } from './schemes';
-import { ICreateBtcAccountParams, ICreateBtcAccountEvent } from './types';
+import {
+  ICreateBtcAccountParams,
+  ICreateBtcAccountEvent,
+  btcToDeviceEventMap,
+} from './types';
 
 import * as services from '../../services';
 
@@ -22,18 +26,6 @@ const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
 
   const events: Record<CreateAccountDeviceEvent, boolean | undefined> =
     {} as any;
-
-  const btcToDeviceEventMap: Partial<
-    Record<GetXpubsStatus, CreateAccountDeviceEvent | undefined>
-  > = {
-    [GetXpubsStatus.GET_XPUBS_STATUS_INIT]: CreateAccountDeviceEvent.INIT,
-    [GetXpubsStatus.GET_XPUBS_STATUS_CONFIRM]:
-      CreateAccountDeviceEvent.CONFIRMED,
-    [GetXpubsStatus.GET_XPUBS_STATUS_PASSPHRASE]:
-      CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
-    [GetXpubsStatus.GET_XPUBS_STATUS_CARD]:
-      CreateAccountDeviceEvent.CARD_TAPPED,
-  };
 
   const { xpubs } = await app.getXpubs({
     walletId: hexToUint8Array(walletId),

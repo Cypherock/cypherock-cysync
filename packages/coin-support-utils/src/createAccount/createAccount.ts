@@ -15,6 +15,8 @@ import {
 } from './generateAddresses';
 import { generateDerivationPathsPerScheme } from './schemes';
 
+import logger from '../utils/logger';
+
 interface App {
   destroy: () => Promise<void>;
   abort: () => Promise<void>;
@@ -56,12 +58,18 @@ export function makeCreateAccountsObservable<
         try {
           await app.abort();
           // eslint-disable-next-line no-empty
-        } catch (error) {}
+        } catch (error) {
+          logger.warn('Error in aborting create account');
+          logger.warn(error);
+        }
 
         try {
           await app.destroy();
           // eslint-disable-next-line no-empty
-        } catch (error) {}
+        } catch (error) {
+          logger.warn('Error in destroying connection on create account');
+          logger.warn(error);
+        }
       }
     };
 
