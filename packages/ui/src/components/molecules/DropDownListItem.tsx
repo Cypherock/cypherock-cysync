@@ -32,7 +32,6 @@ export interface DropDownListItemProps extends BorderProps {
   onCheckedChange?: (id: string) => void;
   color?: TypographyColor;
   parentId?: string;
-  // subMenu?: DropDownListItemProps[];
   $isFocused?: boolean;
 }
 
@@ -151,7 +150,6 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   $restrictedItem = false,
   onCheckedChange,
   $borderRadius,
-  // subMenu = [],
   $isFocused = false,
 }): ReactElement => {
   const handleCheckChange = () => {
