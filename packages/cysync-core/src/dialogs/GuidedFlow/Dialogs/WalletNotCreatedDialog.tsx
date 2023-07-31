@@ -9,7 +9,7 @@ import {
 import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
+import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
 import {
   closeDialog,
   selectLanguage,
@@ -20,7 +20,7 @@ import {
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { setCurrentTab: setTab, setCurrentDialog: setDialogBox } =
-    useCreateWalletGuide();
+    useGuidedFlow();
   const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>
@@ -36,7 +36,7 @@ const Buttons: FC = () => {
           setTab(0);
           setDialogBox(0);
           dispatch(openWalletActionsDialog());
-          dispatch(closeDialog('createWalletGuide'));
+          dispatch(closeDialog('guidedFlow'));
         }}
         variant="primary"
       >

@@ -26,7 +26,7 @@ import React, {
 
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
-import { selectLanguage, useAppSelector } from '../../..';
+import { GuidedFlowType, selectLanguage, useAppSelector } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
 
 type ITabs = {
@@ -34,7 +34,7 @@ type ITabs = {
   dialogs: ReactNode[];
 }[];
 
-export interface CreateWalletGuideContextInterface {
+export interface GuidedFlowContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: (data: number) => void;
@@ -46,28 +46,29 @@ export interface CreateWalletGuideContextInterface {
   showBackButton: boolean;
 }
 
-export const CreateWalletGuideContext: Context<CreateWalletGuideContextInterface> =
-  createContext<CreateWalletGuideContextInterface>(
-    {} as CreateWalletGuideContextInterface,
-  );
+export const GuidedFlowContext: Context<GuidedFlowContextInterface> =
+  createContext<GuidedFlowContextInterface>({} as GuidedFlowContextInterface);
 
-export interface CreateWalletGuideContextProviderProps {
+export interface GuidedFlowContextProviderProps {
   children: ReactNode;
+  type: GuidedFlowType;
 }
 
-const dialogsImages = [
-  [
-    confirmGenericDeviceImage,
-    confirmGenericDeviceImage,
-    inputAlphabeticDeviceImage,
-    confirmAlphabeticDeviceImage,
-    confirmPinDeviceImage,
-    inputNumericDeviceImage,
-    confirmNumericDeviceImage,
+const dialogsImages: Record<GuidedFlowType, string[][]> = {
+  createWallet: [
+    [
+      confirmGenericDeviceImage,
+      confirmGenericDeviceImage,
+      inputAlphabeticDeviceImage,
+      confirmAlphabeticDeviceImage,
+      confirmPinDeviceImage,
+      inputNumericDeviceImage,
+      confirmNumericDeviceImage,
+    ],
+    [tapCardsDeviceImage],
+    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
   ],
-  [tapCardsDeviceImage],
-  [successIcon, successIcon, successIcon, informationIcon, informationIcon],
-];
+};
 
 interface IGuidedDialogContent {
   title?: string;
@@ -76,9 +77,10 @@ interface IGuidedDialogContent {
   messageBoxList?: Record<MessageBoxType, string>[];
 }
 
-export const CreateWalletGuideProvider: FC<
-  CreateWalletGuideContextProviderProps
-> = ({ children }) => {
+export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
+  children,
+  type,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
   const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
@@ -150,16 +152,14 @@ export const CreateWalletGuideProvider: FC<
     ));
 
   const init = () => {
-    const initTabs = lang.strings.guidedFlows.createWallet.tabs.map(
-      (tab, index) => ({
-        name: tab.asideTitle,
-        dialogs: getDialogArray(
-          dialogsImages[index],
-          tab.pages as any,
-          index === 0,
-        ),
-      }),
-    );
+    const initTabs = lang.strings.guidedFlows[type].tabs.map((tab, index) => ({
+      name: tab.asideTitle,
+      dialogs: getDialogArray(
+        dialogsImages[type][index],
+        tab.pages as any,
+        index === 0,
+      ),
+    }));
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
   };
@@ -201,12 +201,12 @@ export const CreateWalletGuideProvider: FC<
   );
 
   return (
-    <CreateWalletGuideContext.Provider value={ctx}>
+    <GuidedFlowContext.Provider value={ctx}>
       {children}
-    </CreateWalletGuideContext.Provider>
+    </GuidedFlowContext.Provider>
   );
 };
 
-export function useCreateWalletGuide(): CreateWalletGuideContextInterface {
-  return useContext(CreateWalletGuideContext);
+export function useGuidedFlow(): GuidedFlowContextInterface {
+  return useContext(GuidedFlowContext);
 }
