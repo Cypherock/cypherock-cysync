@@ -9,7 +9,7 @@ import {
   utils,
   UtilsProps,
   BgColorProps,
-  $bgColor,
+  bgColor,
 } from '../utils';
 
 interface ContainerProps
@@ -33,7 +33,7 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${utils}
   ${spacing}
   ${border}
-  ${$bgColor}
+  ${bgColor}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (

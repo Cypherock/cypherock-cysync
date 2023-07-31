@@ -79,14 +79,15 @@ export const Topbar: FC<{
 
   return (
     <Container
-      px={5}
-      pt={3}
-      pb="10"
+      px={{ def: 4, md: 5 }}
+      pt={{ def: '8', md: '50' }}
+      pb={{ def: '8', md: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
       $borderColor="topbar"
       width="full"
       justify="space-between"
+      shadow="popup"
     >
       <Typography variant="h4" $fontWeight="semibold" color="silver">
         <LangDisplay text={title} />
