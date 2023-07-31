@@ -20,10 +20,7 @@ const Buttons: FC<{
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary">
         <LangDisplay
-          text={
-            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
-              .buttons.secondary
-          }
+          text={lang.strings.guidedFlows.finalMessage.buttons.secondary}
         />
       </Button>
       <Button
@@ -31,10 +28,7 @@ const Buttons: FC<{
         onClick={() => setShowWalletNotCreatedDialog(true)}
       >
         <LangDisplay
-          text={
-            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
-              .buttons.primary
-          }
+          text={lang.strings.guidedFlows.finalMessage.buttons.primary}
         />
       </Button>
     </Flex>
@@ -54,9 +48,7 @@ export const FinalMessage: FC = () => {
         image={informationIcon}
         onNext={onNext}
         onPrevious={onPrevious}
-        title={
-          lang.strings.guidedFlows.createWallet.confirmation.finalMessage.title
-        }
+        title={lang.strings.guidedFlows.finalMessage.title}
         footer={
           <Buttons
             setShowWalletNotCreatedDialog={setShowWalletNotCreatedDialog}

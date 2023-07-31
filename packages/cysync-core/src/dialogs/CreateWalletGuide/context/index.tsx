@@ -15,15 +15,16 @@ import {
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
-  Dispatch,
   FC,
   ReactNode,
-  SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
+
+import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import { selectLanguage, useAppSelector } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
@@ -36,12 +37,13 @@ type ITabs = {
 export interface CreateWalletGuideContextInterface {
   tabs: ITabs;
   currentTab: number;
-  setCurrentTab: Dispatch<SetStateAction<number>>;
+  setCurrentTab: (data: number) => void;
   currentDialog: number;
-  setCurrentDialog: Dispatch<SetStateAction<number>>;
+  setCurrentDialog: (data: number) => void;
   onNext: () => void;
   onPrevious: () => void;
-  isConfettiBlastDone: boolean;
+  blastConfetti: boolean;
+  showBackButton: boolean;
 }
 
 export const CreateWalletGuideContext: Context<CreateWalletGuideContextInterface> =
@@ -53,8 +55,8 @@ export interface CreateWalletGuideContextProviderProps {
   children: ReactNode;
 }
 
-const dialogsImages = {
-  device: [
+const dialogsImages = [
+  [
     confirmGenericDeviceImage,
     confirmGenericDeviceImage,
     inputAlphabeticDeviceImage,
@@ -63,15 +65,9 @@ const dialogsImages = {
     inputNumericDeviceImage,
     confirmNumericDeviceImage,
   ],
-  syncX1Cards: [tapCardsDeviceImage],
-  confirmation: [
-    successIcon,
-    successIcon,
-    successIcon,
-    informationIcon,
-    informationIcon,
-  ],
-};
+  [tapCardsDeviceImage],
+  [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+];
 
 interface IGuidedDialogContent {
   title?: string;
@@ -84,41 +80,58 @@ export const CreateWalletGuideProvider: FC<
   CreateWalletGuideContextProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [currentDialog, setCurrentDialog] = useState<number>(0);
+  const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
+  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
+  const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
   const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
+  const [blastConfetti, setBlastConfetti] = useState(false);
+  const [showBackButton, setShowBackButton] = useState(false);
 
   const checkConfettiBlastDone = () => {
-    if (currentTab === 2 && currentDialog === 0) setIsConfettiBlastDone(true);
+    if (tabRef.current === 2 && dialogRef.current === 0)
+      setIsConfettiBlastDone(true);
   };
 
   const onNext = () => {
     checkConfettiBlastDone();
-    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
-      if (currentTab !== tabs.length - 1) {
+    if (
+      dialogRef.current + 1 >
+      tabsRef.current[tabRef.current].dialogs.length - 1
+    ) {
+      setCurrentTab(Math.min(tabsRef.current.length - 1, tabRef.current + 1));
+      if (tabRef.current !== tabsRef.current.length - 1) {
         setCurrentDialog(0);
       }
     } else {
-      setCurrentDialog(prevProps =>
-        Math.min(tabs[currentTab].dialogs.length - 1, prevProps + 1),
+      setCurrentDialog(
+        Math.min(
+          tabsRef.current[tabRef.current].dialogs.length - 1,
+          dialogRef.current + 1,
+        ),
       );
     }
   };
 
   const onPrevious = () => {
     checkConfettiBlastDone();
-    if (currentDialog - 1 < 0) {
-      if (currentTab === 0) {
+    if (dialogRef.current - 1 < 0) {
+      if (tabRef.current === 0) {
         setCurrentDialog(0);
       } else {
-        setCurrentDialog(tabs[currentTab - 1].dialogs.length - 1);
-        setCurrentTab(prevProps => Math.max(0, prevProps - 1));
+        setCurrentDialog(
+          tabsRef.current[tabRef.current - 1].dialogs.length - 1,
+        );
+        setCurrentTab(Math.max(0, tabRef.current - 1));
       }
     } else {
-      setCurrentDialog(prevProps => Math.max(0, prevProps - 1));
+      setCurrentDialog(Math.max(0, dialogRef.current - 1));
     }
   };
+
+  addKeyboardEvents({
+    ArrowRight: onNext,
+    ArrowLeft: onPrevious,
+  });
 
   const getDialogArray = (
     images: string[],
@@ -136,33 +149,31 @@ export const CreateWalletGuideProvider: FC<
       />
     ));
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.guidedFlows.createWallet.device.asideTitle,
-      dialogs: getDialogArray(
-        dialogsImages.device,
-        lang.strings.guidedFlows.createWallet.device.pages as any,
-        true,
-      ),
-    },
-    {
-      name: lang.strings.guidedFlows.createWallet.syncX1Cards.asideTitle,
-      dialogs: getDialogArray(
-        dialogsImages.syncX1Cards,
-        lang.strings.guidedFlows.createWallet.syncX1Cards.pages as any,
-      ),
-    },
-    {
-      name: lang.strings.guidedFlows.createWallet.confirmation.asideTitle,
-      dialogs: [
-        ...getDialogArray(
-          dialogsImages.confirmation,
-          lang.strings.guidedFlows.createWallet.confirmation.pages as any,
+  const init = () => {
+    const initTabs = lang.strings.guidedFlows.createWallet.tabs.map(
+      (tab, index) => ({
+        name: tab.asideTitle,
+        dialogs: getDialogArray(
+          dialogsImages[index],
+          tab.pages as any,
+          index === 0,
         ),
-        <FinalMessage />,
-      ],
-    },
-  ];
+      }),
+    );
+    initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
+    setTabs(initTabs);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    setBlastConfetti(
+      !isConfettiBlastDone && currentTab === 2 && currentDialog === 0,
+    );
+    setShowBackButton(currentTab === 0 && currentDialog === 0);
+  }, [currentTab, currentDialog]);
 
   const ctx = useMemo(
     () => ({
@@ -173,7 +184,8 @@ export const CreateWalletGuideProvider: FC<
       tabs,
       onNext,
       onPrevious,
-      isConfettiBlastDone,
+      blastConfetti,
+      showBackButton,
     }),
     [
       currentTab,
@@ -183,7 +195,8 @@ export const CreateWalletGuideProvider: FC<
       tabs,
       onNext,
       onPrevious,
-      isConfettiBlastDone,
+      blastConfetti,
+      showBackButton,
     ],
   );
 

@@ -25,7 +25,7 @@ import { CloseConfirmation } from './Dialogs';
 
 export const CreateNewWallet: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog, isConfettiBlastDone } =
+  const { tabs, currentTab, currentDialog, blastConfetti, showBackButton } =
     useCreateWalletGuide();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
@@ -45,9 +45,7 @@ export const CreateNewWallet: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            {!isConfettiBlastDone &&
-              currentTab === 2 &&
-              currentDialog === 0 && <ConfettiBlast />}
+            {blastConfetti && <ConfettiBlast />}
             <DialogBoxBody
               p={0}
               grow={2}
@@ -71,7 +69,7 @@ export const CreateNewWallet: FC = () => {
               position="top"
               useLightPadding
             />
-            {currentTab === 0 && currentDialog === 0 && (
+            {showBackButton && (
               <DialogBoxBackgroundBar
                 leftComponent={
                   <BackButton
