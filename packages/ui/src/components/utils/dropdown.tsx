@@ -10,12 +10,6 @@ export const findSelectedItem = (
     if (item.id === selectedId) {
       return item;
     }
-    // if (item.subMenu && item.subMenu.length > 0) {
-    //   const foundItem = findSelectedItem(item.subMenu, selectedId);
-    //   if (foundItem) {
-    //     return foundItem;
-    //   }
-    // }
   }
   return undefined;
 };
@@ -54,9 +48,7 @@ export const handleKeyDown =
     filteredItems: any,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
-    // const flatItems = flattenItems(items);
     const itemsCount = items.length;
-    // console.log(flatItems)
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
@@ -64,12 +56,9 @@ export const handleKeyDown =
         if (!isOpen) {
           toggleDropdown();
         } else {
-          setFocusedIndex(prevIndex => {
-            console.log('prevIndex ', prevIndex, itemsCount - 1);
-            return prevIndex === null
-              ? 0
-              : Math.min(prevIndex + 1, itemsCount - 1);
-          });
+          setFocusedIndex(prevIndex =>
+            prevIndex === null ? 0 : Math.min(prevIndex + 1, itemsCount - 1),
+          );
         }
         break;
       case 'ArrowUp':

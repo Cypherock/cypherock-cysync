@@ -184,7 +184,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
             const itemId = item.id ?? '';
             const isItemFocused = focusedIndex === index;
             const isItemSelected = selectedIndex === index;
-            console.log(item);
             return (
               <DropdownListItem
                 key={itemId}
