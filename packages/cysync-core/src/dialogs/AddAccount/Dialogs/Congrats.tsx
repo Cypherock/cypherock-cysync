@@ -9,7 +9,7 @@ export const AddAccountCongrats: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.addAccount.congrats;
   const button = lang.strings.buttons;
-  const { startAddAccounts, onClose } = useAddAccountDialog();
+  const { onRetry, onClose } = useAddAccountDialog();
 
   return (
     <>
@@ -21,7 +21,7 @@ export const AddAccountCongrats: React.FC = () => {
         buttonText={button.done}
         secondaryButtonText={strings.buttonAddMore}
         handleClick={onClose}
-        handleSecButtonClick={startAddAccounts}
+        handleSecButtonClick={onRetry}
       />
     </>
   );
