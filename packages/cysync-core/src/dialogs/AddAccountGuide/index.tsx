@@ -12,9 +12,11 @@ import React, { FC } from 'react';
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
 import { useCloseDialogBox } from '../../hooks/closeDialogBox';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const AddNewAccount: FC = () => {
   const { tabs, currentTab, currentDialog } = useAddAccountDialog();
+  const lang = useAppSelector(selectLanguage);
   const closeDialogBox = useCloseDialogBox();
 
   return (
@@ -24,7 +26,7 @@ export const AddNewAccount: FC = () => {
           <MilestoneAside
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
-            header={tabs[0].header}
+            heading={lang.strings.addAccount.header}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">

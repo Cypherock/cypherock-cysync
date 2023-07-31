@@ -31,17 +31,14 @@ const textColor = (activeTab: number, index: number) => {
 };
 
 export const MilestoneAside: FC<{
+  heading?: string;
   milestones: string[];
   activeTab: number;
-  header?: string;
-}> = ({ milestones, activeTab, header }) => (
+}> = ({ milestones, activeTab, heading }) => (
   <AsideStyle>
-    {header && (
-      <Typography px={0} color="white" $fontSize={18} $fontWeight="normal">
-        <LangDisplay text={header} />
-      </Typography>
-    )}
-    {!header && (
+    {heading ? (
+      <Typography $fontSize={18}>{heading}</Typography>
+    ) : (
       <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     )}
     <Flex direction="column" py={8}>
@@ -81,5 +78,5 @@ export const MilestoneAside: FC<{
 );
 
 MilestoneAside.defaultProps = {
-  header: '',
+  heading: undefined,
 };

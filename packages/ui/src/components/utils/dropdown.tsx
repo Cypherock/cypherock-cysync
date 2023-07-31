@@ -10,12 +10,6 @@ export const findSelectedItem = (
     if (item.id === selectedId) {
       return item;
     }
-    if (item.subMenu && item.subMenu.length > 0) {
-      const foundItem = findSelectedItem(item.subMenu, selectedId);
-      if (foundItem) {
-        return foundItem;
-      }
-    }
   }
   return undefined;
 };
@@ -31,25 +25,15 @@ export const searchInItems = (
       item.id === selectedItem ||
       item.text.toLowerCase().includes(searchString.toLowerCase());
 
-    if (item.subMenu && item.subMenu.length > 0) {
-      const subMenuFiltered = searchInItems(
-        item.subMenu,
-        searchString,
-        selectedItem,
-      );
-      if (subMenuFiltered.length > 0) {
-        filteredItems.push({
-          ...item,
-          subMenu: subMenuFiltered,
-        });
-      } else if (shouldAdd) {
-        filteredItems.push(item);
-      }
-    } else if (shouldAdd) {
+    if (shouldAdd) {
       filteredItems.push(item);
     }
   }
   return filteredItems;
+};
+
+type MenuItem = DropDownListItemProps & {
+  subMenu?: MenuItem[];
 };
 
 export const handleKeyDown =
@@ -57,13 +41,14 @@ export const handleKeyDown =
     isOpen: boolean,
     toggleDropdown: () => void,
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    itemsCount: number,
+    items: MenuItem[],
     focusedIndex: number | null,
     setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const itemsCount = items.length;
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
