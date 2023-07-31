@@ -15,23 +15,24 @@ import React, { FC } from 'react';
 import { openWalletActionsDialog } from '~/actions';
 import {
   closeDialog,
+  GuidedFlowType,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
-import { CreateWalletGuideProvider, useCreateWalletGuide } from './context';
+import { GuidedFlowProvider, useGuidedFlow } from './context';
 import { CloseConfirmation } from './Dialogs';
 
-export const CreateNewWallet: FC = () => {
+export const GuidedFlowDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog, isConfettiBlastDone } =
-    useCreateWalletGuide();
+  const { tabs, currentTab, currentDialog, blastConfetti, showBackButton } =
+    useGuidedFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const dispatch = useAppDispatch();
   const backToWalletActions = () => {
-    dispatch(closeDialog('createWalletGuide'));
+    dispatch(closeDialog('guidedFlow'));
     dispatch(openWalletActionsDialog());
   };
   return (
@@ -45,9 +46,7 @@ export const CreateNewWallet: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            {!isConfettiBlastDone &&
-              currentTab === 2 &&
-              currentDialog === 0 && <ConfettiBlast />}
+            {blastConfetti && <ConfettiBlast />}
             <DialogBoxBody
               p={0}
               grow={2}
@@ -71,7 +70,7 @@ export const CreateNewWallet: FC = () => {
               position="top"
               useLightPadding
             />
-            {currentTab === 0 && currentDialog === 0 && (
+            {showBackButton && (
               <DialogBoxBackgroundBar
                 leftComponent={
                   <BackButton
@@ -90,8 +89,8 @@ export const CreateNewWallet: FC = () => {
   );
 };
 
-export const CreateWalletGuide: FC = () => (
-  <CreateWalletGuideProvider>
-    <CreateNewWallet />
-  </CreateWalletGuideProvider>
+export const GuidedFlow: FC<{ type: GuidedFlowType }> = ({ type }) => (
+  <GuidedFlowProvider type={type}>
+    <GuidedFlowDialog />
+  </GuidedFlowProvider>
 );

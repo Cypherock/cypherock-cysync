@@ -7,7 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { useCreateWalletGuide } from '~/dialogs/CreateWalletGuide/context';
+import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
@@ -20,10 +20,7 @@ const Buttons: FC<{
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary">
         <LangDisplay
-          text={
-            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
-              .buttons.secondary
-          }
+          text={lang.strings.guidedFlows.finalMessage.buttons.secondary}
         />
       </Button>
       <Button
@@ -31,10 +28,7 @@ const Buttons: FC<{
         onClick={() => setShowWalletNotCreatedDialog(true)}
       >
         <LangDisplay
-          text={
-            lang.strings.guidedFlows.createWallet.confirmation.finalMessage
-              .buttons.primary
-          }
+          text={lang.strings.guidedFlows.finalMessage.buttons.primary}
         />
       </Button>
     </Flex>
@@ -43,7 +37,7 @@ const Buttons: FC<{
 
 export const FinalMessage: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useCreateWalletGuide();
+  const { onNext, onPrevious } = useGuidedFlow();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
     useState(false);
 
@@ -54,9 +48,7 @@ export const FinalMessage: FC = () => {
         image={informationIcon}
         onNext={onNext}
         onPrevious={onPrevious}
-        title={
-          lang.strings.guidedFlows.createWallet.confirmation.finalMessage.title
-        }
+        title={lang.strings.guidedFlows.finalMessage.title}
         footer={
           <Buttons
             setShowWalletNotCreatedDialog={setShowWalletNotCreatedDialog}

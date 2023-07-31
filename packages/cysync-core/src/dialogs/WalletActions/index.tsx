@@ -12,7 +12,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openCreateWalletGuideDialog } from '~/actions';
+import { openGuidedFlowDialog } from '~/actions';
 import {
   closeDialog,
   selectLanguage,
@@ -31,7 +31,7 @@ export const WalletActionsDialogBox: FC = () => {
 
   const switchToCreateWalletDialog = () => {
     dispatch(closeDialog('walletActions'));
-    dispatch(openCreateWalletGuideDialog());
+    dispatch(openGuidedFlowDialog('createWallet'));
   };
 
   return (
