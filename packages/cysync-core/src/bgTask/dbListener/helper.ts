@@ -27,7 +27,9 @@ const createFuncWithErrorHandler =
 const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
   const db = getDB();
 
-  const wallets = await db.wallet.getAll();
+  const wallets = await db.wallet.getAll(undefined, {
+    sortBy: { key: 'name' },
+  });
   store.dispatch(setWallets(wallets));
 });
 
@@ -36,7 +38,9 @@ const syncAccountsDb = createFuncWithErrorHandler(
   async () => {
     const db = getDB();
 
-    const accounts = await db.account.getAll();
+    const accounts = await db.account.getAll(undefined, {
+      sortBy: { key: 'name' },
+    });
     store.dispatch(setAccounts(accounts));
   },
 );

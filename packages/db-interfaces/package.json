@@ -1,13 +1,17 @@
 {
   "name": "@cypherock/db-interfaces",
   "version": "0.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",
   "scripts": {
     "pretty": "prettier --write \"src/**/*.ts\"",
     "pretty:check": "prettier --check \"src/**/*.ts\"",
-    "build": "rimraf dist && tsc -p tsconfig.json",
+    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig_cjs.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:dirty": "pnpm build:esm",
     "lint": "eslint src/* --fix",
     "lint:check": "eslint --ext .ts src/",
     "pre-commit": "lint-staged"

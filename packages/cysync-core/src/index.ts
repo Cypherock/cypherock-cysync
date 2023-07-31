@@ -6,6 +6,7 @@ export {
   setAutoUpdater,
   setResetCySyncMethod,
   setCloseAppMethod,
+  setDependencies,
 } from './utils';
 export * from './theme';
 export * from './constants';

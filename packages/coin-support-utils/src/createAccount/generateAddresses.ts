@@ -4,26 +4,7 @@ import {
 } from '@cypherock/coin-support-interfaces';
 import { Subscriber } from 'rxjs';
 
-export const mapDerivationPath = (derivationPath: string) => {
-  const paths: number[] = [];
-
-  const pathArr = derivationPath.split('/');
-
-  for (const path of pathArr) {
-    if (path !== 'm') {
-      const isHardened = path.includes("'");
-      let index = parseInt(path.replace("'", ''), 10);
-
-      if (isHardened) {
-        index += 0x80000000;
-      }
-
-      paths.push(index);
-    }
-  }
-
-  return paths;
-};
+import { mapDerivationPath } from '../common';
 
 export interface IGetAddressesFromDeviceParams<T> extends ICreateAccountParams {
   derivationPaths: { derivationPath: number[]; index: number }[];
