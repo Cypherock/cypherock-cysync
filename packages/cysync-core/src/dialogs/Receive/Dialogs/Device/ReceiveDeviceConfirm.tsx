@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -12,7 +11,6 @@ import {
   LeanBoxContainer,
   LeanBox,
 } from '@cypherock/cysync-ui';
-import { spinnerGoldIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
@@ -31,15 +29,13 @@ export const ReceiveDeviceConfirm: React.FC = () => {
       id: '1',
       leftImage: arrowGoldenForward,
       text: 'Fetching a new address from the wallet',
-      rightImageSrc: checkIcon,
+      rightImage: checkIcon,
     },
     {
       id: '2',
       leftImage: arrowGoldenForward,
-
-      text: 'Verify the account on the X1 Vault',
-      rightImageSrc: spinnerGoldIcon,
-      animate: true,
+      text: 'Verify the account on the device',
+      throbber: true,
     },
     {
       id: '3',
@@ -49,7 +45,7 @@ export const ReceiveDeviceConfirm: React.FC = () => {
     {
       id: '4',
       leftImage: arrowGoldenForward,
-      text: 'Enter the PIN and tap any X1 card',
+      text: 'Enter the PIN and tap any card',
     },
   ];
 
@@ -66,11 +62,6 @@ export const ReceiveDeviceConfirm: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxHeader height={56} width={600}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" width="full">
@@ -92,9 +83,10 @@ export const ReceiveDeviceConfirm: React.FC = () => {
             <LeanBox
               key={data.id}
               leftImage={data.leftImage}
-              rightImageSrc={data.rightImageSrc}
+              rightImage={data.rightImage}
               text={data.text}
               id={data.id}
+              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

@@ -34,9 +34,7 @@ export const MilestoneAside: FC<{
   heading?: string;
   milestones: string[];
   activeTab: number;
-  currentDialog: number;
-  totalDialogs: number;
-}> = ({ milestones, activeTab, heading, currentDialog, totalDialogs }) => (
+}> = ({ milestones, activeTab, heading }) => (
   <AsideStyle>
     {heading ? (
       <Typography $fontSize={18}>{heading}</Typography>
@@ -67,8 +65,7 @@ export const MilestoneAside: FC<{
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-            {activeTab > index ||
-            (activeTab === index && currentDialog === totalDialogs - 1) ? (
+            {activeTab > index ? (
               <Image src={greenTick} alt="greenTick" />
             ) : (
               <Bullet size="sm" variant={textColor(activeTab, index)} />

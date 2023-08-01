@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -35,7 +34,7 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
     {
       id: '2',
       leftImage: arrowGoldenForward,
-      text: 'Verify the account on the X1 Vault',
+      text: 'Verify the account on the device',
     },
     {
       id: '3',
@@ -45,7 +44,7 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
     {
       id: '4',
       leftImage: arrowGoldenForward,
-      text: 'Enter the PIN and tap any X1 card',
+      text: 'Enter the PIN and tap any card',
     },
   ];
 
@@ -63,11 +62,6 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
   return (
     <div>
       <DialogBox width={600}>
-        <DialogBoxHeader height={56} width={600}>
-          <Typography variant="fineprint" width="100%" color="muted">
-            <LangDisplay text={connect.title} />
-          </Typography>
-        </DialogBoxHeader>
         <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
           <Image src={confirmIcon} alt="Verify Coin" />
           <Container display="flex" direction="column" width="full">

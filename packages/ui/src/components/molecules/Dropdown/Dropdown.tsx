@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'styled-components';
 
+import {
+  DropdownContainer,
+  DropdownListItem,
+  IconContainer,
+  List,
+} from './DropdownStyles';
+
 import { searchIcon, triangleInverseIcon } from '../../../assets';
 import { Image, Input } from '../../atoms';
 import {
@@ -11,18 +18,12 @@ import {
   searchInItems,
 } from '../../utils';
 import { DropDownListItem, DropDownListItemProps } from '../DropDownListItem';
-import {
-  DropdownContainer,
-  DropdownListItem,
-  IconContainer,
-  List,
-} from './DropdownStyles';
 
 interface DropdownProps {
   items: DropDownListItemProps[];
   searchText: string;
   placeholderText: string;
-  $shouldShowIcon?: boolean;
+  shouldShowIcon?: boolean;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
@@ -31,7 +32,7 @@ interface DropdownProps {
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
   searchText,
-  $shouldShowIcon,
+  shouldShowIcon,
   placeholderText,
   selectedItem = undefined,
   onChange,
@@ -203,7 +204,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   onCheckedChange={handleCheckedChange}
                   {...item}
                   id={item.id}
-                  leftImage={$shouldShowIcon ? item.leftImage : ''}
+                  leftImage={shouldShowIcon ? item.leftImage : ''}
                   $isFocused={isItemFocused}
                 />
               </DropdownListItem>
@@ -217,5 +218,5 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
 Dropdown.defaultProps = {
   disabled: false,
-  $shouldShowIcon: false,
+  shouldShowIcon: false,
 };

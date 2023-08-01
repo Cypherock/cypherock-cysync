@@ -2,7 +2,6 @@ import {
   LangDisplay,
   disconnectedIcon,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -17,7 +16,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
 
-export const ReceiveDevice: React.FC = () => {
+export const ReceiveDeviceTroubleshoot: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConnection.info.dialogBox;
@@ -36,11 +35,6 @@ export const ReceiveDevice: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={disconnectedIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" width="full">
@@ -59,9 +53,7 @@ export const ReceiveDevice: React.FC = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={() => onNext(2, 1)}>
-          {connect.buttonName}
-        </Button>
+        <Button variant="secondary">{connect.buttonName}</Button>
       </DialogBoxFooter>
     </DialogBox>
   );

@@ -12,6 +12,7 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 const AddNewAccount: FC = () => {
   const {
@@ -27,6 +28,7 @@ const AddNewAccount: FC = () => {
   const WrapperComponent = isDeviceRequired
     ? WithConnectedDevice
     : React.Fragment;
+  const lang = useAppSelector(selectLanguage);
 
   return (
     <BlurOverlay>
@@ -37,8 +39,7 @@ const AddNewAccount: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            currentDialog={currentDialog}
-            totalDialogs={tabs[currentTab].dialogs.length}
+            heading={lang.strings.addAccount.header}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">

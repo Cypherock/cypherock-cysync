@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from 'react';
+import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -10,9 +10,11 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
+  Image,
   Flex,
 } from '../atoms';
-import { UtilsProps } from '../utils';
+import { UtilsProps, spacing } from '../utils';
+import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
@@ -33,6 +35,7 @@ export interface LeanBoxProps extends UtilsProps {
   onCheckChanged?: ($isChecked: boolean) => void;
   disabled?: boolean;
   value?: string;
+  throbber?: boolean;
   [key: string]: any;
 }
 
@@ -51,9 +54,9 @@ export const HorizontalBox = styled.div<{
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
-  width: 422px;
-  height: 42px;
+  width: 100%;
   ${({ $checkType }) => $checkType && 'cursor: pointer'};
+  ${spacing};
 `;
 
 export const ImageContainer = styled.div<{ gap?: number }>`
@@ -93,18 +96,44 @@ export const LeanBox: FC<LeanBoxProps> = ({
   checkType = undefined,
   id,
   $isChecked = false,
+  throbber = false,
   onCheckChanged,
   value,
   disabled,
 }): ReactElement => {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
       onCheckChanged(!$isChecked);
     }
   }, [onCheckChanged, $isChecked]);
 
+  const handleHover = useCallback(() => {
+    setIsHovered(true);
+    if (
+      checkboxRef.current &&
+      (checkType === 'checkbox' || checkType === 'radio')
+    ) {
+      checkboxRef.current.focus();
+    }
+  }, [checkType]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    if (checkboxRef.current) {
+      checkboxRef.current.blur();
+    }
+  }, []);
+
   return (
-    <InputLabel px={0}>
+    <InputLabel
+      px={0}
+      py={0}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleMouseLeave}
+    >
       <HorizontalBox $isChecked={$isChecked} $checkType={checkType}>
         {checkType === 'radio' && (
           <RadioButton
@@ -113,7 +142,11 @@ export const LeanBox: FC<LeanBoxProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
+        {leftImage && (
+          <ImageContainer>
+            <Image src={leftImage as string} alt="image" />
+          </ImageContainer>
+        )}
         <StretchedTypography
           $shouldStretch={!tag}
           variant={textVariant}
@@ -137,17 +170,29 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
+          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
-            <Typography variant={rightTextVariant} color={rightTextColor}>
+            <Typography
+              variant={rightTextVariant}
+              color={rightTextColor}
+              $fontSize={14}
+              $fontWeight="normal"
+            >
               {rightText}
             </Typography>
           )}
-          {rightImage && <ImageContainer>{rightImage}</ImageContainer>}
+          {rightImage && (
+            <ImageContainer>
+              <Image src={rightImage as string} alt="image" />
+            </ImageContainer>
+          )}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
+              $isHovered={isHovered}
+              ref={checkboxRef}
               isDisabled={disabled}
             />
           )}
@@ -174,5 +219,6 @@ LeanBox.defaultProps = {
   tag: '',
   fontSize: 16,
   shortForm: '',
+  throbber: false,
   disabled: undefined,
 };

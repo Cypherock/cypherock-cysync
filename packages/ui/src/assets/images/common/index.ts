@@ -48,6 +48,7 @@ import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
+import questionMarkIcon from './question-mark.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -77,6 +78,7 @@ export {
   spinnerGoldIcon,
   informationWhiteIcon,
   circledCheckIcon,
+  questionMarkIcon,
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,

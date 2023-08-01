@@ -309,6 +309,7 @@ const en = {
     report: 'Report',
     help: 'Help',
     stop: 'Stop',
+    resync: 'Resync',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -330,11 +331,11 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
+    header: 'Add Coin/Account',
     addAccount: {
       initAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Follow instructions on the X1 Vault',
             subheader: 'Add a coin/account Wallet',
             subheader1: 'Cypherock Red',
@@ -344,17 +345,14 @@ const en = {
       syncAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
-            header: 'Syncing the account',
+            header: 'Syncing the Accounts',
             subheader: 'Accounts already in portfolio',
-            buttonStopSync: 'Stop Syncing',
           },
         },
       },
       connectDevice: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Connect your X1 Vault to your PC to proceed',
           },
         },
@@ -362,7 +360,6 @@ const en = {
       congrats: {
         info: {
           dialogBox: {
-            header: 'Add Coin/Account',
             subtext: 'Add other accounts or return to portfolio',
             title: 'Accounts added successfully',
             buttonAddMore: 'Add more',
@@ -372,7 +369,6 @@ const en = {
       noAccount: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'No account found yet',
             subheader: 'Accounts already in portfolio',
             buttonSyncAgain: 'Sync Again',
@@ -382,7 +378,6 @@ const en = {
       add: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Add new accounts',
             subheader: 'New Accounts',
             buttonAddAccount: 'Add Accounts',
@@ -394,7 +389,6 @@ const en = {
       selectCrypto: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Select the Wallet & Coins you want to add',
             subTitle: 'Add a coin/account to wallet',
             constant: 'Cypherock Red',
@@ -408,12 +402,12 @@ const en = {
       addAccountSingleChain: {
         info: {
           dialogBox: {
-            title: 'Add Coin/Account',
             header: 'Add new accounts',
             subheader: 'New Accounts',
             subheader2: 'Account not yet synced',
             subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect all',
+            deselectAllButton: 'Deselect All',
+            selectAllButton: 'Select All',
             buttonAddAccount: 'Add Accounts',
             advanced: 'Show all address types',
             questionMark: '?',
@@ -463,16 +457,16 @@ const en = {
     aside: {
       tabs: {
         asset: 'Asset',
-        device: 'Device',
+        device: 'X1 Vault',
         confirmation: 'Confirmation',
       },
     },
   },
   receive: {
+    header: 'Receive',
     receive: {
       info: {
         dialogBox: {
-          title: 'Receive',
           header: 'Receive',
           subheader: 'Choose a wallet and account to credit',
           searchText: 'Search',
@@ -485,7 +479,6 @@ const en = {
     deviceConnection: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Connect your X1 Vault to proceed',
           subheader: 'Looks like your device is not connected',
           buttonName: "Don't have your device?",
@@ -495,18 +488,14 @@ const en = {
     deviceConfirmCancelled: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Request was cancelled from the X1 Vault',
           subheader: 'This is dialogue text or sub heading',
-          buttonRetry: 'Retry',
-          buttonReport: 'Report',
         },
       },
     },
     deviceConfirmForTroubleshoot: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
           snackBar: {
@@ -519,7 +508,6 @@ const en = {
     deviceConfirmForToken: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
           InfoBox: {
@@ -531,7 +519,6 @@ const en = {
     deviceConfirm: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Follow instructions on the X1 Vault',
           subheader: 'Confirm the operation on your device to finalize',
         },
@@ -540,7 +527,6 @@ const en = {
     deviceVerifyAddress: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
           tag: 'NATIVE SEGWIT',
@@ -553,24 +539,20 @@ const en = {
     deviceAddressVerified: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify Again',
-          buttonDone: 'Done',
+          buttonVerify: 'Verify again',
         },
       },
     },
     deviceAddressNotVerified: {
       info: {
         dialogBox: {
-          title: 'Receive Crypto',
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify Again',
-          buttonDone: 'Done',
+          buttonVerify: 'Verify address',
           tag: 'NATIVE SEGWIT',
           text: 'Address for ',
           coinText: 'Bitcoin 1',

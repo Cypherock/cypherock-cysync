@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  DialogBox,
-  DialogBoxBody,
-  DialogBoxFooter,
-  DialogBoxHeader,
-} from './DialogBox';
+import { DialogBox, DialogBoxBody, DialogBoxFooter } from './DialogBox';
 
 import { successIcon } from '../../../assets/images';
 import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
@@ -14,7 +9,6 @@ import { AlertBox } from '../AlertBox';
 export interface SuccessDialogProps {
   title: string;
   subtext?: string;
-  headerText?: string;
   buttonText?: string;
   secondaryButtonText?: string;
   alertText?: string;
@@ -24,7 +18,6 @@ export interface SuccessDialogProps {
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
-  headerText,
   subtext,
   buttonText,
   secondaryButtonText,
@@ -33,14 +26,6 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   handleSecButtonClick,
 }) => (
   <DialogBox width={500}>
-    {headerText && (
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={headerText} />
-        </Typography>
-      </DialogBoxHeader>
-    )}
-
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
@@ -73,7 +58,6 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
 
 SuccessDialog.defaultProps = {
   subtext: undefined,
-  headerText: undefined,
   secondaryButtonText: undefined,
   buttonText: undefined,
   handleClick: undefined,

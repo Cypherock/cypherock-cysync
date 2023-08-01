@@ -1,7 +1,6 @@
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -15,7 +14,7 @@ import {
   Flex,
   Tag,
 } from '@cypherock/cysync-ui';
-import { bitcoinIcon, spinnerGoldIcon } from '@cypherock/cysync-ui/src';
+import { bitcoinIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
@@ -27,22 +26,20 @@ export const ReceiveVerifyAddress: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceVerifyAddress.info.dialogBox;
-  const { onNext, onPrevious } = useReceiveDialog();
+  const { goTo, onPrevious } = useReceiveDialog();
 
   const dataArray = [
     {
       id: '2',
       leftImage: arrowGoldenForward,
-
       text: 'Verify the address on X1 Vault exactly matches the address displayed above',
-      rightImage: spinnerGoldIcon,
-      animate: true,
+      throbber: true,
     },
   ];
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext(2, 2);
+      goTo(2, 2);
     },
     ArrowLeft: () => {
       onPrevious();
@@ -53,11 +50,6 @@ export const ReceiveVerifyAddress: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxHeader height={56} width={600}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={connect.title} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
         <Flex gap={5} direction="column">
@@ -91,10 +83,10 @@ export const ReceiveVerifyAddress: React.FC = () => {
             <LeanBox
               key={data.id}
               leftImage={data.leftImage}
-              rightImage={data.rightImage}
               text={data.text}
               id={data.id}
               px={6}
+              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>
