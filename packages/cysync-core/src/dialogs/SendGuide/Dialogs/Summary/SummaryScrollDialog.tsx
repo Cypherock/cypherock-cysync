@@ -9,7 +9,7 @@ import {
   walletIcon,
   Button,
   qrCodeIcon,
-  SummaryScrollBox,
+  SummaryBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useSendGuide } from '../../context';
@@ -40,20 +40,22 @@ export const SummaryScrollDialog: React.FC = () => {
           <LangDisplay text="Summary" />
         </Typography>
 
-        <SummaryScrollBox
-          walletIconSrc={walletIcon}
-          ethereumIconSrc={etheriumBlueIcon}
-          qrCodeIconSrc={qrCodeIcon}
-          cypherockRedText={summary.text}
+        <SummaryBox
+          fromIcon={walletIcon}
+          ethereumIcon={etheriumBlueIcon}
+          toIcon={qrCodeIcon}
+          toText={summary.to}
+          amountText={summary.amount}
+          networkText={summary.network.text}
+          debitText={summary.debit.text}
+          walletName={summary.text}
           ethereumText={summary.ethereumText}
           fromText={summary.from}
-          toAddress={summary.toAddress}
-          amountEth={summary.amountEth}
-          amountInDollar={summary.amountInDollar}
-          networkFeeEth={summary.networkFeeEth}
-          networkFeeInDollar={summary.networkFeeInDollar}
-          totalDebitEth={summary.totalDebitEth}
-          totalDebitInDollar={summary.totalDebitInDollar}
+          toDetails={summary.toDetails}
+          networkFeeEth={summary.network.eth}
+          networkFeeUsd={summary.network.usd}
+          totalDebitEth={summary.debit.eth}
+          totalDebitUsd={summary.debit.usd}
         />
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

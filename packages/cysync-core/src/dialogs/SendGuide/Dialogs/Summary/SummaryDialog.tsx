@@ -42,17 +42,19 @@ export const SummaryDialog: React.FC = () => {
         <SummaryBox
           fromIcon={walletIcon}
           toIcon={qrCodeIcon}
-          etheriumIcon={etheriumBlueIcon}
+          ethereumIcon={etheriumBlueIcon}
           fromText={summary.from}
+          toText={summary.to}
+          amountText={summary.amount}
+          networkText={summary.network.text}
+          debitText={summary.debit.text}
           walletName={summary.walletName}
-          ethereumAmount={summary.ethereum}
-          toAddress={summary.toAddress}
-          amountEth={summary.amountEth}
-          amountUsd={summary.amountUsd}
-          networkFeeEth={summary.networkFeeEth}
-          networkFeeUsd={summary.networkFeeUsd}
-          totalEth={summary.totalEth}
-          totalUsd={summary.totalUsd}
+          ethereumText={summary.ethereum}
+          toDetails={summary.toDetails}
+          networkFeeEth={summary.network.eth}
+          networkFeeUsd={summary.network.usd}
+          totalDebitEth={summary.debit.eth}
+          totalDebitUsd={summary.debit.usd}
         />
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

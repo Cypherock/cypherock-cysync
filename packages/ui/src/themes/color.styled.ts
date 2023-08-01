@@ -60,6 +60,7 @@ export const colors = {
     gold: '#E9B873',
     dropdownHover: '#191715',
     black: '#000000',
+    container: '#1B1812',
     toggleOff: '#544D43',
     list: '#2C2824',
     infoBackground: '#4A2D00',

@@ -1,173 +1,212 @@
 import React from 'react';
-import { css, styled } from 'styled-components';
-import { Typography, Image, ImageContainer, Divider } from '../..';
+import {
+  Typography,
+  Image,
+  ImageContainer,
+  Divider,
+  SummaryContainer,
+  NestedContainer,
+  ScrollContainer,
+} from '../..';
 
-export interface SummaryBoxProps {
-  fromIcon: string;
-  toIcon: string;
-  etheriumIcon: string;
-  fromText: string;
-  walletName: string;
-  ethereumAmount: string;
-  toAddress: string;
+interface ToItem {
+  id: number;
+  address: string;
   amountEth: string;
   amountUsd: string;
-  networkFeeEth: string;
-  networkFeeUsd: string;
-  totalEth: string;
-  totalUsd: string;
 }
 
-export const commonContainerStyles = css`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
+interface ToDetailItemProps {
+  toIcon: string;
+  margin?: number;
+  to: ToItem;
+  toText: string;
+  amountText: string;
+  isLast: boolean;
+}
 
-export const Main = styled.div<{ top?: number }>`
-  display: flex;
-  justify-content: center;
-  align-self: stretch;
-  align-items: flex-start;
-  margin: ${props => (props.top ? `${props.top}px 0` : '0')};
-`;
+export type SummaryScrollBoxProps = {
+  fromText: string;
+  fromIcon: string;
+  toText: string;
+  amountText: string;
+  networkText: string;
+  debitText: string;
+  walletName: string;
+  ethereumIcon: string;
+  ethereumText: string;
+  toIcon: string;
+  toDetails: ToItem[];
+  networkFeeEth: string;
+  networkFeeUsd: string;
+  totalDebitEth: string;
+  totalDebitUsd: string;
+};
 
-export const LeftContainer = styled.div`
-  ${commonContainerStyles};
-`;
-
-export const RightContainer = styled.div`
-  margin-left: auto;
-  ${commonContainerStyles};
-`;
-
-export const NestedContainer = styled.div`
-  margin-left: auto;
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-`;
-
-export const SummaryBox: React.FC<SummaryBoxProps> = ({
-  fromIcon,
+export const ToDetailItem: React.FC<ToDetailItemProps> = ({
+  margin,
   toIcon,
-  etheriumIcon,
-  fromText,
-  walletName,
-  ethereumAmount,
-  toAddress,
-  amountEth,
-  amountUsd,
-  networkFeeEth,
-  networkFeeUsd,
-  totalEth,
-  totalUsd,
+  to,
+  toText,
+  amountText,
+  isLast,
 }) => (
   <>
-    <Main>
-      <LeftContainer>
+    <SummaryContainer
+      leftComponent={
         <ImageContainer gap={8}>
-          <Image src={fromIcon} alt="From Icon" width="15px" height="12px" />
+          <Image src={toIcon} alt="To" width="11px" height="20px" />
+          <Typography variant="p" color="muted" $fontSize={14}>
+            {toText}
+          </Typography>
+        </ImageContainer>
+      }
+      rightComponent={
+        <Typography variant="p" $fontSize={14}>
+          {to.address}
+        </Typography>
+      }
+      margin={margin}
+    />
+
+    <SummaryContainer
+      leftComponent={
+        <Typography variant="p" color="muted" $fontSize={14}>
+          {amountText}
+        </Typography>
+      }
+      rightComponent={
+        <NestedContainer>
+          <Typography variant="p" $fontSize={14}>
+            {to.amountEth}
+          </Typography>
+          <Typography variant="p" $fontSize={14} color="muted">
+            {to.amountUsd}
+          </Typography>
+        </NestedContainer>
+      }
+      margin={margin}
+    />
+
+    {!isLast && <Divider variant="horizontal" />}
+  </>
+);
+
+ToDetailItem.defaultProps = {
+  margin: undefined,
+};
+
+export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
+  fromText,
+  toText,
+  amountText,
+  networkText,
+  debitText,
+  fromIcon,
+  walletName,
+  ethereumIcon,
+  ethereumText,
+  toIcon,
+  toDetails,
+  networkFeeEth,
+  networkFeeUsd,
+  totalDebitEth,
+  totalDebitUsd,
+}) => (
+  <>
+    <SummaryContainer
+      leftComponent={
+        <ImageContainer gap={8}>
+          <Image src={fromIcon} alt="From" width="15px" height="12px" />
           <Typography variant="p" color="muted" $fontSize={14}>
             {fromText}
           </Typography>
         </ImageContainer>
-      </LeftContainer>
-      <RightContainer>
-        <Typography variant="p" $fontSize={14} color="muted">
-          {walletName}
-        </Typography>
-        <Typography variant="p" $fontSize={14} color="muted">
-          /
-        </Typography>
-        <ImageContainer gap={8}>
-          <Image
-            src={etheriumIcon}
-            alt="Etherium Icon"
-            width="11px"
-            height="16px"
+      }
+      rightComponent={
+        <>
+          <Typography variant="p" $fontSize={14} color="muted">
+            {walletName}
+          </Typography>
+          <ImageContainer gap={8}>
+            <Image src={ethereumIcon} alt="eth" width="11px" height="16px" />
+            <Typography variant="p" $fontSize={14}>
+              {ethereumText}
+            </Typography>
+          </ImageContainer>
+        </>
+      }
+    />
+
+    {toDetails.length === 1 && <Divider variant="horizontal" />}
+
+    {toDetails.length > 1 ? (
+      <ScrollContainer>
+        {toDetails.map((to, index) => (
+          <ToDetailItem
+            key={to.id}
+            toIcon={toIcon}
+            to={to}
+            toText={toText}
+            amountText={amountText}
+            margin={24}
+            isLast={index === toDetails.length - 1}
           />
-          <Typography variant="p" $fontSize={14}>
-            {ethereumAmount}
-          </Typography>
-        </ImageContainer>
-      </RightContainer>
-    </Main>
+        ))}
+      </ScrollContainer>
+    ) : (
+      <>
+        {toDetails.map((to, index) => (
+          <ToDetailItem
+            key={to.id}
+            toIcon={toIcon}
+            to={to}
+            toText={toText}
+            amountText={amountText}
+            isLast={index === toDetails.length - 1}
+          />
+        ))}
+      </>
+    )}
 
-    <Divider variant="horizontal" />
+    {toDetails.length === 1 && <Divider variant="horizontal" />}
 
-    <Main>
-      <LeftContainer>
-        <ImageContainer gap={8}>
-          <Image src={toIcon} alt="To Icon" width="11px" height="16px" />
-          <Typography variant="p" color="muted" $fontSize={14}>
-            To
-          </Typography>
-        </ImageContainer>
-      </LeftContainer>
-      <RightContainer>
-        <Typography variant="p" $fontSize={14}>
-          {toAddress}
-        </Typography>
-      </RightContainer>
-    </Main>
-
-    <Main>
-      <LeftContainer>
-        <Typography variant="p" color="muted" $fontSize={14}>
-          Amount
-        </Typography>
-      </LeftContainer>
-      <RightContainer>
-        <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
-            {amountEth} ETH
-          </Typography>
-          <Typography variant="p" $fontSize={14} color="muted">
-            ${amountUsd}
-          </Typography>
-        </NestedContainer>
-      </RightContainer>
-    </Main>
-
-    <Divider variant="horizontal" />
-
-    <Main>
-      <LeftContainer>
+    <SummaryContainer
+      leftComponent={
         <Typography variant="p" $fontSize={14} color="muted">
-          Network Fee
+          {networkText}
         </Typography>
-      </LeftContainer>
-      <RightContainer>
+      }
+      rightComponent={
         <NestedContainer>
           <Typography variant="p" $fontSize={14}>
-            {networkFeeEth} ETH
+            {networkFeeEth}
           </Typography>
           <Typography variant="p" $fontSize={14} color="muted">
-            ${networkFeeUsd}
+            {networkFeeUsd}
           </Typography>
         </NestedContainer>
-      </RightContainer>
-    </Main>
+      }
+    />
 
     <Divider variant="horizontal" />
 
-    <Main>
-      <LeftContainer>
+    <SummaryContainer
+      leftComponent={
         <Typography variant="p" color="muted" $fontSize={14}>
-          Total to debit
+          {debitText}
         </Typography>
-      </LeftContainer>
-      <RightContainer>
+      }
+      rightComponent={
         <NestedContainer>
           <Typography variant="p" $fontSize={14}>
-            {totalEth} ETH
+            {totalDebitEth}
           </Typography>
           <Typography variant="p" $fontSize={14} color="muted">
-            ${totalUsd}
+            {totalDebitUsd}
           </Typography>
         </NestedContainer>
-      </RightContainer>
-    </Main>
+      }
+    />
   </>
 );

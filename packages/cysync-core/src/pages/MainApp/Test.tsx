@@ -2,6 +2,7 @@ import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { openSendGuideDialog } from '~/actions';
+import { BitcoinTransaction } from '~/dialogs/SendGuide/Dialogs';
 
 export const Test: FC = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,8 @@ export const Test: FC = () => {
         <AssetAllocation /> */}
         {/* <Receive /> */}
         {/* HERLLO */}
-        {/* <ConnectDevice/> */}
+
+        <BitcoinTransaction />
       </Flex>
     </Container>
   );

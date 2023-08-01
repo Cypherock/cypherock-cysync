@@ -176,7 +176,7 @@ export const StandardEthereum: React.FC = () => {
               />
             </Flex>
           </Flex>
-          <Container display="flex" direction="column" gap={8} width="full">
+          <Container display="flex" direction="column" gap={16} width="full">
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
                 <Typography
