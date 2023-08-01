@@ -57,7 +57,7 @@ export const handleKeyDown =
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
-          setFocusedIndex(0); // Focus on the first item when the dropdown is opened.
+          setFocusedIndex(0);
         } else {
           setFocusedIndex(prevIndex =>
             prevIndex === null
@@ -66,7 +66,6 @@ export const handleKeyDown =
           );
           listRef.current?.focus();
 
-          // Calculate the scroll offset for the next item to ensure it is visible
           if (focusedIndex === visibleItemsCount - 2) {
             const nextItem = listRef.current?.children[
               focusedIndex + 1
@@ -84,7 +83,7 @@ export const handleKeyDown =
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
-          setFocusedIndex(visibleItemsCount - 1); // Focus on the last item when the dropdown is opened.
+          setFocusedIndex(visibleItemsCount - 1);
         } else {
           setFocusedIndex(prevIndex =>
             prevIndex === null
@@ -93,7 +92,6 @@ export const handleKeyDown =
           );
           listRef.current?.focus();
 
-          // Calculate the scroll offset for the previous item to ensure it is visible
           if (focusedIndex === 0) {
             const prevItem = listRef.current?.children[
               focusedIndex - 1
