@@ -58,7 +58,7 @@ export const SingleTransaction: React.FC = () => {
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
-        leftImageSrc={informationIcon}
+        leftImage={informationIcon}
         text={single.InfoBox.text}
         altText={single.InfoBox.altText}
         textVariant="span"

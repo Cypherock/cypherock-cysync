@@ -71,7 +71,7 @@ export const StandardOptimism: React.FC = () => {
             <LangDisplay text={standard.subText} />
           </Typography>
           <LeanBox
-            leftImageSrc={informationIcon}
+            leftImage={informationIcon}
             text={standard.InfoBox.text}
             altText={standard.InfoBox.altText}
             textVariant="span"

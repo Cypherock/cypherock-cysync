@@ -21,39 +21,39 @@ import { useSendGuide } from '../../context';
 const dataArray = [
   {
     id: '1',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Verify',
     altText: 'Tether',
-    rightImageSrc: checkIcon,
+    rightImage: checkIcon,
   },
   {
     id: '2',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Verify Recipient Address',
-    rightImageSrc: checkIcon,
+    rightImage: checkIcon,
   },
   {
     id: '3',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Verify Amount:',
     altText: '0.0166864199 USDT',
-    rightImageSrc: halfLoaderGold,
+    rightImage: halfLoaderGold,
     animate: true,
   },
   {
     id: '4',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Verify fees:',
     altText: '0.00035448 ETH',
   },
   {
     id: '5',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Enter passphrase',
   },
   {
     id: '6',
-    leftImageSrc: arrowGoldenForward,
+    leftImage: arrowGoldenForward,
     text: 'Enter PIN and tap any one X1 Card',
   },
 ];
@@ -86,12 +86,11 @@ export const SendConfirmToken: React.FC = () => {
           {dataArray.map(data => (
             <LeanBox
               key={data.id}
-              leftImageSrc={data.leftImageSrc}
-              rightImageSrc={data.rightImageSrc}
+              leftImage={data.leftImage}
+              rightImage={data.rightImage}
               text={data.text}
               altText={data.altText}
               id={data.id}
-              animate={data.animate}
             />
           ))}
         </LeanBoxContainer>

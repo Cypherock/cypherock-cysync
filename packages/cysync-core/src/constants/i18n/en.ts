@@ -308,6 +308,7 @@ const en = {
     close: 'Close',
     report: 'Report',
     help: 'Help',
+    stop: 'Stop',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -420,19 +421,50 @@ const en = {
         },
       },
     },
+    select: {
+      dialogTitle: 'Add Coin/Account',
+      header: 'Select the Wallet & Coins you want to add',
+      searchText: 'Search',
+      walletPlaceholder: 'Choose a wallet',
+      coinPlaceholder: 'Choose a coin',
+    },
+    deviceActions: {
+      dialogTitle: 'Add Coin/Account',
+      header: 'Follow instructions on the X1 Vault',
+      subtext: 'Add a coin/account to wallet',
+      walletName: '${walletName}',
+      actions: {
+        verifyCoin: 'Verify the coins on the device',
+        enterPassphrase: 'Enter passphrase',
+        enterPin: 'Enter the PIN and tap any card',
+        tapCard: 'Tap any card',
+        processing: 'Getting keys from device',
+      },
+    },
+    sync: {
+      dialogTitle: 'Add Coin/Account',
+      syncingHeader: 'Syncing the account',
+      header: 'Add new accounts',
+      newAccount: 'New Accounts',
+      advancedButton: 'Show all address types',
+      accountsNotSynced: 'Account not yet synced (${count})',
+      deselectAllButton: 'Deselect all (${count})',
+      selectAllButton: 'Select all (${count})',
+      accountsInPortfolio: 'Accounts already in portfolio (${count})',
+      addAccountButton: 'Add Accounts',
+      resyncButton: 'Re-sync',
+    },
+    congrats: {
+      header: 'Add Coin/Account',
+      subtext: 'Add other accounts or return to portfolio',
+      title: 'Accounts added successfully',
+      buttonAddMore: 'Add more',
+    },
     aside: {
       tabs: {
         asset: 'Asset',
         device: 'Device',
         confirmation: 'Confirmation',
-      },
-    },
-    onClose: {
-      title: 'You can start this guide from the sidebar',
-      subTitle: 'Are you sure you want to exit?',
-      buttons: {
-        cancel: 'Cancel',
-        exit: 'Exit',
       },
     },
   },
@@ -1165,145 +1197,292 @@ const en = {
   guidedFlows: {
     createWallet: {
       title: 'Create New Wallet',
-      device: {
-        asideTitle: 'Device',
-        pages: [
-          {
-            title:
-              'From the Main Menu of your X1 Vault, click on "Create Wallet"',
-          },
-          {
-            title: 'Click "Generate New Wallet" on your X1 Vault',
-          },
-          {
-            title: 'Enter a wallet name on your X1 Vault',
-            bulletList: [
-              'Upto 15 characters allowed',
-              'It can be alphanumeric',
-            ],
-            messageBoxList: [
-              {
-                info: 'Make sure that the wallet name is unique to other wallet names on the device',
-              },
-              {
-                warning:
-                  'Wallet name once set cannot be modified. Please set the name accordingly',
-              },
-            ],
-          },
-          {
-            title: 'Confirm the wallet name on the X1 Vault',
-          },
-          {
-            title: 'Do you want to setup a PIN for your wallet?',
-            messageBoxList: [
-              {
-                warning:
-                  'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
-              },
-            ],
-          },
-          {
-            title: 'Setup a PIN on the X1 Vault',
-            bulletList: [
-              'Use between 4 and 8 characters',
-              'The PIN can be alphanumeric',
-            ],
-            messageBoxList: [
-              {
-                // TODO: add functionality to 
-                warning:
-                  'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
-              },
-            ],
-            warning: 'Skip this step if you are not setting up a PIN',
-          },
-          {
-            title: 'Confirm the entered PIN on the X1 Vault',
-            messageBoxList: [
-              {
-                warning:
-                  "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
-              },
-              {
-                warning: 'Back it up in a safe place',
-              },
-            ],
-            warning: 'Skip this step if you are not setting up a PIN',
-          },
-        ],
-      },
-      syncX1Cards: {
-        asideTitle: 'Sync X1 Cards',
-        pages: [
-          {
-            title: 'Tap X1 Cards one by one below the X1 Vault',
-            subtitle: 'Do not lift until you hear a beep sound',
-            messageBoxList: [
-              {
-                info: 'Make sure your X1 Cards belong to the same family',
-              },
-              {
-                info: 'Make sure you tap the X1 Cards in the correct order',
-              },
-            ],
-          },
-        ],
-      },
-      confirmation: {
-        asideTitle: 'Confirmation',
-        pages: [
-          {
-            title: 'Congratulations, your wallet is now successfully created',
-          },
-          {
-            title:
-              'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
-          },
-
-          {
-            // TODO: add functionality to 
-            title:
-              'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
-          },
-          {
-            title: 'Important Note',
-            messageBoxList: [
-              {
-                // TODO: add functionality to 
-                warning:
-                  'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
-              },
-            ],
-          },
-          {
-            // TODO: add functionality to 
-            title:
-              'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
-            bulletList: [
-              'Homes of your family members or your friends',
-              'Secret hideout',
-              'Bank locker',
-            ],
-          },
-        ],
-        finalMessage: {
-          title:
-            'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you',
-          buttons: {
-            secondary: 'Skip',
-            primary: 'Add Account',
-          },
+      tabs: [
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title:
+                'From the Main Menu of your X1 Vault, click on "Create Wallet"',
+            },
+            {
+              title: 'Click "Generate New Wallet" on your X1 Vault',
+            },
+            {
+              title: 'Enter a wallet name on your X1 Vault',
+              bulletList: [
+                'Upto 15 characters allowed',
+                'It can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  info: 'Make sure that the wallet name is unique to other wallet names on the device',
+                },
+                {
+                  warning:
+                    'Wallet name once set cannot be modified. Please set the name accordingly',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the wallet name on the X1 Vault',
+            },
+            {
+              title: 'Do you want to setup a PIN for your wallet?',
+              messageBoxList: [
+                {
+                  warning:
+                    'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+                },
+              ],
+            },
+            {
+              title: 'Setup a PIN on the X1 Vault',
+              bulletList: [
+                'Use between 4 and 8 characters',
+                'The PIN can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  // TODO: add functionality to 
+                  warning:
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                },
+              ],
+              warning: 'Skip this step if you are not setting up a PIN',
+            },
+            {
+              title: 'Confirm the entered PIN on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
+                },
+                {
+                  warning: 'Back it up in a safe place',
+                },
+              ],
+              warning: 'Skip this step if you are not setting up a PIN',
+            },
+          ],
         },
-      },
-
-      walletNotCreatedDialog: {
-        title: "Seems like you haven't created a wallet yet",
-        subtitle: 'To add an account you have to first create a wallet',
-        buttons: {
-          secondary: 'I will do it later',
-          primary: 'Create Wallet',
+        {
+          asideTitle: 'Sync X1 Cards',
+          pages: [
+            {
+              title: 'Tap X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your X1 Cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the X1 Cards in the correct order',
+                },
+              ],
+            },
+          ],
         },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallet is now successfully created',
+            },
+            {
+              title:
+                'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+            },
+
+            {
+              // TODO: add functionality to 
+              title:
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+            },
+            {
+              title: 'Important Note',
+              messageBoxList: [
+                {
+                  // TODO: add functionality to 
+                  warning:
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                },
+              ],
+            },
+            {
+              // TODO: add functionality to 
+              title:
+                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+              bulletList: [
+                'Homes of your family members or your friends',
+                'Secret hideout',
+                'Bank locker',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    importWallet: {
+      title: 'Import Wallet',
+      tabs: [
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title:
+                'From the Main Menu of your X1 Vault, click on "Create Wallet"',
+            },
+            {
+              title: 'Click "Restore from Seed Phrase" on your X1 Vault',
+            },
+            {
+              title: 'Enter a wallet name on your X1 Vault',
+              bulletList: [
+                'Upto 15 characters allowed',
+                'It can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  info: 'Make sure that the wallet name is unique to other wallet names on the device',
+                },
+                {
+                  warning:
+                    'Wallet name once set cannot be modified. Please set the name accordingly',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the wallet name on the X1 Vault',
+            },
+            {
+              title: 'Do you want to setup a PIN for your wallet?',
+              messageBoxList: [
+                {
+                  warning:
+                    'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+                },
+              ],
+            },
+            {
+              title: 'Setup a PIN on the X1 Vault',
+              bulletList: [
+                'Use between 4 and 8 characters',
+                'The PIN can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  // TODO: add functionality to 
+                  warning:
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                },
+              ],
+              warning: 'Skip this step if you are not setting up a PIN',
+            },
+            {
+              title: 'Confirm the entered PIN on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
+                },
+                {
+                  warning: 'Back it up in a safe place',
+                },
+              ],
+              warning: 'Skip this step if you are not setting up a PIN',
+            },
+          ],
+        },
+        {
+          asideTitle: 'Sync X1 Cards',
+          pages: [
+            {
+              title:
+                'Count the number of words of the seed phrase which you are importing and select it on the X1 Vault',
+            },
+            {
+              title: 'Enter the seed phrase on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you do not make spelling mistakes while entering the words on the device. Words like "west" & "nest" are often confusing while reading and needs to be entered correctly',
+                },
+              ],
+            },
+            {
+              title: 'Verify the seed phrase that you entered on the X1 Vault',
+              subtitle:
+                'Match each and every to successfully import the correct wallet',
+            },
+            {
+              title: 'Tap X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your X1 Cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the X1 Cards in the correct order',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallet is now successfully created',
+            },
+            {
+              title:
+                'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+            },
+
+            {
+              // TODO: add functionality to 
+              title:
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+            },
+            {
+              title: 'Important Note',
+              messageBoxList: [
+                {
+                  // TODO: add functionality to 
+                  warning:
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                },
+              ],
+            },
+            {
+              // TODO: add functionality to 
+              title:
+                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+              bulletList: [
+                'Homes of your family members or your friends',
+                'Secret hideout',
+                'Bank locker',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    finalMessage: {
+      title:
+        'To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you',
+      buttons: {
+        secondary: 'Skip',
+        primary: 'Add Account',
+      },
+    },
+    walletNotCreatedDialog: {
+      title: "Seems like you haven't created a wallet yet",
+      subtitle: 'To add an account you have to first create a wallet',
+      buttons: {
+        secondary: 'I will do it later',
+        primary: 'Create Wallet',
       },
     },
     closeDialog: {

@@ -22,28 +22,28 @@ import { useSendGuide } from '../../context';
 const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
-    leftImageSrc: bitcoinIcon,
+    leftImage: bitcoinIcon,
     shortForm: '(BTC)',
     text: 'Bitcoin',
     checkType: 'radio',
   },
   {
     id: '42',
-    leftImageSrc: etheriumBlueIcon,
+    leftImage: etheriumBlueIcon,
     text: 'Ethereum',
     shortForm: '(ETH)',
     checkType: 'radio',
   },
   {
     id: '43',
-    leftImageSrc: solanaIcon,
+    leftImage: solanaIcon,
     shortForm: '(SOL)',
     text: 'Solana',
     checkType: 'radio',
   },
   {
     id: '44',
-    leftImageSrc: binanceIcon,
+    leftImage: binanceIcon,
     shortForm: '(BTC)',
     text: 'Binance Smart Chain',
     checkType: 'radio',

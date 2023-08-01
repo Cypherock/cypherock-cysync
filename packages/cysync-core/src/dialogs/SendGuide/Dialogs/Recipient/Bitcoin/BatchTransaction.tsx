@@ -68,7 +68,7 @@ export const BatchTransaction: React.FC = () => {
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
-        leftImageSrc={informationIcon}
+        leftImage={informationIcon}
         text={batch.InfoBox.text}
         altText={batch.InfoBox.altText}
         textVariant="span"

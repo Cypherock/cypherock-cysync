@@ -82,7 +82,7 @@ export const StandardEthereum: React.FC = () => {
             <LangDisplay text={eth.subText} />
           </Typography>
           <LeanBox
-            leftImageSrc={informationIcon}
+            leftImage={informationIcon}
             text={eth.InfoBox.text}
             altText={eth.InfoBox.altText}
             textVariant="span"

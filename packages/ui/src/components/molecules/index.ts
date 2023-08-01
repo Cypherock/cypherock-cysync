@@ -26,3 +26,4 @@ export * from './ButtonGroup';
 export * from './MessageBox';
 export * from './InfoBox';
 export * from './SummaryBox';
+export * from './Dropdown';

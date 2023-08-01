@@ -29,13 +29,13 @@ export const ReceiveDeviceConfirm: React.FC = () => {
   const dataArray = [
     {
       id: '1',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Fetching a new address from the wallet',
       rightImageSrc: checkIcon,
     },
     {
       id: '2',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
 
       text: 'Verify the account on the X1 Vault',
       rightImageSrc: spinnerGoldIcon,
@@ -43,12 +43,12 @@ export const ReceiveDeviceConfirm: React.FC = () => {
     },
     {
       id: '3',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Enter passphrase',
     },
     {
       id: '4',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Enter the PIN and tap any X1 card',
     },
   ];
@@ -91,11 +91,10 @@ export const ReceiveDeviceConfirm: React.FC = () => {
           {dataArray.map(data => (
             <LeanBox
               key={data.id}
-              leftImageSrc={data.leftImageSrc}
+              leftImage={data.leftImage}
               rightImageSrc={data.rightImageSrc}
               text={data.text}
               id={data.id}
-              animate={data.animate}
             />
           ))}
         </LeanBoxContainer>

@@ -25,33 +25,33 @@ import SvgArrowReceivedIcon from '@cypherock/cysync-ui/src/assets/icons/generate
 const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
-    leftImageSrc: bitcoinIcon,
+    leftImage: bitcoinIcon,
     shortForm: '(ETH)',
     text: 'Ethereum 1',
     checkType: 'radio',
     rightText: '0.015 ETH',
-    subMenu: [
-      {
-        id: '143',
-        leftImageSrc: solanaIcon,
-        shortForm: '(DAI)',
-        text: 'DAI Stable Coin v2',
-        checkType: 'radio',
-        rightText: '0.234 DAI',
-      },
-      {
-        id: '144',
-        leftImageSrc: binanceIcon,
-        shortForm: '(USDC)',
-        text: 'USD COIN',
-        checkType: 'radio',
-        rightText: '0.234 USD',
-      },
-    ],
+  },
+  {
+    id: '143',
+    leftImage: solanaIcon,
+    shortForm: '(DAI)',
+    text: 'DAI Stable Coin v2',
+    checkType: 'radio',
+    rightText: '0.234 DAI',
+    $parentId: '41',
+  },
+  {
+    id: '144',
+    leftImage: binanceIcon,
+    shortForm: '(USDC)',
+    text: 'USD COIN',
+    checkType: 'radio',
+    rightText: '0.234 USD',
+    $parentId: '41',
   },
   {
     id: '42',
-    leftImageSrc: solanaIcon,
+    leftImage: solanaIcon,
     shortForm: '(SOL)',
     text: 'Solana 1',
     checkType: 'radio',
@@ -59,7 +59,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '43',
-    leftImageSrc: etheriumBlueIcon,
+    leftImage: etheriumBlueIcon,
     text: 'Bitcoin 1',
     shortForm: '(BTC)',
     tag: 'Taproot',
@@ -68,7 +68,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '44',
-    leftImageSrc: binanceIcon,
+    leftImage: binanceIcon,
     shortForm: '(BNB)',
     text: 'Binance Smart Chain 1',
     rightText: '0.234 BNB',
@@ -80,25 +80,25 @@ const dropDownDataWithWallet: DropDownListItemProps[] = [
     id: '51',
     text: 'Official',
     checkType: 'radio',
-    leftImageSrc: walletIcon,
+    leftImage: walletIcon,
   },
   {
     id: '52',
     text: 'Cypherock Red',
     checkType: 'radio',
-    leftImageSrc: walletIcon,
+    leftImage: walletIcon,
   },
   {
     id: '53',
     text: 'Personal',
     checkType: 'radio',
-    leftImageSrc: walletIcon,
+    leftImage: walletIcon,
   },
   {
     id: '54',
     text: 'Business',
     checkType: 'radio',
-    leftImageSrc: walletIcon,
+    leftImage: walletIcon,
   },
 ];
 
@@ -184,7 +184,7 @@ export const Receive: React.FC = () => {
             searchText={receive.searchText}
             placeholderText={receive.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
-            shouldShowIcon
+            $shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

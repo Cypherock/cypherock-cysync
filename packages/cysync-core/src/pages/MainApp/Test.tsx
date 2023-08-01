@@ -1,14 +1,14 @@
 import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { openSendGuideDialog } from '~/actions';
+// import { useDispatch } from 'react-redux';
+// import { openSendGuideDialog } from '~/actions';
 import { BitcoinTransaction } from '~/dialogs/SendGuide/Dialogs';
 
 export const Test: FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(openSendGuideDialog());
+    // dispatch(openSendGuideDialog());
   }, []);
 
   return (

@@ -30,6 +30,7 @@ export interface DeviceContextInterface {
   connection?: IDeviceConnectionInfo;
   connectDevice: ConnectDevice;
   getDevices: GetDevices;
+  disconnectDevice: () => void;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -150,6 +151,10 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     );
   };
 
+  const disconnectDevice = () => {
+    markDeviceAsNotConnected();
+  };
+
   useEffect(() => {
     restartDeviceListener();
 
@@ -159,8 +164,13 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   }, []);
 
   const ctx = useMemo(
-    () => ({ connection: connectionInfo, connectDevice, getDevices }),
-    [connectionInfo, connectDevice, getDevices],
+    () => ({
+      connection: connectionInfo,
+      connectDevice,
+      getDevices,
+      disconnectDevice,
+    }),
+    [connectionInfo, connectDevice, getDevices, disconnectDevice],
   );
 
   return (

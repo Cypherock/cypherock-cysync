@@ -69,7 +69,7 @@ export const SendDone: React.FC = () => {
                 <LeanBox
                   text={confirm.clipboard}
                   color="white"
-                  rightImageSrc={openExternalLink}
+                  rightImage={openExternalLink}
                 />
               </Container>
               <MessageBox type="warning" text={confirm.InfoBox.text} />

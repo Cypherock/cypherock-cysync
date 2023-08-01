@@ -6,10 +6,8 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
-import { SpacingProps } from '../../utils';
-import { Typography, TypographyColor, TypographyProps } from '../Typography';
 
-export interface InputProps extends SpacingProps {
+export interface InputProps {
   type: string;
   placeholder?: string;
   name: string;
@@ -17,18 +15,16 @@ export interface InputProps extends SpacingProps {
   onChange?: (val: string) => void;
   value?: string;
   disabled?: boolean;
-  error?: boolean;
-  postfixIcon?: React.ReactNode | string;
-  postfixTextVariant?: TypographyProps['variant'];
-  postfixTextColor?: TypographyColor;
+  postfixIcon?: React.ReactNode;
   onPostfixIconClick?: () => void;
   $bgColor?: string;
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputStyle = styled.input<{ $bgColor?: string; error?: boolean }>`
+const InputStyle = styled.input<{ $bgColor?: string }>`
   position: relative;
   width: 100%;
   border: none;
@@ -37,9 +33,7 @@ const InputStyle = styled.input<{ $bgColor?: string; error?: boolean }>`
   font-size: 16px;
   background: ${({ $bgColor, theme }) =>
     $bgColor ?? theme.palette.background.separatorSecondary};
-  border: 1px solid
-    ${({ theme, error }) =>
-      error ? theme.palette.warn.main : theme.palette.background.separator};
+  border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
   &:focus-visible {
@@ -54,7 +48,7 @@ const InputWrapper = styled.div`
 
 const PostfixIconStyle = styled.div`
   position: absolute;
-  right: 24px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
 `;
@@ -70,15 +64,13 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onChange = undefined,
         value = undefined,
         disabled = false,
-        error = false,
         postfixIcon = undefined,
-        postfixTextVariant = 'fineprint',
-        postfixTextColor = 'muted',
         onPostfixIconClick = undefined,
         $bgColor = undefined,
         onClick = undefined,
         pasteAllowed = true,
         copyAllowed = true,
+        onKeyDown = undefined,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -96,7 +88,6 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             placeholder={placeholder}
             disabled={disabled}
             $bgColor={$bgColor}
-            error={error}
             value={value}
             onClick={onClick}
             onPaste={e => {
@@ -109,30 +100,19 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               e.preventDefault();
               return false;
             }}
-            onChange={e => onChange && onChange(e.target.value)}
+            onChange={e => onChange?.(e.target.value)}
+            onKeyDown={onKeyDown}
           />
-
           {postfixIcon && (
             <PostfixIconStyle>
-              {typeof postfixIcon === 'string' ? (
-                <Typography
-                  display="flex"
-                  variant={postfixTextVariant}
-                  color={postfixTextColor}
-                  $fontSize={13}
-                >
-                  {postfixIcon}
-                </Typography>
-              ) : (
-                <Button
-                  type="button"
-                  variant="none"
-                  display="flex"
-                  onClick={onPostfixIconClick}
-                >
-                  {postfixIcon}
-                </Button>
-              )}
+              <Button
+                type="button"
+                variant="none"
+                display="flex"
+                onClick={onPostfixIconClick}
+              >
+                {postfixIcon}
+              </Button>
             </PostfixIconStyle>
           )}
         </InputWrapper>
@@ -146,15 +126,13 @@ Input.defaultProps = {
   onChange: undefined,
   value: undefined,
   disabled: false,
-  error: false,
   postfixIcon: undefined,
-  postfixTextColor: undefined,
-  postfixTextVariant: undefined,
   onPostfixIconClick: undefined,
   $bgColor: undefined,
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
+  onKeyDown: undefined,
 };
 
 Input.displayName = 'Input';

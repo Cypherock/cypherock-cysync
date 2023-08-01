@@ -32,10 +32,10 @@ export const ReceiveVerifyAddress: React.FC = () => {
   const dataArray = [
     {
       id: '2',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
 
       text: 'Verify the address on X1 Vault exactly matches the address displayed above',
-      rightImageSrc: spinnerGoldIcon,
+      rightImage: spinnerGoldIcon,
       animate: true,
     },
   ];
@@ -90,11 +90,10 @@ export const ReceiveVerifyAddress: React.FC = () => {
           {dataArray.map(data => (
             <LeanBox
               key={data.id}
-              leftImageSrc={data.leftImageSrc}
-              rightImageSrc={data.rightImageSrc}
+              leftImage={data.leftImage}
+              rightImage={data.rightImage}
               text={data.text}
               id={data.id}
-              animate={data.animate}
               px={6}
             />
           ))}

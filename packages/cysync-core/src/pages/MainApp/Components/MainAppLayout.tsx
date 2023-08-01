@@ -11,12 +11,16 @@ interface MainAppLayoutProps {
 }
 
 export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => (
-  <Container height="screen" display="flex">
+  <Container height="screen" display="flex" $bgColor="contentGradient">
     <SideBar />
     <Flex direction="column" grow={1} $alignSelf="start">
-      <AppUpdateBar />
-      <Topbar title={title} />
-      {children}
+      <Flex direction="column" gap={16}>
+        <AppUpdateBar />
+        <Topbar title={title} />
+      </Flex>
+      <Flex direction="column" gap={16} p="20">
+        {children}
+      </Flex>
     </Flex>
   </Container>
 );
