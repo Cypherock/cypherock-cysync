@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
+  Image,
   LangDisplay,
   RadioButton,
   Tag,
@@ -181,7 +182,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         )}
         {leftImage && (
           <DropDownListItemIconContainer>
-            {leftImage}
+            <Image src={leftImage as string} alt="image" />
           </DropDownListItemIconContainer>
         )}
         <DropDownListItemStretchedTypography
