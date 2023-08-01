@@ -38,6 +38,7 @@ export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce<
       family: coinFamiliesMap.near,
       id: coin.id,
       name: coin.name,
+      abbr: coin.abbr,
       isTest: coin.isTest,
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,

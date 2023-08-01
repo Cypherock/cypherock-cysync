@@ -20,7 +20,8 @@ export type BorderColor =
   | 'input'
   | 'warning'
   | 'white'
-  | 'list';
+  | 'list'
+  | 'topbar';
 type BorderRadius = number | 'full';
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
 

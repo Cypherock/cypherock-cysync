@@ -23,16 +23,16 @@ interface DropdownProps {
   items: DropDownListItemProps[];
   searchText: string;
   placeholderText: string;
+  shouldShowIcon?: boolean;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
-  shouldShowIcon?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
-  shouldShowIcon,
   searchText,
+  shouldShowIcon,
   placeholderText,
   selectedItem = undefined,
   onChange,
@@ -119,18 +119,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
       tabIndex={disabled ? -1 : 0}
     >
-      {selectedItem && !isOpen ? (
+      {selectedDropdownItem && !isOpen ? (
         <DropDownListItem
+          {...selectedDropdownItem}
           $borderRadius={8}
           checked={!!selectedItem || false}
           onCheckedChange={() =>
-            handleCheckedChange(selectedDropdownItem?.id ?? '')
+            handleCheckedChange(selectedDropdownItem.id ?? '')
           }
-          id={selectedDropdownItem?.id}
-          text={selectedDropdownItem?.text ?? ''}
           onClick={toggleDropdown}
           $restrictedItem
-          leftImageSrc={selectedDropdownItem?.leftImageSrc}
+          leftImage={selectedDropdownItem?.leftImage}
           rightText={selectedDropdownItem?.rightText}
           $hasRightText={!!selectedDropdownItem?.rightText}
           tag={selectedDropdownItem?.tag}
@@ -200,11 +199,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 $isFocused={isItemFocused}
               >
                 <DropDownListItem
+                  {...item}
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
                   {...item}
                   id={item.id}
-                  leftImageSrc={shouldShowIcon ? item.leftImageSrc : ''}
+                  leftImage={shouldShowIcon ? item.leftImage : ''}
                   $isFocused={isItemFocused}
                 />
               </DropdownListItem>

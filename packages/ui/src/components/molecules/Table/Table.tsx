@@ -40,12 +40,10 @@ const TableStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-width: 1px;
-  border-style: solid;
   border-radius: 24px;
+  border: none;
   background-image: ${({ theme }) => theme.palette.background.primary};
   box-shadow: ${({ theme }) => theme.shadow.popup};
-  border-color: ${({ theme }) => theme.palette.border.popup};
   text-align: center;
   ${flex}
   ${width}
@@ -60,7 +58,7 @@ const TableTitleStyle = styled.div`
   border-right: 0;
   border-style: solid;
   padding: 16px 40px;
-  border-color: ${({ theme }) => theme.palette.border.popup};
+  border-color: ${({ theme }) => theme.palette.border.table.title};
   color: ${({ theme }) => theme.palette.text.mutedText};
   ${flex}
   ${width}
@@ -72,9 +70,9 @@ const TableHeaderStyle = styled.div`
   display: flex;
   align-items: flex-start;
   align-self: flex-start;
-  border-bottom: 1px solid ${({ theme }) => theme.palette.border.table};
   justify-content: space-between;
   background-color: ${({ theme }) => theme.palette.background.input};
+  border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.row};
   ${flex}
   ${width}
   ${height}
@@ -100,7 +98,6 @@ const TableBodyStyle = styled.div`
   align-self: flex-start;
   height: fit-content;
   flex-direction: column;
-  border-bottom: 1px solid ${({ theme }) => theme.palette.border.table};
   justify-content: space-between;
   background-color: ${({ theme }) => theme.palette.background.input};
   border-bottom-right-radius: 24px;
@@ -119,6 +116,8 @@ const TableDataRowStyle = styled.div<TableDataRowProps>`
   flex: ${({ $noFlex }) => ($noFlex ? 'unset' : '1')};
   border-bottom-right-radius: ${({ $last }) => ($last ? '24px' : '0')};
   border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
+  ${({ $last, theme }) =>
+    !$last && `border-bottom: 1px solid ${theme.palette.border.table.row};`}
   background: ${({ theme }) => theme.palette.background.content};
 
   &:hover {
@@ -154,7 +153,9 @@ export const TableHeaderData: FC<TableHeaderDataProps> = ({
       onClick(props.data);
     }}
   >
-    <Typography align="center">{props.data}</Typography>
+    <Typography align="center" color="muted">
+      {props.data}
+    </Typography>
     <Container display="flex" direction="column" gap={2}>
       {!selected ? (
         <>

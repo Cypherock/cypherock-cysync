@@ -1,4 +1,5 @@
 import {
+  ICreatedAccount,
   ICreateAccountEvent,
   ICreateAccountParams,
   IDerivationScheme,
@@ -14,8 +15,11 @@ import {
 } from './generateAddresses';
 import { generateDerivationPathsPerScheme } from './schemes';
 
+import logger from '../utils/logger';
+
 interface App {
   destroy: () => Promise<void>;
+  abort: () => Promise<void>;
 }
 
 export interface IMakeCreateAccountsObservableParams<T extends App>
@@ -38,7 +42,7 @@ export interface IMakeCreateAccountsObservableParams<T extends App>
       txnCount: number;
     },
     params: ICreateAccountParams & { existingAccounts: IAccount[] },
-  ) => Promise<IAccount>;
+  ) => Promise<ICreatedAccount>;
 }
 
 export function makeCreateAccountsObservable<
@@ -49,12 +53,23 @@ export function makeCreateAccountsObservable<
     let finished = false;
     let app: T | undefined;
 
-    const cleanUp = () => {
+    const cleanUp = async () => {
       if (app) {
-        app.destroy();
+        try {
+          await app.abort();
+          // eslint-disable-next-line no-empty
+        } catch (error) {
+          logger.warn('Error in aborting create account');
+          logger.warn(error);
+        }
 
-        // TODO: Add this in SDK
-        // app.abort();
+        try {
+          await app.destroy();
+          // eslint-disable-next-line no-empty
+        } catch (error) {
+          logger.warn('Error in destroying connection on create account');
+          logger.warn(error);
+        }
       }
     };
 

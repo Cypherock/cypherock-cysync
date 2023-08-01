@@ -1,5 +1,5 @@
 export interface IDialogState {
-  addAccountDialog: {
+  addAccount: {
     isOpen: boolean;
     data?: {
       walletId?: string;
@@ -22,10 +22,19 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  createWalletGuide: {
+  guidedFlow: {
     isOpen: boolean;
-    data?: undefined;
+    data?: {
+      type: GuidedFlowType;
+    };
   };
 }
+
+export const GuidedFlowMap = {
+  createWallet: 'createWallet',
+  importWallet: 'importWallet',
+} as const;
+
+export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
 
 export type DialogName = keyof IDialogState;

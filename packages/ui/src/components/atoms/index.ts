@@ -21,3 +21,4 @@ export * from './RadioButton';
 export * from './CloseButton';
 export * from './InformationBox';
 export * from './VerticalLine';
+export * from './Throbber';

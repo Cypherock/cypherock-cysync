@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
-  Image,
   LangDisplay,
   RadioButton,
   Tag,
@@ -14,8 +13,8 @@ import {
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
 export interface DropDownListItemProps extends BorderProps {
-  leftImageSrc?: string;
-  rightIconSrc?: string;
+  leftImage?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   rightText?: string;
   $hasRightText?: boolean;
   tag?: string;
@@ -131,8 +130,8 @@ const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
 `;
 
 export const DropDownListItem: FC<DropDownListItemProps> = ({
-  leftImageSrc,
-  rightIconSrc,
+  leftImage,
+  rightIcon,
   radioButtonValue,
   rightText,
   $parentId = '',
@@ -180,14 +179,9 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImageSrc && (
+        {leftImage && (
           <DropDownListItemIconContainer>
-            <Image
-              src={leftImageSrc}
-              alt="Left Icon"
-              width="20px"
-              height="16px"
-            />
+            {leftImage}
           </DropDownListItemIconContainer>
         )}
         <DropDownListItemStretchedTypography
@@ -212,14 +206,9 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
               {rightText}
             </RightTextTypography>
           )}
-          {rightIconSrc && (
+          {rightIcon && (
             <DropDownListItemIconContainer>
-              <Image
-                src={rightIconSrc}
-                alt="Right Icon"
-                width="15px"
-                height="12px"
-              />
+              {rightIcon}
             </DropDownListItemIconContainer>
           )}
           {!$restrictedItem && checkType && checkType === 'checkbox' && (
@@ -236,8 +225,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
 };
 
 DropDownListItem.defaultProps = {
-  rightIconSrc: undefined,
-  leftImageSrc: undefined,
+  rightIcon: undefined,
+  leftImage: undefined,
   rightText: undefined,
   rightTextColor: 'muted',
   radioButtonValue: '',

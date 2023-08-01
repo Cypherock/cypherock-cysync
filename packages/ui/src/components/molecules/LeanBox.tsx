@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import {
   CheckBox,
-  Image,
   LangDisplay,
   RadioButton,
   InputLabel,
@@ -12,12 +11,12 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
-import { SpacingProps, spacing } from '../utils';
+import { UtilsProps, spacing } from '../utils';
 import { Throbber } from '../atoms/Throbber';
 
-export interface LeanBoxProps extends SpacingProps {
-  leftImageSrc?: string;
-  rightImageSrc?: string;
+export interface LeanBoxProps extends UtilsProps {
+  leftImage?: React.ReactNode;
+  rightImage?: React.ReactNode;
   rightText?: string;
   tag?: string;
   text: string;
@@ -30,13 +29,15 @@ export interface LeanBoxProps extends SpacingProps {
   id?: string;
   $isChecked?: boolean;
   onCheckChanged?: ($isChecked: boolean) => void;
+  disabled?: boolean;
   value?: string;
   throbber?: boolean;
+  [key: string]: any;
 }
 
 export const HorizontalBox = styled.div<{
   $isChecked: boolean;
-  $isCheckable: boolean;
+  $checkType?: string;
 }>`
   display: flex;
   padding: 8px 16px;
@@ -51,7 +52,7 @@ export const HorizontalBox = styled.div<{
       : theme.palette.background.input};
   ${spacing};
   width: 100%;
-  cursor: ${({ $isCheckable }) => ($isCheckable ? 'pointer' : 'default')};
+  ${({ $checkType }) => $checkType && 'cursor: pointer'};
 `;
 
 export const ImageContainer = styled.div`
@@ -73,8 +74,8 @@ export const RightContent = styled.div`
 `;
 
 export const LeanBox: FC<LeanBoxProps> = ({
-  leftImageSrc,
-  rightImageSrc,
+  leftImage,
+  rightImage,
   rightText,
   shortForm = '',
   text,
@@ -89,6 +90,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   throbber = false,
   onCheckChanged,
   value,
+  disabled,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -123,10 +125,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
       onMouseEnter={handleHover}
       onMouseLeave={handleMouseLeave}
     >
-      <HorizontalBox
-        $isChecked={$isChecked}
-        $isCheckable={checkType === 'radio' || checkType === 'checkbox'}
-      >
+      <HorizontalBox $isChecked={$isChecked} $checkType={checkType}>
         {checkType === 'radio' && (
           <RadioButton
             checked={$isChecked}
@@ -134,16 +133,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImageSrc && (
-          <ImageContainer>
-            <Image
-              src={leftImageSrc}
-              alt="Left Image"
-              width="20px"
-              height="16px"
-            />
-          </ImageContainer>
-        )}
+        {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
         <StretchedTypography
           $shouldStretch={!tag}
           variant={textVariant}
@@ -169,16 +159,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               {rightText}
             </Typography>
           )}
-          {rightImageSrc && (
-            <ImageContainer>
-              <Image
-                src={rightImageSrc}
-                alt="Right Image"
-                width="15px"
-                height="12px"
-              />
-            </ImageContainer>
-          )}
+          {rightImage && <ImageContainer>{rightImage}</ImageContainer>}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
@@ -186,6 +167,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               id={id ?? 'default-id'}
               $isHovered={isHovered}
               ref={checkboxRef}
+              isDisabled={disabled}
             />
           )}
         </RightContent>
@@ -195,8 +177,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
 };
 
 LeanBox.defaultProps = {
-  leftImageSrc: undefined,
-  rightImageSrc: undefined,
+  leftImage: undefined,
+  rightImage: undefined,
   rightText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
@@ -210,4 +192,5 @@ LeanBox.defaultProps = {
   tag: '',
   shortForm: '',
   throbber: false,
+  disabled: undefined,
 };

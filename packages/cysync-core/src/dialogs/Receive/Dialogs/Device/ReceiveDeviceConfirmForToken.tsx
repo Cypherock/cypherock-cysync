@@ -31,24 +31,24 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
   const dataArray = [
     {
       id: '1',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Fetching a new address from the wallet',
-      rightImageSrc: checkIcon,
+      rightImage: checkIcon,
     },
     {
       id: '2',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Verify the account on the device',
       throbber: true,
     },
     {
       id: '3',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Enter passphrase',
     },
     {
       id: '4',
-      leftImageSrc: arrowGoldenForward,
+      leftImage: arrowGoldenForward,
       text: 'Enter the PIN and tap any card',
     },
   ];
@@ -86,8 +86,8 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
           {dataArray.map(data => (
             <LeanBox
               key={data.id}
-              leftImageSrc={data.leftImageSrc}
-              rightImageSrc={data.rightImageSrc}
+              leftImage={data.leftImage}
+              rightImage={data.rightImage}
               text={data.text}
               id={data.id}
               throbber={data.throbber}

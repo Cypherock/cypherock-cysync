@@ -50,7 +50,6 @@ const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
   }),
 )`
   display: inline-block;
-  cursor: pointer;
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   border-radius: 3px;
@@ -75,10 +74,12 @@ const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
     $isHovered ? `1px solid ${theme.palette.background.golden}` : 'none'};
 `;
 
-const CheckBoxTextLabelStyle = styled.label.attrs(props => ({
-  htmlFor: props.id,
-}))`
-  cursor: pointer;
+const CheckBoxTextLabelStyle = styled.label.attrs<{ disabled: boolean }>(
+  props => ({
+    htmlFor: props.id,
+  }),
+)`
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
 export const CheckBox = React.forwardRef<
