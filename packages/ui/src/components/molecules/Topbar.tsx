@@ -43,7 +43,6 @@ interface ITopbar {
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
-  size?: 'small' | 'big';
 }
 
 const DividingLine = styled.div`
@@ -65,7 +64,6 @@ export const Topbar: FC<ITopbar> = ({
   isDiscreetMode,
   syncStatus,
   toggleDiscreetMode,
-  size,
 }) => {
   const theme = useTheme();
 
@@ -99,20 +97,16 @@ export const Topbar: FC<ITopbar> = ({
       <Flex align="center">
         <Flex pr={2} align="center" gap={16}>
           {syncStatusMap[syncStatus]}
-          {size === 'big' && (
-            <Typography color="muted">
-              <LangDisplay text={statusTexts.sync[syncStatus]} />
-            </Typography>
-          )}
+          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+            <LangDisplay text={statusTexts.sync[syncStatus]} />
+          </Typography>
         </Flex>
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
-          {size === 'big' && (
-            <Typography color="muted">
-              <LangDisplay text={statusTexts.connection[connectionStatus]} />
-            </Typography>
-          )}
+          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+            <LangDisplay text={statusTexts.connection[connectionStatus]} />
+          </Typography>
         </Flex>
         <DividingLine />
         <Flex px={2} py="3" height="full" align="center" gap={16}>
@@ -124,7 +118,6 @@ export const Topbar: FC<ITopbar> = ({
             {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
           </Flex>
         </Button>
-
         {isPasswordSet && !isLockscreenLoading && (
           <>
             <DividingLine />
@@ -138,8 +131,4 @@ export const Topbar: FC<ITopbar> = ({
       </Flex>
     </Container>
   );
-};
-
-Topbar.defaultProps = {
-  size: 'big',
 };

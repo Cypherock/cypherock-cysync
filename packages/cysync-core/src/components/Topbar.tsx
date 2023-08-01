@@ -8,7 +8,6 @@ import {
 import React, { FC, useMemo, useState } from 'react';
 
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
-import { useMediaQuery } from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
@@ -22,7 +21,6 @@ export const Topbar: FC<{ title: string }> = ({ title }) => {
   const lang = useAppSelector(selectLanguage);
   const discreetModeState = useAppSelector(selectDiscreetMode);
   const { connection } = useDevice();
-  const { isLg, isXl } = useMediaQuery();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
 
@@ -43,7 +41,6 @@ export const Topbar: FC<{ title: string }> = ({ title }) => {
 
   return (
     <TopbarUI
-      size={isLg || isXl ? 'big' : 'small'}
       title={title}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}

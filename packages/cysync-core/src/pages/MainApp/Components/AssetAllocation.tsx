@@ -12,7 +12,6 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
-import { useMediaQuery } from '~/hooks';
 import { AssetIconNameBox } from '~/pages/MainApp/Components/AssetIconNameBox';
 
 type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
@@ -38,8 +37,6 @@ interface AssetDataType {
 export const AssetAllocation = () => {
   const [sortedBy, setSortedBy] = React.useState<TableHeaderNames>('Asset');
   const [isAscending, setIsAscending] = useState(true);
-
-  const { isXl, isLg } = useMediaQuery();
 
   const createComparator =
     (key: keyof AssetDataType) => (a: AssetDataType, b: AssetDataType) => {
@@ -145,14 +142,12 @@ export const AssetAllocation = () => {
               id={asset.id}
               name={asset.name}
               symbol={asset.symbol}
-              size={isLg || isXl ? 'big' : 'small'}
             />
             <TableNameBox text={`$ ${asset.price}`} />
             <TableNameBox text={`${asset.amount} ${asset.symbol}`} />
             <TableNameBox text={`$ ${asset.value}`} />
             <AllocationShare
               percentage={asset.allocation}
-              size={isLg || isXl ? 'big' : 'small'}
               color={asset.color}
             />
           </TableDataRow>
