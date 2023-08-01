@@ -18,7 +18,7 @@ type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
 
 interface HeadersData {
   comparator: (a: any, b: any) => number;
-  width?: object;
+  width?: string | object;
   padding?: string;
   $noFlex?: boolean;
 }
