@@ -50,8 +50,8 @@ export const GuidedFlowDialog: FC = () => {
             heading={title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
-            currentDialog={currentDialog}
-            totalDialogs={tabs[currentTab].dialogs.length}
+            // currentDialog={currentDialog}
+            // totalDialogs={tabs[currentTab].dialogs.length}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}

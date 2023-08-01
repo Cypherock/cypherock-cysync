@@ -15,10 +15,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { SendGuideProvider, useSendGuide } from './context';
+import { SendDialogProvider, useSendDialog } from './context';
 
 export const SendFlow: FC = () => {
-  const { tabs, currentTab, currentDialog } = useSendGuide();
+  const { tabs, currentTab, currentDialog } = useSendDialog();
   const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
 
@@ -30,12 +30,14 @@ export const SendFlow: FC = () => {
             milestones={tabs.map(t => t.name)}
             heading={lang.strings.send.aside.tabs.heading}
             activeTab={currentTab}
-            currentDialog={currentDialog}
-            totalDialogs={tabs[currentTab].dialogs.length}
+            // currentDialog={currentDialog}
+            // totalDialogs={tabs[currentTab].dialogs.length}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">
-              <CloseButton onClick={() => dispatch(closeDialog('sendGuide'))} />
+              <CloseButton
+                onClick={() => dispatch(closeDialog('sendDialog'))}
+              />
             </Container>
             <DialogBoxBody
               p="20"
@@ -54,8 +56,8 @@ export const SendFlow: FC = () => {
   );
 };
 
-export const SendGuide: FC = () => (
-  <SendGuideProvider>
+export const SendDialog: FC = () => (
+  <SendDialogProvider>
     <SendFlow />
-  </SendGuideProvider>
+  </SendDialogProvider>
 );

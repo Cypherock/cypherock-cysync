@@ -1,4 +1,3 @@
-// eslint-disable-next-line react/prop-types
 import {
   LangDisplay,
   DialogBox,
@@ -12,15 +11,15 @@ import {
   SummaryBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SummaryScrollDialog: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+export const SummaryDialog: React.FC = () => {
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
-  const summary = lang.strings.send.summary.scroll.dialogBox;
+  const summary = lang.strings.send.summary.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -42,15 +41,15 @@ export const SummaryScrollDialog: React.FC = () => {
 
         <SummaryBox
           fromIcon={walletIcon}
-          ethereumIcon={etheriumBlueIcon}
           toIcon={qrCodeIcon}
+          ethereumIcon={etheriumBlueIcon}
+          fromText={summary.from}
           toText={summary.to}
           amountText={summary.amount}
           networkText={summary.network.text}
           debitText={summary.debit.text}
-          walletName={summary.text}
-          ethereumText={summary.ethereumText}
-          fromText={summary.from}
+          walletName={summary.walletName}
+          ethereumText={summary.ethereum}
           toDetails={summary.toDetails}
           networkFeeEth={summary.network.eth}
           networkFeeUsd={summary.network.usd}
@@ -62,7 +61,6 @@ export const SummaryScrollDialog: React.FC = () => {
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>
-
         <Button variant="primary">
           <LangDisplay text={button.continue} />
         </Button>

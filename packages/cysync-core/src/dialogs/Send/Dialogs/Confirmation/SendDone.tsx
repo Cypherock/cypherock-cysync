@@ -17,12 +17,12 @@ import {
   qrImage,
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const SendDone: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
 
   const confirm = lang.strings.send.sendConfirm.info.dialogBox;

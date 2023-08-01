@@ -6,12 +6,12 @@ import {
   Image,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const SendProblem: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const problem = lang.strings.send.transactionProblem.info.dialogBox;

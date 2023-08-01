@@ -7,13 +7,13 @@ import { GuidedFlow } from './GuidedFlow';
 import { ReceiveDialog } from './Receive';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
-import { SendGuide } from './SendGuide';
+import { SendDialog } from './Send';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
-  sendGuide: SendGuide,
+  sendDialog: SendDialog,
   receiveDialog: ReceiveDialog,
 };

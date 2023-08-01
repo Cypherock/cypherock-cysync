@@ -14,3 +14,6 @@ export const openAddAccountDialog = () =>
 
 export const openReceiveDialog = () =>
   openDialog({ name: 'receiveDialog', data: undefined });
+
+export const openSendDialog = () =>
+  openDialog({ name: 'sendDialog', data: undefined });

@@ -29,7 +29,7 @@ export interface IDialogState {
     };
   };
 
-  sendGuide: {
+  sendDialog: {
     isOpen: boolean;
     data?: undefined;
   };

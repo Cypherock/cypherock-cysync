@@ -11,10 +11,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 
 export const DeniedOnDevice: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
     ArrowRight: () => {

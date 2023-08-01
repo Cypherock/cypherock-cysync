@@ -10,13 +10,13 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../../../context';
+import { useSendDialog } from '../../../context';
 import { SingleTransaction } from './SingleTransaction';
 import { BatchTransaction } from './BatchTransaction';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const BitcoinTransaction: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;

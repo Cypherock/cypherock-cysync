@@ -17,7 +17,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 
 const dropDownData: DropDownListItemProps[] = [
   {
@@ -83,7 +83,7 @@ export const SelectSend: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const select = lang.strings.send.selectSend.info.dialogBox;
-  const { onNext } = useSendGuide();
+  const { onNext } = useSendDialog();
 
   const [dropdownState, setDropdownState] = useState<DropdownState>({
     isFirstDropdownSelected: false,

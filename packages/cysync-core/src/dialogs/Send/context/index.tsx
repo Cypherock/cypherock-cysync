@@ -33,7 +33,7 @@ type ITabs = {
   dialogs: ReactNode[];
 }[];
 
-export interface SendGuideContextInterface {
+export interface SendDialogContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: Dispatch<SetStateAction<number>>;
@@ -43,14 +43,14 @@ export interface SendGuideContextInterface {
   onPrevious: () => void;
 }
 
-export const SendGuideContext: Context<SendGuideContextInterface> =
-  createContext<SendGuideContextInterface>({} as SendGuideContextInterface);
+export const SendDialogContext: Context<SendDialogContextInterface> =
+  createContext<SendDialogContextInterface>({} as SendDialogContextInterface);
 
-export interface SendGuideContextProviderProps {
+export interface SendDialogContextProviderProps {
   children: ReactNode;
 }
 
-export const SendGuideProvider: FC<SendGuideContextProviderProps> = ({
+export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   children,
 }) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -137,12 +137,12 @@ export const SendGuideProvider: FC<SendGuideContextProviderProps> = ({
   );
 
   return (
-    <SendGuideContext.Provider value={ctx}>
+    <SendDialogContext.Provider value={ctx}>
       {children}
-    </SendGuideContext.Provider>
+    </SendDialogContext.Provider>
   );
 };
 
-export function useSendGuide(): SendGuideContextInterface {
-  return useContext(SendGuideContext);
+export function useSendDialog(): SendDialogContextInterface {
+  return useContext(SendDialogContext);
 }

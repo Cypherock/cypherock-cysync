@@ -7,12 +7,12 @@ import {
   Image,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const LoadingDialog: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
 
   const loading = lang.strings.send.loading.info.dialogBox;

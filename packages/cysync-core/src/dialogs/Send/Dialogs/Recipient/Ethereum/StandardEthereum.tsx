@@ -19,23 +19,34 @@ import {
   InfoBox,
   Slider,
   SliderCaption,
+  etheriumBlueIcon,
+  ButtonAttributes,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../../../context';
+import { useSendDialog } from '../../../context';
 import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
-import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import { Buttons, Captions } from '../Ethereum/StandardEthereum';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const StandardOptimism: React.FC = () => {
+export const Buttons: ButtonAttributes[] = [
+  { id: 1, label: 'Standard' },
+  { id: 2, label: 'Advanced' },
+];
+
+export const Captions = [
+  { id: 1, name: 'Min' },
+  { id: 2, name: 'Average' },
+  { id: 3, name: 'Max' },
+];
+
+export const StandardEthereum: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
-  const standard = lang.strings.send.optimism.info.dialogBox;
+  const eth = lang.strings.send.ethereum.info.dialogBox;
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -47,7 +58,7 @@ export const StandardOptimism: React.FC = () => {
   const handleToggleChange = (checked: boolean) => {
     setIsChecked(checked);
   };
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -65,15 +76,15 @@ export const StandardOptimism: React.FC = () => {
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Container display="flex" direction="column" gap={16} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={standard.text} />
+            <LangDisplay text={eth.text} />
           </Typography>
           <Typography variant="span" $textAlign="center" color="muted">
-            <LangDisplay text={standard.subText} />
+            <LangDisplay text={eth.subText} />
           </Typography>
           <LeanBox
             leftImage={informationIcon}
-            text={standard.InfoBox.text}
-            altText={standard.InfoBox.altText}
+            text={eth.InfoBox.text}
+            altText={eth.InfoBox.altText}
             textVariant="span"
             fontSize={12}
             icon={<SvgGoldQuestionMark height={14} width={14} />}
@@ -87,7 +98,7 @@ export const StandardOptimism: React.FC = () => {
                   color="muted"
                   $fontSize={13}
                 >
-                  <LangDisplay text={standard.recipient.text} />
+                  <LangDisplay text={eth.recipient.text} />
                 </Typography>
               </Flex>
             </Flex>
@@ -95,7 +106,7 @@ export const StandardOptimism: React.FC = () => {
             <Input
               type="text"
               name="address"
-              placeholder={standard.recipient.placeholder}
+              placeholder={eth.recipient.placeholder}
               postfixIcon={<Image src={qrCodeIcon} alt="qr icon" />}
             />
             <Typography
@@ -105,7 +116,7 @@ export const StandardOptimism: React.FC = () => {
               $alignSelf="start"
               $fontSize={12}
             >
-              <LangDisplay text={standard.recipient.error} />
+              <LangDisplay text={eth.recipient.error} />
             </Typography>
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={16}>
@@ -115,7 +126,7 @@ export const StandardOptimism: React.FC = () => {
                   color="muted"
                   $fontSize={13}
                 >
-                  <LangDisplay text={standard.amount.text} />
+                  <LangDisplay text={eth.amount.text} />
                 </Typography>
               </Flex>
               <Flex align="center" direction="row" gap={8}>
@@ -125,22 +136,18 @@ export const StandardOptimism: React.FC = () => {
                   color="muted"
                   $fontSize={13}
                 >
-                  <LangDisplay text={standard.amount.toggle} />
+                  <LangDisplay text={eth.amount.toggle} />
                 </Typography>
                 <Toggle checked={isChecked} onToggle={handleToggleChange} />
               </Flex>
             </Flex>
             <Flex justify="space-between" gap={8} align="center" width="full">
-              <Input
-                type="text"
-                name="address"
-                postfixIcon={standard.amount.eth}
-              />
+              <Input type="text" name="address" postfixIcon={eth.amount.eth} />
               <SvgDoubleArrow height={22} width={22} />
               <Input
                 type="text"
                 name="address"
-                postfixIcon={standard.amount.dollar}
+                postfixIcon={eth.amount.dollar}
               />
             </Flex>
             <Typography
@@ -150,42 +157,14 @@ export const StandardOptimism: React.FC = () => {
               $alignSelf="start"
               $fontSize={12}
             >
-              <LangDisplay text={standard.amount.error} />
+              <LangDisplay text={eth.amount.error} />
             </Typography>
           </Container>
           <Divider variant="horizontal" />
-
-          <Container display="flex" direction="column" gap={8} width="full">
-            <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={8}>
-                <Typography variant="span" width="100%" $fontSize={14}>
-                  <LangDisplay text={standard.fees.l1.text} />
-                </Typography>
-                <SvgGoldQuestionMark height={14} width={14} />
-              </Flex>
-              <Flex align="center" direction="row" gap={8}>
-                <Typography variant="span" width="100%" $fontSize={13}>
-                  <LangDisplay text={standard.fees.l1.fee} />
-                </Typography>
-              </Flex>
-            </Flex>
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={standard.fees.l1.error} />
-            </Typography>
-          </Container>
-
-          <Divider variant="horizontal" />
-
           <Flex justify="space-between" align="center" width="full">
             <Flex align="center" gap={8}>
-              <Typography variant="span" width="100%" $fontSize={14}>
-                <LangDisplay text={standard.fees.l2.text} />
+              <Typography variant="span" width="100%" $fontSize={13}>
+                <LangDisplay text={eth.fees.title} />
               </Typography>
               <SvgGoldQuestionMark height={14} width={14} />
             </Flex>
@@ -206,13 +185,13 @@ export const StandardOptimism: React.FC = () => {
                   color="muted"
                   $fontSize={13}
                 >
-                  <LangDisplay text={standard.gas} />
+                  <LangDisplay text={eth.gas} />
                 </Typography>
                 <SvgGoldQuestionMark height={14} width={14} />
               </Flex>
               {activeButtonId === 1 && (
                 <Flex align="center" direction="row" gap={8}>
-                  <InfoBox text={standard.message} />
+                  <InfoBox text={eth.message} />
                 </Flex>
               )}
             </Flex>
@@ -221,7 +200,7 @@ export const StandardOptimism: React.FC = () => {
               <Input
                 type="text"
                 name="address"
-                postfixIcon={standard.inputPostfix}
+                postfixIcon={eth.inputPostfix}
               />
             )}
 
@@ -239,7 +218,7 @@ export const StandardOptimism: React.FC = () => {
                   $alignSelf="start"
                   $fontSize={12}
                 >
-                  <LangDisplay text={standard.fees.l2.error} />
+                  <LangDisplay text={eth.fees.error} />
                 </Typography>
               </>
             )}
@@ -255,40 +234,36 @@ export const StandardOptimism: React.FC = () => {
                     color="muted"
                     $fontSize={13}
                   >
-                    <LangDisplay text={standard.limit} />
+                    <LangDisplay text={eth.limit} />
                   </Typography>
                   <SvgGoldQuestionMark height={14} width={14} />
                 </Flex>
               </Flex>
 
               <Input type="text" name="address" />
-              <Typography
-                variant="span"
-                width="100%"
-                color="error"
-                $alignSelf="start"
-                $fontSize={12}
-              >
-                <LangDisplay text={standard.fees.l2.error} />
-              </Typography>
             </Container>
           )}
 
           <Flex justify="space-between" align="center" width="full">
             <Flex align="center" gap={8}>
-              <SvgOptimism height={16} width={15} />
+              <Image
+                src={etheriumBlueIcon}
+                alt="Left Image"
+                width="11px"
+                height="16px"
+              />
               <Typography
                 variant="span"
                 width="100%"
                 color="muted"
                 $fontSize={13}
               >
-                <LangDisplay text={standard.fees.network} />
+                <LangDisplay text={eth.fees.network} />
               </Typography>
             </Flex>
             <Flex align="center" direction="row" gap={8}>
               <Typography variant="span" width="100%" $fontSize={14}>
-                <LangDisplay text={standard.fees.fee} />
+                <LangDisplay text={eth.fees.fee} />
               </Typography>
               <Typography
                 variant="span"
@@ -296,11 +271,11 @@ export const StandardOptimism: React.FC = () => {
                 color="muted"
                 $fontSize={12}
               >
-                <LangDisplay text={standard.fees.usd} />
+                <LangDisplay text={eth.fees.usd} />
               </Typography>
             </Flex>
           </Flex>
-          <MessageBox type="warning" text={standard.warning} />
+          <MessageBox type="warning" text={eth.warning} />
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

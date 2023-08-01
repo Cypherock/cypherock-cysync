@@ -16,7 +16,7 @@ import {
 import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendGuide } from '../../context';
+import { useSendDialog } from '../../context';
 
 const dataArray = [
   {
@@ -58,7 +58,7 @@ const dataArray = [
   },
 ];
 export const SendConfirmToken: React.FC = () => {
-  const { onNext, onPrevious } = useSendGuide();
+  const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const confirm = lang.strings.send.confirmToken.info.dialogBox;
 
