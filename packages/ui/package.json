@@ -21,7 +21,7 @@
     "test": "jest",
     "pre-commit": "lint-staged",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build:storybook": "storybook build"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.22.5",

@@ -1,6 +1,8 @@
 import type { Preview } from '@storybook/react';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
-import { getDefaultTheme, ThemeProvider } from '../src/themes';
+import { getDefaultTheme, ThemeProvider } from '../src';
+
+const theme = getDefaultTheme();
 
 const preview: Preview = {
   parameters: {
@@ -11,6 +13,19 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    backgrounds: {
+      default: 'default',
+      values: [
+        {
+          name: 'default',
+          value: theme.palette.background.content,
+        },
+        {
+          name: 'sidebar',
+          value: theme.palette.background.sideBar,
+        },
+      ],
     },
   },
 };
