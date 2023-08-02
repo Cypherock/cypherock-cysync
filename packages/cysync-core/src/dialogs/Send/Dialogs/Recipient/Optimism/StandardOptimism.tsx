@@ -21,7 +21,7 @@ import {
   SliderCaption,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { addKeyboardEvents } from '~/hooks';
+import { addKeyboardEvents, useToggle } from '~/hooks';
 import { useSendDialog } from '../../../context';
 import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
 import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
@@ -30,12 +30,12 @@ import { Buttons, Captions } from '../Ethereum/StandardEthereum';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const StandardOptimism: React.FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const standard = lang.strings.send.optimism.info.dialogBox;
+  const sendMaxToggle = useToggle(false);
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -44,9 +44,7 @@ export const StandardOptimism: React.FC = () => {
   const handleSliderChange = (newValue: number) => {
     setSliderValue(newValue);
   };
-  const handleToggleChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
+
   const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
@@ -125,7 +123,10 @@ export const StandardOptimism: React.FC = () => {
                 >
                   <LangDisplay text={standard.amount.toggle} />
                 </Typography>
-                <Toggle checked={isChecked} onToggle={handleToggleChange} />
+                <Toggle
+                  checked={sendMaxToggle.isChecked}
+                  onToggle={sendMaxToggle.handleToggleChange}
+                />
               </Flex>
             </Flex>
             <Flex justify="space-between" gap={8} align="center" width="full">

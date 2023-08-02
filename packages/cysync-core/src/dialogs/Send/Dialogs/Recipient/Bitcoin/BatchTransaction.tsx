@@ -18,16 +18,17 @@ import {
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { addKeyboardEvents } from '~/hooks';
+import { addKeyboardEvents, useToggle } from '~/hooks';
 import { useSendDialog } from '../../../context';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const BatchTransaction: React.FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
+  const replaceToggle = useToggle(false);
+  const unconfirmedToggle = useToggle(false);
 
   const { batch } = lang.strings.send.bitcoin.info.dialogBox;
 
@@ -38,9 +39,7 @@ export const BatchTransaction: React.FC = () => {
   const handleSliderChange = (newValue: number) => {
     setSliderValue(newValue);
   };
-  const handleToggleChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
+
   const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
@@ -132,7 +131,10 @@ export const BatchTransaction: React.FC = () => {
               </Typography>
             </Flex>
             <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
+              <Toggle
+                checked={replaceToggle.isChecked}
+                onToggle={replaceToggle.handleToggleChange}
+              />
             </Flex>
           </Flex>
 
@@ -148,7 +150,10 @@ export const BatchTransaction: React.FC = () => {
               </Typography>
             </Flex>
             <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
+              <Toggle
+                checked={unconfirmedToggle.isChecked}
+                onToggle={unconfirmedToggle.handleToggleChange}
+              />
             </Flex>
           </Flex>
 
