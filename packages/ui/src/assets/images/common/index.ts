@@ -2,6 +2,7 @@ import addWalletIcon from './add-wallet.png';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
+import assetSwith from './asset-switch.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
@@ -45,6 +46,7 @@ import walletErrorIcon from './wallet-error.svg';
 export {
   addWalletIcon,
   asideIcon,
+  assetSwith,
   arrowBlackBackward,
   arrowGoldenForward,
   arrowWhiteBackward,
