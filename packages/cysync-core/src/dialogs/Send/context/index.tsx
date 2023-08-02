@@ -25,6 +25,8 @@ import {
   ConnectDevice,
   SendProblem,
   SendDone,
+  SummaryOptimism,
+  OptimismVerify,
 } from '../Dialogs';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -74,11 +76,15 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     },
     {
       name: lang.strings.send.aside.tabs.summary,
-      dialogs: [<SummaryDialog />, <SummaryScrollDialog />],
+      dialogs: [
+        <SummaryDialog />,
+        <SummaryScrollDialog />,
+        <SummaryOptimism />,
+      ],
     },
     {
       name: lang.strings.send.aside.tabs.x1vault,
-      dialogs: [<SendConfirmToken />, <ConnectDevice />],
+      dialogs: [<SendConfirmToken />, <OptimismVerify />, <ConnectDevice />],
     },
     {
       name: lang.strings.send.aside.tabs.confirm,

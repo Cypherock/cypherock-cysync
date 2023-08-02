@@ -5,7 +5,6 @@ import {
   DialogBoxFooter,
   DialogBoxBody,
   Typography,
-  etheriumBlueIcon,
   walletIcon,
   Button,
   qrCodeIcon,
@@ -42,15 +41,13 @@ export const SummaryScrollDialog: React.FC = () => {
 
         <SummaryBox
           fromIcon={walletIcon}
-          ethereumIcon={etheriumBlueIcon}
           toIcon={qrCodeIcon}
           toText={summary.to}
           amountText={summary.amount}
           networkText={summary.network.text}
           debitText={summary.debit.text}
-          walletName={summary.text}
-          ethereumText={summary.ethereumText}
           fromText={summary.from}
+          fromDetails={summary.fromDetails}
           toDetails={summary.toDetails}
           networkFeeEth={summary.network.eth}
           networkFeeUsd={summary.network.usd}

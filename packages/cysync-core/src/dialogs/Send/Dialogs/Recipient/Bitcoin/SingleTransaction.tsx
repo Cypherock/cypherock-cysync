@@ -18,7 +18,7 @@ import {
   bitcoinIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { addKeyboardEvents } from '~/hooks';
+import { addKeyboardEvents, useToggle } from '~/hooks';
 import { useSendDialog } from '../../../context';
 import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
@@ -26,11 +26,13 @@ import { Buttons, Captions } from '../Ethereum';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const SingleTransaction: React.FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
+  const sendMaxToggle = useToggle(false);
+  const replaceToggle = useToggle(false);
+  const unconfirmedToggle = useToggle(false);
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -39,9 +41,7 @@ export const SingleTransaction: React.FC = () => {
   const handleSliderChange = (newValue: number) => {
     setSliderValue(newValue);
   };
-  const handleToggleChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
+
   const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
@@ -67,16 +67,9 @@ export const SingleTransaction: React.FC = () => {
       />
       <Container display="flex" direction="column" gap={8} width="full">
         <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.recipient.text} />
-            </Typography>
-          </Flex>
+          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+            <LangDisplay text={single.recipient.text} />
+          </Typography>
         </Flex>
 
         <Input
@@ -114,15 +107,24 @@ export const SingleTransaction: React.FC = () => {
             >
               <LangDisplay text={single.amount.toggle} />
             </Typography>
-            <Toggle checked={isChecked} onToggle={handleToggleChange} />
+            <Toggle
+              checked={sendMaxToggle.isChecked}
+              onToggle={sendMaxToggle.handleToggleChange}
+            />
           </Flex>
         </Flex>
         <Flex justify="space-between" gap={8} align="center" width="full">
-          <Input type="text" name="address" postfixIcon={single.amount.eth} />
+          <Input
+            type="text"
+            name="address"
+            placeholder={single.amount.placeholder}
+            postfixIcon={single.amount.btc}
+          />
           <SvgDoubleArrow height={22} width={22} />
           <Input
             type="text"
             name="address"
+            placeholder={single.amount.placeholder}
             postfixIcon={single.amount.dollar}
           />
         </Flex>
@@ -192,7 +194,10 @@ export const SingleTransaction: React.FC = () => {
               </Typography>
             </Flex>
             <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
+              <Toggle
+                checked={replaceToggle.isChecked}
+                onToggle={replaceToggle.handleToggleChange}
+              />
             </Flex>
           </Flex>
 
@@ -208,7 +213,10 @@ export const SingleTransaction: React.FC = () => {
               </Typography>
             </Flex>
             <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
+              <Toggle
+                checked={unconfirmedToggle.isChecked}
+                onToggle={unconfirmedToggle.handleToggleChange}
+              />
             </Flex>
           </Flex>
 

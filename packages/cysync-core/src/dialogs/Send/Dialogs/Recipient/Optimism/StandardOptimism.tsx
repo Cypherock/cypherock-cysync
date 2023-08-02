@@ -80,16 +80,14 @@ export const StandardOptimism: React.FC = () => {
           />
           <Container display="flex" direction="column" gap={8} width="full">
             <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={16}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={standard.recipient.text} />
-                </Typography>
-              </Flex>
+              <Typography
+                variant="span"
+                width="100%"
+                color="muted"
+                $fontSize={13}
+              >
+                <LangDisplay text={standard.recipient.text} />
+              </Typography>
             </Flex>
 
             <Input
@@ -134,12 +132,14 @@ export const StandardOptimism: React.FC = () => {
               <Input
                 type="text"
                 name="address"
+                placeholder={standard.amount.placeholder}
                 postfixIcon={standard.amount.eth}
               />
               <SvgDoubleArrow height={22} width={22} />
               <Input
                 type="text"
                 name="address"
+                placeholder={standard.amount.placeholder}
                 postfixIcon={standard.amount.dollar}
               />
             </Flex>
@@ -218,11 +218,22 @@ export const StandardOptimism: React.FC = () => {
             </Flex>
 
             {activeButtonId === 2 && (
-              <Input
-                type="text"
-                name="address"
-                postfixIcon={standard.inputPostfix}
-              />
+              <Container display="flex" direction="column" gap={8} width="full">
+                <Input
+                  type="text"
+                  name="address"
+                  postfixIcon={standard.inputPostfix}
+                />
+                <Typography
+                  variant="span"
+                  width="100%"
+                  color="error"
+                  $alignSelf="start"
+                  $fontSize={12}
+                >
+                  <LangDisplay text={standard.fees.l2.error} />
+                </Typography>
+              </Container>
             )}
 
             {activeButtonId === 1 && (
@@ -262,15 +273,6 @@ export const StandardOptimism: React.FC = () => {
               </Flex>
 
               <Input type="text" name="address" />
-              <Typography
-                variant="span"
-                width="100%"
-                color="error"
-                $alignSelf="start"
-                $fontSize={12}
-              >
-                <LangDisplay text={standard.fees.l2.error} />
-              </Typography>
             </Container>
           )}
 

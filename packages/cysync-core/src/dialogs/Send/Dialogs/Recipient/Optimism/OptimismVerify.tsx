@@ -16,48 +16,53 @@ import {
 import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 import { addKeyboardEvents } from '~/hooks';
-import { useSendDialog } from '../../context';
+import { useSendDialog } from '../../../context';
 
 const dataArray = [
   {
     id: '1',
     leftImage: arrowGoldenForward,
-    text: 'Verify',
-    altText: 'Tether',
+    text: 'Connect Device',
     rightImage: checkIcon,
   },
   {
     id: '2',
     leftImage: arrowGoldenForward,
-    text: 'Verify Recipient Address',
+    text: 'Verify',
+    altText: 'Optimism',
     rightImage: checkIcon,
   },
   {
     id: '3',
     leftImage: arrowGoldenForward,
-    text: 'Verify Amount:',
-    altText: '0.0166864199 USDT',
-    rightImage: halfLoaderGold,
-    animate: true,
+    text: 'Verify Recipient Address',
+    rightImage: checkIcon,
   },
   {
     id: '4',
     leftImage: arrowGoldenForward,
-    text: 'Verify fees:',
-    altText: '0.00035448 ETH',
+    text: 'Verify Amount:',
+    altText: '0.0166864199 ETH',
+    rightImage: halfLoaderGold,
+    animate: true,
   },
   {
     id: '5',
     leftImage: arrowGoldenForward,
-    text: 'Enter passphrase',
+    text: 'Verify fees(L2): 0.00035448 ETH',
   },
   {
     id: '6',
     leftImage: arrowGoldenForward,
+    text: 'Enter passphrase',
+  },
+  {
+    id: '7',
+    leftImage: arrowGoldenForward,
     text: 'Enter PIN and tap any one X1 Card',
   },
 ];
-export const SendConfirmToken: React.FC = () => {
+export const OptimismVerify: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const confirm = lang.strings.send.confirmToken.info.dialogBox;
@@ -95,7 +100,7 @@ export const SendConfirmToken: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          <MessageBox type="info" text={confirm.infoBox.info.send} />
+          <MessageBox type="info" text={confirm.infoBox.info.optimism} />
 
           <MessageBox type="warning" text={confirm.infoBox.warning} />
         </Container>

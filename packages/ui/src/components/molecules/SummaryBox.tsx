@@ -7,22 +7,70 @@ import {
   SummaryContainer,
   NestedContainer,
   ScrollContainer,
+  etheriumBlueIcon,
+  Container,
 } from '../..';
+import SvgOptimism from '../../assets/icons/generated/Optimism';
+
+interface CustomSummaryContainerProps {
+  leftText: string;
+  leftIcon?: string;
+  rightText: string;
+  rightSubText?: string;
+  margin?: number;
+}
+
+export const SummaryRow: React.FC<CustomSummaryContainerProps> = ({
+  leftText,
+  leftIcon,
+  rightText,
+  rightSubText,
+  margin,
+}) => (
+  <SummaryContainer
+    leftComponent={
+      <ImageContainer gap={8}>
+        {leftIcon && (
+          <Image src={leftIcon} alt="To" width="11px" height="20px" />
+        )}
+        <Typography variant="p" $fontSize={14} color="muted">
+          {leftText}
+        </Typography>
+      </ImageContainer>
+    }
+    rightComponent={
+      <NestedContainer>
+        <Typography variant="p" $fontSize={14}>
+          {rightText}
+        </Typography>
+        {rightSubText && (
+          <Typography variant="p" $fontSize={14} color="muted">
+            {rightSubText}
+          </Typography>
+        )}
+      </NestedContainer>
+    }
+    margin={margin}
+  />
+);
+
+SummaryRow.defaultProps = {
+  margin: undefined,
+  leftIcon: undefined,
+  rightSubText: undefined,
+};
+
+interface FromItem {
+  id: number;
+  name: string;
+  muted: boolean;
+}
 
 interface ToItem {
   id: number;
   address: string;
   amountEth: string;
   amountUsd: string;
-}
-
-interface ToDetailItemProps {
-  toIcon: string;
-  margin?: number;
-  to: ToItem;
-  toText: string;
-  amountText: string;
-  isLast: boolean;
 }
 
 export type SummaryScrollBoxProps = {
@@ -32,10 +80,8 @@ export type SummaryScrollBoxProps = {
   amountText: string;
   networkText: string;
   debitText: string;
-  walletName: string;
-  ethereumIcon: string;
-  ethereumText: string;
   toIcon: string;
+  fromDetails: FromItem[];
   toDetails: ToItem[];
   networkFeeEth: string;
   networkFeeUsd: string;
@@ -43,57 +89,9 @@ export type SummaryScrollBoxProps = {
   totalDebitUsd: string;
 };
 
-export const ToDetailItem: React.FC<ToDetailItemProps> = ({
-  margin,
-  toIcon,
-  to,
-  toText,
-  amountText,
-  isLast,
-}) => (
-  <>
-    <SummaryContainer
-      leftComponent={
-        <ImageContainer gap={8}>
-          <Image src={toIcon} alt="To" width="11px" height="20px" />
-          <Typography variant="p" color="muted" $fontSize={14}>
-            {toText}
-          </Typography>
-        </ImageContainer>
-      }
-      rightComponent={
-        <Typography variant="p" $fontSize={14}>
-          {to.address}
-        </Typography>
-      }
-      margin={margin}
-    />
-
-    <SummaryContainer
-      leftComponent={
-        <Typography variant="p" color="muted" $fontSize={14}>
-          {amountText}
-        </Typography>
-      }
-      rightComponent={
-        <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
-            {to.amountEth}
-          </Typography>
-          <Typography variant="p" $fontSize={14} color="muted">
-            {to.amountUsd}
-          </Typography>
-        </NestedContainer>
-      }
-      margin={margin}
-    />
-
-    {!isLast && <Divider variant="horizontal" />}
-  </>
-);
-
-ToDetailItem.defaultProps = {
-  margin: undefined,
+const imageSrcMap: any = {
+  'Ethereum 1': etheriumBlueIcon,
+  Optimism: <SvgOptimism height={16} width={15} />,
 };
 
 export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
@@ -103,10 +101,8 @@ export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
   networkText,
   debitText,
   fromIcon,
-  walletName,
-  ethereumIcon,
-  ethereumText,
   toIcon,
+  fromDetails,
   toDetails,
   networkFeeEth,
   networkFeeUsd,
@@ -125,15 +121,38 @@ export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
       }
       rightComponent={
         <>
-          <Typography variant="p" $fontSize={14} color="muted">
-            {walletName}
-          </Typography>
-          <ImageContainer gap={8}>
-            <Image src={ethereumIcon} alt="eth" width="11px" height="16px" />
-            <Typography variant="p" $fontSize={14}>
-              {ethereumText}
-            </Typography>
-          </ImageContainer>
+          {fromDetails.map((item, index) => {
+            const { id, name, muted } = item;
+            const imageSrc = imageSrcMap[name];
+            let imageContent;
+            if (imageSrc && typeof imageSrc === 'string') {
+              imageContent = (
+                <Image src={imageSrc} alt="From" width="15px" height="12px" />
+              );
+            } else if (imageSrc && typeof imageSrc !== 'string') {
+              imageContent = imageSrc;
+            }
+
+            return (
+              <Container key={id} display="flex" direction="row" gap={12}>
+                <ImageContainer gap={8}>
+                  {imageSrc && imageContent}
+                  <Typography
+                    variant="p"
+                    color={muted ? 'muted' : undefined}
+                    $fontSize={14}
+                  >
+                    {name}
+                  </Typography>
+                </ImageContainer>
+                {!(index === fromDetails.length - 1) && (
+                  <Typography variant="p" color="muted" $fontSize={14}>
+                    /
+                  </Typography>
+                )}
+              </Container>
+            );
+          })}
         </>
       }
     />
@@ -143,70 +162,61 @@ export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
     {toDetails.length > 1 ? (
       <ScrollContainer>
         {toDetails.map((to, index) => (
-          <ToDetailItem
-            key={to.id}
-            toIcon={toIcon}
-            to={to}
-            toText={toText}
-            amountText={amountText}
-            margin={24}
-            isLast={index === toDetails.length - 1}
-          />
+          <>
+            <SummaryRow
+              leftIcon={toIcon}
+              leftText={toText}
+              rightText={to.address}
+              margin={24}
+            />
+            <SummaryRow
+              leftText={amountText}
+              rightText={to.amountEth}
+              rightSubText={to.amountUsd}
+              margin={24}
+            />
+            {!(index === toDetails.length - 1) && (
+              <Divider variant="horizontal" />
+            )}
+          </>
         ))}
       </ScrollContainer>
     ) : (
       <>
         {toDetails.map((to, index) => (
-          <ToDetailItem
-            key={to.id}
-            toIcon={toIcon}
-            to={to}
-            toText={toText}
-            amountText={amountText}
-            isLast={index === toDetails.length - 1}
-          />
+          <>
+            <SummaryRow
+              leftIcon={toIcon}
+              leftText={toText}
+              rightText={to.address}
+            />
+            <SummaryRow
+              leftText={amountText}
+              rightText={to.amountEth}
+              rightSubText={to.amountUsd}
+            />
+            {!(index === toDetails.length - 1) && (
+              <Divider variant="horizontal" />
+            )}
+          </>
         ))}
       </>
     )}
 
     {toDetails.length === 1 && <Divider variant="horizontal" />}
 
-    <SummaryContainer
-      leftComponent={
-        <Typography variant="p" $fontSize={14} color="muted">
-          {networkText}
-        </Typography>
-      }
-      rightComponent={
-        <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
-            {networkFeeEth}
-          </Typography>
-          <Typography variant="p" $fontSize={14} color="muted">
-            {networkFeeUsd}
-          </Typography>
-        </NestedContainer>
-      }
+    <SummaryRow
+      leftText={networkText}
+      rightText={networkFeeEth}
+      rightSubText={networkFeeUsd}
     />
 
     <Divider variant="horizontal" />
 
-    <SummaryContainer
-      leftComponent={
-        <Typography variant="p" color="muted" $fontSize={14}>
-          {debitText}
-        </Typography>
-      }
-      rightComponent={
-        <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
-            {totalDebitEth}
-          </Typography>
-          <Typography variant="p" $fontSize={14} color="muted">
-            {totalDebitUsd}
-          </Typography>
-        </NestedContainer>
-      }
+    <SummaryRow
+      leftText={debitText}
+      rightText={totalDebitEth}
+      rightSubText={totalDebitUsd}
     />
   </>
 );

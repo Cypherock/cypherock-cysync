@@ -91,16 +91,14 @@ export const StandardEthereum: React.FC = () => {
           />
           <Container display="flex" direction="column" gap={8} width="full">
             <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={16}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={eth.recipient.text} />
-                </Typography>
-              </Flex>
+              <Typography
+                variant="span"
+                width="100%"
+                color="muted"
+                $fontSize={13}
+              >
+                <LangDisplay text={eth.recipient.text} />
+              </Typography>
             </Flex>
 
             <Input
@@ -142,11 +140,17 @@ export const StandardEthereum: React.FC = () => {
               </Flex>
             </Flex>
             <Flex justify="space-between" gap={8} align="center" width="full">
-              <Input type="text" name="address" postfixIcon={eth.amount.eth} />
+              <Input
+                type="text"
+                name="address"
+                placeholder={eth.amount.placeholder}
+                postfixIcon={eth.amount.eth}
+              />
               <SvgDoubleArrow height={22} width={22} />
               <Input
                 type="text"
                 name="address"
+                placeholder={eth.amount.placeholder}
                 postfixIcon={eth.amount.dollar}
               />
             </Flex>
@@ -197,11 +201,23 @@ export const StandardEthereum: React.FC = () => {
             </Flex>
 
             {activeButtonId === 2 && (
-              <Input
-                type="text"
-                name="address"
-                postfixIcon={eth.inputPostfix}
-              />
+              <Container display="flex" direction="column" gap={8} width="full">
+                {' '}
+                <Input
+                  type="text"
+                  name="address"
+                  postfixIcon={eth.inputPostfix}
+                />
+                <Typography
+                  variant="span"
+                  width="100%"
+                  color="error"
+                  $alignSelf="start"
+                  $fontSize={12}
+                >
+                  <LangDisplay text={eth.fees.error} />
+                </Typography>
+              </Container>
             )}
 
             {activeButtonId === 1 && (
