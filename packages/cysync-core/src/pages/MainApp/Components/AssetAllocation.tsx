@@ -1,6 +1,7 @@
 import { CoinTypes } from '@cypherock/coins';
 import {
   AllocationShare,
+  WidthProps,
   Table,
   TableBody,
   TableDataRow,
@@ -18,7 +19,7 @@ type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
 
 interface HeadersData {
   comparator: (a: any, b: any) => number;
-  width?: string | object;
+  width?: WidthProps['width'];
   padding?: string;
   $noFlex?: boolean;
 }
