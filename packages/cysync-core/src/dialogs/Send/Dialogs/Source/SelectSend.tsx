@@ -14,6 +14,7 @@ import {
   bitcoinIcon,
   etheriumBlueIcon,
   DropDownListItemProps,
+  walletIcon,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -23,29 +24,52 @@ const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
     leftImage: bitcoinIcon,
-    shortForm: '(BTC)',
-    text: 'Bitcoin',
+    shortForm: '(ETH)',
+    text: 'Ethereum 1',
     checkType: 'radio',
+    rightText: '0.015 ETH',
+  },
+  {
+    id: '143',
+    leftImage: solanaIcon,
+    shortForm: '(DAI)',
+    text: 'DAI Stable Coin v2',
+    checkType: 'radio',
+    rightText: '0.234 DAI',
+    $parentId: '41',
+  },
+  {
+    id: '144',
+    leftImage: binanceIcon,
+    shortForm: '(USDC)',
+    text: 'USD COIN',
+    checkType: 'radio',
+    rightText: '0.234 USD',
+    $parentId: '41',
   },
   {
     id: '42',
-    leftImage: etheriumBlueIcon,
-    text: 'Ethereum',
-    shortForm: '(ETH)',
+    leftImage: solanaIcon,
+    shortForm: '(SOL)',
+    text: 'Solana 1',
     checkType: 'radio',
+    rightText: '0.234 SOL',
   },
   {
     id: '43',
-    leftImage: solanaIcon,
-    shortForm: '(SOL)',
-    text: 'Solana',
+    leftImage: etheriumBlueIcon,
+    text: 'Bitcoin 1',
+    shortForm: '(BTC)',
+    tag: 'Taproot',
+    rightText: '0.234 BTC',
     checkType: 'radio',
   },
   {
     id: '44',
     leftImage: binanceIcon,
-    shortForm: '(BTC)',
-    text: 'Binance Smart Chain',
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
     checkType: 'radio',
   },
 ];
@@ -54,21 +78,25 @@ const dropDownDataWithWallet: DropDownListItemProps[] = [
     id: '51',
     text: 'Official',
     checkType: 'radio',
+    leftImage: walletIcon,
   },
   {
     id: '52',
     text: 'Cypherock Red',
     checkType: 'radio',
+    leftImage: walletIcon,
   },
   {
     id: '53',
     text: 'Personal',
     checkType: 'radio',
+    leftImage: walletIcon,
   },
   {
     id: '54',
     text: 'Business',
     checkType: 'radio',
+    leftImage: walletIcon,
   },
 ];
 
@@ -139,6 +167,7 @@ export const SelectSend: React.FC = () => {
             searchText={select.searchText}
             placeholderText={select.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
+            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

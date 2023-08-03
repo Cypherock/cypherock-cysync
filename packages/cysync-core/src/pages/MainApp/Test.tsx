@@ -1,7 +1,7 @@
 import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 import { openSendDialog } from '~/actions';
-import { SendConfirmToken } from '~/dialogs/Send/Dialogs';
+import { SelectSend } from '~/dialogs/Send/Dialogs';
 import { useAppDispatch } from '~/store';
 
 export const Test: FC = () => {
@@ -19,7 +19,7 @@ export const Test: FC = () => {
         <AssetAllocation /> */}
         {/* <Receive /> */}
         {/* HERLLO */}
-        <SendConfirmToken />
+        <SelectSend />
       </Flex>
     </Container>
   );
