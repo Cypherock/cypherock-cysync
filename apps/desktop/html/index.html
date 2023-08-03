@@ -18,6 +18,14 @@
   </head>
   <body style="user-select: none">
     <div id="root"></div>
+    <script>
+      window.global = window;
+    </script>
+    <script type="module">
+      import { Buffer } from 'buffer/'; // <-- no typo here ("/")
+
+      window.Buffer = Buffer;
+    </script>
     <script type="module" src="/renderer/index.tsx"></script>
   </body>
 </html>

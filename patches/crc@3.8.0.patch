@@ -1,0 +1,177 @@
+diff --git a/buffer.js b/buffer.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..dbddd245851f0a016d6d341910d2dc48c4891c0c
+--- /dev/null
++++ b/buffer.js
+@@ -0,0 +1 @@
++export const Buffer = typeof Buffer === 'undefined' ? window.Buffer : Buffer;
+diff --git a/crc1.js b/crc1.js
+index 9755aa8e01d700ec53711d5963e17767e6dade0c..931761e35c8bdeaedaffcab8401d4bdcc088db19 100644
+--- a/crc1.js
++++ b/crc1.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc16.js b/crc16.js
+index 61a1c235df9dfba01e88ec6c5eaed984882a8773..0bb601c57a822525c87ff4187df29e5ef7eb5364 100644
+--- a/crc16.js
++++ b/crc16.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc16ccitt.js b/crc16ccitt.js
+index 12b2023314fa1292d0facb062227cb7ae7373d96..74700779b785df5e7210da16e0595d4ab248b4b7 100644
+--- a/crc16ccitt.js
++++ b/crc16ccitt.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc16kermit.js b/crc16kermit.js
+index 55fc67efe7a855c7032f0afb13b4578efd028d39..8eeca7089c73e448ff79ea323ffe4f618e6caa90 100644
+--- a/crc16kermit.js
++++ b/crc16kermit.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc16modbus.js b/crc16modbus.js
+index 0a604fb9456bf3fc6b07f9678a907c5c0faa3535..74db25b66663865a0449217ff81d90f5f8d8bd46 100644
+--- a/crc16modbus.js
++++ b/crc16modbus.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc16xmodem.js b/crc16xmodem.js
+index ecef0b26c4df67d92e90d334c491b087b95a9f5b..a04d2153742754423776b77465dc394c4e01344b 100644
+--- a/crc16xmodem.js
++++ b/crc16xmodem.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc17ccitt.js b/crc17ccitt.js
+index 12b2023314fa1292d0facb062227cb7ae7373d96..74700779b785df5e7210da16e0595d4ab248b4b7 100644
+--- a/crc17ccitt.js
++++ b/crc17ccitt.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc17kermit.js b/crc17kermit.js
+index 55fc67efe7a855c7032f0afb13b4578efd028d39..8eeca7089c73e448ff79ea323ffe4f618e6caa90 100644
+--- a/crc17kermit.js
++++ b/crc17kermit.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc17modbus.js b/crc17modbus.js
+index 0a604fb9456bf3fc6b07f9678a907c5c0faa3535..74db25b66663865a0449217ff81d90f5f8d8bd46 100644
+--- a/crc17modbus.js
++++ b/crc17modbus.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc17xmodem.js b/crc17xmodem.js
+index ecef0b26c4df67d92e90d334c491b087b95a9f5b..a04d2153742754423776b77465dc394c4e01344b 100644
+--- a/crc17xmodem.js
++++ b/crc17xmodem.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc24.js b/crc24.js
+index f94e3ce20f31ff8463c8252c508748e318b23625..098dc77f68ef7ec20b1c9b2c1583c83acc2365c5 100644
+--- a/crc24.js
++++ b/crc24.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc32.js b/crc32.js
+index 084e02064e8a9879fbd2c4d98553b05286b7cccd..61a48a761a00bea9b2810a69059ba4654dd2346f 100644
+--- a/crc32.js
++++ b/crc32.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc8.js b/crc8.js
+index e3995a3098e670e5f2dced03f2ebdb8f567adfff..83597965af8b1033758f10653afcc3ee5a772692 100644
+--- a/crc8.js
++++ b/crc8.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc81wire.js b/crc81wire.js
+index f1737852dadc71dad0c87b1327d04b759f2f1b27..c883ebcd1ec03a86a66d37346c00785bb15ac50d 100644
+--- a/crc81wire.js
++++ b/crc81wire.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crc91wire.js b/crc91wire.js
+index f1737852dadc71dad0c87b1327d04b759f2f1b27..c883ebcd1ec03a86a66d37346c00785bb15ac50d 100644
+--- a/crc91wire.js
++++ b/crc91wire.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/crcjam.js b/crcjam.js
+index 26e443ed5439d1af826ffcf076bcac597d1f28f5..28f82370346ccc1fc6589ac65e2aed9af7b6c2cd 100644
+--- a/crcjam.js
++++ b/crcjam.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ import createBuffer from './create_buffer';
+ import defineCrc from './define_crc';
+ 
+diff --git a/create_buffer.js b/create_buffer.js
+index f27a63a9332c962ef4eb675ed8a20246ac0e130d..b7f2f9d74261a3bdac7ff1997f686ce90df6885c 100644
+--- a/create_buffer.js
++++ b/create_buffer.js
+@@ -1,4 +1,4 @@
+-import { Buffer } from 'buffer';
++import { Buffer } from './buffer';
+ 
+ const createBuffer =
+   Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow

@@ -1,8 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
+  IPreparedTransaction,
   IReceiveEvent,
   IReceiveParams,
+  IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { Observable } from 'rxjs';
 
@@ -23,5 +25,17 @@ export class EvmSupport implements CoinSupport {
 
   public syncAccounts(): Observable<void> {
     throw new Error('Not implemented');
+  }
+
+  public async createTransaction(): Promise<IPreparedTransaction> {
+    throw new Error('Not implemented');
+  }
+
+  public async prepareTransaction(): Promise<any> {
+    throw new Error('Not implemented');
+  }
+
+  public validateAddress(params: IValidateAddressParams) {
+    return operations.validateAddress(params);
   }
 }

@@ -17,6 +17,17 @@ export async function querySelect<T>(
 
 export const queryInput = async (message: string) => input({ message });
 
+export const queryNumber = async (message: string) => {
+  const str = await input({ message });
+  const num = parseInt(str, 10);
+
+  if (Number.isNaN(num)) {
+    throw new Error('Invalid number');
+  }
+
+  return num;
+};
+
 export const queryConfirm = async (message: string) => confirm({ message });
 
 export async function queryCheckbox<T>(

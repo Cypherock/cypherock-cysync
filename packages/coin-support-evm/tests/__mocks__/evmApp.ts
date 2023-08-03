@@ -76,9 +76,19 @@ export const getPublicKeys = jest
   .fn<EvmApp['getPublicKeys']>()
   .mockReturnValue(Promise.resolve({ publicKeys: DUMMY_ADDRESSES }));
 
+export const abort = jest
+  .fn<EvmApp['abort']>()
+  .mockReturnValue(Promise.resolve());
+
+export const destroy = jest
+  .fn<EvmApp['destroy']>()
+  .mockReturnValue(Promise.resolve());
+
 export const create = jest.fn(async () =>
   Promise.resolve({
     getPublicKeys,
+    abort,
+    destroy,
   }),
 );
 

@@ -55,8 +55,14 @@ export const getDerivedAddresses = jest.fn().mockReturnValue(
   }),
 );
 
+export const getAverageFee = jest.fn().mockReturnValue(Promise.resolve(0));
+
+export const getUtxos = jest.fn().mockReturnValue(Promise.resolve([]));
+
 jest.mock('../../src/services', () => ({
   __esModule: true,
   getXpubDetails,
   getDerivedAddresses,
+  getAverageFee,
+  getUtxos,
 }));

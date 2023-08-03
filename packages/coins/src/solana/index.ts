@@ -14,7 +14,7 @@ export const SolanaIdMap = {
   solana: 'solana',
 } as const;
 
-export type SolanaIds = (typeof SolanaIdMap)[keyof typeof SolanaIdMap] | string;
+export type SolanaId = (typeof SolanaIdMap)[keyof typeof SolanaIdMap] | string;
 
 const units: ICoinUnit[] = [
   {
@@ -29,23 +29,24 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const solanaCoinList: Record<SolanaIds, ISolanaCoinInfo> =
-  coinList.reduce<Record<SolanaIds, ISolanaCoinInfo>>(
-    (list, coin) => ({
-      ...list,
-      [coin.id]: {
-        family: coinFamiliesMap.solana,
-        id: coin.id,
-        name: coin.name,
-        abbr: coin.abbr,
-        isTest: coin.isTest,
-        coinGeckoId: coin.coinGeckoId,
-        coinIndex: coin.coinIndex,
-        feesUnit: coin.feesUnit,
-        network: coin.network,
-        curve: coin.curve,
-        units,
-      },
-    }),
-    {},
-  );
+export const solanaCoinList: Record<string, ISolanaCoinInfo> = coinList.reduce<
+  Record<string, ISolanaCoinInfo>
+>(
+  (list, coin) => ({
+    ...list,
+    [coin.id]: {
+      family: coinFamiliesMap.solana,
+      id: coin.id,
+      name: coin.name,
+      abbr: coin.abbr,
+      isTest: coin.isTest,
+      coinGeckoId: coin.coinGeckoId,
+      coinIndex: coin.coinIndex,
+      feesUnit: coin.feesUnit,
+      network: coin.network,
+      curve: coin.curve,
+      units,
+    },
+  }),
+  {},
+);

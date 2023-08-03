@@ -1,7 +1,7 @@
 import { btcCoinList } from '@cypherock/coins';
 import axios from 'axios';
 
-import { config } from '../../config';
+import { config } from '../../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/v2`;
 
