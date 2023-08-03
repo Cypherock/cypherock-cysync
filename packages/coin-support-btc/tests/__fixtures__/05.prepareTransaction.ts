@@ -1,4 +1,8 @@
-import { IBtcAccount, IPreparedBtcTransaction } from '../../src';
+import {
+  IBtcAccount,
+  IPreparedBtcTransaction,
+  IDerivedAddresses,
+} from '../../src';
 
 export interface IPrepareTransactionTestCases {
   name: string;
@@ -6,6 +10,7 @@ export interface IPrepareTransactionTestCases {
   output: IPreparedBtcTransaction;
   mocks: {
     account: Partial<IBtcAccount>;
+    addresses: Partial<IDerivedAddresses>;
   };
 }
 
@@ -47,6 +52,17 @@ export const valid: IPrepareTransactionTestCases[] = [
         assetId: 'litecoin',
         familyId: 'bitcoin',
       },
+      addresses: {
+        tokens: [
+          {
+            type: 'XPUBAddress',
+            name: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
+            path: "m/44'/1'/0'/1/2",
+            transfers: 0,
+            decimals: 8,
+          },
+        ],
+      },
     },
     output: {
       accountId: '1',
@@ -78,6 +94,7 @@ export const valid: IPrepareTransactionTestCases[] = [
             txId: '8b1720b139daa3231455348806a6d01f53bd6cb31f6068b4b206fc5a8bf46aba',
             value: 49842884,
             vout: 0,
+            derivationPath: "m/44'/2'/0'/0/0",
           },
         ],
         outputs: [
@@ -86,6 +103,8 @@ export const valid: IPrepareTransactionTestCases[] = [
             value: 0,
           },
           {
+            address: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
+            derivationPath: "m/44'/1'/0'/1/2",
             value: 49808984,
           },
         ],

@@ -6,6 +6,8 @@ import {
   ICreateTransactionParams,
   IPreparedTransaction,
   IPrepareTransactionParams,
+  ISignTransactionEvent,
+  ISignTransactionParams,
 } from './send';
 import { ISyncAccountsParams } from './syncAccount';
 import { IValidateAddressParams } from './validateAddress';
@@ -26,4 +28,7 @@ export interface CoinSupport {
   ): Promise<IPreparedTransaction>;
   prepareTransaction(params: IPrepareTransactionParams): Promise<any>;
   validateAddress(params: IValidateAddressParams): boolean;
+  signTransaction(
+    params: ISignTransactionParams,
+  ): Observable<ISignTransactionEvent>;
 }

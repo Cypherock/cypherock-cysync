@@ -479,6 +479,9 @@ importers:
       '@types/node':
         specifier: 18.15.11
         version: 18.15.11
+      bitcoinjs-lib:
+        specifier: ^6.1.3
+        version: 6.1.3
       eslint:
         specifier: ^8.43.0
         version: 8.43.0

@@ -12,6 +12,7 @@ describe('05. Prepare Transaction', () => {
     support = new BtcSupport();
 
     serviceMock.getAverageFee.mockClear();
+    serviceMock.getDerivedAddresses.mockClear();
   });
 
   describe('should be able to prepare transaction', () => {
@@ -23,6 +24,9 @@ describe('05. Prepare Transaction', () => {
             getOne: getOneMock,
           },
         } as any;
+        serviceMock.getDerivedAddresses.mockReturnValue(
+          Promise.resolve(testCase.mocks.addresses),
+        );
 
         const result = await support.prepareTransaction({
           db,

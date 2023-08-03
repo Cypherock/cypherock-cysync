@@ -5,6 +5,7 @@ import {
   IReceiveEvent,
   IReceiveParams,
   IValidateAddressParams,
+  ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import { Observable } from 'rxjs';
 
@@ -33,6 +34,10 @@ export class EvmSupport implements CoinSupport {
 
   public async prepareTransaction(): Promise<any> {
     throw new Error('Not implemented');
+  }
+
+  public signTransaction(): Observable<ISignTransactionEvent> {
+    throw new Error(`Method not implemented`);
   }
 
   public validateAddress(params: IValidateAddressParams) {

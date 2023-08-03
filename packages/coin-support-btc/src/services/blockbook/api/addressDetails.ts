@@ -90,14 +90,15 @@ export const getXpubDetails = async (params: {
   return response.data;
 };
 
-interface ITokenItem {
+export interface ITokenItem {
   type: string;
   name: string;
   path: string;
   transfers: number;
   decimals: number;
 }
-interface IDerivedAddresses {
+
+export interface IDerivedAddresses {
   address: string;
   balance: string;
   totalReceived: string;

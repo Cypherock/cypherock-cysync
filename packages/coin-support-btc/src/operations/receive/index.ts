@@ -31,7 +31,7 @@ const getFirstUnusedExternalAddress = async (
 
   const unusedAddressInfo = result.tokens.filter(tokenItem => {
     const isUnused = tokenItem.transfers === 0;
-    const isExternalAddress = tokenItem.path.split('/')[4] === '1';
+    const isExternalAddress = tokenItem.path.split('/')[4] === '0';
     return isUnused && isExternalAddress;
   });
 

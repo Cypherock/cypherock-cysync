@@ -1,4 +1,5 @@
 import { IDatabase } from '@cypherock/db-interfaces';
+import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface IPreparedTransactionOutput {
   address: string;
@@ -27,4 +28,29 @@ export interface IPrepareTransactionParams {
   accountId: string;
   db: IDatabase;
   txn: IPreparedTransaction;
+}
+
+export enum SignTransactionDeviceEvent {
+  INIT = 0,
+  CONFIRMED = 1,
+  VERIFIED = 2,
+  PASSPHRASE_ENTERED = 3,
+  CARD_TAPPED = 4,
+}
+
+export interface ISignTransactionParams {
+  db: IDatabase;
+  connection: IDeviceConnection;
+  transaction: IPreparedTransaction;
+}
+
+export type ISignTransactionEventType = 'Transaction' | 'Device';
+
+export interface ISignTransactionEvent {
+  type: ISignTransactionEventType;
+  transaction?: string;
+  device?: {
+    isDone: boolean;
+    events: Record<SignTransactionDeviceEvent, boolean | undefined>;
+  };
 }

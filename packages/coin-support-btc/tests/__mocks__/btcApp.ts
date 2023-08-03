@@ -37,7 +37,13 @@ export const destroy = jest
 export const getPublicKey = jest.fn<BtcApp['getPublicKey']>().mockReturnValue(
   Promise.resolve({
     publicKey: new Uint8Array([1, 2, 3]),
-    address: 'mnNh1JHmjhaih8BdeJnGWgxo9y6wBEUcvz',
+    address: 'mg3vuEjS6tu8tUys6LL2fuSG3gbXyx2Z3b',
+  }),
+);
+
+export const signTxn = jest.fn<BtcApp['signTxn']>().mockReturnValue(
+  Promise.resolve({
+    signatures: ['test'],
   }),
 );
 
@@ -45,6 +51,7 @@ export const create = jest.fn(async () =>
   Promise.resolve({
     getXpubs,
     getPublicKey,
+    signTxn,
     abort,
     destroy,
   }),

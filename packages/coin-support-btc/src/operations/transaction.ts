@@ -5,6 +5,23 @@ import {
 
 import { IUtxo } from '../services';
 
+export interface IPreparedBtcTransactionInput {
+  address: string;
+  block_height: number;
+  confirmations: number;
+  txId: string;
+  value: number;
+  vout: number;
+  derivationPath: string;
+}
+
+export interface IPreparedBtcTransactionOutput {
+  address: string;
+  value: number;
+  // if it is a change address
+  derivationPath?: string;
+}
+
 export interface IPreparedBtcTransaction extends IPreparedTransaction {
   userInputs: {
     outputs: IPreparedTransactionOutput[];
@@ -15,8 +32,8 @@ export interface IPreparedBtcTransaction extends IPreparedTransaction {
     utxos: IUtxo[];
   };
   computedData: {
-    inputs: any[];
-    outputs: any[];
+    inputs: IPreparedBtcTransactionInput[];
+    outputs: IPreparedBtcTransactionOutput[];
     fee: number;
   };
 }
