@@ -6,6 +6,7 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
+import { Typography } from '../Typography';
 
 export interface InputProps {
   type: string;
@@ -16,15 +17,17 @@ export interface InputProps {
   value?: string;
   disabled?: boolean;
   postfixIcon?: React.ReactNode;
+  postfixText?: string;
   onPostfixIconClick?: () => void;
   $bgColor?: string;
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  $textColor?: string;
 }
 
-const InputStyle = styled.input<{ $bgColor?: string }>`
+const InputStyle = styled.input<{ $bgColor?: string; $textColor?: string }>`
   position: relative;
   width: 100%;
   border: none;
@@ -35,7 +38,7 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
     $bgColor ?? theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
-  color: ${({ theme }) => theme.palette.text.muted};
+  color: ${({ $textColor = 'muted', theme }) => theme.palette.text[$textColor]};
   &:focus-visible {
     outline: none;
   }
@@ -65,12 +68,14 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         value = undefined,
         disabled = false,
         postfixIcon = undefined,
+        postfixText = undefined,
         onPostfixIconClick = undefined,
         $bgColor = undefined,
         onClick = undefined,
         pasteAllowed = true,
         copyAllowed = true,
         onKeyDown = undefined,
+        $textColor = 'muted',
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -102,6 +107,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             }}
             onChange={e => onChange?.(e.target.value)}
             onKeyDown={onKeyDown}
+            $textColor={$textColor}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -113,6 +119,13 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               >
                 {postfixIcon}
               </Button>
+            </PostfixIconStyle>
+          )}
+          {postfixText && (
+            <PostfixIconStyle>
+              <Typography color="muted">
+                <LangDisplay text={postfixText} />
+              </Typography>
             </PostfixIconStyle>
           )}
         </InputWrapper>
@@ -127,12 +140,14 @@ Input.defaultProps = {
   value: undefined,
   disabled: false,
   postfixIcon: undefined,
+  postfixText: undefined,
   onPostfixIconClick: undefined,
   $bgColor: undefined,
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
   onKeyDown: undefined,
+  $textColor: 'muted',
 };
 
 Input.displayName = 'Input';

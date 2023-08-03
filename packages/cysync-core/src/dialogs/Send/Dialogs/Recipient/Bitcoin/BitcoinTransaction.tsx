@@ -8,7 +8,7 @@ import {
   Typography,
   TabContentContainer,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import { addKeyboardEvents } from '~/hooks';
 import { useSendDialog } from '../../../context';
 import { SingleTransaction } from './SingleTransaction';
@@ -16,11 +16,15 @@ import { BatchTransaction } from './BatchTransaction';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const BitcoinTransaction: React.FC = () => {
+  const [btnState, setBtnState] = useState(false);
   const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;
 
+  const handleButtonState = (shouldActivate: boolean) => {
+    setBtnState(shouldActivate);
+  };
   const keyboardActions = {
     ArrowRight: () => {
       onNext();
@@ -37,7 +41,7 @@ export const BitcoinTransaction: React.FC = () => {
       label: bitcoin.tabs.tab1,
       content: (
         <TabContentContainer>
-          <SingleTransaction />
+          <SingleTransaction handleButtonState={handleButtonState} />
         </TabContentContainer>
       ),
     },
@@ -66,7 +70,7 @@ export const BitcoinTransaction: React.FC = () => {
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>
-        <Button variant="primary">
+        <Button variant="primary" disabled={!btnState}>
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>

@@ -642,14 +642,15 @@ const en = {
             recipient: {
               text: 'Recipient Address',
               error: 'Error message for recipient address',
-              placeholder: 'Enter Ethereum address',
+              placeholder: 'Enter Bitcoin address',
             },
             amount: {
               text: 'Amount to send',
               toggle: 'Send Max',
-              eth: 'ETH',
+              coin: 'BTC',
               dollar: '$',
               error: 'Error message for amount',
+              placeholder: '0',
             },
 
             fees: {
@@ -660,6 +661,7 @@ const en = {
               network: 'Network Fees',
             },
             message: '9 sat per byte',
+            fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {

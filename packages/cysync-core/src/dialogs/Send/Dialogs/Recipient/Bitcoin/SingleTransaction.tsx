@@ -3,34 +3,40 @@ import {
   Typography,
   Image,
   LeanBox,
-  informationIcon,
-  Input,
-  qrCodeIcon,
   Flex,
   Container,
-  Toggle,
   Divider,
-  ButtonGroup,
   MessageBox,
-  InfoBox,
-  Slider,
-  SliderCaption,
   bitcoinIcon,
+  RecipientAddress,
+  AmountToSend,
+  useTheme,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
-import { addKeyboardEvents } from '~/hooks';
-import { useSendDialog } from '../../../context';
-import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import { Buttons, Captions } from '../Ethereum';
+import React, { useState } from 'react';
+
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SingleTransaction: React.FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
+import { useSendDialog } from '../../../context';
+import { Buttons, Captions } from '../Ethereum';
+import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
+import FeesSection from '../FeesSection';
+import InputSection from '../InputSection';
+import ToggleSection from '../ToggleSection';
+
+interface SingleTransactionProps {
+  handleButtonState: (shouldActivate: boolean) => void;
+}
+
+export const SingleTransaction: React.FC<SingleTransactionProps> = ({
+  handleButtonState,
+}) => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
+  const theme = useTheme();
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -39,9 +45,7 @@ export const SingleTransaction: React.FC = () => {
   const handleSliderChange = (newValue: number) => {
     setSliderValue(newValue);
   };
-  const handleToggleChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
+
   const { onNext, onPrevious } = useSendDialog();
 
   const keyboardActions = {
@@ -58,7 +62,13 @@ export const SingleTransaction: React.FC = () => {
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
-        leftImage={informationIcon}
+        leftImage={
+          <SvgInformationIcon
+            height={16}
+            width={16}
+            fill={theme.palette.background.muted}
+          />
+        }
         text={single.InfoBox.text}
         altText={single.InfoBox.altText}
         textVariant="span"
@@ -66,163 +76,38 @@ export const SingleTransaction: React.FC = () => {
         icon={<SvgGoldQuestionMark height={14} width={14} />}
       />
       <Container display="flex" direction="column" gap={8} width="full">
-        <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.recipient.text} />
-            </Typography>
-          </Flex>
-        </Flex>
-
-        <Input
-          type="text"
-          name="address"
+        <RecipientAddress
+          text={single.recipient.text}
           placeholder={single.recipient.placeholder}
-          postfixIcon={<Image src={qrCodeIcon} alt="qr icon" />}
+          error={single.recipient.error}
         />
-        <Typography
-          variant="span"
-          width="100%"
-          color="error"
-          $alignSelf="start"
-          $fontSize={12}
-        >
-          <LangDisplay text={single.recipient.error} />
-        </Typography>
-        <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.amount.text} />
-            </Typography>
-          </Flex>
-          <Flex align="center" direction="row" gap={8}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.amount.toggle} />
-            </Typography>
-            <Toggle checked={isChecked} onToggle={handleToggleChange} />
-          </Flex>
-        </Flex>
-        <Flex justify="space-between" gap={8} align="center" width="full">
-          <Input type="text" name="address" postfixIcon={single.amount.eth} />
-          <SvgDoubleArrow height={22} width={22} />
-          <Input
-            type="text"
-            name="address"
-            postfixIcon={single.amount.dollar}
-          />
-        </Flex>
-        <Typography
-          variant="span"
-          width="100%"
-          color="error"
-          $alignSelf="start"
-          $fontSize={12}
-        >
-          <LangDisplay text={single.amount.error} />
-        </Typography>
+        <AmountToSend
+          text={single.amount.text}
+          coin={single.amount.coin}
+          toggle={single.amount.toggle}
+          dollar={single.amount.dollar}
+          error={single.amount.error}
+          isButtonEnabled={handleButtonState}
+          placeholder={single.amount.placeholder}
+        />
       </Container>
       <Divider variant="horizontal" />
-      <Flex justify="space-between" align="center" width="full">
-        <Flex align="center" gap={8}>
-          <Typography variant="span" width="100%" $fontSize={13}>
-            <LangDisplay text={single.fees.title} />
-          </Typography>
-          <SvgGoldQuestionMark height={14} width={14} />
-        </Flex>
-        <Flex align="center" direction="row" gap={8}>
-          <ButtonGroup
-            buttons={Buttons}
-            activeButtonId={activeButtonId}
-            onButtonClick={handleButtonClick}
-          />
-        </Flex>
-      </Flex>
-      <Container display="flex" direction="column" gap={16} width="full">
-        <Flex justify="flex-end" align="center" width="full">
-          {activeButtonId === 1 && <InfoBox text={single.message} />}
-        </Flex>
 
-        {activeButtonId === 2 && (
-          <Input type="text" name="address" postfixIcon={single.inputPostfix} />
-        )}
+      <FeesSection
+        activeButtonId={activeButtonId}
+        handleButtonClick={handleButtonClick}
+        single={single}
+        Buttons={Buttons}
+      />
+      <InputSection
+        activeButtonId={activeButtonId}
+        single={single}
+        sliderValue={sliderValue}
+        handleSliderChange={handleSliderChange}
+        Captions={Captions}
+      />
 
-        {activeButtonId === 1 && (
-          <>
-            <Slider initialValue={sliderValue} onChange={handleSliderChange} />
-            <SliderCaption captions={Captions} />
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={single.fees.error} />
-            </Typography>
-          </>
-        )}
-      </Container>
-
-      {activeButtonId === 2 && (
-        <Container display="flex" direction="column" gap={16} width="full">
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={single.toggleText.replace} />
-              </Typography>
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
-            </Flex>
-          </Flex>
-
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={single.toggleText.unconfirmed} />
-              </Typography>
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <Toggle checked={isChecked} onToggle={handleToggleChange} />
-            </Flex>
-          </Flex>
-
-          <Typography
-            variant="span"
-            width="100%"
-            color="error"
-            $alignSelf="start"
-            $fontSize={12}
-          >
-            <LangDisplay text={single.fees.error} />
-          </Typography>
-        </Container>
-      )}
+      {activeButtonId === 2 && <ToggleSection single={single} />}
 
       <Flex justify="space-between" align="center" width="full">
         <Flex align="center" gap={8}>

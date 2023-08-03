@@ -19,6 +19,7 @@ import { Throbber } from '../atoms/Throbber';
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
   rightImage?: React.ReactNode;
+  icon?: React.ReactNode;
   rightText?: string;
   tag?: string;
   text: string;
@@ -83,6 +84,7 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImage,
   rightImage,
+  icon,
   rightText,
   shortForm = '',
   text,
@@ -144,7 +146,11 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {leftImage && (
           <ImageContainer>
-            <Image src={leftImage as string} alt="image" />
+            {typeof leftImage === 'string' ? (
+              <Image src={leftImage as string} alt="image" />
+            ) : (
+              leftImage
+            )}
           </ImageContainer>
         )}
         <StretchedTypography
@@ -196,6 +202,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               isDisabled={disabled}
             />
           )}
+          {icon && icon}
         </RightContent>
       </HorizontalBox>
     </InputLabel>
@@ -205,6 +212,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
 LeanBox.defaultProps = {
   leftImage: undefined,
   rightImage: undefined,
+  icon: undefined,
   rightText: undefined,
   altText: undefined,
   rightTextColor: 'muted',
