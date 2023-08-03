@@ -18,6 +18,7 @@ import React, { useState } from 'react';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import {  useToggle } from '~/hooks';
 import { useSendDialog } from '../../../context';
 import { Buttons, Captions } from '../Ethereum';
 import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
@@ -106,6 +107,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         handleSliderChange={handleSliderChange}
         Captions={Captions}
       />
+
 
       {activeButtonId === 2 && <ToggleSection single={single} />}
 

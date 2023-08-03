@@ -616,7 +616,11 @@ const en = {
         dialogBox: {
           header: 'Follow instructions on the X1 Vault',
           infoBox: {
-            info: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)',
+            info: {
+              send: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)',
+              optimism:
+                'L1 Fee: 0.001 ETH L1 fee wont be verified from the device',
+            },
             warning:
               'Always verify the address displayed on your device exactly matches the address given by the recipient',
           },
@@ -646,6 +650,7 @@ const en = {
             },
             amount: {
               text: 'Amount to send',
+              placeholder: '0',
               toggle: 'Send Max',
               coin: 'BTC',
               dollar: '$',
@@ -713,6 +718,7 @@ const en = {
           },
           amount: {
             text: 'Amount to send',
+            placeholder: '0',
             toggle: 'Send Max',
             eth: 'ETH',
             dollar: '$',
@@ -747,10 +753,11 @@ const en = {
           recipient: {
             text: 'Recipient Address',
             error: 'Error message for recipient address',
-            placeholder: 'Enter Ethereum address',
+            placeholder: 'Enter Optimism Ethereum address',
           },
           amount: {
             text: 'Amount to send',
+            placeholder: '0',
             toggle: 'Send Max',
             eth: 'ETH',
             dollar: '$',
@@ -759,12 +766,12 @@ const en = {
 
           fees: {
             l1: {
-              text: 'Fees(L1)',
+              text: 'Fees (L1)',
               fee: '0 GWEI',
               error: 'Error message for L1 fee',
             },
             l2: {
-              text: 'Fees(L2)',
+              text: 'Fees (L2)',
               error: 'Error message for L2 fee',
             },
             network: 'Network Fees (L1 + L2)',
@@ -797,10 +804,20 @@ const en = {
         dialogBox: {
           title: 'Summary',
           from: 'From',
+          fromDetails: [
+            {
+              id: 1,
+              name: 'Cypherock Red',
+              muted: true,
+            },
+            {
+              id: 2,
+              name: 'Ethereum 1',
+              muted: false,
+            },
+          ],
           to: 'To',
           amount: 'Amount',
-          walletName: 'Cypherock Red /',
-          ethereum: 'Ethereum 1',
           toAddress: '0xA4028f8dC64D18F0a66668d97473C47444A561Ea',
           amountEth: '0.016686419917276198',
           amountUsd: '19.89',
@@ -827,9 +844,19 @@ const en = {
       scroll: {
         dialogBox: {
           title: 'Summary',
-          text: 'Cypherock Red / ',
-          ethereumText: 'Ethereum 1',
           from: 'From',
+          fromDetails: [
+            {
+              id: 1,
+              name: 'Cypherock Red',
+              muted: true,
+            },
+            {
+              id: 2,
+              name: 'Ethereum 1',
+              muted: false,
+            },
+          ],
           to: 'To',
           amount: 'Amount',
           toDetails: [
@@ -848,6 +875,49 @@ const en = {
           ],
           network: {
             text: 'Network Fee',
+            eth: '0.00035448 ETH',
+            usd: '$0.42',
+          },
+          debit: {
+            text: 'Total to debit',
+            eth: '0.017040899917276198 ETH',
+            usd: '$20.31',
+          },
+        },
+      },
+      optimism: {
+        dialogBox: {
+          title: 'Summary',
+          from: 'From',
+          fromDetails: [
+            {
+              id: 1,
+              name: 'Cypherock Red',
+              muted: true,
+            },
+            {
+              id: 2,
+              name: 'Ethereum 1',
+              muted: false,
+            },
+            {
+              id: 3,
+              name: 'Optimism',
+              muted: false,
+            },
+          ],
+          to: 'To',
+          amount: 'Amount',
+          toDetails: [
+            {
+              id: 1,
+              address: '0xA4028f8dC64D18F0a66668d97473C47564A561Ea',
+              amountEth: '0.016686419917276198 ETH',
+              amountUsd: '$19.89',
+            },
+          ],
+          network: {
+            text: 'Network Fee (L1 + L2)',
             eth: '0.00035448 ETH',
             usd: '$0.42',
           },

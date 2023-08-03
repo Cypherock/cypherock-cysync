@@ -10,15 +10,15 @@ import {
   SummaryBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendDialog } from '../../context';
+import { useSendDialog } from '../../../context';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SummaryDialog: React.FC = () => {
+export const SummaryOptimism: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
-  const summary = lang.strings.send.summary.info.dialogBox;
+  const summary = lang.strings.send.summary.optimism.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
