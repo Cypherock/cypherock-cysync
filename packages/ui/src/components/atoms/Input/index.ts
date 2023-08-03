@@ -3,3 +3,4 @@ export * from './InputContainer';
 export * from './InputLabel';
 export * from './PasswordInput';
 export * from './TextAreaInput';
+export * from './InputWithDynamicPostfix';

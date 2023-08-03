@@ -652,9 +652,10 @@ const en = {
               text: 'Amount to send',
               placeholder: '0',
               toggle: 'Send Max',
-              btc: 'BTC',
+              coin: 'BTC',
               dollar: '$',
               error: 'Error message for amount',
+              placeholder: '0',
             },
 
             fees: {
@@ -665,6 +666,7 @@ const en = {
               network: 'Network Fees',
             },
             message: '9 sat per byte',
+            fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {

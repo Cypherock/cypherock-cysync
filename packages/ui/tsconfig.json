@@ -4,7 +4,11 @@
     "lib": ["DOM"]
   },
   "extends": "@cypherock/tsconfig/browser.json",
-  "include": ["./src/**/*"],
+  "include": [
+    "./src/**/*",
+    "../cysync-core/src/dialogs/Send/Dialogs/Recipient/AmountToSend.tsx",
+    "../cysync-core/src/dialogs/Send/Dialogs/Recipient/RecipientAddress.tsx"
+  ],
   "exclude": [
     "node_modules",
     "src/coverage",
