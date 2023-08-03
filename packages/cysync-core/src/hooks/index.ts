@@ -8,6 +8,5 @@ export * from './useErrorHandler';
 export * from './useOnboardingCheckpoint';
 export * from './useTabsAndDialogs';
 export * from './useAppUpdate';
-export * from './useToggleState';
 export * from './closeDialogBox';
 export * from './useToggle';

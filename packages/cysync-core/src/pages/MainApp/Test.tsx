@@ -1,3 +1,4 @@
+import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 import { openSendDialog } from '~/actions';
 import { SendConfirmToken } from '~/dialogs/Send/Dialogs';
@@ -10,5 +11,16 @@ export const Test: FC = () => {
     dispatch(openSendDialog());
   }, []);
 
-  return <BitcoinTransaction />;
+  return (
+    <Container height="screen" display="flex">
+      {/* <SideBar /> */}
+      <Flex direction="column" grow={1} $alignSelf="start">
+        {/* <Topbar />
+        <AssetAllocation /> */}
+        {/* <Receive /> */}
+        {/* HERLLO */}
+        <SendConfirmToken />
+      </Flex>
+    </Container>
+  );
 };
