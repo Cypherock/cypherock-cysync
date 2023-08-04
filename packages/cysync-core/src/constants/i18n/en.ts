@@ -296,6 +296,7 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
+    again: 'Again',
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
@@ -331,89 +332,6 @@ const en = {
   },
   addAccount: {
     header: 'Add Coin/Account',
-    addAccount: {
-      initAccount: {
-        info: {
-          dialogBox: {
-            header: 'Follow instructions on the X1 Vault',
-            subheader: 'Add a coin/account Wallet',
-            subheader1: 'Cypherock Red',
-          },
-        },
-      },
-      syncAccount: {
-        info: {
-          dialogBox: {
-            header: 'Syncing the Accounts',
-            subheader: 'Accounts already in portfolio',
-          },
-        },
-      },
-      connectDevice: {
-        info: {
-          dialogBox: {
-            header: 'Connect your X1 Vault to your PC to proceed',
-          },
-        },
-      },
-      congrats: {
-        info: {
-          dialogBox: {
-            subtext: 'Add other accounts or return to portfolio',
-            title: 'Accounts added successfully',
-            buttonAddMore: 'Add more',
-          },
-        },
-      },
-      noAccount: {
-        info: {
-          dialogBox: {
-            header: 'No account found yet',
-            subheader: 'Accounts already in portfolio',
-            buttonSyncAgain: 'Sync Again',
-          },
-        },
-      },
-      add: {
-        info: {
-          dialogBox: {
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
-      selectCrypto: {
-        info: {
-          dialogBox: {
-            header: 'Select the Wallet & Coins you want to add',
-            subTitle: 'Add a coin/account to wallet',
-            constant: 'Cypherock Red',
-            searchText: 'Search',
-            placeholderText: 'Choose a coin',
-            placeholderWalletText: 'Choose a wallet',
-            text: 'Cypherock Red',
-          },
-        },
-      },
-      addAccountSingleChain: {
-        info: {
-          dialogBox: {
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            subheader2: 'Account not yet synced',
-            subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect All',
-            selectAllButton: 'Select All',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
-    },
     select: {
       dialogTitle: 'Add Coin/Account',
       header: 'Select the Wallet & Coins you want to add',
@@ -469,9 +387,16 @@ const en = {
           header: 'Receive',
           subheader: 'Choose a wallet and account to credit',
           searchText: 'Search',
-          placeholderText: 'Choose a coin',
+          placeholderText: 'Account to Credit',
           placeholderWalletText: 'Choose a wallet',
           text: 'Cypherock Red',
+        },
+      },
+    },
+    connectDevice: {
+      info: {
+        dialogBox: {
+          header: 'Connect your X1 Vault to your PC to proceed',
         },
       },
     },
@@ -541,7 +466,6 @@ const en = {
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify again',
         },
       },
     },
@@ -565,7 +489,7 @@ const en = {
     aside: {
       tabs: {
         source: 'Source',
-        device: 'Device',
+        device: 'X1 Vault',
         receive: 'Receive',
       },
     },

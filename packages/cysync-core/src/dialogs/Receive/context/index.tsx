@@ -9,8 +9,13 @@ import React, {
   useMemo,
 } from 'react';
 
-import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
-import { selectLanguage, useAppSelector } from '~/store';
+import { useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { Receive } from '../Dialogs';
 import {
@@ -38,6 +43,7 @@ export interface ReceiveDialogContextInterface {
   onPrevious: () => void;
   currentTab: number;
   currentDialog: number;
+  onClose: () => void;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -53,6 +59,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
 }) => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     1: [0],
   };
@@ -82,6 +89,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     },
   ];
 
+  const onClose = () => {
+    dispatch(closeDialog('receiveDialog'));
+  };
+
   const {
     onNext,
     onPrevious,
@@ -99,6 +110,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       onNext,
       onPrevious,
       tabs,
+      onClose,
       goTo,
       currentTab,
       currentDialog,
@@ -108,6 +120,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       onNext,
       onPrevious,
       goTo,
+      onClose,
       currentTab,
       currentDialog,
       isDeviceRequired,

@@ -8,7 +8,11 @@ import {
   List,
 } from './DropdownStyles';
 
-import { searchIcon, triangleInverseIcon } from '../../../assets';
+import {
+  searchIcon,
+  triangleGreyIcon,
+  triangleInverseIcon,
+} from '../../../assets';
 import { Image, Input } from '../../atoms';
 import {
   findSelectedItem,
@@ -27,6 +31,7 @@ interface DropdownProps {
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
+  showImage?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -37,6 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   selectedItem = undefined,
   onChange,
   disabled = false,
+  showImage = false,
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -165,13 +171,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
           aria-activedescendant={
             focusedIndex !== null ? `dropdown-item-${focusedIndex}` : undefined
           }
+          showImage={showImage}
         />
       )}
       <IconContainer>
-        <Image
-          src={isOpen ? searchIcon : triangleInverseIcon}
-          alt={isOpen ? 'Search Icon' : 'Dropdown Icon'}
-        />
+        {disabled ? (
+          <Image src={triangleGreyIcon} alt="triangle icon" />
+        ) : (
+          <Image
+            src={isOpen ? searchIcon : triangleInverseIcon}
+            alt={isOpen ? 'Search Icon' : 'Dropdown Icon'}
+          />
+        )}
       </IconContainer>
 
       {isOpen && (
@@ -219,4 +230,5 @@ export const Dropdown: React.FC<DropdownProps> = ({
 Dropdown.defaultProps = {
   disabled: false,
   shouldShowIcon: false,
+  showImage: false,
 };

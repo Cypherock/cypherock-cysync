@@ -6,6 +6,8 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
+import { Image } from '../Image';
+import { walletIcon } from '../../../assets';
 
 export interface InputProps {
   type: string;
@@ -22,6 +24,7 @@ export interface InputProps {
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  showImage?: boolean;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -33,7 +36,6 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
   font-size: 16px;
   background: ${({ $bgColor, theme }) =>
     $bgColor ?? theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
   &:focus-visible {
@@ -44,6 +46,12 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
 const InputWrapper = styled.div`
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.palette.background.separatorSecondary};
+  border: 1px solid ${({ theme }) => theme.palette.background.separator};
 `;
 
 const PostfixIconStyle = styled.div`
@@ -71,6 +79,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         pasteAllowed = true,
         copyAllowed = true,
         onKeyDown = undefined,
+        showImage = false,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -81,6 +90,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
           </InputLabel>
         )}
         <InputWrapper>
+          {showImage && <Image src={walletIcon} alt="wallet icon" ml={3} />}
           <InputStyle
             ref={ref}
             name={name}
@@ -133,6 +143,7 @@ Input.defaultProps = {
   pasteAllowed: true,
   copyAllowed: true,
   onKeyDown: undefined,
+  showImage: false,
 };
 
 Input.displayName = 'Input';

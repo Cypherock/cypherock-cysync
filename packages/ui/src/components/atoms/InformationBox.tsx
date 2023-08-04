@@ -50,7 +50,7 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
 }) => (
   <InfoBox $backgroundColor={$backgroundColor} $borderColor={$borderColor}>
     <InfoBoxPadding>
-      <Image src={imagePath} alt="Image" />
+      <Image src={imagePath} alt="Image" width={20} />
       <Typography
         variant="fineprint"
         color="muted"

@@ -10,7 +10,6 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
-  Image,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
 import { Throbber } from '../atoms/Throbber';
@@ -134,11 +133,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImage && (
-          <ImageContainer>
-            <Image src={leftImage as string} alt="image" />
-          </ImageContainer>
-        )}
+        {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
         <StretchedTypography
           $shouldStretch={!tag}
           variant={textVariant}
@@ -164,11 +159,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               {rightText}
             </Typography>
           )}
-          {rightImage && (
-            <ImageContainer>
-              <Image src={rightImage as string} alt="image" />
-            </ImageContainer>
-          )}
+          {rightImage && <ImageContainer>{rightImage}</ImageContainer>}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
