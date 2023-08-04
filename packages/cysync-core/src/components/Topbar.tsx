@@ -5,10 +5,15 @@ import {
   SyncStatusType,
   Topbar as TopbarUI,
 } from '@cypherock/cysync-ui';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo, useState } from 'react';
 
+import { startAccountSyncing } from '~/actions';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
 import {
+  AccountSyncState,
+  AccountSyncStateMap,
+  selectAccountSync,
   selectDiscreetMode,
   selectLanguage,
   toggleDiscreetMode,
@@ -16,28 +21,52 @@ import {
   useAppSelector,
 } from '~/store';
 
+const selector = createSelector(
+  [selectLanguage, selectDiscreetMode, selectAccountSync],
+  (a, b, c) => ({
+    lang: a,
+    discreetMode: b,
+    accountSync: c,
+  }),
+);
+
+const connectionStatesMap: Record<
+  DeviceConnectionStatus,
+  ConnectionStatusType
+> = {
+  [DeviceConnectionStatus.CONNECTED]: 'connected',
+  [DeviceConnectionStatus.INCOMPATIBLE]: 'error',
+  [DeviceConnectionStatus.UNKNOWN_ERROR]: 'error',
+};
+
+const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
+  [AccountSyncStateMap.syncing]: 'syncronizing',
+  [AccountSyncStateMap.synced]: 'syncronized',
+  [AccountSyncStateMap.failed]: 'error',
+};
+
 export const Topbar: FC<{ title: string }> = ({ title }) => {
   const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
-  const discreetModeState = useAppSelector(selectDiscreetMode);
+  const { lang, discreetMode, accountSync } = useAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
 
   const [haveNotifications, setHaveNotifications] = useState<boolean>(false);
-  const [syncState, setSyncState] = useState<SyncStatusType>('syncronized');
-
-  const connectionStates: Record<DeviceConnectionStatus, ConnectionStatusType> =
-    {
-      [DeviceConnectionStatus.CONNECTED]: 'connected',
-      [DeviceConnectionStatus.INCOMPATIBLE]: 'error',
-      [DeviceConnectionStatus.UNKNOWN_ERROR]: 'error',
-    };
+  const syncState = useMemo<SyncStatusType>(
+    () => accountSyncMap[accountSync.syncState],
+    [accountSync.syncState],
+  );
 
   const connectionState: ConnectionStatusType = useMemo(
-    () => (connection ? connectionStates[connection.status] : 'disconnected'),
+    () =>
+      connection ? connectionStatesMap[connection.status] : 'disconnected',
     [connection],
   );
+
+  const onSyncClick = () => {
+    dispatch(startAccountSyncing());
+  };
 
   return (
     <TopbarUI
@@ -49,9 +78,10 @@ export const Topbar: FC<{ title: string }> = ({ title }) => {
       isPasswordSet={isPasswordSet}
       connectionStatus={connectionState}
       haveNotifications={haveNotifications}
-      isDiscreetMode={discreetModeState.active}
+      isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
+      onSyncClick={onSyncClick}
     />
   );
 };

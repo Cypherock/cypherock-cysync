@@ -12,5 +12,5 @@ export * from './schemes';
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
   receive(params: IReceiveParams): Observable<IReceiveEvent>;
-  syncAccounts(params: ISyncAccountsParams): Observable<void>;
+  syncAccount(params: ISyncAccountsParams): Observable<void>;
 }
