@@ -1,8 +1,10 @@
+import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import { ICreateAccountEvent, ICreateAccountParams } from './createAccount';
 import { IReceiveEvent, IReceiveParams } from './receive';
 import {
+  IBroadcastTransactionParams,
   ICreateTransactionParams,
   IPreparedTransaction,
   IPrepareTransactionParams,
@@ -31,4 +33,7 @@ export interface CoinSupport {
   signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignTransactionEvent>;
+  broadcastTransaction(
+    params: IBroadcastTransactionParams,
+  ): Promise<ITransaction>;
 }

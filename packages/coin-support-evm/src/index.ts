@@ -7,6 +7,7 @@ import {
   IValidateAddressParams,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -37,6 +38,10 @@ export class EvmSupport implements CoinSupport {
   }
 
   public signTransaction(): Observable<ISignTransactionEvent> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public broadcastTransaction(): Promise<ITransaction> {
     throw new Error(`Method not implemented`);
   }
 

@@ -8,6 +8,7 @@ import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
 
 import * as operations from './operations';
 import {
+  IBroadcastBtcTransactionParams,
   IBtcReceiveParams,
   ICreateBtcAccountParams,
   IPrepareBtcTransactionParams,
@@ -46,6 +47,10 @@ export class BtcSupport implements CoinSupport {
 
   public signTransaction(params: ISignBtcTransactionParams) {
     return operations.signTransaction(params);
+  }
+
+  public broadcastTransaction(params: IBroadcastBtcTransactionParams) {
+    return operations.broadcastTransaction(params);
   }
 
   public validateAddress(params: IValidateAddressParams) {

@@ -54,3 +54,9 @@ export interface ISignTransactionEvent {
     events: Record<SignTransactionDeviceEvent, boolean | undefined>;
   };
 }
+
+export interface IBroadcastTransactionParams {
+  db: IDatabase;
+  transaction: IPreparedTransaction;
+  signedTransaction: string;
+}
