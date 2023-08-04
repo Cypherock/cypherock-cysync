@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Flex, FlexProps } from './Flex';
+import { Flex, FlexComponentProps } from './Flex';
 import { LangDisplay } from './LangDisplay';
 import { Typography } from './Typography';
 
@@ -13,7 +13,7 @@ interface CheckBoxProps extends ISize {
   onChange: () => void;
   id?: string;
   label?: string;
-  flexProps?: FlexProps;
+  flexProps?: FlexComponentProps;
   isDisabled?: boolean;
 }
 

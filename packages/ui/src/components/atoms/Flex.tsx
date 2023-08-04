@@ -8,11 +8,11 @@ const FlexStyle = styled.div<UtilsProps>`
   ${utils}
 `;
 
-export interface FlexProps extends UtilsProps {
+export interface FlexComponentProps extends UtilsProps {
   children?: ReactNode;
 }
 
-export const Flex: FC<FlexProps> = ({ children, ...props }) => (
+export const Flex: FC<FlexComponentProps> = ({ children, ...props }) => (
   <FlexStyle {...props}>{children}</FlexStyle>
 );
 
