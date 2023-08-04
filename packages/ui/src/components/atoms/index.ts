@@ -21,3 +21,5 @@ export * from './Dropdown';
 export * from './RadioButton';
 export * from './CloseButton';
 export * from './Throbber';
+export * from './Divider';
+export * from './SearchBar';

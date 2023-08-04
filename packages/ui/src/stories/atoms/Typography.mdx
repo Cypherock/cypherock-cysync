@@ -1,0 +1,30 @@
+import { Meta, Typeset } from '@storybook/blocks';
+import { getDefaultTheme, ThemeProvider } from '../../themes';
+import { fontWeightObj, fontFamilyMap } from '../../components/utils';
+import * as TypographyStories from './Typography.stories.tsx';
+
+export const SampleText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+export const { typography } = getDefaultTheme();
+
+<Meta title="Typography" />
+
+# Typography
+
+**Font:** Poppins, JetBrains Mono
+
+**Weights:** 100 (thin), 200 (extralight), 300 (light), 400 (normal), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold)
+
+<Typeset
+  fontSizes={[
+    typography.h1.fontSize,
+    typography.h2.fontSize,
+    typography.h3.fontSize,
+    typography.h4.fontSize,
+    typography.h5.fontSize,
+    typography.h6.fontSize,
+  ]}
+  fontWeight={fontWeightObj.normal}
+  sampleText={SampleText}
+  fontFamily={fontFamilyMap.normal}
+/>

@@ -25,6 +25,10 @@ const preview: Preview = {
           name: 'sidebar',
           value: theme.palette.background.sideBar,
         },
+        {
+          name: 'white',
+          value: '#ffffff',
+        },
       ],
     },
   },

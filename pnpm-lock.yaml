@@ -1299,6 +1299,9 @@ importers:
       '@storybook/blocks':
         specifier: 7.2.0
         version: 7.2.0(@types/react-dom@18.2.6)(@types/react@18.2.13)(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/jest':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@storybook/react':
         specifier: 7.2.0
         version: 7.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
@@ -7622,6 +7625,12 @@ packages:
       - supports-color
     dev: true
 
+  /@storybook/expect@27.5.2-0:
+    resolution: {integrity: sha512-cP99mhWN/JeCp7VSIiymvj5tmuMY050iFohvp8Zq+kewKsBSZ6/qpTJAGCCZk6pneTcp4S0Fm5BSqyxzbyJ3gw==}
+    dependencies:
+      '@types/jest': 29.5.2
+    dev: true
+
   /@storybook/global@5.0.0:
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
     dev: true
@@ -7634,6 +7643,15 @@ packages:
       '@storybook/core-events': 7.2.0
       '@storybook/global': 5.0.0
       '@storybook/preview-api': 7.2.0
+    dev: true
+
+  /@storybook/jest@0.1.0:
+    resolution: {integrity: sha512-TmybnEXlv5Fu2/Hq4nRj7alS9mw4CasLR0RDwaAzS+Vpvu1TC4+j9rh+b1BHtmWebbJh0JMT6mgzPqOyJdgtQA==}
+    dependencies:
+      '@storybook/expect': 27.5.2-0
+      '@storybook/instrumenter': 7.2.0
+      '@testing-library/jest-dom': 5.16.5
+      jest-mock: 27.5.1
     dev: true
 
   /@storybook/manager-api@7.2.0(react-dom@18.2.0)(react@18.2.0):
