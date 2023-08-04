@@ -5,29 +5,28 @@ import {
   Button,
   DialogBoxBody,
   Typography,
-  Image,
   LeanBox,
-  informationIcon,
-  Input,
-  qrCodeIcon,
-  Flex,
   Container,
-  Toggle,
   Divider,
-  ButtonGroup,
   MessageBox,
-  InfoBox,
-  Slider,
-  SliderCaption,
-  etheriumBlueIcon,
   ButtonAttributes,
+  useTheme,
+  AmountToSend,
+  FeesDisplay,
+  FeesSection,
+  InputSection,
+  RecipientAddress,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
-import { addKeyboardEvents, useToggle } from '~/hooks';
-import { useSendDialog } from '../../../context';
-import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
+import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
+import React, { useState } from 'react';
+
+import { addKeyboardEvents, useButtonState } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../../context';
+
+import SvgEthereumIcon from '@cypherock/cysync-ui/src/assets/icons/generated/EthereumIcon';
 
 export const Buttons: ButtonAttributes[] = [
   { id: 1, label: 'Standard' },
@@ -43,12 +42,15 @@ export const Captions = [
 export const StandardEthereum: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
+  const [btnState, handleButtonState] = useButtonState();
+
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const eth = lang.strings.send.ethereum.info.dialogBox;
-  const sendMaxToggle = useToggle(false);
+  const theme = useTheme();
 
   const handleButtonClick = (id: number) => {
+    console.log(id);
     setActiveButtonId(id);
   };
 
@@ -76,11 +78,17 @@ export const StandardEthereum: React.FC = () => {
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={eth.text} />
           </Typography>
-          <Typography variant="span" $textAlign="center" color="muted">
+          <Typography variant="span" $textAlign="center" color="muted" mb={4}>
             <LangDisplay text={eth.subText} />
           </Typography>
           <LeanBox
-            leftImage={informationIcon}
+            leftImage={
+              <SvgInformationIcon
+                height={16}
+                width={16}
+                fill={theme.palette.background.muted}
+              />
+            }
             text={eth.InfoBox.text}
             altText={eth.InfoBox.altText}
             textVariant="span"
@@ -88,210 +96,48 @@ export const StandardEthereum: React.FC = () => {
             icon={<SvgGoldQuestionMark height={14} width={14} />}
           />
           <Container display="flex" direction="column" gap={8} width="full">
-            <Flex justify="space-between" align="center" width="full">
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={eth.recipient.text} />
-              </Typography>
-            </Flex>
-
-            <Input
-              type="text"
-              name="address"
+            <RecipientAddress
+              text={eth.recipient.text}
               placeholder={eth.recipient.placeholder}
-              postfixIcon={<Image src={qrCodeIcon} alt="qr icon" />}
+              error={eth.recipient.error}
             />
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={eth.recipient.error} />
-            </Typography>
-            <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={16}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={eth.amount.text} />
-                </Typography>
-              </Flex>
-              <Flex align="center" direction="row" gap={8}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={eth.amount.toggle} />
-                </Typography>
-                <Toggle
-                  checked={sendMaxToggle.isChecked}
-                  onToggle={sendMaxToggle.handleToggleChange}
-                />
-              </Flex>
-            </Flex>
-            <Flex justify="space-between" gap={8} align="center" width="full">
-              <Input
-                type="text"
-                name="address"
-                placeholder={eth.amount.placeholder}
-                postfixIcon={eth.amount.eth}
-              />
-              <SvgDoubleArrow height={22} width={22} />
-              <Input
-                type="text"
-                name="address"
-                placeholder={eth.amount.placeholder}
-                postfixIcon={eth.amount.dollar}
-              />
-            </Flex>
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={eth.amount.error} />
-            </Typography>
+            <AmountToSend
+              text={eth.amount.text}
+              coin={eth.amount.coin}
+              toggle={eth.amount.toggle}
+              dollar={eth.amount.dollar}
+              error={eth.amount.error}
+              isButtonEnabled={handleButtonState}
+              placeholder={eth.amount.placeholder}
+            />
           </Container>
           <Divider variant="horizontal" />
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Typography variant="span" width="100%" $fontSize={13}>
-                <LangDisplay text={eth.fees.title} />
-              </Typography>
-              <SvgGoldQuestionMark height={14} width={14} />
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <ButtonGroup
-                buttons={Buttons}
-                activeButtonId={activeButtonId}
-                onButtonClick={handleButtonClick}
-              />
-            </Flex>
-          </Flex>
-          <Container display="flex" direction="column" gap={16} width="full">
-            <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={8}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={eth.gas} />
-                </Typography>
-                <SvgGoldQuestionMark height={14} width={14} />
-              </Flex>
-              {activeButtonId === 1 && (
-                <Flex align="center" direction="row" gap={8}>
-                  <InfoBox text={eth.message} />
-                </Flex>
-              )}
-            </Flex>
+          <FeesSection
+            activeButtonId={activeButtonId}
+            handleButtonClick={handleButtonClick}
+            single={eth}
+            Buttons={Buttons}
+          />
+          <InputSection
+            activeButtonId={activeButtonId}
+            single={eth}
+            sliderValue={sliderValue}
+            handleSliderChange={handleSliderChange}
+            Captions={Captions}
+            error={eth.fees.error}
+            gas
+          />
 
-            {activeButtonId === 2 && (
-              <Container display="flex" direction="column" gap={8} width="full">
-                {' '}
-                <Input
-                  type="text"
-                  name="address"
-                  postfixIcon={eth.inputPostfix}
-                />
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="error"
-                  $alignSelf="start"
-                  $fontSize={12}
-                >
-                  <LangDisplay text={eth.fees.error} />
-                </Typography>
-              </Container>
-            )}
+          {/* { activeButtonId === 2 && 
+            <ToggleSection 
+              single={eth} 
+              error={eth.fees.error} />
+          } */}
 
-            {activeButtonId === 1 && (
-              <>
-                <Slider
-                  initialValue={sliderValue}
-                  onChange={handleSliderChange}
-                />
-                <SliderCaption captions={Captions} />
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="error"
-                  $alignSelf="start"
-                  $fontSize={12}
-                >
-                  <LangDisplay text={eth.fees.error} />
-                </Typography>
-              </>
-            )}
-          </Container>
-
-          {activeButtonId === 2 && (
-            <Container display="flex" direction="column" gap={8} width="full">
-              <Flex justify="space-between" align="center" width="full">
-                <Flex align="center" gap={8}>
-                  <Typography
-                    variant="span"
-                    width="100%"
-                    color="muted"
-                    $fontSize={13}
-                  >
-                    <LangDisplay text={eth.limit} />
-                  </Typography>
-                  <SvgGoldQuestionMark height={14} width={14} />
-                </Flex>
-              </Flex>
-
-              <Input type="text" name="address" />
-            </Container>
-          )}
-
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Image
-                src={etheriumBlueIcon}
-                alt="Left Image"
-                width="11px"
-                height="16px"
-              />
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={eth.fees.network} />
-              </Typography>
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <Typography variant="span" width="100%" $fontSize={14}>
-                <LangDisplay text={eth.fees.fee} />
-              </Typography>
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={12}
-              >
-                <LangDisplay text={eth.fees.usd} />
-              </Typography>
-            </Flex>
-          </Flex>
+          <FeesDisplay
+            fees={eth.fees}
+            image={<SvgEthereumIcon width={16} height={16} />}
+          />
           <MessageBox type="warning" text={eth.warning} />
         </Container>
       </DialogBoxBody>
@@ -299,7 +145,7 @@ export const StandardEthereum: React.FC = () => {
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>
-        <Button variant="primary">
+        <Button variant="primary" disabled={!btnState}>
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>

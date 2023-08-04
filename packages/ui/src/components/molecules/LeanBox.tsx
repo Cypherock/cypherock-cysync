@@ -10,7 +10,6 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
-  Image,
   Flex,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
@@ -19,6 +18,7 @@ import { Throbber } from '../atoms/Throbber';
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
   rightImage?: React.ReactNode;
+  icon?: React.ReactNode;
   rightText?: string;
   tag?: string;
   text: string;
@@ -83,6 +83,7 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImage,
   rightImage,
+  icon,
   rightText,
   shortForm = '',
   text,
@@ -142,11 +143,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImage && (
-          <ImageContainer>
-            <Image src={leftImage as string} alt="image" />
-          </ImageContainer>
-        )}
+        {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
         <StretchedTypography
           $shouldStretch={!tag}
           variant={textVariant}
@@ -181,11 +178,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               {rightText}
             </Typography>
           )}
-          {rightImage && (
-            <ImageContainer>
-              <Image src={rightImage as string} alt="image" />
-            </ImageContainer>
-          )}
+          {rightImage && <ImageContainer>{rightImage}</ImageContainer>}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
@@ -196,6 +189,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               isDisabled={disabled}
             />
           )}
+          {icon && icon}
         </RightContent>
       </HorizontalBox>
     </InputLabel>
@@ -205,6 +199,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
 LeanBox.defaultProps = {
   leftImage: undefined,
   rightImage: undefined,
+  icon: undefined,
   rightText: undefined,
   altText: undefined,
   rightTextColor: 'muted',

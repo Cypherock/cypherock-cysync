@@ -652,7 +652,7 @@ const en = {
               text: 'Amount to send',
               placeholder: '0',
               toggle: 'Send Max',
-              btc: 'BTC',
+              coin: 'BTC',
               dollar: '$',
               error: 'Error message for amount',
             },
@@ -660,11 +660,12 @@ const en = {
             fees: {
               title: 'Fees',
               error: 'Error message for fee',
-              btc: '0.0002 BTC',
+              fee: '0.0002 BTC',
               usd: '$5.51',
               network: 'Network Fees',
             },
             message: '9 sat per byte',
+            fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {
@@ -679,6 +680,7 @@ const en = {
           },
           batch: {
             title: 'Send Crypto',
+            button: 'Add another recipient',
             fees: {
               title: 'Fees',
               error: 'Error message for fee',
@@ -718,7 +720,7 @@ const en = {
             text: 'Amount to send',
             placeholder: '0',
             toggle: 'Send Max',
-            eth: 'ETH',
+            coin: 'ETH',
             dollar: '$',
             error: 'Error message for amount',
           },
@@ -731,6 +733,7 @@ const en = {
           },
           gas: 'Gas Price',
           message: '53.2 GWEI',
+          fee: '53.2',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',
           warning: 'Transaction might cancel if fees is very low',
@@ -757,11 +760,10 @@ const en = {
             text: 'Amount to send',
             placeholder: '0',
             toggle: 'Send Max',
-            eth: 'ETH',
+            coin: 'ETH',
             dollar: '$',
             error: 'Error message for amount',
           },
-
           fees: {
             l1: {
               text: 'Fees (L1)',

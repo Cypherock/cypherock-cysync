@@ -67,6 +67,7 @@ export const colors = {
     sidebar: '#1E1A15',
     slider: '#3A3531',
     warning: '#2C2418',
+    batchTransactionBody: '#1b1812',
   },
   border: {
     popup: '#2C2520',

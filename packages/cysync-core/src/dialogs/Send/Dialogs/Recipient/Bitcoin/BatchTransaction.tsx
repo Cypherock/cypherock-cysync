@@ -3,7 +3,6 @@ import {
   Typography,
   Image,
   LeanBox,
-  informationIcon,
   Input,
   Flex,
   Container,
@@ -16,21 +15,29 @@ import {
   SliderCaption,
   ButtonAttributes,
   bitcoinIcon,
+  useTheme,
+  BatchTransactionBody,
+  useToggle,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
-import { addKeyboardEvents, useToggle } from '~/hooks';
-import { useSendDialog } from '../../../context';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
+import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
+import React, { useState } from 'react';
+
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../../context';
 
 export const BatchTransaction: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
+  const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
   const replaceToggle = useToggle(false);
   const unconfirmedToggle = useToggle(false);
 
   const { batch } = lang.strings.send.bitcoin.info.dialogBox;
+  const { single } = lang.strings.send.bitcoin.info.dialogBox;
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -67,13 +74,20 @@ export const BatchTransaction: React.FC = () => {
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
-        leftImage={informationIcon}
+        leftImage={
+          <SvgInformationIcon
+            height={16}
+            width={16}
+            fill={theme.palette.background.muted}
+          />
+        }
         text={batch.InfoBox.text}
         altText={batch.InfoBox.altText}
         textVariant="span"
         fontSize={12}
         icon={<SvgGoldQuestionMark height={14} width={14} />}
       />
+      <BatchTransactionBody text={batch.button} batch={single} />
 
       <Divider variant="horizontal" />
       <Flex justify="space-between" align="center" width="full">
