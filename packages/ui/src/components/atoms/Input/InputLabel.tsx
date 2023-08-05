@@ -22,6 +22,7 @@ interface InputLabelProps
   children?: ReactNode;
   $noWrap?: boolean;
   $textAlign?: 'left' | 'center' | 'right';
+  $cursor?: boolean;
 }
 
 const InputLabelStyle = styled.label<InputLabelProps>`
@@ -53,6 +54,7 @@ const InputLabelStyle = styled.label<InputLabelProps>`
   ${border}
   ${font} 
   ${display}
+  ${({ $cursor }) => $cursor && 'cursor: pointer;'}
 `;
 
 export const InputLabel: FC<InputLabelProps> = ({
@@ -70,4 +72,5 @@ InputLabel.defaultProps = {
   children: undefined,
   $noWrap: false,
   $textAlign: 'left',
+  $cursor: false,
 };

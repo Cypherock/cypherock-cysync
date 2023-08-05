@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
@@ -27,11 +27,11 @@ export interface DropDownListItemProps extends BorderProps {
   checkType?: 'checkbox' | 'radio';
   id?: string;
   onClick?: () => void;
-  selectedItem?: string | undefined;
   checked?: boolean;
   onCheckedChange?: (id: string) => void;
   color?: TypographyColor;
-  subMenu?: DropDownListItemProps[];
+  $parentId?: string;
+  $isFocused?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -71,7 +71,10 @@ export const DropDownListItemHorizontalBox = styled.div<
   gap: 16px;
   align-self: stretch;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ $restrictedItem, $isChecked, theme }) => {
+  background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
+    if ($isFocused) {
+      return theme.palette.background.dropdownHover;
+    }
     if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
@@ -87,6 +90,14 @@ export const DropDownListItemHorizontalBox = styled.div<
     }
   }
   color: ${({ theme }) => theme.palette.text.muted};
+  ${({ $parentId, $restrictedItem }) =>
+    $parentId &&
+    !$restrictedItem &&
+    css`
+      border-left: 0.5px solid
+        ${({ theme }) => theme.palette.border.subMenuLeft} !important;
+      margin-left: 30px;
+    `}
   ${border}
   ${spacing}
 `;
@@ -103,14 +114,14 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
-const DropDownItemWrapper = styled.div`
+const DropDownItemWrapper = styled.div<{ $isFocused: boolean }>`
   display: flex;
   flex-direction: column;
-`;
-
-const SubMenuItemWrapper = styled.div`
-  border-left: 1px solid ${({ theme }) => theme.palette.border.subMenuLeft};
-  margin-left: 30px;
+  background-color: ${({ $isFocused, theme }) =>
+    $isFocused
+      ? theme.palette.background.dropdownHover
+      : theme.palette.background.separatorSecondary};
+  border-radius: 8px;
 `;
 
 const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
@@ -123,7 +134,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   rightIcon,
   radioButtonValue,
   rightText,
-  selectedItem = undefined,
+  $parentId = '',
   text,
   shortForm = '',
   tag,
@@ -138,7 +149,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   $restrictedItem = false,
   onCheckedChange,
   $borderRadius,
-  subMenu = [],
+  $isFocused = false,
 }): ReactElement => {
   const handleCheckChange = () => {
     onCheckedChange?.(id ?? 'default-id');
@@ -150,7 +161,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   };
 
   return (
-    <DropDownItemWrapper>
+    <DropDownItemWrapper $isFocused={$isFocused}>
       <DropDownListItemHorizontalBox
         onClick={handleBoxClick}
         $isChecked={checked}
@@ -158,6 +169,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
         $hasRightText={$hasRightText}
         $restrictedItem={$restrictedItem}
         text={text}
+        $isFocused={$isFocused}
+        $parentId={$parentId}
       >
         {!$restrictedItem && checkType && checkType === 'radio' && (
           <RadioButton
@@ -207,19 +220,6 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
           )}
         </DropDownListItemRightContent>
       </DropDownListItemHorizontalBox>
-      {subMenu.length > 0 && (
-        <div>
-          {subMenu.map(item => (
-            <SubMenuItemWrapper key={item.id}>
-              <DropDownListItem
-                {...item}
-                checked={selectedItem === item.id}
-                onCheckedChange={onCheckedChange}
-              />
-            </SubMenuItemWrapper>
-          ))}
-        </div>
-      )}
     </DropDownItemWrapper>
   );
 };
@@ -236,11 +236,11 @@ DropDownListItem.defaultProps = {
   tag: undefined,
   onClick: undefined,
   $restrictedItem: false,
-  selectedItem: undefined,
   checked: false,
   onCheckedChange: undefined,
   shortForm: '',
   color: 'muted',
-  subMenu: [],
   $hasRightText: false,
+  $isFocused: false,
+  $parentId: '',
 };

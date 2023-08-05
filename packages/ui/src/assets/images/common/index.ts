@@ -12,7 +12,9 @@ import blockSelectedIcon from './Block.svg';
 import bnbChainIcon from './bnb-chain.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
+import circledCheckIcon from './circled-check-icon.svg';
 import closeIcon from './close.svg';
+import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import cypherockRedIcon from './cypherock-red.svg';
@@ -30,6 +32,8 @@ import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
+import informationWhiteIcon from './information-icon.svg';
+import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
@@ -39,6 +43,9 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
+import qrcodeIcon from './qrcode.svg';
+import questionMarkGoldIcon from './question-gold.svg';
+import questionMarkIcon from './question-mark.svg';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -47,20 +54,31 @@ import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
 import solanaIcon from './solana.svg';
+import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
+import triangleGreyIcon from './triangleGrey.svg';
 
 export {
   addWalletIcon,
   walletIcon,
+  triangleGreyIcon,
+  informationOrangeIcon,
+  qrcodeIcon,
+  questionMarkGoldIcon,
+  spinnerGoldIcon,
+  informationWhiteIcon,
+  circledCheckIcon,
+  questionMarkIcon,
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,
   addIcon,
+  confirmIcon,
   cypherockRedIcon,
   triangleInverseIcon,
   searchIcon,

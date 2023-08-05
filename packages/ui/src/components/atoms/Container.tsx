@@ -8,6 +8,8 @@ import {
   border,
   utils,
   UtilsProps,
+  flex,
+  FlexProps,
   BgColorProps,
   bgColor,
 } from '../utils';
@@ -16,6 +18,7 @@ interface ContainerProps
   extends UtilsProps,
     SpacingProps,
     BorderProps,
+    FlexProps,
     BgColorProps {
   children?: ReactNode;
   size?: 'lg';
@@ -33,7 +36,8 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${utils}
   ${spacing}
   ${border}
-  ${bgColor}
+  ${flex}
+  ${$bgColor}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (

@@ -296,6 +296,7 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
+    reverify: 'Reverify',
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
@@ -308,6 +309,7 @@ const en = {
     report: 'Report',
     help: 'Help',
     stop: 'Stop',
+    resync: 'Resync',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -329,6 +331,7 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
+    header: 'Add Coin/Account',
     select: {
       dialogTitle: 'Add Coin/Account',
       header: 'Select the Wallet & Coins you want to add',
@@ -371,8 +374,122 @@ const en = {
     aside: {
       tabs: {
         asset: 'Asset',
-        device: 'Device',
+        device: 'X1 Vault',
         confirmation: 'Confirmation',
+      },
+    },
+  },
+  receive: {
+    header: 'Receive',
+    receive: {
+      info: {
+        dialogBox: {
+          header: 'Receive',
+          subheader: 'Choose a wallet and account to credit',
+          searchText: 'Search',
+          placeholderText: 'Account to Credit',
+          placeholderWalletText: 'Choose a wallet',
+          text: 'Cypherock Red',
+        },
+      },
+    },
+    connectDevice: {
+      info: {
+        dialogBox: {
+          header: 'Connect your X1 Vault to your PC to proceed',
+        },
+      },
+    },
+    deviceConnection: {
+      info: {
+        dialogBox: {
+          header: 'Connect your X1 Vault to proceed',
+          subheader: 'Looks like your device is not connected',
+          buttonName: "Don't have your device?",
+        },
+      },
+    },
+    deviceConfirmCancelled: {
+      info: {
+        dialogBox: {
+          header: 'Request was cancelled from the X1 Vault',
+          subheader: 'This is dialogue text or sub heading',
+        },
+      },
+    },
+    deviceConfirmForTroubleshoot: {
+      info: {
+        dialogBox: {
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          snackBar: {
+            text: 'Having trouble connecting the device?',
+            buttonName: 'Fix it',
+          },
+        },
+      },
+    },
+    deviceConfirmForToken: {
+      info: {
+        dialogBox: {
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+          InfoBox: {
+            text: 'Remember you will receive Tether on your Ethereum Account address',
+          },
+        },
+      },
+    },
+    deviceConfirm: {
+      info: {
+        dialogBox: {
+          header: 'Follow instructions on the X1 Vault',
+          subheader: 'Confirm the operation on your device to finalize',
+        },
+      },
+    },
+    deviceVerifyAddress: {
+      info: {
+        dialogBox: {
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+        },
+      },
+    },
+    deviceAddressVerified: {
+      info: {
+        dialogBox: {
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+        },
+      },
+    },
+    deviceAddressNotVerified: {
+      info: {
+        dialogBox: {
+          header: 'Address verified successfully',
+          label: 'Address',
+          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
+          tag: 'NATIVE SEGWIT',
+          text: 'Address for ',
+          coinText: 'Bitcoin 1',
+          finaltext: 'in Cypherock Red',
+          InfoBox: {
+            text: 'This Receive Address was NOT VERIFIED by the device. Use it at your own risk.',
+          },
+        },
+      },
+    },
+    aside: {
+      tabs: {
+        source: 'Source',
+        device: 'X1 Vault',
+        receive: 'Receive',
       },
     },
   },
