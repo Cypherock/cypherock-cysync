@@ -296,7 +296,7 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
-    again: 'Again',
+    reverify: 'Reverify',
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
@@ -475,7 +475,6 @@ const en = {
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify address',
           tag: 'NATIVE SEGWIT',
           text: 'Address for ',
           coinText: 'Bitcoin 1',

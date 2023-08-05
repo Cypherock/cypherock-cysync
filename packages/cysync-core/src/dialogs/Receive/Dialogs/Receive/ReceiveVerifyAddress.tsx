@@ -13,6 +13,7 @@ import {
   InputLabel,
   Flex,
   Tag,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import { bitcoinIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
@@ -35,7 +36,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
         <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
       ),
       text: 'Verify the address on X1 Vault exactly matches the address displayed above',
-      throbber: true,
+      rightImage: <Throbber size={15} strokeWidth={2} />,
     },
   ];
 
@@ -88,7 +89,6 @@ export const ReceiveVerifyAddress: React.FC = () => {
               text={data.text}
               id={data.id}
               px={6}
-              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

@@ -31,7 +31,7 @@ interface DropdownProps {
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
-  showImage?: boolean;
+  showImage?: React.ReactNode;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -42,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   selectedItem = undefined,
   onChange,
   disabled = false,
-  showImage = false,
+  showImage,
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -230,5 +230,5 @@ export const Dropdown: React.FC<DropdownProps> = ({
 Dropdown.defaultProps = {
   disabled: false,
   shouldShowIcon: false,
-  showImage: false,
+  showImage: undefined,
 };

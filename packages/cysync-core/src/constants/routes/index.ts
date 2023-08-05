@@ -9,10 +9,6 @@ const rootRoutes = {
     name: 'portfolio',
     path: '/portfolio',
   },
-  test: {
-    name: 'test',
-    path: '/test',
-  },
   wallet: {
     name: 'wallet',
     path: '/wallet',

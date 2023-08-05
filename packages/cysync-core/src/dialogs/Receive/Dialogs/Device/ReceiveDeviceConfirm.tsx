@@ -10,6 +10,7 @@ import {
   confirmIcon,
   LeanBoxContainer,
   LeanBox,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -39,7 +40,7 @@ export const ReceiveDeviceConfirm: React.FC = () => {
         <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
       ),
       text: 'Verify the account on the device',
-      throbber: true,
+      rightImage: <Throbber size={15} strokeWidth={2} />,
     },
     {
       id: '3',
@@ -94,7 +95,6 @@ export const ReceiveDeviceConfirm: React.FC = () => {
               rightImage={data.rightImage}
               text={data.text}
               id={data.id}
-              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

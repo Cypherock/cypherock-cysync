@@ -12,7 +12,6 @@ import {
   TypographyProps,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
-import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
@@ -31,7 +30,6 @@ export interface LeanBoxProps extends UtilsProps {
   onCheckChanged?: ($isChecked: boolean) => void;
   disabled?: boolean;
   value?: string;
-  throbber?: boolean;
   [key: string]: any;
 }
 
@@ -87,7 +85,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
   checkType = undefined,
   id,
   $isChecked = false,
-  throbber = false,
   onCheckChanged,
   value,
   disabled,
@@ -148,7 +145,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
-          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
             <Typography
               variant={rightTextVariant}
@@ -191,6 +187,5 @@ LeanBox.defaultProps = {
   value: '',
   tag: '',
   shortForm: '',
-  throbber: false,
   disabled: undefined,
 };

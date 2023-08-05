@@ -66,14 +66,16 @@ export const ReceiveAddressNotVerified: React.FC = () => {
         </Container>
         <InformationBox
           text={connect.InfoBox.text}
-          imagePath={informationOrangeIcon}
+          imagePath={
+            <Image px={1} src={informationOrangeIcon} alt="Icon Image" />
+          }
           $backgroundColor="warning"
           $borderColor="infoBoxOrange"
         />
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleVerificationAgain}>
-          {connect.buttonVerify}
+          {buttons.reverify}
         </Button>
         <Button variant="primary" onClick={onClose}>
           {buttons.done}

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Image } from './Image';
 import { Typography } from './Typography';
 
 interface StyledInfoBoxProps {
@@ -10,9 +9,9 @@ interface StyledInfoBoxProps {
 }
 
 interface InformationBoxProps extends StyledInfoBoxProps {
-  imagePath: string;
+  imagePath: React.ReactNode;
   text: string;
-  iconImagePath?: string;
+  iconImagePath?: React.ReactNode;
 }
 
 const InfoBox = styled.div<StyledInfoBoxProps>`
@@ -50,7 +49,7 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
 }) => (
   <InfoBox $backgroundColor={$backgroundColor} $borderColor={$borderColor}>
     <InfoBoxPadding>
-      <Image src={imagePath} alt="Image" width={20} />
+      {imagePath}
       <Typography
         variant="fineprint"
         color="muted"
@@ -58,7 +57,7 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
         $fontWeight="light"
       >
         {text}
-        {iconImagePath && <Image px={1} src={iconImagePath} alt="Icon Image" />}
+        {iconImagePath}
       </Typography>
     </InfoBoxPadding>
   </InfoBox>

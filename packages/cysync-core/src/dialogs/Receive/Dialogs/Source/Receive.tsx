@@ -74,6 +74,30 @@ const dropDownData: DropDownListItemProps[] = [
     rightText: '0.234 BNB',
     checkType: 'radio',
   },
+  {
+    id: '46',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
+  {
+    id: '47',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
+  {
+    id: '48',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
 ];
 const dropDownDataWithWallet: DropDownListItemProps[] = [
   {
@@ -171,7 +195,7 @@ export const Receive: React.FC = () => {
             searchText={receive.searchText}
             placeholderText={receive.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            showImage
+            showImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
           />
           <Dropdown
             items={dropDownData}

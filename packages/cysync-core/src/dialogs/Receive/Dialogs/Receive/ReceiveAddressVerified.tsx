@@ -52,7 +52,7 @@ export const ReceiveAddressVerified: React.FC = () => {
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleVerificationAgain}>
-          {buttons.again}
+          {buttons.reverify}
         </Button>
         <Button variant="primary" onClick={onClose}>
           {buttons.done}

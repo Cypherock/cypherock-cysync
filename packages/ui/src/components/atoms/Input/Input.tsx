@@ -6,8 +6,6 @@ import { InputLabel } from './InputLabel';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
-import { Image } from '../Image';
-import { walletIcon } from '../../../assets';
 
 export interface InputProps {
   type: string;
@@ -24,7 +22,7 @@ export interface InputProps {
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  showImage?: boolean;
+  showImage?: React.ReactNode;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -79,7 +77,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         pasteAllowed = true,
         copyAllowed = true,
         onKeyDown = undefined,
-        showImage = false,
+        showImage,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -90,7 +88,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
           </InputLabel>
         )}
         <InputWrapper>
-          {showImage && <Image src={walletIcon} alt="wallet icon" ml={3} />}
+          {showImage}
           <InputStyle
             ref={ref}
             name={name}
@@ -143,7 +141,7 @@ Input.defaultProps = {
   pasteAllowed: true,
   copyAllowed: true,
   onKeyDown: undefined,
-  showImage: false,
+  showImage: undefined,
 };
 
 Input.displayName = 'Input';
