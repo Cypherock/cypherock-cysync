@@ -4,6 +4,7 @@ import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
 import { GuidedFlow } from './GuidedFlow';
+import { ReceiveDialog } from './Receive';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
 
@@ -12,4 +13,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletActions: WalletActionsDialogBox,
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
+  receiveDialog: ReceiveDialog,
 };

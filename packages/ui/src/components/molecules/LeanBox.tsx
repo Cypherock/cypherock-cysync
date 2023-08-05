@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from 'react';
+import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,8 +11,9 @@ import {
   TypographyColor,
   TypographyProps,
 } from '../atoms';
+import { UtilsProps, spacing } from '../utils';
 
-export interface LeanBoxProps {
+export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
   rightImage?: React.ReactNode;
   rightText?: string;
@@ -47,8 +48,8 @@ export const HorizontalBox = styled.div<{
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
-  width: 422px;
-  height: 42px;
+  ${spacing};
+  width: 100%;
   ${({ $checkType }) => $checkType && 'cursor: pointer'};
 `;
 
@@ -88,14 +89,39 @@ export const LeanBox: FC<LeanBoxProps> = ({
   value,
   disabled,
 }): ReactElement => {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleCheckChange = useCallback(() => {
     if (onCheckChanged) {
       onCheckChanged(!$isChecked);
     }
   }, [onCheckChanged, $isChecked]);
 
+  const handleHover = useCallback(() => {
+    setIsHovered(true);
+    if (
+      checkboxRef.current &&
+      (checkType === 'checkbox' || checkType === 'radio')
+    ) {
+      checkboxRef.current.focus();
+    }
+  }, [checkType]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    if (checkboxRef.current) {
+      checkboxRef.current.blur();
+    }
+  }, []);
+
   return (
-    <InputLabel>
+    <InputLabel
+      px={0}
+      py={0}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleMouseLeave}
+    >
       <HorizontalBox $isChecked={$isChecked} $checkType={checkType}>
         {checkType === 'radio' && (
           <RadioButton
@@ -120,7 +146,12 @@ export const LeanBox: FC<LeanBoxProps> = ({
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
           {rightText && (
-            <Typography variant={rightTextVariant} color={rightTextColor}>
+            <Typography
+              variant={rightTextVariant}
+              color={rightTextColor}
+              $fontSize={14}
+              $fontWeight="normal"
+            >
               {rightText}
             </Typography>
           )}
@@ -130,6 +161,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
               checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
+              $isHovered={isHovered}
+              ref={checkboxRef}
               isDisabled={disabled}
             />
           )}

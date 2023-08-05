@@ -77,8 +77,7 @@ const getProperties = (key: SpacingType<'m'> | SpacingType<'p'>) => {
 
 const getSpacingValue = (param: SpacingOptions) => {
   if (typeof param === 'string') {
-    if (param === 'auto') return 'auto';
-    return `${param}px`;
+    return param === 'auto' ? 'auto' : `${param}px`;
   }
 
   return spacingObj[param];
@@ -86,7 +85,6 @@ const getSpacingValue = (param: SpacingOptions) => {
 
 const getCss = (names: string[], obj?: MediaQuery<SpacingOptions>) => {
   const result: any = [];
-
   if (typeof obj !== 'undefined') {
     if (typeof obj === 'object') {
       for (const bp in obj) {
