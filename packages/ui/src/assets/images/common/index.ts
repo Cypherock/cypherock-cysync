@@ -57,11 +57,11 @@ import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
+import triangleGreyIcon from './triangleGrey.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
-import triangleGreyIcon from './triangleGrey.svg';
 
 export {
   addWalletIcon,
