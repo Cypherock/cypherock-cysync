@@ -3,6 +3,7 @@ import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import assetSwith from './asset-switch.svg';
+import tabler_graph from './tabler_graph.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
@@ -88,4 +89,5 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
+  tabler_graph
 };

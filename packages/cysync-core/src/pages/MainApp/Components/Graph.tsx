@@ -7,7 +7,9 @@ import {
   Flex,
   assetSwith,
   Image,
-  Button
+  ImageProps,
+  Button,
+  tabler_graph
 } from '@cypherock/cysync-ui';
 import axios from 'axios';
 import React, { useEffect, useState ,useRef } from 'react';
@@ -15,7 +17,7 @@ import { Chart, ChartData, ChartOptions } from 'chart.js/auto';
 // import 'chartjs-plugin-interaction'; // Import the interaction plugin
 import moment from 'moment'
 
-const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30`
+const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1825`
 
 type PriceDataTuple = [number, number];
 
@@ -124,17 +126,11 @@ export const LineChart: React.FC = () => {
   },
   };
   useEffect(() => {
-
-
   axios.get(url).then((data : any )=>{
-
-    
-    // console.log('data: ', data?.data?.prices)
     const sampleData =  data?.data?.prices
     const timestamps = [];
-    
     const pricess = [];
-  for (const item of sampleData) {
+    for (const item of sampleData) {
       const [timestamp, price] = item;
       timestamps.push(moment(timestamp).format("MMM-DD"));
       pricess.push(price);
@@ -159,7 +155,7 @@ export const LineChart: React.FC = () => {
             {
               data: pricess ,// generateRandomDataArray(5,0,10),// [0 , 22.74, 15.56, 13.48, 18.62, 22.71, ],
               borderColor: 'rgb(214, 0, 249)',
-              tension: 0.9,
+              tension: 1,
               fill: true,
               pointRadius : 0,
               hoverRadius :1,
@@ -200,28 +196,62 @@ export const LineChart: React.FC = () => {
           height="500px"
           >
             <Flex p={3} display="flex" direction="row" justify="space-between" height="full">
-              <Container width="70px"  p={1} display="flex" direction="row" justify="space-between">
+            <Container  p={1} display="flex" direction="column">
+            <Container 
+            width='full'
+            justify= "flex-start"
+            >
+
+              <Container p={1} width="fit-content" display="flex" direction="row"  align-items= "flex-start" justify= "flex-start" >
                   <Typography
-                    variant="h6"
-                    color="muted"
+                    variant="h3"
                     $textAlign="left"
                     $letterSpacing={0.05}
-                    p={1}
-                    m={1}
-                  >
-                    <LangDisplay 
-                    text="12.72 ETH" />
+                    pr={1}
+                    leading-trim='both'
+                    text-edge='cap'
+                    font-family='Poppins'
+                    font-size='32px'
+                    font-style='normal'
+                    font-weight='800'
+                    line-height='normal'
+
+                  >12.72 ETH
                   </Typography>
-                      <Flex>
-                      <Image 
-                      p={1}
-                      m={1}
-                      position='relative'
+                      <Image2
+                      pl={1}
                       src={assetSwith} 
                       alt="logo" 
+                      />
+              </Container>
+              </Container>
+              <Container p={1} display="flex" direction="row" align-items= "flex-start"  justify="center">
+                <Typography
+                    color="muted"
+                    $textAlign="left"
+                    $letterSpacing={0.02}
+                    p={1}
+                    >$ 16032.087</Typography>
+                    <Typography
+                    color="muted"
+                    $textAlign="left"
+                    $letterSpacing={0.02}
+                    direction="row"
+                    display='flex'
+                    >
+                    <Flex 
+                     direction="row" display="block" align-items= "center" justify="center" >
+                      <Image
+                      align-items= "center"
+                      justify="center"
+                      position='relative'
+                      src={tabler_graph} 
+                      alt="logo" 
                       $alignSelf="end" />
-                      </Flex>
+                    </Flex>1 ETH = $ 1,258.47</Typography>
+                  </Container>
                 </Container>
+
               <Container display="flex" direction="row" justify="space-between">
                       <Flex m="3">
                           <Button border-radius='3px' icon='1D'variant="secondary"   size="sm"  />
@@ -238,6 +268,9 @@ export const LineChart: React.FC = () => {
                       <Flex m="3">
                           <Button border-radius='3px'  icon='ALL' variant="secondary" size="sm"/>
                       </Flex>
+                      <Flex m="3">
+                          <Button border-radius='3px'  icon='ALL' variant="secondary" size="sm"/>
+                      </Flex>
                 </Container>
             </Flex>
         <Container>
@@ -249,3 +282,30 @@ export const LineChart: React.FC = () => {
 };
 
 
+import styled from 'styled-components';
+
+
+
+interface graphImageProps extends ImageProps {
+  src: string;
+  alt: string;
+}
+
+const StyledImage = styled.img<graphImageProps>`
+  display: flex;
+  width: 32px;
+  padding: 5px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1.5px solid #45413E;
+  background: #39322C;
+  box-shadow: 4px 4px 32px 4px #0F0D0B;
+`;
+
+const Image2: React.FC<graphImageProps> = ({ src, alt ,...props }) => {
+  return <StyledImage {...props} src={src} alt={alt} />;
+};
+
+export default Image2;
