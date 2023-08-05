@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react'; // Import ReactNode and FC
 import styled from 'styled-components';
 
 import SvgDoubleArrow from '../../../assets/icons/generated/DoubleArrow';
@@ -10,7 +10,7 @@ import {
   Toggle,
   Typography,
 } from '../../atoms';
-import { useToggle } from '../../hooks';
+import { useAmountToSend } from '../../hooks';
 
 interface AmountToSendProps {
   text?: string;
@@ -20,6 +20,8 @@ interface AmountToSendProps {
   dollar?: string;
   placeholder?: string;
   isButtonEnabled?: (shouldActivate: boolean) => void;
+  value?: string;
+  onChange?: (val: string) => void;
 }
 
 const AmountToSendContainer = styled.div`
@@ -37,38 +39,17 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
   error = '',
   placeholder = '',
   isButtonEnabled,
+  value = '',
+  onChange,
 }) => {
-  const [coinState, setCoinState] = useState<React.ReactNode | string>(coin);
-  const [textColor, setTextColor] = useState('muted');
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
-
-  const { isChecked: isCheckedMax, handleToggleChange: handleToggleMax } =
-    useToggle();
-
-  const [isInputChanged, setIsInputChanged] = useState(false);
-
-  const handleInputValueChange = (val: string) => {
-    if (val.trim() !== '') {
-      setIsInputChanged(true);
-      setTextColor('white');
-    }
-  };
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    if (isInputChanged) {
-      setCoinState(throbber);
-      timeoutId = setTimeout(() => {
-        setCoinState(coin);
-        if (isButtonEnabled) {
-          isButtonEnabled(true);
-        }
-      }, 2000);
-    }
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [isInputChanged]);
+  const {
+    coinState,
+    textColor,
+    isCheckedMax,
+    handleToggleMax,
+    handleInputValueChange,
+  } = useAmountToSend({ coin, onChange, isButtonEnabled, throbber, value });
 
   return (
     <AmountToSendContainer>
@@ -91,6 +72,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           postfixText={typeof coinState === 'string' ? coinState : undefined}
           $textColor={textColor}
           placeholder={placeholder}
+          value={value}
           onChange={handleInputValueChange}
         />
         <SvgDoubleArrow height={22} width={22} />
@@ -125,4 +107,6 @@ AmountToSend.defaultProps = {
   dollar: '$',
   isButtonEnabled: undefined,
   placeholder: '',
+  value: '',
+  onChange: undefined,
 };

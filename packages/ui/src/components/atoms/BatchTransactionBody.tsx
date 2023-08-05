@@ -49,16 +49,34 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
   text,
   batch,
 }) => {
-  const [components, setComponents] = useState<Array<string>>([]);
+  const [components, setComponents] = useState<
+    Array<{ id: string; recipient: string; amount: string }>
+  >([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleButtonClick = () => {
     const uniqueId = `${Date.now()}-${Math.random()}`;
-    setComponents([...components, uniqueId]);
+    setComponents([...components, { id: uniqueId, recipient: '', amount: '' }]);
   };
 
   const handleDeleteClick = (id: string) => {
-    setComponents(components.filter(componentId => componentId !== id));
+    setComponents(components.filter(component => component.id !== id));
+  };
+
+  const handleRecipientChange = (id: string, recipient: string) => {
+    setComponents(
+      components.map(component =>
+        component.id === id ? { ...component, recipient } : component,
+      ),
+    );
+  };
+
+  const handleAmountChange = (id: string, amount: string) => {
+    setComponents(
+      components.map(component =>
+        component.id === id ? { ...component, amount } : component,
+      ),
+    );
   };
 
   useEffect(() => {
@@ -72,24 +90,30 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
     <Container ref={containerRef}>
       <FlexContainer>
         <Flex gap={16} direction="column">
-          {components.map((id, i) => (
+          {components.map((component, i) => (
             <>
               <RecipientAddress
-                key={`recipient-${id}`}
+                key={`recipient-${component.id}`}
                 text={batch.recipient.text}
                 placeholder={batch.recipient.placeholder}
                 error={batch.recipient.error}
                 deleteButton
-                onDelete={() => handleDeleteClick(id)}
+                onDelete={() => handleDeleteClick(component.id)}
+                value={component.recipient}
+                onChange={recipient =>
+                  handleRecipientChange(component.id, recipient)
+                }
               />
               <AmountToSend
-                key={`amount-${id}`}
+                key={`amount-${component.id}`}
                 text={batch.amount.text}
                 coin={batch.amount.coin}
                 toggle={batch.amount.toggle}
                 dollar={batch.amount.dollar}
                 error={batch.amount.error}
                 placeholder={batch.amount.placeholder}
+                value={component.amount}
+                onChange={amount => handleAmountChange(component.id, amount)}
               />
               {i !== components.length - 1 && <Divider variant="horizontal" />}
             </>

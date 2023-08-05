@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-interface UseRecipientAddressProps {
-  initialImage?: JSX.Element;
-  throbber?: JSX.Element;
-}
-
-export function useRecipientAddress({
-  initialImage,
-  throbber,
-}: UseRecipientAddressProps) {
+export const useRecipientAddress = (
+  value?: string,
+  onChange?: (val: string) => void,
+) => {
+  const [localValue, setLocalValue] = useState(value ?? '');
   const [isInputChanged, setIsInputChanged] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [postfixIcon, setPostfixIcon] = useState(initialImage);
+  const [isThrobberActive, setThrobberActive] = useState(false);
 
   const handleInputValueChange = (val: string) => {
     if (val.trim() === 'hello') {
@@ -19,23 +15,36 @@ export function useRecipientAddress({
     } else {
       setShowError(false);
     }
+
+    if (value === undefined) {
+      setLocalValue(val);
+    }
+
+    if (onChange) {
+      onChange(val);
+    }
+
     setIsInputChanged(val.trim() !== '');
   };
 
   useEffect(() => {
     if (isInputChanged) {
-      setPostfixIcon(throbber);
+      setThrobberActive(true);
       setTimeout(() => {
-        setPostfixIcon(initialImage);
+        setThrobberActive(false);
       }, 2000);
     } else {
-      setPostfixIcon(initialImage);
+      setThrobberActive(false);
     }
   }, [isInputChanged]);
 
-  return {
-    showError,
-    postfixIcon,
-    handleInputValueChange,
-  };
-}
+  useEffect(() => {
+    if (value !== undefined) {
+      setLocalValue(value);
+    }
+  }, [value]);
+
+  const inputValue = value !== undefined ? value : localValue;
+
+  return { inputValue, isThrobberActive, handleInputValueChange, showError };
+};

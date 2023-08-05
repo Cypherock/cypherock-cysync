@@ -1,27 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useToggle } from './useToggle';
 
 interface UseAmountToSendProps {
-  initialValue?: string;
-  initialCoinState?: React.ReactNode | string;
-  throbber?: React.ReactNode;
+  coin: React.ReactNode | string;
+  onChange?: (val: string) => void;
   isButtonEnabled?: (shouldActivate: boolean) => void;
+  throbber: JSX.Element;
+  value: string;
 }
 
-export function useAmountToSend({
-  initialCoinState,
-  throbber,
+export const useAmountToSend = ({
+  coin,
+  onChange,
   isButtonEnabled,
-}: UseAmountToSendProps) {
-  const [coinState, setCoinState] = useState<React.ReactNode | string>(
-    initialCoinState,
-  );
+  throbber,
+  value,
+}: UseAmountToSendProps) => {
+  const [coinState, setCoinState] = useState<React.ReactNode | string>(coin);
   const [textColor, setTextColor] = useState('muted');
   const [isInputChanged, setIsInputChanged] = useState(false);
+  const { isChecked: isCheckedMax, handleToggleChange: handleToggleMax } =
+    useToggle();
 
   const handleInputValueChange = (val: string) => {
     if (val.trim() !== '') {
       setIsInputChanged(true);
       setTextColor('white');
+      if (onChange) onChange(val);
     }
   };
 
@@ -30,7 +35,7 @@ export function useAmountToSend({
     if (isInputChanged) {
       setCoinState(throbber);
       timeoutId = setTimeout(() => {
-        setCoinState(initialCoinState);
+        setCoinState(coin);
         if (isButtonEnabled) {
           isButtonEnabled(true);
         }
@@ -39,11 +44,21 @@ export function useAmountToSend({
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isInputChanged]);
+  }, [isInputChanged, coin, isButtonEnabled]);
+
+  useEffect(() => {
+    if (value.trim() !== '' && parseFloat(value) !== 0) {
+      setTextColor('white');
+    } else {
+      setTextColor('muted');
+    }
+  }, [value]);
 
   return {
     coinState,
     textColor,
+    isCheckedMax,
+    handleToggleMax,
     handleInputValueChange,
   };
-}
+};

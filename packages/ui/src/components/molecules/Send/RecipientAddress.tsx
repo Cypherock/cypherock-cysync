@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import { qrCodeIcon } from '../../../assets';
 import {
   Flex,
   Image,
-  InputWithDynamicPostfix,
+  Input,
   MiniButton,
   Throbber,
   Typography,
 } from '../../atoms';
+import { qrCodeIcon } from '../../../assets';
+import { useRecipientAddress } from '../../hooks';
 
 interface RecipientAddressProps {
   text?: string;
@@ -17,6 +17,8 @@ interface RecipientAddressProps {
   error?: string;
   deleteButton?: boolean;
   onDelete?: () => void;
+  value?: string;
+  onChange?: (val: string) => void;
 }
 
 const RecipientAddressContainer = styled.div`
@@ -32,35 +34,20 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   error = '',
   deleteButton = false,
   onDelete,
+  value = '',
+  onChange,
 }) => {
-  const [isInputChanged, setIsInputChanged] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+    useRecipientAddress(value, onChange);
 
-  const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
-  const image: JSX.Element = (
-    <Image src={qrCodeIcon} alt="qr icon" width={25} height={20} />
-  );
-  const [postfixIcon, setPostfixIcon] = useState(image);
+  const throbber = <Throbber size={15} strokeWidth={2} />;
+  const image = <Image src={qrCodeIcon} alt="qr icon" width={25} height={20} />;
+  const postfixIcon = isThrobberActive ? throbber : image;
 
-  const handleInputValueChange = (val: string) => {
-    if (val.trim() === 'hello') {
-      setShowError(true);
-    } else {
-      setShowError(false);
-    }
-    setIsInputChanged(val.trim() !== '');
+  const handleChange = (val: string) => {
+    handleInputValueChange(val);
+    if (onChange) onChange(val);
   };
-
-  useEffect(() => {
-    if (isInputChanged) {
-      setPostfixIcon(throbber);
-      setTimeout(() => {
-        setPostfixIcon(image);
-      }, 2000);
-    } else {
-      setPostfixIcon(image);
-    }
-  }, [isInputChanged]);
 
   return (
     <RecipientAddressContainer>
@@ -70,11 +57,13 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
         </Typography>
         {deleteButton && <MiniButton onClick={onDelete} />}
       </Flex>
-      <InputWithDynamicPostfix
+      <Input
+        type="text"
+        name="address"
+        placeholder={placeholder}
         postfixIcon={postfixIcon}
-        onChange={handleInputValueChange}
-        text={placeholder}
-        throbber={throbber}
+        value={inputValue}
+        onChange={handleChange}
         $textColor="white"
       />
       {showError && (
@@ -97,4 +86,6 @@ RecipientAddress.defaultProps = {
   error: '',
   deleteButton: false,
   onDelete: undefined,
+  value: '',
+  onChange: undefined,
 };

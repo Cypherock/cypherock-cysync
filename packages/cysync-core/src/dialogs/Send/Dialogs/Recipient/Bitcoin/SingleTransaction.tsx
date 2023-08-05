@@ -31,9 +31,19 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
 }) => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
+  const [recipientAddress, setRecipientAddress] = useState('');
+  const [amount, setAmount] = useState('');
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
   const theme = useTheme();
+
+  const handleRecipientChange = (value: string) => {
+    setRecipientAddress(value);
+  };
+
+  const handleAmountChange = (value: string) => {
+    setAmount(value);
+  };
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -77,6 +87,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           text={single.recipient.text}
           placeholder={single.recipient.placeholder}
           error={single.recipient.error}
+          value={recipientAddress}
+          onChange={handleRecipientChange}
         />
         <AmountToSend
           text={single.amount.text}
@@ -86,6 +98,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           error={single.amount.error}
           isButtonEnabled={handleButtonState}
           placeholder={single.amount.placeholder}
+          value={amount}
+          onChange={handleAmountChange}
         />
       </Container>
       <Divider variant="horizontal" />

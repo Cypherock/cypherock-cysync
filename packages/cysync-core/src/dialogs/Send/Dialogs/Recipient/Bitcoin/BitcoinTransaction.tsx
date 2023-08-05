@@ -42,7 +42,7 @@ export const BitcoinTransaction: React.FC = () => {
       label: bitcoin.tabs.tab1,
       content: (
         <TabContentContainer>
-          <BatchTransaction />
+          <SingleTransaction handleButtonState={handleButtonState} />
         </TabContentContainer>
       ),
     },
@@ -50,7 +50,7 @@ export const BitcoinTransaction: React.FC = () => {
       label: bitcoin.tabs.tab2,
       content: (
         <TabContentContainer>
-          <SingleTransaction handleButtonState={handleButtonState} />
+          <BatchTransaction />
         </TabContentContainer>
       ),
     },
