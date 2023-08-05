@@ -10,6 +10,7 @@ export type BgColor =
   | 'separator'
   | 'separatorSecondary'
   | 'input'
+  | 'inputSecondary'
   | 'white'
   | 'highlight'
   | 'golden'
@@ -21,7 +22,7 @@ export interface BgColorProps {
   $bgColor?: BgColor;
 }
 
-export const $bgColor = css<BgColorProps>`
+export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'contentGradient' &&
     css`

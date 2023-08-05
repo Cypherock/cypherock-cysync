@@ -11,7 +11,7 @@ import {
   flex,
   FlexProps,
   BgColorProps,
-  $bgColor,
+  bgColor,
 } from '../utils';
 
 interface ContainerProps

@@ -1,6 +1,7 @@
 import { CoinTypes } from '@cypherock/coins';
 import {
   AllocationShare,
+  WidthProps,
   Table,
   TableBody,
   TableDataRow,
@@ -18,7 +19,7 @@ type TableHeaderNames = 'Asset' | 'Price' | 'Amount' | 'Value' | 'Allocation';
 
 interface HeadersData {
   comparator: (a: any, b: any) => number;
-  width?: string;
+  width?: WidthProps['width'];
   padding?: string;
   $noFlex?: boolean;
 }
@@ -52,7 +53,7 @@ export const AssetAllocation = () => {
   const headersData: Record<TableHeaderNames, HeadersData> = {
     Asset: {
       padding: '16px 20px 16px 96px',
-      width: '300',
+      width: { def: 200, lg: 300 },
       $noFlex: true,
       comparator: createComparator('id'),
     },
@@ -66,7 +67,7 @@ export const AssetAllocation = () => {
       comparator: createComparator('value'),
     },
     Allocation: {
-      width: '300',
+      width: { def: 144, lg: 300 },
       $noFlex: true,
       comparator: createComparator('allocation'),
     },
@@ -142,14 +143,12 @@ export const AssetAllocation = () => {
               id={asset.id}
               name={asset.name}
               symbol={asset.symbol}
-              size="big"
             />
             <TableNameBox text={`$ ${asset.price}`} />
             <TableNameBox text={`${asset.amount} ${asset.symbol}`} />
             <TableNameBox text={`$ ${asset.value}`} />
             <AllocationShare
               percentage={asset.allocation}
-              size="big"
               color={asset.color}
             />
           </TableDataRow>

@@ -65,7 +65,7 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
   };
 
   return (
-    <SideBarWrapper title="cySync" width={312} height="full">
+    <SideBarWrapper title="cySync" width={312} height="screen">
       <Flex direction="column" gap={8} justify="space-between" height="full">
         <Flex direction="column" gap={8}>
           <SideBarItem
