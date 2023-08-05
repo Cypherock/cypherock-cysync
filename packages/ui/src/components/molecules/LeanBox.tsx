@@ -10,20 +10,15 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
-  Flex,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
-import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
   rightImage?: React.ReactNode;
-  icon?: React.ReactNode;
   rightText?: string;
   tag?: string;
   text: string;
-  altText?: string;
-  fontSize?: number;
   shortForm?: string;
   rightTextColor?: TypographyColor;
   textVariant?: TypographyProps['variant'];
@@ -35,7 +30,6 @@ export interface LeanBoxProps extends UtilsProps {
   onCheckChanged?: ($isChecked: boolean) => void;
   disabled?: boolean;
   value?: string;
-  throbber?: boolean;
   [key: string]: any;
 }
 
@@ -54,9 +48,9 @@ export const HorizontalBox = styled.div<{
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
+  ${spacing};
   width: 100%;
   ${({ $checkType }) => $checkType && 'cursor: pointer'};
-  ${spacing};
 `;
 
 export const ImageContainer = styled.div<{ gap?: number }>`
@@ -67,10 +61,8 @@ export const ImageContainer = styled.div<{ gap?: number }>`
 
 export const StretchedTypography = styled(Typography)<{
   $shouldStretch: boolean;
-  fontSize?: number;
 }>`
   flex: ${({ $shouldStretch }) => ($shouldStretch ? '1' : 'unset')};
-  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : 'inherit')};
 `;
 
 export const RightContent = styled.div`
@@ -83,12 +75,9 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImage,
   rightImage,
-  icon,
   rightText,
   shortForm = '',
   text,
-  altText,
-  fontSize = 16,
   tag,
   textVariant = 'fineprint',
   rightTextVariant = 'fineprint',
@@ -97,7 +86,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
   checkType = undefined,
   id,
   $isChecked = false,
-  throbber = false,
   onCheckChanged,
   value,
   disabled,
@@ -148,18 +136,9 @@ export const LeanBox: FC<LeanBoxProps> = ({
           $shouldStretch={!tag}
           variant={textVariant}
           color={color}
-          fontSize={fontSize}
         >
-          <Flex align="center" gap={5}>
-            {text}
-            {altText && (
-              <Typography $fontSize={fontSize} variant="span">
-                <LangDisplay text={altText} />
-              </Typography>
-            )}
-          </Flex>
+          {text}
         </StretchedTypography>
-
         {shortForm && (
           <Typography $fontSize={13} $fontWeight="medium" color="muted">
             <LangDisplay text={shortForm} />
@@ -167,7 +146,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
-          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
             <Typography
               variant={rightTextVariant}
@@ -189,7 +167,6 @@ export const LeanBox: FC<LeanBoxProps> = ({
               isDisabled={disabled}
             />
           )}
-          {icon && icon}
         </RightContent>
       </HorizontalBox>
     </InputLabel>
@@ -199,9 +176,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
 LeanBox.defaultProps = {
   leftImage: undefined,
   rightImage: undefined,
-  icon: undefined,
   rightText: undefined,
-  altText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
   rightTextVariant: 'fineprint',
@@ -212,8 +187,6 @@ LeanBox.defaultProps = {
   onCheckChanged: undefined,
   value: '',
   tag: '',
-  fontSize: 16,
   shortForm: '',
-  throbber: false,
   disabled: undefined,
 };

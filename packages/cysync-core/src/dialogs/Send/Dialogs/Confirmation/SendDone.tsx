@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   LangDisplay,
   DialogBox,
@@ -17,9 +16,12 @@ import {
   qrImage,
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
-import { useSendDialog } from '../../context';
+import React from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../context';
 
 export const SendDone: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
@@ -69,7 +71,9 @@ export const SendDone: React.FC = () => {
                 <LeanBox
                   text={confirm.clipboard}
                   color="white"
-                  rightImage={openExternalLink}
+                  rightImage={
+                    <Image src={openExternalLink} alt="openExternalLink icon" />
+                  }
                 />
               </Container>
               <MessageBox type="warning" text={confirm.InfoBox.text} />

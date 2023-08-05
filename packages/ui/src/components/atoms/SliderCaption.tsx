@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { Flex } from './Flex';
-import { Typography } from './Typography';
 import { LangDisplay } from './LangDisplay';
+import { Typography } from './Typography';
 
 interface Caption {
   id: number;

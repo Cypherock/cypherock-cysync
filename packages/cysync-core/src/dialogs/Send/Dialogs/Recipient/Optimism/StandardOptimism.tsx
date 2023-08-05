@@ -39,6 +39,17 @@ export const StandardOptimism: React.FC = () => {
   const standard = lang.strings.send.optimism.info.dialogBox;
   const theme = useTheme();
 
+  const [recipientAddress, setRecipientAddress] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleRecipientAddressChange = (value: string) => {
+    setRecipientAddress(value);
+  };
+
+  const handleAmountChange = (value: string) => {
+    setAmount(value);
+  };
+
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
   };
@@ -89,6 +100,8 @@ export const StandardOptimism: React.FC = () => {
               text={standard.recipient.text}
               placeholder={standard.recipient.placeholder}
               error={standard.recipient.error}
+              value={recipientAddress}
+              onChange={handleRecipientAddressChange}
             />
             <AmountToSend
               text={standard.amount.text}
@@ -98,6 +111,8 @@ export const StandardOptimism: React.FC = () => {
               error={standard.amount.error}
               isButtonEnabled={handleButtonState}
               placeholder={standard.amount.placeholder}
+              value={amount}
+              onChange={handleAmountChange}
             />
           </Container>
           <Divider variant="horizontal" />

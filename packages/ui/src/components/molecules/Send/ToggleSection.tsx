@@ -1,6 +1,7 @@
 import React from 'react';
-import { useToggle } from '../../hooks';
+
 import { Container, Flex, LangDisplay, Toggle, Typography } from '../../atoms';
+import { useToggle } from '../../hooks';
 
 interface ToggleSectionProps {
   single: any;

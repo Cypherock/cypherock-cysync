@@ -12,6 +12,8 @@ import React, {
   useState,
 } from 'react';
 
+import { selectLanguage, useAppSelector } from '~/store';
+
 import {
   SelectSend,
   DeniedOnDevice,
@@ -28,7 +30,6 @@ import {
   SummaryOptimism,
   OptimismVerify,
 } from '../Dialogs';
-import { selectLanguage, useAppSelector } from '~/store';
 
 type ITabs = {
   name: string;

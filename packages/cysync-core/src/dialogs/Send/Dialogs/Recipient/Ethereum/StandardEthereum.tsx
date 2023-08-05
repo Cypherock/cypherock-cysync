@@ -17,6 +17,7 @@ import {
   InputSection,
   RecipientAddress,
 } from '@cypherock/cysync-ui';
+import SvgEthereumIcon from '@cypherock/cysync-ui/src/assets/icons/generated/EthereumIcon';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
 import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
 import React, { useState } from 'react';
@@ -25,8 +26,6 @@ import { addKeyboardEvents, useButtonState } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../../../context';
-
-import SvgEthereumIcon from '@cypherock/cysync-ui/src/assets/icons/generated/EthereumIcon';
 
 export const Buttons: ButtonAttributes[] = [
   { id: 1, label: 'Standard' },
@@ -48,6 +47,17 @@ export const StandardEthereum: React.FC = () => {
   const button = lang.strings.buttons;
   const eth = lang.strings.send.ethereum.info.dialogBox;
   const theme = useTheme();
+
+  const [recipientAddress, setRecipientAddress] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleRecipientAddressChange = (value: string) => {
+    setRecipientAddress(value);
+  };
+
+  const handleAmountChange = (value: string) => {
+    setAmount(value);
+  };
 
   const handleButtonClick = (id: number) => {
     console.log(id);
@@ -100,6 +110,8 @@ export const StandardEthereum: React.FC = () => {
               text={eth.recipient.text}
               placeholder={eth.recipient.placeholder}
               error={eth.recipient.error}
+              value={recipientAddress}
+              onChange={handleRecipientAddressChange}
             />
             <AmountToSend
               text={eth.amount.text}
@@ -109,6 +121,8 @@ export const StandardEthereum: React.FC = () => {
               error={eth.amount.error}
               isButtonEnabled={handleButtonState}
               placeholder={eth.amount.placeholder}
+              value={amount}
+              onChange={handleAmountChange}
             />
           </Container>
           <Divider variant="horizontal" />

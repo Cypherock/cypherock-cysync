@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
+
 import { openSendDialog } from '~/actions';
-import { BitcoinTransaction } from '~/dialogs/Send/Dialogs';
+import { LoadingDialog, SendDone, SendProblem } from '~/dialogs/Send/Dialogs';
 import { useAppDispatch } from '~/store';
 
 export const Test: FC = () => {
@@ -10,5 +11,9 @@ export const Test: FC = () => {
     dispatch(openSendDialog());
   }, []);
 
-  return <BitcoinTransaction />;
+  return (
+    <>
+      <LoadingDialog />, <SendProblem />, <SendDone />
+    </>
+  );
 };

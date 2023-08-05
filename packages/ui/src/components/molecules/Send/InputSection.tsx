@@ -1,3 +1,5 @@
+import React from 'react';
+
 import SvgGoldQuestionMark from '../../../assets/icons/generated/GoldQuestionMark';
 import {
   Container,
@@ -7,7 +9,6 @@ import {
   SliderCaption,
   LangDisplay,
 } from '../../atoms';
-import React from 'react';
 import { InfoBox } from '../InfoBox';
 import { Slider } from '../Slider';
 

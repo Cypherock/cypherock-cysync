@@ -6,9 +6,11 @@ import {
   Image,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendDialog } from '../../context';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../context';
 
 export const SendProblem: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();

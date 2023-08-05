@@ -39,7 +39,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
   error = '',
   placeholder = '',
   isButtonEnabled,
-  value = '',
+  value: initialValue = '',
   onChange,
 }) => {
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
@@ -49,7 +49,14 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
     isCheckedMax,
     handleToggleMax,
     handleInputValueChange,
-  } = useAmountToSend({ coin, onChange, isButtonEnabled, throbber, value });
+    value,
+  } = useAmountToSend({
+    coin,
+    onChange,
+    isButtonEnabled,
+    throbber,
+    value: initialValue,
+  });
 
   return (
     <AmountToSendContainer>

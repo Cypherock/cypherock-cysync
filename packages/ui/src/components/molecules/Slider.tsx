@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { Image } from '../atoms';
+
 import { sliderThumbIcon } from '../../assets';
+import { Image } from '../atoms';
 import { goldenGradient } from '../utils';
 
 interface SliderProps {

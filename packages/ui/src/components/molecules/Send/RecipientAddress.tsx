@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { qrCodeIcon } from '../../../assets';
 import {
   Flex,
   Image,
@@ -8,7 +10,6 @@ import {
   Throbber,
   Typography,
 } from '../../atoms';
-import { qrCodeIcon } from '../../../assets';
 import { useRecipientAddress } from '../../hooks';
 
 interface RecipientAddressProps {
@@ -43,10 +44,11 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   const throbber = <Throbber size={15} strokeWidth={2} />;
   const image = <Image src={qrCodeIcon} alt="qr icon" width={25} height={20} />;
   const postfixIcon = isThrobberActive ? throbber : image;
-
+  console.log('Input value: ', inputValue);
   const handleChange = (val: string) => {
+    console.log('val: ', val);
     handleInputValueChange(val);
-    if (onChange) onChange(val);
+    // if (onChange) onChange(val);
   };
 
   return (

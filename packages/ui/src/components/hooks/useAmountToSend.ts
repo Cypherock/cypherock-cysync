@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+
 import { useToggle } from './useToggle';
 
 interface UseAmountToSendProps {
   coin: React.ReactNode | string;
   onChange?: (val: string) => void;
   isButtonEnabled?: (shouldActivate: boolean) => void;
-  throbber: JSX.Element;
+  throbber?: JSX.Element | undefined;
   value: string;
 }
 
@@ -16,6 +17,7 @@ export const useAmountToSend = ({
   throbber,
   value,
 }: UseAmountToSendProps) => {
+  // const [value, setValue] = useState(initialValue);
   const [coinState, setCoinState] = useState<React.ReactNode | string>(coin);
   const [textColor, setTextColor] = useState('muted');
   const [isInputChanged, setIsInputChanged] = useState(false);
@@ -23,11 +25,10 @@ export const useAmountToSend = ({
     useToggle();
 
   const handleInputValueChange = (val: string) => {
-    if (val.trim() !== '') {
-      setIsInputChanged(true);
-      setTextColor('white');
-      if (onChange) onChange(val);
-    }
+    console.log('val', val);
+    setIsInputChanged(val.trim() !== '');
+    setTextColor(val.trim() !== '' ? 'white' : 'muted');
+    if (onChange) onChange(val);
   };
 
   useEffect(() => {
@@ -60,5 +61,6 @@ export const useAmountToSend = ({
     isCheckedMax,
     handleToggleMax,
     handleInputValueChange,
+    value,
   };
 };

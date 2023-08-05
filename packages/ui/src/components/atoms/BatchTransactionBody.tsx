@@ -50,7 +50,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
   batch,
 }) => {
   const [components, setComponents] = useState<
-    Array<{ id: string; recipient: string; amount: string }>
+    { id: string; recipient: string; amount: string }[]
   >([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
