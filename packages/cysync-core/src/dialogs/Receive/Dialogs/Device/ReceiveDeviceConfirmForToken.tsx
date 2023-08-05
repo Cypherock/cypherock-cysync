@@ -103,11 +103,11 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <InformationBox
-          imagePath={
+          leftImage={
             <Image src={informationWhiteIcon} alt="Image" width={20} />
           }
           text={connect.InfoBox.text}
-          iconImagePath={<Image px={1} src={imageIcon} alt="Icon Image" />}
+          rightImage={<Image px={1} src={imageIcon} alt="Icon Image" />}
         />
       </DialogBoxBody>
     </DialogBox>

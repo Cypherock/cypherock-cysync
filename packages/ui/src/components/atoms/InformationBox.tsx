@@ -9,9 +9,9 @@ interface StyledInfoBoxProps {
 }
 
 interface InformationBoxProps extends StyledInfoBoxProps {
-  imagePath: React.ReactNode;
+  leftImage: React.ReactNode;
   text: string;
-  iconImagePath?: React.ReactNode;
+  rightImage?: React.ReactNode;
 }
 
 const InfoBox = styled.div<StyledInfoBoxProps>`
@@ -41,15 +41,15 @@ const InfoBoxPadding = styled.div`
 `;
 
 export const InformationBox: React.FC<InformationBoxProps> = ({
-  imagePath,
+  leftImage,
   text,
-  iconImagePath,
+  rightImage,
   $backgroundColor,
   $borderColor,
 }) => (
   <InfoBox $backgroundColor={$backgroundColor} $borderColor={$borderColor}>
     <InfoBoxPadding>
-      {imagePath}
+      {leftImage}
       <Typography
         variant="fineprint"
         color="muted"
@@ -57,14 +57,14 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
         $fontWeight="light"
       >
         {text}
-        {iconImagePath}
+        {rightImage}
       </Typography>
     </InfoBoxPadding>
   </InfoBox>
 );
 
 InformationBox.defaultProps = {
-  iconImagePath: undefined,
+  rightImage: undefined,
   $backgroundColor: undefined,
   $borderColor: undefined,
 };

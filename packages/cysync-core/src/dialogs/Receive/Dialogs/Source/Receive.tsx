@@ -195,7 +195,7 @@ export const Receive: React.FC = () => {
             searchText={receive.searchText}
             placeholderText={receive.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
-            showImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
+            leftImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
           />
           <Dropdown
             items={dropDownData}

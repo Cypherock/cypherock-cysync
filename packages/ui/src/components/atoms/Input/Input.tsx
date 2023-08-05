@@ -22,7 +22,7 @@ export interface InputProps {
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  showImage?: React.ReactNode;
+  leftImage?: React.ReactNode;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -77,7 +77,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         pasteAllowed = true,
         copyAllowed = true,
         onKeyDown = undefined,
-        showImage,
+        leftImage,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -88,7 +88,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
           </InputLabel>
         )}
         <InputWrapper>
-          {showImage}
+          {leftImage}
           <InputStyle
             ref={ref}
             name={name}
@@ -141,7 +141,7 @@ Input.defaultProps = {
   pasteAllowed: true,
   copyAllowed: true,
   onKeyDown: undefined,
-  showImage: undefined,
+  leftImage: undefined,
 };
 
 Input.displayName = 'Input';

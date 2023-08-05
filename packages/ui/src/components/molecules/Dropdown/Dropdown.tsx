@@ -31,7 +31,7 @@ interface DropdownProps {
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
-  showImage?: React.ReactNode;
+  leftImage?: React.ReactNode;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -42,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   selectedItem = undefined,
   onChange,
   disabled = false,
-  showImage,
+  leftImage,
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -171,7 +171,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           aria-activedescendant={
             focusedIndex !== null ? `dropdown-item-${focusedIndex}` : undefined
           }
-          showImage={showImage}
+          leftImage={leftImage}
         />
       )}
       <IconContainer>
@@ -230,5 +230,5 @@ export const Dropdown: React.FC<DropdownProps> = ({
 Dropdown.defaultProps = {
   disabled: false,
   shouldShowIcon: false,
-  showImage: undefined,
+  leftImage: undefined,
 };
