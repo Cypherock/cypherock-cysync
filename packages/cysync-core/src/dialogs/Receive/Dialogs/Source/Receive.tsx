@@ -15,12 +15,12 @@ import {
   Image,
 } from '@cypherock/cysync-ui';
 import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
+import SvgArrowReceivedIcon from '@cypherock/cysync-ui/src/assets/icons/generated/ArrowReceivedIcon';
 import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
-import SvgArrowReceivedIcon from '@cypherock/cysync-ui/src/assets/icons/generated/ArrowReceivedIcon';
 
 const dropDownData: DropDownListItemProps[] = [
   {

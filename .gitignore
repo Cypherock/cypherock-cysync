@@ -11,3 +11,5 @@ node_modules
 .pnpm-store
 .DS_Store
 .turbo
+coverage
+.nyc_output

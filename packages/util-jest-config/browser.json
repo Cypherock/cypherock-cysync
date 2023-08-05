@@ -5,6 +5,7 @@
     "!src/**/*.test.ts",
     "!src/**/__fixtures__/*"
   ],
+  "coverageReporters": ["json", "lcov"],
   "testTimeout": 500,
   "preset": "ts-jest",
   "transform": {

@@ -24,12 +24,12 @@ import {
   ReceiveDeviceConfirmTroubleShoot,
   ReceiveDeviceConnection,
 } from '../Dialogs/Device';
+import { ReceiveDeviceTroubleshoot } from '../Dialogs/Device/ReceiveDeviceTroubleshoot';
 import {
   ReceiveAddressNotVerified,
   ReceiveAddressVerified,
   ReceiveVerifyAddress,
 } from '../Dialogs/Receive';
-import { ReceiveDeviceTroubleshoot } from '../Dialogs/Device/ReceiveDeviceTroubleshoot';
 
 type ITabs = {
   name: string;
