@@ -4,6 +4,7 @@ import {
   IReceiveEvent,
   IReceiveParams,
 } from '@cypherock/coin-support-interfaces';
+import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -23,5 +24,9 @@ export class EvmSupport implements CoinSupport {
 
   public syncAccounts(): Observable<void> {
     throw new Error('Not implemented');
+  }
+
+  public static setEthersLibrary(ethers: ethersLibType): void {
+    setEthersLib(ethers);
   }
 }
