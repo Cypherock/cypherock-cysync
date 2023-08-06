@@ -11,12 +11,14 @@ import React from 'react';
 
 export interface DeviceUpdateLoadingProps {
   text: string;
+  $isModal?: boolean;
 }
 
 export const DeviceUpdateLoading: React.FC<DeviceUpdateLoadingProps> = ({
   text,
+  $isModal,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox width={500} $isModal={$isModal}>
     <DialogBoxBody>
       <Container display="flex" direction="column" gap={34}>
         <Image src={loaderIcon} alt="loader" animate="spin" $animDuration={3} />
@@ -27,3 +29,7 @@ export const DeviceUpdateLoading: React.FC<DeviceUpdateLoadingProps> = ({
     </DialogBoxBody>
   </DialogBox>
 );
+
+DeviceUpdateLoading.defaultProps = {
+  $isModal: false,
+};

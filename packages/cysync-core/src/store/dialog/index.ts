@@ -22,9 +22,12 @@ const initialState: IDialogState = {
   addAccount: {
     isOpen: false,
   },
+  updateDevice: {
+    isOpen: true,
+  },
   receiveDialog: {
     isOpen: false,
-  },
+  }
 };
 
 export const dialogSlice = createSlice({

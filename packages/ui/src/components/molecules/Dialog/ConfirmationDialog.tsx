@@ -11,6 +11,7 @@ interface ConfirmationDialogProps {
   icon: ReactNode;
   handleClick?: () => void;
   textVariables?: object;
+  $isModal?: boolean;
 }
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
@@ -20,8 +21,9 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   buttonText,
   handleClick,
   textVariables,
+  $isModal,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox width={500} $isModal={$isModal}>
     <DialogBoxBody>
       {icon}
       <Container display="flex" direction="column" gap={4}>
@@ -47,4 +49,5 @@ ConfirmationDialog.defaultProps = {
   buttonText: undefined,
   handleClick: undefined,
   textVariables: undefined,
+  $isModal: false,
 };

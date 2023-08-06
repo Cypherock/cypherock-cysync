@@ -12,5 +12,8 @@ export const openGuidedFlowDialog = (type: GuidedFlowType) =>
 export const openAddAccountDialog = () =>
   openDialog({ name: 'addAccount', data: undefined });
 
+export const openUpdateDeviceDialog = () =>
+  openDialog({ name: 'updateDevice', data: undefined });
+
 export const openReceiveDialog = () =>
   openDialog({ name: 'receiveDialog', data: undefined });

@@ -20,6 +20,7 @@ export interface SuccessDialogProps {
   alertText?: string;
   handleClick?: () => void;
   handleSecButtonClick?: () => void;
+  $isModal?: boolean;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -31,8 +32,9 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   alertText,
   handleClick,
   handleSecButtonClick,
+  $isModal,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox width={500} $isModal={$isModal}>
     {headerText && (
       <DialogBoxHeader height={56} width={500}>
         <Typography variant="fineprint" width="100%" color="muted">
@@ -78,4 +80,5 @@ SuccessDialog.defaultProps = {
   handleSecButtonClick: undefined,
   alertText: undefined,
   headerText: undefined,
+  $isModal: false,
 };

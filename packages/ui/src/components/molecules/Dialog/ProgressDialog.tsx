@@ -12,6 +12,7 @@ interface ProgressDialogProps {
   progress: number;
   versionText?: string;
   versionTextVaribles?: object;
+  $isModal?: boolean;
 }
 
 export const ProgressDialog: FC<ProgressDialogProps> = ({
@@ -21,8 +22,9 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
   progress,
   versionText,
   versionTextVaribles,
+  $isModal,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox width={500} $isModal={$isModal}>
     <DialogBoxBody pb={8}>
       {icon}
       <Container display="flex" direction="column" gap={4}>
@@ -45,4 +47,5 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
 ProgressDialog.defaultProps = {
   versionText: undefined,
   versionTextVaribles: undefined,
+  $isModal: false,
 };
