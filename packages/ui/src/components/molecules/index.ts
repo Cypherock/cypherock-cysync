@@ -23,6 +23,7 @@ export * from './SideBar';
 export * from './Tabs';
 export * from './Slider';
 export * from './ButtonGroup';
+export * from './Dropdown';
 export * from './MessageBox';
 export * from './InfoBox';
 export * from './SummaryBox';
