@@ -2,19 +2,23 @@
 /* eslint-disable react/jsx-key */
 import React, {
   Context,
-  Dispatch,
   FC,
   ReactNode,
-  SetStateAction,
   createContext,
   useContext,
   useMemo,
-  useState,
 } from 'react';
+
+import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import {
   SelectSend,
-  DeniedOnDevice,
   LoadingDialog,
   StandardEthereum,
   StandardOptimism,
@@ -27,8 +31,8 @@ import {
   SendDone,
   SummaryOptimism,
   OptimismVerify,
+  SendDeviceConfirmation,
 } from '../Dialogs';
-import { selectLanguage, useAppSelector } from '~/store';
 
 type ITabs = {
   name: string;
@@ -37,12 +41,11 @@ type ITabs = {
 
 export interface SendDialogContextInterface {
   tabs: ITabs;
-  currentTab: number;
-  setCurrentTab: Dispatch<SetStateAction<number>>;
-  currentDialog: number;
-  setCurrentDialog: Dispatch<SetStateAction<number>>;
   onNext: (tab?: number, dialog?: number) => void;
+  goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
+  currentTab: number;
+  currentDialog: number;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -55,10 +58,11 @@ export interface SendDialogContextProviderProps {
 export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   children,
 }) => {
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [currentDialog, setCurrentDialog] = useState<number>(0);
-
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
+    1: [0],
+  };
 
   const tabs: ITabs = [
     {
@@ -68,7 +72,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     {
       name: lang.strings.send.aside.tabs.recipient,
       dialogs: [
-        <DeniedOnDevice />,
         <BitcoinTransaction />,
         <StandardEthereum />,
         <StandardOptimism />,
@@ -77,14 +80,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     {
       name: lang.strings.send.aside.tabs.summary,
       dialogs: [
+        <SummaryOptimism />,
         <SummaryDialog />,
         <SummaryScrollDialog />,
-        <SummaryOptimism />,
       ],
     },
     {
       name: lang.strings.send.aside.tabs.x1vault,
-      dialogs: [<SendConfirmToken />, <OptimismVerify />, <ConnectDevice />],
+      dialogs: [
+        <OptimismVerify />,
+        <ConnectDevice />,
+        <SendConfirmToken />,
+        <SendDeviceConfirmation />,
+      ],
     },
     {
       name: lang.strings.send.aside.tabs.confirm,
@@ -92,53 +100,42 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     },
   ];
 
-  const onNext = (tab?: number, dialog?: number) => {
-    if (typeof tab === 'number' && typeof dialog === 'number') {
-      setCurrentTab(tab);
-      setCurrentDialog(dialog);
-    } else if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      setCurrentTab(prevProps => Math.min(tabs.length - 1, prevProps + 1));
-      if (currentTab !== tabs.length - 1) {
-        setCurrentDialog(0);
-      }
-    } else {
-      setCurrentDialog(prevProps =>
-        Math.min(tabs[currentTab].dialogs.length - 1, prevProps + 1),
-      );
-    }
+  const onClose = () => {
+    dispatch(closeDialog('sendDialog'));
   };
 
-  const onPrevious = () => {
-    if (currentDialog - 1 < 0) {
-      if (currentTab === 0) {
-        setCurrentDialog(0);
-      } else {
-        setCurrentDialog(tabs[currentTab - 1].dialogs.length - 1);
-        setCurrentTab(prevProps => Math.max(0, prevProps - 1));
-      }
-    } else {
-      setCurrentDialog(prevProps => Math.max(0, prevProps - 1));
-    }
-  };
+  const {
+    onNext,
+    onPrevious,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+  } = useTabsAndDialogs({
+    deviceRequiredDialogsMap,
+    tabs,
+  });
 
   const ctx = useMemo(
     () => ({
-      currentTab,
-      setCurrentTab,
-      currentDialog,
-      setCurrentDialog,
-      tabs,
       onNext,
       onPrevious,
+      tabs,
+      goTo,
+      onClose,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
     }),
     [
-      currentTab,
-      setCurrentTab,
-      currentDialog,
-      setCurrentDialog,
-      tabs,
       onNext,
       onPrevious,
+      goTo,
+      onClose,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
+      tabs,
     ],
   );
 

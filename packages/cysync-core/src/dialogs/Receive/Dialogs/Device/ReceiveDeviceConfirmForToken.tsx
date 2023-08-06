@@ -25,7 +25,6 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmForToken.info.dialogBox;
-  const imageIcon = questionMarkGoldIcon;
   const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
@@ -95,9 +94,13 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <InformationBox
-          imagePath={informationWhiteIcon}
+          leftImage={
+            <Image src={informationWhiteIcon} alt="question mark icon" />
+          }
           text={connect.InfoBox.text}
-          iconImagePath={imageIcon}
+          rightImage={
+            <Image src={questionMarkGoldIcon} alt="question mark icon" />
+          }
         />
       </DialogBoxBody>
     </DialogBox>

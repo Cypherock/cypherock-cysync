@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { goldenGradient, utils } from '../utils';
+
 import { Typography } from '../atoms';
+import { goldenGradient, utils } from '../utils';
 
 interface Tab {
   label: string;

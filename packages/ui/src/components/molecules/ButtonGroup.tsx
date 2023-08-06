@@ -50,8 +50,8 @@ export interface ButtonAttributes {
 
 interface PillButtonGroupProps {
   buttons: ButtonAttributes[];
-  activeButtonId: number; // Active button index provided from parent component
-  onButtonClick: (index: number) => void; // Callback function to handle button clicks in parent component
+  activeButtonId: number;
+  onButtonClick: (index: number) => void;
 }
 
 export const ButtonGroup: React.FC<PillButtonGroupProps> = ({
@@ -64,12 +64,10 @@ export const ButtonGroup: React.FC<PillButtonGroupProps> = ({
       <PillButton
         key={id}
         $active={activeButtonId === id}
-        onClick={() => onButtonClick(id)} // Call the callback function with the button id
+        onClick={() => onButtonClick(id)}
       >
         {label}
       </PillButton>
     ))}
   </ButtonGroupContainer>
 );
-
-export default ButtonGroup;

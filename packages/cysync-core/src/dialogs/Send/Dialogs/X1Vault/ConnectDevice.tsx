@@ -1,8 +1,10 @@
 import { disconnectedIcon, IconDialogBox, Image } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
-import { useSendDialog } from '../../context';
+
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../context';
 
 export const ConnectDevice: FC = () => {
   const { onNext, onPrevious } = useSendDialog();

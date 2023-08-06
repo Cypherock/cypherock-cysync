@@ -1,7 +1,15 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
+
 import { openSendDialog } from '~/actions';
-import { SelectSend } from '~/dialogs/Send/Dialogs';
+import {
+  BitcoinTransaction,
+  OptimismVerify,
+  SendConfirmToken,
+  SendDeviceConfirmation,
+  SendDone,
+  StandardEthereum,
+  StandardOptimism,
+} from '~/dialogs/Send/Dialogs';
 import { useAppDispatch } from '~/store';
 
 export const Test: FC = () => {
@@ -12,15 +20,20 @@ export const Test: FC = () => {
   }, []);
 
   return (
-    <Container height="screen" display="flex">
-      {/* <SideBar /> */}
-      <Flex direction="column" grow={1} $alignSelf="start">
-        {/* <Topbar />
-        <AssetAllocation /> */}
-        {/* <Receive /> */}
-        {/* HERLLO */}
-        <SelectSend />
-      </Flex>
-    </Container>
+    <>
+      {/* <SelectSend />, */}
+      {/* <DeniedOnDevice />, */}
+      <BitcoinTransaction />,
+      <StandardEthereum />,
+      <StandardOptimism />,{/* <SummaryDialog />, */}
+      {/* <SummaryScrollDialog />, */}
+      {/* <SummaryOptimism />, */}
+      <SendDeviceConfirmation />,
+      <SendConfirmToken />,
+      <OptimismVerify />,{/* <ConnectDevice /> */}
+      {/* <LoadingDialog />,  */}
+      {/* <SendProblem />, */}
+      <SendDone />
+    </>
   );
 };

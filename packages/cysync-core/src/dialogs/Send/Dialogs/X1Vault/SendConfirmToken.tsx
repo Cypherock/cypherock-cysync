@@ -11,49 +11,52 @@ import {
   arrowGoldenForward,
   MessageBox,
   checkIcon,
-  halfLoaderGold,
+  Throbber,
+  tetherIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
+
 import { addKeyboardEvents } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { useSendDialog } from '../../context';
 
 const dataArray = [
   {
     id: '1',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Verify',
     altText: 'Tether',
-    rightImage: checkIcon,
+    image: <Image src={tetherIcon} alt="tether icon" />,
+    rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
   },
   {
     id: '2',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Verify Recipient Address',
-    rightImage: checkIcon,
+    rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
   },
   {
     id: '3',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Verify Amount:',
     altText: '0.0166864199 USDT',
-    rightImage: halfLoaderGold,
-    animate: true,
+    rightImage: <Throbber size={15} strokeWidth={2} />,
   },
   {
     id: '4',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Verify fees:',
     altText: '0.00035448 ETH',
   },
   {
     id: '5',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Enter passphrase',
   },
   {
     id: '6',
-    leftImage: arrowGoldenForward,
+    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Enter PIN and tap any one X1 Card',
   },
 ];
@@ -74,7 +77,7 @@ export const SendConfirmToken: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyAmountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
@@ -89,6 +92,7 @@ export const SendConfirmToken: React.FC = () => {
               leftImage={data.leftImage}
               rightImage={data.rightImage}
               text={data.text}
+              image={data.image}
               altText={data.altText}
               id={data.id}
             />

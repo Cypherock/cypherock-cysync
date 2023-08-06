@@ -14,10 +14,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { useCloseDialogBox } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
-import { useCloseDialogBox } from '~/hooks';
 
 export const ReceiveAddressVerified: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

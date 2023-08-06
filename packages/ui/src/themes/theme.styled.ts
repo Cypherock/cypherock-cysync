@@ -76,6 +76,7 @@ export const theme = {
       sidebar: colors.background.sidebar,
       slider: colors.background.slider,
       warning: colors.background.warning,
+      batchTransactionBody: colors.background.batchTransactionBody,
     },
     border: {
       popup: colors.border.popup,
@@ -83,6 +84,7 @@ export const theme = {
       info: colors.info.main,
       separator: colors.background.separator,
       warning: colors.border.warning,
+      error: colors.border.error,
       bar: colors.border.bar,
       white: colors.border.white,
       table: {
