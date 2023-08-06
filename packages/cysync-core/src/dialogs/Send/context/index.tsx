@@ -9,7 +9,7 @@ import React, {
   useMemo,
 } from 'react';
 
-import { useTabsAndDialogs } from '~/hooks/useTabsAndDialog';
+import { useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
   selectLanguage,

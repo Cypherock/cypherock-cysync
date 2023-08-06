@@ -14,7 +14,6 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { useCloseDialogBox } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
@@ -24,8 +23,7 @@ export const ReceiveAddressVerified: React.FC = () => {
 
   const connect = lang.strings.receive.deviceAddressVerified.info.dialogBox;
   const { buttons } = lang.strings;
-  const { goTo } = useReceiveDialog();
-  const closeDialogBox = useCloseDialogBox();
+  const { goTo, onClose } = useReceiveDialog();
 
   const handleVerificationAgain = () => {
     goTo(1, 0);
@@ -49,17 +47,14 @@ export const ReceiveAddressVerified: React.FC = () => {
           justify="flex-start"
         >
           <InputLabel my={0}>{connect.label}</InputLabel>
-          <CopyContainer link={connect.address} />
+          <CopyContainer link={connect.address} variant="gold" />
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={handleVerificationAgain}>
-          {connect.buttonVerify}
+          {buttons.reverify}
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => closeDialogBox('receiveDialog')}
-        >
+        <Button variant="primary" onClick={onClose}>
           {buttons.done}
         </Button>
       </DialogBoxFooter>

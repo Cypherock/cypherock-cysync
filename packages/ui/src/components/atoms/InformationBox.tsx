@@ -58,8 +58,6 @@ export const InformationBox: React.FC<InformationBoxProps> = ({
       >
         {text}
         {rightImage}
-        {/* <ImageWrap>
-        </ImageWrap> */}
       </Typography>
     </InfoBoxPadding>
   </InfoBox>

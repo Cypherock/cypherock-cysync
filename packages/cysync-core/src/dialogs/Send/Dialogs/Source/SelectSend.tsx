@@ -25,7 +25,7 @@ import { useSendDialog } from '../../context';
 const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
-    leftImage: bitcoinIcon,
+    leftImage: <Image src={bitcoinIcon} alt="bitcoin icon" />,
     shortForm: '(ETH)',
     text: 'Ethereum 1',
     checkType: 'radio',
@@ -33,7 +33,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '143',
-    leftImage: solanaIcon,
+    leftImage: <Image src={solanaIcon} alt="solana icon" />,
     shortForm: '(DAI)',
     text: 'DAI Stable Coin v2',
     checkType: 'radio',
@@ -42,7 +42,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '144',
-    leftImage: binanceIcon,
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
     shortForm: '(USDC)',
     text: 'USD COIN',
     checkType: 'radio',
@@ -51,7 +51,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '42',
-    leftImage: solanaIcon,
+    leftImage: <Image src={solanaIcon} alt="solana icon" />,
     shortForm: '(SOL)',
     text: 'Solana 1',
     checkType: 'radio',
@@ -59,7 +59,7 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '43',
-    leftImage: etheriumBlueIcon,
+    leftImage: <Image src={etheriumBlueIcon} alt="etheriumBlue icon" />,
     text: 'Bitcoin 1',
     shortForm: '(BTC)',
     tag: 'Taproot',
@@ -68,37 +68,62 @@ const dropDownData: DropDownListItemProps[] = [
   },
   {
     id: '44',
-    leftImage: binanceIcon,
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
+  {
+    id: '46',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
+  {
+    id: '47',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
+    shortForm: '(BNB)',
+    text: 'Binance Smart Chain 1',
+    rightText: '0.234 BNB',
+    checkType: 'radio',
+  },
+  {
+    id: '48',
+    leftImage: <Image src={binanceIcon} alt="binance icon" />,
     shortForm: '(BNB)',
     text: 'Binance Smart Chain 1',
     rightText: '0.234 BNB',
     checkType: 'radio',
   },
 ];
+
 const dropDownDataWithWallet: DropDownListItemProps[] = [
   {
     id: '51',
     text: 'Official',
     checkType: 'radio',
-    leftImage: walletIcon,
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
   },
   {
     id: '52',
     text: 'Cypherock Red',
     checkType: 'radio',
-    leftImage: walletIcon,
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
   },
   {
     id: '53',
     text: 'Personal',
     checkType: 'radio',
-    leftImage: walletIcon,
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
   },
   {
     id: '54',
     text: 'Business',
     checkType: 'radio',
-    leftImage: walletIcon,
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
   },
 ];
 
@@ -161,6 +186,7 @@ export const SelectSend: React.FC = () => {
             searchText={select.searchText}
             placeholderText={select.placeholderWalletText}
             onChange={handleFirstDropdownSelectionChange}
+            leftImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
           />
           <Dropdown
             items={dropDownData}
