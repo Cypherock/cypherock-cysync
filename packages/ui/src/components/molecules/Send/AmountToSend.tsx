@@ -83,8 +83,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           onChange={handleInputValueChange}
           $error={error === ''}
         />
-        <SvgDoubleArrow height={22} width={22} />
-        !{' '}
+        <SvgDoubleArrow height={22} width={22} />{' '}
         <Input
           type="text"
           name="address"

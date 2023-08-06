@@ -68,12 +68,14 @@ import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 import tetherIcon from './tether.svg';
+import triangleGreyIcon from './triangleGrey.svg';
 
 export {
   addWalletIcon,
   walletIcon,
   tetherIcon,
   sliderThumbIcon,
+  triangleGreyIcon,
   informationOrangeIcon,
   qrcodeIcon,
   questionMarkGoldIcon,

@@ -26,6 +26,7 @@ export interface InputProps {
   postfixText?: string;
   $textColor?: string;
   $error?: boolean;
+  leftImage?: React.ReactNode;
 }
 
 const InputStyle = styled.input<{
@@ -43,7 +44,7 @@ const InputStyle = styled.input<{
     $bgColor ?? theme.palette.background.separatorSecondary};
   border: 1px solid
     ${({ theme, $error }) =>
-      $error ? theme.palette.border.error : theme.palette.background.separator};
+      $error ? theme.palette.border.error : 'transparent'};
   border-radius: 8px;
   color: ${({ $textColor = 'muted', theme }) => theme.palette.text[$textColor]};
   &:focus-visible {
@@ -54,6 +55,12 @@ const InputStyle = styled.input<{
 const InputWrapper = styled.div`
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.palette.background.separatorSecondary};
+  border: 1px solid ${({ theme }) => theme.palette.background.separator};
 `;
 
 const PostfixIconStyle = styled.div`
@@ -84,6 +91,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         $error = false,
+        leftImage,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -94,6 +102,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
           </InputLabel>
         )}
         <InputWrapper>
+          {leftImage}
           <InputStyle
             ref={ref}
             name={name}
@@ -158,6 +167,7 @@ Input.defaultProps = {
   onKeyDown: undefined,
   $textColor: 'muted',
   $error: false,
+  leftImage: undefined,
 };
 
 Input.displayName = 'Input';

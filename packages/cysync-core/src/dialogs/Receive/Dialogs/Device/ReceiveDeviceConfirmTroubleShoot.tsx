@@ -27,23 +27,31 @@ export const ReceiveDeviceConfirmTroubleShoot: React.FC = () => {
   const dataArray = [
     {
       id: '1',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Fetching a new address from the wallet',
-      rightImage: checkIcon,
+      rightImage: <Image src={checkIcon} alt="check icon" />,
     },
     {
       id: '2',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Verify the account on the device',
     },
     {
       id: '3',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Enter passphrase',
     },
     {
       id: '4',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Enter the PIN and tap any card',
     },
   ];
