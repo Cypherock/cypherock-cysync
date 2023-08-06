@@ -71,7 +71,7 @@ const TableHeaderStyle = styled.div`
   align-items: flex-start;
   align-self: flex-start;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.palette.background.toggleActive};
+  background-color: ${({ theme }) => theme.palette.background.input};
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.row};
   ${flex}
   ${width}
