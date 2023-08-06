@@ -25,3 +25,4 @@ export * from './VerticalLine';
 export * from './SliderCaption';
 export * from './SummaryContainer';
 export * from './Throbber';
+export * from './SearchBar';

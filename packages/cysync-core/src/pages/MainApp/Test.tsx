@@ -1,8 +1,23 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
+import {
+  Container,
+  Flex,
+  SearchBar,
+  Table,
+  TableHeader,
+  Typography,
+} from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
+import { styled } from 'styled-components';
 import { openSendDialog } from '~/actions';
-import { SelectSend } from '~/dialogs/Send/Dialogs';
 import { useAppDispatch } from '~/store';
+
+const TableHeaderDataStyle = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 16px 40px;
+`;
 
 export const Test: FC = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +34,14 @@ export const Test: FC = () => {
         <AssetAllocation /> */}
         {/* <Receive /> */}
         {/* HERLLO */}
-        <SelectSend />
+        <Table width="full">
+          <SearchBar placeholder="Search" />
+          <TableHeader width="full">
+            <TableHeaderDataStyle>
+              <Typography variant="span">Monday, 16th July 2023</Typography>
+            </TableHeaderDataStyle>
+          </TableHeader>
+        </Table>
       </Flex>
     </Container>
   );
