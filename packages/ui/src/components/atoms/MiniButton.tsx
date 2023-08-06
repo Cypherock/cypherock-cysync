@@ -20,7 +20,7 @@ const MiniButtonWrapper = styled.div`
   margin-right: 5px;
   font-size: 12px;
   font-weight: bold;
-  color: #000; /* Set the shape color to black */
+  color: ${({ theme }) => theme.palette.background.black};
 `;
 
 export const MiniButton: React.FC<MiniButtonProps> = ({

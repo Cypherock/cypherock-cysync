@@ -10,8 +10,6 @@ export const useRecipientAddress = (
   const [isThrobberActive, setThrobberActive] = useState(false);
 
   const handleInputValueChange = (val: string) => {
-    console.log('Inside hook value: ', val);
-    console.log('onChange: ', onChange);
     if (val.trim() === 'hello') {
       setShowError(true);
     } else {
@@ -30,12 +28,6 @@ export const useRecipientAddress = (
   useEffect(() => {
     if (isInputChanged) {
       setThrobberActive(true);
-      console.log(
-        'useEffect isInputChanged: ',
-        isInputChanged,
-        ', ',
-        localValue,
-      );
       setTimeout(() => {
         setThrobberActive(false);
       }, 2000);
@@ -46,16 +38,11 @@ export const useRecipientAddress = (
 
   useEffect(() => {
     if (value !== undefined) {
-      console.log('useffect value: ', value);
       setLocalValue(value);
     }
   }, [value]);
 
   const inputValue = value !== undefined ? value : localValue;
-  useEffect(() => {
-    console.log('Input value changed:', inputValue);
-  }, [inputValue]);
 
-  console.log('final input value ', value, inputValue);
   return { inputValue, isThrobberActive, handleInputValueChange, showError };
 };

@@ -60,7 +60,6 @@ export const StandardEthereum: React.FC = () => {
   };
 
   const handleButtonClick = (id: number) => {
-    console.log(id);
     setActiveButtonId(id);
   };
 
@@ -141,12 +140,6 @@ export const StandardEthereum: React.FC = () => {
             error={eth.fees.error}
             gas
           />
-
-          {/* { activeButtonId === 2 && 
-            <ToggleSection 
-              single={eth} 
-              error={eth.fees.error} />
-          } */}
 
           <FeesDisplay
             fees={eth.fees}

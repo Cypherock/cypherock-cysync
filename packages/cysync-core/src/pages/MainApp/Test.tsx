@@ -21,18 +21,12 @@ export const Test: FC = () => {
 
   return (
     <>
-      {/* <SelectSend />, */}
-      {/* <DeniedOnDevice />, */}
       <BitcoinTransaction />,
       <StandardEthereum />,
-      <StandardOptimism />,{/* <SummaryDialog />, */}
-      {/* <SummaryScrollDialog />, */}
-      {/* <SummaryOptimism />, */}
+      <StandardOptimism />,
       <SendDeviceConfirmation />,
       <SendConfirmToken />,
-      <OptimismVerify />,{/* <ConnectDevice /> */}
-      {/* <LoadingDialog />,  */}
-      {/* <SendProblem />, */}
+      <OptimismVerify />,
       <SendDone />
     </>
   );

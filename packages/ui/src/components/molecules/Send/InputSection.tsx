@@ -33,9 +33,6 @@ export const InputSection: React.FC<InputSectionProps> = ({
 }) => (
   <>
     <Container display="flex" direction="column" gap={16} width="full">
-      {/* <Flex justify="flex-end" align="center" width="full">
-            {activeButtonId === 1 && <InfoBox text={single.message} />}
-          </Flex> */}
       <Flex justify="space-between" align="center" width="full">
         {gas && (
           <Flex align="center" gap={8}>
