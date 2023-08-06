@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { Image } from '../atoms';
+
 import { sliderThumbIcon } from '../../assets';
+import { Image } from '../atoms';
 import { goldenGradient } from '../utils';
 
 interface SliderProps {
@@ -81,7 +82,7 @@ export const Slider: React.FC<SliderProps> = ({
       ((event.clientX - containerRect.left) / containerRect.width) *
         (max - min) +
       min;
-    newValue = Math.max(Math.min(newValue, max), min); // Ensure newValue is within [min, max]
+    newValue = Math.max(Math.min(newValue, max), min);
 
     setValue(newValue);
     onChange(Math.round(newValue));

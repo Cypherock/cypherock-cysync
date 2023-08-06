@@ -9,9 +9,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { ReceiveDialogProvider, useReceiveDialog } from './context';
 import { useCloseDialogBox } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { ReceiveDialogProvider, useReceiveDialog } from './context';
 
 export const Receive: FC = () => {
   const { tabs, currentTab, currentDialog } = useReceiveDialog();

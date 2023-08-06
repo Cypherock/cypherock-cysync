@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
@@ -10,11 +10,8 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
-  Image,
-  Flex,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
-import { Throbber } from '../atoms/Throbber';
 
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
@@ -22,8 +19,6 @@ export interface LeanBoxProps extends UtilsProps {
   rightText?: string;
   tag?: string;
   text: string;
-  altText?: string;
-  fontSize?: number;
   shortForm?: string;
   rightTextColor?: TypographyColor;
   textVariant?: TypographyProps['variant'];
@@ -35,7 +30,6 @@ export interface LeanBoxProps extends UtilsProps {
   onCheckChanged?: ($isChecked: boolean) => void;
   disabled?: boolean;
   value?: string;
-  throbber?: boolean;
   [key: string]: any;
 }
 
@@ -54,9 +48,9 @@ export const HorizontalBox = styled.div<{
     $isChecked
       ? theme.palette.background.list
       : theme.palette.background.input};
+  ${spacing};
   width: 100%;
   ${({ $checkType }) => $checkType && 'cursor: pointer'};
-  ${spacing};
 `;
 
 export const ImageContainer = styled.div<{ gap?: number }>`
@@ -65,12 +59,22 @@ export const ImageContainer = styled.div<{ gap?: number }>`
   gap: ${props => (props.gap ? `${props.gap}px` : '0')};
 `;
 
+export const ContainerWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 export const StretchedTypography = styled(Typography)<{
-  $shouldStretch: boolean;
-  fontSize?: number;
+  $shouldStretch?: boolean;
+  $fontSize?: number;
 }>`
   flex: ${({ $shouldStretch }) => ($shouldStretch ? '1' : 'unset')};
-  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : 'inherit')};
+  ${({ $fontSize }) =>
+    $fontSize &&
+    css`
+      font-size: ${$fontSize}px;
+    `}
 `;
 
 export const RightContent = styled.div`
@@ -83,11 +87,10 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImage,
   rightImage,
+  image,
   rightText,
   shortForm = '',
   text,
-  altText,
-  fontSize = 16,
   tag,
   textVariant = 'fineprint',
   rightTextVariant = 'fineprint',
@@ -96,10 +99,11 @@ export const LeanBox: FC<LeanBoxProps> = ({
   checkType = undefined,
   id,
   $isChecked = false,
-  throbber = false,
   onCheckChanged,
   value,
   disabled,
+  altText,
+  fontSize,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -142,27 +146,27 @@ export const LeanBox: FC<LeanBoxProps> = ({
             onChange={handleCheckChange}
           />
         )}
-        {leftImage && (
-          <ImageContainer>
-            <Image src={leftImage as string} alt="image" />
-          </ImageContainer>
-        )}
-        <StretchedTypography
-          $shouldStretch={!tag}
-          variant={textVariant}
-          color={color}
-          fontSize={fontSize}
-        >
-          <Flex align="center" gap={5}>
+        {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
+        <ContainerWrap>
+          <StretchedTypography
+            $shouldStretch={!tag}
+            variant={textVariant}
+            color={color}
+            $fontSize={fontSize}
+          >
             {text}
-            {altText && (
-              <Typography $fontSize={fontSize} variant="span">
-                <LangDisplay text={altText} />
-              </Typography>
-            )}
-          </Flex>
-        </StretchedTypography>
-
+          </StretchedTypography>
+          {image && image}
+          {altText && (
+            <StretchedTypography
+              variant={textVariant}
+              color="white"
+              $fontSize={fontSize}
+            >
+              {altText}
+            </StretchedTypography>
+          )}
+        </ContainerWrap>
         {shortForm && (
           <Typography $fontSize={13} $fontWeight="medium" color="muted">
             <LangDisplay text={shortForm} />
@@ -170,22 +174,17 @@ export const LeanBox: FC<LeanBoxProps> = ({
         )}
         {tag && <Tag>{tag}</Tag>}
         <RightContent>
-          {throbber && <Throbber size={15} strokeWidth={2} />}
           {rightText && (
             <Typography
               variant={rightTextVariant}
               color={rightTextColor}
-              $fontSize={14}
+              $fontSize={fontSize ?? 14}
               $fontWeight="normal"
             >
               {rightText}
             </Typography>
           )}
-          {rightImage && (
-            <ImageContainer>
-              <Image src={rightImage as string} alt="image" />
-            </ImageContainer>
-          )}
+          {rightImage && <ImageContainer>{rightImage}</ImageContainer>}
           {checkType === 'checkbox' && (
             <CheckBox
               checked={$isChecked}
@@ -206,7 +205,6 @@ LeanBox.defaultProps = {
   leftImage: undefined,
   rightImage: undefined,
   rightText: undefined,
-  altText: undefined,
   rightTextColor: 'muted',
   textVariant: 'fineprint',
   rightTextVariant: 'fineprint',
@@ -217,8 +215,6 @@ LeanBox.defaultProps = {
   onCheckChanged: undefined,
   value: '',
   tag: '',
-  fontSize: 16,
   shortForm: '',
-  throbber: false,
   disabled: undefined,
 };

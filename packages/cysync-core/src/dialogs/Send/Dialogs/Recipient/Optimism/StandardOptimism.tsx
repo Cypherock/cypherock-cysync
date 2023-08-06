@@ -5,37 +5,50 @@ import {
   Button,
   DialogBoxBody,
   Typography,
-  Image,
   LeanBox,
-  informationIcon,
   Input,
-  qrCodeIcon,
   Flex,
   Container,
-  Toggle,
   Divider,
   ButtonGroup,
   MessageBox,
   InfoBox,
   Slider,
   SliderCaption,
+  useTheme,
+  AmountToSend,
+  RecipientAddress,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
-import { addKeyboardEvents, useToggle } from '~/hooks';
-import { useSendDialog } from '../../../context';
-import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
-import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import { Buttons, Captions } from '../Ethereum/StandardEthereum';
+import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
+import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
+import React, { useState } from 'react';
+
+import { addKeyboardEvents, useButtonState } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../../context';
+import { Buttons, Captions } from '../Ethereum/StandardEthereum';
 
 export const StandardOptimism: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
+  const [btnState, handleButtonState] = useButtonState();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const standard = lang.strings.send.optimism.info.dialogBox;
-  const sendMaxToggle = useToggle(false);
+  const theme = useTheme();
+
+  const [recipientAddress, setRecipientAddress] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleRecipientAddressChange = (value: string) => {
+    setRecipientAddress(value);
+  };
+
+  const handleAmountChange = (value: string) => {
+    setAmount(value);
+  };
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -69,90 +82,38 @@ export const StandardOptimism: React.FC = () => {
             <LangDisplay text={standard.subText} />
           </Typography>
           <LeanBox
-            leftImage={informationIcon}
+            leftImage={
+              <SvgInformationIcon
+                height={16}
+                width={16}
+                fill={theme.palette.background.muted}
+              />
+            }
             text={standard.InfoBox.text}
             altText={standard.InfoBox.altText}
             textVariant="span"
             fontSize={12}
-            icon={<SvgGoldQuestionMark height={14} width={14} />}
+            rightImage={<SvgGoldQuestionMark height={14} width={14} />}
           />
           <Container display="flex" direction="column" gap={8} width="full">
-            <Flex justify="space-between" align="center" width="full">
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={standard.recipient.text} />
-              </Typography>
-            </Flex>
-
-            <Input
-              type="text"
-              name="address"
+            <RecipientAddress
+              text={standard.recipient.text}
               placeholder={standard.recipient.placeholder}
-              postfixIcon={<Image src={qrCodeIcon} alt="qr icon" />}
+              error={standard.recipient.error}
+              value={recipientAddress}
+              onChange={handleRecipientAddressChange}
             />
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={standard.recipient.error} />
-            </Typography>
-            <Flex justify="space-between" align="center" width="full">
-              <Flex align="center" gap={16}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={standard.amount.text} />
-                </Typography>
-              </Flex>
-              <Flex align="center" direction="row" gap={8}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
-                  <LangDisplay text={standard.amount.toggle} />
-                </Typography>
-                <Toggle
-                  checked={sendMaxToggle.isChecked}
-                  onToggle={sendMaxToggle.handleToggleChange}
-                />
-              </Flex>
-            </Flex>
-            <Flex justify="space-between" gap={8} align="center" width="full">
-              <Input
-                type="text"
-                name="address"
-                placeholder={standard.amount.placeholder}
-                postfixIcon={standard.amount.eth}
-              />
-              <SvgDoubleArrow height={22} width={22} />
-              <Input
-                type="text"
-                name="address"
-                placeholder={standard.amount.placeholder}
-                postfixIcon={standard.amount.dollar}
-              />
-            </Flex>
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={standard.amount.error} />
-            </Typography>
+            <AmountToSend
+              text={standard.amount.text}
+              coin={standard.amount.coin}
+              toggle={standard.amount.toggle}
+              dollar={standard.amount.dollar}
+              error={standard.amount.error}
+              isButtonEnabled={handleButtonState}
+              placeholder={standard.amount.placeholder}
+              value={amount}
+              onChange={handleAmountChange}
+            />
           </Container>
           <Divider variant="horizontal" />
 
@@ -310,7 +271,7 @@ export const StandardOptimism: React.FC = () => {
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>
-        <Button variant="primary">
+        <Button variant="primary" disabled={!btnState}>
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>

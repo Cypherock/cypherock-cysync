@@ -10,7 +10,9 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
+
 import { useSendDialog } from '../../context';
 
 export const DeniedOnDevice: React.FC = () => {

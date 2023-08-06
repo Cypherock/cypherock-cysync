@@ -7,19 +7,24 @@ import {
   Image,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendDialog } from '../../context';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { useSendDialog } from '../../context';
+
 export const LoadingDialog: React.FC = () => {
-  const { onNext, onPrevious } = useSendDialog();
+  const { onPrevious, goTo } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
 
   const loading = lang.strings.send.loading.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
-      onNext();
+      goTo(4, 2);
+    },
+    ArrowDown: () => {
+      goTo(4, 1);
     },
     ArrowLeft: () => {
       onPrevious();

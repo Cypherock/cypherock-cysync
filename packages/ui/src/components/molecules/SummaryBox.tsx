@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Typography,
   Image,
@@ -73,7 +74,7 @@ interface ToItem {
   amountUsd: string;
 }
 
-export type SummaryScrollBoxProps = {
+export interface SummaryScrollBoxProps {
   fromText: string;
   fromIcon: string;
   toText: string;
@@ -87,7 +88,7 @@ export type SummaryScrollBoxProps = {
   networkFeeUsd: string;
   totalDebitEth: string;
   totalDebitUsd: string;
-};
+}
 
 const imageSrcMap: any = {
   'Ethereum 1': etheriumBlueIcon,

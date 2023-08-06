@@ -12,66 +12,58 @@ import {
   MessageBox,
   checkIcon,
   Throbber,
-  InformationBox,
-  questionMarkGoldIcon,
-  informationWhiteIcon,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useSendDialog } from '../../../context';
-import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
+import { useSendDialog } from '../../context';
 
 const dataArray = [
   {
     id: '1',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Connect Device',
+    text: 'Verify',
+    altText: 'Ethereum',
+    image: <Image src={etheriumBlueIcon} alt="tether icon" />,
     rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
   },
   {
     id: '2',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Verify',
-    image: <SvgOptimism height={16} width={15} />,
-    altText: 'Optimism',
+    text: 'Verify Recipient Address',
     rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
   },
   {
     id: '3',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Verify Recipient Address',
-    rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
+    text: 'Verify Amount:',
+    altText: '0.0166864199 USDT',
+    rightImage: <Throbber size={15} strokeWidth={2} />,
   },
   {
     id: '4',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Verify Amount:',
-    altText: '0.0166864199 ETH',
-    rightImage: <Throbber size={15} strokeWidth={2} />,
+    text: 'Verify fees:',
+    altText: '0.00035448 ETH',
   },
   {
     id: '5',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Verify fees(L2): 0.00035448 ETH',
+    text: 'Enter passphrase',
   },
   {
     id: '6',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
-    text: 'Enter passphrase',
-  },
-  {
-    id: '7',
-    leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Enter PIN and tap any one X1 Card',
   },
 ];
-export const OptimismVerify: React.FC = () => {
+export const SendDeviceConfirmation: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const confirm = lang.strings.send.confirmToken.info.dialogBox;
+  const confirm = lang.strings.send.confirmDevice.info.dialogBox;
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -85,7 +77,7 @@ export const OptimismVerify: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <DialogBox width={500}>
+    <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyAmountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
@@ -99,24 +91,14 @@ export const OptimismVerify: React.FC = () => {
               key={data.id}
               leftImage={data.leftImage}
               rightImage={data.rightImage}
-              image={data.image}
               text={data.text}
+              image={data.image}
               altText={data.altText}
               id={data.id}
             />
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          <InformationBox
-            leftImage={
-              <Image src={informationWhiteIcon} alt="question mark icon" />
-            }
-            text={confirm.infoBox.info.optimism}
-            rightImage={
-              <Image src={questionMarkGoldIcon} alt="question mark icon" />
-            }
-          />
-
           <MessageBox type="warning" text={confirm.infoBox.warning} />
         </Container>
       </DialogBoxBody>

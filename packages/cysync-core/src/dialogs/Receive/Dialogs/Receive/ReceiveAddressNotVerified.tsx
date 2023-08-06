@@ -68,7 +68,9 @@ export const ReceiveAddressNotVerified: React.FC = () => {
         </Container>
         <InformationBox
           text={connect.InfoBox.text}
-          imagePath={informationOrangeIcon}
+          leftImage={
+            <Image src={informationOrangeIcon} alt="question mark icon" />
+          }
           $backgroundColor="infoBackground"
           $borderColor="infoBoxOrange"
         />

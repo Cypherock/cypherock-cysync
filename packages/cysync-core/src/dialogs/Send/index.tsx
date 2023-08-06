@@ -15,6 +15,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+
 import { SendDialogProvider, useSendDialog } from './context';
 
 export const SendFlow: FC = () => {
@@ -30,8 +31,6 @@ export const SendFlow: FC = () => {
             milestones={tabs.map(t => t.name)}
             heading={lang.strings.send.aside.tabs.heading}
             activeTab={currentTab}
-            // currentDialog={currentDialog}
-            // totalDialogs={tabs[currentTab].dialogs.length}
           />
           <WalletDialogMainContainer>
             <Container width="full" p={2} justify="flex-end">

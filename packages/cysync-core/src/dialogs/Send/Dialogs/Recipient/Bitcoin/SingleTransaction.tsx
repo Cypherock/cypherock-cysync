@@ -1,38 +1,50 @@
 import {
-  LangDisplay,
-  Typography,
-  Image,
   LeanBox,
-  informationIcon,
-  Input,
-  qrCodeIcon,
-  Flex,
   Container,
-  Toggle,
   Divider,
-  ButtonGroup,
   MessageBox,
-  InfoBox,
-  Slider,
-  SliderCaption,
-  bitcoinIcon,
+  useTheme,
+  BitcoinIcon,
+  AmountToSend,
+  FeesDisplay,
+  FeesSection,
+  InputSection,
+  RecipientAddress,
+  ToggleSection,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
-import { addKeyboardEvents, useToggle } from '~/hooks';
-import { useSendDialog } from '../../../context';
-import SvgDoubleArrow from '@cypherock/cysync-ui/src/assets/icons/generated/DoubleArrow';
 import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import { Buttons, Captions } from '../Ethereum';
+import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
+import React, { useState } from 'react';
+
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SingleTransaction: React.FC = () => {
+import { useSendDialog } from '../../../context';
+import { Buttons, Captions } from '../Ethereum';
+
+interface SingleTransactionProps {
+  handleButtonState: (shouldActivate: boolean) => void;
+}
+
+export const SingleTransaction: React.FC<SingleTransactionProps> = ({
+  handleButtonState,
+}) => {
   const [sliderValue, setSliderValue] = useState(20);
   const [activeButtonId, setActiveButtonId] = useState(1);
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
-  const sendMaxToggle = useToggle(false);
-  const replaceToggle = useToggle(false);
-  const unconfirmedToggle = useToggle(false);
+  const theme = useTheme();
+
+  const [recipientAddress, setRecipientAddress] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleRecipientAddressChange = (value: string) => {
+    setRecipientAddress(value);
+  };
+
+  const handleAmountChange = (value: string) => {
+    setAmount(value);
+  };
 
   const handleButtonClick = (id: number) => {
     setActiveButtonId(id);
@@ -58,201 +70,64 @@ export const SingleTransaction: React.FC = () => {
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
-        leftImage={informationIcon}
+        leftImage={
+          <SvgInformationIcon
+            height={16}
+            width={16}
+            fill={theme.palette.background.muted}
+          />
+        }
         text={single.InfoBox.text}
         altText={single.InfoBox.altText}
         textVariant="span"
         fontSize={12}
-        icon={<SvgGoldQuestionMark height={14} width={14} />}
+        rightImage={<SvgGoldQuestionMark height={14} width={14} />}
       />
       <Container display="flex" direction="column" gap={8} width="full">
-        <Flex justify="space-between" align="center" width="full">
-          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
-            <LangDisplay text={single.recipient.text} />
-          </Typography>
-        </Flex>
-
-        <Input
-          type="text"
-          name="address"
+        <RecipientAddress
+          text={single.recipient.text}
           placeholder={single.recipient.placeholder}
-          postfixIcon={<Image src={qrCodeIcon} alt="qr icon" />}
+          error={single.recipient.error}
+          value={recipientAddress}
+          onChange={handleRecipientAddressChange}
         />
-        <Typography
-          variant="span"
-          width="100%"
-          color="error"
-          $alignSelf="start"
-          $fontSize={12}
-        >
-          <LangDisplay text={single.recipient.error} />
-        </Typography>
-        <Flex justify="space-between" align="center" width="full">
-          <Flex align="center" gap={16}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.amount.text} />
-            </Typography>
-          </Flex>
-          <Flex align="center" direction="row" gap={8}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
-              <LangDisplay text={single.amount.toggle} />
-            </Typography>
-            <Toggle
-              checked={sendMaxToggle.isChecked}
-              onToggle={sendMaxToggle.handleToggleChange}
-            />
-          </Flex>
-        </Flex>
-        <Flex justify="space-between" gap={8} align="center" width="full">
-          <Input
-            type="text"
-            name="address"
-            placeholder={single.amount.placeholder}
-            postfixIcon={single.amount.btc}
-          />
-          <SvgDoubleArrow height={22} width={22} />
-          <Input
-            type="text"
-            name="address"
-            placeholder={single.amount.placeholder}
-            postfixIcon={single.amount.dollar}
-          />
-        </Flex>
-        <Typography
-          variant="span"
-          width="100%"
-          color="error"
-          $alignSelf="start"
-          $fontSize={12}
-        >
-          <LangDisplay text={single.amount.error} />
-        </Typography>
+        <AmountToSend
+          text={single.amount.text}
+          coin={single.amount.coin}
+          toggle={single.amount.toggle}
+          dollar={single.amount.dollar}
+          error={single.amount.error}
+          isButtonEnabled={handleButtonState}
+          placeholder={single.amount.placeholder}
+          value={amount}
+          onChange={handleAmountChange}
+        />
       </Container>
       <Divider variant="horizontal" />
-      <Flex justify="space-between" align="center" width="full">
-        <Flex align="center" gap={8}>
-          <Typography variant="span" width="100%" $fontSize={13}>
-            <LangDisplay text={single.fees.title} />
-          </Typography>
-          <SvgGoldQuestionMark height={14} width={14} />
-        </Flex>
-        <Flex align="center" direction="row" gap={8}>
-          <ButtonGroup
-            buttons={Buttons}
-            activeButtonId={activeButtonId}
-            onButtonClick={handleButtonClick}
-          />
-        </Flex>
-      </Flex>
-      <Container display="flex" direction="column" gap={16} width="full">
-        <Flex justify="flex-end" align="center" width="full">
-          {activeButtonId === 1 && <InfoBox text={single.message} />}
-        </Flex>
 
-        {activeButtonId === 2 && (
-          <Input type="text" name="address" postfixIcon={single.inputPostfix} />
-        )}
-
-        {activeButtonId === 1 && (
-          <>
-            <Slider initialValue={sliderValue} onChange={handleSliderChange} />
-            <SliderCaption captions={Captions} />
-            <Typography
-              variant="span"
-              width="100%"
-              color="error"
-              $alignSelf="start"
-              $fontSize={12}
-            >
-              <LangDisplay text={single.fees.error} />
-            </Typography>
-          </>
-        )}
-      </Container>
+      <FeesSection
+        activeButtonId={activeButtonId}
+        handleButtonClick={handleButtonClick}
+        single={single}
+        Buttons={Buttons}
+      />
+      <InputSection
+        activeButtonId={activeButtonId}
+        single={single}
+        sliderValue={sliderValue}
+        handleSliderChange={handleSliderChange}
+        Captions={Captions}
+        error={single.fees.error}
+      />
 
       {activeButtonId === 2 && (
-        <Container display="flex" direction="column" gap={16} width="full">
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={single.toggleText.replace} />
-              </Typography>
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <Toggle
-                checked={replaceToggle.isChecked}
-                onToggle={replaceToggle.handleToggleChange}
-              />
-            </Flex>
-          </Flex>
-
-          <Flex justify="space-between" align="center" width="full">
-            <Flex align="center" gap={8}>
-              <Typography
-                variant="span"
-                width="100%"
-                color="muted"
-                $fontSize={13}
-              >
-                <LangDisplay text={single.toggleText.unconfirmed} />
-              </Typography>
-            </Flex>
-            <Flex align="center" direction="row" gap={8}>
-              <Toggle
-                checked={unconfirmedToggle.isChecked}
-                onToggle={unconfirmedToggle.handleToggleChange}
-              />
-            </Flex>
-          </Flex>
-
-          <Typography
-            variant="span"
-            width="100%"
-            color="error"
-            $alignSelf="start"
-            $fontSize={12}
-          >
-            <LangDisplay text={single.fees.error} />
-          </Typography>
-        </Container>
+        <ToggleSection single={single} error={single.fees.error} />
       )}
 
-      <Flex justify="space-between" align="center" width="full">
-        <Flex align="center" gap={8}>
-          <Image
-            src={bitcoinIcon}
-            alt="Left Image"
-            width="11px"
-            height="16px"
-          />
-          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
-            <LangDisplay text={single.fees.network} />
-          </Typography>
-        </Flex>
-        <Flex align="center" direction="row" gap={8}>
-          <Typography variant="span" width="100%" $fontSize={14}>
-            <LangDisplay text={single.fees.btc} />
-          </Typography>
-          <Typography variant="span" width="100%" color="muted" $fontSize={12}>
-            <LangDisplay text={single.fees.usd} />
-          </Typography>
-        </Flex>
-      </Flex>
+      <FeesDisplay
+        fees={single.fees}
+        image={<BitcoinIcon width={16} height={16} />}
+      />
       <MessageBox type="warning" text={single.warning} />
     </Container>
   );
