@@ -128,7 +128,7 @@ export const StandardEthereum: React.FC = () => {
           <FeesSection
             activeButtonId={activeButtonId}
             handleButtonClick={handleButtonClick}
-            single={eth}
+            title={eth.fees.title}
             Buttons={Buttons}
           />
           <InputSection

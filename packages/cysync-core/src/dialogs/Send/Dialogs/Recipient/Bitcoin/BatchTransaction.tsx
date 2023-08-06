@@ -73,7 +73,7 @@ export const BatchTransaction: React.FC = () => {
       <FeesSection
         activeButtonId={activeButtonId}
         handleButtonClick={handleButtonClick}
-        single={batch}
+        title={batch.fees.title}
         Buttons={Buttons}
       />
 

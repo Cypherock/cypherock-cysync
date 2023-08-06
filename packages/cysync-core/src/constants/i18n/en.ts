@@ -540,9 +540,11 @@ const en = {
           header: 'Follow instructions on the X1 Vault',
           infoBox: {
             info: {
-              send: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)',
-              optimism:
-                'L1 Fee: 0.001 ETH L1 fee wont be verified from the device',
+              send: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH ',
+              optimism: {
+                text: 'L1 Fee: 0.001 ETH',
+                altText: 'L1 fee wont be verified from the device',
+              },
             },
             warning:
               'Always verify the address displayed on your device exactly matches the address given by the recipient',
@@ -700,7 +702,7 @@ const en = {
           fees: {
             l1: {
               text: 'Fees (L1)',
-              fee: '0 GWEI',
+              fee: '32.1 GWEI',
               error: 'Error message for L1 fee',
             },
             l2: {
@@ -712,6 +714,7 @@ const en = {
             usd: '$5.51',
           },
           gas: 'Gas Price',
+          fee: '0.45',
           message: '53.2 GWEI',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',

@@ -108,7 +108,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       <FeesSection
         activeButtonId={activeButtonId}
         handleButtonClick={handleButtonClick}
-        single={single}
+        title={single.fees.title}
         Buttons={Buttons}
       />
       <InputSection

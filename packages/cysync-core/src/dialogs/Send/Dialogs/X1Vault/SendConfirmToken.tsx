@@ -13,6 +13,7 @@ import {
   checkIcon,
   Throbber,
   tetherIcon,
+  questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -99,7 +100,13 @@ export const SendConfirmToken: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          <MessageBox type="info" text={confirm.infoBox.info.send} />
+          <MessageBox
+            type="info"
+            text={confirm.infoBox.info.send}
+            rightImage={
+              <Image src={questionMarkGoldIcon} alt="question mark icon" />
+            }
+          />
 
           <MessageBox type="warning" text={confirm.infoBox.warning} />
         </Container>

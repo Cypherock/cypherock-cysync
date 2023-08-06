@@ -10,7 +10,6 @@ import {
 import React, { FC } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
-import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 import { selectLanguage, useAppSelector } from '~/store';

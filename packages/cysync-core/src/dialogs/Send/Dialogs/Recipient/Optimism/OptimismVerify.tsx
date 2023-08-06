@@ -12,9 +12,7 @@ import {
   MessageBox,
   checkIcon,
   Throbber,
-  InformationBox,
   questionMarkGoldIcon,
-  informationWhiteIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -107,11 +105,11 @@ export const OptimismVerify: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          <InformationBox
-            leftImage={
-              <Image src={informationWhiteIcon} alt="question mark icon" />
-            }
-            text={confirm.infoBox.info.optimism}
+          <MessageBox
+            type="info"
+            textColor="white"
+            text={confirm.infoBox.info.optimism.text}
+            altText={confirm.infoBox.info.optimism.altText}
             rightImage={
               <Image src={questionMarkGoldIcon} alt="question mark icon" />
             }

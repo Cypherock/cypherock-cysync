@@ -13,7 +13,7 @@ import {
 } from '../..';
 import SvgOptimism from '../../assets/icons/generated/Optimism';
 
-interface CustomSummaryContainerProps {
+interface SummaryRowProps {
   leftText: string;
   leftIcon?: string;
   rightText: string;
@@ -21,7 +21,7 @@ interface CustomSummaryContainerProps {
   margin?: number;
 }
 
-export const SummaryRow: React.FC<CustomSummaryContainerProps> = ({
+export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
   leftIcon,
   rightText,

@@ -2,7 +2,6 @@ import React, { FC, useEffect } from 'react';
 
 import { openSendDialog } from '~/actions';
 import {
-  BitcoinTransaction,
   OptimismVerify,
   SendConfirmToken,
   SendDeviceConfirmation,
@@ -21,7 +20,6 @@ export const Test: FC = () => {
 
   return (
     <>
-      <BitcoinTransaction />,
       <StandardEthereum />,
       <StandardOptimism />,
       <SendDeviceConfirmation />,

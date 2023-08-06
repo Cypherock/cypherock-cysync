@@ -38,7 +38,7 @@ export const SummaryScrollDialog: React.FC = () => {
     <DialogBox width={600}>
       <DialogBoxBody>
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text="Summary" />
+          <LangDisplay text={summary.title} />
         </Typography>
 
         <SummaryBox
