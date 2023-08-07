@@ -15,7 +15,6 @@ export const AddAccountCongrats: React.FC = () => {
     <>
       <ConfettiBlast />
       <SuccessDialog
-        headerText={strings.header}
         title={strings.title}
         subtext={strings.subtext}
         buttonText={button.done}

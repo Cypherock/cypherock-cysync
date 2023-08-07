@@ -3,8 +3,7 @@ import styled, { RuleSet, css } from 'styled-components';
 
 import { Throbber } from './Throbber';
 
-import { UtilsProps, utils } from '../utils';
-import { goldenGradient } from '../utils/Gradient';
+import { UtilsProps, goldenGradient, utils } from '../utils';
 
 type ButtonVariant =
   | 'primary'

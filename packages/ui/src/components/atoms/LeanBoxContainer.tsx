@@ -7,5 +7,6 @@ export const LeanBoxContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
+  width: 100%;
   ${spacing};
 `;
