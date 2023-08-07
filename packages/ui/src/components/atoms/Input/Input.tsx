@@ -57,7 +57,6 @@ const InputWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 12px;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
