@@ -13,6 +13,7 @@ import {
   walletIcon,
   svgGradients,
   Image,
+  ArrowReceivedIcon,
 } from '@cypherock/cysync-ui';
 import { binanceIcon, solanaIcon } from '@cypherock/cysync-ui/src';
 import React, { useState } from 'react';
@@ -20,7 +21,6 @@ import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
-import SvgArrowReceivedIcon from '@cypherock/cysync-ui/src/assets/icons/generated/ArrowReceivedIcon';
 
 const dropDownData: DropDownListItemProps[] = [
   {
@@ -159,7 +159,7 @@ export const Receive: React.FC = () => {
   const handleSecondDropdownSelectionChange = async (
     selectedItemId: string | undefined,
   ) => {
-    await setDropdownState(prev => ({
+    setDropdownState(prev => ({
       ...prev,
       secondDropdownSelection: selectedItemId ?? '',
       isSecondDropdownSelected: !!selectedItemId,
@@ -169,7 +169,7 @@ export const Receive: React.FC = () => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <SvgArrowReceivedIcon
+        <ArrowReceivedIcon
           height={48}
           width={56}
           fill={`url(#${svgGradients.gold})`}

@@ -61,6 +61,7 @@
     "@aws-crypto/sha256-browser": "^4.0.0",
     "@cypherock/coin-support": "workspace:^",
     "@cypherock/coin-support-btc": "workspace:^",
+    "@cypherock/coin-support-evm": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",

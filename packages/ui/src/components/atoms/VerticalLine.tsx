@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { BorderProps, SpacingProps, border, font, spacing } from '../utils';
 
 interface VerticalLineProps extends BorderProps, SpacingProps {
