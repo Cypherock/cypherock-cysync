@@ -17,7 +17,7 @@ export const animate = css<AnimateProps>`
       }s linear infinite;
   @keyframes spinner {
     100% {
-      transform: rotate(360deg);
+      rotate: 360deg;
     }
   }`;
     }

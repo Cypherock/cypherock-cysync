@@ -28,7 +28,7 @@ export const startAccountSyncing = createAsyncThunk<
         return;
       }
 
-      setAccountSyncState(AccountSyncStateMap.syncing);
+      dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
 
       const observer: Observer<ISyncAccountsEvent> = {
         error: () => {

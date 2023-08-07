@@ -10,7 +10,7 @@ import {
   LockOpen,
   Disconnected,
   SyncProblem,
-  Syncronizing,
+  SyncronizingBold,
   NoNotifications,
   Notifications,
 } from '../../assets';
@@ -77,7 +77,9 @@ export const Topbar: FC<ITopbar> = ({
 
   const syncStatusMap = {
     syncronized: <Check stroke={theme?.palette.success.main} />,
-    syncronizing: <Syncronizing fill={`url(#${svgGradients.gold})`} />,
+    syncronizing: (
+      <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
+    ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
 
