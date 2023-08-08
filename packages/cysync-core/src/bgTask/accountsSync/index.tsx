@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { syncAllAccounts } from '~/actions';
 import { selectAccountSync, useAppDispatch, useAppSelector } from '~/store';
 
-const AUTO_RESYNC_INTERVAL = 10 * 1000;
+const AUTO_RESYNC_INTERVAL = 3 * 60 * 1000;
 
 export const AccountSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
