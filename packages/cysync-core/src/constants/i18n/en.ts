@@ -333,14 +333,12 @@ const en = {
   addAccount: {
     header: 'Add Coin/Account',
     select: {
-      dialogTitle: 'Add Coin/Account',
       header: 'Select the Wallet & Coins you want to add',
       searchText: 'Search',
       walletPlaceholder: 'Choose a wallet',
       coinPlaceholder: 'Choose a coin',
     },
     deviceActions: {
-      dialogTitle: 'Add Coin/Account',
       header: 'Follow instructions on the X1 Vault',
       subtext: 'Add a coin/account to wallet',
       walletName: '${walletName}',
@@ -353,7 +351,6 @@ const en = {
       },
     },
     sync: {
-      dialogTitle: 'Add Coin/Account',
       syncingHeader: 'Syncing the account',
       header: 'Add new accounts',
       newAccount: 'New Accounts',
