@@ -7,7 +7,13 @@ export const AccountSyncStateMap = {
 export type AccountSyncState =
   (typeof AccountSyncStateMap)[keyof typeof AccountSyncStateMap];
 
+export interface IndividualAccountSyncStatus {
+  syncState?: AccountSyncState;
+  lastSyncedAt?: number;
+}
+
 export interface IAccountSyncState {
   syncState: AccountSyncState;
-  accountSyncMap: Record<string, AccountSyncState | undefined>;
+  accountSyncMap: Record<string, IndividualAccountSyncStatus>;
+  lastSyncedAt?: number;
 }

@@ -22,6 +22,9 @@ export const accountSyncSlice = createSlice({
   name: 'accountSync',
   initialState,
   reducers: {
+    setAccountLastSyncedAt: (state, payload: PayloadAction<number>) => {
+      state.lastSyncedAt = payload.payload;
+    },
     setAccountSyncState: (state, payload: PayloadAction<AccountSyncState>) => {
       state.syncState = payload.payload;
     },
@@ -32,14 +35,26 @@ export const accountSyncSlice = createSlice({
         syncState: AccountSyncState;
       }>,
     ) => {
-      state.accountSyncMap[payload.payload.accountId] =
+      if (!state.accountSyncMap[payload.payload.accountId]) {
+        state.accountSyncMap[payload.payload.accountId] = {};
+      }
+
+      if (payload.payload.syncState === AccountSyncStateMap.synced) {
+        state.accountSyncMap[payload.payload.accountId].lastSyncedAt =
+          Date.now();
+      }
+
+      state.accountSyncMap[payload.payload.accountId].syncState =
         payload.payload.syncState;
     },
   },
 });
 
-export const { setAccountSyncState, updateAccountSyncMap } =
-  accountSyncSlice.actions;
+export const {
+  setAccountSyncState,
+  updateAccountSyncMap,
+  setAccountLastSyncedAt,
+} = accountSyncSlice.actions;
 
 export const selectAccountSync = (state: RootState) => state.accountSync;
 

@@ -1,41 +1,42 @@
 import {
-  syncAccounts,
+  syncAccounts as syncAccountsCore,
   ISyncAccountsEvent,
 } from '@cypherock/cysync-core-services';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IAccount } from '@cypherock/db-interfaces';
+import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { Observer } from 'rxjs';
 
 import {
   AccountSyncStateMap,
   RootState,
+  setAccountLastSyncedAt,
   setAccountSyncState,
   updateAccountSyncMap,
 } from '~/store';
 import { getDB } from '~/utils';
 
-export const startAccountSyncing = createAsyncThunk<
+export const syncAccounts = createAsyncThunk<
   void,
-  void,
+  { accounts: IAccount[]; isSyncAll?: boolean },
   { state: RootState }
 >(
   'accounts/sync',
-  async (_, { dispatch, getState }) =>
+  async ({ accounts, isSyncAll }, { dispatch }) =>
     new Promise<void>(resolve => {
-      const state = getState();
-
-      if (state.accountSync.syncState === AccountSyncStateMap.syncing) {
-        resolve();
-        return;
-      }
-
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
 
       const observer: Observer<ISyncAccountsEvent> = {
         error: () => {
+          if (isSyncAll) {
+            dispatch(setAccountLastSyncedAt(Date.now()));
+          }
+
           dispatch(setAccountSyncState(AccountSyncStateMap.failed));
           resolve();
         },
         next: event => {
+          dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
+
           if (event.isSuccessful) {
             dispatch(
               updateAccountSyncMap({
@@ -53,12 +54,16 @@ export const startAccountSyncing = createAsyncThunk<
           }
         },
         complete: () => {
+          if (isSyncAll) {
+            dispatch(setAccountLastSyncedAt(Date.now()));
+          }
+
           dispatch(setAccountSyncState(AccountSyncStateMap.synced));
           resolve();
         },
       };
 
-      state.account.accounts.forEach(account => {
+      accounts.forEach(account => {
         dispatch(
           updateAccountSyncMap({
             accountId: account.__id ?? '',
@@ -67,9 +72,17 @@ export const startAccountSyncing = createAsyncThunk<
         );
       });
 
-      syncAccounts({
+      console.log({ accounts });
+      syncAccountsCore({
         db: getDB(),
-        accounts: state.account.accounts,
+        accounts,
       }).subscribe(observer);
     }),
 );
+
+export const syncAllAccounts =
+  (): ActionCreator<void> => (dispatch, getState) => {
+    dispatch(
+      syncAccounts({ accounts: getState().account.accounts, isSyncAll: true }),
+    );
+  };

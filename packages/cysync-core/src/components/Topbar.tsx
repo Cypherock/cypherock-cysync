@@ -8,7 +8,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo, useState } from 'react';
 
-import { startAccountSyncing } from '~/actions';
+import { syncAllAccounts } from '~/actions';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
 import {
   AccountSyncState,
@@ -65,7 +65,7 @@ export const Topbar: FC<{ title: string }> = ({ title }) => {
   );
 
   const onSyncClick = () => {
-    dispatch(startAccountSyncing());
+    dispatch(syncAllAccounts());
   };
 
   return (
