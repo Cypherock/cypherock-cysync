@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css, RuleSet } from 'styled-components';
 
 import {
@@ -181,11 +181,11 @@ export interface TypographyProps extends HeadingProps {
     | 'fineprint';
 }
 
-export const Typography = ({
+export const Typography: FC<TypographyProps> = ({
   variant,
   children,
   ...props
-}: TypographyProps) => {
+}) => {
   switch (variant) {
     case 'h1':
       return <HeadingOneStyle {...props}>{children}</HeadingOneStyle>;
