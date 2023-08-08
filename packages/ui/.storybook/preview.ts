@@ -1,12 +1,34 @@
 import type { Preview } from '@storybook/react';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 import { getDefaultTheme, ThemeProvider } from '../src';
+import '../src/stories/style.css';
 
 const theme = getDefaultTheme();
 
 const preview: Preview = {
   parameters: {
     layout: 'centered',
+    viewport: {
+      viewports: {
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1728px',
+            height: '1117px',
+          },
+          type: 'desktop',
+        },
+        desktopMini: {
+          name: 'Desktop Mini',
+          styles: {
+            width: '1024px',
+            height: '700px',
+          },
+          type: 'tablet',
+        },
+      },
+      defaultViewPort: 'desktop',
+    },
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -31,6 +53,9 @@ const preview: Preview = {
         },
       ],
     },
+  },
+  args: {
+    $fontFamily: 'monospace',
   },
 };
 
