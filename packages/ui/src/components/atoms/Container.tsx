@@ -55,8 +55,3 @@ export const FlexGapContainer = styled(Container)`
   gap: 32px;
   z-index: 1;
 `;
-
-export const ScrollableContainer = styled.div`
-  max-height: 100%;
-  overflow-y: auto;
-`;
