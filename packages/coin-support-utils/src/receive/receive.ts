@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import { App, IMakeReceiveObservableParams } from './types';
 
+import logger from '../utils/logger';
+
 export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
   params: IMakeReceiveObservableParams<T, K>,
 ) {
@@ -11,12 +13,21 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
     let finished = false;
     let app: T | undefined;
 
-    const cleanUp = () => {
+    const cleanUp = async () => {
       if (app) {
-        app.destroy();
+        try {
+          await app.abort();
+        } catch (error) {
+          logger.warn('Error in aborting create account');
+          logger.warn(error);
+        }
 
-        // TODO: Add this in SDK
-        // app.abort();
+        try {
+          await app.destroy();
+        } catch (error) {
+          logger.warn('Error in destroying connection on create account');
+          logger.warn(error);
+        }
       }
     };
 

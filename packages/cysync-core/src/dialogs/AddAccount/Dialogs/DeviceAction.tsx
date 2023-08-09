@@ -21,6 +21,9 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
+const getCheckIcon = <Check width={15} height={12} />;
+const getThrobber = <Throbber size={15} strokeWidth={2} />;
+
 export const AddAccountDeviceActionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
@@ -42,15 +45,12 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
     }
   }, [addAccountStatus]);
 
-  const getCheckIcon = () => <Check width={15} height={12} />;
-  const getThrobber = () => <Throbber size={15} strokeWidth={2} />;
-
   const getDeviceEventIcon = (
     loadingEvent: CreateAccountDeviceEvent,
     completedEvent: CreateAccountDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return getCheckIcon();
-    if (deviceEvents[loadingEvent]) return getThrobber();
+    if (deviceEvents[completedEvent]) return getCheckIcon;
+    if (deviceEvents[loadingEvent]) return getThrobber;
 
     return undefined;
   };
@@ -113,7 +113,7 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
       text: lang.strings.addAccount.deviceActions.actions.processing,
       leftImage: rightArrowIcon,
       rightImage: deviceEvents[CreateAccountDeviceEvent.CARD_TAPPED]
-        ? getThrobber()
+        ? getThrobber
         : undefined,
     });
 
