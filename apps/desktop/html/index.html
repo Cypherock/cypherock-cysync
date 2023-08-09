@@ -26,6 +26,10 @@
 
       window.Buffer = Buffer;
     </script>
+    <script type="module">
+      import { ethers } from '/renderer/generated/ethers.js';
+      window.ethers = ethers;
+    </script>
     <script type="module" src="/renderer/index.tsx"></script>
   </body>
 </html>

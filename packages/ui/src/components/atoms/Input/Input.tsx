@@ -21,6 +21,8 @@ export interface InputProps {
   onClick?: () => void;
   pasteAllowed?: boolean;
   copyAllowed?: boolean;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  leftImage?: React.ReactNode;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -32,7 +34,6 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
   font-size: 16px;
   background: ${({ $bgColor, theme }) =>
     $bgColor ?? theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.background.separator};
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.muted};
   &:focus-visible {
@@ -43,6 +44,12 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
 const InputWrapper = styled.div`
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.palette.background.separatorSecondary};
+  border: 1px solid ${({ theme }) => theme.palette.background.separator};
 `;
 
 const PostfixIconStyle = styled.div`
@@ -69,6 +76,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onClick = undefined,
         pasteAllowed = true,
         copyAllowed = true,
+        onKeyDown = undefined,
+        leftImage,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -79,6 +88,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
           </InputLabel>
         )}
         <InputWrapper>
+          {leftImage}
           <InputStyle
             ref={ref}
             name={name}
@@ -98,7 +108,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               e.preventDefault();
               return false;
             }}
-            onChange={e => onChange && onChange(e.target.value)}
+            onChange={e => onChange?.(e.target.value)}
+            onKeyDown={onKeyDown}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -129,6 +140,8 @@ Input.defaultProps = {
   onClick: undefined,
   pasteAllowed: true,
   copyAllowed: true,
+  onKeyDown: undefined,
+  leftImage: undefined,
 };
 
 Input.displayName = 'Input';

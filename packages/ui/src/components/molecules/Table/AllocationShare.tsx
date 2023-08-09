@@ -6,26 +6,37 @@ import { Typography } from '../../atoms';
 interface AllocationShareProps {
   percentage: number;
   color: string;
-  size?: 'small' | 'big';
 }
 
 const AllocationShareStyle = styled.div<AllocationShareProps>`
-  padding: ${({ size }) =>
-    size === 'small' ? '16px 24px 16px 16px' : '16px 20px 16px 40px'};
-  width: ${({ size }) => (size === 'small' ? '144px' : '300px')};
+  padding: 16px 24px 16px 16px;
+  width: 144px;
   display: flex;
-  flex-direction: ${({ size }) => (size === 'small' ? 'column' : 'row')};
-  align-items: ${({ size }) => (size === 'small' ? 'flex-start' : 'center')};
-  gap: ${({ size }) => (size === 'small' ? '8px' : '0')};
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   justify-content: space-between;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    padding: 16px 20px 16px 40px;
+    width: 300px;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
 `;
 
 const BackgroundStyle = styled.div<AllocationShareProps>`
-  width: ${({ size }) => (size === 'small' ? '104px' : '160px')};
+  width: 104px;
   height: 6px;
   border-radius: 5px;
   background: ${({ theme }) => theme.palette.background.inputSecondary};
+
+  @media ${({ theme }) => theme.screens.lg} {
+    width: 160px;
+  }
 `;
+
 const FillerStyle = styled.div<AllocationShareProps>`
   height: 102%;
   width: ${({ percentage }) => percentage}%;
@@ -43,7 +54,3 @@ export const AllocationShare: FC<AllocationShareProps> = ({ ...props }) => (
     </BackgroundStyle>
   </AllocationShareStyle>
 );
-
-AllocationShare.defaultProps = {
-  size: 'big',
-};

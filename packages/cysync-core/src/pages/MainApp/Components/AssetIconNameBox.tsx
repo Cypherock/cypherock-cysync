@@ -10,7 +10,6 @@ interface AssetIconNameBoxProps {
   id: CoinTypes;
   name: string;
   symbol: string;
-  size?: 'small' | 'big';
 }
 
 const iconMap: Record<CoinTypes, string> = {
@@ -23,10 +22,5 @@ export const AssetIconNameBox: FC<AssetIconNameBoxProps> = ({ ...props }) => (
     icon={iconMap[props.id]}
     title={props.symbol}
     subtitle={props.name}
-    size={props.size}
   />
 );
-
-AssetIconNameBox.defaultProps = {
-  size: 'big',
-};

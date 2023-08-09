@@ -8,6 +8,7 @@ import {
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
+import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -33,7 +34,7 @@ export class EvmSupport implements CoinSupport {
     throw new Error('Not implemented');
   }
 
-  public async prepareTransaction(): Promise<any> {
+  public async prepareTransaction(): Promise<IPreparedTransaction> {
     throw new Error('Not implemented');
   }
 
@@ -47,5 +48,9 @@ export class EvmSupport implements CoinSupport {
 
   public validateAddress(params: IValidateAddressParams) {
     return operations.validateAddress(params);
+  }
+
+  public static setEthersLibrary(ethers: ethersLibType): void {
+    setEthersLib(ethers);
   }
 }

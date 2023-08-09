@@ -61,6 +61,7 @@ export const colors = {
     black: '#000000',
     toggleOff: '#544D43',
     list: '#2C2824',
+    info: '#4A2D00',
     lightBlack: '#1B1712',
     sidebar: '#1E1A15',
     warning: '#2C2418',
@@ -80,6 +81,9 @@ export const colors = {
     white: '#ffffff',
     separatorSecondary: '#272320',
     gold: 'gold',
+    infoBox: '#3c3c3c',
+    infoBoxOrange: '#4A2D00',
+    subMenuLeft: '#534B44',
     topbar: '#342C26',
   },
   shadow: {

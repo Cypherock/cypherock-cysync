@@ -104,3 +104,4 @@ coverage
 /playwright/.cache/
 screenshots
 videos
+renderer/generated/
