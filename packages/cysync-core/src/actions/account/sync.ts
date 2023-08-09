@@ -72,7 +72,6 @@ export const syncAccounts = createAsyncThunk<
         );
       });
 
-      console.log({ accounts });
       syncAccountsCore({
         db: getDB(),
         accounts,
