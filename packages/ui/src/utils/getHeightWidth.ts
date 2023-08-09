@@ -12,8 +12,8 @@ export const getHeightWidth = (
       if (item.includes('/')) {
         return getFractionPercentage(item);
       }
-      // If the value has any alphabet at abet at the end, we assume
-      // it is already present.
+      // If the value has any alphabet at the end, we assume
+      // the unit is already present.
       const lastChar = item[item.length - 1];
       if (lastChar.match(/[a-zA-Z]/)) {
         return item;
