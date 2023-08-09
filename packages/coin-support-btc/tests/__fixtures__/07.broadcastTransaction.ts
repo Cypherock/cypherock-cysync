@@ -22,7 +22,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       accountId: '1',
       userInputs: {
         outputs: [
-          { address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA', amount: '' },
+          { address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA', amount: '10000' },
         ],
         feeRate: 150,
       },
@@ -56,12 +56,12 @@ export const valid: IPrepareTransactionTestCases[] = [
         outputs: [
           {
             address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA',
-            value: 0,
+            value: 10000,
           },
           {
             address: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
             derivationPath: "m/44'/1'/0'/1/2",
-            value: 49808984,
+            value: 49798984,
           },
         ],
       },
@@ -88,13 +88,20 @@ export const valid: IPrepareTransactionTestCases[] = [
             transfers: 0,
             decimals: 8,
           },
+          {
+            type: 'XPUBAddress',
+            name: 'LYzVffwKeuwnqeuwVikH59gk3iLvVaeZUN',
+            path: "m/44'/2'/0'/0/0",
+            transfers: 2,
+            decimals: 8,
+          },
         ],
       },
     },
     output: {
       hash: '812736981263167236',
       fees: '33900',
-      amount: '49842884',
+      amount: '49866784',
       status: 'pending',
       type: 'send',
       timestamp: 1691152239897,
@@ -109,12 +116,12 @@ export const valid: IPrepareTransactionTestCases[] = [
       outputs: [
         {
           address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA',
-          amount: '0',
+          amount: '10000',
           isMine: false,
         },
         {
           address: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
-          amount: '49808984',
+          amount: '49798984',
           isMine: true,
         },
       ],

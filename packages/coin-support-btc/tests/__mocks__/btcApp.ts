@@ -44,6 +44,7 @@ export const getPublicKey = jest.fn<BtcApp['getPublicKey']>().mockReturnValue(
 export const signTxn = jest.fn<BtcApp['signTxn']>().mockReturnValue(
   Promise.resolve({
     signatures: ['test'],
+    signedTransaction: 'aksjhdkadh',
   }),
 );
 

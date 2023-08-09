@@ -83,7 +83,10 @@ describe('06. Sign Transaction', () => {
     btcAppMock.create.mockClear();
     btcAppMock.signTxn.mockClear();
     btcAppMock.signTxn.mockReturnValue(
-      Promise.resolve({ signatures: [signedTransactionFromDevice] }),
+      Promise.resolve({
+        signatures: [signedTransactionFromDevice],
+        signedTransaction: signedTransactionFromDevice,
+      }),
     );
 
     getOneMock.mockClear();

@@ -24,8 +24,8 @@ describe('05. Prepare Transaction', () => {
             getOne: getOneMock,
           },
         } as any;
-        serviceMock.getDerivedAddresses.mockReturnValue(
-          Promise.resolve(testCase.mocks.addresses),
+        serviceMock.getFirstUnusedAddress.mockReturnValue(
+          Promise.resolve(testCase.mocks.changeAddress),
         );
 
         const result = await support.prepareTransaction({

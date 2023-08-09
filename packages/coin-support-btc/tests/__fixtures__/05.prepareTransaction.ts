@@ -1,8 +1,4 @@
-import {
-  IBtcAccount,
-  IPreparedBtcTransaction,
-  IDerivedAddresses,
-} from '../../src';
+import { IBtcAccount, IPreparedBtcTransaction } from '../../src';
 
 export interface IPrepareTransactionTestCases {
   name: string;
@@ -10,7 +6,7 @@ export interface IPrepareTransactionTestCases {
   output: IPreparedBtcTransaction;
   mocks: {
     account: Partial<IBtcAccount>;
-    addresses: Partial<IDerivedAddresses>;
+    changeAddress: { address: string; derivationPath: string };
   };
 }
 
@@ -52,16 +48,9 @@ export const valid: IPrepareTransactionTestCases[] = [
         assetId: 'litecoin',
         familyId: 'bitcoin',
       },
-      addresses: {
-        tokens: [
-          {
-            type: 'XPUBAddress',
-            name: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
-            path: "m/44'/1'/0'/1/2",
-            transfers: 0,
-            decimals: 8,
-          },
-        ],
+      changeAddress: {
+        address: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
+        derivationPath: "m/44'/1'/0'/1/2",
       },
     },
     output: {
