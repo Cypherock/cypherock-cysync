@@ -26,11 +26,10 @@ const mapPreparedTxnToSdkTxn = (
     return {
       address: input.address,
       value: input.value.toString(),
-      chainIndex: path[3],
+      changeIndex: path[3],
       addressIndex: path[4],
       prevIndex: input.vout,
-      prevTxnHash: input.txId,
-      prevTxn: '',
+      prevTxnId: input.txId,
     };
   }),
   outputs: transaction.computedData.outputs.map(output => {
@@ -41,7 +40,7 @@ const mapPreparedTxnToSdkTxn = (
         isChange: true,
         address: output.address,
         value: output.value.toString(),
-        chainIndex: path[3],
+        changeIndex: path[3],
         addressIndex: path[4],
       };
     }
@@ -62,7 +61,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
 
-  const { signatures } = await app.signTxn({
+  const { signedTransaction } = await app.signTxn({
     walletId: hexToUint8Array(account.walletId),
     derivationPath: mapDerivationPath(account.derivationPath),
     txn: mapPreparedTxnToSdkTxn(transaction as IPreparedBtcTransaction),
@@ -78,8 +77,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  // TODO: Replace this with signed transaction
-  return signatures.join('');
+  return signedTransaction;
 };
 
 export const signTransaction = (

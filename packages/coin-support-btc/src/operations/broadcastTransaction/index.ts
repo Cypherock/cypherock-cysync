@@ -13,7 +13,11 @@ import {
 
 import { IBroadcastBtcTransactionParams } from './types';
 
-import { broadcastTransactionToBlockchain } from '../../services';
+import {
+  broadcastTransactionToBlockchain,
+  getDerivedAddresses,
+  IDerivedAddresses,
+} from '../../services';
 import logger from '../../utils/logger';
 import {
   IPreparedBtcTransactionInput,
@@ -22,15 +26,16 @@ import {
 
 const mapPreparedTxnInputsOutputsToDb = (
   arr: IPreparedBtcTransactionInput[] | IPreparedBtcTransactionOutput[],
-  type: 'input' | 'output',
+  addresses: IDerivedAddresses,
 ) => {
   const result: ITransactionInputOutput[] = [];
+  const myAddresses = addresses.tokens.map(e => e.name.toLowerCase());
 
   for (const elem of arr ?? []) {
     result.push({
       address: elem.address,
       amount: elem.value.toString(),
-      isMine: type === 'input' ? true : !!elem.derivationPath,
+      isMine: myAddresses.includes(elem.address.toLowerCase()),
     });
   }
 
@@ -47,6 +52,10 @@ export const broadcastTransaction = async (
     transaction.accountId,
   );
 
+  const addresses = await getDerivedAddresses({
+    xpub: account.xpubOrAddress,
+    coinId: coin.id,
+  });
   const txnHash = await broadcastTransactionToBlockchain(
     signedTransaction,
     coin,
@@ -62,11 +71,11 @@ export const broadcastTransaction = async (
     blockHeight: -1,
     inputs: mapPreparedTxnInputsOutputsToDb(
       transaction.computedData.inputs,
-      'input',
+      addresses,
     ),
     outputs: mapPreparedTxnInputsOutputsToDb(
       transaction.computedData.outputs,
-      'output',
+      addresses,
     ),
     confirmations: 0,
     accountId: account.__id,
@@ -75,24 +84,26 @@ export const broadcastTransaction = async (
     familyId: account.familyId,
   };
 
-  const totalInputs = transaction.computedData.inputs.reduce(
-    (sum, input) => sum.plus(input.value),
+  const totalInputs = parsedTransaction.inputs.reduce(
+    (sum, input) => (input.isMine ? sum.plus(input.amount) : sum),
     new BigNumber(0),
   );
 
-  const totalOutputs = transaction.computedData.outputs.reduce(
-    (sum, output) => (!output.derivationPath ? sum.plus(output.value) : sum),
+  const totalOutputs = parsedTransaction.outputs.reduce(
+    (sum, output) => (!output.isMine ? sum.plus(output.amount) : sum),
     new BigNumber(0),
   );
 
-  const amount = totalOutputs.minus(totalInputs);
+  let amount = totalOutputs.minus(totalInputs);
 
-  parsedTransaction.type = amount.isNegative()
-    ? TransactionTypeMap.send
-    : TransactionTypeMap.receive;
+  parsedTransaction.type = amount.isPositive()
+    ? TransactionTypeMap.receive
+    : TransactionTypeMap.send;
 
-  if (amount.isPositive()) {
-    logger.warn('Positive amount while sending');
+  if (parsedTransaction.type === TransactionTypeMap.send) {
+    amount = amount.minus(parsedTransaction.fees);
+  } else {
+    logger.warn('Positive amount while sending transaction');
     logger.warn({
       parsedTransaction,
       transaction,

@@ -100,6 +100,7 @@ const showTransactionSummary = async (params: {
   console.log(colors.cyan('Transaction summary'));
 
   let totalToDeduct = new BigNumber(0);
+  let i = 1;
   for (const output of transaction.userInputs.outputs) {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
@@ -108,11 +109,12 @@ const showTransactionSummary = async (params: {
     });
 
     console.log(
-      `Address: ${colors.grey(output.address)} Amount: ${colors.cyan(
-        `${amount} ${unit.abbr}`,
+      `${i}. ${colors.grey(output.address)} (${colors.cyan(
+        `${amount} ${unit.abbr})`,
       )}`,
     );
     totalToDeduct = totalToDeduct.plus(output.amount);
+    i += 1;
   }
 
   if (coin.family === 'bitcoin') {
