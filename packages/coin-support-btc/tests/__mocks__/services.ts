@@ -55,8 +55,27 @@ export const getDerivedAddresses = jest.fn().mockReturnValue(
   }),
 );
 
+export const getAverageFee = jest.fn().mockReturnValue(Promise.resolve(0));
+
+export const getUtxos = jest.fn().mockReturnValue(Promise.resolve([]));
+
+export const getFirstUnusedAddress = jest.fn().mockReturnValue(
+  Promise.resolve({
+    address: 'mg3vuEjS6tu8tUys6LL2fuSG3gbXyx2Z3b',
+    derivationPath: "m/44'/1'/0'/0/2",
+  }),
+);
+
+export const broadcastTransactionToBlockchain = jest
+  .fn()
+  .mockReturnValue(Promise.resolve(''));
+
 jest.mock('../../src/services', () => ({
   __esModule: true,
   getXpubDetails,
   getDerivedAddresses,
+  getAverageFee,
+  getUtxos,
+  broadcastTransactionToBlockchain,
+  getFirstUnusedAddress,
 }));

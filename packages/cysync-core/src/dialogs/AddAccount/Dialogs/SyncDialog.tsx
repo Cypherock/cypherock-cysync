@@ -67,7 +67,7 @@ const createAccountDisplayList = (params: {
     return accountsList.map(a => {
       const { amount, unit } = getParsedAmount({
         coinId: a.assetId,
-        unitName: a.unit,
+        unitAbbr: a.unit,
         amount: a.balance,
       });
 

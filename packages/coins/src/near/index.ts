@@ -14,7 +14,7 @@ export const NearIdMap = {
   near: 'near',
 } as const;
 
-export type NearIds = (typeof NearIdMap)[keyof typeof NearIdMap] | string;
+export type NearId = (typeof NearIdMap)[keyof typeof NearIdMap] | string;
 
 const units: ICoinUnit[] = [
   {
@@ -29,8 +29,8 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const nearCoinList: Record<NearIds, INearCoinInfo> = coinList.reduce<
-  Record<NearIds, INearCoinInfo>
+export const nearCoinList: Record<string, INearCoinInfo> = coinList.reduce<
+  Record<string, INearCoinInfo>
 >(
   (list, coin) => ({
     ...list,

@@ -16,14 +16,14 @@ export const BtcIdMap = {
   litecoin: 'litecoin',
 } as const;
 
-export type BtcIds = (typeof BtcIdMap)[keyof typeof BtcIdMap] | string;
+export type BtcId = (typeof BtcIdMap)[keyof typeof BtcIdMap];
 
-export const btcCoinList: Record<BtcIds, IBtcCoinInfo> = coinList.reduce<
-  Record<BtcIds, IBtcCoinInfo>
+export const btcCoinList: Record<string, IBtcCoinInfo> = coinList.reduce<
+  Record<string, IBtcCoinInfo>
 >(
   (list, coin) => ({
     ...list,
-    [coin.id]: {
+    [coin.id as BtcId]: {
       family: coinFamiliesMap.bitcoin,
       id: coin.id,
       name: coin.name,
