@@ -30,7 +30,7 @@ import { queryAccount, queryWallet } from '../helpers';
 const preparingTxnSpinnerText = 'Preparing transaction';
 const creatingTxnSpinnerText = 'Creating transaction';
 const deviceSpinnerText = 'Signing transaction from device';
-const broadcastSpinnerText = 'Signing transaction from device';
+const broadcastSpinnerText = 'Broadcasting transaction';
 
 const getTxnInputs = async (params: {
   account: IAccount;
