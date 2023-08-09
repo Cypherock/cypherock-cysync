@@ -24,7 +24,7 @@ export * from './validateAddress';
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
   receive(params: IReceiveParams): Observable<IReceiveEvent>;
-  syncAccounts(params: ISyncAccountsParams): Observable<void>;
+  syncAccount(params: ISyncAccountsParams): Observable<void>;
   initializeTransaction(
     params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction>;

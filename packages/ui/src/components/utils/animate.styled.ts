@@ -17,7 +17,7 @@ export const animate = css<AnimateProps>`
       }s linear infinite;
   @keyframes spinner {
     100% {
-      transform: rotate(360deg);
+      rotate: 360deg;
     }
   }`;
     }
@@ -28,11 +28,11 @@ export const animate = css<AnimateProps>`
       animation-delay: ${props.$animDelay ?? defaultDelay}s ;
   @keyframes pulse {
     0% {
-      transform: scale(1);
+      scale: 1;
       opacity: 0.9;
     }
     100% {
-      transform: scale(1.6);
+      scale: 1.6;
       opacity: 0;
     }
   }`;

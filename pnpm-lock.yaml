@@ -779,6 +779,18 @@ importers:
 
   packages/core-services:
     dependencies:
+      '@cypherock/coin-support':
+        specifier: workspace:^
+        version: link:../coin-support
+      '@cypherock/coins':
+        specifier: workspace:^
+        version: link:../coins
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
@@ -794,6 +806,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^

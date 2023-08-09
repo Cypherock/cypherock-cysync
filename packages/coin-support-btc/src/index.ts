@@ -33,7 +33,7 @@ export class BtcSupport implements CoinSupport {
     return operations.receive(params);
   }
 
-  public syncAccounts(params: ISyncBtcAccountsParams) {
+  public syncAccount(params: ISyncBtcAccountsParams) {
     return operations.syncAccount(params);
   }
 

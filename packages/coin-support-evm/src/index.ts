@@ -26,7 +26,7 @@ export class EvmSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccounts(): Observable<void> {
+  public syncAccount(): Observable<void> {
     throw new Error('Not implemented');
   }
 
