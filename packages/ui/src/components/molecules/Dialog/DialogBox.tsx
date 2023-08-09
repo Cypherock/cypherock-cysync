@@ -15,7 +15,7 @@ import {
   HeightProps,
   height,
   BgColorProps,
-  $bgColor,
+  bgColor,
 } from '../../utils';
 
 export interface DialogBoxUtilityProps
@@ -74,7 +74,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${height}
   ${spacing}
   ${position}
-  ${$bgColor}
+  ${bgColor}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -126,7 +126,7 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   ${width}
   ${height}
   ${spacing}
-  ${$bgColor}
+  ${bgColor}
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`

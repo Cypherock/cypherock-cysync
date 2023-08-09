@@ -40,8 +40,13 @@
       "dependsOn": ["build"],
       "cache": false
     },
+    "@cypherock/cysync-desktop#prebuild": {
+      "cache": true,
+      "outputs": ["renderer/generated/**"],
+      "inputs": ["package.json", "scripts/prebuild.sh"]
+    },
     "@cypherock/cysync-desktop#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@cypherock/cysync-desktop#prebuild", "^build"],
       "outputs": ["dist/**", "dist-electron/**"],
       "inputs": [
         "src/**",

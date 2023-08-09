@@ -7,6 +7,11 @@ export interface IDialogState {
     };
   };
 
+  receiveDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   walletSyncError: {
     isOpen: boolean;
     data?: undefined;

@@ -24,9 +24,9 @@ export interface SuccessDialogProps {
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
-  headerText,
   subtext,
   buttonText,
+  headerText,
   secondaryButtonText,
   alertText,
   handleClick,
@@ -40,7 +40,6 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
         </Typography>
       </DialogBoxHeader>
     )}
-
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
@@ -73,10 +72,10 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
 
 SuccessDialog.defaultProps = {
   subtext: undefined,
-  headerText: undefined,
   secondaryButtonText: undefined,
   buttonText: undefined,
   handleClick: undefined,
   handleSecButtonClick: undefined,
   alertText: undefined,
+  headerText: undefined,
 };
