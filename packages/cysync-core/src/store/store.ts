@@ -12,6 +12,7 @@ import {
 } from 'react-redux';
 
 import accountReducer, { IAccountState } from './account';
+import accountSyncReducer, { IAccountSyncState } from './accountSync';
 import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
 import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
@@ -31,6 +32,7 @@ export interface RootState {
   priceHistory: IPriceHistoryState;
   transaction: ITransactionState;
   discreetMode: IDiscreetModeState;
+  accountSync: IAccountSyncState;
 }
 
 export const store = configureStore({
@@ -44,6 +46,7 @@ export const store = configureStore({
     priceHistory: priceHistoryReducer,
     transaction: transactionReducer,
     discreetMode: discreetModeReducer,
+    accountSync: accountSyncReducer,
   },
 });
 
