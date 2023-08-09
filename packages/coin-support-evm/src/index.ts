@@ -30,7 +30,7 @@ export class EvmSupport implements CoinSupport {
     throw new Error('Not implemented');
   }
 
-  public async createTransaction(): Promise<IPreparedTransaction> {
+  public async initializeTransaction(): Promise<IPreparedTransaction> {
     throw new Error('Not implemented');
   }
 

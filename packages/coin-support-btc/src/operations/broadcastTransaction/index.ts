@@ -14,30 +14,23 @@ import {
 import { IBroadcastBtcTransactionParams } from './types';
 
 import { broadcastTransactionToBlockchain } from '../../services';
-import { IPreparedBtcTransaction } from '../transaction';
+import logger from '../../utils/logger';
+import {
+  IPreparedBtcTransactionInput,
+  IPreparedBtcTransactionOutput,
+} from '../transaction';
 
-const mapPreparedTxnInputsToDb = (transaction: IPreparedBtcTransaction) => {
+const mapPreparedTxnInputsOutputsToDb = (
+  arr: IPreparedBtcTransactionInput[] | IPreparedBtcTransactionOutput[],
+  type: 'input' | 'output',
+) => {
   const result: ITransactionInputOutput[] = [];
 
-  for (const input of transaction.computedData.inputs ?? []) {
+  for (const elem of arr ?? []) {
     result.push({
-      address: input.address,
-      amount: input.value.toString(),
-      isMine: true,
-    });
-  }
-
-  return result;
-};
-
-const mapPreparedTxnOutputsToDb = (transaction: IPreparedBtcTransaction) => {
-  const result: ITransactionInputOutput[] = [];
-
-  for (const output of transaction.computedData.outputs ?? []) {
-    result.push({
-      address: output.address,
-      amount: output.value.toString(),
-      isMine: !!output.derivationPath,
+      address: elem.address,
+      amount: elem.value.toString(),
+      isMine: type === 'input' ? true : !!elem.derivationPath,
     });
   }
 
@@ -67,8 +60,14 @@ export const broadcastTransaction = async (
     type: TransactionTypeMap.receive,
     timestamp: Date.now(),
     blockHeight: -1,
-    inputs: mapPreparedTxnInputsToDb(transaction),
-    outputs: mapPreparedTxnOutputsToDb(transaction),
+    inputs: mapPreparedTxnInputsOutputsToDb(
+      transaction.computedData.inputs,
+      'input',
+    ),
+    outputs: mapPreparedTxnInputsOutputsToDb(
+      transaction.computedData.outputs,
+      'output',
+    ),
     confirmations: 0,
     accountId: account.__id,
     walletId: account.walletId,
@@ -91,6 +90,14 @@ export const broadcastTransaction = async (
   parsedTransaction.type = amount.isNegative()
     ? TransactionTypeMap.send
     : TransactionTypeMap.receive;
+
+  if (amount.isPositive()) {
+    logger.warn('Positive amount while sending');
+    logger.warn({
+      parsedTransaction,
+      transaction,
+    });
+  }
 
   parsedTransaction.amount = amount.abs().toString();
 

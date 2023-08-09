@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
-  ICreateTransactionParams,
+  IInitializeTransactionParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
@@ -37,8 +37,8 @@ export class BtcSupport implements CoinSupport {
     return operations.syncAccount(params);
   }
 
-  public createTransaction(params: ICreateTransactionParams) {
-    return operations.createTransaction(params);
+  public initializeTransaction(params: IInitializeTransactionParams) {
+    return operations.initializeTransaction(params);
   }
 
   public async prepareTransaction(params: IPrepareBtcTransactionParams) {

@@ -3,10 +3,11 @@ import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import {
   CoinSupport,
   IPreparedTransaction,
+  ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import {
   convertToUnit,
-  getLowestUnit,
+  getZeroUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, coinList, ICoinInfo } from '@cypherock/coins';
@@ -14,6 +15,7 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import colors from 'colors/safe';
+import { Observer, Subscription } from 'rxjs';
 
 import {
   queryConfirm,
@@ -27,6 +29,8 @@ import { queryAccount, queryWallet } from '../helpers';
 
 const preparingTxnSpinnerText = 'Preparing transaction';
 const creatingTxnSpinnerText = 'Creating transaction';
+const deviceSpinnerText = 'Signing transaction from device';
+const broadcastSpinnerText = 'Signing transaction from device';
 
 const getTxnInputs = async (params: {
   account: IAccount;
@@ -67,7 +71,7 @@ const getTxnInputs = async (params: {
       amount: amountInDefaultUnit,
       coinId: coin.id,
       fromUnitAbbr: account.unit,
-      toUnitAbbr: getLowestUnit(coin.id).abbr,
+      toUnitAbbr: getZeroUnit(coin.id).abbr,
     });
     transaction.userInputs.outputs.push({ address, amount });
   }
@@ -199,11 +203,63 @@ const verifyTransactionInput = async (params: {
   };
 };
 
+const signTransaction = async (params: {
+  db: IDatabase;
+  connection: IDeviceConnection;
+  transaction: IPreparedTransaction;
+  coinSupport: CoinSupport;
+}) =>
+  // eslint-disable-next-line no-async-promise-executor
+  new Promise<string>(async (resolve, reject) => {
+    let subscription: Subscription | undefined;
+
+    try {
+      const { db, connection, transaction, coinSupport } = params;
+
+      const deviceSpinner = await Spinner.create(deviceSpinnerText);
+
+      let signedTransaction = '';
+
+      const observer: Observer<ISignTransactionEvent> = {
+        complete: () => {
+          deviceSpinner.succeed();
+          resolve(signedTransaction);
+        },
+        next: async value => {
+          if (value.transaction) {
+            signedTransaction = value.transaction;
+          }
+        },
+        error: error => {
+          if (!deviceSpinner.isCompleted) {
+            deviceSpinner.fail();
+          }
+
+          reject(error);
+        },
+      };
+
+      subscription = coinSupport
+        .signTransaction({
+          connection,
+          db,
+          transaction,
+        })
+        .subscribe(observer);
+    } catch (error) {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+
+      reject(error);
+    }
+  });
+
 export const sendFunds = async (params: {
   db: IDatabase;
-  connection?: IDeviceConnection;
+  connection: IDeviceConnection;
 }) => {
-  const { db } = params;
+  const { db, connection } = params;
 
   const wallet = await queryWallet(db, 'Select a wallet to send funds from');
 
@@ -217,7 +273,7 @@ export const sendFunds = async (params: {
   const coinSupport = getCoinSupport(account.familyId);
 
   const spinner = await Spinner.create(creatingTxnSpinnerText);
-  let transaction = await coinSupport.createTransaction({
+  let transaction = await coinSupport.initializeTransaction({
     db,
     accountId: account.__id,
   });
@@ -245,5 +301,22 @@ export const sendFunds = async (params: {
     transaction = result.transaction;
   }
 
-  console.log(transaction);
+  const signedTransaction = await signTransaction({
+    db,
+    connection,
+    transaction,
+    coinSupport,
+  });
+
+  const broadcastSpinner = await Spinner.create(broadcastSpinnerText);
+
+  const txn = await coinSupport.broadcastTransaction({
+    db,
+    signedTransaction,
+    transaction,
+  });
+
+  broadcastSpinner.succeed();
+
+  console.log(`Transaction hash: ${colors.grey(txn.hash)}`);
 };

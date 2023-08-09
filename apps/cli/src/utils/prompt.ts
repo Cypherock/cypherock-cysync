@@ -2,6 +2,7 @@ import checkbox, { Choice } from '@inquirer/checkbox';
 import input from '@inquirer/input';
 import { confirm } from '@inquirer/prompts';
 import select from '@inquirer/select';
+import colors from 'colors/safe';
 
 export type Selection<T> = Choice<T>;
 
@@ -18,14 +19,16 @@ export async function querySelect<T>(
 export const queryInput = async (message: string) => input({ message });
 
 export const queryNumber = async (message: string) => {
-  const str = await input({ message });
-  const num = parseInt(str, 10);
+  while (true) {
+    const str = await input({ message });
+    const num = parseInt(str, 10);
 
-  if (Number.isNaN(num)) {
-    throw new Error('Invalid number');
+    if (!Number.isNaN(num)) {
+      return num;
+    }
+
+    console.log(colors.yellow('Please enter a valid number'));
   }
-
-  return num;
 };
 
 export const queryConfirm = async (message: string) => confirm({ message });

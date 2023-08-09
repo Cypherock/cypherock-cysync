@@ -1,12 +1,10 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { btcCoinList, ICoinInfo } from '@cypherock/coins';
-import { assert } from '@cypherock/cysync-utils';
-import { IAccount } from '@cypherock/db-interfaces';
 import coinselect from 'coinselect';
 
 import { IPrepareBtcTransactionParams } from './types';
 
-import { getDerivedAddresses, IUtxo } from '../../services';
+import { getFirstUnusedAddress, IUtxo } from '../../services';
 import { IPreparedBtcTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
@@ -42,29 +40,6 @@ const mapUtxo = (utxo: IUtxo) => ({
   derivationPath: utxo.path,
 });
 
-const getFirstUnusedInternalAddress = async (account: IAccount) => {
-  const result = await getDerivedAddresses({
-    xpub: account.xpubOrAddress,
-    coinId: account.assetId,
-  });
-
-  const unusedAddressInfo = result.tokens.filter(tokenItem => {
-    const isUnused = tokenItem.transfers === 0;
-    const isInternalAddress = tokenItem.path.split('/')[4] === '1';
-    return isUnused && isInternalAddress;
-  });
-
-  assert(unusedAddressInfo.length > 0, new Error('No unused addresses found'));
-
-  const firstUnusedAddressInfo = unusedAddressInfo[0];
-
-  return {
-    address: firstUnusedAddressInfo.name,
-    expectedFromDevice: firstUnusedAddressInfo.name,
-    derivationPath: firstUnusedAddressInfo.path,
-  };
-};
-
 export const prepareTransaction = async (
   params: IPrepareBtcTransactionParams,
 ): Promise<IPreparedBtcTransaction> => {
@@ -95,7 +70,7 @@ export const prepareTransaction = async (
   );
 
   const hasEnoughBalance = outputs !== undefined && inputs !== undefined;
-  const unusedAddress = await getFirstUnusedInternalAddress(account);
+  const unusedAddress = await getFirstUnusedAddress(account, 'internal');
 
   return {
     ...params.txn,
@@ -104,9 +79,9 @@ export const prepareTransaction = async (
       hasEnoughBalance,
     },
     computedData: {
-      inputs,
+      inputs: inputs ?? [],
       fee,
-      outputs: outputs.map((e: any) => {
+      outputs: (outputs ?? []).map((e: any) => {
         if (e.address === undefined) {
           return {
             ...e,

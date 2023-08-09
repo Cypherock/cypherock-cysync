@@ -5,7 +5,7 @@ import { ICreateAccountEvent, ICreateAccountParams } from './createAccount';
 import { IReceiveEvent, IReceiveParams } from './receive';
 import {
   IBroadcastTransactionParams,
-  ICreateTransactionParams,
+  IInitializeTransactionParams,
   IPreparedTransaction,
   IPrepareTransactionParams,
   ISignTransactionEvent,
@@ -25,8 +25,8 @@ export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
   receive(params: IReceiveParams): Observable<IReceiveEvent>;
   syncAccounts(params: ISyncAccountsParams): Observable<void>;
-  createTransaction(
-    params: ICreateTransactionParams,
+  initializeTransaction(
+    params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction>;
   prepareTransaction(params: IPrepareTransactionParams): Promise<any>;
   validateAddress(params: IValidateAddressParams): boolean;

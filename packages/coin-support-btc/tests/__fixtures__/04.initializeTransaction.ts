@@ -1,6 +1,6 @@
 import { IBtcAccount, IPreparedBtcTransaction, IUtxo } from '../../src';
 
-export interface ICreateTransactionTestCases {
+export interface IInitializeTransactionTestCases {
   name: string;
   txn: IPreparedBtcTransaction;
   mocks: {
@@ -10,7 +10,7 @@ export interface ICreateTransactionTestCases {
   };
 }
 
-export const valid: ICreateTransactionTestCases[] = [
+export const valid: IInitializeTransactionTestCases[] = [
   {
     name: 'With default values',
     txn: {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 
-import * as testData from './__fixtures__/04.createTransaction';
+import * as testData from './__fixtures__/04.initializeTransaction';
 import * as serviceMock from './__mocks__/services';
 
 import { BtcSupport } from '../src';
@@ -30,7 +30,7 @@ describe('04. Create Transaction', () => {
           Promise.resolve(testCase.mocks.utxos),
         );
 
-        const result = await support.createTransaction({
+        const result = await support.initializeTransaction({
           db,
           accountId: testCase.txn.accountId,
         });

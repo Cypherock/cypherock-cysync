@@ -1,12 +1,12 @@
-import { ICreateTransactionParams } from '@cypherock/coin-support-interfaces';
+import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { btcCoinList } from '@cypherock/coins';
 
 import { getAverageFee, getUtxos } from '../../services';
 import { IPreparedBtcTransaction } from '../transaction';
 
-export const createTransaction = async (
-  params: ICreateTransactionParams,
+export const initializeTransaction = async (
+  params: IInitializeTransactionParams,
 ): Promise<IPreparedBtcTransaction> => {
   const { accountId, db } = params;
   const { account, coin } = await getAccountAndCoin(db, btcCoinList, accountId);

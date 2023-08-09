@@ -45,7 +45,6 @@ export function makeSignTransactionsObservable<
       if (app) {
         try {
           await app.abort();
-          // eslint-disable-next-line no-empty
         } catch (error) {
           logger.warn('Error in aborting sign transaction');
           logger.warn(error);
@@ -53,7 +52,6 @@ export function makeSignTransactionsObservable<
 
         try {
           await app.destroy();
-          // eslint-disable-next-line no-empty
         } catch (error) {
           logger.warn('Error in destroying connection on sign transaction');
           logger.warn(error);

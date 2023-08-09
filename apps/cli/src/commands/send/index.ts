@@ -10,7 +10,9 @@ export default class Send extends BaseCommand<typeof Send> {
 
   protected connectToDatabase = true;
 
+  protected connectToDevice = true;
+
   async run(): Promise<void> {
-    await sendFunds({ db: this.db });
+    await sendFunds({ db: this.db, connection: this.connection });
   }
 }

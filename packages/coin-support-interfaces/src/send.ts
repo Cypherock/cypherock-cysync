@@ -19,7 +19,7 @@ export interface IPreparedTransaction {
   computedData: object;
 }
 
-export interface ICreateTransactionParams {
+export interface IInitializeTransactionParams {
   db: IDatabase;
   accountId: string;
 }
