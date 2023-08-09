@@ -204,7 +204,6 @@ export const Receive: React.FC = () => {
             searchText={receive.searchText}
             placeholderText={receive.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
-            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

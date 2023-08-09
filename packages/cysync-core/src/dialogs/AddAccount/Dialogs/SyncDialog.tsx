@@ -4,8 +4,6 @@ import {
   LangDisplay,
   FlexGapContainer,
   DialogBox,
-  DialogBoxHeader,
-  DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
   Typography,
@@ -17,6 +15,7 @@ import {
   Flex,
   Toggle,
   QuestionMarkButton,
+  ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -218,14 +217,8 @@ export const AddAccountSyncDialog: FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={strings.dialogTitle} />
-        </Typography>
-      </DialogBoxHeader>
-
-      <DialogBoxBody>
-        <FlexGapContainer pt={4} pr={5} pl={5}>
+      <Flex direction="column" justify="center" align="center" width="full">
+        <FlexGapContainer pt={4} mb={5}>
           {isSyncing ? (
             <>
               <Image
@@ -248,9 +241,9 @@ export const AddAccountSyncDialog: FC = () => {
           )}
         </FlexGapContainer>
 
-        {newAccountsList.length > 0 && (
-          <FlexGapContainer py={4} px={5} pt={0}>
-            <Flex direction="column">
+        <ScrollableContainer $maxHeight="45vh">
+          {newAccountsList.length > 0 && (
+            <Flex py={4} pt={0} px={5} gap={1} direction="column">
               <InputLabel
                 mt={4}
                 mr={1}
@@ -292,15 +285,20 @@ export const AddAccountSyncDialog: FC = () => {
                 </Flex>
               )}
             </Flex>
-          </FlexGapContainer>
-        )}
+          )}
 
-        {accountNotSyncedList.length > 0 && (
-          <FlexGapContainer pt={2} pb={4} px={5} $bgColor="lightBlack">
-            <Flex direction="column" gap={8}>
+          {accountNotSyncedList.length > 0 && (
+            <Flex
+              pt={2}
+              pb={4}
+              px={5}
+              $bgColor="lightBlack"
+              gap={1}
+              direction="column"
+            >
               <Flex justify="space-between" align="center" px={1}>
                 <div>
-                  <InputLabel $fontSize={14} $fontWeight="normal" px={0} mb={0}>
+                  <InputLabel $fontSize={14} $fontWeight="normal" px={0} mb={1}>
                     <LangDisplay
                       text={strings.accountsNotSynced}
                       variables={{ count: accountNotSyncedList.length }}
@@ -341,12 +339,10 @@ export const AddAccountSyncDialog: FC = () => {
                 ))}
               </LeanBoxContainer>
             </Flex>
-          </FlexGapContainer>
-        )}
+          )}
 
-        {accountsInPortfolioList.length > 0 && (
-          <FlexGapContainer pt={2} pb={4}>
-            <div>
+          {accountsInPortfolioList.length > 0 && (
+            <Flex pt={2} pb={4} gap={1} px={5} direction="column">
               <InputLabel
                 pl={1}
                 mr={1}
@@ -365,10 +361,10 @@ export const AddAccountSyncDialog: FC = () => {
                   <LeanBox key={data.id} {...data} color="white" />
                 ))}
               </LeanBoxContainer>
-            </div>
-          </FlexGapContainer>
-        )}
-      </DialogBoxBody>
+            </Flex>
+          )}
+        </ScrollableContainer>
+      </Flex>
 
       <DialogBoxFooter>{getActionButtons()}</DialogBoxFooter>
     </DialogBox>
