@@ -99,8 +99,12 @@ export const prepareTransaction = async (
     result.outputs !== undefined && result.inputs !== undefined;
   const unusedAddress = await getFirstUnusedAddress(account, 'internal');
 
-  if (txn.userInputs.outputs.length > 0 && result.outputs) {
-    txn.userInputs.outputs[0].amount = result.outputs[0].value;
+  if (
+    txn.userInputs.isSendAll &&
+    txn.userInputs.outputs.length > 0 &&
+    result.outputs
+  ) {
+    txn.userInputs.outputs[0].amount = result.outputs[0].value.toString();
   }
 
   return {

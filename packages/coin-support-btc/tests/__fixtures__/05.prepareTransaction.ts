@@ -18,6 +18,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       userInputs: {
         outputs: [{ address: 'kajshd', amount: '' }],
         feeRate: 150,
+        isSendAll: false,
       },
       staticData: {
         averageFee: 150,
@@ -58,6 +59,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       userInputs: {
         outputs: [{ address: 'kajshd', amount: '' }],
         feeRate: 150,
+        isSendAll: false,
       },
       staticData: {
         averageFee: 150,
