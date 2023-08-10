@@ -1,3 +1,4 @@
+import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   DialogBox,
   DialogBoxBody,
@@ -10,7 +11,6 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
-import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressDisplay } from './Components';
@@ -22,16 +22,10 @@ export const VerifyAddress: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
-    // TODO: uncomment when sdk is forwarding device events
-    // if (deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
-    //   onNext();
-    // }
+    if (deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
+      onNext();
+    }
   }, [deviceEvents]);
-
-  // TODO: remove this when sdk is forwarding device events
-  addKeyboardEvents({
-    Enter: onNext,
-  });
 
   const dataArray = [
     {

@@ -1,4 +1,3 @@
-import { coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -8,83 +7,28 @@ import {
   DialogBoxFooter,
   Button,
   Dropdown,
-  DropDownListItemProps,
   svgGradients,
   ArrowReceivedIcon,
-  WalletIcon,
 } from '@cypherock/cysync-ui';
-import { createSelector } from '@reduxjs/toolkit';
-import React, { useMemo } from 'react';
-import { useTheme } from 'styled-components';
+import React from 'react';
 
-import { CoinIcon } from '~/components';
-import {
-  selectAccounts,
-  selectLanguage,
-  selectWallets,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
 
-const selectLangWalletAccount = createSelector(
-  [selectLanguage, selectWallets, selectAccounts],
-  (a, b, c) => ({ lang: a, ...b, ...c }),
-);
-
 export const SelectionDialog: React.FC = () => {
-  const { lang, wallets, accounts } = useAppSelector(selectLangWalletAccount);
-  const theme = useTheme()!;
+  const lang = useAppSelector(selectLanguage);
 
   const {
     onNext,
     selectedAccount,
     selectedWallet,
-    setSelectedAccount,
-    setSelectedWallet,
+    handleAccountChange,
+    handleWalletChange,
+    walletDropdownList,
+    accountDropdownList,
   } = useReceiveDialog();
 
-  const handleWalletChange = (id?: string) => {
-    if (!id) setSelectedWallet(undefined);
-    setSelectedWallet(wallets.find(w => w.__id === id));
-  };
-
-  const handleAccountChange = (id?: string) => {
-    if (!id) {
-      setSelectedAccount(undefined);
-      return;
-    }
-    setSelectedAccount(accounts.find(a => a.__id === id));
-  };
-
-  const walletDropdownList: DropDownListItemProps[] = useMemo(
-    () =>
-      wallets.map(w => ({
-        id: w.__id,
-        text: w.name,
-        checkType: 'radio',
-        leftImage: (
-          <WalletIcon fill={theme.palette.text.white} width={20} height={20} />
-        ),
-      })),
-    [wallets],
-  );
-
-  const accountDropdownList: DropDownListItemProps[] = useMemo(
-    () =>
-      accounts
-        .filter(account => account.walletId === selectedWallet?.__id)
-        .map(account => ({
-          id: account.__id,
-          checkType: 'radio',
-          leftImage: <CoinIcon assetId={account.assetId} />,
-          text: account.name,
-          shortForm: `(${coinList[account.assetId].abbr})`,
-          tag: account.derivationScheme?.toUpperCase(),
-          rightText: `${account.balance} ${account.unit}`,
-        })),
-    [accounts, selectedWallet],
-  );
   const dialogText = lang.strings.receive.source;
   const buttonText = lang.strings.buttons;
 

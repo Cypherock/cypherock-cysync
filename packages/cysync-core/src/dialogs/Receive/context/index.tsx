@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -18,6 +19,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { deviceLock, useDevice } from '~/context';
+import { useAccountDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
@@ -34,7 +36,6 @@ import {
   VerifyAddress,
   FinalMessage,
 } from '../Dialogs';
-import { DialogLoader } from '../Dialogs/DialogLoader';
 
 export interface ReceiveDialogContextInterface {
   tabs: ITabs;
@@ -58,6 +59,10 @@ export interface ReceiveDialogContextInterface {
   isAddressVerified: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
+  walletDropdownList: DropDownListItemProps[];
+  handleWalletChange: () => void;
+  accountDropdownList: DropDownListItemProps[];
+  handleAccountChange: () => void;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -77,10 +82,16 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const [error, setError] = useState<any | undefined>();
   const { connection, connectDevice } = useDevice();
 
-  const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [selectedAccount, setSelectedAccount] = useState<
-    IAccount | undefined
-  >();
+  const {
+    selectedWallet,
+    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+    selectedAccount,
+    setSelectedAccount,
+    handleAccountChange,
+    accountDropdownList,
+  } = useAccountDropdown();
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
@@ -96,13 +107,13 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const onRetry = () => {
     resetStates();
-    goTo(0, 1);
+    goTo(1, 0);
   };
 
   const tabs: ITabs = [
     {
       name: lang.strings.receive.aside.tabs.source,
-      dialogs: [<SelectionDialog />, <DialogLoader />],
+      dialogs: [<SelectionDialog />],
     },
     {
       name: lang.strings.receive.aside.tabs.device,
@@ -125,9 +136,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onSkip = () => {
-    cleanUp();
-    setError(undefined);
-    goTo(3, 0);
+    goTo(1, 0, false);
   };
 
   const resetStates = () => {
@@ -174,10 +183,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   });
 
   const startFlow = async () => {
-    logger.info('Started add account');
+    logger.info('Started Receive Flow');
 
     if (!selectedAccount || !selectedWallet) {
-      logger.info('Flow started without selecting wallet or account');
+      logger.warn('Flow started without selecting wallet or account');
       return;
     }
 
@@ -209,10 +218,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   useEffect(() => {
-    if (connection && derivedAddress) {
-      startFlow();
+    if (connection === undefined && derivedAddress) {
+      goTo(3, 0);
     }
-  }, [connection]);
+  }, [connection, derivedAddress]);
 
   const {
     onNext,
@@ -247,6 +256,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isAddressVerified,
       deviceEvents,
       startFlow,
+      handleAccountChange,
+      handleWalletChange,
+      accountDropdownList,
+      walletDropdownList,
     }),
     [
       onNext,
@@ -268,6 +281,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isAddressVerified,
       deviceEvents,
       startFlow,
+      handleAccountChange,
+      handleWalletChange,
+      accountDropdownList,
+      walletDropdownList,
     ],
   );
 

@@ -13,6 +13,7 @@ import {
   LeanBoxProps,
   ArrowRightIcon,
   Check,
+  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -29,18 +30,17 @@ export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const texts = lang.strings.receive.x1Vault;
 
-  const { onNext, deviceEvents, selectedWallet } = useReceiveDialog();
+  const { onNext, deviceEvents, selectedWallet, startFlow, derivedAddress } =
+    useReceiveDialog();
 
-  useEffect(() => {
-    if (deviceEvents[ReceiveDeviceEvent.CARD_TAPPED]) {
-      onNext();
-    }
-  }, [deviceEvents]);
-
-  // TODO: remove this when sdk is forwarding device events
+  // TODO: replace this when sdk is forwarding device events
   addKeyboardEvents({
     Enter: onNext,
   });
+
+  useEffect(() => {
+    startFlow();
+  }, []);
 
   const getDeviceEventIcon = (
     loadingEvent: ReceiveDeviceEvent,
@@ -105,6 +105,19 @@ export const DeviceAction: React.FC = () => {
 
     return actions;
   }, [deviceEvents]);
+
+  if (derivedAddress === undefined)
+    return (
+      <DialogBox width={500} height={300}>
+        <Image
+          src={loaderGrayIcon}
+          width={68}
+          alt="Loader icon"
+          animate="spin"
+          $animDuration={3}
+        />
+      </DialogBox>
+    );
 
   return (
     <DialogBox width={600}>
