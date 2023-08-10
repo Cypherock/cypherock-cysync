@@ -12,6 +12,7 @@ const transaction = {
   userInputs: {
     outputs: [{ address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA', amount: '' }],
     feeRate: 150,
+    isSendAll: false,
   },
   staticData: {
     averageFee: 150,

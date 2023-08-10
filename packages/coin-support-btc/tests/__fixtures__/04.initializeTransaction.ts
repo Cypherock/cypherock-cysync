@@ -27,6 +27,7 @@ export const valid: IInitializeTransactionTestCases[] = [
       userInputs: {
         feeRate: 150,
         outputs: [],
+        isSendAll: false,
       },
       validation: {
         hasEnoughBalance: true,
