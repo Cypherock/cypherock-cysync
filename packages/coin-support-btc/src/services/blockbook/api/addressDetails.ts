@@ -1,7 +1,9 @@
 import { btcCoinList } from '@cypherock/coins';
+import { assert } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
 import axios from 'axios';
 
-import { config } from '../../config';
+import { config } from '../../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/v2`;
 
@@ -90,14 +92,15 @@ export const getXpubDetails = async (params: {
   return response.data;
 };
 
-interface ITokenItem {
+export interface ITokenItem {
   type: string;
   name: string;
   path: string;
   transfers: number;
   decimals: number;
 }
-interface IDerivedAddresses {
+
+export interface IDerivedAddresses {
   address: string;
   balance: string;
   totalReceived: string;
@@ -122,4 +125,33 @@ export const getDerivedAddresses = async (params: {
   });
 
   return response.data;
+};
+
+export const getFirstUnusedAddress = async (
+  account: IAccount,
+  type: 'internal' | 'external',
+) => {
+  const result = await getDerivedAddresses({
+    xpub: account.xpubOrAddress,
+    coinId: account.assetId,
+  });
+
+  const unusedAddressInfo = result.tokens.filter(tokenItem => {
+    const isUnused = tokenItem.transfers === 0;
+
+    const isInternalAddress = tokenItem.path.split('/')[4] === '1';
+    if (type === 'internal') return isUnused && isInternalAddress;
+
+    const isExternalAddress = tokenItem.path.split('/')[4] === '0';
+    return isUnused && isExternalAddress;
+  });
+
+  assert(unusedAddressInfo.length > 0, new Error('No unused addresses found'));
+
+  const firstUnusedAddressInfo = unusedAddressInfo[0];
+
+  return {
+    address: firstUnusedAddressInfo.name,
+    derivationPath: firstUnusedAddressInfo.path,
+  };
 };

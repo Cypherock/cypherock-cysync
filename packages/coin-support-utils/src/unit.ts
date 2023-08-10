@@ -1,31 +1,67 @@
 import { coinList } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { assert, BigNumber } from '@cypherock/cysync-utils';
 
-export const getUnit = (coinId: string, unitName: string) => {
+export const getUnit = (coinId: string, unitAbbr: string) => {
   const unit = coinList[coinId].units.find(
-    u => u.abbr.toLowerCase() === unitName.toLowerCase(),
+    u => u.abbr.toLowerCase() === unitAbbr.toLowerCase(),
   );
+
+  assert(unit, new Error(`Invalid unit found: ${unitAbbr} for coin ${coinId}`));
+
+  return unit;
+};
+
+export const getDefaultUnit = (coinId: string) => {
+  const unit = coinList[coinId].units[0];
+
+  assert(unit, new Error(`No default unit found for coin ${coinId}`));
+
+  return unit;
+};
+
+export const getZeroUnit = (coinId: string) => {
+  const unit = coinList[coinId].units.find(u => u.magnitude === 0);
+
+  assert(unit, new Error(`No lowest unit found for coin ${coinId}`));
 
   return unit;
 };
 
 export const getParsedAmount = (params: {
   coinId: string;
-  unitName: string;
-  amount: string;
+  unitAbbr: string;
+  amount: string | number;
 }) => {
-  const { coinId, unitName, amount } = params;
-  const unit = getUnit(coinId, unitName);
+  const lowestUnit = getZeroUnit(params.coinId);
 
-  if (!unit) {
-    throw new Error(`Invalid unit found: ${unitName} for coin ${coinId}`);
+  const { amount, unit } = convertToUnit({
+    coinId: params.coinId,
+    fromUnitAbbr: lowestUnit.abbr,
+    toUnitAbbr: params.unitAbbr,
+    amount: params.amount,
+  });
+
+  return { amount: new BigNumber(amount).toPrecision(5), unit };
+};
+
+export const convertToUnit = (params: {
+  coinId: string;
+  fromUnitAbbr: string;
+  toUnitAbbr: string;
+  amount: string | number;
+}) => {
+  const { coinId, fromUnitAbbr, toUnitAbbr, amount } = params;
+
+  const fromUnit = getUnit(coinId, fromUnitAbbr);
+  const toUnit = getUnit(coinId, toUnitAbbr);
+
+  let num = new BigNumber(amount).multipliedBy(
+    new BigNumber(10).pow(fromUnit.magnitude),
+  );
+
+  if (toUnit.magnitude > 0) {
+    num = num.dividedBy(new BigNumber(10).pow(toUnit.magnitude));
   }
 
-  let num = new BigNumber(amount);
-
-  if (unit.magnitude > 0) {
-    num = num.dividedBy(new BigNumber(10).pow(unit.magnitude));
-  }
-
-  return { amount: num.toPrecision(5), unit };
+  return { amount: num.toString(), unit: toUnit };
 };

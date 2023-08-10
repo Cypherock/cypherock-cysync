@@ -23,7 +23,7 @@ export const useAccountDropdown = () => {
   const getBalanceToDisplay = (account: IAccount) => {
     const { amount, unit } = getParsedAmount({
       coinId: account.assetId,
-      unitName: account.unit,
+      unitAbbr: account.unit,
       amount: account.balance,
     });
     return `${amount} ${unit.abbr}`;

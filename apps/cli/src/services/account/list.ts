@@ -12,7 +12,7 @@ export interface IListAccountFlags {
 const mapAccountToDisplay = async (db: IDatabase, account: IAccount) => {
   const { amount, unit } = getParsedAmount({
     coinId: account.assetId,
-    unitName: account.unit,
+    unitAbbr: account.unit,
     amount: account.balance,
   });
 

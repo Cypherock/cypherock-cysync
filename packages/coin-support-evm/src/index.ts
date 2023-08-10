@@ -1,9 +1,13 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
+  IPreparedTransaction,
   IReceiveEvent,
   IReceiveParams,
+  IValidateAddressParams,
+  ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
@@ -22,8 +26,28 @@ export class EvmSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccounts(): Observable<void> {
+  public syncAccount(): Observable<void> {
     throw new Error('Not implemented');
+  }
+
+  public async initializeTransaction(): Promise<IPreparedTransaction> {
+    throw new Error('Not implemented');
+  }
+
+  public async prepareTransaction(): Promise<IPreparedTransaction> {
+    throw new Error('Not implemented');
+  }
+
+  public signTransaction(): Observable<ISignTransactionEvent> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public broadcastTransaction(): Promise<ITransaction> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public validateAddress(params: IValidateAddressParams) {
+    return operations.validateAddress(params);
   }
 
   public static setEthersLibrary(ethers: ethersLibType): void {

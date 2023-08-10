@@ -4,7 +4,6 @@ import {
   LeanBoxProps,
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -122,13 +121,6 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay
-            text={lang.strings.addAccount.deviceActions.dialogTitle}
-          />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyCoinIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">

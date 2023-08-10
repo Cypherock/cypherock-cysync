@@ -22,6 +22,7 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
+import { syncAccounts } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
@@ -268,7 +269,8 @@ export const AddAccountDialogProvider: FC<
 
     try {
       const db = getDB();
-      await db.account.insert(allAccountsToAdd);
+      const addedAccounts = await db.account.insert(allAccountsToAdd);
+      dispatch(syncAccounts({ accounts: addedAccounts }));
       goTo(3, 0);
     } catch (e) {
       onError(e);

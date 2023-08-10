@@ -61,6 +61,7 @@ export const SelectionDialog: React.FC = () => {
             searchText={dialogText.searchText}
             placeholderText={dialogText.walletPlaceholder}
             onChange={handleWalletChange}
+            noLeftImageInList
           />
           <Dropdown
             items={accountDropdownList}
@@ -69,7 +70,6 @@ export const SelectionDialog: React.FC = () => {
             searchText={dialogText.searchText}
             placeholderText={dialogText.accountPlaceholder}
             onChange={handleAccountChange}
-            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

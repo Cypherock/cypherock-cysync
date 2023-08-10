@@ -18,14 +18,14 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
         try {
           await app.abort();
         } catch (error) {
-          logger.warn('Error in aborting create account');
+          logger.warn('Error in aborting receive flow');
           logger.warn(error);
         }
 
         try {
           await app.destroy();
         } catch (error) {
-          logger.warn('Error in destroying connection on create account');
+          logger.warn('Error in destroying connection on receive flow');
           logger.warn(error);
         }
       }
@@ -57,6 +57,8 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
 
         if (params.connection) {
           app = await params.createApp(params.connection);
+          assert(app, 'Unable to create app');
+
           const addressFromDevice = await params.getReceiveAddressFromDevice({
             app,
             derivationPath,
