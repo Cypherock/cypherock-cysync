@@ -26,6 +26,7 @@ export interface IPreparedBtcTransaction extends IPreparedTransaction {
   userInputs: {
     outputs: IPreparedTransactionOutput[];
     feeRate: number;
+    isSendAll: boolean;
   };
   staticData: {
     averageFee: number;

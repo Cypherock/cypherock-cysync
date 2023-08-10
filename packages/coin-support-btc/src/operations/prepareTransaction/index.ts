@@ -1,6 +1,7 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { btcCoinList, ICoinInfo } from '@cypherock/coins';
 import coinselect from 'coinselect';
+import coinselectSplit from 'coinselect/split';
 
 import { IPrepareBtcTransactionParams } from './types';
 
@@ -43,45 +44,75 @@ const mapUtxo = (utxo: IUtxo) => ({
 export const prepareTransaction = async (
   params: IPrepareBtcTransactionParams,
 ): Promise<IPreparedBtcTransaction> => {
-  const { accountId, db } = params;
+  const { accountId, db, txn } = params;
   const { account, coin } = await getAccountAndCoin(db, btcCoinList, accountId);
 
   const outputsAddresses = validateAddresses(params, coin);
 
   const outputList: { address: string; value?: number }[] = [];
 
-  for (const output of params.txn.userInputs.outputs) {
-    let value = 0;
+  let result: {
+    inputs: any[] | undefined;
+    outputs: any[] | undefined;
+    fee: number;
+  };
 
-    if (output.amount) {
-      value = parseInt(output.amount, 10);
+  if (txn.userInputs.isSendAll) {
+    // Send all requires only 1 output, if more than one output is present,
+    // force remove outputs other than the first one
+    if (txn.userInputs.outputs.length > 1) {
+      txn.userInputs.outputs = txn.userInputs.outputs.slice(0, 1);
     }
 
     outputList.push({
-      address: output.address,
-      value,
+      address: txn.userInputs.outputs[0].address,
+      value: undefined,
     });
+
+    result = coinselectSplit(
+      txn.staticData.utxos.map(mapUtxo),
+      outputList,
+      txn.userInputs.feeRate,
+    );
+  } else {
+    for (const output of txn.userInputs.outputs) {
+      let value = 0;
+
+      if (output.amount) {
+        value = parseInt(output.amount, 10);
+      }
+
+      outputList.push({
+        address: output.address,
+        value,
+      });
+    }
+
+    result = coinselect(
+      txn.staticData.utxos.map(mapUtxo),
+      outputList,
+      txn.userInputs.feeRate,
+    );
   }
 
-  const { inputs, outputs, fee } = coinselect(
-    params.txn.staticData.utxos.map(mapUtxo),
-    outputList,
-    params.txn.userInputs.feeRate,
-  );
-
-  const hasEnoughBalance = outputs !== undefined && inputs !== undefined;
+  const hasEnoughBalance =
+    result.outputs !== undefined && result.inputs !== undefined;
   const unusedAddress = await getFirstUnusedAddress(account, 'internal');
 
+  if (txn.userInputs.outputs.length > 0 && result.outputs) {
+    txn.userInputs.outputs[0].amount = result.outputs[0].value;
+  }
+
   return {
-    ...params.txn,
+    ...txn,
     validation: {
       outputs: outputsAddresses,
       hasEnoughBalance,
     },
     computedData: {
-      inputs: inputs ?? [],
-      fee,
-      outputs: (outputs ?? []).map((e: any) => {
+      inputs: result.inputs ?? [],
+      fee: result.fee,
+      outputs: (result.outputs ?? []).map((e: any) => {
         if (e.address === undefined) {
           return {
             ...e,

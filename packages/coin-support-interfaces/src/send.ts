@@ -14,6 +14,7 @@ export interface IPreparedTransaction {
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];
+    isSendAll: boolean;
   };
   staticData: object;
   computedData: object;

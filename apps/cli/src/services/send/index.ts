@@ -42,12 +42,19 @@ const getTxnInputs = async (params: {
 
   let outputCount = 1;
 
+  const transactionTypeChoices = [
+    { name: 'Single Transaction', value: 'single' },
+    { name: 'Send all transaction', value: 'all' },
+  ];
+
   if (isBatchAllowed) {
-    const isBatch =
-      (await querySelect([
-        { name: 'Single Transaction', value: 'single' },
-        { name: 'Batch transaction', value: 'batch' },
-      ])) === 'batch';
+    transactionTypeChoices.push({ name: 'Batch transaction', value: 'batch' });
+  }
+
+  const transactionType = await querySelect(transactionTypeChoices);
+
+  if (isBatchAllowed) {
+    const isBatch = transactionType === 'batch';
 
     if (isBatch) {
       outputCount = await queryNumber('Enter the number of outputs');
@@ -58,21 +65,34 @@ const getTxnInputs = async (params: {
     }
   }
 
+  if (transactionType === 'all') {
+    outputCount = 1;
+    transaction.userInputs.isSendAll = true;
+  } else {
+    transaction.userInputs.isSendAll = false;
+  }
+
   transaction.userInputs.outputs = [];
 
   for (let i = 0; i < outputCount; i += 1) {
     const address = await queryInput(
       `Enter address you want to transfer funds to (${i + 1})`,
     );
-    const amountInDefaultUnit = await queryInput(
-      `Enter amount you want to transfer in ${account.unit} (${i + 1})`,
-    );
-    const { amount } = convertToUnit({
-      amount: amountInDefaultUnit,
-      coinId: coin.id,
-      fromUnitAbbr: account.unit,
-      toUnitAbbr: getZeroUnit(coin.id).abbr,
-    });
+    let amount = '';
+
+    if (!transaction.userInputs.isSendAll) {
+      const amountInDefaultUnit = await queryInput(
+        `Enter amount you want to transfer in ${account.unit} (${i + 1})`,
+      );
+      const convertedAmount = convertToUnit({
+        amount: amountInDefaultUnit,
+        coinId: coin.id,
+        fromUnitAbbr: account.unit,
+        toUnitAbbr: getZeroUnit(coin.id).abbr,
+      });
+      amount = convertedAmount.amount;
+    }
+
     transaction.userInputs.outputs.push({ address, amount });
   }
 

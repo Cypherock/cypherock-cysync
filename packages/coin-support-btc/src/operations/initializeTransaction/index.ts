@@ -25,6 +25,7 @@ export const initializeTransaction = async (
     userInputs: {
       outputs: [],
       feeRate: averageFee,
+      isSendAll: false,
     },
     staticData: {
       averageFee,
