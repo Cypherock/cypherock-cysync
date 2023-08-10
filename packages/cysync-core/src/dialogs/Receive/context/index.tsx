@@ -142,6 +142,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const onSkip = () => {
     setIsStartedWithoutDevice(true);
+    goTo(1, 0);
   };
 
   const resetStates = (forFlow?: boolean) => {

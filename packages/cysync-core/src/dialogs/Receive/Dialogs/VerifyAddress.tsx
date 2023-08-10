@@ -1,3 +1,4 @@
+import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   DialogBox,
   DialogBoxBody,
@@ -17,14 +18,20 @@ import { AddressDisplay } from './Components';
 import { useReceiveDialog } from '../context';
 
 export const VerifyAddress: React.FC = () => {
-  const { onNext, isFlowCompleted } = useReceiveDialog();
+  const { onNext, onRetry, deviceEvents, isFlowCompleted } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
     if (isFlowCompleted) {
+      onRetry();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isFlowCompleted && deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
       onNext();
     }
-  }, [isFlowCompleted]);
+  }, [deviceEvents]);
 
   const dataArray = [
     {

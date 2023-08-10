@@ -8,6 +8,7 @@ import {
   Flex,
   Tag,
 } from '@cypherock/cysync-ui';
+import lodash from 'lodash';
 import React from 'react';
 import QRCode from 'react-qr-code';
 
@@ -34,7 +35,9 @@ export const AddressDisplay: React.FC = () => {
           <Typography variant="h5" width="100%">
             <LangDisplay text={coinList[selectedAccount?.assetId ?? ''].name} />
           </Typography>
-          <Tag $fontSize={12}>{selectedAccount?.derivationScheme}</Tag>
+          <Tag $fontSize={12}>
+            {lodash.upperCase(selectedAccount?.derivationScheme)}
+          </Tag>
         </Flex>
         <Typography variant="h5" width="100%" ml="auto" mr="auto">
           <LangDisplay

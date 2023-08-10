@@ -2,6 +2,7 @@ import { getParsedAmount } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
 
 import { useWalletDropdown } from './useWalletDropdown';
@@ -47,7 +48,7 @@ export const useAccountDropdown = () => {
           leftImage: <CoinIcon assetId={account.assetId} />,
           text: account.name,
           shortForm: `(${coinList[account.assetId].abbr})`,
-          tag: account.derivationScheme?.toUpperCase(),
+          tag: lodash.upperCase(account.derivationScheme),
           rightText: getBalanceToDisplay(account),
         })),
     [accounts, selectedWallet],
