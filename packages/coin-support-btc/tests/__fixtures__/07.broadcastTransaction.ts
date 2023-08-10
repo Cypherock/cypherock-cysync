@@ -25,6 +25,7 @@ export const valid: IPrepareTransactionTestCases[] = [
           { address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA', amount: '10000' },
         ],
         feeRate: 150,
+        isSendAll: false,
       },
       staticData: {
         averageFee: 150,
