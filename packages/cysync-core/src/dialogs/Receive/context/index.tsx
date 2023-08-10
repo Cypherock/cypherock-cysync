@@ -63,6 +63,8 @@ export interface ReceiveDialogContextInterface {
   handleWalletChange: () => void;
   accountDropdownList: DropDownListItemProps[];
   handleAccountChange: () => void;
+  isStartedWithoutDevice: boolean;
+  isFlowCompleted: boolean;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -95,9 +97,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
+  const [isFlowCompleted, setIsFlowCompleted] = useState(false);
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
+  const [isStartedWithoutDevice, setIsStartedWithoutDevice] =
+    useState<boolean>(false);
 
   const flowSubscription = useRef<Subscription | undefined>();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
@@ -136,14 +141,16 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onSkip = () => {
-    goTo(1, 0, false);
+    setIsStartedWithoutDevice(true);
   };
 
-  const resetStates = () => {
+  const resetStates = (forFlow?: boolean) => {
     setDeviceEvents({});
     setDerivedAddress(undefined);
     setIsAddressVerified(false);
+    setIsFlowCompleted(false);
     setError(undefined);
+    if (!forFlow) setIsStartedWithoutDevice(false);
   };
 
   const cleanUp = () => {
@@ -190,8 +197,9 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       return;
     }
 
-    resetStates();
+    resetStates(true);
     cleanUp();
+
     const coinSupport = getCoinSupport(selectedAccount.familyId);
 
     const taskId = lodash.uniqueId('task-');
@@ -199,12 +207,15 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     if (connection) await deviceLock.acquire(connection.device, taskId);
 
     const onEnd = () => {
+      setIsFlowCompleted(true);
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
     const deviceConnection = connection
       ? await connectDevice(connection.device)
       : undefined;
+
+    if (!deviceConnection) setIsStartedWithoutDevice(true);
 
     const subscription = coinSupport
       .receive({
@@ -218,10 +229,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   useEffect(() => {
-    if (connection === undefined && derivedAddress) {
+    if (isStartedWithoutDevice && derivedAddress) {
       goTo(3, 0);
     }
-  }, [connection, derivedAddress]);
+  }, [isStartedWithoutDevice, derivedAddress]);
 
   const {
     onNext,
@@ -260,6 +271,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       handleWalletChange,
       accountDropdownList,
       walletDropdownList,
+      isStartedWithoutDevice,
+      isFlowCompleted,
     }),
     [
       onNext,
@@ -285,6 +298,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       handleWalletChange,
       accountDropdownList,
       walletDropdownList,
+      isStartedWithoutDevice,
+      isFlowCompleted,
     ],
   );
 

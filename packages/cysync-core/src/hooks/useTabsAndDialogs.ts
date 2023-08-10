@@ -53,14 +53,8 @@ export function useTabsAndDialogs({
     return deviceRequiredDialogs.includes(dialog);
   };
 
-  const goTo = (
-    tab: number,
-    dialog?: number,
-    overrideDeviceRequired?: boolean,
-  ) => {
-    setIsDeviceRequired(
-      overrideDeviceRequired ?? checkIfDeviceRequiredInDialog(tab, dialog ?? 0),
-    );
+  const goTo = (tab: number, dialog?: number) => {
+    setIsDeviceRequired(checkIfDeviceRequiredInDialog(tab, dialog ?? 0));
     setCurrentTab(tab);
 
     if (dialog !== undefined) {

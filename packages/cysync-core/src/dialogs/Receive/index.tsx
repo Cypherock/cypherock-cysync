@@ -41,6 +41,7 @@ export const Receive: FC = () => {
     error,
     onRetry,
     onSkip,
+    isStartedWithoutDevice,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const [showOnClose, setShowOnClose] = React.useState(false);
@@ -67,7 +68,7 @@ export const Receive: FC = () => {
               height="full"
             >
               <DeviceConnectionWrapper
-                isDeviceRequired={isDeviceRequired}
+                isDeviceRequired={!isStartedWithoutDevice && isDeviceRequired}
                 label={lang.strings.receive.showAnywayButton}
                 onClick={onSkip}
               >
