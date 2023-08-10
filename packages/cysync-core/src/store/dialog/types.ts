@@ -7,7 +7,7 @@ export interface IDialogState {
     };
   };
 
-  receiveDialog: {
+  receive: {
     isOpen: boolean;
     data?: undefined;
   };

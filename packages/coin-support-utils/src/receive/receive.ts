@@ -14,20 +14,20 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
     let app: T | undefined;
 
     const cleanUp = async () => {
-      if (!app) return;
+      if (app) {
+        try {
+          await app.abort();
+        } catch (error) {
+          logger.warn('Error in aborting receive flow');
+          logger.warn(error);
+        }
 
-      try {
-        await app.abort();
-      } catch (error) {
-        logger.warn('Error in aborting create account');
-        logger.warn(error);
-      }
-
-      try {
-        await app.destroy();
-      } catch (error) {
-        logger.warn('Error in destroying connection on create account');
-        logger.warn(error);
+        try {
+          await app.destroy();
+        } catch (error) {
+          logger.warn('Error in destroying connection on receive flow');
+          logger.warn(error);
+        }
       }
     };
 

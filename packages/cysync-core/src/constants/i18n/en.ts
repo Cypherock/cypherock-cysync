@@ -309,6 +309,7 @@ const en = {
     report: 'Report',
     help: 'Help',
     stop: 'Stop',
+    exit: 'Exit',
     resync: 'Resync',
   },
   lockscreen: {
@@ -377,110 +378,47 @@ const en = {
     },
   },
   receive: {
-    header: 'Receive',
+    title: 'Receive',
+    showAnywayButton: "Don't have your device?",
+    source: {
+      title: 'Receive',
+      subtitle: 'Choose a wallet and account to credit',
+      searchText: 'Search',
+      walletPlaceholder: 'Choose a wallet',
+      accountPlaceholder: 'Account to credit',
+    },
+    x1Vault: {
+      title: 'Follow instructions on the X1 Vault',
+      subtitle: 'Confirm the operation on your device to finalize',
+      actions: {
+        verifyCoin: 'Verify the asset and wallet name on the device',
+        enterPassphrase: 'Enter passphrase',
+        enterPin: 'Enter the PIN and tap any card',
+        tapCard: 'Tap any card',
+      },
+    },
     receive: {
-      info: {
-        dialogBox: {
-          header: 'Receive',
-          subheader: 'Choose a wallet and account to credit',
-          searchText: 'Search',
-          placeholderText: 'Account to Credit',
-          placeholderWalletText: 'Choose a wallet',
-          text: 'Cypherock Red',
-        },
+      title: {
+        prefix: 'Address for ',
+        suffix: 'in ${walletName}',
+      },
+      addressLabel: 'Address',
+      actions: {
+        verify:
+          'Verify the address on X1 Vault exactly matches the address displayed above',
+      },
+      messageBox: {
+        warning:
+          'This Receive Address was NOT VERIFIED by the device. Use it at your own risk',
       },
     },
-    connectDevice: {
-      info: {
-        dialogBox: {
-          header: 'Connect your X1 Vault to your PC to proceed',
-        },
-      },
+    congrats: {
+      title: 'Address verified successfully',
     },
-    deviceConnection: {
-      info: {
-        dialogBox: {
-          header: 'Connect your X1 Vault to proceed',
-          subheader: 'Looks like your device is not connected',
-          buttonName: "Don't have your device?",
-        },
-      },
-    },
-    deviceConfirmCancelled: {
-      info: {
-        dialogBox: {
-          header: 'Request was cancelled from the X1 Vault',
-          subheader: 'This is dialogue text or sub heading',
-        },
-      },
-    },
-    deviceConfirmForTroubleshoot: {
-      info: {
-        dialogBox: {
-          header: 'Follow instructions on the X1 Vault',
-          subheader: 'Confirm the operation on your device to finalize',
-          snackBar: {
-            text: 'Having trouble connecting the device?',
-            buttonName: 'Fix it',
-          },
-        },
-      },
-    },
-    deviceConfirmForToken: {
-      info: {
-        dialogBox: {
-          header: 'Follow instructions on the X1 Vault',
-          subheader: 'Confirm the operation on your device to finalize',
-          InfoBox: {
-            text: 'Remember you will receive Tether on your Ethereum Account address',
-          },
-        },
-      },
-    },
-    deviceConfirm: {
-      info: {
-        dialogBox: {
-          header: 'Follow instructions on the X1 Vault',
-          subheader: 'Confirm the operation on your device to finalize',
-        },
-      },
-    },
-    deviceVerifyAddress: {
-      info: {
-        dialogBox: {
-          label: 'Address',
-          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          tag: 'NATIVE SEGWIT',
-          text: 'Address for ',
-          coinText: 'Bitcoin 1',
-          finaltext: 'in Cypherock Red',
-        },
-      },
-    },
-    deviceAddressVerified: {
-      info: {
-        dialogBox: {
-          header: 'Address verified successfully',
-          label: 'Address',
-          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-        },
-      },
-    },
-    deviceAddressNotVerified: {
-      info: {
-        dialogBox: {
-          header: 'Address verified successfully',
-          label: 'Address',
-          address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          tag: 'NATIVE SEGWIT',
-          text: 'Address for ',
-          coinText: 'Bitcoin 1',
-          finaltext: 'in Cypherock Red',
-          InfoBox: {
-            text: 'This Receive Address was NOT VERIFIED by the device. Use it at your own risk.',
-          },
-        },
-      },
+    finalButtons: {
+      secondary: 'Verify Again',
+      secondaryUnverified: 'Verify Address',
+      primary: 'Done',
     },
     aside: {
       tabs: {
@@ -585,8 +523,7 @@ const en = {
     cardAuth: {
       heading: 'Card Authentication',
       title:
-        'Tap X1 Cards one by one below the \n' +
-        'X1 Vault till you hear 3 beep sounds',
+        'Tap X1 Cards one by one below the \nX1 Vault till you hear 3 beep sounds',
       subtext: 'Lift your card after 3 beep sounds',
     },
     walletActionsDialogBox: {
@@ -1082,6 +1019,11 @@ const en = {
         secondary: 'Cancel',
         primary: 'Exit',
       },
+    },
+  },
+  dialogs: {
+    close: {
+      title: 'Are you sure you want to exit?',
     },
   },
 };
