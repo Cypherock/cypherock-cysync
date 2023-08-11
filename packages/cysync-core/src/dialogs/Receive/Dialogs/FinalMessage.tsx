@@ -25,10 +25,10 @@ export const FinalMessage: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <DialogBoxBody p={0} pt={5}>
         <Image src={circledCheckIcon} alt="Check Icon" />
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
-          <DialogBoxBody p={0}>
+          <DialogBoxBody p={0} px={4} pb={5}>
             {isAddressVerified ? (
               <Typography variant="h5" $textAlign="center">
                 <LangDisplay text={lang.strings.receive.congrats.title} />

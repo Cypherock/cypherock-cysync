@@ -47,10 +47,10 @@ export const VerifyAddress: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+      <DialogBoxBody p={0} pt={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
-          <DialogBoxBody p={0}>
+          <DialogBoxBody p={0} px={4} pb={5}>
             <AddressDisplay />
             <LeanBoxContainer>
               {dataArray.map(data => (
