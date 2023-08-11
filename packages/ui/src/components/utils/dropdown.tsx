@@ -67,13 +67,13 @@ export const handleKeyDown =
           listRef.current?.focus();
 
           if (focusedIndex === visibleItemsCount - 2) {
-            const nextItem = listRef.current?.children[
-              focusedIndex + 1
-            ] as HTMLElement;
+            const nextItem = listRef.current?.children[focusedIndex + 1] as
+              | HTMLElement
+              | undefined;
             const scrollOffset =
-              (nextItem.offsetTop ?? 0) -
+              (nextItem?.offsetTop ?? 0) -
               (listRef.current?.offsetHeight ?? 0) +
-              (nextItem.offsetHeight ?? 0);
+              (nextItem?.offsetHeight ?? 0);
             listRef.current?.scrollTo({ top: scrollOffset });
           }
         }
@@ -93,10 +93,10 @@ export const handleKeyDown =
           listRef.current?.focus();
 
           if (focusedIndex === 0) {
-            const prevItem = listRef.current?.children[
-              focusedIndex - 1
-            ] as HTMLElement;
-            const scrollOffset = prevItem.offsetTop;
+            const prevItem = listRef.current?.children[focusedIndex - 1] as
+              | HTMLElement
+              | undefined;
+            const scrollOffset = prevItem?.offsetTop;
             listRef.current?.scrollTo({ top: scrollOffset });
           }
         }

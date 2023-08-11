@@ -8,3 +8,4 @@ export * from './transaction';
 export * from './priceHistroy';
 export * from './priceInfo';
 export * from './discreetMode';
+export * from './accountSync';

@@ -1,3 +1,4 @@
+import { syncAccounts } from '~/actions';
 import {
   setAccounts,
   setDevices,
@@ -11,9 +12,10 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 const createFuncWithErrorHandler =
-  (name: string, func: () => Promise<any>) => async () => {
+  (name: string, func: (isFirst?: boolean) => Promise<any>) =>
+  async (isFirst?: boolean) => {
     try {
-      await func();
+      await func(isFirst);
 
       return true;
     } catch (error) {
@@ -35,13 +37,17 @@ const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
 
 const syncAccountsDb = createFuncWithErrorHandler(
   'syncAccountsDb',
-  async () => {
+  async isFirst => {
     const db = getDB();
 
     const accounts = await db.account.getAll(undefined, {
       sortBy: { key: 'name' },
     });
     store.dispatch(setAccounts(accounts));
+
+    if (isFirst) {
+      store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+    }
   },
 );
 
@@ -82,8 +88,8 @@ const syncTransactionsDb = createFuncWithErrorHandler(
   },
 );
 
-export const syncAllDb = async () => {
-  await syncAccountsDb();
+export const syncAllDb = async (isFirst: boolean) => {
+  await syncAccountsDb(isFirst);
   await syncWalletsDb();
   await syncDevicesDb();
   await syncPriceInfosDb();

@@ -1,11 +1,11 @@
 import {
   DialogBox,
   DialogBoxBody,
-  Container,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
+  DialogBoxBackgroundBar,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -42,9 +42,6 @@ const AddNewAccount: FC = () => {
             heading={lang.strings.addAccount.header}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="flex-end">
-              <CloseButton onClick={onClose} />
-            </Container>
             <DialogBoxBody
               p="20"
               grow={2}
@@ -63,6 +60,12 @@ const AddNewAccount: FC = () => {
                 </ErrorHandlerDialog>
               </WrapperComponent>
             </DialogBoxBody>
+
+            <DialogBoxBackgroundBar
+              rightComponent={<CloseButton onClick={onClose} />}
+              position="top"
+              useLightPadding
+            />
           </WalletDialogMainContainer>
         </>
       </DialogBox>

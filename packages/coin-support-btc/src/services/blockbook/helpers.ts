@@ -7,7 +7,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
-import { IBlockbookToken, IBlockbookTransaction } from './api';
+import { IBlockbookTransaction } from './api';
 
 import logger from '../../utils/logger';
 
@@ -28,7 +28,7 @@ const mapBlockbookTxnInputsToDb = (
     result.push({
       address,
       amount: input.value,
-      isMine: myAddresses.includes(address),
+      isMine: myAddresses.includes(address.toLowerCase()),
     });
   }
 
@@ -52,7 +52,7 @@ const mapBlockbookTxnOutputsToDb = (
     result.push({
       address,
       amount: output.value,
-      isMine: myAddresses.includes(address),
+      isMine: myAddresses.includes(address.toLowerCase()),
     });
   }
 
@@ -62,7 +62,7 @@ const mapBlockbookTxnOutputsToDb = (
 export const mapBlockbookTxnToDb = (
   account: IAccount,
   transactions: IBlockbookTransaction[] = [],
-  tokens: IBlockbookToken[] = [],
+  myAddresses: string[] = [],
 ): ITransaction[] => {
   assert(account.__id, 'Account id is not defined');
 
@@ -71,7 +71,6 @@ export const mapBlockbookTxnToDb = (
   }
 
   const result: ITransaction[] = [];
-  const myAddresses = tokens.map(e => e.name);
 
   for (const transaction of transactions) {
     const parsedTransaction = {
@@ -103,11 +102,16 @@ export const mapBlockbookTxnToDb = (
       new BigNumber(0),
     );
 
-    const amount = totalOutputs.minus(totalInputs);
+    let amount = totalOutputs.minus(totalInputs);
 
-    parsedTransaction.type = amount.isNegative()
-      ? TransactionTypeMap.send
-      : TransactionTypeMap.receive;
+    parsedTransaction.type = amount.isPositive()
+      ? TransactionTypeMap.receive
+      : TransactionTypeMap.send;
+
+    if (parsedTransaction.type === TransactionTypeMap.send) {
+      amount = amount.abs().minus(parsedTransaction.fees);
+    }
+
     parsedTransaction.amount = amount.abs().toString();
 
     result.push(parsedTransaction);

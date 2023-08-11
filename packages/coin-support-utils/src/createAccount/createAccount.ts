@@ -57,7 +57,6 @@ export function makeCreateAccountsObservable<
       if (app) {
         try {
           await app.abort();
-          // eslint-disable-next-line no-empty
         } catch (error) {
           logger.warn('Error in aborting create account');
           logger.warn(error);
@@ -65,7 +64,6 @@ export function makeCreateAccountsObservable<
 
         try {
           await app.destroy();
-          // eslint-disable-next-line no-empty
         } catch (error) {
           logger.warn('Error in destroying connection on create account');
           logger.warn(error);
