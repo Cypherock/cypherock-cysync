@@ -8,6 +8,7 @@ import {
   LeanBoxContainer,
   LeanBox,
   Throbber,
+  ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -48,19 +49,23 @@ export const VerifyAddress: React.FC = () => {
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
-        <AddressDisplay />
-        <LeanBoxContainer>
-          {dataArray.map(data => (
-            <LeanBox
-              key={data.id}
-              leftImage={data.leftImage}
-              rightImage={data.rightImage}
-              text={data.text}
-              id={data.id}
-              px={6}
-            />
-          ))}
-        </LeanBoxContainer>
+        <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
+          <DialogBoxBody p={0}>
+            <AddressDisplay />
+            <LeanBoxContainer>
+              {dataArray.map(data => (
+                <LeanBox
+                  key={data.id}
+                  leftImage={data.leftImage}
+                  rightImage={data.rightImage}
+                  text={data.text}
+                  id={data.id}
+                  px={6}
+                />
+              ))}
+            </LeanBoxContainer>
+          </DialogBoxBody>
+        </ScrollableContainer>
       </DialogBoxBody>
     </DialogBox>
   );
