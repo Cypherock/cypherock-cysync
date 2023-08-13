@@ -18,7 +18,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => (
         <AppUpdateBar />
         <Topbar title={title} />
       </Flex>
-      <Flex direction="column" gap={16} p="20">
+      <Flex direction="column" gap={16}>
         {children}
       </Flex>
     </Flex>

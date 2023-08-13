@@ -11,7 +11,6 @@ import {
   flex,
   FlexProps,
   BgColorProps,
-  bgColor,
 } from '../utils';
 
 interface ContainerProps
@@ -37,7 +36,6 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${spacing}
   ${border}
   ${flex}
-  ${$bgColor}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (

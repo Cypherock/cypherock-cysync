@@ -759,7 +759,33 @@ const en = {
     title: 'Portfolio',
   },
   wallet: {
-    title: 'Wallet',
+    title: 'Wallets',
+    cypherock: {
+      buttons: {
+        addAccount: 'Add Account',
+        addToken: 'Add Token',
+        less: 'Show Less',
+        more: 'Show More',
+        hide: 'Hide Tokens',
+        show: 'Show Tokens',
+        addCoinToken: 'Add Coin/Token',
+      },
+      tableHeader: {
+        account: 'Account',
+        syncStatus: 'Sync Status',
+        balance: 'Balance',
+        value: 'Value',
+      },
+      accountMissing: {
+        buttons: {
+          addAccount: 'Add Account',
+        },
+      },
+      search: {
+        text: 'No results found for',
+        subText: 'Please try searching another keywords',
+      },
+    },
   },
   errors: {
     deviceErrors,

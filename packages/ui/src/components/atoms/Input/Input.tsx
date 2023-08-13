@@ -23,6 +23,7 @@ export interface InputProps {
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   leftImage?: React.ReactNode;
+  $customImageSpacing?: boolean;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -41,12 +42,15 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
   }
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ $customImageSpacing?: boolean }>`
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: ${({ $customImageSpacing }) => (!$customImageSpacing ? '12px' : '0px')};
+  padding-left: ${({ $customImageSpacing }) =>
+    !$customImageSpacing ? '0px' : '24px'};
+  align-items: center;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
@@ -78,6 +82,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         leftImage,
+        $customImageSpacing,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -87,7 +92,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             <LangDisplay text={label} />
           </InputLabel>
         )}
-        <InputWrapper>
+        <InputWrapper $customImageSpacing={$customImageSpacing}>
           {leftImage}
           <InputStyle
             ref={ref}
@@ -142,6 +147,7 @@ Input.defaultProps = {
   copyAllowed: true,
   onKeyDown: undefined,
   leftImage: undefined,
+  $customImageSpacing: false,
 };
 
 Input.displayName = 'Input';

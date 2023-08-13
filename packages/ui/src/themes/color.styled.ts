@@ -65,6 +65,7 @@ export const colors = {
     lightBlack: '#1B1712',
     sidebar: '#1E1A15',
     warning: '#2C2418',
+    breadcrumbSeparator: '#333130',
   },
   border: {
     popup: '#2C2520',
