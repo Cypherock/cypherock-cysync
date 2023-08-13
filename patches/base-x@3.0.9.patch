@@ -1,0 +1,13 @@
+diff --git a/src/index.js b/src/index.js
+index 5b695f1a4c9ec3b7bc1f072978ca81b29714003c..92960bf95de8b74ab533495f34a5fb44cee65544 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -5,7 +5,7 @@
+ // Distributed under the MIT software license, see the accompanying
+ // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
+ // @ts-ignore
+-var _Buffer = require('safe-buffer').Buffer
++var _Buffer = typeof Buffer === 'undefined' ? window.Buffer : Buffer;
+ function base (ALPHABET) {
+   if (ALPHABET.length >= 255) { throw new TypeError('Alphabet too long') }
+   var BASE_MAP = new Uint8Array(256)

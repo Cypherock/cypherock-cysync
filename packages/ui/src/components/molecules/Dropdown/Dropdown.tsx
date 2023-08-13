@@ -27,7 +27,7 @@ interface DropdownProps {
   items: DropDownListItemProps[];
   searchText: string;
   placeholderText: string;
-  shouldShowIcon?: boolean;
+  noLeftImageInList?: boolean;
   selectedItem: string | undefined;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
@@ -37,7 +37,7 @@ interface DropdownProps {
 export const Dropdown: React.FC<DropdownProps> = ({
   items,
   searchText,
-  shouldShowIcon,
+  noLeftImageInList,
   placeholderText,
   selectedItem = undefined,
   onChange,
@@ -213,9 +213,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   {...item}
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
-                  {...item}
                   id={item.id}
-                  leftImage={shouldShowIcon ? item.leftImage : ''}
+                  leftImage={noLeftImageInList ? undefined : item.leftImage}
                   $isFocused={isItemFocused}
                 />
               </DropdownListItem>
@@ -229,6 +228,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
 Dropdown.defaultProps = {
   disabled: false,
-  shouldShowIcon: false,
+  noLeftImageInList: false,
   leftImage: undefined,
 };

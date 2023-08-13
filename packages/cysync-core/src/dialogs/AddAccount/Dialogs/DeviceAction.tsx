@@ -4,7 +4,6 @@ import {
   LeanBoxProps,
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   LeanBoxContainer,
   LeanBox,
@@ -20,6 +19,9 @@ import React, { useEffect } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
+
+const checkIcon = <Check width={15} height={12} />;
+const throbber = <Throbber size={15} strokeWidth={2} />;
 
 export const AddAccountDeviceActionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -42,15 +44,12 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
     }
   }, [addAccountStatus]);
 
-  const getCheckIcon = () => <Check width={15} height={12} />;
-  const getThrobber = () => <Throbber size={15} strokeWidth={2} />;
-
   const getDeviceEventIcon = (
     loadingEvent: CreateAccountDeviceEvent,
     completedEvent: CreateAccountDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return getCheckIcon();
-    if (deviceEvents[loadingEvent]) return getThrobber();
+    if (deviceEvents[completedEvent]) return checkIcon;
+    if (deviceEvents[loadingEvent]) return throbber;
 
     return undefined;
   };
@@ -113,7 +112,7 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
       text: lang.strings.addAccount.deviceActions.actions.processing,
       leftImage: rightArrowIcon,
       rightImage: deviceEvents[CreateAccountDeviceEvent.CARD_TAPPED]
-        ? getThrobber()
+        ? throbber
         : undefined,
     });
 
@@ -122,13 +121,6 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay
-            text={lang.strings.addAccount.deviceActions.dialogTitle}
-          />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyCoinIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
