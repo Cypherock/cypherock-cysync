@@ -26,12 +26,6 @@ interface RowContainerProps {
   $hide?: string;
 }
 
-export const TableWrapper = styled.div`
-  width: 1376px;
-  height: 891px;
-  border-radius: 24px;
-`;
-
 const RowContainer = styled.div<RowContainerProps & TableRowProps>`
   display: flex;
   flex-direction: row;
@@ -51,22 +45,55 @@ interface ElementContainerProps extends SpacingProps {
   pright?: number;
 }
 
-const ElementContainer = styled.div<ElementContainerProps>`
+const LocalStyle = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 16px 20px;
-  width: ${({ width }) => (width ? `${width}px` : '400px')};
+`;
+
+const ElementContainer = styled(LocalStyle)<ElementContainerProps>`
+  min-width: 215px;
+  max-width: 215px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 255px;
+    max-width: 363px;
+  }
+  flex-grow: 1;
   ${spacing}
 `;
 
-const ColumnContainer = styled(ElementContainer)<ElementContainerProps>`
-  flex: 0 0 400px;
+const ColumnContainer = styled(LocalStyle)<ElementContainerProps>`
+  min-width: 350px;
+  max-width: 400px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 400px;
+    max-width: 450px;
+  }
+  flex-grow: 1;
   padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
   padding-right: ${({ pright }) => (pright ? `${pright}px` : '0')};
 `;
 
-const AmountContainer = styled(ElementContainer)<ElementContainerProps>`
+const AmountContainer = styled(LocalStyle)<ElementContainerProps>`
+  min-width: 200px;
+  max-width: 235px;
+  justify-content: flex-start;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 215px;
+    max-width: 363px;
+  }
+  flex-grow: 1;
   padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
   padding-right: ${({ pright }) => (pright ? `${pright}px` : '20px')};
+`;
+
+const ValueContainer = styled(AmountContainer)`
+  justify-content: flex-start;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 235px;
+    max-width: 250px;
+  }
 `;
 
 const ArrowContainer = styled.div<TableRowProps>`
@@ -74,12 +101,17 @@ const ArrowContainer = styled.div<TableRowProps>`
 `;
 
 const FullWidthTypography = styled(Typography)<TableRowProps>`
-  width: ${({ $balance }) => ($balance ? '255px' : '230px')};
   font-size: ${({ $subMenu }) => ($subMenu ? '14px' : '16px')};
+  width: ${({ $subMenu }) => ($subMenu ? '135px' : 'auto')};
+  @media ${({ theme }) => theme.screens.lg} {
+    width: ${({ $subMenu }) => ($subMenu ? '221px' : 'auto')};
+  }
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  @media ${({ theme }) => theme.screens.lg} {
+  }
 `;
 
 const ImageWrapper = styled.div<TableRowProps>`
@@ -113,10 +145,14 @@ export const Accordions = styled.div`
 `;
 
 const SubMenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   max-height: 269px;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
+
+const RowStyle = styled.div``;
 
 export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
   arrow,
@@ -135,9 +171,8 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
   $balance,
 }) => {
   const { isOpen, toggleAccordion } = useAccordion();
-
   return (
-    <>
+    <RowStyle>
       <RowContainer $rowIndex={$rowIndex}>
         <ColumnContainer
           pleft={$subMenu ? 66 : undefined}
@@ -169,29 +204,23 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
           </Flex>
         </ColumnContainer>
 
-        <ElementContainer pleft={20} pright={20} py={2} width={363}>
-          <Flex align="center" justify="center" width="inherit">
-            {statusImage}
-          </Flex>
+        <ElementContainer pleft={20} pright={20} py={2}>
+          {statusImage}
         </ElementContainer>
 
         <AmountContainer pl={5} py={2}>
-          <Flex align="center" width="inherit">
-            <FullWidthTypography
-              color="muted"
-              $subMenu={$subMenu}
-              $balance={$balance}
-            >
-              {tokenAmount}
-            </FullWidthTypography>
-          </Flex>
+          <FullWidthTypography
+            color="muted"
+            $subMenu={$subMenu}
+            $balance={$balance}
+          >
+            {tokenAmount}
+          </FullWidthTypography>
         </AmountContainer>
 
-        <AmountContainer pl={5} pright={20} py={2} width={249}>
-          <Flex align="center" width="inherit">
-            <Typography color="muted">{tokenValue}</Typography>
-          </Flex>
-        </AmountContainer>
+        <ValueContainer pl={5} pright={20} py={2}>
+          <Typography color="muted">{tokenValue}</Typography>
+        </ValueContainer>
       </RowContainer>
       {tokens && tokens.length > 0 && isOpen && (
         <SubMenuWrapper>
@@ -220,7 +249,7 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
           $hide={$hide}
         />
       )}
-    </>
+    </RowStyle>
   );
 };
 

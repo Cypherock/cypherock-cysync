@@ -33,8 +33,12 @@ const ListItemWrapper = styled.div`
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   width: 276px;
   height: 240px;
-  left: calc(20vw);
-  top: calc(15vh);
+  left: calc(25vw);
+  top: calc(14vh);
+  @media ${({ theme }) => theme.screens.lg} {
+    left: calc(23vw);
+    top: calc(19vh);
+  }
 `;
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({

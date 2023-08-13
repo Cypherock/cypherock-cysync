@@ -21,8 +21,6 @@ interface WalletHeaderProps {
 const WalletHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 1280px;
-  max-width: 1416px;
   padding: 10px 20px;
   margin-top: 16px;
 `;

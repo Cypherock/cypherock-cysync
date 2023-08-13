@@ -21,18 +21,30 @@ const TableHeaderWrapper = styled.div`
 
 const StatusHeader = styled.div`
   display: flex;
-  width: 363px;
   padding: 16px 20px;
   justify-content: center;
   align-items: center;
   gap: 16px;
+  min-width: 200px;
+  max-width: 215px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 215px;
+    max-width: 363px;
+  }
+  flex-grow: 1;
 `;
 const AccountHeader = styled.div`
   display: flex;
-  width: 400px;
   padding: 16px 20px 16px 96px;
   justify-content: space-between;
   align-items: center;
+  min-width: 350px;
+  max-width: 400px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 400px;
+    max-width: 450px;
+  }
+  flex-grow: 1;
 `;
 
 const BalanceHeader = styled.div`
@@ -40,15 +52,27 @@ const BalanceHeader = styled.div`
   padding: 16px 20px 16px 40px;
   justify-content: space-between;
   align-items: center;
-  flex: 1 0 0;
+  min-width: 200px;
+  max-width: 235px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 235px;
+    max-width: 363px;
+  }
+  flex-grow: 1;
 `;
 
 const ValueHeader = styled.div`
   display: flex;
-  width: 250px;
   padding: 16px 20px 16px 40px;
   justify-content: space-between;
   align-items: center;
+  min-width: 200px;
+  max-width: 235px;
+  @media ${({ theme }) => theme.screens.lg} {
+    min-width: 235px;
+    max-width: 250px;
+  }
+  flex-grow: 1;
 `;
 
 export const TableHeaderWallet: React.FC<TableHeaderProps> = ({

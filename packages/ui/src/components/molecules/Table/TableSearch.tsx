@@ -19,8 +19,6 @@ export const TableStructure = styled.div<TableStructureProps>`
   max-height: ${({ $totalHeight }) => `${$totalHeight}px`};
   overflow-y: auto;
   transition: max-height 0.3s ease-out;
-  min-width: 1280px;
-  max-width: 1376px;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
