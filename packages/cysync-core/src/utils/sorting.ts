@@ -54,8 +54,8 @@ export const sortTokens = (
 };
 
 export const searchFilter = (
-  data: DataType[],
   searchTerm: string,
+  data: DataType[] = [],
 ): DataType[] => {
   if (!searchTerm) {
     return data;
@@ -67,9 +67,11 @@ export const searchFilter = (
         return true;
       }
 
-      return row.tokens?.some(token =>
-        token.text.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
+      return row.tokens
+        ? row.tokens.some(token =>
+            token.text.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+        : false;
     })
     .map(row => {
       if (row.tokens) {

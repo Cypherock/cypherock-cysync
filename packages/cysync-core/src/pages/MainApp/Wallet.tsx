@@ -259,7 +259,7 @@ export const Wallet: FC = () => {
   }, [sortKey, sortDirection]);
 
   const filterData = () => {
-    const filteredData = searchFilter(data, searchTerm);
+    const filteredData = searchFilter(searchTerm, data);
     setDisplayedData(filteredData);
     setResultsFound(filteredData.length > 0);
   };
