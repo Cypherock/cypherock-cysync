@@ -16,7 +16,6 @@ interface TableStructureProps {
 }
 
 export const TableStructure = styled.div<TableStructureProps>`
-  margin: 20px;
   max-height: ${({ $totalHeight }) => `${$totalHeight}px`};
   overflow-y: auto;
   transition: max-height 0.3s ease-out;

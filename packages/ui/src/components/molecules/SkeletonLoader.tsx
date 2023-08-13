@@ -20,13 +20,9 @@ export const NoAccountWrapper = styled.div<NoAccountWrapperProps>`
   gap: 40px;
   flex: 1 0 0;
   align-self: stretch;
-  border-radius: ${({ $hasCustomStyles }) =>
-    $hasCustomStyles ? '0' : '24px'}; /* Apply border-radius conditionally */
+  border-radius: ${({ $hasCustomStyles }) => ($hasCustomStyles ? '0' : '24px')};
   background: ${({ theme, $hasCustomStyles }) =>
-    $hasCustomStyles
-      ? 'transparent'
-      : theme.palette.primary
-          .primary}; /* Apply background color conditionally */
+    $hasCustomStyles ? 'transparent' : theme.palette.primary.primary};
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   max-width: 1376px;
   min-width: 1280px;

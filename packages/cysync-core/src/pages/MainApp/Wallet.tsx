@@ -265,7 +265,6 @@ export const Wallet: FC = () => {
   };
 
   const onPostfixIconClick = () => {
-    console.log('onPostfixIconClick', searchTerm);
     setSearchTerm('');
   };
 
@@ -275,7 +274,6 @@ export const Wallet: FC = () => {
 
   useEffect(() => {
     filterData();
-    console.log('This is getting printed after clearing inpiut');
   }, [searchTerm]);
 
   const onSort = (key: keyof DataType, direction: 'asc' | 'desc') => {

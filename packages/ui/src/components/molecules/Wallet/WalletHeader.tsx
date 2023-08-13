@@ -23,7 +23,7 @@ const WalletHeaderWrapper = styled.div`
   justify-content: space-between;
   min-width: 1280px;
   max-width: 1416px;
-  padding: 10px 40px;
+  padding: 10px 20px;
   margin-top: 16px;
 `;
 
