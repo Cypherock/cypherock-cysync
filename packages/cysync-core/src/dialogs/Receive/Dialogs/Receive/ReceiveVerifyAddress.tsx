@@ -13,6 +13,7 @@ import {
   InputLabel,
   Flex,
   Tag,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import { bitcoinIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
@@ -31,9 +32,11 @@ export const ReceiveVerifyAddress: React.FC = () => {
   const dataArray = [
     {
       id: '2',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Verify the address on X1 Vault exactly matches the address displayed above',
-      throbber: true,
+      rightImage: <Throbber size={15} strokeWidth={2} />,
     },
   ];
 
@@ -53,7 +56,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={confirmIcon} alt="Verify Coin" />
         <Flex gap={5} direction="column">
-          <Flex gap={5} direction="row">
+          <Flex gap={8} direction="row">
             <Typography variant="h5" width="100%">
               <LangDisplay text={connect.text} />
             </Typography>
@@ -76,7 +79,7 @@ export const ReceiveVerifyAddress: React.FC = () => {
           justify="flex-start"
         >
           <InputLabel mb={0}>{connect.label}</InputLabel>
-          <CopyContainer link={connect.address} />
+          <CopyContainer link={connect.address} variant="gold" />
         </Container>
         <LeanBoxContainer>
           {dataArray.map(data => (
@@ -86,7 +89,6 @@ export const ReceiveVerifyAddress: React.FC = () => {
               text={data.text}
               id={data.id}
               px={6}
-              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>

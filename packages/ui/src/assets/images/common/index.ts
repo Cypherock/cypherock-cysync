@@ -30,8 +30,6 @@ import etheriumBlueIcon from './etherium-blue.svg';
 import { FailIcon } from './FailIcon';
 import goldSendIcon from './gold-send.svg';
 import goldFail from './gold_fail.svg';
-import qrCodeIcon from './qr-code.svg';
-import qrImage from './qr.png';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
@@ -46,6 +44,8 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
+import qrCodeIcon from './qr-code.svg';
+import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
 import questionMarkIcon from './question-mark.svg';
@@ -67,11 +67,15 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import tetherIcon from './tether.svg';
+import triangleGreyIcon from './triangleGrey.svg';
 
 export {
   addWalletIcon,
   walletIcon,
+  tetherIcon,
   sliderThumbIcon,
+  triangleGreyIcon,
   informationOrangeIcon,
   qrcodeIcon,
   questionMarkGoldIcon,

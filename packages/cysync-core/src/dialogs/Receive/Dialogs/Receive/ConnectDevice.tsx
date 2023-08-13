@@ -16,8 +16,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 export const ConnectDevice: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const connect =
-    lang.strings.addAccount.addAccount.connectDevice.info.dialogBox;
+  const connect = lang.strings.receive.connectDevice.info.dialogBox;
   const { onNext, onPrevious } = useReceiveDialog();
 
   const keyboardActions = {

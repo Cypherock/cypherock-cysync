@@ -9,10 +9,6 @@ const rootRoutes = {
     name: 'portfolio',
     path: '/portfolio',
   },
-  test: {
-    name: 'test',
-    path: '/test',
-  },
   wallet: {
     name: 'wallet',
     path: '/wallet',
@@ -28,6 +24,10 @@ const rootRoutes = {
   help: {
     name: 'help',
     path: '/help',
+  },
+  test: {
+    name: 'test',
+    path: '/test',
   },
 } as const;
 

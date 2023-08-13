@@ -1,3 +1,5 @@
+import { Row } from '~/pages/MainApp/Components/HistoryTable';
+
 export interface IDialogState {
   addAccount: {
     isOpen: boolean;
@@ -32,6 +34,11 @@ export interface IDialogState {
   sendDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  historyDialog: {
+    isOpen: boolean;
+    data?: Row;
   };
 }
 

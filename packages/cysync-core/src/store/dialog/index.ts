@@ -28,6 +28,9 @@ const initialState: IDialogState = {
   receiveDialog: {
     isOpen: false,
   },
+  historyDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

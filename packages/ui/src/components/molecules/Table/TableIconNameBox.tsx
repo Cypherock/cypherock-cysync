@@ -11,7 +11,6 @@ interface IconNameBoxProps {
   subtitle?: string;
   mutedSubtitle?: string;
   mutedBox?: string;
-  size?: 'small' | 'big';
 }
 
 export const iconBoxStyles = css<{ size?: string }>`
@@ -22,6 +21,12 @@ export const iconBoxStyles = css<{ size?: string }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    padding: 16px 20px 16px 40px;
+    width: 300px;
+    gap: 24px;
+  }
 `;
 
 export const IconNameBoxStyle = styled.div<IconNameBoxProps>`
@@ -45,9 +50,7 @@ export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
           <Typography variant="p" $fontSize={12} color="muted">
             {props.mutedSubtitle}
           </Typography>
-          {props.mutedBox && props.size === 'big' && (
-            <TableMutedTextBox text={props.mutedBox} />
-          )}
+          {props.mutedBox && <TableMutedTextBox text={props.mutedBox} />}
         </Container>
       )}
     </Container>
@@ -55,7 +58,6 @@ export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
 );
 
 TableIconNameBox.defaultProps = {
-  size: 'big',
   subtitle: undefined,
   mutedSubtitle: undefined,
   mutedBox: undefined,

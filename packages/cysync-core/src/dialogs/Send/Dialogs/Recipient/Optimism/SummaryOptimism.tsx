@@ -10,9 +10,11 @@ import {
   SummaryBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useSendDialog } from '../../../context';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useSendDialog } from '../../../context';
 
 export const SummaryOptimism: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
@@ -35,7 +37,7 @@ export const SummaryOptimism: React.FC = () => {
     <DialogBox width={600}>
       <DialogBoxBody>
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text="Summary" />
+          <LangDisplay text={summary.title} />
         </Typography>
 
         <SummaryBox

@@ -25,7 +25,7 @@ const SideBarWrapperStyle = styled.div<SideBarWrapperProps>`
   padding-bottom: ${({ theme }) => theme.spacing.five.spacing};
   padding-left: ${({ theme }) => theme.spacing.five.spacing};
   background: ${({ theme }) => theme.palette.background.sidebar};
-  overflow-y: scroll;
+  overflow-y: auto;
   ${width}
   ${height}
   ${spacing}

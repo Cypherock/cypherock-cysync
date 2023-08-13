@@ -5,9 +5,10 @@ import { DialogName } from '~/store';
 import { AddAccountDialog } from './AddAccount';
 import { GuidedFlow } from './GuidedFlow';
 import { ReceiveDialog } from './Receive';
+import { SendDialog } from './Send';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletSyncError } from './WalletSyncError';
-import { SendDialog } from './Send';
+import { HistoryDialog } from '~/pages/MainApp/Components/HistoryDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -16,4 +17,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   addAccount: AddAccountDialog,
   sendDialog: SendDialog,
   receiveDialog: ReceiveDialog,
+  historyDialog: HistoryDialog,
 };

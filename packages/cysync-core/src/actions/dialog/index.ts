@@ -1,3 +1,4 @@
+import { Row } from '~/pages/MainApp/Components/HistoryTable';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -17,3 +18,6 @@ export const openReceiveDialog = () =>
 
 export const openSendDialog = () =>
   openDialog({ name: 'sendDialog', data: undefined });
+
+export const openHistoryDialog = (row: Row) =>
+  openDialog({ name: 'historyDialog', data: row });

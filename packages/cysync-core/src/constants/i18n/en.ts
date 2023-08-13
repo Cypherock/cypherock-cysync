@@ -296,6 +296,7 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
+    reverify: 'Reverify',
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
@@ -332,89 +333,6 @@ const en = {
   },
   addAccount: {
     header: 'Add Coin/Account',
-    addAccount: {
-      initAccount: {
-        info: {
-          dialogBox: {
-            header: 'Follow instructions on the X1 Vault',
-            subheader: 'Add a coin/account Wallet',
-            subheader1: 'Cypherock Red',
-          },
-        },
-      },
-      syncAccount: {
-        info: {
-          dialogBox: {
-            header: 'Syncing the Accounts',
-            subheader: 'Accounts already in portfolio',
-          },
-        },
-      },
-      connectDevice: {
-        info: {
-          dialogBox: {
-            header: 'Connect your X1 Vault to your PC to proceed',
-          },
-        },
-      },
-      congrats: {
-        info: {
-          dialogBox: {
-            subtext: 'Add other accounts or return to portfolio',
-            title: 'Accounts added successfully',
-            buttonAddMore: 'Add more',
-          },
-        },
-      },
-      noAccount: {
-        info: {
-          dialogBox: {
-            header: 'No account found yet',
-            subheader: 'Accounts already in portfolio',
-            buttonSyncAgain: 'Sync Again',
-          },
-        },
-      },
-      add: {
-        info: {
-          dialogBox: {
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
-      selectCrypto: {
-        info: {
-          dialogBox: {
-            header: 'Select the Wallet & Coins you want to add',
-            subTitle: 'Add a coin/account to wallet',
-            constant: 'Cypherock Red',
-            searchText: 'Search',
-            placeholderText: 'Choose a coin',
-            placeholderWalletText: 'Choose a wallet',
-            text: 'Cypherock Red',
-          },
-        },
-      },
-      addAccountSingleChain: {
-        info: {
-          dialogBox: {
-            header: 'Add new accounts',
-            subheader: 'New Accounts',
-            subheader2: 'Account not yet synced',
-            subheader3: 'Accounts already in portfolio',
-            deselectAllButton: 'Deselect All',
-            selectAllButton: 'Select All',
-            buttonAddAccount: 'Add Accounts',
-            advanced: 'Show all address types',
-            questionMark: '?',
-          },
-        },
-      },
-    },
     select: {
       dialogTitle: 'Add Coin/Account',
       header: 'Select the Wallet & Coins you want to add',
@@ -470,9 +388,16 @@ const en = {
           header: 'Receive',
           subheader: 'Choose a wallet and account to credit',
           searchText: 'Search',
-          placeholderText: 'Choose a coin',
+          placeholderText: 'Account to Credit',
           placeholderWalletText: 'Choose a wallet',
           text: 'Cypherock Red',
+        },
+      },
+    },
+    connectDevice: {
+      info: {
+        dialogBox: {
+          header: 'Connect your X1 Vault to your PC to proceed',
         },
       },
     },
@@ -542,7 +467,6 @@ const en = {
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify again',
         },
       },
     },
@@ -552,7 +476,6 @@ const en = {
           header: 'Address verified successfully',
           label: 'Address',
           address: '0x0a4bd3ec465e4f51445abefd33ec465e4f51445a',
-          buttonVerify: 'Verify address',
           tag: 'NATIVE SEGWIT',
           text: 'Address for ',
           coinText: 'Bitcoin 1',
@@ -566,7 +489,7 @@ const en = {
     aside: {
       tabs: {
         source: 'Source',
-        device: 'Device',
+        device: 'X1 Vault',
         receive: 'Receive',
       },
     },
@@ -617,9 +540,11 @@ const en = {
           header: 'Follow instructions on the X1 Vault',
           infoBox: {
             info: {
-              send: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH (?)',
-              optimism:
-                'L1 Fee: 0.001 ETH L1 fee wont be verified from the device',
+              send: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH ',
+              optimism: {
+                text: 'L1 Fee: 0.001 ETH',
+                altText: 'L1 fee wont be verified from the device',
+              },
             },
             warning:
               'Always verify the address displayed on your device exactly matches the address given by the recipient',
@@ -627,7 +552,17 @@ const en = {
         },
       },
     },
-
+    confirmDevice: {
+      info: {
+        dialogBox: {
+          header: 'Follow instructions on the X1 Vault',
+          infoBox: {
+            warning:
+              'Always verify the address displayed on your device exactly matches the address given by the recipient',
+          },
+        },
+      },
+    },
     bitcoin: {
       info: {
         dialogBox: {
@@ -652,7 +587,7 @@ const en = {
               text: 'Amount to send',
               placeholder: '0',
               toggle: 'Send Max',
-              btc: 'BTC',
+              coin: 'BTC',
               dollar: '$',
               error: 'Error message for amount',
             },
@@ -660,11 +595,12 @@ const en = {
             fees: {
               title: 'Fees',
               error: 'Error message for fee',
-              btc: '0.0002 BTC',
+              fee: '0.0002 BTC',
               usd: '$5.51',
               network: 'Network Fees',
             },
             message: '9 sat per byte',
+            fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {
@@ -679,6 +615,7 @@ const en = {
           },
           batch: {
             title: 'Send Crypto',
+            button: 'Add another recipient',
             fees: {
               title: 'Fees',
               error: 'Error message for fee',
@@ -718,7 +655,7 @@ const en = {
             text: 'Amount to send',
             placeholder: '0',
             toggle: 'Send Max',
-            eth: 'ETH',
+            coin: 'ETH',
             dollar: '$',
             error: 'Error message for amount',
           },
@@ -731,6 +668,7 @@ const en = {
           },
           gas: 'Gas Price',
           message: '53.2 GWEI',
+          fee: '53.2',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',
           warning: 'Transaction might cancel if fees is very low',
@@ -757,15 +695,14 @@ const en = {
             text: 'Amount to send',
             placeholder: '0',
             toggle: 'Send Max',
-            eth: 'ETH',
+            coin: 'ETH',
             dollar: '$',
             error: 'Error message for amount',
           },
-
           fees: {
             l1: {
               text: 'Fees (L1)',
-              fee: '0 GWEI',
+              fee: '32.1 GWEI',
               error: 'Error message for L1 fee',
             },
             l2: {
@@ -777,6 +714,7 @@ const en = {
             usd: '$5.51',
           },
           gas: 'Gas Price',
+          fee: '0.45',
           message: '53.2 GWEI',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',
@@ -953,6 +891,25 @@ const en = {
       },
     },
   },
+  history: {
+    info: {
+      dialogBox: {
+        value: 'Value',
+        view: 'View in explorer',
+        fee: 'Fee',
+        type: 'Type',
+        status: 'Status',
+        wallet: 'Wallet',
+        account: 'Account',
+        asset: 'Asset',
+        sender: 'Sender',
+        receiver: 'Receiver',
+        mine: 'Mine',
+        transactionHash: 'Transaction Hash',
+      },
+    },
+  },
+
   onboarding: {
     info: {
       aside: {

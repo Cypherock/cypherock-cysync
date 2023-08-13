@@ -33,6 +33,8 @@ interface TableHeaderDataProps extends TableUtilityProps {
 interface TableDataRowProps extends TableUtilityProps {
   $last?: boolean;
   $noFlex?: boolean;
+  $index: number;
+  onClick?: () => void;
 }
 
 const TableStyle = styled.div`
@@ -85,7 +87,12 @@ const TableHeaderDataStyle = styled.div<TableHeaderDataProps>`
   align-items: center;
   justify-content: space-between;
   flex: ${({ $noFlex }) => ($noFlex ? 'unset' : '1')};
-  padding: 16px 20px 16px 40px;
+  padding: 16px;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    padding: 16px 20px 16px 40px;
+  }
+
   ${flex}
   ${width}
   ${height}
@@ -110,6 +117,7 @@ const TableBodyStyle = styled.div`
 
 const TableDataRowStyle = styled.div<TableDataRowProps>`
   display: flex;
+  position: relative;
   flex: 1;
   align-items: center;
   justify-content: space-between;
@@ -118,10 +126,30 @@ const TableDataRowStyle = styled.div<TableDataRowProps>`
   border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
   ${({ $last, theme }) =>
     !$last && `border-bottom: 1px solid ${theme.palette.border.table.row};`}
-  background: ${({ theme }) => theme.palette.background.content};
+  background: ${({ $index, theme }) =>
+    $index % 2 === 0
+      ? theme.palette.background.content
+      : theme.palette.background.primary};
 
   &:hover {
-    background: ${({ theme }) => theme.palette.background.sideBar};
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      background: ${({ theme }) => theme.palette.golden};
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    &:hover::before {
+      background: ${({ theme }) => theme.palette.golden} border-box;
+      transition: all 0.3s;
+      ease-out;
+    }
+    cursor: pointer;
   }
 
   ${flex}
@@ -184,4 +212,5 @@ export const TableDataRow: FC<TableDataRowProps> = ({ children, ...props }) => (
 TableDataRow.defaultProps = {
   $noFlex: false,
   $last: false,
+  onClick: undefined,
 };

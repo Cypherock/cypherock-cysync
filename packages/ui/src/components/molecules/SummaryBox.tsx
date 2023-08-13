@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Typography,
   Image,
@@ -12,7 +13,7 @@ import {
 } from '../..';
 import SvgOptimism from '../../assets/icons/generated/Optimism';
 
-interface CustomSummaryContainerProps {
+interface SummaryRowProps {
   leftText: string;
   leftIcon?: string;
   rightText: string;
@@ -20,7 +21,7 @@ interface CustomSummaryContainerProps {
   margin?: number;
 }
 
-export const SummaryRow: React.FC<CustomSummaryContainerProps> = ({
+export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
   leftIcon,
   rightText,
@@ -73,7 +74,7 @@ interface ToItem {
   amountUsd: string;
 }
 
-export type SummaryScrollBoxProps = {
+export interface SummaryScrollBoxProps {
   fromText: string;
   fromIcon: string;
   toText: string;
@@ -87,7 +88,7 @@ export type SummaryScrollBoxProps = {
   networkFeeUsd: string;
   totalDebitEth: string;
   totalDebitUsd: string;
-};
+}
 
 const imageSrcMap: any = {
   'Ethereum 1': etheriumBlueIcon,

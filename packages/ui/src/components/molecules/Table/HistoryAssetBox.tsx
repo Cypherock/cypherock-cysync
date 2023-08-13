@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Container, Image, Typography } from '../../atoms';
-import { bitcoinIcon, etheriumBlueIcon } from '../../../assets';
+import { bitcoinIcon, etheriumBlueIcon, tetherIcon } from '../../../assets';
 import SvgOptimism from '../../../assets/icons/generated/Optimism';
 import { ImageContainer } from '../LeanBox';
 
@@ -12,7 +12,7 @@ interface HistoryAssetBoxProps {
   wallet?: string;
 }
 
-const imageSrcMap: any = {
+export const imageSrcMap: any = {
   Ethereum: etheriumBlueIcon,
   'Ethereum 1': etheriumBlueIcon,
   'Ethereum 2': etheriumBlueIcon,
@@ -20,6 +20,8 @@ const imageSrcMap: any = {
 
   Optimism: <SvgOptimism height={16} width={15} />,
   Bitcoin: bitcoinIcon,
+  'Bitcoin 2': bitcoinIcon,
+  Tether: tetherIcon,
 };
 
 const HistoryAssetBoxStyle = styled.div<{ size?: string }>`

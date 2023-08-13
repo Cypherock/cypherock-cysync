@@ -67,6 +67,7 @@ export const colors = {
     sidebar: '#1E1A15',
     slider: '#3A3531',
     warning: '#2C2418',
+    batchTransactionBody: '#1b1812',
   },
   border: {
     popup: '#2C2520',
@@ -74,6 +75,7 @@ export const colors = {
     input: '#3C3937',
     separator: '#39322C',
     warning: '#4A2D00',
+    error: '#FF624C',
     bar: '#474747',
     table: {
       title: '#363535',

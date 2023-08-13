@@ -13,6 +13,7 @@ import {
   LeanBox,
   informationWhiteIcon,
   InformationBox,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -25,30 +26,38 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmForToken.info.dialogBox;
-  const imageIcon = questionMarkGoldIcon;
+
   const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
     {
       id: '1',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Fetching a new address from the wallet',
-      rightImage: checkIcon,
+      rightImage: <Image src={checkIcon} alt="check icon" />,
     },
     {
       id: '2',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Verify the account on the device',
-      throbber: true,
+      rightImage: <Throbber size={15} strokeWidth={2} />,
     },
     {
       id: '3',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Enter passphrase',
     },
     {
       id: '4',
-      leftImage: arrowGoldenForward,
+      leftImage: (
+        <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
+      ),
       text: 'Enter the PIN and tap any card',
     },
   ];
@@ -90,14 +99,17 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
               rightImage={data.rightImage}
               text={data.text}
               id={data.id}
-              throbber={data.throbber}
             />
           ))}
         </LeanBoxContainer>
         <InformationBox
-          imagePath={informationWhiteIcon}
+          leftImage={
+            <Image src={informationWhiteIcon} alt="question mark icon" />
+          }
           text={connect.InfoBox.text}
-          iconImagePath={imageIcon}
+          rightImage={
+            <Image src={questionMarkGoldIcon} alt="question mark icon" />
+          }
         />
       </DialogBoxBody>
     </DialogBox>

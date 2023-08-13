@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { searchIcon } from '../../assets';
-import { Image } from './Image';
+import SearchIcon from '../../assets/icons/generated/SearchIcon';
 
 interface SearchBarProps {
   placeholder: string;
@@ -12,21 +11,25 @@ const SearchContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 12px 24px;
-  align-items: center;
-  gap: 14px;
-  background-color: ${({ theme }) => theme.palette.background.input};
+  height: 44px;
+  width: 693px;
+  gap: 24px;
+  background-color: ${({ theme }) =>
+    theme.palette.background.separatorSecondary};
+  border: 1px solid ${({ theme }) => theme.palette.border.separator};
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
 `;
 
-const SearchIcon = styled.div`
-  margin: 0 10px;
+const IconContainer = styled.div`
+  display: flex;
   align-items: center;
 `;
 
 export const SearchBarStyle = styled.input`
   flex: 1;
   border: none;
-  background-color: ${({ theme }) => theme.palette.background.input};
+  background-color: ${({ theme }) =>
+    theme.palette.background.separatorSecondary};
   color: ${({ theme }) => theme.palette.text.muted};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
   ::placeholder {
@@ -39,9 +42,9 @@ export const SearchBarStyle = styled.input`
 
 export const SearchBar: FC<SearchBarProps> = ({ placeholder }) => (
   <SearchContainer>
-    <SearchIcon>
-      <Image src={searchIcon} alt="Verify Coin" width="25px" height="20px" />
-    </SearchIcon>
+    <IconContainer>
+      <SearchIcon width="25px" height="20px" />
+    </IconContainer>
     <SearchBarStyle placeholder={placeholder} />
   </SearchContainer>
 );
