@@ -71,9 +71,9 @@ export const handleKeyDown =
               | HTMLElement
               | undefined;
             const scrollOffset =
-              (nextItem.offsetTop ?? 0) -
+              (nextItem?.offsetTop ?? 0) -
               (listRef.current?.offsetHeight ?? 0) +
-              (nextItem.offsetHeight ?? 0);
+              (nextItem?.offsetHeight ?? 0);
             listRef.current?.scrollTo({ top: scrollOffset });
           }
         }
