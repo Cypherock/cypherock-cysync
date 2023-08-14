@@ -7,6 +7,11 @@ export interface IDialogState {
     };
   };
 
+  receiveDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   walletSyncError: {
     isOpen: boolean;
     data?: undefined;
@@ -17,10 +22,19 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  createWalletGuide: {
+  guidedFlow: {
     isOpen: boolean;
-    data?: undefined;
+    data?: {
+      type: GuidedFlowType;
+    };
   };
 }
+
+export const GuidedFlowMap = {
+  createWallet: 'createWallet',
+  importWallet: 'importWallet',
+} as const;
+
+export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
 
 export type DialogName = keyof IDialogState;

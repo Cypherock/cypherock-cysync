@@ -39,6 +39,7 @@
   "dependencies": {
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coins": "workspace:^",
+    "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-interfaces": "^0.0.11",

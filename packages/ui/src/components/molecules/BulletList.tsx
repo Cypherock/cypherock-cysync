@@ -7,6 +7,7 @@ export const BulletList: FC<{ items: any[] }> = ({ items }) => (
     $bgColor="input"
     direction="column"
     align="flex-start"
+    $borderColor="list"
     gap={{ def: 8, lg: 16 }}
     px={3}
     py={2}

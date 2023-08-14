@@ -3,7 +3,7 @@ import styled, { RuleSet, css } from 'styled-components';
 
 import { Throbber } from './Throbber';
 
-import { UtilsProps, utils } from '../utils';
+import { UtilsProps, goldenGradient, utils } from '../utils';
 
 type ButtonVariant =
   | 'primary'
@@ -61,22 +61,7 @@ const buttonAnimationData = {
 
 const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
   primary: css<ButtonProps>`
-    @property --a {
-      syntax: '<angle>';
-      inherits: false;
-      initial-value: 90deg;
-    }
-
-    transition: --a ${buttonAnimationData.duration} ${buttonAnimationData.curve};
-    background: linear-gradient(
-      var(--a),
-      #e9b873 0.19%,
-      #fedd8f 37.17%,
-      #b78d51 100.19%
-    );
-    &:hover {
-      --a: 180deg;
-    }
+    ${goldenGradient('background')};
     border: 1px solid transparent;
   `,
   secondary: css<ButtonProps>`
@@ -176,7 +161,12 @@ const ButtonStyle = styled.button<ButtonProps>`
     transition: box-shadow ${buttonAnimationData.duration}
       ${buttonAnimationData.curve};
   }
-
+  ${({ disabled, theme }) =>
+    disabled &&
+    `
+    background-color: ${theme.palette.background.disabled};
+    cursor: not-allowed;
+  `}
   ${utils}
 `;
 

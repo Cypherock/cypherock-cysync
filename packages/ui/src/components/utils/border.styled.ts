@@ -13,14 +13,15 @@ type BorderType<T extends string> =
 type Borders = {
   [key in BorderType<'$borderWidth'>]?: number;
 };
-type BorderColor =
+export type BorderColor =
   | 'popup'
   | 'separator'
   | 'info'
   | 'input'
   | 'warning'
   | 'white'
-  | 'list';
+  | 'list'
+  | 'topbar';
 type BorderRadius = number | 'full';
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
 
@@ -43,7 +44,7 @@ const getProperties = (key: BorderType<'border'>, prop: string) => {
   const properties = [];
   const lastElement = key[key.length - 1];
   if (Object.keys(borderPropertyMap).includes(lastElement)) {
-    for (const j of borderPropertyMap[lastElement] ?? []) {
+    for (const j of borderPropertyMap[lastElement]) {
       properties.push(`border-${j}-${prop}`);
     }
   } else {

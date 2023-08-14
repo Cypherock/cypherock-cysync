@@ -1,7 +1,9 @@
 // eslint-disable-next-line max-classes-per-file
+import { BtcSupport } from '@cypherock/coin-support-btc';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
+import * as bitcoin from 'bitcoinjs-lib';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
@@ -79,6 +81,8 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
       await this.dbInstance.load();
     }
+
+    BtcSupport.setBitcoinLibrary(bitcoin);
   }
 
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {
@@ -89,6 +93,8 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
   protected async finally(_: Error | undefined): Promise<any> {
     await cleanUpDeviceConnection();
+    await this.dbInstance?.close();
+    await this.keyDbInstance?.close();
     return super.finally(_);
   }
 }

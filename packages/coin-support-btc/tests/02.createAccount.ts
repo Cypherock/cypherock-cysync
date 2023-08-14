@@ -1,9 +1,11 @@
-import { Observer } from 'rxjs';
 import { IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
+import { Observer } from 'rxjs';
+
 import * as btcAppMock from './__mocks__/btcApp';
 import * as serviceMock from './__mocks__/services';
+
 import { BtcSupport, ICreateBtcAccountEvent, IBtcAccount } from '../src';
 
 describe('02. Create Account', () => {

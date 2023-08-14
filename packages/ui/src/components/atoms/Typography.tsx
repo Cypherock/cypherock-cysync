@@ -22,15 +22,15 @@ export type TypographyColor =
   | 'silver'
   | 'error'
   | 'errorDark'
+  | 'white'
   | 'success'
   | 'heading'
   | 'muted'
   | 'warn'
   | 'list'
   | 'black'
-  | 'disabled'
-  | 'info';
-
+  | 'info'
+  | 'disabled';
 interface HeadingProps
   extends SpacingProps,
     FontProps,
@@ -166,7 +166,7 @@ const PStyle = styled.p<HeadingProps>`
   ${baseStyle};
 `;
 
-interface TypographyProps extends HeadingProps {
+export interface TypographyProps extends HeadingProps {
   children?: ReactNode;
   variant?:
     | 'h1'

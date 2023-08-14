@@ -7,23 +7,60 @@ import {
   Flex,
   assetSwith,
   Image,
+  walletIcon,
+  DropDownListItemProps,
   ImageProps,
+  bitcoinIcon,
   Button,
-  tabler_graph
+  tabler_graph,
+  Dropdown,
+  WalletIcon,
+  solanaIcon,
+  binanceIcon,
+  etheriumBlueIcon,
 } from '@cypherock/cysync-ui';
 import axios from 'axios';
-import React, { useEffect, useState ,useRef } from 'react';
+import React, { useEffect, useState ,useRef , useMemo } from 'react';
 import { Chart, ChartData, ChartOptions } from 'chart.js/auto';
 // import 'chartjs-plugin-interaction'; // Import the interaction plugin
 import moment from 'moment'
 
-const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1825`
+const url = `https://api.coingecko.com/api/v3/coins/curve-dao-token/market_chart?vs_currency=usd&days=365`
 
 type PriceDataTuple = [number, number];
 
 interface DateObject {
 }
+interface ClickableComponentProps {
+  onClick: () => void;
+}
 
+const dropDownDataWithWallet: DropDownListItemProps[] = [
+  {
+    id: '51',
+    text: 'Official',
+    checkType: 'radio',
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
+  },
+  {
+    id: '52',
+    text: 'Cypherock Red',
+    checkType: 'radio',
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
+  },
+  {
+    id: '53',
+    text: 'Personal',
+    checkType: 'radio',
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
+  },
+  {
+    id: '54',
+    text: 'Business',
+    checkType: 'radio',
+    leftImage: <Image src={walletIcon} alt="wallet icon" />,
+  },
+];
 
 export const LineChart: React.FC = () => {
 
@@ -31,8 +68,6 @@ export const LineChart: React.FC = () => {
   const [dates, setDates] = useState<DateObject[]>([]);
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   let chartInstance: Chart | null = null;
-
-
 
   const labels = dates // generateRandomDataArray(5,0,10)
 
@@ -54,7 +89,7 @@ export const LineChart: React.FC = () => {
         label: "Price",
         data: pricedata ,// generateRandomDataArray(5,0,10),// [0 , 22.74, 15.56, 13.48, 18.62, 22.71, ],
         borderColor: 'rgb(214, 0, 249)',
-        tension: 0.4,
+        tension: 0.5,
         fill: true,
         pointRadius : 0,
         hoverRadius :1,
@@ -125,6 +160,11 @@ export const LineChart: React.FC = () => {
     },
   },
   };
+
+
+  const onClick = () => {
+    console.log('e: ');
+  }
   useEffect(() => {
   axios.get(url).then((data : any )=>{
     const sampleData =  data?.data?.prices
@@ -195,14 +235,24 @@ export const LineChart: React.FC = () => {
           display="flex"
           height="500px"
           >
-            <Flex p={3} display="flex" direction="row" justify="space-between" height="full">
-            <Container  p={1} display="flex" direction="column">
+            <Container  display="flex" direction="row" justify="space-between" height="full">
+           
+           {/* left side top info  */}
+            <Container 
+            pl="40" 
+            pr="40" 
+            pt="32" 
+            pb="32" 
+            display="flex" direction="column">
             <Container 
             width='full'
             justify= "flex-start"
             >
 
-              <Container p={1} width="fit-content" display="flex" direction="row"  align-items= "flex-start" justify= "flex-start" >
+              <Container
+               pb="4" 
+               border-bottom="1px solid #2C2520"
+              width="fit-content" display="flex" direction="row"  align-items= "flex-start" justify= "flex-start" >
                   <Typography
                     variant="h3"
                     $textAlign="left"
@@ -213,24 +263,28 @@ export const LineChart: React.FC = () => {
                     font-family='Poppins'
                     font-size='32px'
                     font-style='normal'
-                    font-weight='800'
+                    font-weight='600'
                     line-height='normal'
-
                   >12.72 ETH
+                    {/* <LangDisplay 
+                  font-weight='600'
+                   text="12.72 ETH" /> */}
                   </Typography>
                       <Image2
-                      pl={1}
+                      onClick={onClick}
+                      pl="16"
                       src={assetSwith} 
                       alt="logo" 
                       />
               </Container>
-              </Container>
-              <Container p={1} display="flex" direction="row" align-items= "flex-start"  justify="center">
+            </Container>
+              <Container 
+              pt="4" 
+               gap={8} display="flex" direction="row" align-items= "flex-start"  justify="center">
                 <Typography
                     color="muted"
                     $textAlign="left"
                     $letterSpacing={0.02}
-                    p={1}
                     >$ 16032.087</Typography>
                     <Typography
                     color="muted"
@@ -247,32 +301,74 @@ export const LineChart: React.FC = () => {
                       position='relative'
                       src={tabler_graph} 
                       alt="logo" 
-                      $alignSelf="end" />
+                      $alignSelf="end"
+                      pr='8' />
                     </Flex>1 ETH = $ 1,258.47</Typography>
-                  </Container>
-                </Container>
+              </Container>
+            </Container>
 
-              <Container display="flex" direction="row" justify="space-between">
-                      <Flex m="3">
+
+            {/* buttonns and Drop down */}
+              <Container  display="flex" direction="row" >
+              <Container width={246} gap={8} align-items="center">
                           <Button border-radius='3px' icon='1D'variant="secondary"   size="sm"  />
-                      </Flex>
-                      <Flex m="3">
                           <Button border-radius='3px' icon='1W' variant="secondary"  size="sm"/>
-                      </Flex>
-                      <Flex m="3">
                           <Button border-radius='3px'  icon='1M' variant="secondary"  size="sm"/>
-                      </Flex>
-                      <Flex m="3">
                           <Button border-radius='3px'  icon='1Y' variant="secondary"  size="sm"/>
-                      </Flex>
-                      <Flex m="3">
                           <Button border-radius='3px'  icon='ALL' variant="secondary" size="sm"/>
-                      </Flex>
-                      <Flex m="3">
-                          <Button border-radius='3px'  icon='ALL' variant="secondary" size="sm"/>
-                      </Flex>
+                      </Container>
+                      <Container
+                      width="250"
+                      // display="flex"
+                      height="24"
+                      p="12"
+                      justify-content= "space-between"
+                      // align-items= "center"
+                     >
+                      <Dropdown
+                        align-items= "center"
+                        justify-content= "space-between"
+                        items={dropDownDataWithWallet}
+                        selectedItem={"test"}
+                        disabled={false}
+                        searchText={"test"}
+                        placeholderText={"All Wallets"}
+                        onChange={onClick}
+                        leftImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
+                        />
+                    </Container>
                 </Container>
-            </Flex>
+            </Container>
+
+
+            {/* mid line */} 
+            <Container 
+            display= "flex"
+            align-self= "stretch"
+            pl='40' width='full' 
+            gap={8} 
+            align-items="center"
+            justify='flex-start'>
+              <svg height='15' width='15'>
+              <polygon points="8.66,0 0,15 17.32,15" fill='lime' stroke='purple' stroke-width='1px' />
+              Green Arrow
+            </svg>
+            <Typography
+                    color="muted"
+                    $textAlign="left"
+                    $letterSpacing={0.02}
+                    direction="row"
+                    display='flex'
+                    font-family='Poppins'
+                    align-self="stretch"
+                    gap={8} 
+                  >
+                    <LangDisplay  text="2.3%" />
+                    <LangDisplay  text="$ 00.321" />
+                  </Typography>
+            </Container>
+
+            {/* Graph  */}
         <Container>
               <canvas  ref={chartRef} />
         </Container>
@@ -280,15 +376,20 @@ export const LineChart: React.FC = () => {
             )
 
 };
-
+Dropdown.defaultProps = {
+  disabled: false,
+  shouldShowIcon: true,
+};
 
 import styled from 'styled-components';
+import { string } from 'prop-types';
 
 
 
 interface graphImageProps extends ImageProps {
   src: string;
   alt: string;
+  onClick : any;
 }
 
 const StyledImage = styled.img<graphImageProps>`
@@ -304,8 +405,8 @@ const StyledImage = styled.img<graphImageProps>`
   box-shadow: 4px 4px 32px 4px #0F0D0B;
 `;
 
-const Image2: React.FC<graphImageProps> = ({ src, alt ,...props }) => {
-  return <StyledImage {...props} src={src} alt={alt} />;
+const Image2: React.FC<graphImageProps> = ({ onClick , src, alt ,...props }) => {
+  return <StyledImage {...props} onClick={onClick} src={src} alt={alt} />;
 };
 
 export default Image2;

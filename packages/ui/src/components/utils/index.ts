@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 import { AnimateProps, animate } from './animate.styled';
-import { $bgColor, BgColorProps } from './bgColor.styled';
+import { bgColor, BgColorProps } from './bgColor.styled';
 import { border, BorderProps } from './border.styled';
 import { display, DisplayProps } from './display.styled';
 import { flex, FlexProps } from './flex.styled';
@@ -28,7 +28,7 @@ export interface UtilsProps
     TransformProps {}
 
 export const utils = css<UtilsProps>`
-  ${$bgColor}
+  ${bgColor}
   ${border}
   ${flex}
   ${font}
@@ -53,3 +53,6 @@ export * from './width.styled';
 export * from './shadow.styled';
 export * from './height.styled';
 export * from './animate.styled';
+export * from './border.styled';
+export * from './Gradient';
+export * from './dropdown';

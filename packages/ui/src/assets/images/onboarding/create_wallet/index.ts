@@ -1,17 +1,19 @@
-import confirmPin from './confirm_pin.png';
-import confirmWalletName from './confirm_wallet_name.png';
-import enterWalletName from './enter_wallet_name.png';
-import followInfo from './follow_info.png';
-import pinDeviceConsent from './pin-device.png';
-import setupPin from './setup_pin.png';
-import syncX1Cards from './syncX1Cards.png';
+import confirmAlphabeticDeviceImage from './confirm_alphabetic.png';
+import confirmGenericDeviceImage from './confirm_generic.png';
+import confirmNumericDeviceImage from './confirm_numeric.png';
+import confirmPinDeviceImage from './confirm_pin.png';
+import confirmSeedDeviceImage from './confirm_seed.png';
+import inputAlphabeticDeviceImage from './input_alphabetic.png';
+import inputNumericDeviceImage from './input_numeric.png';
+import tapCardsDeviceImage from './tap_cards.png';
 
 export {
-  confirmPin,
-  confirmWalletName,
-  followInfo,
-  pinDeviceConsent,
-  setupPin,
-  enterWalletName,
-  syncX1Cards,
+  confirmAlphabeticDeviceImage,
+  confirmGenericDeviceImage,
+  confirmNumericDeviceImage,
+  confirmPinDeviceImage,
+  confirmSeedDeviceImage,
+  inputAlphabeticDeviceImage,
+  inputNumericDeviceImage,
+  tapCardsDeviceImage,
 };

@@ -1,7 +1,7 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
+import { Flex } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode } from 'react';
 
-import { Topbar } from '~/components';
+import { AppUpdateBar, Topbar } from '~/components';
 
 import { SideBar } from './SideBar';
 
@@ -11,13 +11,18 @@ interface MainAppLayoutProps {
 }
 
 export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => (
-  <Container height="screen" display="flex">
+  <Flex width="full" height="full" $bgColor="contentGradient">
     <SideBar />
-    <Flex direction="column" grow={1} $alignSelf="start">
-      <Topbar title={title} />
-      {children}
+    <Flex width="full" direction="column">
+      <Flex direction="column" gap={16}>
+        <AppUpdateBar />
+        <Topbar title={title} />
+      </Flex>
+      <Flex direction="column" gap={16} p="20">
+        {children}
+      </Flex>
     </Flex>
-  </Container>
+  </Flex>
 );
 
 MainAppLayout.defaultProps = {

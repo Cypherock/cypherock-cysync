@@ -1,31 +1,41 @@
+import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  createAccountsObservable,
-  ICreateAccountsObservableParams,
+  makeCreateAccountsObservable,
+  IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { btcCoinList } from '@cypherock/coins';
-import { BtcApp, GetXpubsStatus } from '@cypherock/sdk-app-btc';
+import { BtcApp } from '@cypherock/sdk-app-btc';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { createDerivationPathSchemes } from './schemes';
-import { ICreateBtcAccountParams, ICreateBtcAccountEvent } from './types';
+import {
+  ICreateBtcAccountParams,
+  ICreateBtcAccountEvent,
+  btcToDeviceEventMap,
+} from './types';
 
 import * as services from '../../services';
 
-const DERIVATION_PATH_LIMIT = 50;
+const DERIVATION_PATH_LIMIT = 30;
 
 const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
   const { app, walletId, derivationPaths, observer } = params;
 
-  const events: Record<GetXpubsStatus, boolean | undefined> = {} as any;
+  const events: Record<CreateAccountDeviceEvent, boolean | undefined> =
+    {} as any;
 
   const { xpubs } = await app.getXpubs({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     onEvent: event => {
-      events[event] = true;
+      const deviceEvent = btcToDeviceEventMap[event];
+      if (deviceEvent !== undefined) {
+        events[deviceEvent] = true;
+      }
+
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   });
@@ -35,7 +45,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<BtcApp> = async params => {
   return xpubs;
 };
 
-const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createAccountFromAddress'] =
+const createAccountFromAddress: IMakeCreateAccountsObservableParams<BtcApp>['createAccountFromAddress'] =
   async (addressDetails, params) => {
     const coin = btcCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
@@ -52,6 +62,7 @@ const createAccountFromAddress: ICreateAccountsObservableParams<BtcApp>['createA
       assetId: params.coinId,
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
+      isNew: addressDetails.txnCount <= 0,
     };
   };
 
@@ -76,7 +87,7 @@ const getBalanceAndTxnCount = async (
 export const createAccounts = (
   params: ICreateBtcAccountParams,
 ): Observable<ICreateBtcAccountEvent> =>
-  createAccountsObservable<BtcApp, ICreateBtcAccountEvent>({
+  makeCreateAccountsObservable<BtcApp, ICreateBtcAccountEvent>({
     ...params,
     createAccountFromAddress,
     getBalanceAndTxnCount,

@@ -43,7 +43,7 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
     >
       <DialogBox width={500}>
         <DialogBoxBody>
-          <Image rotate={90} src={usbIcon} alt="Device not connected" />
+          <Image rotate={90} src={usbIcon} alt="Usb Icon" />
           <Container display="flex" direction="column" gap={4} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={lang.strings.permissionSetup.title} />

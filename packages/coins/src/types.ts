@@ -16,6 +16,7 @@ export type CoinFamily = (typeof coinFamiliesMap)[keyof typeof coinFamiliesMap];
 export interface ICoinInfo {
   id: string;
   name: string;
+  abbr: string;
   isTest: boolean;
   coinGeckoId: string;
   coinIndex: string;

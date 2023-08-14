@@ -1,24 +1,28 @@
 import { css } from 'styled-components';
 
+export type BgColor =
+  | 'contentGradient'
+  | 'primary'
+  | 'secondary'
+  | 'sideBar'
+  | 'list'
+  | 'black'
+  | 'separator'
+  | 'separatorSecondary'
+  | 'input'
+  | 'inputSecondary'
+  | 'white'
+  | 'highlight'
+  | 'golden'
+  | 'success'
+  | 'muted'
+  | 'lightBlack'
+  | 'warning';
 export interface BgColorProps {
-  $bgColor?:
-    | 'contentGradient'
-    | 'primary'
-    | 'secondary'
-    | 'sideBar'
-    | 'list'
-    | 'black'
-    | 'separator'
-    | 'separatorSecondary'
-    | 'input'
-    | 'white'
-    | 'highlight'
-    | 'golden'
-    | 'success'
-    | 'muted';
+  $bgColor?: BgColor;
 }
 
-export const $bgColor = css<BgColorProps>`
+export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'contentGradient' &&
     css`
@@ -83,6 +87,11 @@ ${props =>
       background: ${({ theme }) => theme.palette.highlight};
     `}
   ${props =>
+    props.$bgColor === 'lightBlack' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.lightBlack};
+    `}
+  ${props =>
     props.$bgColor === 'black' &&
     css`
       background-color: #000;
@@ -91,5 +100,10 @@ ${props =>
     props.$bgColor === 'white' &&
     css`
       background-color: #fff;
+    `}
+  ${props =>
+    props.$bgColor === 'warning' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.warning};
     `}
 `;
