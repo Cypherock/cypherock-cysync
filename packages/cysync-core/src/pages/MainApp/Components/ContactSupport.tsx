@@ -55,10 +55,10 @@ interface ContactSupportProps {
 
 const CustomFlex = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 16px;
   @media ${({ theme }) => theme.screensHeight.lg} {
-    flex-direction: column;
+    flex-direction: row;
   }
 `;
 
