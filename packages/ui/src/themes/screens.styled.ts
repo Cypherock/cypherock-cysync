@@ -6,6 +6,7 @@ export const screens = {
 };
 
 export const screensHeight = {
+  md: '775px',
   lg: '950px',
 };
 

@@ -311,6 +311,7 @@ const en = {
     stop: 'Stop',
     exit: 'Exit',
     resync: 'Resync',
+    submit: 'Submit',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -694,6 +695,25 @@ const en = {
   },
   wallet: {
     title: 'Wallet',
+  },
+  contactForm: {
+    header: 'Contact Support',
+    title: 'How can we help?',
+    subTitle: 'Our team would love to hear from you',
+    email: 'Email',
+    category: 'Category',
+    description: 'Description',
+    label1: 'Attach Application Logs',
+    label2: 'Attach Device Logs',
+    confirmMsg: 'Please confirm on device to proceed',
+    logMsg: 'Device Logs Successfully Attached',
+    error: {
+      msg: 'Other error messages',
+      connectionError: 'Connect the device to attach device logs',
+      deviceError: 'Device is in the bootloader mode',
+      globalError:
+        'All device logs error messages (Edge Cases) will also be displayed here',
+    },
   },
   errors: {
     deviceErrors,

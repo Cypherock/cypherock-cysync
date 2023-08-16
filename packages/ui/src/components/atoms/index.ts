@@ -23,3 +23,4 @@ export * from './InformationBox';
 export * from './VerticalLine';
 export * from './Throbber';
 export * from './ScrollableContainer';
+export * from './Divider';

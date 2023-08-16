@@ -82,6 +82,7 @@ export const theme = {
       separator: colors.background.separator,
       warning: colors.border.warning,
       bar: colors.border.bar,
+      error: colors.border.error,
       white: colors.border.white,
       table: {
         title: colors.border.table.title,

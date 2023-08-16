@@ -23,6 +23,7 @@ export interface InputProps {
   copyAllowed?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   leftImage?: React.ReactNode;
+  $borderColor?: string;
 }
 
 const InputStyle = styled.input<{ $bgColor?: string }>`
@@ -41,7 +42,7 @@ const InputStyle = styled.input<{ $bgColor?: string }>`
   }
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ $borderColor?: string }>`
   width: 100%;
   position: relative;
   display: flex;
@@ -49,7 +50,11 @@ const InputWrapper = styled.div`
   gap: 12px;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.background.separator};
+  border: 1px solid
+    ${({ theme, $borderColor }) =>
+      $borderColor
+        ? theme.palette.border[$borderColor]
+        : theme.palette.background.separator};
 `;
 
 const PostfixIconStyle = styled.div`
@@ -78,54 +83,58 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         leftImage,
+        $borderColor = 'separator',
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
-    ) => (
-      <Flex direction="column" width="full" align="center" justify="center">
-        {label && (
-          <InputLabel>
-            <LangDisplay text={label} />
-          </InputLabel>
-        )}
-        <InputWrapper>
-          {leftImage}
-          <InputStyle
-            ref={ref}
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            disabled={disabled}
-            $bgColor={$bgColor}
-            value={value}
-            onClick={onClick}
-            onPaste={e => {
-              if (pasteAllowed) return true;
-              e.preventDefault();
-              return false;
-            }}
-            onCopy={e => {
-              if (copyAllowed) return true;
-              e.preventDefault();
-              return false;
-            }}
-            onChange={e => onChange?.(e.target.value)}
-            onKeyDown={onKeyDown}
-          />
-          {postfixIcon && (
-            <PostfixIconStyle>
-              <Button
-                type="button"
-                variant="none"
-                display="flex"
-                onClick={onPostfixIconClick}
-              >
-                {postfixIcon}
-              </Button>
-            </PostfixIconStyle>
+    ) => {
+      console.log('border color ', $borderColor);
+      return (
+        <Flex direction="column" width="full" align="center" justify="center">
+          {label && (
+            <InputLabel>
+              <LangDisplay text={label} />
+            </InputLabel>
           )}
-        </InputWrapper>
-      </Flex>
-    ),
+          <InputWrapper $borderColor={$borderColor}>
+            {leftImage}
+            <InputStyle
+              ref={ref}
+              name={name}
+              type={type}
+              placeholder={placeholder}
+              disabled={disabled}
+              $bgColor={$bgColor}
+              value={value}
+              onClick={onClick}
+              onPaste={e => {
+                if (pasteAllowed) return true;
+                e.preventDefault();
+                return false;
+              }}
+              onCopy={e => {
+                if (copyAllowed) return true;
+                e.preventDefault();
+                return false;
+              }}
+              onChange={e => onChange?.(e.target.value)}
+              onKeyDown={onKeyDown}
+            />
+            {postfixIcon && (
+              <PostfixIconStyle>
+                <Button
+                  type="button"
+                  variant="none"
+                  display="flex"
+                  onClick={onPostfixIconClick}
+                >
+                  {postfixIcon}
+                </Button>
+              </PostfixIconStyle>
+            )}
+          </InputWrapper>
+        </Flex>
+      );
+    },
   );
 
 Input.defaultProps = {
@@ -142,6 +151,7 @@ Input.defaultProps = {
   copyAllowed: true,
   onKeyDown: undefined,
   leftImage: undefined,
+  $borderColor: 'separator',
 };
 
 Input.displayName = 'Input';

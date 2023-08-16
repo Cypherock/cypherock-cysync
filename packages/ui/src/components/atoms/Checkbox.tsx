@@ -48,12 +48,21 @@ const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
   props => ({
     htmlFor: props.id,
   }),
-)`
+)<{ disabled?: boolean }>`
   display: inline-block;
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   border-radius: 3px;
-  background-image: ${({ theme }) => theme.palette.golden};
+  background-image: ${({ theme, disabled }) =>
+    disabled
+      ? 'linear-gradient(to right, #5A5349, #756C61)'
+      : theme.palette.golden};
+  ${props =>
+    props.disabled &&
+    `
+      cursor: not-allowed;
+      opacity: 0.6;
+    `}
   position: relative;
 
   &:before {
@@ -99,7 +108,12 @@ export const CheckBox = React.forwardRef<
           disabled={isDisabled}
           ref={ref}
         />
-        <CheckBoxLabelStyle id={id} size={size} $isHovered={$isHovered}>
+        <CheckBoxLabelStyle
+          id={id}
+          size={size}
+          $isHovered={$isHovered}
+          disabled={isDisabled}
+        >
           {checked && <CheckBoxIcon id={id} size={size} />}
         </CheckBoxLabelStyle>
       </CheckBoxWrapper>

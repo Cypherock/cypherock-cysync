@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 interface ThrobberProps {
   size: number;
   strokeWidth: number;
+  color?: string;
 }
 
 interface ThrobberStyleProps {
@@ -46,7 +47,11 @@ const ThrobberRingStyle = styled.circle<ThrobberStyleProps>`
   }
 `;
 
-export const Throbber: React.FC<ThrobberProps> = ({ size, strokeWidth }) => {
+export const Throbber: React.FC<ThrobberProps> = ({
+  size,
+  strokeWidth,
+  color,
+}) => {
   const radius = size / 2;
 
   return (
@@ -57,7 +62,7 @@ export const Throbber: React.FC<ThrobberProps> = ({ size, strokeWidth }) => {
         cy={radius}
         r={radius}
         fill="none"
-        stroke="url(#paint0_linear_1_516)"
+        stroke={color ?? 'url(#paint0_linear_1_516)'}
         strokeWidth={strokeWidth}
         strokeMiterlimit="10"
       />
@@ -77,4 +82,7 @@ export const Throbber: React.FC<ThrobberProps> = ({ size, strokeWidth }) => {
       </defs>
     </ThrobberWrapperStyle>
   );
+};
+Throbber.defaultProps = {
+  color: 'url(#paint0_linear_1_516)',
 };
