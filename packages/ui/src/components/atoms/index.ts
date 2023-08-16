@@ -24,4 +24,6 @@ export * from './VerticalLine';
 export * from './Throbber';
 export * from './ShowMore';
 export * from './NoSearchResult';
+export * from './Divider';
+export * from './SearchBar';
 export * from './ScrollableContainer';
