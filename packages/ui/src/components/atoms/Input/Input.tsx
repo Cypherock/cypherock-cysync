@@ -86,55 +86,52 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         $borderColor = 'separator',
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
-    ) => {
-      console.log('border color ', $borderColor);
-      return (
-        <Flex direction="column" width="full" align="center" justify="center">
-          {label && (
-            <InputLabel>
-              <LangDisplay text={label} />
-            </InputLabel>
+    ) => (
+      <Flex direction="column" width="full" align="center" justify="center">
+        {label && (
+          <InputLabel>
+            <LangDisplay text={label} />
+          </InputLabel>
+        )}
+        <InputWrapper $borderColor={$borderColor}>
+          {leftImage}
+          <InputStyle
+            ref={ref}
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            disabled={disabled}
+            $bgColor={$bgColor}
+            value={value}
+            onClick={onClick}
+            onPaste={e => {
+              if (pasteAllowed) return true;
+              e.preventDefault();
+              return false;
+            }}
+            onCopy={e => {
+              if (copyAllowed) return true;
+              e.preventDefault();
+              return false;
+            }}
+            onChange={e => onChange?.(e.target.value)}
+            onKeyDown={onKeyDown}
+          />
+          {postfixIcon && (
+            <PostfixIconStyle>
+              <Button
+                type="button"
+                variant="none"
+                display="flex"
+                onClick={onPostfixIconClick}
+              >
+                {postfixIcon}
+              </Button>
+            </PostfixIconStyle>
           )}
-          <InputWrapper $borderColor={$borderColor}>
-            {leftImage}
-            <InputStyle
-              ref={ref}
-              name={name}
-              type={type}
-              placeholder={placeholder}
-              disabled={disabled}
-              $bgColor={$bgColor}
-              value={value}
-              onClick={onClick}
-              onPaste={e => {
-                if (pasteAllowed) return true;
-                e.preventDefault();
-                return false;
-              }}
-              onCopy={e => {
-                if (copyAllowed) return true;
-                e.preventDefault();
-                return false;
-              }}
-              onChange={e => onChange?.(e.target.value)}
-              onKeyDown={onKeyDown}
-            />
-            {postfixIcon && (
-              <PostfixIconStyle>
-                <Button
-                  type="button"
-                  variant="none"
-                  display="flex"
-                  onClick={onPostfixIconClick}
-                >
-                  {postfixIcon}
-                </Button>
-              </PostfixIconStyle>
-            )}
-          </InputWrapper>
-        </Flex>
-      );
-    },
+        </InputWrapper>
+      </Flex>
+    ),
   );
 
 Input.defaultProps = {
