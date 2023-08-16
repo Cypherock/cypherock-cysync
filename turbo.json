@@ -94,6 +94,18 @@
     "pretty": {
       "inputs": ["src/**", "tests/**"],
       "cache": false
+    },
+    "storybook": {
+      "cache": false
+    },
+    "build:storybook": {
+      "cache": true
+    },
+    "@cypherock/cysync-ui#build:storybook": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "package.json", ".storybook/**"],
+      "outputs": ["storybook-static/**"],
+      "cache": true
     }
   }
 }
