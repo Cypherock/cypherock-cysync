@@ -39,7 +39,7 @@ const RowContainer = styled.div<RowContainerProps & TableRowProps>`
   transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
 `;
 
-interface ElementContainerProps extends SpacingProps {
+interface StatusContainerProps extends SpacingProps {
   width?: number;
   pleft?: number;
   pright?: number;
@@ -52,48 +52,54 @@ const LocalStyle = styled.div`
   padding: 16px 20px;
 `;
 
-const ElementContainer = styled(LocalStyle)<ElementContainerProps>`
-  min-width: 215px;
-  max-width: 215px;
+const StatusContainer = styled(LocalStyle)<StatusContainerProps>`
+  min-width: 147px;
+  max-width: 200px;
   @media ${({ theme }) => theme.screens.lg} {
-    min-width: 255px;
+    min-width: 247px;
     max-width: 363px;
+    padding: 16px 20px 16px 20px;
   }
+  padding: 16px;
   flex-grow: 1;
   ${spacing}
 `;
 
-const ColumnContainer = styled(LocalStyle)<ElementContainerProps>`
-  min-width: 350px;
+const AccountContainer = styled(LocalStyle)<StatusContainerProps>`
+  min-width: 300px;
   max-width: 400px;
   @media ${({ theme }) => theme.screens.lg} {
     min-width: 400px;
     max-width: 450px;
+    padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
+    padding-right: ${({ pright }) => (pright ? `${pright}px` : '0')};
   }
   flex-grow: 1;
-  padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
-  padding-right: ${({ pright }) => (pright ? `${pright}px` : '0')};
+  padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '24px')};
+  padding-right: ${({ pright }) => (pright ? `${pright}px` : '16px')};
 `;
 
-const AmountContainer = styled(LocalStyle)<ElementContainerProps>`
-  min-width: 200px;
-  max-width: 235px;
+const BalanceContainer = styled(LocalStyle)<StatusContainerProps>`
+  min-width: 141px;
+  max-width: 205px;
   justify-content: flex-start;
   @media ${({ theme }) => theme.screens.lg} {
     min-width: 215px;
     max-width: 363px;
+    padding: 16px 0px 16px 40px;
   }
+  padding: 16px;
   flex-grow: 1;
-  padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
-  padding-right: ${({ pright }) => (pright ? `${pright}px` : '20px')};
 `;
 
-const ValueContainer = styled(AmountContainer)`
+const ValueContainer = styled(BalanceContainer)`
   justify-content: flex-start;
   @media ${({ theme }) => theme.screens.lg} {
     min-width: 235px;
     max-width: 250px;
+    padding: 16px 20px 16px 40px;
   }
+  padding: 16px 24px 16px 16px;
 `;
 
 const ArrowContainer = styled.div<TableRowProps>`
@@ -102,7 +108,7 @@ const ArrowContainer = styled.div<TableRowProps>`
 
 const FullWidthTypography = styled(Typography)<TableRowProps>`
   font-size: ${({ $subMenu }) => ($subMenu ? '14px' : '16px')};
-  width: ${({ $subMenu }) => ($subMenu ? '135px' : 'auto')};
+  width: ${({ $subMenu }) => ($subMenu ? '99px' : 'auto')};
   @media ${({ theme }) => theme.screens.lg} {
     width: ${({ $subMenu }) => ($subMenu ? '221px' : 'auto')};
   }
@@ -148,6 +154,7 @@ const SubMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 269px;
+  max-width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
@@ -174,9 +181,9 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
   return (
     <RowStyle>
       <RowContainer $rowIndex={$rowIndex}>
-        <ColumnContainer
+        <AccountContainer
           pleft={$subMenu ? 66 : undefined}
-          pright={$subMenu ? 20 : undefined}
+          pright={$subMenu ? 16 : undefined}
         >
           <Flex gap={24} width="full">
             {$subMenu && <ArrowContainer arrow={arrow}>{arrow}</ArrowContainer>}
@@ -202,13 +209,11 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
               </Flex>
             </Flex>
           </Flex>
-        </ColumnContainer>
+        </AccountContainer>
 
-        <ElementContainer pleft={20} pright={20} py={2}>
-          {statusImage}
-        </ElementContainer>
+        <StatusContainer>{statusImage}</StatusContainer>
 
-        <AmountContainer pl={5} py={2}>
+        <BalanceContainer>
           <FullWidthTypography
             color="muted"
             $subMenu={$subMenu}
@@ -216,9 +221,9 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
           >
             {tokenAmount}
           </FullWidthTypography>
-        </AmountContainer>
+        </BalanceContainer>
 
-        <ValueContainer pl={5} pright={20} py={2}>
+        <ValueContainer>
           <Typography color="muted">{tokenValue}</Typography>
         </ValueContainer>
       </RowContainer>

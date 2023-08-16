@@ -1,5 +1,5 @@
-import React from 'react';
-import { styled } from 'styled-components';
+import React, { useEffect } from 'react';
+import { DefaultTheme, styled } from 'styled-components';
 
 import { LangDisplay, RadioButton, Typography } from '../../atoms';
 
@@ -8,6 +8,7 @@ interface ListItemDropdownProps {
   checkType?: string;
   checked: boolean;
   onChange: () => void;
+  focused?: boolean;
 }
 
 const LocalTypography = styled(Typography)`
@@ -16,7 +17,19 @@ const LocalTypography = styled(Typography)`
 
 interface ItemsProps {
   checked: boolean;
+  $isFocused?: boolean;
 }
+
+const getBackgroundColor = (
+  theme: DefaultTheme,
+  checked: boolean,
+  $isFocused?: boolean,
+) => {
+  if ($isFocused || checked) {
+    return theme.palette.background.dropdownHover;
+  }
+  return theme.palette.background.separatorSecondary;
+};
 
 const Items = styled.div<ItemsProps>`
   display: flex;
@@ -26,15 +39,22 @@ const Items = styled.div<ItemsProps>`
   border-bottom: 1px solid ${({ theme }) => theme.palette.background.separator};
   width: 100%;
   cursor: pointer;
-  background: ${({ theme, checked }) =>
-    checked
-      ? theme.palette.background.dropdownHover
-      : theme.palette.background.separatorSecondary};
+  background: ${({ theme, checked, $isFocused }) =>
+    getBackgroundColor(theme, checked, $isFocused)};
+  ${LocalTypography} {
+    color: ${({ $isFocused, theme }) =>
+      $isFocused ? theme.palette.text.white : theme.palette.text.muted};
+  }
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${LocalTypography} {
       color: ${({ theme }) => theme.palette.text.white};
     }
+  }
+  outline: none;
+
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -43,6 +63,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   checkType,
   checked,
   onChange,
+  focused = false,
 }) => {
   const handleBoxClick = () => {
     if (checkType && checkType === 'radio') {
@@ -50,8 +71,29 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
     }
   };
 
+  useEffect(() => {
+    if (focused) {
+      const divElement = document.getElementById(`item-${itemText}`);
+      divElement?.focus();
+    }
+  }, [focused, itemText]);
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if ((event.key === 'Enter' || event.key === ' ') && checkType === 'radio') {
+      handleBoxClick();
+      event.preventDefault();
+    }
+  };
+
   return (
-    <Items onClick={handleBoxClick} checked={checked}>
+    <Items
+      onClick={handleBoxClick}
+      checked={checked}
+      $isFocused={focused}
+      tabIndex={0}
+      id={`item-${itemText}`}
+      onKeyDown={handleKeyDown}
+    >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
       <LocalTypography>
         <LangDisplay text={itemText} />
@@ -62,4 +104,5 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
 
 ListItemDropdown.defaultProps = {
   checkType: '',
+  focused: false,
 };

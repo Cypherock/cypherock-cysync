@@ -31,6 +31,9 @@ const TableTitleSearch = styled.div<TableSearchProps>`
   display: flex;
   align-items: center;
   padding: 16px 40px;
+  @media ${({ theme }) => theme.screens.md} {
+    padding: 16px 24px;
+  }
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   overflow: hidden;

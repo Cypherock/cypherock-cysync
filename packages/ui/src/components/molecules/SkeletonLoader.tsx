@@ -24,10 +24,12 @@ export const NoAccountWrapper = styled.div<NoAccountWrapperProps>`
   background: ${({ theme, $hasCustomStyles }) =>
     $hasCustomStyles ? 'transparent' : theme.palette.primary.primary};
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
-  max-width: 1376px;
-  min-width: 1280px;
-  min-height: 965px;
-  margin: 20px auto;
+  min-height: 606px;
+  max-width: ${({ $hasCustomStyles }) =>
+    $hasCustomStyles ? 'auto' : '1376px'};
+  @media ${({ theme }) => theme.screens.lg} {
+    background: transparent;
+  }
 `;
 
 const NoAccountLoader = styled.div`
