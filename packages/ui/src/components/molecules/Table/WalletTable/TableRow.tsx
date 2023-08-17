@@ -25,18 +25,49 @@ interface RowContainerProps {
   $show?: string;
   $hide?: string;
 }
-
+const buttonAnimationData = {
+  duration: '0.3s',
+  curve: 'ease-out',
+};
 const RowContainer = styled.div<RowContainerProps & TableRowProps>`
+  position: relative;
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: inherit;
   background: ${({ theme, $rowIndex }) =>
-    $rowIndex % 2 !== 0
-      ? theme.palette.border.table.row
-      : theme.palette.background.content};
+    $rowIndex % 2 !== 0 ? 'transparent' : theme.palette.background.content};
   max-height: ${({ $subMenu }) => ($subMenu ? '0' : 'auto')};
   overflow: hidden;
   transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  ${({ theme }) =>
+    `
+        &:hover {  
+          &::before {
+              content: '';
+              position: absolute;
+              inset: 0;
+              border-radius: 8px;
+              border: 1px solid transparent;
+              background: ${theme.palette.golden};
+              -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+              -webkit-mask-composite: xor;
+              mask-composite: exclude;
+            }
+        
+            &:hover::before {
+              background: ${theme.palette.golden} border-box;
+              transition: all ${buttonAnimationData.duration};
+              ${buttonAnimationData.curve};
+            }
+          // cursor: pointer;
+        }
+        &:focus { 
+          outline: none;
+          background: ${theme.palette.golden};
+        }
+      `}
 `;
 
 interface StatusContainerProps extends SpacingProps {

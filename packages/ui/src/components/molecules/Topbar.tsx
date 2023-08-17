@@ -13,6 +13,7 @@ import {
   SyncronizingBold,
   NoNotifications,
   Notifications,
+  PushpinBold,
 } from '../../assets';
 import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
@@ -83,6 +84,16 @@ export const Topbar: FC<ITopbar> = ({
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
 
+  const TitleStyle = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  `;
+
+  const IconStyle = styled.div`
+    padding-left: 40px;
+  `;
+
   return (
     <Container
       px={{ def: 4, lg: 5 }}
@@ -95,9 +106,14 @@ export const Topbar: FC<ITopbar> = ({
       justify="space-between"
       shadow="popup"
     >
-      <Typography variant="h4" $fontWeight="semibold" color="silver">
-        <LangDisplay text={title} />
-      </Typography>
+      <TitleStyle>
+        <Typography variant="h4" $fontWeight="semibold" color="silver">
+          <LangDisplay text={title} />
+        </Typography>
+        <IconStyle>
+          <PushpinBold />
+        </IconStyle>
+      </TitleStyle>
       <Flex align="center">
         <Button variant="none" onClick={onSyncClick}>
           <Flex pr={2} align="center" gap={16}>

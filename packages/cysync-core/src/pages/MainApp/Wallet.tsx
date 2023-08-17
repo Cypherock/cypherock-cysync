@@ -20,6 +20,7 @@ import {
   NoAccountWrapper,
   NoSearchResult,
   NotFound,
+  WalletStructure,
 } from '@cypherock/cysync-ui';
 import { isEqual } from 'lodash';
 import React, { FC, useEffect, useState } from 'react';
@@ -286,9 +287,9 @@ export const Wallet: FC = () => {
   const totalHeight = ITEMS_PER_PAGE * MAIN_ITEM_HEIGHT;
 
   return (
-    <MainAppLayout title={`${lang.strings.wallet.title} ${walletName}`}>
+    <MainAppLayout title={`${walletName}`}>
       {data.length > 0 ? (
-        <>
+        <WalletStructure>
           <WalletHeader
             title={`${lang.strings.wallet.title}`}
             breadcrumb={breadcrumb}
@@ -304,7 +305,15 @@ export const Wallet: FC = () => {
             />
             {slicedData.length > 0 ? (
               <>
-                <TableHeaderWallet lang={lang} onSort={onSort} />
+                <TableHeaderWallet
+                  account={lang.strings.wallet.cypherock.tableHeader.account}
+                  syncStatus={
+                    lang.strings.wallet.cypherock.tableHeader.syncStatus
+                  }
+                  balance={lang.strings.wallet.cypherock.tableHeader.balance}
+                  value={lang.strings.wallet.cypherock.tableHeader.value}
+                  onSort={onSort}
+                />
                 {slicedData.map((row, index) => (
                   <TableRow
                     key={`row-${index + 1}`}
@@ -338,7 +347,7 @@ export const Wallet: FC = () => {
               />
             )}
           </TableStructure>
-        </>
+        </WalletStructure>
       ) : (
         <NoAccountWrapper>
           <SkeletonLoader

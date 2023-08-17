@@ -16,14 +16,32 @@ interface TableStructureProps {
 }
 
 export const TableStructure = styled.div<TableStructureProps>`
-  max-height: ${({ $totalHeight }) => `${$totalHeight}px`};
-  overflow-y: auto;
+  position: relative;
   transition: max-height 0.3s ease-out;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
   border-bottom-left-radius: 24px;
+  background: ${({ theme }) => theme.palette.primary.primary};
+  @media ${({ theme }) => theme.screens.lg} {
+    margin: 20px;
+    overflow-y: scroll;
+  }
+  margin: 0px 20px;
+  z-index: 10;
+`;
+
+export const WalletStructure = styled.div`
+  @media ${({ theme }) => theme.screens.lg} {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 900px;
+    padding-right: 8px;
+    margin-right: 8px;
+  }
+  border-bottom-right-radius: 24px;
+  background: ${({ theme }) => theme.palette.content.content};
 `;
 
 const TableTitleSearch = styled.div<TableSearchProps>`

@@ -5,7 +5,10 @@ import { SortAsc, SortDesc, TriangleIcon } from '../../../../assets';
 import { Flex, Typography } from '../../../atoms';
 
 interface TableHeaderProps {
-  lang: any;
+  account: string;
+  syncStatus: string;
+  balance: string;
+  value: string;
   onSort: (
     key: 'text' | 'tokenAmount' | 'tokenValue',
     direction: 'asc' | 'desc',
@@ -80,32 +83,29 @@ const ValueHeader = styled.div`
 `;
 
 export const TableHeaderWallet: React.FC<TableHeaderProps> = ({
-  lang,
+  account,
+  syncStatus,
+  balance,
+  value,
   onSort,
 }) => (
   <TableHeaderWrapper>
     <AccountHeader>
-      <Typography>
-        {lang.strings.wallet.cypherock.tableHeader.account}
-      </Typography>
+      <Typography color="muted">{account}</Typography>
       <Flex gap={2} direction="column">
         <SortAsc onClick={() => onSort('text', 'asc')} />
         <SortDesc onClick={() => onSort('text', 'desc')} />
       </Flex>
     </AccountHeader>
     <StatusHeader>
-      <Typography>
-        {lang.strings.wallet.cypherock.tableHeader.syncStatus}
-      </Typography>
+      <Typography color="muted">{syncStatus}</Typography>
     </StatusHeader>
     <BalanceHeader>
-      <Typography>
-        {lang.strings.wallet.cypherock.tableHeader.balance}
-      </Typography>
+      <Typography color="muted">{balance}</Typography>
       <TriangleIcon />
     </BalanceHeader>
     <ValueHeader>
-      <Typography>{lang.strings.wallet.cypherock.tableHeader.value}</Typography>
+      <Typography color="muted">{value}</Typography>
       <TriangleIcon />
     </ValueHeader>
   </TableHeaderWrapper>
