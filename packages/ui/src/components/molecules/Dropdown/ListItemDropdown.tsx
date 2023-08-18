@@ -9,6 +9,7 @@ interface ListItemDropdownProps {
   checked: boolean;
   onChange: () => void;
   focused?: boolean;
+  id: string;
 }
 
 const LocalTypography = styled(Typography)`
@@ -64,6 +65,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   checked,
   onChange,
   focused = false,
+  id,
 }) => {
   const handleBoxClick = () => {
     if (checkType && checkType === 'radio') {
@@ -78,21 +80,13 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
     }
   }, [focused, itemText]);
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if ((event.key === 'Enter' || event.key === ' ') && checkType === 'radio') {
-      handleBoxClick();
-      event.preventDefault();
-    }
-  };
-
   return (
     <Items
       onClick={handleBoxClick}
       checked={checked}
       $isFocused={focused}
       tabIndex={0}
-      id={`item-${itemText}`}
-      onKeyDown={handleKeyDown}
+      id={id}
     >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
       <LocalTypography>

@@ -45,6 +45,8 @@ interface ITopbar {
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
   onSyncClick: () => void;
+  showIcon?: boolean;
+  onIconClick?: () => void;
 }
 
 const DividingLine = styled.div`
@@ -67,6 +69,8 @@ export const Topbar: FC<ITopbar> = ({
   syncStatus,
   toggleDiscreetMode,
   onSyncClick,
+  showIcon,
+  onIconClick,
 }) => {
   const theme = useTheme();
 
@@ -90,10 +94,6 @@ export const Topbar: FC<ITopbar> = ({
     gap: 16px;
   `;
 
-  const IconStyle = styled.div`
-    padding-left: 40px;
-  `;
-
   return (
     <Container
       px={{ def: 4, lg: 5 }}
@@ -110,9 +110,11 @@ export const Topbar: FC<ITopbar> = ({
         <Typography variant="h4" $fontWeight="semibold" color="silver">
           <LangDisplay text={title} />
         </Typography>
-        <IconStyle>
-          <PushpinBold />
-        </IconStyle>
+        {showIcon && (
+          <Button variant="icon" onClick={onIconClick} pl={5}>
+            <PushpinBold />
+          </Button>
+        )}
       </TitleStyle>
       <Flex align="center">
         <Button variant="none" onClick={onSyncClick}>
@@ -153,4 +155,9 @@ export const Topbar: FC<ITopbar> = ({
       </Flex>
     </Container>
   );
+};
+
+Topbar.defaultProps = {
+  showIcon: false,
+  onIconClick: undefined,
 };

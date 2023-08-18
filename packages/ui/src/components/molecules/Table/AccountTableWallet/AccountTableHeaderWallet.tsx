@@ -82,7 +82,7 @@ const ValueHeader = styled.div`
   flex-grow: 1;
 `;
 
-export const TableHeaderWallet: React.FC<TableHeaderProps> = ({
+export const AccountTableHeaderWallet: React.FC<TableHeaderProps> = ({
   account,
   syncStatus,
   balance,

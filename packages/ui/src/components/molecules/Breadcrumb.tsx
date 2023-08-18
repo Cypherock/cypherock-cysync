@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { DropdownItem, ListItemDropdown } from '..';
@@ -9,6 +9,13 @@ interface BreadcrumbProps {
   currentPage: string;
   breadcrumb?: string;
   dropdown?: DropdownItem[];
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  focusedIndex: number;
+  setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
+  selectedItem: string;
+  setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
+  dropdownState: () => void;
 }
 
 const CustomTypography = styled(Typography)`
@@ -48,12 +55,14 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   currentPage,
   breadcrumb,
   dropdown,
+  isOpen,
+  setIsOpen,
+  focusedIndex,
+  setFocusedIndex,
+  selectedItem,
+  setSelectedItem,
+  dropdownState,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [focusedIndex, setFocusedIndex] = useState(-1);
-  const dropdownState = () => setIsOpen(!isOpen);
-  const [selectedItem, setSelectedItem] = useState('');
-
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -70,7 +79,15 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
     if (event.key === 'Escape') {
       closeDropdown();
     }
+
     if (isOpen) {
+      if (event.key === 'Enter') {
+        if (dropdown) {
+          const focusedItem = dropdown[focusedIndex];
+          setSelectedItem(focusedItem.text);
+          setIsOpen(false);
+        }
+      }
       if (event.key === 'ArrowDown') {
         event.preventDefault();
         setFocusedIndex(prevIndex =>
@@ -118,7 +135,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, dropdown]);
+  }, [isOpen, dropdown, focusedIndex]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -157,6 +174,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 checked={selectedItem === item.text}
                 onChange={() => handleRadioCheckChange(item.text)}
                 focused={index === focusedIndex}
+                id={item.id}
               />
             ))}
           </ListItemWrapper>

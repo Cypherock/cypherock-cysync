@@ -4,17 +4,23 @@ import styled from 'styled-components';
 import { ArrowDown, ArrowUp } from '../../assets';
 import { Typography } from '../atoms';
 
-const StyledAccordion = styled.div`
+const StyledButton = styled.button`
   display: flex;
-  padding: 8px 0px 16px 0px;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  align-self: stretch;
-  border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.row};
+  width: 100%;
+  padding: 8px 0px 16px 0px;
+  border: none;
   background: ${({ theme }) => theme.palette.background.content};
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+  text-align: left;
+  gap: 24px;
+
+  &:focus {
+    outline: none;
+    background: ${({ theme }) => theme.palette.background.contentFocused};
+  }
 `;
 
 interface AccordionProps {
@@ -32,15 +38,17 @@ export const Accordion: React.FC<AccordionProps> = ({
   $show,
   $hide,
 }) => (
-  <StyledAccordion onClick={toggleAccordion}>
+  <StyledButton onClick={toggleAccordion}>
     <Typography color="white" $fontSize={14} $fontWeight="medium">
       {isOpen ? $hide : `${$show} (${tokensLength})`}
     </Typography>
     {isOpen ? <ArrowUp /> : <ArrowDown />}
-  </StyledAccordion>
+  </StyledButton>
 );
 
 Accordion.defaultProps = {
   $show: '',
   $hide: '',
 };
+
+export default Accordion;

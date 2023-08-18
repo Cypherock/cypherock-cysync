@@ -18,6 +18,7 @@ interface TableRowProps {
   tokens?: any[];
   $subMenu?: boolean;
   $balance?: boolean;
+  onClick?: () => void;
 }
 
 interface RowContainerProps {
@@ -61,7 +62,7 @@ const RowContainer = styled.div<RowContainerProps & TableRowProps>`
               transition: all ${buttonAnimationData.duration};
               ${buttonAnimationData.curve};
             }
-          // cursor: pointer;
+          cursor: pointer;
         }
         &:focus { 
           outline: none;
@@ -190,9 +191,7 @@ const SubMenuWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-const RowStyle = styled.div``;
-
-export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
+export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
   arrow,
   leftImage,
   text,
@@ -207,11 +206,13 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
   $hide,
   $show,
   $balance,
+  onClick,
 }) => {
   const { isOpen, toggleAccordion } = useAccordion();
+
   return (
-    <RowStyle>
-      <RowContainer $rowIndex={$rowIndex}>
+    <>
+      <RowContainer $rowIndex={$rowIndex} onClick={onClick}>
         <AccountContainer
           pleft={$subMenu ? 66 : undefined}
           pright={$subMenu ? 16 : undefined}
@@ -262,7 +263,7 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
         <SubMenuWrapper>
           {tokens.map((token, index) => (
             <FadeInContainer key={`fade-in-${index + 1}`}>
-              <TableRow
+              <AccountTableRow
                 key={`tokens-${index + 1}`}
                 arrow={token.arrow}
                 leftImage={token.leftImage}
@@ -285,11 +286,11 @@ export const TableRow: React.FC<TableRowProps & RowContainerProps> = ({
           $hide={$hide}
         />
       )}
-    </RowStyle>
+    </>
   );
 };
 
-TableRow.defaultProps = {
+AccountTableRow.defaultProps = {
   arrow: undefined,
   leftImage: undefined,
   text: '',
@@ -303,4 +304,5 @@ TableRow.defaultProps = {
   $show: '',
   $balance: false,
   $hide: '',
+  onClick: undefined,
 };

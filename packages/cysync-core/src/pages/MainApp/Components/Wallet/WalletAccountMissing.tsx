@@ -16,6 +16,11 @@ const skeletonData = {
 export const WalletAccountMissing: FC = () => {
   const lang = useAppSelector(selectLanguage);
 
+  const handleSkeletonButtonClick = () => {
+    const a = 1;
+    return a;
+  };
+
   return (
     <NoAccountWrapper $hasCustomStyles>
       <SkeletonLoader
@@ -25,6 +30,7 @@ export const WalletAccountMissing: FC = () => {
         $buttonOne={
           lang.strings.wallet.cypherock.accountMissing.buttons.addAccount
         }
+        onClick={handleSkeletonButtonClick}
       />
     </NoAccountWrapper>
   );

@@ -16,6 +16,15 @@ interface WalletHeaderProps {
   btnAddToken?: string;
   btnAddAccount?: string;
   dropdown: DropdownItem[];
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  focusedIndex: number;
+  setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
+  selectedItem: string;
+  setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
+  dropdownState: () => void;
+  onAddTokenClick: () => void;
+  onAddAccountClick: () => void;
 }
 
 const WalletHeaderWrapper = styled.div`
@@ -31,16 +40,36 @@ export const WalletHeader: FC<WalletHeaderProps> = ({
   btnAddToken,
   btnAddAccount,
   dropdown,
+  isOpen,
+  setIsOpen,
+  focusedIndex,
+  setFocusedIndex,
+  selectedItem,
+  setSelectedItem,
+  dropdownState,
+  onAddTokenClick,
+  onAddAccountClick,
 }) => (
   <WalletHeaderWrapper>
     <Breadcrumb
       currentPage={title}
       breadcrumb={breadcrumb}
       dropdown={dropdown}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      focusedIndex={focusedIndex}
+      setFocusedIndex={setFocusedIndex}
+      selectedItem={selectedItem}
+      setSelectedItem={setSelectedItem}
+      dropdownState={dropdownState}
     />
     <Flex gap={24}>
-      <Button variant="primary">{btnAddToken}</Button>
-      <Button variant="primary">{btnAddAccount}</Button>
+      <Button variant="primary" onClick={onAddTokenClick}>
+        {btnAddToken}
+      </Button>
+      <Button variant="primary" onClick={onAddAccountClick}>
+        {btnAddAccount}
+      </Button>
     </Flex>
   </WalletHeaderWrapper>
 );

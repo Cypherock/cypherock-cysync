@@ -12,8 +12,6 @@ import {
   UsdcCurency,
   Ethereum1Icon,
   TableStructure,
-  TableRow,
-  TableHeaderWallet,
   ShowMore,
   BitcoinGray,
   SkeletonLoader,
@@ -21,6 +19,8 @@ import {
   NoSearchResult,
   NotFound,
   WalletStructure,
+  AccountTableHeaderWallet,
+  AccountTableRow,
 } from '@cypherock/cysync-ui';
 import { isEqual } from 'lodash';
 import React, { FC, useEffect, useState } from 'react';
@@ -236,6 +236,11 @@ export const Wallet: FC = () => {
   const [resultsFound, setResultsFound] = useState<boolean>(true);
   const [sortKey, setSortKey] = useState<keyof DataType | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState('');
+
+  const dropdownState = () => setIsOpen(!isOpen);
 
   const handleShowMore = () => {
     if (showMoreClicked) {
@@ -286,6 +291,19 @@ export const Wallet: FC = () => {
   const MAIN_ITEM_HEIGHT = 160;
   const totalHeight = ITEMS_PER_PAGE * MAIN_ITEM_HEIGHT;
 
+  const dummy = () => {
+    const a = 1;
+    return a;
+  };
+
+  const handleSkeletonButtonClick = () => dummy();
+
+  const handleAddTokenClick = () => dummy();
+
+  const handleAddAccountClick = () => dummy();
+
+  const handleAccountTableRow = () => dummy();
+
   return (
     <MainAppLayout title={`${walletName}`}>
       {data.length > 0 ? (
@@ -296,6 +314,15 @@ export const Wallet: FC = () => {
             btnAddToken={lang.strings.wallet.cypherock.buttons.addToken}
             btnAddAccount={lang.strings.wallet.cypherock.buttons.addAccount}
             dropdown={dropDownData}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            focusedIndex={focusedIndex}
+            setFocusedIndex={setFocusedIndex}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            dropdownState={dropdownState}
+            onAddTokenClick={handleAddTokenClick}
+            onAddAccountClick={handleAddAccountClick}
           />
           <TableStructure $totalHeight={totalHeight}>
             <TableSearch
@@ -305,7 +332,7 @@ export const Wallet: FC = () => {
             />
             {slicedData.length > 0 ? (
               <>
-                <TableHeaderWallet
+                <AccountTableHeaderWallet
                   account={lang.strings.wallet.cypherock.tableHeader.account}
                   syncStatus={
                     lang.strings.wallet.cypherock.tableHeader.syncStatus
@@ -315,7 +342,7 @@ export const Wallet: FC = () => {
                   onSort={onSort}
                 />
                 {slicedData.map((row, index) => (
-                  <TableRow
+                  <AccountTableRow
                     key={`row-${index + 1}`}
                     leftImage={row.leftImage}
                     text={row.text}
@@ -329,6 +356,7 @@ export const Wallet: FC = () => {
                     $hide={lang.strings.wallet.cypherock.buttons.hide}
                     $show={lang.strings.wallet.cypherock.buttons.show}
                     $balance
+                    onClick={handleAccountTableRow}
                   />
                 ))}
                 <ShowMore
@@ -356,6 +384,7 @@ export const Wallet: FC = () => {
             subText={skeletonData.subText}
             $buttonOne={lang.strings.wallet.cypherock.buttons.addToken}
             $buttonTwo={lang.strings.wallet.cypherock.buttons.addCoinToken}
+            onClick={handleSkeletonButtonClick}
           />
         </NoAccountWrapper>
       )}
