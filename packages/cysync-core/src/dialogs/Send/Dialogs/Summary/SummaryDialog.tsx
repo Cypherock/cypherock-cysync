@@ -55,22 +55,25 @@ export const SummaryDialog: React.FC = () => {
         <SummaryBox
           items={[
             {
+              id: '1',
               leftText: summary.from,
               leftIcon: (
                 <Image src={walletIcon} alt="From" width="15px" height="12px" />
               ),
               rightComponent: summary.fromDetails,
             },
-            { isDivider: true },
+            { isDivider: true, id: '2' },
             ...toDetailsArray,
-            { isDivider: true },
+            { isDivider: true, id: '3' },
             {
+              id: '4',
               leftText: summary.network.text,
               rightText: summary.network.eth,
               rightSubText: summary.network.usd,
             },
-            { isDivider: true },
+            { isDivider: true, id: '5' },
             {
+              id: '6',
               leftText: summary.debit.text,
               rightText: summary.debit.eth,
               rightSubText: summary.debit.usd,

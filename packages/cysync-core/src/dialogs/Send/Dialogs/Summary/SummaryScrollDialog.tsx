@@ -37,7 +37,7 @@ export const SummaryScrollDialog: React.FC = () => {
         key: `toDetail-amount-${toDetail.id}`,
         margin: 24,
       },
-      { isDivider: true },
+      { isDivider: true, key: `divider-${toDetail.id}` },
     ])
     .flat();
 
@@ -62,6 +62,7 @@ export const SummaryScrollDialog: React.FC = () => {
         <SummaryBox
           items={[
             {
+              id: '1',
               leftText: summary.from,
               leftIcon: (
                 <Image src={walletIcon} alt="From" width="15px" height="12px" />
@@ -71,12 +72,14 @@ export const SummaryScrollDialog: React.FC = () => {
 
             toDetailsArray,
             {
+              id: '2',
               leftText: summary.network.text,
               rightText: summary.network.eth,
               rightSubText: summary.network.usd,
             },
-            { isDivider: true },
+            { isDivider: true, id: '3' },
             {
+              id: '4',
               leftText: summary.debit.text,
               rightText: summary.debit.eth,
               rightSubText: summary.debit.usd,

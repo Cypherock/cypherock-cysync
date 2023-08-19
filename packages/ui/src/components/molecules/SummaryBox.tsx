@@ -45,7 +45,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
   key,
 }) => (
   <SummaryContainer
-    key={key}
+    key={`container-${key}`}
     leftComponent={
       <ImageContainer gap={8}>
         {leftIcon && leftIcon}
@@ -110,9 +110,9 @@ SummaryRow.defaultProps = {
 };
 
 type SummaryItemType =
-  | SummaryRowProps
-  | { isDivider: boolean }
-  | SummaryRowProps[];
+  | (SummaryRowProps & { id: string })
+  | { isDivider: boolean; id: string }
+  | (SummaryRowProps[] & { id: string });
 
 export interface SummaryBoxProps {
   items: SummaryItemType[];
@@ -122,31 +122,22 @@ export const SummaryBox: React.FC<SummaryBoxProps> = ({ items }) => (
   <>
     {items.map(item => {
       if ('isDivider' in item && item.isDivider) {
-        return <Divider variant="horizontal" key={`divider-main-${item}`} />;
-      }
-
-      if ('rightComponent' in item && Array.isArray(item.rightComponent)) {
-        return (
-          <SummaryRow
-            key={`rightComp-${item}`}
-            leftText={item.leftText}
-            leftIcon={item.leftIcon}
-            rightComponent={item.rightComponent}
-          />
-        );
+        return <Divider variant="horizontal" key={`divider-${item.id}`} />;
       }
 
       if (Array.isArray(item)) {
         const SummaryItems = item.map(to => {
           if ('isDivider' in to && to.isDivider) {
-            return <Divider variant="horizontal" key={`divider-${to.key}`} />;
+            return (
+              <Divider variant="horizontal" key={`divider-nested-${to.key}`} />
+            );
           }
-          return <SummaryRow key={`summary-${to.key}`} {...to} />;
+          return <SummaryRow key={`summary-nested-${to.key}`} {...to} />;
         });
 
         if (item.length > 2) {
           return (
-            <ScrollContainer key={`scroll-${item}`}>
+            <ScrollContainer key={`scroll-${item.id}`}>
               {SummaryItems}
             </ScrollContainer>
           );
@@ -156,7 +147,7 @@ export const SummaryBox: React.FC<SummaryBoxProps> = ({ items }) => (
       }
 
       return (
-        <SummaryRow key={`summary-${item}`} {...(item as SummaryRowProps)} />
+        <SummaryRow key={`summary-${item.id}`} {...(item as SummaryRowProps)} />
       );
     })}
   </>
