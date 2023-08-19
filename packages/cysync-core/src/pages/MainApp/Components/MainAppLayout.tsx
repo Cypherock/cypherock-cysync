@@ -1,4 +1,4 @@
-import { Flex } from '@cypherock/cysync-ui';
+import { Flex, MainAppBody, MainAppBodyWrapper } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode } from 'react';
 
 import { AppUpdateBar, Topbar } from '~/components';
@@ -18,9 +18,9 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => (
         <AppUpdateBar />
         <Topbar title={title} />
       </Flex>
-      <Flex direction="column" gap={16}>
-        {children}
-      </Flex>
+      <MainAppBodyWrapper>
+        <MainAppBody>{children}</MainAppBody>
+      </MainAppBodyWrapper>
     </Flex>
   </Flex>
 );

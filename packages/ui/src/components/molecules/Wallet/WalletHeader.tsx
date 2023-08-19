@@ -32,6 +32,7 @@ const WalletHeaderWrapper = styled.div`
   justify-content: space-between;
   padding: 10px 20px;
   margin-top: 16px;
+  margin-bottom: 16px;
 `;
 
 export const WalletHeader: FC<WalletHeaderProps> = ({

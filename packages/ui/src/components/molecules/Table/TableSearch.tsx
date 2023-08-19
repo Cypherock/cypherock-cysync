@@ -25,23 +25,39 @@ export const TableStructure = styled.div<TableStructureProps>`
   border-bottom-left-radius: 24px;
   background: ${({ theme }) => theme.palette.primary.primary};
   @media ${({ theme }) => theme.screens.lg} {
-    margin: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
     overflow-y: scroll;
   }
-  margin: 0px 20px;
+  margin-left: 0px 20px;
   z-index: 10;
+`;
+
+export const MainAppBodyWrapper = styled.div`
+  position: relative;
 `;
 
 export const WalletStructure = styled.div`
   @media ${({ theme }) => theme.screens.lg} {
-    overflow-y: scroll;
-    overflow-x: hidden;
     max-height: 900px;
+    padding-right: 8px;
+    margin-right: 8px;
+  }
+  @media ${({ theme }) => theme.screens.xl} {
+    max-height: 1100px;
     padding-right: 8px;
     margin-right: 8px;
   }
   border-bottom-right-radius: 24px;
   background: ${({ theme }) => theme.palette.content.content};
+`;
+export const MainAppBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  position: absolute;
+  overflow: auto;
 `;
 
 const TableTitleSearch = styled.div<TableSearchProps>`

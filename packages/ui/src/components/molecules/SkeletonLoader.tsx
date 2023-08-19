@@ -69,6 +69,7 @@ interface SkeletonLoaderProps {
   $buttonOne?: string;
   $buttonTwo?: string;
   onClick?: () => void;
+  onClickTwo?: () => void;
 }
 
 export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
@@ -78,6 +79,7 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
   $buttonOne,
   $buttonTwo,
   onClick,
+  onClickTwo,
 }) => (
   <>
     <NoAccountLoader>
@@ -104,7 +106,11 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
       <Button variant="primary" onClick={onClick}>
         {$buttonOne}
       </Button>
-      {$buttonTwo && <Button variant="primary">{$buttonTwo}</Button>}
+      {$buttonTwo && (
+        <Button variant="primary" onClick={onClickTwo}>
+          {$buttonTwo}
+        </Button>
+      )}
     </Flex>
   </>
 );
@@ -115,4 +121,5 @@ SkeletonLoader.defaultProps = {
   $buttonOne: '',
   $buttonTwo: '',
   onClick: undefined,
+  onClickTwo: undefined,
 };

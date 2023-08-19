@@ -125,8 +125,6 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
         `item-${dropdown![focusedIndex].id}`,
       );
       element?.focus();
-    } else if (isOpen && focusedIndex === -1) {
-      setFocusedIndex(0);
     }
   }, [focusedIndex, isOpen, dropdown]);
 

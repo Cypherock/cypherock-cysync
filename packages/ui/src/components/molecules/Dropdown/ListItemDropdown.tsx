@@ -75,7 +75,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
 
   useEffect(() => {
     if (focused) {
-      const divElement = document.getElementById(`item-${itemText}`);
+      const divElement = document.getElementById(`${id}`);
       divElement?.focus();
     }
   }, [focused, itemText]);
