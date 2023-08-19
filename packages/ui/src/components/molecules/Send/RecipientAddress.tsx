@@ -1,16 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { qrCodeIcon } from '../../../assets';
-import {
-  Flex,
-  Image,
-  Input,
-  MiniButton,
-  Throbber,
-  Typography,
-} from '../../atoms';
-import { useRecipientAddress } from '../../hooks';
+import { QrCode } from '../../../assets';
+import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
   text?: string;
@@ -18,8 +9,10 @@ interface RecipientAddressProps {
   error?: string;
   deleteButton?: boolean;
   onDelete?: () => void;
-  value?: string;
-  onChange?: (val: string) => void;
+  value: string;
+  onChange: (val: string) => void;
+  isThrobberActive?: boolean;
+  showError?: boolean;
 }
 
 const RecipientAddressContainer = styled.div`
@@ -29,24 +22,33 @@ const RecipientAddressContainer = styled.div`
   gap: 8px;
 `;
 
+export const MiniButton = styled(Button)`
+  width: 14px;
+  height: 14px;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.palette.background.toggleActive};
+`;
+
 export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   text = '',
   placeholder = '',
   error = '',
   deleteButton = false,
   onDelete,
-  value = '',
+  value,
   onChange,
+  isThrobberActive,
+  showError,
 }) => {
-  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
-    useRecipientAddress(value, onChange);
-
   const throbber = <Throbber size={15} strokeWidth={2} />;
-  const image = <Image src={qrCodeIcon} alt="qr icon" width={25} height={20} />;
+  const image = <QrCode width="25px" height="20px" />;
   const postfixIcon = isThrobberActive ? throbber : image;
-  const handleChange = (val: string) => {
-    handleInputValueChange(val);
-  };
 
   return (
     <RecipientAddressContainer>
@@ -54,19 +56,19 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
         <Typography variant="span" width="100%" color="muted" $fontSize={13}>
           {text}
         </Typography>
-        {deleteButton && <MiniButton onClick={onDelete} />}
+        {deleteButton && <MiniButton onClick={onDelete}>-</MiniButton>}
       </Flex>
       <Input
         type="text"
         name="address"
         placeholder={placeholder}
         postfixIcon={postfixIcon}
-        value={inputValue}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         $textColor="white"
         $error={showError}
       />
-      {showError && (
+      {error && (
         <Typography
           variant="span"
           width="100%"
@@ -85,7 +87,7 @@ RecipientAddress.defaultProps = {
   text: 'Recipient Address',
   error: '',
   deleteButton: false,
+  showError: false,
   onDelete: undefined,
-  value: '',
-  onChange: undefined,
+  isThrobberActive: false,
 };

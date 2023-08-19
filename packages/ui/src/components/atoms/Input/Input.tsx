@@ -1,8 +1,6 @@
 import React, { FC, ForwardedRef } from 'react';
 import styled from 'styled-components';
-
 import { InputLabel } from './InputLabel';
-
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
@@ -60,6 +58,11 @@ const InputWrapper = styled.div`
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.background.separator};
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 const PostfixIconStyle = styled.div`

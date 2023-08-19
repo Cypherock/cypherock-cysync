@@ -13,14 +13,12 @@ import {
   checkIcon,
   Throbber,
   questionMarkGoldIcon,
+  OptimismIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { useSendDialog } from '../../../context';
-import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
 
 const dataArray = [
   {
@@ -33,7 +31,7 @@ const dataArray = [
     id: '2',
     leftImage: <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />,
     text: 'Verify',
-    image: <SvgOptimism height={16} width={15} />,
+    image: <OptimismIcon height={16} width={15} />,
     altText: 'Optimism',
     rightImage: <Image src={checkIcon} alt="arrowGoldenForward icon" />,
   },

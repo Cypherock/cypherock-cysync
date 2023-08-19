@@ -58,3 +58,14 @@ export const ScrollableContainer = styled.div`
   max-height: 100%;
   overflow-y: auto;
 `;
+
+export const BatchContainer = styled.div`
+  background-color: ${({ theme }) =>
+    theme.palette.background.batchTransactionBody};
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  max-height: 458px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;

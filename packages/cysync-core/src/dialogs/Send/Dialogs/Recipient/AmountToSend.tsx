@@ -1,16 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import SvgDoubleArrow from '../../../assets/icons/generated/DoubleArrow';
 import {
+  Container,
+  DoubleArrow,
   Flex,
   Input,
   LangDisplay,
   Throbber,
   Toggle,
   Typography,
-} from '../../atoms';
-import { useAmountToSend } from '../../hooks';
+  useAmountToSend,
+} from '@cypherock/cysync-ui';
 
 interface AmountToSendProps {
   text?: string;
@@ -23,13 +22,6 @@ interface AmountToSendProps {
   value?: string;
   onChange?: (val: string) => void;
 }
-
-const AmountToSendContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 8px;
-`;
 
 export const AmountToSend: React.FC<AmountToSendProps> = ({
   text = '',
@@ -59,7 +51,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
   });
 
   return (
-    <AmountToSendContainer>
+    <Container display="flex" direction="column" width="full" gap={8}>
       <Flex justify="space-between" width="full">
         <Typography variant="span" width="100%" color="muted" $fontSize={13}>
           <LangDisplay text={text} />
@@ -73,7 +65,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
       </Flex>
       <Flex justify="space-between" gap={8} align="center" width="full">
         <Input
-          type="text"
+          type="number"
           name="address"
           postfixIcon={typeof coinState === 'string' ? undefined : coinState}
           postfixText={typeof coinState === 'string' ? coinState : undefined}
@@ -83,9 +75,9 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           onChange={handleInputValueChange}
           $error={error === ''}
         />
-        <SvgDoubleArrow height={22} width={22} />{' '}
+        <DoubleArrow height={22} width={22} />
         <Input
-          type="text"
+          type="number"
           name="address"
           postfixText={dollar}
           $textColor={textColor}
@@ -104,7 +96,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           <LangDisplay text={error} />
         </Typography>
       )}
-    </AmountToSendContainer>
+    </Container>
   );
 };
 

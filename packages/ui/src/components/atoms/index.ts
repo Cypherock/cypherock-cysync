@@ -22,8 +22,5 @@ export * from './CloseButton';
 export * from './Divider';
 export * from './InformationBox';
 export * from './VerticalLine';
-export * from './SliderCaption';
 export * from './SummaryContainer';
 export * from './Throbber';
-export * from './MiniButton';
-export * from './BatchTransactionBody';

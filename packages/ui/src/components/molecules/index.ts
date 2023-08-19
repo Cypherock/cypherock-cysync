@@ -25,7 +25,5 @@ export * from './Slider';
 export * from './ButtonGroup';
 export * from './Dropdown';
 export * from './MessageBox';
-export * from './InfoBox';
 export * from './SummaryBox';
-export * from './Dropdown';
 export * from './Send';

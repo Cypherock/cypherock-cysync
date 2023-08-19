@@ -1,18 +1,22 @@
 import React from 'react';
-
-import SvgGoldQuestionMark from '../../../assets/icons/generated/GoldQuestionMark';
-import { Flex, LangDisplay, Typography } from '../../atoms';
-import { ButtonGroup } from '../ButtonGroup';
+import {
+  GoldQuestionMark,
+  Flex,
+  LangDisplay,
+  Typography,
+  ButtonAttributes,
+  PillButtonToggle,
+} from '@cypherock/cysync-ui';
 
 interface FeesSectionProps {
-  activeButtonId: number;
-  handleButtonClick: (id: number) => void;
+  type: 'slider' | 'input';
+  handleButtonClick: (type: 'slider' | 'input') => void;
   title: string;
-  Buttons: any;
+  Buttons: ButtonAttributes[];
 }
 
 export const FeesSection: React.FC<FeesSectionProps> = ({
-  activeButtonId,
+  type,
   handleButtonClick,
   title,
   Buttons,
@@ -22,12 +26,12 @@ export const FeesSection: React.FC<FeesSectionProps> = ({
       <Typography variant="span" width="100%" $fontSize={14}>
         <LangDisplay text={title} />
       </Typography>
-      <SvgGoldQuestionMark height={14} width={14} />
+      <GoldQuestionMark height={14} width={14} />
     </Flex>
     <Flex align="center" direction="row" gap={8}>
-      <ButtonGroup
+      <PillButtonToggle
         buttons={Buttons}
-        activeButtonId={activeButtonId}
+        type={type}
         onButtonClick={handleButtonClick}
       />
     </Flex>

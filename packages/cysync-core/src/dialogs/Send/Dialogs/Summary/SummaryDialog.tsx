@@ -6,14 +6,13 @@ import {
   Typography,
   walletIcon,
   Button,
-  qrCodeIcon,
+  QrCode,
+  Image,
   SummaryBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { useSendDialog } from '../../context';
 
 export const SummaryDialog: React.FC = () => {
@@ -21,7 +20,20 @@ export const SummaryDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const summary = lang.strings.send.summary.info.dialogBox;
-
+  const toDetailsArray = summary.toDetails.map(toDetail => [
+    {
+      leftIcon: <QrCode width="11px" height="20px" />,
+      leftText: summary.to,
+      rightText: toDetail.address,
+      key: `toDetail-address-${toDetail.id}`,
+    },
+    {
+      leftText: summary.amount,
+      rightText: toDetail.amountEth,
+      rightSubText: toDetail.amountUsd,
+      key: `toDetail-amount-${toDetail.id}`,
+    },
+  ]);
   const keyboardActions = {
     ArrowRight: () => {
       onNext();
@@ -41,19 +53,29 @@ export const SummaryDialog: React.FC = () => {
         </Typography>
 
         <SummaryBox
-          fromIcon={walletIcon}
-          toIcon={qrCodeIcon}
-          fromText={summary.from}
-          toText={summary.to}
-          amountText={summary.amount}
-          networkText={summary.network.text}
-          debitText={summary.debit.text}
-          fromDetails={summary.fromDetails}
-          toDetails={summary.toDetails}
-          networkFeeEth={summary.network.eth}
-          networkFeeUsd={summary.network.usd}
-          totalDebitEth={summary.debit.eth}
-          totalDebitUsd={summary.debit.usd}
+          items={[
+            {
+              leftText: summary.from,
+              leftIcon: (
+                <Image src={walletIcon} alt="From" width="15px" height="12px" />
+              ),
+              rightComponent: summary.fromDetails,
+            },
+            { isDivider: true },
+            ...toDetailsArray,
+            { isDivider: true },
+            {
+              leftText: summary.network.text,
+              rightText: summary.network.eth,
+              rightSubText: summary.network.usd,
+            },
+            { isDivider: true },
+            {
+              leftText: summary.debit.text,
+              rightText: summary.debit.eth,
+              rightSubText: summary.debit.usd,
+            },
+          ]}
         />
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

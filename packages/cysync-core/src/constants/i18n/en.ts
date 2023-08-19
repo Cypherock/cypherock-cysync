@@ -499,10 +499,10 @@ const en = {
       info: {
         dialogBox: {
           title: 'Source',
-          subTitle: 'Choose an account and recipient',
+          subTitle: 'Choose a wallet and an account',
           constant: 'Cypherock Red',
           searchText: 'Search',
-          placeholderText: 'Choose a coin',
+          placeholderText: 'Account to Debit',
           placeholderWalletText: 'Choose a wallet',
         },
       },
@@ -888,6 +888,14 @@ const en = {
         summary: 'Summary',
         x1vault: 'X1 Vault',
         confirm: 'Confirmation',
+      },
+    },
+    closeDialog: {
+      title: 'Are you sure you want to exit?',
+      subtitle: 'You can always start this guide by clicking "Send Crypto" tab',
+      buttons: {
+        secondary: 'Cancel',
+        primary: 'Exit',
       },
     },
   },

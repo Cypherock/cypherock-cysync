@@ -12,24 +12,25 @@ import {
   Divider,
   MessageBox,
   useTheme,
-  AmountToSend,
   RecipientAddress,
-  FeesSection,
-  InputSection,
-  FeesDisplay,
+  GoldQuestionMark,
+  InformationIcon,
+  OptimismIcon,
+  useRecipientAddress,
 } from '@cypherock/cysync-ui';
-import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
-import SvgOptimism from '@cypherock/cysync-ui/src/assets/icons/generated/Optimism';
-import { addKeyboardEvents, useButtonState } from '~/hooks';
+import { FeesSection } from '../FeesSection';
+import { RecipientInput } from '../RecipientInput';
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useSendDialog } from '../../../context';
 import { Buttons, Captions } from '../Ethereum/StandardEthereum';
+import { FeesDisplay } from '../FeesDisplay';
+import { AmountToSend } from '../AmountToSend';
 
 export const StandardOptimism: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);
-  const [activeButtonId, setActiveButtonId] = useState(1);
-  const [btnState, handleButtonState] = useButtonState();
+  const [type, setType] = useState<'slider' | 'input'>('slider');
+  const [btnState, handleButtonState] = useState(false);
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const standard = lang.strings.send.optimism.info.dialogBox;
@@ -46,13 +47,16 @@ export const StandardOptimism: React.FC = () => {
     setAmount(value);
   };
 
-  const handleButtonClick = (id: number) => {
-    setActiveButtonId(id);
+  const handleButtonClick = (newType: 'slider' | 'input') => {
+    setType(newType);
   };
 
   const handleSliderChange = (newValue: number) => {
     setSliderValue(newValue);
   };
+
+  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+    useRecipientAddress(recipientAddress, handleRecipientAddressChange);
 
   const { onNext, onPrevious } = useSendDialog();
 
@@ -71,15 +75,17 @@ export const StandardOptimism: React.FC = () => {
     <DialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Container display="flex" direction="column" gap={16} width="full">
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={standard.text} />
-          </Typography>
-          <Typography variant="span" $textAlign="center" color="muted">
-            <LangDisplay text={standard.subText} />
-          </Typography>
+          <Container display="flex" direction="column" gap={4} width="full">
+            <Typography variant="h5" $textAlign="center">
+              <LangDisplay text={standard.text} />
+            </Typography>
+            <Typography variant="span" $textAlign="center" color="muted" mb={4}>
+              <LangDisplay text={standard.subText} />
+            </Typography>
+          </Container>
           <LeanBox
             leftImage={
-              <SvgInformationIcon
+              <InformationIcon
                 height={16}
                 width={16}
                 fill={theme.palette.background.muted}
@@ -89,15 +95,17 @@ export const StandardOptimism: React.FC = () => {
             altText={standard.InfoBox.altText}
             textVariant="span"
             fontSize={12}
-            rightImage={<SvgGoldQuestionMark height={14} width={14} />}
+            rightImage={<GoldQuestionMark height={14} width={14} />}
           />
           <Container display="flex" direction="column" gap={8} width="full">
             <RecipientAddress
               text={standard.recipient.text}
               placeholder={standard.recipient.placeholder}
               error={standard.recipient.error}
-              value={recipientAddress}
-              onChange={handleRecipientAddressChange}
+              value={inputValue}
+              onChange={handleInputValueChange}
+              isThrobberActive={isThrobberActive}
+              showError={showError}
             />
             <AmountToSend
               text={standard.amount.text}
@@ -119,7 +127,7 @@ export const StandardOptimism: React.FC = () => {
                 <Typography variant="span" width="100%" $fontSize={14}>
                   <LangDisplay text={standard.fees.l1.text} />
                 </Typography>
-                <SvgGoldQuestionMark height={14} width={14} />
+                <GoldQuestionMark height={14} width={14} />
               </Flex>
               <Flex align="center" direction="row" gap={8}>
                 <Typography variant="span" width="100%" $fontSize={13}>
@@ -143,25 +151,30 @@ export const StandardOptimism: React.FC = () => {
           <Divider variant="horizontal" />
 
           <FeesSection
-            activeButtonId={activeButtonId}
+            type={type}
             handleButtonClick={handleButtonClick}
             title={standard.fees.l2.text}
             Buttons={Buttons}
           />
 
-          <InputSection
-            activeButtonId={activeButtonId}
-            single={standard}
-            sliderValue={sliderValue}
-            handleSliderChange={handleSliderChange}
+          <RecipientInput
+            type={type}
+            message={standard.message}
+            inputValue={standard.fee}
+            inputPostfix={standard.inputPostfix}
+            feesError={standard.fees.l2.error}
+            gas={standard.gas}
+            limit={standard.limit}
+            value={sliderValue}
+            onChange={handleSliderChange}
             Captions={Captions}
             error={standard.fees.l2.error}
-            gas
+            coin="ethereum"
           />
 
           <FeesDisplay
             fees={standard.fees}
-            image={<SvgOptimism height={16} width={15} />}
+            image={<OptimismIcon height={16} width={15} />}
           />
 
           <MessageBox type="warning" text={standard.warning} />

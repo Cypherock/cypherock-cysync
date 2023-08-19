@@ -7,15 +7,13 @@ import {
   Tabs,
   Typography,
   TabContentContainer,
+  Container,
 } from '@cypherock/cysync-ui';
-import React from 'react';
-
-import { addKeyboardEvents, useButtonState } from '~/hooks';
+import React, { useState } from 'react';
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { BatchTransaction } from './BatchTransaction';
 import { SingleTransaction } from './SingleTransaction';
-
 import { useSendDialog } from '../../../context';
 
 export const BitcoinTransaction: React.FC = () => {
@@ -24,7 +22,7 @@ export const BitcoinTransaction: React.FC = () => {
   const button = lang.strings.buttons;
   const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;
 
-  const [btnState, handleButtonState] = useButtonState();
+  const [btnState, handleButtonState] = useState(false);
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -59,12 +57,14 @@ export const BitcoinTransaction: React.FC = () => {
   return (
     <DialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={bitcoin.dialogBox.title} />
-        </Typography>
-        <Typography variant="span" $textAlign="center" color="muted">
-          <LangDisplay text={bitcoin.dialogBox.text} />
-        </Typography>
+        <Container display="flex" direction="column" gap={4} width="full">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay text={bitcoin.dialogBox.title} />
+          </Typography>
+          <Typography variant="span" $textAlign="center" color="muted">
+            <LangDisplay text={bitcoin.dialogBox.text} />
+          </Typography>
+        </Container>
         <Tabs tabs={tabs} />
       </DialogBoxBody>
       <DialogBoxFooter height={101}>

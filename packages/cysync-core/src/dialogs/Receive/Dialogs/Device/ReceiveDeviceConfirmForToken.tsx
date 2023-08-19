@@ -16,17 +16,15 @@ import {
   Throbber,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { useReceiveDialog } from '../../context';
 
 export const ReceiveDeviceConfirmForToken: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const connect = lang.strings.receive.deviceConfirmForToken.info.dialogBox;
-
+  const imageIcon = questionMarkGoldIcon;
   const { onNext, onPrevious } = useReceiveDialog();
 
   const dataArray = [
@@ -104,13 +102,10 @@ export const ReceiveDeviceConfirmForToken: React.FC = () => {
         </LeanBoxContainer>
         <InformationBox
           leftImage={
-            <Image src={informationWhiteIcon} alt="question mark icon" />
+            <Image src={informationWhiteIcon} alt="Image" width={20} />
           }
           text={connect.InfoBox.text}
-          rightImage={
-            <Image src={questionMarkGoldIcon} alt="question mark icon" />
-          }
-
+          rightImage={<Image px={1} src={imageIcon} alt="Icon Image" />}
         />
       </DialogBoxBody>
     </DialogBox>

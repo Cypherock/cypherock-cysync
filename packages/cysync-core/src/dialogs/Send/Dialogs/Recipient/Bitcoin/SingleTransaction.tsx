@@ -5,22 +5,22 @@ import {
   MessageBox,
   useTheme,
   BitcoinIcon,
-  AmountToSend,
-  FeesDisplay,
-  FeesSection,
-  InputSection,
   RecipientAddress,
   ToggleSection,
+  useRecipientAddress,
+  GoldQuestionMark,
+  InformationIcon,
+  useToggle,
 } from '@cypherock/cysync-ui';
-import SvgGoldQuestionMark from '@cypherock/cysync-ui/src/assets/icons/generated/GoldQuestionMark';
-import SvgInformationIcon from '@cypherock/cysync-ui/src/assets/icons/generated/InformationIcon';
 import React, { useState } from 'react';
-
+import { RecipientInput } from '../RecipientInput';
+import { FeesSection } from '../FeesSection';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
+import { FeesDisplay } from '../FeesDisplay';
 import { useSendDialog } from '../../../context';
 import { Buttons, Captions } from '../Ethereum';
+import { AmountToSend } from '../AmountToSend';
 
 interface SingleTransactionProps {
   handleButtonState: (shouldActivate: boolean) => void;
@@ -30,10 +30,18 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   handleButtonState,
 }) => {
   const [sliderValue, setSliderValue] = useState(20);
-  const [activeButtonId, setActiveButtonId] = useState(1);
+  const [type, setType] = useState<'slider' | 'input'>('slider');
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
   const theme = useTheme();
+  const {
+    isChecked: isCheckedReplace,
+    handleToggleChange: handleToggleChangeReplace,
+  } = useToggle();
+  const {
+    isChecked: isCheckedUnconfirmed,
+    handleToggleChange: handleToggleChangeUnconfirmed,
+  } = useToggle();
 
   const [recipientAddress, setRecipientAddress] = useState('');
   const [amount, setAmount] = useState('');
@@ -46,8 +54,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     setAmount(value);
   };
 
-  const handleButtonClick = (id: number) => {
-    setActiveButtonId(id);
+  const handleButtonClick = (newType: 'slider' | 'input') => {
+    setType(newType);
   };
 
   const handleSliderChange = (newValue: number) => {
@@ -55,6 +63,9 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   };
 
   const { onNext, onPrevious } = useSendDialog();
+
+  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+    useRecipientAddress(recipientAddress, handleRecipientAddressChange);
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -71,7 +82,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     <Container display="flex" direction="column" gap={16} width="full">
       <LeanBox
         leftImage={
-          <SvgInformationIcon
+          <InformationIcon
             height={16}
             width={16}
             fill={theme.palette.background.muted}
@@ -81,15 +92,17 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         altText={single.InfoBox.altText}
         textVariant="span"
         fontSize={12}
-        rightImage={<SvgGoldQuestionMark height={14} width={14} />}
+        rightImage={<GoldQuestionMark height={14} width={14} />}
       />
       <Container display="flex" direction="column" gap={8} width="full">
         <RecipientAddress
           text={single.recipient.text}
           placeholder={single.recipient.placeholder}
           error={single.recipient.error}
-          value={recipientAddress}
-          onChange={handleRecipientAddressChange}
+          value={inputValue}
+          onChange={handleInputValueChange}
+          isThrobberActive={isThrobberActive}
+          showError={showError}
         />
         <AmountToSend
           text={single.amount.text}
@@ -106,22 +119,39 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       <Divider variant="horizontal" />
 
       <FeesSection
-        activeButtonId={activeButtonId}
+        type={type}
         handleButtonClick={handleButtonClick}
         title={single.fees.title}
         Buttons={Buttons}
       />
-      <InputSection
-        activeButtonId={activeButtonId}
-        single={single}
-        sliderValue={sliderValue}
-        handleSliderChange={handleSliderChange}
+      <RecipientInput
+        type={type}
+        message={single.message}
+        inputValue={single.fee}
+        inputPostfix={single.inputPostfix}
+        feesError={single.fees.error}
+        value={sliderValue}
+        onChange={handleSliderChange}
         Captions={Captions}
         error={single.fees.error}
       />
 
-      {activeButtonId === 2 && (
-        <ToggleSection single={single} error={single.fees.error} />
+      {type === 'input' && (
+        <Container display="flex" direction="column" gap={16} width="full">
+          <ToggleSection
+            text={single.toggleText.replace}
+            value={isCheckedReplace}
+            onChange={handleToggleChangeReplace}
+            errorText={single.fees.error}
+          />
+          <ToggleSection
+            text={single.toggleText.unconfirmed}
+            value={isCheckedUnconfirmed}
+            onChange={handleToggleChangeUnconfirmed}
+            error
+            errorText={single.fees.error}
+          />
+        </Container>
       )}
 
       <FeesDisplay

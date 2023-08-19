@@ -14,12 +14,12 @@ import {
   LeanBox,
   qrImage,
   ConfettiBlast,
+  GoldExternalLink,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useSendDialog } from '../../context';
-import SvgGoldExternalLink from '@cypherock/cysync-ui/src/assets/icons/generated/GoldExternalLink';
 
 export const SendDone: React.FC = () => {
   const { onNext, onPrevious } = useSendDialog();
@@ -69,7 +69,7 @@ export const SendDone: React.FC = () => {
                 <LeanBox
                   text={confirm.clipboard}
                   color="white"
-                  rightImage={<SvgGoldExternalLink height={12} width={12} />}
+                  rightImage={<GoldExternalLink height={12} width={12} />}
                 />
               </Container>
               <MessageBox type="warning" text={confirm.InfoBox.text} />

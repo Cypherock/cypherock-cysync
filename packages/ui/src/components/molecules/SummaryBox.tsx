@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { ReactNode } from 'react';
 import {
   Typography,
   Image,
@@ -10,56 +9,8 @@ import {
   ScrollContainer,
   etheriumBlueIcon,
   Container,
+  OptimismIcon,
 } from '../..';
-import SvgOptimism from '../../assets/icons/generated/Optimism';
-
-interface SummaryRowProps {
-  leftText: string;
-  leftIcon?: string;
-  rightText: string;
-  rightSubText?: string;
-  margin?: number;
-}
-
-export const SummaryRow: React.FC<SummaryRowProps> = ({
-  leftText,
-  leftIcon,
-  rightText,
-  rightSubText,
-  margin,
-}) => (
-  <SummaryContainer
-    leftComponent={
-      <ImageContainer gap={8}>
-        {leftIcon && (
-          <Image src={leftIcon} alt="To" width="11px" height="20px" />
-        )}
-        <Typography variant="p" $fontSize={14} color="muted">
-          {leftText}
-        </Typography>
-      </ImageContainer>
-    }
-    rightComponent={
-      <NestedContainer>
-        <Typography variant="p" $fontSize={14}>
-          {rightText}
-        </Typography>
-        {rightSubText && (
-          <Typography variant="p" $fontSize={14} color="muted">
-            {rightSubText}
-          </Typography>
-        )}
-      </NestedContainer>
-    }
-    margin={margin}
-  />
-);
-
-SummaryRow.defaultProps = {
-  margin: undefined,
-  leftIcon: undefined,
-  rightSubText: undefined,
-};
 
 interface FromItem {
   id: number;
@@ -67,77 +18,53 @@ interface FromItem {
   muted: boolean;
 }
 
-interface ToItem {
-  id: number;
-  address: string;
-  amountEth: string;
-  amountUsd: string;
-}
-
-export interface SummaryScrollBoxProps {
-  fromText: string;
-  fromIcon: string;
-  toText: string;
-  amountText: string;
-  networkText: string;
-  debitText: string;
-  toIcon: string;
-  fromDetails: FromItem[];
-  toDetails: ToItem[];
-  networkFeeEth: string;
-  networkFeeUsd: string;
-  totalDebitEth: string;
-  totalDebitUsd: string;
+interface SummaryRowProps {
+  leftText?: string;
+  leftIcon?: ReactNode;
+  rightText?: string;
+  rightComponent?: FromItem[];
+  rightSubText?: string;
+  margin?: number;
+  key?: string;
 }
 
 const imageSrcMap: any = {
-  'Ethereum 1': etheriumBlueIcon,
-  Optimism: <SvgOptimism height={16} width={15} />,
+  'Ethereum 1': (
+    <Image src={etheriumBlueIcon} alt="From" width="15px" height="12px" />
+  ),
+  Optimism: <OptimismIcon height={16} width={15} />,
 };
 
-export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
-  fromText,
-  toText,
-  amountText,
-  networkText,
-  debitText,
-  fromIcon,
-  toIcon,
-  fromDetails,
-  toDetails,
-  networkFeeEth,
-  networkFeeUsd,
-  totalDebitEth,
-  totalDebitUsd,
+export const SummaryRow: React.FC<SummaryRowProps> = ({
+  leftText,
+  leftIcon,
+  rightText,
+  rightSubText,
+  rightComponent,
+  margin,
+  key,
 }) => (
-  <>
-    <SummaryContainer
-      leftComponent={
-        <ImageContainer gap={8}>
-          <Image src={fromIcon} alt="From" width="15px" height="12px" />
-          <Typography variant="p" color="muted" $fontSize={14}>
-            {fromText}
-          </Typography>
-        </ImageContainer>
-      }
-      rightComponent={
+  <SummaryContainer
+    key={key}
+    leftComponent={
+      <ImageContainer gap={8}>
+        {leftIcon && leftIcon}
+        <Typography variant="p" $fontSize={14} color="muted">
+          {leftText}
+        </Typography>
+      </ImageContainer>
+    }
+    rightComponent={
+      rightComponent ? (
         <>
-          {fromDetails.map((item, index) => {
-            const { id, name, muted } = item;
+          {rightComponent.map((from, idx) => {
+            const { id, name, muted } = from;
             const imageSrc = imageSrcMap[name];
-            let imageContent;
-            if (imageSrc && typeof imageSrc === 'string') {
-              imageContent = (
-                <Image src={imageSrc} alt="From" width="15px" height="12px" />
-              );
-            } else if (imageSrc && typeof imageSrc !== 'string') {
-              imageContent = imageSrc;
-            }
 
             return (
               <Container key={id} display="flex" direction="row" gap={12}>
                 <ImageContainer gap={8}>
-                  {imageSrc && imageContent}
+                  {imageSrc && imageSrc}
                   <Typography
                     variant="p"
                     color={muted ? 'muted' : undefined}
@@ -146,7 +73,7 @@ export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
                     {name}
                   </Typography>
                 </ImageContainer>
-                {!(index === fromDetails.length - 1) && (
+                {idx !== rightComponent.length - 1 && (
                   <Typography variant="p" color="muted" $fontSize={14}>
                     /
                   </Typography>
@@ -155,69 +82,82 @@ export const SummaryBox: React.FC<SummaryScrollBoxProps> = ({
             );
           })}
         </>
+      ) : (
+        <NestedContainer>
+          <Typography variant="p" $fontSize={14}>
+            {rightText}
+          </Typography>
+          {rightSubText && (
+            <Typography variant="p" $fontSize={14} color="muted">
+              {rightSubText}
+            </Typography>
+          )}
+        </NestedContainer>
+      )
+    }
+    margin={margin}
+  />
+);
+
+SummaryRow.defaultProps = {
+  leftText: undefined,
+  rightText: undefined,
+  rightComponent: undefined,
+  margin: undefined,
+  leftIcon: undefined,
+  rightSubText: undefined,
+  key: undefined,
+};
+
+type SummaryItemType =
+  | SummaryRowProps
+  | { isDivider: boolean }
+  | SummaryRowProps[];
+
+export interface SummaryBoxProps {
+  items: SummaryItemType[];
+}
+
+export const SummaryBox: React.FC<SummaryBoxProps> = ({ items }) => (
+  <>
+    {items.map(item => {
+      if ('isDivider' in item && item.isDivider) {
+        return <Divider variant="horizontal" key={`divider-main-${item}`} />;
       }
-    />
 
-    {toDetails.length === 1 && <Divider variant="horizontal" />}
+      if ('rightComponent' in item && Array.isArray(item.rightComponent)) {
+        return (
+          <SummaryRow
+            key={`rightComp-${item}`}
+            leftText={item.leftText}
+            leftIcon={item.leftIcon}
+            rightComponent={item.rightComponent}
+          />
+        );
+      }
 
-    {toDetails.length > 1 ? (
-      <ScrollContainer>
-        {toDetails.map((to, index) => (
-          <>
-            <SummaryRow
-              leftIcon={toIcon}
-              leftText={toText}
-              rightText={to.address}
-              margin={24}
-            />
-            <SummaryRow
-              leftText={amountText}
-              rightText={to.amountEth}
-              rightSubText={to.amountUsd}
-              margin={24}
-            />
-            {!(index === toDetails.length - 1) && (
-              <Divider variant="horizontal" />
-            )}
-          </>
-        ))}
-      </ScrollContainer>
-    ) : (
-      <>
-        {toDetails.map((to, index) => (
-          <>
-            <SummaryRow
-              leftIcon={toIcon}
-              leftText={toText}
-              rightText={to.address}
-            />
-            <SummaryRow
-              leftText={amountText}
-              rightText={to.amountEth}
-              rightSubText={to.amountUsd}
-            />
-            {!(index === toDetails.length - 1) && (
-              <Divider variant="horizontal" />
-            )}
-          </>
-        ))}
-      </>
-    )}
+      if (Array.isArray(item)) {
+        const SummaryItems = item.map(to => {
+          if ('isDivider' in to && to.isDivider) {
+            return <Divider variant="horizontal" key={`divider-${to.key}`} />;
+          }
+          return <SummaryRow key={`summary-${to.key}`} {...to} />;
+        });
 
-    {toDetails.length === 1 && <Divider variant="horizontal" />}
+        if (item.length > 2) {
+          return (
+            <ScrollContainer key={`scroll-${item}`}>
+              {SummaryItems}
+            </ScrollContainer>
+          );
+        }
 
-    <SummaryRow
-      leftText={networkText}
-      rightText={networkFeeEth}
-      rightSubText={networkFeeUsd}
-    />
+        return SummaryItems;
+      }
 
-    <Divider variant="horizontal" />
-
-    <SummaryRow
-      leftText={debitText}
-      rightText={totalDebitEth}
-      rightSubText={totalDebitUsd}
-    />
+      return (
+        <SummaryRow key={`summary-${item}`} {...(item as SummaryRowProps)} />
+      );
+    })}
   </>
 );

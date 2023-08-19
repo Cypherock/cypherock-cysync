@@ -44,7 +44,6 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
-import qrCodeIcon from './qr-code.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
@@ -137,7 +136,6 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
-  qrCodeIcon,
   qrImage,
   goldSendIcon,
   warningIcon,
