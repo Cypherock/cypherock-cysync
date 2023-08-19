@@ -16,6 +16,7 @@ export * from './Topbar';
 export * from './UpdateBar';
 export * from './CheckboxList';
 export * from './Table';
+export * from './Filter';
 export * from './LeanBox';
 export * from './DropDownListItem';
 export * from './SnackBar';
