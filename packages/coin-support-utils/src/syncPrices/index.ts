@@ -1,3 +1,4 @@
+import { sleep } from '@cypherock/cysync-utils';
 import { IDatabase, IPriceInfo } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import { Observable } from 'rxjs';
@@ -15,7 +16,7 @@ const PRICE_SYNC_INTERVAL_IN_SEC = 60;
 const BATCH_SIZE = 20;
 const MAX_RETRIES = 3;
 
-const fetchPricesForBatch = async ({
+const fetchLatestPricesForBatch = async ({
   coinIds,
   db,
 }: {
@@ -61,8 +62,7 @@ export function createSyncPricesObservable(
           );
 
           if (
-            !existingPriceInfo ||
-            !existingPriceInfo.lastSyncedAt ||
+            !existingPriceInfo?.lastSyncedAt ||
             Date.now() - existingPriceInfo.lastSyncedAt >
               1000 * PRICE_SYNC_INTERVAL_IN_SEC
           ) {
@@ -81,7 +81,10 @@ export function createSyncPricesObservable(
           const coinList = coinListBatch[i];
 
           try {
-            await fetchPricesForBatch({ coinIds: coinList, db });
+            await fetchLatestPricesForBatch({ coinIds: coinList, db });
+            await sleep(params.waitInMSBetweenEachAPICall ?? 500);
+
+            if (finished) return;
           } catch (error) {
             retries += 1;
             i -= 1;
@@ -93,7 +96,7 @@ export function createSyncPricesObservable(
                 'Max tries exceeded while fetching latest coin prices',
               );
               logger.error(error);
-              break;
+              throw error;
             }
           }
         }

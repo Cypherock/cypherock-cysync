@@ -12,6 +12,7 @@ import {
   ISignTransactionParams,
 } from './send';
 import { ISyncAccountsParams } from './syncAccount';
+import { ISyncPriceHistoriesParams } from './syncPriceHistories';
 import { ISyncPricesParams } from './syncPrices';
 import { IValidateAddressParams } from './validateAddress';
 
@@ -22,6 +23,7 @@ export * from './syncAccount';
 export * from './schemes';
 export * from './validateAddress';
 export * from './syncPrices';
+export * from './syncPriceHistories';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
@@ -39,4 +41,5 @@ export interface CoinSupport {
     params: IBroadcastTransactionParams,
   ): Promise<ITransaction>;
   syncPrices(params: ISyncPricesParams): Observable<void>;
+  syncPriceHistories(params: ISyncPriceHistoriesParams): Observable<void>;
 }

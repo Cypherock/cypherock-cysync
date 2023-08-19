@@ -7,6 +7,7 @@ import {
   IValidateAddressParams,
   ISignTransactionEvent,
   ISyncPricesParams,
+  ISyncPriceHistoriesParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
@@ -53,6 +54,10 @@ export class EvmSupport implements CoinSupport {
 
   public syncPrices(params: ISyncPricesParams) {
     return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(params: ISyncPriceHistoriesParams) {
+    return operations.syncPriceHistories(params);
   }
 
   public static setEthersLibrary(ethers: ethersLibType): void {

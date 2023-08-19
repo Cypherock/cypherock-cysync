@@ -1,4 +1,9 @@
-import { IDatabase, IPriceInfo, ITransaction } from '@cypherock/db-interfaces';
+import {
+  IDatabase,
+  IPriceHistory,
+  IPriceInfo,
+  ITransaction,
+} from '@cypherock/db-interfaces';
 
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
@@ -71,6 +76,28 @@ export const insertOrUpdatePriceInfo = async (
       await db.priceInfo.update({ __id: existingPriceInfo.__id }, priceInfo);
     } else {
       await db.priceInfo.insert(priceInfo);
+    }
+  }
+};
+
+export const insertOrUpdatePriceHistory = async (
+  db: IDatabase,
+  priceHistories: IPriceHistory[],
+) => {
+  for (const priceHistory of priceHistories) {
+    const query: Partial<IPriceHistory> = {
+      assetId: priceHistory.assetId,
+      currency: priceHistory.currency,
+    };
+
+    const existingPriceHistory = await db.priceHistory.getOne(query);
+    if (existingPriceHistory) {
+      await db.priceHistory.update(
+        { __id: existingPriceHistory.__id },
+        priceHistory,
+      );
+    } else {
+      await db.priceHistory.insert(priceHistory);
     }
   }
 };

@@ -7,3 +7,4 @@ export * from './signTransaction';
 export * from './validateAddress';
 export * from './broadcastTransaction';
 export * from './syncPrices';
+export * from './syncPriceHistories';

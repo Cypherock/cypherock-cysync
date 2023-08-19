@@ -1,23 +1,41 @@
 import React, { useEffect, useRef } from 'react';
 
-import { syncAllPrices } from '~/actions';
+import { syncAllPriceHistories, syncAllPrices } from '~/actions';
 
-const AUTO_RESYNC_INTERVAL = 1 * 60 * 1000;
+const LATEST_PRICE_AUTO_RESYNC_INTERVAL = 1 * 60 * 1000;
+const PRICE_HISTORY_AUTO_RESYNC_INTERVAL = 5 * 60 * 1000;
 
 export const PriceSyncTask: React.FC = () => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const latestPriceTimeoutRef = useRef<NodeJS.Timeout>();
+  const priceHistoryTimeoutRef = useRef<NodeJS.Timeout>();
 
-  const startSyncing = async () => {
+  const startSyncingLatestPrice = async () => {
     await syncAllPrices();
-    timeoutRef.current = setTimeout(startSyncing, AUTO_RESYNC_INTERVAL);
+    latestPriceTimeoutRef.current = setTimeout(
+      startSyncingLatestPrice,
+      LATEST_PRICE_AUTO_RESYNC_INTERVAL,
+    );
+  };
+
+  const startSyncingPriceHistory = async () => {
+    await syncAllPriceHistories();
+    priceHistoryTimeoutRef.current = setTimeout(
+      startSyncingPriceHistory,
+      PRICE_HISTORY_AUTO_RESYNC_INTERVAL,
+    );
   };
 
   useEffect(() => {
-    startSyncing();
+    startSyncingLatestPrice();
+    startSyncingPriceHistory();
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      if (latestPriceTimeoutRef.current) {
+        clearTimeout(latestPriceTimeoutRef.current);
+      }
+
+      if (priceHistoryTimeoutRef.current) {
+        clearTimeout(priceHistoryTimeoutRef.current);
       }
     };
   }, []);

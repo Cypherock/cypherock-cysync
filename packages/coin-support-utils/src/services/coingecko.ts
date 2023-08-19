@@ -18,9 +18,7 @@ export const getLatestPrices = async (
 
   const result: { coinId: string; price: number }[] = coinIds
     .filter(
-      id =>
-        response.data[coinList[id].coinGeckoId] &&
-        response.data[coinList[id].coinGeckoId][currency] !== undefined,
+      id => response.data[coinList[id].coinGeckoId]?.[currency] !== undefined,
     )
     .map(id => ({
       coinId: id,
@@ -28,4 +26,20 @@ export const getLatestPrices = async (
     }));
 
   return result;
+};
+
+export const getPriceHistory = async (
+  coinId: string,
+  currency: string,
+  days: number,
+): Promise<number[][]> => {
+  const { coinGeckoId } = coinList[coinId];
+
+  const url = `${baseURL}/coins/${coinGeckoId}/market_chart`;
+
+  const response = await axios.get(
+    `${url}?vs_currency=${currency}&days=${days}`,
+  );
+
+  return response.data.prices ?? [];
 };

@@ -2,6 +2,7 @@
 import {
   CoinSupport,
   IInitializeTransactionParams,
+  ISyncPriceHistoriesParams,
   ISyncPricesParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
@@ -61,5 +62,11 @@ export class BtcSupport implements CoinSupport {
 
   public syncPrices(params: ISyncPricesParams): Observable<void> {
     return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(
+    params: ISyncPriceHistoriesParams,
+  ): Observable<void> {
+    return operations.syncPriceHistories(params);
   }
 }

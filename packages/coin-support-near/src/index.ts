@@ -7,6 +7,7 @@ import {
   ISignTransactionEvent,
   ISyncPricesParams,
   ICreateAccountEvent,
+  ISyncPriceHistoriesParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
@@ -50,5 +51,9 @@ export class NearSupport implements CoinSupport {
 
   public syncPrices(params: ISyncPricesParams) {
     return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(params: ISyncPriceHistoriesParams) {
+    return operations.syncPriceHistories(params);
   }
 }
