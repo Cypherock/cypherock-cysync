@@ -6,18 +6,31 @@ import {
 
 import { ISyncBtcAccountsParams } from './types';
 
-import { getXpubDetails, mapBlockbookTxnToDb } from '../../services';
+import {
+  getDerivedAddresses,
+  getXpubDetails,
+  IDerivedAddresses,
+  mapBlockbookTxnToDb,
+} from '../../services';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
 const getAddressDetails: IGetAddressDetails<{
   page: number;
   afterBlock?: number;
+  derivedAddresses: IDerivedAddresses;
 }> = async ({ db, account, iterationContext }) => {
   const afterBlock =
     iterationContext?.afterBlock ??
     (await getLatestTransactionBlock(db, {
       accountId: account.__id,
+    }));
+
+  const derivedAddresses =
+    iterationContext?.derivedAddresses ??
+    (await getDerivedAddresses({
+      xpub: account.xpubOrAddress,
+      coinId: account.assetId,
     }));
 
   let hasMore = false;
@@ -47,7 +60,7 @@ const getAddressDetails: IGetAddressDetails<{
   const transactions = mapBlockbookTxnToDb(
     account,
     xpubDetails.transactions,
-    xpubDetails.tokens,
+    derivedAddresses.tokens.map(e => e.name.toLowerCase()),
   );
 
   hasMore = Boolean(
@@ -61,7 +74,7 @@ const getAddressDetails: IGetAddressDetails<{
     hasMore,
     transactions,
     updatedAccountInfo,
-    nextIterationContext: { page, afterBlock },
+    nextIterationContext: { page, afterBlock, derivedAddresses },
   };
 };
 

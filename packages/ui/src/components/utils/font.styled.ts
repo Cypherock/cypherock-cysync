@@ -29,7 +29,7 @@ export interface FontProps {
   $wordBreak?: MediaQuery<WordBreak>;
 }
 
-const fontWeightObj: Record<string, string> = {
+export const fontWeightObj: Record<string, string> = {
   thin: '100',
   extralight: '200',
   light: '300',
@@ -40,7 +40,7 @@ const fontWeightObj: Record<string, string> = {
   extrabold: '800',
 };
 
-const fontFamilyMap: Record<FontFamily, string> = {
+export const fontFamilyMap: Record<FontFamily, string> = {
   normal: 'Poppins',
   monospace: 'JetBrains Mono',
 };

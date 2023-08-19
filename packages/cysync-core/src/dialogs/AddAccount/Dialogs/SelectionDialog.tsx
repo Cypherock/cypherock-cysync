@@ -2,7 +2,6 @@ import { coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
-  DialogBoxHeader,
   DialogBoxBody,
   Typography,
   Image,
@@ -12,14 +11,11 @@ import {
   Dropdown,
   addIcon,
   DropDownListItemProps,
-  WalletIcon,
-  useTheme,
 } from '@cypherock/cysync-ui';
-import { createSelector } from '@reduxjs/toolkit';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
-import { selectLanguage, selectWallets, useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
@@ -33,29 +29,19 @@ const coinDropDownList: DropDownListItemProps[] = Object.values(coinList).map(
   }),
 );
 
-const selectWalletAndLang = createSelector(
-  [selectLanguage, selectWallets],
-  (a, b) => ({ lang: a, ...b }),
-);
-
 export const AddAccountSelectionDialog: React.FC = () => {
-  const { lang, wallets } = useAppSelector(selectWalletAndLang);
+  const lang = useAppSelector(selectLanguage);
   const {
     onNext,
     selectedCoin,
     selectedWallet,
     setSelectedCoin,
-    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
   } = useAddAccountDialog();
-  const theme = useTheme()!;
 
   const strings = lang.strings.addAccount.select;
   const button = lang.strings.buttons;
-
-  const handleWalletChange = (id: string | undefined) => {
-    if (!id) setSelectedWallet(undefined);
-    setSelectedWallet(wallets.find(w => w.__id === id));
-  };
 
   const handleCoinChange = (id: string | undefined) => {
     if (!id) {
@@ -66,26 +52,8 @@ export const AddAccountSelectionDialog: React.FC = () => {
     setSelectedCoin(coinList[id]);
   };
 
-  const walletDropdownList: DropDownListItemProps[] = useMemo(
-    () =>
-      wallets.map(w => ({
-        id: w.__id,
-        text: w.name,
-        checkType: 'radio',
-        leftImage: (
-          <WalletIcon fill={theme.palette.text.white} width={20} height={20} />
-        ),
-      })),
-    [wallets],
-  );
-
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={strings.dialogTitle} />
-        </Typography>
-      </DialogBoxHeader>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={addIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
@@ -100,6 +68,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             searchText={strings.searchText}
             placeholderText={strings.walletPlaceholder}
             onChange={handleWalletChange}
+            noLeftImageInList
           />
           <Dropdown
             items={coinDropDownList}

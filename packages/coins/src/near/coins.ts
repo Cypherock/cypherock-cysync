@@ -2,7 +2,7 @@ export default [
   {
     id: 'near',
     name: 'Near',
-    abbr: 'near',
+    abbr: 'NEAR',
     isTest: false,
     coinGeckoId: 'near',
     coinIndex: '8000018d',

@@ -195,7 +195,6 @@ export const SelectSend: React.FC = () => {
             searchText={select.searchText}
             placeholderText={select.placeholderText}
             onChange={handleSecondDropdownSelectionChange}
-            shouldShowIcon
           />
         </Container>
       </DialogBoxBody>

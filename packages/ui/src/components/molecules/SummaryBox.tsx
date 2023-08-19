@@ -112,7 +112,7 @@ SummaryRow.defaultProps = {
 type SummaryItemType =
   | (SummaryRowProps & { id: string })
   | { isDivider: boolean; id: string }
-  | (SummaryRowProps[] & { id: string });
+  | (SummaryRowProps[] & { id?: string });
 
 export interface SummaryBoxProps {
   items: SummaryItemType[];

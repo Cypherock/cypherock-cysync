@@ -6,6 +6,7 @@ import {
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
 import { ICoinInfo } from '@cypherock/coins';
+import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -21,8 +22,10 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
+import { syncAccounts } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
   closeDialog,
   selectLanguage,
@@ -68,6 +71,8 @@ export interface AddAccountDialogContextInterface {
   deviceEvents: Record<number, boolean | undefined>;
   addAccountStatus: AddAccountStatus;
   error: any | undefined;
+  walletDropdownList: DropDownListItemProps[];
+  handleWalletChange: () => void;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -86,7 +91,12 @@ export const AddAccountDialogProvider: FC<
   const dispatch = useAppDispatch();
   const { connection, connectDevice } = useDevice();
 
-  const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
+  const {
+    selectedWallet,
+    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+  } = useWalletDropdown();
   const [selectedCoin, setSelectedCoin] = useState<ICoinInfo | undefined>();
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
   const [newSelectedAccounts, setNewSelectedAccounts] = useState<IAccount[]>(
@@ -259,7 +269,8 @@ export const AddAccountDialogProvider: FC<
 
     try {
       const db = getDB();
-      await db.account.insert(allAccountsToAdd);
+      const addedAccounts = await db.account.insert(allAccountsToAdd);
+      dispatch(syncAccounts({ accounts: addedAccounts }));
       goTo(3, 0);
     } catch (e) {
       onError(e);
@@ -311,6 +322,8 @@ export const AddAccountDialogProvider: FC<
       deviceEvents,
       addAccountStatus,
       error,
+      handleWalletChange,
+      walletDropdownList,
     }),
     [
       isDeviceRequired,
@@ -339,6 +352,8 @@ export const AddAccountDialogProvider: FC<
       deviceEvents,
       addAccountStatus,
       error,
+      handleWalletChange,
+      walletDropdownList,
     ],
   );
 

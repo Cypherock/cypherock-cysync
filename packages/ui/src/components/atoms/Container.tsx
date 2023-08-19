@@ -11,6 +11,7 @@ import {
   flex,
   FlexProps,
   BgColorProps,
+  bgColor,
 } from '../utils';
 
 interface ContainerProps
@@ -36,6 +37,7 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${spacing}
   ${border}
   ${flex}
+  ${bgColor}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (
@@ -52,11 +54,6 @@ export const FlexGapContainer = styled(Container)`
   flex-direction: column;
   gap: 32px;
   z-index: 1;
-`;
-
-export const ScrollableContainer = styled.div`
-  max-height: 100%;
-  overflow-y: auto;
 `;
 
 export const BatchContainer = styled.div`

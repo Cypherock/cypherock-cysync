@@ -20,20 +20,21 @@ export const SummaryDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const summary = lang.strings.send.summary.info.dialogBox;
-  const toDetailsArray = summary.toDetails.map(toDetail => [
+  const toDetailsArray = summary.toDetails.flatMap(toDetail => [
     {
+      id: `toDetail-address-${toDetail.id}`,
       leftIcon: <QrCode width="11px" height="20px" />,
       leftText: summary.to,
       rightText: toDetail.address,
-      key: `toDetail-address-${toDetail.id}`,
     },
     {
+      id: `toDetail-amount-${toDetail.id}`,
       leftText: summary.amount,
       rightText: toDetail.amountEth,
       rightSubText: toDetail.amountUsd,
-      key: `toDetail-amount-${toDetail.id}`,
     },
   ]);
+
   const keyboardActions = {
     ArrowRight: () => {
       onNext();

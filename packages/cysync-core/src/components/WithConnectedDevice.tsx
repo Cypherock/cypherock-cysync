@@ -6,6 +6,8 @@ import {
   Image,
   disconnectedIcon,
   Flex,
+  DialogBoxFooter,
+  Button,
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
@@ -27,6 +29,8 @@ export interface WithConnectedDeviceProps {
   allowIncompatible?: boolean;
   allowBootloader?: boolean;
   disableNavigation?: boolean;
+  buttonLabel?: string;
+  buttonOnClick?: () => void;
 }
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -152,10 +156,10 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
-
+  const showFooter = props.buttonLabel && props.buttonOnClick;
   return (
     <DialogBox width={500}>
-      <DialogBoxBody pb={8}>
+      <DialogBoxBody pb={showFooter ? 4 : 8}>
         <Image src={disconnectedIcon} alt="Device not connected" />
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
@@ -168,6 +172,13 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
           </Typography>
         </Flex>
       </DialogBoxBody>
+      {showFooter && (
+        <DialogBoxFooter>
+          <Button variant="secondary" onClick={props.buttonOnClick}>
+            {props.buttonLabel}
+          </Button>
+        </DialogBoxFooter>
+      )}
     </DialogBox>
   );
 };
@@ -178,4 +189,6 @@ WithConnectedDevice.defaultProps = {
   allowIncompatible: false,
   allowBootloader: false,
   disableNavigation: false,
+  buttonLabel: undefined,
+  buttonOnClick: undefined,
 };

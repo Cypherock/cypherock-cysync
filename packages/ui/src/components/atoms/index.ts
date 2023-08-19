@@ -24,3 +24,5 @@ export * from './InformationBox';
 export * from './VerticalLine';
 export * from './SummaryContainer';
 export * from './Throbber';
+export * from './SearchBar';
+export * from './ScrollableContainer';

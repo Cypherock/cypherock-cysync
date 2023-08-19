@@ -10,7 +10,7 @@ import {
   LockOpen,
   Disconnected,
   SyncProblem,
-  Syncronizing,
+  SyncronizingBold,
   NoNotifications,
   Notifications,
 } from '../../assets';
@@ -43,6 +43,7 @@ interface ITopbar {
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
+  onSyncClick: () => void;
 }
 
 const DividingLine = styled.div`
@@ -64,6 +65,7 @@ export const Topbar: FC<ITopbar> = ({
   isDiscreetMode,
   syncStatus,
   toggleDiscreetMode,
+  onSyncClick,
 }) => {
   const theme = useTheme();
 
@@ -75,7 +77,9 @@ export const Topbar: FC<ITopbar> = ({
 
   const syncStatusMap = {
     syncronized: <Check stroke={theme?.palette.success.main} />,
-    syncronizing: <Syncronizing fill={`url(#${svgGradients.gold})`} />,
+    syncronizing: (
+      <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
+    ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
 
@@ -95,12 +99,14 @@ export const Topbar: FC<ITopbar> = ({
         <LangDisplay text={title} />
       </Typography>
       <Flex align="center">
-        <Flex pr={2} align="center" gap={16}>
-          {syncStatusMap[syncStatus]}
-          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
-            <LangDisplay text={statusTexts.sync[syncStatus]} />
-          </Typography>
-        </Flex>
+        <Button variant="none" onClick={onSyncClick}>
+          <Flex pr={2} align="center" gap={16}>
+            {syncStatusMap[syncStatus]}
+            <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+              <LangDisplay text={statusTexts.sync[syncStatus]} />
+            </Typography>
+          </Flex>
+        </Button>
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
