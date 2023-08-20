@@ -130,7 +130,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {...selectedDropdownItem}
           $borderRadius={8}
           checked={!!selectedItem || false}
-          $isSelected
           onCheckedChange={() =>
             handleCheckedChange(selectedDropdownItem.id ?? '')
           }
@@ -219,7 +218,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   {...item}
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
-                  $isSelected={isItemSelected}
                   id={item.id}
                   leftImage={noLeftImageInList ? undefined : item.leftImage}
                   $isFocused={isItemFocused}
