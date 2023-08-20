@@ -14,6 +14,16 @@ const ToggleSwitch = styled.label`
   width: 32px;
   height: 16px;
   margin-left: 8px;
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 38px;
+    background: ${({ theme }) => theme.palette.golden};
+
+    &::before {
+      background: ${({ theme }) => theme.palette.golden};
+    }
+  }
 `;
 
 const Slider = styled.span<{ checked: boolean }>`
@@ -62,8 +72,17 @@ export const Toggle: React.FC<ToggleProps> = ({ checked, onToggle }) => {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      if (onToggle) {
+        onToggle(!checked);
+      }
+    }
+  };
+
   return (
-    <ToggleSwitch>
+    <ToggleSwitch tabIndex={0} onKeyDown={handleKeyDown}>
       <Checkbox type="checkbox" checked={checked} onChange={handleCheck} />
       <Slider checked={checked} />
     </ToggleSwitch>

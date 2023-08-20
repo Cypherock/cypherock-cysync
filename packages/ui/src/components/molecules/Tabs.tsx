@@ -17,29 +17,50 @@ export const TabContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
+  min-height: 505px;
+  max-height: 510px;
+  padding-left: 40px;
+  padding-right: 30px;
+  margin-right: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const TabsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 32px;
+  max-height: 633px;
   ${utils}
 `;
 const TabHeaders = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: 100%;
 `;
 const TabHeader = styled.div`
   cursor: pointer;
   font-weight: 400;
+  flex: 1;
 `;
+
 const TabContent = styled.div`
-  padding: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 `;
 
 const StyledTypography = styled(Typography)<{ $active: boolean }>`
-  padding: 12px 24px;
+  padding: 12px 0;
   position: relative;
-  display: inline-block;
+  text-align: center;
+  display: block;
+  width: 100%;
   color: ${({ theme, $active }) =>
     $active ? `${goldenGradient('color')}` : theme.palette.text.muted};
   &::before {

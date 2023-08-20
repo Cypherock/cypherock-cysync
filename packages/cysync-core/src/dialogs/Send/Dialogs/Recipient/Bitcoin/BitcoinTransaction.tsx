@@ -58,8 +58,8 @@ export const BitcoinTransaction: React.FC = () => {
   ];
 
   return (
-    <DialogBox width={517}>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
+    <DialogBox width={517} height={880}>
+      <DialogBoxBody>
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={bitcoin.dialogBox.title} />
@@ -68,9 +68,9 @@ export const BitcoinTransaction: React.FC = () => {
             <LangDisplay text={bitcoin.dialogBox.text} />
           </Typography>
         </Container>
-        <Tabs tabs={tabs} />
       </DialogBoxBody>
-      <DialogBoxFooter height={101}>
+      <Tabs tabs={tabs} />
+      <DialogBoxFooter>
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>

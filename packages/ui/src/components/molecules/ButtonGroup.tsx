@@ -41,6 +41,9 @@ const PillButton = styled.button<{ $active: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  &:focus {
+    outline: 1px solid white;
+  }
 `;
 
 export interface ButtonAttributes {
@@ -64,6 +67,7 @@ export const PillButtonToggle: React.FC<PillButtonToggleProps> = ({
     {buttons.map(({ id, label, type: btnType }) => (
       <PillButton
         key={id}
+        tabIndex={0}
         $active={btnType === type}
         onClick={() => onButtonClick(btnType)}
       >

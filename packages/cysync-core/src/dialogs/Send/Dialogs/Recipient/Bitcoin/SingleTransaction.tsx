@@ -90,6 +90,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
             fill={theme.palette.background.muted}
           />
         }
+        pt={2}
         text={single.InfoBox.text}
         altText={single.InfoBox.altText}
         textVariant="span"

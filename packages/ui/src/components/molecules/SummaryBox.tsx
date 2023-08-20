@@ -26,7 +26,7 @@ interface SummaryRowProps {
   rightComponent?: FromItem[];
   rightSubText?: string;
   margin?: number;
-  key?: string;
+  index?: string;
 }
 
 const imageSrcMap: any = {
@@ -43,10 +43,10 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
   rightSubText,
   rightComponent,
   margin,
-  key,
+  index,
 }) => (
   <SummaryContainer
-    key={`container-${key}`}
+    key={`container-${index}`}
     leftComponent={
       <ImageContainer gap={8}>
         {leftIcon && leftIcon}
@@ -107,7 +107,7 @@ SummaryRow.defaultProps = {
   margin: undefined,
   leftIcon: undefined,
   rightSubText: undefined,
-  key: undefined,
+  index: undefined,
 };
 
 type SummaryItemType =
@@ -130,10 +130,13 @@ export const SummaryBox: React.FC<SummaryBoxProps> = ({ items }) => (
         const SummaryItems = item.map(to => {
           if ('isDivider' in to && to.isDivider) {
             return (
-              <Divider variant="horizontal" key={`divider-nested-${to.key}`} />
+              <Divider
+                variant="horizontal"
+                key={`divider-nested-${to.index}`}
+              />
             );
           }
-          return <SummaryRow key={`summary-nested-${to.key}`} {...to} />;
+          return <SummaryRow key={`summary-nested-${to.index}`} {...to} />;
         });
 
         if (item.length > 2) {
@@ -148,7 +151,11 @@ export const SummaryBox: React.FC<SummaryBoxProps> = ({ items }) => (
       }
 
       return (
-        <SummaryRow key={`summary-${item.id}`} {...(item as SummaryRowProps)} />
+        <SummaryRow
+          key={`summary-${item.id}`}
+          index={`${item.id}`}
+          {...(item as SummaryRowProps)}
+        />
       );
     })}
   </>

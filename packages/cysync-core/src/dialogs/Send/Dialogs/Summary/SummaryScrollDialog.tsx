@@ -29,17 +29,17 @@ export const SummaryScrollDialog: React.FC = () => {
         leftIcon: <QrCode width="11px" height="20px" />,
         leftText: summary.to,
         rightText: toDetail.address,
-        key: `toDetail-address-${toDetail.id}`,
+        index: `toDetail-address-${toDetail.id}`,
         margin: 24,
       },
       {
         leftText: summary.amount,
         rightText: toDetail.amountEth,
         rightSubText: toDetail.amountUsd,
-        key: `toDetail-amount-${toDetail.id}`,
+        index: `toDetail-amount-${toDetail.id}`,
         margin: 24,
       },
-      { isDivider: true, key: `divider-${toDetail.id}` },
+      { isDivider: true, index: `divider-${toDetail.id}` },
     ])
     .flat();
 
