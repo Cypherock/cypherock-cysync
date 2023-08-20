@@ -28,6 +28,7 @@
     "@stryker-mutator/jest-runner": "^7.0.2",
     "@stryker-mutator/typescript-checker": "^7.0.2",
     "@types/jest": "^29.5.2",
+    "@types/multicoin-address-validator": "^0.5.0",
     "@types/node": "18.15.11",
     "eslint": "^8.43.0",
     "jest": "^29.5.0",
@@ -44,10 +45,12 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-btc": "^0.0.20",
+    "@cypherock/sdk-app-btc": "^0.0.22",
     "@cypherock/sdk-interfaces": "^0.0.11",
     "@cypherock/sdk-utils": "^0.0.13",
     "axios": "^1.4.0",
+    "coinselect": "^3.1.13",
+    "multicoin-address-validator": "^0.5.12",
     "rxjs": "^7.8.1"
   },
   "lint-staged": {

@@ -16,6 +16,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
   sendDialog: SendDialog,
-  receiveDialog: ReceiveDialog,
   historyDialog: HistoryDialog,
+  receive: ReceiveDialog,
 };

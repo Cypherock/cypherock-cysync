@@ -1,7 +1,7 @@
 export default [
   {
     id: 'bitcoin',
-    abbr: 'btc',
+    abbr: 'BTC',
     name: 'Bitcoin',
     isTest: false,
     coinGeckoId: 'bitcoin',
@@ -33,7 +33,7 @@ export default [
   },
   {
     id: 'litecoin',
-    abbr: 'ltc',
+    abbr: 'LTC',
     name: 'Litecoin',
     isTest: false,
     coinGeckoId: 'litecoin',
@@ -61,7 +61,7 @@ export default [
   },
   {
     id: 'dogecoin',
-    abbr: 'doge',
+    abbr: 'DOGE',
     name: 'Dogecoin',
     isTest: false,
     coinGeckoId: 'dogecoin',
@@ -84,7 +84,7 @@ export default [
   },
   {
     id: 'dash',
-    abbr: 'dash',
+    abbr: 'DASH',
     name: 'Dash',
     isTest: false,
     coinGeckoId: 'dash',

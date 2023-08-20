@@ -69,6 +69,14 @@ type ComparableKeys =
 export const HistoryTable = () => {
   const [sortedBy, setSortedBy] = React.useState<TableHeaderNames>('Asset');
   const [isAscending, setIsAscending] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(
+    undefined,
+  );
+
+  const handleDateChange = (value: string) => {
+    setSelectedDate(value);
+  };
+
   const theme = useTheme();
   const dispatch = useAppDispatch();
 
@@ -300,7 +308,11 @@ export const HistoryTable = () => {
 
   return (
     <Table width="full">
-      <TableSearchFilter />
+      <TableSearchFilter
+        placeholder="Search..."
+        value={selectedDate}
+        onChange={handleDateChange}
+      />
       <TableHeader width="full">
         {Object.keys(headersData).map(headerName => {
           const header = headersData[headerName as TableHeaderNames];

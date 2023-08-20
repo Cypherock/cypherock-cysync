@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Flex, SearchBar } from '../../atoms';
-import { MiniContainer } from './HistoryNameBox';
-import { CalendarIcon } from '../../../assets';
+import { Calendar } from '../Calendar';
 
-interface NameBoxProps {
-  text?: string;
+interface SearchFilterProps {
+  placeholder: string;
+  value: string | undefined;
+  onChange: (value: any) => void;
 }
 
 const SearchContainer = styled.div`
@@ -22,19 +23,17 @@ const SearchContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.title};
 `;
 
-export const TableSearchFilter: FC<NameBoxProps> = () => (
+export const TableSearchFilter: FC<SearchFilterProps> = ({
+  placeholder,
+  value,
+  onChange,
+}) => (
   <SearchContainer>
     <Flex align="center" gap={8}>
-      <SearchBar placeholder="Search..." />
+      <SearchBar placeholder={placeholder} />
     </Flex>
     <Flex align="center" direction="row" gap={8}>
-      <MiniContainer iconVariant="grey">
-        <CalendarIcon width="18px" height="20px" />
-      </MiniContainer>
+      <Calendar value={value} onChange={onChange} />
     </Flex>
   </SearchContainer>
 );
-
-TableSearchFilter.defaultProps = {
-  text: undefined,
-};

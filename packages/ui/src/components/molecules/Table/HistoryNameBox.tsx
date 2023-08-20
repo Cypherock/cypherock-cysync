@@ -26,6 +26,7 @@ export const MiniContainer = styled.div<{
   display: flex;
   width: 40px;
   height: 40px;
+  padding: var(--0-px, 0px);
   justify-content: center;
   align-items: center;
   flex-shrink: 0;

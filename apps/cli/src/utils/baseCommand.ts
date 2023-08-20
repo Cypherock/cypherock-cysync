@@ -88,6 +88,11 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {
     // add any custom logic to handle errors from the command
     // or simply return the parent class error handling
+    if ((err as any)?.toJSON) {
+      console.log((err as any).toJSON());
+    } else {
+      console.log(err);
+    }
     return super.catch(err);
   }
 

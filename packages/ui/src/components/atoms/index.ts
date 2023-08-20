@@ -29,3 +29,4 @@ export * from './SearchBar';
 export * from './MiniButton';
 export * from './BatchTransactionBody';
 export * from './Chip';
+export * from './ScrollableContainer';

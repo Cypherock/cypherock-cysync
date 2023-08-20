@@ -133,7 +133,7 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
 
 const buttonStyle = css<ButtonProps>`
   ${props => {
-    if (props.disabled && props.variant !== 'text')
+    if (props.disabled && !['text', 'none'].includes(props.variant as string))
       return css`
         background-color: ${({ theme }) => theme.palette.background.disabled};
         color: ${({ theme }) => theme.palette.text.disabled};
@@ -161,12 +161,7 @@ const ButtonStyle = styled.button<ButtonProps>`
     transition: box-shadow ${buttonAnimationData.duration}
       ${buttonAnimationData.curve};
   }
-  ${({ disabled, theme }) =>
-    disabled &&
-    `
-    background-color: ${theme.palette.background.disabled};
-    cursor: not-allowed;
-  `}
+  ${({ disabled }) => disabled && `cursor: not-allowed;`}
   ${utils}
 `;
 

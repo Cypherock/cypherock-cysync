@@ -23,7 +23,7 @@ const mapTransactionToDisplay = async (
 
   const { amount, unit } = getParsedAmount({
     coinId: transaction.assetId,
-    unitName: account.unit,
+    unitAbbr: account.unit,
     amount: transaction.amount,
   });
 
@@ -53,7 +53,7 @@ const mapTransactionToShortDisplay = async (
 
   const { amount, unit } = getParsedAmount({
     coinId: transaction.assetId,
-    unitName: account.unit,
+    unitAbbr: account.unit,
     amount: transaction.amount,
   });
 

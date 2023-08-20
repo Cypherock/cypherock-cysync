@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 569df59fff4930e5ae1759cbf7e253ae52bcac51..56c25057b017eb005e6c41f994bf64040f73aef7 100644
+--- a/index.js
++++ b/index.js
+@@ -2,7 +2,7 @@
+ // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
+ // NOTE: SIGHASH byte ignored AND restricted, truncate before use
+ 
+-var Buffer = require('safe-buffer').Buffer
++var Buffer = typeof window === 'undefined' ? global.Buffer : window.Buffer;
+ 
+ function check (buffer) {
+   if (buffer.length < 8) return false

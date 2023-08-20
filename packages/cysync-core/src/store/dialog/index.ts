@@ -25,7 +25,7 @@ const initialState: IDialogState = {
   sendDialog: {
     isOpen: false,
   },
-  receiveDialog: {
+  receive: {
     isOpen: false,
   },
   historyDialog: {

@@ -65,7 +65,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
-      unit: coin.units[0].abbr.toLowerCase(),
+      unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
       type: 'account',
       familyId: coin.family,
