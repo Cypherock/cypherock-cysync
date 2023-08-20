@@ -33,17 +33,51 @@ const textColorMap: any = {
   Pending: 'warn',
 };
 
+const HistoryItem = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <>
+    <SummaryContainer
+      leftComponent={
+        <Typography variant="span" color="muted">
+          {label}
+        </Typography>
+      }
+      rightComponent={children}
+    />
+    <Divider variant="horizontal" />
+  </>
+);
+
 export const HistoryDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const keys = lang.strings.history.info.dialogBox;
   const dialogs = useAppSelector(selectDialogs);
-  const row = dialogs.historyDialog.data as Row;
   const dispatch = useAppDispatch();
   const theme = useTheme();
-  const onClose = () => {
-    dispatch(closeDialog('historyDialog'));
-  };
-  const IconComponent = row.icon;
+
+  const {
+    icon: IconComponent,
+    fill,
+    amount,
+    symbol,
+    timeStamp,
+    value,
+    feeEth,
+    feeDollar,
+    type,
+    status,
+    wallet,
+    account,
+    asset,
+    hash,
+  } = dialogs.historyDialog.data as Row;
+
+  const onClose = () => dispatch(closeDialog('historyDialog'));
 
   return (
     <BlurOverlay>
@@ -54,7 +88,7 @@ export const HistoryDialog: FC = () => {
           </Flex>
         </DialogBoxHeader>
         <DialogBoxBody align="center" direction="column" height="full">
-          <IconComponent fill={row.fill} width="56px" height="48px" />
+          <IconComponent fill={fill} width="56px" height="48px" />
           <Container
             display="flex"
             direction="column"
@@ -69,9 +103,9 @@ export const HistoryDialog: FC = () => {
               width="full"
               gap={4}
             >
-              <Typography variant="h5">{`${row.amount} ${row.symbol}`}</Typography>
+              <Typography variant="h5">{`${amount} ${symbol}`}</Typography>
               <Typography variant="span" color="muted">
-                {row.timeStamp}
+                {timeStamp}
               </Typography>
             </Container>
             <Container
@@ -94,120 +128,77 @@ export const HistoryDialog: FC = () => {
             pt={5}
             gap={12}
           >
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.value}
+            <HistoryItem label={keys.value}>
+              <Typography variant="span">${value}</Typography>
+            </HistoryItem>
+            <HistoryItem label={keys.fee}>
+              <NestedContainer>
+                <Typography variant="span">{`${feeEth} ${symbol}`}</Typography>
+                <Typography variant="span" $fontSize={14} color="normal">
+                  = {feeDollar}
                 </Typography>
-              }
-              rightComponent={
-                <Typography variant="span">${row.value}</Typography>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted" align="center">
-                  {keys.fee}
-                </Typography>
-              }
-              rightComponent={
-                <NestedContainer>
-                  <Typography variant="span">{`${row.feeEth} ${row.symbol}`}</Typography>
-                  <Typography variant="span" $fontSize={14} color="normal">
-                    = {row.feeDollar}
+              </NestedContainer>
+            </HistoryItem>
+            <HistoryItem label={keys.type}>
+              <Container direction="row" gap={8}>
+                <IconComponent
+                  width="15px"
+                  height="12px"
+                  fill={theme.palette.text.white}
+                />
+                <Typography variant="span">{type}</Typography>
+              </Container>
+            </HistoryItem>
+            <HistoryItem label={keys.status}>
+              <Typography variant="span" color={textColorMap[status]}>
+                {status}
+              </Typography>
+            </HistoryItem>
+            <HistoryItem label={keys.wallet}>
+              <Typography variant="span">{wallet}</Typography>
+            </HistoryItem>
+            <HistoryItem label={keys.account}>
+              <Container direction="row" gap={8}>
+                <Image
+                  src={imageSrcMap[account]}
+                  alt="ethereum icon"
+                  width="16px"
+                  height="24px"
+                />
+                <Typography variant="span">{account}</Typography>
+              </Container>
+            </HistoryItem>
+            <HistoryItem label={keys.asset}>
+              <Container direction="row" gap={8}>
+                <Image
+                  src={imageSrcMap[asset]}
+                  alt="ethereum icon"
+                  width="16px"
+                  height="24px"
+                />
+                <Typography variant="span">{asset}</Typography>
+              </Container>
+            </HistoryItem>
+            <HistoryItem label={keys.sender}>
+              <Container direction="row" gap={8}>
+                <Chip>
+                  <Typography
+                    variant="p"
+                    $fontSize={14}
+                    $fontWeight="medium"
+                    color="muted"
+                  >
+                    {keys.mine}
                   </Typography>
-                </NestedContainer>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
+                </Chip>
                 <Typography variant="span" color="muted">
-                  {keys.type}
+                  {hash}
                 </Typography>
-              }
-              rightComponent={
-                <Container direction="row" gap={8}>
-                  <IconComponent
-                    width="15px"
-                    height="12px"
-                    fill={theme.palette.text.white}
-                  />
-                  <Typography variant="span">{row.type}</Typography>
-                </Container>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.status}
-                </Typography>
-              }
-              rightComponent={
-                <Typography variant="span" color={textColorMap[row.status]}>
-                  {row.status}
-                </Typography>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.wallet}
-                </Typography>
-              }
-              rightComponent={
-                <Typography variant="span">{row.wallet}</Typography>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.account}
-                </Typography>
-              }
-              rightComponent={
-                <Container direction="row" gap={8}>
-                  <Image
-                    src={imageSrcMap[row.account]}
-                    alt="ethereum icon"
-                    width="16px"
-                    height="24px"
-                  />
-                  <Typography variant="span">{row.account}</Typography>
-                </Container>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.asset}
-                </Typography>
-              }
-              rightComponent={
-                <Container direction="row" gap={8}>
-                  <Image
-                    src={imageSrcMap[row.asset]}
-                    alt="ethereum icon"
-                    width="16px"
-                    height="24px"
-                  />
-                  <Typography variant="span">{row.asset}</Typography>
-                </Container>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.sender}
-                </Typography>
-              }
-              rightComponent={
+              </Container>
+            </HistoryItem>
+            <HistoryItem label={keys.receiver}>
+              <NestedContainer>
+                <Typography variant="span">1. {hash}</Typography>
                 <Container direction="row" gap={8}>
                   <Chip>
                     <Typography
@@ -220,53 +211,17 @@ export const HistoryDialog: FC = () => {
                     </Typography>
                   </Chip>
                   <Typography variant="span" color="muted">
-                    {row.hash}
+                    2. {hash}
                   </Typography>
                 </Container>
-              }
-            />
-            <Divider variant="horizontal" />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.receiver}
-                </Typography>
-              }
-              rightComponent={
-                <NestedContainer>
-                  <Typography variant="span">1. {row.hash}</Typography>
-                  <Container direction="row" gap={8}>
-                    <Chip>
-                      <Typography
-                        variant="p"
-                        $fontSize={14}
-                        $fontWeight="medium"
-                        color="muted"
-                      >
-                        {keys.mine}
-                      </Typography>
-                    </Chip>
-                    <Typography variant="span" color="muted">
-                      2. {row.hash}
-                    </Typography>
-                  </Container>
-                </NestedContainer>
-              }
-            />
-            <SummaryContainer
-              leftComponent={
-                <Typography variant="span" color="muted">
-                  {keys.transactionHash}
-                </Typography>
-              }
-              rightComponent={
-                <Container direction="row" gap={8}>
-                  <Typography variant="span">{row.hash}</Typography>
-                  <Clipboard variant="gold" content={row.hash} size="sm" />
-                </Container>
-              }
-            />
-            <Divider variant="horizontal" />
+              </NestedContainer>
+            </HistoryItem>
+            <HistoryItem label={keys.transactionHash}>
+              <Container direction="row" gap={8}>
+                <Typography variant="span">{hash}</Typography>
+                <Clipboard variant="gold" content={hash} size="sm" />
+              </Container>
+            </HistoryItem>
           </Container>
         </DialogBoxBody>
       </DialogBox>

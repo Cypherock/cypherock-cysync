@@ -77,6 +77,9 @@ export const theme = {
       slider: colors.background.slider,
       warning: colors.background.warning,
       batchTransactionBody: colors.background.batchTransactionBody,
+      filterItem: colors.background.filterItem,
+      calendar: colors.background.calendar,
+      calendarHeader: colors.background.calendarHeader,
     },
     border: {
       popup: colors.border.popup,

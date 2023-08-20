@@ -280,6 +280,7 @@ export const HistoryTable = () => {
       ],
     },
   ]);
+  const [originalData] = useState<DataItem[]>(data);
 
   const handleHeaderClick = (columnName: TableHeaderNames) => {
     if (sortedBy === columnName) {
@@ -301,6 +302,34 @@ export const HistoryTable = () => {
     }));
   };
 
+  const handleSearch = (query: string) => {
+    const lowercasedQuery = query.toLowerCase();
+
+    if (lowercasedQuery === '') {
+      setData(originalData);
+      return;
+    }
+
+    const filteredData = originalData
+      .map(dataItem => {
+        const filteredRows = dataItem.rows.filter(
+          row =>
+            row.asset.toLowerCase().includes(lowercasedQuery) ||
+            row.wallet.toLowerCase().includes(lowercasedQuery) ||
+            row.account.toLowerCase().includes(lowercasedQuery) ||
+            row.symbol.toLowerCase().includes(lowercasedQuery) ||
+            row.type.toLowerCase().includes(lowercasedQuery),
+        );
+        return {
+          ...dataItem,
+          rows: filteredRows,
+        };
+      })
+      .filter(dataItem => dataItem.rows.length > 0);
+
+    setData(filteredData);
+  };
+
   useEffect(() => {
     const sortedData = sortData(data, sortedBy);
     setData(sortedData);
@@ -310,8 +339,9 @@ export const HistoryTable = () => {
     <Table width="full">
       <TableSearchFilter
         placeholder="Search..."
-        value={selectedDate}
-        onChange={handleDateChange}
+        dateValue={selectedDate}
+        dateChange={handleDateChange}
+        onChange={e => handleSearch(e.target.value)}
       />
       <TableHeader width="full">
         {Object.keys(headersData).map(headerName => {

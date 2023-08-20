@@ -46,6 +46,7 @@ export const colors = {
     goldenrod: '#daa520',
     disabled: '#423D39',
     normal: '#CCC4BE',
+    black: '#000000',
   },
   background: {
     progressBar: '#1F1915',
@@ -68,6 +69,9 @@ export const colors = {
     slider: '#3A3531',
     warning: '#2C2418',
     batchTransactionBody: '#1b1812',
+    filterItem: `#1F1C19`,
+    calendar: '#342F2C',
+    calendarHeader: '#211C18',
   },
   border: {
     popup: '#2C2520',

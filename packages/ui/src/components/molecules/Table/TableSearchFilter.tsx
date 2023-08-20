@@ -6,8 +6,9 @@ import { Calendar } from '../Calendar';
 
 interface SearchFilterProps {
   placeholder: string;
-  value: string | undefined;
-  onChange: (value: any) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  dateValue: string | undefined;
+  dateChange: (value: string) => void;
 }
 
 const SearchContainer = styled.div`
@@ -25,15 +26,16 @@ const SearchContainer = styled.div`
 
 export const TableSearchFilter: FC<SearchFilterProps> = ({
   placeholder,
-  value,
+  dateValue,
   onChange,
+  dateChange,
 }) => (
   <SearchContainer>
     <Flex align="center" gap={8}>
-      <SearchBar placeholder={placeholder} />
+      <SearchBar placeholder={placeholder} onChange={onChange} />
     </Flex>
     <Flex align="center" direction="row" gap={8}>
-      <Calendar value={value} onChange={onChange} />
+      <Calendar value={dateValue} onChange={dateChange} />
     </Flex>
   </SearchContainer>
 );

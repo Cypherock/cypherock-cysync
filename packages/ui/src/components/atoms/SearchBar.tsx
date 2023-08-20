@@ -4,6 +4,7 @@ import SearchIcon from '../../assets/icons/generated/SearchIcon';
 
 interface SearchBarProps {
   placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SearchContainer = styled.div`
@@ -25,7 +26,7 @@ const IconContainer = styled.div`
   align-items: center;
 `;
 
-export const SearchBarStyle = styled.input`
+export const SearchBarStyle = styled.input<SearchBarProps>`
   flex: 1;
   border: none;
   background-color: ${({ theme }) =>
@@ -40,11 +41,11 @@ export const SearchBarStyle = styled.input`
   }
 `;
 
-export const SearchBar: FC<SearchBarProps> = ({ placeholder }) => (
+export const SearchBar: FC<SearchBarProps> = ({ placeholder, onChange }) => (
   <SearchContainer>
     <IconContainer>
       <SearchIcon width="25px" height="20px" />
     </IconContainer>
-    <SearchBarStyle placeholder={placeholder} />
+    <SearchBarStyle placeholder={placeholder} onChange={onChange} />
   </SearchContainer>
 );

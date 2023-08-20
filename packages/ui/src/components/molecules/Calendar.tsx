@@ -17,11 +17,19 @@ const StyledCalendar = styled(DatePicker)`
   }
 
   .rmdp-header {
-    background-color: #211c18;
+    background-color: ${({ theme }) => theme.palette.background.calendarHeader};
   }
 
   .rmdp-header-values {
-    color: #bcc3c9;
+    background: linear-gradient(
+      90deg,
+      #a2adb3 0%,
+      #f3f1f2 34.9%,
+      #bcc3c9 65.63%,
+      #dcdfe4 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-family: Poppins;
     font-size: 20px;
     font-style: normal;
@@ -42,7 +50,7 @@ const StyledCalendar = styled(DatePicker)`
   .rmdp-range.start,
   .rmdp-range.end {
     ${goldenGradient('background')};
-    color: #000000;
+    color: ${({ theme }) => theme.palette.text.black};
   }
 
   .rmdp-day {
@@ -59,7 +67,7 @@ const StyledCalendar = styled(DatePicker)`
   .rmdp-arrow-container {
     &:hover {
       ${goldenGradient('background')};
-      color: #000000;
+      color: ${({ theme }) => theme.palette.text.black};
     }
     margin: 0 12px;
   }
@@ -67,7 +75,7 @@ const StyledCalendar = styled(DatePicker)`
   .rmdp-day span {
     &:hover {
       ${goldenGradient('background')};
-      color: #000000;
+      color: ${({ theme }) => theme.palette.text.black};
     }
   }
 
@@ -91,7 +99,7 @@ const StyledCalendar = styled(DatePicker)`
   .rmdp-top-class {
     background: linear-gradient(
       to bottom,
-      #211c18 0% 39px,
+      ${({ theme }) => theme.palette.background.calendarHeader} 0% 39px,
       ${({ theme }) => theme.palette.background.input} 248px 100%
     );
     border-radius: 16px;
@@ -99,16 +107,17 @@ const StyledCalendar = styled(DatePicker)`
 
   .rmdp-arrow {
     border: solid ${({ theme }) => theme.palette.border.muted};
-    border-width: 0 2px 2px 0;
+    border-width: 0 3px 3px 0;
+    font-size: 16px;
   }
 
   .rmdp-day.rmdp-selected span:not(.highlight) {
     ${goldenGradient('background')};
-    color: #000000;
+    color: ${({ theme }) => theme.palette.text.black};
   }
 
   .rmdp-shadow {
-    box-shadow: 4px 4px 32px 4px #0f0d0b;
+    box-shadow: none !important;
   }
 
   span.rmdp-arrow-container.rmdp-right {
@@ -121,10 +130,10 @@ const StyledCalendar = styled(DatePicker)`
 `;
 
 const RangeContainer = styled.div<{
-  iconVariant: string;
   onClick?: () => void;
 }>`
   position: relative;
+  font-family: Inter;
   display: inline-flex;
   padding: var(--0-px, 0px) var(--8-px, 8px);
   gap: var(--16-px, 16px);
@@ -134,10 +143,7 @@ const RangeContainer = styled.div<{
   align-items: center;
   border-radius: 8px;
   color: ${({ theme }) => theme.palette.text.heading};
-  background: ${({ iconVariant, theme }) =>
-    iconVariant === 'success'
-      ? `rgba(81, 198, 26, 0.20)`
-      : theme.palette.background.input};
+  background: ${({ theme }) => theme.palette.background.calendar};
   &::before {
     content: '';
     position: absolute;
@@ -188,7 +194,7 @@ export const Calendar: FC<CalendarProps> = ({ value, onChange }) => {
         }
         const [startDate, endDate] = renderedValue.split(' to ');
         return (
-          <RangeContainer onClick={openCalender} iconVariant="grey">
+          <RangeContainer onClick={openCalender}>
             <CalendarIcon width="18px" height="20px" />
             <Typography
               variant="span"

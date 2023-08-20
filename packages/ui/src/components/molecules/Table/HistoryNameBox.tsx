@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Container, Divider, Typography, TypographyColor } from '../../atoms';
 import { iconBoxStyles } from './TableIconNameBox';
 import { SvgProps } from '../../../assets';
+import { BgColorProps, bgColor } from '../../utils';
 
 interface HistoryNameBoxProps {
   icon: React.FC<SvgProps>;
@@ -19,10 +20,12 @@ const HistoryNameBoxStyle = styled.div<HistoryNameBoxProps>`
   ${iconBoxStyles}
 `;
 
-export const MiniContainer = styled.div<{
-  iconVariant: string;
+interface MiniContainerProps extends BgColorProps {
+  iconVariant?: string;
   onClick?: () => void;
-}>`
+}
+
+export const MiniContainer = styled.div<MiniContainerProps>`
   display: flex;
   width: 40px;
   height: 40px;
@@ -34,7 +37,7 @@ export const MiniContainer = styled.div<{
   background: ${({ iconVariant, theme }) =>
     iconVariant === 'success'
       ? `rgba(81, 198, 26, 0.20)`
-      : theme.palette.background.input};
+      : theme.palette.background.calendar};
   ${({ onClick }) =>
     onClick &&
     `
@@ -42,6 +45,7 @@ export const MiniContainer = styled.div<{
         cursor: pointer;
       }
     `}
+  ${bgColor}
 `;
 
 export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
@@ -49,7 +53,7 @@ export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
 
   return (
     <HistoryNameBoxStyle {...props}>
-      <MiniContainer iconVariant={props.iconVariant}>
+      <MiniContainer $bgColor="separator">
         <IconComponent fill={props.fill} />
       </MiniContainer>
 
