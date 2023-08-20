@@ -8,7 +8,9 @@ import {
   BlurOverlay,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { SendDialogProvider, useSendDialog } from './context';
 import { CloseConfirmation } from './Dialogs';
 

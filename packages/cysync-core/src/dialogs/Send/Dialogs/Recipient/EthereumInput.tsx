@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Container,
   Flex,
@@ -11,6 +10,7 @@ import {
   FeesSlider,
   FeesInput,
 } from '@cypherock/cysync-ui';
+import React from 'react';
 
 interface EthereumInputProps {
   type: 'slider' | 'input';

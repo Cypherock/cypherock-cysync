@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   GoldQuestionMark,
   Flex,
@@ -7,6 +6,7 @@ import {
   ButtonAttributes,
   PillButtonToggle,
 } from '@cypherock/cysync-ui';
+import React from 'react';
 
 interface FeesSectionProps {
   type: 'slider' | 'input';

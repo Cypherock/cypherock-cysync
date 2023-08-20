@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react';
 import {
   Divider,
   Flex,
@@ -9,6 +8,8 @@ import {
   BatchContainer,
   Button,
 } from '@cypherock/cysync-ui';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { AmountToSend } from '../AmountToSend';
 
 interface BatchTransactionBodyProps {

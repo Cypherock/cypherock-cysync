@@ -11,14 +11,17 @@ import {
   useToggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { BatchTransactionBody } from './BatchTransactionBody';
+
 import { useSendDialog } from '../../../context';
 import { Buttons, Captions } from '../Ethereum';
-import { RecipientInput } from '../RecipientInput';
-import { BatchTransactionBody } from './BatchTransactionBody';
-import { FeesSection } from '../FeesSection';
 import { FeesDisplay } from '../FeesDisplay';
+import { FeesSection } from '../FeesSection';
+import { RecipientInput } from '../RecipientInput';
 
 export const BatchTransaction: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);

@@ -13,14 +13,16 @@ import {
   useToggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
-import { RecipientInput } from '../RecipientInput';
-import { FeesSection } from '../FeesSection';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { FeesDisplay } from '../FeesDisplay';
+
 import { useSendDialog } from '../../../context';
-import { Buttons, Captions } from '../Ethereum';
 import { AmountToSend } from '../AmountToSend';
+import { Buttons, Captions } from '../Ethereum';
+import { FeesDisplay } from '../FeesDisplay';
+import { FeesSection } from '../FeesSection';
+import { RecipientInput } from '../RecipientInput';
 
 interface SingleTransactionProps {
   handleButtonState: (shouldActivate: boolean) => void;

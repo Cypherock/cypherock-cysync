@@ -10,10 +10,13 @@ import {
   Container,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { BatchTransaction } from './BatchTransaction';
 import { SingleTransaction } from './SingleTransaction';
+
 import { useSendDialog } from '../../../context';
 
 export const BitcoinTransaction: React.FC = () => {

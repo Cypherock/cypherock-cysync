@@ -52,26 +52,30 @@ export const DropdownContainer = styled.div<{
               inset: 0;
               border-radius: 8px;
               border: 1px solid transparent;
-              background: ${theme.palette.golden};
+              background: ${theme.palette.silver};
               -webkit-mask: linear-gradient(#fff 0 0) padding-box,
                 linear-gradient(#fff 0 0);
               -webkit-mask-composite: xor;
               mask-composite: exclude;
             }
         
-            &:hover::before {
-              background: ${theme.palette.golden} border-box;
-              transition: all ${buttonAnimationData.duration};
-              ${buttonAnimationData.curve};
-            }
+            // &:hover::before {
+            //   background: ${theme.palette.silver} border-box;
+            //   transition: all ${buttonAnimationData.duration};
+            //   ${buttonAnimationData.curve};
+            // }
           cursor: pointer;
         }
-        &:focus { 
-          outline: none;
-          background: ${theme.palette.golden};
-        }
       `}
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+    background: ${({ theme }) => theme.palette.golden};
 
+    &::before {
+      background: ${({ theme }) => theme.palette.golden};
+    }
+  }
   input {
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};

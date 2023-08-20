@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { QrCode } from '../../../assets';
 import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 

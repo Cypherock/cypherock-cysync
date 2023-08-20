@@ -28,7 +28,7 @@ export const colors = {
     secondary: '#3A5E2A',
   },
   disabled: {
-    background: '#332E29',
+    background: '#544D47',
     text: '#433C35',
   },
   text: {

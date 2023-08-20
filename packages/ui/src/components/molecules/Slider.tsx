@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+
 import { sliderThumbIcon } from '../../assets';
 import { Flex, Image, LangDisplay, Typography } from '../atoms';
 import { goldenGradient } from '../utils';

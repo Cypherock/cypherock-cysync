@@ -17,13 +17,12 @@ export const findSelectedItem = (
 export const searchInItems = (
   menuItems: DropDownListItemProps[],
   searchString: string,
-  selectedItem: string | undefined,
 ): DropDownListItemProps[] => {
   const filteredItems: DropDownListItemProps[] = [];
   for (const item of menuItems) {
-    const shouldAdd =
-      item.id === selectedItem ||
-      item.text.toLowerCase().includes(searchString.toLowerCase());
+    const shouldAdd = item.text
+      .toLowerCase()
+      .includes(searchString.toLowerCase());
 
     if (shouldAdd) {
       filteredItems.push(item);
@@ -47,6 +46,7 @@ export const handleKeyDown =
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
     listRef: MutableRefObject<HTMLUListElement | null>,
+    dropdownRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const visibleItemsCount = filteredItems.length;
@@ -57,7 +57,6 @@ export const handleKeyDown =
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
-          setFocusedIndex(0);
         } else {
           setFocusedIndex(prevIndex =>
             prevIndex === null
@@ -111,6 +110,7 @@ export const handleKeyDown =
           setSelectedIndex(focusedIndex);
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
           toggleDropdown();
+          dropdownRef.current?.focus();
         }
         break;
       case 'Tab':

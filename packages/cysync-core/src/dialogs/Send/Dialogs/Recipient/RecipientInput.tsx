@@ -1,7 +1,8 @@
+import { Caption } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
-import { Caption } from '@cypherock/cysync-ui';
 
 interface RecipientInputProps {
   type: 'slider' | 'input';

@@ -1,6 +1,8 @@
 import React, { FC, ForwardedRef } from 'react';
 import styled from 'styled-components';
+
 import { InputLabel } from './InputLabel';
+
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
@@ -31,6 +33,7 @@ const InputStyle = styled.input<{
   $bgColor?: string;
   $textColor?: string;
   $error?: boolean;
+  disabled: boolean;
 }>`
   position: relative;
   width: 100%;
@@ -44,9 +47,17 @@ const InputStyle = styled.input<{
     ${({ theme, $error }) =>
       $error ? theme.palette.border.error : 'transparent'};
   border-radius: 8px;
-  color: ${({ $textColor = 'muted', theme }) => theme.palette.text[$textColor]};
+  color: ${({ $textColor = 'muted', disabled, theme }) =>
+    disabled
+      ? theme.palette.background.disabled
+      : theme.palette.text[$textColor]};
   &:focus-visible {
     outline: none;
+  }
+  ::placeholder {
+    line-height: 14px;
+    color: ${({ disabled, theme }) =>
+      disabled ? theme.palette.background.disabled : theme.palette.text.muted};
   }
 `;
 

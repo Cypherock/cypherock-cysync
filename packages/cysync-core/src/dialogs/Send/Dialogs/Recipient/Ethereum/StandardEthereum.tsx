@@ -17,14 +17,16 @@ import {
   GoldQuestionMark,
   InformationIcon,
 } from '@cypherock/cysync-ui';
-import { RecipientInput } from '../RecipientInput';
 import React, { useState } from 'react';
-import { FeesDisplay } from '../FeesDisplay';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { FeesSection } from '../FeesSection';
+
 import { useSendDialog } from '../../../context';
 import { AmountToSend } from '../AmountToSend';
+import { FeesDisplay } from '../FeesDisplay';
+import { FeesSection } from '../FeesSection';
+import { RecipientInput } from '../RecipientInput';
 
 export const Buttons: ButtonAttributes[] = [
   { id: 1, label: 'Standard', type: 'slider' },

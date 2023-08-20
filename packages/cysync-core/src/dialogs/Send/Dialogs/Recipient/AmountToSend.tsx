@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Container,
   DoubleArrow,
@@ -10,6 +9,7 @@ import {
   Typography,
   useAmountToSend,
 } from '@cypherock/cysync-ui';
+import React from 'react';
 
 interface AmountToSendProps {
   text?: string;

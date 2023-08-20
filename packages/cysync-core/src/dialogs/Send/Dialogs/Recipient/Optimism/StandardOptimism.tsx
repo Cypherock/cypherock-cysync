@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   LangDisplay,
   DialogBox,
@@ -18,14 +17,17 @@ import {
   OptimismIcon,
   useRecipientAddress,
 } from '@cypherock/cysync-ui';
-import { FeesSection } from '../FeesSection';
-import { RecipientInput } from '../RecipientInput';
+import React, { useState } from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useSendDialog } from '../../../context';
+import { AmountToSend } from '../AmountToSend';
 import { Buttons, Captions } from '../Ethereum/StandardEthereum';
 import { FeesDisplay } from '../FeesDisplay';
-import { AmountToSend } from '../AmountToSend';
+import { FeesSection } from '../FeesSection';
+import { RecipientInput } from '../RecipientInput';
 
 export const StandardOptimism: React.FC = () => {
   const [sliderValue, setSliderValue] = useState(20);

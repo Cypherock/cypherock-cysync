@@ -17,8 +17,10 @@ import {
   GoldExternalLink,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useSendDialog } from '../../context';
 
 export const SendDone: React.FC = () => {
