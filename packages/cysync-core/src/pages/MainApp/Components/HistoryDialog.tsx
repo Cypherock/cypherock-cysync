@@ -34,22 +34,22 @@ const textColorMap: any = {
 };
 
 const HistoryItem = ({
-  label,
+  leftText,
   children,
 }: {
-  label: string;
+  leftText: string;
   children: React.ReactNode;
 }) => (
   <>
     <SummaryContainer
       leftComponent={
         <Typography variant="span" color="muted">
-          {label}
+          {leftText}
         </Typography>
       }
       rightComponent={children}
     />
-    <Divider variant="horizontal" />
+    <Divider variant="horizontal" $bgColor="dialog" />
   </>
 );
 
@@ -128,10 +128,10 @@ export const HistoryDialog: FC = () => {
             pt={5}
             gap={12}
           >
-            <HistoryItem label={keys.value}>
+            <HistoryItem leftText={keys.value}>
               <Typography variant="span">${value}</Typography>
             </HistoryItem>
-            <HistoryItem label={keys.fee}>
+            <HistoryItem leftText={keys.fee}>
               <NestedContainer>
                 <Typography variant="span">{`${feeEth} ${symbol}`}</Typography>
                 <Typography variant="span" $fontSize={14} color="normal">
@@ -139,7 +139,7 @@ export const HistoryDialog: FC = () => {
                 </Typography>
               </NestedContainer>
             </HistoryItem>
-            <HistoryItem label={keys.type}>
+            <HistoryItem leftText={keys.type}>
               <Container direction="row" gap={8}>
                 <IconComponent
                   width="15px"
@@ -149,15 +149,15 @@ export const HistoryDialog: FC = () => {
                 <Typography variant="span">{type}</Typography>
               </Container>
             </HistoryItem>
-            <HistoryItem label={keys.status}>
+            <HistoryItem leftText={keys.status}>
               <Typography variant="span" color={textColorMap[status]}>
                 {status}
               </Typography>
             </HistoryItem>
-            <HistoryItem label={keys.wallet}>
+            <HistoryItem leftText={keys.wallet}>
               <Typography variant="span">{wallet}</Typography>
             </HistoryItem>
-            <HistoryItem label={keys.account}>
+            <HistoryItem leftText={keys.account}>
               <Container direction="row" gap={8}>
                 <Image
                   src={imageSrcMap[account]}
@@ -168,7 +168,7 @@ export const HistoryDialog: FC = () => {
                 <Typography variant="span">{account}</Typography>
               </Container>
             </HistoryItem>
-            <HistoryItem label={keys.asset}>
+            <HistoryItem leftText={keys.asset}>
               <Container direction="row" gap={8}>
                 <Image
                   src={imageSrcMap[asset]}
@@ -179,7 +179,7 @@ export const HistoryDialog: FC = () => {
                 <Typography variant="span">{asset}</Typography>
               </Container>
             </HistoryItem>
-            <HistoryItem label={keys.sender}>
+            <HistoryItem leftText={keys.sender}>
               <Container direction="row" gap={8}>
                 <Chip>
                   <Typography
@@ -196,7 +196,7 @@ export const HistoryDialog: FC = () => {
                 </Typography>
               </Container>
             </HistoryItem>
-            <HistoryItem label={keys.receiver}>
+            <HistoryItem leftText={keys.receiver}>
               <NestedContainer>
                 <Typography variant="span">1. {hash}</Typography>
                 <Container direction="row" gap={8}>
@@ -216,7 +216,7 @@ export const HistoryDialog: FC = () => {
                 </Container>
               </NestedContainer>
             </HistoryItem>
-            <HistoryItem label={keys.transactionHash}>
+            <HistoryItem leftText={keys.transactionHash}>
               <Container direction="row" gap={8}>
                 <Typography variant="span">{hash}</Typography>
                 <Clipboard variant="gold" content={hash} size="sm" />

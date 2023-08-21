@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Container, Divider, Typography, TypographyColor } from '../../atoms';
+import { Container, Typography, TypographyColor } from '../../atoms';
 import { iconBoxStyles } from './TableIconNameBox';
 import { SvgProps } from '../../../assets';
 import { BgColorProps, bgColor } from '../../utils';
@@ -8,7 +8,7 @@ import { BgColorProps, bgColor } from '../../utils';
 interface HistoryNameBoxProps {
   icon: React.FC<SvgProps>;
   fill: string;
-  iconVariant: 'grey' | 'success';
+  variant: 'grey' | 'success';
   title: string;
   textColor?: TypographyColor;
   subtitle: string;
@@ -21,7 +21,7 @@ const HistoryNameBoxStyle = styled.div<HistoryNameBoxProps>`
 `;
 
 interface MiniContainerProps extends BgColorProps {
-  iconVariant?: string;
+  variant?: string;
   onClick?: () => void;
 }
 
@@ -34,8 +34,8 @@ export const MiniContainer = styled.div<MiniContainerProps>`
   align-items: center;
   flex-shrink: 0;
   border-radius: 8px;
-  background: ${({ iconVariant, theme }) =>
-    iconVariant === 'success'
+  background: ${({ variant, theme }) =>
+    variant === 'success'
       ? `rgba(81, 198, 26, 0.20)`
       : theme.palette.background.calendar};
   ${({ onClick }) =>
@@ -65,15 +65,19 @@ export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
         >
           {props.title}
         </Typography>
-        <Container gap={8} display="flex" direction="row">
+        <Container gap={5} display="flex" direction="row">
           <Typography variant="p" color="muted">
             {props.subtitle}
           </Typography>
 
           {props.date && (
             <>
-              <Divider variant="vertical" />
-              <Typography variant="p">{props.date}</Typography>
+              <Typography variant="p" color="divider">
+                |
+              </Typography>
+              <Typography variant="p" color="normal">
+                {props.date}
+              </Typography>
             </>
           )}
         </Container>

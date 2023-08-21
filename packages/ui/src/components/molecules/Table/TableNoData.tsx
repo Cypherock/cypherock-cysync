@@ -33,7 +33,7 @@ export const TableNoData: FC<NoDataProps> = ({
       $bgColor="contentGradient"
     >
       <Container display="flex" px={5} py={2} align="center" gap={24}>
-        <MiniContainer iconVariant="success">{icon}</MiniContainer>
+        <MiniContainer variant="success">{icon}</MiniContainer>
 
         <Container direction="column" gap={8} align="flex-start">
           <Container $bgColor="muted" width={99} height={6} $borderRadius={7} />

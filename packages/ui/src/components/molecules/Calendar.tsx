@@ -187,7 +187,7 @@ export const Calendar: FC<CalendarProps> = ({ value, onChange }) => {
       render={(renderedValue, openCalender) => {
         if (!renderedValue) {
           return (
-            <MiniContainer onClick={openCalender} iconVariant="grey">
+            <MiniContainer onClick={openCalender} variant="grey">
               <CalendarIcon width="18px" height="20px" />
             </MiniContainer>
           );
@@ -209,7 +209,7 @@ export const Calendar: FC<CalendarProps> = ({ value, onChange }) => {
               </Typography>
               {endDate}
             </Typography>
-            <CloseButton onClick={handleResetDate} />
+            <CloseButton onClick={handleResetDate} width={10} height={10} />
           </RangeContainer>
         );
       }}

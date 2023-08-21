@@ -47,6 +47,8 @@ export const colors = {
     disabled: '#423D39',
     normal: '#CCC4BE',
     black: '#000000',
+    divider: '#333130',
+    dialog: '#2B2420',
   },
   background: {
     progressBar: '#1F1915',

@@ -380,7 +380,7 @@ export const HistoryTable = () => {
                 <HistoryNameBox
                   icon={row.icon}
                   fill={row.fill}
-                  iconVariant="grey"
+                  variant="grey"
                   title={row.type}
                   textColor={row.typeColor ?? undefined}
                   subtitle={row.time}
