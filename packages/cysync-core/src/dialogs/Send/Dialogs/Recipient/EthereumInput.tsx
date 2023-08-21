@@ -49,7 +49,10 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
 
         {type === 'slider' && (
           <Flex align="flex-end" direction="row" gap={8} ml="auto">
-            <Tag type="info">{message}</Tag>
+            <Tag type="info">
+              {value}
+              {message}
+            </Tag>
           </Flex>
         )}
       </Flex>

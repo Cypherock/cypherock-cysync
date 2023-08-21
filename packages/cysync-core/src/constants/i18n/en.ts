@@ -534,7 +534,7 @@ const en = {
               usd: '$5.51',
               network: 'Network Fees',
             },
-            message: '9 sat per byte',
+            message: ' sat per byte',
             fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
@@ -558,7 +558,7 @@ const en = {
               usd: '$5.51',
               network: 'Network Fees',
             },
-            message: '9 sat per byte',
+            message: ' sat per byte',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {

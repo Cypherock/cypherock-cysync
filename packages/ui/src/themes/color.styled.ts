@@ -28,8 +28,8 @@ export const colors = {
     secondary: '#3A5E2A',
   },
   disabled: {
-    background: '#544D47',
-    text: '#433C35',
+    background: '#332E29',
+    text: '#544D47',
   },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
@@ -42,6 +42,7 @@ export const colors = {
     error: '#FF624C',
     errorDark: '#74271C',
     success: '#51C61A',
+    black: '#000000',
     white: '#ffffff',
     goldenrod: '#daa520',
     disabled: '#423D39',

@@ -28,11 +28,6 @@ export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
       : theme.palette.border.list};
 `;
 
-const buttonAnimationData = {
-  duration: '0.3s',
-  curve: 'ease-out',
-};
-
 export const DropdownContainer = styled.div<{
   $isOpen: boolean;
   disabled?: boolean;
@@ -58,28 +53,27 @@ export const DropdownContainer = styled.div<{
               -webkit-mask-composite: xor;
               mask-composite: exclude;
             }
-        
-            // &:hover::before {
-            //   background: ${theme.palette.silver} border-box;
-            //   transition: all ${buttonAnimationData.duration};
-            //   ${buttonAnimationData.curve};
-            // }
           cursor: pointer;
         }
       `}
   &:focus {
-    outline: none;
-    border: 1px solid transparent;
-    background: ${({ theme }) => theme.palette.golden};
-
-    &::before {
-      background: ${({ theme }) => theme.palette.golden};
-    }
+    ${({ disabled, theme }) =>
+      !disabled &&
+      `
+      outline: none;
+      border: 0px solid transparent;
+      background: ${theme.palette.golden};
+  
+      &::before {
+        background: ${theme.palette.golden};
+      }
+      `}
   }
   input {
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
+  border: ${({ disabled }) => (disabled ? 'none' : 'default')};
 `;
 
 export const IconContainer = styled.div`

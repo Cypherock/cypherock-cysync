@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Input } from '../../atoms';
 
@@ -7,12 +7,17 @@ interface FeesInputProps {
   postfixText: string;
 }
 
-export const FeesInput: React.FC<FeesInputProps> = ({ value, postfixText }) => (
-  <Input
-    type="text"
-    name="address"
-    value={value}
-    $textColor="white"
-    postfixText={postfixText}
-  />
-);
+export const FeesInput: React.FC<FeesInputProps> = ({ value, postfixText }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  return (
+    <Input
+      type="text"
+      name="address"
+      value={inputValue}
+      $textColor="white"
+      onChange={newValue => setInputValue(newValue)}
+      postfixText={postfixText}
+    />
+  );
+};

@@ -41,7 +41,6 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
     isCheckedMax,
     handleToggleMax,
     handleInputValueChange,
-    value,
   } = useAmountToSend({
     coin,
     onChange,
@@ -49,7 +48,6 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
     throbber,
     value: initialValue,
   });
-
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
       <Flex justify="space-between" width="full">
@@ -71,9 +69,8 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           postfixText={typeof coinState === 'string' ? coinState : undefined}
           $textColor={textColor}
           placeholder={placeholder}
-          value={value}
           onChange={handleInputValueChange}
-          $error={error === ''}
+          $error={!!error}
         />
         <DoubleArrow height={22} width={22} />
         <Input
@@ -82,10 +79,10 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           postfixText={dollar}
           $textColor={textColor}
           placeholder={placeholder}
-          $error={error === ''}
+          $error={!!error}
         />
       </Flex>
-      {!error && (
+      {!!error && (
         <Typography
           variant="span"
           width="100%"

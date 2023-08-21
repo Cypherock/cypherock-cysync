@@ -110,7 +110,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       disabled={disabled}
       onClick={toggleDropdown}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       onKeyDown={handleKeyDown(
         isOpen,
         toggleDropdown,
@@ -165,7 +164,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           )}
           $bgColor={
             disabled
-              ? theme?.palette.background.disabled
+              ? theme?.palette.background.separatorSecondary
               : theme?.palette.background.separatorSecondary
           }
           placeholder={isOpen ? searchText : placeholderText}
@@ -193,7 +192,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {isOpen && (
         <List
           ref={listRef}
-          onMouseLeave={toggleDropdown}
           disabled={disabled}
           id="dropdown-list"
           role="listbox"

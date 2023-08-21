@@ -14,6 +14,8 @@ interface RecipientAddressProps {
   onChange: (val: string) => void;
   isThrobberActive?: boolean;
   showError?: boolean;
+  index?: number;
+  length?: number;
 }
 
 const RecipientAddressContainer = styled.div`
@@ -36,6 +38,19 @@ export const MiniButton = styled(Button)`
   color: ${({ theme }) => theme.palette.background.toggleActive};
 `;
 
+const Numbering = styled.div`
+  display: flex;
+  width: var(--16-px, 16px);
+  height: var(--16-px, 16px);
+  padding: 1px 3px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.palette.silver};
+`;
+
 export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   text = '',
   placeholder = '',
@@ -43,6 +58,8 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   deleteButton = false,
   onDelete,
   value,
+  length = 0,
+  index = 0,
   onChange,
   isThrobberActive,
   showError,
@@ -54,10 +71,26 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   return (
     <RecipientAddressContainer>
       <Flex justify="space-between" align="center" width="full">
-        <Typography variant="span" width="100%" color="muted" $fontSize={13}>
-          {text}
-        </Typography>
-        {deleteButton && <MiniButton onClick={onDelete}>-</MiniButton>}
+        <Flex align="center" gap={8}>
+          {deleteButton && (
+            <Numbering>
+              <Typography $fontSize={10} $fontWeight="bold" color="black">
+                {index + 1}
+              </Typography>
+            </Numbering>
+          )}
+          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+            {text}
+          </Typography>
+        </Flex>
+        {deleteButton && length > 2 && (
+          <MiniButton onClick={onDelete}>-</MiniButton>
+        )}
+        {deleteButton && length <= 2 && (
+          <MiniButton disabled onClick={onDelete}>
+            -
+          </MiniButton>
+        )}
       </Flex>
       <Input
         type="text"
@@ -91,4 +124,6 @@ RecipientAddress.defaultProps = {
   showError: false,
   onDelete: undefined,
   isThrobberActive: false,
+  index: 0,
+  length: 0,
 };

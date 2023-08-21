@@ -37,7 +37,6 @@ export const RecipientInput: React.FC<RecipientInputProps> = ({
     <BitcoinInput
       type={type}
       message={message}
-      inputValue={inputValue}
       inputPostfix={inputPostfix}
       value={value}
       onChange={onChange}

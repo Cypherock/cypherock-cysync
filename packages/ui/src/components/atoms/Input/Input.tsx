@@ -49,7 +49,7 @@ const InputStyle = styled.input<{
   border-radius: 8px;
   color: ${({ $textColor = 'muted', disabled, theme }) =>
     disabled
-      ? theme.palette.background.disabled
+      ? 'theme.palette.background.disabled'
       : theme.palette.text[$textColor]};
   &:focus-visible {
     outline: none;

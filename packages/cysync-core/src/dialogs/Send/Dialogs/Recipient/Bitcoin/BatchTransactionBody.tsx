@@ -36,7 +36,10 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
 }) => {
   const [addresses, setAddresses] = useState<
     { id: string; recipient: string; amount: string }[]
-  >([]);
+  >([
+    { id: 'default-1', recipient: '', amount: '' },
+    { id: 'default-2', recipient: '', amount: '' },
+  ]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [throbberActiveIds, setThrobberActiveIds] = useState<string[]>([]);
   const [showErrors, setShowErrors] = useState<string[]>([]);
@@ -97,7 +100,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
       >
         <Flex gap={16} direction="column">
           {addresses.map((address, i) => (
-            <>
+            <Flex key={`recipient-${address.id}`} gap={8} direction="column">
               <RecipientAddress
                 key={`recipient-${address.id}`}
                 text={recipient.text}
@@ -107,6 +110,8 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
                 }
                 isThrobberActive={throbberActiveIds.includes(address.id)}
                 deleteButton
+                length={addresses.length}
+                index={i}
                 onDelete={() => handleDeleteClick(address.id)}
                 value={address.recipient}
                 onChange={(recip: string) =>
@@ -125,7 +130,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
                 onChange={(val: string) => handleAmountChange(address.id, val)}
               />
               {i !== addresses.length - 1 && <Divider variant="horizontal" />}
-            </>
+            </Flex>
           ))}
         </Flex>
         <Button
@@ -143,7 +148,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
           <Typography $fontSize={13} $fontWeight="normal" color="muted">
             {text}
           </Typography>
-          <MiniButton>+</MiniButton>
+          <MiniButton tabIndex={-1}>+</MiniButton>
         </Button>
       </Container>
     </BatchContainer>

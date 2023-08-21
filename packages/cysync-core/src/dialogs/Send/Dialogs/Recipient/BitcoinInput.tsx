@@ -11,7 +11,6 @@ import React from 'react';
 interface BitcoinInputProps {
   type: 'slider' | 'input';
   message: string;
-  inputValue: string;
   inputPostfix: string;
   value: number;
   onChange: (newValue: number) => void;
@@ -22,7 +21,6 @@ interface BitcoinInputProps {
 export const BitcoinInput: React.FC<BitcoinInputProps> = ({
   type,
   message,
-  inputValue,
   inputPostfix,
   value,
   onChange,
@@ -34,7 +32,10 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
       <Flex justify="space-between" align="center" width="full">
         {type === 'slider' && (
           <Flex align="flex-end" direction="row" gap={8} ml="auto">
-            <Tag type="info">{message}</Tag>
+            <Tag type="info">
+              {value}
+              {message}
+            </Tag>
           </Flex>
         )}
       </Flex>
@@ -49,7 +50,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
       )}
     </Container>
     {type === 'input' && (
-      <FeesInput value={inputValue} postfixText={inputPostfix} />
+      <FeesInput value={value.toString()} postfixText={inputPostfix} />
     )}
   </>
 );
