@@ -18,9 +18,9 @@ export const History: FC = () => {
       <Table width="full" height="screen">
         <TableNoData
           icon={<ArrowReceivedIcon fill={theme.palette.text.success} />}
-          text="No transactions yet"
-          subText="Receive Crypto today to see your transaction history here"
-          buttonText="Receive"
+          text={strings.history.noData.text}
+          subText={strings.history.noData.subText}
+          buttonText={strings.history.noData.buttonText}
         />
       </Table>
       <HistoryTable />

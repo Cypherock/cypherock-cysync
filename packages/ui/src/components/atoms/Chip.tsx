@@ -8,7 +8,7 @@ interface ChipProps extends SpacingProps, FontProps {
 
 const ChipStyle = styled.div`
   display: flex;
-  padding: 2px 6px;
+  padding: 4px 6px;
   gap: var(--0-px, 0px);
   align-items: flex-start;
   border-radius: 29px;

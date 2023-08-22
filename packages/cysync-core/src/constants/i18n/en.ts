@@ -843,6 +843,11 @@ const en = {
         transactionHash: 'Transaction Hash',
       },
     },
+    noData: {
+      text: 'No transactions yet',
+      subText: 'Receive Crypto today to see your transaction history here',
+      buttonText: 'Receive',
+    },
   },
 
   onboarding: {

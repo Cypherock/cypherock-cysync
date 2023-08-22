@@ -7,10 +7,18 @@ import { CalendarIcon } from '../../assets';
 import { CloseButton, Typography } from '../atoms';
 
 const StyledCalendar = styled(DatePicker)`
-  .rmdp-wrapper {
+  .rmdp-wrapper.rmdp-shadow {
     box-shadow: none !important;
-    background-color: transparent !important;
   }
+
+  .rmdp-wrapper {
+    background-color: #fff !important;
+  }
+
+  div[style*='transform: translate(1348.05px, 1217px);'] {
+    transform: translate(0px, 0px) !important;
+  }
+
   .rmdp-calendar {
     border-radius: 16px;
     box-shadow: none;
@@ -114,10 +122,6 @@ const StyledCalendar = styled(DatePicker)`
   .rmdp-day.rmdp-selected span:not(.highlight) {
     ${goldenGradient('background')};
     color: ${({ theme }) => theme.palette.text.black};
-  }
-
-  .rmdp-shadow {
-    box-shadow: none !important;
   }
 
   span.rmdp-arrow-container.rmdp-right {
