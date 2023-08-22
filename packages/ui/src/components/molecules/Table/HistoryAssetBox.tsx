@@ -43,7 +43,7 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = ({
         <Image
           src={imageSrcMap[asset]}
           alt="Asset Icon"
-          width="15px"
+          width="24px"
           height="24px"
         />
         <Typography variant="p">{asset}</Typography>

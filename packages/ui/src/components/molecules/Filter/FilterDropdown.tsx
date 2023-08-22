@@ -2,13 +2,12 @@ import {
   BinanceIcon,
   BitcoinIcon,
   EthereumIcon,
-  Filter,
   SolanaIcon,
-  FilterLayout,
-  FilterMenuDesign,
-  FilterMenuWrapper,
-} from '@cypherock/cysync-ui';
+} from '../../../assets';
 import React, { FC, useState } from 'react';
+import { FilterLayout, FilterMenuWrapper } from './FilterStyles';
+import { FilterMenuDesign } from './FilterMenuDesign';
+import { Filter } from './Filter';
 
 const data = [
   {
@@ -106,7 +105,7 @@ const data = [
   },
 ];
 
-export const FilterMenu: FC = () => {
+export const FilterDropdown: FC = () => {
   const [filterStates, setFilterStates] = useState(data.map(() => false));
   const [isOpen, setIsOpen] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(

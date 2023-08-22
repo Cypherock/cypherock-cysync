@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Flex, SearchBar } from '../../atoms';
 import { Calendar } from '../Calendar';
+import { FilterDropdown } from '../Filter';
 
 interface SearchFilterProps {
   placeholder: string;
@@ -13,7 +14,7 @@ interface SearchFilterProps {
 
 const SearchContainer = styled.div`
   display: flex;
-  padding: 16px 40px;
+  padding: var(--16-px, 16px) 40px;
   border-radius: 24px 24px 0 0;
   justify-content: space-between;
   align-items: center;
@@ -34,8 +35,9 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
     <Flex align="center" gap={8}>
       <SearchBar placeholder={placeholder} onChange={onChange} />
     </Flex>
-    <Flex align="center" direction="row" gap={8}>
+    <Flex align="center" direction="row" gap={16}>
       <Calendar value={dateValue} onChange={dateChange} />
+      <FilterDropdown />
     </Flex>
   </SearchContainer>
 );

@@ -27,7 +27,6 @@ export interface BasicFilter {
 
 export const FilterMenuDesignWrapper = styled.div`
   display: flex;
-  min-width: 300px;
   max-width: 420px;
   height: 44px;
   padding: 12px 24px;
@@ -45,14 +44,15 @@ export const FilterMenuDesignWrapper = styled.div`
 `;
 
 export const FilterLayout = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
-  min-width: 300px;
   max-width: 420px;
   padding: 16px 0px;
   border-radius: var(--8-px, 8px);
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   box-shadow: ${({ theme }) => theme.shadow.popup};
+  z-index: 1;
 `;
 
 export const FilterMenu = styled.div`
@@ -78,7 +78,8 @@ export const FilterWrapper = styled.div``;
 export const FilterMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: auto;
+  min-width: 300px;
+  position: relative;
 `;
 
 export const Count = styled.div`

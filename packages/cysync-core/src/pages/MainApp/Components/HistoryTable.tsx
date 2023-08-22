@@ -97,25 +97,27 @@ export const HistoryTable = () => {
 
   const headersData: Record<TableHeaderNames, HeadersData> = {
     Time: {
-      padding: '16px 20px 16px 40px',
+      padding: '16px 0px 16px 40px',
       width: { def: 300, lg: 300 },
       $noFlex: true,
       comparator: createComparator('time'),
     },
     Asset: {
-      width: { def: 250, lg: 250 },
+      width: { def: 200, lg: 250 },
       $noFlex: true,
       comparator: createComparator('asset'),
     },
     Account: {
-      width: { def: 425, lg: 425 },
+      width: { lg: 425 },
       $noFlex: true,
       comparator: createComparator('account'),
     },
     Amount: {
+      padding: '16px 0px 16px 40px',
       comparator: createComparator('amount'),
     },
     Value: {
+      padding: '16px 0px 16px 40px',
       comparator: createComparator('value'),
     },
   };

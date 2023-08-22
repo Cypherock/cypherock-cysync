@@ -18,11 +18,13 @@ export const FilterMenuDesign: FC<FilterMenuDesignProps> = ({
     <Flex gap={16} align="center">
       <FilterIcon />
       <Typography color="muted">Filters</Typography>
-      <Count>
-        <Typography $fontSize={12} $fontWeight="medium" color="black">
-          {countMenuSelected}
-        </Typography>
-      </Count>
+      {countMenuSelected > 0 && (
+        <Count>
+          <Typography $fontSize={12} $fontWeight="medium" color="black">
+            {countMenuSelected}
+          </Typography>
+        </Count>
+      )}
     </Flex>
     <TriangleInverseIcon />
   </FilterMenuDesignWrapper>
