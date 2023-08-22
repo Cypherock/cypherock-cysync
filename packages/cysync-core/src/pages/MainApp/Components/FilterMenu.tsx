@@ -5,6 +5,8 @@ import {
   Filter,
   SolanaIcon,
   FilterLayout,
+  FilterMenuDesign,
+  FilterMenuWrapper,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -106,7 +108,7 @@ const data = [
 
 export const FilterMenu: FC = () => {
   const [filterStates, setFilterStates] = useState(data.map(() => false));
-
+  const [isOpen, setIsOpen] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(
     data.map(menu => menu.subArray.map(() => false)),
   );
@@ -133,26 +135,43 @@ export const FilterMenu: FC = () => {
     setFilterStates(newFilterStates);
   };
 
+  const selectedCounts = checkboxStates.map(
+    subArray => subArray.filter(Boolean).length,
+  );
+  const countMenuSelected = selectedCounts.filter(count => count > 0).length;
+
+  const handleFilterClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <FilterLayout>
-      {data.map((item, index) => {
-        const selectedCount = checkboxStates[index].filter(Boolean).length;
-        return (
-          <Filter
-            key={`filter-${index + 1}`}
-            menu={item.name}
-            subMenu={item.subArray}
-            isToggled={filterStates[index]}
-            onToggle={() => handleFilterToggle(index)}
-            checkboxStates={checkboxStates[index]}
-            onCheckboxChange={subMenuIndex =>
-              handleCheckboxChange(index, subMenuIndex)
-            }
-            selectedCount={selectedCount}
-            onToggleAllCheckboxes={() => handleToggleAllCheckboxes(index)}
-          />
-        );
-      })}
-    </FilterLayout>
+    <FilterMenuWrapper>
+      <FilterMenuDesign
+        countMenuSelected={countMenuSelected}
+        onClick={handleFilterClick}
+      />
+      {isOpen && (
+        <FilterLayout>
+          {data.map((item, index) => {
+            const selectedCount = checkboxStates[index].filter(Boolean).length;
+            return (
+              <Filter
+                key={`filter-${index + 1}`}
+                menu={item.name}
+                subMenu={item.subArray}
+                isToggled={filterStates[index]}
+                onToggle={() => handleFilterToggle(index)}
+                checkboxStates={checkboxStates[index]}
+                onCheckboxChange={subMenuIndex =>
+                  handleCheckboxChange(index, subMenuIndex)
+                }
+                selectedCount={selectedCount}
+                onToggleAllCheckboxes={() => handleToggleAllCheckboxes(index)}
+              />
+            );
+          })}
+        </FilterLayout>
+      )}
+    </FilterMenuWrapper>
   );
 };
