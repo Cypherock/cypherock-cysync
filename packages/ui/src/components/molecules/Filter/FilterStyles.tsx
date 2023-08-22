@@ -25,10 +25,30 @@ export interface BasicFilter {
   checked?: boolean;
 }
 
+export const FilterMenuDesignWrapper = styled.div`
+  display: flex;
+  min-width: 300px;
+  max-width: 420px;
+  height: 44px;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.palette.border.separator};
+  background: ${({ theme }) => theme.palette.border.separatorSecondary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const FilterLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  min-width: 300px;
+  max-width: 420px;
   padding: 16px 0px;
   border-radius: var(--8-px, 8px);
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
@@ -54,6 +74,12 @@ export const FilterMenu = styled.div`
 `;
 
 export const FilterWrapper = styled.div``;
+
+export const FilterMenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: auto;
+`;
 
 export const Count = styled.div`
   display: flex;
