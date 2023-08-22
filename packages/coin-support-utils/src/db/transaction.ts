@@ -1,4 +1,8 @@
-import { IDatabase, ITransaction } from '@cypherock/db-interfaces';
+import {
+  IDatabase,
+  ITransaction,
+  TransactionStatusMap,
+} from '@cypherock/db-interfaces';
 
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
@@ -26,13 +30,16 @@ export const getLatestTransactionBlock = async (
   db: IDatabase,
   query: Partial<ITransaction>,
 ) => {
-  const res = await db.transaction.getOne(query, {
-    sortBy: {
-      key: 'blockHeight',
-      descending: true,
+  const res = await db.transaction.getOne(
+    { ...query, status: TransactionStatusMap.success },
+    {
+      sortBy: {
+        key: 'blockHeight',
+        descending: true,
+      },
+      limit: 1,
     },
-    limit: 1,
-  });
+  );
 
   if (!res) return undefined;
 
