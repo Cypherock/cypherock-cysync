@@ -1,0 +1,64 @@
+import {
+  IReceiveEvent,
+  ReceiveDeviceEvent,
+} from '@cypherock/coin-support-interfaces';
+import {
+  makeReceiveObservable,
+  IGenerateReceiveAddressParams,
+  IReceiveAddressInfo,
+  IGetReceiveAddressFromDevice,
+  mapDerivationPath,
+} from '@cypherock/coin-support-utils';
+import { evmCoinList } from '@cypherock/coins';
+import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { hexToUint8Array } from '@cypherock/sdk-utils';
+import { Observable } from 'rxjs';
+
+import { IEvmReceiveEvent, IEvmReceiveParams, statusMap } from './types';
+
+import { createApp } from '../../utils';
+
+const getExternalAddress = async (
+  params: IGenerateReceiveAddressParams,
+): Promise<IReceiveAddressInfo> => {
+  const { xpubOrAddress, derivationPath } = params.account;
+
+  return {
+    address: xpubOrAddress,
+    derivationPath,
+    expectedFromDevice: xpubOrAddress,
+  };
+};
+
+/**
+ * @todo Replace publicKeys with addresses
+ */
+const getReceiveAddressFromDevice = async (
+  params: IGetReceiveAddressFromDevice<EvmApp, IEvmReceiveEvent>,
+): Promise<string> => {
+  const { app, derivationPath, walletId, observer, account } = params;
+
+  const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
+
+  const { publicKeys: addresses } = await app.getPublicKeys({
+    walletId: hexToUint8Array(walletId),
+    derivationPaths: [{ path: mapDerivationPath(derivationPath) }],
+    chainId: evmCoinList[account.assetId].chain,
+    onEvent: (event: GetPublicKeysStatus) => {
+      const receiveEvent = statusMap[event];
+      if (receiveEvent !== undefined) events[receiveEvent] = true;
+      observer.next({ type: 'Device', device: { isDone: false, events } });
+    },
+  });
+
+  observer.next({ type: 'Device', device: { isDone: true, events } });
+  return addresses[0];
+};
+
+export const receive = (params: IEvmReceiveParams): Observable<IReceiveEvent> =>
+  makeReceiveObservable({
+    ...params,
+    createApp,
+    generateReceiveAddress: getExternalAddress,
+    getReceiveAddressFromDevice,
+  });

@@ -15,11 +15,13 @@ import * as operations from './operations';
 import { ICreateEvmAccountParams } from './operations/types';
 
 export * from './operations/types';
+export * from './services';
+
 export { updateLogger } from './utils/logger';
 
 export class EvmSupport implements CoinSupport {
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented. ${params}`);
+    return operations.receive(params);
   }
 
   public createAccounts(params: ICreateEvmAccountParams) {
