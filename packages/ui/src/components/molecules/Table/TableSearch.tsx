@@ -24,12 +24,10 @@ export const TableStructure = styled.div<TableStructureProps>`
   border-bottom-right-radius: 24px;
   border-bottom-left-radius: 24px;
   background: ${({ theme }) => theme.palette.primary.primary};
-  @media ${({ theme }) => theme.screens.lg} {
-    margin-top: 20px;
-    margin-left: 20px;
-    overflow-y: scroll;
-  }
-  margin-left: 0px 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  max-height: 90vh;
   z-index: 10;
 `;
 
@@ -48,6 +46,7 @@ export const WalletStructure = styled.div`
     padding-right: 8px;
     margin-right: 8px;
   }
+  max-height: 90vh;
   border-bottom-right-radius: 24px;
   background: ${({ theme }) => theme.palette.content.content};
 `;
