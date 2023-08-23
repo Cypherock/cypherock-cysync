@@ -1,4 +1,5 @@
-const fs = require('fs/promises');
+const fsPromise = require('fs/promises');
+const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -24,16 +25,22 @@ const ROOT = path.join(__dirname, '..');
 
 async function copyDir(src, dest) {
   if (src.endsWith('node_modules')) return;
-  await fs.mkdir(dest, { recursive: true });
-  let entries = await fs.readdir(src, { withFileTypes: true });
+  await fsPromise.mkdir(dest, { recursive: true });
+  let entries = await fsPromise.readdir(src, { withFileTypes: true });
 
   for (let entry of entries) {
     let srcPath = path.join(src, entry.name);
     let destPath = path.join(dest, entry.name);
 
-    entry.isDirectory()
-      ? await copyDir(srcPath, destPath)
-      : await fs.copyFile(srcPath, destPath);
+    if (entry.isDirectory()) {
+      await copyDir(srcPath, destPath);
+    } else {
+      if (fs.existsSync(destPath)) {
+        await fsPromise.rm(destPath);
+      }
+
+      await fsPromise.copyFile(srcPath, destPath);
+    }
   }
 }
 
@@ -50,13 +57,13 @@ async function parsePackages() {
 
     for (const packagesFolder of submodule.packagesFolders) {
       const packageNames = (
-        await fs.readdir(path.join(submodulePath, packagesFolder))
+        await fsPromise.readdir(path.join(submodulePath, packagesFolder))
       ).filter(e => !(submodule.ignorePackages ?? []).includes(e));
 
       for (const pkg of packageNames) {
         const pkgPath = path.join(submodulePath, packagesFolder, pkg);
         const pkgJsonPath = path.join(pkgPath, 'package.json');
-        const pkgJson = JSON.parse(await fs.readFile(pkgJsonPath));
+        const pkgJson = JSON.parse(await fsPromise.readFile(pkgJsonPath));
 
         packages[pkgJson.name] = {
           name: pkgJson.name,
@@ -70,19 +77,42 @@ async function parsePackages() {
   return packages;
 }
 
+async function parsePackageFolder(folderPath, packageName, packagesList) {
+  const pkg = packagesList.find(
+    pkg =>
+      packageName.startsWith(pkg.name.replace('/', '+')) ||
+      pkg.name.startsWith(
+        path.join(folderPath, packageName).split('/').slice(-2).join('/'),
+      ),
+  );
+
+  if (pkg) {
+    const copySource = pkg.path;
+    const copyDestination = path.join(folderPath, packageName);
+
+    console.log(
+      `Copying '${copySource.split(ROOT)[1]}' to '${
+        copyDestination.split(ROOT)[1]
+      }'`,
+    );
+
+    await copyDir(copySource, copyDestination);
+  }
+}
+
 async function copyPackages() {
   const packages = await parsePackages();
 
   for (const appFolder of config.appFolders) {
     const appPath = path.join(ROOT, appFolder);
-    const appPackages = await fs.readdir(appPath);
+    const appPackages = await fsPromise.readdir(appPath);
 
     for (const appPkg of appPackages) {
       const appPkgPath = path.join(appPath, appPkg);
-      if (!(await fs.stat(appPkgPath)).isDirectory()) continue;
+      if (!(await fsPromise.stat(appPkgPath)).isDirectory()) continue;
 
       const appPkgJson = JSON.parse(
-        await fs.readFile(path.join(appPkgPath, 'package.json')),
+        await fsPromise.readFile(path.join(appPkgPath, 'package.json')),
       );
       for (const dependency of Object.keys(appPkgJson.dependencies ?? {})) {
         const pkg = packages[dependency];
@@ -106,25 +136,40 @@ async function copyPackages() {
   }
 
   const packagesList = Object.values(packages);
+
   for (const pnpmFolder of config.pnpmStore) {
-    const pnpmPath = path.join(ROOT, pnpmFolder);
+    const folderPath = path.join(ROOT, pnpmFolder);
 
-    const pnpmPackageName = await fs.readdir(path.join(pnpmPath));
+    const packageNames = await fsPromise.readdir(path.join(folderPath));
 
-    for (const pnpmPackage of pnpmPackageName) {
-      const pkg = packagesList.find(pkg =>
-        pnpmPackage.startsWith(pkg.name.replace('/', '+')),
+    for (const packageName of packageNames) {
+      await parsePackageFolder(folderPath, packageName, packagesList);
+
+      const nestedNodeModules = path.join(
+        folderPath,
+        packageName,
+        'node_modules',
+        '@cypherock',
       );
-      if (pkg) {
-        const copySource = pkg.path;
-        const copyDestination = path.join(pnpmPath, pnpmPackage);
-        console.log(
-          `Copying '${copySource.split(ROOT)[1]}' to '${
-            copyDestination.split(ROOT)[1]
-          }'`,
+
+      if (fs.existsSync(nestedNodeModules)) {
+        const nestedFolderPath = path.join(
+          folderPath,
+          packageName,
+          'node_modules',
+          '@cypherock',
+        );
+        const nestedPackageNames = await fsPromise.readdir(
+          path.join(nestedFolderPath),
         );
 
-        await copyDir(copySource, copyDestination);
+        for (const nestedPackageName of nestedPackageNames) {
+          await parsePackageFolder(
+            nestedFolderPath,
+            nestedPackageName,
+            packagesList,
+          );
+        }
       }
     }
   }

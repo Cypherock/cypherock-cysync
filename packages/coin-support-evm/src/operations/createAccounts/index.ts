@@ -5,7 +5,7 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
-import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -24,16 +24,13 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
     {} as any;
 
   const evmToDeviceEventMap: Partial<
-    Record<GetPublicKeysStatus, CreateAccountDeviceEvent | undefined>
+    Record<GetPublicKeysEvent, CreateAccountDeviceEvent | undefined>
   > = {
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_INIT]:
-      CreateAccountDeviceEvent.INIT,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_CONFIRM]:
-      CreateAccountDeviceEvent.CONFIRMED,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_PASSPHRASE]:
+    [GetPublicKeysEvent.INIT]: CreateAccountDeviceEvent.INIT,
+    [GetPublicKeysEvent.CONFIRM]: CreateAccountDeviceEvent.CONFIRMED,
+    [GetPublicKeysEvent.PASSPHRASE]:
       CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_CARD]:
-      CreateAccountDeviceEvent.CARD_TAPPED,
+    [GetPublicKeysEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
   };
 
   const { publicKeys } = await app.getPublicKeys({
