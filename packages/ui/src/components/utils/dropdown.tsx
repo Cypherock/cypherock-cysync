@@ -70,11 +70,9 @@ export const handleKeyDown =
               focusedIndex + 1
             ] as HTMLElement | null;
 
-            // Define the bottom position of the next item with a fallback value of 0
             const nextItemBottom =
               (nextItem?.offsetTop ?? 0) + (nextItem?.offsetHeight ?? 0);
 
-            // Define the visible bottom of the dropdown with fallback values
             const visibleBottom =
               (listRef.current?.scrollTop ?? 0) +
               (listRef.current?.offsetHeight ?? 0);
@@ -103,7 +101,7 @@ export const handleKeyDown =
 
           if (focusedIndex !== null) {
             if (focusedIndex === 0) {
-              listRef.current?.scrollTo({ top: 0 }); // Scroll to the top
+              listRef.current?.scrollTo({ top: 0 });
             } else {
               const prevItem = listRef.current?.children[focusedIndex - 1] as
                 | HTMLElement

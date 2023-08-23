@@ -1,6 +1,5 @@
 import {
   LangDisplay,
-  DialogBox,
   DialogBoxFooter,
   Button,
   DialogBoxBody,
@@ -16,6 +15,7 @@ import {
   EthereumIcon,
   GoldQuestionMark,
   InformationIcon,
+  CustomDialogBox,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -85,7 +85,7 @@ export const StandardEthereum: React.FC = () => {
   addKeyboardEvents(keyboardActions);
 
   return (
-    <DialogBox width={517}>
+    <CustomDialogBox width={517}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Container display="flex" direction="column" gap={16} width="full">
           <Container display="flex" direction="column" gap={4} width="full">
@@ -169,6 +169,6 @@ export const StandardEthereum: React.FC = () => {
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>
-    </DialogBox>
+    </CustomDialogBox>
   );
 };

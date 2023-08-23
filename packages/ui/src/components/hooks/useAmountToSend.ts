@@ -38,7 +38,6 @@ export const useAmountToSend = ({
     if (onChange) onChange(filteredValue);
   };
 
-  // Similarly for dollar value
   const handleDollarValueChange = (val: string) => {
     const filteredValue = filterNumericInput(val);
     setIsInputChanged(filteredValue.trim() !== '');

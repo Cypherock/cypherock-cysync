@@ -76,6 +76,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
             placeholder={placeholder}
             onChange={handleCoinValueChange}
             value={coinValue}
+            $noBorder
           />
           {typeof coinState === 'string' ? undefined : coinState}
           {typeof coinState === 'string' ? (
@@ -93,6 +94,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
             placeholder={placeholder}
             onChange={handleDollarValueChange}
             value={dollarValue}
+            $noBorder
           />
           {typeof coinState === 'string' ? undefined : coinState}
           {typeof coinState === 'string' ? (

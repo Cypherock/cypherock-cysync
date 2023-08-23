@@ -116,6 +116,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           value={value}
           onChange={onChange}
           $textColor="white"
+          $noBorder
         />
         {postfixIcon}
       </CustomInputSend>

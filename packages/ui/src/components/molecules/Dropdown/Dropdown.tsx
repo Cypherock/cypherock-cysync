@@ -168,7 +168,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
               : theme?.palette.background.separatorSecondary
           }
           placeholder={isOpen ? searchText : placeholderText}
-          disabled={!isOpen}
+          disabled={disabled}
           aria-expanded={isOpen}
           aria-owns={isOpen ? 'dropdown-list' : undefined}
           aria-haspopup="listbox"
