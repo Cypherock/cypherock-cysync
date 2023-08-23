@@ -8,6 +8,7 @@ interface RecipientInputProps {
   type: 'slider' | 'input';
   message: string;
   inputValue: string;
+  gasLimitValue?: string;
   inputPostfix: string;
   value: number;
   onChange: (newValue: number) => void;
@@ -23,6 +24,7 @@ export const RecipientInput: React.FC<RecipientInputProps> = ({
   type,
   message,
   inputValue,
+  gasLimitValue,
   inputPostfix,
   value,
   onChange,
@@ -48,6 +50,7 @@ export const RecipientInput: React.FC<RecipientInputProps> = ({
       type={type}
       message={message}
       inputValue={inputValue}
+      gasLimitValue={gasLimitValue}
       inputPostfix={inputPostfix}
       gas={gas}
       limit={limit}
@@ -62,4 +65,5 @@ RecipientInput.defaultProps = {
   gas: '',
   limit: '',
   coin: 'bitcoin',
+  gasLimitValue: '',
 };

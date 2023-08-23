@@ -57,7 +57,7 @@ export const StandardOptimism: React.FC = () => {
     setSliderValue(newValue);
   };
 
-  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+  const { inputValue, isThrobberActive, handleInputValueChange } =
     useRecipientAddress(recipientAddress, handleRecipientAddressChange);
 
   const { onNext, onPrevious } = useSendDialog();
@@ -107,7 +107,6 @@ export const StandardOptimism: React.FC = () => {
               value={inputValue}
               onChange={handleInputValueChange}
               isThrobberActive={isThrobberActive}
-              showError={showError}
             />
             <AmountToSend
               text={standard.amount.text}

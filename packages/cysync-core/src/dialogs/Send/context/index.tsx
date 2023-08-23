@@ -67,7 +67,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const tabs: ITabs = [
     {
       name: lang.strings.send.aside.tabs.source,
-      dialogs: [<SelectSend />],
+      dialogs: [
+        <StandardOptimism />,
+        <BitcoinTransaction />,
+        <StandardEthereum />,
+        <SelectSend />,
+      ],
     },
     {
       name: lang.strings.send.aside.tabs.recipient,

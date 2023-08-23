@@ -68,7 +68,7 @@ export const StandardEthereum: React.FC = () => {
     setSliderValue(newValue);
   };
 
-  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+  const { inputValue, isThrobberActive, handleInputValueChange } =
     useRecipientAddress(recipientAddress, handleRecipientAddressChange);
 
   const { onNext, onPrevious } = useSendDialog();
@@ -118,7 +118,6 @@ export const StandardEthereum: React.FC = () => {
               value={inputValue}
               onChange={handleInputValueChange}
               isThrobberActive={isThrobberActive}
-              showError={showError}
             />
             <AmountToSend
               text={eth.amount.text}
@@ -143,6 +142,7 @@ export const StandardEthereum: React.FC = () => {
             type={type}
             message={eth.message}
             inputValue={eth.fee}
+            gasLimitValue={eth.gasLimit}
             inputPostfix={eth.inputPostfix}
             feesError={eth.fees.error}
             gas={eth.gas}

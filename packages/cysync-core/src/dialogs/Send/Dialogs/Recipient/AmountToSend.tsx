@@ -8,6 +8,7 @@ import {
   Toggle,
   Typography,
   useAmountToSend,
+  CustomInputSend,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -37,16 +38,21 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
   const {
     coinState,
-    textColor,
     isCheckedMax,
     handleToggleMax,
-    handleInputValueChange,
+    handleCoinValueChange,
+    handleDollarValueChange,
+    coinValue,
+    dollarValue,
+    coinTextColor,
+    dollarTextColor,
   } = useAmountToSend({
     coin,
     onChange,
     isButtonEnabled,
     throbber,
-    value: initialValue,
+    coinValue: initialValue,
+    dollarValue: initialValue,
   });
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
@@ -62,27 +68,41 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
         </Flex>
       </Flex>
       <Flex justify="space-between" gap={8} align="center" width="full">
-        <Input
-          type="number"
-          name="address"
-          postfixIcon={typeof coinState === 'string' ? undefined : coinState}
-          postfixText={typeof coinState === 'string' ? coinState : undefined}
-          $textColor={textColor}
-          placeholder={placeholder}
-          onChange={handleInputValueChange}
-          $error={!!error}
-        />
+        <CustomInputSend error={error}>
+          <Input
+            type="text"
+            name="address"
+            $textColor={coinTextColor}
+            placeholder={placeholder}
+            onChange={handleCoinValueChange}
+            value={coinValue}
+          />
+          {typeof coinState === 'string' ? undefined : coinState}
+          {typeof coinState === 'string' ? (
+            <Typography $fontSize={16} color="muted" $allowOverflow>
+              {coin}
+            </Typography>
+          ) : undefined}
+        </CustomInputSend>
         <DoubleArrow height={22} width={22} />
-        <Input
-          type="number"
-          name="address"
-          postfixText={dollar}
-          $textColor={textColor}
-          placeholder={placeholder}
-          $error={!!error}
-        />
+        <CustomInputSend error={error}>
+          <Input
+            type="text"
+            name="address"
+            $textColor={dollarTextColor}
+            placeholder={placeholder}
+            onChange={handleDollarValueChange}
+            value={dollarValue}
+          />
+          {typeof coinState === 'string' ? undefined : coinState}
+          {typeof coinState === 'string' ? (
+            <Typography $fontSize={16} color="muted" $allowOverflow>
+              {dollar}
+            </Typography>
+          ) : undefined}
+        </CustomInputSend>
       </Flex>
-      {!!error && (
+      {error && (
         <Typography
           variant="span"
           width="100%"

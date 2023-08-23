@@ -13,9 +13,12 @@ interface RecipientAddressProps {
   value: string;
   onChange: (val: string) => void;
   isThrobberActive?: boolean;
-  showError?: boolean;
   index?: number;
   length?: number;
+}
+
+interface CustomInputSendProps {
+  error?: string;
 }
 
 const RecipientAddressContainer = styled.div`
@@ -51,6 +54,20 @@ const Numbering = styled.div`
   background: ${({ theme }) => theme.palette.silver};
 `;
 
+export const CustomInputSend = styled.div<CustomInputSendProps>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  align-items: center;
+  padding-right: 24px;
+  border-radius: 8px;
+  border: 1px solid
+    ${({ theme, error }) =>
+      error ? theme.palette.border.error : theme.palette.border.separator};
+  background: ${({ theme }) => theme.palette.background.separatorSecondary};
+`;
+
 export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   text = '',
   placeholder = '',
@@ -62,7 +79,6 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   index = 0,
   onChange,
   isThrobberActive,
-  showError,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
   const image = <QrCode width="25px" height="20px" />;
@@ -92,16 +108,17 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           </MiniButton>
         )}
       </Flex>
-      <Input
-        type="text"
-        name="address"
-        placeholder={placeholder}
-        postfixIcon={postfixIcon}
-        value={value}
-        onChange={onChange}
-        $textColor="white"
-        $error={showError}
-      />
+      <CustomInputSend error={error}>
+        <Input
+          type="text"
+          name="address"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          $textColor="white"
+        />
+        {postfixIcon}
+      </CustomInputSend>
       {error && (
         <Typography
           variant="span"
@@ -121,7 +138,6 @@ RecipientAddress.defaultProps = {
   text: 'Recipient Address',
   error: '',
   deleteButton: false,
-  showError: false,
   onDelete: undefined,
   isThrobberActive: false,
   index: 0,

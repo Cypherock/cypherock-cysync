@@ -604,6 +604,7 @@ const en = {
           gas: 'Gas Price',
           message: '53.2 GWEI',
           fee: '53.2',
+          gasLimit: '',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',
           warning: 'Transaction might cancel if fees is very low',

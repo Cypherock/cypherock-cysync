@@ -68,7 +68,7 @@ const InputWrapper = styled.div`
   flex-direction: row;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.background.separator};
+  /* border: 1px solid ${({ theme }) => theme.palette.background.separator}; */
   input::-webkit-inner-spin-button,
   input::-webkit-outer-spin-button {
     -webkit-appearance: none;
