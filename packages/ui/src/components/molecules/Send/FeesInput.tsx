@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { Input, Typography } from '../../atoms';
 import { CustomInputSend } from './RecipientAddress';
+
+import { Input, Typography } from '../../atoms';
 
 interface FeesInputProps {
   value: string;
