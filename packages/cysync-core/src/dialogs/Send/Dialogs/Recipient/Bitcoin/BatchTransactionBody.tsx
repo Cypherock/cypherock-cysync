@@ -3,10 +3,10 @@ import {
   Flex,
   Container,
   Typography,
-  MiniButton,
   RecipientAddress,
   BatchContainer,
   Button,
+  PlusGoldenIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -43,6 +43,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [throbberActiveIds, setThrobberActiveIds] = useState<string[]>([]);
   const [showErrors, setShowErrors] = useState<string[]>([]);
+  const [enableAutoScroll, setEnableAutoScroll] = useState(false);
 
   const handleRecipientChange = (id: string, value: string) => {
     const showError = value.trim() === 'hello';
@@ -69,6 +70,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
   const handleButtonClick = () => {
     const uniqueId = `${Date.now()}-${Math.random()}`;
     setAddresses([...addresses, { id: uniqueId, recipient: '', amount: '' }]);
+    setEnableAutoScroll(true);
   };
 
   const handleDeleteClick = (id: string) => {
@@ -84,11 +86,11 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
   };
 
   useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current && enableAutoScroll) {
       const lastChild = containerRef.current.lastElementChild;
       lastChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [addresses]);
+  }, [addresses, enableAutoScroll]);
 
   return (
     <BatchContainer ref={containerRef}>
@@ -148,7 +150,7 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
           <Typography $fontSize={13} $fontWeight="normal" color="muted">
             {text}
           </Typography>
-          <MiniButton tabIndex={-1}>+</MiniButton>
+          <PlusGoldenIcon />
         </Button>
       </Container>
     </BatchContainer>

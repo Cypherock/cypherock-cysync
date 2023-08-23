@@ -2,7 +2,6 @@ import {
   Container,
   Flex,
   Typography,
-  Input,
   LangDisplay,
   Tag,
   GoldQuestionMark,
@@ -16,6 +15,7 @@ interface EthereumInputProps {
   type: 'slider' | 'input';
   message: string;
   inputValue: string;
+  gasLimitValue?: string;
   inputPostfix: string;
   gas?: string;
   limit?: string;
@@ -29,6 +29,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   type,
   message,
   inputValue,
+  gasLimitValue = '',
   inputPostfix,
   gas = '',
   limit = '',
@@ -84,7 +85,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               <GoldQuestionMark height={14} width={14} />
             </Flex>
           </Flex>
-          <Input type="number" name="address" $textColor="white" />
+          <FeesInput value={gasLimitValue} />
         </Container>
       </>
     )}
@@ -94,4 +95,5 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
 EthereumInput.defaultProps = {
   gas: '',
   limit: '',
+  gasLimitValue: '',
 };

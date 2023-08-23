@@ -7,7 +7,8 @@ interface UseAmountToSendProps {
   onChange?: (val: string) => void;
   isButtonEnabled?: (shouldActivate: boolean) => void;
   throbber?: JSX.Element | undefined;
-  value: string;
+  coinValue: string;
+  dollarValue: string;
 }
 
 export const useAmountToSend = ({
@@ -15,18 +16,34 @@ export const useAmountToSend = ({
   onChange,
   isButtonEnabled,
   throbber,
-  value,
+  coinValue: initialCoinValue = '',
+  dollarValue: initialDollarValue = '',
 }: UseAmountToSendProps) => {
   const [coinState, setCoinState] = useState<React.ReactNode | string>(coin);
-  const [textColor, setTextColor] = useState('muted');
+  const [coinValue, setCoinValue] = useState<string>(initialCoinValue);
+  const [dollarValue, setDollarValue] = useState<string>(initialDollarValue);
   const [isInputChanged, setIsInputChanged] = useState(false);
+  const [coinTextColor, setCoinTextColor] = useState('muted');
+  const [dollarTextColor, setDollarTextColor] = useState('muted');
+
   const { isChecked: isCheckedMax, handleToggleChange: handleToggleMax } =
     useToggle();
 
-  const handleInputValueChange = (val: string) => {
-    setIsInputChanged(val.trim() !== '');
-    setTextColor(val.trim() !== '' ? 'white' : 'muted');
-    if (onChange) onChange(val);
+  const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
+  const handleCoinValueChange = (val: string) => {
+    const filteredValue = filterNumericInput(val);
+    setIsInputChanged(filteredValue.trim() !== '');
+    setCoinTextColor(filteredValue.trim() !== '' ? 'white' : 'muted');
+    setCoinValue(filteredValue);
+    if (onChange) onChange(filteredValue);
+  };
+
+  const handleDollarValueChange = (val: string) => {
+    const filteredValue = filterNumericInput(val);
+    setIsInputChanged(filteredValue.trim() !== '');
+    setDollarTextColor(filteredValue.trim() !== '' ? 'white' : 'muted');
+    setDollarValue(filteredValue);
+    if (onChange) onChange(filteredValue);
   };
 
   useEffect(() => {
@@ -46,19 +63,30 @@ export const useAmountToSend = ({
   }, [isInputChanged, coin, isButtonEnabled]);
 
   useEffect(() => {
-    if (value.trim() !== '' && parseFloat(value) !== 0) {
-      setTextColor('white');
+    if (coinValue.trim() !== '' && parseFloat(coinValue) !== 0) {
+      setCoinTextColor('white');
     } else {
-      setTextColor('muted');
+      setCoinTextColor('muted');
     }
-  }, [value]);
+  }, [coinValue]);
+
+  useEffect(() => {
+    if (dollarValue.trim() !== '' && parseFloat(dollarValue) !== 0) {
+      setDollarTextColor('white');
+    } else {
+      setDollarTextColor('muted');
+    }
+  }, [dollarValue]);
 
   return {
     coinState,
-    textColor,
     isCheckedMax,
     handleToggleMax,
-    handleInputValueChange,
-    value,
+    handleCoinValueChange,
+    handleDollarValueChange,
+    coinValue,
+    dollarValue,
+    coinTextColor,
+    dollarTextColor,
   };
 };

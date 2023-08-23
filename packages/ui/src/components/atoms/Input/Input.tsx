@@ -27,6 +27,7 @@ export interface InputProps {
   $textColor?: string;
   $error?: boolean;
   leftImage?: React.ReactNode;
+  $noBorder?: boolean;
 }
 
 const InputStyle = styled.input<{
@@ -48,27 +49,27 @@ const InputStyle = styled.input<{
       $error ? theme.palette.border.error : 'transparent'};
   border-radius: 8px;
   color: ${({ $textColor = 'muted', disabled, theme }) =>
-    disabled
-      ? 'theme.palette.background.disabled'
-      : theme.palette.text[$textColor]};
+    disabled ? theme.palette.text.disabled : theme.palette.text[$textColor]};
   &:focus-visible {
     outline: none;
   }
-  ::placeholder {
+  &::placeholder {
     line-height: 14px;
     color: ${({ disabled, theme }) =>
-      disabled ? theme.palette.background.disabled : theme.palette.text.muted};
+      disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   }
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ $noBorder: boolean }>`
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.background.separator};
+  border: 1px solid
+    ${({ theme, $noBorder }) =>
+      $noBorder ? 'transparent' : theme.palette.background.separator};
   input::-webkit-inner-spin-button,
   input::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -105,6 +106,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onKeyDown = undefined,
         $error = false,
         leftImage,
+        $noBorder = false,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -114,7 +116,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             <LangDisplay text={label} />
           </InputLabel>
         )}
-        <InputWrapper>
+        <InputWrapper $noBorder={$noBorder}>
           {leftImage}
           <InputStyle
             ref={ref}
@@ -171,6 +173,7 @@ Input.defaultProps = {
   onChange: undefined,
   value: undefined,
   disabled: false,
+  $noBorder: false,
   postfixIcon: undefined,
   onPostfixIconClick: undefined,
   $bgColor: undefined,

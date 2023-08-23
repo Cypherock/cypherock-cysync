@@ -1,6 +1,5 @@
 import {
   LangDisplay,
-  DialogBox,
   DialogBoxFooter,
   Button,
   DialogBoxBody,
@@ -8,6 +7,7 @@ import {
   Typography,
   TabContentContainer,
   Container,
+  CustomDialogBox,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -58,7 +58,7 @@ export const BitcoinTransaction: React.FC = () => {
   ];
 
   return (
-    <DialogBox width={517} height={880}>
+    <CustomDialogBox width={517}>
       <DialogBoxBody>
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
@@ -78,6 +78,6 @@ export const BitcoinTransaction: React.FC = () => {
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>
-    </DialogBox>
+    </CustomDialogBox>
   );
 };

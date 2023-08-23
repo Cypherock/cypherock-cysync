@@ -66,7 +66,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
 
   const { onNext, onPrevious } = useSendDialog();
 
-  const { inputValue, isThrobberActive, handleInputValueChange, showError } =
+  const { inputValue, isThrobberActive, handleInputValueChange } =
     useRecipientAddress(recipientAddress, handleRecipientAddressChange);
 
   const keyboardActions = {
@@ -105,7 +105,6 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           value={inputValue}
           onChange={handleInputValueChange}
           isThrobberActive={isThrobberActive}
-          showError={showError}
         />
         <AmountToSend
           text={single.amount.text}

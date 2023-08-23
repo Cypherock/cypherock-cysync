@@ -77,6 +77,18 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${bgColor}
 `;
 
+export const CustomDialogBox = styled(DialogBoxStyle)`
+  display: block;
+  width: 517px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    max-height: 83vh;
+  }
+`;
+
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
   padding-left: 32px;
   padding-right: 32px;
