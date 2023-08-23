@@ -10,7 +10,7 @@ import {
   mapDerivationPath,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
-import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -44,7 +44,7 @@ const getReceiveAddressFromDevice = async (
     walletId: hexToUint8Array(walletId),
     derivationPaths: [{ path: mapDerivationPath(derivationPath) }],
     chainId: evmCoinList[account.assetId].chain,
-    onEvent: (event: GetPublicKeysStatus) => {
+    onEvent: (event: GetPublicKeysEvent) => {
       const receiveEvent = statusMap[event];
       if (receiveEvent !== undefined) events[receiveEvent] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });
