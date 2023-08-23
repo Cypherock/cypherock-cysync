@@ -43,28 +43,6 @@ const modalCss = css`
   transform: translate(-50%, -50%);
 `;
 
-export const DialogBoxExtended = styled.div<DialogBoxProps>`
-  max-height: 70vh;
-  width: 517px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 16px;
-  background-image: ${({ theme }) => theme.palette.background.primary};
-  box-shadow: ${({ theme }) => theme.shadow.popup};
-  border-color: ${({ theme }) => theme.palette.border.popup};
-  text-align: center;
-  ${props => props.$isModal && modalCss}
-  ${flex}
-  ${display}
-  ${width}
-  ${height}
-  ${spacing}
-  ${position}
-  ${bgColor}
-`;
-
 const ModalOverlay = styled.div`
   position: fixed;
   z-index: 99;
