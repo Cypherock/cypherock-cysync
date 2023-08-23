@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@cypherock/coin-support": "workspace:^",
+    "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
