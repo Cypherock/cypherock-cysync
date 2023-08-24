@@ -15,7 +15,7 @@ import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
 
 import * as services from '../../services';
 
-const DERIVATION_PATH_LIMIT = 50;
+const DERIVATION_PATH_LIMIT = 30;
 
 const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
   const { app, walletId, coinId, derivationPaths, observer } = params;
@@ -33,7 +33,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
     [GetPublicKeysEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
   };
 
-  const { publicKeys } = await app.getPublicKeys({
+  const { addresses } = await app.getPublicKeys({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     chainId: evmCoinList[coinId].chain,
@@ -49,7 +49,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return publicKeys;
+  return addresses;
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
