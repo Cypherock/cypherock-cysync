@@ -4,9 +4,12 @@ import {
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
   IInitializeTransactionParams,
+  ISyncPriceHistoriesParams,
+  ISyncPricesParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
+import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import {
@@ -57,6 +60,16 @@ export class BtcSupport implements CoinSupport {
 
   public validateAddress(params: IValidateAddressParams) {
     return operations.validateAddress(params);
+  }
+
+  public syncPrices(params: ISyncPricesParams): Observable<void> {
+    return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(
+    params: ISyncPriceHistoriesParams,
+  ): Observable<void> {
+    return operations.syncPriceHistories(params);
   }
 
   public getCoinAllocations(params: IGetCoinAllocationsParams) {

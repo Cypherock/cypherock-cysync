@@ -28,6 +28,7 @@
     "@stryker-mutator/jest-runner": "^7.0.2",
     "@stryker-mutator/typescript-checker": "^7.0.2",
     "@types/jest": "^29.5.2",
+    "@types/lodash": "^4.14.195",
     "@types/multicoin-address-validator": "^0.5.0",
     "@types/node": "18.15.11",
     "eslint": "^8.43.0",
@@ -49,6 +50,7 @@
     "@cypherock/sdk-interfaces": "^0.0.11",
     "@cypherock/sdk-utils": "^0.0.14",
     "axios": "^1.4.0",
+    "lodash": "^4.17.21",
     "multicoin-address-validator": "^0.5.12",
     "rxjs": "^7.8.1"
   },

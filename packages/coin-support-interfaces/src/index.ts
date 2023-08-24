@@ -20,6 +20,8 @@ import {
   ISignTransactionParams,
 } from './send';
 import { ISyncAccountsParams } from './syncAccount';
+import { ISyncPriceHistoriesParams } from './syncPriceHistories';
+import { ISyncPricesParams } from './syncPrices';
 import { IValidateAddressParams } from './validateAddress';
 
 export * from './createAccount';
@@ -28,6 +30,8 @@ export * from './send';
 export * from './syncAccount';
 export * from './schemes';
 export * from './validateAddress';
+export * from './syncPrices';
+export * from './syncPriceHistories';
 export * from './getCoinAllocations';
 export * from './getAccountHistory';
 
@@ -46,6 +50,8 @@ export interface CoinSupport {
   broadcastTransaction(
     params: IBroadcastTransactionParams,
   ): Promise<ITransaction>;
+  syncPrices(params: ISyncPricesParams): Observable<void>;
+  syncPriceHistories(params: ISyncPriceHistoriesParams): Observable<void>;
   getCoinAllocations(
     params: IGetCoinAllocationsParams,
   ): Promise<IGetCoinAllocationsResult>;

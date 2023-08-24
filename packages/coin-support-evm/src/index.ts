@@ -6,6 +6,8 @@ import {
   IReceiveParams,
   IValidateAddressParams,
   ISignTransactionEvent,
+  ISyncPricesParams,
+  ISyncPriceHistoriesParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
 } from '@cypherock/coin-support-interfaces';
@@ -58,6 +60,14 @@ export class EvmSupport implements CoinSupport {
 
   public validateAddress(params: IValidateAddressParams) {
     return operations.validateAddress(params);
+  }
+
+  public syncPrices(params: ISyncPricesParams) {
+    return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(params: ISyncPriceHistoriesParams) {
+    return operations.syncPriceHistories(params);
   }
 
   public static setEthersLibrary(ethers: ethersLibType): void {
