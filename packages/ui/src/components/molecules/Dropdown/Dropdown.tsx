@@ -51,7 +51,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
-
   const handleCheckedChange = (id: string) => {
     onChange(id);
   };
@@ -62,7 +61,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   );
 
   const filteredItems = useMemo(
-    () => searchInItems(items, search, selectedItem),
+    () => searchInItems(items, search),
     [items, search],
   );
 
@@ -111,7 +110,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       disabled={disabled}
       onClick={toggleDropdown}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       onKeyDown={handleKeyDown(
         isOpen,
         toggleDropdown,
@@ -122,6 +120,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         handleCheckedChange,
         filteredItems,
         listRef,
+        containerRef,
       )}
       tabIndex={disabled ? -1 : 0}
     >
@@ -136,6 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           onClick={toggleDropdown}
           $restrictedItem
           $hasRightText={!!selectedDropdownItem.rightText}
+          $parentId={selectedDropdownItem.$parentId}
           color="white"
         />
       ) : (
@@ -156,10 +156,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
             handleCheckedChange,
             filteredItems,
             listRef,
+            containerRef,
           )}
-          $bgColor={theme?.palette.background.separatorSecondary}
+          $bgColor={
+            disabled
+              ? theme?.palette.background.separatorSecondary
+              : theme?.palette.background.separatorSecondary
+          }
           placeholder={isOpen ? searchText : placeholderText}
-          disabled={!isOpen}
+          disabled={disabled}
           aria-expanded={isOpen}
           aria-owns={isOpen ? 'dropdown-list' : undefined}
           aria-haspopup="listbox"
@@ -183,7 +188,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {isOpen && (
         <List
           ref={listRef}
-          onMouseLeave={toggleDropdown}
           disabled={disabled}
           id="dropdown-list"
           role="listbox"

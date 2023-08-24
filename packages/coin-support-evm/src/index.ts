@@ -6,6 +6,10 @@ import {
   IReceiveParams,
   IValidateAddressParams,
   ISignTransactionEvent,
+  ISyncPricesParams,
+  ISyncPriceHistoriesParams,
+  IGetAccountHistoryResult,
+  IGetCoinAllocationsParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
@@ -48,8 +52,24 @@ export class EvmSupport implements CoinSupport {
     throw new Error(`Method not implemented`);
   }
 
+  public getCoinAllocations(params: IGetCoinAllocationsParams) {
+    return operations.getCoinAllocations(params);
+  }
+
+  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
+    throw new Error(`Method not implemented`);
+  }
+
   public validateAddress(params: IValidateAddressParams) {
     return operations.validateAddress(params);
+  }
+
+  public syncPrices(params: ISyncPricesParams) {
+    return operations.syncPrices(params);
+  }
+
+  public syncPriceHistories(params: ISyncPriceHistoriesParams) {
+    return operations.syncPriceHistories(params);
   }
 
   public static setEthersLibrary(ethers: ethersLibType): void {
