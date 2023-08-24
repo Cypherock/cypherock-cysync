@@ -31,10 +31,6 @@ export const TableStructure = styled.div<TableStructureProps>`
   z-index: 10;
 `;
 
-export const MainAppBodyWrapper = styled.div`
-  position: relative;
-`;
-
 export const WalletStructure = styled.div`
   @media ${({ theme }) => theme.screens.lg} {
     max-height: 900px;
@@ -49,14 +45,6 @@ export const WalletStructure = styled.div`
   max-height: 90vh;
   border-bottom-right-radius: 24px;
   background: ${({ theme }) => theme.palette.content.content};
-`;
-export const MainAppBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 16px;
-  position: absolute;
-  overflow: auto;
 `;
 
 const TableTitleSearch = styled.div<TableSearchProps>`

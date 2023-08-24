@@ -56,6 +56,12 @@ const DividingLine = styled.div`
   height: 23.33px;
 `;
 
+const TitleStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 export const Topbar: FC<ITopbar> = ({
   title,
   statusTexts,
@@ -87,12 +93,6 @@ export const Topbar: FC<ITopbar> = ({
     ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
-
-  const TitleStyle = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  `;
 
   return (
     <Container

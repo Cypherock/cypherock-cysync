@@ -77,61 +77,45 @@ interface StatusContainerProps extends SpacingProps {
   pright?: number;
 }
 
-const LocalStyle = styled.div`
+const StatusContainer = styled.div<StatusContainerProps>`
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 16px 20px;
-`;
-
-const StatusContainer = styled(LocalStyle)<StatusContainerProps>`
-  min-width: 147px;
-  max-width: 200px;
+  justify-content: center;
+  flex: 1;
   @media ${({ theme }) => theme.screens.lg} {
-    min-width: 247px;
-    max-width: 363px;
     padding: 16px 20px 16px 20px;
   }
   padding: 16px;
-  flex-grow: 1;
   ${spacing}
 `;
 
-const AccountContainer = styled(LocalStyle)<StatusContainerProps>`
-  min-width: 300px;
-  max-width: 400px;
+const AccountContainer = styled.div<StatusContainerProps>`
+  width: 300px;
   @media ${({ theme }) => theme.screens.lg} {
-    min-width: 400px;
-    max-width: 450px;
+    width: 400px;
     padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
     padding-right: ${({ pright }) => (pright ? `${pright}px` : '0')};
   }
-  flex-grow: 1;
   padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '24px')};
   padding-right: ${({ pright }) => (pright ? `${pright}px` : '16px')};
 `;
 
-const BalanceContainer = styled(LocalStyle)<StatusContainerProps>`
-  min-width: 141px;
-  max-width: 205px;
+const BalanceContainer = styled.div<StatusContainerProps>`
+  flex: 1;
   justify-content: flex-start;
   @media ${({ theme }) => theme.screens.lg} {
-    min-width: 215px;
-    max-width: 363px;
-    padding: 16px 0px 16px 40px;
+    padding: 16px 0px;
   }
   padding: 16px;
-  flex-grow: 1;
 `;
 
-const ValueContainer = styled(BalanceContainer)`
-  justify-content: flex-start;
+const ValueContainer = styled.div`
+  width: 147px;
+  padding: 16px 24px 16px 16px;
   @media ${({ theme }) => theme.screens.lg} {
-    min-width: 235px;
-    max-width: 250px;
+    width: 250px;
     padding: 16px 20px 16px 40px;
   }
-  padding: 16px 24px 16px 16px;
 `;
 
 const ArrowContainer = styled.div<TableRowProps>`
