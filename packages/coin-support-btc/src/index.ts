@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
+  IGetAccountHistoryResult,
+  IGetCoinAllocationsParams,
   IInitializeTransactionParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
@@ -55,5 +57,13 @@ export class BtcSupport implements CoinSupport {
 
   public validateAddress(params: IValidateAddressParams) {
     return operations.validateAddress(params);
+  }
+
+  public getCoinAllocations(params: IGetCoinAllocationsParams) {
+    return operations.getCoinAllocations(params);
+  }
+
+  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
+    throw new Error(`Method not implemented`);
   }
 }
