@@ -62,9 +62,23 @@ export const Toggle: React.FC<ToggleProps> = ({ checked, onToggle }) => {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      if (onToggle) {
+        onToggle(!checked);
+      }
+    }
+  };
+
   return (
-    <ToggleSwitch>
-      <Checkbox type="checkbox" checked={checked} onChange={handleCheck} />
+    <ToggleSwitch tabIndex={0} onKeyDown={handleKeyDown}>
+      <Checkbox
+        type="checkbox"
+        checked={checked}
+        onChange={handleCheck}
+        tabIndex={-1}
+      />
       <Slider checked={checked} />
     </ToggleSwitch>
   );
