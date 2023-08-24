@@ -8,7 +8,6 @@ import {
   BitcoinIcon,
   GoldQuestionMark,
   InformationIcon,
-  useToggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -29,14 +28,16 @@ export const BatchTransaction: React.FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
 
-  const {
-    isChecked: isCheckedReplace,
-    handleToggleChange: handleToggleChangeReplace,
-  } = useToggle();
-  const {
-    isChecked: isCheckedUnconfirmed,
-    handleToggleChange: handleToggleChangeUnconfirmed,
-  } = useToggle();
+  const [isCheckedReplace, setIsCheckedReplace] = useState(false);
+  const [isCheckedUnconfirmed, setIsCheckedUnconfirmed] = useState(false);
+
+  const handleToggleChangeReplace = (checked: boolean) => {
+    setIsCheckedReplace(checked);
+  };
+
+  const handleToggleChangeUnconfirmed = (checked: boolean) => {
+    setIsCheckedUnconfirmed(checked);
+  };
 
   const { batch } = lang.strings.send.bitcoin.info.dialogBox;
   const { single } = lang.strings.send.bitcoin.info.dialogBox;

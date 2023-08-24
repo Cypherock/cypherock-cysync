@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import { useToggle } from './useToggle';
-
 interface UseAmountToSendProps {
   coin: React.ReactNode | string;
   onChange?: (val: string) => void;
@@ -26,8 +24,11 @@ export const useAmountToSend = ({
   const [coinTextColor, setCoinTextColor] = useState('muted');
   const [dollarTextColor, setDollarTextColor] = useState('muted');
 
-  const { isChecked: isCheckedMax, handleToggleChange: handleToggleMax } =
-    useToggle();
+  const [isCheckedMax, setIsCheckedMax] = useState(false);
+
+  const handleToggleMax = (checked: boolean) => {
+    setIsCheckedMax(checked);
+  };
 
   const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
   const handleCoinValueChange = (val: string) => {

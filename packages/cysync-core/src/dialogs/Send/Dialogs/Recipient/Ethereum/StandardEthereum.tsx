@@ -11,7 +11,6 @@ import {
   ButtonAttributes,
   useTheme,
   RecipientAddress,
-  useRecipientAddress,
   EthereumIcon,
   GoldQuestionMark,
   InformationIcon,
@@ -19,7 +18,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
-import { addKeyboardEvents } from '~/hooks';
+import { addKeyboardEvents, useRecipientAddress } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../../../context';

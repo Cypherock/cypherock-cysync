@@ -7,14 +7,12 @@ import {
   BitcoinIcon,
   RecipientAddress,
   ToggleSection,
-  useRecipientAddress,
   GoldQuestionMark,
   InformationIcon,
-  useToggle,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
-import { addKeyboardEvents } from '~/hooks';
+import { addKeyboardEvents, useRecipientAddress } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../../../context';
@@ -36,14 +34,17 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const lang = useAppSelector(selectLanguage);
   const { single } = lang.strings.send.bitcoin.info.dialogBox;
   const theme = useTheme();
-  const {
-    isChecked: isCheckedReplace,
-    handleToggleChange: handleToggleChangeReplace,
-  } = useToggle();
-  const {
-    isChecked: isCheckedUnconfirmed,
-    handleToggleChange: handleToggleChangeUnconfirmed,
-  } = useToggle();
+
+  const [isCheckedReplace, setIsCheckedReplace] = useState(false);
+  const [isCheckedUnconfirmed, setIsCheckedUnconfirmed] = useState(false);
+
+  const handleToggleChangeReplace = (checked: boolean) => {
+    setIsCheckedReplace(checked);
+  };
+
+  const handleToggleChangeUnconfirmed = (checked: boolean) => {
+    setIsCheckedUnconfirmed(checked);
+  };
 
   const [recipientAddress, setRecipientAddress] = useState('');
   const [amount, setAmount] = useState('');

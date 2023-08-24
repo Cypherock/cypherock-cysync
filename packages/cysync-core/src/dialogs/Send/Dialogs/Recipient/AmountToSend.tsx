@@ -7,10 +7,11 @@ import {
   Throbber,
   Toggle,
   Typography,
-  useAmountToSend,
   CustomInputSend,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
+import { useAmountToSend } from '~/hooks';
 
 interface AmountToSendProps {
   text?: string;
