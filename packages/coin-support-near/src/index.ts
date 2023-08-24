@@ -8,6 +8,8 @@ import {
   ISyncPricesParams,
   ICreateAccountEvent,
   ISyncPriceHistoriesParams,
+  IGetAccountHistoryResult,
+  IGetCoinAllocationsParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
@@ -46,6 +48,14 @@ export class NearSupport implements CoinSupport {
   }
 
   public validateAddress(): boolean {
+    throw new Error(`Method not implemented`);
+  }
+
+  public getCoinAllocations(params: IGetCoinAllocationsParams) {
+    return operations.getCoinAllocations(params);
+  }
+
+  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
     throw new Error(`Method not implemented`);
   }
 

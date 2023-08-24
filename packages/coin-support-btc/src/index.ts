@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
+  IGetAccountHistoryResult,
+  IGetCoinAllocationsParams,
   IInitializeTransactionParams,
   ISyncPriceHistoriesParams,
   ISyncPricesParams,
@@ -68,5 +70,13 @@ export class BtcSupport implements CoinSupport {
     params: ISyncPriceHistoriesParams,
   ): Observable<void> {
     return operations.syncPriceHistories(params);
+  }
+
+  public getCoinAllocations(params: IGetCoinAllocationsParams) {
+    return operations.getCoinAllocations(params);
+  }
+
+  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
+    throw new Error(`Method not implemented`);
   }
 }

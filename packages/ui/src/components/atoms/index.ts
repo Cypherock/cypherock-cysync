@@ -22,4 +22,6 @@ export * from './CloseButton';
 export * from './InformationBox';
 export * from './VerticalLine';
 export * from './Throbber';
+export * from './Divider';
+export * from './SearchBar';
 export * from './ScrollableContainer';

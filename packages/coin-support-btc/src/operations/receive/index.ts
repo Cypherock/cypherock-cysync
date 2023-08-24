@@ -9,7 +9,7 @@ import {
   IReceiveAddressInfo,
   IGetReceiveAddressFromDevice,
 } from '@cypherock/coin-support-utils';
-import { BtcApp, GetPublicKeyStatus } from '@cypherock/sdk-app-btc';
+import { BtcApp } from '@cypherock/sdk-app-btc';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -39,7 +39,7 @@ const getReceiveAddressFromDevice = async (
   const { address } = await app.getPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
-    onEvent: (event: GetPublicKeyStatus) => {
+    onEvent: event => {
       const receiveEvent = statusMap[event];
       if (receiveEvent !== undefined) events[receiveEvent] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });

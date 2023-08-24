@@ -22,3 +22,5 @@ export * from './SnackBar';
 export * from './SideBar';
 export * from './Dropdown';
 export * from './MessageBox';
+export * from './BulletList';
+export * from './GoldenArrowList';

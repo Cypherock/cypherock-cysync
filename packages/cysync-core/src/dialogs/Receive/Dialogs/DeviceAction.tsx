@@ -17,7 +17,6 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
-import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
@@ -33,10 +32,11 @@ export const DeviceAction: React.FC = () => {
   const { onNext, deviceEvents, selectedWallet, startFlow, derivedAddress } =
     useReceiveDialog();
 
-  // TODO: replace this when sdk is forwarding device events
-  addKeyboardEvents({
-    Enter: onNext,
-  });
+  useEffect(() => {
+    if (deviceEvents[ReceiveDeviceEvent.CARD_TAPPED]) {
+      onNext();
+    }
+  }, [deviceEvents]);
 
   useEffect(() => {
     startFlow();
