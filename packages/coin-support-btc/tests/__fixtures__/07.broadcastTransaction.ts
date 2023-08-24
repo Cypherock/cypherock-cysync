@@ -102,7 +102,7 @@ export const valid: IPrepareTransactionTestCases[] = [
     output: {
       hash: '812736981263167236',
       fees: '33900',
-      amount: '49866784',
+      amount: '10000',
       status: 'pending',
       type: 'send',
       timestamp: 1691152239897,

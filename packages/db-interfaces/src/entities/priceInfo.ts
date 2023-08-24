@@ -5,6 +5,7 @@ export interface IPriceInfo extends IEntity {
   latestPrice: string;
   // foreign keys
   assetId: string;
+  lastSyncedAt: number;
 }
 
 export type IPriceInfoRepository = IRepository<IPriceInfo>;
