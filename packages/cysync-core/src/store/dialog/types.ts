@@ -28,6 +28,11 @@ export interface IDialogState {
       type: GuidedFlowType;
     };
   };
+
+  sendDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

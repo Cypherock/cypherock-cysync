@@ -20,6 +20,7 @@ import { useTheme } from 'styled-components';
 
 import {
   openAddAccountDialog,
+  openSendDialog,
   openReceiveDialog,
   syncWalletsWithDevice,
 } from '~/actions';
@@ -139,7 +140,13 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
               );
             })}
           </SideBarItem>
-          <SideBarItem text={strings.sendCrypto} Icon={ArrowSentIcon} />
+          <SideBarItem
+            text={strings.sendCrypto}
+            Icon={ArrowSentIcon}
+            onClick={() => {
+              dispatch(openSendDialog());
+            }}
+          />
           <SideBarItem
             text={strings.receiveCrypto}
             Icon={ArrowReceivedIcon}
