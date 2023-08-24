@@ -30,9 +30,6 @@ const getExternalAddress = async (
   };
 };
 
-/**
- * @todo Replace publicKeys with addresses
- */
 const getReceiveAddressFromDevice = async (
   params: IGetReceiveAddressFromDevice<EvmApp, IEvmReceiveEvent>,
 ): Promise<string> => {
@@ -40,9 +37,9 @@ const getReceiveAddressFromDevice = async (
 
   const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
 
-  const { publicKeys: addresses } = await app.getPublicKeys({
+  const { address } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
-    derivationPaths: [{ path: mapDerivationPath(derivationPath) }],
+    derivationPath: mapDerivationPath(derivationPath),
     chainId: evmCoinList[account.assetId].chain,
     onEvent: (event: GetPublicKeysEvent) => {
       const receiveEvent = statusMap[event];
@@ -52,7 +49,7 @@ const getReceiveAddressFromDevice = async (
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-  return addresses[0];
+  return address;
 };
 
 export const receive = (params: IEvmReceiveParams): Observable<IReceiveEvent> =>
