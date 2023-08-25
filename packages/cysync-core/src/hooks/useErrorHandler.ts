@@ -34,11 +34,15 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
   >();
   const [retries, setRetries] = React.useState<number>(0);
 
-  const errorMsg = React.useMemo(
-    () =>
-      error ? getParsedError({ error, defaultMsg, lang, retries }) : undefined,
-    [error, lang, retries],
-  );
+  const errorMsg = React.useMemo(() => {
+    if (error) {
+      logger.error(error);
+    }
+
+    return error
+      ? getParsedError({ error, defaultMsg, lang, retries })
+      : undefined;
+  }, [error, lang, retries]);
 
   const onClickHandler = (details: IErrorActionButtonDetails) => {
     const onClickHandlersMap: Record<ErrorActionButtonHandler, () => void> = {
