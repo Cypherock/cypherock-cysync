@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Container, Typography, TypographyColor } from '../../atoms';
 import { iconBoxStyles } from './TableIconNameBox';
 import { SvgProps } from '../../../assets';
-import { BgColorProps, bgColor } from '../../utils';
+import { BgColorProps, UtilsProps, bgColor, utils } from '../../utils';
 
-interface HistoryNameBoxProps {
+interface HistoryNameBoxProps extends UtilsProps {
   icon: React.FC<SvgProps>;
   fill: string;
   variant: 'grey' | 'success';
@@ -18,15 +18,18 @@ interface HistoryNameBoxProps {
 
 const HistoryNameBoxStyle = styled.div<HistoryNameBoxProps>`
   ${iconBoxStyles}
+  ${utils}
 `;
 
 interface MiniContainerProps extends BgColorProps {
   variant?: string;
   onClick?: () => void;
+  selected?: boolean;
 }
 
 export const MiniContainer = styled.div<MiniContainerProps>`
-  display: flex;
+  display: inline-flex;
+  position: relative;
   width: 40px;
   height: 40px;
   padding: var(--0-px, 0px);
@@ -45,6 +48,22 @@ export const MiniContainer = styled.div<MiniContainerProps>`
         cursor: pointer;
       }
     `}
+
+  ${({ theme, selected }) =>
+    selected &&
+    `
+  &::before {
+    content: '';
+    position: absolute;
+     top: 0;
+    right: -0.36px;
+    width: 6.36px;
+    height: 6.36px;
+    border-radius: 50%;
+    background: ${theme.palette.background.gold};
+  }
+`}  
+
   ${bgColor}
 `;
 

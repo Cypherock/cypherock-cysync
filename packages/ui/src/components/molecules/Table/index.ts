@@ -8,3 +8,5 @@ export * from './AllocationShare';
 export * from './HistoryNameBox';
 export * from './HistoryAssetBox';
 export * from './HistoryDateBox';
+export * from './NoSearchResult';
+export * from './AccordionContent';

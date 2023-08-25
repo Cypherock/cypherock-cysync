@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
 import { Button, Container, LangDisplay, Typography } from '../../atoms';
-import { styled } from 'styled-components';
 import { MiniContainer } from './HistoryNameBox';
 
 interface NoDataProps {
@@ -10,22 +9,13 @@ interface NoDataProps {
   buttonText: string;
 }
 
-const MidContainer = styled.div`
-  display: flex;
-  padding: 16px 20px 16px 40px;
-  align-items: center;
-  border: none;
-  gap: 10px;
-  align-self: stretch;
-`;
-
 export const TableNoData: FC<NoDataProps> = ({
   icon,
   text,
   subText,
   buttonText,
 }) => (
-  <Container align="center" direction="column" gap={40}>
+  <Container align="center" direction="column" gap={40} height="90vh">
     <Container
       align="center"
       direction="row"
@@ -40,15 +30,31 @@ export const TableNoData: FC<NoDataProps> = ({
           <Container $bgColor="muted" width={52} height={6} $borderRadius={7} />
         </Container>
       </Container>
-      <MidContainer>
+      <Container
+        display="flex"
+        py={2}
+        pl={5}
+        pr="20"
+        align="center"
+        gap={10}
+        $alignSelf="stretch"
+      >
         <Container $bgColor="muted" width={162} height={6} $borderRadius={7} />
-      </MidContainer>
-      <MidContainer>
-        <Container direction="column" gap={8} align="flex-start">
+      </Container>
+      <Container
+        display="flex"
+        py={2}
+        pl={5}
+        pr="20"
+        align="center"
+        gap={10}
+        $alignSelf="stretch"
+      >
+        <Container direction="column" gap={8} align="flex-end">
           <Container $bgColor="muted" width={78} height={6} $borderRadius={7} />
           <Container $bgColor="muted" width={52} height={6} $borderRadius={7} />
         </Container>
-      </MidContainer>
+      </Container>
     </Container>
     <Container direction="column" gap={16} align="center">
       <Typography $fontWeight="semibold" $fontSize={24}>

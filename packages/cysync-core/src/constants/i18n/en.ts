@@ -848,6 +848,13 @@ const en = {
       subText: 'Receive Crypto today to see your transaction history here',
       buttonText: 'Receive',
     },
+    search: {
+      placeholder: 'Search...',
+      notFound: {
+        text: 'No results found for',
+        subText: 'Please try searching another keywords',
+      },
+    },
   },
 
   onboarding: {

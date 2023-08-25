@@ -5,8 +5,9 @@ import { Container, Image, Typography } from '../../atoms';
 import { bitcoinIcon, etheriumBlueIcon, tetherIcon } from '../../../assets';
 import SvgOptimism from '../../../assets/icons/generated/Optimism';
 import { ImageContainer } from '../LeanBox';
+import { UtilsProps, utils } from '../../utils';
 
-interface HistoryAssetBoxProps {
+interface HistoryAssetBoxProps extends UtilsProps {
   size?: 'small' | 'big';
   asset: string;
   wallet?: string;
@@ -24,47 +25,45 @@ export const imageSrcMap: any = {
   Tether: tetherIcon,
 };
 
-const HistoryAssetBoxStyle = styled.div<{ size?: string }>`
+export const HistoryAssetBoxStyle = styled.div<HistoryAssetBoxProps>`
   display: flex;
-  width: ${({ size }) => (size === 'small' ? '250px' : '425px')};
+  max-width: ${({ size }) => (size === 'small' ? '250px' : '425px')};
+  width: 100%;
   padding: 16px 20px 16px 40px;
   align-items: center;
   gap: 10px;
+  ${utils}
 `;
 
-export const HistoryAssetBox: FC<HistoryAssetBoxProps> = ({
-  size,
-  asset,
-  wallet,
-}) => (
-  <HistoryAssetBoxStyle size={size}>
-    {!wallet ? (
+export const HistoryAssetBox: FC<HistoryAssetBoxProps> = ({ ...props }) => (
+  <HistoryAssetBoxStyle {...props}>
+    {!props.wallet ? (
       <ImageContainer gap={10}>
         <Image
-          src={imageSrcMap[asset]}
+          src={imageSrcMap[props.asset]}
           alt="Asset Icon"
           width="24px"
           height="24px"
         />
-        <Typography variant="p">{asset}</Typography>
+        <Typography variant="p">{props.asset}</Typography>
       </ImageContainer>
     ) : (
       <Container display="flex" direction="row" gap={6}>
         <Typography variant="p" color="muted">
-          {wallet}
+          {props.wallet}
         </Typography>
         <Typography variant="p" color="muted">
           /
         </Typography>
         <ImageContainer gap={6}>
           <Image
-            src={imageSrcMap[asset]}
+            src={imageSrcMap[props.asset]}
             alt="Asset Icon"
             width="11px"
             height="16px"
           />
           <Typography variant="p" color="muted">
-            {asset}
+            {props.asset}
           </Typography>
         </ImageContainer>
       </Container>

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { TriangleIcon } from '../../../assets';
 import { Container, Typography } from '../../atoms';
 import {
+  bgColor,
+  BgColorProps,
   DisplayProps,
   flex,
   FlexProps,
@@ -20,7 +22,8 @@ export interface TableUtilityProps
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {}
+    SpacingProps,
+    BgColorProps {}
 
 interface TableHeaderDataProps extends TableUtilityProps {
   data: string;
@@ -137,6 +140,8 @@ const TableDataRowStyle = styled.div<TableDataRowProps>`
       position: absolute;
       inset: 0;
       border: 1px solid transparent;
+      border-bottom-right-radius: ${({ $last }) => ($last ? '24px' : '0')};
+  border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
       background: ${({ theme }) => theme.palette.golden};
       -webkit-mask: linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
@@ -156,6 +161,7 @@ const TableDataRowStyle = styled.div<TableDataRowProps>`
   ${width}
   ${height}
   ${spacing}
+  ${bgColor}
 `;
 
 export const Table: FC<TableUtilityProps> = ({ children, ...props }) => (

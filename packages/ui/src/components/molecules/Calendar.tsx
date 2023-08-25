@@ -4,15 +4,16 @@ import { styled } from 'styled-components';
 import { goldenGradient } from '../utils';
 import { MiniContainer } from './Table';
 import { CalendarIcon } from '../../assets';
-import { CloseButton, Typography } from '../atoms';
 
 const StyledCalendar = styled(DatePicker)`
   .rmdp-wrapper.rmdp-shadow {
     box-shadow: none !important;
   }
 
-  .rmdp-wrapper {
-    background-color: #fff !important;
+  .rmdp-wrapper:not() {
+  }
+  .temp {
+    background-color: '#000' !important;
   }
 
   div[style*='transform: translate(1348.05px, 1217px);'] {
@@ -133,90 +134,34 @@ const StyledCalendar = styled(DatePicker)`
   }
 `;
 
-const RangeContainer = styled.div<{
-  onClick?: () => void;
-}>`
-  position: relative;
-  font-family: Inter;
-  display: inline-flex;
-  padding: var(--0-px, 0px) var(--8-px, 8px);
-  gap: var(--16-px, 16px);
-  flex-shrink: 0;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  color: ${({ theme }) => theme.palette.text.heading};
-  background: ${({ theme }) => theme.palette.background.calendar};
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -0.36px;
-    width: 6.36px;
-    height: 6.36px;
-    border-radius: 50%;
-    ${goldenGradient('background')};
-  }
-  ${({ onClick }) =>
-    onClick &&
-    `
-        &:hover {
-          cursor: pointer;
-        }
-      `}
-`;
-
 interface CalendarProps {
   value: string | undefined;
   onChange: (value: any) => void;
 }
 
-export const Calendar: FC<CalendarProps> = ({ value, onChange }) => {
-  const handleResetDate = () => {
-    onChange(undefined);
-  };
-
-  return (
-    <StyledCalendar
-      value={value}
-      onChange={onChange}
-      range
-      highlightToday={false}
-      showOtherDays
-      format="MMMM DD YYYY"
-      weekStartDayIndex={1}
-      dateSeparator=" to "
-      headerOrder={['MONTH_YEAR', 'LEFT_BUTTON', 'RIGHT_BUTTON']}
-      render={(renderedValue, openCalender) => {
-        if (!renderedValue) {
-          return (
-            <MiniContainer onClick={openCalender} variant="grey">
-              <CalendarIcon width="18px" height="20px" />
-            </MiniContainer>
-          );
-        }
-        const [startDate, endDate] = renderedValue.split(' to ');
-        return (
-          <RangeContainer onClick={openCalender}>
-            <CalendarIcon width="18px" height="20px" />
-            <Typography
-              variant="span"
-              $fontSize={12}
-              display="flex"
-              direction="row"
-              gap={5}
-            >
-              {startDate}
-              <Typography variant="p" $fontSize={12} color="gold">
-                to
-              </Typography>
-              {endDate}
-            </Typography>
-            <CloseButton onClick={handleResetDate} width={10} height={10} />
-          </RangeContainer>
-        );
-      }}
-    />
-  );
-};
+export const Calendar: FC<CalendarProps> = ({ value, onChange }) => (
+  <StyledCalendar
+    className="temp"
+    value={value}
+    onChange={onChange}
+    range
+    highlightToday={false}
+    showOtherDays
+    format="MMMM DD YYYY"
+    weekStartDayIndex={1}
+    dateSeparator=" to "
+    headerOrder={['MONTH_YEAR', 'LEFT_BUTTON', 'RIGHT_BUTTON']}
+    render={(renderedValue, openCalender) => {
+      const isSelected = Boolean(renderedValue && renderedValue.includes('to'));
+      return (
+        <MiniContainer
+          onClick={openCalender}
+          variant="grey"
+          selected={isSelected}
+        >
+          <CalendarIcon width="18px" height="20px" />
+        </MiniContainer>
+      );
+    }}
+  />
+);

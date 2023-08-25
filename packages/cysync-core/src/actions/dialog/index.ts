@@ -1,4 +1,4 @@
-import { Row } from '~/pages/MainApp/Components/HistoryTable';
+import { Row } from '~/pages/MainApp/Components';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>

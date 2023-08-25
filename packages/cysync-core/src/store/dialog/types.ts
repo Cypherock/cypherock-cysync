@@ -1,4 +1,4 @@
-import { Row } from '~/pages/MainApp/Components/HistoryTable';
+import { Row } from '~/pages/MainApp/Components';
 
 export interface IDialogState {
   addAccount: {

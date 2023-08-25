@@ -7,6 +7,13 @@ interface HistoryDateBoxProps {
   text: string;
 }
 
+export const HistoryContainer = styled.div`
+  max-height: 90vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 24px;
+`;
+
 const HistoryDateBoxStyle = styled.div`
   display: flex;
   flex: 1;

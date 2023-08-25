@@ -37,7 +37,6 @@ export const FilterMenuDesignWrapper = styled.div`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.separator};
   background: ${({ theme }) => theme.palette.border.separatorSecondary};
-  box-shadow: ${({ theme }) => theme.shadow.popup};
   &:hover {
     cursor: pointer;
   }
@@ -51,7 +50,6 @@ export const FilterLayout = styled.div`
   padding: 16px 0px;
   border-radius: var(--8-px, 8px);
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
-  box-shadow: ${({ theme }) => theme.shadow.popup};
   z-index: 1;
 `;
 
