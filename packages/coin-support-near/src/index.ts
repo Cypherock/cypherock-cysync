@@ -2,7 +2,6 @@
 import {
   CoinSupport,
   IPreparedTransaction,
-  IReceiveEvent,
   IReceiveParams,
   ISignTransactionEvent,
   ISyncPricesParams,
@@ -27,8 +26,8 @@ export class NearSupport implements CoinSupport {
     setNearApiJs(api);
   }
 
-  public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented. ${params}`);
+  public receive(params: IReceiveParams) {
+    return operations.receive(params);
   }
 
   public createAccounts(params: ICreateNearAccountParams) {

@@ -6,7 +6,6 @@ import {
 } from '@cypherock/coin-support-utils';
 import { nearCoinList } from '@cypherock/coins';
 import { NearApp, GetPublicKeysEvent } from '@cypherock/sdk-app-near';
-import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -14,6 +13,7 @@ import { derivationPathSchemes } from './schemes';
 import { ICreateNearAccountParams, ICreateNearAccountEvent } from './types';
 
 import * as services from '../../services';
+import { createApp } from '../../utils';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -72,9 +72,6 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<NearApp>['cr
       isNew: addressDetails.txnCount <= 0,
     };
   };
-
-const createApp = async (connection: IDeviceConnection) =>
-  NearApp.create(connection);
 
 const getBalanceAndTxnCount = async (
   address: string,
