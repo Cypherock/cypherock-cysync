@@ -11,11 +11,7 @@ export interface TableSearchProps {
   onPostfixIconClick?: () => void;
 }
 
-interface TableStructureProps {
-  $totalHeight: number;
-}
-
-export const TableStructure = styled.div<TableStructureProps>`
+export const TableStructure = styled.div`
   position: relative;
   transition: max-height 0.3s ease-out;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
@@ -27,8 +23,7 @@ export const TableStructure = styled.div<TableStructureProps>`
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
-  max-height: 90vh;
-  z-index: 10;
+  height: 100%;
 `;
 
 export const WalletStructure = styled.div`

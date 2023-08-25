@@ -93,11 +93,10 @@ const AccountContainer = styled.div<StatusContainerProps>`
   width: 300px;
   @media ${({ theme }) => theme.screens.lg} {
     width: 400px;
-    padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '40px')};
-    padding-right: ${({ pright }) => (pright ? `${pright}px` : '0')};
+    padding: var(--16-px, 16px) var(--0-px, 0px) var(--16-px, 16px) 40px;
   }
-  padding-left: ${({ pleft }) => (pleft ? `${pleft}px` : '24px')};
-  padding-right: ${({ pright }) => (pright ? `${pright}px` : '16px')};
+  padding: var(--16-px, 16px) var(--16-px, 16px) var(--16-px, 16px)
+    var(--24-px, 24px);
 `;
 
 const BalanceContainer = styled.div<StatusContainerProps>`

@@ -191,6 +191,60 @@ const data: DataType[] = [
     tokenAmount: '0.00007 BTC',
     tokenValue: '$2.387',
   },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin 2',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Close />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin Official',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Check />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin Business',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Check />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin Official',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Check />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin 2',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Close />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
+  {
+    leftImage: <BitcoinCircularBorder />,
+    text: 'Bitcoin 2',
+    subText: 'BITCOIN',
+    tag: 'Taproot',
+    statusImage: <Close />,
+    tokenAmount: '0.00007 BTC',
+    tokenValue: '$2.387',
+  },
 ];
 
 const skeletonData = {
@@ -288,8 +342,6 @@ export const Wallet: FC = () => {
   };
 
   const slicedData = displayedData.slice(0, itemsToShow);
-  const MAIN_ITEM_HEIGHT = 160;
-  const totalHeight = ITEMS_PER_PAGE * MAIN_ITEM_HEIGHT;
 
   const dummy = () => {
     const a = 1;
@@ -324,7 +376,7 @@ export const Wallet: FC = () => {
             onAddTokenClick={handleAddTokenClick}
             onAddAccountClick={handleAddAccountClick}
           />
-          <TableStructure $totalHeight={totalHeight}>
+          <TableStructure>
             <TableSearch
               onSearch={setSearchValue}
               $borderGold={!resultsFound}
