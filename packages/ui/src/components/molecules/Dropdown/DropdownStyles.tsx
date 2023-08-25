@@ -28,11 +28,6 @@ export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
       : theme.palette.border.list};
 `;
 
-const buttonAnimationData = {
-  duration: '0.3s',
-  curve: 'ease-out',
-};
-
 export const DropdownContainer = styled.div<{
   $isOpen: boolean;
   disabled?: boolean;
@@ -52,30 +47,33 @@ export const DropdownContainer = styled.div<{
               inset: 0;
               border-radius: 8px;
               border: 1px solid transparent;
-              background: ${theme.palette.golden};
+              background: ${theme.palette.silver};
               -webkit-mask: linear-gradient(#fff 0 0) padding-box,
                 linear-gradient(#fff 0 0);
               -webkit-mask-composite: xor;
               mask-composite: exclude;
             }
-        
-            &:hover::before {
-              background: ${theme.palette.golden} border-box;
-              transition: all ${buttonAnimationData.duration};
-              ${buttonAnimationData.curve};
-            }
           cursor: pointer;
         }
-        &:focus { 
-          outline: none;
-          background: ${theme.palette.golden};
-        }
       `}
-
+  &:focus {
+    ${({ disabled, theme }) =>
+      !disabled &&
+      `
+      outline: none;
+      border: 0px solid transparent;
+      background: ${theme.palette.golden};
+  
+      &::before {
+        background: ${theme.palette.golden};
+      }
+      `}
+  }
   input {
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
+  border: ${({ disabled }) => (disabled ? 'none' : 'default')};
 `;
 
 export const IconContainer = styled.div`

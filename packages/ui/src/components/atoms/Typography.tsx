@@ -69,7 +69,7 @@ const getColorCss = (color?: TypographyColor) => {
   return colorCss;
 };
 
-const baseStyle = css<HeadingProps>`
+const baseStyle = css<TypographyProps>`
   max-width: 100%;
 
   ${props =>
@@ -95,12 +95,17 @@ const baseStyle = css<HeadingProps>`
       white-space: ${props.$whiteSpace};
     `}
 
-  ${props =>
-    props.$textOverflow !== undefined &&
-    css`
-      text-overflow: ${props.$textOverflow};
-      overflow: hidden;
-    `}
+    ${props =>
+    props.$allowOverflow
+      ? css`
+          overflow: visible;
+        `
+      : props.$textOverflow !== undefined &&
+        css`
+          text-overflow: ${props.$textOverflow};
+          overflow: hidden;
+        `}
+
 
   max-width: 100%;
   ${border};
@@ -168,6 +173,7 @@ const PStyle = styled.p<HeadingProps>`
 
 export interface TypographyProps extends HeadingProps {
   children?: ReactNode;
+  $allowOverflow?: boolean;
   variant?:
     | 'h1'
     | 'h2'
@@ -213,6 +219,7 @@ Typography.defaultProps = {
   variant: 'p',
   children: null,
   color: 'heading',
+  $allowOverflow: false,
   $textAlign: 'left',
   $letterSpacing: 0,
   $userSelect: undefined,

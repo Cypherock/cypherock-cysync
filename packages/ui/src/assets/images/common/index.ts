@@ -28,6 +28,7 @@ import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
 import { FailIcon } from './FailIcon';
+import goldSendIcon from './gold-send.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
@@ -43,6 +44,7 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
+import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
 import questionMarkIcon from './question-mark.svg';
@@ -53,19 +55,25 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
+import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
+import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
 import usbIcon from './usb.svg';
+import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
+import warningIcon from './warning.svg';
 
 export {
   addWalletIcon,
   walletIcon,
+  tetherIcon,
+  sliderThumbIcon,
   triangleGreyIcon,
   informationOrangeIcon,
   qrcodeIcon,
@@ -128,4 +136,8 @@ export {
   walletErrorIcon,
   bitcoinIcon,
   ethereumIcon,
+  qrImage,
+  goldSendIcon,
+  warningIcon,
+  verifyAmountIcon,
 };
