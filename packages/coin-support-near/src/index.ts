@@ -6,25 +6,33 @@ import {
   IReceiveParams,
   ISignTransactionEvent,
   ISyncPricesParams,
-  ICreateAccountEvent,
   ISyncPriceHistoriesParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
+import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import { ICreateNearAccountParams } from './operations/types';
+
+export * from './operations/types';
+export * from './services';
 
 export { updateLogger } from './utils/logger';
 
 export class NearSupport implements CoinSupport {
+  public static setNearApiJs(api: nearApiJsLibType): void {
+    setNearApiJs(api);
+  }
+
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     throw new Error(`Method not implemented. ${params}`);
   }
 
-  public createAccounts(): Observable<ICreateAccountEvent> {
-    throw new Error('Not implemented');
+  public createAccounts(params: ICreateNearAccountParams) {
+    return operations.createAccounts(params);
   }
 
   public syncAccount(): Observable<void> {
