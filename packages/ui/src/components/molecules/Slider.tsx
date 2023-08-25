@@ -1,15 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import { sliderThumbIcon } from '../../assets';
-import { Image } from '../atoms';
+import { Flex, Image, LangDisplay, Typography } from '../atoms';
 import { goldenGradient } from '../utils';
+
+export interface Caption {
+  id: number;
+  name: string;
+}
 
 interface SliderProps {
   min?: number;
   max?: number;
-  initialValue?: number;
+  value: number;
   onChange: (value: number) => void;
+  captions: Caption[];
 }
 
 interface SliderTrackProps {
@@ -64,15 +70,11 @@ const SliderTrackMask = styled.div<SliderTrackProps>`
 export const Slider: React.FC<SliderProps> = ({
   min = 0,
   max = 100,
-  initialValue = min,
+  value,
   onChange,
+  captions,
 }) => {
-  const [value, setValue] = useState(initialValue);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
 
   const handleMouseMove = (event: MouseEvent) => {
     if (!containerRef.current) return;
@@ -84,7 +86,6 @@ export const Slider: React.FC<SliderProps> = ({
       min;
     newValue = Math.max(Math.min(newValue, max), min);
 
-    setValue(newValue);
     onChange(Math.round(newValue));
   };
 
@@ -98,23 +99,39 @@ export const Slider: React.FC<SliderProps> = ({
     window.addEventListener('mouseup', handleMouseUp);
   };
 
+  const progress = ((value - min) / (max - min)) * 100;
+
   return (
-    <SliderContainer ref={containerRef}>
-      <SliderTrack />
-      <SliderTrackMask progress={((value - min) / (max - min)) * 100} />
-      <SliderThumb
-        progress={((value - min) / (max - min)) * 100}
-        onMouseDown={handleMouseDown}
-        onDragStart={e => e.preventDefault()}
-      >
-        <Image src={sliderThumbIcon} alt="Slider Thumb" />
-      </SliderThumb>
-    </SliderContainer>
+    <>
+      <SliderContainer ref={containerRef}>
+        <SliderTrack />
+        <SliderTrackMask progress={progress} />
+        <SliderThumb
+          progress={progress}
+          onMouseDown={handleMouseDown}
+          onDragStart={e => e.preventDefault()}
+        >
+          <Image src={sliderThumbIcon} alt="Slider Thumb" />
+        </SliderThumb>
+      </SliderContainer>
+      <Flex justify="space-between" width="full">
+        {captions.map(caption => (
+          <Typography
+            key={caption.id}
+            variant="span"
+            $fontSize={12}
+            $fontWeight="medium"
+            color="muted"
+          >
+            <LangDisplay text={caption.name} />
+          </Typography>
+        ))}
+      </Flex>
+    </>
   );
 };
 
 Slider.defaultProps = {
   min: 0,
   max: 100,
-  initialValue: 0,
 };

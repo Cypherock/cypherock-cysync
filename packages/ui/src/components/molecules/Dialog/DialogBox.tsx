@@ -63,6 +63,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
+  /* overflow-y: scroll; */
   background-image: ${({ theme }) => theme.palette.background.primary};
   box-shadow: ${({ theme }) => theme.shadow.popup};
   border-color: ${({ theme }) => theme.palette.border.popup};
@@ -75,6 +76,18 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${spacing}
   ${position}
   ${bgColor}
+`;
+
+export const CustomDialogBox = styled(DialogBoxStyle)`
+  display: block;
+  width: 517px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    max-height: 83vh;
+  }
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -106,6 +119,7 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   justify-content: center;
   align-items: center;
   width: inherit;
+  /* overflow-y: scroll; */
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 32px;

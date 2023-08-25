@@ -1,16 +1,17 @@
 import {
   LangDisplay,
-  DialogBox,
   DialogBoxFooter,
   Button,
   DialogBoxBody,
   Tabs,
   Typography,
   TabContentContainer,
+  Container,
+  CustomDialogBox,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { addKeyboardEvents, useButtonState } from '~/hooks';
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { BatchTransaction } from './BatchTransaction';
@@ -24,7 +25,7 @@ export const BitcoinTransaction: React.FC = () => {
   const button = lang.strings.buttons;
   const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;
 
-  const [btnState, handleButtonState] = useButtonState();
+  const [btnState, handleButtonState] = useState(false);
 
   const keyboardActions = {
     ArrowRight: () => {
@@ -57,17 +58,19 @@ export const BitcoinTransaction: React.FC = () => {
   ];
 
   return (
-    <DialogBox width={517}>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={bitcoin.dialogBox.title} />
-        </Typography>
-        <Typography variant="span" $textAlign="center" color="muted">
-          <LangDisplay text={bitcoin.dialogBox.text} />
-        </Typography>
-        <Tabs tabs={tabs} />
+    <CustomDialogBox width={517}>
+      <DialogBoxBody>
+        <Container display="flex" direction="column" gap={4} width="full">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay text={bitcoin.dialogBox.title} />
+          </Typography>
+          <Typography variant="span" $textAlign="center" color="muted">
+            <LangDisplay text={bitcoin.dialogBox.text} />
+          </Typography>
+        </Container>
       </DialogBoxBody>
-      <DialogBoxFooter height={101}>
+      <Tabs tabs={tabs} />
+      <DialogBoxFooter>
         <Button variant="secondary">
           <LangDisplay text={button.back} />
         </Button>
@@ -75,6 +78,6 @@ export const BitcoinTransaction: React.FC = () => {
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>
-    </DialogBox>
+    </CustomDialogBox>
   );
 };

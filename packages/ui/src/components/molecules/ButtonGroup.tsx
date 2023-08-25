@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ButtonGroupContainer = styled.div`
+const PillButtonToggleContainer = styled.div`
   display: inline-flex;
   border-radius: 43px;
   padding: 2px;
@@ -41,33 +41,38 @@ const PillButton = styled.button<{ $active: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  &:focus {
+    outline: 1px solid white;
+  }
 `;
 
 export interface ButtonAttributes {
   id: number;
   label: string;
+  type: 'slider' | 'input';
 }
 
-interface PillButtonGroupProps {
+interface PillButtonToggleProps {
   buttons: ButtonAttributes[];
-  activeButtonId: number;
-  onButtonClick: (index: number) => void;
+  type: string;
+  onButtonClick: (type: 'slider' | 'input') => void;
 }
 
-export const ButtonGroup: React.FC<PillButtonGroupProps> = ({
+export const PillButtonToggle: React.FC<PillButtonToggleProps> = ({
   buttons,
-  activeButtonId,
+  type,
   onButtonClick,
 }) => (
-  <ButtonGroupContainer>
-    {buttons.map(({ id, label }) => (
+  <PillButtonToggleContainer>
+    {buttons.map(({ id, label, type: btnType }) => (
       <PillButton
         key={id}
-        $active={activeButtonId === id}
-        onClick={() => onButtonClick(id)}
+        tabIndex={0}
+        $active={btnType === type}
+        onClick={() => onButtonClick(btnType)}
       >
         {label}
       </PillButton>
     ))}
-  </ButtonGroupContainer>
+  </PillButtonToggleContainer>
 );

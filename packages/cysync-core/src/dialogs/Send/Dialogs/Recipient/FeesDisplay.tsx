@@ -1,6 +1,5 @@
+import { Flex, Typography, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
-
-import { Flex, LangDisplay, Typography } from '../../atoms';
 
 interface FeesDisplayProps {
   fees: {

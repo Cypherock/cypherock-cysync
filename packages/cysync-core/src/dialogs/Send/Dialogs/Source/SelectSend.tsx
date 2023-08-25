@@ -11,10 +11,10 @@ import {
   binanceIcon,
   goldSendIcon,
   solanaIcon,
-  bitcoinIcon,
   etheriumBlueIcon,
   DropDownListItemProps,
   walletIcon,
+  BitcoinSmall,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -25,7 +25,7 @@ import { useSendDialog } from '../../context';
 const dropDownData: DropDownListItemProps[] = [
   {
     id: '41',
-    leftImage: <Image src={bitcoinIcon} alt="bitcoin icon" />,
+    leftImage: <BitcoinSmall />,
     shortForm: '(ETH)',
     text: 'Ethereum 1',
     checkType: 'radio',

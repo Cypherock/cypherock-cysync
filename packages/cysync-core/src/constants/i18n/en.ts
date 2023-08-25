@@ -434,10 +434,10 @@ const en = {
       info: {
         dialogBox: {
           title: 'Source',
-          subTitle: 'Choose an account and recipient',
+          subTitle: 'Choose a wallet and an account',
           constant: 'Cypherock Red',
           searchText: 'Search',
-          placeholderText: 'Choose a coin',
+          placeholderText: 'Account to Debit',
           placeholderWalletText: 'Choose a wallet',
         },
       },
@@ -534,7 +534,7 @@ const en = {
               usd: '$5.51',
               network: 'Network Fees',
             },
-            message: '9 sat per byte',
+            message: ' sat per byte',
             fee: '9',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
@@ -558,7 +558,7 @@ const en = {
               usd: '$5.51',
               network: 'Network Fees',
             },
-            message: '9 sat per byte',
+            message: ' sat per byte',
             inputPostfix: 'Sat per byte',
             warning: 'Transaction might cancel if fees is very low',
             toggleText: {
@@ -604,6 +604,7 @@ const en = {
           gas: 'Gas Price',
           message: '53.2 GWEI',
           fee: '53.2',
+          gasLimit: '',
           inputPostfix: 'GWEI',
           limit: 'Gas limit',
           warning: 'Transaction might cancel if fees is very low',
@@ -823,6 +824,14 @@ const en = {
         summary: 'Summary',
         x1vault: 'X1 Vault',
         confirm: 'Confirmation',
+      },
+    },
+    closeDialog: {
+      title: 'Are you sure you want to exit?',
+      subtitle: 'You can always start this guide by clicking "Send Crypto" tab',
+      buttons: {
+        secondary: 'Cancel',
+        primary: 'Exit',
       },
     },
   },

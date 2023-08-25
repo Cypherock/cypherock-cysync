@@ -1,16 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-
-import SvgDoubleArrow from '../../../assets/icons/generated/DoubleArrow';
 import {
+  Container,
+  DoubleArrow,
   Flex,
   Input,
   LangDisplay,
   Throbber,
   Toggle,
   Typography,
-} from '../../atoms';
-import { useAmountToSend } from '../../hooks';
+  CustomInputSend,
+} from '@cypherock/cysync-ui';
+import React from 'react';
+
+import { useAmountToSend } from '~/hooks';
 
 interface AmountToSendProps {
   text?: string;
@@ -23,13 +24,6 @@ interface AmountToSendProps {
   value?: string;
   onChange?: (val: string) => void;
 }
-
-const AmountToSendContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 8px;
-`;
 
 export const AmountToSend: React.FC<AmountToSendProps> = ({
   text = '',
@@ -45,21 +39,24 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
   const {
     coinState,
-    textColor,
     isCheckedMax,
     handleToggleMax,
-    handleInputValueChange,
-    value,
+    handleCoinValueChange,
+    handleDollarValueChange,
+    coinValue,
+    dollarValue,
+    coinTextColor,
+    dollarTextColor,
   } = useAmountToSend({
     coin,
     onChange,
     isButtonEnabled,
     throbber,
-    value: initialValue,
+    coinValue: initialValue,
+    dollarValue: initialValue,
   });
-
   return (
-    <AmountToSendContainer>
+    <Container display="flex" direction="column" width="full" gap={8}>
       <Flex justify="space-between" width="full">
         <Typography variant="span" width="100%" color="muted" $fontSize={13}>
           <LangDisplay text={text} />
@@ -72,28 +69,43 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
         </Flex>
       </Flex>
       <Flex justify="space-between" gap={8} align="center" width="full">
-        <Input
-          type="text"
-          name="address"
-          postfixIcon={typeof coinState === 'string' ? undefined : coinState}
-          postfixText={typeof coinState === 'string' ? coinState : undefined}
-          $textColor={textColor}
-          placeholder={placeholder}
-          value={value}
-          onChange={handleInputValueChange}
-          $error={error === ''}
-        />
-        <SvgDoubleArrow height={22} width={22} />{' '}
-        <Input
-          type="text"
-          name="address"
-          postfixText={dollar}
-          $textColor={textColor}
-          placeholder={placeholder}
-          $error={error === ''}
-        />
+        <CustomInputSend error={error}>
+          <Input
+            type="text"
+            name="address"
+            $textColor={coinTextColor}
+            placeholder={placeholder}
+            onChange={handleCoinValueChange}
+            value={coinValue}
+            $noBorder
+          />
+          {typeof coinState === 'string' ? undefined : coinState}
+          {typeof coinState === 'string' ? (
+            <Typography $fontSize={16} color="muted" $allowOverflow>
+              {coin}
+            </Typography>
+          ) : undefined}
+        </CustomInputSend>
+        <DoubleArrow height={22} width={22} />
+        <CustomInputSend error={error}>
+          <Input
+            type="text"
+            name="address"
+            $textColor={dollarTextColor}
+            placeholder={placeholder}
+            onChange={handleDollarValueChange}
+            value={dollarValue}
+            $noBorder
+          />
+          {typeof coinState === 'string' ? undefined : coinState}
+          {typeof coinState === 'string' ? (
+            <Typography $fontSize={16} color="muted" $allowOverflow>
+              {dollar}
+            </Typography>
+          ) : undefined}
+        </CustomInputSend>
       </Flex>
-      {!error && (
+      {error && (
         <Typography
           variant="span"
           width="100%"
@@ -104,7 +116,7 @@ export const AmountToSend: React.FC<AmountToSendProps> = ({
           <LangDisplay text={error} />
         </Typography>
       )}
-    </AmountToSendContainer>
+    </Container>
   );
 };
 
