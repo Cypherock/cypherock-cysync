@@ -22,6 +22,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  walletConnect: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   guidedFlow: {
     isOpen: boolean;
     data?: {
