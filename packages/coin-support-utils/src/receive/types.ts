@@ -29,6 +29,7 @@ export interface IGetReceiveAddressFromDevice<
   app: T;
   walletId: string;
   observer: Subscriber<K>;
+  account: IAccount;
 }
 
 export interface IMakeReceiveObservableParams<
