@@ -131,8 +131,6 @@ const FullWidthTypography = styled(Typography)<TableRowProps>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media ${({ theme }) => theme.screens.lg} {
-  }
 `;
 
 const ImageWrapper = styled.div<TableRowProps>`

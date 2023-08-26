@@ -28,12 +28,11 @@ export const TableStructure = styled.div`
 
 export const WalletStructure = styled.div`
   @media ${({ theme }) => theme.screens.lg} {
-    max-height: 900px;
+    max-height: 89vh;
     padding-right: 8px;
     margin-right: 8px;
   }
   @media ${({ theme }) => theme.screens.xl} {
-    max-height: 1100px;
     padding-right: 8px;
     margin-right: 8px;
   }
