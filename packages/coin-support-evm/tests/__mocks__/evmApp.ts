@@ -74,7 +74,15 @@ const DUMMY_ADDRESSES = [
 
 export const getPublicKeys = jest
   .fn<EvmApp['getPublicKeys']>()
-  .mockReturnValue(Promise.resolve({ publicKeys: DUMMY_ADDRESSES }));
+  .mockReturnValue(
+    Promise.resolve({ addresses: DUMMY_ADDRESSES, publicKeys: [] }),
+  );
+
+export const getUserVerifiedPublicKey = jest
+  .fn<EvmApp['getUserVerifiedPublicKey']>()
+  .mockReturnValue(
+    Promise.resolve({ address: DUMMY_ADDRESSES[0], publicKey: '' }),
+  );
 
 export const abort = jest
   .fn<EvmApp['abort']>()
@@ -86,6 +94,7 @@ export const destroy = jest
 
 export const create = jest.fn(async () =>
   Promise.resolve({
+    getUserVerifiedPublicKey,
     getPublicKeys,
     abort,
     destroy,
