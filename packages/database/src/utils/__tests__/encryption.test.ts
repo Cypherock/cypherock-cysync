@@ -1,7 +1,7 @@
 import { testData } from '../__fixtures__';
 import { createHash, decryptData, encryptData } from '../encryption';
 
-const { valid: validTestData } = testData;
+const { valid: validTestData, invalid: invalidTestData } = testData;
 
 describe('DB Encryption', () => {
   test('Should create hash from message', () => {
@@ -65,23 +65,23 @@ describe('DB Encryption', () => {
     }
   });
 
-  // test('Should handle invalid data', async () => {
-  //   invalidTestData.encryption.forEach(async item => {
-  //     if (!item.data && item.message)
-  //       await expect(
-  //         encryptData(item.data, createHash(item.message[0])),
-  //       ).rejects.toThrow();
-  //   });
-  // });
+  test('Should handle invalid data', async () => {
+    invalidTestData.encryption.forEach(async item => {
+      if (!item.data && item.message)
+        await expect(
+          encryptData(item.data as any, createHash(item.message[0])),
+        ).rejects.toThrow();
+    });
+  });
 
-  // test('Should handle invalid key', async () => {
-  //   invalidTestData.encryption.forEach(async item => {
-  //     if (item.data && !item.message)
-  //       await expect(
-  //         encryptData(item.data[0], createHash(item.message as any)),
-  //       ).rejects.toThrow();
-  //   });
-  // });
+  test('Should handle invalid key', async () => {
+    invalidTestData.encryption.forEach(async item => {
+      if (item.data && !item.message)
+        await expect(
+          encryptData(item.data[0], createHash(item.message as any)),
+        ).rejects.toThrow();
+    });
+  });
 
   test('Should decrypt the given encrypted data', async () => {
     const { data, message } = validTestData.encryption[0];
