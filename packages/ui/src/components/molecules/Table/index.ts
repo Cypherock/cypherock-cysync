@@ -5,4 +5,3 @@ export * from './TableNameBox';
 export * from './TableMutedTextBox';
 export * from './AllocationShare';
 export * from './AccountTableWallet';
-export * from './MainAppStyles';

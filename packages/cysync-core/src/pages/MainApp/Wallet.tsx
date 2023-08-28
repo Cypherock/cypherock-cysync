@@ -18,7 +18,7 @@ import {
   NoAccountWrapper,
   NoSearchResult,
   NotFound,
-  WalletStructure,
+  WalletContainer,
   AccountTableHeaderWallet,
   AccountTableRow,
 } from '@cypherock/cysync-ui';
@@ -359,7 +359,7 @@ export const Wallet: FC = () => {
   return (
     <MainAppLayout title={`${walletName}`}>
       {data.length > 0 ? (
-        <WalletStructure>
+        <WalletContainer>
           <WalletHeader
             title={`${lang.strings.wallet.title}`}
             breadcrumb={breadcrumb}
@@ -427,7 +427,7 @@ export const Wallet: FC = () => {
               />
             )}
           </TableStructure>
-        </WalletStructure>
+        </WalletContainer>
       ) : (
         <NoAccountWrapper>
           <SkeletonLoader

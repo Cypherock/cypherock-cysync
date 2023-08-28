@@ -27,17 +27,11 @@ const createFuncWithErrorHandler =
   };
 
 const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
-  // const db = getDB();
+  const db = getDB();
 
-  const wallets = [
-    {
-      name: 'Cypherock Red',
-      hasPin: true,
-      hasPassphrase: false,
-      deviceId: 'abvcs',
-      __id: '1jkdshfkdshfldsf',
-    },
-  ];
+  const wallets = await db.wallet.getAll(undefined, {
+    sortBy: { key: 'name' },
+  });
   store.dispatch(setWallets(wallets));
 });
 

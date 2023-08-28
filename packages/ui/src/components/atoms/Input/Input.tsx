@@ -61,7 +61,10 @@ const InputStyle = styled.input<{
   }
 `;
 
-const InputWrapper = styled.div<{ $customImageSpacing?: boolean, $noBorder: boolean }>`
+const InputWrapper = styled.div<{
+  $customImageSpacing?: boolean;
+  $noBorder: boolean;
+}>`
   width: 100%;
   position: relative;
   display: flex;
@@ -122,7 +125,10 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             <LangDisplay text={label} />
           </InputLabel>
         )}
-        <InputWrapper $noBorder={$noBorder} $customImageSpacing={$customImageSpacing}>
+        <InputWrapper
+          $noBorder={$noBorder}
+          $customImageSpacing={$customImageSpacing}
+        >
           {leftImage}
           <InputStyle
             ref={ref}

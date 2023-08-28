@@ -26,22 +26,6 @@ export const TableStructure = styled.div`
   height: 100%;
 `;
 
-export const WalletStructure = styled.div`
-  @media ${({ theme }) => theme.screens.lg} {
-    max-height: 900px;
-    padding-right: 8px;
-    margin-right: 8px;
-  }
-  @media ${({ theme }) => theme.screens.xl} {
-    max-height: 1100px;
-    padding-right: 8px;
-    margin-right: 8px;
-  }
-  max-height: 90vh;
-  border-bottom-right-radius: 24px;
-  background: ${({ theme }) => theme.palette.content.content};
-`;
-
 const TableTitleSearch = styled.div<TableSearchProps>`
   width: auto;
   display: flex;
