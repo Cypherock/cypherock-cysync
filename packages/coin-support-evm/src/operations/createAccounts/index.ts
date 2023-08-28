@@ -5,7 +5,7 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
-import { EvmApp, GetPublicKeysStatus } from '@cypherock/sdk-app-evm';
+import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
 
 import * as services from '../../services';
 
-const DERIVATION_PATH_LIMIT = 50;
+const DERIVATION_PATH_LIMIT = 30;
 
 const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
   const { app, walletId, coinId, derivationPaths, observer } = params;
@@ -24,19 +24,16 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
     {} as any;
 
   const evmToDeviceEventMap: Partial<
-    Record<GetPublicKeysStatus, CreateAccountDeviceEvent | undefined>
+    Record<GetPublicKeysEvent, CreateAccountDeviceEvent | undefined>
   > = {
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_INIT]:
-      CreateAccountDeviceEvent.INIT,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_CONFIRM]:
-      CreateAccountDeviceEvent.CONFIRMED,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_PASSPHRASE]:
+    [GetPublicKeysEvent.INIT]: CreateAccountDeviceEvent.INIT,
+    [GetPublicKeysEvent.CONFIRM]: CreateAccountDeviceEvent.CONFIRMED,
+    [GetPublicKeysEvent.PASSPHRASE]:
       CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
-    [GetPublicKeysStatus.GET_PUBLIC_KEYS_STATUS_CARD]:
-      CreateAccountDeviceEvent.CARD_TAPPED,
+    [GetPublicKeysEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
   };
 
-  const { publicKeys } = await app.getPublicKeys({
+  const { addresses } = await app.getPublicKeys({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     chainId: evmCoinList[coinId].chain,
@@ -52,7 +49,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return publicKeys;
+  return addresses;
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =

@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
@@ -53,15 +53,28 @@ export const HorizontalBox = styled.div<{
   ${({ $checkType }) => $checkType && 'cursor: pointer'};
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<{ gap?: number }>`
   display: flex;
   align-items: center;
+  gap: ${props => (props.gap ? `${props.gap}px` : '0')};
+`;
+
+export const ContainerWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 export const StretchedTypography = styled(Typography)<{
-  $shouldStretch: boolean;
+  $shouldStretch?: boolean;
+  $fontSize?: number;
 }>`
   flex: ${({ $shouldStretch }) => ($shouldStretch ? '1' : 'unset')};
+  ${({ $fontSize }) =>
+    $fontSize &&
+    css`
+      font-size: ${$fontSize}px;
+    `}
 `;
 
 export const RightContent = styled.div`
@@ -74,6 +87,7 @@ export const RightContent = styled.div`
 export const LeanBox: FC<LeanBoxProps> = ({
   leftImage,
   rightImage,
+  image,
   rightText,
   shortForm = '',
   text,
@@ -88,6 +102,8 @@ export const LeanBox: FC<LeanBoxProps> = ({
   onCheckChanged,
   value,
   disabled,
+  altText,
+  fontSize,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -131,13 +147,26 @@ export const LeanBox: FC<LeanBoxProps> = ({
           />
         )}
         {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
-        <StretchedTypography
-          $shouldStretch={!tag}
-          variant={textVariant}
-          color={color}
-        >
-          {text}
-        </StretchedTypography>
+        <ContainerWrap>
+          <StretchedTypography
+            $shouldStretch={!tag}
+            variant={textVariant}
+            color={color}
+            $fontSize={fontSize}
+          >
+            {text}
+          </StretchedTypography>
+          {image && image}
+          {altText && (
+            <StretchedTypography
+              variant={textVariant}
+              color="white"
+              $fontSize={fontSize}
+            >
+              {altText}
+            </StretchedTypography>
+          )}
+        </ContainerWrap>
         {shortForm && (
           <Typography $fontSize={13} $fontWeight="medium" color="muted">
             <LangDisplay text={shortForm} />
@@ -149,7 +178,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
             <Typography
               variant={rightTextVariant}
               color={rightTextColor}
-              $fontSize={14}
+              $fontSize={fontSize ?? 14}
               $fontWeight="normal"
             >
               {rightText}

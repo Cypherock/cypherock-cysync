@@ -14,7 +14,7 @@ type ButtonVariant =
   | 'icon'
   | 'none';
 type ButtonSize = 'lg' | 'md' | 'sm';
-interface ButtonProps
+export interface ButtonProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

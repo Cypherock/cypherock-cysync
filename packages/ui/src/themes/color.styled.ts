@@ -29,7 +29,7 @@ export const colors = {
   },
   disabled: {
     background: '#332E29',
-    text: '#433C35',
+    text: '#544D47',
   },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
@@ -42,6 +42,7 @@ export const colors = {
     error: '#FF624C',
     errorDark: '#74271C',
     success: '#51C61A',
+    black: '#000000',
     white: '#ffffff',
     goldenrod: '#daa520',
     disabled: '#423D39',
@@ -59,12 +60,15 @@ export const colors = {
     gold: '#E9B873',
     dropdownHover: '#191715',
     black: '#000000',
+    container: '#1B1812',
     toggleOff: '#544D43',
     list: '#2C2824',
     info: '#4A2D00',
     lightBlack: '#1B1712',
     sidebar: '#1E1A15',
+    slider: '#3A3531',
     warning: '#2C2418',
+    batchTransactionBody: '#1b1812',
   },
   border: {
     popup: '#2C2520',
@@ -72,6 +76,7 @@ export const colors = {
     input: '#3C3937',
     separator: '#39322C',
     warning: '#4A2D00',
+    error: '#FF624C',
     bar: '#474747',
     table: {
       title: '#363535',

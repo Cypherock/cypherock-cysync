@@ -1,44 +1,98 @@
+import { testData } from '../__fixtures__';
 import { createHash, decryptData, encryptData } from '../encryption';
+
+const { valid: validTestData } = testData;
 
 describe('DB Encryption', () => {
   test('Should create hash from message', () => {
-    const sampleMessage = 'sampleMessage';
-    const expectedHashKey =
-      '1241577c3bb040e87a647d60bf2b373a09afd40624add04ce7d00321d0bb4678';
-    const hashBuffer = createHash(sampleMessage);
-    const hashHex = hashBuffer.toString('hex');
-    expect(hashHex).toEqual(expectedHashKey);
+    expect(
+      createHash(validTestData.hashing[0].message).toString('hex'),
+    ).toEqual(validTestData.hashing[0].expectedHashKey);
+  });
+
+  test('Should create hash from empty message', () => {
+    expect(
+      createHash(validTestData.hashing[1].message).toString('hex'),
+    ).toEqual(validTestData.hashing[1].expectedHashKey);
   });
 
   test('Should encrypt data using the provided key', async () => {
-    const sampleData = 'sampleData';
-    const sampleMessage = 'sampleMessage';
-    const sampleKey = createHash(sampleMessage);
+    const { data, message } = validTestData.encryption[0];
 
-    const encryptedData = await encryptData(sampleData, sampleKey);
-    expect(encryptedData).toMatch(/^[0-9a-fA-F]+\.[0-9a-fA-F]+$/);
+    if (data && message) {
+      const encryptedData = await encryptData(data[0], createHash(message[0]));
+      expect(encryptedData).toMatch(/^[0-9a-fA-F]+\.[0-9a-fA-F]+$/);
+    }
   });
 
-  test('Should produce different encrypted outputs for the same input and different keys', async () => {
-    const sampleData = 'sampleData';
-    const sampleMessage1 = 'sampleMessage1';
-    const sampleMessage2 = 'sampleMessage2';
-    const sampleKey1 = createHash(sampleMessage1);
-    const sampleKey2 = createHash(sampleMessage2);
+  test('Should produce different encrypted outputs for the different inputs and same keys', async () => {
+    const { data, message } = validTestData.encryption[1];
 
-    const encryptedData1 = await encryptData(sampleData, sampleKey1);
-    const encryptedData2 = await encryptData(sampleData, sampleKey2);
-
-    expect(encryptedData1).not.toEqual(encryptedData2);
+    if (data && message) {
+      const encryptedData1 = await encryptData(data[0], createHash(message[0]));
+      const encryptedData2 = await encryptData(data[1], createHash(message[0]));
+      expect(encryptedData1).not.toEqual(encryptedData2);
+    }
   });
+
+  test('Should produce different encrypted outputs for the same inputs and different keys', async () => {
+    const { data, message } = validTestData.encryption[2];
+
+    if (data && message) {
+      const encryptedData1 = await encryptData(data[0], createHash(message[0]));
+      const encryptedData2 = await encryptData(data[0], createHash(message[1]));
+      expect(encryptedData1).not.toEqual(encryptedData2);
+    }
+  });
+
+  test('Should produce different encrypted outputs for the same input and same keys', async () => {
+    const { data, message } = validTestData.encryption[0];
+
+    if (data && message) {
+      const encryptedData1 = await encryptData(data[0], createHash(message[0]));
+      const encryptedData2 = await encryptData(data[0], createHash(message[0]));
+      expect(encryptedData1).not.toEqual(encryptedData2);
+    }
+  });
+
+  test('Should produce different encrypted outputs for the different input and different keys', async () => {
+    const { data, message } = validTestData.encryption[3];
+
+    if (data && message) {
+      const encryptedData1 = await encryptData(data[0], createHash(message[0]));
+      const encryptedData2 = await encryptData(data[1], createHash(message[1]));
+      expect(encryptedData1).not.toEqual(encryptedData2);
+    }
+  });
+
+  // test('Should handle invalid data', async () => {
+  //   invalidTestData.encryption.forEach(async item => {
+  //     if (!item.data && item.message)
+  //       await expect(
+  //         encryptData(item.data, createHash(item.message[0])),
+  //       ).rejects.toThrow();
+  //   });
+  // });
+
+  // test('Should handle invalid key', async () => {
+  //   invalidTestData.encryption.forEach(async item => {
+  //     if (item.data && !item.message)
+  //       await expect(
+  //         encryptData(item.data[0], createHash(item.message as any)),
+  //       ).rejects.toThrow();
+  //   });
+  // });
 
   test('Should decrypt the given encrypted data', async () => {
-    const sampleData = 'sampleData';
-    const sampleMessage = 'sampleMessage';
-    const sampleBuffer = createHash(sampleMessage);
-    const encryptedData = await encryptData(sampleData, sampleBuffer);
+    const { data, message } = validTestData.encryption[0];
 
-    const decryptedData = await decryptData(encryptedData, sampleBuffer);
-    expect(decryptedData).toEqual(sampleData);
+    if (data && message) {
+      const encryptedData = await encryptData(data[0], createHash(message[0]));
+      const decryptedData = await decryptData(
+        encryptedData,
+        createHash(message[0]),
+      );
+      expect(decryptedData).toEqual(data[0]);
+    }
   });
 });

@@ -1,4 +1,10 @@
-import { IDatabase, ITransaction } from '@cypherock/db-interfaces';
+import {
+  IDatabase,
+  IPriceHistory,
+  IPriceInfo,
+  ITransaction,
+  TransactionStatusMap,
+} from '@cypherock/db-interfaces';
 
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
@@ -26,13 +32,16 @@ export const getLatestTransactionBlock = async (
   db: IDatabase,
   query: Partial<ITransaction>,
 ) => {
-  const res = await db.transaction.getOne(query, {
-    sortBy: {
-      key: 'blockHeight',
-      descending: true,
+  const res = await db.transaction.getOne(
+    { ...query, status: TransactionStatusMap.success },
+    {
+      sortBy: {
+        key: 'blockHeight',
+        descending: true,
+      },
+      limit: 1,
     },
-    limit: 1,
-  });
+  );
 
   if (!res) return undefined;
 
@@ -54,4 +63,45 @@ export const getLatestTransactionHash = async (
   if (!res) return undefined;
 
   return res.hash;
+};
+
+export const insertOrUpdatePriceInfo = async (
+  db: IDatabase,
+  priceInfos: IPriceInfo[],
+) => {
+  for (const priceInfo of priceInfos) {
+    const query: Partial<IPriceInfo> = {
+      assetId: priceInfo.assetId,
+      currency: priceInfo.currency,
+    };
+
+    const existingPriceInfo = await db.priceInfo.getOne(query);
+    if (existingPriceInfo) {
+      await db.priceInfo.update({ __id: existingPriceInfo.__id }, priceInfo);
+    } else {
+      await db.priceInfo.insert(priceInfo);
+    }
+  }
+};
+
+export const insertOrUpdatePriceHistory = async (
+  db: IDatabase,
+  priceHistories: IPriceHistory[],
+) => {
+  for (const priceHistory of priceHistories) {
+    const query: Partial<IPriceHistory> = {
+      assetId: priceHistory.assetId,
+      currency: priceHistory.currency,
+    };
+
+    const existingPriceHistory = await db.priceHistory.getOne(query);
+    if (existingPriceHistory) {
+      await db.priceHistory.update(
+        { __id: existingPriceHistory.__id },
+        priceHistory,
+      );
+    } else {
+      await db.priceHistory.insert(priceHistory);
+    }
+  }
 };
