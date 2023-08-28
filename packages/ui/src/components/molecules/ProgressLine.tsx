@@ -15,8 +15,8 @@ export const ProgressLine: FC<{
 }> = ({ index, length, activeTab }) => (
   <Flex height={60} align={index === length - 1 ? 'flex-start' : 'flex-end'}>
     <Flex
-      direction={!(index === 0 || index - 1) ? 'column' : 'row'}
-      align={index === length - 1 ? 'flex-end' : 'flex-start'}
+      direction={!(index === 0 || index >= length) ? 'column' : 'row'}
+      align={index === length ? 'flex-end' : 'flex-start'}
     >
       <Container
         $bgColor={bgColor(activeTab, index)}

@@ -26,6 +26,9 @@ export const theme = {
     secondary: {
       secondary: colors.gradients.secondary,
     },
+    content: {
+      content: colors.gradients.content,
+    },
     info: {
       main: colors.info.main,
     },
@@ -51,6 +54,7 @@ export const theme = {
     background: {
       progress: colors.background.progressBar,
       input: colors.background.input,
+      container: colors.background.container,
       blur: colors.background.blur,
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
@@ -73,7 +77,10 @@ export const theme = {
       info: colors.background.info,
       lightBlack: colors.background.lightBlack,
       sidebar: colors.background.sidebar,
+      slider: colors.background.slider,
       warning: colors.background.warning,
+      breadcrumbSeparator: colors.background.breadcrumbSeparator,
+      batchTransactionBody: colors.background.batchTransactionBody,
     },
     border: {
       popup: colors.border.popup,
@@ -81,6 +88,7 @@ export const theme = {
       info: colors.info.main,
       separator: colors.background.separator,
       warning: colors.border.warning,
+      error: colors.border.error,
       bar: colors.border.bar,
       white: colors.border.white,
       table: {

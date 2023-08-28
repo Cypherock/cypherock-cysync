@@ -12,12 +12,15 @@ import {
   FlexProps,
   BgColorProps,
   bgColor,
+  height,
+  HeightProps,
 } from '../utils';
 
-interface ContainerProps
+export interface ContainerProps
   extends UtilsProps,
     SpacingProps,
     BorderProps,
+    HeightProps,
     FlexProps,
     BgColorProps {
   children?: ReactNode;
@@ -38,6 +41,7 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${border}
   ${flex}
   ${bgColor}
+  ${height}
 `;
 
 export const Container: FC<ContainerProps> = ({ children, ...props }) => (
@@ -54,4 +58,15 @@ export const FlexGapContainer = styled(Container)`
   flex-direction: column;
   gap: 32px;
   z-index: 1;
+`;
+
+export const BatchContainer = styled.div`
+  background-color: ${({ theme }) =>
+    theme.palette.background.batchTransactionBody};
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  max-height: 458px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;

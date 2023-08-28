@@ -8,5 +8,6 @@ export const PriceInfo: ITableDetails<Omit<IPriceInfo, BaseFields>> = {
     currency: { type: 'string' },
     latestPrice: { type: 'string' },
     assetId: { type: 'string' },
+    lastSyncedAt: { type: 'number' },
   },
 };

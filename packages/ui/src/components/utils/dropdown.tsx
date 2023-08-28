@@ -17,13 +17,12 @@ export const findSelectedItem = (
 export const searchInItems = (
   menuItems: DropDownListItemProps[],
   searchString: string,
-  selectedItem: string | undefined,
 ): DropDownListItemProps[] => {
   const filteredItems: DropDownListItemProps[] = [];
   for (const item of menuItems) {
-    const shouldAdd =
-      item.id === selectedItem ||
-      item.text.toLowerCase().includes(searchString.toLowerCase());
+    const shouldAdd = item.text
+      .toLowerCase()
+      .includes(searchString.toLowerCase());
 
     if (shouldAdd) {
       filteredItems.push(item);
@@ -47,6 +46,7 @@ export const handleKeyDown =
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
     listRef: MutableRefObject<HTMLUListElement | null>,
+    dropdownRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const visibleItemsCount = filteredItems.length;
@@ -57,7 +57,6 @@ export const handleKeyDown =
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
-          setFocusedIndex(0);
         } else {
           setFocusedIndex(prevIndex =>
             prevIndex === null
@@ -66,15 +65,23 @@ export const handleKeyDown =
           );
           listRef.current?.focus();
 
-          if (focusedIndex === visibleItemsCount - 2) {
-            const nextItem = listRef.current?.children[focusedIndex + 1] as
-              | HTMLElement
-              | undefined;
-            const scrollOffset =
-              (nextItem?.offsetTop ?? 0) -
-              (listRef.current?.offsetHeight ?? 0) +
-              (nextItem?.offsetHeight ?? 0);
-            listRef.current?.scrollTo({ top: scrollOffset });
+          if (focusedIndex !== null && focusedIndex < visibleItemsCount - 1) {
+            const nextItem = listRef.current?.children[
+              focusedIndex + 1
+            ] as HTMLElement | null;
+
+            const nextItemBottom =
+              (nextItem?.offsetTop ?? 0) + (nextItem?.offsetHeight ?? 0);
+
+            const visibleBottom =
+              (listRef.current?.scrollTop ?? 0) +
+              (listRef.current?.offsetHeight ?? 0);
+
+            if (nextItemBottom > visibleBottom) {
+              const scrollOffset =
+                nextItemBottom - (listRef.current?.offsetHeight ?? 0);
+              listRef.current?.scrollTo({ top: scrollOffset });
+            }
           }
         }
         break;
@@ -92,12 +99,16 @@ export const handleKeyDown =
           );
           listRef.current?.focus();
 
-          if (focusedIndex === 0) {
-            const prevItem = listRef.current?.children[focusedIndex - 1] as
-              | HTMLElement
-              | undefined;
-            const scrollOffset = prevItem?.offsetTop;
-            listRef.current?.scrollTo({ top: scrollOffset });
+          if (focusedIndex !== null) {
+            if (focusedIndex === 0) {
+              listRef.current?.scrollTo({ top: 0 });
+            } else {
+              const prevItem = listRef.current?.children[focusedIndex - 1] as
+                | HTMLElement
+                | undefined;
+              const scrollOffset = prevItem?.offsetTop;
+              listRef.current?.scrollTo({ top: scrollOffset });
+            }
           }
         }
         break;
@@ -111,6 +122,7 @@ export const handleKeyDown =
           setSelectedIndex(focusedIndex);
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
           toggleDropdown();
+          dropdownRef.current?.focus();
         }
         break;
       case 'Tab':

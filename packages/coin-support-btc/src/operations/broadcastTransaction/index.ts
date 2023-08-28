@@ -90,7 +90,7 @@ export const broadcastTransaction = async (
   );
 
   const totalOutputs = parsedTransaction.outputs.reduce(
-    (sum, output) => (!output.isMine ? sum.plus(output.amount) : sum),
+    (sum, output) => (output.isMine ? sum.plus(output.amount) : sum),
     new BigNumber(0),
   );
 
@@ -101,7 +101,7 @@ export const broadcastTransaction = async (
     : TransactionTypeMap.send;
 
   if (parsedTransaction.type === TransactionTypeMap.send) {
-    amount = amount.minus(parsedTransaction.fees);
+    amount = amount.abs().minus(parsedTransaction.fees);
   } else {
     logger.warn('Positive amount while sending transaction');
     logger.warn({

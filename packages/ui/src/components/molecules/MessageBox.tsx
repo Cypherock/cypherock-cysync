@@ -2,7 +2,13 @@ import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
 import { InfoItalicsIcon } from '../../assets';
-import { Container, LangDisplay, Typography } from '../atoms';
+import {
+  Container,
+  Flex,
+  LangDisplay,
+  Typography,
+  TypographyColor,
+} from '../atoms';
 import { BgColor, BorderColor } from '../utils';
 
 export type MessageBoxType = 'info' | 'warning';
@@ -16,8 +22,11 @@ const bgColorMap: Record<MessageBoxType, BgColor> = {
 };
 export const MessageBox: FC<{
   text: string;
+  altText?: string;
+  textColor?: TypographyColor;
   type: MessageBoxType;
-}> = ({ text, type }) => {
+  rightImage?: React.ReactNode;
+}> = ({ text, altText, type, textColor, rightImage }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
@@ -33,13 +42,31 @@ export const MessageBox: FC<{
       p={1}
       px={2}
       justify="flex-start"
+      $alignSelf="stretch"
     >
       <div>
         <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
       </div>
-      <Typography variant="fineprint" color="muted">
-        <LangDisplay text={text} />
-      </Typography>
+      <Flex direction="column" gap={4}>
+        <Typography variant="fineprint" color={textColor ?? 'muted'}>
+          <LangDisplay text={text} />
+          {!altText && rightImage && rightImage}
+        </Typography>
+        {altText && (
+          <Container align="center" gap={5}>
+            <Typography variant="fineprint">
+              <LangDisplay text={altText} />
+            </Typography>
+            {rightImage && rightImage}
+          </Container>
+        )}
+      </Flex>
     </Container>
   );
+};
+
+MessageBox.defaultProps = {
+  rightImage: undefined,
+  altText: undefined,
+  textColor: undefined,
 };

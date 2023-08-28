@@ -64,6 +64,7 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
             derivationPath,
             walletId: account.walletId,
             observer,
+            account,
           });
           observer.next({
             type: 'AddressMatched',

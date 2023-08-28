@@ -5,7 +5,7 @@ import {
   CreateAccountDeviceEvent,
 } from '@cypherock/coin-support-interfaces';
 import { IAccount } from '@cypherock/db-interfaces';
-import { GetXpubsStatus } from '@cypherock/sdk-app-btc';
+import { GetXpubsEvent } from '@cypherock/sdk-app-btc';
 
 import { BTCDerivationSchemeName } from './schemes/types';
 
@@ -27,11 +27,10 @@ export interface ICreateBtcAccountEvent extends ICreateAccountEvent {
 }
 
 export const btcToDeviceEventMap: Partial<
-  Record<GetXpubsStatus, CreateAccountDeviceEvent | undefined>
+  Record<GetXpubsEvent, CreateAccountDeviceEvent | undefined>
 > = {
-  [GetXpubsStatus.GET_XPUBS_STATUS_INIT]: CreateAccountDeviceEvent.INIT,
-  [GetXpubsStatus.GET_XPUBS_STATUS_CONFIRM]: CreateAccountDeviceEvent.CONFIRMED,
-  [GetXpubsStatus.GET_XPUBS_STATUS_PASSPHRASE]:
-    CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
-  [GetXpubsStatus.GET_XPUBS_STATUS_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
+  [GetXpubsEvent.INIT]: CreateAccountDeviceEvent.INIT,
+  [GetXpubsEvent.CONFIRM]: CreateAccountDeviceEvent.CONFIRMED,
+  [GetXpubsEvent.PASSPHRASE]: CreateAccountDeviceEvent.PASSPHRASE_ENTERED,
+  [GetXpubsEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
 };
