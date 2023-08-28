@@ -26,6 +26,9 @@ export const theme = {
     secondary: {
       secondary: colors.gradients.secondary,
     },
+    content: {
+      content: colors.gradients.content,
+    },
     info: {
       main: colors.info.main,
     },
@@ -76,6 +79,7 @@ export const theme = {
       sidebar: colors.background.sidebar,
       slider: colors.background.slider,
       warning: colors.background.warning,
+      breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
     },
     border: {
