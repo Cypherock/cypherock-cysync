@@ -20,7 +20,7 @@ export const testData: TestData = {
         message: ['sampleMessage'],
       },
       {
-        data: ['sampleData1, sampleData2'],
+        data: ['sampleData1', 'sampleData2'],
         message: ['sampleMessage'],
       },
       {
@@ -28,13 +28,22 @@ export const testData: TestData = {
         message: ['sampleMessage1', 'sampleMessage2'],
       },
       {
-        data: ['sampleData1, sampleData2'],
+        data: ['sampleData1', 'sampleData2'],
         message: ['sampleMessage1', 'sampleMessage2'],
       },
     ],
   },
   invalid: {
-    hashing: [],
+    hashing: [
+      {
+        message: null,
+        expectedHashKey: '',
+      },
+      {
+        message: undefined,
+        expectedHashKey: '',
+      },
+    ],
     encryption: [
       {
         data: ['sampleData'],

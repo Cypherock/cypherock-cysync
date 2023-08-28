@@ -3,7 +3,7 @@ type Case = 'valid' | 'invalid';
 export type TestData = {
   [key in Case]: {
     hashing: {
-      message: string;
+      message: string | null | undefined;
       expectedHashKey: string;
     }[];
     encryption: {
