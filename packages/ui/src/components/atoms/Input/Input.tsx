@@ -27,6 +27,7 @@ export interface InputProps {
   $textColor?: string;
   $error?: boolean;
   leftImage?: React.ReactNode;
+  $customImageSpacing?: boolean;
   $noBorder?: boolean;
 }
 
@@ -60,11 +61,18 @@ const InputStyle = styled.input<{
   }
 `;
 
-const InputWrapper = styled.div<{ $noBorder: boolean }>`
+const InputWrapper = styled.div<{
+  $customImageSpacing?: boolean;
+  $noBorder: boolean;
+}>`
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
+  gap: ${({ $customImageSpacing }) => (!$customImageSpacing ? '12px' : '0px')};
+  padding-left: ${({ $customImageSpacing }) =>
+    !$customImageSpacing ? '0px' : '24px'};
+  align-items: center;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   border: 1px solid
@@ -106,6 +114,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         onKeyDown = undefined,
         $error = false,
         leftImage,
+        $customImageSpacing,
         $noBorder = false,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
@@ -116,7 +125,10 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             <LangDisplay text={label} />
           </InputLabel>
         )}
-        <InputWrapper $noBorder={$noBorder}>
+        <InputWrapper
+          $noBorder={$noBorder}
+          $customImageSpacing={$customImageSpacing}
+        >
           {leftImage}
           <InputStyle
             ref={ref}
@@ -184,6 +196,7 @@ Input.defaultProps = {
   $textColor: 'muted',
   $error: false,
   leftImage: undefined,
+  $customImageSpacing: false,
 };
 
 Input.displayName = 'Input';

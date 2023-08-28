@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { UtilsProps, utils } from '../utils';
@@ -12,9 +12,15 @@ export interface FlexComponentProps extends UtilsProps {
   children?: ReactNode;
 }
 
-export const Flex: FC<FlexComponentProps> = ({ children, ...props }) => (
-  <FlexStyle {...props}>{children}</FlexStyle>
+export const Flex = React.forwardRef<HTMLDivElement, FlexComponentProps>(
+  ({ children, ...props }, ref) => (
+    <FlexStyle ref={ref} {...props}>
+      {children}
+    </FlexStyle>
+  ),
 );
+
+Flex.displayName = 'Flex';
 
 Flex.defaultProps = {
   children: undefined,
