@@ -12,17 +12,15 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story={
-    args:{
-        img: LogoOutlinedAsideImage,
-        currentState: 2,
-        totalState: 5,
-        version: '1.0.0',
-        title: 'Title',
-        subTitle: 'SubTitle',
-        showAside: true,
-        children: <div style={{width: '30rem'}}>
-            Children
-        </div>
-    }
-}
+export const Default: Story = {
+  args: {
+    img: LogoOutlinedAsideImage,
+    currentState: 2,
+    totalState: 5,
+    version: '1.0.0',
+    title: 'Title',
+    subTitle: 'SubTitle',
+    showAside: true,
+    children: <div style={{ width: '30rem' }}>Children</div>,
+  },
+};

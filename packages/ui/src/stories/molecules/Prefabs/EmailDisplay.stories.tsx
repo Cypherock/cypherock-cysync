@@ -11,8 +11,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story={
-    args:{
-        email: 'testemail@cypherock.com'
-    }
-}
+export const Default: Story = {
+  args: {
+    email: 'testemail@cypherock.com',
+  },
+};
