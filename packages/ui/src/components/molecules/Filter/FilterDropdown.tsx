@@ -5,7 +5,11 @@ import {
   SolanaIcon,
 } from '../../../assets';
 import React, { FC, useState } from 'react';
-import { FilterLayout, FilterMenuWrapper } from './FilterStyles';
+import {
+  FilterItemWrapper,
+  FilterLayout,
+  FilterMenuWrapper,
+} from './FilterStyles';
 import { FilterMenuDesign } from './FilterMenuDesign';
 import { Filter } from './Filter';
 
@@ -150,26 +154,29 @@ export const FilterDropdown: FC = () => {
         onClick={handleFilterClick}
       />
       {isOpen && (
-        <FilterLayout>
-          {data.map((item, index) => {
-            const selectedCount = checkboxStates[index].filter(Boolean).length;
-            return (
-              <Filter
-                key={`filter-${index + 1}`}
-                menu={item.name}
-                subMenu={item.subArray}
-                isToggled={filterStates[index]}
-                onToggle={() => handleFilterToggle(index)}
-                checkboxStates={checkboxStates[index]}
-                onCheckboxChange={subMenuIndex =>
-                  handleCheckboxChange(index, subMenuIndex)
-                }
-                selectedCount={selectedCount}
-                onToggleAllCheckboxes={() => handleToggleAllCheckboxes(index)}
-              />
-            );
-          })}
-        </FilterLayout>
+        <FilterItemWrapper>
+          <FilterLayout>
+            {data.map((item, index) => {
+              const selectedCount =
+                checkboxStates[index].filter(Boolean).length;
+              return (
+                <Filter
+                  key={`filter-${index + 1}`}
+                  menu={item.name}
+                  subMenu={item.subArray}
+                  isToggled={filterStates[index]}
+                  onToggle={() => handleFilterToggle(index)}
+                  checkboxStates={checkboxStates[index]}
+                  onCheckboxChange={subMenuIndex =>
+                    handleCheckboxChange(index, subMenuIndex)
+                  }
+                  selectedCount={selectedCount}
+                  onToggleAllCheckboxes={() => handleToggleAllCheckboxes(index)}
+                />
+              );
+            })}
+          </FilterLayout>
+        </FilterItemWrapper>
       )}
     </FilterMenuWrapper>
   );

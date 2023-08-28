@@ -42,11 +42,16 @@ export const FilterMenuDesignWrapper = styled.div`
   }
 `;
 
+export const FilterItemWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 export const FilterLayout = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  max-width: 420px;
+  width: 100%;
   padding: 16px 0px;
   border-radius: var(--8-px, 8px);
   background: ${({ theme }) => theme.palette.background.separatorSecondary};

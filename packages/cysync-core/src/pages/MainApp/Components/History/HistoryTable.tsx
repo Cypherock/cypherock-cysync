@@ -431,7 +431,7 @@ export const HistoryTable = () => {
                         variant="grey"
                         pl={isSmallScreen ? 3 : undefined}
                         title={row.type}
-                        textColor={row.typeColor ?? undefined}
+                        $textColor={row.typeColor ?? undefined}
                         subtitle={row.time}
                         date={row.date}
                       />

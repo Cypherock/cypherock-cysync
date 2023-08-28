@@ -10,7 +10,7 @@ interface HistoryNameBoxProps extends UtilsProps {
   fill: string;
   variant: 'grey' | 'success';
   title: string;
-  textColor?: TypographyColor;
+  $textColor?: TypographyColor;
   subtitle: string;
   date?: string;
   size?: 'small' | 'big';
@@ -80,7 +80,7 @@ export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
         <Typography
           variant="p"
           $fontWeight="semibold"
-          color={props.textColor ?? undefined}
+          color={props.$textColor ?? undefined}
         >
           {props.title}
         </Typography>
@@ -108,5 +108,5 @@ export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
 HistoryNameBox.defaultProps = {
   size: 'big',
   date: undefined,
-  textColor: undefined,
+  $textColor: undefined,
 };
