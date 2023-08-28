@@ -68,6 +68,8 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import WalletConnectLogo from './WalletConnectLogo.svg';
+import UniSwapLogo from './UniSwapLogo.svg';
 
 export {
   addWalletIcon,
@@ -140,4 +142,6 @@ export {
   goldSendIcon,
   warningIcon,
   verifyAmountIcon,
+  WalletConnectLogo,
+  UniSwapLogo,
 };

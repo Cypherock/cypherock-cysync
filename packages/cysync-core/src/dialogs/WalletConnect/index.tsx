@@ -5,21 +5,17 @@ import {
   CloseButton,
   DialogBoxBackgroundBar,
   DialogBoxBody,
-  HelpButton,
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
 import { DialogBox } from '@cypherock/cysync-ui/src';
-import { selectLanguage, useAppSelector } from '~/store';
 
 const WalletConnect: FC = () => {
-  const lang = useAppSelector(selectLanguage);
   const { currentDialog, tabs, currentTab, onClose } = useWalletConnectDialog();
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox direction="row" gap={0}>
         <WalletDialogMainContainer>
-          {/* {blastConfetti && <ConfettiBlast />} */}
           <DialogBoxBody
             p={0}
             grow={2}
@@ -36,23 +32,10 @@ const WalletConnect: FC = () => {
           </DialogBoxBody>
 
           <DialogBoxBackgroundBar
-            leftComponent={<HelpButton text={lang.strings.help} />}
             rightComponent={<CloseButton onClick={onClose} />}
             position="top"
             useLightPadding
           />
-          {/* {showBackButton && (
-              <DialogBoxBackgroundBar
-                leftComponent={
-                  <BackButton
-                    text={lang.strings.back}
-                    onClick={backToWalletActions}
-                  />
-                }
-                position="bottom"
-                useLightPadding
-              />
-            )} */}
         </WalletDialogMainContainer>
       </DialogBox>
     </BlurOverlay>

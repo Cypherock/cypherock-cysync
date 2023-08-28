@@ -6,7 +6,7 @@ import React, {
   useContext,
   useMemo,
 } from 'react';
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useTabsAndDialogs, useAccountDropdown } from '~/hooks';
 
 import {
   closeDialog,
@@ -20,6 +20,8 @@ import {
   WalletConnectAccountSelectionDialog,
   WalletConnectURLDialog,
 } from '../Dialogs';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { DropDownListItemProps } from '@cypherock/cysync-ui';
 
 export interface WalletConnectDialogContextInterface {
   tabs: ITabs;
@@ -30,7 +32,16 @@ export interface WalletConnectDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  // error: any | undefined;
+  selectedWallet: IWallet | undefined;
+  setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
+  handleWalletChange: () => void;
+  walletDropdownList: DropDownListItemProps[];
+  selectedAccount: IAccount | undefined;
+  setSelectedAccount: React.Dispatch<
+    React.SetStateAction<IAccount | undefined>
+  >;
+  handleAccountChange: () => void;
+  accountDropdownList: DropDownListItemProps[];
 }
 
 export const WalletConnectDialogContext: Context<WalletConnectDialogContextInterface> =
@@ -47,6 +58,17 @@ export const WalletConnectDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+
+  const {
+    selectedWallet,
+    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+    selectedAccount,
+    setSelectedAccount,
+    handleAccountChange,
+    accountDropdownList,
+  } = useAccountDropdown();
 
   /** @doubt What is it about? */
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
@@ -99,6 +121,14 @@ export const WalletConnectDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      selectedWallet,
+      setSelectedWallet,
+      handleWalletChange,
+      walletDropdownList,
+      selectedAccount,
+      setSelectedAccount,
+      handleAccountChange,
+      accountDropdownList,
     }),
     [
       isDeviceRequired,
@@ -109,6 +139,14 @@ export const WalletConnectDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      selectedWallet,
+      setSelectedWallet,
+      handleWalletChange,
+      walletDropdownList,
+      selectedAccount,
+      setSelectedAccount,
+      handleAccountChange,
+      accountDropdownList,
     ],
   );
 

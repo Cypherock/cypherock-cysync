@@ -1113,6 +1113,12 @@ const en = {
         description:
           'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
+    },
+    accountConnectedTab: {
+      title: 'Accounts',
+      info: 'You can now access the Uniswap interface DApp on your web browser',
+    },
+    common: {
       info: {
         title: 'This app will be able to:',
         points: [
@@ -1120,9 +1126,6 @@ const en = {
           'Request approvals for transactions',
         ],
       },
-    },
-    accountConnectedTab: {
-      title: 'Account Connected',
     },
   },
   portfolio: {
