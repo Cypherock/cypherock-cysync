@@ -11,18 +11,44 @@ import {
 } from '../atoms';
 import { utils, UtilsProps } from '../utils';
 
-export type AlertBoxVariantType = 'warning' | 'info' | 'none';
+export type AlertBoxVariantType =
+  | 'message'
+  | 'messageSecondary'
+  | 'warning'
+  | 'info'
+  | 'none';
 
 export interface AlertBoxProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLDivElement> {
   alert: string;
+  subAlert?: string;
   icon?: ReactNode;
   variant?: AlertBoxVariantType;
 }
 
 const maskBaseStyle = css<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
   ${props => {
+    if (props.variant === 'message')
+      return css`
+        background: ${({ theme }) => theme.palette.background.message};
+        border-width: 1px;
+        border-style: solid;
+        border-color: ${({ theme }) => theme.palette.border.message};
+        border-radius: 6px;
+        color: #ffffff;
+        font-weight: 500;
+      `;
+    if (props.variant === 'messageSecondary')
+      return css`
+        background: ${({ theme }) => theme.palette.background.messageSecondary};
+        border-width: 1px;
+        border-style: solid;
+        border-color: ${({ theme }) => theme.palette.border.messageSecondary};
+        border-radius: 6px;
+        color: #ffffff;
+        font-weight: 500;
+      `;
     if (props.variant === 'warning')
       return css`
         background: ${({ theme }) => theme.palette.background.input};
@@ -69,25 +95,41 @@ const MaskStyle = styled.div<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
 
 const iconObj: Record<AlertBoxVariantType, React.JSX.Element> = {
   warning: <InfoItalicsIcon color="yellow" />,
+  messageSecondary: <InfoItalicsIcon color="yellow" />,
+  message: <InfoItalicsIcon fill="#51C61A" />,
   info: <Image width="20" src={shieldAlert} alt="alert" />,
   none: <Image width="20" src={shieldAlert} alt="alert" />,
 };
 
 const textObj: Record<AlertBoxVariantType, TypographyColor> = {
+  message: 'message',
+  messageSecondary: 'message',
   warning: 'warn',
   info: 'info',
   none: 'info',
 };
 
-export const AlertBox: FC<AlertBoxProps> = ({ icon, alert, ...props }) => {
+export const AlertBox: FC<AlertBoxProps> = ({
+  icon,
+  alert,
+  subAlert,
+  ...props
+}) => {
   const variantCurr = props.variant ? props.variant : 'none';
 
   return (
     <MaskStyle {...props}>
       <Flex mr="20">{icon ?? iconObj[variantCurr]}</Flex>
-      <Typography variant="fineprint" color={textObj[variantCurr]}>
-        <LangDisplay text={alert} />
-      </Typography>
+      <Flex direction="column">
+        <Typography variant="fineprint" color={textObj[variantCurr]}>
+          <LangDisplay text={alert} />
+        </Typography>
+        {subAlert && (
+          <Typography variant="fineprint" color="muted">
+            <LangDisplay text={subAlert} />
+          </Typography>
+        )}
+      </Flex>
     </MaskStyle>
   );
 };
@@ -95,4 +137,5 @@ export const AlertBox: FC<AlertBoxProps> = ({ icon, alert, ...props }) => {
 AlertBox.defaultProps = {
   variant: 'info',
   icon: undefined,
+  subAlert: undefined,
 };

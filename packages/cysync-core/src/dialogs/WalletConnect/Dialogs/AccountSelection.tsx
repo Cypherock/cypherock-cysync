@@ -96,12 +96,14 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               );
             })}
             <AlertBox
-              alert="These blockchains are supported but add their accounts before use: Avalanche C-Chain, Solana, Binance"
-              variant="info"
+              alert="These blockchains are supported but add their accounts before use"
+              subAlert="Avalanche C-Chain, Solana, Binance"
+              variant="message"
             />
             <AlertBox
-              alert={`${accountSelectionTab.notSupportedWarning.title}: ${accountSelectionTab.notSupportedWarning.description}`}
-              variant="warning"
+              alert={accountSelectionTab.notSupportedWarning.title}
+              subAlert={accountSelectionTab.notSupportedWarning.description}
+              variant="messageSecondary"
             />
             <Typography>
               <LangDisplay text={common.info.title} />
