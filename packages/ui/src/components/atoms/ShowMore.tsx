@@ -14,7 +14,6 @@ const ShowMoreWrapper = styled.div`
   border: 1px dashed ${({ theme }) => theme.palette.border.muted};
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   margin-top: 16px;
-  margin-bottom: 20px;
   cursor: pointer;
 `;
 

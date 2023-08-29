@@ -4,4 +4,4 @@ export * from './TableIconNameBox';
 export * from './TableNameBox';
 export * from './TableMutedTextBox';
 export * from './AllocationShare';
-export * from './AccountTableWallet';
+export * from './AccountTable';

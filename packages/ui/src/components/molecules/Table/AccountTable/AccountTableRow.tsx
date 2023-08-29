@@ -6,31 +6,35 @@ import { Flex, Tag, Typography } from '../../../atoms';
 import { SpacingProps, spacing } from '../../../utils';
 import { Accordion } from '../../Accordion';
 
-interface TableRowProps {
+export interface TableRowProps {
   arrow?: React.ReactNode;
   leftImage?: React.ReactNode;
   text?: string;
   subText?: string;
   tag?: string;
   statusImage?: React.ReactNode;
-  tokenAmount?: string;
-  tokenValue?: string;
+  amount?: string;
+  value?: string;
   tokens?: any[];
   $subMenu?: boolean;
   $balance?: boolean;
   onClick?: () => void;
+  onStatusClick?: () => void;
 }
 
-interface RowContainerProps {
+export interface RowContainerProps {
   $rowIndex: number;
+  $isLast?: boolean;
   $show?: string;
   $hide?: string;
 }
+
 const buttonAnimationData = {
   duration: '0.3s',
   curve: 'ease-out',
 };
-const RowContainer = styled.div<RowContainerProps & TableRowProps>`
+
+const RowWrapper = styled.div<RowContainerProps & TableRowProps>`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -39,17 +43,18 @@ const RowContainer = styled.div<RowContainerProps & TableRowProps>`
   background: ${({ theme, $rowIndex }) =>
     $rowIndex % 2 !== 0 ? 'transparent' : theme.palette.background.content};
   max-height: ${({ $subMenu }) => ($subMenu ? '0' : 'auto')};
+  height: 85px;
   overflow: hidden;
   transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
-  ${({ theme }) =>
+  ${({ theme, $isLast }) =>
     `
         &:hover {  
           &::before {
               content: '';
               position: absolute;
               inset: 0;
-              border-radius: 8px;
               border: 1px solid transparent;
+              ${$isLast && `border-radius: 0 0 24px 24px`};
               background: ${theme.palette.golden};
               -webkit-mask: linear-gradient(#fff 0 0) padding-box,
                 linear-gradient(#fff 0 0);
@@ -71,6 +76,17 @@ const RowContainer = styled.div<RowContainerProps & TableRowProps>`
       `}
 `;
 
+const RowContainer = styled.div<RowContainerProps & TableRowProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+`;
+
 interface StatusContainerProps extends SpacingProps {
   width?: number;
   pleft?: number;
@@ -81,18 +97,20 @@ const StatusContainer = styled.div<StatusContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  @media ${({ theme }) => theme.screens.lg} {
+  padding: 16px;
+  cursor: pointer;
+  width: 19%;
+  @media ${({ theme }) => theme.screens.mdlg} {
+    width: 26%;
     padding: 16px 20px 16px 20px;
   }
-  padding: 16px;
   ${spacing}
 `;
 
 const AccountContainer = styled.div<StatusContainerProps>`
-  width: 300px;
-  @media ${({ theme }) => theme.screens.lg} {
-    width: 400px;
+  width: 42%;
+  @media ${({ theme }) => theme.screens.mdlg} {
+    width: 29%;
     padding: var(--16-px, 16px) var(--0-px, 0px) var(--16-px, 16px) 40px;
   }
   padding: var(--16-px, 16px) var(--16-px, 16px) var(--16-px, 16px)
@@ -100,19 +118,22 @@ const AccountContainer = styled.div<StatusContainerProps>`
 `;
 
 const BalanceContainer = styled.div<StatusContainerProps>`
-  flex: 1;
   justify-content: flex-start;
-  @media ${({ theme }) => theme.screens.lg} {
+  padding: 16px;
+
+  width: 19%;
+  @media ${({ theme }) => theme.screens.mdlg} {
+    width: 26%;
     padding: 16px 0px;
   }
-  padding: 16px;
 `;
 
 const ValueContainer = styled.div`
-  width: 147px;
   padding: 16px 24px 16px 16px;
-  @media ${({ theme }) => theme.screens.lg} {
-    width: 250px;
+
+  width: 20%;
+  @media ${({ theme }) => theme.screens.mdlg} {
+    width: 19%;
     padding: 16px 20px 16px 40px;
   }
 `;
@@ -124,14 +145,14 @@ const ArrowContainer = styled.div<TableRowProps>`
 const FullWidthTypography = styled(Typography)<TableRowProps>`
   font-size: ${({ $subMenu }) => ($subMenu ? '14px' : '16px')};
   width: ${({ $subMenu }) => ($subMenu ? '99px' : 'auto')};
-  @media ${({ theme }) => theme.screens.lg} {
+  @media ${({ theme }) => theme.screens.mdlg} {
     width: ${({ $subMenu }) => ($subMenu ? '221px' : 'auto')};
   }
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media ${({ theme }) => theme.screens.lg} {
+  @media ${({ theme }) => theme.screens.mdlg} {
   }
 `;
 
@@ -181,67 +202,83 @@ export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
   subText,
   tag,
   statusImage,
-  tokenAmount,
-  tokenValue,
+  amount,
+  value,
   tokens,
   $subMenu,
   $rowIndex,
   $hide,
   $show,
   $balance,
+  $isLast,
   onClick,
+  onStatusClick,
 }) => {
   const { isOpen, toggleAccordion } = useAccordion();
 
   return (
     <>
-      <RowContainer $rowIndex={$rowIndex} onClick={onClick}>
-        <AccountContainer
-          pleft={$subMenu ? 66 : undefined}
-          pright={$subMenu ? 16 : undefined}
-        >
-          <Flex gap={24} width="full">
-            {$subMenu && <ArrowContainer arrow={arrow}>{arrow}</ArrowContainer>}
-            {leftImage && (
-              <ImageWrapper $subMenu={$subMenu}>{leftImage}</ImageWrapper>
-            )}
-            <Flex direction="column" gap={6}>
-              <FullWidthTypography
-                color={$subMenu ? 'muted' : 'white'}
-                $subMenu={$subMenu}
-              >
-                {text}
-              </FullWidthTypography>
-              <Flex gap={8}>
-                <Typography $fontSize={12} $fontWeight="medium" color="muted">
-                  {subText}
-                </Typography>
-                {tag && (
-                  <Tag $fontSize={10} $fontWeight="medium">
-                    {tag}
-                  </Tag>
-                )}
+      <RowWrapper $rowIndex={$rowIndex} $isLast={$isLast} onClick={onClick}>
+        <RowContainer $rowIndex={$rowIndex}>
+          <AccountContainer
+            pleft={$subMenu ? 66 : undefined}
+            pright={$subMenu ? 16 : undefined}
+          >
+            <Flex gap={24} width="full" align="center">
+              {$subMenu && (
+                <ArrowContainer arrow={arrow}>{arrow}</ArrowContainer>
+              )}
+              {leftImage && (
+                <ImageWrapper $subMenu={$subMenu}>{leftImage}</ImageWrapper>
+              )}
+              <Flex direction="column" gap={6}>
+                <FullWidthTypography
+                  color={$subMenu ? 'muted' : 'white'}
+                  $subMenu={$subMenu}
+                >
+                  {text}
+                </FullWidthTypography>
+                <Flex gap={8} align="center">
+                  <Typography $fontSize={12} $fontWeight="medium" color="muted">
+                    {subText}
+                  </Typography>
+                  {tag && (
+                    <Tag $fontSize={10} $fontWeight="medium">
+                      {tag}
+                    </Tag>
+                  )}
+                </Flex>
               </Flex>
             </Flex>
-          </Flex>
-        </AccountContainer>
+          </AccountContainer>
 
-        <StatusContainer>{statusImage}</StatusContainer>
-
-        <BalanceContainer>
-          <FullWidthTypography
-            color="muted"
-            $subMenu={$subMenu}
-            $balance={$balance}
+          <StatusContainer
+            onClick={e => {
+              console.log(e);
+              e.stopPropagation();
+              if (onStatusClick) {
+                onStatusClick();
+              }
+            }}
           >
-            {tokenAmount}
-          </FullWidthTypography>
-        </BalanceContainer>
+            {statusImage}
+          </StatusContainer>
 
-        <ValueContainer>
-          <Typography color="muted">{tokenValue}</Typography>
-        </ValueContainer>
-      </RowContainer>
+          <BalanceContainer>
+            <FullWidthTypography
+              color="muted"
+              $subMenu={$subMenu}
+              $balance={$balance}
+            >
+              {amount}
+            </FullWidthTypography>
+          </BalanceContainer>
+
+          <ValueContainer>
+            <Typography color="muted">{value}</Typography>
+          </ValueContainer>
+        </RowContainer>
+      </RowWrapper>
       {tokens && tokens.length > 0 && isOpen && (
         <SubMenuWrapper>
           {tokens.map((token, index) => (
@@ -251,8 +288,8 @@ export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
                 arrow={token.arrow}
                 leftImage={token.leftImage}
                 text={token.text}
-                tokenAmount={token.tokenAmount}
-                tokenValue={token.tokenValue}
+                amount={token.amount}
+                value={token.value}
                 $rowIndex={$rowIndex}
                 $subMenu
               />
@@ -280,12 +317,14 @@ AccountTableRow.defaultProps = {
   subText: '',
   tag: '',
   statusImage: undefined,
-  tokenAmount: '',
-  tokenValue: '',
+  amount: '',
+  value: '',
   tokens: [],
   $subMenu: false,
   $show: '',
   $balance: false,
   $hide: '',
   onClick: undefined,
+  onStatusClick: undefined,
+  $isLast: false,
 };

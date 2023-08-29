@@ -1,20 +1,26 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { DropdownItem, ListItemDropdown } from '..';
+import { ListItemDropdown } from '..';
 import { DropdownArrow } from '../../assets';
 import { Flex, Typography } from '../atoms';
 
-interface BreadcrumbProps {
+export interface BreadcrumbDropdownItem {
+  id: string;
+  text: string;
+  checkType?: string;
+}
+
+export interface BreadcrumbProps {
   currentPage: string;
   breadcrumb?: string;
-  dropdown?: DropdownItem[];
+  dropdown?: BreadcrumbDropdownItem[];
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   focusedIndex: number;
   setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
   selectedItem: string;
-  setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedItem: (id: string) => void;
   dropdownState: () => void;
 }
 
@@ -66,8 +72,8 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  const handleRadioCheckChange = (itemText: string) => {
-    setSelectedItem(itemText);
+  const handleRadioCheckChange = (itemId: string) => {
+    setSelectedItem(itemId);
     setIsOpen(!isOpen);
   };
 
@@ -84,7 +90,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       if (event.key === 'Enter') {
         if (dropdown) {
           const focusedItem = dropdown[focusedIndex];
-          setSelectedItem(focusedItem.text);
+          setSelectedItem(focusedItem.id);
           setIsOpen(false);
         }
       }
@@ -169,8 +175,8 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 key={item.id}
                 text={item.text}
                 checkType={item.checkType}
-                checked={selectedItem === item.text}
-                onChange={() => handleRadioCheckChange(item.text)}
+                checked={selectedItem === item.id}
+                onChange={() => handleRadioCheckChange(item.id)}
                 focused={index === focusedIndex}
                 id={item.id}
               />

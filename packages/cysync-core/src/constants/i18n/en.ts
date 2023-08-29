@@ -1102,31 +1102,32 @@ const en = {
   },
   wallet: {
     title: 'Wallets',
-    cypherock: {
+    tableTitle: 'Accounts',
+    buttons: {
+      addAccount: 'Add Account',
+      addToken: 'Add Token',
+      less: 'Show Less',
+      more: 'Show More',
+      hide: 'Hide Tokens',
+      show: 'Show Tokens',
+    },
+    tableHeader: {
+      account: 'Account',
+      syncStatus: 'Sync Status',
+      balance: 'Balance',
+      value: 'Value',
+    },
+    accountMissing: {
       buttons: {
-        addAccount: 'Add Account',
-        addToken: 'Add Token',
-        less: 'Show Less',
-        more: 'Show More',
-        hide: 'Hide Tokens',
-        show: 'Show Tokens',
-        addCoinToken: 'Add Coin/Token',
+        addAccount: 'Add Coin/Account',
       },
-      tableHeader: {
-        account: 'Account',
-        syncStatus: 'Sync Status',
-        balance: 'Balance',
-        value: 'Value',
-      },
-      accountMissing: {
-        buttons: {
-          addAccount: 'Add Account',
-        },
-      },
-      search: {
-        text: 'No results found for',
-        subText: 'Please try searching another keywords',
-      },
+      text: 'No Account yet',
+      subText: 'No coins/accounts were found in the wallet',
+    },
+    search: {
+      placeholder: 'Search',
+      text: 'No results found for',
+      subText: 'Please try searching another keywords',
     },
   },
   errors: {
