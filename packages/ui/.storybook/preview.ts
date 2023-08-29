@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
-import { getDefaultTheme, Styles, ThemeProvider } from '../src';
+import { getDefaultTheme, GlobalStyles, ThemeProvider } from '../src';
 import '../src/stories/style.css';
 
 const theme = getDefaultTheme();
@@ -65,6 +65,6 @@ export const decorators = [
     },
     defaultTheme: 'default',
     Provider: ThemeProvider,
-    GlobalStyles: Styles,
+    GlobalStyles: GlobalStyles,
   }),
 ];
