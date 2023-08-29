@@ -70,6 +70,7 @@ import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 import WalletConnectLogo from './WalletConnectLogo.svg';
 import UniSwapLogo from './UniSwapLogo.svg';
+import PasteIcon from './PasteIcon.svg';
 
 export {
   addWalletIcon,
@@ -144,4 +145,5 @@ export {
   verifyAmountIcon,
   WalletConnectLogo,
   UniSwapLogo,
+  PasteIcon,
 };

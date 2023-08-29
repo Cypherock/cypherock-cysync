@@ -9,6 +9,7 @@ import {
   Typography,
   WalletConnectLogo,
   Image,
+  PasteIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
@@ -16,7 +17,12 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 export const WalletConnectURLDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext } = useWalletConnectDialog();
+  const {
+    onNext,
+    onPasteWalletConnectedURI,
+    walletConnectURI,
+    setWalletConnectedURI,
+  } = useWalletConnectDialog();
   const { buttons } = lang.strings;
 
   return (
@@ -35,10 +41,15 @@ export const WalletConnectURLDialog: React.FC = () => {
         </Container>
 
         <Input
+          pasteAllowed
           type="text"
           name="wallet-connect-uri"
           placeholder="Paste URI"
           label="Enter connection URI"
+          postfixIcon={<Image src={PasteIcon} alt="Paste URI" />}
+          onPostfixIconClick={onPasteWalletConnectedURI}
+          onChange={setWalletConnectedURI}
+          value={walletConnectURI}
         />
         {/* <PasteContainer link={'sdvsd'} name={'sdvsv'} /> */}
       </DialogBoxBody>

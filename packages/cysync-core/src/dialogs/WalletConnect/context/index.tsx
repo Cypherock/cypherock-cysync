@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 import { ITabs, useTabsAndDialogs, useAccountDropdown } from '~/hooks';
 
@@ -42,6 +43,11 @@ export interface WalletConnectDialogContextInterface {
   >;
   handleAccountChange: () => void;
   accountDropdownList: DropDownListItemProps[];
+  onPasteWalletConnectedURI: () => void;
+  walletConnectURI: string | undefined;
+  setWalletConnectedURI: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
 }
 
 export const WalletConnectDialogContext: Context<WalletConnectDialogContextInterface> =
@@ -111,6 +117,13 @@ export const WalletConnectDialogProvider: FC<
     tabs,
   });
 
+  const [walletConnectURI, setWalletConnectedURI] = useState<string>();
+
+  /** @throws Navigator Permission Denied Exception */
+  const onPasteWalletConnectedURI = () => {
+    navigator.clipboard.readText().then(setWalletConnectedURI);
+  };
+
   const ctx = useMemo(
     () => ({
       isDeviceRequired,
@@ -129,6 +142,9 @@ export const WalletConnectDialogProvider: FC<
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,
+      onPasteWalletConnectedURI,
+      walletConnectURI,
+      setWalletConnectedURI,
     }),
     [
       isDeviceRequired,
@@ -147,6 +163,9 @@ export const WalletConnectDialogProvider: FC<
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,
+      onPasteWalletConnectedURI,
+      walletConnectURI,
+      setWalletConnectedURI,
     ],
   );
 
