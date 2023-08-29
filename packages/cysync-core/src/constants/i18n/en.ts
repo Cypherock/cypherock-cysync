@@ -296,6 +296,8 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
+    addAccount: 'Add Account',
+    addToken: 'Add Token',
     reverify: 'Reverify',
     continue: 'Continue',
     confirm: 'Confirm',
@@ -333,7 +335,7 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
-    header: 'Add Coin/Account',
+    header: 'Add Account',
     select: {
       header: 'Select the Wallet & Coins you want to add',
       searchText: 'Search',
@@ -1104,8 +1106,6 @@ const en = {
     title: 'Wallets',
     tableTitle: 'Accounts',
     buttons: {
-      addAccount: 'Add Account',
-      addToken: 'Add Token',
       less: 'Show Less',
       more: 'Show More',
       hide: 'Hide Tokens',
@@ -1118,9 +1118,6 @@ const en = {
       value: 'Value',
     },
     accountMissing: {
-      buttons: {
-        addAccount: 'Add Coin/Account',
-      },
       text: 'No Account yet',
       subText: 'No coins/accounts were found in the wallet',
     },

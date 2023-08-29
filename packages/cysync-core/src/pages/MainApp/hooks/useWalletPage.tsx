@@ -38,8 +38,8 @@ interface AccountTokenType {
   leftImage: React.ReactNode;
   arrow?: React.ReactNode;
   text: string;
-  amount: string;
-  value: string;
+  amount: number;
+  value: number;
   displayAmount: string;
   displayValue: string;
 }
@@ -52,8 +52,8 @@ interface AccountRowData {
   subText?: string;
   tag?: string;
   statusImage: React.ReactNode;
-  amount: string;
-  value: string;
+  amount: number;
+  value: number;
   tokens?: AccountTokenType[];
   displayAmount: string;
   displayValue: string;
@@ -167,6 +167,12 @@ export const useWalletPage = () => {
   );
   const walletName = selectedWallet?.name;
 
+  useEffect(() => {
+    if (!selectedWallet) {
+      navigateTo(routes.portfolio.path);
+    }
+  }, [selectedWallet]);
+
   const dropDownData: BreadcrumbDropdownItem[] = wallets.map(w => ({
     id: w.__id ?? '',
     text: w.name,
@@ -228,8 +234,8 @@ export const useWalletPage = () => {
           ] ?? checkComponent,
         displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
         displayValue: isDiscreetMode ? '$****' : displayValue,
-        amount: a.balance,
-        value,
+        amount: parseFloat(amount),
+        value: parseFloat(value),
       };
     });
 

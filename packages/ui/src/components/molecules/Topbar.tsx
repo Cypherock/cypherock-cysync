@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
-  Check,
+  SyncingIcon,
   Connected,
   VisibilityHide,
   Visibility,
@@ -87,7 +87,7 @@ export const Topbar: FC<ITopbar> = ({
   };
 
   const syncStatusMap = {
-    syncronized: <Check stroke={theme?.palette.success.main} />,
+    syncronized: <SyncingIcon />,
     syncronizing: (
       <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
     ),
@@ -139,7 +139,7 @@ export const Topbar: FC<ITopbar> = ({
         <DividingLine />
         <Button variant="icon" onClick={toggleDiscreetMode}>
           <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
+            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
           </Flex>
         </Button>
         {isPasswordSet && !isLockscreenLoading && (

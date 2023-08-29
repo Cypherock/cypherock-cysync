@@ -52,7 +52,7 @@ const ListItemWrapper = styled.div`
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
   width: 276px;
-  height: 240px;
+  max-height: 240px;
   top: calc(100% + 10px);
   left: 0;
 `;

@@ -42,8 +42,10 @@ export const Wallet: FC = () => {
 
   const displayShowMore = displayedData.length > ITEMS_PER_PAGE;
 
+  const hasAccounts = accountList.length > 0;
+
   const getMainContent = () => {
-    if (accountList.length > 0) {
+    if (hasAccounts) {
       return (
         <TableStructure>
           <TableSearch
@@ -79,7 +81,7 @@ export const Wallet: FC = () => {
                   $hide={lang.strings.wallet.buttons.hide}
                   $show={lang.strings.wallet.buttons.show}
                   $balance
-                  onClick={() => handleAccountTableRow(row)}
+                  onClick={() => handleAccountTableRow()}
                   onStatusClick={() => handleStatusClick(row)}
                 />
               ))}
@@ -110,7 +112,7 @@ export const Wallet: FC = () => {
           loader={<BitcoinGray />}
           text={lang.strings.wallet.accountMissing.text}
           subText={lang.strings.wallet.accountMissing.subText}
-          $buttonOne={lang.strings.wallet.buttons.addAccount}
+          $buttonOne={lang.strings.buttons.addAccount}
           onClick={handleAddAccountClick}
         />
       </NoAccountWrapper>
@@ -129,8 +131,10 @@ export const Wallet: FC = () => {
           dropdown={dropDownData}
           selectedItem={selectedWallet?.__id ?? ''}
           setSelectedItem={onWalletChange}
-          primaryActionText={lang.strings.wallet.buttons.addAccount}
-          onPrimaryAction={handleAddAccountClick}
+          primaryActionText={
+            hasAccounts ? lang.strings.buttons.addAccount : undefined
+          }
+          onPrimaryAction={hasAccounts ? handleAddAccountClick : undefined}
         />
         {getMainContent()}
       </WalletContainer>

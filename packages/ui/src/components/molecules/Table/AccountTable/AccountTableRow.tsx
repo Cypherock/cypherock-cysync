@@ -254,7 +254,6 @@ export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
 
           <StatusContainer
             onClick={e => {
-              console.log(e);
               e.stopPropagation();
               if (onStatusClick) {
                 onStatusClick();
