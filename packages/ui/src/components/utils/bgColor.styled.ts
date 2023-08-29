@@ -17,6 +17,7 @@ export type BgColor =
   | 'success'
   | 'muted'
   | 'lightBlack'
+  | 'popup'
   | 'warning';
 export interface BgColorProps {
   $bgColor?: BgColor;

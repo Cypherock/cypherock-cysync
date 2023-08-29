@@ -21,7 +21,7 @@ export type AlertBoxVariantType =
 export interface AlertBoxProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLDivElement> {
-  alert: string;
+  alert?: string;
   subAlert?: string;
   icon?: ReactNode;
   variant?: AlertBoxVariantType;
@@ -121,9 +121,11 @@ export const AlertBox: FC<AlertBoxProps> = ({
     <MaskStyle {...props}>
       <Flex mr="20">{icon ?? iconObj[variantCurr]}</Flex>
       <Flex direction="column">
-        <Typography variant="fineprint" color={textObj[variantCurr]}>
-          <LangDisplay text={alert} />
-        </Typography>
+        {alert && (
+          <Typography variant="fineprint" color={textObj[variantCurr]}>
+            <LangDisplay text={alert} />
+          </Typography>
+        )}
         {subAlert && (
           <Typography variant="fineprint" color="muted">
             <LangDisplay text={subAlert} />
@@ -137,5 +139,6 @@ export const AlertBox: FC<AlertBoxProps> = ({
 AlertBox.defaultProps = {
   variant: 'info',
   icon: undefined,
+  alert: undefined,
   subAlert: undefined,
 };

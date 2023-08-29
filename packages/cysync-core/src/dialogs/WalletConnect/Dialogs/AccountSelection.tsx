@@ -30,6 +30,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     evmAccountDropdownListGroup,
     selectedWallet,
     selectedEvmAccountsGroup,
+    selectedEvmAccounts,
     handleWalletChange,
     setSelectedEvmAccounts,
     evmAccountsGroup,
@@ -58,6 +59,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             gap={24}
             py={2}
             width="full"
+            align="stretch"
           >
             <Dropdown
               items={walletDropdownList}
@@ -105,10 +107,17 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               subAlert={accountSelectionTab.notSupportedWarning.description}
               variant="messageSecondary"
             />
-            <Typography>
+            <Typography color="muted">
               <LangDisplay text={common.info.title} />
             </Typography>
-            <BulletList items={common.info.points} />
+            <BulletList
+              items={common.info.points}
+              variant="success"
+              $bgColor={undefined}
+              $borderWidth={0}
+              px={0}
+              py={0}
+            />
           </Container>
         </DialogBoxBody>
       </ScrollableContainer>
@@ -125,7 +134,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
         </Button>
         <Button
           variant="primary"
-          disabled={!selectedWallet}
+          disabled={selectedEvmAccounts.length === 0}
           onClick={e => {
             e.preventDefault();
             onNext();

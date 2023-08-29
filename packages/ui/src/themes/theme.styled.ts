@@ -83,6 +83,7 @@ export const theme = {
       message: colors.background.message,
       breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
+      popup: colors.border.popup,
     },
     border: {
       popup: colors.border.popup,

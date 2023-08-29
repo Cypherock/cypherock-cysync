@@ -14,12 +14,14 @@ import {
   Divider,
   ScrollableContainer,
   DialogBoxHeader,
+  WalletIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
 import { selectLanguage, useAppSelector } from '~/store';
 import { CoinIcon } from '~/components';
 import { IAccount } from '@cypherock/db-interfaces';
+import { coinList } from '@cypherock/coins';
 
 interface ConnectAccountParam {
   name: string;
@@ -36,7 +38,7 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
   getBalanceToDisplay,
 }) => (
   <Container direction="column" gap={8} align="stretch">
-    <Typography>
+    <Typography color="muted">
       <LangDisplay text={name} />
     </Typography>
     {accounts.map(account => (
@@ -50,18 +52,18 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
         $borderRadius={8}
         $borderWidth={1}
       >
-        <Flex gap={16}>
-          <CoinIcon assetId={account.assetId} />
+        <Flex gap={16} align="center">
+          <CoinIcon assetId={account.assetId} size={24} />
           <Flex direction="column">
-            <Typography>
+            <Typography $fontSize={16}>
               <LangDisplay text={account.name} />
             </Typography>
-            <Typography>
+            <Typography color="muted" $fontSize={13}>
               <LangDisplay text={maskAddress(account.xpubOrAddress)} />
             </Typography>
           </Flex>
         </Flex>
-        <Typography>
+        <Typography color="muted" $fontSize={13}>
           <LangDisplay text={getBalanceToDisplay(account)} />
         </Typography>
       </Flex>
@@ -95,22 +97,26 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
       </DialogBoxHeader>
       <Divider variant="horizontal" />
       <ScrollableContainer>
-        <DialogBoxBody pt={4} pb={4} px={0}>
+        <DialogBoxBody pt={4} pb={4} px={0} align="stretch">
           <Container px={5} direction="column" align="stretch" gap={24}>
             <Flex justify="space-between">
-              <Typography>
+              <Typography $fontWeight="bold">
                 <LangDisplay text={accountConnectedTab.title} />
               </Typography>
-              <Typography>
-                <LangDisplay
-                  text={selectedWallet?.name ?? 'No Wallet Selected'}
-                />
-              </Typography>
+              <Flex $bgColor="popup" px={2} py={1} gap={8} align="center">
+                <WalletIcon width={15} height={12} />
+                {/* <Image src={WalletIcon} alt={selectedWallet?.name ?? 'No Wallet Selected'} /> */}
+                <Typography $fontSize={12}>
+                  <LangDisplay
+                    text={selectedWallet?.name ?? 'No Wallet Selected'}
+                  />
+                </Typography>
+              </Flex>
             </Flex>
             {selectedEvmAccountsGroup.map(group => (
               <ConnectAccounts
                 key={group.assetId}
-                name={group.assetId}
+                name={coinList[group.assetId].name}
                 accounts={group.accounts}
                 getBalanceToDisplay={getBalanceToDisplay}
               />
@@ -123,15 +129,23 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
             py={2}
             px={5}
             width="full"
+            align="stretch"
           >
-            <Typography>
+            <Typography color="muted">
               <LangDisplay text={common.info.title} />
             </Typography>
-            <BulletList items={common.info.points} />
+            <BulletList
+              items={common.info.points}
+              variant="success"
+              $bgColor={undefined}
+              $borderWidth={0}
+              px={0}
+              py={0}
+            />
           </Container>
           <Divider variant="horizontal" />
           <Container px={5}>
-            <AlertBox alert={accountConnectedTab.info} variant="warning" />
+            <AlertBox subAlert={accountConnectedTab.info} variant="message" />
           </Container>
         </DialogBoxBody>
       </ScrollableContainer>
