@@ -17,6 +17,7 @@ import {
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
 import { selectLanguage, useAppSelector } from '~/store';
+import { coinList } from '@cypherock/coins';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { onNext, onClose } = useWalletConnectDialog();
@@ -73,8 +74,10 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                   items={group.accounts}
                   selectedItem={selectedItem}
                   disabled={!selectedWallet}
-                  searchText={`Select ${group.assetId} accounts`}
-                  placeholderText={`Select ${group.assetId} accounts`}
+                  searchText={`Select ${coinList[group.assetId].name} Accounts`}
+                  placeholderText={`Select ${
+                    coinList[group.assetId].name
+                  } Accounts`}
                   onChange={id => {
                     if (selectedItem) handleDisselectAccount(selectedItem);
                     if (id) handleSelectAccount(id);

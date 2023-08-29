@@ -39,7 +39,6 @@ export const WalletConnectURLDialog: React.FC = () => {
             </Typography>
           </Container>
         </Container>
-
         <Input
           pasteAllowed
           type="text"
@@ -51,7 +50,6 @@ export const WalletConnectURLDialog: React.FC = () => {
           onChange={setWalletConnectedURI}
           value={walletConnectURI}
         />
-        {/* <PasteContainer link={'sdvsd'} name={'sdvsv'} /> */}
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
