@@ -7,7 +7,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ITabs, useTabsAndDialogs, useAccountDropdown } from '~/hooks';
+import { ITabs, useTabsAndDialogs } from '~/hooks';
 
 import {
   closeDialog,
@@ -23,6 +23,8 @@ import {
 } from '../Dialogs';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { useEthAccountDropdown } from '../hooks/useEthAccountDropdown';
+import { EvmId } from '@cypherock/coins';
 
 export interface WalletConnectDialogContextInterface {
   tabs: ITabs;
@@ -37,17 +39,24 @@ export interface WalletConnectDialogContextInterface {
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
   handleWalletChange: () => void;
   walletDropdownList: DropDownListItemProps[];
-  selectedAccount: IAccount | undefined;
-  setSelectedAccount: React.Dispatch<
-    React.SetStateAction<IAccount | undefined>
-  >;
-  handleAccountChange: () => void;
-  accountDropdownList: DropDownListItemProps[];
   onPasteWalletConnectedURI: () => void;
   walletConnectURI: string | undefined;
   setWalletConnectedURI: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
+  selectedEvmAccounts: IAccount[];
+  selectedEvmAccountsGroup: {
+    assetId: EvmId;
+    accounts: IAccount[];
+  }[];
+  setSelectedEvmAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
+  handleSelectAccount: (id: string) => void;
+  handleDisselectAccount: (id: string) => void;
+  getBalanceToDisplay: (account: IAccount) => string;
+  evmAccountDropdownListGroup: {
+    assetId: EvmId;
+    accounts: DropDownListItemProps[];
+  }[];
 }
 
 export const WalletConnectDialogContext: Context<WalletConnectDialogContextInterface> =
@@ -70,11 +79,14 @@ export const WalletConnectDialogProvider: FC<
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
-    selectedAccount,
-    setSelectedAccount,
-    handleAccountChange,
-    accountDropdownList,
-  } = useAccountDropdown();
+    selectedEvmAccounts,
+    selectedEvmAccountsGroup,
+    setSelectedEvmAccounts,
+    getBalanceToDisplay,
+    handleSelectAccount,
+    handleDisselectAccount,
+    evmAccountDropdownListGroup,
+  } = useEthAccountDropdown();
 
   /** @doubt What is it about? */
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
@@ -138,10 +150,13 @@ export const WalletConnectDialogProvider: FC<
       setSelectedWallet,
       handleWalletChange,
       walletDropdownList,
-      selectedAccount,
-      setSelectedAccount,
-      handleAccountChange,
-      accountDropdownList,
+      selectedEvmAccounts,
+      selectedEvmAccountsGroup,
+      setSelectedEvmAccounts,
+      getBalanceToDisplay,
+      handleSelectAccount,
+      handleDisselectAccount,
+      evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,
       setWalletConnectedURI,
@@ -159,10 +174,13 @@ export const WalletConnectDialogProvider: FC<
       setSelectedWallet,
       handleWalletChange,
       walletDropdownList,
-      selectedAccount,
-      setSelectedAccount,
-      handleAccountChange,
-      accountDropdownList,
+      selectedEvmAccounts,
+      selectedEvmAccountsGroup,
+      setSelectedEvmAccounts,
+      getBalanceToDisplay,
+      handleSelectAccount,
+      handleDisselectAccount,
+      evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,
       setWalletConnectedURI,

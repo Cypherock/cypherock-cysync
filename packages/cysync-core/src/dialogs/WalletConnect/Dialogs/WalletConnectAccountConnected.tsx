@@ -12,34 +12,27 @@ import {
   BulletList,
   Flex,
   Divider,
-  EthereumIcon,
-  SvgProps,
-  PolygonIcon,
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
 import { selectLanguage, useAppSelector } from '~/store';
+import { CoinIcon } from '~/components';
+import { IAccount } from '@cypherock/db-interfaces';
 
 interface ConnectAccountParam {
   name: string;
-  balanceUnit: string;
-  icon: React.FC<SvgProps>;
-  accounts: {
-    name: string;
-    address: string;
-    balance: number;
-  }[];
+  accounts: IAccount[];
+  getBalanceToDisplay: (account: IAccount) => string;
 }
 
 const maskAddress = (address: string, len = 12) =>
   `${address.slice(0, len)}...${address.slice(-len)}`;
 
 const ConnectAccounts: React.FC<ConnectAccountParam> = ({
-  icon: Icon,
   name,
   accounts,
-  balanceUnit,
+  getBalanceToDisplay,
 }) => (
   <Container direction="column" gap={8} align="stretch">
     <Typography>
@@ -57,18 +50,18 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
         $borderWidth={1}
       >
         <Flex gap={16}>
-          <Icon />
+          <CoinIcon assetId={account.assetId} />
           <Flex direction="column">
             <Typography>
               <LangDisplay text={account.name} />
             </Typography>
             <Typography>
-              <LangDisplay text={maskAddress(account.address)} />
+              <LangDisplay text={maskAddress(account.xpubOrAddress)} />
             </Typography>
           </Flex>
         </Flex>
         <Typography>
-          <LangDisplay text={`${account.balance} ${balanceUnit}`} />
+          <LangDisplay text={getBalanceToDisplay(account)} />
         </Typography>
       </Flex>
     ))}
@@ -81,44 +74,8 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
   const { buttons, walletConnect } = lang.strings;
   const { accountConnectedTab, common } = walletConnect;
 
-  const { selectedWallet } = useWalletConnectDialog();
-
-  const data: Record<string, ConnectAccountParam> = {
-    ethereum: {
-      balanceUnit: 'ETH',
-      name: 'Ethereum',
-      icon: EthereumIcon,
-      accounts: [
-        {
-          name: 'Ethereum 1',
-          address: '0xe1b5847324b3D94816866957de7cB12E05ce36C0',
-          balance: 0.015,
-        },
-        {
-          name: 'Ethereum 2',
-          address: '0x1DB9c7d05cbb947c685A7eE7bF21e0c32aA76F7c',
-          balance: 0.203,
-        },
-      ],
-    },
-    polygon: {
-      balanceUnit: 'MATIC',
-      name: 'Polygon',
-      icon: PolygonIcon,
-      accounts: [
-        {
-          name: 'Ethereum 1',
-          address: '0x02F65f96F2DAAFEAC8FE5d1aDB116840132EcF26',
-          balance: 68.56,
-        },
-        {
-          name: 'Ethereum 2',
-          address: '0x3Ca2d5b526c172D3beA81D156a42B59DD7173561',
-          balance: 300.5,
-        },
-      ],
-    },
-  };
+  const { selectedWallet, selectedEvmAccountsGroup, getBalanceToDisplay } =
+    useWalletConnectDialog();
 
   return (
     <ScrollableContainer $maxHeight="90vh">
@@ -147,8 +104,14 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
                 />
               </Typography>
             </Flex>
-            <ConnectAccounts {...data.ethereum} />
-            <ConnectAccounts {...data.polygon} />
+            {selectedEvmAccountsGroup.map(group => (
+              <ConnectAccounts
+                key={group.assetId}
+                name={group.assetId}
+                accounts={group.accounts}
+                getBalanceToDisplay={getBalanceToDisplay}
+              />
+            ))}
           </Container>
           <Container
             display="flex"

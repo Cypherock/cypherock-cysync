@@ -25,15 +25,15 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { accountSelectionTab, common } = walletConnect;
   const {
     walletDropdownList,
-    accountDropdownList,
+    evmAccountDropdownListGroup,
     selectedWallet,
-    selectedAccount,
+    selectedEvmAccountsGroup,
     handleWalletChange,
-    handleAccountChange,
+    handleDisselectAccount,
+    handleSelectAccount,
   } = useWalletConnectDialog();
 
   return (
-    /** @doubt How to best deal with text overflow? */
     <ScrollableContainer $maxHeight="90vh">
       <DialogBox width={500}>
         <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
@@ -63,23 +63,25 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               onChange={handleWalletChange}
               leftImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
             />
-            {/** @doubt How to Ethereum/Polygon Accounts? */}
-            <Dropdown
-              items={accountDropdownList}
-              selectedItem={selectedAccount?.__id}
-              disabled={!selectedWallet}
-              searchText="Select Ethereum Accounts"
-              placeholderText="Select Ethereum Accounts*"
-              onChange={handleAccountChange}
-            />
-            <Dropdown
-              items={accountDropdownList}
-              selectedItem={selectedAccount?.__id}
-              disabled={!selectedWallet}
-              searchText="Select Polygon Accounts"
-              placeholderText="Select Polygon Accounts"
-              onChange={handleAccountChange}
-            />
+            {evmAccountDropdownListGroup.map(group => {
+              const selectedItem = selectedEvmAccountsGroup.find(
+                a => a.assetId === group.assetId,
+              )?.accounts[0]?.__id;
+              return (
+                <Dropdown
+                  key={group.assetId}
+                  items={group.accounts}
+                  selectedItem={selectedItem}
+                  disabled={!selectedWallet}
+                  searchText={`Select ${group.assetId} accounts`}
+                  placeholderText={`Select ${group.assetId} accounts`}
+                  onChange={id => {
+                    if (selectedItem) handleDisselectAccount(selectedItem);
+                    if (id) handleSelectAccount(id);
+                  }}
+                />
+              );
+            })}
             <AlertBox
               alert="These blockchains are supported but add their accounts before use: Avalanche C-Chain, Solana, Binance"
               variant="info"
