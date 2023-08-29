@@ -16,7 +16,8 @@ export async function querySelect<T>(
   });
 }
 
-export const queryInput = async (message: string) => input({ message });
+export const queryInput = async (message: string, defaultMessage?: string) =>
+  input({ message, default: defaultMessage });
 
 export const queryNumber = async (message: string) => {
   while (true) {
