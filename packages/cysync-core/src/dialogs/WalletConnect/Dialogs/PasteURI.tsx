@@ -15,7 +15,7 @@ import React from 'react';
 import { useWalletConnectDialog } from '../context';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const WalletConnectURLDialog: React.FC = () => {
+export const WalletConnectPasteURIDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const {
     onNext,

@@ -19,7 +19,7 @@ import {
 import {
   WalletConnectAccountConnectedDialog,
   WalletConnectAccountSelectionDialog,
-  WalletConnectURLDialog,
+  WalletConnectPasteURIDialog,
 } from '../Dialogs';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
@@ -106,7 +106,7 @@ export const WalletConnectDialogProvider: FC<
   const tabs: ITabs = [
     {
       name: lang.strings.walletConnect.urlTab.title,
-      dialogs: [<WalletConnectURLDialog key="urlTab" />],
+      dialogs: [<WalletConnectPasteURIDialog key="urlTab" />],
     },
     {
       name: lang.strings.walletConnect.accountSelectionTab.title,

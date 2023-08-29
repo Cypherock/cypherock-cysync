@@ -1,3 +1,3 @@
-export * from './WalletConnectAccountConnected';
-export * from './WalletConnectAccountSelection';
-export * from './WalletConnectURL';
+export * from './AccountConnected';
+export * from './AccountSelection';
+export * from './PasteURI';
