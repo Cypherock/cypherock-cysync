@@ -13,6 +13,7 @@ import {
   AlertBox,
   BulletList,
   ScrollableContainer,
+  DialogBoxHeader,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
@@ -30,25 +31,27 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     selectedWallet,
     selectedEvmAccountsGroup,
     handleWalletChange,
-    handleDisselectAccount,
-    handleSelectAccount,
+    setSelectedEvmAccounts,
+    evmAccountsGroup,
   } = useWalletConnectDialog();
 
   return (
-    <ScrollableContainer $maxHeight="90vh">
-      <DialogBox width={500}>
-        <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-          <Container display="flex" direction="column" gap={32} py={4}>
-            <Image src={WalletConnectLogo} alt="Send Coin" />
-            <Container display="flex" direction="column" gap={8} width="full">
-              <Typography variant="h5" $textAlign="center">
-                <LangDisplay text="Connect to Uniswap interface" />
-              </Typography>
-              <Typography variant="span" color="muted">
-                <LangDisplay text="app.uniswap.org" />
-              </Typography>
-            </Container>
+    <DialogBox width={500} $maxHeight="90vh">
+      <DialogBoxHeader>
+        <Container display="flex" direction="column" gap={32} py={4}>
+          <Image src={WalletConnectLogo} alt="Send Coin" />
+          <Container display="flex" direction="column" gap={8} width="full">
+            <Typography variant="h5" $textAlign="center">
+              <LangDisplay text="Connect to Uniswap interface" />
+            </Typography>
+            <Typography variant="span" color="muted">
+              <LangDisplay text="app.uniswap.org" />
+            </Typography>
           </Container>
+        </Container>
+      </DialogBoxHeader>
+      <ScrollableContainer>
+        <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
           <Container
             display="flex"
             direction="column"
@@ -79,8 +82,15 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                     coinList[group.assetId].name
                   } Accounts`}
                   onChange={id => {
-                    if (selectedItem) handleDisselectAccount(selectedItem);
-                    if (id) handleSelectAccount(id);
+                    // use `handleSelectAccount` & `handleDisselectAccount` for multiselect
+                    const selectedAccount = evmAccountsGroup
+                      .find(a => a.assetId === group.assetId)
+                      ?.accounts.find(a => a.__id === id);
+                    if (selectedAccount) {
+                      setSelectedEvmAccounts([selectedAccount]);
+                    } else {
+                      setSelectedEvmAccounts([]);
+                    }
                   }}
                 />
               );
@@ -99,29 +109,29 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             <BulletList items={common.info.points} />
           </Container>
         </DialogBoxBody>
-        <DialogBoxFooter>
-          <Button
-            variant="secondary"
-            disabled={false}
-            onClick={e => {
-              e.preventDefault();
-              onClose();
-            }}
-          >
-            <LangDisplay text={buttons.reject} />
-          </Button>
-          <Button
-            variant="primary"
-            disabled={!selectedWallet}
-            onClick={e => {
-              e.preventDefault();
-              onNext();
-            }}
-          >
-            <LangDisplay text={buttons.connect} />
-          </Button>
-        </DialogBoxFooter>
-      </DialogBox>
-    </ScrollableContainer>
+      </ScrollableContainer>
+      <DialogBoxFooter>
+        <Button
+          variant="secondary"
+          disabled={false}
+          onClick={e => {
+            e.preventDefault();
+            onClose();
+          }}
+        >
+          <LangDisplay text={buttons.reject} />
+        </Button>
+        <Button
+          variant="primary"
+          disabled={!selectedWallet}
+          onClick={e => {
+            e.preventDefault();
+            onNext();
+          }}
+        >
+          <LangDisplay text={buttons.connect} />
+        </Button>
+      </DialogBoxFooter>
+    </DialogBox>
   );
 };

@@ -13,6 +13,7 @@ import {
   Flex,
   Divider,
   ScrollableContainer,
+  DialogBoxHeader,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import { useWalletConnectDialog } from '../context';
@@ -78,21 +79,23 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
     useWalletConnectDialog();
 
   return (
-    <ScrollableContainer $maxHeight="90vh">
-      <DialogBox width={500}>
-        <DialogBoxBody pt={4} pb={4} px={0}>
-          <Container display="flex" direction="column" gap={32} py={4} px={5}>
-            <Image src={UniSwapLogo} alt="Send Coin" />
-            <Container display="flex" direction="column" gap={8} width="full">
-              <Typography variant="h5" $textAlign="center">
-                <LangDisplay text="Connect to Uniswap interface" />
-              </Typography>
-              <Typography variant="span" color="muted">
-                <LangDisplay text="app.uniswap.org" />
-              </Typography>
-            </Container>
+    <DialogBox width={500} $maxHeight="90vh">
+      <DialogBoxHeader>
+        <Container display="flex" direction="column" gap={32} py={4} px={5}>
+          <Image src={UniSwapLogo} alt="Send Coin" />
+          <Container display="flex" direction="column" gap={8} width="full">
+            <Typography variant="h5" $textAlign="center">
+              <LangDisplay text="Connect to Uniswap interface" />
+            </Typography>
+            <Typography variant="span" color="muted">
+              <LangDisplay text="app.uniswap.org" />
+            </Typography>
           </Container>
-          <Divider variant="horizontal" />
+        </Container>
+      </DialogBoxHeader>
+      <Divider variant="horizontal" />
+      <ScrollableContainer>
+        <DialogBoxBody pt={4} pb={4} px={0}>
           <Container px={5} direction="column" align="stretch" gap={24}>
             <Flex justify="space-between">
               <Typography>
@@ -131,19 +134,19 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
             <AlertBox alert={accountConnectedTab.info} variant="warning" />
           </Container>
         </DialogBoxBody>
-        <DialogBoxFooter>
-          <Button
-            variant="primary"
-            disabled={false}
-            onClick={e => {
-              e.preventDefault();
-              onClose();
-            }}
-          >
-            <LangDisplay text={buttons.disconnect} />
-          </Button>
-        </DialogBoxFooter>
-      </DialogBox>
-    </ScrollableContainer>
+      </ScrollableContainer>
+      <DialogBoxFooter>
+        <Button
+          variant="primary"
+          disabled={false}
+          onClick={e => {
+            e.preventDefault();
+            onClose();
+          }}
+        >
+          <LangDisplay text={buttons.disconnect} />
+        </Button>
+      </DialogBoxFooter>
+    </DialogBox>
   );
 };

@@ -49,6 +49,10 @@ export interface WalletConnectDialogContextInterface {
     assetId: EvmId;
     accounts: IAccount[];
   }[];
+  evmAccountsGroup: {
+    assetId: EvmId;
+    accounts: IAccount[];
+  }[];
   setSelectedEvmAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
   handleSelectAccount: (id: string) => void;
   handleDisselectAccount: (id: string) => void;
@@ -86,6 +90,7 @@ export const WalletConnectDialogProvider: FC<
     handleSelectAccount,
     handleDisselectAccount,
     evmAccountDropdownListGroup,
+    evmAccountsGroup,
   } = useEthAccountDropdown();
 
   /** @doubt What is it about? */
@@ -160,6 +165,7 @@ export const WalletConnectDialogProvider: FC<
       onPasteWalletConnectedURI,
       walletConnectURI,
       setWalletConnectedURI,
+      evmAccountsGroup,
     }),
     [
       isDeviceRequired,
@@ -184,6 +190,7 @@ export const WalletConnectDialogProvider: FC<
       onPasteWalletConnectedURI,
       walletConnectURI,
       setWalletConnectedURI,
+      evmAccountsGroup,
     ],
   );
 

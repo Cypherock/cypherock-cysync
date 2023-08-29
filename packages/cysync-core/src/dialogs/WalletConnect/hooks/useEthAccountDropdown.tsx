@@ -102,6 +102,7 @@ export const useEthAccountDropdown = () => {
 
   const selectedEvmAccountsGroup =
     groupEvmAccounts<IAccount>(selectedEvmAccounts);
+  const evmAccountsGroup = groupEvmAccounts<IAccount>(evmAccounts);
 
   return {
     selectedWallet,
@@ -110,6 +111,7 @@ export const useEthAccountDropdown = () => {
     walletDropdownList,
     selectedEvmAccounts,
     selectedEvmAccountsGroup,
+    evmAccountsGroup,
     setSelectedEvmAccounts,
     getBalanceToDisplay,
     handleSelectAccount,
