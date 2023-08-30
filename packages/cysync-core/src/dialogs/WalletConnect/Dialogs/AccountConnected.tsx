@@ -111,7 +111,14 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
               <Typography $fontWeight="bold">
                 <LangDisplay text={accountConnectedTab.subTitle} />
               </Typography>
-              <Flex $bgColor="input" px={2} py={1} gap={8} align="center">
+              <Flex
+                $bgColor="popup"
+                $borderRadius={8}
+                px={2}
+                py={1}
+                gap={8}
+                align="center"
+              >
                 <WalletIcon width={15} height={12} />
                 {/* <Image src={WalletIcon} alt={selectedWallet?.name ?? 'No Wallet Selected'} /> */}
                 <Typography $fontSize={12}>

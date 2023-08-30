@@ -75,6 +75,11 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.success.main};
     `}
+  ${props =>
+    props.$bgColor === 'popup' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.popup};
+    `}
 
 ${props =>
     props.$bgColor === 'list' &&
