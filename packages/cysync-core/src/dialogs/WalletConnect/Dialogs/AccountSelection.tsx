@@ -45,24 +45,25 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
 
   return (
     <DialogBox width={500} $maxHeight="90vh">
-      <DialogBoxHeader>
-        <Container display="flex" direction="column" gap={32} py={4}>
-          <DappConnectedLogo
-            logos={[dapp.logo, WalletConnectLogo, cysyncLogoSmall]}
-          />
-          <Container display="flex" direction="column" gap={8} width="full">
-            <Typography variant="h5" $textAlign="center">
-              <LangDisplay
-                text={accountSelectionTab.title}
-                variables={{ dappName: dapp.name }}
-              />
-            </Typography>
-            <Typography variant="span" color="muted">
-              <LangDisplay text={dapp.url} />
-            </Typography>
-          </Container>
-        </Container>
+      <DialogBoxHeader py={2}>
+        <span style={{ height: '24px', width: '100%' }} />
       </DialogBoxHeader>
+      <Container display="flex" direction="column" gap={32} py={4}>
+        <DappConnectedLogo
+          logos={[dapp.logo, WalletConnectLogo, cysyncLogoSmall]}
+        />
+        <Container display="flex" direction="column" gap={8} width="full">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay
+              text={accountSelectionTab.title}
+              variables={{ dappName: dapp.name }}
+            />
+          </Typography>
+          <Typography variant="span" color="muted">
+            <LangDisplay text={dapp.url} />
+          </Typography>
+        </Container>
+      </Container>
       <ScrollableContainer>
         <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
           <Container
