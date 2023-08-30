@@ -25,7 +25,8 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
     walletConnectURI,
     setWalletConnectedURI,
   } = useWalletConnectDialog();
-  const { buttons } = lang.strings;
+  const { buttons, walletConnect } = lang.strings;
+  const { uriTab } = walletConnect;
 
   return (
     <DialogBox width={500}>
@@ -34,10 +35,10 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
           <Image src={WalletConnectLogo} alt="Send Coin" />
           <Container display="flex" direction="column" gap={2} width="full">
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text="WalletConnect" />
+              <LangDisplay text={uriTab.title} />
             </Typography>
             <Typography variant="span" color="muted">
-              <LangDisplay text="Enter WalletConnect URI to connect with the DApp" />
+              <LangDisplay text={uriTab.subTitle} />
             </Typography>
           </Container>
         </Container>
@@ -45,9 +46,9 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
           pasteAllowed
           type="text"
           name="wallet-connect-uri"
-          placeholder="Paste URI"
-          label="Enter connection URI"
-          postfixIcon={<Image src={PasteIcon} alt="Paste URI" />}
+          placeholder={uriTab.placeholder}
+          label={uriTab.inputLabel}
+          postfixIcon={<Image src={PasteIcon} alt={uriTab.placeholder} />}
           onPostfixIconClick={onPasteWalletConnectedURI}
           onChange={setWalletConnectedURI}
           value={walletConnectURI}

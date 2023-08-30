@@ -23,6 +23,7 @@ import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useWalletConnectDialog } from '../context';
+import { parseLangTemplate } from '@cypherock/cysync-ui/src';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { onNext, onClose } = useWalletConnectDialog();
@@ -51,7 +52,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
           <Container display="flex" direction="column" gap={8} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay
-                text="Connect to Uniswap interface"
+                text={accountSelectionTab.title}
                 variables={{ dappName: dapp.name }}
               />
             </Typography>
@@ -74,10 +75,16 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             <Dropdown
               items={walletDropdownList}
               selectedItem={selectedWallet?.__id}
-              searchText="Choose Wallet"
-              placeholderText="Choose Wallet"
+              searchText={accountSelectionTab.chooseWallet}
+              placeholderText={accountSelectionTab.chooseWallet}
               onChange={handleWalletChange}
-              leftImage={<Image src={walletIcon} alt="wallet icon" ml={3} />}
+              leftImage={
+                <Image
+                  src={walletIcon}
+                  alt={accountSelectionTab.chooseWallet}
+                  ml={3}
+                />
+              }
             />
             {evmAccountDropdownListGroup.map(group => {
               const selectedItem = selectedEvmAccountsGroup.find(
@@ -89,10 +96,14 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                   items={group.accounts}
                   selectedItem={selectedItem}
                   disabled={!selectedWallet}
-                  searchText={`Select ${coinList[group.assetId].name} Accounts`}
-                  placeholderText={`Select ${
-                    coinList[group.assetId].name
-                  } Accounts`}
+                  searchText={parseLangTemplate(
+                    accountSelectionTab.chooseAccount,
+                    { assetName: coinList[group.assetId].name },
+                  )}
+                  placeholderText={parseLangTemplate(
+                    accountSelectionTab.chooseAccount,
+                    { assetName: coinList[group.assetId].name },
+                  )}
                   onChange={id => {
                     // use `handleSelectAccount` & `handleDisselectAccount` for multiselect
                     const selectedAccount = evmAccountsGroup
@@ -108,8 +119,8 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               );
             })}
             <AlertBox
-              alert="These blockchains are supported but add their accounts before use"
-              subAlert="Avalanche C-Chain, Solana, Binance"
+              alert={accountSelectionTab.supportInfo}
+              subAlert="Avalanche C-Chain, Solana, Binance" // make it dynamic
               variant="message"
             />
             <AlertBox

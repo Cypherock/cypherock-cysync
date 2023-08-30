@@ -93,7 +93,7 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
           <Container display="flex" direction="column" gap={8} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay
-                text="Connect to Uniswap interface"
+                text={accountConnectedTab.title}
                 variables={{ dappName: dapp.name }}
               />
             </Typography>
@@ -109,15 +109,13 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
           <Container px={5} direction="column" align="stretch" gap={24}>
             <Flex justify="space-between">
               <Typography $fontWeight="bold">
-                <LangDisplay text={accountConnectedTab.title} />
+                <LangDisplay text={accountConnectedTab.subTitle} />
               </Typography>
               <Flex $bgColor="popup" px={2} py={1} gap={8} align="center">
                 <WalletIcon width={15} height={12} />
                 {/* <Image src={WalletIcon} alt={selectedWallet?.name ?? 'No Wallet Selected'} /> */}
                 <Typography $fontSize={12}>
-                  <LangDisplay
-                    text={selectedWallet?.name ?? 'No Wallet Selected'}
-                  />
+                  <LangDisplay text={selectedWallet?.name ?? ''} />
                 </Typography>
               </Flex>
             </Flex>

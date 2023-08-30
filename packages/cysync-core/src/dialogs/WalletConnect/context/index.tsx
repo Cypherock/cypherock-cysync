@@ -126,8 +126,8 @@ export const WalletConnectDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.walletConnect.urlTab.title,
-      dialogs: [<WalletConnectPasteURIDialog key="urlTab" />],
+      name: lang.strings.walletConnect.uriTab.title,
+      dialogs: [<WalletConnectPasteURIDialog key="uriTab" />],
     },
     {
       name: lang.strings.walletConnect.accountSelectionTab.title,
