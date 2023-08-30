@@ -1,4 +1,4 @@
-import { Flex, MainAppBody, MainAppBodyWrapper } from '@cypherock/cysync-ui';
+import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 import { AppUpdateBar, Topbar } from '~/components';
@@ -8,9 +8,14 @@ import { SideBar } from './SideBar';
 interface MainAppLayoutProps {
   title: string;
   children?: ReactNode;
+  fullHeight?: boolean;
 }
 
-export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => {
+export const MainAppLayout: FC<MainAppLayoutProps> = ({
+  title,
+  children,
+  fullHeight,
+}) => {
   const topbarRef = useRef<HTMLDivElement>(null);
   const [topbarHeight, setTopbarHeight] = useState(0);
 
@@ -30,14 +35,14 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => {
   return (
     <Flex width="full" height="full" $bgColor="contentGradient">
       <SideBar />
-      <Flex width="full" direction="column">
+      <Flex $flex={1} direction="column">
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
           <Topbar title={title} />
         </Flex>
-        <MainAppBodyWrapper>
-          <MainAppBody $topbarHeight={topbarHeight}>{children}</MainAppBody>
-        </MainAppBodyWrapper>
+        <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
+          {children}
+        </MainAppBody>
       </Flex>
     </Flex>
   );
@@ -45,4 +50,5 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({ title, children }) => {
 
 MainAppLayout.defaultProps = {
   children: undefined,
+  fullHeight: false,
 };
