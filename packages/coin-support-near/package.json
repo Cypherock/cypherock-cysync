@@ -9,12 +9,13 @@
   "scripts": {
     "lint": "eslint --ext .ts,tsx,js,jsx src/ --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
-    "pretty": "prettier --write \"src/**/*.ts?(x)\"",
-    "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
+    "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
+    "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
     "build:cjs": "tsc -p tsconfig_cjs.json",
     "build:esm": "tsc -p tsconfig.json",
     "build:dirty": "pnpm build:esm",
+    "test": "jest",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
+    "@cypherock/sdk-app-near": "^0.0.23",
     "@cypherock/sdk-interfaces": "^0.0.12",
     "@cypherock/sdk-utils": "^0.0.15",
     "axios": "^1.4.0",
