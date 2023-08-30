@@ -73,6 +73,10 @@ export interface WalletConnectDialogContextInterface {
       name: string;
     }>
   >;
+  supportedNoAccountBlockchain: string[];
+  setSupportedNoAccountBlockchain: React.Dispatch<
+    React.SetStateAction<string[]>
+  >;
 }
 
 export const WalletConnectDialogContext: Context<WalletConnectDialogContextInterface> =
@@ -98,6 +102,8 @@ export const WalletConnectDialogProvider: FC<
     url: 'app.uniswap.org',
     name: 'Uniswap',
   });
+  const [supportedNoAccountBlockchain, setSupportedNoAccountBlockchain] =
+    useState<string[]>(['Avalanche C-Chain', 'Solana', 'Binance']);
 
   const {
     selectedWallet,
@@ -188,6 +194,8 @@ export const WalletConnectDialogProvider: FC<
       evmAccountsGroup,
       dapp,
       setDapp,
+      supportedNoAccountBlockchain,
+      setSupportedNoAccountBlockchain,
     }),
     [
       isDeviceRequired,
@@ -215,6 +223,8 @@ export const WalletConnectDialogProvider: FC<
       evmAccountsGroup,
       dapp,
       setDapp,
+      supportedNoAccountBlockchain,
+      setSupportedNoAccountBlockchain,
     ],
   );
 

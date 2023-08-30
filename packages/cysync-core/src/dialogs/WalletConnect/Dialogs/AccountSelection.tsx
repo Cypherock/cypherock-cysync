@@ -40,6 +40,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     setSelectedEvmAccounts,
     evmAccountsGroup,
     dapp,
+    supportedNoAccountBlockchain,
   } = useWalletConnectDialog();
 
   return (
@@ -120,7 +121,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             })}
             <AlertBox
               alert={accountSelectionTab.supportInfo}
-              subAlert="Avalanche C-Chain, Solana, Binance" // make it dynamic
+              subAlert={supportedNoAccountBlockchain.join(', ')}
               variant="message"
             />
             <AlertBox

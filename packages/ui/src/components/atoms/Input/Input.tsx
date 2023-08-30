@@ -59,6 +59,7 @@ const InputStyle = styled.input<{
     color: ${({ disabled, theme }) =>
       disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   }
+  text-overflow: ellipsis;
 `;
 
 const InputWrapper = styled.div<{
