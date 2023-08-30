@@ -44,6 +44,7 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
+import PasteIcon from './PasteIcon.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
@@ -62,15 +63,14 @@ import successIcon from './success.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
+import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
-import warningIcon from './warning.svg';
 import WalletConnectLogo from './WalletConnectLogo.svg';
-import UniSwapLogo from './UniSwapLogo.svg';
-import PasteIcon from './PasteIcon.svg';
+import warningIcon from './warning.svg';
 
 export {
   addWalletIcon,

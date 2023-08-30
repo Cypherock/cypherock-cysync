@@ -1,3 +1,6 @@
+import { EvmId } from '@cypherock/coins';
+import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -7,8 +10,8 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ITabs, useTabsAndDialogs } from '~/hooks';
 
+import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -21,10 +24,7 @@ import {
   WalletConnectAccountSelectionDialog,
   WalletConnectPasteURIDialog,
 } from '../Dialogs';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
-import { useEthAccountDropdown } from '../hooks/useEthAccountDropdown';
-import { EvmId } from '@cypherock/coins';
+import { useEvmAccountDropdown } from '../hooks/useEvmAccountDropdown';
 
 export interface WalletConnectDialogContextInterface {
   tabs: ITabs;
@@ -91,7 +91,7 @@ export const WalletConnectDialogProvider: FC<
     handleDisselectAccount,
     evmAccountDropdownListGroup,
     evmAccountsGroup,
-  } = useEthAccountDropdown();
+  } = useEvmAccountDropdown();
 
   /** @doubt What is it about? */
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {

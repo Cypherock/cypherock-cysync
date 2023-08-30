@@ -7,8 +7,8 @@ import { GuidedFlow } from './GuidedFlow';
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { WalletActionsDialogBox } from './WalletActions';
-import { WalletSyncError } from './WalletSyncError';
 import { WalletConnectDialog } from './WalletConnect';
+import { WalletSyncError } from './WalletSyncError';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

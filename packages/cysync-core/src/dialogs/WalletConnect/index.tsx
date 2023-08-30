@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-import { WalletConnectDialogProvider, useWalletConnectDialog } from './context';
 import {
   BlurOverlay,
   CloseButton,
@@ -8,6 +6,9 @@ import {
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
 import { DialogBox } from '@cypherock/cysync-ui/src';
+import React, { FC } from 'react';
+
+import { WalletConnectDialogProvider, useWalletConnectDialog } from './context';
 
 const WalletConnect: FC = () => {
   const { currentDialog, tabs, currentTab, onClose } = useWalletConnectDialog();

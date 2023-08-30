@@ -1,3 +1,4 @@
+import { coinList } from '@cypherock/coins';
 import {
   Button,
   DialogBox,
@@ -14,11 +15,15 @@ import {
   BulletList,
   ScrollableContainer,
   DialogBoxHeader,
+  UniSwapLogo,
+  cysyncLogoSmall,
+  DappConnectedLogo,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useWalletConnectDialog } from '../context';
+
 import { selectLanguage, useAppSelector } from '~/store';
-import { coinList } from '@cypherock/coins';
+
+import { useWalletConnectDialog } from '../context';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { onNext, onClose } = useWalletConnectDialog();
@@ -40,7 +45,9 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     <DialogBox width={500} $maxHeight="90vh">
       <DialogBoxHeader>
         <Container display="flex" direction="column" gap={32} py={4}>
-          <Image src={WalletConnectLogo} alt="Send Coin" />
+          <DappConnectedLogo
+            logos={[UniSwapLogo, WalletConnectLogo, cysyncLogoSmall]}
+          />
           <Container display="flex" direction="column" gap={8} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text="Connect to Uniswap interface" />

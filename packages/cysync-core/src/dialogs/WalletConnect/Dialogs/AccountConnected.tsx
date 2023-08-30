@@ -1,3 +1,4 @@
+import { coinList } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -16,12 +17,13 @@ import {
   DialogBoxHeader,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
-import { useWalletConnectDialog } from '../context';
-import { selectLanguage, useAppSelector } from '~/store';
-import { CoinIcon } from '~/components';
 import { IAccount } from '@cypherock/db-interfaces';
-import { coinList } from '@cypherock/coins';
+import React from 'react';
+
+import { CoinIcon } from '~/components';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { useWalletConnectDialog } from '../context';
 
 interface ConnectAccountParam {
   name: string;

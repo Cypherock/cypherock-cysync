@@ -12,8 +12,10 @@ import {
   PasteIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { useWalletConnectDialog } from '../context';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useWalletConnectDialog } from '../context';
 
 export const WalletConnectPasteURIDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

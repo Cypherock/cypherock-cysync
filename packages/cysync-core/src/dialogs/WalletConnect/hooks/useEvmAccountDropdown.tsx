@@ -4,6 +4,7 @@ import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
+
 import { CoinIcon } from '~/components';
 import { useWalletDropdown } from '~/hooks';
 import { selectAccounts, useAppSelector } from '~/store';
@@ -36,7 +37,7 @@ function groupEvmAccounts<T>(evmAccounts: (T & { assetId: string })[]): {
   return evmAccountsGrouped;
 }
 
-export const useEthAccountDropdown = () => {
+export const useEvmAccountDropdown = () => {
   const {
     selectedWallet,
     setSelectedWallet,
