@@ -15,7 +15,6 @@ import {
   BulletList,
   ScrollableContainer,
   DialogBoxHeader,
-  UniSwapLogo,
   cysyncLogoSmall,
   DappConnectedLogo,
 } from '@cypherock/cysync-ui';
@@ -39,6 +38,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     handleWalletChange,
     setSelectedEvmAccounts,
     evmAccountsGroup,
+    dapp,
   } = useWalletConnectDialog();
 
   return (
@@ -46,14 +46,17 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
       <DialogBoxHeader>
         <Container display="flex" direction="column" gap={32} py={4}>
           <DappConnectedLogo
-            logos={[UniSwapLogo, WalletConnectLogo, cysyncLogoSmall]}
+            logos={[dapp.logo, WalletConnectLogo, cysyncLogoSmall]}
           />
           <Container display="flex" direction="column" gap={8} width="full">
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text="Connect to Uniswap interface" />
+              <LangDisplay
+                text="Connect to Uniswap interface"
+                variables={{ dappName: dapp.name }}
+              />
             </Typography>
             <Typography variant="span" color="muted">
-              <LangDisplay text="app.uniswap.org" />
+              <LangDisplay text={dapp.url} />
             </Typography>
           </Container>
         </Container>

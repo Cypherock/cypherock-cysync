@@ -7,7 +7,6 @@ import {
   DialogBoxFooter,
   LangDisplay,
   Typography,
-  UniSwapLogo,
   Image,
   AlertBox,
   BulletList,
@@ -79,20 +78,27 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
   const { buttons, walletConnect } = lang.strings;
   const { accountConnectedTab, common } = walletConnect;
 
-  const { selectedWallet, selectedEvmAccountsGroup, getBalanceToDisplay } =
-    useWalletConnectDialog();
+  const {
+    selectedWallet,
+    selectedEvmAccountsGroup,
+    getBalanceToDisplay,
+    dapp,
+  } = useWalletConnectDialog();
 
   return (
     <DialogBox width={500} $maxHeight="90vh">
       <DialogBoxHeader>
         <Container display="flex" direction="column" gap={32} py={4} px={5}>
-          <Image src={UniSwapLogo} alt="Send Coin" />
+          <Image src={dapp.logo} alt="Send Coin" />
           <Container display="flex" direction="column" gap={8} width="full">
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text="Connect to Uniswap interface" />
+              <LangDisplay
+                text="Connect to Uniswap interface"
+                variables={{ dappName: dapp.name }}
+              />
             </Typography>
             <Typography variant="span" color="muted">
-              <LangDisplay text="app.uniswap.org" />
+              <LangDisplay text={dapp.url} />
             </Typography>
           </Container>
         </Container>

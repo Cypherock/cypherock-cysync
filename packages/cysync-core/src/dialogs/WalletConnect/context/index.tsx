@@ -1,5 +1,5 @@
 import { EvmId } from '@cypherock/coins';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownListItemProps, UniSwapLogo } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
@@ -61,6 +61,18 @@ export interface WalletConnectDialogContextInterface {
     assetId: EvmId;
     accounts: DropDownListItemProps[];
   }[];
+  dapp: {
+    logo: string;
+    url: string;
+    name: string;
+  };
+  setDapp: React.Dispatch<
+    React.SetStateAction<{
+      logo: string;
+      url: string;
+      name: string;
+    }>
+  >;
 }
 
 export const WalletConnectDialogContext: Context<WalletConnectDialogContextInterface> =
@@ -77,6 +89,15 @@ export const WalletConnectDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const [dapp, setDapp] = useState<{
+    logo: string;
+    url: string;
+    name: string;
+  }>({
+    logo: UniSwapLogo,
+    url: 'app.uniswap.org',
+    name: 'Uniswap',
+  });
 
   const {
     selectedWallet,
@@ -136,7 +157,6 @@ export const WalletConnectDialogProvider: FC<
 
   const [walletConnectURI, setWalletConnectedURI] = useState<string>();
 
-  /** @throws Navigator Permission Denied Exception */
   const onPasteWalletConnectedURI = () => {
     navigator.clipboard.readText().then(setWalletConnectedURI);
   };
@@ -166,6 +186,8 @@ export const WalletConnectDialogProvider: FC<
       walletConnectURI,
       setWalletConnectedURI,
       evmAccountsGroup,
+      dapp,
+      setDapp,
     }),
     [
       isDeviceRequired,
@@ -191,6 +213,8 @@ export const WalletConnectDialogProvider: FC<
       walletConnectURI,
       setWalletConnectedURI,
       evmAccountsGroup,
+      dapp,
+      setDapp,
     ],
   );
 
