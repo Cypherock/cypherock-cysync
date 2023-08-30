@@ -10,6 +10,7 @@ export const theme = {
   screens: {
     def: `(min-width: ${screens.def})`,
     md: `(min-width: ${screens.md})`,
+    mdlg: `(min-width: ${screens.mdlg})`,
     lg: `(min-width: ${screens.lg})`,
     xl: `(min-width: ${screens.xl})`,
   },
