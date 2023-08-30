@@ -57,7 +57,7 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={false}
+          disabled={!walletConnectURI || walletConnectURI.length === 0} // add uri validator
           onClick={e => {
             e.preventDefault();
             onNext();
