@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
-  Check,
+  SyncingIcon,
   Connected,
   VisibilityHide,
   Visibility,
@@ -13,6 +13,7 @@ import {
   SyncronizingBold,
   NoNotifications,
   Notifications,
+  PushpinBold,
 } from '../../assets';
 import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
@@ -44,6 +45,8 @@ interface ITopbar {
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
   onSyncClick: () => void;
+  showIcon?: boolean;
+  onIconClick?: () => void;
 }
 
 const DividingLine = styled.div`
@@ -51,6 +54,12 @@ const DividingLine = styled.div`
   background-color: ${props =>
     props.theme.palette.background.separatorSecondary};
   height: 23.33px;
+`;
+
+const TitleStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 export const Topbar: FC<ITopbar> = ({
@@ -66,6 +75,8 @@ export const Topbar: FC<ITopbar> = ({
   syncStatus,
   toggleDiscreetMode,
   onSyncClick,
+  showIcon,
+  onIconClick,
 }) => {
   const theme = useTheme();
 
@@ -76,7 +87,7 @@ export const Topbar: FC<ITopbar> = ({
   };
 
   const syncStatusMap = {
-    syncronized: <Check stroke={theme?.palette.success.main} />,
+    syncronized: <SyncingIcon />,
     syncronizing: (
       <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
     ),
@@ -95,9 +106,16 @@ export const Topbar: FC<ITopbar> = ({
       justify="space-between"
       shadow="popup"
     >
-      <Typography variant="h4" $fontWeight="semibold" color="silver">
-        <LangDisplay text={title} />
-      </Typography>
+      <TitleStyle>
+        <Typography variant="h4" $fontWeight="semibold" color="silver">
+          <LangDisplay text={title} />
+        </Typography>
+        {showIcon && (
+          <Button variant="icon" onClick={onIconClick} pl={5}>
+            <PushpinBold />
+          </Button>
+        )}
+      </TitleStyle>
       <Flex align="center">
         <Button variant="none" onClick={onSyncClick}>
           <Flex pr={2} align="center" gap={16}>
@@ -121,7 +139,7 @@ export const Topbar: FC<ITopbar> = ({
         <DividingLine />
         <Button variant="icon" onClick={toggleDiscreetMode}>
           <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
+            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
           </Flex>
         </Button>
         {isPasswordSet && !isLockscreenLoading && (
@@ -137,4 +155,9 @@ export const Topbar: FC<ITopbar> = ({
       </Flex>
     </Container>
   );
+};
+
+Topbar.defaultProps = {
+  showIcon: false,
+  onIconClick: undefined,
 };

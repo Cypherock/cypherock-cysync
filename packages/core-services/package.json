@@ -53,7 +53,7 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.22",
+    "@cypherock/sdk-app-manager": "^0.0.23",
     "@cypherock/sdk-interfaces": "^0.0.12",
     "@cypherock/sdk-utils": "^0.0.15",
     "lodash": "^4.17.21",

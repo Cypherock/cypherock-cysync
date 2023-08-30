@@ -1,4 +1,5 @@
 import {
+  SidebarProvider,
   EmailAuth,
   CardAuthentication,
   CardTraining,
@@ -77,16 +78,18 @@ const BaseAppRouter: React.FC<{ children: ReactNode | undefined }> = ({
   children,
 }) => (
   <Router>
-    <Routes>
-      {getRoute(routes).map(route => (
-        <Route
-          key={route.name}
-          path={route.path}
-          element={components[route.name]}
-        />
-      ))}
-    </Routes>
-    {children}
+    <SidebarProvider>
+      <Routes>
+        {getRoute(routes).map(route => (
+          <Route
+            key={route.name}
+            path={route.path}
+            element={components[route.name]}
+          />
+        ))}
+      </Routes>
+      {children}
+    </SidebarProvider>
   </Router>
 );
 

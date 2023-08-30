@@ -14,3 +14,4 @@ oclif.manifest.json
 dist
 coverage
 release
+*.log

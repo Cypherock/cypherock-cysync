@@ -1,4 +1,5 @@
 export * from './Table';
+export * from './TableSearch';
 export * from './TableIconNameBox';
 export * from './TableNameBox';
 export * from './TableNoData';
@@ -8,5 +9,5 @@ export * from './AllocationShare';
 export * from './HistoryNameBox';
 export * from './HistoryAssetBox';
 export * from './HistoryDateBox';
-export * from './NoSearchResult';
 export * from './AccordionContent';
+export * from './AccountTable';
