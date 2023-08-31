@@ -8,6 +8,7 @@ export * from './TableSearchFilter';
 export * from './AllocationShare';
 export * from './HistoryNameBox';
 export * from './HistoryAssetBox';
-export * from './HistoryDateBox';
+export * from './TableGroupRow';
 export * from './AccordionContent';
 export * from './AccountTable';
+export * from './TransactionTable';

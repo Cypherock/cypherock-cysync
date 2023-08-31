@@ -7,6 +7,13 @@ import { typography } from './typography.styled';
 export type ThemeType = typeof theme;
 
 export const theme = {
+  screenSizes: {
+    def: `${screens.def.replace('px', '')}`,
+    md: `${screens.md.replace('px', '')}`,
+    mdlg: `${screens.mdlg.replace('px', '')}`,
+    lg: `${screens.lg.replace('px', '')}`,
+    xl: `${screens.xl.replace('px', '')}`,
+  },
   screens: {
     def: `(min-width: ${screens.def})`,
     md: `(min-width: ${screens.md})`,

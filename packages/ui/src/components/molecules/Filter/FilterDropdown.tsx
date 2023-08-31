@@ -1,17 +1,19 @@
+import React, { FC, useState } from 'react';
+
+import { Filter } from './Filter';
+import { FilterMenuDesign } from './FilterMenuDesign';
+import {
+  FilterItemWrapper,
+  FilterLayout,
+  FilterMenuWrapper,
+} from './FilterStyles';
+
 import {
   BinanceIcon,
   BitcoinIcon,
   EthereumIcon,
   SolanaIcon,
 } from '../../../assets';
-import React, { FC, useState } from 'react';
-import {
-  FilterItemWrapper,
-  FilterLayout,
-  FilterMenuWrapper,
-} from './FilterStyles';
-import { FilterMenuDesign } from './FilterMenuDesign';
-import { Filter } from './Filter';
 
 const data = [
   {

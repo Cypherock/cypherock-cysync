@@ -1,6 +1,8 @@
 import React, { FC, ReactNode } from 'react';
-import { Button, Container, LangDisplay, Typography } from '../../atoms';
+
 import { MiniContainer } from './HistoryNameBox';
+
+import { Button, Container, LangDisplay, Typography } from '../../atoms';
 
 interface NoDataProps {
   icon: ReactNode;

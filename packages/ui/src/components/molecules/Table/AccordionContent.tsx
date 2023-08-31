@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
+
 import { Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 
@@ -11,6 +12,7 @@ interface RowItem {
 }
 
 interface AccordionContentProps {
+  id: string;
   items: RowItem[];
   headers: string[];
   $last: boolean;
@@ -47,28 +49,32 @@ const FlexContainer = styled.div<FlexContainerProps>`
   ${utils}
 `;
 
-export const AccordionContent: FC<AccordionContentProps> = ({ ...props }) => (
-  <>
-    <AccordionContainer {...props}>
-      {props.headers.map((header, index) => (
-        <FlexContainer
-          key={header}
-          width={props.items[index]?.width}
-          padding={props.items[index]?.padding}
-          pl={props.items[index]?.paddingLeft}
-        >
-          <Typography variant="p" color="muted">
-            {header}
-          </Typography>
-        </FlexContainer>
-      ))}
-    </AccordionContainer>
+export const AccordionContent: FC<AccordionContentProps> = props => {
+  const { headers, id, items } = props;
 
-    <AccordionContainer {...props} $hasBorder>
-      {props.items.map(item => item.component)}
-    </AccordionContainer>
-  </>
-);
+  return (
+    <>
+      <AccordionContainer {...props}>
+        {headers.map((header, index) => (
+          <FlexContainer
+            key={`${id}-${header}`}
+            width={items[index]?.width}
+            padding={items[index]?.padding}
+            pl={items[index]?.paddingLeft}
+          >
+            <Typography variant="p" color="muted">
+              {header}
+            </Typography>
+          </FlexContainer>
+        ))}
+      </AccordionContainer>
+
+      <AccordionContainer {...props} $hasBorder>
+        {items.map(item => item.component)}
+      </AccordionContainer>
+    </>
+  );
+};
 
 AccordionContent.defaultProps = {
   $hasBorder: false,

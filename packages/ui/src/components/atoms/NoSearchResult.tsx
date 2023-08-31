@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
-import { NotFound } from '../../assets';
 
 import { Flex } from './Flex';
 import { Typography } from './Typography';
+
+import { NotFound } from '../../assets';
 
 interface NoSearchResultProps {
   image?: React.ReactNode;

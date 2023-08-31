@@ -2,6 +2,7 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import { ICreateAccountEvent, ICreateAccountParams } from './createAccount';
+import { IGetExplorerLink } from './explorer';
 import {
   IGetAccountHistoryParams,
   IGetAccountHistoryResult,
@@ -34,6 +35,7 @@ export * from './syncPrices';
 export * from './syncPriceHistories';
 export * from './getCoinAllocations';
 export * from './getAccountHistory';
+export * from './explorer';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
@@ -58,4 +60,5 @@ export interface CoinSupport {
   getAccountHistory(
     params: IGetAccountHistoryParams,
   ): Promise<IGetAccountHistoryResult>;
+  getExplorerLink(params: IGetExplorerLink): string;
 }

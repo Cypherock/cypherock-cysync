@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Container, Typography, TypographyColor } from '../../atoms';
+
 import { iconBoxStyles } from './TableIconNameBox';
+
 import { SvgProps } from '../../../assets';
+import { Container, Typography, TypographyColor } from '../../atoms';
 import { BgColorProps, UtilsProps, bgColor, utils } from '../../utils';
 
 interface HistoryNameBoxProps extends UtilsProps {
-  icon: React.FC<SvgProps>;
+  $icon: React.FC<SvgProps>;
   fill: string;
   variant: 'grey' | 'success';
   title: string;
@@ -16,7 +18,7 @@ interface HistoryNameBoxProps extends UtilsProps {
   size?: 'small' | 'big';
 }
 
-const HistoryNameBoxStyle = styled.div<HistoryNameBoxProps>`
+const HistoryNameBoxStyle = styled.div`
   ${iconBoxStyles}
   ${utils}
 `;
@@ -67,35 +69,42 @@ export const MiniContainer = styled.div<MiniContainerProps>`
   ${bgColor}
 `;
 
-export const HistoryNameBox: FC<HistoryNameBoxProps> = ({ ...props }) => {
-  const IconComponent = props.icon;
+export const HistoryNameBox: FC<HistoryNameBoxProps> = props => {
+  const {
+    $icon: IconComponent,
+    fill,
+    $textColor,
+    title,
+    subtitle,
+    date,
+  } = props;
 
   return (
     <HistoryNameBoxStyle {...props}>
       <MiniContainer $bgColor="separator">
-        <IconComponent fill={props.fill} />
+        <IconComponent fill={fill} />
       </MiniContainer>
 
       <Container direction="column" gap={0} align="flex-start">
         <Typography
           variant="p"
           $fontWeight="semibold"
-          color={props.$textColor ?? undefined}
+          color={$textColor ?? undefined}
         >
-          {props.title}
+          {title}
         </Typography>
         <Container gap={5} display="flex" direction="row">
           <Typography variant="p" color="muted">
-            {props.subtitle}
+            {subtitle}
           </Typography>
 
-          {props.date && (
+          {date && (
             <>
               <Typography variant="p" color="divider">
                 |
               </Typography>
               <Typography variant="p" color="normal">
-                {props.date}
+                {date}
               </Typography>
             </>
           )}

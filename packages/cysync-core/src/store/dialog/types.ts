@@ -1,5 +1,5 @@
-import { Row } from '~/pages/MainApp/Components';
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 
 export interface IDialogState {
   addAccount: {
@@ -36,7 +36,7 @@ export interface IDialogState {
 
   historyDialog: {
     isOpen: boolean;
-    data?: Row;
+    data?: IHistoryDialogProps;
   };
 }
 

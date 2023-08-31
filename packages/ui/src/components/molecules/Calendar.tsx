@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import DatePicker from 'react-multi-date-picker';
 import { styled } from 'styled-components';
-import { goldenGradient } from '../utils';
+
 import { MiniContainer } from './Table';
+
 import { CalendarIcon } from '../../assets';
+import { goldenGradient } from '../utils';
 
 const StyledCalendar = styled(DatePicker)`
   .rmdp-wrapper.rmdp-shadow {

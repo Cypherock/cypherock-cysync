@@ -19,6 +19,8 @@ import React from 'react';
 export interface CoinIconProps {
   assetId: string;
   size?: string | number;
+  width?: string | number;
+  height?: string | number;
 }
 
 interface IconProps {
@@ -50,16 +52,23 @@ export const getCoinIcon = (
   return Icon;
 };
 
-export const CoinIcon: React.FC<CoinIconProps> = ({ assetId, size }) => {
+export const CoinIcon: React.FC<CoinIconProps> = ({
+  assetId,
+  size,
+  width,
+  height,
+}) => {
   const Icon = getCoinIcon(assetId);
 
   if (!Icon) {
     return null;
   }
 
-  return <Icon width={size} height={size} />;
+  return <Icon width={width ?? size} height={height ?? size} />;
 };
 
 CoinIcon.defaultProps = {
   size: '20px',
+  width: undefined,
+  height: undefined,
 };

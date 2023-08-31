@@ -1,8 +1,11 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { TriangleIcon } from '../../../../assets';
-import { Container, Typography } from '../../../atoms';
+import {
+  TableHeader,
+  TableHeaderComponent,
+  TableHeaderComponentProps,
+} from '../TableStyles';
 
 export type AccountTableHeaderName = 'account' | 'amount' | 'value';
 
@@ -16,17 +19,8 @@ export interface AccountTableHeaderProps {
   $ascending: boolean;
 }
 
-const TableHeaderWrapper = styled.div`
-  display: flex;
-  background: ${({ theme }) => theme.palette.background.input};
-`;
-
-const FixedWidthHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const AccountHeader = styled(TableHeader)`
   padding: 16px 16px 16px 80px;
-  cursor: pointer;
 
   width: 42%;
   @media ${({ theme }) => theme.screens.mdlg} {
@@ -35,12 +29,9 @@ const FixedWidthHeader = styled.div`
   }
 `;
 
-const StatusHeader = styled(FixedWidthHeader)`
+const StatusHeader = styled(TableHeader)`
   padding: 16px;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   cursor: unset;
 
   width: 19%;
@@ -50,9 +41,8 @@ const StatusHeader = styled(FixedWidthHeader)`
   }
 `;
 
-const BalanceHeader = styled(FixedWidthHeader)`
+const BalanceHeader = styled(TableHeader)`
   padding: 16px;
-  box-sizing: border-box;
 
   width: 19%;
   @media ${({ theme }) => theme.screens.mdlg} {
@@ -62,12 +52,8 @@ const BalanceHeader = styled(FixedWidthHeader)`
   }
 `;
 
-const ValueHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const ValueHeader = styled(TableHeader)`
   padding: 16px 24px 16px 16px;
-  cursor: pointer;
 
   width: 20%;
   @media ${({ theme }) => theme.screens.mdlg} {
@@ -85,36 +71,39 @@ export const AccountTableHeader: React.FC<AccountTableHeaderProps> = ({
   $ascending,
   selected,
 }) => {
-  const getSortIcon = (key: AccountTableHeaderName) => (
-    <Container display="flex" direction="column" gap={2}>
-      {selected === key ? (
-        <TriangleIcon rotate={$ascending ? 0 : 180} />
-      ) : (
-        <>
-          <TriangleIcon />
-          <TriangleIcon rotate={180} />
-        </>
-      )}
-    </Container>
-  );
+  const headers: TableHeaderComponentProps['headers'] = [
+    {
+      name: 'account',
+      Wrapper: AccountHeader as any,
+      isSortable: true,
+      text: account,
+    },
+    {
+      name: 'sync',
+      Wrapper: StatusHeader as any,
+      isSortable: false,
+      text: syncStatus,
+    },
+    {
+      name: 'amount',
+      Wrapper: BalanceHeader as any,
+      isSortable: true,
+      text: balance,
+    },
+    {
+      name: 'value',
+      Wrapper: ValueHeader as any,
+      isSortable: true,
+      text: value,
+    },
+  ];
 
   return (
-    <TableHeaderWrapper>
-      <FixedWidthHeader onClick={() => onSort('account')}>
-        <Typography color="muted">{account}</Typography>
-        {getSortIcon('account')}
-      </FixedWidthHeader>
-      <StatusHeader>
-        <Typography color="muted">{syncStatus}</Typography>
-      </StatusHeader>
-      <BalanceHeader onClick={() => onSort('amount')}>
-        <Typography color="muted">{balance}</Typography>
-        {getSortIcon('amount')}
-      </BalanceHeader>
-      <ValueHeader onClick={() => onSort('value')}>
-        <Typography color="muted">{value}</Typography>
-        {getSortIcon('value')}
-      </ValueHeader>
-    </TableHeaderWrapper>
+    <TableHeaderComponent
+      headers={headers}
+      onSort={onSort as any}
+      selected={selected}
+      $ascending={$ascending}
+    />
   );
 };

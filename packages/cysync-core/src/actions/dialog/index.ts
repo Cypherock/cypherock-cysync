@@ -1,5 +1,5 @@
-import { Row } from '~/pages/MainApp/Components';
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -20,5 +20,5 @@ export const openReceiveDialog = () =>
 export const openSendDialog = () =>
   openDialog({ name: 'sendDialog', data: undefined });
 
-export const openHistoryDialog = (row: Row) =>
-  openDialog({ name: 'historyDialog', data: row });
+export const openHistoryDialog = (props?: IHistoryDialogProps) =>
+  openDialog({ name: 'historyDialog', data: props });

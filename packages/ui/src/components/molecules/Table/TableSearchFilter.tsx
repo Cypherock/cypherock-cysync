@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { Flex, SearchBar } from '../../atoms';
-import { Calendar } from '../Calendar';
-import { FilterDropdown } from '../Filter';
 
 interface SearchFilterProps {
   placeholder: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClear?: () => void;
-  dateValue: string | undefined;
-  dateChange: (value: string) => void;
-  searched?: boolean;
+  onChange: (value: string) => void;
 }
 
 const SearchContainer = styled.div`
@@ -22,10 +17,6 @@ const SearchContainer = styled.div`
   align-items: center;
   gap: 40px;
   align-self: stretch;
-  @media (max-width: 1440px) {
-    width: 100%;
-    max-width: 1376px;
-  }
   width: 100%;
   background: ${({ theme }) => theme.palette.background.sideBar};
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.title};
@@ -33,31 +24,22 @@ const SearchContainer = styled.div`
 
 export const TableSearchFilter: FC<SearchFilterProps> = ({
   placeholder,
-  dateValue,
-  searched,
   value,
   onChange,
-  onClear,
-  dateChange,
 }) => (
   <SearchContainer>
-    <Flex align="center" gap={8}>
+    <Flex align="center" gap={8} width="100%">
       <SearchBar
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onClear={onClear}
-        $borderGold={searched}
+        $goldBorder={!!value}
+        width="100%"
       />
     </Flex>
     <Flex align="center" direction="row" gap={16}>
-      <Calendar value={dateValue} onChange={dateChange} />
-      <FilterDropdown />
+      {/* <Calendar value={dateValue} onChange={dateChange} /> */}
+      {/* <FilterDropdown /> */}
     </Flex>
   </SearchContainer>
 );
-
-TableSearchFilter.defaultProps = {
-  onClear: undefined,
-  searched: false,
-};

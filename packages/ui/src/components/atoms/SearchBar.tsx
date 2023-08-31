@@ -1,34 +1,32 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../../assets/icons/generated/SearchIcon';
-import { Container } from './Container';
-import { svgGradients } from '../GlobalStyles';
-import { CloseButton } from './CloseButton';
 
-interface SearchBarProps {
+import { CloseButton } from './CloseButton';
+import { Container } from './Container';
+
+import SearchIcon from '../../assets/icons/generated/SearchIcon';
+import { svgGradients } from '../GlobalStyles';
+import { UtilsProps, utils } from '../utils';
+
+interface SearchBarProps extends UtilsProps {
   placeholder: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClear?: () => void;
-  $borderGold?: boolean;
+  onChange: (value: string) => void;
+  $goldBorder?: boolean;
 }
 
-const SearchContainer = styled.div<{ $borderGold?: boolean }>`
+const SearchContainer = styled.div<{ $goldBorder?: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
   padding: 12px 24px;
   height: 44px;
-  width: 693px;
-  @media (max-width: 1440px) {
-    width: 240px;
-  }
   gap: 24px;
   background-color: ${({ theme }) =>
     theme.palette.background.separatorSecondary};
   border: 1px solid ${({ theme }) => theme.palette.border.separator};
-  ${({ theme, $borderGold }) =>
-    $borderGold &&
+  ${({ theme, $goldBorder }) =>
+    $goldBorder &&
     `
     &::before {
       content: '';
@@ -44,6 +42,7 @@ const SearchContainer = styled.div<{ $borderGold?: boolean }>`
     }
   `};
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
+  ${utils}
 `;
 
 export const SearchBarStyle = styled.input<SearchBarProps>`
@@ -64,31 +63,26 @@ export const SearchBarStyle = styled.input<SearchBarProps>`
   width: 100%;
 `;
 
-export const SearchBar: FC<SearchBarProps> = ({
-  placeholder,
-  value,
-  onChange,
-  onClear,
-  $borderGold,
-}) => {
+export const SearchBar: FC<SearchBarProps> = props => {
+  const { placeholder, value, onChange, $goldBorder } = props;
+
   const handleClearInput = () => {
-    if (onClear) {
-      onClear();
-    }
+    onChange('');
   };
+
   return (
-    <SearchContainer $borderGold={$borderGold}>
+    <SearchContainer {...{ ...props, onChange: undefined }}>
       <Container display="flex" align="center">
         <SearchIcon
           width="25px"
           height="20px"
-          stroke={$borderGold ? `url(#${svgGradients.gold})` : undefined}
+          stroke={$goldBorder ? `url(#${svgGradients.gold})` : undefined}
         />
       </Container>
       <SearchBarStyle
         value={value}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={e => onChange(typeof e === 'string' ? e : e.target.value)}
       />
       {value !== '' && (
         <CloseButton
@@ -103,6 +97,5 @@ export const SearchBar: FC<SearchBarProps> = ({
 };
 
 SearchBar.defaultProps = {
-  onClear: undefined,
-  $borderGold: undefined,
+  $goldBorder: undefined,
 };

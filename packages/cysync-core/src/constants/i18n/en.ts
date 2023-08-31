@@ -838,6 +838,19 @@ const en = {
     },
   },
   history: {
+    tableHeader: {
+      time: 'Time',
+      asset: 'Asset',
+      account: 'Account',
+      amount: 'Amount',
+      value: 'Value',
+    },
+    transactionType: {
+      send: 'Sent',
+      receive: 'Received',
+      failed: 'Failed',
+      pending: 'Pending',
+    },
     info: {
       dialogBox: {
         value: 'Value',

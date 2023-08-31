@@ -3,18 +3,11 @@ import styled from 'styled-components';
 
 import { Typography } from '../../atoms';
 
-interface HistoryDateBoxProps {
+interface TableGroupRowProps {
   text: string;
 }
 
-export const HistoryContainer = styled.div`
-  max-height: 90vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-radius: 24px;
-`;
-
-const HistoryDateBoxStyle = styled.div`
+const TableGroupRowStyle = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
@@ -24,8 +17,8 @@ const HistoryDateBoxStyle = styled.div`
   background-color: ${({ theme }) => theme.palette.background.toggleActive};
 `;
 
-export const HistoryDateBox: FC<HistoryDateBoxProps> = ({ text }) => (
-  <HistoryDateBoxStyle>
+export const TableGroupRow: FC<TableGroupRowProps> = ({ text }) => (
+  <TableGroupRowStyle>
     <Typography variant="span">{text}</Typography>
-  </HistoryDateBoxStyle>
+  </TableGroupRowStyle>
 );

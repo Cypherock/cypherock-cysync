@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
+
 import { QrCode } from '../../../assets';
+import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
   text?: string;

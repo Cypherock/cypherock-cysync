@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { FontProps, SpacingProps, font, spacing } from '../utils';
 
 interface ChipProps extends SpacingProps, FontProps {
@@ -8,7 +9,7 @@ interface ChipProps extends SpacingProps, FontProps {
 
 const ChipStyle = styled.div`
   display: flex;
-  padding: 4px 6px;
+  padding: 1px 6px;
   gap: var(--0-px, 0px);
   align-items: flex-start;
   border-radius: 29px;

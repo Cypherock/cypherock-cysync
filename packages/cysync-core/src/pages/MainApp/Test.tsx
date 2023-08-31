@@ -1,7 +1,8 @@
 import { Container, Flex } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch } from '~/store';
+
 import { openSendDialog } from '~/actions';
+import { useAppDispatch } from '~/store';
 
 export const Test: FC = () => {
   const dispatch = useAppDispatch();
