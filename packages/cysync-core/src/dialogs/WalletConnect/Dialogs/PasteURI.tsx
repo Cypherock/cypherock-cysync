@@ -10,6 +10,9 @@ import {
   WalletConnectLogo,
   Image,
   PasteIcon,
+  CloseButton,
+  Flex,
+  Divider,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -24,15 +27,27 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
     onPasteWalletConnectedURI,
     walletConnectURI,
     setWalletConnectedURI,
+    onClose,
   } = useWalletConnectDialog();
   const { buttons, walletConnect } = lang.strings;
   const { uriTab } = walletConnect;
 
   return (
-    <DialogBox width={500}>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Container display="flex" direction="column" gap={4} py={4}>
-          <Image src={WalletConnectLogo} alt="Send Coin" />
+    <DialogBox width={500} align="stretch" gap={0}>
+      <Flex direction="row" justify="flex-end" py={2} px={3}>
+        <CloseButton onClick={onClose} />
+      </Flex>
+      <Divider variant="horizontal" />
+      <DialogBoxBody gap={0} p={0} align="stretch">
+        <Container
+          display="flex"
+          align="stretch"
+          direction="column"
+          gap={32}
+          py={4}
+          px={5}
+        >
+          <Image $alignSelf="center" src={WalletConnectLogo} alt="Send Coin" />
           <Container display="flex" direction="column" gap={2} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={uriTab.title} />
@@ -42,17 +57,28 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
             </Typography>
           </Container>
         </Container>
-        <Input
-          pasteAllowed
-          type="text"
-          name="wallet-connect-uri"
-          placeholder={uriTab.placeholder}
-          label={uriTab.inputLabel}
-          postfixIcon={<Image src={PasteIcon} alt={uriTab.placeholder} />}
-          onPostfixIconClick={onPasteWalletConnectedURI}
-          onChange={setWalletConnectedURI}
-          value={walletConnectURI}
-        />
+        <Container
+          display="flex"
+          align="stretch"
+          direction="column"
+          gap={4}
+          pt={2}
+          pb={4}
+          px={5}
+        >
+          <Input
+            pasteAllowed
+            type="text"
+            name="wallet-connect-uri"
+            placeholder={uriTab.placeholder}
+            label={uriTab.inputLabel}
+            postfixIcon={<Image src={PasteIcon} alt={uriTab.placeholder} />}
+            onPostfixIconClick={onPasteWalletConnectedURI}
+            onChange={setWalletConnectedURI}
+            value={walletConnectURI}
+            $customRightSpacing={40}
+          />
+        </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button

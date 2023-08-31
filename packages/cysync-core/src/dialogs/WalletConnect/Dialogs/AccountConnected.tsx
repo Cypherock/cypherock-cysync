@@ -11,9 +11,7 @@ import {
   AlertBox,
   BulletList,
   Flex,
-  Divider,
   ScrollableContainer,
-  DialogBoxHeader,
   WalletIcon,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -86,29 +84,33 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
   } = useWalletConnectDialog();
 
   return (
-    <DialogBox width={500} $maxHeight="90vh">
-      <DialogBoxHeader>
-        <Container display="flex" direction="column" gap={32} py={4} px={5}>
-          <Image src={dapp.logo} alt="Send Coin" />
-          <Container display="flex" direction="column" gap={8} width="full">
-            <Typography variant="h5" $textAlign="center">
-              <LangDisplay
-                text={accountConnectedTab.title}
-                variables={{ dappName: dapp.name }}
-              />
-            </Typography>
-            <Typography variant="span" color="muted">
-              <LangDisplay text={dapp.url} />
-            </Typography>
-          </Container>
+    <DialogBox width={500} $maxHeight="90vh" align="stretch">
+      <Container display="flex" direction="column" gap={32} py={4} px={5}>
+        <Image src={dapp.logo} alt="Send Coin" />
+        <Container display="flex" direction="column" gap={8} width="full">
+          <Typography variant="h5" $textAlign="center">
+            <LangDisplay
+              text={accountConnectedTab.title}
+              variables={{ dappName: dapp.name }}
+            />
+          </Typography>
+          <Typography variant="span" color="muted">
+            <LangDisplay text={dapp.url} />
+          </Typography>
         </Container>
-      </DialogBoxHeader>
-      <Divider variant="horizontal" />
+      </Container>
       <ScrollableContainer>
-        <DialogBoxBody pt={4} pb={4} px={0} align="stretch">
-          <Container px={5} direction="column" align="stretch" gap={24}>
-            <Flex justify="space-between">
-              <Typography $fontWeight="bold">
+        <DialogBoxBody gap={0} p={0} align="stretch">
+          <Container
+            px={5}
+            pb={4}
+            pt={2}
+            direction="column"
+            align="stretch"
+            gap={24}
+          >
+            <Flex justify="space-between" align="center">
+              <Typography $fontWeight="medium" $fontSize={18}>
                 <LangDisplay text={accountConnectedTab.subTitle} />
               </Typography>
               <Flex
@@ -120,7 +122,6 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
                 align="center"
               >
                 <WalletIcon width={15} height={12} />
-                {/* <Image src={WalletIcon} alt={selectedWallet?.name ?? 'No Wallet Selected'} /> */}
                 <Typography $fontSize={12}>
                   <LangDisplay text={selectedWallet?.name ?? ''} />
                 </Typography>
@@ -134,30 +135,30 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
                 getBalanceToDisplay={getBalanceToDisplay}
               />
             ))}
-          </Container>
-          <Container
-            display="flex"
-            direction="column"
-            gap={24}
-            py={2}
-            px={5}
-            width="full"
-            align="stretch"
-          >
-            <Typography color="muted">
-              <LangDisplay text={common.info.title} />
-            </Typography>
-            <BulletList
-              items={common.info.points}
-              variant="success"
-              $bgColor={undefined}
-              $borderWidth={0}
-              px={0}
+            <Container
+              display="flex"
+              direction="column"
+              gap={8}
               py={0}
-            />
+              px={2}
+              width="full"
+              align="stretch"
+            >
+              <Typography color="muted">
+                <LangDisplay text={common.info.title} />
+              </Typography>
+              <BulletList
+                items={common.info.points}
+                variant="success"
+                $bgColor={undefined}
+                $borderWidth={0}
+                px={0}
+                gap={8}
+                py={1}
+              />
+            </Container>
           </Container>
-          <Divider variant="horizontal" />
-          <Container px={5}>
+          <Container px={5} pb={4} pt={2} align="stretch">
             <AlertBox subAlert={accountConnectedTab.info} variant="message" />
           </Container>
         </DialogBoxBody>
