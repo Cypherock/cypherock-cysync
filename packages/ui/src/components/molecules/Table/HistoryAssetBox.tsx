@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Container, Typography } from '../../atoms';
+import { Container, Tag, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 import { ImageContainer } from '../LeanBox';
 
@@ -10,6 +10,7 @@ interface HistoryAssetBoxProps extends UtilsProps {
   $assetIcon: ReactNode;
   $assetName: string;
   wallet?: string;
+  $tag?: string;
 }
 
 export const HistoryAssetBoxStyle = styled.div<HistoryAssetBoxProps>`
@@ -23,7 +24,7 @@ export const HistoryAssetBoxStyle = styled.div<HistoryAssetBoxProps>`
 `;
 
 export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
-  const { wallet, $assetIcon, $assetName } = props;
+  const { wallet, $assetIcon, $assetName, $tag } = props;
 
   return (
     <HistoryAssetBoxStyle {...props}>
@@ -45,6 +46,7 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
             <Typography variant="p" color="muted">
               {$assetName}
             </Typography>
+            {$tag && <Tag>{$tag}</Tag>}
           </ImageContainer>
         </Container>
       )}
@@ -55,4 +57,5 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
 HistoryAssetBox.defaultProps = {
   size: undefined,
   wallet: undefined,
+  $tag: undefined,
 };

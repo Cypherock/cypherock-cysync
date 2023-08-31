@@ -24,6 +24,7 @@ export interface TransactionTableRowProps {
   asset: string;
   wallet: string;
   account: string;
+  accountTag: string;
   amount: string;
   accountHeader: string;
   valueHeader: string;
@@ -111,6 +112,7 @@ export const TransactionTableRow: React.FC<
               wallet={row.wallet}
               $assetIcon={row.accountIcon}
               $assetName={row.account}
+              $tag={row.accountTag}
               width={{ def: '30%' }}
             />
           )}
@@ -162,6 +164,7 @@ export const TransactionTableRow: React.FC<
                     pl="88"
                     $assetIcon={row.accountIcon}
                     $assetName={row.account}
+                    $tag={row.accountTag}
                     key={`${row.id}-account`}
                   />
                 ),

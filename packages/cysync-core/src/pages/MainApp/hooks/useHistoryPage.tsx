@@ -45,7 +45,9 @@ interface TransactionRowData {
   hash: string;
   assetName: string;
   accountName: string;
+  accountTag: string;
   walletName: string;
+  walletAndAccount: string;
   displayAmount: string;
   displayValue: string;
   displayFee: string;
@@ -59,7 +61,7 @@ interface TransactionRowData {
   time: string;
   timestamp: number;
   dateTime: string;
-  date?: string;
+  date: string;
   amount: number;
   value: number;
   explorerLink: string;
@@ -69,7 +71,7 @@ interface TransactionRowData {
 const comparatorMap: Record<TransactionTableHeaderName, string> = {
   time: 'timestamp',
   asset: 'assetName',
-  account: 'accountName',
+  account: 'walletAndAccount',
   amount: 'amount',
   value: 'value',
 };
@@ -86,6 +88,7 @@ const searchFilter = (
     row =>
       row.accountName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.walletName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.walletAndAccount.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.assetName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.hash.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -166,7 +169,7 @@ export const mapTransactionForDisplay = (params: {
     displayValue = `$${value}`;
 
     const feeInDefaultUnit = convertToUnit({
-      amount: transaction.amount,
+      amount: transaction.fees,
       fromUnitAbbr: getZeroUnit(transaction.assetId).abbr,
       coinId: transaction.assetId,
       toUnitAbbr: getDefaultUnit(transaction.assetId).abbr,
@@ -190,8 +193,12 @@ export const mapTransactionForDisplay = (params: {
     time: timeString,
     date: dateString,
     dateTime,
+    walletAndAccount: `${wallet?.name ?? ''} ${account?.name ?? ''} ${
+      account?.derivationScheme ?? ''
+    }`,
     assetName: coinList[transaction.assetId].name,
     accountName: account?.name ?? '',
+    accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
     displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
     displayValue: isDiscreetMode ? '$****' : displayValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
@@ -209,7 +216,7 @@ export const mapTransactionForDisplay = (params: {
     walletName: wallet?.name ?? '',
     type: getDisplayTransactionType(transaction, lang.strings),
     icon: transactionIconMap[transaction.type],
-    explorerLink: getCoinSupport(transaction.assetId).getExplorerLink({
+    explorerLink: getCoinSupport(transaction.familyId).getExplorerLink({
       transaction,
     }),
     txn: transaction,

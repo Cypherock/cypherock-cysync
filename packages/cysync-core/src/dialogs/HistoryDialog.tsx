@@ -1,4 +1,5 @@
 import {
+  Tag,
   DialogBox,
   DialogBoxBody,
   Flex,
@@ -103,7 +104,7 @@ const selector = createSelector(
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
   const { lang, wallets, accounts, priceInfos, isDiscreetMode } =
     useAppSelector(selector);
-  const keys = lang.strings.history.info.dialogBox;
+  const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();
 
@@ -261,6 +262,9 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                   >
                     {displayTransaction.accountName}
                   </Typography>
+                  {displayTransaction.accountTag && (
+                    <Tag>{displayTransaction.accountTag}</Tag>
+                  )}
                 </Container>
               </HistoryItem>
               <HistoryItem leftText={keys.asset}>
@@ -278,7 +282,16 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
               <HistoryItem leftText={keys.sender}>
                 <NestedContainer>
                   {displayTransaction.txn.inputs.map((input, i) => (
-                    <Container direction="row" gap={8} key={input.address}>
+                    <Container
+                      direction="row"
+                      gap={8}
+                      key={input.address}
+                      mb={
+                        i !== displayTransaction.txn.inputs.length - 1
+                          ? '4'
+                          : '0'
+                      }
+                    >
                       {input.isMine && (
                         <Chip>
                           <Typography
@@ -293,12 +306,15 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                       )}
                       <Typography
                         variant="span"
-                        color="muted"
+                        color={input.isMine ? 'muted' : undefined}
                         $maxWidth="400"
                         $textOverflow="ellipsis"
                         $whiteSpace="nowrap"
                       >
-                        {i + 1}. {input.address}
+                        {displayTransaction.txn.inputs.length > 1
+                          ? `${i + 1}. `
+                          : null}
+                        {input.address}
                       </Typography>
                     </Container>
                   ))}
@@ -307,7 +323,16 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
               <HistoryItem leftText={keys.receiver}>
                 <NestedContainer>
                   {displayTransaction.txn.outputs.map((output, i) => (
-                    <Container direction="row" gap={8} key={output.address}>
+                    <Container
+                      direction="row"
+                      gap={8}
+                      key={output.address}
+                      mb={
+                        i !== displayTransaction.txn.outputs.length - 1
+                          ? '4px'
+                          : '0'
+                      }
+                    >
                       {output.isMine && (
                         <Chip>
                           <Typography
@@ -322,12 +347,15 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                       )}
                       <Typography
                         variant="span"
-                        color="muted"
+                        color={output.isMine ? 'muted' : undefined}
                         $maxWidth="400"
                         $textOverflow="ellipsis"
                         $whiteSpace="nowrap"
                       >
-                        {i + 1}. {output.address}
+                        {displayTransaction.txn.outputs.length > 1
+                          ? `${i + 1}. `
+                          : null}
+                        {output.address}
                       </Typography>
                     </Container>
                   ))}

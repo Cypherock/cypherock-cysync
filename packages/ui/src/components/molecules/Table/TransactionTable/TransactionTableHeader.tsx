@@ -88,7 +88,7 @@ export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
       {
         name: 'asset',
         Wrapper: AssetHeader as any,
-        isSortable: false,
+        isSortable: true,
         text: asset,
       },
       {

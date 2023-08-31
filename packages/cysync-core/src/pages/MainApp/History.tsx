@@ -77,11 +77,11 @@ export const History: FC = () => {
                 accountIcon={<row.accountIcon width="16px" height="16px" />}
                 type={row.type}
                 status={row.status}
-                time={row.time}
-                date={row.date}
+                time={row.date}
                 asset={row.assetName}
                 wallet={row.walletName}
                 account={row.accountName}
+                accountTag={row.accountTag}
                 amount={row.displayAmount}
                 value={row.displayValue}
                 $isLast={index === displayedData.length - 1}
