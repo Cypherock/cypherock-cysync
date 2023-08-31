@@ -31,6 +31,9 @@ const initialState: IDialogState = {
   receive: {
     isOpen: false,
   },
+  signMessage: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

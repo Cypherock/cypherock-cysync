@@ -9,6 +9,9 @@ export const openWalletActionsDialog = () =>
 export const openWalletConnectDialog = () =>
   openDialog({ name: 'walletConnect', data: undefined });
 
+export const openSignMessageDialog = () =>
+  openDialog({ name: 'signMessage', data: undefined });
+
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
