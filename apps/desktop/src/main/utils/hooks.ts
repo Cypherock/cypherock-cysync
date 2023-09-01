@@ -6,9 +6,10 @@ let isBeforeQuitActionDone = false;
 export const beforeQuitHook = async (
   app?: Electron.App,
   e?: Electron.Event,
+  quit = true,
 ) => {
   if (!isBeforeQuitActionDone) {
-    logger.info('Before quit hook triggred');
+    logger.info('Before quit hook triggered');
 
     if (e) e.preventDefault();
 
@@ -17,10 +18,6 @@ export const beforeQuitHook = async (
     logger.info('Before quit hook completed');
     isBeforeQuitActionDone = true;
 
-    if (app) app.exit();
+    if (app && quit) app.exit();
   }
-};
-
-export const addAppHooks = (app: Electron.App) => {
-  app.on('before-quit', e => beforeQuitHook(app, e));
 };

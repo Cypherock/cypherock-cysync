@@ -4,7 +4,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 
 import { setupIPCHandlers, setupListeners } from './ipc';
 import {
-  addAppHooks,
+  beforeQuitHook,
   config,
   createWindowAndOpenUrl,
   fadeInWindow,
@@ -111,6 +111,7 @@ export default function createApp() {
 
   app.on('window-all-closed', () => {
     mainWindow = null;
+    beforeQuitHook(app, undefined, process.platform !== 'darwin');
     if (process.platform !== 'darwin') {
       app.quit();
     }
@@ -132,6 +133,4 @@ export default function createApp() {
       createMainWindow();
     }
   });
-
-  addAppHooks(app);
 }
