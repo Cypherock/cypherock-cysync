@@ -49,11 +49,7 @@ export const History: FC = () => {
     }
   }, [expandedRowIds, isSmallScreen, displayedData]);
 
-  const rowRenderer = ({
-    key, // Unique key within array of rows
-    index, // Index of row within collection
-    style, // Style object to be applied to row (to position it)
-  }: any) => {
+  const rowRenderer = ({ key, index, style }: any) => {
     const row = displayedData[index];
 
     if (row.isGroupHeader) {

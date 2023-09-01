@@ -8,7 +8,6 @@ export * from './useErrorHandler';
 export * from './useOnboardingCheckpoint';
 export * from './useTabsAndDialogs';
 export * from './useAppUpdate';
-export * from './useButtonState';
 export * from './useWalletDropdown';
 export * from './useAccountDropdown';
 export * from './useAmountToSend';

@@ -18,7 +18,6 @@ import {
   Help,
   RouteName,
   routes,
-  Test,
   Terms,
   Usage,
   SetPassword,
@@ -47,7 +46,6 @@ const components: Record<RouteName, ReactNode> = {
   history: <History />,
   settings: <Settings />,
   help: <Help />,
-  test: <Test />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
