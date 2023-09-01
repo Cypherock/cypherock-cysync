@@ -25,10 +25,6 @@ const rootRoutes = {
     name: 'help',
     path: '/help',
   },
-  test: {
-    name: 'test',
-    path: '/test',
-  },
 } as const;
 
 export const routes = {

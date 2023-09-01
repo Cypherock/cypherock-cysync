@@ -62,10 +62,14 @@ interface TransactionRowData {
   timestamp: number;
   dateTime: string;
   date: string;
+  dateHeader: string;
   amount: number;
   value: number;
   explorerLink: string;
   txn: ITransaction;
+  isGroupHeader: boolean;
+  groupText?: string;
+  groupIcon?: React.FC<{ width: string; height: string }>;
 }
 
 const comparatorMap: Record<TransactionTableHeaderName, string> = {
@@ -185,6 +189,7 @@ export const mapTransactionForDisplay = (params: {
   const timeString = formatDate(timestamp, 'h:mm a');
   const dateString = formatDate(timestamp, 'd/M/yy');
   const dateTime = formatDate(timestamp, 'eeee, MMMM d yyyy h:mm a');
+  const dateHeader = formatDate(timestamp, 'eeee, MMMM d yyyy');
 
   return {
     id: transaction.__id ?? '',
@@ -192,6 +197,7 @@ export const mapTransactionForDisplay = (params: {
     timestamp: transaction.timestamp,
     time: timeString,
     date: dateString,
+    dateHeader,
     dateTime,
     walletAndAccount: `${wallet?.name ?? ''} ${account?.name ?? ''} ${
       account?.derivationScheme ?? ''
@@ -220,6 +226,7 @@ export const mapTransactionForDisplay = (params: {
       transaction,
     }),
     txn: transaction,
+    isGroupHeader: false,
   };
 };
 
@@ -249,11 +256,25 @@ export const useHistoryPage = () => {
   const getDisplayDataList = (list: TransactionRowData[]) => {
     const filteredData = searchFilter(searchTerm, list);
 
-    return lodash.orderBy(
+    const sortedList = lodash.orderBy(
       filteredData,
       [comparatorMap[sortedBy]],
       [isAscending ? 'asc' : 'desc'],
     );
+
+    if (sortedBy === 'time') {
+      const newList: TransactionRowData[] = [];
+      const groupedList = lodash.groupBy(sortedList, t => t.dateHeader);
+      for (const [date, groupItems] of Object.entries(groupedList)) {
+        newList.push({ isGroupHeader: true, groupText: date, id: date } as any);
+        newList.push(...groupItems);
+      }
+
+      return newList;
+    }
+
+    // Only show date on rows when not grouping by date
+    return sortedList.map(t => ({ ...t, time: t.date }));
   };
 
   useEffect(() => {

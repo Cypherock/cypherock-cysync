@@ -10,6 +10,7 @@ import {
   NotFound,
   TransactionTableHeader,
   TransactionTableRow,
+  TableGroupRow,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
@@ -46,7 +47,7 @@ export const History: FC = () => {
     if (listRef.current?.recomputeRowHeights) {
       listRef.current.recomputeRowHeights();
     }
-  }, [expandedRowIds, isSmallScreen]);
+  }, [expandedRowIds, isSmallScreen, displayedData]);
 
   const rowRenderer = ({
     key, // Unique key within array of rows
@@ -54,6 +55,12 @@ export const History: FC = () => {
     style, // Style object to be applied to row (to position it)
   }: any) => {
     const row = displayedData[index];
+
+    if (row.isGroupHeader) {
+      return (
+        <TableGroupRow key={key} style={style} text={row.groupText ?? ''} />
+      );
+    }
 
     return (
       <TransactionTableRow
@@ -65,7 +72,7 @@ export const History: FC = () => {
         accountIcon={<row.accountIcon width="16px" height="16px" />}
         type={row.type}
         status={row.status}
-        time={row.date}
+        time={row.time}
         asset={row.assetName}
         wallet={row.walletName}
         account={row.accountName}
@@ -90,8 +97,13 @@ export const History: FC = () => {
     );
   };
 
-  const getRowHeight = ({ index }: { index: number }) =>
-    expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
+  const getRowHeight = ({ index }: { index: number }) => {
+    if (displayedData[index].isGroupHeader) {
+      return 57;
+    }
+
+    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
+  };
 
   const getMainContent = () => {
     if (transactionList.length <= 0)
