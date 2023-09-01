@@ -68,6 +68,7 @@ export const theme = {
       secondary: colors.gradients.secondary,
       separator: colors.background.separator,
       content: colors.gradients.content,
+      stripe: colors.gradients.stripe,
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
       bar: colors.background.bar,
@@ -105,6 +106,7 @@ export const theme = {
       table: {
         title: colors.border.table.title,
         row: colors.border.table.row,
+        stripe: colors.border.table.stripe,
       },
       list: colors.border.list,
       muted: colors.border.muted,

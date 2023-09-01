@@ -285,7 +285,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                     <Container
                       direction="row"
                       gap={8}
-                      key={input.address}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`${i}-${input.address}`}
                       mb={
                         i !== displayTransaction.txn.inputs.length - 1
                           ? '4'
@@ -326,7 +327,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                     <Container
                       direction="row"
                       gap={8}
-                      key={output.address}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`${i}-${output.address}`}
                       mb={
                         i !== displayTransaction.txn.outputs.length - 1
                           ? '4px'

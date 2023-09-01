@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { ArrowUp, ArrowDown, SvgProps } from '../../../../assets';
-import { useAccordion } from '../../../../hooks';
 import { ThemeType, useTheme } from '../../../../themes';
 import { Button, Container, Flex } from '../../../atoms';
 import { AccordionContent } from '../AccordionContent';
@@ -33,6 +32,9 @@ export interface TransactionTableRowProps {
   $isLast?: boolean;
   onClick: () => void;
   isSmallScreen: boolean;
+  style?: any;
+  isExpanded: boolean;
+  setIsExpanded: (value: boolean) => void;
 }
 
 const getFillFromStatus = (
@@ -58,10 +60,13 @@ export const TransactionTableRow: React.FC<
     isSmallScreen,
     accountHeader,
     valueHeader,
+    style,
+    isExpanded,
+    setIsExpanded,
     ...row
   } = props;
+
   const theme = useTheme();
-  const { isOpen, toggleAccordion } = useAccordion();
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
 
@@ -71,7 +76,7 @@ export const TransactionTableRow: React.FC<
 
   useEffect(() => {
     onResize();
-  }, [isOpen]);
+  }, [isExpanded]);
 
   useEffect(() => {
     onResize();
@@ -88,8 +93,12 @@ export const TransactionTableRow: React.FC<
       $isLast={$isLast}
       onClick={onClick}
       $height={`${containerHeight}px`}
+      style={style}
     >
-      <RowContainer ref={containerRef} direction={isOpen ? 'column' : 'row'}>
+      <RowContainer
+        ref={containerRef}
+        direction={isExpanded ? 'column' : 'row'}
+      >
         <Flex align="center" direction="row" width="inherit">
           <HistoryNameBox
             $icon={row.icon}
@@ -143,15 +152,15 @@ export const TransactionTableRow: React.FC<
                 $zIndex={1}
                 onClick={event => {
                   event.stopPropagation();
-                  toggleAccordion();
+                  setIsExpanded(!isExpanded);
                 }}
               >
-                {isOpen ? <ArrowUp /> : <ArrowDown />}
+                {isExpanded ? <ArrowUp /> : <ArrowDown />}
               </Button>
             </Container>
           )}
         </Flex>
-        {isSmallScreen && isOpen && (
+        {isSmallScreen && isExpanded && (
           <AccordionContent
             id={row.id}
             headers={[accountHeader, valueHeader]}
@@ -189,4 +198,5 @@ export const TransactionTableRow: React.FC<
 TransactionTableRow.defaultProps = {
   date: undefined,
   $isLast: false,
+  style: undefined,
 };

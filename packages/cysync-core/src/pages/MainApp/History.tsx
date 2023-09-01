@@ -11,9 +11,11 @@ import {
   TransactionTableHeader,
   TransactionTableRow,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
+import { useWindowSize } from '~/hooks';
 
 import { MainAppLayout } from './Components';
 import { useHistoryPage } from './hooks';
@@ -33,6 +35,63 @@ export const History: FC = () => {
     isSmallScreen,
   } = useHistoryPage();
   const theme = useTheme();
+  const { windowHeight } = useWindowSize();
+  const [topbarHeight, setTopbarHeight] = useState(0);
+  const [expandedRowIds, setExpandedRowIds] = useState<Record<string, boolean>>(
+    {},
+  );
+  const listRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (listRef.current?.recomputeRowHeights) {
+      listRef.current.recomputeRowHeights();
+    }
+  }, [expandedRowIds, isSmallScreen]);
+
+  const rowRenderer = ({
+    key, // Unique key within array of rows
+    index, // Index of row within collection
+    style, // Style object to be applied to row (to position it)
+  }: any) => {
+    const row = displayedData[index];
+
+    return (
+      <TransactionTableRow
+        style={style}
+        key={key}
+        id={row.id}
+        icon={row.icon}
+        assetIcon={<row.assetIcon width="24px" height="24px" />}
+        accountIcon={<row.accountIcon width="16px" height="16px" />}
+        type={row.type}
+        status={row.status}
+        time={row.date}
+        asset={row.assetName}
+        wallet={row.walletName}
+        account={row.accountName}
+        accountTag={row.accountTag}
+        amount={row.displayAmount}
+        value={row.displayValue}
+        $isLast={index === displayedData.length - 1}
+        $rowIndex={index}
+        onClick={() => handleTransactionTableRow(row)}
+        isSmallScreen={isSmallScreen}
+        accountHeader={strings.history.tableHeader.account}
+        valueHeader={strings.history.tableHeader.value}
+        isExpanded={expandedRowIds[row.id]}
+        setIsExpanded={value =>
+          setExpandedRowIds(r => {
+            const copy = structuredClone(r);
+            copy[row.id] = value;
+            return copy;
+          })
+        }
+      />
+    );
+  };
+
+  const getRowHeight = ({ index }: { index: number }) =>
+    expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
 
   const getMainContent = () => {
     if (transactionList.length <= 0)
@@ -68,30 +127,18 @@ export const History: FC = () => {
               onSort={onSort}
               isSmallScreen={isSmallScreen}
             />
-            {displayedData.map((row, index) => (
-              <TransactionTableRow
-                key={row.id}
-                id={row.id}
-                icon={row.icon}
-                assetIcon={<row.assetIcon width="24px" height="24px" />}
-                accountIcon={<row.accountIcon width="16px" height="16px" />}
-                type={row.type}
-                status={row.status}
-                time={row.date}
-                asset={row.assetName}
-                wallet={row.walletName}
-                account={row.accountName}
-                accountTag={row.accountTag}
-                amount={row.displayAmount}
-                value={row.displayValue}
-                $isLast={index === displayedData.length - 1}
-                $rowIndex={index}
-                onClick={() => handleTransactionTableRow(row)}
-                isSmallScreen={isSmallScreen}
-                accountHeader={strings.history.tableHeader.account}
-                valueHeader={strings.history.tableHeader.value}
-              />
-            ))}
+            <Virtualize.AutoSizer>
+              {({ width }: any) => (
+                <Virtualize.List
+                  ref={listRef}
+                  height={windowHeight - topbarHeight - 173 - 20}
+                  width={width}
+                  rowCount={displayedData.length}
+                  rowHeight={getRowHeight}
+                  rowRenderer={rowRenderer}
+                />
+              )}
+            </Virtualize.AutoSizer>
           </>
         ) : (
           <NoSearchResult
@@ -106,7 +153,10 @@ export const History: FC = () => {
   };
 
   return (
-    <MainAppLayout title={strings.sidebar.history}>
+    <MainAppLayout
+      title={strings.sidebar.history}
+      onTopbarHeightChange={setTopbarHeight}
+    >
       <Container $noFlex m="20">
         {getMainContent()}
       </Container>

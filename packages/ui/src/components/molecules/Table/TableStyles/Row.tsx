@@ -19,11 +19,20 @@ export const RowWrapper = styled.div<{
   align-items: center;
   width: inherit;
   background: ${({ theme, $rowIndex }) =>
-    $rowIndex % 2 !== 0 ? 'transparent' : theme.palette.background.content};
+    $rowIndex % 2 !== 0
+      ? theme.palette.background.stripe
+      : theme.palette.background.content};
   max-height: ${({ $subMenu }) => ($subMenu ? '0' : 'auto')};
   height: ${({ $height }) => $height};
   overflow: hidden;
   transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  border-bottom: 1px solid
+    ${({ theme, $rowIndex }) =>
+      $rowIndex % 2 !== 0
+        ? theme.palette.border.table.stripe
+        : theme.palette.border.table.row};
+  ${({ $isLast }) => $isLast && `border-radius: 0 0 24px 24px`};
+
   ${({ theme, $isLast }) =>
     `
         &:hover {  

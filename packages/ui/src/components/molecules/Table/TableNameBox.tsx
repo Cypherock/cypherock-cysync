@@ -24,7 +24,7 @@ const NameBoxStyle = styled.div<NameBoxProps>`
 
 export const TableNameBox: FC<NameBoxProps> = ({ ...props }) => (
   <NameBoxStyle {...props}>
-    <Typography variant="p" color="muted">
+    <Typography variant="p" color="muted" $whiteSpace="nowrap">
       {props.text}
     </Typography>
   </NameBoxStyle>

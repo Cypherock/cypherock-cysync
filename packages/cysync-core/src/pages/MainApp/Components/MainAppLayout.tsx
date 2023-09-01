@@ -9,18 +9,24 @@ interface MainAppLayoutProps {
   title: string;
   children?: ReactNode;
   fullHeight?: boolean;
+  onTopbarHeightChange?: (height: number) => void;
 }
 
 export const MainAppLayout: FC<MainAppLayoutProps> = ({
   title,
   children,
   fullHeight,
+  onTopbarHeightChange,
 }) => {
   const topbarRef = useRef<HTMLDivElement>(null);
   const [topbarHeight, setTopbarHeight] = useState(0);
 
   const onResize = () => {
-    setTopbarHeight(topbarRef.current?.clientHeight ?? 0);
+    const height = topbarRef.current?.clientHeight ?? 0;
+    if (onTopbarHeightChange) {
+      onTopbarHeightChange(height);
+    }
+    setTopbarHeight(height);
   };
 
   useEffect(() => {
@@ -51,4 +57,5 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
 MainAppLayout.defaultProps = {
   children: undefined,
   fullHeight: false,
+  onTopbarHeightChange: undefined,
 };
