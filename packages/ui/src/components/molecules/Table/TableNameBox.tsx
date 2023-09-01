@@ -10,7 +10,6 @@ interface NameBoxProps extends UtilsProps {
 
 const NameBoxStyle = styled.div<NameBoxProps>`
   padding: 16px;
-  flex: 1;
   display: flex;
   flex-direction: row;
   gap: 24px;
@@ -24,7 +23,12 @@ const NameBoxStyle = styled.div<NameBoxProps>`
 
 export const TableNameBox: FC<NameBoxProps> = ({ ...props }) => (
   <NameBoxStyle {...props}>
-    <Typography variant="p" color="muted" $whiteSpace="nowrap">
+    <Typography
+      variant="p"
+      color="muted"
+      $whiteSpace="nowrap"
+      $textOverflow="ellipsis"
+    >
       {props.text}
     </Typography>
   </NameBoxStyle>

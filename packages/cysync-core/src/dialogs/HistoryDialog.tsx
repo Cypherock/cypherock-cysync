@@ -311,6 +311,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                         $maxWidth="400"
                         $textOverflow="ellipsis"
                         $whiteSpace="nowrap"
+                        $filter={isDiscreetMode ? 'blur(4px)' : undefined}
                       >
                         {displayTransaction.txn.inputs.length > 1
                           ? `${i + 1}. `
@@ -353,6 +354,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                         $maxWidth="400"
                         $textOverflow="ellipsis"
                         $whiteSpace="nowrap"
+                        $filter={isDiscreetMode ? 'blur(4px)' : undefined}
                       >
                         {displayTransaction.txn.outputs.length > 1
                           ? `${i + 1}. `
@@ -369,6 +371,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                     variant="span"
                     $maxWidth="400"
                     $textOverflow="ellipsis"
+                    $filter={isDiscreetMode ? 'blur(4px)' : undefined}
                   >
                     {displayTransaction.hash}
                   </Typography>

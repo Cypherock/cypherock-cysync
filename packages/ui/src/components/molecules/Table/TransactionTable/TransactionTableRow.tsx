@@ -138,18 +138,15 @@ export const TransactionTableRow: React.FC<
             />
           )}
           {isSmallScreen && (
-            <Container
-              display="flex"
-              justify="flex-end"
-              align="center"
-              $alignSelf="stretch"
-              pr={3}
-              $flex={1}
-            >
+            <Container $alignSelf="stretch" $flex={1} $noFlex>
               <Button
+                display="flex"
+                width="100%"
+                height="100%"
+                justify="flex-end"
+                align="center"
                 variant="none"
-                position="absolute"
-                $zIndex={1}
+                pr={3}
                 onClick={event => {
                   event.stopPropagation();
                   setIsExpanded(!isExpanded);
