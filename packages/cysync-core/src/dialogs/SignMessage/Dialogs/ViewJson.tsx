@@ -88,7 +88,6 @@ export const ViewJSONDialog: React.FC = () => {
                 <JsonView
                   src={JSON.parse(json ?? '{}')}
                   enableClipboard={false}
-                  theme="grayscale"
                   displayObjectSize={false}
                   displayDataTypes={false}
                   indentWidth={4}
