@@ -4,7 +4,15 @@ import {
   DialogBoxBody,
   LangDisplay,
   Typography,
-  DialogBoxHeader,
+  LeanBoxContainer,
+  LeanBox,
+  Image,
+  CloseButton,
+  Flex,
+  Divider,
+  LeanBoxProps,
+  ArrowRightIcon,
+  checkIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -15,15 +23,43 @@ import { useSignMessageDialog } from '../context';
 export const ViewSigningStateDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { signMessage } = lang.strings;
-  const { dapp } = useSignMessageDialog();
+  const { dapp, onClose } = useSignMessageDialog();
+
+  const rightArrowIcon = <ArrowRightIcon />;
+
+  const actionsList: LeanBoxProps[] = [
+    {
+      id: '1',
+      text: signMessage.info.confirmDevice,
+      leftImage: rightArrowIcon,
+      rightImage: (
+        <Image src={checkIcon} alt={signMessage.info.confirmDevice} />
+      ),
+    },
+    {
+      id: '2',
+      text: signMessage.info.verifyData,
+      leftImage: rightArrowIcon,
+      rightImage: <Image src={checkIcon} alt={signMessage.info.verifyData} />,
+    },
+    {
+      id: '3',
+      text: signMessage.info.enterPinTapCard,
+      leftImage: rightArrowIcon,
+      rightImage: (
+        <Image src={checkIcon} alt={signMessage.info.enterPinTapCard} />
+      ),
+    },
+  ];
 
   return (
-    <DialogBox width={500}>
-      <DialogBoxHeader py={2}>
-        <span style={{ height: '24px', width: '100%' }} />
-      </DialogBoxHeader>
-      <DialogBoxBody pt={0} pr={0} pb={0} pl={0}>
-        <Container display="flex" direction="column" py={4} px={5}>
+    <DialogBox width={500} align="stretch" gap={0}>
+      <Flex direction="row" justify="flex-end" py={2} px={3}>
+        <CloseButton onClick={onClose} />
+      </Flex>
+      <Divider variant="horizontal" />
+      <DialogBoxBody gap={0} pt={0} pr={0} pb={0} pl={0} align="stretch">
+        <Container display="flex" direction="column" py={4} px={5} gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={signMessage.title} />
           </Typography>
@@ -32,14 +68,18 @@ export const ViewSigningStateDialog: React.FC = () => {
           </Typography>
         </Container>
         <Container
+          align="stretch"
           display="flex"
           direction="column"
-          gap={24}
           pt={2}
           pb={4}
           px={5}
         >
-          <Typography>Signing Message...</Typography>
+          <LeanBoxContainer>
+            {actionsList.map(data => (
+              <LeanBox key={data.id} {...data} color="white" disabled={false} />
+            ))}
+          </LeanBoxContainer>
         </Container>
       </DialogBoxBody>
     </DialogBox>

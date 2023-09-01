@@ -6,9 +6,10 @@ import {
   DialogBoxFooter,
   LangDisplay,
   Typography,
-  DialogBoxHeader,
   Flex,
   ScrollContainer,
+  Divider,
+  CloseButton,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -24,10 +25,11 @@ export const ViewMessageDialog: React.FC = () => {
     useSignMessageDialog();
 
   return (
-    <DialogBox width={500} $maxHeight="90vh">
-      <DialogBoxHeader py={2}>
-        <span style={{ height: '24px', width: '100%' }} />
-      </DialogBoxHeader>
+    <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>
+      <Flex direction="row" justify="flex-end" py={2} px={3}>
+        <CloseButton onClick={onClose} />
+      </Flex>
+      <Divider variant="horizontal" />
       <DialogBoxBody pt={0} pr={0} pb={0} pl={0} gap={0}>
         <Container display="flex" direction="column" py={4} px={5}>
           <Typography variant="h5" $textAlign="center">
@@ -79,7 +81,7 @@ export const ViewMessageDialog: React.FC = () => {
               align="stretch"
               px={2}
               py={2}
-              $bgColor="black"
+              $bgColor="container"
             >
               {message?.split('\n').map(para => (
                 <Typography color="muted" key={para}>

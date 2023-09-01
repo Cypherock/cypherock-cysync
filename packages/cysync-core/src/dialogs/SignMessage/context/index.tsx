@@ -55,6 +55,10 @@ export interface SignMessageDialogContextInterface {
   setAccount: React.Dispatch<
     React.SetStateAction<Pick<IAccount, 'name' | 'familyId' | 'assetId'>>
   >;
+  deviceEvents: Record<number, boolean | undefined>;
+  setDeviceEvents: React.Dispatch<
+    React.SetStateAction<Record<number, boolean | undefined>>
+  >;
 }
 
 export const SignMessageDialogContext: Context<SignMessageDialogContextInterface> =
@@ -99,6 +103,9 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     assetId: 'ethereum',
     familyId: 'evm',
   });
+  const [deviceEvents, setDeviceEvents] = useState<
+    Record<number, boolean | undefined>
+  >({});
 
   /** @doubt What is it about? */
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
@@ -157,6 +164,8 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       setWallet,
       account,
       setAccount,
+      deviceEvents,
+      setDeviceEvents,
     }),
     [
       isDeviceRequired,
@@ -177,6 +186,8 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       setWallet,
       account,
       setAccount,
+      deviceEvents,
+      setDeviceEvents,
     ],
   );
 
