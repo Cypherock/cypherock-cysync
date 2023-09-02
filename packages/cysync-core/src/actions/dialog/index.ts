@@ -1,3 +1,4 @@
+import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -9,8 +10,11 @@ export const openWalletActionsDialog = () =>
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
-export const openAddAccountDialog = () =>
-  openDialog({ name: 'addAccount', data: undefined });
+export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
+  openDialog({ name: 'addAccount', data: props });
 
 export const openReceiveDialog = () =>
-  openDialog({ name: 'receiveDialog', data: undefined });
+  openDialog({ name: 'receive', data: undefined });
+
+export const openSendDialog = () =>
+  openDialog({ name: 'sendDialog', data: undefined });

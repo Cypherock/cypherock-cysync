@@ -1,13 +1,12 @@
+import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+
 export interface IDialogState {
   addAccount: {
     isOpen: boolean;
-    data?: {
-      walletId?: string;
-      coinId?: string;
-    };
+    data?: AddAccountDialogProps;
   };
 
-  receiveDialog: {
+  receive: {
     isOpen: boolean;
     data?: undefined;
   };
@@ -27,6 +26,11 @@ export interface IDialogState {
     data?: {
       type: GuidedFlowType;
     };
+  };
+
+  sendDialog: {
+    isOpen: boolean;
+    data?: undefined;
   };
 }
 

@@ -22,7 +22,10 @@ const initialState: IDialogState = {
   addAccount: {
     isOpen: false,
   },
-  receiveDialog: {
+  sendDialog: {
+    isOpen: false,
+  },
+  receive: {
     isOpen: false,
   },
 };

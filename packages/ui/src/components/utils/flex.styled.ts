@@ -43,7 +43,13 @@ export interface FlexProps {
   grow?: MediaQuery<number>;
   shrink?: MediaQuery<number>;
   $alignSelf?: MediaQuery<AlignSelfType>;
+  $flex?: MediaQuery<number | string>;
 }
+
+const flexProperty = css<FlexProps>`
+  ${props =>
+    props.$flex && generateCss(['flex'], (item: any) => `${item}`, props.$flex)}
+`;
 
 const justifyContent = css<FlexProps>`
   ${props =>
@@ -89,7 +95,7 @@ const shrink = css<FlexProps>`
     generateCss(['flex-shrink'], (item: number) => `${item}`, props.shrink)}
 `;
 
-const $alignSelf = css<FlexProps>`
+const alignSelf = css<FlexProps>`
   ${props =>
     props.$alignSelf &&
     generateCss(
@@ -106,5 +112,6 @@ export const flex = css<FlexProps>`
   ${gap}
   ${grow}
   ${shrink}
-  ${$alignSelf}
+  ${alignSelf}
+  ${flexProperty}
 `;

@@ -24,5 +24,6 @@ export const deleteWallets = async (db: IDatabase, wallets: IWallet[]) => {
 
     await db.account.remove({ walletId: deletedWallet.__id });
     await db.wallet.remove({ __id: deletedWallet.__id });
+    await db.transaction.remove({ walletId: deletedWallet.__id });
   }
 };

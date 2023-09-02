@@ -55,8 +55,7 @@ const setDesktopAppVersion = async params => {
       .map(tag =>
         parseInt(tag.replace(`${tagNameWithoutChannelPostfix}.`, ''), 10),
       )
-      .sort()
-      .reverse();
+      .sort((a, b) => b - a);
 
     if (channelVersions.length === 0) {
       version += `.0`;

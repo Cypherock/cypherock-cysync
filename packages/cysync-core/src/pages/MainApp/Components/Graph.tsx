@@ -376,10 +376,6 @@ export const LineChart: React.FC = () => {
             )
 
 };
-Dropdown.defaultProps = {
-  disabled: false,
-  shouldShowIcon: true,
-};
 
 import styled from 'styled-components';
 import { string } from 'prop-types';

@@ -20,7 +20,7 @@ export const EvmIdMap = {
   optimism: 'optimism',
 } as const;
 
-export type EvmIds = (typeof EvmIdMap)[keyof typeof EvmIdMap] | string;
+export type EvmId = (typeof EvmIdMap)[keyof typeof EvmIdMap];
 
 const units: ICoinUnit[] = [
   {
@@ -45,8 +45,8 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const evmCoinList: Record<EvmIds, IEvmCoinInfo> = coinList.reduce<
-  Record<EvmIds, IEvmCoinInfo>
+export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
+  Record<string, IEvmCoinInfo>
 >(
   (list, coin) => ({
     ...list,

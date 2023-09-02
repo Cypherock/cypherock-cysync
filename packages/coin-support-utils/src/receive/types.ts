@@ -8,6 +8,7 @@ import { Subscriber } from 'rxjs';
 
 export interface App {
   destroy: () => Promise<void>;
+  abort: () => Promise<void>;
 }
 
 export interface IGenerateReceiveAddressParams {
@@ -28,6 +29,7 @@ export interface IGetReceiveAddressFromDevice<
   app: T;
   walletId: string;
   observer: Subscriber<K>;
+  account: IAccount;
 }
 
 export interface IMakeReceiveObservableParams<

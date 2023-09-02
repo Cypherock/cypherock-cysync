@@ -7,7 +7,9 @@ const config = {
 const updateProcessEnvWithConfig = () => {
   for (const key in config) {
     if (key in config) {
-      process.env[key] = (config as any)[key];
+      if (!process.env[key]) {
+        process.env[key] = (config as any)[key];
+      }
     }
   }
 };

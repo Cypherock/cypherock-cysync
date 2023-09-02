@@ -12,4 +12,4 @@ browserify_library () {
 }
 
 browserify_library 'BitcoinJsLib' 'bitcoinjs-lib'
-browserify_library 'BufferLib' 'buffer'
+browserify_library 'NearApiJs' 'near-api-js'

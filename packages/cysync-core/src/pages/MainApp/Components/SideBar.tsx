@@ -15,54 +15,27 @@ import {
   WalletInfoIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useTheme } from 'styled-components';
 
-import { openAddAccountDialog, syncWalletsWithDevice } from '~/actions';
-import { routes } from '~/constants';
-import { useDevice } from '~/context';
-import { useNavigateTo, useQuery } from '~/hooks';
-import {
-  selectLanguage,
-  selectWallets,
-  useAppSelector,
-  useAppDispatch,
-} from '~/store';
-
-type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
+import { openSendDialog, openReceiveDialog } from '~/actions';
+import { useSidebar } from '~/context';
 
 export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
-  const location = useLocation();
-  const query = useQuery();
-  const dispatch = useAppDispatch();
-  const strings = useAppSelector(selectLanguage).strings.sidebar;
-  const { wallets, deletedWallets, syncWalletStatus } =
-    useAppSelector(selectWallets);
-  const theme = useTheme()!;
-  const navigateTo = useNavigateTo();
-  const { connection, connectDevice } = useDevice();
-
-  const navigate = (page: Page) => {
-    navigateTo(routes[page].path);
-  };
-  const navigateWallet = (id: string | undefined) => {
-    if (!id) return;
-    navigateTo(`${routes.wallet.path}?id=${id}`);
-  };
-
-  const getState = (page: Page): State => {
-    if (location.pathname === routes[page].path) return State.selected;
-    return State.normal;
-  };
-  const getStateWallet = (id: string | undefined): State => {
-    if (
-      id &&
-      location.pathname === routes.wallet.path &&
-      query.get('id') === id
-    )
-      return State.active;
-    return State.normal;
-  };
+  const {
+    getState,
+    isWalletCollapsed,
+    navigate,
+    setIsWalletCollapsed,
+    strings,
+    theme,
+    syncWalletStatus,
+    wallets,
+    onWalletSync,
+    deletedWallets,
+    navigateWallet,
+    getWalletState,
+    dispatch,
+    isWalletPage,
+  } = useSidebar();
 
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
@@ -81,16 +54,7 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                 variant="text"
                 align="center"
                 title="Sync Wallets"
-                onClick={e => {
-                  e.stopPropagation();
-                  dispatch(
-                    syncWalletsWithDevice({
-                      connection,
-                      connectDevice,
-                      doFetchFromDevice: true,
-                    }),
-                  );
-                }}
+                onClick={onWalletSync}
               >
                 <Syncronizing
                   fill={theme.palette.muted.main}
@@ -98,12 +62,9 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                 />
               </Button>
             }
-            isCollapsed={location.pathname !== routes.wallet.path}
-            state={
-              location.pathname === routes.wallet.path
-                ? State.selected
-                : undefined
-            }
+            isCollapsed={isWalletCollapsed}
+            setIsCollapsed={setIsWalletCollapsed}
+            state={isWalletPage ? State.selected : undefined}
             Icon={WalletIcon}
           >
             {wallets.map((wallet, idx) => {
@@ -116,7 +77,7 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                   key={`wallet-${wallet.__id}`}
                   text={wallet.name}
                   onClick={() => navigateWallet(wallet.__id)}
-                  state={deleted ? State.error : getStateWallet(wallet.__id)}
+                  state={deleted ? State.error : getWalletState(wallet.__id)}
                   extraRight={
                     deleted && (
                       <Button
@@ -135,14 +96,18 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
               );
             })}
           </SideBarItem>
-          <SideBarItem text={strings.sendCrypto} Icon={ArrowSentIcon} />
-          <SideBarItem text={strings.receiveCrypto} Icon={ArrowReceivedIcon} />
-          {/* TODO: Remove add account sidebar item */}
           <SideBarItem
-            text="Add Account"
+            text={strings.sendCrypto}
             Icon={ArrowSentIcon}
             onClick={() => {
-              dispatch(openAddAccountDialog());
+              dispatch(openSendDialog());
+            }}
+          />
+          <SideBarItem
+            text={strings.receiveCrypto}
+            Icon={ArrowReceivedIcon}
+            onClick={() => {
+              dispatch(openReceiveDialog());
             }}
           />
           <SideBarItem
