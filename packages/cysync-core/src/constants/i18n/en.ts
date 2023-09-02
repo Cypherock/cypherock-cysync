@@ -1458,6 +1458,74 @@ const en = {
       title: 'Are you sure you want to exit?',
     },
   },
+  settings: {
+    tabs: {
+      general: {
+        title: 'General',
+        item: {
+          syncMobile: 'Sync cySync Mobile App',
+          syncMobileDesc:
+            'Sync your Accounts with cySync Mobile App through QR code',
+          editAccount: 'Edit Accounts',
+          editAccountDesc:
+            'Edit the name, preferred currency of the account or remove them from portfolio',
+          toggleWalletOnPortfolio: 'Show/Hide Wallets on the Portfolio',
+          toggleWalletOnPortfolioDesc:
+            'You can disable a specific wallet from here. it will not be displayed on the portfolio page',
+          currency: 'Preferred currency',
+          currencyDesc:
+            'Choose the currency shown next to your balance and operations',
+          language: 'Display Language',
+          languageDesc: 'Set the language for the cySync App',
+          region: 'Region',
+          regionDesc: 'Choose your region to update formats of date and time',
+        },
+      },
+      app: {
+        title: 'App Settings',
+        item: {
+          password: 'Password',
+          passwordDesc: 'Change or turn off/on password for your cySync App',
+          anayticsAndBugReport: 'Analytics & Bug Report',
+          anayticsAndBugReportDesc:
+            'Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster. This includes clicks, page visits, redirections, actions(send, receive, lock etc.), end of page scrolls, (un)installing and app version, number of accounts, crypto assets and operations, session durations, the Cypherock device type and firmware',
+          reset: 'Reset cySync',
+          resetDesc:
+            'Erase all cysync data stored on your PC, including your accounts, transaction histories and settings. Note that this will not result in loss of assets',
+          update: 'cySync Update',
+          updateDesc: 'Automatically download cysync update when available',
+          usb: 'USB Diagnostics',
+          usbDesc: 'Troubleshoot USB connection with the device',
+        },
+      },
+      device: {
+        title: 'Device Settings',
+        item: {
+          x1VaultUpdate: 'X1 Vault Update',
+          x1VaultUpdateDesc: 'Check & update device firmware',
+          x1VaultAuth: 'X1 Vault Authentication',
+          x1VaultAuthDesc: 'Authenticate your device',
+          x1CardAuth: 'X1 Card Authentication',
+          x1CardAuthDesc: 'Authenticate your card',
+          transferWallet: 'Transfer Wallet',
+          transferWalletDesc:
+            'If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever',
+        },
+      },
+      about: {
+        title: 'About',
+        item: {
+          cySyncersion: 'cySync Version',
+          cySyncersionDesc: 'Version {version}',
+          termsOfUse: 'Terms of Use',
+          termsOfUseDesc: 'By using cySync you agree to our Terms of Use',
+          privacyPolicy: 'Privacy Policy',
+          privacyPolicyDesc:
+            'Refer to our Privacy Policy to learn what personal data we collect, why and how we use them',
+        },
+      },
+    },
+  },
 };
 
 export type LanguageStrings = typeof en;

@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Typography } from '../atoms';
-import { goldenGradient, utils } from '../utils';
+import { FlexProps, goldenGradient, utils } from '../utils';
 
-interface Tab {
+export interface Tab {
   label: string;
   content: React.ReactNode;
 }
 interface TabsProps {
   tabs: Tab[];
+  $alignContent?: FlexProps['$alignSelf'];
 }
 
 export const TabContentContainer = styled.div`
@@ -50,9 +51,10 @@ const TabHeader = styled.div`
   flex: 1;
 `;
 
-const TabContent = styled.div`
+const TabContent = styled.div<{ $align: FlexProps['$alignSelf'] }>`
   padding-top: 12px;
   padding-bottom: 12px;
+  align-self: ${props => props.$align};
 `;
 
 const StyledTypography = styled(Typography)<{ $active: boolean }>`
@@ -76,7 +78,7 @@ const StyledTypography = styled(Typography)<{ $active: boolean }>`
   }
 `;
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, $alignContent }) => {
   const [activeTab, setActiveTab] = useState(0);
   const handleTabClick = (index: number) => {
     setActiveTab(index);
@@ -97,7 +99,11 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
           </TabHeader>
         ))}
       </TabHeaders>
-      <TabContent>{tabs[activeTab].content}</TabContent>
+      <TabContent $align={$alignContent}>{tabs[activeTab].content}</TabContent>
     </TabsContainer>
   );
+};
+
+Tabs.defaultProps = {
+  $alignContent: 'initial',
 };
