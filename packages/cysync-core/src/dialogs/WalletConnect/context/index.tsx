@@ -40,10 +40,8 @@ export interface WalletConnectDialogContextInterface {
   handleWalletChange: () => void;
   walletDropdownList: DropDownListItemProps[];
   onPasteWalletConnectedURI: () => void;
-  walletConnectURI: string | undefined;
-  setWalletConnectedURI: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  walletConnectURI: string;
+  setWalletConnectedURI: React.Dispatch<React.SetStateAction<string>>;
   selectedEvmAccounts: IAccount[];
   selectedEvmAccountsGroup: {
     assetId: EvmId;
@@ -161,7 +159,7 @@ export const WalletConnectDialogProvider: FC<
     tabs,
   });
 
-  const [walletConnectURI, setWalletConnectedURI] = useState<string>();
+  const [walletConnectURI, setWalletConnectedURI] = useState<string>('');
 
   const onPasteWalletConnectedURI = () => {
     navigator.clipboard.readText().then(setWalletConnectedURI);
