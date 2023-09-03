@@ -52,7 +52,7 @@ export interface WalletConnectDialogContextInterface {
   }[];
   onChange: (id: string | undefined, assetId: string) => void;
   handleSelectAccount: (id: string) => void;
-  handleDisselectAccount: (id: string) => void;
+  handleDeselectAccount: (id: string) => void;
   getBalanceToDisplay: (account: IAccount) => string;
   evmAccountDropdownListGroup: {
     assetId: EvmId;
@@ -111,7 +111,7 @@ export const WalletConnectDialogProvider: FC<
     onChange,
     getBalanceToDisplay,
     handleSelectAccount,
-    handleDisselectAccount,
+    handleDeselectAccount,
     evmAccountDropdownListGroup,
     evmAccountsGroup,
   } = useEvmAccountDropdown();
@@ -177,7 +177,7 @@ export const WalletConnectDialogProvider: FC<
       onChange,
       getBalanceToDisplay,
       handleSelectAccount,
-      handleDisselectAccount,
+      handleDeselectAccount,
       evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,
@@ -205,7 +205,7 @@ export const WalletConnectDialogProvider: FC<
       onChange,
       getBalanceToDisplay,
       handleSelectAccount,
-      handleDisselectAccount,
+      handleDeselectAccount,
       evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,

@@ -71,7 +71,7 @@ export const useEvmAccountDropdown = () => {
     setSelectedEvmAccounts([...selectedEvmAccounts, accountToAdd]);
   };
 
-  const handleDisselectAccount = (id: string) => {
+  const handleDeselectAccount = (id: string) => {
     const filteredEvmAccounts = selectedEvmAccounts.filter(a => a.__id !== id);
     setSelectedEvmAccounts(filteredEvmAccounts);
   };
@@ -132,7 +132,7 @@ export const useEvmAccountDropdown = () => {
     onChange,
     getBalanceToDisplay,
     handleSelectAccount,
-    handleDisselectAccount,
+    handleDeselectAccount,
     evmAccountDropdownListGroup,
   };
 };
