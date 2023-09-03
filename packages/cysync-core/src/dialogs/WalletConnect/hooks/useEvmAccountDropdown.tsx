@@ -38,12 +38,8 @@ function groupEvmAccounts<T>(evmAccounts: (T & { assetId: string })[]): {
 }
 
 export const useEvmAccountDropdown = () => {
-  const {
-    selectedWallet,
-    setSelectedWallet,
-    walletDropdownList,
-    handleWalletChange,
-  } = useWalletDropdown();
+  const { selectedWallet, walletDropdownList, handleWalletChange } =
+    useWalletDropdown();
 
   const { accounts } = useAppSelector(selectAccounts);
   const evmAccounts = accounts.filter(
@@ -80,6 +76,27 @@ export const useEvmAccountDropdown = () => {
     setSelectedEvmAccounts(filteredEvmAccounts);
   };
 
+  const onChange = (id: string | undefined, assetId: string) => {
+    const filteredSelectedAccounts = selectedEvmAccounts.filter(
+      a => a.assetId !== assetId,
+    );
+
+    if (id === undefined) {
+      setSelectedEvmAccounts(filteredSelectedAccounts);
+      return;
+    }
+
+    const accountToAdd = evmAccounts.find(
+      a => a.assetId === assetId && a.__id === id,
+    );
+
+    if (accountToAdd === undefined) {
+      throw new Error(`unexpected account id (${id}) or assetId (${assetId})`);
+    }
+
+    setSelectedEvmAccounts([...filteredSelectedAccounts, accountToAdd]);
+  };
+
   const evmAccountDropdownListGroup: {
     assetId: EvmId;
     accounts: DropDownListItemProps[];
@@ -107,13 +124,12 @@ export const useEvmAccountDropdown = () => {
 
   return {
     selectedWallet,
-    setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
     selectedEvmAccounts,
     selectedEvmAccountsGroup,
     evmAccountsGroup,
-    setSelectedEvmAccounts,
+    onChange,
     getBalanceToDisplay,
     handleSelectAccount,
     handleDisselectAccount,

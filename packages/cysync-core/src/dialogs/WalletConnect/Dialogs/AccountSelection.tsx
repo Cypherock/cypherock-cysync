@@ -39,8 +39,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     selectedEvmAccountsGroup,
     selectedEvmAccounts,
     handleWalletChange,
-    setSelectedEvmAccounts,
-    evmAccountsGroup,
+    onChange,
     dapp,
     supportedNoAccountBlockchain,
   } = useWalletConnectDialog();
@@ -101,17 +100,9 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                   accountSelectionTab.chooseAccount,
                   { assetName: coinList[group.assetId].name },
                 )}
-                onChange={id => {
-                  // use `handleSelectAccount` & `handleDisselectAccount` for multiselect
-                  const selectedAccount = evmAccountsGroup
-                    .find(a => a.assetId === group.assetId)
-                    ?.accounts.find(a => a.__id === id);
-                  if (selectedAccount) {
-                    setSelectedEvmAccounts([selectedAccount]);
-                  } else {
-                    setSelectedEvmAccounts([]);
-                  }
-                }}
+                onChange={(id: string | undefined) =>
+                  onChange(id, group.assetId)
+                }
               />
             );
           })}
