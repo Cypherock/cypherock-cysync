@@ -37,8 +37,9 @@ export const useEvmAccountDropdown = () => {
     useWalletDropdown();
 
   const { accounts } = useAppSelector(selectAccounts);
-  const evmAccounts = accounts.filter(
-    (account: IAccount) => account.familyId === 'evm',
+  const evmAccounts = useMemo(
+    () => accounts.filter((account: IAccount) => account.familyId === 'evm'),
+    [accounts],
   );
 
   const [selectedEvmAccounts, setSelectedEvmAccounts] = useState<IAccount[]>(
@@ -113,9 +114,14 @@ export const useEvmAccountDropdown = () => {
     );
   }, [evmAccounts, selectedWallet]);
 
-  const selectedEvmAccountsGroup =
-    groupEvmAccounts<IAccount>(selectedEvmAccounts);
-  const evmAccountsGroup = groupEvmAccounts<IAccount>(evmAccounts);
+  const selectedEvmAccountsGroup = useMemo(
+    () => groupEvmAccounts<IAccount>(selectedEvmAccounts),
+    [selectedEvmAccounts],
+  );
+  const evmAccountsGroup = useMemo(
+    () => groupEvmAccounts<IAccount>(evmAccounts),
+    [evmAccounts],
+  );
 
   return {
     selectedWallet,
