@@ -44,7 +44,6 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
-import PasteIcon from './PasteIcon.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
@@ -69,7 +68,6 @@ import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
-import WalletConnectLogo from './WalletConnectLogo.svg';
 import warningIcon from './warning.svg';
 
 export {
@@ -143,7 +141,5 @@ export {
   goldSendIcon,
   warningIcon,
   verifyAmountIcon,
-  WalletConnectLogo,
   UniSwapLogo,
-  PasteIcon,
 };

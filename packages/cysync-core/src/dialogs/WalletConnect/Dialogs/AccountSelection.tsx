@@ -52,7 +52,9 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
       <Divider variant="horizontal" />
       <Container display="flex" direction="column" gap={32} py={4} px={5}>
         <DappConnectedLogo
-          logos={[dapp.logo, WalletConnectLogo, cysyncLogoSmall]}
+          walletConnectLogo={WalletConnectLogo}
+          cySyncLogo={cysyncLogoSmall}
+          dappLogoUrl={dapp.logo}
         />
         <Container display="flex" direction="column" gap={8} width="full">
           <Typography variant="h5" $textAlign="center">

@@ -4,28 +4,28 @@ import PropTypes from 'prop-types';
 import { SvgProps } from '../../../assets';
 import { Image, Flex } from '../../atoms';
 
-const LogosContainer = styled(Flex)`
-  hr {
-    border: none;
-    border-top: 1px dotted #f00;
-    color: #fff;
-    background-color: #fff;
-    height: 1px;
-    width: 50%;
-  }
-  img {
+const SmallLogoContainer = styled.div`
+  img,
+  svg {
     padding: 6px;
     background: #3a3531;
     border-radius: 25px;
   }
-  img:first-child,
-  img:last-child {
+`;
+
+const LargeLogoContainer = styled.div`
+  img,
+  svg {
     padding: 10px;
+    background: #3a3531;
+    border-radius: 25px;
   }
 `;
 
 export interface DappConnectedLogoProps {
-  logos: [string, string, string];
+  walletConnectLogo: React.FC<SvgProps>;
+  cySyncLogo: string;
+  dappLogoUrl: string;
 }
 
 const ConnectingLine: React.FC<SvgProps> = ({
@@ -59,13 +59,21 @@ ConnectingLine.defaultProps = {
 };
 
 export const DappConnectedLogo: React.FC<DappConnectedLogoProps> = ({
-  logos,
+  walletConnectLogo: WalletConnectLogo,
+  dappLogoUrl,
+  cySyncLogo,
 }) => (
-  <LogosContainer align="center">
-    <Image src={logos[0]} alt="DApp" width={50} height={50} />
+  <Flex align="center">
+    <LargeLogoContainer>
+      <Image src={dappLogoUrl} alt="DApp" width={50} height={50} />
+    </LargeLogoContainer>
     <ConnectingLine />
-    <Image src={logos[1]} alt="WalletConnect" width={30} height={30} />
+    <SmallLogoContainer>
+      <WalletConnectLogo width={30} height={30} />
+    </SmallLogoContainer>
     <ConnectingLine />
-    <Image src={logos[2]} alt="CySync" width={50} height={50} />
-  </LogosContainer>
+    <LargeLogoContainer>
+      <Image src={cySyncLogo} alt="CySync" width={50} height={50} />
+    </LargeLogoContainer>
+  </Flex>
 );

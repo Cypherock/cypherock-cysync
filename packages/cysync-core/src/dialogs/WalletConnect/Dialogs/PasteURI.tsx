@@ -8,7 +8,6 @@ import {
   LangDisplay,
   Typography,
   WalletConnectLogo,
-  Image,
   PasteIcon,
   CloseButton,
   Flex,
@@ -47,7 +46,8 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
           py={4}
           px={5}
         >
-          <Image $alignSelf="center" src={WalletConnectLogo} alt="Send Coin" />
+          {/* <Image $alignSelf="center" src={WalletConnectLogo} alt="Send Coin" /> */}
+          <WalletConnectLogo $alignSelf="center" />
           <Container display="flex" direction="column" gap={2} width="full">
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={uriTab.title} />
@@ -72,7 +72,8 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
             name="wallet-connect-uri"
             placeholder={uriTab.placeholder}
             label={uriTab.inputLabel}
-            postfixIcon={<Image src={PasteIcon} alt={uriTab.placeholder} />}
+            // postfixIcon={<Image src={PasteIcon} alt={uriTab.placeholder} />}
+            postfixIcon={<PasteIcon />}
             onPostfixIconClick={onPasteWalletConnectedURI}
             onChange={setWalletConnectedURI}
             value={walletConnectURI}
