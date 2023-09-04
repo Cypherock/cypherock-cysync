@@ -11,7 +11,9 @@ export const AccountSyncTask: React.FC = () => {
   const { lastSyncedAt } = useAppSelector(selectAccountSync);
 
   const startSyncing = () => {
-    dispatch(syncAllAccounts());
+    if (window.cysyncEnv.IS_PRODUCTION === 'true') {
+      dispatch(syncAllAccounts());
+    }
   };
 
   const debouncedStartSyncing = lodash.debounce(

@@ -295,6 +295,7 @@ const en = {
   x1Card: 'X1 Card',
   help: 'Help',
   back: 'Back',
+  allWallets: 'All Wallets',
   buttons: {
     addAccount: 'Add Account',
     addToken: 'Add Token',
@@ -1097,6 +1098,18 @@ const en = {
       keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
+    },
+  },
+  graph: {
+    totalBalance: 'Total Balance',
+    walletDropdown: {
+      search: 'Search',
+    },
+    timeRange: {
+      day: '1D',
+      week: '1W',
+      month: '1M',
+      year: '1Y',
     },
   },
   portfolio: {

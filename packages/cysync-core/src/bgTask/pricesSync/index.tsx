@@ -26,8 +26,10 @@ export const PriceSyncTask: React.FC = () => {
   };
 
   useEffect(() => {
-    startSyncingLatestPrice();
-    startSyncingPriceHistory();
+    if (window.cysyncEnv.IS_PRODUCTION === 'true') {
+      startSyncingLatestPrice();
+      startSyncingPriceHistory();
+    }
 
     return () => {
       if (latestPriceTimeoutRef.current) {

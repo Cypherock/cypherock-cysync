@@ -8,6 +8,7 @@ import { UtilsProps, goldenGradient, utils } from '../utils';
 type ButtonVariant =
   | 'primary'
   | 'secondary'
+  | 'secondaryLight'
   | 'warning'
   | 'danger'
   | 'text'
@@ -96,6 +97,18 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
       background: ${props => props.theme.palette.silver};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+  `,
+  secondaryLight: css<ButtonProps>`
+    background: none;
+    outline: none;
+
+    border: 1px solid ${props => props.theme.palette.border.separator};
+    color: ${({ theme }) => theme.palette.text.white};
+    border-radius: 8px;
+
+    &:hover {
+      color: ${({ theme }) => theme.palette.text.muted};
     }
   `,
   warning: css<ButtonProps>``,
