@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, useTheme } from 'styled-components';
 
 import { InfoItalicsIcon, shieldAlert } from '../../assets';
 import {
@@ -36,7 +36,7 @@ const maskBaseStyle = css<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
         border-style: solid;
         border-color: ${({ theme }) => theme.palette.border.message};
         border-radius: 6px;
-        color: #ffffff;
+        color: ${({ theme }) => theme.palette.text.white};
         font-weight: 500;
       `;
     if (props.variant === 'messageSecondary')
@@ -46,7 +46,7 @@ const maskBaseStyle = css<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
         border-style: solid;
         border-color: ${({ theme }) => theme.palette.border.messageSecondary};
         border-radius: 6px;
-        color: #ffffff;
+        color: ${({ theme }) => theme.palette.text.white};
         font-weight: 500;
       `;
     if (props.variant === 'warning')
@@ -56,7 +56,7 @@ const maskBaseStyle = css<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
         border-style: solid;
         border-color: ${({ theme }) => theme.palette.border.warning};
         border-radius: 6px;
-        color: #ffffff;
+        color: ${({ theme }) => theme.palette.text.white};
         font-weight: 500;
       `;
     if (props.variant === 'info')
@@ -66,7 +66,7 @@ const maskBaseStyle = css<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
         border-style: solid;
         border-color: ${({ theme }) => theme.palette.border.input};
         border-radius: 6px;
-        color: #ffffff;
+        color: ${({ theme }) => theme.palette.text.white};
         font-weight: 500;
       `;
     if (props.variant === 'none')
@@ -93,14 +93,6 @@ const MaskStyle = styled.div<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
   ${utils}
 `;
 
-const iconObj: Record<AlertBoxVariantType, React.JSX.Element> = {
-  warning: <InfoItalicsIcon color="yellow" />,
-  messageSecondary: <InfoItalicsIcon color="yellow" />,
-  message: <InfoItalicsIcon fill="#51C61A" />,
-  info: <Image width="20" src={shieldAlert} alt="alert" />,
-  none: <Image width="20" src={shieldAlert} alt="alert" />,
-};
-
 const textObj: Record<AlertBoxVariantType, TypographyColor> = {
   message: 'message',
   messageSecondary: 'message',
@@ -116,6 +108,16 @@ export const AlertBox: FC<AlertBoxProps> = ({
   ...props
 }) => {
   const variantCurr = props.variant ? props.variant : 'none';
+
+  const theme = useTheme();
+
+  const iconObj: Record<AlertBoxVariantType, React.JSX.Element> = {
+    warning: <InfoItalicsIcon fill={theme?.palette.text.warn} />,
+    messageSecondary: <InfoItalicsIcon fill={theme?.palette.text.warn} />,
+    message: <InfoItalicsIcon fill={theme?.palette.text.success} />,
+    info: <Image width="20" src={shieldAlert} alt="alert" />,
+    none: <Image width="20" src={shieldAlert} alt="alert" />,
+  };
 
   return (
     <MaskStyle {...props}>

@@ -56,6 +56,7 @@ export const theme = {
       progress: colors.background.progressBar,
       input: colors.background.input,
       container: colors.background.container,
+      containerSecondary: colors.background.containerSecondary,
       blur: colors.background.blur,
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,
