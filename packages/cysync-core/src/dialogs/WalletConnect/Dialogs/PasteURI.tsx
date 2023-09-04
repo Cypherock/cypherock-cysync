@@ -65,28 +65,34 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
           pb={4}
           px={5}
         >
-          <Input
-            pasteAllowed
-            type="text"
-            name="wallet-connect-uri"
-            placeholder={uriTab.placeholder}
-            label={uriTab.inputLabel}
-            postfixIcon={<PasteIcon />}
-            onPostfixIconClick={onPasteWalletConnectedURI}
-            onChange={setWalletConnectedURI}
-            value={walletConnectURI}
-            $customRightSpacing={40}
-          />
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              onNext();
+            }}
+            id="wallet-connect-uri-form"
+          >
+            <Input
+              pasteAllowed
+              type="text"
+              name="wallet-connect-uri"
+              placeholder={uriTab.placeholder}
+              label={uriTab.inputLabel}
+              postfixIcon={<PasteIcon />}
+              onPostfixIconClick={onPasteWalletConnectedURI}
+              onChange={setWalletConnectedURI}
+              value={walletConnectURI}
+              $customRightSpacing={40}
+            />
+          </form>
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
+          form="wallet-connect-uri-form"
+          type="submit"
           variant="primary"
           disabled={!walletConnectURI || walletConnectURI.length === 0}
-          onClick={e => {
-            e.preventDefault();
-            onNext();
-          }}
         >
           <LangDisplay text={buttons.connect} />
         </Button>
