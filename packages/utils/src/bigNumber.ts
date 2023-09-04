@@ -77,6 +77,10 @@ export class BigNumber {
     return this.num.toPrecision(decimalPlaces, roundingMode);
   }
 
+  compareTo(n: NumberLike) {
+    return this.num.comparedTo(new BigNumberJS(BigNumber.getNumberLike(n)));
+  }
+
   private static getNumberLike(n: NumberLike) {
     if (n instanceof BigNumber) {
       return n.getRawNumber();

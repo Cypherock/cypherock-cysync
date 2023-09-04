@@ -28,6 +28,7 @@ export interface InputProps {
   $error?: boolean;
   leftImage?: React.ReactNode;
   $customImageSpacing?: boolean;
+  $customRightSpacing?: number;
   $noBorder?: boolean;
 }
 
@@ -36,6 +37,7 @@ const InputStyle = styled.input<{
   $textColor?: string;
   $error?: boolean;
   disabled: boolean;
+  $customRightSpacing?: number;
 }>`
   position: relative;
   width: 100%;
@@ -60,6 +62,8 @@ const InputStyle = styled.input<{
       disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   }
   text-overflow: ellipsis;
+  padding-right: ${({ $customRightSpacing }) =>
+    `${$customRightSpacing}px` ?? '0px'};
 `;
 
 const InputWrapper = styled.div<{
@@ -116,6 +120,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         $error = false,
         leftImage,
         $customImageSpacing,
+        $customRightSpacing,
         $noBorder = false,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
@@ -154,6 +159,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
+            $customRightSpacing={$customRightSpacing}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -198,6 +204,7 @@ Input.defaultProps = {
   $error: false,
   leftImage: undefined,
   $customImageSpacing: false,
+  $customRightSpacing: undefined,
 };
 
 Input.displayName = 'Input';

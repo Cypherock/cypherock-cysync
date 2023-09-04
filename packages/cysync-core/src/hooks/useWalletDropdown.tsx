@@ -4,11 +4,15 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectWallets, useAppSelector } from '..';
 
-export const useWalletDropdown = () => {
+export interface UseWalletDropdownProps {
+  walletId?: string;
+}
+
+export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const { wallets } = useAppSelector(selectWallets);
   const theme = useTheme();
@@ -30,6 +34,16 @@ export const useWalletDropdown = () => {
       })),
     [wallets],
   );
+
+  useEffect(() => {
+    if (props?.walletId) {
+      const wallet = wallets.find(w => w.__id === props.walletId);
+
+      if (wallet) {
+        setSelectedWallet(wallet);
+      }
+    }
+  }, [props?.walletId]);
 
   return {
     selectedWallet,

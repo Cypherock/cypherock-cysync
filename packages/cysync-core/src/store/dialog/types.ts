@@ -1,10 +1,9 @@
+import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+
 export interface IDialogState {
   addAccount: {
     isOpen: boolean;
-    data?: {
-      walletId?: string;
-      coinId?: string;
-    };
+    data?: AddAccountDialogProps;
   };
 
   receive: {

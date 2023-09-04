@@ -21,15 +21,12 @@ export const NoAccountWrapper = styled.div<NoAccountWrapperProps>`
   flex: 1 0 0;
   align-self: stretch;
   border-radius: ${({ $hasCustomStyles }) => ($hasCustomStyles ? '0' : '24px')};
-  background: ${({ theme, $hasCustomStyles }) =>
-    $hasCustomStyles ? 'transparent' : theme.palette.primary.primary};
+  background: transparent;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
-  min-height: 606px;
-  max-width: ${({ $hasCustomStyles }) =>
-    $hasCustomStyles ? 'auto' : '1376px'};
-  @media ${({ theme }) => theme.screens.lg} {
-    background: transparent;
-  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const NoAccountLoader = styled.div`

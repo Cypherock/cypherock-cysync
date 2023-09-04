@@ -1,30 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
 import { Button, Flex } from '../../atoms';
-import { Breadcrumb } from '../Breadcrumb';
+import { Breadcrumb, BreadcrumbProps } from '../Breadcrumb';
 
-export interface DropdownItem {
-  id: string;
-  text: string;
-  checkType?: string;
-}
-
-interface WalletHeaderProps {
+export interface WalletHeaderProps {
   title: string;
   breadcrumb?: string;
-  btnAddToken?: string;
-  btnAddAccount?: string;
-  dropdown: DropdownItem[];
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  focusedIndex: number;
-  setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
+  primaryActionText?: string;
+  secondaryActionText?: string;
+  dropdown: BreadcrumbProps['dropdown'];
   selectedItem: string;
-  setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
-  dropdownState: () => void;
-  onAddTokenClick: () => void;
-  onAddAccountClick: () => void;
+  setSelectedItem: BreadcrumbProps['setSelectedItem'];
+  onPrimaryAction?: () => void;
+  onSecondaryAction?: () => void;
 }
 
 const WalletHeaderWrapper = styled.div`
@@ -38,45 +27,53 @@ const WalletHeaderWrapper = styled.div`
 export const WalletHeader: FC<WalletHeaderProps> = ({
   title,
   breadcrumb,
-  btnAddToken,
-  btnAddAccount,
+  primaryActionText,
+  secondaryActionText,
   dropdown,
-  isOpen,
-  setIsOpen,
-  focusedIndex,
-  setFocusedIndex,
   selectedItem,
   setSelectedItem,
-  dropdownState,
-  onAddTokenClick,
-  onAddAccountClick,
-}) => (
-  <WalletHeaderWrapper>
-    <Breadcrumb
-      currentPage={title}
-      breadcrumb={breadcrumb}
-      dropdown={dropdown}
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      focusedIndex={focusedIndex}
-      setFocusedIndex={setFocusedIndex}
-      selectedItem={selectedItem}
-      setSelectedItem={setSelectedItem}
-      dropdownState={dropdownState}
-    />
-    <Flex gap={24}>
-      <Button variant="primary" onClick={onAddTokenClick}>
-        {btnAddToken}
-      </Button>
-      <Button variant="primary" onClick={onAddAccountClick}>
-        {btnAddAccount}
-      </Button>
-    </Flex>
-  </WalletHeaderWrapper>
-);
+  onPrimaryAction,
+  onSecondaryAction,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  const dropdownState = () => setIsOpen(!isOpen);
+
+  return (
+    <WalletHeaderWrapper>
+      <Breadcrumb
+        currentPage={title}
+        breadcrumb={breadcrumb}
+        dropdown={dropdown}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        focusedIndex={focusedIndex}
+        setFocusedIndex={setFocusedIndex}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
+        dropdownState={dropdownState}
+      />
+      <Flex gap={24}>
+        {primaryActionText && (
+          <Button variant="primary" onClick={onPrimaryAction}>
+            {primaryActionText}
+          </Button>
+        )}
+        {secondaryActionText && (
+          <Button variant="primary" onClick={onSecondaryAction}>
+            {secondaryActionText}
+          </Button>
+        )}
+      </Flex>
+    </WalletHeaderWrapper>
+  );
+};
 
 WalletHeader.defaultProps = {
   breadcrumb: undefined,
-  btnAddToken: undefined,
-  btnAddAccount: undefined,
+  primaryActionText: undefined,
+  secondaryActionText: undefined,
+  onPrimaryAction: undefined,
+  onSecondaryAction: undefined,
 };

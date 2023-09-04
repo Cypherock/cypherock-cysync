@@ -14,6 +14,11 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
+export interface AddAccountDialogProps {
+  walletId?: string;
+  coinId?: string;
+}
+
 const AddNewAccount: FC = () => {
   const {
     tabs,
@@ -73,8 +78,13 @@ const AddNewAccount: FC = () => {
   );
 };
 
-export const AddAccountDialog: FC = () => (
-  <AddAccountDialogProvider>
+export const AddAccountDialog: FC<AddAccountDialogProps> = props => (
+  <AddAccountDialogProvider {...props}>
     <AddNewAccount />
   </AddAccountDialogProvider>
 );
+
+AddAccountDialog.defaultProps = {
+  coinId: undefined,
+  walletId: undefined,
+};

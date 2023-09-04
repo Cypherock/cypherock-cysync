@@ -14,9 +14,11 @@ import {
   AlertBox,
   BulletList,
   ScrollableContainer,
-  DialogBoxHeader,
   cysyncLogoSmall,
   DappConnectedLogo,
+  Flex,
+  CloseButton,
+  Divider,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -37,20 +39,22 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     selectedEvmAccountsGroup,
     selectedEvmAccounts,
     handleWalletChange,
-    setSelectedEvmAccounts,
-    evmAccountsGroup,
+    onChange,
     dapp,
     supportedNoAccountBlockchain,
   } = useWalletConnectDialog();
 
   return (
-    <DialogBox width={500} $maxHeight="90vh">
-      <DialogBoxHeader py={2}>
-        <span style={{ height: '24px', width: '100%' }} />
-      </DialogBoxHeader>
-      <Container display="flex" direction="column" gap={32} py={4}>
+    <DialogBox width={500} $maxHeight="90vh" align="stretch">
+      <Flex direction="row" justify="flex-end" py={2} px={3}>
+        <CloseButton onClick={onClose} />
+      </Flex>
+      <Divider variant="horizontal" />
+      <Container display="flex" direction="column" gap={32} py={4} px={5}>
         <DappConnectedLogo
-          logos={[dapp.logo, WalletConnectLogo, cysyncLogoSmall]}
+          walletConnectLogo={WalletConnectLogo}
+          cySyncLogo={cysyncLogoSmall}
+          dappLogoUrl={dapp.logo}
         />
         <Container display="flex" direction="column" gap={8} width="full">
           <Typography variant="h5" $textAlign="center">
@@ -65,83 +69,66 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
         </Container>
       </Container>
       <ScrollableContainer>
-        <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-          <Container
-            display="flex"
-            direction="column"
-            gap={24}
-            py={2}
-            width="full"
-            align="stretch"
-          >
-            <Dropdown
-              items={walletDropdownList}
-              selectedItem={selectedWallet?.__id}
-              searchText={accountSelectionTab.chooseWallet}
-              placeholderText={accountSelectionTab.chooseWallet}
-              onChange={handleWalletChange}
-              leftImage={
-                <Image
-                  src={walletIcon}
-                  alt={accountSelectionTab.chooseWallet}
-                  ml={3}
-                />
-              }
-            />
-            {evmAccountDropdownListGroup.map(group => {
-              const selectedItem = selectedEvmAccountsGroup.find(
-                a => a.assetId === group.assetId,
-              )?.accounts[0]?.__id;
-              return (
-                <Dropdown
-                  key={group.assetId}
-                  items={group.accounts}
-                  selectedItem={selectedItem}
-                  disabled={!selectedWallet}
-                  searchText={parseLangTemplate(
-                    accountSelectionTab.chooseAccount,
-                    { assetName: coinList[group.assetId].name },
-                  )}
-                  placeholderText={parseLangTemplate(
-                    accountSelectionTab.chooseAccount,
-                    { assetName: coinList[group.assetId].name },
-                  )}
-                  onChange={id => {
-                    // use `handleSelectAccount` & `handleDisselectAccount` for multiselect
-                    const selectedAccount = evmAccountsGroup
-                      .find(a => a.assetId === group.assetId)
-                      ?.accounts.find(a => a.__id === id);
-                    if (selectedAccount) {
-                      setSelectedEvmAccounts([selectedAccount]);
-                    } else {
-                      setSelectedEvmAccounts([]);
-                    }
-                  }}
-                />
-              );
-            })}
-            <AlertBox
-              alert={accountSelectionTab.supportInfo}
-              subAlert={supportedNoAccountBlockchain.join(', ')}
-              variant="message"
-            />
-            <AlertBox
-              alert={accountSelectionTab.notSupportedWarning.title}
-              subAlert={accountSelectionTab.notSupportedWarning.description}
-              variant="messageSecondary"
-            />
-            <Typography color="muted">
-              <LangDisplay text={common.info.title} />
-            </Typography>
-            <BulletList
-              items={common.info.points}
-              variant="success"
-              $bgColor={undefined}
-              $borderWidth={0}
-              px={0}
-              py={0}
-            />
-          </Container>
+        <DialogBoxBody pt={2} px={5} pb={4} align="stretch" gap={24}>
+          <Dropdown
+            items={walletDropdownList}
+            selectedItem={selectedWallet?.__id}
+            searchText={accountSelectionTab.chooseWallet}
+            placeholderText={accountSelectionTab.chooseWallet}
+            onChange={handleWalletChange}
+            leftImage={
+              <Image
+                src={walletIcon}
+                alt={accountSelectionTab.chooseWallet}
+                ml={3}
+              />
+            }
+          />
+          {evmAccountDropdownListGroup.map(group => {
+            const selectedItem = selectedEvmAccountsGroup.find(
+              a => a.assetId === group.assetId,
+            )?.accounts[0]?.__id;
+            return (
+              <Dropdown
+                key={group.assetId}
+                items={group.accounts}
+                selectedItem={selectedItem}
+                disabled={!selectedWallet}
+                searchText={parseLangTemplate(
+                  accountSelectionTab.chooseAccount,
+                  { assetName: coinList[group.assetId].name },
+                )}
+                placeholderText={parseLangTemplate(
+                  accountSelectionTab.chooseAccount,
+                  { assetName: coinList[group.assetId].name },
+                )}
+                onChange={(id: string | undefined) =>
+                  onChange(id, group.assetId)
+                }
+              />
+            );
+          })}
+          <AlertBox
+            alert={accountSelectionTab.supportInfo}
+            subAlert={supportedNoAccountBlockchain.join(', ')}
+            variant="message"
+          />
+          <AlertBox
+            alert={accountSelectionTab.notSupportedWarning.title}
+            subAlert={accountSelectionTab.notSupportedWarning.description}
+            variant="messageSecondary"
+          />
+          <Typography color="muted">
+            <LangDisplay text={common.info.title} />
+          </Typography>
+          <BulletList
+            items={common.info.points}
+            variant="success"
+            $bgColor={undefined}
+            $borderWidth={0}
+            px={0}
+            py={0}
+          />
         </DialogBoxBody>
       </ScrollableContainer>
       <DialogBoxFooter>

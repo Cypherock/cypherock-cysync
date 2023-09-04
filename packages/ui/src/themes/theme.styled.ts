@@ -10,6 +10,7 @@ export const theme = {
   screens: {
     def: `(min-width: ${screens.def})`,
     md: `(min-width: ${screens.md})`,
+    mdlg: `(min-width: ${screens.mdlg})`,
     lg: `(min-width: ${screens.lg})`,
     xl: `(min-width: ${screens.xl})`,
   },
@@ -55,6 +56,7 @@ export const theme = {
       progress: colors.background.progressBar,
       input: colors.background.input,
       container: colors.background.container,
+      containerSecondary: colors.background.containerSecondary,
       blur: colors.background.blur,
       primary: colors.gradients.primary,
       secondary: colors.gradients.secondary,

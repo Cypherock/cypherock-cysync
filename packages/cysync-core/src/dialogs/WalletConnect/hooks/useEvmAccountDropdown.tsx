@@ -18,36 +18,28 @@ function groupEvmAccounts<T>(evmAccounts: (T & { assetId: string })[]): {
     accounts: T[];
   }[] = [];
 
-  evmAccounts.forEach(account => {
-    if (!Object.keys(EvmIdMap).includes(account.assetId)) {
-      throw new Error(`Account Asset not Supported: ${account.assetId}`);
-    }
-    const matchedGroup = evmAccountsGrouped.find(
-      a => a.assetId === account.assetId,
-    );
-    if (matchedGroup === undefined) {
+  const group = lodash.groupBy(evmAccounts, a => a.assetId);
+
+  for (const assetId in group) {
+    if (Object.keys(EvmIdMap).includes(assetId)) {
       evmAccountsGrouped.push({
-        assetId: account.assetId as EvmId,
-        accounts: [account],
+        assetId: assetId as EvmId,
+        accounts: group[assetId],
       });
-    } else {
-      matchedGroup.accounts.push(account);
     }
-  });
+  }
+
   return evmAccountsGrouped;
 }
 
 export const useEvmAccountDropdown = () => {
-  const {
-    selectedWallet,
-    setSelectedWallet,
-    walletDropdownList,
-    handleWalletChange,
-  } = useWalletDropdown();
+  const { selectedWallet, walletDropdownList, handleWalletChange } =
+    useWalletDropdown();
 
   const { accounts } = useAppSelector(selectAccounts);
-  const evmAccounts = accounts.filter(
-    (account: IAccount) => account.familyId === 'evm',
+  const evmAccounts = useMemo(
+    () => accounts.filter((account: IAccount) => account.familyId === 'evm'),
+    [accounts],
   );
 
   const [selectedEvmAccounts, setSelectedEvmAccounts] = useState<IAccount[]>(
@@ -75,9 +67,30 @@ export const useEvmAccountDropdown = () => {
     setSelectedEvmAccounts([...selectedEvmAccounts, accountToAdd]);
   };
 
-  const handleDisselectAccount = (id: string) => {
+  const handleDeselectAccount = (id: string) => {
     const filteredEvmAccounts = selectedEvmAccounts.filter(a => a.__id !== id);
     setSelectedEvmAccounts(filteredEvmAccounts);
+  };
+
+  const onChange = (id: string | undefined, assetId: string) => {
+    const filteredSelectedAccounts = selectedEvmAccounts.filter(
+      a => a.assetId !== assetId,
+    );
+
+    if (id === undefined) {
+      setSelectedEvmAccounts(filteredSelectedAccounts);
+      return;
+    }
+
+    const accountToAdd = evmAccounts.find(
+      a => a.assetId === assetId && a.__id === id,
+    );
+
+    if (accountToAdd === undefined) {
+      throw new Error(`unexpected account id (${id}) or assetId (${assetId})`);
+    }
+
+    setSelectedEvmAccounts([...filteredSelectedAccounts, accountToAdd]);
   };
 
   const evmAccountDropdownListGroup: {
@@ -101,22 +114,26 @@ export const useEvmAccountDropdown = () => {
     );
   }, [evmAccounts, selectedWallet]);
 
-  const selectedEvmAccountsGroup =
-    groupEvmAccounts<IAccount>(selectedEvmAccounts);
-  const evmAccountsGroup = groupEvmAccounts<IAccount>(evmAccounts);
+  const selectedEvmAccountsGroup = useMemo(
+    () => groupEvmAccounts<IAccount>(selectedEvmAccounts),
+    [selectedEvmAccounts],
+  );
+  const evmAccountsGroup = useMemo(
+    () => groupEvmAccounts<IAccount>(evmAccounts),
+    [evmAccounts],
+  );
 
   return {
     selectedWallet,
-    setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
     selectedEvmAccounts,
     selectedEvmAccountsGroup,
     evmAccountsGroup,
-    setSelectedEvmAccounts,
+    onChange,
     getBalanceToDisplay,
     handleSelectAccount,
-    handleDisselectAccount,
+    handleDeselectAccount,
     evmAccountDropdownListGroup,
   };
 };

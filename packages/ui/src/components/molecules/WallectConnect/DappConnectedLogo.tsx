@@ -1,71 +1,48 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import PropTypes from 'prop-types';
-import { SvgProps } from '../../../assets';
+import { ConnectingLine, SvgProps } from '../../../assets';
 import { Image, Flex } from '../../atoms';
 
-const LogosContainer = styled(Flex)`
-  hr {
-    border: none;
-    border-top: 1px dotted #f00;
-    color: #fff;
-    background-color: #fff;
-    height: 1px;
-    width: 50%;
-  }
-  img {
+const SmallLogoContainer = styled.div`
+  img,
+  svg {
     padding: 6px;
-    background: #3a3531;
+    background: ${({ theme }) => theme.palette.background.containerSecondary};
     border-radius: 25px;
   }
-  img:first-child,
-  img:last-child {
+`;
+
+const LargeLogoContainer = styled.div`
+  img,
+  svg {
     padding: 10px;
+    background: ${({ theme }) => theme.palette.background.containerSecondary};
+    border-radius: 25px;
   }
 `;
 
 export interface DappConnectedLogoProps {
-  logos: [string, string, string];
+  walletConnectLogo: React.FC<SvgProps>;
+  cySyncLogo: string;
+  dappLogoUrl: string;
 }
 
-const ConnectingLine: React.FC<SvgProps> = ({
-  fill,
-  width,
-  height,
-  ...props
-}) => (
-  <svg
-    width={width}
-    height={height}
-    viewBox="0 0 25 1"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M0.5 0.5H24.5" stroke={fill} strokeDasharray="2 2" />
-  </svg>
-);
-
-ConnectingLine.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  fill: PropTypes.string,
-};
-
-ConnectingLine.defaultProps = {
-  width: 25,
-  height: 1,
-  fill: '#8B8682',
-};
-
 export const DappConnectedLogo: React.FC<DappConnectedLogoProps> = ({
-  logos,
+  walletConnectLogo: WalletConnectLogo,
+  dappLogoUrl,
+  cySyncLogo,
 }) => (
-  <LogosContainer align="center">
-    <Image src={logos[0]} alt="DApp" width={50} height={50} />
+  <Flex align="center">
+    <LargeLogoContainer>
+      <Image src={dappLogoUrl} alt="DApp" width={50} height={50} />
+    </LargeLogoContainer>
     <ConnectingLine />
-    <Image src={logos[1]} alt="WalletConnect" width={30} height={30} />
+    <SmallLogoContainer>
+      <WalletConnectLogo width={30} height={30} />
+    </SmallLogoContainer>
     <ConnectingLine />
-    <Image src={logos[2]} alt="CySync" width={50} height={50} />
-  </LogosContainer>
+    <LargeLogoContainer>
+      <Image src={cySyncLogo} alt="CySync" width={50} height={50} />
+    </LargeLogoContainer>
+  </Flex>
 );

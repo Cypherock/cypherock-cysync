@@ -36,14 +36,11 @@ export interface WalletConnectDialogContextInterface {
   onPrevious: () => void;
   onClose: () => void;
   selectedWallet: IWallet | undefined;
-  setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
   handleWalletChange: () => void;
   walletDropdownList: DropDownListItemProps[];
   onPasteWalletConnectedURI: () => void;
-  walletConnectURI: string | undefined;
-  setWalletConnectedURI: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  walletConnectURI: string;
+  setWalletConnectedURI: React.Dispatch<React.SetStateAction<string>>;
   selectedEvmAccounts: IAccount[];
   selectedEvmAccountsGroup: {
     assetId: EvmId;
@@ -53,9 +50,9 @@ export interface WalletConnectDialogContextInterface {
     assetId: EvmId;
     accounts: IAccount[];
   }[];
-  setSelectedEvmAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
+  onChange: (id: string | undefined, assetId: string) => void;
   handleSelectAccount: (id: string) => void;
-  handleDisselectAccount: (id: string) => void;
+  handleDeselectAccount: (id: string) => void;
   getBalanceToDisplay: (account: IAccount) => string;
   evmAccountDropdownListGroup: {
     assetId: EvmId;
@@ -107,24 +104,19 @@ export const WalletConnectDialogProvider: FC<
 
   const {
     selectedWallet,
-    setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
     selectedEvmAccounts,
     selectedEvmAccountsGroup,
-    setSelectedEvmAccounts,
+    onChange,
     getBalanceToDisplay,
     handleSelectAccount,
-    handleDisselectAccount,
+    handleDeselectAccount,
     evmAccountDropdownListGroup,
     evmAccountsGroup,
   } = useEvmAccountDropdown();
 
-  /** @doubt What is it about? */
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    // 1: [0],
-    // 2: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const onClose = () => {
     dispatch(closeDialog('walletConnect'));
@@ -161,7 +153,7 @@ export const WalletConnectDialogProvider: FC<
     tabs,
   });
 
-  const [walletConnectURI, setWalletConnectedURI] = useState<string>();
+  const [walletConnectURI, setWalletConnectedURI] = useState<string>('');
 
   const onPasteWalletConnectedURI = () => {
     navigator.clipboard.readText().then(setWalletConnectedURI);
@@ -178,15 +170,14 @@ export const WalletConnectDialogProvider: FC<
       onPrevious,
       onClose,
       selectedWallet,
-      setSelectedWallet,
       handleWalletChange,
       walletDropdownList,
       selectedEvmAccounts,
       selectedEvmAccountsGroup,
-      setSelectedEvmAccounts,
+      onChange,
       getBalanceToDisplay,
       handleSelectAccount,
-      handleDisselectAccount,
+      handleDeselectAccount,
       evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,
@@ -207,15 +198,14 @@ export const WalletConnectDialogProvider: FC<
       onPrevious,
       onClose,
       selectedWallet,
-      setSelectedWallet,
       handleWalletChange,
       walletDropdownList,
       selectedEvmAccounts,
       selectedEvmAccountsGroup,
-      setSelectedEvmAccounts,
+      onChange,
       getBalanceToDisplay,
       handleSelectAccount,
-      handleDisselectAccount,
+      handleDeselectAccount,
       evmAccountDropdownListGroup,
       onPasteWalletConnectedURI,
       walletConnectURI,

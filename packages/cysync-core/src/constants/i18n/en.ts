@@ -296,6 +296,8 @@ const en = {
   help: 'Help',
   back: 'Back',
   buttons: {
+    addAccount: 'Add Account',
+    addToken: 'Add Token',
     reverify: 'Reverify',
     continue: 'Continue',
     confirm: 'Confirm',
@@ -336,7 +338,7 @@ const en = {
     checkbox: 'I have already run the command',
   },
   addAccount: {
-    header: 'Add Coin/Account',
+    header: 'Add Account',
     select: {
       header: 'Select the Wallet & Coins you want to add',
       searchText: 'Search',
@@ -1148,31 +1150,27 @@ const en = {
   },
   wallet: {
     title: 'Wallets',
-    cypherock: {
-      buttons: {
-        addAccount: 'Add Account',
-        addToken: 'Add Token',
-        less: 'Show Less',
-        more: 'Show More',
-        hide: 'Hide Tokens',
-        show: 'Show Tokens',
-        addCoinToken: 'Add Coin/Token',
-      },
-      tableHeader: {
-        account: 'Account',
-        syncStatus: 'Sync Status',
-        balance: 'Balance',
-        value: 'Value',
-      },
-      accountMissing: {
-        buttons: {
-          addAccount: 'Add Account',
-        },
-      },
-      search: {
-        text: 'No results found for',
-        subText: 'Please try searching another keywords',
-      },
+    tableTitle: 'Accounts',
+    buttons: {
+      less: 'Show Less',
+      more: 'Show More',
+      hide: 'Hide Tokens',
+      show: 'Show Tokens',
+    },
+    tableHeader: {
+      account: 'Account',
+      syncStatus: 'Sync Status',
+      balance: 'Balance',
+      value: 'Value',
+    },
+    accountMissing: {
+      text: 'No Account yet',
+      subText: 'No coins/accounts were found in the wallet',
+    },
+    search: {
+      placeholder: 'Search',
+      text: 'No results found for',
+      subText: 'Please try searching another keywords',
     },
   },
   errors: {

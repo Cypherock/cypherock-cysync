@@ -10,7 +10,7 @@ import {
 } from '../atoms';
 
 interface BulletListProps extends FlexComponentProps {
-  items: any[];
+  items: string[];
   variant?: BulletProps['variant'];
 }
 
