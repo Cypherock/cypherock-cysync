@@ -180,7 +180,11 @@ export const TransactionTableRow: React.FC<
               },
               {
                 component: (
-                  <TableNameBox text={row.value} key={`${row.id}-value`} />
+                  <TableNameBox
+                    text={row.value}
+                    key={`${row.id}-value`}
+                    $flex={1}
+                  />
                 ),
               },
             ]}
