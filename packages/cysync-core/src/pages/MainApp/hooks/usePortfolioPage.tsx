@@ -7,7 +7,7 @@ export const usePortfolioPage = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
   const { handleWalletChange, selectedWallet, walletDropdownList } =
-    useWalletDropdown();
+    useWalletDropdown({ withSelectAll: true });
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
   return {

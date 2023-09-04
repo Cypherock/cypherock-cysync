@@ -1,5 +1,5 @@
 import { Chart, ChartOptions } from 'chart.js/auto';
-import moment from 'moment';
+import { format as formatDate } from 'date-fns';
 import React, { useRef, useEffect } from 'react';
 
 import { Container } from '../../atoms';
@@ -431,7 +431,7 @@ export const LineGraph = () => {
     const pricess = [];
     for (const item of sampleData) {
       const [timestamp, price] = item;
-      timestamps.push(moment(timestamp).format('MMM-DD'));
+      timestamps.push(formatDate(timestamp, 'MMM d'));
       pricess.push(price);
     }
     if (chartRef.current) {

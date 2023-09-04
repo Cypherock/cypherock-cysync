@@ -77,7 +77,6 @@
     "@cypherock/sdk-utils": "^0.0.15",
     "@reduxjs/toolkit": "^1.9.5",
     "bcryptjs": "^2.4.3",
-    "chart.js": "^4.3.2",
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
