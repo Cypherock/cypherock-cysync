@@ -18,22 +18,17 @@ function groupEvmAccounts<T>(evmAccounts: (T & { assetId: string })[]): {
     accounts: T[];
   }[] = [];
 
-  evmAccounts.forEach(account => {
-    if (!Object.keys(EvmIdMap).includes(account.assetId)) {
-      throw new Error(`Account Asset not Supported: ${account.assetId}`);
-    }
-    const matchedGroup = evmAccountsGrouped.find(
-      a => a.assetId === account.assetId,
-    );
-    if (matchedGroup === undefined) {
+  const group = lodash.groupBy(evmAccounts, a => a.assetId);
+
+  for (const assetId in group) {
+    if (Object.keys(EvmIdMap).includes(assetId)) {
       evmAccountsGrouped.push({
-        assetId: account.assetId as EvmId,
-        accounts: [account],
+        assetId: assetId as EvmId,
+        accounts: group[assetId],
       });
-    } else {
-      matchedGroup.accounts.push(account);
     }
-  });
+  }
+
   return evmAccountsGrouped;
 }
 
