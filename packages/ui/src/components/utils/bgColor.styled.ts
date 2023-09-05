@@ -17,6 +17,7 @@ export type BgColor =
   | 'success'
   | 'muted'
   | 'lightBlack'
+  | 'popup'
   | 'warning';
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -73,6 +74,11 @@ export const bgColor = css<BgColorProps>`
     props.$bgColor === 'success' &&
     css`
       background: ${({ theme }) => theme.palette.success.main};
+    `}
+  ${props =>
+    props.$bgColor === 'popup' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.popup};
     `}
 
 ${props =>

@@ -27,6 +27,7 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
+  | 'message'
   | 'list'
   | 'black'
   | 'info'
