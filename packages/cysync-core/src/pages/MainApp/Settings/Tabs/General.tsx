@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import {
+  ArrowDown,
+  Button,
+  Dropdown,
+  Flex,
+  LangDisplay,
+  Typography,
+} from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -56,7 +63,29 @@ export const GeneralSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Typography> Bohot Saare Check Boxes </Typography>
+          <ArrowDown />
+        </Flex>
+      </TabItem>
+      <TabItem>
+        <Flex direction="column" align="stretch">
+          <Typography $fontSize={20} color="white">
+            <LangDisplay text={item.currency} />
+          </Typography>
+          <Typography $fontSize={16} color="muted">
+            <LangDisplay text={item.currencyDesc} />
+          </Typography>
+        </Flex>
+        <Flex width={300}>
+          <Dropdown
+            items={[
+              { text: 'USD (United States Dollar)', id: 'usd' },
+              { text: 'INR (Indian Rupees)', id: 'inr' },
+            ]}
+            searchText="Search Currency"
+            placeholderText="Select Currency"
+            selectedItem="usd"
+            onChange={console.log}
+          />
         </Flex>
       </TabItem>
       <TabItem>
@@ -68,8 +97,17 @@ export const GeneralSettings: React.FC = () => {
             <LangDisplay text={item.languageDesc} />
           </Typography>
         </Flex>
-        <Flex>
-          <Typography> USD (United States Dollar) </Typography>
+        <Flex width={300}>
+          <Dropdown
+            items={[
+              { text: 'English', id: 'en' },
+              { text: 'Hindi (India)', id: 'hi' },
+            ]}
+            searchText="Search Language"
+            placeholderText="Select Language"
+            selectedItem="en"
+            onChange={console.log}
+          />
         </Flex>
       </TabItem>
       <TabItem>
@@ -81,8 +119,19 @@ export const GeneralSettings: React.FC = () => {
             <LangDisplay text={item.regionDesc} />
           </Typography>
         </Flex>
-        <Flex>
-          <Typography> Hindi (India) </Typography>
+        <Flex width={300}>
+          <Dropdown
+            items={[
+              {
+                text: '(UTC +05:30) Chennai, Kolkata, Mumbai, New Delhi',
+                id: 'in',
+              },
+            ]}
+            searchText="Search Time"
+            placeholderText="Select Time"
+            selectedItem="in"
+            onChange={console.log}
+          />
         </Flex>
       </TabItem>
     </Flex>

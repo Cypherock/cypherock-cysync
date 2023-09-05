@@ -30,9 +30,12 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.passwordDesc} />
           </Typography>
         </Flex>
-        <Flex>
+        <Flex gap={16}>
           <Button variant="primary" onClick={console.log}>
             <LangDisplay text={strings.buttons.setPassword} />
+          </Button>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.changePasswords} />
           </Button>
         </Flex>
       </TabItem>

@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import {
+  ArrowDown,
+  Button,
+  Flex,
+  LangDisplay,
+  Typography,
+} from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -70,9 +76,7 @@ export const DeviceSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
-            <LangDisplay text="Button" />
-          </Button>
+          <ArrowDown />
         </Flex>
       </TabItem>
     </Flex>

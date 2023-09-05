@@ -321,6 +321,7 @@ const en = {
     authenticate: 'Authenticate',
     start: 'Start',
     setPassword: 'Set Password',
+    changePasswords: 'Change Password',
     details: 'Details',
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
