@@ -107,11 +107,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     Record<number, boolean | undefined>
   >({});
 
-  /** @doubt What is it about? */
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    // 1: [0],
-    // 2: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const onClose = () => {
     dispatch(closeDialog('signMessage'));
