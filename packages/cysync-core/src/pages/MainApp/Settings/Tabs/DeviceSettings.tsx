@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import { Button, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -24,6 +24,11 @@ export const DeviceSettings: React.FC = () => {
             <LangDisplay text={item.x1VaultUpdateDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.check} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -33,6 +38,11 @@ export const DeviceSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.x1VaultAuthDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.authenticate} />
+          </Button>
         </Flex>
       </TabItem>
       <TabItem>
@@ -44,6 +54,11 @@ export const DeviceSettings: React.FC = () => {
             <LangDisplay text={item.x1CardAuthDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.authenticate} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -53,6 +68,11 @@ export const DeviceSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.transferWalletDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text="Button" />
+          </Button>
         </Flex>
       </TabItem>
     </Flex>

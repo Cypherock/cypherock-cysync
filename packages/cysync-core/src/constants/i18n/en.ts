@@ -317,6 +317,13 @@ const en = {
     connect: 'Connect',
     disconnect: 'Disconnect',
     reject: 'Reject',
+    check: 'Check',
+    authenticate: 'Authenticate',
+    start: 'Start',
+    setPassword: 'Set Password',
+    details: 'Details',
+    showQRCode: 'Show QR Code',
+    editAccount: 'Edit Account',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',

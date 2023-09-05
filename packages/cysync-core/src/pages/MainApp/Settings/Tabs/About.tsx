@@ -1,5 +1,11 @@
 import React from 'react';
-import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import {
+  Button,
+  Flex,
+  GoldExternalLink,
+  LangDisplay,
+  Typography,
+} from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -28,6 +34,11 @@ export const About: React.FC = () => {
             />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.details} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -38,6 +49,9 @@ export const About: React.FC = () => {
             <LangDisplay text={item.termsOfUseDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <GoldExternalLink width={18} height={18} />
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -47,6 +61,9 @@ export const About: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.privacyPolicyDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <GoldExternalLink width={18} height={18} />
         </Flex>
       </TabItem>
     </Flex>

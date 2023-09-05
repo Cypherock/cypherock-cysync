@@ -1,5 +1,11 @@
 import React from 'react';
-import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import {
+  Button,
+  Flex,
+  LangDisplay,
+  Toggle,
+  Typography,
+} from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -24,6 +30,11 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.passwordDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.setPassword} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -33,6 +44,9 @@ export const AppSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.anayticsAndBugReportDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Toggle checked={false} />
         </Flex>
       </TabItem>
       <TabItem>
@@ -44,6 +58,11 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.resetDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.reset} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -54,6 +73,9 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.updateDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Toggle checked={false} />
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -63,6 +85,11 @@ export const AppSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.usbDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.start} />
+          </Button>
         </Flex>
       </TabItem>
     </Flex>

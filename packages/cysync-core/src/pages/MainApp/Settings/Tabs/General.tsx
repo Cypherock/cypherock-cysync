@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
+import { Button, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -25,6 +25,11 @@ export const GeneralSettings: React.FC = () => {
             <LangDisplay text={item.syncMobileDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.showQRCode} />
+          </Button>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -34,6 +39,11 @@ export const GeneralSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.editAccountDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Button variant="primary" onClick={console.log}>
+            <LangDisplay text={strings.buttons.editAccount} />
+          </Button>
         </Flex>
       </TabItem>
       <TabItem>
@@ -45,15 +55,8 @@ export const GeneralSettings: React.FC = () => {
             <LangDisplay text={item.toggleWalletOnPortfolioDesc} />
           </Typography>
         </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.currency} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.currencyDesc} />
-          </Typography>
+        <Flex>
+          <Typography> Bohot Saare Check Boxes </Typography>
         </Flex>
       </TabItem>
       <TabItem>
@@ -65,6 +68,9 @@ export const GeneralSettings: React.FC = () => {
             <LangDisplay text={item.languageDesc} />
           </Typography>
         </Flex>
+        <Flex>
+          <Typography> USD (United States Dollar) </Typography>
+        </Flex>
       </TabItem>
       <TabItem>
         <Flex direction="column" align="stretch">
@@ -74,6 +80,9 @@ export const GeneralSettings: React.FC = () => {
           <Typography $fontSize={16} color="muted">
             <LangDisplay text={item.regionDesc} />
           </Typography>
+        </Flex>
+        <Flex>
+          <Typography> Hindi (India) </Typography>
         </Flex>
       </TabItem>
     </Flex>
