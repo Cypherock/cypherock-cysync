@@ -62,6 +62,7 @@ import successIcon from './success.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
+import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
@@ -140,4 +141,5 @@ export {
   goldSendIcon,
   warningIcon,
   verifyAmountIcon,
+  UniSwapLogo,
 };

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { spacing } from '../utils';
 
-interface BulletProps {
+export interface BulletProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
   size?: 'lg' | 'sm' | 'md';
 }

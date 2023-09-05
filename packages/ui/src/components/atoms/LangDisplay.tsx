@@ -5,12 +5,12 @@ interface LangDisplayProps {
   variables?: object;
 }
 
-const parseVariables = (templateStr: string, variables = {}) =>
+export const parseLangTemplate = (templateStr: string, variables = {}) =>
   templateStr.replace(/\${(.*?)}/g, (x, g) => (variables as any)[g] ?? '');
 
 const BaseLangDisplay: React.FC<LangDisplayProps> = ({ text, variables }) => (
   <span style={{ whiteSpace: 'pre-wrap' }}>
-    {parseVariables(text, variables)}
+    {parseLangTemplate(text, variables)}
   </span>
 );
 
