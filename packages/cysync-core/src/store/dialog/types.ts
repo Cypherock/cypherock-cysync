@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 
 export interface IDialogState {
   addAccount: {
@@ -31,6 +32,11 @@ export interface IDialogState {
   sendDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  historyDialog: {
+    isOpen: boolean;
+    data?: IHistoryDialogProps;
   };
 }
 

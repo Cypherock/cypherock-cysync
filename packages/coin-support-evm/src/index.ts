@@ -10,6 +10,7 @@ import {
   ISyncPriceHistoriesParams,
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
+  IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
@@ -24,6 +25,10 @@ export * from './services';
 export { updateLogger } from './utils/logger';
 
 export class EvmSupport implements CoinSupport {
+  public static setEthersLibrary(ethers: ethersLibType): void {
+    setEthersLib(ethers);
+  }
+
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     return operations.receive(params);
   }
@@ -72,7 +77,7 @@ export class EvmSupport implements CoinSupport {
     return operations.syncPriceHistories(params);
   }
 
-  public static setEthersLibrary(ethers: ethersLibType): void {
-    setEthersLib(ethers);
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
   }
 }

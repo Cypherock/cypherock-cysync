@@ -7,6 +7,13 @@ import { typography } from './typography.styled';
 export type ThemeType = typeof theme;
 
 export const theme = {
+  screenSizes: {
+    def: `${screens.def.replace('px', '')}`,
+    md: `${screens.md.replace('px', '')}`,
+    mdlg: `${screens.mdlg.replace('px', '')}`,
+    lg: `${screens.lg.replace('px', '')}`,
+    xl: `${screens.xl.replace('px', '')}`,
+  },
   screens: {
     def: `(min-width: ${screens.def})`,
     md: `(min-width: ${screens.md})`,
@@ -61,6 +68,7 @@ export const theme = {
       secondary: colors.gradients.secondary,
       separator: colors.background.separator,
       content: colors.gradients.content,
+      stripe: colors.gradients.stripe,
       sideBar: colors.gradients.sideBar,
       disabled: colors.disabled.background,
       bar: colors.background.bar,
@@ -82,6 +90,9 @@ export const theme = {
       warning: colors.background.warning,
       breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
+      filterItem: colors.background.filterItem,
+      calendar: colors.background.calendar,
+      calendarHeader: colors.background.calendarHeader,
     },
     border: {
       popup: colors.border.popup,
@@ -95,6 +106,7 @@ export const theme = {
       table: {
         title: colors.border.table.title,
         row: colors.border.table.row,
+        stripe: colors.border.table.stripe,
       },
       list: colors.border.list,
       muted: colors.border.muted,

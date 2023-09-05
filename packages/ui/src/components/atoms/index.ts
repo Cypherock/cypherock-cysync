@@ -27,5 +27,6 @@ export * from './ShowMore';
 export * from './NoSearchResult';
 export * from './Divider';
 export * from './SearchBar';
+export * from './Chip';
 export * from './ScrollableContainer';
 export * from './MainAppStyles';

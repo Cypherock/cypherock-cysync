@@ -16,6 +16,7 @@ export const colors = {
       'linear-gradient(269.94deg, #312B26 0.05%, rgba(26, 22, 18, 0) 51.82%)',
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
+    stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
   },
   info: {
     main: '#F1AE4A',
@@ -47,6 +48,8 @@ export const colors = {
     goldenrod: '#daa520',
     disabled: '#423D39',
     normal: '#CCC4BE',
+    divider: '#333130',
+    dialog: '#2B2420',
   },
   background: {
     progressBar: '#1F1915',
@@ -70,6 +73,9 @@ export const colors = {
     warning: '#2C2418',
     breadcrumbSeparator: '#333130',
     batchTransactionBody: '#1b1812',
+    filterItem: `#1F1C19`,
+    calendar: '#342F2C',
+    calendarHeader: '#211C18',
   },
   border: {
     popup: '#2C2520',
@@ -82,6 +88,7 @@ export const colors = {
     table: {
       title: '#363535',
       row: '#2C2929',
+      stripe: '#16120F',
     },
     muted: '#8B8682',
     white: '#ffffff',

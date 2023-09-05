@@ -80,7 +80,6 @@ export const Wallet: FC = () => {
                   $rowIndex={index}
                   $hide={lang.strings.wallet.buttons.hide}
                   $show={lang.strings.wallet.buttons.show}
-                  $balance
                   onClick={() => handleAccountTableRow(row)}
                   onStatusClick={() => handleStatusClick(row)}
                 />

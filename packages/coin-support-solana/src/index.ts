@@ -10,6 +10,7 @@ import {
   ISyncPriceHistoriesParams,
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
+  IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
@@ -65,5 +66,9 @@ export class SolanaSupport implements CoinSupport {
 
   public syncPriceHistories(params: ISyncPriceHistoriesParams) {
     return operations.syncPriceHistories(params);
+  }
+
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
   }
 }
