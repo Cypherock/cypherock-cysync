@@ -1,5 +1,8 @@
 import { getCoinSupport } from '@cypherock/coin-support';
-import { IGetAccountHistoryResult } from '@cypherock/coin-support-interfaces';
+import {
+  IBalanceHistory,
+  IGetAccountHistoryResult,
+} from '@cypherock/coin-support-interfaces';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   IDatabase,
@@ -42,7 +45,7 @@ export const getBalanceHistory = async (params: {
   accounts: IAccount[];
   transactions: ITransaction[];
   priceHistories: IPriceHistory[];
-}) => {
+}): Promise<IBalanceHistory[]> => {
   const {
     db,
     days,
@@ -64,7 +67,7 @@ export const getBalanceHistory = async (params: {
   });
 
   if (accounts.length <= 0) {
-    return {};
+    return [];
   }
 
   for (const account of accounts) {
@@ -88,6 +91,8 @@ export const getBalanceHistory = async (params: {
 
   for (let i = 1; i < balanceHistoryList.length; i += 1) {
     for (let j = 0; j < balanceHistoryList[i].history.length; j += 1) {
+      if (!allCoinHistoryData.history[j]) continue;
+
       if (assetId) {
         allCoinHistoryData.history[j].balance = new BigNumber(
           allCoinHistoryData.history[j].balance,

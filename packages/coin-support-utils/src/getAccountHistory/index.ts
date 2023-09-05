@@ -7,9 +7,11 @@ import {
   IAccount,
   IDatabase,
   IPriceHistory,
+  IPriceSnapshot,
   ITransaction,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
 
 import { ICreateGetAccountHistoryParams } from './types';
 
@@ -36,9 +38,11 @@ async function getTransactions(
   db: IDatabase,
 ) {
   if (allTransactions) {
-    return allTransactions
-      .filter(t => t.accountId === account.__id)
-      .sort((t1, t2) => t1.timestamp - t2.timestamp);
+    return lodash.orderBy(
+      allTransactions.filter(t => t.accountId === account.__id),
+      'timestamp',
+      'asc',
+    );
   }
 
   return db.transaction.getAll(
@@ -51,31 +55,64 @@ async function getPriceHistory(
   allPriceHistories: IPriceHistory[] | undefined,
   account: IAccount,
   currency: string,
-  days: number,
+  days: 1 | 7 | 30 | 365,
   db: IDatabase,
 ) {
-  let priceHistory: IPriceHistory | undefined;
+  let history: IPriceSnapshot[] | undefined;
+
+  let daysToFetch = days;
+
+  if ([1, 7].includes(days)) {
+    daysToFetch = 30;
+  }
 
   if (allPriceHistories) {
-    priceHistory = allPriceHistories.find(
+    history = allPriceHistories.find(
       p =>
         p.assetId === account.assetId &&
         p.currency === currency &&
-        p.days === days,
-    );
+        p.days === daysToFetch,
+    )?.history;
   } else {
-    priceHistory = await db.priceHistory.getOne({
-      assetId: account.assetId,
-      currency,
-      days,
-    });
+    history = (
+      await db.priceHistory.getOne({
+        assetId: account.assetId,
+        currency,
+        days: daysToFetch,
+      })
+    )?.history;
   }
 
-  if (!priceHistory) {
+  if (!history) {
     throw new Error('Price history not found');
   }
 
-  return priceHistory.history.sort((a, b) => a.timestamp - b.timestamp);
+  if ([1, 7].includes(days)) {
+    const firstTimestamp = history[0].timestamp;
+    const lastTimestampToStop = firstTimestamp + 24 * days * 60 * 60 * 1000;
+    history = history.filter(
+      h => h.timestamp > firstTimestamp && h.timestamp < lastTimestampToStop,
+    );
+  }
+
+  return lodash.orderBy(history, ['timestamp'], ['asc']);
+}
+
+function calcValue(params: {
+  amount: string | BigNumber;
+  assetId: string;
+  price: string;
+}) {
+  return new BigNumber(
+    convertToUnit({
+      amount: params.amount.toString(),
+      coinId: params.assetId,
+      fromUnitAbbr: getZeroUnit(params.assetId).abbr,
+      toUnitAbbr: getDefaultUnit(params.assetId).abbr,
+    }).amount,
+  )
+    .multipliedBy(params.price)
+    .toString();
 }
 
 export async function createGetAccountHistory(
@@ -100,7 +137,6 @@ export async function createGetAccountHistory(
     days,
     db,
   );
-
   let curBalance = new BigNumber(account.balance);
 
   const accountBalanceHistory: IBalanceHistory[] = priceHistory.map(e => ({
@@ -108,9 +144,6 @@ export async function createGetAccountHistory(
     value: '0',
     timestamp: e.timestamp,
   }));
-
-  const zeroUnit = getZeroUnit(account.assetId);
-  const defaultUnit = getDefaultUnit(account.assetId);
 
   for (
     let tIndex = transactions.length - 1, pIndex = priceHistory.length - 1;
@@ -122,12 +155,13 @@ export async function createGetAccountHistory(
     let isTxnAdded = false;
     if (transaction && (transaction.confirmations ?? 0) > 0) {
       const transactionTime = new Date(transaction.timestamp).getTime();
-      const prevPricePoint = accountBalanceHistory[pIndex - 1].timestamp;
+      const prevPricePoint = accountBalanceHistory[pIndex + 1]?.timestamp ?? 0;
       const thisPricePoint = accountBalanceHistory[pIndex].timestamp;
 
       if (
-        (prevPricePoint < transactionTime &&
-          transactionTime <= thisPricePoint) ||
+        (!isFirst &&
+          prevPricePoint > transactionTime &&
+          transactionTime >= thisPricePoint) ||
         (isFirst && transactionTime >= thisPricePoint)
       ) {
         if (transaction.type === TransactionTypeMap.send) {
@@ -141,32 +175,32 @@ export async function createGetAccountHistory(
       }
     }
 
-    (accountBalanceHistory[pIndex] as any).balanceInDefaultUnit = convertToUnit(
-      {
-        amount: curBalance.toString(),
-        coinId: account.assetId,
-        fromUnitAbbr: zeroUnit.abbr,
-        toUnitAbbr: defaultUnit.abbr,
-      },
-    ).amount;
     accountBalanceHistory[pIndex].balance = curBalance.toString();
-    accountBalanceHistory[pIndex].value = new BigNumber(
-      convertToUnit({
-        amount: curBalance.toString(),
-        coinId: account.assetId,
-        fromUnitAbbr: zeroUnit.abbr,
-        toUnitAbbr: defaultUnit.abbr,
-      }).amount,
-    )
-      .multipliedBy(priceHistory[pIndex].price)
-      .toString();
+    accountBalanceHistory[pIndex].value = calcValue({
+      amount: curBalance.toString(),
+      assetId: account.assetId,
+      price: priceHistory[pIndex].price,
+    });
 
     if (isTxnAdded) {
       pIndex += 1;
     }
   }
 
-  // accountBalanceHistory[0].balance = curBalance.toString();
+  accountBalanceHistory[0].balance = curBalance.toString();
+  accountBalanceHistory[0].value = calcValue({
+    amount: curBalance.toString(),
+    assetId: account.assetId,
+    price: priceHistory[0].price,
+  });
+
+  accountBalanceHistory[accountBalanceHistory.length - 1].balance =
+    account.balance;
+  accountBalanceHistory[accountBalanceHistory.length - 1].value = calcValue({
+    amount: account.balance,
+    assetId: account.assetId,
+    price: priceHistory[priceHistory.length - 1].price,
+  });
 
   const hasNegative = accountBalanceHistory.some(a =>
     new BigNumber(a.balance).isNegative(),

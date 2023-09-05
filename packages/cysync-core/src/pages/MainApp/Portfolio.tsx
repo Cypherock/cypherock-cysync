@@ -1,4 +1,10 @@
-import { Container, DisplayGraph, TriangleIcon } from '@cypherock/cysync-ui';
+import {
+  NoAccountWrapper,
+  SkeletonLoader,
+  GraphGreyIcon,
+  Container,
+  DisplayGraph,
+} from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { AssetAllocation, MainAppLayout } from '~/pages/MainApp/Components';
@@ -7,7 +13,6 @@ import { usePortfolioPage } from './hooks';
 
 export const Portfolio: FC = () => {
   const {
-    theme,
     lang,
     handleWalletChange,
     selectedWallet,
@@ -15,6 +20,11 @@ export const Portfolio: FC = () => {
     rangeList,
     selectedRange,
     setSelectedRange,
+    graphData,
+    formatTooltipValue,
+    summaryDetails,
+    accounts,
+    handleAddAccountClick,
   } = usePortfolioPage();
 
   /*
@@ -25,12 +35,27 @@ export const Portfolio: FC = () => {
   }, []);
    */
 
-  return (
-    <MainAppLayout title={lang.strings.portfolio.title}>
-      <Container $noFlex m="20">
+  const getMainContent = () => {
+    if (accounts.length <= 0) {
+      return (
+        <NoAccountWrapper>
+          <SkeletonLoader
+            loader={<GraphGreyIcon />}
+            text={lang.strings.portfolio.accountMissing.text}
+            subText={lang.strings.portfolio.accountMissing.subText}
+            $buttonOne={lang.strings.buttons.addAccount}
+            onClick={handleAddAccountClick}
+            $noLoaderContainer
+          />
+        </NoAccountWrapper>
+      );
+    }
+
+    return (
+      <>
         <Container $noFlex mb={2}>
           <DisplayGraph
-            title="12 BTC"
+            title={summaryDetails.totalBalance}
             subTitle={lang.strings.graph.totalBalance}
             dropdownItems={walletDropdownList}
             selectedDropdownItem={selectedWallet?.__id ?? 'all'}
@@ -39,18 +64,22 @@ export const Portfolio: FC = () => {
             pillButtonList={rangeList}
             selectedPill={selectedRange}
             onPillButtonChange={setSelectedRange as any}
-            summaryText="2.3%"
-            summarySubText="$0.321"
-            summaryIcon={
-              <TriangleIcon
-                fill={theme.palette.success.main}
-                width={15}
-                height={15}
-              />
-            }
+            summaryText={summaryDetails.changePercent}
+            summarySubText={summaryDetails.changeValue}
+            summaryIcon={summaryDetails.changeIcon}
+            data={graphData}
+            formatTooltipValue={formatTooltipValue}
           />
         </Container>
         <AssetAllocation />
+      </>
+    );
+  };
+
+  return (
+    <MainAppLayout title={lang.strings.portfolio.title}>
+      <Container $noFlex m="20">
+        {getMainContent()}
       </Container>
     </MainAppLayout>
   );

@@ -47,7 +47,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
         pb="4"
         display="flex"
         direction="column"
-        align-items="flex-start"
+        align="flex-start"
         justify="flex-start"
       >
         <Typography

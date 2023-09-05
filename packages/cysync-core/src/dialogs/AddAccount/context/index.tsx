@@ -22,7 +22,7 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { syncAccounts } from '~/actions';
+import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
@@ -275,6 +275,10 @@ export const AddAccountDialogProvider: FC<
       const db = getDB();
       const addedAccounts = await db.account.insert(allAccountsToAdd);
       dispatch(syncAccounts({ accounts: addedAccounts }));
+      if (selectedCoin) {
+        syncPrices({ families: [selectedCoin.family] });
+        syncPriceHistories({ families: [selectedCoin.family] });
+      }
       goTo(3, 0);
     } catch (e) {
       onError(e);

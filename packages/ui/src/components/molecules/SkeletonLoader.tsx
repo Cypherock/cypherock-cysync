@@ -61,6 +61,7 @@ const LoaderContainer = styled.div`
 
 interface SkeletonLoaderProps {
   loader: React.ReactNode;
+  $noLoaderContainer?: boolean;
   text?: string;
   subText?: string;
   $buttonOne?: string;
@@ -75,22 +76,27 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
   subText,
   $buttonOne,
   $buttonTwo,
+  $noLoaderContainer,
   onClick,
   onClickTwo,
 }) => (
   <>
-    <NoAccountLoader>
-      <LeftLoaderContainer>
-        {loader}
-        <SkeletonLoadingLeft />
-      </LeftLoaderContainer>
-      <LoaderContainer>
-        <SkeletonLoading />
-      </LoaderContainer>
-      <RightLoaderContainer>
-        <SkeletonLoadingRight />
-      </RightLoaderContainer>
-    </NoAccountLoader>
+    {$noLoaderContainer ? (
+      loader
+    ) : (
+      <NoAccountLoader>
+        <LeftLoaderContainer>
+          {loader}
+          <SkeletonLoadingLeft />
+        </LeftLoaderContainer>
+        <LoaderContainer>
+          <SkeletonLoading />
+        </LoaderContainer>
+        <RightLoaderContainer>
+          <SkeletonLoadingRight />
+        </RightLoaderContainer>
+      </NoAccountLoader>
+    )}
     <Flex direction="column" gap={16} align="center">
       <Typography $fontSize={24} $fontWeight="medium">
         {text}
@@ -117,6 +123,7 @@ SkeletonLoader.defaultProps = {
   subText: '',
   $buttonOne: '',
   $buttonTwo: '',
+  $noLoaderContainer: undefined,
   onClick: undefined,
   onClickTwo: undefined,
 };

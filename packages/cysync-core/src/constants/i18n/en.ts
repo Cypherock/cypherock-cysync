@@ -1114,6 +1114,10 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    accountMissing: {
+      text: 'Accounts Missing',
+      subText: 'Create or import an account to get started',
+    },
   },
   wallet: {
     title: 'Wallets',
