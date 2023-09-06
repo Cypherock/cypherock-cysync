@@ -1136,6 +1136,15 @@ const en = {
       },
     },
   },
+  signMessage: {
+    title: 'Sign Message',
+    subTitle: 'Connected to the following account',
+    info: {
+      confirmDevice: 'Confirm on device',
+      verifyData: 'Verify data',
+      enterPinTapCard: 'Enter PIN and tap any card',
+    },
+  },
   portfolio: {
     title: 'Portfolio',
   },

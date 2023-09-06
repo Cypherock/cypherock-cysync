@@ -69,6 +69,7 @@
     "@storybook/client-api": "^7.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-json-view": "^1.21.3",
     "react-tsparticles": "^2.10.1",
     "styled-components": "6.0.0-rc.1",
     "tsparticles": "^2.10.1"
