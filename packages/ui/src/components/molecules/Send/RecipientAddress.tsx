@@ -14,7 +14,7 @@ interface RecipientAddressProps {
   onChange: (val: string) => void;
   isThrobberActive?: boolean;
   index?: number;
-  length?: number;
+  isButtonDisabled?: boolean;
 }
 
 interface CustomInputSendProps {
@@ -75,7 +75,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   deleteButton = false,
   onDelete,
   value,
-  length = 0,
+  isButtonDisabled,
   index = 0,
   onChange,
   isThrobberActive,
@@ -99,14 +99,9 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
             {text}
           </Typography>
         </Flex>
-        {deleteButton && length > 2 && (
-          <MiniButton onClick={onDelete}>-</MiniButton>
-        )}
-        {deleteButton && length <= 2 && (
-          <MiniButton disabled onClick={onDelete}>
-            -
-          </MiniButton>
-        )}
+        <MiniButton disabled={isButtonDisabled} onClick={onDelete}>
+          -
+        </MiniButton>
       </Flex>
       <CustomInputSend error={error}>
         <Input
@@ -142,5 +137,5 @@ RecipientAddress.defaultProps = {
   onDelete: undefined,
   isThrobberActive: false,
   index: 0,
-  length: 0,
+  isButtonDisabled: false,
 };

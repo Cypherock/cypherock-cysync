@@ -46,6 +46,7 @@ const TabHeader = styled.div`
 const TabContent = styled.div`
   padding-top: 12px;
   padding-bottom: 12px;
+  width: 100%;
 `;
 
 const StyledTypography = styled(Typography)<{ $active: boolean }>`

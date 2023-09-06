@@ -55,7 +55,7 @@ export const SendFlow: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            heading={lang.strings.send.aside.tabs.heading}
+            heading={lang.strings.send.title}
           />
           <WalletDialogMainContainer>
             <DialogBoxBody

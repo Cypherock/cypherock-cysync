@@ -119,14 +119,14 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  const confirm = lang.strings.send.confirmDevice.info.dialogBox;
+  const displayText = lang.strings.send.x1Vault;
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <Image src={verifyAmountIcon} alt="Verify Amount" />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={confirm.header} />
+            <LangDisplay text={displayText.title} />
           </Typography>
         </Container>
         <LeanBoxContainer>
@@ -146,13 +146,13 @@ export const DeviceAction: React.FC = () => {
           {selectedAccount?.parentAssetId ? (
             <MessageBox
               type="info"
-              text={confirm.infoBox.info}
+              text="dummy"
               rightImage={
                 <Image src={questionMarkGoldIcon} alt="question mark icon" />
               }
             />
           ) : undefined}
-          <MessageBox type="warning" text={confirm.infoBox.warning} />
+          <MessageBox type="warning" text={displayText.messageBox.warning} />
         </Container>
       </DialogBoxBody>
     </DialogBox>

@@ -66,7 +66,4 @@ export const BatchContainer = styled.div`
   padding: 16px;
   border-radius: 8px;
   width: 100%;
-  max-height: 458px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 `;

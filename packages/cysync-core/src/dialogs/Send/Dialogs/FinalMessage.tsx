@@ -38,7 +38,7 @@ export const FinalMessage: React.FC = () => {
   const { transactionHash, transactionLink } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
 
-  const confirm = lang.strings.send.sendConfirm.info.dialogBox;
+  const displayText = lang.strings.send.finalMessage;
 
   return (
     <DialogBox width={500} align="center">
@@ -47,7 +47,7 @@ export const FinalMessage: React.FC = () => {
         <Image src={successIcon} alt="Success Icon" />
         <Container display="flex" direction="column" gap={32}>
           <Typography variant="h4" $textAlign="center">
-            <LangDisplay text={confirm.text} />
+            <LangDisplay text={displayText.title} />
           </Typography>
 
           <Container $bgColor="white" p="12">
@@ -58,7 +58,7 @@ export const FinalMessage: React.FC = () => {
               <Flex justify="space-between" align="center" width="full">
                 <Flex align="center" gap={16}>
                   <Typography variant="span" color="muted" $fontSize={14}>
-                    <LangDisplay text={confirm.leftText} />
+                    <LangDisplay text={displayText.hashLabel} />
                   </Typography>
                 </Flex>
                 <Flex align="center" direction="row" gap={8}>
@@ -79,14 +79,14 @@ export const FinalMessage: React.FC = () => {
                 variant="gold"
               />
             </Container>
-            <MessageBox type="warning" text={confirm.InfoBox.text} />
+            <MessageBox type="warning" text={displayText.messageBox.warning} />
           </Container>
         </Container>
       </DialogBoxBody>
 
       <DialogBoxFooter height={101}>
         <Button variant="primary">
-          <LangDisplay text={confirm.buttonCheck} />
+          <LangDisplay text={displayText.button} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

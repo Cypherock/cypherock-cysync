@@ -26,10 +26,10 @@ export const Recipient: React.FC = () => {
   const { onNext, onPrevious, initialize, transaction, selectedAccount } =
     useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;
   const button = lang.strings.buttons;
   const theme = useTheme();
   const displayText = lang.strings.send.recipient;
+
   const getBalanceToDisplay = () => {
     const account = selectedAccount;
     if (!account) return `0`;
@@ -40,13 +40,17 @@ export const Recipient: React.FC = () => {
     });
     return `${_amount} ${unit.abbr}`;
   };
+
   const [btnState, handleButtonState] = useState(false);
   useEffect(() => {
     handleButtonState(
       !!transaction &&
         transaction.validation.hasEnoughBalance &&
         transaction.validation.outputs.length > 0 &&
-        transaction.validation.outputs.every(output => output),
+        transaction.validation.outputs.every(output => output) &&
+        transaction.userInputs.outputs.every(
+          output => output.address !== '' && output.amount !== '',
+        ),
     );
   }, [transaction]);
 
@@ -61,10 +65,10 @@ export const Recipient: React.FC = () => {
       <DialogBoxBody pt={4} pb={0}>
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={bitcoin.dialogBox.title} />
+            <LangDisplay text={displayText.title} />
           </Typography>
           <Typography variant="span" $textAlign="center" color="muted">
-            <LangDisplay text={bitcoin.dialogBox.text} />
+            <LangDisplay text={displayText.subtitle} />
           </Typography>
         </Container>
         <LeanBox

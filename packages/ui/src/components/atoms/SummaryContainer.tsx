@@ -33,8 +33,6 @@ export const NestedContainer = styled.div`
 
 export const ScrollContainer = styled.div`
   align-self: stretch;
-  overflow-y: auto;
-  max-height: 226px;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.popup};
   background: ${({ theme }) => theme.palette.background.container};

@@ -3,14 +3,15 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { BatchTransactionBody } from './BatchTransactionBody';
 import { SingleTransaction } from './SingleTransaction';
 
 export const AddressAndAmountSection: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const bitcoin = lang.strings.send.bitcoin.info.dialogBox.transaction;
+  const displayText = lang.strings.send.recipient;
   const tabs = [
     {
-      label: bitcoin.tabs.tab1,
+      label: displayText.tabs.single,
       content: (
         <TabContentContainer>
           <SingleTransaction />
@@ -18,10 +19,10 @@ export const AddressAndAmountSection: React.FC = () => {
       ),
     },
     {
-      label: bitcoin.tabs.tab2,
+      label: displayText.tabs.batch,
       content: (
         <TabContentContainer>
-          <div>test</div>
+          <BatchTransactionBody />
         </TabContentContainer>
       ),
     },

@@ -1,88 +1,109 @@
+import { IPreparedTransactionOutput } from '@cypherock/coin-support-interfaces';
+import {
+  convertToUnit,
+  getParsedAmount,
+  getZeroUnit,
+} from '@cypherock/coin-support-utils';
 import {
   Divider,
   Flex,
   Container,
   Typography,
-  RecipientAddress,
   BatchContainer,
   Button,
   PlusGoldenIcon,
 } from '@cypherock/cysync-ui';
+import { uniqueId } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { AmountToSend } from './AmountToSend';
+import { useSendDialog } from '~/dialogs/Send/context';
+import { useStateWithRef } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
-interface BatchTransactionBodyProps {
-  text: string;
-  recipient: {
-    text: string;
-    placeholder: string;
-    error: string;
-  };
-  amount: {
-    text: string;
-    coin: string;
-    toggle: string;
-    dollar: string;
-    error: string;
-    placeholder: string;
-  };
-}
+import { AddressInput } from './AddressInput';
+import { AmountInput } from './AmountInput';
 
-export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
-  text,
-  recipient,
-  amount,
-}) => {
-  const [addresses, setAddresses] = useState<
-    { id: string; recipient: string; amount: string }[]
+export const BatchTransactionBody: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.send.recipient;
+
+  const { selectedAccount, transaction, priceConverter, prepare } =
+    useSendDialog();
+  const [outputs, setOutputs, outputsRef] = useStateWithRef<
+    (IPreparedTransactionOutput & { id: string })[]
   >([
-    { id: 'default-1', recipient: '', amount: '' },
-    { id: 'default-2', recipient: '', amount: '' },
+    {
+      address: transaction?.userInputs.outputs[0]?.address ?? '',
+      amount: transaction?.userInputs.outputs[0]?.amount ?? '',
+      id: uniqueId(),
+    },
+    { address: '', amount: '', id: uniqueId() },
   ]);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [throbberActiveIds, setThrobberActiveIds] = useState<string[]>([]);
-  const [showErrors, setShowErrors] = useState<string[]>([]);
   const [enableAutoScroll, setEnableAutoScroll] = useState(false);
 
-  const handleRecipientChange = (id: string, value: string) => {
-    const showError = value.trim() === 'hello';
-    if (showError) {
-      setShowErrors(prevErrors => [...prevErrors, id]);
-    } else {
-      setShowErrors(prevErrors => prevErrors.filter(e => e !== id));
-    }
-
-    setAddresses(
-      addresses.map(c => (c.id === id ? { ...c, recipient: value } : c)),
-    );
-
-    if (!throbberActiveIds.includes(id)) {
-      setThrobberActiveIds([...throbberActiveIds, id]);
-      setTimeout(() => {
-        setThrobberActiveIds(prevIds =>
-          prevIds.filter(prevId => prevId !== id),
-        );
-      }, 2000);
-    }
+  const parseAndPrepare = async (newOutputs: typeof outputs) => {
+    if (!transaction) return;
+    const txn = transaction;
+    txn.userInputs.outputs = newOutputs.map(({ address, amount }) => ({
+      address,
+      amount,
+    }));
+    await prepare(txn);
   };
 
   const handleButtonClick = () => {
-    const uniqueId = `${Date.now()}-${Math.random()}`;
-    setAddresses([...addresses, { id: uniqueId, recipient: '', amount: '' }]);
+    if (!transaction) return;
+    const newOutputs = [
+      ...outputs,
+      { address: '', amount: '', id: uniqueId() },
+    ];
+    setOutputs(newOutputs);
     setEnableAutoScroll(true);
   };
 
   const handleDeleteClick = (id: string) => {
-    setAddresses(addresses.filter(component => component.id !== id));
+    if (outputs.length <= 2) return;
+    const newOutputs = outputs.filter(output => output.id !== id);
+    setOutputs(newOutputs);
+    parseAndPrepare(newOutputs);
   };
 
-  const handleAmountChange = (id: string, val: string) => {
-    setAddresses(
-      addresses.map(component =>
-        component.id === id ? { ...component, val } : component,
-      ),
+  const handleAddressChange = async (val: string, id: string) => {
+    const outputIndex = outputsRef.current.findIndex(
+      output => output.id === id,
     );
+    const newOutputs = [...outputsRef.current];
+    newOutputs[outputIndex].address = val;
+    setOutputs(newOutputs);
+    await parseAndPrepare(newOutputs);
+  };
+
+  const handleAmountChange = async (val: string, id: string) => {
+    if (!selectedAccount) return;
+    const convertedAmount = convertToUnit({
+      amount: val,
+      coinId: selectedAccount.assetId,
+      fromUnitAbbr: selectedAccount.unit,
+      toUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+    });
+    const outputIndex = outputsRef.current.findIndex(
+      output => output.id === id,
+    );
+    const newOutputs = [...outputsRef.current];
+    newOutputs[outputIndex].amount = convertedAmount.amount;
+    setOutputs(newOutputs);
+    await parseAndPrepare(newOutputs);
+  };
+
+  const getInitialAmount = (val?: string) => {
+    if (!val || !selectedAccount) return undefined;
+    return getParsedAmount({
+      coinId: selectedAccount.assetId,
+      amount: val,
+      unitAbbr: selectedAccount.unit,
+    }).amount;
   };
 
   useEffect(() => {
@@ -90,69 +111,77 @@ export const BatchTransactionBody: React.FC<BatchTransactionBodyProps> = ({
       const lastChild = containerRef.current.lastElementChild;
       lastChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [addresses, enableAutoScroll]);
+  }, [outputs, enableAutoScroll]);
 
   return (
-    <BatchContainer ref={containerRef}>
-      <Container
-        display="flex"
-        justify="space-between"
-        align="center"
-        direction="column"
-      >
-        <Flex gap={16} direction="column">
-          {addresses.map((address, i) => (
-            <Flex key={`recipient-${address.id}`} gap={8} direction="column">
-              <RecipientAddress
-                key={`recipient-${address.id}`}
-                text={recipient.text}
-                placeholder={recipient.placeholder}
-                error={
-                  showErrors.includes(address.id) ? recipient.error : undefined
-                }
-                isThrobberActive={throbberActiveIds.includes(address.id)}
-                deleteButton
-                length={addresses.length}
-                index={i}
-                onDelete={() => handleDeleteClick(address.id)}
-                value={address.recipient}
-                onChange={(recip: string) =>
-                  handleRecipientChange(address.id, recip)
-                }
-              />
-              <AmountToSend
-                key={`amount-${address.id}`}
-                text={amount.text}
-                coin={amount.coin}
-                toggle={amount.toggle}
-                dollar={amount.dollar}
-                error={amount.error}
-                placeholder={amount.placeholder}
-                value={address.amount}
-                onChange={(val: string) => handleAmountChange(address.id, val)}
-              />
-              {i !== addresses.length - 1 && <Divider variant="horizontal" />}
-            </Flex>
-          ))}
-        </Flex>
-        <Button
-          onClick={handleButtonClick}
-          $bgColor="separatorSecondary"
-          width="full"
+    <Container display="flex" direction="column" gap={16} width="full">
+      <BatchContainer ref={containerRef}>
+        <Container
           display="flex"
+          justify="space-between"
           align="center"
-          justify="center"
-          p={1}
-          $borderRadius={8}
-          gap={16}
-          mt={2}
+          direction="column"
         >
-          <Typography $fontSize={13} $fontWeight="normal" color="muted">
-            {text}
-          </Typography>
-          <PlusGoldenIcon />
-        </Button>
-      </Container>
-    </BatchContainer>
+          <Flex gap={16} direction="column" width="full">
+            {outputs.map((output, i) => (
+              <Flex key={`inputs-${output.id}`} gap={8} direction="column">
+                <AddressInput
+                  label={displayText.recipient.label}
+                  placeholder={displayText.recipient.placeholder}
+                  initialValue={output.address}
+                  error={
+                    transaction?.validation.outputs[i] === false
+                      ? displayText.recipient.error
+                      : ''
+                  }
+                  onChange={async val => {
+                    await handleAddressChange(val, output.id);
+                  }}
+                  onDelete={() => handleDeleteClick(output.id)}
+                  showDeleteButton
+                  isButtonDisabled={outputs.length <= 2}
+                  index={i}
+                />
+                <AmountInput
+                  label={displayText.amount.label}
+                  coinUnit={selectedAccount?.unit ?? ''}
+                  toggleLabel={displayText.amount.toggle}
+                  priceUnit={displayText.amount.dollar}
+                  error={
+                    transaction?.validation.hasEnoughBalance === false
+                      ? displayText.amount.error
+                      : ''
+                  }
+                  placeholder={displayText.amount.placeholder}
+                  initialValue={getInitialAmount(output.amount)}
+                  onChange={async val => {
+                    await handleAmountChange(val, output.id);
+                  }}
+                  converter={priceConverter}
+                />
+                {i !== outputs.length - 1 && <Divider variant="horizontal" />}
+              </Flex>
+            ))}
+          </Flex>
+          <Button
+            onClick={handleButtonClick}
+            $bgColor="separatorSecondary"
+            width="full"
+            display="flex"
+            align="center"
+            justify="center"
+            p={1}
+            $borderRadius={8}
+            gap={16}
+            mt={2}
+          >
+            <Typography $fontSize={13} $fontWeight="normal" color="muted">
+              {displayText.addButton}
+            </Typography>
+            <PlusGoldenIcon />
+          </Button>
+        </Container>
+      </BatchContainer>
+    </Container>
   );
 };

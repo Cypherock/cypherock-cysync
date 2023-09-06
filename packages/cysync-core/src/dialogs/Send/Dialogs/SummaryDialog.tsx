@@ -16,7 +16,7 @@ import {
 import { BigNumber } from '@cypherock/cysync-utils';
 import React from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
 
@@ -24,38 +24,52 @@ export const SummaryDialog: React.FC = () => {
   const { onNext, onPrevious, selectedAccount, selectedWallet, transaction } =
     useSendDialog();
   const lang = useAppSelector(selectLanguage);
+  const { priceInfos } = useAppSelector(selectPriceInfos);
   const button = lang.strings.buttons;
-  const summary = lang.strings.send.summary.info.dialogBox;
+  const displayText = lang.strings.send.summary;
 
   const getToDetails = () => {
     const account = selectedAccount;
-    if (!account) return [];
+    const coinPrice = priceInfos.find(
+      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+    );
+    if (!account || !coinPrice) return [];
     const details = transaction?.userInputs.outputs.flatMap(output => {
       const { amount, unit } = getParsedAmount({
         coinId: account.assetId,
         amount: output.amount,
         unitAbbr: account.unit,
       });
+      const value = new BigNumber(amount)
+        .multipliedBy(coinPrice.latestPrice)
+        .toPrecision(2)
+        .toString();
+
       return [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
-          leftText: summary.to,
+          leftText: displayText.to,
           rightText: output.address,
         },
         {
           id: `toDetail-amount-${output.address}`,
-          leftText: summary.amount,
-          rightText: amount,
-          rightSubText: unit.abbr,
+          leftText: displayText.amount,
+          rightText: `${amount} ${unit.abbr}`,
+          rightSubText: `$${value}`,
         },
       ];
     });
+    if (details && details.length > 2) return [details];
     return details ?? [];
   };
 
   const getTotalAmount = () => {
-    const account = selectedAccount!;
+    const account = selectedAccount;
+    const coinPrice = priceInfos.find(
+      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+    );
+    if (!account || !coinPrice) return [];
     let totalToDeduct = new BigNumber(0);
 
     transaction?.userInputs.outputs.forEach(output => {
@@ -72,20 +86,28 @@ export const SummaryDialog: React.FC = () => {
       amount: totalToDeduct.toString(),
       unitAbbr: account.unit,
     });
+    const value = new BigNumber(amount)
+      .multipliedBy(coinPrice.latestPrice)
+      .toPrecision(2)
+      .toString();
 
     return [
       {
         id: 'total-amount-details',
-        leftText: summary.debit.text,
-        rightText: amount,
-        rightSubText: unit.abbr,
+        leftText: displayText.debit,
+        rightText: `${amount} ${unit.abbr}`,
+        rightSubText: `$${value}`,
       },
     ];
   };
 
   const getFeeDetails = () => {
     const details = [];
-    const account = selectedAccount!;
+    const account = selectedAccount;
+    const coinPrice = priceInfos.find(
+      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+    );
+    if (!account || !coinPrice) return [];
     if (account.familyId === 'bitcoin') {
       const txn = transaction as IPreparedBtcTransaction;
       const { amount, unit } = getParsedAmount({
@@ -93,11 +115,17 @@ export const SummaryDialog: React.FC = () => {
         amount: txn.computedData.fee,
         unitAbbr: account.unit,
       });
+
+      const value = new BigNumber(amount)
+        .multipliedBy(coinPrice.latestPrice)
+        .toPrecision(2)
+        .toString();
+
       details.push({
         id: 'fee-details',
-        leftText: summary.network.text,
-        rightText: amount,
-        rightSubText: unit.abbr,
+        leftText: displayText.network,
+        rightText: `${amount} ${unit.abbr}`,
+        rightSubText: `$${value}`,
       });
     }
     return details;
@@ -130,14 +158,14 @@ export const SummaryDialog: React.FC = () => {
     <DialogBox width={600}>
       <DialogBoxBody>
         <Typography variant="h5" $textAlign="center">
-          <LangDisplay text={summary.title} />
+          <LangDisplay text={displayText.title} />
         </Typography>
 
         <SummaryBox
           items={[
             {
               id: 'from',
-              leftText: summary.from,
+              leftText: displayText.from,
               leftIcon: (
                 <Image src={walletIcon} alt="From" width="15px" height="12px" />
               ),

@@ -6,7 +6,9 @@ import {
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { convertToUnit, getZeroUnit } from '@cypherock/coin-support-utils';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -28,6 +30,7 @@ import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
+  selectPriceInfos,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -73,6 +76,11 @@ export interface SendDialogContextInterface {
   startFlow: () => Promise<void>;
   transactionHash: string | undefined;
   transactionLink: string | undefined;
+  prepareAddressChanged: (val: string) => Promise<void>;
+  prepareAmountChanged: (val: string) => Promise<void>;
+  prepareSendMax: () => Promise<string>;
+  priceConverter: (val: string, inverse?: boolean) => string;
+  updateUserInputs: (count: number) => void;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -87,6 +95,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const { priceInfos } = useAppSelector(selectPriceInfos);
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     3: [0],
     4: [0],
@@ -155,6 +164,32 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   }, [signedTransaction]);
 
+  const resetStates = (forSign?: boolean) => {
+    if (!forSign) {
+      setDeviceEvents({});
+      setTransaction(undefined);
+      coinSupport.current = undefined;
+    }
+
+    setSignedTransaction(undefined);
+    setTransactionHash(undefined);
+    setTransactionLink(undefined);
+    setError(undefined);
+  };
+
+  const onClose = () => {
+    dispatch(closeDialog('sendDialog'));
+  };
+
+  const onRetry = () => {
+    resetStates();
+    goTo(1, 0);
+  };
+
+  const onError = (e?: any) => {
+    setError(e);
+  };
+
   const broadcast = async () => {
     if (!transaction || !signedTransaction) {
       logger.warn('Transaction not ready');
@@ -179,16 +214,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       onError(e);
     }
   };
-  const onClose = () => {
-    dispatch(closeDialog('sendDialog'));
-  };
-
-  const onRetry = () => {
-    console.log('Retried');
-  };
 
   const initialize = async () => {
     logger.info('Initializing send transaction');
+    setTransaction(undefined);
 
     if (!selectedAccount) {
       logger.warn('No account selected');
@@ -214,6 +243,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       logger.warn('No account selected');
       return;
     }
+
     if (!coinSupport.current) {
       logger.warn('coinSupport not set');
       return;
@@ -232,18 +262,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     } catch (e: any) {
       onError(e);
     }
-  };
-
-  const onError = (e?: any) => {
-    cleanUp();
-    setError(e);
-  };
-  const cleanUp = () => {
-    console.log('Function not implemented.');
-  };
-
-  const resetStates = () => {
-    console.log('Function not implemented.');
   };
 
   const getFlowObserver = (
@@ -265,7 +283,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     },
     complete: () => {
       onEnd();
-      cleanUp();
     },
   });
 
@@ -284,8 +301,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return;
     }
 
-    resetStates();
-    cleanUp();
+    resetStates(true);
 
     const taskId = lodash.uniqueId('task-');
 
@@ -307,6 +323,90 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       .subscribe(getFlowObserver(onEnd));
   };
 
+  const prepareAddressChanged = async (val: string) => {
+    if (!transaction) return;
+    const txn = transaction;
+    if (txn.userInputs.outputs.length > 0)
+      txn.userInputs.outputs[0].address = val;
+    else
+      txn.userInputs.outputs = [
+        {
+          address: val,
+          amount: '',
+        },
+      ];
+    await prepare(txn);
+  };
+
+  const prepareAmountChanged = async (value: string) => {
+    if (!selectedAccount || !transaction) return;
+    const convertedAmount = convertToUnit({
+      amount: value,
+      coinId: selectedAccount.assetId,
+      fromUnitAbbr: selectedAccount.unit,
+      toUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+    });
+    const txn = transaction;
+    if (txn.userInputs.outputs.length > 0)
+      txn.userInputs.outputs[0].amount = convertedAmount.amount;
+    else
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: convertedAmount.amount,
+        },
+      ];
+    await prepare(txn);
+  };
+
+  const prepareSendMax = async () => {
+    if (!selectedAccount || !transaction) return '';
+    const txn = transaction;
+    txn.userInputs.isSendAll = true;
+    await prepare(txn);
+    const outputAmount = transaction.userInputs.outputs[0].amount;
+    const convertedAmount = convertToUnit({
+      amount: outputAmount,
+      coinId: selectedAccount.assetId,
+      toUnitAbbr: selectedAccount.unit,
+      fromUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+    });
+    return convertedAmount.amount;
+  };
+
+  const priceConverter = (val: string, invert?: boolean) => {
+    const coinPrice = priceInfos.find(
+      p =>
+        p.assetId === selectedAccount?.assetId &&
+        p.currency.toLowerCase() === 'usd',
+    );
+
+    if (!coinPrice) return '';
+
+    let result = new BigNumber(val);
+
+    if (invert) result = result.dividedBy(coinPrice.latestPrice);
+    else result = result.multipliedBy(coinPrice.latestPrice);
+
+    if (result.isNaN()) return '';
+    return result.toPrecision(2).toString();
+  };
+
+  const updateUserInputs = (count: number) => {
+    if (!transaction) return;
+    const txn = transaction;
+    const { length } = txn.userInputs.outputs;
+    if (length > count) {
+      txn.userInputs.outputs.splice(count, 1);
+    } else if (length < count) {
+      for (let i = length; i < count; i += 1)
+        txn.userInputs.outputs.push({
+          address: '',
+          amount: '',
+        });
+    }
+    setTransaction(txn);
+  };
   const {
     onNext,
     onPrevious,
@@ -347,6 +447,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       startFlow,
       transactionHash,
       transactionLink,
+      prepareAddressChanged,
+      prepareAmountChanged,
+      prepareSendMax,
+      priceConverter,
+      updateUserInputs,
     }),
     [
       onNext,
@@ -375,6 +480,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       startFlow,
       transactionHash,
       transactionLink,
+      prepareAddressChanged,
+      prepareAmountChanged,
+      prepareSendMax,
+      priceConverter,
+      updateUserInputs,
     ],
   );
 
