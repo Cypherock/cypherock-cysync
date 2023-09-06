@@ -40,7 +40,7 @@ import {
 import { ILangState } from '~/store/lang';
 import { transactionIconMap, getDisplayTransactionType } from '~/utils';
 
-interface TransactionRowData {
+export interface TransactionRowData {
   id: string;
   hash: string;
   assetName: string;
@@ -72,7 +72,10 @@ interface TransactionRowData {
   groupIcon?: React.FC<{ width: string; height: string }>;
 }
 
-const comparatorMap: Record<TransactionTableHeaderName, string> = {
+export const transactionComparatorMap: Record<
+  TransactionTableHeaderName,
+  string
+> = {
   time: 'timestamp',
   asset: 'assetName',
   account: 'walletAndAccount',
@@ -230,7 +233,17 @@ export const mapTransactionForDisplay = (params: {
   };
 };
 
-export const useHistoryPage = () => {
+export interface UseTransactionsProps {
+  walletId?: string;
+  assetId?: string;
+  accountId?: string;
+}
+
+export const useTransactions = ({
+  walletId,
+  assetId,
+  accountId,
+}: UseTransactionsProps = {}) => {
   const {
     lang,
     wallets,
@@ -253,12 +266,16 @@ export const useHistoryPage = () => {
     React.useState<TransactionTableHeaderName>('time');
   const [isAscending, setIsAscending] = useState(false);
 
+  const [expandedRowIds, setExpandedRowIds] = useState<Record<string, boolean>>(
+    {},
+  );
+
   const getDisplayDataList = (list: TransactionRowData[]) => {
     const filteredData = searchFilter(searchTerm, list);
 
     const sortedList = lodash.orderBy(
       filteredData,
-      [comparatorMap[sortedBy]],
+      [transactionComparatorMap[sortedBy]],
       [isAscending ? 'asc' : 'desc'],
     );
 
@@ -278,19 +295,43 @@ export const useHistoryPage = () => {
   };
 
   useEffect(() => {
-    const mappedTransactions: TransactionRowData[] = allTransactions.map(t =>
-      mapTransactionForDisplay({
-        transaction: t,
-        isDiscreetMode,
-        priceInfos,
-        wallets,
-        accounts,
-        lang,
-      }),
-    );
+    const mappedTransactions: TransactionRowData[] = allTransactions
+      .filter(a => {
+        if (walletId && a.walletId !== walletId) {
+          return false;
+        }
+        if (assetId && a.assetId !== assetId) {
+          return false;
+        }
+        if (accountId && a.accountId !== accountId) {
+          return false;
+        }
+
+        return true;
+      })
+      .map(t =>
+        mapTransactionForDisplay({
+          transaction: t,
+          isDiscreetMode,
+          priceInfos,
+          wallets,
+          accounts,
+          lang,
+        }),
+      );
 
     setTransactionList(mappedTransactions);
-  }, [allTransactions, priceInfos, isDiscreetMode, wallets, accounts, lang]);
+  }, [
+    allTransactions,
+    priceInfos,
+    isDiscreetMode,
+    wallets,
+    accounts,
+    lang,
+    walletId,
+    assetId,
+    accountId,
+  ]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));
@@ -309,6 +350,14 @@ export const useHistoryPage = () => {
     dispatch(openHistoryDialog({ txn: txn.txn }));
   };
 
+  const onRowExpand = (row: TransactionRowData, value: boolean) => {
+    setExpandedRowIds(r => {
+      const copy = structuredClone(r);
+      copy[row.id] = value;
+      return copy;
+    });
+  };
+
   return {
     strings: lang.strings,
     transactionList,
@@ -322,5 +371,7 @@ export const useHistoryPage = () => {
     sortedBy,
     dispatch,
     isSmallScreen: windowWidth < (theme.screenSizes.lg as any),
+    expandedRowIds,
+    onRowExpand,
   };
 };

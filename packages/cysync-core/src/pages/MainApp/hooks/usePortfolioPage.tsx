@@ -1,12 +1,21 @@
-import { formatDisplayAmount } from '@cypherock/coin-support-utils';
-import { getBalanceHistory } from '@cypherock/cysync-core-services';
+import {
+  formatDisplayAmount,
+  getDefaultUnit,
+  getParsedAmount,
+} from '@cypherock/coin-support-utils';
+import { coinList } from '@cypherock/coins';
+import {
+  getBalanceHistory,
+  getCoinAllocations,
+} from '@cypherock/cysync-core-services';
 import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { CoinIcon } from '~/components';
 import {
   useWalletDropdown,
   useGraphTimeRange,
@@ -24,6 +33,20 @@ import {
 } from '~/store';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
+
+export interface CoinAllocationRow {
+  assetId: string;
+  assetIcon: ReactNode;
+  assetAbbr: string;
+  assetName: string;
+  price: number;
+  balance: number;
+  value: number;
+  displayPrice: string;
+  displayBalance: string;
+  displayValue: string;
+  allocation: number;
+}
 
 const selector = createSelector(
   [
@@ -54,14 +77,20 @@ const selector = createSelector(
 export const usePortfolioPage = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { lang, accounts, transactions, priceHistories } =
+  const { lang, accounts, transactions, priceHistories, isDiscreetMode } =
     useAppSelector(selector);
   const { handleWalletChange, selectedWallet, walletDropdownList } =
     useWalletDropdown({ withSelectAll: true });
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
   const [graphData, setGraphData] = useState<LineGraphProps['data']>([]);
+  const [coinAllocations, setCoinAllocations] = useState<CoinAllocationRow[]>(
+    [],
+  );
 
   const calculatePortfolioData = async () => {
+    const walletId =
+      selectedWallet?.__id === 'all' ? undefined : selectedWallet?.__id;
+
     try {
       const balanceHistory = await getBalanceHistory({
         db: getDB(),
@@ -70,8 +99,7 @@ export const usePortfolioPage = () => {
         priceHistories,
         currency: 'usd',
         days: graphTimeRangeToDaysMap[selectedRange],
-        walletId:
-          selectedWallet?.__id === 'all' ? undefined : selectedWallet?.__id,
+        walletId,
       });
       setGraphData(
         balanceHistory.map(b => ({
@@ -83,11 +111,63 @@ export const usePortfolioPage = () => {
       logger.error('Error in calculating portfolio data');
       logger.error(error);
     }
+
+    try {
+      const result = await getCoinAllocations({
+        db: getDB(),
+        walletId,
+      });
+
+      setCoinAllocations(
+        result.map(r => {
+          const { amount, unit } = getParsedAmount({
+            coinId: r.assetId,
+            unitAbbr: getDefaultUnit(r.assetId).abbr,
+            amount: r.balance,
+          });
+
+          return {
+            allocation: r.percentage,
+            assetId: r.assetId,
+            assetAbbr: coinList[r.assetId].abbr,
+            assetName: coinList[r.assetId].name,
+            assetIcon: <CoinIcon assetId={r.assetId} size="24px" />,
+            balance: new BigNumber(r.balance).toNumber(),
+            price: new BigNumber(r.price).toNumber(),
+            value: new BigNumber(r.value).toNumber(),
+            displayBalance: `${
+              isDiscreetMode ? '****' : formatDisplayAmount(amount)
+            } ${unit.abbr}`,
+            displayPrice: `$${
+              isDiscreetMode ? '****' : formatDisplayAmount(r.price, 2, true)
+            }`,
+            displayValue: `$${
+              isDiscreetMode ? '****' : formatDisplayAmount(r.value, 2, true)
+            }`,
+          };
+        }),
+      );
+    } catch (error) {
+      logger.error('Error in calculating portfolio allocation share');
+      logger.error(error);
+    }
   };
 
-  const formatTooltipValue: LineGraphProps['formatTooltipValue'] = ({
-    value,
-  }) => `$${formatDisplayAmount(value, 2, true)}`;
+  const throttledCalculatePortfolioData = lodash.throttle(
+    calculatePortfolioData,
+    500,
+  );
+
+  useEffect(() => {
+    throttledCalculatePortfolioData();
+  }, [
+    accounts,
+    transactions,
+    priceHistories,
+    selectedRange,
+    selectedWallet,
+    isDiscreetMode,
+  ]);
 
   const summaryDetails = useMemo(() => {
     let currentValue = 0;
@@ -117,11 +197,15 @@ export const usePortfolioPage = () => {
     }
 
     return {
-      totalBalance: `${formatDisplayAmount(currentValue, 2, true)} USD`,
+      totalBalance: `$${
+        isDiscreetMode ? '****' : formatDisplayAmount(currentValue, 2, true)
+      }`,
       changePercent: `${
         Number.isFinite(changePercent) ? changePercent.toFixed(2) : 100
       }%`,
-      changeValue: `$${formatDisplayAmount(changeValue, 2, true)}`,
+      changeValue: `$${
+        isDiscreetMode ? '****' : formatDisplayAmount(changeValue, 2, true)
+      }`,
       isIncreased,
       isDecreased,
       changeIcon:
@@ -134,19 +218,19 @@ export const usePortfolioPage = () => {
           />
         ) : undefined,
     };
-  }, [graphData, theme]);
+  }, [graphData, theme, isDiscreetMode]);
 
-  const throttledCalculatePortfolioData = lodash.throttle(
-    calculatePortfolioData,
-    500,
-  );
-
-  useEffect(() => {
-    throttledCalculatePortfolioData();
-  }, [accounts, transactions, priceHistories, selectedRange, selectedWallet]);
+  const formatTooltipValue: LineGraphProps['formatTooltipValue'] = ({
+    value,
+  }) => `$${formatDisplayAmount(value, 2, true)}`;
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());
+  };
+
+  const onAssetClick = (assetId: string) => {
+    // TODO: handle navitation to coin page
+    console.log(assetId);
   };
 
   return {
@@ -163,5 +247,7 @@ export const usePortfolioPage = () => {
     summaryDetails,
     accounts,
     handleAddAccountClick,
+    coinAllocations,
+    onAssetClick,
   };
 };

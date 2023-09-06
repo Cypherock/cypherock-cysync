@@ -17,7 +17,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
   formatTooltipValue,
 }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
-  let chartInstance: Chart | null = null;
+  const chartInstanceRef = useRef<Chart | undefined>(undefined);
 
   const options: ChartOptions = {
     responsive: true,
@@ -76,7 +76,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
     },
   };
 
-  useEffect(() => {
+  const getChartData = () => {
     const timestamps = [];
     const values = [];
 
@@ -85,48 +85,55 @@ export const LineGraph: React.FC<LineGraphProps> = ({
       values.push(item.value);
     }
 
-    if (chartRef.current) {
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-
-      chartInstance = new Chart(chartRef.current, {
-        type: 'line',
-        data: {
-          labels: timestamps,
-          datasets: [
-            {
-              data: values,
-              borderColor: 'rgb(214, 0, 249)',
-              tension: 0,
-              fill: true,
-              pointRadius: 0,
-              hoverRadius: 1,
-              backgroundColor: (context: any) => {
-                const { chart } = context;
-                const { ctx } = chart;
-                const gradient = ctx.createLinearGradient(
-                  0,
-                  0,
-                  0,
-                  chart.height,
-                );
-                gradient.addColorStop(0, 'rgba(214, 0, 249, 0.6)');
-                gradient.addColorStop(1, 'rgba(214, 0, 249, 0)');
-                return gradient;
-              },
+    return {
+      type: 'line',
+      data: {
+        labels: timestamps,
+        datasets: [
+          {
+            data: values,
+            borderColor: 'rgb(214, 0, 249)',
+            tension: 0,
+            fill: true,
+            pointRadius: 0,
+            hoverRadius: 1,
+            backgroundColor: (context: any) => {
+              const { chart } = context;
+              const { ctx } = chart;
+              const gradient = ctx.createLinearGradient(0, 0, 0, chart.height);
+              gradient.addColorStop(0, 'rgba(214, 0, 249, 0.6)');
+              gradient.addColorStop(1, 'rgba(214, 0, 249, 0)');
+              return gradient;
             },
-          ],
-        },
-        options,
-      });
+          },
+        ],
+      },
+      options,
+    };
+  };
+
+  useEffect(() => {
+    if (chartRef.current) {
+      chartInstanceRef.current = new Chart(
+        chartRef.current,
+        getChartData() as any,
+      );
     }
 
     return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    if (chartInstanceRef.current) {
+      const chartData = getChartData();
+      chartInstanceRef.current.data = chartData.data;
+      chartInstanceRef.current.options = chartData.options;
+      chartInstanceRef.current.update();
+    }
   }, [data, formatTooltipValue]);
 
   return (

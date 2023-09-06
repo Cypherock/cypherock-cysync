@@ -315,6 +315,7 @@ const en = {
     stop: 'Stop',
     exit: 'Exit',
     resync: 'Resync',
+    showAll: 'Show All',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -839,6 +840,7 @@ const en = {
     },
   },
   history: {
+    tableTitle: 'Transactions',
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
@@ -1155,6 +1157,16 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    assetAllocation: {
+      title: 'Asset Allocation',
+      tableHeader: {
+        asset: 'Asset',
+        price: 'Price',
+        balance: 'Balance',
+        value: 'Value',
+        allocation: 'Allocation',
+      },
+    },
     accountMissing: {
       text: 'Accounts Missing',
       subText: 'Create or import an account to get started',

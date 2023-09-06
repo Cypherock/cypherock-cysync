@@ -86,10 +86,12 @@ export const Wallet: FC = () => {
               ))}
               {displayShowMore && (
                 <ShowMore
-                  showMoreClicked={showMoreClicked}
-                  handleShowMore={handleShowMore}
-                  less={lang.strings.wallet.buttons.less}
-                  more={lang.strings.wallet.buttons.more}
+                  onClick={handleShowMore}
+                  text={
+                    showMoreClicked
+                      ? lang.strings.wallet.buttons.less
+                      : lang.strings.wallet.buttons.more
+                  }
                 />
               )}
             </>
