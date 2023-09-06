@@ -28,6 +28,7 @@ export const JsonView: React.FC<ReactJsonViewProps> = (
         base0E: theme?.palette.text.normal,
         base0F: theme?.palette.text.normal,
       }}
+      style={{ background: 'none' }}
       {...props}
     />
   );

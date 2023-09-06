@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { css, styled } from 'styled-components';
 
+import { utils, UtilsProps } from '../utils';
+
 export const commonContainerStyles = css`
   display: flex;
   align-items: center;
@@ -31,7 +33,13 @@ export const NestedContainer = styled.div`
   flex-direction: column;
 `;
 
-export const ScrollContainer = styled.div`
+export interface ScrollContainerProps extends UtilsProps {
+  children?: ReactNode;
+  size?: 'lg';
+  $noFlex?: boolean;
+}
+
+export const ScrollContainer = styled.div<ScrollContainerProps>`
   align-self: stretch;
   overflow-y: auto;
   max-height: 226px;
@@ -40,6 +48,7 @@ export const ScrollContainer = styled.div`
   background: ${({ theme }) => theme.palette.background.container};
   padding-left: 16px;
   padding-right: 16px;
+  ${utils}
 `;
 
 interface SummaryContainerProps {

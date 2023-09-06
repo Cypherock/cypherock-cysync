@@ -71,24 +71,10 @@ export const ViewMessageDialog: React.FC = () => {
               </Flex>
             </Flex>
           </Container>
-          <ScrollContainer
-            style={{ background: 'none', paddingLeft: 0, paddingRight: 0 }}
-          >
-            <Container
-              shrink={1}
-              display="flex"
-              direction="column"
-              align="stretch"
-              px={2}
-              py={2}
-              $bgColor="container"
-            >
-              {message?.split('\n').map(para => (
-                <Typography color="muted" key={para}>
-                  {para.length ? para : <span>&nbsp;</span>}
-                </Typography>
-              ))}
-            </Container>
+          <ScrollContainer $bgColor="container" p={2}>
+            <Typography color="muted" $fontSize={13} $whiteSpace="pre-wrap">
+              {message}
+            </Typography>
           </ScrollContainer>
         </Container>
       </DialogBoxBody>

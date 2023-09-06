@@ -72,30 +72,17 @@ export const ViewJSONDialog: React.FC = () => {
               </Flex>
             </Flex>
           </Container>
-          <ScrollContainer
-            style={{ background: 'none', paddingLeft: 0, paddingRight: 0 }}
-          >
-            <Container
-              shrink={1}
-              display="flex"
-              direction="column"
-              align="stretch"
-              px={2}
-              py={2}
-              $bgColor="container"
-            >
-              <Typography color="muted">
-                <JsonView
-                  src={JSON.parse(json ?? '{}')}
-                  enableClipboard={false}
-                  displayObjectSize={false}
-                  displayDataTypes={false}
-                  indentWidth={4}
-                  collapsed={false}
-                  style={{ background: 'none' }}
-                />
-              </Typography>
-            </Container>
+          <ScrollContainer $bgColor="container" p={2}>
+            <Typography variant="span" color="muted" $fontSize={13}>
+              <JsonView
+                src={JSON.parse(json ?? '{}')}
+                enableClipboard={false}
+                displayObjectSize={false}
+                displayDataTypes={false}
+                indentWidth={4}
+                collapsed={false}
+              />
+            </Typography>
           </ScrollContainer>
         </Container>
       </DialogBoxBody>
