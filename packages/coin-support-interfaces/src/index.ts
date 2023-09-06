@@ -58,4 +58,5 @@ export interface CoinSupport {
   getAccountHistory(
     params: IGetAccountHistoryParams,
   ): Promise<IGetAccountHistoryResult>;
+  getTransactionLink(txn: ITransaction): string;
 }

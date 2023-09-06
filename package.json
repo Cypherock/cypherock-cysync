@@ -58,7 +58,8 @@
     "patchedDependencies": {
       "base-x@3.0.9": "patches/base-x@3.0.9.patch",
       "crc@3.8.0": "patches/crc@3.8.0.patch",
-      "bip66@1.1.5": "patches/bip66@1.1.5.patch"
+      "bip66@1.1.5": "patches/bip66@1.1.5.patch",
+      "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch"
     }
   }
 }

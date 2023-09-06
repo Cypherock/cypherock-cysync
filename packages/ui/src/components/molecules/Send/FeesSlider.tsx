@@ -7,7 +7,7 @@ export interface FeesSliderProps {
   value: number;
   onChange: (newValue: number) => void;
   captions: Caption[];
-  error: string;
+  error?: string;
 }
 
 export const FeesSlider: React.FC<FeesSliderProps> = ({
@@ -18,7 +18,7 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
 }) => (
   <>
     <Slider value={value} captions={captions} onChange={onChange} />
-    {!error && (
+    {error && (
       <Typography
         variant="span"
         width="100%"
@@ -31,3 +31,7 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
     )}
   </>
 );
+
+FeesSlider.defaultProps = {
+  error: undefined,
+};

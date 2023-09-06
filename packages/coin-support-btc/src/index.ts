@@ -8,6 +8,8 @@ import {
   ISyncPricesParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
+import { IBtcCoinInfo, coinList } from '@cypherock/coins';
+import { ITransaction } from '@cypherock/db-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
 import { Observable } from 'rxjs';
 
@@ -20,6 +22,7 @@ import {
   ISignBtcTransactionParams,
   ISyncBtcAccountsParams,
 } from './operations/types';
+import { getTransactionLink } from './services';
 
 export * from './operations/types';
 export * from './services';
@@ -78,5 +81,13 @@ export class BtcSupport implements CoinSupport {
 
   public getAccountHistory(): Promise<IGetAccountHistoryResult> {
     throw new Error(`Method not implemented`);
+  }
+
+  public getTransactionLink(txn: ITransaction): string {
+    return getTransactionLink(
+      coinList[txn.assetId] as IBtcCoinInfo,
+      txn.hash,
+      !!txn.confirmations,
+    );
   }
 }

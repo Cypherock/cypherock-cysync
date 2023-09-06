@@ -1,15 +1,23 @@
-import { useState, useEffect } from 'react';
+import lodash from 'lodash';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useRecipientAddress = (
   value?: string,
   onChange?: (val: string) => void,
+  onDebounce?: (val: string) => Promise<void>,
 ) => {
   const [localValue, setLocalValue] = useState(value ?? '');
-  const [isInputChanged, setIsInputChanged] = useState(false);
   const [showError, setShowError] = useState(false);
   const [isThrobberActive, setThrobberActive] = useState(false);
 
-  const handleInputValueChange = (val: string) => {
+  const func = async (val: string) => {
+    setThrobberActive(true);
+    if (onDebounce) await onDebounce(val);
+    if (onDebounce) setThrobberActive(false);
+  };
+  const debouncedFunction = useCallback(lodash.debounce(func, 300), []);
+
+  const handleInputValueChange = async (val: string) => {
     if (val.trim() === 'hello') {
       setShowError(true);
     } else {
@@ -18,23 +26,9 @@ export const useRecipientAddress = (
 
     setLocalValue(val);
 
-    if (onChange) {
-      onChange(val);
-    }
-
-    setIsInputChanged(val.trim() !== '');
+    if (onChange) onChange(val);
+    await debouncedFunction(val);
   };
-
-  useEffect(() => {
-    if (isInputChanged) {
-      setThrobberActive(true);
-      setTimeout(() => {
-        setThrobberActive(false);
-      }, 2000);
-    } else {
-      setThrobberActive(false);
-    }
-  }, [isInputChanged]);
 
   useEffect(() => {
     if (value !== undefined) {

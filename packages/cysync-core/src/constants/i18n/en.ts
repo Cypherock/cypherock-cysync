@@ -432,17 +432,52 @@ const en = {
     },
   },
   send: {
-    selectSend: {
-      info: {
-        dialogBox: {
-          title: 'Source',
-          subTitle: 'Choose a wallet and an account',
-          constant: 'Cypherock Red',
-          searchText: 'Search',
-          placeholderText: 'Account to Debit',
-          placeholderWalletText: 'Choose a wallet',
-        },
+    title: 'Send',
+    source: {
+      title: 'Source',
+      subtitle: 'Choose a wallet and an account',
+      searchText: 'Search',
+      walletPlaceholder: 'Choose a wallet',
+      accountPlaceholder: 'Account to debit',
+    },
+    x1Vault: {
+      title: 'Follow instructions on the X1 Vault',
+      actions: {
+        verifyCoin: 'Verify',
+        verifyDetails: 'Verify transaction details on device',
+        enterPassphrase: 'Enter passphrase',
+        enterPin: 'Enter the PIN and tap any card',
+        tapCard: 'Tap any card',
       },
+      messageBoxList: [
+        {
+          warning:
+            'Always verify the address displayed on your device exactly matches the address given by the recipient',
+        },
+      ],
+    },
+    recipient: {
+      title: 'Send Crypto',
+      recipient: {
+        label: 'Recipient Address',
+        placeholder: 'Enter Bitcoin address',
+      },
+      amount: {
+        label: 'Amount to send',
+        placeholder: '0',
+        toggle: 'Send Max',
+        dollar: '$',
+      },
+      fees: {
+        title: 'Fees',
+        label: 'Network Fees',
+      },
+      warning: 'Transaction might cancel if fees is very low',
+      toggleText: {
+        replace: 'Allow the transaction to be replaced (Replace by fees)',
+        unconfirmed: 'Include coins from unconfirmed, replaceable transactions',
+      },
+      infoBox: 'Maximum spendable amount is ',
     },
     deviceConnection: {
       info: {
@@ -494,6 +529,7 @@ const en = {
         dialogBox: {
           header: 'Follow instructions on the X1 Vault',
           infoBox: {
+            info: 'Remember Tether is an Ethereum token therefore fee will be calculated in ETH ',
             warning:
               'Always verify the address displayed on your device exactly matches the address given by the recipient',
           },
@@ -511,43 +547,6 @@ const en = {
             dialogBox: {
               title: 'Recipient',
               text: 'Enter the amount and the address of the recipient to whom you want to send the funds',
-            },
-          },
-          single: {
-            title: 'Send Crypto',
-            recipient: {
-              text: 'Recipient Address',
-              error: 'Error message for recipient address',
-              placeholder: 'Enter Bitcoin address',
-            },
-            amount: {
-              text: 'Amount to send',
-              placeholder: '0',
-              toggle: 'Send Max',
-              coin: 'BTC',
-              dollar: '$',
-              error: 'Error message for amount',
-            },
-
-            fees: {
-              title: 'Fees',
-              error: 'Error message for fee',
-              fee: '0.0002 BTC',
-              usd: '$5.51',
-              network: 'Network Fees',
-            },
-            message: ' sat per byte',
-            fee: '9',
-            inputPostfix: 'Sat per byte',
-            warning: 'Transaction might cancel if fees is very low',
-            toggleText: {
-              replace: 'Allow the transaction to be replaced (Replace by fees)',
-              unconfirmed:
-                'Include coins from unconfirmed, replaceable transactions',
-            },
-            InfoBox: {
-              text: 'Maximum spendable amount is',
-              altText: '~0.8436 BTC',
             },
           },
           batch: {
@@ -721,12 +720,12 @@ const en = {
           from: 'From',
           fromDetails: [
             {
-              id: 1,
+              id: '1',
               name: 'Cypherock Red',
               muted: true,
             },
             {
-              id: 2,
+              id: '2',
               name: 'Ethereum 1',
               muted: false,
             },
@@ -765,17 +764,17 @@ const en = {
           from: 'From',
           fromDetails: [
             {
-              id: 1,
+              id: '1',
               name: 'Cypherock Red',
               muted: true,
             },
             {
-              id: 2,
+              id: '2',
               name: 'Ethereum 1',
               muted: false,
             },
             {
-              id: 3,
+              id: '3',
               name: 'Optimism',
               muted: false,
             },

@@ -49,13 +49,13 @@ const PillButton = styled.button<{ $active: boolean }>`
 export interface ButtonAttributes {
   id: number;
   label: string;
-  type: 'slider' | 'input';
+  type: string;
 }
 
 interface PillButtonToggleProps {
   buttons: ButtonAttributes[];
   type: string;
-  onButtonClick: (type: 'slider' | 'input') => void;
+  onButtonClick: (switchedTo: string) => void;
 }
 
 export const PillButtonToggle: React.FC<PillButtonToggleProps> = ({

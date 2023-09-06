@@ -75,4 +75,9 @@ export class EvmSupport implements CoinSupport {
   public static setEthersLibrary(ethers: ethersLibType): void {
     setEthersLib(ethers);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public getTransactionLink(txn: ITransaction): string {
+    throw new Error('Method not implemented.');
+  }
 }

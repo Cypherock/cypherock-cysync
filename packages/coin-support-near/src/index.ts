@@ -73,4 +73,9 @@ export class NearSupport implements CoinSupport {
   public syncPriceHistories(params: ISyncPriceHistoriesParams) {
     return operations.syncPriceHistories(params);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public getTransactionLink(txn: ITransaction): string {
+    throw new Error('Method not implemented.');
+  }
 }
