@@ -82,6 +82,7 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       {displayRows.map((row, index) => (
         <AssetAllocationTableRow
           key={row.assetId}
+          color={row.color}
           assetAbbr={row.assetAbbr}
           assetName={row.assetName}
           assetIcon={row.assetIcon}

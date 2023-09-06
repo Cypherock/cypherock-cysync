@@ -10,11 +10,24 @@ export interface LineGraphProps {
     value: number;
   }[];
   formatTooltipValue?: (params: { timestamp: number; value: number }) => string;
+  color: string;
 }
+
+const hexToRGB = (value: string) => {
+  const numericValue = parseInt(value.replace('#', ''), 16);
+  // eslint-disable-next-line no-bitwise
+  const r = (numericValue >> 16) & 0xff;
+  // eslint-disable-next-line no-bitwise
+  const g = (numericValue >> 8) & 0xff;
+  // eslint-disable-next-line no-bitwise
+  const b = numericValue & 0xff;
+  return { r, g, b };
+};
 
 export const LineGraph: React.FC<LineGraphProps> = ({
   data,
   formatTooltipValue,
+  color,
 }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | undefined>(undefined);
@@ -92,7 +105,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
         datasets: [
           {
             data: values,
-            borderColor: 'rgb(214, 0, 249)',
+            borderColor: color,
             tension: 0,
             fill: true,
             pointRadius: 0,
@@ -101,8 +114,15 @@ export const LineGraph: React.FC<LineGraphProps> = ({
               const { chart } = context;
               const { ctx } = chart;
               const gradient = ctx.createLinearGradient(0, 0, 0, chart.height);
-              gradient.addColorStop(0, 'rgba(214, 0, 249, 0.6)');
-              gradient.addColorStop(1, 'rgba(214, 0, 249, 0)');
+              const colorRgb = hexToRGB(color);
+              gradient.addColorStop(
+                0,
+                `rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 0.6)`,
+              );
+              gradient.addColorStop(
+                1,
+                `rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 0)`,
+              );
               return gradient;
             },
           },

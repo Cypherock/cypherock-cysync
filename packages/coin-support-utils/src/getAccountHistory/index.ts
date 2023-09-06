@@ -7,6 +7,7 @@ import {
   IAccount,
   IDatabase,
   IPriceHistory,
+  IPriceInfo,
   IPriceSnapshot,
   ITransaction,
   TransactionTypeMap,
@@ -98,6 +99,30 @@ async function getPriceHistory(
   return lodash.orderBy(history, ['timestamp'], ['asc']);
 }
 
+async function getLatestPrice(
+  allPriceInfos: IPriceInfo[] | undefined,
+  account: IAccount,
+  currency: string,
+  db: IDatabase,
+) {
+  let price: string | undefined;
+
+  if (allPriceInfos) {
+    price = allPriceInfos.find(
+      p => p.assetId === account.assetId && p.currency === currency,
+    )?.latestPrice;
+  } else {
+    price = (
+      await db.priceInfo.getOne({
+        assetId: account.assetId,
+        currency,
+      })
+    )?.latestPrice;
+  }
+
+  return price;
+}
+
 function calcValue(params: {
   amount: string | BigNumber;
   assetId: string;
@@ -122,6 +147,7 @@ export async function createGetAccountHistory(
     db,
     accountId,
     priceHistories: allPriceHistories,
+    priceInfos: allPriceInfos,
     transactions: allTransactions,
     account: accountInParams,
     currency,
@@ -135,6 +161,12 @@ export async function createGetAccountHistory(
     account,
     currency,
     days,
+    db,
+  );
+  const latestPrice = await getLatestPrice(
+    allPriceInfos,
+    account,
+    currency,
     db,
   );
   let curBalance = new BigNumber(account.balance);
@@ -199,7 +231,7 @@ export async function createGetAccountHistory(
   accountBalanceHistory[accountBalanceHistory.length - 1].value = calcValue({
     amount: account.balance,
     assetId: account.assetId,
-    price: priceHistory[priceHistory.length - 1].price,
+    price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
   });
 
   const hasNegative = accountBalanceHistory.some(a =>

@@ -9,6 +9,7 @@ import {
   IAccount,
   ITransaction,
   IPriceHistory,
+  IPriceInfo,
 } from '@cypherock/db-interfaces';
 
 const getAccounts = (params: {
@@ -45,6 +46,7 @@ export const getBalanceHistory = async (params: {
   accounts: IAccount[];
   transactions: ITransaction[];
   priceHistories: IPriceHistory[];
+  priceInfos: IPriceInfo[];
 }): Promise<IBalanceHistory[]> => {
   const {
     db,
@@ -56,6 +58,7 @@ export const getBalanceHistory = async (params: {
     accounts: allAccounts,
     transactions,
     priceHistories,
+    priceInfos,
   } = params;
   const balanceHistoryList: IGetAccountHistoryResult[] = [];
 
@@ -81,6 +84,7 @@ export const getBalanceHistory = async (params: {
         days,
         priceHistories,
         transactions,
+        priceInfos,
       }),
     );
   }

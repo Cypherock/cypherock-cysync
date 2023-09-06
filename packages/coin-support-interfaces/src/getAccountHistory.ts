@@ -2,6 +2,7 @@ import {
   IAccount,
   IDatabase,
   IPriceHistory,
+  IPriceInfo,
   ITransaction,
 } from '@cypherock/db-interfaces';
 
@@ -19,6 +20,7 @@ export interface IGetAccountHistoryParams {
   account?: IAccount;
   transactions?: ITransaction[];
   priceHistories?: IPriceHistory[];
+  priceInfos?: IPriceInfo[];
 }
 
 export interface IGetAccountHistoryResult {

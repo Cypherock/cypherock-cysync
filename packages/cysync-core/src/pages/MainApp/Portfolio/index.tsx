@@ -1,3 +1,4 @@
+import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   NoAccountWrapper,
   SkeletonLoader,
@@ -79,6 +80,7 @@ export const Portfolio: FC = () => {
             summaryIcon={summaryDetails.changeIcon}
             data={graphData}
             formatTooltipValue={formatTooltipValue}
+            color={coinList[BtcIdMap.bitcoin].color ?? ''}
           />
         </Container>
 

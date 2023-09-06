@@ -30,6 +30,7 @@ import {
   selectPriceHistories,
   selectTransactions,
   useAppDispatch,
+  selectPriceInfos,
 } from '~/store';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
@@ -39,6 +40,7 @@ export interface CoinAllocationRow {
   assetIcon: ReactNode;
   assetAbbr: string;
   assetName: string;
+  color: string;
   price: number;
   balance: number;
   value: number;
@@ -54,6 +56,7 @@ const selector = createSelector(
     selectWallets,
     selectAccounts,
     selectPriceHistories,
+    selectPriceInfos,
     selectTransactions,
     selectDiscreetMode,
   ],
@@ -62,6 +65,7 @@ const selector = createSelector(
     { wallets },
     { accounts },
     { priceHistories },
+    { priceInfos },
     { transactions },
     { active: isDiscreetMode },
   ) => ({
@@ -69,6 +73,7 @@ const selector = createSelector(
     wallets,
     accounts,
     priceHistories,
+    priceInfos,
     transactions,
     isDiscreetMode,
   }),
@@ -84,6 +89,7 @@ export const usePortfolioPage = () => {
     transactions,
     priceHistories,
     isDiscreetMode,
+    priceInfos,
   } = useAppSelector(selector);
   const { handleWalletChange, selectedWallet, walletDropdownList } =
     useWalletDropdown({ withSelectAll: true });
@@ -103,6 +109,7 @@ export const usePortfolioPage = () => {
         accounts,
         transactions,
         priceHistories,
+        priceInfos,
         currency: 'usd',
         days: graphTimeRangeToDaysMap[selectedRange],
         walletId,
@@ -133,6 +140,7 @@ export const usePortfolioPage = () => {
           });
 
           return {
+            color: coinList[r.assetId].color ?? 'orange',
             allocation: r.percentage,
             assetId: r.assetId,
             assetAbbr: coinList[r.assetId].abbr,
@@ -170,6 +178,7 @@ export const usePortfolioPage = () => {
     accounts,
     transactions,
     priceHistories,
+    priceInfos,
     selectedRange,
     selectedWallet,
     isDiscreetMode,

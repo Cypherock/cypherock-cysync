@@ -13,6 +13,7 @@ export interface AssetAllocationTableRowProps {
   balance: string;
   value: string;
   allocation: number;
+  color: string;
   $rowIndex: number;
   $isLast?: boolean;
   onClick: () => void;
@@ -22,7 +23,7 @@ export interface AssetAllocationTableRowProps {
 export const AssetAllocationTableRow: React.FC<
   AssetAllocationTableRowProps
 > = props => {
-  const { $rowIndex, $isLast, onClick, style, ...row } = props;
+  const { $rowIndex, $isLast, onClick, style, color, ...row } = props;
 
   return (
     <RowWrapper
@@ -43,7 +44,7 @@ export const AssetAllocationTableRow: React.FC<
       <TableNameBox text={row.value} width="18%" />
       <AllocationShare
         percentage={row.allocation}
-        color="orange"
+        color={color}
         width={{ def: '20%', lg: '24%' }}
       />
     </RowWrapper>
