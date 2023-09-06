@@ -77,8 +77,14 @@ const selector = createSelector(
 export const usePortfolioPage = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { lang, accounts, transactions, priceHistories, isDiscreetMode } =
-    useAppSelector(selector);
+  const {
+    lang,
+    accounts,
+    wallets,
+    transactions,
+    priceHistories,
+    isDiscreetMode,
+  } = useAppSelector(selector);
   const { handleWalletChange, selectedWallet, walletDropdownList } =
     useWalletDropdown({ withSelectAll: true });
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
@@ -249,5 +255,6 @@ export const usePortfolioPage = () => {
     handleAddAccountClick,
     coinAllocations,
     onAssetClick,
+    wallets,
   };
 };

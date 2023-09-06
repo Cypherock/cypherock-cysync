@@ -297,7 +297,9 @@ const en = {
   back: 'Back',
   allWallets: 'All Wallets',
   buttons: {
+    addWallet: 'Add Wallet',
     addAccount: 'Add Account',
+    syncWallets: 'Sync Wallets',
     addToken: 'Add Token',
     reverify: 'Reverify',
     continue: 'Continue',
@@ -1166,6 +1168,12 @@ const en = {
         value: 'Value',
         allocation: 'Allocation',
       },
+    },
+    walletMissing: {
+      text: 'Wallets Missing',
+      subText: 'Create a new wallet or import from seed phrase to get started',
+      subText2:
+        'If you have already created wallets in the device, simply sync them with cySync',
     },
     accountMissing: {
       text: 'Accounts Missing',

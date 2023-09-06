@@ -10,6 +10,7 @@ import React, { FC } from 'react';
 import { MainAppLayout, TransactionTable } from '~/pages/MainApp/Components';
 
 import { AssetAllocation } from './AssetAllocation';
+import { NoWallet } from './NoWallet';
 
 import { usePortfolioPage } from '../hooks';
 
@@ -25,6 +26,7 @@ export const Portfolio: FC = () => {
     graphData,
     formatTooltipValue,
     summaryDetails,
+    wallets,
     accounts,
     handleAddAccountClick,
     coinAllocations,
@@ -40,6 +42,10 @@ export const Portfolio: FC = () => {
    */
 
   const getMainContent = () => {
+    if (wallets.length <= 0) {
+      return <NoWallet />;
+    }
+
     if (accounts.length <= 0) {
       return (
         <NoAccountWrapper>
