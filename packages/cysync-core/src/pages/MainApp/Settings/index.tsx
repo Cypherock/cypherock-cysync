@@ -1,9 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { MainAppLayout } from '../Components';
-import { Tabs } from '@cypherock/cysync-ui';
+import {
+  Container,
+  Divider,
+  Flex,
+  LangDisplay,
+  Typography,
+  useTheme,
+} from '@cypherock/cysync-ui';
 import { Tab } from '@cypherock/cysync-ui/src';
 import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
 
@@ -29,9 +36,50 @@ export const Settings: FC = () => {
     },
   ];
 
+  const [tabIndex, setTabIndex] = useState<number>(0);
+  const theme = useTheme();
+
   return (
     <MainAppLayout title={strings.sidebar.settings}>
-      <Tabs tabs={tabs} $alignContent="stretch" />
+      <Container
+        m="20"
+        $borderRadius={24}
+        shadow="popup"
+        direction="column"
+        align="stretch"
+        $borderWidth={0}
+      >
+        <Flex pt={6} pb={4} px={5} direction="column" align="stretch">
+          <Flex gap={24}>
+            {tabs.map((tab, index) => (
+              <Flex
+                key={tab.label}
+                direction="column"
+                align="center"
+                gap={24}
+                onClick={() => setTabIndex(index)}
+              >
+                <Typography
+                  px={3}
+                  $fontSize={20}
+                  color={index === tabIndex ? 'gold' : 'muted'}
+                >
+                  <LangDisplay text={tab.label} />
+                </Typography>
+                <Divider
+                  variant="horizontal"
+                  stroke={4}
+                  background={
+                    index === tabIndex ? theme.palette.golden : 'none'
+                  }
+                />
+              </Flex>
+            ))}
+          </Flex>
+          <Divider variant="horizontal" />
+        </Flex>
+        {tabs[tabIndex].content}
+      </Container>
     </MainAppLayout>
   );
 };
