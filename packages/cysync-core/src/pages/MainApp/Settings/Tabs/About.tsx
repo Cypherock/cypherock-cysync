@@ -7,11 +7,13 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { openCySyncVersionDetailsDialog } from '~/actions';
 
 export const About: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.about;
+  const dispatch = useAppDispatch();
 
   return (
     <Flex
@@ -35,7 +37,10 @@ export const About: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openCySyncVersionDetailsDialog())}
+          >
             <LangDisplay text={strings.buttons.details} />
           </Button>
         </Flex>

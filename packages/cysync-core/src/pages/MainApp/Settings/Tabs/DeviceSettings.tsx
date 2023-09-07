@@ -7,11 +7,16 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  openAuthenticateX1CardDialog,
+  openAuthenticateX1VaultDialog,
+} from '~/actions';
 
 export const DeviceSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.device;
+  const dispatch = useAppDispatch();
   return (
     <Flex
       $alignSelf="stretch"
@@ -46,7 +51,10 @@ export const DeviceSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openAuthenticateX1VaultDialog())}
+          >
             <LangDisplay text={strings.buttons.authenticate} />
           </Button>
         </Flex>
@@ -61,7 +69,10 @@ export const DeviceSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openAuthenticateX1CardDialog())}
+          >
             <LangDisplay text={strings.buttons.authenticate} />
           </Button>
         </Flex>

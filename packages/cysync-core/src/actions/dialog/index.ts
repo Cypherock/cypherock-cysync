@@ -21,3 +21,24 @@ export const openReceiveDialog = () =>
 
 export const openSendDialog = () =>
   openDialog({ name: 'sendDialog', data: undefined });
+
+export const openRemovePasswordDialog = () =>
+  openDialog({ name: 'removePassword', data: undefined });
+
+export const openChangePasswordDialog = () =>
+  openDialog({ name: 'changePassword', data: undefined });
+
+export const openResetCySyncDialog = () =>
+  openDialog({ name: 'resetCySync', data: undefined });
+
+export const openSetPasswordDialog = () =>
+  openDialog({ name: 'setPassword', data: undefined });
+
+export const openAuthenticateX1CardDialog = () =>
+  openDialog({ name: 'authenticateX1Card', data: undefined });
+
+export const openAuthenticateX1VaultDialog = () =>
+  openDialog({ name: 'authenticateX1Vault', data: undefined });
+
+export const openCySyncVersionDetailsDialog = () =>
+  openDialog({ name: 'cySyncVersionDetails', data: undefined });

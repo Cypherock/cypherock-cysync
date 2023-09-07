@@ -7,11 +7,18 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import { TabItem } from '../components';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  openChangePasswordDialog,
+  openRemovePasswordDialog,
+  openResetCySyncDialog,
+  openSetPasswordDialog,
+} from '~/actions';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.app;
+  const dispatch = useAppDispatch();
   return (
     <Flex
       $alignSelf="stretch"
@@ -31,11 +38,23 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex gap={16}>
-          <Button variant="primary" onClick={console.log}>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openSetPasswordDialog())}
+          >
             <LangDisplay text={strings.buttons.setPassword} />
           </Button>
-          <Button variant="primary" onClick={console.log}>
-            <LangDisplay text={strings.buttons.changePasswords} />
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openRemovePasswordDialog())}
+          >
+            <LangDisplay text={strings.buttons.removePassword} />
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openChangePasswordDialog())}
+          >
+            <LangDisplay text={strings.buttons.changePassword} />
           </Button>
         </Flex>
       </TabItem>
@@ -62,7 +81,10 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(openResetCySyncDialog())}
+          >
             <LangDisplay text={strings.buttons.reset} />
           </Button>
         </Flex>
