@@ -35,3 +35,6 @@ export * from './Send';
 export * from './BulletList';
 export * from './GoldenArrowList';
 export * from './Calendar';
+export * from './Graph';
+export * from './WallectConnect';
+export * from './JsonView';

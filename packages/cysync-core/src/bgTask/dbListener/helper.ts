@@ -46,7 +46,9 @@ const syncAccountsDb = createFuncWithErrorHandler(
     store.dispatch(setAccounts(accounts));
 
     if (isFirst) {
-      store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+      if (window.cysyncEnv.IS_PRODUCTION === 'true') {
+        store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+      }
     }
   },
 );
