@@ -6,6 +6,7 @@ import { AddAccountDialog } from './AddAccount';
 import { GuidedFlow } from './GuidedFlow';
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
+import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
@@ -33,4 +34,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   authenticateX1Vault: AuthenticateX1VaultDialog,
   authenticateX1Card: AuthenticateX1CardDialog,
   cySyncVersionDetails: CySyncVersionDetailsDialog,
+  signMessage: SignMessageDialog,
 };

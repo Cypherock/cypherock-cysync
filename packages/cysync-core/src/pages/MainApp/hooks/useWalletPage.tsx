@@ -230,7 +230,7 @@ export const useWalletPage = () => {
         tag: lodash.upperCase(a.derivationScheme),
         statusImage:
           accountSyncIconMap[
-            accountSyncMap[a.__id ?? ''].syncState ?? 'synced'
+            accountSyncMap[a.__id ?? '']?.syncState ?? 'synced'
           ] ?? checkComponent,
         displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
         displayValue: isDiscreetMode ? '$****' : displayValue,
@@ -269,7 +269,7 @@ export const useWalletPage = () => {
   };
 
   const handleStatusClick = (row: AccountRowData) => {
-    if (accountSyncMap[row.id].syncState === AccountSyncStateMap.syncing) {
+    if (accountSyncMap[row.id]?.syncState === AccountSyncStateMap.syncing) {
       return;
     }
 

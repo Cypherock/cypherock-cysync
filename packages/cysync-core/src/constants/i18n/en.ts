@@ -295,6 +295,7 @@ const en = {
   x1Card: 'X1 Card',
   help: 'Help',
   back: 'Back',
+  allWallets: 'All Wallets',
   buttons: {
     addAccount: 'Add Account',
     addToken: 'Add Token',
@@ -1111,6 +1112,18 @@ const en = {
       delete: 'Delete',
     },
   },
+  graph: {
+    totalBalance: 'Total Balance',
+    walletDropdown: {
+      search: 'Search',
+    },
+    timeRange: {
+      day: '1D',
+      week: '1W',
+      month: '1M',
+      year: '1Y',
+    },
+  },
   walletConnect: {
     uriTab: {
       title: 'WalletConnect',
@@ -1143,6 +1156,15 @@ const en = {
           'Request approvals for transactions',
         ],
       },
+    },
+  },
+  signMessage: {
+    title: 'Sign Message',
+    subTitle: 'Connected to the following account',
+    info: {
+      confirmDevice: 'Confirm on device',
+      verifyData: 'Verify data',
+      enterPinTapCard: 'Enter PIN and tap any card',
     },
   },
   portfolio: {

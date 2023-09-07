@@ -48,10 +48,11 @@ const ShortFormTag = styled.div`
 
 export const DropDownListItemStretchedTypography = styled(Typography)<
   DropDownListItemHorizontalBoxProps & {
-    $shouldStretch: boolean;
     $color: TypographyColor;
   }
 >`
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: ${({ $isChecked, $color, theme }) =>
     $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
 `;
@@ -114,16 +115,6 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
-const DropDownItemWrapper = styled.div<{ $isFocused: boolean }>`
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ $isFocused, theme }) =>
-    $isFocused
-      ? theme.palette.background.dropdownHover
-      : theme.palette.background.separatorSecondary};
-  border-radius: 8px;
-`;
-
 const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
   font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
   font-weight: 400;
@@ -161,41 +152,44 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   };
 
   return (
-    <DropDownItemWrapper $isFocused={$isFocused}>
-      <DropDownListItemHorizontalBox
-        onClick={handleBoxClick}
+    <DropDownListItemHorizontalBox
+      onClick={handleBoxClick}
+      $isChecked={checked}
+      $borderRadius={$borderRadius}
+      $hasRightText={$hasRightText}
+      $restrictedItem={$restrictedItem}
+      text={text}
+      $isFocused={$isFocused}
+      $parentId={$parentId}
+    >
+      {!$restrictedItem && checkType && checkType === 'radio' && (
+        <RadioButton
+          checked={checked}
+          value={radioButtonValue}
+          onChange={handleCheckChange}
+        />
+      )}
+      {leftImage && (
+        <DropDownListItemIconContainer>
+          {leftImage}
+        </DropDownListItemIconContainer>
+      )}
+      <DropDownListItemStretchedTypography
+        variant="h6"
+        $color={color ?? 'muted'}
         $isChecked={checked}
-        $borderRadius={$borderRadius}
-        $hasRightText={$hasRightText}
-        $restrictedItem={$restrictedItem}
-        text={text}
-        $isFocused={$isFocused}
-        $parentId={$parentId}
       >
-        {!$restrictedItem && checkType && checkType === 'radio' && (
-          <RadioButton
-            checked={checked}
-            value={radioButtonValue}
-            onChange={handleCheckChange}
-          />
-        )}
-        {leftImage && (
-          <DropDownListItemIconContainer>
-            {leftImage}
-          </DropDownListItemIconContainer>
-        )}
-        <DropDownListItemStretchedTypography
-          $shouldStretch={!tag}
-          variant="h6"
-          $color={color ?? 'muted'}
-          $isChecked={checked}
-        >
-          <LangDisplay text={text} />
+        <LangDisplay text={text} $noPreWrap />
+        {shortForm && (
           <ShortFormTag>
             <LangDisplay text={shortForm} />
           </ShortFormTag>
-        </DropDownListItemStretchedTypography>
-        {tag && <Tag>{tag}</Tag>}
+        )}
+      </DropDownListItemStretchedTypography>
+      {tag && <Tag>{tag}</Tag>}
+      {(rightText ||
+        rightIcon ||
+        (!$restrictedItem && checkType && checkType === 'checkbox')) && (
         <DropDownListItemRightContent>
           {rightText && (
             <RightTextTypography
@@ -219,8 +213,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
             />
           )}
         </DropDownListItemRightContent>
-      </DropDownListItemHorizontalBox>
-    </DropDownItemWrapper>
+      )}
+    </DropDownListItemHorizontalBox>
   );
 };
 

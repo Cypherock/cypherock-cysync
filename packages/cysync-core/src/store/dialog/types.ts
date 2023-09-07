@@ -72,6 +72,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  signMessage: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

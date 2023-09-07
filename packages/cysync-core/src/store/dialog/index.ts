@@ -52,6 +52,9 @@ const initialState: IDialogState = {
   cySyncVersionDetails: {
     isOpen: false,
   },
+  signMessage: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

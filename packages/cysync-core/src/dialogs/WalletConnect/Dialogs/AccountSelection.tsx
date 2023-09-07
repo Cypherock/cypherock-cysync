@@ -20,12 +20,12 @@ import {
   CloseButton,
   Divider,
 } from '@cypherock/cysync-ui';
+import { parseLangTemplate } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useWalletConnectDialog } from '../context';
-import { parseLangTemplate } from '@cypherock/cysync-ui/src';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { onNext, onClose } = useWalletConnectDialog();
