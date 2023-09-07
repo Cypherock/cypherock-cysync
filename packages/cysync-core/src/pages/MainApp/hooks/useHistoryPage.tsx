@@ -96,6 +96,10 @@ const searchFilter = (
       row.assetName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.hash.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.dateTime.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.time.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.dateHeader.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.status.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 };

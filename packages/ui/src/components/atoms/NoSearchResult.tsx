@@ -29,7 +29,7 @@ export const NoSearchResult: FC<NoSearchResultProps> = ({
       {image}
       <Flex direction="column" align="center">
         <Typography $fontSize={24} $fontWeight="medium">
-          {searchText ? `${text} "${searchText}"` : text}
+          {searchText ? `${text} "${searchText.trim()}"` : text}
         </Typography>
         <Typography $fontSize={16} color="muted">
           {subText}
