@@ -16,6 +16,7 @@ import {
 import { BigNumber } from '@cypherock/cysync-utils';
 import React from 'react';
 
+import { CoinIcon } from '~/components';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
@@ -142,6 +143,13 @@ export const SummaryDialog: React.FC = () => {
         id: 'account',
         name: selectedAccount?.name ?? '',
         muted: false,
+        icon: (
+          <CoinIcon
+            assetId={
+              selectedAccount?.parentAssetId ?? selectedAccount?.assetId ?? ''
+            }
+          />
+        ),
       },
     ];
     if (selectedAccount?.parentAssetId) {
@@ -149,6 +157,7 @@ export const SummaryDialog: React.FC = () => {
         id: 'asset',
         name: coinList[selectedAccount.assetId].name,
         muted: false,
+        icon: <CoinIcon assetId={selectedAccount.assetId} />,
       });
     }
     return fromDetails;

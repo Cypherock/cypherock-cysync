@@ -160,21 +160,24 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   useEffect(() => {
     if (signedTransaction) {
       broadcast();
-      console.log({ signedTransaction });
     }
   }, [signedTransaction]);
 
-  const resetStates = (forSign?: boolean) => {
-    if (!forSign) {
-      setDeviceEvents({});
-      setTransaction(undefined);
-      coinSupport.current = undefined;
-    }
+  useEffect(() => {
+    resetInputStates();
+  }, [selectedAccount, selectedWallet]);
 
+  const resetStates = () => {
     setSignedTransaction(undefined);
     setTransactionHash(undefined);
     setTransactionLink(undefined);
     setError(undefined);
+  };
+
+  const resetInputStates = () => {
+    setTransaction(undefined);
+    setDeviceEvents({});
+    coinSupport.current = undefined;
   };
 
   const onClose = () => {
@@ -217,7 +220,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const initialize = async () => {
     logger.info('Initializing send transaction');
-    setTransaction(undefined);
+    if (transaction !== undefined) return;
 
     if (!selectedAccount) {
       logger.warn('No account selected');
@@ -256,8 +259,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         txn,
       });
 
-      console.log({ txn, preparedTransaction });
-
       setTransaction(preparedTransaction);
     } catch (e: any) {
       onError(e);
@@ -274,8 +275,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       if (payload.transaction) {
         setSignedTransaction(payload.transaction);
       }
-
-      console.log({ payload });
     },
     error: err => {
       onEnd();
@@ -301,7 +300,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return;
     }
 
-    resetStates(true);
+    resetStates();
 
     const taskId = lodash.uniqueId('task-');
 
@@ -310,8 +309,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     const onEnd = () => {
       deviceLock.release(connection.device, taskId);
     };
-
-    console.log({ transaction });
 
     const deviceConnection = await connectDevice(connection.device);
     coinSupport.current

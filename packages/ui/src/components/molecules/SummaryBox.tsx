@@ -2,21 +2,19 @@ import React, { ReactNode } from 'react';
 
 import {
   Typography,
-  Image,
   ImageContainer,
   Divider,
   SummaryContainer,
   NestedContainer,
   ScrollContainer,
-  etheriumBlueIcon,
   Container,
-  OptimismIcon,
 } from '../..';
 
 interface FromItem {
   id: string;
   name: string;
   muted: boolean;
+  icon?: ReactNode;
 }
 
 interface SummaryRowProps {
@@ -28,13 +26,6 @@ interface SummaryRowProps {
   margin?: number;
   id?: string;
 }
-
-const imageSrcMap: any = {
-  'Ethereum 1': (
-    <Image src={etheriumBlueIcon} alt="From" width="15px" height="12px" />
-  ),
-  Optimism: <OptimismIcon height={16} width={15} />,
-};
 
 export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
@@ -59,13 +50,12 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
       rightComponent ? (
         <>
           {rightComponent.map((from, idx) => {
-            const { id: _id, name, muted } = from;
-            const imageSrc = imageSrcMap[name];
+            const { id: _id, name, muted, icon } = from;
 
             return (
               <Container key={_id} display="flex" direction="row" gap={12}>
                 <ImageContainer gap={8}>
-                  {imageSrc && imageSrc}
+                  {icon}
                   <Typography
                     variant="p"
                     color={muted ? 'muted' : undefined}
