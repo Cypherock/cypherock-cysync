@@ -314,6 +314,9 @@ const en = {
     stop: 'Stop',
     exit: 'Exit',
     resync: 'Resync',
+    connect: 'Connect',
+    disconnect: 'Disconnect',
+    reject: 'Reject',
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -774,6 +777,49 @@ const en = {
       keepIt: 'Keep it',
       keepAll: 'Keep All',
       delete: 'Delete',
+    },
+  },
+  walletConnect: {
+    uriTab: {
+      title: 'WalletConnect',
+      subTitle: 'Enter WalletConnect URI to connect with the DApp',
+      inputLabel: 'Enter connection URI',
+      placeholder: 'Paste URI',
+    },
+    accountSelectionTab: {
+      title: 'Connect to ${dappName} interface',
+      chooseWallet: 'Choose a Wallet',
+      chooseAccount: 'Select ${assetName} Accounts',
+      supportInfo:
+        'These blockchains are supported but add their accounts before use',
+      notSupportedWarning: {
+        title: 'These blockchains are not supported',
+        description:
+          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
+      },
+    },
+    accountConnectedTab: {
+      title: 'Connected to ${dappName} interface',
+      subTitle: 'Accounts',
+      info: 'You can now access the Uniswap interface DApp on your web browser',
+    },
+    common: {
+      info: {
+        title: 'This app will be able to:',
+        points: [
+          'Check your account balance and activity',
+          'Request approvals for transactions',
+        ],
+      },
+    },
+  },
+  signMessage: {
+    title: 'Sign Message',
+    subTitle: 'Connected to the following account',
+    info: {
+      confirmDevice: 'Confirm on device',
+      verifyData: 'Verify data',
+      enterPinTapCard: 'Enter PIN and tap any card',
     },
   },
   portfolio: {

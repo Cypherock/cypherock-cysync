@@ -16,6 +16,9 @@ const initialState: IDialogState = {
   walletActions: {
     isOpen: false,
   },
+  walletConnect: {
+    isOpen: false,
+  },
   guidedFlow: {
     isOpen: false,
   },
@@ -26,6 +29,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   receive: {
+    isOpen: false,
+  },
+  signMessage: {
     isOpen: false,
   },
 };

@@ -27,6 +27,7 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
+  | 'message'
   | 'list'
   | 'black'
   | 'info'
@@ -43,7 +44,7 @@ interface HeadingProps
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
-  $whiteSpace?: 'normal' | 'nowrap';
+  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
 }
 
