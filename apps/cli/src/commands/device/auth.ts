@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/order
 import '../../config';
 
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import colors from 'colors/safe';
 
-import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { authDevice } from '~/services';
 import { BaseCommand } from '~/utils';
 

@@ -96,9 +96,9 @@ export const Topbar: FC<ITopbar> = ({
 
   return (
     <Container
-      px={{ def: 4, lg: 5 }}
-      pt={{ def: '8', lg: '50' }}
-      pb={{ def: '8', lg: '10' }}
+      px={{ def: 4, mdlg: 5 }}
+      pt={{ def: '8', mdlg: '50' }}
+      pb={{ def: '8', mdlg: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
       $borderColor="topbar"
@@ -120,7 +120,7 @@ export const Topbar: FC<ITopbar> = ({
         <Button variant="none" onClick={onSyncClick}>
           <Flex pr={2} align="center" gap={16}>
             {syncStatusMap[syncStatus]}
-            <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+            <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
               <LangDisplay text={statusTexts.sync[syncStatus]} />
             </Typography>
           </Flex>
@@ -128,7 +128,7 @@ export const Topbar: FC<ITopbar> = ({
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
-          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+          <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
             <LangDisplay text={statusTexts.connection[connectionStatus]} />
           </Typography>
         </Flex>

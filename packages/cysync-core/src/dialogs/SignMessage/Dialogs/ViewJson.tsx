@@ -10,13 +10,13 @@ import {
   CloseButton,
   Divider,
 } from '@cypherock/cysync-ui';
+import { JsonView, ScrollContainer } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
+import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSignMessageDialog } from '../context';
-import { CoinIcon } from '~/components';
-import { JsonView, ScrollContainer } from '@cypherock/cysync-ui/src';
 
 export const ViewJSONDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

@@ -1,3 +1,5 @@
+import { UniSwapLogo } from '@cypherock/cysync-ui';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -21,8 +23,6 @@ import {
   ViewJSONDialog,
   ViewSigningStateDialog,
 } from '../Dialogs';
-import { UniSwapLogo } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export interface SignMessageDialogContextInterface {
   tabs: ITabs;

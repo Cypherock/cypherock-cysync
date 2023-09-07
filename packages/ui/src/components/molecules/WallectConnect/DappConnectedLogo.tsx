@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+
 import { ConnectingLine, SvgProps } from '../../../assets';
 import { Image, Flex } from '../../atoms';
 
