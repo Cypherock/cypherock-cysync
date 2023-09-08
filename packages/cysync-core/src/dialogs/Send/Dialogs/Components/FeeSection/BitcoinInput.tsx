@@ -7,17 +7,14 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
+import { selectLanguage, useAppSelector } from '~/store';
+
 interface BitcoinInputProps {
   initialValue: number;
   isTextInput: boolean;
   unit: string;
   onChange: (newValue: number) => void;
 }
-const captions = [
-  { id: 1, name: 'Min' },
-  { id: 2, name: 'Average' },
-  { id: 3, name: 'Max' },
-];
 
 export const BitcoinInput: React.FC<BitcoinInputProps> = ({
   initialValue,
@@ -25,7 +22,10 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
   unit,
   onChange,
 }) => {
+  const lang = useAppSelector(selectLanguage);
+  const captions = lang.strings.send.fees.sliderLabels;
   const [value, setValue] = useState(initialValue);
+
   const handleChange = (val: string | number) => {
     let numberValue = 0;
     if (typeof val === 'string') numberValue = parseFloat(val);
@@ -33,6 +33,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
     setValue(numberValue);
     onChange(numberValue);
   };
+
   return (
     <>
       {isTextInput && (
@@ -54,6 +55,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
 
           <FeesSlider
             value={value}
+            average={initialValue}
             onChange={handleChange}
             captions={captions}
           />

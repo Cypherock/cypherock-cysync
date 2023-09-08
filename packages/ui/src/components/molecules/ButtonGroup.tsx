@@ -5,6 +5,9 @@ const PillButtonToggleContainer = styled.div`
   display: inline-flex;
   border-radius: 43px;
   padding: 2px;
+  :focus:not(:focus-visible) {
+    outline: 0;
+  }
 `;
 
 const PillButton = styled.button<{ $active: boolean }>`

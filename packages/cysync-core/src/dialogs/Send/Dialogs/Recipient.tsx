@@ -15,7 +15,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
-import { GenericLoader } from '~/components';
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { FeeSection, AddressAndAmountSection } from './Components';
@@ -58,7 +58,7 @@ export const Recipient: React.FC = () => {
     initialize();
   }, []);
 
-  if (transaction === undefined) return <GenericLoader />;
+  if (transaction === undefined) return <LoaderDialog />;
 
   return (
     <DialogBox width={517}>

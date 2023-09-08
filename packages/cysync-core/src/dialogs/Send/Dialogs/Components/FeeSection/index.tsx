@@ -28,9 +28,13 @@ const feeInputMap: Record<CoinFamily, React.FC<any>> = {
 };
 
 export const FeeSection: React.FC = () => {
-  const { transaction, selectedAccount, prepare } = useSendDialog();
-  const [isTextInput, setIsTextInput] = useState(false);
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.send.recipient;
   const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { transaction, selectedAccount, prepare } = useSendDialog();
+  const [isFeeLow, setIsFeeLow] = useState(false);
+  const [isTextInput, setIsTextInput] = useState(false);
+  const [isFeeLoading, setIsFeeLoading] = useState(false);
 
   const getBitcoinProps = () => {
     const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
@@ -56,9 +60,12 @@ export const FeeSection: React.FC = () => {
   };
 
   const prepareFeeChanged = async (value: number) => {
+    setIsFeeLoading(true);
     const txn = transaction as IPreparedBtcTransaction;
+    setIsFeeLow(value < (2 / 3) * txn.staticData.averageFee);
     txn.userInputs.feeRate = value;
     await prepare(txn);
+    setIsFeeLoading(false);
   };
 
   const debouncedPrepareFeeChanged = useCallback(
@@ -100,8 +107,7 @@ export const FeeSection: React.FC = () => {
     }
     return '';
   };
-  const lang = useAppSelector(selectLanguage);
-  const displayText = lang.strings.send.recipient;
+
   return (
     <Container
       display="flex"
@@ -125,9 +131,10 @@ export const FeeSection: React.FC = () => {
         label={displayText.fees.label}
         fee={getTotalFees()}
         value={getFeesValue()}
+        isLoading={isFeeLoading}
         image={<CoinIcon assetId={selectedAccount?.assetId ?? ''} />}
       />
-      <MessageBox type="warning" text={displayText.warning} />
+      {isFeeLow && <MessageBox type="warning" text={displayText.warning} />}
     </Container>
   );
 };

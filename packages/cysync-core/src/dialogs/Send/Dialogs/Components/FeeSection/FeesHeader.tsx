@@ -3,15 +3,11 @@ import {
   Flex,
   LangDisplay,
   Typography,
-  ButtonAttributes,
   PillButtonToggle,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-const Buttons: ButtonAttributes[] = [
-  { id: 1, label: 'Standard', type: 'slider' },
-  { id: 2, label: 'Advanced', type: 'input' },
-];
+import { selectLanguage, useAppSelector } from '~/store';
 
 interface FeesHeaderProps {
   initialState: boolean;
@@ -24,13 +20,17 @@ export const FeesHeader: React.FC<FeesHeaderProps> = ({
   onChange,
   title,
 }) => {
+  const lang = useAppSelector(selectLanguage);
+  const buttons = lang.strings.send.fees.header;
   const [isToggled, setIsToggled] = React.useState(initialState);
+
   const handleChange = (switchedTo: string) => {
     const isFirst =
-      Buttons.findIndex(button => button.type === switchedTo) === 0;
+      buttons.findIndex(button => button.type === switchedTo) === 0;
     setIsToggled(!isFirst);
     onChange(!isFirst);
   };
+
   return (
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={8}>
@@ -41,8 +41,8 @@ export const FeesHeader: React.FC<FeesHeaderProps> = ({
       </Flex>
       <Flex align="center" direction="row" gap={8}>
         <PillButtonToggle
-          buttons={Buttons}
-          type={isToggled ? Buttons[1].type : Buttons[0].type}
+          buttons={buttons}
+          type={isToggled ? buttons[1].type : buttons[0].type}
           onButtonClick={handleChange}
         />
       </Flex>

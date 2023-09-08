@@ -50,6 +50,7 @@ export const BatchTransactionBody: React.FC = () => {
       address,
       amount,
     }));
+    txn.userInputs.isSendAll = false;
     await prepare(txn);
   };
 
@@ -97,7 +98,7 @@ export const BatchTransactionBody: React.FC = () => {
     await parseAndPrepare(newOutputs);
   };
 
-  const getInitialAmount = (val?: string) => {
+  const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
     return getParsedAmount({
       coinId: selectedAccount.assetId,
@@ -145,7 +146,6 @@ export const BatchTransactionBody: React.FC = () => {
                 <AmountInput
                   label={displayText.amount.label}
                   coinUnit={selectedAccount?.unit ?? ''}
-                  toggleLabel={displayText.amount.toggle}
                   priceUnit={displayText.amount.dollar}
                   error={
                     transaction?.validation.hasEnoughBalance === false
@@ -153,7 +153,7 @@ export const BatchTransactionBody: React.FC = () => {
                       : ''
                   }
                   placeholder={displayText.amount.placeholder}
-                  initialValue={getInitialAmount(output.amount)}
+                  initialAmount={getConvertedAmount(output.amount)}
                   onChange={async val => {
                     await handleAmountChange(val, output.id);
                   }}

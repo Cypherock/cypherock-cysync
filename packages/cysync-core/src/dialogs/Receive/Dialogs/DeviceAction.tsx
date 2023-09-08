@@ -16,7 +16,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
-import { GenericLoader } from '~/components';
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
@@ -106,7 +106,7 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  if (derivedAddress === undefined) return <GenericLoader />;
+  if (derivedAddress === undefined) return <LoaderDialog />;
 
   return (
     <DialogBox width={600}>

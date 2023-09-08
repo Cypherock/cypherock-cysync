@@ -1,4 +1,4 @@
-import { Flex, Typography, LangDisplay } from '@cypherock/cysync-ui';
+import { Flex, Typography, LangDisplay, Throbber } from '@cypherock/cysync-ui';
 import React from 'react';
 
 interface FeesDisplayProps {
@@ -6,6 +6,7 @@ interface FeesDisplayProps {
   fee: string;
   value: string;
   image?: React.ReactNode;
+  isLoading: boolean;
 }
 
 export const FeesDisplay: React.FC<FeesDisplayProps> = ({
@@ -13,6 +14,7 @@ export const FeesDisplay: React.FC<FeesDisplayProps> = ({
   label,
   value,
   image,
+  isLoading,
 }) => (
   <Flex justify="space-between" align="center" width="full">
     <Flex align="center" gap={8}>
@@ -22,12 +24,18 @@ export const FeesDisplay: React.FC<FeesDisplayProps> = ({
       </Typography>
     </Flex>
     <Flex align="center" direction="row" gap={8}>
-      <Typography variant="span" width="100%" $fontSize={14}>
-        <LangDisplay text={fee} />
-      </Typography>
-      <Typography variant="span" width="100%" color="muted" $fontSize={12}>
-        <LangDisplay text={value} />
-      </Typography>
+      {isLoading ? (
+        <Throbber size={15} strokeWidth={2} />
+      ) : (
+        <>
+          <Typography variant="span" width="100%" $fontSize={14}>
+            <LangDisplay text={fee} />
+          </Typography>
+          <Typography variant="span" width="100%" color="muted" $fontSize={12}>
+            <LangDisplay text={value} />
+          </Typography>
+        </>
+      )}
     </Flex>
   </Flex>
 );

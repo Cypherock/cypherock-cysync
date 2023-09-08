@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { QrCode } from '../../../assets';
 import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
@@ -81,8 +80,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   isThrobberActive,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
-  const image = <QrCode width="25px" height="20px" />;
-  const postfixIcon = isThrobberActive ? throbber : image;
+  const postfixIcon = isThrobberActive ? throbber : undefined;
 
   return (
     <RecipientAddressContainer>
@@ -99,9 +97,11 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
             {text}
           </Typography>
         </Flex>
-        <MiniButton disabled={isButtonDisabled} onClick={onDelete}>
-          -
-        </MiniButton>
+        {deleteButton && (
+          <MiniButton disabled={isButtonDisabled} onClick={onDelete}>
+            -
+          </MiniButton>
+        )}
       </Flex>
       <CustomInputSend error={error}>
         <Input

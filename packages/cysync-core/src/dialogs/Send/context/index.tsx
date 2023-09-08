@@ -22,9 +22,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Observer } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
 
-import { GenericLoader } from '~/components';
+import { LoaderDialog } from '~/components';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import {
@@ -99,7 +99,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     3: [0],
     4: [0],
-    5: [0],
   };
 
   const [error, setError] = useState<any | undefined>();
@@ -117,6 +116,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     Record<number, boolean | undefined>
   >({});
   const { connection, connectDevice } = useDevice();
+  const flowSubscription = useRef<Subscription | undefined>();
 
   const {
     selectedWallet,
@@ -148,7 +148,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     },
     {
       name: lang.strings.send.aside.tabs.confirm,
-      dialogs: [<GenericLoader />],
+      dialogs: [<LoaderDialog />],
     },
     {
       name: '',
@@ -172,15 +172,23 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setTransactionHash(undefined);
     setTransactionLink(undefined);
     setError(undefined);
+    setDeviceEvents({});
   };
 
   const resetInputStates = () => {
     setTransaction(undefined);
-    setDeviceEvents({});
     coinSupport.current = undefined;
   };
 
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
+
   const onClose = () => {
+    cleanUp();
     dispatch(closeDialog('sendDialog'));
   };
 
@@ -190,6 +198,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const onError = (e?: any) => {
+    cleanUp();
     setError(e);
   };
 
@@ -281,6 +290,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       onError(err);
     },
     complete: () => {
+      cleanUp();
       onEnd();
     },
   });
@@ -301,6 +311,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
 
     resetStates();
+    cleanUp();
 
     const taskId = lodash.uniqueId('task-');
 
@@ -311,7 +322,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     };
 
     const deviceConnection = await connectDevice(connection.device);
-    coinSupport.current
+    flowSubscription.current = coinSupport.current
       .signTransaction({
         connection: deviceConnection,
         db: getDB(),

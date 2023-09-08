@@ -10,15 +10,17 @@ import {
   CustomInputSend,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface AmountInputProps {
   coinUnit: string;
   priceUnit: string;
   label: string;
-  toggleLabel: string;
   placeholder?: string;
-  initialValue?: string;
+  toggleLabel?: string;
+  initialToggle?: boolean;
+  initialAmount?: string;
+  overrideAmount?: string;
   onToggle?: () => Promise<string>;
   onChange: (amount: string) => Promise<void>;
   converter: (val: string, invert?: boolean) => string;
@@ -33,18 +35,25 @@ export const AmountInput: React.FC<AmountInputProps> = ({
   error,
   placeholder,
   onToggle,
-  initialValue,
+  initialAmount,
+  initialToggle,
   onChange,
   converter,
+  overrideAmount,
 }) => {
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
   const [isLoading, setIsLoading] = useState(false);
-  const [firstValue, setFirstValue] = useState<string>(initialValue ?? '');
-  const [secondValue, setSecondValue] = useState<string>(
-    converter(initialValue ?? '0') || '',
+  const [coinAmount, setCoinAmount] = useState<string>(initialAmount ?? '');
+  const [coinValue, setCoinValue] = useState<string>(
+    converter(initialAmount ?? '0') || '',
   );
 
-  const [isToggled, setIsToggled] = useState(false);
+  const [isToggled, setIsToggled] = useState(initialToggle ?? false);
+
+  useEffect(() => {
+    if (overrideAmount)
+      updateValues(overrideAmount, converter(overrideAmount), true);
+  }, [overrideAmount]);
 
   const onValueChange = async (val: string) => {
     setIsLoading(true);
@@ -74,19 +83,18 @@ export const AmountInput: React.FC<AmountInputProps> = ({
 
   const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
 
-  const updateValues = (first: string, second: string, skipCall?: boolean) => {
-    console.log({ first, second });
-    setFirstValue(first);
-    setSecondValue(second);
-    if (!skipCall) debouncedOnValueChange(first);
+  const updateValues = (amount: string, value: string, skipCall?: boolean) => {
+    setCoinAmount(amount);
+    setCoinValue(value);
+    if (!skipCall) debouncedOnValueChange(amount);
   };
 
-  const handleCoinValueChange = (val: string) => {
+  const handleCoinAmountChange = (val: string) => {
     const filteredValue = filterNumericInput(val);
     updateValues(filteredValue, converter(filteredValue));
   };
 
-  const handlePriceValueChange = (val: string) => {
+  const handleCoinValueChange = (val: string) => {
     const filteredValue = filterNumericInput(val);
     updateValues(converter(filteredValue, true), filteredValue);
   };
@@ -97,12 +105,19 @@ export const AmountInput: React.FC<AmountInputProps> = ({
         <Typography variant="span" width="100%" color="muted" $fontSize={13}>
           <LangDisplay text={label} />
         </Typography>
-        <Flex align="center" direction="row" gap={8}>
-          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
-            <LangDisplay text={toggleLabel} />
-          </Typography>
-          <Toggle checked={isToggled} onToggle={handleToggleMax} />
-        </Flex>
+        {toggleLabel && (
+          <Flex align="center" direction="row" gap={8}>
+            <Typography
+              variant="span"
+              width="100%"
+              color="muted"
+              $fontSize={13}
+            >
+              <LangDisplay text={toggleLabel} />
+            </Typography>
+            <Toggle checked={isToggled} onToggle={handleToggleMax} />
+          </Flex>
+        )}
       </Flex>
       <Flex justify="space-between" gap={8} align="center" width="full">
         <CustomInputSend error={error}>
@@ -110,8 +125,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             type="text"
             name="address"
             placeholder={placeholder}
-            onChange={handleCoinValueChange}
-            value={firstValue}
+            onChange={handleCoinAmountChange}
+            value={coinAmount}
             disabled={isToggled}
             $textColor="white"
             $noBorder
@@ -130,8 +145,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             type="text"
             name="address"
             placeholder={placeholder}
-            onChange={handlePriceValueChange}
-            value={secondValue}
+            onChange={handleCoinValueChange}
+            value={coinValue}
             disabled={isToggled}
             $textColor="white"
             $noBorder
@@ -163,6 +178,9 @@ export const AmountInput: React.FC<AmountInputProps> = ({
 AmountInput.defaultProps = {
   error: '',
   placeholder: '',
-  initialValue: '',
+  initialAmount: '',
   onToggle: undefined,
+  toggleLabel: undefined,
+  initialToggle: false,
+  overrideAmount: undefined,
 };

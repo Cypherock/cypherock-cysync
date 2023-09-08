@@ -1,7 +1,7 @@
 import { DialogBox, Image, loaderGrayIcon } from '@cypherock/cysync-ui';
 import React from 'react';
 
-export const GenericLoader: React.FC = () => (
+export const LoaderDialog: React.FC = () => (
   <DialogBox width={500} height={300}>
     <Image
       src={loaderGrayIcon}

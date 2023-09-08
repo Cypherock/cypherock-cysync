@@ -13,6 +13,7 @@ export interface Caption {
 interface SliderProps {
   min?: number;
   max?: number;
+  decimal?: number;
   value: number;
   onChange: (value: number) => void;
   captions: Caption[];
@@ -70,6 +71,7 @@ const SliderTrackMask = styled.div<SliderTrackProps>`
 export const Slider: React.FC<SliderProps> = ({
   min = 0,
   max = 100,
+  decimal = 0,
   value,
   onChange,
   captions,
@@ -86,7 +88,7 @@ export const Slider: React.FC<SliderProps> = ({
       min;
     newValue = Math.max(Math.min(newValue, max), min);
 
-    onChange(Math.round(newValue));
+    onChange(parseFloat(newValue.toFixed(decimal)));
   };
 
   const handleMouseUp = () => {
@@ -99,7 +101,10 @@ export const Slider: React.FC<SliderProps> = ({
     window.addEventListener('mouseup', handleMouseUp);
   };
 
-  const progress = ((value - min) / (max - min)) * 100;
+  const progress = Math.max(
+    Math.min(((value - min) / (max - min)) * 100, 100),
+    0,
+  );
 
   return (
     <>
@@ -134,4 +139,5 @@ export const Slider: React.FC<SliderProps> = ({
 Slider.defaultProps = {
   min: 0,
   max: 100,
+  decimal: 0,
 };

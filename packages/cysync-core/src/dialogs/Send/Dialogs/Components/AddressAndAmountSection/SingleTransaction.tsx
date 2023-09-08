@@ -1,6 +1,7 @@
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { getParsedAmount } from '@cypherock/coin-support-utils';
 import { Container } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -12,6 +13,7 @@ import { useSendDialog } from '../../../context';
 export const SingleTransaction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
+  const [amountOverride, setAmountOverride] = useState('');
 
   const {
     selectedAccount,
@@ -27,7 +29,16 @@ export const SingleTransaction: React.FC = () => {
     updateUserInputs(1);
   }, []);
 
-  const getInitialAmount = (val?: string) => {
+  useEffect(() => {
+    if (transaction?.userInputs.isSendAll) {
+      const { computedData } = transaction as IPreparedBtcTransaction;
+      setAmountOverride(
+        getConvertedAmount(computedData.outputs[0]?.value.toString()) ?? '',
+      );
+    }
+  }, [transaction]);
+
+  const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
     return getParsedAmount({
       coinId: selectedAccount.assetId,
@@ -54,6 +65,7 @@ export const SingleTransaction: React.FC = () => {
           label={displayText.amount.label}
           coinUnit={selectedAccount?.unit ?? ''}
           toggleLabel={displayText.amount.toggle}
+          initialToggle={transaction?.userInputs.isSendAll}
           priceUnit={displayText.amount.dollar}
           error={
             transaction?.validation.hasEnoughBalance === false
@@ -61,9 +73,10 @@ export const SingleTransaction: React.FC = () => {
               : ''
           }
           placeholder={displayText.amount.placeholder}
-          initialValue={getInitialAmount(
+          initialAmount={getConvertedAmount(
             transaction?.userInputs.outputs[0]?.amount,
           )}
+          overrideAmount={amountOverride}
           onChange={prepareAmountChanged}
           onToggle={prepareSendMax}
           converter={priceConverter}

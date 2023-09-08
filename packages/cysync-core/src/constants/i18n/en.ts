@@ -159,10 +159,10 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext:
       'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
   },
-  [DeviceAppErrorType.NO_WALLET_EXISTS]: {
-    heading: 'Your X1 Vault currently does not have any wallets',
-    subtext:
-      'If you have already created a wallet, retry after selecting it on the device',
+  // TODO: Update texts for app timeout
+  [DeviceAppErrorType.APP_TIMEOUT]: {
+    heading: 'Your X1 Vault has timed-out',
+    subtext: 'Navigate to the main menu on the device and try again',
   },
   [DeviceAppErrorType.CARD_OPERATION_FAILED]: {
     heading: 'Unknown X1 Card error',
@@ -436,6 +436,17 @@ const en = {
   },
   send: {
     title: 'Send',
+    fees: {
+      header: [
+        { id: 1, label: 'Standard', type: 'slider' },
+        { id: 2, label: 'Advanced', type: 'input' },
+      ],
+      sliderLabels: [
+        { id: 1, name: 'Min' },
+        { id: 2, name: 'Average' },
+        { id: 3, name: 'Max' },
+      ],
+    },
     source: {
       title: 'Source',
       subtitle: 'Choose a wallet and an account',

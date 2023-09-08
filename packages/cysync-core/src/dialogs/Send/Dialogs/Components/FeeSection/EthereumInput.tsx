@@ -82,6 +82,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               value={gasPrice}
               onChange={handlePriceChange}
               captions={captions}
+              average={initialGasPrice}
             />
           </>
         )}
