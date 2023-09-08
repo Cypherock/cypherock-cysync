@@ -63,6 +63,7 @@ export const Settings: FC = () => {
                 direction="column"
                 align="center"
                 gap={24}
+                $cursor="pointer"
                 onClick={() => setTabIndex(index)}
               >
                 <Typography
