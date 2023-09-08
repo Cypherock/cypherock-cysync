@@ -1,5 +1,6 @@
 import '../generated/bitcoinjs-lib';
 import '../generated/near-api-js';
+import 'react-virtualized/styles.css';
 import { BtcSupport } from '@cypherock/coin-support-btc';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { NearSupport } from '@cypherock/coin-support-near';

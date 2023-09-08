@@ -17,6 +17,8 @@ export type BgColor =
   | 'success'
   | 'muted'
   | 'lightBlack'
+  | 'warning'
+  | 'dialog'
   | 'popup'
   | 'warning'
   | 'container';
@@ -117,5 +119,10 @@ ${props =>
     props.$bgColor === 'warning' &&
     css`
       background: ${({ theme }) => theme.palette.background.warning};
+    `}
+    ${props =>
+    props.$bgColor === 'dialog' &&
+    css`
+      background: ${({ theme }) => theme.palette.text.dialog};
     `}
 `;

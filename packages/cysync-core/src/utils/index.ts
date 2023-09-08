@@ -7,3 +7,4 @@ export * as passwordUtils from './password';
 export * from './keyValueStore';
 export * from './close';
 export * from './dependencies';
+export * from './transaction';

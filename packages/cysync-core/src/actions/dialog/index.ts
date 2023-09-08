@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -45,3 +46,6 @@ export const openAuthenticateX1VaultDialog = () =>
 
 export const openCySyncVersionDetailsDialog = () =>
   openDialog({ name: 'cySyncVersionDetails', data: undefined });
+
+export const openHistoryDialog = (props?: IHistoryDialogProps) =>
+  openDialog({ name: 'historyDialog', data: props });

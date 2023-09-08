@@ -28,18 +28,18 @@ export const AddressDisplay: React.FC = () => {
     <>
       <Flex gap={5} direction="column">
         <Flex gap={8} direction="row">
-          <Typography variant="h5" width="100%">
+          <Typography variant="h5">
             <LangDisplay text={texts.title.prefix} />
           </Typography>
           <CoinIcon assetId={selectedAccount?.assetId ?? ''} size={32} />
-          <Typography variant="h5" width="100%">
+          <Typography variant="h5">
             <LangDisplay text={coinList[selectedAccount?.assetId ?? ''].name} />
           </Typography>
           <Tag $fontSize={12}>
             {lodash.upperCase(selectedAccount?.derivationScheme)}
           </Tag>
         </Flex>
-        <Typography variant="h5" width="100%" ml="auto" mr="auto">
+        <Typography variant="h5" ml="auto" mr="auto">
           <LangDisplay
             text={texts.title.suffix}
             variables={{ walletName: selectedWallet?.name }}

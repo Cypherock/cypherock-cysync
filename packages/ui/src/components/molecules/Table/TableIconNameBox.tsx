@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { TableMutedTextBox } from './TableMutedTextBox';
 
@@ -13,10 +13,11 @@ interface IconNameBoxProps {
   mutedBox?: string;
 }
 
-const IconNameBoxStyle = styled.div<IconNameBoxProps>`
-  padding: 16px 16px 16px 24px;
-  width: 200px;
-  gap: 16px;
+export const iconBoxStyles = css<{ size?: string }>`
+  padding: ${({ size }) =>
+    size === 'small' ? '16px 16px 16px 24px' : '16px 20px 16px 40px'};
+  width: ${({ size }) => (size === 'small' ? '200px' : '300px')};
+  gap: ${({ size }) => (size === 'small' ? '16px' : '24px')};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -26,6 +27,10 @@ const IconNameBoxStyle = styled.div<IconNameBoxProps>`
     width: 300px;
     gap: 24px;
   }
+`;
+
+export const IconNameBoxStyle = styled.div<IconNameBoxProps>`
+  ${iconBoxStyles}
 `;
 
 export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
