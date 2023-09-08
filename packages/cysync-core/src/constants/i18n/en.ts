@@ -1525,6 +1525,13 @@ const en = {
     close: {
       title: 'Are you sure you want to exit?',
     },
+    removePassword: {
+      confimPassword: {
+        title: 'Confirm password to proceed',
+        subTitle: 'Provide password to proceed',
+        label: 'Enter Password',
+      },
+    },
   },
   settings: {
     tabs: {
