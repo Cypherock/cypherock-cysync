@@ -12,6 +12,7 @@ import { ShadowProps, shadow } from './shadow.styled';
 import { spacing, SpacingProps } from './spacing.styled';
 import { TransformProps, transform } from './transform.styled';
 import { width, WidthProps } from './width.styled';
+import { CursorProps, cursor } from './cursor.styled';
 
 export interface UtilsProps
   extends BgColorProps,
@@ -25,6 +26,7 @@ export interface UtilsProps
     BorderProps,
     HeightProps,
     AnimateProps,
+    CursorProps,
     TransformProps {}
 
 export const utils = css<UtilsProps>`
@@ -40,6 +42,7 @@ export const utils = css<UtilsProps>`
   ${shadow}
   ${transform}
   ${animate}
+  ${cursor}
 `;
 
 export * from './spacing.styled';
@@ -56,3 +59,4 @@ export * from './animate.styled';
 export * from './border.styled';
 export * from './Gradient';
 export * from './dropdown';
+export * from './cursor.styled';
