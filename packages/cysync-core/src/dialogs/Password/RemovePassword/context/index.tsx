@@ -53,8 +53,8 @@ export const RemovePasswordDialogProvider: FC<
   const [password, setPassword] = useState<string>('');
 
   const validatePassword = () => {
-    if (password.length < 8) {
-      setError(lang.strings.dialogs.removePassword.error.invalidPassword);
+    if (password.length > 0 && password.length < 8) {
+      setError(lang.strings.dialogs.password.error.lengthError);
       return;
     }
     setError(null);

@@ -1525,39 +1525,36 @@ const en = {
     close: {
       title: 'Are you sure you want to exit?',
     },
-    removePassword: {
-      confimPassword: {
-        title: 'Confirm password to proceed',
-        subTitle: 'Provide password to proceed',
-        label: 'Enter Password',
-      },
-      error: {
-        invalidPassword: 'Invalid Password',
-      },
-    },
-    changePassword: {
-      createNewPassword: {
-        title: 'Confirm password to proceed',
-        subTitle: 'Provide password to proceed',
+    password: {
+      input: {
+        enterPassword: 'Enter Password',
         oldPassword: 'Old Password',
         newPassword: 'New Password',
         confirmPassword: 'Confirm Password',
-        info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
       },
       error: {
-        passwordMismatch: 'Password Mismatched',
+        mismatchError: 'Password Mismatched',
+        lengthError: 'Password length should be more than 8',
       },
-    },
-    setPassword: {
-      createNewPassword: {
-        title: 'Set your cySync password',
-        subTitle: 'We do not store your password on our servers',
-        newPassword: 'New Password',
-        confirmPassword: 'Confirm Password',
-        info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+      removePassword: {
+        confimPassword: {
+          title: 'Confirm password to proceed',
+          subTitle: 'Provide password to proceed',
+        },
       },
-      error: {
-        passwordMismatch: 'Password Mismatched',
+      changePassword: {
+        createNewPassword: {
+          title: 'Confirm password to proceed',
+          subTitle: 'Provide password to proceed',
+          info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+        },
+      },
+      setPassword: {
+        createNewPassword: {
+          title: 'Set your cySync password',
+          subTitle: 'We do not store your password on our servers',
+          info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+        },
       },
     },
   },

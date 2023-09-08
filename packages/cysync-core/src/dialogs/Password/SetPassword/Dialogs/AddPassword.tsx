@@ -28,7 +28,8 @@ export const AddPassword: React.FC = () => {
 
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
-  const { createNewPassword } = dialogs.setPassword;
+  const { input } = dialogs.password;
+  const { createNewPassword } = dialogs.password.setPassword;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -57,16 +58,16 @@ export const AddPassword: React.FC = () => {
               <PasswordInput
                 pasteAllowed
                 name="password"
-                placeholder={createNewPassword.newPassword}
-                label={createNewPassword.newPassword}
+                placeholder={input.newPassword}
+                label={input.newPassword}
                 value={newPassword}
                 onChange={handleNewPasswordChange}
               />
               <PasswordInput
                 pasteAllowed
                 name="password"
-                placeholder={createNewPassword.confirmPassword}
-                label={createNewPassword.confirmPassword}
+                placeholder={input.confirmPassword}
+                label={input.confirmPassword}
                 value={confirmNewPassword}
                 onChange={handleConfirmNewPasswordChange}
               />

@@ -21,7 +21,8 @@ export const ConfirmPassword: React.FC = () => {
     useRemovePasswordDialog();
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
-  const { confimPassword } = dialogs.removePassword;
+  const { input } = dialogs.password;
+  const { confimPassword } = dialogs.password.removePassword;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -50,8 +51,8 @@ export const ConfirmPassword: React.FC = () => {
               <PasswordInput
                 pasteAllowed
                 name="password"
-                placeholder={confimPassword.label}
-                label={confimPassword.label}
+                placeholder={input.enterPassword}
+                label={input.enterPassword}
                 value={password}
                 onChange={handlePasswordChange}
               />

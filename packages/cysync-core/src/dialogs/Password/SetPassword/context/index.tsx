@@ -57,7 +57,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
 
   const validateNewPassword = () => {
     if (newPassword !== confirmNewPassword) {
-      setError(lang.strings.dialogs.setPassword.error.passwordMismatch);
+      setError(lang.strings.dialogs.password.error.mismatchError);
       return;
     }
     setError(null);

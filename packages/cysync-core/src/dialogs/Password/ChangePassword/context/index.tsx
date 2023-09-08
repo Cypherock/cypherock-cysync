@@ -60,7 +60,7 @@ export const ChangePasswordDialogProvider: FC<
 
   const validateNewPassword = () => {
     if (newPassword !== confirmNewPassword) {
-      setError(lang.strings.dialogs.changePassword.error.passwordMismatch);
+      setError(lang.strings.dialogs.password.error.mismatchError);
       return;
     }
     setError(null);
