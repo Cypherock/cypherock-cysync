@@ -35,7 +35,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   <DialogBox width={500}>
     {headerText && (
       <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
+        <Typography variant="fineprint" color="muted">
           <LangDisplay text={headerText} />
         </Typography>
       </DialogBoxHeader>

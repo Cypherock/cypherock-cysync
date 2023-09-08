@@ -14,6 +14,7 @@ export const signBtcToDeviceEventMap: Partial<
 > = {
   [SignTxnEvent.INIT]: SignTransactionDeviceEvent.INIT,
   [SignTxnEvent.CONFIRM]: SignTransactionDeviceEvent.CONFIRMED,
+  [SignTxnEvent.VERIFY]: SignTransactionDeviceEvent.VERIFIED,
   [SignTxnEvent.PASSPHRASE]: SignTransactionDeviceEvent.PASSPHRASE_ENTERED,
   [SignTxnEvent.PIN_CARD]: SignTransactionDeviceEvent.CARD_TAPPED,
 };

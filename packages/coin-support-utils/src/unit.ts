@@ -8,6 +8,7 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
  * If `isFixed` is false, then it'll return a string which has `precision` no of significant digit.
  *
  * - Removes ending decimal zeroes
+ * - Returns 0 if amount is NaN
  * - Uses toPrecision or toFixed to round off
  */
 export const formatDisplayAmount = (
@@ -17,8 +18,10 @@ export const formatDisplayAmount = (
 ) => {
   if (
     amount === '0' ||
+    amount.toString().toLowerCase() === 'nan' ||
     amount === 0 ||
-    (amount instanceof BigNumber && amount.toNumber() === 0)
+    Number.isNaN(amount) ||
+    (amount instanceof BigNumber && (amount.toNumber() === 0 || amount.isNaN()))
   )
     return '0';
 

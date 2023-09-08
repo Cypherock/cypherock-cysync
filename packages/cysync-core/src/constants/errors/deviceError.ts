@@ -97,7 +97,7 @@ export const getDeviceErrorHandlingDetails = (
       generateErrorHandlingDetails.walletDoesNotExistOnDevice(),
     [DeviceAppErrorType.WALLET_PARTIAL_STATE]:
       generateErrorHandlingDetails.retry(),
-    [DeviceAppErrorType.NO_WALLET_EXISTS]: generateErrorHandlingDetails.retry(),
+    [DeviceAppErrorType.APP_TIMEOUT]: generateErrorHandlingDetails.retry(),
     [DeviceAppErrorType.CARD_OPERATION_FAILED]:
       generateErrorHandlingDetails.retryWithHelp('cardError'),
     [DeviceAppErrorType.USER_REJECTION]: generateErrorHandlingDetails.retry(),

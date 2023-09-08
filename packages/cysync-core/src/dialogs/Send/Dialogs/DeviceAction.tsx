@@ -1,25 +1,28 @@
-import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
   DialogBoxBody,
   Typography,
-  Image,
   Container,
-  confirmIcon,
   LeanBoxContainer,
   LeanBox,
   Throbber,
   LeanBoxProps,
   ArrowRightIcon,
   Check,
+  verifyAmountIcon,
+  MessageBox,
+  Image,
+  questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
-import { LoaderDialog } from '~/components';
+import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveDialog } from '../context';
+import { useSendDialog } from '../context';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -27,13 +30,12 @@ const rightArrowIcon = <ArrowRightIcon />;
 
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const texts = lang.strings.receive.x1Vault;
 
-  const { onNext, deviceEvents, selectedWallet, startFlow, derivedAddress } =
-    useReceiveDialog();
+  const { onNext, deviceEvents, selectedWallet, selectedAccount, startFlow } =
+    useSendDialog();
 
   useEffect(() => {
-    if (deviceEvents[ReceiveDeviceEvent.CARD_TAPPED]) {
+    if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
       onNext();
     }
   }, [deviceEvents]);
@@ -43,8 +45,8 @@ export const DeviceAction: React.FC = () => {
   }, []);
 
   const getDeviceEventIcon = (
-    loadingEvent: ReceiveDeviceEvent,
-    completedEvent: ReceiveDeviceEvent,
+    loadingEvent: SignTransactionDeviceEvent,
+    completedEvent: SignTransactionDeviceEvent,
   ) => {
     if (deviceEvents[completedEvent]) return checkIconComponent;
     if (deviceEvents[loadingEvent]) return throbberComponent;
@@ -56,11 +58,22 @@ export const DeviceAction: React.FC = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: lang.strings.receive.x1Vault.actions.verifyCoin,
+        text: lang.strings.send.x1Vault.actions.verifyCoin,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
-          ReceiveDeviceEvent.INIT,
-          ReceiveDeviceEvent.CONFIRMED,
+          SignTransactionDeviceEvent.INIT,
+          SignTransactionDeviceEvent.CONFIRMED,
+        ),
+        altText: coinList[selectedAccount?.assetId ?? ''].name,
+        image: <CoinIcon assetId={selectedAccount?.assetId ?? ''} />,
+      },
+      {
+        id: '4',
+        leftImage: rightArrowIcon,
+        text: lang.strings.send.x1Vault.actions.verifyDetails,
+        rightImage: getDeviceEventIcon(
+          SignTransactionDeviceEvent.CONFIRMED,
+          SignTransactionDeviceEvent.VERIFIED,
         ),
       },
     ];
@@ -71,8 +84,8 @@ export const DeviceAction: React.FC = () => {
         text: lang.strings.receive.x1Vault.actions.enterPassphrase,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
-          ReceiveDeviceEvent.CONFIRMED,
-          ReceiveDeviceEvent.PASSPHRASE_ENTERED,
+          SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.PASSPHRASE_ENTERED,
         ),
       });
     }
@@ -84,9 +97,9 @@ export const DeviceAction: React.FC = () => {
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
           selectedWallet.hasPassphrase
-            ? ReceiveDeviceEvent.PASSPHRASE_ENTERED
-            : ReceiveDeviceEvent.CONFIRMED,
-          ReceiveDeviceEvent.CARD_TAPPED,
+            ? SignTransactionDeviceEvent.PASSPHRASE_ENTERED
+            : SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.CARD_TAPPED,
         ),
       });
     } else {
@@ -96,9 +109,9 @@ export const DeviceAction: React.FC = () => {
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
           selectedWallet?.hasPassphrase
-            ? ReceiveDeviceEvent.PASSPHRASE_ENTERED
-            : ReceiveDeviceEvent.CONFIRMED,
-          ReceiveDeviceEvent.CARD_TAPPED,
+            ? SignTransactionDeviceEvent.PASSPHRASE_ENTERED
+            : SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.CARD_TAPPED,
         ),
       });
     }
@@ -106,24 +119,14 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  if (derivedAddress === undefined) return <LoaderDialog />;
-
+  const displayText = lang.strings.send.x1Vault;
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={confirmIcon} alt="Verify Coin" />
-        <Container display="flex" direction="column" width="full">
+        <Image src={verifyAmountIcon} alt="Verify Amount" />
+        <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={texts.title} />
-          </Typography>
-          <Typography
-            variant="span"
-            $textAlign="center"
-            $fontSize={14}
-            $fontWeight="normal"
-            color="muted"
-          >
-            <LangDisplay text={texts.subtitle} />
+            <LangDisplay text={displayText.title} />
           </Typography>
         </Container>
         <LeanBoxContainer>
@@ -133,10 +136,24 @@ export const DeviceAction: React.FC = () => {
               leftImage={data.leftImage}
               rightImage={data.rightImage}
               text={data.text}
+              image={data.image}
+              altText={data.altText}
               id={data.id}
             />
           ))}
         </LeanBoxContainer>
+        <Container display="flex" direction="column" gap={16} width="full">
+          {selectedAccount?.parentAssetId ? (
+            <MessageBox
+              type="info"
+              text="dummy"
+              rightImage={
+                <Image src={questionMarkGoldIcon} alt="question mark icon" />
+              }
+            />
+          ) : undefined}
+          <MessageBox type="warning" text={displayText.messageBox.warning} />
+        </Container>
       </DialogBoxBody>
     </DialogBox>
   );
