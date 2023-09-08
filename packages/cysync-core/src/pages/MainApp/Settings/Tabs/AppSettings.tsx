@@ -37,21 +37,24 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.passwordDesc} />
           </Typography>
         </Flex>
-        <Flex gap={16}>
+        <Flex gap={16} direction="column">
           <Button
             variant="primary"
+            justify="center"
             onClick={() => dispatch(openSetPasswordDialog())}
           >
             <LangDisplay text={strings.buttons.setPassword} />
           </Button>
           <Button
             variant="primary"
+            justify="center"
             onClick={() => dispatch(openRemovePasswordDialog())}
           >
             <LangDisplay text={strings.buttons.removePassword} />
           </Button>
           <Button
             variant="primary"
+            justify="center"
             onClick={() => dispatch(openChangePasswordDialog())}
           >
             <LangDisplay text={strings.buttons.changePassword} />
