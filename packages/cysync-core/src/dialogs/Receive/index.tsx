@@ -9,11 +9,14 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import {
+  CloseConfirmationDialog,
+  ErrorHandlerDialog,
+  WithConnectedDevice,
+} from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { ReceiveDialogProvider, useReceiveDialog } from './context';
-import { CloseConfirmation } from './Dialogs/Components';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -49,7 +52,11 @@ export const Receive: FC = () => {
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+        <CloseConfirmationDialog
+          isDialogVisible={showOnClose}
+          setIsDialogVisible={setShowOnClose}
+          onClose={onClose}
+        />
         <>
           <MilestoneAside
             milestones={tabs
