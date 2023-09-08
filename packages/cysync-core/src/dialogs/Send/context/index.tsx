@@ -6,7 +6,11 @@ import {
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
-import { convertToUnit, getZeroUnit } from '@cypherock/coin-support-utils';
+import {
+  convertToUnit,
+  formatDisplayAmount,
+  getZeroUnit,
+} from '@cypherock/coin-support-utils';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
@@ -383,7 +387,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       toUnitAbbr: selectedAccount.unit,
       fromUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
     });
-    return convertedAmount.amount;
+    return formatDisplayAmount(convertedAmount.amount);
   };
 
   const priceConverter = (val: string, invert?: boolean) => {

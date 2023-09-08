@@ -83,6 +83,7 @@ export const FinalMessage: React.FC = () => {
 
                 <CopyContainer
                   link={truncateMiddle(storedTransaction?.hash ?? '')}
+                  copyValue={storedTransaction?.hash}
                   variant="gold"
                 />
               </Container>

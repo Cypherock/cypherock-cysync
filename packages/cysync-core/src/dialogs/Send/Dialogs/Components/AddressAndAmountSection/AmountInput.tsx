@@ -50,6 +50,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
 
   const [isToggled, setIsToggled] = useState(initialToggle ?? false);
 
+  const parsedError = () => (coinAmount !== '' ? error : '');
+
   useEffect(() => {
     if (overrideAmount)
       updateValues(overrideAmount, converter(overrideAmount), true);
@@ -115,7 +117,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
         )}
       </Flex>
       <Flex justify="space-between" gap={8} align="center" width="full">
-        <CustomInputSend error={error}>
+        <CustomInputSend error={parsedError()}>
           <Input
             type="text"
             name="address"
@@ -135,7 +137,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
           )}
         </CustomInputSend>
         <DoubleArrow height={22} width={22} />
-        <CustomInputSend error={error}>
+        <CustomInputSend error={parsedError()}>
           <Input
             type="text"
             name="address"
@@ -155,14 +157,14 @@ export const AmountInput: React.FC<AmountInputProps> = ({
           )}
         </CustomInputSend>
       </Flex>
-      {error && (
+      {parsedError() && (
         <Typography
           variant="span"
           color="error"
           $alignSelf="start"
           $fontSize={12}
         >
-          <LangDisplay text={error} />
+          <LangDisplay text={parsedError() ?? ''} />
         </Typography>
       )}
     </Container>
