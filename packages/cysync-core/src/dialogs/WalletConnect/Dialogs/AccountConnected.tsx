@@ -86,16 +86,16 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch">
       <Container display="flex" direction="column" gap={32} py={4} px={5}>
-        <Image src={dapp.logo} alt="Send Coin" />
+        <Image src={dapp?.logo ?? ''} alt="Send Coin" />
         <Container display="flex" direction="column" gap={8} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay
               text={accountConnectedTab.title}
-              variables={{ dappName: dapp.name }}
+              variables={{ dappName: dapp?.name ?? '' }}
             />
           </Typography>
           <Typography variant="span" color="muted">
-            <LangDisplay text={dapp.url} />
+            <LangDisplay text={dapp?.url ?? ''} />
           </Typography>
         </Container>
       </Container>

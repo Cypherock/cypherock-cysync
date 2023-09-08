@@ -1,7 +1,6 @@
 import { BlurOverlay } from '@cypherock/cysync-ui';
 import { DialogBox } from '@cypherock/cysync-ui/src';
 import React, { FC } from 'react';
-
 import { WalletConnectDialogProvider, useWalletConnectDialog } from './context';
 
 const WalletConnect: FC = () => {

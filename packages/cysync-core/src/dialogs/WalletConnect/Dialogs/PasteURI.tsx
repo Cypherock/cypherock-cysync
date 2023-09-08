@@ -18,14 +18,23 @@ import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useWalletConnectDialog } from '../context';
+import { WalletConnectConnectionState } from '~/context/walletConnect/type';
 
-export const WalletConnectPasteURIDialog: React.FC = () => {
+export interface WalletConnectPasteURIProps {
+  error?: Error;
+}
+
+export const WalletConnectPasteURIDialog: React.FC<
+  WalletConnectPasteURIProps
+> = ({ error }) => {
   const lang = useAppSelector(selectLanguage);
   const {
-    onNext,
+    onConnect,
+    connectionState,
     onPasteWalletConnectedURI,
     walletConnectURI,
     setWalletConnectedURI,
+    isValidUri,
     onClose,
   } = useWalletConnectDialog();
   const { buttons, walletConnect } = lang.strings;
@@ -68,7 +77,7 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onNext();
+              onConnect();
             }}
             id="wallet-connect-uri-form"
           >
@@ -86,17 +95,38 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
             />
           </form>
         </Container>
+        {error && (
+          <Container display="block">
+            <Typography
+              variant="h6"
+              color="error"
+              $fontWeight="light"
+              $textAlign="center"
+            >
+              {`${error.name} - ${error.message}`}
+            </Typography>
+          </Container>
+        )}
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
           form="wallet-connect-uri-form"
           type="submit"
           variant="primary"
-          disabled={!walletConnectURI || walletConnectURI.length === 0}
+          disabled={
+            !walletConnectURI || walletConnectURI.length === 0 || !isValidUri
+          }
+          isLoading={
+            WalletConnectConnectionState.CONNECTING === connectionState
+          }
         >
           <LangDisplay text={buttons.connect} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>
   );
+};
+
+WalletConnectPasteURIDialog.defaultProps = {
+  error: undefined,
 };

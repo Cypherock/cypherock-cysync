@@ -13,10 +13,15 @@ import {
   SupportIcon,
   Syncronizing,
   WalletInfoIcon,
+  WalletConnectLogo,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openSendDialog, openReceiveDialog } from '~/actions';
+import {
+  openSendDialog,
+  openReceiveDialog,
+  openWalletConnectDialog,
+} from '~/actions';
 import { useSidebar } from '~/context';
 
 export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
@@ -115,6 +120,11 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
             Icon={HistoryIcon}
             state={getState('history')}
             onClick={() => navigate('history')}
+          />
+          <SideBarItem
+            text={strings.walletConnect}
+            Icon={WalletConnectLogo}
+            onClick={() => dispatch(openWalletConnectDialog())}
           />
         </Flex>
         <Flex direction="column" gap={8}>

@@ -1077,6 +1077,7 @@ const en = {
     sendCrypto: 'Send Crypto',
     receiveCrypto: 'Receive Crypto',
     history: 'History',
+    walletConnect: 'Wallet Connect',
     settings: 'Settings',
     help: 'Help',
   },
@@ -1108,6 +1109,10 @@ const en = {
       subTitle: 'Enter WalletConnect URI to connect with the DApp',
       inputLabel: 'Enter connection URI',
       placeholder: 'Paste URI',
+      invalidUri: 'Invalid connection URI',
+      unsupportedVersion: 'Unsupported WalletConnect version',
+      connectionTimeout: 'Timeout exceeded, Try again with latest URI',
+      connectionError: 'Connection error ${error}',
     },
     accountSelectionTab: {
       title: 'Connect to ${dappName} interface',

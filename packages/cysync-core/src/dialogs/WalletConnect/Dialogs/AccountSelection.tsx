@@ -54,17 +54,17 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
         <DappConnectedLogo
           walletConnectLogo={WalletConnectLogo}
           cySyncLogo={cysyncLogoSmall}
-          dappLogoUrl={dapp.logo}
+          dappLogoUrl={dapp?.logo ?? ''}
         />
         <Container display="flex" direction="column" gap={8} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay
               text={accountSelectionTab.title}
-              variables={{ dappName: dapp.name }}
+              variables={{ dappName: dapp?.name ?? '' }}
             />
           </Typography>
           <Typography variant="span" color="muted">
-            <LangDisplay text={dapp.url} />
+            <LangDisplay text={dapp?.url ?? ''} />
           </Typography>
         </Container>
       </Container>

@@ -128,6 +128,8 @@ export const SideBarItem: FC<SideBarItemProps> = ({
                 <Icon
                   fill={svgStroke ? 'none' : svgColor}
                   stroke={svgStroke ? svgColor : 'none'}
+                  width={25}
+                  height={25}
                 />{' '}
               </Flex>
             )}
