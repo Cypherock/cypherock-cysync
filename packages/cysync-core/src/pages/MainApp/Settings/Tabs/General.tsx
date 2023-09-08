@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   ArrowDown,
-  Button,
   Dropdown,
   Flex,
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
-import { TabItem } from '../components';
+import { SettingsButton, TabItem } from '../components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const GeneralSettings: React.FC = () => {
@@ -19,8 +18,8 @@ export const GeneralSettings: React.FC = () => {
       $alignSelf="stretch"
       direction="column"
       align="stretch"
-      px={5}
-      py={4}
+      px={{ def: 3, lg: 5 }}
+      py={{ def: 2, lg: 4 }}
       gap={32}
     >
       <TabItem>
@@ -33,9 +32,9 @@ export const GeneralSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <SettingsButton variant="primary" onClick={console.log}>
             <LangDisplay text={strings.buttons.showQRCode} />
-          </Button>
+          </SettingsButton>
         </Flex>
       </TabItem>
       <TabItem>
@@ -48,9 +47,9 @@ export const GeneralSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <SettingsButton variant="primary" onClick={console.log}>
             <LangDisplay text={strings.buttons.editAccount} />
-          </Button>
+          </SettingsButton>
         </Flex>
       </TabItem>
       <TabItem>

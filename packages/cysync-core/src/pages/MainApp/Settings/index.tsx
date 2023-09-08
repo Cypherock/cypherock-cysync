@@ -42,14 +42,20 @@ export const Settings: FC = () => {
   return (
     <MainAppLayout title={strings.sidebar.settings}>
       <Container
-        m="20"
+        m={{ def: 2, lg: '20' }}
         $borderRadius={24}
         shadow="popup"
         direction="column"
         align="stretch"
         $borderWidth={0}
       >
-        <Flex pt={6} pb={4} px={5} direction="column" align="stretch">
+        <Flex
+          pt={{ def: 4, lg: 6 }}
+          pb={4}
+          px={{ def: 3, lg: 5 }}
+          direction="column"
+          align="stretch"
+        >
           <Flex gap={24}>
             {tabs.map((tab, index) => (
               <Flex
@@ -68,7 +74,7 @@ export const Settings: FC = () => {
                 </Typography>
                 <Divider
                   variant="horizontal"
-                  stroke={4}
+                  height={{ def: 3, lg: 4 }}
                   background={
                     index === tabIndex ? theme.palette.golden : 'none'
                   }

@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Flex,
-  LangDisplay,
-  Toggle,
-  Typography,
-} from '@cypherock/cysync-ui';
-import { TabItem } from '../components';
+import { Flex, LangDisplay, Toggle, Typography } from '@cypherock/cysync-ui';
+import { SettingsButton, TabItem } from '../components';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
   openChangePasswordDialog,
@@ -24,8 +18,8 @@ export const AppSettings: React.FC = () => {
       $alignSelf="stretch"
       direction="column"
       align="stretch"
-      px={5}
-      py={4}
+      px={{ def: 3, lg: 5 }}
+      py={{ def: 2, lg: 4 }}
       gap={32}
     >
       <TabItem>
@@ -38,27 +32,27 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex gap={16} direction="column">
-          <Button
+          <SettingsButton
             variant="primary"
             justify="center"
             onClick={() => dispatch(openSetPasswordDialog())}
           >
             <LangDisplay text={strings.buttons.setPassword} />
-          </Button>
-          <Button
+          </SettingsButton>
+          <SettingsButton
             variant="primary"
             justify="center"
             onClick={() => dispatch(openRemovePasswordDialog())}
           >
             <LangDisplay text={strings.buttons.removePassword} />
-          </Button>
-          <Button
+          </SettingsButton>
+          <SettingsButton
             variant="primary"
             justify="center"
             onClick={() => dispatch(openChangePasswordDialog())}
           >
             <LangDisplay text={strings.buttons.changePassword} />
-          </Button>
+          </SettingsButton>
         </Flex>
       </TabItem>
       <TabItem>
@@ -84,12 +78,12 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button
+          <SettingsButton
             variant="primary"
             onClick={() => dispatch(openResetCySyncDialog())}
           >
             <LangDisplay text={strings.buttons.reset} />
-          </Button>
+          </SettingsButton>
         </Flex>
       </TabItem>
       <TabItem>
@@ -115,9 +109,9 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Button variant="primary" onClick={console.log}>
+          <SettingsButton variant="primary" onClick={console.log}>
             <LangDisplay text={strings.buttons.start} />
-          </Button>
+          </SettingsButton>
         </Flex>
       </TabItem>
     </Flex>
