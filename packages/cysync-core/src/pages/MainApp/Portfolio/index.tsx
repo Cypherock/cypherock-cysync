@@ -26,6 +26,8 @@ export const Portfolio: FC = () => {
     setSelectedRange,
     graphData,
     formatTooltipValue,
+    formatTimestamp,
+    formatYAxisTick,
     summaryDetails,
     wallets,
     accounts,
@@ -80,6 +82,8 @@ export const Portfolio: FC = () => {
             summaryIcon={summaryDetails.changeIcon}
             data={graphData}
             formatTooltipValue={formatTooltipValue}
+            formatTimestamp={formatTimestamp}
+            formatYAxisTick={formatYAxisTick}
             color={coinList[BtcIdMap.bitcoin].color ?? ''}
           />
         </Container>

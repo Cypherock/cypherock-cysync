@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-import { spacing } from '../utils';
+import { spacing, SpacingProps } from '../utils';
 
-interface BulletProps {
+interface BulletProps extends SpacingProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
   size?: 'lg' | 'sm' | 'md';
 }

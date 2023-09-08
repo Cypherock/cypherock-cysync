@@ -1548,6 +1548,9 @@ importers:
       '@types/chart.js':
         specifier: ^2.9.37
         version: 2.9.37
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
       chart.js:
         specifier: ^4.3.2
         version: 4.3.2
@@ -16324,7 +16327,7 @@ packages:
       pretty-format: 29.6.2
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

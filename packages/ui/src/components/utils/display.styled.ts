@@ -9,6 +9,7 @@ type $OverflowType = 'scroll' | 'hidden';
 
 export interface DisplayProps {
   display?: MediaQuery<DisplayType>;
+  opacity?: MediaQuery<number | string>;
   $overflowX?: MediaQuery<$OverflowType>;
   $overflowY?: MediaQuery<$OverflowType>;
   $overflow?: MediaQuery<$OverflowType>;
@@ -18,6 +19,14 @@ export const display = css<DisplayProps>`
   ${props =>
     props.display &&
     generateCss(['display'], (item: string) => `${item}`, props.display)}
+
+  ${props =>
+    props.opacity !== undefined &&
+    generateCss(
+      ['opacity'],
+      (item: number | string) => `${item}`,
+      props.opacity,
+    )}
 
   ${props =>
     props.$overflowX &&

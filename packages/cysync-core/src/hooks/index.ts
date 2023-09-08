@@ -13,5 +13,5 @@ export * from './useAccountDropdown';
 export * from './useAmountToSend';
 export * from './useRecipientAddress';
 export * from './useGraphTimeRange';
-export * from './useWindowSize';
 export * from './useTransactions';
+export * from './useWindowSize';

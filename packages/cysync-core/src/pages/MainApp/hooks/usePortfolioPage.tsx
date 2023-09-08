@@ -11,6 +11,7 @@ import {
 import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
+import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
@@ -237,7 +238,17 @@ export const usePortfolioPage = () => {
 
   const formatTooltipValue: LineGraphProps['formatTooltipValue'] = ({
     value,
-  }) => `$${formatDisplayAmount(value, 2, true)}`;
+    timestamp,
+  }) => [
+    `$${formatDisplayAmount(value, 2, true)}`,
+    `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(timestamp, 'MMM d')}`,
+  ];
+
+  const formatTimestamp: LineGraphProps['formatTimestamp'] = timestamp =>
+    formatDate(timestamp, 'MMM d');
+
+  const formatYAxisTick: LineGraphProps['formatYAxisTick'] = value =>
+    isDiscreetMode ? '****' : value;
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());
@@ -259,6 +270,8 @@ export const usePortfolioPage = () => {
     theme,
     graphData,
     formatTooltipValue,
+    formatTimestamp,
+    formatYAxisTick,
     summaryDetails,
     accounts,
     handleAddAccountClick,
