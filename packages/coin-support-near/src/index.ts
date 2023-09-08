@@ -8,6 +8,7 @@ import {
   ISyncPriceHistoriesParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
+  IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -72,5 +73,9 @@ export class NearSupport implements CoinSupport {
 
   public syncPriceHistories(params: ISyncPriceHistoriesParams) {
     return operations.syncPriceHistories(params);
+  }
+
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
   }
 }

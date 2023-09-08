@@ -52,6 +52,9 @@ const initialState: IDialogState = {
   cySyncVersionDetails: {
     isOpen: false,
   },
+  historyDialog: {
+    isOpen: false,
+  },
   signMessage: {
     isOpen: false,
   },
