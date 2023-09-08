@@ -5,8 +5,9 @@ import { useAccordion } from '../../../../hooks/useAccordion';
 import { Flex, Tag, Typography } from '../../../atoms';
 import { SpacingProps, spacing } from '../../../utils';
 import { Accordion } from '../../Accordion';
+import { RowWrapper, RowContainer } from '../TableStyles';
 
-export interface TableRowProps {
+export interface AccountTableRowProps {
   arrow?: React.ReactNode;
   leftImage?: React.ReactNode;
   text?: string;
@@ -17,75 +18,13 @@ export interface TableRowProps {
   value?: string;
   tokens?: any[];
   $subMenu?: boolean;
-  $balance?: boolean;
   onClick?: () => void;
   onStatusClick?: () => void;
-}
-
-export interface RowContainerProps {
   $rowIndex: number;
   $isLast?: boolean;
   $show?: string;
   $hide?: string;
 }
-
-const buttonAnimationData = {
-  duration: '0.3s',
-  curve: 'ease-out',
-};
-
-const RowWrapper = styled.div<RowContainerProps & TableRowProps>`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: inherit;
-  background: ${({ theme, $rowIndex }) =>
-    $rowIndex % 2 !== 0 ? 'transparent' : theme.palette.background.content};
-  max-height: ${({ $subMenu }) => ($subMenu ? '0' : 'auto')};
-  height: 85px;
-  overflow: hidden;
-  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
-  ${({ theme, $isLast }) =>
-    `
-        &:hover {  
-          &::before {
-              content: '';
-              position: absolute;
-              inset: 0;
-              border: 1px solid transparent;
-              ${$isLast && `border-radius: 0 0 24px 24px`};
-              background: ${theme.palette.golden};
-              -webkit-mask: linear-gradient(#fff 0 0) padding-box,
-                linear-gradient(#fff 0 0);
-              -webkit-mask-composite: xor;
-              mask-composite: exclude;
-            }
-        
-            &:hover::before {
-              background: ${theme.palette.golden} border-box;
-              transition: all ${buttonAnimationData.duration};
-              ${buttonAnimationData.curve};
-            }
-          cursor: pointer;
-        }
-        &:focus { 
-          outline: none;
-          background: ${theme.palette.golden};
-        }
-      `}
-`;
-
-const RowContainer = styled.div<RowContainerProps & TableRowProps>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-`;
 
 interface StatusContainerProps extends SpacingProps {
   width?: number;
@@ -138,11 +77,13 @@ const ValueContainer = styled.div`
   }
 `;
 
-const ArrowContainer = styled.div<TableRowProps>`
+const ArrowContainer = styled.div<Pick<AccountTableRowProps, 'arrow'>>`
   padding-left: ${({ arrow }) => (arrow ? '0px' : '16px')};
 `;
 
-const FullWidthTypography = styled(Typography)<TableRowProps>`
+const FullWidthTypography = styled(Typography)<
+  Pick<AccountTableRowProps, '$subMenu'>
+>`
   font-size: ${({ $subMenu }) => ($subMenu ? '14px' : '16px')};
   width: ${({ $subMenu }) => ($subMenu ? '99px' : 'auto')};
   @media ${({ theme }) => theme.screens.mdlg} {
@@ -156,7 +97,7 @@ const FullWidthTypography = styled(Typography)<TableRowProps>`
   }
 `;
 
-const ImageWrapper = styled.div<TableRowProps>`
+const ImageWrapper = styled.div<Pick<AccountTableRowProps, '$subMenu'>>`
   width: ${({ $subMenu }) => ($subMenu ? '24px' : '32px')};
 `;
 
@@ -195,31 +136,36 @@ const SubMenuWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
-  arrow,
-  leftImage,
-  text,
-  subText,
-  tag,
-  statusImage,
-  amount,
-  value,
-  tokens,
-  $subMenu,
-  $rowIndex,
-  $hide,
-  $show,
-  $balance,
-  $isLast,
-  onClick,
-  onStatusClick,
-}) => {
+export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
+  const {
+    arrow,
+    leftImage,
+    text,
+    subText,
+    tag,
+    statusImage,
+    amount,
+    value,
+    tokens,
+    $subMenu,
+    $rowIndex,
+    $hide,
+    $show,
+    $isLast,
+    onClick,
+    onStatusClick,
+  } = props;
   const { isOpen, toggleAccordion } = useAccordion();
 
   return (
     <>
-      <RowWrapper $rowIndex={$rowIndex} $isLast={$isLast} onClick={onClick}>
-        <RowContainer $rowIndex={$rowIndex}>
+      <RowWrapper
+        $rowIndex={$rowIndex}
+        $isLast={$isLast}
+        onClick={onClick}
+        $height="85px"
+      >
+        <RowContainer>
           <AccountContainer
             pleft={$subMenu ? 66 : undefined}
             pright={$subMenu ? 16 : undefined}
@@ -232,10 +178,7 @@ export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
                 <ImageWrapper $subMenu={$subMenu}>{leftImage}</ImageWrapper>
               )}
               <Flex direction="column" gap={6}>
-                <FullWidthTypography
-                  color={$subMenu ? 'muted' : 'white'}
-                  $subMenu={$subMenu}
-                >
+                <FullWidthTypography color={$subMenu ? 'muted' : 'white'}>
                   {text}
                 </FullWidthTypography>
                 <Flex gap={8} align="center">
@@ -264,13 +207,7 @@ export const AccountTableRow: React.FC<TableRowProps & RowContainerProps> = ({
           </StatusContainer>
 
           <BalanceContainer>
-            <FullWidthTypography
-              color="muted"
-              $subMenu={$subMenu}
-              $balance={$balance}
-            >
-              {amount}
-            </FullWidthTypography>
+            <FullWidthTypography color="muted">{amount}</FullWidthTypography>
           </BalanceContainer>
 
           <ValueContainer>
@@ -321,7 +258,6 @@ AccountTableRow.defaultProps = {
   tokens: [],
   $subMenu: false,
   $show: '',
-  $balance: false,
   $hide: '',
   onClick: undefined,
   onStatusClick: undefined,

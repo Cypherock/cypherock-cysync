@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { TriangleIcon } from '../../../assets';
 import { Container, Typography } from '../../atoms';
 import {
+  bgColor,
+  BgColorProps,
   DisplayProps,
   flex,
   FlexProps,
@@ -20,7 +22,8 @@ export interface TableUtilityProps
     HeightProps,
     FlexProps,
     DisplayProps,
-    SpacingProps {}
+    SpacingProps,
+    BgColorProps {}
 
 interface TableHeaderDataProps extends TableUtilityProps {
   data: string;
@@ -33,6 +36,8 @@ interface TableHeaderDataProps extends TableUtilityProps {
 interface TableDataRowProps extends TableUtilityProps {
   $last?: boolean;
   $noFlex?: boolean;
+  $index: number;
+  onClick?: () => void;
 }
 
 const TableStyle = styled.div`
@@ -115,6 +120,7 @@ const TableBodyStyle = styled.div`
 
 const TableDataRowStyle = styled.div<TableDataRowProps>`
   display: flex;
+  position: relative;
   flex: 1;
   align-items: center;
   justify-content: space-between;
@@ -123,16 +129,39 @@ const TableDataRowStyle = styled.div<TableDataRowProps>`
   border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
   ${({ $last, theme }) =>
     !$last && `border-bottom: 1px solid ${theme.palette.border.table.row};`}
-  background: ${({ theme }) => theme.palette.background.content};
+  background: ${({ $index, theme }) =>
+    $index % 2 === 0
+      ? theme.palette.background.content
+      : theme.palette.background.primary};
 
   &:hover {
-    background: ${({ theme }) => theme.palette.background.sideBar};
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-bottom-right-radius: ${({ $last }) => ($last ? '24px' : '0')};
+  border-bottom-left-radius: ${({ $last }) => ($last ? '24px' : '0')};
+      background: ${({ theme }) => theme.palette.golden};
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    &:hover::before {
+      background: ${({ theme }) => theme.palette.golden} border-box;
+      transition: all 0.3s;
+      ease-out;
+    }
+    cursor: pointer;
   }
 
   ${flex}
   ${width}
   ${height}
   ${spacing}
+  ${bgColor}
 `;
 
 export const Table: FC<TableUtilityProps> = ({ children, ...props }) => (
@@ -189,4 +218,5 @@ export const TableDataRow: FC<TableDataRowProps> = ({ children, ...props }) => (
 TableDataRow.defaultProps = {
   $noFlex: false,
   $last: false,
+  onClick: undefined,
 };

@@ -7,6 +7,7 @@ import {
   ISyncPriceHistoriesParams,
   ISyncPricesParams,
   IValidateAddressParams,
+  IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
 import { Observable } from 'rxjs';
@@ -78,5 +79,9 @@ export class BtcSupport implements CoinSupport {
 
   public getAccountHistory(): Promise<IGetAccountHistoryResult> {
     throw new Error(`Method not implemented`);
+  }
+
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
   }
 }
