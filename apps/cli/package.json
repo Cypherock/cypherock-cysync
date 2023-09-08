@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "node ./bin/run",
     "build": "rimraf dist && pnpm build:cjs",
-    "build:cjs": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json --outDir=./dist",
     "lint": "eslint --ext .ts,tsx,js,jsx, src/ --fix",
     "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
     "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",

@@ -10,3 +10,4 @@ export * from './useTabsAndDialogs';
 export * from './useAppUpdate';
 export * from './useWalletDropdown';
 export * from './useAccountDropdown';
+export * from './useGraphTimeRange';

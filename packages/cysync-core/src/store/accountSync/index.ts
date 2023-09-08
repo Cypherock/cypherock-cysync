@@ -40,11 +40,11 @@ export const accountSyncSlice = createSlice({
       }
 
       if (payload.payload.syncState === AccountSyncStateMap.synced) {
-        state.accountSyncMap[payload.payload.accountId].lastSyncedAt =
+        (state.accountSyncMap[payload.payload.accountId] as any).lastSyncedAt =
           Date.now();
       }
 
-      state.accountSyncMap[payload.payload.accountId].syncState =
+      (state.accountSyncMap[payload.payload.accountId] as any).syncState =
         payload.payload.syncState;
     },
   },

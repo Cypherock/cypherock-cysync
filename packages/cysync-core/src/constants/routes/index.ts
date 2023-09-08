@@ -34,5 +34,9 @@ export const routes = {
 
 type RootRouteName = (typeof rootRoutes)[keyof typeof rootRoutes]['name'];
 
-export * from './types';
 export type RouteName = RootRouteName | OnboardingRouteName;
+
+export interface IRoute {
+  name: RouteName;
+  path: string;
+}

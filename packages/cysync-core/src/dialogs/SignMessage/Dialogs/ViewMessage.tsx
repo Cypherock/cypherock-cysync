@@ -13,10 +13,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSignMessageDialog } from '../context';
-import { CoinIcon } from '~/components';
 
 export const ViewMessageDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
