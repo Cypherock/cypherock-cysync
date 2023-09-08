@@ -34,7 +34,7 @@ export const FeesHeader: React.FC<FeesHeaderProps> = ({
   return (
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={8}>
-        <Typography variant="span" width="100%" $fontSize={14}>
+        <Typography variant="span" $fontSize={14}>
           <LangDisplay text={title} />
         </Typography>
         <GoldQuestionMark height={14} width={14} />

@@ -23,10 +23,15 @@ export const SingleTransaction: React.FC = () => {
     prepareSendMax,
     priceConverter,
     updateUserInputs,
+    prepare,
   } = useSendDialog();
 
   useEffect(() => {
     updateUserInputs(1);
+    if (!transaction) return;
+    const txn = transaction;
+    txn.userInputs.isSendAll = false;
+    prepare(txn);
   }, []);
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export const SingleTransaction: React.FC = () => {
           label={displayText.amount.label}
           coinUnit={selectedAccount?.unit ?? ''}
           toggleLabel={displayText.amount.toggle}
-          initialToggle={transaction?.userInputs.isSendAll}
+          initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
           error={
             transaction?.validation.hasEnoughBalance === false

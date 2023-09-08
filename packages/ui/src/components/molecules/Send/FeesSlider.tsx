@@ -34,7 +34,6 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
       {error && (
         <Typography
           variant="span"
-          width="100%"
           color="error"
           $alignSelf="start"
           $fontSize={12}

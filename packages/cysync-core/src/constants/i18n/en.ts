@@ -570,7 +570,6 @@ const en = {
       },
     },
   },
-
   onboarding: {
     info: {
       aside: {

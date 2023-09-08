@@ -93,7 +93,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
               </Typography>
             </Numbering>
           )}
-          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+          <Typography variant="span" color="muted" $fontSize={13}>
             {text}
           </Typography>
         </Flex>
@@ -118,7 +118,6 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
       {error && (
         <Typography
           variant="span"
-          width="100%"
           color="error"
           $alignSelf="start"
           $fontSize={12}

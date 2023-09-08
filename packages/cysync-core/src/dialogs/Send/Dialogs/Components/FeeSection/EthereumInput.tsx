@@ -60,12 +60,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
           <>
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
+                <Typography variant="span" color="muted" $fontSize={13}>
                   <LangDisplay text={priceLabel} />
                 </Typography>
                 <GoldQuestionMark height={14} width={14} />
@@ -98,12 +93,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
           <Container display="flex" direction="column" gap={8} width="full">
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
-                <Typography
-                  variant="span"
-                  width="100%"
-                  color="muted"
-                  $fontSize={13}
-                >
+                <Typography variant="span" color="muted" $fontSize={13}>
                   <LangDisplay text={limitLabel} />
                 </Typography>
                 <GoldQuestionMark height={14} width={14} />

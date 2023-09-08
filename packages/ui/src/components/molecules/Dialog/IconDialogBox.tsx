@@ -33,7 +33,7 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   <DialogBox width={500} {...props}>
     {header && (
       <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
+        <Typography variant="fineprint" color="muted">
           <LangDisplay text={header} />
         </Typography>
       </DialogBoxHeader>

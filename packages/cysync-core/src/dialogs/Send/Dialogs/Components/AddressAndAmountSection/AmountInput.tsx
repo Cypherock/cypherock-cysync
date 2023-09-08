@@ -102,17 +102,12 @@ export const AmountInput: React.FC<AmountInputProps> = ({
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
       <Flex justify="space-between" width="full">
-        <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+        <Typography variant="span" color="muted" $fontSize={13}>
           <LangDisplay text={label} />
         </Typography>
         {toggleLabel && (
           <Flex align="center" direction="row" gap={8}>
-            <Typography
-              variant="span"
-              width="100%"
-              color="muted"
-              $fontSize={13}
-            >
+            <Typography variant="span" color="muted" $fontSize={13}>
               <LangDisplay text={toggleLabel} />
             </Typography>
             <Toggle checked={isToggled} onToggle={handleToggleMax} />
@@ -163,7 +158,6 @@ export const AmountInput: React.FC<AmountInputProps> = ({
       {error && (
         <Typography
           variant="span"
-          width="100%"
           color="error"
           $alignSelf="start"
           $fontSize={12}

@@ -43,6 +43,10 @@ export const BatchTransactionBody: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [enableAutoScroll, setEnableAutoScroll] = useState(false);
 
+  useEffect(() => {
+    parseAndPrepare(outputs);
+  }, []);
+
   const parseAndPrepare = async (newOutputs: typeof outputs) => {
     if (!transaction) return;
     const txn = transaction;
