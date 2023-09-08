@@ -1516,6 +1516,7 @@ export const withOneTransactionForYear: IPrepareTransactionTestCases = {
         ],
       },
     ],
+    priceInfos: [],
     account: {
       name: 'Bitcoin 1',
       xpubOrAddress: '',

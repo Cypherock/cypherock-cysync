@@ -2957,6 +2957,7 @@ export const withOneTransactionForMonth: IPrepareTransactionTestCases = {
         ],
       },
     ],
+    priceInfos: [],
   },
   output: {
     history: [
