@@ -18,7 +18,10 @@ export type BgColor =
   | 'muted'
   | 'lightBlack'
   | 'warning'
-  | 'dialog';
+  | 'dialog'
+  | 'popup'
+  | 'warning'
+  | 'container';
 export interface BgColorProps {
   $bgColor?: BgColor;
 }
@@ -74,6 +77,16 @@ export const bgColor = css<BgColorProps>`
     props.$bgColor === 'success' &&
     css`
       background: ${({ theme }) => theme.palette.success.main};
+    `}
+  ${props =>
+    props.$bgColor === 'container' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.container};
+    `}
+  ${props =>
+    props.$bgColor === 'popup' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.popup};
     `}
 
 ${props =>

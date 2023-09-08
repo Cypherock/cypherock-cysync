@@ -9,7 +9,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import {
+  CloseConfirmationDialog,
+  ErrorHandlerDialog,
+  WithConnectedDevice,
+} from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
@@ -35,9 +39,16 @@ const AddNewAccount: FC = () => {
     : React.Fragment;
   const lang = useAppSelector(selectLanguage);
 
+  const [showOnClose, setShowOnClose] = React.useState(false);
+
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
+        <CloseConfirmationDialog
+          isDialogVisible={showOnClose}
+          setIsDialogVisible={setShowOnClose}
+          onClose={onClose}
+        />
         <>
           <MilestoneAside
             milestones={tabs
@@ -67,7 +78,9 @@ const AddNewAccount: FC = () => {
             </DialogBoxBody>
 
             <DialogBoxBackgroundBar
-              rightComponent={<CloseButton onClick={onClose} />}
+              rightComponent={
+                <CloseButton onClick={() => setShowOnClose(true)} />
+              }
               position="top"
               useLightPadding
             />

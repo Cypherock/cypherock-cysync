@@ -6,7 +6,7 @@ interface LangDisplayProps {
   $noPreWrap?: boolean;
 }
 
-const parseVariables = (templateStr: string, variables = {}) =>
+export const parseLangTemplate = (templateStr: string, variables = {}) =>
   templateStr.replace(/\${(.*?)}/g, (x, g) => (variables as any)[g] ?? '');
 
 const BaseLangDisplay: React.FC<LangDisplayProps> = ({
@@ -15,7 +15,7 @@ const BaseLangDisplay: React.FC<LangDisplayProps> = ({
   $noPreWrap,
 }) => (
   <span style={!$noPreWrap ? { whiteSpace: 'pre-wrap' } : undefined}>
-    {parseVariables(text, variables)}
+    {parseLangTemplate(text, variables)}
   </span>
 );
 

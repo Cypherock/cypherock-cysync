@@ -8,6 +8,12 @@ export const openWalletSyncErrorDialog = () =>
 export const openWalletActionsDialog = () =>
   openDialog({ name: 'walletActions', data: undefined });
 
+export const openWalletConnectDialog = () =>
+  openDialog({ name: 'walletConnect', data: undefined });
+
+export const openSignMessageDialog = () =>
+  openDialog({ name: 'signMessage', data: undefined });
+
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 

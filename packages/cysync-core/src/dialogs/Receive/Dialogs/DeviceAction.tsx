@@ -13,10 +13,10 @@ import {
   LeanBoxProps,
   ArrowRightIcon,
   Check,
-  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
@@ -106,18 +106,7 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  if (derivedAddress === undefined)
-    return (
-      <DialogBox width={500} height={300}>
-        <Image
-          src={loaderGrayIcon}
-          width={68}
-          alt="Loader icon"
-          animate="spin"
-          $animDuration={3}
-        />
-      </DialogBox>
-    );
+  if (derivedAddress === undefined) return <LoaderDialog />;
 
   return (
     <DialogBox width={600}>

@@ -37,9 +37,6 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
         width="100%"
       />
     </Flex>
-    {/* <Flex align="center" direction="row" gap={16}> */}
-    {/* <Calendar value={dateValue} onChange={dateChange} /> */}
-    {/* <FilterDropdown /> */}
-    {/* </Flex> */}
+    {/* TODO: Add filter and calendar dropdown */}
   </SearchContainer>
 );

@@ -27,9 +27,9 @@ export const NoSearchResult: FC<NoSearchResultProps> = ({
   <NoSearchResultWrapper>
     <Flex direction="column" gap={64} align="center">
       {image}
-      <Flex direction="column" align="center">
-        <Typography $fontSize={24} $fontWeight="medium">
-          {searchText ? `${text} "${searchText}"` : text}
+      <Flex direction="column" align="center" px={2}>
+        <Typography $fontSize={24} $fontWeight="medium" $wordBreak="break-all">
+          {searchText ? `${text} "${searchText.trim()}"` : text}
         </Typography>
         <Typography $fontSize={16} color="muted">
           {subText}

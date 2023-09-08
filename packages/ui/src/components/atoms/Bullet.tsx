@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { spacing, SpacingProps } from '../utils';
 
-interface BulletProps extends SpacingProps {
+export interface BulletProps extends SpacingProps {
   variant?: 'outline' | 'gold' | 'success' | 'failed' | 'muted';
   size?: 'lg' | 'sm' | 'md';
 }
