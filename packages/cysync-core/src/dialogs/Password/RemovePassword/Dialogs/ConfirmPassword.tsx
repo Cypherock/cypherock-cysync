@@ -17,8 +17,9 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useRemovePasswordDialog } from '../context';
 
 export const ConfirmPassword: React.FC = () => {
+  const { onClose, error, password, handlePasswordChange } =
+    useRemovePasswordDialog();
   const { strings } = useAppSelector(selectLanguage);
-  const { onClose } = useRemovePasswordDialog();
   const { buttons, dialogs } = strings;
   const { confimPassword } = dialogs.removePassword;
 
@@ -37,7 +38,7 @@ export const ConfirmPassword: React.FC = () => {
             <LangDisplay text={confimPassword.subTitle} />
           </Typography>
         </Flex>
-        <Flex gap={16} px={5} pt={2} pb={4} direction="column" align="stretch">
+        <Flex gap={24} px={5} pt={2} pb={4} direction="column" align="stretch">
           <form
             onSubmit={e => {
               e.preventDefault();
@@ -45,25 +46,31 @@ export const ConfirmPassword: React.FC = () => {
             }}
             id="remove-password-confirm-form"
           >
-            <PasswordInput
-              pasteAllowed
-              name="password"
-              placeholder={confimPassword.label}
-              label={confimPassword.label}
-            />
+            <Flex gap={16} direction="column" align="stretch">
+              <PasswordInput
+                pasteAllowed
+                name="password"
+                placeholder={confimPassword.label}
+                label={confimPassword.label}
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <Divider variant="horizontal" />
+            </Flex>
           </form>
-          <Divider variant="horizontal" />
-          <Typography pt={3} pb={4} $fontSize={16} color="error">
-            Password mismatch and other error messages
-          </Typography>
+          {error && (
+            <Typography $fontSize={16} pb={4} color="error">
+              {error}
+            </Typography>
+          )}
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
           form="remove-password-confirm-form"
           type="submit"
-          variant="primary"
-          disabled={false}
+          variant="danger"
+          disabled={Boolean(error) || password.length === 0}
         >
           <LangDisplay text={buttons.removePassword} />
         </Button>

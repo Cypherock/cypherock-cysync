@@ -1531,6 +1531,34 @@ const en = {
         subTitle: 'Provide password to proceed',
         label: 'Enter Password',
       },
+      error: {
+        invalidPassword: 'Invalid Password',
+      },
+    },
+    changePassword: {
+      createNewPassword: {
+        title: 'Confirm password to proceed',
+        subTitle: 'Provide password to proceed',
+        oldPassword: 'Old Password',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+        info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+      },
+      error: {
+        passwordMismatch: 'Password Mismatched',
+      },
+    },
+    setPassword: {
+      createNewPassword: {
+        title: 'Set your cySync password',
+        subTitle: 'We do not store your password on our servers',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+        info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+      },
+      error: {
+        passwordMismatch: 'Password Mismatched',
+      },
     },
   },
   settings: {

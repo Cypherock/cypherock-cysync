@@ -74,6 +74,7 @@ export const colors = {
     messageSecondary: '#2C2418',
     breadcrumbSeparator: '#333130',
     batchTransactionBody: '#1b1812',
+    danger: '#FF624C',
   },
   border: {
     popup: '#2C2520',

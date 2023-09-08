@@ -4,7 +4,9 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -26,6 +28,11 @@ export interface SetPasswordDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  error: string | null;
+  newPassword: string;
+  confirmNewPassword: string;
+  handleNewPasswordChange: (val: string) => void;
+  handleConfirmNewPasswordChange: (val: string) => void;
 }
 
 export const SetPasswordDialogContext: Context<SetPasswordDialogContextInterface> =
@@ -44,8 +51,29 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
+  const [error, setError] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+
+  const validateNewPassword = () => {
+    if (newPassword !== confirmNewPassword) {
+      setError(lang.strings.dialogs.setPassword.error.passwordMismatch);
+      return;
+    }
+    setError(null);
+  };
+  useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+
   const onClose = () => {
     dispatch(closeDialog('setPassword'));
+  };
+
+  const handleNewPasswordChange = (val: string) => {
+    setNewPassword(val);
+  };
+
+  const handleConfirmNewPasswordChange = (val: string) => {
+    setConfirmNewPassword(val);
   };
 
   const tabs: ITabs = [
@@ -77,6 +105,11 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      error,
+      newPassword,
+      confirmNewPassword,
+      handleNewPasswordChange,
+      handleConfirmNewPasswordChange,
     }),
     [
       isDeviceRequired,
@@ -87,6 +120,11 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      error,
+      newPassword,
+      confirmNewPassword,
+      handleNewPasswordChange,
+      handleConfirmNewPasswordChange,
     ],
   );
 

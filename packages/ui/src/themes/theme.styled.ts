@@ -86,6 +86,7 @@ export const theme = {
       breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
       popup: colors.border.popup,
+      danger: colors.background.danger,
     },
     border: {
       popup: colors.border.popup,
