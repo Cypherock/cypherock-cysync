@@ -87,7 +87,7 @@ export const Recipient: React.FC = () => {
           rightImage={<GoldQuestionMark height={14} width={14} />}
         />
       </DialogBoxBody>
-      <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
+      <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
         <AddressAndAmountSection />
         <FeeSection />
       </ScrollableContainer>

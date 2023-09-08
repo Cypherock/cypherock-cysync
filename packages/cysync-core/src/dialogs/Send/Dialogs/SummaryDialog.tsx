@@ -12,6 +12,7 @@ import {
   QrCode,
   Image,
   SummaryBox,
+  ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React from 'react';
@@ -165,29 +166,38 @@ export const SummaryDialog: React.FC = () => {
 
   return (
     <DialogBox width={600}>
-      <DialogBoxBody>
+      <DialogBoxBody p={0} pt={5}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={displayText.title} />
         </Typography>
 
-        <SummaryBox
-          items={[
-            {
-              id: 'from',
-              leftText: displayText.from,
-              leftIcon: (
-                <Image src={walletIcon} alt="From" width="15px" height="12px" />
-              ),
-              rightComponent: getFromDetails(),
-            },
-            { isDivider: true, id: '2' },
-            ...getToDetails(),
-            { isDivider: true, id: '3' },
-            ...getFeeDetails(),
-            { isDivider: true, id: '5' },
-            ...getTotalAmount(),
-          ]}
-        />
+        <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
+          <DialogBoxBody p={0} px={4} pb={5}>
+            <SummaryBox
+              items={[
+                {
+                  id: 'from',
+                  leftText: displayText.from,
+                  leftIcon: (
+                    <Image
+                      src={walletIcon}
+                      alt="From"
+                      width="15px"
+                      height="12px"
+                    />
+                  ),
+                  rightComponent: getFromDetails(),
+                },
+                { isDivider: true, id: '2' },
+                ...getToDetails(),
+                { isDivider: true, id: '3' },
+                ...getFeeDetails(),
+                { isDivider: true, id: '5' },
+                ...getTotalAmount(),
+              ]}
+            />
+          </DialogBoxBody>
+        </ScrollableContainer>
       </DialogBoxBody>
       <DialogBoxFooter height={101}>
         <Button variant="secondary" onClick={onPrevious}>

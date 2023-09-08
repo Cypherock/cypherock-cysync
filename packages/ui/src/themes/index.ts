@@ -5,6 +5,8 @@ import {
 
 import { theme, ThemeType } from './theme.styled';
 
+export type { ThemeType } from './theme.styled';
+
 export const getDefaultTheme = () => theme;
 
 export const useTheme = (): ThemeType => {
@@ -16,4 +18,5 @@ export const useTheme = (): ThemeType => {
 
   return currTheme as any;
 };
+
 export const ThemeProvider = RawThemeProvider;

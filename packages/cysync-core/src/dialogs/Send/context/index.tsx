@@ -9,7 +9,7 @@ import {
 import { convertToUnit, getZeroUnit } from '@cypherock/coin-support-utils';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -74,7 +74,7 @@ export interface SendDialogContextInterface {
   isDeviceRequired: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
-  transactionHash: string | undefined;
+  storedTransaction: ITransaction | undefined;
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
@@ -105,7 +105,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const [signedTransaction, setSignedTransaction] = useState<
     string | undefined
   >();
-  const [transactionHash, setTransactionHash] = useState<string | undefined>();
+  const [storedTransaction, setStoredTransaction] = useState<
+    ITransaction | undefined
+  >();
   const [transactionLink, setTransactionLink] = useState<string | undefined>();
   const [transaction, setTransaction] = useState<
     IPreparedTransaction | undefined
@@ -169,7 +171,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const resetStates = () => {
     setSignedTransaction(undefined);
-    setTransactionHash(undefined);
+    setStoredTransaction(undefined);
     setTransactionLink(undefined);
     setError(undefined);
     setDeviceEvents({});
@@ -219,8 +221,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         transaction,
       });
 
-      setTransactionHash(txn.hash);
-      setTransactionLink(coinSupport.current.getTransactionLink(txn));
+      setStoredTransaction(txn);
+      setTransactionLink(
+        coinSupport.current.getExplorerLink({ transaction: txn }),
+      );
       onNext();
     } catch (e: any) {
       onError(e);
@@ -453,7 +457,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       onRetry,
       deviceEvents,
       startFlow,
-      transactionHash,
+      storedTransaction,
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
@@ -486,7 +490,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       onRetry,
       deviceEvents,
       startFlow,
-      transactionHash,
+      storedTransaction,
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,

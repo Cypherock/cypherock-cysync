@@ -529,6 +529,47 @@ const en = {
       },
     },
   },
+  history: {
+    tableHeader: {
+      time: 'Time',
+      asset: 'Asset',
+      account: 'Wallet / Account',
+      amount: 'Amount',
+      value: 'Value',
+    },
+    transactionType: {
+      send: 'Sent',
+      receive: 'Received',
+      failed: 'Failed',
+      pending: 'Pending',
+    },
+    dialogBox: {
+      value: 'Value',
+      view: 'View in explorer',
+      fee: 'Fee',
+      type: 'Type',
+      status: 'Status',
+      wallet: 'Wallet',
+      account: 'Account',
+      asset: 'Asset',
+      sender: 'Sender',
+      receiver: 'Receiver',
+      mine: 'Mine',
+      transactionHash: 'Transaction Hash',
+    },
+    noData: {
+      text: 'No transactions yet',
+      subText: 'Receive Crypto today to see your transaction history here',
+      buttonText: 'Receive',
+    },
+    search: {
+      placeholder: 'Search...',
+      notFound: {
+        text: 'No results found for',
+        subText: 'Please try searching another keywords',
+      },
+    },
+  },
 
   onboarding: {
     info: {

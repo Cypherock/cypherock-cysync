@@ -8,6 +8,7 @@ import {
   ISyncPriceHistoriesParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
+  IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -74,8 +75,7 @@ export class NearSupport implements CoinSupport {
     return operations.syncPriceHistories(params);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public getTransactionLink(txn: ITransaction): string {
-    throw new Error('Method not implemented.');
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
   }
 }
