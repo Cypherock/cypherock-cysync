@@ -74,8 +74,6 @@ const getColorCss = (color?: TypographyColor) => {
 };
 
 const baseStyle = css<TypographyProps>`
-  max-width: 100%;
-
   ${props =>
     props.$userSelect &&
     css`
