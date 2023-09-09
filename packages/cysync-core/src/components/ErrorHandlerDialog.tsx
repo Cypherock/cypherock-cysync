@@ -2,10 +2,12 @@ import { ErrorDialog } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
+import { IWallet } from '@cypherock/db-interfaces';
 
 export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;
   textVariables?: object;
+  selectedWallet?: IWallet;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -16,6 +18,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   isOnboarding,
   textVariables,
   defaultMsg,
+  selectedWallet,
 }) => {
   const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
@@ -23,6 +26,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
     onRetry,
     onClose,
     defaultMsg,
+    selectedWallet,
   });
 
   if (!errorToShow) {
@@ -48,4 +52,5 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
 ErrorHandlerDialog.defaultProps = {
   children: undefined,
   textVariables: undefined,
+  selectedWallet: undefined,
 };
