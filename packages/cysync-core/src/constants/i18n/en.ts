@@ -297,7 +297,9 @@ const en = {
   back: 'Back',
   allWallets: 'All Wallets',
   buttons: {
+    addWallet: 'Add Wallet',
     addAccount: 'Add Account',
+    syncWallets: 'Sync Wallets',
     addToken: 'Add Token',
     reverify: 'Reverify',
     continue: 'Continue',
@@ -315,6 +317,7 @@ const en = {
     stop: 'Stop',
     exit: 'Exit',
     resync: 'Resync',
+    showAll: 'Show All',
     connect: 'Connect',
     disconnect: 'Disconnect',
     reject: 'Reject',
@@ -530,6 +533,7 @@ const en = {
     },
   },
   history: {
+    tableTitle: 'Transactions',
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
@@ -888,6 +892,26 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    assetAllocation: {
+      title: 'Asset Allocation',
+      tableHeader: {
+        asset: 'Asset',
+        price: 'Price',
+        balance: 'Balance',
+        value: 'Value',
+        allocation: 'Allocation',
+      },
+    },
+    walletMissing: {
+      text: 'Wallets Missing',
+      subText: 'Create a new wallet or import from seed phrase to get started',
+      subText2:
+        'If you have already created wallets in the device, simply sync them with cySync',
+    },
+    accountMissing: {
+      text: 'Accounts Missing',
+      subText: 'Create or import an account to get started',
+    },
   },
   wallet: {
     title: 'Wallets',

@@ -13,20 +13,20 @@ import {
   OptimismIcon,
   SolanaIcon,
   NearIcon,
+  MediaQuery,
+  WidthProps,
 } from '@cypherock/cysync-ui';
+import { HeightProps } from '@cypherock/cysync-ui/src/components/utils';
 import React from 'react';
 
 export interface CoinIconProps {
   assetId: string;
-  size?: string | number;
-  width?: string | number;
-  height?: string | number;
+  size?: MediaQuery<string | number>;
+  width?: MediaQuery<string | number>;
+  height?: MediaQuery<string | number>;
 }
 
-interface IconProps {
-  width?: string | number;
-  height?: string | number;
-}
+interface IconProps extends WidthProps, HeightProps {}
 
 const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -42,7 +42,7 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [EvmIdMap.avalanche]: AvalancheIcon,
   [NearIdMap.near]: NearIcon,
   [SolanaIdMap.solana]: SolanaIcon,
-};
+} as Record<string, React.FC<IconProps> | undefined>;
 
 export const getCoinIcon = (
   assetId: string,
@@ -64,7 +64,17 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     return null;
   }
 
-  return <Icon width={width ?? size} height={height ?? size} />;
+  const parsedWidth = width ?? size;
+  const parsedHeight = height ?? size;
+
+  return (
+    <Icon
+      width={parsedWidth}
+      height={parsedHeight}
+      $minWidth={parsedWidth}
+      $minHeight={parsedHeight}
+    />
+  );
 };
 
 CoinIcon.defaultProps = {

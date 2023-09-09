@@ -16,10 +16,9 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
-import { useWindowSize } from '~/hooks';
+import { useTransactions, useWindowSize } from '~/hooks';
 
 import { MainAppLayout } from './Components';
-import { useHistoryPage } from './hooks';
 
 export const History: FC = () => {
   const {
@@ -34,13 +33,12 @@ export const History: FC = () => {
     sortedBy,
     onSort,
     isSmallScreen,
-  } = useHistoryPage();
+    expandedRowIds,
+    onRowExpand,
+  } = useTransactions();
   const theme = useTheme();
   const { windowHeight } = useWindowSize();
   const [topbarHeight, setTopbarHeight] = useState(0);
-  const [expandedRowIds, setExpandedRowIds] = useState<Record<string, boolean>>(
-    {},
-  );
   const listRef = useRef<any>(null);
 
   useEffect(() => {
@@ -82,13 +80,7 @@ export const History: FC = () => {
         accountHeader={strings.history.tableHeader.account}
         valueHeader={strings.history.tableHeader.value}
         isExpanded={expandedRowIds[row.id]}
-        setIsExpanded={value =>
-          setExpandedRowIds(r => {
-            const copy = structuredClone(r);
-            copy[row.id] = value;
-            return copy;
-          })
-        }
+        setIsExpanded={value => onRowExpand(row, value)}
       />
     );
   };

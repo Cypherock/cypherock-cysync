@@ -26,7 +26,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
-import { mapTransactionForDisplay } from '~/pages/MainApp/hooks';
+import { mapTransactionForDisplay } from '~/hooks';
 import {
   closeDialog,
   selectAccounts,

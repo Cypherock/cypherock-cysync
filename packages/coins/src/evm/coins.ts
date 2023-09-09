@@ -10,6 +10,7 @@ export default [
     feesUnit: 'Gwei',
     network: 'main',
     chain: 1,
+    color: '#00a6fb',
   },
   {
     id: 'polygon',
@@ -22,6 +23,7 @@ export default [
     feesUnit: 'Gwei',
     network: 'polygon',
     chain: 137,
+    color: '#8247e5',
   },
   {
     id: 'binance',
@@ -34,6 +36,7 @@ export default [
     feesUnit: 'Gwei',
     network: 'bsc',
     chain: 56,
+    color: '#f0b90b',
   },
   {
     id: 'fantom',
@@ -46,6 +49,7 @@ export default [
     feesUnit: 'Gwei',
     network: 'fantom',
     chain: 250,
+    color: '#14B5EC',
   },
   {
     id: 'avalanche',
@@ -58,6 +62,7 @@ export default [
     feesUnit: 'NanoAvax',
     network: 'avalanche',
     chain: 43114,
+    color: '#E84142',
   },
   {
     id: 'optimism',
@@ -70,6 +75,7 @@ export default [
     feesUnit: 'Gwei',
     network: 'optimism',
     chain: 10,
+    color: '#FF0420',
   },
   {
     id: 'arbitrum',
@@ -83,5 +89,6 @@ export default [
     feesUnit: 'Gwei',
     network: 'arbitrum',
     chain: 42161,
+    color: '#12AAFF',
   },
 ];

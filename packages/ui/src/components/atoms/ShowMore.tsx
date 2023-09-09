@@ -18,21 +18,14 @@ const ShowMoreWrapper = styled.div`
 `;
 
 interface ShowMoreProps {
-  showMoreClicked: boolean;
-  handleShowMore: () => void;
-  less: string;
-  more: string;
+  text: string;
+  onClick: () => void;
 }
 
-export const ShowMore: React.FC<ShowMoreProps> = ({
-  showMoreClicked,
-  handleShowMore,
-  less,
-  more,
-}) => (
-  <ShowMoreWrapper onClick={handleShowMore}>
+export const ShowMore: React.FC<ShowMoreProps> = ({ text, onClick }) => (
+  <ShowMoreWrapper onClick={onClick}>
     <Typography $fontSize={20} color="muted">
-      {showMoreClicked ? less : more}
+      {text}
     </Typography>
   </ShowMoreWrapper>
 );

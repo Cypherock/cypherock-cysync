@@ -13,6 +13,7 @@ import {
   BreadcrumbDropdownItem,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, { ReactNode, useState, useMemo, useEffect } from 'react';
@@ -57,6 +58,7 @@ interface AccountRowData {
   tokens?: AccountTokenType[];
   displayAmount: string;
   displayValue: string;
+  account: IAccount;
 }
 
 const throbberComponent = <Throbber size={20} strokeWidth={2} />;
@@ -236,6 +238,7 @@ export const useWalletPage = () => {
         displayValue: isDiscreetMode ? '$****' : displayValue,
         amount: parseFloat(amount),
         value: parseFloat(value),
+        account: a,
       };
     });
 
@@ -280,7 +283,8 @@ export const useWalletPage = () => {
     }
   };
 
-  const handleAccountTableRow = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleAccountTableRow = async (row: AccountRowData) => {
     // TODO: navigate to account page
   };
 
