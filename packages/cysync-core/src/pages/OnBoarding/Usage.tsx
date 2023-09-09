@@ -72,7 +72,13 @@ const UsageDialogBox: FC<{
         >
           <Image width={45} src={usageIcon} alt="usageIcon" />
           <Flex gap={16} direction="column" height="full">
-            <Typography $alignSelf="center" variant="h5" color="heading" mb={1}>
+            <Typography
+              $alignSelf="center"
+              variant="h5"
+              color="heading"
+              mb={1}
+              $allowOverflow
+            >
               <LangDisplay text={titleFirst} />
             </Typography>
             <Container
@@ -118,7 +124,13 @@ const UsageDialogBox: FC<{
         >
           <Image src={usageIcon} alt="usageIcon" />
           <Flex gap={16} height="full" direction="column">
-            <Typography $textAlign="center" variant="h5" color="heading" mb={1}>
+            <Typography
+              $alignSelf="center"
+              variant="h5"
+              color="heading"
+              mb={1}
+              $allowOverflow
+            >
               <LangDisplay text={titleSecond} />
             </Typography>
             <Container
