@@ -12,3 +12,4 @@ export * from './TableGroupRow';
 export * from './AccordionContent';
 export * from './AccountTable';
 export * from './TransactionTable';
+export * from './AssetAllocationTable';

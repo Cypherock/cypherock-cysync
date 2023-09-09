@@ -54,7 +54,7 @@ export const AccordionContent: FC<AccordionContentProps> = props => {
 
   return (
     <>
-      <AccordionContainer {...props}>
+      <AccordionContainer {...props} $last={false}>
         {headers.map((header, index) => (
           <FlexContainer
             key={`${id}-${header}`}
