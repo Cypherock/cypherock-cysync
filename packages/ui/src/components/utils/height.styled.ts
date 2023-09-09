@@ -10,6 +10,7 @@ type IImageType = number | string | HeightType;
 
 export interface HeightProps {
   height?: MediaQuery<IImageType>;
+  $minHeight?: MediaQuery<IImageType>;
   $maxHeight?: MediaQuery<IImageType>;
 }
 export interface ImageHeightProps {
@@ -30,4 +31,7 @@ export const height = css<HeightProps>`
   ${props =>
     props.$maxHeight &&
     generateCss(['max-height'], getHeight, props.$maxHeight)}
+  ${props =>
+    props.$minHeight &&
+    generateCss(['min-height'], getHeight, props.$minHeight)}
 `;

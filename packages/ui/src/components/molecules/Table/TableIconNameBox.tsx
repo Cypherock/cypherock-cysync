@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 import { TableMutedTextBox } from './TableMutedTextBox';
 
-import { Container, Image, Typography } from '../../atoms';
+import { Container, Typography } from '../../atoms';
+import { UtilsProps, utils } from '../../utils';
 
-interface IconNameBoxProps {
-  icon: string;
+interface IconNameBoxProps extends UtilsProps {
+  icon: ReactNode;
   title: string;
   subtitle?: string;
   mutedSubtitle?: string;
@@ -31,31 +32,63 @@ export const iconBoxStyles = css<{ size?: string }>`
 
 export const IconNameBoxStyle = styled.div<IconNameBoxProps>`
   ${iconBoxStyles}
+  ${utils}
 `;
 
-export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
-  <IconNameBoxStyle {...props}>
-    <Image src={props.icon} alt="Asset Icon" />
-    <Container direction="column" gap={0} align="flex-start">
-      <Typography variant="p" $fontWeight="semibold">
-        {props.title}
-      </Typography>
-      {props.subtitle && (
-        <Typography variant="p" $fontWeight="semibold">
-          {props.subtitle}
+export const TableIconNameBox: FC<IconNameBoxProps> = props => {
+  const { icon, title, subtitle, mutedSubtitle, mutedBox } = props;
+
+  return (
+    <IconNameBoxStyle {...props}>
+      {icon}
+      <Container
+        direction="column"
+        gap={0}
+        align="flex-start"
+        $maxWidth="calc(100% - 30px)"
+      >
+        <Typography
+          variant="p"
+          $fontWeight="semibold"
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+        >
+          {title}
         </Typography>
-      )}
-      {props.mutedSubtitle && (
-        <Container gap={8} display="flex" direction="row">
-          <Typography variant="p" $fontSize={12} color="muted">
-            {props.mutedSubtitle}
+        {subtitle && (
+          <Typography
+            variant="p"
+            $fontWeight="semibold"
+            $textOverflow="ellipsis"
+            $whiteSpace="nowrap"
+          >
+            {subtitle}
           </Typography>
-          {props.mutedBox && <TableMutedTextBox text={props.mutedBox} />}
-        </Container>
-      )}
-    </Container>
-  </IconNameBoxStyle>
-);
+        )}
+        {mutedSubtitle && (
+          <Container gap={8} display="flex" direction="row">
+            <Typography
+              variant="p"
+              $fontSize={12}
+              color="muted"
+              $textOverflow="ellipsis"
+              $whiteSpace="nowrap"
+            >
+              {mutedSubtitle}
+            </Typography>
+            {mutedBox && (
+              <TableMutedTextBox
+                text={mutedBox}
+                $textOverflow="ellipsis"
+                $whiteSpace="nowrap"
+              />
+            )}
+          </Container>
+        )}
+      </Container>
+    </IconNameBoxStyle>
+  );
+};
 
 TableIconNameBox.defaultProps = {
   subtitle: undefined,

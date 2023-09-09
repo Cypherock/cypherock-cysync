@@ -10,5 +10,6 @@ export * from './useTabsAndDialogs';
 export * from './useAppUpdate';
 export * from './useWalletDropdown';
 export * from './useAccountDropdown';
-export * from './useWindowSize';
 export * from './useGraphTimeRange';
+export * from './useTransactions';
+export * from './useWindowSize';

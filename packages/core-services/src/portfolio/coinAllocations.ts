@@ -8,7 +8,10 @@ export interface ICoinAllocationWithPercentage extends ICoinAllocation {
   percentage: number;
 }
 
-export const getCoinAllocations = async (db: IDatabase) => {
+export const getCoinAllocations = async (params: {
+  db: IDatabase;
+  walletId?: string;
+}) => {
   const coinFamiliesList = Object.keys(coinFamiliesMap);
 
   const allocations: ICoinAllocation[] = [];
@@ -17,7 +20,7 @@ export const getCoinAllocations = async (db: IDatabase) => {
   for (const coinFamily of coinFamiliesList) {
     const coinSupport = getCoinSupport(coinFamily);
     allocations.push(
-      ...(await coinSupport.getCoinAllocations({ db })).allocations,
+      ...(await coinSupport.getCoinAllocations({ ...params })).allocations,
     );
   }
 
