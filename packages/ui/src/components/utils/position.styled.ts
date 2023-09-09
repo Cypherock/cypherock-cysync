@@ -9,6 +9,18 @@ export interface PositionProps {
   $zIndex?: number;
 }
 
+const parsePositionProp = (prop: number | string) => {
+  if (typeof prop === 'number') {
+    if (Number.isInteger(prop)) {
+      return `${prop}px`;
+    }
+
+    return `${prop * 100}%`;
+  }
+
+  return prop;
+};
+
 export const position = css<PositionProps>`
   ${props => {
     const positionCss = [];
@@ -16,23 +28,16 @@ export const position = css<PositionProps>`
       positionCss.push(`position: ${props.position};`);
     }
     if (props.top !== undefined) {
-      if (typeof props.top === 'string') positionCss.push(`top: ${props.top};`);
-      else positionCss.push(`top: ${props.top}px;`);
+      positionCss.push(`top: ${parsePositionProp(props.top)};`);
     }
     if (props.bottom !== undefined) {
-      if (typeof props.bottom === 'string')
-        positionCss.push(`bottom: ${props.bottom};`);
-      else positionCss.push(`bottom: ${props.bottom}px;`);
+      positionCss.push(`bottom: ${parsePositionProp(props.bottom)};`);
     }
     if (props.right !== undefined) {
-      if (typeof props.right === 'string')
-        positionCss.push(`right: ${props.right};`);
-      positionCss.push(`right: ${props.right}px;`);
+      positionCss.push(`right: ${parsePositionProp(props.right)};`);
     }
     if (props.left !== undefined) {
-      if (typeof props.left === 'string')
-        positionCss.push(`left: ${props.left};`);
-      else positionCss.push(`left: ${props.left}px;`);
+      positionCss.push(`left: ${parsePositionProp(props.left)};`);
     }
     if (props.$zIndex !== undefined) {
       positionCss.push(`z-index: ${props.$zIndex};`);

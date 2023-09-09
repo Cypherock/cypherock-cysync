@@ -90,26 +90,27 @@ export const LineGraphTooltip: React.FC<LineGraphTooltipProps> = ({
   const tooltipWidth = tooltipElementRef.current?.clientWidth;
   const chartPadding = 40;
 
-  if (tooltipWidth) {
-    if (leftPosition + tooltipWidth + chartPadding > state.chartWidth) {
-      rightPosition = state.chartWidth - leftPosition;
-      leftPosition = undefined;
-    }
+  if (
+    tooltipWidth &&
+    leftPosition + tooltipWidth + chartPadding > state.chartWidth
+  ) {
+    rightPosition = state.chartWidth - leftPosition;
+    leftPosition = undefined;
   }
 
   return (
     <>
       <TooltipLine
-        left={state.pointX}
+        left={`${state.pointX}px`}
         top={50}
-        height={state.chartHeight - 80}
+        height={`${state.chartHeight - 80}px`}
         opacity={state.isVisible ? 1 : 0}
       >
         <DashedLineGold width="100%" height="100%" />
       </TooltipLine>
       <TooltipDot
-        left={state.pointX}
-        top={state.pointY}
+        left={`${state.pointX}px`}
+        top={`${state.pointY}px`}
         opacity={state.isVisible ? 1 : 0}
       >
         <GraphPoint
@@ -123,9 +124,9 @@ export const LineGraphTooltip: React.FC<LineGraphTooltipProps> = ({
       <TooltipContainer
         ref={tooltipElementRef}
         opacity={state.isVisible ? 1 : 0}
-        left={leftPosition}
-        top={topPosition}
-        right={rightPosition}
+        left={`${leftPosition}px`}
+        top={`${topPosition}px`}
+        right={`${rightPosition}px`}
         $translateX={leftPosition ? 8 : -8}
       >
         {values.map(value => (

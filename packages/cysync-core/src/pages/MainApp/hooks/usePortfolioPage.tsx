@@ -21,6 +21,7 @@ import {
   useWalletDropdown,
   useGraphTimeRange,
   graphTimeRangeToDaysMap,
+  GraphTimeRangeMap,
 } from '~/hooks';
 import {
   useAppSelector,
@@ -245,7 +246,10 @@ export const usePortfolioPage = () => {
   ];
 
   const formatTimestamp: LineGraphProps['formatTimestamp'] = timestamp =>
-    formatDate(timestamp, 'MMM d');
+    formatDate(
+      timestamp,
+      selectedRange === GraphTimeRangeMap.year ? 'MMM yyyy' : 'MMM d',
+    );
 
   const formatYAxisTick: LineGraphProps['formatYAxisTick'] = value =>
     isDiscreetMode ? '****' : value;

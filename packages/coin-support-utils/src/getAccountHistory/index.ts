@@ -21,15 +21,7 @@ import logger from '../utils/logger';
 
 export * from './types';
 
-async function getAccount(
-  accountInParams: IAccount | undefined,
-  db: IDatabase,
-  accountId: string,
-) {
-  if (accountInParams) {
-    return accountInParams;
-  }
-
+async function getAccount(db: IDatabase, accountId: string) {
   return (await db.account.getOne({ __id: accountId })) as IAccount;
 }
 
@@ -154,7 +146,7 @@ export async function createGetAccountHistory(
     days,
   } = params;
 
-  const account = await getAccount(accountInParams, db, accountId);
+  const account = accountInParams ?? (await getAccount(db, accountId));
   const transactions = await getTransactions(allTransactions, account, db);
   const priceHistory = await getPriceHistory(
     allPriceHistories,
