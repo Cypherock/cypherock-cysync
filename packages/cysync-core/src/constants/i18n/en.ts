@@ -1261,6 +1261,11 @@ const en = {
             'This will erase all your data on your cySync app. Note this will not result in loss of assets',
         },
       },
+      releaseNote: {
+        title: 'CySync v${version}',
+        subTitle: 'Release Notes',
+        titleSecondary: 'cySync ${version}',
+      },
     },
   },
   settings: {
