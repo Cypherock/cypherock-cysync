@@ -31,7 +31,9 @@ export type TypographyColor =
   | 'list'
   | 'black'
   | 'info'
-  | 'disabled';
+  | 'disabled'
+  | 'normal'
+  | 'divider';
 interface HeadingProps
   extends SpacingProps,
     FontProps,
@@ -46,6 +48,7 @@ interface HeadingProps
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
   $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
+  $filter?: string;
 }
 
 const getColorCss = (color?: TypographyColor) => {
@@ -71,8 +74,6 @@ const getColorCss = (color?: TypographyColor) => {
 };
 
 const baseStyle = css<TypographyProps>`
-  max-width: 100%;
-
   ${props =>
     props.$userSelect &&
     css`
@@ -107,6 +108,12 @@ const baseStyle = css<TypographyProps>`
           overflow: hidden;
         `}
 
+  ${props =>
+    props.$filter !== undefined &&
+    css`
+      filter: ${props.$filter};
+      -webkit-filter: ${props.$filter};
+    `}
 
   max-width: 100%;
   ${border};
@@ -226,4 +233,5 @@ Typography.defaultProps = {
   $userSelect: undefined,
   $whiteSpace: 'normal',
   $textOverflow: 'clip',
+  $filter: undefined,
 };

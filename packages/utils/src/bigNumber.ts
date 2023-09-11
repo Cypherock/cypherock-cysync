@@ -57,6 +57,10 @@ export class BigNumber {
     return this.num.isNegative();
   }
 
+  isNaN() {
+    return this.num.isNaN();
+  }
+
   isPositive() {
     return this.num.isPositive();
   }

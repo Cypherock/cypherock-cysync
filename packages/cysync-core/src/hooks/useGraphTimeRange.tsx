@@ -9,6 +9,14 @@ export const GraphTimeRangeMap = {
   year: 'year',
 } as const;
 
+export const graphTimeRangeToDaysMap: Record<GraphTimeRange, 1 | 7 | 30 | 365> =
+  {
+    day: 1,
+    week: 7,
+    month: 30,
+    year: 365,
+  };
+
 export type GraphTimeRange =
   (typeof GraphTimeRangeMap)[keyof typeof GraphTimeRangeMap];
 

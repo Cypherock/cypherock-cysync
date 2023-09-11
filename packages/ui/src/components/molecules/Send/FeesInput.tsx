@@ -6,16 +6,22 @@ import { Input, Typography } from '../../atoms';
 
 interface FeesInputProps {
   value: string;
+  onChange: (val: string) => void;
   postfixText?: string;
 }
 
-export const FeesInput: React.FC<FeesInputProps> = ({ value, postfixText }) => {
+export const FeesInput: React.FC<FeesInputProps> = ({
+  value,
+  postfixText,
+  onChange,
+}) => {
   const [inputValue, setInputValue] = useState(value);
 
   const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
   const handleInputChange = (newValue: string) => {
     const filteredValue = filterNumericInput(newValue);
     setInputValue(filteredValue);
+    onChange(filteredValue);
   };
 
   return (

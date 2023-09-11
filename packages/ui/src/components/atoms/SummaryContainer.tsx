@@ -41,8 +41,6 @@ export interface ScrollContainerProps extends UtilsProps {
 
 export const ScrollContainer = styled.div<ScrollContainerProps>`
   align-self: stretch;
-  overflow-y: auto;
-  max-height: 226px;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.popup};
   background: ${({ theme }) => theme.palette.background.container};

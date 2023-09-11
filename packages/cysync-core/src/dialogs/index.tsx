@@ -4,6 +4,7 @@ import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
 import { GuidedFlow } from './GuidedFlow';
+import { HistoryDialog } from './HistoryDialog';
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
@@ -18,6 +19,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
   sendDialog: SendDialog,
+  historyDialog: HistoryDialog,
   receive: ReceiveDialog,
   signMessage: SignMessageDialog,
 };

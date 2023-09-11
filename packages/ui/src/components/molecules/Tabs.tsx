@@ -13,17 +13,12 @@ interface TabsProps {
 }
 
 export const TabContentContainer = styled.div`
-  min-height: 200px;
   display: flex;
   flex-direction: column;
   color: white;
-  min-height: 505px;
-  max-height: 510px;
   padding-left: 40px;
   padding-right: 30px;
   margin-right: 10px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 `;
 
 const TabsContainer = styled.div`
@@ -32,8 +27,6 @@ const TabsContainer = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 16px;
-  padding-bottom: 32px;
-  max-height: 633px;
   ${utils}
 `;
 const TabHeaders = styled.div`
@@ -53,6 +46,7 @@ const TabHeader = styled.div`
 const TabContent = styled.div`
   padding-top: 12px;
   padding-bottom: 12px;
+  width: 100%;
 `;
 
 const StyledTypography = styled(Typography)<{ $active: boolean }>`

@@ -31,6 +31,9 @@ const initialState: IDialogState = {
   receive: {
     isOpen: false,
   },
+  historyDialog: {
+    isOpen: false,
+  },
   signMessage: {
     isOpen: false,
   },

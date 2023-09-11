@@ -4,6 +4,7 @@ export interface ICoinAllocation {
   assetId: string;
   balance: string;
   value: string;
+  price: string;
 }
 
 export interface IGetCoinAllocationsParams {

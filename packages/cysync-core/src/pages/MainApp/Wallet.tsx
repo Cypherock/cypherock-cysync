@@ -80,17 +80,18 @@ export const Wallet: FC = () => {
                   $rowIndex={index}
                   $hide={lang.strings.wallet.buttons.hide}
                   $show={lang.strings.wallet.buttons.show}
-                  $balance
-                  onClick={() => handleAccountTableRow()}
+                  onClick={() => handleAccountTableRow(row)}
                   onStatusClick={() => handleStatusClick(row)}
                 />
               ))}
               {displayShowMore && (
                 <ShowMore
-                  showMoreClicked={showMoreClicked}
-                  handleShowMore={handleShowMore}
-                  less={lang.strings.wallet.buttons.less}
-                  more={lang.strings.wallet.buttons.more}
+                  onClick={handleShowMore}
+                  text={
+                    showMoreClicked
+                      ? lang.strings.wallet.buttons.less
+                      : lang.strings.wallet.buttons.more
+                  }
                 />
               )}
             </>

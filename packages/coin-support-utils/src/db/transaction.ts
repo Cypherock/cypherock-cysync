@@ -92,6 +92,7 @@ export const insertOrUpdatePriceHistory = async (
     const query: Partial<IPriceHistory> = {
       assetId: priceHistory.assetId,
       currency: priceHistory.currency,
+      days: priceHistory.days,
     };
 
     const existingPriceHistory = await db.priceHistory.getOne(query);

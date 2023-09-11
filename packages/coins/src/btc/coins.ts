@@ -8,6 +8,7 @@ export default [
     coinIndex: '80000000',
     feesUnit: 'sat/byte',
     apiCoinType: 'btc',
+    color: '#f9a43f',
     units: [
       {
         name: 'bitcoin',
@@ -41,6 +42,7 @@ export default [
     coinIndex: '80000002',
     feesUnit: 'sat/byte',
     apiCoinType: 'ltc',
+    color: '#345e9d',
     units: [
       {
         name: 'litecoin',
@@ -69,6 +71,7 @@ export default [
     coinIndex: '80000003',
     feesUnit: 'sat/byte',
     apiCoinType: 'doge',
+    color: '#c2a633',
     units: [
       {
         name: 'dogecoin',
@@ -92,6 +95,7 @@ export default [
     coinIndex: '80000005',
     feesUnit: 'sat/byte',
     apiCoinType: 'dash',
+    color: '#008de4',
     units: [
       {
         name: 'dash',
