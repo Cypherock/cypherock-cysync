@@ -1277,6 +1277,10 @@ const en = {
       title: 'Are you sure you want to exit?',
     },
   },
+  toggle: {
+    on: 'ON',
+    off: 'OFF',
+  },
   settings: {
     tabs: {
       general: {
