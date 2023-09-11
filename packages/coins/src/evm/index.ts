@@ -61,6 +61,7 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
       feesUnit: coin.feesUnit,
       chain: coin.chain,
       network: coin.network,
+      color: coin.color,
       units: [
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
         ...units,

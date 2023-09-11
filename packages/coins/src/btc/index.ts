@@ -34,6 +34,7 @@ export const btcCoinList: Record<string, IBtcCoinInfo> = coinList.reduce<
       feesUnit: coin.feesUnit,
       apiCoinType: coin.apiCoinType,
       units: coin.units,
+      color: coin.color,
     },
   }),
   {},

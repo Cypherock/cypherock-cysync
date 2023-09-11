@@ -8,8 +8,8 @@ import {
   ISyncPricesParams,
   ICreateAccountEvent,
   ISyncPriceHistoriesParams,
-  IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
+  IGetAccountHistoryParams,
   IGetExplorerLink,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
@@ -56,8 +56,8 @@ export class SolanaSupport implements CoinSupport {
     return operations.getCoinAllocations(params);
   }
 
-  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
-    throw new Error(`Method not implemented`);
+  public getAccountHistory(params: IGetAccountHistoryParams) {
+    return operations.getAccountHistory(params);
   }
 
   public syncPrices(params: ISyncPricesParams) {

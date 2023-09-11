@@ -1,7 +1,7 @@
-import { logger } from '@cypherock/sdk-core/dist/utils';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { getDB, passwordUtils } from '~/utils';
+import logger from '~/utils/logger';
 
 export interface LockscreenContextInterface {
   isLocked: boolean;
