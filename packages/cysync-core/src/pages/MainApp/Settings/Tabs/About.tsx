@@ -8,6 +8,7 @@ import {
 import { SettingsButton, TabItem } from '../components';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { openCySyncVersionDetailsDialog } from '~/actions';
+import { Link } from 'react-router-dom';
 
 export const About: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
@@ -54,7 +55,9 @@ export const About: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <GoldExternalLink width={18} height={18} />
+          <Link to="https://www.cypherock.com/" target="_blank">
+            <GoldExternalLink width={18} height={18} />
+          </Link>
         </Flex>
       </TabItem>
       <TabItem>
@@ -67,7 +70,9 @@ export const About: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <GoldExternalLink width={18} height={18} />
+          <Link to="https://www.cypherock.com/" target="_blank">
+            <GoldExternalLink width={18} height={18} />
+          </Link>
         </Flex>
       </TabItem>
     </Flex>

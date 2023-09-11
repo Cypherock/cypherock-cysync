@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flex, LangDisplay, Toggle, Typography } from '@cypherock/cysync-ui';
 import { SettingsButton, TabItem } from '../components';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
@@ -13,6 +13,11 @@ export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.app;
   const dispatch = useAppDispatch();
+  const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
+    useState<boolean>(false);
+  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
+    useState<boolean>(false);
+
   return (
     <Flex
       $alignSelf="stretch"
@@ -31,8 +36,9 @@ export const AppSettings: React.FC = () => {
             <LangDisplay text={item.passwordDesc} />
           </Typography>
         </Flex>
-        <Flex gap={16} direction="column">
+        <Flex gap={16} direction={{ def: 'column', lg: 'row' }}>
           <SettingsButton
+            display="none"
             variant="primary"
             justify="center"
             onClick={() => dispatch(openSetPasswordDialog())}
@@ -65,7 +71,31 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Toggle checked={false} />
+          <Toggle
+            discSize={24}
+            discMargin={4}
+            width={72}
+            checkedNode={
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="black"
+              >
+                <LangDisplay text={strings.toggle.on} />
+              </Typography>
+            }
+            unCheckedNode={
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="muted"
+              >
+                <LangDisplay text={strings.toggle.off} />
+              </Typography>
+            }
+            checked={isAnalyticsAndBugReportEnabled}
+            onToggle={setAnalyticsAndBugReportEnabled}
+          />
         </Flex>
       </TabItem>
       <TabItem>
@@ -96,7 +126,31 @@ export const AppSettings: React.FC = () => {
           </Typography>
         </Flex>
         <Flex>
-          <Toggle checked={false} />
+          <Toggle
+            discSize={24}
+            discMargin={4}
+            width={72}
+            checkedNode={
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="black"
+              >
+                <LangDisplay text={strings.toggle.on} />
+              </Typography>
+            }
+            unCheckedNode={
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="muted"
+              >
+                <LangDisplay text={strings.toggle.off} />
+              </Typography>
+            }
+            checked={isAutoUpdateCySyncEnabled}
+            onToggle={setAutoUpdateCySyncEnabled}
+          />
         </Flex>
       </TabItem>
       <TabItem>

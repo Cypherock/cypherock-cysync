@@ -1309,6 +1309,10 @@ const en = {
       },
     },
   },
+  toggle: {
+    on: 'ON',
+    off: 'OFF',
+  },
   settings: {
     tabs: {
       general: {

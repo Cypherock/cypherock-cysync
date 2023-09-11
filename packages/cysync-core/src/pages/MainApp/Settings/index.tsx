@@ -56,7 +56,7 @@ export const Settings: FC = () => {
           direction="column"
           align="stretch"
         >
-          <Flex gap={24}>
+          <Flex gap={{ def: 20, lg: 21 }}>
             {tabs.map((tab, index) => (
               <Flex
                 key={tab.label}
@@ -75,7 +75,7 @@ export const Settings: FC = () => {
                 </Typography>
                 <Divider
                   variant="horizontal"
-                  height={{ def: 3, lg: 4 }}
+                  height={{ def: 4, lg: 3 }}
                   background={
                     index === tabIndex ? theme.palette.golden : 'none'
                   }
