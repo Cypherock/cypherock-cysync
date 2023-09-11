@@ -1267,6 +1267,13 @@ const en = {
         titleSecondary: 'cySync ${version}',
       },
     },
+    auth: {
+      email2fa: {
+        title:
+          'You are recommended to enter an email ID as a 2FA to get authenticity results',
+        emailInput: 'Email',
+      },
+    },
   },
   settings: {
     tabs: {

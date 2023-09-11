@@ -4,7 +4,9 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -26,6 +28,9 @@ export interface AuthenticateX1VaultDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  email: string;
+  handleEmailChange: (email: string) => void;
+  error: string | null;
 }
 
 export const AuthenticateX1VaultDialogContext: Context<AuthenticateX1VaultDialogContextInterface> =
@@ -37,12 +42,30 @@ export interface AuthenticateX1VaultDialogProviderProps {
   children: ReactNode;
 }
 
+const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+
 export const AuthenticateX1VaultDialogProvider: FC<
   AuthenticateX1VaultDialogProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+
+  const validateEmail = () => {
+    if (email.length > 0 && !emailRegex.test(email)) {
+      setError('Invalid Email');
+      return;
+    }
+
+    setError(null);
+  };
+  useEffect(validateEmail, [email]);
+
+  const handleEmailChange = (_email: string) => {
+    setEmail(_email);
+  };
 
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Vault'));
@@ -77,6 +100,9 @@ export const AuthenticateX1VaultDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      email,
+      handleEmailChange,
+      error,
     }),
     [
       isDeviceRequired,
@@ -87,6 +113,9 @@ export const AuthenticateX1VaultDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      email,
+      handleEmailChange,
+      error,
     ],
   );
 

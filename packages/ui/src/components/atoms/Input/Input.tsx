@@ -30,6 +30,7 @@ export interface InputProps {
   $customImageSpacing?: boolean;
   $customRightSpacing?: number;
   $noBorder?: boolean;
+  required?: boolean;
 }
 
 const InputStyle = styled.input<{
@@ -118,6 +119,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         $error = false,
+        required = false,
         leftImage,
         $customImageSpacing,
         $customRightSpacing,
@@ -144,6 +146,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             disabled={disabled}
             $bgColor={$bgColor}
             value={value}
+            required={required}
             onClick={onClick}
             onPaste={e => {
               if (pasteAllowed) return true;
@@ -205,6 +208,7 @@ Input.defaultProps = {
   leftImage: undefined,
   $customImageSpacing: false,
   $customRightSpacing: undefined,
+  required: false,
 };
 
 Input.displayName = 'Input';
