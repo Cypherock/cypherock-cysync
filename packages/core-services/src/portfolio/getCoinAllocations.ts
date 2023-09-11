@@ -27,12 +27,18 @@ export const getCoinAllocations = async (params: {
   const total = allocations.reduce((t, a) => t.plus(a.value), new BigNumber(0));
 
   for (const allocation of allocations) {
-    allocationsWithPercentage.push({
-      ...allocation,
-      percentage: new BigNumber(allocation.value)
+    let percentage = 0;
+
+    if (!total.isNaN() && total.toNumber() !== 0) {
+      percentage = new BigNumber(allocation.value)
         .dividedBy(total)
         .multipliedBy(100)
-        .toNumber(),
+        .toNumber();
+    }
+
+    allocationsWithPercentage.push({
+      ...allocation,
+      percentage,
     });
   }
 

@@ -367,7 +367,6 @@ const en = {
         enterPassphrase: 'Enter passphrase',
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
-        processing: 'Getting keys from device',
       },
     },
     sync: {

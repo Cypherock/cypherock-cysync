@@ -5,5 +5,5 @@ export * from './DialogManager';
 export * from './Topbar';
 export * from './CoinIcon';
 export * from './AppUpdateBar';
-export * from './GenericLoader';
+export * from './LoaderDialog';
 export * from './CloseConfirmationDialog';
