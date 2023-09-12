@@ -10,8 +10,8 @@ import {
   LangDisplay,
   Typography,
   useTheme,
+  Tab,
 } from '@cypherock/cysync-ui';
-import { Tab } from '@cypherock/cysync-ui/src';
 import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
 
 export const Settings: FC = () => {
