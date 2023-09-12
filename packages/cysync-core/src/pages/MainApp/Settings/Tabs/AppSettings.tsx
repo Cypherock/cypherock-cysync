@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LangDisplay, Toggle, Typography } from '@cypherock/cysync-ui';
+import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
 import { SettingsStandardItem, SettingsButton } from '../components';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
@@ -49,27 +49,9 @@ export const AppSettings: React.FC = () => {
         description={{ text: item.anayticsAndBugReport.description }}
       >
         <Toggle
-          $discSize={24}
-          $discMargin={4}
-          $width={72}
-          checkedNode={
-            <Typography
-              $textAlign="center"
-              $fontWeight="semibold"
-              color="black"
-            >
-              <LangDisplay text={strings.toggle.on} />
-            </Typography>
-          }
-          unCheckedNode={
-            <Typography
-              $textAlign="center"
-              $fontWeight="semibold"
-              color="muted"
-            >
-              <LangDisplay text={strings.toggle.off} />
-            </Typography>
-          }
+          variant="large"
+          offText={strings.toggle.off}
+          onText={strings.toggle.on}
           checked={isAnalyticsAndBugReportEnabled}
           onToggle={setAnalyticsAndBugReportEnabled}
         />
@@ -90,27 +72,9 @@ export const AppSettings: React.FC = () => {
         description={{ text: item.update.description }}
       >
         <Toggle
-          $discSize={24}
-          $discMargin={4}
-          $width={72}
-          checkedNode={
-            <Typography
-              $textAlign="center"
-              $fontWeight="semibold"
-              color="black"
-            >
-              <LangDisplay text={strings.toggle.on} />
-            </Typography>
-          }
-          unCheckedNode={
-            <Typography
-              $textAlign="center"
-              $fontWeight="semibold"
-              color="muted"
-            >
-              <LangDisplay text={strings.toggle.off} />
-            </Typography>
-          }
+          variant="large"
+          offText={strings.toggle.off}
+          onText={strings.toggle.on}
           checked={isAutoUpdateCySyncEnabled}
           onToggle={setAutoUpdateCySyncEnabled}
         />

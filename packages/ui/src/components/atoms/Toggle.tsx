@@ -1,16 +1,16 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { goldenGradient } from '../utils/Gradient';
+import { Typography } from './Typography';
+import { LangDisplay } from './LangDisplay';
 
-interface ToggleProps {
+export interface ToggleProps {
   checked: boolean;
   onToggle?: (checked: boolean) => void;
-  $discSize?: number;
-  $discMargin?: number;
-  $width?: number;
-  checkedNode?: React.ReactNode;
-  unCheckedNode?: React.ReactNode;
+  variant?: 'large' | 'tiny';
+  onText?: string;
+  offText?: string;
 }
 
 interface ToggleAttributes {
@@ -99,11 +99,9 @@ const UnCheckedNode = styled.div<ToggleAttributes>`
 export const Toggle: React.FC<ToggleProps> = ({
   checked,
   onToggle,
-  $width = 32,
-  $discSize = 10,
-  $discMargin = 3,
-  checkedNode,
-  unCheckedNode,
+  variant,
+  onText,
+  offText,
 }) => {
   const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
     if (onToggle) {
@@ -120,10 +118,22 @@ export const Toggle: React.FC<ToggleProps> = ({
     }
   };
 
+  const variantProps = useMemo(() => {
+    if (variant === 'large')
+      return {
+        $width: 72,
+        $discMargin: 4,
+        $discSize: 24,
+      };
+    return {
+      $discSize: 10,
+      $discMargin: 3,
+      $width: 32,
+    };
+  }, [variant]);
+
   const toggleAttributes = {
-    $width,
-    $discMargin,
-    $discSize,
+    ...variantProps,
     checked,
   };
 
@@ -135,11 +145,19 @@ export const Toggle: React.FC<ToggleProps> = ({
         onChange={handleCheck}
         tabIndex={-1}
       />
-      {checkedNode && (
-        <CheckedNode {...toggleAttributes}>{checkedNode}</CheckedNode>
+      {variant === 'large' && onText && (
+        <CheckedNode {...toggleAttributes}>
+          <Typography $textAlign="center" $fontWeight="semibold" color="black">
+            <LangDisplay text={onText} />
+          </Typography>
+        </CheckedNode>
       )}
-      {unCheckedNode && (
-        <UnCheckedNode {...toggleAttributes}>{unCheckedNode}</UnCheckedNode>
+      {variant === 'large' && offText && (
+        <UnCheckedNode {...toggleAttributes}>
+          <Typography $textAlign="center" $fontWeight="semibold" color="muted">
+            <LangDisplay text={offText} />
+          </Typography>
+        </UnCheckedNode>
       )}
       <Slider {...toggleAttributes} />
     </ToggleSwitch>
@@ -148,9 +166,7 @@ export const Toggle: React.FC<ToggleProps> = ({
 
 Toggle.defaultProps = {
   onToggle: undefined,
-  $discSize: 10,
-  $discMargin: 3,
-  $width: 32,
-  checkedNode: undefined,
-  unCheckedNode: undefined,
+  onText: undefined,
+  offText: undefined,
+  variant: 'tiny',
 };
