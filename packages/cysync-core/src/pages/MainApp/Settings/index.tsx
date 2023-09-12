@@ -85,7 +85,16 @@ export const Settings: FC = () => {
           </Flex>
           <Divider variant="horizontal" />
         </Flex>
-        {tabs[tabIndex].content}
+        <Flex
+          $alignSelf="stretch"
+          direction="column"
+          align="stretch"
+          px={{ def: 3, lg: 5 }}
+          py={{ def: 2, lg: 4 }}
+          gap={32}
+        >
+          {tabs[tabIndex].content}
+        </Flex>
       </Container>
     </MainAppLayout>
   );
