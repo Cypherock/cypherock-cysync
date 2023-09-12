@@ -49,9 +49,9 @@ export const AppSettings: React.FC = () => {
         description={{ text: item.anayticsAndBugReport.description }}
       >
         <Toggle
-          discSize={24}
-          discMargin={4}
-          width={72}
+          $discSize={24}
+          $discMargin={4}
+          $width={72}
           checkedNode={
             <Typography
               $textAlign="center"
@@ -90,9 +90,9 @@ export const AppSettings: React.FC = () => {
         description={{ text: item.update.description }}
       >
         <Toggle
-          discSize={24}
-          discMargin={4}
-          width={72}
+          $discSize={24}
+          $discMargin={4}
+          $width={72}
           checkedNode={
             <Typography
               $textAlign="center"
