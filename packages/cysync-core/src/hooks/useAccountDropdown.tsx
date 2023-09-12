@@ -45,7 +45,7 @@ export const useAccountDropdown = () => {
         .map(account => ({
           id: account.__id,
           checkType: 'radio',
-          leftImage: <CoinIcon assetId={account.assetId} />,
+          leftImage: <CoinIcon parentAssetId={account.parentAssetId} />,
           text: account.name,
           shortForm: `(${coinList[account.assetId].abbr})`,
           tag: lodash.upperCase(account.derivationScheme),

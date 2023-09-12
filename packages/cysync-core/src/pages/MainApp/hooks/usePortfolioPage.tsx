@@ -147,7 +147,7 @@ export const usePortfolioPage = () => {
             assetId: r.assetId,
             assetAbbr: coinList[r.assetId].abbr,
             assetName: coinList[r.assetId].name,
-            assetIcon: <CoinIcon assetId={r.assetId} size="24px" />,
+            assetIcon: <CoinIcon parentAssetId={r.assetId} size="24px" />,
             balance: new BigNumber(r.balance).toNumber(),
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),

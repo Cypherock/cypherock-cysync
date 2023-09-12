@@ -17,6 +17,8 @@ import {
   getBalance,
   mapTransactionsForDb,
   mapInternalTransactionsForDb,
+  getContractTransactions,
+  mapContractTransactionsForDb,
 } from '../../services';
 import { IEvmAccount } from '../types';
 
@@ -33,7 +35,8 @@ const fetchAndParseTransactions = async (params: {
     afterTransactionBlock ??
     (await getLatestTransactionBlock(db, {
       accountId: account.__id,
-    }));
+    })) ??
+    undefined;
 
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
@@ -74,7 +77,8 @@ const fetchAndParseInternalTransactions = async (params: {
 
   const afterBlock =
     afterInternalTransactionBlock ??
-    updatedAccountInfo.extraData.lastInternalTransactionBlockHeight;
+    updatedAccountInfo.extraData.lastInternalTransactionBlockHeight ??
+    undefined;
 
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
@@ -100,19 +104,62 @@ const fetchAndParseInternalTransactions = async (params: {
   return { hasMore, transactions, afterBlock: newAfterBlock };
 };
 
+const fetchAndParseContractTransactions = async (params: {
+  db: IDatabase;
+  account: IAccount;
+  updatedAccountInfo: Partial<IAccount>;
+  afterContractTransactionBlock: number | undefined;
+}) => {
+  const { db, afterContractTransactionBlock } = params;
+  const account = params.account as IEvmAccount;
+  const updatedAccountInfo = params.updatedAccountInfo as IEvmAccount;
+
+  const afterBlock =
+    afterContractTransactionBlock ??
+    updatedAccountInfo.extraData.lastContractTransactionBlockHeight ??
+    undefined;
+
+  const transactionDetails = await getContractTransactions({
+    address: account.xpubOrAddress,
+    assetId: account.assetId,
+    from: afterBlock,
+    limit: PER_PAGE_TXN_LIMIT,
+  });
+
+  const transactions = await mapContractTransactionsForDb({
+    account,
+    transactions: transactionDetails.result,
+    db,
+  });
+
+  const hasMore = transactionDetails.more;
+
+  const newAfterBlock = Math.max(
+    ...transactions
+      .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
+      .map(t => t.blockHeight),
+  );
+
+  return { hasMore, transactions, afterBlock: newAfterBlock };
+};
+
 const getAddressDetails: IGetAddressDetails<{
   updatedBalance?: string;
   updatedAccountInfo?: Partial<IAccount>;
   afterTransactionBlock?: number;
-  afterInternalTransactionBlock?: number;
   hasMoreTransactions?: boolean;
+  afterInternalTransactionBlock?: number;
   hasMoreInternalTransactions?: boolean;
+  afterContractTransactionBlock?: number;
+  hasMoreContractTransactions?: boolean;
 }> = async ({ db, account, iterationContext }) => {
   let {
     afterTransactionBlock,
     afterInternalTransactionBlock,
     hasMoreTransactions,
     hasMoreInternalTransactions,
+    hasMoreContractTransactions,
+    afterContractTransactionBlock,
   } = iterationContext ?? {};
 
   const updatedBalance =
@@ -152,15 +199,45 @@ const getAddressDetails: IGetAddressDetails<{
     transactions.push(...internalTransactionDetails.transactions);
     hasMoreInternalTransactions = internalTransactionDetails.hasMore;
     afterInternalTransactionBlock = internalTransactionDetails.afterBlock;
+    updatedAccountInfo.extraData.lastInternalTransactionBlockHeight =
+      afterInternalTransactionBlock;
   }
 
-  const hasMore = hasMoreTransactions || hasMoreInternalTransactions;
+  console.log({
+    updatedAccountInfo,
+    account,
+    afterContractTransactionBlock,
+    hasMoreContractTransactions,
+  });
+  if (hasMoreContractTransactions !== false) {
+    const contractTransactionDetails = await fetchAndParseContractTransactions({
+      db,
+      updatedAccountInfo,
+      account,
+      afterContractTransactionBlock,
+    });
+
+    transactions.push(...contractTransactionDetails.transactions);
+    hasMoreContractTransactions = contractTransactionDetails.hasMore;
+    afterContractTransactionBlock = contractTransactionDetails.afterBlock;
+    (
+      updatedAccountInfo as IEvmAccount
+    ).extraData.lastContractTransactionBlockHeight =
+      afterContractTransactionBlock;
+  }
+
+  const hasMore =
+    hasMoreTransactions ||
+    hasMoreInternalTransactions ||
+    hasMoreContractTransactions;
 
   return {
     hasMore,
     transactions,
     updatedAccountInfo,
     nextIterationContext: {
+      afterContractTransactionBlock,
+      hasMoreContractTransactions,
       hasMoreTransactions,
       hasMoreInternalTransactions,
       afterInternalTransactionBlock,

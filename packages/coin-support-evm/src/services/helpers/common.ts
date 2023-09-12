@@ -34,6 +34,7 @@ export const parseTransaction = (params: {
     accountId: account.__id ?? '',
     walletId: account.walletId,
     assetId: account.assetId,
+    parentAssetId: account.assetId,
     familyId: account.familyId,
     amount: selfTransfer ? '0' : amount,
     fees: fees.toString(),

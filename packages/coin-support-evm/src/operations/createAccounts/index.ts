@@ -5,6 +5,7 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
@@ -64,9 +65,10 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
-      type: 'account',
+      type: AccountTypeMap.account,
       familyId: coin.family,
       assetId: params.coinId,
+      parentAssetId: params.coinId,
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
       isNew: addressDetails.txnCount <= 0,

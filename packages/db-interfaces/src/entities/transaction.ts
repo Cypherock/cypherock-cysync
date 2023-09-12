@@ -42,7 +42,7 @@ export interface ITransaction extends IEntity {
   familyId: string;
   parentTransactionId?: string;
   parentAccountId?: string;
-  parentAssetId?: string;
+  parentAssetId: string;
 }
 
 export interface IDetailedTransaction extends ITransaction {

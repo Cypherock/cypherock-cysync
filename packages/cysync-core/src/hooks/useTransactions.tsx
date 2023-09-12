@@ -4,8 +4,8 @@ import {
   convertToUnit,
   getZeroUnit,
   getDefaultUnit,
+  getAsset,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
 import {
   SvgProps,
   TransactionTableStatus,
@@ -141,14 +141,16 @@ export const mapTransactionForDisplay = (params: {
     params;
 
   const { amount, unit } = getParsedAmount({
-    coinId: transaction.assetId,
-    unitAbbr: getDefaultUnit(transaction.assetId).abbr,
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
+    unitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
+      .abbr,
     amount: transaction.amount,
   });
 
   const { amount: fee, unit: feeUnit } = getParsedAmount({
-    coinId: transaction.assetId,
-    unitAbbr: getDefaultUnit(transaction.assetId).abbr,
+    coinId: transaction.parentAssetId,
+    unitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
     amount: transaction.fees,
   });
 
@@ -157,29 +159,25 @@ export const mapTransactionForDisplay = (params: {
   let displayFeeValue = '$0.00';
   const coinPrice = priceInfos.find(
     p =>
+      p.assetId === transaction.parentAssetId &&
+      p.currency.toLowerCase() === 'usd',
+  );
+  const assetPrice = priceInfos.find(
+    p =>
       p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
   );
   const wallet = wallets.find(w => w.__id === transaction.walletId);
   const account = accounts.find(a => a.__id === transaction.accountId);
 
   if (coinPrice) {
-    const amountInDefaultUnit = convertToUnit({
-      amount: transaction.amount,
-      fromUnitAbbr: getZeroUnit(transaction.assetId).abbr,
-      coinId: transaction.assetId,
-      toUnitAbbr: getDefaultUnit(transaction.assetId).abbr,
-    });
-    value = new BigNumber(amountInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
-
     const feeInDefaultUnit = convertToUnit({
       amount: transaction.fees,
-      fromUnitAbbr: getZeroUnit(transaction.assetId).abbr,
-      coinId: transaction.assetId,
-      toUnitAbbr: getDefaultUnit(transaction.assetId).abbr,
+      fromUnitAbbr: getZeroUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
+      coinId: transaction.parentAssetId,
+      assetId: transaction.assetId,
+      toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
     });
     const feeValue = new BigNumber(feeInDefaultUnit.amount)
       .multipliedBy(coinPrice.latestPrice)
@@ -188,11 +186,32 @@ export const mapTransactionForDisplay = (params: {
     displayFeeValue = `$${feeValue}`;
   }
 
+  if (assetPrice) {
+    const amountInDefaultUnit = convertToUnit({
+      amount: transaction.amount,
+      fromUnitAbbr: getZeroUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
+      coinId: transaction.parentAssetId,
+      assetId: transaction.assetId,
+      toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
+    });
+    value = new BigNumber(amountInDefaultUnit.amount)
+      .multipliedBy(assetPrice.latestPrice)
+      .toFixed(2)
+      .toString();
+    displayValue = `$${value}`;
+  }
+
   const timestamp = new Date(transaction.timestamp);
   const timeString = formatDate(timestamp, 'h:mm a');
   const dateString = formatDate(timestamp, 'd/M/yy');
   const dateTime = formatDate(timestamp, 'eeee, MMMM d yyyy h:mm a');
   const dateHeader = formatDate(timestamp, 'eeee, MMMM d yyyy');
+  const assetName = getAsset(
+    transaction.parentAssetId,
+    transaction.assetId,
+  ).name;
 
   return {
     id: transaction.__id ?? '',
@@ -205,7 +224,7 @@ export const mapTransactionForDisplay = (params: {
     walletAndAccount: `${wallet?.name ?? ''} ${account?.name ?? ''} ${
       account?.derivationScheme ?? ''
     }`,
-    assetName: coinList[transaction.assetId].name,
+    assetName,
     accountName: account?.name ?? '',
     accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
     displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
@@ -215,10 +234,19 @@ export const mapTransactionForDisplay = (params: {
     amount: parseFloat(amount),
     value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
-      <CoinIcon assetId={transaction.assetId} width={width} height={height} />
+      <CoinIcon
+        parentAssetId={transaction.parentAssetId}
+        width={width}
+        height={height}
+      />
     ),
     assetIcon: ({ width, height }: any) => (
-      <CoinIcon assetId={transaction.assetId} width={width} height={height} />
+      <CoinIcon
+        parentAssetId={transaction.parentAssetId}
+        assetId={transaction.assetId}
+        width={width}
+        height={height}
+      />
     ),
     status: transaction.status,
     statusText: lodash.capitalize(transaction.status),

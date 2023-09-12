@@ -39,7 +39,7 @@ export const MilestoneAside: FC<{
     {heading ? (
       <Typography $fontSize={18}>{heading}</Typography>
     ) : (
-      <Image width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
+      <Image $width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     )}
     <Flex direction="column" py={8}>
       {milestones.map((milestone, index) => (

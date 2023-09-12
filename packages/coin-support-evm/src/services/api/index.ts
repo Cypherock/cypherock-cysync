@@ -1,7 +1,11 @@
 import { evmCoinList } from '@cypherock/coins';
 import axios from 'axios';
 
+import { IEvmContractTransactionResult, IEvmTransactionResult } from './types';
+
 import { config } from '../../config';
+
+export * from './types';
 
 const baseURL = `${config.API_CYPHEROCK}/eth`;
 
@@ -37,34 +41,6 @@ export const getTransactionCount = async (address: string, assetId: string) => {
   return count;
 };
 
-export interface IEvmTransactionItem {
-  blockNumber: string;
-  timeStamp: string;
-  hash: string;
-  nonce: string;
-  blockHash: string;
-  transactionIndex: string;
-  from: string;
-  to: string;
-  value: string;
-  gas: string;
-  gasPrice: string;
-  isError: string;
-  txreceipt_status: string;
-  input: string;
-  contractAddress: string;
-  cumulativeGasUsed: string;
-  gasUsed: string;
-  confirmations: string;
-  methodId: string;
-  functionName?: string;
-}
-
-export interface IEvmTransactionResult {
-  result: IEvmTransactionItem[];
-  more: boolean;
-}
-
 export const getTransactions = async (params: {
   address: string;
   assetId: string;
@@ -74,6 +50,27 @@ export const getTransactions = async (params: {
   internal?: boolean;
 }): Promise<IEvmTransactionResult> => {
   const url = `${baseURL}/transaction/history`;
+
+  const query: Record<string, any> = {
+    ...params,
+    responseType: 'v2',
+    network: evmCoinList[params.assetId].network,
+  };
+  delete query.assetId;
+
+  const response = await axios.post(url, query);
+
+  return response.data;
+};
+
+export const getContractTransactions = async (params: {
+  address: string;
+  assetId: string;
+  contractAddress?: string;
+  from?: number;
+  limit?: number;
+}): Promise<IEvmContractTransactionResult> => {
+  const url = `${baseURL}/transaction/contract-history`;
 
   const query: Record<string, any> = {
     ...params,

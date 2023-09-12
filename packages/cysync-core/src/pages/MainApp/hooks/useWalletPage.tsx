@@ -13,7 +13,7 @@ import {
   BreadcrumbDropdownItem,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, { ReactNode, useState, useMemo, useEffect } from 'react';
@@ -182,7 +182,12 @@ export const useWalletPage = () => {
   }));
 
   const accounts = useMemo(
-    () => allAccounts.filter(a => a.walletId === selectedWallet?.__id),
+    () =>
+      allAccounts.filter(
+        a =>
+          a.walletId === selectedWallet?.__id &&
+          a.type === AccountTypeMap.account,
+      ),
     [allAccounts, selectedWallet],
   );
 
@@ -199,7 +204,8 @@ export const useWalletPage = () => {
   useEffect(() => {
     const mappedAccounts: AccountRowData[] = accounts.map(a => {
       const { amount, unit } = getParsedAmount({
-        coinId: a.assetId,
+        coinId: a.parentAssetId,
+        assetId: a.assetId,
         unitAbbr: a.unit,
         amount: a.balance,
       });
@@ -213,9 +219,10 @@ export const useWalletPage = () => {
       if (coinPrice) {
         const balanceInDefaultUnit = convertToUnit({
           amount: a.balance,
-          fromUnitAbbr: getZeroUnit(a.assetId).abbr,
-          coinId: a.assetId,
-          toUnitAbbr: getDefaultUnit(a.assetId).abbr,
+          fromUnitAbbr: getZeroUnit(a.parentAssetId, a.assetId).abbr,
+          coinId: a.parentAssetId,
+          assetId: a.assetId,
+          toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
         });
         value = new BigNumber(balanceInDefaultUnit.amount)
           .multipliedBy(coinPrice.latestPrice)
@@ -226,9 +233,9 @@ export const useWalletPage = () => {
 
       return {
         id: a.__id ?? '',
-        leftImage: <CoinIcon size="32px" assetId={a.assetId} />,
+        leftImage: <CoinIcon size="32px" parentAssetId={a.parentAssetId} />,
         text: a.name,
-        subText: coinList[a.assetId].name,
+        subText: coinList[a.parentAssetId].name,
         tag: lodash.upperCase(a.derivationScheme),
         statusImage:
           accountSyncIconMap[
