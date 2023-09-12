@@ -62,7 +62,7 @@ export const AppUpdateDialogBox: FC = () => {
         versionText={
           lang.strings.onboarding.appUpdate.dialogs.downloading.version
         }
-        versionTextVaribles={updateInfo}
+        versionTextVariables={updateInfo}
         icon={<AppUpdateIcon />}
         progress={downloadProgress}
       />

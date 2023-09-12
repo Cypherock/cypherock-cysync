@@ -6,6 +6,7 @@ import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
 export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;
   textVariables?: object;
+  showCloseButton?: boolean;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -16,6 +17,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   isOnboarding,
   textVariables,
   defaultMsg,
+  showCloseButton,
 }) => {
   const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
@@ -41,6 +43,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
       title={`${errorToShow.heading} (${errorToShow.code})`}
       subtext={errorToShow.subtext}
       textVariables={textVariables}
+      onClose={showCloseButton ? onClose : undefined}
     />
   );
 };
@@ -48,4 +51,5 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
 ErrorHandlerDialog.defaultProps = {
   children: undefined,
   textVariables: undefined,
+  showCloseButton: undefined,
 };

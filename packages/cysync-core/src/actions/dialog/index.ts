@@ -28,3 +28,9 @@ export const openSendDialog = () =>
 
 export const openHistoryDialog = (props?: IHistoryDialogProps) =>
   openDialog({ name: 'historyDialog', data: props });
+
+export const openDeviceUpdateDialog = () =>
+  openDialog({ name: 'deviceUpdateDialog', data: undefined });
+
+export const openDeviceAuthenticationDialog = () =>
+  openDialog({ name: 'deviceAuthenticationDialog', data: undefined });

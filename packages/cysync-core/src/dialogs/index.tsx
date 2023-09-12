@@ -3,6 +3,8 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
+import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import { ReceiveDialog } from './Receive';
@@ -22,4 +24,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
   signMessage: SignMessageDialog,
+  deviceUpdateDialog: DeviceUpdateDialog,
+  deviceAuthenticationDialog: DeviceAuthenticationDialog,
 };

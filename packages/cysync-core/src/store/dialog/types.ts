@@ -2,12 +2,11 @@ import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 
 export interface IDialogState {
-  addAccount: {
+  deviceAuthenticationDialog: {
     isOpen: boolean;
-    data?: AddAccountDialogProps;
+    data?: undefined;
   };
-
-  receive: {
+  deviceUpdateDialog: {
     isOpen: boolean;
     data?: undefined;
   };
@@ -17,21 +16,14 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  walletActions: {
+  addAccount: {
     isOpen: boolean;
-    data?: undefined;
+    data?: AddAccountDialogProps;
   };
 
-  walletConnect: {
+  receive: {
     isOpen: boolean;
     data?: undefined;
-  };
-
-  guidedFlow: {
-    isOpen: boolean;
-    data?: {
-      type: GuidedFlowType;
-    };
   };
 
   sendDialog: {
@@ -43,6 +35,24 @@ export interface IDialogState {
     isOpen: boolean;
     data?: IHistoryDialogProps;
   };
+
+  walletActions: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  guidedFlow: {
+    isOpen: boolean;
+    data?: {
+      type: GuidedFlowType;
+    };
+  };
+
+  walletConnect: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   signMessage: {
     isOpen: boolean;
     data?: undefined;

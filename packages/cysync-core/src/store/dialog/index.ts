@@ -10,6 +10,12 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
+  deviceAuthenticationDialog: {
+    isOpen: false,
+  },
+  deviceUpdateDialog: {
+    isOpen: false,
+  },
   walletSyncError: {
     isOpen: false,
   },

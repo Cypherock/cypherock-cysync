@@ -322,6 +322,16 @@ const en = {
     disconnect: 'Disconnect',
     reject: 'Reject',
   },
+  deviceAuthentication: {
+    success: {
+      title: 'Your X1 Vault is authenticated successfully',
+    },
+    loading: {
+      title: 'Please wait while your X1 Vault is being authenticated',
+      subtitle:
+        'Do not disconnect your X1 Vault while the operation is being done',
+    },
+  },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
     passwordLabel: 'Enter Password to unlock cySync',
@@ -788,6 +798,10 @@ const en = {
       tryAgain: 'Try Again',
       installUpdate: 'Install Update',
     },
+  },
+  deviceUpdateBar: {
+    message: 'Firmware update version ${version} available',
+    button: 'Download',
   },
   topbar: {
     statusTexts: {
