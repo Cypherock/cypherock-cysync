@@ -23,10 +23,10 @@ export const DeviceSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.x1VaultUpdate} />
+            <LangDisplay text={item.x1VaultUpdate.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.x1VaultUpdateDesc} />
+            <LangDisplay text={item.x1VaultUpdate.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -38,10 +38,10 @@ export const DeviceSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.x1VaultAuth} />
+            <LangDisplay text={item.x1VaultAuth.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.x1VaultAuthDesc} />
+            <LangDisplay text={item.x1VaultAuth.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -56,10 +56,10 @@ export const DeviceSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.x1CardAuth} />
+            <LangDisplay text={item.x1CardAuth.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.x1CardAuthDesc} />
+            <LangDisplay text={item.x1CardAuth.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -74,10 +74,10 @@ export const DeviceSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.transferWallet} />
+            <LangDisplay text={item.transferWallet.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.transferWalletDesc} />
+            <LangDisplay text={item.transferWallet.description} />
           </Typography>
         </Flex>
         <Flex>

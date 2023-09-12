@@ -27,11 +27,11 @@ export const About: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.cySyncVersion} />
+            <LangDisplay text={item.cySyncVersion.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
             <LangDisplay
-              text={item.cySyncVersionDesc}
+              text={item.cySyncVersion.description}
               variables={{ version: window.cysyncEnv.VERSION }}
             />
           </Typography>
@@ -48,10 +48,10 @@ export const About: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.termsOfUse} />
+            <LangDisplay text={item.termsOfUse.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.termsOfUseDesc} />
+            <LangDisplay text={item.termsOfUse.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -63,10 +63,10 @@ export const About: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.privacyPolicy} />
+            <LangDisplay text={item.privacyPolicy.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.privacyPolicyDesc} />
+            <LangDisplay text={item.privacyPolicy.description} />
           </Typography>
         </Flex>
         <Flex>

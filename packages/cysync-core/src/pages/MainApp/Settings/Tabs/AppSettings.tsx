@@ -30,10 +30,10 @@ export const AppSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.password} />
+            <LangDisplay text={item.password.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.passwordDesc} />
+            <LangDisplay text={item.password.description} />
           </Typography>
         </Flex>
         <Flex gap={16} direction={{ def: 'column', lg: 'row' }}>
@@ -64,10 +64,10 @@ export const AppSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.anayticsAndBugReport} />
+            <LangDisplay text={item.anayticsAndBugReport.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.anayticsAndBugReportDesc} />
+            <LangDisplay text={item.anayticsAndBugReport.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -101,10 +101,10 @@ export const AppSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.reset} />
+            <LangDisplay text={item.reset.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.resetDesc} />
+            <LangDisplay text={item.reset.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -119,10 +119,10 @@ export const AppSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.update} />
+            <LangDisplay text={item.update.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.updateDesc} />
+            <LangDisplay text={item.update.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -156,10 +156,10 @@ export const AppSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.usb} />
+            <LangDisplay text={item.usb.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.usbDesc} />
+            <LangDisplay text={item.usb.description} />
           </Typography>
         </Flex>
         <Flex>
