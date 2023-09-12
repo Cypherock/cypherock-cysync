@@ -16,14 +16,7 @@ export const About: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Flex
-      $alignSelf="stretch"
-      direction="column"
-      align="stretch"
-      px={{ def: 3, lg: 5 }}
-      py={{ def: 2, lg: 4 }}
-      gap={32}
-    >
+    <>
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
@@ -75,6 +68,6 @@ export const About: React.FC = () => {
           </Link>
         </Flex>
       </TabItem>
-    </Flex>
+    </>
   );
 };
