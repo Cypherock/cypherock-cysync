@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { deleteWallets } from '~/actions';
+import { deleteWallets } from '~/actions/wallet/deleteWallets';
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
@@ -94,7 +94,8 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         navigateTo(routes.onboarding.info.path);
       },
       [ErrorActionButtonHandlerMap.deleteWallets]: () => {
-        dispatch(deleteWallets([selectedWallet as IWallet]));
+        console.log(selectedWallet);
+        if (selectedWallet) dispatch(deleteWallets([selectedWallet]));
         onClose();
       },
       [ErrorActionButtonHandlerMap.close]: () => {
