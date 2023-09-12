@@ -56,13 +56,13 @@ export const Settings: FC = () => {
           direction="column"
           align="stretch"
         >
-          <Flex gap={{ def: 20, lg: 21 }}>
+          <Flex gap={24}>
             {tabs.map((tab, index) => (
               <Flex
                 key={tab.label}
                 direction="column"
                 align="center"
-                gap={24}
+                gap={{ def: 20, lg: 21 }}
                 $cursor="pointer"
                 onClick={() => setTabIndex(index)}
               >
