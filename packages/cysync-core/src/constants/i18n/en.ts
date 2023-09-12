@@ -1338,8 +1338,8 @@ const en = {
       about: {
         title: 'About',
         item: {
-          cySyncersion: 'cySync Version',
-          cySyncersionDesc: 'Version ${version}',
+          cySyncVersion: 'cySync Version',
+          cySyncVersionDesc: 'Version ${version}',
           termsOfUse: 'Terms of Use',
           termsOfUseDesc: 'By using cySync you agree to our Terms of Use',
           privacyPolicy: 'Privacy Policy',

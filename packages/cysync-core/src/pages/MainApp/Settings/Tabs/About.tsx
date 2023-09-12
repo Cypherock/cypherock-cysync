@@ -27,11 +27,11 @@ export const About: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.cySyncersion} />
+            <LangDisplay text={item.cySyncVersion} />
           </Typography>
           <Typography $fontSize={16} color="muted">
             <LangDisplay
-              text={item.cySyncersionDesc}
+              text={item.cySyncVersionDesc}
               variables={{ version: window.cysyncEnv.VERSION }}
             />
           </Typography>
