@@ -6,28 +6,29 @@ import { goldenGradient } from '../utils/Gradient';
 interface ToggleProps {
   checked: boolean;
   onToggle?: (checked: boolean) => void;
-  discSize?: number;
-  discMargin?: number;
-  width?: number;
+  $discSize?: number;
+  $discMargin?: number;
+  $width?: number;
   checkedNode?: React.ReactNode;
   unCheckedNode?: React.ReactNode;
 }
 
 interface ToggleAttributes {
   checked: boolean;
-  discSize: number;
-  discMargin: number;
-  width: number;
+  $discSize: number;
+  $discMargin: number;
+  $width: number;
 }
 
 const ToggleSwitch = styled.label<ToggleAttributes>`
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: ${({ width, discSize, discMargin }) =>
-    Math.max(width, discSize + 2 * discMargin)}px;
-  height: ${({ discSize, discMargin }) => discSize + 2 * discMargin}px;
-  border-radius: ${({ discSize, discMargin }) => discSize / 2 + discMargin}px;
+  width: ${({ $width, $discSize, $discMargin }) =>
+    Math.max($width, $discSize + 2 * $discMargin)}px;
+  height: ${({ $discSize, $discMargin }) => $discSize + 2 * $discMargin}px;
+  border-radius: ${({ $discSize, $discMargin }) =>
+    $discSize / 2 + $discMargin}px;
   ${({ checked, theme }) =>
     checked
       ? goldenGradient('background')
@@ -38,12 +39,12 @@ const ToggleSwitch = styled.label<ToggleAttributes>`
 
 const Slider = styled.span<ToggleAttributes>`
   position: absolute;
-  height: ${({ discSize }) => discSize}px;
-  width: ${({ discSize }) => discSize}px;
-  top: ${({ discMargin }) => discMargin}px;
-  bottom: ${({ discMargin }) => discMargin}px;
-  left: ${({ checked, discSize, discMargin }) =>
-    checked ? `calc(100% - ${discSize + discMargin}px)` : `${discMargin}px`};
+  height: ${({ $discSize }) => $discSize}px;
+  width: ${({ $discSize }) => $discSize}px;
+  top: ${({ $discMargin }) => $discMargin}px;
+  bottom: ${({ $discMargin }) => $discMargin}px;
+  left: ${({ checked, $discSize, $discMargin }) =>
+    checked ? `calc(100% - ${$discSize + $discMargin}px)` : `${$discMargin}px`};
   background-color: ${({ checked, theme }) =>
     checked
       ? theme.palette.background.toggleActive
@@ -71,8 +72,8 @@ const CheckedNode = styled.div<ToggleAttributes>`
   align-items: center;
   overflow: hidden;
   opacity: ${({ checked }) => (checked ? 1 : 0)};
-  padding-right: ${({ discMargin, discSize }) => discSize + discMargin}px;
-  padding-left: ${({ discMargin }) => discMargin}px;
+  padding-right: ${({ $discMargin, $discSize }) => $discSize + $discMargin}px;
+  padding-left: ${({ $discMargin }) => $discMargin}px;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
 `;
@@ -89,8 +90,8 @@ const UnCheckedNode = styled.div<ToggleAttributes>`
   align-items: center;
   overflow: hidden;
   opacity: ${({ checked }) => (checked ? 0 : 1)};
-  padding-left: ${({ discMargin, discSize }) => discSize + discMargin}px;
-  padding-right: ${({ discMargin }) => discMargin}px;
+  padding-left: ${({ $discMargin, $discSize }) => $discSize + $discMargin}px;
+  padding-right: ${({ $discMargin }) => $discMargin}px;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
 `;
@@ -98,9 +99,9 @@ const UnCheckedNode = styled.div<ToggleAttributes>`
 export const Toggle: React.FC<ToggleProps> = ({
   checked,
   onToggle,
-  width = 32,
-  discSize = 10,
-  discMargin = 3,
+  $width = 32,
+  $discSize = 10,
+  $discMargin = 3,
   checkedNode,
   unCheckedNode,
 }) => {
@@ -120,9 +121,9 @@ export const Toggle: React.FC<ToggleProps> = ({
   };
 
   const toggleAttributes = {
-    width,
-    discMargin,
-    discSize,
+    $width,
+    $discMargin,
+    $discSize,
     checked,
   };
 
@@ -147,9 +148,9 @@ export const Toggle: React.FC<ToggleProps> = ({
 
 Toggle.defaultProps = {
   onToggle: undefined,
-  discSize: 10,
-  discMargin: 3,
-  width: 32,
+  $discSize: 10,
+  $discMargin: 3,
+  $width: 32,
   checkedNode: undefined,
   unCheckedNode: undefined,
 };
