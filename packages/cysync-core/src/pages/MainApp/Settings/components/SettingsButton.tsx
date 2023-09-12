@@ -10,6 +10,7 @@ export const SettingsButton: React.FC<ButtonProps> = ({
     px={{ def: '14', lg: 3 }}
     py={{ def: '6', lg: 1 }}
     $borderRadius={{ def: 4, lg: 6 }}
+    justify="center"
     {...props}
   >
     {children}
