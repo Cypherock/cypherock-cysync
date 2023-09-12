@@ -25,10 +25,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.syncMobile} />
+            <LangDisplay text={item.syncMobile.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.syncMobileDesc} />
+            <LangDisplay text={item.syncMobile.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -40,10 +40,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.editAccount} />
+            <LangDisplay text={item.editAccount.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.editAccountDesc} />
+            <LangDisplay text={item.editAccount.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -55,10 +55,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.toggleWalletOnPortfolio} />
+            <LangDisplay text={item.toggleWalletOnPortfolio.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.toggleWalletOnPortfolioDesc} />
+            <LangDisplay text={item.toggleWalletOnPortfolio.description} />
           </Typography>
         </Flex>
         <Flex>
@@ -68,10 +68,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.currency} />
+            <LangDisplay text={item.currency.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.currencyDesc} />
+            <LangDisplay text={item.currency.description} />
           </Typography>
         </Flex>
         <Flex width={300}>
@@ -90,10 +90,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.language} />
+            <LangDisplay text={item.language.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.languageDesc} />
+            <LangDisplay text={item.language.description} />
           </Typography>
         </Flex>
         <Flex width={300}>
@@ -112,10 +112,10 @@ export const GeneralSettings: React.FC = () => {
       <TabItem>
         <Flex direction="column" align="stretch">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.region} />
+            <LangDisplay text={item.region.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.regionDesc} />
+            <LangDisplay text={item.region.description} />
           </Typography>
         </Flex>
         <Flex width={300}>
