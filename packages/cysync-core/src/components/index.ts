@@ -8,3 +8,4 @@ export * from './AppUpdateBar';
 export * from './DeviceUpdateBar';
 export * from './LoaderDialog';
 export * from './CloseConfirmationDialog';
+export * from './AppUpdateFailedFallback';

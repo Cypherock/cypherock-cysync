@@ -2,6 +2,7 @@ import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
 
 import {
+  openAppUpdateDialog,
   openDeviceAuthenticationDialog,
   openDeviceUpdateDialog,
 } from '~/actions';
@@ -38,13 +39,17 @@ export const DeviceHandlingTask: React.FC = () => {
     dispatch(openDeviceAuthenticationDialog());
   };
 
+  const startAppUpdate = () => {
+    dispatch(openAppUpdateDialog());
+  };
+
   const onConnectionChange = async () => {
     if (!connection || !(await keyValueStore.isOnboardingCompleted.get())) {
       return;
     }
 
     if (connection.status === DeviceConnectionStatus.INCOMPATIBLE) {
-      // App Update
+      startAppUpdate();
     } else if (
       connection.status === DeviceConnectionStatus.CONNECTED &&
       connection.isBootloader

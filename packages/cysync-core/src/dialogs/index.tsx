@@ -3,6 +3,7 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AppUpdateDialog } from './AppUpdateDialog';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { GuidedFlow } from './GuidedFlow';
@@ -26,4 +27,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   signMessage: SignMessageDialog,
   deviceUpdateDialog: DeviceUpdateDialog,
   deviceAuthenticationDialog: DeviceAuthenticationDialog,
+  appUpdateDialog: AppUpdateDialog,
 };

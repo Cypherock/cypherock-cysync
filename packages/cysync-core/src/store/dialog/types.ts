@@ -6,6 +6,12 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  appUpdateDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   deviceUpdateDialog: {
     isOpen: boolean;
     data?: undefined;

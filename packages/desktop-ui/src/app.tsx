@@ -8,6 +8,8 @@ import {
   LockscreenProvider,
   BackgroundTasks,
   DialogManager,
+  AppUpdateProvider,
+  LatestDeviceVersionProvider,
 } from '@cypherock/cysync-core';
 import { GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -26,10 +28,14 @@ const App = () => (
             getDevices={window.electronAPI.getDevices}
             connectDevice={window.electronAPI.connectDevice}
           >
-            <AppRouter>
-              <DialogManager />
-              <BackgroundTasks />
-            </AppRouter>
+            <AppUpdateProvider>
+              <LatestDeviceVersionProvider>
+                <AppRouter>
+                  <DialogManager />
+                  <BackgroundTasks />
+                </AppRouter>
+              </LatestDeviceVersionProvider>
+            </AppUpdateProvider>
           </DeviceProvider>
         </LockscreenBoundary>
       </LockscreenProvider>

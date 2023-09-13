@@ -87,6 +87,7 @@ export const DeviceUpdateDialog: FC = () => {
         onRetry={onRetry}
         textVariables={{ version }}
         onClose={onClose}
+        showCloseButton
       >
         {DeviceUpdateDialogs[state]}
       </ErrorHandlerDialog>

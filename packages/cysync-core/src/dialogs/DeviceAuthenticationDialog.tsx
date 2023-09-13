@@ -9,6 +9,7 @@ import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { FC } from 'react';
 
 import { DeviceTask, useDeviceTask } from '~/hooks';
+import { keyValueStore } from '~/utils';
 
 import {
   ErrorHandlerDialog,

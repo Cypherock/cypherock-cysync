@@ -13,6 +13,9 @@ const initialState: IDialogState = {
   deviceAuthenticationDialog: {
     isOpen: false,
   },
+  appUpdateDialog: {
+    isOpen: false,
+  },
   deviceUpdateDialog: {
     isOpen: false,
   },

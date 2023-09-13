@@ -34,3 +34,6 @@ export const openDeviceUpdateDialog = () =>
 
 export const openDeviceAuthenticationDialog = () =>
   openDialog({ name: 'deviceAuthenticationDialog', data: undefined });
+
+export const openAppUpdateDialog = () =>
+  openDialog({ name: 'appUpdateDialog', data: undefined });
