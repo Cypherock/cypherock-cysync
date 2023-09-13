@@ -1,13 +1,15 @@
-import React from 'react';
 import {
   Flex,
   GoldExternalLink,
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
-import { SettingsButton, TabItem } from '../components';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import React from 'react';
+
 import { openCySyncVersionDetailsDialog } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+
+import { SettingsButton, TabItem } from '../components';
 
 export const About: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);

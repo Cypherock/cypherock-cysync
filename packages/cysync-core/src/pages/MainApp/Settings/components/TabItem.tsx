@@ -1,5 +1,5 @@
-import React from 'react';
 import { Divider, Flex } from '@cypherock/cysync-ui';
+import React from 'react';
 
 export interface TabItemProps {
   children: [React.ReactNode, React.ReactNode];

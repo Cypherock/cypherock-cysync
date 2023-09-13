@@ -10,12 +10,12 @@ import {
   Divider,
   Input,
 } from '@cypherock/cysync-ui';
+import { EmailIcon } from '@cypherock/cysync-ui/src';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAuthenticateX1CardDialog } from '../context';
-import { EmailIcon } from '@cypherock/cysync-ui/src';
 
 export const Email2FA: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

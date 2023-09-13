@@ -3,22 +3,22 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
+import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
+import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
+import {
+  ChangePasswordDialog,
+  RemovePasswordDialog,
+  SetPasswordDialog,
+} from './Password';
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import {
-  ChangePasswordDialog,
-  RemovePasswordDialog,
-  SetPasswordDialog,
-} from './Password';
-import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
-import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
-import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

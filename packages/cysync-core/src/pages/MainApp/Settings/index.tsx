@@ -1,8 +1,3 @@
-import React, { FC, useState } from 'react';
-
-import { selectLanguage, useAppSelector } from '~/store';
-
-import { MainAppLayout } from '../Components';
 import {
   Container,
   Divider,
@@ -12,7 +7,13 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { Tab } from '@cypherock/cysync-ui/src';
+import React, { FC, useState } from 'react';
+
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
+
+import { MainAppLayout } from '../Components';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);
