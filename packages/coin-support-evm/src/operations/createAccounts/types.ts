@@ -17,6 +17,10 @@ export interface IEvmAccount extends IAccount {
 
 export interface ICreatedEvmAccount extends ICreatedAccount {
   derivationScheme: EvmDerivationSchemeName;
+  extraData: {
+    lastInternalTransactionBlockHeight?: number;
+    lastContractTransactionBlockHeight?: number;
+  };
 }
 
 export type ICreateEvmAccountParams = ICreateAccountParams;

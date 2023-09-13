@@ -12,7 +12,11 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
-import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
+import {
+  ICreateEvmAccountParams,
+  ICreateEvmAccountEvent,
+  ICreatedEvmAccount,
+} from './types';
 
 import * as services from '../../services';
 
@@ -58,7 +62,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
     const coin = evmCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
-    return {
+    const account: ICreatedEvmAccount = {
       // TODO: name to be decided later
       name,
       xpubOrAddress: addressDetails.address,
@@ -70,9 +74,12 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
       assetId: params.coinId,
       parentAssetId: params.coinId,
       walletId: params.walletId,
-      derivationScheme: addressDetails.schemeName,
+      derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
+      extraData: {},
     };
+
+    return account;
   };
 
 const createApp = async (connection: IDeviceConnection) =>
