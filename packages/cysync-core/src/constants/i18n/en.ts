@@ -1273,6 +1273,14 @@ const en = {
           'You are recommended to enter an email ID as a 2FA to get authenticity results',
         emailInput: 'Email',
       },
+      authX1Card: {
+        title: 'Follow instructions on the X1 Vault',
+        description: 'Your device is now being authenticated',
+        info: 'Do not disconnect the device while it is being authenticated',
+        steps: {
+          confirmDevice: 'Confirm authentication on device',
+        },
+      },
     },
   },
   settings: {

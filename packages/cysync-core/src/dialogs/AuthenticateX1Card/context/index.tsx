@@ -17,7 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Email2FA } from '../Dialogs';
+import { Email2FA, X1CardAuthProcess } from '../Dialogs';
 
 export interface AuthenticateX1CardDialogContextInterface {
   tabs: ITabs;
@@ -74,8 +74,14 @@ export const AuthenticateX1CardDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.auth.email2fa.title,
       dialogs: [<Email2FA key="authenticate-x1-card-email -2fa" />],
+    },
+    {
+      name: lang.strings.dialogs.auth.authX1Card.title,
+      dialogs: [
+        <X1CardAuthProcess key="authenticate-x1-card-device-process" />,
+      ],
     },
   ];
 
