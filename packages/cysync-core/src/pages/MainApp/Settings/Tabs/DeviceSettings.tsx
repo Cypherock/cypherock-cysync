@@ -1,11 +1,13 @@
-import React from 'react';
 import { ArrowDown, LangDisplay } from '@cypherock/cysync-ui';
-import { SettingsButton, SettingsStandardItem } from '../components';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import React from 'react';
+
 import {
   openAuthenticateX1CardDialog,
   openAuthenticateX1VaultDialog,
 } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const DeviceSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);

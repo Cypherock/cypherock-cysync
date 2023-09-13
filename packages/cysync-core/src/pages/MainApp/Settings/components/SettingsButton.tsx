@@ -1,5 +1,5 @@
-import React from 'react';
 import { Button, ButtonProps } from '@cypherock/cysync-ui';
+import React from 'react';
 
 export const SettingsButton: React.FC<ButtonProps> = ({
   children,

@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { goldenGradient } from '../utils/Gradient';
-import { Typography } from './Typography';
 import { LangDisplay } from './LangDisplay';
+import { Typography } from './Typography';
+
+import { goldenGradient } from '../utils/Gradient';
 
 export interface ToggleProps {
   checked: boolean;

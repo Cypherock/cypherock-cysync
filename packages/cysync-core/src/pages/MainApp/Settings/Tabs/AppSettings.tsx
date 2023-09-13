@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
 import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
-import { SettingsStandardItem, SettingsButton } from '../components';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import React, { useState } from 'react';
+
 import {
   openChangePasswordDialog,
   openRemovePasswordDialog,
   openResetCySyncDialog,
   openSetPasswordDialog,
 } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+
+import { SettingsStandardItem, SettingsButton } from '../components';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
