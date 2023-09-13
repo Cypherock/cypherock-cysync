@@ -6,7 +6,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { openCySyncVersionDetailsDialog } from '~/actions';
+import { openReleaseNotesDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, TabItem } from '../components';
@@ -40,7 +40,7 @@ export const About: React.FC = () => {
         <Flex>
           <SettingsButton
             variant="primary"
-            onClick={() => dispatch(openCySyncVersionDetailsDialog())}
+            onClick={() => dispatch(openReleaseNotesDialog())}
           >
             <LangDisplay text={strings.buttons.details} />
           </SettingsButton>

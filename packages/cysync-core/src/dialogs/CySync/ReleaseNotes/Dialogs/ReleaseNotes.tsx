@@ -14,11 +14,11 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useCySyncVersionDetailsDialog } from '../context';
+import { useReleaseNotesDialog } from '../context';
 
 export const ReleaseNotes: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose } = useCySyncVersionDetailsDialog();
+  const { onClose } = useReleaseNotesDialog();
   const { buttons, dialogs } = lang.strings;
   const { releaseNote } = dialogs.cysync;
 

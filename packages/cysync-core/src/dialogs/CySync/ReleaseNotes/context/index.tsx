@@ -17,7 +17,7 @@ import {
 
 import { ReleaseNotes } from '../Dialogs';
 
-export interface CySyncVersionDetailsDialogContextInterface {
+export interface ReleaseNotesDialogContextInterface {
   tabs: ITabs;
   isDeviceRequired: boolean;
   currentTab: number;
@@ -28,24 +28,24 @@ export interface CySyncVersionDetailsDialogContextInterface {
   onClose: () => void;
 }
 
-export const CySyncVersionDetailsDialogContext: Context<CySyncVersionDetailsDialogContextInterface> =
-  createContext<CySyncVersionDetailsDialogContextInterface>(
-    {} as CySyncVersionDetailsDialogContextInterface,
+export const ReleaseNotesDialogContext: Context<ReleaseNotesDialogContextInterface> =
+  createContext<ReleaseNotesDialogContextInterface>(
+    {} as ReleaseNotesDialogContextInterface,
   );
 
-export interface CySyncVersionDetailsDialogProviderProps {
+export interface ReleaseNotesDialogProviderProps {
   children: ReactNode;
 }
 
-export const CySyncVersionDetailsDialogProvider: FC<
-  CySyncVersionDetailsDialogProviderProps
+export const ReleaseNotesDialogProvider: FC<
+  ReleaseNotesDialogProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const onClose = () => {
-    dispatch(closeDialog('cySyncVersionDetails'));
+    dispatch(closeDialog('releaseNotes'));
   };
 
   const tabs: ITabs = [
@@ -91,12 +91,12 @@ export const CySyncVersionDetailsDialogProvider: FC<
   );
 
   return (
-    <CySyncVersionDetailsDialogContext.Provider value={ctx}>
+    <ReleaseNotesDialogContext.Provider value={ctx}>
       {children}
-    </CySyncVersionDetailsDialogContext.Provider>
+    </ReleaseNotesDialogContext.Provider>
   );
 };
 
-export function useCySyncVersionDetailsDialog(): CySyncVersionDetailsDialogContextInterface {
-  return useContext(CySyncVersionDetailsDialogContext);
+export function useReleaseNotesDialog(): ReleaseNotesDialogContextInterface {
+  return useContext(ReleaseNotesDialogContext);
 }

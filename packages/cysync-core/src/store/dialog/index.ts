@@ -49,7 +49,7 @@ const initialState: IDialogState = {
   authenticateX1Card: {
     isOpen: false,
   },
-  cySyncVersionDetails: {
+  releaseNotes: {
     isOpen: false,
   },
   historyDialog: {
