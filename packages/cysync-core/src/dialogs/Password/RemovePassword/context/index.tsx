@@ -71,7 +71,7 @@ export const RemovePasswordDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<ConfirmPassword key="remove-password-confirm" />],
     },
   ];
