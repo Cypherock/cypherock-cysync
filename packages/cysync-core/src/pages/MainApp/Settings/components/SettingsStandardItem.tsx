@@ -1,7 +1,8 @@
-import React from 'react';
-import { TabItem } from './TabItem';
 import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { LangDisplayProps } from '@cypherock/cysync-ui/src';
+import React from 'react';
+
+import { TabItem } from './TabItem';
 
 export interface SettingsStandardItemProps {
   title: LangDisplayProps;

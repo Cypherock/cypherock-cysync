@@ -1,7 +1,9 @@
-import React from 'react';
 import { ArrowDown, Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
-import { SettingsButton, SettingsStandardItem } from '../components';
+import React from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
