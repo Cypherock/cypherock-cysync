@@ -4,10 +4,18 @@ import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
 import { AppUpdateDialog } from './AppUpdateDialog';
+import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
+import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
+import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
+import {
+  ChangePasswordDialog,
+  RemovePasswordDialog,
+  SetPasswordDialog,
+} from './Password';
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
@@ -24,6 +32,13 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
+  removePassword: RemovePasswordDialog,
+  changePassword: ChangePasswordDialog,
+  resetCySync: ResetCySyncDialog,
+  setPassword: SetPasswordDialog,
+  authenticateX1Vault: AuthenticateX1VaultDialog,
+  authenticateX1Card: AuthenticateX1CardDialog,
+  cySyncVersionDetails: CySyncVersionDetailsDialog,
   signMessage: SignMessageDialog,
   deviceUpdateDialog: DeviceUpdateDialog,
   deviceAuthenticationDialog: DeviceAuthenticationDialog,

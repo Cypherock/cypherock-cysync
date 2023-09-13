@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface LangDisplayProps {
+export interface LangDisplayProps {
   text: string;
   variables?: object;
   $noPreWrap?: boolean;

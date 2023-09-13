@@ -321,6 +321,15 @@ const en = {
     connect: 'Connect',
     disconnect: 'Disconnect',
     reject: 'Reject',
+    check: 'Check',
+    authenticate: 'Authenticate',
+    start: 'Start',
+    setPassword: 'Set Password',
+    changePassword: 'Change Password',
+    removePassword: 'Remove Password',
+    details: 'Details',
+    showQRCode: 'Show QR Code',
+    editAccount: 'Edit Account',
   },
   deviceAuthentication: {
     success: {
@@ -1280,6 +1289,115 @@ const en = {
   dialogs: {
     close: {
       title: 'Are you sure you want to exit?',
+    },
+  },
+  toggle: {
+    on: 'ON',
+    off: 'OFF',
+  },
+  settings: {
+    tabs: {
+      general: {
+        title: 'General',
+        item: {
+          syncMobile: {
+            title: 'Sync cySync Mobile App',
+            description:
+              'Sync your Accounts with cySync Mobile App through QR code',
+          },
+          editAccount: {
+            title: 'Edit Accounts',
+            description:
+              'Edit the name, preferred currency of the account or remove them from portfolio',
+          },
+          toggleWalletOnPortfolio: {
+            title: 'Show/Hide Wallets on the Portfolio',
+            description:
+              'You can disable a specific wallet from here. it will not be displayed on the portfolio page',
+          },
+          currency: {
+            title: 'Preferred currency',
+            description:
+              'Choose the currency shown next to your balance and operations',
+          },
+          language: {
+            title: 'Display Language',
+            description: 'Set the language for the cySync App',
+          },
+          region: {
+            title: 'Region',
+            description:
+              'Choose your region to update formats of date and time',
+          },
+        },
+      },
+      app: {
+        title: 'App Settings',
+        item: {
+          password: {
+            title: 'Password',
+            description: 'Change or turn off/on password for your cySync App',
+          },
+          anayticsAndBugReport: {
+            title: 'Analytics & Bug Report',
+            description:
+              'Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster. This includes clicks, page visits, redirections, actions(send, receive, lock etc.), end of page scrolls, (un)installing and app version, number of accounts, crypto assets and operations, session durations, the Cypherock device type and firmware',
+          },
+          reset: {
+            title: 'Reset cySync',
+            description:
+              'Erase all cysync data stored on your PC, including your accounts, transaction histories and settings. Note that this will not result in loss of assets',
+          },
+          update: {
+            title: 'cySync Update',
+            description: 'Automatically download cysync update when available',
+          },
+          usb: {
+            title: 'USB Diagnostics',
+            description: 'Troubleshoot USB connection with the device',
+          },
+        },
+      },
+      device: {
+        title: 'Device Settings',
+        item: {
+          x1VaultUpdate: {
+            title: 'X1 Vault Update',
+            description: 'Check & update device firmware',
+          },
+          x1VaultAuth: {
+            title: 'X1 Vault Authentication',
+            description: 'Authenticate your device',
+          },
+          x1CardAuth: {
+            title: 'X1 Card Authentication',
+            description: 'Authenticate your card',
+          },
+          transferWallet: {
+            title: 'Transfer Wallet',
+            description:
+              'If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever',
+          },
+        },
+      },
+      about: {
+        title: 'About',
+        item: {
+          cySyncVersion: {
+            title: 'cySync Version',
+            description: 'Version ${version}',
+          },
+          termsOfUse: {
+            title: 'Terms of Use',
+            description: 'By using cySync you agree to our Terms of Use',
+          },
+          privacyPolicy: {
+            title: 'Privacy Policy',
+            description:
+              'Refer to our Privacy Policy to learn what personal data we collect, why and how we use them',
+          },
+        },
+      },
     },
   },
 };

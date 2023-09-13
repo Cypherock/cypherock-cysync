@@ -40,6 +40,27 @@ const initialState: IDialogState = {
   receive: {
     isOpen: false,
   },
+  removePassword: {
+    isOpen: false,
+  },
+  changePassword: {
+    isOpen: false,
+  },
+  resetCySync: {
+    isOpen: false,
+  },
+  setPassword: {
+    isOpen: false,
+  },
+  authenticateX1Vault: {
+    isOpen: false,
+  },
+  authenticateX1Card: {
+    isOpen: false,
+  },
+  cySyncVersionDetails: {
+    isOpen: false,
+  },
   historyDialog: {
     isOpen: false,
   },
