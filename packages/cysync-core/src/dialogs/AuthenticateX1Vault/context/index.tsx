@@ -17,7 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Email2FA } from '../Dialogs';
+import { Email2FA, X1VaultAuthProcess } from '../Dialogs';
 
 export interface AuthenticateX1VaultDialogContextInterface {
   tabs: ITabs;
@@ -73,8 +73,14 @@ export const AuthenticateX1VaultDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.auth.email2fa.title,
       dialogs: [<Email2FA key="authenticate-x1-vault-email-2fa" />],
+    },
+    {
+      name: lang.strings.dialogs.auth.title,
+      dialogs: [
+        <X1VaultAuthProcess key="authenticate-x1-vault-device-process" />,
+      ],
     },
   ];
 

@@ -78,7 +78,7 @@ export const AuthenticateX1CardDialogProvider: FC<
       dialogs: [<Email2FA key="authenticate-x1-card-email -2fa" />],
     },
     {
-      name: lang.strings.dialogs.auth.authX1Card.title,
+      name: lang.strings.dialogs.auth.title,
       dialogs: [
         <X1CardAuthProcess key="authenticate-x1-card-device-process" />,
       ],

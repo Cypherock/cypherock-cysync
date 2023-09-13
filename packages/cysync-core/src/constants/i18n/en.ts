@@ -1268,17 +1268,25 @@ const en = {
       },
     },
     auth: {
+      title: 'Follow instructions on the X1 Vault',
       email2fa: {
         title:
           'You are recommended to enter an email ID as a 2FA to get authenticity results',
         emailInput: 'Email',
       },
-      authX1Card: {
-        title: 'Follow instructions on the X1 Vault',
+      authX1Vault: {
         description: 'Your device is now being authenticated',
         info: 'Do not disconnect the device while it is being authenticated',
         steps: {
-          confirmDevice: 'Confirm authentication on device',
+          confirm: 'Confirm authentication on device',
+        },
+      },
+      authX1Card: {
+        description: 'Your card is now being authenticated',
+        info: 'Do not disconnect the device while card is being authenticated',
+        steps: {
+          confirm: 'Confirm card authentication on device',
+          tapCard: 'Tap any card below the device',
         },
       },
     },

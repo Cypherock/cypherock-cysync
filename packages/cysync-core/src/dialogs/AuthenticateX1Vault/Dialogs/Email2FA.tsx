@@ -19,7 +19,7 @@ import { useAuthenticateX1VaultDialog } from '../context';
 
 export const Email2FA: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, email, handleEmailChange, error } =
+  const { onClose, onNext, email, handleEmailChange, error } =
     useAuthenticateX1VaultDialog();
   const { buttons, dialogs } = lang.strings;
   const { email2fa } = dialogs.auth;
@@ -55,7 +55,7 @@ export const Email2FA: React.FC = () => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onClose();
+              onNext();
             }}
             id="authenticate-x1-vault-email-2fa-form"
           >

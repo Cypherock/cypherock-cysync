@@ -7,40 +7,34 @@ import {
   Flex,
   Divider,
   Image,
-  DeviceScreenTapCard,
   LeanBoxProps,
   ArrowRightIcon,
   checkIcon,
   LeanBoxContainer,
   LeanBox,
   AlertBox,
+  DeviceScreenConfirm,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useAuthenticateX1CardDialog } from '../context';
+import { useAuthenticateX1VaultDialog } from '../context';
 
-export const X1CardAuthProcess: React.FC = () => {
+export const X1VaultAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose } = useAuthenticateX1CardDialog();
+  const { onClose } = useAuthenticateX1VaultDialog();
   const { dialogs } = lang.strings;
-  const { authX1Card, title } = dialogs.auth;
+  const { authX1Vault, title } = dialogs.auth;
 
   const rightArrowIcon = <ArrowRightIcon />;
 
   const stepsList: LeanBoxProps[] = [
     {
       id: '1',
-      text: authX1Card.steps.confirm,
+      text: authX1Vault.steps.confirm,
       leftImage: rightArrowIcon,
-      rightImage: <Image src={checkIcon} alt={authX1Card.steps.confirm} />,
-    },
-    {
-      id: '2',
-      text: authX1Card.steps.tapCard,
-      leftImage: rightArrowIcon,
-      rightImage: <Image src={checkIcon} alt={authX1Card.steps.tapCard} />,
+      rightImage: <Image src={checkIcon} alt={authX1Vault.steps.confirm} />,
     },
   ];
 
@@ -59,13 +53,13 @@ export const X1CardAuthProcess: React.FC = () => {
           direction="column"
           align="center"
         >
-          <DeviceScreenTapCard width={264} />
+          <DeviceScreenConfirm width={264} />
           <Flex direction="column" gap={4} align="center">
             <Typography color="white" $fontSize={20} $textAlign="center">
               <LangDisplay text={title} />
             </Typography>
             <Typography color="muted" $fontSize={16} $textAlign="center">
-              <LangDisplay text={authX1Card.description} />
+              <LangDisplay text={authX1Vault.description} />
             </Typography>
           </Flex>
         </Flex>
@@ -91,7 +85,7 @@ export const X1CardAuthProcess: React.FC = () => {
           direction="column"
           align="stretch"
         >
-          <AlertBox subAlert={authX1Card.info} variant="warning" />
+          <AlertBox subAlert={authX1Vault.info} variant="warning" />
         </Flex>
       </DialogBoxBody>
     </DialogBox>
