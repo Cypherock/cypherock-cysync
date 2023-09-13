@@ -29,7 +29,7 @@ export const AddPassword: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
-  const { createNewPassword } = dialogs.password.setPassword;
+  const { createNewPassword, info } = dialogs.password;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -80,7 +80,7 @@ export const AddPassword: React.FC = () => {
             </Typography>
           )}
           <Typography $textAlign="center" $fontSize={14} color="muted">
-            <LangDisplay text={createNewPassword.info} />
+            <LangDisplay text={info.constraints} />
           </Typography>
         </Flex>
       </DialogBoxBody>

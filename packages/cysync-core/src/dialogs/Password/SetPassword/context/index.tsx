@@ -78,7 +78,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.password.createNewPassword.title,
       dialogs: [<AddPassword key="remove-password-confirm" />],
     },
   ];

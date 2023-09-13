@@ -85,7 +85,7 @@ export const ChangePasswordDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<CreateNewPassword key="change-password-create-new" />],
     },
   ];

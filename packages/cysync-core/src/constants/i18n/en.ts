@@ -1287,25 +1287,17 @@ const en = {
         mismatchError: 'Password Mismatched',
         lengthError: 'Password length should be more than 8',
       },
-      removePassword: {
-        confimPassword: {
-          title: 'Confirm password to proceed',
-          subTitle: 'Provide password to proceed',
-        },
+      info: {
+        constraints:
+          'Use 8 or more characters with a mix of letters, numbers & symbols',
       },
-      changePassword: {
-        createNewPassword: {
-          title: 'Confirm password to proceed',
-          subTitle: 'Provide password to proceed',
-          info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
-        },
+      confimPassword: {
+        title: 'Confirm password to proceed',
+        subTitle: 'Provide password to proceed',
       },
-      setPassword: {
-        createNewPassword: {
-          title: 'Set your cySync password',
-          subTitle: 'We do not store your password on our servers',
-          info: 'Use 8 or more characters with a mix of letters, numbers & symbols',
-        },
+      createNewPassword: {
+        title: 'Set your cySync password',
+        subTitle: 'We do not store your password on our servers',
       },
     },
   },

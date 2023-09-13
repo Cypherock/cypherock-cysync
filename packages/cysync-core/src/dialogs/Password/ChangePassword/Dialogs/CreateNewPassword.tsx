@@ -31,7 +31,7 @@ export const CreateNewPassword: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
-  const { createNewPassword } = dialogs.password.changePassword;
+  const { confimPassword, info } = dialogs.password;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -42,10 +42,10 @@ export const CreateNewPassword: React.FC = () => {
       <DialogBoxBody gap={0} p={0} align="stretch">
         <Flex px={5} py={4} gap={4} direction="column" align="center">
           <Typography $fontSize={20} color="white">
-            <LangDisplay text={createNewPassword.title} />
+            <LangDisplay text={confimPassword.title} />
           </Typography>
           <Typography $fontSize={16} color="muted">
-            <LangDisplay text={createNewPassword.subTitle} />
+            <LangDisplay text={confimPassword.subTitle} />
           </Typography>
         </Flex>
         <Flex gap={24} px={5} pt={2} pb={4} direction="column" align="stretch">
@@ -90,7 +90,7 @@ export const CreateNewPassword: React.FC = () => {
             </Typography>
           )}
           <Typography $textAlign="center" $fontSize={14} color="muted">
-            <LangDisplay text={createNewPassword.info} />
+            <LangDisplay text={info.constraints} />
           </Typography>
         </Flex>
       </DialogBoxBody>

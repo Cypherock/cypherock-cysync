@@ -22,7 +22,7 @@ export const ConfirmPassword: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
-  const { confimPassword } = dialogs.password.removePassword;
+  const { confimPassword } = dialogs.password;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
