@@ -1,13 +1,15 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import { Accordion } from './Accordion';
+
 import { useAccordion } from '../../../../hooks/useAccordion';
 import { Flex, Tag, Typography } from '../../../atoms';
-import { SpacingProps, spacing } from '../../../utils';
-import { Accordion } from '../../Accordion';
-import { RowWrapper, RowContainer } from '../TableStyles';
+import { SpacingProps, spacing, utils } from '../../../utils';
+import { RowWrapper, RowContainer, RowBackground } from '../TableStyles';
 
 export interface AccountTableRowProps {
+  id: string;
   arrow?: React.ReactNode;
   leftImage?: React.ReactNode;
   text?: string;
@@ -16,7 +18,7 @@ export interface AccountTableRowProps {
   statusImage?: React.ReactNode;
   amount?: string;
   value?: string;
-  tokens?: any[];
+  tokens?: Omit<AccountTableRowProps, '$rowIndex'>[];
   $subMenu?: boolean;
   onClick?: () => void;
   onStatusClick?: () => void;
@@ -28,8 +30,6 @@ export interface AccountTableRowProps {
 
 interface StatusContainerProps extends SpacingProps {
   width?: number;
-  pleft?: number;
-  pright?: number;
 }
 
 const StatusContainer = styled.div<StatusContainerProps>`
@@ -54,6 +54,7 @@ const AccountContainer = styled.div<StatusContainerProps>`
   }
   padding: var(--16-px, 16px) var(--16-px, 16px) var(--16-px, 16px)
     var(--24-px, 24px);
+  ${utils}
 `;
 
 const BalanceContainer = styled.div<StatusContainerProps>`
@@ -127,7 +128,7 @@ export const Accordions = styled.div`
   transition: all 0.3s ease-in-out;
 `;
 
-const SubMenuWrapper = styled.div`
+const SubMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 269px;
@@ -135,6 +136,8 @@ const SubMenuWrapper = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
 `;
+
+const SubMenuWrapper = styled.div``;
 
 export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
   const {
@@ -158,17 +161,19 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
   const { isOpen, toggleAccordion } = useAccordion();
 
   return (
-    <>
+    <RowBackground $rowIndex={$rowIndex} $isLast={$isLast}>
       <RowWrapper
         $rowIndex={$rowIndex}
         $isLast={$isLast}
+        $subMenu={$subMenu}
+        $hasSubMenu={tokens && tokens.length > 0}
         onClick={onClick}
-        $height="85px"
+        $height={$subMenu ? '63px' : '85px'}
       >
         <RowContainer>
           <AccountContainer
-            pleft={$subMenu ? 66 : undefined}
-            pright={$subMenu ? 16 : undefined}
+            pl={$subMenu ? { def: '66', mdlg: '66' } : undefined}
+            pr={$subMenu ? { def: '16', mdlg: '16' } : undefined}
           >
             <Flex gap={24} width="full" align="center">
               {$subMenu && (
@@ -215,34 +220,30 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
           </ValueContainer>
         </RowContainer>
       </RowWrapper>
-      {tokens && tokens.length > 0 && isOpen && (
-        <SubMenuWrapper>
-          {tokens.map((token, index) => (
-            <FadeInContainer key={`fade-in-${index + 1}`}>
-              <AccountTableRow
-                key={`tokens-${index + 1}`}
-                arrow={token.arrow}
-                leftImage={token.leftImage}
-                text={token.text}
-                amount={token.amount}
-                value={token.value}
-                $rowIndex={$rowIndex}
-                $subMenu
-              />
-            </FadeInContainer>
-          ))}
-        </SubMenuWrapper>
-      )}
-      {tokens && tokens.length > 0 && (
-        <Accordion
-          tokensLength={tokens.length}
-          isOpen={isOpen}
-          toggleAccordion={toggleAccordion}
-          $show={$show}
-          $hide={$hide}
-        />
-      )}
-    </>
+
+      <SubMenuWrapper>
+        {tokens && tokens.length > 0 && isOpen && (
+          <SubMenuContainer>
+            {tokens.map(token => (
+              <FadeInContainer key={token.id}>
+                <AccountTableRow {...token} $subMenu $rowIndex={$rowIndex} />
+              </FadeInContainer>
+            ))}
+          </SubMenuContainer>
+        )}
+        {tokens && tokens.length > 0 && (
+          <Accordion
+            $rowIndex={$rowIndex}
+            $isLast={$isLast}
+            tokensLength={tokens.length}
+            isOpen={isOpen}
+            toggleAccordion={toggleAccordion}
+            $show={$show}
+            $hide={$hide}
+          />
+        )}
+      </SubMenuWrapper>
+    </RowBackground>
   );
 };
 

@@ -3,6 +3,8 @@ import { getErc20Tokens, IEvmErc20Token } from './token';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
 
+export * from './token';
+
 type EvmFamily = typeof coinFamiliesMap.evm;
 
 export interface IEvmCoinInfo extends ICoinInfo {

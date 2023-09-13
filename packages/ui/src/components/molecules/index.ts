@@ -26,7 +26,6 @@ export * from './Slider';
 export * from './ButtonGroup';
 export * from './Dropdown';
 export * from './MessageBox';
-export * from './Accordion';
 export * from './Breadcrumb';
 export * from './Wallet';
 export * from './SkeletonLoader';

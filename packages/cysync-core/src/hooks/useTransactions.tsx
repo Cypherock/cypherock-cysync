@@ -172,12 +172,9 @@ export const mapTransactionForDisplay = (params: {
   if (coinPrice) {
     const feeInDefaultUnit = convertToUnit({
       amount: transaction.fees,
-      fromUnitAbbr: getZeroUnit(transaction.parentAssetId, transaction.assetId)
-        .abbr,
+      fromUnitAbbr: getZeroUnit(transaction.parentAssetId).abbr,
       coinId: transaction.parentAssetId,
-      assetId: transaction.assetId,
-      toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
-        .abbr,
+      toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
     });
     const feeValue = new BigNumber(feeInDefaultUnit.amount)
       .multipliedBy(coinPrice.latestPrice)

@@ -36,7 +36,7 @@ export const mapContractTransactionForDb = async (params: {
   if (tokenObj) {
     let tokenAccount: IAccount = {
       walletId: account.walletId,
-      assetId: account.assetId,
+      assetId: tokenObj.id,
       familyId: account.familyId,
       parentAccountId: account.__id ?? '',
       parentAssetId: account.parentAssetId,

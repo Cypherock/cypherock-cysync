@@ -11,9 +11,10 @@ import {
   Close,
   AccountTableHeaderName,
   BreadcrumbDropdownItem,
+  ArrowRightBottom,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IPriceInfo } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, { ReactNode, useState, useMemo, useEffect } from 'react';
@@ -36,6 +37,7 @@ import {
 } from '~/store';
 
 interface AccountTokenType {
+  id: string;
   leftImage: React.ReactNode;
   arrow?: React.ReactNode;
   text: string;
@@ -110,6 +112,56 @@ const searchFilter = (
       }
       return row;
     });
+};
+
+const mapTokenAccounts = (
+  a: IAccount,
+  priceInfos: IPriceInfo[],
+  isDiscreetMode: boolean,
+): AccountTokenType => {
+  const { amount, unit } = getParsedAmount({
+    coinId: a.parentAssetId,
+    assetId: a.assetId,
+    unitAbbr: a.unit,
+    amount: a.balance,
+  });
+
+  let displayValue = '$0.00';
+  let value = '0.00';
+  const coinPrice = priceInfos.find(
+    p => p.assetId === a.assetId && p.currency.toLowerCase() === 'usd',
+  );
+
+  if (coinPrice) {
+    const balanceInDefaultUnit = convertToUnit({
+      amount: a.balance,
+      fromUnitAbbr: getZeroUnit(a.parentAssetId, a.assetId).abbr,
+      coinId: a.parentAssetId,
+      assetId: a.assetId,
+      toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
+    });
+    value = new BigNumber(balanceInDefaultUnit.amount)
+      .multipliedBy(coinPrice.latestPrice)
+      .toFixed(2)
+      .toString();
+    displayValue = `$${value}`;
+  }
+
+  return {
+    id: a.__id ?? '',
+    leftImage: (
+      <CoinIcon
+        size="24px"
+        parentAssetId={a.parentAssetId}
+        assetId={a.assetId}
+      />
+    ),
+    text: a.name,
+    displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+    displayValue: isDiscreetMode ? '$****' : displayValue,
+    amount: parseFloat(amount),
+    value: parseFloat(value),
+  };
 };
 
 const selector = createSelector(
@@ -231,6 +283,16 @@ export const useWalletPage = () => {
         displayValue = `$${value}`;
       }
 
+      const tokenAccounts = allAccounts
+        .filter(ta => ta.parentAccountId === a.__id)
+        .map(tokenAccount =>
+          mapTokenAccounts(tokenAccount, priceInfos, isDiscreetMode),
+        );
+
+      if (tokenAccounts.length > 0) {
+        tokenAccounts[0].arrow = <ArrowRightBottom />;
+      }
+
       return {
         id: a.__id ?? '',
         leftImage: <CoinIcon size="32px" parentAssetId={a.parentAssetId} />,
@@ -246,6 +308,7 @@ export const useWalletPage = () => {
         amount: parseFloat(amount),
         value: parseFloat(value),
         account: a,
+        tokens: tokenAccounts,
       };
     });
 

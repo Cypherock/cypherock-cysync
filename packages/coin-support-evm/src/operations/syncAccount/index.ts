@@ -4,6 +4,7 @@ import {
   getLatestTransactionBlock,
 } from '@cypherock/coin-support-utils';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   ITransaction,
@@ -19,6 +20,7 @@ import {
   mapInternalTransactionsForDb,
   getContractTransactions,
   mapContractTransactionsForDb,
+  getContractBalance,
 } from '../../services';
 import { IEvmAccount } from '../types';
 
@@ -40,7 +42,7 @@ const fetchAndParseTransactions = async (params: {
 
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
-    assetId: account.assetId,
+    assetId: account.parentAssetId,
     from: afterBlock,
     limit: PER_PAGE_TXN_LIMIT,
     internal: false,
@@ -57,6 +59,7 @@ const fetchAndParseTransactions = async (params: {
     ...transactions
       .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
       .map(t => t.blockHeight),
+    0,
   );
 
   return { hasMore, transactions, afterBlock: newAfterBlock };
@@ -80,9 +83,11 @@ const fetchAndParseInternalTransactions = async (params: {
     updatedAccountInfo.extraData.lastInternalTransactionBlockHeight ??
     undefined;
 
+  console.log({ afterInternalTransactionBlock, updatedAccountInfo });
+
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
-    assetId: account.assetId,
+    assetId: account.parentAssetId,
     from: afterBlock,
     limit: PER_PAGE_TXN_LIMIT,
     internal: true,
@@ -99,6 +104,7 @@ const fetchAndParseInternalTransactions = async (params: {
     ...transactions
       .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
       .map(t => t.blockHeight),
+    0,
   );
 
   return { hasMore, transactions, afterBlock: newAfterBlock };
@@ -121,7 +127,7 @@ const fetchAndParseContractTransactions = async (params: {
 
   const transactionDetails = await getContractTransactions({
     address: account.xpubOrAddress,
-    assetId: account.assetId,
+    assetId: account.parentAssetId,
     from: afterBlock,
     limit: PER_PAGE_TXN_LIMIT,
   });
@@ -138,6 +144,7 @@ const fetchAndParseContractTransactions = async (params: {
     ...transactions
       .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
       .map(t => t.blockHeight),
+    0,
   );
 
   return { hasMore, transactions, afterBlock: newAfterBlock };
@@ -162,9 +169,23 @@ const getAddressDetails: IGetAddressDetails<{
     afterContractTransactionBlock,
   } = iterationContext ?? {};
 
-  const updatedBalance =
-    iterationContext?.updatedBalance ??
-    (await getBalance(account.xpubOrAddress, account.assetId));
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  let updatedBalance = iterationContext?.updatedBalance;
+
+  if (isTokenAccount) {
+    updatedBalance = await getContractBalance(
+      account.xpubOrAddress,
+      account.parentAssetId,
+      account.assetId,
+    );
+  } else {
+    updatedBalance = await getBalance(
+      account.xpubOrAddress,
+      account.parentAssetId,
+    );
+  }
+
+  console.log({ updatedBalance, account });
 
   const updatedAccountInfo = {
     ...(iterationContext?.updatedAccountInfo ?? {}),
@@ -176,7 +197,7 @@ const getAddressDetails: IGetAddressDetails<{
 
   const transactions: ITransaction[] = [];
 
-  if (hasMoreTransactions !== false) {
+  if (!isTokenAccount && hasMoreTransactions !== false) {
     const transactionDetails = await fetchAndParseTransactions({
       db,
       account,
@@ -188,7 +209,7 @@ const getAddressDetails: IGetAddressDetails<{
     afterTransactionBlock = transactionDetails.afterBlock;
   }
 
-  if (hasMoreInternalTransactions !== false) {
+  if (!isTokenAccount && hasMoreInternalTransactions !== false) {
     const internalTransactionDetails = await fetchAndParseInternalTransactions({
       db,
       updatedAccountInfo,
@@ -203,13 +224,7 @@ const getAddressDetails: IGetAddressDetails<{
       afterInternalTransactionBlock;
   }
 
-  console.log({
-    updatedAccountInfo,
-    account,
-    afterContractTransactionBlock,
-    hasMoreContractTransactions,
-  });
-  if (hasMoreContractTransactions !== false) {
+  if (!isTokenAccount && hasMoreContractTransactions !== false) {
     const contractTransactionDetails = await fetchAndParseContractTransactions({
       db,
       updatedAccountInfo,
@@ -227,9 +242,29 @@ const getAddressDetails: IGetAddressDetails<{
   }
 
   const hasMore =
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     hasMoreTransactions ||
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     hasMoreInternalTransactions ||
-    hasMoreContractTransactions;
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    hasMoreContractTransactions ||
+    false;
+
+  console.log({
+    hasMore,
+    transactions,
+    updatedAccountInfo,
+    nextIterationContext: {
+      afterContractTransactionBlock,
+      hasMoreContractTransactions,
+      hasMoreTransactions,
+      hasMoreInternalTransactions,
+      afterInternalTransactionBlock,
+      afterTransactionBlock,
+      updatedBalance,
+      updatedAccountInfo,
+    },
+  });
 
   return {
     hasMore,
