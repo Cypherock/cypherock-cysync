@@ -11,7 +11,7 @@ import { IEvmTransactionItem } from '../api';
 export const parseTransaction = (params: {
   transaction: IEvmTransactionItem;
   account: IAccount;
-}) => {
+}): ITransaction | undefined => {
   const { account, transaction } = params;
 
   const myAddress = account.xpubOrAddress.toLowerCase();

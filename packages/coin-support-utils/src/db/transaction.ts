@@ -14,6 +14,7 @@ export const insertOrUpdateTransactions = async (
     const query: Partial<ITransaction> = {
       walletId: transaction.walletId,
       hash: transaction.hash,
+      type: transaction.type,
       accountId: transaction.accountId,
       assetId: transaction.assetId,
       familyId: transaction.familyId,

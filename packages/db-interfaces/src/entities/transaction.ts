@@ -12,6 +12,10 @@ export type TransactionStatus =
 export const TransactionTypeMap = {
   receive: 'receive',
   send: 'send',
+  // Will be treated as send for calculations but will not be
+  // displayed to the user.
+  // Usage: for eth fees when sending tokens
+  hidden: 'hidden',
 };
 
 export type TransactionType =

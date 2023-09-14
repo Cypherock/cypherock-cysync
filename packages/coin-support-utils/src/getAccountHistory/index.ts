@@ -191,12 +191,15 @@ export async function createGetAccountHistory(
           transactionTime >= thisPricePoint) ||
         (isFirst && transactionTime >= thisPricePoint)
       ) {
-        if (transaction.type === TransactionTypeMap.send) {
+        if (
+          transaction.type === TransactionTypeMap.send ||
+          transaction.type === TransactionTypeMap.hidden
+        ) {
           curBalance = curBalance.plus(new BigNumber(transaction.amount));
           if (account.type === AccountTypeMap.account) {
             curBalance = curBalance.plus(new BigNumber(transaction.fees));
           }
-        } else {
+        } else if (transaction.type === TransactionTypeMap.receive) {
           curBalance = curBalance.minus(new BigNumber(transaction.amount));
         }
         tIndex -= 1;

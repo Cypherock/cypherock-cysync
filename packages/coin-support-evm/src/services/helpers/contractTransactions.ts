@@ -31,6 +31,9 @@ export const mapContractTransactionForDb = async (params: {
   const toAddr = transaction.to.toLowerCase();
   const selfTransfer = fromAddr === toAddr;
   const amount = String(transaction.value || 0);
+  const fees = new BigNumber(transaction.gasPrice || 0).multipliedBy(
+    new BigNumber(transaction.gasUsed || 0),
+  );
 
   // Only add if it exists in our coin list
   if (tokenObj) {
@@ -49,10 +52,6 @@ export const mapContractTransactionForDb = async (params: {
     };
 
     tokenAccount = await insertAccountIfNotExists(db, tokenAccount);
-
-    const fees = new BigNumber(transaction.gasPrice || 0).multipliedBy(
-      new BigNumber(transaction.gasUsed || 0),
-    );
 
     const txn: ITransaction = {
       hash: transaction.hash,
@@ -89,6 +88,27 @@ export const mapContractTransactionForDb = async (params: {
     };
 
     txns.push(txn);
+  }
+
+  // When a token is sent, the transaction fee is deducted from ETH
+  if (myAddress === fromAddr) {
+    txns.push({
+      hash: transaction.hash,
+      accountId: account.__id ?? '',
+      walletId: account.walletId,
+      assetId: account.assetId,
+      parentAssetId: account.parentAssetId,
+      familyId: account.familyId,
+      amount: '0',
+      fees: fees.toString(),
+      confirmations: new BigNumber(transaction.confirmations).toNumber() || 0,
+      status: TransactionStatusMap.success,
+      type: TransactionTypeMap.hidden,
+      timestamp: new Date(parseInt(transaction.timeStamp, 10) * 1000).getTime(),
+      blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
+      inputs: [],
+      outputs: [],
+    });
   }
 
   return txns;

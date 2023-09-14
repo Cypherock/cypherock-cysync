@@ -261,7 +261,7 @@ export const usePortfolioPage = () => {
     );
 
   const formatYAxisTick: LineGraphProps['formatYAxisTick'] = value =>
-    isDiscreetMode ? '****' : value;
+    isDiscreetMode ? '****' : formatDisplayAmount(value, 2, true);
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());

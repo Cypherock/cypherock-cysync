@@ -18,6 +18,7 @@ import {
   IPriceInfo,
   ITransaction,
   IWallet,
+  TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
@@ -322,6 +323,9 @@ export const useTransactions = ({
   useEffect(() => {
     const mappedTransactions: TransactionRowData[] = allTransactions
       .filter(a => {
+        if (a.type === TransactionTypeMap.hidden) {
+          return false;
+        }
         if (walletId && a.walletId !== walletId) {
           return false;
         }
