@@ -1285,9 +1285,7 @@ const en = {
         },
       },
       releaseNote: {
-        title: 'CySync v${version}',
-        subTitle: 'Release Notes',
-        titleSecondary: 'cySync ${version}',
+        title: 'Release Notes',
       },
     },
     auth: {

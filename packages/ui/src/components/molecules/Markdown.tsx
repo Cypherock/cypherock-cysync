@@ -22,6 +22,15 @@ const StyledContainer = styled.div`
   ol {
     padding-left: 16px;
   }
+  h1 {
+    text-align: center;
+    margin: 32px 0;
+  }
+  h2,
+  h3,
+  li {
+    margin: 16px 0;
+  }
 `;
 
 export interface MarkdownProps {

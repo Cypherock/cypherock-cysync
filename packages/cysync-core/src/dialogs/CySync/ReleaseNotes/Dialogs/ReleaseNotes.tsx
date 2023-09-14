@@ -6,15 +6,16 @@ import {
   LangDisplay,
   Typography,
   CloseButton,
-  Flex,
   Divider,
   Markdown,
+  ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReleaseNotesDialog } from '../context';
+import { DialogBoxHeader } from '@cypherock/cysync-ui/src';
 
 export const ReleaseNotes: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -23,31 +24,22 @@ export const ReleaseNotes: React.FC = () => {
   const { releaseNote } = dialogs.cysync;
 
   return (
-    <DialogBox width={500} align="stretch" gap={0}>
-      <Flex direction="row" justify="flex-end" py={2} px={3}>
-        <CloseButton onClick={onClose} />
-      </Flex>
-      <Divider variant="horizontal" />
-      <DialogBoxBody gap={0} p={0} align="stretch">
-        <Flex
-          px={{ def: 3, lg: 5 }}
-          pt={4}
-          pb={{ def: 2, lg: 4 }}
-          gap={4}
-          direction="column"
-          align="stretch"
+    <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">
+      <DialogBoxHeader direction="row" py={2} px={3}>
+        <Typography
+          pl={3}
+          grow={1}
+          $alignSelf="stretch"
+          color="muted"
+          $textAlign="center"
         >
-          <Typography color="white" $fontSize={24} $textAlign="center">
-            <LangDisplay
-              text={releaseNote.title}
-              variables={{ version: window.cysyncEnv.VERSION }}
-            />
-          </Typography>
-          <Typography color="muted" $fontSize={16} $textAlign="center">
-            <LangDisplay text={releaseNote.subTitle} />
-          </Typography>
-        </Flex>
-        <Flex
+          <LangDisplay text={releaseNote.title} />
+        </Typography>
+        <CloseButton width={24} onClick={onClose} />
+      </DialogBoxHeader>
+      <Divider variant="horizontal" />
+      <ScrollableContainer>
+        <DialogBoxBody
           px={{ def: 3, lg: 5 }}
           pt={2}
           pb={{ def: 2, lg: 4 }}
@@ -55,8 +47,8 @@ export const ReleaseNotes: React.FC = () => {
           align="stretch"
         >
           <Markdown>{window.cysyncEnv.RELEASE_NOTES ?? ''}</Markdown>
-        </Flex>
-      </DialogBoxBody>
+        </DialogBoxBody>
+      </ScrollableContainer>
       <DialogBoxFooter>
         <Button
           onClick={onClose}
