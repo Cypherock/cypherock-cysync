@@ -10,7 +10,6 @@ import {
   ITransaction,
   IPriceHistory,
   IPriceInfo,
-  AccountTypeMap,
 } from '@cypherock/db-interfaces';
 
 const getAccounts = (params: {
@@ -32,9 +31,6 @@ const getAccounts = (params: {
     if (walletId) {
       match = match && a.walletId === walletId;
     }
-
-    // TODO: Remove this
-    match = match && a.type === AccountTypeMap.account;
 
     return match;
   });

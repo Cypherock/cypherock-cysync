@@ -1,9 +1,9 @@
 import {
+  getAsset,
   formatDisplayAmount,
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
 import {
   getBalanceHistory,
   getCoinAllocations,
@@ -136,18 +136,27 @@ export const usePortfolioPage = () => {
       setCoinAllocations(
         result.map(r => {
           const { amount, unit } = getParsedAmount({
-            coinId: r.assetId,
-            unitAbbr: getDefaultUnit(r.assetId).abbr,
+            coinId: r.parentAssetId,
+            assetId: r.assetId,
+            unitAbbr: getDefaultUnit(r.parentAssetId, r.assetId).abbr,
             amount: r.balance,
           });
 
+          const asset = getAsset(r.parentAssetId, r.assetId);
+
           return {
-            color: coinList[r.assetId].color ?? 'orange',
+            color: asset.color ?? 'orange',
             allocation: r.percentage,
             assetId: r.assetId,
-            assetAbbr: coinList[r.assetId].abbr,
-            assetName: coinList[r.assetId].name,
-            assetIcon: <CoinIcon parentAssetId={r.assetId} size="24px" />,
+            assetAbbr: asset.abbr,
+            assetName: asset.name,
+            assetIcon: (
+              <CoinIcon
+                parentAssetId={r.parentAssetId}
+                assetId={r.assetId}
+                size="24px"
+              />
+            ),
             balance: new BigNumber(r.balance).toNumber(),
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),

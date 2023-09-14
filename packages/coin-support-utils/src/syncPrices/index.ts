@@ -20,12 +20,12 @@ const fetchLatestPricesForBatch = async ({
   coinIds,
   db,
 }: {
-  coinIds: string[];
+  coinIds: { parentAssetId: string; assetId: string }[];
   db: IDatabase;
 }) => {
   const prices = await getLatestPrices(coinIds, DEFAULT_CURRENCY);
   const allPriceInfos: IPriceInfo[] = prices.map(elem => ({
-    assetId: elem.coinId,
+    assetId: elem.assetId,
     currency: DEFAULT_CURRENCY,
     lastSyncedAt: Date.now(),
     latestPrice: elem.price.toString(),
@@ -51,14 +51,17 @@ export function createSyncPricesObservable(
         const coinIds = await getCoinIds(db);
 
         const existingPrices = await db.priceInfo.getAll(
-          coinIds.map(id => ({ assetId: id, currency: DEFAULT_CURRENCY })),
+          coinIds.map(coin => ({
+            assetId: coin.assetId,
+            currency: DEFAULT_CURRENCY,
+          })),
         );
 
-        const expiredCoinIds: string[] = [];
+        const expiredCoinIds: { parentAssetId: string; assetId: string }[] = [];
 
         for (const coinId of coinIds) {
           const existingPriceInfo = existingPrices.find(
-            p => p.assetId === coinId,
+            p => p.assetId === coinId.assetId,
           );
 
           if (

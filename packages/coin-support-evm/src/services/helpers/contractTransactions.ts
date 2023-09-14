@@ -56,11 +56,11 @@ export const mapContractTransactionForDb = async (params: {
 
     const txn: ITransaction = {
       hash: transaction.hash,
-      accountId: account.__id ?? '',
+      accountId: tokenAccount.__id ?? '',
+      parentAccountId: account.__id ?? '',
       walletId: account.walletId,
       assetId: tokenObj.id,
       parentAssetId: account.assetId,
-      parentAccountId: tokenAccount.__id ?? '',
       familyId: account.familyId,
       amount: selfTransfer ? '0' : amount,
       fees: fees.toString(),

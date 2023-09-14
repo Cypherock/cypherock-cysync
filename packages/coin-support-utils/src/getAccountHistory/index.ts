@@ -4,6 +4,7 @@ import {
 } from '@cypherock/coin-support-interfaces';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   IPriceHistory,
@@ -117,15 +118,17 @@ async function getLatestPrice(
 
 function calcValue(params: {
   amount: string | BigNumber;
+  parentAssetId: string;
   assetId: string;
   price: string;
 }) {
   return new BigNumber(
     convertToUnit({
       amount: params.amount.toString(),
-      coinId: params.assetId,
-      fromUnitAbbr: getZeroUnit(params.assetId).abbr,
-      toUnitAbbr: getDefaultUnit(params.assetId).abbr,
+      coinId: params.parentAssetId,
+      assetId: params.assetId,
+      fromUnitAbbr: getZeroUnit(params.parentAssetId, params.assetId).abbr,
+      toUnitAbbr: getDefaultUnit(params.parentAssetId, params.assetId).abbr,
     }).amount,
   )
     .multipliedBy(params.price)
@@ -190,7 +193,9 @@ export async function createGetAccountHistory(
       ) {
         if (transaction.type === TransactionTypeMap.send) {
           curBalance = curBalance.plus(new BigNumber(transaction.amount));
-          curBalance = curBalance.plus(new BigNumber(transaction.fees));
+          if (account.type === AccountTypeMap.account) {
+            curBalance = curBalance.plus(new BigNumber(transaction.fees));
+          }
         } else {
           curBalance = curBalance.minus(new BigNumber(transaction.amount));
         }
@@ -202,6 +207,7 @@ export async function createGetAccountHistory(
     accountBalanceHistory[pIndex].balance = curBalance.toString();
     accountBalanceHistory[pIndex].value = calcValue({
       amount: curBalance.toString(),
+      parentAssetId: account.parentAssetId,
       assetId: account.assetId,
       price: priceHistory[pIndex].price,
     });
@@ -215,6 +221,7 @@ export async function createGetAccountHistory(
   accountBalanceHistory[0].value = calcValue({
     amount: curBalance.toString(),
     assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
     price: priceHistory[0].price,
   });
 
@@ -222,6 +229,7 @@ export async function createGetAccountHistory(
     account.balance;
   accountBalanceHistory[accountBalanceHistory.length - 1].value = calcValue({
     amount: account.balance,
+    parentAssetId: account.parentAssetId,
     assetId: account.assetId,
     price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
   });

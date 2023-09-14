@@ -83,8 +83,6 @@ const fetchAndParseInternalTransactions = async (params: {
     updatedAccountInfo.extraData.lastInternalTransactionBlockHeight ??
     undefined;
 
-  console.log({ afterInternalTransactionBlock, updatedAccountInfo });
-
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
     assetId: account.parentAssetId,
@@ -152,7 +150,7 @@ const fetchAndParseContractTransactions = async (params: {
 
 const getAddressDetails: IGetAddressDetails<{
   updatedBalance?: string;
-  updatedAccountInfo?: Partial<IAccount>;
+  updatedAccountInfo?: Partial<IEvmAccount>;
   afterTransactionBlock?: number;
   hasMoreTransactions?: boolean;
   afterInternalTransactionBlock?: number;
@@ -185,9 +183,7 @@ const getAddressDetails: IGetAddressDetails<{
     );
   }
 
-  console.log({ updatedBalance, account });
-
-  const updatedAccountInfo = {
+  const updatedAccountInfo: Partial<IEvmAccount> = {
     ...(iterationContext?.updatedAccountInfo ?? {}),
     balance: updatedBalance,
     extraData: {
@@ -220,7 +216,9 @@ const getAddressDetails: IGetAddressDetails<{
     transactions.push(...internalTransactionDetails.transactions);
     hasMoreInternalTransactions = internalTransactionDetails.hasMore;
     afterInternalTransactionBlock = internalTransactionDetails.afterBlock;
-    updatedAccountInfo.extraData.lastInternalTransactionBlockHeight =
+    (
+      updatedAccountInfo as IEvmAccount
+    ).extraData.lastInternalTransactionBlockHeight =
       afterInternalTransactionBlock;
   }
 
@@ -249,22 +247,6 @@ const getAddressDetails: IGetAddressDetails<{
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     hasMoreContractTransactions ||
     false;
-
-  console.log({
-    hasMore,
-    transactions,
-    updatedAccountInfo,
-    nextIterationContext: {
-      afterContractTransactionBlock,
-      hasMoreContractTransactions,
-      hasMoreTransactions,
-      hasMoreInternalTransactions,
-      afterInternalTransactionBlock,
-      afterTransactionBlock,
-      updatedBalance,
-      updatedAccountInfo,
-    },
-  });
 
   return {
     hasMore,

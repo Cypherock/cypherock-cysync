@@ -121,6 +121,8 @@ export class Repository<Entity extends IEntity> implements IRepository<Entity> {
       );
     }
 
+    this.emitChange();
+
     return this.getAll(
       ids.map(
         e =>
