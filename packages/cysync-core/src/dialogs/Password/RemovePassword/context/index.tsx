@@ -4,7 +4,9 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -26,6 +28,9 @@ export interface RemovePasswordDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  error: string | null;
+  password: string;
+  handlePasswordChange: (val: string) => void;
 }
 
 export const RemovePasswordDialogContext: Context<RemovePasswordDialogContextInterface> =
@@ -44,13 +49,29 @@ export const RemovePasswordDialogProvider: FC<
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
+  const [error, setError] = useState<string | null>(null);
+  const [password, setPassword] = useState<string>('');
+
+  const validatePassword = () => {
+    if (password.length > 0 && password.length < 8) {
+      setError(lang.strings.dialogs.password.error.lengthError);
+      return;
+    }
+    setError(null);
+  };
+  useEffect(validatePassword, [password]);
+
   const onClose = () => {
     dispatch(closeDialog('removePassword'));
   };
 
+  const handlePasswordChange = (val: string) => {
+    setPassword(val);
+  };
+
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<ConfirmPassword key="remove-password-confirm" />],
     },
   ];
@@ -77,6 +98,9 @@ export const RemovePasswordDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      error,
+      password,
+      handlePasswordChange,
     }),
     [
       isDeviceRequired,
@@ -87,6 +111,9 @@ export const RemovePasswordDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      error,
+      password,
+      handlePasswordChange,
     ],
   );
 

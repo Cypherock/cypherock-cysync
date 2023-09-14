@@ -1276,6 +1276,30 @@ const en = {
     close: {
       title: 'Are you sure you want to exit?',
     },
+    password: {
+      input: {
+        enterPassword: 'Enter Password',
+        oldPassword: 'Old Password',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+      },
+      error: {
+        mismatchError: 'Password Mismatched',
+        lengthError: 'Password length should be more than 8',
+      },
+      info: {
+        constraints:
+          'Use 8 or more characters with a mix of letters, numbers & symbols',
+      },
+      confimPassword: {
+        title: 'Confirm password to proceed',
+        subTitle: 'Provide password to proceed',
+      },
+      createNewPassword: {
+        title: 'Set your cySync password',
+        subTitle: 'We do not store your password on our servers',
+      },
+    },
   },
   toggle: {
     on: 'ON',
