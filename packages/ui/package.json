@@ -68,6 +68,7 @@
     "@storybook/addon-docs": "^7.2.1",
     "@storybook/client-api": "^7.2.1",
     "@types/chart.js": "^2.9.37",
+    "@types/lodash": "^4.14.195",
     "chart.js": "^4.3.2",
     "date-fns": "^2.30.0",
     "marked-react": "^2.0.0",

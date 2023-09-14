@@ -41,7 +41,7 @@ export async function createGetCoinAllocations(
         .multipliedBy(coinPrice)
         .toString();
 
-      allocations.push({ assetId: coinId, balance, value });
+      allocations.push({ assetId: coinId, balance, value, price: coinPrice });
     }
   }
 

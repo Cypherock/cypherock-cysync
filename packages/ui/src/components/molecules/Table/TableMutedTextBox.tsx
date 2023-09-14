@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Typography } from '../../atoms';
+import { Typography, TypographyProps } from '../../atoms';
 
-interface MutedTextBoxProps {
+interface MutedTextBoxProps extends TypographyProps {
   text: string;
 }
 
@@ -13,9 +13,12 @@ const MutedTextBoxStyle = styled.div`
   border-radius: 4px;
 `;
 
-export const TableMutedTextBox: FC<MutedTextBoxProps> = ({ text }) => (
+export const TableMutedTextBox: FC<MutedTextBoxProps> = ({
+  text,
+  ...props
+}) => (
   <MutedTextBoxStyle>
-    <Typography variant="p" $fontSize={12} color="muted">
+    <Typography variant="p" $fontSize={12} color="muted" {...props}>
       {text}
     </Typography>
   </MutedTextBoxStyle>

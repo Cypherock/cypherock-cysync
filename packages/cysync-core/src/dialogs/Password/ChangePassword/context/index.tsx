@@ -4,7 +4,9 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -26,6 +28,13 @@ export interface ChangePasswordDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  oldPassword: string;
+  handleOldPasswordChange: (val: string) => void;
+  newPassword: string;
+  handleNewPasswordChange: (val: string) => void;
+  confirmNewPassword: string;
+  handleConfirmNewPasswordChange: (val: string) => void;
+  error: string | null;
 }
 
 export const ChangePasswordDialogContext: Context<ChangePasswordDialogContextInterface> =
@@ -44,13 +53,39 @@ export const ChangePasswordDialogProvider: FC<
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
+  const [error, setError] = useState<string | null>(null);
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+
+  const validateNewPassword = () => {
+    if (newPassword !== confirmNewPassword) {
+      setError(lang.strings.dialogs.password.error.mismatchError);
+      return;
+    }
+    setError(null);
+  };
+  useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+
   const onClose = () => {
     dispatch(closeDialog('changePassword'));
   };
 
+  const handleOldPasswordChange = (val: string) => {
+    setOldPassword(val);
+  };
+
+  const handleNewPasswordChange = (val: string) => {
+    setNewPassword(val);
+  };
+
+  const handleConfirmNewPasswordChange = (val: string) => {
+    setConfirmNewPassword(val);
+  };
+
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<CreateNewPassword key="change-password-create-new" />],
     },
   ];
@@ -77,6 +112,13 @@ export const ChangePasswordDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      oldPassword,
+      newPassword,
+      confirmNewPassword,
+      handleOldPasswordChange,
+      handleNewPasswordChange,
+      handleConfirmNewPasswordChange,
+      error,
     }),
     [
       isDeviceRequired,
@@ -87,6 +129,13 @@ export const ChangePasswordDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      oldPassword,
+      newPassword,
+      confirmNewPassword,
+      handleOldPasswordChange,
+      handleNewPasswordChange,
+      handleConfirmNewPasswordChange,
+      error,
     ],
   );
 

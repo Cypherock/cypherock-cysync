@@ -1,15 +1,11 @@
-import {
-  Flex,
-  GoldExternalLink,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui';
+import { GoldExternalLink, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { openReleaseNotesDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
-import { SettingsButton, TabItem } from '../components';
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const About: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
@@ -17,61 +13,37 @@ export const About: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Flex
-      $alignSelf="stretch"
-      direction="column"
-      align="stretch"
-      px={{ def: 3, lg: 5 }}
-      py={{ def: 2, lg: 4 }}
-      gap={32}
-    >
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.cySyncersion} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay
-              text={item.cySyncersionDesc}
-              variables={{ version: window.cysyncEnv.VERSION }}
-            />
-          </Typography>
-        </Flex>
-        <Flex>
-          <SettingsButton
-            variant="primary"
-            onClick={() => dispatch(openReleaseNotesDialog())}
-          >
-            <LangDisplay text={strings.buttons.details} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.termsOfUse} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.termsOfUseDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
+    <>
+      <SettingsStandardItem
+        title={{ text: item.cySyncVersion.title }}
+        description={{
+          text: item.cySyncVersion.description,
+          variables: { version: window.cysyncEnv.VERSION },
+        }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openReleaseNotesDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.details} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.termsOfUse.title }}
+        description={{ text: item.termsOfUse.description }}
+      >
+        <Link to="https://www.cypherock.com/" target="_blank">
           <GoldExternalLink width={18} height={18} />
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.privacyPolicy} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.privacyPolicyDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
+        </Link>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.privacyPolicy.title }}
+        description={{ text: item.privacyPolicy.description }}
+      >
+        <Link to="https://www.cypherock.com/" target="_blank">
           <GoldExternalLink width={18} height={18} />
-        </Flex>
-      </TabItem>
-    </Flex>
+        </Link>
+      </SettingsStandardItem>
+    </>
   );
 };

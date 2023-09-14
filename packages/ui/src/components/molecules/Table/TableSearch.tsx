@@ -13,7 +13,7 @@ export interface TableSearchProps {
   $borderGold?: boolean;
 }
 
-export const TableStructure = styled.div`
+export const TableStructure = styled.div<{ $noMargin?: boolean }>`
   transition: max-height 0.3s ease-out;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   border-top-left-radius: 24px;
@@ -21,10 +21,14 @@ export const TableStructure = styled.div`
   border-bottom-right-radius: 24px;
   border-bottom-left-radius: 24px;
   background: ${({ theme }) => theme.palette.primary.primary};
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  ${({ $noMargin }) =>
+    !$noMargin &&
+    `
+      margin-top: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+    `}
 `;
 
 const TableTitleSearch = styled.div`

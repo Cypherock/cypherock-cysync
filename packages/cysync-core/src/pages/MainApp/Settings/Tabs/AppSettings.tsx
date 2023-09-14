@@ -1,5 +1,5 @@
-import { Flex, LangDisplay, Toggle, Typography } from '@cypherock/cysync-ui';
-import React from 'react';
+import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
+import React, { useState } from 'react';
 
 import {
   openChangePasswordDialog,
@@ -9,113 +9,86 @@ import {
 } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
-import { SettingsButton, TabItem } from '../components';
+import { SettingsStandardItem, SettingsButton } from '../components';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.app;
   const dispatch = useAppDispatch();
+  const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
+    useState<boolean>(false);
+  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
+    useState<boolean>(false);
+
   return (
-    <Flex
-      $alignSelf="stretch"
-      direction="column"
-      align="stretch"
-      px={{ def: 3, lg: 5 }}
-      py={{ def: 2, lg: 4 }}
-      gap={32}
-    >
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.password} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.passwordDesc} />
-          </Typography>
-        </Flex>
-        <Flex gap={16} direction="column">
-          <SettingsButton
-            variant="primary"
-            justify="center"
-            onClick={() => dispatch(openSetPasswordDialog())}
-          >
-            <LangDisplay text={strings.buttons.setPassword} />
-          </SettingsButton>
-          <SettingsButton
-            variant="primary"
-            justify="center"
-            onClick={() => dispatch(openRemovePasswordDialog())}
-          >
-            <LangDisplay text={strings.buttons.removePassword} />
-          </SettingsButton>
-          <SettingsButton
-            variant="primary"
-            justify="center"
-            onClick={() => dispatch(openChangePasswordDialog())}
-          >
-            <LangDisplay text={strings.buttons.changePassword} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.anayticsAndBugReport} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.anayticsAndBugReportDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <Toggle checked={false} />
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.reset} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.resetDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <SettingsButton
-            variant="primary"
-            onClick={() => dispatch(openResetCySyncDialog())}
-          >
-            <LangDisplay text={strings.buttons.reset} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.update} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.updateDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <Toggle checked={false} />
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.usb} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.usbDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <SettingsButton variant="primary" onClick={console.log}>
-            <LangDisplay text={strings.buttons.start} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-    </Flex>
+    <>
+      <SettingsStandardItem
+        title={{ text: item.password.title }}
+        description={{ text: item.password.description }}
+      >
+        <SettingsButton
+          display="none"
+          onClick={() => dispatch(openSetPasswordDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.setPassword} />
+        </SettingsButton>
+        <SettingsButton
+          onClick={() => dispatch(openRemovePasswordDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.removePassword} />
+        </SettingsButton>
+        <SettingsButton
+          onClick={() => dispatch(openChangePasswordDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.changePassword} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.anayticsAndBugReport.title }}
+        description={{ text: item.anayticsAndBugReport.description }}
+      >
+        <Toggle
+          variant="large"
+          offText={strings.toggle.off}
+          onText={strings.toggle.on}
+          checked={isAnalyticsAndBugReportEnabled}
+          onToggle={setAnalyticsAndBugReportEnabled}
+        />
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.reset.title }}
+        description={{ text: item.reset.description }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openResetCySyncDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.reset} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.update.title }}
+        description={{ text: item.update.description }}
+      >
+        <Toggle
+          variant="large"
+          offText={strings.toggle.off}
+          onText={strings.toggle.on}
+          checked={isAutoUpdateCySyncEnabled}
+          onToggle={setAutoUpdateCySyncEnabled}
+        />
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.usb.title }}
+        description={{ text: item.usb.description }}
+      >
+        <SettingsButton variant="primary" onClick={console.log}>
+          <LangDisplay text={strings.buttons.start} />
+        </SettingsButton>
+      </SettingsStandardItem>
+    </>
   );
 };

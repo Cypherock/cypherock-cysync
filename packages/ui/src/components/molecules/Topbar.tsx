@@ -9,6 +9,7 @@ import {
   Lock,
   LockOpen,
   Disconnected,
+  DeviceErrorIcon,
   SyncProblem,
   SyncronizingBold,
   NoNotifications,
@@ -82,7 +83,7 @@ export const Topbar: FC<ITopbar> = ({
 
   const connectionStatusMap = {
     connected: <Connected fill={theme?.palette.success.main} />,
-    error: <Disconnected fill={theme?.palette.warn.main} />,
+    error: <DeviceErrorIcon fill={theme?.palette.warn.main} />,
     disconnected: <Disconnected fill={theme?.palette.warn.main} />,
   };
 

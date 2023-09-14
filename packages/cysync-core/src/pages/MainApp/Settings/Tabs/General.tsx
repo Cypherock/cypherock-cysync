@@ -1,81 +1,42 @@
-import {
-  ArrowDown,
-  Dropdown,
-  Flex,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui';
+import { ArrowDown, Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SettingsButton, TabItem } from '../components';
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
 
   return (
-    <Flex
-      $alignSelf="stretch"
-      direction="column"
-      align="stretch"
-      px={{ def: 3, lg: 5 }}
-      py={{ def: 2, lg: 4 }}
-      gap={32}
-    >
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.syncMobile} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.syncMobileDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <SettingsButton variant="primary" onClick={console.log}>
-            <LangDisplay text={strings.buttons.showQRCode} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.editAccount} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.editAccountDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <SettingsButton variant="primary" onClick={console.log}>
-            <LangDisplay text={strings.buttons.editAccount} />
-          </SettingsButton>
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.toggleWalletOnPortfolio} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.toggleWalletOnPortfolioDesc} />
-          </Typography>
-        </Flex>
-        <Flex>
-          <ArrowDown />
-        </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.currency} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.currencyDesc} />
-          </Typography>
-        </Flex>
+    <>
+      <SettingsStandardItem
+        title={{ text: item.syncMobile.title }}
+        description={{ text: item.syncMobile.description }}
+      >
+        <SettingsButton variant="primary" onClick={console.log}>
+          <LangDisplay text={strings.buttons.showQRCode} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.editAccount.title }}
+        description={{ text: item.editAccount.description }}
+      >
+        <SettingsButton variant="primary" onClick={console.log}>
+          <LangDisplay text={strings.buttons.editAccount} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.toggleWalletOnPortfolio.title }}
+        description={{ text: item.toggleWalletOnPortfolio.description }}
+      >
+        <ArrowDown />
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.currency.title }}
+        description={{ text: item.currency.description }}
+      >
         <Flex width={300}>
           <Dropdown
             items={[
@@ -88,16 +49,11 @@ export const GeneralSettings: React.FC = () => {
             onChange={console.log}
           />
         </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.language} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.languageDesc} />
-          </Typography>
-        </Flex>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.language.title }}
+        description={{ text: item.language.description }}
+      >
         <Flex width={300}>
           <Dropdown
             items={[
@@ -110,16 +66,11 @@ export const GeneralSettings: React.FC = () => {
             onChange={console.log}
           />
         </Flex>
-      </TabItem>
-      <TabItem>
-        <Flex direction="column" align="stretch">
-          <Typography $fontSize={20} color="white">
-            <LangDisplay text={item.region} />
-          </Typography>
-          <Typography $fontSize={16} color="muted">
-            <LangDisplay text={item.regionDesc} />
-          </Typography>
-        </Flex>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.region.title }}
+        description={{ text: item.region.description }}
+      >
         <Flex width={300}>
           <Dropdown
             items={[
@@ -134,7 +85,7 @@ export const GeneralSettings: React.FC = () => {
             onChange={console.log}
           />
         </Flex>
-      </TabItem>
-    </Flex>
+      </SettingsStandardItem>
+    </>
   );
 };

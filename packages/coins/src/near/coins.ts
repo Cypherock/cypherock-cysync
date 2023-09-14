@@ -9,5 +9,6 @@ export default [
     feesUnit: 'TGas',
     network: 'mainnet',
     curve: 'ed25519',
+    color: '#FFFFFF',
   },
 ];

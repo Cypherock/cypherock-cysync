@@ -7,7 +7,7 @@ export interface TabItemProps {
 
 export const TabItem: React.FC<TabItemProps> = ({ children }) => (
   <Flex gap={32} align="stretch" direction="column">
-    <Flex justify="space-between" align="center">
+    <Flex justify="space-between" gap={32} align="center">
       {children}
     </Flex>
     <Divider variant="horizontal" />

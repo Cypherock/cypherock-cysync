@@ -5,8 +5,8 @@ import {
   LangDisplay,
   Typography,
   useTheme,
+  Tab,
 } from '@cypherock/cysync-ui';
-import { Tab } from '@cypherock/cysync-ui/src';
 import React, { FC, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -63,7 +63,7 @@ export const Settings: FC = () => {
                 key={tab.label}
                 direction="column"
                 align="center"
-                gap={24}
+                gap={{ def: 20, lg: 21 }}
                 $cursor="pointer"
                 onClick={() => setTabIndex(index)}
               >
@@ -76,7 +76,7 @@ export const Settings: FC = () => {
                 </Typography>
                 <Divider
                   variant="horizontal"
-                  height={{ def: 3, lg: 4 }}
+                  height={{ def: 4, lg: 3 }}
                   background={
                     index === tabIndex ? theme.palette.golden : 'none'
                   }
@@ -86,7 +86,16 @@ export const Settings: FC = () => {
           </Flex>
           <Divider variant="horizontal" />
         </Flex>
-        {tabs[tabIndex].content}
+        <Flex
+          $alignSelf="stretch"
+          direction="column"
+          align="stretch"
+          px={{ def: 3, lg: 5 }}
+          py={{ def: 2, lg: 4 }}
+          gap={32}
+        >
+          {tabs[tabIndex].content}
+        </Flex>
       </Container>
     </MainAppLayout>
   );
