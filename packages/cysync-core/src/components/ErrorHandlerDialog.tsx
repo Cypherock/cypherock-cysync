@@ -7,6 +7,7 @@ export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;
   textVariables?: object;
   showCloseButton?: boolean;
+  suppressActions?: boolean;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -18,6 +19,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   textVariables,
   defaultMsg,
   showCloseButton,
+  suppressActions,
 }) => {
   const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
@@ -36,10 +38,14 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   return (
     <ErrorDialog
       iconType={errorToShow.iconName}
-      primaryActionText={errorToShow.primaryAction.text}
-      secondaryActionText={errorToShow.secondaryAction?.text}
-      onPrimaryClick={onPrimaryClick}
-      onSecondaryClick={onSecondaryClick}
+      primaryActionText={
+        suppressActions ? undefined : errorToShow.primaryAction.text
+      }
+      secondaryActionText={
+        suppressActions ? undefined : errorToShow.secondaryAction?.text
+      }
+      onPrimaryClick={suppressActions ? undefined : onPrimaryClick}
+      onSecondaryClick={suppressActions ? undefined : onSecondaryClick}
       title={`${errorToShow.heading} (${errorToShow.code})`}
       subtext={errorToShow.subtext}
       textVariables={textVariables}
@@ -52,4 +58,5 @@ ErrorHandlerDialog.defaultProps = {
   children: undefined,
   textVariables: undefined,
   showCloseButton: undefined,
+  suppressActions: undefined,
 };

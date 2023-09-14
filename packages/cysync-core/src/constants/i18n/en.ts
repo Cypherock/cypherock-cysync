@@ -159,7 +159,6 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext:
       'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
   },
-  // TODO: Update texts for app timeout
   [DeviceAppErrorType.APP_TIMEOUT]: {
     heading: 'Your X1 Vault has timed-out',
     subtext: 'Navigate to the main menu on the device and try again',
@@ -651,6 +650,10 @@ const en = {
       title: 'Connect your X1 Vault to your PC to proceed',
       subtext:
         'Use the USB cable provided in your product packaging to connect',
+      unavailable: {
+        title: 'Your X1 Vault is unable to communicate',
+        subtext: 'Try reconnecting the device',
+      },
     },
     deviceAuth: {
       heading: 'Device Authentication',

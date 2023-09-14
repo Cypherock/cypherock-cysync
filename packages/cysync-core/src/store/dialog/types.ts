@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 
 export interface IDialogState {
@@ -15,6 +16,11 @@ export interface IDialogState {
   deviceUpdateDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  errorDialog: {
+    isOpen: boolean;
+    data?: ErrorDialogProps;
   };
 
   walletSyncError: {

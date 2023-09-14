@@ -9,6 +9,7 @@ import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
 import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
+import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -43,4 +44,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   deviceUpdateDialog: DeviceUpdateDialog,
   deviceAuthenticationDialog: DeviceAuthenticationDialog,
   appUpdateDialog: AppUpdateDialog,
+  errorDialog: ErrorDialog,
 };

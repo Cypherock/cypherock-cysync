@@ -1,14 +1,22 @@
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
+import {
+  DeviceCommunicationError,
+  DeviceCommunicationErrorType,
+} from '@cypherock/sdk-interfaces';
 import React, { useEffect } from 'react';
 
 import {
   openAppUpdateDialog,
   openDeviceAuthenticationDialog,
   openDeviceUpdateDialog,
+  openErrorDialog,
 } from '~/actions';
 import { routes } from '~/constants';
-import { DeviceConnectionStatus, useDevice } from '~/context';
-import { useNavigateTo } from '~/hooks';
+import {
+  DeviceHandlingState,
+  fetchDeviceHandlingState,
+  useNavigateTo,
+} from '~/hooks';
 import { useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -28,52 +36,52 @@ const OnboardingMap: Record<OnboardingStep, string> = {
 };
 
 export const DeviceHandlingTask: React.FC = () => {
-  const { connection } = useDevice();
+  const { deviceHandlingState, connection } = fetchDeviceHandlingState();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
 
-  const startDeviceUpdate = () => {
-    dispatch(openDeviceUpdateDialog());
-  };
-  const startDeviceAuthentication = () => {
-    dispatch(openDeviceAuthenticationDialog());
-  };
-
-  const startAppUpdate = () => {
-    dispatch(openAppUpdateDialog());
-  };
-
-  const onConnectionChange = async () => {
-    if (!connection || !(await keyValueStore.isOnboardingCompleted.get())) {
-      return;
-    }
-
-    if (connection.status === DeviceConnectionStatus.INCOMPATIBLE) {
-      startAppUpdate();
-    } else if (
-      connection.status === DeviceConnectionStatus.CONNECTED &&
-      connection.isBootloader
-    ) {
-      startDeviceUpdate();
-    } else if (
-      connection.status === DeviceConnectionStatus.CONNECTED &&
-      (connection.onboardingStep !== OnboardingStep.ONBOARDING_STEP_COMPLETE ||
-        connection.isInitial)
-    ) {
+  const handlingStateToActionMap: Partial<
+    Record<DeviceHandlingState, () => Promise<void>>
+  > = {
+    [DeviceHandlingState.INCOMPATIBLE]: async () => {
+      dispatch(openAppUpdateDialog());
+    },
+    [DeviceHandlingState.BOOTLOADER]: async () => {
+      dispatch(openDeviceUpdateDialog());
+    },
+    [DeviceHandlingState.NOT_ONBOARDED]: async () => {
       await keyValueStore.isOnboardingCompleted.set(false);
-      navigateTo(OnboardingMap[connection.onboardingStep]);
-    } else if (
-      connection.status === DeviceConnectionStatus.CONNECTED &&
-      connection.isMain &&
-      !connection.isAuthenticated
-    ) {
-      startDeviceAuthentication();
-    }
+      navigateTo(
+        OnboardingMap[
+          connection?.onboardingStep ?? OnboardingStep.UNRECOGNIZED
+        ],
+      );
+    },
+    [DeviceHandlingState.NOT_AUTHENTICATED]: async () => {
+      dispatch(openDeviceAuthenticationDialog());
+    },
+    [DeviceHandlingState.UNKNOWN_ERROR]: async () => {
+      const error = new DeviceCommunicationError(
+        DeviceCommunicationErrorType.UNKNOWN_COMMUNICATION_ERROR,
+      );
+      dispatch(
+        openErrorDialog({
+          error,
+          showCloseButton: true,
+          suppressActions: true,
+        }),
+      );
+    },
+  };
+
+  const onStateChange = async () => {
+    const action = handlingStateToActionMap[deviceHandlingState];
+    if (action) await action();
   };
 
   useEffect(() => {
-    onConnectionChange();
-  }, [connection]);
+    onStateChange();
+  }, [deviceHandlingState]);
 
   return null;
 };

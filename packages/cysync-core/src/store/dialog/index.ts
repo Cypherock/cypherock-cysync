@@ -19,6 +19,9 @@ const initialState: IDialogState = {
   deviceUpdateDialog: {
     isOpen: false,
   },
+  errorDialog: {
+    isOpen: false,
+  },
   walletSyncError: {
     isOpen: false,
   },

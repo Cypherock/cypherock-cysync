@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
@@ -58,3 +59,6 @@ export const openDeviceAuthenticationDialog = () =>
 
 export const openAppUpdateDialog = () =>
   openDialog({ name: 'appUpdateDialog', data: undefined });
+
+export const openErrorDialog = (props: ErrorDialogProps) =>
+  openDialog({ name: 'errorDialog', data: props });
