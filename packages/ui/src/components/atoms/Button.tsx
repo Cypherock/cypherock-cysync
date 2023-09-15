@@ -112,7 +112,13 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     }
   `,
   warning: css<ButtonProps>``,
-  danger: css<ButtonProps>``,
+  danger: css<ButtonProps>`
+    outline: none;
+    background: ${({ theme }) => theme.palette.background.danger};
+    color: ${({ theme }) => theme.palette.text.white};
+    border: none;
+    border-radius: 8px;
+  `,
   text: css<ButtonProps>`
     background: none;
     outline: none;

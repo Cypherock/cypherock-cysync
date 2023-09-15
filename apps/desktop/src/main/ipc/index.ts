@@ -2,7 +2,7 @@ import { IpcMain, WebContents } from 'electron';
 
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
 import { getCloseIPCHandlers } from './close';
-import { getDbIPCHandlers, setupDbListeners } from './db';
+import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
 import { getResetIPCHandlers } from './reset';
@@ -38,4 +38,8 @@ export const setupIPCHandlers = (
 
 export const setupListeners = (webContents: WebContents) => {
   setupDbListeners(webContents);
+};
+
+export const removeListeners = () => {
+  removeDbListeners();
 };
