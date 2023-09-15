@@ -25,7 +25,11 @@ export const LatestDeviceVersionProvider: React.FC<
 
   const fetchLatestVersion = async () => {
     setVersion(undefined);
-    if (!connection || connection.status !== DeviceConnectionStatus.CONNECTED)
+    if (
+      !connection ||
+      connection.status !== DeviceConnectionStatus.CONNECTED ||
+      connection.isBootloader
+    )
       return;
 
     const result = await ManagerApp.getLatestFirmware({

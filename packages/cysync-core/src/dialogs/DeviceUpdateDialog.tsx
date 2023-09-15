@@ -21,7 +21,7 @@ export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
 
-  const { state, downloadProgress, version, errorToShow, onRetry, connection } =
+  const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
 
   const onClose = () => dispatch(closeDialog('deviceUpdateDialog'));
@@ -29,10 +29,6 @@ export const DeviceUpdateDialog: FC = () => {
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) onClose();
   }, [state]);
-
-  useEffect(() => {
-    if (!connection) onClose();
-  }, [connection]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
     {
