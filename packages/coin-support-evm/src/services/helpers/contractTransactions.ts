@@ -16,11 +16,15 @@ export const mapContractTransactionForDb = async (params: {
   db: IDatabase;
   account: IAccount;
   transaction: IEvmContractTransactionItem;
-}): Promise<ITransaction[] | undefined> => {
+}): Promise<{
+  transactions: ITransaction[];
+  newAccounts: IAccount[];
+}> => {
   const { account, transaction, db } = params;
   const coin = coinList[account.assetId] as IEvmCoinInfo;
 
   const txns: ITransaction[] = [];
+  const newAccounts: IAccount[] = [];
 
   const tokenObj = Object.values(coin.tokens).find(
     e => transaction.contractAddress.toLowerCase() === e.address.toLowerCase(),
@@ -51,7 +55,12 @@ export const mapContractTransactionForDb = async (params: {
       balance: '0',
     };
 
-    tokenAccount = await insertAccountIfNotExists(db, tokenAccount);
+    const insertedResult = await insertAccountIfNotExists(db, tokenAccount);
+    tokenAccount = insertedResult.account;
+
+    if (insertedResult.isInserted) {
+      newAccounts.push(tokenAccount);
+    }
 
     const txn: ITransaction = {
       hash: transaction.hash,
@@ -111,26 +120,28 @@ export const mapContractTransactionForDb = async (params: {
     });
   }
 
-  return txns;
+  return { transactions: txns, newAccounts };
 };
 
 export const mapContractTransactionsForDb = async (params: {
   db: IDatabase;
   account: IAccount;
   transactions: IEvmContractTransactionItem[];
-}): Promise<ITransaction[]> => {
+}): Promise<{ transactions: ITransaction[]; newAccounts: IAccount[] }> => {
   const { account, transactions, db } = params;
 
   const txns: ITransaction[] = [];
+  const newAccountsList: IAccount[] = [];
 
   for (const txn of transactions) {
-    const mappedTxn = await mapContractTransactionForDb({
+    const result = await mapContractTransactionForDb({
       account,
       transaction: txn,
       db,
     });
-    if (mappedTxn) txns.push(...mappedTxn);
+    txns.push(...result.transactions);
+    newAccountsList.push(...result.newAccounts);
   }
 
-  return txns;
+  return { transactions: txns, newAccounts: newAccountsList };
 };

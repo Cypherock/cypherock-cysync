@@ -47,14 +47,14 @@ export const insertOrUpdateAccounts = async (
 export const insertAccountIfNotExists = async (
   db: IDatabase,
   account: IAccount,
-) => {
+): Promise<{ account: IAccount; isInserted: boolean }> => {
   const query: Partial<IAccount> = getUniqueAccountQuery(account);
 
   const existingAccount = await db.account.getOne(query);
 
   if (existingAccount) {
-    return existingAccount;
+    return { account: existingAccount, isInserted: false };
   }
 
-  return db.account.insert(account);
+  return { account: await db.account.insert(account), isInserted: true };
 };

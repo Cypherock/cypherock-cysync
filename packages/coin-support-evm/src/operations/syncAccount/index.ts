@@ -23,6 +23,8 @@ import {
   getContractBalance,
 } from '../../services';
 import { IEvmAccount } from '../types';
+import logger from '../../utils/logger';
+import { lastValueFrom } from 'rxjs';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -129,7 +131,7 @@ const fetchAndParseContractTransactions = async (params: {
     limit: PER_PAGE_TXN_LIMIT,
   });
 
-  const transactions = await mapContractTransactionsForDb({
+  const { transactions, newAccounts } = await mapContractTransactionsForDb({
     account,
     transactions: transactionDetails.result,
     db,
@@ -143,6 +145,18 @@ const fetchAndParseContractTransactions = async (params: {
       .map(t => t.blockHeight),
     0,
   );
+
+  for (const newAccount of newAccounts) {
+    lastValueFrom(
+      syncAccount({
+        db,
+        accountId: newAccount.__id ?? '',
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token account');
+      logger.error(error);
+    });
+  }
 
   return { hasMore, transactions, afterBlock: newAfterBlock };
 };
