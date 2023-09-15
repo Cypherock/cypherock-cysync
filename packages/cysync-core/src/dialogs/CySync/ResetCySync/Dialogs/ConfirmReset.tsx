@@ -20,7 +20,7 @@ export const ConfirmReset: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onClose } = useResetCySyncDialog();
   const { buttons, dialogs } = lang.strings;
-  const { confim } = dialogs.cysync.reset;
+  const { confim } = dialogs.reset;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

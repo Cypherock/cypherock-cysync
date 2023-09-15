@@ -21,7 +21,7 @@ export const ReleaseNotes: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onClose } = useReleaseNotesDialog();
   const { buttons, dialogs } = lang.strings;
-  const { releaseNote } = dialogs.cysync;
+  const { releaseNote } = dialogs;
 
   return (
     <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">

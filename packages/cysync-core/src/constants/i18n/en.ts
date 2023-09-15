@@ -1276,17 +1276,15 @@ const en = {
     close: {
       title: 'Are you sure you want to exit?',
     },
-    cysync: {
-      reset: {
-        confim: {
-          title: 'Are you sure you want to reset the cySync app?',
-          subTitle:
-            'This will erase all your data on your cySync app. Note this will not result in loss of assets',
-        },
+    reset: {
+      confim: {
+        title: 'Are you sure you want to reset the cySync app?',
+        subTitle:
+          'This will erase all your data on your cySync app. Note this will not result in loss of assets',
       },
-      releaseNote: {
-        title: 'Release Notes',
-      },
+    },
+    releaseNote: {
+      title: 'Release Notes',
     },
     auth: {
       title: 'Follow instructions on the X1 Vault',

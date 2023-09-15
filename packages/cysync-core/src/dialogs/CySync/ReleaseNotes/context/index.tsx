@@ -51,7 +51,7 @@ export const ReleaseNotesDialogProvider: FC<
   const tabs: ITabs = [
     {
       name: lang.strings.settings.tabs.app.title,
-      dialogs: [<ReleaseNotes key="version-details-release-notes" />],
+      dialogs: [<ReleaseNotes key="release-notes" />],
     },
   ];
 
