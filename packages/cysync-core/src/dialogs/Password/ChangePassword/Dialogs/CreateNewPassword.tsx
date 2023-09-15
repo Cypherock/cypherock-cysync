@@ -27,6 +27,8 @@ export const CreateNewPassword: React.FC = () => {
     handleOldPasswordChange,
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
+    handleChangePassword,
+    loading,
   } = useChangePasswordDialog();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -61,7 +63,7 @@ export const CreateNewPassword: React.FC = () => {
             <form
               onSubmit={e => {
                 e.preventDefault();
-                onClose();
+                handleChangePassword();
               }}
               id="change-password-create-new-form"
             >
@@ -106,9 +108,8 @@ export const CreateNewPassword: React.FC = () => {
       </ScrollableContainer>
       <DialogBoxFooter>
         <Button
-          type="submit"
           variant="secondary"
-          disabled={false}
+          disabled={loading}
           onClick={e => {
             e.preventDefault();
             onClose();
@@ -121,12 +122,14 @@ export const CreateNewPassword: React.FC = () => {
           type="submit"
           variant="primary"
           disabled={
+            loading ||
             Boolean(error) ||
             oldPassword.length === 0 ||
             newPassword.length < 8 ||
             confirmNewPassword.length < 8 ||
             newPassword !== confirmNewPassword
           }
+          isLoading={loading}
         >
           <LangDisplay text={buttons.confirm} />
         </Button>

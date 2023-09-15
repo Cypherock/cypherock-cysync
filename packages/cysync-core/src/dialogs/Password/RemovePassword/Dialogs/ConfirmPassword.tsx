@@ -17,8 +17,14 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useRemovePasswordDialog } from '../context';
 
 export const ConfirmPassword: React.FC = () => {
-  const { onClose, error, password, handlePasswordChange } =
-    useRemovePasswordDialog();
+  const {
+    onClose,
+    handleRemovePassword,
+    loading,
+    error,
+    password,
+    handlePasswordChange,
+  } = useRemovePasswordDialog();
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
@@ -43,7 +49,7 @@ export const ConfirmPassword: React.FC = () => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onClose();
+              handleRemovePassword();
             }}
             id="remove-password-confirm-form"
           >
@@ -71,7 +77,8 @@ export const ConfirmPassword: React.FC = () => {
           form="remove-password-confirm-form"
           type="submit"
           variant="danger"
-          disabled={Boolean(error) || password.length === 0}
+          disabled={loading || Boolean(error) || password.length === 0}
+          isLoading={loading}
         >
           <LangDisplay text={buttons.removePassword} />
         </Button>

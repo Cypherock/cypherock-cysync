@@ -18,6 +18,7 @@ import {
 } from '~/store';
 
 import { AddPassword } from '../Dialogs';
+import { useLockscreen } from '~/context';
 
 export interface SetPasswordDialogContextInterface {
   tabs: ITabs;
@@ -33,6 +34,8 @@ export interface SetPasswordDialogContextInterface {
   confirmNewPassword: string;
   handleNewPasswordChange: (val: string) => void;
   handleConfirmNewPasswordChange: (val: string) => void;
+  loading: boolean;
+  handleSetPassword: () => Promise<void>;
 }
 
 export const SetPasswordDialogContext: Context<SetPasswordDialogContextInterface> =
@@ -54,6 +57,9 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { setPassword: setCySyncPassword } = useLockscreen();
 
   const validateNewPassword = () => {
     if (newPassword !== confirmNewPassword) {
@@ -63,6 +69,20 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
     setError(null);
   };
   useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+
+  const handleSetPassword = async () => {
+    setLoading(true);
+    const isCorrectPassword = await setCySyncPassword(newPassword);
+
+    if (!isCorrectPassword) {
+      setError(lang.strings.dialogs.password.error.failedToSet);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    onClose();
+  };
 
   const onClose = () => {
     dispatch(closeDialog('setPassword'));
@@ -110,6 +130,8 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
       confirmNewPassword,
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
+      loading,
+      handleSetPassword,
     }),
     [
       isDeviceRequired,
@@ -125,6 +147,8 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
       confirmNewPassword,
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
+      loading,
+      handleSetPassword,
     ],
   );
 

@@ -18,6 +18,7 @@ import {
 } from '~/store';
 
 import { ConfirmPassword } from '../Dialogs';
+import { useLockscreen } from '~/context';
 
 export interface RemovePasswordDialogContextInterface {
   tabs: ITabs;
@@ -31,6 +32,8 @@ export interface RemovePasswordDialogContextInterface {
   error: string | null;
   password: string;
   handlePasswordChange: (val: string) => void;
+  loading: boolean;
+  handleRemovePassword: () => Promise<void>;
 }
 
 export const RemovePasswordDialogContext: Context<RemovePasswordDialogContextInterface> =
@@ -51,6 +54,8 @@ export const RemovePasswordDialogProvider: FC<
 
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const { setPassword: setCySyncPassword } = useLockscreen();
 
   const validatePassword = () => {
     if (password.length > 0 && password.length < 8) {
@@ -60,6 +65,20 @@ export const RemovePasswordDialogProvider: FC<
     setError(null);
   };
   useEffect(validatePassword, [password]);
+
+  const handleRemovePassword = async () => {
+    setLoading(true);
+    const isCorrectPassword = await setCySyncPassword(undefined, password);
+
+    if (!isCorrectPassword) {
+      setError(lang.strings.lockscreen.incorrectPassword);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    onClose();
+  };
 
   const onClose = () => {
     dispatch(closeDialog('removePassword'));
@@ -101,6 +120,8 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
+      loading,
+      handleRemovePassword,
     }),
     [
       isDeviceRequired,
@@ -114,6 +135,8 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
+      loading,
+      handleRemovePassword,
     ],
   );
 

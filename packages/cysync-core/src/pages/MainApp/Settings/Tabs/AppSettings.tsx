@@ -10,6 +10,7 @@ import {
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsStandardItem, SettingsButton } from '../components';
+import { useLockscreen } from '~/context';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
@@ -19,6 +20,7 @@ export const AppSettings: React.FC = () => {
     useState<boolean>(false);
   const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
     useState<boolean>(false);
+  const { isPasswordSet } = useLockscreen();
 
   return (
     <>
@@ -27,19 +29,21 @@ export const AppSettings: React.FC = () => {
         description={{ text: item.password.description }}
       >
         <SettingsButton
-          display="none"
+          display={isPasswordSet ? 'none' : undefined}
           onClick={() => dispatch(openSetPasswordDialog())}
           variant="primary"
         >
           <LangDisplay text={strings.buttons.setPassword} />
         </SettingsButton>
         <SettingsButton
+          display={isPasswordSet ? undefined : 'none'}
           onClick={() => dispatch(openRemovePasswordDialog())}
           variant="primary"
         >
           <LangDisplay text={strings.buttons.removePassword} />
         </SettingsButton>
         <SettingsButton
+          display={isPasswordSet ? undefined : 'none'}
           onClick={() => dispatch(openChangePasswordDialog())}
           variant="primary"
         >

@@ -18,6 +18,7 @@ import {
 } from '~/store';
 
 import { CreateNewPassword } from '../Dialogs';
+import { useLockscreen } from '~/context';
 
 export interface ChangePasswordDialogContextInterface {
   tabs: ITabs;
@@ -35,6 +36,8 @@ export interface ChangePasswordDialogContextInterface {
   confirmNewPassword: string;
   handleConfirmNewPasswordChange: (val: string) => void;
   error: string | null;
+  handleChangePassword: () => Promise<void>;
+  loading: boolean;
 }
 
 export const ChangePasswordDialogContext: Context<ChangePasswordDialogContextInterface> =
@@ -57,6 +60,9 @@ export const ChangePasswordDialogProvider: FC<
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { setPassword: setCySyncPassword } = useLockscreen();
 
   const validateNewPassword = () => {
     if (newPassword !== confirmNewPassword) {
@@ -81,6 +87,20 @@ export const ChangePasswordDialogProvider: FC<
 
   const handleConfirmNewPasswordChange = (val: string) => {
     setConfirmNewPassword(val);
+  };
+
+  const handleChangePassword = async () => {
+    setLoading(true);
+    const isCorrectPassword = await setCySyncPassword(newPassword, oldPassword);
+
+    if (!isCorrectPassword) {
+      setError(lang.strings.lockscreen.incorrectPassword);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    onClose();
   };
 
   const tabs: ITabs = [
@@ -119,6 +139,8 @@ export const ChangePasswordDialogProvider: FC<
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
       error,
+      handleChangePassword,
+      loading,
     }),
     [
       isDeviceRequired,
@@ -136,6 +158,8 @@ export const ChangePasswordDialogProvider: FC<
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
       error,
+      handleChangePassword,
+      loading,
     ],
   );
 
