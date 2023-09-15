@@ -18,6 +18,7 @@ import {
 } from '~/store';
 
 import { Email2FA, X1CardAuthProcess } from '../Dialogs';
+import { validateEmail } from '~/utils';
 
 export interface AuthenticateX1CardDialogContextInterface {
   tabs: ITabs;
@@ -32,8 +33,6 @@ export interface AuthenticateX1CardDialogContextInterface {
   handleEmailChange: (email: string) => void;
   error: string | null;
 }
-
-const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
 export const AuthenticateX1CardDialogContext: Context<AuthenticateX1CardDialogContextInterface> =
   createContext<AuthenticateX1CardDialogContextInterface>(
@@ -54,15 +53,14 @@ export const AuthenticateX1CardDialogProvider: FC<
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  const validateEmail = () => {
-    if (email.length > 0 && !emailRegex.test(email)) {
-      setError('Invalid Email');
+  useEffect(() => {
+    const validation = validateEmail(email, lang);
+    if (!validation.success) {
+      setError(validation.error.issues[0].message);
       return;
     }
-
     setError(null);
-  };
-  useEffect(validateEmail, [email]);
+  }, [email]);
 
   const handleEmailChange = (_email: string) => {
     setEmail(_email);
