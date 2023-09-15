@@ -23,11 +23,11 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
-import { useWindowSize } from '~/hooks';
+import { useStateToRef, useWindowSize } from '~/hooks';
 import {
   selectLanguage,
   selectWallets,
@@ -278,6 +278,18 @@ export const useTransactions = ({
     priceInfos,
     isDiscreetMode,
   } = useAppSelector(selector);
+  const refData = useStateToRef({
+    lang,
+    wallets,
+    accounts,
+    transactions: allTransactions,
+    priceInfos,
+    isDiscreetMode,
+    walletId,
+    assetId,
+    accountId,
+  });
+
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const { windowWidth } = useWindowSize();
@@ -320,36 +332,55 @@ export const useTransactions = ({
     return sortedList.map(t => ({ ...t, time: t.date }));
   };
 
-  useEffect(() => {
-    const mappedTransactions: TransactionRowData[] = allTransactions
-      .filter(a => {
-        if (a.type === TransactionTypeMap.hidden) {
-          return false;
-        }
-        if (walletId && a.walletId !== walletId) {
-          return false;
-        }
-        if (assetId && a.assetId !== assetId) {
-          return false;
-        }
-        if (accountId && a.accountId !== accountId) {
-          return false;
-        }
+  const parseTransactionsList = () => {
+    const mappedTransactions: TransactionRowData[] =
+      refData.current.transactions
+        .filter(a => {
+          if (a.type === TransactionTypeMap.hidden) {
+            return false;
+          }
+          if (
+            refData.current.walletId &&
+            a.walletId !== refData.current.walletId
+          ) {
+            return false;
+          }
+          if (
+            refData.current.assetId &&
+            a.assetId !== refData.current.assetId
+          ) {
+            return false;
+          }
+          if (
+            refData.current.accountId &&
+            a.accountId !== refData.current.accountId
+          ) {
+            return false;
+          }
 
-        return true;
-      })
-      .map(t =>
-        mapTransactionForDisplay({
-          transaction: t,
-          isDiscreetMode,
-          priceInfos,
-          wallets,
-          accounts,
-          lang,
-        }),
-      );
+          return true;
+        })
+        .map(t =>
+          mapTransactionForDisplay({
+            transaction: t,
+            isDiscreetMode: refData.current.isDiscreetMode,
+            priceInfos: refData.current.priceInfos,
+            wallets: refData.current.wallets,
+            accounts: refData.current.accounts,
+            lang: refData.current.lang,
+          }),
+        );
 
     setTransactionList(mappedTransactions);
+  };
+
+  const debounceParseTransactionList = useCallback(
+    lodash.throttle(parseTransactionsList, 2000, { leading: true }),
+    [],
+  );
+
+  useEffect(() => {
+    debounceParseTransactionList();
   }, [
     allTransactions,
     priceInfos,

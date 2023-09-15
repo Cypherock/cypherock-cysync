@@ -13,7 +13,13 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import { CoinIcon } from '~/components';
@@ -22,6 +28,7 @@ import {
   useGraphTimeRange,
   graphTimeRangeToDaysMap,
   GraphTimeRangeMap,
+  useStateToRef,
 } from '~/hooks';
 import {
   useAppSelector,
@@ -101,19 +108,32 @@ export const usePortfolioPage = () => {
     [],
   );
 
+  const refData = useStateToRef({
+    accounts,
+    transactions,
+    priceHistories,
+    priceInfos,
+    selectedRange,
+    selectedWallet,
+    isDiscreetMode,
+  });
+
   const calculatePortfolioData = async () => {
+    const data = refData.current;
     const walletId =
-      selectedWallet?.__id === 'all' ? undefined : selectedWallet?.__id;
+      data.selectedWallet?.__id === 'all'
+        ? undefined
+        : data.selectedWallet?.__id;
 
     try {
       const balanceHistory = await getBalanceHistory({
         db: getDB(),
-        accounts,
-        transactions,
-        priceHistories,
-        priceInfos,
+        accounts: data.accounts,
+        transactions: data.transactions,
+        priceHistories: data.priceHistories,
+        priceInfos: data.priceInfos,
         currency: 'usd',
-        days: graphTimeRangeToDaysMap[selectedRange],
+        days: graphTimeRangeToDaysMap[data.selectedRange],
         walletId,
       });
       setGraphData(
@@ -161,13 +181,17 @@ export const usePortfolioPage = () => {
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),
             displayBalance: `${
-              isDiscreetMode ? '****' : formatDisplayAmount(amount)
+              data.isDiscreetMode ? '****' : formatDisplayAmount(amount)
             } ${unit.abbr}`,
             displayPrice: `$${
-              isDiscreetMode ? '****' : formatDisplayAmount(r.price, 2, true)
+              data.isDiscreetMode
+                ? '****'
+                : formatDisplayAmount(r.price, 2, true)
             }`,
             displayValue: `$${
-              isDiscreetMode ? '****' : formatDisplayAmount(r.value, 2, true)
+              data.isDiscreetMode
+                ? '****'
+                : formatDisplayAmount(r.value, 2, true)
             }`,
           };
         }),
@@ -178,22 +202,23 @@ export const usePortfolioPage = () => {
     }
   };
 
-  const throttledCalculatePortfolioData = lodash.throttle(
-    calculatePortfolioData,
-    500,
+  const throttledCalculatePortfolioData = useCallback(
+    lodash.throttle(calculatePortfolioData, 2000),
+    [],
+  );
+
+  const throttledCalculatePortfolioDataOnUserAction = useCallback(
+    lodash.throttle(calculatePortfolioData, 500),
+    [],
   );
 
   useEffect(() => {
+    throttledCalculatePortfolioDataOnUserAction();
+  }, [selectedWallet, selectedRange, isDiscreetMode]);
+
+  useEffect(() => {
     throttledCalculatePortfolioData();
-  }, [
-    accounts,
-    transactions,
-    priceHistories,
-    priceInfos,
-    selectedRange,
-    selectedWallet,
-    isDiscreetMode,
-  ]);
+  }, [accounts, transactions, priceHistories, priceInfos]);
 
   const summaryDetails = useMemo(() => {
     let currentValue = 0;
@@ -246,22 +271,36 @@ export const usePortfolioPage = () => {
     };
   }, [graphData, theme, isDiscreetMode]);
 
-  const formatTooltipValue: LineGraphProps['formatTooltipValue'] = ({
-    value,
-    timestamp,
-  }) => [
-    `$${formatDisplayAmount(value, 2, true)}`,
-    `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(timestamp, 'MMM d')}`,
-  ];
+  const formatTooltipValue = useCallback<
+    Exclude<LineGraphProps['formatTooltipValue'], undefined>
+  >(
+    ({ value, timestamp }) => [
+      `$${formatDisplayAmount(value, 2, true)}`,
+      `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(
+        timestamp,
+        'MMM d',
+      )}`,
+    ],
+    [],
+  );
 
-  const formatTimestamp: LineGraphProps['formatTimestamp'] = timestamp =>
-    formatDate(
-      timestamp,
-      selectedRange === GraphTimeRangeMap.year ? 'MMM yyyy' : 'MMM d',
-    );
+  const formatTimestamp = useCallback<
+    Exclude<LineGraphProps['formatTimestamp'], undefined>
+  >(
+    timestamp =>
+      formatDate(
+        timestamp,
+        selectedRange === GraphTimeRangeMap.year ? 'MMM yyyy' : 'MMM d',
+      ),
+    [selectedRange],
+  );
 
-  const formatYAxisTick: LineGraphProps['formatYAxisTick'] = value =>
-    isDiscreetMode ? '****' : formatDisplayAmount(value, 2, true);
+  const formatYAxisTick = useCallback<
+    Exclude<LineGraphProps['formatYAxisTick'], undefined>
+  >(
+    value => (isDiscreetMode ? '****' : formatDisplayAmount(value, 2, true)),
+    [isDiscreetMode],
+  );
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());
