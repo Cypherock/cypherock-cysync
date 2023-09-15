@@ -559,6 +559,7 @@ const en = {
       receiver: 'Receiver',
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
+      description: 'Description',
     },
     noData: {
       text: 'No transactions yet',

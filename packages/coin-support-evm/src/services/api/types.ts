@@ -19,6 +19,8 @@ export interface IEvmTransactionItem {
   confirmations: string;
   methodId: string;
   functionName?: string;
+  traceId?: string;
+  type?: string;
 }
 
 export interface IEvmTransactionResult {

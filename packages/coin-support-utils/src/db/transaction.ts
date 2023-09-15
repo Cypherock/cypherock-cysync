@@ -18,6 +18,8 @@ export const insertOrUpdateTransactions = async (
       accountId: transaction.accountId,
       assetId: transaction.assetId,
       familyId: transaction.familyId,
+      subType: transaction.subType,
+      customId: transaction.customId,
     };
 
     const existingTxn = await db.transaction.getOne(query);

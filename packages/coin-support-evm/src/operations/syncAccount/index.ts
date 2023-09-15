@@ -65,16 +65,14 @@ const fetchAndParseTransactions = async (params: {
   return { hasMore, transactions, afterBlock: newAfterBlock };
 };
 
-// TODO: Prevent overriding of transactions
-// Example: 0xedda19653fb2b2f1a6282800d62b166066c06642d0090b6b18ec9e512f1a66f5
-// It has both normal and internal transaction for our address
 const fetchAndParseInternalTransactions = async (params: {
   db: IDatabase;
   account: IAccount;
   updatedAccountInfo: Partial<IAccount>;
   afterInternalTransactionBlock: number | undefined;
+  existingTransactions: ITransaction[];
 }) => {
-  const { afterInternalTransactionBlock } = params;
+  const { afterInternalTransactionBlock, existingTransactions } = params;
   const account = params.account as IEvmAccount;
   const updatedAccountInfo = params.updatedAccountInfo as IEvmAccount;
 
@@ -94,6 +92,7 @@ const fetchAndParseInternalTransactions = async (params: {
   const transactions = mapInternalTransactionsForDb({
     account,
     transactions: transactionDetails.result,
+    existingTransactions,
   });
 
   const hasMore = transactionDetails.more;
@@ -149,6 +148,7 @@ const fetchAndParseContractTransactions = async (params: {
 };
 
 const getAddressDetails: IGetAddressDetails<{
+  transactionsTillNow?: ITransaction[];
   updatedBalance?: string;
   updatedAccountInfo?: Partial<IEvmAccount>;
   afterTransactionBlock?: number;
@@ -157,6 +157,7 @@ const getAddressDetails: IGetAddressDetails<{
   hasMoreInternalTransactions?: boolean;
   afterContractTransactionBlock?: number;
   hasMoreContractTransactions?: boolean;
+  fetchingMode?: 'transaction' | 'internalTransaction' | 'contractTransaction';
 }> = async ({ db, account, iterationContext }) => {
   let {
     afterTransactionBlock,
@@ -165,22 +166,30 @@ const getAddressDetails: IGetAddressDetails<{
     hasMoreInternalTransactions,
     hasMoreContractTransactions,
     afterContractTransactionBlock,
+    fetchingMode,
+    transactionsTillNow,
   } = iterationContext ?? {};
 
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
   let updatedBalance = iterationContext?.updatedBalance;
 
-  if (isTokenAccount) {
+  if (isTokenAccount && !updatedBalance) {
     updatedBalance = await getContractBalance(
       account.xpubOrAddress,
       account.parentAssetId,
       account.assetId,
     );
-  } else {
+  } else if (!updatedBalance) {
     updatedBalance = await getBalance(
       account.xpubOrAddress,
       account.parentAssetId,
     );
+  }
+
+  if (!transactionsTillNow) {
+    transactionsTillNow = await db.transaction.getAll({
+      accountId: account.__id,
+    });
   }
 
   const updatedAccountInfo: Partial<IEvmAccount> = {
@@ -193,7 +202,11 @@ const getAddressDetails: IGetAddressDetails<{
 
   const transactions: ITransaction[] = [];
 
-  if (!isTokenAccount && hasMoreTransactions !== false) {
+  if (
+    !isTokenAccount &&
+    hasMoreTransactions !== false &&
+    ['transaction', undefined].includes(fetchingMode)
+  ) {
     const transactionDetails = await fetchAndParseTransactions({
       db,
       account,
@@ -203,14 +216,28 @@ const getAddressDetails: IGetAddressDetails<{
     transactions.push(...transactionDetails.transactions);
     hasMoreTransactions = transactionDetails.hasMore;
     afterTransactionBlock = transactionDetails.afterBlock;
+
+    fetchingMode = 'transaction';
+    if (!hasMoreTransactions) {
+      fetchingMode = 'internalTransaction';
+    }
+
+    if (transactionsTillNow) {
+      transactionsTillNow.push(...transactions);
+    }
   }
 
-  if (!isTokenAccount && hasMoreInternalTransactions !== false) {
+  if (
+    !isTokenAccount &&
+    hasMoreInternalTransactions !== false &&
+    fetchingMode === 'internalTransaction'
+  ) {
     const internalTransactionDetails = await fetchAndParseInternalTransactions({
       db,
       updatedAccountInfo,
       account,
       afterInternalTransactionBlock,
+      existingTransactions: transactionsTillNow ?? [],
     });
 
     transactions.push(...internalTransactionDetails.transactions);
@@ -220,9 +247,18 @@ const getAddressDetails: IGetAddressDetails<{
       updatedAccountInfo as IEvmAccount
     ).extraData.lastInternalTransactionBlockHeight =
       afterInternalTransactionBlock;
+
+    fetchingMode = 'internalTransaction';
+    if (!hasMoreInternalTransactions) {
+      fetchingMode = 'contractTransaction';
+    }
   }
 
-  if (!isTokenAccount && hasMoreContractTransactions !== false) {
+  if (
+    !isTokenAccount &&
+    hasMoreContractTransactions !== false &&
+    fetchingMode === 'contractTransaction'
+  ) {
     const contractTransactionDetails = await fetchAndParseContractTransactions({
       db,
       updatedAccountInfo,
@@ -261,6 +297,8 @@ const getAddressDetails: IGetAddressDetails<{
       afterTransactionBlock,
       updatedBalance,
       updatedAccountInfo,
+      fetchingMode,
+      transactionsTillNow,
     },
   };
 };

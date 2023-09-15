@@ -31,7 +31,9 @@ export interface ITransaction extends IEntity {
   hash: string;
   fees: string;
   amount: string;
+  // Success, failed, pending
   status: TransactionStatus;
+  // Send, Receive, Hidden
   type: TransactionType;
   timestamp: number;
   blockHeight: number;
@@ -47,6 +49,11 @@ export interface ITransaction extends IEntity {
   parentTransactionId?: string;
   parentAccountId?: string;
   parentAssetId: string;
+  // Used when we need to add a child transaction with the same txn hash as
+  // it's parent
+  subType?: string;
+  customId?: string;
+  description?: string;
 }
 
 export interface IDetailedTransaction extends ITransaction {

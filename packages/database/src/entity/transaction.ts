@@ -23,5 +23,8 @@ export const Transaction: ITableDetails<Omit<ITransaction, BaseFields>> = {
     parentTransactionId: { type: 'string', isOptional: true },
     parentAccountId: { type: 'string', isOptional: true },
     parentAssetId: { type: 'string', isOptional: true },
+    subType: { type: 'string', isOptional: true },
+    customId: { type: 'string', isOptional: true },
+    description: { type: 'string', isOptional: true },
   },
 };
