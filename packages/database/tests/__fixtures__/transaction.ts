@@ -304,6 +304,9 @@ class TransactionData implements ITestClass<ITransaction> {
       parentTransactionId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAccountId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      subType: 'internal',
+      customId: 'test',
+      description: 'Desc',
     },
     {
       hash: 'hash',
@@ -324,6 +327,9 @@ class TransactionData implements ITestClass<ITransaction> {
       parentTransactionId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAccountId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      subType: 'internal',
+      customId: 'test',
+      description: 'Desc',
     },
     {
       hash: 'hash',
@@ -344,6 +350,9 @@ class TransactionData implements ITestClass<ITransaction> {
       parentTransactionId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAccountId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      subType: 'internal',
+      customId: 'test',
+      description: 'Desc',
     },
     {
       hash: 'hash',
@@ -364,6 +373,9 @@ class TransactionData implements ITestClass<ITransaction> {
       parentTransactionId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAccountId: '8e051491-b372-49e7-7483-4f601f71832a',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      subType: 'internal',
+      customId: 'test',
+      description: 'Desc',
     },
   ];
 
