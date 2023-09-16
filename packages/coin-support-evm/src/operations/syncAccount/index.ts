@@ -2,6 +2,8 @@ import {
   IGetAddressDetails,
   createSyncAccountsObservable,
   getLatestTransactionBlock,
+  createSyncPricesObservable,
+  createSyncPriceHistoriesObservable,
 } from '@cypherock/coin-support-utils';
 import {
   AccountTypeMap,
@@ -27,6 +29,48 @@ import logger from '../../utils/logger';
 import { lastValueFrom } from 'rxjs';
 
 const PER_PAGE_TXN_LIMIT = 100;
+
+const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+  for (const newAccount of newAccounts) {
+    lastValueFrom(
+      syncAccount({
+        db,
+        accountId: newAccount.__id ?? '',
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token account');
+      logger.error(error);
+    });
+  }
+
+  if (newAccounts.length > 0) {
+    const getCoinIds = async () =>
+      newAccounts.map(e => ({
+        parentAssetId: e.parentAssetId,
+        assetId: e.assetId,
+      }));
+
+    lastValueFrom(
+      createSyncPricesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token prices');
+      logger.error(error);
+    });
+
+    lastValueFrom(
+      createSyncPriceHistoriesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token price histories');
+      logger.error(error);
+    });
+  }
+};
 
 const fetchAndParseTransactions = async (params: {
   db: IDatabase;
@@ -146,17 +190,7 @@ const fetchAndParseContractTransactions = async (params: {
     0,
   );
 
-  for (const newAccount of newAccounts) {
-    lastValueFrom(
-      syncAccount({
-        db,
-        accountId: newAccount.__id ?? '',
-      }),
-    ).catch(error => {
-      logger.error('Error in syncing evm token account');
-      logger.error(error);
-    });
-  }
+  onNewAccounts(newAccounts, db);
 
   return { hasMore, transactions, afterBlock: newAfterBlock };
 };

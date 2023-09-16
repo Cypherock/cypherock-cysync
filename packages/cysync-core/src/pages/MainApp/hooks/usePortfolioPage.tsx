@@ -4,6 +4,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
+import { coinList } from '@cypherock/coins';
 import {
   getBalanceHistory,
   getCoinAllocations,
@@ -165,7 +166,7 @@ export const usePortfolioPage = () => {
           const asset = getAsset(r.parentAssetId, r.assetId);
 
           return {
-            color: asset.color ?? 'orange',
+            color: coinList[r.parentAssetId]?.color ?? 'orange',
             allocation: r.percentage,
             assetId: r.assetId,
             assetAbbr: asset.abbr,
