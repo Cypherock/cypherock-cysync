@@ -5,7 +5,7 @@ import { DialogName } from '~/store';
 import { AddAccountDialog } from './AddAccount';
 import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
 import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
-import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
+import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -35,6 +35,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   setPassword: SetPasswordDialog,
   authenticateX1Vault: AuthenticateX1VaultDialog,
   authenticateX1Card: AuthenticateX1CardDialog,
-  cySyncVersionDetails: CySyncVersionDetailsDialog,
+  releaseNotes: ReleaseNotesDialog,
   signMessage: SignMessageDialog,
 };

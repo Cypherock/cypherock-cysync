@@ -44,8 +44,8 @@ export const openAuthenticateX1CardDialog = () =>
 export const openAuthenticateX1VaultDialog = () =>
   openDialog({ name: 'authenticateX1Vault', data: undefined });
 
-export const openCySyncVersionDetailsDialog = () =>
-  openDialog({ name: 'cySyncVersionDetails', data: undefined });
+export const openReleaseNotesDialog = () =>
+  openDialog({ name: 'releaseNotes', data: undefined });
 
 export const openHistoryDialog = (props?: IHistoryDialogProps) =>
   openDialog({ name: 'historyDialog', data: props });

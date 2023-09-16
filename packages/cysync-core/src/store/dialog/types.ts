@@ -69,7 +69,7 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  cySyncVersionDetails: {
+  releaseNotes: {
     isOpen: boolean;
     data?: undefined;
   };
