@@ -75,6 +75,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.oldPassword}
                   value={oldPassword}
                   onChange={handleOldPasswordChange}
+                  disabled={loading}
                 />
                 <PasswordInput
                   pasteAllowed
@@ -83,6 +84,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.newPassword}
                   value={newPassword}
                   onChange={handleNewPasswordChange}
+                  disabled={loading}
                 />
                 <PasswordInput
                   pasteAllowed
@@ -91,6 +93,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.confirmPassword}
                   value={confirmNewPassword}
                   onChange={handleConfirmNewPasswordChange}
+                  disabled={loading}
                 />
                 <Divider variant="horizontal" />
               </Flex>

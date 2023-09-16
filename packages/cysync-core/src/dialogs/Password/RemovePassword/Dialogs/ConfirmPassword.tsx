@@ -61,6 +61,7 @@ export const ConfirmPassword: React.FC = () => {
                 label={input.enterPassword}
                 value={password}
                 onChange={handlePasswordChange}
+                disabled={loading}
               />
               <Divider variant="horizontal" />
             </Flex>
