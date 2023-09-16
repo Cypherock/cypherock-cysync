@@ -17,7 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { ConfirmPassword } from '../Dialogs';
+import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
 
 export interface RemovePasswordDialogContextInterface {
@@ -77,7 +77,7 @@ export const RemovePasswordDialogProvider: FC<
     }
 
     setLoading(false);
-    onClose();
+    onNext();
   };
 
   const onClose = () => {
@@ -92,6 +92,10 @@ export const RemovePasswordDialogProvider: FC<
     {
       name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<ConfirmPassword key="remove-password-confirm" />],
+    },
+    {
+      name: lang.strings.dialogs.password.success.remove,
+      dialogs: [<RemovePasswordSuccess key="remove-password-success" />],
     },
   ];
 

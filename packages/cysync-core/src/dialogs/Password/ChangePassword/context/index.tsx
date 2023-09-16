@@ -17,7 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { CreateNewPassword } from '../Dialogs';
+import { ChangePasswordSuccess, CreateNewPassword } from '../Dialogs';
 import { useLockscreen } from '~/context';
 
 export interface ChangePasswordDialogContextInterface {
@@ -71,7 +71,11 @@ export const ChangePasswordDialogProvider: FC<
     }
     setError(null);
   };
-  useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+  useEffect(validateNewPassword, [
+    newPassword,
+    confirmNewPassword,
+    oldPassword,
+  ]);
 
   const onClose = () => {
     dispatch(closeDialog('changePassword'));
@@ -100,13 +104,17 @@ export const ChangePasswordDialogProvider: FC<
     }
 
     setLoading(false);
-    onClose();
+    onNext();
   };
 
   const tabs: ITabs = [
     {
       name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<CreateNewPassword key="change-password-create-new" />],
+    },
+    {
+      name: lang.strings.dialogs.password.success.change,
+      dialogs: [<ChangePasswordSuccess key="change-password-success" />],
     },
   ];
 

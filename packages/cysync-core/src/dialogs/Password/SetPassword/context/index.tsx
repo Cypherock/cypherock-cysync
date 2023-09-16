@@ -17,7 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { AddPassword } from '../Dialogs';
+import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
 
 export interface SetPasswordDialogContextInterface {
@@ -81,7 +81,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
     }
 
     setLoading(false);
-    onClose();
+    onNext();
   };
 
   const onClose = () => {
@@ -100,6 +100,10 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
     {
       name: lang.strings.dialogs.password.createNewPassword.title,
       dialogs: [<AddPassword key="remove-password-confirm" />],
+    },
+    {
+      name: lang.strings.dialogs.password.success.set,
+      dialogs: [<SetPasswordSuccess key="remove-password-success" />],
     },
   ];
 
