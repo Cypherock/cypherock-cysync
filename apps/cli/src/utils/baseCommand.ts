@@ -4,9 +4,11 @@ import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
 import * as bitcoin from 'bitcoinjs-lib';
+import * as ethers from 'ethers';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
+import { EvmSupport } from '@cypherock/coin-support-evm';
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof BaseCommand)['baseFlags'] & T['flags']
@@ -83,6 +85,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     }
 
     BtcSupport.setBitcoinLibrary(bitcoin);
+    EvmSupport.setEthersLibrary(ethers);
   }
 
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {
