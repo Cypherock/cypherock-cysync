@@ -65,6 +65,7 @@ export const useAppUpdate = () => {
   };
 
   const installUpdate = async () => {
+    if (!shouldInstallAfterUpdate) return;
     try {
       setInternalState(InternalAppUpdateState.Installing);
       await autoUpdater.installUpdate();

@@ -12,11 +12,8 @@ import {
   openErrorDialog,
 } from '~/actions';
 import { routes } from '~/constants';
-import {
-  DeviceHandlingState,
-  fetchDeviceHandlingState,
-  useNavigateTo,
-} from '~/hooks';
+import { DeviceHandlingState, useDevice } from '~/context';
+import { useNavigateTo } from '~/hooks';
 import { useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -36,7 +33,7 @@ const OnboardingMap: Record<OnboardingStep, string> = {
 };
 
 export const DeviceHandlingTask: React.FC = () => {
-  const { deviceHandlingState, connection } = fetchDeviceHandlingState();
+  const { deviceHandlingState, connection } = useDevice();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
 

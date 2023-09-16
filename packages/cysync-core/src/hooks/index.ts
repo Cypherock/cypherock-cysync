@@ -14,4 +14,3 @@ export * from './useGraphTimeRange';
 export * from './useTransactions';
 export * from './useWindowSize';
 export * from './useDeviceUpdate';
-export * from './fetchDeviceHandlingState';

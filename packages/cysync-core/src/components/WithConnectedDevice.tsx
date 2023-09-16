@@ -15,15 +15,11 @@ import { useLocation, Location } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
+  DeviceHandlingState,
   IDeviceConnectionInfo,
   useDevice,
 } from '~/context';
-import {
-  DeviceHandlingState,
-  fetchDeviceHandlingState,
-  useNavigateTo,
-  useQuery,
-} from '~/hooks';
+import { useNavigateTo, useQuery } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 
 import { routes } from '../constants';
@@ -128,9 +124,8 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   ...props
 }) => {
   const lang = useAppSelector(selectLanguage);
-  const { deviceHandlingState } = fetchDeviceHandlingState();
 
-  const { connection } = useDevice();
+  const { deviceHandlingState, connection } = useDevice();
   const navigateTo = useNavigateTo();
   const location = useLocation();
   const query = useQuery();
