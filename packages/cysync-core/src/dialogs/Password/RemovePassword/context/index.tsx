@@ -4,7 +4,6 @@ import React, {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -19,7 +18,6 @@ import {
 
 import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
-import { validatePassword } from '~/utils';
 
 export interface RemovePasswordDialogContextInterface {
   tabs: ITabs;
@@ -57,16 +55,6 @@ export const RemovePasswordDialogProvider: FC<
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const { setPassword: setCySyncPassword } = useLockscreen();
-
-  const validateInputPassword = () => {
-    const validation = validatePassword({ password, confirm: password }, lang);
-    if (!validation.success) {
-      setError(validation.error.errors[0].message);
-      return;
-    }
-    setError(null);
-  };
-  useEffect(validateInputPassword, [password]);
 
   const handleRemovePassword = async () => {
     setLoading(true);
