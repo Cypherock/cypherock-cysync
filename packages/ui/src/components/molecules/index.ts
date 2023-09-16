@@ -38,3 +38,4 @@ export * from './Calendar';
 export * from './Graph';
 export * from './WallectConnect';
 export * from './JsonView';
+export * from './Markdown';

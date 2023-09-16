@@ -51,7 +51,7 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
   const tabs: ITabs = [
     {
       name: lang.strings.settings.tabs.app.title,
-      dialogs: [<ConfirmReset key="remove-password-confirm" />],
+      dialogs: [<ConfirmReset key="reset-cysync-confirm" />],
     },
   ];
 
