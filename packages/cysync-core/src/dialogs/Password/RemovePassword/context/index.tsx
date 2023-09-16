@@ -61,7 +61,7 @@ export const RemovePasswordDialogProvider: FC<
   const validateInputPassword = () => {
     const validation = validatePassword({ password, confirm: password }, lang);
     if (!validation.success) {
-      setError(validation.error.message);
+      setError(validation.error.errors[0].message);
       return;
     }
     setError(null);

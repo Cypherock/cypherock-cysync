@@ -71,7 +71,7 @@ export const ChangePasswordDialogProvider: FC<
       lang,
     );
     if (!validation.success) {
-      setError(validation.error.message);
+      setError(validation.error.errors[0].message);
       return;
     }
     setError(null);
