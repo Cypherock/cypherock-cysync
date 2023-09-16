@@ -19,6 +19,7 @@ import {
 
 import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
+import { validatePassword } from '~/utils';
 
 export interface SetPasswordDialogContextInterface {
   tabs: ITabs;
@@ -61,14 +62,18 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
 
   const { setPassword: setCySyncPassword } = useLockscreen();
 
-  const validateNewPassword = () => {
-    if (newPassword !== confirmNewPassword) {
-      setError(lang.strings.dialogs.password.error.mismatchError);
+  const validateInputPassword = () => {
+    const validation = validatePassword(
+      { password: newPassword, confirm: confirmNewPassword },
+      lang,
+    );
+    if (!validation.success) {
+      setError(validation.error.message);
       return;
     }
     setError(null);
   };
-  useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+  useEffect(validateInputPassword, [newPassword, confirmNewPassword]);
 
   const handleSetPassword = async () => {
     setLoading(true);

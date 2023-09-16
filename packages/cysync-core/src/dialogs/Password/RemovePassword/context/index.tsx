@@ -19,6 +19,7 @@ import {
 
 import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
+import { validatePassword } from '~/utils';
 
 export interface RemovePasswordDialogContextInterface {
   tabs: ITabs;
@@ -57,14 +58,15 @@ export const RemovePasswordDialogProvider: FC<
   const [loading, setLoading] = useState<boolean>(false);
   const { setPassword: setCySyncPassword } = useLockscreen();
 
-  const validatePassword = () => {
-    if (password.length > 0 && password.length < 8) {
-      setError(lang.strings.dialogs.password.error.lengthError);
+  const validateInputPassword = () => {
+    const validation = validatePassword({ password, confirm: password }, lang);
+    if (!validation.success) {
+      setError(validation.error.message);
       return;
     }
     setError(null);
   };
-  useEffect(validatePassword, [password]);
+  useEffect(validateInputPassword, [password]);
 
   const handleRemovePassword = async () => {
     setLoading(true);
