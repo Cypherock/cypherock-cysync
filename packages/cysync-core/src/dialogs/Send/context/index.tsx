@@ -82,7 +82,7 @@ export interface SendDialogContextInterface {
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
-  prepareSendMax: () => Promise<string>;
+  prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
 }
@@ -375,10 +375,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
-  const prepareSendMax = async () => {
+  const prepareSendMax = async (state: boolean) => {
     if (!selectedAccount || !transaction) return '';
     const txn = transaction;
-    txn.userInputs.isSendAll = true;
+    txn.userInputs.isSendAll = state;
     await prepare(txn);
     const outputAmount = transaction.userInputs.outputs[0].amount;
     const convertedAmount = convertToUnit({
