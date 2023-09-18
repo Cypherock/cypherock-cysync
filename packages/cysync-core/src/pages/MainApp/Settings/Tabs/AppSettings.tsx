@@ -1,5 +1,5 @@
 import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   openChangePasswordDialog,
@@ -9,7 +9,8 @@ import {
 } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
-import { SettingsStandardItem, SettingsButton } from '../components';
+import { keyValueStore } from '~/utils';
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
@@ -19,6 +20,25 @@ export const AppSettings: React.FC = () => {
     useState<boolean>(false);
   const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    keyValueStore.isAnalyticsAndBugReportEnabled
+      .get()
+      .then(setAnalyticsAndBugReportEnabled);
+    keyValueStore.isAutoUpdateCySyncEnabled
+      .get()
+      .then(setAutoUpdateCySyncEnabled);
+  }, []);
+
+  useEffect(() => {
+    keyValueStore.isAnalyticsAndBugReportEnabled.set(
+      isAnalyticsAndBugReportEnabled,
+    );
+  }, [isAnalyticsAndBugReportEnabled]);
+
+  useEffect(() => {
+    keyValueStore.isAutoUpdateCySyncEnabled.set(isAutoUpdateCySyncEnabled);
+  }, [isAutoUpdateCySyncEnabled]);
 
   return (
     <>
@@ -81,14 +101,14 @@ export const AppSettings: React.FC = () => {
           onToggle={setAutoUpdateCySyncEnabled}
         />
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.usb.title }}
         description={{ text: item.usb.description }}
       >
         <SettingsButton variant="primary" onClick={console.log}>
           <LangDisplay text={strings.buttons.start} />
         </SettingsButton>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };

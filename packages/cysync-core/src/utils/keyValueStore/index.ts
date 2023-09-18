@@ -22,4 +22,10 @@ export const keyValueStore = {
   passwordHash: createStringValueStore('passwordHash'),
   email: createStringValueStore('email'),
   onboardingCheckpointPath: createStringValueStore('onboardingCheckpointPath'),
+  isAnalyticsAndBugReportEnabled: createBooleanValueStore(
+    'isAnalyticsAndBugReportEnabled',
+  ),
+  isAutoUpdateCySyncEnabled: createBooleanValueStore(
+    'isAutoUpdateCySyncEnabled',
+  ),
 };
