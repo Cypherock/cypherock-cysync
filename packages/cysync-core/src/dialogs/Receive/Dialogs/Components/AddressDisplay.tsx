@@ -31,7 +31,10 @@ export const AddressDisplay: React.FC = () => {
           <Typography variant="h5">
             <LangDisplay text={texts.title.prefix} />
           </Typography>
-          <CoinIcon assetId={selectedAccount?.assetId ?? ''} size={32} />
+          <CoinIcon
+            parentAssetId={selectedAccount?.parentAssetId ?? ''}
+            size={32}
+          />
           <Typography variant="h5">
             <LangDisplay text={coinList[selectedAccount?.assetId ?? ''].name} />
           </Typography>

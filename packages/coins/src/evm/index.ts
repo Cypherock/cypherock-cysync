@@ -1,6 +1,9 @@
 import coinList from './coins';
+import { getErc20Tokens, IEvmErc20Token } from './token';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+export * from './token';
 
 type EvmFamily = typeof coinFamiliesMap.evm;
 
@@ -8,6 +11,7 @@ export interface IEvmCoinInfo extends ICoinInfo {
   family: EvmFamily;
   chain: number;
   network: string;
+  tokens: Record<string, IEvmErc20Token>;
 }
 
 export const EvmIdMap = {
@@ -66,6 +70,7 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
         ...units,
       ],
+      tokens: getErc20Tokens(coin.id),
     },
   }),
   {},

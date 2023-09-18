@@ -382,6 +382,19 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                   />
                 </Container>
               </HistoryItem>
+              {displayTransaction.txn.description && (
+                <HistoryItem leftText={keys.description}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.txn.description}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
             </Container>
           </ScrollableContainer>
         </DialogBoxBody>

@@ -5,7 +5,7 @@ export const LoaderDialog: React.FC = () => (
   <DialogBox width={500} height={300}>
     <Image
       src={loaderGrayIcon}
-      width={68}
+      $width={68}
       alt="Loader icon"
       animate="spin"
       $animDuration={3}
