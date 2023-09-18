@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -15,6 +16,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { getResetCySyncMethod } from '~/utils';
 import { ConfirmReset } from '../Dialogs';
 
 export interface ResetCySyncDialogContextInterface {
@@ -26,6 +28,8 @@ export interface ResetCySyncDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  onReset: () => Promise<void>;
+  loading: boolean;
 }
 
 export const ResetCySyncDialogContext: Context<ResetCySyncDialogContextInterface> =
@@ -43,9 +47,17 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onClose = () => {
     dispatch(closeDialog('resetCySync'));
+  };
+
+  const onReset = async () => {
+    setLoading(true);
+    await getResetCySyncMethod()();
+    setLoading(false);
+    onClose();
   };
 
   const tabs: ITabs = [
@@ -77,6 +89,8 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      onReset,
+      loading,
     }),
     [
       isDeviceRequired,
@@ -87,6 +101,8 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      onReset,
+      loading,
     ],
   );
 
