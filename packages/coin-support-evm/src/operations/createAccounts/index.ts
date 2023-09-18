@@ -5,13 +5,18 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
-import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
+import {
+  ICreateEvmAccountParams,
+  ICreateEvmAccountEvent,
+  ICreatedEvmAccount,
+} from './types';
 
 import * as services from '../../services';
 
@@ -57,20 +62,24 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
     const coin = evmCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
-    return {
+    const account: ICreatedEvmAccount = {
       // TODO: name to be decided later
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
-      type: 'account',
+      type: AccountTypeMap.account,
       familyId: coin.family,
       assetId: params.coinId,
+      parentAssetId: params.coinId,
       walletId: params.walletId,
-      derivationScheme: addressDetails.schemeName,
+      derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
+      extraData: {},
     };
+
+    return account;
   };
 
 const createApp = async (connection: IDeviceConnection) =>

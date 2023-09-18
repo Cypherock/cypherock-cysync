@@ -48,7 +48,12 @@ const ExternalLinkItem: React.FC<{
         </Typography>
       </Flex>
       <Button variant="none">
-        <Image src={openExternalLink} width={12} height={12} alt="termsLink" />
+        <Image
+          src={openExternalLink}
+          $width={12}
+          $height={12}
+          alt="termsLink"
+        />
       </Button>
     </Flex>
   </Container>

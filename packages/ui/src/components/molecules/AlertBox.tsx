@@ -115,8 +115,8 @@ export const AlertBox: FC<AlertBoxProps> = ({
     warning: <InfoItalicsIcon fill={theme?.palette.text.warn} />,
     messageSecondary: <InfoItalicsIcon fill={theme?.palette.text.warn} />,
     message: <InfoItalicsIcon fill={theme?.palette.text.success} />,
-    info: <Image width="20" src={shieldAlert} alt="alert" />,
-    none: <Image width="20" src={shieldAlert} alt="alert" />,
+    info: <Image $width="20" src={shieldAlert} alt="alert" />,
+    none: <Image $width="20" src={shieldAlert} alt="alert" />,
   };
 
   return (

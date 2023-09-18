@@ -5,7 +5,7 @@ import { config } from '../../config';
 
 export const getExplorerLink = (params: IGetExplorerLink) => {
   const queryParams = {
-    network: evmCoinList[params.transaction.assetId].network,
+    network: evmCoinList[params.transaction.parentAssetId].network,
     txHash: params.transaction.hash,
     isConfirmed: (params.transaction.confirmations ?? 0) > 0,
   };
