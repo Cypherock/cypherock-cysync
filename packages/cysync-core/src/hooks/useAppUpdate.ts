@@ -36,8 +36,11 @@ export const useAppUpdate = () => {
     InternalAppUpdateState.Checking,
   );
   const [error, setError] = useState<Error | undefined>();
-  const [shouldInstallAfterUpdate, setShouldInstallAfterUpdate] =
-    useState(false);
+  const [
+    shouldInstallAfterUpdate,
+    setShouldInstallAfterUpdate,
+    shouldInstallAfterUpdateRef,
+  ] = useStateWithRef(false);
 
   const onError = (e: any) => {
     setTries(triesRef.current + 1);
@@ -65,7 +68,6 @@ export const useAppUpdate = () => {
   };
 
   const installUpdate = async () => {
-    if (!shouldInstallAfterUpdate) return;
     try {
       setInternalState(InternalAppUpdateState.Installing);
       await autoUpdater.installUpdate();
@@ -73,6 +75,11 @@ export const useAppUpdate = () => {
     } catch (e) {
       onError(e);
     }
+  };
+
+  const installUpdateListener = async () => {
+    if (!shouldInstallAfterUpdateRef.current) return;
+    installUpdate();
   };
 
   const onRetry = () => {
@@ -105,7 +112,7 @@ export const useAppUpdate = () => {
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
     autoUpdater.addUpdateProgressListener(p => setDownloadProgress(p));
-    autoUpdater.addUpdateCompletedListener(installUpdate);
+    autoUpdater.addUpdateCompletedListener(installUpdateListener);
   };
 
   useEffect(() => {

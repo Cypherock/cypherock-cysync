@@ -41,7 +41,7 @@ export const AppUpdateBar: FC = () => {
       text: 'confirmation',
       buttonText: 'download',
       updateState: 'normal',
-      onButtonClick: downloadUpdate,
+      onButtonClick: () => downloadUpdate(),
     },
     [AppUpdateState.Downloading]: {
       icon: <CloudDownload />,
