@@ -9,10 +9,18 @@ import { EvmDerivationSchemeName } from './schemes/types';
 
 export interface IEvmAccount extends IAccount {
   derivationScheme: EvmDerivationSchemeName;
+  extraData: {
+    lastInternalTransactionBlockHeight?: number;
+    lastContractTransactionBlockHeight?: number;
+  };
 }
 
 export interface ICreatedEvmAccount extends ICreatedAccount {
   derivationScheme: EvmDerivationSchemeName;
+  extraData: {
+    lastInternalTransactionBlockHeight?: number;
+    lastContractTransactionBlockHeight?: number;
+  };
 }
 
 export type ICreateEvmAccountParams = ICreateAccountParams;

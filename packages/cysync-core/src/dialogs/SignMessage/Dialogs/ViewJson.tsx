@@ -65,7 +65,7 @@ export const ViewJSONDialog: React.FC = () => {
                 /
               </Typography>
               <Flex gap={8} align="center">
-                <CoinIcon assetId={account.assetId} size={16} />
+                <CoinIcon parentAssetId={account.parentAssetId} size={16} />
                 <Typography variant="span" $fontWeight="medium">
                   <LangDisplay text={account.name} />
                 </Typography>
