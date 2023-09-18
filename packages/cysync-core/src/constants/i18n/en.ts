@@ -1277,6 +1277,39 @@ const en = {
     close: {
       title: 'Are you sure you want to exit?',
     },
+    reset: {
+      confim: {
+        title: 'Are you sure you want to reset the cySync app?',
+        subTitle:
+          'This will erase all your data on your cySync app. Note this will not result in loss of assets',
+      },
+    },
+    releaseNote: {
+      title: 'Release Notes',
+    },
+    auth: {
+      title: 'Follow instructions on the X1 Vault',
+      email2fa: {
+        title:
+          'You are recommended to enter an email ID as a 2FA to get authenticity results',
+        emailInput: 'Email',
+      },
+      authX1Vault: {
+        description: 'Your device is now being authenticated',
+        info: 'Do not disconnect the device while it is being authenticated',
+        steps: {
+          confirm: 'Confirm authentication on device',
+        },
+      },
+      authX1Card: {
+        description: 'Your card is now being authenticated',
+        info: 'Do not disconnect the device while card is being authenticated',
+        steps: {
+          confirm: 'Confirm card authentication on device',
+          tapCard: 'Tap any card below the device',
+        },
+      },
+    },
     password: {
       input: {
         enterPassword: 'Enter Password',
