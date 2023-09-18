@@ -9,9 +9,9 @@ import {
 import React, { FC, ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { AppUpdateState, useAppUpdate } from '~/hooks';
+import { AppUpdateState } from '~/hooks';
 
-import { selectLanguage, useAppSelector } from '..';
+import { selectLanguage, useAppSelector, useAppUpdateContext } from '..';
 
 type UpdateBarType = {
   [key in AppUpdateState]?: {
@@ -33,7 +33,7 @@ export const AppUpdateBar: FC = () => {
     onRetry,
     downloadUpdate,
     installUpdate,
-  } = useAppUpdate({ shouldInstallAfterUpdate: false });
+  } = useAppUpdateContext();
 
   const updateBarMap: UpdateBarType = {
     [AppUpdateState.Confirmation]: {
@@ -41,7 +41,7 @@ export const AppUpdateBar: FC = () => {
       text: 'confirmation',
       buttonText: 'download',
       updateState: 'normal',
-      onButtonClick: downloadUpdate,
+      onButtonClick: () => downloadUpdate(),
     },
     [AppUpdateState.Downloading]: {
       icon: <CloudDownload />,

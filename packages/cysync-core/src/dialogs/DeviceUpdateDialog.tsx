@@ -4,41 +4,34 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
-import React, { FC, useEffect, ReactElement } from 'react';
+import { BlurOverlay } from '@cypherock/cysync-ui/src';
+import React, { FC, ReactElement, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { ErrorHandlerDialog } from '~/components';
-import { routes } from '~/constants';
-import { useNavigateTo, useDeviceUpdate, DeviceUpdateState } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
-import { getCloseAppMethod } from '~/utils';
+import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
-import { DeviceUpdateLoading } from './DeviceUpdateLoading';
+import {
+  ErrorHandlerDialog,
+  closeDialog,
+  selectLanguage,
+  useAppSelector,
+} from '..';
 
-export const DeviceUpdateDialogBox: FC = () => {
+export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-
-  const navigateTo = useNavigateTo();
-
-  const toNextPage = () => {
-    navigateTo(routes.onboarding.deviceAuthentication.path);
-  };
+  const dispatch = useDispatch();
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
 
+  const onClose = () => dispatch(closeDialog('deviceUpdateDialog'));
+
   useEffect(() => {
-    if (state === DeviceUpdateState.NotRequired) {
-      toNextPage();
-    }
+    if (state === DeviceUpdateState.NotRequired) onClose();
   }, [state]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
     {
-      [DeviceUpdateState.Checking]: (
-        <DeviceUpdateLoading
-          text={lang.strings.onboarding.deviceUpdate.dialogs.checking.title}
-        />
-      ),
       [DeviceUpdateState.Confirmation]: (
         <ConfirmationDialog
           title={
@@ -73,23 +66,27 @@ export const DeviceUpdateDialogBox: FC = () => {
               .subtext
           }
           buttonText={lang.strings.buttons.continue}
-          handleClick={toNextPage}
+          handleClick={onClose}
         />
       ),
     };
 
+  if (state === DeviceUpdateState.Checking) return null;
+
   return (
-    <ErrorHandlerDialog
-      error={errorToShow}
-      defaultMsg={
-        lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
-      }
-      onRetry={onRetry}
-      textVariables={{ version }}
-      isOnboarding
-      onClose={getCloseAppMethod()}
-    >
-      {DeviceUpdateDialogs[state]}
-    </ErrorHandlerDialog>
+    <BlurOverlay>
+      <ErrorHandlerDialog
+        error={errorToShow}
+        defaultMsg={
+          lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
+        }
+        onRetry={onRetry}
+        textVariables={{ version }}
+        onClose={onClose}
+        showCloseButton
+      >
+        {DeviceUpdateDialogs[state]}
+      </ErrorHandlerDialog>
+    </BlurOverlay>
   );
 };
