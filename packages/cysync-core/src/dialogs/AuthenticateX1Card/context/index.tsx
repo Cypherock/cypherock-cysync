@@ -16,9 +16,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { validateEmail } from '~/utils';
 
 import { Email2FA, X1CardAuthProcess } from '../Dialogs';
-import { validateEmail } from '~/utils';
 
 export interface AuthenticateX1CardDialogContextInterface {
   tabs: ITabs;

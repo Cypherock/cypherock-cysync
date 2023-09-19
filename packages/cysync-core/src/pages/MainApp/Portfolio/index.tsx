@@ -8,12 +8,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { MainAppLayout, TransactionTable } from '~/pages/MainApp/Components';
-
-import { AssetAllocation } from './AssetAllocation';
 import { NoWallet } from './NoWallet';
 
 import { usePortfolioPage } from '../hooks';
+import { AssetAllocation, TransactionTable } from '~/components';
+import { MainAppLayout } from '../Layout';
 
 export const Portfolio: FC = () => {
   const {
@@ -32,7 +31,6 @@ export const Portfolio: FC = () => {
     wallets,
     accounts,
     handleAddAccountClick,
-    coinAllocations,
     onAssetClick,
   } = usePortfolioPage();
 
@@ -90,7 +88,9 @@ export const Portfolio: FC = () => {
 
         <Container $noFlex mb={2}>
           <AssetAllocation
-            coinAllocations={coinAllocations}
+            walletId={
+              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
+            }
             onAssetClick={onAssetClick}
           />
         </Container>

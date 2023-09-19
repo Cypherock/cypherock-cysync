@@ -15,3 +15,4 @@ export * from './useTransactions';
 export * from './useWindowSize';
 export * from './useDeviceUpdate';
 export * from './useStateToRef';
+export * from './useAssetAllocations';

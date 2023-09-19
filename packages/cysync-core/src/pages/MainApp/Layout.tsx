@@ -1,9 +1,7 @@
 import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
-import { AppUpdateBar, DeviceUpdateBar, Topbar } from '~/components';
-
-import { SideBar } from './SideBar';
+import { AppUpdateBar, DeviceUpdateBar, SideBar, Topbar } from '~/components';
 
 interface MainAppLayoutProps {
   title: string;

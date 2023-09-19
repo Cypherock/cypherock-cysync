@@ -14,8 +14,8 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { MainAppLayout } from './Components';
 import { useWalletPage } from './hooks';
+import { MainAppLayout } from './Layout';
 
 export const Wallet: FC = () => {
   const {

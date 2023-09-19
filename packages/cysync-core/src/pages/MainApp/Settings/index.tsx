@@ -10,10 +10,9 @@ import {
 import React, { FC, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { MainAppLayout } from '../Layout';
 
 import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
-
-import { MainAppLayout } from '../Components';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);

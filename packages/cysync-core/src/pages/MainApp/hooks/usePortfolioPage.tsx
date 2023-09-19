@@ -1,14 +1,5 @@
-import {
-  getAsset,
-  formatDisplayAmount,
-  getDefaultUnit,
-  getParsedAmount,
-} from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
-import {
-  getBalanceHistory,
-  getCoinAllocations,
-} from '@cypherock/cysync-core-services';
+import { formatDisplayAmount } from '@cypherock/coin-support-utils';
+import { getBalanceHistory } from '@cypherock/cysync-core-services';
 import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
@@ -23,7 +14,6 @@ import React, {
 } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
-import { CoinIcon } from '~/components';
 import {
   useWalletDropdown,
   useGraphTimeRange,
@@ -105,10 +95,6 @@ export const usePortfolioPage = () => {
     useWalletDropdown({ withSelectAll: true });
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
   const [graphData, setGraphData] = useState<LineGraphProps['data']>([]);
-  const [coinAllocations, setCoinAllocations] = useState<CoinAllocationRow[]>(
-    [],
-  );
-
   const refData = useStateToRef({
     accounts,
     transactions,
@@ -145,60 +131,6 @@ export const usePortfolioPage = () => {
       );
     } catch (error) {
       logger.error('Error in calculating portfolio data');
-      logger.error(error);
-    }
-
-    try {
-      const result = await getCoinAllocations({
-        db: getDB(),
-        walletId,
-      });
-
-      setCoinAllocations(
-        result.map(r => {
-          const { amount, unit } = getParsedAmount({
-            coinId: r.parentAssetId,
-            assetId: r.assetId,
-            unitAbbr: getDefaultUnit(r.parentAssetId, r.assetId).abbr,
-            amount: r.balance,
-          });
-
-          const asset = getAsset(r.parentAssetId, r.assetId);
-
-          return {
-            color: coinList[r.parentAssetId]?.color ?? 'orange',
-            allocation: r.percentage,
-            assetId: r.assetId,
-            assetAbbr: asset.abbr,
-            assetName: asset.name,
-            assetIcon: (
-              <CoinIcon
-                parentAssetId={r.parentAssetId}
-                assetId={r.assetId}
-                size="24px"
-              />
-            ),
-            balance: new BigNumber(r.balance).toNumber(),
-            price: new BigNumber(r.price).toNumber(),
-            value: new BigNumber(r.value).toNumber(),
-            displayBalance: `${
-              data.isDiscreetMode ? '****' : formatDisplayAmount(amount)
-            } ${unit.abbr}`,
-            displayPrice: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.price, 2, true)
-            }`,
-            displayValue: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.value, 2, true)
-            }`,
-          };
-        }),
-      );
-    } catch (error) {
-      logger.error('Error in calculating portfolio allocation share');
       logger.error(error);
     }
   };
@@ -307,7 +239,7 @@ export const usePortfolioPage = () => {
     dispatch(openAddAccountDialog());
   };
 
-  const onAssetClick = (assetId: string) => {
+  const onAssetClick = (parentAssetId: string, assetId: string) => {
     // TODO: handle navitation to coin page
     console.log(assetId);
   };
@@ -328,7 +260,6 @@ export const usePortfolioPage = () => {
     summaryDetails,
     accounts,
     handleAddAccountClick,
-    coinAllocations,
     onAssetClick,
     wallets,
   };

@@ -375,7 +375,7 @@ export const useTransactions = ({
   };
 
   const debounceParseTransactionList = useCallback(
-    lodash.throttle(parseTransactionsList, 2000, { leading: true }),
+    lodash.throttle(parseTransactionsList, 1000, { leading: true }),
     [],
   );
 

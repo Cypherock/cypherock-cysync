@@ -10,14 +10,13 @@ import {
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
 
-import { useAppSelector } from '~/store';
-import { selectLanguage } from '~/store/lang';
-
-import { CoinAllocationRow } from '../hooks';
+import { useAssetAllocations } from '~/hooks';
 
 export interface AssetAllocationProps {
-  coinAllocations: CoinAllocationRow[];
-  onAssetClick: (assetId: string) => void;
+  walletId?: string;
+  assetId?: string;
+  accountId?: string;
+  onAssetClick: (parentAssetId: string, assetId: string) => void;
 }
 
 const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
@@ -29,10 +28,16 @@ const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
 };
 
 export const AssetAllocation: React.FC<AssetAllocationProps> = ({
-  coinAllocations,
+  walletId,
+  assetId,
+  accountId,
   onAssetClick,
 }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { coinAllocations, strings } = useAssetAllocations({
+    walletId,
+    assetId,
+    accountId,
+  });
   const [sortedBy, setSortedBy] =
     React.useState<AssetAllocationTableHeaderName>('allocation');
   const [isAscending, setIsAscending] = useState(false);
@@ -64,17 +69,15 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
     <TableStructure $noMargin>
       <TableTitle width="full">
         <Typography variant="h5" color="muted">
-          <LangDisplay text={lang.strings.portfolio.assetAllocation.title} />
+          <LangDisplay text={strings.portfolio.assetAllocation.title} />
         </Typography>
       </TableTitle>
       <AssetAllocationTableHeader
-        asset={lang.strings.portfolio.assetAllocation.tableHeader.asset}
-        price={lang.strings.portfolio.assetAllocation.tableHeader.price}
-        balance={lang.strings.portfolio.assetAllocation.tableHeader.balance}
-        value={lang.strings.portfolio.assetAllocation.tableHeader.value}
-        allocation={
-          lang.strings.portfolio.assetAllocation.tableHeader.allocation
-        }
+        asset={strings.portfolio.assetAllocation.tableHeader.asset}
+        price={strings.portfolio.assetAllocation.tableHeader.price}
+        balance={strings.portfolio.assetAllocation.tableHeader.balance}
+        value={strings.portfolio.assetAllocation.tableHeader.value}
+        allocation={strings.portfolio.assetAllocation.tableHeader.allocation}
         $ascending={isAscending}
         selected={sortedBy}
         onSort={onSort}
@@ -92,9 +95,15 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
           value={row.displayValue}
           $isLast={index === displayRows.length - 1}
           $rowIndex={index}
-          onClick={() => onAssetClick(row.assetId)}
+          onClick={() => onAssetClick(row.parentAssetId, row.assetId)}
         />
       ))}
     </TableStructure>
   );
+};
+
+AssetAllocation.defaultProps = {
+  walletId: undefined,
+  assetId: undefined,
+  accountId: undefined,
 };
