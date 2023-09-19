@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { getAsset } from '@cypherock/coin-support-utils';
 import {
   LangDisplay,
   Typography,
@@ -9,7 +9,7 @@ import {
   Tag,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import QRCode from 'react-qr-code';
 
 import { CoinIcon } from '~/components';
@@ -24,6 +24,12 @@ export const AddressDisplay: React.FC = () => {
 
   const texts = lang.strings.receive.receive;
 
+  const asset = useMemo(
+    () =>
+      getAsset(selectedAccount?.parentAssetId ?? '', selectedAccount?.assetId),
+    [selectedAccount],
+  );
+
   return (
     <>
       <Flex gap={5} direction="column">
@@ -33,14 +39,17 @@ export const AddressDisplay: React.FC = () => {
           </Typography>
           <CoinIcon
             parentAssetId={selectedAccount?.parentAssetId ?? ''}
+            assetId={selectedAccount?.assetId ?? ''}
             size={32}
           />
           <Typography variant="h5">
-            <LangDisplay text={coinList[selectedAccount?.assetId ?? ''].name} />
+            <LangDisplay text={asset.name} />
           </Typography>
-          <Tag $fontSize={12}>
-            {lodash.upperCase(selectedAccount?.derivationScheme)}
-          </Tag>
+          {selectedAccount?.derivationScheme && (
+            <Tag $fontSize={12}>
+              {lodash.upperCase(selectedAccount.derivationScheme)}
+            </Tag>
+          )}
         </Flex>
         <Typography variant="h5" ml="auto" mr="auto">
           <LangDisplay
