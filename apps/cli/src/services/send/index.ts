@@ -113,10 +113,10 @@ const getTxnInputs = async (params: {
   if (coin.family === coinFamiliesMap.evm) {
     const txn = transaction as IPreparedEvmTransaction;
     const gasPrice = await queryInput(
-      `Enter the gas price for the transaction (Average: ${txn.staticData.gasPrice})`,
+      `Enter the gas price for the transaction (Average: ${txn.staticData.averageGasPrice})`,
     );
     const gasLimit = await queryInput(
-      `Enter the gas limit for the transaction (Average: ${txn.computedData.gasLimit})`,
+      `Enter the gas limit for the transaction`,
     );
 
     if (outputCount <= 0) {

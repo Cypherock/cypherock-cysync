@@ -24,8 +24,8 @@ export const broadcastTransaction = async (
     transaction.accountId,
   );
   const isMine =
-    params.transaction.computedData.outputs[0].address ===
-    account.xpubOrAddress;
+    params.transaction.computedData.output.address.toLowerCase() ===
+    account.xpubOrAddress.toLowerCase();
 
   const txnHash = await broadcastTransactionToBlockchain(
     signedTransaction,
@@ -40,8 +40,8 @@ export const broadcastTransaction = async (
     type: TransactionTypeMap.send,
     timestamp: Date.now(),
     blockHeight: -1,
-    inputs: [],
-    outputs: [{ ...params.transaction.computedData.outputs[0], isMine }],
+    inputs: [{ address: account.xpubOrAddress, amount: '0', isMine: true }],
+    outputs: [{ ...params.transaction.computedData.output, isMine }],
     confirmations: 0,
     accountId: account.__id,
     walletId: account.walletId,
@@ -50,10 +50,11 @@ export const broadcastTransaction = async (
   };
 
   const amount = parsedTransaction.outputs.reduce(
-    (sum, output) => (output.isMine ? sum.plus(output.amount) : sum),
+    (sum, output) => (output.isMine ? sum : sum.plus(output.amount)),
     new BigNumber(0),
   );
   parsedTransaction.amount = amount.abs().toString();
+  parsedTransaction.inputs[0].amount = amount.abs().toString();
 
   await insertOrUpdateTransactions(db, [parsedTransaction]);
 

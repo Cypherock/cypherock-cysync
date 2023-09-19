@@ -2,7 +2,7 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
 
-import { getGasPrice } from '../../services';
+import { getAverageGasPrice } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
 
 export const initializeTransaction = async (
@@ -11,7 +11,7 @@ export const initializeTransaction = async (
   const { accountId, db } = params;
   const { coin } = await getAccountAndCoin(db, evmCoinList, accountId);
 
-  const gasPrice = await getGasPrice(coin.id);
+  const averageGasPrice = await getAverageGasPrice(coin.id);
 
   return {
     accountId,
@@ -24,10 +24,10 @@ export const initializeTransaction = async (
       isSendAll: false,
     },
     staticData: {
-      gasPrice,
+      averageGasPrice,
     },
     computedData: {
-      outputs: [],
+      output: { address: '', amount: '0' },
       fee: '0',
       gasLimit: '0',
       gasPrice: '0',

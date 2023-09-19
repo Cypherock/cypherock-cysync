@@ -3,7 +3,7 @@ import { evmCoinList, ICoinInfo } from '@cypherock/coins';
 
 import { IPrepareEvmTransactionParams } from './types';
 
-import { getGasLimit } from '../../services';
+import { estimateGasLimit } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
@@ -43,19 +43,17 @@ export const prepareTransaction = async (
 
   const gasLimit =
     txn.userInputs.gasLimit ??
-    (await getGasLimit(coin.id, account.xpubOrAddress));
-  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.gasPrice;
+    (await estimateGasLimit(coin.id, {
+      from: account.xpubOrAddress,
+      to: account.xpubOrAddress,
+      value: '0',
+      data: '0x',
+    }));
+  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
   const outputsAddresses = validateAddresses(params, coin);
   const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
-  const outputList = [];
   const hasEnoughBalance =
     account.balance >= fee + txn.userInputs.outputs[0].amount;
-  for (const output of txn.userInputs.outputs) {
-    outputList.push({
-      address: output.address,
-      amount: output.amount,
-    });
-  }
 
   return {
     ...txn,
@@ -67,7 +65,10 @@ export const prepareTransaction = async (
       gasLimit,
       gasPrice,
       fee: fee.toString(10),
-      outputs: outputList,
+      output: {
+        address: txn.userInputs.outputs[0].address,
+        amount: txn.userInputs.outputs[0].amount,
+      },
     },
   };
 };

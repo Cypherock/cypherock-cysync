@@ -26,18 +26,14 @@ const prepareUnsignedTxn = async (
   coin: IEvmCoinInfo,
   account: IAccount,
 ): Promise<ISignTxnParams['txn']> => {
-  assert(
-    transaction.computedData.outputs.length === 1,
-    new Error('Computed ethereum receiver absent'),
-  );
   const nonce = await getTransactionCount(account.xpubOrAddress, coin.id);
   const txn = getCoinSupportEthersLib().Transaction.from({
     nonce,
-    to: transaction.computedData.outputs[0].address,
+    to: transaction.computedData.output.address,
     data: '0x',
     gasLimit: transaction.computedData.gasLimit,
     gasPrice: transaction.computedData.gasPrice,
-    value: transaction.computedData.outputs[0].amount,
+    value: transaction.computedData.output.amount,
     chainId: coin.chain,
     // currently firmware only supports EIP-155 transaction types
     type: 0,

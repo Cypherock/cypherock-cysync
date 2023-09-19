@@ -12,20 +12,21 @@ export const broadcastTransactionToBlockchain = async (
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
   const response = await axios.post(url, {
-    transaction: transaction.substring(2),
+    transaction: transaction.startsWith('0x')
+      ? transaction.substring(2)
+      : transaction,
     network: evmCoinList[assetId].network,
   });
 
   assert(
-    response.data.transaction.hash,
+    response.data.result,
     new Error('Server: Invalid txn hash from server'),
   );
 
-  return response.data.transaction.hash;
+  return response.data.result;
 };
 
-export const getGasPrice = async (assetId: string) => {
-  // provides currect gasPrice
+export const getAverageGasPrice = async (assetId: string) => {
   const url = `${baseURL}/fees`;
   const response = await axios.post(url, {
     network: evmCoinList[assetId].network,
@@ -36,13 +37,18 @@ export const getGasPrice = async (assetId: string) => {
   return new BigNumber(fees).toString(10);
 };
 
-export const getGasLimit = async (assetId: string, address: string) => {
+export const estimateGasLimit = async (
+  assetId: string,
+  params: {
+    from: string;
+    to: string;
+    value: string;
+    data: string;
+  },
+) => {
   const url = `${baseURL}/estimate-gas`;
   const response = await axios.post(url, {
-    from: address,
-    to: address,
-    value: '0',
-    data: '0x',
+    ...params,
     network: evmCoinList[assetId].network,
     responseType: 'v2',
   });
