@@ -22,10 +22,7 @@ export const List = styled.ul<{ disabled?: boolean }>`
 `;
 
 export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
-  background-color: ${({ theme, $isFocused }) =>
-    $isFocused
-      ? theme.palette.background.dropdownHover
-      : theme.palette.border.list};
+  background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
 `;
 
 export const DropdownContainer = styled.div<{

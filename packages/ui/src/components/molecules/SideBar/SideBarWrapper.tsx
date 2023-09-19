@@ -38,7 +38,7 @@ export const SideBarWrapper: FC<SideBarWrapperProps> = ({
 }) => (
   <SideBarWrapperStyle {...props}>
     <Flex gap={16} mb={8}>
-      <Image src={cysyncLogoSmall} alt="cysynclogo" height={24} my="auto" />
+      <Image src={cysyncLogoSmall} alt="cysynclogo" $height={24} my="auto" />
       <Typography variant="h4" color="muted" my="auto" $fontWeight="medium">
         {title}
       </Typography>

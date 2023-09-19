@@ -10,3 +10,4 @@ export * from './initializeTransaction';
 export * from './prepareTransaction';
 export * from './signTransaction';
 export * from './broadcastTransaction';
+export * from './syncAccount';

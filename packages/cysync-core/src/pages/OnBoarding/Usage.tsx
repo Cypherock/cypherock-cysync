@@ -70,7 +70,7 @@ const UsageDialogBox: FC<{
           direction="column"
           height="full"
         >
-          <Image width={45} src={usageIcon} alt="usageIcon" />
+          <Image $width={45} src={usageIcon} alt="usageIcon" />
           <Flex gap={16} direction="column" height="full">
             <Typography
               $alignSelf="center"

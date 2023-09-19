@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ConnectionStatusType,
   SyncStatusType,
@@ -52,7 +50,7 @@ export const Topbar: FC<{ title: string }> = ({ title }) => {
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
 
-  const [haveNotifications, setHaveNotifications] = useState<boolean>(false);
+  const [haveNotifications] = useState<boolean>(false);
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
     [accountSync.syncState],

@@ -52,7 +52,7 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
         $borderWidth={1}
       >
         <Flex gap={16} align="center">
-          <CoinIcon assetId={account.assetId} size={24} />
+          <CoinIcon parentAssetId={account.parentAssetId} size={24} />
           <Flex direction="column">
             <Typography $fontSize={16}>
               <LangDisplay text={account.name} />

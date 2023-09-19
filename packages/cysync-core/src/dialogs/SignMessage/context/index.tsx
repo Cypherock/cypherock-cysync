@@ -51,9 +51,11 @@ export interface SignMessageDialogContextInterface {
   >;
   wallet: Pick<IWallet, 'name'>;
   setWallet: React.Dispatch<React.SetStateAction<Pick<IWallet, 'name'>>>;
-  account: Pick<IAccount, 'name' | 'familyId' | 'assetId'>;
+  account: Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>;
   setAccount: React.Dispatch<
-    React.SetStateAction<Pick<IAccount, 'name' | 'familyId' | 'assetId'>>
+    React.SetStateAction<
+      Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>
+    >
   >;
   deviceEvents: Record<number, boolean | undefined>;
   setDeviceEvents: React.Dispatch<
@@ -97,10 +99,11 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   });
 
   const [account, setAccount] = useState<
-    Pick<IAccount, 'name' | 'familyId' | 'assetId'>
+    Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>
   >({
     name: 'Ethereum 1',
     assetId: 'ethereum',
+    parentAssetId: 'ethereum',
     familyId: 'evm',
   });
   const [deviceEvents, setDeviceEvents] = useState<

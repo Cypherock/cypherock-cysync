@@ -6,7 +6,10 @@ export const getCoinIds = async (db: IDatabase) => {
   const accounts = await db.account.getAll({
     familyId: coinFamiliesMap.evm,
   });
-  const assetList = accounts.map(account => account.assetId);
+  const assetList = accounts.map(account => ({
+    assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
+  }));
 
   return lodash.uniq(assetList);
 };

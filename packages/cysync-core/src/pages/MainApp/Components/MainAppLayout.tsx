@@ -1,7 +1,7 @@
 import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
-import { AppUpdateBar, Topbar } from '~/components';
+import { AppUpdateBar, DeviceUpdateBar, Topbar } from '~/components';
 
 import { SideBar } from './SideBar';
 
@@ -44,6 +44,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
       <Flex $flex={1} direction="column">
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
+          <DeviceUpdateBar />
           <Topbar title={title} />
         </Flex>
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>

@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 import { AnimateProps, animate } from './animate.styled';
 import { bgColor, BgColorProps } from './bgColor.styled';
 import { border, BorderProps } from './border.styled';
+import { CursorProps, cursor } from './cursor.styled';
 import { display, DisplayProps } from './display.styled';
 import { flex, FlexProps } from './flex.styled';
 import { font, FontProps } from './font.styled';
@@ -25,6 +26,7 @@ export interface UtilsProps
     BorderProps,
     HeightProps,
     AnimateProps,
+    CursorProps,
     TransformProps {}
 
 export const utils = css<UtilsProps>`
@@ -40,6 +42,7 @@ export const utils = css<UtilsProps>`
   ${shadow}
   ${transform}
   ${animate}
+  ${cursor}
 `;
 
 export * from './spacing.styled';
@@ -56,3 +59,4 @@ export * from './animate.styled';
 export * from './border.styled';
 export * from './Gradient';
 export * from './dropdown';
+export * from './cursor.styled';

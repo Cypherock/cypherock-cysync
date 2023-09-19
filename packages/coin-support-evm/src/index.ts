@@ -12,6 +12,7 @@ import {
   IGetAccountHistoryParams,
   IGetExplorerLink,
   IInitializeTransactionParams,
+  ISyncAccountsParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
@@ -43,8 +44,8 @@ export class EvmSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccount(): Observable<void> {
-    throw new Error('Not implemented');
+  public syncAccount(params: ISyncAccountsParams) {
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(

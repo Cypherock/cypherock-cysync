@@ -15,7 +15,7 @@ export const EmailDisplay: React.FC<EmailDisplayProps> = ({ email }) => (
     pr={1}
     $borderWidth={0}
   >
-    <Image src={emailIcon} width={24} alt="Email Icon" />
+    <Image src={emailIcon} $width={24} alt="Email Icon" />
     <Typography color="muted" $fontSize={14}>
       {email}
     </Typography>

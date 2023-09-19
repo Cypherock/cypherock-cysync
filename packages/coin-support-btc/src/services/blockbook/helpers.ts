@@ -90,6 +90,7 @@ export const mapBlockbookTxnToDb = (
       accountId: account.__id,
       walletId: account.walletId,
       assetId: account.assetId,
+      parentAssetId: account.assetId,
       familyId: account.familyId,
     };
 

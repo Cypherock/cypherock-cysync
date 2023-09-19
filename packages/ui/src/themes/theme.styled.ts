@@ -97,6 +97,7 @@ export const theme = {
       calendar: colors.background.calendar,
       calendarHeader: colors.background.calendarHeader,
       popup: colors.border.popup,
+      danger: colors.background.danger,
     },
     border: {
       popup: colors.border.popup,

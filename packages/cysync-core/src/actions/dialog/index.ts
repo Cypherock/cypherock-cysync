@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
@@ -26,5 +27,38 @@ export const openReceiveDialog = () =>
 export const openSendDialog = () =>
   openDialog({ name: 'sendDialog', data: undefined });
 
+export const openRemovePasswordDialog = () =>
+  openDialog({ name: 'removePassword', data: undefined });
+
+export const openChangePasswordDialog = () =>
+  openDialog({ name: 'changePassword', data: undefined });
+
+export const openResetCySyncDialog = () =>
+  openDialog({ name: 'resetCySync', data: undefined });
+
+export const openSetPasswordDialog = () =>
+  openDialog({ name: 'setPassword', data: undefined });
+
+export const openAuthenticateX1CardDialog = () =>
+  openDialog({ name: 'authenticateX1Card', data: undefined });
+
+export const openAuthenticateX1VaultDialog = () =>
+  openDialog({ name: 'authenticateX1Vault', data: undefined });
+
+export const openReleaseNotesDialog = () =>
+  openDialog({ name: 'releaseNotes', data: undefined });
+
 export const openHistoryDialog = (props?: IHistoryDialogProps) =>
   openDialog({ name: 'historyDialog', data: props });
+
+export const openDeviceUpdateDialog = () =>
+  openDialog({ name: 'deviceUpdateDialog', data: undefined });
+
+export const openDeviceAuthenticationDialog = () =>
+  openDialog({ name: 'deviceAuthenticationDialog', data: undefined });
+
+export const openAppUpdateDialog = () =>
+  openDialog({ name: 'appUpdateDialog', data: undefined });
+
+export const openErrorDialog = (props: ErrorDialogProps) =>
+  openDialog({ name: 'errorDialog', data: props });

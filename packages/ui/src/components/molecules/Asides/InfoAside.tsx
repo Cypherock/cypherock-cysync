@@ -38,7 +38,7 @@ export const InfoAside = (props: InfoAsideProps): ReactElement => {
     >
       <Image src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
       <Flex width="full" direction="column" align="center">
-        <Image width="full" src={cysyncLogoBig} alt="logo" mb={7} />
+        <Image $width="full" src={cysyncLogoBig} alt="logo" mb={7} />
         <Typography
           variant="h5"
           $textAlign="center"

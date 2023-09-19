@@ -5,6 +5,7 @@ import {
   IMakeCreateAccountsObservableParams,
 } from '@cypherock/coin-support-utils';
 import { nearCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { NearApp, GetPublicKeysEvent } from '@cypherock/sdk-app-near';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -64,9 +65,10 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<NearApp>['cr
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
-      type: 'account',
+      type: AccountTypeMap.account,
       familyId: coin.family,
       assetId: params.coinId,
+      parentAssetId: params.coinId,
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
       isNew: addressDetails.txnCount <= 0,

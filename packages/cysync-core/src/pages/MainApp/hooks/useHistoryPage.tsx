@@ -216,10 +216,19 @@ export const mapTransactionForDisplay = (params: {
     amount: parseFloat(amount),
     value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
-      <CoinIcon assetId={transaction.assetId} width={width} height={height} />
+      <CoinIcon
+        parentAssetId={transaction.parentAssetId}
+        width={width}
+        height={height}
+      />
     ),
     assetIcon: ({ width, height }: any) => (
-      <CoinIcon assetId={transaction.assetId} width={width} height={height} />
+      <CoinIcon
+        parentAssetId={transaction.parentAssetId}
+        assetId={transaction.assetId}
+        width={width}
+        height={height}
+      />
     ),
     status: transaction.status,
     statusText: lodash.capitalize(transaction.status),
