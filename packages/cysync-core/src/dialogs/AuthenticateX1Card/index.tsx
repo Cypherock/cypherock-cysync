@@ -8,7 +8,6 @@ import {
 
 const AuthenticateX1Card: FC = () => {
   const { currentDialog, tabs, currentTab } = useAuthenticateX1CardDialog();
-
   return <BlurOverlay>{tabs[currentTab]?.dialogs[currentDialog]}</BlurOverlay>;
 };
 

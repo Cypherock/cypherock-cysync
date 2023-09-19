@@ -1,15 +1,15 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
+  Divider,
+  EmailIcon,
+  Flex,
+  Input,
   LangDisplay,
   Typography,
-  CloseButton,
-  Flex,
-  Divider,
-  Input,
-  EmailIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -78,7 +78,7 @@ export const Email2FA: React.FC = () => {
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" disabled={false}>
+        <Button variant="secondary" disabled={false} onClick={onNext}>
           <LangDisplay text={buttons.skip} />
         </Button>
         <Button
