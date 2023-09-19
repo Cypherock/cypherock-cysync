@@ -78,7 +78,7 @@ export const Email2FA: React.FC = () => {
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" disabled={false}>
+        <Button variant="secondary" disabled={false} onClick={onNext}>
           <LangDisplay text={buttons.skip} />
         </Button>
         <Button
