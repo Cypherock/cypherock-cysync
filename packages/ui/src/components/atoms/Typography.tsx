@@ -44,7 +44,7 @@ interface HeadingProps
     FlexProps {
   color?: TypographyColor;
   $textAlign?: 'center' | 'left' | 'right';
-  $letterSpacing?: number;
+  $letterSpacing?: string | number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
   $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
@@ -88,7 +88,9 @@ const baseStyle = css<TypographyProps>`
   ${props =>
     props.$letterSpacing !== undefined &&
     css`
-      letter-spacing: ${props.$letterSpacing}em;
+      letter-spacing: ${typeof props.$letterSpacing === 'number'
+        ? `${props.$letterSpacing}em`
+        : props.$letterSpacing};
     `}
     
   ${props =>

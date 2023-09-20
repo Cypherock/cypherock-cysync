@@ -262,12 +262,14 @@ export const mapTransactionForDisplay = (params: {
 export interface UseTransactionsProps {
   walletId?: string;
   assetId?: string;
+  parentAssetId?: string;
   accountId?: string;
 }
 
 export const useTransactions = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
   const {
@@ -287,6 +289,7 @@ export const useTransactions = ({
     isDiscreetMode,
     walletId,
     assetId,
+    parentAssetId,
     accountId,
   });
 
@@ -348,6 +351,12 @@ export const useTransactions = ({
           if (
             refData.current.assetId &&
             a.assetId !== refData.current.assetId
+          ) {
+            return false;
+          }
+          if (
+            refData.current.parentAssetId &&
+            a.parentAssetId !== refData.current.parentAssetId
           ) {
             return false;
           }

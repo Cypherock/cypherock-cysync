@@ -16,6 +16,7 @@ import { useNavigateTo, useTransactions } from '~/hooks';
 export interface TransactionTableProps {
   walletId?: string;
   assetId?: string;
+  parentAssetId?: string;
   accountId?: string;
   limit: number;
 }
@@ -23,6 +24,7 @@ export interface TransactionTableProps {
 export const TransactionTable: React.FC<TransactionTableProps> = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
   limit,
 }) => {
@@ -36,7 +38,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
     isSmallScreen,
     expandedRowIds,
     onRowExpand,
-  } = useTransactions({ walletId, assetId, accountId });
+  } = useTransactions({ walletId, assetId, parentAssetId, accountId });
 
   const navigateTo = useNavigateTo();
 
@@ -114,5 +116,6 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
 TransactionTable.defaultProps = {
   walletId: undefined,
   assetId: undefined,
+  parentAssetId: undefined,
   accountId: undefined,
 };

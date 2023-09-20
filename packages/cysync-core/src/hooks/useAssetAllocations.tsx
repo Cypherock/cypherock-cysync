@@ -73,12 +73,14 @@ const selector = createSelector(
 export interface UseAssetAllocationProps {
   walletId?: string;
   assetId?: string;
+  parentAssetId?: string;
   accountId?: string;
 }
 
 export const useAssetAllocations = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
 }: UseAssetAllocationProps = {}) => {
   const {
@@ -98,6 +100,7 @@ export const useAssetAllocations = ({
     isDiscreetMode,
     walletId,
     assetId,
+    parentAssetId,
     accountId,
   });
 
@@ -113,6 +116,8 @@ export const useAssetAllocations = ({
       const result = await getCoinAllocations({
         db: getDB(),
         walletId: data.walletId,
+        assetId: data.assetId,
+        parentAssetId: data.parentAssetId,
       });
 
       setCoinAllocations(
@@ -127,7 +132,7 @@ export const useAssetAllocations = ({
           const asset = getAsset(r.parentAssetId, r.assetId);
 
           return {
-            color: coinList[r.parentAssetId].color ?? 'orange',
+            color: coinList[r.parentAssetId].color,
             allocation: r.percentage,
             assetId: r.assetId,
             parentAssetId: r.parentAssetId,
@@ -181,6 +186,7 @@ export const useAssetAllocations = ({
     lang,
     walletId,
     assetId,
+    parentAssetId,
     accountId,
   ]);
 

@@ -1,21 +1,13 @@
 import { BtcIdMap, coinList } from '@cypherock/coins';
-import {
-  NoAccountWrapper,
-  SkeletonLoader,
-  GraphGreyIcon,
-  Container,
-  DisplayGraph,
-} from '@cypherock/cysync-ui';
+import { Container, DisplayGraph } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { AssetAllocation, TransactionTable } from '~/components';
 
-import { NoWallet } from './NoWallet';
+import { useAssetPage } from './hooks';
+import { MainAppLayout } from './Layout';
 
-import { usePortfolioPage } from '../hooks';
-import { MainAppLayout } from '../Layout';
-
-export const Portfolio: FC = () => {
+export const AssetPage: FC = () => {
   const {
     lang,
     handleWalletChange,
@@ -29,46 +21,21 @@ export const Portfolio: FC = () => {
     formatTimestamp,
     formatYAxisTick,
     summaryDetails,
-    wallets,
-    accounts,
-    handleAddAccountClick,
     onAssetClick,
-  } = usePortfolioPage();
+    selectedAsset,
+    assetId,
+    parentAssetId,
+    onGraphSwitch,
+  } = useAssetPage();
 
-  /*
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-      dispatch(openWalletActionsDialog());
-  }, []);
-   */
-
-  const getMainContent = () => {
-    if (wallets.length <= 0) {
-      return <NoWallet />;
-    }
-
-    if (accounts.length <= 0) {
-      return (
-        <NoAccountWrapper>
-          <SkeletonLoader
-            loader={<GraphGreyIcon />}
-            text={lang.strings.portfolio.accountMissing.text}
-            subText={lang.strings.portfolio.accountMissing.subText}
-            $buttonOne={lang.strings.buttons.addAccount}
-            onClick={handleAddAccountClick}
-            $noLoaderContainer
-          />
-        </NoAccountWrapper>
-      );
-    }
-
-    return (
-      <>
+  return (
+    <MainAppLayout title={selectedAsset?.name ?? ''}>
+      <Container $noFlex m="20">
         <Container $noFlex mb={2}>
           <DisplayGraph
-            title={summaryDetails.totalValue}
-            subTitle={lang.strings.graph.totalBalance}
+            title={summaryDetails.totalBalance}
+            subTitle={summaryDetails.totalValue}
+            conversionRate={summaryDetails.conversionRate}
             dropdownItems={walletDropdownList}
             selectedDropdownItem={selectedWallet?.__id ?? 'all'}
             onDropdownChange={handleWalletChange}
@@ -83,12 +50,15 @@ export const Portfolio: FC = () => {
             formatTooltipValue={formatTooltipValue}
             formatTimestamp={formatTimestamp}
             formatYAxisTick={formatYAxisTick}
-            color={coinList[BtcIdMap.bitcoin].color ?? ''}
+            color={selectedAsset?.color ?? coinList[BtcIdMap.bitcoin].color}
+            onSwitch={onGraphSwitch}
           />
         </Container>
 
         <Container $noFlex mb={2}>
           <AssetAllocation
+            assetId={assetId}
+            parentAssetId={parentAssetId}
             walletId={
               selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
             }
@@ -102,16 +72,10 @@ export const Portfolio: FC = () => {
             walletId={
               selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
             }
+            assetId={assetId}
+            parentAssetId={parentAssetId}
           />
         </Container>
-      </>
-    );
-  };
-
-  return (
-    <MainAppLayout title={lang.strings.portfolio.title}>
-      <Container $noFlex m="20">
-        {getMainContent()}
       </Container>
     </MainAppLayout>
   );

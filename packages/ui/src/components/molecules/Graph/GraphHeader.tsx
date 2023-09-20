@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+import { GraphIcon, GraphSwitchIcon } from '../../../assets';
 import { Container, Typography, Button } from '../../atoms';
 import { Dropdown } from '../Dropdown';
 import { DropDownListItemProps } from '../DropDownListItem';
@@ -7,6 +8,7 @@ import { DropDownListItemProps } from '../DropDownListItem';
 export interface GraphHeaderProps {
   title: string;
   subTitle?: string;
+  conversionRate?: string;
   dropdownItems?: DropDownListItemProps[];
   selectedDropdownItem?: string;
   onDropdownChange?: (id: string | undefined) => void;
@@ -16,11 +18,13 @@ export interface GraphHeaderProps {
   selectedPill?: string;
   pillButtonList?: { text: string; id: string }[];
   onPillButtonChange?: (id: string) => void;
+  onSwitch?: () => void;
 }
 
 export const GraphHeader: React.FC<GraphHeaderProps> = ({
   title,
   subTitle,
+  conversionRate,
   dropdownItems,
   selectedDropdownItem,
   onDropdownChange,
@@ -30,6 +34,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
   selectedPill,
   onPillButtonChange,
   pillButtonList,
+  onSwitch,
 }) => (
   <Container
     direction="row"
@@ -50,19 +55,51 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
         align="flex-start"
         justify="flex-start"
       >
-        <Typography
-          variant="h3"
-          $textAlign="left"
-          $fontSize={32}
-          $fontWeight="bold"
-        >
-          {title}
-        </Typography>
+        <Container direction="row">
+          <Typography
+            variant="h3"
+            $textAlign="left"
+            $fontSize={32}
+            $fontWeight="bold"
+            mr={2}
+          >
+            {title}
+          </Typography>
+          {onSwitch && (
+            <Button variant="icon" onClick={onSwitch}>
+              <GraphSwitchIcon />
+            </Button>
+          )}
+        </Container>
 
         {subTitle && (
-          <Typography $textAlign="left" $fontSize={16} color="muted">
-            {subTitle}
-          </Typography>
+          <Container direction="row">
+            <Typography
+              $textAlign="left"
+              $fontSize={16}
+              color="muted"
+              mr={3}
+              $letterSpacing="0.8px"
+              $fontWeight="medium"
+            >
+              {subTitle}
+            </Typography>
+            <Container
+              display={conversionRate ? 'flex' : 'none'}
+              direction="row"
+            >
+              <GraphIcon mr={1} />
+              <Typography
+                $textAlign="left"
+                $fontSize={16}
+                $fontWeight="medium"
+                color="muted"
+                $letterSpacing="0.8px"
+              >
+                {conversionRate}
+              </Typography>
+            </Container>
+          </Container>
         )}
       </Container>
     </Container>
@@ -110,6 +147,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
 
 GraphHeader.defaultProps = {
   subTitle: undefined,
+  conversionRate: undefined,
   dropdownItems: undefined,
   selectedDropdownItem: undefined,
   onDropdownChange: undefined,
@@ -119,4 +157,5 @@ GraphHeader.defaultProps = {
   selectedPill: undefined,
   onPillButtonChange: undefined,
   pillButtonList: undefined,
+  onSwitch: undefined,
 };

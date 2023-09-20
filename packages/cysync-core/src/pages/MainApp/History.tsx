@@ -17,6 +17,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
+
 import { MainAppLayout } from './Layout';
 
 export const History: FC = () => {

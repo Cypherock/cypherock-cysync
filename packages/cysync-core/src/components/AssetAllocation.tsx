@@ -14,6 +14,7 @@ import { useAssetAllocations } from '~/hooks';
 
 export interface AssetAllocationProps {
   walletId?: string;
+  parentAssetId?: string;
   assetId?: string;
   accountId?: string;
   onAssetClick: (parentAssetId: string, assetId: string) => void;
@@ -30,11 +31,13 @@ const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
 export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
   onAssetClick,
 }) => {
   const { coinAllocations, strings } = useAssetAllocations({
     walletId,
+    parentAssetId,
     assetId,
     accountId,
   });
@@ -105,5 +108,6 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
 AssetAllocation.defaultProps = {
   walletId: undefined,
   assetId: undefined,
+  parentAssetId: undefined,
   accountId: undefined,
 };
