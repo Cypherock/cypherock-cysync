@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -16,8 +17,8 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 import { useLockscreen } from '~/context';
+import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 
 export interface RemovePasswordDialogContextInterface {
   tabs: ITabs;
@@ -31,7 +32,8 @@ export interface RemovePasswordDialogContextInterface {
   error: string | null;
   password: string;
   handlePasswordChange: (val: string) => void;
-  loading: boolean;
+  isLoading: boolean;
+  isSubmitDisabled: boolean;
   handleRemovePassword: () => Promise<void>;
 }
 
@@ -48,25 +50,37 @@ export const RemovePasswordDialogProvider: FC<
   RemovePasswordDialogProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
+  const { setPassword: setCySyncPassword } = useLockscreen();
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const { setPassword: setCySyncPassword } = useLockscreen();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
+
+  const validateForm = () => {
+    let isSubmitDisabledNew = Boolean(error);
+    isSubmitDisabledNew ||= isLoading;
+    isSubmitDisabledNew ||= password.length === 0;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+
+  useEffect(validateForm, [password, isLoading]);
 
   const handleRemovePassword = async () => {
-    setLoading(true);
+    setIsLoading(true);
     const isCorrectPassword = await setCySyncPassword(undefined, password);
 
     if (!isCorrectPassword) {
       setError(lang.strings.lockscreen.incorrectPassword);
-      setLoading(false);
+      setIsLoading(false);
+      setIsSubmitDisabled(true);
       return;
     }
 
-    setLoading(false);
+    setIsLoading(false);
     onNext();
   };
 
@@ -114,8 +128,9 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
-      loading,
+      isLoading,
       handleRemovePassword,
+      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -129,8 +144,9 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
-      loading,
+      isLoading,
       handleRemovePassword,
+      isSubmitDisabled,
     ],
   );
 

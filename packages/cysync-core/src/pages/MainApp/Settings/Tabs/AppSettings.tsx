@@ -28,27 +28,30 @@ export const AppSettings: React.FC = () => {
         title={{ text: item.password.title }}
         description={{ text: item.password.description }}
       >
-        <SettingsButton
-          display={isPasswordSet ? 'none' : undefined}
-          onClick={() => dispatch(openSetPasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.setPassword} />
-        </SettingsButton>
-        <SettingsButton
-          display={isPasswordSet ? undefined : 'none'}
-          onClick={() => dispatch(openRemovePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.removePassword} />
-        </SettingsButton>
-        <SettingsButton
-          display={isPasswordSet ? undefined : 'none'}
-          onClick={() => dispatch(openChangePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.changePassword} />
-        </SettingsButton>
+        {!isPasswordSet && (
+          <SettingsButton
+            onClick={() => dispatch(openSetPasswordDialog())}
+            variant="primary"
+          >
+            <LangDisplay text={strings.buttons.setPassword} />
+          </SettingsButton>
+        )}
+        {isPasswordSet && (
+          <>
+            <SettingsButton
+              onClick={() => dispatch(openRemovePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.removePassword} />
+            </SettingsButton>
+            <SettingsButton
+              onClick={() => dispatch(openChangePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.changePassword} />
+            </SettingsButton>
+          </>
+        )}
       </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.anayticsAndBugReport.title }}

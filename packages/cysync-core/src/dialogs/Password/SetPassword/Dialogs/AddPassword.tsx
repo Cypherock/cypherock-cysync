@@ -1,14 +1,14 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  CloseButton,
-  Flex,
   Divider,
+  Flex,
+  LangDisplay,
   PasswordInput,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -25,7 +25,8 @@ export const AddPassword: React.FC = () => {
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
     handleSetPassword,
-    loading,
+    isLoading,
+    isSubmitDisabled,
   } = useSetPasswordDialog();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -64,7 +65,7 @@ export const AddPassword: React.FC = () => {
                 label={input.newPassword}
                 value={newPassword}
                 onChange={handleNewPasswordChange}
-                disabled={loading}
+                disabled={isLoading}
               />
               <PasswordInput
                 pasteAllowed
@@ -73,7 +74,7 @@ export const AddPassword: React.FC = () => {
                 label={input.confirmPassword}
                 value={confirmNewPassword}
                 onChange={handleConfirmNewPasswordChange}
-                disabled={loading}
+                disabled={isLoading}
               />
               <Divider variant="horizontal" />
             </Flex>
@@ -91,7 +92,7 @@ export const AddPassword: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="secondary"
-          disabled={loading}
+          disabled={isLoading}
           onClick={e => {
             e.preventDefault();
             onClose();
@@ -103,14 +104,8 @@ export const AddPassword: React.FC = () => {
           form="set-password-create-new-form"
           type="submit"
           variant="primary"
-          disabled={
-            loading ||
-            Boolean(error) ||
-            newPassword.length < 8 ||
-            confirmNewPassword.length < 8 ||
-            newPassword !== confirmNewPassword
-          }
-          isLoading={loading}
+          disabled={isSubmitDisabled}
+          isLoading={isLoading}
         >
           <LangDisplay text={buttons.confirm} />
         </Button>

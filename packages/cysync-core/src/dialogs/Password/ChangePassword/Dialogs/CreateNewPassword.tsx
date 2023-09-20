@@ -28,7 +28,8 @@ export const CreateNewPassword: React.FC = () => {
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
     handleChangePassword,
-    loading,
+    isLoading,
+    isSubmitDisabled,
   } = useChangePasswordDialog();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -75,7 +76,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.oldPassword}
                   value={oldPassword}
                   onChange={handleOldPasswordChange}
-                  disabled={loading}
+                  disabled={isLoading}
                 />
                 <PasswordInput
                   pasteAllowed
@@ -84,7 +85,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.newPassword}
                   value={newPassword}
                   onChange={handleNewPasswordChange}
-                  disabled={loading}
+                  disabled={isLoading}
                 />
                 <PasswordInput
                   pasteAllowed
@@ -93,7 +94,7 @@ export const CreateNewPassword: React.FC = () => {
                   label={input.confirmPassword}
                   value={confirmNewPassword}
                   onChange={handleConfirmNewPasswordChange}
-                  disabled={loading}
+                  disabled={isLoading}
                 />
                 <Divider variant="horizontal" />
               </Flex>
@@ -112,7 +113,7 @@ export const CreateNewPassword: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="secondary"
-          disabled={loading}
+          disabled={isLoading}
           onClick={e => {
             e.preventDefault();
             onClose();
@@ -124,15 +125,8 @@ export const CreateNewPassword: React.FC = () => {
           form="change-password-create-new-form"
           type="submit"
           variant="primary"
-          disabled={
-            loading ||
-            Boolean(error) ||
-            oldPassword.length === 0 ||
-            newPassword.length < 8 ||
-            confirmNewPassword.length < 8 ||
-            newPassword !== confirmNewPassword
-          }
-          isLoading={loading}
+          disabled={isSubmitDisabled}
+          isLoading={isLoading}
         >
           <LangDisplay text={buttons.confirm} />
         </Button>

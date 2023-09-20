@@ -1,14 +1,14 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  CloseButton,
-  Flex,
   Divider,
+  Flex,
+  LangDisplay,
   PasswordInput,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -20,7 +20,8 @@ export const ConfirmPassword: React.FC = () => {
   const {
     onClose,
     handleRemovePassword,
-    loading,
+    isLoading,
+    isSubmitDisabled,
     error,
     password,
     handlePasswordChange,
@@ -61,7 +62,7 @@ export const ConfirmPassword: React.FC = () => {
                 label={input.enterPassword}
                 value={password}
                 onChange={handlePasswordChange}
-                disabled={loading}
+                disabled={isLoading}
               />
               <Divider variant="horizontal" />
             </Flex>
@@ -78,8 +79,8 @@ export const ConfirmPassword: React.FC = () => {
           form="remove-password-confirm-form"
           type="submit"
           variant="danger"
-          disabled={loading || Boolean(error) || password.length === 0}
-          isLoading={loading}
+          disabled={isSubmitDisabled}
+          isLoading={isLoading}
         >
           <LangDisplay text={buttons.removePassword} />
         </Button>
