@@ -3,9 +3,13 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AppUpdateDialog } from './AppUpdateDialog';
 import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
 import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
+import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
+import { DeviceUpdateDialog } from './DeviceUpdateDialog';
+import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -37,4 +41,8 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   authenticateX1Card: AuthenticateX1CardDialog,
   releaseNotes: ReleaseNotesDialog,
   signMessage: SignMessageDialog,
+  deviceUpdateDialog: DeviceUpdateDialog,
+  deviceAuthenticationDialog: DeviceAuthenticationDialog,
+  appUpdateDialog: AppUpdateDialog,
+  errorDialog: ErrorDialog,
 };

@@ -11,7 +11,7 @@ interface ProgressDialogProps {
   icon: ReactNode;
   progress: number;
   versionText?: string;
-  versionTextVaribles?: object;
+  versionTextVariables?: object;
 }
 
 export const ProgressDialog: FC<ProgressDialogProps> = ({
@@ -20,22 +20,27 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
   icon,
   progress,
   versionText,
-  versionTextVaribles,
+  versionTextVariables,
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody pb={8}>
       {icon}
       <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h5" $textAlign="center">
+        <Typography variant="h5" $textAlign="center" $allowOverflow>
           <LangDisplay text={title} />
         </Typography>
-        <Typography variant="h6" $textAlign="center" color="muted">
+        <Typography
+          variant="h6"
+          $textAlign="center"
+          color="muted"
+          $allowOverflow
+        >
           <LangDisplay text={subtext} />
         </Typography>
         <ProgressBar
           progress={progress}
           text={versionText}
-          textVariables={versionTextVaribles}
+          textVariables={versionTextVariables}
         />
       </Container>
     </DialogBoxBody>
@@ -44,5 +49,5 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
 
 ProgressDialog.defaultProps = {
   versionText: undefined,
-  versionTextVaribles: undefined,
+  versionTextVariables: undefined,
 };

@@ -22,7 +22,7 @@ import { useAddAccountDialog } from '../context';
 const coinDropDownList: DropDownListItemProps[] = Object.values(coinList).map(
   coin => ({
     id: coin.id,
-    leftImage: <CoinIcon assetId={coin.id} />,
+    leftImage: <CoinIcon parentAssetId={coin.id} />,
     shortForm: `(${coin.abbr.toUpperCase()})`,
     text: coin.name,
     checkType: 'radio',

@@ -5,7 +5,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, selectWallets, useAppSelector } from '..';
 
@@ -24,10 +24,13 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
   const { wallets, lang } = useAppSelector(selector);
   const theme = useTheme();
 
-  const handleWalletChange = (id?: string) => {
-    if (!id) setSelectedWallet(undefined);
-    setSelectedWallet(wallets.find(w => w.__id === id));
-  };
+  const handleWalletChange = useCallback(
+    (id?: string) => {
+      if (!id) setSelectedWallet(undefined);
+      setSelectedWallet(wallets.find(w => w.__id === id));
+    },
+    [wallets],
+  );
 
   const walletDropdownList: DropDownListItemProps[] = useMemo(() => {
     const list: DropDownListItemProps[] = wallets.map(w => ({

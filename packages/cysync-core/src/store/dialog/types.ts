@@ -1,7 +1,33 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 
 export interface IDialogState {
+  deviceAuthenticationDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  appUpdateDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  deviceUpdateDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  errorDialog: {
+    isOpen: boolean;
+    data?: ErrorDialogProps;
+  };
+
+  walletSyncError: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   addAccount: {
     isOpen: boolean;
     data?: AddAccountDialogProps;
@@ -10,28 +36,6 @@ export interface IDialogState {
   receive: {
     isOpen: boolean;
     data?: undefined;
-  };
-
-  walletSyncError: {
-    isOpen: boolean;
-    data?: undefined;
-  };
-
-  walletActions: {
-    isOpen: boolean;
-    data?: undefined;
-  };
-
-  walletConnect: {
-    isOpen: boolean;
-    data?: undefined;
-  };
-
-  guidedFlow: {
-    isOpen: boolean;
-    data?: {
-      type: GuidedFlowType;
-    };
   };
 
   sendDialog: {
@@ -77,6 +81,23 @@ export interface IDialogState {
   historyDialog: {
     isOpen: boolean;
     data?: IHistoryDialogProps;
+  };
+
+  walletActions: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  guidedFlow: {
+    isOpen: boolean;
+    data?: {
+      type: GuidedFlowType;
+    };
+  };
+
+  walletConnect: {
+    isOpen: boolean;
+    data?: undefined;
   };
 
   signMessage: {

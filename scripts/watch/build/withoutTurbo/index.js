@@ -64,7 +64,7 @@ const run = async () => {
   const { packagesList } = getBuildOptions();
 
   if (packagesList.length <= 0) {
-    logger.info('No packages to build, skipping...');
+    buildLogger.info('No packages to build, skipping...');
     return;
   }
 

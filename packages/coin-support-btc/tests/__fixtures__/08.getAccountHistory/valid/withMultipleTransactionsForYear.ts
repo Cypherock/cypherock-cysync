@@ -384,6 +384,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '7e983b63-9056-4d1e-8ef2-5e41339b856e',
@@ -420,6 +421,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'e254823c-5cdb-4ec1-b269-bd13a856812d',
@@ -466,6 +468,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'e572e1c6-7212-4bec-b41c-5ee7740913b9',
@@ -517,6 +520,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '05d8c59e-a02e-403a-95f7-e636bbe74931',
@@ -558,6 +562,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '8f8cf1bc-c15e-481c-9f59-6f4f99bb4d3f',
@@ -589,6 +594,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '01ea4082-921a-493c-8eef-4dacf8473253',
@@ -625,6 +631,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '72f1f3d6-8682-47e5-99e0-2ead34ed4a52',
@@ -661,6 +668,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'a4656ff1-3180-4940-a9fd-ba3f0d7e11b7',
@@ -692,6 +700,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '0ce7b0b4-3e2a-4b0d-a4af-8b2e265724b8',
@@ -728,6 +737,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '1528a3cc-21c4-479c-b832-f62e3cad8754',
@@ -794,6 +804,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'ee7bf24e-baef-415e-bde3-9e935cb641ad',
@@ -830,6 +841,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '8e93fda1-42d9-478e-bf07-6b9d730672b9',
@@ -866,6 +878,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'f7281d1e-d1ec-4c8e-862f-e15ad229de63',
@@ -902,6 +915,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '271cad4e-7288-4c02-b08a-dc9556995445',
@@ -933,6 +947,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '5298c440-46d0-4d11-90c8-b7c28e34e098',
@@ -969,6 +984,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'a6f40cb0-d005-425e-8b2e-9e568090dcdb',
@@ -1005,6 +1021,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '21a79e30-44f8-4b92-8770-e66a2e32c7f2',
@@ -1041,6 +1058,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'e881abcf-009b-4f31-807f-75df11121685',
@@ -1077,6 +1095,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '6db61024-5799-4a78-97c5-a3efa3128d9c',
@@ -1113,6 +1132,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '9510d4a5-5d2f-49d6-a1c2-7f451b4774db',
@@ -1149,6 +1169,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'aa3290d0-66e1-4c7f-a32b-8ce2808785e0',
@@ -1190,6 +1211,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '7c951ad7-4fa9-4b74-a5bc-41f66aad0d9d',
@@ -1251,6 +1273,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'de7a461b-9563-46aa-ab47-ed6e08ad2a14',
@@ -1287,6 +1310,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '72ac11d4-60d1-4f1c-bea0-98a5e9f2155a',
@@ -1328,6 +1352,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '037822ad-ad7f-4b40-9d09-95b5fb3f6521',
@@ -1369,6 +1394,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '8388cac2-ffae-4f10-b58b-053ccc61df0c',
@@ -1400,6 +1426,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: 'bc1b604e-62a3-45ba-be72-98cb43d5f33f',
@@ -1431,6 +1458,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '882d5c90-0054-44f1-ae60-03091dceea24',
@@ -1472,6 +1500,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
         walletId:
           'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
         __version: 0,
         __id: '22b449e1-ef29-4ec1-8f1e-2c1666ee3a8f',
@@ -2960,6 +2989,7 @@ export const withMultipleTransactionsForYear: IPrepareTransactionTestCases = {
       type: 'account',
       familyId: 'bitcoin',
       assetId: 'bitcoin',
+      parentAssetId: 'bitcoin',
       walletId:
         'c372af88f64e0a40439f97ee98a3a0a03e9b2ac348b464d0cab7f32ee8482298',
       derivationScheme: 'nativeSegwit',
