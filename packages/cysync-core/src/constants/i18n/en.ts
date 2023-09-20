@@ -304,6 +304,8 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    send: 'Send',
+    receive: 'Receive',
     back: 'Back',
     retry: 'Retry',
     update: 'Update',

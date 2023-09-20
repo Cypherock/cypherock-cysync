@@ -1,5 +1,7 @@
 import {
-  WalletHeader,
+  Breadcrumb,
+  Flex,
+  Button,
   TableSearch,
   TableStructure,
   ShowMore,
@@ -8,7 +10,6 @@ import {
   NoAccountWrapper,
   NoSearchResult,
   NotFound,
-  WalletContainer,
   AccountTableHeader,
   AccountTableRow,
 } from '@cypherock/cysync-ui';
@@ -130,20 +131,33 @@ export const Wallet: FC = () => {
       title={`${walletName}`}
       fullHeight={accountList.length === 0}
     >
-      <WalletContainer>
-        <WalletHeader
-          title={`${lang.strings.wallet.title}`}
-          breadcrumb={walletName}
-          dropdown={dropDownData}
-          selectedItem={selectedWallet?.__id ?? ''}
-          setSelectedItem={onWalletChange}
-          primaryActionText={
-            hasAccounts ? lang.strings.buttons.addAccount : undefined
-          }
-          onPrimaryAction={hasAccounts ? handleAddAccountClick : undefined}
+      <Flex justify="space-between" py="10px" px="20px" my={2}>
+        <Breadcrumb
+          items={[
+            {
+              id: 'wallet',
+              text: lang.strings.wallet.title,
+            },
+            {
+              id: 'walletList',
+              dropdown: {
+                displayNode: walletName,
+                selectedItem: selectedWallet?.__id ?? '',
+                setSelectedItem: onWalletChange,
+                dropdown: dropDownData,
+              },
+            },
+          ]}
         />
-        {getMainContent()}
-      </WalletContainer>
+        <Flex gap={24}>
+          {hasAccounts && (
+            <Button variant="primary" onClick={handleAddAccountClick}>
+              {lang.strings.buttons.addAccount}
+            </Button>
+          )}
+        </Flex>
+      </Flex>
+      {getMainContent()}
     </MainAppLayout>
   );
 };

@@ -5,6 +5,7 @@ import { AppUpdateBar, DeviceUpdateBar, SideBar, Topbar } from '~/components';
 
 interface MainAppLayoutProps {
   title: string;
+  icon?: ReactNode;
   children?: ReactNode;
   fullHeight?: boolean;
   onTopbarHeightChange?: (height: number) => void;
@@ -12,6 +13,7 @@ interface MainAppLayoutProps {
 
 export const MainAppLayout: FC<MainAppLayoutProps> = ({
   title,
+  icon,
   children,
   fullHeight,
   onTopbarHeightChange,
@@ -43,7 +45,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
           <DeviceUpdateBar />
-          <Topbar title={title} />
+          <Topbar icon={icon} title={title} />
         </Flex>
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
           {children}
@@ -55,6 +57,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
 
 MainAppLayout.defaultProps = {
   children: undefined,
+  icon: undefined,
   fullHeight: false,
   onTopbarHeightChange: undefined,
 };

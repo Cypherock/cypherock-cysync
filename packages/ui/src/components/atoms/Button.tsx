@@ -1,8 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
 import { Throbber } from './Throbber';
 
+import { SvgProps } from '../../assets';
+import { svgGradients } from '../GlobalStyles';
 import { UtilsProps, goldenGradient, utils } from '../utils';
 
 type ButtonVariant =
@@ -22,6 +24,7 @@ export interface ButtonProps
   size?: ButtonSize;
   isLoading?: boolean;
   icon?: ReactNode;
+  iconComponent?: React.FC<SvgProps>;
   children?: ReactNode;
 }
 
@@ -188,15 +191,33 @@ export const Button: FC<ButtonProps> = ({
   icon,
   isLoading,
   children,
+  iconComponent: IconComponent,
   ...props
 }) => {
-  const Icon = isLoading ? (
+  const [isHovered, setIsHovered] = useState(false);
+
+  let Icon = isLoading ? (
     <Throbber size={throbberSizeMap[props.size ?? 'md']} strokeWidth={2} />
   ) : (
     icon
   );
+
+  if (!isLoading && IconComponent) {
+    Icon = (
+      <IconComponent
+        fill={`url(#${isHovered ? svgGradients.silver : svgGradients.gold})`}
+      />
+    );
+  }
+
   return (
-    <ButtonStyle type="button" disabled={isLoading} {...props}>
+    <ButtonStyle
+      type="button"
+      disabled={isLoading}
+      {...props}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {Icon}
       {children}
     </ButtonStyle>
@@ -209,4 +230,5 @@ Button.defaultProps = {
   children: undefined,
   icon: undefined,
   isLoading: false,
+  iconComponent: undefined,
 };

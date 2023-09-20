@@ -1,6 +1,7 @@
 import { getAsset } from '@cypherock/coin-support-utils';
 import { BtcIdMap, EvmIdMap, SolanaIdMap, NearIdMap } from '@cypherock/coins';
 import {
+  Container,
   BitcoinIcon,
   DashIcon,
   DogeIcon,
@@ -15,21 +16,22 @@ import {
   SolanaIcon,
   NearIcon,
   MediaQuery,
-  WidthProps,
   Image,
+  UtilsProps,
 } from '@cypherock/cysync-ui';
-import { HeightProps } from '@cypherock/cysync-ui/src/components/utils';
 import React from 'react';
 
 export interface CoinIconProps {
+  withBackground?: boolean;
   assetId?: string;
   parentAssetId: string;
+  containerSize?: MediaQuery<string | number>;
   size?: MediaQuery<string | number>;
   width?: MediaQuery<string | number>;
   height?: MediaQuery<string | number>;
 }
 
-interface IconProps extends WidthProps, HeightProps {}
+type IconProps = UtilsProps;
 
 const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -64,8 +66,10 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   parentAssetId,
   assetId,
   size,
+  containerSize,
   width,
   height,
+  withBackground,
 }) => {
   const Icon = getCoinIcon(parentAssetId);
 
@@ -76,24 +80,52 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     const asset = getAsset(parentAssetId, assetId);
 
     return (
-      <Image
-        src={requestErc20ImageFile(asset.coinGeckoId)}
-        $width={parsedWidth}
-        $height={parsedHeight}
-        $minWidth={parsedWidth}
-        $minHeight={parsedHeight}
-        alt={asset.name}
-      />
+      <Container
+        $bgColor={withBackground ? 'calendar' : undefined}
+        position="relative"
+        $borderRadius={withBackground ? 8 : undefined}
+        $borderWidth={0}
+        width={containerSize ?? parsedWidth}
+        height={containerSize ?? parsedHeight}
+      >
+        <Image
+          position="absolute"
+          top={0.5}
+          left={0.5}
+          $translateX={-0.5}
+          $translateY={-0.5}
+          src={requestErc20ImageFile(asset.coinGeckoId)}
+          $width={parsedWidth}
+          $height={parsedHeight}
+          $minWidth={parsedWidth}
+          $minHeight={parsedHeight}
+          alt={asset.name}
+        />
+      </Container>
     );
   }
 
   return (
-    <Icon
-      width={parsedWidth}
-      height={parsedHeight}
-      $minWidth={parsedWidth}
-      $minHeight={parsedHeight}
-    />
+    <Container
+      $bgColor={withBackground ? 'calendar' : undefined}
+      position="relative"
+      $borderWidth={0}
+      $borderRadius={withBackground ? 8 : undefined}
+      width={containerSize ?? parsedWidth}
+      height={containerSize ?? parsedHeight}
+    >
+      <Icon
+        position="absolute"
+        top={0.5}
+        left={0.5}
+        $translateX={-0.5}
+        $translateY={-0.5}
+        width={parsedWidth}
+        height={parsedHeight}
+        $minWidth={parsedWidth}
+        $minHeight={parsedHeight}
+      />
+    </Container>
   );
 };
 
@@ -102,4 +134,6 @@ CoinIcon.defaultProps = {
   assetId: undefined,
   width: undefined,
   height: undefined,
+  withBackground: undefined,
+  containerSize: undefined,
 };

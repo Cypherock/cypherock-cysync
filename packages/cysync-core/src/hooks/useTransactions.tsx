@@ -168,7 +168,10 @@ export const mapTransactionForDisplay = (params: {
       p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
   );
   const wallet = wallets.find(w => w.__id === transaction.walletId);
-  const account = accounts.find(a => a.__id === transaction.accountId);
+  let account = accounts.find(a => a.__id === transaction.parentAccountId);
+  if (!account) {
+    account = accounts.find(a => a.__id === transaction.accountId);
+  }
 
   if (coinPrice) {
     const feeInDefaultUnit = convertToUnit({

@@ -175,6 +175,12 @@ const FinePrintStyle = styled.span<HeadingProps>`
   ${baseStyle};
 `;
 
+const DivStyle = styled.div<HeadingProps>`
+  font-size: 16px;
+  font-weight: 400;
+  ${baseStyle};
+`;
+
 const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
@@ -192,6 +198,7 @@ export interface TypographyProps extends HeadingProps {
     | 'h5'
     | 'h6'
     | 'p'
+    | 'div'
     | 'span'
     | 'fineprint';
 }
@@ -220,8 +227,10 @@ export const Typography: FC<TypographyProps> = ({
       return <FinePrintStyle {...props}>{children}</FinePrintStyle>;
 
     case 'p':
-    default:
       return <PStyle {...props}>{children}</PStyle>;
+    case 'div':
+    default:
+      return <DivStyle {...props}>{children}</DivStyle>;
   }
 };
 

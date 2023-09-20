@@ -1,44 +1,29 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { ListItemDropdown } from '..';
-import { DropdownArrow } from '../../assets';
-import { Flex, Typography } from '../atoms';
+import { DropdownArrow } from '../../../assets';
+import { Flex, Typography } from '../../atoms';
 
 export interface BreadcrumbDropdownItem {
   id: string;
   text: string;
+  icon?: ReactNode;
   checkType?: string;
 }
 
-export interface BreadcrumbProps {
-  currentPage: string;
-  breadcrumb?: string;
+export interface BreadcrumbDropdownProps {
+  displayNode: ReactNode;
   dropdown?: BreadcrumbDropdownItem[];
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  focusedIndex: number;
-  setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
   selectedItem: string;
   setSelectedItem: (id: string) => void;
-  dropdownState: () => void;
 }
-
-const CustomTypography = styled(Typography)`
-  color: ${({ theme }) => theme.palette.background.breadcrumbSeparator};
-`;
 
 const DropDownWrapper = styled.div`
   position: relative;
   cursor: pointer;
   display: flex;
   gap: 12px;
-  align-items: center;
-`;
-
-const DropdownContainer = styled.div`
-  position: relative;
-  display: flex;
   align-items: center;
 `;
 
@@ -55,20 +40,20 @@ const ListItemWrapper = styled.div`
   max-height: 240px;
   top: calc(100% + 10px);
   left: 0;
+  overflow-y: scroll;
 `;
 
-export const Breadcrumb: FC<BreadcrumbProps> = ({
-  currentPage,
-  breadcrumb,
+export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
+  displayNode,
   dropdown,
-  isOpen,
-  setIsOpen,
-  focusedIndex,
-  setFocusedIndex,
   selectedItem,
   setSelectedItem,
-  dropdownState,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  const dropdownState = () => setIsOpen(!isOpen);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -148,47 +133,32 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   }, [isOpen]);
 
   return (
-    <Flex direction="column" gap={20} justify="center">
-      <DropdownContainer>
-        <Flex gap={12} align="center">
-          <Typography $fontSize={16} $fontWeight="medium" color="muted">
-            {currentPage}
-          </Typography>
-          {breadcrumb ? (
-            <DropDownWrapper ref={buttonRef} onClick={dropdownState}>
-              <CustomTypography $fontSize={16} $fontWeight="medium">
-                /
-              </CustomTypography>
-              <Flex gap={16} align="center">
-                <Typography $fontSize={16} $fontWeight="medium">
-                  {breadcrumb}
-                </Typography>
-                <DropdownArrow />
-              </Flex>
-            </DropDownWrapper>
-          ) : undefined}
-        </Flex>
-        {isOpen && dropdown?.length && (
-          <ListItemWrapper ref={dropdownRef}>
-            {dropdown.map((item, index) => (
-              <ListItemDropdown
-                key={item.id}
-                text={item.text}
-                checkType={item.checkType}
-                checked={selectedItem === item.id}
-                onChange={() => handleRadioCheckChange(item.id)}
-                focused={index === focusedIndex}
-                id={item.id}
-              />
-            ))}
-          </ListItemWrapper>
-        )}
-      </DropdownContainer>
-    </Flex>
+    <DropDownWrapper ref={buttonRef} onClick={dropdownState}>
+      <Flex gap={16} align="center">
+        <Typography $fontSize={16} $fontWeight="medium">
+          {displayNode}
+        </Typography>
+        <DropdownArrow />
+      </Flex>
+      {isOpen && dropdown?.length && (
+        <ListItemWrapper ref={dropdownRef}>
+          {dropdown.map((item, index) => (
+            <ListItemDropdown
+              key={item.id}
+              text={item.text}
+              checkType={item.checkType}
+              checked={selectedItem === item.id}
+              onChange={() => handleRadioCheckChange(item.id)}
+              focused={index === focusedIndex}
+              id={item.id}
+            />
+          ))}
+        </ListItemWrapper>
+      )}
+    </DropDownWrapper>
   );
 };
 
-Breadcrumb.defaultProps = {
-  breadcrumb: undefined,
+BreadcrumbDropdown.defaultProps = {
   dropdown: [],
 };

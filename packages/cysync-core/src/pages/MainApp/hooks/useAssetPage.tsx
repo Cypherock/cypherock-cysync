@@ -1,4 +1,6 @@
 import { getAsset } from '@cypherock/coin-support-utils';
+import { BreadcrumbDropdownItem } from '@cypherock/cysync-ui';
+import lodash from 'lodash';
 import { useMemo } from 'react';
 
 import { routes } from '~/constants';
@@ -27,6 +29,31 @@ export const useAssetPage = () => {
 
   const graphData = useGraph({ parentAssetId, assetId });
 
+  const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
+    () =>
+      lodash
+        .uniq(
+          graphData.accounts.map(account => ({
+            assetId: account.assetId,
+            parentAssetId: account.parentAssetId,
+          })),
+        )
+        .map(a => ({
+          id: `${a.parentAssetId}/${a.assetId}`,
+          text: getAsset(a.parentAssetId, a.assetId).name,
+          checkType: 'radio',
+        })),
+    [graphData.accounts],
+  );
+
+  const onAssetChange = (id: string) => {
+    const [_parentAssetId, _assetId] = id.split('/');
+
+    navigateTo(
+      `${routes.asset.path}?parentAssetId=${_parentAssetId}&assetId=${_assetId}`,
+    );
+  };
+
   const onAssetClick = (_parentAssetId: string, _assetId: string) => {
     // TODO: handle navitation to coin page
     console.log({ _parentAssetId, _assetId });
@@ -38,5 +65,7 @@ export const useAssetPage = () => {
     onAssetClick,
     parentAssetId,
     assetId,
+    assetDropdownList,
+    onAssetChange,
   };
 };

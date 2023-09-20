@@ -254,12 +254,12 @@ export const useGraph = (props?: UseGraphProps) => {
           />
         ) : undefined,
     };
-  }, [balanceHistories, theme, isDiscreetMode]);
+  }, [balanceHistories, theme, isDiscreetMode, props]);
 
   const graphData = useMemo(() => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
 
-    if (!parentAssetId) {
+    if (!parentAssetId || showGraphInUSD) {
       return balanceHistories.map(b => ({
         timestamp: b.timestamp,
         value: new BigNumber(b.value).toNumber(),
@@ -281,7 +281,7 @@ export const useGraph = (props?: UseGraphProps) => {
         value: new BigNumber(amount).toNumber(),
       };
     });
-  }, [balanceHistories, showGraphInUSD]);
+  }, [balanceHistories, showGraphInUSD, props]);
 
   const formatGraphAmountDisplay = (
     value: string | number,
@@ -316,7 +316,7 @@ export const useGraph = (props?: UseGraphProps) => {
         'MMM d',
       )}`,
     ],
-    [isDiscreetMode, showGraphInUSD],
+    [isDiscreetMode, showGraphInUSD, props],
   );
 
   const formatTimestamp = useCallback<
@@ -332,7 +332,10 @@ export const useGraph = (props?: UseGraphProps) => {
 
   const formatYAxisTick = useCallback<
     Exclude<LineGraphProps['formatYAxisTick'], undefined>
-  >(value => formatGraphAmountDisplay(value), [isDiscreetMode, showGraphInUSD]);
+  >(
+    value => formatGraphAmountDisplay(value),
+    [isDiscreetMode, showGraphInUSD, props],
+  );
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());
