@@ -17,9 +17,10 @@ export const AppSettings: React.FC = () => {
   const { item } = strings.settings.tabs.app;
   const dispatch = useAppDispatch();
   const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
-    useState<boolean>(false);
-  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
-    useState<boolean>(false);
+    useState<boolean | undefined>(undefined);
+  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] = useState<
+    boolean | undefined
+  >(undefined);
 
   useEffect(() => {
     keyValueStore.isAnalyticsAndBugReportEnabled
@@ -31,12 +32,16 @@ export const AppSettings: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (isAnalyticsAndBugReportEnabled === undefined) return;
+
     keyValueStore.isAnalyticsAndBugReportEnabled.set(
       isAnalyticsAndBugReportEnabled,
     );
   }, [isAnalyticsAndBugReportEnabled]);
 
   useEffect(() => {
+    if (isAutoUpdateCySyncEnabled === undefined) return;
+
     keyValueStore.isAutoUpdateCySyncEnabled.set(isAutoUpdateCySyncEnabled);
   }, [isAutoUpdateCySyncEnabled]);
 
@@ -74,7 +79,8 @@ export const AppSettings: React.FC = () => {
           variant="large"
           offText={strings.toggle.off}
           onText={strings.toggle.on}
-          checked={isAnalyticsAndBugReportEnabled}
+          isLoading={isAnalyticsAndBugReportEnabled === undefined}
+          checked={isAnalyticsAndBugReportEnabled ?? false}
           onToggle={setAnalyticsAndBugReportEnabled}
         />
       </SettingsStandardItem>
@@ -97,7 +103,8 @@ export const AppSettings: React.FC = () => {
           variant="large"
           offText={strings.toggle.off}
           onText={strings.toggle.on}
-          checked={isAutoUpdateCySyncEnabled}
+          isLoading={isAutoUpdateCySyncEnabled === undefined}
+          checked={isAutoUpdateCySyncEnabled ?? false}
           onToggle={setAutoUpdateCySyncEnabled}
         />
       </SettingsStandardItem>
