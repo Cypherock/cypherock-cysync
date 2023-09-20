@@ -57,7 +57,12 @@ export const RemovePasswordDialogProvider: FC<
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
+
+  const validatePassword = () => {
+    setError(null);
+  };
+  useEffect(validatePassword, [password]);
 
   const validateForm = () => {
     let isSubmitDisabledNew = Boolean(error);
@@ -67,7 +72,7 @@ export const RemovePasswordDialogProvider: FC<
     setIsSubmitDisabled(isSubmitDisabledNew);
   };
 
-  useEffect(validateForm, [password, isLoading]);
+  useEffect(validateForm, [error, password, isLoading]);
 
   const handleRemovePassword = async () => {
     setIsLoading(true);
