@@ -5,6 +5,8 @@ import { LangDisplay } from './LangDisplay';
 import { Typography } from './Typography';
 
 import { goldenGradient } from '../utils/Gradient';
+import { Throbber } from './Throbber';
+import { Flex } from './Flex';
 
 export interface ToggleProps {
   checked: boolean;
@@ -12,6 +14,7 @@ export interface ToggleProps {
   variant?: 'large' | 'tiny';
   onText?: string;
   offText?: string;
+  isLoading?: boolean;
 }
 
 interface ToggleAttributes {
@@ -103,6 +106,7 @@ export const Toggle: React.FC<ToggleProps> = ({
   variant,
   onText,
   offText,
+  isLoading,
 }) => {
   const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
     if (onToggle) {
@@ -140,27 +144,44 @@ export const Toggle: React.FC<ToggleProps> = ({
 
   return (
     <ToggleSwitch {...toggleAttributes} tabIndex={0} onKeyDown={handleKeyDown}>
-      <Checkbox
-        type="checkbox"
-        checked={checked}
-        onChange={handleCheck}
-        tabIndex={-1}
-      />
-      {variant === 'large' && onText && (
-        <CheckedNode {...toggleAttributes}>
-          <Typography $textAlign="center" $fontWeight="semibold" color="black">
-            <LangDisplay text={onText} />
-          </Typography>
-        </CheckedNode>
+      {isLoading && (
+        <Flex width="100%" height="100%" align="center" justify="center">
+          <Throbber size={15} strokeWidth={2} />
+        </Flex>
       )}
-      {variant === 'large' && offText && (
-        <UnCheckedNode {...toggleAttributes}>
-          <Typography $textAlign="center" $fontWeight="semibold" color="muted">
-            <LangDisplay text={offText} />
-          </Typography>
-        </UnCheckedNode>
+      {!isLoading && (
+        <>
+          <Checkbox
+            type="checkbox"
+            checked={checked}
+            onChange={handleCheck}
+            tabIndex={-1}
+          />
+          {variant === 'large' && onText && (
+            <CheckedNode {...toggleAttributes}>
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="black"
+              >
+                <LangDisplay text={onText} />
+              </Typography>
+            </CheckedNode>
+          )}
+          {variant === 'large' && offText && (
+            <UnCheckedNode {...toggleAttributes}>
+              <Typography
+                $textAlign="center"
+                $fontWeight="semibold"
+                color="muted"
+              >
+                <LangDisplay text={offText} />
+              </Typography>
+            </UnCheckedNode>
+          )}
+          <Slider {...toggleAttributes} />
+        </>
       )}
-      <Slider {...toggleAttributes} />
     </ToggleSwitch>
   );
 };
@@ -170,4 +191,5 @@ Toggle.defaultProps = {
   onText: undefined,
   offText: undefined,
   variant: 'tiny',
+  isLoading: false,
 };
