@@ -18,7 +18,7 @@ import { useResetCySyncDialog } from '../context';
 
 export const ConfirmReset: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { loading, onClose, onReset } = useResetCySyncDialog();
+  const { isLoading, onClose, onReset } = useResetCySyncDialog();
   const { buttons, dialogs } = lang.strings;
   const { confim } = dialogs.reset;
 
@@ -46,14 +46,14 @@ export const ConfirmReset: React.FC = () => {
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" disabled={loading} onClick={onClose}>
+        <Button variant="secondary" disabled={isLoading} onClick={onClose}>
           <LangDisplay text={buttons.cancel} />
         </Button>
         <Button
           variant="primary"
-          disabled={loading}
+          disabled={isLoading}
           onClick={onReset}
-          isLoading={loading}
+          isLoading={isLoading}
         >
           <LangDisplay text={buttons.reset} />
         </Button>

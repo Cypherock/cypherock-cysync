@@ -29,7 +29,7 @@ export interface ResetCySyncDialogContextInterface {
   onPrevious: () => void;
   onClose: () => void;
   onReset: () => Promise<void>;
-  loading: boolean;
+  isLoading: boolean;
 }
 
 export const ResetCySyncDialogContext: Context<ResetCySyncDialogContextInterface> =
@@ -47,16 +47,16 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onClose = () => {
     dispatch(closeDialog('resetCySync'));
   };
 
   const onReset = async () => {
-    setLoading(true);
+    setIsLoading(true);
     await getResetCySyncMethod()();
-    setLoading(false);
+    setIsLoading(false);
     onClose();
   };
 
@@ -90,7 +90,7 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       onPrevious,
       onClose,
       onReset,
-      loading,
+      isLoading,
     }),
     [
       isDeviceRequired,
@@ -102,7 +102,7 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       onPrevious,
       onClose,
       onReset,
-      loading,
+      isLoading,
     ],
   );
 
