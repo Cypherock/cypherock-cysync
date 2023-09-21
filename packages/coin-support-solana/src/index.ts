@@ -11,6 +11,7 @@ import {
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
   IGetExplorerLink,
+  ISignMessageEvent,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
@@ -41,6 +42,10 @@ export class SolanaSupport implements CoinSupport {
   }
 
   public signTransaction(): Observable<ISignTransactionEvent> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public signMessage(): Observable<ISignMessageEvent> {
     throw new Error(`Method not implemented`);
   }
 

@@ -5,6 +5,7 @@ export * from './syncAccount';
 export * from './unit';
 export * from './db';
 export * from './signTransaction';
+export * from './signMessage';
 export * from './syncPrices';
 export * from './syncPriceHistories';
 export * from './getCoinAllocations';

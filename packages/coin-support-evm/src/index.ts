@@ -11,6 +11,8 @@ import {
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
   IGetExplorerLink,
+  ISignMessageEvent,
+  ISignMessageParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
@@ -51,6 +53,12 @@ export class EvmSupport implements CoinSupport {
 
   public signTransaction(): Observable<ISignTransactionEvent> {
     throw new Error(`Method not implemented`);
+  }
+
+  public signMessage(
+    params: ISignMessageParams,
+  ): Observable<ISignMessageEvent> {
+    return operations.sign(params);
   }
 
   public broadcastTransaction(): Promise<ITransaction> {

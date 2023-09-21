@@ -20,6 +20,7 @@ import {
   ISignTransactionEvent,
   ISignTransactionParams,
 } from './send';
+import { ISignMessageParams, ISignMessageEvent } from './sign';
 import { ISyncAccountsParams } from './syncAccount';
 import { ISyncPriceHistoriesParams } from './syncPriceHistories';
 import { ISyncPricesParams } from './syncPrices';
@@ -28,6 +29,7 @@ import { IValidateAddressParams } from './validateAddress';
 export * from './createAccount';
 export * from './receive';
 export * from './send';
+export * from './sign';
 export * from './syncAccount';
 export * from './schemes';
 export * from './validateAddress';
@@ -49,6 +51,7 @@ export interface CoinSupport {
   signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignTransactionEvent>;
+  signMessage(params: ISignMessageParams): Observable<ISignMessageEvent>;
   broadcastTransaction(
     params: IBroadcastTransactionParams,
   ): Promise<ITransaction>;
