@@ -15,7 +15,7 @@ import {
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -31,7 +31,7 @@ const throbber = <Throbber size={15} strokeWidth={2} />;
 
 export const X1VaultAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose } = useAuthenticateX1VaultDialog();
+  const { onClose, onNext } = useAuthenticateX1VaultDialog();
   const { dialogs } = lang.strings;
   const { authX1Vault, title } = dialogs.auth;
 
@@ -61,6 +61,12 @@ export const X1VaultAuthProcess: React.FC = () => {
     ],
     [task.result],
   );
+
+  useEffect(() => {
+    if (task.result === true) {
+      onNext();
+    }
+  }, [onNext, task.result]);
 
   return (
     <ErrorHandlerDialog onClose={onClose} onRetry={onRetry} error={task.error}>

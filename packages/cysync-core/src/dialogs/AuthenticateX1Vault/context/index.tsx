@@ -19,6 +19,7 @@ import {
 
 import { Email2FA, X1VaultAuthProcess } from '../Dialogs';
 import { validateEmail } from '~/utils';
+import { AuthenticateX1VaultSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1VaultDialogContextInterface {
   tabs: ITabs;
@@ -32,6 +33,7 @@ export interface AuthenticateX1VaultDialogContextInterface {
   email: string;
   handleEmailChange: (email: string) => void;
   error: string | null;
+  isSubmitDisabled: boolean;
 }
 
 export const AuthenticateX1VaultDialogContext: Context<AuthenticateX1VaultDialogContextInterface> =
@@ -51,15 +53,31 @@ export const AuthenticateX1VaultDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
-  useEffect(() => {
+  const validateInputEmail = () => {
+    if (email.length === 0) {
+      setError(null);
+      return;
+    }
+
     const validation = validateEmail(email, lang);
     if (!validation.success) {
       setError(validation.error.issues[0].message);
       return;
     }
+
     setError(null);
-  }, [email]);
+  };
+  useEffect(validateInputEmail, [email]);
+
+  const validateForm = () => {
+    let isSubmitDisabledNew = Boolean(error);
+    isSubmitDisabledNew ||= email.length === 0;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+  useEffect(validateForm, [email]);
 
   const handleEmailChange = (_email: string) => {
     setEmail(_email);
@@ -78,6 +96,12 @@ export const AuthenticateX1VaultDialogProvider: FC<
       name: lang.strings.dialogs.auth.title,
       dialogs: [
         <X1VaultAuthProcess key="authenticate-x1-vault-device-process" />,
+      ],
+    },
+    {
+      name: lang.strings.dialogs.auth.authX1Vault.success,
+      dialogs: [
+        <AuthenticateX1VaultSuccess key="authenticate-x1-vault-success" />,
       ],
     },
   ];
@@ -107,6 +131,7 @@ export const AuthenticateX1VaultDialogProvider: FC<
       email,
       handleEmailChange,
       error,
+      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -120,6 +145,7 @@ export const AuthenticateX1VaultDialogProvider: FC<
       email,
       handleEmailChange,
       error,
+      isSubmitDisabled,
     ],
   );
 

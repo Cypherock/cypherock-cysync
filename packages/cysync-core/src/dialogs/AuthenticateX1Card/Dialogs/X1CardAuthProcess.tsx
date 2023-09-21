@@ -16,7 +16,7 @@ import {
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -32,7 +32,7 @@ const throbber = <Throbber size={15} strokeWidth={2} />;
 
 export const X1CardAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose } = useAuthenticateX1CardDialog();
+  const { onClose, onNext } = useAuthenticateX1CardDialog();
   const { dialogs } = lang.strings;
   const { authX1Card, title } = dialogs.auth;
 
@@ -85,6 +85,12 @@ export const X1CardAuthProcess: React.FC = () => {
       },
     ];
   }, [authCardStatus, task.result]);
+
+  useEffect(() => {
+    if (task.result === true) {
+      onNext();
+    }
+  }, [onNext, task.result]);
 
   return (
     <ErrorHandlerDialog onClose={onClose} onRetry={onRetry} error={task.error}>

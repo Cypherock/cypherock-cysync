@@ -19,6 +19,7 @@ import {
 
 import { Email2FA, X1CardAuthProcess } from '../Dialogs';
 import { validateEmail } from '~/utils';
+import { AuthenticateX1CardSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1CardDialogContextInterface {
   tabs: ITabs;
@@ -32,6 +33,7 @@ export interface AuthenticateX1CardDialogContextInterface {
   email: string;
   handleEmailChange: (email: string) => void;
   error: string | null;
+  isSubmitDisabled: boolean;
 }
 
 export const AuthenticateX1CardDialogContext: Context<AuthenticateX1CardDialogContextInterface> =
@@ -52,15 +54,31 @@ export const AuthenticateX1CardDialogProvider: FC<
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
-  useEffect(() => {
+  const validateInputEmail = () => {
+    if (email.length === 0) {
+      setError(null);
+      return;
+    }
+
     const validation = validateEmail(email, lang);
     if (!validation.success) {
       setError(validation.error.issues[0].message);
       return;
     }
+
     setError(null);
-  }, [email]);
+  };
+  useEffect(validateInputEmail, [email]);
+
+  const validateForm = () => {
+    let isSubmitDisabledNew = Boolean(error);
+    isSubmitDisabledNew ||= email.length === 0;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+  useEffect(validateForm, [email]);
 
   const handleEmailChange = (_email: string) => {
     setEmail(_email);
@@ -79,6 +97,12 @@ export const AuthenticateX1CardDialogProvider: FC<
       name: lang.strings.dialogs.auth.title,
       dialogs: [
         <X1CardAuthProcess key="authenticate-x1-card-device-process" />,
+      ],
+    },
+    {
+      name: lang.strings.dialogs.auth.authX1Card.success,
+      dialogs: [
+        <AuthenticateX1CardSuccess key="authenticate-x1-card-success" />,
       ],
     },
   ];
@@ -108,6 +132,7 @@ export const AuthenticateX1CardDialogProvider: FC<
       email,
       handleEmailChange,
       error,
+      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -121,6 +146,7 @@ export const AuthenticateX1CardDialogProvider: FC<
       email,
       handleEmailChange,
       error,
+      isSubmitDisabled,
     ],
   );
 
