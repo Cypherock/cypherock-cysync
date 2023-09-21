@@ -2,6 +2,7 @@ import { ArrowDown, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import {
+  openAppUpdateDialog,
   openAuthenticateX1CardDialog,
   openAuthenticateX1VaultDialog,
 } from '~/actions';
@@ -19,7 +20,10 @@ export const DeviceSettings: React.FC = () => {
         title={{ text: item.x1VaultUpdate.title }}
         description={{ text: item.x1VaultUpdate.description }}
       >
-        <SettingsButton variant="primary" onClick={console.log}>
+        <SettingsButton
+          onClick={() => dispatch(openAppUpdateDialog())}
+          variant="primary"
+        >
           <LangDisplay text={strings.buttons.check} />
         </SettingsButton>
       </SettingsStandardItem>
