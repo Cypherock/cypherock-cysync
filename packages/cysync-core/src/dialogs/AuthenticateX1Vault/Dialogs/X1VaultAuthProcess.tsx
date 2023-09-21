@@ -15,15 +15,16 @@ import {
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { ManagerApp } from '@cypherock/sdk-app-manager';
+import { AuthDeviceStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { ErrorHandlerDialog } from '~/components';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { keyValueStore } from '~/utils';
 import { useAuthenticateX1VaultDialog } from '../context';
+import { DeviceAuthenticating } from './Authenticating';
 
 const rightArrowIcon = <ArrowRightIcon />;
 const checkIcon = <Check width={15} height={12} />;
@@ -34,12 +35,14 @@ export const X1VaultAuthProcess: React.FC = () => {
   const { onClose, onNext } = useAuthenticateX1VaultDialog();
   const { dialogs } = lang.strings;
   const { authX1Vault, title } = dialogs.auth;
+  const [authDeviceStatus, setAuthDeviceStatus] = useState<AuthDeviceStatus>();
 
   const deviceAuth: DeviceTask<boolean> = async connection => {
     const app = await ManagerApp.create(connection);
     await app.authDevice({
       email: (await keyValueStore.email.get()) ?? undefined,
       cysyncVersion: window.cysyncEnv.VERSION,
+      onEvent: setAuthDeviceStatus,
     });
     return true;
   };
@@ -67,6 +70,13 @@ export const X1VaultAuthProcess: React.FC = () => {
       onNext();
     }
   }, [onNext, task.result]);
+
+  if (
+    authDeviceStatus === AuthDeviceStatus.AUTH_DEVICE_STATUS_USER_CONFIRMED &&
+    task.result === undefined
+  ) {
+    return <DeviceAuthenticating />;
+  }
 
   return (
     <ErrorHandlerDialog onClose={onClose} onRetry={onRetry} error={task.error}>
