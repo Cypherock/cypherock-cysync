@@ -93,7 +93,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown();
+  } = useAccountDropdown({ includeSubAccounts: true });
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);

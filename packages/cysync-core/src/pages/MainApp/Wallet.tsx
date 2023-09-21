@@ -68,6 +68,7 @@ export const Wallet: FC = () => {
               {slicedData.map((row, index) => (
                 <AccountTableRow
                   key={row.id}
+                  id={row.id}
                   leftImage={row.leftImage}
                   text={row.text}
                   subText={row.subText}
@@ -75,7 +76,11 @@ export const Wallet: FC = () => {
                   statusImage={row.statusImage}
                   amount={row.displayAmount}
                   value={row.displayValue}
-                  tokens={row.tokens}
+                  tokens={row.tokens?.map(t => ({
+                    ...t,
+                    amount: t.displayAmount,
+                    value: t.displayValue,
+                  }))}
                   $isLast={index === slicedData.length - 1 && !displayShowMore}
                   $rowIndex={index}
                   $hide={lang.strings.wallet.buttons.hide}

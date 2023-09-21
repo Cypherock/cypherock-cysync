@@ -40,7 +40,7 @@ const getReceiveAddressFromDevice = async (
   const { address } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
-    chainId: evmCoinList[account.assetId].chain,
+    chainId: evmCoinList[account.parentAssetId].chain,
     onEvent: (event: GetPublicKeysEvent) => {
       const receiveEvent = statusMap[event];
       if (receiveEvent !== undefined) events[receiveEvent] = true;

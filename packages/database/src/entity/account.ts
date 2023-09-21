@@ -17,6 +17,6 @@ export const Account: ITableDetails<Omit<IAccount, BaseFields>> = {
     familyId: { type: 'string' },
     walletId: { type: 'string' },
     parentAccountId: { type: 'string', isOptional: true },
-    parentAssetId: { type: 'string', isOptional: true },
+    parentAssetId: { type: 'string' },
   },
 };

@@ -15,6 +15,7 @@ describe('03. Receive', () => {
   const getOneMock = jest.fn<() => Partial<IAccount>>().mockReturnValue({
     walletId: '00000000',
     assetId: 'ethereum',
+    parentAssetId: 'ethereum',
     xpubOrAddress: '0xF45b75b2b30f6d0ebC8dbdd57985433463260140',
     derivationPath: `m/44'/60'/0'/0/0`,
   });

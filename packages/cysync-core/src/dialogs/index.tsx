@@ -7,7 +7,11 @@ import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { AppUpdateDialog } from './AppUpdateDialog';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
+import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
+import { DeviceUpdateDialog } from './DeviceUpdateDialog';
+import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -39,4 +43,8 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   authenticateX1Card: AuthenticateX1CardDialog,
   releaseNotes: ReleaseNotesDialog,
   signMessage: SignMessageDialog,
+  deviceUpdateDialog: DeviceUpdateDialog,
+  deviceAuthenticationDialog: DeviceAuthenticationDialog,
+  appUpdateDialog: AppUpdateDialog,
+  errorDialog: ErrorDialog,
 };

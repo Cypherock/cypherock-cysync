@@ -1,5 +1,5 @@
 import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   openChangePasswordDialog,
@@ -8,17 +8,43 @@ import {
   openSetPasswordDialog,
 } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
-
-import { SettingsStandardItem, SettingsButton } from '../components';
+import { useLockscreen } from '~/context';
+import { keyValueStore } from '~/utils';
+import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.app;
   const dispatch = useAppDispatch();
+  const { isPasswordSet } = useLockscreen();
   const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
-    useState<boolean>(false);
-  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] =
-    useState<boolean>(false);
+    useState<boolean | undefined>(undefined);
+  const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] = useState<
+    boolean | undefined
+  >(undefined);
+
+  useEffect(() => {
+    keyValueStore.isAnalyticsAndBugReportEnabled
+      .get()
+      .then(setAnalyticsAndBugReportEnabled);
+    keyValueStore.isAutoUpdateCySyncEnabled
+      .get()
+      .then(setAutoUpdateCySyncEnabled);
+  }, []);
+
+  useEffect(() => {
+    if (isAnalyticsAndBugReportEnabled === undefined) return;
+
+    keyValueStore.isAnalyticsAndBugReportEnabled.set(
+      isAnalyticsAndBugReportEnabled,
+    );
+  }, [isAnalyticsAndBugReportEnabled]);
+
+  useEffect(() => {
+    if (isAutoUpdateCySyncEnabled === undefined) return;
+
+    keyValueStore.isAutoUpdateCySyncEnabled.set(isAutoUpdateCySyncEnabled);
+  }, [isAutoUpdateCySyncEnabled]);
 
   return (
     <>
@@ -26,25 +52,30 @@ export const AppSettings: React.FC = () => {
         title={{ text: item.password.title }}
         description={{ text: item.password.description }}
       >
-        <SettingsButton
-          display="none"
-          onClick={() => dispatch(openSetPasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.setPassword} />
-        </SettingsButton>
-        <SettingsButton
-          onClick={() => dispatch(openRemovePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.removePassword} />
-        </SettingsButton>
-        <SettingsButton
-          onClick={() => dispatch(openChangePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.changePassword} />
-        </SettingsButton>
+        {!isPasswordSet && (
+          <SettingsButton
+            onClick={() => dispatch(openSetPasswordDialog())}
+            variant="primary"
+          >
+            <LangDisplay text={strings.buttons.setPassword} />
+          </SettingsButton>
+        )}
+        {isPasswordSet && (
+          <>
+            <SettingsButton
+              onClick={() => dispatch(openRemovePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.removePassword} />
+            </SettingsButton>
+            <SettingsButton
+              onClick={() => dispatch(openChangePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.changePassword} />
+            </SettingsButton>
+          </>
+        )}
       </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.anayticsAndBugReport.title }}
@@ -54,7 +85,8 @@ export const AppSettings: React.FC = () => {
           variant="large"
           offText={strings.toggle.off}
           onText={strings.toggle.on}
-          checked={isAnalyticsAndBugReportEnabled}
+          isLoading={isAnalyticsAndBugReportEnabled === undefined}
+          checked={isAnalyticsAndBugReportEnabled ?? false}
           onToggle={setAnalyticsAndBugReportEnabled}
         />
       </SettingsStandardItem>
@@ -77,18 +109,19 @@ export const AppSettings: React.FC = () => {
           variant="large"
           offText={strings.toggle.off}
           onText={strings.toggle.on}
-          checked={isAutoUpdateCySyncEnabled}
+          isLoading={isAutoUpdateCySyncEnabled === undefined}
+          checked={isAutoUpdateCySyncEnabled ?? false}
           onToggle={setAutoUpdateCySyncEnabled}
         />
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.usb.title }}
         description={{ text: item.usb.description }}
       >
         <SettingsButton variant="primary" onClick={console.log}>
           <LangDisplay text={strings.buttons.start} />
         </SettingsButton>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };
