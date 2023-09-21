@@ -320,7 +320,7 @@ export const sendFunds = async (params: {
     'Select an account to send funds from',
   );
 
-  const coin = coinList[account.assetId];
+  const coin = coinList[account.parentAssetId];
   const coinSupport = getCoinSupport(account.familyId);
 
   const spinner = await Spinner.create(creatingTxnSpinnerText);
