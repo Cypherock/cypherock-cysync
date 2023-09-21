@@ -3,8 +3,10 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
-import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
-import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
+import {
+  AuthenticateX1CardDialog,
+  AuthenticateX1VaultDialog,
+} from './Authenticate';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';

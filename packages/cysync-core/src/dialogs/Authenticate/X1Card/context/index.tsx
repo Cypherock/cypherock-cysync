@@ -4,9 +4,7 @@ import React, {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -17,8 +15,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Email2FA, X1CardAuthProcess } from '../Dialogs';
-import { validateEmail } from '~/utils';
+import { X1CardAuthProcess, X1CardEmail2FA } from '../Dialogs';
 import { AuthenticateX1CardSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1CardDialogContextInterface {
@@ -30,10 +27,6 @@ export interface AuthenticateX1CardDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  email: string;
-  handleEmailChange: (email: string) => void;
-  error: string | null;
-  isSubmitDisabled: boolean;
 }
 
 export const AuthenticateX1CardDialogContext: Context<AuthenticateX1CardDialogContextInterface> =
@@ -52,38 +45,6 @@ export const AuthenticateX1CardDialogProvider: FC<
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
-  const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
-
-  const validateInputEmail = () => {
-    if (email.length === 0) {
-      setError(null);
-      return;
-    }
-
-    const validation = validateEmail(email, lang);
-    if (!validation.success) {
-      setError(validation.error.issues[0].message);
-      return;
-    }
-
-    setError(null);
-  };
-  useEffect(validateInputEmail, [email]);
-
-  const validateForm = () => {
-    let isSubmitDisabledNew = Boolean(error);
-    isSubmitDisabledNew ||= email.length === 0;
-
-    setIsSubmitDisabled(isSubmitDisabledNew);
-  };
-  useEffect(validateForm, [email]);
-
-  const handleEmailChange = (_email: string) => {
-    setEmail(_email);
-  };
-
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Card'));
   };
@@ -91,7 +52,7 @@ export const AuthenticateX1CardDialogProvider: FC<
   const tabs: ITabs = [
     {
       name: lang.strings.dialogs.auth.email2fa.title,
-      dialogs: [<Email2FA key="authenticate-x1-card-email -2fa" />],
+      dialogs: [<X1CardEmail2FA key="authenticate-x1-card-email -2fa" />],
     },
     {
       name: lang.strings.dialogs.auth.title,
@@ -129,10 +90,6 @@ export const AuthenticateX1CardDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
-      email,
-      handleEmailChange,
-      error,
-      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -143,10 +100,6 @@ export const AuthenticateX1CardDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
-      email,
-      handleEmailChange,
-      error,
-      isSubmitDisabled,
     ],
   );
 

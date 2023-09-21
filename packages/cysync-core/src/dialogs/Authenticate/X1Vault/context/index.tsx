@@ -4,9 +4,7 @@ import React, {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -17,8 +15,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Email2FA, X1VaultAuthProcess } from '../Dialogs';
-import { validateEmail } from '~/utils';
+import { X1VaultAuthProcess, X1VaultEmail2FA } from '../Dialogs';
 import { AuthenticateX1VaultSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1VaultDialogContextInterface {
@@ -30,10 +27,6 @@ export interface AuthenticateX1VaultDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  email: string;
-  handleEmailChange: (email: string) => void;
-  error: string | null;
-  isSubmitDisabled: boolean;
 }
 
 export const AuthenticateX1VaultDialogContext: Context<AuthenticateX1VaultDialogContextInterface> =
@@ -51,37 +44,6 @@ export const AuthenticateX1VaultDialogProvider: FC<
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
-  const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
-
-  const validateInputEmail = () => {
-    if (email.length === 0) {
-      setError(null);
-      return;
-    }
-
-    const validation = validateEmail(email, lang);
-    if (!validation.success) {
-      setError(validation.error.issues[0].message);
-      return;
-    }
-
-    setError(null);
-  };
-  useEffect(validateInputEmail, [email]);
-
-  const validateForm = () => {
-    let isSubmitDisabledNew = Boolean(error);
-    isSubmitDisabledNew ||= email.length === 0;
-
-    setIsSubmitDisabled(isSubmitDisabledNew);
-  };
-  useEffect(validateForm, [email]);
-
-  const handleEmailChange = (_email: string) => {
-    setEmail(_email);
-  };
 
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Vault'));
@@ -90,7 +52,7 @@ export const AuthenticateX1VaultDialogProvider: FC<
   const tabs: ITabs = [
     {
       name: lang.strings.dialogs.auth.email2fa.title,
-      dialogs: [<Email2FA key="authenticate-x1-vault-email-2fa" />],
+      dialogs: [<X1VaultEmail2FA key="authenticate-x1-vault-email-2fa" />],
     },
     {
       name: lang.strings.dialogs.auth.title,
@@ -128,10 +90,6 @@ export const AuthenticateX1VaultDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
-      email,
-      handleEmailChange,
-      error,
-      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -142,10 +100,6 @@ export const AuthenticateX1VaultDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
-      email,
-      handleEmailChange,
-      error,
-      isSubmitDisabled,
     ],
   );
 
