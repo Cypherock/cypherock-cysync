@@ -35,7 +35,7 @@ export const DappConnectedLogo: React.FC<DappConnectedLogoProps> = ({
 }) => (
   <Flex align="center">
     <LargeLogoContainer>
-      <Image src={dappLogoUrl} alt="DApp" width={50} height={50} />
+      <Image src={dappLogoUrl} alt="DApp" $width={50} $height={50} />
     </LargeLogoContainer>
     <ConnectingLine />
     <SmallLogoContainer>
@@ -43,7 +43,7 @@ export const DappConnectedLogo: React.FC<DappConnectedLogoProps> = ({
     </SmallLogoContainer>
     <ConnectingLine />
     <LargeLogoContainer>
-      <Image src={cySyncLogo} alt="CySync" width={50} height={50} />
+      <Image src={cySyncLogo} alt="CySync" $width={50} $height={50} />
     </LargeLogoContainer>
   </Flex>
 );

@@ -4,7 +4,9 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -15,7 +17,8 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Email2FA } from '../Dialogs';
+import { Email2FA, X1CardAuthProcess } from '../Dialogs';
+import { validateEmail } from '~/utils';
 
 export interface AuthenticateX1CardDialogContextInterface {
   tabs: ITabs;
@@ -26,6 +29,9 @@ export interface AuthenticateX1CardDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  email: string;
+  handleEmailChange: (email: string) => void;
+  error: string | null;
 }
 
 export const AuthenticateX1CardDialogContext: Context<AuthenticateX1CardDialogContextInterface> =
@@ -44,14 +50,36 @@ export const AuthenticateX1CardDialogProvider: FC<
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const validation = validateEmail(email, lang);
+    if (!validation.success) {
+      setError(validation.error.issues[0].message);
+      return;
+    }
+    setError(null);
+  }, [email]);
+
+  const handleEmailChange = (_email: string) => {
+    setEmail(_email);
+  };
+
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Card'));
   };
 
   const tabs: ITabs = [
     {
-      name: lang.strings.settings.tabs.app.title,
+      name: lang.strings.dialogs.auth.email2fa.title,
       dialogs: [<Email2FA key="authenticate-x1-card-email -2fa" />],
+    },
+    {
+      name: lang.strings.dialogs.auth.title,
+      dialogs: [
+        <X1CardAuthProcess key="authenticate-x1-card-device-process" />,
+      ],
     },
   ];
 
@@ -77,6 +105,9 @@ export const AuthenticateX1CardDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      email,
+      handleEmailChange,
+      error,
     }),
     [
       isDeviceRequired,
@@ -87,6 +118,9 @@ export const AuthenticateX1CardDialogProvider: FC<
       goTo,
       onPrevious,
       onClose,
+      email,
+      handleEmailChange,
+      error,
     ],
   );
 

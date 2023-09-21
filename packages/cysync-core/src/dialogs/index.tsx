@@ -3,9 +3,13 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AppUpdateDialog } from './AppUpdateDialog';
 import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
 import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
-import { CySyncVersionDetailsDialog, ResetCySyncDialog } from './CySync';
+import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
+import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
+import { DeviceUpdateDialog } from './DeviceUpdateDialog';
+import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -35,6 +39,10 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   setPassword: SetPasswordDialog,
   authenticateX1Vault: AuthenticateX1VaultDialog,
   authenticateX1Card: AuthenticateX1CardDialog,
-  cySyncVersionDetails: CySyncVersionDetailsDialog,
+  releaseNotes: ReleaseNotesDialog,
   signMessage: SignMessageDialog,
+  deviceUpdateDialog: DeviceUpdateDialog,
+  deviceAuthenticationDialog: DeviceAuthenticationDialog,
+  appUpdateDialog: AppUpdateDialog,
+  errorDialog: ErrorDialog,
 };

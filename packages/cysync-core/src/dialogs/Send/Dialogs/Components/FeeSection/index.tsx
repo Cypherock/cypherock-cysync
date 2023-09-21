@@ -132,7 +132,9 @@ export const FeeSection: React.FC = () => {
         fee={getTotalFees()}
         value={getFeesValue()}
         isLoading={isFeeLoading}
-        image={<CoinIcon assetId={selectedAccount?.assetId ?? ''} />}
+        image={
+          <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
+        }
       />
       {isFeeLow && <MessageBox type="warning" text={displayText.warning} />}
     </Container>

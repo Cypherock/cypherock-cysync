@@ -21,7 +21,7 @@ interface AmountInputProps {
   initialToggle?: boolean;
   initialAmount?: string;
   overrideAmount?: string;
-  onToggle?: () => Promise<string>;
+  onToggle?: (val: boolean) => Promise<string>;
   onChange: (amount: string) => Promise<void>;
   converter: (val: string, invert?: boolean) => string;
   error?: string;
@@ -68,10 +68,10 @@ export const AmountInput: React.FC<AmountInputProps> = ({
     [],
   );
 
-  const onSendMax = async () => {
+  const onSendMax = async (toggled: boolean) => {
     if (!onToggle) return;
     setIsLoading(true);
-    const value = await onToggle();
+    const value = await onToggle(toggled);
     updateValues(value, converter(value), true);
     setIsLoading(false);
   };
@@ -80,7 +80,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
 
   const handleToggleMax = (checked: boolean) => {
     setIsToggled(checked);
-    if (checked) debouncedOnSendMax();
+    debouncedOnSendMax(checked);
   };
 
   const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');

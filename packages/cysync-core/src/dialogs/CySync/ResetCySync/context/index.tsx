@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -15,6 +16,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { getResetCySyncMethod } from '~/utils';
 import { ConfirmReset } from '../Dialogs';
 
 export interface ResetCySyncDialogContextInterface {
@@ -26,6 +28,8 @@ export interface ResetCySyncDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  onReset: () => Promise<void>;
+  isLoading: boolean;
 }
 
 export const ResetCySyncDialogContext: Context<ResetCySyncDialogContextInterface> =
@@ -43,15 +47,23 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onClose = () => {
     dispatch(closeDialog('resetCySync'));
   };
 
+  const onReset = async () => {
+    setIsLoading(true);
+    await getResetCySyncMethod()();
+    setIsLoading(false);
+    onClose();
+  };
+
   const tabs: ITabs = [
     {
       name: lang.strings.settings.tabs.app.title,
-      dialogs: [<ConfirmReset key="remove-password-confirm" />],
+      dialogs: [<ConfirmReset key="reset-cysync-confirm" />],
     },
   ];
 
@@ -77,6 +89,8 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      onReset,
+      isLoading,
     }),
     [
       isDeviceRequired,
@@ -87,6 +101,8 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
+      onReset,
+      isLoading,
     ],
   );
 

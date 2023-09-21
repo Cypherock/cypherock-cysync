@@ -15,6 +15,7 @@ import { useLocation, Location } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
+  DeviceHandlingState,
   IDeviceConnectionInfo,
   useDevice,
 } from '~/context';
@@ -124,12 +125,21 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
 
-  const { connection } = useDevice();
+  const { deviceHandlingState, connection } = useDevice();
   const navigateTo = useNavigateTo();
   const location = useLocation();
   const query = useQuery();
 
   const [showChildren, setShowChildren] = React.useState(false);
+  const [deviceUnavailable, setDeviceUnavailable] = React.useState(false);
+
+  useEffect(() => {
+    setDeviceUnavailable(
+      deviceHandlingState === DeviceHandlingState.INCOMPATIBLE ||
+        deviceHandlingState === DeviceHandlingState.NOT_AUTHENTICATED ||
+        deviceHandlingState === DeviceHandlingState.UNKNOWN_ERROR,
+    );
+  }, [deviceHandlingState]);
 
   useEffect(() => {
     const { path, doRender } = getRedirectionPath(
@@ -156,18 +166,29 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
-  const showFooter = props.buttonLabel && props.buttonOnClick;
+  const showFooter =
+    !deviceUnavailable && props.buttonLabel && props.buttonOnClick;
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={showFooter ? 4 : 8}>
         <Image src={disconnectedIcon} alt="Device not connected" />
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={lang.strings.onboarding.deviceDetection.title} />
+            <LangDisplay
+              text={
+                deviceUnavailable
+                  ? lang.strings.onboarding.deviceDetection.unavailable.title
+                  : lang.strings.onboarding.deviceDetection.title
+              }
+            />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay
-              text={lang.strings.onboarding.deviceDetection.subtext}
+              text={
+                deviceUnavailable
+                  ? lang.strings.onboarding.deviceDetection.unavailable.subtext
+                  : lang.strings.onboarding.deviceDetection.subtext
+              }
             />
           </Typography>
         </Flex>

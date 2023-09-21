@@ -3,9 +3,8 @@ import {
   IGetCoinAllocationsResult,
 } from '@cypherock/coin-support-interfaces';
 import { createGetCoinAllocations } from '@cypherock/coin-support-utils';
-import { btcCoinList } from '@cypherock/coins';
 
-const getCoinIds = async () => Object.keys(btcCoinList);
+import { getCoinIds } from '../../utils';
 
 export const getCoinAllocations = async (
   params: IGetCoinAllocationsParams,

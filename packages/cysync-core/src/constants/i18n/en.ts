@@ -159,7 +159,6 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext:
       'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
   },
-  // TODO: Update texts for app timeout
   [DeviceAppErrorType.APP_TIMEOUT]: {
     heading: 'Your X1 Vault has timed-out',
     subtext: 'Navigate to the main menu on the device and try again',
@@ -330,6 +329,16 @@ const en = {
     details: 'Details',
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
+  },
+  deviceAuthentication: {
+    success: {
+      title: 'Your X1 Vault is authenticated successfully',
+    },
+    loading: {
+      title: 'Please wait while your X1 Vault is being authenticated',
+      subtitle:
+        'Do not disconnect your X1 Vault while the operation is being done',
+    },
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -568,6 +577,7 @@ const en = {
       receiver: 'Receiver',
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
+      description: 'Description',
     },
     noData: {
       text: 'No transactions yet',
@@ -641,6 +651,10 @@ const en = {
       title: 'Connect your X1 Vault to your PC to proceed',
       subtext:
         'Use the USB cable provided in your product packaging to connect',
+      unavailable: {
+        title: 'Your X1 Vault is unable to communicate',
+        subtext: 'Try reconnecting the device',
+      },
     },
     deviceAuth: {
       heading: 'Device Authentication',
@@ -797,6 +811,10 @@ const en = {
       tryAgain: 'Try Again',
       installUpdate: 'Install Update',
     },
+  },
+  deviceUpdateBar: {
+    message: 'Firmware update version ${version} available',
+    button: 'Download',
   },
   topbar: {
     statusTexts: {
@@ -1275,6 +1293,39 @@ const en = {
   dialogs: {
     close: {
       title: 'Are you sure you want to exit?',
+    },
+    reset: {
+      confim: {
+        title: 'Are you sure you want to reset the cySync app?',
+        subTitle:
+          'This will erase all your data on your cySync app. Note this will not result in loss of assets',
+      },
+    },
+    releaseNote: {
+      title: 'Release Notes',
+    },
+    auth: {
+      title: 'Follow instructions on the X1 Vault',
+      email2fa: {
+        title:
+          'You are recommended to enter an email ID as a 2FA to get authenticity results',
+        emailInput: 'Email',
+      },
+      authX1Vault: {
+        description: 'Your device is now being authenticated',
+        info: 'Do not disconnect the device while it is being authenticated',
+        steps: {
+          confirm: 'Confirm authentication on device',
+        },
+      },
+      authX1Card: {
+        description: 'Your card is now being authenticated',
+        info: 'Do not disconnect the device while card is being authenticated',
+        steps: {
+          confirm: 'Confirm card authentication on device',
+          tapCard: 'Tap any card below the device',
+        },
+      },
     },
     password: {
       input: {

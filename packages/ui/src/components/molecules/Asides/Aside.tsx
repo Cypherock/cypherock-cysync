@@ -43,7 +43,7 @@ export const Aside = (props: AsideProps): ReactElement => {
       <Image
         src={img}
         alt="device"
-        width="full"
+        $width="full"
         position="absolute"
         top={0.5}
         left={0.5}

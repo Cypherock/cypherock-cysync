@@ -76,7 +76,7 @@ const createAccountDisplayList = (params: {
         id: a.__id,
         tag: lodash.upperCase(a.derivationScheme),
         rightText: `${amount} ${unit.abbr}`,
-        leftImage: <CoinIcon assetId={a.assetId} />,
+        leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
       };
     });
   }
@@ -85,7 +85,7 @@ const createAccountDisplayList = (params: {
     text: a.name,
     id: a.derivationPath,
     tag: lodash.upperCase(a.derivationScheme),
-    leftImage: <CoinIcon assetId={a.assetId} />,
+    leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
     $isChecked: !!selectedAccountsList?.find(
       b => a.derivationPath === b.derivationPath,
     ),

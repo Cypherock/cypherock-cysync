@@ -65,7 +65,9 @@ export const DeviceAction: React.FC = () => {
           SignTransactionDeviceEvent.CONFIRMED,
         ),
         altText: coinList[selectedAccount?.assetId ?? ''].name,
-        image: <CoinIcon assetId={selectedAccount?.assetId ?? ''} />,
+        image: (
+          <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
+        ),
       },
       {
         id: '4',

@@ -1,13 +1,14 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
+  Divider,
+  ExclamationTriangle,
+  Flex,
   LangDisplay,
   Typography,
-  CloseButton,
-  Flex,
-  Divider,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -17,8 +18,9 @@ import { useResetCySyncDialog } from '../context';
 
 export const ConfirmReset: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose } = useResetCySyncDialog();
-  const { buttons } = lang.strings;
+  const { isLoading, onClose, onReset } = useResetCySyncDialog();
+  const { buttons, dialogs } = lang.strings;
+  const { confim } = dialogs.reset;
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -26,11 +28,33 @@ export const ConfirmReset: React.FC = () => {
         <CloseButton onClick={onClose} />
       </Flex>
       <Divider variant="horizontal" />
-      <DialogBoxBody gap={0} p={0} align="stretch">
-        <Typography> ResetCySync </Typography>
+      <DialogBoxBody
+        gap={{ def: 16, lg: 32 }}
+        px={{ def: 3, lg: 5 }}
+        pt={{ def: 4, lg: 4 }}
+        pb={{ def: 2, lg: 4 }}
+        align="center"
+      >
+        <ExclamationTriangle width={56} />
+        <Flex direction="column" align="stretch" gap={4}>
+          <Typography color="white" $fontSize={20} $textAlign="center">
+            <LangDisplay text={confim.title} />
+          </Typography>
+          <Typography color="muted" $fontSize={16} $textAlign="center">
+            <LangDisplay text={confim.subTitle} />
+          </Typography>
+        </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button type="submit" variant="primary" disabled={false}>
+        <Button variant="secondary" disabled={isLoading} onClick={onClose}>
+          <LangDisplay text={buttons.cancel} />
+        </Button>
+        <Button
+          variant="primary"
+          disabled={isLoading}
+          onClick={onReset}
+          isLoading={isLoading}
+        >
           <LangDisplay text={buttons.reset} />
         </Button>
       </DialogBoxFooter>

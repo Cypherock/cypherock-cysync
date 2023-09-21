@@ -26,7 +26,7 @@ export const WalletActionSection: FC<{
     width="full"
   >
     <DialogBoxBody height="full">
-      <Image width={45} src={icon} alt="importWalletIcon" />
+      <Image $width={45} src={icon} alt="importWalletIcon" />
       <Flex gap={48} direction="column" height="full">
         <Typography $textAlign="center" variant="h5" color="heading" mb={1}>
           <LangDisplay text={title} />
