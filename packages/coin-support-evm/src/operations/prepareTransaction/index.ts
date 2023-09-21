@@ -52,8 +52,10 @@ export const prepareTransaction = async (
   const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
   const outputsAddresses = validateAddresses(params, coin);
   const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
-  const hasEnoughBalance =
-    account.balance >= fee + txn.userInputs.outputs[0].amount;
+  const hasEnoughBalance = new BigNumber(account.balance)
+    .minus(txn.userInputs.outputs[0].amount)
+    .minus(fee)
+    .isPositive();
 
   return {
     ...txn,
