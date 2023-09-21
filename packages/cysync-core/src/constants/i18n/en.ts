@@ -556,7 +556,9 @@ const en = {
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
-      account: 'Wallet / Account',
+      walletAndAccount: 'Wallet / Account',
+      wallet: 'Wallet',
+      account: 'Account',
       amount: 'Amount',
       value: 'Value',
     },

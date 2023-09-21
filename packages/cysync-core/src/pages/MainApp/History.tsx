@@ -119,6 +119,8 @@ export const History: FC = () => {
             <TransactionTableHeader
               time={strings.history.tableHeader.time}
               account={strings.history.tableHeader.account}
+              wallet={strings.history.tableHeader.wallet}
+              walletAndAccount={strings.history.tableHeader.walletAndAccount}
               asset={strings.history.tableHeader.asset}
               value={strings.history.tableHeader.value}
               amount={strings.history.tableHeader.amount}

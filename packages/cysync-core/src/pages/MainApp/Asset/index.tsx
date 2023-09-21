@@ -166,6 +166,7 @@ export const AssetPage: FC = () => {
             }
             assetId={assetId}
             parentAssetId={parentAssetId}
+            variant="withNoAssetColumn"
           />
         </Container>
       </Container>

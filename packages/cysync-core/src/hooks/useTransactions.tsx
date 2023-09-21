@@ -79,7 +79,9 @@ export const transactionComparatorMap: Record<
 > = {
   time: 'timestamp',
   asset: 'assetName',
-  account: 'walletAndAccount',
+  wallet: 'walletName',
+  account: 'accountName',
+  walletAndAccount: 'walletAndAccount',
   amount: 'amount',
   value: 'value',
 };
