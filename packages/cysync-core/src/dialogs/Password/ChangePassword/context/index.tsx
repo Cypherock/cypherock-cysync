@@ -17,7 +17,9 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { CreateNewPassword } from '../Dialogs';
+import { useLockscreen } from '~/context';
+import { validatePassword } from '~/utils';
+import { ChangePasswordSuccess, CreateNewPassword } from '../Dialogs';
 
 export interface ChangePasswordDialogContextInterface {
   tabs: ITabs;
@@ -35,6 +37,9 @@ export interface ChangePasswordDialogContextInterface {
   confirmNewPassword: string;
   handleConfirmNewPasswordChange: (val: string) => void;
   error: string | null;
+  handleChangePassword: () => Promise<void>;
+  isLoading: boolean;
+  isSubmitDisabled: boolean;
 }
 
 export const ChangePasswordDialogContext: Context<ChangePasswordDialogContextInterface> =
@@ -51,21 +56,76 @@ export const ChangePasswordDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const { setPassword: setCySyncPassword } = useLockscreen();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const [error, setError] = useState<string | null>(null);
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
   const validateNewPassword = () => {
-    if (newPassword !== confirmNewPassword) {
-      setError(lang.strings.dialogs.password.error.mismatchError);
-      return;
+    if (newPassword.length > 0 && confirmNewPassword.length === 0) {
+      const validation = validatePassword(
+        { password: newPassword, confirm: newPassword },
+        lang,
+      );
+      if (!validation.success) {
+        setError(validation.error.errors[0].message);
+        return;
+      }
     }
+
+    if (newPassword.length === 0 && confirmNewPassword.length > 0) {
+      const validation = validatePassword(
+        { password: confirmNewPassword, confirm: confirmNewPassword },
+        lang,
+      );
+      if (!validation.success) {
+        setError(validation.error.errors[0].message);
+        return;
+      }
+    }
+
+    if (newPassword.length > 0 && confirmNewPassword.length > 0) {
+      const validation = validatePassword(
+        { password: newPassword, confirm: confirmNewPassword },
+        lang,
+      );
+      if (!validation.success) {
+        setError(validation.error.errors[0].message);
+        return;
+      }
+    }
+
     setError(null);
   };
-  useEffect(validateNewPassword, [newPassword, confirmNewPassword]);
+
+  useEffect(validateNewPassword, [
+    oldPassword,
+    newPassword,
+    confirmNewPassword,
+  ]);
+
+  const validateForm = () => {
+    let isSubmitDisabledNew = Boolean(error);
+    isSubmitDisabledNew ||= isLoading;
+    isSubmitDisabledNew ||= oldPassword.length === 0;
+    isSubmitDisabledNew ||= newPassword.length === 0;
+    isSubmitDisabledNew ||= confirmNewPassword.length === 0;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+
+  useEffect(validateForm, [
+    error,
+    isLoading,
+    oldPassword,
+    newPassword,
+    confirmNewPassword,
+  ]);
 
   const onClose = () => {
     dispatch(closeDialog('changePassword'));
@@ -83,10 +143,28 @@ export const ChangePasswordDialogProvider: FC<
     setConfirmNewPassword(val);
   };
 
+  const handleChangePassword = async () => {
+    setIsLoading(true);
+    const isCorrectPassword = await setCySyncPassword(newPassword, oldPassword);
+
+    if (!isCorrectPassword) {
+      setError(lang.strings.lockscreen.incorrectPassword);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(false);
+    onNext();
+  };
+
   const tabs: ITabs = [
     {
       name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<CreateNewPassword key="change-password-create-new" />],
+    },
+    {
+      name: lang.strings.dialogs.password.success.change,
+      dialogs: [<ChangePasswordSuccess key="change-password-success" />],
     },
   ];
 
@@ -119,6 +197,9 @@ export const ChangePasswordDialogProvider: FC<
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
       error,
+      handleChangePassword,
+      isLoading,
+      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -136,6 +217,9 @@ export const ChangePasswordDialogProvider: FC<
       handleNewPasswordChange,
       handleConfirmNewPasswordChange,
       error,
+      handleChangePassword,
+      isLoading,
+      isSubmitDisabled,
     ],
   );
 
