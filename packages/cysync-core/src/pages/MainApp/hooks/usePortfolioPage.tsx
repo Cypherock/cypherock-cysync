@@ -166,7 +166,7 @@ export const usePortfolioPage = () => {
           const asset = getAsset(r.parentAssetId, r.assetId);
 
           return {
-            color: coinList[r.parentAssetId]?.color ?? 'orange',
+            color: coinList[r.parentAssetId].color ?? 'orange',
             allocation: r.percentage,
             assetId: r.assetId,
             assetAbbr: asset.abbr,

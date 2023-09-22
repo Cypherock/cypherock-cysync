@@ -15,16 +15,17 @@ import {
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
+import { AuthDeviceStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
-
-import { AuthDeviceStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { ErrorHandlerDialog } from '~/components';
 import { DeviceTask, useDeviceTask } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
-import { useAuthenticateX1VaultDialog } from '../context';
+
 import { DeviceAuthenticating } from './Authenticating';
+
+import { useAuthenticateX1VaultDialog } from '../context';
 
 const rightArrowIcon = <ArrowRightIcon />;
 const checkIcon = <Check width={15} height={12} />;

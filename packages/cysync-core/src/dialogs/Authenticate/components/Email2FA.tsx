@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
 
