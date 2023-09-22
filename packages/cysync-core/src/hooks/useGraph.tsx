@@ -180,7 +180,7 @@ export const useGraph = (props?: UseGraphProps) => {
     let conversionRate = '';
     let currentBalance = '';
     let changePercent = 0;
-    let changeValue = 0;
+    let changeValue = '';
     let isIncreased = false;
     let isDecreased = false;
     let changeIconColor = theme.palette.success.main;
@@ -214,24 +214,57 @@ export const useGraph = (props?: UseGraphProps) => {
         currentBalance = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
       }
 
-      currentValue = new BigNumber(
+      let latestValue = new BigNumber(
         balanceHistories[balanceHistories.length - 1].value,
-      ).toNumber();
-      const oldestValue = new BigNumber(balanceHistories[0].value).toNumber();
+      );
+      let oldestValue = new BigNumber(balanceHistories[0].value);
 
-      changeValue = Math.abs(currentValue - oldestValue);
+      currentValue = latestValue.toNumber();
 
-      if (currentValue > oldestValue) {
+      if (parentAssetId && !showGraphInUSD) {
+        latestValue = new BigNumber(
+          balanceHistories[balanceHistories.length - 1].balance,
+        );
+        oldestValue = new BigNumber(balanceHistories[0].balance);
+      }
+
+      const changeValueInNumber = latestValue.minus(oldestValue).abs();
+
+      if (latestValue.isGreaterThan(oldestValue)) {
         isIncreased = true;
         changeIconColor = theme.palette.success.main;
-      } else if (currentValue < oldestValue) {
+      } else if (latestValue.isLessThan(oldestValue)) {
         isDecreased = true;
         changeIconColor = theme.palette.text.error;
       }
 
-      changePercent = Math.round(
-        ((currentValue - oldestValue) / oldestValue) * 100,
-      );
+      if (changeValueInNumber.isZero() && oldestValue.isZero()) {
+        changePercent = 0;
+      } else {
+        changePercent = Math.round(
+          changeValueInNumber
+            .dividedBy(oldestValue)
+            .multipliedBy(100)
+            .toNumber(),
+        );
+      }
+
+      if (parentAssetId && !showGraphInUSD) {
+        const { amount, unit } = getParsedAmount({
+          amount: changeValueInNumber.toString(),
+          coinId: parentAssetId,
+          assetId,
+          unitAbbr: getDefaultUnit(parentAssetId, assetId).abbr,
+        });
+
+        changeValue = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
+      } else {
+        changeValue = `$${
+          isDiscreetMode
+            ? '****'
+            : formatDisplayAmount(changeValueInNumber, 2, true)
+        }`;
+      }
     }
 
     return {
@@ -241,11 +274,9 @@ export const useGraph = (props?: UseGraphProps) => {
       totalBalance: currentBalance,
       conversionRate,
       changePercent: `${
-        Number.isFinite(changePercent) ? changePercent.toFixed(2) : 100
-      }%`,
-      changeValue: `$${
-        isDiscreetMode ? '****' : formatDisplayAmount(changeValue, 2, true)
+        Number.isFinite(changePercent) ? `${changePercent.toFixed(2)}%` : '100%'
       }`,
+      changeValue,
       isIncreased,
       isDecreased,
       changeIcon:
@@ -258,7 +289,7 @@ export const useGraph = (props?: UseGraphProps) => {
           />
         ) : undefined,
     };
-  }, [balanceHistories, theme, isDiscreetMode, props]);
+  }, [balanceHistories, theme, isDiscreetMode, props, showGraphInUSD]);
 
   const graphData = useMemo(() => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
