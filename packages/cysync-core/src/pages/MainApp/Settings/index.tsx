@@ -13,7 +13,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
 
-import { MainAppLayout } from '../Components';
+import { MainAppLayout } from '../Layout';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);

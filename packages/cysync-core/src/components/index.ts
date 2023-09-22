@@ -9,3 +9,6 @@ export * from './DeviceUpdateBar';
 export * from './LoaderDialog';
 export * from './CloseConfirmationDialog';
 export * from './AppUpdateFailedFallback';
+export * from './SideBar';
+export * from './AssetAllocation';
+export * from './TransactionTable';

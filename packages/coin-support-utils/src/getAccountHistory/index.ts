@@ -82,10 +82,10 @@ async function getPriceHistory(
   }
 
   if ([1, 7].includes(days)) {
-    const firstTimestamp = history[0].timestamp;
-    const lastTimestampToStop = firstTimestamp + 24 * days * 60 * 60 * 1000;
+    const firstTimestamp = history[history.length - 1].timestamp;
+    const lastTimestampToStop = firstTimestamp - 24 * days * 60 * 60 * 1000;
     history = history.filter(
-      h => h.timestamp > firstTimestamp && h.timestamp < lastTimestampToStop,
+      h => h.timestamp < firstTimestamp && h.timestamp > lastTimestampToStop,
     );
   }
 

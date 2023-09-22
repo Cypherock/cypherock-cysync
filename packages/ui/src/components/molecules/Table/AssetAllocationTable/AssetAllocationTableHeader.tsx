@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { styled } from 'styled-components';
 
+import { AssetAllocationTableVariant } from './types';
+
 import {
   TableHeader,
   TableHeaderComponent,
@@ -9,6 +11,8 @@ import {
 
 export type AssetAllocationTableHeaderName =
   | 'asset'
+  | 'account'
+  | 'wallet'
   | 'price'
   | 'balance'
   | 'value'
@@ -16,6 +20,8 @@ export type AssetAllocationTableHeaderName =
 
 export interface AssetAllocationTableHeaderProps {
   asset: string;
+  account?: string;
+  wallet?: string;
   price: string;
   balance: string;
   value: string;
@@ -23,6 +29,7 @@ export interface AssetAllocationTableHeaderProps {
   onSort: (key: AssetAllocationTableHeaderName) => void;
   selected: AssetAllocationTableHeaderName;
   $ascending: boolean;
+  variant?: AssetAllocationTableVariant;
 }
 
 const AssetHeader = styled(TableHeader)`
@@ -83,42 +90,81 @@ export const AssetAllocationTableHeader: React.FC<
   onSort,
   $ascending,
   selected,
+  variant,
+  account,
+  wallet,
 }) => {
-  const headers: TableHeaderComponentProps['headers'] = useMemo(
-    () => [
-      {
-        name: 'asset',
-        Wrapper: AssetHeader as any,
-        isSortable: true,
-        text: asset,
-      },
-      {
-        name: 'price',
-        Wrapper: PriceHeader as any,
-        isSortable: true,
-        text: price,
-      },
-      {
-        name: 'balance',
-        Wrapper: BalanceHeader as any,
-        isSortable: true,
-        text: balance,
-      },
-      {
-        name: 'value',
-        Wrapper: ValueHeader as any,
-        isSortable: true,
-        text: value,
-      },
-      {
-        name: 'allocation',
-        Wrapper: AllocationHeader as any,
-        isSortable: true,
-        text: allocation,
-      },
-    ],
-    [asset, value, price, balance, allocation],
-  );
+  const headers: TableHeaderComponentProps['headers'] = useMemo(() => {
+    let result = [];
+    if (variant === 'accounts') {
+      result = [
+        {
+          name: 'account',
+          Wrapper: AssetHeader as any,
+          isSortable: true,
+          text: account ?? '',
+        },
+        {
+          name: 'wallet',
+          Wrapper: PriceHeader as any,
+          isSortable: true,
+          text: wallet ?? '',
+        },
+        {
+          name: 'balance',
+          Wrapper: BalanceHeader as any,
+          isSortable: true,
+          text: balance,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeader as any,
+          isSortable: true,
+          text: value,
+        },
+        {
+          name: 'allocation',
+          Wrapper: AllocationHeader as any,
+          isSortable: true,
+          text: allocation,
+        },
+      ];
+    } else {
+      result = [
+        {
+          name: 'asset',
+          Wrapper: AssetHeader as any,
+          isSortable: true,
+          text: asset,
+        },
+        {
+          name: 'price',
+          Wrapper: PriceHeader as any,
+          isSortable: true,
+          text: price,
+        },
+        {
+          name: 'balance',
+          Wrapper: BalanceHeader as any,
+          isSortable: true,
+          text: balance,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeader as any,
+          isSortable: true,
+          text: value,
+        },
+        {
+          name: 'allocation',
+          Wrapper: AllocationHeader as any,
+          isSortable: true,
+          text: allocation,
+        },
+      ];
+    }
+    return result;
+  }, [asset, value, price, balance, allocation]);
 
   return (
     <TableHeaderComponent
@@ -128,4 +174,10 @@ export const AssetAllocationTableHeader: React.FC<
       $ascending={$ascending}
     />
   );
+};
+
+AssetAllocationTableHeader.defaultProps = {
+  account: undefined,
+  wallet: undefined,
+  variant: undefined,
 };

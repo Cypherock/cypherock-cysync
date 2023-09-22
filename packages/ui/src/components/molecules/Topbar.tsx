@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
@@ -24,6 +24,7 @@ export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
 interface ITopbar {
   title: string;
+  icon?: ReactNode;
   statusTexts: {
     connection: {
       connected: string;
@@ -65,6 +66,7 @@ const TitleStyle = styled.div`
 
 export const Topbar: FC<ITopbar> = ({
   title,
+  icon,
   statusTexts,
   connectionStatus,
   haveNotifications,
@@ -108,9 +110,18 @@ export const Topbar: FC<ITopbar> = ({
       shadow="popup"
     >
       <TitleStyle>
-        <Typography variant="h4" $fontWeight="semibold" color="silver">
-          <LangDisplay text={title} />
-        </Typography>
+        <Container direction="row">
+          {icon ?? null}
+          <Typography
+            variant="h4"
+            $fontWeight="semibold"
+            color="silver"
+            ml={icon ? 2 : 0}
+          >
+            <LangDisplay text={title} />
+          </Typography>
+        </Container>
+
         {showIcon && (
           <Button variant="icon" onClick={onIconClick} pl={5}>
             <PushpinBold />
@@ -161,4 +172,5 @@ export const Topbar: FC<ITopbar> = ({
 Topbar.defaultProps = {
   showIcon: false,
   onIconClick: undefined,
+  icon: undefined,
 };

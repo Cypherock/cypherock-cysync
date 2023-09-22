@@ -12,13 +12,21 @@ export * from './types';
 export async function createGetCoinAllocations(
   params: ICreateGetCoinAllocationsParams,
 ) {
-  const { db, walletId, getCoinIds } = params;
+  const { db, walletId, getCoinIds, assetId, parentAssetId } = params;
 
   const allocations: ICoinAllocation[] = [];
 
   const coinIdList = await getCoinIds(db);
 
   for (const coinId of coinIdList) {
+    if (assetId && coinId.assetId !== assetId) {
+      continue;
+    }
+
+    if (parentAssetId && coinId.parentAssetId !== parentAssetId) {
+      continue;
+    }
+
     const query: Partial<IAccount> = { assetId: coinId.assetId };
     if (walletId) {
       query.walletId = walletId;

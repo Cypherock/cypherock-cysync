@@ -22,6 +22,6 @@ export interface ICoinInfo {
   coinIndex: string;
   feesUnit: string;
   family: string;
-  color?: string;
+  color: string;
   units: ICoinUnit[];
 }

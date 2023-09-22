@@ -14,8 +14,9 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { ReleaseNotesDialogProvider, useReleaseNotesDialog } from './context';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { ReleaseNotesDialogProvider, useReleaseNotesDialog } from './context';
 
 const ReleaseNotes: FC = () => {
   const lang = useAppSelector(selectLanguage);

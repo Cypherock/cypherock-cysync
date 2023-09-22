@@ -70,7 +70,7 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
         ...units,
       ],
-      tokens: getErc20Tokens(coin.id),
+      tokens: getErc20Tokens(coin.id, { color: coin.color }),
     },
   }),
   {},

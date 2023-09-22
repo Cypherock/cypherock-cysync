@@ -8,12 +8,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { MainAppLayout, TransactionTable } from '~/pages/MainApp/Components';
+import { AssetAllocation, TransactionTable } from '~/components';
 
-import { AssetAllocation } from './AssetAllocation';
 import { NoWallet } from './NoWallet';
 
 import { usePortfolioPage } from '../hooks';
+import { MainAppLayout } from '../Layout';
 
 export const Portfolio: FC = () => {
   const {
@@ -32,7 +32,6 @@ export const Portfolio: FC = () => {
     wallets,
     accounts,
     handleAddAccountClick,
-    coinAllocations,
     onAssetClick,
   } = usePortfolioPage();
 
@@ -68,7 +67,7 @@ export const Portfolio: FC = () => {
       <>
         <Container $noFlex mb={2}>
           <DisplayGraph
-            title={summaryDetails.totalBalance}
+            title={summaryDetails.totalValue}
             subTitle={lang.strings.graph.totalBalance}
             dropdownItems={walletDropdownList}
             selectedDropdownItem={selectedWallet?.__id ?? 'all'}
@@ -90,18 +89,13 @@ export const Portfolio: FC = () => {
 
         <Container $noFlex mb={2}>
           <AssetAllocation
-            coinAllocations={coinAllocations}
+            walletId={selectedWallet?.__id}
             onAssetClick={onAssetClick}
           />
         </Container>
 
         <Container $noFlex mb={2}>
-          <TransactionTable
-            limit={10}
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
-          />
+          <TransactionTable limit={10} walletId={selectedWallet?.__id} />
         </Container>
       </>
     );
