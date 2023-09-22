@@ -21,9 +21,8 @@ export const getCoinAllocations = async (params: {
 
   for (const coinFamily of coinFamiliesList) {
     const coinSupport = getCoinSupport(coinFamily);
-    allocations.push(
-      ...(await coinSupport.getCoinAllocations({ ...params })).allocations,
-    );
+    const result = await coinSupport.getCoinAllocations({ ...params });
+    allocations.push(...result.allocations);
   }
 
   const total = allocations.reduce((t, a) => t.plus(a.value), new BigNumber(0));

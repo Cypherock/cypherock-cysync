@@ -924,8 +924,11 @@ const en = {
     title: 'Portfolio',
     assetAllocation: {
       title: 'Asset Allocation',
+      accountTitle: 'Accounts',
       tableHeader: {
         asset: 'Asset',
+        account: 'Account',
+        wallet: 'Wallet',
         price: 'Price',
         balance: 'Balance',
         value: 'Value',

@@ -1,4 +1,5 @@
 import {
+  Button,
   AssetAllocationTableHeader,
   TableStructure,
   AssetAllocationTableHeaderName,
@@ -6,10 +7,12 @@ import {
   Typography,
   LangDisplay,
   AssetAllocationTableRow,
+  Container,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
 
+import { openAddAccountDialog } from '~/actions';
 import { useAssetAllocations } from '~/hooks';
 
 export interface AssetAllocationProps {
@@ -22,6 +25,8 @@ export interface AssetAllocationProps {
 
 const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
   allocation: 'allocation',
+  account: 'accountName',
+  wallet: 'walletName',
   price: 'price',
   balance: 'balance',
   value: 'value',
@@ -35,12 +40,13 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   accountId,
   onAssetClick,
 }) => {
-  const { coinAllocations, strings } = useAssetAllocations({
-    walletId,
-    parentAssetId,
-    assetId,
-    accountId,
-  });
+  const { coinAllocations, strings, dispatch, isAccountDisplay } =
+    useAssetAllocations({
+      walletId,
+      parentAssetId,
+      assetId,
+      accountId,
+    });
   const [sortedBy, setSortedBy] =
     React.useState<AssetAllocationTableHeaderName>('allocation');
   const [isAscending, setIsAscending] = useState(false);
@@ -71,11 +77,33 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   return (
     <TableStructure $noMargin>
       <TableTitle width="full">
-        <Typography variant="h5" color="muted">
-          <LangDisplay text={strings.portfolio.assetAllocation.title} />
-        </Typography>
+        <Container justify="space-between">
+          <Typography variant="h5" color="muted">
+            <LangDisplay
+              text={
+                isAccountDisplay
+                  ? strings.portfolio.assetAllocation.accountTitle
+                  : strings.portfolio.assetAllocation.title
+              }
+            />
+          </Typography>
+          {isAccountDisplay && (
+            <Button
+              variant="primary"
+              onClick={() =>
+                dispatch(
+                  openAddAccountDialog({ coinId: parentAssetId, walletId }),
+                )
+              }
+            >
+              {strings.buttons.addAccount}
+            </Button>
+          )}
+        </Container>
       </TableTitle>
       <AssetAllocationTableHeader
+        account={strings.portfolio.assetAllocation.tableHeader.account}
+        wallet={strings.portfolio.assetAllocation.tableHeader.wallet}
         asset={strings.portfolio.assetAllocation.tableHeader.asset}
         price={strings.portfolio.assetAllocation.tableHeader.price}
         balance={strings.portfolio.assetAllocation.tableHeader.balance}
@@ -84,14 +112,18 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         $ascending={isAscending}
         selected={sortedBy}
         onSort={onSort}
+        variant={isAccountDisplay ? 'accounts' : undefined}
       />
       {displayRows.map((row, index) => (
         <AssetAllocationTableRow
-          key={row.assetId}
+          key={row.id}
           color={row.color}
           assetAbbr={row.assetAbbr}
           assetName={row.assetName}
           assetIcon={row.assetIcon}
+          accountName={row.accountName}
+          accountTag={row.accountTag}
+          walletName={row.walletName}
           price={row.displayPrice}
           balance={row.displayBalance}
           allocation={row.allocation}
@@ -99,6 +131,7 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
           $isLast={index === displayRows.length - 1}
           $rowIndex={index}
           onClick={() => onAssetClick(row.parentAssetId, row.assetId)}
+          variant={isAccountDisplay ? 'accounts' : undefined}
         />
       ))}
     </TableStructure>

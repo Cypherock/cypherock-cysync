@@ -1,8 +1,9 @@
 import { getAsset } from '@cypherock/coin-support-utils';
 import { BreadcrumbDropdownItem } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
+import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
 import { useGraph, useNavigateTo, useQuery } from '~/hooks';
 
@@ -32,15 +33,24 @@ export const useAssetPage = () => {
   const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
     () =>
       lodash
-        .uniq(
+        .uniqWith(
           graphData.accounts.map(account => ({
             assetId: account.assetId,
             parentAssetId: account.parentAssetId,
           })),
+          (a, b) =>
+            a.assetId === b.assetId && a.parentAssetId === b.parentAssetId,
         )
         .map(a => ({
           id: `${a.parentAssetId}/${a.assetId}`,
           text: getAsset(a.parentAssetId, a.assetId).name,
+          icon: (
+            <CoinIcon
+              size="16px"
+              parentAssetId={a.parentAssetId}
+              assetId={a.assetId}
+            />
+          ),
           checkType: 'radio',
         })),
     [graphData.accounts],

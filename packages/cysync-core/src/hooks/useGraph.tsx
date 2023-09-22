@@ -185,9 +185,24 @@ export const useGraph = (props?: UseGraphProps) => {
     let isDecreased = false;
     let changeIconColor = theme.palette.success.main;
 
-    if (balanceHistories.length > 0) {
-      const { parentAssetId, assetId } = getAssetDetailsFromProps();
+    const { parentAssetId, assetId } = getAssetDetailsFromProps();
+    if (parentAssetId) {
+      currentBalance = isDiscreetMode
+        ? '****'
+        : `0 ${getDefaultUnit(parentAssetId, assetId).abbr}`;
 
+      if (assetId) {
+        const priceInfo = priceInfos.find(p => p.assetId === assetId);
+
+        if (priceInfo) {
+          conversionRate = `1 ${
+            getDefaultUnit(parentAssetId, assetId).abbr
+          } = $ ${formatDisplayAmount(priceInfo.latestPrice, 2, true)}`;
+        }
+      }
+    }
+
+    if (balanceHistories.length > 0) {
       if (parentAssetId) {
         const { amount, unit } = getParsedAmount({
           amount: balanceHistories[balanceHistories.length - 1].balance,
@@ -197,17 +212,6 @@ export const useGraph = (props?: UseGraphProps) => {
         });
 
         currentBalance = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
-        if (assetId) {
-          const priceInfo = priceInfos.find(p => p.assetId === assetId);
-
-          if (priceInfo) {
-            conversionRate = `1 ${unit.abbr} = $ ${formatDisplayAmount(
-              priceInfo.latestPrice,
-              2,
-              true,
-            )}`;
-          }
-        }
       }
 
       currentValue = new BigNumber(
@@ -363,5 +367,6 @@ export const useGraph = (props?: UseGraphProps) => {
     handleAddAccountClick,
     wallets,
     onGraphSwitch,
+    showGraphInUSD,
   };
 };

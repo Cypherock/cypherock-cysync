@@ -53,6 +53,7 @@ export const AssetPage: FC = () => {
     onGraphSwitch,
     assetDropdownList,
     onAssetChange,
+    showGraphInUSD,
   } = useAssetPage();
 
   return (
@@ -125,8 +126,16 @@ export const AssetPage: FC = () => {
 
         <Container $noFlex mb={2}>
           <DisplayGraph
-            title={summaryDetails.totalBalance}
-            subTitle={summaryDetails.totalValue}
+            title={
+              showGraphInUSD
+                ? summaryDetails.totalValue
+                : summaryDetails.totalBalance
+            }
+            subTitle={
+              showGraphInUSD
+                ? summaryDetails.totalBalance
+                : summaryDetails.totalValue
+            }
             conversionRate={summaryDetails.conversionRate}
             dropdownItems={walletDropdownList}
             selectedDropdownItem={selectedWallet?.__id ?? 'all'}

@@ -5,14 +5,26 @@ import {
   formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
-import { getCoinAllocations } from '@cypherock/cysync-core-services';
+import {
+  getCoinAllocations,
+  ICoinAllocationWithPercentage,
+  IAccountAllocation,
+  getAccountAllocations,
+} from '@cypherock/cysync-core-services';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { logger } from '@cypherock/sdk-core/dist/utils';
+import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
-import React, { useState, useEffect, useCallback, ReactNode } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+  useMemo,
+} from 'react';
 
 import { getDB } from '~/utils';
+import logger from '~/utils/logger';
 
 import { useStateToRef } from './useStateToRef';
 
@@ -29,11 +41,15 @@ import {
 } from '..';
 
 export interface CoinAllocationRow {
+  id: string;
   assetId: string;
   parentAssetId: string;
   assetIcon: ReactNode;
   assetAbbr: string;
   assetName: string;
+  accountName?: string;
+  accountTag?: string;
+  walletName?: string;
   color: string;
   price: number;
   balance: number;
@@ -113,12 +129,24 @@ export const useAssetAllocations = ({
   const generateCoinAllocations = async () => {
     try {
       const data = refData.current;
-      const result = await getCoinAllocations({
-        db: getDB(),
-        walletId: data.walletId,
-        assetId: data.assetId,
-        parentAssetId: data.parentAssetId,
-      });
+      let result: (IAccountAllocation | ICoinAllocationWithPercentage)[] = [];
+      if (data.parentAssetId) {
+        result = await getAccountAllocations({
+          db: getDB(),
+          accounts: data.accounts.filter(
+            a =>
+              a.parentAssetId === data.parentAssetId &&
+              (!data.assetId || a.assetId === data.assetId) &&
+              (!data.walletId || a.walletId === data.walletId),
+          ),
+          priceInfos: data.priceInfos,
+        });
+      } else {
+        result = await getCoinAllocations({
+          db: getDB(),
+          walletId: data.walletId,
+        });
+      }
 
       setCoinAllocations(
         result.map(r => {
@@ -131,7 +159,31 @@ export const useAssetAllocations = ({
 
           const asset = getAsset(r.parentAssetId, r.assetId);
 
+          const accountProperties: Partial<CoinAllocationRow> = {};
+
+          if ((r as any).account) {
+            let account: IAccount | undefined;
+            account = (r as IAccountAllocation).account;
+
+            if (account.parentAccountId) {
+              account = data.accounts.find(
+                a => a.__id === account?.parentAccountId,
+              );
+            }
+
+            accountProperties.accountName = account?.name;
+            accountProperties.accountTag = lodash.upperCase(
+              account?.derivationScheme ?? '',
+            );
+
+            const wallet = data.wallets.find(w => w.__id === account?.walletId);
+            accountProperties.walletName = wallet?.name;
+          }
+
           return {
+            id: `${r.parentAssetId}/${r.assetId}/${
+              (r as any).account?.__id ?? ''
+            }`,
             color: coinList[r.parentAssetId].color,
             allocation: r.percentage,
             assetId: r.assetId,
@@ -143,6 +195,7 @@ export const useAssetAllocations = ({
                 parentAssetId={r.parentAssetId}
                 assetId={r.assetId}
                 size="24px"
+                withParentIconAtBottom
               />
             ),
             balance: new BigNumber(r.balance).toNumber(),
@@ -161,6 +214,7 @@ export const useAssetAllocations = ({
                 ? '****'
                 : formatDisplayAmount(r.value, 2, true)
             }`,
+            ...accountProperties,
           };
         }),
       );
@@ -190,10 +244,13 @@ export const useAssetAllocations = ({
     accountId,
   ]);
 
+  const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
+
   return {
     strings: lang.strings,
     coinAllocations,
     lang,
     dispatch,
+    isAccountDisplay,
   };
 };

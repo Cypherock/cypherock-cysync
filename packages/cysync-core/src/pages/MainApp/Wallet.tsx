@@ -48,7 +48,7 @@ export const Wallet: FC = () => {
   const getMainContent = () => {
     if (hasAccounts) {
       return (
-        <TableStructure>
+        <TableStructure mt={0}>
           <TableSearch
             placeholder={lang.strings.wallet.search.placeholder}
             heading={lang.strings.wallet.tableTitle}
@@ -131,7 +131,7 @@ export const Wallet: FC = () => {
       title={`${walletName}`}
       fullHeight={accountList.length === 0}
     >
-      <Flex justify="space-between" py="10px" px="20px" my={2}>
+      <Flex justify="space-between" pt="10px" px="20px" mt={2}>
         <Breadcrumb
           items={[
             {

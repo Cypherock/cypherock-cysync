@@ -62,7 +62,6 @@ const Items = styled.div<ItemsProps>`
 
 export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   text,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   icon,
   checkType,
   checked,
@@ -92,6 +91,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       id={id}
     >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
+      {icon}
       <LocalTypography>
         <LangDisplay text={text} />
       </LocalTypography>

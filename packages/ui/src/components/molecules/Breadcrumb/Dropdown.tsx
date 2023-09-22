@@ -135,7 +135,7 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
   return (
     <DropDownWrapper ref={buttonRef} onClick={dropdownState}>
       <Flex gap={16} align="center">
-        <Typography $fontSize={16} $fontWeight="medium">
+        <Typography variant="div" $fontSize={16} $fontWeight="medium">
           {displayNode}
         </Typography>
         <DropdownArrow />
@@ -146,6 +146,7 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
             <ListItemDropdown
               key={item.id}
               text={item.text}
+              icon={item.icon}
               checkType={item.checkType}
               checked={selectedItem === item.id}
               onChange={() => handleRadioCheckChange(item.id)}
