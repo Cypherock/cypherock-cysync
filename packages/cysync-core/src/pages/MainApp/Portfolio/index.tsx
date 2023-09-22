@@ -89,20 +89,13 @@ export const Portfolio: FC = () => {
 
         <Container $noFlex mb={2}>
           <AssetAllocation
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
+            walletId={selectedWallet?.__id}
             onAssetClick={onAssetClick}
           />
         </Container>
 
         <Container $noFlex mb={2}>
-          <TransactionTable
-            limit={10}
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
-          />
+          <TransactionTable limit={10} walletId={selectedWallet?.__id} />
         </Container>
       </>
     );

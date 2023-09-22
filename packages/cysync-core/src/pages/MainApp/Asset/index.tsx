@@ -66,6 +66,8 @@ export const AssetPage: FC = () => {
           size={{ def: '24px', lg: '32px' }}
           containerSize={{ def: '32px', lg: '40px' }}
           withBackground
+          withParentIconAtBottom
+          subIconSize={{ def: '12px', lg: '18px' }}
         />
       }
     >
@@ -86,6 +88,8 @@ export const AssetPage: FC = () => {
                       <CoinIcon
                         parentAssetId={parentAssetId ?? ''}
                         assetId={assetId}
+                        withParentIconAtBottom
+                        subIconSize="10px"
                         size="16px"
                       />
                       <Typography ml={1}>{selectedAsset?.name}</Typography>
@@ -160,9 +164,7 @@ export const AssetPage: FC = () => {
           <AssetAllocation
             assetId={assetId}
             parentAssetId={parentAssetId}
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
+            walletId={selectedWallet?.__id}
             onAssetClick={onAssetClick}
           />
         </Container>
@@ -170,9 +172,7 @@ export const AssetPage: FC = () => {
         <Container $noFlex mb={2}>
           <TransactionTable
             limit={10}
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
+            walletId={selectedWallet?.__id}
             assetId={assetId}
             parentAssetId={parentAssetId}
             variant="withNoAssetColumn"

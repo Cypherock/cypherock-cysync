@@ -123,10 +123,7 @@ export const useGraph = (props?: UseGraphProps) => {
 
   const calculatePortfolioData = async () => {
     const data = refData.current;
-    const walletId =
-      data.selectedWallet?.__id === 'all'
-        ? undefined
-        : data.selectedWallet?.__id;
+    const walletId = data.selectedWallet?.__id;
 
     try {
       const balanceHistory = await getBalanceHistory({

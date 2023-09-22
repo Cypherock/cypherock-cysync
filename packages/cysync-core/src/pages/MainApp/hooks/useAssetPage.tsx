@@ -47,6 +47,8 @@ export const useAssetPage = () => {
           icon: (
             <CoinIcon
               size="16px"
+              withParentIconAtBottom
+              subIconSize="10px"
               parentAssetId={a.parentAssetId}
               assetId={a.assetId}
             />
