@@ -1337,6 +1337,12 @@ const en = {
       error: {
         mismatchError: 'Password Mismatched',
         lengthError: 'Password length should be more than 8',
+        failedToSet: 'Failed to set Password',
+      },
+      success: {
+        change: 'Password Changed Successfully',
+        set: 'Password Set Successfully',
+        remove: 'Password Removed Successfully',
       },
       info: {
         constraints:
