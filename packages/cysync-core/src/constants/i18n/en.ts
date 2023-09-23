@@ -159,7 +159,6 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext:
       'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
   },
-  // TODO: Update texts for app timeout
   [DeviceAppErrorType.APP_TIMEOUT]: {
     heading: 'Your X1 Vault has timed-out',
     subtext: 'Navigate to the main menu on the device and try again',
@@ -305,6 +304,8 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    send: 'Send',
+    receive: 'Receive',
     back: 'Back',
     retry: 'Retry',
     update: 'Update',
@@ -330,6 +331,16 @@ const en = {
     details: 'Details',
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
+  },
+  deviceAuthentication: {
+    success: {
+      title: 'Your X1 Vault is authenticated successfully',
+    },
+    loading: {
+      title: 'Please wait while your X1 Vault is being authenticated',
+      subtitle:
+        'Do not disconnect your X1 Vault while the operation is being done',
+    },
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -545,7 +556,9 @@ const en = {
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
-      account: 'Wallet / Account',
+      walletAndAccount: 'Wallet / Account',
+      wallet: 'Wallet',
+      account: 'Account',
       amount: 'Amount',
       value: 'Value',
     },
@@ -568,6 +581,7 @@ const en = {
       receiver: 'Receiver',
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
+      description: 'Description',
     },
     noData: {
       text: 'No transactions yet',
@@ -641,6 +655,10 @@ const en = {
       title: 'Connect your X1 Vault to your PC to proceed',
       subtext:
         'Use the USB cable provided in your product packaging to connect',
+      unavailable: {
+        title: 'Your X1 Vault is unable to communicate',
+        subtext: 'Try reconnecting the device',
+      },
     },
     deviceAuth: {
       heading: 'Device Authentication',
@@ -798,6 +816,10 @@ const en = {
       installUpdate: 'Install Update',
     },
   },
+  deviceUpdateBar: {
+    message: 'Firmware update version ${version} available',
+    button: 'Download',
+  },
   topbar: {
     statusTexts: {
       connection: {
@@ -902,8 +924,11 @@ const en = {
     title: 'Portfolio',
     assetAllocation: {
       title: 'Asset Allocation',
+      accountTitle: 'Accounts',
       tableHeader: {
         asset: 'Asset',
+        account: 'Account',
+        wallet: 'Wallet',
         price: 'Price',
         balance: 'Balance',
         value: 'Value',
@@ -1319,6 +1344,12 @@ const en = {
       error: {
         mismatchError: 'Password Mismatched',
         lengthError: 'Password length should be more than 8',
+        failedToSet: 'Failed to set Password',
+      },
+      success: {
+        change: 'Password Changed Successfully',
+        set: 'Password Set Successfully',
+        remove: 'Password Removed Successfully',
       },
       info: {
         constraints:

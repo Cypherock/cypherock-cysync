@@ -82,6 +82,7 @@
     "@walletconnect/legacy-client": "^2.0.0",
     "@walletconnect/utils": "^2.10.1",
     "@walletconnect/web3wallet": "^1.9.1",
+    "@walletconnect/types": "^2.10.1",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
     "lodash": "^4.17.21",

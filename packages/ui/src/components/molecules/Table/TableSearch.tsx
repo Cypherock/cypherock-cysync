@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { CrossMark, SearchIcon } from '../../../assets';
 import { Input, Typography } from '../../atoms';
-import { goldenGradient } from '../../utils';
+import { goldenGradient, utils, UtilsProps } from '../../utils';
 
 export interface TableSearchProps {
   placeholder?: string;
@@ -13,7 +13,7 @@ export interface TableSearchProps {
   $borderGold?: boolean;
 }
 
-export const TableStructure = styled.div<{ $noMargin?: boolean }>`
+export const TableStructure = styled.div<{ $noMargin?: boolean } & UtilsProps>`
   transition: max-height 0.3s ease-out;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   border-top-left-radius: 24px;
@@ -29,6 +29,7 @@ export const TableStructure = styled.div<{ $noMargin?: boolean }>`
       margin-right: 20px;
       margin-bottom: 20px;
     `}
+  ${utils}
 `;
 
 const TableTitleSearch = styled.div`

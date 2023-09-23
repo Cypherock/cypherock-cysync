@@ -69,8 +69,8 @@ export const Clipboard: FC<ClipboardProps> = ({
       <Image
         src={getIcon()}
         alt="Copy"
-        height={getSize().height}
-        width={getSize().width}
+        $height={getSize().height}
+        $width={getSize().width}
       />
     </Button>
   );

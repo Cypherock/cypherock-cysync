@@ -16,9 +16,10 @@ const getAccounts = (params: {
   allAccounts: IAccount[];
   accountId?: string;
   assetId?: string;
+  parentAssetId?: string;
   walletId?: string;
 }) => {
-  const { allAccounts, accountId, assetId, walletId } = params;
+  const { allAccounts, accountId, assetId, parentAssetId, walletId } = params;
 
   return allAccounts.filter(a => {
     let match = true;
@@ -27,6 +28,9 @@ const getAccounts = (params: {
     }
     if (assetId) {
       match = match && a.assetId === assetId;
+    }
+    if (parentAssetId) {
+      match = match && a.parentAssetId === parentAssetId;
     }
     if (walletId) {
       match = match && a.walletId === walletId;
@@ -42,6 +46,7 @@ export const getBalanceHistory = async (params: {
   currency: string;
   accountId?: string;
   assetId?: string;
+  parentAssetId?: string;
   walletId?: string;
   accounts: IAccount[];
   transactions: ITransaction[];
@@ -52,6 +57,7 @@ export const getBalanceHistory = async (params: {
     db,
     days,
     assetId,
+    parentAssetId,
     accountId,
     walletId,
     currency,
@@ -66,6 +72,7 @@ export const getBalanceHistory = async (params: {
     allAccounts,
     accountId,
     assetId,
+    parentAssetId,
     walletId,
   });
 
@@ -97,7 +104,7 @@ export const getBalanceHistory = async (params: {
     for (let j = 0; j < balanceHistoryList[i].history.length; j += 1) {
       if (!allCoinHistoryData.history[j]) continue;
 
-      if (assetId) {
+      if (assetId || parentAssetId || accountId) {
         allCoinHistoryData.history[j].balance = new BigNumber(
           allCoinHistoryData.history[j].balance,
         )

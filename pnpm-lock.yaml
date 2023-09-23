@@ -1009,6 +1009,9 @@ importers:
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../coin-support-utils
       '@cypherock/coins':
         specifier: workspace:^
         version: link:../coins
@@ -1151,6 +1154,9 @@ importers:
       '@walletconnect/legacy-client':
         specifier: ^2.0.0
         version: 2.0.0
+      '@walletconnect/types':
+        specifier: ^2.10.1
+        version: 2.10.1
       '@walletconnect/utils':
         specifier: ^2.10.1
         version: 2.10.1
@@ -18113,7 +18119,7 @@ packages:
       pretty-format: 29.6.2
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -18154,7 +18160,7 @@ packages:
       pretty-format: 29.6.2
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@16.18.36)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

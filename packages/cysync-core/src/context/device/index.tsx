@@ -1,8 +1,11 @@
 import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
+import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice } from '@cypherock/sdk-interfaces';
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
+import { keyValueStore } from '~/utils';
 
 import {
   createDeviceConnectionInfo,
@@ -14,6 +17,7 @@ import {
 } from './helpers';
 import {
   DeviceConnectionStatus,
+  DeviceHandlingState,
   IDeviceConnectionInfo,
   IDeviceConnectionRetry,
 } from './types';
@@ -31,6 +35,7 @@ export interface DeviceContextInterface {
   connectDevice: ConnectDevice;
   getDevices: GetDevices;
   disconnectDevice: () => void;
+  deviceHandlingState: DeviceHandlingState;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -57,6 +62,46 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const connectionRetryRef = useRef<IDeviceConnectionRetry | undefined>(
     undefined,
   );
+  const [deviceHandlingState, setDeviceHandlingState] = useState(
+    DeviceHandlingState.NOT_CONNECTED,
+  );
+
+  const onConnectionChange = async () => {
+    setDeviceHandlingState(DeviceHandlingState.NOT_CONNECTED);
+    // Only works if app has completed onboarding
+    if (!connectionInfo || !(await keyValueStore.isOnboardingCompleted.get()))
+      return;
+
+    if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
+      setDeviceHandlingState(DeviceHandlingState.INCOMPATIBLE);
+    } else if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isBootloader
+    ) {
+      setDeviceHandlingState(DeviceHandlingState.BOOTLOADER);
+    } else if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      (connectionInfo.onboardingStep !==
+        OnboardingStep.ONBOARDING_STEP_COMPLETE ||
+        connectionInfo.isInitial)
+    ) {
+      setDeviceHandlingState(DeviceHandlingState.NOT_ONBOARDED);
+    } else if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isMain &&
+      !connectionInfo.isAuthenticated
+    ) {
+      setDeviceHandlingState(DeviceHandlingState.NOT_AUTHENTICATED);
+    } else if (connectionInfo.status === DeviceConnectionStatus.CONNECTED) {
+      setDeviceHandlingState(DeviceHandlingState.USABLE);
+    } else {
+      setDeviceHandlingState(DeviceHandlingState.UNKNOWN_ERROR);
+    }
+  };
+
+  useEffect(() => {
+    onConnectionChange();
+  }, [connectionInfo]);
 
   const listenerTimeout = useRef<any>();
 
@@ -169,8 +214,15 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connectDevice,
       getDevices,
       disconnectDevice,
+      deviceHandlingState,
     }),
-    [connectionInfo, connectDevice, getDevices, disconnectDevice],
+    [
+      connectionInfo,
+      connectDevice,
+      getDevices,
+      disconnectDevice,
+      deviceHandlingState,
+    ],
   );
 
   return (

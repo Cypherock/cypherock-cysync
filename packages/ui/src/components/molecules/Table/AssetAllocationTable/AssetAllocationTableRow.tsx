@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 
+import { AssetAllocationTableVariant } from './types';
+
 import { AllocationShare } from '../AllocationShare';
 import { TableIconNameBox } from '../TableIconNameBox';
 import { TableNameBox } from '../TableNameBox';
@@ -14,16 +16,20 @@ export interface AssetAllocationTableRowProps {
   value: string;
   allocation: number;
   color: string;
+  accountName?: string;
+  accountTag?: string;
+  walletName?: string;
   $rowIndex: number;
   $isLast?: boolean;
   onClick: () => void;
   style?: any;
+  variant?: AssetAllocationTableVariant;
 }
 
 export const AssetAllocationTableRow: React.FC<
   AssetAllocationTableRowProps
 > = props => {
-  const { $rowIndex, $isLast, onClick, style, color, ...row } = props;
+  const { $rowIndex, $isLast, onClick, style, color, variant, ...row } = props;
 
   return (
     <RowWrapper
@@ -35,11 +41,15 @@ export const AssetAllocationTableRow: React.FC<
     >
       <TableIconNameBox
         icon={row.assetIcon}
-        title={row.assetAbbr}
-        subtitle={row.assetName}
+        title={variant === 'accounts' ? row.accountName ?? '' : row.assetAbbr}
+        subtitle={variant === 'accounts' ? undefined : row.assetName}
+        tag={variant === 'accounts' ? row.accountTag : undefined}
         width={{ def: '26%', lg: '24%' }}
       />
-      <TableNameBox text={row.price} width="18%" />
+      <TableNameBox
+        text={variant === 'accounts' ? row.walletName ?? '' : row.price}
+        width="18%"
+      />
       <TableNameBox text={row.balance} width="18%" />
       <TableNameBox text={row.value} width="18%" />
       <AllocationShare
@@ -54,4 +64,8 @@ export const AssetAllocationTableRow: React.FC<
 AssetAllocationTableRow.defaultProps = {
   $isLast: false,
   style: undefined,
+  variant: undefined,
+  accountName: undefined,
+  accountTag: undefined,
+  walletName: undefined,
 };

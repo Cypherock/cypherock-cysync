@@ -79,6 +79,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             leftImage={
               <Image
                 src={walletIcon}
+                $width={20}
                 alt={accountSelectionTab.chooseWallet}
                 ml={3}
               />
