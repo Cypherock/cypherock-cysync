@@ -103,9 +103,7 @@ export const useAccountPage = () => {
           a =>
             a.type === 'account' &&
             (!fromWallet || fromWallet.__id === a.walletId) &&
-            (!fromAsset ||
-              (fromAsset.parentAssetId === a.parentAssetId &&
-                (!fromAsset.assetId || fromAsset.assetId === a.assetId))),
+            (!fromAsset || fromAsset.parentAssetId === a.parentAssetId),
         )
         .map(a => ({
           id: a.__id ?? '',

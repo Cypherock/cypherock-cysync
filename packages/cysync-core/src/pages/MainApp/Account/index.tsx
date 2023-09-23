@@ -1,4 +1,4 @@
-import { BtcIdMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -15,6 +15,8 @@ import React, { FC } from 'react';
 import { openReceiveDialog, openSendDialog } from '~/actions';
 import { CoinIcon, TransactionTable } from '~/components';
 import { useAppDispatch } from '~/store';
+
+import { TokenTable } from './TokenTable';
 
 import { useAccountPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
@@ -140,6 +142,12 @@ export const AccountPage: FC = () => {
             onSwitch={onGraphSwitch}
           />
         </Container>
+
+        {selectedAccount?.familyId === coinFamiliesMap.evm && accountId && (
+          <Container $noFlex mb={2}>
+            <TokenTable accountId={accountId} />
+          </Container>
+        )}
 
         <Container $noFlex mb={2}>
           <TransactionTable
