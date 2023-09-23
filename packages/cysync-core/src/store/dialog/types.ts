@@ -104,6 +104,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  contactSupportDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

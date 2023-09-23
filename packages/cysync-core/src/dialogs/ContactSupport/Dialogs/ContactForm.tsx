@@ -1,5 +1,6 @@
 import {
   Button,
+  CheckBox,
   CloseButton,
   DialogBox,
   DialogBoxBody,
@@ -9,6 +10,7 @@ import {
   Dropdown,
   Flex,
   Input,
+  InputLabel,
   LangDisplay,
   ScrollableContainer,
   TextAreaInput,
@@ -34,6 +36,10 @@ export const ContactForm: React.FC = () => {
     setSelectedCategory,
     description,
     setDescription,
+    canAttatchAppLogs,
+    setCanAttatchAppLogs,
+    canAttatchDeviceLogs,
+    setCanAttatchDeviceLogs,
   } = useContactSupportDialog();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -90,19 +96,43 @@ export const ContactForm: React.FC = () => {
                   required
                   onChange={setEmail}
                 />
-                <Dropdown
-                  items={categories}
-                  selectedItem={selectedCategory}
-                  searchText={form.field.category.placeholder}
-                  placeholderText={form.field.category.placeholder}
-                  onChange={setSelectedCategory}
-                  disabled={isLoading}
+                <Flex direction="column" align="stretch" gap={0}>
+                  <InputLabel>
+                    <LangDisplay text={form.field.category.label} />
+                  </InputLabel>
+                  <Dropdown
+                    items={categories}
+                    selectedItem={selectedCategory}
+                    searchText={form.field.category.placeholder}
+                    placeholderText={form.field.category.placeholder}
+                    onChange={setSelectedCategory}
+                    disabled={isLoading}
+                  />
+                </Flex>
+                <Flex direction="column" align="stretch" gap={0}>
+                  <InputLabel>
+                    <LangDisplay text={form.field.description.label} />
+                  </InputLabel>
+                  <TextAreaInput
+                    placeholder={form.field.description.placeholder}
+                    value={description}
+                    onChange={setDescription}
+                    disabled={isLoading}
+                  />
+                </Flex>
+                <CheckBox
+                  label={form.checks.attachAppLogs}
+                  checked={canAttatchAppLogs}
+                  isDisabled={isLoading}
+                  onChange={() => setCanAttatchAppLogs(!canAttatchAppLogs)}
                 />
-                <TextAreaInput
-                  placeholder={form.field.description.placeholder}
-                  value={description}
-                  onChange={setDescription}
-                  disabled={isLoading}
+                <CheckBox
+                  label={form.checks.attachDeviceLogs}
+                  checked={canAttatchDeviceLogs}
+                  isDisabled={isLoading}
+                  onChange={() =>
+                    setCanAttatchDeviceLogs(!canAttatchDeviceLogs)
+                  }
                 />
                 <Divider variant="horizontal" />
               </Flex>

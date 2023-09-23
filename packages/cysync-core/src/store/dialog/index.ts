@@ -70,6 +70,9 @@ const initialState: IDialogState = {
   signMessage: {
     isOpen: false,
   },
+  contactSupportDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

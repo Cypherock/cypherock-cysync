@@ -40,6 +40,10 @@ export interface ContactSupportDialogContextInterface {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string | undefined>>;
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
+  canAttatchAppLogs: boolean;
+  setCanAttatchAppLogs: React.Dispatch<React.SetStateAction<boolean>>;
+  canAttatchDeviceLogs: boolean;
+  setCanAttatchDeviceLogs: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ContactSupportDialogContext: Context<ContactSupportDialogContextInterface> =
@@ -63,11 +67,14 @@ export const ContactSupportDialogProvider: FC<
     { text: 'Bug Report', id: 'bugReport' },
   ];
 
+  const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(false);
+  const [canAttatchDeviceLogs, setCanAttatchDeviceLogs] =
+    useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    categories[0].id,
-  );
   const [description, setDescription] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<
+    string | undefined
+  >();
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -83,7 +90,7 @@ export const ContactSupportDialogProvider: FC<
   useEffect(validateForm, [error, isLoading]);
 
   const onClose = () => {
-    dispatch(closeDialog('changePassword'));
+    dispatch(closeDialog('contactSupportDialog'));
   };
 
   const handleContactSupportSubmit = async () => {
@@ -139,6 +146,10 @@ export const ContactSupportDialogProvider: FC<
       setSelectedCategory,
       description,
       setDescription,
+      canAttatchAppLogs,
+      setCanAttatchAppLogs,
+      canAttatchDeviceLogs,
+      setCanAttatchDeviceLogs,
     }),
     [
       isDeviceRequired,
@@ -160,6 +171,10 @@ export const ContactSupportDialogProvider: FC<
       setSelectedCategory,
       description,
       setDescription,
+      canAttatchAppLogs,
+      setCanAttatchAppLogs,
+      canAttatchDeviceLogs,
+      setCanAttatchDeviceLogs,
     ],
   );
 
