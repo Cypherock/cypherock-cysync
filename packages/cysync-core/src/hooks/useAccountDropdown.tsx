@@ -3,7 +3,7 @@ import { coinList } from '@cypherock/coins';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useWalletDropdown } from './useWalletDropdown';
 
@@ -11,6 +11,8 @@ import { CoinIcon, selectAccounts, useAppSelector } from '..';
 
 export interface UseAccountDropdownProps {
   includeSubAccounts?: boolean;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
@@ -19,7 +21,7 @@ export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
     setSelectedWallet,
     walletDropdownList,
     handleWalletChange,
-  } = useWalletDropdown();
+  } = useWalletDropdown({ walletId: props?.defaultWalletId });
   const { accounts } = useAppSelector(selectAccounts);
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
@@ -42,6 +44,14 @@ export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
     }
     setSelectedAccount(accounts.find(a => a.__id === id));
   };
+
+  useEffect(() => {
+    if (props?.defaultAccountId) {
+      const account = accounts.find(a => a.__id === props.defaultAccountId);
+
+      setSelectedAccount(account);
+    }
+  }, [props?.defaultWalletId]);
 
   const accountDropdownList: DropDownListItemProps[] = useMemo(() => {
     const accountsList: DropDownListItemProps[] = [];

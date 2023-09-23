@@ -7,8 +7,9 @@ import { Flex, Typography } from '../../atoms';
 
 export interface BreadcrumbDropdownItem {
   id: string;
-  text: string;
+  text?: string;
   icon?: ReactNode;
+  displayNode?: ReactNode;
   checkType?: string;
 }
 
@@ -146,6 +147,7 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
             <ListItemDropdown
               key={item.id}
               text={item.text}
+              displayNode={item.displayNode}
               icon={item.icon}
               checkType={item.checkType}
               checked={selectedItem === item.id}

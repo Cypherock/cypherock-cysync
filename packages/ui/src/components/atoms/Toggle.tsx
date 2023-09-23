@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useMemo } from 'react';
 import styled from 'styled-components';
 
+import { Flex } from './Flex';
 import { LangDisplay } from './LangDisplay';
+import { Throbber } from './Throbber';
 import { Typography } from './Typography';
 
 import { goldenGradient } from '../utils/Gradient';
-import { Throbber } from './Throbber';
-import { Flex } from './Flex';
 
 export interface ToggleProps {
   checked: boolean;

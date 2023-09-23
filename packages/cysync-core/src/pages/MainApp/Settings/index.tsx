@@ -41,7 +41,7 @@ export const Settings: FC = () => {
   const theme = useTheme();
 
   return (
-    <MainAppLayout title={strings.sidebar.settings}>
+    <MainAppLayout topbar={{ title: strings.sidebar.settings }}>
       <Container
         m={{ def: 2, lg: '20' }}
         $borderRadius={24}

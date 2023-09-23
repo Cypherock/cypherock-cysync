@@ -1,6 +1,5 @@
 import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
-  Typography,
   Breadcrumb,
   Button,
   Container,
@@ -10,15 +9,14 @@ import {
   ArrowReceivedIcon,
   SvgProps,
 } from '@cypherock/cysync-ui';
+import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import { openReceiveDialog, openSendDialog } from '~/actions';
-import { AssetAllocation, CoinIcon, TransactionTable } from '~/components';
-import { routes } from '~/constants';
-import { useNavigateTo } from '~/hooks';
+import { CoinIcon, TransactionTable } from '~/components';
 import { useAppDispatch } from '~/store';
 
-import { useAssetPage } from '../hooks';
+import { useAccountPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
 
 const ReceiveIcon = (props: SvgProps) => (
@@ -29,15 +27,12 @@ const SendIcon = (props: SvgProps) => (
   <ArrowSentIcon {...props} $width="12px" $height="12px" />
 );
 
-export const AssetPage: FC = () => {
-  const navigateTo = useNavigateTo();
+export const AccountPage: FC = () => {
   const dispatch = useAppDispatch();
 
   const {
     lang,
-    handleWalletChange,
     selectedWallet,
-    walletDropdownList,
     rangeList,
     selectedRange,
     setSelectedRange,
@@ -46,24 +41,21 @@ export const AssetPage: FC = () => {
     formatTimestamp,
     formatYAxisTick,
     summaryDetails,
-    onAccountClick,
-    selectedAsset,
-    assetId,
-    parentAssetId,
+    accountId,
+    selectedAccount,
     onGraphSwitch,
-    assetDropdownList,
-    onAssetChange,
+    breadcrumbItems,
     showGraphInUSD,
-  } = useAssetPage();
+  } = useAccountPage();
 
   return (
     <MainAppLayout
       topbar={{
-        title: selectedAsset?.name ?? '',
+        title: selectedAccount?.name ?? '',
         icon: (
           <CoinIcon
-            parentAssetId={parentAssetId ?? ''}
-            assetId={assetId}
+            parentAssetId={selectedAccount?.parentAssetId ?? ''}
+            assetId={selectedAccount?.assetId}
             size={{ def: '24px', lg: '32px' }}
             containerSize={{ def: '32px', lg: '40px' }}
             withBackground
@@ -71,43 +63,24 @@ export const AssetPage: FC = () => {
             subIconSize={{ def: '12px', lg: '18px' }}
           />
         ),
+        subTitle: lodash.upperCase(selectedAccount?.asset?.name ?? ''),
+        tag: lodash.upperCase(selectedAccount?.derivationScheme ?? ''),
       }}
     >
       <Container $noFlex m="20">
         <Flex justify="space-between" my={2}>
-          <Breadcrumb
-            items={[
-              {
-                id: 'portfolio',
-                text: lang.strings.portfolio.title,
-                onClick: () => navigateTo(routes.portfolio.path),
-              },
-              {
-                id: 'asset',
-                dropdown: {
-                  displayNode: (
-                    <Container direction="row">
-                      <CoinIcon
-                        parentAssetId={parentAssetId ?? ''}
-                        assetId={assetId}
-                        withParentIconAtBottom
-                        subIconSize="10px"
-                        size="16px"
-                      />
-                      <Typography ml={1}>{selectedAsset?.name}</Typography>
-                    </Container>
-                  ),
-                  selectedItem: `${parentAssetId}/${assetId}`,
-                  setSelectedItem: onAssetChange,
-                  dropdown: assetDropdownList,
-                },
-              },
-            ]}
-          />
+          <Breadcrumb items={breadcrumbItems} />
           <Flex gap={8}>
             <Button
               variant="secondary"
-              onClick={() => dispatch(openSendDialog())}
+              onClick={() =>
+                dispatch(
+                  openSendDialog({
+                    accountId: selectedAccount?.__id,
+                    walletId: selectedAccount?.walletId,
+                  }),
+                )
+              }
               size="sm"
               display="flex"
               justify="center"
@@ -118,7 +91,14 @@ export const AssetPage: FC = () => {
             </Button>
             <Button
               variant="secondary"
-              onClick={() => dispatch(openReceiveDialog())}
+              onClick={() =>
+                dispatch(
+                  openReceiveDialog({
+                    accountId: selectedAccount?.__id,
+                    walletId: selectedAccount?.walletId,
+                  }),
+                )
+              }
               size="sm"
               display="flex"
               justify="center"
@@ -143,9 +123,6 @@ export const AssetPage: FC = () => {
                 : summaryDetails.totalValue
             }
             conversionRate={summaryDetails.conversionRate}
-            dropdownItems={walletDropdownList}
-            selectedDropdownItem={selectedWallet?.__id ?? 'all'}
-            onDropdownChange={handleWalletChange}
             dropdownSearchText={lang.strings.graph.walletDropdown.search}
             pillButtonList={rangeList}
             selectedPill={selectedRange}
@@ -157,17 +134,10 @@ export const AssetPage: FC = () => {
             formatTooltipValue={formatTooltipValue}
             formatTimestamp={formatTimestamp}
             formatYAxisTick={formatYAxisTick}
-            color={selectedAsset?.color ?? coinList[BtcIdMap.bitcoin].color}
+            color={
+              selectedAccount?.asset?.color ?? coinList[BtcIdMap.bitcoin].color
+            }
             onSwitch={onGraphSwitch}
-          />
-        </Container>
-
-        <Container $noFlex mb={2}>
-          <AssetAllocation
-            assetId={assetId}
-            parentAssetId={parentAssetId}
-            walletId={selectedWallet?.__id}
-            onRowClick={onAccountClick}
           />
         </Container>
 
@@ -175,9 +145,7 @@ export const AssetPage: FC = () => {
           <TransactionTable
             limit={10}
             walletId={selectedWallet?.__id}
-            assetId={assetId}
-            parentAssetId={parentAssetId}
-            variant="withNoAssetColumn"
+            accountId={accountId}
           />
         </Container>
       </Container>

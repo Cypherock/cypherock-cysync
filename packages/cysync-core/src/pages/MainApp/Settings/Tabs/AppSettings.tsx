@@ -7,9 +7,10 @@ import {
   openResetCySyncDialog,
   openSetPasswordDialog,
 } from '~/actions';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { useLockscreen } from '~/context';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
+
 import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const AppSettings: React.FC = () => {

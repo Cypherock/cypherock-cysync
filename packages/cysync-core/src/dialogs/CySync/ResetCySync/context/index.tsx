@@ -15,8 +15,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
 import { getResetCySyncMethod } from '~/utils';
+
 import { ConfirmReset } from '../Dialogs';
 
 export interface ResetCySyncDialogContextInterface {

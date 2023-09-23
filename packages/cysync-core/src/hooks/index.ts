@@ -17,3 +17,4 @@ export * from './useDeviceUpdate';
 export * from './useStateToRef';
 export * from './useAssetAllocations';
 export * from './useGraph';
+export * from './useAssetDropdown';

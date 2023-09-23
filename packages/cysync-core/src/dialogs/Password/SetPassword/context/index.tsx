@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useLockscreen } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
@@ -16,9 +17,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
-import { useLockscreen } from '~/context';
 import { validatePassword } from '~/utils';
+
 import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 
 export interface SetPasswordDialogContextInterface {

@@ -16,14 +16,23 @@ import {
   Notifications,
   PushpinBold,
 } from '../../assets';
-import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
+import {
+  Button,
+  Container,
+  Flex,
+  LangDisplay,
+  Tag,
+  Typography,
+} from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
-interface ITopbar {
+export interface TopbarProps {
   title: string;
+  subTitle?: string;
+  tag?: string;
   icon?: ReactNode;
   statusTexts: {
     connection: {
@@ -64,8 +73,10 @@ const TitleStyle = styled.div`
   gap: 16px;
 `;
 
-export const Topbar: FC<ITopbar> = ({
+export const Topbar: FC<TopbarProps> = ({
   title,
+  subTitle,
+  tag,
   icon,
   statusTexts,
   connectionStatus,
@@ -112,14 +123,26 @@ export const Topbar: FC<ITopbar> = ({
       <TitleStyle>
         <Container direction="row">
           {icon ?? null}
-          <Typography
-            variant="h4"
-            $fontWeight="semibold"
-            color="silver"
-            ml={icon ? 2 : 0}
-          >
-            <LangDisplay text={title} />
-          </Typography>
+          <Container direction="column" ml={icon ? 2 : 0} align="flex-start">
+            <Typography variant="h4" $fontWeight="semibold" color="silver">
+              <LangDisplay text={title} />
+            </Typography>
+            {(subTitle || tag) && (
+              <Container direction="row">
+                {subTitle && (
+                  <Typography
+                    $fontWeight="semibold"
+                    $fontSize={14}
+                    color="muted"
+                    mr={1}
+                  >
+                    <LangDisplay text={subTitle} />
+                  </Typography>
+                )}
+                {tag && <Tag>{tag}</Tag>}
+              </Container>
+            )}
+          </Container>
         </Container>
 
         {showIcon && (
@@ -173,4 +196,6 @@ Topbar.defaultProps = {
   showIcon: false,
   onIconClick: undefined,
   icon: undefined,
+  subTitle: undefined,
+  tag: undefined,
 };

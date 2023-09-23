@@ -35,115 +35,119 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
   onPillButtonChange,
   pillButtonList,
   onSwitch,
-}) => (
-  <Container
-    direction="row"
-    justify="space-between"
-    height="full"
-    pt={4}
-    px={{ def: 3, lg: 5 }}
-    pb={2}
-    $borderColor="popup"
-    $borderWidthB={1}
-    $borderStyle="solid"
-  >
-    <Container width="full" justify="flex-start">
-      <Container
-        pb="4"
-        display="flex"
-        direction="column"
-        align="flex-start"
-        justify="flex-start"
-      >
-        <Container direction="row">
-          <Typography
-            variant="h3"
-            $textAlign="left"
-            $fontSize={32}
-            $fontWeight="bold"
-            mr={2}
-          >
-            {title}
-          </Typography>
-          {onSwitch && (
-            <Button variant="icon" onClick={onSwitch}>
-              <GraphSwitchIcon />
-            </Button>
-          )}
-        </Container>
+}) => {
+  const showDropdown = dropdownItems && onDropdownChange;
 
-        {subTitle && (
+  return (
+    <Container
+      direction="row"
+      justify="space-between"
+      height="full"
+      pt={4}
+      px={{ def: 3, lg: 5 }}
+      pb={2}
+      $borderColor="popup"
+      $borderWidthB={1}
+      $borderStyle="solid"
+    >
+      <Container width="full" justify="flex-start">
+        <Container
+          pb="4"
+          display="flex"
+          direction="column"
+          align="flex-start"
+          justify="flex-start"
+        >
           <Container direction="row">
             <Typography
+              variant="h3"
               $textAlign="left"
-              $fontSize={16}
-              color="muted"
-              mr={3}
-              $letterSpacing="0.8px"
-              $fontWeight="medium"
+              $fontSize={32}
+              $fontWeight="bold"
+              mr={2}
             >
-              {subTitle}
+              {title}
             </Typography>
-            <Container
-              display={conversionRate ? 'flex' : 'none'}
-              direction="row"
-            >
-              <GraphIcon mr={1} />
+            {onSwitch && (
+              <Button variant="icon" onClick={onSwitch}>
+                <GraphSwitchIcon />
+              </Button>
+            )}
+          </Container>
+
+          {subTitle && (
+            <Container direction="row">
               <Typography
                 $textAlign="left"
                 $fontSize={16}
-                $fontWeight="medium"
                 color="muted"
+                mr={3}
                 $letterSpacing="0.8px"
+                $fontWeight="medium"
               >
-                {conversionRate}
+                {subTitle}
               </Typography>
+              <Container
+                display={conversionRate ? 'flex' : 'none'}
+                direction="row"
+              >
+                <GraphIcon mr={1} />
+                <Typography
+                  $textAlign="left"
+                  $fontSize={16}
+                  $fontWeight="medium"
+                  color="muted"
+                  $letterSpacing="0.8px"
+                >
+                  {conversionRate}
+                </Typography>
+              </Container>
             </Container>
+          )}
+        </Container>
+      </Container>
+
+      <Container display="flex" direction={{ def: 'column', mdlg: 'row' }}>
+        {pillButtonList && onPillButtonChange && (
+          <Container
+            gap={8}
+            align-items="center"
+            mr={{ def: 0, mdlg: showDropdown ? 3 : 0 }}
+            mb={{ def: showDropdown ? 3 : 0, mdlg: 0 }}
+          >
+            {pillButtonList.map(item => (
+              <Button
+                variant={
+                  item.id === selectedPill ? 'secondary' : 'secondaryLight'
+                }
+                size="sm"
+                onClick={() => onPillButtonChange(item.id)}
+                key={item.id}
+              >
+                {item.text}
+              </Button>
+            ))}
+          </Container>
+        )}
+        {showDropdown && (
+          <Container $noFlex width={200}>
+            <Dropdown
+              align-items="center"
+              justify-content="space-between"
+              items={dropdownItems}
+              selectedItem={selectedDropdownItem}
+              disabled={false}
+              searchText={dropdownSearchText ?? ''}
+              placeholderText={dropdownPlaceholderText ?? ''}
+              onChange={onDropdownChange}
+              leftImage={dropdownLeftImage}
+            />
           </Container>
         )}
       </Container>
     </Container>
-
-    <Container display="flex" direction={{ def: 'column', mdlg: 'row' }}>
-      {pillButtonList && onPillButtonChange && (
-        <Container
-          gap={8}
-          align-items="center"
-          mr={{ def: 0, mdlg: 3 }}
-          mb={{ def: 3, mdlg: 0 }}
-        >
-          {pillButtonList.map(item => (
-            <Button
-              variant={
-                item.id === selectedPill ? 'secondary' : 'secondaryLight'
-              }
-              size="sm"
-              onClick={() => onPillButtonChange(item.id)}
-              key={item.id}
-            >
-              {item.text}
-            </Button>
-          ))}
-        </Container>
-      )}
-      {dropdownItems && onDropdownChange && (
-        <Container $noFlex width={200}>
-          <Dropdown
-            align-items="center"
-            justify-content="space-between"
-            items={dropdownItems}
-            selectedItem={selectedDropdownItem}
-            disabled={false}
-            searchText={dropdownSearchText ?? ''}
-            placeholderText={dropdownPlaceholderText ?? ''}
-            onChange={onDropdownChange}
-            leftImage={dropdownLeftImage}
-          />
-        </Container>
-      )}
-    </Container>
-  </Container>
-);
+  );
+};
 
 GraphHeader.defaultProps = {
   subTitle: undefined,

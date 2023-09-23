@@ -47,6 +47,7 @@ export interface CoinAllocationRow {
   assetIcon: ReactNode;
   assetAbbr: string;
   assetName: string;
+  accountId?: string;
   accountName?: string;
   accountTag?: string;
   walletName?: string;
@@ -171,6 +172,7 @@ export const useAssetAllocations = ({
               );
             }
 
+            accountProperties.accountId = account?.__id;
             accountProperties.accountName = account?.name;
             accountProperties.accountTag = lodash.upperCase(
               account?.derivationScheme ?? '',
