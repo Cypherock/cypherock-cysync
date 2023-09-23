@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { DefaultTheme, styled } from 'styled-components';
 
 import { LangDisplay, RadioButton, Typography } from '../../atoms';
 
 interface ListItemDropdownProps {
   text: string;
+  icon?: ReactNode;
   checkType?: string;
   checked: boolean;
   onChange: () => void;
@@ -60,7 +61,8 @@ const Items = styled.div<ItemsProps>`
 `;
 
 export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
-  text: itemText,
+  text,
+  icon,
   checkType,
   checked,
   onChange,
@@ -78,7 +80,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       const divElement = document.getElementById(`${id}`);
       divElement?.focus();
     }
-  }, [focused, itemText]);
+  }, [focused, text]);
 
   return (
     <Items
@@ -89,8 +91,9 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       id={id}
     >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
+      {icon}
       <LocalTypography>
-        <LangDisplay text={itemText} />
+        <LangDisplay text={text} />
       </LocalTypography>
     </Items>
   );
@@ -99,4 +102,5 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
 ListItemDropdown.defaultProps = {
   checkType: '',
   focused: false,
+  icon: undefined,
 };

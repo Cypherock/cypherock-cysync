@@ -3,13 +3,14 @@ import styled, { css } from 'styled-components';
 
 import { TableMutedTextBox } from './TableMutedTextBox';
 
-import { Container, Typography } from '../../atoms';
+import { Container, Tag, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 
 interface IconNameBoxProps extends UtilsProps {
   icon: ReactNode;
   title: string;
   subtitle?: string;
+  tag?: string;
   mutedSubtitle?: string;
   mutedBox?: string;
 }
@@ -36,7 +37,7 @@ export const IconNameBoxStyle = styled.div<IconNameBoxProps>`
 `;
 
 export const TableIconNameBox: FC<IconNameBoxProps> = props => {
-  const { icon, title, subtitle, mutedSubtitle, mutedBox } = props;
+  const { icon, title, subtitle, tag, mutedSubtitle, mutedBox } = props;
 
   return (
     <IconNameBoxStyle {...props}>
@@ -66,7 +67,12 @@ export const TableIconNameBox: FC<IconNameBoxProps> = props => {
           </Typography>
         )}
         {mutedSubtitle && (
-          <Container gap={8} display="flex" direction="row">
+          <Container
+            gap={{ def: 4, mdlg: 8 }}
+            display="flex"
+            direction={{ def: 'column', mdlg: 'row' }}
+            align={tag ? 'flex-start' : 'center'}
+          >
             <Typography
               variant="p"
               $fontSize={12}
@@ -83,8 +89,10 @@ export const TableIconNameBox: FC<IconNameBoxProps> = props => {
                 $whiteSpace="nowrap"
               />
             )}
+            {tag && <Tag>{tag}</Tag>}
           </Container>
         )}
+        {tag && !mutedSubtitle && <Tag>{tag}</Tag>}
       </Container>
     </IconNameBoxStyle>
   );
@@ -94,4 +102,5 @@ TableIconNameBox.defaultProps = {
   subtitle: undefined,
   mutedSubtitle: undefined,
   mutedBox: undefined,
+  tag: undefined,
 };

@@ -13,6 +13,10 @@ const rootRoutes = {
     name: 'wallet',
     path: '/wallet',
   },
+  asset: {
+    name: 'asset',
+    path: '/asset',
+  },
   history: {
     name: 'history',
     path: '/history',
