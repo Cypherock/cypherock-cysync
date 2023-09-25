@@ -51,9 +51,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   EvmApp
 > = async params => {
   const { app, observer, transaction, account, coin } = params;
-  logger.info({
-    transaction: JSON.stringify(transaction),
-  });
+  logger.info({ transaction });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;

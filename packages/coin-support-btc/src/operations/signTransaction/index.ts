@@ -58,9 +58,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   BtcApp
 > = async params => {
   const { app, observer, transaction, account } = params;
-  logger.info({
-    transaction: JSON.stringify(transaction),
-  });
+  logger.info({ transaction });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
