@@ -7,6 +7,7 @@ import {
   TransactionTableHeader,
   TableGroupRow,
   TransactionTableRow,
+  TransactionTableVariant,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -16,15 +17,19 @@ import { useNavigateTo, useTransactions } from '~/hooks';
 export interface TransactionTableProps {
   walletId?: string;
   assetId?: string;
+  parentAssetId?: string;
   accountId?: string;
+  variant?: TransactionTableVariant;
   limit: number;
 }
 
 export const TransactionTable: React.FC<TransactionTableProps> = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
   limit,
+  variant,
 }) => {
   const {
     strings,
@@ -36,7 +41,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
     isSmallScreen,
     expandedRowIds,
     onRowExpand,
-  } = useTransactions({ walletId, assetId, accountId });
+  } = useTransactions({ walletId, assetId, parentAssetId, accountId });
 
   const navigateTo = useNavigateTo();
 
@@ -58,6 +63,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
       <TransactionTableHeader
         time={strings.history.tableHeader.time}
         account={strings.history.tableHeader.account}
+        wallet={strings.history.tableHeader.wallet}
+        walletAndAccount={strings.history.tableHeader.walletAndAccount}
         asset={strings.history.tableHeader.asset}
         value={strings.history.tableHeader.value}
         amount={strings.history.tableHeader.amount}
@@ -65,6 +72,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
         selected={sortedBy}
         onSort={onSort}
         isSmallScreen={isSmallScreen}
+        variant={variant}
       />
       {displayedData.slice(0, limit).map((row, index, arr) => {
         const isLast = index === arr.length - 1;
@@ -101,6 +109,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
             valueHeader={strings.history.tableHeader.value}
             isExpanded={expandedRowIds[row.id]}
             setIsExpanded={value => onRowExpand(row, value)}
+            variant={variant}
           />
         );
       })}
@@ -114,5 +123,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
 TransactionTable.defaultProps = {
   walletId: undefined,
   assetId: undefined,
+  parentAssetId: undefined,
   accountId: undefined,
+  variant: 'default',
 };

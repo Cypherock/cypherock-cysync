@@ -11,5 +11,8 @@ export const getCoinIds = async (db: IDatabase) => {
     parentAssetId: account.parentAssetId,
   }));
 
-  return lodash.uniq(assetList);
+  return lodash.uniqWith(
+    assetList,
+    (a, b) => a.assetId === b.assetId && a.parentAssetId === b.parentAssetId,
+  );
 };

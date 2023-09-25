@@ -11,6 +11,8 @@ export interface ICoinAllocation {
 export interface IGetCoinAllocationsParams {
   db: IDatabase;
   walletId?: string;
+  parentAssetId?: string;
+  assetId?: string;
 }
 
 export interface IGetCoinAllocationsResult {

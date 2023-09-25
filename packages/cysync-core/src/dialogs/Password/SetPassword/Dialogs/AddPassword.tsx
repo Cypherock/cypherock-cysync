@@ -1,14 +1,14 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  CloseButton,
-  Flex,
   Divider,
+  Flex,
+  LangDisplay,
   PasswordInput,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -24,6 +24,9 @@ export const AddPassword: React.FC = () => {
     confirmNewPassword,
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
+    handleSetPassword,
+    isLoading,
+    isSubmitDisabled,
   } = useSetPasswordDialog();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -50,7 +53,7 @@ export const AddPassword: React.FC = () => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onClose();
+              handleSetPassword();
             }}
             id="set-password-create-new-form"
           >
@@ -62,6 +65,7 @@ export const AddPassword: React.FC = () => {
                 label={input.newPassword}
                 value={newPassword}
                 onChange={handleNewPasswordChange}
+                disabled={isLoading}
               />
               <PasswordInput
                 pasteAllowed
@@ -70,6 +74,7 @@ export const AddPassword: React.FC = () => {
                 label={input.confirmPassword}
                 value={confirmNewPassword}
                 onChange={handleConfirmNewPasswordChange}
+                disabled={isLoading}
               />
               <Divider variant="horizontal" />
             </Flex>
@@ -86,9 +91,8 @@ export const AddPassword: React.FC = () => {
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
-          type="submit"
           variant="secondary"
-          disabled={false}
+          disabled={isLoading}
           onClick={e => {
             e.preventDefault();
             onClose();
@@ -100,12 +104,8 @@ export const AddPassword: React.FC = () => {
           form="set-password-create-new-form"
           type="submit"
           variant="primary"
-          disabled={
-            Boolean(error) ||
-            newPassword.length < 8 ||
-            confirmNewPassword.length < 8 ||
-            newPassword !== confirmNewPassword
-          }
+          disabled={isSubmitDisabled}
+          isLoading={isLoading}
         >
           <LangDisplay text={buttons.confirm} />
         </Button>

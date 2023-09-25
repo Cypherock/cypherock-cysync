@@ -8,7 +8,7 @@ import {
   openSetPasswordDialog,
 } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
-
+import { useLockscreen } from '~/context';
 import { keyValueStore } from '~/utils';
 import { SettingsButton, SettingsStandardItem } from '../components';
 
@@ -16,6 +16,7 @@ export const AppSettings: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.app;
   const dispatch = useAppDispatch();
+  const { isPasswordSet } = useLockscreen();
   const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
     useState<boolean | undefined>(undefined);
   const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] = useState<
@@ -51,25 +52,30 @@ export const AppSettings: React.FC = () => {
         title={{ text: item.password.title }}
         description={{ text: item.password.description }}
       >
-        <SettingsButton
-          display="none"
-          onClick={() => dispatch(openSetPasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.setPassword} />
-        </SettingsButton>
-        <SettingsButton
-          onClick={() => dispatch(openRemovePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.removePassword} />
-        </SettingsButton>
-        <SettingsButton
-          onClick={() => dispatch(openChangePasswordDialog())}
-          variant="primary"
-        >
-          <LangDisplay text={strings.buttons.changePassword} />
-        </SettingsButton>
+        {!isPasswordSet && (
+          <SettingsButton
+            onClick={() => dispatch(openSetPasswordDialog())}
+            variant="primary"
+          >
+            <LangDisplay text={strings.buttons.setPassword} />
+          </SettingsButton>
+        )}
+        {isPasswordSet && (
+          <>
+            <SettingsButton
+              onClick={() => dispatch(openRemovePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.removePassword} />
+            </SettingsButton>
+            <SettingsButton
+              onClick={() => dispatch(openChangePasswordDialog())}
+              variant="primary"
+            >
+              <LangDisplay text={strings.buttons.changePassword} />
+            </SettingsButton>
+          </>
+        )}
       </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.anayticsAndBugReport.title }}
