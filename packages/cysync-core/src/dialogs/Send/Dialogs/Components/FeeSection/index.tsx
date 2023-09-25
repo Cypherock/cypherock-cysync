@@ -1,4 +1,5 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -15,6 +16,7 @@ import { CoinIcon } from '~/components';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
+import { EthereumInput } from './EthereumInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 
@@ -22,7 +24,7 @@ import { useSendDialog } from '../../../context';
 
 const feeInputMap: Record<CoinFamily, React.FC<any>> = {
   bitcoin: BitcoinInput,
-  evm: BitcoinInput,
+  evm: EthereumInput,
   near: BitcoinInput,
   solana: BitcoinInput,
 };
@@ -46,9 +48,32 @@ export const FeeSection: React.FC = () => {
       onChange: debouncedPrepareFeeChanged,
     };
   };
+
+  const getEthereumProps = () => {
+    const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: selectedAccount?.parentAssetId ?? '',
+      amount: txn.staticData.averageGasPrice,
+      unitAbbr: feesUnit || 'Gwei',
+    });
+    const inputGasPrice = getParsedAmount({
+      coinId: selectedAccount?.parentAssetId ?? '',
+      amount: txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice,
+      unitAbbr: feesUnit || 'Gwei',
+    }).amount;
+    return {
+      isTextInput,
+      unit: unit.abbr,
+      initialGasPrice: amount,
+      inputGasPrice,
+      onChange: debouncedEvmPrepareFeeChanged,
+    };
+  };
+
   const feeInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
     bitcoin: getBitcoinProps,
-    evm: () => ({}),
+    evm: getEthereumProps,
     near: () => ({}),
     solana: () => ({}),
   };
@@ -70,6 +95,45 @@ export const FeeSection: React.FC = () => {
 
   const debouncedPrepareFeeChanged = useCallback(
     lodash.debounce(prepareFeeChanged, 300),
+    [],
+  );
+
+  const evmPrepareFee = async (param: {
+    gasLimit?: number;
+    gasPrice?: number;
+  }) => {
+    setIsFeeLoading(true);
+    const txn = transaction as IPreparedEvmTransaction;
+    const gasPrice = param.gasPrice
+      ? convertToUnit({
+          amount: param.gasPrice,
+          coinId: selectedAccount?.parentAssetId ?? '',
+          fromUnitAbbr: `Gwei`,
+          toUnitAbbr: getZeroUnit(selectedAccount?.parentAssetId ?? '').abbr,
+        }).amount
+      : txn.userInputs.gasPrice;
+    const gasLimit = param.gasLimit ?? Number(txn.computedData.gasLimit);
+
+    // the gas price check for 2/3 of the average is same as bitcoin
+    setIsFeeLow(
+      Number(gasPrice) < (2 / 3) * Number(txn.staticData.averageGasPrice) ||
+        gasLimit < Number(txn.computedData.gasLimit),
+    );
+
+    if (param.gasLimit) {
+      // user modified gas limit
+      txn.userInputs.gasLimit = gasLimit.toString(10);
+    }
+    if (param.gasPrice) {
+      // user modified gas price
+      txn.userInputs.gasPrice = gasPrice;
+    }
+    await prepare(txn);
+    setIsFeeLoading(false);
+  };
+
+  const debouncedEvmPrepareFeeChanged = useCallback(
+    lodash.debounce(evmPrepareFee, 300),
     [],
   );
 

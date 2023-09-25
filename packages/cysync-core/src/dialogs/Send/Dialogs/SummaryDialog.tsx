@@ -1,6 +1,8 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getParsedAmount } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { CoinFamily, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -15,6 +17,7 @@ import {
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
@@ -66,6 +69,29 @@ export const SummaryDialog: React.FC = () => {
     return details ?? [];
   };
 
+  const bitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    // return '0' in error scenarios because BigNumber cannot handle empty string
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedBtcTransaction;
+    return computedData.fee.toString() || '0';
+  };
+
+  const evmFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedEvmTransaction;
+    return computedData.fee || '0';
+  };
+
+  const computedFeeMap: Record<
+    CoinFamily,
+    (txn: IPreparedTransaction | undefined) => string
+  > = {
+    bitcoin: bitcoinFeeAmount,
+    evm: evmFeeAmount,
+    near: () => '0',
+    solana: () => '0',
+  };
+
   const getTotalAmount = () => {
     const account = selectedAccount;
     const coinPrice = priceInfos.find(
@@ -77,11 +103,9 @@ export const SummaryDialog: React.FC = () => {
     transaction?.userInputs.outputs.forEach(output => {
       totalToDeduct = totalToDeduct.plus(output.amount);
     });
-
-    if (account.familyId === 'bitcoin') {
-      const txn = transaction as IPreparedBtcTransaction;
-      totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
-    }
+    totalToDeduct = totalToDeduct.plus(
+      computedFeeMap[account.familyId as CoinFamily](transaction),
+    );
 
     const { amount, unit } = getParsedAmount({
       coinId: account.assetId,
@@ -110,26 +134,24 @@ export const SummaryDialog: React.FC = () => {
       p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
-    if (account.familyId === 'bitcoin') {
-      const txn = transaction as IPreparedBtcTransaction;
-      const { amount, unit } = getParsedAmount({
-        coinId: account.assetId,
-        amount: txn.computedData.fee,
-        unitAbbr: account.unit,
-      });
+    const { amount, unit } = getParsedAmount({
+      coinId: account.assetId,
+      amount: computedFeeMap[account.familyId as CoinFamily](transaction),
+      unitAbbr: account.unit,
+    });
 
-      const value = new BigNumber(amount)
-        .multipliedBy(coinPrice.latestPrice)
-        .toPrecision(2)
-        .toString();
+    const value = new BigNumber(amount)
+      .multipliedBy(coinPrice.latestPrice)
+      .toPrecision(2)
+      .toString();
 
-      details.push({
-        id: 'fee-details',
-        leftText: displayText.network,
-        rightText: `${amount} ${unit.abbr}`,
-        rightSubText: `$${value}`,
-      });
-    }
+    details.push({
+      id: 'fee-details',
+      leftText: displayText.network,
+      rightText: `${amount} ${unit.abbr}`,
+      rightSubText: `$${value}`,
+    });
+
     return details;
   };
 
@@ -153,10 +175,10 @@ export const SummaryDialog: React.FC = () => {
         ),
       },
     ];
-    if (selectedAccount?.parentAssetId) {
+    if (selectedAccount?.type === AccountTypeMap.subAccount) {
       fromDetails.push({
         id: 'asset',
-        name: coinList[selectedAccount.assetId].name,
+        name: coinList[selectedAccount.parentAssetId].name,
         muted: false,
         icon: <CoinIcon parentAssetId={selectedAccount.parentAssetId} />,
       });

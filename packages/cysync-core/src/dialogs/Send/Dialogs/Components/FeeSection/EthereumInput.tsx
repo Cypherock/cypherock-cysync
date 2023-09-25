@@ -1,3 +1,4 @@
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   Container,
   Flex,
@@ -5,53 +6,57 @@ import {
   LangDisplay,
   Tag,
   GoldQuestionMark,
-  Caption,
   FeesSlider,
   FeesInput,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useSendDialog } from '~/dialogs/Send/context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 interface EthereumInputProps {
   initialGasPrice: number;
-  initialGasLimit: number;
+  inputGasPrice: number;
   isTextInput: boolean;
   unit: string;
-  onChange: (newValue: number) => void;
-  onGasLimitChange: (newValue: number) => void;
-  captions: Caption[];
-  priceLabel: string;
-  limitLabel: string;
+  onChange: (param: { gasLimit?: number; gasPrice?: number }) => void;
 }
 
 export const EthereumInput: React.FC<EthereumInputProps> = ({
   initialGasPrice,
-  initialGasLimit,
+  inputGasPrice,
   isTextInput,
   unit,
   onChange,
-  onGasLimitChange,
-  captions,
-  priceLabel,
-  limitLabel,
 }) => {
-  const [gasPrice, setGasPrice] = useState(initialGasPrice);
-  const [gasLimit, setGasLimit] = useState(initialGasLimit);
+  const [gasPrice, setGasPrice] = useState(inputGasPrice);
+  const lang = useAppSelector(selectLanguage);
+  const captions = lang.strings.send.fees.sliderLabels;
+  const { priceLabel, limitLabel } = lang.strings.send.fees.inputLabels;
+  const transaction = useSendDialog().transaction as IPreparedEvmTransaction;
 
   const handlePriceChange = (val: string | number) => {
     let numberValue = 0;
     if (typeof val === 'string') numberValue = parseFloat(val);
     else numberValue = val;
     setGasPrice(numberValue);
-    onChange(numberValue);
+    // on change gas price, prepare EVM fee
+    onChange({ gasPrice: numberValue });
   };
 
   const handleLimitChange = (val: string | number) => {
     let numberValue = 0;
     if (typeof val === 'string') numberValue = parseFloat(val);
     else numberValue = val;
-    setGasLimit(numberValue);
-    onGasLimitChange(numberValue);
+    // on change gas limit, prepare EVM fee
+    onChange({ gasLimit: numberValue });
   };
+
+  useEffect(() => {
+    if (transaction.userInputs.gasPrice) {
+      // user input gas price should reflect in the ui
+    }
+  });
 
   return (
     <>
@@ -100,7 +105,14 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              value={gasLimit.toString()}
+              key={
+                transaction.userInputs.gasLimit ??
+                transaction.computedData.gasLimit
+              }
+              value={
+                transaction.userInputs.gasLimit ??
+                transaction.computedData.gasLimit
+              }
               onChange={handleLimitChange}
             />
           </Container>

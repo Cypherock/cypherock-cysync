@@ -1,12 +1,14 @@
-import { TabContentContainer, Tabs } from '@cypherock/cysync-ui';
+import { CoinFamily } from '@cypherock/coins';
+import { Container, TabContentContainer, Tabs } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { useSendDialog } from '~/dialogs/Send/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { BatchTransactionBody } from './BatchTransactionBody';
+import { BatchTransaction } from './BatchTransaction';
 import { SingleTransaction } from './SingleTransaction';
 
-export const AddressAndAmountSection: React.FC = () => {
+const BitcoinAnA: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const tabs = [
@@ -22,10 +24,35 @@ export const AddressAndAmountSection: React.FC = () => {
       label: displayText.tabs.batch,
       content: (
         <TabContentContainer>
-          <BatchTransactionBody />
+          <BatchTransaction />
         </TabContentContainer>
       ),
     },
   ];
   return <Tabs tabs={tabs} />;
+};
+
+const EvmAnA: React.FC = () => (
+  <Container px={5} py="12px">
+    {' '}
+    <SingleTransaction />{' '}
+  </Container>
+);
+
+const anaInputMap: Record<CoinFamily, React.FC<any>> = {
+  bitcoin: BitcoinAnA,
+  evm: EvmAnA,
+  near: EvmAnA,
+  solana: EvmAnA,
+};
+
+const getAnaComponent = (coinFamily: CoinFamily) => {
+  const Component = anaInputMap[coinFamily];
+  return <Component />;
+};
+
+export const AddressAndAmountSection: React.FC = () => {
+  const { selectedAccount } = useSendDialog();
+
+  return getAnaComponent(selectedAccount?.familyId as any);
 };

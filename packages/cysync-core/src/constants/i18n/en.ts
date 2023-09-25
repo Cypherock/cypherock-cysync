@@ -469,6 +469,10 @@ const en = {
         { id: 2, name: 'Average' },
         { id: 3, name: 'Max' },
       ],
+      inputLabels: {
+        priceLabel: 'Gas Price',
+        limitLabel: 'Gas Limit',
+      },
     },
     source: {
       title: 'Source',

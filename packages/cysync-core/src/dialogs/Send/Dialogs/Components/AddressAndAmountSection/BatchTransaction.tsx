@@ -23,7 +23,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
 
-export const BatchTransactionBody: React.FC = () => {
+export const BatchTransaction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
 
