@@ -20,6 +20,7 @@ import { IPreparedEvmTransaction } from '../transaction';
 import { IEvmCoinInfo } from '@cypherock/coins';
 import { IAccount } from '@cypherock/db-interfaces';
 import { getTransactionCount } from '../../services';
+import logger from '../../utils/logger';
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedEvmTransaction,
@@ -50,7 +51,9 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   EvmApp
 > = async params => {
   const { app, observer, transaction, account, coin } = params;
-  console.log({ transaction: JSON.stringify(transaction) });
+  logger.info({
+    transaction: JSON.stringify(transaction),
+  });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
