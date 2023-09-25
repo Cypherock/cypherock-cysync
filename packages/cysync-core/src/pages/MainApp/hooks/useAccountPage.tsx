@@ -70,13 +70,12 @@ export const useAccountPage = () => {
 
   const fromAsset = useMemo(() => {
     const parentAssetId = query.get('fromParentAssetId');
-    const assetId = query.get('fromAssetId') ?? undefined;
 
     if (parentAssetId) {
       return {
-        asset: getAsset(parentAssetId, assetId),
+        asset: getAsset(parentAssetId),
         parentAssetId,
-        assetId,
+        assetId: parentAssetId,
       };
     }
 
