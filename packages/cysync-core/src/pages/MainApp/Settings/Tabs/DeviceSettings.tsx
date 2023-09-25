@@ -1,4 +1,4 @@
-import { ArrowDown, LangDisplay } from '@cypherock/cysync-ui';
+import { LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import {
@@ -45,12 +45,12 @@ export const DeviceSettings: React.FC = () => {
           <LangDisplay text={strings.buttons.authenticate} />
         </SettingsButton>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.transferWallet.title }}
         description={{ text: item.transferWallet.description }}
       >
         <ArrowDown />
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };
