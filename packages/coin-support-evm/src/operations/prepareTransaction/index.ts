@@ -17,6 +17,10 @@ const validateAddresses = (
   for (const output of params.txn.userInputs.outputs) {
     let isValid = true;
 
+    /**
+     * We allow emptry string in the validation (error prompt should not
+     * appear for empty string). And validate only non-empty strings.
+     */
     if (
       output.address &&
       !validateAddress({ address: output.address, coinId: coin.id })
@@ -45,7 +49,9 @@ export const prepareTransaction = async (
     txn.userInputs.gasLimit ??
     (await estimateGasLimit(coin.id, {
       from: account.xpubOrAddress,
-      to: txn.userInputs.outputs[0].address ?? account.xpubOrAddress,
+      to: txn.userInputs.outputs[0].address
+        ? txn.userInputs.outputs[0].address
+        : account.xpubOrAddress,
       value: '0',
       data: '0x',
     }));
