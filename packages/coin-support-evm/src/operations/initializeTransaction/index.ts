@@ -16,7 +16,7 @@ export const initializeTransaction = async (
   // disable support for token transactions
   assert(
     account.type === AccountTypeMap.account,
-    new Error('Transaction from account not supported'),
+    new Error('Transaction from subAccount not supported'),
   );
 
   const averageGasPrice = await getAverageGasPrice(coin.id);

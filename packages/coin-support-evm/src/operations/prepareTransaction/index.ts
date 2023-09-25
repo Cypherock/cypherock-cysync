@@ -45,7 +45,7 @@ export const prepareTransaction = async (
     txn.userInputs.gasLimit ??
     (await estimateGasLimit(coin.id, {
       from: account.xpubOrAddress,
-      to: account.xpubOrAddress,
+      to: txn.userInputs.outputs[0].address ?? account.xpubOrAddress,
       value: '0',
       data: '0x',
     }));

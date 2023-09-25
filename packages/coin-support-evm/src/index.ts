@@ -19,11 +19,13 @@ import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
-import { ICreateEvmAccountParams } from './operations/types';
+import {
+  ICreateEvmAccountParams,
+  IPrepareEvmTransactionParams,
+  ISignEvmTransactionParams,
+  IBroadcastEvmTransactionParams,
+} from './operations/types';
 import { setCoinSupportEthersLib } from './utils';
-import { IPrepareEvmTransactionParams } from './operations/prepareTransaction/types';
-import { ISignEvmTransactionParams } from './operations/signTransaction/types';
-import { IBroadcastEvmTransactionParams } from './operations/broadcastTransaction/types';
 
 export * from './operations/types';
 export * from './services';
