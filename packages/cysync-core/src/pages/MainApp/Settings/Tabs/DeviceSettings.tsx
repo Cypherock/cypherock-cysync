@@ -16,14 +16,6 @@ export const DeviceSettings: React.FC = () => {
   return (
     <>
       <SettingsStandardItem
-        title={{ text: item.x1VaultUpdate.title }}
-        description={{ text: item.x1VaultUpdate.description }}
-      >
-        <SettingsButton variant="primary" onClick={console.log}>
-          <LangDisplay text={strings.buttons.check} />
-        </SettingsButton>
-      </SettingsStandardItem>
-      <SettingsStandardItem
         title={{ text: item.x1VaultAuth.title }}
         description={{ text: item.x1VaultAuth.description }}
       >

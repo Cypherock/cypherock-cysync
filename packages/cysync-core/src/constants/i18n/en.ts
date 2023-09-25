@@ -1435,10 +1435,6 @@ const en = {
       device: {
         title: 'Device Settings',
         item: {
-          x1VaultUpdate: {
-            title: 'X1 Vault Update',
-            description: 'Check & update device firmware',
-          },
           x1VaultAuth: {
             title: 'X1 Vault Authentication',
             description: 'Authenticate your device',
