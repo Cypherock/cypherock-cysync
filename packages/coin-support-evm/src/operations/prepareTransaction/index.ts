@@ -45,18 +45,19 @@ export const prepareTransaction = async (
     new Error('Evm transaction requires 1 output'),
   );
 
+  const outputsAddresses = validateAddresses(params, coin);
   const gasLimit =
     txn.userInputs.gasLimit ??
     (await estimateGasLimit(coin.id, {
       from: account.xpubOrAddress,
-      to: txn.userInputs.outputs[0].address
-        ? txn.userInputs.outputs[0].address
-        : account.xpubOrAddress,
+      to:
+        txn.userInputs.outputs[0].address && outputsAddresses[0]
+          ? txn.userInputs.outputs[0].address
+          : account.xpubOrAddress,
       value: '0',
       data: '0x',
     }));
   const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
-  const outputsAddresses = validateAddresses(params, coin);
   const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
   const hasEnoughBalance = new BigNumber(account.balance)
     .minus(txn.userInputs.outputs[0].amount)
