@@ -10,11 +10,11 @@ export const ContactSupportSuccess: React.FC = () => {
 
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
-  const { success } = dialogs.password;
+  const { success } = dialogs.contactSupport;
 
   return (
     <SuccessDialog
-      title={success.change}
+      title={success.formSubmit}
       buttonText={buttons.done}
       handleClick={onClose}
     />

@@ -19,6 +19,7 @@ import {
 
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
+import { keyValueStore, validateEmail } from '~/utils';
 
 export interface ContactSupportDialogContextInterface {
   tabs: ITabs;
@@ -37,13 +38,16 @@ export interface ContactSupportDialogContextInterface {
   setEmail: React.Dispatch<React.SetStateAction<string | null>>;
   categories: DropDownListItemProps[];
   selectedCategory: string | undefined;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | undefined>>;
-  description: string;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  handleCategorySelection: (id: string | undefined) => void;
+  description: string | null;
+  setDescription: React.Dispatch<React.SetStateAction<string | null>>;
   canAttatchAppLogs: boolean;
   setCanAttatchAppLogs: React.Dispatch<React.SetStateAction<boolean>>;
   canAttatchDeviceLogs: boolean;
   setCanAttatchDeviceLogs: React.Dispatch<React.SetStateAction<boolean>>;
+  isEmailError: boolean;
+  isCategoryError: boolean;
+  isDescriptionError: boolean;
 }
 
 export const ContactSupportDialogContext: Context<ContactSupportDialogContextInterface> =
@@ -71,23 +75,39 @@ export const ContactSupportDialogProvider: FC<
   const [canAttatchDeviceLogs, setCanAttatchDeviceLogs] =
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [description, setDescription] = useState<string>('');
-  const [selectedCategory, setSelectedCategory] = useState<
-    string | undefined
-  >();
+  const [description, setDescription] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
+    categories[0].id,
+  );
 
   const [error, setError] = useState<string | null>(null);
+  const [isEmailError, setIsEmailError] = useState<boolean>(false);
+  const [isCategoryError, setIsCategoryError] = useState<boolean>(false);
+  const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
   const validateForm = () => {
-    let isSubmitDisabledNew = Boolean(error);
-    isSubmitDisabledNew ||= isLoading;
+    let isSubmitDisabledNew = isLoading;
+    isSubmitDisabledNew ||= isEmailError;
+    isSubmitDisabledNew ||= email === null;
+    isSubmitDisabledNew ||= isCategoryError;
+    isSubmitDisabledNew ||= selectedCategory === undefined;
+    isSubmitDisabledNew ||= isDescriptionError;
+    isSubmitDisabledNew ||= description === null;
 
     setIsSubmitDisabled(isSubmitDisabledNew);
   };
 
-  useEffect(validateForm, [error, isLoading]);
+  useEffect(validateForm, [
+    isLoading,
+    isEmailError,
+    email,
+    isCategoryError,
+    selectedCategory,
+    isDescriptionError,
+    description,
+  ]);
 
   const onClose = () => {
     dispatch(closeDialog('contactSupportDialog'));
@@ -102,6 +122,10 @@ export const ContactSupportDialogProvider: FC<
     onNext();
   };
 
+  const handleCategorySelection = (id: string | undefined) => {
+    setSelectedCategory(id);
+  };
+
   const tabs: ITabs = [
     {
       name: lang.strings.dialogs.password.confimPassword.title,
@@ -112,6 +136,51 @@ export const ContactSupportDialogProvider: FC<
       dialogs: [<ContactSupportSuccess key="contact-support-success" />],
     },
   ];
+
+  useEffect(() => {
+    keyValueStore.email.get().then(setEmail);
+  }, []);
+
+  useEffect(() => {
+    if (email === null) {
+      setIsEmailError(false);
+      return;
+    }
+
+    const result = validateEmail(email, lang);
+    if (!result.success) {
+      setIsEmailError(true);
+      setError(result.error.errors[0].message);
+      keyValueStore.email.remove();
+      return;
+    }
+
+    setError(null);
+    setIsEmailError(false);
+    keyValueStore.email.set(email);
+  }, [email]);
+
+  useEffect(() => {
+    if (selectedCategory === undefined) {
+      setIsCategoryError(true);
+      return;
+    }
+    setIsCategoryError(false);
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (description === null) {
+      setIsDescriptionError(false);
+      return;
+    }
+
+    if (description.length === 0) {
+      setIsDescriptionError(true);
+      return;
+    }
+
+    setIsDescriptionError(false);
+  }, [description]);
 
   const {
     onNext,
@@ -143,13 +212,16 @@ export const ContactSupportDialogProvider: FC<
       setEmail,
       categories,
       selectedCategory,
-      setSelectedCategory,
+      handleCategorySelection,
       description,
       setDescription,
       canAttatchAppLogs,
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
       setCanAttatchDeviceLogs,
+      isEmailError,
+      isCategoryError,
+      isDescriptionError,
     }),
     [
       isDeviceRequired,
@@ -168,13 +240,16 @@ export const ContactSupportDialogProvider: FC<
       setEmail,
       categories,
       selectedCategory,
-      setSelectedCategory,
+      handleCategorySelection,
       description,
       setDescription,
       canAttatchAppLogs,
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
       setCanAttatchDeviceLogs,
+      isEmailError,
+      isCategoryError,
+      isDescriptionError,
     ],
   );
 

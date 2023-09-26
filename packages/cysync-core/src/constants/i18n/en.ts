@@ -1388,6 +1388,9 @@ const en = {
           bootloaderMode: 'Device is in the bootloader mode',
         },
       },
+      success: {
+        formSubmit: 'Support Form Submitted Successfully',
+      },
     },
   },
   toggle: {

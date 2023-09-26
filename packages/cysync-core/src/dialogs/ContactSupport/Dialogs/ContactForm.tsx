@@ -33,7 +33,7 @@ export const ContactForm: React.FC = () => {
     setEmail,
     categories,
     selectedCategory,
-    setSelectedCategory,
+    handleCategorySelection,
     description,
     setDescription,
     canAttatchAppLogs,
@@ -93,7 +93,6 @@ export const ContactForm: React.FC = () => {
                   placeholder={form.field.email.placeholder}
                   label={form.field.email.label}
                   value={email ?? ''}
-                  required
                   onChange={setEmail}
                 />
                 <Flex direction="column" align="stretch" gap={0}>
@@ -105,7 +104,7 @@ export const ContactForm: React.FC = () => {
                     selectedItem={selectedCategory}
                     searchText={form.field.category.placeholder}
                     placeholderText={form.field.category.placeholder}
-                    onChange={setSelectedCategory}
+                    onChange={handleCategorySelection}
                     disabled={isLoading}
                   />
                 </Flex>
@@ -115,8 +114,8 @@ export const ContactForm: React.FC = () => {
                   </InputLabel>
                   <TextAreaInput
                     placeholder={form.field.description.placeholder}
-                    value={description}
-                    onChange={setDescription}
+                    value={description ?? ''}
+                    onChange={val => setDescription(val)}
                     disabled={isLoading}
                   />
                 </Flex>
