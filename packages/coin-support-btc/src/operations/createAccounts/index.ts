@@ -52,7 +52,6 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<BtcApp>['cre
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
     return {
-      // TODO: name to be decided later
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
