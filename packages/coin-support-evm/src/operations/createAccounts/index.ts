@@ -89,7 +89,13 @@ const getBalanceAndTxnCount = async (
   params: ICreateEvmAccountParams,
 ) => ({
   balance: await services.getBalance(address, params.coinId),
-  txnCount: await services.getTransactionCount(address, params.coinId),
+  txnCount: (
+    await services.getTransactions({
+      address,
+      assetId: params.coinId,
+      limit: 1,
+    })
+  ).result.length,
 });
 
 export const createAccounts = (
