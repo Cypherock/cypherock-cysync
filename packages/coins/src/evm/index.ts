@@ -12,6 +12,7 @@ export interface IEvmCoinInfo extends ICoinInfo {
   chain: number;
   network: string;
   tokens: Record<string, IEvmErc20Token>;
+  tokensByContract: Record<string, IEvmErc20Token>;
 }
 
 export const EvmIdMap = {
@@ -70,7 +71,7 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
         ...units,
       ],
-      tokens: getErc20Tokens(coin.id, { color: coin.color }),
+      ...getErc20Tokens(coin.id, { color: coin.color }),
     },
   }),
   {},

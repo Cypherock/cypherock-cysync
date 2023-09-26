@@ -33,8 +33,8 @@ export const parseTransaction = (params: {
     hash: transaction.hash,
     accountId: account.__id ?? '',
     walletId: account.walletId,
-    assetId: account.assetId,
-    parentAssetId: account.assetId,
+    assetId: account.parentAssetId,
+    parentAssetId: account.parentAssetId,
     familyId: account.familyId,
     amount: selfTransfer ? '0' : amount,
     fees: fees.toString(),
@@ -63,7 +63,20 @@ export const parseTransaction = (params: {
         isMine: myAddress === toAddr,
       },
     ],
+    extraData: {
+      input: transaction.input,
+      methodId: transaction.methodId,
+      functionName: transaction.functionName,
+    },
   };
+
+  if (transaction.input && transaction.input !== '0x' && transaction.methodId) {
+    const isErc20Transfer = transaction.methodId.toLowerCase() === '0xa9059cbb';
+
+    // If erc20 transfer, don't add the txn, since it's already taken care of
+    // when fetching contract history
+    if (isErc20Transfer) return undefined;
+  }
 
   return txn;
 };
