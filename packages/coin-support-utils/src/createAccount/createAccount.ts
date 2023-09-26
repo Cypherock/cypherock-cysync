@@ -4,7 +4,7 @@ import {
   ICreateAccountParams,
   IDerivationScheme,
 } from '@cypherock/coin-support-interfaces';
-import { sleep } from '@cypherock/cysync-utils';
+import { BigNumber, sleep } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Observable } from 'rxjs';
@@ -126,7 +126,7 @@ export function makeCreateAccountsObservable<
               params,
             );
 
-            if (txnCount <= 0) {
+            if (txnCount <= 0 && new BigNumber(balance).isZero()) {
               zeroTxnAddressCount += 1;
               isThresholdReached = zeroTxnAddressCount >= threshold;
             }
