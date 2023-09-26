@@ -1324,6 +1324,12 @@ const en = {
         steps: {
           confirm: 'Confirm authentication on device',
         },
+        success: 'Your X1 Vault is authenticated successfully',
+        authenticating: {
+          title: 'Please wait while your X1 Vault is being authenticated',
+          description:
+            'Do not disconnect your X1 Vault while the operation is being done',
+        },
       },
       authX1Card: {
         description: 'Your card is now being authenticated',
@@ -1332,6 +1338,7 @@ const en = {
           confirm: 'Confirm card authentication on device',
           tapCard: 'Tap any card below the device',
         },
+        success: 'Your X1 Card is authenticated successfully',
       },
     },
     password: {
