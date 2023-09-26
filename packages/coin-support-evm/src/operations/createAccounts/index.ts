@@ -63,7 +63,6 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
     const account: ICreatedEvmAccount = {
-      // TODO: name to be decided later
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
