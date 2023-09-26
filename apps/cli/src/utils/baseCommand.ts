@@ -1,5 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { BtcSupport } from '@cypherock/coin-support-btc';
+import { EvmSupport } from '@cypherock/coin-support-evm';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
@@ -8,7 +9,6 @@ import * as ethers from 'ethers';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
-import { EvmSupport } from '@cypherock/coin-support-evm';
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof BaseCommand)['baseFlags'] & T['flags']

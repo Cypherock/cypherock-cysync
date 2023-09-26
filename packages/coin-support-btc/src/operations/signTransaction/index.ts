@@ -15,8 +15,8 @@ import {
 } from './types';
 
 import { createApp } from '../../utils';
-import { IPreparedBtcTransaction } from '../transaction';
 import logger from '../../utils/logger';
+import { IPreparedBtcTransaction } from '../transaction';
 
 const mapPreparedTxnToSdkTxn = (
   transaction: IPreparedBtcTransaction,

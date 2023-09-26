@@ -1,12 +1,12 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { evmCoinList, ICoinInfo } from '@cypherock/coins';
+import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareEvmTransactionParams } from './types';
 
 import { estimateGasLimit } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
-import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 const validateAddresses = (
   params: IPrepareEvmTransactionParams,

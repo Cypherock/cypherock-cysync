@@ -1,11 +1,11 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
+import { assert } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { getAverageGasPrice } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
-import { AccountTypeMap } from '@cypherock/db-interfaces';
-import { assert } from '@cypherock/cysync-utils';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,

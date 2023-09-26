@@ -1,10 +1,11 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-
 import {
   makeSignTransactionsObservable,
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
+import { IEvmCoinInfo } from '@cypherock/coins';
+import { IAccount } from '@cypherock/db-interfaces';
 import { EvmApp, ISignTxnParams } from '@cypherock/sdk-app-evm';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -15,12 +16,10 @@ import {
   signEvmToDeviceEventMap,
 } from './types';
 
-import { createApp, getCoinSupportEthersLib } from '../../utils';
-import { IPreparedEvmTransaction } from '../transaction';
-import { IEvmCoinInfo } from '@cypherock/coins';
-import { IAccount } from '@cypherock/db-interfaces';
 import { getTransactionCount } from '../../services';
+import { createApp, getCoinSupportEthersLib } from '../../utils';
 import logger from '../../utils/logger';
+import { IPreparedEvmTransaction } from '../transaction';
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedEvmTransaction,

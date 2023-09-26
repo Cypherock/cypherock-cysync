@@ -2,8 +2,9 @@ import { evmCoinList } from '@cypherock/coins';
 import { BigNumber, assert } from '@cypherock/cysync-utils';
 import axios from 'axios';
 
-import { config } from '../../config';
 import { IEvmContractTransactionResult, IEvmTransactionResult } from './types';
+
+import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/eth/transaction`;
 
