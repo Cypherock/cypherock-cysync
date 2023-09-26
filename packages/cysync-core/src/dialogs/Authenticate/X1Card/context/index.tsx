@@ -14,8 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
-import { X1CardAuthProcess, X1CardEmail2FA } from '../Dialogs';
+import { X1CardEmail2FA, X1CardAuthProcess } from '../Dialogs';
 import { AuthenticateX1CardSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1CardDialogContextInterface {

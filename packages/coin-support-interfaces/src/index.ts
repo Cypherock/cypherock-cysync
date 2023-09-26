@@ -41,9 +41,18 @@ export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
   receive(params: IReceiveParams): Observable<IReceiveEvent>;
   syncAccount(params: ISyncAccountsParams): Observable<void>;
+  /**
+   * Fetch data for transaction before transaction preparation.
+   * For instance fetching average fee. For Bitcoin UTXOs can be fetched.
+   * Creates a PreparedTransaction object with static data.
+   */
   initializeTransaction(
     params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction>;
+  /**
+   * Takes the PreparedTransaction created by initializeTransaction and returns
+   * an updated object PreparedTransaction containing computed data.
+   */
   prepareTransaction(params: IPrepareTransactionParams): Promise<any>;
   validateAddress(params: IValidateAddressParams): boolean;
   signTransaction(

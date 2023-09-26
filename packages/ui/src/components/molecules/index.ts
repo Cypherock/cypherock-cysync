@@ -27,7 +27,6 @@ export * from './ButtonGroup';
 export * from './Dropdown';
 export * from './MessageBox';
 export * from './Breadcrumb';
-export * from './Wallet';
 export * from './SkeletonLoader';
 export * from './SummaryBox';
 export * from './Send';

@@ -14,7 +14,8 @@ export const formatAccountDisplay = (account: IAccount) => {
   }
 
   const { amount, unit } = getParsedAmount({
-    coinId: account.assetId,
+    coinId: account.parentAssetId,
+    assetId: account.assetId,
     unitAbbr: account.unit,
     amount: account.balance,
   });

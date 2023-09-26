@@ -304,6 +304,8 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    send: 'Send',
+    receive: 'Receive',
     back: 'Back',
     retry: 'Retry',
     update: 'Update',
@@ -554,7 +556,9 @@ const en = {
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
-      account: 'Wallet / Account',
+      walletAndAccount: 'Wallet / Account',
+      wallet: 'Wallet',
+      account: 'Account',
       amount: 'Amount',
       value: 'Value',
     },
@@ -920,8 +924,11 @@ const en = {
     title: 'Portfolio',
     assetAllocation: {
       title: 'Asset Allocation',
+      accountTitle: 'Accounts',
       tableHeader: {
         asset: 'Asset',
+        account: 'Account',
+        wallet: 'Wallet',
         price: 'Price',
         balance: 'Balance',
         value: 'Value',
@@ -1435,10 +1442,6 @@ const en = {
       device: {
         title: 'Device Settings',
         item: {
-          x1VaultUpdate: {
-            title: 'X1 Vault Update',
-            description: 'Check & update device firmware',
-          },
           x1VaultAuth: {
             title: 'X1 Vault Authentication',
             description: 'Authenticate your device',

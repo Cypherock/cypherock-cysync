@@ -14,8 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
-import { X1VaultAuthProcess, X1VaultEmail2FA } from '../Dialogs';
+import { X1VaultEmail2FA, X1VaultAuthProcess } from '../Dialogs';
 import { AuthenticateX1VaultSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1VaultDialogContextInterface {

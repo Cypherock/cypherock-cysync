@@ -93,7 +93,12 @@ export const X1CardAuthProcess: React.FC = () => {
   }, [onNext, task.result]);
 
   return (
-    <ErrorHandlerDialog onClose={onClose} onRetry={onRetry} error={task.error}>
+    <ErrorHandlerDialog
+      onClose={onClose}
+      onRetry={onRetry}
+      error={task.error}
+      showCloseButton
+    >
       <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">
         <Flex direction="row" justify="flex-end" py={2} px={3}>
           <CloseButton onClick={onClose} />

@@ -74,13 +74,19 @@ export const X1VaultAuthProcess: React.FC = () => {
 
   if (
     authDeviceStatus === AuthDeviceStatus.AUTH_DEVICE_STATUS_USER_CONFIRMED &&
-    task.result === undefined
+    task.result === undefined &&
+    !task.error
   ) {
     return <DeviceAuthenticating />;
   }
 
   return (
-    <ErrorHandlerDialog onClose={onClose} onRetry={onRetry} error={task.error}>
+    <ErrorHandlerDialog
+      onClose={onClose}
+      onRetry={onRetry}
+      error={task.error}
+      showCloseButton
+    >
       <DialogBox width={500} align="stretch" gap={0}>
         <Flex direction="row" justify="flex-end" py={2} px={3}>
           <CloseButton onClick={onClose} />

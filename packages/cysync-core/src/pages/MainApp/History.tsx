@@ -18,7 +18,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
 
-import { MainAppLayout } from './Components';
+import { MainAppLayout } from './Layout';
 
 export const History: FC = () => {
   const {
@@ -119,6 +119,8 @@ export const History: FC = () => {
             <TransactionTableHeader
               time={strings.history.tableHeader.time}
               account={strings.history.tableHeader.account}
+              wallet={strings.history.tableHeader.wallet}
+              walletAndAccount={strings.history.tableHeader.walletAndAccount}
               asset={strings.history.tableHeader.asset}
               value={strings.history.tableHeader.value}
               amount={strings.history.tableHeader.amount}

@@ -30,7 +30,10 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const getErc20Tokens = (parentId: string) => {
+export const getErc20Tokens = (
+  parentId: string,
+  parentCoinInfo: { color: string },
+) => {
   const TOKENSLIST: Record<string, IEvmErc20Token> = {};
   const tokensList: any = erc20List;
 
@@ -63,6 +66,7 @@ export const getErc20Tokens = (parentId: string) => {
           },
           ...units,
         ],
+        color: parentCoinInfo.color,
       };
     }
   }
