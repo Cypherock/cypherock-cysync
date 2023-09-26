@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { UtilsProps, utils } from '../../utils';
 
 interface TextAreaInputProps extends UtilsProps {
   value?: string;
-  onChange?: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: (val: string) => void;
+  onBlur?: (val: string) => void;
   disabled?: boolean;
   placeholder: string;
 }
@@ -34,17 +35,19 @@ const TextAreaInputStyle = styled.textarea`
 
 export const TextAreaInput: FC<TextAreaInputProps> = ({
   onChange,
+  onBlur,
   ...props
-}) => {
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    if (onChange) onChange(event.target.value);
-  };
-
-  return <TextAreaInputStyle {...props} onChange={handleChange} />;
-};
+}) => (
+  <TextAreaInputStyle
+    {...props}
+    onChange={e => onChange?.(e.target.value)}
+    onBlur={e => onBlur?.(e.target.value)}
+  />
+);
 
 TextAreaInput.defaultProps = {
   value: '',
   onChange: undefined,
+  onBlur: undefined,
   disabled: false,
 };
