@@ -15,6 +15,7 @@ import {
 } from './types';
 
 import { createApp } from '../../utils';
+import logger from '../../utils/logger';
 import { IPreparedBtcTransaction } from '../transaction';
 
 const mapPreparedTxnToSdkTxn = (
@@ -57,7 +58,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   BtcApp
 > = async params => {
   const { app, observer, transaction, account } = params;
-  console.log({ transaction: JSON.stringify(transaction) });
+  logger.info({ transaction });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
