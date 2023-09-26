@@ -134,6 +134,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
           }
           onClick={toggleDropdown}
           $restrictedItem
+          leftImage={selectedDropdownItem.leftImage}
+          rightText={selectedDropdownItem.rightText}
           $hasRightText={!!selectedDropdownItem.rightText}
           $parentId={selectedDropdownItem.$parentId}
           color="white"

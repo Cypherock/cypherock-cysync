@@ -20,7 +20,7 @@ export const ToggleSection: React.FC<ToggleSectionProps> = ({
   <>
     <Flex justify="space-between" align="center" width="full">
       <Flex align="center" gap={8}>
-        <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+        <Typography variant="span" color="muted" $fontSize={13}>
           <LangDisplay text={text} />
         </Typography>
       </Flex>
@@ -32,7 +32,6 @@ export const ToggleSection: React.FC<ToggleSectionProps> = ({
     {error && (
       <Typography
         variant="span"
-        width="100%"
         color="error"
         $alignSelf="start"
         $fontSize={12}

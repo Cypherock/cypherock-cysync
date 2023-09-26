@@ -57,6 +57,30 @@ export class BigNumber {
     return this.num.isNegative();
   }
 
+  isZero() {
+    return this.num.isZero();
+  }
+
+  isGreaterThan(n: NumberLike, base?: number) {
+    return this.num.isGreaterThan(BigNumber.getNumberLike(n), base);
+  }
+
+  isGreaterThanOrEqualTo(n: NumberLike, base?: number) {
+    return this.num.isGreaterThanOrEqualTo(BigNumber.getNumberLike(n), base);
+  }
+
+  isLessThan(n: NumberLike, base?: number) {
+    return this.num.isLessThan(BigNumber.getNumberLike(n), base);
+  }
+
+  isLessThanOrEqualTo(n: NumberLike, base?: number) {
+    return this.num.isLessThanOrEqualTo(BigNumber.getNumberLike(n), base);
+  }
+
+  isNaN() {
+    return this.num.isNaN();
+  }
+
   isPositive() {
     return this.num.isPositive();
   }
@@ -75,6 +99,10 @@ export class BigNumber {
 
   toPrecision(decimalPlaces: number, roundingMode?: RoundingMode) {
     return this.num.toPrecision(decimalPlaces, roundingMode);
+  }
+
+  compareTo(n: NumberLike) {
+    return this.num.comparedTo(new BigNumberJS(BigNumber.getNumberLike(n)));
   }
 
   private static getNumberLike(n: NumberLike) {

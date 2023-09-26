@@ -13,6 +13,8 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
   display: inline-block;
   width: 12px;
   height: 12px;
+  min-width: 12px;
+  min-height: 12px;
   border-radius: 50%;
   position: relative;
   cursor: pointer;

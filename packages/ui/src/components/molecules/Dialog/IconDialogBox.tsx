@@ -8,7 +8,7 @@ import {
   DialogBoxProps,
 } from './DialogBox';
 
-import { Flex, LangDisplay, Typography } from '../../atoms';
+import { CloseButton, Flex, LangDisplay, Typography } from '../../atoms';
 
 interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
@@ -18,6 +18,7 @@ interface IconDialogBoxProps extends DialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
+  onClose?: () => void;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -28,14 +29,30 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   afterTextComponent,
   footerComponent,
   textVariables,
+  onClose,
   ...props
 }) => (
   <DialogBox width={500} {...props}>
-    {header && (
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={header} />
-        </Typography>
+    {(header || onClose) && (
+      <DialogBoxHeader height={56} width={500} px={3}>
+        <Flex position="relative" width="full" justify="center" align="center">
+          {header && (
+            <Typography variant="fineprint" color="muted" $fontWeight="medium">
+              <LangDisplay text={header} />
+            </Typography>
+          )}
+
+          {onClose && (
+            <CloseButton
+              onClick={onClose}
+              $alignSelf="end"
+              position="absolute"
+              top={0.5}
+              $translateY={-0.5}
+              right={0}
+            />
+          )}
+        </Flex>
       </DialogBoxHeader>
     )}
 
@@ -86,4 +103,5 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
+  onClose: undefined,
 };

@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import { generateCss } from './generateCss';
 
+import { MediaQuery } from '../../types';
+
 type BorderType<T extends string> =
   | `${T}B`
   | `${T}R`
@@ -23,11 +25,11 @@ export type BorderColor =
   | 'list'
   | 'topbar';
 type BorderRadius = number | 'full';
-type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double';
+type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | 'none';
 
 export interface BorderProps extends Borders {
   $borderColor?: BorderColor;
-  $borderRadius?: BorderRadius;
+  $borderRadius?: MediaQuery<BorderRadius>;
   $borderStyle?: BorderStyle;
 }
 

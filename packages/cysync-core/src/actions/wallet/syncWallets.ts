@@ -1,6 +1,6 @@
 import { syncWalletsOnDb } from '@cypherock/cysync-core-services';
 import { ConnectDevice } from '@cypherock/cysync-interfaces';
-import { ManagerApp } from '@cypherock/sdk-app-manager/dist/app';
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { uniqueId } from 'lodash';
 
@@ -26,7 +26,8 @@ const syncWalletsWithConnectedDevice = async (
 
   if (
     !connection?.isMain ||
-    connection.status !== DeviceConnectionStatus.CONNECTED
+    connection.status !== DeviceConnectionStatus.CONNECTED ||
+    !connection.isAuthenticated
   ) {
     return undefined;
   }

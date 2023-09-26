@@ -3,12 +3,14 @@ import styled from 'styled-components';
 
 import { Clipboard, ClipboardVariants } from './Clipboard';
 
-import { Typography } from '../atoms';
+import { Typography, TypographyProps } from '../atoms';
 import { utils, UtilsProps } from '../utils';
 
 interface CopyContainerProps extends UtilsProps {
   link: string;
+  copyValue?: string;
   variant?: ClipboardVariants;
+  typographyProps?: TypographyProps;
 }
 
 const MaskStyle = styled.div<Omit<CopyContainerProps, 'link'>>`
@@ -23,19 +25,30 @@ const MaskStyle = styled.div<Omit<CopyContainerProps, 'link'>>`
   padding: 12px 16px;
   ${utils}
 `;
+
 export const CopyContainer: FC<CopyContainerProps> = ({
   link,
   variant,
+  copyValue,
+  typographyProps = {},
   ...props
 }) => (
   <MaskStyle {...props}>
-    <Typography color="muted" variant="p">
+    <Typography
+      color="muted"
+      variant="p"
+      mr={1}
+      $wordBreak="break-all"
+      {...typographyProps}
+    >
       {link}
     </Typography>
-    <Clipboard content={link} size="md" variant={variant} />
+    <Clipboard content={copyValue ?? link} size="md" variant={variant} />
   </MaskStyle>
 );
 
 CopyContainer.defaultProps = {
   variant: 'white',
+  copyValue: undefined,
+  typographyProps: {},
 };

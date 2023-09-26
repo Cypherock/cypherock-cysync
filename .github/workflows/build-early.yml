@@ -29,9 +29,9 @@ jobs:
 
     steps:
       - name: Verify channel
-        if: "${{ inputs.channel == 'latest' || inputs.channel == 'beta' }}"
+        if: "${{ inputs.channel == 'latest' }}"
         run: |
-          echo "Channel cannot be 'latest' or 'beta'"
+          echo "Channel cannot be 'latest'"
           exit 1
 
       - name: Checkout Commit

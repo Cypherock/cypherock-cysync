@@ -42,7 +42,7 @@ export const getDeviceState = (
 ) => {
   let { deviceState } = device;
 
-  if (info && info.isInitial) {
+  if (info?.isInitial) {
     deviceState = DeviceState.INITIAL;
   }
 
@@ -67,6 +67,7 @@ export const createDeviceConnectionInfo = (
     : undefined,
   serial: info?.deviceSerial ? uint8ArrayToHex(info.deviceSerial) : undefined,
   walletList: info?.walletList,
+  isAuthenticated: info?.isAuthenticated,
   ...getDeviceState(device, info),
 });
 
@@ -118,7 +119,10 @@ export const tryEstablishingDeviceConnection = async (
       } else {
         info = { ...(await app.getDeviceInfo()), walletList: [] };
 
-        if (device.deviceState !== DeviceState.INITIAL) {
+        if (
+          device.deviceState !== DeviceState.INITIAL &&
+          info.isAuthenticated
+        ) {
           const { walletList } = await app.getWallets();
           info.walletList = walletList;
         }

@@ -1,8 +1,8 @@
 import { release } from 'node:os';
 
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 
-import { setupIPCHandlers, setupListeners } from './ipc';
+import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
 import {
   addAppHooks,
   config,
@@ -74,6 +74,15 @@ export default function createApp() {
     setupListeners(mainWindow.webContents);
     autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
+
+    mainWindow.on('closed', () => {
+      removeListeners();
+    });
+
+    mainWindow.webContents.setWindowOpenHandler(details => {
+      shell.openExternal(details.url);
+      return { action: 'deny' };
+    });
 
     mainWindow.once('ready-to-show', () => {
       logger.info('Main Window loaded');

@@ -13,7 +13,7 @@ export const FullPageLoader: React.FC = () => (
   >
     <Image
       src={goldLoaderIcon}
-      width={108}
+      $width={108}
       alt="Loader icon"
       animate="spin"
       $animDuration={3}

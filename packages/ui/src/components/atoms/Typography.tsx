@@ -27,10 +27,13 @@ export type TypographyColor =
   | 'heading'
   | 'muted'
   | 'warn'
+  | 'message'
   | 'list'
   | 'black'
   | 'info'
-  | 'disabled';
+  | 'disabled'
+  | 'normal'
+  | 'divider';
 interface HeadingProps
   extends SpacingProps,
     FontProps,
@@ -41,10 +44,11 @@ interface HeadingProps
     FlexProps {
   color?: TypographyColor;
   $textAlign?: 'center' | 'left' | 'right';
-  $letterSpacing?: number;
+  $letterSpacing?: string | number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
-  $whiteSpace?: 'normal' | 'nowrap';
+  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
+  $filter?: string;
 }
 
 const getColorCss = (color?: TypographyColor) => {
@@ -70,8 +74,6 @@ const getColorCss = (color?: TypographyColor) => {
 };
 
 const baseStyle = css<TypographyProps>`
-  max-width: 100%;
-
   ${props =>
     props.$userSelect &&
     css`
@@ -86,7 +88,9 @@ const baseStyle = css<TypographyProps>`
   ${props =>
     props.$letterSpacing !== undefined &&
     css`
-      letter-spacing: ${props.$letterSpacing}em;
+      letter-spacing: ${typeof props.$letterSpacing === 'number'
+        ? `${props.$letterSpacing}em`
+        : props.$letterSpacing};
     `}
     
   ${props =>
@@ -106,6 +110,12 @@ const baseStyle = css<TypographyProps>`
           overflow: hidden;
         `}
 
+  ${props =>
+    props.$filter !== undefined &&
+    css`
+      filter: ${props.$filter};
+      -webkit-filter: ${props.$filter};
+    `}
 
   max-width: 100%;
   ${border};
@@ -165,6 +175,12 @@ const FinePrintStyle = styled.span<HeadingProps>`
   ${baseStyle};
 `;
 
+const DivStyle = styled.div<HeadingProps>`
+  font-size: 16px;
+  font-weight: 400;
+  ${baseStyle};
+`;
+
 const PStyle = styled.p<HeadingProps>`
   font-size: 16px;
   font-weight: 400;
@@ -182,6 +198,7 @@ export interface TypographyProps extends HeadingProps {
     | 'h5'
     | 'h6'
     | 'p'
+    | 'div'
     | 'span'
     | 'fineprint';
 }
@@ -210,8 +227,10 @@ export const Typography: FC<TypographyProps> = ({
       return <FinePrintStyle {...props}>{children}</FinePrintStyle>;
 
     case 'p':
-    default:
       return <PStyle {...props}>{children}</PStyle>;
+    case 'div':
+    default:
+      return <DivStyle {...props}>{children}</DivStyle>;
   }
 };
 
@@ -225,4 +244,5 @@ Typography.defaultProps = {
   $userSelect: undefined,
   $whiteSpace: 'normal',
   $textOverflow: 'clip',
+  $filter: undefined,
 };

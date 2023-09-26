@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
-  Check,
+  SyncingIcon,
   Connected,
   VisibilityHide,
   Visibility,
   Lock,
   LockOpen,
   Disconnected,
+  DeviceErrorIcon,
   SyncProblem,
   SyncronizingBold,
   NoNotifications,
@@ -23,6 +24,7 @@ export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
 interface ITopbar {
   title: string;
+  icon?: ReactNode;
   statusTexts: {
     connection: {
       connected: string;
@@ -64,6 +66,7 @@ const TitleStyle = styled.div`
 
 export const Topbar: FC<ITopbar> = ({
   title,
+  icon,
   statusTexts,
   connectionStatus,
   haveNotifications,
@@ -82,12 +85,12 @@ export const Topbar: FC<ITopbar> = ({
 
   const connectionStatusMap = {
     connected: <Connected fill={theme?.palette.success.main} />,
-    error: <Disconnected fill={theme?.palette.warn.main} />,
+    error: <DeviceErrorIcon fill={theme?.palette.warn.main} />,
     disconnected: <Disconnected fill={theme?.palette.warn.main} />,
   };
 
   const syncStatusMap = {
-    syncronized: <Check stroke={theme?.palette.success.main} />,
+    syncronized: <SyncingIcon />,
     syncronizing: (
       <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
     ),
@@ -96,9 +99,9 @@ export const Topbar: FC<ITopbar> = ({
 
   return (
     <Container
-      px={{ def: 4, lg: 5 }}
-      pt={{ def: '8', lg: '50' }}
-      pb={{ def: '8', lg: '10' }}
+      px={{ def: 4, mdlg: 5 }}
+      pt={{ def: '8', mdlg: '50' }}
+      pb={{ def: '8', mdlg: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
       $borderColor="topbar"
@@ -107,9 +110,18 @@ export const Topbar: FC<ITopbar> = ({
       shadow="popup"
     >
       <TitleStyle>
-        <Typography variant="h4" $fontWeight="semibold" color="silver">
-          <LangDisplay text={title} />
-        </Typography>
+        <Container direction="row">
+          {icon ?? null}
+          <Typography
+            variant="h4"
+            $fontWeight="semibold"
+            color="silver"
+            ml={icon ? 2 : 0}
+          >
+            <LangDisplay text={title} />
+          </Typography>
+        </Container>
+
         {showIcon && (
           <Button variant="icon" onClick={onIconClick} pl={5}>
             <PushpinBold />
@@ -120,7 +132,7 @@ export const Topbar: FC<ITopbar> = ({
         <Button variant="none" onClick={onSyncClick}>
           <Flex pr={2} align="center" gap={16}>
             {syncStatusMap[syncStatus]}
-            <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+            <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
               <LangDisplay text={statusTexts.sync[syncStatus]} />
             </Typography>
           </Flex>
@@ -128,7 +140,7 @@ export const Topbar: FC<ITopbar> = ({
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
-          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+          <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
             <LangDisplay text={statusTexts.connection[connectionStatus]} />
           </Typography>
         </Flex>
@@ -139,7 +151,7 @@ export const Topbar: FC<ITopbar> = ({
         <DividingLine />
         <Button variant="icon" onClick={toggleDiscreetMode}>
           <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
+            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
           </Flex>
         </Button>
         {isPasswordSet && !isLockscreenLoading && (
@@ -160,4 +172,5 @@ export const Topbar: FC<ITopbar> = ({
 Topbar.defaultProps = {
   showIcon: false,
   onIconClick: undefined,
+  icon: undefined,
 };

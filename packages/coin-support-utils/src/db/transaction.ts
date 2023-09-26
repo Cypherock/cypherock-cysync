@@ -14,9 +14,12 @@ export const insertOrUpdateTransactions = async (
     const query: Partial<ITransaction> = {
       walletId: transaction.walletId,
       hash: transaction.hash,
+      type: transaction.type,
       accountId: transaction.accountId,
       assetId: transaction.assetId,
       familyId: transaction.familyId,
+      subType: transaction.subType,
+      customId: transaction.customId,
     };
 
     const existingTxn = await db.transaction.getOne(query);
@@ -92,6 +95,7 @@ export const insertOrUpdatePriceHistory = async (
     const query: Partial<IPriceHistory> = {
       assetId: priceHistory.assetId,
       currency: priceHistory.currency,
+      days: priceHistory.days,
     };
 
     const existingPriceHistory = await db.priceHistory.getOne(query);

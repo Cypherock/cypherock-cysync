@@ -17,7 +17,12 @@ export type BgColor =
   | 'success'
   | 'muted'
   | 'lightBlack'
-  | 'warning';
+  | 'warning'
+  | 'dialog'
+  | 'popup'
+  | 'warning'
+  | 'calendar'
+  | 'container';
 export interface BgColorProps {
   $bgColor?: BgColor;
 }
@@ -74,6 +79,16 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.success.main};
     `}
+  ${props =>
+    props.$bgColor === 'container' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.container};
+    `}
+  ${props =>
+    props.$bgColor === 'popup' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.popup};
+    `}
 
 ${props =>
     props.$bgColor === 'list' &&
@@ -105,5 +120,15 @@ ${props =>
     props.$bgColor === 'warning' &&
     css`
       background: ${({ theme }) => theme.palette.background.warning};
+    `}
+    ${props =>
+    props.$bgColor === 'dialog' &&
+    css`
+      background: ${({ theme }) => theme.palette.text.dialog};
+    `}
+    ${props =>
+    props.$bgColor === 'calendar' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.calendar};
     `}
 `;

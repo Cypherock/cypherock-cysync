@@ -5,6 +5,7 @@ import { SvgStyle } from '../assets';
 
 export const svgGradients = {
   gold: 'gold-gradient',
+  silver: 'silver-gradient',
 };
 
 export const Styles = createGlobalStyle`
@@ -41,6 +42,13 @@ export const GlobalStyles: React.FC = () => (
           <stop stopColor="#E9B873" />
           <stop offset="0.369792" stopColor="#FEDD8F" />
           <stop offset="1" stopColor="#B78D51" />
+        </linearGradient>
+
+        <linearGradient id={svgGradients.silver}>
+          <stop stopColor="#A2ADB3" />
+          <stop offset="0.348958" stopColor="#F3F1F2" />
+          <stop offset="0.65625" stopColor="#BCC3C9" />
+          <stop offset="1" stopColor="#DCDFE4" />
         </linearGradient>
       </defs>
     </SvgStyle>

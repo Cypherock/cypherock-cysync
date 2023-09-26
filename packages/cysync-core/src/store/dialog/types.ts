@@ -1,10 +1,36 @@
+import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
+import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+
 export interface IDialogState {
+  deviceAuthenticationDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  appUpdateDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  deviceUpdateDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  errorDialog: {
+    isOpen: boolean;
+    data?: ErrorDialogProps;
+  };
+
+  walletSyncError: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   addAccount: {
     isOpen: boolean;
-    data?: {
-      walletId?: string;
-      coinId?: string;
-    };
+    data?: AddAccountDialogProps;
   };
 
   receive: {
@@ -12,9 +38,49 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  walletSyncError: {
+  sendDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  removePassword: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  changePassword: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  resetCySync: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  setPassword: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  authenticateX1Vault: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  authenticateX1Card: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  releaseNotes: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  historyDialog: {
+    isOpen: boolean;
+    data?: IHistoryDialogProps;
   };
 
   walletActions: {
@@ -29,7 +95,12 @@ export interface IDialogState {
     };
   };
 
-  sendDialog: {
+  walletConnect: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  signMessage: {
     isOpen: boolean;
     data?: undefined;
   };

@@ -1,4 +1,5 @@
 import {
+  SidebarProvider,
   EmailAuth,
   CardAuthentication,
   CardTraining,
@@ -21,6 +22,7 @@ import {
   Usage,
   SetPassword,
   AppUpdate,
+  AssetPage,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -42,6 +44,7 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
   wallet: <Wallet />,
+  asset: <AssetPage />,
   history: <History />,
   settings: <Settings />,
   help: <Help />,
@@ -75,16 +78,18 @@ const BaseAppRouter: React.FC<{ children: ReactNode | undefined }> = ({
   children,
 }) => (
   <Router>
-    <Routes>
-      {getRoute(routes).map(route => (
-        <Route
-          key={route.name}
-          path={route.path}
-          element={components[route.name]}
-        />
-      ))}
-    </Routes>
-    {children}
+    <SidebarProvider>
+      <Routes>
+        {getRoute(routes).map(route => (
+          <Route
+            key={route.name}
+            path={route.path}
+            element={components[route.name]}
+          />
+        ))}
+      </Routes>
+      {children}
+    </SidebarProvider>
   </Router>
 );
 

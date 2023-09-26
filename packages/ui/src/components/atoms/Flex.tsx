@@ -10,6 +10,7 @@ const FlexStyle = styled.div<UtilsProps>`
 
 export interface FlexComponentProps extends UtilsProps {
   children?: ReactNode;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const Flex = React.forwardRef<HTMLDivElement, FlexComponentProps>(
@@ -24,4 +25,5 @@ Flex.displayName = 'Flex';
 
 Flex.defaultProps = {
   children: undefined,
+  onClick: undefined,
 };
