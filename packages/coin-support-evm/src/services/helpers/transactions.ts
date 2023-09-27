@@ -28,6 +28,7 @@ export const mapTransactionForDb = (params: {
   ) {
     txns.push({
       ...txn,
+      status: TransactionStatusMap.success,
       type: TransactionTypeMap.hidden,
       amount: '0',
     });
