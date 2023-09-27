@@ -1,6 +1,5 @@
 import { IAccount } from '@cypherock/db-interfaces';
 
-// TODO: decided on account name generation
 export const createAccountNameGenerator = (coinName: string) => {
   const newAccountsPerScheme: Record<string, number | undefined> = {};
 

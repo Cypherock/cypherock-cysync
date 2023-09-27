@@ -26,6 +26,17 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
+    "@cypherock/cysync-ui#build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "!src/assets/icons/generated/**",
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig_cjs.json"
+      ]
+    },
     "@cypherock/cysync-ui#prebuild": {
       "cache": true,
       "outputs": ["src/assets/icons/generated/**"],
@@ -49,6 +60,7 @@
       "dependsOn": ["@cypherock/cysync-desktop#prebuild", "^build"],
       "outputs": ["dist/**", "dist-electron/**"],
       "inputs": [
+        "!renderer/generated/**",
         "src/**",
         "renderer/**",
         "public/**",

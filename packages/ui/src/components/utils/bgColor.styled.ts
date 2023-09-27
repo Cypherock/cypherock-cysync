@@ -21,6 +21,7 @@ export type BgColor =
   | 'dialog'
   | 'popup'
   | 'warning'
+  | 'calendar'
   | 'container';
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -124,5 +125,10 @@ ${props =>
     props.$bgColor === 'dialog' &&
     css`
       background: ${({ theme }) => theme.palette.text.dialog};
+    `}
+    ${props =>
+    props.$bgColor === 'calendar' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.calendar};
     `}
 `;

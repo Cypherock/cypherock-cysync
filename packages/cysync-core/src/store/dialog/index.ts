@@ -10,6 +10,18 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
+  appUpdateDialog: {
+    isOpen: false,
+  },
+  deviceUpdateDialog: {
+    isOpen: false,
+  },
+  deviceAuthenticationDialog: {
+    isOpen: false,
+  },
+  errorDialog: {
+    isOpen: false,
+  },
   walletSyncError: {
     isOpen: false,
   },
@@ -49,7 +61,7 @@ const initialState: IDialogState = {
   authenticateX1Card: {
     isOpen: false,
   },
-  cySyncVersionDetails: {
+  releaseNotes: {
     isOpen: false,
   },
   historyDialog: {

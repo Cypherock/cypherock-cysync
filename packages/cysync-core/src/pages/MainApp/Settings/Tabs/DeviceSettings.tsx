@@ -1,4 +1,4 @@
-import { ArrowDown, LangDisplay } from '@cypherock/cysync-ui';
+import { LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import {
@@ -15,14 +15,6 @@ export const DeviceSettings: React.FC = () => {
   const dispatch = useAppDispatch();
   return (
     <>
-      <SettingsStandardItem
-        title={{ text: item.x1VaultUpdate.title }}
-        description={{ text: item.x1VaultUpdate.description }}
-      >
-        <SettingsButton variant="primary" onClick={console.log}>
-          <LangDisplay text={strings.buttons.check} />
-        </SettingsButton>
-      </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.x1VaultAuth.title }}
         description={{ text: item.x1VaultAuth.description }}
@@ -45,12 +37,12 @@ export const DeviceSettings: React.FC = () => {
           <LangDisplay text={strings.buttons.authenticate} />
         </SettingsButton>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.transferWallet.title }}
         description={{ text: item.transferWallet.description }}
       >
         <ArrowDown />
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };

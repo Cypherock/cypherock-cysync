@@ -11,18 +11,18 @@ import React, { FC, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { GeneralSettings, AppSettings, DeviceSettings, About } from './Tabs';
+import { AppSettings, DeviceSettings, About } from './Tabs';
 
-import { MainAppLayout } from '../Components';
+import { MainAppLayout } from '../Layout';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);
 
   const tabs: Tab[] = [
-    {
-      label: strings.settings.tabs.general.title,
-      content: <GeneralSettings />,
-    },
+    // {
+    //   label: strings.settings.tabs.general.title,
+    //   content: <GeneralSettings />,
+    // },
     {
       label: strings.settings.tabs.app.title,
       content: <AppSettings />,

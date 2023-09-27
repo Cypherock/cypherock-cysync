@@ -8,8 +8,6 @@ import {
   AnimateProps,
   height,
   width,
-  ImageHeightProps,
-  ImageWidthProps,
   FlexProps,
   flex,
   TransformProps,
@@ -18,13 +16,15 @@ import {
   position,
   BorderProps,
   border,
+  HeightProps,
+  WidthProps,
 } from '../utils';
 
 export interface ImageProps
   extends SpacingProps,
     AnimateProps,
-    ImageHeightProps,
-    ImageWidthProps,
+    Omit<HeightProps, 'height'>,
+    Omit<WidthProps, 'width'>,
     TransformProps,
     PositionProps,
     FlexProps,

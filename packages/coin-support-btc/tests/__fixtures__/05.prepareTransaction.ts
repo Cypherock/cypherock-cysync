@@ -47,6 +47,7 @@ export const valid: IPrepareTransactionTestCases[] = [
     mocks: {
       account: {
         assetId: 'litecoin',
+        parentAssetId: 'litecoin',
         familyId: 'bitcoin',
       },
       changeAddress: {

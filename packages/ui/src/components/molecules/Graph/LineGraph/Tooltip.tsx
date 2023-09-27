@@ -28,6 +28,7 @@ const TooltipContainer = styled.div<UtilsProps>`
 `;
 
 const TooltipLine = styled.div<UtilsProps>`
+  pointer-events: none;
   position: absolute;
   transform: translate(-50%, 0);
   transition: all 0.1s ease;
@@ -36,6 +37,7 @@ const TooltipLine = styled.div<UtilsProps>`
 `;
 
 const TooltipDot = styled.div<UtilsProps>`
+  pointer-events: none;
   position: absolute;
   transition: all 0.1s ease;
   width: 10px;

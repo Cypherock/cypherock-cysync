@@ -1,2 +1,2 @@
-export * from './CySyncVersionDetails';
+export * from './ReleaseNotes';
 export * from './ResetCySync';

@@ -7,6 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
 
+import { AppUpdateFailedFallback } from '~/components';
 import { constants, routes } from '~/constants';
 import {
   AppUpdateState,
@@ -17,7 +18,6 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AppUpdateChecking } from './AppUpdateChecking';
-import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
 export const AppUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -31,7 +31,7 @@ export const AppUpdateDialogBox: FC = () => {
     downloadProgress,
     appUpdateState,
     isUpdatesChecked,
-  } = useAppUpdate({ shouldInstallAfterUpdate: true });
+  } = useAppUpdate();
 
   useEffect(() => {
     if (isUpdatesChecked && !updateInfo) {
@@ -52,7 +52,7 @@ export const AppUpdateDialogBox: FC = () => {
         buttonText={lang.strings.buttons.update}
         textVariables={updateInfo}
         icon={<AppUpdateIcon />}
-        handleClick={downloadUpdate}
+        handleClick={() => downloadUpdate(true)}
       />
     ),
     [AppUpdateState.Downloading]: (
@@ -62,7 +62,7 @@ export const AppUpdateDialogBox: FC = () => {
         versionText={
           lang.strings.onboarding.appUpdate.dialogs.downloading.version
         }
-        versionTextVaribles={updateInfo}
+        versionTextVariables={updateInfo}
         icon={<AppUpdateIcon />}
         progress={downloadProgress}
       />

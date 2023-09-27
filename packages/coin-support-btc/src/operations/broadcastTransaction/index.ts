@@ -81,6 +81,7 @@ export const broadcastTransaction = async (
     accountId: account.__id,
     walletId: account.walletId,
     assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
     familyId: account.familyId,
   };
 

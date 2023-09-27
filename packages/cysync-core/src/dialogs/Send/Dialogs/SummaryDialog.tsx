@@ -146,7 +146,7 @@ export const SummaryDialog: React.FC = () => {
         muted: false,
         icon: (
           <CoinIcon
-            assetId={
+            parentAssetId={
               selectedAccount?.parentAssetId ?? selectedAccount?.assetId ?? ''
             }
           />
@@ -158,7 +158,7 @@ export const SummaryDialog: React.FC = () => {
         id: 'asset',
         name: coinList[selectedAccount.assetId].name,
         muted: false,
-        icon: <CoinIcon assetId={selectedAccount.assetId} />,
+        icon: <CoinIcon parentAssetId={selectedAccount.parentAssetId} />,
       });
     }
     return fromDetails;
@@ -182,8 +182,8 @@ export const SummaryDialog: React.FC = () => {
                     <Image
                       src={walletIcon}
                       alt="From"
-                      width="15px"
-                      height="12px"
+                      $width="15px"
+                      $height="12px"
                     />
                   ),
                   rightComponent: getFromDetails(),

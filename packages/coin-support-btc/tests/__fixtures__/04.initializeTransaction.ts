@@ -37,6 +37,7 @@ export const valid: IInitializeTransactionTestCases[] = [
     mocks: {
       account: {
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
       },
       averageFee: 150,

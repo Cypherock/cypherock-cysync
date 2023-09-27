@@ -33,3 +33,13 @@ export interface IParseDeviceAction {
   type: 'disconnected' | 'try-connection';
   device?: IDevice;
 }
+
+export enum DeviceHandlingState {
+  NOT_CONNECTED,
+  INCOMPATIBLE,
+  BOOTLOADER,
+  NOT_ONBOARDED,
+  NOT_AUTHENTICATED,
+  USABLE,
+  UNKNOWN_ERROR,
+}

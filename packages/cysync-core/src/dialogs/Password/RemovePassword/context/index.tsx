@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useLockscreen } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
@@ -17,7 +18,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { ConfirmPassword } from '../Dialogs';
+import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 
 export interface RemovePasswordDialogContextInterface {
   tabs: ITabs;
@@ -31,6 +32,9 @@ export interface RemovePasswordDialogContextInterface {
   error: string | null;
   password: string;
   handlePasswordChange: (val: string) => void;
+  isLoading: boolean;
+  isSubmitDisabled: boolean;
+  handleRemovePassword: () => Promise<void>;
 }
 
 export const RemovePasswordDialogContext: Context<RemovePasswordDialogContextInterface> =
@@ -46,20 +50,44 @@ export const RemovePasswordDialogProvider: FC<
   RemovePasswordDialogProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
+  const { setPassword: setCySyncPassword } = useLockscreen();
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
   const validatePassword = () => {
-    if (password.length > 0 && password.length < 8) {
-      setError(lang.strings.dialogs.password.error.lengthError);
-      return;
-    }
     setError(null);
   };
   useEffect(validatePassword, [password]);
+
+  const validateForm = () => {
+    let isSubmitDisabledNew = Boolean(error);
+    isSubmitDisabledNew ||= isLoading;
+    isSubmitDisabledNew ||= password.length === 0;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+
+  useEffect(validateForm, [error, password, isLoading]);
+
+  const handleRemovePassword = async () => {
+    setIsLoading(true);
+    const isCorrectPassword = await setCySyncPassword(undefined, password);
+
+    if (!isCorrectPassword) {
+      setError(lang.strings.lockscreen.incorrectPassword);
+      setIsLoading(false);
+      setIsSubmitDisabled(true);
+      return;
+    }
+
+    setIsLoading(false);
+    onNext();
+  };
 
   const onClose = () => {
     dispatch(closeDialog('removePassword'));
@@ -73,6 +101,10 @@ export const RemovePasswordDialogProvider: FC<
     {
       name: lang.strings.dialogs.password.confimPassword.title,
       dialogs: [<ConfirmPassword key="remove-password-confirm" />],
+    },
+    {
+      name: lang.strings.dialogs.password.success.remove,
+      dialogs: [<RemovePasswordSuccess key="remove-password-success" />],
     },
   ];
 
@@ -101,6 +133,9 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
+      isLoading,
+      handleRemovePassword,
+      isSubmitDisabled,
     }),
     [
       isDeviceRequired,
@@ -114,6 +149,9 @@ export const RemovePasswordDialogProvider: FC<
       error,
       password,
       handlePasswordChange,
+      isLoading,
+      handleRemovePassword,
+      isSubmitDisabled,
     ],
   );
 
