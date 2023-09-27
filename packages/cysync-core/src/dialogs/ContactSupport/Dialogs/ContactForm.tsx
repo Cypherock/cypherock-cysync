@@ -31,6 +31,7 @@ export const ContactForm: React.FC = () => {
     isSubmitDisabled,
     email,
     setEmail,
+    isEmailError,
     categories,
     selectedCategory,
     handleCategorySelection,
@@ -94,6 +95,7 @@ export const ContactForm: React.FC = () => {
                   label={form.field.email.label}
                   value={email ?? ''}
                   onChange={setEmail}
+                  $error={isEmailError}
                 />
                 <Flex direction="column" align="stretch" gap={0}>
                   <InputLabel>

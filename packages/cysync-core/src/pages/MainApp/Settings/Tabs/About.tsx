@@ -2,7 +2,7 @@ import { GoldExternalLink, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { openReleaseNotesDialog } from '~/actions';
+import { openContactSupportDialog, openReleaseNotesDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
@@ -26,6 +26,17 @@ export const About: React.FC = () => {
           variant="primary"
         >
           <LangDisplay text={strings.buttons.details} />
+        </SettingsButton>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: item.cySyncVersion.title }}
+        description={{ text: 'Contact Support' }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openContactSupportDialog())}
+          variant="primary"
+        >
+          <LangDisplay text="Contact Support" />
         </SettingsButton>
       </SettingsStandardItem>
       <SettingsStandardItem

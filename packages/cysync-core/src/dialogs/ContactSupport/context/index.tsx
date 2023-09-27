@@ -20,6 +20,8 @@ import {
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 import { keyValueStore, validateEmail } from '~/utils';
+import { sendFeedback } from '~/services/feedbackService';
+import { AxiosError } from 'axios';
 
 export interface ContactSupportDialogContextInterface {
   tabs: ITabs;
@@ -115,9 +117,24 @@ export const ContactSupportDialogProvider: FC<
 
   const handleContactSupportSubmit = async () => {
     setIsLoading(true);
-    // ...
     setError(null);
-    // ...
+
+    const category = categories.find(c => c.id === selectedCategory);
+
+    if (email === null || description === null || category === undefined)
+      return;
+
+    try {
+      await sendFeedback(email, category.text, description);
+    } catch (apiError) {
+      setError(
+        ((apiError as AxiosError).response?.data as string) ??
+          (apiError as AxiosError).message,
+      );
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(false);
     onNext();
   };
