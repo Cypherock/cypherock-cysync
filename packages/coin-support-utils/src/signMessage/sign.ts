@@ -42,14 +42,14 @@ export function makeSignMessageObservable<
         try {
           await app.abort();
         } catch (error) {
-          logger.warn('Error in aborting sign transaction');
+          logger.warn('Error in aborting sign message');
           logger.warn(error);
         }
 
         try {
           await app.destroy();
         } catch (error) {
-          logger.warn('Error in destroying connection on sign transaction');
+          logger.warn('Error in destroying connection on sign message');
           logger.warn(error);
         }
       }

@@ -9,8 +9,14 @@ export enum SignMessageDeviceEvent {
   CARD_TAPPED = 4,
 }
 
+export enum SignMessageType {
+  ETH_MESSAGE = 0,
+  PRIVATE_MESSAGE = 1,
+  TYPED_MESSAGE = 2,
+}
+
 export interface ISignMessageParamsPayload {
-  signingType: string;
+  signingType: SignMessageType;
   message: string;
 }
 

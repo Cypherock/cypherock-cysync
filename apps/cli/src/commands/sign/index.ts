@@ -1,6 +1,6 @@
 import '../../config';
 
-import { signMessage } from "~/services";
+import { signMessage } from '~/services';
 import { BaseCommand } from '~/utils';
 
 export default class Sign extends BaseCommand<typeof Sign> {

@@ -2,6 +2,7 @@ import {
   ISignMessageEvent,
   ISignMessageParams,
   ReceiveDeviceEvent,
+  SignMessageType,
 } from '@cypherock/coin-support-interfaces';
 import {
   mapDerivationPath,
@@ -34,13 +35,13 @@ const signMessageFromDevice = async (
   };
   let result: ISignMsgResult;
   switch (payload.signingType) {
-    case 'ethMsg':
+    case SignMessageType.ETH_MESSAGE:
       result = await app.signEthMsg(signingPayload);
       break;
-    case 'pvtMsg':
+    case SignMessageType.PRIVATE_MESSAGE:
       result = await app.signPersonalMsg(signingPayload);
       break;
-    case 'typedMsg':
+    case SignMessageType.TYPED_MESSAGE:
       result = await app.signTypedMsg({
         ...signingPayload,
         message: JSON.parse(payload.message),
