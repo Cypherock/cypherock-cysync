@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { config } from '../config';
-import * as uuid from 'uuid';
+import { getUUID } from '~/utils';
 
 export const sendFeedback = async (
   email: string,
   category: string,
   description: string,
 ) => {
+  const id = await getUUID();
   await axios.post(`${config.API_CYPHEROCK}/feedback`, {
     subject: category,
     category,
@@ -16,7 +17,7 @@ export const sendFeedback = async (
     deviceInfo: undefined,
     deviceLogs: [],
     desktopLogs: [],
-    uuid: uuid.v4(),
+    uuid: id,
     appVersion: window.cysyncEnv.VERSION,
   });
 
