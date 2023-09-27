@@ -11,6 +11,7 @@ import {
   IPriceInfo,
   IPriceSnapshot,
   ITransaction,
+  TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -33,14 +34,18 @@ async function getTransactions(
 ) {
   if (allTransactions) {
     return lodash.orderBy(
-      allTransactions.filter(t => t.accountId === account.__id),
+      allTransactions.filter(
+        t =>
+          t.accountId === account.__id &&
+          t.status === TransactionStatusMap.success,
+      ),
       'timestamp',
       'asc',
     );
   }
 
   return db.transaction.getAll(
-    { accountId: account.__id },
+    { accountId: account.__id, status: TransactionStatusMap.success },
     { sortBy: { key: 'timestamp', descending: false } },
   );
 }

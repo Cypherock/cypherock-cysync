@@ -70,13 +70,5 @@ export const parseTransaction = (params: {
     },
   };
 
-  if (transaction.input && transaction.input !== '0x' && transaction.methodId) {
-    const isErc20Transfer = transaction.methodId.toLowerCase() === '0xa9059cbb';
-
-    // If erc20 transfer, don't add the txn, since it's already taken care of
-    // when fetching contract history
-    if (isErc20Transfer) return undefined;
-  }
-
   return txn;
 };
