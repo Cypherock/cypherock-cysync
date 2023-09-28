@@ -21,6 +21,8 @@ export interface AssetAllocationProps {
   assetId?: string;
   accountId?: string;
   onRowClick: (row: CoinAllocationRow) => void;
+  withSubIconAtBottom?: boolean;
+  withParentIconAtBottom?: boolean;
 }
 
 const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
@@ -39,6 +41,8 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   parentAssetId,
   accountId,
   onRowClick,
+  withSubIconAtBottom,
+  withParentIconAtBottom,
 }) => {
   const { coinAllocations, strings, dispatch, isAccountDisplay } =
     useAssetAllocations({
@@ -46,6 +50,8 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       parentAssetId,
       assetId,
       accountId,
+      withSubIconAtBottom,
+      withParentIconAtBottom,
     });
   const [sortedBy, setSortedBy] =
     React.useState<AssetAllocationTableHeaderName>('allocation');
@@ -143,4 +149,6 @@ AssetAllocation.defaultProps = {
   assetId: undefined,
   parentAssetId: undefined,
   accountId: undefined,
+  withParentIconAtBottom: undefined,
+  withSubIconAtBottom: undefined,
 };

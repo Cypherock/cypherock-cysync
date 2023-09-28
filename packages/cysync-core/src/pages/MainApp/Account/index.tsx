@@ -154,6 +154,7 @@ export const AccountPage: FC = () => {
             limit={10}
             walletId={selectedWallet?.__id}
             accountId={accountId}
+            variant="withTimeAndValues"
           />
         </Container>
       </Container>

@@ -110,7 +110,8 @@ export const useAccountPage = () => {
             <Container direction="row">
               <CoinIcon
                 size="16px"
-                subIconSize="10px"
+                subIconSize="8px"
+                subContainerSize="12px"
                 parentAssetId={a.parentAssetId}
               />
               <Typography mx={1} color="muted">
@@ -146,7 +147,8 @@ export const useAccountPage = () => {
               parentAssetId={selectedAccount?.parentAssetId ?? ''}
               assetId={selectedAccount?.assetId}
               withParentIconAtBottom
-              subIconSize="10px"
+              subIconSize="8px"
+              subContainerSize="12px"
               size="16px"
             />
             <Typography ml={1}>{selectedAccount?.name}</Typography>
@@ -174,7 +176,8 @@ export const useAccountPage = () => {
                   parentAssetId={fromAsset.parentAssetId ?? ''}
                   assetId={fromAsset.assetId}
                   withParentIconAtBottom
-                  subIconSize="10px"
+                  subIconSize="8px"
+                  subContainerSize="12px"
                   size="16px"
                 />
                 <Typography ml={1}>{fromAsset.asset.name}</Typography>

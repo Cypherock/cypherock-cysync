@@ -112,15 +112,22 @@ export const TransactionTableRow: React.FC<
             title={row.type}
             subtitle={row.time}
             date={row.date}
-            width={{ def: '42%', lg: '24%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '42%' }
+                : { def: '42%', lg: '24%' }
+            }
           />
-          {variant === 'withNoAssetColumn' ? (
+          {variant === 'withNoAssetColumn' && (
             <TableNameBox
               text={row.wallet}
               width={{ def: '28%', lg: '16%' }}
               p={{ def: 2 }}
             />
-          ) : (
+          )}
+          {!['withNoAssetColumn', 'withTimeAndValues'].includes(
+            variant as any,
+          ) && (
             <HistoryAssetBox
               $assetName={row.asset}
               $assetIcon={row.assetIcon}
@@ -128,7 +135,7 @@ export const TransactionTableRow: React.FC<
               p={isSmallScreen ? 2 : undefined}
             />
           )}
-          {!isSmallScreen && (
+          {!isSmallScreen && variant !== 'withTimeAndValues' && (
             <HistoryAssetBox
               wallet={variant === 'withNoAssetColumn' ? undefined : row.wallet}
               $assetIcon={row.accountIcon}
@@ -139,17 +146,21 @@ export const TransactionTableRow: React.FC<
           )}
           <TableNameBox
             text={row.amount}
-            width={{ def: '22%', lg: '15%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '30%', lg: '30%' }
+                : { def: '22%', lg: '15%' }
+            }
             p={{ def: 2 }}
           />
-          {!isSmallScreen && (
+          {(!isSmallScreen || variant === 'withTimeAndValues') && (
             <TableNameBox
               text={row.value}
-              width={{ def: '15%' }}
+              width={{ def: variant === 'withTimeAndValues' ? '28%' : '15%' }}
               p={{ def: 2 }}
             />
           )}
-          {isSmallScreen && (
+          {isSmallScreen && variant !== 'withTimeAndValues' && (
             <Container $alignSelf="stretch" $flex={1} $noFlex>
               <Button
                 display="flex"

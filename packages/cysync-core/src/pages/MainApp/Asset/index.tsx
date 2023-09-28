@@ -69,6 +69,7 @@ export const AssetPage: FC = () => {
             withBackground
             withParentIconAtBottom
             subIconSize={{ def: '12px', lg: '18px' }}
+            subContainerSize={{ def: '12px', lg: '18px' }}
           />
         ),
       }}
@@ -91,7 +92,8 @@ export const AssetPage: FC = () => {
                         parentAssetId={parentAssetId ?? ''}
                         assetId={assetId}
                         withParentIconAtBottom
-                        subIconSize="10px"
+                        subIconSize="8px"
+                        subContainerSize="12px"
                         size="16px"
                       />
                       <Typography ml={1}>{selectedAsset?.name}</Typography>
@@ -168,6 +170,7 @@ export const AssetPage: FC = () => {
             parentAssetId={parentAssetId}
             walletId={selectedWallet?.__id}
             onRowClick={onAccountClick}
+            withSubIconAtBottom
           />
         </Container>
 

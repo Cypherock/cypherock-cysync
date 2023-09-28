@@ -27,9 +27,10 @@ export const useAssetDropdown = () => {
           text: getAsset(a.parentAssetId, a.assetId).name,
           icon: (
             <CoinIcon
-              size="16px"
               withParentIconAtBottom
-              subIconSize="10px"
+              subIconSize="8px"
+              subContainerSize="12px"
+              size="16px"
               parentAssetId={a.parentAssetId}
               assetId={a.assetId}
             />

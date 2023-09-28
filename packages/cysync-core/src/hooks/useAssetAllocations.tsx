@@ -92,6 +92,8 @@ export interface UseAssetAllocationProps {
   assetId?: string;
   parentAssetId?: string;
   accountId?: string;
+  withParentIconAtBottom?: boolean;
+  withSubIconAtBottom?: boolean;
 }
 
 export const useAssetAllocations = ({
@@ -99,6 +101,8 @@ export const useAssetAllocations = ({
   assetId,
   parentAssetId,
   accountId,
+  withParentIconAtBottom,
+  withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
   const {
     lang,
@@ -197,7 +201,10 @@ export const useAssetAllocations = ({
                 parentAssetId={r.parentAssetId}
                 assetId={r.assetId}
                 size="24px"
-                withParentIconAtBottom
+                subIconSize="12px"
+                subContainerSize="16px"
+                withParentIconAtBottom={withParentIconAtBottom}
+                withSubIconAtBottom={withSubIconAtBottom}
               />
             ),
             balance: new BigNumber(r.balance).toNumber(),

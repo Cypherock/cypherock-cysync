@@ -367,8 +367,7 @@ export const useTransactions = ({
           }
           if (
             refData.current.accountId &&
-            a.accountId !== refData.current.accountId &&
-            a.parentAccountId !== refData.current.accountId
+            a.accountId !== refData.current.accountId
           ) {
             return false;
           }
