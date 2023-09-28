@@ -11,7 +11,8 @@ export const showPortfolio = async (db: IDatabase) => {
     .sort((a, b) => b.percentage - a.percentage)
     .map(a => {
       const { amount, unit } = getParsedAmount({
-        coinId: a.assetId,
+        coinId: a.parentAssetId,
+        assetId: a.assetId,
         unitAbbr: getDefaultUnit(a.assetId).abbr,
         amount: a.balance,
       });

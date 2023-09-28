@@ -33,8 +33,8 @@ export const parseTransaction = (params: {
     hash: transaction.hash,
     accountId: account.__id ?? '',
     walletId: account.walletId,
-    assetId: account.assetId,
-    parentAssetId: account.assetId,
+    assetId: account.parentAssetId,
+    parentAssetId: account.parentAssetId,
     familyId: account.familyId,
     amount: selfTransfer ? '0' : amount,
     fees: fees.toString(),
@@ -63,6 +63,11 @@ export const parseTransaction = (params: {
         isMine: myAddress === toAddr,
       },
     ],
+    extraData: {
+      input: transaction.input,
+      methodId: transaction.methodId,
+      functionName: transaction.functionName,
+    },
   };
 
   return txn;

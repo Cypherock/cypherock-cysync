@@ -10,7 +10,7 @@ export async function getAccountAndCoin<T>(
 
   assert(account, new Error('Account not found'));
 
-  const coin = coinList[account.assetId];
+  const coin = coinList[account.parentAssetId];
 
   assert(coin, new Error('Coin not found'));
 

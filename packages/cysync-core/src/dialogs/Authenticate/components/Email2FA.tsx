@@ -1,28 +1,80 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
+  Divider,
+  EmailIcon,
+  Flex,
+  Input,
   LangDisplay,
   Typography,
-  CloseButton,
-  Flex,
-  Divider,
-  Input,
-  EmailIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { keyValueStore, validateEmail } from '~/utils';
 
-import { useAuthenticateX1VaultDialog } from '../context';
+interface Email2FAProps {
+  onClose: () => void;
+  onNext: () => void;
+}
 
-export const Email2FA: React.FC = () => {
+export const Email2FA: React.FC<Email2FAProps> = ({ onClose, onNext }) => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, onNext, email, handleEmailChange, error } =
-    useAuthenticateX1VaultDialog();
   const { buttons, dialogs } = lang.strings;
   const { email2fa } = dialogs.auth;
+  const [email, setEmail] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
+
+  const validateInputEmail = () => {
+    if (email == null || email.length === 0) {
+      setError(null);
+      return;
+    }
+
+    const validation = validateEmail(email, lang);
+    if (!validation.success) {
+      setError(validation.error.issues[0].message);
+      return;
+    }
+
+    setError(null);
+  };
+  useEffect(validateInputEmail, [email]);
+
+  const validateForm = () => {
+    const isSubmitDisabledNew =
+      Boolean(error) || email === null || email.length === 0 || isLoading;
+
+    setIsSubmitDisabled(isSubmitDisabledNew);
+  };
+  useEffect(validateForm, [email, isLoading, error]);
+
+  useEffect(() => {
+    keyValueStore.email.get().then(setEmail);
+  }, []);
+
+  const handleSkip = async () => {
+    setIsLoading(true);
+    await keyValueStore.email.remove();
+    setIsLoading(false);
+    onNext();
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    if (email === null || email.length === 0) {
+      await keyValueStore.email.remove();
+    } else {
+      await keyValueStore.email.set(email);
+    }
+    setIsLoading(false);
+    onNext();
+  };
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>
@@ -55,9 +107,9 @@ export const Email2FA: React.FC = () => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onNext();
+              handleSubmit();
             }}
-            id="authenticate-x1-vault-email-2fa-form"
+            id="authenticate-x1-card-email-2fa-form"
           >
             <Input
               pasteAllowed
@@ -65,9 +117,9 @@ export const Email2FA: React.FC = () => {
               type="email"
               placeholder={email2fa.emailInput}
               label={email2fa.emailInput}
-              value={email}
+              value={email ?? ''}
               required
-              onChange={handleEmailChange}
+              onChange={setEmail}
             />
           </form>
           {error && (
@@ -78,14 +130,14 @@ export const Email2FA: React.FC = () => {
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" disabled={false}>
+        <Button variant="secondary" disabled={isLoading} onClick={handleSkip}>
           <LangDisplay text={buttons.skip} />
         </Button>
         <Button
-          form="authenticate-x1-vault-email-2fa-form"
+          form="authenticate-x1-card-email-2fa-form"
           type="submit"
           variant="primary"
-          disabled={Boolean(error) || email.length === 0}
+          disabled={isSubmitDisabled}
         >
           <LangDisplay text={buttons.continue} />
         </Button>

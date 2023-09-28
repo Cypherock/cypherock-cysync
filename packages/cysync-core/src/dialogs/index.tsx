@@ -4,8 +4,10 @@ import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
 import { AppUpdateDialog } from './AppUpdateDialog';
-import { AuthenticateX1CardDialog } from './AuthenticateX1Card';
-import { AuthenticateX1VaultDialog } from './AuthenticateX1Vault';
+import {
+  AuthenticateX1CardDialog,
+  AuthenticateX1VaultDialog,
+} from './Authenticate';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
