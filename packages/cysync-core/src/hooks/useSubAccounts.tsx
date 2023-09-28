@@ -9,11 +9,8 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useMemo } from 'react';
 
-import { useNavigateTo } from './useNavigateTo';
-
 import {
   CoinIcon,
-  routes,
   selectAccounts,
   selectDiscreetMode,
   selectPriceInfos,
@@ -34,7 +31,6 @@ const selector = createSelector(
 );
 
 export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
-  const navigateTo = useNavigateTo();
   const { accounts, priceInfos, isDiscreetMode } = useAppSelector(selector);
 
   const subAccounts = useMemo(
@@ -86,12 +82,7 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
     [accountId, accounts, priceInfos],
   );
 
-  const onSubAccountClick = (id: string) => {
-    navigateTo(`${routes.account.path}?accountId=${id}`);
-  };
-
   return {
-    onSubAccountClick,
     subAccounts,
   };
 };

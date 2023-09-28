@@ -16,6 +16,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 export interface TokenProps {
   accountId: string;
+  onClick: (id: string) => void;
 }
 
 const comparatorMap: Record<TokenTableHeaderName, string> = {
@@ -24,10 +25,10 @@ const comparatorMap: Record<TokenTableHeaderName, string> = {
   token: 'assetName',
 };
 
-export const TokenTable: React.FC<TokenProps> = ({ accountId }) => {
+export const TokenTable: React.FC<TokenProps> = ({ accountId, onClick }) => {
   const { strings } = useAppSelector(selectLanguage);
 
-  const { onSubAccountClick, subAccounts } = useSubAccounts({
+  const { subAccounts } = useSubAccounts({
     accountId,
   });
   const [sortedBy, setSortedBy] = React.useState<TokenTableHeaderName>('value');
@@ -83,7 +84,7 @@ export const TokenTable: React.FC<TokenProps> = ({ accountId }) => {
           value={row.displayValue}
           $isLast={index === displayRows.length - 1}
           $rowIndex={index}
-          onClick={() => onSubAccountClick(row.id ?? '')}
+          onClick={() => onClick(row.id ?? '')}
         />
       ))}
     </TableStructure>

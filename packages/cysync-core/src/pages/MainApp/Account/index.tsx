@@ -48,6 +48,7 @@ export const AccountPage: FC = () => {
     onGraphSwitch,
     breadcrumbItems,
     showGraphInUSD,
+    onAccountChange,
   } = useAccountPage();
 
   return (
@@ -145,7 +146,7 @@ export const AccountPage: FC = () => {
 
         {selectedAccount?.familyId === coinFamiliesMap.evm && accountId && (
           <Container $noFlex mb={2}>
-            <TokenTable accountId={accountId} />
+            <TokenTable accountId={accountId} onClick={onAccountChange} />
           </Container>
         )}
 

@@ -95,37 +95,42 @@ export const useAccountPage = () => {
   const graphData = useGraph({ accountId });
   const assetDropdown = useAssetDropdown();
 
-  const accountDropdownList: BreadcrumbDropdownItem[] = useMemo(
-    () =>
-      accounts
-        .filter(
-          a =>
-            a.type === 'account' &&
-            (!fromWallet || fromWallet.__id === a.walletId) &&
-            (!fromAsset || fromAsset.parentAssetId === a.parentAssetId),
-        )
-        .map(a => ({
-          id: a.__id ?? '',
-          displayNode: (
-            <Container direction="row">
-              <CoinIcon
-                size="16px"
-                subIconSize="8px"
-                subContainerSize="12px"
-                parentAssetId={a.parentAssetId}
-              />
-              <Typography mx={1} color="muted">
-                {a.name}
-              </Typography>
-              {a.derivationScheme && (
-                <Tag>{lodash.upperCase(a.derivationScheme)}</Tag>
-              )}
-            </Container>
-          ),
-          checkType: 'radio',
-        })),
-    [accounts, fromWallet],
-  );
+  const getAccountDropdownList = (params: {
+    fromWallet: { __id?: string } | undefined;
+    fromAsset: { parentAssetId: string } | undefined;
+    parentAccountId?: string;
+  }): BreadcrumbDropdownItem[] =>
+    accounts
+      .filter(
+        a =>
+          (params.parentAccountId || a.type === 'account') &&
+          (!params.fromWallet || params.fromWallet.__id === a.walletId) &&
+          (!params.fromAsset ||
+            params.fromAsset.parentAssetId === a.parentAssetId) &&
+          (!params.parentAccountId ||
+            params.parentAccountId === a.parentAccountId),
+      )
+      .map(a => ({
+        id: a.__id ?? '',
+        displayNode: (
+          <Container direction="row">
+            <CoinIcon
+              size="16px"
+              subIconSize="8px"
+              subContainerSize="12px"
+              parentAssetId={a.parentAssetId}
+              assetId={a.assetId}
+            />
+            <Typography mx={1} color="muted">
+              {a.name}
+            </Typography>
+            {a.derivationScheme && (
+              <Tag>{lodash.upperCase(a.derivationScheme)}</Tag>
+            )}
+          </Container>
+        ),
+        checkType: 'radio',
+      }));
 
   const onAccountChange = (id: string) => {
     const params = new URLSearchParams(query.toString());
@@ -138,27 +143,59 @@ export const useAccountPage = () => {
   };
 
   const breadcrumbItems: BreadcrumbItem[] = useMemo(() => {
+    const parentAccount = selectedAccount?.parentAccount ?? selectedAccount;
+
     const accountItem = {
       id: 'account',
       dropdown: {
         displayNode: (
           <Container direction="row">
             <CoinIcon
-              parentAssetId={selectedAccount?.parentAssetId ?? ''}
-              assetId={selectedAccount?.assetId}
+              parentAssetId={parentAccount?.parentAssetId ?? ''}
+              assetId={parentAccount?.assetId}
               withParentIconAtBottom
               subIconSize="8px"
               subContainerSize="12px"
               size="16px"
             />
-            <Typography ml={1}>{selectedAccount?.name}</Typography>
+            <Typography ml={1}>{parentAccount?.name}</Typography>
           </Container>
         ),
-        selectedItem: selectedAccount?.__id ?? '',
+        selectedItem: parentAccount?.__id ?? '',
         setSelectedItem: onAccountChange,
-        dropdown: accountDropdownList,
+        dropdown: getAccountDropdownList({ fromWallet, fromAsset }),
       },
     };
+
+    const items: BreadcrumbItem[] = [accountItem];
+
+    if (selectedAccount?.parentAccount) {
+      items.push({
+        id: 'subAccount',
+        dropdown: {
+          displayNode: (
+            <Container direction="row">
+              <CoinIcon
+                parentAssetId={selectedAccount.parentAssetId}
+                assetId={selectedAccount.assetId}
+                withParentIconAtBottom
+                subIconSize="8px"
+                subContainerSize="12px"
+                size="16px"
+              />
+              <Typography ml={1}>{selectedAccount.name}</Typography>
+            </Container>
+          ),
+          selectedItem: selectedAccount.__id ?? '',
+          setSelectedItem: onAccountChange,
+          dropdown: getAccountDropdownList({
+            fromWallet,
+            fromAsset,
+            parentAccountId: selectedAccount.parentAccount.__id,
+          }),
+        },
+      });
+    }
 
     if (fromAsset) {
       return [
@@ -188,9 +225,10 @@ export const useAccountPage = () => {
             dropdown: assetDropdown.assetDropdownList,
           },
         },
-        accountItem,
+        ...items,
       ];
     }
+
     if (fromWallet) {
       return [
         {
@@ -212,27 +250,20 @@ export const useAccountPage = () => {
             })),
           },
         },
-        accountItem,
+        ...items,
       ];
     }
 
-    return [accountItem];
-  }, [
-    assetDropdown,
-    selectedAccount,
-    wallets,
-    fromAsset,
-    fromWallet,
-    accountDropdownList,
-  ]);
+    return items;
+  }, [assetDropdown, selectedAccount, wallets, fromAsset, fromWallet]);
 
   return {
     ...graphData,
     ...assetDropdown,
-    ...accountDropdownList,
     breadcrumbItems,
     accountId,
     selectedAccount,
+    onAccountChange,
     onAssetClick,
   };
 };
