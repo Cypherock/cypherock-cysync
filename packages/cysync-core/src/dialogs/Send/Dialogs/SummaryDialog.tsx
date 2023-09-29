@@ -69,14 +69,14 @@ export const SummaryDialog: React.FC = () => {
     return details ?? [];
   };
 
-  const bitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
+  const getBitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
     // return '0' in error scenarios because BigNumber cannot handle empty string
     if (!txn) return '0';
     const { computedData } = txn as IPreparedBtcTransaction;
     return computedData.fee.toString() || '0';
   };
 
-  const evmFeeAmount = (txn: IPreparedTransaction | undefined) => {
+  const getEvmFeeAmount = (txn: IPreparedTransaction | undefined) => {
     if (!txn) return '0';
     const { computedData } = txn as IPreparedEvmTransaction;
     return computedData.fee || '0';
@@ -86,8 +86,8 @@ export const SummaryDialog: React.FC = () => {
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
   > = {
-    bitcoin: bitcoinFeeAmount,
-    evm: evmFeeAmount,
+    bitcoin: getBitcoinFeeAmount,
+    evm: getEvmFeeAmount,
     near: () => '0',
     solana: () => '0',
   };

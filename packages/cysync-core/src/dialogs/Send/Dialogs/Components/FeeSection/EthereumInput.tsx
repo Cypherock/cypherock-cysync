@@ -32,7 +32,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   const [gasPrice, setGasPrice] = useState(inputGasPrice);
   const lang = useAppSelector(selectLanguage);
   const captions = lang.strings.send.fees.sliderLabels;
-  const { priceLabel, limitLabel } = lang.strings.send.fees.inputLabels;
+  const { inputLabels } = lang.strings.send.fees;
   const transaction = useSendDialog().transaction as IPreparedEvmTransaction;
 
   const handlePriceChange = (val: string | number) => {
@@ -70,7 +70,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
                 <Typography variant="span" color="muted" $fontSize={13}>
-                  <LangDisplay text={priceLabel} />
+                  <LangDisplay text={inputLabels.gasPrice} />
                 </Typography>
                 <GoldQuestionMark height={14} width={14} />
               </Flex>
@@ -97,7 +97,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
                 <Typography variant="span" color="muted" $fontSize={13}>
-                  <LangDisplay text={priceLabel} />
+                  <LangDisplay text={inputLabels.gasPrice} />
                 </Typography>
                 <GoldQuestionMark height={14} width={14} />
               </Flex>
@@ -113,7 +113,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
             <Flex justify="space-between" align="center" width="full">
               <Flex align="center" gap={8}>
                 <Typography variant="span" color="muted" $fontSize={13}>
-                  <LangDisplay text={limitLabel} />
+                  <LangDisplay text={inputLabels.gasLimit} />
                 </Typography>
                 <GoldQuestionMark height={14} width={14} />
               </Flex>

@@ -37,22 +37,22 @@ export const SingleTransaction: React.FC = () => {
     prepare(txn);
   }, []);
 
-  const bitcoinMaxSendAmount = (txn: IPreparedTransaction) => {
+  const getBitcoinMaxSendAmount = (txn: IPreparedTransaction) => {
     const { computedData } = txn as IPreparedBtcTransaction;
     return computedData.outputs[0]?.value.toString() || '';
   };
 
-  const evmMaxSendAmount = (txn: IPreparedTransaction) => {
+  const getEvmMaxSendAmount = (txn: IPreparedTransaction) => {
     const { computedData } = txn as IPreparedEvmTransaction;
     return computedData.output.amount;
   };
 
-  const computedAmounMap: Record<
+  const computedAmountMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction) => string
   > = {
-    bitcoin: bitcoinMaxSendAmount,
-    evm: evmMaxSendAmount,
+    bitcoin: getBitcoinMaxSendAmount,
+    evm: getEvmMaxSendAmount,
     near: () => '',
     solana: () => '',
   };
@@ -60,7 +60,7 @@ export const SingleTransaction: React.FC = () => {
   useEffect(() => {
     if (transaction?.userInputs.isSendAll) {
       const value =
-        computedAmounMap[selectedAccount?.familyId as CoinFamily](transaction);
+        computedAmountMap[selectedAccount?.familyId as CoinFamily](transaction);
       setAmountOverride(getConvertedAmount(value) ?? '');
     }
   }, [transaction]);
