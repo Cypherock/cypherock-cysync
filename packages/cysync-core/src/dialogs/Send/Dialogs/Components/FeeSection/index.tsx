@@ -104,7 +104,7 @@ export const FeeSection: React.FC = () => {
   }) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedEvmTransaction;
-    const gasPrice = param.gasPrice
+    const gasPrice = param.gasPrice?.toString(10)
       ? convertToUnit({
           amount: param.gasPrice,
           coinId: selectedAccount?.parentAssetId ?? '',
@@ -120,11 +120,11 @@ export const FeeSection: React.FC = () => {
         gasLimit < Number(txn.computedData.gasLimit),
     );
 
-    if (param.gasLimit) {
+    if (param.gasLimit !== undefined) {
       // user modified gas limit
       txn.userInputs.gasLimit = gasLimit.toString(10);
     }
-    if (param.gasPrice) {
+    if (param.gasPrice !== undefined) {
       // user modified gas price
       txn.userInputs.gasPrice = gasPrice;
     }
