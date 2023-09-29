@@ -59,13 +59,12 @@ export const prepareTransaction = async (
   const output = { ...txn.userInputs.outputs[0] };
   const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
   const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
-  const hasEnoughBalance = new BigNumber(account.balance)
-    .minus(output.amount || '0')
-    .minus(fee)
-    .isPositive();
+  const sendAllAmount = new BigNumber(account.balance).minus(fee);
+  let hasEnoughBalance = sendAllAmount.minus(output.amount || '0').isPositive();
 
-  if (txn.userInputs.isSendAll && hasEnoughBalance) {
-    output.amount = new BigNumber(account.balance).minus(fee).toString(10);
+  if (txn.userInputs.isSendAll && sendAllAmount.isPositive()) {
+    hasEnoughBalance = sendAllAmount.isPositive();
+    output.amount = sendAllAmount.toString(10);
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
   }
