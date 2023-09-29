@@ -19,7 +19,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { deviceLock, useDevice } from '~/context';
-import { useAccountDropdown } from '~/hooks';
+import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
@@ -89,11 +89,13 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
+  } = useWalletDropdown();
+  const {
     selectedAccount,
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown({ includeSubAccounts: true });
+  } = useAccountDropdown({ includeSubAccounts: true, selectedWallet });
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);

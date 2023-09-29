@@ -15,19 +15,23 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { useWalletConnect } from '~/context';
+import { WalletConnectConnectionState, useWalletConnect } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const WalletConnectPasteURIDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { handleClose, createConnection } = useWalletConnect();
+  const { handleClose, createConnection, connectionState } = useWalletConnect();
   const { buttons, walletConnect } = lang.strings;
   const { uriTab } = walletConnect;
   const [walletConnectURI, setWalletConnectedURI] = useState('');
   const [error, setError] = useState('');
+  const isLoading = useMemo(
+    () => connectionState === WalletConnectConnectionState.CONNECTING,
+    [connectionState],
+  );
   const isDisabled = useMemo(
-    () => !walletConnectURI || walletConnectURI.length === 0,
-    [walletConnectURI],
+    () => isLoading || !walletConnectURI || walletConnectURI.length === 0,
+    [walletConnectURI, isLoading],
   );
 
   const handleCopyFromClipboard = async (onlyWC?: boolean) => {
@@ -49,7 +53,6 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
       setError('Invalid URI');
       return;
     }
-
     setError('');
     createConnection(walletConnectURI);
   };
@@ -114,6 +117,7 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
             type="submit"
             variant="primary"
             disabled={isDisabled}
+            isLoading={isLoading}
           >
             <LangDisplay text={buttons.connect} />
           </Button>

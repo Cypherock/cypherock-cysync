@@ -3,7 +3,6 @@ import React, { FC, ReactNode } from 'react';
 
 import { WalletConnectConnectionState, useWalletConnect } from '~/context';
 
-import { WalletConnectDialogProvider } from './context';
 import {
   WalletConnectAccountConnectedDialog,
   WalletConnectAccountSelectionDialog,
@@ -24,14 +23,8 @@ const walletConnectDialogsMap: Partial<
   [WalletConnectConnectionState.CONNECTION_ERROR]: <div>Error</div>,
 };
 
-const WalletConnect: FC = () => {
+export const WalletConnectDialog: FC = () => {
   const { connectionState } = useWalletConnect();
 
   return <BlurOverlay>{walletConnectDialogsMap[connectionState]}</BlurOverlay>;
 };
-
-export const WalletConnectDialog: FC = () => (
-  <WalletConnectDialogProvider>
-    <WalletConnect />
-  </WalletConnectDialogProvider>
-);

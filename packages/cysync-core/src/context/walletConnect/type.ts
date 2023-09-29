@@ -1,3 +1,5 @@
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+
 export const WalletConnectCallRequestMethodMap = {
   ETH_SEND_TXN: 'eth_sendTransaction',
   ETH_SIGN_TXN: 'eth_signTransaction',
@@ -30,4 +32,52 @@ export interface WalletConnectionConnectionClientMeta {
   url?: string;
   icons?: string[];
   name?: string;
+}
+
+export const ACCEPTED_CALL_METHODS = [
+  WalletConnectCallRequestMethodMap.ETH_SIGN_TXN,
+  WalletConnectCallRequestMethodMap.ETH_SEND_TXN,
+  WalletConnectCallRequestMethodMap.ETH_SIGN,
+  WalletConnectCallRequestMethodMap.SIGN_PERSONAL,
+  WalletConnectCallRequestMethodMap.SIGN_TYPED,
+  WalletConnectCallRequestMethodMap.SIGN_TYPED_V4,
+];
+
+export interface useWalletConnectVersionProps {
+  setConnectionClientMeta: React.Dispatch<
+    React.SetStateAction<WalletConnectionConnectionClientMeta | undefined>
+  >;
+
+  connectionState: WalletConnectConnectionState;
+  setConnectionState: React.Dispatch<
+    React.SetStateAction<WalletConnectConnectionState>
+  >;
+  callRequestData: WalletConnectCallRequestData | undefined;
+  setCallRequestData: React.Dispatch<
+    React.SetStateAction<WalletConnectCallRequestData | undefined>
+  >;
+  setConnectionError: React.Dispatch<React.SetStateAction<string>>;
+  setErrorTitle: React.Dispatch<React.SetStateAction<string>>;
+  setErrorSubtitle: React.Dispatch<React.SetStateAction<string>>;
+  connectionTimeoutRef: React.MutableRefObject<NodeJS.Timeout | undefined>;
+  openDialog: () => void;
+  closeDialog: () => void;
+  setActiveWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
+  setActiveAccount: React.Dispatch<React.SetStateAction<IAccount | undefined>>;
+}
+
+export interface IClientMeta {
+  description: string;
+  url: string;
+  icons: string[];
+  name: string;
+}
+
+export interface IWalletConnectMethods {
+  init: (uri: string, metadata: IClientMeta) => Promise<void>;
+  disconnect: () => Promise<void>;
+  approveSession: (accounts: IAccount[]) => Promise<void>;
+  approveCall: (result: string) => Promise<void>;
+  rejectCall: (message?: string) => Promise<void>;
+  resetStates: () => void;
 }

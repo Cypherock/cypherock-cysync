@@ -892,14 +892,12 @@ const en = {
         'These blockchains are supported but add their accounts before use',
       notSupportedWarning: {
         title: 'These blockchains are not supported',
-        description:
-          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
     },
     accountConnectedTab: {
       title: 'Connected to ${dappName} interface',
       subTitle: 'Accounts',
-      info: 'You can now access the Uniswap interface DApp on your web browser',
+      info: 'You can now access the ${dappName} DApp on your web browser',
     },
     common: {
       info: {

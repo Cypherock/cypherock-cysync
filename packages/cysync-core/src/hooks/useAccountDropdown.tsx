@@ -1,25 +1,19 @@
 import { getAsset, getParsedAmount } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
-
-import { useWalletDropdown } from './useWalletDropdown';
 
 import { CoinIcon, selectAccounts, useAppSelector } from '..';
 
 export interface UseAccountDropdownProps {
+  selectedWallet: IWallet | undefined;
   includeSubAccounts?: boolean;
+  assetFilter?: string[];
 }
 
-export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
-  const {
-    selectedWallet,
-    setSelectedWallet,
-    walletDropdownList,
-    handleWalletChange,
-  } = useWalletDropdown();
+export const useAccountDropdown = (props: UseAccountDropdownProps) => {
   const { accounts } = useAppSelector(selectAccounts);
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
@@ -48,8 +42,11 @@ export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
 
     const mainAccounts = accounts.filter(
       account =>
-        account.walletId === selectedWallet?.__id &&
-        account.type === AccountTypeMap.account,
+        account.walletId === props.selectedWallet?.__id &&
+        account.type === AccountTypeMap.account &&
+        (props.assetFilter
+          ? props.assetFilter.includes(account.assetId)
+          : true),
     );
 
     for (const account of mainAccounts) {
@@ -68,7 +65,7 @@ export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
         rightText: getBalanceToDisplay(account),
       });
 
-      if (props?.includeSubAccounts) {
+      if (props.includeSubAccounts) {
         const subAccounts = accounts.filter(
           subAccount => subAccount.parentAccountId === account.__id,
         );
@@ -99,13 +96,9 @@ export const useAccountDropdown = (props?: UseAccountDropdownProps) => {
     }
 
     return accountsList;
-  }, [accounts, selectedWallet, props?.includeSubAccounts]);
+  }, [accounts, props.selectedWallet, props.includeSubAccounts]);
 
   return {
-    selectedWallet,
-    setSelectedWallet,
-    handleWalletChange,
-    walletDropdownList,
     selectedAccount,
     setSelectedAccount,
     handleAccountChange,

@@ -7,35 +7,29 @@ import {
   DialogBoxFooter,
   LangDisplay,
   Typography,
-  Image,
   AlertBox,
   BulletList,
   Flex,
   ScrollableContainer,
   WalletIcon,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
+import { useWalletConnect } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
+import { getBalanceToDisplay, truncateMiddle } from '~/utils';
 
-import { useWalletConnectDialog } from '../context';
+import { DappConnectionDisplay } from './Components';
 
 interface ConnectAccountParam {
   name: string;
   accounts: IAccount[];
-  getBalanceToDisplay: (account: IAccount) => string;
 }
 
-const maskAddress = (address: string, len = 12) =>
-  `${address.slice(0, len)}...${address.slice(-len)}`;
-
-const ConnectAccounts: React.FC<ConnectAccountParam> = ({
-  name,
-  accounts,
-  getBalanceToDisplay,
-}) => (
+const ConnectAccounts: React.FC<ConnectAccountParam> = ({ name, accounts }) => (
   <Container direction="column" gap={8} align="stretch">
     <Typography color="muted">
       <LangDisplay text={name} />
@@ -58,7 +52,9 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
               <LangDisplay text={account.name} />
             </Typography>
             <Typography color="muted" $fontSize={13}>
-              <LangDisplay text={maskAddress(account.xpubOrAddress)} />
+              <LangDisplay
+                text={truncateMiddle(account.xpubOrAddress, 28, '...')}
+              />
             </Typography>
           </Flex>
         </Flex>
@@ -71,34 +67,24 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({
 );
 
 export const WalletConnectAccountConnectedDialog: React.FC = () => {
-  const { onClose } = useWalletConnectDialog();
   const lang = useAppSelector(selectLanguage);
+  const { activeWallet, selectedAccounts, handleClose, connectionClientMeta } =
+    useWalletConnect();
   const { buttons, walletConnect } = lang.strings;
   const { accountConnectedTab, common } = walletConnect;
-
-  const {
-    selectedWallet,
-    selectedEvmAccountsGroup,
-    getBalanceToDisplay,
-    dapp,
-  } = useWalletConnectDialog();
+  const groupedAccounts = useMemo(
+    () =>
+      selectedAccounts.reduce((acc: Record<string, IAccount[]>, account) => {
+        acc[account.parentAssetId] = acc[account.parentAssetId] ?? [];
+        acc[account.parentAssetId].push(account);
+        return acc;
+      }, Object.create(null)),
+    [selectedAccounts],
+  );
 
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch">
-      <Container display="flex" direction="column" gap={32} py={4} px={5}>
-        <Image src={dapp.logo} alt="Send Coin" />
-        <Container display="flex" direction="column" gap={8} width="full">
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay
-              text={accountConnectedTab.title}
-              variables={{ dappName: dapp.name }}
-            />
-          </Typography>
-          <Typography variant="span" color="muted">
-            <LangDisplay text={dapp.url} />
-          </Typography>
-        </Container>
-      </Container>
+      <DappConnectionDisplay title={accountConnectedTab.title} connected />
       <ScrollableContainer>
         <DialogBoxBody gap={0} p={0} align="stretch">
           <Container
@@ -123,18 +109,20 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
               >
                 <WalletIcon width={15} height={12} />
                 <Typography $fontSize={12}>
-                  <LangDisplay text={selectedWallet?.name ?? ''} />
+                  <LangDisplay text={activeWallet?.name ?? ''} />
                 </Typography>
               </Flex>
             </Flex>
-            {selectedEvmAccountsGroup.map(group => (
-              <ConnectAccounts
-                key={group.assetId}
-                name={coinList[group.assetId].name}
-                accounts={group.accounts}
-                getBalanceToDisplay={getBalanceToDisplay}
-              />
-            ))}
+            {Object.keys(groupedAccounts).map(groupKey => {
+              const accounts = groupedAccounts[groupKey];
+              return (
+                <ConnectAccounts
+                  key={groupKey}
+                  name={coinList[groupKey].name}
+                  accounts={accounts}
+                />
+              );
+            })}
             <Container
               display="flex"
               direction="column"
@@ -159,7 +147,12 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
             </Container>
           </Container>
           <Container px={5} pb={4} pt={2} align="stretch">
-            <AlertBox subAlert={accountConnectedTab.info} variant="message" />
+            <AlertBox
+              subAlert={parseLangTemplate(accountConnectedTab.info, {
+                dappName: connectionClientMeta?.name,
+              })}
+              variant="message"
+            />
           </Container>
         </DialogBoxBody>
       </ScrollableContainer>
@@ -169,7 +162,7 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
           disabled={false}
           onClick={e => {
             e.preventDefault();
-            onClose();
+            handleClose();
           }}
         >
           <LangDisplay text={buttons.disconnect} />
