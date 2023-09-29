@@ -89,11 +89,21 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
       </Container>
       {isTextInput && (
         <>
-          <FeesInput
-            value={gasPrice.toString()}
-            postfixText={unit}
-            onChange={handlePriceChange}
-          />
+          <Container display="flex" direction="column" gap={8} width="full">
+            <Flex justify="space-between" align="center" width="full">
+              <Flex align="center" gap={8}>
+                <Typography variant="span" color="muted" $fontSize={13}>
+                  <LangDisplay text={priceLabel} />
+                </Typography>
+                <GoldQuestionMark height={14} width={14} />
+              </Flex>
+            </Flex>
+            <FeesInput
+              value={gasPrice.toString()}
+              postfixText={unit}
+              onChange={handlePriceChange}
+            />
+          </Container>
 
           <Container display="flex" direction="column" gap={8} width="full">
             <Flex justify="space-between" align="center" width="full">
