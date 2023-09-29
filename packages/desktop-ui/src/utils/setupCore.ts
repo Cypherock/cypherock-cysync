@@ -6,6 +6,7 @@ import {
   setCloseAppMethod,
   setAutoUpdater,
   setDependencies,
+  setCySyncLogsMethod,
 } from '@cypherock/cysync-core';
 
 import { createServiceLogger } from './logger';
@@ -16,6 +17,7 @@ export const setupCoreDependencies = async () => {
   setDB(await window.electronAPI.getDb());
   setKeyDB(await window.electronAPI.getKeyDb());
   setResetCySyncMethod(window.electronAPI.resetCySync);
+  setCySyncLogsMethod(window.electronAPI.getCySyncLogs);
   setCloseAppMethod(window.electronAPI.closeApp);
   setAutoUpdater({
     checkForUpdates: window.electronAPI.checkForUpdates,
