@@ -8,7 +8,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { BatchTransaction } from './BatchTransaction';
 import { SingleTransaction } from './SingleTransaction';
 
-const BitcoinAnA: React.FC = () => {
+const BitcoinAdressAndAmount: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const tabs = [
@@ -32,7 +32,7 @@ const BitcoinAnA: React.FC = () => {
   return <Tabs tabs={tabs} />;
 };
 
-const EvmAnA: React.FC = () => (
+const EvmAddressAndAmount: React.FC = () => (
   <Container px={5} py="12px">
     {' '}
     <SingleTransaction />{' '}
@@ -40,10 +40,10 @@ const EvmAnA: React.FC = () => (
 );
 
 const anaInputMap: Record<CoinFamily, React.FC<any>> = {
-  bitcoin: BitcoinAnA,
-  evm: EvmAnA,
-  near: EvmAnA,
-  solana: EvmAnA,
+  bitcoin: BitcoinAdressAndAmount,
+  evm: EvmAddressAndAmount,
+  near: EvmAddressAndAmount,
+  solana: EvmAddressAndAmount,
 };
 
 const getAnaComponent = (coinFamily: CoinFamily) => {
