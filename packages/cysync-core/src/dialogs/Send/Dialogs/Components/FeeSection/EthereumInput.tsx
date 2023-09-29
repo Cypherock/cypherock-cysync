@@ -53,10 +53,14 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   };
 
   useEffect(() => {
-    if (transaction.userInputs.gasPrice) {
-      // user input gas price should reflect in the ui
-    }
-  });
+    setGasPrice(initialGasPrice);
+    transaction.userInputs.gasPrice = transaction.staticData.averageGasPrice;
+    transaction.userInputs.gasLimit = transaction.computedData.gasLimit;
+    onChange({
+      gasLimit: Number(transaction.computedData.gasLimit),
+      gasPrice: initialGasPrice,
+    });
+  }, [isTextInput]);
 
   return (
     <>
@@ -99,7 +103,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              value={gasPrice.toString()}
+              value={initialGasPrice.toString()}
               postfixText={unit}
               onChange={handlePriceChange}
             />
@@ -115,14 +119,8 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              key={
-                transaction.userInputs.gasLimit ??
-                transaction.computedData.gasLimit
-              }
-              value={
-                transaction.userInputs.gasLimit ??
-                transaction.computedData.gasLimit
-              }
+              key={transaction.computedData.gasLimit}
+              value={transaction.computedData.gasLimit}
               onChange={handleLimitChange}
             />
           </Container>
