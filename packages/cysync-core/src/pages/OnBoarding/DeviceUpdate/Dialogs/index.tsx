@@ -13,6 +13,7 @@ import { useAppSelector, selectLanguage } from '~/store';
 import { getCloseAppMethod } from '~/utils';
 
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
+import { DeviceHandlingState, useDevice } from '~/context';
 
 export const DeviceUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -25,6 +26,8 @@ export const DeviceUpdateDialogBox: FC = () => {
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
+
+  const { deviceHandlingState } = useDevice();
 
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) {
@@ -39,16 +42,32 @@ export const DeviceUpdateDialogBox: FC = () => {
           text={lang.strings.onboarding.deviceUpdate.dialogs.checking.title}
         />
       ),
-      [DeviceUpdateState.Confirmation]: (
-        <ConfirmationDialog
-          title={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title
+      [DeviceUpdateState.Confirmation]:
+        deviceHandlingState === DeviceHandlingState.BOOTLOADER ? (
+          <ConfirmationDialog
+            title={
+              lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title
+            }
+            icon={<DeviceUpdateIcon />}
+            subtext={
+              lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
+            }
+            textVariables={{ version }}
+          />
+        ) : (
+          <DeviceUpdateLoading
+            text={lang.strings.onboarding.deviceUpdate.dialogs.checking.title}
+          />
+        ),
+      [DeviceUpdateState.Updating]: (
+        <ProgressDialog
+          title={lang.strings.onboarding.deviceUpdate.dialogs.updating.heading}
+          subtext={
+            lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext
           }
           icon={<DeviceUpdateIcon />}
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
-          }
-          textVariables={{ version }}
+          progress={Number(downloadProgress.toFixed(0))}
+          versionTextVariables={{ version }}
         />
       ),
       [DeviceUpdateState.Updating]: (
