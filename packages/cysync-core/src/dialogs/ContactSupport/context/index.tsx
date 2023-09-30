@@ -88,29 +88,26 @@ export const ContactSupportDialogProvider: FC<
   const [isCategoryError, setIsCategoryError] = useState<boolean>(false);
   const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
-  const validateForm = () => {
-    let isSubmitDisabledNew = isLoading;
-    isSubmitDisabledNew ||= isEmailError;
-    isSubmitDisabledNew ||= email === null;
-    isSubmitDisabledNew ||= isCategoryError;
-    isSubmitDisabledNew ||= selectedCategory === undefined;
-    isSubmitDisabledNew ||= isDescriptionError;
-    isSubmitDisabledNew ||= description === null;
-
-    setIsSubmitDisabled(isSubmitDisabledNew);
-  };
-
-  useEffect(validateForm, [
-    isLoading,
-    isEmailError,
-    email,
-    isCategoryError,
-    selectedCategory,
-    isDescriptionError,
-    description,
-  ]);
+  const isSubmitDisabled = useMemo<boolean>(
+    () =>
+      isLoading ||
+      isEmailError ||
+      email === null ||
+      isCategoryError ||
+      selectedCategory === undefined ||
+      isDescriptionError ||
+      description === null,
+    [
+      isLoading,
+      isEmailError,
+      email,
+      isCategoryError,
+      selectedCategory,
+      isDescriptionError,
+      description,
+    ],
+  );
 
   const onClose = () => {
     dispatch(closeDialog('contactSupportDialog'));
