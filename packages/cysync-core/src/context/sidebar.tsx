@@ -4,7 +4,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DefaultTheme, useTheme } from 'styled-components';
 
-import { syncWalletsWithDevice } from '~/actions';
+import { openContactSupportDialog, syncWalletsWithDevice } from '~/actions';
 import { useQuery, useNavigateTo } from '~/hooks';
 
 import { useDevice } from './device';
@@ -61,6 +61,10 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const [isWalletCollapsed, setIsWalletCollapsed] = React.useState(false);
 
   const navigate = (page: Page) => {
+    if (page === 'help') {
+      dispatch(openContactSupportDialog());
+      return;
+    }
     navigateTo(routes[page].path);
   };
 
