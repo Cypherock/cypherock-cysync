@@ -129,17 +129,15 @@ export const ContactSupportDialogProvider: FC<
 
     try {
       await sendFeedback(email, category.text, description);
+      setIsLoading(false);
+      onNext();
     } catch (apiError) {
       setError(
         ((apiError as AxiosError).response?.data as string) ??
           (apiError as AxiosError).message,
       );
       setIsLoading(false);
-      return;
     }
-
-    setIsLoading(false);
-    onNext();
   };
 
   const handleCategorySelection = (id: string | undefined) => {
