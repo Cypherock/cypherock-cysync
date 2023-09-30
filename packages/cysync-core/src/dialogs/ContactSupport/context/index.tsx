@@ -122,8 +122,10 @@ export const ContactSupportDialogProvider: FC<
 
     const category = categories.find(c => c.id === selectedCategory);
 
-    if (email === null || description === null || category === undefined)
+    if (email === null || description === null || category === undefined) {
+      setIsLoading(false);
       return;
+    }
 
     try {
       await sendFeedback(email, category.text, description);
