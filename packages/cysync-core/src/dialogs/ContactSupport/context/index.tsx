@@ -146,11 +146,11 @@ export const ContactSupportDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.dialogs.password.confimPassword.title,
+      name: lang.strings.dialogs.contactSupport.form.title,
       dialogs: [<ContactForm key="contact-support-form" />],
     },
     {
-      name: lang.strings.dialogs.password.success.change,
+      name: lang.strings.dialogs.contactSupport.success.formSubmit,
       dialogs: [<ContactSupportSuccess key="contact-support-success" />],
     },
   ];
