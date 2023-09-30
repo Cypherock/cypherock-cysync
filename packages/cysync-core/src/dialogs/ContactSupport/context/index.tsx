@@ -69,8 +69,9 @@ export const ContactSupportDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const categories: DropDownListItemProps[] = [
-    { text: 'Feedback', id: 'feedback' },
-    { text: 'Bug Report', id: 'bugReport' },
+    { text: 'Feedback', id: 'Feedback' },
+    { text: 'Complaint', id: 'Complaint' },
+    { text: 'Others', id: 'Others' },
   ];
 
   const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(false);
