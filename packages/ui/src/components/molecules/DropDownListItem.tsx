@@ -147,7 +147,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   };
 
   const handleBoxClick = () => {
-    if (checkType) handleCheckChange();
+    handleCheckChange();
     if (onClick) onClick();
   };
 

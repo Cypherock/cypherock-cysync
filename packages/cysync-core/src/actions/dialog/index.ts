@@ -64,3 +64,6 @@ export const openAppUpdateDialog = () =>
 
 export const openErrorDialog = (props: ErrorDialogProps) =>
   openDialog({ name: 'errorDialog', data: props });
+
+export const openContactSupportDialog = () =>
+  openDialog({ name: 'contactSupportDialog', data: undefined });
