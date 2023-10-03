@@ -79,7 +79,9 @@ export const transactionComparatorMap: Record<
 > = {
   time: 'timestamp',
   asset: 'assetName',
-  account: 'walletAndAccount',
+  wallet: 'walletName',
+  account: 'accountName',
+  walletAndAccount: 'walletAndAccount',
   amount: 'amount',
   value: 'value',
 };
@@ -168,7 +170,10 @@ export const mapTransactionForDisplay = (params: {
       p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
   );
   const wallet = wallets.find(w => w.__id === transaction.walletId);
-  const account = accounts.find(a => a.__id === transaction.accountId);
+  let account = accounts.find(a => a.__id === transaction.parentAccountId);
+  if (!account) {
+    account = accounts.find(a => a.__id === transaction.accountId);
+  }
 
   if (coinPrice) {
     const feeInDefaultUnit = convertToUnit({
@@ -262,12 +267,14 @@ export const mapTransactionForDisplay = (params: {
 export interface UseTransactionsProps {
   walletId?: string;
   assetId?: string;
+  parentAssetId?: string;
   accountId?: string;
 }
 
 export const useTransactions = ({
   walletId,
   assetId,
+  parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
   const {
@@ -287,6 +294,7 @@ export const useTransactions = ({
     isDiscreetMode,
     walletId,
     assetId,
+    parentAssetId,
     accountId,
   });
 
@@ -352,6 +360,12 @@ export const useTransactions = ({
             return false;
           }
           if (
+            refData.current.parentAssetId &&
+            a.parentAssetId !== refData.current.parentAssetId
+          ) {
+            return false;
+          }
+          if (
             refData.current.accountId &&
             a.accountId !== refData.current.accountId
           ) {
@@ -375,7 +389,7 @@ export const useTransactions = ({
   };
 
   const debounceParseTransactionList = useCallback(
-    lodash.throttle(parseTransactionsList, 2000, { leading: true }),
+    lodash.throttle(parseTransactionsList, 1000, { leading: true }),
     [],
   );
 

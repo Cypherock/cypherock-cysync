@@ -304,6 +304,8 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    send: 'Send',
+    receive: 'Receive',
     back: 'Back',
     retry: 'Retry',
     update: 'Update',
@@ -555,7 +557,9 @@ const en = {
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
-      account: 'Wallet / Account',
+      walletAndAccount: 'Wallet / Account',
+      wallet: 'Wallet',
+      account: 'Account',
       amount: 'Amount',
       value: 'Value',
     },
@@ -921,8 +925,11 @@ const en = {
     title: 'Portfolio',
     assetAllocation: {
       title: 'Asset Allocation',
+      accountTitle: 'Accounts',
       tableHeader: {
         asset: 'Asset',
+        account: 'Account',
+        wallet: 'Wallet',
         price: 'Price',
         balance: 'Balance',
         value: 'Value',
@@ -1318,6 +1325,12 @@ const en = {
         steps: {
           confirm: 'Confirm authentication on device',
         },
+        success: 'Your X1 Vault is authenticated successfully',
+        authenticating: {
+          title: 'Please wait while your X1 Vault is being authenticated',
+          description:
+            'Do not disconnect your X1 Vault while the operation is being done',
+        },
       },
       authX1Card: {
         description: 'Your card is now being authenticated',
@@ -1326,6 +1339,7 @@ const en = {
           confirm: 'Confirm card authentication on device',
           tapCard: 'Tap any card below the device',
         },
+        success: 'Your X1 Card is authenticated successfully',
       },
     },
     password: {
@@ -1463,10 +1477,6 @@ const en = {
       device: {
         title: 'Device Settings',
         item: {
-          x1VaultUpdate: {
-            title: 'X1 Vault Update',
-            description: 'Check & update device firmware',
-          },
           x1VaultAuth: {
             title: 'X1 Vault Authentication',
             description: 'Authenticate your device',

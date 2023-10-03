@@ -30,8 +30,12 @@ const units: ICoinUnit[] = [
   },
 ];
 
-export const getErc20Tokens = (parentId: string) => {
-  const TOKENSLIST: Record<string, IEvmErc20Token> = {};
+export const getErc20Tokens = (
+  parentId: string,
+  parentCoinInfo: { color: string },
+) => {
+  const tokensById: Record<string, IEvmErc20Token> = {};
+  const tokensByContract: Record<string, IEvmErc20Token> = {};
   const tokensList: any = erc20List;
 
   for (const token of tokensList) {
@@ -44,7 +48,7 @@ export const getErc20Tokens = (parentId: string) => {
       }
 
       const id = `${parentId}:${token.id}`;
-      TOKENSLIST[id] = {
+      const tokenObj: IEvmErc20Token = {
         id,
         parentId,
         name: token.name,
@@ -63,9 +67,12 @@ export const getErc20Tokens = (parentId: string) => {
           },
           ...units,
         ],
+        color: parentCoinInfo.color,
       };
+      tokensById[id] = tokenObj;
+      tokensByContract[tokenObj.address.toLowerCase()] = tokenObj;
     }
   }
 
-  return TOKENSLIST;
+  return { tokens: tokensById, tokensByContract };
 };

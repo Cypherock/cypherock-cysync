@@ -32,6 +32,7 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
         <ImageContainer gap={10}>
           {$assetIcon}
           <Typography variant="p">{$assetName}</Typography>
+          {$tag && <Tag>{$tag}</Tag>}
         </ImageContainer>
       ) : (
         <Container display="flex" direction="row" gap={6}>

@@ -12,6 +12,7 @@ import {
   ITransaction,
   TransactionStatusMap,
 } from '@cypherock/db-interfaces';
+import { lastValueFrom } from 'rxjs';
 
 import { ISyncEvmAccountsParams } from './types';
 
@@ -24,9 +25,8 @@ import {
   mapContractTransactionsForDb,
   getContractBalance,
 } from '../../services';
-import { IEvmAccount } from '../types';
 import logger from '../../utils/logger';
-import { lastValueFrom } from 'rxjs';
+import { IEvmAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -158,8 +158,9 @@ const fetchAndParseContractTransactions = async (params: {
   account: IAccount;
   updatedAccountInfo: Partial<IAccount>;
   afterContractTransactionBlock: number | undefined;
+  existingTransactions: ITransaction[];
 }) => {
-  const { db, afterContractTransactionBlock } = params;
+  const { db, afterContractTransactionBlock, existingTransactions } = params;
   const account = params.account as IEvmAccount;
   const updatedAccountInfo = params.updatedAccountInfo as IEvmAccount;
 
@@ -179,6 +180,7 @@ const fetchAndParseContractTransactions = async (params: {
     account,
     transactions: transactionDetails.result,
     db,
+    existingTransactions,
   });
 
   const hasMore = transactionDetails.more;
@@ -312,6 +314,7 @@ const getAddressDetails: IGetAddressDetails<{
       updatedAccountInfo,
       account,
       afterContractTransactionBlock,
+      existingTransactions: transactionsTillNow ?? [],
     });
 
     transactions.push(...contractTransactionDetails.transactions);
