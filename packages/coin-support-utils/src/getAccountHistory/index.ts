@@ -254,5 +254,14 @@ export async function createGetAccountHistory(
     });
   }
 
-  return { history: accountBalanceHistory, account };
+  return {
+    history: accountBalanceHistory,
+    account,
+    currentValue: calcValue({
+      amount: account.balance,
+      parentAssetId: account.parentAssetId,
+      assetId: account.assetId,
+      price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
+    }),
+  };
 }
