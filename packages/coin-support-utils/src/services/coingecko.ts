@@ -1,35 +1,34 @@
 import axios from 'axios';
 
+import { config } from '../config';
 import { getAsset } from '../db';
 
-// const baseURL = `${config.API_CYPHEROCK}/transaction`;
-const baseURL = `https://api.coingecko.com/api/v3`;
+const baseURL = `${config.API_CYPHEROCK}/price`;
 
 export const getLatestPrices = async (
   coinIds: { parentAssetId: string; assetId: string }[],
   currency: string,
 ): Promise<{ assetId: string; price: number }[]> => {
-  const url = `${baseURL}/simple/price`;
-
   const coinGeckoIds = coinIds.map(
     id => getAsset(id.parentAssetId, id.assetId).coinGeckoId,
   );
 
-  const response = await axios.get(
-    `${url}?vs_currencies=${currency}&ids=${coinGeckoIds.join(',')}`,
-  );
+  const response = await axios.post(`${baseURL}/current`, {
+    vsCurrencies: [currency],
+    ids: coinGeckoIds,
+  });
 
   const result: { assetId: string; price: number }[] = coinIds
     .filter(
       id =>
-        response.data[getAsset(id.parentAssetId, id.assetId).coinGeckoId]?.[
-          currency
-        ] !== undefined,
+        response.data.data[
+          getAsset(id.parentAssetId, id.assetId).coinGeckoId
+        ]?.[currency] !== undefined,
     )
     .map(id => ({
       assetId: id.assetId,
       price:
-        response.data[getAsset(id.parentAssetId, id.assetId).coinGeckoId][
+        response.data.data[getAsset(id.parentAssetId, id.assetId).coinGeckoId][
           currency
         ],
     }));
@@ -44,11 +43,13 @@ export const getPriceHistory = async (
 ): Promise<number[][]> => {
   const { coinGeckoId } = getAsset(coinId.parentAssetId, coinId.assetId);
 
-  const url = `${baseURL}/coins/${coinGeckoId}/market_chart`;
+  const url = `${baseURL}/history`;
 
-  const response = await axios.get(
-    `${url}?vs_currency=${currency}&days=${days}`,
-  );
+  const response = await axios.post(url, {
+    id: coinGeckoId,
+    vsCurrency: currency,
+    days,
+  });
 
-  return response.data.prices ?? [];
+  return response.data.data ?? [];
 };
