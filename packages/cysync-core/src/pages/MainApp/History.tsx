@@ -156,7 +156,7 @@ export const History: FC = () => {
 
   return (
     <MainAppLayout
-      title={strings.sidebar.history}
+      topbar={{ title: strings.sidebar.history }}
       onTopbarHeightChange={setTopbarHeight}
     >
       <Container $noFlex m="20">

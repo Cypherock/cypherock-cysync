@@ -34,6 +34,11 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 
+export interface ReceiveDialogProps {
+  walletId?: string;
+  accountId?: string;
+}
+
 export const Receive: FC = () => {
   const {
     tabs,
@@ -102,8 +107,13 @@ export const Receive: FC = () => {
   );
 };
 
-export const ReceiveDialog: FC = () => (
-  <ReceiveDialogProvider>
+export const ReceiveDialog: FC<ReceiveDialogProps> = props => (
+  <ReceiveDialogProvider {...props}>
     <Receive />
   </ReceiveDialogProvider>
 );
+
+ReceiveDialog.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

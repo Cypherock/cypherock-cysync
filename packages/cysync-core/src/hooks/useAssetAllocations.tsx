@@ -47,6 +47,7 @@ export interface CoinAllocationRow {
   assetIcon: ReactNode;
   assetAbbr: string;
   assetName: string;
+  accountId?: string;
   accountName?: string;
   accountTag?: string;
   walletName?: string;
@@ -91,6 +92,8 @@ export interface UseAssetAllocationProps {
   assetId?: string;
   parentAssetId?: string;
   accountId?: string;
+  withParentIconAtBottom?: boolean;
+  withSubIconAtBottom?: boolean;
 }
 
 export const useAssetAllocations = ({
@@ -98,6 +101,8 @@ export const useAssetAllocations = ({
   assetId,
   parentAssetId,
   accountId,
+  withParentIconAtBottom,
+  withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
   const {
     lang,
@@ -171,6 +176,7 @@ export const useAssetAllocations = ({
               );
             }
 
+            accountProperties.accountId = account?.__id;
             accountProperties.accountName = account?.name;
             accountProperties.accountTag = lodash.upperCase(
               account?.derivationScheme ?? '',
@@ -195,7 +201,10 @@ export const useAssetAllocations = ({
                 parentAssetId={r.parentAssetId}
                 assetId={r.assetId}
                 size="24px"
-                withParentIconAtBottom
+                subIconSize="12px"
+                subContainerSize="16px"
+                withParentIconAtBottom={withParentIconAtBottom}
+                withSubIconAtBottom={withSubIconAtBottom}
               />
             ),
             balance: new BigNumber(r.balance).toNumber(),

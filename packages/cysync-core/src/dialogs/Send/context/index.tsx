@@ -92,10 +92,14 @@ export const SendDialogContext: Context<SendDialogContextInterface> =
 
 export interface SendDialogContextProviderProps {
   children: ReactNode;
+  walletId?: string;
+  accountId?: string;
 }
 
 export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   children,
+  walletId: defaultWalletId,
+  accountId: defaultAccountId,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -133,7 +137,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown();
+  } = useAccountDropdown({
+    defaultAccountId,
+    defaultWalletId,
+    includeSubAccounts: true,
+  });
 
   const tabs: ITabs = [
     {
@@ -514,3 +522,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 export function useSendDialog(): SendDialogContextInterface {
   return useContext(SendDialogContext);
 }
+
+SendDialogProvider.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

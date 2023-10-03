@@ -1,6 +1,8 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import { ReceiveDialogProps } from '~/dialogs/Receive';
+import { SendDialogProps } from '~/dialogs/Send';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -21,11 +23,11 @@ export const openGuidedFlowDialog = (type: GuidedFlowType) =>
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });
 
-export const openReceiveDialog = () =>
-  openDialog({ name: 'receive', data: undefined });
+export const openReceiveDialog = (data?: ReceiveDialogProps) =>
+  openDialog({ name: 'receive', data });
 
-export const openSendDialog = () =>
-  openDialog({ name: 'sendDialog', data: undefined });
+export const openSendDialog = (data?: SendDialogProps) =>
+  openDialog({ name: 'sendDialog', data });
 
 export const openRemovePasswordDialog = () =>
   openDialog({ name: 'removePassword', data: undefined });
@@ -62,3 +64,6 @@ export const openAppUpdateDialog = () =>
 
 export const openErrorDialog = (props: ErrorDialogProps) =>
   openDialog({ name: 'errorDialog', data: props });
+
+export const openContactSupportDialog = () =>
+  openDialog({ name: 'contactSupportDialog', data: undefined });
