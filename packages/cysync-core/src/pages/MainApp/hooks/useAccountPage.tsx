@@ -234,7 +234,6 @@ export const useAccountPage = () => {
         {
           id: 'wallet',
           text: lang.strings.wallet.title,
-          onClick: () => navigateTo(routes.wallet.path),
         },
         {
           id: 'walletList',
