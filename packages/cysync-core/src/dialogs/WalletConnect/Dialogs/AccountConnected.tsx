@@ -68,8 +68,14 @@ const ConnectAccounts: React.FC<ConnectAccountParam> = ({ name, accounts }) => (
 
 export const WalletConnectAccountConnectedDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { activeWallet, selectedAccounts, handleClose, connectionClientMeta } =
-    useWalletConnect();
+  const {
+    activeWallet,
+    activeAccount,
+    selectedAccounts,
+    handleClose,
+    connectionClientMeta,
+    version,
+  } = useWalletConnect();
   const { buttons, walletConnect } = lang.strings;
   const { accountConnectedTab, common } = walletConnect;
   const groupedAccounts = useMemo(
@@ -113,16 +119,25 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
                 </Typography>
               </Flex>
             </Flex>
-            {Object.keys(groupedAccounts).map(groupKey => {
-              const accounts = groupedAccounts[groupKey];
-              return (
-                <ConnectAccounts
-                  key={groupKey}
-                  name={coinList[groupKey].name}
-                  accounts={accounts}
-                />
-              );
-            })}
+            {version === 2 &&
+              Object.keys(groupedAccounts).map(groupKey => {
+                const accounts = groupedAccounts[groupKey];
+                return (
+                  <ConnectAccounts
+                    key={groupKey}
+                    name={coinList[groupKey].name}
+                    accounts={accounts}
+                  />
+                );
+              })}
+            {version === 1 && activeAccount && (
+              <ConnectAccounts
+                name={coinList[
+                  activeAccount.parentAssetId
+                ].family.toUpperCase()}
+                accounts={[activeAccount]}
+              />
+            )}
             <Container
               display="flex"
               direction="column"

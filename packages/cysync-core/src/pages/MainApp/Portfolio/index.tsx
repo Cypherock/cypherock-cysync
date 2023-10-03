@@ -9,8 +9,8 @@ import {
 import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { openWalletConnectDialog } from '~/actions';
 import { AssetAllocation, TransactionTable } from '~/components';
-import { openDialog } from '~/store';
 
 import { NoWallet } from './NoWallet';
 
@@ -40,7 +40,7 @@ export const Portfolio: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(openDialog({ name: 'walletConnect', data: undefined }));
+    dispatch(openWalletConnectDialog());
   }, []);
 
   const getMainContent = () => {

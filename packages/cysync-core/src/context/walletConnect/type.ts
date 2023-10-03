@@ -33,14 +33,20 @@ export interface WalletConnectionConnectionClientMeta {
   icons?: string[];
   name?: string;
 }
-
-export const ACCEPTED_CALL_METHODS = [
+export const ACCEPTED_SEND_METHODS: WalletConnectCallRequestMethod[] = [
   WalletConnectCallRequestMethodMap.ETH_SIGN_TXN,
   WalletConnectCallRequestMethodMap.ETH_SEND_TXN,
+];
+export const ACCEPTED_SIGN_METHODS: WalletConnectCallRequestMethod[] = [
   WalletConnectCallRequestMethodMap.ETH_SIGN,
   WalletConnectCallRequestMethodMap.SIGN_PERSONAL,
   WalletConnectCallRequestMethodMap.SIGN_TYPED,
   WalletConnectCallRequestMethodMap.SIGN_TYPED_V4,
+];
+
+export const ACCEPTED_CALL_METHODS = [
+  ...ACCEPTED_SEND_METHODS,
+  ...ACCEPTED_SIGN_METHODS,
 ];
 
 export interface useWalletConnectVersionProps {

@@ -13,11 +13,17 @@ import React, {
   useState,
 } from 'react';
 
-import { openWalletConnectDialog } from '~/actions';
+import {
+  openSendDialog,
+  openSignMessageDialog,
+  openWalletConnectDialog,
+} from '~/actions';
 import { closeDialog as closeDialogDispatch, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
 import {
+  ACCEPTED_SEND_METHODS,
+  ACCEPTED_SIGN_METHODS,
   IWalletConnectMethods,
   WalletConnectCallRequestData,
   WalletConnectConnectionState,
@@ -49,6 +55,7 @@ export interface WalletConnectContextInterface {
   errorTitle: string;
   errorSubtitle: string;
   unsupportedOptionalChainsMessage: string | undefined;
+  version: number;
 }
 
 export const WalletConnectContext: Context<WalletConnectContextInterface> =
@@ -128,7 +135,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     2: v2Methods,
   };
 
-  const getMethods = (_version?: number) => {
+  const getWalletConnectApi = (_version?: number) => {
     const usingVersion = _version ?? version;
     if (versionMap[usingVersion] === undefined)
       throw new Error('Unsupported WalletConnect version');
@@ -156,7 +163,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   }, [connectionState]);
 
   const disconnect = async () => {
-    await getMethods().disconnect();
+    await getWalletConnectApi().disconnect();
     setConnectionState(WalletConnectConnectionState.NOT_CONNECTED);
   };
 
@@ -170,7 +177,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
 
   const approveSessionRequest = async (accounts: IAccount[]) => {
     try {
-      await getMethods().approveSession(accounts);
+      await getWalletConnectApi().approveSession(accounts);
     } catch (error) {
       logger.error('WalletConnect: Error in selecting account');
       logger.error(error);
@@ -180,13 +187,13 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
 
   const approveCallRequest = async (result: string) => {
     logger.info('WalletConnect: Approving call request', { result });
-    await getMethods().approveCall(result);
+    await getWalletConnectApi().approveCall(result);
     setCallRequestData(undefined);
   };
 
   const rejectCallRequest = async (message?: string) => {
     logger.info('WalletConnect: Rejecting call request', { message });
-    await getMethods().rejectCall(message);
+    await getWalletConnectApi().rejectCall(message);
     setCallRequestData(undefined);
   };
 
@@ -204,7 +211,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       name: 'Cypherock CySync',
     };
 
-    await getMethods(walletConnectVersion).init(uri, cysyncMetadata);
+    await getWalletConnectApi(walletConnectVersion).init(uri, cysyncMetadata);
   };
 
   const createConnection = async (uri: string) => {
@@ -257,6 +264,23 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       // ipcRenderer.removeListener('wallet-connect', onExternalLink);
     };
   }, []);
+
+  useEffect(() => {
+    if (
+      connectionState === WalletConnectConnectionState.CONNECTED &&
+      callRequestData
+    ) {
+      if (ACCEPTED_SEND_METHODS.includes(callRequestData.method)) {
+        // TODO: add props for send dialog
+        dispatch(openSendDialog());
+      } else if (ACCEPTED_SIGN_METHODS.includes(callRequestData.method)) {
+        dispatch(openSignMessageDialog());
+      } else {
+        logger.error('WalletConnect: Unsupported Call Request received');
+      }
+    }
+  }, [callRequestData]);
+
   const context = useMemo(
     () => ({
       handleClose,

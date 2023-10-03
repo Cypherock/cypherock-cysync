@@ -1,3 +1,4 @@
+import { evmCoinList } from '@cypherock/coins';
 import {
   Button,
   DialogBox,
@@ -13,12 +14,17 @@ import {
   CloseButton,
   WalletIcon,
   DialogBoxHeader,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useWalletConnect } from '~/context';
-import { useStateWithRef, useWalletDropdown } from '~/hooks';
+import {
+  useAccountDropdown,
+  useStateWithRef,
+  useWalletDropdown,
+} from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -32,19 +38,33 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const { accountSelectionTab, common } = walletConnect;
   const { selectedWallet, walletDropdownList, handleWalletChange } =
     useWalletDropdown();
+  const { selectedAccount, handleAccountChange, accountDropdownList } =
+    useAccountDropdown({
+      selectedWallet,
+      assetFilter: Object.keys(evmCoinList),
+    });
   const {
     requiredNamespaces,
     optionalNamespaces,
     handleClose,
     unsupportedOptionalChainsMessage,
     approveSessionRequest,
+    version,
   } = useWalletConnect();
   const chainToAccountMapRef = useRef<Record<string, IAccount>>({});
   const [isButtonDisabled, setIsButtonDisabled] = useStateWithRef(true);
   const onSubmit = (e: any) => {
     e.preventDefault();
-    approveSessionRequest(Object.values(chainToAccountMapRef.current));
+    approveSessionRequest(
+      version === 1 && selectedAccount
+        ? [selectedAccount]
+        : Object.values(chainToAccountMapRef.current),
+    );
   };
+
+  useEffect(() => {
+    if (version === 1) setIsButtonDisabled(selectedAccount === undefined);
+  }, [selectedAccount]);
 
   const updateChainToAccountMap = (account: IAccount, chain: string) => {
     chainToAccountMapRef.current[chain] = account;
@@ -81,23 +101,47 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               onChange={handleWalletChange}
               leftImage={<WalletIcon ml={3} />}
             />
-            {requiredNamespaces.map(chain => (
-              <ChainSpecificAccountSelection
-                chain={chain}
-                key={chain}
-                selectedWallet={selectedWallet}
-                updateChainToAccountMap={updateChainToAccountMap}
-                asterisk
+            {version === 2 && (
+              <>
+                {requiredNamespaces.map(chain => (
+                  <ChainSpecificAccountSelection
+                    chain={chain}
+                    key={chain}
+                    selectedWallet={selectedWallet}
+                    updateChainToAccountMap={updateChainToAccountMap}
+                    asterisk
+                  />
+                ))}
+                {optionalNamespaces.map(chain => (
+                  <ChainSpecificAccountSelection
+                    chain={chain}
+                    key={chain}
+                    selectedWallet={selectedWallet}
+                    updateChainToAccountMap={updateChainToAccountMap}
+                  />
+                ))}
+              </>
+            )}
+            {version === 1 && (
+              <Dropdown
+                items={accountDropdownList}
+                selectedItem={selectedAccount?.__id}
+                disabled={!selectedWallet}
+                searchText={`${parseLangTemplate(
+                  accountSelectionTab.chooseAccount,
+                  {
+                    assetName: 'EVM',
+                  },
+                )}*`}
+                placeholderText={`${parseLangTemplate(
+                  accountSelectionTab.chooseAccount,
+                  {
+                    assetName: 'EVM',
+                  },
+                )}*`}
+                onChange={handleAccountChange}
               />
-            ))}
-            {optionalNamespaces.map(chain => (
-              <ChainSpecificAccountSelection
-                chain={chain}
-                key={chain}
-                selectedWallet={selectedWallet}
-                updateChainToAccountMap={updateChainToAccountMap}
-              />
-            ))}
+            )}
             {/* <AlertBox
             alert={accountSelectionTab.supportInfo}
             subAlert={supportedNoAccountBlockchain.join(', ')}

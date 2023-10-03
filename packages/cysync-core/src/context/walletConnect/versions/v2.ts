@@ -139,9 +139,12 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.closeDialog();
     },
     handleSessionRequest: async (event: any) => {
+      console.log({ event });
       // only works when only one account per chain is selected, chainId is different then chain
       const account = selectedAccountsRef.current.find(
-        acc => evmCoinList[acc.parentAssetId].chain === event.params.chainId,
+        acc =>
+          evmCoinList[acc.parentAssetId].chain.toString() ===
+          event.params.chainId.split(':')[1],
       );
       props.setActiveAccount(account);
       props.setActiveWallet(wallets.find(w => w.__id === account?.walletId));
