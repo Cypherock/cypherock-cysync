@@ -331,6 +331,7 @@ const en = {
     details: 'Details',
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
+    submit: 'Submit',
   },
   deviceAuthentication: {
     success: {
@@ -926,6 +927,14 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    tokenTable: {
+      title: 'Tokens',
+      tableHeader: {
+        token: 'Tokens',
+        amount: 'Amount',
+        value: 'Value',
+      },
+    },
     assetAllocation: {
       title: 'Asset Allocation',
       accountTitle: 'Accounts',
@@ -1373,6 +1382,40 @@ const en = {
       createNewPassword: {
         title: 'Set your cySync password',
         subTitle: 'We do not store your password on our servers',
+      },
+    },
+    contactSupport: {
+      form: {
+        header: 'Contact Support',
+        title: 'How can we help?',
+        description: 'Our team would love to hear from you',
+        field: {
+          email: {
+            label: 'Email',
+            placeholder: 'Your Email',
+          },
+          category: {
+            label: 'Category',
+            placeholder: 'Select Category',
+          },
+          description: {
+            label: 'Description',
+            placeholder: 'Describe your issue here',
+          },
+        },
+        checks: {
+          attachAppLogs: 'Attach Application Logs',
+          attachDeviceLogs: 'Attach Device Logs',
+          confirmDevice: 'Please confirm on device to proceed',
+          attachedDeviceLogs: 'Device Logs Successfully Attached',
+        },
+        errors: {
+          connectDevice: 'Connect the device to attach device logs',
+          bootloaderMode: 'Device is in the bootloader mode',
+        },
+      },
+      success: {
+        formSubmit: 'Support Form Submitted Successfully',
       },
     },
   },
