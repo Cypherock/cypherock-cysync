@@ -117,7 +117,7 @@ export const FeeSection: React.FC = () => {
     // the gas price check for 2/3 of the average is same as bitcoin
     setIsFeeLow(
       Number(gasPrice) < (2 / 3) * Number(txn.staticData.averageGasPrice) ||
-        gasLimit < Number(txn.computedData.gasLimit),
+        gasLimit < Number(txn.computedData.gasLimitEstimate),
     );
 
     if (param.gasLimit !== undefined) {

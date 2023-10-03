@@ -76,7 +76,8 @@ export const prepareTransaction = async (
       hasEnoughBalance,
     },
     computedData: {
-      gasLimit: gasLimitEstimate,
+      gasLimit,
+      gasLimitEstimate,
       gasPrice,
       fee: fee.toString(10),
       output,

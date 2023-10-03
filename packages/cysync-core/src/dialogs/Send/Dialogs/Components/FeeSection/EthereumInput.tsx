@@ -55,12 +55,12 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   useEffect(() => {
     setGasPrice(initialGasPrice);
     transaction.userInputs.gasPrice = transaction.staticData.averageGasPrice;
-    transaction.userInputs.gasLimit = transaction.computedData.gasLimit;
+    transaction.userInputs.gasLimit = transaction.computedData.gasLimitEstimate;
     onChange({
-      gasLimit: Number(transaction.computedData.gasLimit),
+      gasLimit: Number(transaction.computedData.gasLimitEstimate),
       gasPrice: initialGasPrice,
     });
-  }, [isTextInput]);
+  }, [isTextInput, transaction.computedData.gasLimitEstimate]);
 
   return (
     <>

@@ -40,6 +40,7 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fee: fee.toString(10),
       gasLimit,
+      gasLimitEstimate: gasLimit,
       gasPrice: averageGasPrice,
     },
   };
