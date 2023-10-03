@@ -125,15 +125,17 @@ export const ContactForm: React.FC = () => {
                   label={form.checks.attachAppLogs}
                   checked={canAttatchAppLogs}
                   isDisabled={isLoading}
+                  id="attatch-app-logs"
                   onChange={() => setCanAttatchAppLogs(!canAttatchAppLogs)}
                 />
                 <CheckBox
                   label={form.checks.attachDeviceLogs}
                   checked={canAttatchDeviceLogs}
                   isDisabled={isLoading}
-                  onChange={() =>
-                    setCanAttatchDeviceLogs(!canAttatchDeviceLogs)
-                  }
+                  onChange={() => {
+                    console.log('Check 2');
+                    setCanAttatchDeviceLogs(!canAttatchDeviceLogs);
+                  }}
                 />
                 <Divider variant="horizontal" />
               </Flex>
