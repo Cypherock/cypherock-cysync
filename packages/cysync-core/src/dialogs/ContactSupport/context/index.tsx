@@ -79,7 +79,7 @@ export const ContactSupportDialogProvider: FC<
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
-  const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
+  const [desktopLogs, setDesktopLogs] = useState<unknown[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     categories[0].id,
   );
@@ -207,9 +207,8 @@ export const ContactSupportDialogProvider: FC<
       setIsDesktopLogsLoading(true);
       getCySyncLogsMethod()()
         .then(logs => {
-          setIsDesktopLogsLoading(false);
           setDesktopLogs(logs);
-          console.log(logs.slice(0, 20));
+          setIsDesktopLogsLoading(false);
         })
         .catch(err => {
           setError((err.message as string) ?? String(err));

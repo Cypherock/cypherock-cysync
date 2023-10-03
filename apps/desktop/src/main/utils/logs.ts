@@ -1,15 +1,27 @@
 import fs from 'fs';
 import { logFilePath } from '.';
 
-export const getCySyncLogs = async (): Promise<string[]> => {
+export const getCySyncLogs = async (): Promise<unknown[]> => {
   const fileSize = (await fs.promises.stat(logFilePath)).size;
   const readStream = fs.createReadStream(logFilePath, {
     start: fileSize - 1024 * 1024,
     end: fileSize,
   });
-  const logs = [];
+  const logLines = [];
   for await (const chunk of readStream) {
-    logs.push(chunk);
+    logLines.push(chunk);
   }
-  return logs.join('').split('\n');
+  const logs = logLines
+    .join('')
+    .split('\n')
+    .map(logLine => {
+      try {
+        return JSON.parse(logLine);
+      } catch {
+        return false;
+      }
+    })
+    .filter(Boolean);
+
+  return logs;
 };
