@@ -74,10 +74,14 @@ export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
 
 export interface ReceiveDialogContextProviderProps {
   children: ReactNode;
+  walletId?: string;
+  accountId?: string;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
+  walletId: defaultWalletId,
+  accountId: defaultAccountId,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -93,7 +97,11 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown({ includeSubAccounts: true });
+  } = useAccountDropdown({
+    defaultAccountId,
+    defaultWalletId,
+    includeSubAccounts: true,
+  });
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
@@ -314,3 +322,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 export function useReceiveDialog(): ReceiveDialogContextInterface {
   return useContext(ReceiveDialogContext);
 }
+
+ReceiveDialogProvider.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

@@ -923,6 +923,14 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    tokenTable: {
+      title: 'Tokens',
+      tableHeader: {
+        token: 'Tokens',
+        amount: 'Amount',
+        value: 'Value',
+      },
+    },
     assetAllocation: {
       title: 'Asset Allocation',
       accountTitle: 'Accounts',

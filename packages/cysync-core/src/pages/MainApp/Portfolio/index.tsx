@@ -90,7 +90,7 @@ export const Portfolio: FC = () => {
         <Container $noFlex mb={2}>
           <AssetAllocation
             walletId={selectedWallet?.__id}
-            onAssetClick={onAssetClick}
+            onRowClick={onAssetClick}
           />
         </Container>
 
@@ -102,7 +102,7 @@ export const Portfolio: FC = () => {
   };
 
   return (
-    <MainAppLayout title={lang.strings.portfolio.title}>
+    <MainAppLayout topbar={{ title: lang.strings.portfolio.title }}>
       <Container $noFlex m="20">
         {getMainContent()}
       </Container>
