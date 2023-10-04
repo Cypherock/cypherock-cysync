@@ -3,6 +3,7 @@ import { release } from 'node:os';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 
 import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
+import { getSendWCConnectionString } from './ipc/walletConnect';
 import {
   addAppHooks,
   config,
@@ -12,6 +13,7 @@ import {
   installDeveloperExtensions,
   logger,
   setupProcessEventHandlers,
+  setWCUri,
   windowUrls,
 } from './utils';
 import { autoUpdater } from './utils/autoUpdater';
@@ -116,6 +118,29 @@ export default function createApp() {
     });
   };
 
+  const handleUriOpen = async (uri: string) => {
+    logger.info('Deep link uri', { uri });
+    try {
+      const newUrl = uri.startsWith('cypherock://')
+        ? uri
+        : `cypherock://${uri}`;
+      const url = new URL(newUrl);
+
+      // Handle wallet connect open
+      if (url.host === 'wc') {
+        const connectionString = url.searchParams.get('uri');
+
+        if (connectionString && mainWindow && !mainWindow.isDestroyed()) {
+          getSendWCConnectionString()(connectionString);
+        }
+        setWCUri(connectionString);
+      }
+    } catch (error) {
+      logger.error('Error in handling URL');
+      logger.error(error);
+    }
+  };
+
   app.whenReady().then(createLoadingWindow);
 
   app.on('window-all-closed', () => {
@@ -125,9 +150,25 @@ export default function createApp() {
     }
   });
 
-  app.on('second-instance', () => {
+  app.on('second-instance', (_event, argv, workingDirectory) => {
+    // Handle Deep-link for windows
+    logger.info('Second instance opened', {
+      commandLine: argv,
+      workingDirectory,
+    });
+
+    if (
+      argv.length > 1 &&
+      (process.platform === 'win32' || process.platform === 'linux')
+    ) {
+      try {
+        handleUriOpen(argv[argv.length - 1].split('cypherock://')[1]);
+      } catch {
+        logger.error(`Direct link to file - FAILED: ${argv}`);
+      }
+    }
+
     if (mainWindow) {
-      // Focus on the main window if the user tried to open another
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }

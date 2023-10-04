@@ -50,7 +50,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
       messageBoxText ? (
         <MessageBox
           text={messageBoxText}
-          type={messageBoxVariant ?? 'warning'}
+          type={messageBoxVariant ?? 'danger'}
         />
       ) : undefined
     }
@@ -82,5 +82,5 @@ ErrorDialog.defaultProps = {
   textVariables: undefined,
   onClose: undefined,
   messageBoxText: undefined,
-  messageBoxVariant: 'warning',
+  messageBoxVariant: 'danger',
 };

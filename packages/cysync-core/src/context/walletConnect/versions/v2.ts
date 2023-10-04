@@ -13,6 +13,7 @@ import { useRef, useState } from 'react';
 
 import { useStateWithRef } from '~/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '~/store';
+import { getFocusAppMethod } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -25,7 +26,7 @@ import {
 
 const { Core } = (window as any).WalletConnectCore;
 const { Web3Wallet } = (window as any).WalletConnect;
-const WALLET_CONNECT_PROJECT_ID = '80b185a5244c1bc8033aeca2dde1c0ca';
+const WALLET_CONNECT_PROJECT_ID = '892cb46355562fd3e2d37d2361f44c1d';
 
 export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
   const { wallets } = useAppSelector(selectWallets);
@@ -146,8 +147,7 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.setConnectionClientMeta(proposal.params.proposer.metadata);
       props.setConnectionState(WalletConnectConnectionState.SELECT_ACCOUNT);
       props.openDialog();
-      // focus event for mac
-      // ipcRenderer.send('focus');
+      getFocusAppMethod()?.();
     },
     handleSessionDelete: async () => {
       props.setConnectionState(WalletConnectConnectionState.NOT_CONNECTED);
@@ -169,7 +169,7 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
         params: event.params.request.params,
         method: event.params.request.method as any,
       });
-      // ipcRenderer.send('focus');
+      getFocusAppMethod()?.();
       logger.info('WalletConnect: Call Request received', { event });
     },
   };

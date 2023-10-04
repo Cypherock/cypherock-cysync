@@ -13,12 +13,15 @@ export const ipcConfig = {
     installUpdates: 'autoUpdater:installUpdate',
     resetCySync: 'app:reset',
     closeApp: 'app:close',
+    focusApp: 'app:focus',
+    initWCUri: 'wc:uri:init',
   },
   listeners: {
     downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',
     downloadUpdateCompleted: 'autoUpdater:downloadUpdate:completed',
     downloadUpdateError: 'autoUpdater:downloadUpdate:error',
     dbListenerPrefix: 'db:listener',
+    wcConnection: 'wc:connection',
   },
   // Environment variables to inject in renderer
   env: [

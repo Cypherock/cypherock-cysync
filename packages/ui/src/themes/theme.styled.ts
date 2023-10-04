@@ -98,6 +98,7 @@ export const theme = {
       calendarHeader: colors.background.calendarHeader,
       popup: colors.border.popup,
       danger: colors.background.danger,
+      error: colors.background.error,
     },
     border: {
       popup: colors.border.popup,
@@ -108,6 +109,7 @@ export const theme = {
       message: colors.border.message,
       messageSecondary: colors.border.messageSecondary,
       error: colors.border.error,
+      danger: colors.border.danger,
       bar: colors.border.bar,
       white: colors.border.white,
       table: {

@@ -19,7 +19,7 @@ import {
 import { IAccount } from '@cypherock/db-interfaces';
 import React, { useEffect, useRef } from 'react';
 
-import { useWalletConnect } from '~/context';
+import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
 import {
   useAccountDropdown,
   useStateWithRef,
@@ -130,13 +130,13 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                 searchText={`${parseLangTemplate(
                   accountSelectionTab.chooseAccount,
                   {
-                    assetName: 'EVM',
+                    assetName: supportedWalletConnectFamilies[0].toUpperCase(),
                   },
                 )}*`}
                 placeholderText={`${parseLangTemplate(
                   accountSelectionTab.chooseAccount,
                   {
-                    assetName: 'EVM',
+                    assetName: supportedWalletConnectFamilies[0].toUpperCase(),
                   },
                 )}*`}
                 onChange={handleAccountChange}

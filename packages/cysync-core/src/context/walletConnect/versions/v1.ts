@@ -4,6 +4,7 @@ import WalletConnect from '@walletconnect/legacy-client';
 import { useRef } from 'react';
 
 import { selectWallets, useAppSelector } from '~/store';
+import { getFocusAppMethod } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -35,8 +36,7 @@ export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
       props.setConnectionState(WalletConnectConnectionState.SELECT_ACCOUNT);
       props.openDialog();
 
-      // focus event for mac
-      // ipcRenderer.send('focus');
+      getFocusAppMethod()?.();
     },
 
     handleCallRequest: (error: Error | null, payload: any) => {
@@ -50,7 +50,7 @@ export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
         payload?.params &&
         ACCEPTED_CALL_METHODS.includes(payload?.method)
       ) {
-        // ipcRenderer.send('focus');
+        getFocusAppMethod()?.();
         logger.info('WalletConnect: Call Request received', { payload });
         const { params } = payload;
         props.setCallRequestData({

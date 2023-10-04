@@ -1,3 +1,4 @@
+import { coinFamiliesMap } from '@cypherock/coins';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export const WalletConnectCallRequestMethodMap = {
@@ -87,3 +88,5 @@ export interface IWalletConnectMethods {
   rejectCall: (message?: string) => Promise<void>;
   resetStates: () => void;
 }
+
+export const supportedWalletConnectFamilies: string[] = [coinFamiliesMap.evm];

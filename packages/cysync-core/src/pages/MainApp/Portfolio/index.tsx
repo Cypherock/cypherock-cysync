@@ -6,10 +6,8 @@ import {
   Container,
   DisplayGraph,
 } from '@cypherock/cysync-ui';
-import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC } from 'react';
 
-import { openWalletConnectDialog } from '~/actions';
 import { AssetAllocation, TransactionTable } from '~/components';
 
 import { NoWallet } from './NoWallet';
@@ -36,12 +34,6 @@ export const Portfolio: FC = () => {
     handleAddAccountClick,
     onAssetClick,
   } = usePortfolioPage();
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(openWalletConnectDialog());
-  }, []);
 
   const getMainContent = () => {
     if (wallets.length <= 0) {

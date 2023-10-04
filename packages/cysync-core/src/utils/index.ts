@@ -5,7 +5,7 @@ export * from './reset';
 export * from './autoUpdater';
 export * as passwordUtils from './password';
 export * from './keyValueStore';
-export * from './close';
+export * from './app';
 export * from './dependencies';
 export * from './transaction';
 export * from './walletConnect';

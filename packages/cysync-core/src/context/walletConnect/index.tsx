@@ -19,6 +19,11 @@ import {
   openWalletConnectDialog,
 } from '~/actions';
 import { closeDialog as closeDialogDispatch, useAppDispatch } from '~/store';
+import {
+  getAddExternalLinkListenerMethod,
+  getInitWCUriMethod,
+  getRemoveExternalLinkListenerMethod,
+} from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -249,22 +254,22 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     }
   };
 
-  // const onExternalLink = (_event: any, uri: string) => {
-  //   logger.info('WalletConnect: Open', { uri }) ;
-  //   if (connectionState === WalletConnectConnectionState.NOT_CONNECTED) {
-  //     createConnection(uri);
-  //   }
-  // };
+  const onExternalLink = (uri: string) => {
+    logger.info('WalletConnect: Open', { uri });
+    if (connectionState === WalletConnectConnectionState.NOT_CONNECTED) {
+      createConnection(uri);
+    }
+  };
 
   const getInitialUri = async () => {
-    // const uri = await ipcRenderer.invoke('wc-url-init');
-    // if (uri) onExternalLink(null, uri);
+    const uri = await getInitWCUriMethod()();
+    if (uri) onExternalLink(uri);
   };
   useEffect(() => {
-    // ipcRenderer.on('wallet-connect', onExternalLink);
+    getAddExternalLinkListenerMethod()(onExternalLink);
     getInitialUri();
     return () => {
-      // ipcRenderer.removeListener('wallet-connect', onExternalLink);
+      getRemoveExternalLinkListenerMethod()();
     };
   }, []);
 

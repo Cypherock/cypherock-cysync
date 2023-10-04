@@ -78,6 +78,7 @@ export const colors = {
     breadcrumbSeparator: '#333130',
     batchTransactionBody: '#1b1812',
     danger: '#FF624C',
+    error: '#271D1D',
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
@@ -91,6 +92,7 @@ export const colors = {
     messageSecondary: '#4A2D00',
     warning: '#4A2D00',
     error: '#FF624C',
+    danger: '#4A0900',
     bar: '#474747',
     table: {
       title: '#363535',

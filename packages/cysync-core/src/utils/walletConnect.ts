@@ -1,11 +1,19 @@
-import type walletConnectLib from '@walletconnect/web3wallet';
+import {
+  AddExternalLinkListener,
+  RemoveExternalLinkListener,
+  InitWCUri,
+} from '@cypherock/cysync-interfaces';
 import type walletConnectCoreLib from '@walletconnect/core';
+import type walletConnectLib from '@walletconnect/web3wallet';
 
 export type WalletConnectLibType = typeof walletConnectLib;
 export type WalletConnectCoreLibType = typeof walletConnectCoreLib;
 
 let walletConnect: WalletConnectLibType | undefined;
 let walletConnectCore: WalletConnectCoreLibType | undefined;
+let initWCUriMethod: InitWCUri | undefined;
+let addExternalLinkListenerMethod: AddExternalLinkListener | undefined;
+let removeExternalLinkListenerMethod: RemoveExternalLinkListener | undefined;
 
 export const getWalletConnect = () => {
   if (!walletConnect) {
@@ -29,4 +37,40 @@ export const getWalletConnectCore = () => {
 
 export const setWalletConnectCore = (method: WalletConnectCoreLibType) => {
   walletConnectCore = method;
+};
+
+export const getInitWCUriMethod = () => {
+  if (!initWCUriMethod)
+    throw new Error('Init WC Uri method has not been defined');
+
+  return initWCUriMethod;
+};
+
+export const setInitWCUriMethod = (method: InitWCUri) => {
+  initWCUriMethod = method;
+};
+export const getAddExternalLinkListenerMethod = () => {
+  if (!addExternalLinkListenerMethod)
+    throw new Error('Add External Link Listener method has not been defined');
+
+  return addExternalLinkListenerMethod;
+};
+
+export const setAddExternalLinkListenerMethod = (
+  method: AddExternalLinkListener,
+) => {
+  addExternalLinkListenerMethod = method;
+};
+
+export const getRemoveExternalLinkListenerMethod = () => {
+  if (!removeExternalLinkListenerMethod)
+    throw new Error('Add External Link Listener method has not been defined');
+
+  return removeExternalLinkListenerMethod;
+};
+
+export const setRemoveExternalLinkListenerMethod = (
+  method: RemoveExternalLinkListener,
+) => {
+  removeExternalLinkListenerMethod = method;
 };

@@ -27,6 +27,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.closeApp,
   },
   {
+    name: 'focusApp',
+    key: ipcConfig.methods.focusApp,
+  },
+  {
     name: 'checkForUpdates',
     key: ipcConfig.methods.checkForUpdates,
   },
@@ -37,6 +41,10 @@ const exportedFunctions = [
   {
     name: 'installUpdate',
     key: ipcConfig.methods.installUpdates,
+  },
+  {
+    name: 'initWCUri',
+    key: ipcConfig.methods.initWCUri,
   },
 ];
 
@@ -60,6 +68,14 @@ const exportedListeners = [
       ipcConfig.listeners.downloadUpdateProgress,
       ipcConfig.listeners.downloadUpdateError,
     ],
+  },
+  {
+    name: 'addExternalLinkListener',
+    key: ipcConfig.listeners.wcConnection,
+  },
+  {
+    name: 'removeExternalLinkListener',
+    remove: [ipcConfig.listeners.wcConnection],
   },
 ];
 
