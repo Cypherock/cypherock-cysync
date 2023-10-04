@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { config } from '../config';
-import { getAsset } from '../db';
+import { getAsset } from '..';
 
-const baseURL = `${config.API_CYPHEROCK}/price`;
+// const baseURL = `${config.API_CYPHEROCK}/transaction`;
+const baseURL = `https://api.coingecko.com/api/v3`;
 
 export const getLatestPrices = async (
   coinIds: { parentAssetId: string; assetId: string }[],

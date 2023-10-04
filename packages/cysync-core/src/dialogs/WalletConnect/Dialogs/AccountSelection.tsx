@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { evmCoinList } from '@cypherock/coins';
 import {
   Button,
   DialogBox,
@@ -6,153 +6,182 @@ import {
   DialogBoxFooter,
   LangDisplay,
   Typography,
-  Container,
-  Image,
-  WalletConnectLogo,
-  walletIcon,
   Dropdown,
   AlertBox,
   BulletList,
   ScrollableContainer,
-  cysyncLogoSmall,
-  DappConnectedLogo,
   Flex,
   CloseButton,
-  Divider,
+  WalletIcon,
+  DialogBoxHeader,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
-import { parseLangTemplate } from '@cypherock/cysync-ui/src';
-import React from 'react';
+import { IAccount } from '@cypherock/db-interfaces';
+import React, { useEffect, useRef } from 'react';
 
+import { useWalletConnect } from '~/context';
+import {
+  useAccountDropdown,
+  useStateWithRef,
+  useWalletDropdown,
+} from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useWalletConnectDialog } from '../context';
+import {
+  ChainSpecificAccountSelection,
+  DappConnectionDisplay,
+} from './Components';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
-  const { onNext, onClose } = useWalletConnectDialog();
   const lang = useAppSelector(selectLanguage);
   const { buttons, walletConnect } = lang.strings;
   const { accountSelectionTab, common } = walletConnect;
+  const { selectedWallet, walletDropdownList, handleWalletChange } =
+    useWalletDropdown();
+  const { selectedAccount, handleAccountChange, accountDropdownList } =
+    useAccountDropdown({
+      selectedWallet,
+      assetFilter: Object.keys(evmCoinList),
+    });
   const {
-    walletDropdownList,
-    evmAccountDropdownListGroup,
-    selectedWallet,
-    selectedEvmAccountsGroup,
-    selectedEvmAccounts,
-    handleWalletChange,
-    onChange,
-    dapp,
-    supportedNoAccountBlockchain,
-  } = useWalletConnectDialog();
+    requiredNamespaces,
+    optionalNamespaces,
+    handleClose,
+    unsupportedOptionalChainsMessage,
+    approveSessionRequest,
+    version,
+  } = useWalletConnect();
+  const chainToAccountMapRef = useRef<Record<string, IAccount>>({});
+  const [isButtonDisabled, setIsButtonDisabled] = useStateWithRef(true);
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    approveSessionRequest(
+      version === 1 && selectedAccount
+        ? [selectedAccount]
+        : Object.values(chainToAccountMapRef.current),
+    );
+  };
+
+  useEffect(() => {
+    if (version === 1) setIsButtonDisabled(selectedAccount === undefined);
+  }, [selectedAccount]);
+
+  const updateChainToAccountMap = (account: IAccount, chain: string) => {
+    chainToAccountMapRef.current[chain] = account;
+    setIsButtonDisabled(
+      !requiredNamespaces.every(
+        namespace => !!chainToAccountMapRef.current[namespace],
+      ),
+    );
+  };
 
   return (
-    <DialogBox width={500} $maxHeight="90vh" align="stretch">
-      <Flex direction="row" justify="flex-end" py={2} px={3}>
-        <CloseButton onClick={onClose} />
-      </Flex>
-      <Divider variant="horizontal" />
-      <Container display="flex" direction="column" gap={32} py={4} px={5}>
-        <DappConnectedLogo
-          walletConnectLogo={WalletConnectLogo}
-          cySyncLogo={cysyncLogoSmall}
-          dappLogoUrl={dapp.logo}
-        />
-        <Container display="flex" direction="column" gap={8} width="full">
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay
-              text={accountSelectionTab.title}
-              variables={{ dappName: dapp.name }}
-            />
-          </Typography>
-          <Typography variant="span" color="muted">
-            <LangDisplay text={dapp.url} />
-          </Typography>
-        </Container>
-      </Container>
-      <ScrollableContainer>
-        <DialogBoxBody pt={2} px={5} pb={4} align="stretch" gap={24}>
-          <Dropdown
-            items={walletDropdownList}
-            selectedItem={selectedWallet?.__id}
-            searchText={accountSelectionTab.chooseWallet}
-            placeholderText={accountSelectionTab.chooseWallet}
-            onChange={handleWalletChange}
-            leftImage={
-              <Image
-                src={walletIcon}
-                alt={accountSelectionTab.chooseWallet}
-                ml={3}
-              />
-            }
+    <DialogBox width={500} align="stretch">
+      <DialogBoxHeader height={56} width={500} px={3}>
+        <Flex position="relative" width="full" justify="center" align="center">
+          <CloseButton
+            onClick={handleClose}
+            $alignSelf="end"
+            position="absolute"
+            top={0.5}
+            $translateY={-0.5}
+            right={0}
           />
-          {evmAccountDropdownListGroup.map(group => {
-            const selectedItem = selectedEvmAccountsGroup.find(
-              a => a.assetId === group.assetId,
-            )?.accounts[0]?.__id;
-            return (
+        </Flex>
+      </DialogBoxHeader>
+      <form onSubmit={onSubmit}>
+        <DappConnectionDisplay title={accountSelectionTab.title} />
+        <ScrollableContainer $maxHeight="calc(90vh - 400px)">
+          <DialogBoxBody pt={2} px={5} pb={4} align="stretch" gap={24}>
+            <Dropdown
+              items={walletDropdownList}
+              selectedItem={selectedWallet?.__id}
+              searchText={accountSelectionTab.chooseWallet}
+              placeholderText={accountSelectionTab.chooseWallet}
+              onChange={handleWalletChange}
+              leftImage={<WalletIcon ml={3} />}
+            />
+            {version === 2 && (
+              <>
+                {requiredNamespaces.map(chain => (
+                  <ChainSpecificAccountSelection
+                    chain={chain}
+                    key={chain}
+                    selectedWallet={selectedWallet}
+                    updateChainToAccountMap={updateChainToAccountMap}
+                    asterisk
+                  />
+                ))}
+                {optionalNamespaces.map(chain => (
+                  <ChainSpecificAccountSelection
+                    chain={chain}
+                    key={chain}
+                    selectedWallet={selectedWallet}
+                    updateChainToAccountMap={updateChainToAccountMap}
+                  />
+                ))}
+              </>
+            )}
+            {version === 1 && (
               <Dropdown
-                key={group.assetId}
-                items={group.accounts}
-                selectedItem={selectedItem}
+                items={accountDropdownList}
+                selectedItem={selectedAccount?.__id}
                 disabled={!selectedWallet}
-                searchText={parseLangTemplate(
+                searchText={`${parseLangTemplate(
                   accountSelectionTab.chooseAccount,
-                  { assetName: coinList[group.assetId].name },
-                )}
-                placeholderText={parseLangTemplate(
+                  {
+                    assetName: 'EVM',
+                  },
+                )}*`}
+                placeholderText={`${parseLangTemplate(
                   accountSelectionTab.chooseAccount,
-                  { assetName: coinList[group.assetId].name },
-                )}
-                onChange={(id: string | undefined) =>
-                  onChange(id, group.assetId)
-                }
+                  {
+                    assetName: 'EVM',
+                  },
+                )}*`}
+                onChange={handleAccountChange}
               />
-            );
-          })}
-          <AlertBox
+            )}
+            {/* <AlertBox
             alert={accountSelectionTab.supportInfo}
             subAlert={supportedNoAccountBlockchain.join(', ')}
             variant="message"
-          />
-          <AlertBox
-            alert={accountSelectionTab.notSupportedWarning.title}
-            subAlert={accountSelectionTab.notSupportedWarning.description}
-            variant="messageSecondary"
-          />
-          <Typography color="muted">
-            <LangDisplay text={common.info.title} />
-          </Typography>
-          <BulletList
-            items={common.info.points}
-            variant="success"
-            $bgColor={undefined}
-            $borderWidth={0}
-            px={0}
-            py={0}
-          />
-        </DialogBoxBody>
-      </ScrollableContainer>
-      <DialogBoxFooter>
-        <Button
-          variant="secondary"
-          disabled={false}
-          onClick={e => {
-            e.preventDefault();
-            onClose();
-          }}
-        >
-          <LangDisplay text={buttons.reject} />
-        </Button>
-        <Button
-          variant="primary"
-          disabled={selectedEvmAccounts.length === 0}
-          onClick={e => {
-            e.preventDefault();
-            onNext();
-          }}
-        >
-          <LangDisplay text={buttons.connect} />
-        </Button>
-      </DialogBoxFooter>
+          /> */}
+            {unsupportedOptionalChainsMessage && (
+              <AlertBox
+                alert={accountSelectionTab.notSupportedWarning.title}
+                subAlert={unsupportedOptionalChainsMessage}
+                variant="messageSecondary"
+              />
+            )}
+            <Typography color="muted">
+              <LangDisplay text={common.info.title} />
+            </Typography>
+            <BulletList
+              items={common.info.points}
+              variant="success"
+              $bgColor={undefined}
+              $borderWidth={0}
+              px={0}
+              py={0}
+            />
+          </DialogBoxBody>
+        </ScrollableContainer>
+        <DialogBoxFooter>
+          <Button
+            variant="secondary"
+            onClick={e => {
+              e.preventDefault();
+              handleClose();
+            }}
+          >
+            <LangDisplay text={buttons.reject} />
+          </Button>
+          <Button variant="primary" disabled={isButtonDisabled} type="submit">
+            <LangDisplay text={buttons.connect} />
+          </Button>
+        </DialogBoxFooter>
+      </form>
     </DialogBox>
   );
 };
