@@ -1,3 +1,5 @@
+import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { AxiosError } from 'axios';
 import React, {
   Context,
   FC,
@@ -10,6 +12,7 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { sendFeedback } from '~/services/feedbackService';
 import {
   closeDialog,
   selectLanguage,
@@ -17,11 +20,9 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
-import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 import { getCySyncLogsMethod, keyValueStore, validateEmail } from '~/utils';
-import { sendFeedback } from '~/services/feedbackService';
-import { AxiosError } from 'axios';
+import { ContactForm, ContactSupportSuccess } from '../Dialogs';
+
 
 export interface ContactSupportDialogContextInterface {
   tabs: ITabs;

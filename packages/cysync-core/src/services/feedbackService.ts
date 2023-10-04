@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { config } from '../config';
+
 import { getUUID } from '~/utils';
+
+import { config } from '../config';
 
 export const sendFeedback = async (
   email: string,
