@@ -45,7 +45,11 @@
     "@cypherock/cysync-core#prebuild": {
       "cache": true,
       "outputs": ["src/generated/**"],
-      "inputs": ["package.json", "scripts/prebuild.sh", "scripts/dependencies/*"]
+      "inputs": [
+        "package.json",
+        "scripts/prebuild.sh",
+        "scripts/dependencies/*"
+      ]
     },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],
