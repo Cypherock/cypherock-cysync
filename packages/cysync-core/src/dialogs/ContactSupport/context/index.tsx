@@ -23,7 +23,6 @@ import {
 import { getCySyncLogsMethod, keyValueStore, validateEmail } from '~/utils';
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 
-
 export interface ContactSupportDialogContextInterface {
   tabs: ITabs;
   isDeviceRequired: boolean;
