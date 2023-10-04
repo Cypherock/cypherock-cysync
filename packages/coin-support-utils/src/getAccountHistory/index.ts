@@ -254,14 +254,22 @@ export async function createGetAccountHistory(
     });
   }
 
+  const currentValue = calcValue({
+    amount: account.balance,
+    parentAssetId: account.parentAssetId,
+    assetId: account.assetId,
+    price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
+  });
+
+  accountBalanceHistory.push({
+    timestamp: Date.now(),
+    balance: account.balance,
+    value: currentValue,
+  });
+
   return {
     history: accountBalanceHistory,
     account,
-    currentValue: calcValue({
-      amount: account.balance,
-      parentAssetId: account.parentAssetId,
-      assetId: account.assetId,
-      price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
-    }),
+    currentValue,
   };
 }
