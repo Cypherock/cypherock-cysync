@@ -6,7 +6,7 @@ export const sendFeedback = async (
   email: string,
   category: string,
   description: string,
-  desktopLogs: unknown[],
+  desktopLogs: string[],
 ) => {
   const id = await getUUID();
   await axios.post(`${config.API_CYPHEROCK}/feedback`, {

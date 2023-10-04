@@ -79,7 +79,7 @@ export const ContactSupportDialogProvider: FC<
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
-  const [desktopLogs, setDesktopLogs] = useState<unknown[]>([]);
+  const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     categories[0].id,
   );

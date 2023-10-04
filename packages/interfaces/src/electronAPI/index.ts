@@ -21,7 +21,7 @@ export type GetDb = () => Promise<IDatabase>;
 export type GetKeyDb = () => Promise<IKeyValueStore>;
 export type ResetCySync = () => Promise<void>;
 export type CloseApp = () => Promise<void>;
-export type GetCySyncLogs = () => Promise<unknown[]>;
+export type GetCySyncLogs = () => Promise<string[]>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
