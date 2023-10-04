@@ -8,6 +8,7 @@ import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
@@ -25,7 +26,6 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { ContactSupportDialog } from './ContactSupport';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
