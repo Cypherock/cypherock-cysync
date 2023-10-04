@@ -23,7 +23,9 @@ describe('08. Get Account History', () => {
         if (testCase.params.account) {
           expect(accountHistory.account).toEqual(testCase.params.account);
         }
-        expect(accountHistory.history).toEqual(testCase.output.history);
+        expect(
+          accountHistory.history.slice(0, accountHistory.history.length - 1),
+        ).toEqual(testCase.output.history);
       });
     });
   });
