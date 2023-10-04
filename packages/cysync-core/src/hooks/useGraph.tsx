@@ -88,9 +88,10 @@ export const useGraph = (props?: UseGraphProps) => {
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
-  const [balanceHistories, setBalanceHistories] = useState<IBalanceHistory[]>(
-    [],
-  );
+  const [computedData, setComputedData] = useState<{
+    balanceHistory: IBalanceHistory[];
+    totalValue: string;
+  }>({ balanceHistory: [], totalValue: '0' });
 
   const [showGraphInUSD, setShowGraphInUSD] = useState(true);
 
@@ -139,7 +140,7 @@ export const useGraph = (props?: UseGraphProps) => {
         parentAssetId: data.props?.parentAssetId,
         accountId: data.props?.accountId,
       });
-      setBalanceHistories(balanceHistory);
+      setComputedData(balanceHistory);
     } catch (error) {
       logger.error('Error in calculating portfolio data');
       logger.error(error);
@@ -199,10 +200,12 @@ export const useGraph = (props?: UseGraphProps) => {
       }
     }
 
-    if (balanceHistories.length > 0) {
+    if (computedData.balanceHistory.length > 0) {
       if (parentAssetId) {
         const { amount, unit } = getParsedAmount({
-          amount: balanceHistories[balanceHistories.length - 1].balance,
+          amount:
+            computedData.balanceHistory[computedData.balanceHistory.length - 1]
+              .balance,
           coinId: parentAssetId,
           assetId,
           unitAbbr: getDefaultUnit(parentAssetId, assetId).abbr,
@@ -212,17 +215,21 @@ export const useGraph = (props?: UseGraphProps) => {
       }
 
       let latestValue = new BigNumber(
-        balanceHistories[balanceHistories.length - 1].value,
+        computedData.balanceHistory[
+          computedData.balanceHistory.length - 1
+        ].value,
       );
-      let oldestValue = new BigNumber(balanceHistories[0].value);
+      let oldestValue = new BigNumber(computedData.balanceHistory[0].value);
 
-      currentValue = latestValue.toNumber();
+      currentValue = Number(computedData.totalValue);
 
       if (parentAssetId && !showGraphInUSD) {
         latestValue = new BigNumber(
-          balanceHistories[balanceHistories.length - 1].balance,
+          computedData.balanceHistory[
+            computedData.balanceHistory.length - 1
+          ].balance,
         );
-        oldestValue = new BigNumber(balanceHistories[0].balance);
+        oldestValue = new BigNumber(computedData.balanceHistory[0].balance);
       }
 
       const changeValueInNumber = latestValue.minus(oldestValue).abs();
@@ -286,13 +293,13 @@ export const useGraph = (props?: UseGraphProps) => {
           />
         ) : undefined,
     };
-  }, [balanceHistories, theme, isDiscreetMode, props, showGraphInUSD]);
+  }, [computedData, theme, isDiscreetMode, props, showGraphInUSD]);
 
   const graphData = useMemo(() => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
 
     if (!parentAssetId || showGraphInUSD) {
-      return balanceHistories.map(b => ({
+      return computedData.balanceHistory.map(b => ({
         timestamp: b.timestamp,
         value: new BigNumber(b.value).toNumber(),
       }));
@@ -300,7 +307,7 @@ export const useGraph = (props?: UseGraphProps) => {
 
     const defaultUnit = getDefaultUnit(parentAssetId, assetId);
 
-    return balanceHistories.map(b => {
+    return computedData.balanceHistory.map(b => {
       const { amount } = getParsedAmount({
         amount: b.balance,
         coinId: parentAssetId,
@@ -313,7 +320,7 @@ export const useGraph = (props?: UseGraphProps) => {
         value: new BigNumber(amount).toNumber(),
       };
     });
-  }, [balanceHistories, showGraphInUSD, props]);
+  }, [computedData, showGraphInUSD, props]);
 
   const formatGraphAmountDisplay = (
     value: string | number,

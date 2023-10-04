@@ -225,9 +225,11 @@ export const LineGraph: React.FC<LineGraphProps> = ({
     }
 
     return () => {
-      if (tooltipRoot.current) {
-        tooltipRoot.current.unmount();
-      }
+      setTimeout(() => {
+        if (tooltipRoot.current) {
+          tooltipRoot.current.unmount();
+        }
+      });
 
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
