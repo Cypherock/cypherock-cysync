@@ -6,7 +6,7 @@ TEMPDIR='.parcel-temp'
 BASEPATH='src/generated'
 
 mkdir -p ${BASEPATH}
-rm ${BASEPATH}/*
+rm -f ${BASEPATH}/*
 
 ./node_modules/.bin/parcel build ./scripts/dependencies --dist-dir ${TEMPDIR} --no-cache --no-source-maps 
 echo "/* eslint-disable */" > ${BASEPATH}/index.js
