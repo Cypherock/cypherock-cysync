@@ -10,6 +10,7 @@ import {
   Flex,
   Image,
   usageIcon,
+  InformationIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -71,7 +72,7 @@ const UsageDialogBox: FC<{
           height="full"
         >
           <Image $width={45} src={usageIcon} alt="usageIcon" />
-          <Flex gap={16} direction="column" height="full">
+          <Flex gap={48} direction="column" height="full" pb={4}>
             <Typography
               $alignSelf="center"
               variant="h5"
@@ -84,15 +85,30 @@ const UsageDialogBox: FC<{
             <Container
               height="full"
               $borderRadius={8}
-              display={{ def: 'none', lg: 'block' }}
+              display={{ def: 'none', lg: 'flex' }}
               $bgColor="input"
               px={2}
-              py={3}
-              align="flex-start"
+              py={1}
+              align="center"
+              justify="center"
+              gap={16}
             >
-              <Typography variant="h6" color="muted">
-                <LangDisplay text={subTitleFirst} />
-              </Typography>
+              <InformationIcon
+                height={16}
+                width={20}
+                style={{ width: 20, height: 16 }}
+              />
+              <Container
+                height="full"
+                width="fit-content"
+                display="flex"
+                justify="center"
+                align="center"
+              >
+                <Typography variant="h6" color="muted">
+                  <LangDisplay text={subTitleFirst} />
+                </Typography>
+              </Container>
             </Container>
           </Flex>
         </DialogBoxBody>
@@ -123,7 +139,7 @@ const UsageDialogBox: FC<{
           height="full"
         >
           <Image src={usageIcon} alt="usageIcon" />
-          <Flex gap={16} height="full" direction="column">
+          <Flex gap={48} height="full" direction="column" pb={4}>
             <Typography
               $alignSelf="center"
               variant="h5"
@@ -136,15 +152,32 @@ const UsageDialogBox: FC<{
             <Container
               height="full"
               $borderRadius={8}
+              display={{ def: 'none', lg: 'flex' }}
               $bgColor="input"
-              align="flex-start"
-              display={{ def: 'none', lg: 'block' }}
               px={2}
-              py={3}
+              py={1}
+              align="center"
+              justify="center"
+              gap={16}
             >
-              <Typography variant="h6" color="muted">
-                <LangDisplay text={subTitleSecond} />
-              </Typography>
+              <InformationIcon
+                height={16}
+                width={20}
+                style={{ width: 20, height: 16 }}
+              />
+              <Container
+                height="full"
+                width="fit-content"
+                display="flex"
+                px={0}
+                py={0}
+                justify="flex-start"
+                align="center"
+              >
+                <Typography variant="p" color="muted">
+                  <LangDisplay text={subTitleSecond} />
+                </Typography>
+              </Container>
             </Container>
           </Flex>
         </DialogBoxBody>
