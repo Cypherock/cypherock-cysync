@@ -23,7 +23,8 @@ export type BorderColor =
   | 'warning'
   | 'white'
   | 'list'
-  | 'topbar';
+  | 'topbar'
+  | 'danger';
 type BorderRadius = number | 'full';
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | 'none';
 

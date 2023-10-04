@@ -176,12 +176,16 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   };
 
   const approveSessionRequest = async (accounts: IAccount[]) => {
+    logger.info('WalletConnect: Approving session request');
     try {
       await getWalletConnectApi().approveSession(accounts);
     } catch (error) {
-      logger.error('WalletConnect: Error in selecting account');
-      logger.error(error);
-      disconnect();
+      if (error) {
+        logger.error('WalletConnect: Error in approving session request');
+        logger.error(error);
+        setConnectionError((error as any).message);
+      }
+      setConnectionState(WalletConnectConnectionState.CONNECTION_ERROR);
     }
   };
 

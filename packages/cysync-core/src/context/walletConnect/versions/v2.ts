@@ -1,4 +1,5 @@
 import { evmCoinList } from '@cypherock/coins';
+import { parseLangTemplate } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import { SessionTypes } from '@walletconnect/types';
 import {
@@ -11,7 +12,7 @@ import { Web3Wallet as Web3WalletType } from '@walletconnect/web3wallet/dist/typ
 import { useRef, useState } from 'react';
 
 import { useStateWithRef } from '~/hooks';
-import { selectWallets, useAppSelector } from '~/store';
+import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
 
 import {
@@ -28,6 +29,7 @@ const WALLET_CONNECT_PROJECT_ID = '80b185a5244c1bc8033aeca2dde1c0ca';
 
 export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
   const { wallets } = useAppSelector(selectWallets);
+  const lang = useAppSelector(selectLanguage);
   const [requiredNamespaces, setRequiredNamespaces] = useState<string[]>([]);
   const [optionalNamespaces, setOptionalNamespaces] = useState<string[]>([]);
   const [
@@ -94,16 +96,30 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
     );
 
     props.setErrorTitle(
-      `${proposal.params.proposer.metadata.name} requested to connect to chain${
-        unsupportedChains.length > 1 ? 's' : ''
-      } we don't support yet`,
+      parseLangTemplate(
+        lang.strings.walletConnect.common.error.unsupportedChains.title,
+        {
+          dappName: proposal.params.proposer.metadata.name,
+          s: unsupportedChains.length > 1 ? 's' : '',
+        },
+      ),
     );
 
     props.setErrorSubtitle(
-      `We currently support ${listToWords(supportedChainNames)}`,
+      parseLangTemplate(
+        lang.strings.walletConnect.common.error.unsupportedChains.subtitle,
+        {
+          chains: listToWords(supportedChainNames),
+        },
+      ),
     );
     props.setConnectionError(
-      `Unsupported Chains: ${listToWords(unsupportedChains)}`,
+      parseLangTemplate(
+        lang.strings.walletConnect.common.error.unsupportedChains.message,
+        {
+          chains: listToWords(unsupportedChains),
+        },
+      ),
     );
 
     props.setConnectionState(WalletConnectConnectionState.CONNECTION_ERROR);
@@ -139,7 +155,6 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.closeDialog();
     },
     handleSessionRequest: async (event: any) => {
-      console.log({ event });
       // only works when only one account per chain is selected, chainId is different then chain
       const account = selectedAccountsRef.current.find(
         acc =>
@@ -256,7 +271,7 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
           jsonrpc: '2.0',
           error: {
             code: 5000,
-            message: message ?? 'User rejected',
+            message: message ?? lang.strings.walletConnect.common.reject.call,
           },
         },
       });

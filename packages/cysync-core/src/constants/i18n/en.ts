@@ -907,6 +907,21 @@ const en = {
           'Request approvals for transactions',
         ],
       },
+      error: {
+        default: {
+          title: 'Error occurred while connecting',
+          subtitle: 'Retry the connection from the dApp',
+        },
+        unsupportedChains: {
+          title:
+            "${dappName} requested to connect to chain${s} we don't support yet",
+          subtitle: 'We currently support ${chains}',
+          message: 'Unsupported Chains: ${chains}',
+        },
+      },
+      reject: {
+        call: 'User rejected',
+      },
     },
   },
   signMessage: {
