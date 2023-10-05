@@ -7,6 +7,7 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as nearApiJs from 'near-api-js';
+import * as eip712 from 'eip-712';
 import { ethers } from 'ethers';
 
 import { initializeAndGetDb } from './db';
@@ -88,6 +89,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
     BtcSupport.setBitcoinLibrary(bitcoin);
     EvmSupport.setEthersLibrary(ethers);
+    EvmSupport.setEip712Library(eip712);
     NearSupport.setNearApiJs(nearApiJs);
   }
 
