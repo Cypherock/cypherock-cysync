@@ -18,7 +18,7 @@ import React, { useEffect, useState } from 'react';
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { FeeSection, AddressAndAmountSection } from './Components';
+import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
 

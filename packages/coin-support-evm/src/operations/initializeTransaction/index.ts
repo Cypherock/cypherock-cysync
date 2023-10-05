@@ -1,7 +1,7 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
-import { assert } from '@cypherock/cysync-utils';
+import { BigNumber, assert } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { getAverageGasPrice } from '../../services';
@@ -19,7 +19,9 @@ export const initializeTransaction = async (
     new Error('Transaction from subAccount not supported'),
   );
 
+  const gasLimit = '21000';
   const averageGasPrice = await getAverageGasPrice(coin.id);
+  const fee = new BigNumber(gasLimit).multipliedBy(averageGasPrice);
 
   return {
     accountId,
@@ -36,9 +38,10 @@ export const initializeTransaction = async (
     },
     computedData: {
       output: { address: '', amount: '0' },
-      fee: '0',
-      gasLimit: '0',
-      gasPrice: '0',
+      fee: fee.toString(10),
+      gasLimit,
+      gasLimitEstimate: gasLimit,
+      gasPrice: averageGasPrice,
     },
   };
 };
