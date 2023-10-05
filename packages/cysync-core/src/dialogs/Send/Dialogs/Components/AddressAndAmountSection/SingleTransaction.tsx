@@ -1,5 +1,8 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
@@ -34,12 +37,31 @@ export const SingleTransaction: React.FC = () => {
     prepare(txn);
   }, []);
 
+  const getBitcoinMaxSendAmount = (txn: IPreparedTransaction) => {
+    const { computedData } = txn as IPreparedBtcTransaction;
+    return computedData.outputs[0]?.value.toString() || '';
+  };
+
+  const getEvmMaxSendAmount = (txn: IPreparedTransaction) => {
+    const { computedData } = txn as IPreparedEvmTransaction;
+    return computedData.output.amount;
+  };
+
+  const computedAmountMap: Record<
+    CoinFamily,
+    (txn: IPreparedTransaction) => string
+  > = {
+    bitcoin: getBitcoinMaxSendAmount,
+    evm: getEvmMaxSendAmount,
+    near: () => '',
+    solana: () => '',
+  };
+
   useEffect(() => {
     if (transaction?.userInputs.isSendAll) {
-      const { computedData } = transaction as IPreparedBtcTransaction;
-      setAmountOverride(
-        getConvertedAmount(computedData.outputs[0]?.value.toString()) ?? '',
-      );
+      const value =
+        computedAmountMap[selectedAccount?.familyId as CoinFamily](transaction);
+      setAmountOverride(getConvertedAmount(value) ?? '');
     }
   }, [transaction]);
 
