@@ -14,6 +14,7 @@ export interface InputProps {
   name: string;
   label?: string;
   onChange?: (val: string) => void;
+  onBlur?: (val: string) => void;
   value?: string;
   disabled?: boolean;
   postfixIcon?: React.ReactNode;
@@ -107,6 +108,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         name,
         label = undefined,
         onChange = undefined,
+        onBlur = undefined,
         value = undefined,
         disabled = false,
         postfixText = undefined,
@@ -159,6 +161,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               return false;
             }}
             onChange={e => onChange?.(e.target.value)}
+            onBlur={e => onBlur?.(e.target.value)}
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
@@ -193,6 +196,7 @@ Input.defaultProps = {
   placeholder: undefined,
   postfixText: undefined,
   onChange: undefined,
+  onBlur: undefined,
   value: undefined,
   disabled: false,
   $noBorder: false,

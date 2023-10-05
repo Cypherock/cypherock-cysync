@@ -77,6 +77,8 @@
     "@cypherock/sdk-interfaces": "^0.0.13",
     "@cypherock/sdk-utils": "^0.0.16",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "uuid": "^9.0.0",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
     "lodash": "^4.17.21",

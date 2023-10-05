@@ -1,5 +1,6 @@
 import { release } from 'node:os';
 
+import { sleep } from '@cypherock/cysync-utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 
 import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
@@ -17,6 +18,7 @@ import {
 import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
+const LOADING_WINDOW_MIN_DISPLAY_TIME_IN_MS = 2 * 1000;
 let mainWindow: BrowserWindow | null = null;
 
 const getWebContents = () => {
@@ -67,6 +69,7 @@ export default function createApp() {
   prepareApp();
 
   let loadingWindow: BrowserWindow | null = null;
+  let loadingWindowOpenedAt: number = Date.now();
 
   const createMainWindow = async () => {
     logger.debug('Starting main window');
@@ -84,10 +87,18 @@ export default function createApp() {
       return { action: 'deny' };
     });
 
-    mainWindow.once('ready-to-show', () => {
+    mainWindow.once('ready-to-show', async () => {
       logger.info('Main Window loaded');
       if (!mainWindow || mainWindow.isDestroyed()) {
         return;
+      }
+
+      const timeLeftForLoadingWindow =
+        LOADING_WINDOW_MIN_DISPLAY_TIME_IN_MS +
+        (Date.now() - loadingWindowOpenedAt);
+
+      if (timeLeftForLoadingWindow > 0) {
+        await sleep(timeLeftForLoadingWindow);
       }
 
       mainWindow.show();
@@ -109,6 +120,7 @@ export default function createApp() {
       if (loadingWindow && !loadingWindow.isDestroyed()) {
         loadingWindow.show();
         fadeInWindow(loadingWindow);
+        loadingWindowOpenedAt = Date.now();
 
         await setupIntitialState();
         await createMainWindow();
