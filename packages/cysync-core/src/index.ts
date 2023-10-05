@@ -7,6 +7,7 @@ export {
   setResetCySyncMethod,
   setCloseAppMethod,
   setDependencies,
+  setCySyncLogsMethod,
 } from './utils';
 export * from './theme';
 export * from './constants';

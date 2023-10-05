@@ -8,4 +8,5 @@ export * from './keyValueStore';
 export * from './close';
 export * from './dependencies';
 export * from './transaction';
+export * from './logs';
 export * from './uuid';

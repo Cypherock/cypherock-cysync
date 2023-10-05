@@ -8,6 +8,7 @@ export const sendFeedback = async (
   email: string,
   category: string,
   description: string,
+  desktopLogs: string[],
 ) => {
   const id = await getUUID();
   await axios.post(`${config.API_CYPHEROCK}/feedback`, {
@@ -18,7 +19,7 @@ export const sendFeedback = async (
     systemInfo: undefined,
     deviceInfo: undefined,
     deviceLogs: [],
-    desktopLogs: [],
+    desktopLogs,
     uuid: id,
     appVersion: window.cysyncEnv.VERSION,
   });

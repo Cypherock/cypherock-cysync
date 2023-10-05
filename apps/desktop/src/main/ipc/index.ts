@@ -6,6 +6,7 @@ import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
 import { getResetIPCHandlers } from './reset';
+import { getCySyncLogsIPCHandlers } from './logs';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
@@ -18,6 +19,7 @@ export const setupIPCHandlers = (
     ...getResetIPCHandlers(getWebContents),
     ...getAutoUpdateIPCHandlers(),
     ...getCloseIPCHandlers(),
+    ...getCySyncLogsIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

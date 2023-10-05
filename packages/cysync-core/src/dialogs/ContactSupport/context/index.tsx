@@ -19,8 +19,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { keyValueStore, validateEmail } from '~/utils';
 
+import { getCySyncLogsMethod, keyValueStore, validateEmail } from '~/utils';
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 
 export interface ContactSupportDialogContextInterface {
@@ -79,6 +79,7 @@ export const ContactSupportDialogProvider: FC<
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
+  const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     categories[0].id,
   );
@@ -88,10 +89,13 @@ export const ContactSupportDialogProvider: FC<
   const [isCategoryError, setIsCategoryError] = useState<boolean>(false);
   const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDesktopLogsLoading, setIsDesktopLogsLoading] =
+    useState<boolean>(false);
 
   const isSubmitDisabled = useMemo<boolean>(
     () =>
       isLoading ||
+      isDesktopLogsLoading ||
       isEmailError ||
       email === null ||
       isCategoryError ||
@@ -100,6 +104,7 @@ export const ContactSupportDialogProvider: FC<
       description === null,
     [
       isLoading,
+      isDesktopLogsLoading,
       isEmailError,
       email,
       isCategoryError,
@@ -125,7 +130,7 @@ export const ContactSupportDialogProvider: FC<
     }
 
     try {
-      await sendFeedback(email, category.text, description);
+      await sendFeedback(email, category.text, description, desktopLogs);
       setIsLoading(false);
       onNext();
     } catch (apiError) {
@@ -196,6 +201,23 @@ export const ContactSupportDialogProvider: FC<
 
     setIsDescriptionError(false);
   }, [description]);
+
+  useEffect(() => {
+    if (canAttatchAppLogs) {
+      setIsDesktopLogsLoading(true);
+      getCySyncLogsMethod()()
+        .then(logs => {
+          setDesktopLogs(logs);
+          setIsDesktopLogsLoading(false);
+        })
+        .catch(err => {
+          setError((err.message as string) ?? String(err));
+          setIsDesktopLogsLoading(false);
+        });
+    } else {
+      setDesktopLogs([]);
+    }
+  }, [canAttatchAppLogs]);
 
   const {
     onNext,
