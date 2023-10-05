@@ -46,7 +46,7 @@ export const AssetPage: FC = () => {
     formatTimestamp,
     formatYAxisTick,
     summaryDetails,
-    onAssetClick,
+    onAccountClick,
     selectedAsset,
     assetId,
     parentAssetId,
@@ -58,18 +58,21 @@ export const AssetPage: FC = () => {
 
   return (
     <MainAppLayout
-      title={selectedAsset?.name ?? ''}
-      icon={
-        <CoinIcon
-          parentAssetId={parentAssetId ?? ''}
-          assetId={assetId}
-          size={{ def: '24px', lg: '32px' }}
-          containerSize={{ def: '32px', lg: '40px' }}
-          withBackground
-          withParentIconAtBottom
-          subIconSize={{ def: '12px', lg: '18px' }}
-        />
-      }
+      topbar={{
+        title: selectedAsset?.name ?? '',
+        icon: (
+          <CoinIcon
+            parentAssetId={parentAssetId ?? ''}
+            assetId={assetId}
+            size={{ def: '24px', lg: '32px' }}
+            containerSize={{ def: '32px', lg: '40px' }}
+            withBackground
+            withParentIconAtBottom
+            subIconSize={{ def: '12px', lg: '18px' }}
+            subContainerSize={{ def: '12px', lg: '18px' }}
+          />
+        ),
+      }}
     >
       <Container $noFlex m="20">
         <Flex justify="space-between" my={2}>
@@ -89,7 +92,8 @@ export const AssetPage: FC = () => {
                         parentAssetId={parentAssetId ?? ''}
                         assetId={assetId}
                         withParentIconAtBottom
-                        subIconSize="10px"
+                        subIconSize="8px"
+                        subContainerSize="12px"
                         size="16px"
                       />
                       <Typography ml={1}>{selectedAsset?.name}</Typography>
@@ -165,7 +169,8 @@ export const AssetPage: FC = () => {
             assetId={assetId}
             parentAssetId={parentAssetId}
             walletId={selectedWallet?.__id}
-            onAssetClick={onAssetClick}
+            onRowClick={onAccountClick}
+            withSubIconAtBottom
           />
         </Container>
 

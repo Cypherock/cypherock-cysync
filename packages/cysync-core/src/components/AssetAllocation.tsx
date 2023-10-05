@@ -13,14 +13,16 @@ import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
-import { useAssetAllocations } from '~/hooks';
+import { CoinAllocationRow, useAssetAllocations } from '~/hooks';
 
 export interface AssetAllocationProps {
   walletId?: string;
   parentAssetId?: string;
   assetId?: string;
   accountId?: string;
-  onAssetClick: (parentAssetId: string, assetId: string) => void;
+  onRowClick: (row: CoinAllocationRow) => void;
+  withSubIconAtBottom?: boolean;
+  withParentIconAtBottom?: boolean;
 }
 
 const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
@@ -38,7 +40,9 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   assetId,
   parentAssetId,
   accountId,
-  onAssetClick,
+  onRowClick,
+  withSubIconAtBottom,
+  withParentIconAtBottom,
 }) => {
   const { coinAllocations, strings, dispatch, isAccountDisplay } =
     useAssetAllocations({
@@ -46,6 +50,8 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       parentAssetId,
       assetId,
       accountId,
+      withSubIconAtBottom,
+      withParentIconAtBottom,
     });
   const [sortedBy, setSortedBy] =
     React.useState<AssetAllocationTableHeaderName>('allocation');
@@ -130,7 +136,7 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
           value={row.displayValue}
           $isLast={index === displayRows.length - 1}
           $rowIndex={index}
-          onClick={() => onAssetClick(row.parentAssetId, row.assetId)}
+          onClick={() => onRowClick(row)}
           variant={isAccountDisplay ? 'accounts' : undefined}
         />
       ))}
@@ -143,4 +149,6 @@ AssetAllocation.defaultProps = {
   assetId: undefined,
   parentAssetId: undefined,
   accountId: undefined,
+  withParentIconAtBottom: undefined,
+  withSubIconAtBottom: undefined,
 };

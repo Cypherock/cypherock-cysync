@@ -2,9 +2,10 @@ import {
   ConnectionStatusType,
   SyncStatusType,
   Topbar as TopbarUI,
+  TopbarProps as TopbarUIProps,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, ReactNode, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 
 import { syncAllAccounts } from '~/actions';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
@@ -43,10 +44,14 @@ const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
   [AccountSyncStateMap.failed]: 'error',
 };
 
-export const Topbar: FC<{ title: string; icon?: ReactNode }> = ({
-  title,
-  icon,
-}) => {
+export interface TopbarProps {
+  title: TopbarUIProps['title'];
+  subTitle?: TopbarUIProps['subTitle'];
+  icon?: TopbarUIProps['icon'];
+  tag?: TopbarUIProps['tag'];
+}
+
+export const Topbar: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
   const { lang, discreetMode, accountSync } = useAppSelector(selector);
   const { connection } = useDevice();
@@ -71,8 +76,7 @@ export const Topbar: FC<{ title: string; icon?: ReactNode }> = ({
 
   return (
     <TopbarUI
-      title={title}
-      icon={icon}
+      {...props}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
@@ -90,4 +94,6 @@ export const Topbar: FC<{ title: string; icon?: ReactNode }> = ({
 
 Topbar.defaultProps = {
   icon: undefined,
+  subTitle: undefined,
+  tag: undefined,
 };

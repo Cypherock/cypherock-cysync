@@ -355,7 +355,9 @@ export const useWalletPage = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleAccountTableRow = async (row: AccountRowData) => {
-    // TODO: navigate to account page
+    navigateTo(
+      `${routes.account.path}?accountId=${row.id}&fromWalletId=${selectedWallet?.__id}`,
+    );
   };
 
   const handleShowMore = () => {

@@ -127,7 +127,7 @@ const getConfig = (): IConfig => {
     ['production', 'test'].includes(
       process.env.NODE_ENV?.toLowerCase() as any,
     ) ||
-    app?.isPackaged
+    app.isPackaged
   ) {
     IS_PRODUCTION = true;
   } else if (jsonConfig.SIMULATE_PRODUCTION) {

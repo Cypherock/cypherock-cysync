@@ -1,19 +1,23 @@
 import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
-import { AppUpdateBar, DeviceUpdateBar, SideBar, Topbar } from '~/components';
+import {
+  AppUpdateBar,
+  DeviceUpdateBar,
+  SideBar,
+  Topbar,
+  TopbarProps,
+} from '~/components';
 
 interface MainAppLayoutProps {
-  title: string;
-  icon?: ReactNode;
+  topbar: TopbarProps;
   children?: ReactNode;
   fullHeight?: boolean;
   onTopbarHeightChange?: (height: number) => void;
 }
 
 export const MainAppLayout: FC<MainAppLayoutProps> = ({
-  title,
-  icon,
+  topbar,
   children,
   fullHeight,
   onTopbarHeightChange,
@@ -45,7 +49,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
           <DeviceUpdateBar />
-          <Topbar icon={icon} title={title} />
+          <Topbar {...topbar} />
         </Flex>
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
           {children}
@@ -57,7 +61,6 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
 
 MainAppLayout.defaultProps = {
   children: undefined,
-  icon: undefined,
   fullHeight: false,
   onTopbarHeightChange: undefined,
 };

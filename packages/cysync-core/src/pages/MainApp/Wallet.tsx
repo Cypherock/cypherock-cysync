@@ -128,7 +128,7 @@ export const Wallet: FC = () => {
 
   return (
     <MainAppLayout
-      title={`${walletName}`}
+      topbar={{ title: `${walletName}` }}
       fullHeight={accountList.length === 0}
     >
       <Flex justify="space-between" pt="10px" px="20px" mt={2}>
