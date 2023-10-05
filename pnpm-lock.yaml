@@ -555,8 +555,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.25
-        version: 0.0.25
+        specifier: ^0.0.27
+        version: 0.0.27
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.13
         version: 0.0.13
@@ -1435,9 +1435,6 @@ importers:
       '@cypherock/cysync-utils':
         specifier: workspace:^
         version: link:../utils
-      cysync-core:^workspace:
-        specifier: link:@cypherock/cysync-core:^workspace
-        version: link:@cypherock/cysync-core:^workspace
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -4750,12 +4747,13 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.0.25:
-    resolution: {integrity: sha512-MXRnASbs0zAjduItUtOXI00cRGR9jRT25qsxxAnQZm2dmPmUpfxMdpGRCUxX4lrOlI77DL/BmQIKa9nyNzvUoA==}
+  /@cypherock/sdk-app-evm@0.0.27:
+    resolution: {integrity: sha512-cKVgXmRNeB+AIxxGJ38hxHVQ9CyYKPi7NvxiEqGUjZIOc2H4gFOg3AyWrYopGN+bM2HeeKw+JhQncDvfwMgDKg==}
     dependencies:
       '@cypherock/sdk-core': 0.0.20
       '@cypherock/sdk-interfaces': 0.0.13
       '@cypherock/sdk-utils': 0.0.16
+      bignumber.js: 9.1.2
       long: 5.2.3
       protobufjs: 7.2.5
     dev: false
@@ -10794,6 +10792,10 @@ packages:
 
   /bignumber.js@9.1.1:
     resolution: {integrity: sha512-pHm4LsMJ6lzgNGVfZHjMoO8sdoRhOzOH4MLmY65Jg70bpxCKu5iOHNJyfF6OyvYw7t8Fpf35RuzUyqnQsj8Vig==}
+    dev: false
+
+  /bignumber.js@9.1.2:
+    resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
     dev: false
 
   /bin-links@3.0.3:
