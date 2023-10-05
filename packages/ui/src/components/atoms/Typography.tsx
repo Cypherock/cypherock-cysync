@@ -65,8 +65,15 @@ const getColorCss = (color?: TypographyColor) => {
       text-fill-color: transparent;
     `;
   } else {
+    const getColor = (theme: any) => {
+      if ((theme.palette.text as any)[color]) {
+        return (theme.palette.text as any)[color];
+      }
+      return color;
+    };
+
     colorCss = css`
-      color: ${({ theme }) => (theme.palette.text as any)[color]};
+      color: ${({ theme }) => getColor(theme)};
     `;
   }
 

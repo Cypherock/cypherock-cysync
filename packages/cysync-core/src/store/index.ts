@@ -9,3 +9,4 @@ export * from './priceHistroy';
 export * from './priceInfo';
 export * from './discreetMode';
 export * from './accountSync';
+export * from './notification';

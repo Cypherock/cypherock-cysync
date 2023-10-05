@@ -332,6 +332,7 @@ const en = {
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
     submit: 'Submit',
+    showMore: 'Show more',
   },
   deviceAuthentication: {
     success: {
@@ -832,6 +833,13 @@ const en = {
         syncronized: 'Syncronized',
         syncronizing: 'Syncronizing...',
         error: 'Sync error!',
+      },
+    },
+    notification: {
+      noTransactions: {
+        title: 'No new transactions yet',
+        subTitle:
+          'Send/Receive Crypto today to see your transaction notifications here',
       },
     },
   },

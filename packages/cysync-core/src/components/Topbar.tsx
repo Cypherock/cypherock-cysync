@@ -5,7 +5,7 @@ import {
   TopbarProps as TopbarUIProps,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { syncAllAccounts } from '~/actions';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
@@ -15,17 +15,21 @@ import {
   selectAccountSync,
   selectDiscreetMode,
   selectLanguage,
+  selectNotifications,
   toggleDiscreetMode,
+  toggleNotification,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
 const selector = createSelector(
-  [selectLanguage, selectDiscreetMode, selectAccountSync],
-  (a, b, c) => ({
+  [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
+  (a, b, c, { isOpen, hasUnreadNotifications }) => ({
     lang: a,
     discreetMode: b,
     accountSync: c,
+    isNotificationOpen: isOpen,
+    hasUnreadNotifications,
   }),
 );
 
@@ -53,12 +57,11 @@ export interface TopbarProps {
 
 export const Topbar: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
-  const { lang, discreetMode, accountSync } = useAppSelector(selector);
+  const { lang, discreetMode, accountSync, hasUnreadNotifications } =
+    useAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
-
-  const [haveNotifications] = useState<boolean>(false);
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
     [accountSync.syncState],
@@ -74,6 +77,10 @@ export const Topbar: FC<TopbarProps> = props => {
     dispatch(syncAllAccounts());
   };
 
+  const onNotificationClick = () => {
+    dispatch(toggleNotification());
+  };
+
   return (
     <TopbarUI
       {...props}
@@ -83,7 +90,8 @@ export const Topbar: FC<TopbarProps> = props => {
       syncStatus={syncState}
       isPasswordSet={isPasswordSet}
       connectionStatus={connectionState}
-      haveNotifications={haveNotifications}
+      haveNotifications={hasUnreadNotifications}
+      onNotificationClick={onNotificationClick}
       isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}

@@ -7,6 +7,7 @@ import {
   SideBar,
   Topbar,
   TopbarProps,
+  Notification,
 } from '~/components';
 
 interface MainAppLayoutProps {
@@ -51,6 +52,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
           <DeviceUpdateBar />
           <Topbar {...topbar} />
         </Flex>
+        <Notification top={topbarHeight + 5} />
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
           {children}
         </MainAppBody>
