@@ -133,7 +133,6 @@ export const ContactForm: React.FC = () => {
                   checked={canAttatchDeviceLogs}
                   isDisabled={isLoading}
                   onChange={() => {
-                    console.log('Check 2');
                     setCanAttatchDeviceLogs(!canAttatchDeviceLogs);
                   }}
                 />
