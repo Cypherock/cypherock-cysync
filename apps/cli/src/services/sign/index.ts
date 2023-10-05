@@ -83,7 +83,7 @@ export const signMessage = async (params: {
     wallet.__id,
     'Select an account to sign message from',
   );
-  if (account.familyId != 'evm') {
+  if (account.familyId !== 'evm') {
     console.log(
       colors.yellow('Sign message is only available for evm family.'),
     );
