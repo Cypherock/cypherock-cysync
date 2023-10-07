@@ -1,5 +1,7 @@
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { coinList } from '@cypherock/coins';
+import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { EvmIdMap, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -17,6 +19,7 @@ import {
   Image,
   questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect } from 'react';
 
 import { CoinIcon } from '~/components';
@@ -31,8 +34,14 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const { onNext, deviceEvents, selectedWallet, selectedAccount, startFlow } =
-    useSendDialog();
+  const {
+    onNext,
+    deviceEvents,
+    selectedWallet,
+    selectedAccount,
+    startFlow,
+    transaction,
+  } = useSendDialog();
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
@@ -122,6 +131,42 @@ export const DeviceAction: React.FC = () => {
   }, [deviceEvents]);
 
   const displayText = lang.strings.send.x1Vault;
+
+  const getL1Fee = () => {
+    const account = selectedAccount;
+    if (!account || !transaction) return `0`;
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount: _amount, unit } = getParsedAmount({
+      coinId: account.assetId,
+      unitAbbr: account.unit,
+      amount: txn.computedData.l1Fee,
+    });
+    return `${_amount} ${unit.abbr}`;
+  };
+  const getMessageBoxes = () => {
+    const messages: { text: string; variables?: any }[] = [];
+    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+      messages.push({ text: lang.strings.send.x1Vault.token.info });
+    }
+
+    if (selectedAccount?.parentAssetId === EvmIdMap.optimism) {
+      messages.push({
+        text: lang.strings.send.optimism.deviceAction,
+        variables: { fee: getL1Fee() },
+      });
+    }
+    return messages.map(message => (
+      <MessageBox
+        key={message.text}
+        type="info"
+        text={`${message.text} `}
+        variables={message.variables}
+        rightImage={
+          <Image src={questionMarkGoldIcon} alt="question mark icon" />
+        }
+      />
+    ));
+  };
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
@@ -145,15 +190,7 @@ export const DeviceAction: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          {selectedAccount?.parentAssetId ? (
-            <MessageBox
-              type="info"
-              text="dummy"
-              rightImage={
-                <Image src={questionMarkGoldIcon} alt="question mark icon" />
-              }
-            />
-          ) : undefined}
+          {getMessageBoxes()}
           <MessageBox type="warning" text={displayText.messageBox.warning} />
         </Container>
       </DialogBoxBody>

@@ -6,19 +6,21 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily, coinList } from '@cypherock/coins';
-import { Container, Divider, MessageBox } from '@cypherock/cysync-ui';
+import { CoinFamily, EvmIdMap, coinList } from '@cypherock/coins';
+import { Container, MessageBox } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
+import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
+import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
 
@@ -27,6 +29,18 @@ const feeInputMap: Record<CoinFamily, React.FC<any>> = {
   evm: EthereumInput,
   near: BitcoinInput,
   solana: BitcoinInput,
+};
+const getDefaultHeader = () => FeesHeader;
+const getEvmHeader = (assetId?: string) => {
+  if (EvmIdMap.optimism === assetId) return OptimismFeesHeader;
+  return FeesHeader;
+};
+
+const feeHeaderMap: Record<CoinFamily, (assetId?: string) => React.FC<any>> = {
+  bitcoin: getDefaultHeader,
+  evm: getEvmHeader,
+  near: getDefaultHeader,
+  solana: getDefaultHeader,
 };
 
 export const FeeSection: React.FC = () => {
@@ -38,6 +52,7 @@ export const FeeSection: React.FC = () => {
   const [isTextInput, setIsTextInput] = useState(false);
   const [isFeeLoading, setIsFeeLoading] = useState(false);
 
+  const getLabelSuffix = useLabelSuffix();
   const getBitcoinProps = () => {
     const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
     const txn = transaction as IPreparedBtcTransaction;
@@ -78,10 +93,25 @@ export const FeeSection: React.FC = () => {
     solana: () => ({}),
   };
 
-  const getFeeInputComponent = (coinFamily: CoinFamily) => {
+  const getFeeInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
     const Component = feeInputMap[coinFamily];
     const props = feeInputPropsMap[coinFamily]();
     return <Component {...props} />;
+  };
+
+  const getFeeHeaderComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+    const Component = feeHeaderMap[coinFamily](selectedAccount.assetId);
+    return (
+      <Component
+        title={displayText.fees.title}
+        initialState={isTextInput}
+        onChange={setIsTextInput}
+      />
+    );
   };
 
   const prepareFeeChanged = async (value: number) => {
@@ -181,18 +211,12 @@ export const FeeSection: React.FC = () => {
       pb={4}
       width="full"
     >
-      <Divider variant="horizontal" />
+      {getFeeHeaderComponent()}
 
-      <FeesHeader
-        initialState={isTextInput}
-        onChange={setIsTextInput}
-        title={displayText.fees.title}
-      />
-
-      {getFeeInputComponent(selectedAccount?.familyId as any)}
+      {getFeeInputComponent()}
 
       <FeesDisplay
-        label={displayText.fees.label}
+        label={displayText.fees.label + getLabelSuffix(selectedAccount)}
         fee={getTotalFees()}
         value={getFeesValue()}
         isLoading={isFeeLoading}

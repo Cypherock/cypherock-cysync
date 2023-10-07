@@ -4,7 +4,7 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareEvmTransactionParams } from './types';
 
-import { estimateGasLimit } from '../../services';
+import { estimateGas } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
@@ -18,7 +18,7 @@ const validateAddresses = (
     let isValid = true;
 
     /**
-     * We allow emptry string in the validation (error prompt should not
+     * We allow empty string in the validation (error prompt should not
      * appear for empty string). And validate only non-empty strings.
      */
     if (
@@ -46,7 +46,7 @@ export const prepareTransaction = async (
   );
 
   const outputsAddresses = validateAddresses(params, coin);
-  const gasLimitEstimate = await estimateGasLimit(coin.id, {
+  const gasEstimate = await estimateGas(coin.id, {
     from: account.xpubOrAddress,
     to:
       txn.userInputs.outputs[0].address && outputsAddresses[0]
@@ -55,10 +55,11 @@ export const prepareTransaction = async (
     value: '0',
     data: '0x',
   });
-  const gasLimit = txn.userInputs.gasLimit ?? gasLimitEstimate;
+  const gasLimit = txn.userInputs.gasLimit ?? gasEstimate.limit;
   const output = { ...txn.userInputs.outputs[0] };
   const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
-  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
+  const l1Fee = gasEstimate.l1Cost;
+  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice).plus(l1Fee);
   const sendAllAmount = new BigNumber(account.balance).minus(fee);
   let hasEnoughBalance = sendAllAmount.minus(output.amount || '0').isPositive();
 
@@ -77,7 +78,8 @@ export const prepareTransaction = async (
     },
     computedData: {
       gasLimit,
-      gasLimitEstimate,
+      gasLimitEstimate: gasEstimate.limit,
+      l1Fee,
       gasPrice,
       fee: fee.toString(10),
       output,

@@ -19,5 +19,6 @@ export interface IPreparedEvmTransaction extends IPreparedTransaction {
     gasPrice: string;
     gasLimit: string;
     gasLimitEstimate: string;
+    l1Fee: string;
   };
 }
