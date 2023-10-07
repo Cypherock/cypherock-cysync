@@ -48,7 +48,7 @@ const exportedFunctions = [
   },
   {
     name: 'initWCUri',
-    key: ipcConfig.methods.initWCUri,
+    key: ipcConfig.methods.getInitialWCUri,
   },
 ];
 

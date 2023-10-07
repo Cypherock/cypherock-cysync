@@ -11,6 +11,7 @@ import { Web3WalletTypes } from '@walletconnect/web3wallet';
 import { Web3Wallet as Web3WalletType } from '@walletconnect/web3wallet/dist/types/client';
 import { useRef, useState } from 'react';
 
+import { constants } from '~/constants';
 import { useStateWithRef } from '~/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 import { getFocusAppMethod } from '~/utils';
@@ -26,7 +27,7 @@ import {
 
 const { Core } = (window as any).WalletConnectCore;
 const { Web3Wallet } = (window as any).WalletConnect;
-const WALLET_CONNECT_PROJECT_ID = '892cb46355562fd3e2d37d2361f44c1d';
+const WALLET_CONNECT_PROJECT_ID = constants.walletConnectProjectId;
 
 export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
   const { wallets } = useAppSelector(selectWallets);

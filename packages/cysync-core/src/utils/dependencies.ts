@@ -12,4 +12,5 @@ export const setDependencies = () => {
   BtcSupport.setBitcoinLibrary((window as any).BitcoinJsLib);
   NearSupport.setNearApiJs((window as any).NearApiJs);
   EvmSupport.setEthersLibrary((window as any).ethers);
+  EvmSupport.setEip712Library((window as any).eip712);
 };

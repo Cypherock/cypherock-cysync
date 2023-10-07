@@ -1,4 +1,4 @@
-let walletConnectUri: string | null;
+let walletConnectUri: string | undefined;
 
 export const setWCUri = (uri: typeof walletConnectUri) => {
   walletConnectUri = uri;

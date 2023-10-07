@@ -15,7 +15,7 @@ export const ipcConfig = {
     getCySyncLogs: 'app:getLogs',
     closeApp: 'app:close',
     focusApp: 'app:focus',
-    initWCUri: 'wc:uri:init',
+    getInitialWCUri: 'wc:uri:init',
   },
   listeners: {
     downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',

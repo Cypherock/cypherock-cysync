@@ -142,11 +142,6 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                 onChange={handleAccountChange}
               />
             )}
-            {/* <AlertBox
-            alert={accountSelectionTab.supportInfo}
-            subAlert={supportedNoAccountBlockchain.join(', ')}
-            variant="message"
-          /> */}
             {unsupportedOptionalChainsMessage && (
               <AlertBox
                 alert={accountSelectionTab.notSupportedWarning.title}

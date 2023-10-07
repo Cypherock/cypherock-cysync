@@ -6,7 +6,7 @@ import { getWCUri, setWCUri } from '../utils';
 
 let sendWCConnectionString: ((connectionString: string) => void) | undefined;
 
-const initWCUri = async () => {
+const getInitialUri = async () => {
   const wcUriCopy = getWCUri();
   setWCUri(null);
   return wcUriCopy;
@@ -14,8 +14,8 @@ const initWCUri = async () => {
 
 export const getWalletConnectIPCHandlers = () => [
   {
-    name: ipcConfig.methods.initWCUri,
-    func: initWCUri,
+    name: ipcConfig.methods.getInitialWCUri,
+    func: getInitialUri,
   },
 ];
 export const setupWalletConnectListeners = async (webContents: WebContents) => {
