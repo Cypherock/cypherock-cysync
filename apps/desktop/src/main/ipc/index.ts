@@ -5,6 +5,7 @@ import { getAutoUpdateIPCHandlers } from './autoUpdater';
 import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
+import { getCySyncLogsIPCHandlers } from './logs';
 import { getResetIPCHandlers } from './reset';
 import {
   getWalletConnectIPCHandlers,
@@ -23,6 +24,7 @@ export const setupIPCHandlers = (
     ...getAutoUpdateIPCHandlers(),
     ...getAppIPCHandlers(),
     ...getWalletConnectIPCHandlers(),
+    ...getCySyncLogsIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

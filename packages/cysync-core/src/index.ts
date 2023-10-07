@@ -11,6 +11,7 @@ export {
   setAddExternalLinkListenerMethod,
   setRemoveExternalLinkListenerMethod,
   setFocusAppMethod,
+  setCySyncLogsMethod,
 } from './utils';
 export * from './theme';
 export * from './constants';

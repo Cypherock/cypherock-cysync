@@ -8,6 +8,7 @@ import {
   setDependencies,
   setInitWCUriMethod,
   setFocusAppMethod,
+  setCySyncLogsMethod,
 } from '@cypherock/cysync-core';
 import {
   setAddExternalLinkListenerMethod,
@@ -22,6 +23,7 @@ export const setupCoreDependencies = async () => {
   setDB(await window.electronAPI.getDb());
   setKeyDB(await window.electronAPI.getKeyDb());
   setResetCySyncMethod(window.electronAPI.resetCySync);
+  setCySyncLogsMethod(window.electronAPI.getCySyncLogs);
   setCloseAppMethod(window.electronAPI.closeApp);
   setFocusAppMethod(window.electronAPI.focusApp);
   setAutoUpdater({

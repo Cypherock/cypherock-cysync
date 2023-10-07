@@ -8,6 +8,7 @@ import {
   ISyncPricesParams,
   IValidateAddressParams,
   IGetExplorerLink,
+  ISignMessageEvent,
 } from '@cypherock/coin-support-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
 import { Observable } from 'rxjs';
@@ -53,6 +54,10 @@ export class BtcSupport implements CoinSupport {
 
   public signTransaction(params: ISignBtcTransactionParams) {
     return operations.signTransaction(params);
+  }
+
+  public signMessage(): Observable<ISignMessageEvent> {
+    throw new Error(`Method not implemented`);
   }
 
   public broadcastTransaction(params: IBroadcastBtcTransactionParams) {

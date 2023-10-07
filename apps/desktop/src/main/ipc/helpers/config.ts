@@ -12,6 +12,7 @@ export const ipcConfig = {
     downloadUpdate: 'autoUpdater:downloadUpdate',
     installUpdates: 'autoUpdater:installUpdate',
     resetCySync: 'app:reset',
+    getCySyncLogs: 'app:getLogs',
     closeApp: 'app:close',
     focusApp: 'app:focus',
     initWCUri: 'wc:uri:init',

@@ -46,24 +46,29 @@ export const prepareTransaction = async (
   );
 
   const outputsAddresses = validateAddresses(params, coin);
-  const gasLimit =
-    txn.userInputs.gasLimit ??
-    (await estimateGasLimit(coin.id, {
-      from: account.xpubOrAddress,
-      to:
-        txn.userInputs.outputs[0].address && outputsAddresses[0]
-          ? txn.userInputs.outputs[0].address
-          : account.xpubOrAddress,
-      value: '0',
-      data: '0x',
-    }));
+  const gasLimitEstimate = await estimateGasLimit(coin.id, {
+    from: account.xpubOrAddress,
+    to:
+      txn.userInputs.outputs[0].address && outputsAddresses[0]
+        ? txn.userInputs.outputs[0].address
+        : account.xpubOrAddress,
+    value: '0',
+    data: '0x',
+  });
+  const gasLimit = txn.userInputs.gasLimit ?? gasLimitEstimate;
+  const output = { ...txn.userInputs.outputs[0] };
   const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
   const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
-  const hasEnoughBalance = new BigNumber(account.balance)
-    .minus(txn.userInputs.outputs[0].amount)
-    .minus(fee)
-    .isPositive();
+  const sendAllAmount = new BigNumber(account.balance).minus(fee);
+  let hasEnoughBalance = sendAllAmount.minus(output.amount || '0').isPositive();
 
+  if (txn.userInputs.isSendAll && sendAllAmount.isPositive()) {
+    hasEnoughBalance = sendAllAmount.isPositive();
+    output.amount = sendAllAmount.toString(10);
+    // update userInput so that the max amount is editable & not reset to 0
+    txn.userInputs.outputs[0].amount = output.amount;
+  }
+  txn.userInputs.gasLimit = gasLimit;
   return {
     ...txn,
     validation: {
@@ -72,12 +77,10 @@ export const prepareTransaction = async (
     },
     computedData: {
       gasLimit,
+      gasLimitEstimate,
       gasPrice,
       fee: fee.toString(10),
-      output: {
-        address: txn.userInputs.outputs[0].address,
-        amount: txn.userInputs.outputs[0].amount,
-      },
+      output,
     },
   };
 };

@@ -21,6 +21,7 @@ export type GetDb = () => Promise<IDatabase>;
 export type GetKeyDb = () => Promise<IKeyValueStore>;
 export type ResetCySync = () => Promise<void>;
 export type CloseApp = () => Promise<void>;
+export type GetCySyncLogs = () => Promise<string[]>;
 export type FocusApp = () => Promise<void>;
 export type InitWCUri = () => Promise<string | null>;
 export type AddExternalLinkListener = (listener: (uri: string) => void) => void;
@@ -44,4 +45,5 @@ export interface IElectronAPI {
   initWCUri: InitWCUri;
   addExternalLinkListener: AddExternalLinkListener;
   removeExternalLinkListener: RemoveExternalLinkListener;
+  getCySyncLogs: GetCySyncLogs;
 }
