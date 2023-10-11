@@ -22,7 +22,10 @@ export type GetKeyDb = () => Promise<IKeyValueStore>;
 export type ResetCySync = () => Promise<void>;
 export type CloseApp = () => Promise<void>;
 export type GetCySyncLogs = () => Promise<string[]>;
-
+export type FocusApp = () => Promise<void>;
+export type InitWCUri = () => Promise<string | null>;
+export type AddExternalLinkListener = (listener: (uri: string) => void) => void;
+export type RemoveExternalLinkListener = () => Promise<void>;
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
   getDevices: GetDevices;
@@ -38,5 +41,9 @@ export interface IElectronAPI {
   addUpdateDownloadErrorListener: AddUpdateDownloadErrorListener;
   removeUpdateDownloadListeners: RemoveUpdateDownloadListeners;
   closeApp: CloseApp;
+  focusApp: FocusApp;
+  initWCUri: InitWCUri;
+  addExternalLinkListener: AddExternalLinkListener;
+  removeExternalLinkListener: RemoveExternalLinkListener;
   getCySyncLogs: GetCySyncLogs;
 }

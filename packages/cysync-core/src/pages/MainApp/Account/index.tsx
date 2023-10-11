@@ -8,12 +8,18 @@ import {
   ArrowSentIcon,
   ArrowReceivedIcon,
   SvgProps,
+  WalletConnectWithBgIcon,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
-import { openReceiveDialog, openSendDialog } from '~/actions';
+import {
+  openReceiveDialog,
+  openSendDialog,
+  openWalletConnectDialog,
+} from '~/actions';
 import { CoinIcon, TransactionTable } from '~/components';
+import { supportedWalletConnectFamilies } from '~/context';
 import { useAppDispatch } from '~/store';
 
 import { TokenTable } from './TokenTable';
@@ -110,6 +116,20 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
+            {supportedWalletConnectFamilies.includes(
+              selectedAccount?.familyId ?? '',
+            ) && (
+              <Container pl={{ def: 0, mdlg: 4 }}>
+                <Button
+                  variant="icon"
+                  onClick={() => {
+                    dispatch(openWalletConnectDialog());
+                  }}
+                >
+                  <WalletConnectWithBgIcon />
+                </Button>
+              </Container>
+            )}
           </Flex>
         </Flex>
 

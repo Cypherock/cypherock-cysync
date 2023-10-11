@@ -11,14 +11,16 @@ import {
 } from '../atoms';
 import { BgColor, BorderColor } from '../utils';
 
-export type MessageBoxType = 'info' | 'warning';
+export type MessageBoxType = 'info' | 'warning' | 'danger';
 const borderColorMap: Record<MessageBoxType, BorderColor> = {
   info: 'input',
   warning: 'warning',
+  danger: 'danger',
 };
 const bgColorMap: Record<MessageBoxType, BgColor> = {
   info: 'input',
   warning: 'warning',
+  danger: 'error',
 };
 export const MessageBox: FC<{
   text: string;
@@ -32,6 +34,7 @@ export const MessageBox: FC<{
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
     warning: theme?.palette.info.main,
+    danger: theme?.palette.background.danger,
   };
   return (
     <Container
