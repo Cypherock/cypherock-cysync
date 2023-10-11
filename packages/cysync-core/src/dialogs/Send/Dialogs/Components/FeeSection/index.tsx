@@ -104,7 +104,7 @@ export const FeeSection: React.FC = () => {
   const getFeeHeaderComponent = () => {
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
-    const Component = feeHeaderMap[coinFamily](selectedAccount.assetId);
+    const Component = feeHeaderMap[coinFamily](selectedAccount.parentAssetId);
     return (
       <Component
         title={displayText.fees.title}
