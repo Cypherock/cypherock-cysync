@@ -17,14 +17,10 @@ import {
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
-import {
-  useAccountDropdown,
-  useStateWithRef,
-  useWalletDropdown,
-} from '~/hooks';
+import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -52,7 +48,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     version,
   } = useWalletConnect();
   const chainToAccountMapRef = useRef<Record<string, IAccount>>({});
-  const [isButtonDisabled, setIsButtonDisabled] = useStateWithRef(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const onSubmit = (e: any) => {
     e.preventDefault();
     approveSessionRequest(
