@@ -24,6 +24,7 @@ import { CoinIcon } from '~/components';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
+import { useLabelSuffix } from '../hooks';
 
 export const SummaryDialog: React.FC = () => {
   const { onNext, onPrevious, selectedAccount, selectedWallet, transaction } =
@@ -32,6 +33,7 @@ export const SummaryDialog: React.FC = () => {
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
+  const getLabelSuffix = useLabelSuffix();
 
   const getToDetails = () => {
     const account = selectedAccount;
@@ -147,7 +149,7 @@ export const SummaryDialog: React.FC = () => {
 
     details.push({
       id: 'fee-details',
-      leftText: displayText.network,
+      leftText: displayText.network + getLabelSuffix(selectedAccount),
       rightText: `${amount} ${unit.abbr}`,
       rightSubText: `$${value}`,
     });

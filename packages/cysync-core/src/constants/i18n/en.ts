@@ -491,6 +491,9 @@ const en = {
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
       },
+      token: {
+        info: 'Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}',
+      },
       messageBox: {
         warning:
           'Always verify the address displayed on your device exactly matches the address given by the recipient',
@@ -554,6 +557,13 @@ const en = {
         x1vault: 'X1 Vault',
         confirm: 'Confirmation',
       },
+    },
+    optimism: {
+      deviceAction:
+        "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
+      l1: ' (L1)',
+      l2: ' (L2)',
+      suffix: ' (L1 + L2)',
     },
   },
   history: {

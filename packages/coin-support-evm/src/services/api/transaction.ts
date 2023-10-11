@@ -82,7 +82,7 @@ export const getAverageGasPrice = async (assetId: string) => {
   return new BigNumber(fees).toString(10);
 };
 
-export const estimateGasLimit = async (
+export const estimateGas = async (
   assetId: string,
   params: {
     from: string;
@@ -98,6 +98,9 @@ export const estimateGasLimit = async (
     responseType: 'v2',
   });
 
-  const { fees } = response.data;
-  return new BigNumber(fees).toString(10);
+  const { fees, l1Cost } = response.data;
+  return {
+    limit: new BigNumber(fees).toString(10),
+    l1Cost: new BigNumber(l1Cost).toString(10),
+  };
 };

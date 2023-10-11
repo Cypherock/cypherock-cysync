@@ -28,7 +28,8 @@ export const MessageBox: FC<{
   textColor?: TypographyColor;
   type: MessageBoxType;
   rightImage?: React.ReactNode;
-}> = ({ text, altText, type, textColor, rightImage }) => {
+  variables?: any;
+}> = ({ text, altText, type, textColor, rightImage, variables }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
@@ -52,13 +53,13 @@ export const MessageBox: FC<{
       </div>
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
-          <LangDisplay text={text} />
+          <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
         </Typography>
         {altText && (
           <Container align="center" gap={5}>
             <Typography variant="fineprint">
-              <LangDisplay text={altText} />
+              <LangDisplay text={altText} variables={variables} />
             </Typography>
             {rightImage && rightImage}
           </Container>
@@ -72,4 +73,5 @@ MessageBox.defaultProps = {
   rightImage: undefined,
   altText: undefined,
   textColor: undefined,
+  variables: undefined,
 };

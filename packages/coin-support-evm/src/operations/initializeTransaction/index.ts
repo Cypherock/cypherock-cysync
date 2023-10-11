@@ -41,6 +41,7 @@ export const initializeTransaction = async (
       fee: fee.toString(10),
       gasLimit,
       gasLimitEstimate: gasLimit,
+      l1Fee: '0',
       gasPrice: averageGasPrice,
     },
   };
