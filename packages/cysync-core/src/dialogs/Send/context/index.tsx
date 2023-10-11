@@ -30,7 +30,12 @@ import { Observer, Subscription } from 'rxjs';
 
 import { LoaderDialog } from '~/components';
 import { deviceLock, useDevice } from '~/context';
-import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
+import {
+  ITabs,
+  useAccountDropdown,
+  useTabsAndDialogs,
+  useWalletDropdown,
+} from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -133,13 +138,17 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
+  } = useWalletDropdown({
+    walletId: defaultWalletId,
+  });
+  const {
     selectedAccount,
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
   } = useAccountDropdown({
+    selectedWallet,
     defaultAccountId,
-    defaultWalletId,
     includeSubAccounts: true,
   });
 

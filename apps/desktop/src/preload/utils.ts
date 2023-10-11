@@ -39,22 +39,22 @@ export const createObjectProxy = (params: {
       );
 
   for (const method of params.methods) {
-    const methodHeirarchy = method.split('.');
+    const methodHierarchy = method.split('.');
     let proxyObj = rootProxyObject;
 
-    for (let i = 0; i < methodHeirarchy.length; i += 1) {
-      const isLast = i >= methodHeirarchy.length - 1;
-      const currentHeirarchy = methodHeirarchy[i];
+    for (let i = 0; i < methodHierarchy.length; i += 1) {
+      const isLast = i >= methodHierarchy.length - 1;
+      const currentHierarchy = methodHierarchy[i];
 
-      if (!proxyObj[currentHeirarchy]) {
-        proxyObj[currentHeirarchy] = {};
+      if (!proxyObj[currentHierarchy]) {
+        proxyObj[currentHierarchy] = {};
       }
 
       if (isLast) {
-        (proxyObj as any)[currentHeirarchy] = createMethodCall(method);
+        (proxyObj as any)[currentHierarchy] = createMethodCall(method);
       }
 
-      proxyObj = rootProxyObject[currentHeirarchy];
+      proxyObj = rootProxyObject[currentHierarchy];
     }
   }
 

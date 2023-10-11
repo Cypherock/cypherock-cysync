@@ -40,6 +40,8 @@ export interface ScrollContainerProps extends UtilsProps {
 }
 
 export const ScrollContainer = styled.div<ScrollContainerProps>`
+  overflow: auto;
+  overflow-wrap: anywhere;
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.popup};
