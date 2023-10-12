@@ -36,7 +36,7 @@ const SnackBarButton = styled(Button)`
   margin: 4px 16px;
 `;
 
-interface SnackBarProps {
+export interface SnackBarProps {
   text: string;
   imageSrc: string;
   imageAlt: string;

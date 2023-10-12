@@ -21,6 +21,7 @@ import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
+import snackBarReducer, { ISnackBarState } from './snackBar';
 
 export interface RootState {
   wallet: IWalletState;
@@ -33,6 +34,7 @@ export interface RootState {
   transaction: ITransactionState;
   discreetMode: IDiscreetModeState;
   accountSync: IAccountSyncState;
+  snackBar: ISnackBarState;
 }
 
 export const store = configureStore({
@@ -47,6 +49,7 @@ export const store = configureStore({
     transaction: transactionReducer,
     discreetMode: discreetModeReducer,
     accountSync: accountSyncReducer,
+    snackBar: snackBarReducer,
   },
 });
 
