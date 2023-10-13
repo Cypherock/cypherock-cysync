@@ -1,6 +1,7 @@
 import { SnackBarProps } from '@cypherock/cysync-ui';
 
-export interface ISnackBarState extends SnackBarProps {
+export interface ISnackBarState {
   isOpen: boolean;
-  timeoutId?: NodeJS.Timeout;
+  snackBarId?: string;
+  props?: SnackBarProps;
 }

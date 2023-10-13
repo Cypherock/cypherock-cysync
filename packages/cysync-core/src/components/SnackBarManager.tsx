@@ -10,12 +10,8 @@ export const SnackBarManager = () => {
     return null;
   }
 
-  return (
-    <SnackBar
-      text={snackBarState.text}
-      imageSrc={snackBarState.imageSrc}
-      imageAlt={snackBarState.imageAlt}
-      buttonName={snackBarState.buttonName}
-    />
-  );
+  // the below error will be fired in case props are not properly handled by redux state
+  if (!snackBarState.props) throw new Error('SnackBarProps is Undefined');
+
+  return <SnackBar {...snackBarState.props} />;
 };

@@ -1,55 +1,52 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '~/store';
 
 import { ISnackBarState } from './types';
 import { SnackBarProps } from '@cypherock/cysync-ui';
+import { sleep } from '@cypherock/cysync-utils';
 
 export * from './types';
 
 const initialState: ISnackBarState = {
   isOpen: false,
-  text: '',
-  imageSrc: '',
-  imageAlt: '',
-  buttonName: '',
-  timeoutId: undefined,
+  props: undefined,
+  snackBarId: undefined,
 };
+
+export const openSnackBar = createAsyncThunk<any, SnackBarProps>(
+  'snackBar/openSnackBar',
+  async () => {
+    await sleep(5000);
+  },
+);
 
 export const snackBarSlice = createSlice({
   name: 'snackBar',
   initialState,
   reducers: {
-    openSnackBar: (state, payload: PayloadAction<SnackBarProps>) => {
-      // If snackBar is already open, close it first
-      if (state.isOpen) {
-        state.isOpen = false;
-        clearTimeout(state.timeoutId);
-      }
-
-      state.isOpen = true;
-      state.text = payload.payload.text;
-      state.imageSrc = payload.payload.imageSrc;
-      state.imageAlt = payload.payload.imageAlt;
-      state.buttonName = payload.payload.buttonName;
-
-      // Add autoHideDuration property to close snackBar after 5 seconds
-      const timeoutId = setTimeout(() => {
-        state.isOpen = false;
-        state.timeoutId = undefined;
-      }, 5000);
-
-      // Track reference to setTimeout
-      state.timeoutId = timeoutId;
-    },
     closeSnackBar: state => {
       state.isOpen = false;
-      clearTimeout(state.timeoutId);
+      state.snackBarId = undefined;
+      state.props = undefined;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(openSnackBar.pending, (state, action) => {
+      state.isOpen = true;
+      state.snackBarId = action.meta.requestId;
+      state.props = action.meta.arg;
+    });
+    builder.addCase(openSnackBar.fulfilled, (state, action) => {
+      if (state.snackBarId !== action.meta.requestId) return;
+      state.isOpen = false;
+      state.snackBarId = undefined;
+      state.props = undefined;
+    });
   },
 });
 
-export const { openSnackBar, closeSnackBar } = snackBarSlice.actions;
+export const { closeSnackBar } = snackBarSlice.actions;
 
 export const selectSnackBar = (state: RootState) => state.snackBar;
 
