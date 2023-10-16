@@ -27,7 +27,6 @@ import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
-import { Link } from 'react-router-dom';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
@@ -49,14 +48,19 @@ const ExternalLinkItem: React.FC<{
           <LangDisplay text={text} />
         </Typography>
       </Flex>
-      <Link to={href} target="_blank">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
         <Image
           src={openExternalLink}
           $width={12}
           $height={12}
           alt="termsLink"
         />
-      </Link>
+      </a>
     </Flex>
   </Container>
 );
