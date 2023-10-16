@@ -43,11 +43,12 @@ export const broadcastTransaction = async (
     inputs: [{ address: account.xpubOrAddress, amount: '0', isMine: true }],
     outputs: [{ ...params.transaction.userInputs.outputs[0], isMine }],
     confirmations: 0,
-    accountId: account.parentAccountId ?? account.__id,
+    accountId: account.__id,
     walletId: account.walletId,
     assetId: account.assetId,
     parentAssetId: account.parentAssetId,
     familyId: account.familyId,
+    parentAccountId: account.parentAccountId,
   };
 
   const amount = parsedTransaction.outputs.reduce(
