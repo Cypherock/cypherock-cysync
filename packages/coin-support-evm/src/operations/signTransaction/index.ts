@@ -30,7 +30,7 @@ const prepareUnsignedTxn = async (
   const txn = getCoinSupportEthersLib().Transaction.from({
     nonce,
     to: transaction.computedData.output.address,
-    data: '0x',
+    data: transaction.computedData.data,
     gasLimit: transaction.computedData.gasLimit,
     gasPrice: transaction.computedData.gasPrice,
     value: transaction.computedData.output.amount,

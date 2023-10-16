@@ -32,6 +32,7 @@ import {
   IBroadcastEvmTransactionParams,
 } from './operations/types';
 import { setCoinSupportEthersLib } from './utils';
+import { setCoinSupportWeb3Lib } from './utils/web3';
 
 export * from './operations/types';
 export * from './services';
@@ -46,6 +47,10 @@ export class EvmSupport implements CoinSupport {
 
   public static setEip712Library(eip712: any): void {
     setEip712Lib(eip712);
+  }
+
+  public static setWeb3Library(web3: any): void {
+    setCoinSupportWeb3Lib(web3);
   }
 
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {

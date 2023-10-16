@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { deleteWallets } from '~/actions/wallet/deleteWallets';
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
   ErrorActionButtonHandler,
   ErrorActionButtonHandlerMap,
@@ -14,6 +15,7 @@ import logger from '~/utils/logger';
 import { useNavigateTo } from './useNavigateTo';
 
 import { routes } from '..';
+import { IWallet } from '@cypherock/db-interfaces';
 
 export interface IErrorHandlerParams {
   error?: Error;
@@ -21,13 +23,16 @@ export interface IErrorHandlerParams {
   onRetry?: () => void;
   onClose: () => void;
   isOnboarding?: boolean;
+  selectedWallet?: IWallet;
 }
 
 export const useErrorHandler = (params: IErrorHandlerParams) => {
-  const { error, defaultMsg, onRetry, onClose, isOnboarding } = params;
+  const { error, defaultMsg, onRetry, onClose, isOnboarding, selectedWallet } =
+    params;
 
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+  const dispatch = useAppDispatch();
 
   const [errorToShow, setErrorToShow] = React.useState<
     IParsedError | undefined
@@ -89,10 +94,8 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         navigateTo(routes.onboarding.info.path);
       },
       [ErrorActionButtonHandlerMap.deleteWallets]: () => {
-        // TODO: Add support for deleting wallet
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.deleteWallets}`,
-        );
+        if (selectedWallet) dispatch(deleteWallets([selectedWallet]));
+        onClose();
       },
       [ErrorActionButtonHandlerMap.close]: () => {
         onClose();

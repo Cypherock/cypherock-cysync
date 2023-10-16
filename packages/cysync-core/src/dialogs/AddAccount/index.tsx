@@ -32,6 +32,7 @@ const AddNewAccount: FC = () => {
     isDeviceRequired,
     error,
     onRetry,
+    selectedWallet,
   } = useAddAccountDialog();
 
   const WrapperComponent = isDeviceRequired
@@ -71,6 +72,7 @@ const AddNewAccount: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
