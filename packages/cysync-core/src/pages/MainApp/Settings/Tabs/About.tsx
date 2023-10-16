@@ -32,7 +32,7 @@ export const About: React.FC = () => {
         title={{ text: item.termsOfUse.title }}
         description={{ text: item.termsOfUse.description }}
       >
-        <Link to="https://www.cypherock.com/" target="_blank">
+        <Link to="https://www.cypherock.com/terms" target="_blank">
           <GoldExternalLink width={18} height={18} />
         </Link>
       </SettingsStandardItem>
@@ -40,7 +40,7 @@ export const About: React.FC = () => {
         title={{ text: item.privacyPolicy.title }}
         description={{ text: item.privacyPolicy.description }}
       >
-        <Link to="https://www.cypherock.com/" target="_blank">
+        <Link to="https://www.cypherock.com/privacy" target="_blank">
           <GoldExternalLink width={18} height={18} />
         </Link>
       </SettingsStandardItem>
