@@ -21,17 +21,19 @@ import React, {
   useState,
 } from 'react';
 
-import { routes } from '~/constants';
+import { constants, routes } from '~/constants';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
+import { Link } from 'react-router-dom';
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
   text: string;
-}> = ({ text }) => (
+  href: string;
+}> = ({ text, href }) => (
   <Container
     width="full"
     $borderRadius={8}
@@ -47,14 +49,14 @@ const ExternalLinkItem: React.FC<{
           <LangDisplay text={text} />
         </Typography>
       </Flex>
-      <Button variant="none">
+      <Link to={href} target="_blank">
         <Image
           src={openExternalLink}
           $width={12}
           $height={12}
           alt="termsLink"
         />
-      </Button>
+      </Link>
     </Flex>
   </Container>
 );
@@ -99,8 +101,14 @@ const TermsDialogBox: FC<{
           </Typography>
         </Container>
         <Flex width="full" direction="column" gap={16}>
-          <ExternalLinkItem text={bulletPoints.terms} />
-          <ExternalLinkItem text={bulletPoints.privacyPolicy} />
+          <ExternalLinkItem
+            href={constants.termsOfUseLink}
+            text={bulletPoints.terms}
+          />
+          <ExternalLinkItem
+            href={constants.privacyPolicyLink}
+            text={bulletPoints.privacyPolicy}
+          />
         </Flex>
         <CheckBox
           checked={isChecked}
