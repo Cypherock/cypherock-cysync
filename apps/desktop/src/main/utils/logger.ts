@@ -11,9 +11,11 @@ import { config } from './config';
 
 const transports: any[] = [new winston.transports.Console()];
 
+export const logFilePath = `${config.USER_DATA_PATH}/CySync.log`;
+
 if (config.USER_DATA_PATH) {
   const fileConfig = new winston.transports.File({
-    filename: `${config.USER_DATA_PATH}/CySync.log`,
+    filename: logFilePath,
     maxsize: 10 * 1024 * 1024, // in bytes
     tailable: true,
     maxFiles: 1,

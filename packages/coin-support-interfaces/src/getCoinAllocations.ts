@@ -1,6 +1,7 @@
 import { IDatabase } from '@cypherock/db-interfaces';
 
 export interface ICoinAllocation {
+  parentAssetId: string;
   assetId: string;
   balance: string;
   value: string;
@@ -10,6 +11,8 @@ export interface ICoinAllocation {
 export interface IGetCoinAllocationsParams {
   db: IDatabase;
   walletId?: string;
+  parentAssetId?: string;
+  assetId?: string;
 }
 
 export interface IGetCoinAllocationsResult {

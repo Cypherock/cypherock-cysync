@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
@@ -16,14 +16,24 @@ import {
   Notifications,
   PushpinBold,
 } from '../../assets';
-import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
+import {
+  Button,
+  Container,
+  Flex,
+  LangDisplay,
+  Tag,
+  Typography,
+} from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
 export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
-interface ITopbar {
+export interface TopbarProps {
   title: string;
+  subTitle?: string;
+  tag?: string;
+  icon?: ReactNode;
   statusTexts: {
     connection: {
       connected: string;
@@ -63,8 +73,11 @@ const TitleStyle = styled.div`
   gap: 16px;
 `;
 
-export const Topbar: FC<ITopbar> = ({
+export const Topbar: FC<TopbarProps> = ({
   title,
+  subTitle,
+  tag,
+  icon,
   statusTexts,
   connectionStatus,
   haveNotifications,
@@ -108,9 +121,30 @@ export const Topbar: FC<ITopbar> = ({
       shadow="popup"
     >
       <TitleStyle>
-        <Typography variant="h4" $fontWeight="semibold" color="silver">
-          <LangDisplay text={title} />
-        </Typography>
+        <Container direction="row">
+          {icon ?? null}
+          <Container direction="column" ml={icon ? 2 : 0} align="flex-start">
+            <Typography variant="h4" $fontWeight="semibold" color="silver">
+              <LangDisplay text={title} />
+            </Typography>
+            {(subTitle || tag) && (
+              <Container direction="row">
+                {subTitle && (
+                  <Typography
+                    $fontWeight="semibold"
+                    $fontSize={14}
+                    color="muted"
+                    mr={1}
+                  >
+                    <LangDisplay text={subTitle} />
+                  </Typography>
+                )}
+                {tag && <Tag>{tag}</Tag>}
+              </Container>
+            )}
+          </Container>
+        </Container>
+
         {showIcon && (
           <Button variant="icon" onClick={onIconClick} pl={5}>
             <PushpinBold />
@@ -161,4 +195,7 @@ export const Topbar: FC<ITopbar> = ({
 Topbar.defaultProps = {
   showIcon: false,
   onIconClick: undefined,
+  icon: undefined,
+  subTitle: undefined,
+  tag: undefined,
 };

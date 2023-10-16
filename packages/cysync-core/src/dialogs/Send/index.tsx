@@ -28,6 +28,11 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 
+export interface SendDialogProps {
+  walletId?: string;
+  accountId?: string;
+}
+
 export const SendFlow: FC = () => {
   const {
     tabs,
@@ -90,8 +95,13 @@ export const SendFlow: FC = () => {
   );
 };
 
-export const SendDialog: FC = () => (
-  <SendDialogProvider>
+export const SendDialog: FC<SendDialogProps> = props => (
+  <SendDialogProvider {...props}>
     <SendFlow />
   </SendDialogProvider>
 );
+
+SendDialog.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

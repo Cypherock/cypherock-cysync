@@ -23,14 +23,14 @@ const fetchPriceHistoryForCoin = async ({
   db,
   days,
 }: {
-  coinId: string;
+  coinId: { parentAssetId: string; assetId: string };
   db: IDatabase;
   days: number;
 }) => {
   const prices = await getPriceHistory(coinId, DEFAULT_CURRENCY, days);
 
   const priceHistory: IPriceHistory = {
-    assetId: coinId,
+    assetId: coinId.assetId,
     currency: DEFAULT_CURRENCY,
     days,
     history: prices.map(e => ({ timestamp: e[0], price: e[1].toString() })),
@@ -41,18 +41,18 @@ const fetchPriceHistoryForCoin = async ({
 
 const getExpiredCoinList = async (
   db: IDatabase,
-  coinIds: string[],
+  coinIds: { parentAssetId: string; assetId: string }[],
   days: 30 | 365,
 ) => {
   const existingPriceHistories = await db.priceHistory.getAll(
-    coinIds.map(id => ({ assetId: id, currency: DEFAULT_CURRENCY })),
+    coinIds.map(id => ({ assetId: id.assetId, currency: DEFAULT_CURRENCY })),
   );
 
-  const expiredCoinIds: string[] = [];
+  const expiredCoinIds: { parentAssetId: string; assetId: string }[] = [];
 
   for (const coinId of coinIds) {
     const existingPriceInfo = existingPriceHistories.find(
-      p => p.assetId === coinId && days === p.days,
+      p => p.assetId === coinId.assetId && days === p.days,
     );
 
     if (!existingPriceInfo) {

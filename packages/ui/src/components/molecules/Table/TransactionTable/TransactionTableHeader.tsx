@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { styled } from 'styled-components';
 
+import { TransactionTableVariant } from './types';
+
 import {
   TableHeader,
   TableHeaderComponent,
@@ -10,20 +12,25 @@ import {
 export type TransactionTableHeaderName =
   | 'time'
   | 'asset'
+  | 'wallet'
   | 'account'
+  | 'walletAndAccount'
   | 'amount'
   | 'value';
 
 export interface TransactionTableHeaderProps {
   time: string;
   asset: string;
+  wallet: string;
   account: string;
+  walletAndAccount: string;
   amount: string;
   value: string;
   onSort: (key: TransactionTableHeaderName) => void;
   selected: TransactionTableHeaderName;
   $ascending: boolean;
   isSmallScreen: boolean;
+  variant?: TransactionTableVariant;
 }
 
 const TimeHeader = styled(TableHeader)`
@@ -66,59 +73,147 @@ const ValueHeader = styled(TableHeader)`
   width: 15%;
 `;
 
+const TimeHeaderForVariant = styled(TableHeader)`
+  padding: 16px 16px 16px 88px;
+
+  width: 42%;
+`;
+
+const AmountHeaderForVariant = styled(TableHeader)`
+  padding: 16px;
+
+  width: 30%;
+`;
+
+const ValueHeaderForVariant = styled(TableHeader)`
+  padding: 16px;
+
+  width: 28%;
+`;
+
 export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
   time,
   asset,
   account,
+  wallet,
+  walletAndAccount,
   amount,
   value,
   onSort,
   $ascending,
   selected,
   isSmallScreen,
+  variant,
 }) => {
   const headers: TableHeaderComponentProps['headers'] = useMemo(() => {
-    const result = [
-      {
-        name: 'time',
-        Wrapper: TimeHeader as any,
-        isSortable: true,
-        text: time,
-      },
-      {
-        name: 'asset',
-        Wrapper: AssetHeader as any,
-        isSortable: true,
-        text: asset,
-      },
-      {
-        name: 'account',
-        Wrapper: AccountHeader as any,
-        isSortable: true,
-        text: account,
-      },
-      {
-        name: 'amount',
-        Wrapper: AmountHeader as any,
-        isSortable: true,
-        text: amount,
-      },
-      {
-        name: 'value',
-        Wrapper: ValueHeader as any,
-        isSortable: true,
-        text: value,
-      },
-    ];
+    let result = [];
+    if (variant === 'withNoAssetColumn') {
+      result = [
+        {
+          name: 'time',
+          Wrapper: TimeHeader as any,
+          isSortable: true,
+          text: time,
+        },
+        {
+          name: 'wallet',
+          Wrapper: AssetHeader as any,
+          isSortable: true,
+          text: wallet,
+        },
+        {
+          name: 'account',
+          Wrapper: AccountHeader as any,
+          isSortable: true,
+          text: account,
+        },
+        {
+          name: 'amount',
+          Wrapper: AmountHeader as any,
+          isSortable: true,
+          text: amount,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeader as any,
+          isSortable: true,
+          text: value,
+        },
+      ];
+    } else if (variant === 'withTimeAndValues') {
+      result = [
+        {
+          name: 'time',
+          Wrapper: TimeHeaderForVariant as any,
+          isSortable: true,
+          text: time,
+        },
+        {
+          name: 'amount',
+          Wrapper: AmountHeaderForVariant as any,
+          isSortable: true,
+          text: amount,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeaderForVariant as any,
+          isSortable: true,
+          text: value,
+        },
+      ];
+    } else {
+      result = [
+        {
+          name: 'time',
+          Wrapper: TimeHeader as any,
+          isSortable: true,
+          text: time,
+        },
+        {
+          name: 'asset',
+          Wrapper: AssetHeader as any,
+          isSortable: true,
+          text: asset,
+        },
+        {
+          name: 'walletAndAccount',
+          Wrapper: AccountHeader as any,
+          isSortable: true,
+          text: walletAndAccount,
+        },
+        {
+          name: 'amount',
+          Wrapper: AmountHeader as any,
+          isSortable: true,
+          text: amount,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeader as any,
+          isSortable: true,
+          text: value,
+        },
+      ];
+    }
 
-    if (isSmallScreen) {
+    if (isSmallScreen && variant !== 'withTimeAndValues') {
       // Remove account and value headers
       result.splice(2, 1);
       result.splice(3, 1);
     }
 
     return result;
-  }, [time, asset, account, amount, value, isSmallScreen]);
+  }, [
+    time,
+    asset,
+    account,
+    walletAndAccount,
+    variant,
+    wallet,
+    amount,
+    value,
+    isSmallScreen,
+  ]);
 
   return (
     <TableHeaderComponent
@@ -128,4 +223,8 @@ export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
       $ascending={$ascending}
     />
   );
+};
+
+TransactionTableHeader.defaultProps = {
+  variant: 'default',
 };

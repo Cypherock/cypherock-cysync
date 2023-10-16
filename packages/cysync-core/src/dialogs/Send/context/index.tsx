@@ -30,7 +30,12 @@ import { Observer, Subscription } from 'rxjs';
 
 import { LoaderDialog } from '~/components';
 import { deviceLock, useDevice } from '~/context';
-import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
+import {
+  ITabs,
+  useAccountDropdown,
+  useTabsAndDialogs,
+  useWalletDropdown,
+} from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -64,6 +69,7 @@ export interface SendDialogContextInterface {
   walletDropdownList: DropDownListItemProps[];
   handleWalletChange: () => void;
   selectedAccount: IAccount | undefined;
+  selectedAccountParent: IAccount | undefined;
   setSelectedAccount: React.Dispatch<
     React.SetStateAction<IAccount | undefined>
   >;
@@ -82,7 +88,7 @@ export interface SendDialogContextInterface {
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
-  prepareSendMax: () => Promise<string>;
+  prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
 }
@@ -92,10 +98,14 @@ export const SendDialogContext: Context<SendDialogContextInterface> =
 
 export interface SendDialogContextProviderProps {
   children: ReactNode;
+  walletId?: string;
+  accountId?: string;
 }
 
 export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   children,
+  walletId: defaultWalletId,
+  accountId: defaultAccountId,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -129,11 +139,20 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
+  } = useWalletDropdown({
+    walletId: defaultWalletId,
+  });
+  const {
     selectedAccount,
     setSelectedAccount,
+    selectedAccountParent,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown();
+  } = useAccountDropdown({
+    selectedWallet,
+    defaultAccountId,
+    includeSubAccounts: true,
+  });
 
   const tabs: ITabs = [
     {
@@ -358,9 +377,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (!selectedAccount || !transaction) return;
     const convertedAmount = convertToUnit({
       amount: value,
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       fromUnitAbbr: selectedAccount.unit,
-      toUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+      toUnitAbbr: getZeroUnit(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      ).abbr,
     });
     const txn = transaction;
     if (txn.userInputs.outputs.length > 0)
@@ -375,17 +398,21 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
-  const prepareSendMax = async () => {
+  const prepareSendMax = async (state: boolean) => {
     if (!selectedAccount || !transaction) return '';
     const txn = transaction;
-    txn.userInputs.isSendAll = true;
+    txn.userInputs.isSendAll = state;
     await prepare(txn);
     const outputAmount = transaction.userInputs.outputs[0].amount;
     const convertedAmount = convertToUnit({
       amount: outputAmount,
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       toUnitAbbr: selectedAccount.unit,
-      fromUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+      fromUnitAbbr: getZeroUnit(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      ).abbr,
     });
     return formatDisplayAmount(convertedAmount.amount);
   };
@@ -450,6 +477,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleWalletChange,
       walletDropdownList,
       selectedAccount,
+      selectedAccountParent,
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,
@@ -483,6 +511,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleWalletChange,
       walletDropdownList,
       selectedAccount,
+      selectedAccountParent,
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,
@@ -514,3 +543,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 export function useSendDialog(): SendDialogContextInterface {
   return useContext(SendDialogContext);
 }
+
+SendDialogProvider.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

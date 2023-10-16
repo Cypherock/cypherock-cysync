@@ -1,6 +1,8 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
-import { getParsedAmount } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { CoinFamily, evmCoinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -15,20 +17,29 @@ import {
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
+import { useLabelSuffix } from '../hooks';
 
 export const SummaryDialog: React.FC = () => {
-  const { onNext, onPrevious, selectedAccount, selectedWallet, transaction } =
-    useSendDialog();
+  const {
+    onNext,
+    onPrevious,
+    selectedAccount,
+    selectedAccountParent,
+    selectedWallet,
+    transaction,
+  } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
+  const getLabelSuffix = useLabelSuffix();
 
   const getToDetails = () => {
     const account = selectedAccount;
@@ -38,7 +49,8 @@ export const SummaryDialog: React.FC = () => {
     if (!account || !coinPrice) return [];
     const details = transaction?.userInputs.outputs.flatMap(output => {
       const { amount, unit } = getParsedAmount({
-        coinId: account.assetId,
+        coinId: account.parentAssetId,
+        assetId: account.assetId,
         amount: output.amount,
         unitAbbr: account.unit,
       });
@@ -66,39 +78,76 @@ export const SummaryDialog: React.FC = () => {
     return details ?? [];
   };
 
+  const getBitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    // return '0' in error scenarios because BigNumber cannot handle empty string
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedBtcTransaction;
+    return computedData.fee.toString() || '0';
+  };
+
+  const getEvmFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedEvmTransaction;
+    return computedData.fee || '0';
+  };
+
+  const computedFeeMap: Record<
+    CoinFamily,
+    (txn: IPreparedTransaction | undefined) => string
+  > = {
+    bitcoin: getBitcoinFeeAmount,
+    evm: getEvmFeeAmount,
+    near: () => '0',
+    solana: () => '0',
+  };
+
   const getTotalAmount = () => {
     const account = selectedAccount;
-    const coinPrice = priceInfos.find(
+    const assetPrice = priceInfos.find(
       p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
     );
-    if (!account || !coinPrice) return [];
-    let totalToDeduct = new BigNumber(0);
+    const parentAssetPrice = priceInfos.find(
+      p =>
+        p.assetId === account?.parentAssetId &&
+        p.currency.toLowerCase() === 'usd',
+    );
+    if (!account || !assetPrice || !parentAssetPrice) return [];
+    let totalAmount = new BigNumber(0);
 
     transaction?.userInputs.outputs.forEach(output => {
-      totalToDeduct = totalToDeduct.plus(output.amount);
+      totalAmount = totalAmount.plus(output.amount);
     });
 
-    if (account.familyId === 'bitcoin') {
-      const txn = transaction as IPreparedBtcTransaction;
-      totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
-    }
-
-    const { amount, unit } = getParsedAmount({
-      coinId: account.assetId,
-      amount: totalToDeduct.toString(),
+    const { amount } = getParsedAmount({
+      coinId: account.parentAssetId,
+      assetId: account.assetId,
+      amount: totalAmount.toString(),
       unitAbbr: account.unit,
     });
-    const value = new BigNumber(amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toPrecision(2)
-      .toString();
+    const amountValue = new BigNumber(amount).multipliedBy(
+      assetPrice.latestPrice,
+    );
+
+    const totalFee = new BigNumber(
+      computedFeeMap[account.familyId as CoinFamily](transaction),
+    );
+
+    const { amount: feeAmount } = getParsedAmount({
+      coinId: account.parentAssetId,
+      amount: totalFee.toString(),
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+    });
+    const feeValue = new BigNumber(feeAmount).multipliedBy(
+      parentAssetPrice.latestPrice,
+    );
+
+    const totalValue = amountValue.plus(feeValue).toPrecision(2).toString();
 
     return [
       {
         id: 'total-amount-details',
         leftText: displayText.debit,
-        rightText: `${amount} ${unit.abbr}`,
-        rightSubText: `$${value}`,
+        rightText: `$${totalValue}`,
       },
     ];
   };
@@ -107,29 +156,29 @@ export const SummaryDialog: React.FC = () => {
     const details = [];
     const account = selectedAccount;
     const coinPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+      p =>
+        p.assetId === account?.parentAssetId &&
+        p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
-    if (account.familyId === 'bitcoin') {
-      const txn = transaction as IPreparedBtcTransaction;
-      const { amount, unit } = getParsedAmount({
-        coinId: account.assetId,
-        amount: txn.computedData.fee,
-        unitAbbr: account.unit,
-      });
+    const { amount, unit } = getParsedAmount({
+      coinId: account.parentAssetId,
+      amount: computedFeeMap[account.familyId as CoinFamily](transaction),
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+    });
 
-      const value = new BigNumber(amount)
-        .multipliedBy(coinPrice.latestPrice)
-        .toPrecision(2)
-        .toString();
+    const value = new BigNumber(amount)
+      .multipliedBy(coinPrice.latestPrice)
+      .toPrecision(2)
+      .toString();
 
-      details.push({
-        id: 'fee-details',
-        leftText: displayText.network,
-        rightText: `${amount} ${unit.abbr}`,
-        rightSubText: `$${value}`,
-      });
-    }
+    details.push({
+      id: 'fee-details',
+      leftText: displayText.network + getLabelSuffix(selectedAccount),
+      rightText: `${amount} ${unit.abbr}`,
+      rightSubText: `$${value}`,
+    });
+
     return details;
   };
 
@@ -142,23 +191,25 @@ export const SummaryDialog: React.FC = () => {
       },
       {
         id: 'account',
-        name: selectedAccount?.name ?? '',
+        name: selectedAccountParent?.name ?? selectedAccount?.name ?? '',
+        muted: false,
+        icon: <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />,
+      },
+    ];
+    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+      fromDetails.push({
+        id: 'asset',
+        // TODO: make this not depend on evmCoinList
+        name: evmCoinList[selectedAccount.parentAssetId].tokens[
+          selectedAccount.assetId
+        ].name,
         muted: false,
         icon: (
           <CoinIcon
-            assetId={
-              selectedAccount?.parentAssetId ?? selectedAccount?.assetId ?? ''
-            }
+            parentAssetId={selectedAccount.parentAssetId}
+            assetId={selectedAccount.assetId}
           />
         ),
-      },
-    ];
-    if (selectedAccount?.parentAssetId) {
-      fromDetails.push({
-        id: 'asset',
-        name: coinList[selectedAccount.assetId].name,
-        muted: false,
-        icon: <CoinIcon assetId={selectedAccount.assetId} />,
       });
     }
     return fromDetails;
@@ -182,8 +233,8 @@ export const SummaryDialog: React.FC = () => {
                     <Image
                       src={walletIcon}
                       alt="From"
-                      width="15px"
-                      height="12px"
+                      $width="15px"
+                      $height="12px"
                     />
                   ),
                   rightComponent: getFromDetails(),

@@ -159,7 +159,6 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext:
       'Go to wallet ${walletName} from the main menu on your device to resolve the issue',
   },
-  // TODO: Update texts for app timeout
   [DeviceAppErrorType.APP_TIMEOUT]: {
     heading: 'Your X1 Vault has timed-out',
     subtext: 'Navigate to the main menu on the device and try again',
@@ -305,6 +304,8 @@ const en = {
     continue: 'Continue',
     confirm: 'Confirm',
     skip: 'Skip',
+    send: 'Send',
+    receive: 'Receive',
     back: 'Back',
     retry: 'Retry',
     update: 'Update',
@@ -321,6 +322,26 @@ const en = {
     connect: 'Connect',
     disconnect: 'Disconnect',
     reject: 'Reject',
+    check: 'Check',
+    authenticate: 'Authenticate',
+    start: 'Start',
+    setPassword: 'Set Password',
+    changePassword: 'Change Password',
+    removePassword: 'Remove Password',
+    details: 'Details',
+    showQRCode: 'Show QR Code',
+    editAccount: 'Edit Account',
+    submit: 'Submit',
+  },
+  deviceAuthentication: {
+    success: {
+      title: 'Your X1 Vault is authenticated successfully',
+    },
+    loading: {
+      title: 'Please wait while your X1 Vault is being authenticated',
+      subtitle:
+        'Do not disconnect your X1 Vault while the operation is being done',
+    },
   },
   lockscreen: {
     title: 'Your Gateway to Self-Sovereignty',
@@ -449,6 +470,10 @@ const en = {
         { id: 2, name: 'Average' },
         { id: 3, name: 'Max' },
       ],
+      inputLabels: {
+        gasPrice: 'Gas Price',
+        gasLimit: 'Gas Limit',
+      },
     },
     source: {
       title: 'Source',
@@ -465,6 +490,9 @@ const en = {
         enterPassphrase: 'Enter passphrase',
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
+      },
+      token: {
+        info: 'Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}',
       },
       messageBox: {
         warning:
@@ -530,13 +558,22 @@ const en = {
         confirm: 'Confirmation',
       },
     },
+    optimism: {
+      deviceAction:
+        "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
+      l1: ' (L1)',
+      l2: ' (L2)',
+      suffix: ' (L1 + L2)',
+    },
   },
   history: {
     tableTitle: 'Transactions',
     tableHeader: {
       time: 'Time',
       asset: 'Asset',
-      account: 'Wallet / Account',
+      walletAndAccount: 'Wallet / Account',
+      wallet: 'Wallet',
+      account: 'Account',
       amount: 'Amount',
       value: 'Value',
     },
@@ -559,6 +596,7 @@ const en = {
       receiver: 'Receiver',
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
+      description: 'Description',
     },
     noData: {
       text: 'No transactions yet',
@@ -632,6 +670,10 @@ const en = {
       title: 'Connect your X1 Vault to your PC to proceed',
       subtext:
         'Use the USB cable provided in your product packaging to connect',
+      unavailable: {
+        title: 'Your X1 Vault is unable to communicate',
+        subtext: 'Try reconnecting the device',
+      },
     },
     deviceAuth: {
       heading: 'Device Authentication',
@@ -789,6 +831,10 @@ const en = {
       installUpdate: 'Install Update',
     },
   },
+  deviceUpdateBar: {
+    message: 'Firmware update version ${version} available',
+    button: 'Download',
+  },
   topbar: {
     statusTexts: {
       connection: {
@@ -861,14 +907,12 @@ const en = {
         'These blockchains are supported but add their accounts before use',
       notSupportedWarning: {
         title: 'These blockchains are not supported',
-        description:
-          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
     },
     accountConnectedTab: {
       title: 'Connected to ${dappName} interface',
       subTitle: 'Accounts',
-      info: 'You can now access the Uniswap interface DApp on your web browser',
+      info: 'You can now access the ${dappName} DApp on your web browser',
     },
     common: {
       info: {
@@ -877,6 +921,21 @@ const en = {
           'Check your account balance and activity',
           'Request approvals for transactions',
         ],
+      },
+      error: {
+        default: {
+          title: 'Error occurred while connecting',
+          subtitle: 'Retry the connection from the dApp',
+        },
+        unsupportedChains: {
+          title:
+            "${dappName} requested to connect to chain${s} we don't support yet",
+          subtitle: 'We currently support ${chains}',
+          message: 'Unsupported Chains: ${chains}',
+        },
+      },
+      reject: {
+        call: 'User rejected',
       },
     },
   },
@@ -891,10 +950,21 @@ const en = {
   },
   portfolio: {
     title: 'Portfolio',
+    tokenTable: {
+      title: 'Tokens',
+      tableHeader: {
+        token: 'Tokens',
+        amount: 'Amount',
+        value: 'Value',
+      },
+    },
     assetAllocation: {
       title: 'Asset Allocation',
+      accountTitle: 'Accounts',
       tableHeader: {
         asset: 'Asset',
+        account: 'Account',
+        wallet: 'Wallet',
         price: 'Price',
         balance: 'Balance',
         value: 'Value',
@@ -1266,6 +1336,215 @@ const en = {
   dialogs: {
     close: {
       title: 'Are you sure you want to exit?',
+    },
+    reset: {
+      confim: {
+        title: 'Are you sure you want to reset the cySync app?',
+        subTitle:
+          'This will erase all your data on your cySync app. Note this will not result in loss of assets',
+      },
+    },
+    releaseNote: {
+      title: 'Release Notes',
+    },
+    auth: {
+      title: 'Follow instructions on the X1 Vault',
+      email2fa: {
+        title:
+          'You are recommended to enter an email ID as a 2FA to get authenticity results',
+        emailInput: 'Email',
+      },
+      authX1Vault: {
+        description: 'Your device is now being authenticated',
+        info: 'Do not disconnect the device while it is being authenticated',
+        steps: {
+          confirm: 'Confirm authentication on device',
+        },
+        success: 'Your X1 Vault is authenticated successfully',
+        authenticating: {
+          title: 'Please wait while your X1 Vault is being authenticated',
+          description:
+            'Do not disconnect your X1 Vault while the operation is being done',
+        },
+      },
+      authX1Card: {
+        description: 'Your card is now being authenticated',
+        info: 'Do not disconnect the device while card is being authenticated',
+        steps: {
+          confirm: 'Confirm card authentication on device',
+          tapCard: 'Tap any card below the device',
+        },
+        success: 'Your X1 Card is authenticated successfully',
+      },
+    },
+    password: {
+      input: {
+        enterPassword: 'Enter Password',
+        oldPassword: 'Old Password',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+      },
+      error: {
+        mismatchError: 'Password Mismatched',
+        lengthError: 'Password length should be more than 8',
+        failedToSet: 'Failed to set Password',
+      },
+      success: {
+        change: 'Password Changed Successfully',
+        set: 'Password Set Successfully',
+        remove: 'Password Removed Successfully',
+      },
+      info: {
+        constraints:
+          'Use 8 or more characters with a mix of letters, numbers & symbols',
+      },
+      confimPassword: {
+        title: 'Confirm password to proceed',
+        subTitle: 'Provide password to proceed',
+      },
+      createNewPassword: {
+        title: 'Set your cySync password',
+        subTitle: 'We do not store your password on our servers',
+      },
+    },
+    contactSupport: {
+      form: {
+        header: 'Contact Support',
+        title: 'How can we help?',
+        description: 'Our team would love to hear from you',
+        field: {
+          email: {
+            label: 'Email',
+            placeholder: 'Your Email',
+          },
+          category: {
+            label: 'Category',
+            placeholder: 'Select Category',
+          },
+          description: {
+            label: 'Description',
+            placeholder: 'Describe your issue here',
+          },
+        },
+        checks: {
+          attachAppLogs: 'Attach Application Logs',
+          attachDeviceLogs: 'Attach Device Logs',
+          confirmDevice: 'Please confirm on device to proceed',
+          attachedDeviceLogs: 'Device Logs Successfully Attached',
+        },
+        errors: {
+          connectDevice: 'Connect the device to attach device logs',
+          bootloaderMode: 'Device is in the bootloader mode',
+        },
+      },
+      success: {
+        formSubmit: 'Support Form Submitted Successfully',
+      },
+    },
+  },
+  toggle: {
+    on: 'ON',
+    off: 'OFF',
+  },
+  settings: {
+    tabs: {
+      general: {
+        title: 'General',
+        item: {
+          syncMobile: {
+            title: 'Sync cySync Mobile App',
+            description:
+              'Sync your Accounts with cySync Mobile App through QR code',
+          },
+          editAccount: {
+            title: 'Edit Accounts',
+            description:
+              'Edit the name, preferred currency of the account or remove them from portfolio',
+          },
+          toggleWalletOnPortfolio: {
+            title: 'Show/Hide Wallets on the Portfolio',
+            description:
+              'You can disable a specific wallet from here. it will not be displayed on the portfolio page',
+          },
+          currency: {
+            title: 'Preferred currency',
+            description:
+              'Choose the currency shown next to your balance and operations',
+          },
+          language: {
+            title: 'Display Language',
+            description: 'Set the language for the cySync App',
+          },
+          region: {
+            title: 'Region',
+            description:
+              'Choose your region to update formats of date and time',
+          },
+        },
+      },
+      app: {
+        title: 'App Settings',
+        item: {
+          password: {
+            title: 'Password',
+            description: 'Change or turn off/on password for your cySync App',
+          },
+          anayticsAndBugReport: {
+            title: 'Analytics & Bug Report',
+            description:
+              'Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster. This includes clicks, page visits, redirections, actions(send, receive, lock etc.), end of page scrolls, (un)installing and app version, number of accounts, crypto assets and operations, session durations, the Cypherock device type and firmware',
+          },
+          reset: {
+            title: 'Reset cySync',
+            description:
+              'Erase all cysync data stored on your PC, including your accounts, transaction histories and settings. Note that this will not result in loss of assets',
+          },
+          update: {
+            title: 'cySync Update',
+            description: 'Automatically download cysync update when available',
+          },
+          usb: {
+            title: 'USB Diagnostics',
+            description: 'Troubleshoot USB connection with the device',
+          },
+        },
+      },
+      device: {
+        title: 'Device Settings',
+        item: {
+          x1VaultAuth: {
+            title: 'X1 Vault Authentication',
+            description: 'Authenticate your device',
+          },
+          x1CardAuth: {
+            title: 'X1 Card Authentication',
+            description: 'Authenticate your card',
+          },
+          transferWallet: {
+            title: 'Transfer Wallet',
+            description:
+              'If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever',
+          },
+        },
+      },
+      about: {
+        title: 'About',
+        item: {
+          cySyncVersion: {
+            title: 'cySync Version',
+            description: 'Version ${version}',
+          },
+          termsOfUse: {
+            title: 'Terms of Use',
+            description: 'By using cySync you agree to our Terms of Use',
+          },
+          privacyPolicy: {
+            title: 'Privacy Policy',
+            description:
+              'Refer to our Privacy Policy to learn what personal data we collect, why and how we use them',
+          },
+        },
+      },
     },
   },
 };

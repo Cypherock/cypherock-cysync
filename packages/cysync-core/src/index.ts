@@ -7,6 +7,11 @@ export {
   setResetCySyncMethod,
   setCloseAppMethod,
   setDependencies,
+  setInitWCUriMethod,
+  setAddExternalLinkListenerMethod,
+  setRemoveExternalLinkListenerMethod,
+  setFocusAppMethod,
+  setCySyncLogsMethod,
 } from './utils';
 export * from './theme';
 export * from './constants';

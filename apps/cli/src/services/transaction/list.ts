@@ -22,7 +22,8 @@ const mapTransactionToDisplay = async (
   );
 
   const { amount, unit } = getParsedAmount({
-    coinId: transaction.assetId,
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
     unitAbbr: account.unit,
     amount: transaction.amount,
   });
@@ -52,7 +53,8 @@ const mapTransactionToShortDisplay = async (
   );
 
   const { amount, unit } = getParsedAmount({
-    coinId: transaction.assetId,
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
     unitAbbr: account.unit,
     amount: transaction.amount,
   });

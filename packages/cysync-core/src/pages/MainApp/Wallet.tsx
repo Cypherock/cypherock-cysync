@@ -1,5 +1,7 @@
 import {
-  WalletHeader,
+  Breadcrumb,
+  Flex,
+  Button,
   TableSearch,
   TableStructure,
   ShowMore,
@@ -8,14 +10,13 @@ import {
   NoAccountWrapper,
   NoSearchResult,
   NotFound,
-  WalletContainer,
   AccountTableHeader,
   AccountTableRow,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { MainAppLayout } from './Components';
 import { useWalletPage } from './hooks';
+import { MainAppLayout } from './Layout';
 
 export const Wallet: FC = () => {
   const {
@@ -47,7 +48,7 @@ export const Wallet: FC = () => {
   const getMainContent = () => {
     if (hasAccounts) {
       return (
-        <TableStructure>
+        <TableStructure mt={0}>
           <TableSearch
             placeholder={lang.strings.wallet.search.placeholder}
             heading={lang.strings.wallet.tableTitle}
@@ -68,6 +69,7 @@ export const Wallet: FC = () => {
               {slicedData.map((row, index) => (
                 <AccountTableRow
                   key={row.id}
+                  id={row.id}
                   leftImage={row.leftImage}
                   text={row.text}
                   subText={row.subText}
@@ -75,7 +77,11 @@ export const Wallet: FC = () => {
                   statusImage={row.statusImage}
                   amount={row.displayAmount}
                   value={row.displayValue}
-                  tokens={row.tokens}
+                  tokens={row.tokens?.map(t => ({
+                    ...t,
+                    amount: t.displayAmount,
+                    value: t.displayValue,
+                  }))}
                   $isLast={index === slicedData.length - 1 && !displayShowMore}
                   $rowIndex={index}
                   $hide={lang.strings.wallet.buttons.hide}
@@ -122,23 +128,36 @@ export const Wallet: FC = () => {
 
   return (
     <MainAppLayout
-      title={`${walletName}`}
+      topbar={{ title: `${walletName}` }}
       fullHeight={accountList.length === 0}
     >
-      <WalletContainer>
-        <WalletHeader
-          title={`${lang.strings.wallet.title}`}
-          breadcrumb={walletName}
-          dropdown={dropDownData}
-          selectedItem={selectedWallet?.__id ?? ''}
-          setSelectedItem={onWalletChange}
-          primaryActionText={
-            hasAccounts ? lang.strings.buttons.addAccount : undefined
-          }
-          onPrimaryAction={hasAccounts ? handleAddAccountClick : undefined}
+      <Flex justify="space-between" pt="10px" px="20px" mt={2}>
+        <Breadcrumb
+          items={[
+            {
+              id: 'wallet',
+              text: lang.strings.wallet.title,
+            },
+            {
+              id: 'walletList',
+              dropdown: {
+                displayNode: walletName,
+                selectedItem: selectedWallet?.__id ?? '',
+                setSelectedItem: onWalletChange,
+                dropdown: dropDownData,
+              },
+            },
+          ]}
         />
-        {getMainContent()}
-      </WalletContainer>
+        <Flex gap={24}>
+          {hasAccounts && (
+            <Button variant="primary" onClick={handleAddAccountClick}>
+              {lang.strings.buttons.addAccount}
+            </Button>
+          )}
+        </Flex>
+      </Flex>
+      {getMainContent()}
     </MainAppLayout>
   );
 };

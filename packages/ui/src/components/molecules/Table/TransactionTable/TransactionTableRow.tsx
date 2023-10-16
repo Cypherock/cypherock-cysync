@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
+import { TransactionTableVariant } from './types';
+
 import { ArrowUp, ArrowDown, SvgProps } from '../../../../assets';
 import { ThemeType, useTheme } from '../../../../themes';
 import { Button, Container, Flex } from '../../../atoms';
@@ -35,6 +37,7 @@ export interface TransactionTableRowProps {
   style?: any;
   isExpanded: boolean;
   setIsExpanded: (value: boolean) => void;
+  variant?: TransactionTableVariant;
 }
 
 const getFillFromStatus = (
@@ -63,6 +66,7 @@ export const TransactionTableRow: React.FC<
     style,
     isExpanded,
     setIsExpanded,
+    variant,
     ...row
   } = props;
 
@@ -108,17 +112,32 @@ export const TransactionTableRow: React.FC<
             title={row.type}
             subtitle={row.time}
             date={row.date}
-            width={{ def: '42%', lg: '24%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '42%' }
+                : { def: '42%', lg: '24%' }
+            }
           />
-          <HistoryAssetBox
-            $assetName={row.asset}
-            $assetIcon={row.assetIcon}
-            width={{ def: '28%', lg: '16%' }}
-            p={isSmallScreen ? 2 : undefined}
-          />
-          {!isSmallScreen && (
+          {variant === 'withNoAssetColumn' && (
+            <TableNameBox
+              text={row.wallet}
+              width={{ def: '28%', lg: '16%' }}
+              p={{ def: 2 }}
+            />
+          )}
+          {!['withNoAssetColumn', 'withTimeAndValues'].includes(
+            variant as any,
+          ) && (
             <HistoryAssetBox
-              wallet={row.wallet}
+              $assetName={row.asset}
+              $assetIcon={row.assetIcon}
+              width={{ def: '28%', lg: '16%' }}
+              p={isSmallScreen ? 2 : undefined}
+            />
+          )}
+          {!isSmallScreen && variant !== 'withTimeAndValues' && (
+            <HistoryAssetBox
+              wallet={variant === 'withNoAssetColumn' ? undefined : row.wallet}
               $assetIcon={row.accountIcon}
               $assetName={row.account}
               $tag={row.accountTag}
@@ -127,17 +146,21 @@ export const TransactionTableRow: React.FC<
           )}
           <TableNameBox
             text={row.amount}
-            width={{ def: '22%', lg: '15%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '30%', lg: '30%' }
+                : { def: '22%', lg: '15%' }
+            }
             p={{ def: 2 }}
           />
-          {!isSmallScreen && (
+          {(!isSmallScreen || variant === 'withTimeAndValues') && (
             <TableNameBox
               text={row.value}
-              width={{ def: '15%' }}
+              width={{ def: variant === 'withTimeAndValues' ? '28%' : '15%' }}
               p={{ def: 2 }}
             />
           )}
-          {isSmallScreen && (
+          {isSmallScreen && variant !== 'withTimeAndValues' && (
             <Container $alignSelf="stretch" $flex={1} $noFlex>
               <Button
                 display="flex"
@@ -165,7 +188,9 @@ export const TransactionTableRow: React.FC<
               {
                 component: (
                   <HistoryAssetBox
-                    wallet={row.wallet}
+                    wallet={
+                      variant === 'withNoAssetColumn' ? undefined : row.wallet
+                    }
                     size="big"
                     pl="88"
                     $assetIcon={row.accountIcon}
@@ -200,4 +225,5 @@ TransactionTableRow.defaultProps = {
   date: undefined,
   $isLast: false,
   style: undefined,
+  variant: 'default',
 };

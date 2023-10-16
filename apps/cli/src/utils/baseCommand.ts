@@ -1,9 +1,14 @@
 // eslint-disable-next-line max-classes-per-file
 import { BtcSupport } from '@cypherock/coin-support-btc';
+import { EvmSupport } from '@cypherock/coin-support-evm';
+import { NearSupport } from '@cypherock/coin-support-near';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
 import * as bitcoin from 'bitcoinjs-lib';
+import * as nearApiJs from 'near-api-js';
+import * as eip712 from 'eip-712';
+import { ethers } from 'ethers';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
@@ -83,6 +88,9 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     }
 
     BtcSupport.setBitcoinLibrary(bitcoin);
+    EvmSupport.setEthersLibrary(ethers);
+    EvmSupport.setEip712Library(eip712);
+    NearSupport.setNearApiJs(nearApiJs);
   }
 
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {

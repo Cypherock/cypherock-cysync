@@ -115,6 +115,10 @@ class AutoUpdater {
 
     if (this.webContents) {
       this.webContents.send(
+        ipcConfig.listeners.downloadUpdateProgress,
+        Number(100),
+      );
+      this.webContents.send(
         ipcConfig.listeners.downloadUpdateCompleted,
         this.downloadedInfo,
       );

@@ -26,4 +26,5 @@ export interface IGetAccountHistoryParams {
 export interface IGetAccountHistoryResult {
   history: IBalanceHistory[];
   account: IAccount;
+  currentValue: string;
 }

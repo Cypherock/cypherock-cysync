@@ -1,5 +1,6 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   CoinSupport,
   IPreparedTransaction,
@@ -108,6 +109,33 @@ const getTxnInputs = async (params: {
 
     txn.userInputs.feeRate = feeRate;
   }
+
+  if (coin.family === coinFamiliesMap.evm) {
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.staticData.averageGasPrice,
+      unitAbbr: 'Gwei',
+    });
+    const gasPrice = await queryInput(
+      `Enter the gas price for the transaction (Average: ${amount} ${unit.abbr})`,
+    );
+    const gasLimit = await queryInput(
+      `Enter the gas limit for the transaction`,
+    );
+
+    if (outputCount <= 0) {
+      throw new Error('Invalid fees');
+    }
+
+    txn.userInputs.gasLimit = gasLimit;
+    txn.userInputs.gasPrice = convertToUnit({
+      amount: gasPrice,
+      coinId: coin.id,
+      fromUnitAbbr: `Gwei`,
+      toUnitAbbr: getZeroUnit(coin.id).abbr,
+    }).amount;
+  }
 };
 
 const showTransactionSummary = async (params: {
@@ -139,6 +167,17 @@ const showTransactionSummary = async (params: {
 
   if (coin.family === 'bitcoin') {
     const txn = transaction as IPreparedBtcTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.computedData.fee,
+      unitAbbr: account.unit,
+    });
+    console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
+  }
+
+  if (coin.family === coinFamiliesMap.evm) {
+    const txn = transaction as IPreparedEvmTransaction;
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: txn.computedData.fee,
@@ -291,7 +330,7 @@ export const sendFunds = async (params: {
     'Select an account to send funds from',
   );
 
-  const coin = coinList[account.assetId];
+  const coin = coinList[account.parentAssetId];
   const coinSupport = getCoinSupport(account.familyId);
 
   const spinner = await Spinner.create(creatingTxnSpinnerText);

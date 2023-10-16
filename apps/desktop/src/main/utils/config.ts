@@ -124,7 +124,10 @@ const getConfig = (): IConfig => {
 
   // Treat test as a production environment
   if (
-    ['production', 'test'].includes(process.env.NODE_ENV?.toLowerCase() as any)
+    ['production', 'test'].includes(
+      process.env.NODE_ENV?.toLowerCase() as any,
+    ) ||
+    app.isPackaged
   ) {
     IS_PRODUCTION = true;
   } else if (jsonConfig.SIMULATE_PRODUCTION) {

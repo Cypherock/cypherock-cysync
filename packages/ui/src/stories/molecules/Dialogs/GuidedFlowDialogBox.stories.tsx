@@ -75,10 +75,12 @@ export const MessageBoxList: Story = {
       {
         info: MessageBoxStories.Info.args?.text ?? 'Info Text',
         warning: MessageBoxStories.Warning.args?.text ?? 'Warning Text',
+        danger: 'Danger Text',
       },
       {
         warning: MessageBoxStories.Warning.args?.text ?? 'Warning Text',
         info: MessageBoxStories.Info.args?.text ?? 'Info Text',
+        danger: 'Danger Text',
       },
     ],
   },

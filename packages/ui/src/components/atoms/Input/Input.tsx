@@ -14,6 +14,7 @@ export interface InputProps {
   name: string;
   label?: string;
   onChange?: (val: string) => void;
+  onBlur?: (val: string) => void;
   value?: string;
   disabled?: boolean;
   postfixIcon?: React.ReactNode;
@@ -30,6 +31,7 @@ export interface InputProps {
   $customImageSpacing?: boolean;
   $customRightSpacing?: number;
   $noBorder?: boolean;
+  required?: boolean;
 }
 
 const InputStyle = styled.input<{
@@ -106,6 +108,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         name,
         label = undefined,
         onChange = undefined,
+        onBlur = undefined,
         value = undefined,
         disabled = false,
         postfixText = undefined,
@@ -118,6 +121,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         $error = false,
+        required = false,
         leftImage,
         $customImageSpacing,
         $customRightSpacing,
@@ -144,6 +148,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             disabled={disabled}
             $bgColor={$bgColor}
             value={value}
+            required={required}
             onClick={onClick}
             onPaste={e => {
               if (pasteAllowed) return true;
@@ -156,6 +161,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               return false;
             }}
             onChange={e => onChange?.(e.target.value)}
+            onBlur={e => onBlur?.(e.target.value)}
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
@@ -190,6 +196,7 @@ Input.defaultProps = {
   placeholder: undefined,
   postfixText: undefined,
   onChange: undefined,
+  onBlur: undefined,
   value: undefined,
   disabled: false,
   $noBorder: false,
@@ -205,6 +212,7 @@ Input.defaultProps = {
   leftImage: undefined,
   $customImageSpacing: false,
   $customRightSpacing: undefined,
+  required: false,
 };
 
 Input.displayName = 'Input';

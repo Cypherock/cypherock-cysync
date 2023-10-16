@@ -22,6 +22,8 @@ import {
   Usage,
   SetPassword,
   AppUpdate,
+  AssetPage,
+  AccountPage,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -43,6 +45,8 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-device-update': <DeviceUpdate />,
   portfolio: <Portfolio />,
   wallet: <Wallet />,
+  asset: <AssetPage />,
+  account: <AccountPage />,
   history: <History />,
   settings: <Settings />,
   help: <Help />,

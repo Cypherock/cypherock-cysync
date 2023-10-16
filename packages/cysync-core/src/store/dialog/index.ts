@@ -10,13 +10,22 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
+  appUpdateDialog: {
+    isOpen: false,
+  },
+  deviceUpdateDialog: {
+    isOpen: false,
+  },
+  deviceAuthenticationDialog: {
+    isOpen: false,
+  },
+  errorDialog: {
+    isOpen: false,
+  },
   walletSyncError: {
     isOpen: false,
   },
   walletActions: {
-    isOpen: false,
-  },
-  walletConnect: {
     isOpen: false,
   },
   guidedFlow: {
@@ -28,13 +37,40 @@ const initialState: IDialogState = {
   sendDialog: {
     isOpen: false,
   },
+  signMessage: {
+    isOpen: false,
+  },
+  walletConnect: {
+    isOpen: false,
+  },
   receive: {
+    isOpen: false,
+  },
+  removePassword: {
+    isOpen: false,
+  },
+  changePassword: {
+    isOpen: false,
+  },
+  resetCySync: {
+    isOpen: false,
+  },
+  setPassword: {
+    isOpen: false,
+  },
+  authenticateX1Vault: {
+    isOpen: false,
+  },
+  authenticateX1Card: {
+    isOpen: false,
+  },
+  releaseNotes: {
     isOpen: false,
   },
   historyDialog: {
     isOpen: false,
   },
-  signMessage: {
+  contactSupportDialog: {
     isOpen: false,
   },
 };

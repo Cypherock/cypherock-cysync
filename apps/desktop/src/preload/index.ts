@@ -23,8 +23,16 @@ const exportedFunctions = [
     key: ipcConfig.methods.resetCySync,
   },
   {
+    name: 'getCySyncLogs',
+    key: ipcConfig.methods.getCySyncLogs,
+  },
+  {
     name: 'closeApp',
     key: ipcConfig.methods.closeApp,
+  },
+  {
+    name: 'focusApp',
+    key: ipcConfig.methods.focusApp,
   },
   {
     name: 'checkForUpdates',
@@ -37,6 +45,10 @@ const exportedFunctions = [
   {
     name: 'installUpdate',
     key: ipcConfig.methods.installUpdates,
+  },
+  {
+    name: 'initWCUri',
+    key: ipcConfig.methods.getInitialWCUri,
   },
 ];
 
@@ -60,6 +72,14 @@ const exportedListeners = [
       ipcConfig.listeners.downloadUpdateProgress,
       ipcConfig.listeners.downloadUpdateError,
     ],
+  },
+  {
+    name: 'addExternalLinkListener',
+    key: ipcConfig.listeners.wcConnection,
+  },
+  {
+    name: 'removeExternalLinkListener',
+    remove: [ipcConfig.listeners.wcConnection],
   },
 ];
 

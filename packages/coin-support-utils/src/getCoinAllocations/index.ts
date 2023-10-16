@@ -12,19 +12,27 @@ export * from './types';
 export async function createGetCoinAllocations(
   params: ICreateGetCoinAllocationsParams,
 ) {
-  const { db, walletId, getCoinIds } = params;
+  const { db, walletId, getCoinIds, assetId, parentAssetId } = params;
 
   const allocations: ICoinAllocation[] = [];
 
-  const coinIdList = await getCoinIds(params);
+  const coinIdList = await getCoinIds(db);
 
   for (const coinId of coinIdList) {
-    const query: Partial<IAccount> = { assetId: coinId };
+    if (assetId && coinId.assetId !== assetId) {
+      continue;
+    }
+
+    if (parentAssetId && coinId.parentAssetId !== parentAssetId) {
+      continue;
+    }
+
+    const query: Partial<IAccount> = { assetId: coinId.assetId };
     if (walletId) {
       query.walletId = walletId;
     }
 
-    const coinPrice = await getCoinPrice(db, coinId);
+    const coinPrice = await getCoinPrice(db, coinId.assetId);
     const accounts = await db.account.getAll(query);
 
     if (accounts.length > 0) {
@@ -33,15 +41,22 @@ export async function createGetCoinAllocations(
         .toString();
       const balanceInDefaultUnit = convertToUnit({
         amount: balance,
-        fromUnitAbbr: getZeroUnit(coinId).abbr,
-        coinId,
-        toUnitAbbr: getDefaultUnit(coinId).abbr,
+        fromUnitAbbr: getZeroUnit(coinId.parentAssetId, coinId.assetId).abbr,
+        coinId: coinId.parentAssetId,
+        assetId: coinId.assetId,
+        toUnitAbbr: getDefaultUnit(coinId.parentAssetId, coinId.assetId).abbr,
       });
       const value = new BigNumber(balanceInDefaultUnit.amount)
         .multipliedBy(coinPrice)
         .toString();
 
-      allocations.push({ assetId: coinId, balance, value, price: coinPrice });
+      allocations.push({
+        assetId: coinId.assetId,
+        parentAssetId: coinId.parentAssetId,
+        balance,
+        value,
+        price: coinPrice,
+      });
     }
   }
 

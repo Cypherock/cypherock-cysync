@@ -8,12 +8,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { MainAppLayout, TransactionTable } from '~/pages/MainApp/Components';
+import { AssetAllocation, TransactionTable } from '~/components';
 
-import { AssetAllocation } from './AssetAllocation';
 import { NoWallet } from './NoWallet';
 
 import { usePortfolioPage } from '../hooks';
+import { MainAppLayout } from '../Layout';
 
 export const Portfolio: FC = () => {
   const {
@@ -32,17 +32,8 @@ export const Portfolio: FC = () => {
     wallets,
     accounts,
     handleAddAccountClick,
-    coinAllocations,
     onAssetClick,
   } = usePortfolioPage();
-
-  /*
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-      dispatch(openWalletActionsDialog());
-  }, []);
-   */
 
   const getMainContent = () => {
     if (wallets.length <= 0) {
@@ -68,7 +59,7 @@ export const Portfolio: FC = () => {
       <>
         <Container $noFlex mb={2}>
           <DisplayGraph
-            title={summaryDetails.totalBalance}
+            title={summaryDetails.totalValue}
             subTitle={lang.strings.graph.totalBalance}
             dropdownItems={walletDropdownList}
             selectedDropdownItem={selectedWallet?.__id ?? 'all'}
@@ -90,25 +81,20 @@ export const Portfolio: FC = () => {
 
         <Container $noFlex mb={2}>
           <AssetAllocation
-            coinAllocations={coinAllocations}
-            onAssetClick={onAssetClick}
+            walletId={selectedWallet?.__id}
+            onRowClick={onAssetClick}
           />
         </Container>
 
         <Container $noFlex mb={2}>
-          <TransactionTable
-            limit={10}
-            walletId={
-              selectedWallet?.__id !== 'all' ? selectedWallet?.__id : undefined
-            }
-          />
+          <TransactionTable limit={10} walletId={selectedWallet?.__id} />
         </Container>
       </>
     );
   };
 
   return (
-    <MainAppLayout title={lang.strings.portfolio.title}>
+    <MainAppLayout topbar={{ title: lang.strings.portfolio.title }}>
       <Container $noFlex m="20">
         {getMainContent()}
       </Container>

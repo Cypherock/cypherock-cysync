@@ -9,6 +9,7 @@ import {
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
   IGetExplorerLink,
+  ISignMessageEvent,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -48,6 +49,10 @@ export class NearSupport implements CoinSupport {
   }
 
   public signTransaction(): Observable<ISignTransactionEvent> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public signMessage(): Observable<ISignMessageEvent> {
     throw new Error(`Method not implemented`);
   }
 

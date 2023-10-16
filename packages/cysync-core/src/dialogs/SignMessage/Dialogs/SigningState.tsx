@@ -2,8 +2,6 @@ import {
   Container,
   DialogBox,
   DialogBoxBody,
-  LangDisplay,
-  Typography,
   LeanBoxContainer,
   LeanBox,
   Image,
@@ -18,12 +16,14 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { Title } from './components';
+
 import { useSignMessageDialog } from '../context';
 
 export const ViewSigningStateDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { signMessage } = lang.strings;
-  const { dapp, onClose } = useSignMessageDialog();
+  const { onClose } = useSignMessageDialog();
 
   const rightArrowIcon = <ArrowRightIcon />;
 
@@ -59,14 +59,7 @@ export const ViewSigningStateDialog: React.FC = () => {
       </Flex>
       <Divider variant="horizontal" />
       <DialogBoxBody gap={0} pt={0} pr={0} pb={0} pl={0} align="stretch">
-        <Container display="flex" direction="column" py={4} px={5} gap={4}>
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={signMessage.title} />
-          </Typography>
-          <Typography variant="span" color="muted">
-            <LangDisplay text={dapp.url} />
-          </Typography>
-        </Container>
+        <Title />
         <Container
           align="stretch"
           display="flex"

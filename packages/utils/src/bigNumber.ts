@@ -57,6 +57,26 @@ export class BigNumber {
     return this.num.isNegative();
   }
 
+  isZero() {
+    return this.num.isZero();
+  }
+
+  isGreaterThan(n: NumberLike, base?: number) {
+    return this.num.isGreaterThan(BigNumber.getNumberLike(n), base);
+  }
+
+  isGreaterThanOrEqualTo(n: NumberLike, base?: number) {
+    return this.num.isGreaterThanOrEqualTo(BigNumber.getNumberLike(n), base);
+  }
+
+  isLessThan(n: NumberLike, base?: number) {
+    return this.num.isLessThan(BigNumber.getNumberLike(n), base);
+  }
+
+  isLessThanOrEqualTo(n: NumberLike, base?: number) {
+    return this.num.isLessThanOrEqualTo(BigNumber.getNumberLike(n), base);
+  }
+
   isNaN() {
     return this.num.isNaN();
   }
