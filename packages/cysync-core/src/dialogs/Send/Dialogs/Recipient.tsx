@@ -34,7 +34,8 @@ export const Recipient: React.FC = () => {
     const account = selectedAccount;
     if (!account) return `0`;
     const { amount: _amount, unit } = getParsedAmount({
-      coinId: account.assetId,
+      coinId: account.parentAssetId,
+      assetId: account.assetId,
       unitAbbr: account.unit,
       amount: account.balance,
     });

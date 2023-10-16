@@ -3,11 +3,15 @@ import {
   RemoveExternalLinkListener,
   InitWCUri,
 } from '@cypherock/cysync-interfaces';
-import type walletConnectCoreLib from '@walletconnect/core';
-import type walletConnectLib from '@walletconnect/web3wallet';
+import type walletConnectCoreType from '@walletconnect/core';
+import type web3WalletType from '@walletconnect/web3wallet';
 
-export type WalletConnectLibType = typeof walletConnectLib;
-export type WalletConnectCoreLibType = typeof walletConnectCoreLib;
+export interface WalletConnectLibType {
+  Web3Wallet: typeof web3WalletType;
+}
+export interface WalletConnectCoreLibType {
+  Core: typeof walletConnectCoreType;
+}
 
 let walletConnect: WalletConnectLibType | undefined;
 let walletConnectCore: WalletConnectCoreLibType | undefined;

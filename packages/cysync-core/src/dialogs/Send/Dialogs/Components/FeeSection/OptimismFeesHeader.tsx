@@ -30,8 +30,8 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
     if (!account || !transaction) return `0`;
     const txn = transaction as IPreparedEvmTransaction;
     const { amount: _amount, unit } = getParsedAmount({
-      coinId: account.assetId,
-      unitAbbr: account.unit,
+      coinId: account.parentAssetId,
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       amount: txn.computedData.l1Fee,
     });
     return `${_amount} ${unit.abbr}`;
@@ -47,9 +47,9 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
       const txn = transaction as IPreparedEvmTransaction;
       const feesInDefaultUnit = convertToUnit({
         amount: txn.computedData.l1Fee,
-        fromUnitAbbr: getZeroUnit(account.assetId).abbr,
-        coinId: account.assetId,
-        toUnitAbbr: getDefaultUnit(account.assetId).abbr,
+        fromUnitAbbr: getZeroUnit(account.parentAssetId).abbr,
+        coinId: account.parentAssetId,
+        toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       });
       const value = new BigNumber(feesInDefaultUnit.amount)
         .multipliedBy(coinPrice.latestPrice)
