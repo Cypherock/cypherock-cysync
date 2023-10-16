@@ -24,12 +24,12 @@ import {
 
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
-  (a, b, c, { isOpen, hasUnreadNotifications }) => ({
+  (a, b, c, { isOpen, unreadTransactions }) => ({
     lang: a,
     discreetMode: b,
     accountSync: c,
     isNotificationOpen: isOpen,
-    hasUnreadNotifications,
+    unreadTransactions,
   }),
 );
 
@@ -57,7 +57,7 @@ export interface TopbarProps {
 
 export const Topbar: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
-  const { lang, discreetMode, accountSync, hasUnreadNotifications } =
+  const { lang, discreetMode, accountSync, unreadTransactions } =
     useAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
@@ -90,7 +90,7 @@ export const Topbar: FC<TopbarProps> = props => {
       syncStatus={syncState}
       isPasswordSet={isPasswordSet}
       connectionStatus={connectionState}
-      haveNotifications={hasUnreadNotifications}
+      haveNotifications={unreadTransactions > 0}
       onNotificationClick={onNotificationClick}
       isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}

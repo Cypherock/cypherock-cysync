@@ -1,9 +1,7 @@
 import { ITransaction } from '@cypherock/db-interfaces';
 
 export interface INotificationState {
-  hasUnreadTranscations: boolean;
-  hasUnreadNotifications: boolean;
-  transactions: ITransaction[];
+  unreadTransactions: number;
+  transactions: (ITransaction & { isClicked?: boolean })[];
   isOpen: boolean;
-  hasMoreTransactions: boolean;
 }

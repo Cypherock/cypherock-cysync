@@ -11,11 +11,9 @@ import type { RootState } from '../store';
 export * from './types';
 
 const initialState: INotificationState = {
-  hasUnreadNotifications: false,
-  hasUnreadTranscations: false,
+  unreadTransactions: 0,
   isOpen: false,
   transactions: [],
-  hasMoreTransactions: false,
 } as INotificationState;
 
 export const notificationSlice = createSlice({
@@ -29,11 +27,11 @@ export const notificationSlice = createSlice({
       state,
       payload: PayloadAction<{
         transactions: ITransaction[];
-        hasMore: boolean;
+        unRead: number;
       }>,
     ) => {
       state.transactions = payload.payload.transactions;
-      state.hasMoreTransactions = payload.payload.hasMore;
+      state.unreadTransactions = payload.payload.unRead;
     },
   },
 });

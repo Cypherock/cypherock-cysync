@@ -9,6 +9,8 @@ import {
   NotificationGroupHeader,
   NotificationItem,
   Typography,
+  useTheme,
+  Check,
 } from '@cypherock/cysync-ui';
 import {
   IAccount,
@@ -20,9 +22,13 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
-import { openHistoryDialog } from '~/actions';
+import {
+  markAllTransactionNotificationRead,
+  markTransactionNotificationClicked,
+  openHistoryDialog,
+} from '~/actions';
 import { useNavigateTo } from '~/hooks';
 import { transactionIconMap, getDisplayTransactionType } from '~/utils';
 
@@ -111,9 +117,18 @@ const getNotificationText = (params: {
 
 export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const dispatch = useAppDispatch();
+  const theme = useTheme();
   const navigate = useNavigateTo();
-  const { transactions, lang, hasMoreTransactions, wallets, accounts } =
+  const { transactions, lang, wallets, accounts, unreadTransactions } =
     useAppSelector(selector);
+
+  useEffect(() => {
+    if (transactions.length > 0) {
+      setTimeout(() => {
+        markAllTransactionNotificationRead(transactions);
+      }, 5000);
+    }
+  }, [transactions]);
 
   const onClose = () => {
     dispatch(toggleNotification());
@@ -125,11 +140,12 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   };
 
   const onNotificationClick = (t: ITransaction) => {
+    markTransactionNotificationClicked(t);
     dispatch(openHistoryDialog({ txn: t }));
   };
 
   const displayTransactions = useMemo(() => {
-    const formattedTxns = transactions.map(t => ({
+    const formattedTxns = transactions.slice(0, 5).map(t => ({
       id: t.__id ?? '',
       icon: transactionIconMap[TransactionTypeMap.receive],
       title: getDisplayTransactionType(t, lang.strings),
@@ -176,15 +192,23 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
     return newList;
   }, [transactions]);
 
+  const hasMoreTransactions = transactions.length > 5;
+
   return (
-    <NotificationContainer onClose={onClose} top={top}>
+    <NotificationContainer
+      title={lang.strings.topbar.notification.title}
+      count={unreadTransactions}
+      onClose={onClose}
+      top={top}
+    >
       {displayTransactions.length <= 0 && (
         <Flex direction="column" align="center" px={5}>
+          <Check width={67} height={52} mb={4} />
           <Typography
-            $fontSize={20}
-            $fontWeight="medium"
+            $fontSize={22}
             $wordBreak="break-all"
             $textAlign="center"
+            mb={1}
           >
             <LangDisplay
               text={lang.strings.topbar.notification.noTransactions.title}
@@ -214,6 +238,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
             key={t.id}
             mb={index === displayTransactions.length - 1 ? 0 : '24px'}
             onClick={() => onNotificationClick(t.txn)}
+            color={t.txn.isClicked ? theme.palette.muted.main : undefined}
           />
         );
       })}

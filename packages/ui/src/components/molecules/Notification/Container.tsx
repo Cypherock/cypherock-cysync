@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CloseButton, Container, Flex, ScrollableContainer } from '../../atoms';
+import {
+  CloseButton,
+  Container,
+  Flex,
+  ScrollableContainer,
+  Typography,
+} from '../../atoms';
 
 const NotificationOverlayStyle = styled.div`
   position: absolute;
@@ -28,12 +34,16 @@ const NotificationContainerStyle = styled.div<
 export interface NotificationContainerProps {
   onClose: () => void;
   children: React.ReactNode;
+  title: string;
+  count: number;
   top?: number;
 }
 
 export const NotificationContainer: React.FC<NotificationContainerProps> = ({
   onClose,
   children,
+  title,
+  count,
   top,
 }) => (
   <NotificationOverlayStyle onClick={onClose}>
@@ -41,14 +51,34 @@ export const NotificationContainer: React.FC<NotificationContainerProps> = ({
       <Flex
         position="relative"
         width="full"
-        justify="center"
+        justify="flex-start"
         align="center"
         $height="40px"
         $minHeight="40px"
-        py="20px"
+        my="20px"
         pl="40px"
         pr="20px"
       >
+        <Container justify="flex-start">
+          <Typography color="white">{title}</Typography>
+          {count > 0 && (
+            <Container
+              $bgColor="separator"
+              $borderRadius="50%"
+              width="30px"
+              height="30px"
+              ml={2}
+            >
+              <Typography
+                color="gold"
+                $fontWeight="semibold"
+                $textOverflow="clip"
+              >
+                {count}
+              </Typography>
+            </Container>
+          )}
+        </Container>
         {onClose && (
           <CloseButton
             onClick={e => {

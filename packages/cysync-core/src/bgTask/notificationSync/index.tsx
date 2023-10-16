@@ -11,6 +11,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
 const selector = createSelector(
   [selectWallets, selectAccounts, selectTransactions, selectDiscreetMode],
@@ -37,6 +38,23 @@ export const NotificationSyncTask: React.FC = () => {
     }),
     [dispatch],
   );
+
+  useEffect(() => {
+    const db = getDB();
+    db.transactionNotificationRead.addListener(
+      'change',
+      debounceParseTransactionList,
+    );
+    db.transactionNotificationClick.addListener(
+      'change',
+      debounceParseTransactionList,
+    );
+
+    return () => {
+      db.transactionNotificationRead.removeAllListener();
+      db.transactionNotificationClick.removeAllListener();
+    };
+  }, [debounceParseTransactionList]);
 
   useEffect(() => {
     debounceParseTransactionList();

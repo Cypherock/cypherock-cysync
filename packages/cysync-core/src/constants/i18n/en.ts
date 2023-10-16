@@ -836,15 +836,15 @@ const en = {
       },
     },
     notification: {
+      title: 'Transactions',
       sendTransaction: '${amount} ${unit} ${type} to ${address}',
       sendTransactionMultiple:
         '${amount} ${unit} ${type} to multiple addresses',
       receiveTransaction:
         '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
       noTransactions: {
-        title: 'No new transactions yet',
-        subTitle:
-          'Send/Receive Crypto today to see your transaction notifications here',
+        title: 'All caught up',
+        subTitle: 'No new transactions to show',
       },
     },
   },
