@@ -94,7 +94,6 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         navigateTo(routes.onboarding.info.path);
       },
       [ErrorActionButtonHandlerMap.deleteWallets]: () => {
-        console.log(selectedWallet);
         if (selectedWallet) dispatch(deleteWallets([selectedWallet]));
         onClose();
       },

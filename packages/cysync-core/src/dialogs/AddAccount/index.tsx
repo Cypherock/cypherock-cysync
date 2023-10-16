@@ -73,7 +73,6 @@ const AddNewAccount: FC = () => {
                   onClose={onClose}
                   onRetry={onRetry}
                   selectedWallet={selectedWallet}
-                  textVariables={{ walletName: selectedWallet?.name }}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
