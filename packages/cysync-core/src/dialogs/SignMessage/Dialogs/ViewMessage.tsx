@@ -1,3 +1,4 @@
+import { SignMessageType } from '@cypherock/coin-support-interfaces';
 import {
   Button,
   Container,
@@ -15,11 +16,7 @@ import {
 import React, { useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
-import {
-  WalletConnectCallRequestMethod,
-  WalletConnectCallRequestMethodMap,
-  useWalletConnect,
-} from '~/context';
+import { useWalletConnect } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { Title } from './components';
@@ -58,26 +55,18 @@ const AccountDisplay: React.FC = () => {
   );
 };
 
-const TYPED_DATA_SIGN: WalletConnectCallRequestMethod[] = [
-  WalletConnectCallRequestMethodMap.SIGN_TYPED,
-  WalletConnectCallRequestMethodMap.SIGN_TYPED_V4,
-];
 const MessageDisplay: React.FC = () => {
-  const { callRequestData } = useWalletConnect();
-  if (!callRequestData) return null;
-  const message = useMemo(() => {
-    if (
-      callRequestData.method === WalletConnectCallRequestMethodMap.SIGN_PERSONAL
-    )
-      return window.Buffer.from(
-        callRequestData.params[0].slice(2),
-        'hex',
-      ).toString();
+  const { payload } = useSignMessageDialog();
+  if (!payload) return null;
+  const parsedMessage = useMemo(() => {
+    let result = payload.message;
+    if (payload.signingType === SignMessageType.PRIVATE_MESSAGE)
+      result = window.Buffer.from(result.slice(2), 'hex').toString();
 
-    return callRequestData.params[1];
-  }, [callRequestData]);
+    return result;
+  }, [payload]);
 
-  if (TYPED_DATA_SIGN.includes(callRequestData.method))
+  if (payload.signingType === SignMessageType.TYPED_MESSAGE)
     return (
       <ScrollContainer
         $bgColor="container"
@@ -85,7 +74,7 @@ const MessageDisplay: React.FC = () => {
         $maxHeight="calc(80vh - 400px)"
       >
         <Typography variant="span" color="muted" $fontSize={13}>
-          <JsonView src={JSON.parse(message)} iconStyle="triangle" />
+          <JsonView src={JSON.parse(parsedMessage)} iconStyle="triangle" />
         </Typography>
       </ScrollContainer>
     );
@@ -93,7 +82,7 @@ const MessageDisplay: React.FC = () => {
   return (
     <ScrollContainer $bgColor="container" p={2} $maxHeight="calc(80vh - 400px)">
       <Typography color="muted" $fontSize={13} $whiteSpace="pre-wrap">
-        {message}
+        {parsedMessage}
       </Typography>
     </ScrollContainer>
   );

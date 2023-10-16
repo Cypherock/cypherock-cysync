@@ -18,7 +18,12 @@ import {
   openSignMessageDialog,
   openWalletConnectDialog,
 } from '~/actions';
-import { closeDialog as closeDialogDispatch, useAppDispatch } from '~/store';
+import {
+  closeDialog as closeDialogDispatch,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import {
   getAddExternalLinkListenerMethod,
   getInitWCUriMethod,
@@ -71,6 +76,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   children,
 }) => {
   const dispatch = useAppDispatch();
+  const { wallets } = useAppSelector(selectWallets);
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>();
   const [activeAccount, setActiveAccount] = useState<IAccount | undefined>();
   const [connectionError, setConnectionError] = useState('');
@@ -97,6 +103,15 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const closeDialog = () => {
     dispatch(closeDialogDispatch('walletConnect'));
   };
+
+  const updateActiveAccount = (account?: IAccount) => {
+    const foundWallet = wallets.find(
+      wallet => wallet.__id === account?.walletId,
+    );
+    setActiveAccount(account);
+    if (wallets.length) setActiveWallet(foundWallet);
+  };
+
   const v1Methods = useWalletConnectV1({
     setConnectionClientMeta,
     connectionState,
@@ -109,8 +124,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     connectionTimeoutRef,
     openDialog,
     closeDialog,
-    setActiveAccount,
-    setActiveWallet,
+    updateActiveAccount,
   });
   const {
     methods: v2Methods,
@@ -130,8 +144,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     connectionTimeoutRef,
     openDialog,
     closeDialog,
-    setActiveAccount,
-    setActiveWallet,
+    updateActiveAccount,
   });
 
   const versionMap: Record<number, IWalletConnectMethods> = {
@@ -156,7 +169,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const resetStates = () => {
     setConnectionClientMeta(undefined);
     setCallRequestData(undefined);
-    setActiveAccount(undefined);
+    updateActiveAccount(undefined);
     setVersion(2);
     Object.values(versionMap).forEach(methods => methods.resetStates());
   };
@@ -174,8 +187,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const handleClose = () => {
     closeDialog();
     disconnect();
-    setActiveWallet(undefined);
-    setActiveAccount(undefined);
+    updateActiveAccount(undefined);
     setConnectionError('');
   };
 
