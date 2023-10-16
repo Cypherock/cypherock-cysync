@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { SvgProps } from '../../../assets';
-import { useTheme } from '../../../themes';
+import { ThemeType, useTheme } from '../../../themes';
 import { Typography, Container } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 import { getTransactionFillFromStatus, TransactionTableStatus } from '../Table';
@@ -10,8 +10,23 @@ import { getTransactionFillFromStatus, TransactionTableStatus } from '../Table';
 const NotificationItemWrapperStyle = styled.div<UtilsProps>`
   padding: 0 40px;
   width: 100%;
+  cursor: pointer;
+
   ${utils}
 `;
+
+const getTransactionTextFillFromStatus = (
+  status: TransactionTableStatus,
+  theme: ThemeType,
+) => {
+  const map: Record<TransactionTableStatus, string> = {
+    success: theme.palette.text.white,
+    pending: theme.palette.text.warn,
+    failed: theme.palette.text.error,
+  };
+
+  return map[status];
+};
 
 export interface NotificationItemProps extends UtilsProps {
   icon: React.FC<SvgProps>;
@@ -19,6 +34,8 @@ export interface NotificationItemProps extends UtilsProps {
   title: string;
   description: React.ReactNode;
   time: string;
+  color?: string;
+  onClick: () => void;
 }
 
 export const NotificationItem: React.FC<NotificationItemProps> = ({
@@ -27,14 +44,22 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
   title,
   description,
   time,
+  onClick,
+  color,
   ...utilProps
 }) => {
   const theme = useTheme();
 
   return (
-    <NotificationItemWrapperStyle {...utilProps}>
+    <NotificationItemWrapperStyle {...utilProps} onClick={onClick}>
       <Container direction="row" justify="flex-start">
-        <IconComponent fill={getTransactionFillFromStatus(status, theme)} />
+        <IconComponent
+          fill={color ?? getTransactionFillFromStatus(status, theme)}
+          width={25}
+          height={20}
+          $minWidth={25}
+          $minHeight={20}
+        />
         <Container
           ml={3}
           direction="column"
@@ -43,7 +68,9 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
         >
           <Typography
             $fontSize={16}
-            color={getTransactionFillFromStatus(status, theme) as any}
+            color={
+              color ?? (getTransactionTextFillFromStatus(status, theme) as any)
+            }
           >
             {title}
           </Typography>
@@ -55,4 +82,8 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
       </Container>
     </NotificationItemWrapperStyle>
   );
+};
+
+NotificationItem.defaultProps = {
+  color: undefined,
 };

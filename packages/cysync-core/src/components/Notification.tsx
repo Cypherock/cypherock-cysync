@@ -1,5 +1,6 @@
 import { getParsedAmount, getDefaultUnit } from '@cypherock/coin-support-utils';
 import {
+  parseLangTemplate,
   Button,
   Container,
   Flex,
@@ -10,6 +11,9 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import {
+  IAccount,
+  ITransaction,
+  IWallet,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
@@ -18,18 +22,18 @@ import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
 
+import { openHistoryDialog } from '~/actions';
 import { useNavigateTo } from '~/hooks';
-import {
-  transactionIconMap,
-  getDisplayTransactionType,
-  getTransactionTypeToStringMap,
-} from '~/utils';
+import { transactionIconMap, getDisplayTransactionType } from '~/utils';
 
 import {
   CoinIcon,
+  ILangState,
   routes,
+  selectAccounts,
   selectLanguage,
   selectNotifications,
+  selectWallets,
   toggleNotification,
   useAppDispatch,
   useAppSelector,
@@ -40,59 +44,119 @@ export interface NotificationProps {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectNotifications],
-  (lang, notifications) => ({
+  [selectLanguage, selectNotifications, selectWallets, selectAccounts],
+  (lang, notifications, { wallets }, { accounts }) => ({
     lang,
+    wallets,
+    accounts,
     ...notifications,
   }),
 );
 
+const getNotificationText = (params: {
+  txn: ITransaction;
+  wallets: IWallet[];
+  accounts: IAccount[];
+  lang: ILangState;
+}) => {
+  const { txn, wallets, accounts, lang } = params;
+
+  const { amount, unit } = getParsedAmount({
+    coinId: txn.parentAssetId,
+    assetId: txn.assetId,
+    unitAbbr: getDefaultUnit(txn.parentAssetId, txn.assetId).abbr,
+    amount: txn.amount,
+  });
+
+  const account = accounts.find(
+    a =>
+      (txn.parentAccountId && a.__id === txn.parentAccountId) ||
+      txn.accountId === a.__id,
+  );
+
+  const vars = {
+    amount,
+    unit: unit.abbr,
+    address: txn.outputs[0]?.address,
+    walletName: wallets.find(w => w.__id === txn.walletId)?.name,
+    accountName: account?.name,
+    type: getDisplayTransactionType(txn, lang.strings).toLowerCase(),
+  };
+
+  if (txn.type === TransactionTypeMap.send) {
+    if (txn.outputs.length > 1) {
+      return parseLangTemplate(
+        lang.strings.topbar.notification.sendTransactionMultiple,
+        vars,
+      );
+    }
+
+    return parseLangTemplate(
+      lang.strings.topbar.notification.sendTransaction,
+      vars,
+    );
+  }
+
+  const receiveStr = parseLangTemplate(
+    lang.strings.topbar.notification.receiveTransaction,
+    vars,
+  );
+
+  if (account?.derivationScheme) {
+    return `${receiveStr} [${account.derivationScheme.toUpperCase()}]`;
+  }
+
+  return receiveStr;
+};
+
 export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigateTo();
-  const { transactions, lang, hasMoreTransactions } = useAppSelector(selector);
+  const { transactions, lang, hasMoreTransactions, wallets, accounts } =
+    useAppSelector(selector);
 
-  const onNotificationClick = () => {
+  const onClose = () => {
     dispatch(toggleNotification());
   };
 
   const onShowMoreClick = () => {
+    onClose();
     navigate(routes.history.path);
   };
 
+  const onNotificationClick = (t: ITransaction) => {
+    dispatch(openHistoryDialog({ txn: t }));
+  };
+
   const displayTransactions = useMemo(() => {
-    const formattedTxns = transactions.map(t => {
-      const { amount, unit } = getParsedAmount({
-        coinId: t.parentAssetId,
-        assetId: t.assetId,
-        unitAbbr: getDefaultUnit(t.parentAssetId, t.assetId).abbr,
-        amount: t.amount,
-      });
+    const formattedTxns = transactions.map(t => ({
+      id: t.__id ?? '',
+      icon: transactionIconMap[TransactionTypeMap.receive],
+      title: getDisplayTransactionType(t, lang.strings),
+      status: TransactionStatusMap.success,
+      description: (
+        <Container display="inline-block">
+          <CoinIcon
+            parentAssetId={t.parentAssetId}
+            assetId={t.assetId}
+            size="12px"
+            containerProps={{ display: 'inline' }}
+          />
 
-      return {
-        id: t.__id ?? '',
-        icon: transactionIconMap[TransactionTypeMap.receive],
-        title: getDisplayTransactionType(t, lang.strings),
-        status: TransactionStatusMap.success,
-        description: (
-          <Container>
-            <CoinIcon
-              parentAssetId={t.parentAssetId}
-              assetId={t.assetId}
-              size="12px"
-            />
-
-            <Typography color="muted" $fontSize={14} ml={1}>
-              {`${amount} ${unit.abbr} ${getTransactionTypeToStringMap(
-                lang.strings,
-              )[t.type].toLowerCase()}`}
-            </Typography>
-          </Container>
-        ),
-        time: formatDate(t.timestamp, 'h:mm a'),
-        txn: t,
-      };
-    });
+          <Typography
+            color="muted"
+            $fontSize={14}
+            ml={1}
+            display="inline"
+            $wordBreak="break-word"
+          >
+            {getNotificationText({ txn: t, lang, wallets, accounts })}
+          </Typography>
+        </Container>
+      ),
+      time: formatDate(t.timestamp, 'h:mm a'),
+      txn: t,
+    }));
 
     const groupedList = lodash.groupBy(formattedTxns, t =>
       formatDate(t.txn.timestamp, 'eeee, MMMM d yyyy'),
@@ -113,7 +177,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   }, [transactions]);
 
   return (
-    <NotificationContainer onClose={onNotificationClick} top={top}>
+    <NotificationContainer onClose={onClose} top={top}>
       {displayTransactions.length <= 0 && (
         <Flex direction="column" align="center" px={5}>
           <Typography
@@ -149,6 +213,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
             {...t}
             key={t.id}
             mb={index === displayTransactions.length - 1 ? 0 : '24px'}
+            onClick={() => onNotificationClick(t.txn)}
           />
         );
       })}

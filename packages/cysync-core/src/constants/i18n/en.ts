@@ -836,6 +836,11 @@ const en = {
       },
     },
     notification: {
+      sendTransaction: '${amount} ${unit} ${type} to ${address}',
+      sendTransactionMultiple:
+        '${amount} ${unit} ${type} to multiple addresses',
+      receiveTransaction:
+        '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
       noTransactions: {
         title: 'No new transactions yet',
         subTitle:

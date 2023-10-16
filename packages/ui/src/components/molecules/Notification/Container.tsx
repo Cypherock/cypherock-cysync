@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CloseButton, Container, Flex } from '../../atoms';
+import { CloseButton, Container, Flex, ScrollableContainer } from '../../atoms';
 
 const NotificationOverlayStyle = styled.div`
   position: absolute;
@@ -10,7 +10,7 @@ const NotificationOverlayStyle = styled.div`
   width: 100%;
   height: 100%;
   background: transparent;
-  z-index: 1000;
+  z-index: 50;
 `;
 
 const NotificationContainerStyle = styled.div<
@@ -22,7 +22,7 @@ const NotificationContainerStyle = styled.div<
   width: 444px;
   background: ${({ theme }) => theme.palette.background.primary};
   border: 1px solid ${({ theme }) => theme.palette.border.popup};
-  z-index: 1010;
+  z-index: 1;
 `;
 
 export interface NotificationContainerProps {
@@ -64,8 +64,13 @@ export const NotificationContainer: React.FC<NotificationContainerProps> = ({
           />
         )}
       </Flex>
-      <Container pt="20px" pb="40px" direction="column">
-        {children}
+      <Container pt="20px" direction="column">
+        <ScrollableContainer
+          $maxHeight={`calc(100vh - ${(top ?? 0) + 120}px)`}
+          pb="40px"
+        >
+          {children}
+        </ScrollableContainer>
       </Container>
     </NotificationContainerStyle>
   </NotificationOverlayStyle>
