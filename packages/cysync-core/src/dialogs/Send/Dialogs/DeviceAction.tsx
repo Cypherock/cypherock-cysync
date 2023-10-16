@@ -1,7 +1,7 @@
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { getParsedAmount } from '@cypherock/coin-support-utils';
-import { EvmIdMap, coinList } from '@cypherock/coins';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { EvmIdMap, IEvmCoinInfo, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -20,7 +20,7 @@ import {
   questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -42,6 +42,14 @@ export const DeviceAction: React.FC = () => {
     startFlow,
     transaction,
   } = useSendDialog();
+
+  const assetName = useMemo(() => {
+    if (!selectedAccount) return '';
+    let asset = coinList[selectedAccount.parentAssetId];
+    if (selectedAccount.type === AccountTypeMap.subAccount)
+      asset = (asset as IEvmCoinInfo).tokens[selectedAccount.assetId];
+    return asset.name;
+  }, [selectedAccount]);
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
@@ -73,7 +81,7 @@ export const DeviceAction: React.FC = () => {
           SignTransactionDeviceEvent.INIT,
           SignTransactionDeviceEvent.CONFIRMED,
         ),
-        altText: coinList[selectedAccount?.assetId ?? ''].name,
+        altText: assetName,
         image: (
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         ),
@@ -137,8 +145,8 @@ export const DeviceAction: React.FC = () => {
     if (!account || !transaction) return `0`;
     const txn = transaction as IPreparedEvmTransaction;
     const { amount: _amount, unit } = getParsedAmount({
-      coinId: account.assetId,
-      unitAbbr: account.unit,
+      coinId: account.parentAssetId,
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       amount: txn.computedData.l1Fee,
     });
     return `${_amount} ${unit.abbr}`;
@@ -146,7 +154,14 @@ export const DeviceAction: React.FC = () => {
   const getMessageBoxes = () => {
     const messages: { text: string; variables?: any }[] = [];
     if (selectedAccount?.type === AccountTypeMap.subAccount) {
-      messages.push({ text: lang.strings.send.x1Vault.token.info });
+      messages.push({
+        text: lang.strings.send.x1Vault.token.info,
+        variables: {
+          tokenName: assetName,
+          parentCoinName: coinList[selectedAccount.parentAssetId].name,
+          parentCoinUnit: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+        },
+      });
     }
 
     if (selectedAccount?.parentAssetId === EvmIdMap.optimism) {

@@ -89,9 +89,9 @@ export const BatchTransaction: React.FC = () => {
     if (!selectedAccount) return;
     const convertedAmount = convertToUnit({
       amount: val,
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
       fromUnitAbbr: selectedAccount.unit,
-      toUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+      toUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
     });
     const outputIndex = outputsRef.current.findIndex(
       output => output.id === id,
@@ -105,7 +105,7 @@ export const BatchTransaction: React.FC = () => {
   const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
     return getParsedAmount({
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
       amount: val,
       unitAbbr: selectedAccount.unit,
     }).amount;
