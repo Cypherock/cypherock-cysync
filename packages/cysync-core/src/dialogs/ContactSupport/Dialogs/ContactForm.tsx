@@ -28,14 +28,14 @@ import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
 import { useContactSupportDialog } from '../context';
 
-interface DeviceConnectionErrorDispalyProps {
+interface DeviceConnectionErrorDisplayProps {
   theme: ThemeType;
   strings: ILangState['strings'];
   state: DeviceHandlingState;
 }
 
 const DeviceConnectionErrorDisplay: React.FC<
-  DeviceConnectionErrorDispalyProps
+  DeviceConnectionErrorDisplayProps
 > = ({ strings, state, theme }) => {
   if (state === DeviceHandlingState.USABLE) {
     return null;
