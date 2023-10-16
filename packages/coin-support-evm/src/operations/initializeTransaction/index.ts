@@ -1,8 +1,7 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
-import { BigNumber, assert } from '@cypherock/cysync-utils';
-import { AccountTypeMap } from '@cypherock/db-interfaces';
+import { BigNumber } from '@cypherock/cysync-utils';
 
 import { getAverageGasPrice } from '../../services';
 import { IPreparedEvmTransaction } from '../transaction';
@@ -11,13 +10,7 @@ export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedEvmTransaction> => {
   const { accountId, db } = params;
-  const { coin, account } = await getAccountAndCoin(db, evmCoinList, accountId);
-
-  // disable support for token transactions
-  assert(
-    account.type === AccountTypeMap.account,
-    new Error('Transaction from subAccount not supported'),
-  );
+  const { coin } = await getAccountAndCoin(db, evmCoinList, accountId);
 
   const gasLimit = '21000';
   const averageGasPrice = await getAverageGasPrice(coin.id);
@@ -40,7 +33,9 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fee: fee.toString(10),
       gasLimit,
+      data: '0x',
       gasLimitEstimate: gasLimit,
+      l1Fee: '0',
       gasPrice: averageGasPrice,
     },
   };

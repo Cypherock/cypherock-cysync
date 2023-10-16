@@ -20,21 +20,9 @@ import QRCode from 'react-qr-code';
 
 import { openHistoryDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { truncateMiddle } from '~/utils';
 
 import { useSendDialog } from '../context';
-
-const truncateMiddle = (value: string, maxLen = 38, delimiter = '.......') => {
-  const { length } = value;
-  if (length < maxLen) return value;
-
-  const shownLength = Math.floor((maxLen - delimiter.length) / 2);
-
-  return (
-    value.substring(0, shownLength) +
-    delimiter +
-    value.substring(length - shownLength, length)
-  );
-};
 
 export const FinalMessage: React.FC = () => {
   const { storedTransaction, transactionLink, onClose } = useSendDialog();

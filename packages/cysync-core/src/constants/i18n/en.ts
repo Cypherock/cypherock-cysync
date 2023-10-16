@@ -498,6 +498,9 @@ const en = {
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
       },
+      token: {
+        info: 'Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}',
+      },
       messageBox: {
         warning:
           'Always verify the address displayed on your device exactly matches the address given by the recipient',
@@ -561,6 +564,13 @@ const en = {
         x1vault: 'X1 Vault',
         confirm: 'Confirmation',
       },
+    },
+    optimism: {
+      deviceAction:
+        "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
+      l1: ' (L1)',
+      l2: ' (L2)',
+      suffix: ' (L1 + L2)',
     },
   },
   history: {
@@ -904,14 +914,12 @@ const en = {
         'These blockchains are supported but add their accounts before use',
       notSupportedWarning: {
         title: 'These blockchains are not supported',
-        description:
-          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
     },
     accountConnectedTab: {
       title: 'Connected to ${dappName} interface',
       subTitle: 'Accounts',
-      info: 'You can now access the Uniswap interface DApp on your web browser',
+      info: 'You can now access the ${dappName} DApp on your web browser',
     },
     common: {
       info: {
@@ -920,6 +928,21 @@ const en = {
           'Check your account balance and activity',
           'Request approvals for transactions',
         ],
+      },
+      error: {
+        default: {
+          title: 'Error occurred while connecting',
+          subtitle: 'Retry the connection from the dApp',
+        },
+        unsupportedChains: {
+          title:
+            "${dappName} requested to connect to chain${s} we don't support yet",
+          subtitle: 'We currently support ${chains}',
+          message: 'Unsupported Chains: ${chains}',
+        },
+      },
+      reject: {
+        call: 'User rejected',
       },
     },
   },

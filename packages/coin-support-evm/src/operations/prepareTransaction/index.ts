@@ -1,10 +1,17 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import { evmCoinList, ICoinInfo } from '@cypherock/coins';
+import {
+  evmCoinList,
+  ICoinInfo,
+  IEvmErc20Token,
+  erc20Abi,
+} from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareEvmTransactionParams } from './types';
 
-import { estimateGasLimit } from '../../services';
+import { estimateGas } from '../../services';
+import logger from '../../utils/logger';
+import { getCoinSupportWeb3Lib } from '../../utils/web3';
 import { IPreparedEvmTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
@@ -18,7 +25,7 @@ const validateAddresses = (
     let isValid = true;
 
     /**
-     * We allow emptry string in the validation (error prompt should not
+     * We allow empty string in the validation (error prompt should not
      * appear for empty string). And validate only non-empty strings.
      */
     if (
@@ -34,41 +41,114 @@ const validateAddresses = (
   return outputAddressValidation;
 };
 
+const generateDataField = (params: {
+  contractAddress: string;
+  senderAddress: string;
+  receiverAddress: string;
+  amount: string;
+}) => {
+  try {
+    const Web3 = getCoinSupportWeb3Lib();
+    const web3 = new Web3();
+    const erc20Contract = new web3.eth.Contract(
+      erc20Abi,
+      params.contractAddress,
+      {
+        from: params.senderAddress,
+      },
+    );
+    let amount = '0';
+    const parsedAmountParam = new BigNumber(params.amount);
+    if (!parsedAmountParam.isNaN()) {
+      amount = parsedAmountParam.toString();
+    }
+
+    return (erc20Contract.methods.transfer as any)(
+      params.receiverAddress || params.senderAddress,
+      amount,
+    ).encodeABI();
+  } catch (e) {
+    logger.error(e);
+    return '0x';
+  }
+};
+
 export const prepareTransaction = async (
   params: IPrepareEvmTransactionParams,
 ): Promise<IPreparedEvmTransaction> => {
   const { accountId, db, txn } = params;
-  const { account, coin } = await getAccountAndCoin(db, evmCoinList, accountId);
+  const { account, coin, parentAccount } = await getAccountAndCoin(
+    db,
+    evmCoinList,
+    accountId,
+  );
+  let tokenDetails: IEvmErc20Token | undefined;
+  if (parentAccount !== undefined)
+    tokenDetails = evmCoinList[account.parentAssetId].tokens[account.assetId];
 
   assert(
     txn.userInputs.outputs.length === 1,
-    new Error('Evm transaction requires 1 output'),
+    new Error('Evm transaction requires exactly 1 output'),
   );
 
   const outputsAddresses = validateAddresses(params, coin);
-  const gasLimitEstimate = await estimateGasLimit(coin.id, {
-    from: account.xpubOrAddress,
-    to:
-      txn.userInputs.outputs[0].address && outputsAddresses[0]
-        ? txn.userInputs.outputs[0].address
-        : account.xpubOrAddress,
-    value: '0',
-    data: '0x',
-  });
-  const gasLimit = txn.userInputs.gasLimit ?? gasLimitEstimate;
-  const output = { ...txn.userInputs.outputs[0] };
-  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
-  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice);
-  const sendAllAmount = new BigNumber(account.balance).minus(fee);
-  let hasEnoughBalance = sendAllAmount.minus(output.amount || '0').isPositive();
+  let output = { ...txn.userInputs.outputs[0] };
+  let { data } = txn.computedData;
 
-  if (txn.userInputs.isSendAll && sendAllAmount.isPositive()) {
-    hasEnoughBalance = sendAllAmount.isPositive();
-    output.amount = sendAllAmount.toString(10);
-    // update userInput so that the max amount is editable & not reset to 0
-    txn.userInputs.outputs[0].amount = output.amount;
+  if (tokenDetails) {
+    output = { amount: '0', address: tokenDetails.address };
+    data = generateDataField({
+      contractAddress: tokenDetails.address,
+      senderAddress: account.xpubOrAddress,
+      receiverAddress: txn.userInputs.outputs[0].address,
+      amount: txn.userInputs.outputs[0].amount,
+    });
   }
+
+  let toAddressForEstimate = account.xpubOrAddress;
+  if (outputsAddresses[0] && output.address)
+    toAddressForEstimate = output.address;
+
+  const gasEstimate = await estimateGas(coin.id, {
+    from: account.xpubOrAddress,
+    to: toAddressForEstimate,
+    value: '0',
+    data,
+  });
+
+  const gasLimit = txn.userInputs.gasLimit ?? gasEstimate.limit;
+  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
+  const l1Fee = gasEstimate.l1Cost;
+  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice).plus(l1Fee);
+
   txn.userInputs.gasLimit = gasLimit;
+
+  let hasEnoughBalance: boolean;
+
+  if (tokenDetails) {
+    let sendAmount = new BigNumber(txn.userInputs.outputs[0].amount);
+    if (txn.userInputs.isSendAll) {
+      sendAmount = new BigNumber(account.balance);
+      txn.userInputs.outputs[0].amount = sendAmount.toString(10);
+    }
+
+    hasEnoughBalance =
+      new BigNumber(parentAccount?.balance ?? '0').isGreaterThanOrEqualTo(
+        fee,
+      ) && new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
+  } else {
+    let sendAmount = new BigNumber(output.amount);
+    if (txn.userInputs.isSendAll) {
+      sendAmount = new BigNumber(account.balance).minus(fee);
+      output.amount = sendAmount.toString(10);
+      // update userInput so that the max amount is editable & not reset to 0
+      txn.userInputs.outputs[0].amount = output.amount;
+    }
+    hasEnoughBalance = new BigNumber(account.balance).isGreaterThanOrEqualTo(
+      sendAmount.plus(fee),
+    );
+  }
+
   return {
     ...txn,
     validation: {
@@ -77,10 +157,12 @@ export const prepareTransaction = async (
     },
     computedData: {
       gasLimit,
-      gasLimitEstimate,
+      gasLimitEstimate: gasEstimate.limit,
+      l1Fee,
       gasPrice,
       fee: fee.toString(10),
       output,
+      data,
     },
   };
 };
