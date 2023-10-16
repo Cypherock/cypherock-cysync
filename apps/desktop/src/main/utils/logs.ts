@@ -1,4 +1,5 @@
 import fs from 'fs';
+
 import { logFilePath } from '.';
 
 export const getCySyncLogs = async (): Promise<string[]> => {

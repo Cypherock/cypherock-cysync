@@ -1407,6 +1407,7 @@ const en = {
           attachAppLogs: 'Attach Application Logs',
           attachDeviceLogs: 'Attach Device Logs',
           confirmDevice: 'Please confirm on device to proceed',
+          fetchingDeviceLogs: 'Getting logs from device',
           attachedDeviceLogs: 'Device Logs Successfully Attached',
         },
         errors: {

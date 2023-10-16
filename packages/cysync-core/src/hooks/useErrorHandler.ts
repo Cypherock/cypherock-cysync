@@ -21,10 +21,11 @@ export interface IErrorHandlerParams {
   onRetry?: () => void;
   onClose: () => void;
   isOnboarding?: boolean;
+  noDelay?: boolean;
 }
 
 export const useErrorHandler = (params: IErrorHandlerParams) => {
-  const { error, defaultMsg, onRetry, onClose, isOnboarding } = params;
+  const { error, defaultMsg, onRetry, onClose, isOnboarding, noDelay } = params;
 
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
@@ -127,9 +128,13 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
     let timeout: any;
 
     if (errorMsg) {
-      timeout = setTimeout(() => {
+      if (!noDelay) {
+        timeout = setTimeout(() => {
+          setErrorToShow(errorMsg);
+        }, DEVICE_LISTENER_INTERVAL);
+      } else {
         setErrorToShow(errorMsg);
-      }, DEVICE_LISTENER_INTERVAL);
+      }
     } else if (errorToShow) {
       setErrorToShow(undefined);
     }

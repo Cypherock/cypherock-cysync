@@ -1,5 +1,6 @@
-import { getCySyncLogs } from '../utils';
 import { ipcConfig } from './helpers/config';
+
+import { getCySyncLogs } from '../utils';
 
 export const getCySyncLogsIPCHandlers = () => [
   {

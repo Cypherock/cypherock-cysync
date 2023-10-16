@@ -5,8 +5,8 @@ import { getCloseIPCHandlers } from './close';
 import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
-import { getResetIPCHandlers } from './reset';
 import { getCySyncLogsIPCHandlers } from './logs';
+import { getResetIPCHandlers } from './reset';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
