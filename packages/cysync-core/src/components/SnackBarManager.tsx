@@ -2,6 +2,7 @@ import { SnackBar } from '@cypherock/cysync-ui';
 import React from 'react';
 import { selectSnackBar } from '~/store';
 import { useAppSelector } from '..';
+import logger from '~/utils/logger';
 
 export const SnackBarManager = () => {
   const snackBarState = useAppSelector(selectSnackBar);
@@ -11,7 +12,10 @@ export const SnackBarManager = () => {
   }
 
   // the below error will be fired in case props are not properly handled by redux state
-  if (!snackBarState.props) throw new Error('SnackBarProps is Undefined');
+  if (!snackBarState.props) {
+    logger.warn('SnackBarProps is Undefined');
+    return null;
+  }
 
   return <SnackBar {...snackBarState.props} />;
 };
