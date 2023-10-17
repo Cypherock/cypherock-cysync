@@ -17,7 +17,6 @@ import {
 import React from 'react';
 
 import { getDB, memoizeFunctionWithObjectArg } from '~/utils';
-
 import logger from '~/utils/logger';
 
 import { UseGraphProps } from './types';

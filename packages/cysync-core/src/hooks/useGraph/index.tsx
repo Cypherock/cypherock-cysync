@@ -30,7 +30,6 @@ import {
 } from '~/store';
 
 import { calculatePortfolioGraphData } from './helper';
-
 import { UseGraphProps } from './types';
 
 export * from './types';
