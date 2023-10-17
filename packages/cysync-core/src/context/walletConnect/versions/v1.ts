@@ -36,7 +36,7 @@ export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
       props.setConnectionState(WalletConnectConnectionState.SELECT_ACCOUNT);
       props.openDialog();
 
-      getFocusAppMethod()?.();
+      getFocusAppMethod()();
     },
 
     handleCallRequest: (error: Error | null, payload: any) => {
@@ -50,7 +50,7 @@ export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
         payload?.params &&
         ACCEPTED_CALL_METHODS.includes(payload?.method)
       ) {
-        getFocusAppMethod()?.();
+        getFocusAppMethod()();
         logger.info('WalletConnect: Call Request received', { payload });
         const { params } = payload;
         props.setCallRequestData({

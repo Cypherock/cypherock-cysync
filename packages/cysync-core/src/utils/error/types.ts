@@ -138,7 +138,7 @@ export const actionButtonDetailsMap: Record<
       handler: ErrorActionButtonHandlerMap.deleteWallets,
     },
     secondaryAction: {
-      text: lang.strings.walletSync.buttons.keepAll,
+      text: lang.strings.walletSync.buttons.keepIt,
       action,
       handler: ErrorActionButtonHandlerMap.close,
     },

@@ -42,6 +42,7 @@ export const SendFlow: FC = () => {
     isDeviceRequired,
     error,
     onRetry,
+    selectedWallet,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const [showOnClose, setShowOnClose] = React.useState(false);
@@ -76,6 +77,7 @@ export const SendFlow: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>

@@ -1,8 +1,8 @@
 import { GoldExternalLink, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { openReleaseNotesDialog } from '~/actions';
+import { constants } from '~/constants';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
@@ -32,17 +32,27 @@ export const About: React.FC = () => {
         title={{ text: item.termsOfUse.title }}
         description={{ text: item.termsOfUse.description }}
       >
-        <Link to="https://www.cypherock.com/" target="_blank">
+        <a
+          href={constants.termsOfUseLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
           <GoldExternalLink width={18} height={18} />
-        </Link>
+        </a>
       </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.privacyPolicy.title }}
         description={{ text: item.privacyPolicy.description }}
       >
-        <Link to="https://www.cypherock.com/" target="_blank">
+        <a
+          href={constants.privacyPolicyLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
           <GoldExternalLink width={18} height={18} />
-        </Link>
+        </a>
       </SettingsStandardItem>
     </>
   );
