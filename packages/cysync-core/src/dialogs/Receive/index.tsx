@@ -50,6 +50,7 @@ export const Receive: FC = () => {
     onRetry,
     onSkip,
     isStartedWithoutDevice,
+    selectedWallet,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const [showOnClose, setShowOnClose] = React.useState(false);
@@ -88,6 +89,7 @@ export const Receive: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>

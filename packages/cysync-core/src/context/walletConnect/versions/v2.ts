@@ -14,7 +14,11 @@ import { useRef, useState } from 'react';
 import { constants } from '~/constants';
 import { useStateWithRef } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getFocusAppMethod } from '~/utils';
+import {
+  getFocusAppMethod,
+  getWalletConnect,
+  getWalletConnectCore,
+} from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -25,8 +29,6 @@ import {
   useWalletConnectVersionProps,
 } from '../type';
 
-const { Core } = (window as any).WalletConnectCore;
-const { Web3Wallet } = (window as any).WalletConnect;
 const WALLET_CONNECT_PROJECT_ID = constants.walletConnectProjectId;
 
 export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
@@ -175,6 +177,9 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
 
   const methods: IWalletConnectMethods = {
     init: async (uri: string, metadata: IClientMeta) => {
+      const { Core } = getWalletConnectCore();
+      const { Web3Wallet } = getWalletConnect();
+
       const core = new Core({
         projectId: WALLET_CONNECT_PROJECT_ID,
       });

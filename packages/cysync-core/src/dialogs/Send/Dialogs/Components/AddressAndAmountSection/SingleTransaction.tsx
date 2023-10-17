@@ -4,6 +4,7 @@ import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getParsedAmount } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -43,7 +44,9 @@ export const SingleTransaction: React.FC = () => {
   };
 
   const getEvmMaxSendAmount = (txn: IPreparedTransaction) => {
-    const { computedData } = txn as IPreparedEvmTransaction;
+    const { computedData, userInputs } = txn as IPreparedEvmTransaction;
+    if (selectedAccount?.type === AccountTypeMap.subAccount)
+      return userInputs.outputs[0]?.amount;
     return computedData.output.amount;
   };
 
@@ -68,7 +71,8 @@ export const SingleTransaction: React.FC = () => {
   const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
     return getParsedAmount({
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       amount: val,
       unitAbbr: selectedAccount.unit,
     }).amount;
