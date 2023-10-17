@@ -82,7 +82,7 @@ const getTransactionsNotifications = async (state: RootState) => {
       }
 
       const account = state.account.accounts.find(a => a.__id === t.accountId);
-      if (!account || !account.meta?.created) {
+      if (!account?.meta?.created) {
         return false;
       }
 

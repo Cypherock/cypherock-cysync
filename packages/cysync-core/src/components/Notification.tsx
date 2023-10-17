@@ -147,7 +147,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const displayTransactions = useMemo(() => {
     const formattedTxns = transactions.slice(0, 5).map(t => ({
       id: t.__id ?? '',
-      icon: transactionIconMap[TransactionTypeMap.receive],
+      icon: transactionIconMap[t.type],
       title: getDisplayTransactionType(t, lang.strings),
       status: TransactionStatusMap.success,
       description: (

@@ -79,20 +79,18 @@ export const NotificationContainer: React.FC<NotificationContainerProps> = ({
             </Container>
           )}
         </Container>
-        {onClose && (
-          <CloseButton
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              onClose();
-            }}
-            $alignSelf="end"
-            position="absolute"
-            top={0.5}
-            $translateY={-0.5}
-            right="20px"
-          />
-        )}
+        <CloseButton
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClose();
+          }}
+          $alignSelf="end"
+          position="absolute"
+          top={0.5}
+          $translateY={-0.5}
+          right="20px"
+        />
       </Flex>
       <Container pt="20px" direction="column">
         <ScrollableContainer
