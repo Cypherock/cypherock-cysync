@@ -2,10 +2,13 @@ import {
   Button,
   CheckBox,
   CloseButton,
+  Container,
+  CrossMark,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
   DialogBoxHeader,
+  Disconnected,
   Divider,
   Dropdown,
   Flex,
@@ -14,18 +17,63 @@ import {
   LangDisplay,
   ScrollableContainer,
   TextAreaInput,
+  ThemeType,
   Typography,
+  useTheme,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { DeviceHandlingState, useDevice } from '~/context';
+import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
 import { useContactSupportDialog } from '../context';
+
+interface DeviceConnectionErrorDisplayProps {
+  theme: ThemeType;
+  strings: ILangState['strings'];
+  state: DeviceHandlingState;
+}
+
+const DeviceConnectionErrorDisplay: React.FC<
+  DeviceConnectionErrorDisplayProps
+> = ({ strings, state, theme }) => {
+  if (state === DeviceHandlingState.USABLE) {
+    return null;
+  }
+
+  const detailsMap: Partial<
+    Record<DeviceHandlingState, { icon: React.ReactNode; text: string }>
+  > = {
+    [DeviceHandlingState.NOT_CONNECTED]: {
+      icon: <Disconnected fill={theme.palette.warn.main} />,
+      text: strings.dialogs.contactSupport.form.errors.connectDevice,
+    },
+    [DeviceHandlingState.BOOTLOADER]: {
+      icon: <CrossMark stroke={theme.palette.warn.main} />,
+      text: strings.dialogs.contactSupport.form.errors.bootloaderMode,
+    },
+  };
+
+  const details =
+    detailsMap[state] ?? detailsMap[DeviceHandlingState.NOT_CONNECTED];
+
+  if (!details) return null;
+
+  return (
+    <Container justify="flex-start">
+      <Container mr={2}>{details.icon}</Container>
+      <Typography color="muted" $fontWeight="light" $fontSize={16}>
+        {details.text}
+      </Typography>
+    </Container>
+  );
+};
 
 export const ContactForm: React.FC = () => {
   const {
     onClose,
     error,
+    deviceLogsError,
     handleContactSupportSubmit,
     isLoading,
     isSubmitDisabled,
@@ -40,10 +88,14 @@ export const ContactForm: React.FC = () => {
     canAttatchAppLogs,
     setCanAttatchAppLogs,
     canAttatchDeviceLogs,
-    setCanAttatchDeviceLogs,
+    onAttachDeviceLogs,
+    isDesktopLogsLoading,
+    deviceLogsLoadingText,
   } = useContactSupportDialog();
 
+  const { deviceHandlingState } = useDevice();
   const { strings } = useAppSelector(selectLanguage);
+  const theme = useTheme();
   const { buttons, dialogs } = strings;
   const { form } = dialogs.contactSupport;
 
@@ -125,20 +177,66 @@ export const ContactForm: React.FC = () => {
                   label={form.checks.attachAppLogs}
                   checked={canAttatchAppLogs}
                   isDisabled={isLoading}
+                  isLoading={isDesktopLogsLoading}
                   id="attatch-app-logs"
                   onChange={() => setCanAttatchAppLogs(!canAttatchAppLogs)}
                 />
                 <CheckBox
-                  label={form.checks.attachDeviceLogs}
-                  checked={canAttatchDeviceLogs}
-                  isDisabled={isLoading}
-                  onChange={() => {
-                    setCanAttatchDeviceLogs(!canAttatchDeviceLogs);
+                  label={
+                    deviceLogsLoadingText ??
+                    (canAttatchDeviceLogs
+                      ? form.checks.attachedDeviceLogs
+                      : form.checks.attachDeviceLogs)
+                  }
+                  labelProps={{
+                    color:
+                      deviceLogsLoadingText === undefined ? 'muted' : 'warn',
                   }}
+                  checked={canAttatchDeviceLogs}
+                  isLoading={deviceLogsLoadingText !== undefined}
+                  isDisabled={
+                    isLoading ||
+                    (!canAttatchDeviceLogs &&
+                      deviceHandlingState !== DeviceHandlingState.USABLE)
+                  }
+                  id="attatch-device-logs"
+                  onChange={() => onAttachDeviceLogs(!canAttatchDeviceLogs)}
                 />
-                <Divider variant="horizontal" />
+                {(error ||
+                  deviceLogsError ||
+                  deviceHandlingState !== DeviceHandlingState.USABLE) && (
+                  <Divider variant="horizontal" />
+                )}
               </Flex>
             </form>
+            <DeviceConnectionErrorDisplay
+              state={deviceHandlingState}
+              strings={strings}
+              theme={theme}
+            />
+            {!error && deviceLogsError && (
+              <Container display="block">
+                <Typography
+                  variant="h6"
+                  color="error"
+                  $fontWeight="light"
+                  $textAlign="center"
+                >
+                  {`${deviceLogsError.heading} (${deviceLogsError.code})`}
+                </Typography>
+                {deviceLogsError.subtext && (
+                  <Typography
+                    color="muted"
+                    $fontWeight="light"
+                    $textAlign="center"
+                    $fontSize={14}
+                    mt={1}
+                  >
+                    {deviceLogsError.subtext}
+                  </Typography>
+                )}
+              </Container>
+            )}
             {error && (
               <Typography $fontSize={16} pb={4} color="error">
                 {error}

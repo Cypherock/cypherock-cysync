@@ -7,4 +7,6 @@ export const setDBVersions = (database: IDatabase) => {
   database.priceInfo.setVersion(0);
   database.priceHistory.setVersion(0);
   database.transaction.setVersion(0);
+  database.transactionNotificationClick.setVersion(0);
+  database.transactionNotificationRead.setVersion(0);
 };

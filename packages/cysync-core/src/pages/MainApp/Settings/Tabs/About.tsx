@@ -1,8 +1,8 @@
 import { GoldExternalLink, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
-import { constants } from '~/constants';
 
 import { openReleaseNotesDialog } from '~/actions';
+import { constants } from '~/constants';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';

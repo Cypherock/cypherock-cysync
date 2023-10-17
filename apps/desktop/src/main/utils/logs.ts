@@ -1,10 +1,11 @@
 import fs from 'fs';
+
 import { logFilePath } from '.';
 
 export const getCySyncLogs = async (): Promise<string[]> => {
   const fileSize = (await fs.promises.stat(logFilePath)).size;
   const readStream = fs.createReadStream(logFilePath, {
-    start: fileSize - 1024 * 1024,
+    start: Math.max(0, fileSize - 1024 * 1024),
     end: fileSize,
   });
   const logLines = [];
