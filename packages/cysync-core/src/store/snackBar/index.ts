@@ -14,12 +14,12 @@ const initialState: ISnackBarState = {
   snackBarId: undefined,
 };
 
-export const openSnackBar = createAsyncThunk<any, SnackBarProps>(
-  'snackBar/openSnackBar',
-  async () => {
-    await sleep(5000);
-  },
-);
+export const openSnackBar = createAsyncThunk<
+  any,
+  SnackBarProps & { timeout?: number }
+>('snackBar/openSnackBar', async args => {
+  await sleep(args.timeout ?? 5000);
+});
 
 export const snackBarSlice = createSlice({
   name: 'snackBar',
