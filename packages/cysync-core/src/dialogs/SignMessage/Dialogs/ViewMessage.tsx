@@ -57,14 +57,16 @@ const AccountDisplay: React.FC = () => {
 
 const MessageDisplay: React.FC = () => {
   const { payload } = useSignMessageDialog();
-  if (!payload) return null;
   const parsedMessage = useMemo(() => {
+    if (!payload) return '';
     let result = payload.message;
     if (payload.signingType === SignMessageType.PRIVATE_MESSAGE)
       result = window.Buffer.from(result.slice(2), 'hex').toString();
 
     return result;
   }, [payload]);
+
+  if (!payload) return null;
 
   if (payload.signingType === SignMessageType.TYPED_MESSAGE)
     return (
