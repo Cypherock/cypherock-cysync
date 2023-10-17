@@ -1,3 +1,4 @@
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -9,6 +10,7 @@ import {
 
 export type DeviceErrorCodes =
   | DeviceAppErrorType
+  | GetLogsErrorType
   | DeviceBootloaderErrorType
   | DeviceCommunicationErrorType
   | DeviceConnectionErrorType

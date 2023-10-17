@@ -68,7 +68,7 @@ export const useDeviceUpdate = () => {
       setStateWithResetError(DeviceUpdateState.Confirmation);
       setDownloadProgress(0);
 
-      const error = await task.run();
+      const { error } = await task.run();
       if (error) throw error;
 
       setStateWithResetError(DeviceUpdateState.Successful);

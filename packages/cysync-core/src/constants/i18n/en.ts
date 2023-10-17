@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -271,6 +272,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     heading: 'Unknown X1 Card error',
     subtext: 'Retry or click Help to find a solution',
   },
+
+  // Manager App Errors
+  [GetLogsErrorType.LOGS_DISABLED]: {
+    heading: 'Logs are disabled on X1 Vault',
+    subtext: 'Enable logs on X1 Vault settings and try again',
+  },
 };
 
 const databaseError = {
@@ -471,6 +478,10 @@ const en = {
         { id: 2, name: 'Average' },
         { id: 3, name: 'Max' },
       ],
+      inputLabels: {
+        gasPrice: 'Gas Price',
+        gasLimit: 'Gas Limit',
+      },
     },
     source: {
       title: 'Source',
@@ -487,6 +498,9 @@ const en = {
         enterPassphrase: 'Enter passphrase',
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
+      },
+      token: {
+        info: 'Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}',
       },
       messageBox: {
         warning:
@@ -551,6 +565,13 @@ const en = {
         x1vault: 'X1 Vault',
         confirm: 'Confirmation',
       },
+    },
+    optimism: {
+      deviceAction:
+        "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
+      l1: ' (L1)',
+      l2: ' (L2)',
+      suffix: ' (L1 + L2)',
     },
   },
   history: {
@@ -906,14 +927,12 @@ const en = {
         'These blockchains are supported but add their accounts before use',
       notSupportedWarning: {
         title: 'These blockchains are not supported',
-        description:
-          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
     },
     accountConnectedTab: {
       title: 'Connected to ${dappName} interface',
       subTitle: 'Accounts',
-      info: 'You can now access the Uniswap interface DApp on your web browser',
+      info: 'You can now access the ${dappName} DApp on your web browser',
     },
     common: {
       info: {
@@ -922,6 +941,21 @@ const en = {
           'Check your account balance and activity',
           'Request approvals for transactions',
         ],
+      },
+      error: {
+        default: {
+          title: 'Error occurred while connecting',
+          subtitle: 'Retry the connection from the dApp',
+        },
+        unsupportedChains: {
+          title:
+            "${dappName} requested to connect to chain${s} we don't support yet",
+          subtitle: 'We currently support ${chains}',
+          message: 'Unsupported Chains: ${chains}',
+        },
+      },
+      reject: {
+        call: 'User rejected',
       },
     },
   },
@@ -1416,6 +1450,7 @@ const en = {
           attachAppLogs: 'Attach Application Logs',
           attachDeviceLogs: 'Attach Device Logs',
           confirmDevice: 'Please confirm on device to proceed',
+          fetchingDeviceLogs: 'Getting logs from device',
           attachedDeviceLogs: 'Device Logs Successfully Attached',
         },
         errors: {

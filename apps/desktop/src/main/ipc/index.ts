@@ -1,11 +1,16 @@
 import { IpcMain, WebContents } from 'electron';
 
+import { getAppIPCHandlers } from './app';
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
-import { getCloseIPCHandlers } from './close';
 import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
 import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
+import { getCySyncLogsIPCHandlers } from './logs';
 import { getResetIPCHandlers } from './reset';
+import {
+  getWalletConnectIPCHandlers,
+  setupWalletConnectListeners,
+} from './walletConnect';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
@@ -17,7 +22,9 @@ export const setupIPCHandlers = (
     ...getDbIPCHandlers(),
     ...getResetIPCHandlers(getWebContents),
     ...getAutoUpdateIPCHandlers(),
-    ...getCloseIPCHandlers(),
+    ...getAppIPCHandlers(),
+    ...getWalletConnectIPCHandlers(),
+    ...getCySyncLogsIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {
@@ -38,6 +45,7 @@ export const setupIPCHandlers = (
 
 export const setupListeners = (webContents: WebContents) => {
   setupDbListeners(webContents);
+  setupWalletConnectListeners(webContents);
 };
 
 export const removeListeners = () => {

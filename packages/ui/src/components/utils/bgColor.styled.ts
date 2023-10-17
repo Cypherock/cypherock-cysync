@@ -22,7 +22,8 @@ export type BgColor =
   | 'popup'
   | 'warning'
   | 'calendar'
-  | 'container';
+  | 'container'
+  | 'error';
 export interface BgColorProps {
   $bgColor?: BgColor;
 }
@@ -130,5 +131,10 @@ ${props =>
     props.$bgColor === 'calendar' &&
     css`
       background: ${({ theme }) => theme.palette.background.calendar};
+    `}
+    ${props =>
+    props.$bgColor === 'error' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.error};
     `}
 `;

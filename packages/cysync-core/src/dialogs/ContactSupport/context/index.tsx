@@ -1,4 +1,5 @@
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { GetLogsStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { AxiosError } from 'axios';
 import React, {
   Context,
@@ -11,15 +12,26 @@ import React, {
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
-import { sendFeedback } from '~/services/feedbackService';
+import {
+  DeviceTask,
+  ITabs,
+  useDeviceTask,
+  useErrorHandler,
+  useTabsAndDialogs,
+} from '~/hooks';
+import { sendFeedback } from '~/services';
 import {
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { keyValueStore, validateEmail } from '~/utils';
+import {
+  getCySyncLogsMethod,
+  keyValueStore,
+  validateEmail,
+  IParsedError,
+} from '~/utils';
 
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 
@@ -46,10 +58,13 @@ export interface ContactSupportDialogContextInterface {
   canAttatchAppLogs: boolean;
   setCanAttatchAppLogs: React.Dispatch<React.SetStateAction<boolean>>;
   canAttatchDeviceLogs: boolean;
-  setCanAttatchDeviceLogs: React.Dispatch<React.SetStateAction<boolean>>;
+  onAttachDeviceLogs: (doAttach: boolean) => Promise<void>;
   isEmailError: boolean;
   isCategoryError: boolean;
   isDescriptionError: boolean;
+  isDesktopLogsLoading: boolean;
+  deviceLogsLoadingText?: string;
+  deviceLogsError?: IParsedError;
 }
 
 export const ContactSupportDialogContext: Context<ContactSupportDialogContextInterface> =
@@ -79,19 +94,28 @@ export const ContactSupportDialogProvider: FC<
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
+  const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
+  const [deviceLogs, setDeviceLogs] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     categories[0].id,
   );
 
   const [error, setError] = useState<string | null>(null);
-  const [isEmailError, setIsEmailError] = useState<boolean>(false);
-  const [isCategoryError, setIsCategoryError] = useState<boolean>(false);
-  const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isCategoryError, setIsCategoryError] = useState(false);
+  const [isDescriptionError, setIsDescriptionError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDesktopLogsLoading, setIsDesktopLogsLoading] = useState(false);
+  const [deviceLogsLoadingText, setDeviceLogsLoadingText] = useState<
+    string | undefined
+  >();
+  const [deviceLogsErrorObject, setDeviceLogsErrorObject] = useState<any>();
 
-  const isSubmitDisabled = useMemo<boolean>(
+  const isSubmitDisabled = useMemo(
     () =>
       isLoading ||
+      isDesktopLogsLoading ||
+      deviceLogsLoadingText !== undefined ||
       isEmailError ||
       email === null ||
       isCategoryError ||
@@ -100,6 +124,8 @@ export const ContactSupportDialogProvider: FC<
       description === null,
     [
       isLoading,
+      isDesktopLogsLoading,
+      deviceLogsLoadingText,
       isEmailError,
       email,
       isCategoryError,
@@ -125,7 +151,13 @@ export const ContactSupportDialogProvider: FC<
     }
 
     try {
-      await sendFeedback(email, category.text, description);
+      await sendFeedback(
+        email,
+        category.text,
+        description,
+        desktopLogs,
+        deviceLogs,
+      );
       setIsLoading(false);
       onNext();
     } catch (apiError) {
@@ -197,6 +229,78 @@ export const ContactSupportDialogProvider: FC<
     setIsDescriptionError(false);
   }, [description]);
 
+  useEffect(() => {
+    if (canAttatchAppLogs) {
+      setIsDesktopLogsLoading(true);
+      getCySyncLogsMethod()()
+        .then(logs => {
+          setDesktopLogs(logs);
+          setIsDesktopLogsLoading(false);
+        })
+        .catch(err => {
+          setError((err.message as string) ?? String(err));
+          setIsDesktopLogsLoading(false);
+        });
+    } else {
+      setDesktopLogs([]);
+    }
+  }, [canAttatchAppLogs]);
+
+  const getLogsFromDevice: DeviceTask<string[]> = async connection => {
+    const app = await ManagerApp.create(connection);
+    const logs = await app.getLogs(event => {
+      if (event < GetLogsStatus.GET_LOGS_STATUS_USER_CONFIRMED) {
+        setDeviceLogsLoadingText(
+          lang.strings.dialogs.contactSupport.form.checks.confirmDevice,
+        );
+      } else {
+        setDeviceLogsLoadingText(
+          lang.strings.dialogs.contactSupport.form.checks.fetchingDeviceLogs,
+        );
+      }
+    });
+
+    return logs.split('\n');
+  };
+
+  const deviceLogsTask = useDeviceTask(getLogsFromDevice, {
+    dontExecuteTask: true,
+  });
+
+  const onAttachDeviceLogs = async (doAttach: boolean) => {
+    setDeviceLogsErrorObject(undefined);
+    setDeviceLogsLoadingText('');
+
+    if (!doAttach) {
+      setCanAttatchDeviceLogs(false);
+      setDeviceLogsLoadingText(undefined);
+      setDeviceLogsErrorObject(undefined);
+      return;
+    }
+
+    const { result, error: e } = await deviceLogsTask.run();
+
+    if (e) {
+      setCanAttatchDeviceLogs(false);
+      setDeviceLogsErrorObject(e);
+    }
+
+    if (result) {
+      setCanAttatchDeviceLogs(true);
+      setDeviceLogs(result);
+    }
+
+    setDeviceLogsLoadingText(undefined);
+  };
+
+  const { errorToShow: deviceLogsError } = useErrorHandler({
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onClose: () => {},
+    error: deviceLogsErrorObject,
+    isOnboarding: false,
+    noDelay: true,
+  });
+
   const {
     onNext,
     onPrevious,
@@ -233,10 +337,13 @@ export const ContactSupportDialogProvider: FC<
       canAttatchAppLogs,
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
-      setCanAttatchDeviceLogs,
+      onAttachDeviceLogs,
       isEmailError,
       isCategoryError,
       isDescriptionError,
+      isDesktopLogsLoading,
+      deviceLogsLoadingText,
+      deviceLogsError,
     }),
     [
       isDeviceRequired,
@@ -261,10 +368,13 @@ export const ContactSupportDialogProvider: FC<
       canAttatchAppLogs,
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
-      setCanAttatchDeviceLogs,
+      onAttachDeviceLogs,
       isEmailError,
       isCategoryError,
       isDescriptionError,
+      isDesktopLogsLoading,
+      deviceLogsLoadingText,
+      deviceLogsError,
     ],
   );
 

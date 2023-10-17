@@ -5,6 +5,7 @@ import { IconDialogBox } from './IconDialogBox';
 
 import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
 import { Button } from '../../atoms';
+import { MessageBox, MessageBoxType } from '../MessageBox';
 
 export type ErrorIconType = 'device' | 'default' | 'server';
 
@@ -18,6 +19,8 @@ export interface ErrorDialogProps extends DialogBoxProps {
   onClose?: () => void;
   iconType?: ErrorIconType;
   textVariables?: object;
+  messageBoxText?: string;
+  messageBoxVariant?: MessageBoxType;
 }
 
 const iconMap: Record<ErrorIconType, ReactNode> = {
@@ -34,6 +37,8 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   onSecondaryClick,
   iconType,
   textVariables,
+  messageBoxVariant,
+  messageBoxText,
   ...props
 }) => (
   <IconDialogBox
@@ -41,6 +46,14 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
     title={title}
     textVariables={textVariables}
     subtext={subtext}
+    afterTextComponent={
+      messageBoxText ? (
+        <MessageBox
+          text={messageBoxText}
+          type={messageBoxVariant ?? 'danger'}
+        />
+      ) : undefined
+    }
     footerComponent={
       <>
         {secondaryActionText && (
@@ -68,4 +81,6 @@ ErrorDialog.defaultProps = {
   iconType: 'default',
   textVariables: undefined,
   onClose: undefined,
+  messageBoxText: undefined,
+  messageBoxVariant: 'danger',
 };

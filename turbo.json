@@ -45,16 +45,15 @@
     "@cypherock/cysync-core#prebuild": {
       "cache": true,
       "outputs": ["src/generated/**"],
-      "inputs": ["package.json", "scripts/prebuild.sh"]
+      "inputs": [
+        "package.json",
+        "scripts/prebuild.sh",
+        "scripts/dependencies/*"
+      ]
     },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],
       "cache": false
-    },
-    "@cypherock/cysync-desktop#prebuild": {
-      "cache": true,
-      "outputs": ["renderer/generated/**"],
-      "inputs": ["package.json", "scripts/prebuild.sh"]
     },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["@cypherock/cysync-desktop#prebuild", "^build"],

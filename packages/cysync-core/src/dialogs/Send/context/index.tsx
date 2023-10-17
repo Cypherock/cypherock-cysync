@@ -30,7 +30,12 @@ import { Observer, Subscription } from 'rxjs';
 
 import { LoaderDialog } from '~/components';
 import { deviceLock, useDevice } from '~/context';
-import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
+import {
+  ITabs,
+  useAccountDropdown,
+  useTabsAndDialogs,
+  useWalletDropdown,
+} from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -64,6 +69,7 @@ export interface SendDialogContextInterface {
   walletDropdownList: DropDownListItemProps[];
   handleWalletChange: () => void;
   selectedAccount: IAccount | undefined;
+  selectedAccountParent: IAccount | undefined;
   setSelectedAccount: React.Dispatch<
     React.SetStateAction<IAccount | undefined>
   >;
@@ -133,13 +139,18 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
+  } = useWalletDropdown({
+    walletId: defaultWalletId,
+  });
+  const {
     selectedAccount,
     setSelectedAccount,
+    selectedAccountParent,
     handleAccountChange,
     accountDropdownList,
   } = useAccountDropdown({
+    selectedWallet,
     defaultAccountId,
-    defaultWalletId,
     includeSubAccounts: true,
   });
 
@@ -366,9 +377,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (!selectedAccount || !transaction) return;
     const convertedAmount = convertToUnit({
       amount: value,
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       fromUnitAbbr: selectedAccount.unit,
-      toUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+      toUnitAbbr: getZeroUnit(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      ).abbr,
     });
     const txn = transaction;
     if (txn.userInputs.outputs.length > 0)
@@ -391,9 +406,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     const outputAmount = transaction.userInputs.outputs[0].amount;
     const convertedAmount = convertToUnit({
       amount: outputAmount,
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       toUnitAbbr: selectedAccount.unit,
-      fromUnitAbbr: getZeroUnit(selectedAccount.assetId).abbr,
+      fromUnitAbbr: getZeroUnit(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      ).abbr,
     });
     return formatDisplayAmount(convertedAmount.amount);
   };
@@ -458,6 +477,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleWalletChange,
       walletDropdownList,
       selectedAccount,
+      selectedAccountParent,
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,
@@ -491,6 +511,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleWalletChange,
       walletDropdownList,
       selectedAccount,
+      selectedAccountParent,
       setSelectedAccount,
       handleAccountChange,
       accountDropdownList,

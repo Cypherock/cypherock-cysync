@@ -21,7 +21,9 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
   const getSliderParams = () => {
     const min = 0;
     const max = average * 2;
-    return { min, max };
+    const negativePowerOf10 = Math.min(Math.log10(average), 0);
+    const decimal = Math.abs(Math.floor(negativePowerOf10));
+    return { min, max, decimal };
   };
   return (
     <>

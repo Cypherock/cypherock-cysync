@@ -35,14 +35,6 @@ export const Portfolio: FC = () => {
     onAssetClick,
   } = usePortfolioPage();
 
-  /*
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-      dispatch(openWalletActionsDialog());
-  }, []);
-   */
-
   const getMainContent = () => {
     if (wallets.length <= 0) {
       return <NoWallet />;

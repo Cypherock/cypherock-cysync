@@ -33,10 +33,14 @@ export function useDeviceTask<T>(
   >();
   const isAbortedRef = React.useRef<boolean>(false);
 
-  const run = async (): Promise<Error | undefined> => {
+  const run = async (): Promise<{
+    error?: Error;
+    result?: T;
+  }> => {
     let conn: IDeviceConnection | undefined;
     const taskId = lodash.uniqueId('task-');
     let error: Error | undefined;
+    let result: T | undefined;
 
     try {
       isAbortedRef.current = false;
@@ -52,9 +56,9 @@ export function useDeviceTask<T>(
       await deviceLock.acquire(connection.device, taskId);
       conn = await connectDevice(connection.device);
       connectedRef.current = { connection: conn, device: connection.device };
-      const res = await handler(conn);
+      result = await handler(conn);
 
-      setTaskResult(res);
+      setTaskResult(result);
 
       // Don't abort if no error
       isAbortedRef.current = true;
@@ -78,7 +82,7 @@ export function useDeviceTask<T>(
       setIsRunning(false);
     }
 
-    return error;
+    return { error, result };
   };
 
   const abort = async () => {
@@ -105,9 +109,7 @@ export function useDeviceTask<T>(
     }
 
     return () => {
-      if (doExecute) {
-        abort();
-      }
+      abort();
     };
   }, []);
 

@@ -8,6 +8,7 @@ import {
   LockscreenProvider,
   BackgroundTasks,
   DialogManager,
+  WalletConnectProvider,
   AppUpdateProvider,
   LatestDeviceVersionProvider,
 } from '@cypherock/cysync-core';
@@ -30,10 +31,12 @@ const App = () => (
           >
             <AppUpdateProvider>
               <LatestDeviceVersionProvider>
-                <AppRouter>
-                  <DialogManager />
-                  <BackgroundTasks />
-                </AppRouter>
+                <WalletConnectProvider>
+                  <AppRouter>
+                    <DialogManager />
+                    <BackgroundTasks />
+                  </AppRouter>
+                </WalletConnectProvider>
               </LatestDeviceVersionProvider>
             </AppUpdateProvider>
           </DeviceProvider>
