@@ -339,6 +339,7 @@ const en = {
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
     submit: 'Submit',
+    showMore: 'Show more',
   },
   deviceAuthentication: {
     success: {
@@ -853,6 +854,18 @@ const en = {
         syncronized: 'Syncronized',
         syncronizing: 'Syncronizing...',
         error: 'Sync error!',
+      },
+    },
+    notification: {
+      title: 'Transactions',
+      sendTransaction: '${amount} ${unit} ${type} to ${address}',
+      sendTransactionMultiple:
+        '${amount} ${unit} ${type} to multiple addresses',
+      receiveTransaction:
+        '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
+      noTransactions: {
+        title: 'All caught up',
+        subTitle: 'No new transactions to show',
       },
     },
   },
