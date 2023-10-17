@@ -1,5 +1,6 @@
+import { SignMessageType } from '@cypherock/coin-support-interfaces';
 import { coinFamiliesMap } from '@cypherock/coins';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { IAccount } from '@cypherock/db-interfaces';
 
 export const WalletConnectCallRequestMethodMap = {
   ETH_SEND_TXN: 'eth_sendTransaction',
@@ -45,6 +46,17 @@ export const ACCEPTED_SIGN_METHODS: WalletConnectCallRequestMethod[] = [
   WalletConnectCallRequestMethodMap.SIGN_TYPED_V4,
 ];
 
+export const WalletConnectSignMessageMap: Partial<
+  Record<WalletConnectCallRequestMethod, SignMessageType>
+> = {
+  [WalletConnectCallRequestMethodMap.ETH_SIGN]: SignMessageType.ETH_MESSAGE,
+  [WalletConnectCallRequestMethodMap.SIGN_PERSONAL]:
+    SignMessageType.PRIVATE_MESSAGE,
+  [WalletConnectCallRequestMethodMap.SIGN_TYPED]: SignMessageType.TYPED_MESSAGE,
+  [WalletConnectCallRequestMethodMap.SIGN_TYPED_V4]:
+    SignMessageType.TYPED_MESSAGE,
+};
+
 export const ACCEPTED_CALL_METHODS = [
   ...ACCEPTED_SEND_METHODS,
   ...ACCEPTED_SIGN_METHODS,
@@ -69,8 +81,7 @@ export interface useWalletConnectVersionProps {
   connectionTimeoutRef: React.MutableRefObject<NodeJS.Timeout | undefined>;
   openDialog: () => void;
   closeDialog: () => void;
-  setActiveWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
-  setActiveAccount: React.Dispatch<React.SetStateAction<IAccount | undefined>>;
+  updateActiveAccount: (account?: IAccount) => void;
 }
 
 export interface IClientMeta {

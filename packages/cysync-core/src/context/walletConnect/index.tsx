@@ -18,7 +18,13 @@ import {
   openSignMessageDialog,
   openWalletConnectDialog,
 } from '~/actions';
-import { closeDialog as closeDialogDispatch, useAppDispatch } from '~/store';
+import { useStateToRef } from '~/hooks';
+import {
+  closeDialog as closeDialogDispatch,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import {
   getAddExternalLinkListenerMethod,
   getInitWCUriMethod,
@@ -48,6 +54,7 @@ export interface WalletConnectContextInterface {
   connectionError: string;
   connectionClientMeta: WalletConnectionConnectionClientMeta | undefined;
   approveSessionRequest: (accounts: IAccount[]) => Promise<void>;
+  isApprovingSession: boolean;
   approveCallRequest: (result: string) => void;
   rejectCallRequest: (reason?: string) => void;
   callRequestData: WalletConnectCallRequestData | undefined;
@@ -71,6 +78,8 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   children,
 }) => {
   const dispatch = useAppDispatch();
+  const { wallets } = useAppSelector(selectWallets);
+  const walletsRef = useStateToRef(wallets);
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>();
   const [activeAccount, setActiveAccount] = useState<IAccount | undefined>();
   const [connectionError, setConnectionError] = useState('');
@@ -91,12 +100,22 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const [errorSubtitle, setErrorSubtitle] = useState('');
 
   const [version, setVersion] = useState(2);
+  const [isApprovingSession, setIsApprovingSession] = useState(false);
   const openDialog = () => {
     dispatch(openWalletConnectDialog());
   };
   const closeDialog = () => {
     dispatch(closeDialogDispatch('walletConnect'));
   };
+
+  const updateActiveAccount = (account?: IAccount) => {
+    const foundWallet = walletsRef.current.find(
+      wallet => wallet.__id === account?.walletId,
+    );
+    setActiveAccount(account);
+    setActiveWallet(foundWallet);
+  };
+
   const v1Methods = useWalletConnectV1({
     setConnectionClientMeta,
     connectionState,
@@ -109,8 +128,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     connectionTimeoutRef,
     openDialog,
     closeDialog,
-    setActiveAccount,
-    setActiveWallet,
+    updateActiveAccount,
   });
   const {
     methods: v2Methods,
@@ -130,8 +148,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     connectionTimeoutRef,
     openDialog,
     closeDialog,
-    setActiveAccount,
-    setActiveWallet,
+    updateActiveAccount,
   });
 
   const versionMap: Record<number, IWalletConnectMethods> = {
@@ -156,7 +173,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const resetStates = () => {
     setConnectionClientMeta(undefined);
     setCallRequestData(undefined);
-    setActiveAccount(undefined);
+    updateActiveAccount(undefined);
     setVersion(2);
     Object.values(versionMap).forEach(methods => methods.resetStates());
   };
@@ -174,13 +191,13 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   const handleClose = () => {
     closeDialog();
     disconnect();
-    setActiveWallet(undefined);
-    setActiveAccount(undefined);
+    updateActiveAccount(undefined);
     setConnectionError('');
   };
 
   const approveSessionRequest = async (accounts: IAccount[]) => {
     logger.info('WalletConnect: Approving session request');
+    setIsApprovingSession(true);
     try {
       await getWalletConnectApi().approveSession(accounts);
     } catch (error) {
@@ -191,6 +208,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       }
       setConnectionState(WalletConnectConnectionState.CONNECTION_ERROR);
     }
+    setIsApprovingSession(false);
   };
 
   const approveCallRequest = async (result: string) => {
@@ -310,6 +328,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       errorTitle,
       errorSubtitle,
       unsupportedOptionalChainsMessage,
+      isApprovingSession,
     }),
     [
       handleClose,
@@ -331,6 +350,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       errorTitle,
       errorSubtitle,
       unsupportedOptionalChainsMessage,
+      isApprovingSession,
     ],
   );
 

@@ -962,10 +962,12 @@ const en = {
   signMessage: {
     title: 'Sign Message',
     subTitle: 'Connected to the following account',
-    info: {
+    actions: {
       confirmDevice: 'Confirm on device',
       verifyData: 'Verify data',
-      enterPinTapCard: 'Enter PIN and tap any card',
+      enterPassphrase: 'Enter passphrase',
+      enterPin: 'Enter the PIN and tap any card',
+      tapCard: 'Tap any card',
     },
   },
   portfolio: {

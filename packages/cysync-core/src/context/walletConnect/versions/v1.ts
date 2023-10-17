@@ -3,7 +3,6 @@ import { IAccount } from '@cypherock/db-interfaces';
 import WalletConnect from '@walletconnect/legacy-client';
 import { useRef } from 'react';
 
-import { selectWallets, useAppSelector } from '~/store';
 import { getFocusAppMethod } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -16,7 +15,6 @@ import {
 } from '../type';
 
 export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
-  const { wallets } = useAppSelector(selectWallets);
   const connectorRef = useRef<WalletConnect | undefined>(undefined);
   const callbacks = {
     handleSessionRequest: (error: Error | null, payload: any) => {
@@ -121,8 +119,7 @@ export const useWalletConnectV1 = (props: useWalletConnectVersionProps) => {
         accounts: [address],
         chainId: coinMeta.chain,
       });
-      props.setActiveAccount(account);
-      props.setActiveWallet(wallets.find(w => w.__id === account.walletId));
+      props.updateActiveAccount(account);
     },
     approveCall: async (result: string) => {
       if (props.callRequestData?.id)
