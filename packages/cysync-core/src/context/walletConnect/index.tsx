@@ -18,6 +18,7 @@ import {
   openSignMessageDialog,
   openWalletConnectDialog,
 } from '~/actions';
+import { useStateToRef } from '~/hooks';
 import {
   closeDialog as closeDialogDispatch,
   selectWallets,
@@ -77,6 +78,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { wallets } = useAppSelector(selectWallets);
+  const walletsRef = useStateToRef(wallets);
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>();
   const [activeAccount, setActiveAccount] = useState<IAccount | undefined>();
   const [connectionError, setConnectionError] = useState('');
@@ -105,11 +107,11 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   };
 
   const updateActiveAccount = (account?: IAccount) => {
-    const foundWallet = wallets.find(
+    const foundWallet = walletsRef.current.find(
       wallet => wallet.__id === account?.walletId,
     );
     setActiveAccount(account);
-    if (wallets.length) setActiveWallet(foundWallet);
+    setActiveWallet(foundWallet);
   };
 
   const v1Methods = useWalletConnectV1({
