@@ -2,7 +2,6 @@ import React, { FC, ReactNode } from 'react';
 import styled, { css, RuleSet } from 'styled-components';
 
 import { ThemeType } from '../../themes';
-
 import {
   spacing,
   SpacingProps,

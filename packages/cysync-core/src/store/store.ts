@@ -20,9 +20,9 @@ import langReducers, { ILangState } from './lang';
 import notificationReducer, { INotificationState } from './notification';
 import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import snackBarReducer, { ISnackBarState } from './snackBar';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
-import snackBarReducer, { ISnackBarState } from './snackBar';
 
 export interface RootState {
   wallet: IWalletState;

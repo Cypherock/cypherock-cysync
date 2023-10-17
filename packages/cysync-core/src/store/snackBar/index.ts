@@ -1,10 +1,10 @@
+import { SnackBarProps } from '@cypherock/cysync-ui';
+import { sleep } from '@cypherock/cysync-utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '~/store';
 
 import { ISnackBarState } from './types';
-import { SnackBarProps } from '@cypherock/cysync-ui';
-import { sleep } from '@cypherock/cysync-utils';
 
 export * from './types';
 

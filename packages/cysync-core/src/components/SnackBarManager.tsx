@@ -1,8 +1,10 @@
 import { SnackBar } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { selectSnackBar } from '~/store';
-import { useAppSelector } from '..';
 import logger from '~/utils/logger';
+
+import { useAppSelector } from '..';
 
 export const SnackBarManager = () => {
   const snackBarState = useAppSelector(selectSnackBar);
