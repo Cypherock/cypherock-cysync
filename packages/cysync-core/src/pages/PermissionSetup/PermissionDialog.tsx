@@ -1,21 +1,26 @@
 import {
+  Button,
+  CheckBox,
+  Clipboard,
   Container,
   DialogBox,
+  DialogBoxBody,
+  DialogBoxFooter,
+  Flex,
   Image,
+  LangDisplay,
   Typography,
   usbIcon,
-  DialogBoxBody,
-  LangDisplay,
-  Flex,
-  Button,
-  DialogBoxFooter,
-  Clipboard,
-  CheckBox,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
 import { constants } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  openSnackBar,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
 export interface PermissionSetupDialogProps {
@@ -28,10 +33,21 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
   const [isChecked, setIsChecked] = React.useState(false);
 
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     logger.info('On linux permission setup page');
   }, []);
+
+  const handlePermissionScriptCopy = () => {
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: lang.strings.permissionSetup.permissionScriptCopiedToClipboard,
+        alignVariant: 'center',
+      }),
+    );
+  };
 
   return (
     <Flex
@@ -78,6 +94,7 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
               <Clipboard
                 content={constants.linuxPermissionScript}
                 variant="gold"
+                onCopy={handlePermissionScriptCopy}
               />
             </Container>
 

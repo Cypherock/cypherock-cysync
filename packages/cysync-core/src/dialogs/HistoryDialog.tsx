@@ -1,22 +1,22 @@
 import {
-  Tag,
+  BlurOverlay,
+  Chip,
+  Clipboard,
+  CloseButton,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Flex,
-  Clipboard,
-  Chip,
-  BlurOverlay,
-  CloseButton,
   DialogBoxHeader,
-  Container,
-  useTheme,
-  Typography,
-  GoldExternalLink,
-  SummaryContainer,
   Divider,
+  Flex,
+  GoldExternalLink,
   NestedContainer,
-  ThemeType,
   ScrollableContainer,
+  SummaryContainer,
+  Tag,
+  ThemeType,
+  Typography,
+  useTheme,
 } from '@cypherock/cysync-ui';
 import {
   ITransaction,
@@ -29,6 +29,7 @@ import React, { FC, useMemo } from 'react';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
   closeDialog,
+  openSnackBar,
   selectAccounts,
   selectDiscreetMode,
   selectLanguage,
@@ -122,6 +123,15 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
   );
 
   const onClose = () => dispatch(closeDialog('historyDialog'));
+
+  const handleTransactionHashCopy = () => {
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: keys.transactionHashCopiedToClipboard,
+      }),
+    );
+  };
 
   return (
     <BlurOverlay>
@@ -379,6 +389,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                     variant="gold"
                     content={displayTransaction.hash}
                     size="sm"
+                    onCopy={handleTransactionHashCopy}
                   />
                 </Container>
               </HistoryItem>

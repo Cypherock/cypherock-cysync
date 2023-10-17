@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 import { StretchedTypography } from './LeanBox';
 
-import { Button, Image } from '../atoms';
+import { Check, InformationIcon } from '../../assets';
+import { Button } from '../atoms';
 
-const SnackBarWrapper = styled.div`
+const SnackBarWrapper = styled.div<{ alignVariant: AlignVariant }>`
   position: fixed;
   bottom: 45px;
-  left: 60%;
+  left: ${({ alignVariant }) => (alignVariant === 'right' ? '60%' : '50%')};
   transform: translateX(-50%);
   width: 680px;
   max-width: calc(40% + 40px);
@@ -27,6 +28,7 @@ const SnackBarWrapper = styled.div`
 const SnackBarPadding = styled.div`
   padding: 8px 16px;
   display: flex;
+  align-items: center;
   flex-direction: row;
   gap: 16px;
   flex: 1;
@@ -36,28 +38,45 @@ const SnackBarButton = styled(Button)`
   margin: 4px 16px;
 `;
 
+type IconsType = 'check' | 'info';
+type AlignVariant = 'center' | 'right';
+
 export interface SnackBarProps {
   text: string;
-  imageSrc: string;
-  imageAlt: string;
-  buttonName: string;
+  icon?: IconsType;
+  buttonText?: string;
+  alignVariant?: AlignVariant;
 }
+
+const snackBarIcons: Record<IconsType, React.ReactNode> = {
+  check: <Check width={16} height={16} />,
+  info: <InformationIcon width={16} height={16} />,
+};
 
 export const SnackBar: React.FC<SnackBarProps> = ({
   text,
-  imageSrc,
-  imageAlt,
-  buttonName,
+  icon = 'check',
+  buttonText,
+  alignVariant = 'right',
 }) => (
-  <SnackBarWrapper>
+  <SnackBarWrapper alignVariant={alignVariant}>
     <SnackBarPadding>
-      <Image src={imageSrc} alt={imageAlt} />
+      {/* <Image src={snackBarIcons[icon]} alt={icon} /> */}
+      {snackBarIcons[icon]}
       <StretchedTypography variant="h6" $shouldStretch>
         {text}
       </StretchedTypography>
     </SnackBarPadding>
-    <SnackBarButton variant="primary" size="sm">
-      {buttonName}
-    </SnackBarButton>
+    {buttonText && (
+      <SnackBarButton variant="primary" size="sm">
+        {buttonText}
+      </SnackBarButton>
+    )}
   </SnackBarWrapper>
 );
+
+SnackBar.defaultProps = {
+  icon: 'check',
+  buttonText: undefined,
+  alignVariant: 'right',
+};

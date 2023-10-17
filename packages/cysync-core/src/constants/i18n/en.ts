@@ -361,6 +361,8 @@ const en = {
       'Press run the following command on your terminal to allow the application to access usb port',
     subtext: 'Restart the application after running the script',
     checkbox: 'I have already run the command',
+    permissionScriptCopiedToClipboard:
+      'Permission Script copied to the clipboard',
   },
   addAccount: {
     header: 'Add Account',
@@ -597,6 +599,8 @@ const en = {
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
       description: 'Description',
+      transactionHashCopiedToClipboard:
+        'Transaction Hash copied to the clipboard',
     },
     noData: {
       text: 'No transactions yet',
