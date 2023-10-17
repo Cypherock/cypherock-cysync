@@ -1,3 +1,4 @@
+import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { deleteWallets } from '~/actions/wallet/deleteWallets';
@@ -15,7 +16,6 @@ import logger from '~/utils/logger';
 import { useNavigateTo } from './useNavigateTo';
 
 import { routes } from '..';
-import { IWallet } from '@cypherock/db-interfaces';
 
 export interface IErrorHandlerParams {
   error?: Error;
@@ -24,11 +24,19 @@ export interface IErrorHandlerParams {
   onClose: () => void;
   isOnboarding?: boolean;
   selectedWallet?: IWallet;
+  noDelay?: boolean;
 }
 
 export const useErrorHandler = (params: IErrorHandlerParams) => {
-  const { error, defaultMsg, onRetry, onClose, isOnboarding, selectedWallet } =
-    params;
+  const {
+    error,
+    defaultMsg,
+    onRetry,
+    onClose,
+    isOnboarding,
+    noDelay,
+    selectedWallet,
+  } = params;
 
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
@@ -130,9 +138,13 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
     let timeout: any;
 
     if (errorMsg) {
-      timeout = setTimeout(() => {
+      if (!noDelay) {
+        timeout = setTimeout(() => {
+          setErrorToShow(errorMsg);
+        }, DEVICE_LISTENER_INTERVAL);
+      } else {
         setErrorToShow(errorMsg);
-      }, DEVICE_LISTENER_INTERVAL);
+      }
     } else if (errorToShow) {
       setErrorToShow(undefined);
     }

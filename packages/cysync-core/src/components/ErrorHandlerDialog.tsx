@@ -1,8 +1,8 @@
 import { ErrorDialog } from '@cypherock/cysync-ui';
+import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
-import { IWallet } from '@cypherock/db-interfaces';
 
 export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;

@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -270,6 +271,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   [CardAppErrorType.UNRECOGNIZED]: {
     heading: 'Unknown X1 Card error',
     subtext: 'Retry or click Help to find a solution',
+  },
+
+  // Manager App Errors
+  [GetLogsErrorType.LOGS_DISABLED]: {
+    heading: 'Logs are disabled on X1 Vault',
+    subtext: 'Enable logs on X1 Vault settings and try again',
   },
 };
 
@@ -1430,6 +1437,7 @@ const en = {
           attachAppLogs: 'Attach Application Logs',
           attachDeviceLogs: 'Attach Device Logs',
           confirmDevice: 'Please confirm on device to proceed',
+          fetchingDeviceLogs: 'Getting logs from device',
           attachedDeviceLogs: 'Device Logs Successfully Attached',
         },
         errors: {
