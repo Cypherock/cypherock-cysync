@@ -16,7 +16,7 @@ interface MainAppLayoutProps {
   onTopbarHeightChange?: (height: number) => void;
 }
 
-export const MainAppLayout: FC<MainAppLayoutProps> = ({
+const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
   topbar,
   children,
   fullHeight,
@@ -59,8 +59,10 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
   );
 };
 
-MainAppLayout.defaultProps = {
+MainAppLayoutComponent.defaultProps = {
   children: undefined,
   fullHeight: false,
   onTopbarHeightChange: undefined,
 };
+
+export const MainAppLayout = React.memo(MainAppLayoutComponent);
