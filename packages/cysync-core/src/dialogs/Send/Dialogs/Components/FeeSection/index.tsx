@@ -65,15 +65,16 @@ export const FeeSection: React.FC = () => {
   };
 
   const getEthereumProps = () => {
-    const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
+    if (!selectedAccount) return {};
+    const { feesUnit } = coinList[selectedAccount.parentAssetId];
     const txn = transaction as IPreparedEvmTransaction;
     const { amount, unit } = getParsedAmount({
-      coinId: selectedAccount?.parentAssetId ?? '',
+      coinId: selectedAccount.parentAssetId,
       amount: txn.staticData.averageGasPrice,
       unitAbbr: feesUnit || 'Gwei',
     });
     const inputGasPrice = getParsedAmount({
-      coinId: selectedAccount?.parentAssetId ?? '',
+      coinId: selectedAccount.parentAssetId,
       amount: txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice,
       unitAbbr: feesUnit || 'Gwei',
     }).amount;
@@ -172,8 +173,8 @@ export const FeeSection: React.FC = () => {
     if (!account || !transaction) return `0`;
     const txn = transaction as IPreparedBtcTransaction;
     const { amount: _amount, unit } = getParsedAmount({
-      coinId: account.assetId,
-      unitAbbr: account.unit,
+      coinId: account.parentAssetId,
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       amount: txn.computedData.fee,
     });
     return `${_amount} ${unit.abbr}`;
@@ -182,16 +183,18 @@ export const FeeSection: React.FC = () => {
     const account = selectedAccount;
     if (!account) return `0`;
     const coinPrice = priceInfos.find(
-      p => p.assetId === account.assetId && p.currency.toLowerCase() === 'usd',
+      p =>
+        p.assetId === account.parentAssetId &&
+        p.currency.toLowerCase() === 'usd',
     );
 
     if (coinPrice && transaction) {
       const txn = transaction as IPreparedBtcTransaction;
       const feesInDefaultUnit = convertToUnit({
         amount: txn.computedData.fee,
-        fromUnitAbbr: getZeroUnit(account.assetId).abbr,
-        coinId: account.assetId,
-        toUnitAbbr: getDefaultUnit(account.assetId).abbr,
+        fromUnitAbbr: getZeroUnit(account.parentAssetId).abbr,
+        coinId: account.parentAssetId,
+        toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       });
       const value = new BigNumber(feesInDefaultUnit.amount)
         .multipliedBy(coinPrice.latestPrice)

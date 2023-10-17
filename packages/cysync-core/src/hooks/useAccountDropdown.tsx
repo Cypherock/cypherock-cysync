@@ -19,6 +19,9 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();
+  const [selectedAccountParent, setSelectedAccountParent] = useState<
+    IAccount | undefined
+  >();
 
   const getBalanceToDisplay = (account: IAccount) => {
     const { amount, unit } = getParsedAmount({
@@ -33,9 +36,14 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
   const handleAccountChange = (id?: string) => {
     if (!id) {
       setSelectedAccount(undefined);
+      setSelectedAccountParent(undefined);
       return;
     }
-    setSelectedAccount(accounts.find(a => a.__id === id));
+    const account = accounts.find(a => a.__id === id);
+    setSelectedAccount(account);
+    setSelectedAccountParent(
+      accounts.find(a => a.__id === account?.parentAccountId),
+    );
   };
 
   useEffect(() => {
@@ -43,6 +51,9 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
       const account = accounts.find(a => a.__id === props.defaultAccountId);
 
       setSelectedAccount(account);
+      setSelectedAccountParent(
+        accounts.find(a => a.__id === account?.parentAccountId),
+      );
     }
   }, []);
 
@@ -96,7 +107,7 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
               ),
               text: subAccount.name,
               shortForm: `(${asset.abbr})`,
-              rightText: getBalanceToDisplay(account),
+              rightText: getBalanceToDisplay(subAccount),
               $parentId: account.__id,
             };
           }),
@@ -110,6 +121,7 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
   return {
     selectedAccount,
     setSelectedAccount,
+    selectedAccountParent,
     handleAccountChange,
     accountDropdownList,
   };

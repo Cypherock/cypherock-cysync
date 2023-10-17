@@ -13,4 +13,5 @@ export const setDependencies = () => {
   NearSupport.setNearApiJs((window as any).NearApiJs);
   EvmSupport.setEthersLibrary((window as any).ethers);
   EvmSupport.setEip712Library((window as any).eip712);
+  EvmSupport.setWeb3Library((window as any).web3);
 };

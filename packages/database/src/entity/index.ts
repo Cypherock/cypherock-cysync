@@ -5,3 +5,5 @@ export * from './priceInfo';
 export * from './transaction';
 export * from './wallet';
 export * from './types';
+export * from './transactionNotificationClick';
+export * from './transactionNotificationRead';

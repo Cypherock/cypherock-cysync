@@ -1,7 +1,7 @@
 import {
   ISignMessageEvent,
   ISignMessageParams,
-  ReceiveDeviceEvent,
+  SignMessageDeviceEvent,
   SignMessageType,
 } from '@cypherock/coin-support-interfaces';
 import {
@@ -21,15 +21,15 @@ const signMessageFromDevice = async (
   params: ISignMessageFromDeviceParams<EvmApp>,
 ): Promise<string> => {
   const { app, observer, account, payload } = params;
-  const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
+  const events: Record<SignMessageDeviceEvent, boolean | undefined> = {} as any;
 
   const signingPayload = {
     message: payload.message,
     walletId: hexToUint8Array(account.walletId),
     derivationPath: mapDerivationPath(account.derivationPath),
     onEvent: (event: SignMsgEvent) => {
-      const receiveEvent = statusMap[event];
-      if (receiveEvent !== undefined) events[receiveEvent] = true;
+      const signEvent = statusMap[event];
+      if (signEvent !== undefined) events[signEvent] = true;
       observer.next({ type: 'Device', device: { isDone: false, events } });
     },
   };

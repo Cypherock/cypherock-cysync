@@ -1,5 +1,5 @@
 import { assert } from '@cypherock/cysync-utils';
-import { IAccount, IDatabase } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IDatabase } from '@cypherock/db-interfaces';
 
 export async function getAccountAndCoin<T>(
   db: IDatabase,
@@ -14,7 +14,11 @@ export async function getAccountAndCoin<T>(
 
   assert(coin, new Error('Coin not found'));
 
-  return { account, coin };
+  let parentAccount: IAccount | undefined;
+  if (account.type === AccountTypeMap.subAccount)
+    parentAccount = await db.account.getOne({ __id: account.parentAccountId });
+
+  return { account, coin, parentAccount };
 }
 
 export const getUniqueAccountQuery = (

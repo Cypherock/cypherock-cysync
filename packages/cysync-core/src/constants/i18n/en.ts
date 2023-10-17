@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -271,6 +272,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     heading: 'Unknown X1 Card error',
     subtext: 'Retry or click Help to find a solution',
   },
+
+  // Manager App Errors
+  [GetLogsErrorType.LOGS_DISABLED]: {
+    heading: 'Logs are disabled on X1 Vault',
+    subtext: 'Enable logs on X1 Vault settings and try again',
+  },
 };
 
 const databaseError = {
@@ -332,6 +339,7 @@ const en = {
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
     submit: 'Submit',
+    showMore: 'Show more',
   },
   deviceAuthentication: {
     success: {
@@ -852,6 +860,18 @@ const en = {
         error: 'Sync error!',
       },
     },
+    notification: {
+      title: 'Transactions',
+      sendTransaction: '${amount} ${unit} ${type} to ${address}',
+      sendTransactionMultiple:
+        '${amount} ${unit} ${type} to multiple addresses',
+      receiveTransaction:
+        '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
+      noTransactions: {
+        title: 'All caught up',
+        subTitle: 'No new transactions to show',
+      },
+    },
   },
   sidebar: {
     portfolio: 'Portfolio',
@@ -946,10 +966,12 @@ const en = {
   signMessage: {
     title: 'Sign Message',
     subTitle: 'Connected to the following account',
-    info: {
+    actions: {
       confirmDevice: 'Confirm on device',
       verifyData: 'Verify data',
-      enterPinTapCard: 'Enter PIN and tap any card',
+      enterPassphrase: 'Enter passphrase',
+      enterPin: 'Enter the PIN and tap any card',
+      tapCard: 'Tap any card',
     },
   },
   portfolio: {
@@ -1434,6 +1456,7 @@ const en = {
           attachAppLogs: 'Attach Application Logs',
           attachDeviceLogs: 'Attach Device Logs',
           confirmDevice: 'Please confirm on device to proceed',
+          fetchingDeviceLogs: 'Getting logs from device',
           attachedDeviceLogs: 'Device Logs Successfully Attached',
         },
         errors: {

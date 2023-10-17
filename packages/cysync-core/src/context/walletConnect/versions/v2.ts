@@ -13,8 +13,12 @@ import { useRef, useState } from 'react';
 
 import { constants } from '~/constants';
 import { useStateWithRef } from '~/hooks';
-import { selectLanguage, selectWallets, useAppSelector } from '~/store';
-import { getFocusAppMethod } from '~/utils';
+import { selectLanguage, useAppSelector } from '~/store';
+import {
+  getFocusAppMethod,
+  getWalletConnect,
+  getWalletConnectCore,
+} from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -25,12 +29,9 @@ import {
   useWalletConnectVersionProps,
 } from '../type';
 
-const { Core } = (window as any).WalletConnectCore;
-const { Web3Wallet } = (window as any).WalletConnect;
 const WALLET_CONNECT_PROJECT_ID = constants.walletConnectProjectId;
 
 export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
-  const { wallets } = useAppSelector(selectWallets);
   const lang = useAppSelector(selectLanguage);
   const [requiredNamespaces, setRequiredNamespaces] = useState<string[]>([]);
   const [optionalNamespaces, setOptionalNamespaces] = useState<string[]>([]);
@@ -148,7 +149,7 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.setConnectionClientMeta(proposal.params.proposer.metadata);
       props.setConnectionState(WalletConnectConnectionState.SELECT_ACCOUNT);
       props.openDialog();
-      getFocusAppMethod()?.();
+      getFocusAppMethod()();
     },
     handleSessionDelete: async () => {
       props.setConnectionState(WalletConnectConnectionState.NOT_CONNECTED);
@@ -162,21 +163,23 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
           evmCoinList[acc.parentAssetId].chain.toString() ===
           event.params.chainId.split(':')[1],
       );
-      props.setActiveAccount(account);
-      props.setActiveWallet(wallets.find(w => w.__id === account?.walletId));
+      props.updateActiveAccount(account);
       props.setCallRequestData({
         id: event.id,
         topic: event.topic,
         params: event.params.request.params,
         method: event.params.request.method as any,
       });
-      getFocusAppMethod()?.();
+      getFocusAppMethod()();
       logger.info('WalletConnect: Call Request received', { event });
     },
   };
 
   const methods: IWalletConnectMethods = {
     init: async (uri: string, metadata: IClientMeta) => {
+      const { Core } = getWalletConnectCore();
+      const { Web3Wallet } = getWalletConnect();
+
       const core = new Core({
         projectId: WALLET_CONNECT_PROJECT_ID,
       });
@@ -250,7 +253,7 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.setConnectionState(WalletConnectConnectionState.CONNECTED);
       sessionRef.current = session;
       setSelectedAccounts(accounts);
-      props.setActiveWallet(wallets.find(w => w.__id === accounts[0].walletId));
+      props.updateActiveAccount(accounts[0]);
     },
     approveCall: async (result: string) => {
       if (!props.callRequestData?.topic) return;

@@ -40,7 +40,7 @@ export interface TransactionTableRowProps {
   variant?: TransactionTableVariant;
 }
 
-const getFillFromStatus = (
+export const getTransactionFillFromStatus = (
   status: TransactionTableStatus,
   theme: ThemeType,
 ) => {
@@ -106,7 +106,7 @@ export const TransactionTableRow: React.FC<
         <Flex align="center" direction="row" width="inherit">
           <HistoryNameBox
             $icon={row.icon}
-            fill={getFillFromStatus(row.status, theme)}
+            fill={getTransactionFillFromStatus(row.status, theme)}
             variant="grey"
             pl={isSmallScreen ? 3 : undefined}
             title={row.type}

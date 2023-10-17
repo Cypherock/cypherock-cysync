@@ -55,6 +55,7 @@ export interface TopbarProps {
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
+  onNotificationClick: () => void;
   onSyncClick: () => void;
   showIcon?: boolean;
   onIconClick?: () => void;
@@ -91,6 +92,7 @@ export const Topbar: FC<TopbarProps> = ({
   onSyncClick,
   showIcon,
   onIconClick,
+  onNotificationClick,
 }) => {
   const theme = useTheme();
 
@@ -168,9 +170,11 @@ export const Topbar: FC<TopbarProps> = ({
           </Typography>
         </Flex>
         <DividingLine />
-        <Flex px={2} py="3" height="full" align="center" gap={16}>
-          {haveNotifications ? <Notifications /> : <NoNotifications />}
-        </Flex>
+        <Button variant="icon" onClick={onNotificationClick}>
+          <Flex px={2} py="3" height="full" align="center" gap={16}>
+            {haveNotifications ? <Notifications /> : <NoNotifications />}
+          </Flex>
+        </Button>
         <DividingLine />
         <Button variant="icon" onClick={toggleDiscreetMode}>
           <Flex px={2} py="3" align="center" gap={16}>

@@ -12,3 +12,4 @@ export * from './walletConnect';
 export * from './display';
 export * from './logs';
 export * from './uuid';
+export * from './error';
