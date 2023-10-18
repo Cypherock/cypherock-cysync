@@ -11,6 +11,7 @@ import {
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openAddAccountDialog } from '~/actions';
 import { CoinAllocationRow, useAssetAllocations } from '~/hooks';
@@ -34,6 +35,9 @@ const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
   value: 'value',
   asset: 'assetAbbr',
 };
+
+const ROW_HEIGHT = 82;
+const MAX_ROWS_DISPLAYED = 5;
 
 export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   walletId,
@@ -75,6 +79,32 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       ),
     [coinAllocations, sortedBy, isAscending],
   );
+
+  const rowRenderer = ({ key, index, style }: any) => {
+    const row = displayRows[index];
+
+    return (
+      <AssetAllocationTableRow
+        style={style}
+        key={key}
+        color={row.color}
+        assetAbbr={row.assetAbbr}
+        assetName={row.assetName}
+        assetIcon={row.assetIcon}
+        accountName={row.accountName}
+        accountTag={row.accountTag}
+        walletName={row.walletName}
+        price={row.displayPrice}
+        balance={row.displayBalance}
+        allocation={row.allocation}
+        value={row.displayValue}
+        $isLast={index === displayRows.length - 1}
+        $rowIndex={index}
+        onClick={() => onRowClick(row)}
+        variant={isAccountDisplay ? 'accounts' : undefined}
+      />
+    );
+  };
 
   if (displayRows.length <= 0) {
     return null;
@@ -120,26 +150,23 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         onSort={onSort}
         variant={isAccountDisplay ? 'accounts' : undefined}
       />
-      {displayRows.map((row, index) => (
-        <AssetAllocationTableRow
-          key={row.id}
-          color={row.color}
-          assetAbbr={row.assetAbbr}
-          assetName={row.assetName}
-          assetIcon={row.assetIcon}
-          accountName={row.accountName}
-          accountTag={row.accountTag}
-          walletName={row.walletName}
-          price={row.displayPrice}
-          balance={row.displayBalance}
-          allocation={row.allocation}
-          value={row.displayValue}
-          $isLast={index === displayRows.length - 1}
-          $rowIndex={index}
-          onClick={() => onRowClick(row)}
-          variant={isAccountDisplay ? 'accounts' : undefined}
-        />
-      ))}
+      <Container
+        height={ROW_HEIGHT * Math.min(displayRows.length, MAX_ROWS_DISPLAYED)}
+        width="100%"
+        display="block"
+      >
+        <Virtualize.AutoSizer>
+          {({ width, height }: any) => (
+            <Virtualize.List
+              height={height}
+              width={width}
+              rowCount={displayRows.length}
+              rowHeight={ROW_HEIGHT}
+              rowRenderer={rowRenderer}
+            />
+          )}
+        </Virtualize.AutoSizer>
+      </Container>
     </TableStructure>
   );
 };
