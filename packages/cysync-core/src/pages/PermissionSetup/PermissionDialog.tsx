@@ -43,7 +43,7 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
     dispatch(
       openSnackBar({
         icon: 'check',
-        text: lang.strings.permissionSetup.permissionScriptCopiedToClipboard,
+        text: lang.strings.snackbar.copiedToClipboard,
       }),
     );
   };

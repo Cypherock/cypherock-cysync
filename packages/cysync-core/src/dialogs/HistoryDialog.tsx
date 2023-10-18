@@ -128,7 +128,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
     dispatch(
       openSnackBar({
         icon: 'check',
-        text: keys.transactionHashCopiedToClipboard,
+        text: lang.strings.snackbar.copiedToClipboard,
       }),
     );
   };

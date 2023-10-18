@@ -11,7 +11,6 @@ const SnackBarWrapper = styled.div`
   bottom: 45px;
   left: 50%;
   transform: translateX(-50%);
-  width: 680px;
   max-width: calc(40% + 40px);
   height: 40px;
   background-color: ${({ theme }) => theme.palette.background.input};
