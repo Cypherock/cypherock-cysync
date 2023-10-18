@@ -44,7 +44,6 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
       openSnackBar({
         icon: 'check',
         text: lang.strings.permissionSetup.permissionScriptCopiedToClipboard,
-        alignVariant: 'center',
       }),
     );
   };

@@ -6,10 +6,10 @@ import { StretchedTypography } from './LeanBox';
 import { Check, InformationIcon } from '../../assets';
 import { Button } from '../atoms';
 
-const SnackBarWrapper = styled.div<{ alignVariant: AlignVariant }>`
+const SnackBarWrapper = styled.div`
   position: fixed;
   bottom: 45px;
-  left: ${({ alignVariant }) => (alignVariant === 'right' ? '60%' : '50%')};
+  left: 50%;
   transform: translateX(-50%);
   width: 680px;
   max-width: calc(40% + 40px);
@@ -39,13 +39,11 @@ const SnackBarButton = styled(Button)`
 `;
 
 type IconsType = 'check' | 'info';
-type AlignVariant = 'center' | 'right';
 
 export interface SnackBarProps {
   text: string;
   icon?: IconsType;
   buttonText?: string;
-  alignVariant?: AlignVariant;
 }
 
 const snackBarIcons: Record<IconsType, React.ReactNode> = {
@@ -57,9 +55,8 @@ export const SnackBar: React.FC<SnackBarProps> = ({
   text,
   icon = 'check',
   buttonText,
-  alignVariant = 'right',
 }) => (
-  <SnackBarWrapper alignVariant={alignVariant}>
+  <SnackBarWrapper>
     <SnackBarPadding>
       {/* <Image src={snackBarIcons[icon]} alt={icon} /> */}
       {snackBarIcons[icon]}
@@ -78,5 +75,4 @@ export const SnackBar: React.FC<SnackBarProps> = ({
 SnackBar.defaultProps = {
   icon: 'check',
   buttonText: undefined,
-  alignVariant: 'right',
 };
