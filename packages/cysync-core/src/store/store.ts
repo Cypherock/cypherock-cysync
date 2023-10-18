@@ -20,6 +20,7 @@ import langReducers, { ILangState } from './lang';
 import notificationReducer, { INotificationState } from './notification';
 import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import snackBarReducer, { ISnackBarState } from './snackBar';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
 
@@ -34,6 +35,7 @@ export interface RootState {
   transaction: ITransactionState;
   discreetMode: IDiscreetModeState;
   accountSync: IAccountSyncState;
+  snackBar: ISnackBarState;
   notification: INotificationState;
 }
 
@@ -49,6 +51,7 @@ export const store = configureStore({
     transaction: transactionReducer,
     discreetMode: discreetModeReducer,
     accountSync: accountSyncReducer,
+    snackBar: snackBarReducer,
     notification: notificationReducer,
   },
 });
