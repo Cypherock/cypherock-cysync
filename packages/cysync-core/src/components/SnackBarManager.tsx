@@ -13,7 +13,6 @@ export const SnackBarManager = () => {
     return null;
   }
 
-  // the below error will be fired in case props are not properly handled by redux state
   if (!snackBarState.props) {
     logger.warn('SnackBarProps is Undefined');
     return null;

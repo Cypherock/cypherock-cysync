@@ -38,15 +38,15 @@ const SnackBarButton = styled(Button)`
   margin: 4px 16px;
 `;
 
-type IconsType = 'check' | 'info';
+export type SnackBarIconsType = 'check' | 'info';
 
 export interface SnackBarProps {
   text: string;
-  icon?: IconsType;
+  icon?: SnackBarIconsType;
   buttonText?: string;
 }
 
-const snackBarIcons: Record<IconsType, React.ReactNode> = {
+const snackBarIcons: Record<SnackBarIconsType, React.ReactNode> = {
   check: <Check width={16} height={16} />,
   info: <InformationIcon width={16} height={16} />,
 };
@@ -58,7 +58,6 @@ export const SnackBar: React.FC<SnackBarProps> = ({
 }) => (
   <SnackBarWrapper>
     <SnackBarPadding>
-      {/* <Image src={snackBarIcons[icon]} alt={icon} /> */}
       {snackBarIcons[icon]}
       <StretchedTypography variant="h6" $shouldStretch>
         {text}
