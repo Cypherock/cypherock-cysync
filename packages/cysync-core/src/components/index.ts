@@ -12,4 +12,5 @@ export * from './AppUpdateFailedFallback';
 export * from './SideBar';
 export * from './AssetAllocation';
 export * from './TransactionTable';
+export * from './SnackBarManager';
 export * from './Notification';

@@ -11,6 +11,7 @@ import {
   WalletConnectProvider,
   AppUpdateProvider,
   LatestDeviceVersionProvider,
+  SnackBarManager,
 } from '@cypherock/cysync-core';
 import { GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -33,6 +34,7 @@ const App = () => (
               <LatestDeviceVersionProvider>
                 <WalletConnectProvider>
                   <AppRouter>
+                    <SnackBarManager />
                     <DialogManager />
                     <BackgroundTasks />
                   </AppRouter>

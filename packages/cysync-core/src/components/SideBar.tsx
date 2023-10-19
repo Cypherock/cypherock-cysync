@@ -19,7 +19,7 @@ import React, { FC } from 'react';
 import { openSendDialog, openReceiveDialog } from '~/actions';
 import { useSidebar } from '~/context';
 
-export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
+const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const {
     getState,
     isWalletCollapsed,
@@ -136,3 +136,5 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
     </SideBarWrapper>
   );
 };
+
+export const SideBar = React.memo(SideBarComponent);
