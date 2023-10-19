@@ -1811,6 +1811,9 @@ importers:
       bignumber.js:
         specifier: ^9.1.1
         version: 9.1.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^

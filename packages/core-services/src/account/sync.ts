@@ -1,10 +1,12 @@
 import { getCoinSupport } from '@cypherock/coin-support';
+import { PromiseQueue } from '@cypherock/cysync-utils';
 import { IDatabase, IAccount } from '@cypherock/db-interfaces';
-import { lastValueFrom, merge, from, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
 
 const MAX_RETRIES = 3;
+const ACCOUNT_SYNC_CONCURRENCY = 5;
 
 export interface ISyncAccountsEvent {
   account: IAccount;
@@ -55,18 +57,45 @@ export const syncAccounts = (params: {
   accounts: IAccount[];
 }) => {
   const { db, accounts } = params;
+  return new Observable<ISyncAccountsEvent>(observer => {
+    let promiseQueue: PromiseQueue<ISyncAccountsEvent> | undefined;
 
-  const allObservables: Observable<ISyncAccountsEvent>[] = [];
-  for (const account of accounts) {
-    const observable = from(
-      syncSingleAccount({
-        account,
-        db,
-      }),
-    );
+    const unsubscribe = () => {
+      if (promiseQueue) {
+        promiseQueue.abort();
+      }
+    };
 
-    allObservables.push(observable);
-  }
+    const main = async () => {
+      try {
+        promiseQueue = new PromiseQueue({
+          tasks: accounts.map(
+            a => () =>
+              syncSingleAccount({
+                account: a,
+                db,
+              }),
+          ),
+          concurrentCount: ACCOUNT_SYNC_CONCURRENCY,
+          onComplete: () => {
+            observer.complete();
+          },
+          onNext: result => {
+            observer.next(result);
+          },
+          onError: error => {
+            observer.error(error);
+          },
+        });
 
-  return merge(...allObservables);
+        promiseQueue.run();
+      } catch (error) {
+        observer.error(error);
+      }
+    };
+
+    main();
+
+    return unsubscribe;
+  });
 };

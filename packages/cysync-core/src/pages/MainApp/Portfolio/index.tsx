@@ -1,39 +1,43 @@
-import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
+  Container,
+  GraphGreyIcon,
   NoAccountWrapper,
   SkeletonLoader,
-  GraphGreyIcon,
-  Container,
-  DisplayGraph,
+  Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
+import React, { FC, lazy, Suspense } from 'react';
+import { openAddAccountDialog } from '~/actions';
 
-import { AssetAllocation, TransactionTable } from '~/components';
+import {
+  useAppSelector,
+  selectLanguage,
+  selectAccounts,
+  selectWallets,
+  useAppDispatch,
+} from '~/store';
 
+import { MainAppLayout } from '../Layout';
 import { NoWallet } from './NoWallet';
 
-import { usePortfolioPage } from '../hooks';
-import { MainAppLayout } from '../Layout';
+const PortfolioPageContent = lazy(() => import('./Content.js'));
 
-export const Portfolio: FC = () => {
-  const {
+const selector = createSelector(
+  [selectLanguage, selectWallets, selectAccounts],
+  (lang, { wallets }, { accounts }) => ({
     lang,
-    handleWalletChange,
-    selectedWallet,
-    walletDropdownList,
-    rangeList,
-    selectedRange,
-    setSelectedRange,
-    graphData,
-    formatTooltipValue,
-    formatTimestamp,
-    formatYAxisTick,
-    summaryDetails,
     wallets,
     accounts,
-    handleAddAccountClick,
-    onAssetClick,
-  } = usePortfolioPage();
+  }),
+);
+
+export const Portfolio: FC = () => {
+  const { lang, wallets, accounts } = useAppSelector(selector);
+  const dispatch = useAppDispatch();
+
+  const handleAddAccountClick = () => {
+    dispatch(openAddAccountDialog());
+  };
 
   const getMainContent = () => {
     if (wallets.length <= 0) {
@@ -56,40 +60,9 @@ export const Portfolio: FC = () => {
     }
 
     return (
-      <>
-        <Container $noFlex mb={2}>
-          <DisplayGraph
-            title={summaryDetails.totalValue}
-            subTitle={lang.strings.graph.totalBalance}
-            dropdownItems={walletDropdownList}
-            selectedDropdownItem={selectedWallet?.__id ?? 'all'}
-            onDropdownChange={handleWalletChange}
-            dropdownSearchText={lang.strings.graph.walletDropdown.search}
-            pillButtonList={rangeList}
-            selectedPill={selectedRange}
-            onPillButtonChange={setSelectedRange as any}
-            summaryText={summaryDetails.changePercent}
-            summarySubText={summaryDetails.changeValue}
-            summaryIcon={summaryDetails.changeIcon}
-            data={graphData}
-            formatTooltipValue={formatTooltipValue}
-            formatTimestamp={formatTimestamp}
-            formatYAxisTick={formatYAxisTick}
-            color={coinList[BtcIdMap.bitcoin].color ?? ''}
-          />
-        </Container>
-
-        <Container $noFlex mb={2}>
-          <AssetAllocation
-            walletId={selectedWallet?.__id}
-            onRowClick={onAssetClick}
-          />
-        </Container>
-
-        <Container $noFlex mb={2}>
-          <TransactionTable limit={10} walletId={selectedWallet?.__id} />
-        </Container>
-      </>
+      <Suspense fallback={<Typography>Loading...</Typography>}>
+        <PortfolioPageContent />
+      </Suspense>
     );
   };
 

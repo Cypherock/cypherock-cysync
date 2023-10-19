@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "@cypherock/cysync-interfaces": "workspace:^",
-    "bignumber.js": "^9.1.1"
+    "bignumber.js": "^9.1.1",
+    "lodash": "^4.17.21"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

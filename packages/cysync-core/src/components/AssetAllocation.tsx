@@ -8,6 +8,7 @@ import {
   LangDisplay,
   AssetAllocationTableRow,
   Container,
+  CssClassNames,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
@@ -158,6 +159,7 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         <Virtualize.AutoSizer>
           {({ width, height }: any) => (
             <Virtualize.List
+              className={CssClassNames.tableScrollbar}
               height={height}
               width={width}
               rowCount={displayRows.length}
