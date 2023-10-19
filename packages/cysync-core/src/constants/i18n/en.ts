@@ -339,6 +339,7 @@ const en = {
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
     submit: 'Submit',
+    showMore: 'Show more',
   },
   deviceAuthentication: {
     success: {
@@ -855,6 +856,18 @@ const en = {
         error: 'Sync error!',
       },
     },
+    notification: {
+      title: 'Transactions',
+      sendTransaction: '${amount} ${unit} ${type} to ${address}',
+      sendTransactionMultiple:
+        '${amount} ${unit} ${type} to multiple addresses',
+      receiveTransaction:
+        '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
+      noTransactions: {
+        title: 'All caught up',
+        subTitle: 'No new transactions to show',
+      },
+    },
   },
   sidebar: {
     portfolio: 'Portfolio',
@@ -949,10 +962,12 @@ const en = {
   signMessage: {
     title: 'Sign Message',
     subTitle: 'Connected to the following account',
-    info: {
+    actions: {
       confirmDevice: 'Confirm on device',
       verifyData: 'Verify data',
-      enterPinTapCard: 'Enter PIN and tap any card',
+      enterPassphrase: 'Enter passphrase',
+      enterPin: 'Enter the PIN and tap any card',
+      tapCard: 'Tap any card',
     },
   },
   portfolio: {
@@ -1453,6 +1468,9 @@ const en = {
   toggle: {
     on: 'ON',
     off: 'OFF',
+  },
+  snackbar: {
+    copiedToClipboard: 'Copied to clipboard',
   },
   settings: {
     tabs: {

@@ -144,9 +144,10 @@ const calculatePortfolioGraphSummary = (
     if (changeValueInNumber.isZero() && oldestValue.isZero()) {
       changePercent = 0;
     } else {
-      changePercent = Math.round(
-        changeValueInNumber.dividedBy(oldestValue).multipliedBy(100).toNumber(),
-      );
+      changePercent = changeValueInNumber
+        .dividedBy(oldestValue)
+        .multipliedBy(100)
+        .toNumber();
     }
 
     if (parentAssetId && !showGraphInUSD) {
