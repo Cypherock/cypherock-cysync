@@ -7,6 +7,7 @@ import {
   SideBar,
   Topbar,
   TopbarProps,
+  Notification,
 } from '~/components';
 
 interface MainAppLayoutProps {
@@ -25,7 +26,7 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
   const topbarRef = useRef<HTMLDivElement>(null);
   const [topbarHeight, setTopbarHeight] = useState(0);
 
-  const onResize = () => {
+  const calcHeight = () => {
     const height = topbarRef.current?.clientHeight ?? 0;
     if (onTopbarHeightChange) {
       onTopbarHeightChange(height);
@@ -34,11 +35,13 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
   };
 
   useEffect(() => {
-    onResize();
-    window.addEventListener('resize', onResize);
+    calcHeight();
+    window.addEventListener('resize', calcHeight);
+    const interval = setInterval(calcHeight, 4 * 1000);
 
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('resize', calcHeight);
+      clearInterval(interval);
     };
   }, []);
 
@@ -51,6 +54,7 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
           <DeviceUpdateBar />
           <Topbar {...topbar} />
         </Flex>
+        <Notification top={topbarHeight + 5} />
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
           {children}
         </MainAppBody>

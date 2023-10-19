@@ -118,6 +118,8 @@ const electronAPI = {
       'device',
       'priceHistory',
       'priceInfo',
+      'transactionNotificationRead',
+      'transactionNotificationClick',
     ];
 
     const eventNames = ['change'];

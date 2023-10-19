@@ -5,7 +5,7 @@ import { generateCss } from './generateCss';
 import { MediaQuery } from '../../types';
 
 type DisplayType = 'none' | 'inline' | 'block' | 'inline-block' | 'flex';
-type $OverflowType = 'scroll' | 'hidden';
+type $OverflowType = 'scroll' | 'hidden' | 'auto';
 
 export interface DisplayProps {
   display?: MediaQuery<DisplayType>;

@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css, RuleSet } from 'styled-components';
 
+import { ThemeType } from '../../themes';
 import {
   spacing,
   SpacingProps,
@@ -17,23 +18,9 @@ import {
 } from '../utils';
 import { border, BorderProps } from '../utils/border.styled';
 
-export type TypographyColor =
-  | 'gold'
-  | 'silver'
-  | 'error'
-  | 'errorDark'
-  | 'white'
-  | 'success'
-  | 'heading'
-  | 'muted'
-  | 'warn'
-  | 'message'
-  | 'list'
-  | 'black'
-  | 'info'
-  | 'disabled'
-  | 'normal'
-  | 'divider';
+// Can take string as well
+export type TypographyColor = keyof ThemeType['palette']['text'];
+
 interface HeadingProps
   extends SpacingProps,
     FontProps,
@@ -65,8 +52,15 @@ const getColorCss = (color?: TypographyColor) => {
       text-fill-color: transparent;
     `;
   } else {
+    const getColor = (theme: any) => {
+      if ((theme.palette.text as any)[color]) {
+        return (theme.palette.text as any)[color];
+      }
+      return color;
+    };
+
     colorCss = css`
-      color: ${({ theme }) => (theme.palette.text as any)[color]};
+      color: ${({ theme }) => getColor(theme)};
     `;
   }
 

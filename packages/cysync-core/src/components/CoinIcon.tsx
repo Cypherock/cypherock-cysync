@@ -34,6 +34,7 @@ export interface CoinIconProps {
   height?: MediaQuery<string | number>;
   withSubIconAtBottom?: boolean;
   withParentIconAtBottom?: boolean;
+  containerProps?: UtilsProps;
 }
 
 type IconProps = UtilsProps;
@@ -79,6 +80,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   withParentIconAtBottom,
   subIconSize,
   subContainerSize,
+  containerProps: containerUtilsProps,
 }) => {
   const Icon = getCoinIcon(parentAssetId);
 
@@ -92,6 +94,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     $borderWidth: 0,
     width: containerSize ?? parsedWidth,
     height: containerSize ?? parsedHeight,
+    ...containerUtilsProps,
   };
 
   const iconProps: UtilsProps = {
@@ -199,4 +202,5 @@ CoinIcon.defaultProps = {
   withSubIconAtBottom: undefined,
   withParentIconAtBottom: undefined,
   subIconSize: undefined,
+  containerProps: undefined,
 };
