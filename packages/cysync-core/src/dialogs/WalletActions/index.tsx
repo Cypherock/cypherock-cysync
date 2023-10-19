@@ -1,16 +1,20 @@
 import {
+  BlurOverlay,
+  BulletList,
+  Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
   HelpButton,
+  Image,
+  LangDisplay,
+  Typography,
   addWalletIcon,
   importWalletIcon,
-  recoverWalletIcon,
-  BlurOverlay,
-  CloseButton,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { openGuidedFlowDialog } from '~/actions';
 import {
@@ -21,7 +25,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { WalletActionSection, Header, TransferWallet } from './Sections';
+import { Header } from './Sections';
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -30,15 +34,18 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  const switchToGuidedFlow = (type: GuidedFlowType) => {
+  const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
+
+  const switchToGuidedFlow = () => {
+    if (selectedAction === undefined) return;
     dispatch(closeDialog('walletActions'));
-    dispatch(openGuidedFlowDialog(type));
+    dispatch(openGuidedFlowDialog(selectedAction));
   };
 
   return (
     <BlurOverlay>
-      <DialogBox py={2} width="full">
-        <Flex width="full" height="full" px={3} justify="space-between">
+      <DialogBox py={2} width="full" $height="calc(100vh - 192px)">
+        <Flex width="full" px={3} justify="space-between">
           <HelpButton text={lang.strings.help} />
           <CloseButton onClick={onClose} />
         </Flex>
@@ -48,6 +55,7 @@ export const WalletActionsDialogBox: FC = () => {
           align="center"
           gap={40}
           direction="column"
+          justify="flex-start"
           height="full"
         >
           <Header
@@ -55,30 +63,104 @@ export const WalletActionsDialogBox: FC = () => {
             title={lang.strings.onboarding.walletActionsDialogBox.title}
           />
 
-          <Flex gap={20} px={{ def: '20', lg: '150' }}>
-            <WalletActionSection
-              icon={addWalletIcon}
-              {...lang.strings.onboarding.walletActionsDialogBox.createWallet}
-              onClick={() => switchToGuidedFlow('createWallet')}
-            />
-            <WalletActionSection
-              icon={importWalletIcon}
-              {...lang.strings.onboarding.walletActionsDialogBox.importWallet}
-              onClick={() => switchToGuidedFlow('importWallet')}
-            />
-            <WalletActionSection
-              isMiniOnly
-              icon={recoverWalletIcon}
-              {...lang.strings.onboarding.walletActionsDialogBox.transferWallet}
-            />
+          <Flex direction="row" gap={16} justify="center">
+            <Flex
+              direction="column"
+              $borderWidth={1}
+              $borderRadius={16}
+              $borderColor={selectedAction === 'createWallet' ? 'gold' : 'card'}
+              onClick={() => setSelectedAction('createWallet')}
+              align="center"
+              pt={4}
+              px={2}
+              pb={2}
+              gap={16}
+              width={400}
+            >
+              <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
+              <Typography $fontSize={20} color="white" $textAlign="center">
+                <LangDisplay
+                  text={
+                    lang.strings.onboarding.walletActionsDialogBox.createWallet
+                      .title
+                  }
+                />
+              </Typography>
+            </Flex>
+            <Flex
+              direction="column"
+              $borderWidth={1}
+              $borderRadius={16}
+              $borderColor={selectedAction === 'importWallet' ? 'gold' : 'card'}
+              onClick={() => setSelectedAction('importWallet')}
+              align="center"
+              pt={4}
+              px={2}
+              pb={2}
+              gap={16}
+              width={400}
+            >
+              <Image
+                $width={56}
+                src={importWalletIcon}
+                alt="importWalletIcon"
+              />
+              <Typography $fontSize={20} color="white" $textAlign="center">
+                <LangDisplay
+                  text={
+                    lang.strings.onboarding.walletActionsDialogBox.importWallet
+                      .title
+                  }
+                />
+              </Typography>
+            </Flex>
+          </Flex>
+          <Flex>
+            {selectedAction === 'createWallet' && (
+              <BulletList
+                $fontSize={20}
+                $borderWidth={0}
+                $borderColor={undefined}
+                $bgColor={undefined}
+                color="white"
+                items={
+                  lang.strings.onboarding.walletActionsDialogBox.createWallet
+                    .list
+                }
+              />
+            )}
+            {selectedAction === 'importWallet' && (
+              <BulletList
+                $fontSize={20}
+                $borderWidth={0}
+                $borderColor={undefined}
+                $bgColor={undefined}
+                color="white"
+                items={
+                  lang.strings.onboarding.walletActionsDialogBox.importWallet
+                    .list
+                }
+              />
+            )}
           </Flex>
         </DialogBoxBody>
-        <DialogBoxFooter>
-          <TransferWallet
-            transferWallet={
-              lang.strings.onboarding.walletActionsDialogBox.transferWallet
-            }
-          />
+        <DialogBoxFooter
+          justify="flex-end"
+          mx={4}
+          px={4}
+          width="auto"
+          $alignSelf="stretch"
+        >
+          <Button variant="secondary" onClick={onClose}>
+            <LangDisplay text={lang.strings.buttons.close} />
+          </Button>
+          <Button
+            variant="primary"
+            disabled={!selectedAction}
+            onClick={switchToGuidedFlow}
+          >
+            <LangDisplay text={lang.strings.buttons.continue} />
+          </Button>
         </DialogBoxFooter>
       </DialogBox>
     </BlurOverlay>

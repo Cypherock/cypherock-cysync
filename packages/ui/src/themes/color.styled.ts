@@ -102,11 +102,12 @@ export const colors = {
     muted: '#8B8682',
     white: '#ffffff',
     separatorSecondary: '#272320',
-    gold: 'gold',
+    gold: '#E9B873',
     infoBox: '#3c3c3c',
     infoBoxOrange: '#4A2D00',
     subMenuLeft: '#534B44',
     topbar: '#342C26',
+    card: '#534A44',
   },
   shadow: {
     dropdown: '#0f0d0b',

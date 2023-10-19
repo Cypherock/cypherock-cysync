@@ -125,6 +125,7 @@ export const theme = {
       infoBoxOrange: colors.border.infoBoxOrange,
       subMenuLeft: colors.border.subMenuLeft,
       topbar: colors.border.topbar,
+      card: colors.border.card,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
