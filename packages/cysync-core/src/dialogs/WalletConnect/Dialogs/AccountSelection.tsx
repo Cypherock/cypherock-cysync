@@ -46,6 +46,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     unsupportedOptionalChainsMessage,
     approveSessionRequest,
     version,
+    isApprovingSession,
   } = useWalletConnect();
   const chainToAccountMapRef = useRef<Record<string, IAccount>>({});
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -168,7 +169,12 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
           >
             <LangDisplay text={buttons.reject} />
           </Button>
-          <Button variant="primary" disabled={isButtonDisabled} type="submit">
+          <Button
+            variant="primary"
+            disabled={isApprovingSession || isButtonDisabled}
+            isLoading={isApprovingSession}
+            type="submit"
+          >
             <LangDisplay text={buttons.connect} />
           </Button>
         </DialogBoxFooter>

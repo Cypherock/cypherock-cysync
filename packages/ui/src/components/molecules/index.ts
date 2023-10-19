@@ -37,3 +37,4 @@ export * from './Graph';
 export * from './WallectConnect';
 export * from './JsonView';
 export * from './Markdown';
+export * from './Notification';

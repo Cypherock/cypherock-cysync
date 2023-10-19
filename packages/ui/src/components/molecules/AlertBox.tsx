@@ -93,12 +93,12 @@ const MaskStyle = styled.div<Omit<AlertBoxProps, 'imageSrc' | 'alert'>>`
   ${utils}
 `;
 
-const textObj: Record<AlertBoxVariantType, TypographyColor> = {
+const textObj: Record<AlertBoxVariantType, TypographyColor | undefined> = {
   message: 'message',
   messageSecondary: 'message',
   warning: 'warn',
-  info: 'info',
-  none: 'info',
+  info: undefined,
+  none: undefined,
 };
 
 export const AlertBox: FC<AlertBoxProps> = ({

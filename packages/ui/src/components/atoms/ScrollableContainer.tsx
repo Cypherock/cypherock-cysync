@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import { height, HeightProps } from '../utils';
+import { utils, UtilsProps } from '../utils';
 
-export const ScrollableContainer = styled.div<HeightProps>`
+export const ScrollableContainer = styled.div<UtilsProps>`
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 
-  ${height}
+  ${utils}
 `;
