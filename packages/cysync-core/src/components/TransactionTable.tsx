@@ -127,3 +127,5 @@ TransactionTable.defaultProps = {
   accountId: undefined,
   variant: 'default',
 };
+
+export default TransactionTable;

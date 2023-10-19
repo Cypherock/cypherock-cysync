@@ -11,7 +11,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
-  useWalletDropdown,
   useGraphTimeRange,
   graphTimeRangeToDaysMap,
   GraphTimeRangeMap,
@@ -76,9 +75,6 @@ export const useGraph = (props?: UseGraphProps) => {
     priceInfos,
   } = useAppSelector(selector);
 
-  const { handleWalletChange, selectedWallet, walletDropdownList } =
-    useWalletDropdown({ withSelectAll: true });
-
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
   const [calculatedData, setCalculatedData] = useState<
@@ -106,7 +102,7 @@ export const useGraph = (props?: UseGraphProps) => {
     priceHistories,
     priceInfos,
     selectedRange,
-    selectedWallet,
+    selectedWallet: props?.selectedWallet,
     isDiscreetMode,
     props,
     showGraphInUSD,
@@ -153,7 +149,13 @@ export const useGraph = (props?: UseGraphProps) => {
 
   useEffect(() => {
     throttledCalculatePortfolioDataOnUserAction();
-  }, [selectedWallet, selectedRange, isDiscreetMode, showGraphInUSD, theme]);
+  }, [
+    props?.selectedWallet,
+    selectedRange,
+    isDiscreetMode,
+    showGraphInUSD,
+    theme,
+  ]);
 
   useEffect(() => {
     throttledCalculatePortfolioDataOnDataChange();
@@ -243,9 +245,6 @@ export const useGraph = (props?: UseGraphProps) => {
 
   return {
     lang,
-    handleWalletChange,
-    selectedWallet,
-    walletDropdownList,
     rangeList,
     selectedRange,
     setSelectedRange,

@@ -3,10 +3,9 @@ import {
   GraphGreyIcon,
   NoAccountWrapper,
   SkeletonLoader,
-  Typography,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, lazy, Suspense } from 'react';
+import React, { FC } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
@@ -17,11 +16,10 @@ import {
   useAppDispatch,
 } from '~/store';
 
+import PortfolioPageContent from './Content';
 import { NoWallet } from './NoWallet';
 
 import { MainAppLayout } from '../Layout';
-
-const PortfolioPageContent = lazy(() => import('./Content.js'));
 
 const selector = createSelector(
   [selectLanguage, selectWallets, selectAccounts],
@@ -60,11 +58,7 @@ export const Portfolio: FC = () => {
       );
     }
 
-    return (
-      <Suspense fallback={<Typography>Loading...</Typography>}>
-        <PortfolioPageContent />
-      </Suspense>
-    );
+    return <PortfolioPageContent />;
   };
 
   return (

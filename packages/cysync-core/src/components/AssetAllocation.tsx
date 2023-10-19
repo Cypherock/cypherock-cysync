@@ -181,3 +181,5 @@ AssetAllocation.defaultProps = {
   withParentIconAtBottom: undefined,
   withSubIconAtBottom: undefined,
 };
+
+export default AssetAllocation;

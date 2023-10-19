@@ -8,6 +8,7 @@ import {
   useGraph,
   useNavigateTo,
   useQuery,
+  useWalletDropdown,
 } from '~/hooks';
 
 export const useAssetPage = () => {
@@ -32,6 +33,8 @@ export const useAssetPage = () => {
   }, [query]);
 
   const graphData = useGraph({ parentAssetId, assetId });
+  const { handleWalletChange, selectedWallet, walletDropdownList } =
+    useWalletDropdown({ withSelectAll: true });
   const assetDropdown = useAssetDropdown();
 
   const onAccountClick = (row: CoinAllocationRow) => {
@@ -43,6 +46,9 @@ export const useAssetPage = () => {
   return {
     ...graphData,
     ...assetDropdown,
+    handleWalletChange,
+    selectedWallet,
+    walletDropdownList,
     selectedAsset,
     onAccountClick,
     parentAssetId,

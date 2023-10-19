@@ -7,6 +7,7 @@ import { NearSupport } from '@cypherock/coin-support-near';
 import { setWalletConnect, setWalletConnectCore } from './walletConnect';
 
 export const setDependencies = () => {
+  window.global ||= window;
   setWalletConnect((window as any).WalletConnect);
   setWalletConnectCore((window as any).WalletConnectCore);
   BtcSupport.setBitcoinLibrary((window as any).BitcoinJsLib);
