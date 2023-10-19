@@ -7,8 +7,8 @@ import {
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, lazy, Suspense } from 'react';
-import { openAddAccountDialog } from '~/actions';
 
+import { openAddAccountDialog } from '~/actions';
 import {
   useAppSelector,
   selectLanguage,
@@ -17,8 +17,9 @@ import {
   useAppDispatch,
 } from '~/store';
 
-import { MainAppLayout } from '../Layout';
 import { NoWallet } from './NoWallet';
+
+import { MainAppLayout } from '../Layout';
 
 const PortfolioPageContent = lazy(() => import('./Content.js'));
 
