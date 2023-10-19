@@ -18,6 +18,8 @@ export interface ICoinInfo {
   name: string;
   abbr: string;
   isTest: boolean;
+  // Coin should not be present on bundled environment
+  isUnderDevelopment?: boolean;
   coinGeckoId: string;
   coinIndex: string;
   feesUnit: string;

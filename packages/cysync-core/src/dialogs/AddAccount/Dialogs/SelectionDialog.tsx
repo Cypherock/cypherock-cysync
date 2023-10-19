@@ -19,15 +19,17 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
-const coinDropDownList: DropDownListItemProps[] = Object.values(coinList).map(
-  coin => ({
+const coinDropDownList: DropDownListItemProps[] = Object.values(coinList)
+  .filter(
+    c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
+  )
+  .map(coin => ({
     id: coin.id,
     leftImage: <CoinIcon parentAssetId={coin.id} />,
     shortForm: `(${coin.abbr.toUpperCase()})`,
     text: coin.name,
     checkType: 'radio',
-  }),
-);
+  }));
 
 export const AddAccountSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
