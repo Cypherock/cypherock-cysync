@@ -76,6 +76,8 @@ export const WalletActionsDialogBox: FC = () => {
               pb={2}
               gap={16}
               width={400}
+              shadow="hover:popup"
+              $cursor="pointer"
             >
               <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
               <Typography $fontSize={20} color="white" $textAlign="center">
@@ -99,6 +101,8 @@ export const WalletActionsDialogBox: FC = () => {
               pb={2}
               gap={16}
               width={400}
+              shadow="hover:popup"
+              $cursor="pointer"
             >
               <Image
                 $width={56}
