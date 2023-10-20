@@ -44,7 +44,7 @@ export const WalletActionsDialogBox: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox py={2} width="full" $height="calc(100vh - 192px)">
+      <DialogBox py={2} pb={0} width="full" $height="calc(100vh - 192px)">
         <Flex width="full" px={3} justify="space-between">
           <HelpButton text={lang.strings.help} />
           <CloseButton onClick={onClose} />
