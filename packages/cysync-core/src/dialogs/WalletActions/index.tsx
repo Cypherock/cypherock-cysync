@@ -2,7 +2,6 @@ import {
   BlurOverlay,
   BulletList,
   Button,
-  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
@@ -45,9 +44,8 @@ export const WalletActionsDialogBox: FC = () => {
   return (
     <BlurOverlay>
       <DialogBox py={2} pb={0} width="full" $height="calc(100vh - 192px)">
-        <Flex width="full" px={3} justify="space-between">
+        <Flex width="full" px={3} justify="flex-end">
           <HelpButton text={lang.strings.help} />
-          <CloseButton onClick={onClose} />
         </Flex>
         <DialogBoxBody
           p="20"
