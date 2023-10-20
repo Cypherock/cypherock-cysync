@@ -313,7 +313,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
       if (txnData) {
         const txn = initTransaction as IPreparedEvmTransaction;
-        txn.userInputs.outputs.push({ address: '', amount: '' });
+        txn.userInputs.outputs.push({ address: '', amount: '0' });
         if (txnData.to) txn.userInputs.outputs[0].address = txnData.to;
         if (txnData.value) txn.userInputs.outputs[0].amount = txnData.value;
         if (txnData.data) txn.computedData.data = txnData.data;

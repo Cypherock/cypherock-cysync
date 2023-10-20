@@ -296,6 +296,7 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       connectionState === WalletConnectConnectionState.CONNECTED &&
       callRequestData
     ) {
+      logger.info(' Initiating Call Request', callRequestData);
       if (ACCEPTED_SEND_METHODS.includes(callRequestData.method)) {
         dispatch(
           openSendDialog({
