@@ -16,7 +16,7 @@ import {
 } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SendDialogProvider, useSendDialog } from './context';
+import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -27,11 +27,6 @@ const DeviceConnectionWrapper: React.FC<{
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
-
-export interface SendDialogProps {
-  walletId?: string;
-  accountId?: string;
-}
 
 export const SendFlow: FC = () => {
   const {
@@ -102,8 +97,3 @@ export const SendDialog: FC<SendDialogProps> = props => (
     <SendFlow />
   </SendDialogProvider>
 );
-
-SendDialog.defaultProps = {
-  walletId: undefined,
-  accountId: undefined,
-};

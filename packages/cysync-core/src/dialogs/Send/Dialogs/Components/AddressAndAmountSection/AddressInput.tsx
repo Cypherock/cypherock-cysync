@@ -12,6 +12,7 @@ interface AddressInputProps {
   isButtonDisabled?: boolean;
   onDelete?: () => void;
   index?: number;
+  isDisabled?: boolean;
 }
 
 export const AddressInput: React.FC<AddressInputProps> = ({
@@ -24,6 +25,7 @@ export const AddressInput: React.FC<AddressInputProps> = ({
   onDelete,
   index,
   isButtonDisabled,
+  isDisabled,
 }) => {
   const [value, setValue] = useState(initialValue ?? '');
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +58,7 @@ export const AddressInput: React.FC<AddressInputProps> = ({
       onDelete={onDelete}
       index={index}
       isButtonDisabled={isButtonDisabled}
+      isDisabled={isDisabled}
     />
   );
 };
@@ -68,4 +71,5 @@ AddressInput.defaultProps = {
   showDeleteButton: false,
   onDelete: undefined,
   index: undefined,
+  isDisabled: undefined,
 };
