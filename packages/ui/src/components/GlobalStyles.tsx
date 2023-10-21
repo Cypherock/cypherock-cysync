@@ -33,12 +33,7 @@ export const Styles = createGlobalStyle`
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #46403C;
-  border-radius: 6px;
-}
-
-.${CssClassNames.tableScrollbar}::-webkit-scrollbar-track {
-  background-color: #000;
+  background-color: #8B8682;
   border-radius: 6px;
 }
 `;

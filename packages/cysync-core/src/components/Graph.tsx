@@ -1,20 +1,23 @@
 import { coinList, BtcIdMap } from '@cypherock/coins';
 import { DisplayGraph, DropDownListItemProps } from '@cypherock/cysync-ui';
-import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
-import { useGraph } from '~/hooks';
+import { useGraph, UseGraphProps } from '~/hooks';
 
-export interface PortfolioGraphProps {
-  selectedWallet?: IWallet;
+export interface GraphProps extends UseGraphProps {
+  color?: string;
   handleWalletChange: (walletId?: string) => void;
   walletDropdownList: DropDownListItemProps[];
 }
 
-export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({
+export const Graph: React.FC<GraphProps> = ({
   selectedWallet,
   handleWalletChange,
   walletDropdownList,
+  accountId,
+  assetId,
+  parentAssetId,
+  color,
 }) => {
   const {
     lang,
@@ -26,12 +29,20 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({
     formatTimestamp,
     formatYAxisTick,
     summaryDetails,
-  } = useGraph({ selectedWallet });
+    isLoading,
+    showGraphInUSD,
+    onGraphSwitch,
+  } = useGraph({ selectedWallet, accountId, assetId, parentAssetId });
 
   return (
     <DisplayGraph
-      title={summaryDetails.totalValue}
-      subTitle={lang.strings.graph.totalBalance}
+      title={
+        showGraphInUSD ? summaryDetails.totalValue : summaryDetails.totalBalance
+      }
+      subTitle={
+        showGraphInUSD ? summaryDetails.totalBalance : summaryDetails.totalValue
+      }
+      conversionRate={summaryDetails.conversionRate}
       dropdownItems={walletDropdownList}
       selectedDropdownItem={selectedWallet?.__id ?? 'all'}
       onDropdownChange={handleWalletChange}
@@ -46,13 +57,17 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({
       formatTooltipValue={formatTooltipValue}
       formatTimestamp={formatTimestamp}
       formatYAxisTick={formatYAxisTick}
-      color={coinList[BtcIdMap.bitcoin].color ?? ''}
+      color={color ?? coinList[BtcIdMap.bitcoin].color ?? ''}
+      onSwitch={
+        assetId || parentAssetId || accountId ? onGraphSwitch : undefined
+      }
+      isLoading={isLoading}
     />
   );
 };
 
-PortfolioGraph.defaultProps = {
-  selectedWallet: undefined,
+Graph.defaultProps = {
+  color: undefined,
 };
 
-export default PortfolioGraph;
+export default Graph;

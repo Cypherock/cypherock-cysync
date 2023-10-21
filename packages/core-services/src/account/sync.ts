@@ -6,7 +6,7 @@ import { lastValueFrom, Observable } from 'rxjs';
 import logger from '../utils/logger';
 
 const MAX_RETRIES = 3;
-const ACCOUNT_SYNC_CONCURRENCY = 5;
+const ACCOUNT_SYNC_CONCURRENCY = 10;
 
 export interface ISyncAccountsEvent {
   account: IAccount;

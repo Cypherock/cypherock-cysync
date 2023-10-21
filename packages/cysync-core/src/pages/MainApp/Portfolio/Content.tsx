@@ -1,9 +1,10 @@
 import { Container, DisplayGraphSkeleton } from '@cypherock/cysync-ui';
 import React, { FC, lazy, Suspense } from 'react';
 
+import { Graph } from '~/components';
+
 import { usePortfolioPage } from '../hooks';
 
-const PortfolioGraph = lazy(() => import('./Graph'));
 const AssetAllocation = lazy(() => import('~/components/AssetAllocation'));
 const TransactionTable = lazy(() => import('~/components/TransactionTable'));
 
@@ -19,7 +20,7 @@ const PortfolioPageContent: FC = () => {
     <>
       <Suspense fallback={<DisplayGraphSkeleton />}>
         <Container $noFlex mb={2}>
-          <PortfolioGraph
+          <Graph
             selectedWallet={selectedWallet}
             handleWalletChange={handleWalletChange}
             walletDropdownList={walletDropdownList}

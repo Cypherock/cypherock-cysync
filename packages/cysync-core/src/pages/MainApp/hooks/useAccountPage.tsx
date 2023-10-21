@@ -17,7 +17,6 @@ import { routes } from '~/constants';
 import {
   CoinAllocationRow,
   useAssetDropdown,
-  useGraph,
   useNavigateTo,
   useQuery,
   useWalletDropdown,
@@ -95,7 +94,6 @@ export const useAccountPage = () => {
     return undefined;
   }, [query, wallets]);
 
-  const graphData = useGraph({ accountId });
   const assetDropdown = useAssetDropdown();
 
   const getAccountDropdownList = (params: {
@@ -260,7 +258,6 @@ export const useAccountPage = () => {
   }, [assetDropdown, selectedAccount, wallets, fromAsset, fromWallet]);
 
   return {
-    ...graphData,
     ...assetDropdown,
     breadcrumbItems,
     accountId,

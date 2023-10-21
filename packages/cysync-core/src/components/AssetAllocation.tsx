@@ -152,7 +152,9 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         variant={isAccountDisplay ? 'accounts' : undefined}
       />
       <Container
-        height={ROW_HEIGHT * Math.min(displayRows.length, MAX_ROWS_DISPLAYED)}
+        height={
+          ROW_HEIGHT * Math.min(displayRows.length, MAX_ROWS_DISPLAYED - 0.5)
+        }
         width="100%"
         display="block"
       >

@@ -5,7 +5,6 @@ import { routes } from '~/constants';
 import {
   CoinAllocationRow,
   useAssetDropdown,
-  useGraph,
   useNavigateTo,
   useQuery,
   useWalletDropdown,
@@ -32,7 +31,6 @@ export const useAssetPage = () => {
     }
   }, [query]);
 
-  const graphData = useGraph({ parentAssetId, assetId });
   const { handleWalletChange, selectedWallet, walletDropdownList } =
     useWalletDropdown({ withSelectAll: true });
   const assetDropdown = useAssetDropdown();
@@ -44,7 +42,6 @@ export const useAssetPage = () => {
   };
 
   return {
-    ...graphData,
     ...assetDropdown,
     handleWalletChange,
     selectedWallet,

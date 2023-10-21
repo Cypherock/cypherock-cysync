@@ -13,7 +13,7 @@ export interface IBalanceHistory {
 }
 
 export interface IGetAccountHistoryParams {
-  db: IDatabase;
+  db?: IDatabase;
   accountId: string;
   currency: string;
   days: 1 | 7 | 30 | 365;

@@ -79,7 +79,7 @@ const getAccounts = (params: {
 };
 
 export const getBalanceHistory = async (params: {
-  db: IDatabase;
+  db?: IDatabase;
   days: 1 | 7 | 30 | 365;
   currency: string;
   accountId?: string;
