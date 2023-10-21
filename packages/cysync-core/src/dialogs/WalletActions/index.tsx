@@ -9,6 +9,7 @@ import {
   HelpButton,
   Image,
   LangDisplay,
+  ScrollableContainer,
   Typography,
   addWalletIcon,
   importWalletIcon,
@@ -47,105 +48,111 @@ export const WalletActionsDialogBox: FC = () => {
         <Flex width="full" px={3} justify="flex-end">
           <HelpButton text={lang.strings.help} />
         </Flex>
-        <DialogBoxBody
-          p="20"
-          grow={2}
-          align="center"
-          gap={40}
-          direction="column"
-          justify="flex-start"
-          height="full"
-        >
-          <Header
-            subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
-            title={lang.strings.onboarding.walletActionsDialogBox.title}
-          />
+        <ScrollableContainer height="full">
+          <DialogBoxBody
+            p="20"
+            grow={2}
+            align="center"
+            gap={40}
+            direction="column"
+            justify="flex-start"
+            height="full"
+          >
+            <Header
+              subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
+              title={lang.strings.onboarding.walletActionsDialogBox.title}
+            />
 
-          <Flex direction="row" gap={16} justify="center">
-            <Flex
-              direction="column"
-              $borderWidth={1}
-              $borderRadius={16}
-              $borderColor={selectedAction === 'createWallet' ? 'gold' : 'card'}
-              onClick={() => setSelectedAction('createWallet')}
-              align="center"
-              pt={4}
-              px={2}
-              pb={2}
-              gap={16}
-              width={400}
-              shadow="hover:popup"
-              $cursor="pointer"
-            >
-              <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
-              <Typography $fontSize={20} color="white" $textAlign="center">
-                <LangDisplay
-                  text={
+            <Flex direction="row" gap={16} justify="center">
+              <Flex
+                direction="column"
+                $borderWidth={1}
+                $borderRadius={16}
+                $borderColor={
+                  selectedAction === 'createWallet' ? 'gold' : 'card'
+                }
+                onClick={() => setSelectedAction('createWallet')}
+                align="center"
+                pt={4}
+                px={2}
+                pb={2}
+                gap={16}
+                width={400}
+                shadow="hover:popup"
+                $cursor="pointer"
+              >
+                <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
+                <Typography $fontSize={20} color="white" $textAlign="center">
+                  <LangDisplay
+                    text={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .createWallet.title
+                    }
+                  />
+                </Typography>
+              </Flex>
+              <Flex
+                direction="column"
+                $borderWidth={1}
+                $borderRadius={16}
+                $borderColor={
+                  selectedAction === 'importWallet' ? 'gold' : 'card'
+                }
+                onClick={() => setSelectedAction('importWallet')}
+                align="center"
+                pt={4}
+                px={2}
+                pb={2}
+                gap={16}
+                width={400}
+                shadow="hover:popup"
+                $cursor="pointer"
+              >
+                <Image
+                  $width={56}
+                  src={importWalletIcon}
+                  alt="importWalletIcon"
+                />
+                <Typography $fontSize={20} color="white" $textAlign="center">
+                  <LangDisplay
+                    text={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .importWallet.title
+                    }
+                  />
+                </Typography>
+              </Flex>
+            </Flex>
+            <Flex>
+              {selectedAction === 'createWallet' && (
+                <BulletList
+                  $fontSize={20}
+                  $borderWidth={0}
+                  $borderColor={undefined}
+                  $bgColor={undefined}
+                  color="white"
+                  items={
                     lang.strings.onboarding.walletActionsDialogBox.createWallet
-                      .title
+                      .list
                   }
                 />
-              </Typography>
-            </Flex>
-            <Flex
-              direction="column"
-              $borderWidth={1}
-              $borderRadius={16}
-              $borderColor={selectedAction === 'importWallet' ? 'gold' : 'card'}
-              onClick={() => setSelectedAction('importWallet')}
-              align="center"
-              pt={4}
-              px={2}
-              pb={2}
-              gap={16}
-              width={400}
-              shadow="hover:popup"
-              $cursor="pointer"
-            >
-              <Image
-                $width={56}
-                src={importWalletIcon}
-                alt="importWalletIcon"
-              />
-              <Typography $fontSize={20} color="white" $textAlign="center">
-                <LangDisplay
-                  text={
+              )}
+              {selectedAction === 'importWallet' && (
+                <BulletList
+                  $fontSize={20}
+                  $borderWidth={0}
+                  $borderColor={undefined}
+                  $bgColor={undefined}
+                  color="white"
+                  items={
                     lang.strings.onboarding.walletActionsDialogBox.importWallet
-                      .title
+                      .list
                   }
                 />
-              </Typography>
+              )}
             </Flex>
-          </Flex>
-          <Flex>
-            {selectedAction === 'createWallet' && (
-              <BulletList
-                $fontSize={20}
-                $borderWidth={0}
-                $borderColor={undefined}
-                $bgColor={undefined}
-                color="white"
-                items={
-                  lang.strings.onboarding.walletActionsDialogBox.createWallet
-                    .list
-                }
-              />
-            )}
-            {selectedAction === 'importWallet' && (
-              <BulletList
-                $fontSize={20}
-                $borderWidth={0}
-                $borderColor={undefined}
-                $bgColor={undefined}
-                color="white"
-                items={
-                  lang.strings.onboarding.walletActionsDialogBox.importWallet
-                    .list
-                }
-              />
-            )}
-          </Flex>
-        </DialogBoxBody>
+          </DialogBoxBody>
+        </ScrollableContainer>
         <DialogBoxFooter
           justify="flex-end"
           mx={4}
