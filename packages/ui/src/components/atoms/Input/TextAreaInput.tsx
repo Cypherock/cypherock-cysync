@@ -25,6 +25,7 @@ const TextAreaInputStyle = styled.textarea`
   margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: white;
   height: 182px;
+  resize: none;
   ::placeholder {
     font-weight: 300;
     font-size: 14px;
