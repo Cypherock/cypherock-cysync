@@ -47,6 +47,7 @@ export const nearCoinList: Record<string, INearCoinInfo> = coinList.reduce<
       curve: coin.curve,
       color: coin.color,
       units,
+      isUnderDevelopment: true,
     },
   }),
   {},

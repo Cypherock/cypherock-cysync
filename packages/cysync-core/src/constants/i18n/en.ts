@@ -1469,6 +1469,9 @@ const en = {
     on: 'ON',
     off: 'OFF',
   },
+  snackbar: {
+    copiedToClipboard: 'Copied to clipboard',
+  },
   settings: {
     tabs: {
       general: {

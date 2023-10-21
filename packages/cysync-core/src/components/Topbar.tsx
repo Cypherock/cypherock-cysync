@@ -55,7 +55,7 @@ export interface TopbarProps {
   tag?: TopbarUIProps['tag'];
 }
 
-export const Topbar: FC<TopbarProps> = props => {
+const TopbarComponent: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
   const { lang, discreetMode, accountSync, unreadTransactions } =
     useAppSelector(selector);
@@ -100,8 +100,10 @@ export const Topbar: FC<TopbarProps> = props => {
   );
 };
 
-Topbar.defaultProps = {
+TopbarComponent.defaultProps = {
   icon: undefined,
   subTitle: undefined,
   tag: undefined,
 };
+
+export const Topbar = React.memo(TopbarComponent);
