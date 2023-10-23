@@ -49,7 +49,7 @@ export const SendFlow: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox direction="row" gap={0} width="full" $maxHeight="90vh">
         <CloseConfirmationDialog
           isDialogVisible={showOnClose}
           setIsDialogVisible={setShowOnClose}
