@@ -2,7 +2,7 @@ import {
   SvgProps,
   ArrowReceivedIcon,
   ArrowSentIcon,
-} from '@cypherock/cysync-ui/src';
+} from '@cypherock/cysync-ui';
 import {
   ITransaction,
   TransactionType,

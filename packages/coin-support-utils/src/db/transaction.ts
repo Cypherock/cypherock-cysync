@@ -1,3 +1,4 @@
+import { isSubset, sleep } from '@cypherock/cysync-utils';
 import {
   IDatabase,
   IPriceHistory,
@@ -9,8 +10,18 @@ import {
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
   transactions: ITransaction[],
+  BATCH_SIZE = 100,
 ) => {
+  let currentCount = 0;
+
   for (const transaction of transactions) {
+    currentCount += 1;
+
+    if (currentCount > BATCH_SIZE) {
+      await sleep(500);
+      currentCount = 0;
+    }
+
     const query: Partial<ITransaction> = {
       walletId: transaction.walletId,
       hash: transaction.hash,
@@ -24,6 +35,16 @@ export const insertOrUpdateTransactions = async (
 
     const existingTxn = await db.transaction.getOne(query);
     if (existingTxn) {
+      // Ignore already confirmed txns while comparing for subset
+      if ((existingTxn.confirmations ?? 0) >= 1) {
+        const newTxn = structuredClone(transaction);
+        delete newTxn.confirmations;
+
+        if (isSubset(newTxn, existingTxn)) {
+          return;
+        }
+      }
+
       await db.transaction.update({ __id: existingTxn.__id }, transaction);
     } else {
       await db.transaction.insert(transaction);
@@ -71,8 +92,18 @@ export const getLatestTransactionHash = async (
 export const insertOrUpdatePriceInfo = async (
   db: IDatabase,
   priceInfos: IPriceInfo[],
+  BATCH_SIZE = 100,
 ) => {
+  let currentCount = 0;
+
   for (const priceInfo of priceInfos) {
+    currentCount += 1;
+
+    if (currentCount > BATCH_SIZE) {
+      await sleep(500);
+      currentCount = 0;
+    }
+
     const query: Partial<IPriceInfo> = {
       assetId: priceInfo.assetId,
       currency: priceInfo.currency,
@@ -80,6 +111,8 @@ export const insertOrUpdatePriceInfo = async (
 
     const existingPriceInfo = await db.priceInfo.getOne(query);
     if (existingPriceInfo) {
+      if (isSubset(priceInfo, existingPriceInfo)) return;
+
       await db.priceInfo.update({ __id: existingPriceInfo.__id }, priceInfo);
     } else {
       await db.priceInfo.insert(priceInfo);
@@ -90,8 +123,18 @@ export const insertOrUpdatePriceInfo = async (
 export const insertOrUpdatePriceHistory = async (
   db: IDatabase,
   priceHistories: IPriceHistory[],
+  BATCH_SIZE = 100,
 ) => {
+  let currentCount = 0;
+
   for (const priceHistory of priceHistories) {
+    currentCount += 1;
+
+    if (currentCount > BATCH_SIZE) {
+      await sleep(500);
+      currentCount = 0;
+    }
+
     const query: Partial<IPriceHistory> = {
       assetId: priceHistory.assetId,
       currency: priceHistory.currency,
@@ -100,6 +143,8 @@ export const insertOrUpdatePriceHistory = async (
 
     const existingPriceHistory = await db.priceHistory.getOne(query);
     if (existingPriceHistory) {
+      if (isSubset(priceHistory, existingPriceHistory)) return;
+
       await db.priceHistory.update(
         { __id: existingPriceHistory.__id },
         priceHistory,

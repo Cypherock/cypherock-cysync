@@ -389,23 +389,22 @@ export const useTransactions = ({
   };
 
   const debounceParseTransactionList = useCallback(
-    lodash.throttle(parseTransactionsList, 1000, { leading: true }),
+    lodash.throttle(parseTransactionsList, 4000, { leading: true }),
+    [],
+  );
+
+  const debounceParseTransactionListOnUserAction = useCallback(
+    lodash.throttle(parseTransactionsList, 500, { leading: true }),
     [],
   );
 
   useEffect(() => {
     debounceParseTransactionList();
-  }, [
-    allTransactions,
-    priceInfos,
-    isDiscreetMode,
-    wallets,
-    accounts,
-    lang,
-    walletId,
-    assetId,
-    accountId,
-  ]);
+  }, [allTransactions, priceInfos, wallets, accounts]);
+
+  useEffect(() => {
+    debounceParseTransactionListOnUserAction();
+  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));

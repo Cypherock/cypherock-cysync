@@ -1,7 +1,8 @@
-window.BitcoinJsLib = require('bitcoinjs-lib');
-window.NearApiJs = require('near-api-js');
-window.WalletConnect = require('@walletconnect/web3wallet');
-window.WalletConnectCore = require('@walletconnect/core');
-window.eip712 = require('eip-712');
-window.ethers = require('ethers');
-window.web3 = require('web3');
+globalThis.Buffer = require('safe-buffer').Buffer;
+globalThis.BitcoinJsLib = require('bitcoinjs-lib');
+globalThis.NearApiJs = require('near-api-js');
+globalThis.WalletConnect = require('@walletconnect/web3wallet');
+globalThis.WalletConnectCore = require('@walletconnect/core');
+globalThis.eip712 = require('eip-712');
+globalThis.ethers = require('ethers');
+globalThis.web3 = require('web3');

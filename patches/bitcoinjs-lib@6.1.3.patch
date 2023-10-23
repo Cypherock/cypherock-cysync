@@ -7,7 +7,7 @@ index 2712168a14bc1f99d4d6bfb6b186714c405c8ac7..5b5b4669c1e3dd1089ce6e51072deede
    'with caution. Wallets should verify the segwit version from the output of fromBech32, ' +
    'then decide when it is safe to use which version of segwit.';
 +
-+Buffer = typeof window === 'undefined' ? global.Buffer : window.Buffer;
++Buffer = typeof window === 'undefined' ? globalThis.Buffer : window.Buffer;
 +
  function _toFutureSegwitAddress(output, network) {
    const data = output.slice(2);

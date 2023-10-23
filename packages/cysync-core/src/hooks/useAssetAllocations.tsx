@@ -234,24 +234,22 @@ export const useAssetAllocations = ({
   };
 
   const debounceGenerateCoinAllocations = useCallback(
-    lodash.throttle(generateCoinAllocations, 1000, { leading: true }),
+    lodash.throttle(generateCoinAllocations, 4000, { leading: true }),
+    [],
+  );
+
+  const debounceGenerateCoinAllocationsOnUserAction = useCallback(
+    lodash.throttle(generateCoinAllocations, 500, { leading: true }),
     [],
   );
 
   useEffect(() => {
     debounceGenerateCoinAllocations();
-  }, [
-    allTransactions,
-    priceInfos,
-    isDiscreetMode,
-    wallets,
-    accounts,
-    lang,
-    walletId,
-    assetId,
-    parentAssetId,
-    accountId,
-  ]);
+  }, [allTransactions, accounts, priceInfos, wallets]);
+
+  useEffect(() => {
+    debounceGenerateCoinAllocationsOnUserAction();
+  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
 
