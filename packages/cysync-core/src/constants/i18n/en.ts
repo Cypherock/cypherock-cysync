@@ -128,7 +128,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
       'Reconnect the device try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.INVALID_MSG_FROM_DEVICE]: {
-    heading: 'our X1 Vault is facing some communication issues',
+    heading: 'Your X1 Vault is facing some communication issues',
     subtext: 'Retry or click Help to find a solution',
   },
   [DeviceAppErrorType.INVALID_APP_ID_FROM_DEVICE]: {
@@ -851,8 +851,8 @@ const en = {
         error: 'Connection error!',
       },
       sync: {
-        syncronized: 'Syncronized',
-        syncronizing: 'Syncronizing...',
+        synchronized: 'Synchronized',
+        synchronizing: 'Synchronizing...',
         error: 'Sync error!',
       },
     },
