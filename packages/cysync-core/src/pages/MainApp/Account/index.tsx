@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   Button,
   Container,
-  DisplayGraph,
   Flex,
   ArrowSentIcon,
   ArrowReceivedIcon,
@@ -18,9 +17,9 @@ import {
   openSendDialog,
   openWalletConnectDialog,
 } from '~/actions';
-import { CoinIcon, TransactionTable } from '~/components';
+import { CoinIcon, Graph, TransactionTable } from '~/components';
 import { supportedWalletConnectFamilies } from '~/context';
-import { useAppDispatch } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { TokenTable } from './TokenTable';
 
@@ -37,24 +36,16 @@ const SendIcon = (props: SvgProps) => (
 
 export const AccountPage: FC = () => {
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(selectLanguage);
 
   const {
-    lang,
     selectedWallet,
-    rangeList,
-    selectedRange,
-    setSelectedRange,
-    graphData,
-    formatTooltipValue,
-    formatTimestamp,
-    formatYAxisTick,
-    summaryDetails,
     accountId,
     selectedAccount,
-    onGraphSwitch,
     breadcrumbItems,
-    showGraphInUSD,
     onAccountChange,
+    handleWalletChange,
+    walletDropdownList,
   } = useAccountPage();
 
   return (
@@ -134,33 +125,14 @@ export const AccountPage: FC = () => {
         </Flex>
 
         <Container $noFlex mb={2}>
-          <DisplayGraph
-            title={
-              showGraphInUSD
-                ? summaryDetails.totalValue
-                : summaryDetails.totalBalance
-            }
-            subTitle={
-              showGraphInUSD
-                ? summaryDetails.totalBalance
-                : summaryDetails.totalValue
-            }
-            conversionRate={summaryDetails.conversionRate}
-            dropdownSearchText={lang.strings.graph.walletDropdown.search}
-            pillButtonList={rangeList}
-            selectedPill={selectedRange}
-            onPillButtonChange={setSelectedRange as any}
-            summaryText={summaryDetails.changePercent}
-            summarySubText={summaryDetails.changeValue}
-            summaryIcon={summaryDetails.changeIcon}
-            data={graphData}
-            formatTooltipValue={formatTooltipValue}
-            formatTimestamp={formatTimestamp}
-            formatYAxisTick={formatYAxisTick}
+          <Graph
+            selectedWallet={selectedWallet}
+            handleWalletChange={handleWalletChange}
+            walletDropdownList={walletDropdownList}
+            accountId={accountId}
             color={
               selectedAccount?.asset?.color ?? coinList[BtcIdMap.bitcoin].color
             }
-            onSwitch={onGraphSwitch}
           />
         </Container>
 

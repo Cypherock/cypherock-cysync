@@ -9,13 +9,13 @@ patchedDependencies:
     hash: 2w262xemhdfopk6pf6lpq4cgry
     path: patches/base-x@3.0.9.patch
   bip66@1.1.5:
-    hash: x6nrdzryjwfglu3bq2e3kuf7om
+    hash: iqgcihxqyjluk6emr2sibelbgm
     path: patches/bip66@1.1.5.patch
   bitcoinjs-lib@6.1.3:
-    hash: ihzekvc6zo6hjuer3inyikawk4
+    hash: 4ejbwv4r5ntzw6v5u3ozsksn5q
     path: patches/bitcoinjs-lib@6.1.3.patch
   crc@3.8.0:
-    hash: aiicb4llu3etdeijkxmqt6y5va
+    hash: 2elhtkirubv6k56zon6hryqaqe
     path: patches/crc@3.8.0.patch
 
 importers:
@@ -126,7 +126,7 @@ importers:
         version: 2.9.0(@types/node@18.15.11)(typescript@4.9.5)
       bitcoinjs-lib:
         specifier: ^6.1.3
-        version: 6.1.3(patch_hash=ihzekvc6zo6hjuer3inyikawk4)
+        version: 6.1.3(patch_hash=4ejbwv4r5ntzw6v5u3ozsksn5q)
       colors:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1289,7 +1289,7 @@ importers:
         version: 7.5.0
       bitcoinjs-lib:
         specifier: ^6.1.3
-        version: 6.1.3(patch_hash=ihzekvc6zo6hjuer3inyikawk4)
+        version: 6.1.3(patch_hash=4ejbwv4r5ntzw6v5u3ozsksn5q)
       browserify:
         specifier: ^17.0.0
         version: 17.0.0
@@ -1335,6 +1335,9 @@ importers:
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
+      safe-buffer:
+        specifier: ^5.2.1
+        version: 5.2.1
       ts-jest:
         specifier: ^29.1.0
         version: 29.1.0(@babel/core@7.22.19)(esbuild@0.18.20)(jest@29.5.0)(typescript@4.9.5)
@@ -1811,6 +1814,9 @@ importers:
       bignumber.js:
         specifier: ^9.1.1
         version: 9.1.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^
@@ -4770,7 +4776,7 @@ packages:
       '@cypherock/sdk-interfaces': 0.0.13
       '@cypherock/sdk-utils': 0.0.16
       axios: 1.4.0
-      bip66: 1.1.5(patch_hash=x6nrdzryjwfglu3bq2e3kuf7om)
+      bip66: 1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm)
       long: 5.2.3
       protobufjs: 7.2.5
     transitivePeerDependencies:
@@ -12570,14 +12576,14 @@ packages:
     resolution: {integrity: sha512-mdFV5+/v0XyNYXjBS6CQPLo9ekCx4gtKZFnJm5PMto7Fs9hTTDpkkzOB7/FtluRI6JbUUAu+snTYfJRgHLZbZQ==}
     engines: {node: '>=8.0.0'}
 
-  /bip66@1.1.5(patch_hash=x6nrdzryjwfglu3bq2e3kuf7om):
+  /bip66@1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm):
     resolution: {integrity: sha512-nemMHz95EmS38a26XbbdxIYj5csHd3RMP3H5bwQknX0WYHF01qhpufP42mLOwVICuH2JmhIhXiWs89MfUGL7Xw==}
     dependencies:
       safe-buffer: 5.2.1
     dev: false
     patched: true
 
-  /bitcoinjs-lib@6.1.3(patch_hash=ihzekvc6zo6hjuer3inyikawk4):
+  /bitcoinjs-lib@6.1.3(patch_hash=4ejbwv4r5ntzw6v5u3ozsksn5q):
     resolution: {integrity: sha512-TYXs/Qf+GNk2nnsB9HrXWqzFuEgCg0Gx+v3UW3B8VuceFHXVvhT+7hRnTSvwkX0i8rz2rtujeU6gFaDcFqYFDw==}
     engines: {node: '>=8.0.0'}
     dependencies:
@@ -13807,7 +13813,7 @@ packages:
     hasBin: true
     dev: true
 
-  /crc@3.8.0(patch_hash=aiicb4llu3etdeijkxmqt6y5va):
+  /crc@3.8.0(patch_hash=2elhtkirubv6k56zon6hryqaqe):
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
     dependencies:
       buffer: 5.7.1
@@ -14591,7 +14597,7 @@ packages:
       '@types/plist': 3.0.2
       '@types/verror': 1.10.6
       ajv: 6.12.6
-      crc: 3.8.0(patch_hash=aiicb4llu3etdeijkxmqt6y5va)
+      crc: 3.8.0(patch_hash=2elhtkirubv6k56zon6hryqaqe)
       iconv-corefoundation: 1.1.7
       plist: 3.1.0
       smart-buffer: 4.2.0
@@ -17935,7 +17941,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -17976,7 +17982,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -19817,7 +19823,7 @@ packages:
       browserify-bignum: 1.3.0-2
       bundle: 2.1.0
       cbor-js: 0.1.0
-      crc: 3.8.0(patch_hash=aiicb4llu3etdeijkxmqt6y5va)
+      crc: 3.8.0(patch_hash=2elhtkirubv6k56zon6hryqaqe)
       js-sha512: 0.8.0
       jssha: 2.4.2
       lodash.isequal: 4.5.0
@@ -24532,7 +24538,7 @@ packages:
   /unbzip2-stream@1.4.3:
     resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
     dependencies:
-      buffer: 5.2.1
+      buffer: 5.7.1
       through: 2.3.8
     dev: true
 

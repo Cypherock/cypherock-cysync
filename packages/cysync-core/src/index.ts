@@ -6,13 +6,13 @@ export {
   setAutoUpdater,
   setResetCySyncMethod,
   setCloseAppMethod,
-  setDependencies,
   setInitWCUriMethod,
   setAddExternalLinkListenerMethod,
   setRemoveExternalLinkListenerMethod,
   setFocusAppMethod,
   setCySyncLogsMethod,
 } from './utils';
+export { setDependencies } from './utils/dependencies';
 export * from './theme';
 export * from './constants';
 export * from './context';

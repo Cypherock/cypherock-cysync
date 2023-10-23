@@ -4,7 +4,7 @@ index 0000000000000000000000000000000000000000..dbddd245851f0a016d6d341910d2dc48
 --- /dev/null
 +++ b/buffer.js
 @@ -0,0 +1 @@
-+export const Buffer = typeof window === 'undefined' ? global.Buffer : window.Buffer;
++export const Buffer = typeof window === 'undefined' ? globalThis.Buffer : window.Buffer;
 diff --git a/crc1.js b/crc1.js
 index 9755aa8e01d700ec53711d5963e17767e6dade0c..931761e35c8bdeaedaffcab8401d4bdcc088db19 100644
 --- a/crc1.js

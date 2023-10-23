@@ -27,6 +27,11 @@ export const getTransactions = async (params: {
 
   const response = await axios.post(url, query);
 
+  assert(
+    typeof response.data.result === 'object',
+    'Invalid transaction response from server',
+  );
+
   return response.data;
 };
 
