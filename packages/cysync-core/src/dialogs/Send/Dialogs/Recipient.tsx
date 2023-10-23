@@ -62,7 +62,7 @@ export const Recipient: React.FC = () => {
   if (transaction === undefined) return <LoaderDialog />;
 
   return (
-    <DialogBox width={517}>
+    <DialogBox width={517} $maxHeight="full">
       <DialogBoxBody pt={4} pb={0}>
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
@@ -88,7 +88,7 @@ export const Recipient: React.FC = () => {
           rightImage={<GoldQuestionMark height={14} width={14} />}
         />
       </DialogBoxBody>
-      <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
+      <ScrollableContainer>
         <AddressAndAmountSection />
         <FeeSection />
       </ScrollableContainer>
