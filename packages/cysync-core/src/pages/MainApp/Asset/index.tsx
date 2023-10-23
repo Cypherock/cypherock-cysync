@@ -1,10 +1,8 @@
-import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   Typography,
   Breadcrumb,
   Button,
   Container,
-  DisplayGraph,
   Flex,
   ArrowSentIcon,
   ArrowReceivedIcon,
@@ -18,11 +16,16 @@ import {
   openSendDialog,
   openWalletConnectDialog,
 } from '~/actions';
-import { AssetAllocation, CoinIcon, TransactionTable } from '~/components';
+import {
+  AssetAllocation,
+  CoinIcon,
+  Graph,
+  TransactionTable,
+} from '~/components';
 import { routes } from '~/constants';
 import { supportedWalletConnectFamilies } from '~/context';
 import { useNavigateTo } from '~/hooks';
-import { useAppDispatch } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { useAssetPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
@@ -38,28 +41,18 @@ const SendIcon = (props: SvgProps) => (
 export const AssetPage: FC = () => {
   const navigateTo = useNavigateTo();
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(selectLanguage);
 
   const {
-    lang,
     handleWalletChange,
     selectedWallet,
     walletDropdownList,
-    rangeList,
-    selectedRange,
-    setSelectedRange,
-    graphData,
-    formatTooltipValue,
-    formatTimestamp,
-    formatYAxisTick,
-    summaryDetails,
     onAccountClick,
     selectedAsset,
     assetId,
     parentAssetId,
-    onGraphSwitch,
     assetDropdownList,
     onAssetChange,
-    showGraphInUSD,
   } = useAssetPage();
 
   return (
@@ -153,34 +146,13 @@ export const AssetPage: FC = () => {
         </Flex>
 
         <Container $noFlex mb={2}>
-          <DisplayGraph
-            title={
-              showGraphInUSD
-                ? summaryDetails.totalValue
-                : summaryDetails.totalBalance
-            }
-            subTitle={
-              showGraphInUSD
-                ? summaryDetails.totalBalance
-                : summaryDetails.totalValue
-            }
-            conversionRate={summaryDetails.conversionRate}
-            dropdownItems={walletDropdownList}
-            selectedDropdownItem={selectedWallet?.__id ?? 'all'}
-            onDropdownChange={handleWalletChange}
-            dropdownSearchText={lang.strings.graph.walletDropdown.search}
-            pillButtonList={rangeList}
-            selectedPill={selectedRange}
-            onPillButtonChange={setSelectedRange as any}
-            summaryText={summaryDetails.changePercent}
-            summarySubText={summaryDetails.changeValue}
-            summaryIcon={summaryDetails.changeIcon}
-            data={graphData}
-            formatTooltipValue={formatTooltipValue}
-            formatTimestamp={formatTimestamp}
-            formatYAxisTick={formatYAxisTick}
-            color={selectedAsset?.color ?? coinList[BtcIdMap.bitcoin].color}
-            onSwitch={onGraphSwitch}
+          <Graph
+            selectedWallet={selectedWallet}
+            handleWalletChange={handleWalletChange}
+            walletDropdownList={walletDropdownList}
+            assetId={assetId}
+            parentAssetId={parentAssetId}
+            color={selectedAsset?.color}
           />
         </Container>
 

@@ -48,7 +48,8 @@
       "inputs": [
         "package.json",
         "scripts/prebuild.sh",
-        "scripts/dependencies/*"
+        "scripts/dependencies/index.js",
+        "scripts/dependencies/package.json"
       ]
     },
     "@cypherock/cysync-cli#dev": {

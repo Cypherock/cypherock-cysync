@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 import { syncAccounts } from '~/actions';
 import {
   setAccounts,
@@ -99,15 +101,21 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncTransactionsDb();
 };
 
+const throttleDbFunction = (func: any) =>
+  lodash.throttle(func, 3000, { leading: true });
+
 export const addListeners = () => {
   const db = getDB();
 
-  db.wallet.addListener('change', syncWalletsDb);
-  db.account.addListener('change', syncAccountsDb);
-  db.device.addListener('change', syncDevicesDb);
-  db.priceInfo.addListener('change', syncPriceInfosDb);
-  db.priceHistory.addListener('change', syncPriceHistoriesDb);
-  db.transaction.addListener('change', syncTransactionsDb);
+  db.wallet.addListener('change', throttleDbFunction(syncWalletsDb));
+  db.account.addListener('change', throttleDbFunction(syncAccountsDb));
+  db.device.addListener('change', throttleDbFunction(syncDevicesDb));
+  db.priceInfo.addListener('change', throttleDbFunction(syncPriceInfosDb));
+  db.priceHistory.addListener(
+    'change',
+    throttleDbFunction(syncPriceHistoriesDb),
+  );
+  db.transaction.addListener('change', throttleDbFunction(syncTransactionsDb));
 };
 
 export const removeListeners = () => {

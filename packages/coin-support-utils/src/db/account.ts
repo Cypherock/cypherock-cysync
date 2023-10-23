@@ -1,4 +1,4 @@
-import { assert } from '@cypherock/cysync-utils';
+import { assert, isSubset } from '@cypherock/cysync-utils';
 import { AccountTypeMap, IAccount, IDatabase } from '@cypherock/db-interfaces';
 
 export async function getAccountAndCoin<T>(
@@ -31,6 +31,19 @@ export const getUniqueAccountQuery = (
   parentAssetId: account.parentAssetId,
   type: account.type,
 });
+
+export const updateAccount = async (
+  db: IDatabase,
+  id: string,
+  account: Partial<IAccount>,
+) => {
+  const existingAccount = await db.account.getOne({ __id: id });
+
+  if (existingAccount) {
+    if (isSubset(account, existingAccount)) return;
+    await db.account.update({ __id: existingAccount.__id }, account);
+  }
+};
 
 export const insertOrUpdateAccounts = async (
   db: IDatabase,

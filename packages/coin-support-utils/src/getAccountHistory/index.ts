@@ -2,7 +2,7 @@ import {
   IBalanceHistory,
   IGetAccountHistoryResult,
 } from '@cypherock/coin-support-interfaces';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { assert, BigNumber } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   IAccount,
@@ -23,14 +23,15 @@ import logger from '../utils/logger';
 
 export * from './types';
 
-async function getAccount(db: IDatabase, accountId: string) {
+async function getAccount(db: IDatabase | undefined, accountId: string) {
+  assert(db, 'Database should be present if no account is given');
   return (await db.account.getOne({ __id: accountId })) as IAccount;
 }
 
 async function getTransactions(
   allTransactions: ITransaction[] | undefined,
   account: IAccount,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   if (allTransactions) {
     return lodash.orderBy(
@@ -44,6 +45,7 @@ async function getTransactions(
     );
   }
 
+  assert(db, 'Database should be present if no transactions is given');
   return db.transaction.getAll(
     { accountId: account.__id, status: TransactionStatusMap.success },
     { sortBy: { key: 'timestamp', descending: false } },
@@ -55,7 +57,7 @@ async function getPriceHistory(
   account: IAccount,
   currency: string,
   days: 1 | 7 | 30 | 365,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   let history: IPriceSnapshot[] | undefined;
 
@@ -73,6 +75,7 @@ async function getPriceHistory(
         p.days === daysToFetch,
     )?.history;
   } else {
+    assert(db, 'Database should be present if no price history is given');
     history = (
       await db.priceHistory.getOne({
         assetId: account.assetId,
@@ -101,7 +104,7 @@ async function getLatestPrice(
   allPriceInfos: IPriceInfo[] | undefined,
   account: IAccount,
   currency: string,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   let price: string | undefined;
 
@@ -110,6 +113,7 @@ async function getLatestPrice(
       p => p.assetId === account.assetId && p.currency === currency,
     )?.latestPrice;
   } else {
+    assert(db, 'Database should be present if no price info is given');
     price = (
       await db.priceInfo.getOne({
         assetId: account.assetId,

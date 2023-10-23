@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ICreateSyncAccountsObservableParams } from './types';
 
-import { insertOrUpdateTransactions } from '../db';
+import { insertOrUpdateTransactions, updateAccount } from '../db';
 import logger from '../utils/logger';
 
 export * from './types';
@@ -58,7 +58,7 @@ export function createSyncAccountsObservable<T>(
           }
         } while (hasMore);
 
-        await db.account.update({ __id: accountId }, updatedAccountInfo);
+        await updateAccount(db, accountId, updatedAccountInfo);
         await insertOrUpdateTransactions(db, transactions);
 
         observer.next();
