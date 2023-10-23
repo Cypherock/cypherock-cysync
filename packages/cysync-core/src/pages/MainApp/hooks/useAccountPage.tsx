@@ -17,9 +17,9 @@ import { routes } from '~/constants';
 import {
   CoinAllocationRow,
   useAssetDropdown,
-  useGraph,
   useNavigateTo,
   useQuery,
+  useWalletDropdown,
 } from '~/hooks';
 import {
   selectAccounts,
@@ -37,6 +37,8 @@ export const useAccountPage = () => {
   const query = useQuery();
   const navigateTo = useNavigateTo();
   const { accounts, wallets, lang } = useAppSelector(selector);
+  const { handleWalletChange, selectedWallet, walletDropdownList } =
+    useWalletDropdown({ withSelectAll: true });
 
   const accountId = useMemo(() => query.get('accountId') ?? undefined, [query]);
 
@@ -92,7 +94,6 @@ export const useAccountPage = () => {
     return undefined;
   }, [query, wallets]);
 
-  const graphData = useGraph({ accountId });
   const assetDropdown = useAssetDropdown();
 
   const getAccountDropdownList = (params: {
@@ -257,12 +258,14 @@ export const useAccountPage = () => {
   }, [assetDropdown, selectedAccount, wallets, fromAsset, fromWallet]);
 
   return {
-    ...graphData,
     ...assetDropdown,
     breadcrumbItems,
     accountId,
     selectedAccount,
     onAccountChange,
     onAssetClick,
+    handleWalletChange,
+    selectedWallet,
+    walletDropdownList,
   };
 };
