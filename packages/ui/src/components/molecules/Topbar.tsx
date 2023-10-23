@@ -11,7 +11,7 @@ import {
   Disconnected,
   DeviceErrorIcon,
   SyncProblem,
-  SyncronizingBold,
+  SynchronizingBold,
   NoNotifications,
   Notifications,
   PushpinBold,
@@ -26,7 +26,7 @@ import {
 } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
-export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
+export type SyncStatusType = 'synchronized' | 'synchronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
 export interface TopbarProps {
@@ -41,8 +41,8 @@ export interface TopbarProps {
       disconnected: string;
     };
     sync: {
-      syncronized: string;
-      syncronizing: string;
+      synchronized: string;
+      synchronizing: string;
       error: string;
     };
   };
@@ -103,9 +103,9 @@ export const Topbar: FC<TopbarProps> = ({
   };
 
   const syncStatusMap = {
-    syncronized: <SyncingIcon />,
-    syncronizing: (
-      <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
+    synchronized: <SyncingIcon />,
+    synchronizing: (
+      <SynchronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
     ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };

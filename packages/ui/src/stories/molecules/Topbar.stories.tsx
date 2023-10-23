@@ -21,14 +21,14 @@ export const Default: Story = {
         error: 'Connection error!',
       },
       sync: {
-        syncronized: 'Syncronized',
-        syncronizing: 'Syncronizing...',
+        synchronized: 'Synchronized',
+        synchronizing: 'Synchronizing...',
         error: 'Sync error!',
       },
     },
     haveNotifications: true,
     connectionStatus: 'connected',
-    syncStatus: 'syncronized',
+    syncStatus: 'synchronized',
     isDiscreetMode: false,
     isLocked: false,
     isLockscreenLoading: false,
@@ -40,7 +40,7 @@ export const InProcess: Story = {
   args: {
     ...Default.args,
     connectionStatus: 'disconnected',
-    syncStatus: 'syncronizing',
+    syncStatus: 'synchronizing',
   },
 };
 
