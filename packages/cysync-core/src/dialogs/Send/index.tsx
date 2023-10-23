@@ -18,6 +18,8 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
 
+export type { SendDialogProps } from './context';
+
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
   children: React.ReactNode;

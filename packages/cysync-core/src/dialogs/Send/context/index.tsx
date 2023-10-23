@@ -98,6 +98,7 @@ export interface SendDialogContextInterface {
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
+  getDefaultGasLimit: () => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -130,7 +131,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     4: [0],
   };
 
-  const [isAccountSelectionDisabled] = useState(disableAccountSelection);
   const [error, setError] = useState<any | undefined>();
   const [signedTransaction, setSignedTransaction] = useState<
     string | undefined
@@ -327,6 +327,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       onError(e);
     }
   };
+
+  const getDefaultGasLimit = () =>
+    txnData?.gasLimit ??
+    txnData?.gas ??
+    (transaction as IPreparedEvmTransaction).computedData.gasLimitEstimate;
 
   const prepare = async (txn: IPreparedTransaction) => {
     logger.info('Preparing send transaction');
@@ -532,7 +537,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareSendMax,
       priceConverter,
       updateUserInputs,
-      isAccountSelectionDisabled,
+      isAccountSelectionDisabled: disableAccountSelection,
+      getDefaultGasLimit,
     }),
     [
       onNext,
@@ -567,7 +573,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareSendMax,
       priceConverter,
       updateUserInputs,
-      isAccountSelectionDisabled,
+      disableAccountSelection,
+      getDefaultGasLimit,
     ],
   );
 

@@ -2,7 +2,7 @@ import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
-import { SendDialogProps } from '~/dialogs/Send/context';
+import { SendDialogProps } from '~/dialogs/Send/';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>

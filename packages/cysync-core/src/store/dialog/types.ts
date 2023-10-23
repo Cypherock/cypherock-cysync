@@ -1,7 +1,7 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
-import { SendDialogProps } from '~/dialogs/Send/context';
+import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
   deviceAuthenticationDialog: {
