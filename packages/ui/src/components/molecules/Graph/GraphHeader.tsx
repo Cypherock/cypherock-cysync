@@ -19,6 +19,7 @@ export interface GraphHeaderProps {
   pillButtonList?: { text: string; id: string }[];
   onPillButtonChange?: (id: string) => void;
   onSwitch?: () => void;
+  isLoading?: boolean;
 }
 
 export const GraphHeader: React.FC<GraphHeaderProps> = ({
@@ -35,6 +36,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
   onPillButtonChange,
   pillButtonList,
   onSwitch,
+  isLoading,
 }) => {
   const showDropdown = dropdownItems && onDropdownChange;
 
@@ -69,7 +71,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
               {title}
             </Typography>
             {onSwitch && (
-              <Button variant="icon" onClick={onSwitch}>
+              <Button variant="icon" onClick={onSwitch} disabled={isLoading}>
                 <GraphSwitchIcon />
               </Button>
             )}
@@ -122,6 +124,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
                 }
                 size="sm"
                 onClick={() => onPillButtonChange(item.id)}
+                disabled={isLoading}
                 key={item.id}
               >
                 {item.text}
@@ -136,7 +139,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
               justify-content="space-between"
               items={dropdownItems}
               selectedItem={selectedDropdownItem}
-              disabled={false}
+              disabled={isLoading}
               searchText={dropdownSearchText ?? ''}
               placeholderText={dropdownPlaceholderText ?? ''}
               onChange={onDropdownChange}
@@ -162,4 +165,5 @@ GraphHeader.defaultProps = {
   onPillButtonChange: undefined,
   pillButtonList: undefined,
   onSwitch: undefined,
+  isLoading: undefined,
 };

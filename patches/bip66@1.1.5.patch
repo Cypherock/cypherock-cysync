@@ -7,7 +7,7 @@ index 569df59fff4930e5ae1759cbf7e253ae52bcac51..56c25057b017eb005e6c41f994bf6404
  // NOTE: SIGHASH byte ignored AND restricted, truncate before use
  
 -var Buffer = require('safe-buffer').Buffer
-+var Buffer = typeof window === 'undefined' ? global.Buffer : window.Buffer;
++var Buffer = typeof window === 'undefined' ? globalThis.Buffer : window.Buffer;
  
  function check (buffer) {
    if (buffer.length < 8) return false

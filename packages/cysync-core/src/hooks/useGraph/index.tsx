@@ -3,15 +3,14 @@ import {
   getDefaultUnit,
 } from '@cypherock/coin-support-utils';
 import { ICoinUnit } from '@cypherock/coins';
-import { useTheme, LineGraphProps } from '@cypherock/cysync-ui';
+import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
-  useWalletDropdown,
   useGraphTimeRange,
   graphTimeRangeToDaysMap,
   GraphTimeRangeMap,
@@ -29,8 +28,9 @@ import {
   selectPriceInfos,
 } from '~/store';
 
-import { calculatePortfolioGraphData } from './helper';
+import { CalculatePortfolioGraphDataParams } from './helper';
 import { UseGraphProps } from './types';
+import { calculatePortfolioGraphDataWithWorker } from './worker';
 
 export * from './types';
 
@@ -76,17 +76,17 @@ export const useGraph = (props?: UseGraphProps) => {
     priceInfos,
   } = useAppSelector(selector);
 
-  const { handleWalletChange, selectedWallet, walletDropdownList } =
-    useWalletDropdown({ withSelectAll: true });
-
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
   const [calculatedData, setCalculatedData] = useState<
-    Exclude<Awaited<ReturnType<typeof calculatePortfolioGraphData>>, undefined>
+    Exclude<
+      Awaited<ReturnType<typeof calculatePortfolioGraphDataWithWorker>>,
+      undefined
+    >
   >({
     balanceHistory: { balanceHistory: [], totalValue: '0' },
     summary: {
-      totalValue: '',
+      totalValue: '$0',
       totalBalance: '',
       conversionRate: '',
       changePercent: '',
@@ -98,6 +98,8 @@ export const useGraph = (props?: UseGraphProps) => {
     graphData: [],
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [showGraphInUSD, setShowGraphInUSD] = useState(true);
 
   const refData = useStateToRef({
@@ -106,7 +108,7 @@ export const useGraph = (props?: UseGraphProps) => {
     priceHistories,
     priceInfos,
     selectedRange,
-    selectedWallet,
+    selectedWallet: props?.selectedWallet,
     isDiscreetMode,
     props,
     showGraphInUSD,
@@ -130,19 +132,48 @@ export const useGraph = (props?: UseGraphProps) => {
     return { parentAssetId, assetId };
   };
 
-  const calculatePortfolioData = async () => {
+  const calculatePortfolioData = async (setLoading?: boolean) => {
+    if (setLoading) setIsLoading(true);
+
     const data = refData.current;
 
-    const result = await calculatePortfolioGraphData({
-      ...data,
+    const params: CalculatePortfolioGraphDataParams = {
+      accounts: data.accounts,
+      transactions: data.transactions,
+      priceHistories: data.priceHistories,
+      priceInfos: data.priceInfos,
+      selectedWallet: data.selectedWallet,
+      isDiscreetMode: data.isDiscreetMode,
+      assetId: data.props?.assetId,
+      accountId: data.props?.accountId,
+      parentAssetId: data.props?.parentAssetId,
+      showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
-    });
+    };
+
+    const result = await calculatePortfolioGraphDataWithWorker(params);
+    if (result?.summary.isIncreased || result?.summary.isDecreased) {
+      const changeIconColor = result.summary.isDecreased
+        ? theme.palette.text.error
+        : data.theme.palette.success.main;
+
+      result.summary.changeIcon = (
+        <TriangleIcon
+          fill={changeIconColor}
+          width={15}
+          height={15}
+          rotate={result.summary.isIncreased ? 0 : 180}
+        />
+      );
+    }
 
     if (result) setCalculatedData(result);
+
+    if (setLoading) setIsLoading(false);
   };
 
   const throttledCalculatePortfolioDataOnDataChange = useCallback(
-    lodash.throttle(calculatePortfolioData, 5000, { leading: true }),
+    lodash.throttle(calculatePortfolioData, 10000, { leading: true }),
     [],
   );
 
@@ -152,20 +183,22 @@ export const useGraph = (props?: UseGraphProps) => {
   );
 
   useEffect(() => {
-    throttledCalculatePortfolioDataOnUserAction();
-  }, [selectedWallet, selectedRange, isDiscreetMode, showGraphInUSD, theme]);
+    setIsLoading(true);
+    throttledCalculatePortfolioDataOnUserAction(true);
+  }, [
+    props?.selectedWallet,
+    props?.accountId,
+    props?.assetId,
+    props?.parentAssetId,
+    selectedRange,
+    isDiscreetMode,
+    showGraphInUSD,
+    theme,
+  ]);
 
   useEffect(() => {
     throttledCalculatePortfolioDataOnDataChange();
-  }, [
-    accounts,
-    transactions,
-    priceHistories,
-    priceInfos,
-    props?.assetId,
-    props?.accountId,
-    props?.parentAssetId,
-  ]);
+  }, [accounts, transactions, priceHistories, priceInfos]);
 
   const formatGraphAmountDisplay = (
     value: string | number,
@@ -243,9 +276,6 @@ export const useGraph = (props?: UseGraphProps) => {
 
   return {
     lang,
-    handleWalletChange,
-    selectedWallet,
-    walletDropdownList,
     rangeList,
     selectedRange,
     setSelectedRange,
@@ -260,5 +290,6 @@ export const useGraph = (props?: UseGraphProps) => {
     wallets,
     onGraphSwitch,
     showGraphInUSD,
+    isLoading,
   };
 };

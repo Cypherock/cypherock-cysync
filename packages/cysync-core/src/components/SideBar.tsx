@@ -11,7 +11,7 @@ import {
   HistoryIcon,
   SettingsIcon,
   SupportIcon,
-  Syncronizing,
+  Synchronizing,
   WalletInfoIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
@@ -56,7 +56,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
                 title="Sync Wallets"
                 onClick={onWalletSync}
               >
-                <Syncronizing
+                <Synchronizing
                   fill={theme.palette.muted.main}
                   animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
                 />

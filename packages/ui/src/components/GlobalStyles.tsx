@@ -8,6 +8,10 @@ export const svgGradients = {
   silver: 'silver-gradient',
 };
 
+export const CssClassNames = {
+  tableScrollbar: 'tableScrollbar',
+};
+
 export const Styles = createGlobalStyle`
 * {
   box-sizing: border-box;
@@ -29,9 +33,10 @@ export const Styles = createGlobalStyle`
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #46403C;
+  background-color: #8B8682;
   border-radius: 6px;
-}`;
+}
+`;
 
 export const GlobalStyles: React.FC = () => (
   <>
