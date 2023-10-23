@@ -56,11 +56,11 @@ export class PromiseQueue<T> {
         promise
           .then(result => {
             this.onNext(result);
-            this.completed += 1;
-            this.running.splice(this.running.indexOf(promise), 1);
           })
           .catch(error => {
             this.onError(error);
+          })
+          .finally(() => {
             this.completed += 1;
             this.running.splice(this.running.indexOf(promise), 1);
           });

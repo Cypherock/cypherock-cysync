@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { GraphHeaderSkeleton } from './GraphHeaderSkeleton';
-import { GraphSummarySkeketon } from './GraphSummarySkeketon';
+import { GraphSummarySkeleton } from './GraphSummarySkeleton';
 
 import { Container, Flex } from '../../atoms';
 
@@ -14,7 +14,7 @@ export const DisplayGraphSkeleton = () => (
     $borderStyle="none"
   >
     <GraphHeaderSkeleton />
-    <GraphSummarySkeketon />
+    <GraphSummarySkeleton />
     <Container height={300} width="full" mb={3} pt={1} px={{ def: 3, lg: 5 }}>
       <Container
         height="full"
