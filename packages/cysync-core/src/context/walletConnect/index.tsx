@@ -296,9 +296,17 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       connectionState === WalletConnectConnectionState.CONNECTED &&
       callRequestData
     ) {
+      logger.info(' Initiating Call Request', callRequestData);
       if (ACCEPTED_SEND_METHODS.includes(callRequestData.method)) {
-        // TODO: add props for send dialog
-        dispatch(openSendDialog());
+        dispatch(
+          openSendDialog({
+            walletId: activeWallet?.__id,
+            accountId: activeAccount?.__id,
+            txnData: callRequestData.params[0],
+            disableAccountSelection: true,
+            isWalletConnectRequest: true,
+          }),
+        );
       } else if (ACCEPTED_SIGN_METHODS.includes(callRequestData.method)) {
         dispatch(openSignMessageDialog());
       } else {
