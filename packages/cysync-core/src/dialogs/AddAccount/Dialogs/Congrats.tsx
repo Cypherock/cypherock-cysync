@@ -11,7 +11,7 @@ export const AddAccountCongrats: React.FC = () => {
   const button = lang.strings.buttons;
   const { goTo, onClose, setSelectedCoin } = useAddAccountDialog();
 
-  const handleAddAnotherAccount = () => {
+  const handleAddMoreAccount = () => {
     setSelectedCoin(undefined);
     goTo(0, 0);
   };
@@ -25,7 +25,7 @@ export const AddAccountCongrats: React.FC = () => {
         buttonText={button.done}
         secondaryButtonText={strings.buttonAddMore}
         handleClick={onClose}
-        handleSecButtonClick={handleAddAnotherAccount}
+        handleSecButtonClick={handleAddMoreAccount}
       />
     </>
   );
