@@ -43,8 +43,8 @@ const connectionStatesMap: Record<
 };
 
 const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
-  [AccountSyncStateMap.syncing]: 'syncronizing',
-  [AccountSyncStateMap.synced]: 'syncronized',
+  [AccountSyncStateMap.syncing]: 'synchronizing',
+  [AccountSyncStateMap.synced]: 'synchronized',
   [AccountSyncStateMap.failed]: 'error',
 };
 
