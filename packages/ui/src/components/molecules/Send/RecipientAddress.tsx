@@ -14,6 +14,7 @@ interface RecipientAddressProps {
   isThrobberActive?: boolean;
   index?: number;
   isButtonDisabled?: boolean;
+  isDisabled?: boolean;
 }
 
 interface CustomInputSendProps {
@@ -78,6 +79,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   index = 0,
   onChange,
   isThrobberActive,
+  isDisabled,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
   const postfixIcon = isThrobberActive ? throbber : undefined;
@@ -111,6 +113,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           value={value}
           onChange={onChange}
           $textColor="white"
+          disabled={isDisabled}
           $noBorder
         />
         {postfixIcon}
@@ -137,4 +140,5 @@ RecipientAddress.defaultProps = {
   isThrobberActive: false,
   index: 0,
   isButtonDisabled: false,
+  isDisabled: false,
 };

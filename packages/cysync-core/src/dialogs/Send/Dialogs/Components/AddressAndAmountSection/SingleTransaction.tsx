@@ -14,7 +14,12 @@ import { AmountInput } from './AmountInput';
 
 import { useSendDialog } from '../../../context';
 
-export const SingleTransaction: React.FC = () => {
+interface SingleTransactionProps {
+  disableInputs?: boolean;
+}
+export const SingleTransaction: React.FC<SingleTransactionProps> = ({
+  disableInputs,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const [amountOverride, setAmountOverride] = useState('');
@@ -91,6 +96,7 @@ export const SingleTransaction: React.FC = () => {
               : ''
           }
           onChange={prepareAddressChanged}
+          isDisabled={disableInputs}
         />
         <AmountInput
           label={displayText.amount.label}
@@ -111,8 +117,13 @@ export const SingleTransaction: React.FC = () => {
           onChange={prepareAmountChanged}
           onToggle={prepareSendMax}
           converter={priceConverter}
+          isDisabled={disableInputs}
         />
       </Container>
     </Container>
   );
+};
+
+SingleTransaction.defaultProps = {
+  disableInputs: undefined,
 };
