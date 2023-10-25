@@ -9,6 +9,7 @@ export interface IPreparedEvmTransaction extends IPreparedTransaction {
     gasPrice?: string;
     gasLimit?: string;
     isSendAll: boolean;
+    nonce?: string;
   };
   staticData: {
     averageGasPrice: string;

@@ -16,6 +16,8 @@ type Borders = {
   [key in BorderType<'$borderWidth'>]?: number;
 };
 export type BorderColor =
+  | 'card'
+  | 'gold'
   | 'popup'
   | 'separator'
   | 'info'
