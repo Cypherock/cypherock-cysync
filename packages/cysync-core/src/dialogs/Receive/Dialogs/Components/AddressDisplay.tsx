@@ -40,6 +40,9 @@ export const AddressDisplay: React.FC = () => {
           <CoinIcon
             parentAssetId={selectedAccount?.parentAssetId ?? ''}
             assetId={selectedAccount?.assetId ?? ''}
+            withParentIconAtBottom
+            subContainerSize="17px"
+            subIconSize="16px"
             size={32}
           />
           <Typography variant="h5">
