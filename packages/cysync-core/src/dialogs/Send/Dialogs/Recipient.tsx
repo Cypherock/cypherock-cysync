@@ -23,8 +23,14 @@ import { AddressAndAmountSection, FeeSection } from './Components';
 import { useSendDialog } from '../context';
 
 export const Recipient: React.FC = () => {
-  const { onNext, onPrevious, initialize, transaction, selectedAccount } =
-    useSendDialog();
+  const {
+    onNext,
+    onPrevious,
+    initialize,
+    transaction,
+    selectedAccount,
+    isAccountSelectionDisabled,
+  } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const theme = useTheme();
@@ -89,18 +95,20 @@ export const Recipient: React.FC = () => {
         />
       </DialogBoxBody>
       <ScrollableContainer>
-        <AddressAndAmountSection />
+        <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
         <FeeSection />
       </ScrollableContainer>
       <DialogBoxFooter>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            onPrevious();
-          }}
-        >
-          <LangDisplay text={button.back} />
-        </Button>
+        {!isAccountSelectionDisabled && (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              onPrevious();
+            }}
+          >
+            <LangDisplay text={button.back} />
+          </Button>
+        )}
         <Button
           variant="primary"
           disabled={!btnState}
@@ -113,4 +121,9 @@ export const Recipient: React.FC = () => {
       </DialogBoxFooter>
     </DialogBox>
   );
+};
+
+Recipient.defaultProps = {
+  hideBackButton: undefined,
+  disableInputs: undefined,
 };

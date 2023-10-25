@@ -1,6 +1,7 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   CoinSupport,
   IPreparedTransaction,
@@ -29,7 +30,12 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { LoaderDialog } from '~/components';
-import { deviceLock, useDevice } from '~/context';
+import {
+  WalletConnectCallRequestMethodMap,
+  deviceLock,
+  useDevice,
+  useWalletConnect,
+} from '~/context';
 import {
   ITabs,
   useAccountDropdown,
@@ -91,21 +97,31 @@ export interface SendDialogContextInterface {
   prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
+  isAccountSelectionDisabled: boolean | undefined;
+  getDefaultGasLimit: () => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
   createContext<SendDialogContextInterface>({} as SendDialogContextInterface);
 
-export interface SendDialogContextProviderProps {
-  children: ReactNode;
+export interface SendDialogProps {
   walletId?: string;
   accountId?: string;
+  txnData?: Record<string, string>;
+  disableAccountSelection?: boolean;
+  isWalletConnectRequest?: boolean;
+}
+export interface SendDialogContextProviderProps extends SendDialogProps {
+  children: ReactNode;
 }
 
 export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   children,
   walletId: defaultWalletId,
   accountId: defaultAccountId,
+  txnData,
+  disableAccountSelection,
+  isWalletConnectRequest,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -133,6 +149,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   >({});
   const { connection, connectDevice } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
+  const { rejectCallRequest, approveCallRequest, callRequestData } =
+    useWalletConnect();
 
   const {
     selectedWallet,
@@ -183,8 +201,26 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   ];
 
   useEffect(() => {
+    if (disableAccountSelection) goTo(1, 0);
+  }, []);
+
+  useEffect(() => {
     if (signedTransaction) {
-      broadcast();
+      if (
+        !isWalletConnectRequest ||
+        callRequestData?.method ===
+          WalletConnectCallRequestMethodMap.ETH_SEND_TXN
+      )
+        broadcast();
+
+      if (
+        isWalletConnectRequest &&
+        callRequestData?.method ===
+          WalletConnectCallRequestMethodMap.ETH_SIGN_TXN
+      ) {
+        approveCallRequest(signedTransaction);
+        onClose(true);
+      }
     }
   }, [signedTransaction]);
 
@@ -212,8 +248,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   };
 
-  const onClose = () => {
+  const onClose = async (skipRejection?: boolean) => {
     cleanUp();
+    if (!skipRejection && isWalletConnectRequest) rejectCallRequest();
     dispatch(closeDialog('sendDialog'));
   };
 
@@ -227,26 +264,34 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     setError(e);
   };
 
+  const getCurrentCoinSupport = () => {
+    if (!selectedAccount) throw new Error('No account selected');
+    if (!coinSupport.current)
+      coinSupport.current = getCoinSupport(selectedAccount.familyId);
+    return coinSupport.current;
+  };
+
   const broadcast = async () => {
     if (!transaction || !signedTransaction) {
       logger.warn('Transaction not ready');
       return;
     }
-    if (!coinSupport.current) {
-      logger.warn('coinSupport not set');
-      return;
-    }
 
     try {
-      const txn = await coinSupport.current.broadcastTransaction({
+      const txn = await getCurrentCoinSupport().broadcastTransaction({
         db: getDB(),
         signedTransaction,
         transaction,
       });
 
+      if (isWalletConnectRequest) {
+        approveCallRequest(txn.hash);
+        onClose(true);
+        return;
+      }
       setStoredTransaction(txn);
       setTransactionLink(
-        coinSupport.current.getExplorerLink({ transaction: txn }),
+        getCurrentCoinSupport().getExplorerLink({ transaction: txn }),
       );
       onNext();
     } catch (e: any) {
@@ -258,42 +303,46 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     logger.info('Initializing send transaction');
     if (transaction !== undefined) return;
 
-    if (!selectedAccount) {
-      logger.warn('No account selected');
-      return;
-    }
-    coinSupport.current = getCoinSupport(selectedAccount.familyId);
-
     try {
-      const initTransaction = await coinSupport.current.initializeTransaction({
-        db: getDB(),
-        accountId: selectedAccount.__id ?? '',
-      });
+      const initTransaction =
+        await getCurrentCoinSupport().initializeTransaction({
+          db: getDB(),
+          accountId: selectedAccount?.__id ?? '',
+        });
       setTransaction(initTransaction);
+
+      if (txnData) {
+        const txn = initTransaction as IPreparedEvmTransaction;
+        txn.userInputs.outputs.push({ address: '', amount: '0' });
+        if (txnData.to) txn.userInputs.outputs[0].address = txnData.to;
+        if (txnData.value) txn.userInputs.outputs[0].amount = txnData.value;
+        if (txnData.data) txn.computedData.data = txnData.data;
+        if (txnData.nonce) txn.userInputs.nonce = txnData.nonce;
+        if (txnData.gasPrice) txn.userInputs.gasPrice = txnData.gasPrice;
+        if (txnData.gasLimit) txn.userInputs.gasLimit = txnData.gasLimit;
+        if (txnData.gas) txn.userInputs.gasLimit = txnData.gas;
+        await prepare(txn);
+      }
     } catch (e: any) {
       onError(e);
     }
   };
 
+  const getDefaultGasLimit = () =>
+    txnData?.gasLimit ??
+    txnData?.gas ??
+    (transaction as IPreparedEvmTransaction).computedData.gasLimitEstimate;
+
   const prepare = async (txn: IPreparedTransaction) => {
     logger.info('Preparing send transaction');
 
-    if (!selectedAccount) {
-      logger.warn('No account selected');
-      return;
-    }
-
-    if (!coinSupport.current) {
-      logger.warn('coinSupport not set');
-      return;
-    }
-
     try {
-      const preparedTransaction = await coinSupport.current.prepareTransaction({
-        accountId: selectedAccount.__id ?? '',
-        db: getDB(),
-        txn,
-      });
+      const preparedTransaction =
+        await getCurrentCoinSupport().prepareTransaction({
+          accountId: selectedAccount?.__id ?? '',
+          db: getDB(),
+          txn,
+        });
 
       setTransaction(preparedTransaction);
     } catch (e: any) {
@@ -305,12 +354,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     onEnd: () => void,
   ): Observer<ISignTransactionEvent> => ({
     next: payload => {
-      if (payload.device) {
-        setDeviceEvents({ ...payload.device.events });
-      }
-      if (payload.transaction) {
-        setSignedTransaction(payload.transaction);
-      }
+      if (payload.device) setDeviceEvents({ ...payload.device.events });
+      if (payload.transaction) setSignedTransaction(payload.transaction);
     },
     error: err => {
       onEnd();
@@ -325,37 +370,33 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const startFlow = async () => {
     logger.info('Starting send transaction');
 
-    if (!selectedAccount) {
-      logger.warn('No account selected');
-      return;
-    }
-    if (!coinSupport.current) {
-      logger.warn('coinSupport not set');
-      return;
-    }
     if (!connection || !transaction) {
       return;
     }
 
-    resetStates();
-    cleanUp();
+    try {
+      resetStates();
+      cleanUp();
 
-    const taskId = lodash.uniqueId('task-');
+      const taskId = lodash.uniqueId('task-');
 
-    await deviceLock.acquire(connection.device, taskId);
+      await deviceLock.acquire(connection.device, taskId);
 
-    const onEnd = () => {
-      deviceLock.release(connection.device, taskId);
-    };
+      const onEnd = () => {
+        deviceLock.release(connection.device, taskId);
+      };
 
-    const deviceConnection = await connectDevice(connection.device);
-    flowSubscription.current = coinSupport.current
-      .signTransaction({
-        connection: deviceConnection,
-        db: getDB(),
-        transaction,
-      })
-      .subscribe(getFlowObserver(onEnd));
+      const deviceConnection = await connectDevice(connection.device);
+      flowSubscription.current = getCurrentCoinSupport()
+        .signTransaction({
+          connection: deviceConnection,
+          db: getDB(),
+          transaction,
+        })
+        .subscribe(getFlowObserver(onEnd));
+    } catch (e) {
+      onError(e);
+    }
   };
 
   const prepareAddressChanged = async (val: string) => {
@@ -496,6 +537,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareSendMax,
       priceConverter,
       updateUserInputs,
+      isAccountSelectionDisabled: disableAccountSelection,
+      getDefaultGasLimit,
     }),
     [
       onNext,
@@ -530,6 +573,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareSendMax,
       priceConverter,
       updateUserInputs,
+      disableAccountSelection,
+      getDefaultGasLimit,
     ],
   );
 
@@ -547,4 +592,7 @@ export function useSendDialog(): SendDialogContextInterface {
 SendDialogProvider.defaultProps = {
   walletId: undefined,
   accountId: undefined,
+  txnData: undefined,
+  disableAccountSelection: undefined,
+  isWalletConnectRequest: undefined,
 };
