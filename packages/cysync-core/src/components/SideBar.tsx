@@ -1,22 +1,22 @@
 import {
-  SideBarWrapper,
-  SideBarItem,
-  SideBarState as State,
-  Flex,
-  Button,
-  PortfolioIcon,
-  WalletIcon,
-  ArrowSentIcon,
   ArrowReceivedIcon,
+  ArrowSentIcon,
+  Button,
+  Flex,
   HistoryIcon,
+  PortfolioIcon,
   SettingsIcon,
+  SideBarItem,
+  SideBarWrapper,
+  SideBarState as State,
   SupportIcon,
   Synchronizing,
+  WalletIcon,
   WalletInfoIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openSendDialog, openReceiveDialog } from '~/actions';
+import { openReceiveDialog, openSendDialog } from '~/actions';
 import { useSidebar } from '~/context';
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
@@ -99,6 +99,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.sendCrypto}
             Icon={ArrowSentIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => {
               dispatch(openSendDialog());
             }}
@@ -106,6 +107,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.receiveCrypto}
             Icon={ArrowReceivedIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => {
               dispatch(openReceiveDialog());
             }}
@@ -113,7 +115,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.history}
             Icon={HistoryIcon}
-            state={getState('history')}
+            state={wallets.length === 0 ? State.disabled : getState('history')}
             onClick={() => navigate('history')}
           />
         </Flex>
