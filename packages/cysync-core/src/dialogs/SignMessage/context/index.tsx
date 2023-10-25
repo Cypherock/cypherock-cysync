@@ -100,7 +100,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   }, [callRequestData]);
 
   const onClose = (dontReject?: boolean) => {
-    if (!dontReject) rejectCallRequest();
+    if (dontReject !== true) rejectCallRequest();
     dispatch(closeDialog('signMessage'));
   };
 

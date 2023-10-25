@@ -10,6 +10,7 @@ import {
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { useSubAccounts } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -24,6 +25,9 @@ const comparatorMap: Record<TokenTableHeaderName, string> = {
   value: 'value',
   token: 'assetName',
 };
+
+const ROW_HEIGHT = 82;
+const MAX_ROWS_DISPLAYED = 5;
 
 export const TokenTable: React.FC<TokenProps> = ({ accountId, onClick }) => {
   const { strings } = useAppSelector(selectLanguage);
@@ -53,6 +57,25 @@ export const TokenTable: React.FC<TokenProps> = ({ accountId, onClick }) => {
     [subAccounts, sortedBy, isAscending],
   );
 
+  const rowRenderer = ({ key, index, style }: any) => {
+    const row = displayRows[index];
+
+    return (
+      <TokenTableRow
+        style={style}
+        key={key}
+        tokenAbbr={row.assetAbbr}
+        tokenName={row.assetName}
+        tokenIcon={row.assetIcon}
+        balance={row.displayAmount}
+        value={row.displayValue}
+        $isLast={index === displayRows.length - 1}
+        $rowIndex={index}
+        onClick={() => onClick(row.id ?? '')}
+      />
+    );
+  };
+
   if (displayRows.length <= 0) {
     return null;
   }
@@ -74,19 +97,23 @@ export const TokenTable: React.FC<TokenProps> = ({ accountId, onClick }) => {
         selected={sortedBy}
         onSort={onSort}
       />
-      {displayRows.map((row, index) => (
-        <TokenTableRow
-          key={row.id}
-          tokenAbbr={row.assetAbbr}
-          tokenName={row.assetName}
-          tokenIcon={row.assetIcon}
-          balance={row.displayAmount}
-          value={row.displayValue}
-          $isLast={index === displayRows.length - 1}
-          $rowIndex={index}
-          onClick={() => onClick(row.id ?? '')}
-        />
-      ))}
+      <Container
+        height={ROW_HEIGHT * Math.min(displayRows.length, MAX_ROWS_DISPLAYED)}
+        width="100%"
+        display="block"
+      >
+        <Virtualize.AutoSizer>
+          {({ width, height }: any) => (
+            <Virtualize.List
+              height={height}
+              width={width}
+              rowCount={displayRows.length}
+              rowHeight={ROW_HEIGHT}
+              rowRenderer={rowRenderer}
+            />
+          )}
+        </Virtualize.AutoSizer>
+      </Container>
     </TableStructure>
   );
 };

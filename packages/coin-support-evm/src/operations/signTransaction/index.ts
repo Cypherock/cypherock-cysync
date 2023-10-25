@@ -26,9 +26,12 @@ const prepareUnsignedTxn = async (
   coin: IEvmCoinInfo,
   account: IAccount,
 ): Promise<ISignTxnParams['txn']> => {
-  const nonce = await getTransactionCount(account.xpubOrAddress, coin.id);
+  const nonce =
+    transaction.userInputs.nonce ??
+    (await getTransactionCount(account.xpubOrAddress, coin.id));
   const txn = getCoinSupportEthersLib().Transaction.from({
-    nonce,
+    // eslint-disable-next-line radix
+    nonce: parseInt(nonce.toString()),
     to: transaction.computedData.output.address,
     data: transaction.computedData.data,
     gasLimit: transaction.computedData.gasLimit,
@@ -78,6 +81,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
   assert(serializedTxn, new Error('Failed to sign transaction'));
+
   return serializedTxn;
 };
 

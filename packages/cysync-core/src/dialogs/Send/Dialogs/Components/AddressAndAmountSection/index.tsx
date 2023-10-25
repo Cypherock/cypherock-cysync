@@ -8,7 +8,10 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { BatchTransaction } from './BatchTransaction';
 import { SingleTransaction } from './SingleTransaction';
 
-const BitcoinAdressAndAmount: React.FC = () => {
+interface AnaProps {
+  disableInputs?: boolean;
+}
+const BitcoinAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const tabs = [
@@ -16,7 +19,7 @@ const BitcoinAdressAndAmount: React.FC = () => {
       label: displayText.tabs.single,
       content: (
         <TabContentContainer>
-          <SingleTransaction />
+          <SingleTransaction disableInputs={disableInputs} />
         </TabContentContainer>
       ),
     },
@@ -32,27 +35,32 @@ const BitcoinAdressAndAmount: React.FC = () => {
   return <Tabs tabs={tabs} />;
 };
 
-const EvmAddressAndAmount: React.FC = () => (
+const EvmAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
   <Container px={5} py="12px">
-    {' '}
-    <SingleTransaction />{' '}
+    <SingleTransaction disableInputs={disableInputs} />
   </Container>
 );
 
+const defaultAnaProps = {
+  disableInputs: undefined,
+};
+BitcoinAddressAndAmount.defaultProps = defaultAnaProps;
+EvmAddressAndAmount.defaultProps = defaultAnaProps;
+
 const anaInputMap: Record<CoinFamily, React.FC<any>> = {
-  bitcoin: BitcoinAdressAndAmount,
+  bitcoin: BitcoinAddressAndAmount,
   evm: EvmAddressAndAmount,
   near: EvmAddressAndAmount,
   solana: EvmAddressAndAmount,
 };
 
-const getAnaComponent = (coinFamily: CoinFamily) => {
+const getAnaComponent = (coinFamily: CoinFamily, props: AnaProps) => {
   const Component = anaInputMap[coinFamily];
-  return <Component />;
+  return <Component {...props} />;
 };
 
-export const AddressAndAmountSection: React.FC = () => {
+export const AddressAndAmountSection: React.FC<AnaProps> = props => {
   const { selectedAccount } = useSendDialog();
 
-  return getAnaComponent(selectedAccount?.familyId as any);
+  return getAnaComponent(selectedAccount?.familyId as any, props);
 };

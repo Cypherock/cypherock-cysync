@@ -5,7 +5,6 @@ import {
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
 import { getBalanceHistory } from '@cypherock/cysync-core-services';
-import { ThemeType, TriangleIcon } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   IAccount,
@@ -14,25 +13,23 @@ import {
   IPriceInfo,
   IWallet,
 } from '@cypherock/db-interfaces';
-import React from 'react';
 
-import { getDB, memoizeFunctionWithObjectArg } from '~/utils';
 import logger from '~/utils/logger';
 
 import { UseGraphProps } from './types';
 
 export interface CalculatePortfolioGraphDataParams {
-  theme: ThemeType;
   accounts: IAccount[];
   transactions: ITransaction[];
   priceHistories: IPriceHistory[];
   priceInfos: IPriceInfo[];
   days: 1 | 7 | 30 | 365;
-  selectedWallet?: IWallet;
   isDiscreetMode: boolean;
-  props?: UseGraphProps;
+  selectedWallet?: IWallet;
+  assetId?: string;
+  parentAssetId?: string;
+  accountId?: string;
   showGraphInUSD: boolean;
-  withCache?: boolean;
 }
 
 export interface CalculatePortfolioGraphDataParamsWithComputedData
@@ -65,15 +62,8 @@ const getAssetDetailsFromProps = (
 const calculatePortfolioGraphSummary = (
   params: CalculatePortfolioGraphDataParamsWithComputedData,
 ) => {
-  const {
-    theme,
-    accounts,
-    props,
-    isDiscreetMode,
-    priceInfos,
-    computedData,
-    showGraphInUSD,
-  } = params;
+  const { accounts, isDiscreetMode, priceInfos, computedData, showGraphInUSD } =
+    params;
 
   let currentValue = 0;
   let conversionRate = '';
@@ -82,9 +72,8 @@ const calculatePortfolioGraphSummary = (
   let changeValue = '';
   let isIncreased = false;
   let isDecreased = false;
-  let changeIconColor = theme.palette.success.main;
 
-  const { parentAssetId, assetId } = getAssetDetailsFromProps(accounts, props);
+  const { parentAssetId, assetId } = getAssetDetailsFromProps(accounts, params);
   if (parentAssetId) {
     currentBalance = isDiscreetMode
       ? '****'
@@ -135,18 +124,17 @@ const calculatePortfolioGraphSummary = (
 
     if (latestValue.isGreaterThan(oldestValue)) {
       isIncreased = true;
-      changeIconColor = theme.palette.success.main;
     } else if (latestValue.isLessThan(oldestValue)) {
       isDecreased = true;
-      changeIconColor = theme.palette.text.error;
     }
 
     if (changeValueInNumber.isZero() && oldestValue.isZero()) {
       changePercent = 0;
     } else {
-      changePercent = Math.round(
-        changeValueInNumber.dividedBy(oldestValue).multipliedBy(100).toNumber(),
-      );
+      changePercent = changeValueInNumber
+        .dividedBy(oldestValue)
+        .multipliedBy(100)
+        .toNumber();
     }
 
     if (parentAssetId && !showGraphInUSD) {
@@ -179,23 +167,15 @@ const calculatePortfolioGraphSummary = (
     changeValue,
     isIncreased,
     isDecreased,
-    changeIcon:
-      isIncreased || isDecreased ? (
-        <TriangleIcon
-          fill={changeIconColor}
-          width={15}
-          height={15}
-          rotate={isIncreased ? 0 : 180}
-        />
-      ) : undefined,
+    changeIcon: undefined as any,
   };
 };
 
 const formatPortfolioGraphData = (
   params: CalculatePortfolioGraphDataParamsWithComputedData,
 ) => {
-  const { accounts, props, showGraphInUSD, computedData } = params;
-  const { parentAssetId, assetId } = getAssetDetailsFromProps(accounts, props);
+  const { accounts, showGraphInUSD, computedData } = params;
+  const { parentAssetId, assetId } = getAssetDetailsFromProps(accounts, params);
 
   if (!parentAssetId || showGraphInUSD) {
     return computedData.balanceHistory.map(b => ({
@@ -221,17 +201,13 @@ const formatPortfolioGraphData = (
   });
 };
 
-const memoizedGetBalanceHistory =
-  memoizeFunctionWithObjectArg(getBalanceHistory);
-
-const calculatePortfolioGraphDataUnmemoized = async (
+export const calculatePortfolioGraphData = async (
   params: CalculatePortfolioGraphDataParams,
 ) => {
   const walletId = params.selectedWallet?.__id;
 
   try {
-    const balanceHistory = await memoizedGetBalanceHistory({
-      db: getDB(),
+    const balanceHistory = await getBalanceHistory({
       accounts: params.accounts,
       transactions: params.transactions,
       priceHistories: params.priceHistories,
@@ -239,9 +215,9 @@ const calculatePortfolioGraphDataUnmemoized = async (
       currency: 'usd',
       days: params.days,
       walletId,
-      assetId: params.props?.assetId,
-      parentAssetId: params.props?.parentAssetId,
-      accountId: params.props?.accountId,
+      assetId: params.assetId,
+      parentAssetId: params.parentAssetId,
+      accountId: params.accountId,
     });
 
     const paramsWithComputedData = {
@@ -261,7 +237,3 @@ const calculatePortfolioGraphDataUnmemoized = async (
 
   return undefined;
 };
-
-export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
-  calculatePortfolioGraphDataUnmemoized,
-);

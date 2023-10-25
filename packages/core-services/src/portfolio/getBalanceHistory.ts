@@ -79,7 +79,7 @@ const getAccounts = (params: {
 };
 
 export const getBalanceHistory = async (params: {
-  db: IDatabase;
+  db?: IDatabase;
   days: 1 | 7 | 30 | 365;
   currency: string;
   accountId?: string;
@@ -154,6 +154,7 @@ export const getBalanceHistory = async (params: {
   }
 
   for (let i = 0; i < timestampList.length; i += 1) {
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let j = 0; j < balanceHistoryList.length; j += 1) {
       if (!allCoinHistoryData[i]) {
         allCoinHistoryData[i] = {

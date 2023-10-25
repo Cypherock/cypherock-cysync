@@ -25,6 +25,7 @@ interface AmountInputProps {
   onChange: (amount: string) => Promise<void>;
   converter: (val: string, invert?: boolean) => string;
   error?: string;
+  isDisabled?: boolean;
 }
 
 export const AmountInput: React.FC<AmountInputProps> = ({
@@ -40,6 +41,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
   onChange,
   converter,
   overrideAmount,
+  isDisabled,
 }) => {
   const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
   const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +126,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             placeholder={placeholder}
             onChange={handleCoinAmountChange}
             value={coinAmount}
-            disabled={isToggled}
+            disabled={isToggled || isDisabled}
             $textColor="white"
             $noBorder
           />
@@ -144,7 +146,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             placeholder={placeholder}
             onChange={handleCoinValueChange}
             value={coinValue}
-            disabled={isToggled}
+            disabled={isToggled || isDisabled}
             $textColor="white"
             $noBorder
           />
@@ -179,4 +181,5 @@ AmountInput.defaultProps = {
   toggleLabel: undefined,
   initialToggle: false,
   overrideAmount: undefined,
+  isDisabled: undefined,
 };
