@@ -56,6 +56,17 @@
         "workers/tsconfig.json"
       ]
     },
+    "@cypherock/cysync-core#build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig_cjs.json",
+        "!src/generated/**"
+      ]
+    },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],
       "cache": false

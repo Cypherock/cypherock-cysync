@@ -15,4 +15,3 @@ cd ../../
 
 echo "/* eslint-disable */" > ${BASEPATH}/index.js
 cat ${TEMPDIR}/index.js >> ${BASEPATH}/index.js
-rm -rf ${TEMPDIR}
