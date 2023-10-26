@@ -1098,7 +1098,6 @@ const en = {
               ],
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
                     'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
@@ -1149,7 +1148,6 @@ const en = {
             },
 
             {
-              // TODO: add functionality to 
               title:
                 'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
@@ -1157,14 +1155,12 @@ const en = {
               title: 'Important Note',
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
                     'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
-              // TODO: add functionality to 
               title:
                 'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
@@ -1226,7 +1222,6 @@ const en = {
               ],
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
                     'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
@@ -1295,7 +1290,6 @@ const en = {
             },
 
             {
-              // TODO: add functionality to 
               title:
                 'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
@@ -1303,14 +1297,12 @@ const en = {
               title: 'Important Note',
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
                     'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
-              // TODO: add functionality to 
               title:
                 'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
