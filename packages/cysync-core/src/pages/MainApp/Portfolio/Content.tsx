@@ -33,6 +33,7 @@ const PortfolioPageContent: FC = () => {
           <AssetAllocation
             walletId={selectedWallet?.__id}
             onRowClick={onAssetClick}
+            withParentIconAtBottom
           />
         </Container>
       </Suspense>
