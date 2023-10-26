@@ -1100,7 +1100,7 @@ const en = {
                 {
                   // TODO: add functionality to 
                   warning:
-                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
               ],
               warning: 'Skip this step if you are not setting up a PIN',
@@ -1151,7 +1151,7 @@ const en = {
             {
               // TODO: add functionality to 
               title:
-                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
             {
               title: 'Important Note',
@@ -1159,14 +1159,14 @@ const en = {
                 {
                   // TODO: add functionality to 
                   warning:
-                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
               // TODO: add functionality to 
               title:
-                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
                 'Homes of your family members or your friends',
                 'Secret hideout',
@@ -1228,7 +1228,7 @@ const en = {
                 {
                   // TODO: add functionality to 
                   warning:
-                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
               ],
               warning: 'Skip this step if you are not setting up a PIN',
@@ -1297,7 +1297,7 @@ const en = {
             {
               // TODO: add functionality to 
               title:
-                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
             {
               title: 'Important Note',
@@ -1305,14 +1305,14 @@ const en = {
                 {
                   // TODO: add functionality to 
                   warning:
-                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
               // TODO: add functionality to 
               title:
-                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
                 'Homes of your family members or your friends',
                 'Secret hideout',
