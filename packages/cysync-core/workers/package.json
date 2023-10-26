@@ -6,5 +6,12 @@
     "build": "pnpm clean && pnpm build:dirty",
     "build:dirty": "tsc -p tsconfig.json && cross-env PARCEL_WORKERS=0 parcel build --no-cache --no-source-maps --dist-dir parcel",
     "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@cypherock/coin-support-interfaces": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
+    "@cypherock/cysync-core-services": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
+    "@cypherock/db-interfaces": "workspace:^"
   }
 }

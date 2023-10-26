@@ -4,6 +4,7 @@ FILEPATH='../src/generated/workers/graph.js'
 
 cd workers
 
+pnpm i
 rm -rf ${FOLDERPATH:?}/*
 mkdir -p ${FOLDERPATH}
 
