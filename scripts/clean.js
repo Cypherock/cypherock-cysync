@@ -27,11 +27,8 @@ const packages = {
   'packages/ui': [...commonFolders, 'src/assets/icons/generated'],
   'packages/database': [...commonFolders],
   'packages/db-interfaces': [...commonFolders],
-  'packages/cysync-core': [
-    ...commonFolders,
-    'src/generated',
-    'workers/node_modules',
-  ],
+  'packages/cysync-core': [...commonFolders, 'src/generated'],
+  'packages/cysync-core-workers': [...commonFolders, 'lib', 'parcel'],
   'packages/interfaces': [...commonFolders],
   'packages/utils': [...commonFolders],
   'packages/util-eslint-config': ['node_modules'],
