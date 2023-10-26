@@ -49,7 +49,11 @@
         "package.json",
         "scripts/prebuild.sh",
         "scripts/dependencies/index.js",
-        "scripts/dependencies/package.json"
+        "scripts/dependencies/package.json",
+        "workers/src/**",
+        "workers/package.json",
+        "workers/build.sh",
+        "workers/tsconfig.json"
       ]
     },
     "@cypherock/cysync-cli#dev": {

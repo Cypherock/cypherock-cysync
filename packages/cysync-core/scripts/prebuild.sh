@@ -6,7 +6,7 @@ TEMPDIR='scripts/dependencies/dist'
 BASEPATH='src/generated'
 
 mkdir -p ${BASEPATH}
-rm -f ${BASEPATH}/*
+rm -f ${BASEPATH}/*.js
 
 cd scripts/dependencies
 # https://github.com/parcel-bundler/parcel/issues/7702

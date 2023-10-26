@@ -27,6 +27,7 @@ import {
   useAppDispatch,
   selectPriceInfos,
 } from '~/store';
+import logger from '~/utils/logger';
 
 import { CalculatePortfolioGraphDataParams } from './helper';
 import { UseGraphProps } from './types';
@@ -151,23 +152,28 @@ export const useGraph = (props?: UseGraphProps) => {
       days: graphTimeRangeToDaysMap[data.selectedRange],
     };
 
-    const result = await calculatePortfolioGraphDataWithWorker(params);
-    if (result?.summary.isIncreased || result?.summary.isDecreased) {
-      const changeIconColor = result.summary.isDecreased
-        ? theme.palette.text.error
-        : data.theme.palette.success.main;
+    try {
+      const result = await calculatePortfolioGraphDataWithWorker(params);
+      if (result?.summary.isIncreased || result?.summary.isDecreased) {
+        const changeIconColor = result.summary.isDecreased
+          ? theme.palette.text.error
+          : data.theme.palette.success.main;
 
-      result.summary.changeIcon = (
-        <TriangleIcon
-          fill={changeIconColor}
-          width={15}
-          height={15}
-          rotate={result.summary.isIncreased ? 0 : 180}
-        />
-      );
+        result.summary.changeIcon = (
+          <TriangleIcon
+            fill={changeIconColor}
+            width={15}
+            height={15}
+            rotate={result.summary.isIncreased ? 0 : 180}
+          />
+        );
+      }
+
+      if (result) setCalculatedData(result);
+    } catch (error) {
+      logger.error('Error on useGraph');
+      logger.error(error);
     }
-
-    if (result) setCalculatedData(result);
 
     if (setLoading) setIsLoading(false);
   };
