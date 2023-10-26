@@ -22,6 +22,7 @@ export interface AccountTableRowProps {
   $subMenu?: boolean;
   onClick?: () => void;
   onStatusClick?: () => void;
+  onTokenClick?: (accountId: string) => void;
   $rowIndex: number;
   $isLast?: boolean;
   $show?: string;
@@ -157,6 +158,7 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
     $isLast,
     onClick,
     onStatusClick,
+    onTokenClick,
   } = props;
   const { isOpen, toggleAccordion } = useAccordion();
 
@@ -226,7 +228,12 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
           <SubMenuContainer>
             {tokens.map(token => (
               <FadeInContainer key={token.id}>
-                <AccountTableRow {...token} $subMenu $rowIndex={$rowIndex} />
+                <AccountTableRow
+                  {...token}
+                  $subMenu
+                  $rowIndex={$rowIndex}
+                  onClick={() => (onTokenClick ? onTokenClick(token.id) : null)}
+                />
               </FadeInContainer>
             ))}
           </SubMenuContainer>
@@ -262,5 +269,6 @@ AccountTableRow.defaultProps = {
   $hide: '',
   onClick: undefined,
   onStatusClick: undefined,
+  onTokenClick: undefined,
   $isLast: false,
 };
