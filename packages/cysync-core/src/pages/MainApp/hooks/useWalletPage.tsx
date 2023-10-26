@@ -203,7 +203,7 @@ export const useWalletPage = () => {
   const navigateTo = useNavigateTo();
   const query = useQuery();
 
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 20;
 
   const [itemsToShow, setItemsToShow] = useState(ITEMS_PER_PAGE);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
@@ -361,12 +361,16 @@ export const useWalletPage = () => {
   };
 
   const handleShowMore = () => {
+    let updatedItemsCount = 0;
     if (showMoreClicked) {
-      setItemsToShow(ITEMS_PER_PAGE);
+      // Show More life was completed; behave like Show Less & display 1 page
+      updatedItemsCount = ITEMS_PER_PAGE;
     } else {
-      setItemsToShow(itemsToShow + ITEMS_PER_PAGE);
+      updatedItemsCount = itemsToShow + ITEMS_PER_PAGE;
     }
-    setShowMoreClicked(!showMoreClicked);
+    setItemsToShow(updatedItemsCount);
+    // Show More/Less based on number of entries
+    setShowMoreClicked(displayedData.length <= updatedItemsCount);
   };
 
   return {
