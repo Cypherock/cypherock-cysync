@@ -1,5 +1,6 @@
 ---
+'@cypherock/cysync-core': patch
 '@cypherock/cysync-desktop': patch
 ---
 
-do not render fallback fonts
+Package google fonts and do not render fallback fonts
