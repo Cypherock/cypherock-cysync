@@ -34,12 +34,12 @@ export interface TransactionTableHeaderProps {
 }
 
 const TimeHeader = styled(TableHeader)`
-  padding: 16px 16px 16px 88px;
+  padding: 16px 16px 16px 40px;
 
   width: 42%;
   @media ${({ theme }) => theme.screens.lg} {
     width: 24%;
-    padding: 16px 16px 16px 104px;
+    padding: 16px 16px 16px 40px;
   }
 `;
 
@@ -74,7 +74,7 @@ const ValueHeader = styled(TableHeader)`
 `;
 
 const TimeHeaderForVariant = styled(TableHeader)`
-  padding: 16px 16px 16px 88px;
+  padding: 16px 16px 16px 40px;
 
   width: 42%;
 `;
