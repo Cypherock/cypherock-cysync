@@ -47,7 +47,7 @@ const FillerStyle = styled.div<AllocationShareProps>`
 
 export const AllocationShare: FC<AllocationShareProps> = ({ ...props }) => (
   <AllocationShareStyle {...props}>
-    <Typography variant="p" color="muted" mr={2} width="70px">
+    <Typography variant="p" color="muted" mr={2} $minWidth="70px">
       {props.percentage.toFixed(2)}%
     </Typography>
     <BackgroundStyle {...props}>

@@ -59,7 +59,7 @@ export interface ContactSupportDialogContextInterface {
   setCanAttatchAppLogs: React.Dispatch<React.SetStateAction<boolean>>;
   canAttatchDeviceLogs: boolean;
   onAttachDeviceLogs: (doAttach: boolean) => Promise<void>;
-  isEmailError: boolean;
+  emailError: string | null;
   isCategoryError: boolean;
   isDescriptionError: boolean;
   isDesktopLogsLoading: boolean;
@@ -101,7 +101,7 @@ export const ContactSupportDialogProvider: FC<
   );
 
   const [error, setError] = useState<string | null>(null);
-  const [isEmailError, setIsEmailError] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [isCategoryError, setIsCategoryError] = useState(false);
   const [isDescriptionError, setIsDescriptionError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -116,7 +116,7 @@ export const ContactSupportDialogProvider: FC<
       isLoading ||
       isDesktopLogsLoading ||
       deviceLogsLoadingText !== undefined ||
-      isEmailError ||
+      emailError !== null ||
       email === null ||
       isCategoryError ||
       selectedCategory === undefined ||
@@ -126,7 +126,7 @@ export const ContactSupportDialogProvider: FC<
       isLoading,
       isDesktopLogsLoading,
       deviceLogsLoadingText,
-      isEmailError,
+      emailError,
       email,
       isCategoryError,
       selectedCategory,
@@ -190,20 +190,19 @@ export const ContactSupportDialogProvider: FC<
 
   useEffect(() => {
     if (email === null) {
-      setIsEmailError(false);
+      setEmailError(null);
       return;
     }
 
     const result = validateEmail(email, lang);
     if (!result.success) {
-      setIsEmailError(true);
-      setError(result.error.errors[0].message);
+      setEmailError(result.error.errors[0].message);
       keyValueStore.email.remove();
       return;
     }
 
     setError(null);
-    setIsEmailError(false);
+    setEmailError(null);
     keyValueStore.email.set(email);
   }, [email]);
 
@@ -275,6 +274,7 @@ export const ContactSupportDialogProvider: FC<
       setCanAttatchDeviceLogs(false);
       setDeviceLogsLoadingText(undefined);
       setDeviceLogsErrorObject(undefined);
+      setDeviceLogs([]);
       return;
     }
 
@@ -338,7 +338,7 @@ export const ContactSupportDialogProvider: FC<
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
       onAttachDeviceLogs,
-      isEmailError,
+      emailError,
       isCategoryError,
       isDescriptionError,
       isDesktopLogsLoading,
@@ -369,7 +369,7 @@ export const ContactSupportDialogProvider: FC<
       setCanAttatchAppLogs,
       canAttatchDeviceLogs,
       onAttachDeviceLogs,
-      isEmailError,
+      emailError,
       isCategoryError,
       isDescriptionError,
       isDesktopLogsLoading,

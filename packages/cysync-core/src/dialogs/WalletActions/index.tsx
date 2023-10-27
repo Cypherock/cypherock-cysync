@@ -16,7 +16,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import { openGuidedFlowDialog } from '~/actions';
+import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
 import {
   GuidedFlowType,
   closeDialog,
@@ -46,7 +46,10 @@ export const WalletActionsDialogBox: FC = () => {
     <BlurOverlay>
       <DialogBox py={2} pb={0} width="full" $height="80vh">
         <Flex width="full" px={3} justify="flex-end">
-          <HelpButton text={lang.strings.help} />
+          <HelpButton
+            text={lang.strings.help}
+            onClick={() => dispatch(openContactSupportDialog())}
+          />
         </Flex>
         <ScrollableContainer height="full">
           <DialogBoxBody
