@@ -8,4 +8,4 @@ import {
 export const calculatePortfolioGraphDataWithWorker = createWorkerFunctionCaller<
   CalculatePortfolioGraphDataParams,
   ReturnType<typeof calculatePortfolioGraphData>
->(new URL('./rawWorker', import.meta.url));
+>(new URL('../../../generated/workers/graph', import.meta.url));

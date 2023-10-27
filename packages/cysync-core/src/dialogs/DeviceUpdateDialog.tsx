@@ -11,20 +11,36 @@ import { useDispatch } from 'react-redux';
 import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
 import {
+  DeviceHandlingState,
   ErrorHandlerDialog,
   closeDialog,
   selectLanguage,
   useAppSelector,
+  useDevice,
 } from '..';
 
 export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
+  const { deviceHandlingState } = useDevice();
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
 
-  const onClose = () => dispatch(closeDialog('deviceUpdateDialog'));
+  const onClose = () => {
+    if (
+      deviceHandlingState === DeviceHandlingState.BOOTLOADER &&
+      ![DeviceUpdateState.Successful, DeviceUpdateState.NotRequired].includes(
+        state,
+      )
+    ) {
+      // retry if closed from error; i.e., device is in bootloader & state is not Successful
+      onRetry();
+    } else {
+      // close if device not-in-bootloader or success
+      dispatch(closeDialog('deviceUpdateDialog'));
+    }
+  };
 
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) onClose();
