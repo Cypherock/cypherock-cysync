@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@cypherock/cysync-interfaces": "workspace:^",
+    "axios": "^1.4.0",
     "bignumber.js": "^9.1.1",
     "lodash": "^4.17.21"
   },

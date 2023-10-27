@@ -1,6 +1,5 @@
 import { evmCoinList } from '@cypherock/coins';
-import { BigNumber, assert } from '@cypherock/cysync-utils';
-import axios from 'axios';
+import { BigNumber, assert, makePostRequest } from '@cypherock/cysync-utils';
 
 import { IEvmContractTransactionResult, IEvmTransactionResult } from './types';
 
@@ -25,7 +24,7 @@ export const getTransactions = async (params: {
   };
   delete query.assetId;
 
-  const response = await axios.post(url, query);
+  const response = await makePostRequest(url, query);
 
   assert(
     typeof response.data.result === 'object',
@@ -51,7 +50,7 @@ export const getContractTransactions = async (params: {
   };
   delete query.assetId;
 
-  const response = await axios.post(url, query);
+  const response = await makePostRequest(url, query);
 
   return response.data;
 };
@@ -61,7 +60,7 @@ export const broadcastTransactionToBlockchain = async (
   assetId: string,
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     transaction: transaction.startsWith('0x')
       ? transaction.substring(2)
       : transaction,
@@ -78,7 +77,7 @@ export const broadcastTransactionToBlockchain = async (
 
 export const getAverageGasPrice = async (assetId: string) => {
   const url = `${baseURL}/fees`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     network: evmCoinList[assetId].network,
     responseType: 'v2',
   });
@@ -97,7 +96,7 @@ export const estimateGas = async (
   },
 ) => {
   const url = `${baseURL}/estimate-gas`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     ...params,
     network: evmCoinList[assetId].network,
     responseType: 'v2',
