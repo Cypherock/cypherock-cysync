@@ -43,6 +43,7 @@
       "inputs": ["icons/**"]
     },
     "@cypherock/cysync-core#prebuild": {
+      "dependsOn": ["^build"],
       "cache": true,
       "outputs": ["src/generated/**"],
       "inputs": [
@@ -51,6 +52,22 @@
         "scripts/dependencies/index.js",
         "scripts/dependencies/package.json"
       ]
+    },
+    "@cypherock/cysync-core#build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig_cjs.json",
+        "!src/generated/**"
+      ]
+    },
+    "@cypherock/cysync-core-workers#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json"]
     },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],

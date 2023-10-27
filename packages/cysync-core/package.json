@@ -12,14 +12,16 @@
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "build": "rimraf dist && pnpm build:esm",
     "build:dirty": "pnpm build:esm",
-    "build:esm": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json --outDir=./dist/esm && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg,js} dist/esm",
-    "build:cjs": "tsc -p tsconfig_cjs.json && tsc-alias -p tsconfig_cjs.json --outDir=./dist/cjs && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg,js} dist/cjs",
+    "build:esm": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json --outDir=./dist/esm && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg,js} src/**/**/*.{png,jpg,svg,jpeg,js} dist/esm",
+    "build:cjs": "tsc -p tsconfig_cjs.json && tsc-alias -p tsconfig_cjs.json --outDir=./dist/cjs && copyfiles -u 1 src/**/*.{png,jpg,svg,jpeg,js} src/**/**/*.{png,jpg,svg,jpeg,js} dist/cjs",
+    "build:dependencies": "bash ./scripts/prebuild.sh",
     "test": "jest",
     "pre-commit": "lint-staged",
-    "prebuild": "bash ./scripts/prebuild.sh"
+    "prebuild": "pnpm build:dependencies"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.22.5",
+    "@cypherock/cysync-core-workers": "workspace:^",
     "@cypherock/eslint-config": "workspace:^",
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
