@@ -275,6 +275,7 @@ export const ContactSupportDialogProvider: FC<
       setCanAttatchDeviceLogs(false);
       setDeviceLogsLoadingText(undefined);
       setDeviceLogsErrorObject(undefined);
+      setDeviceLogs([]);
       return;
     }
 
