@@ -8,7 +8,11 @@ exports.default = async function notarizing(context) {
     return;
   }
 
-  if (!process.env.APPLE_ID || !process.env.APPLE_ID_PASSWORD) {
+  if (
+    !process.env.APPLE_ID ||
+    !process.env.APPLE_ID_PASSWORD ||
+    !process.env.APPLE_TEAM_ID
+  ) {
     console.log('Notarization credentials not found');
     return;
   }
@@ -19,6 +23,8 @@ exports.default = async function notarizing(context) {
   return await notarize({
     appBundleId: config.appId,
     appPath: `${appOutDir}/${appName}.app`,
+    tool: 'notarytool',
+    teamId: process.env.APPLE_TEAM_ID,
     appleId: process.env.APPLE_ID,
     appleIdPassword: process.env.APPLE_ID_PASSWORD,
   });
