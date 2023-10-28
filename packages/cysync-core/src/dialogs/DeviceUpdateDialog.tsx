@@ -93,6 +93,7 @@ export const DeviceUpdateDialog: FC = () => {
     <BlurOverlay>
       <ErrorHandlerDialog
         error={errorToShow}
+        noDelay
         defaultMsg={
           lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
         }
