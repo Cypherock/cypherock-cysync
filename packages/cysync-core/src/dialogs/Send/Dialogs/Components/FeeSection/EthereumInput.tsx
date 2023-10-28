@@ -5,7 +5,6 @@ import {
   Typography,
   LangDisplay,
   Tag,
-  GoldQuestionMark,
   FeesSlider,
   FeesInput,
 } from '@cypherock/cysync-ui';
@@ -73,7 +72,6 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
                 <Typography variant="span" color="muted" $fontSize={13}>
                   <LangDisplay text={inputLabels.gasPrice} />
                 </Typography>
-                <GoldQuestionMark height={14} width={14} />
               </Flex>
 
               <Flex align="flex-end" direction="row" gap={8} ml="auto">
@@ -100,7 +98,6 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
                 <Typography variant="span" color="muted" $fontSize={13}>
                   <LangDisplay text={inputLabels.gasPrice} />
                 </Typography>
-                <GoldQuestionMark height={14} width={14} />
               </Flex>
             </Flex>
             <FeesInput
@@ -116,7 +113,6 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
                 <Typography variant="span" color="muted" $fontSize={13}>
                   <LangDisplay text={inputLabels.gasLimit} />
                 </Typography>
-                <GoldQuestionMark height={14} width={14} />
               </Flex>
             </Flex>
             <FeesInput

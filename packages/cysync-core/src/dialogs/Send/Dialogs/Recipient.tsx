@@ -8,7 +8,6 @@ import {
   Container,
   ScrollableContainer,
   DialogBox,
-  GoldQuestionMark,
   LeanBox,
   InformationIcon,
   useTheme,
@@ -91,7 +90,6 @@ export const Recipient: React.FC = () => {
           altText={getBalanceToDisplay()}
           textVariant="span"
           fontSize={12}
-          rightImage={<GoldQuestionMark height={14} width={14} />}
         />
       </DialogBoxBody>
       <ScrollableContainer>

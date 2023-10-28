@@ -17,7 +17,6 @@ import {
   verifyAmountIcon,
   MessageBox,
   Image,
-  questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
@@ -176,9 +175,6 @@ export const DeviceAction: React.FC = () => {
         type="info"
         text={`${message.text} `}
         variables={message.variables}
-        rightImage={
-          <Image src={questionMarkGoldIcon} alt="question mark icon" />
-        }
       />
     ));
   };

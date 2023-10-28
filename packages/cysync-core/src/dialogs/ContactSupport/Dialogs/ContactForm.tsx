@@ -21,7 +21,7 @@ import {
   Typography,
   useTheme,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { DeviceHandlingState, useDevice } from '~/context';
 import { ILangState, selectLanguage, useAppSelector } from '~/store';
@@ -79,7 +79,7 @@ export const ContactForm: React.FC = () => {
     isSubmitDisabled,
     email,
     setEmail,
-    isEmailError,
+    emailError,
     categories,
     selectedCategory,
     handleCategorySelection,
@@ -98,6 +98,13 @@ export const ContactForm: React.FC = () => {
   const theme = useTheme();
   const { buttons, dialogs } = strings;
   const { form } = dialogs.contactSupport;
+  const containerRef = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    // scroll to bottom to make the error visible
+    if (error || deviceLogsError)
+      containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
+  }, [error, deviceLogsError]);
 
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>
@@ -113,7 +120,7 @@ export const ContactForm: React.FC = () => {
         </Typography>
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
-      <ScrollableContainer>
+      <ScrollableContainer ref={containerRef}>
         <DialogBoxBody gap={0} p={0} align="stretch">
           <Flex px={5} py={4} gap={4} direction="column" align="center">
             <Typography $fontSize={20} color="white">
@@ -147,8 +154,14 @@ export const ContactForm: React.FC = () => {
                   label={form.field.email.label}
                   value={email ?? ''}
                   onChange={setEmail}
-                  $error={isEmailError}
+                  $error={emailError !== null}
                 />
+                {/* show email validation error just below the input */}
+                {emailError && (
+                  <Typography $fontSize={16} pb={4} color="error">
+                    {emailError}
+                  </Typography>
+                )}
                 <Flex direction="column" align="stretch" gap={0}>
                   <InputLabel>
                     <LangDisplay text={form.field.category.label} />
