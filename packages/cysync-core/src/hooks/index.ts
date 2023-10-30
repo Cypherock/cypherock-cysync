@@ -19,3 +19,4 @@ export * from './useAssetAllocations';
 export * from './useGraph';
 export * from './useAssetDropdown';
 export * from './useSubAccounts';
+export * from './useWalletSync';

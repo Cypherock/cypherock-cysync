@@ -1,13 +1,14 @@
-import { SideBarState as State } from '@cypherock/cysync-ui';
+import {
+  SideBarState as State,
+  ThemeType,
+  useTheme,
+} from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { DefaultTheme, useTheme } from 'styled-components';
 
-import { openContactSupportDialog, syncWalletsWithDevice } from '~/actions';
-import { useQuery, useNavigateTo } from '~/hooks';
-
-import { useDevice } from './device';
+import { openContactSupportDialog } from '~/actions';
+import { useQuery, useNavigateTo, useWalletSync } from '~/hooks';
 
 import {
   useAppDispatch,
@@ -25,7 +26,7 @@ export interface SidebarContextInterface {
   strings: ILangState['strings']['sidebar'];
   getState: (page: Page) => State;
   navigate: (page: Page) => void;
-  theme: DefaultTheme;
+  theme: ThemeType;
   isWalletCollapsed: boolean;
   setIsWalletCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   navigateWallet: (id: string | undefined) => void;
@@ -54,9 +55,9 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const strings = useAppSelector(selectLanguage).strings.sidebar;
   const { wallets, deletedWallets, syncWalletStatus } =
     useAppSelector(selectWallets);
-  const theme = useTheme()!;
+  const theme = useTheme();
   const navigateTo = useNavigateTo();
-  const { connection, connectDevice } = useDevice();
+  const { onWalletSync } = useWalletSync();
 
   const [isWalletCollapsed, setIsWalletCollapsed] = React.useState(false);
 
@@ -92,17 +93,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       setIsWalletCollapsed(false);
     }
   }, [location.pathname]);
-
-  const onWalletSync = (e: any) => {
-    e.stopPropagation();
-    dispatch(
-      syncWalletsWithDevice({
-        connection,
-        connectDevice,
-        doFetchFromDevice: true,
-      }),
-    );
-  };
 
   const ctx = useMemo(
     () => ({
