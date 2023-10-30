@@ -1,5 +1,4 @@
 import {
-  QuestionMarkButton,
   Typography,
   DialogBox,
   DialogBoxBody,
@@ -81,8 +80,7 @@ export const CardTap: React.FC<CardTapProps> = ({
       <DialogBoxBody gap={48}>
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={lang.strings.onboarding.cardAuth.title} /> (
-            <QuestionMarkButton />)
+            <LangDisplay text={lang.strings.onboarding.cardAuth.title} />
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay text={lang.strings.onboarding.cardAuth.subtext} />
