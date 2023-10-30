@@ -103,7 +103,7 @@ export const ContactForm: React.FC = () => {
   useEffect(() => {
     // scroll to bottom to make the error visible
     if (error || deviceLogsError)
-      containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
+      containerRef.current?.scrollTo(0, containerRef.current.scrollHeight);
   }, [error, deviceLogsError]);
 
   return (
