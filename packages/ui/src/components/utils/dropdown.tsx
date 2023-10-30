@@ -5,26 +5,27 @@ import { DropDownListItemProps } from '../molecules';
 export const findSelectedItem = (
   menuItems: DropDownListItemProps[],
   selectedId: string | undefined,
-): DropDownListItemProps | undefined => {
-  for (const item of menuItems) {
-    if (item.id === selectedId) {
-      return item;
-    }
-  }
-  return undefined;
-};
+): DropDownListItemProps | undefined =>
+  menuItems.find(item => item.id === selectedId);
 
 export const searchInItems = (
   menuItems: DropDownListItemProps[],
   searchString: string,
 ): DropDownListItemProps[] => {
   const filteredItems: DropDownListItemProps[] = [];
+
   for (const item of menuItems) {
     const shouldAdd = item.text
       .toLowerCase()
       .includes(searchString.toLowerCase());
 
     if (shouldAdd) {
+      if (item.$parentId) {
+        const parentItem = findSelectedItem(menuItems, item.$parentId);
+        if (parentItem && !findSelectedItem(filteredItems, parentItem.id)) {
+          filteredItems.push(parentItem);
+        }
+      }
       filteredItems.push(item);
     }
   }
