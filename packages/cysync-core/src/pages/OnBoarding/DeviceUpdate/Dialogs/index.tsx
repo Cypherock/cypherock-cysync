@@ -81,6 +81,7 @@ export const DeviceUpdateDialogBox: FC = () => {
   return (
     <ErrorHandlerDialog
       error={errorToShow}
+      noDelay
       defaultMsg={
         lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
       }

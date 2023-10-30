@@ -23,9 +23,11 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   selectedWallet,
   showCloseButton,
   suppressActions,
+  noDelay,
 }) => {
   const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
+    noDelay,
     isOnboarding,
     onRetry,
     onClose,
