@@ -6,8 +6,8 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React from 'react';
 
-import { openWalletActionsDialog, syncWalletsWithDevice } from '~/actions';
-import { useDevice } from '~/context';
+import { openWalletActionsDialog } from '~/actions';
+import { useWalletSync } from '~/hooks';
 import {
   useAppSelector,
   selectLanguage,
@@ -26,20 +26,10 @@ const selector = createSelector(
 export const NoWallet = () => {
   const { lang, syncWalletStatus } = useAppSelector(selector);
   const dispatch = useAppDispatch();
-  const { connection, connectDevice } = useDevice();
+  const { onWalletSync } = useWalletSync();
 
   const handleAddWalletClick = () => {
     dispatch(openWalletActionsDialog());
-  };
-
-  const handleWalletSync = () => {
-    dispatch(
-      syncWalletsWithDevice({
-        connection,
-        connectDevice,
-        doFetchFromDevice: true,
-      }),
-    );
   };
 
   return (
@@ -53,7 +43,7 @@ export const NoWallet = () => {
         $buttonTwo={lang.strings.buttons.syncWallets}
         $buttonTwoIsLoading={syncWalletStatus === 'loading'}
         onClick={handleAddWalletClick}
-        onClickTwo={handleWalletSync}
+        onClickTwo={onWalletSync}
         $noLoaderContainer
       />
     </NoAccountWrapper>
