@@ -116,7 +116,7 @@ const getTransactionsNotifications = async (state: RootState) => {
   }
 
   return {
-    transactions: lodash.sortBy(transactions, t => t.timestamp),
+    transactions: lodash.orderBy(transactions, [t => t.timestamp], ['desc']),
     unRead: totalUnread,
   };
 };
