@@ -75,7 +75,10 @@ export const LineGraph: React.FC<LineGraphProps> = ({
 
     const dataPoint = tooltip.dataPoints[0];
 
-    const { timestamp, value } = data[dataPoint.dataIndex];
+    const { timestamp, value } = data[dataPoint.dataIndex] ?? {
+      timestamp: 0,
+      value: 0,
+    };
     const chartRect = chart.canvas.getBoundingClientRect();
 
     return {
@@ -88,7 +91,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
       chartLeft: chartRect.left,
       pointX: tooltip.caretX,
       pointY: tooltip.caretY,
-      isVisible: tooltip.opacity !== 0,
+      isVisible: tooltip.opacity !== 0 && data.length > dataPoint.dataIndex,
       chartPadding: 40,
     };
   };
@@ -165,6 +168,18 @@ export const LineGraph: React.FC<LineGraphProps> = ({
         intersect: false,
         position: 'nearest',
         external: externalTooltipHandler,
+      },
+    },
+    animation: false,
+    animations: {
+      colors: false,
+      x: false,
+    },
+    transitions: {
+      active: {
+        animation: {
+          duration: 0,
+        },
       },
     },
   };

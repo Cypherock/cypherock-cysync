@@ -157,9 +157,7 @@ export default function createApp() {
 
   app.on('window-all-closed', () => {
     mainWindow = null;
-    if (process.platform !== 'darwin') {
-      app.quit();
-    }
+    app.quit();
   });
 
   app.on('second-instance', (_event, argv, workingDirectory) => {

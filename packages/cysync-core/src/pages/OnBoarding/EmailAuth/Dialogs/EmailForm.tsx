@@ -1,5 +1,4 @@
 import {
-  QuestionMarkButton,
   DialogBoxFooter,
   Button,
   Typography,
@@ -66,13 +65,10 @@ export const EmailForm: React.FC = () => {
           <Image src={emailIconOutlined} alt="Email Icon" />
           <Flex direction="column" gap={4}>
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={lang.strings.onboarding.emailAuth.title} /> (
-              <QuestionMarkButton />)
+              <LangDisplay text={lang.strings.onboarding.emailAuth.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" mb={2} color="muted">
               <LangDisplay text={lang.strings.onboarding.emailAuth.subtitle} />{' '}
-              (
-              <QuestionMarkButton />)
             </Typography>
           </Flex>
 
