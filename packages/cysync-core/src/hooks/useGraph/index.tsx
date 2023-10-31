@@ -1,5 +1,5 @@
 import {
-  formatDisplayAmount,
+  formatDisplayPrice,
   getDefaultUnit,
 } from '@cypherock/coin-support-utils';
 import { ICoinUnit } from '@cypherock/coins';
@@ -225,8 +225,8 @@ export const useGraph = (props?: UseGraphProps) => {
     };
 
     if (isDiscreetMode) return '****';
-    if (showGraphInUSD) return appendUnit(formatDisplayAmount(value, 2, true));
-    return appendUnit(formatDisplayAmount(value));
+    if (showGraphInUSD) return appendUnit(formatDisplayPrice(value));
+    return appendUnit(formatDisplayPrice(value));
   };
 
   const formatTooltipValue = useCallback<

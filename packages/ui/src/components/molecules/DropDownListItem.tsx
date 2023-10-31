@@ -119,6 +119,7 @@ export const DropDownListItemRightContent = styled.div`
 const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
   font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
   font-weight: 400;
+  white-space: nowrap;
 `;
 
 export const DropDownListItem: FC<DropDownListItemProps> = ({

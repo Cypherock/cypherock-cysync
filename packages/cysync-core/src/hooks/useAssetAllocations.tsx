@@ -3,6 +3,7 @@ import {
   getDefaultUnit,
   getAsset,
   formatDisplayAmount,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
@@ -214,14 +215,10 @@ export const useAssetAllocations = ({
               data.isDiscreetMode ? '****' : formatDisplayAmount(amount)
             } ${unit.abbr}`,
             displayPrice: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.price, 2, true)
+              data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
             }`,
             displayValue: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.value, 2, true)
+              data.isDiscreetMode ? '****' : formatDisplayPrice(r.value)
             }`,
             ...accountProperties,
           };

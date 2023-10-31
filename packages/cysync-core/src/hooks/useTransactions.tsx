@@ -5,6 +5,7 @@ import {
   getZeroUnit,
   getDefaultUnit,
   getAsset,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import {
   SvgProps,
@@ -64,8 +65,8 @@ export interface TransactionRowData {
   dateTime: string;
   date: string;
   dateHeader: string;
-  amount: number;
-  value: number;
+  amount: string;
+  value: string;
   explorerLink: string;
   txn: ITransaction;
   isGroupHeader: boolean;
@@ -182,11 +183,10 @@ export const mapTransactionForDisplay = (params: {
       coinId: transaction.parentAssetId,
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
     });
-    const feeValue = new BigNumber(feeInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayFeeValue = `$${feeValue}`;
+    const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
+      coinPrice.latestPrice,
+    );
+    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
   }
 
   if (assetPrice) {
@@ -199,11 +199,14 @@ export const mapTransactionForDisplay = (params: {
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
         .abbr,
     });
-    value = new BigNumber(amountInDefaultUnit.amount)
-      .multipliedBy(assetPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(amountInDefaultUnit.amount).multipliedBy(
+        assetPrice.latestPrice,
+      ),
+      2,
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
   }
 
   const timestamp = new Date(transaction.timestamp);
@@ -234,8 +237,8 @@ export const mapTransactionForDisplay = (params: {
     displayValue: isDiscreetMode ? '$****' : displayValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
-    amount: parseFloat(amount),
-    value: parseFloat(value),
+    amount,
+    value,
     accountIcon: ({ width, height }: any) => (
       <CoinIcon
         parentAssetId={transaction.parentAssetId}

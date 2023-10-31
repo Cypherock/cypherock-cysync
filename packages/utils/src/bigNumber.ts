@@ -61,6 +61,10 @@ export class BigNumber {
     return this.num.isZero();
   }
 
+  isInteger() {
+    return this.num.isInteger();
+  }
+
   isGreaterThan(n: NumberLike, base?: number) {
     return this.num.isGreaterThan(BigNumber.getNumberLike(n), base);
   }
@@ -93,8 +97,13 @@ export class BigNumber {
     return this.num.toString(base);
   }
 
-  toFixed(decimalPlaces: number, roundingMode?: RoundingMode) {
-    return this.num.toFixed(decimalPlaces, roundingMode);
+  toFixed(decimalPlaces?: number, roundingMode?: RoundingMode) {
+    let result;
+
+    if (decimalPlaces) result = this.num.toFixed(decimalPlaces, roundingMode);
+    else result = this.num.toFixed();
+
+    return result;
   }
 
   toPrecision(decimalPlaces: number, roundingMode?: RoundingMode) {
