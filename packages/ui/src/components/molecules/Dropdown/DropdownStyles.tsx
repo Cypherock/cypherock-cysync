@@ -70,7 +70,6 @@ export const DropdownContainer = styled.div<{
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
-  border: ${({ disabled }) => (disabled ? 'none' : 'default')};
 `;
 
 export const IconContainer = styled.div`

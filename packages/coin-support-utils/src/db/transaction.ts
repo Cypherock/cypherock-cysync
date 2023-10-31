@@ -41,7 +41,7 @@ export const insertOrUpdateTransactions = async (
         delete newTxn.confirmations;
 
         if (isSubset(newTxn, existingTxn)) {
-          return;
+          continue;
         }
       }
 
@@ -111,7 +111,7 @@ export const insertOrUpdatePriceInfo = async (
 
     const existingPriceInfo = await db.priceInfo.getOne(query);
     if (existingPriceInfo) {
-      if (isSubset(priceInfo, existingPriceInfo)) return;
+      if (isSubset(priceInfo, existingPriceInfo)) continue;
 
       await db.priceInfo.update({ __id: existingPriceInfo.__id }, priceInfo);
     } else {
@@ -143,7 +143,7 @@ export const insertOrUpdatePriceHistory = async (
 
     const existingPriceHistory = await db.priceHistory.getOne(query);
     if (existingPriceHistory) {
-      if (isSubset(priceHistory, existingPriceHistory)) return;
+      if (isSubset(priceHistory, existingPriceHistory)) continue;
 
       await db.priceHistory.update(
         { __id: existingPriceHistory.__id },

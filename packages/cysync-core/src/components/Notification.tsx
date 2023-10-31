@@ -16,7 +16,6 @@ import {
   IAccount,
   ITransaction,
   IWallet,
-  TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -149,7 +148,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
       id: t.__id ?? '',
       icon: transactionIconMap[t.type],
       title: getDisplayTransactionType(t, lang.strings),
-      status: TransactionStatusMap.success,
+      status: t.status,
       description: (
         <Container display="inline-block">
           <CoinIcon

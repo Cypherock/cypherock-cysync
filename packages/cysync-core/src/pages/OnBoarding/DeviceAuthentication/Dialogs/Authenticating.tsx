@@ -5,7 +5,6 @@ import {
   Image,
   LangDisplay,
   loaderIcon,
-  QuestionMarkButton,
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -22,7 +21,6 @@ export const DeviceAuthenticating: React.FC = () => {
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.title} />
-            (<QuestionMarkButton />)
           </Typography>
           <Typography variant="h6" $textAlign="center" color="muted">
             <LangDisplay text={lang.strings.onboarding.deviceAuth.subtext} />
