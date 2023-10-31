@@ -4,7 +4,7 @@ import semver from 'semver';
 
 import { IDeviceConnectionInfo, useDevice } from '..';
 
-import { DeviceTask, useDeviceTask } from '.';
+import { DeviceTask, useDeviceTask, useStateWithRef } from '.';
 
 export enum DeviceUpdateState {
   Checking,
@@ -24,7 +24,10 @@ export const useDeviceUpdate = () => {
   const [state, setState] = useState(DeviceUpdateState.Checking);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [internalState, setInternalState] = useState(InternalState.Checking);
-  const [version, setVersion] = useState<string | undefined>();
+  const [version, setVersion, versionRef] = useStateWithRef<string | undefined>(
+    undefined,
+  );
+  const firmwareRef = useRef<Uint8Array | undefined>(undefined);
   const [errorToShow, setErrorToShow] = useState<Error | undefined>();
 
   const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
@@ -40,8 +43,15 @@ export const useDeviceUpdate = () => {
 
   const updateFirmwareTask: DeviceTask<void> = async con => {
     const app = await ManagerApp.create(con);
+    const versionArr = versionRef.current?.split('.') ?? [];
 
     await app.updateFirmware({
+      firmware: firmwareRef.current,
+      version: {
+        major: parseInt(versionArr[0], 10),
+        minor: parseInt(versionArr[1], 10),
+        patch: parseInt(versionArr[2], 10),
+      },
       getDevices,
       createConnection: connectDevice,
       onProgress: setDownloadProgress,
@@ -82,8 +92,10 @@ export const useDeviceUpdate = () => {
       setStateWithResetError(DeviceUpdateState.Checking);
       const result = await ManagerApp.getLatestFirmware({
         prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
+        doDownload: true,
       });
       setVersion(result.version);
+      firmwareRef.current = result.firmware;
 
       if (
         connection?.firmwareVersion &&

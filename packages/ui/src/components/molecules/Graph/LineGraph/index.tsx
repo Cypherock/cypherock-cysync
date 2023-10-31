@@ -170,6 +170,18 @@ export const LineGraph: React.FC<LineGraphProps> = ({
         external: externalTooltipHandler,
       },
     },
+    animation: false,
+    animations: {
+      colors: false,
+      x: false,
+    },
+    transitions: {
+      active: {
+        animation: {
+          duration: 0,
+        },
+      },
+    },
   };
 
   const getChartData = () => {
