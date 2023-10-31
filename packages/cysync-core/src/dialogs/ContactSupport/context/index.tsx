@@ -72,13 +72,19 @@ export const ContactSupportDialogContext: Context<ContactSupportDialogContextInt
     {} as ContactSupportDialogContextInterface,
   );
 
-export interface ContactSupportDialogProviderProps {
+export interface IContactSupportDialogProps {
+  providedDescription?: string;
+  errorCategory?: string;
+}
+
+export interface ContactSupportDialogProviderProps
+  extends IContactSupportDialogProps {
   children: ReactNode;
 }
 
 export const ContactSupportDialogProvider: FC<
   ContactSupportDialogProviderProps
-> = ({ children }) => {
+> = ({ children, providedDescription, errorCategory }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
@@ -89,15 +95,17 @@ export const ContactSupportDialogProvider: FC<
     { text: 'Others', id: 'Others' },
   ];
 
-  const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(false);
+  const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(true);
   const [canAttatchDeviceLogs, setCanAttatchDeviceLogs] =
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [description, setDescription] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(
+    providedDescription ?? null,
+  );
   const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
   const [deviceLogs, setDeviceLogs] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    categories[0].id,
+    errorCategory ?? categories[0].id,
   );
 
   const [error, setError] = useState<string | null>(null);
@@ -388,3 +396,8 @@ export const ContactSupportDialogProvider: FC<
 export function useContactSupportDialog(): ContactSupportDialogContextInterface {
   return useContext(ContactSupportDialogContext);
 }
+
+ContactSupportDialogProvider.defaultProps = {
+  providedDescription: undefined,
+  errorCategory: undefined,
+};

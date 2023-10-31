@@ -10,6 +10,9 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
+  contactSupportDialog: {
+    isOpen: false,
+  },
   appUpdateDialog: {
     isOpen: false,
   },
@@ -68,9 +71,6 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   historyDialog: {
-    isOpen: false,
-  },
-  contactSupportDialog: {
     isOpen: false,
   },
 };

@@ -3,8 +3,11 @@ import React, { FC } from 'react';
 
 import {
   ContactSupportDialogProvider,
+  IContactSupportDialogProps,
   useContactSupportDialog,
 } from './context';
+
+export type { IContactSupportDialogProps } from './context';
 
 const ContactSupport: FC = () => {
   const { currentDialog, tabs, currentTab } = useContactSupportDialog();
@@ -12,8 +15,8 @@ const ContactSupport: FC = () => {
   return <BlurOverlay>{tabs[currentTab]?.dialogs[currentDialog]}</BlurOverlay>;
 };
 
-export const ContactSupportDialog: FC = () => (
-  <ContactSupportDialogProvider>
+export const ContactSupportDialog: FC<IContactSupportDialogProps> = props => (
+  <ContactSupportDialogProvider {...props}>
     <ContactSupport />
   </ContactSupportDialogProvider>
 );
