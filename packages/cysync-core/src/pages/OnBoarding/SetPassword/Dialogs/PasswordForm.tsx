@@ -1,6 +1,5 @@
 import {
   PasswordInput,
-  QuestionMarkButton,
   DialogBoxFooter,
   Button,
   Typography,
@@ -63,8 +62,7 @@ export const PasswordForm: React.FC<{
         <DialogBoxBody>
           <Flex direction="column" gap={4}>
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={lang.strings.onboarding.setPassword.title} /> (
-              <QuestionMarkButton />)
+              <LangDisplay text={lang.strings.onboarding.setPassword.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" mb={2} color="muted">
               <LangDisplay
