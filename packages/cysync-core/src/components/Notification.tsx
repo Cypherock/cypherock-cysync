@@ -11,6 +11,7 @@ import {
   Typography,
   useTheme,
   Check,
+  FloatContainer,
 } from '@cypherock/cysync-ui';
 import {
   IAccount,
@@ -151,13 +152,15 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
       status: t.status,
       description: (
         <Container display="inline-block">
-          <CoinIcon
-            parentAssetId={t.parentAssetId}
-            assetId={t.assetId}
-            size="12px"
-            containerProps={{ display: 'inline' }}
-          />
-
+          <FloatContainer floatDirection="left">
+            <Flex $height="24px" align="center">
+              <CoinIcon
+                parentAssetId={t.parentAssetId}
+                assetId={t.assetId}
+                size="12px"
+              />
+            </Flex>
+          </FloatContainer>
           <Typography
             color="muted"
             $fontSize={14}
