@@ -3,11 +3,11 @@ import React, { FC } from 'react';
 
 import {
   ContactSupportDialogProvider,
-  IContactSupportDialogProps,
   useContactSupportDialog,
 } from './context';
+import { IContactSupportDialogProps } from './context/types';
 
-export type { IContactSupportDialogProps } from './context';
+export * from './context/types';
 
 const ContactSupport: FC = () => {
   const { currentDialog, tabs, currentTab } = useContactSupportDialog();

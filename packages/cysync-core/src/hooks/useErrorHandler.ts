@@ -4,6 +4,7 @@ import React from 'react';
 import { openContactSupportDialog } from '~/actions/dialog';
 import { deleteWallets } from '~/actions/wallet/deleteWallets';
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
+import { SupportCategoryMap } from '~/dialogs/ContactSupport';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
   ErrorActionButtonHandler,
@@ -70,7 +71,7 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         dispatch(
           openContactSupportDialog({
             providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
-            errorCategory: 'Complaint',
+            errorCategory: SupportCategoryMap.Complaint,
           }),
         );
       },
@@ -78,7 +79,7 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         dispatch(
           openContactSupportDialog({
             providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
-            errorCategory: 'Complaint',
+            errorCategory: SupportCategoryMap.Complaint,
           }),
         );
       },
