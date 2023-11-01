@@ -107,11 +107,14 @@ export const prepareTransaction = async (
     txn.userInputs.outputs[0].amount = result.outputs[0].value.toString();
   }
 
+  const isValidFee = result.fee > 0;
+
   return {
     ...txn,
     validation: {
       outputs: outputsAddresses,
       hasEnoughBalance,
+      isValidFee,
     },
     computedData: {
       inputs: result.inputs ?? [],

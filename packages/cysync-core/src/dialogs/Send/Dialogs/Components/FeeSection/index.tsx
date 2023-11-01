@@ -227,7 +227,12 @@ export const FeeSection: React.FC = () => {
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         }
       />
-      {isFeeLow && <MessageBox type="warning" text={displayText.warning} />}
+      {isFeeLow && transaction?.validation.isValidFee && (
+        <MessageBox type="warning" text={displayText.warning} />
+      )}
+      {!transaction?.validation.isValidFee && (
+        <MessageBox type="danger" text={displayText.feeError} />
+      )}
     </Container>
   );
 };
