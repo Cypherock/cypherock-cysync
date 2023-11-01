@@ -71,6 +71,7 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-items: center;
   gap: 16px;
   align-self: stretch;
+  min-height: 53px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
   background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
     if ($isFocused) {

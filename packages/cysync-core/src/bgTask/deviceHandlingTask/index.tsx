@@ -1,5 +1,7 @@
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import {
+  DeviceAppError,
+  DeviceAppErrorType,
   DeviceCommunicationError,
   DeviceCommunicationErrorType,
 } from '@cypherock/sdk-interfaces';
@@ -56,6 +58,18 @@ export const DeviceHandlingTask: React.FC = () => {
     },
     [DeviceHandlingState.NOT_AUTHENTICATED]: async () => {
       dispatch(openDeviceAuthenticationDialog());
+    },
+    [DeviceHandlingState.BUSY]: async () => {
+      const error = new DeviceAppError(
+        DeviceAppErrorType.EXECUTING_OTHER_COMMAND,
+      );
+      dispatch(
+        openErrorDialog({
+          error,
+          showCloseButton: true,
+          suppressActions: true,
+        }),
+      );
     },
     [DeviceHandlingState.UNKNOWN_ERROR]: async () => {
       const error = new DeviceCommunicationError(

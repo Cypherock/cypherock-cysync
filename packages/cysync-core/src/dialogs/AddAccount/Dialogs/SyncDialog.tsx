@@ -14,7 +14,6 @@ import {
   settingsIcon,
   Flex,
   Toggle,
-  QuestionMarkButton,
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -275,8 +274,7 @@ export const AddAccountSyncDialog: FC = () => {
                     $fontWeight="normal"
                     $textAlign="right"
                   >
-                    <LangDisplay text={strings.advancedButton} />(
-                    <QuestionMarkButton />)
+                    <LangDisplay text={strings.advancedButton} />
                   </InputLabel>
                   <Toggle
                     checked={isAdvanceChecked}
