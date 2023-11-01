@@ -46,8 +46,13 @@ export const LatestDeviceVersionProvider: React.FC<
   };
 
   useEffect(() => {
-    fetchLatestVersion();
-  }, [connection]);
+    const minutes = 15;
+    const checkUpdateInterval = setInterval(
+      fetchLatestVersion,
+      minutes * 60 * 1000,
+    );
+    return () => clearInterval(checkUpdateInterval);
+  }, [connection, fetchLatestVersion, ManagerApp.getLatestFirmware]);
 
   const ctx = useMemo(
     () => ({
