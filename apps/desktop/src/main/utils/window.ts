@@ -22,6 +22,13 @@ export const getAppWindowSize = (isLoadingWindow = false) => {
   const { width: deviceWidth, height: deviceHeight } =
     screen.getPrimaryDisplay().workAreaSize;
 
+  return {
+    width: deviceWidth,
+    height: deviceHeight,
+    minWidth: deviceWidth,
+    minHeight: deviceHeight,
+  };
+
   const minHeight = Math.min(700, deviceHeight);
   const minWidth = Math.min(1024, deviceWidth);
 
