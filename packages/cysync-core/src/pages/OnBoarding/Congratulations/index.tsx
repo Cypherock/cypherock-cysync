@@ -1,8 +1,8 @@
 import { ConfettiBlast, Container, SuccessDialog } from '@cypherock/cysync-ui';
 import { sleep } from '@cypherock/cysync-utils';
 import React, { useEffect } from 'react';
-import { openWalletActionsDialog } from '~/actions';
 
+import { openWalletActionsDialog } from '~/actions';
 import { routes } from '~/constants';
 import { useDevice } from '~/context';
 import { useNavigateTo } from '~/hooks';
