@@ -1,5 +1,5 @@
-import path from 'node:path';
 import { release } from 'node:os';
+import path from 'node:path';
 
 import { sleep } from '@cypherock/cysync-utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
