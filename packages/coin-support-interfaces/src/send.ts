@@ -11,6 +11,7 @@ export interface IPreparedTransaction {
   validation: {
     outputs: boolean[];
     hasEnoughBalance: boolean;
+    isValidFee: boolean;
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];
