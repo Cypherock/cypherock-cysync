@@ -7,6 +7,7 @@ import { DeviceState, IDevice } from '@cypherock/sdk-interfaces';
 export enum DeviceConnectionStatus {
   CONNECTED,
   INCOMPATIBLE,
+  BUSY,
   UNKNOWN_ERROR,
 }
 
@@ -41,5 +42,6 @@ export enum DeviceHandlingState {
   NOT_ONBOARDED,
   NOT_AUTHENTICATED,
   USABLE,
+  BUSY,
   UNKNOWN_ERROR,
 }
