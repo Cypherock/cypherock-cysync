@@ -7,10 +7,10 @@ type FloatDirection = 'left' | 'right';
 
 export interface FloatProps extends UtilsProps {
   children: React.ReactNode;
-  floatDirection: FloatDirection;
+  $floatDirection: FloatDirection;
 }
 
-export const FloatContainer = styled.span<{ floatDirection: FloatDirection }>`
-  float: ${props => props.floatDirection};
+export const FloatContainer = styled.span<{ $floatDirection: FloatDirection }>`
+  float: ${props => props.$floatDirection};
   ${utils}
 `;

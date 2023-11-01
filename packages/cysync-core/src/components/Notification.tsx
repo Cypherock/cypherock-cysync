@@ -152,7 +152,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
       status: t.status,
       description: (
         <Container display="inline-block">
-          <FloatContainer floatDirection="left">
+          <FloatContainer $floatDirection="left">
             <Flex $height="24px" align="center">
               <CoinIcon
                 parentAssetId={t.parentAssetId}
