@@ -21,6 +21,7 @@ export const initializeTransaction = async (
     validation: {
       outputs: [],
       hasEnoughBalance: true,
+      isValidFee: true,
     },
     userInputs: {
       outputs: [],
