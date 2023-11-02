@@ -95,7 +95,7 @@ export const Recipient: React.FC = () => {
       </DialogBoxBody>
       <ScrollableContainer>
         <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
-        <FeeSection />
+        <FeeSection showErrors={isAccountSelectionDisabled} />
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (
