@@ -72,7 +72,9 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     if (!connectionInfo || !(await keyValueStore.isOnboardingCompleted.get()))
       return;
 
-    if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
+    if (connectionInfo.status === DeviceConnectionStatus.BUSY) {
+      setDeviceHandlingState(DeviceHandlingState.BUSY);
+    } else if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
       setDeviceHandlingState(DeviceHandlingState.INCOMPATIBLE);
     } else if (
       connectionInfo.status === DeviceConnectionStatus.CONNECTED &&

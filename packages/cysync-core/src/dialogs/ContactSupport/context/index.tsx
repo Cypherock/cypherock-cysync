@@ -33,6 +33,8 @@ import {
   IParsedError,
 } from '~/utils';
 
+import { IContactSupportDialogProps, SupportCategoryMap } from './types';
+
 import { ContactForm, ContactSupportSuccess } from '../Dialogs';
 
 export interface ContactSupportDialogContextInterface {
@@ -72,32 +74,35 @@ export const ContactSupportDialogContext: Context<ContactSupportDialogContextInt
     {} as ContactSupportDialogContextInterface,
   );
 
-export interface ContactSupportDialogProviderProps {
+export interface ContactSupportDialogProviderProps
+  extends IContactSupportDialogProps {
   children: ReactNode;
 }
 
 export const ContactSupportDialogProvider: FC<
   ContactSupportDialogProviderProps
-> = ({ children }) => {
+> = ({ children, providedDescription, errorCategory }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
 
   const categories: DropDownListItemProps[] = [
-    { text: 'Feedback', id: 'Feedback' },
-    { text: 'Complaint', id: 'Complaint' },
-    { text: 'Others', id: 'Others' },
+    { text: 'Feedback', id: SupportCategoryMap.Feedback },
+    { text: 'Complaint', id: SupportCategoryMap.Complaint },
+    { text: 'Others', id: SupportCategoryMap.Others },
   ];
 
-  const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(false);
+  const [canAttatchAppLogs, setCanAttatchAppLogs] = useState<boolean>(true);
   const [canAttatchDeviceLogs, setCanAttatchDeviceLogs] =
     useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [description, setDescription] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(
+    providedDescription ?? null,
+  );
   const [desktopLogs, setDesktopLogs] = useState<string[]>([]);
   const [deviceLogs, setDeviceLogs] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    categories[0].id,
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    errorCategory ?? SupportCategoryMap.Complaint,
   );
 
   const [error, setError] = useState<string | null>(null);
@@ -143,9 +148,11 @@ export const ContactSupportDialogProvider: FC<
     setIsLoading(true);
     setError(null);
 
-    const category = categories.find(c => c.id === selectedCategory);
-
-    if (email === null || description === null || category === undefined) {
+    if (
+      email === null ||
+      description === null ||
+      selectedCategory === undefined
+    ) {
       setIsLoading(false);
       return;
     }
@@ -153,7 +160,7 @@ export const ContactSupportDialogProvider: FC<
     try {
       await sendFeedback(
         email,
-        category.text,
+        selectedCategory,
         description,
         desktopLogs,
         deviceLogs,
@@ -170,7 +177,7 @@ export const ContactSupportDialogProvider: FC<
   };
 
   const handleCategorySelection = (id: string | undefined) => {
-    setSelectedCategory(id);
+    setSelectedCategory(id ?? SupportCategoryMap.Feedback);
   };
 
   const tabs: ITabs = [

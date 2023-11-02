@@ -39,6 +39,7 @@ const connectionStatesMap: Record<
 > = {
   [DeviceConnectionStatus.CONNECTED]: 'connected',
   [DeviceConnectionStatus.INCOMPATIBLE]: 'error',
+  [DeviceConnectionStatus.BUSY]: 'error',
   [DeviceConnectionStatus.UNKNOWN_ERROR]: 'error',
 };
 
