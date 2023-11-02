@@ -1,7 +1,8 @@
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import semver from 'semver';
 
+import { useStateToRef } from '~/hooks';
 import { DeviceConnectionStatus, useDevice } from '..';
 
 export interface LatestDeviceVersionContextInterface {
@@ -20,11 +21,15 @@ export interface LatestDeviceVersionProviderProps {
 export const LatestDeviceVersionProvider: React.FC<
   LatestDeviceVersionProviderProps
 > = ({ children }) => {
-  const { connection } = useDevice();
+  const { connection: connectionInfo } = useDevice();
   const [version, setVersion] = React.useState<string | undefined>();
 
-  const fetchLatestVersion = async () => {
+  const connectionRef = useStateToRef({ connectionInfo });
+
+  const fetchLatestVersion = useCallback(async () => {
     setVersion(undefined);
+    const connection = connectionRef.current.connectionInfo;
+
     if (
       !connection ||
       connection.status !== DeviceConnectionStatus.CONNECTED ||
@@ -43,7 +48,7 @@ export const LatestDeviceVersionProvider: React.FC<
       return;
 
     setVersion(result.version);
-  };
+  }, []);
 
   useEffect(() => {
     const minutes = 15;
@@ -52,7 +57,7 @@ export const LatestDeviceVersionProvider: React.FC<
       minutes * 60 * 1000,
     );
     return () => clearInterval(checkUpdateInterval);
-  }, [connection, fetchLatestVersion, ManagerApp.getLatestFirmware]);
+  }, [fetchLatestVersion]);
 
   const ctx = useMemo(
     () => ({
