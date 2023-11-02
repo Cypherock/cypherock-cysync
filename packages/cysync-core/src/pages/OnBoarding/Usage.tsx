@@ -7,8 +7,8 @@ import {
   Flex,
   LangDisplay,
   Typography,
-  UserExpert,
-  UserFirstTime,
+  UserExpertGraphics,
+  UserFirstTimeGraphics,
   cysyncLogoBig,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -45,9 +45,9 @@ const UsageCard: React.FC<UsageCardProps> = ({ isNewUser, title, note }) => {
       <DialogBoxBody p={0} gap={0}>
         <Flex py={4} px={5} gap={32} direction="column" align="center">
           {isNewUser ? (
-            <UserFirstTime height={150} />
+            <UserFirstTimeGraphics height={150} />
           ) : (
-            <UserExpert height={150} />
+            <UserExpertGraphics height={150} />
           )}
           <Typography $fontSize={20} $alignSelf="stretch" $textAlign="center">
             <LangDisplay text={title} />

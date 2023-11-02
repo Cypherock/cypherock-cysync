@@ -11,7 +11,7 @@ import {
   LangDisplay,
   LogoOutlinedAsideImage,
   openExternalLink,
-  TermsOfUse,
+  TermsOfUseGraphics,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, {
@@ -97,7 +97,7 @@ const TermsDialogBox: FC<{
   return (
     <DialogBox width={500} direction="column">
       <DialogBoxBody gap={32} direction="column" align="center">
-        <TermsOfUse width={45} />
+        <TermsOfUseGraphics width={45} />
         <Container display="flex" direction="column" gap={4}>
           <Typography $textAlign="center" variant="h5" color="heading">
             <LangDisplay text={title} />
