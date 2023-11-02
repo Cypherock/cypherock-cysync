@@ -101,11 +101,11 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         <AmountInput
           label={displayText.amount.label}
           coinUnit={selectedAccount?.unit ?? ''}
-          toggleLabel={displayText.amount.toggle}
+          toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
           error={
-            transaction?.validation.hasEnoughBalance === false
+            transaction?.validation.hasEnoughBalance === false && !disableInputs
               ? displayText.amount.error
               : ''
           }
