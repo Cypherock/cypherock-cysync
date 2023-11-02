@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
+import { TooltipStyles } from './atoms';
+
 import { SvgStyle } from '../assets';
 
 export const svgGradients = {
@@ -41,6 +43,7 @@ export const Styles = createGlobalStyle`
 export const GlobalStyles: React.FC = () => (
   <>
     <Styles />
+    <TooltipStyles />
     <SvgStyle width={0} height={0} position="absolute" $zIndex={-50}>
       <defs>
         <linearGradient id={svgGradients.gold}>

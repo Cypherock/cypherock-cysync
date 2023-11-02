@@ -1,4 +1,5 @@
 import { release } from 'node:os';
+import path from 'node:path';
 
 import { sleep } from '@cypherock/cysync-utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
@@ -46,6 +47,16 @@ const shouldStartApp = () => {
 };
 
 const prepareApp = () => {
+  if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+      app.setAsDefaultProtocolClient('cypherock', process.execPath, [
+        path.resolve(process.argv[1]),
+      ]);
+    }
+  } else {
+    app.setAsDefaultProtocolClient('cypherock');
+  }
+
   setupProcessEventHandlers();
   setupDependencies();
   setupIPCHandlers(ipcMain, getWebContents);
@@ -197,6 +208,15 @@ export default function createApp() {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }
+  });
+
+  app.on('open-url', (event, url) => {
+    // Handle deeplink for macos
+    logger.info('Deeplink received');
+    logger.info({ event, url });
+    event.preventDefault();
+
+    handleUriOpen(url);
   });
 
   app.on('activate', () => {

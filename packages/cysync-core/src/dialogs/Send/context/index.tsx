@@ -10,6 +10,7 @@ import {
 import {
   convertToUnit,
   formatDisplayAmount,
+  formatDisplayPrice,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
@@ -473,7 +474,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     else result = result.multipliedBy(coinPrice.latestPrice);
 
     if (result.isNaN()) return '';
-    return result.toPrecision(2).toString();
+    return invert ? formatDisplayAmount(result) : formatDisplayPrice(result);
   };
 
   const updateUserInputs = (count: number) => {

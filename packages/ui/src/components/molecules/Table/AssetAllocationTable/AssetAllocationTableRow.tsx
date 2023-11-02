@@ -5,7 +5,7 @@ import { AssetAllocationTableVariant } from './types';
 import { AllocationShare } from '../AllocationShare';
 import { TableIconNameBox } from '../TableIconNameBox';
 import { TableNameBox } from '../TableNameBox';
-import { RowWrapper } from '../TableStyles';
+import { RowContainer, RowWrapper } from '../TableStyles';
 
 export interface AssetAllocationTableRowProps {
   assetIcon: ReactNode;
@@ -39,24 +39,26 @@ export const AssetAllocationTableRow: React.FC<
       style={style}
       $height="80px"
     >
-      <TableIconNameBox
-        icon={row.assetIcon}
-        title={variant === 'accounts' ? row.accountName ?? '' : row.assetAbbr}
-        subtitle={variant === 'accounts' ? undefined : row.assetName}
-        tag={variant === 'accounts' ? row.accountTag : undefined}
-        width={{ def: '26%', lg: '24%' }}
-      />
-      <TableNameBox
-        text={variant === 'accounts' ? row.walletName ?? '' : row.price}
-        width="18%"
-      />
-      <TableNameBox text={row.balance} width="18%" />
-      <TableNameBox text={row.value} width="18%" />
-      <AllocationShare
-        percentage={row.allocation}
-        color={color}
-        width={{ def: '20%', lg: '24%' }}
-      />
+      <RowContainer>
+        <TableIconNameBox
+          icon={row.assetIcon}
+          title={variant === 'accounts' ? row.accountName ?? '' : row.assetAbbr}
+          subtitle={variant === 'accounts' ? undefined : row.assetName}
+          tag={variant === 'accounts' ? row.accountTag : undefined}
+          width={{ def: '26%', lg: '24%' }}
+        />
+        <TableNameBox
+          text={variant === 'accounts' ? row.walletName ?? '' : row.price}
+          width="18%"
+        />
+        <TableNameBox text={row.balance} width="18%" showTooltip />
+        <TableNameBox text={row.value} width="18%" />
+        <AllocationShare
+          percentage={row.allocation}
+          color={color}
+          width={{ def: '20%', lg: '24%' }}
+        />
+      </RowContainer>
     </RowWrapper>
   );
 };
