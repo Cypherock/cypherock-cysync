@@ -107,13 +107,7 @@ export const useAppUpdate = () => {
     } finally {
       setIsUpdatesChecked(true);
     }
-  }, [
-    setIsUpdatesChecked,
-    setAppUpdateState,
-    autoUpdater.checkForUpdates,
-    setUpdateInfo,
-    onError,
-  ]);
+  }, []);
 
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
