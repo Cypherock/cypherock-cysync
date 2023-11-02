@@ -1,6 +1,6 @@
 import { IBalanceHistory } from '@cypherock/coin-support-interfaces';
 import {
-  formatDisplayAmount,
+  formatDisplayPrice,
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
@@ -85,7 +85,7 @@ const calculatePortfolioGraphSummary = (
       if (priceInfo) {
         conversionRate = `1 ${
           getDefaultUnit(parentAssetId, assetId).abbr
-        } = $ ${formatDisplayAmount(priceInfo.latestPrice, 2, true)}`;
+        } = $ ${formatDisplayPrice(priceInfo.latestPrice)}`;
       }
     }
   }
@@ -148,16 +148,14 @@ const calculatePortfolioGraphSummary = (
       changeValue = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
     } else {
       changeValue = `$${
-        isDiscreetMode
-          ? '****'
-          : formatDisplayAmount(changeValueInNumber, 2, true)
+        isDiscreetMode ? '****' : formatDisplayPrice(changeValueInNumber)
       }`;
     }
   }
 
   return {
     totalValue: `$${
-      isDiscreetMode ? '****' : formatDisplayAmount(currentValue, 2, true)
+      isDiscreetMode ? '****' : formatDisplayPrice(currentValue)
     }`,
     totalBalance: currentBalance,
     conversionRate,

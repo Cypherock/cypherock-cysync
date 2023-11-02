@@ -4,6 +4,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
+import { formatDisplayPrice } from '@cypherock/coin-support-utils/src/unit';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -75,7 +76,7 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
               isDiscreetMode ? '****' : formatDisplayAmount(amount)
             } ${unit.abbr}`,
             displayValue: `$${
-              isDiscreetMode ? '****' : formatDisplayAmount(value, 2, true)
+              isDiscreetMode ? '****' : formatDisplayPrice(value)
             }`,
           };
         }),

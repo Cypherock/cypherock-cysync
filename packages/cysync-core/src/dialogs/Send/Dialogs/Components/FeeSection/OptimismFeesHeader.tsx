@@ -4,6 +4,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { Divider, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -51,11 +52,10 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
         coinId: account.parentAssetId,
         toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       });
-      const value = new BigNumber(feesInDefaultUnit.amount)
-        .multipliedBy(coinPrice.latestPrice)
-        .toFixed(2)
-        .toString();
-      return `$${value}`;
+      const value = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
+        coinPrice.latestPrice,
+      );
+      return `$${formatDisplayPrice(value)}`;
     }
     return '';
   };
