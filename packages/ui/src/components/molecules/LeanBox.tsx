@@ -10,12 +10,14 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
+  Container,
 } from '../atoms';
 import { UtilsProps, spacing } from '../utils';
 
 export interface LeanBoxProps extends UtilsProps {
   leftImage?: React.ReactNode;
   rightImage?: React.ReactNode;
+  bottomText?: string;
   rightText?: string;
   tag?: string;
   text: string;
@@ -105,6 +107,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   disabled,
   altText,
   fontSize,
+  bottomText,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -148,32 +151,42 @@ export const LeanBox: FC<LeanBoxProps> = ({
           />
         )}
         {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
-        <ContainerWrap>
-          <StretchedTypography
-            $shouldStretch={!tag}
-            variant={textVariant}
-            color={color}
-            $fontSize={fontSize}
-          >
-            {text}
-          </StretchedTypography>
-          {image && image}
-          {altText && (
-            <StretchedTypography
-              variant={textVariant}
-              color="white"
-              $fontSize={fontSize}
-            >
-              {altText}
+        <Container direction="column" align="flex-start">
+          <Container direction="row" align="flex-start" gap={16}>
+            <ContainerWrap>
+              <StretchedTypography
+                $shouldStretch={!tag}
+                variant={textVariant}
+                color={color}
+                $fontSize={fontSize}
+              >
+                {text}
+              </StretchedTypography>
+              {image && image}
+              {altText && (
+                <StretchedTypography
+                  variant={textVariant}
+                  color="white"
+                  $fontSize={fontSize}
+                >
+                  {altText}
+                </StretchedTypography>
+              )}
+            </ContainerWrap>
+            {shortForm && (
+              <Typography $fontSize={13} $fontWeight="medium" color="muted">
+                <LangDisplay text={shortForm} />
+              </Typography>
+            )}
+            {tag && <Tag>{tag}</Tag>}
+          </Container>
+
+          {bottomText && (
+            <StretchedTypography color="muted" $fontSize={12}>
+              {bottomText}
             </StretchedTypography>
           )}
-        </ContainerWrap>
-        {shortForm && (
-          <Typography $fontSize={13} $fontWeight="medium" color="muted">
-            <LangDisplay text={shortForm} />
-          </Typography>
-        )}
-        {tag && <Tag>{tag}</Tag>}
+        </Container>
         <RightContent>
           {rightText && (
             <Typography
@@ -217,5 +230,6 @@ LeanBox.defaultProps = {
   value: '',
   tag: '',
   shortForm: '',
+  bottomText: '',
   disabled: undefined,
 };

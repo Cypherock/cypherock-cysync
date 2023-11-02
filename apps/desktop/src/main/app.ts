@@ -86,7 +86,9 @@ export default function createApp() {
 
   const createMainWindow = async () => {
     logger.debug('Starting main window');
-    mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    const mw = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    mainWindow = mw.win;
+
     setupListeners(mainWindow.webContents);
     autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
@@ -122,11 +124,24 @@ export default function createApp() {
         loadingWindow.destroy();
       }
     });
+
+    mainWindow.once('show', () => {
+      if (mw.showFullscreen && mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.setFullScreen(true);
+      }
+    });
+
+    mainWindow.on('enter-full-screen', () => {
+      if (mw.showFullscreen && mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.setFullScreenable(false);
+      }
+    });
   };
 
   const createLoadingWindow = () => {
     logger.debug('Starting loading window');
-    loadingWindow = createWindowAndOpenUrl(windowUrls.loadingWindowUrl, true);
+    const lw = createWindowAndOpenUrl(windowUrls.loadingWindowUrl, true);
+    loadingWindow = lw.win;
 
     loadingWindow.once('ready-to-show', async () => {
       logger.debug('Loading window loaded');
