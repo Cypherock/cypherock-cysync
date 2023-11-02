@@ -1,5 +1,5 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { autoUpdater } from '~/utils';
 import logger from '~/utils/logger';
@@ -92,7 +92,7 @@ export const useAppUpdate = () => {
     retryFuncMap[internalState]();
   };
 
-  const checkForUpdates = async () => {
+  const checkForUpdates = useCallback(async () => {
     try {
       setIsUpdatesChecked(false);
       setAppUpdateState(AppUpdateState.Checking);
@@ -107,7 +107,13 @@ export const useAppUpdate = () => {
     } finally {
       setIsUpdatesChecked(true);
     }
-  };
+  }, [
+    setIsUpdatesChecked,
+    setAppUpdateState,
+    autoUpdater.checkForUpdates,
+    setUpdateInfo,
+    onError,
+  ]);
 
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
