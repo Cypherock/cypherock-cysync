@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 
 import { ConnectingLine, SvgProps } from '../../../assets';
@@ -33,16 +33,23 @@ export const DappConnectedLogo: React.FC<DappConnectedLogoProps> = ({
   dappLogoUrl,
   cySyncLogo,
 }) => {
-  const [showConnection, setShowConnection] = React.useState(false);
+  const [showFallbackLogo, setShowFallbackLogo] = React.useState(false);
+
+  useEffect(() => {
+    setShowFallbackLogo(false);
+  }, [dappLogoUrl]);
+
   const onError = () => {
-    setShowConnection(true);
+    setShowFallbackLogo(true);
   };
-  if (showConnection)
+
+  if (showFallbackLogo)
     return (
       <Flex align="center">
         <WalletConnectLogo width={50} height={50} />
       </Flex>
     );
+
   return (
     <Flex align="center">
       <LargeLogoContainer>
