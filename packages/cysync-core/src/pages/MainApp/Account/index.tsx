@@ -8,11 +8,13 @@ import {
   ArrowReceivedIcon,
   SvgProps,
   WalletConnectWithBgIcon,
+  DeleteIconWithBg,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import {
+  openDeleteAccountDialog,
   openReceiveDialog,
   openSendDialog,
   openWalletConnectDialog,
@@ -48,25 +50,12 @@ export const AccountPage: FC = () => {
     walletDropdownList,
   } = useAccountPage();
 
-  return (
-    <MainAppLayout
-      topbar={{
-        title: selectedAccount?.name ?? '',
-        icon: (
-          <CoinIcon
-            parentAssetId={selectedAccount?.parentAssetId ?? ''}
-            assetId={selectedAccount?.assetId}
-            size={{ def: '24px', lg: '32px' }}
-            containerSize={{ def: '32px', lg: '40px' }}
-            withBackground
-            withParentIconAtBottom
-            subIconSize={{ def: '12px', lg: '18px' }}
-          />
-        ),
-        subTitle: lodash.upperCase(selectedAccount?.asset?.name ?? ''),
-        tag: lodash.upperCase(selectedAccount?.derivationScheme ?? ''),
-      }}
-    >
+  const getMainContent = () => {
+    if (!selectedAccount) {
+      return null;
+    }
+
+    return (
       <Container $noFlex m="20">
         <Flex justify="space-between" my={2}>
           <Breadcrumb items={breadcrumbItems} />
@@ -76,8 +65,8 @@ export const AccountPage: FC = () => {
               onClick={() =>
                 dispatch(
                   openSendDialog({
-                    accountId: selectedAccount?.__id,
-                    walletId: selectedAccount?.walletId,
+                    accountId: selectedAccount.__id,
+                    walletId: selectedAccount.walletId,
                   }),
                 )
               }
@@ -94,8 +83,8 @@ export const AccountPage: FC = () => {
               onClick={() =>
                 dispatch(
                   openReceiveDialog({
-                    accountId: selectedAccount?.__id,
-                    walletId: selectedAccount?.walletId,
+                    accountId: selectedAccount.__id,
+                    walletId: selectedAccount.walletId,
                   }),
                 )
               }
@@ -107,10 +96,10 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
-            {supportedWalletConnectFamilies.includes(
-              selectedAccount?.familyId ?? '',
-            ) && (
-              <Container pl={{ def: 0, mdlg: 4 }}>
+            <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
+              {supportedWalletConnectFamilies.includes(
+                selectedAccount.familyId ?? '',
+              ) && (
                 <Button
                   variant="icon"
                   onClick={() => {
@@ -119,8 +108,25 @@ export const AccountPage: FC = () => {
                 >
                   <WalletConnectWithBgIcon />
                 </Button>
-              </Container>
-            )}
+              )}
+
+              {!selectedAccount.parentAccount && (
+                <Button
+                  variant="icon"
+                  onClick={() => {
+                    if (selectedAccount)
+                      dispatch(
+                        openDeleteAccountDialog({
+                          account: selectedAccount,
+                          wallet: selectedAccount.wallet,
+                        }),
+                      );
+                  }}
+                >
+                  <DeleteIconWithBg />
+                </Button>
+              )}
+            </Container>
           </Flex>
         </Flex>
 
@@ -131,12 +137,12 @@ export const AccountPage: FC = () => {
             walletDropdownList={walletDropdownList}
             accountId={accountId}
             color={
-              selectedAccount?.asset?.color ?? coinList[BtcIdMap.bitcoin].color
+              selectedAccount.asset?.color ?? coinList[BtcIdMap.bitcoin].color
             }
           />
         </Container>
 
-        {selectedAccount?.familyId === coinFamiliesMap.evm && accountId && (
+        {selectedAccount.familyId === coinFamiliesMap.evm && accountId && (
           <Container $noFlex mb={2}>
             <TokenTable accountId={accountId} onClick={onAccountChange} />
           </Container>
@@ -151,6 +157,29 @@ export const AccountPage: FC = () => {
           />
         </Container>
       </Container>
+    );
+  };
+
+  return (
+    <MainAppLayout
+      topbar={{
+        title: selectedAccount?.name ?? '',
+        icon: selectedAccount ? (
+          <CoinIcon
+            parentAssetId={selectedAccount.parentAssetId ?? ''}
+            assetId={selectedAccount.assetId}
+            size={{ def: '24px', lg: '32px' }}
+            containerSize={{ def: '32px', lg: '40px' }}
+            withBackground
+            withParentIconAtBottom
+            subIconSize={{ def: '12px', lg: '18px' }}
+          />
+        ) : undefined,
+        subTitle: lodash.upperCase(selectedAccount?.asset?.name ?? ''),
+        tag: lodash.upperCase(selectedAccount?.derivationScheme ?? ''),
+      }}
+    >
+      {getMainContent()}
     </MainAppLayout>
   );
 };

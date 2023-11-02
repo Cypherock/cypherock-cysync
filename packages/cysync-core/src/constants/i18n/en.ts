@@ -1024,6 +1024,17 @@ const en = {
       subText: 'Please try searching another keywords',
     },
   },
+  deleteAccount: {
+    title: 'Are you sure you want to remove ${accountName}?',
+    titleWithTag:
+      'Are you sure you want to remove ${accountName} [${accountTag}]?',
+    subTitle:
+      'You can add the account again from the ${walletName} wallet page. Note that this will not result in loss of assets',
+    buttons: {
+      yes: 'Yes',
+      no: 'No',
+    },
+  },
   errors: {
     deviceErrors,
     databaseError,
