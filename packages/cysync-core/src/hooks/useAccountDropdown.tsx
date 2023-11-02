@@ -1,5 +1,4 @@
-import { getAsset, getParsedAmount } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { getParsedAmount } from '@cypherock/coin-support-utils';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -80,9 +79,9 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
           />
         ),
         text: account.name,
-        shortForm: `(${coinList[account.assetId].abbr})`,
         tag: lodash.upperCase(account.derivationScheme),
         rightText: getBalanceToDisplay(account),
+        showRightTextOnBottom: true,
       });
 
       if (props.includeSubAccounts) {
@@ -90,27 +89,20 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
           subAccount => subAccount.parentAccountId === account.__id,
         );
         accountsList.push(
-          ...subAccounts.map(subAccount => {
-            const asset = getAsset(
-              subAccount.parentAssetId,
-              subAccount.assetId,
-            );
-
-            return {
-              id: subAccount.__id,
-              checkType: 'radio' as any,
-              leftImage: (
-                <CoinIcon
-                  parentAssetId={subAccount.parentAssetId}
-                  assetId={subAccount.assetId}
-                />
-              ),
-              text: subAccount.name,
-              shortForm: `(${asset.abbr})`,
-              rightText: getBalanceToDisplay(subAccount),
-              $parentId: account.__id,
-            };
-          }),
+          ...subAccounts.map(subAccount => ({
+            id: subAccount.__id,
+            checkType: 'radio' as any,
+            leftImage: (
+              <CoinIcon
+                parentAssetId={subAccount.parentAssetId}
+                assetId={subAccount.assetId}
+              />
+            ),
+            text: subAccount.name,
+            rightText: getBalanceToDisplay(subAccount),
+            showRightTextOnBottom: true,
+            $parentId: account.__id,
+          })),
         );
       }
     }
