@@ -145,7 +145,7 @@ export default function createApp() {
         if (connectionString && mainWindow && !mainWindow.isDestroyed()) {
           getSendWCConnectionString()(connectionString);
         }
-        setWCUri(connectionString);
+        setWCUri(connectionString ?? undefined);
       }
     } catch (error) {
       logger.error('Error in handling URL');

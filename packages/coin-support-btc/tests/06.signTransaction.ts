@@ -56,6 +56,7 @@ const transaction = {
   validation: {
     hasEnoughBalance: true,
     outputs: [true],
+    isValidFee: true,
   },
 };
 
