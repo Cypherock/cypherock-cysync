@@ -5,6 +5,7 @@ import {
   getZeroUnit,
   getDefaultUnit,
   getAsset,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import {
   SvgProps,
@@ -182,11 +183,10 @@ export const mapTransactionForDisplay = (params: {
       coinId: transaction.parentAssetId,
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
     });
-    const feeValue = new BigNumber(feeInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayFeeValue = `$${feeValue}`;
+    const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
+      coinPrice.latestPrice,
+    );
+    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
   }
 
   if (assetPrice) {
@@ -199,11 +199,14 @@ export const mapTransactionForDisplay = (params: {
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
         .abbr,
     });
-    value = new BigNumber(amountInDefaultUnit.amount)
-      .multipliedBy(assetPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(amountInDefaultUnit.amount).multipliedBy(
+        assetPrice.latestPrice,
+      ),
+      2,
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
   }
 
   const timestamp = new Date(transaction.timestamp);

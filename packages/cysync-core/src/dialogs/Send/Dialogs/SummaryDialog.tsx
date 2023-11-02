@@ -1,7 +1,11 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import {
+  getDefaultUnit,
+  getParsedAmount,
+  formatDisplayPrice,
+} from '@cypherock/coin-support-utils';
 import { CoinFamily, evmCoinList } from '@cypherock/coins';
 import {
   LangDisplay,
@@ -54,10 +58,9 @@ export const SummaryDialog: React.FC = () => {
         amount: output.amount,
         unitAbbr: account.unit,
       });
-      const value = new BigNumber(amount)
-        .multipliedBy(coinPrice.latestPrice)
-        .toPrecision(2)
-        .toString();
+      const value = formatDisplayPrice(
+        new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      );
 
       return [
         {
@@ -141,7 +144,7 @@ export const SummaryDialog: React.FC = () => {
       parentAssetPrice.latestPrice,
     );
 
-    const totalValue = amountValue.plus(feeValue).toPrecision(2).toString();
+    const totalValue = formatDisplayPrice(amountValue.plus(feeValue));
 
     return [
       {
@@ -167,10 +170,9 @@ export const SummaryDialog: React.FC = () => {
       unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
     });
 
-    const value = new BigNumber(amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toPrecision(2)
-      .toString();
+    const value = formatDisplayPrice(
+      new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+    );
 
     details.push({
       id: 'fee-details',
