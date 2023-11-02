@@ -21,7 +21,7 @@ const formatDisplayValue = (value: NumberLike, decimal = 0) => {
   )
     number = new BigNumber(value);
 
-  const fixed = parseFloat(number.toFixed(decimal)).toString();
+  const fixed = new BigNumber(number.toFixed(decimal)).toFixed();
   const complete = number.toFixed();
   return { fixed, complete };
 };

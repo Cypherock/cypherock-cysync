@@ -65,8 +65,8 @@ export interface TransactionRowData {
   dateTime: string;
   date: string;
   dateHeader: string;
-  amount: string;
-  value: string;
+  amount: number;
+  value: number;
   explorerLink: string;
   txn: ITransaction;
   isGroupHeader: boolean;
@@ -237,8 +237,8 @@ export const mapTransactionForDisplay = (params: {
     displayValue: isDiscreetMode ? '$****' : displayValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
-    amount,
-    value,
+    amount: parseFloat(amount),
+    value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
       <CoinIcon
         parentAssetId={transaction.parentAssetId}

@@ -3,7 +3,7 @@ import React from 'react';
 
 export { TooltipStyles } from './styles';
 
-interface TooltipProps {
+export interface TooltipProps {
   isActive?: boolean;
   text?: string;
   children: React.ReactElement;
