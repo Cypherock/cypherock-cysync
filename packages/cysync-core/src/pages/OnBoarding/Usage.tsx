@@ -1,17 +1,17 @@
 import {
-  Container,
+  AlertBox,
+  Button,
   DialogBox,
   DialogBoxBody,
+  DialogBoxFooter,
+  Flex,
   LangDisplay,
   Typography,
+  UserExpert,
+  UserFirstTime,
   cysyncLogoBig,
-  DialogBoxFooter,
-  Button,
-  Flex,
-  Image,
-  usageIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
@@ -20,153 +20,59 @@ import { keyValueStore } from '~/utils';
 
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
-const UsageDialogBox: FC<{
-  titleFirst: string;
-  titleSecond: string;
-  subTitleFirst: string;
-  subTitleSecond: string;
-  buttonText: string;
-}> = ({
-  buttonText,
-  subTitleFirst,
-  subTitleSecond,
-  titleFirst,
-  titleSecond,
-}) => {
+interface UsageCardProps {
+  isNewUser: boolean;
+  title: string;
+  note: string;
+}
+
+const UsageCard: React.FC<UsageCardProps> = ({ isNewUser, title, note }) => {
+  const lang = useAppSelector(selectLanguage);
+  const { buttons } = lang.strings;
+
   const navigateTo = useNavigateTo();
-  const [isNewUserButtonLoading, setIsNewUserButtonLoading] = useState(false);
-  const [isExistingUserButtonLoading, setIsExistingUserButtonLoading] =
-    useState(false);
-  const toNextPage = async (isNewUser: boolean) => {
-    await keyValueStore.isNewUser.set(isNewUser);
-    setIsExistingUserButtonLoading(false);
-    setIsNewUserButtonLoading(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toNextPage = async (isNewUserParam: boolean) => {
+    setIsLoading(true);
+    await keyValueStore.isNewUser.set(isNewUserParam);
+    setIsLoading(false);
     navigateTo(routes.onboarding.terms.path);
   };
 
   return (
-    <Flex
-      gap={20}
-      direction={{
-        def: 'column',
-        lg: 'row',
-      }}
-    >
-      <DialogBox
-        direction="column"
-        width={{
-          def: 458,
-          lg: 500,
-        }}
-        height={{
-          def: 276,
-          lg: 483,
-        }}
-      >
-        <DialogBoxBody
-          grow={2}
-          align="center"
-          gap={{ def: 26, lg: 43.5 }}
-          direction="column"
-          height="full"
+    <DialogBox p={0} width={500}>
+      <DialogBoxBody p={0} gap={0}>
+        <Flex py={4} px={5} gap={32} direction="column" align="center">
+          {isNewUser ? (
+            <UserFirstTime height={150} />
+          ) : (
+            <UserExpert height={150} />
+          )}
+          <Typography $fontSize={20} $alignSelf="stretch" $textAlign="center">
+            <LangDisplay text={title} />
+          </Typography>
+        </Flex>
+        <Flex pt={2} pb={4} px={5}>
+          <AlertBox height="114px" subAlert={note} variant="messageTertiary" />
+        </Flex>
+      </DialogBoxBody>
+      <DialogBoxFooter py={4} px={5}>
+        <Button
+          variant="primary"
+          disabled={isLoading}
+          onClick={() => toNextPage(isNewUser)}
         >
-          <Image $width={45} src={usageIcon} alt="usageIcon" />
-          <Flex gap={16} direction="column" height="full">
-            <Typography
-              $alignSelf="center"
-              variant="h5"
-              color="heading"
-              mb={1}
-              $allowOverflow
-            >
-              <LangDisplay text={titleFirst} />
-            </Typography>
-            <Container
-              height="full"
-              $borderRadius={8}
-              display={{ def: 'none', lg: 'block' }}
-              $bgColor="input"
-              px={2}
-              py={3}
-              align="flex-start"
-            >
-              <Typography variant="h6" color="muted">
-                <LangDisplay text={subTitleFirst} />
-              </Typography>
-            </Container>
-          </Flex>
-        </DialogBoxBody>
-        <DialogBoxFooter>
-          <Button
-            variant="primary"
-            isLoading={isNewUserButtonLoading}
-            onClick={() => {
-              setIsNewUserButtonLoading(true);
-              toNextPage(true);
-            }}
-          >
-            <LangDisplay text={buttonText} />
-          </Button>
-        </DialogBoxFooter>
-      </DialogBox>
-      <DialogBox
-        direction="column"
-        width={{ def: 458, lg: 500 }}
-        height={{ def: 276, lg: 483 }}
-      >
-        <DialogBoxBody
-          align="center"
-          direction="column"
-          grow={1}
-          gap={{ def: 26, lg: 43.5 }}
-          justify="evenly"
-          height="full"
-        >
-          <Image src={usageIcon} alt="usageIcon" />
-          <Flex gap={16} height="full" direction="column">
-            <Typography
-              $alignSelf="center"
-              variant="h5"
-              color="heading"
-              mb={1}
-              $allowOverflow
-            >
-              <LangDisplay text={titleSecond} />
-            </Typography>
-            <Container
-              height="full"
-              $borderRadius={8}
-              $bgColor="input"
-              align="flex-start"
-              display={{ def: 'none', lg: 'block' }}
-              px={2}
-              py={3}
-            >
-              <Typography variant="h6" color="muted">
-                <LangDisplay text={subTitleSecond} />
-              </Typography>
-            </Container>
-          </Flex>
-        </DialogBoxBody>
-        <DialogBoxFooter>
-          <Button
-            variant="primary"
-            isLoading={isExistingUserButtonLoading}
-            onClick={() => {
-              setIsExistingUserButtonLoading(true);
-              toNextPage(false);
-            }}
-          >
-            <LangDisplay text={buttonText} />
-          </Button>
-        </DialogBoxFooter>
-      </DialogBox>
-    </Flex>
+          <LangDisplay text={buttons.continue} />
+        </Button>
+      </DialogBoxFooter>
+    </DialogBox>
   );
 };
 
 export const Usage: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const { userExpert, userNew } = lang.strings.onboarding.usage;
 
   return (
     <OnboardingPageLayout
@@ -179,13 +85,14 @@ export const Usage: React.FC = () => {
       currentState={3}
       totalState={8}
     >
-      <UsageDialogBox
-        buttonText={lang.strings.buttons.continue}
-        subTitleFirst={lang.strings.onboarding.usage.subTitleFirst}
-        subTitleSecond={lang.strings.onboarding.usage.subTitleSecond}
-        titleFirst={lang.strings.onboarding.usage.titleFirst}
-        titleSecond={lang.strings.onboarding.usage.titleSecond}
-      />
+      <Flex gap={16}>
+        <UsageCard title={userNew.title} note={userNew.note} isNewUser />
+        <UsageCard
+          title={userExpert.title}
+          note={userExpert.note}
+          isNewUser={false}
+        />
+      </Flex>
     </OnboardingPageLayout>
   );
 };
