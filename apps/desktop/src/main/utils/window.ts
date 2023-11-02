@@ -3,6 +3,9 @@ import { app, BrowserWindow, screen, shell } from 'electron';
 import { config } from './config';
 import { windowUrls } from './urls';
 
+const MIN_SCREEN_WIDTH = 1440;
+const MIN_SCREEN_HEIGHT = 900;
+
 export const getAppWindowSize = (isLoadingWindow = false) => {
   if (isLoadingWindow) {
     return {
@@ -22,10 +25,11 @@ export const getAppWindowSize = (isLoadingWindow = false) => {
   const { width: deviceWidth, height: deviceHeight } =
     screen.getPrimaryDisplay().workAreaSize;
 
-  // const minHeight = Math.min(700, deviceHeight);
-  // const minWidth = Math.min(1024, deviceWidth);
-  const minHeight = Math.min(900, deviceHeight);
-  const minWidth = Math.min(1440, deviceWidth);
+  const minHeight = Math.min(MIN_SCREEN_HEIGHT, deviceHeight);
+  const minWidth = Math.min(MIN_SCREEN_WIDTH, deviceWidth);
+
+  const isMinScreen =
+    deviceWidth <= MIN_SCREEN_WIDTH || deviceHeight <= MIN_SCREEN_HEIGHT;
 
   // Calculate the optimal reduction factor for the window size
   const reductionFactor = Math.max(
@@ -45,6 +49,7 @@ export const getAppWindowSize = (isLoadingWindow = false) => {
     height: Math.floor(newHeight),
     minWidth,
     minHeight,
+    showFullscreen: isMinScreen,
   };
 };
 
@@ -73,7 +78,7 @@ export const createWindowAndOpenUrl = (
   url: string,
   isLoadingWindow = false,
 ) => {
-  const { width, height, minWidth, minHeight } =
+  const { width, height, minWidth, minHeight, showFullscreen } =
     getAppWindowSize(isLoadingWindow);
 
   const win = new BrowserWindow({
@@ -113,5 +118,5 @@ export const createWindowAndOpenUrl = (
     return { action: 'deny' };
   });
 
-  return win;
+  return { win, showFullscreen };
 };
