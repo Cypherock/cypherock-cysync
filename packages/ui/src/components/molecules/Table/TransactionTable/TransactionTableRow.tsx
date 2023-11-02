@@ -152,6 +152,7 @@ export const TransactionTableRow: React.FC<
                 : { def: '22%', lg: '15%' }
             }
             p={{ def: 2 }}
+            showTooltip
           />
           {(!isSmallScreen || variant === 'withTimeAndValues') && (
             <TableNameBox

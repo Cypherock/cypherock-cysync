@@ -56,7 +56,8 @@ export const Recipient: React.FC = () => {
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(
           output => output.address !== '' && output.amount !== '',
-        ),
+        ) &&
+        transaction.validation.isValidFee,
     );
   }, [transaction]);
 
@@ -94,7 +95,7 @@ export const Recipient: React.FC = () => {
       </DialogBoxBody>
       <ScrollableContainer>
         <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
-        <FeeSection />
+        <FeeSection showErrors={isAccountSelectionDisabled} />
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (

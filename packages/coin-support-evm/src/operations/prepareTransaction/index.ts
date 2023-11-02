@@ -148,12 +148,14 @@ export const prepareTransaction = async (
       sendAmount.plus(fee),
     );
   }
+  const isValidFee = fee.isGreaterThan(0);
 
   return {
     ...txn,
     validation: {
       outputs: outputsAddresses,
       hasEnoughBalance,
+      isValidFee,
     },
     computedData: {
       gasLimit,

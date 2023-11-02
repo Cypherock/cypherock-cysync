@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { Accordion } from './Accordion';
 
 import { useAccordion } from '../../../../hooks/useAccordion';
-import { Flex, Tag, Typography } from '../../../atoms';
+import { Flex, Tag, Tooltip, Typography } from '../../../atoms';
 import { SpacingProps, spacing, utils } from '../../../utils';
 import { RowWrapper, RowContainer, RowBackground } from '../TableStyles';
 
@@ -214,7 +214,11 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
           </StatusContainer>
 
           <BalanceContainer>
-            <FullWidthTypography color="muted">{amount}</FullWidthTypography>
+            <Tooltip text={amount}>
+              <Typography color="muted" width="fit-content">
+                {amount}
+              </Typography>
+            </Tooltip>
           </BalanceContainer>
 
           <ValueContainer>

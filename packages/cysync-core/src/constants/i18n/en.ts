@@ -532,6 +532,8 @@ const en = {
         label: 'Network Fees',
       },
       warning: 'Transaction might cancel if fees is very low',
+      feeError: 'Transaction with 0 fee is not allowed',
+      notEnoughBalance: 'Insufficient funds for transaction',
       toggleText: {
         replace: 'Allow the transaction to be replaced (Replace by fees)',
         unconfirmed: 'Include coins from unconfirmed, replaceable transactions',
