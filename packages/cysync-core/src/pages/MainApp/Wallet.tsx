@@ -4,7 +4,6 @@ import {
   Button,
   TableSearch,
   TableStructure,
-  ShowMore,
   BitcoinGray,
   SkeletonLoader,
   NoAccountWrapper,
@@ -12,11 +11,14 @@ import {
   NotFound,
   AccountTableHeader,
   AccountTableRow,
+  Container,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { useWalletPage } from './hooks';
 import { MainAppLayout } from './Layout';
+import { useWindowSize } from '~/hooks';
 
 export const Wallet: FC = () => {
   const {
@@ -24,15 +26,11 @@ export const Wallet: FC = () => {
     lang,
     searchTerm,
     setSearchTerm,
-    slicedData,
     isAscending,
     onSort,
     handleAccountTableRow,
-    handleShowMore,
     displayedData,
-    ITEMS_PER_PAGE,
     sortedBy,
-    showMoreClicked,
     handleAddAccountClick,
     walletName,
     selectedWallet,
@@ -41,21 +39,60 @@ export const Wallet: FC = () => {
     handleStatusClick,
   } = useWalletPage();
 
-  const displayShowMore = displayedData.length > ITEMS_PER_PAGE;
+  const { windowHeight } = useWindowSize();
+  const listRef = useRef<any>(null);
+  const [topbarHeight, setTopbarHeight] = useState(0);
+
+  useEffect(() => {
+    if (listRef.current?.recomputeRowHeights) {
+      listRef.current.recomputeRowHeights();
+    }
+  }, [displayedData]);
 
   const hasAccounts = accountList.length > 0;
+  const rowRenderer = ({ index }: any) => {
+    const row = displayedData[index];
+
+    return (
+      <AccountTableRow
+        key={row.id}
+        id={row.id}
+        leftImage={row.leftImage}
+        text={row.text}
+        subText={row.subText}
+        tag={row.tag}
+        statusImage={row.statusImage}
+        amount={row.displayAmount}
+        value={row.displayValue}
+        tokens={row.tokens?.map(t => ({
+          ...t,
+          amount: t.displayAmount,
+          value: t.displayValue,
+        }))}
+        $isLast={index === displayedData.length - 1}
+        $rowIndex={index}
+        $hide={lang.strings.wallet.buttons.hide}
+        $show={lang.strings.wallet.buttons.show}
+        onClick={() => handleAccountTableRow(row)}
+        onStatusClick={() => handleStatusClick(row)}
+      />
+    );
+  };
+
+  const getRowHeight = ({ index }: { index: number }) =>
+    displayedData[index].tokens ? 130.6 : 85;
 
   const getMainContent = () => {
     if (hasAccounts) {
       return (
-        <TableStructure mt={0}>
+        <TableStructure>
           <TableSearch
             placeholder={lang.strings.wallet.search.placeholder}
             heading={lang.strings.wallet.tableTitle}
             value={searchTerm}
             onChange={setSearchTerm}
           />
-          {slicedData.length > 0 ? (
+          {displayedData.length > 0 ? (
             <>
               <AccountTableHeader
                 account={lang.strings.wallet.tableHeader.account}
@@ -66,40 +103,18 @@ export const Wallet: FC = () => {
                 selected={sortedBy}
                 onSort={onSort}
               />
-              {slicedData.map((row, index) => (
-                <AccountTableRow
-                  key={row.id}
-                  id={row.id}
-                  leftImage={row.leftImage}
-                  text={row.text}
-                  subText={row.subText}
-                  tag={row.tag}
-                  statusImage={row.statusImage}
-                  amount={row.displayAmount}
-                  value={row.displayValue}
-                  tokens={row.tokens?.map(t => ({
-                    ...t,
-                    amount: t.displayAmount,
-                    value: t.displayValue,
-                  }))}
-                  $isLast={index === slicedData.length - 1 && !displayShowMore}
-                  $rowIndex={index}
-                  $hide={lang.strings.wallet.buttons.hide}
-                  $show={lang.strings.wallet.buttons.show}
-                  onClick={() => handleAccountTableRow(row)}
-                  onStatusClick={() => handleStatusClick(row)}
-                />
-              ))}
-              {displayShowMore && (
-                <ShowMore
-                  onClick={handleShowMore}
-                  text={
-                    showMoreClicked
-                      ? lang.strings.wallet.buttons.less
-                      : lang.strings.wallet.buttons.more
-                  }
-                />
-              )}
+              <Virtualize.AutoSizer>
+                {({ width }: any) => (
+                  <Virtualize.List
+                    ref={listRef}
+                    height={windowHeight - topbarHeight - 268}
+                    width={width}
+                    rowCount={displayedData.length}
+                    rowHeight={getRowHeight}
+                    rowRenderer={rowRenderer}
+                  />
+                )}
+              </Virtualize.AutoSizer>
             </>
           ) : (
             <NoSearchResult
@@ -130,34 +145,37 @@ export const Wallet: FC = () => {
     <MainAppLayout
       topbar={{ title: `${walletName}` }}
       fullHeight={accountList.length === 0}
+      onTopbarHeightChange={setTopbarHeight}
     >
-      <Flex justify="space-between" pt="10px" px="20px" mt={2}>
-        <Breadcrumb
-          items={[
-            {
-              id: 'wallet',
-              text: lang.strings.wallet.title,
-            },
-            {
-              id: 'walletList',
-              dropdown: {
-                displayNode: walletName,
-                selectedItem: selectedWallet?.__id ?? '',
-                setSelectedItem: onWalletChange,
-                dropdown: dropDownData,
+      <Container $noFlex m="20">
+        <Flex justify="space-between" pt="10px" px="20px" mt={2}>
+          <Breadcrumb
+            items={[
+              {
+                id: 'wallet',
+                text: lang.strings.wallet.title,
               },
-            },
-          ]}
-        />
-        <Flex gap={24}>
-          {hasAccounts && (
-            <Button variant="primary" onClick={handleAddAccountClick}>
-              {lang.strings.buttons.addAccount}
-            </Button>
-          )}
+              {
+                id: 'walletList',
+                dropdown: {
+                  displayNode: walletName,
+                  selectedItem: selectedWallet?.__id ?? '',
+                  setSelectedItem: onWalletChange,
+                  dropdown: dropDownData,
+                },
+              },
+            ]}
+          />
+          <Flex gap={24}>
+            {hasAccounts && (
+              <Button variant="primary" onClick={handleAddAccountClick}>
+                {lang.strings.buttons.addAccount}
+              </Button>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
-      {getMainContent()}
+        {getMainContent()}
+      </Container>
     </MainAppLayout>
   );
 };
