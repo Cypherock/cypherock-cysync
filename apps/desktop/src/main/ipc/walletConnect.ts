@@ -8,7 +8,7 @@ let sendWCConnectionString: ((connectionString: string) => void) | undefined;
 
 const getInitialUri = async () => {
   const wcUriCopy = getWCUri();
-  setWCUri(null);
+  setWCUri(undefined);
   return wcUriCopy;
 };
 

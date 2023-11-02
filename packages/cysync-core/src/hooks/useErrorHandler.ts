@@ -1,8 +1,10 @@
 import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
+import { openContactSupportDialog } from '~/actions/dialog';
 import { deleteWallets } from '~/actions/wallet/deleteWallets';
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
+import { SupportCategoryMap } from '~/dialogs/ContactSupport';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
   ErrorActionButtonHandler,
@@ -66,15 +68,19 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         }
       },
       [ErrorActionButtonHandlerMap.report]: () => {
-        // TODO: Add Report button handling
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.report}`,
+        dispatch(
+          openContactSupportDialog({
+            providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
+            errorCategory: SupportCategoryMap.Complaint,
+          }),
         );
       },
       [ErrorActionButtonHandlerMap.help]: () => {
-        // TODO: Add Help button handling
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.help}`,
+        dispatch(
+          openContactSupportDialog({
+            providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
+            errorCategory: SupportCategoryMap.Complaint,
+          }),
         );
       },
       [ErrorActionButtonHandlerMap.updateFirmware]: () => {

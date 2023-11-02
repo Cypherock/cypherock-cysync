@@ -5,6 +5,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily, EvmIdMap, coinList } from '@cypherock/coins';
 import { Container, MessageBox } from '@cypherock/cysync-ui';
@@ -196,11 +197,10 @@ export const FeeSection: React.FC = () => {
         coinId: account.parentAssetId,
         toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       });
-      const value = new BigNumber(feesInDefaultUnit.amount)
-        .multipliedBy(coinPrice.latestPrice)
-        .toFixed(2)
-        .toString();
-      return `$${value}`;
+      const value = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
+        coinPrice.latestPrice,
+      );
+      return `$${formatDisplayPrice(value)}`;
     }
     return '';
   };
@@ -227,7 +227,12 @@ export const FeeSection: React.FC = () => {
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         }
       />
-      {isFeeLow && <MessageBox type="warning" text={displayText.warning} />}
+      {isFeeLow && transaction?.validation.isValidFee && (
+        <MessageBox type="warning" text={displayText.warning} />
+      )}
+      {!transaction?.validation.isValidFee && (
+        <MessageBox type="danger" text={displayText.feeError} />
+      )}
     </Container>
   );
 };

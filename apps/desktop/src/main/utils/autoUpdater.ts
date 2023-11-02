@@ -101,9 +101,18 @@ class AutoUpdater {
     };
   }
 
+  private getWebContents() {
+    if (this.webContents && !this.webContents.isDestroyed()) {
+      return this.webContents;
+    }
+
+    return undefined;
+  }
+
   private onProgress(percent: number) {
-    if (this.webContents) {
-      this.webContents.send(
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(
         ipcConfig.listeners.downloadUpdateProgress,
         Number(percent.toFixed(0)),
       );
@@ -113,12 +122,10 @@ class AutoUpdater {
   private onComplete(info: UpdateDownloadedEvent | UpdateInfo) {
     this.downloadedInfo = this.parseUpdateInfo(info);
 
-    if (this.webContents) {
-      this.webContents.send(
-        ipcConfig.listeners.downloadUpdateProgress,
-        Number(100),
-      );
-      this.webContents.send(
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(ipcConfig.listeners.downloadUpdateProgress, Number(100));
+      webContents.send(
         ipcConfig.listeners.downloadUpdateCompleted,
         this.downloadedInfo,
       );
@@ -126,8 +133,9 @@ class AutoUpdater {
   }
 
   private onError(error: Error) {
-    if (this.webContents) {
-      this.webContents.send(ipcConfig.listeners.downloadUpdateError, error);
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(ipcConfig.listeners.downloadUpdateError, error);
     }
   }
 }

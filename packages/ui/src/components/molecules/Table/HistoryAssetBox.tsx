@@ -31,24 +31,29 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
       {!wallet ? (
         <ImageContainer gap={10}>
           {$assetIcon}
-          <Typography variant="p">{$assetName}</Typography>
+          <Typography variant="p" $whiteSpace="nowrap" $textOverflow="ellipsis">
+            {$assetName}
+          </Typography>
           {$tag && <Tag>{$tag}</Tag>}
         </ImageContainer>
       ) : (
-        <Container display="flex" direction="row" gap={6}>
+        <Container display="flex" direction="row" gap={6} $overflow="hidden">
           <Typography variant="p" color="muted">
             {wallet}
           </Typography>
           <Typography variant="p" color="muted">
             /
           </Typography>
-          <ImageContainer gap={6}>
-            {$assetIcon}
-            <Typography variant="p" color="muted">
-              {$assetName}
-            </Typography>
-            {$tag && <Tag>{$tag}</Tag>}
-          </ImageContainer>
+          {$assetIcon}
+          <Typography
+            variant="p"
+            color="muted"
+            $whiteSpace="nowrap"
+            $textOverflow="ellipsis"
+          >
+            {$assetName}
+          </Typography>
+          {$tag && <Tag>{$tag}</Tag>}
         </Container>
       )}
     </HistoryAssetBoxStyle>
