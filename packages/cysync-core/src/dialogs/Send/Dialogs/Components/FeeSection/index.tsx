@@ -43,7 +43,10 @@ const feeHeaderMap: Record<CoinFamily, (assetId?: string) => React.FC<any>> = {
   solana: getDefaultHeader,
 };
 
-export const FeeSection: React.FC = () => {
+export interface FeeSectionProps {
+  showErrors?: boolean;
+}
+export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const { priceInfos } = useAppSelector(selectPriceInfos);
@@ -233,6 +236,13 @@ export const FeeSection: React.FC = () => {
       {!transaction?.validation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
       )}
+      {showErrors && transaction?.validation.hasEnoughBalance === false && (
+        <MessageBox type="danger" text={displayText.notEnoughBalance} />
+      )}
     </Container>
   );
+};
+
+FeeSection.defaultProps = {
+  showErrors: undefined,
 };
