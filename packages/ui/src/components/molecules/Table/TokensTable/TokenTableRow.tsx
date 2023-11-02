@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { TableIconNameBox } from '../TableIconNameBox';
 import { TableNameBox } from '../TableNameBox';
-import { RowWrapper } from '../TableStyles';
+import { RowContainer, RowWrapper } from '../TableStyles';
 
 export interface TokenTableRowProps {
   tokenIcon: ReactNode;
@@ -27,14 +27,16 @@ export const TokenTableRow: React.FC<TokenTableRowProps> = props => {
       style={style}
       $height="80px"
     >
-      <TableIconNameBox
-        icon={row.tokenIcon}
-        title={row.tokenName}
-        subtitle={row.tokenAbbr}
-        width={{ def: '38%', lg: '38%' }}
-      />
-      <TableNameBox text={row.balance} width="32%" />
-      <TableNameBox text={row.value} width="32%" />
+      <RowContainer>
+        <TableIconNameBox
+          icon={row.tokenIcon}
+          title={row.tokenName}
+          subtitle={row.tokenAbbr}
+          width={{ def: '38%', lg: '38%' }}
+        />
+        <TableNameBox text={row.balance} width="32%" showTooltip />
+        <TableNameBox text={row.value} width="32%" />
+      </RowContainer>
     </RowWrapper>
   );
 };

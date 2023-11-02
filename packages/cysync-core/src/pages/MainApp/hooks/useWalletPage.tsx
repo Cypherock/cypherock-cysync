@@ -3,6 +3,7 @@ import {
   convertToUnit,
   getZeroUnit,
   getDefaultUnit,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
@@ -140,11 +141,13 @@ const mapTokenAccounts = (
       assetId: a.assetId,
       toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
     });
-    value = new BigNumber(balanceInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
+        coinPrice.latestPrice,
+      ),
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
   }
 
   return {
@@ -276,11 +279,13 @@ export const useWalletPage = () => {
           assetId: a.assetId,
           toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
         });
-        value = new BigNumber(balanceInDefaultUnit.amount)
-          .multipliedBy(coinPrice.latestPrice)
-          .toFixed(2)
-          .toString();
-        displayValue = `$${value}`;
+        const formattedValue = formatDisplayPrice(
+          new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
+            coinPrice.latestPrice,
+          ),
+        );
+        value = formattedValue;
+        displayValue = `$${formattedValue}`;
       }
 
       const tokenAccounts = allAccounts

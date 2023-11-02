@@ -10,7 +10,6 @@ interface TagProps extends SpacingProps, FontProps {
 
 const StyledTag = styled.div<TagProps>`
   font-weight: 500;
-  align-self: flex-start;
   flex-shrink: 0;
 
   ${({ type, theme }) =>
