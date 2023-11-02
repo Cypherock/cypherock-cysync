@@ -1,9 +1,9 @@
 import {
-  AppUpdateIcon,
   ConfirmationDialog,
   ErrorDialog,
   ProgressDialog,
   SuccessDialog,
+  CySyncDownloadGreen,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
 
@@ -48,10 +48,9 @@ export const AppUpdateDialogBox: FC = () => {
     [AppUpdateState.Confirmation]: (
       <ConfirmationDialog
         title={lang.strings.onboarding.appUpdate.dialogs.confirmation.title}
-        subtext={lang.strings.onboarding.appUpdate.dialogs.confirmation.subtext}
         buttonText={lang.strings.buttons.update}
         textVariables={updateInfo}
-        icon={<AppUpdateIcon />}
+        icon={<CySyncDownloadGreen />}
         handleClick={() => downloadUpdate(true)}
       />
     ),
@@ -63,7 +62,7 @@ export const AppUpdateDialogBox: FC = () => {
           lang.strings.onboarding.appUpdate.dialogs.downloading.version
         }
         versionTextVariables={updateInfo}
-        icon={<AppUpdateIcon />}
+        icon={<CySyncDownloadGreen />}
         progress={downloadProgress}
       />
     ),
