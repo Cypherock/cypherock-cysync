@@ -3,7 +3,6 @@ import styled, { keyframes } from 'styled-components';
 
 import { Accordion } from './Accordion';
 
-import { useAccordion } from '../../../../hooks/useAccordion';
 import { Flex, Tag, Tooltip, Typography } from '../../../atoms';
 import { SpacingProps, spacing, utils } from '../../../utils';
 import { RowWrapper, RowContainer, RowBackground } from '../TableStyles';
@@ -18,7 +17,10 @@ export interface AccountTableRowProps {
   statusImage?: React.ReactNode;
   amount?: string;
   value?: string;
-  tokens?: Omit<AccountTableRowProps, '$rowIndex'>[];
+  tokens?: Omit<
+    AccountTableRowProps,
+    '$rowIndex' | 'showTokens' | 'onShowTokensClick'
+  >[];
   $subMenu?: boolean;
   onClick?: () => void;
   onStatusClick?: () => void;
@@ -27,6 +29,9 @@ export interface AccountTableRowProps {
   $isLast?: boolean;
   $show?: string;
   $hide?: string;
+  style?: any;
+  onShowTokensClick?: (val: boolean) => void;
+  showTokens?: boolean;
 }
 
 interface StatusContainerProps extends SpacingProps {
@@ -132,7 +137,7 @@ export const Accordions = styled.div`
 const SubMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 269px;
+  max-height: 215px;
   max-width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -159,11 +164,13 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
     onClick,
     onStatusClick,
     onTokenClick,
+    style,
+    onShowTokensClick,
+    showTokens,
   } = props;
-  const { isOpen, toggleAccordion } = useAccordion();
 
   return (
-    <RowBackground $rowIndex={$rowIndex} $isLast={$isLast}>
+    <RowBackground $rowIndex={$rowIndex} $isLast={$isLast} style={style}>
       <RowWrapper
         $rowIndex={$rowIndex}
         $isLast={$isLast}
@@ -228,7 +235,7 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
       </RowWrapper>
 
       <SubMenuWrapper>
-        {tokens && tokens.length > 0 && isOpen && (
+        {tokens && tokens.length > 0 && showTokens && (
           <SubMenuContainer>
             {tokens.map(token => (
               <FadeInContainer key={token.id}>
@@ -242,13 +249,13 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
             ))}
           </SubMenuContainer>
         )}
-        {tokens && tokens.length > 0 && (
+        {tokens && tokens.length > 0 && onShowTokensClick && (
           <Accordion
             $rowIndex={$rowIndex}
             $isLast={$isLast}
             tokensLength={tokens.length}
-            isOpen={isOpen}
-            toggleAccordion={toggleAccordion}
+            isOpen={showTokens ?? false}
+            toggleAccordion={() => onShowTokensClick(!showTokens)}
             $show={$show}
             $hide={$hide}
           />
@@ -275,4 +282,7 @@ AccountTableRow.defaultProps = {
   onStatusClick: undefined,
   onTokenClick: undefined,
   $isLast: false,
+  onShowTokensClick: undefined,
+  showTokens: undefined,
+  style: undefined,
 };
