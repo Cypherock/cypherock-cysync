@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useCallback } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
@@ -25,6 +25,7 @@ import {
   Typography,
 } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
+import lodash from 'lodash';
 
 export type SyncStatusType = 'synchronized' | 'synchronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
@@ -95,6 +96,11 @@ export const Topbar: FC<TopbarProps> = ({
   onNotificationClick,
 }) => {
   const theme = useTheme();
+
+  const debouncedToggleDiscreteMode = useCallback(
+    lodash.throttle(toggleDiscreetMode, 600),
+    [],
+  );
 
   const connectionStatusMap = {
     connected: <Connected fill={theme?.palette.success.main} />,
@@ -176,7 +182,7 @@ export const Topbar: FC<TopbarProps> = ({
           </Flex>
         </Button>
         <DividingLine />
-        <Button variant="icon" onClick={toggleDiscreetMode}>
+        <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
           <Flex px={2} py="3" align="center" gap={16}>
             {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
           </Flex>
