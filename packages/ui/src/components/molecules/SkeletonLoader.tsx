@@ -69,6 +69,7 @@ interface SkeletonLoaderProps {
   $buttonTwo?: string;
   $buttonOneIsLoading?: boolean;
   $buttonTwoIsLoading?: boolean;
+  $buttonTwoIsDisabled?: boolean;
   onClick?: () => void;
   onClickTwo?: () => void;
 }
@@ -85,6 +86,7 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
   onClickTwo,
   $buttonOneIsLoading,
   $buttonTwoIsLoading,
+  $buttonTwoIsDisabled,
 }) => (
   <>
     {$noLoaderContainer ? (
@@ -126,6 +128,7 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
         <Button
           variant="primary"
           onClick={onClickTwo}
+          disabled={$buttonTwoIsDisabled}
           isLoading={$buttonTwoIsLoading}
         >
           {$buttonTwo}
@@ -146,4 +149,5 @@ SkeletonLoader.defaultProps = {
   onClickTwo: undefined,
   $buttonOneIsLoading: undefined,
   $buttonTwoIsLoading: undefined,
+  $buttonTwoIsDisabled: undefined,
 };
