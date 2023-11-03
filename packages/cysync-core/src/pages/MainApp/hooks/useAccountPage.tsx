@@ -7,10 +7,10 @@ import {
   Tag,
   Typography,
 } from '@cypherock/cysync-ui';
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
@@ -43,15 +43,25 @@ export const useAccountPage = () => {
   const accountId = useMemo(() => query.get('accountId') ?? undefined, [query]);
 
   const selectedAccount = useMemo<
-    (IAccount & { asset?: ICoinInfo; parentAccount?: IAccount }) | undefined
+    | (IAccount & {
+        asset?: ICoinInfo;
+        parentAccount?: IAccount;
+        wallet?: IWallet;
+      })
+    | undefined
   >(() => {
     const id = query.get('accountId');
 
     const account = accounts.find(a => a.__id === id);
 
     if (account) {
-      const result: IAccount & { asset?: ICoinInfo; parentAccount?: IAccount } =
-        { ...account };
+      const wallet = wallets.find(a => a.__id === account.walletId);
+
+      const result: IAccount & {
+        asset?: ICoinInfo;
+        parentAccount?: IAccount;
+        wallet?: IWallet;
+      } = { ...account, wallet };
 
       const asset = getAsset(account.parentAssetId, account.assetId);
       result.asset = asset;
@@ -66,7 +76,7 @@ export const useAccountPage = () => {
 
       return result;
     }
-    navigateTo(routes.portfolio.path);
+
     return undefined;
   }, [query, accounts]);
 
@@ -256,6 +266,16 @@ export const useAccountPage = () => {
 
     return items;
   }, [assetDropdown, selectedAccount, wallets, fromAsset, fromWallet]);
+
+  useEffect(() => {
+    if (!selectedAccount) {
+      if (fromWallet) {
+        navigateTo(`${routes.wallet.path}?id=${fromWallet.__id}`);
+      } else {
+        navigateTo(routes.portfolio.path);
+      }
+    }
+  }, [selectedAccount]);
 
   return {
     ...assetDropdown,

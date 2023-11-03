@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { SendDialogProps } from '~/dialogs/Send';
@@ -109,6 +110,11 @@ export interface IDialogState {
   contactSupportDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  deleteAccount: {
+    isOpen: boolean;
+    data?: DeleteAccountDialogProps;
   };
 }
 

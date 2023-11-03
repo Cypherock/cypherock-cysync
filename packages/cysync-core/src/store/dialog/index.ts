@@ -73,6 +73,9 @@ const initialState: IDialogState = {
   historyDialog: {
     isOpen: false,
   },
+  deleteAccount: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
