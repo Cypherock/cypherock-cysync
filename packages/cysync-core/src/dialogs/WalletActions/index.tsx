@@ -11,6 +11,10 @@ import {
   ScrollableContainer,
   Typography,
 } from '@cypherock/cysync-ui';
+import {
+  CreateWalletGraphics,
+  RecoverWalletFromSeedphraseGraphics,
+} from '@cypherock/cysync-ui/src';
 import React, { FC, useState } from 'react';
 
 import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
@@ -22,10 +26,6 @@ import {
   useAppSelector,
 } from '~/store';
 
-import {
-  CreateWalletGraphics,
-  RecoverWalletFromSeedphraseGraphics,
-} from '@cypherock/cysync-ui/src';
 import { Header } from './Sections';
 
 export const WalletActionsDialogBox: FC = () => {
