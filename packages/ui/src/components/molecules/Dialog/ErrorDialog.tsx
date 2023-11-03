@@ -7,7 +7,7 @@ import {
   ServerErrorIcon,
   FailIcon,
   SettingsWrongIcon,
-  CySyncDownloadRed,
+  CySyncDownloadRedIcon,
 } from '../../../assets';
 import { Button } from '../../atoms';
 import { MessageBox, MessageBoxType } from '../MessageBox';
@@ -32,7 +32,7 @@ const iconMap: Record<ErrorIconType, ReactNode> = {
   default: <FailIcon />,
   device: <SettingsWrongIcon />,
   server: <ServerErrorIcon />,
-  cySyncDownload: <CySyncDownloadRed />,
+  cySyncDownload: <CySyncDownloadRedIcon />,
 };
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,

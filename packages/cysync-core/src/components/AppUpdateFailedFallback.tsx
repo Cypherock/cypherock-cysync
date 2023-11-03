@@ -6,7 +6,7 @@ import {
   LangDisplay,
   CopyContainer,
   Typography,
-  CySyncDownloadRed,
+  CySyncDownloadRedIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -27,7 +27,7 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
 }) => (
   <DialogBox width={500}>
     <DialogBoxBody pb={8}>
-      <CySyncDownloadRed />
+      <CySyncDownloadRedIcon />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} variables={textVariables} />

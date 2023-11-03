@@ -3,7 +3,7 @@ import {
   ErrorDialog,
   ProgressDialog,
   SuccessDialog,
-  CySyncDownloadGreen,
+  CySyncDownloadGreenIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
 
@@ -50,7 +50,7 @@ export const AppUpdateDialogBox: FC = () => {
         title={lang.strings.onboarding.appUpdate.dialogs.confirmation.title}
         buttonText={lang.strings.buttons.update}
         textVariables={updateInfo}
-        icon={<CySyncDownloadGreen />}
+        icon={<CySyncDownloadGreenIcon />}
         handleClick={() => downloadUpdate(true)}
       />
     ),
@@ -62,7 +62,7 @@ export const AppUpdateDialogBox: FC = () => {
           lang.strings.onboarding.appUpdate.dialogs.downloading.version
         }
         versionTextVariables={updateInfo}
-        icon={<CySyncDownloadGreen />}
+        icon={<CySyncDownloadGreenIcon />}
         progress={downloadProgress}
       />
     ),
