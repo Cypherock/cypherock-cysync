@@ -7,12 +7,9 @@ import {
   DialogBoxFooter,
   Flex,
   HelpButton,
-  Image,
   LangDisplay,
   ScrollableContainer,
   Typography,
-  addWalletIcon,
-  importWalletIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -25,6 +22,10 @@ import {
   useAppSelector,
 } from '~/store';
 
+import {
+  CreateWalletGraphics,
+  RecoverWalletFromSeedphraseGraphics,
+} from '@cypherock/cysync-ui/src';
 import { Header } from './Sections';
 
 export const WalletActionsDialogBox: FC = () => {
@@ -84,7 +85,7 @@ export const WalletActionsDialogBox: FC = () => {
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
+                <CreateWalletGraphics />
                 <Typography $fontSize={20} color="white" $textAlign="center">
                   <LangDisplay
                     text={
@@ -111,11 +112,7 @@ export const WalletActionsDialogBox: FC = () => {
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $width={56}
-                  src={importWalletIcon}
-                  alt="importWalletIcon"
-                />
+                <RecoverWalletFromSeedphraseGraphics />
                 <Typography $fontSize={20} color="white" $textAlign="center">
                   <LangDisplay
                     text={
