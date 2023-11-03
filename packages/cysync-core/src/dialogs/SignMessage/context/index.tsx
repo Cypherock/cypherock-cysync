@@ -12,9 +12,10 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import { Observer } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
 
 import {
   WalletConnectSignMessageMap,
@@ -80,6 +81,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     1: [0],
   };
+  const flowSubscription = useRef<Subscription | undefined>();
 
   const payload: ISignMessageParamsPayload | undefined = useMemo(() => {
     if (!callRequestData) return undefined;
@@ -99,7 +101,14 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     return result;
   }, [callRequestData]);
 
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
   const onClose = (dontReject?: boolean) => {
+    cleanUp();
     if (dontReject !== true) rejectCallRequest();
     dispatch(closeDialog('signMessage'));
   };
@@ -144,6 +153,8 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       return;
     }
 
+    cleanUp();
+
     const coinSupport = getCoinSupport(activeAccount.familyId);
 
     const taskId = lodash.uniqueId('task-');
@@ -160,7 +171,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
 
     if (!deviceConnection) return;
 
-    coinSupport
+    flowSubscription.current = coinSupport
       .signMessage({
         account: activeAccount,
         connection: deviceConnection,

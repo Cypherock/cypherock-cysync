@@ -31,6 +31,7 @@ export interface ImageProps
     BorderProps {
   src: string;
   alt: string;
+  onError?: React.ReactEventHandler<HTMLImageElement>;
 }
 
 const ImageStyle = styled.img<ImageProps>`
@@ -44,6 +45,10 @@ const ImageStyle = styled.img<ImageProps>`
   ${border}
 `;
 
-export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
-  <ImageStyle {...props} src={src} alt={alt} />
+export const Image: FC<ImageProps> = ({ src, alt, onError, ...props }) => (
+  <ImageStyle {...props} src={src} alt={alt} onError={onError} />
 );
+
+Image.defaultProps = {
+  onError: undefined,
+};

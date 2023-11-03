@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
+  Flex,
   LangDisplay,
   RadioButton,
   Tag,
@@ -32,6 +33,7 @@ export interface DropDownListItemProps extends BorderProps {
   color?: TypographyColor;
   $parentId?: string;
   $isFocused?: boolean;
+  showRightTextOnBottom?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -143,6 +145,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   onCheckedChange,
   $borderRadius,
   $isFocused = false,
+  showRightTextOnBottom,
 }): ReactElement => {
   const handleCheckChange = () => {
     onCheckedChange?.(id ?? 'default-id');
@@ -176,24 +179,37 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
           {leftImage}
         </DropDownListItemIconContainer>
       )}
-      <DropDownListItemStretchedTypography
-        variant="h6"
-        $color={color ?? 'muted'}
-        $isChecked={checked}
-      >
-        <LangDisplay text={text} $noPreWrap />
-        {shortForm && (
-          <ShortFormTag>
-            <LangDisplay text={shortForm} />
-          </ShortFormTag>
+      <Flex direction="column" width="full">
+        <Flex align="center" gap={16}>
+          <DropDownListItemStretchedTypography
+            variant="h6"
+            $color={color ?? 'muted'}
+            $isChecked={checked}
+          >
+            <LangDisplay text={text} $noPreWrap />
+            {shortForm && (
+              <ShortFormTag>
+                <LangDisplay text={shortForm} />
+              </ShortFormTag>
+            )}
+          </DropDownListItemStretchedTypography>
+          {tag && <Tag>{tag}</Tag>}
+        </Flex>
+        {showRightTextOnBottom && rightText && (
+          <RightTextTypography
+            variant={rightTextVariant}
+            color={rightTextColor}
+            $hasRightText={$hasRightText}
+          >
+            {rightText}
+          </RightTextTypography>
         )}
-      </DropDownListItemStretchedTypography>
-      {tag && <Tag>{tag}</Tag>}
+      </Flex>
       {(rightText ||
         rightIcon ||
         (!$restrictedItem && checkType && checkType === 'checkbox')) && (
         <DropDownListItemRightContent>
-          {rightText && (
+          {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
               color={rightTextColor}
@@ -239,4 +255,5 @@ DropDownListItem.defaultProps = {
   $hasRightText: false,
   $isFocused: false,
   $parentId: '',
+  showRightTextOnBottom: undefined,
 };
