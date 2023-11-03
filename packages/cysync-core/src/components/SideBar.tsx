@@ -17,7 +17,7 @@ import {
 import React, { FC } from 'react';
 
 import { openReceiveDialog, openSendDialog } from '~/actions';
-import { useSidebar } from '~/context';
+import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const {
@@ -36,6 +36,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
     dispatch,
     isWalletPage,
   } = useSidebar();
+  const { deviceHandlingState } = useDevice();
 
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
@@ -54,10 +55,14 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
                 variant="text"
                 align="center"
                 title="Sync Wallets"
+                disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
                 onClick={onWalletSync}
               >
                 <Synchronizing
                   fill={theme.palette.muted.main}
+                  opacity={
+                    deviceHandlingState !== DeviceHandlingState.USABLE ? 0.5 : 1
+                  }
                   animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
                 />
               </Button>
