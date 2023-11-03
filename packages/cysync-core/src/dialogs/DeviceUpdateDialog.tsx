@@ -1,6 +1,6 @@
 import {
   ConfirmationDialog,
-  DeviceUpdateIcon,
+  FirmwareDownloadGraphics,
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
@@ -53,7 +53,7 @@ export const DeviceUpdateDialog: FC = () => {
           title={
             lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title
           }
-          icon={<DeviceUpdateIcon />}
+          icon={<FirmwareDownloadGraphics />}
           subtext={
             lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
           }
@@ -66,7 +66,7 @@ export const DeviceUpdateDialog: FC = () => {
           subtext={
             lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext
           }
-          icon={<DeviceUpdateIcon />}
+          icon={<FirmwareDownloadGraphics />}
           progress={Number(downloadProgress.toFixed(0))}
           versionTextVariables={{ version }}
         />
