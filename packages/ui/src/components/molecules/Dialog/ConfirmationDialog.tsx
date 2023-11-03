@@ -6,7 +6,7 @@ import { Typography, LangDisplay, Container, Button } from '../../atoms';
 
 interface ConfirmationDialogProps {
   title: string;
-  subtext: string;
+  subtext?: string;
   buttonText?: string;
   icon: ReactNode;
   handleClick?: () => void;
@@ -22,15 +22,17 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   textVariables,
 }) => (
   <DialogBox width={500}>
-    <DialogBoxBody>
+    <DialogBoxBody py={4} px={5} gap={32}>
       {icon}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant="h5" $textAlign="center">
           <LangDisplay text={title} variables={textVariables} />
         </Typography>
-        <Typography variant="p" $textAlign="center" color="muted">
-          <LangDisplay text={subtext} variables={textVariables} />
-        </Typography>
+        {subtext && (
+          <Typography variant="p" $textAlign="center" color="muted">
+            <LangDisplay text={subtext} variables={textVariables} />
+          </Typography>
+        )}
       </Container>
     </DialogBoxBody>
     {buttonText && handleClick && (
@@ -47,4 +49,5 @@ ConfirmationDialog.defaultProps = {
   buttonText: undefined,
   handleClick: undefined,
   textVariables: undefined,
+  subtext: undefined,
 };

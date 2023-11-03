@@ -640,11 +640,14 @@ const en = {
       },
     },
     usage: {
-      titleFirst: 'I am using Cypherock X1 for the first time',
-      titleSecond: 'I have already used a Cypherock X1',
-      subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
-      subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
+      userNew: {
+        title: 'I am using Cypherock X1 for the first time',
+        note: 'Choose this if you have never used Cypherock X1 before',
+      },
+      userExpert: {
+        title: 'I have already used a Cypherock X1',
+        note: 'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
+      },
     },
     terms: {
       title: 'Terms of Use',

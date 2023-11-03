@@ -1,13 +1,12 @@
 import {
   AlertBox,
-  AppUpdateIcon,
   Container,
   DialogBox,
   DialogBoxBody,
   LangDisplay,
   CopyContainer,
   Typography,
-  useTheme,
+  CySyncDownloadRedIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -25,29 +24,25 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
   linkText,
   alertText,
   textVariables,
-}) => {
-  const theme = useTheme();
-
-  return (
-    <DialogBox width={500}>
-      <DialogBoxBody pb={8}>
-        <AppUpdateIcon color={theme.palette.warn.main} />
-        <Container display="flex" direction="column" gap={4}>
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={title} variables={textVariables} />
-          </Typography>
-          <Typography variant="h6" $textAlign="center" color="muted">
-            <LangDisplay text={subtext} variables={textVariables} />
-          </Typography>
-        </Container>
-        <Container width="full" display="flex" direction="column" gap={4}>
-          <CopyContainer link={linkText} />
-        </Container>
-        <AlertBox mt="10" variant="warning" alert={alertText} />
-      </DialogBoxBody>
-    </DialogBox>
-  );
-};
+}) => (
+  <DialogBox width={500}>
+    <DialogBoxBody pb={8}>
+      <CySyncDownloadRedIcon />
+      <Container display="flex" direction="column" gap={4}>
+        <Typography variant="h5" $textAlign="center">
+          <LangDisplay text={title} variables={textVariables} />
+        </Typography>
+        <Typography variant="h6" $textAlign="center" color="muted">
+          <LangDisplay text={subtext} variables={textVariables} />
+        </Typography>
+      </Container>
+      <Container width="full" display="flex" direction="column" gap={4}>
+        <CopyContainer link={linkText} />
+      </Container>
+      <AlertBox mt="10" variant="warning" alert={alertText} />
+    </DialogBoxBody>
+  </DialogBox>
+);
 
 AppUpdateFailedFallback.defaultProps = {
   textVariables: undefined,

@@ -8,6 +8,7 @@ import {
   LangDisplay,
   Flex,
   Container,
+  PasswordGraphics,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -60,6 +61,7 @@ export const PasswordForm: React.FC<{
     <DialogBox width={500}>
       <form onSubmit={tryStoringPassword}>
         <DialogBoxBody>
+          <PasswordGraphics width={48} />
           <Flex direction="column" gap={4}>
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={lang.strings.onboarding.setPassword.title} />
