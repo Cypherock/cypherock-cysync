@@ -246,18 +246,6 @@ export async function createGetAccountHistory(
     price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
   });
 
-  const hasNegative = accountBalanceHistory.some(a =>
-    new BigNumber(a.balance).isNegative(),
-  );
-
-  if (hasNegative) {
-    logger.warn(`Portfolio: Negative value found in ${account.assetId}`, {
-      assetId: account.assetId,
-      parent: account.parentAssetId,
-      days,
-    });
-  }
-
   const currentValue = calcValue({
     amount: account.balance,
     parentAssetId: account.parentAssetId,
@@ -270,6 +258,22 @@ export async function createGetAccountHistory(
     balance: account.balance,
     value: currentValue,
   });
+
+  let hasNegative = false;
+  for (const accountItem of accountBalanceHistory) {
+    hasNegative =
+      hasNegative || new BigNumber(accountItem.balance).isNegative();
+    accountItem.balance = BigNumber.max(accountItem.balance, 0).toString();
+    accountItem.value = BigNumber.max(accountItem.value, 0).toString();
+  }
+
+  if (hasNegative) {
+    logger.warn(`Portfolio: Negative value found in ${account.assetId}`, {
+      assetId: account.assetId,
+      parent: account.parentAssetId,
+      days,
+    });
+  }
 
   return {
     history: accountBalanceHistory,

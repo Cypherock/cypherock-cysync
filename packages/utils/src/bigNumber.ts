@@ -15,6 +15,12 @@ export class BigNumber {
     this.num = new BigNumberJS(BigNumber.getNumberLike(n), base);
   }
 
+  public static max(...values: NumberLike[]) {
+    return new BigNumber(BigNumberJS.max(...values.map(this.getNumberLike)));
+  }
+
+  public static maximum = this.max;
+
   getRawNumber() {
     return this.num;
   }
