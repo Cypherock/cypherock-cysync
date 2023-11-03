@@ -140,7 +140,7 @@ export const WalletActionsDialogBox: FC = () => {
                 </Typography>
               </Flex>
             </Flex>
-            <Flex py={4} px={4}>
+            <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
