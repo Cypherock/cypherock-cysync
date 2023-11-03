@@ -81,6 +81,7 @@ export const AppUpdateDialogBox: FC = () => {
     ),
     [AppUpdateState.Failed]: (
       <ErrorDialog
+        iconType="cySyncDownload"
         title={
           internalState === InternalAppUpdateState.Checking
             ? lang.strings.onboarding.appUpdate.dialogs.checkingFailed.title

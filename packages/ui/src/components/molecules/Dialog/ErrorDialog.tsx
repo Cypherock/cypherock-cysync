@@ -3,11 +3,16 @@ import React, { ReactNode } from 'react';
 import { DialogBoxProps } from './DialogBox';
 import { IconDialogBox } from './IconDialogBox';
 
-import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
+import {
+  ServerErrorIcon,
+  FailIcon,
+  SettingsWrongIcon,
+  CySyncDownloadRed,
+} from '../../../assets';
 import { Button } from '../../atoms';
 import { MessageBox, MessageBoxType } from '../MessageBox';
 
-export type ErrorIconType = 'device' | 'default' | 'server';
+export type ErrorIconType = 'device' | 'default' | 'server' | 'cySyncDownload';
 
 export interface ErrorDialogProps extends DialogBoxProps {
   title: string;
@@ -27,6 +32,7 @@ const iconMap: Record<ErrorIconType, ReactNode> = {
   default: <FailIcon />,
   device: <SettingsWrongIcon />,
   server: <ServerErrorIcon />,
+  cySyncDownload: <CySyncDownloadRed />,
 };
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
