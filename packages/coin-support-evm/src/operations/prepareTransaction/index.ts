@@ -139,7 +139,8 @@ export const prepareTransaction = async (
   } else {
     let sendAmount = new BigNumber(output.amount);
     if (txn.userInputs.isSendAll) {
-      sendAmount = new BigNumber(account.balance).minus(fee);
+      sendAmount = BigNumber.max(new BigNumber(account.balance).minus(fee), 0);
+
       output.amount = sendAmount.toString(10);
       // update userInput so that the max amount is editable & not reset to 0
       txn.userInputs.outputs[0].amount = output.amount;
