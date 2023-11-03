@@ -7,6 +7,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import React from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
+import { DeviceHandlingState, useDevice } from '~/context';
 import { useWalletSync } from '~/hooks';
 import {
   useAppSelector,
@@ -27,6 +28,7 @@ export const NoWallet = () => {
   const { lang, syncWalletStatus } = useAppSelector(selector);
   const dispatch = useAppDispatch();
   const { onWalletSync } = useWalletSync();
+  const { deviceHandlingState } = useDevice();
 
   const handleAddWalletClick = () => {
     dispatch(openWalletActionsDialog());
@@ -42,6 +44,9 @@ export const NoWallet = () => {
         $buttonOne={lang.strings.buttons.addWallet}
         $buttonTwo={lang.strings.buttons.syncWallets}
         $buttonTwoIsLoading={syncWalletStatus === 'loading'}
+        $buttonTwoIsDisabled={
+          deviceHandlingState !== DeviceHandlingState.USABLE
+        }
         onClick={handleAddWalletClick}
         onClickTwo={onWalletSync}
         $noLoaderContainer
