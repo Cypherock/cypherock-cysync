@@ -1,5 +1,6 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
+import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
@@ -68,3 +69,6 @@ export const openErrorDialog = (props: ErrorDialogProps) =>
 
 export const openContactSupportDialog = (props?: IContactSupportDialogProps) =>
   openDialog({ name: 'contactSupportDialog', data: props });
+
+export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
+  openDialog({ name: 'deleteAccount', data: props });
