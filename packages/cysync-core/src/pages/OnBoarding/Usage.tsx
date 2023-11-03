@@ -49,7 +49,12 @@ const UsageCard: React.FC<UsageCardProps> = ({ isNewUser, title, note }) => {
           ) : (
             <UserExpertGraphics height={150} />
           )}
-          <Typography $fontSize={20} $alignSelf="stretch" $textAlign="center">
+          <Typography
+            variant="h5"
+            $fontSize={20}
+            $alignSelf="stretch"
+            $textAlign="center"
+          >
             <LangDisplay text={title} />
           </Typography>
         </Flex>
