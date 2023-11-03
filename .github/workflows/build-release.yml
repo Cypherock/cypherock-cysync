@@ -204,7 +204,6 @@ jobs:
           name: build-win
           path: |
             apps/desktop/release/**/*.exe
-            apps/desktop/release/**/*.blockmap
             apps/desktop/release/**/*.yml
             !apps/desktop/release/**/builder-debug.yml
             !apps/desktop/release/**/win-unpacked/*
