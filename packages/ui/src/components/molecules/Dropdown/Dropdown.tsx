@@ -174,6 +174,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             focusedIndex !== null ? `dropdown-item-${focusedIndex}` : undefined
           }
           leftImage={leftImage}
+          utilProps={{ $minHeight: '53px' }}
         />
       )}
       <IconContainer>
