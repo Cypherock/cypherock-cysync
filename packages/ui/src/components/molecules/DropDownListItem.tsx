@@ -51,10 +51,12 @@ const ShortFormTag = styled.div`
 export const DropDownListItemStretchedTypography = styled(Typography)<
   DropDownListItemHorizontalBoxProps & {
     $color: TypographyColor;
+    $restrictedItem?: boolean;
   }
 >`
   text-overflow: ellipsis;
   white-space: nowrap;
+  ${({ $restrictedItem }) => $restrictedItem && `max-width: calc(100% - 30px);`}
   color: ${({ $isChecked, $color, theme }) =>
     $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
 `;
@@ -185,6 +187,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
             variant="h6"
             $color={color ?? 'muted'}
             $isChecked={checked}
+            $restrictedItem={$restrictedItem}
           >
             <LangDisplay text={text} $noPreWrap />
             {shortForm && (
