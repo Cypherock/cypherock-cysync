@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { InputLabel } from './InputLabel';
 
+import { UtilsProps } from '../../utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
@@ -32,6 +33,7 @@ export interface InputProps {
   $customRightSpacing?: number;
   $noBorder?: boolean;
   required?: boolean;
+  utilProps?: UtilsProps;
 }
 
 const InputStyle = styled.input<{
@@ -126,10 +128,17 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         $customImageSpacing,
         $customRightSpacing,
         $noBorder = false,
+        utilProps,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
-      <Flex direction="column" width="full" align="center" justify="center">
+      <Flex
+        direction="column"
+        width="full"
+        align="center"
+        justify="center"
+        {...(utilProps ?? {})}
+      >
         {label && (
           <InputLabel>
             <LangDisplay text={label} />
@@ -213,6 +222,7 @@ Input.defaultProps = {
   $customImageSpacing: false,
   $customRightSpacing: undefined,
   required: false,
+  utilProps: undefined,
 };
 
 Input.displayName = 'Input';

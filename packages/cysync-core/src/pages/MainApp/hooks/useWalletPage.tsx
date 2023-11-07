@@ -37,7 +37,7 @@ import {
   selectDiscreetMode,
 } from '~/store';
 
-interface AccountTokenType {
+export interface AccountTokenType {
   id: string;
   leftImage: React.ReactNode;
   arrow?: React.ReactNode;
@@ -48,7 +48,7 @@ interface AccountTokenType {
   displayValue: string;
 }
 
-interface AccountRowData {
+export interface AccountRowData {
   id: string;
   arrow?: React.ReactNode;
   leftImage: React.ReactNode;
@@ -208,8 +208,6 @@ export const useWalletPage = () => {
 
   const ITEMS_PER_PAGE = 10;
 
-  const [itemsToShow, setItemsToShow] = useState(ITEMS_PER_PAGE);
-  const [showMoreClicked, setShowMoreClicked] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [displayedData, setDisplayedData] = useState<AccountRowData[]>([]);
   const [accountList, setAccountList] = useState<AccountRowData[]>([]);
@@ -337,11 +335,6 @@ export const useWalletPage = () => {
     navigateTo(`${routes.wallet.path}?id=${walletId}`);
   };
 
-  const slicedData = useMemo(
-    () => displayedData.slice(0, itemsToShow),
-    [displayedData, itemsToShow],
-  );
-
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog({ walletId: selectedWallet?.__id ?? '' }));
   };
@@ -365,29 +358,17 @@ export const useWalletPage = () => {
     );
   };
 
-  const handleShowMore = () => {
-    if (showMoreClicked) {
-      setItemsToShow(ITEMS_PER_PAGE);
-    } else {
-      setItemsToShow(itemsToShow + ITEMS_PER_PAGE);
-    }
-    setShowMoreClicked(!showMoreClicked);
-  };
-
   return {
     accountList,
     lang,
     searchTerm,
     setSearchTerm,
-    slicedData,
+    displayedData,
     isAscending,
     onSort,
     handleAccountTableRow,
-    handleShowMore,
-    displayedData,
     ITEMS_PER_PAGE,
     sortedBy,
-    showMoreClicked,
     handleAddAccountClick,
     handleStatusClick,
     selectedWallet,

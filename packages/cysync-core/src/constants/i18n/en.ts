@@ -607,6 +607,9 @@ const en = {
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
       description: 'Description',
+      feePrefix: {
+        optimism: 'L2 ',
+      },
     },
     noData: {
       text: 'No transactions yet',
