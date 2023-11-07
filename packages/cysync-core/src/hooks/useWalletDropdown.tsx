@@ -12,6 +12,7 @@ import { selectLanguage, selectWallets, useAppSelector } from '..';
 export interface UseWalletDropdownProps {
   walletId?: string;
   withSelectAll?: boolean;
+  dropdownWidth?: number;
 }
 
 const selector = createSelector(
@@ -33,20 +34,33 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
   );
 
   const walletDropdownList: DropDownListItemProps[] = useMemo(() => {
+    const $textMaxWidth = props?.dropdownWidth
+      ? `${props.dropdownWidth - 100}px`
+      : undefined;
+    const $textMaxWidthWhenSelected = props?.dropdownWidth
+      ? `${props.dropdownWidth - 100}px`
+      : undefined;
+
+    const defaultProps = {
+      checkType: 'radio',
+      $textMaxWidth,
+      $textMaxWidthWhenSelected,
+    } as const;
+
     const list: DropDownListItemProps[] = wallets.map(w => ({
+      ...defaultProps,
       id: w.__id ?? '',
       text: w.name,
-      checkType: 'radio',
       leftImage: (
         <WalletIcon fill={theme.palette.text.white} width={20} height={20} />
       ),
-    })) as any;
+    }));
 
     if (props?.withSelectAll) {
       list.unshift({
+        ...defaultProps,
         id: 'all',
         text: lang.strings.allWallets,
-        checkType: 'radio',
         leftImage: (
           <WalletIcon fill={theme.palette.text.white} width={20} height={20} />
         ),
@@ -54,7 +68,7 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
     }
 
     return list;
-  }, [wallets]);
+  }, [wallets, props?.dropdownWidth]);
 
   useEffect(() => {
     if (props?.walletId) {
