@@ -17,6 +17,7 @@ import enterWalletNameDeviceImage from './enter-wallet-name-device.png';
 import selectSeedphraseWordCountDeviceImage from './select-seedphrase-word-count-device.png';
 import verifySeedphraseDeviceImage from './verify-seedphrase-device.png';
 import generateNewWalletDeviceImage from './generate-new-wallet-device.png';
+import tapAllCardDeviceAnimation from './tap-all-card-device-animation.gif';
 
 export {
   // old graphics
@@ -40,4 +41,5 @@ export {
   selectSeedphraseWordCountDeviceImage,
   verifySeedphraseDeviceImage,
   generateNewWalletDeviceImage,
+  tapAllCardDeviceAnimation,
 };

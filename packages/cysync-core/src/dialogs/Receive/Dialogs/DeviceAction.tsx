@@ -6,7 +6,7 @@ import {
   Typography,
   Image,
   Container,
-  confirmIcon,
+  genericConfirmDeviceImage,
   LeanBoxContainer,
   LeanBox,
   Throbber,
@@ -111,7 +111,7 @@ export const DeviceAction: React.FC = () => {
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={confirmIcon} alt="Verify Coin" />
+        <Image src={genericConfirmDeviceImage} alt="Verify Coin" />
         <Container display="flex" direction="column" width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={texts.title} />

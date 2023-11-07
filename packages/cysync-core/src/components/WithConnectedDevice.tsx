@@ -3,8 +3,8 @@ import {
   DialogBoxBody,
   Typography,
   LangDisplay,
-  Image,
-  disconnectedIcon,
+  Video,
+  deviceConnectionAnimationVideo,
   Flex,
   DialogBoxFooter,
   Button,
@@ -171,7 +171,12 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={showFooter ? 4 : 8}>
-        <Image src={disconnectedIcon} alt="Device not connected" />
+        <Video
+          src={deviceConnectionAnimationVideo}
+          autoPlay
+          loop
+          $maxWidth="full"
+        />
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay

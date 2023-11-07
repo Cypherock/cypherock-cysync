@@ -68,7 +68,7 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           direction="column"
           pb={4}
         >
-          <Image src={image} alt="device" />
+          <Image src={image} alt="device" $maxWidth="full" />
           <Flex direction="column" align="center" gap={4}>
             {title && (
               <Typography $textAlign="center" variant="h5">

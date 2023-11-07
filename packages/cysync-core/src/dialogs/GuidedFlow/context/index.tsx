@@ -14,9 +14,9 @@ import {
   informationIcon,
   selectSeedphraseWordCountDeviceImage,
   successIcon,
-  tapCardsDeviceImage,
   verifyPinDeviceImage,
   verifySeedphraseDeviceImage,
+  tapAllCardDeviceAnimation,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -78,7 +78,7 @@ const dialogsImages: Record<GuidedFlowType, string[][]> = {
       enterPinDeviceImage,
       verifyPinDeviceImage,
     ],
-    [tapCardsDeviceImage],
+    [tapAllCardDeviceAnimation],
     [successIcon, successIcon, successIcon, informationIcon, informationIcon],
   ],
   importWallet: [
@@ -95,7 +95,7 @@ const dialogsImages: Record<GuidedFlowType, string[][]> = {
       selectSeedphraseWordCountDeviceImage,
       enterSeedphraseDeviceImage,
       verifySeedphraseDeviceImage,
-      tapCardsDeviceImage,
+      tapAllCardDeviceAnimation,
     ],
     [successIcon, successIcon, successIcon, informationIcon, informationIcon],
   ],
