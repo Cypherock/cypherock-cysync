@@ -19,6 +19,7 @@ import verifySeedphraseDeviceImage from './verify-seedphrase-device.png';
 import generateNewWalletDeviceImage from './generate-new-wallet-device.png';
 
 export {
+  // old graphics
   confirmAlphabeticDeviceImage,
   confirmGenericDeviceImage,
   confirmNumericDeviceImage,
@@ -27,6 +28,7 @@ export {
   inputAlphabeticDeviceImage,
   inputNumericDeviceImage,
   tapCardsDeviceImage,
+  // new graphics
   confirmCreatePinDeviceImage,
   confirmCreateWalletDeviceImage,
   verifyPinDeviceImage,
