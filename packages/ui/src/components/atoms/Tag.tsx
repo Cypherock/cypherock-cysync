@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { FontProps, SpacingProps, font, spacing } from '../utils';
+import { UtilsProps, utils } from '../utils';
 
-interface TagProps extends SpacingProps, FontProps {
+interface TagProps extends UtilsProps {
   children: React.ReactNode;
   type?: 'tag' | 'info';
 }
@@ -38,8 +38,7 @@ const StyledTag = styled.div<TagProps>`
     color: ${theme.palette.text.muted};
     border: 1px solid ${theme.palette.border.popup};
   `}
-  ${spacing}
-  ${font}
+  ${utils}
 `;
 
 export const Tag: FC<TagProps> = ({ children, ...props }) => (

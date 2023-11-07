@@ -1032,9 +1032,7 @@ const en = {
     },
   },
   deleteAccount: {
-    title: 'Are you sure you want to remove ${accountName}?',
-    titleWithTag:
-      'Are you sure you want to remove ${accountName} [${accountTag}]?',
+    title: 'Are you sure you want to remove',
     subTitle:
       'You can add the account again from the ${walletName} wallet page. Note that this will not result in loss of assets',
     buttons: {
