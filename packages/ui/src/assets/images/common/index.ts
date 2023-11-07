@@ -69,6 +69,8 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import createWalletGraphics from './create-wallet-graphics.png';
+import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 
 export {
   addWalletIcon,
@@ -142,4 +144,6 @@ export {
   warningIcon,
   verifyAmountIcon,
   UniSwapLogo,
+  createWalletGraphics,
+  recoverWalletFromSeedphraseGraphics,
 };
