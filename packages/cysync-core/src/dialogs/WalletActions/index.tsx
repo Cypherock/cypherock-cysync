@@ -7,12 +7,12 @@ import {
   DialogBoxFooter,
   Flex,
   HelpButton,
-  Image,
   LangDisplay,
   ScrollableContainer,
   Typography,
-  addWalletIcon,
-  importWalletIcon,
+  createWalletGraphics,
+  recoverWalletFromSeedphraseGraphics,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -56,7 +56,7 @@ export const WalletActionsDialogBox: FC = () => {
             p="20"
             grow={2}
             align="center"
-            gap={40}
+            gap={32}
             direction="column"
             justify="flex-start"
             height="full"
@@ -76,16 +76,25 @@ export const WalletActionsDialogBox: FC = () => {
                 }
                 onClick={() => setSelectedAction('createWallet')}
                 align="center"
-                pt={4}
-                px={2}
+                pt={3}
+                px={3}
                 pb={2}
-                gap={16}
+                gap={24}
                 width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image $width={56} src={addWalletIcon} alt="addWalletIcon" />
-                <Typography $fontSize={20} color="white" $textAlign="center">
+                <Image
+                  $height={100}
+                  src={createWalletGraphics}
+                  alt="Create Wallet"
+                />
+                <Typography
+                  variant="h5"
+                  $fontSize={18}
+                  color="white"
+                  $textAlign="center"
+                >
                   <LangDisplay
                     text={
                       lang.strings.onboarding.walletActionsDialogBox
@@ -103,20 +112,25 @@ export const WalletActionsDialogBox: FC = () => {
                 }
                 onClick={() => setSelectedAction('importWallet')}
                 align="center"
-                pt={4}
-                px={2}
+                pt={3}
+                px={3}
                 pb={2}
-                gap={16}
+                gap={24}
                 width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
                 <Image
-                  $width={56}
-                  src={importWalletIcon}
-                  alt="importWalletIcon"
+                  $height={100}
+                  src={recoverWalletFromSeedphraseGraphics}
+                  alt="Recover Wallet From Seedphrase"
                 />
-                <Typography $fontSize={20} color="white" $textAlign="center">
+                <Typography
+                  variant="h5"
+                  $fontSize={18}
+                  color="white"
+                  $textAlign="center"
+                >
                   <LangDisplay
                     text={
                       lang.strings.onboarding.walletActionsDialogBox
@@ -126,14 +140,15 @@ export const WalletActionsDialogBox: FC = () => {
                 </Typography>
               </Flex>
             </Flex>
-            <Flex>
+            <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
                 <BulletList
-                  $fontSize={20}
+                  $fontSize={16}
                   $borderWidth={0}
                   $borderColor={undefined}
                   $bgColor={undefined}
                   color="white"
+                  p={0}
                   items={
                     lang.strings.onboarding.walletActionsDialogBox.createWallet
                       .list
@@ -142,11 +157,12 @@ export const WalletActionsDialogBox: FC = () => {
               )}
               {selectedAction === 'importWallet' && (
                 <BulletList
-                  $fontSize={20}
+                  $fontSize={16}
                   $borderWidth={0}
                   $borderColor={undefined}
                   $bgColor={undefined}
                   color="white"
+                  p={0}
                   items={
                     lang.strings.onboarding.walletActionsDialogBox.importWallet
                       .list
