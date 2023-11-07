@@ -133,6 +133,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
     );
   };
 
+  const getFeePrefix = () => (keys.feePrefix as any)[txn.assetId] ?? '';
+
   return (
     <BlurOverlay>
       <DialogBox width={700}>
@@ -213,7 +215,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                   {displayTransaction.displayValue}
                 </Typography>
               </HistoryItem>
-              <HistoryItem leftText={keys.fee}>
+              <HistoryItem leftText={getFeePrefix() + keys.fee}>
                 <NestedContainer>
                   <Typography
                     variant="span"
