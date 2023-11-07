@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import SvgWalletIcon from '../../../assets/icons/generated/WalletIcon';
+import { WalletIcon } from '../../../assets';
 import { useTheme } from '../../../themes';
 import { Container, Flex, Tag, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
@@ -53,7 +53,7 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
           align="flex-start"
         >
           <Flex gap={6} $overflow="hidden" align="center">
-            <SvgWalletIcon
+            <WalletIcon
               width={16}
               fill={theme.palette.text.muted}
               stroke={theme.palette.text.muted}
