@@ -133,7 +133,7 @@ export const GraphHeader: React.FC<GraphHeaderProps> = ({
           </Container>
         )}
         {showDropdown && (
-          <Container $noFlex width={200}>
+          <Container $noFlex width={220}>
             <Dropdown
               align-items="center"
               justify-content="space-between"

@@ -20,6 +20,8 @@ export interface DropDownListItemProps extends BorderProps {
   $hasRightText?: boolean;
   tag?: string;
   text: string;
+  $textMaxWidth?: string;
+  $textMaxWidthWhenSelected?: string;
   radioButtonValue?: string;
   $restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
@@ -52,11 +54,20 @@ export const DropDownListItemStretchedTypography = styled(Typography)<
   DropDownListItemHorizontalBoxProps & {
     $color: TypographyColor;
     $restrictedItem?: boolean;
+    $textMaxWidth?: string;
+    $textMaxWidthWhenSelected?: string;
   }
 >`
   text-overflow: ellipsis;
   white-space: nowrap;
-  ${({ $restrictedItem }) => $restrictedItem && `max-width: calc(100% - 30px);`}
+
+  ${({ $restrictedItem, $textMaxWidthWhenSelected }) =>
+    $restrictedItem &&
+    $textMaxWidthWhenSelected &&
+    `max-width: ${$textMaxWidthWhenSelected};`}
+  ${({ $restrictedItem, $textMaxWidth }) =>
+    !$restrictedItem && $textMaxWidth && `max-width: ${$textMaxWidth};`}
+
   color: ${({ $isChecked, $color, theme }) =>
     $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
 `;
@@ -148,6 +159,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   $borderRadius,
   $isFocused = false,
   showRightTextOnBottom,
+  $textMaxWidth,
+  $textMaxWidthWhenSelected,
 }): ReactElement => {
   const handleCheckChange = () => {
     onCheckedChange?.(id ?? 'default-id');
@@ -188,6 +201,8 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
             $color={color ?? 'muted'}
             $isChecked={checked}
             $restrictedItem={$restrictedItem}
+            $textMaxWidth={$textMaxWidth}
+            $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
           >
             <LangDisplay text={text} $noPreWrap />
             {shortForm && (
@@ -259,4 +274,6 @@ DropDownListItem.defaultProps = {
   $isFocused: false,
   $parentId: '',
   showRightTextOnBottom: undefined,
+  $textMaxWidth: undefined,
+  $textMaxWidthWhenSelected: undefined,
 };

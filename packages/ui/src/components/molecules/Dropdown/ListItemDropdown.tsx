@@ -16,6 +16,7 @@ interface ListItemDropdownProps {
 
 const LocalTypography = styled(Typography)`
   color: ${({ theme }) => theme.palette.text.muted};
+  text-overflow: ellipsis;
 `;
 
 interface ItemsProps {
