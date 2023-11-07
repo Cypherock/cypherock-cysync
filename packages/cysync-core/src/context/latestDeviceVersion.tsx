@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import semver from 'semver';
 
 import { useStateToRef } from '~/hooks';
+
 import { DeviceConnectionStatus, useDevice } from '..';
 
 export interface LatestDeviceVersionContextInterface {

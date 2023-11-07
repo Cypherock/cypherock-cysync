@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import React, { FC, ReactNode, useCallback } from 'react';
 import styled, { useTheme } from 'styled-components';
 
@@ -25,7 +26,6 @@ import {
   Typography,
 } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
-import lodash from 'lodash';
 
 export type SyncStatusType = 'synchronized' | 'synchronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
