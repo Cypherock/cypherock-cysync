@@ -215,6 +215,7 @@ export default function createApp() {
     logger.info('Deeplink received');
     logger.info({ event, url });
     event.preventDefault();
+    mainWindow?.show();
 
     handleUriOpen(url);
   });

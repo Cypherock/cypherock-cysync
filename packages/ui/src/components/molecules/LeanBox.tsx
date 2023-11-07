@@ -204,7 +204,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
               checked={$isChecked}
               onChange={handleCheckChange}
               id={id ?? 'default-id'}
-              $isHovered={isHovered}
+              $isHovered={!disabled && isHovered}
               ref={checkboxRef}
               isDisabled={disabled}
             />
