@@ -1,5 +1,11 @@
 import { deleteAccount } from '@cypherock/cysync-core-services';
-import { BlurOverlay, Button, IconDialogBox } from '@cypherock/cysync-ui';
+import {
+  BlurOverlay,
+  Button,
+  IconDialogBox,
+  Tag,
+  Typography,
+} from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, { FC, useState } from 'react';
 
@@ -63,9 +69,20 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
           />
         }
         title={
-          textVariables.accountTag
-            ? strings.deleteAccount.titleWithTag
-            : strings.deleteAccount.title
+          <Typography variant="h5" $textAlign="center">
+            <div>
+              {strings.deleteAccount.title} {textVariables.accountName}
+              {textVariables.accountTag && (
+                <>
+                  {' '}
+                  <Tag display="inline-block" $verficalAlign="middle">
+                    {textVariables.accountTag}
+                  </Tag>{' '}
+                </>
+              )}
+              ?
+            </div>
+          </Typography>
         }
         subtext={strings.deleteAccount.subTitle}
         textVariables={textVariables}
