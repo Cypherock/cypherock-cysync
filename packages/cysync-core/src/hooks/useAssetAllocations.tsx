@@ -208,7 +208,7 @@ export const useAssetAllocations = ({
                 withSubIconAtBottom={withSubIconAtBottom}
               />
             ),
-            balance: new BigNumber(r.balance).toNumber(),
+            balance: new BigNumber(amount).toNumber(),
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),
             displayBalance: `${
