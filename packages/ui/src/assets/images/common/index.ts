@@ -68,9 +68,6 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import deviceConnectionAnimation from './device-connection-animation.gif';
-import deviceConnectionAnimationVideo from './device-connection-animation-video.webm';
-import tapAllCardDeviceAnimation2DVideo from './tap-all-card-device-animation-2d.webm';
 
 export {
   addWalletIcon,
@@ -143,7 +140,4 @@ export {
   goldSendIcon,
   warningIcon,
   UniSwapLogo,
-  deviceConnectionAnimation,
-  deviceConnectionAnimationVideo,
-  tapAllCardDeviceAnimation2DVideo,
 };
