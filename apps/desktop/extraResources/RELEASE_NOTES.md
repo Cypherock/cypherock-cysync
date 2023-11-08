@@ -1,4 +1,4 @@
-# v1.0.1-test.26
+# v2.0.0-beta.1
 
 ### 🚀 Features
 
