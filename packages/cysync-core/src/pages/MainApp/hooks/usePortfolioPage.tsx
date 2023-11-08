@@ -5,7 +5,7 @@ export const usePortfolioPage = () => {
   const navigateTo = useNavigateTo();
 
   const { handleWalletChange, selectedWallet, walletDropdownList } =
-    useWalletDropdown({ withSelectAll: true });
+    useWalletDropdown({ withSelectAll: true, dropdownWidth: 220 });
 
   const onAssetClick = (row: CoinAllocationRow) => {
     const { parentAssetId, assetId } = row;

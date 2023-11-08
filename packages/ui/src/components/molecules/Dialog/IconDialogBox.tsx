@@ -13,7 +13,7 @@ import { CloseButton, Flex, LangDisplay, Typography } from '../../atoms';
 interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
   header?: string;
-  title?: string;
+  title?: React.ReactNode;
   subtext?: string;
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
@@ -73,11 +73,12 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
       >
         {icon}
         <Flex direction="column" align="center" gap={4} px={5}>
-          {title && (
+          {title && typeof title === 'string' && (
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={title} variables={textVariables} />
             </Typography>
           )}
+          {title && typeof title !== 'string' && title}
           {subtext && (
             <Typography variant="h6" $textAlign="center" color="muted">
               <LangDisplay text={subtext} variables={textVariables} />
