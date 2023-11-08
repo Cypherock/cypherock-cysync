@@ -7,4 +7,5 @@ export interface IDerivationScheme {
   name: string;
   generator: IDerivationPathGenerator;
   threshold: number;
+  newAccountLimit: number;
 }

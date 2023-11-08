@@ -47,7 +47,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(6);
+        expect(accounts.length).toEqual(3);
         const ledgerAccounts = accounts.filter(
           e => e.derivationScheme === 'ledger',
         );
@@ -58,22 +58,19 @@ describe('02. Create Account', () => {
           e => e.derivationScheme === 'legacy',
         );
 
-        expect(ledgerAccounts.length).toEqual(2);
+        expect(ledgerAccounts.length).toEqual(1);
         expect(ledgerAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/0'/0/0",
-          "m/44'/60'/1'/0/0",
         ]);
 
-        expect(metaMaskAccounts.length).toEqual(2);
+        expect(metaMaskAccounts.length).toEqual(1);
         expect(metaMaskAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/0'/0/1",
-          "m/44'/60'/0'/0/2",
         ]);
 
-        expect(legacyAccounts.length).toEqual(2);
+        expect(legacyAccounts.length).toEqual(1);
         expect(legacyAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/0'/0",
-          "m/44'/60'/0'/1",
         ]);
         done();
       },
@@ -116,7 +113,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(6);
+        expect(accounts.length).toEqual(3);
         const ledgerAccounts = accounts.filter(
           e => e.derivationScheme === 'ledger',
         );
@@ -127,22 +124,19 @@ describe('02. Create Account', () => {
           e => e.derivationScheme === 'legacy',
         );
 
-        expect(ledgerAccounts.length).toEqual(2);
+        expect(ledgerAccounts.length).toEqual(1);
         expect(ledgerAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/1'/0/0",
-          "m/44'/60'/2'/0/0",
         ]);
 
-        expect(metaMaskAccounts.length).toEqual(2);
+        expect(metaMaskAccounts.length).toEqual(1);
         expect(metaMaskAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/0'/0/2",
-          "m/44'/60'/0'/0/3",
         ]);
 
-        expect(legacyAccounts.length).toEqual(2);
+        expect(legacyAccounts.length).toEqual(1);
         expect(legacyAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/60'/0'/1",
-          "m/44'/60'/0'/2",
         ]);
         done();
       },

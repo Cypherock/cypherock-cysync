@@ -48,7 +48,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(4);
+        expect(accounts.length).toEqual(2);
         const nativeSegwitAccounts = accounts.filter(
           e => e.derivationScheme === 'nativeSegwit',
         );
@@ -56,16 +56,14 @@ describe('02. Create Account', () => {
           e => e.derivationScheme === 'legacy',
         );
 
-        expect(nativeSegwitAccounts.length).toEqual(2);
+        expect(nativeSegwitAccounts.length).toEqual(1);
         expect(nativeSegwitAccounts.map(e => e.derivationPath)).toEqual([
           "m/84'/0'/0'",
-          "m/84'/0'/1'",
         ]);
 
-        expect(legacyAccounts.length).toEqual(2);
+        expect(legacyAccounts.length).toEqual(1);
         expect(legacyAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/0'/0'",
-          "m/44'/0'/1'",
         ]);
         done();
       },
@@ -108,7 +106,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(4);
+        expect(accounts.length).toEqual(2);
         const nativeSegwitAccounts = accounts.filter(
           e => e.derivationScheme === 'nativeSegwit',
         );
@@ -116,16 +114,14 @@ describe('02. Create Account', () => {
           e => e.derivationScheme === 'legacy',
         );
 
-        expect(nativeSegwitAccounts.length).toEqual(2);
+        expect(nativeSegwitAccounts.length).toEqual(1);
         expect(nativeSegwitAccounts.map(e => e.derivationPath)).toEqual([
           "m/84'/0'/2'",
-          "m/84'/0'/3'",
         ]);
 
-        expect(legacyAccounts.length).toEqual(2);
+        expect(legacyAccounts.length).toEqual(1);
         expect(legacyAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/0'/0'",
-          "m/44'/0'/2'",
         ]);
         done();
       },
