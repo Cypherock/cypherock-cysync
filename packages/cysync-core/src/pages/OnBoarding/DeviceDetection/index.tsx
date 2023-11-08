@@ -1,4 +1,4 @@
-import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import { deviceConnection } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
@@ -12,7 +12,7 @@ export const DeviceDetection: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={deviceConnection}
       text={lang.strings.onboarding.deviceDetection.heading}
       currentState={3}
       totalState={8}

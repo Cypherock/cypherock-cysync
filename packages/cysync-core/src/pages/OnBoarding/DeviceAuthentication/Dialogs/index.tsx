@@ -1,42 +1,17 @@
 import { SuccessDialog } from '@cypherock/cysync-ui';
-import { ManagerApp } from '@cypherock/sdk-app-manager';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
-import { routes } from '~/constants';
-import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getCloseAppMethod, keyValueStore } from '~/utils';
+import { getCloseAppMethod } from '~/utils';
 
 import { DeviceAuthenticating } from './Authenticating';
 
+import { useDeviceAuthOnboarding } from '../context';
+
 export const DeviceAuthDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const navigateTo = useNavigateTo();
-
-  const deviceAuth: DeviceTask<boolean> = async connection => {
-    const app = await ManagerApp.create(connection);
-    await app.authDevice({
-      email: (await keyValueStore.email.get()) ?? undefined,
-      cysyncVersion: window.cysyncEnv.VERSION,
-    });
-    return true;
-  };
-
-  const task = useDeviceTask(deviceAuth);
-
-  const onRetry = () => {
-    task.run();
-  };
-
-  useEffect(() => {
-    if (task.result) {
-      navigateTo(
-        `${routes.onboarding.joystickTraining.path}?disableNavigation=true`,
-        3000,
-      );
-    }
-  }, [task.result]);
+  const { task, onRetry } = useDeviceAuthOnboarding();
 
   return (
     <ErrorHandlerDialog
