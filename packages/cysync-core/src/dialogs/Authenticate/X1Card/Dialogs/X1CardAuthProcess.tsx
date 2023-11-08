@@ -120,7 +120,7 @@ export const X1CardAuthProcess: React.FC = () => {
                 autoPlay
                 loop
                 $maxWidth="full"
-                aspectRatio="16/9"
+                $aspectRatio="16/9"
               />
               <Flex direction="column" gap={4} align="center">
                 <Typography color="white" $fontSize={20} $textAlign="center">

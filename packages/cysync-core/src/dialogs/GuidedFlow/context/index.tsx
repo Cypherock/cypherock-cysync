@@ -92,7 +92,7 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         autoPlay
         loop
         $maxWidth="full"
-        aspectRatio="16/9"
+        $aspectRatio="16/9"
       />,
     ],
     [
@@ -122,7 +122,7 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         autoPlay
         loop
         $maxWidth="full"
-        aspectRatio="16/9"
+        $aspectRatio="16/9"
       />,
     ],
     [
