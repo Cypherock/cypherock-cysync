@@ -36,7 +36,7 @@ const formatDisplayValue = (
   return { fixed, complete };
 };
 
-export const formatDisplayAmount = (value: NumberLike, decimal = 8) =>
+export const formatDisplayAmount = (value: NumberLike, decimal = 12) =>
   formatDisplayValue(value, decimal, true);
 export const formatDisplayPrice = (value: NumberLike, decimal = 2) =>
   formatDisplayValue(value, decimal).fixed;

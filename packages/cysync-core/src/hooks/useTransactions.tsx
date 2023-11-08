@@ -221,7 +221,7 @@ export const mapTransactionForDisplay = (params: {
     transaction.assetId,
   ).name;
 
-  const formattedAmount = formatDisplayAmount(amount);
+  const formattedAmount = formatDisplayAmount(amount, 8);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
   }`;

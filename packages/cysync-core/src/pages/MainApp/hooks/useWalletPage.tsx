@@ -152,7 +152,7 @@ const mapTokenAccounts = (
     value = formattedValue;
     displayValue = `$${formattedValue}`;
   }
-  const formattedAmount = formatDisplayAmount(amount);
+  const formattedAmount = formatDisplayAmount(amount, 24);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
   }`;
@@ -306,7 +306,7 @@ export const useWalletPage = () => {
       if (tokenAccounts.length > 0) {
         tokenAccounts[0].arrow = <ArrowRightBottom />;
       }
-      const formattedAmount = formatDisplayAmount(amount);
+      const formattedAmount = formatDisplayAmount(amount, 24);
       const displayAmount = `${
         isDiscreetMode ? '****' : formattedAmount.fixed
       } ${unit.abbr}`;
