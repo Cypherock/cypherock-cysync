@@ -11,7 +11,7 @@ import {
   InputLabel,
   DialogBoxFooter,
   Button,
-  settingsIcon,
+  addAccountIcon,
   Flex,
   Toggle,
   ScrollableContainer,
@@ -233,7 +233,7 @@ export const AddAccountSyncDialog: FC = () => {
             </>
           ) : (
             <>
-              <Image src={settingsIcon} alt="Loader" />
+              <Image src={addAccountIcon} alt="Loader" />
               <Typography variant="h5" $textAlign="center">
                 <LangDisplay text={strings.header} />
               </Typography>

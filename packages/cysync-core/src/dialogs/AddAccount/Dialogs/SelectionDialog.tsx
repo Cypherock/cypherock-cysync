@@ -9,7 +9,7 @@ import {
   DialogBoxFooter,
   Button,
   Dropdown,
-  addIcon,
+  addAccountIcon,
   DropDownListItemProps,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -57,7 +57,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={addIcon} alt="Verify Coin" />
+        <Image src={addAccountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={strings.header} />
