@@ -59,7 +59,7 @@ export default [
     isTest: false,
     coinGeckoId: 'avalanche-2',
     coinIndex: '8000003c',
-    feesUnit: 'NanoAvax',
+    feesUnit: 'nAVAX',
     network: 'avalanche',
     chain: 43114,
     color: '#E84142',
