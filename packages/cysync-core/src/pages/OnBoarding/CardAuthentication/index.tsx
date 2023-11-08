@@ -1,4 +1,4 @@
-import { cardTapAsideImage } from '@cypherock/cysync-ui';
+import { cardTapAll } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
@@ -13,7 +13,7 @@ export const CardAuthentication: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={cardTapAsideImage}
+      img={cardTapAll}
       text={lang.strings.onboarding.cardAuth.heading}
       currentState={7}
       totalState={8}

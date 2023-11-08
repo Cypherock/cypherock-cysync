@@ -1,4 +1,4 @@
-import { joystickTrainingAsideImage } from '@cypherock/cysync-ui';
+import { joystickInstructions } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
@@ -13,7 +13,7 @@ export const JoystickTraining: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={joystickTrainingAsideImage}
+      img={joystickInstructions}
       text={lang.strings.onboarding.joystickTraining.heading}
       currentState={5}
       totalState={8}

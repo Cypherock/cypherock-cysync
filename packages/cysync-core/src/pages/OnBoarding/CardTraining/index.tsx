@@ -1,4 +1,4 @@
-import { cardTapAsideImage } from '@cypherock/cysync-ui';
+import { cardTapAny } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
@@ -13,7 +13,7 @@ export const CardTraining: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={cardTapAsideImage}
+      img={cardTapAny}
       text={lang.strings.onboarding.cardTraining.heading}
       currentState={6}
       totalState={8}
