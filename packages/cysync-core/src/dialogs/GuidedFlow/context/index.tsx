@@ -1,13 +1,24 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ConfirmCreatePinDeviceGraphics,
+  ConfirmCreateWalletDeviceGraphics,
+  ConfirmRestoreFromSeedphraseDeviceGraphics,
+  ConfirmWalletNameDeviceGraphics,
+  EnterPinDeviceGraphics,
+  EnterSeedphraseDeviceGraphics,
+  EnterWalletNameDeviceGraphics,
+  GenerateNewWalletDeviceGraphics,
   GuidedFlowDialogBox,
+  Image,
   MessageBoxType,
+  SelectSeedphraseWordCountDeviceGraphics,
+  VerifyPinDeviceGraphics,
+  VerifySeedphraseDeviceGraphics,
+  Video,
   informationIcon,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
-  Image,
-  Video,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -29,20 +40,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
+
 import { FinalMessage } from '../Dialogs/FinalMessage';
-import {
-  ConfirmCreateWalletDeviceGraphics,
-  ConfirmRestoreFromSeedphraseDeviceGraphics,
-  EnterWalletNameDeviceGraphics,
-  ConfirmWalletNameDeviceGraphics,
-  ConfirmCreatePinDeviceGraphics,
-  EnterPinDeviceGraphics,
-  VerifyPinDeviceGraphics,
-  GenerateNewWalletDeviceGraphics,
-  EnterSeedphraseDeviceGraphics,
-  SelectSeedphraseWordCountDeviceGraphics,
-  VerifySeedphraseDeviceGraphics,
-} from '@cypherock/cysync-ui/src';
 
 type ITabs = {
   name: string;
