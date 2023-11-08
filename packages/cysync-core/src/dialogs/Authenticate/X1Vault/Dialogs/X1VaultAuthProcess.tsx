@@ -86,6 +86,7 @@ export const X1VaultAuthProcess: React.FC = () => {
       onRetry={onRetry}
       error={task.error}
       showCloseButton
+      noDelay
     >
       <DialogBox width={500} align="stretch" gap={0}>
         <Flex direction="row" justify="flex-end" py={2} px={3}>
