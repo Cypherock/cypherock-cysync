@@ -2,8 +2,11 @@ import { Observer } from 'rxjs';
 import { IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
+import * as ethers from 'ethers';
+
 import * as evmAppMock from './__mocks__/evmApp';
 import * as serviceMock from './__mocks__/services';
+
 import { EvmSupport, ICreateEvmAccountEvent, IEvmAccount } from '../src';
 
 describe('02. Create Account', () => {
@@ -13,6 +16,7 @@ describe('02. Create Account', () => {
   const getAllMock = jest.fn().mockReturnValue([]);
 
   beforeEach(() => {
+    EvmSupport.setEthersLibrary(ethers);
     support = new EvmSupport();
     connection = {} as any;
     db = {
