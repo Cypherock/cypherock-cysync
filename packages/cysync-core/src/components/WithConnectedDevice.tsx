@@ -1,17 +1,17 @@
 import {
+  Button,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  LangDisplay,
-  Video,
-  deviceConnectionAnimationVideo,
-  Flex,
   DialogBoxFooter,
-  Button,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+  disconnectedIcon,
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
-import { useLocation, Location } from 'react-router-dom';
+import { Location, useLocation } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
@@ -20,7 +20,7 @@ import {
   useDevice,
 } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { routes } from '../constants';
 
@@ -171,12 +171,7 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={showFooter ? 4 : 8}>
-        <Video
-          src={deviceConnectionAnimationVideo}
-          autoPlay
-          loop
-          $maxWidth="full"
-        />
+        <Image src={disconnectedIcon} alt="Device not connected" />
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay

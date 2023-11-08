@@ -26,9 +26,11 @@ export interface VideoProps
   autoPlay?: boolean;
   loop?: boolean;
   controls?: boolean;
+  aspectRatio?: string;
 }
 
 const VideoStyle = styled.video<VideoProps>`
+  aspect-ratio: ${({ aspectRatio }) => aspectRatio ?? 'auto'};
   ${utils}
 `;
 
@@ -40,4 +42,5 @@ Video.defaultProps = {
   autoPlay: false,
   loop: false,
   controls: false,
+  aspectRatio: 'auto',
 };

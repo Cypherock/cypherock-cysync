@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
 
-import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
+import { ArrowButton, Flex, LangDisplay, Typography } from '../../atoms';
 import { BulletList } from '../BulletList';
 import { GoldenArrowList } from '../GoldenArrowList';
 import { MessageBox, MessageBoxType } from '../MessageBox';
@@ -22,7 +22,7 @@ export interface GuidedFlowDialogBoxProps {
   bulletList?: string[];
   messageBoxList?: Record<MessageBoxType, string>[];
   heading?: string;
-  image: string;
+  image: React.ReactElement;
   children?: ReactNode;
   isLoading?: boolean;
   loadingText?: string;
@@ -68,7 +68,7 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           direction="column"
           pb={4}
         >
-          <Image src={image} alt="device" $maxWidth="full" />
+          {image}
           <Flex direction="column" align="center" gap={4}>
             {title && (
               <Typography $textAlign="center" variant="h5">

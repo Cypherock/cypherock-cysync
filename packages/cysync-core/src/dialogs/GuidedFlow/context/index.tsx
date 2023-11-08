@@ -3,20 +3,11 @@
 import {
   GuidedFlowDialogBox,
   MessageBoxType,
-  confirmCreatePinDeviceImage,
-  confirmCreateWalletDeviceImage,
-  confirmRestoreFromSeedphraseDeviceImage,
-  confirmWalletNameDeviceImage,
-  enterPinDeviceImage,
-  enterSeedphraseDeviceImage,
-  enterWalletNameDeviceImage,
-  generateNewWalletDeviceImage,
   informationIcon,
-  selectSeedphraseWordCountDeviceImage,
   successIcon,
-  verifyPinDeviceImage,
-  verifySeedphraseDeviceImage,
-  tapAllCardDeviceAnimation,
+  tapAllCardDeviceAnimation2DVideo,
+  Image,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -39,6 +30,19 @@ import {
   useAppSelector,
 } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
+import {
+  ConfirmCreateWalletDeviceGraphics,
+  ConfirmRestoreFromSeedphraseDeviceGraphics,
+  EnterWalletNameDeviceGraphics,
+  ConfirmWalletNameDeviceGraphics,
+  ConfirmCreatePinDeviceGraphics,
+  EnterPinDeviceGraphics,
+  VerifyPinDeviceGraphics,
+  GenerateNewWalletDeviceGraphics,
+  EnterSeedphraseDeviceGraphics,
+  SelectSeedphraseWordCountDeviceGraphics,
+  VerifySeedphraseDeviceGraphics,
+} from '@cypherock/cysync-ui/src';
 
 type ITabs = {
   name: string;
@@ -67,37 +71,68 @@ export interface GuidedFlowContextProviderProps {
   type: GuidedFlowType;
 }
 
-const dialogsImages: Record<GuidedFlowType, string[][]> = {
+const successIconReactElement = <Image src={successIcon} alt="device" />;
+const informationIconReactElement = (
+  <Image src={informationIcon} alt="device" />
+);
+
+const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
   createWallet: [
     [
-      confirmCreateWalletDeviceImage,
-      generateNewWalletDeviceImage,
-      enterWalletNameDeviceImage,
-      confirmWalletNameDeviceImage,
-      confirmCreatePinDeviceImage,
-      enterPinDeviceImage,
-      verifyPinDeviceImage,
+      <ConfirmCreateWalletDeviceGraphics />,
+      <GenerateNewWalletDeviceGraphics />,
+      <EnterWalletNameDeviceGraphics />,
+      <ConfirmWalletNameDeviceGraphics />,
+      <ConfirmCreatePinDeviceGraphics />,
+      <EnterPinDeviceGraphics />,
+      <VerifyPinDeviceGraphics />,
     ],
-    [tapAllCardDeviceAnimation],
-    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+    [
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $maxWidth="full"
+        aspectRatio="16/9"
+      />,
+    ],
+    [
+      successIconReactElement,
+      successIconReactElement,
+      successIconReactElement,
+      informationIconReactElement,
+      informationIconReactElement,
+    ],
   ],
   importWallet: [
     [
-      confirmCreateWalletDeviceImage,
-      confirmRestoreFromSeedphraseDeviceImage,
-      enterWalletNameDeviceImage,
-      confirmWalletNameDeviceImage,
-      confirmCreatePinDeviceImage,
-      enterPinDeviceImage,
-      verifyPinDeviceImage,
+      <ConfirmCreateWalletDeviceGraphics />,
+      <ConfirmRestoreFromSeedphraseDeviceGraphics />,
+      <EnterWalletNameDeviceGraphics />,
+      <ConfirmWalletNameDeviceGraphics />,
+      <ConfirmCreatePinDeviceGraphics />,
+      <EnterPinDeviceGraphics />,
+      <VerifyPinDeviceGraphics />,
     ],
     [
-      selectSeedphraseWordCountDeviceImage,
-      enterSeedphraseDeviceImage,
-      verifySeedphraseDeviceImage,
-      tapAllCardDeviceAnimation,
+      <SelectSeedphraseWordCountDeviceGraphics />,
+      <EnterSeedphraseDeviceGraphics />,
+      <VerifySeedphraseDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $maxWidth="full"
+        aspectRatio="16/9"
+      />,
     ],
-    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+    [
+      successIconReactElement,
+      successIconReactElement,
+      successIconReactElement,
+      informationIconReactElement,
+      informationIconReactElement,
+    ],
   ],
 };
 
@@ -174,7 +209,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   });
 
   const getDialogArray = (
-    images: string[],
+    images: React.ReactElement[],
     contents: IGuidedDialogContent[],
     first?: boolean,
   ) =>

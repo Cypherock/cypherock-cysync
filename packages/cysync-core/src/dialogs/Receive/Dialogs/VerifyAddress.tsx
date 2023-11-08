@@ -4,7 +4,7 @@ import {
   DialogBoxBody,
   Image,
   arrowGoldenForward,
-  genericConfirmDeviceImage,
+  GenericConfirmDeviceGraphics,
   LeanBoxContainer,
   LeanBox,
   Throbber,
@@ -48,7 +48,7 @@ export const VerifyAddress: React.FC = () => {
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
-        <Image src={genericConfirmDeviceImage} alt="Verify Coin" />
+        <GenericConfirmDeviceGraphics />
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
             <AddressDisplay />
