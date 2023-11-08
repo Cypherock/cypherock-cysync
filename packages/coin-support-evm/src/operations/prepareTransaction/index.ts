@@ -142,6 +142,9 @@ export const prepareTransaction = async (
       sendAmount = BigNumber.max(new BigNumber(account.balance).minus(fee), 0);
 
       output.amount = sendAmount.toString(10);
+      // Amount shouldn't have any decimal value as it's in lowest unit
+      output.amount = new BigNumber(output.amount).toFixed(0);
+
       // update userInput so that the max amount is editable & not reset to 0
       txn.userInputs.outputs[0].amount = output.amount;
     }

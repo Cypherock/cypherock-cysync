@@ -31,6 +31,7 @@ export interface LeanBoxProps extends UtilsProps {
   $isChecked?: boolean;
   onCheckChanged?: ($isChecked: boolean) => void;
   disabled?: boolean;
+  disabledInnerFlex?: boolean;
   value?: string;
   [key: string]: any;
 }
@@ -108,6 +109,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
   altText,
   fontSize,
   bottomText,
+  disabledInnerFlex,
 }): ReactElement => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -153,7 +155,9 @@ export const LeanBox: FC<LeanBoxProps> = ({
         {leftImage && <ImageContainer>{leftImage}</ImageContainer>}
         <Container direction="column" align="flex-start">
           <Container direction="row" align="flex-start" gap={16}>
-            <ContainerWrap>
+            <ContainerWrap
+              style={disabledInnerFlex ? { display: 'inline-block' } : {}}
+            >
               <StretchedTypography
                 $shouldStretch={!tag}
                 variant={textVariant}
@@ -232,4 +236,5 @@ LeanBox.defaultProps = {
   shortForm: '',
   bottomText: '',
   disabled: undefined,
+  disabledInnerFlex: undefined,
 };

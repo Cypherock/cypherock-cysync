@@ -13,6 +13,7 @@ export interface AssetAllocationTableRowProps {
   assetName: string;
   price: string;
   balance: string;
+  balanceTooltip?: string;
   value: string;
   allocation: number;
   color: string;
@@ -51,7 +52,11 @@ export const AssetAllocationTableRow: React.FC<
           text={variant === 'accounts' ? row.walletName ?? '' : row.price}
           width="18%"
         />
-        <TableNameBox text={row.balance} width="18%" showTooltip />
+        <TableNameBox
+          text={row.balance}
+          width="18%"
+          tooltip={row.balanceTooltip}
+        />
         <TableNameBox text={row.value} width="18%" />
         <AllocationShare
           percentage={row.allocation}
@@ -70,4 +75,5 @@ AssetAllocationTableRow.defaultProps = {
   accountName: undefined,
   accountTag: undefined,
   walletName: undefined,
+  balanceTooltip: undefined,
 };

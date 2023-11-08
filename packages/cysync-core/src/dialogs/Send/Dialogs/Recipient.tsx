@@ -91,6 +91,7 @@ export const Recipient: React.FC = () => {
           altText={getBalanceToDisplay()}
           textVariant="span"
           fontSize={12}
+          disabledInnerFlex
         />
       </DialogBoxBody>
       <ScrollableContainer>
