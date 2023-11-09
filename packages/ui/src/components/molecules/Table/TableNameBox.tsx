@@ -6,7 +6,7 @@ import { UtilsProps, utils } from '../../utils';
 
 interface NameBoxProps extends UtilsProps {
   text: string;
-  showTooltip?: boolean;
+  tooltip?: string;
 }
 
 const NameBoxStyle = styled.div<NameBoxProps>`
@@ -22,9 +22,9 @@ const NameBoxStyle = styled.div<NameBoxProps>`
   ${utils}
 `;
 
-export const TableNameBox: FC<NameBoxProps> = ({ showTooltip, ...props }) => (
+export const TableNameBox: FC<NameBoxProps> = ({ tooltip, ...props }) => (
   <NameBoxStyle {...props}>
-    <Tooltip text={props.text} isActive={showTooltip}>
+    <Tooltip text={tooltip} isActive={!!tooltip}>
       <Typography
         variant="p"
         color="muted"
@@ -38,5 +38,5 @@ export const TableNameBox: FC<NameBoxProps> = ({ showTooltip, ...props }) => (
 );
 
 TableNameBox.defaultProps = {
-  showTooltip: false,
+  tooltip: undefined,
 };

@@ -6,6 +6,7 @@ import {
   getDefaultUnit,
   getAsset,
   formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import {
   SvgProps,
@@ -51,6 +52,7 @@ export interface TransactionRowData {
   walletName: string;
   walletAndAccount: string;
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
   displayFee: string;
   displayFeeValue: string;
@@ -219,6 +221,14 @@ export const mapTransactionForDisplay = (params: {
     transaction.assetId,
   ).name;
 
+  const formattedAmount = formatDisplayAmount(amount, 8);
+  const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
+    unit.abbr
+  }`;
+  const amountTooltip = isDiscreetMode
+    ? undefined
+    : `${formattedAmount.complete} ${unit.abbr}`;
+
   return {
     id: transaction.__id ?? '',
     hash: transaction.hash,
@@ -233,7 +243,8 @@ export const mapTransactionForDisplay = (params: {
     assetName,
     accountName: account?.name ?? '',
     accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
-    displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+    displayAmount,
+    amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
