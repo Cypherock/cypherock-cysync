@@ -50,6 +50,19 @@ const units: ICoinUnit[] = [
   },
 ];
 
+const coinSpecificUnits: Record<string, ICoinUnit[]> = {
+  [EvmIdMap.ethereum]: units,
+  [EvmIdMap.polygon]: units,
+  [EvmIdMap.binance]: units,
+  [EvmIdMap.fantom]: units,
+  [EvmIdMap.avalanche]: [
+    { name: 'NanoAvax', abbr: 'nAVAX', magnitude: 9 },
+    ...units,
+  ],
+  [EvmIdMap.arbitrum]: units,
+  [EvmIdMap.optimism]: units,
+};
+
 export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
   Record<string, IEvmCoinInfo>
 >(
@@ -69,7 +82,7 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
       color: coin.color,
       units: [
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
-        ...units,
+        ...coinSpecificUnits[coin.id],
       ],
       ...getErc20Tokens(coin.id, { color: coin.color }),
     },

@@ -114,10 +114,6 @@ export const AccountTable: React.FC<AccountTableProps> = ({
     return height;
   };
 
-  if (accountRows.length <= 0) {
-    return null;
-  }
-
   return (
     <TableStructure mt={0}>
       <TableSearch
