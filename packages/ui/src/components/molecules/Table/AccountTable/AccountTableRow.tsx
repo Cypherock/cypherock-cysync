@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { Accordion } from './Accordion';
 
-import { Flex, Tag, Tooltip, Typography } from '../../../atoms';
+import { Button, Flex, Tag, Tooltip, Typography } from '../../../atoms';
 import { SpacingProps, spacing, utils } from '../../../utils';
 import { RowWrapper, RowContainer, RowBackground } from '../TableStyles';
 
@@ -211,15 +211,19 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
             </Flex>
           </AccountContainer>
 
-          <StatusContainer
-            onClick={e => {
-              e.stopPropagation();
-              if (onStatusClick) {
-                onStatusClick();
-              }
-            }}
-          >
-            {statusImage}
+          <StatusContainer>
+            <Button
+              variant="none"
+              p={3}
+              onClick={e => {
+                e.stopPropagation();
+                if (onStatusClick) {
+                  onStatusClick();
+                }
+              }}
+            >
+              {statusImage}
+            </Button>
           </StatusContainer>
 
           <BalanceContainer>
