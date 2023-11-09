@@ -456,7 +456,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         selectedAccount.assetId,
       ).abbr,
     });
-    return formatDisplayAmount(convertedAmount.amount);
+    return formatDisplayAmount(convertedAmount.amount).complete;
   };
 
   const priceConverter = (val: string, invert?: boolean) => {
@@ -474,7 +474,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     else result = result.multipliedBy(coinPrice.latestPrice);
 
     if (result.isNaN()) return '';
-    return invert ? formatDisplayAmount(result) : formatDisplayPrice(result);
+    return invert
+      ? formatDisplayAmount(result).complete
+      : formatDisplayPrice(result);
   };
 
   const updateUserInputs = (count: number) => {

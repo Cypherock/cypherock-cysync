@@ -72,6 +72,7 @@ export const History: FC = () => {
         account={row.accountName}
         accountTag={row.accountTag}
         amount={row.displayAmount}
+        amountTooltip={row.amountTooltip}
         value={row.displayValue}
         $isLast={index === displayedData.length - 1}
         $rowIndex={index}

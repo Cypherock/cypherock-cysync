@@ -3,7 +3,6 @@ import {
   ArrowRightIcon,
   Check,
   CloseButton,
-  DeviceScreenTapCard,
   DialogBox,
   DialogBoxBody,
   Divider,
@@ -15,6 +14,8 @@ import {
   ScrollableContainer,
   Throbber,
   Typography,
+  Video,
+  tapAnyCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
 import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -114,7 +115,13 @@ export const X1CardAuthProcess: React.FC = () => {
               direction="column"
               align="center"
             >
-              <DeviceScreenTapCard width={264} />
+              <Video
+                src={tapAnyCardDeviceAnimation2DVideo}
+                autoPlay
+                loop
+                $maxWidth="full"
+                $aspectRatio="16/9"
+              />
               <Flex direction="column" gap={4} align="center">
                 <Typography color="white" $fontSize={20} $textAlign="center">
                   <LangDisplay text={title} />

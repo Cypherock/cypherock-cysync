@@ -1,5 +1,5 @@
 import addWalletIcon from './add-wallet.png';
-import addIcon from './add.svg';
+import addAccountIcon from './add-account.svg';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
@@ -66,7 +66,6 @@ import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
 import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
-import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
@@ -88,7 +87,7 @@ export {
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,
-  addIcon,
+  addAccountIcon,
   confirmIcon,
   cypherockRedIcon,
   triangleInverseIcon,
@@ -142,7 +141,6 @@ export {
   qrImage,
   goldSendIcon,
   warningIcon,
-  verifyAmountIcon,
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,

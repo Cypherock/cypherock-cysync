@@ -58,6 +58,7 @@ export interface CoinAllocationRow {
   value: number;
   displayPrice: string;
   displayBalance: string;
+  balanceTooltip?: string;
   displayValue: string;
   allocation: number;
 }
@@ -186,6 +187,13 @@ export const useAssetAllocations = ({
             const wallet = data.wallets.find(w => w.__id === account?.walletId);
             accountProperties.walletName = wallet?.name;
           }
+          const formattedAmount = formatDisplayAmount(amount);
+          const displayBalance = `${
+            data.isDiscreetMode ? '****' : formattedAmount.fixed
+          } ${unit.abbr}`;
+          const balanceTooltip = data.isDiscreetMode
+            ? undefined
+            : `${formattedAmount.complete} ${unit.abbr}`;
 
           return {
             id: `${r.parentAssetId}/${r.assetId}/${
@@ -211,9 +219,8 @@ export const useAssetAllocations = ({
             balance: new BigNumber(amount).toNumber(),
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),
-            displayBalance: `${
-              data.isDiscreetMode ? '****' : formatDisplayAmount(amount)
-            } ${unit.abbr}`,
+            displayBalance,
+            balanceTooltip,
             displayPrice: `$${
               data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
             }`,
