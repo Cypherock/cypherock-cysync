@@ -98,7 +98,7 @@ export const Topbar: FC<TopbarProps> = ({
   const theme = useTheme();
 
   const debouncedToggleDiscreteMode = useCallback(
-    lodash.throttle(toggleDiscreetMode, 600),
+    lodash.debounce(toggleDiscreetMode, 600),
     [],
   );
 
