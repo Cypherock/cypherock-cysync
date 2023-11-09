@@ -1,16 +1,17 @@
 import { getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  LangDisplay,
-  DialogBoxFooter,
   Button,
-  DialogBoxBody,
-  Typography,
   Container,
-  ScrollableContainer,
   DialogBox,
-  LeanBox,
+  DialogBoxBody,
+  DialogBoxFooter,
   InformationIcon,
+  LangDisplay,
+  LeanBox,
+  ScrollableContainer,
+  Typography,
   useTheme,
+  BlockchainIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
@@ -70,6 +71,7 @@ export const Recipient: React.FC = () => {
   return (
     <DialogBox width={517} $maxHeight="full">
       <DialogBoxBody pt={4} pb={0}>
+        <BlockchainIcon />
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={displayText.title} />

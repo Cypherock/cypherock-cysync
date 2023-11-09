@@ -1,5 +1,4 @@
-import { BlurOverlay } from '@cypherock/cysync-ui';
-import { DialogBox } from '@cypherock/cysync-ui/src';
+import { BlurOverlay, DialogBox } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { WithConnectedDevice } from '~/components';

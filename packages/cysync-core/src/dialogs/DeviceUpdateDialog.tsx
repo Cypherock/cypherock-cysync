@@ -3,8 +3,8 @@ import {
   FirmwareDownloadGreenIcon,
   ProgressDialog,
   SuccessDialog,
+  BlurOverlay,
 } from '@cypherock/cysync-ui';
-import { BlurOverlay } from '@cypherock/cysync-ui/src';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
