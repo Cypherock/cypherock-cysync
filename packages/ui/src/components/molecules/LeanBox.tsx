@@ -58,7 +58,6 @@ export const HorizontalBox = styled.div<{
 
 export const ImageContainer = styled.div<{ gap?: number }>`
   display: flex;
-  overflow: hidden;
   align-items: center;
   gap: ${props => (props.gap ? `${props.gap}px` : '0')};
 `;
