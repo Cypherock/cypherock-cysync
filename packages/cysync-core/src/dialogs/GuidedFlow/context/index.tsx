@@ -1,18 +1,24 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ConfirmCreatePinDeviceGraphics,
+  ConfirmCreateWalletDeviceGraphics,
+  ConfirmRestoreFromSeedphraseDeviceGraphics,
+  ConfirmWalletNameDeviceGraphics,
+  EnterPinDeviceGraphics,
+  EnterSeedphraseDeviceGraphics,
+  EnterWalletNameDeviceGraphics,
+  GenerateNewWalletDeviceGraphics,
   GuidedFlowDialogBox,
+  Image,
   MessageBoxType,
-  confirmAlphabeticDeviceImage,
-  confirmGenericDeviceImage,
-  confirmSeedDeviceImage,
-  confirmPinDeviceImage,
-  confirmNumericDeviceImage,
+  SelectSeedphraseWordCountDeviceGraphics,
+  VerifyPinDeviceGraphics,
+  VerifySeedphraseDeviceGraphics,
+  Video,
   informationIcon,
-  inputAlphabeticDeviceImage,
-  inputNumericDeviceImage,
   successIcon,
-  tapCardsDeviceImage,
+  tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -34,6 +40,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
+
 import { FinalMessage } from '../Dialogs/FinalMessage';
 
 type ITabs = {
@@ -63,37 +70,68 @@ export interface GuidedFlowContextProviderProps {
   type: GuidedFlowType;
 }
 
-const dialogsImages: Record<GuidedFlowType, string[][]> = {
+const successIconReactElement = <Image src={successIcon} alt="device" />;
+const informationIconReactElement = (
+  <Image src={informationIcon} alt="device" />
+);
+
+const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
   createWallet: [
     [
-      confirmGenericDeviceImage,
-      confirmGenericDeviceImage,
-      inputAlphabeticDeviceImage,
-      confirmAlphabeticDeviceImage,
-      confirmPinDeviceImage,
-      inputNumericDeviceImage,
-      confirmNumericDeviceImage,
+      <ConfirmCreateWalletDeviceGraphics />,
+      <GenerateNewWalletDeviceGraphics />,
+      <EnterWalletNameDeviceGraphics />,
+      <ConfirmWalletNameDeviceGraphics />,
+      <ConfirmCreatePinDeviceGraphics />,
+      <EnterPinDeviceGraphics />,
+      <VerifyPinDeviceGraphics />,
     ],
-    [tapCardsDeviceImage],
-    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+    [
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $maxWidth="full"
+        $aspectRatio="16/9"
+      />,
+    ],
+    [
+      successIconReactElement,
+      successIconReactElement,
+      successIconReactElement,
+      informationIconReactElement,
+      informationIconReactElement,
+    ],
   ],
   importWallet: [
     [
-      confirmGenericDeviceImage,
-      confirmGenericDeviceImage,
-      inputAlphabeticDeviceImage,
-      confirmAlphabeticDeviceImage,
-      confirmPinDeviceImage,
-      inputNumericDeviceImage,
-      confirmNumericDeviceImage,
+      <ConfirmCreateWalletDeviceGraphics />,
+      <ConfirmRestoreFromSeedphraseDeviceGraphics />,
+      <EnterWalletNameDeviceGraphics />,
+      <ConfirmWalletNameDeviceGraphics />,
+      <ConfirmCreatePinDeviceGraphics />,
+      <EnterPinDeviceGraphics />,
+      <VerifyPinDeviceGraphics />,
     ],
     [
-      confirmNumericDeviceImage,
-      confirmSeedDeviceImage,
-      confirmSeedDeviceImage,
-      tapCardsDeviceImage,
+      <SelectSeedphraseWordCountDeviceGraphics />,
+      <EnterSeedphraseDeviceGraphics />,
+      <VerifySeedphraseDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $maxWidth="full"
+        $aspectRatio="16/9"
+      />,
     ],
-    [successIcon, successIcon, successIcon, informationIcon, informationIcon],
+    [
+      successIconReactElement,
+      successIconReactElement,
+      successIconReactElement,
+      informationIconReactElement,
+      informationIconReactElement,
+    ],
   ],
 };
 
@@ -170,7 +208,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   });
 
   const getDialogArray = (
-    images: string[],
+    images: React.ReactElement[],
     contents: IGuidedDialogContent[],
     first?: boolean,
   ) =>
