@@ -78,6 +78,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({
         tag={row.tag}
         statusImage={row.statusImage}
         amount={row.displayAmount}
+        amountTooltip={row.amountTooltip}
         value={row.displayValue}
         tokens={row.tokens?.map(t => ({
           ...t,

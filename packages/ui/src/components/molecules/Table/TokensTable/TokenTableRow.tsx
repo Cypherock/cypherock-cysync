@@ -9,6 +9,7 @@ export interface TokenTableRowProps {
   tokenAbbr: string;
   tokenName: string;
   balance: string;
+  balanceTooltip?: string;
   value: string;
   $rowIndex: number;
   $isLast?: boolean;
@@ -34,7 +35,11 @@ export const TokenTableRow: React.FC<TokenTableRowProps> = props => {
           subtitle={row.tokenAbbr}
           width={{ def: '38%', lg: '38%' }}
         />
-        <TableNameBox text={row.balance} width="32%" showTooltip />
+        <TableNameBox
+          text={row.balance}
+          width="32%"
+          tooltip={row.balanceTooltip}
+        />
         <TableNameBox text={row.value} width="32%" />
       </RowContainer>
     </RowWrapper>
@@ -44,4 +49,5 @@ export const TokenTableRow: React.FC<TokenTableRowProps> = props => {
 TokenTableRow.defaultProps = {
   $isLast: false,
   style: undefined,
+  balanceTooltip: undefined,
 };
