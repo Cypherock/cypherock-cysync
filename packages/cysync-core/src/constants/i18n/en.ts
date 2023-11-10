@@ -587,11 +587,18 @@ const en = {
       amount: 'Amount',
       value: 'Value',
     },
-    transactionType: {
-      send: 'Sent',
-      receive: 'Received',
-      failed: 'Failed',
-      pending: 'Pending',
+    //! Fields used as keys in getDisplayTransactionType, modify with caution
+    transactionStatus: {
+      send: {
+        failed: 'Send Failed',
+        pending: 'Sending',
+        success: 'Sent',
+      },
+      receive: {
+        failed: 'Receive Failed',
+        pending: 'Receiving',
+        success: 'Received',
+      },
     },
     dialogBox: {
       value: 'Value',
