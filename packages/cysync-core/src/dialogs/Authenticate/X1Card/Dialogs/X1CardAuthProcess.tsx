@@ -20,7 +20,7 @@ import {
 import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { ErrorHandlerDialog } from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
@@ -31,7 +31,7 @@ const rightArrowIcon = <ArrowRightIcon />;
 const checkIcon = <Check width={15} height={12} />;
 const throbber = <Throbber size={15} strokeWidth={2} />;
 
-export const X1CardAuthProcess: React.FC = () => {
+const X1CardAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onClose, onNext } = useAuthenticateX1CardDialog();
   const { dialogs } = lang.strings;
@@ -166,3 +166,9 @@ export const X1CardAuthProcess: React.FC = () => {
     </ErrorHandlerDialog>
   );
 };
+
+export const X1CardAuthProcessWithDevice: React.FC = () => (
+  <WithConnectedDevice>
+    <X1CardAuthProcess />
+  </WithConnectedDevice>
+);

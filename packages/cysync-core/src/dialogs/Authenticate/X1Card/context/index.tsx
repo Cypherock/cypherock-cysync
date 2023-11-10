@@ -15,7 +15,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { X1CardEmail2FA, X1CardAuthProcess } from '../Dialogs';
+import { X1CardEmail2FA, X1CardAuthProcessWithDevice } from '../Dialogs';
 import { AuthenticateX1CardSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1CardDialogContextInterface {
@@ -57,7 +57,7 @@ export const AuthenticateX1CardDialogProvider: FC<
     {
       name: lang.strings.dialogs.auth.title,
       dialogs: [
-        <X1CardAuthProcess key="authenticate-x1-card-device-process" />,
+        <X1CardAuthProcessWithDevice key="authenticate-x1-card-device-process" />,
       ],
     },
     {
