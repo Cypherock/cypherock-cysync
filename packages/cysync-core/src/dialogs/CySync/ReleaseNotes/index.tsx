@@ -16,6 +16,7 @@ import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { ReleaseNotesDialogProvider, useReleaseNotesDialog } from './context';
 
 const ReleaseNotes: FC = () => {
@@ -23,6 +24,10 @@ const ReleaseNotes: FC = () => {
   const { onClose } = useReleaseNotesDialog();
   const { buttons, dialogs } = lang.strings;
   const { releaseNote } = dialogs;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <BlurOverlay>

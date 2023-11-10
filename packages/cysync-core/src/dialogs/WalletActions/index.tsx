@@ -7,12 +7,12 @@ import {
   DialogBoxFooter,
   Flex,
   HelpButton,
+  Image,
   LangDisplay,
   ScrollableContainer,
   Typography,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
-  Image,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -25,6 +25,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { Header } from './Sections';
 
 export const WalletActionsDialogBox: FC = () => {
@@ -41,6 +42,10 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
     dispatch(openGuidedFlowDialog(selectedAction));
   };
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <BlurOverlay>

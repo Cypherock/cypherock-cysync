@@ -14,6 +14,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useRemovePasswordDialog } from '../context';
 
 export const ConfirmPassword: React.FC = () => {
@@ -30,6 +31,10 @@ export const ConfirmPassword: React.FC = () => {
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
   const { confimPassword } = dialogs.password;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

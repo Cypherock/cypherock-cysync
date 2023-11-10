@@ -26,7 +26,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
-import { mapTransactionForDisplay } from '~/hooks';
+import { addKeyboardEvents, mapTransactionForDisplay } from '~/hooks';
 import {
   closeDialog,
   openSnackBar,
@@ -134,6 +134,10 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
   };
 
   const getFeePrefix = () => (keys.feePrefix as any)[txn.assetId] ?? '';
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <BlurOverlay>

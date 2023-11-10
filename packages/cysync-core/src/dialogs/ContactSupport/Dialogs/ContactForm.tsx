@@ -26,6 +26,7 @@ import React, { useEffect, useRef } from 'react';
 import { DeviceHandlingState, useDevice } from '~/context';
 import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useContactSupportDialog } from '../context';
 
 interface DeviceConnectionErrorDisplayProps {
@@ -105,6 +106,10 @@ export const ContactForm: React.FC = () => {
     if (error || deviceLogsError)
       containerRef.current?.scrollTo(0, containerRef.current.scrollHeight);
   }, [error, deviceLogsError]);
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>

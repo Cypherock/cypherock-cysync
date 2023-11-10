@@ -1,26 +1,30 @@
 import { evmCoinList } from '@cypherock/coins';
 import {
+  AlertBox,
+  BulletList,
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  Dropdown,
-  AlertBox,
-  BulletList,
-  ScrollableContainer,
-  Flex,
-  CloseButton,
-  WalletIcon,
   DialogBoxHeader,
+  Dropdown,
+  Flex,
+  LangDisplay,
+  ScrollableContainer,
+  Typography,
+  WalletIcon,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
-import { useAccountDropdown, useWalletDropdown } from '~/hooks';
+import {
+  addKeyboardEvents,
+  useAccountDropdown,
+  useWalletDropdown,
+} from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -71,6 +75,10 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
       ),
     );
   };
+
+  addKeyboardEvents({
+    Escape: handleClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch">

@@ -1,17 +1,17 @@
 import { SignMessageType } from '@cypherock/coin-support-interfaces';
 import {
   Button,
+  CloseButton,
   Container,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  Flex,
-  ScrollContainer,
   Divider,
-  CloseButton,
+  Flex,
   JsonView,
+  LangDisplay,
+  ScrollContainer,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React, { useMemo } from 'react';
 
@@ -21,6 +21,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { Title } from './components';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useSignMessageDialog } from '../context';
 
 const AccountDisplay: React.FC = () => {
@@ -94,6 +95,10 @@ export const ViewMessageDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { buttons } = lang.strings;
   const { onNext, onClose } = useSignMessageDialog();
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>

@@ -21,7 +21,7 @@ import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
-import { DeviceTask, useDeviceTask } from '~/hooks';
+import { DeviceTask, addKeyboardEvents, useDeviceTask } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -92,6 +92,10 @@ export const X1CardAuthProcess: React.FC = () => {
       onNext();
     }
   }, [onNext, task.result]);
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <ErrorHandlerDialog

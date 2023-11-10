@@ -1,11 +1,11 @@
 import {
-  DialogBox,
-  DialogBoxBody,
-  WalletDialogMainContainer,
-  MilestoneAside,
-  CloseButton,
   BlurOverlay,
+  CloseButton,
+  DialogBox,
   DialogBoxBackgroundBar,
+  DialogBoxBody,
+  MilestoneAside,
+  WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -16,6 +16,7 @@ import {
 } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
 export interface AddAccountDialogProps {
@@ -41,6 +42,10 @@ const AddNewAccount: FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const [showOnClose, setShowOnClose] = React.useState(false);
+
+  addKeyboardEvents({
+    Escape: () => setShowOnClose(true),
+  });
 
   return (
     <BlurOverlay>

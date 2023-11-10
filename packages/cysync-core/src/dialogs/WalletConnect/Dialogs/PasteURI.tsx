@@ -1,21 +1,22 @@
 import {
   Button,
+  CloseButton,
   Container,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
+  Divider,
+  Flex,
   Input,
   LangDisplay,
+  PasteIcon,
   Typography,
   WalletConnectLogo,
-  PasteIcon,
-  CloseButton,
-  Flex,
-  Divider,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { WalletConnectConnectionState, useWalletConnect } from '~/context';
+import { addKeyboardEvents } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const WalletConnectPasteURIDialog: React.FC = () => {
@@ -56,6 +57,10 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
     setError('');
     createConnection(walletConnectURI);
   };
+
+  addKeyboardEvents({
+    Escape: handleClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

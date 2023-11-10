@@ -3,6 +3,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useContactSupportDialog } from '../context';
 
 export const ContactSupportSuccess: React.FC = () => {
@@ -11,6 +12,10 @@ export const ContactSupportSuccess: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { success } = dialogs.contactSupport;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <SuccessDialog

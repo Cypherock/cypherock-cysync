@@ -1,16 +1,16 @@
 import { SignMessageDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
+  ArrowRightIcon,
+  Check,
+  CloseButton,
   Container,
   DialogBox,
   DialogBoxBody,
-  LeanBoxContainer,
-  LeanBox,
-  CloseButton,
-  Flex,
   Divider,
+  Flex,
+  LeanBox,
+  LeanBoxContainer,
   LeanBoxProps,
-  ArrowRightIcon,
-  Check,
   Throbber,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
@@ -20,6 +20,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { Title } from './components';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useSignMessageDialog } from '../context';
 
 const checkIconComponent = <Check width={15} height={12} />;
@@ -108,6 +109,10 @@ export const ViewSigningStateDialog: React.FC = () => {
 
     return actions;
   }, [deviceEvents]);
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

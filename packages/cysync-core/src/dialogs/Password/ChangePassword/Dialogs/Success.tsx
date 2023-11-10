@@ -3,6 +3,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useChangePasswordDialog } from '../context';
 
 export const ChangePasswordSuccess: React.FC = () => {
@@ -11,6 +12,10 @@ export const ChangePasswordSuccess: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { success } = dialogs.password;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <SuccessDialog

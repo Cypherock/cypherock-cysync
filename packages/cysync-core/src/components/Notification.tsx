@@ -1,17 +1,17 @@
-import { getParsedAmount, getDefaultUnit } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  parseLangTemplate,
   Button,
+  Check,
   Container,
   Flex,
+  FloatContainer,
   LangDisplay,
   NotificationContainer,
   NotificationGroupHeader,
   NotificationItem,
   Typography,
+  parseLangTemplate,
   useTheme,
-  Check,
-  FloatContainer,
 } from '@cypherock/cysync-ui';
 import {
   IAccount,
@@ -29,8 +29,8 @@ import {
   markTransactionNotificationClicked,
   openHistoryDialog,
 } from '~/actions';
-import { useNavigateTo } from '~/hooks';
-import { transactionIconMap, getDisplayTransactionType } from '~/utils';
+import { addKeyboardEvents, useNavigateTo } from '~/hooks';
+import { getDisplayTransactionType, transactionIconMap } from '~/utils';
 
 import {
   CoinIcon,
@@ -195,6 +195,10 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   }, [transactions]);
 
   const hasMoreTransactions = transactions.length > 5;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <NotificationContainer

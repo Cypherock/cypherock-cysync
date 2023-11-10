@@ -1,14 +1,14 @@
 import {
+  BackButton,
+  BlurOverlay,
+  CloseButton,
+  ConfettiBlast,
   DialogBox,
+  DialogBoxBackgroundBar,
   DialogBoxBody,
   HelpButton,
-  WalletDialogMainContainer,
   MilestoneAside,
-  CloseButton,
-  BlurOverlay,
-  DialogBoxBackgroundBar,
-  BackButton,
-  ConfettiBlast,
+  WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -21,6 +21,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { GuidedFlowProvider, useGuidedFlow } from './context';
 import { CloseConfirmation } from './Dialogs';
 
@@ -41,6 +42,11 @@ export const GuidedFlowDialog: FC = () => {
     dispatch(closeDialog('guidedFlow'));
     dispatch(openWalletActionsDialog());
   };
+
+  addKeyboardEvents({
+    Escape: () => setShowOnClose(true),
+  });
+
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">

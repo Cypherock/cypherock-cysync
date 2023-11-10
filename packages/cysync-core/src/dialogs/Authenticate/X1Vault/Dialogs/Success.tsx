@@ -3,6 +3,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useAuthenticateX1VaultDialog } from '../context';
 
 export const AuthenticateX1VaultSuccess: React.FC = () => {
@@ -11,6 +12,10 @@ export const AuthenticateX1VaultSuccess: React.FC = () => {
   const { strings } = useAppSelector(selectLanguage);
   const { buttons, dialogs } = strings;
   const { success } = dialogs.auth.authX1Vault;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <SuccessDialog

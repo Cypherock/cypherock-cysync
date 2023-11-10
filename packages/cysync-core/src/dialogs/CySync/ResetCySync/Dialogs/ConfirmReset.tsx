@@ -14,6 +14,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useResetCySyncDialog } from '../context';
 
 export const ConfirmReset: React.FC = () => {
@@ -21,6 +22,10 @@ export const ConfirmReset: React.FC = () => {
   const { isLoading, onClose, onReset } = useResetCySyncDialog();
   const { buttons, dialogs } = lang.strings;
   const { confim } = dialogs.reset;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

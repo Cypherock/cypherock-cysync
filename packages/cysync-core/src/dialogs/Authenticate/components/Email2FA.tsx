@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
+import { addKeyboardEvents } from '~/hooks';
 
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
@@ -75,6 +76,10 @@ export const Email2FA: React.FC<Email2FAProps> = ({ onClose, onNext }) => {
     setIsLoading(false);
     onNext();
   };
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

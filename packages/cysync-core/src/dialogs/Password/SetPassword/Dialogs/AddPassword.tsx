@@ -14,6 +14,7 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useSetPasswordDialog } from '../context';
 
 export const AddPassword: React.FC = () => {
@@ -33,6 +34,10 @@ export const AddPassword: React.FC = () => {
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
   const { createNewPassword, info } = dialogs.password;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} align="stretch" gap={0}>

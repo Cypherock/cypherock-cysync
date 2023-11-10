@@ -1,20 +1,21 @@
 import {
   Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
-  LangDisplay,
-  Typography,
-  CloseButton,
-  Flex,
   Divider,
+  Flex,
+  LangDisplay,
   PasswordInput,
   ScrollableContainer,
+  Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { addKeyboardEvents } from '~/hooks';
 import { useChangePasswordDialog } from '../context';
 
 export const CreateNewPassword: React.FC = () => {
@@ -36,6 +37,10 @@ export const CreateNewPassword: React.FC = () => {
   const { buttons, dialogs } = strings;
   const { input } = dialogs.password;
   const { confimPassword, info } = dialogs.password;
+
+  addKeyboardEvents({
+    Escape: onClose,
+  });
 
   return (
     <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>
