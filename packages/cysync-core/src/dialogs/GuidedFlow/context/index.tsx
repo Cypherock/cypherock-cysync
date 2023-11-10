@@ -16,7 +16,8 @@ import {
   VerifyPinDeviceGraphics,
   VerifySeedphraseDeviceGraphics,
   Video,
-  informationIcon,
+  distributeToLocationsAnimationVideo,
+  enterSeedphraseAnimationVideo,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
@@ -71,9 +72,6 @@ export interface GuidedFlowContextProviderProps {
 }
 
 const successIconReactElement = <Image src={successIcon} alt="device" />;
-const informationIconReactElement = (
-  <Image src={informationIcon} alt="device" />
-);
 
 const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
   createWallet: [
@@ -91,7 +89,7 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
         loop
-        $maxWidth="full"
+        $width="full"
         $aspectRatio="16/9"
       />,
     ],
@@ -99,8 +97,20 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
       successIconReactElement,
       successIconReactElement,
       successIconReactElement,
-      informationIconReactElement,
-      informationIconReactElement,
+      <Video
+        src={enterSeedphraseAnimationVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      <Video
+        src={distributeToLocationsAnimationVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
     ],
   ],
   importWallet: [
@@ -121,7 +131,7 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
         loop
-        $maxWidth="full"
+        $width="full"
         $aspectRatio="16/9"
       />,
     ],
@@ -129,8 +139,20 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
       successIconReactElement,
       successIconReactElement,
       successIconReactElement,
-      informationIconReactElement,
-      informationIconReactElement,
+      <Video
+        src={enterSeedphraseAnimationVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      <Video
+        src={distributeToLocationsAnimationVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
     ],
   ],
 };

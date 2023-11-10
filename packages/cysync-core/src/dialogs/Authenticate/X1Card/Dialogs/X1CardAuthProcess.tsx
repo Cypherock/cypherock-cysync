@@ -119,7 +119,7 @@ export const X1CardAuthProcess: React.FC = () => {
                 src={tapAnyCardDeviceAnimation2DVideo}
                 autoPlay
                 loop
-                $maxWidth="full"
+                $width="full"
                 $aspectRatio="16/9"
               />
               <Flex direction="column" gap={4} align="center">

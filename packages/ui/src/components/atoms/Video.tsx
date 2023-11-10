@@ -35,7 +35,7 @@ const VideoStyle = styled.video<VideoProps>`
 `;
 
 export const Video: FC<VideoProps> = ({ src, ...props }) => (
-  <VideoStyle {...props} src={src} />
+  <VideoStyle $maxWidth="full" src={src} {...props} />
 );
 
 Video.defaultProps = {
