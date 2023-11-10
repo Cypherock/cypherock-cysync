@@ -634,7 +634,7 @@ const en = {
         title: 'Ensure the following before you continue',
         listItems: [
           'You are present in a safe and secure environment',
-          'You have atleast 10-15 minutes to setup your wallet',
+          'You have at least 10-15 minutes to setup your wallet',
           'You have an active internet connection',
           'The tamper-proof seal of the package is intact',
           'Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction',
@@ -888,12 +888,12 @@ const en = {
     deletedMany: {
       title:
         'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
-      subTitle: 'You can chose which ones to keep and which ones to delete',
+      subTitle: 'You can choose which ones to keep and which ones to delete',
     },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
-      subTitle: 'You can chose which one to keep and which one to delete',
+      subTitle: 'You can choose which one to keep and which one to delete',
       checkboxText: "Don't show this again",
     },
     buttons: {
