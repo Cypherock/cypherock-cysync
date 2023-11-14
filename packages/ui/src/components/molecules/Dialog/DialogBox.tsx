@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
+import FocusTrap from 'focus-trap-react';
 
 import {
   WidthProps,
@@ -154,7 +155,9 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
 export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
   <>
     {props.$isModal && <ModalOverlay />}
-    <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
+    <FocusTrap>
+      <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
+    </FocusTrap>
   </>
 );
 
