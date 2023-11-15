@@ -36,6 +36,7 @@ export interface DeviceContextInterface {
   getDevices: GetDevices;
   disconnectDevice: () => void;
   deviceHandlingState: DeviceHandlingState;
+  getDeviceHandlingState: () => DeviceHandlingState;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -69,36 +70,9 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const onConnectionChange = async () => {
     setDeviceHandlingState(DeviceHandlingState.NOT_CONNECTED);
     // Only works if app has completed onboarding
-    if (!connectionInfo || !(await keyValueStore.isOnboardingCompleted.get()))
-      return;
+    if (!(await keyValueStore.isOnboardingCompleted.get())) return;
 
-    if (connectionInfo.status === DeviceConnectionStatus.BUSY) {
-      setDeviceHandlingState(DeviceHandlingState.BUSY);
-    } else if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
-      setDeviceHandlingState(DeviceHandlingState.INCOMPATIBLE);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      connectionInfo.isBootloader
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.BOOTLOADER);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      (connectionInfo.onboardingStep !==
-        OnboardingStep.ONBOARDING_STEP_COMPLETE ||
-        connectionInfo.isInitial)
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.NOT_ONBOARDED);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      connectionInfo.isMain &&
-      !connectionInfo.isAuthenticated
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.NOT_AUTHENTICATED);
-    } else if (connectionInfo.status === DeviceConnectionStatus.CONNECTED) {
-      setDeviceHandlingState(DeviceHandlingState.USABLE);
-    } else {
-      setDeviceHandlingState(DeviceHandlingState.UNKNOWN_ERROR);
-    }
+    setDeviceHandlingState(getDeviceHandlingState());
   };
 
   useEffect(() => {
@@ -106,6 +80,43 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   }, [connectionInfo]);
 
   const listenerTimeout = useRef<any>();
+
+  const getDeviceHandlingState = () => {
+    if (!connectionInfo) {
+      return DeviceHandlingState.NOT_CONNECTED;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.BUSY) {
+      return DeviceHandlingState.BUSY;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
+      return DeviceHandlingState.INCOMPATIBLE;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isBootloader
+    ) {
+      return DeviceHandlingState.BOOTLOADER;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      (connectionInfo.onboardingStep !==
+        OnboardingStep.ONBOARDING_STEP_COMPLETE ||
+        connectionInfo.isInitial)
+    ) {
+      return DeviceHandlingState.NOT_ONBOARDED;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isMain &&
+      !connectionInfo.isAuthenticated
+    ) {
+      return DeviceHandlingState.NOT_AUTHENTICATED;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.CONNECTED) {
+      return DeviceHandlingState.USABLE;
+    }
+    return DeviceHandlingState.UNKNOWN_ERROR;
+  };
 
   const markDeviceAsConnected = (
     device: IDevice,
@@ -217,6 +228,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       getDevices,
       disconnectDevice,
       deviceHandlingState,
+      getDeviceHandlingState,
     }),
     [
       connectionInfo,
