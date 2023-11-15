@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ICreateAccountEvent, ICreateAccountParams } from './createAccount';
 import { IGetExplorerLink } from './explorer';
+import { IFormatAddressParams } from './formatAddress';
 import {
   IGetAccountHistoryParams,
   IGetAccountHistoryResult,
@@ -38,6 +39,7 @@ export * from './syncPriceHistories';
 export * from './getCoinAllocations';
 export * from './getAccountHistory';
 export * from './explorer';
+export * from './formatAddress';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
@@ -73,4 +75,5 @@ export interface CoinSupport {
     params: IGetAccountHistoryParams,
   ): Promise<IGetAccountHistoryResult>;
   getExplorerLink(params: IGetExplorerLink): string;
+  formatAddress(params: IFormatAddressParams): string;
 }
