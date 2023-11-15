@@ -1,3 +1,4 @@
+import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
   Chip,
@@ -134,6 +135,21 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
   };
 
   const getFeePrefix = () => (keys.feePrefix as any)[txn.assetId] ?? '';
+
+  const formatTxnAddress = (address: string, index: number, total: number) => {
+    const formattedAddress = formatAddress({
+      address,
+      coinId: txn.parentAssetId,
+      familyId: txn.familyId,
+    });
+
+    let str = formattedAddress;
+    if (total > 1) {
+      str = `${index + 1}. ${formattedAddress})`;
+    }
+
+    return str;
+  };
 
   return (
     <BlurOverlay>
@@ -325,10 +341,11 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                         $whiteSpace="nowrap"
                         $filter={isDiscreetMode ? 'blur(4px)' : undefined}
                       >
-                        {displayTransaction.txn.inputs.length > 1
-                          ? `${i + 1}. `
-                          : null}
-                        {input.address}
+                        {formatTxnAddress(
+                          input.address,
+                          i,
+                          displayTransaction.txn.inputs.length,
+                        )}
                       </Typography>
                     </Container>
                   ))}
@@ -368,10 +385,11 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
                         $whiteSpace="nowrap"
                         $filter={isDiscreetMode ? 'blur(4px)' : undefined}
                       >
-                        {displayTransaction.txn.outputs.length > 1
-                          ? `${i + 1}. `
-                          : null}
-                        {output.address}
+                        {formatTxnAddress(
+                          output.address,
+                          i,
+                          displayTransaction.txn.outputs.length,
+                        )}
                       </Typography>
                     </Container>
                   ))}
