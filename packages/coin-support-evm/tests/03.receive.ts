@@ -2,6 +2,7 @@ import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import { Observer } from 'rxjs';
+import * as ethers from 'ethers';
 
 import * as evmAppMock from './__mocks__/evmApp';
 import * as serviceMock from './__mocks__/services';
@@ -21,6 +22,7 @@ describe('03. Receive', () => {
   });
 
   beforeEach(() => {
+    EvmSupport.setEthersLibrary(ethers);
     support = new EvmSupport();
     connection = {} as any;
     db = {
