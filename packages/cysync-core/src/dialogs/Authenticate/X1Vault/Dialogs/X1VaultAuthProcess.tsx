@@ -3,11 +3,11 @@ import {
   ArrowRightIcon,
   Check,
   CloseButton,
-  DeviceScreenConfirm,
   DialogBox,
   DialogBoxBody,
   Divider,
   Flex,
+  GenericConfirmDeviceGraphics,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
@@ -86,6 +86,7 @@ export const X1VaultAuthProcess: React.FC = () => {
       onRetry={onRetry}
       error={task.error}
       showCloseButton
+      noDelay
     >
       <DialogBox width={500} align="stretch" gap={0}>
         <Flex direction="row" justify="flex-end" py={2} px={3}>
@@ -101,7 +102,7 @@ export const X1VaultAuthProcess: React.FC = () => {
             direction="column"
             align="center"
           >
-            <DeviceScreenConfirm width={264} />
+            <GenericConfirmDeviceGraphics />
             <Flex direction="column" gap={4} align="center">
               <Typography color="white" $fontSize={20} $textAlign="center">
                 <LangDisplay text={title} />

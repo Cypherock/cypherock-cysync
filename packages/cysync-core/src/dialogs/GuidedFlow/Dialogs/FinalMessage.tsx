@@ -4,6 +4,7 @@ import {
   informationIcon,
   Button,
   LangDisplay,
+  Image,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, {
@@ -29,6 +30,10 @@ import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
 const selectWalletsAndLang = createSelector(
   [selectLanguage, selectWallets],
   (a, b) => ({ lang: a, ...b }),
+);
+
+const informationIconReactElement = (
+  <Image src={informationIcon} alt="device" $maxWidth="full" />
 );
 
 const Buttons: FC<{
@@ -83,7 +88,7 @@ export const FinalMessage: FC = () => {
     <>
       {showWalletNotCreatedDialog && <WalletNotCreatedDialog />}
       <GuidedFlowDialogBox
-        image={informationIcon}
+        image={informationIconReactElement}
         onNext={onNext}
         onPrevious={onPrevious}
         title={lang.strings.guidedFlows.finalMessage.title}

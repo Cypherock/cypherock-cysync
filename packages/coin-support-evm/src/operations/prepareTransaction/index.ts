@@ -93,6 +93,9 @@ export const prepareTransaction = async (
 
   const outputsAddresses = validateAddresses(params, coin);
   let output = { ...txn.userInputs.outputs[0] };
+  // Amount shouldn't have any decimal value as it's in lowest unit
+  output.amount = new BigNumber(output.amount).toFixed(0);
+
   let { data } = txn.computedData;
 
   if (tokenDetails) {
@@ -101,7 +104,7 @@ export const prepareTransaction = async (
       contractAddress: tokenDetails.address,
       senderAddress: account.xpubOrAddress,
       receiverAddress: txn.userInputs.outputs[0].address,
-      amount: txn.userInputs.outputs[0].amount,
+      amount: new BigNumber(txn.userInputs.outputs[0].amount).toFixed(0),
     });
   }
 
@@ -128,7 +131,7 @@ export const prepareTransaction = async (
   if (tokenDetails) {
     let sendAmount = new BigNumber(txn.userInputs.outputs[0].amount);
     if (txn.userInputs.isSendAll) {
-      sendAmount = new BigNumber(account.balance);
+      sendAmount = new BigNumber(new BigNumber(account.balance).toFixed(0));
       txn.userInputs.outputs[0].amount = sendAmount.toString(10);
     }
 
@@ -139,9 +142,12 @@ export const prepareTransaction = async (
   } else {
     let sendAmount = new BigNumber(output.amount);
     if (txn.userInputs.isSendAll) {
-      sendAmount = BigNumber.max(new BigNumber(account.balance).minus(fee), 0);
+      sendAmount = new BigNumber(
+        BigNumber.max(new BigNumber(account.balance).minus(fee), 0).toFixed(0),
+      );
 
       output.amount = sendAmount.toString(10);
+
       // update userInput so that the max amount is editable & not reset to 0
       txn.userInputs.outputs[0].amount = output.amount;
     }

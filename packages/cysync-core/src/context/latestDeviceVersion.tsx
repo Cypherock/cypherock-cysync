@@ -60,6 +60,10 @@ export const LatestDeviceVersionProvider: React.FC<
     return () => clearInterval(checkUpdateInterval);
   }, [fetchLatestVersion]);
 
+  useEffect(() => {
+    fetchLatestVersion();
+  }, [connectionInfo]);
+
   const ctx = useMemo(
     () => ({
       version,

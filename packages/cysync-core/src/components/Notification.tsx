@@ -22,7 +22,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import {
   markAllTransactionNotificationRead,
@@ -122,15 +122,8 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const { transactions, lang, wallets, accounts, unreadTransactions } =
     useAppSelector(selector);
 
-  useEffect(() => {
-    if (transactions.length > 0) {
-      setTimeout(() => {
-        markAllTransactionNotificationRead(transactions);
-      }, 5000);
-    }
-  }, [transactions]);
-
   const onClose = () => {
+    markAllTransactionNotificationRead(transactions);
     dispatch(toggleNotification());
   };
 

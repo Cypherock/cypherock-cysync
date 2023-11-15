@@ -1,8 +1,4 @@
-import {
-  Flex,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui/src/components/atoms';
+import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 export const Header: FC<{ title: string; subTitle: string }> = ({

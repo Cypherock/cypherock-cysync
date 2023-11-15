@@ -68,6 +68,7 @@ export const TokenTable: React.FC<TokenProps> = ({ accountId, onClick }) => {
         tokenName={row.assetName}
         tokenIcon={row.assetIcon}
         balance={row.displayAmount}
+        balanceTooltip={row.amountTooltip}
         value={row.displayValue}
         $isLast={index === displayRows.length - 1}
         $rowIndex={index}

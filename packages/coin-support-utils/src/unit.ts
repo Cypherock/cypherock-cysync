@@ -8,7 +8,11 @@ type NumberLike = string | number | BigNumber;
  * - Removes trailing decimal zeroes
  * - Assumes 0 if amount is NaN
  */
-const formatDisplayValue = (value: NumberLike, decimal = 0) => {
+const formatDisplayValue = (
+  value: NumberLike,
+  decimal = 0,
+  useCustom = false,
+) => {
   let number = new BigNumber(0);
   if (
     !(
@@ -21,13 +25,19 @@ const formatDisplayValue = (value: NumberLike, decimal = 0) => {
   )
     number = new BigNumber(value);
 
-  const fixed = new BigNumber(number.toFixed(decimal)).toFixed();
+  let fixed = new BigNumber(number.toFixed(decimal)).toFixed();
+  if (useCustom) {
+    const precision = Math.max(decimal, 1);
+    fixed = new BigNumber(
+      new BigNumber(number.toFixed(decimal)).toPrecision(precision),
+    ).toFixed();
+  }
   const complete = number.toFixed();
   return { fixed, complete };
 };
 
-export const formatDisplayAmount = (value: NumberLike, decimal = 4) =>
-  formatDisplayValue(value, decimal).complete;
+export const formatDisplayAmount = (value: NumberLike, decimal = 12) =>
+  formatDisplayValue(value, decimal, true);
 export const formatDisplayPrice = (value: NumberLike, decimal = 2) =>
   formatDisplayValue(value, decimal).fixed;
 
@@ -113,7 +123,7 @@ export const getParsedAmount = (params: {
   });
 
   return {
-    amount: formatDisplayAmount(amount),
+    amount: formatDisplayAmount(amount).complete,
     unit,
   };
 };

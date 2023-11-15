@@ -4,6 +4,7 @@ import {
   getZeroUnit,
   getDefaultUnit,
   formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
@@ -45,6 +46,7 @@ export interface AccountTokenType {
   amount: number;
   value: number;
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
 }
 
@@ -60,6 +62,7 @@ export interface AccountRowData {
   value: number;
   tokens?: AccountTokenType[];
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
   account: IAccount;
 }
@@ -149,6 +152,13 @@ const mapTokenAccounts = (
     value = formattedValue;
     displayValue = `$${formattedValue}`;
   }
+  const formattedAmount = formatDisplayAmount(amount, 24);
+  const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
+    unit.abbr
+  }`;
+  const amountTooltip = isDiscreetMode
+    ? undefined
+    : `${formattedAmount.complete} ${unit.abbr}`;
 
   return {
     id: a.__id ?? '',
@@ -160,7 +170,8 @@ const mapTokenAccounts = (
       />
     ),
     text: a.name,
-    displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+    displayAmount,
+    amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
     amount: parseFloat(amount),
     value: parseFloat(value),
@@ -295,6 +306,13 @@ export const useWalletPage = () => {
       if (tokenAccounts.length > 0) {
         tokenAccounts[0].arrow = <ArrowRightBottom />;
       }
+      const formattedAmount = formatDisplayAmount(amount, 24);
+      const displayAmount = `${
+        isDiscreetMode ? '****' : formattedAmount.fixed
+      } ${unit.abbr}`;
+      const amountTooltip = isDiscreetMode
+        ? undefined
+        : `${formattedAmount.complete} ${unit.abbr}`;
 
       return {
         id: a.__id ?? '',
@@ -306,7 +324,8 @@ export const useWalletPage = () => {
           accountSyncIconMap[
             accountSyncMap[a.__id ?? '']?.syncState ?? 'synced'
           ] ?? checkComponent,
-        displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+        displayAmount,
+        amountTooltip,
         displayValue: isDiscreetMode ? '$****' : displayValue,
         amount: parseFloat(amount),
         value: parseFloat(value),

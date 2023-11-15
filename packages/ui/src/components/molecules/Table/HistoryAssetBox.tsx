@@ -32,7 +32,7 @@ export const HistoryAssetBox: FC<HistoryAssetBoxProps> = props => {
   return (
     <HistoryAssetBoxStyle {...props}>
       {!wallet ? (
-        <ImageContainer gap={10}>
+        <ImageContainer gap={10} style={{ overflow: 'hidden' }}>
           {$assetIcon}
           <Typography
             variant="p"
