@@ -71,6 +71,7 @@
     "@types/lodash": "^4.14.195",
     "chart.js": "^4.3.2",
     "date-fns": "^2.30.0",
+    "focus-trap-react": "^10.2.3",
     "marked-react": "^2.0.0",
     "rc-tooltip": "^6.1.2",
     "react": "^18.2.0",

@@ -2,20 +2,20 @@ import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 import {
-  WidthProps,
-  FlexProps,
-  DisplayProps,
-  SpacingProps,
-  flex,
-  width,
-  spacing,
-  PositionProps,
-  position,
-  display,
-  HeightProps,
-  height,
   BgColorProps,
+  DisplayProps,
+  FlexProps,
+  HeightProps,
+  PositionProps,
+  SpacingProps,
+  WidthProps,
   bgColor,
+  display,
+  flex,
+  height,
+  position,
+  spacing,
+  width,
 } from '../../utils';
 
 export interface DialogBoxUtilityProps
