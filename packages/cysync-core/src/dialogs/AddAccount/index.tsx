@@ -81,7 +81,12 @@ const AddNewAccount: FC = () => {
 
             <DialogBoxBackgroundBar
               rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
+                // do not display confirmation dialog on closing when on the first tab
+                <CloseButton
+                  onClick={() =>
+                    currentTab === 0 ? onClose() : setShowOnClose(true)
+                  }
+                />
               }
               position="top"
               useLightPadding

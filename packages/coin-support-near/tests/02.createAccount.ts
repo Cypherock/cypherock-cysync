@@ -47,15 +47,14 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(2);
+        expect(accounts.length).toEqual(1);
         const defaultAccounts = accounts.filter(
           e => e.derivationScheme === 'default',
         );
 
-        expect(defaultAccounts.length).toEqual(2);
+        expect(defaultAccounts.length).toEqual(1);
         expect(defaultAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/397'/0'/0'/0'",
-          "m/44'/397'/0'/0'/1'",
         ]);
 
         done();
@@ -98,15 +97,14 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(2);
+        expect(accounts.length).toEqual(1);
         const defaultAccounts = accounts.filter(
           e => e.derivationScheme === 'default',
         );
 
-        expect(defaultAccounts.length).toEqual(2);
+        expect(defaultAccounts.length).toEqual(1);
         expect(defaultAccounts.map(e => e.derivationPath)).toEqual([
           "m/44'/397'/0'/0'/1'",
-          "m/44'/397'/0'/0'/3'",
         ]);
 
         done();
