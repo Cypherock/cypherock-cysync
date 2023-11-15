@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   HistoryIcon,
+  parseLangTemplate,
   PortfolioIcon,
   SettingsIcon,
   SideBarItem,
@@ -91,6 +92,10 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
                         onClick={e => {
                           e.stopPropagation();
                         }}
+                        title={parseLangTemplate(
+                          strings.tooltip.walletDeleted,
+                          { walletName: wallet.name },
+                        )}
                       >
                         <WalletInfoIcon fill={theme.palette.muted.main} />
                       </Button>

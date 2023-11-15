@@ -6,6 +6,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
+import { formatAddress } from '../../operations';
 import { IEvmTransactionItem } from '../api';
 
 export const parseTransaction = (params: {
@@ -51,14 +52,20 @@ export const parseTransaction = (params: {
     blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
     inputs: [
       {
-        address: fromAddr,
+        address: formatAddress({
+          address: fromAddr,
+          coinId: account.parentAssetId,
+        }),
         amount,
         isMine: myAddress === fromAddr,
       },
     ],
     outputs: [
       {
-        address: toAddr,
+        address: formatAddress({
+          address: toAddr,
+          coinId: account.parentAssetId,
+        }),
         amount,
         isMine: myAddress === toAddr,
       },
