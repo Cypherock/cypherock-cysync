@@ -10,6 +10,7 @@ import {
   AccountTypeMap,
 } from '@cypherock/db-interfaces';
 
+import { formatAddress } from '../../operations';
 import { IEvmContractTransactionItem } from '../api';
 
 export const mapContractTransactionForDb = async (params: {
@@ -83,14 +84,20 @@ export const mapContractTransactionForDb = async (params: {
       blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
       inputs: [
         {
-          address: fromAddr,
+          address: formatAddress({
+            address: fromAddr,
+            coinId: account.parentAssetId,
+          }),
           amount,
           isMine: myAddress === fromAddr,
         },
       ],
       outputs: [
         {
-          address: toAddr,
+          address: formatAddress({
+            address: toAddr,
+            coinId: account.parentAssetId,
+          }),
           amount,
           isMine: myAddress === toAddr,
         },

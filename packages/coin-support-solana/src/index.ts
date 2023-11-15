@@ -12,6 +12,7 @@ import {
   IGetAccountHistoryParams,
   IGetExplorerLink,
   ISignMessageEvent,
+  IFormatAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
@@ -75,5 +76,9 @@ export class SolanaSupport implements CoinSupport {
 
   public getExplorerLink(params: IGetExplorerLink) {
     return operations.getExplorerLink(params);
+  }
+
+  public formatAddress(params: IFormatAddressParams) {
+    return params.address;
   }
 }
