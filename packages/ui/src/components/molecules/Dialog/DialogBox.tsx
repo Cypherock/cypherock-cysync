@@ -1,22 +1,21 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import FocusTrap from 'focus-trap-react';
 
 import {
-  WidthProps,
-  FlexProps,
-  DisplayProps,
-  SpacingProps,
-  flex,
-  width,
-  spacing,
-  PositionProps,
-  position,
-  display,
-  HeightProps,
-  height,
   BgColorProps,
+  DisplayProps,
+  FlexProps,
+  HeightProps,
+  PositionProps,
+  SpacingProps,
+  WidthProps,
   bgColor,
+  display,
+  flex,
+  height,
+  position,
+  spacing,
+  width,
 } from '../../utils';
 
 export interface DialogBoxUtilityProps
@@ -155,9 +154,7 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
 export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
   <>
     {props.$isModal && <ModalOverlay />}
-    <FocusTrap>
-      <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
-    </FocusTrap>
+    <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
   </>
 );
 
