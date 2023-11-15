@@ -427,14 +427,17 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         selectedAccount.assetId,
       ).abbr,
     });
+    const formattedAmount = formatDisplayAmount(
+      convertedAmount.amount,
+    ).complete;
     const txn = transaction;
     if (txn.userInputs.outputs.length > 0)
-      txn.userInputs.outputs[0].amount = convertedAmount.amount;
+      txn.userInputs.outputs[0].amount = formattedAmount;
     else
       txn.userInputs.outputs = [
         {
           address: '',
-          amount: convertedAmount.amount,
+          amount: formattedAmount,
         },
       ];
     await prepare(txn);
@@ -456,7 +459,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         selectedAccount.assetId,
       ).abbr,
     });
-    return formatDisplayAmount(convertedAmount.amount);
+    return formatDisplayAmount(convertedAmount.amount).complete;
   };
 
   const priceConverter = (val: string, invert?: boolean) => {
@@ -474,7 +477,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     else result = result.multipliedBy(coinPrice.latestPrice);
 
     if (result.isNaN()) return '';
-    return invert ? formatDisplayAmount(result) : formatDisplayPrice(result);
+    return invert
+      ? formatDisplayAmount(result).complete
+      : formatDisplayPrice(result);
   };
 
   const updateUserInputs = (count: number) => {

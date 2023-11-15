@@ -20,6 +20,7 @@ const StyledTag = styled.div<TagProps>`
     border-radius: 4px;
     border: 1px solid ${theme.palette.border.muted};
     font-size: 10px;
+    align-self: center;
   `}
 
   ${({ type, theme }) =>

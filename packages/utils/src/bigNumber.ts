@@ -106,7 +106,8 @@ export class BigNumber {
   toFixed(decimalPlaces?: number, roundingMode?: RoundingMode) {
     let result;
 
-    if (decimalPlaces) result = this.num.toFixed(decimalPlaces, roundingMode);
+    if (decimalPlaces !== undefined)
+      result = this.num.toFixed(decimalPlaces, roundingMode);
     else result = this.num.toFixed();
 
     return result;

@@ -100,6 +100,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
             account={row.accountName}
             accountTag={row.accountTag}
             amount={row.displayAmount}
+            amountTooltip={row.amountTooltip}
             value={row.displayValue}
             $isLast={isLast && !hasMoreThanLimit}
             $rowIndex={index}

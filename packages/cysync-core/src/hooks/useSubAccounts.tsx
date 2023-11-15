@@ -59,6 +59,14 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
             .multipliedBy(latestPrice)
             .toString();
 
+          const formattedAmount = formatDisplayAmount(amount);
+          const displayAmount = `${
+            isDiscreetMode ? '****' : formattedAmount.fixed
+          } ${unit.abbr}`;
+          const amountTooltip = isDiscreetMode
+            ? undefined
+            : `${formattedAmount.complete} ${unit.abbr}`;
+
           return {
             id: r.__id ?? '',
             amount: new BigNumber(r.balance).toNumber(),
@@ -72,9 +80,8 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
                 size="24px"
               />
             ),
-            displayAmount: `${
-              isDiscreetMode ? '****' : formatDisplayAmount(amount)
-            } ${unit.abbr}`,
+            displayAmount,
+            amountTooltip,
             displayValue: `$${
               isDiscreetMode ? '****' : formatDisplayPrice(value)
             }`,

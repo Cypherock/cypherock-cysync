@@ -1,10 +1,9 @@
 import {
   Flex,
-  redDisconnectedIcon,
+  NoWalletIcon,
   Button,
   LangDisplay,
   IconDialogBox,
-  Image,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -50,7 +49,7 @@ export const WalletNotCreatedDialog: FC = () => {
   return (
     <IconDialogBox
       $isModal
-      icon={<Image src={redDisconnectedIcon} alt="Disconnected icon" />}
+      icon={<NoWalletIcon />}
       title={lang.strings.guidedFlows.walletNotCreatedDialog.title}
       subtext={lang.strings.guidedFlows.walletNotCreatedDialog.subtitle}
       footerComponent={<Buttons />}

@@ -27,6 +27,7 @@ export interface TransactionTableRowProps {
   account: string;
   accountTag: string;
   amount: string;
+  amountTooltip?: string;
   accountHeader: string;
   valueHeader: string;
   value: string;
@@ -152,7 +153,7 @@ export const TransactionTableRow: React.FC<
                 : { def: '22%', lg: '15%' }
             }
             p={{ def: 2 }}
-            showTooltip
+            tooltip={row.amountTooltip}
           />
           {(!isSmallScreen || variant === 'withTimeAndValues') && (
             <TableNameBox
@@ -227,4 +228,5 @@ TransactionTableRow.defaultProps = {
   $isLast: false,
   style: undefined,
   variant: 'default',
+  amountTooltip: undefined,
 };

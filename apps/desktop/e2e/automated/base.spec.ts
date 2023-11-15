@@ -48,7 +48,7 @@ test('check first screen', async () => {
   });
   await expect(firstBullet).toBeVisible();
   const secondBullet = screen.getByRole('heading', {
-    name: 'You have atleast 10-15 minutes to setup your wallet',
+    name: 'You have at least 10-15 minutes to setup your wallet',
   });
   await expect(secondBullet).toBeVisible();
   const thirdBullet = screen.getByRole('heading', {
