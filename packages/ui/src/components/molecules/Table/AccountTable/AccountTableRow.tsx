@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { Accordion } from './Accordion';
 
-import { Flex, Tag, Tooltip, Typography } from '../../../atoms';
+import { Button, Flex, Tag, Tooltip, Typography } from '../../../atoms';
 import { SpacingProps, spacing, utils } from '../../../utils';
 import { RowWrapper, RowContainer, RowBackground } from '../TableStyles';
 
@@ -16,6 +16,7 @@ export interface AccountTableRowProps {
   tag?: string;
   statusImage?: React.ReactNode;
   amount?: string;
+  amountTooltip?: string;
   value?: string;
   tokens?: Omit<
     AccountTableRowProps,
@@ -154,6 +155,7 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
     tag,
     statusImage,
     amount,
+    amountTooltip,
     value,
     tokens,
     $subMenu,
@@ -209,20 +211,29 @@ export const AccountTableRow: React.FC<AccountTableRowProps> = props => {
             </Flex>
           </AccountContainer>
 
-          <StatusContainer
-            onClick={e => {
-              e.stopPropagation();
-              if (onStatusClick) {
-                onStatusClick();
-              }
-            }}
-          >
-            {statusImage}
+          <StatusContainer>
+            <Button
+              variant="none"
+              p={3}
+              onClick={e => {
+                e.stopPropagation();
+                if (onStatusClick) {
+                  onStatusClick();
+                }
+              }}
+            >
+              {statusImage}
+            </Button>
           </StatusContainer>
 
           <BalanceContainer>
-            <Tooltip text={amount}>
-              <Typography color="muted" width="fit-content">
+            <Tooltip text={amountTooltip}>
+              <Typography
+                color="muted"
+                width="fit-content"
+                $whiteSpace="nowrap"
+                $textOverflow="ellipsis"
+              >
                 {amount}
               </Typography>
             </Tooltip>
@@ -273,6 +284,7 @@ AccountTableRow.defaultProps = {
   tag: '',
   statusImage: undefined,
   amount: '',
+  amountTooltip: undefined,
   value: '',
   tokens: [],
   $subMenu: false,

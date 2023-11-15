@@ -1,17 +1,17 @@
 import {
+  Button,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  LangDisplay,
-  Image,
-  disconnectedIcon,
-  Flex,
   DialogBoxFooter,
-  Button,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+  disconnectedIcon,
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
-import { useLocation, Location } from 'react-router-dom';
+import { Location, useLocation } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
@@ -20,7 +20,7 @@ import {
   useDevice,
 } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { routes } from '../constants';
 

@@ -14,9 +14,8 @@ import {
   LeanBoxProps,
   ArrowRightIcon,
   Check,
-  verifyAmountIcon,
+  VerifyAmountDeviceGraphics,
   MessageBox,
-  Image,
 } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
@@ -181,7 +180,7 @@ export const DeviceAction: React.FC = () => {
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={verifyAmountIcon} alt="Verify Amount" />
+        <VerifyAmountDeviceGraphics />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={displayText.title} />

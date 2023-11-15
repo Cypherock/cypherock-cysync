@@ -97,6 +97,7 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         walletName={row.walletName}
         price={row.displayPrice}
         balance={row.displayBalance}
+        balanceTooltip={row.balanceTooltip}
         allocation={row.allocation}
         value={row.displayValue}
         $isLast={index === displayRows.length - 1}
