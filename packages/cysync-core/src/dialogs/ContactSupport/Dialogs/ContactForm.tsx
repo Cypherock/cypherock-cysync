@@ -21,7 +21,7 @@ import {
   Typography,
   useTheme,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import { DeviceHandlingState, useDevice } from '~/context';
 import { ILangState, selectLanguage, useAppSelector } from '~/store';
@@ -93,12 +93,35 @@ export const ContactForm: React.FC = () => {
     deviceLogsLoadingText,
   } = useContactSupportDialog();
 
-  const { deviceHandlingState } = useDevice();
+  const {
+    deviceHandlingState: deviceState,
+    connection,
+    getDeviceHandlingState,
+  } = useDevice();
   const { strings } = useAppSelector(selectLanguage);
   const theme = useTheme();
   const { buttons, dialogs } = strings;
   const { form } = dialogs.contactSupport;
   const containerRef = useRef<null | HTMLDivElement>(null);
+  const deviceHandlingState = useMemo<DeviceHandlingState>(() => {
+    // potentially ContactForm is opened during onboarding; deviceState does not work
+    // in onboarding; perform checks on connections to verify
+    if (deviceState === DeviceHandlingState.NOT_CONNECTED) {
+      const newState = getDeviceHandlingState();
+      if (
+        [
+          DeviceHandlingState.NOT_ONBOARDED,
+          DeviceHandlingState.NOT_AUTHENTICATED,
+          DeviceHandlingState.USABLE,
+          DeviceHandlingState.BUSY,
+        ].includes(newState)
+      ) {
+        // during onboarding, convert all the functional states to USABLE
+        return DeviceHandlingState.USABLE;
+      }
+    }
+    return deviceState;
+  }, [deviceState, connection]);
 
   useEffect(() => {
     // scroll to bottom to make the error visible

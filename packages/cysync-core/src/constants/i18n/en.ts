@@ -886,6 +886,10 @@ const en = {
     history: 'History',
     settings: 'Settings',
     help: 'Help',
+    tooltip: {
+      walletDeleted:
+        '${walletName} has been deleted from your Cypherock X1 Vault',
+    },
   },
   walletSync: {
     deletedOne: {

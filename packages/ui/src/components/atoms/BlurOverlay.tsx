@@ -1,3 +1,4 @@
+import FocusTrap from 'focus-trap-react';
 import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
 
@@ -23,5 +24,7 @@ const BlurOverlayStyle = styled.div`
 `;
 
 export const BlurOverlay: FC<BlurOverlayProps> = ({ children }) => (
-  <BlurOverlayStyle>{children}</BlurOverlayStyle>
+  <FocusTrap>
+    <BlurOverlayStyle>{children}</BlurOverlayStyle>
+  </FocusTrap>
 );
