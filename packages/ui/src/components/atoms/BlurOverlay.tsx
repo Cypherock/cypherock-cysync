@@ -1,5 +1,5 @@
 import FocusTrap from 'focus-trap-react';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useRef } from 'react';
 import { styled } from 'styled-components';
 
 interface BlurOverlayProps {
@@ -21,10 +21,30 @@ const BlurOverlayStyle = styled.div`
   padding: 64px;
   gap: 10px;
   z-index: 99;
+
+  &,
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline: none;
+  }
 `;
 
-export const BlurOverlay: FC<BlurOverlayProps> = ({ children }) => (
-  <FocusTrap>
-    <BlurOverlayStyle>{children}</BlurOverlayStyle>
-  </FocusTrap>
-);
+export const BlurOverlay: FC<BlurOverlayProps> = ({ children }) => {
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  return (
+    <FocusTrap
+      focusTrapOptions={{
+        fallbackFocus: () => elementRef.current ?? '',
+        escapeDeactivates: false,
+        clickOutsideDeactivates: false,
+        returnFocusOnDeactivate: true,
+      }}
+    >
+      <BlurOverlayStyle ref={elementRef} tabIndex={-1}>
+        {children}
+      </BlurOverlayStyle>
+    </FocusTrap>
+  );
+};
