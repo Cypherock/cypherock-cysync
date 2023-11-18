@@ -40,7 +40,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-
 import { FinalMessage } from '../Dialogs/FinalMessage';
 
 type ITabs = {
