@@ -22,7 +22,6 @@ const BlurOverlayStyle = styled.div`
   gap: 10px;
   z-index: 99;
 
-  &,
   &:focus,
   &:focus-visible,
   &:active {
