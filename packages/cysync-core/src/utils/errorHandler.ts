@@ -1,10 +1,11 @@
 import logger from './logger';
 
 export const errorHandler = async (
-  error: string | Event,
+  errorEvent: string | Event,
   _url?: string,
   _lineNumber?: number,
   _columnNumber?: number,
+  errorObj?: Error,
   ...args: any[]
 ) => {
   let errorMessage = '';
@@ -12,36 +13,36 @@ export const errorHandler = async (
   let lineNumber = _lineNumber;
   let columnNumber = _columnNumber;
 
-  if (typeof error === 'string') {
-    errorMessage = error;
-  } else if (typeof (error as PromiseRejectionEvent).reason === 'string') {
+  if (typeof errorEvent === 'string') {
+    errorMessage = errorEvent;
+  } else if (typeof (errorEvent as PromiseRejectionEvent).reason === 'string') {
     errorMessage =
-      (error as PromiseRejectionEvent).reason ??
-      (error as PromiseRejectionEvent).type;
-  } else if (typeof (error as ErrorEvent).message === 'string') {
-    errorMessage = (error as ErrorEvent).message;
-    url = (error as ErrorEvent).filename;
-    lineNumber = (error as ErrorEvent).lineno;
-    columnNumber = (error as ErrorEvent).colno;
+      (errorEvent as PromiseRejectionEvent).reason ??
+      (errorEvent as PromiseRejectionEvent).type;
+  } else if (typeof (errorEvent as ErrorEvent).message === 'string') {
+    errorMessage = (errorEvent as ErrorEvent).message;
+    url = (errorEvent as ErrorEvent).filename;
+    lineNumber = (errorEvent as ErrorEvent).lineno;
+    columnNumber = (errorEvent as ErrorEvent).colno;
   } else {
-    errorMessage = JSON.stringify(error);
+    errorMessage = JSON.stringify(errorEvent);
   }
 
   if (
-    typeof error === 'string' &&
+    typeof errorEvent === 'string' &&
     errorMessage.includes('Writing to COM port')
   ) {
     logger.warn('Ignoring COM port error in error handler');
-    logger.warn(error);
+    logger.warn(errorEvent);
     return;
   }
 
   if (
-    typeof error === 'string' &&
+    typeof errorEvent === 'string' &&
     errorMessage.toLowerCase().includes('ResizeObserver'.toLowerCase())
   ) {
     logger.warn('Ignoring ResizeObserver error in error handler');
-    logger.warn(error);
+    logger.warn(errorEvent);
     return;
   }
 
@@ -50,7 +51,8 @@ export const errorHandler = async (
     url,
     line: lineNumber,
     column: columnNumber,
-    errorEvent: error,
+    errorEvent,
+    errorObj: JSON.stringify(errorObj),
     ...args,
   });
 };
