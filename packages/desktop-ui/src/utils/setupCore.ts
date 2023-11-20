@@ -1,23 +1,23 @@
 import {
-  setDB,
-  setKeyDB,
-  updateLogger,
-  setResetCySyncMethod,
-  setCloseAppMethod,
-  setAutoUpdater,
-  setDependencies,
-  setInitWCUriMethod,
-  setFocusAppMethod,
-  setCySyncLogsMethod,
-} from '@cypherock/cysync-core';
-import {
   setAddExternalLinkListenerMethod,
+  setAutoUpdater,
+  setCloseAppMethod,
+  setCySyncLogsMethod,
+  setDB,
+  setDependencies,
+  setErrorHandler,
+  setFocusAppMethod,
+  setInitWCUriMethod,
+  setKeyDB,
   setRemoveExternalLinkListenerMethod,
-} from '@cypherock/cysync-core/dist/esm/utils';
+  setResetCySyncMethod,
+  updateLogger,
+} from '@cypherock/cysync-core';
 
 import { createServiceLogger } from './logger';
 
 export const setupCoreDependencies = async () => {
+  setErrorHandler();
   setDependencies();
   updateLogger(createServiceLogger);
   setDB(await window.electronAPI.getDb());

@@ -11,6 +11,7 @@ export {
   setRemoveExternalLinkListenerMethod,
   setFocusAppMethod,
   setCySyncLogsMethod,
+  setErrorHandler,
 } from './utils';
 export { setDependencies } from './utils/dependencies';
 export * from './theme';
