@@ -1,5 +1,5 @@
-import addWalletIcon from './add-wallet.png';
 import addAccountIcon from './add-account.svg';
+import addWalletIcon from './add-wallet.png';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
