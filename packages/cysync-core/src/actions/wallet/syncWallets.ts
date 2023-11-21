@@ -41,7 +41,7 @@ const syncWalletsWithConnectedDevice = async (
 
   if (doFetchFromDevice) {
     const taskId = uniqueId('task-');
-    deviceLock.acquire(connection.device, taskId);
+    await deviceLock.acquire(connection.device, taskId);
 
     const con = await connectDevice(connection.device);
     const app = await ManagerApp.create(con);

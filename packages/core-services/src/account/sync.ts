@@ -88,7 +88,7 @@ export const syncAccounts = (params: {
           },
         });
 
-        promiseQueue.run();
+        await promiseQueue.run();
       } catch (error) {
         observer.error(error);
       }
