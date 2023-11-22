@@ -24,8 +24,12 @@ const AsideStyle = styled.div`
   background-image: ${({ theme }) => theme.palette.background.sideBar};
 `;
 
-const textColor = (activeTab: number, index: number) => {
-  if (index > activeTab) return 'muted';
+const textColor = (
+  activeTab: number,
+  index: number,
+  skipped: number[] = [],
+) => {
+  if (index > activeTab || skipped.includes(index)) return 'muted';
   if (index < activeTab) return 'gold';
   return undefined;
 };
@@ -34,7 +38,8 @@ export const MilestoneAside: FC<{
   heading?: string;
   milestones: string[];
   activeTab: number;
-}> = ({ milestones, activeTab, heading }) => (
+  skippedTabs?: number[];
+}> = ({ milestones, activeTab, heading, skippedTabs }) => (
   <AsideStyle>
     {heading ? (
       <Typography $fontSize={18}>{heading}</Typography>
@@ -48,6 +53,7 @@ export const MilestoneAside: FC<{
             index={index}
             activeTab={activeTab}
             length={milestones.length}
+            skipped={skippedTabs}
           />
           <Flex align="center" justify="space-between" width="full">
             <Flex align="center" gap={16}>
@@ -57,19 +63,23 @@ export const MilestoneAside: FC<{
                 width={28}
                 height={28}
               >
-                <Typography color={textColor(activeTab, index)}>
+                <Typography color={textColor(activeTab, index, skippedTabs)}>
                   {index + 1}
                 </Typography>
               </Container>
-              <Typography color={textColor(activeTab, index)}>
+              <Typography color={textColor(activeTab, index, skippedTabs)}>
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-            {activeTab > index ? (
-              <Image src={greenTick} alt="greenTick" />
-            ) : (
-              <Bullet size="sm" variant={textColor(activeTab, index)} />
-            )}
+            {!skippedTabs?.includes(index) &&
+              (activeTab > index ? (
+                <Image src={greenTick} alt="greenTick" />
+              ) : (
+                <Bullet
+                  size="sm"
+                  variant={textColor(activeTab, index, skippedTabs)}
+                />
+              ))}
           </Flex>
         </Flex>
       ))}
@@ -79,4 +89,5 @@ export const MilestoneAside: FC<{
 
 MilestoneAside.defaultProps = {
   heading: undefined,
+  skippedTabs: undefined,
 };
