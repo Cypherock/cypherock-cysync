@@ -36,7 +36,7 @@ export const useAppUpdate = () => {
     InternalAppUpdateState.Checking,
   );
   const [error, setError] = useState<Error | undefined>();
-  const [shouldInstallAfterUpdate, setShouldInstallAfterUpdate] =
+  const [, setShouldInstallAfterUpdate, shouldInstallAfterUpdateRef] =
     useStateWithRef(false);
 
   const onError = (e: any) => {
@@ -76,7 +76,7 @@ export const useAppUpdate = () => {
 
   const installUpdateListener = async () => {
     // if auto-installation is disabled, don't trigger install; just change appUpdateState
-    if (!shouldInstallAfterUpdate) {
+    if (!shouldInstallAfterUpdateRef.current) {
       setAppUpdateState(AppUpdateState.Downloaded);
       return;
     }
