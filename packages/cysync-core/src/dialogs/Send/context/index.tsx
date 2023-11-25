@@ -427,17 +427,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         selectedAccount.assetId,
       ).abbr,
     });
-    const formattedAmount = formatDisplayAmount(
-      convertedAmount.amount,
-    ).complete;
     const txn = transaction;
     if (txn.userInputs.outputs.length > 0)
-      txn.userInputs.outputs[0].amount = formattedAmount;
+      txn.userInputs.outputs[0].amount = convertedAmount.amount;
     else
       txn.userInputs.outputs = [
         {
           address: '',
-          amount: formattedAmount,
+          amount: convertedAmount.amount,
         },
       ];
     await prepare(txn);
