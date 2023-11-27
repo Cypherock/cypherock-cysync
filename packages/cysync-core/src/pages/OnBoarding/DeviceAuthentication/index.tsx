@@ -20,7 +20,7 @@ export const DeviceAuthentication: React.FC = () => {
       withEmail
       withHelp
     >
-      <WithConnectedDevice onInitial>
+      <WithConnectedDevice onInitial showAnimation={false}>
         <DeviceAuthDialog />
       </WithConnectedDevice>
     </OnboardingPageLayout>

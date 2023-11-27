@@ -18,12 +18,14 @@ import {
 import { AuthDeviceStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { ErrorHandlerDialog } from '~/components';
+import {
+  ErrorHandlerDialog,
+  WithConnectedDevice,
+  DeviceAuthenticating,
+} from '~/components';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
-
-import { DeviceAuthenticating } from './Authenticating';
 
 import { useAuthenticateX1VaultDialog } from '../context';
 
@@ -31,7 +33,7 @@ const rightArrowIcon = <ArrowRightIcon />;
 const checkIcon = <Check width={15} height={12} />;
 const throbber = <Throbber size={15} strokeWidth={2} />;
 
-export const X1VaultAuthProcess: React.FC = () => {
+const X1VaultAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onClose, onNext } = useAuthenticateX1VaultDialog();
   const { dialogs } = lang.strings;
@@ -77,7 +79,12 @@ export const X1VaultAuthProcess: React.FC = () => {
     task.result === undefined &&
     !task.error
   ) {
-    return <DeviceAuthenticating />;
+    return (
+      <DeviceAuthenticating
+        title={authX1Vault.authenticating.title}
+        subtitle={authX1Vault.authenticating.description}
+      />
+    );
   }
 
   return (
@@ -146,3 +153,9 @@ export const X1VaultAuthProcess: React.FC = () => {
     </ErrorHandlerDialog>
   );
 };
+
+export const X1VaultAuthProcessWithDevice: React.FC = () => (
+  <WithConnectedDevice>
+    <X1VaultAuthProcess />
+  </WithConnectedDevice>
+);

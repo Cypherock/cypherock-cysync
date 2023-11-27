@@ -123,7 +123,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           onPostfixIconClick={
             isThrobberActive ? undefined : handleCopyFromClipboard
           }
-          $customRightSpacing={36}
+          $customRightSpacing={42}
         />
       </CustomInputSend>
       {error && (
