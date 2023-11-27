@@ -51,6 +51,7 @@ export const Receive: FC = () => {
     onSkip,
     isStartedWithoutDevice,
     selectedWallet,
+    isAddressVerified,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const [showOnClose, setShowOnClose] = React.useState(false);
@@ -69,6 +70,7 @@ export const Receive: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
+            skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
             heading={lang.strings.receive.title}
           />
           <WalletDialogMainContainer>

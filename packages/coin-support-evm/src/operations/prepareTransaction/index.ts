@@ -156,6 +156,8 @@ export const prepareTransaction = async (
     );
   }
   const isValidFee = fee.isGreaterThan(0);
+  hasEnoughBalance =
+    new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
   return {
     ...txn,

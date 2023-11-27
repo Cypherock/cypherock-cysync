@@ -1,3 +1,10 @@
+# v2.0.0-beta.2
+
+### 🐛 Bugfixes
+
+- Fixed windows auto update issue
+- Windows/Linux full screen issue
+
 # v2.0.0-beta.1
 
 ### 🚀 Features

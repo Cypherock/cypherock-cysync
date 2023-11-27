@@ -118,5 +118,8 @@ export const createWindowAndOpenUrl = (
     return { action: 'deny' };
   });
 
-  return { win, showFullscreen };
+  const isMacOS = process.platform === 'darwin';
+
+  // Only show full screen on macos
+  return { win, showFullscreen: isMacOS && showFullscreen };
 };
