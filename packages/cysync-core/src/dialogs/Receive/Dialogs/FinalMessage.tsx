@@ -26,7 +26,7 @@ export const FinalMessage: React.FC = () => {
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
-        <Image src={circledCheckIcon} alt="Check Icon" />
+        {isAddressVerified && <Image src={circledCheckIcon} alt="Check Icon" />}
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
             {isAddressVerified ? (
@@ -38,7 +38,7 @@ export const FinalMessage: React.FC = () => {
                 <AddressDisplay />
                 <MessageBox
                   text={lang.strings.receive.receive.messageBox.warning}
-                  type="warning"
+                  type="danger"
                 />
               </>
             )}
