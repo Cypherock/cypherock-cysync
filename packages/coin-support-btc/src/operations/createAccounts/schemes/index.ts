@@ -15,21 +15,25 @@ export const createDerivationPathSchemes = (assetId: string) => {
       name: 'taproot',
       generator: createDerivationPathGenerator(`m/86'/${coinIndex}'/i'`),
       threshold: 2,
+      newAccountLimit: 1,
     },
     nativeSegwit: {
       name: 'nativeSegwit',
       generator: createDerivationPathGenerator(`m/84'/${coinIndex}'/i'`),
       threshold: 2,
+      newAccountLimit: 1,
     },
     segwit: {
       name: 'segwit',
       generator: createDerivationPathGenerator(`m/49'/${coinIndex}'/i'`),
       threshold: 2,
+      newAccountLimit: 1,
     },
     legacy: {
       name: 'legacy',
       generator: createDerivationPathGenerator(`m/44'/${coinIndex}'/i'`),
       threshold: 2,
+      newAccountLimit: 1,
     },
   };
 

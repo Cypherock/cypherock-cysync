@@ -25,13 +25,13 @@ const initialState: IDialogState = {
   errorDialog: {
     isOpen: false,
   },
-  walletSyncError: {
-    isOpen: false,
-  },
   walletActions: {
     isOpen: false,
   },
   guidedFlow: {
+    isOpen: false,
+  },
+  walletSyncError: {
     isOpen: false,
   },
   addAccount: {

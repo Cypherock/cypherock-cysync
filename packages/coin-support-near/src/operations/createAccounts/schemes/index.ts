@@ -10,5 +10,6 @@ export const derivationPathSchemes: Record<
     name: 'default',
     generator: createDerivationPathGenerator("m/44'/397'/0'/0'/i'"),
     threshold: 2,
+    newAccountLimit: 1,
   },
 };

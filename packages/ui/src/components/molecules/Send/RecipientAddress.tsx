@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { PasteIcon } from '../../..';
 import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
@@ -82,7 +83,10 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   isDisabled,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
-  const postfixIcon = isThrobberActive ? throbber : undefined;
+  const handleCopyFromClipboard = async () => {
+    const clipboardText = (await navigator.clipboard.readText()).trim();
+    onChange(clipboardText);
+  };
 
   return (
     <RecipientAddressContainer>
@@ -105,7 +109,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           </MiniButton>
         )}
       </Flex>
-      <CustomInputSend error={error}>
+      <CustomInputSend error={error} style={{ paddingRight: 0 }}>
         <Input
           type="text"
           name="address"
@@ -115,8 +119,12 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           $textColor="white"
           disabled={isDisabled}
           $noBorder
+          postfixIcon={isThrobberActive ? throbber : <PasteIcon />}
+          onPostfixIconClick={
+            isThrobberActive ? undefined : handleCopyFromClipboard
+          }
+          $customRightSpacing={36}
         />
-        {postfixIcon}
       </CustomInputSend>
       {error && (
         <Typography

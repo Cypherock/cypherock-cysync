@@ -19,6 +19,7 @@ import {
 } from './types';
 
 import * as services from '../../services';
+import { formatAddress } from '../formatAddress';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -54,7 +55,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return addresses;
+  return addresses.map(a => formatAddress({ address: a, coinId }));
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
