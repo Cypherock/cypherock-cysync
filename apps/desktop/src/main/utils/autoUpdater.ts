@@ -80,7 +80,7 @@ class AutoUpdater {
 
   // eslint-disable-next-line class-methods-use-this
   public async installUpdate() {
-    electronAutoUpdater.quitAndInstall();
+    electronAutoUpdater.quitAndInstall(true, true);
   }
 
   // eslint-disable-next-line class-methods-use-this
