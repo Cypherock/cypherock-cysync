@@ -20,7 +20,7 @@ export const CardAuthentication: React.FC = () => {
       withEmail
       withHelp
     >
-      <WithConnectedDevice onInitial>
+      <WithConnectedDevice onInitial showAnimation={false}>
         <CardAuthenticationDialog />
       </WithConnectedDevice>
     </OnboardingPageLayout>
