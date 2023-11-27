@@ -80,9 +80,12 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
   const getWalletState = (id: string | undefined): State => {
     if (
-      id &&
-      location.pathname === routes.wallet.path &&
-      query.get('id') === id
+      (id &&
+        location.pathname === routes.wallet.path &&
+        query.get('id') === id) ||
+      (id &&
+        location.pathname === routes.account.path &&
+        query.get('fromWalletId') === id)
     )
       return State.active;
     return State.normal;
