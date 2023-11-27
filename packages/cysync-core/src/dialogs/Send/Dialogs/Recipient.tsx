@@ -13,6 +13,7 @@ import {
   useTheme,
   BlockchainIcon,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
@@ -56,7 +57,8 @@ export const Recipient: React.FC = () => {
         transaction.validation.outputs.length > 0 &&
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(
-          output => output.address !== '' && output.amount !== '',
+          output =>
+            output.address !== '' && !new BigNumber(output.amount).isNaN(),
         ) &&
         transaction.validation.isValidFee,
     );
