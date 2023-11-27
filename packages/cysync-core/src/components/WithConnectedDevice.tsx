@@ -7,6 +7,8 @@ import {
   Image,
   LangDisplay,
   Typography,
+  Video,
+  deviceConnectionAnimation2DVideo,
   disconnectedIcon,
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
@@ -31,6 +33,7 @@ export interface WithConnectedDeviceProps {
   allowBootloader?: boolean;
   disableNavigation?: boolean;
   buttonLabel?: string;
+  showAnimation?: boolean;
   buttonOnClick?: () => void;
 }
 
@@ -121,6 +124,7 @@ const getRedirectionPath = (
 
 export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   children,
+  showAnimation = true,
   ...props
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -171,7 +175,17 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   return (
     <DialogBox width={500}>
       <DialogBoxBody pb={showFooter ? 4 : 8}>
-        <Image src={disconnectedIcon} alt="Device not connected" />
+        {showAnimation ? (
+          <Video
+            src={deviceConnectionAnimation2DVideo}
+            autoPlay
+            loop
+            $width="full"
+            $aspectRatio="16/9"
+          />
+        ) : (
+          <Image src={disconnectedIcon} alt="Device not connected" />
+        )}
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay
@@ -212,4 +226,5 @@ WithConnectedDevice.defaultProps = {
   disableNavigation: false,
   buttonLabel: undefined,
   buttonOnClick: undefined,
+  showAnimation: true,
 };

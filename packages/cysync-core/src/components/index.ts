@@ -15,3 +15,4 @@ export * from './TransactionTable';
 export * from './SnackBarManager';
 export * from './Notification';
 export * from './Graph';
+export * from './DeviceAuthenticating';

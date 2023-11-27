@@ -20,7 +20,7 @@ export const CardTraining: React.FC = () => {
       withEmail
       withHelp
     >
-      <WithConnectedDevice onInitial>
+      <WithConnectedDevice onInitial showAnimation={false}>
         <CardTrainingDialog />
       </WithConnectedDevice>
     </OnboardingPageLayout>
