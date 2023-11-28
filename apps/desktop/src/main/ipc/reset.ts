@@ -11,8 +11,16 @@ const createResetCySyncMethod =
     await clearDatabase();
     await webContents.session.clearCache();
     await webContents.session.clearStorageData();
-    app.relaunch();
-    app.exit();
+
+    const options: Electron.RelaunchOptions = { args: process.argv };
+    if (process.env.APPIMAGE) {
+      options.execPath = process.env.APPIMAGE;
+      options.args = options.args ?? [];
+      options.args.unshift('--appimage-extract-and-run');
+    }
+
+    app.relaunch(options);
+    app.quit();
   };
 
 export const getResetIPCHandlers = (getWebContents: () => WebContents) => [
