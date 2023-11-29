@@ -9,11 +9,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  CloseConfirmationDialog,
-  ErrorHandlerDialog,
-  WithConnectedDevice,
-} from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
@@ -42,16 +38,10 @@ export const SendFlow: FC = () => {
     selectedWallet,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const [showOnClose, setShowOnClose] = React.useState(false);
 
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full" $maxHeight="90vh">
-        <CloseConfirmationDialog
-          isDialogVisible={showOnClose}
-          setIsDialogVisible={setShowOnClose}
-          onClose={onClose}
-        />
         <>
           <MilestoneAside
             milestones={tabs
@@ -81,14 +71,7 @@ export const SendFlow: FC = () => {
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={
-                // do not display confirmation dialog on closing when on the first tab
-                <CloseButton
-                  onClick={() =>
-                    currentTab === 0 ? onClose() : setShowOnClose(true)
-                  }
-                />
-              }
+              rightComponent={<CloseButton onClick={() => onClose()} />}
               position="top"
               useLightPadding
             />
