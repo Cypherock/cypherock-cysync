@@ -5,6 +5,10 @@
   "types": "dist/index.d.ts",
   "license": "AGPL-3.0",
   "private": true,
+  "targets": {
+    "module": false,
+    "types": false
+  },
   "scripts": {
     "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "lint:check": "eslint \"src/**/*.{ts,tsx}\"",
@@ -12,7 +16,7 @@
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
     "build": "bash scripts/build.sh",
     "build:parcel": "pnpm clean && pnpm build:dirty",
-    "build:dirty": "tsc -p tsconfig.json && cross-env PARCEL_WORKERS=0 parcel build --no-cache --no-source-maps --dist-dir parcel",
+    "build:dirty": "tsc -p tsconfig.json && cross-env PARCEL_WORKERS=0 parcel build dist/index.js --no-cache --no-source-maps --dist-dir parcel",
     "clean": "rimraf dist",
     "pre-commit": "lint-staged"
   },
