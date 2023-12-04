@@ -3,4 +3,7 @@ import { createWorkerFunction } from './utils';
 
 createWorkerFunction(calculatePortfolioGraphData);
 
-export type * from './graph';
+export type {
+  CalculatePortfolioGraphDataParams,
+  CalculatePortfolioGraphDataType,
+} from './graph';
