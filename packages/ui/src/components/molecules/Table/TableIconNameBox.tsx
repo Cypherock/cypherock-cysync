@@ -94,7 +94,11 @@ export const TableIconNameBox: FC<IconNameBoxProps> = props => {
             {tag && <Tag>{tag}</Tag>}
           </Container>
         )}
-        {tag && !mutedSubtitle && <Tag>{tag}</Tag>}
+        {tag && !mutedSubtitle && (
+          <div>
+            <Tag>{tag}</Tag>
+          </div>
+        )}
       </Container>
     </IconNameBoxStyle>
   );

@@ -4,6 +4,8 @@ import React from 'react';
 
 import { useGraph, UseGraphProps } from '~/hooks';
 
+import { selectDiscreetMode, useAppSelector } from '..';
+
 export interface GraphProps extends UseGraphProps {
   color?: string;
   handleWalletChange: (walletId?: string) => void;
@@ -32,16 +34,28 @@ export const Graph: React.FC<GraphProps> = ({
     isLoading,
     showGraphInUSD,
     onGraphSwitch,
+    formatGraphAmountDisplay,
   } = useGraph({ selectedWallet, accountId, assetId, parentAssetId });
+  const { active: isDiscreetMode } = useAppSelector(selectDiscreetMode);
 
   return (
     <DisplayGraph
-      title={
-        showGraphInUSD ? summaryDetails.totalValue : summaryDetails.totalBalance
-      }
-      subTitle={
-        showGraphInUSD ? summaryDetails.totalBalance : summaryDetails.totalValue
-      }
+      title={formatGraphAmountDisplay(
+        showGraphInUSD
+          ? summaryDetails.totalValue
+          : summaryDetails.totalBalance,
+        undefined,
+        isDiscreetMode,
+        true,
+      )}
+      subTitle={formatGraphAmountDisplay(
+        showGraphInUSD
+          ? summaryDetails.totalBalance
+          : summaryDetails.totalValue,
+        !showGraphInUSD,
+        isDiscreetMode,
+        true,
+      )}
       conversionRate={summaryDetails.conversionRate}
       dropdownItems={walletDropdownList}
       selectedDropdownItem={selectedWallet?.__id ?? 'all'}
@@ -51,7 +65,12 @@ export const Graph: React.FC<GraphProps> = ({
       selectedPill={selectedRange}
       onPillButtonChange={setSelectedRange as any}
       summaryText={summaryDetails.changePercent}
-      summarySubText={summaryDetails.changeValue}
+      summarySubText={formatGraphAmountDisplay(
+        summaryDetails.changeValue,
+        undefined,
+        isDiscreetMode,
+        true,
+      )}
       summaryIcon={summaryDetails.changeIcon}
       data={graphData}
       formatTooltipValue={formatTooltipValue}
@@ -62,6 +81,7 @@ export const Graph: React.FC<GraphProps> = ({
         assetId || parentAssetId || accountId ? onGraphSwitch : undefined
       }
       isLoading={isLoading}
+      isDiscreetMode={isDiscreetMode}
     />
   );
 };
