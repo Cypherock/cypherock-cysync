@@ -797,6 +797,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-solana':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -5357,6 +5360,17 @@ packages:
       '@cypherock/sdk-core': 0.0.21
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
+      long: 5.2.3
+      protobufjs: 7.2.5
+    dev: false
+
+  /@cypherock/sdk-app-solana@0.0.1:
+    resolution: {integrity: sha512-KXrJyg+qHxm2r+KlClj6bwT2jSdI2OCjMEEN15HMrD+taCRDWNl84tatllW0vY2l/4Jbq+UURAGZXurDJRtWCA==}
+    dependencies:
+      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-interfaces': 0.0.14
+      '@cypherock/sdk-utils': 0.0.17
+      bs58: 5.0.0
       long: 5.2.3
       protobufjs: 7.2.5
     dev: false
@@ -18787,7 +18801,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -18828,7 +18842,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
