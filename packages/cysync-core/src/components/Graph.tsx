@@ -32,16 +32,25 @@ export const Graph: React.FC<GraphProps> = ({
     isLoading,
     showGraphInUSD,
     onGraphSwitch,
+    formatGraphAmountDisplay,
   } = useGraph({ selectedWallet, accountId, assetId, parentAssetId });
 
   return (
     <DisplayGraph
-      title={
-        showGraphInUSD ? summaryDetails.totalValue : summaryDetails.totalBalance
-      }
-      subTitle={
-        showGraphInUSD ? summaryDetails.totalBalance : summaryDetails.totalValue
-      }
+      title={formatGraphAmountDisplay(
+        showGraphInUSD
+          ? summaryDetails.totalValue
+          : summaryDetails.totalBalance,
+        undefined,
+        true,
+      )}
+      subTitle={formatGraphAmountDisplay(
+        showGraphInUSD
+          ? summaryDetails.totalBalance
+          : summaryDetails.totalValue,
+        !showGraphInUSD,
+        true,
+      )}
       conversionRate={summaryDetails.conversionRate}
       dropdownItems={walletDropdownList}
       selectedDropdownItem={selectedWallet?.__id ?? 'all'}
@@ -51,7 +60,11 @@ export const Graph: React.FC<GraphProps> = ({
       selectedPill={selectedRange}
       onPillButtonChange={setSelectedRange as any}
       summaryText={summaryDetails.changePercent}
-      summarySubText={summaryDetails.changeValue}
+      summarySubText={formatGraphAmountDisplay(
+        summaryDetails.changeValue,
+        undefined,
+        true,
+      )}
       summaryIcon={summaryDetails.changeIcon}
       data={graphData}
       formatTooltipValue={formatTooltipValue}
