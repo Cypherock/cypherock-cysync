@@ -1,7 +1,7 @@
 const config = {
   API_CYPHEROCK: 'https://dev-api.cypherock.com',
   ALLOW_PRERELEASE: true,
-  LOG_LEVEL: 'debug',
+  LOG_LEVEL: 'error',
 };
 
 const updateProcessEnvWithConfig = () => {

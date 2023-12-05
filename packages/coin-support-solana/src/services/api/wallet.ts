@@ -13,7 +13,7 @@ export const getBalance = async (address: string, assetId: string) => {
     responseType: 'v2',
   });
 
-  let { balance } = response.data ?? '0';
+  let balance = response.data?.balance ?? '0';
 
   if (typeof balance === 'number') balance = balance.toString();
 
