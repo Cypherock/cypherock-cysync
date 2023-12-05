@@ -2,7 +2,6 @@
 import {
   CoinSupport,
   IPreparedTransaction,
-  IReceiveEvent,
   IReceiveParams,
   ISignTransactionEvent,
   ISyncPricesParams,
@@ -19,11 +18,12 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 
+export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class SolanaSupport implements CoinSupport {
-  public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented. ${params}`);
+  public receive(params: IReceiveParams) {
+    return operations.receive(params);
   }
 
   public createAccounts(): Observable<ICreateAccountEvent> {
