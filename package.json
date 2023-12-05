@@ -23,7 +23,7 @@
     "pretty:root:check": "prettier --check scripts *.json",
     "lint:check": "turbo run lint:check --no-daemon",
     "pretty:check": "pnpm pretty:root:check && turbo run pretty:check --no-daemon",
-    "test": "turbo run test --no-daemon",
+    "test": "cross-env NODE_ENV=test turbo run test --no-daemon",
     "e2e": "turbo run e2e --no-daemon",
     "pre-commit": "turbo run pre-commit --concurrency=1 --no-daemon",
     "prepare": "husky install",
