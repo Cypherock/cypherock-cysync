@@ -20,18 +20,13 @@ export interface LineGraphProps {
     timestamp: number;
     value: number;
   }[];
-  formatYAxisTick?: (
-    value: number | string,
-    isDiscreetMode?: boolean,
-  ) => string | number;
+  formatYAxisTick?: (value: number | string) => string | number;
   formatTooltipValue?: (params: {
     timestamp: number;
     value: number;
-    isDiscreetMode?: boolean;
   }) => string[];
   formatTimestamp?: (timestamp: number) => string;
   color: string;
-  isDiscreetMode?: boolean;
 }
 
 const hexToRGB = (value: string) => {
@@ -51,7 +46,6 @@ export const LineGraph: React.FC<LineGraphProps> = ({
   formatTimestamp,
   formatYAxisTick,
   color,
-  isDiscreetMode,
 }) => {
   const theme = useTheme();
   const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -89,7 +83,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
 
     return {
       values: formatTooltipValue
-        ? formatTooltipValue({ timestamp, value, isDiscreetMode })
+        ? formatTooltipValue({ timestamp, value })
         : [value.toString()],
       chartHeight: chart.canvas.clientHeight,
       chartWidth: chart.canvas.clientWidth,
@@ -139,8 +133,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
       y: {
         ticks: {
           maxTicksLimit: 5,
-          callback: label =>
-            formatYAxisTick ? formatYAxisTick(label, isDiscreetMode) : label,
+          callback: label => (formatYAxisTick ? formatYAxisTick(label) : label),
         },
         grid: {
           color: '#4B4B4B',
@@ -266,7 +259,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({
       chartInstanceRef.current.options = chartData.options;
       chartInstanceRef.current.update();
     }
-  }, [data, formatTooltipValue, isDiscreetMode]);
+  }, [data, formatTooltipValue]);
 
   return (
     <Container position="absolute" top={0} left={0} width="full" height="full">
@@ -279,5 +272,4 @@ LineGraph.defaultProps = {
   formatTooltipValue: undefined,
   formatTimestamp: undefined,
   formatYAxisTick: undefined,
-  isDiscreetMode: undefined,
 };

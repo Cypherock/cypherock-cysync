@@ -4,8 +4,6 @@ import React from 'react';
 
 import { useGraph, UseGraphProps } from '~/hooks';
 
-import { selectDiscreetMode, useAppSelector } from '..';
-
 export interface GraphProps extends UseGraphProps {
   color?: string;
   handleWalletChange: (walletId?: string) => void;
@@ -36,7 +34,6 @@ export const Graph: React.FC<GraphProps> = ({
     onGraphSwitch,
     formatGraphAmountDisplay,
   } = useGraph({ selectedWallet, accountId, assetId, parentAssetId });
-  const { active: isDiscreetMode } = useAppSelector(selectDiscreetMode);
 
   return (
     <DisplayGraph
@@ -45,7 +42,6 @@ export const Graph: React.FC<GraphProps> = ({
           ? summaryDetails.totalValue
           : summaryDetails.totalBalance,
         undefined,
-        isDiscreetMode,
         true,
       )}
       subTitle={formatGraphAmountDisplay(
@@ -53,7 +49,6 @@ export const Graph: React.FC<GraphProps> = ({
           ? summaryDetails.totalBalance
           : summaryDetails.totalValue,
         !showGraphInUSD,
-        isDiscreetMode,
         true,
       )}
       conversionRate={summaryDetails.conversionRate}
@@ -68,7 +63,6 @@ export const Graph: React.FC<GraphProps> = ({
       summarySubText={formatGraphAmountDisplay(
         summaryDetails.changeValue,
         undefined,
-        isDiscreetMode,
         true,
       )}
       summaryIcon={summaryDetails.changeIcon}
@@ -81,7 +75,6 @@ export const Graph: React.FC<GraphProps> = ({
         assetId || parentAssetId || accountId ? onGraphSwitch : undefined
       }
       isLoading={isLoading}
-      isDiscreetMode={isDiscreetMode}
     />
   );
 };

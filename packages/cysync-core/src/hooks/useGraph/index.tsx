@@ -54,6 +54,7 @@ const selector = createSelector(
     { priceHistories },
     { priceInfos },
     { transactions },
+    { active: isDiscreetMode },
   ) => ({
     lang,
     wallets,
@@ -61,14 +62,22 @@ const selector = createSelector(
     priceHistories,
     priceInfos,
     transactions,
+    isDiscreetMode,
   }),
 );
 
 export const useGraph = (props?: UseGraphProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { lang, accounts, wallets, transactions, priceHistories, priceInfos } =
-    useAppSelector(selector);
+  const {
+    lang,
+    accounts,
+    wallets,
+    transactions,
+    priceHistories,
+    priceInfos,
+    isDiscreetMode,
+  } = useAppSelector(selector);
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
@@ -199,7 +208,6 @@ export const useGraph = (props?: UseGraphProps) => {
   const formatGraphAmountDisplay = (
     value: string | number,
     showInUSD?: boolean,
-    isDiscreetMode?: boolean,
     includeUnit = false,
   ) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
@@ -227,14 +235,20 @@ export const useGraph = (props?: UseGraphProps) => {
   const formatTooltipValue = useCallback<
     Exclude<LineGraphProps['formatTooltipValue'], undefined>
   >(
-    ({ value, timestamp, isDiscreetMode }) => [
-      formatGraphAmountDisplay(value, undefined, isDiscreetMode, true),
+    ({ value, timestamp }) => [
+      formatGraphAmountDisplay(value, undefined, true),
       `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(
         timestamp,
         'MMM d',
       )}`,
     ],
-    [showGraphInUSD, props?.accountId, props?.assetId, props?.parentAssetId],
+    [
+      showGraphInUSD,
+      props?.accountId,
+      props?.assetId,
+      props?.parentAssetId,
+      isDiscreetMode,
+    ],
   );
 
   const formatTimestamp = useCallback<
@@ -251,9 +265,14 @@ export const useGraph = (props?: UseGraphProps) => {
   const formatYAxisTick = useCallback<
     Exclude<LineGraphProps['formatYAxisTick'], undefined>
   >(
-    (value, isDiscreetMode) =>
-      formatGraphAmountDisplay(value, undefined, isDiscreetMode),
-    [showGraphInUSD, props?.accountId, props?.assetId, props?.parentAssetId],
+    value => formatGraphAmountDisplay(value, undefined),
+    [
+      showGraphInUSD,
+      props?.accountId,
+      props?.assetId,
+      props?.parentAssetId,
+      isDiscreetMode,
+    ],
   );
 
   const handleAddAccountClick = () => {
