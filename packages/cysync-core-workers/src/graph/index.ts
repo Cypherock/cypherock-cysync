@@ -27,7 +27,6 @@ export interface CalculatePortfolioGraphDataParams {
   priceHistories: IPriceHistory[];
   priceInfos: IPriceInfo[];
   days: 1 | 7 | 30 | 365;
-  isDiscreetMode: boolean;
   selectedWallet?: IWallet;
   assetId?: string;
   parentAssetId?: string;
@@ -65,8 +64,7 @@ const getAssetDetailsFromProps = (
 const calculatePortfolioGraphSummary = (
   params: CalculatePortfolioGraphDataParamsWithComputedData,
 ) => {
-  const { accounts, isDiscreetMode, priceInfos, computedData, showGraphInUSD } =
-    params;
+  const { accounts, priceInfos, computedData, showGraphInUSD } = params;
 
   let currentValue = 0;
   let conversionRate = '';
@@ -78,9 +76,7 @@ const calculatePortfolioGraphSummary = (
 
   const { parentAssetId, assetId } = getAssetDetailsFromProps(accounts, params);
   if (parentAssetId) {
-    currentBalance = isDiscreetMode
-      ? '****'
-      : `0 ${getDefaultUnit(parentAssetId, assetId).abbr}`;
+    currentBalance = `0`;
 
     if (assetId) {
       const priceInfo = priceInfos.find(p => p.assetId === assetId);
@@ -95,7 +91,7 @@ const calculatePortfolioGraphSummary = (
 
   if (computedData.balanceHistory.length > 0) {
     if (parentAssetId) {
-      const { amount, unit } = getParsedAmount({
+      const { amount } = getParsedAmount({
         amount:
           computedData.balanceHistory[computedData.balanceHistory.length - 1]
             .balance,
@@ -104,7 +100,7 @@ const calculatePortfolioGraphSummary = (
         unitAbbr: getDefaultUnit(parentAssetId, assetId).abbr,
       });
 
-      currentBalance = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
+      currentBalance = amount;
     }
 
     let latestValue = new BigNumber(
@@ -141,25 +137,21 @@ const calculatePortfolioGraphSummary = (
     }
 
     if (parentAssetId && !showGraphInUSD) {
-      const { amount, unit } = getParsedAmount({
+      const { amount } = getParsedAmount({
         amount: changeValueInNumber.toString(),
         coinId: parentAssetId,
         assetId,
         unitAbbr: getDefaultUnit(parentAssetId, assetId).abbr,
       });
 
-      changeValue = isDiscreetMode ? '****' : `${amount} ${unit.abbr}`;
+      changeValue = amount;
     } else {
-      changeValue = `$${
-        isDiscreetMode ? '****' : formatDisplayPrice(changeValueInNumber)
-      }`;
+      changeValue = formatDisplayPrice(changeValueInNumber);
     }
   }
 
   return {
-    totalValue: `$${
-      isDiscreetMode ? '****' : formatDisplayPrice(currentValue)
-    }`,
+    totalValue: formatDisplayPrice(currentValue),
     totalBalance: currentBalance,
     conversionRate,
     changePercent: `${
@@ -238,3 +230,6 @@ export const calculatePortfolioGraphData = async (
 
   return undefined;
 };
+
+export type CalculatePortfolioGraphDataType =
+  typeof calculatePortfolioGraphData;
