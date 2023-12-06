@@ -177,6 +177,9 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
 
+      - name: Fix hashBang in pnpm.cjs
+        run: pnpm fix:hashbang
+
       - name: pnpm install
         run: pnpm install
 
@@ -195,9 +198,6 @@ jobs:
         with:
           fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
-
-      - name: Fix hashBang in pnpm.cjs
-        run: pnpm fix:hashbang
 
       - name: Build
         env:
