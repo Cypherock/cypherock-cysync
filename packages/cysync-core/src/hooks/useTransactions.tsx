@@ -433,17 +433,20 @@ export const useTransactions = ({
     setIsAscending(true);
   };
 
-  const handleTransactionTableRow = (txn: TransactionRowData) => {
-    dispatch(openHistoryDialog({ txn: txn.txn }));
-  };
+  const handleTransactionTableRow = useCallback(
+    (txn: TransactionRowData) => {
+      dispatch(openHistoryDialog({ txn: txn.txn }));
+    },
+    [dispatch],
+  );
 
-  const onRowExpand = (row: TransactionRowData, value: boolean) => {
+  const onRowExpand = useCallback((row: TransactionRowData, value: boolean) => {
     setExpandedRowIds(r => {
       const copy = structuredClone(r);
       copy[row.id] = value;
       return copy;
     });
-  };
+  }, []);
 
   return {
     strings: lang.strings,
