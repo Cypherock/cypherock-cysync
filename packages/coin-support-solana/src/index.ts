@@ -16,6 +16,7 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import { ISyncSolanaAccountsParams } from './operations/syncAccount/types';
 import {
   ICreateSolanaAccountEvent,
   ICreateSolanaAccountParams,
@@ -35,8 +36,8 @@ export class SolanaSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccount(): Observable<void> {
-    throw new Error('Not implemented');
+  public syncAccount(params: ISyncSolanaAccountsParams) {
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(): Promise<IPreparedTransaction> {

@@ -20,5 +20,5 @@ export const getBalance = async (address: string, assetId: string) => {
   if (typeof balance !== 'string')
     throw new Error('Invalid solana balance returned from server');
 
-  return balance.toString();
+  return balance;
 };
