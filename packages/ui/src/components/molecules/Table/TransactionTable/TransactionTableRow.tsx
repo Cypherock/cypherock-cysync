@@ -54,6 +54,8 @@ export const getTransactionFillFromStatus = (
   return map[status];
 };
 
+const DEFAULT_ROW_HEIGHT = 82;
+
 export const TransactionTableRow: React.FC<
   TransactionTableRowProps
 > = props => {
@@ -73,10 +75,12 @@ export const TransactionTableRow: React.FC<
 
   const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(DEFAULT_ROW_HEIGHT);
 
   const onResize = () => {
-    setContainerHeight(containerRef.current?.clientHeight ?? 0);
+    setContainerHeight(
+      containerRef.current?.clientHeight ?? DEFAULT_ROW_HEIGHT,
+    );
   };
 
   useEffect(() => {
