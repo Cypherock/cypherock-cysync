@@ -10,10 +10,8 @@ const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
 export const getTransactions = async (params: {
   address: string;
   assetId: string;
-  contractAddress?: string;
   from?: number;
   limit?: number;
-  internal?: boolean;
 }): Promise<ISolanaTransactionResult> => {
   const url = `${baseURL}/history`;
 
