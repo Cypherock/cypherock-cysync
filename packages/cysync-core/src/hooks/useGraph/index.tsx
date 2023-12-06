@@ -1,9 +1,12 @@
 import {
+  formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
 } from '@cypherock/coin-support-utils';
 import { ICoinUnit } from '@cypherock/coins';
+import type { CalculatePortfolioGraphDataParams } from '@cypherock/cysync-core-workers';
 import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
@@ -29,7 +32,6 @@ import {
 } from '~/store';
 import logger from '~/utils/logger';
 
-import { CalculatePortfolioGraphDataParams } from './helper';
 import { UseGraphProps } from './types';
 import { calculatePortfolioGraphDataWithWorker } from './worker';
 
@@ -73,8 +75,8 @@ export const useGraph = (props?: UseGraphProps) => {
     wallets,
     transactions,
     priceHistories,
-    isDiscreetMode,
     priceInfos,
+    isDiscreetMode,
   } = useAppSelector(selector);
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
@@ -110,7 +112,6 @@ export const useGraph = (props?: UseGraphProps) => {
     priceInfos,
     selectedRange,
     selectedWallet: props?.selectedWallet,
-    isDiscreetMode,
     props,
     showGraphInUSD,
     theme,
@@ -144,7 +145,6 @@ export const useGraph = (props?: UseGraphProps) => {
       priceHistories: data.priceHistories,
       priceInfos: data.priceInfos,
       selectedWallet: data.selectedWallet,
-      isDiscreetMode: data.isDiscreetMode,
       assetId: data.props?.assetId,
       accountId: data.props?.accountId,
       parentAssetId: data.props?.parentAssetId,
@@ -197,7 +197,6 @@ export const useGraph = (props?: UseGraphProps) => {
     props?.assetId,
     props?.parentAssetId,
     selectedRange,
-    isDiscreetMode,
     showGraphInUSD,
     theme,
   ]);
@@ -208,9 +207,12 @@ export const useGraph = (props?: UseGraphProps) => {
 
   const formatGraphAmountDisplay = (
     value: string | number,
+    showInUSD?: boolean,
     includeUnit = false,
   ) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
+    if (new BigNumber(value).isNaN()) return '';
+    const showUnitInUSD = showInUSD ?? showGraphInUSD;
     let unit: ICoinUnit | undefined;
 
     if (parentAssetId) {
@@ -220,31 +222,32 @@ export const useGraph = (props?: UseGraphProps) => {
     const appendUnit = (v: string) => {
       if (!includeUnit) return v;
 
-      if (unit && !showGraphInUSD) return `${v} ${unit.abbr}`;
+      if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
       return `$${v}`;
     };
 
-    if (isDiscreetMode) return '****';
-    if (showGraphInUSD) return appendUnit(formatDisplayPrice(value));
-    return appendUnit(formatDisplayPrice(value));
+    if (isDiscreetMode) return appendUnit('****');
+
+    if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
+    return appendUnit(formatDisplayAmount(value).complete);
   };
 
   const formatTooltipValue = useCallback<
     Exclude<LineGraphProps['formatTooltipValue'], undefined>
   >(
     ({ value, timestamp }) => [
-      formatGraphAmountDisplay(value, true),
+      formatGraphAmountDisplay(value, undefined, true),
       `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(
         timestamp,
         'MMM d',
       )}`,
     ],
     [
-      isDiscreetMode,
       showGraphInUSD,
       props?.accountId,
       props?.assetId,
       props?.parentAssetId,
+      isDiscreetMode,
     ],
   );
 
@@ -262,13 +265,13 @@ export const useGraph = (props?: UseGraphProps) => {
   const formatYAxisTick = useCallback<
     Exclude<LineGraphProps['formatYAxisTick'], undefined>
   >(
-    value => formatGraphAmountDisplay(value),
+    value => formatGraphAmountDisplay(value, undefined),
     [
-      isDiscreetMode,
       showGraphInUSD,
       props?.accountId,
       props?.assetId,
       props?.parentAssetId,
+      isDiscreetMode,
     ],
   );
 
@@ -297,5 +300,6 @@ export const useGraph = (props?: UseGraphProps) => {
     onGraphSwitch,
     showGraphInUSD,
     isLoading,
+    formatGraphAmountDisplay,
   };
 };

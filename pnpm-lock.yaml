@@ -245,9 +245,6 @@ importers:
       electron-updater:
         specifier: ^5.3.0
         version: 5.3.0
-      node-hid:
-        specifier: ^3.0.0
-        version: 3.0.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -800,6 +797,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-solana':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -5360,6 +5360,17 @@ packages:
       '@cypherock/sdk-core': 0.0.21
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
+      long: 5.2.3
+      protobufjs: 7.2.5
+    dev: false
+
+  /@cypherock/sdk-app-solana@0.0.1:
+    resolution: {integrity: sha512-KXrJyg+qHxm2r+KlClj6bwT2jSdI2OCjMEEN15HMrD+taCRDWNl84tatllW0vY2l/4Jbq+UURAGZXurDJRtWCA==}
+    dependencies:
+      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-interfaces': 0.0.14
+      '@cypherock/sdk-utils': 0.0.17
+      bs58: 5.0.0
       long: 5.2.3
       protobufjs: 7.2.5
     dev: false

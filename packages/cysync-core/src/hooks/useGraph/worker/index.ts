@@ -1,11 +1,11 @@
-import { createWorkerFunctionCaller } from '~/utils/worker';
-
-import {
-  calculatePortfolioGraphData,
+import type {
   CalculatePortfolioGraphDataParams,
-} from '../helper';
+  CalculatePortfolioGraphDataType,
+} from '@cypherock/cysync-core-workers';
+
+import { createWorkerFunctionCaller } from '~/utils/worker';
 
 export const calculatePortfolioGraphDataWithWorker = createWorkerFunctionCaller<
   CalculatePortfolioGraphDataParams,
-  ReturnType<typeof calculatePortfolioGraphData>
+  ReturnType<CalculatePortfolioGraphDataType>
 >(new URL('../../../generated/workers/graph', import.meta.url));

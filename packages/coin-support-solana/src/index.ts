@@ -2,11 +2,9 @@
 import {
   CoinSupport,
   IPreparedTransaction,
-  IReceiveEvent,
   IReceiveParams,
   ISignTransactionEvent,
   ISyncPricesParams,
-  ICreateAccountEvent,
   ISyncPriceHistoriesParams,
   IGetCoinAllocationsParams,
   IGetAccountHistoryParams,
@@ -18,16 +16,23 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import {
+  ICreateSolanaAccountEvent,
+  ICreateSolanaAccountParams,
+} from './operations/types';
 
+export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class SolanaSupport implements CoinSupport {
-  public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented. ${params}`);
+  public receive(params: IReceiveParams) {
+    return operations.receive(params);
   }
 
-  public createAccounts(): Observable<ICreateAccountEvent> {
-    throw new Error('Not implemented');
+  public createAccounts(
+    params: ICreateSolanaAccountParams,
+  ): Observable<ICreateSolanaAccountEvent> {
+    return operations.createAccounts(params);
   }
 
   public syncAccount(): Observable<void> {
