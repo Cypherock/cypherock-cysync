@@ -228,8 +228,8 @@ importers:
         specifier: ^0.0.21
         version: 0.0.21
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.17
+        version: 0.0.17
       '@cypherock/sdk-hw-serialport':
         specifier: ^0.0.18
         version: 0.0.18
@@ -5382,6 +5382,16 @@ packages:
       '@cypherock/sdk-utils': 0.0.17
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.2.5
+      uuid: 9.0.1
+    dev: false
+
+  /@cypherock/sdk-hw-hid@0.0.17:
+    resolution: {integrity: sha512-RtrW0TsIbnycg/P6qUXy8RaXs1cU5eW6FbCJ6YCwBBQuUF737t5x8R9xgwRSUxJ7mBGCnVb07p5e0t3HECy9YA==}
+    dependencies:
+      '@cypherock/sdk-interfaces': 0.0.14
+      '@cypherock/sdk-utils': 0.0.17
+      node-hid: 2.2.0
+      usb: 2.11.0
       uuid: 9.0.1
     dev: false
 
@@ -21085,6 +21095,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /node-hid@2.2.0:
+    resolution: {integrity: sha512-vj48zh9j555DZzUhMc8tk/qw6xPFrDyPBH1ST1Z/hWaA/juBJw7IuSxPeOgpzNFNU36mGYj+THioRMt1xOdm/g==}
+    engines: {node: '>=10'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      bindings: 1.5.0
+      node-addon-api: 3.2.1
+      prebuild-install: 7.1.1
+    dev: false
 
   /node-hid@3.0.0:
     resolution: {integrity: sha512-8CZdobqYCKTnKx9M5r9/clAehC7jOLXu9Ts2ItMWVT6LJa0bjmkkM1SdB7TgJsothng7GE/Y+fex5AidiJLjKA==}
