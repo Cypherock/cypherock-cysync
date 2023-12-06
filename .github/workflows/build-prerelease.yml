@@ -196,6 +196,9 @@ jobs:
           fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
+      - name: Fix hashBang in pnpm.cjs
+        run: pnpm fix:hashbang
+
       - name: Build
         env:
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
