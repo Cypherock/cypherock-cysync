@@ -1,4 +1,4 @@
-#!sh
+#!/bin/bash
 
 # https://github.com/develar/app-builder/issues/63#issuecomment-914324662
 echo Fixing hash bang for pnpm.cjs...
