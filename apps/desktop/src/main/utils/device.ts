@@ -48,7 +48,10 @@ export const abortAndRemoveConnectedDevice = async () => {
       try {
         await connectedDevice.connection.destroy();
         // eslint-disable-next-line no-empty
-      } catch (error) {}
+      } catch (error) {
+        logger.error('Error in destroying device connection');
+        logger.error(error);
+      }
     }
     connectedDevice = undefined;
   }

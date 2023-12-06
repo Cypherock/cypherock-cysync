@@ -134,7 +134,7 @@ export const tryEstablishingDeviceConnection = async (
 
     return { info, status };
   } catch (error) {
-    connection?.destroy();
+    await connection?.destroy();
     throw error;
   }
 };
