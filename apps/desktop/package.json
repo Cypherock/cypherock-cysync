@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "rimraf node_modules/.vite && vite",
     "build": "tsc && vite build",
-    "make": "electron-builder",
+    "make": "cross-env electron-builder",
     "preview": "vite preview",
     "e2e": "cross-env NODE_ENV=e2e playwright test e2e/automated --project=chromium --workers=1",
     "me2e": "cross-env NODE_ENV=e2e playwright test e2e/manual --project=chromium --workers=1",
@@ -28,7 +28,7 @@
     "pretty:check": "prettier --check \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "test": "jest",
     "pre-commit": "lint-staged",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "cross-env electron-builder install-app-deps",
     "dev:setup": "node scripts/setupDevTools.js"
   },
   "keywords": [],
