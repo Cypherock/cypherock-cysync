@@ -47,7 +47,6 @@ export const solanaCoinList: Record<string, ISolanaCoinInfo> = coinList.reduce<
       curve: coin.curve,
       color: coin.color,
       units,
-      isUnderDevelopment: true,
     },
   }),
   {},
