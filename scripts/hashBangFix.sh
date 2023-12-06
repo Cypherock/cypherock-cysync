@@ -8,7 +8,7 @@ pnpmPath=$(where pnpm | sed -n 1p)
 path=$(dirname "$pnpmPath")
 file="$path\\node_modules\\pnpm\\bin\\pnpm.cjs"
 
-oldLine=$(cat "$file" | sed -n 1p)
+oldLine=$(head -n 1 "$file")
 newLine="#!node"
 
 echo Replacing line \"1: "$oldLine"\" of \""$file"\" with \"1: "$newLine"\"
