@@ -22,44 +22,55 @@ export interface ISyncWalletsWithDeviceParams {
 const syncWalletsWithConnectedDevice = async (
   params: ISyncWalletsWithDeviceParams,
 ) => {
+  let taskId: string | undefined;
   const { connection, connectDevice, doFetchFromDevice } = params;
 
-  if (
-    !connection?.isMain ||
-    connection.status !== DeviceConnectionStatus.CONNECTED ||
-    !connection.isAuthenticated
-  ) {
-    return undefined;
+  try {
+    if (
+      !connection?.isMain ||
+      connection.status !== DeviceConnectionStatus.CONNECTED ||
+      !connection.isAuthenticated
+    ) {
+      return undefined;
+    }
+
+    if (!connection.serial) {
+      logger.warn('No serial found for connected device');
+      return undefined;
+    }
+
+    let walletList = connection.walletList ?? [];
+
+    if (doFetchFromDevice) {
+      taskId = uniqueId('task-');
+      await deviceLock.acquire(connection.device, taskId);
+
+      const con = await connectDevice(connection.device);
+      const app = await ManagerApp.create(con);
+
+      const deviceResult = await app.getWallets();
+      walletList = deviceResult.walletList;
+
+      await app.destroy();
+      deviceLock.release(connection.device, taskId);
+    }
+
+    const db = getDB();
+
+    return syncWalletsOnDb({
+      db,
+      wallets: walletList,
+      deviceId: connection.serial,
+    });
+  } catch (error) {
+    if (taskId && connection?.device) {
+      deviceLock.release(connection.device, taskId);
+    }
+
+    logger.error('Error while syncing wallets');
+    logger.error(error);
+    throw error;
   }
-
-  if (!connection.serial) {
-    logger.warn('No serial found for connected device');
-    return undefined;
-  }
-
-  let walletList = connection.walletList ?? [];
-
-  if (doFetchFromDevice) {
-    const taskId = uniqueId('task-');
-    deviceLock.acquire(connection.device, taskId);
-
-    const con = await connectDevice(connection.device);
-    const app = await ManagerApp.create(con);
-
-    const deviceResult = await app.getWallets();
-    walletList = deviceResult.walletList;
-
-    await app.destroy();
-    deviceLock.release(connection.device, taskId);
-  }
-
-  const db = getDB();
-
-  return syncWalletsOnDb({
-    db,
-    wallets: walletList,
-    deviceId: connection.serial,
-  });
 };
 
 export const syncWalletsWithDevice = createAsyncThunk<
