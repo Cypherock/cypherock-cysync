@@ -32,7 +32,8 @@
     "build:submodules": "node scripts/submodules.js build",
     "ci:version": "pnpm changeset version && pnpm i --no-frozen-lockfile",
     "storybook": "turbo storybook --no-daemon",
-    "build:storybook": "turbo build:storybook --no-daemon"
+    "build:storybook": "turbo build:storybook --no-daemon",
+    "fix:hashbang": "bash scripts/hashBangFix.sh"
   },
   "keywords": [],
   "license": "AGPL-3.0",
