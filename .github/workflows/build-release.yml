@@ -175,7 +175,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Fix hashBang in pnpm.cjs
-        run: pnpm fix:hashbang
+        run: pnpm fix:hashbang "C:\Users\runneradmin\setup-pnpm\node_modules\.pnpm\pnpm@$(pnpm --version)\node_modules\pnpm\bin\pnpm.cjs"
 
       - name: pnpm install
         run: pnpm install
