@@ -183,6 +183,7 @@ const PStyle = styled.p<HeadingProps>`
 
 export interface TypographyProps extends HeadingProps {
   children?: ReactNode;
+  title?: string;
   $allowOverflow?: boolean;
   variant?:
     | 'h1'
@@ -239,4 +240,5 @@ Typography.defaultProps = {
   $whiteSpace: 'normal',
   $textOverflow: 'clip',
   $filter: undefined,
+  title: undefined,
 };

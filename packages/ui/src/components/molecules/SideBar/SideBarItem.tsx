@@ -115,7 +115,6 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               ? () => setIsCollapsed(!isCollapsed)
               : onClick
           }
-          title={text}
           align="center"
           $overflowX="hidden"
           width="full"
@@ -142,6 +141,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               $fontWeight="medium"
               $whiteSpace="nowrap"
               $textOverflow="ellipsis"
+              title={text}
             >
               {text}
             </Typography>
