@@ -1,14 +1,9 @@
 import {
   IGetAddressDetails,
   createSyncAccountsObservable,
-  getLatestTransactionBlock,
+  getLatestTransactionHash,
 } from '@cypherock/coin-support-utils';
-import {
-  IAccount,
-  IDatabase,
-  ITransaction,
-  TransactionStatusMap,
-} from '@cypherock/db-interfaces';
+import { IAccount, IDatabase, ITransaction } from '@cypherock/db-interfaces';
 
 import { ISyncSolanaAccountsParams } from './types';
 
@@ -25,13 +20,14 @@ const PER_PAGE_TXN_LIMIT = 25;
 const fetchAndParseTransactions = async (params: {
   db: IDatabase;
   account: IAccount;
-  afterTransactionBlock: number | undefined;
+  afterTransactionHash?: string;
+  beforeTransactionHash?: string;
 }) => {
-  const { db, account, afterTransactionBlock } = params;
+  const { db, account, afterTransactionHash, beforeTransactionHash } = params;
 
-  const afterBlock =
-    afterTransactionBlock ??
-    (await getLatestTransactionBlock(db, {
+  const afterHash =
+    afterTransactionHash ??
+    (await getLatestTransactionHash(db, {
       accountId: account.__id,
     })) ??
     undefined;
@@ -39,7 +35,8 @@ const fetchAndParseTransactions = async (params: {
   const transactionDetails = await getTransactions({
     address: account.xpubOrAddress,
     assetId: account.parentAssetId,
-    from: afterBlock,
+    from: afterHash,
+    before: beforeTransactionHash,
     limit: PER_PAGE_TXN_LIMIT,
   });
 
@@ -50,25 +47,22 @@ const fetchAndParseTransactions = async (params: {
 
   const hasMore = transactionDetails.more;
 
-  const newAfterBlock = Math.max(
-    ...transactions
-      .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
-      .map(t => t.blockHeight),
-    0,
-  );
+  const beforeHash = transactions[transactions.length - 1]?.hash;
 
-  return { hasMore, transactions, afterBlock: newAfterBlock };
+  return { hasMore, transactions, afterHash, beforeHash };
 };
 
 const getAddressDetails: IGetAddressDetails<{
   transactionsTillNow?: ITransaction[];
   updatedBalance?: string;
   updatedAccountInfo?: Partial<ISolanaAccount>;
-  afterTransactionBlock?: number;
+  afterTransactionHash?: string;
+  beforeTransactionHash?: string;
   hasMoreTransactions?: boolean;
 }> = async ({ db, account, iterationContext }) => {
   let {
-    afterTransactionBlock,
+    afterTransactionHash,
+    beforeTransactionHash,
     hasMoreTransactions,
     transactionsTillNow,
     updatedBalance,
@@ -96,12 +90,14 @@ const getAddressDetails: IGetAddressDetails<{
     const transactionDetails = await fetchAndParseTransactions({
       db,
       account,
-      afterTransactionBlock,
+      afterTransactionHash,
+      beforeTransactionHash,
     });
 
     transactions.push(...transactionDetails.transactions);
     hasMoreTransactions = transactionDetails.hasMore;
-    afterTransactionBlock = transactionDetails.afterBlock;
+    afterTransactionHash = transactionDetails.afterHash;
+    beforeTransactionHash = transactionDetails.beforeHash;
 
     transactionsTillNow.push(...transactions);
   }
@@ -112,7 +108,8 @@ const getAddressDetails: IGetAddressDetails<{
     updatedAccountInfo,
     nextIterationContext: {
       hasMoreTransactions,
-      afterTransactionBlock,
+      afterTransactionHash,
+      beforeTransactionHash,
       updatedBalance,
       updatedAccountInfo,
       transactionsTillNow,

@@ -78,7 +78,7 @@ export const getLatestTransactionHash = async (
 ) => {
   const res = await db.transaction.getOne(query, {
     sortBy: {
-      key: 'confirmations',
+      key: 'timestamp',
       descending: true,
     },
     limit: 1,
