@@ -77,7 +77,6 @@ const TermsDialogBox: FC<{
   };
   buttonText: string;
   consent: string;
-  isLoading: boolean;
 }> = ({
   bulletPoints,
   consent,
@@ -85,7 +84,6 @@ const TermsDialogBox: FC<{
   isChecked,
   setIsChecked,
   title,
-  isLoading,
   subtext,
 }) => {
   const { isPasswordSet } = useLockscreen();
@@ -119,7 +117,6 @@ const TermsDialogBox: FC<{
         <CheckBox
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
-          isDisabled={isLoading}
           id="terms_accepted"
           label={consent}
         />
@@ -128,7 +125,6 @@ const TermsDialogBox: FC<{
         <Button
           variant={isChecked ? 'primary' : 'secondary'}
           disabled={!isChecked}
-          isLoading={isLoading}
           onClick={() => toNextPage()}
         >
           <LangDisplay text={buttonText} />
@@ -141,18 +137,13 @@ const TermsDialogBox: FC<{
 export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTerms = async () => {
-    setIsLoading(true);
     setIsChecked(await keyValueStore.isTermsAccepted.get());
-    setIsLoading(false);
   };
 
   const updateTerms = async () => {
-    setIsLoading(true);
     await keyValueStore.isTermsAccepted.set(isChecked);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -180,7 +171,6 @@ export const Terms: FC = () => {
         title={lang.strings.onboarding.terms.title}
         subtext={lang.strings.onboarding.terms.subtext}
         buttonText={lang.strings.buttons.confirm}
-        isLoading={isLoading}
       />
     </OnboardingPageLayout>
   );
