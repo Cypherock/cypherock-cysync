@@ -15,7 +15,7 @@ import {
 import { ISolanaAccount } from '../types';
 
 // Solana transaction are fetched via individual calls, therefore the limit is set relatively low to prevent server timeout.
-const PER_PAGE_TXN_LIMIT = 5;
+const PER_PAGE_TXN_LIMIT = 25;
 
 const fetchAndParseTransactions = async (params: {
   db: IDatabase;
