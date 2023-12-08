@@ -57,6 +57,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
             value={value}
             average={initialValue}
             onChange={handleChange}
+            overrideDecimal={0}
             captions={captions}
           />
         </Container>
