@@ -2,7 +2,6 @@ import {
   ConfirmationDialog,
   FirmwareDownloadGreenIcon,
   ProgressDialog,
-  SuccessDialog,
   BlurOverlay,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
@@ -43,6 +42,7 @@ export const DeviceUpdateDialog: FC = () => {
   };
 
   useEffect(() => {
+    if (state === DeviceUpdateState.Successful) onClose();
     if (state === DeviceUpdateState.NotRequired) onClose();
   }, [state]);
 
@@ -69,20 +69,6 @@ export const DeviceUpdateDialog: FC = () => {
           icon={<FirmwareDownloadGreenIcon />}
           progress={Number(downloadProgress.toFixed(0))}
           versionTextVariables={{ version }}
-        />
-      ),
-      [DeviceUpdateState.Successful]: (
-        <SuccessDialog
-          title={
-            lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful
-              .heading
-          }
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful
-              .subtext
-          }
-          buttonText={lang.strings.buttons.continue}
-          handleClick={onClose}
         />
       ),
     };
