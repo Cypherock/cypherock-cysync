@@ -8,6 +8,7 @@ export interface FeesSliderProps {
   average: number;
   onChange: (newValue: number) => void;
   captions: Caption[];
+  overrideDecimal?: number;
   error?: string;
 }
 
@@ -16,13 +17,15 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
   average,
   onChange,
   captions,
+  overrideDecimal,
   error,
 }) => {
   const getSliderParams = () => {
     const min = 0;
     const max = average * 2;
     const negativePowerOf10 = Math.min(Math.log10(average), 0);
-    const decimal = Math.abs(Math.floor(negativePowerOf10)) + 1;
+    const decimal =
+      overrideDecimal ?? Math.abs(Math.floor(negativePowerOf10)) + 1;
     return { min, max, decimal };
   };
   return (
@@ -48,5 +51,6 @@ export const FeesSlider: React.FC<FeesSliderProps> = ({
 };
 
 FeesSlider.defaultProps = {
+  overrideDecimal: undefined,
   error: undefined,
 };
