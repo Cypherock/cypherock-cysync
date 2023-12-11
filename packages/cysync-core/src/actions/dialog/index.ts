@@ -1,6 +1,7 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
+import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
@@ -58,8 +59,9 @@ export const openHistoryDialog = (props?: IHistoryDialogProps) =>
 export const openDeviceUpdateDialog = () =>
   openDialog({ name: 'deviceUpdateDialog', data: undefined });
 
-export const openDeviceAuthenticationDialog = () =>
-  openDialog({ name: 'deviceAuthenticationDialog', data: undefined });
+export const openDeviceAuthenticationDialog = (
+  props?: DeviceAuthenticationDialogProps,
+) => openDialog({ name: 'deviceAuthenticationDialog', data: props });
 
 export const openAppUpdateDialog = () =>
   openDialog({ name: 'appUpdateDialog', data: undefined });

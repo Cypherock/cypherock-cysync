@@ -808,6 +808,7 @@ const en = {
     },
     deviceUpdate: {
       heading: 'Device Update',
+      version: 'Version ${version}',
       dialogs: {
         checking: {
           title: 'Please wait while we check for X1 Vault updates',
@@ -826,7 +827,7 @@ const en = {
           subtext: 'Please wait while we update your X1 Vault',
         },
         updateSuccessful: {
-          heading: 'X1 Vault updated successfully',
+          heading: 'X1 Vault updated to v${version} successfully',
           subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {

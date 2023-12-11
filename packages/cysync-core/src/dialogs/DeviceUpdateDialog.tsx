@@ -3,6 +3,7 @@ import {
   FirmwareDownloadGreenIcon,
   ProgressDialog,
   BlurOverlay,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,11 +18,13 @@ import {
   useAppSelector,
   useDevice,
 } from '..';
+import { openDeviceAuthenticationDialog } from '~/actions';
 
 export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
   const { deviceHandlingState } = useDevice();
+  const { deviceUpdate } = lang.strings.onboarding;
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
@@ -42,7 +45,18 @@ export const DeviceUpdateDialog: FC = () => {
   };
 
   useEffect(() => {
-    if (state === DeviceUpdateState.Successful) onClose();
+    if (state === DeviceUpdateState.Successful) {
+      dispatch(
+        openDeviceAuthenticationDialog({
+          successTitle: parseLangTemplate(
+            deviceUpdate.dialogs.updateSuccessful.heading,
+            { version },
+          ),
+          successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
+        }),
+      );
+      onClose();
+    }
     if (state === DeviceUpdateState.NotRequired) onClose();
   }, [state]);
 
@@ -50,24 +64,19 @@ export const DeviceUpdateDialog: FC = () => {
     {
       [DeviceUpdateState.Confirmation]: (
         <ConfirmationDialog
-          title={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title
-          }
+          title={deviceUpdate.dialogs.confirmation.title}
           icon={<FirmwareDownloadGreenIcon />}
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
-          }
+          subtext={deviceUpdate.dialogs.confirmation.subtext}
           textVariables={{ version }}
         />
       ),
       [DeviceUpdateState.Updating]: (
         <ProgressDialog
-          title={lang.strings.onboarding.deviceUpdate.dialogs.updating.heading}
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext
-          }
+          title={deviceUpdate.dialogs.updating.heading}
+          subtext={deviceUpdate.dialogs.updating.subtext}
           icon={<FirmwareDownloadGreenIcon />}
           progress={Number(downloadProgress.toFixed(0))}
+          versionText={deviceUpdate.version}
           versionTextVariables={{ version }}
         />
       ),
@@ -80,9 +89,7 @@ export const DeviceUpdateDialog: FC = () => {
       <ErrorHandlerDialog
         error={errorToShow}
         noDelay
-        defaultMsg={
-          lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
-        }
+        defaultMsg={deviceUpdate.dialogs.updateFailed.subtext}
         onRetry={onRetry}
         textVariables={{ version }}
         onClose={onClose}
