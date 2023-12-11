@@ -53,7 +53,7 @@ export const Receive: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox direction="row" gap={0} width="full" onClose={onClose}>
         <>
           <MilestoneAside
             milestones={tabs

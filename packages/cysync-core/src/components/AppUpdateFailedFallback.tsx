@@ -16,6 +16,8 @@ interface AppUpdateFailedFallbackProps {
   linkText: string;
   alertText: string;
   textVariables?: object;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
@@ -24,8 +26,14 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
   linkText,
   alertText,
   textVariables,
+  onClose,
+  dontCloseOnEscape,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox
+    width={500}
+    onClose={onClose}
+    dontCloseOnEscape={dontCloseOnEscape}
+  >
     <DialogBoxBody pb={8}>
       <CySyncDownloadRedIcon />
       <Container display="flex" direction="column" gap={4}>
@@ -46,4 +54,6 @@ export const AppUpdateFailedFallback: FC<AppUpdateFailedFallbackProps> = ({
 
 AppUpdateFailedFallback.defaultProps = {
   textVariables: undefined,
+  onClose: undefined,
+  dontCloseOnEscape: undefined,
 };
