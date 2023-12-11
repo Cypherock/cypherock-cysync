@@ -5,6 +5,7 @@ export {
   setKeyDB,
   setAutoUpdater,
   setResetCySyncMethod,
+  setGetSystemInfoMethod,
   setCloseAppMethod,
   setInitWCUriMethod,
   setAddExternalLinkListenerMethod,

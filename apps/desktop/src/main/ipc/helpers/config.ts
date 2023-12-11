@@ -16,6 +16,7 @@ export const ipcConfig = {
     closeApp: 'app:close',
     focusApp: 'app:focus',
     getInitialWCUri: 'wc:uri:init',
+    getSystemInfo: 'system:info',
   },
   listeners: {
     downloadUpdateProgress: 'autoUpdater:downloadUpdate:progress',

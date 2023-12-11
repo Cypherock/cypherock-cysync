@@ -12,6 +12,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useDevice } from '~/context';
 import {
   DeviceTask,
   ITabs,
@@ -31,6 +32,7 @@ import {
   keyValueStore,
   validateEmail,
   IParsedError,
+  getGetSystemInfoMethod,
 } from '~/utils';
 
 import { IContactSupportDialogProps, SupportCategoryMap } from './types';
@@ -85,6 +87,7 @@ export const ContactSupportDialogProvider: FC<
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const { connection: deviceConnection } = useDevice();
 
   const categories: DropDownListItemProps[] = [
     { text: 'Feedback', id: SupportCategoryMap.Feedback },
@@ -158,13 +161,18 @@ export const ContactSupportDialogProvider: FC<
     }
 
     try {
-      await sendFeedback(
+      await sendFeedback({
         email,
-        selectedCategory,
+        category: selectedCategory,
         description,
         desktopLogs,
         deviceLogs,
-      );
+        systemInfo: await getGetSystemInfoMethod()(),
+        deviceInfo: {
+          firmwareVersion: deviceConnection?.firmwareVersion,
+          deviceSerial: deviceConnection?.serial,
+        },
+      });
       setIsLoading(false);
       onNext();
     } catch (apiError) {
