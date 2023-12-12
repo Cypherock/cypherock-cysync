@@ -50,6 +50,10 @@ const exportedFunctions = [
     name: 'initWCUri',
     key: ipcConfig.methods.getInitialWCUri,
   },
+  {
+    name: 'getSystemInfo',
+    key: ipcConfig.methods.getSystemInfo,
+  },
 ];
 
 const exportedListeners = [
