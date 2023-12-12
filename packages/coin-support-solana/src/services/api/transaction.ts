@@ -37,11 +37,9 @@ export const getFees = async (params: { assetId: string }) => {
   const url = `${baseURL}/fees`;
 
   const query: Record<string, any> = {
-    ...params,
     responseType: 'v2',
     network: solanaCoinList[params.assetId].network,
   };
-  delete query.assetId;
 
   const response = await makePostRequest(url, query);
 

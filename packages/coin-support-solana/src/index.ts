@@ -12,6 +12,7 @@ import {
   ISignMessageEvent,
   IFormatAddressParams,
   IInitializeTransactionParams,
+  IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { setSolanaWeb3 } from '@cypherock/sdk-app-solana';
@@ -79,8 +80,8 @@ export class SolanaSupport implements CoinSupport {
     return operations.broadcastTransaction(params);
   }
 
-  public validateAddress(): boolean {
-    throw new Error(`Method not implemented`);
+  public validateAddress(params: IValidateAddressParams): boolean {
+    return operations.validateAddress(params);
   }
 
   public getCoinAllocations(params: IGetCoinAllocationsParams) {
