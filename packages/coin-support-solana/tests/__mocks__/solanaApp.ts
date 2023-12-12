@@ -16,6 +16,18 @@ export const getUserVerifiedPublicKey = jest
   .fn<SolanaApp['getUserVerifiedPublicKey']>()
   .mockReturnValue(Promise.resolve({ publicKey: DUMMY_ADDRESSES[0] }));
 
+export const signTxn = jest.fn<SolanaApp['signTxn']>().mockReturnValue(
+  Promise.resolve({
+    signature: 'signature',
+    serializedTxn: 'base58txn',
+    serializedTxnHex: 'hextxn',
+  }),
+);
+
+export const getLatestBlockHash = jest
+  .fn()
+  .mockReturnValue(Promise.resolve('hash'));
+
 export const abort = jest
   .fn<SolanaApp['abort']>()
   .mockReturnValue(Promise.resolve());
@@ -30,6 +42,7 @@ export const create = jest.fn(async () =>
     getPublicKeys,
     abort,
     destroy,
+    signTxn,
   }),
 );
 
@@ -42,5 +55,6 @@ jest.mock('@cypherock/sdk-app-solana', () => {
     SolanaApp: {
       create,
     },
+    getLatestBlockHash,
   };
 });

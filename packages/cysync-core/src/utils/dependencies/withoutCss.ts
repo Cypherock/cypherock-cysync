@@ -2,6 +2,7 @@ import '../../generated';
 import { BtcSupport } from '@cypherock/coin-support-btc';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { NearSupport } from '@cypherock/coin-support-near';
+import { SolanaSupport } from '@cypherock/coin-support-solana';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
 
@@ -13,4 +14,5 @@ export const setGlobalDependencies = () => {
   EvmSupport.setEthersLibrary((globalThis as any).ethers);
   EvmSupport.setEip712Library((globalThis as any).eip712);
   EvmSupport.setWeb3Library((globalThis as any).web3);
+  SolanaSupport.setWeb3Library((globalThis as any).solanaWeb3);
 };

@@ -9,6 +9,7 @@ import {
   Typography,
   CustomInputSend,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -85,7 +86,28 @@ export const AmountInput: React.FC<AmountInputProps> = ({
     debouncedOnSendMax(checked);
   };
 
-  const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
+  const filterNumericInput = (val: string) => {
+    let filteredValue = val.replace(/[^0-9.]/g, '');
+    const bigNum = new BigNumber(filteredValue);
+
+    if (filteredValue.includes('.')) {
+      const splitValue = filteredValue.split('.');
+      let firstValue = splitValue[0];
+      const secondValue = splitValue[1];
+
+      const firstValBigNumber = new BigNumber(firstValue);
+
+      if (firstValBigNumber.isNaN() || firstValBigNumber.isZero()) {
+        firstValue = '0';
+      }
+
+      filteredValue = `${firstValue}.${secondValue}`;
+    } else if (!bigNum.isNaN() && bigNum.isZero()) {
+      filteredValue = '0';
+    }
+
+    return filteredValue;
+  };
 
   const updateValues = (amount: string, value: string, skipCall?: boolean) => {
     setCoinAmount(amount);
