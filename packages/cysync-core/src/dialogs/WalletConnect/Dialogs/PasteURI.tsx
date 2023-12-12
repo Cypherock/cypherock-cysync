@@ -94,7 +94,6 @@ export const WalletConnectPasteURIDialog: React.FC = () => {
               onPostfixIconClick={handleCopyFromClipboard}
               onChange={setWalletConnectedURI}
               value={walletConnectURI}
-              $customRightSpacing={40}
             />
 
             {error && (
