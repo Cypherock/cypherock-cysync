@@ -30,7 +30,6 @@ export interface InputProps {
   $error?: boolean;
   leftImage?: React.ReactNode;
   $customImageSpacing?: boolean;
-  $customRightSpacing?: number;
   $noBorder?: boolean;
   required?: boolean;
   utilProps?: UtilsProps;
@@ -41,7 +40,6 @@ const InputStyle = styled.input<{
   $textColor?: string;
   $error?: boolean;
   disabled: boolean;
-  $customRightSpacing?: number;
 }>`
   position: relative;
   width: 100%;
@@ -66,12 +64,11 @@ const InputStyle = styled.input<{
       disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   }
   text-overflow: ellipsis;
-  padding-right: ${({ $customRightSpacing }) =>
-    `${$customRightSpacing}px` ?? '0px'};
 `;
 
 const InputWrapper = styled.div<{
   $customImageSpacing?: boolean;
+  $isPostFixIcon?: boolean;
   $noBorder: boolean;
 }>`
   width: 100%;
@@ -81,6 +78,7 @@ const InputWrapper = styled.div<{
   gap: ${({ $customImageSpacing }) => (!$customImageSpacing ? '12px' : '0px')};
   padding-left: ${({ $customImageSpacing }) =>
     !$customImageSpacing ? '0px' : '24px'};
+  padding-right: ${({ $isPostFixIcon }) => (!$isPostFixIcon ? '0px' : '24px')};
   align-items: center;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
@@ -126,7 +124,6 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         required = false,
         leftImage,
         $customImageSpacing,
-        $customRightSpacing,
         $noBorder = false,
         utilProps,
       }: InputProps,
@@ -147,6 +144,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         <InputWrapper
           $noBorder={$noBorder}
           $customImageSpacing={$customImageSpacing}
+          $isPostFixIcon={Boolean(postfixIcon)}
         >
           {leftImage}
           <InputStyle
@@ -174,7 +172,6 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
-            $customRightSpacing={$customRightSpacing}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -220,7 +217,6 @@ Input.defaultProps = {
   $error: false,
   leftImage: undefined,
   $customImageSpacing: false,
-  $customRightSpacing: undefined,
   required: false,
   utilProps: undefined,
 };
