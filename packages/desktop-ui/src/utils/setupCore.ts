@@ -11,6 +11,7 @@ import {
   setKeyDB,
   setRemoveExternalLinkListenerMethod,
   setResetCySyncMethod,
+  setGetSystemInfoMethod,
   updateLogger,
 } from '@cypherock/cysync-core';
 
@@ -23,6 +24,7 @@ export const setupCoreDependencies = async () => {
   setDB(await window.electronAPI.getDb());
   setKeyDB(await window.electronAPI.getKeyDb());
   setResetCySyncMethod(window.electronAPI.resetCySync);
+  setGetSystemInfoMethod(window.electronAPI.getSystemInfo);
   setCySyncLogsMethod(window.electronAPI.getCySyncLogs);
   setCloseAppMethod(window.electronAPI.closeApp);
   setFocusAppMethod(window.electronAPI.focusApp);

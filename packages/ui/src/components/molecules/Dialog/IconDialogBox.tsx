@@ -18,7 +18,6 @@ interface IconDialogBoxProps extends DialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
-  onClose?: () => void;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -32,7 +31,7 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   onClose,
   ...props
 }) => (
-  <DialogBox width={500} {...props}>
+  <DialogBox width={500} {...props} onClose={onClose}>
     {(header || onClose) && (
       <DialogBoxHeader height={56} width={500} px={3}>
         <Flex position="relative" width="full" justify="center" align="center">
@@ -104,5 +103,4 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
-  onClose: undefined,
 };

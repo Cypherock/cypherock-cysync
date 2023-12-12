@@ -130,7 +130,13 @@ export const ContactForm: React.FC = () => {
   }, [error, deviceLogsError]);
 
   return (
-    <DialogBox width={500} $maxHeight="90vh" align="stretch" gap={0}>
+    <DialogBox
+      width={500}
+      $maxHeight="90vh"
+      align="stretch"
+      gap={0}
+      onClose={onClose}
+    >
       <DialogBoxHeader direction="row" py={2} px={3}>
         <Typography
           pl={3}

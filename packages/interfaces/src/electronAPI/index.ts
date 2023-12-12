@@ -26,6 +26,8 @@ export type FocusApp = () => Promise<void>;
 export type InitWCUri = () => Promise<string | null>;
 export type AddExternalLinkListener = (listener: (uri: string) => void) => void;
 export type RemoveExternalLinkListener = () => Promise<void>;
+export type GetSystemInfo = () => Promise<any>;
+
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
   getDevices: GetDevices;
@@ -46,4 +48,5 @@ export interface IElectronAPI {
   addExternalLinkListener: AddExternalLinkListener;
   removeExternalLinkListener: RemoveExternalLinkListener;
   getCySyncLogs: GetCySyncLogs;
+  getSystemInfo: GetSystemInfo;
 }

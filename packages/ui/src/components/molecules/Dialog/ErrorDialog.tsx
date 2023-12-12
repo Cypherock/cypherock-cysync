@@ -21,7 +21,6 @@ export interface ErrorDialogProps extends DialogBoxProps {
   secondaryActionText?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
-  onClose?: () => void;
   iconType?: ErrorIconType;
   textVariables?: object;
   messageBoxText?: string;
@@ -86,7 +85,6 @@ ErrorDialog.defaultProps = {
   onSecondaryClick: undefined,
   iconType: 'default',
   textVariables: undefined,
-  onClose: undefined,
   messageBoxText: undefined,
   messageBoxVariant: 'danger',
 };

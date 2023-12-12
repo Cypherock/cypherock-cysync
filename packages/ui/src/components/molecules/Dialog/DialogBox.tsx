@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
+import { addKeyboardEvents } from '../../../hooks';
 import {
   BgColorProps,
   DisplayProps,
@@ -33,6 +34,8 @@ export interface DialogBoxUtilityProps
 
 export interface DialogBoxProps extends DialogBoxUtilityProps {
   $isModal?: boolean;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 const modalCss = css`
@@ -151,12 +154,30 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
   ${spacing}
 `;
 
-export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
-  <>
-    {props.$isModal && <ModalOverlay />}
-    <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
-  </>
-);
+export const DialogBox: FC<DialogBoxProps> = ({
+  children,
+  onClose,
+  dontCloseOnEscape,
+  ...props
+}) => {
+  const onEscape = (e: KeyboardEvent) => {
+    if (!dontCloseOnEscape && onClose) {
+      (onClose as any)(e);
+      e.stopPropagation();
+    }
+  };
+
+  addKeyboardEvents({
+    Escape: onEscape,
+  });
+
+  return (
+    <>
+      {props.$isModal && <ModalOverlay />}
+      <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
+    </>
+  );
+};
 
 export const DialogBoxHeader: FC<DialogBoxUtilityProps> = ({
   children,
@@ -179,6 +200,8 @@ DialogBox.defaultProps = {
   children: undefined,
   $isModal: false,
   overflowY: undefined,
+  dontCloseOnEscape: undefined,
+  onClose: undefined,
 };
 
 DialogBoxBody.defaultProps = {
