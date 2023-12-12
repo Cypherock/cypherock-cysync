@@ -89,6 +89,7 @@ export const AppUpdateDialog: FC = () => {
         alertText={
           lang.strings.onboarding.appUpdate.dialogs.updateSuccessful.bubbleText
         }
+        onClose={switchToDeviceUpdate}
       />
     ),
     [AppUpdateState.Failed]: (

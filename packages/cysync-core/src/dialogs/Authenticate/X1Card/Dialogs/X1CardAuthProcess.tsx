@@ -100,7 +100,13 @@ const X1CardAuthProcess: React.FC = () => {
       error={task.error}
       showCloseButton
     >
-      <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">
+      <DialogBox
+        width={500}
+        align="stretch"
+        gap={0}
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
         <Flex direction="row" justify="flex-end" py={2} px={3}>
           <CloseButton onClick={onClose} />
         </Flex>

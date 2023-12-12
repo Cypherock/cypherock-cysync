@@ -89,7 +89,12 @@ export const WalletConnectAccountConnectedDialog: React.FC = () => {
   );
 
   return (
-    <DialogBox width={500} $maxHeight="90vh" align="stretch">
+    <DialogBox
+      width={500}
+      $maxHeight="90vh"
+      align="stretch"
+      onClose={handleClose}
+    >
       <DappConnectionDisplay title={accountConnectedTab.title} connected />
       <ScrollableContainer>
         <DialogBoxBody gap={0} p={0} align="stretch">

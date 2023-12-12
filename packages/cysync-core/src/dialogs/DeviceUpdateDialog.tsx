@@ -58,6 +58,7 @@ export const DeviceUpdateDialog: FC = () => {
             lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
           }
           textVariables={{ version }}
+          onClose={onClose}
         />
       ),
       [DeviceUpdateState.Updating]: (
@@ -83,6 +84,7 @@ export const DeviceUpdateDialog: FC = () => {
           }
           buttonText={lang.strings.buttons.continue}
           handleClick={onClose}
+          onClose={onClose}
         />
       ),
     };
