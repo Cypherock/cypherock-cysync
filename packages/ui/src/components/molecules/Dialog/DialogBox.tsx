@@ -156,14 +156,13 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
 
 export const DialogBox: FC<DialogBoxProps> = ({
   children,
-  onClose: $onClose,
-  dontCloseOnEscape: $dontCloseOnEscape,
+  onClose,
+  dontCloseOnEscape,
   ...props
 }) => {
   const onEscape = (e: KeyboardEvent) => {
-    console.log({ $dontCloseOnEscape, $onClose });
-    if (!$dontCloseOnEscape && $onClose) {
-      ($onClose as any)(e);
+    if (!dontCloseOnEscape && onClose) {
+      (onClose as any)(e);
       e.stopPropagation();
     }
   };
