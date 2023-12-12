@@ -1,8 +1,8 @@
 import {
+  BlurOverlay,
   ConfirmationDialog,
   FirmwareDownloadGreenIcon,
   ProgressDialog,
-  BlurOverlay,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
@@ -10,15 +10,16 @@ import { useDispatch } from 'react-redux';
 
 import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
+import { openDeviceAuthenticationDialog } from '~/actions';
 import {
   DeviceHandlingState,
   ErrorHandlerDialog,
+  LoaderDialog,
   closeDialog,
   selectLanguage,
   useAppSelector,
   useDevice,
 } from '..';
-import { openDeviceAuthenticationDialog } from '~/actions';
 
 export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -44,20 +45,28 @@ export const DeviceUpdateDialog: FC = () => {
     }
   };
 
+  const startAuthentication = () => {
+    onClose();
+    dispatch(
+      openDeviceAuthenticationDialog({
+        successTitle: parseLangTemplate(
+          deviceUpdate.dialogs.updateSuccessful.heading,
+          { version },
+        ),
+        successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
+      }),
+    );
+  };
+
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     if (state === DeviceUpdateState.Successful) {
-      dispatch(
-        openDeviceAuthenticationDialog({
-          successTitle: parseLangTemplate(
-            deviceUpdate.dialogs.updateSuccessful.heading,
-            { version },
-          ),
-          successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
-        }),
-      );
-      onClose();
+      timeout = setTimeout(startAuthentication, 5000);
     }
     if (state === DeviceUpdateState.NotRequired) onClose();
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [state]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
@@ -80,6 +89,7 @@ export const DeviceUpdateDialog: FC = () => {
           versionTextVariables={{ version }}
         />
       ),
+      [DeviceUpdateState.Successful]: <LoaderDialog />,
     };
 
   if (state === DeviceUpdateState.Checking) return null;
