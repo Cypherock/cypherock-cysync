@@ -31,7 +31,6 @@ describe('02. Create Account', () => {
     solanaAppMock.getPublicKeys.mockClear();
 
     serviceMock.getBalance.mockClear();
-    serviceMock.getTransactionCount.mockClear();
 
     getAllMock.mockClear();
   });
