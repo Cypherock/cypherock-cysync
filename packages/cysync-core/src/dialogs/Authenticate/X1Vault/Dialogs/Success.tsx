@@ -17,6 +17,7 @@ export const AuthenticateX1VaultSuccess: React.FC = () => {
       title={success}
       buttonText={buttons.done}
       handleClick={onClose}
+      onClose={onClose}
     />
   );
 };

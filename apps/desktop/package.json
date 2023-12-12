@@ -87,6 +87,7 @@
     "electron-updater": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "systeminformation": "^5.21.20",
     "winston": "^3.9.0"
   },
   "lint-staged": {

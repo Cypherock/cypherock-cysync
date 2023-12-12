@@ -8,3 +8,4 @@ export * from './extension';
 export * from './hooks';
 export * from './walletConnect';
 export * from './logs';
+export * from './systemInfo';

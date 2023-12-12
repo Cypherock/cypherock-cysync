@@ -15,3 +15,4 @@ export * from './transaction';
 export * from './uuid';
 export * from './validator';
 export * from './walletConnect';
+export * from './systemInfo';

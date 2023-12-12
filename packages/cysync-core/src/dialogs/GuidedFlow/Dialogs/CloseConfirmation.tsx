@@ -58,6 +58,7 @@ export const CloseConfirmation: FC<{
       title={lang.strings.guidedFlows.closeDialog.title}
       subtext={lang.strings.guidedFlows.closeDialog.subtitle}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
+      onClose={() => setShowOnClose(false)}
     />
   );
 };

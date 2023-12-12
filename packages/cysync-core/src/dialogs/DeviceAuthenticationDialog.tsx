@@ -73,6 +73,7 @@ export const DeviceAuthenticationDialog: FC = () => {
             title={lang.strings.deviceAuthentication.success.title}
             buttonText={lang.strings.buttons.done}
             handleClick={onClose}
+            onClose={onClose}
           />
         )}
       </ErrorHandlerDialog>
