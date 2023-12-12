@@ -73,7 +73,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
   };
 
   return (
-    <DialogBox width={500} align="stretch">
+    <DialogBox width={500} align="stretch" onClose={handleClose}>
       <DialogBoxHeader height={56} width={500} px={3}>
         <Flex position="relative" width="full" justify="center" align="center">
           <CloseButton

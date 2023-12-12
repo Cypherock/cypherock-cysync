@@ -95,7 +95,7 @@ const X1VaultAuthProcess: React.FC = () => {
       showCloseButton
       noDelay
     >
-      <DialogBox width={500} align="stretch" gap={0}>
+      <DialogBox width={500} align="stretch" gap={0} onClose={onClose}>
         <Flex direction="row" justify="flex-end" py={2} px={3}>
           <CloseButton onClick={onClose} />
         </Flex>

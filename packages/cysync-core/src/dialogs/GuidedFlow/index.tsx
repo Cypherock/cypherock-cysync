@@ -43,7 +43,12 @@ export const GuidedFlowDialog: FC = () => {
   };
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        onClose={() => setShowOnClose(true)}
+      >
         {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
