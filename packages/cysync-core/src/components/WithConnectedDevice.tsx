@@ -115,7 +115,11 @@ const getRedirectionPath = (
     query.get('disableNavigation') !== 'true'
   ) {
     const step = connection.onboardingStep;
-    result.path = `${OnboardingMap[step]}?disableNavigation=true`;
+    const route = OnboardingMap[step];
+    result.path = `${route}?disableNavigation=true`;
+    if (route === routes.onboarding.congratulations.path) {
+      result.path += '&noUI=true';
+    }
     result.doRender = false;
   }
 
