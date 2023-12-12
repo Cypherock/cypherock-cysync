@@ -17,6 +17,7 @@ export const RemovePasswordSuccess: React.FC = () => {
       title={success.remove}
       buttonText={buttons.done}
       handleClick={onClose}
+      onClose={onClose}
     />
   );
 };

@@ -103,6 +103,7 @@ export const WalletSyncError: FC = () => {
           </Button>
         </>
       }
+      onClose={keepAllWallets}
     />
   );
 };

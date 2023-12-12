@@ -153,7 +153,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
 
   return (
     <BlurOverlay>
-      <DialogBox width={700}>
+      <DialogBox width={700} onClose={onClose}>
         <DialogBoxHeader height={56} width={700}>
           <Flex width="full" justify="flex-end">
             <CloseButton onClick={onClose} />

@@ -11,6 +11,8 @@ interface ConfirmationDialogProps {
   icon: ReactNode;
   handleClick?: () => void;
   textVariables?: object;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
@@ -20,8 +22,14 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   buttonText,
   handleClick,
   textVariables,
+  onClose,
+  dontCloseOnEscape,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox
+    width={500}
+    onClose={onClose}
+    dontCloseOnEscape={dontCloseOnEscape}
+  >
     <DialogBoxBody py={4} px={5} gap={32}>
       {icon}
       <Container display="flex" direction="column" gap={4}>
@@ -50,4 +58,6 @@ ConfirmationDialog.defaultProps = {
   handleClick: undefined,
   textVariables: undefined,
   subtext: undefined,
+  onClose: undefined,
+  dontCloseOnEscape: undefined,
 };

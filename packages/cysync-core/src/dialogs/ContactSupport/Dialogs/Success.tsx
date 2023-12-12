@@ -17,6 +17,7 @@ export const ContactSupportSuccess: React.FC = () => {
       title={success.formSubmit}
       buttonText={buttons.done}
       handleClick={onClose}
+      onClose={onClose}
     />
   );
 };
