@@ -1139,6 +1139,9 @@ importers:
       '@cypherock/cysync-core-services':
         specifier: workspace:^
         version: link:../core-services
+      '@cypherock/cysync-core-workers':
+        specifier: workspace:^
+        version: link:../cysync-core-workers
       '@cypherock/cysync-interfaces':
         specifier: workspace:^
         version: link:../interfaces
@@ -1184,9 +1187,6 @@ importers:
       axios:
         specifier: ^1.4.0
         version: 1.4.0
-      bcryptjs:
-        specifier: ^2.4.3
-        version: 2.4.3
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -1236,9 +1236,6 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.22.5
         version: 7.22.5(@babel/core@7.23.5)
-      '@cypherock/cysync-core-workers':
-        specifier: workspace:^
-        version: link:../cysync-core-workers
       '@cypherock/eslint-config':
         specifier: workspace:^
         version: link:../util-eslint-config
@@ -1269,9 +1266,6 @@ importers:
       '@testing-library/react':
         specifier: ^14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
-      '@types/bcryptjs':
-        specifier: ^2.4.2
-        version: 2.4.2
       '@types/jest':
         specifier: ^29.5.2
         version: 29.5.2
@@ -1377,6 +1371,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.22.5
@@ -1405,6 +1402,9 @@ importers:
       '@stryker-mutator/typescript-checker':
         specifier: ^7.0.2
         version: 7.0.2(@stryker-mutator/core@7.0.2)(typescript@4.9.5)
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
       '@types/jest':
         specifier: ^29.5.2
         version: 29.5.2
@@ -11237,8 +11237,8 @@ packages:
     dependencies:
       '@babel/types': 7.22.19
 
-  /@types/bcryptjs@2.4.2:
-    resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
+  /@types/bcryptjs@2.4.6:
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
     dev: true
 
   /@types/body-parser@1.19.3:
@@ -18998,7 +18998,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

@@ -18,4 +18,4 @@ cd ../../
 echo "/* eslint-disable */" > ${BASEPATH}/index.js
 cat ${TEMPDIR}/index.js >> ${BASEPATH}/index.js
 
-cp ${WORKER_PACKAGE_PATH}/lib/index.js ${BASEPATH}/workers/graph.js
+cp ${WORKER_PACKAGE_PATH}/lib/index.js ${BASEPATH}/workers/index.js
