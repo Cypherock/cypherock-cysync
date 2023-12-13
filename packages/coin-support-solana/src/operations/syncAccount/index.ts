@@ -3,7 +3,12 @@ import {
   createSyncAccountsObservable,
   getLatestTransactionHash,
 } from '@cypherock/coin-support-utils';
-import { IAccount, IDatabase, ITransaction } from '@cypherock/db-interfaces';
+import {
+  IAccount,
+  IDatabase,
+  ITransaction,
+  TransactionStatusMap,
+} from '@cypherock/db-interfaces';
 
 import { ISyncSolanaAccountsParams } from './types';
 
@@ -29,6 +34,7 @@ const fetchAndParseTransactions = async (params: {
     afterTransactionHash ??
     (await getLatestTransactionHash(db, {
       accountId: account.__id,
+      status: TransactionStatusMap.success,
     })) ??
     undefined;
 
