@@ -25,11 +25,9 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
 
-const feeInputMap: Record<CoinFamily, React.FC<any>> = {
+const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
   evm: EthereumInput,
-  near: BitcoinInput,
-  solana: BitcoinInput,
 };
 const getDefaultHeader = () => FeesHeader;
 const getEvmHeader = (assetId?: string) => {
@@ -37,11 +35,11 @@ const getEvmHeader = (assetId?: string) => {
   return FeesHeader;
 };
 
-const feeHeaderMap: Record<CoinFamily, (assetId?: string) => React.FC<any>> = {
+const feeHeaderMap: Partial<
+  Record<CoinFamily, (assetId?: string) => React.FC<any>>
+> = {
   bitcoin: getDefaultHeader,
   evm: getEvmHeader,
-  near: getDefaultHeader,
-  solana: getDefaultHeader,
 };
 
 export interface FeeSectionProps {
@@ -51,7 +49,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const { priceInfos } = useAppSelector(selectPriceInfos);
-  const { transaction, selectedAccount, prepare } = useSendDialog();
+  const { transaction, selectedAccount, prepare, getComputedFee } =
+    useSendDialog();
   const [isFeeLow, setIsFeeLow] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
   const [isFeeLoading, setIsFeeLoading] = useState(false);
@@ -101,7 +100,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const getFeeInputComponent = () => {
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
+
     const Component = feeInputMap[coinFamily];
+    if (!Component) return null;
+
     const props = feeInputPropsMap[coinFamily]();
     return <Component {...props} />;
   };
@@ -109,7 +111,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const getFeeHeaderComponent = () => {
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
-    const Component = feeHeaderMap[coinFamily](selectedAccount.parentAssetId);
+
+    const Component = feeHeaderMap[coinFamily]?.(selectedAccount.parentAssetId);
+    if (!Component) return null;
+
     return (
       <Component
         title={displayText.fees.title}
@@ -172,40 +177,43 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     [],
   );
 
-  const getTotalFees = () => {
+  const getFeeDetails = () => {
+    const result = { fee: '', value: '' };
     const account = selectedAccount;
-    if (!account || !transaction) return `0`;
-    const txn = transaction as IPreparedBtcTransaction;
+    if (!account || !transaction) return result;
+
+    const computedFee = getComputedFee(
+      account.familyId as CoinFamily,
+      transaction,
+    );
+
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
-      amount: txn.computedData.fee,
+      amount: computedFee,
     });
-    return `${_amount} ${unit.abbr}`;
-  };
-  const getFeesValue = () => {
-    const account = selectedAccount;
-    if (!account) return `0`;
+    result.fee = `${_amount} ${unit.abbr}`;
+
     const coinPrice = priceInfos.find(
       p =>
         p.assetId === account.parentAssetId &&
         p.currency.toLowerCase() === 'usd',
     );
 
-    if (coinPrice && transaction) {
-      const txn = transaction as IPreparedBtcTransaction;
+    if (coinPrice) {
       const feesInDefaultUnit = convertToUnit({
-        amount: txn.computedData.fee,
+        amount: computedFee,
         fromUnitAbbr: getZeroUnit(account.parentAssetId).abbr,
         coinId: account.parentAssetId,
         toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
       });
-      const value = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
+      const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       );
-      return `$${formatDisplayPrice(value)}`;
+      result.value = `$${formatDisplayPrice(feeValue)}`;
     }
-    return '';
+
+    return result;
   };
 
   return (
@@ -223,12 +231,11 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
       <FeesDisplay
         label={displayText.fees.label + getLabelSuffix(selectedAccount)}
-        fee={getTotalFees()}
-        value={getFeesValue()}
         isLoading={isFeeLoading}
         image={
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         }
+        {...getFeeDetails()}
       />
       {isFeeLow && transaction?.validation.isValidFee && (
         <MessageBox type="warning" text={displayText.warning} />
