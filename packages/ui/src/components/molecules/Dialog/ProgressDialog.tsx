@@ -12,6 +12,8 @@ interface ProgressDialogProps {
   progress: number;
   versionText?: string;
   versionTextVariables?: object;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 export const ProgressDialog: FC<ProgressDialogProps> = ({
@@ -21,8 +23,14 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
   progress,
   versionText,
   versionTextVariables,
+  onClose,
+  dontCloseOnEscape,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox
+    width={500}
+    onClose={onClose}
+    dontCloseOnEscape={dontCloseOnEscape}
+  >
     <DialogBoxBody pb={8}>
       {icon}
       <Container display="flex" direction="column" gap={4}>
@@ -50,4 +58,6 @@ export const ProgressDialog: FC<ProgressDialogProps> = ({
 ProgressDialog.defaultProps = {
   versionText: undefined,
   versionTextVariables: undefined,
+  onClose: undefined,
+  dontCloseOnEscape: undefined,
 };

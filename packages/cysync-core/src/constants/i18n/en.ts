@@ -841,7 +841,8 @@ const en = {
     confirmation: 'Update to cySync version ${version} is available',
     downloading: 'Downloading cySync version ${version}',
     error: 'Error downloading cySync update',
-    successful: 'cySync update version ${version} downloaded',
+    successful:
+      'cySync update downloaded, it will install automatically when you close the app',
     buttons: {
       download: 'Download',
       tryAgain: 'Try Again',

@@ -7,6 +7,7 @@ import { getDeviceIPCHandlers } from './device';
 import { getLoggerIPCHandlers } from './logger';
 import { getCySyncLogsIPCHandlers } from './logs';
 import { getResetIPCHandlers } from './reset';
+import { getSystemInfoIPCHandlers } from './systemInfo';
 import {
   getWalletConnectIPCHandlers,
   setupWalletConnectListeners,
@@ -25,6 +26,7 @@ export const setupIPCHandlers = (
     ...getAppIPCHandlers(),
     ...getWalletConnectIPCHandlers(),
     ...getCySyncLogsIPCHandlers(),
+    ...getSystemInfoIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

@@ -77,6 +77,7 @@ export const DeviceUpdateDialog: FC = () => {
           icon={<FirmwareDownloadGreenIcon />}
           subtext={deviceUpdate.dialogs.confirmation.subtext}
           textVariables={{ version }}
+          onClose={onClose}
         />
       ),
       [DeviceUpdateState.Updating]: (

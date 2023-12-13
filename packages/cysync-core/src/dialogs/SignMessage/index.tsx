@@ -15,12 +15,12 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 const SignMessage: FC = () => {
-  const { currentDialog, tabs, currentTab, isDeviceRequired } =
+  const { currentDialog, tabs, currentTab, isDeviceRequired, onClose } =
     useSignMessageDialog();
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} align="center">
+      <DialogBox direction="row" gap={0} align="center" onClose={onClose}>
         <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
           {tabs[currentTab]?.dialogs[currentDialog]}
         </DeviceConnectionWrapper>

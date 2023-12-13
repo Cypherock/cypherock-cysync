@@ -26,7 +26,13 @@ const ReleaseNotes: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">
+      <DialogBox
+        width={500}
+        align="stretch"
+        gap={0}
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
         <DialogBoxHeader direction="row" py={2} px={3}>
           <Typography
             pl={3}
