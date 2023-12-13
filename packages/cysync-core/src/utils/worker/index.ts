@@ -1,4 +1,5 @@
 import * as uuid from 'uuid';
+
 import logger from '../logger';
 import { memoizeFunctionWithObjectArg } from '../memoize';
 

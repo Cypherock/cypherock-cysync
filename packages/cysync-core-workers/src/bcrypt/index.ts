@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+
 import { CreateBcryptHashParams, VerifyBcryptHashParams } from './types';
 
 export const createBcryptHash = (params: CreateBcryptHashParams) =>

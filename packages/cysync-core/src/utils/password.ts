@@ -1,7 +1,7 @@
 import { Sha256 } from '@aws-crypto/sha256-browser';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
-import { createBcryptHash, verifyBcryptHash } from './bcrypt';
 
+import { createBcryptHash, verifyBcryptHash } from './bcrypt';
 import { keyValueStore } from './keyValueStore';
 
 //! Not meant to be used by UI, see: useLockscreen

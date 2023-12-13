@@ -6,11 +6,13 @@ import {
 import { getBalanceHistory } from '@cypherock/cysync-core-services';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
-import { CalculatePortfolioGraphDataParams } from '..';
+
 import {
   UseGraphProps,
   CalculatePortfolioGraphDataParamsWithComputedData,
 } from './types';
+
+import { CalculatePortfolioGraphDataParams } from '..';
 
 const getAssetDetailsFromProps = (
   accounts: IAccount[],
