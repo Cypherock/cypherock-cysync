@@ -14,11 +14,15 @@ import {
   Synchronizing,
   WalletIcon,
   WalletInfoIcon,
+  TutorialIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { openReceiveDialog, openSendDialog } from '~/actions';
 import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
+import { getOpenLinkMethod } from '~/utils';
+
+import { constants } from '..';
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const {
@@ -127,6 +131,12 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             Icon={HistoryIcon}
             state={wallets.length === 0 ? State.disabled : getState('history')}
             onClick={() => navigate('history')}
+          />
+          <SideBarItem
+            text={strings.tutorial}
+            Icon={TutorialIcon}
+            svgStroke
+            onClick={() => getOpenLinkMethod()(constants.tutorialsLink)}
           />
         </Flex>
         <Flex direction="column" gap={8}>

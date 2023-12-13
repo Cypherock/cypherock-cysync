@@ -23,6 +23,7 @@ export type ResetCySync = () => Promise<void>;
 export type CloseApp = () => Promise<void>;
 export type GetCySyncLogs = () => Promise<string[]>;
 export type FocusApp = () => Promise<void>;
+export type OpenLink = (link: string) => Promise<void>;
 export type InitWCUri = () => Promise<string | null>;
 export type AddExternalLinkListener = (listener: (uri: string) => void) => void;
 export type RemoveExternalLinkListener = () => Promise<void>;
@@ -49,4 +50,5 @@ export interface IElectronAPI {
   removeExternalLinkListener: RemoveExternalLinkListener;
   getCySyncLogs: GetCySyncLogs;
   getSystemInfo: GetSystemInfo;
+  openLink: OpenLink;
 }

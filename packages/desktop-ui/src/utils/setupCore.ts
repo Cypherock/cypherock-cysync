@@ -12,6 +12,7 @@ import {
   setRemoveExternalLinkListenerMethod,
   setResetCySyncMethod,
   setGetSystemInfoMethod,
+  setOpenLinkMethod,
   updateLogger,
 } from '@cypherock/cysync-core';
 
@@ -28,6 +29,7 @@ export const setupCoreDependencies = async () => {
   setCySyncLogsMethod(window.electronAPI.getCySyncLogs);
   setCloseAppMethod(window.electronAPI.closeApp);
   setFocusAppMethod(window.electronAPI.focusApp);
+  setOpenLinkMethod(window.electronAPI.openLink);
   setAutoUpdater({
     checkForUpdates: window.electronAPI.checkForUpdates,
     downloadUpdate: window.electronAPI.downloadUpdate,

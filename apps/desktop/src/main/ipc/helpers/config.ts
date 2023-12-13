@@ -15,6 +15,7 @@ export const ipcConfig = {
     getCySyncLogs: 'app:getLogs',
     closeApp: 'app:close',
     focusApp: 'app:focus',
+    openLink: 'app:openLink',
     getInitialWCUri: 'wc:uri:init',
     getSystemInfo: 'system:info',
   },

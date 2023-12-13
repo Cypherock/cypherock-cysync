@@ -35,6 +35,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.focusApp,
   },
   {
+    name: 'openLink',
+    key: ipcConfig.methods.openLink,
+  },
+  {
     name: 'checkForUpdates',
     key: ipcConfig.methods.checkForUpdates,
   },

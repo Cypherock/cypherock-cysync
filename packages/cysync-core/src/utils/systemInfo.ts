@@ -4,7 +4,7 @@ let getSystemInfoMethod: GetSystemInfo | undefined;
 
 export const getGetSystemInfoMethod = () => {
   if (!getSystemInfoMethod) {
-    throw new Error('Reset cysync method has not been defined');
+    throw new Error('Get System info method has not been defined');
   }
 
   return getSystemInfoMethod;

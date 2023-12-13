@@ -6,6 +6,7 @@ export {
   setAutoUpdater,
   setResetCySyncMethod,
   setGetSystemInfoMethod,
+  setOpenLinkMethod,
   setCloseAppMethod,
   setInitWCUriMethod,
   setAddExternalLinkListenerMethod,

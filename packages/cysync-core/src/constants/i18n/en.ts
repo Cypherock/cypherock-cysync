@@ -886,6 +886,7 @@ const en = {
     history: 'History',
     settings: 'Settings',
     help: 'Help',
+    tutorial: 'Tutorial',
     tooltip: {
       walletDeleted:
         '${walletName} has been deleted from your Cypherock X1 Vault',
