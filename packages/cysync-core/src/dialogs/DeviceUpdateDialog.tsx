@@ -5,7 +5,7 @@ import {
   ProgressDialog,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
@@ -27,6 +27,7 @@ export const DeviceUpdateDialog: FC = () => {
   const dispatch = useDispatch();
   const { deviceHandlingState, connection } = useDevice();
   const { deviceUpdate } = lang.strings.onboarding;
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
@@ -60,18 +61,23 @@ export const DeviceUpdateDialog: FC = () => {
   };
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout> | undefined;
     if (state === DeviceUpdateState.Successful) {
-      timeout = setTimeout(startAuthentication, 10000);
-      if (connection?.status === DeviceConnectionStatus.CONNECTED) {
-        clearTimeout(timeout);
-        startAuthentication();
-      }
+      timeoutRef.current = setTimeout(startAuthentication, 10000);
     }
     if (state === DeviceUpdateState.NotRequired) onClose();
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timeoutRef.current);
     };
+  }, [state]);
+
+  useEffect(() => {
+    if (
+      state === DeviceUpdateState.Successful &&
+      connection?.status === DeviceConnectionStatus.CONNECTED
+    ) {
+      clearTimeout(timeoutRef.current);
+      startAuthentication();
+    }
   }, [state, connection?.status]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
