@@ -74,18 +74,9 @@ const X1VaultAuthProcess: React.FC = () => {
     }
   }, [onNext, task.result]);
 
-  if (
+  const isAuthenticating =
     authDeviceStatus === AuthDeviceStatus.AUTH_DEVICE_STATUS_USER_CONFIRMED &&
-    task.result === undefined &&
-    !task.error
-  ) {
-    return (
-      <DeviceAuthenticating
-        title={authX1Vault.authenticating.title}
-        subtitle={authX1Vault.authenticating.description}
-      />
-    );
-  }
+    task.result === undefined;
 
   return (
     <ErrorHandlerDialog
@@ -94,61 +85,68 @@ const X1VaultAuthProcess: React.FC = () => {
       error={task.error}
       showCloseButton
     >
-      <DialogBox width={500} align="stretch" gap={0} onClose={onClose}>
-        <Flex direction="row" justify="flex-end" py={2} px={3}>
-          <CloseButton onClick={onClose} />
-        </Flex>
-        <Divider variant="horizontal" />
-        <DialogBoxBody gap={0} p={0} m={0} align="stretch">
-          <Flex
-            pt={4}
-            pb={{ def: 2, lg: 4 }}
-            px={{ def: 3, lg: 5 }}
-            gap={{ def: 16, lg: 32 }}
-            direction="column"
-            align="center"
-          >
-            <GenericConfirmDeviceGraphics />
-            <Flex direction="column" gap={4} align="center">
-              <Typography color="white" $fontSize={20} $textAlign="center">
-                <LangDisplay text={title} />
-              </Typography>
-              <Typography color="muted" $fontSize={16} $textAlign="center">
-                <LangDisplay text={authX1Vault.description} />
-              </Typography>
+      {isAuthenticating ? (
+        <DeviceAuthenticating
+          title={authX1Vault.authenticating.title}
+          subtitle={authX1Vault.authenticating.description}
+        />
+      ) : (
+        <DialogBox width={500} align="stretch" gap={0} onClose={onClose}>
+          <Flex direction="row" justify="flex-end" py={2} px={3}>
+            <CloseButton onClick={onClose} />
+          </Flex>
+          <Divider variant="horizontal" />
+          <DialogBoxBody gap={0} p={0} m={0} align="stretch">
+            <Flex
+              pt={4}
+              pb={{ def: 2, lg: 4 }}
+              px={{ def: 3, lg: 5 }}
+              gap={{ def: 16, lg: 32 }}
+              direction="column"
+              align="center"
+            >
+              <GenericConfirmDeviceGraphics />
+              <Flex direction="column" gap={4} align="center">
+                <Typography color="white" $fontSize={20} $textAlign="center">
+                  <LangDisplay text={title} />
+                </Typography>
+                <Typography color="muted" $fontSize={16} $textAlign="center">
+                  <LangDisplay text={authX1Vault.description} />
+                </Typography>
+              </Flex>
             </Flex>
-          </Flex>
-          <Flex
-            pt={2}
-            pb={{ def: 2, lg: 4 }}
-            px={{ def: 3, lg: 5 }}
-            gap={8}
-            direction="column"
-            align="stretch"
-          >
-            <LeanBoxContainer>
-              {stepsList.map(data => (
-                <LeanBox
-                  key={data.id}
-                  {...data}
-                  color="white"
-                  disabled={false}
-                />
-              ))}
-            </LeanBoxContainer>
-          </Flex>
-          <Flex
-            pt={2}
-            pb={{ def: 2, lg: 4 }}
-            px={{ def: 3, lg: 5 }}
-            gap={8}
-            direction="column"
-            align="stretch"
-          >
-            <AlertBox subAlert={authX1Vault.info} variant="warning" />
-          </Flex>
-        </DialogBoxBody>
-      </DialogBox>
+            <Flex
+              pt={2}
+              pb={{ def: 2, lg: 4 }}
+              px={{ def: 3, lg: 5 }}
+              gap={8}
+              direction="column"
+              align="stretch"
+            >
+              <LeanBoxContainer>
+                {stepsList.map(data => (
+                  <LeanBox
+                    key={data.id}
+                    {...data}
+                    color="white"
+                    disabled={false}
+                  />
+                ))}
+              </LeanBoxContainer>
+            </Flex>
+            <Flex
+              pt={2}
+              pb={{ def: 2, lg: 4 }}
+              px={{ def: 3, lg: 5 }}
+              gap={8}
+              direction="column"
+              align="stretch"
+            >
+              <AlertBox subAlert={authX1Vault.info} variant="warning" />
+            </Flex>
+          </DialogBoxBody>
+        </DialogBox>
+      )}
     </ErrorHandlerDialog>
   );
 };
