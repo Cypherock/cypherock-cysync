@@ -12,6 +12,7 @@ import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
 import { openDeviceAuthenticationDialog } from '~/actions';
 import {
+  DeviceConnectionStatus,
   DeviceHandlingState,
   ErrorHandlerDialog,
   LoaderDialog,
@@ -24,7 +25,7 @@ import {
 export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
-  const { deviceHandlingState } = useDevice();
+  const { deviceHandlingState, connection } = useDevice();
   const { deviceUpdate } = lang.strings.onboarding;
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
@@ -61,13 +62,17 @@ export const DeviceUpdateDialog: FC = () => {
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | undefined;
     if (state === DeviceUpdateState.Successful) {
-      timeout = setTimeout(startAuthentication, 5000);
+      timeout = setTimeout(startAuthentication, 10000);
+      if (connection?.status === DeviceConnectionStatus.CONNECTED) {
+        clearTimeout(timeout);
+        startAuthentication();
+      }
     }
     if (state === DeviceUpdateState.NotRequired) onClose();
     return () => {
       clearTimeout(timeout);
     };
-  }, [state]);
+  }, [state, connection?.status]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
     {
