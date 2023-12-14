@@ -1,6 +1,3 @@
-import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
-import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import {
   getDefaultUnit,
   getParsedAmount,
@@ -38,6 +35,7 @@ export const SummaryDialog: React.FC = () => {
     selectedAccountParent,
     selectedWallet,
     transaction,
+    getComputedFee,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const { priceInfos } = useAppSelector(selectPriceInfos);
@@ -81,29 +79,6 @@ export const SummaryDialog: React.FC = () => {
     return details ?? [];
   };
 
-  const getBitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
-    // return '0' in error scenarios because BigNumber cannot handle empty string
-    if (!txn) return '0';
-    const { computedData } = txn as IPreparedBtcTransaction;
-    return computedData.fee.toString() || '0';
-  };
-
-  const getEvmFeeAmount = (txn: IPreparedTransaction | undefined) => {
-    if (!txn) return '0';
-    const { computedData } = txn as IPreparedEvmTransaction;
-    return computedData.fee || '0';
-  };
-
-  const computedFeeMap: Record<
-    CoinFamily,
-    (txn: IPreparedTransaction | undefined) => string
-  > = {
-    bitcoin: getBitcoinFeeAmount,
-    evm: getEvmFeeAmount,
-    near: () => '0',
-    solana: () => '0',
-  };
-
   const getTotalAmount = () => {
     const account = selectedAccount;
     const assetPrice = priceInfos.find(
@@ -132,7 +107,7 @@ export const SummaryDialog: React.FC = () => {
     );
 
     const totalFee = new BigNumber(
-      computedFeeMap[account.familyId as CoinFamily](transaction),
+      getComputedFee(account.familyId as CoinFamily, transaction),
     );
 
     const { amount: feeAmount } = getParsedAmount({
@@ -166,7 +141,7 @@ export const SummaryDialog: React.FC = () => {
     if (!account || !coinPrice) return [];
     const { amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
-      amount: computedFeeMap[account.familyId as CoinFamily](transaction),
+      amount: getComputedFee(account.familyId as CoinFamily, transaction),
       unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
     });
 

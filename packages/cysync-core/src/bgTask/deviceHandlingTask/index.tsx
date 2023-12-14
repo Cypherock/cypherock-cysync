@@ -16,7 +16,7 @@ import {
 import { routes } from '~/constants';
 import { DeviceHandlingState, useDevice } from '~/context';
 import { useNavigateTo } from '~/hooks';
-import { useAppDispatch } from '~/store';
+import { closeAllDialogs, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -50,6 +50,7 @@ export const DeviceHandlingTask: React.FC = () => {
     },
     [DeviceHandlingState.NOT_ONBOARDED]: async () => {
       await keyValueStore.isOnboardingCompleted.set(false);
+      dispatch(closeAllDialogs());
       navigateTo(
         OnboardingMap[
           connection?.onboardingStep ?? OnboardingStep.UNRECOGNIZED

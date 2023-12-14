@@ -1,18 +1,21 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   CoinSupport,
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import {
   convertToUnit,
   formatDisplayAmount,
   formatDisplayPrice,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
+import { CoinFamily } from '@cypherock/coins';
 import { DropDownListItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
@@ -100,6 +103,10 @@ export interface SendDialogContextInterface {
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
   getDefaultGasLimit: () => string;
+  getComputedFee: (
+    coinFamily: CoinFamily,
+    txn?: IPreparedTransaction,
+  ) => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -494,6 +501,39 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
     setTransaction(txn);
   };
+
+  const getBitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    // return '0' in error scenarios because BigNumber cannot handle empty string
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedBtcTransaction;
+    return computedData.fee.toString() || '0';
+  };
+
+  const getEvmFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedEvmTransaction;
+    return computedData.fee || '0';
+  };
+
+  const getSolanaFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedSolanaTransaction;
+    return computedData.fees || '0';
+  };
+
+  const computedFeeMap: Record<
+    CoinFamily,
+    (txn: IPreparedTransaction | undefined) => string
+  > = {
+    bitcoin: getBitcoinFeeAmount,
+    evm: getEvmFeeAmount,
+    near: () => '0',
+    solana: getSolanaFeeAmount,
+  };
+
+  const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
+    computedFeeMap[coinFamily](txn);
+
   const {
     onNext,
     onPrevious,
@@ -542,6 +582,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       updateUserInputs,
       isAccountSelectionDisabled: disableAccountSelection,
       getDefaultGasLimit,
+      getComputedFee,
     }),
     [
       onNext,
@@ -578,6 +619,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       updateUserInputs,
       disableAccountSelection,
       getDefaultGasLimit,
+      getComputedFee,
     ],
   );
 
