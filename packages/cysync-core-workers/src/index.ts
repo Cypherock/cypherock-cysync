@@ -1,9 +1,33 @@
+import { createBcryptHash, verifyBcryptHash } from './bcrypt';
 import { calculatePortfolioGraphData } from './graph';
-import { createWorkerFunction } from './utils';
+import { addWorkerHandlers, IHandler, initWorker } from './utils';
 
-createWorkerFunction(calculatePortfolioGraphData);
+export const WorkerFunctions = {
+  calculatePortfolioGraphData: 'calculatePortfolioGraphData',
+  createBcryptHash: 'createBcryptHash',
+  verifyBcryptHash: 'verifyBcryptHash',
+};
 
-export type {
-  CalculatePortfolioGraphDataParams,
-  CalculatePortfolioGraphDataType,
-} from './graph';
+const handlers: IHandler[] = [
+  {
+    name: WorkerFunctions.calculatePortfolioGraphData,
+    func: calculatePortfolioGraphData,
+  },
+  {
+    name: WorkerFunctions.createBcryptHash,
+    func: createBcryptHash,
+  },
+  {
+    name: WorkerFunctions.verifyBcryptHash,
+    func: verifyBcryptHash,
+  },
+];
+
+if (globalThis.document === undefined) {
+  addWorkerHandlers(handlers);
+  initWorker();
+}
+
+export * from './graph/types';
+export type { CalculatePortfolioGraphDataType } from './graph';
+export * from './bcrypt/types';
