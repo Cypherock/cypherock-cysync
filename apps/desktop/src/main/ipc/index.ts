@@ -3,7 +3,11 @@ import { IpcMain, WebContents } from 'electron';
 import { getAppIPCHandlers } from './app';
 import { getAutoUpdateIPCHandlers } from './autoUpdater';
 import { getDbIPCHandlers, removeDbListeners, setupDbListeners } from './db';
-import { getDeviceIPCHandlers } from './device';
+import {
+  getDeviceIPCHandlers,
+  removeDeviceListeners,
+  setupDeviceListeners,
+} from './device';
 import { getLoggerIPCHandlers } from './logger';
 import { getCySyncLogsIPCHandlers } from './logs';
 import { getResetIPCHandlers } from './reset';
@@ -48,8 +52,10 @@ export const setupIPCHandlers = (
 export const setupListeners = (webContents: WebContents) => {
   setupDbListeners(webContents);
   setupWalletConnectListeners(webContents);
+  setupDeviceListeners(webContents);
 };
 
 export const removeListeners = () => {
   removeDbListeners();
+  removeDeviceListeners();
 };

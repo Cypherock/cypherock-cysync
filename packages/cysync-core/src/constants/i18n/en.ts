@@ -1130,8 +1130,11 @@ const en = {
                   warning:
                     'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
             {
               title: 'Confirm the entered PIN on the X1 Vault',
@@ -1143,8 +1146,11 @@ const en = {
                 {
                   warning: 'Back it up in a safe place',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
           ],
         },
@@ -1254,8 +1260,11 @@ const en = {
                   warning:
                     'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
             {
               title: 'Confirm the entered PIN on the X1 Vault',
@@ -1267,8 +1276,11 @@ const en = {
                 {
                   warning: 'Back it up in a safe place',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
           ],
         },

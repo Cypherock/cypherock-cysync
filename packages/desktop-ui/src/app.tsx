@@ -29,6 +29,8 @@ const App = () => (
           <DeviceProvider
             getDevices={window.electronAPI.getDevices}
             connectDevice={window.electronAPI.connectDevice}
+            addUsbChangeListener={window.electronAPI.addUsbChangeListener}
+            removeUsbChangeListener={window.electronAPI.removeUsbChangeListener}
           >
             <AppUpdateProvider>
               <LatestDeviceVersionProvider>

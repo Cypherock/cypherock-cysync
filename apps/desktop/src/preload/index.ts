@@ -85,6 +85,14 @@ const exportedListeners = [
     name: 'removeExternalLinkListener',
     remove: [ipcConfig.listeners.wcConnection],
   },
+  {
+    name: 'addUsbChangeListener',
+    key: ipcConfig.listeners.usbConnectionChange,
+  },
+  {
+    name: 'removeUsbChangeListener',
+    remove: [ipcConfig.listeners.usbConnectionChange],
+  },
 ];
 
 const electronAPI = {
