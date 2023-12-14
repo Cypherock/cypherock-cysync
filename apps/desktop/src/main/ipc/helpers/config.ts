@@ -24,6 +24,7 @@ export const ipcConfig = {
     downloadUpdateError: 'autoUpdater:downloadUpdate:error',
     dbListenerPrefix: 'db:listener',
     wcConnection: 'wc:connection',
+    usbConnectionChange: 'usb:connection:change',
   },
   // Environment variables to inject in renderer
   env: [

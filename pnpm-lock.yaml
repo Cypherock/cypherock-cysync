@@ -260,6 +260,9 @@ importers:
       systeminformation:
         specifier: ^5.21.20
         version: 5.21.20
+      usb:
+        specifier: 2.11.0
+        version: 2.11.0
       winston:
         specifier: ^3.9.0
         version: 3.9.0
