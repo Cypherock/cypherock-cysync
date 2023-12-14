@@ -173,8 +173,11 @@ const X1CardAuthProcess: React.FC = () => {
   );
 };
 
-export const X1CardAuthProcessWithDevice: React.FC = () => (
-  <WithConnectedDevice>
-    <X1CardAuthProcess />
-  </WithConnectedDevice>
-);
+export const X1CardAuthProcessWithDevice: React.FC = () => {
+  const { onClose } = useAuthenticateX1CardDialog();
+  return (
+    <WithConnectedDevice onClose={onClose}>
+      <X1CardAuthProcess />
+    </WithConnectedDevice>
+  );
+};
