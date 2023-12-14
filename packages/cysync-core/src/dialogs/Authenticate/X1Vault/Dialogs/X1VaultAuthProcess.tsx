@@ -151,8 +151,11 @@ const X1VaultAuthProcess: React.FC = () => {
   );
 };
 
-export const X1VaultAuthProcessWithDevice: React.FC = () => (
-  <WithConnectedDevice>
-    <X1VaultAuthProcess />
-  </WithConnectedDevice>
-);
+export const X1VaultAuthProcessWithDevice: React.FC = () => {
+  const { onClose } = useAuthenticateX1VaultDialog();
+  return (
+    <WithConnectedDevice onClose={onClose}>
+      <X1VaultAuthProcess />
+    </WithConnectedDevice>
+  );
+};
