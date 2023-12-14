@@ -7,6 +7,7 @@ import {
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice } from '@cypherock/sdk-interfaces';
+import lodash from 'lodash';
 import PropTypes from 'prop-types';
 import React, {
   useCallback,
@@ -34,7 +35,6 @@ import {
 
 import { useStateWithRef } from '../../hooks';
 import baseLogger from '../../utils/logger';
-import lodash from 'lodash';
 
 export * from './types';
 export * from './utils';

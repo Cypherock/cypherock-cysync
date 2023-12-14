@@ -1,4 +1,3 @@
-import { usb } from 'usb';
 import { GetDevices } from '@cypherock/cysync-interfaces';
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
@@ -7,12 +6,13 @@ import {
   DeviceConnectionErrorType,
   IDevice,
 } from '@cypherock/sdk-interfaces';
+import { WebContents } from 'electron';
+import { usb } from 'usb';
 
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
 
 import * as deviceUtils from '../utils/device';
-import { WebContents } from 'electron';
 
 const getDevices: GetDevices = async () => {
   const hidDevices = await DeviceConnectionHID.list();
