@@ -181,7 +181,7 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   const showFooter =
     !deviceUnavailable && props.buttonLabel && props.buttonOnClick;
   return (
-    <DialogBox width={500} align="stretch">
+    <DialogBox width={500} align="stretch" onClose={onClose}>
       {onClose && (
         <>
           <Flex direction="row" justify="flex-end" py={2} px={3}>
