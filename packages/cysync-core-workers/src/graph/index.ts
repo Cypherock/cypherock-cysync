@@ -1,4 +1,3 @@
-import { IBalanceHistory } from '@cypherock/coin-support-interfaces';
 import {
   formatDisplayPrice,
   getDefaultUnit,
@@ -6,41 +5,14 @@ import {
 } from '@cypherock/coin-support-utils';
 import { getBalanceHistory } from '@cypherock/cysync-core-services';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
+
 import {
-  IAccount,
-  ITransaction,
-  IPriceHistory,
-  IPriceInfo,
-  IWallet,
-} from '@cypherock/db-interfaces';
+  UseGraphProps,
+  CalculatePortfolioGraphDataParamsWithComputedData,
+} from './types';
 
-export interface UseGraphProps {
-  assetId?: string;
-  parentAssetId?: string;
-  accountId?: string;
-  selectedWallet?: IWallet;
-}
-
-export interface CalculatePortfolioGraphDataParams {
-  accounts: IAccount[];
-  transactions: ITransaction[];
-  priceHistories: IPriceHistory[];
-  priceInfos: IPriceInfo[];
-  days: 1 | 7 | 30 | 365;
-  selectedWallet?: IWallet;
-  assetId?: string;
-  parentAssetId?: string;
-  accountId?: string;
-  showGraphInUSD: boolean;
-}
-
-export interface CalculatePortfolioGraphDataParamsWithComputedData
-  extends CalculatePortfolioGraphDataParams {
-  computedData: {
-    balanceHistory: IBalanceHistory[];
-    totalValue: string;
-  };
-}
+import { CalculatePortfolioGraphDataParams } from '..';
 
 const getAssetDetailsFromProps = (
   accounts: IAccount[],
