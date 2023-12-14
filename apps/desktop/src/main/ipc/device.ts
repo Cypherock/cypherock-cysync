@@ -1,3 +1,4 @@
+import { usb } from 'usb';
 import { GetDevices } from '@cypherock/cysync-interfaces';
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
@@ -11,6 +12,7 @@ import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
 
 import * as deviceUtils from '../utils/device';
+import { WebContents } from 'electron';
 
 const getDevices: GetDevices = async () => {
   const hidDevices = await DeviceConnectionHID.list();
@@ -50,6 +52,21 @@ const connectedDeviceMethodCall = async (
   }
 
   return res;
+};
+
+export const setupDeviceListeners = async (webContents: WebContents) => {
+  const onChange = () => {
+    if (!webContents.isDestroyed()) {
+      webContents.send(`${ipcConfig.listeners.usbConnectionChange}`);
+    }
+  };
+
+  usb.on('attach', onChange);
+  usb.on('detach', onChange);
+};
+
+export const removeDeviceListeners = async () => {
+  usb.removeAllListeners();
 };
 
 export const getDeviceIPCHandlers = () => [

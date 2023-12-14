@@ -1,15 +1,25 @@
-import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
+import {
+  ConnectDevice,
+  GetDevices,
+  AddUsbChangeListener,
+  RemoveUsbChangeListener,
+} from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice } from '@cypherock/sdk-interfaces';
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { keyValueStore } from '~/utils';
 
 import {
   createDeviceConnectionInfo,
-  DEVICE_LISTENER_INTERVAL,
   IConnectedDeviceInfo,
   parseDeviceConnectionError,
   parseNewDevices,
@@ -24,6 +34,7 @@ import {
 
 import { useStateWithRef } from '../../hooks';
 import baseLogger from '../../utils/logger';
+import lodash from 'lodash';
 
 export * from './types';
 export * from './utils';
@@ -46,6 +57,8 @@ export interface DeviceProviderProps {
   children?: React.ReactNode;
   getDevices: GetDevices;
   connectDevice: ConnectDevice;
+  addUsbChangeListener: AddUsbChangeListener;
+  removeUsbChangeListener: RemoveUsbChangeListener;
 }
 
 /**
@@ -57,6 +70,8 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   children,
   getDevices,
   connectDevice,
+  addUsbChangeListener,
+  removeUsbChangeListener,
 }) => {
   const [connectionInfo, setConnectionInfo, connectionInfoRef] =
     useStateWithRef<IDeviceConnectionInfo | undefined>(undefined);
@@ -78,8 +93,6 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   useEffect(() => {
     onConnectionChange();
   }, [connectionInfo]);
-
-  const listenerTimeout = useRef<any>();
 
   const getDeviceHandlingState = () => {
     if (!connectionInfo) {
@@ -169,19 +182,13 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connectionRetryRef.current,
     );
 
-    let isConnecting = false;
     for (const action of actions) {
       if (action.type === 'disconnected') {
         logger.info('Connected device was removed');
         markDeviceAsNotConnected();
       } else if (action.type === 'try-connection' && action.device) {
         tryToConnect(action.device);
-        isConnecting = true;
       }
-    }
-
-    if (!isConnecting) {
-      restartDeviceListener();
     }
   };
 
@@ -196,28 +203,25 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     } catch (error) {
       logger.warn('Error connecting device', { device, error });
       markDeviceAsConnectionError(device, error);
-    } finally {
-      restartDeviceListener();
     }
   };
 
-  const restartDeviceListener = () => {
-    clearTimeout(listenerTimeout.current);
-    listenerTimeout.current = setTimeout(
-      deviceListener,
-      DEVICE_LISTENER_INTERVAL,
-    );
-  };
+  const deviceListenerDebounce = useCallback(
+    lodash.debounce(deviceListener, 500),
+    [],
+  );
 
   const disconnectDevice = () => {
     markDeviceAsNotConnected();
   };
 
   useEffect(() => {
-    restartDeviceListener();
+    deviceListener();
+
+    addUsbChangeListener(deviceListenerDebounce);
 
     return () => {
-      clearTimeout(listenerTimeout.current);
+      removeUsbChangeListener();
     };
   }, []);
 
