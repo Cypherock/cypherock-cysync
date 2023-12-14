@@ -16,3 +16,4 @@ export * from './uuid';
 export * from './validator';
 export * from './walletConnect';
 export * from './systemInfo';
+export * from './bcrypt';
