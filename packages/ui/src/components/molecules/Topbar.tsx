@@ -118,7 +118,6 @@ export const Topbar: FC<TopbarProps> = ({
     ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
-  console.log({ syncStatus, tooltipText });
 
   return (
     <Container

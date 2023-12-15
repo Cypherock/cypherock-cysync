@@ -99,7 +99,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
       onSyncClick={onSyncClick}
       tooltipText={
         accountSync.syncState === AccountSyncStateMap.failed
-          ? 'Network Error'
+          ? lang.strings.topbar.statusTexts.sync.networkErrorTooltip
           : undefined
       }
     />

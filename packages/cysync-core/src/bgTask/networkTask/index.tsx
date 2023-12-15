@@ -4,11 +4,6 @@ import logger from '~/utils/logger';
 
 import { setNetworkState, useAppDispatch } from '../..';
 
-/**
- * ***************************** WARNING *****************************
- * To be only used via `Context`. Only 1 instance of useNetwokStatus
- * should be active in the whole application.
- */
 export const NetworkPingTask: React.FC = () => {
   const dispatch = useAppDispatch();
 
