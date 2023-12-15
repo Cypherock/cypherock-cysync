@@ -16,7 +16,12 @@ import {
 import { routes } from '~/constants';
 import { DeviceHandlingState, useDevice } from '~/context';
 import { useNavigateTo } from '~/hooks';
-import { closeAllDialogs, useAppDispatch } from '~/store';
+import {
+  closeAllDialogs,
+  selectDialogs,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import { keyValueStore } from '~/utils';
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -38,6 +43,8 @@ export const DeviceHandlingTask: React.FC = () => {
   const { deviceHandlingState, connection } = useDevice();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
+  const { deviceAuthenticationDialog, deviceUpdateDialog } =
+    useAppSelector(selectDialogs);
 
   const handlingStateToActionMap: Partial<
     Record<DeviceHandlingState, () => Promise<void>>
@@ -58,6 +65,8 @@ export const DeviceHandlingTask: React.FC = () => {
       );
     },
     [DeviceHandlingState.NOT_AUTHENTICATED]: async () => {
+      if (deviceAuthenticationDialog.isOpen || deviceUpdateDialog.isOpen)
+        return;
       dispatch(openDeviceAuthenticationDialog());
     },
     [DeviceHandlingState.BUSY]: async () => {

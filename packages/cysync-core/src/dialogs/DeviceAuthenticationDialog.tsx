@@ -20,7 +20,14 @@ import {
   useDevice,
 } from '..';
 
-export const DeviceAuthenticationDialog: FC = () => {
+export interface DeviceAuthenticationDialogProps {
+  successTitle?: string;
+  successDescription?: string;
+}
+
+export const DeviceAuthenticationDialog: FC<
+  DeviceAuthenticationDialogProps
+> = ({ successDescription, successTitle }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { disconnectDevice } = useDevice();
@@ -70,7 +77,10 @@ export const DeviceAuthenticationDialog: FC = () => {
         )}
         {task.result && (
           <SuccessDialog
-            title={lang.strings.deviceAuthentication.success.title}
+            title={
+              successTitle ?? lang.strings.deviceAuthentication.success.title
+            }
+            subtext={successDescription}
             buttonText={lang.strings.buttons.done}
             handleClick={onClose}
             onClose={onClose}
@@ -79,4 +89,9 @@ export const DeviceAuthenticationDialog: FC = () => {
       </ErrorHandlerDialog>
     </BlurOverlay>
   );
+};
+
+DeviceAuthenticationDialog.defaultProps = {
+  successTitle: undefined,
+  successDescription: undefined,
 };
