@@ -97,6 +97,11 @@ const TopbarComponent: FC<TopbarProps> = props => {
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
       onSyncClick={onSyncClick}
+      tooltipText={
+        accountSync.syncState === AccountSyncStateMap.failed
+          ? 'Network Error'
+          : undefined
+      }
     />
   );
 };

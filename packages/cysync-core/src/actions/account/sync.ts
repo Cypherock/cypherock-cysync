@@ -21,8 +21,22 @@ export const syncAccounts = createAsyncThunk<
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts, isSyncAll }, { dispatch }) =>
+  async ({ accounts, isSyncAll }, { dispatch, getState }) =>
     new Promise<void>(resolve => {
+      if (!getState().network.active) {
+        accounts.forEach(account => {
+          dispatch(
+            updateAccountSyncMap({
+              accountId: account.__id ?? '',
+              syncState: AccountSyncStateMap.failed,
+            }),
+          );
+        });
+
+        resolve();
+        return;
+      }
+
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
 
       const observer: Observer<ISyncAccountsEvent> = {
@@ -81,7 +95,14 @@ export const syncAccounts = createAsyncThunk<
 
 export const syncAllAccounts =
   (): ActionCreator<void> => (dispatch, getState) => {
-    dispatch(
-      syncAccounts({ accounts: getState().account.accounts, isSyncAll: true }),
-    );
+    if (!getState().network.active) {
+      dispatch(setAccountSyncState(AccountSyncStateMap.failed));
+    } else {
+      dispatch(
+        syncAccounts({
+          accounts: getState().account.accounts,
+          isSyncAll: true,
+        }),
+      );
+    }
   };
