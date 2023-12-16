@@ -87,6 +87,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
 
   const getState = (page: Page): State => {
     if (page === 'help') return State.normal;
+    if (page === 'tutorial') return State.normal;
     if (location.pathname === routes[page].path) return State.selected;
     return State.normal;
   };

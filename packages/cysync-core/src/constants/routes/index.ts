@@ -29,10 +29,6 @@ const rootRoutes = {
     name: 'settings',
     path: '/settings',
   },
-  tutorial: {
-    name: 'tutorial',
-    path: '/tutorial',
-  },
 } as const;
 
 export const routes = {
