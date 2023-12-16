@@ -8,9 +8,9 @@ import {
 import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { openDeviceAuthenticationDialog } from '~/actions';
 import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
-import { openDeviceAuthenticationDialog } from '~/actions';
 import {
   DeviceConnectionStatus,
   DeviceHandlingState,

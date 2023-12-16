@@ -11,6 +11,7 @@ import {
   RootState,
   setAccountLastSyncedAt,
   setAccountSyncState,
+  setSyncError,
   updateAccountSyncMap,
 } from '~/store';
 import { getDB } from '~/utils';
@@ -97,6 +98,11 @@ export const syncAllAccounts =
   (): ActionCreator<void> => (dispatch, getState) => {
     if (!getState().network.active) {
       dispatch(setAccountSyncState(AccountSyncStateMap.failed));
+      dispatch(
+        setSyncError(
+          getState().lang.strings.topbar.statusTexts.sync.networkErrorTooltip,
+        ),
+      );
     } else {
       dispatch(
         syncAccounts({
