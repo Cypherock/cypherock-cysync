@@ -20,10 +20,6 @@ interface SideBarWrapperProps extends HeightProps, WidthProps, SpacingProps {
 const SideBarWrapperStyle = styled.div<SideBarWrapperProps>`
   display: flex;
   flex-direction: column;
-  /* padding-top: ${({ theme }) => theme.spacing.six.spacing};
-  padding-right: ${({ theme }) => theme.spacing.three.spacing};
-  padding-bottom: ${({ theme }) => theme.spacing.five.spacing};
-  padding-left: ${({ theme }) => theme.spacing.five.spacing}; */
   background: ${({ theme }) => theme.palette.background.sidebar};
   overflow-y: auto;
   ${width}
