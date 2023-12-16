@@ -52,7 +52,7 @@ export const DeviceUpdateDialog: FC = () => {
     dispatch(
       openDeviceAuthenticationDialog({
         successTitle: parseLangTemplate(
-          deviceUpdate.dialogs.updateSuccessful.heading,
+          deviceUpdate.dialogs.updateSuccessful.headingWithVersion,
           { version },
         ),
         successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
