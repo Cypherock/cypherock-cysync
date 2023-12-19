@@ -10,8 +10,7 @@ export const List = styled.ul<{ disabled?: boolean }>`
   max-height: 255px;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 4px 4px 32px 4px
-    ${({ theme }) => theme.palette.background.separatorSecondary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
   padding: 16px 0px 16px 0px;
   z-index: 10;
   background-color: ${({ theme }) =>
