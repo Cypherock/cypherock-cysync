@@ -12,7 +12,7 @@ import { keyValueStore } from '~/utils';
 export const Congratulations: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
-  const { disconnectDevice } = useDevice();
+  const { reconnectDevice } = useDevice();
   const dispatch = useAppDispatch();
   const query = useQuery();
 
@@ -34,7 +34,7 @@ export const Congratulations: React.FC = () => {
   };
 
   useEffect(() => {
-    disconnectDevice();
+    reconnectDevice();
     updateIsOnboardingCompleted();
     if (doShowUI) {
       confettiAfterEffects();
