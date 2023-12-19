@@ -30,7 +30,7 @@ export const DeviceAuthenticationDialog: FC<
 > = ({ successDescription, successTitle }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { disconnectDevice } = useDevice();
+  const { reconnectDevice } = useDevice();
 
   const deviceAuth: DeviceTask<boolean> = async connection => {
     const app = await ManagerApp.create(connection);
@@ -50,7 +50,7 @@ export const DeviceAuthenticationDialog: FC<
   const onClose = () => {
     task.abort();
     dispatch(closeDialog('deviceAuthenticationDialog'));
-    disconnectDevice();
+    reconnectDevice();
   };
 
   return (

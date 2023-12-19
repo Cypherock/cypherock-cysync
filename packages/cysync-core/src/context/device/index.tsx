@@ -45,7 +45,7 @@ export interface DeviceContextInterface {
   connection?: IDeviceConnectionInfo;
   connectDevice: ConnectDevice;
   getDevices: GetDevices;
-  disconnectDevice: () => void;
+  reconnectDevice: () => void;
   deviceHandlingState: DeviceHandlingState;
   getDeviceHandlingState: () => DeviceHandlingState;
 }
@@ -211,8 +211,9 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     [],
   );
 
-  const disconnectDevice = () => {
+  const reconnectDevice = () => {
     markDeviceAsNotConnected();
+    deviceListenerDebounce();
   };
 
   useEffect(() => {
@@ -230,7 +231,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connection: connectionInfo,
       connectDevice,
       getDevices,
-      disconnectDevice,
+      reconnectDevice,
       deviceHandlingState,
       getDeviceHandlingState,
     }),
@@ -238,7 +239,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connectionInfo,
       connectDevice,
       getDevices,
-      disconnectDevice,
+      reconnectDevice,
       deviceHandlingState,
     ],
   );
