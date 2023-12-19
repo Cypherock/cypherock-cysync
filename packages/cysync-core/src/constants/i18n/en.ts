@@ -886,6 +886,7 @@ const en = {
     sendCrypto: 'Send Crypto',
     receiveCrypto: 'Receive Crypto',
     history: 'History',
+    tutorial: 'Tutorial',
     settings: 'Settings',
     help: 'Help',
     tooltip: {

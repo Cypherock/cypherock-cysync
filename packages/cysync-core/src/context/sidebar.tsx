@@ -18,9 +18,16 @@ import {
   routes,
   ILangState,
   AppDispatch,
+  constants,
 } from '..';
 
-export type Page = 'portfolio' | 'wallet' | 'history' | 'settings' | 'help';
+export type Page =
+  | 'portfolio'
+  | 'wallet'
+  | 'history'
+  | 'settings'
+  | 'help'
+  | 'tutorial';
 
 export interface SidebarContextInterface {
   strings: ILangState['strings']['sidebar'];
@@ -62,6 +69,10 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const [isWalletCollapsed, setIsWalletCollapsed] = React.useState(false);
 
   const navigate = (page: Page) => {
+    if (page === 'tutorial') {
+      window.open(constants.tutorialLink, '_blank', 'noopener,noreferrer');
+      return;
+    }
     if (page === 'help') {
       dispatch(openContactSupportDialog());
       return;
@@ -75,6 +86,8 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
 
   const getState = (page: Page): State => {
+    if (page === 'help') return State.normal;
+    if (page === 'tutorial') return State.normal;
     if (location.pathname === routes[page].path) return State.selected;
     return State.normal;
   };

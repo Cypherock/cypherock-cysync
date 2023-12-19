@@ -14,6 +14,7 @@ import {
   Synchronizing,
   WalletIcon,
   WalletInfoIcon,
+  TutorialIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -42,7 +43,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
       <Flex direction="column" gap={8} justify="space-between" height="full">
-        <Flex direction="column" gap={8}>
+        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.portfolio}
             Icon={PortfolioIcon}
@@ -128,8 +129,14 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             state={wallets.length === 0 ? State.disabled : getState('history')}
             onClick={() => navigate('history')}
           />
+          <SideBarItem
+            text={strings.tutorial}
+            Icon={TutorialIcon}
+            state={getState('tutorial')}
+            onClick={() => navigate('tutorial')}
+          />
         </Flex>
-        <Flex direction="column" gap={8}>
+        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.settings}
             Icon={SettingsIcon}
