@@ -2,7 +2,7 @@ import { cardTapAsideImage } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
-import { selectLanguage, useAppSelector } from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 
 import { CardTrainingDialog } from './Dialogs';
 
