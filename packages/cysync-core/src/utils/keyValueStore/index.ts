@@ -14,7 +14,6 @@ const createStringValueStore = (key: string) => ({
 
 export const keyValueStore = {
   isOnboardingCompleted: createBooleanValueStore('isOnboardingCompleted'),
-  isCardAuthCompleted: createBooleanValueStore('isCardAuthCompleted'),
   isLinuxPermissionSetupDone: createBooleanValueStore(
     'isLinuxPermissionSetupDone',
   ),

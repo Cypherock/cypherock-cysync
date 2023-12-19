@@ -78,7 +78,7 @@ export const CardAuthenticationDialog: React.FC = () => {
 
   useEffect(() => {
     if (isFinalCardTapState) {
-      keyValueStore.isCardAuthCompleted.set(true);
+      keyValueStore.isOnboardingCompleted.set(true);
       navigateTo(routes.onboarding.congratulations.path, 1000);
     }
   }, [isFinalCardTapState]);
