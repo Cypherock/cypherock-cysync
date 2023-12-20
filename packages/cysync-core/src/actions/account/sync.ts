@@ -39,6 +39,7 @@ export const syncAccounts = createAsyncThunk<
       }
 
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
+      dispatch(setSyncError(undefined));
 
       const observer: Observer<ISyncAccountsEvent> = {
         error: () => {
@@ -97,13 +98,13 @@ export const syncAccounts = createAsyncThunk<
 export const syncAllAccounts =
   (): ActionCreator<void> => (dispatch, getState) => {
     if (!getState().network.active) {
-      dispatch(setAccountSyncState(AccountSyncStateMap.failed));
       dispatch(
         setSyncError(
           getState().lang.strings.topbar.statusTexts.sync.networkErrorTooltip,
         ),
       );
     } else {
+      dispatch(setSyncError(undefined));
       dispatch(
         syncAccounts({
           accounts: getState().account.accounts,
