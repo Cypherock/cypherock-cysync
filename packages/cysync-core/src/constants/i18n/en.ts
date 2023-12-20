@@ -22,12 +22,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [DeviceConnectionErrorType.FAILED_TO_CONNECT]: {
     heading: 'Your X1 Vault is unable to connect',
-    subtext: 'Try reconnecting the device',
+    subtext: 'Reconnect the device and try again',
   },
 
   // Communication Errors
   [DeviceCommunicationErrorType.IN_BOOTLOADER]: {
-    heading: 'Your X1 Vault is misconfigured',
+    heading: 'Your X1 Vault is in safe mode',
     subtext: 'Update your device to proceed',
   },
   [DeviceCommunicationErrorType.WRITE_REJECTED]: {
@@ -58,7 +58,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [DeviceCompatibilityErrorType.DEVICE_NOT_SUPPORTED]: {
     heading: 'Your X1 Vault is not compatible with the cySync app',
-    subtext: 'Update the app and the device to the latest version',
+    subtext: 'Update the cySync app and the device to the latest version',
   },
 
   // Bootloader Errors
@@ -84,13 +84,14 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
       'It usually happens when you are trying to install a firmware not developed by Cypherock',
   },
   [DeviceBootloaderErrorType.LOWER_FIRMWARE_VERSION]: {
-    heading: 'Your X1 Vault failed to update to a lower firmware version',
+    heading: 'Your X1 Vault cannot be updated to a lower firmware version',
     subtext:
       'The device only supports updating the firmware to a higher version',
   },
   [DeviceBootloaderErrorType.FLASH_WRITE_ERROR]: {
     heading: 'X1 Vault update failed',
-    subtext: 'Retry or click Help to find a solution',
+    subtext:
+      'Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceBootloaderErrorType.FLASH_CRC_MISMATCH]: {
     heading: 'Your X1 Vault does not support this firmware',
@@ -98,25 +99,29 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [DeviceBootloaderErrorType.FLASH_TIMEOUT_ERROR]: {
     heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Reconnect the device and try again',
+    subtext:
+      'Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceBootloaderErrorType.FLASH_NACK]: {
     heading: 'Something went wrong',
-    subtext: 'Reconnect the device and try again',
+    subtext:
+      'Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceBootloaderErrorType.NOT_IN_RECEIVING_MODE]: {
-    heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Reconnect the device and try again',
+    heading: 'Your X1 Vault is facing communication issues',
+    subtext:
+      'Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance',
   },
 
   // App Errors
   [DeviceAppErrorType.UNKNOWN_ERROR]: {
     heading: 'Something went wrong',
-    subtext: 'Reconnect the device and try again',
+    subtext:
+      'Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.EXECUTING_OTHER_COMMAND]: {
     heading: 'Your X1 Vault is currently busy',
-    subtext: 'Try again after sometime',
+    subtext: 'Navigate to main menu in device and try again',
   },
   [DeviceAppErrorType.PROCESS_ABORTED]: {
     heading: 'Your X1 Vault aborted this operation',
@@ -128,23 +133,27 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
       'Reconnect the device try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.INVALID_MSG_FROM_DEVICE]: {
-    heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    heading: 'Your X1 Vault is facing communication issues',
+    subtext:
+      'Reconnect the device, try again and if the problem persists contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.INVALID_APP_ID_FROM_DEVICE]: {
-    heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    heading: 'Your X1 Vault is facing communication issues',
+    subtext:
+      'Reconnect the device, try again and if the problem persists contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.INVALID_MSG]: {
-    heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Reconnect the device try again or click Help to find a solution',
+    heading: 'Your X1 Vault is facing communication issues',
+    subtext:
+      'Reconnect the device, try again and if the problem persists contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.UNKNOWN_APP]: {
     heading: 'The app does not exist on device',
   },
   [DeviceAppErrorType.APP_NOT_ACTIVE]: {
     heading: 'Your X1 Vault is currently busy',
-    subtext: 'Try again after sometime',
+    subtext:
+      'Try again after sometime, if problem persists then reconnect device.',
   },
   [DeviceAppErrorType.DEVICE_SETUP_REQUIRED]: {
     heading: 'Your X1 Vault is currently not setup properly',
@@ -169,13 +178,11 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     subtext: 'Retry or click Help to find a solution',
   },
   [DeviceAppErrorType.USER_REJECTION]: {
-    heading: 'You canceled the operation on your X1 Vault',
-    subtext:
-      'Please make sure to authorize the operation on your device before attempting it again',
+    heading: 'You canceled this operation on your X1 Vault',
   },
   [DeviceAppErrorType.CORRUPT_DATA]: {
-    heading: 'Your X1 Vault is facing some communication issues',
-    subtext: 'Reconnect the device try again or click Help to find a solution',
+    heading: 'Your X1 Vault is facing communication issues',
+    subtext: 'Retry or contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.DEVICE_AUTH_FAILED]: {
     heading:
@@ -189,7 +196,8 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   // Card Errors
   [CardAppErrorType.UNKNOWN]: {
     heading: 'Unknown X1 Card error',
-    subtext: 'Retry or click Help to find a solution',
+    subtext:
+      'Retry and if the problem persists, contact Cypherock support for assistance ',
   },
   [CardAppErrorType.NOT_PAIRED]: {
     heading: 'Your X1 Card is currently not paired with your X1 Vault',
@@ -211,11 +219,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [CardAppErrorType.SW_FILE_INVALID]: {
     heading: 'You tapped an incorrect X1 Card',
-    subtext: 'Make sure your card belongs to the same family',
+    subtext: 'Make sure your card belongs to the same set',
   },
   [CardAppErrorType.SW_SECURITY_CONDITIONS_NOT_SATISFIED]: {
     heading: 'Your X1 Card is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    subtext:
+      'Retry and if the problem persists, contact Cypherock support for assistance ',
   },
   [CardAppErrorType.SW_CONDITIONS_NOT_SATISFIED]: {
     heading: 'You tapped an incorrect X1 Card',
@@ -223,11 +232,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [CardAppErrorType.SW_WRONG_DATA]: {
     heading: 'Your X1 Card is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    subtext:
+      'Retry and if the problem persists, contact Cypherock support for assistance ',
   },
   [CardAppErrorType.SW_FILE_NOT_FOUND]: {
     heading: 'Your X1 Card is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    subtext: 'Contact Cypherock support for assistance',
   },
   [CardAppErrorType.SW_RECORD_NOT_FOUND]: {
     heading: 'Your X1 Card is out of sync with your X1 Vault',
@@ -245,7 +255,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [CardAppErrorType.SW_INVALID_INS]: {
     heading: 'Your X1 Card is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    subtext: 'Contact Cypherock support for assistance',
   },
   [CardAppErrorType.SW_NOT_PAIRED]: {
     heading: 'Your X1 Card needs to be paired with your X1 Vault',
@@ -254,7 +264,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   },
   [CardAppErrorType.SW_CRYPTO_EXCEPTION]: {
     heading: 'Your X1 Card is facing some communication issues',
-    subtext: 'Retry or click Help to find a solution',
+    subtext: 'Contact Cypherock support for assistance',
   },
   [CardAppErrorType.POW_SW_WALLET_LOCKED]: {
     heading: 'The wallet ${walletName} is currently locked on your X1 Vault',
@@ -690,8 +700,6 @@ const en = {
     deviceDetection: {
       heading: 'Device Connection',
       title: 'Connect your X1 Vault to your PC to proceed',
-      subtext:
-        'Use the USB cable provided in your product packaging to connect',
       unavailable: {
         title: 'Your X1 Vault is unable to communicate',
         subtext: 'Try reconnecting the device',
