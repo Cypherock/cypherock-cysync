@@ -32,6 +32,7 @@ interface DropdownProps {
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
   leftImage?: React.ReactNode;
+  isMultiSelect?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -43,6 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   onChange,
   disabled = false,
   leftImage,
+  isMultiSelect = false,
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -216,6 +218,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
                   id={item.id}
+                  checkType={isMultiSelect ? 'checkbox' : 'radio'}
                   leftImage={noLeftImageInList ? undefined : item.leftImage}
                   $isFocused={isItemFocused}
                 />
@@ -232,4 +235,5 @@ Dropdown.defaultProps = {
   disabled: false,
   noLeftImageInList: false,
   leftImage: undefined,
+  isMultiSelect: false,
 };
