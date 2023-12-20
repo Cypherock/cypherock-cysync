@@ -1,5 +1,5 @@
 import { getParsedAmount } from '@cypherock/coin-support-utils';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -56,8 +56,8 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
     }
   }, []);
 
-  const accountDropdownList: DropDownListItemProps[] = useMemo(() => {
-    const accountsList: DropDownListItemProps[] = [];
+  const accountDropdownList: DropDownItemProps[] = useMemo(() => {
+    const accountsList: DropDownItemProps[] = [];
 
     const mainAccounts = accounts.filter(
       account =>

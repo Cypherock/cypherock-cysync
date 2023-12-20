@@ -13,7 +13,7 @@ import {
 } from '../atoms';
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
-export interface DropDownListItemProps extends BorderProps {
+export interface DropDownItemProps extends BorderProps {
   leftImage?: React.ReactNode;
   rightIcon?: React.ReactNode;
   rightText?: string;
@@ -74,7 +74,7 @@ export const DropDownListItemStretchedTypography = styled(Typography)<
 
 export const DropDownListItemHorizontalBox = styled.div<
   DropDownListItemHorizontalBoxProps &
-    DropDownListItemProps &
+    DropDownItemProps &
     BorderProps &
     SpacingProps & { $hasRightText?: boolean }
 >`
@@ -137,7 +137,7 @@ const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
   white-space: nowrap;
 `;
 
-export const DropDownListItem: FC<DropDownListItemProps> = ({
+export const DropDownItem: FC<DropDownItemProps> = ({
   leftImage,
   rightIcon,
   radioButtonValue,
@@ -254,7 +254,7 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   );
 };
 
-DropDownListItem.defaultProps = {
+DropDownItem.defaultProps = {
   rightIcon: undefined,
   leftImage: undefined,
   rightText: undefined,

@@ -1,18 +1,18 @@
 import { MutableRefObject } from 'react';
 
-import { DropDownListItemProps } from '../molecules';
+import { DropDownItemProps } from '../molecules';
 
 export const findSelectedItem = (
-  menuItems: DropDownListItemProps[],
+  menuItems: DropDownItemProps[],
   selectedId: string | undefined,
-): DropDownListItemProps | undefined =>
+): DropDownItemProps | undefined =>
   menuItems.find(item => item.id === selectedId);
 
 export const searchInItems = (
-  menuItems: DropDownListItemProps[],
+  menuItems: DropDownItemProps[],
   searchString: string,
-): DropDownListItemProps[] => {
-  const filteredItems: DropDownListItemProps[] = [];
+): DropDownItemProps[] => {
+  const filteredItems: DropDownItemProps[] = [];
 
   for (const item of menuItems) {
     const shouldAdd = item.text
@@ -32,7 +32,7 @@ export const searchInItems = (
   return filteredItems;
 };
 
-type MenuItem = DropDownListItemProps & {
+type MenuItem = DropDownItemProps & {
   subMenu?: MenuItem[];
 };
 

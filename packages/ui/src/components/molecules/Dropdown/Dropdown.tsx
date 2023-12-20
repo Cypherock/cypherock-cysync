@@ -21,10 +21,10 @@ import {
   handleKeyDown,
   searchInItems,
 } from '../../utils';
-import { DropDownListItem, DropDownListItemProps } from '../DropDownListItem';
+import { DropDownItem, DropDownItemProps } from '../DropDownItem';
 
 interface DropdownProps {
-  items: DropDownListItemProps[];
+  items: DropDownItemProps[];
   searchText: string;
   placeholderText: string;
   noLeftImageInList?: boolean;
@@ -125,7 +125,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       tabIndex={disabled ? -1 : 0}
     >
       {selectedDropdownItem && !isOpen ? (
-        <DropDownListItem
+        <DropDownItem
           {...selectedDropdownItem}
           $borderRadius={8}
           checked={!!selectedItem || false}
@@ -211,7 +211,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 onFocus={() => setFocusedIndex(index)}
                 $isFocused={isItemFocused}
               >
-                <DropDownListItem
+                <DropDownItem
                   {...item}
                   checked={selectedItem === item.id}
                   onCheckedChange={handleCheckedChange}
