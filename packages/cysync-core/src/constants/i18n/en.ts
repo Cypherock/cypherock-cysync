@@ -827,7 +827,8 @@ const en = {
           subtext: 'Please wait while we update your X1 Vault',
         },
         updateSuccessful: {
-          heading: 'X1 Vault updated to v${version} successfully',
+          heading: 'X1 Vault updated successfully',
+          headingWithVersion: 'X1 Vault updated to v${version} successfully',
           subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {
@@ -886,6 +887,7 @@ const en = {
     sendCrypto: 'Send Crypto',
     receiveCrypto: 'Receive Crypto',
     history: 'History',
+    tutorial: 'Tutorial',
     settings: 'Settings',
     help: 'Help',
     tooltip: {
