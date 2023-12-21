@@ -72,9 +72,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const toggleDropdown = () => {
-    if (!disabled) {
+    if (disabled) return;
+    setSearch('');
+    if (isMultiSelect) {
+      setIsOpen(true);
+    } else {
       setIsOpen(!isOpen);
-      setSearch('');
     }
   };
 
@@ -96,11 +99,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
-    window.addEventListener('keydown', escapeKeyHandler);
+    window.addEventListener('keydown', escapeKeyHandler, { capture: true });
     window.addEventListener('click', clickOutsideHandler);
 
     return () => {
-      window.removeEventListener('keydown', escapeKeyHandler);
+      window.removeEventListener('keydown', escapeKeyHandler, {
+        capture: true,
+      });
       window.removeEventListener('click', clickOutsideHandler);
     };
   }, [isOpen, setIsOpen, containerRef]);

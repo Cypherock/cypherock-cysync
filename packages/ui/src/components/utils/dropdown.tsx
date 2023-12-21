@@ -146,6 +146,7 @@ export const handleEscapeKey =
   ) =>
   (event: KeyboardEvent) => {
     if (event.key === 'Escape' && isOpen) {
+      event.stopPropagation();
       setIsOpen(false);
       dropdownRef.current?.focus();
     }
