@@ -182,11 +182,19 @@ export const DropDownItem: FC<DropDownItemProps> = ({
       $isFocused={$isFocused}
       $parentId={$parentId}
     >
-      {!$restrictedItem && checkType && checkType === 'radio' && (
+      {!$restrictedItem && checkType === 'radio' && (
         <RadioButton
           checked={checked}
           value={radioButtonValue}
           onChange={handleCheckChange}
+        />
+      )}
+      {!$restrictedItem && checkType === 'checkbox' && (
+        <CheckBox
+          checked={checked}
+          onChange={handleCheckChange}
+          id={id ?? 'default-id'}
+          flexProps={{ $alignSelf: 'center' }}
         />
       )}
       {leftImage && (
@@ -223,9 +231,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           </RightTextTypography>
         )}
       </Flex>
-      {(rightText ||
-        rightIcon ||
-        (!$restrictedItem && checkType && checkType === 'checkbox')) && (
+      {(rightText || rightIcon) && (
         <DropDownListItemRightContent>
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
@@ -240,13 +246,6 @@ export const DropDownItem: FC<DropDownItemProps> = ({
             <DropDownListItemIconContainer>
               {rightIcon}
             </DropDownListItemIconContainer>
-          )}
-          {!$restrictedItem && checkType && checkType === 'checkbox' && (
-            <CheckBox
-              checked={checked}
-              onChange={handleCheckChange}
-              id={id ?? 'default-id'}
-            />
           )}
         </DropDownListItemRightContent>
       )}
