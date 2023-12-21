@@ -11,3 +11,4 @@ export * from './discreetMode';
 export * from './accountSync';
 export * from './snackBar';
 export * from './notification';
+export * from './network';

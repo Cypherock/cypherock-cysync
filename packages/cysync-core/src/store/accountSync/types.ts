@@ -16,4 +16,5 @@ export interface IAccountSyncState {
   syncState: AccountSyncState;
   accountSyncMap: Record<string, IndividualAccountSyncStatus | undefined>;
   lastSyncedAt?: number;
+  syncError?: string;
 }
