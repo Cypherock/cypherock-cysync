@@ -66,7 +66,7 @@ export const DropdownContainer = styled.div<{
       }
       `}
   }
-  input {
+  & > input {
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
