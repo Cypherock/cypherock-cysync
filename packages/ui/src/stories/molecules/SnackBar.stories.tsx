@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import src from '../../assets/images/common/copy.png';
 import { SnackBar } from '../../components';
 
 const meta: Meta<typeof SnackBar> = {
@@ -14,9 +13,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    buttonName: 'Button',
+    buttonText: 'Button',
     text: 'Sample Text',
-    imageAlt: 'image_alt',
-    imageSrc: src,
+    icon: 'check',
   },
 };

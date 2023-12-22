@@ -94,6 +94,7 @@ export const Default: Story = {
           {data.map((asset, index) => (
             <TableDataRow
               key={asset.id}
+              $index={index}
               $last={index === data.length - 1}
               width="full"
             >

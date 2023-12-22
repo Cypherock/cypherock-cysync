@@ -6,7 +6,7 @@ import {
   PortfolioIcon,
   SettingsIcon,
   SupportIcon,
-  Syncronizing,
+  Synchronizing,
   WalletIcon,
   WalletInfoIcon,
 } from '../../assets';
@@ -87,7 +87,7 @@ export const Wallets: Story = {
             Icon={WalletIcon}
             extraLeft={
               <Button variant="text" align="center" title="Sync Wallets">
-                <Syncronizing fill={theme.palette.muted.main} />
+                <Synchronizing fill={theme.palette.muted.main} />
               </Button>
             }
           >
