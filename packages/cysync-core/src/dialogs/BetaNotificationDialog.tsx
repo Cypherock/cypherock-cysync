@@ -1,7 +1,9 @@
 import {
   BlurOverlay,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
+  DialogBoxHeader,
   Flex,
   LangDisplay,
   ScrollableContainer,
@@ -28,6 +30,23 @@ export const BetaNotificationDialog: FC = () => {
   return (
     <BlurOverlay>
       <DialogBox width={800} onClose={onClose} $maxHeight="80vh">
+        <DialogBoxHeader height={56} width="full" px={3}>
+          <Flex
+            position="relative"
+            width="full"
+            justify="center"
+            align="center"
+          >
+            <CloseButton
+              onClick={onClose}
+              $alignSelf="end"
+              position="absolute"
+              top={0.5}
+              $translateY={-0.5}
+              right={0}
+            />
+          </Flex>
+        </DialogBoxHeader>
         <DialogBoxBody
           gap={{
             def: 12,
@@ -99,7 +118,6 @@ export const BetaNotificationDialog: FC = () => {
                   <li>
                     After update, you will have to import your accounts again
                   </li>
-                  <li>No new updates to CySync v1 except security update</li>
                 </ul>
               </Typography>
             </Flex>

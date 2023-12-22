@@ -856,7 +856,7 @@ const en = {
   },
   betaNotificationBar: {
     message: 'CySync v2.0.0 is available!',
-    button: 'Download',
+    button: 'Learn More',
   },
   topbar: {
     statusTexts: {
