@@ -97,6 +97,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
       onSyncClick={onSyncClick}
+      tooltipText={accountSync.syncError}
     />
   );
 };

@@ -869,6 +869,7 @@ const en = {
         synchronized: 'Synchronized',
         synchronizing: 'Synchronizing...',
         error: 'Sync error!',
+        networkErrorTooltip: 'Network Error',
       },
     },
     notification: {

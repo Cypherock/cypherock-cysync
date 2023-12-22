@@ -23,6 +23,7 @@ import {
   Flex,
   LangDisplay,
   Tag,
+  Tooltip,
   Typography,
 } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
@@ -58,6 +59,7 @@ export interface TopbarProps {
   toggleDiscreetMode: () => void;
   onNotificationClick: () => void;
   onSyncClick: () => void;
+  tooltipText?: string;
   showIcon?: boolean;
   onIconClick?: () => void;
 }
@@ -89,6 +91,7 @@ export const Topbar: FC<TopbarProps> = ({
   isPasswordSet,
   isDiscreetMode,
   syncStatus,
+  tooltipText,
   toggleDiscreetMode,
   onSyncClick,
   showIcon,
@@ -160,14 +163,19 @@ export const Topbar: FC<TopbarProps> = ({
         )}
       </TitleStyle>
       <Flex align="center">
-        <Button variant="none" onClick={onSyncClick}>
-          <Flex pr={2} align="center" gap={16}>
-            {syncStatusMap[syncStatus]}
-            <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
-              <LangDisplay text={statusTexts.sync[syncStatus]} />
-            </Typography>
-          </Flex>
-        </Button>
+        <Tooltip text={tooltipText} tooltipPlacement="bottom">
+          <Button variant="none" onClick={onSyncClick}>
+            <Flex pr={2} align="center" gap={16}>
+              {syncStatusMap[syncStatus]}
+              <Typography
+                display={{ def: 'none', mdlg: 'block' }}
+                color="muted"
+              >
+                <LangDisplay text={statusTexts.sync[syncStatus]} />
+              </Typography>
+            </Flex>
+          </Button>
+        </Tooltip>
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
@@ -208,4 +216,5 @@ Topbar.defaultProps = {
   icon: undefined,
   subTitle: undefined,
   tag: undefined,
+  tooltipText: undefined,
 };

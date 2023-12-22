@@ -11,6 +11,7 @@ import {
   RootState,
   setAccountLastSyncedAt,
   setAccountSyncState,
+  setSyncError,
   updateAccountSyncMap,
 } from '~/store';
 import { getDB } from '~/utils';
@@ -21,9 +22,24 @@ export const syncAccounts = createAsyncThunk<
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts, isSyncAll }, { dispatch }) =>
+  async ({ accounts, isSyncAll }, { dispatch, getState }) =>
     new Promise<void>(resolve => {
+      if (!getState().network.active) {
+        accounts.forEach(account => {
+          dispatch(
+            updateAccountSyncMap({
+              accountId: account.__id ?? '',
+              syncState: AccountSyncStateMap.failed,
+            }),
+          );
+        });
+
+        resolve();
+        return;
+      }
+
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
+      dispatch(setSyncError(undefined));
 
       const observer: Observer<ISyncAccountsEvent> = {
         error: () => {
@@ -81,7 +97,19 @@ export const syncAccounts = createAsyncThunk<
 
 export const syncAllAccounts =
   (): ActionCreator<void> => (dispatch, getState) => {
-    dispatch(
-      syncAccounts({ accounts: getState().account.accounts, isSyncAll: true }),
-    );
+    if (!getState().network.active) {
+      dispatch(
+        setSyncError(
+          getState().lang.strings.topbar.statusTexts.sync.networkErrorTooltip,
+        ),
+      );
+    } else {
+      dispatch(setSyncError(undefined));
+      dispatch(
+        syncAccounts({
+          accounts: getState().account.accounts,
+          isSyncAll: true,
+        }),
+      );
+    }
   };

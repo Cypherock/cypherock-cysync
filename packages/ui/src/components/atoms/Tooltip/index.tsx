@@ -6,16 +6,20 @@ export { TooltipStyles } from './styles';
 export interface TooltipProps {
   isActive?: boolean;
   text?: string;
+  tooltipPlacement?: TooltipPlacement;
   children: React.ReactElement;
 }
+
+export type TooltipPlacement = 'top' | 'bottom';
 
 export const Tooltip: React.FC<TooltipProps> = ({
   isActive,
   text,
+  tooltipPlacement,
   children,
 }) => (
   <RCTooltip
-    placement="top"
+    placement={tooltipPlacement}
     overlay={<div>{text}</div>}
     visible={text && isActive === true ? undefined : false}
   >
@@ -26,4 +30,5 @@ export const Tooltip: React.FC<TooltipProps> = ({
 Tooltip.defaultProps = {
   isActive: true,
   text: undefined,
+  tooltipPlacement: 'top',
 };
