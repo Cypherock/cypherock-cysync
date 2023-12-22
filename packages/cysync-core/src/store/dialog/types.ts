@@ -116,6 +116,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: DeleteAccountDialogProps;
   };
+
+  betaNotificationDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
