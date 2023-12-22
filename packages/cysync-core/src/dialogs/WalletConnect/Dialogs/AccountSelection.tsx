@@ -92,7 +92,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
           <DialogBoxBody pt={2} px={5} pb={4} align="stretch" gap={24}>
             <Dropdown
               items={walletDropdownList}
-              selectedItem={selectedWallet?.__id}
+              defaultSelectedItems={[selectedWallet?.__id]}
               searchText={accountSelectionTab.chooseWallet}
               placeholderText={accountSelectionTab.chooseWallet}
               onChange={handleWalletChange}
@@ -122,7 +122,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
             {version === 1 && (
               <Dropdown
                 items={accountDropdownList}
-                selectedItem={selectedAccount?.__id}
+                defaultSelectedItems={[selectedAccount?.__id]}
                 disabled={!selectedWallet}
                 searchText={`${parseLangTemplate(
                   accountSelectionTab.chooseAccount,

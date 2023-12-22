@@ -66,7 +66,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={walletDropdownList}
-            selectedItem={selectedWallet?.__id}
+            defaultSelectedItems={[selectedWallet?.__id]}
             searchText={strings.searchText}
             placeholderText={strings.walletPlaceholder}
             onChange={handleWalletChange}
@@ -74,7 +74,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
           />
           <Dropdown
             items={coinDropDownList}
-            selectedItem={selectedCoin?.id}
+            defaultSelectedItems={[selectedCoin?.id]}
             disabled={!selectedWallet}
             searchText={strings.searchText}
             placeholderText={strings.coinPlaceholder}

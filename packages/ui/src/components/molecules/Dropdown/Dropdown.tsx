@@ -8,6 +8,7 @@ import {
   List,
 } from './DropdownStyles';
 
+import lodash from 'lodash';
 import {
   searchIcon,
   triangleGreyIcon,
@@ -15,7 +16,6 @@ import {
 } from '../../../assets';
 import { Image, Input } from '../../atoms';
 import {
-  findSelectedItem,
   handleClickOutside,
   handleEscapeKey,
   handleKeyDown,
@@ -28,8 +28,8 @@ interface DropdownProps {
   searchText: string;
   placeholderText: string;
   noLeftImageInList?: boolean;
-  selectedItem?: string;
-  onChange: (selectedItemId: string | undefined) => void;
+  defaultSelectedItems?: (string | undefined | null)[];
+  onChange?: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
   leftImage?: React.ReactNode;
   isMultiSelect?: boolean;
@@ -40,7 +40,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   searchText,
   noLeftImageInList,
   placeholderText,
-  selectedItem = undefined,
+  defaultSelectedItems = [],
   onChange,
   disabled = false,
   leftImage,
@@ -53,7 +53,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>(
-    selectedItem ? [selectedItem] : [],
+    lodash.compact(defaultSelectedItems),
   );
 
   const listRef = useRef<HTMLUListElement | null>(null);
@@ -62,7 +62,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     if (!isMultiSelect) {
       toggleDropdown();
       setSelectedItems([id]);
-      onChange(id);
+      onChange?.(id);
       return;
     }
 
@@ -71,12 +71,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
     else selectedItems.push(id);
     setSelectedItems([...selectedItems]);
 
-    onChange(selectedItems[0]);
+    onChange?.(selectedItems[0]);
   };
 
-  const selectedDropdownItem = useMemo(
-    () => findSelectedItem(items, selectedItem),
-    [items, selectedItem],
+  const selectedDropdownItem: DropDownItemProps[] = useMemo(
+    () =>
+      lodash.compact(
+        selectedItems.map(itemId => items.find(item => item.id === itemId)),
+      ),
+    [items, selectedItems],
   );
 
   const filteredItems = useMemo(
@@ -152,20 +155,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
       tabIndex={disabled ? -1 : 0}
     >
-      {selectedDropdownItem && !isOpen ? (
+      {selectedDropdownItem[0] && !isOpen ? (
         <DropDownItem
-          {...selectedDropdownItem}
+          {...selectedDropdownItem[0]}
           $borderRadius={8}
-          checked={!!selectedItem || false}
+          checked={selectedDropdownItem.length > 0}
           onCheckedChange={() =>
-            handleCheckedChange(selectedDropdownItem.id ?? '')
+            handleCheckedChange(selectedDropdownItem[0].id ?? '')
           }
           onClick={toggleDropdown}
           $restrictedItem
-          leftImage={selectedDropdownItem.leftImage}
-          rightText={selectedDropdownItem.rightText}
-          $hasRightText={!!selectedDropdownItem.rightText}
-          $parentId={selectedDropdownItem.$parentId}
+          text={selectedDropdownItem[0].text}
+          leftImage={selectedDropdownItem[0].leftImage}
+          rightText={selectedDropdownItem[0].rightText}
+          $hasRightText={!!selectedDropdownItem[0].rightText}
+          $parentId={selectedDropdownItem[0].$parentId}
           color="white"
         />
       ) : (
@@ -257,6 +261,7 @@ Dropdown.defaultProps = {
   disabled: false,
   noLeftImageInList: false,
   leftImage: undefined,
-  selectedItem: undefined,
+  defaultSelectedItems: [],
   isMultiSelect: false,
+  onChange: undefined,
 };

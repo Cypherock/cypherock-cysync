@@ -197,7 +197,7 @@ export const ContactForm: React.FC = () => {
                   </InputLabel>
                   <Dropdown
                     items={categories}
-                    selectedItem={selectedCategory}
+                    defaultSelectedItems={[selectedCategory]}
                     searchText={form.field.category.placeholder}
                     placeholderText={form.field.category.placeholder}
                     onChange={handleCategorySelection}
