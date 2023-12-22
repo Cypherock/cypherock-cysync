@@ -249,6 +249,7 @@ export const Dropdown: React.FC<
                 onMouseEnter={() => setFocusedIndex(index)}
                 onFocus={() => setFocusedIndex(index)}
                 $isFocused={isItemFocused}
+                $cursor={item.disabled ? 'not-allowed' : 'pointer'}
               >
                 <DropDownItem
                   {...item}
@@ -258,6 +259,7 @@ export const Dropdown: React.FC<
                   checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
                   leftImage={noLeftImageInList ? undefined : item.leftImage}
                   $isFocused={isItemFocused}
+                  disabled={item.disabled}
                 />
               </DropdownListItem>
             );

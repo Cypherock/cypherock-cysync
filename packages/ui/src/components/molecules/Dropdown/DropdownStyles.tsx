@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { CursorProps, cursor } from '../../utils';
 
 export const List = styled.ul<{ disabled?: boolean }>`
   position: absolute;
@@ -21,8 +22,11 @@ export const List = styled.ul<{ disabled?: boolean }>`
   }
 `;
 
-export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
+export const DropdownListItem = styled.li<
+  CursorProps & { $isFocused?: boolean }
+>`
   background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
+  ${cursor}
 `;
 
 export const DropdownContainer = styled.div<{

@@ -36,17 +36,20 @@ export interface DropDownItemProps extends BorderProps {
   $parentId?: string;
   $isFocused?: boolean;
   showRightTextOnBottom?: boolean;
+  disabled?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
   $isChecked: boolean;
+  disabled: boolean;
 }
 
-const ShortFormTag = styled.div`
+const ShortFormTag = styled.div<{ disabled: boolean }>`
   font-size: 13px;
   font-weight: 600;
   display: inline-block;
-  color: ${({ theme }) => theme.palette.text.muted};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   padding-left: 5px;
 `;
 
@@ -68,16 +71,21 @@ export const DropDownListItemStretchedTypography = styled(Typography)<
   ${({ $restrictedItem, $textMaxWidth }) =>
     !$restrictedItem && $textMaxWidth && `max-width: ${$textMaxWidth};`}
 
-  color: ${({ $isChecked, $color, theme }) =>
-    $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
+  color: ${({ $isChecked, $color, theme, disabled }) => {
+    if (disabled) return theme.palette.text.disabled;
+    return $isChecked ? theme.palette.text.white : theme.palette.text[$color];
+  }};
 `;
 
 export const DropDownListItemHorizontalBox = styled.div<
   DropDownListItemHorizontalBoxProps &
     DropDownItemProps &
     BorderProps &
-    SpacingProps & { $hasRightText?: boolean }
+    SpacingProps & {
+      $hasRightText?: boolean;
+    }
 >`
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
   display: flex;
   padding-top: 12px;
   padding-right: ${({ $hasRightText }) => ($hasRightText ? '48px' : '24px')};
@@ -103,10 +111,12 @@ export const DropDownListItemHorizontalBox = styled.div<
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
     ${DropDownListItemStretchedTypography} {
-      color: ${({ theme }) => theme.palette.text.white};
+      color: ${({ theme, disabled }) =>
+        disabled ? theme.palette.text.disabled : theme.palette.text.white};
     }
   }
-  color: ${({ theme }) => theme.palette.text.muted};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   ${({ $parentId, $restrictedItem }) =>
     $parentId &&
     !$restrictedItem &&
@@ -119,9 +129,11 @@ export const DropDownListItemHorizontalBox = styled.div<
   ${spacing}
 `;
 
-export const DropDownListItemIconContainer = styled.div`
+export const DropDownListItemIconContainer = styled.div<{ disabled: boolean }>`
   display: flex;
   align-items: center;
+  ${({ disabled }) =>
+    disabled ? 'filter: grayscale(100%) brightness(0.50);' : ''}
 `;
 
 export const DropDownListItemRightContent = styled.div`
@@ -161,12 +173,15 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   showRightTextOnBottom,
   $textMaxWidth,
   $textMaxWidthWhenSelected,
+  disabled = false,
 }): ReactElement => {
   const handleCheckChange = () => {
+    if (disabled) return;
     onCheckedChange?.(id ?? 'default-id');
   };
 
   const handleBoxClick = () => {
+    if (disabled) return;
     handleCheckChange();
     if (onClick) onClick();
   };
@@ -181,12 +196,14 @@ export const DropDownItem: FC<DropDownItemProps> = ({
       text={text}
       $isFocused={$isFocused}
       $parentId={$parentId}
+      disabled={disabled}
     >
       {!$restrictedItem && checkType === 'radio' && (
         <RadioButton
           checked={checked}
           value={radioButtonValue}
           onChange={handleCheckChange}
+          disabled={disabled}
         />
       )}
       {!$restrictedItem && checkType === 'checkbox' && (
@@ -195,10 +212,11 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           onChange={handleCheckChange}
           id={id ?? 'default-id'}
           flexProps={{ $alignSelf: 'center' }}
+          isDisabled={disabled}
         />
       )}
       {leftImage && (
-        <DropDownListItemIconContainer>
+        <DropDownListItemIconContainer disabled={disabled}>
           {leftImage}
         </DropDownListItemIconContainer>
       )}
@@ -206,15 +224,16 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         <Flex align="center" gap={16}>
           <DropDownListItemStretchedTypography
             variant="h6"
-            $color={color ?? 'muted'}
+            $color={disabled ? 'disabled' : color ?? 'muted'}
             $isChecked={checked}
             $restrictedItem={$restrictedItem}
             $textMaxWidth={$textMaxWidth}
             $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
+            disabled={disabled}
           >
             <LangDisplay text={text} $noPreWrap />
             {shortForm && (
-              <ShortFormTag>
+              <ShortFormTag disabled={disabled}>
                 <LangDisplay text={shortForm} />
               </ShortFormTag>
             )}
@@ -224,7 +243,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
-            color={rightTextColor}
+            color={disabled ? 'disabled' : rightTextColor}
             $hasRightText={$hasRightText}
           >
             {rightText}
@@ -236,14 +255,14 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
-              color={rightTextColor}
+              color={disabled ? 'disabled' : rightTextColor}
               $hasRightText={$hasRightText}
             >
               {rightText}
             </RightTextTypography>
           )}
           {rightIcon && (
-            <DropDownListItemIconContainer>
+            <DropDownListItemIconContainer disabled={disabled}>
               {rightIcon}
             </DropDownListItemIconContainer>
           )}
@@ -275,4 +294,5 @@ DropDownItem.defaultProps = {
   showRightTextOnBottom: undefined,
   $textMaxWidth: undefined,
   $textMaxWidthWhenSelected: undefined,
+  disabled: false,
 };
