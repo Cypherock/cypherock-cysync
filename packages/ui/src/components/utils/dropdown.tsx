@@ -43,11 +43,9 @@ export const handleKeyDown =
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     items: MenuItem[],
     focusedIndex: number | null,
-    setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
     listRef: MutableRefObject<HTMLUListElement | null>,
-    dropdownRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const visibleItemsCount = filteredItems.length;
@@ -120,10 +118,7 @@ export const handleKeyDown =
         if (!isOpen) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
-          setSelectedIndex(focusedIndex);
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
-          toggleDropdown();
-          dropdownRef.current?.focus();
         }
         break;
       case 'Tab':
@@ -139,16 +134,11 @@ export const handleKeyDown =
   };
 
 export const handleEscapeKey =
-  (
-    isOpen: boolean,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    dropdownRef: React.MutableRefObject<HTMLDivElement | null>,
-  ) =>
+  (isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) =>
   (event: KeyboardEvent) => {
     if (event.key === 'Escape' && isOpen) {
       event.stopPropagation();
       setIsOpen(false);
-      dropdownRef.current?.focus();
     }
   };
 

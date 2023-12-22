@@ -28,7 +28,7 @@ interface DropdownProps {
   searchText: string;
   placeholderText: string;
   noLeftImageInList?: boolean;
-  selectedItem: string | undefined;
+  selectedItem?: string;
   onChange: (selectedItemId: string | undefined) => void;
   disabled?: boolean;
   leftImage?: React.ReactNode;
@@ -50,11 +50,28 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedItems, setSelectedItems] = useState<string[]>(
+    selectedItem ? [selectedItem] : [],
+  );
+
   const listRef = useRef<HTMLUListElement | null>(null);
+
   const handleCheckedChange = (id: string) => {
-    onChange(id);
+    if (!isMultiSelect) {
+      toggleDropdown();
+      setSelectedItems([id]);
+      onChange(id);
+      return;
+    }
+
+    if (selectedItems.includes(id))
+      selectedItems.splice(selectedItems.indexOf(id), 1);
+    else selectedItems.push(id);
+    setSelectedItems([...selectedItems]);
+
+    onChange(selectedItems[0]);
   };
 
   const selectedDropdownItem = useMemo(
@@ -68,20 +85,26 @@ export const Dropdown: React.FC<DropdownProps> = ({
   );
 
   const handleInputChange = (value: string) => {
+    if (!isOpen) toggleDropdown();
     setSearch(value);
   };
 
   const toggleDropdown = () => {
     if (disabled) return;
-    setSearch('');
-    if (isMultiSelect) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(!isOpen);
-    }
+    setIsOpen(!isOpen);
   };
 
-  const handleItemSelection = () => {
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+    } else {
+      setSearch('');
+      containerRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const handleDropDownContainerClick = () => {
+    if (isOpen) return;
     toggleDropdown();
   };
 
@@ -95,7 +118,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen, containerRef);
+    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen);
 
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
@@ -115,7 +138,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       ref={containerRef}
       $isOpen={isOpen || isHovered}
       disabled={disabled}
-      onClick={toggleDropdown}
+      onClick={handleDropDownContainerClick}
       onMouseEnter={() => setIsHovered(true)}
       onKeyDown={handleKeyDown(
         isOpen,
@@ -123,11 +146,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setFocusedIndex,
         items,
         focusedIndex,
-        setSelectedIndex,
         handleCheckedChange,
         filteredItems,
         listRef,
-        containerRef,
       )}
       tabIndex={disabled ? -1 : 0}
     >
@@ -153,7 +174,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
           ref={inputRef}
           value={search}
           name="choose"
-          onClick={toggleDropdown}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown(
             isOpen,
@@ -161,11 +181,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
             setFocusedIndex,
             items,
             focusedIndex,
-            setSelectedIndex,
             handleCheckedChange,
             filteredItems,
             listRef,
-            containerRef,
           )}
           $bgColor={
             disabled
@@ -207,11 +225,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {filteredItems.map((item, index) => {
             const itemId = item.id ?? '';
             const isItemFocused = focusedIndex === index;
-            const isItemSelected = selectedIndex === index;
+            const isItemSelected = selectedItems.includes(itemId);
             return (
               <DropdownListItem
                 key={itemId}
-                onClick={handleItemSelection}
                 role="option"
                 aria-selected={isItemSelected}
                 onMouseEnter={() => setFocusedIndex(index)}
@@ -220,7 +237,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
               >
                 <DropDownItem
                   {...item}
-                  checked={selectedItem === item.id}
+                  checked={isItemSelected}
                   onCheckedChange={handleCheckedChange}
                   id={item.id}
                   checkType={isMultiSelect ? 'checkbox' : 'radio'}
@@ -240,5 +257,6 @@ Dropdown.defaultProps = {
   disabled: false,
   noLeftImageInList: false,
   leftImage: undefined,
+  selectedItem: undefined,
   isMultiSelect: false,
 };
