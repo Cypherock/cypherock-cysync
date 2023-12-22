@@ -8,7 +8,7 @@
     "email": "support@cypherock.com"
   },
   "scripts": {
-    "start": "node scripts/watch/index.js",
+    "start": "cross-env NODE_OPTIONS=--max-old-space-size=4096 && node scripts/watch/index.js",
     "dev": "turbo dev --no-daemon --filter @cypherock/cysync-desktop",
     "dev:cli": "bash scripts/devCli.sh",
     "make": "turbo make --no-daemon --filter @cypherock/cysync-desktop",
@@ -23,7 +23,7 @@
     "pretty:root:check": "prettier --check scripts *.json",
     "lint:check": "turbo run lint:check --no-daemon",
     "pretty:check": "pnpm pretty:root:check && turbo run pretty:check --no-daemon",
-    "test": "turbo run test --no-daemon",
+    "test": "cross-env NODE_ENV=test turbo run test --no-daemon",
     "e2e": "turbo run e2e --no-daemon",
     "pre-commit": "turbo run pre-commit --concurrency=1 --no-daemon",
     "prepare": "husky install",
@@ -32,7 +32,8 @@
     "build:submodules": "node scripts/submodules.js build",
     "ci:version": "pnpm changeset version && pnpm i --no-frozen-lockfile",
     "storybook": "turbo storybook --no-daemon",
-    "build:storybook": "turbo build:storybook --no-daemon"
+    "build:storybook": "turbo build:storybook --no-daemon",
+    "fix:hashbang": "bash scripts/hashBangFix.sh"
   },
   "keywords": [],
   "license": "AGPL-3.0",

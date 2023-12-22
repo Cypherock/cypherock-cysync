@@ -1,5 +1,9 @@
-import { Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
-import { LangDisplayProps } from '@cypherock/cysync-ui/src';
+import {
+  Flex,
+  LangDisplay,
+  Typography,
+  LangDisplayProps,
+} from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { TabItem } from './TabItem';

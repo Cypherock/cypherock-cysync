@@ -3,10 +3,16 @@ import React, { ReactNode } from 'react';
 import { DialogBoxProps } from './DialogBox';
 import { IconDialogBox } from './IconDialogBox';
 
-import { ServerErrorIcon, FailIcon, SettingsWrongIcon } from '../../../assets';
+import {
+  ServerErrorIcon,
+  FailIcon,
+  SettingsWrongIcon,
+  CySyncDownloadRedIcon,
+} from '../../../assets';
 import { Button } from '../../atoms';
+import { MessageBox, MessageBoxType } from '../MessageBox';
 
-export type ErrorIconType = 'device' | 'default' | 'server';
+export type ErrorIconType = 'device' | 'default' | 'server' | 'cySyncDownload';
 
 export interface ErrorDialogProps extends DialogBoxProps {
   title: string;
@@ -15,15 +21,17 @@ export interface ErrorDialogProps extends DialogBoxProps {
   secondaryActionText?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
-  onClose?: () => void;
   iconType?: ErrorIconType;
   textVariables?: object;
+  messageBoxText?: string;
+  messageBoxVariant?: MessageBoxType;
 }
 
 const iconMap: Record<ErrorIconType, ReactNode> = {
   default: <FailIcon />,
   device: <SettingsWrongIcon />,
   server: <ServerErrorIcon />,
+  cySyncDownload: <CySyncDownloadRedIcon />,
 };
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
@@ -34,6 +42,8 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   onSecondaryClick,
   iconType,
   textVariables,
+  messageBoxVariant,
+  messageBoxText,
   ...props
 }) => (
   <IconDialogBox
@@ -41,6 +51,14 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
     title={title}
     textVariables={textVariables}
     subtext={subtext}
+    afterTextComponent={
+      messageBoxText ? (
+        <MessageBox
+          text={messageBoxText}
+          type={messageBoxVariant ?? 'danger'}
+        />
+      ) : undefined
+    }
     footerComponent={
       <>
         {secondaryActionText && (
@@ -67,5 +85,6 @@ ErrorDialog.defaultProps = {
   onSecondaryClick: undefined,
   iconType: 'default',
   textVariables: undefined,
-  onClose: undefined,
+  messageBoxText: undefined,
+  messageBoxVariant: 'danger',
 };

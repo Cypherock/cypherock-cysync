@@ -27,6 +27,7 @@ export interface TransactionTableRowProps {
   account: string;
   accountTag: string;
   amount: string;
+  amountTooltip?: string;
   accountHeader: string;
   valueHeader: string;
   value: string;
@@ -40,7 +41,7 @@ export interface TransactionTableRowProps {
   variant?: TransactionTableVariant;
 }
 
-const getFillFromStatus = (
+export const getTransactionFillFromStatus = (
   status: TransactionTableStatus,
   theme: ThemeType,
 ) => {
@@ -52,6 +53,8 @@ const getFillFromStatus = (
 
   return map[status];
 };
+
+const DEFAULT_ROW_HEIGHT = 82;
 
 export const TransactionTableRow: React.FC<
   TransactionTableRowProps
@@ -72,10 +75,12 @@ export const TransactionTableRow: React.FC<
 
   const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(DEFAULT_ROW_HEIGHT);
 
   const onResize = () => {
-    setContainerHeight(containerRef.current?.clientHeight ?? 0);
+    setContainerHeight(
+      containerRef.current?.clientHeight ?? DEFAULT_ROW_HEIGHT,
+    );
   };
 
   useEffect(() => {
@@ -106,21 +111,28 @@ export const TransactionTableRow: React.FC<
         <Flex align="center" direction="row" width="inherit">
           <HistoryNameBox
             $icon={row.icon}
-            fill={getFillFromStatus(row.status, theme)}
+            fill={getTransactionFillFromStatus(row.status, theme)}
             variant="grey"
             pl={isSmallScreen ? 3 : undefined}
             title={row.type}
             subtitle={row.time}
             date={row.date}
-            width={{ def: '42%', lg: '24%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '42%' }
+                : { def: '42%', lg: '24%' }
+            }
           />
-          {variant === 'withNoAssetColumn' ? (
+          {variant === 'withNoAssetColumn' && (
             <TableNameBox
               text={row.wallet}
               width={{ def: '28%', lg: '16%' }}
               p={{ def: 2 }}
             />
-          ) : (
+          )}
+          {!['withNoAssetColumn', 'withTimeAndValues'].includes(
+            variant as any,
+          ) && (
             <HistoryAssetBox
               $assetName={row.asset}
               $assetIcon={row.assetIcon}
@@ -128,7 +140,7 @@ export const TransactionTableRow: React.FC<
               p={isSmallScreen ? 2 : undefined}
             />
           )}
-          {!isSmallScreen && (
+          {!isSmallScreen && variant !== 'withTimeAndValues' && (
             <HistoryAssetBox
               wallet={variant === 'withNoAssetColumn' ? undefined : row.wallet}
               $assetIcon={row.accountIcon}
@@ -139,17 +151,22 @@ export const TransactionTableRow: React.FC<
           )}
           <TableNameBox
             text={row.amount}
-            width={{ def: '22%', lg: '15%' }}
+            width={
+              variant === 'withTimeAndValues'
+                ? { def: '30%', lg: '30%' }
+                : { def: '22%', lg: '15%' }
+            }
             p={{ def: 2 }}
+            tooltip={row.amountTooltip}
           />
-          {!isSmallScreen && (
+          {(!isSmallScreen || variant === 'withTimeAndValues') && (
             <TableNameBox
               text={row.value}
-              width={{ def: '15%' }}
+              width={{ def: variant === 'withTimeAndValues' ? '28%' : '15%' }}
               p={{ def: 2 }}
             />
           )}
-          {isSmallScreen && (
+          {isSmallScreen && variant !== 'withTimeAndValues' && (
             <Container $alignSelf="stretch" $flex={1} $noFlex>
               <Button
                 display="flex"
@@ -215,4 +232,5 @@ TransactionTableRow.defaultProps = {
   $isLast: false,
   style: undefined,
   variant: 'default',
+  amountTooltip: undefined,
 };

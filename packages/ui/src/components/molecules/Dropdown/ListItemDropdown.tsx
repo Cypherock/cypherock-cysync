@@ -4,8 +4,9 @@ import { DefaultTheme, styled } from 'styled-components';
 import { LangDisplay, RadioButton, Typography } from '../../atoms';
 
 interface ListItemDropdownProps {
-  text: string;
+  text?: string;
   icon?: ReactNode;
+  displayNode?: ReactNode;
   checkType?: string;
   checked: boolean;
   onChange: () => void;
@@ -15,6 +16,7 @@ interface ListItemDropdownProps {
 
 const LocalTypography = styled(Typography)`
   color: ${({ theme }) => theme.palette.text.muted};
+  text-overflow: ellipsis;
 `;
 
 interface ItemsProps {
@@ -68,6 +70,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   onChange,
   focused = false,
   id,
+  displayNode,
 }) => {
   const handleBoxClick = () => {
     if (checkType && checkType === 'radio') {
@@ -91,10 +94,17 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       id={id}
     >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
-      {icon}
-      <LocalTypography>
-        <LangDisplay text={text} />
-      </LocalTypography>
+
+      {displayNode ?? (
+        <>
+          {icon}
+          {text && (
+            <LocalTypography>
+              <LangDisplay text={text} />
+            </LocalTypography>
+          )}
+        </>
+      )}
     </Items>
   );
 };
@@ -103,4 +113,6 @@ ListItemDropdown.defaultProps = {
   checkType: '',
   focused: false,
   icon: undefined,
+  displayNode: undefined,
+  text: undefined,
 };

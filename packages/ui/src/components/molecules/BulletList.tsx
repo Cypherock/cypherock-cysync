@@ -7,15 +7,17 @@ import {
   FlexComponentProps,
   LangDisplay,
   Typography,
+  TypographyColor,
 } from '../atoms';
 
 interface BulletListProps extends FlexComponentProps {
   items: string[];
   variant?: BulletProps['variant'];
+  color?: TypographyColor;
 }
 
 export const BulletList: FC<BulletListProps> = props => {
-  const { items, variant } = props;
+  const { items, variant, $fontSize, color } = props;
   return (
     <Flex
       $bgColor="input"
@@ -34,7 +36,7 @@ export const BulletList: FC<BulletListProps> = props => {
           align="center"
         >
           <Bullet size="sm" variant={variant} />
-          <Typography color="muted">
+          <Typography color={color ?? 'muted'} $fontSize={$fontSize}>
             <LangDisplay text={item} />
           </Typography>
         </Flex>
@@ -45,4 +47,5 @@ export const BulletList: FC<BulletListProps> = props => {
 
 BulletList.defaultProps = {
   variant: undefined,
+  color: undefined,
 };

@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
@@ -127,7 +128,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
       'Reconnect the device try again and if the problem persists, contact Cypherock support for assistance',
   },
   [DeviceAppErrorType.INVALID_MSG_FROM_DEVICE]: {
-    heading: 'our X1 Vault is facing some communication issues',
+    heading: 'Your X1 Vault is facing some communication issues',
     subtext: 'Retry or click Help to find a solution',
   },
   [DeviceAppErrorType.INVALID_APP_ID_FROM_DEVICE]: {
@@ -271,6 +272,12 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     heading: 'Unknown X1 Card error',
     subtext: 'Retry or click Help to find a solution',
   },
+
+  // Manager App Errors
+  [GetLogsErrorType.LOGS_DISABLED]: {
+    heading: 'Logs are disabled on X1 Vault',
+    subtext: 'Enable logs on X1 Vault settings and try again',
+  },
 };
 
 const databaseError = {
@@ -331,6 +338,8 @@ const en = {
     details: 'Details',
     showQRCode: 'Show QR Code',
     editAccount: 'Edit Account',
+    submit: 'Submit',
+    showMore: 'Show more',
   },
   deviceAuthentication: {
     success: {
@@ -469,6 +478,10 @@ const en = {
         { id: 2, name: 'Average' },
         { id: 3, name: 'Max' },
       ],
+      inputLabels: {
+        gasPrice: 'Gas Price',
+        gasLimit: 'Gas Limit',
+      },
     },
     source: {
       title: 'Source',
@@ -485,6 +498,9 @@ const en = {
         enterPassphrase: 'Enter passphrase',
         enterPin: 'Enter the PIN and tap any card',
         tapCard: 'Tap any card',
+      },
+      token: {
+        info: 'Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}',
       },
       messageBox: {
         warning:
@@ -516,6 +532,8 @@ const en = {
         label: 'Network Fees',
       },
       warning: 'Transaction might cancel if fees is very low',
+      feeError: 'Transaction with 0 fee is not allowed',
+      notEnoughBalance: 'Insufficient funds for transaction',
       toggleText: {
         replace: 'Allow the transaction to be replaced (Replace by fees)',
         unconfirmed: 'Include coins from unconfirmed, replaceable transactions',
@@ -550,6 +568,13 @@ const en = {
         confirm: 'Confirmation',
       },
     },
+    optimism: {
+      deviceAction:
+        "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
+      l1: ' (L1)',
+      l2: ' (L2)',
+      suffix: ' (L1 + L2)',
+    },
   },
   history: {
     tableTitle: 'Transactions',
@@ -562,11 +587,18 @@ const en = {
       amount: 'Amount',
       value: 'Value',
     },
-    transactionType: {
-      send: 'Sent',
-      receive: 'Received',
-      failed: 'Failed',
-      pending: 'Pending',
+    //! Fields used as keys in getDisplayTransactionType, modify with caution
+    transactionStatus: {
+      send: {
+        failed: 'Send Failed',
+        pending: 'Sending',
+        success: 'Sent',
+      },
+      receive: {
+        failed: 'Receive Failed',
+        pending: 'Receiving',
+        success: 'Received',
+      },
     },
     dialogBox: {
       value: 'Value',
@@ -582,6 +614,9 @@ const en = {
       mine: 'Mine',
       transactionHash: 'Transaction Hash',
       description: 'Description',
+      feePrefix: {
+        optimism: 'L2 ',
+      },
     },
     noData: {
       text: 'No transactions yet',
@@ -606,7 +641,7 @@ const en = {
         title: 'Ensure the following before you continue',
         listItems: [
           'You are present in a safe and secure environment',
-          'You have atleast 10-15 minutes to setup your wallet',
+          'You have at least 10-15 minutes to setup your wallet',
           'You have an active internet connection',
           'The tamper-proof seal of the package is intact',
           'Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction',
@@ -615,11 +650,14 @@ const en = {
       },
     },
     usage: {
-      titleFirst: 'I am using Cypherock X1 for the first time',
-      titleSecond: 'I have already used a Cypherock X1',
-      subTitleFirst: 'Choose this if you have never used Cypherock X1 before',
-      subTitleSecond:
-        'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
+      userNew: {
+        title: 'I am using Cypherock X1 for the first time',
+        note: 'Choose this if you have never used Cypherock X1 before',
+      },
+      userExpert: {
+        title: 'I have already used a Cypherock X1',
+        note: 'Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards',
+      },
     },
     terms: {
       title: 'Terms of Use',
@@ -629,8 +667,7 @@ const en = {
         terms: 'Terms of Service',
         privacyPolicy: 'Privacy Policy',
       },
-      consent:
-        ' I have read and agree with the Terms of Use and Privacy Policy',
+      consent: 'I have read and agree with the Terms of Use and Privacy Policy',
     },
     setPassword: {
       heading: 'Set Password',
@@ -699,15 +736,15 @@ const en = {
       subtext: 'Lift your card after 3 beep sounds',
     },
     walletActionsDialogBox: {
-      title: `Let's add a wallet before we proceed. Make sure you have all the 4 X1 cards with you`,
+      title:
+        "Let's create a wallet before we proceed. Make sure you have all the 4 X1 Cards with you",
       subTitle:
-        'The following tutorials are just there to guide you on your X1 vault. You can create a wallet even without these tutorials independently on your Cypherock X1',
+        'The following tutorials are just there to guide you on your device. You can create a wallet even without these tutorials independently on your Cypherock X1',
       createWallet: {
         title: 'Create a new wallet',
         list: [
           'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
         ],
-        button: 'Create',
       },
       importWallet: {
         title: 'Import your wallet from a seed phrase',
@@ -716,12 +753,6 @@ const en = {
           `You want to transfer your assets from your other wallets into Cypherock X1 `,
           `You want to manage and track portfolio of your other wallets through Cypherock X1 `,
         ],
-        button: 'Import',
-      },
-      transferWallet: {
-        title: 'Transfer from old to new Cypherock X1',
-        subTitle: `If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case your lost your X1 wallet and one or more of the X1 cards whatsoever, we don't judge`,
-        button: 'Transfer',
       },
     },
     success: {
@@ -777,6 +808,7 @@ const en = {
     },
     deviceUpdate: {
       heading: 'Device Update',
+      version: 'Version ${version}',
       dialogs: {
         checking: {
           title: 'Please wait while we check for X1 Vault updates',
@@ -796,6 +828,7 @@ const en = {
         },
         updateSuccessful: {
           heading: 'X1 Vault updated successfully',
+          headingWithVersion: 'X1 Vault updated to v${version} successfully',
           subtext: 'Your device is now operating on the latest firmware',
         },
         updateFailed: {
@@ -809,7 +842,8 @@ const en = {
     confirmation: 'Update to cySync version ${version} is available',
     downloading: 'Downloading cySync version ${version}',
     error: 'Error downloading cySync update',
-    successful: 'cySync update version ${version} downloaded',
+    successful:
+      'cySync update downloaded, it will install automatically when you close the app',
     buttons: {
       download: 'Download',
       tryAgain: 'Try Again',
@@ -828,9 +862,22 @@ const en = {
         error: 'Connection error!',
       },
       sync: {
-        syncronized: 'Syncronized',
-        syncronizing: 'Syncronizing...',
+        synchronized: 'Synchronized',
+        synchronizing: 'Synchronizing...',
         error: 'Sync error!',
+        networkErrorTooltip: 'Network Error',
+      },
+    },
+    notification: {
+      title: 'Transactions',
+      sendTransaction: '${amount} ${unit} ${type} to ${address}',
+      sendTransactionMultiple:
+        '${amount} ${unit} ${type} to multiple addresses',
+      receiveTransaction:
+        '${amount} ${unit} ${type} in the account ${walletName}/${accountName}',
+      noTransactions: {
+        title: 'All caught up',
+        subTitle: 'No new transactions to show',
       },
     },
   },
@@ -840,8 +887,13 @@ const en = {
     sendCrypto: 'Send Crypto',
     receiveCrypto: 'Receive Crypto',
     history: 'History',
+    tutorial: 'Tutorial',
     settings: 'Settings',
     help: 'Help',
+    tooltip: {
+      walletDeleted:
+        '${walletName} has been deleted from your Cypherock X1 Vault',
+    },
   },
   walletSync: {
     deletedOne: {
@@ -851,12 +903,12 @@ const en = {
     deletedMany: {
       title:
         'Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?',
-      subTitle: 'You can chose which ones to keep and which ones to delete',
+      subTitle: 'You can choose which ones to keep and which ones to delete',
     },
     freshOneCreated: {
       title:
         'Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?',
-      subTitle: 'You can chose which one to keep and which one to delete',
+      subTitle: 'You can choose which one to keep and which one to delete',
       checkboxText: "Don't show this again",
     },
     buttons: {
@@ -892,14 +944,12 @@ const en = {
         'These blockchains are supported but add their accounts before use',
       notSupportedWarning: {
         title: 'These blockchains are not supported',
-        description:
-          'eip155:11155111, eip155:80001, eip155:42220, eip155:44787, eip155:421613, eip155:8453, eip155:84531.',
       },
     },
     accountConnectedTab: {
       title: 'Connected to ${dappName} interface',
       subTitle: 'Accounts',
-      info: 'You can now access the Uniswap interface DApp on your web browser',
+      info: 'You can now access the ${dappName} DApp on your web browser',
     },
     common: {
       info: {
@@ -909,19 +959,44 @@ const en = {
           'Request approvals for transactions',
         ],
       },
+      error: {
+        default: {
+          title: 'Error occurred while connecting',
+          subtitle: 'Retry the connection from the dApp',
+        },
+        unsupportedChains: {
+          title:
+            "${dappName} requested to connect to chain${s} we don't support yet",
+          subtitle: 'We currently support ${chains}',
+          message: 'Unsupported Chains: ${chains}',
+        },
+      },
+      reject: {
+        call: 'User rejected',
+      },
     },
   },
   signMessage: {
     title: 'Sign Message',
     subTitle: 'Connected to the following account',
-    info: {
+    actions: {
       confirmDevice: 'Confirm on device',
       verifyData: 'Verify data',
-      enterPinTapCard: 'Enter PIN and tap any card',
+      enterPassphrase: 'Enter passphrase',
+      enterPin: 'Enter the PIN and tap any card',
+      tapCard: 'Tap any card',
     },
   },
   portfolio: {
     title: 'Portfolio',
+    tokenTable: {
+      title: 'Tokens',
+      tableHeader: {
+        token: 'Tokens',
+        amount: 'Amount',
+        value: 'Value',
+      },
+    },
     assetAllocation: {
       title: 'Asset Allocation',
       accountTitle: 'Accounts',
@@ -969,6 +1044,15 @@ const en = {
       placeholder: 'Search',
       text: 'No results found for',
       subText: 'Please try searching another keywords',
+    },
+  },
+  deleteAccount: {
+    title: 'Are you sure you want to remove',
+    subTitle:
+      'You can add the account again from the ${walletName} wallet page. Note that this will not result in loss of assets',
+    buttons: {
+      yes: 'Yes',
+      no: 'No',
     },
   },
   errors: {
@@ -1046,12 +1130,14 @@ const en = {
               ],
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
-                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
                 },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
             {
               title: 'Confirm the entered PIN on the X1 Vault',
@@ -1063,8 +1149,11 @@ const en = {
                 {
                   warning: 'Back it up in a safe place',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
           ],
         },
@@ -1097,24 +1186,21 @@ const en = {
             },
 
             {
-              // TODO: add functionality to 
               title:
-                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
             {
               title: 'Important Note',
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
-                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
-              // TODO: add functionality to 
               title:
-                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
                 'Homes of your family members or your friends',
                 'Secret hideout',
@@ -1174,12 +1260,14 @@ const en = {
               ],
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
-                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds ',
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
                 },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
             {
               title: 'Confirm the entered PIN on the X1 Vault',
@@ -1191,8 +1279,11 @@ const en = {
                 {
                   warning: 'Back it up in a safe place',
                 },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
               ],
-              warning: 'Skip this step if you are not setting up a PIN',
             },
           ],
         },
@@ -1243,24 +1334,21 @@ const en = {
             },
 
             {
-              // TODO: add functionality to 
               title:
-                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards ',
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
             },
             {
               title: 'Important Note',
               messageBoxList: [
                 {
-                  // TODO: add functionality to 
                   warning:
-                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle ',
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
                 },
               ],
             },
             {
-              // TODO: add functionality to 
               title:
-                'As a next step, keep your X1 Cards safely inside the card sleeves  and distribute them into different places. Some examples of the places could be: ',
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
               bulletList: [
                 'Homes of your family members or your friends',
                 'Secret hideout',
@@ -1371,10 +1459,48 @@ const en = {
         subTitle: 'We do not store your password on our servers',
       },
     },
+    contactSupport: {
+      form: {
+        header: 'Contact Support',
+        title: 'How can we help?',
+        description: 'Our team would love to hear from you',
+        field: {
+          email: {
+            label: 'Email',
+            placeholder: 'Your Email',
+          },
+          category: {
+            label: 'Category',
+            placeholder: 'Select Category',
+          },
+          description: {
+            label: 'Description',
+            placeholder: 'Describe your issue here',
+          },
+        },
+        checks: {
+          attachAppLogs: 'Attach Application Logs',
+          attachDeviceLogs: 'Attach Device Logs',
+          confirmDevice: 'Please confirm on device to proceed',
+          fetchingDeviceLogs: 'Getting logs from device',
+          attachedDeviceLogs: 'Device Logs Successfully Attached',
+        },
+        errors: {
+          connectDevice: 'Connect the device to attach device logs',
+          bootloaderMode: 'Device is in the bootloader mode',
+        },
+      },
+      success: {
+        formSubmit: 'Support Form Submitted Successfully',
+      },
+    },
   },
   toggle: {
     on: 'ON',
     off: 'OFF',
+  },
+  snackbar: {
+    copiedToClipboard: 'Copied to clipboard',
   },
   settings: {
     tabs: {

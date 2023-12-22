@@ -1,23 +1,31 @@
 import { BlurOverlay } from '@cypherock/cysync-ui';
-import { DialogBox } from '@cypherock/cysync-ui/src';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
-import { WalletConnectDialogProvider, useWalletConnectDialog } from './context';
+import { WalletConnectConnectionState, useWalletConnect } from '~/context';
 
-const WalletConnect: FC = () => {
-  const { currentDialog, tabs, currentTab } = useWalletConnectDialog();
+import {
+  WalletConnectAccountConnectedDialog,
+  WalletConnectAccountSelectionDialog,
+  WalletConnectError,
+  WalletConnectPasteURIDialog,
+} from './Dialogs';
 
-  return (
-    <BlurOverlay>
-      <DialogBox direction="row" gap={0} align="center">
-        {tabs[currentTab]?.dialogs[currentDialog]}
-      </DialogBox>
-    </BlurOverlay>
-  );
+const walletConnectDialogsMap: Partial<
+  Record<WalletConnectConnectionState, ReactNode>
+> = {
+  [WalletConnectConnectionState.NOT_CONNECTED]: <WalletConnectPasteURIDialog />,
+  [WalletConnectConnectionState.CONNECTING]: <WalletConnectPasteURIDialog />,
+  [WalletConnectConnectionState.SELECT_ACCOUNT]: (
+    <WalletConnectAccountSelectionDialog />
+  ),
+  [WalletConnectConnectionState.CONNECTED]: (
+    <WalletConnectAccountConnectedDialog />
+  ),
+  [WalletConnectConnectionState.CONNECTION_ERROR]: <WalletConnectError />,
 };
 
-export const WalletConnectDialog: FC = () => (
-  <WalletConnectDialogProvider>
-    <WalletConnect />
-  </WalletConnectDialogProvider>
-);
+export const WalletConnectDialog: FC = () => {
+  const { connectionState } = useWalletConnect();
+
+  return <BlurOverlay>{walletConnectDialogsMap[connectionState]}</BlurOverlay>;
+};

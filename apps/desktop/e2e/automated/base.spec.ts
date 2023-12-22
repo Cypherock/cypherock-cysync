@@ -48,7 +48,7 @@ test('check first screen', async () => {
   });
   await expect(firstBullet).toBeVisible();
   const secondBullet = screen.getByRole('heading', {
-    name: 'You have atleast 10-15 minutes to setup your wallet',
+    name: 'You have at least 10-15 minutes to setup your wallet',
   });
   await expect(secondBullet).toBeVisible();
   const thirdBullet = screen.getByRole('heading', {
@@ -179,7 +179,7 @@ test('Check Set Password Screen', async () => {
   const helpButton = screen.getByRole('button', { name: 'Help ?' });
   await expect(helpButton).toBeVisible();
   const firstBlock = screen.getByRole('heading', {
-    name: 'Set your cySync password ( ? )',
+    name: 'Set your cySync password',
   });
   await expect(firstBlock).toBeVisible();
   const secondBlock = screen.getByRole('heading', {
@@ -311,11 +311,11 @@ test('Check email-auth screen behaviour', async () => {
   const emailIcon = screen.getByRole('img', { name: 'Email Icon' });
   await expect(emailIcon).toBeVisible();
   const firstBlock = screen.getByRole('heading', {
-    name: 'You are recommended to enter an email ID as a 2FA to get authenticity results ( ? )',
+    name: 'You are recommended to enter an email ID as a 2FA to get authenticity results',
   });
   await expect(firstBlock).toBeVisible();
   const subText = screen.getByRole('heading', {
-    name: 'We do not store this email ID permanently on our servers ( ? )',
+    name: 'We do not store this email ID permanently on our servers',
   });
   await expect(subText).toBeVisible();
   const secondBlock = screen.getByText('Email', { exact: true });

@@ -1,6 +1,5 @@
-import { evmCoinList } from '@cypherock/coins';
-import { BigNumber, assert } from '@cypherock/cysync-utils';
-import axios from 'axios';
+import { evmCoinList, EvmIdMap } from '@cypherock/coins';
+import { BigNumber, assert, makePostRequest } from '@cypherock/cysync-utils';
 
 import { IEvmContractTransactionResult, IEvmTransactionResult } from './types';
 
@@ -25,7 +24,12 @@ export const getTransactions = async (params: {
   };
   delete query.assetId;
 
-  const response = await axios.post(url, query);
+  const response = await makePostRequest(url, query);
+
+  assert(
+    typeof response.data.result === 'object',
+    'Invalid transaction response from server',
+  );
 
   return response.data;
 };
@@ -46,7 +50,7 @@ export const getContractTransactions = async (params: {
   };
   delete query.assetId;
 
-  const response = await axios.post(url, query);
+  const response = await makePostRequest(url, query);
 
   return response.data;
 };
@@ -56,7 +60,7 @@ export const broadcastTransactionToBlockchain = async (
   assetId: string,
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     transaction: transaction.startsWith('0x')
       ? transaction.substring(2)
       : transaction,
@@ -73,7 +77,7 @@ export const broadcastTransactionToBlockchain = async (
 
 export const getAverageGasPrice = async (assetId: string) => {
   const url = `${baseURL}/fees`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     network: evmCoinList[assetId].network,
     responseType: 'v2',
   });
@@ -82,7 +86,7 @@ export const getAverageGasPrice = async (assetId: string) => {
   return new BigNumber(fees).toString(10);
 };
 
-export const estimateGasLimit = async (
+export const estimateGas = async (
   assetId: string,
   params: {
     from: string;
@@ -92,12 +96,24 @@ export const estimateGasLimit = async (
   },
 ) => {
   const url = `${baseURL}/estimate-gas`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     ...params,
     network: evmCoinList[assetId].network,
     responseType: 'v2',
   });
 
-  const { fees } = response.data;
-  return new BigNumber(fees).toString(10);
+  const { fees, l1Cost } = response.data;
+
+  let computedL1Cost = new BigNumber(l1Cost);
+
+  // L1 fees for Optimism can spike up to 25%
+  // https://help.optimism.io/hc/en-us/articles/4416677738907-What-happens-if-the-L1-gas-price-spikes-while-a-transaction-is-in-process
+  if (assetId === EvmIdMap.optimism) {
+    computedL1Cost = computedL1Cost.multipliedBy(1.25);
+  }
+
+  return {
+    limit: new BigNumber(fees).toString(10),
+    l1Cost: computedL1Cost.toString(10),
+  };
 };

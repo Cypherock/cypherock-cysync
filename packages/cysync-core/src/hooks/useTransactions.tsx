@@ -5,6 +5,8 @@ import {
   getZeroUnit,
   getDefaultUnit,
   getAsset,
+  formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import {
   SvgProps,
@@ -50,6 +52,7 @@ export interface TransactionRowData {
   walletName: string;
   walletAndAccount: string;
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
   displayFee: string;
   displayFeeValue: string;
@@ -182,11 +185,10 @@ export const mapTransactionForDisplay = (params: {
       coinId: transaction.parentAssetId,
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
     });
-    const feeValue = new BigNumber(feeInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayFeeValue = `$${feeValue}`;
+    const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
+      coinPrice.latestPrice,
+    );
+    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
   }
 
   if (assetPrice) {
@@ -199,11 +201,14 @@ export const mapTransactionForDisplay = (params: {
       toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
         .abbr,
     });
-    value = new BigNumber(amountInDefaultUnit.amount)
-      .multipliedBy(assetPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(amountInDefaultUnit.amount).multipliedBy(
+        assetPrice.latestPrice,
+      ),
+      2,
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
   }
 
   const timestamp = new Date(transaction.timestamp);
@@ -215,6 +220,14 @@ export const mapTransactionForDisplay = (params: {
     transaction.parentAssetId,
     transaction.assetId,
   ).name;
+
+  const formattedAmount = formatDisplayAmount(amount, 8);
+  const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
+    unit.abbr
+  }`;
+  const amountTooltip = isDiscreetMode
+    ? undefined
+    : `${formattedAmount.complete} ${unit.abbr}`;
 
   return {
     id: transaction.__id ?? '',
@@ -230,7 +243,8 @@ export const mapTransactionForDisplay = (params: {
     assetName,
     accountName: account?.name ?? '',
     accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
-    displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+    displayAmount,
+    amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
@@ -389,23 +403,22 @@ export const useTransactions = ({
   };
 
   const debounceParseTransactionList = useCallback(
-    lodash.throttle(parseTransactionsList, 1000, { leading: true }),
+    lodash.throttle(parseTransactionsList, 4000, { leading: true }),
+    [],
+  );
+
+  const debounceParseTransactionListOnUserAction = useCallback(
+    lodash.throttle(parseTransactionsList, 500, { leading: true }),
     [],
   );
 
   useEffect(() => {
     debounceParseTransactionList();
-  }, [
-    allTransactions,
-    priceInfos,
-    isDiscreetMode,
-    wallets,
-    accounts,
-    lang,
-    walletId,
-    assetId,
-    accountId,
-  ]);
+  }, [allTransactions, priceInfos, wallets, accounts]);
+
+  useEffect(() => {
+    debounceParseTransactionListOnUserAction();
+  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));
@@ -420,17 +433,20 @@ export const useTransactions = ({
     setIsAscending(true);
   };
 
-  const handleTransactionTableRow = (txn: TransactionRowData) => {
-    dispatch(openHistoryDialog({ txn: txn.txn }));
-  };
+  const handleTransactionTableRow = useCallback(
+    (txn: TransactionRowData) => {
+      dispatch(openHistoryDialog({ txn: txn.txn }));
+    },
+    [dispatch],
+  );
 
-  const onRowExpand = (row: TransactionRowData, value: boolean) => {
+  const onRowExpand = useCallback((row: TransactionRowData, value: boolean) => {
     setExpandedRowIds(r => {
       const copy = structuredClone(r);
       copy[row.id] = value;
       return copy;
     });
-  };
+  }, []);
 
   return {
     strings: lang.strings,

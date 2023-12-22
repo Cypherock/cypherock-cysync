@@ -1,22 +1,31 @@
-import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   Typography,
   Breadcrumb,
   Button,
   Container,
-  DisplayGraph,
   Flex,
   ArrowSentIcon,
   ArrowReceivedIcon,
   SvgProps,
+  WalletConnectWithBgIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openReceiveDialog, openSendDialog } from '~/actions';
-import { AssetAllocation, CoinIcon, TransactionTable } from '~/components';
+import {
+  openReceiveDialog,
+  openSendDialog,
+  openWalletConnectDialog,
+} from '~/actions';
+import {
+  AssetAllocation,
+  CoinIcon,
+  Graph,
+  TransactionTable,
+} from '~/components';
 import { routes } from '~/constants';
+import { supportedWalletConnectFamilies } from '~/context';
 import { useNavigateTo } from '~/hooks';
-import { useAppDispatch } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { useAssetPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
@@ -32,44 +41,37 @@ const SendIcon = (props: SvgProps) => (
 export const AssetPage: FC = () => {
   const navigateTo = useNavigateTo();
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(selectLanguage);
 
   const {
-    lang,
     handleWalletChange,
     selectedWallet,
     walletDropdownList,
-    rangeList,
-    selectedRange,
-    setSelectedRange,
-    graphData,
-    formatTooltipValue,
-    formatTimestamp,
-    formatYAxisTick,
-    summaryDetails,
-    onAssetClick,
+    onAccountClick,
     selectedAsset,
     assetId,
     parentAssetId,
-    onGraphSwitch,
     assetDropdownList,
     onAssetChange,
-    showGraphInUSD,
   } = useAssetPage();
 
   return (
     <MainAppLayout
-      title={selectedAsset?.name ?? ''}
-      icon={
-        <CoinIcon
-          parentAssetId={parentAssetId ?? ''}
-          assetId={assetId}
-          size={{ def: '24px', lg: '32px' }}
-          containerSize={{ def: '32px', lg: '40px' }}
-          withBackground
-          withParentIconAtBottom
-          subIconSize={{ def: '12px', lg: '18px' }}
-        />
-      }
+      topbar={{
+        title: selectedAsset?.name ?? '',
+        icon: (
+          <CoinIcon
+            parentAssetId={parentAssetId ?? ''}
+            assetId={assetId}
+            size={{ def: '24px', lg: '32px' }}
+            containerSize={{ def: '32px', lg: '40px' }}
+            withBackground
+            withParentIconAtBottom
+            subIconSize={{ def: '12px', lg: '18px' }}
+            subContainerSize={{ def: '12px', lg: '18px' }}
+          />
+        ),
+      }}
     >
       <Container $noFlex m="20">
         <Flex justify="space-between" my={2}>
@@ -89,7 +91,8 @@ export const AssetPage: FC = () => {
                         parentAssetId={parentAssetId ?? ''}
                         assetId={assetId}
                         withParentIconAtBottom
-                        subIconSize="10px"
+                        subIconSize="8px"
+                        subContainerSize="12px"
                         size="16px"
                       />
                       <Typography ml={1}>{selectedAsset?.name}</Typography>
@@ -125,38 +128,31 @@ export const AssetPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
+            {supportedWalletConnectFamilies.includes(
+              selectedAsset?.family ?? '',
+            ) && (
+              <Container pl={{ def: 0, mdlg: 4 }}>
+                <Button
+                  variant="icon"
+                  onClick={() => {
+                    dispatch(openWalletConnectDialog());
+                  }}
+                >
+                  <WalletConnectWithBgIcon />
+                </Button>
+              </Container>
+            )}
           </Flex>
         </Flex>
 
         <Container $noFlex mb={2}>
-          <DisplayGraph
-            title={
-              showGraphInUSD
-                ? summaryDetails.totalValue
-                : summaryDetails.totalBalance
-            }
-            subTitle={
-              showGraphInUSD
-                ? summaryDetails.totalBalance
-                : summaryDetails.totalValue
-            }
-            conversionRate={summaryDetails.conversionRate}
-            dropdownItems={walletDropdownList}
-            selectedDropdownItem={selectedWallet?.__id ?? 'all'}
-            onDropdownChange={handleWalletChange}
-            dropdownSearchText={lang.strings.graph.walletDropdown.search}
-            pillButtonList={rangeList}
-            selectedPill={selectedRange}
-            onPillButtonChange={setSelectedRange as any}
-            summaryText={summaryDetails.changePercent}
-            summarySubText={summaryDetails.changeValue}
-            summaryIcon={summaryDetails.changeIcon}
-            data={graphData}
-            formatTooltipValue={formatTooltipValue}
-            formatTimestamp={formatTimestamp}
-            formatYAxisTick={formatYAxisTick}
-            color={selectedAsset?.color ?? coinList[BtcIdMap.bitcoin].color}
-            onSwitch={onGraphSwitch}
+          <Graph
+            selectedWallet={selectedWallet}
+            handleWalletChange={handleWalletChange}
+            walletDropdownList={walletDropdownList}
+            assetId={assetId}
+            parentAssetId={parentAssetId}
+            color={selectedAsset?.color}
           />
         </Container>
 
@@ -165,7 +161,8 @@ export const AssetPage: FC = () => {
             assetId={assetId}
             parentAssetId={parentAssetId}
             walletId={selectedWallet?.__id}
-            onAssetClick={onAssetClick}
+            onRowClick={onAccountClick}
+            withSubIconAtBottom
           />
         </Container>
 

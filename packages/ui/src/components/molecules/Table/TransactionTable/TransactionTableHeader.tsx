@@ -34,12 +34,12 @@ export interface TransactionTableHeaderProps {
 }
 
 const TimeHeader = styled(TableHeader)`
-  padding: 16px 16px 16px 88px;
+  padding: 16px 16px 16px 40px;
 
   width: 42%;
   @media ${({ theme }) => theme.screens.lg} {
     width: 24%;
-    padding: 16px 16px 16px 104px;
+    padding: 16px 16px 16px 40px;
   }
 `;
 
@@ -71,6 +71,24 @@ const ValueHeader = styled(TableHeader)`
   padding: 16px;
 
   width: 15%;
+`;
+
+const TimeHeaderForVariant = styled(TableHeader)`
+  padding: 16px 16px 16px 40px;
+
+  width: 42%;
+`;
+
+const AmountHeaderForVariant = styled(TableHeader)`
+  padding: 16px;
+
+  width: 30%;
+`;
+
+const ValueHeaderForVariant = styled(TableHeader)`
+  padding: 16px;
+
+  width: 28%;
 `;
 
 export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
@@ -122,6 +140,27 @@ export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
           text: value,
         },
       ];
+    } else if (variant === 'withTimeAndValues') {
+      result = [
+        {
+          name: 'time',
+          Wrapper: TimeHeaderForVariant as any,
+          isSortable: true,
+          text: time,
+        },
+        {
+          name: 'amount',
+          Wrapper: AmountHeaderForVariant as any,
+          isSortable: true,
+          text: amount,
+        },
+        {
+          name: 'value',
+          Wrapper: ValueHeaderForVariant as any,
+          isSortable: true,
+          text: value,
+        },
+      ];
     } else {
       result = [
         {
@@ -157,7 +196,7 @@ export const TransactionTableHeader: React.FC<TransactionTableHeaderProps> = ({
       ];
     }
 
-    if (isSmallScreen) {
+    if (isSmallScreen && variant !== 'withTimeAndValues') {
       // Remove account and value headers
       result.splice(2, 1);
       result.splice(3, 1);

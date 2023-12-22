@@ -1,5 +1,10 @@
-import { UniSwapLogo } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { getCoinSupport } from '@cypherock/coin-support';
+import {
+  ISignMessageEvent,
+  ISignMessageParamsPayload,
+  SignMessageType,
+} from '@cypherock/coin-support-interfaces';
+import lodash from 'lodash';
 import React, {
   Context,
   FC,
@@ -7,9 +12,17 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+import { Observer, Subscription } from 'rxjs';
 
+import {
+  WalletConnectSignMessageMap,
+  deviceLock,
+  useDevice,
+  useWalletConnect,
+} from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
@@ -17,12 +30,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
+import logger from '~/utils/logger';
 
-import {
-  ViewMessageDialog,
-  ViewJSONDialog,
-  ViewSigningStateDialog,
-} from '../Dialogs';
+import { ViewMessageDialog, ViewSigningStateDialog } from '../Dialogs';
 
 export interface SignMessageDialogContextInterface {
   tabs: ITabs;
@@ -33,34 +44,12 @@ export interface SignMessageDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  message?: string;
-  setMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
-  json?: string;
-  setJson: React.Dispatch<React.SetStateAction<string | undefined>>;
-  dapp: {
-    logo: string;
-    url: string;
-    name: string;
-  };
-  setDapp: React.Dispatch<
-    React.SetStateAction<{
-      logo: string;
-      url: string;
-      name: string;
-    }>
-  >;
-  wallet: Pick<IWallet, 'name'>;
-  setWallet: React.Dispatch<React.SetStateAction<Pick<IWallet, 'name'>>>;
-  account: Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>;
-  setAccount: React.Dispatch<
-    React.SetStateAction<
-      Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>
-    >
-  >;
   deviceEvents: Record<number, boolean | undefined>;
   setDeviceEvents: React.Dispatch<
     React.SetStateAction<Record<number, boolean | undefined>>
   >;
+  payload: ISignMessageParamsPayload | undefined;
+  startFlow: () => Promise<void>;
 }
 
 export const SignMessageDialogContext: Context<SignMessageDialogContextInterface> =
@@ -77,42 +66,50 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const [message, setMessage] = useState<string | undefined>(
-    "Consider this scenario:\nA signer called Bob signs a permit to transfer 100 USDC with a router contract as the permissioned spender. The router contract never checks who the caller is but spends any permit messages on the Permit2 contract. An attacker Eve can steal Bob's signature, pass it through to the router with herself as the recipient, and transfer Bob's tokens to herself.\n\nConsider this scenario:\nUniversal Router protects against this by checking that the msg.sender from inside the routing contract is the supposed spender by passing msg.sender in as the owner param in any permit calls and by passing in msg.sender as the from param in any transfer calls.",
-  );
+  const {
+    rejectCallRequest,
+    callRequestData,
+    approveCallRequest,
+    activeAccount,
+    activeWallet,
+  } = useWalletConnect();
 
-  const [json, setJson] = useState<string | undefined>(
-    '{"string":"this is a test string","integer":42,"array":[1,2,3,"test",null],"float":3.14159,"object":{"first-child":true,"second-child":false,"last-child":null},"string_number":"1234","date":"2023-08-31T06:00:45.468Z"}',
-  );
-  const [dapp, setDapp] = useState<{
-    logo: string;
-    url: string;
-    name: string;
-  }>({
-    logo: UniSwapLogo,
-    url: 'app.uniswap.org',
-    name: 'Uniswap',
-  });
-
-  const [wallet, setWallet] = useState<Pick<IWallet, 'name'>>({
-    name: 'Cypherock Red',
-  });
-
-  const [account, setAccount] = useState<
-    Pick<IAccount, 'name' | 'familyId' | 'assetId' | 'parentAssetId'>
-  >({
-    name: 'Ethereum 1',
-    assetId: 'ethereum',
-    parentAssetId: 'ethereum',
-    familyId: 'evm',
-  });
+  const { connection, connectDevice } = useDevice();
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
+    1: [0],
+  };
+  const flowSubscription = useRef<Subscription | undefined>();
 
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const payload: ISignMessageParamsPayload | undefined = useMemo(() => {
+    if (!callRequestData) return undefined;
 
-  const onClose = () => {
+    const [, content] = callRequestData.params;
+
+    const result = {
+      message: content as string,
+      signingType:
+        WalletConnectSignMessageMap[callRequestData.method] ??
+        SignMessageType.ETH_MESSAGE,
+    };
+
+    if (result.signingType === SignMessageType.PRIVATE_MESSAGE)
+      result.message = callRequestData.params[0] as string;
+
+    return result;
+  }, [callRequestData]);
+
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
+  const onClose = (dontReject?: boolean) => {
+    cleanUp();
+    if (dontReject !== true) rejectCallRequest();
     dispatch(closeDialog('signMessage'));
   };
 
@@ -123,13 +120,66 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     },
     {
       name: lang.strings.signMessage.title,
-      dialogs: [<ViewJSONDialog key="view-json" />],
-    },
-    {
-      name: lang.strings.signMessage.title,
       dialogs: [<ViewSigningStateDialog key="signing" />],
     },
   ];
+
+  const getFlowObserver = (onEnd: () => void): Observer<ISignMessageEvent> => ({
+    next: payloadParam => {
+      if (payloadParam.device) {
+        setDeviceEvents({ ...payloadParam.device.events });
+      }
+
+      if (payloadParam.signature) {
+        approveCallRequest(payloadParam.signature);
+      }
+    },
+    error: err => {
+      logger.error(err);
+      onEnd();
+      onClose();
+    },
+    complete: () => {
+      onEnd();
+      onClose(true);
+    },
+  });
+
+  const startFlow = async () => {
+    logger.info('Started Sign Message Flow');
+
+    if (!activeAccount || !activeWallet || !payload) {
+      logger.warn('Flow started without selecting wallet or account');
+      return;
+    }
+
+    cleanUp();
+
+    const coinSupport = getCoinSupport(activeAccount.familyId);
+
+    const taskId = lodash.uniqueId('task-');
+
+    if (connection) await deviceLock.acquire(connection.device, taskId);
+
+    const onEnd = () => {
+      if (connection) deviceLock.release(connection.device, taskId);
+    };
+
+    const deviceConnection = connection
+      ? await connectDevice(connection.device)
+      : undefined;
+
+    if (!deviceConnection) return;
+
+    flowSubscription.current = coinSupport
+      .signMessage({
+        account: activeAccount,
+        connection: deviceConnection,
+        db: getDB(),
+        payload,
+      })
+      .subscribe(getFlowObserver(onEnd));
+  };
 
   const {
     onNext,
@@ -153,18 +203,10 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
-      message,
-      setMessage,
-      json,
-      setJson,
-      dapp,
-      setDapp,
-      wallet,
-      setWallet,
-      account,
-      setAccount,
       deviceEvents,
       setDeviceEvents,
+      payload,
+      startFlow,
     }),
     [
       isDeviceRequired,
@@ -175,18 +217,10 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       goTo,
       onPrevious,
       onClose,
-      message,
-      setMessage,
-      json,
-      setJson,
-      dapp,
-      setDapp,
-      wallet,
-      setWallet,
-      account,
-      setAccount,
       deviceEvents,
       setDeviceEvents,
+      payload,
+      startFlow,
     ],
   );
 

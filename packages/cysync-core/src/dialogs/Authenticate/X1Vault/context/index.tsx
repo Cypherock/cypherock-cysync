@@ -14,7 +14,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { X1VaultEmail2FA, X1VaultAuthProcess } from '../Dialogs';
+
+import { X1VaultEmail2FA, X1VaultAuthProcessWithDevice } from '../Dialogs';
 import { AuthenticateX1VaultSuccess } from '../Dialogs/Success';
 
 export interface AuthenticateX1VaultDialogContextInterface {
@@ -56,7 +57,7 @@ export const AuthenticateX1VaultDialogProvider: FC<
     {
       name: lang.strings.dialogs.auth.title,
       dialogs: [
-        <X1VaultAuthProcess key="authenticate-x1-vault-device-process" />,
+        <X1VaultAuthProcessWithDevice key="authenticate-x1-vault-device-process" />,
       ],
     },
     {

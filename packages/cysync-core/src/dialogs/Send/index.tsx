@@ -9,14 +9,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  CloseConfirmationDialog,
-  ErrorHandlerDialog,
-  WithConnectedDevice,
-} from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SendDialogProvider, useSendDialog } from './context';
+import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
+
+export type { SendDialogProps } from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -37,18 +35,19 @@ export const SendFlow: FC = () => {
     isDeviceRequired,
     error,
     onRetry,
+    selectedWallet,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const [showOnClose, setShowOnClose] = React.useState(false);
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
-        <CloseConfirmationDialog
-          isDialogVisible={showOnClose}
-          setIsDialogVisible={setShowOnClose}
-          onClose={onClose}
-        />
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
         <>
           <MilestoneAside
             milestones={tabs
@@ -71,15 +70,14 @@ export const SendFlow: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
-              }
+              rightComponent={<CloseButton onClick={() => onClose()} />}
               position="top"
               useLightPadding
             />
@@ -90,8 +88,8 @@ export const SendFlow: FC = () => {
   );
 };
 
-export const SendDialog: FC = () => (
-  <SendDialogProvider>
+export const SendDialog: FC<SendDialogProps> = props => (
+  <SendDialogProvider {...props}>
     <SendFlow />
   </SendDialogProvider>
 );

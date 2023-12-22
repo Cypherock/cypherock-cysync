@@ -1,25 +1,27 @@
 import {
-  SideBarWrapper,
-  SideBarItem,
-  SideBarState as State,
-  Flex,
-  Button,
-  PortfolioIcon,
-  WalletIcon,
-  ArrowSentIcon,
   ArrowReceivedIcon,
+  ArrowSentIcon,
+  Button,
+  Flex,
   HistoryIcon,
+  parseLangTemplate,
+  PortfolioIcon,
   SettingsIcon,
+  SideBarItem,
+  SideBarWrapper,
+  SideBarState as State,
   SupportIcon,
-  Syncronizing,
+  Synchronizing,
+  WalletIcon,
   WalletInfoIcon,
+  TutorialIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openSendDialog, openReceiveDialog } from '~/actions';
-import { useSidebar } from '~/context';
+import { openReceiveDialog, openSendDialog } from '~/actions';
+import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
 
-export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
+const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const {
     getState,
     isWalletCollapsed,
@@ -36,11 +38,12 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
     dispatch,
     isWalletPage,
   } = useSidebar();
+  const { deviceHandlingState } = useDevice();
 
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
       <Flex direction="column" gap={8} justify="space-between" height="full">
-        <Flex direction="column" gap={8}>
+        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.portfolio}
             Icon={PortfolioIcon}
@@ -54,10 +57,14 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                 variant="text"
                 align="center"
                 title="Sync Wallets"
+                disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
                 onClick={onWalletSync}
               >
-                <Syncronizing
+                <Synchronizing
                   fill={theme.palette.muted.main}
+                  opacity={
+                    deviceHandlingState !== DeviceHandlingState.USABLE ? 0.5 : 1
+                  }
                   animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
                 />
               </Button>
@@ -86,6 +93,10 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
                         onClick={e => {
                           e.stopPropagation();
                         }}
+                        title={parseLangTemplate(
+                          strings.tooltip.walletDeleted,
+                          { walletName: wallet.name },
+                        )}
                       >
                         <WalletInfoIcon fill={theme.palette.muted.main} />
                       </Button>
@@ -99,6 +110,7 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.sendCrypto}
             Icon={ArrowSentIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => {
               dispatch(openSendDialog());
             }}
@@ -106,6 +118,7 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.receiveCrypto}
             Icon={ArrowReceivedIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => {
               dispatch(openReceiveDialog());
             }}
@@ -113,11 +126,17 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
           <SideBarItem
             text={strings.history}
             Icon={HistoryIcon}
-            state={getState('history')}
+            state={wallets.length === 0 ? State.disabled : getState('history')}
             onClick={() => navigate('history')}
           />
+          <SideBarItem
+            text={strings.tutorial}
+            Icon={TutorialIcon}
+            state={getState('tutorial')}
+            onClick={() => navigate('tutorial')}
+          />
         </Flex>
-        <Flex direction="column" gap={8}>
+        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.settings}
             Icon={SettingsIcon}
@@ -136,3 +155,5 @@ export const SideBar: FC<{ collapseWallets?: boolean }> = () => {
     </SideBarWrapper>
   );
 };
+
+export const SideBar = React.memo(SideBarComponent);

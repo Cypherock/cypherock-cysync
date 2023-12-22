@@ -12,7 +12,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openWalletActionsDialog } from '~/actions';
+import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
 import {
   closeDialog,
   GuidedFlowType,
@@ -43,7 +43,12 @@ export const GuidedFlowDialog: FC = () => {
   };
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        onClose={() => setShowOnClose(true)}
+      >
         {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
@@ -69,7 +74,12 @@ export const GuidedFlowDialog: FC = () => {
             </DialogBoxBody>
 
             <DialogBoxBackgroundBar
-              leftComponent={<HelpButton text={lang.strings.help} />}
+              leftComponent={
+                <HelpButton
+                  text={lang.strings.help}
+                  onClick={() => dispatch(openContactSupportDialog())}
+                />
+              }
               rightComponent={
                 <CloseButton onClick={() => setShowOnClose(true)} />
               }

@@ -5,9 +5,16 @@ export {
   setKeyDB,
   setAutoUpdater,
   setResetCySyncMethod,
+  setGetSystemInfoMethod,
   setCloseAppMethod,
-  setDependencies,
+  setInitWCUriMethod,
+  setAddExternalLinkListenerMethod,
+  setRemoveExternalLinkListenerMethod,
+  setFocusAppMethod,
+  setCySyncLogsMethod,
+  setErrorHandler,
 } from './utils';
+export { setDependencies } from './utils/dependencies';
 export * from './theme';
 export * from './constants';
 export * from './context';

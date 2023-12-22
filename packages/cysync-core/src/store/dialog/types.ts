@@ -1,6 +1,8 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
   deviceAuthenticationDialog: {
@@ -40,7 +42,7 @@ export interface IDialogState {
 
   sendDialog: {
     isOpen: boolean;
-    data?: undefined;
+    data?: SendDialogProps;
   };
 
   removePassword: {
@@ -103,6 +105,16 @@ export interface IDialogState {
   signMessage: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  contactSupportDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  deleteAccount: {
+    isOpen: boolean;
+    data?: DeleteAccountDialogProps;
   };
 }
 

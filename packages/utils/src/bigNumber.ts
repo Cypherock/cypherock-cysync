@@ -15,6 +15,12 @@ export class BigNumber {
     this.num = new BigNumberJS(BigNumber.getNumberLike(n), base);
   }
 
+  public static max(...values: NumberLike[]) {
+    return new BigNumber(BigNumberJS.max(...values.map(this.getNumberLike)));
+  }
+
+  public static maximum = this.max;
+
   getRawNumber() {
     return this.num;
   }
@@ -61,6 +67,10 @@ export class BigNumber {
     return this.num.isZero();
   }
 
+  isInteger() {
+    return this.num.isInteger();
+  }
+
   isGreaterThan(n: NumberLike, base?: number) {
     return this.num.isGreaterThan(BigNumber.getNumberLike(n), base);
   }
@@ -93,8 +103,14 @@ export class BigNumber {
     return this.num.toString(base);
   }
 
-  toFixed(decimalPlaces: number, roundingMode?: RoundingMode) {
-    return this.num.toFixed(decimalPlaces, roundingMode);
+  toFixed(decimalPlaces?: number, roundingMode?: RoundingMode) {
+    let result;
+
+    if (decimalPlaces !== undefined)
+      result = this.num.toFixed(decimalPlaces, roundingMode);
+    else result = this.num.toFixed();
+
+    return result;
   }
 
   toPrecision(decimalPlaces: number, roundingMode?: RoundingMode) {

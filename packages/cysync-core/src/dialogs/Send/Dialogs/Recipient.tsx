@@ -1,30 +1,37 @@
 import { getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  LangDisplay,
-  DialogBoxFooter,
   Button,
-  DialogBoxBody,
-  Typography,
   Container,
-  ScrollableContainer,
   DialogBox,
-  GoldQuestionMark,
-  LeanBox,
+  DialogBoxBody,
+  DialogBoxFooter,
   InformationIcon,
+  LangDisplay,
+  LeanBox,
+  ScrollableContainer,
+  Typography,
   useTheme,
+  BlockchainIcon,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { FeeSection, AddressAndAmountSection } from './Components';
+import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
 
 export const Recipient: React.FC = () => {
-  const { onNext, onPrevious, initialize, transaction, selectedAccount } =
-    useSendDialog();
+  const {
+    onNext,
+    onPrevious,
+    initialize,
+    transaction,
+    selectedAccount,
+    isAccountSelectionDisabled,
+  } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const theme = useTheme();
@@ -34,7 +41,8 @@ export const Recipient: React.FC = () => {
     const account = selectedAccount;
     if (!account) return `0`;
     const { amount: _amount, unit } = getParsedAmount({
-      coinId: account.assetId,
+      coinId: account.parentAssetId,
+      assetId: account.assetId,
       unitAbbr: account.unit,
       amount: account.balance,
     });
@@ -49,8 +57,10 @@ export const Recipient: React.FC = () => {
         transaction.validation.outputs.length > 0 &&
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(
-          output => output.address !== '' && output.amount !== '',
-        ),
+          output =>
+            output.address !== '' && !new BigNumber(output.amount).isNaN(),
+        ) &&
+        transaction.validation.isValidFee,
     );
   }, [transaction]);
 
@@ -61,8 +71,9 @@ export const Recipient: React.FC = () => {
   if (transaction === undefined) return <LoaderDialog />;
 
   return (
-    <DialogBox width={517}>
+    <DialogBox width={517} $maxHeight="full">
       <DialogBoxBody pt={4} pb={0}>
+        <BlockchainIcon />
         <Container display="flex" direction="column" gap={4} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={displayText.title} />
@@ -84,22 +95,24 @@ export const Recipient: React.FC = () => {
           altText={getBalanceToDisplay()}
           textVariant="span"
           fontSize={12}
-          rightImage={<GoldQuestionMark height={14} width={14} />}
+          disabledInnerFlex
         />
       </DialogBoxBody>
-      <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
-        <AddressAndAmountSection />
-        <FeeSection />
+      <ScrollableContainer>
+        <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
+        <FeeSection showErrors={isAccountSelectionDisabled} />
       </ScrollableContainer>
       <DialogBoxFooter>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            onPrevious();
-          }}
-        >
-          <LangDisplay text={button.back} />
-        </Button>
+        {!isAccountSelectionDisabled && (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              onPrevious();
+            }}
+          >
+            <LangDisplay text={button.back} />
+          </Button>
+        )}
         <Button
           variant="primary"
           disabled={!btnState}
@@ -112,4 +125,9 @@ export const Recipient: React.FC = () => {
       </DialogBoxFooter>
     </DialogBox>
   );
+};
+
+Recipient.defaultProps = {
+  hideBackButton: undefined,
+  disableInputs: undefined,
 };

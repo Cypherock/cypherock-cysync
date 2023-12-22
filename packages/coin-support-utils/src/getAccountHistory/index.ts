@@ -2,7 +2,7 @@ import {
   IBalanceHistory,
   IGetAccountHistoryResult,
 } from '@cypherock/coin-support-interfaces';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { assert, BigNumber } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   IAccount,
@@ -11,6 +11,7 @@ import {
   IPriceInfo,
   IPriceSnapshot,
   ITransaction,
+  TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -22,25 +23,31 @@ import logger from '../utils/logger';
 
 export * from './types';
 
-async function getAccount(db: IDatabase, accountId: string) {
+async function getAccount(db: IDatabase | undefined, accountId: string) {
+  assert(db, 'Database should be present if no account is given');
   return (await db.account.getOne({ __id: accountId })) as IAccount;
 }
 
 async function getTransactions(
   allTransactions: ITransaction[] | undefined,
   account: IAccount,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   if (allTransactions) {
     return lodash.orderBy(
-      allTransactions.filter(t => t.accountId === account.__id),
+      allTransactions.filter(
+        t =>
+          t.accountId === account.__id &&
+          t.status === TransactionStatusMap.success,
+      ),
       'timestamp',
       'asc',
     );
   }
 
+  assert(db, 'Database should be present if no transactions is given');
   return db.transaction.getAll(
-    { accountId: account.__id },
+    { accountId: account.__id, status: TransactionStatusMap.success },
     { sortBy: { key: 'timestamp', descending: false } },
   );
 }
@@ -50,7 +57,7 @@ async function getPriceHistory(
   account: IAccount,
   currency: string,
   days: 1 | 7 | 30 | 365,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   let history: IPriceSnapshot[] | undefined;
 
@@ -68,6 +75,7 @@ async function getPriceHistory(
         p.days === daysToFetch,
     )?.history;
   } else {
+    assert(db, 'Database should be present if no price history is given');
     history = (
       await db.priceHistory.getOne({
         assetId: account.assetId,
@@ -96,7 +104,7 @@ async function getLatestPrice(
   allPriceInfos: IPriceInfo[] | undefined,
   account: IAccount,
   currency: string,
-  db: IDatabase,
+  db?: IDatabase,
 ) {
   let price: string | undefined;
 
@@ -105,6 +113,7 @@ async function getLatestPrice(
       p => p.assetId === account.assetId && p.currency === currency,
     )?.latestPrice;
   } else {
+    assert(db, 'Database should be present if no price info is given');
     price = (
       await db.priceInfo.getOne({
         assetId: account.assetId,
@@ -237,9 +246,26 @@ export async function createGetAccountHistory(
     price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
   });
 
-  const hasNegative = accountBalanceHistory.some(a =>
-    new BigNumber(a.balance).isNegative(),
-  );
+  const currentValue = calcValue({
+    amount: account.balance,
+    parentAssetId: account.parentAssetId,
+    assetId: account.assetId,
+    price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
+  });
+
+  accountBalanceHistory.push({
+    timestamp: Date.now(),
+    balance: account.balance,
+    value: currentValue,
+  });
+
+  let hasNegative = false;
+  for (const accountItem of accountBalanceHistory) {
+    hasNegative =
+      hasNegative || new BigNumber(accountItem.balance).isNegative();
+    accountItem.balance = BigNumber.max(accountItem.balance, 0).toString();
+    accountItem.value = BigNumber.max(accountItem.value, 0).toString();
+  }
 
   if (hasNegative) {
     logger.warn(`Portfolio: Negative value found in ${account.assetId}`, {
@@ -249,5 +275,9 @@ export async function createGetAccountHistory(
     });
   }
 
-  return { history: accountBalanceHistory, account };
+  return {
+    history: accountBalanceHistory,
+    account,
+    currentValue,
+  };
 }

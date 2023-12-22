@@ -1,5 +1,5 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { AppUpdateState, InternalAppUpdateState, useAppUpdate } from '~/hooks';
 
@@ -70,6 +70,15 @@ export const AppUpdateProvider: React.FC<AppUpdateProviderProps> = ({
       error,
     ],
   );
+
+  useEffect(() => {
+    const minutes = 15;
+    const checkUpdateInterval = setInterval(
+      checkForUpdates,
+      minutes * 60 * 1000,
+    );
+    return () => clearInterval(checkUpdateInterval);
+  }, [checkForUpdates]);
 
   return (
     <AppUpdateContext.Provider value={ctx}>

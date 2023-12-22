@@ -1,19 +1,24 @@
 import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
-import { AppUpdateBar, DeviceUpdateBar, SideBar, Topbar } from '~/components';
+import {
+  AppUpdateBar,
+  DeviceUpdateBar,
+  SideBar,
+  Topbar,
+  TopbarProps,
+  Notification,
+} from '~/components';
 
 interface MainAppLayoutProps {
-  title: string;
-  icon?: ReactNode;
+  topbar: TopbarProps;
   children?: ReactNode;
   fullHeight?: boolean;
   onTopbarHeightChange?: (height: number) => void;
 }
 
-export const MainAppLayout: FC<MainAppLayoutProps> = ({
-  title,
-  icon,
+const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
+  topbar,
   children,
   fullHeight,
   onTopbarHeightChange,
@@ -21,7 +26,7 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
   const topbarRef = useRef<HTMLDivElement>(null);
   const [topbarHeight, setTopbarHeight] = useState(0);
 
-  const onResize = () => {
+  const calcHeight = () => {
     const height = topbarRef.current?.clientHeight ?? 0;
     if (onTopbarHeightChange) {
       onTopbarHeightChange(height);
@@ -30,11 +35,13 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
   };
 
   useEffect(() => {
-    onResize();
-    window.addEventListener('resize', onResize);
+    calcHeight();
+    window.addEventListener('resize', calcHeight);
+    const interval = setInterval(calcHeight, 4 * 1000);
 
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('resize', calcHeight);
+      clearInterval(interval);
     };
   }, []);
 
@@ -45,8 +52,9 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
           <DeviceUpdateBar />
-          <Topbar icon={icon} title={title} />
+          <Topbar {...topbar} />
         </Flex>
+        <Notification top={topbarHeight + 5} />
         <MainAppBody $fullHeight={fullHeight} $topbarHeight={topbarHeight}>
           {children}
         </MainAppBody>
@@ -55,9 +63,10 @@ export const MainAppLayout: FC<MainAppLayoutProps> = ({
   );
 };
 
-MainAppLayout.defaultProps = {
+MainAppLayoutComponent.defaultProps = {
   children: undefined,
-  icon: undefined,
   fullHeight: false,
   onTopbarHeightChange: undefined,
 };
+
+export const MainAppLayout = React.memo(MainAppLayoutComponent);

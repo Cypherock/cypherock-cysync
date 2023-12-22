@@ -6,6 +6,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
+import { formatAddress } from '../../operations';
 import { IEvmTransactionItem } from '../api';
 
 export const parseTransaction = (params: {
@@ -51,14 +52,20 @@ export const parseTransaction = (params: {
     blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
     inputs: [
       {
-        address: fromAddr,
+        address: formatAddress({
+          address: fromAddr,
+          coinId: account.parentAssetId,
+        }),
         amount,
         isMine: myAddress === fromAddr,
       },
     ],
     outputs: [
       {
-        address: toAddr,
+        address: formatAddress({
+          address: toAddr,
+          coinId: account.parentAssetId,
+        }),
         amount,
         isMine: myAddress === toAddr,
       },
@@ -69,14 +76,6 @@ export const parseTransaction = (params: {
       functionName: transaction.functionName,
     },
   };
-
-  if (transaction.input && transaction.input !== '0x' && transaction.methodId) {
-    const isErc20Transfer = transaction.methodId.toLowerCase() === '0xa9059cbb';
-
-    // If erc20 transfer, don't add the txn, since it's already taken care of
-    // when fetching contract history
-    if (isErc20Transfer) return undefined;
-  }
 
   return txn;
 };

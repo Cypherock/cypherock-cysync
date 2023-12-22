@@ -6,6 +6,7 @@ import {
   OnboardingStep,
 } from '@cypherock/sdk-app-manager';
 import {
+  DeviceAppErrorType,
   DeviceState,
   IDevice,
   IDeviceConnection,
@@ -133,7 +134,7 @@ export const tryEstablishingDeviceConnection = async (
 
     return { info, status };
   } catch (error) {
-    connection?.destroy();
+    await connection?.destroy();
     throw error;
   }
 };
@@ -146,12 +147,14 @@ export interface IDeviceConnectionErrorAction {
 
 export const parseDeviceConnectionError = (
   device: IDevice,
-  _error?: any,
+  error?: any,
   connectionRetry?: IDeviceConnectionRetry,
 ) => {
   let action: IDeviceConnectionErrorAction;
 
-  if ((connectionRetry?.retries ?? 0) >= MAX_CONNECTION_RETRY) {
+  if (error?.code === DeviceAppErrorType.EXECUTING_OTHER_COMMAND) {
+    action = { type: 'error', state: DeviceConnectionStatus.BUSY };
+  } else if ((connectionRetry?.retries ?? 0) >= MAX_CONNECTION_RETRY) {
     action = { type: 'error', state: DeviceConnectionStatus.UNKNOWN_ERROR };
   } else {
     const isSameDeviceRetry = connectionRetry

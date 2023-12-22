@@ -28,6 +28,12 @@ export const accountSyncSlice = createSlice({
     setAccountSyncState: (state, payload: PayloadAction<AccountSyncState>) => {
       state.syncState = payload.payload;
     },
+    setSyncError: (state, payload: PayloadAction<string | undefined>) => {
+      state.syncError = payload.payload;
+      if (payload.payload) {
+        state.syncState = AccountSyncStateMap.failed;
+      }
+    },
     updateAccountSyncMap: (
       state,
       payload: PayloadAction<{
@@ -52,6 +58,7 @@ export const accountSyncSlice = createSlice({
 
 export const {
   setAccountSyncState,
+  setSyncError,
   updateAccountSyncMap,
   setAccountLastSyncedAt,
 } = accountSyncSlice.actions;

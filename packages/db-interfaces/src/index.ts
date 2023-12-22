@@ -8,6 +8,8 @@ import type {
   IEntity,
   IRepository,
   ObjectLiteral,
+  ITransactionNotificationClickRepository,
+  ITransactionNotificationReadRepository,
 } from './entities';
 
 export interface IDatabase {
@@ -16,6 +18,8 @@ export interface IDatabase {
   device: IDeviceRepository;
   account: IAccountRepository;
   transaction: ITransactionRepository;
+  transactionNotificationRead: ITransactionNotificationReadRepository;
+  transactionNotificationClick: ITransactionNotificationClickRepository;
   wallet: IWalletRepository;
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;

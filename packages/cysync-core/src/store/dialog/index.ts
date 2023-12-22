@@ -10,6 +10,9 @@ import { DialogName, IDialogState } from './types';
 export * from './types';
 
 const initialState: IDialogState = {
+  contactSupportDialog: {
+    isOpen: false,
+  },
   appUpdateDialog: {
     isOpen: false,
   },
@@ -22,22 +25,25 @@ const initialState: IDialogState = {
   errorDialog: {
     isOpen: false,
   },
-  walletSyncError: {
-    isOpen: false,
-  },
   walletActions: {
     isOpen: false,
   },
-  walletConnect: {
+  guidedFlow: {
     isOpen: false,
   },
-  guidedFlow: {
+  walletSyncError: {
     isOpen: false,
   },
   addAccount: {
     isOpen: false,
   },
   sendDialog: {
+    isOpen: false,
+  },
+  signMessage: {
+    isOpen: false,
+  },
+  walletConnect: {
     isOpen: false,
   },
   receive: {
@@ -67,7 +73,7 @@ const initialState: IDialogState = {
   historyDialog: {
     isOpen: false,
   },
-  signMessage: {
+  deleteAccount: {
     isOpen: false,
   },
 };

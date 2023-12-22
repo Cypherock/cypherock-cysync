@@ -11,6 +11,7 @@ import {
   LangDisplay,
   LogoOutlinedAsideImage,
   openExternalLink,
+  TermsOfUseGraphics,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, {
@@ -21,7 +22,7 @@ import React, {
   useState,
 } from 'react';
 
-import { routes } from '~/constants';
+import { constants, routes } from '~/constants';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -31,7 +32,8 @@ import { OnboardingPageLayout } from './OnboardingPageLayout';
 
 const ExternalLinkItem: React.FC<{
   text: string;
-}> = ({ text }) => (
+  href: string;
+}> = ({ text, href }) => (
   <Container
     width="full"
     $borderRadius={8}
@@ -47,14 +49,19 @@ const ExternalLinkItem: React.FC<{
           <LangDisplay text={text} />
         </Typography>
       </Flex>
-      <Button variant="none">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
         <Image
           src={openExternalLink}
           $width={12}
           $height={12}
           alt="termsLink"
         />
-      </Button>
+      </a>
     </Flex>
   </Container>
 );
@@ -70,7 +77,6 @@ const TermsDialogBox: FC<{
   };
   buttonText: string;
   consent: string;
-  isLoading: boolean;
 }> = ({
   bulletPoints,
   consent,
@@ -78,7 +84,6 @@ const TermsDialogBox: FC<{
   isChecked,
   setIsChecked,
   title,
-  isLoading,
   subtext,
 }) => {
   const { isPasswordSet } = useLockscreen();
@@ -90,6 +95,7 @@ const TermsDialogBox: FC<{
   return (
     <DialogBox width={500} direction="column">
       <DialogBoxBody gap={32} direction="column" align="center">
+        <TermsOfUseGraphics width={45} />
         <Container display="flex" direction="column" gap={4}>
           <Typography $textAlign="center" variant="h5" color="heading">
             <LangDisplay text={title} />
@@ -99,13 +105,18 @@ const TermsDialogBox: FC<{
           </Typography>
         </Container>
         <Flex width="full" direction="column" gap={16}>
-          <ExternalLinkItem text={bulletPoints.terms} />
-          <ExternalLinkItem text={bulletPoints.privacyPolicy} />
+          <ExternalLinkItem
+            href={constants.termsOfUseLink}
+            text={bulletPoints.terms}
+          />
+          <ExternalLinkItem
+            href={constants.privacyPolicyLink}
+            text={bulletPoints.privacyPolicy}
+          />
         </Flex>
         <CheckBox
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
-          isDisabled={isLoading}
           id="terms_accepted"
           label={consent}
         />
@@ -114,7 +125,6 @@ const TermsDialogBox: FC<{
         <Button
           variant={isChecked ? 'primary' : 'secondary'}
           disabled={!isChecked}
-          isLoading={isLoading}
           onClick={() => toNextPage()}
         >
           <LangDisplay text={buttonText} />
@@ -127,18 +137,13 @@ const TermsDialogBox: FC<{
 export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTerms = async () => {
-    setIsLoading(true);
     setIsChecked(await keyValueStore.isTermsAccepted.get());
-    setIsLoading(false);
   };
 
   const updateTerms = async () => {
-    setIsLoading(true);
     await keyValueStore.isTermsAccepted.set(isChecked);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -166,7 +171,6 @@ export const Terms: FC = () => {
         title={lang.strings.onboarding.terms.title}
         subtext={lang.strings.onboarding.terms.subtext}
         buttonText={lang.strings.buttons.confirm}
-        isLoading={isLoading}
       />
     </OnboardingPageLayout>
   );

@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
+import { TooltipStyles } from './atoms';
+
 import { SvgStyle } from '../assets';
 
 export const svgGradients = {
   gold: 'gold-gradient',
   silver: 'silver-gradient',
+};
+
+export const CssClassNames = {
+  tableScrollbar: 'tableScrollbar',
 };
 
 export const Styles = createGlobalStyle`
@@ -29,13 +35,15 @@ export const Styles = createGlobalStyle`
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #46403C;
+  background-color: #8B8682;
   border-radius: 6px;
-}`;
+}
+`;
 
 export const GlobalStyles: React.FC = () => (
   <>
     <Styles />
+    <TooltipStyles />
     <SvgStyle width={0} height={0} position="absolute" $zIndex={-50}>
       <defs>
         <linearGradient id={svgGradients.gold}>

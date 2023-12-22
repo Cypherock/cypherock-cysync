@@ -17,6 +17,10 @@ const rootRoutes = {
     name: 'asset',
     path: '/asset',
   },
+  account: {
+    name: 'account',
+    path: '/account',
+  },
   history: {
     name: 'history',
     path: '/history',
@@ -24,10 +28,6 @@ const rootRoutes = {
   settings: {
     name: 'settings',
     path: '/settings',
-  },
-  help: {
-    name: 'help',
-    path: '/help',
   },
 } as const;
 

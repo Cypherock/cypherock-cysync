@@ -1,3 +1,4 @@
+import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceConnectionErrorType,
   DeviceCommunicationErrorType,
@@ -145,6 +146,9 @@ export const getDeviceErrorHandlingDetails = (
       generateErrorHandlingDetails.help('cardOutOfBoundary'),
     [CardAppErrorType.UNRECOGNIZED]:
       generateErrorHandlingDetails.retryWithHelp('cardError'),
+
+    // Manager App Errors
+    [GetLogsErrorType.LOGS_DISABLED]: generateErrorHandlingDetails.retry(),
   };
 
   return deviceErrorHandlingDetailsMap[errorCode];

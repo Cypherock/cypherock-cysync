@@ -1,8 +1,11 @@
 import { release } from 'node:os';
+import path from 'node:path';
 
+import { sleep } from '@cypherock/cysync-utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 
 import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
+import { getSendWCConnectionString } from './ipc/walletConnect';
 import {
   addAppHooks,
   config,
@@ -12,11 +15,13 @@ import {
   installDeveloperExtensions,
   logger,
   setupProcessEventHandlers,
+  setWCUri,
   windowUrls,
 } from './utils';
 import { autoUpdater } from './utils/autoUpdater';
 import { setupDependencies } from './utils/dependencies';
 
+const LOADING_WINDOW_MIN_DISPLAY_TIME_IN_MS = 2 * 1000;
 let mainWindow: BrowserWindow | null = null;
 
 const getWebContents = () => {
@@ -42,6 +47,16 @@ const shouldStartApp = () => {
 };
 
 const prepareApp = () => {
+  if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+      app.setAsDefaultProtocolClient('cypherock', process.execPath, [
+        path.resolve(process.argv[1]),
+      ]);
+    }
+  } else {
+    app.setAsDefaultProtocolClient('cypherock');
+  }
+
   setupProcessEventHandlers();
   setupDependencies();
   setupIPCHandlers(ipcMain, getWebContents);
@@ -67,10 +82,13 @@ export default function createApp() {
   prepareApp();
 
   let loadingWindow: BrowserWindow | null = null;
+  let loadingWindowOpenedAt: number = Date.now();
 
   const createMainWindow = async () => {
     logger.debug('Starting main window');
-    mainWindow = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    const mw = createWindowAndOpenUrl(windowUrls.mainWindowUrl);
+    mainWindow = mw.win;
+
     setupListeners(mainWindow.webContents);
     autoUpdater.setup(mainWindow.webContents);
     installDeveloperExtensions(mainWindow);
@@ -84,10 +102,18 @@ export default function createApp() {
       return { action: 'deny' };
     });
 
-    mainWindow.once('ready-to-show', () => {
+    mainWindow.once('ready-to-show', async () => {
       logger.info('Main Window loaded');
       if (!mainWindow || mainWindow.isDestroyed()) {
         return;
+      }
+
+      const timeLeftForLoadingWindow =
+        LOADING_WINDOW_MIN_DISPLAY_TIME_IN_MS +
+        (Date.now() - loadingWindowOpenedAt);
+
+      if (timeLeftForLoadingWindow > 0) {
+        await sleep(timeLeftForLoadingWindow);
       }
 
       mainWindow.show();
@@ -98,17 +124,31 @@ export default function createApp() {
         loadingWindow.destroy();
       }
     });
+
+    mainWindow.once('show', () => {
+      if (mw.showFullscreen && mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.setFullScreen(true);
+      }
+    });
+
+    mainWindow.on('enter-full-screen', () => {
+      if (mw.showFullscreen && mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.setFullScreenable(false);
+      }
+    });
   };
 
   const createLoadingWindow = () => {
     logger.debug('Starting loading window');
-    loadingWindow = createWindowAndOpenUrl(windowUrls.loadingWindowUrl, true);
+    const lw = createWindowAndOpenUrl(windowUrls.loadingWindowUrl, true);
+    loadingWindow = lw.win;
 
     loadingWindow.once('ready-to-show', async () => {
       logger.debug('Loading window loaded');
       if (loadingWindow && !loadingWindow.isDestroyed()) {
         loadingWindow.show();
         fadeInWindow(loadingWindow);
+        loadingWindowOpenedAt = Date.now();
 
         await setupIntitialState();
         await createMainWindow();
@@ -116,21 +156,68 @@ export default function createApp() {
     });
   };
 
+  const handleUriOpen = async (uri: string) => {
+    logger.info('Deep link uri', { uri });
+    try {
+      const newUrl = uri.startsWith('cypherock://')
+        ? uri
+        : `cypherock://${uri}`;
+      const url = new URL(newUrl);
+
+      // Handle wallet connect open
+      if (url.host === 'wc') {
+        const connectionString = url.searchParams.get('uri');
+
+        if (connectionString && mainWindow && !mainWindow.isDestroyed()) {
+          getSendWCConnectionString()(connectionString);
+        }
+        setWCUri(connectionString ?? undefined);
+      }
+    } catch (error) {
+      logger.error('Error in handling URL');
+      logger.error(error);
+    }
+  };
+
   app.whenReady().then(createLoadingWindow);
 
   app.on('window-all-closed', () => {
     mainWindow = null;
-    if (process.platform !== 'darwin') {
-      app.quit();
-    }
+    app.quit();
   });
 
-  app.on('second-instance', () => {
+  app.on('second-instance', (_event, argv, workingDirectory) => {
+    // Handle Deep-link for windows
+    logger.info('Second instance opened', {
+      commandLine: argv,
+      workingDirectory,
+    });
+
+    if (
+      argv.length > 1 &&
+      (process.platform === 'win32' || process.platform === 'linux')
+    ) {
+      try {
+        handleUriOpen(argv[argv.length - 1].split('cypherock://')[1]);
+      } catch {
+        logger.error(`Direct link to file - FAILED: ${argv}`);
+      }
+    }
+
     if (mainWindow) {
-      // Focus on the main window if the user tried to open another
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }
+  });
+
+  app.on('open-url', (event, url) => {
+    // Handle deeplink for macos
+    logger.info('Deeplink received');
+    logger.info({ event, url });
+    event.preventDefault();
+    mainWindow?.show();
+
+    handleUriOpen(url);
   });
 
   app.on('activate', () => {

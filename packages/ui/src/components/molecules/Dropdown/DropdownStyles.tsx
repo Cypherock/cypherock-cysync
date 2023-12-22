@@ -7,7 +7,7 @@ export const List = styled.ul<{ disabled?: boolean }>`
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  max-height: 300px;
+  max-height: 255px;
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 4px 4px 32px 4px
@@ -70,7 +70,6 @@ export const DropdownContainer = styled.div<{
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
-  border: ${({ disabled }) => (disabled ? 'none' : 'default')};
 `;
 
 export const IconContainer = styled.div`

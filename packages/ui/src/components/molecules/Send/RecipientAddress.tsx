@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { PasteIcon } from '../../..';
 import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
@@ -14,6 +15,7 @@ interface RecipientAddressProps {
   isThrobberActive?: boolean;
   index?: number;
   isButtonDisabled?: boolean;
+  isDisabled?: boolean;
 }
 
 interface CustomInputSendProps {
@@ -78,9 +80,13 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   index = 0,
   onChange,
   isThrobberActive,
+  isDisabled,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
-  const postfixIcon = isThrobberActive ? throbber : undefined;
+  const handleCopyFromClipboard = async () => {
+    const clipboardText = (await navigator.clipboard.readText()).trim();
+    onChange(clipboardText);
+  };
 
   return (
     <RecipientAddressContainer>
@@ -103,7 +109,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           </MiniButton>
         )}
       </Flex>
-      <CustomInputSend error={error}>
+      <CustomInputSend error={error} style={{ paddingRight: 0 }}>
         <Input
           type="text"
           name="address"
@@ -111,9 +117,13 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           value={value}
           onChange={onChange}
           $textColor="white"
+          disabled={isDisabled}
           $noBorder
+          postfixIcon={isThrobberActive ? throbber : <PasteIcon />}
+          onPostfixIconClick={
+            isThrobberActive ? undefined : handleCopyFromClipboard
+          }
         />
-        {postfixIcon}
       </CustomInputSend>
       {error && (
         <Typography
@@ -137,4 +147,5 @@ RecipientAddress.defaultProps = {
   isThrobberActive: false,
   index: 0,
   isButtonDisabled: false,
+  isDisabled: false,
 };

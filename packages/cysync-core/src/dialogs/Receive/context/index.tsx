@@ -19,7 +19,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { deviceLock, useDevice } from '~/context';
-import { useAccountDropdown } from '~/hooks';
+import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
@@ -74,10 +74,14 @@ export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
 
 export interface ReceiveDialogContextProviderProps {
   children: ReactNode;
+  walletId?: string;
+  accountId?: string;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
+  walletId: defaultWalletId,
+  accountId: defaultAccountId,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -89,11 +93,19 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     setSelectedWallet,
     handleWalletChange,
     walletDropdownList,
+  } = useWalletDropdown({
+    walletId: defaultWalletId,
+  });
+  const {
     selectedAccount,
     setSelectedAccount,
     handleAccountChange,
     accountDropdownList,
-  } = useAccountDropdown({ includeSubAccounts: true });
+  } = useAccountDropdown({
+    selectedWallet,
+    defaultAccountId,
+    includeSubAccounts: true,
+  });
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
@@ -314,3 +326,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 export function useReceiveDialog(): ReceiveDialogContextInterface {
   return useContext(ReceiveDialogContext);
 }
+
+ReceiveDialogProvider.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

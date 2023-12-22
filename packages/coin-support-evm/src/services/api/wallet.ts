@@ -1,6 +1,6 @@
 import { getAsset } from '@cypherock/coin-support-utils';
 import { evmCoinList, IEvmErc20Token } from '@cypherock/coins';
-import axios from 'axios';
+import { makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
 
@@ -8,7 +8,7 @@ const baseURL = `${config.API_CYPHEROCK}/eth/wallet`;
 
 export const getBalance = async (address: string, assetId: string) => {
   const url = `${baseURL}/balance`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     address,
     network: evmCoinList[assetId].network,
     responseType: 'v2',
@@ -30,7 +30,7 @@ export const getContractBalance = async (
   const url = `${baseURL}/balance`;
   const asset = getAsset(parentAssetId, assetId) as IEvmErc20Token;
 
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     contractAddress: asset.address,
     address,
     network: evmCoinList[parentAssetId].network,
@@ -47,7 +47,7 @@ export const getContractBalance = async (
 
 export const getTransactionCount = async (address: string, assetId: string) => {
   const url = `${baseURL}/txn-count`;
-  const response = await axios.post(url, {
+  const response = await makePostRequest(url, {
     address,
     network: evmCoinList[assetId].network,
     responseType: 'v2',

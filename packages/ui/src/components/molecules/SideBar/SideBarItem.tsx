@@ -86,7 +86,11 @@ export const SideBarItem: FC<SideBarItemProps> = ({
   };
 
   return (
-    <Flex direction="column" width="full">
+    <Flex
+      direction="column"
+      width="full"
+      $cursor={state === SideBarState.disabled ? 'not-allowed' : undefined}
+    >
       <Flex gap={int(theme.spacing.two.spacing)} width="full">
         {child && (
           <svg
@@ -111,7 +115,6 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               ? () => setIsCollapsed(!isCollapsed)
               : onClick
           }
-          title={text}
           align="center"
           $overflowX="hidden"
           width="full"
@@ -138,6 +141,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               $fontWeight="medium"
               $whiteSpace="nowrap"
               $textOverflow="ellipsis"
+              title={text}
             >
               {text}
             </Typography>

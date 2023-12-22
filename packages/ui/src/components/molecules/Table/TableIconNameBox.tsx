@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { TableMutedTextBox } from './TableMutedTextBox';
 
-import { Container, Tag, Typography } from '../../atoms';
+import { Container, Flex, Tag, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 
 interface IconNameBoxProps extends UtilsProps {
@@ -41,7 +41,9 @@ export const TableIconNameBox: FC<IconNameBoxProps> = props => {
 
   return (
     <IconNameBoxStyle {...props}>
-      {icon}
+      <Flex width="24px" shrink={0} grow={0} p={0}>
+        {icon}
+      </Flex>
       <Container
         direction="column"
         gap={0}
@@ -92,7 +94,11 @@ export const TableIconNameBox: FC<IconNameBoxProps> = props => {
             {tag && <Tag>{tag}</Tag>}
           </Container>
         )}
-        {tag && !mutedSubtitle && <Tag>{tag}</Tag>}
+        {tag && !mutedSubtitle && (
+          <div>
+            <Tag>{tag}</Tag>
+          </div>
+        )}
       </Container>
     </IconNameBoxStyle>
   );

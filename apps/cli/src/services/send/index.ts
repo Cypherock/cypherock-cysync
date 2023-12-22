@@ -6,6 +6,7 @@ import {
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import {
   convertToUnit,
   getZeroUnit,
@@ -97,7 +98,7 @@ const getTxnInputs = async (params: {
     transaction.userInputs.outputs.push({ address, amount });
   }
 
-  if (coin.family === 'bitcoin') {
+  if (coin.family === coinFamiliesMap.bitcoin) {
     const txn = transaction as IPreparedBtcTransaction;
     const feeRate = await queryNumber(
       `Enter the fee rate for the transaction (Average: ${txn.staticData.averageFee})`,
@@ -165,7 +166,7 @@ const showTransactionSummary = async (params: {
     i += 1;
   }
 
-  if (coin.family === 'bitcoin') {
+  if (coin.family === coinFamiliesMap.bitcoin) {
     const txn = transaction as IPreparedBtcTransaction;
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
@@ -185,6 +186,17 @@ const showTransactionSummary = async (params: {
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
+  }
+
+  if (coin.family === coinFamiliesMap.solana) {
+    const txn = transaction as IPreparedSolanaTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.computedData.fees,
+      unitAbbr: account.unit,
+    });
+    console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.fees);
   }
 
   const { amount, unit } = getParsedAmount({

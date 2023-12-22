@@ -5,3 +5,7 @@ export * from './resourceLock';
 export * from './getEnv';
 export * from './bigNumber';
 export * from './comparator';
+export * from './isSubset';
+export * from './promiseQueue';
+export * from './waiting';
+export * from './http';

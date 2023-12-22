@@ -112,7 +112,7 @@ export function makeCreateAccountsObservable<
             continue;
           }
 
-          const { threshold } = derivationSchemeDetails;
+          const { threshold, newAccountLimit } = derivationSchemeDetails;
           const addresses = addressesPerScheme[schemeName];
 
           let zeroTxnAddressCount = 0;
@@ -141,7 +141,9 @@ export function makeCreateAccountsObservable<
               { ...params, existingAccounts },
             );
 
-            observer.next({ type: 'Account', account } as any);
+            if (newAccountLimit >= zeroTxnAddressCount) {
+              observer.next({ type: 'Account', account } as any);
+            }
 
             await sleep(params.waitInMSBetweenEachAccountAPI ?? 500);
 

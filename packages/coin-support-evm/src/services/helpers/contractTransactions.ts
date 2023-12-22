@@ -10,17 +10,19 @@ import {
   AccountTypeMap,
 } from '@cypherock/db-interfaces';
 
+import { formatAddress } from '../../operations';
 import { IEvmContractTransactionItem } from '../api';
 
 export const mapContractTransactionForDb = async (params: {
   db: IDatabase;
   account: IAccount;
   transaction: IEvmContractTransactionItem;
+  existingTransactions: ITransaction[];
 }): Promise<{
   transactions: ITransaction[];
   newAccounts: IAccount[];
 }> => {
-  const { account, transaction, db } = params;
+  const { account, transaction, db, existingTransactions } = params;
   const coin = coinList[account.assetId] as IEvmCoinInfo;
 
   const txns: ITransaction[] = [];
@@ -68,7 +70,7 @@ export const mapContractTransactionForDb = async (params: {
       parentAccountId: account.__id ?? '',
       walletId: account.walletId,
       assetId: tokenObj.id,
-      parentAssetId: account.assetId,
+      parentAssetId: account.parentAssetId,
       familyId: account.familyId,
       amount: selfTransfer ? '0' : amount,
       fees: fees.toString(),
@@ -82,14 +84,20 @@ export const mapContractTransactionForDb = async (params: {
       blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
       inputs: [
         {
-          address: fromAddr,
+          address: formatAddress({
+            address: fromAddr,
+            coinId: account.parentAssetId,
+          }),
           amount,
           isMine: myAddress === fromAddr,
         },
       ],
       outputs: [
         {
-          address: toAddr,
+          address: formatAddress({
+            address: toAddr,
+            coinId: account.parentAssetId,
+          }),
           amount,
           isMine: myAddress === toAddr,
         },
@@ -101,23 +109,35 @@ export const mapContractTransactionForDb = async (params: {
 
   // When a token is sent, the transaction fee is deducted from ETH
   if (myAddress === fromAddr) {
-    txns.push({
-      hash: transaction.hash,
-      accountId: account.__id ?? '',
-      walletId: account.walletId,
-      assetId: account.assetId,
-      parentAssetId: account.parentAssetId,
-      familyId: account.familyId,
-      amount: '0',
-      fees: fees.toString(),
-      confirmations: new BigNumber(transaction.confirmations).toNumber() || 0,
-      status: TransactionStatusMap.success,
-      type: TransactionTypeMap.hidden,
-      timestamp: new Date(parseInt(transaction.timeStamp, 10) * 1000).getTime(),
-      blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
-      inputs: [],
-      outputs: [],
-    });
+    const existingFeesTxn = existingTransactions.find(
+      e =>
+        e.hash === transaction.hash &&
+        [TransactionTypeMap.send, TransactionTypeMap.hidden].includes(e.type) &&
+        e.assetId === account.assetId &&
+        e.parentAssetId === account.parentAssetId,
+    );
+
+    if (!existingFeesTxn) {
+      txns.push({
+        hash: transaction.hash,
+        accountId: account.__id ?? '',
+        walletId: account.walletId,
+        assetId: account.assetId,
+        parentAssetId: account.parentAssetId,
+        familyId: account.familyId,
+        amount: '0',
+        fees: fees.toString(),
+        confirmations: new BigNumber(transaction.confirmations).toNumber() || 0,
+        status: TransactionStatusMap.success,
+        type: TransactionTypeMap.hidden,
+        timestamp: new Date(
+          parseInt(transaction.timeStamp, 10) * 1000,
+        ).getTime(),
+        blockHeight: new BigNumber(transaction.blockNumber).toNumber(),
+        inputs: [],
+        outputs: [],
+      });
+    }
   }
 
   return { transactions: txns, newAccounts };
@@ -127,8 +147,9 @@ export const mapContractTransactionsForDb = async (params: {
   db: IDatabase;
   account: IAccount;
   transactions: IEvmContractTransactionItem[];
+  existingTransactions: ITransaction[];
 }): Promise<{ transactions: ITransaction[]; newAccounts: IAccount[] }> => {
-  const { account, transactions, db } = params;
+  const { account, transactions, db, existingTransactions } = params;
 
   const txns: ITransaction[] = [];
   const newAccountsList: IAccount[] = [];
@@ -138,6 +159,7 @@ export const mapContractTransactionsForDb = async (params: {
       account,
       transaction: txn,
       db,
+      existingTransactions,
     });
     txns.push(...result.transactions);
     newAccountsList.push(...result.newAccounts);

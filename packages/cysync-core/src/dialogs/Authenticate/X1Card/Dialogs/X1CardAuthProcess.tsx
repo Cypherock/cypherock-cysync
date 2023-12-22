@@ -3,7 +3,6 @@ import {
   ArrowRightIcon,
   Check,
   CloseButton,
-  DeviceScreenTapCard,
   DialogBox,
   DialogBoxBody,
   Divider,
@@ -15,11 +14,13 @@ import {
   ScrollableContainer,
   Throbber,
   Typography,
+  Video,
+  tapAnyCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
 import { AuthCardStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { ErrorHandlerDialog } from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
@@ -30,7 +31,7 @@ const rightArrowIcon = <ArrowRightIcon />;
 const checkIcon = <Check width={15} height={12} />;
 const throbber = <Throbber size={15} strokeWidth={2} />;
 
-export const X1CardAuthProcess: React.FC = () => {
+const X1CardAuthProcess: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { onClose, onNext } = useAuthenticateX1CardDialog();
   const { dialogs } = lang.strings;
@@ -99,7 +100,13 @@ export const X1CardAuthProcess: React.FC = () => {
       error={task.error}
       showCloseButton
     >
-      <DialogBox width={500} align="stretch" gap={0} $maxHeight="90vh">
+      <DialogBox
+        width={500}
+        align="stretch"
+        gap={0}
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
         <Flex direction="row" justify="flex-end" py={2} px={3}>
           <CloseButton onClick={onClose} />
         </Flex>
@@ -114,7 +121,13 @@ export const X1CardAuthProcess: React.FC = () => {
               direction="column"
               align="center"
             >
-              <DeviceScreenTapCard width={264} />
+              <Video
+                src={tapAnyCardDeviceAnimation2DVideo}
+                autoPlay
+                loop
+                $width="full"
+                $aspectRatio="16/9"
+              />
               <Flex direction="column" gap={4} align="center">
                 <Typography color="white" $fontSize={20} $textAlign="center">
                   <LangDisplay text={title} />
@@ -157,5 +170,14 @@ export const X1CardAuthProcess: React.FC = () => {
         </ScrollableContainer>
       </DialogBox>
     </ErrorHandlerDialog>
+  );
+};
+
+export const X1CardAuthProcessWithDevice: React.FC = () => {
+  const { onClose } = useAuthenticateX1CardDialog();
+  return (
+    <WithConnectedDevice onClose={onClose}>
+      <X1CardAuthProcess />
+    </WithConnectedDevice>
   );
 };

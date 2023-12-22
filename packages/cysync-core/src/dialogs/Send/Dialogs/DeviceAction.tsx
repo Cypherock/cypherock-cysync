@@ -1,5 +1,7 @@
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { coinList } from '@cypherock/coins';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { EvmIdMap, IEvmCoinInfo, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -12,12 +14,11 @@ import {
   LeanBoxProps,
   ArrowRightIcon,
   Check,
-  verifyAmountIcon,
+  VerifyAmountDeviceGraphics,
   MessageBox,
-  Image,
-  questionMarkGoldIcon,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
+import React, { useEffect, useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -31,8 +32,22 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const { onNext, deviceEvents, selectedWallet, selectedAccount, startFlow } =
-    useSendDialog();
+  const {
+    onNext,
+    deviceEvents,
+    selectedWallet,
+    selectedAccount,
+    startFlow,
+    transaction,
+  } = useSendDialog();
+
+  const assetName = useMemo(() => {
+    if (!selectedAccount) return '';
+    let asset = coinList[selectedAccount.parentAssetId];
+    if (selectedAccount.type === AccountTypeMap.subAccount)
+      asset = (asset as IEvmCoinInfo).tokens[selectedAccount.assetId];
+    return asset.name;
+  }, [selectedAccount]);
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
@@ -64,7 +79,7 @@ export const DeviceAction: React.FC = () => {
           SignTransactionDeviceEvent.INIT,
           SignTransactionDeviceEvent.CONFIRMED,
         ),
-        altText: coinList[selectedAccount?.assetId ?? ''].name,
+        altText: assetName,
         image: (
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         ),
@@ -122,10 +137,50 @@ export const DeviceAction: React.FC = () => {
   }, [deviceEvents]);
 
   const displayText = lang.strings.send.x1Vault;
+
+  const getL1Fee = () => {
+    const account = selectedAccount;
+    if (!account || !transaction) return `0`;
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount: _amount, unit } = getParsedAmount({
+      coinId: account.parentAssetId,
+      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+      amount: txn.computedData.l1Fee,
+    });
+    return `${_amount} ${unit.abbr}`;
+  };
+  const getMessageBoxes = () => {
+    const messages: { text: string; variables?: any }[] = [];
+    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+      messages.push({
+        text: lang.strings.send.x1Vault.token.info,
+        variables: {
+          tokenName: assetName,
+          parentCoinName: coinList[selectedAccount.parentAssetId].name,
+          parentCoinUnit: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+        },
+      });
+    }
+
+    if (selectedAccount?.parentAssetId === EvmIdMap.optimism) {
+      messages.push({
+        text: lang.strings.send.optimism.deviceAction,
+        variables: { fee: getL1Fee() },
+      });
+    }
+    return messages.map(message => (
+      <MessageBox
+        key={message.text}
+        type="info"
+        text={`${message.text} `}
+        variables={message.variables}
+      />
+    ));
+  };
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={verifyAmountIcon} alt="Verify Amount" />
+        <VerifyAmountDeviceGraphics />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={displayText.title} />
@@ -145,15 +200,7 @@ export const DeviceAction: React.FC = () => {
           ))}
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
-          {selectedAccount?.parentAssetId ? (
-            <MessageBox
-              type="info"
-              text="dummy"
-              rightImage={
-                <Image src={questionMarkGoldIcon} alt="question mark icon" />
-              }
-            />
-          ) : undefined}
+          {getMessageBoxes()}
           <MessageBox type="warning" text={displayText.messageBox.warning} />
         </Container>
       </DialogBoxBody>

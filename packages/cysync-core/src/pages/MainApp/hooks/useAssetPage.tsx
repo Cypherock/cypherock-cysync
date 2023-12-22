@@ -1,11 +1,14 @@
 import { getAsset } from '@cypherock/coin-support-utils';
-import { BreadcrumbDropdownItem } from '@cypherock/cysync-ui';
-import lodash from 'lodash';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
-import { useGraph, useNavigateTo, useQuery } from '~/hooks';
+import {
+  CoinAllocationRow,
+  useAssetDropdown,
+  useNavigateTo,
+  useQuery,
+  useWalletDropdown,
+} from '~/hooks';
 
 export const useAssetPage = () => {
   const query = useQuery();
@@ -28,56 +31,24 @@ export const useAssetPage = () => {
     }
   }, [query]);
 
-  const graphData = useGraph({ parentAssetId, assetId });
+  const { handleWalletChange, selectedWallet, walletDropdownList } =
+    useWalletDropdown({ withSelectAll: true });
+  const assetDropdown = useAssetDropdown();
 
-  const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
-    () =>
-      lodash
-        .uniqWith(
-          graphData.accounts.map(account => ({
-            assetId: account.assetId,
-            parentAssetId: account.parentAssetId,
-          })),
-          (a, b) =>
-            a.assetId === b.assetId && a.parentAssetId === b.parentAssetId,
-        )
-        .map(a => ({
-          id: `${a.parentAssetId}/${a.assetId}`,
-          text: getAsset(a.parentAssetId, a.assetId).name,
-          icon: (
-            <CoinIcon
-              size="16px"
-              withParentIconAtBottom
-              subIconSize="10px"
-              parentAssetId={a.parentAssetId}
-              assetId={a.assetId}
-            />
-          ),
-          checkType: 'radio',
-        })),
-    [graphData.accounts],
-  );
-
-  const onAssetChange = (id: string) => {
-    const [_parentAssetId, _assetId] = id.split('/');
-
+  const onAccountClick = (row: CoinAllocationRow) => {
     navigateTo(
-      `${routes.asset.path}?parentAssetId=${_parentAssetId}&assetId=${_assetId}`,
+      `${routes.account.path}?accountId=${row.accountId}&fromParentAssetId=${parentAssetId}&fromAssetId=${assetId}`,
     );
   };
 
-  const onAssetClick = (_parentAssetId: string, _assetId: string) => {
-    // TODO: handle navitation to coin page
-    console.log({ _parentAssetId, _assetId });
-  };
-
   return {
-    ...graphData,
+    ...assetDropdown,
+    handleWalletChange,
+    selectedWallet,
+    walletDropdownList,
     selectedAsset,
-    onAssetClick,
+    onAccountClick,
     parentAssetId,
     assetId,
-    assetDropdownList,
-    onAssetChange,
   };
 };

@@ -3,6 +3,7 @@ import {
   getDefaultUnit,
   getAsset,
   formatDisplayAmount,
+  formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
@@ -47,6 +48,7 @@ export interface CoinAllocationRow {
   assetIcon: ReactNode;
   assetAbbr: string;
   assetName: string;
+  accountId?: string;
   accountName?: string;
   accountTag?: string;
   walletName?: string;
@@ -56,6 +58,7 @@ export interface CoinAllocationRow {
   value: number;
   displayPrice: string;
   displayBalance: string;
+  balanceTooltip?: string;
   displayValue: string;
   allocation: number;
 }
@@ -91,6 +94,8 @@ export interface UseAssetAllocationProps {
   assetId?: string;
   parentAssetId?: string;
   accountId?: string;
+  withParentIconAtBottom?: boolean;
+  withSubIconAtBottom?: boolean;
 }
 
 export const useAssetAllocations = ({
@@ -98,6 +103,8 @@ export const useAssetAllocations = ({
   assetId,
   parentAssetId,
   accountId,
+  withParentIconAtBottom,
+  withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
   const {
     lang,
@@ -171,6 +178,7 @@ export const useAssetAllocations = ({
               );
             }
 
+            accountProperties.accountId = account?.__id;
             accountProperties.accountName = account?.name;
             accountProperties.accountTag = lodash.upperCase(
               account?.derivationScheme ?? '',
@@ -179,6 +187,13 @@ export const useAssetAllocations = ({
             const wallet = data.wallets.find(w => w.__id === account?.walletId);
             accountProperties.walletName = wallet?.name;
           }
+          const formattedAmount = formatDisplayAmount(amount);
+          const displayBalance = `${
+            data.isDiscreetMode ? '****' : formattedAmount.fixed
+          } ${unit.abbr}`;
+          const balanceTooltip = data.isDiscreetMode
+            ? undefined
+            : `${formattedAmount.complete} ${unit.abbr}`;
 
           return {
             id: `${r.parentAssetId}/${r.assetId}/${
@@ -195,24 +210,22 @@ export const useAssetAllocations = ({
                 parentAssetId={r.parentAssetId}
                 assetId={r.assetId}
                 size="24px"
-                withParentIconAtBottom
+                subIconSize="12px"
+                subContainerSize="16px"
+                withParentIconAtBottom={withParentIconAtBottom}
+                withSubIconAtBottom={withSubIconAtBottom}
               />
             ),
-            balance: new BigNumber(r.balance).toNumber(),
+            balance: new BigNumber(amount).toNumber(),
             price: new BigNumber(r.price).toNumber(),
             value: new BigNumber(r.value).toNumber(),
-            displayBalance: `${
-              data.isDiscreetMode ? '****' : formatDisplayAmount(amount)
-            } ${unit.abbr}`,
+            displayBalance,
+            balanceTooltip,
             displayPrice: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.price, 2, true)
+              data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
             }`,
             displayValue: `$${
-              data.isDiscreetMode
-                ? '****'
-                : formatDisplayAmount(r.value, 2, true)
+              data.isDiscreetMode ? '****' : formatDisplayPrice(r.value)
             }`,
             ...accountProperties,
           };
@@ -225,24 +238,22 @@ export const useAssetAllocations = ({
   };
 
   const debounceGenerateCoinAllocations = useCallback(
-    lodash.throttle(generateCoinAllocations, 1000, { leading: true }),
+    lodash.throttle(generateCoinAllocations, 4000, { leading: true }),
+    [],
+  );
+
+  const debounceGenerateCoinAllocationsOnUserAction = useCallback(
+    lodash.throttle(generateCoinAllocations, 500, { leading: true }),
     [],
   );
 
   useEffect(() => {
     debounceGenerateCoinAllocations();
-  }, [
-    allTransactions,
-    priceInfos,
-    isDiscreetMode,
-    wallets,
-    accounts,
-    lang,
-    walletId,
-    assetId,
-    parentAssetId,
-    accountId,
-  ]);
+  }, [allTransactions, accounts, priceInfos, wallets]);
+
+  useEffect(() => {
+    debounceGenerateCoinAllocationsOnUserAction();
+  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
 

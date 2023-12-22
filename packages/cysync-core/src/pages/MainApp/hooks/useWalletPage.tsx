@@ -3,6 +3,8 @@ import {
   convertToUnit,
   getZeroUnit,
   getDefaultUnit,
+  formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
@@ -36,7 +38,7 @@ import {
   selectDiscreetMode,
 } from '~/store';
 
-interface AccountTokenType {
+export interface AccountTokenType {
   id: string;
   leftImage: React.ReactNode;
   arrow?: React.ReactNode;
@@ -44,10 +46,11 @@ interface AccountTokenType {
   amount: number;
   value: number;
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
 }
 
-interface AccountRowData {
+export interface AccountRowData {
   id: string;
   arrow?: React.ReactNode;
   leftImage: React.ReactNode;
@@ -59,6 +62,7 @@ interface AccountRowData {
   value: number;
   tokens?: AccountTokenType[];
   displayAmount: string;
+  amountTooltip?: string;
   displayValue: string;
   account: IAccount;
 }
@@ -140,12 +144,21 @@ const mapTokenAccounts = (
       assetId: a.assetId,
       toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
     });
-    value = new BigNumber(balanceInDefaultUnit.amount)
-      .multipliedBy(coinPrice.latestPrice)
-      .toFixed(2)
-      .toString();
-    displayValue = `$${value}`;
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
+        coinPrice.latestPrice,
+      ),
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
   }
+  const formattedAmount = formatDisplayAmount(amount, 24);
+  const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
+    unit.abbr
+  }`;
+  const amountTooltip = isDiscreetMode
+    ? undefined
+    : `${formattedAmount.complete} ${unit.abbr}`;
 
   return {
     id: a.__id ?? '',
@@ -157,7 +170,8 @@ const mapTokenAccounts = (
       />
     ),
     text: a.name,
-    displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+    displayAmount,
+    amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
     amount: parseFloat(amount),
     value: parseFloat(value),
@@ -205,8 +219,6 @@ export const useWalletPage = () => {
 
   const ITEMS_PER_PAGE = 10;
 
-  const [itemsToShow, setItemsToShow] = useState(ITEMS_PER_PAGE);
-  const [showMoreClicked, setShowMoreClicked] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [displayedData, setDisplayedData] = useState<AccountRowData[]>([]);
   const [accountList, setAccountList] = useState<AccountRowData[]>([]);
@@ -276,11 +288,13 @@ export const useWalletPage = () => {
           assetId: a.assetId,
           toUnitAbbr: getDefaultUnit(a.parentAssetId, a.assetId).abbr,
         });
-        value = new BigNumber(balanceInDefaultUnit.amount)
-          .multipliedBy(coinPrice.latestPrice)
-          .toFixed(2)
-          .toString();
-        displayValue = `$${value}`;
+        const formattedValue = formatDisplayPrice(
+          new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
+            coinPrice.latestPrice,
+          ),
+        );
+        value = formattedValue;
+        displayValue = `$${formattedValue}`;
       }
 
       const tokenAccounts = allAccounts
@@ -292,6 +306,13 @@ export const useWalletPage = () => {
       if (tokenAccounts.length > 0) {
         tokenAccounts[0].arrow = <ArrowRightBottom />;
       }
+      const formattedAmount = formatDisplayAmount(amount, 24);
+      const displayAmount = `${
+        isDiscreetMode ? '****' : formattedAmount.fixed
+      } ${unit.abbr}`;
+      const amountTooltip = isDiscreetMode
+        ? undefined
+        : `${formattedAmount.complete} ${unit.abbr}`;
 
       return {
         id: a.__id ?? '',
@@ -303,7 +324,8 @@ export const useWalletPage = () => {
           accountSyncIconMap[
             accountSyncMap[a.__id ?? '']?.syncState ?? 'synced'
           ] ?? checkComponent,
-        displayAmount: `${isDiscreetMode ? '****' : amount} ${unit.abbr}`,
+        displayAmount,
+        amountTooltip,
         displayValue: isDiscreetMode ? '$****' : displayValue,
         amount: parseFloat(amount),
         value: parseFloat(value),
@@ -332,11 +354,6 @@ export const useWalletPage = () => {
     navigateTo(`${routes.wallet.path}?id=${walletId}`);
   };
 
-  const slicedData = useMemo(
-    () => displayedData.slice(0, itemsToShow),
-    [displayedData, itemsToShow],
-  );
-
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog({ walletId: selectedWallet?.__id ?? '' }));
   };
@@ -354,17 +371,10 @@ export const useWalletPage = () => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleAccountTableRow = async (row: AccountRowData) => {
-    // TODO: navigate to account page
-  };
-
-  const handleShowMore = () => {
-    if (showMoreClicked) {
-      setItemsToShow(ITEMS_PER_PAGE);
-    } else {
-      setItemsToShow(itemsToShow + ITEMS_PER_PAGE);
-    }
-    setShowMoreClicked(!showMoreClicked);
+  const handleAccountTableRow = async (accountId: string) => {
+    navigateTo(
+      `${routes.account.path}?accountId=${accountId}&fromWalletId=${selectedWallet?.__id}`,
+    );
   };
 
   return {
@@ -372,15 +382,12 @@ export const useWalletPage = () => {
     lang,
     searchTerm,
     setSearchTerm,
-    slicedData,
+    displayedData,
     isAscending,
     onSort,
     handleAccountTableRow,
-    handleShowMore,
-    displayedData,
     ITEMS_PER_PAGE,
     sortedBy,
-    showMoreClicked,
     handleAddAccountClick,
     handleStatusClick,
     selectedWallet,

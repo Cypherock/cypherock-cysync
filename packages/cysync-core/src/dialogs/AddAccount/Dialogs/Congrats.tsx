@@ -1,7 +1,7 @@
 import { ConfettiBlast, SuccessDialog } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
@@ -9,7 +9,12 @@ export const AddAccountCongrats: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.addAccount.congrats;
   const button = lang.strings.buttons;
-  const { onRetry, onClose } = useAddAccountDialog();
+  const { goTo, onClose, setSelectedCoin } = useAddAccountDialog();
+
+  const handleAddMoreAccount = () => {
+    setSelectedCoin(undefined);
+    goTo(0, 0);
+  };
 
   return (
     <>
@@ -20,7 +25,7 @@ export const AddAccountCongrats: React.FC = () => {
         buttonText={button.done}
         secondaryButtonText={strings.buttonAddMore}
         handleClick={onClose}
-        handleSecButtonClick={onRetry}
+        handleSecButtonClick={handleAddMoreAccount}
       />
     </>
   );

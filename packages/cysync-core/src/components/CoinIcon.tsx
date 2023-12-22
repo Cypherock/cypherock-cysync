@@ -27,12 +27,14 @@ export interface CoinIconProps {
   assetId?: string;
   parentAssetId: string;
   containerSize?: MediaQuery<string | number>;
+  subContainerSize?: MediaQuery<string | number>;
   subIconSize?: MediaQuery<string | number>;
   size?: MediaQuery<string | number>;
   width?: MediaQuery<string | number>;
   height?: MediaQuery<string | number>;
   withSubIconAtBottom?: boolean;
   withParentIconAtBottom?: boolean;
+  containerProps?: UtilsProps;
 }
 
 type IconProps = UtilsProps;
@@ -77,6 +79,8 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   withSubIconAtBottom,
   withParentIconAtBottom,
   subIconSize,
+  subContainerSize,
+  containerProps: containerUtilsProps,
 }) => {
   const Icon = getCoinIcon(parentAssetId);
 
@@ -90,6 +94,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     $borderWidth: 0,
     width: containerSize ?? parsedWidth,
     height: containerSize ?? parsedHeight,
+    ...containerUtilsProps,
   };
 
   const iconProps: UtilsProps = {
@@ -105,13 +110,20 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   };
 
   const defaultSubIconSize = '20px';
+  const defaultSubContainerSize = '21px';
+
+  const subContainerProps: ContainerProps = {
+    $bgColor: 'calendar',
+    position: 'absolute',
+    bottom: withBackground ? 0.05 : -0.1,
+    right: withBackground ? 0.05 : 0,
+    $borderRadius: '50%',
+    $borderWidth: 0,
+    width: subContainerSize ?? defaultSubContainerSize,
+    height: subContainerSize ?? defaultSubContainerSize,
+  };
 
   const subIconProps: UtilsProps = {
-    position: 'absolute',
-    bottom: 0.18,
-    right: 0.25,
-    $translateX: 0.5,
-    $translateY: 0.5,
     $width: subIconSize ?? defaultSubIconSize,
     $height: subIconSize ?? defaultSubIconSize,
     $minWidth: subIconSize ?? defaultSubIconSize,
@@ -142,13 +154,15 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     return (
       <Container {...containerProps}>
         <Icon {...iconProps} />
-        <Image
-          src={requestErc20ImageFile(
-            getAsset(parentAssetId, assetId).coinGeckoId,
-          )}
-          alt={getAsset(parentAssetId, assetId).name}
-          {...subIconProps}
-        />
+        <Container {...subContainerProps}>
+          <Image
+            src={requestErc20ImageFile(
+              getAsset(parentAssetId, assetId).coinGeckoId,
+            )}
+            alt={getAsset(parentAssetId, assetId).name}
+            {...subIconProps}
+          />
+        </Container>
       </Container>
     );
   }
@@ -163,7 +177,9 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
           alt={getAsset(parentAssetId, assetId).name}
           {...iconProps}
         />
-        <Icon {...subIconProps} />
+        <Container {...subContainerProps}>
+          <Icon {...subIconProps} />
+        </Container>
       </Container>
     );
   }
@@ -182,7 +198,9 @@ CoinIcon.defaultProps = {
   height: undefined,
   withBackground: undefined,
   containerSize: undefined,
+  subContainerSize: undefined,
   withSubIconAtBottom: undefined,
   withParentIconAtBottom: undefined,
   subIconSize: undefined,
+  containerProps: undefined,
 };

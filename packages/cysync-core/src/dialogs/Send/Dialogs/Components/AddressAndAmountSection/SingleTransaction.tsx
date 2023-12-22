@@ -1,6 +1,10 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -10,7 +14,12 @@ import { AmountInput } from './AmountInput';
 
 import { useSendDialog } from '../../../context';
 
-export const SingleTransaction: React.FC = () => {
+interface SingleTransactionProps {
+  disableInputs?: boolean;
+}
+export const SingleTransaction: React.FC<SingleTransactionProps> = ({
+  disableInputs,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const [amountOverride, setAmountOverride] = useState('');
@@ -34,19 +43,41 @@ export const SingleTransaction: React.FC = () => {
     prepare(txn);
   }, []);
 
+  const getBitcoinMaxSendAmount = (txn: IPreparedTransaction) => {
+    const { computedData } = txn as IPreparedBtcTransaction;
+    return computedData.outputs[0]?.value.toString() || '';
+  };
+
+  const getEvmMaxSendAmount = (txn: IPreparedTransaction) => {
+    const { computedData, userInputs } = txn as IPreparedEvmTransaction;
+    if (selectedAccount?.type === AccountTypeMap.subAccount)
+      return userInputs.outputs[0]?.amount;
+    return computedData.output.amount;
+  };
+
+  const computedAmountMap: Record<
+    CoinFamily,
+    (txn: IPreparedTransaction) => string
+  > = {
+    bitcoin: getBitcoinMaxSendAmount,
+    evm: getEvmMaxSendAmount,
+    near: () => '',
+    solana: () => '',
+  };
+
   useEffect(() => {
     if (transaction?.userInputs.isSendAll) {
-      const { computedData } = transaction as IPreparedBtcTransaction;
-      setAmountOverride(
-        getConvertedAmount(computedData.outputs[0]?.value.toString()) ?? '',
-      );
+      const value =
+        computedAmountMap[selectedAccount?.familyId as CoinFamily](transaction);
+      setAmountOverride(getConvertedAmount(value) ?? '');
     }
   }, [transaction]);
 
   const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
     return getParsedAmount({
-      coinId: selectedAccount.assetId,
+      coinId: selectedAccount.parentAssetId,
+      assetId: selectedAccount.assetId,
       amount: val,
       unitAbbr: selectedAccount.unit,
     }).amount;
@@ -65,15 +96,16 @@ export const SingleTransaction: React.FC = () => {
               : ''
           }
           onChange={prepareAddressChanged}
+          isDisabled={disableInputs}
         />
         <AmountInput
           label={displayText.amount.label}
           coinUnit={selectedAccount?.unit ?? ''}
-          toggleLabel={displayText.amount.toggle}
+          toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
           error={
-            transaction?.validation.hasEnoughBalance === false
+            transaction?.validation.hasEnoughBalance === false && !disableInputs
               ? displayText.amount.error
               : ''
           }
@@ -85,8 +117,13 @@ export const SingleTransaction: React.FC = () => {
           onChange={prepareAmountChanged}
           onToggle={prepareSendMax}
           converter={priceConverter}
+          isDisabled={disableInputs}
         />
       </Container>
     </Container>
   );
+};
+
+SingleTransaction.defaultProps = {
+  disableInputs: undefined,
 };

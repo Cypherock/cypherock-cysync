@@ -1,74 +1,107 @@
 import {
+  BlurOverlay,
   ConfirmationDialog,
-  DeviceUpdateIcon,
+  FirmwareDownloadGreenIcon,
   ProgressDialog,
-  SuccessDialog,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
-import { BlurOverlay } from '@cypherock/cysync-ui/src';
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { openDeviceAuthenticationDialog } from '~/actions';
 import { DeviceUpdateState, useDeviceUpdate } from '~/hooks';
 
 import {
+  DeviceConnectionStatus,
+  DeviceHandlingState,
   ErrorHandlerDialog,
+  LoaderDialog,
   closeDialog,
   selectLanguage,
   useAppSelector,
+  useDevice,
 } from '..';
 
 export const DeviceUpdateDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
+  const { deviceHandlingState, connection } = useDevice();
+  const { deviceUpdate } = lang.strings.onboarding;
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate();
 
-  const onClose = () => dispatch(closeDialog('deviceUpdateDialog'));
+  const onClose = () => {
+    if (
+      deviceHandlingState === DeviceHandlingState.BOOTLOADER &&
+      ![DeviceUpdateState.Successful, DeviceUpdateState.NotRequired].includes(
+        state,
+      )
+    ) {
+      // retry if closed from error; i.e., device is in bootloader & state is not Successful
+      onRetry();
+    } else {
+      // close if device not-in-bootloader or success
+      dispatch(closeDialog('deviceUpdateDialog'));
+    }
+  };
+
+  const startAuthentication = () => {
+    onClose();
+    dispatch(
+      openDeviceAuthenticationDialog({
+        successTitle: parseLangTemplate(
+          deviceUpdate.dialogs.updateSuccessful.headingWithVersion,
+          { version },
+        ),
+        successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
+      }),
+    );
+  };
 
   useEffect(() => {
+    if (state === DeviceUpdateState.Successful) {
+      timeoutRef.current = setTimeout(startAuthentication, 10000);
+    }
     if (state === DeviceUpdateState.NotRequired) onClose();
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
   }, [state]);
+
+  useEffect(() => {
+    if (
+      state === DeviceUpdateState.Successful &&
+      connection?.status === DeviceConnectionStatus.CONNECTED
+    ) {
+      clearTimeout(timeoutRef.current);
+      startAuthentication();
+    }
+  }, [state, connection?.status]);
 
   const DeviceUpdateDialogs: Partial<Record<DeviceUpdateState, ReactElement>> =
     {
       [DeviceUpdateState.Confirmation]: (
         <ConfirmationDialog
-          title={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.title
-          }
-          icon={<DeviceUpdateIcon />}
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
-          }
+          title={deviceUpdate.dialogs.confirmation.title}
+          icon={<FirmwareDownloadGreenIcon />}
+          subtext={deviceUpdate.dialogs.confirmation.subtext}
           textVariables={{ version }}
+          onClose={onClose}
         />
       ),
       [DeviceUpdateState.Updating]: (
         <ProgressDialog
-          title={lang.strings.onboarding.deviceUpdate.dialogs.updating.heading}
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.updating.subtext
-          }
-          icon={<DeviceUpdateIcon />}
+          title={deviceUpdate.dialogs.updating.heading}
+          subtext={deviceUpdate.dialogs.updating.subtext}
+          icon={<FirmwareDownloadGreenIcon />}
           progress={Number(downloadProgress.toFixed(0))}
+          versionText={deviceUpdate.version}
           versionTextVariables={{ version }}
         />
       ),
-      [DeviceUpdateState.Successful]: (
-        <SuccessDialog
-          title={
-            lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful
-              .heading
-          }
-          subtext={
-            lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful
-              .subtext
-          }
-          buttonText={lang.strings.buttons.continue}
-          handleClick={onClose}
-        />
-      ),
+      [DeviceUpdateState.Successful]: <LoaderDialog />,
     };
 
   if (state === DeviceUpdateState.Checking) return null;
@@ -77,9 +110,8 @@ export const DeviceUpdateDialog: FC = () => {
     <BlurOverlay>
       <ErrorHandlerDialog
         error={errorToShow}
-        defaultMsg={
-          lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
-        }
+        noDelay
+        defaultMsg={deviceUpdate.dialogs.updateFailed.subtext}
         onRetry={onRetry}
         textVariables={{ version }}
         onClose={onClose}

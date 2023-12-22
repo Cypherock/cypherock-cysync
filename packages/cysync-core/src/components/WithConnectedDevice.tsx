@@ -1,17 +1,21 @@
 import {
+  Button,
+  CloseButton,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  LangDisplay,
-  Image,
-  disconnectedIcon,
-  Flex,
   DialogBoxFooter,
-  Button,
+  Divider,
+  Flex,
+  Image,
+  LangDisplay,
+  Typography,
+  Video,
+  deviceConnectionAnimation2DVideo,
+  disconnectedIcon,
 } from '@cypherock/cysync-ui';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
-import { useLocation, Location } from 'react-router-dom';
+import { Location, useLocation } from 'react-router-dom';
 
 import {
   DeviceConnectionStatus,
@@ -20,7 +24,7 @@ import {
   useDevice,
 } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { routes } from '../constants';
 
@@ -31,7 +35,9 @@ export interface WithConnectedDeviceProps {
   allowBootloader?: boolean;
   disableNavigation?: boolean;
   buttonLabel?: string;
+  showAnimation?: boolean;
   buttonOnClick?: () => void;
+  onClose?: () => void;
 }
 
 const OnboardingMap: Record<OnboardingStep, string> = {
@@ -112,7 +118,11 @@ const getRedirectionPath = (
     query.get('disableNavigation') !== 'true'
   ) {
     const step = connection.onboardingStep;
-    result.path = `${OnboardingMap[step]}?disableNavigation=true`;
+    const route = OnboardingMap[step];
+    result.path = `${route}?disableNavigation=true`;
+    if (route === routes.onboarding.congratulations.path) {
+      result.path += '&noUI=true';
+    }
     result.doRender = false;
   }
 
@@ -121,6 +131,8 @@ const getRedirectionPath = (
 
 export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   children,
+  showAnimation = true,
+  onClose,
   ...props
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -169,9 +181,27 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   const showFooter =
     !deviceUnavailable && props.buttonLabel && props.buttonOnClick;
   return (
-    <DialogBox width={500}>
+    <DialogBox width={500} align="stretch" onClose={onClose}>
+      {onClose && (
+        <>
+          <Flex direction="row" justify="flex-end" py={2} px={3}>
+            <CloseButton onClick={onClose} />
+          </Flex>
+          <Divider variant="horizontal" />
+        </>
+      )}
       <DialogBoxBody pb={showFooter ? 4 : 8}>
-        <Image src={disconnectedIcon} alt="Device not connected" />
+        {showAnimation ? (
+          <Video
+            src={deviceConnectionAnimation2DVideo}
+            autoPlay
+            loop
+            $width="full"
+            $aspectRatio="16/9"
+          />
+        ) : (
+          <Image src={disconnectedIcon} alt="Device not connected" />
+        )}
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
             <LangDisplay
@@ -212,4 +242,6 @@ WithConnectedDevice.defaultProps = {
   disableNavigation: false,
   buttonLabel: undefined,
   buttonOnClick: undefined,
+  showAnimation: true,
+  onClose: undefined,
 };

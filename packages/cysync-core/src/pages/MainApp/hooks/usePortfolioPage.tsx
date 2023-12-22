@@ -1,18 +1,24 @@
 import { routes } from '~/constants';
-import { useGraph, useNavigateTo } from '~/hooks';
+import { CoinAllocationRow, useNavigateTo, useWalletDropdown } from '~/hooks';
 
 export const usePortfolioPage = () => {
-  const graphData = useGraph();
   const navigateTo = useNavigateTo();
 
-  const onAssetClick = (parentAssetId: string, assetId: string) => {
+  const { handleWalletChange, selectedWallet, walletDropdownList } =
+    useWalletDropdown({ withSelectAll: true, dropdownWidth: 220 });
+
+  const onAssetClick = (row: CoinAllocationRow) => {
+    const { parentAssetId, assetId } = row;
+
     navigateTo(
       `${routes.asset.path}?parentAssetId=${parentAssetId}&assetId=${assetId}`,
     );
   };
 
   return {
-    ...graphData,
+    handleWalletChange,
+    selectedWallet,
+    walletDropdownList,
     onAssetClick,
   };
 };

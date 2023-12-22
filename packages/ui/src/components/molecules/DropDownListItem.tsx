@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
+  Flex,
   LangDisplay,
   RadioButton,
   Tag,
@@ -19,6 +20,8 @@ export interface DropDownListItemProps extends BorderProps {
   $hasRightText?: boolean;
   tag?: string;
   text: string;
+  $textMaxWidth?: string;
+  $textMaxWidthWhenSelected?: string;
   radioButtonValue?: string;
   $restrictedItem?: boolean;
   rightTextColor?: TypographyColor;
@@ -32,6 +35,7 @@ export interface DropDownListItemProps extends BorderProps {
   color?: TypographyColor;
   $parentId?: string;
   $isFocused?: boolean;
+  showRightTextOnBottom?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -49,10 +53,21 @@ const ShortFormTag = styled.div`
 export const DropDownListItemStretchedTypography = styled(Typography)<
   DropDownListItemHorizontalBoxProps & {
     $color: TypographyColor;
+    $restrictedItem?: boolean;
+    $textMaxWidth?: string;
+    $textMaxWidthWhenSelected?: string;
   }
 >`
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  ${({ $restrictedItem, $textMaxWidthWhenSelected }) =>
+    $restrictedItem &&
+    $textMaxWidthWhenSelected &&
+    `max-width: ${$textMaxWidthWhenSelected};`}
+  ${({ $restrictedItem, $textMaxWidth }) =>
+    !$restrictedItem && $textMaxWidth && `max-width: ${$textMaxWidth};`}
+
   color: ${({ $isChecked, $color, theme }) =>
     $isChecked ? theme.palette.text.white : theme.palette.text[$color]};
 `;
@@ -71,6 +86,7 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-items: center;
   gap: 16px;
   align-self: stretch;
+  min-height: 53px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
   background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
     if ($isFocused) {
@@ -118,6 +134,7 @@ export const DropDownListItemRightContent = styled.div`
 const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
   font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
   font-weight: 400;
+  white-space: nowrap;
 `;
 
 export const DropDownListItem: FC<DropDownListItemProps> = ({
@@ -141,13 +158,16 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
   onCheckedChange,
   $borderRadius,
   $isFocused = false,
+  showRightTextOnBottom,
+  $textMaxWidth,
+  $textMaxWidthWhenSelected,
 }): ReactElement => {
   const handleCheckChange = () => {
     onCheckedChange?.(id ?? 'default-id');
   };
 
   const handleBoxClick = () => {
-    if (checkType) handleCheckChange();
+    handleCheckChange();
     if (onClick) onClick();
   };
 
@@ -174,24 +194,40 @@ export const DropDownListItem: FC<DropDownListItemProps> = ({
           {leftImage}
         </DropDownListItemIconContainer>
       )}
-      <DropDownListItemStretchedTypography
-        variant="h6"
-        $color={color ?? 'muted'}
-        $isChecked={checked}
-      >
-        <LangDisplay text={text} $noPreWrap />
-        {shortForm && (
-          <ShortFormTag>
-            <LangDisplay text={shortForm} />
-          </ShortFormTag>
+      <Flex direction="column" width="full">
+        <Flex align="center" gap={16}>
+          <DropDownListItemStretchedTypography
+            variant="h6"
+            $color={color ?? 'muted'}
+            $isChecked={checked}
+            $restrictedItem={$restrictedItem}
+            $textMaxWidth={$textMaxWidth}
+            $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
+          >
+            <LangDisplay text={text} $noPreWrap />
+            {shortForm && (
+              <ShortFormTag>
+                <LangDisplay text={shortForm} />
+              </ShortFormTag>
+            )}
+          </DropDownListItemStretchedTypography>
+          {tag && <Tag>{tag}</Tag>}
+        </Flex>
+        {showRightTextOnBottom && rightText && (
+          <RightTextTypography
+            variant={rightTextVariant}
+            color={rightTextColor}
+            $hasRightText={$hasRightText}
+          >
+            {rightText}
+          </RightTextTypography>
         )}
-      </DropDownListItemStretchedTypography>
-      {tag && <Tag>{tag}</Tag>}
+      </Flex>
       {(rightText ||
         rightIcon ||
         (!$restrictedItem && checkType && checkType === 'checkbox')) && (
         <DropDownListItemRightContent>
-          {rightText && (
+          {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
               color={rightTextColor}
@@ -237,4 +273,7 @@ DropDownListItem.defaultProps = {
   $hasRightText: false,
   $isFocused: false,
   $parentId: '',
+  showRightTextOnBottom: undefined,
+  $textMaxWidth: undefined,
+  $textMaxWidthWhenSelected: undefined,
 };

@@ -1,1 +1,4 @@
-export type TransactionTableVariant = 'default' | 'withNoAssetColumn';
+export type TransactionTableVariant =
+  | 'default'
+  | 'withNoAssetColumn'
+  | 'withTimeAndValues';

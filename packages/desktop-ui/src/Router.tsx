@@ -15,7 +15,6 @@ import {
   Wallet,
   History,
   Settings,
-  Help,
   RouteName,
   routes,
   Terms,
@@ -23,6 +22,7 @@ import {
   SetPassword,
   AppUpdate,
   AssetPage,
+  AccountPage,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -45,9 +45,9 @@ const components: Record<RouteName, ReactNode> = {
   portfolio: <Portfolio />,
   wallet: <Wallet />,
   asset: <AssetPage />,
+  account: <AccountPage />,
   history: <History />,
   settings: <Settings />,
-  help: <Help />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

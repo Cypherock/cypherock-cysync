@@ -1,5 +1,5 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { autoUpdater } from '~/utils';
 import logger from '~/utils/logger';
@@ -36,11 +36,8 @@ export const useAppUpdate = () => {
     InternalAppUpdateState.Checking,
   );
   const [error, setError] = useState<Error | undefined>();
-  const [
-    shouldInstallAfterUpdate,
-    setShouldInstallAfterUpdate,
-    shouldInstallAfterUpdateRef,
-  ] = useStateWithRef(false);
+  const [, setShouldInstallAfterUpdate, shouldInstallAfterUpdateRef] =
+    useStateWithRef(false);
 
   const onError = (e: any) => {
     setTries(triesRef.current + 1);
@@ -78,7 +75,11 @@ export const useAppUpdate = () => {
   };
 
   const installUpdateListener = async () => {
-    if (!shouldInstallAfterUpdateRef.current) return;
+    // if auto-installation is disabled, don't trigger install; just change appUpdateState
+    if (!shouldInstallAfterUpdateRef.current) {
+      setAppUpdateState(AppUpdateState.Downloaded);
+      return;
+    }
     installUpdate();
   };
 
@@ -92,7 +93,7 @@ export const useAppUpdate = () => {
     retryFuncMap[internalState]();
   };
 
-  const checkForUpdates = async () => {
+  const checkForUpdates = useCallback(async () => {
     try {
       setIsUpdatesChecked(false);
       setAppUpdateState(AppUpdateState.Checking);
@@ -107,7 +108,7 @@ export const useAppUpdate = () => {
     } finally {
       setIsUpdatesChecked(true);
     }
-  };
+  }, []);
 
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
@@ -119,11 +120,6 @@ export const useAppUpdate = () => {
     addListeners();
     checkForUpdates();
   }, []);
-
-  useEffect(() => {
-    if (!shouldInstallAfterUpdate && downloadProgress === 100)
-      setAppUpdateState(AppUpdateState.Downloaded);
-  }, [shouldInstallAfterUpdate, downloadProgress]);
 
   return {
     updateInfo,

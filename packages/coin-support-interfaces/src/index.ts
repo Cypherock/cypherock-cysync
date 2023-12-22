@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ICreateAccountEvent, ICreateAccountParams } from './createAccount';
 import { IGetExplorerLink } from './explorer';
+import { IFormatAddressParams } from './formatAddress';
 import {
   IGetAccountHistoryParams,
   IGetAccountHistoryResult,
@@ -20,6 +21,7 @@ import {
   ISignTransactionEvent,
   ISignTransactionParams,
 } from './send';
+import { ISignMessageParams, ISignMessageEvent } from './sign';
 import { ISyncAccountsParams } from './syncAccount';
 import { ISyncPriceHistoriesParams } from './syncPriceHistories';
 import { ISyncPricesParams } from './syncPrices';
@@ -28,6 +30,7 @@ import { IValidateAddressParams } from './validateAddress';
 export * from './createAccount';
 export * from './receive';
 export * from './send';
+export * from './sign';
 export * from './syncAccount';
 export * from './schemes';
 export * from './validateAddress';
@@ -36,6 +39,7 @@ export * from './syncPriceHistories';
 export * from './getCoinAllocations';
 export * from './getAccountHistory';
 export * from './explorer';
+export * from './formatAddress';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;
@@ -58,6 +62,7 @@ export interface CoinSupport {
   signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignTransactionEvent>;
+  signMessage(params: ISignMessageParams): Observable<ISignMessageEvent>;
   broadcastTransaction(
     params: IBroadcastTransactionParams,
   ): Promise<ITransaction>;
@@ -70,4 +75,5 @@ export interface CoinSupport {
     params: IGetAccountHistoryParams,
   ): Promise<IGetAccountHistoryResult>;
   getExplorerLink(params: IGetExplorerLink): string;
+  formatAddress(params: IFormatAddressParams): string;
 }

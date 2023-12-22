@@ -16,6 +16,8 @@ type Borders = {
   [key in BorderType<'$borderWidth'>]?: number;
 };
 export type BorderColor =
+  | 'card'
+  | 'gold'
   | 'popup'
   | 'separator'
   | 'info'
@@ -23,8 +25,9 @@ export type BorderColor =
   | 'warning'
   | 'white'
   | 'list'
-  | 'topbar';
-type BorderRadius = number | 'full';
+  | 'topbar'
+  | 'danger';
+type BorderRadius = number | 'full' | string;
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | 'none';
 
 export interface BorderProps extends Borders {
@@ -106,7 +109,15 @@ const getBorderCss = (props: any) => {
       if (key.includes('$borderRadius')) {
         borderCss.radius = generateCss(
           getProperties(key as BorderType<'border'>, 'radius'),
-          (item: BorderRadius) => (item === 'full' ? '9999px' : `${item}px`),
+          (item: BorderRadius) => {
+            if (item === 'full') {
+              return '9999px';
+            }
+            if (typeof item === 'number') {
+              return `${item}px`;
+            }
+            return item;
+          },
           (props as any)[key],
         );
       }

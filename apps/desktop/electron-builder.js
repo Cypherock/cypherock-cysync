@@ -47,8 +47,7 @@ const config = {
     artifactName: getArtifactName(),
   },
   linux: {
-    // TODO: Add RPM later
-    target: ['snap', 'AppImage'],
+    target: ['AppImage'],
     category: 'Utility',
     executableName: 'Cypherock CySync',
     artifactName: getArtifactName(),

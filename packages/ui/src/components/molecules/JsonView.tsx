@@ -13,7 +13,7 @@ export const JsonView: React.FC<ReactJsonViewProps> = (
       theme={{
         base00: theme?.palette.background.container,
         base01: theme?.palette.background.container,
-        base02: theme?.palette.text.white,
+        base02: theme?.palette.background.muted,
         base03: theme?.palette.background.container,
         base04: theme?.palette.background.container,
         base05: theme?.palette.background.muted,
@@ -29,6 +29,13 @@ export const JsonView: React.FC<ReactJsonViewProps> = (
         base0F: theme?.palette.text.normal,
       }}
       style={{ background: 'none' }}
+      quotesOnKeys={false}
+      displayDataTypes={false}
+      displayObjectSize={false}
+      enableClipboard={false}
+      name={false}
+      collapseStringsAfterLength={32}
+      groupArraysAfterLength={32}
       {...props}
     />
   );

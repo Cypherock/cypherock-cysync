@@ -17,8 +17,11 @@ import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
 import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
 import langReducers, { ILangState } from './lang';
+import networkReducer, { INetworkState } from './network';
+import notificationReducer, { INotificationState } from './notification';
 import priceHistoryReducer, { IPriceHistoryState } from './priceHistroy';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import snackBarReducer, { ISnackBarState } from './snackBar';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
 
@@ -33,6 +36,9 @@ export interface RootState {
   transaction: ITransactionState;
   discreetMode: IDiscreetModeState;
   accountSync: IAccountSyncState;
+  snackBar: ISnackBarState;
+  notification: INotificationState;
+  network: INetworkState;
 }
 
 export const store = configureStore({
@@ -47,6 +53,9 @@ export const store = configureStore({
     transaction: transactionReducer,
     discreetMode: discreetModeReducer,
     accountSync: accountSyncReducer,
+    snackBar: snackBarReducer,
+    notification: notificationReducer,
+    network: networkReducer,
   },
 });
 

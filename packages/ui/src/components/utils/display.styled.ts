@@ -5,7 +5,19 @@ import { generateCss } from './generateCss';
 import { MediaQuery } from '../../types';
 
 type DisplayType = 'none' | 'inline' | 'block' | 'inline-block' | 'flex';
-type $OverflowType = 'scroll' | 'hidden';
+type $OverflowType = 'scroll' | 'hidden' | 'auto';
+type VerticalAlign =
+  | 'baseline'
+  | 'length'
+  | 'sub'
+  | 'super'
+  | 'top'
+  | 'text-top'
+  | 'middle'
+  | 'bottom'
+  | 'text-bottom'
+  | 'initial'
+  | 'inherit';
 
 export interface DisplayProps {
   display?: MediaQuery<DisplayType>;
@@ -13,6 +25,7 @@ export interface DisplayProps {
   $overflowX?: MediaQuery<$OverflowType>;
   $overflowY?: MediaQuery<$OverflowType>;
   $overflow?: MediaQuery<$OverflowType>;
+  $verficalAlign?: MediaQuery<VerticalAlign>;
 }
 
 export const display = css<DisplayProps>`
@@ -40,4 +53,12 @@ export const display = css<DisplayProps>`
     props.$overflow &&
     generateCss(['overflow-x'], (item: string) => `${item}`, props.$overflow) +
       generateCss(['overflow-y'], (item: string) => `${item}`, props.$overflow)}
+
+  ${props =>
+    props.$verficalAlign !== undefined &&
+    generateCss(
+      ['vertical-align'],
+      (item: string) => `${item}`,
+      props.$verficalAlign,
+    )}
 `;

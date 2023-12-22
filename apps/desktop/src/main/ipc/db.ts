@@ -13,6 +13,8 @@ const collectionNameList: (keyof IDatabase)[] = [
   'device',
   'priceHistory',
   'priceInfo',
+  'transactionNotificationRead',
+  'transactionNotificationClick',
 ];
 
 export const setupDbListeners = async (webContents: WebContents) => {

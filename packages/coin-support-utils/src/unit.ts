@@ -1,83 +1,45 @@
 import { coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 
+type NumberLike = string | number | BigNumber;
 /**
  * Used to format the display amount.
  *
- * If `isFixed` is true, then it'll return a string upto `precision` no of decimal places.
- * If `isFixed` is false, then it'll return a string which has `precision` no of significant digit.
- *
- * - Removes ending decimal zeroes
- * - Returns 0 if amount is NaN
- * - Uses toPrecision or toFixed to round off
+ * - Removes trailing decimal zeroes
+ * - Assumes 0 if amount is NaN
  */
-export const formatDisplayAmount = (
-  amount: string | number | BigNumber,
-  precision = 4,
-  isFixed = false,
+const formatDisplayValue = (
+  value: NumberLike,
+  decimal = 0,
+  useCustom = false,
 ) => {
+  let number = new BigNumber(0);
   if (
-    amount === '0' ||
-    amount.toString().toLowerCase() === 'nan' ||
-    amount === 0 ||
-    Number.isNaN(amount) ||
-    (amount instanceof BigNumber && (amount.toNumber() === 0 || amount.isNaN()))
+    !(
+      value === '0' ||
+      value.toString().toLowerCase() === 'nan' ||
+      value === 0 ||
+      Number.isNaN(value) ||
+      (value instanceof BigNumber && (value.toNumber() === 0 || value.isNaN()))
+    )
   )
-    return '0';
+    number = new BigNumber(value);
 
-  let amountStr: string;
-
-  if (isFixed) {
-    amountStr = new BigNumber(amount).toFixed(precision, BigNumber.ROUND_FLOOR);
-  } else {
-    amountStr = new BigNumber(amount).toPrecision(
-      precision,
-      BigNumber.ROUND_FLOOR,
-    );
+  let fixed = new BigNumber(number.toFixed(decimal)).toFixed();
+  if (useCustom) {
+    const precision = Math.max(decimal, 1);
+    fixed = new BigNumber(
+      new BigNumber(number.toFixed(decimal)).toPrecision(precision),
+    ).toFixed();
   }
-
-  let expStr = '';
-  let decimalAmountStr = amountStr.substring(0, amountStr.length);
-
-  const eIndex = amountStr.indexOf('e');
-
-  if (eIndex !== -1) {
-    decimalAmountStr = amountStr.substring(0, eIndex);
-    expStr = amountStr.substring(eIndex, amountStr.length);
-  }
-
-  const decimalArray = decimalAmountStr.split('.');
-  let leftDecimalStr = '';
-  let rightDecimalStr = '';
-
-  [leftDecimalStr] = decimalArray;
-
-  if (decimalArray.length > 1) {
-    [, rightDecimalStr] = decimalArray;
-  }
-
-  let lastIndex = -1;
-
-  for (let i = 0; i < rightDecimalStr.length; i += 1) {
-    const digit = rightDecimalStr[i];
-
-    if (digit !== '0') {
-      lastIndex = i;
-    }
-  }
-
-  if (lastIndex === -1) {
-    const resp = leftDecimalStr + expStr;
-    return resp;
-  }
-
-  const res = `${leftDecimalStr}${'.'}${rightDecimalStr.substring(
-    0,
-    lastIndex + 1,
-  )}${expStr}`;
-
-  return res;
+  const complete = number.toFixed();
+  return { fixed, complete };
 };
+
+export const formatDisplayAmount = (value: NumberLike, decimal = 12) =>
+  formatDisplayValue(value, decimal, true);
+export const formatDisplayPrice = (value: NumberLike, decimal = 2) =>
+  formatDisplayValue(value, decimal).fixed;
 
 export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
   const coin = coinList[coinId];
@@ -160,7 +122,10 @@ export const getParsedAmount = (params: {
     amount: params.amount,
   });
 
-  return { amount: formatDisplayAmount(amount), unit };
+  return {
+    amount: formatDisplayAmount(amount).complete,
+    unit,
+  };
 };
 
 export const convertToUnit = (params: {

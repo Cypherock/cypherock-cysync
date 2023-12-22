@@ -8,19 +8,23 @@ import {
   LangDisplay,
   AssetAllocationTableRow,
   Container,
+  CssClassNames,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openAddAccountDialog } from '~/actions';
-import { useAssetAllocations } from '~/hooks';
+import { CoinAllocationRow, useAssetAllocations } from '~/hooks';
 
 export interface AssetAllocationProps {
   walletId?: string;
   parentAssetId?: string;
   assetId?: string;
   accountId?: string;
-  onAssetClick: (parentAssetId: string, assetId: string) => void;
+  onRowClick: (row: CoinAllocationRow) => void;
+  withSubIconAtBottom?: boolean;
+  withParentIconAtBottom?: boolean;
 }
 
 const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
@@ -33,12 +37,17 @@ const comparatorMap: Record<AssetAllocationTableHeaderName, string> = {
   asset: 'assetAbbr',
 };
 
+const ROW_HEIGHT = 82;
+const MAX_ROWS_DISPLAYED = 5;
+
 export const AssetAllocation: React.FC<AssetAllocationProps> = ({
   walletId,
   assetId,
   parentAssetId,
   accountId,
-  onAssetClick,
+  onRowClick,
+  withSubIconAtBottom,
+  withParentIconAtBottom,
 }) => {
   const { coinAllocations, strings, dispatch, isAccountDisplay } =
     useAssetAllocations({
@@ -46,6 +55,8 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       parentAssetId,
       assetId,
       accountId,
+      withSubIconAtBottom,
+      withParentIconAtBottom,
     });
   const [sortedBy, setSortedBy] =
     React.useState<AssetAllocationTableHeaderName>('allocation');
@@ -69,6 +80,33 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
       ),
     [coinAllocations, sortedBy, isAscending],
   );
+
+  const rowRenderer = ({ key, index, style }: any) => {
+    const row = displayRows[index];
+
+    return (
+      <AssetAllocationTableRow
+        style={style}
+        key={key}
+        color={row.color}
+        assetAbbr={row.assetAbbr}
+        assetName={row.assetName}
+        assetIcon={row.assetIcon}
+        accountName={row.accountName}
+        accountTag={row.accountTag}
+        walletName={row.walletName}
+        price={row.displayPrice}
+        balance={row.displayBalance}
+        balanceTooltip={row.balanceTooltip}
+        allocation={row.allocation}
+        value={row.displayValue}
+        $isLast={index === displayRows.length - 1}
+        $rowIndex={index}
+        onClick={() => onRowClick(row)}
+        variant={isAccountDisplay ? 'accounts' : undefined}
+      />
+    );
+  };
 
   if (displayRows.length <= 0) {
     return null;
@@ -114,26 +152,26 @@ export const AssetAllocation: React.FC<AssetAllocationProps> = ({
         onSort={onSort}
         variant={isAccountDisplay ? 'accounts' : undefined}
       />
-      {displayRows.map((row, index) => (
-        <AssetAllocationTableRow
-          key={row.id}
-          color={row.color}
-          assetAbbr={row.assetAbbr}
-          assetName={row.assetName}
-          assetIcon={row.assetIcon}
-          accountName={row.accountName}
-          accountTag={row.accountTag}
-          walletName={row.walletName}
-          price={row.displayPrice}
-          balance={row.displayBalance}
-          allocation={row.allocation}
-          value={row.displayValue}
-          $isLast={index === displayRows.length - 1}
-          $rowIndex={index}
-          onClick={() => onAssetClick(row.parentAssetId, row.assetId)}
-          variant={isAccountDisplay ? 'accounts' : undefined}
-        />
-      ))}
+      <Container
+        height={
+          ROW_HEIGHT * Math.min(displayRows.length, MAX_ROWS_DISPLAYED - 0.5)
+        }
+        width="100%"
+        display="block"
+      >
+        <Virtualize.AutoSizer>
+          {({ width, height }: any) => (
+            <Virtualize.List
+              className={CssClassNames.tableScrollbar}
+              height={height}
+              width={width}
+              rowCount={displayRows.length}
+              rowHeight={ROW_HEIGHT}
+              rowRenderer={rowRenderer}
+            />
+          )}
+        </Virtualize.AutoSizer>
+      </Container>
     </TableStructure>
   );
 };
@@ -143,4 +181,8 @@ AssetAllocation.defaultProps = {
   assetId: undefined,
   parentAssetId: undefined,
   accountId: undefined,
+  withParentIconAtBottom: undefined,
+  withSubIconAtBottom: undefined,
 };
+
+export default AssetAllocation;

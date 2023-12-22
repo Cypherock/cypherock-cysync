@@ -32,12 +32,17 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => (
       <Flex gap={12} align="center">
         {items.map((item, index) => (
           <React.Fragment key={item.id}>
-            {item.text && (
+            {item.text && item.onClick && (
               <Button variant="text" onClick={item.onClick}>
                 <Typography $fontSize={16} $fontWeight="medium" color="muted">
                   {item.text}
                 </Typography>
               </Button>
+            )}
+            {item.text && !item.onClick && (
+              <Typography $fontSize={16} $fontWeight="medium" color="muted">
+                {item.text}
+              </Typography>
             )}
             {item.dropdown && <BreadcrumbDropdown {...item.dropdown} />}
 

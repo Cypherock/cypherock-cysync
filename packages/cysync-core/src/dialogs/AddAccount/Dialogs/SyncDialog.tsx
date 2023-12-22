@@ -11,10 +11,9 @@ import {
   InputLabel,
   DialogBoxFooter,
   Button,
-  settingsIcon,
+  addAccountIcon,
   Flex,
   Toggle,
-  QuestionMarkButton,
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -63,36 +62,37 @@ const createAccountDisplayList = (params: {
 }) => {
   const { accountsList, selectedAccountsList, checkboxHandler } = params;
 
-  if (!checkboxHandler) {
-    return accountsList.map(a => {
-      const { amount, unit } = getParsedAmount({
-        coinId: a.assetId,
-        unitAbbr: a.unit,
-        amount: a.balance,
-      });
+  return accountsList.map(a => {
+    const { amount, unit } = getParsedAmount({
+      coinId: a.assetId,
+      unitAbbr: a.unit,
+      amount: a.balance,
+    });
 
+    if (!checkboxHandler) {
       return {
         text: a.name,
         id: a.__id,
         tag: lodash.upperCase(a.derivationScheme),
-        rightText: `${amount} ${unit.abbr}`,
+        bottomText: `${amount} ${unit.abbr}`,
         leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
       };
-    });
-  }
+    }
 
-  return accountsList.map(a => ({
-    text: a.name,
-    id: a.derivationPath,
-    tag: lodash.upperCase(a.derivationScheme),
-    leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
-    $isChecked: !!selectedAccountsList?.find(
-      b => a.derivationPath === b.derivationPath,
-    ),
-    onCheckChanged: checkboxHandler
-      ? () => checkboxHandler(a.derivationPath)
-      : undefined,
-  }));
+    return {
+      text: a.name,
+      id: a.derivationPath,
+      tag: lodash.upperCase(a.derivationScheme),
+      leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
+      $isChecked: !!selectedAccountsList?.find(
+        b => a.derivationPath === b.derivationPath,
+      ),
+      bottomText: `${amount} ${unit.abbr}`,
+      onCheckChanged: checkboxHandler
+        ? () => checkboxHandler(a.derivationPath)
+        : undefined,
+    };
+  });
 };
 
 export const AddAccountSyncDialog: FC = () => {
@@ -233,7 +233,7 @@ export const AddAccountSyncDialog: FC = () => {
             </>
           ) : (
             <>
-              <Image src={settingsIcon} alt="Loader" />
+              <Image src={addAccountIcon} alt="Loader" />
               <Typography variant="h5" $textAlign="center">
                 <LangDisplay text={strings.header} />
               </Typography>
@@ -275,8 +275,7 @@ export const AddAccountSyncDialog: FC = () => {
                     $fontWeight="normal"
                     $textAlign="right"
                   >
-                    <LangDisplay text={strings.advancedButton} />(
-                    <QuestionMarkButton />)
+                    <LangDisplay text={strings.advancedButton} />
                   </InputLabel>
                   <Toggle
                     checked={isAdvanceChecked}

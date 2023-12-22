@@ -30,3 +30,5 @@ export * from './SearchBar';
 export * from './Chip';
 export * from './ScrollableContainer';
 export * from './MainAppStyles';
+export * from './Tooltip';
+export * from './Video';

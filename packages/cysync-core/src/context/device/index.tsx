@@ -1,15 +1,26 @@
-import { ConnectDevice, GetDevices } from '@cypherock/cysync-interfaces';
+import {
+  ConnectDevice,
+  GetDevices,
+  AddUsbChangeListener,
+  RemoveUsbChangeListener,
+} from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice } from '@cypherock/sdk-interfaces';
+import lodash from 'lodash';
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { keyValueStore } from '~/utils';
 
 import {
   createDeviceConnectionInfo,
-  DEVICE_LISTENER_INTERVAL,
   IConnectedDeviceInfo,
   parseDeviceConnectionError,
   parseNewDevices,
@@ -34,8 +45,9 @@ export interface DeviceContextInterface {
   connection?: IDeviceConnectionInfo;
   connectDevice: ConnectDevice;
   getDevices: GetDevices;
-  disconnectDevice: () => void;
+  reconnectDevice: () => void;
   deviceHandlingState: DeviceHandlingState;
+  getDeviceHandlingState: () => DeviceHandlingState;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -45,6 +57,8 @@ export interface DeviceProviderProps {
   children?: React.ReactNode;
   getDevices: GetDevices;
   connectDevice: ConnectDevice;
+  addUsbChangeListener: AddUsbChangeListener;
+  removeUsbChangeListener: RemoveUsbChangeListener;
 }
 
 /**
@@ -56,6 +70,8 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   children,
   getDevices,
   connectDevice,
+  addUsbChangeListener,
+  removeUsbChangeListener,
 }) => {
   const [connectionInfo, setConnectionInfo, connectionInfoRef] =
     useStateWithRef<IDeviceConnectionInfo | undefined>(undefined);
@@ -69,41 +85,51 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const onConnectionChange = async () => {
     setDeviceHandlingState(DeviceHandlingState.NOT_CONNECTED);
     // Only works if app has completed onboarding
-    if (!connectionInfo || !(await keyValueStore.isOnboardingCompleted.get()))
-      return;
+    if (!(await keyValueStore.isOnboardingCompleted.get())) return;
 
-    if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
-      setDeviceHandlingState(DeviceHandlingState.INCOMPATIBLE);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      connectionInfo.isBootloader
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.BOOTLOADER);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      (connectionInfo.onboardingStep !==
-        OnboardingStep.ONBOARDING_STEP_COMPLETE ||
-        connectionInfo.isInitial)
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.NOT_ONBOARDED);
-    } else if (
-      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
-      connectionInfo.isMain &&
-      !connectionInfo.isAuthenticated
-    ) {
-      setDeviceHandlingState(DeviceHandlingState.NOT_AUTHENTICATED);
-    } else if (connectionInfo.status === DeviceConnectionStatus.CONNECTED) {
-      setDeviceHandlingState(DeviceHandlingState.USABLE);
-    } else {
-      setDeviceHandlingState(DeviceHandlingState.UNKNOWN_ERROR);
-    }
+    setDeviceHandlingState(getDeviceHandlingState());
   };
 
   useEffect(() => {
     onConnectionChange();
   }, [connectionInfo]);
 
-  const listenerTimeout = useRef<any>();
+  const getDeviceHandlingState = () => {
+    if (!connectionInfo) {
+      return DeviceHandlingState.NOT_CONNECTED;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.BUSY) {
+      return DeviceHandlingState.BUSY;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.INCOMPATIBLE) {
+      return DeviceHandlingState.INCOMPATIBLE;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isBootloader
+    ) {
+      return DeviceHandlingState.BOOTLOADER;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      (connectionInfo.onboardingStep !==
+        OnboardingStep.ONBOARDING_STEP_COMPLETE ||
+        connectionInfo.isInitial)
+    ) {
+      return DeviceHandlingState.NOT_ONBOARDED;
+    }
+    if (
+      connectionInfo.status === DeviceConnectionStatus.CONNECTED &&
+      connectionInfo.isMain &&
+      !connectionInfo.isAuthenticated
+    ) {
+      return DeviceHandlingState.NOT_AUTHENTICATED;
+    }
+    if (connectionInfo.status === DeviceConnectionStatus.CONNECTED) {
+      return DeviceHandlingState.USABLE;
+    }
+    return DeviceHandlingState.UNKNOWN_ERROR;
+  };
 
   const markDeviceAsConnected = (
     device: IDevice,
@@ -156,19 +182,13 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connectionRetryRef.current,
     );
 
-    let isConnecting = false;
     for (const action of actions) {
       if (action.type === 'disconnected') {
         logger.info('Connected device was removed');
         markDeviceAsNotConnected();
       } else if (action.type === 'try-connection' && action.device) {
         tryToConnect(action.device);
-        isConnecting = true;
       }
-    }
-
-    if (!isConnecting) {
-      restartDeviceListener();
     }
   };
 
@@ -183,28 +203,26 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     } catch (error) {
       logger.warn('Error connecting device', { device, error });
       markDeviceAsConnectionError(device, error);
-    } finally {
-      restartDeviceListener();
     }
   };
 
-  const restartDeviceListener = () => {
-    clearTimeout(listenerTimeout.current);
-    listenerTimeout.current = setTimeout(
-      deviceListener,
-      DEVICE_LISTENER_INTERVAL,
-    );
-  };
+  const deviceListenerDebounce = useCallback(
+    lodash.debounce(deviceListener, 500),
+    [],
+  );
 
-  const disconnectDevice = () => {
+  const reconnectDevice = () => {
     markDeviceAsNotConnected();
+    deviceListenerDebounce();
   };
 
   useEffect(() => {
-    restartDeviceListener();
+    deviceListener();
+
+    addUsbChangeListener(deviceListenerDebounce);
 
     return () => {
-      clearTimeout(listenerTimeout.current);
+      removeUsbChangeListener();
     };
   }, []);
 
@@ -213,14 +231,15 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       connection: connectionInfo,
       connectDevice,
       getDevices,
-      disconnectDevice,
+      reconnectDevice,
       deviceHandlingState,
+      getDeviceHandlingState,
     }),
     [
       connectionInfo,
       connectDevice,
       getDevices,
-      disconnectDevice,
+      reconnectDevice,
       deviceHandlingState,
     ],
   );

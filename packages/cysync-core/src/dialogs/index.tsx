@@ -8,7 +8,9 @@ import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
+import { DeleteAccountDialog } from './DeleteAccountDialog';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { ErrorDialog } from './ErrorDialog';
@@ -47,4 +49,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   deviceAuthenticationDialog: DeviceAuthenticationDialog,
   appUpdateDialog: AppUpdateDialog,
   errorDialog: ErrorDialog,
+  contactSupportDialog: ContactSupportDialog,
+  deleteAccount: DeleteAccountDialog,
 };

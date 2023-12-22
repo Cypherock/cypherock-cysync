@@ -4,10 +4,11 @@ import { btcCoinList } from '@cypherock/coins';
 import { config } from '../../config';
 
 export const getExplorerLink = (params: IGetExplorerLink) => {
+  // always assume confirmed transaction state so that API can re-direct to the transaction link
   const queryParams = {
     coinType: btcCoinList[params.transaction.assetId].apiCoinType,
     txHash: params.transaction.hash,
-    isConfirmed: (params.transaction.confirmations ?? 0) > 0,
+    isConfirmed: true,
   };
 
   const query = new URLSearchParams('');

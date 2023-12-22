@@ -2,9 +2,10 @@ import {
   ConnectionStatusType,
   SyncStatusType,
   Topbar as TopbarUI,
+  TopbarProps as TopbarUIProps,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, ReactNode, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { syncAllAccounts } from '~/actions';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
@@ -14,17 +15,21 @@ import {
   selectAccountSync,
   selectDiscreetMode,
   selectLanguage,
+  selectNotifications,
   toggleDiscreetMode,
+  toggleNotification,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
 const selector = createSelector(
-  [selectLanguage, selectDiscreetMode, selectAccountSync],
-  (a, b, c) => ({
+  [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
+  (a, b, c, { isOpen, unreadTransactions }) => ({
     lang: a,
     discreetMode: b,
     accountSync: c,
+    isNotificationOpen: isOpen,
+    unreadTransactions,
   }),
 );
 
@@ -34,26 +39,30 @@ const connectionStatesMap: Record<
 > = {
   [DeviceConnectionStatus.CONNECTED]: 'connected',
   [DeviceConnectionStatus.INCOMPATIBLE]: 'error',
+  [DeviceConnectionStatus.BUSY]: 'error',
   [DeviceConnectionStatus.UNKNOWN_ERROR]: 'error',
 };
 
 const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
-  [AccountSyncStateMap.syncing]: 'syncronizing',
-  [AccountSyncStateMap.synced]: 'syncronized',
+  [AccountSyncStateMap.syncing]: 'synchronizing',
+  [AccountSyncStateMap.synced]: 'synchronized',
   [AccountSyncStateMap.failed]: 'error',
 };
 
-export const Topbar: FC<{ title: string; icon?: ReactNode }> = ({
-  title,
-  icon,
-}) => {
+export interface TopbarProps {
+  title: TopbarUIProps['title'];
+  subTitle?: TopbarUIProps['subTitle'];
+  icon?: TopbarUIProps['icon'];
+  tag?: TopbarUIProps['tag'];
+}
+
+const TopbarComponent: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
-  const { lang, discreetMode, accountSync } = useAppSelector(selector);
+  const { lang, discreetMode, accountSync, unreadTransactions } =
+    useAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
-
-  const [haveNotifications] = useState<boolean>(false);
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
     [accountSync.syncState],
@@ -69,25 +78,34 @@ export const Topbar: FC<{ title: string; icon?: ReactNode }> = ({
     dispatch(syncAllAccounts());
   };
 
+  const onNotificationClick = () => {
+    dispatch(toggleNotification());
+  };
+
   return (
     <TopbarUI
-      title={title}
-      icon={icon}
+      {...props}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
       syncStatus={syncState}
       isPasswordSet={isPasswordSet}
       connectionStatus={connectionState}
-      haveNotifications={haveNotifications}
+      haveNotifications={unreadTransactions > 0}
+      onNotificationClick={onNotificationClick}
       isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
       onSyncClick={onSyncClick}
+      tooltipText={accountSync.syncError}
     />
   );
 };
 
-Topbar.defaultProps = {
+TopbarComponent.defaultProps = {
   icon: undefined,
+  subTitle: undefined,
+  tag: undefined,
 };
+
+export const Topbar = React.memo(TopbarComponent);

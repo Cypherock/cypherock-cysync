@@ -9,11 +9,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import {
-  CloseConfirmationDialog,
-  ErrorHandlerDialog,
-  WithConnectedDevice,
-} from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
@@ -32,6 +28,7 @@ const AddNewAccount: FC = () => {
     isDeviceRequired,
     error,
     onRetry,
+    selectedWallet,
   } = useAddAccountDialog();
 
   const WrapperComponent = isDeviceRequired
@@ -39,16 +36,9 @@ const AddNewAccount: FC = () => {
     : React.Fragment;
   const lang = useAppSelector(selectLanguage);
 
-  const [showOnClose, setShowOnClose] = React.useState(false);
-
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
-        <CloseConfirmationDialog
-          isDialogVisible={showOnClose}
-          setIsDialogVisible={setShowOnClose}
-          onClose={onClose}
-        />
+      <DialogBox direction="row" gap={0} width="full" onClose={onClose}>
         <>
           <MilestoneAside
             milestones={tabs
@@ -71,6 +61,7 @@ const AddNewAccount: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
@@ -78,9 +69,7 @@ const AddNewAccount: FC = () => {
             </DialogBoxBody>
 
             <DialogBoxBackgroundBar
-              rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
-              }
+              rightComponent={<CloseButton onClick={() => onClose()} />}
               position="top"
               useLightPadding
             />
