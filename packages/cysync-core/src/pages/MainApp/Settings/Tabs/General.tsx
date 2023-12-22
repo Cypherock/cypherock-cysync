@@ -45,7 +45,7 @@ export const GeneralSettings: React.FC = () => {
             ]}
             searchText="Search Currency"
             placeholderText="Select Currency"
-            defaultSelectedItems={['usd']}
+            defaultValue="usd"
           />
         </Flex>
       </SettingsStandardItem>
@@ -61,7 +61,7 @@ export const GeneralSettings: React.FC = () => {
             ]}
             searchText="Search Language"
             placeholderText="Select Language"
-            defaultSelectedItems={['en']}
+            defaultValue="en"
           />
         </Flex>
       </SettingsStandardItem>
@@ -79,7 +79,7 @@ export const GeneralSettings: React.FC = () => {
             ]}
             searchText="Search Time"
             placeholderText="Select Time"
-            defaultSelectedItems={['in']}
+            defaultValue="in"
           />
         </Flex>
       </SettingsStandardItem>

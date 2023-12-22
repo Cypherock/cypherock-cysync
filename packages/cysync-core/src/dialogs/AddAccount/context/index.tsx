@@ -72,7 +72,7 @@ export interface AddAccountDialogContextInterface {
   addAccountStatus: AddAccountStatus;
   error: any | undefined;
   walletDropdownList: DropDownItemProps[];
-  handleWalletChange: () => void;
+  handleWalletChange: (id?: string) => void;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =

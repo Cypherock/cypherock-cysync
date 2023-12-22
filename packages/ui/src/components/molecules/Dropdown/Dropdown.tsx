@@ -28,23 +28,32 @@ interface DropdownProps {
   searchText: string;
   placeholderText: string;
   noLeftImageInList?: boolean;
-  defaultSelectedItems?: (string | undefined | null)[];
-  onChange?: (selectedItemId: string | undefined) => void;
-  disabled?: boolean;
   leftImage?: React.ReactNode;
-  isMultiSelect?: boolean;
+  disabled?: boolean;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+interface SingleSelectDropdownProps extends DropdownProps {
+  onChange?: (selectedItemId: string | undefined) => void;
+  isMultiSelect?: false;
+  defaultValue?: string | undefined | null;
+}
+
+interface MultiSelectDropdownProps extends DropdownProps {
+  onChange?: (selectedItemIds: string[]) => void;
+  isMultiSelect: true;
+  defaultValue?: (string | undefined | null)[];
+}
+
+export const Dropdown: React.FC<
+  SingleSelectDropdownProps | MultiSelectDropdownProps
+> = ({
   items,
   searchText,
   noLeftImageInList,
   placeholderText,
-  defaultSelectedItems = [],
-  onChange,
   disabled = false,
   leftImage,
-  isMultiSelect = false,
+  ...props
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -53,16 +62,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>(
-    lodash.compact(defaultSelectedItems),
+    lodash.compact(
+      props.isMultiSelect ? props.defaultValue : [props.defaultValue],
+    ),
   );
 
   const listRef = useRef<HTMLUListElement | null>(null);
 
   const handleCheckedChange = (id: string) => {
-    if (!isMultiSelect) {
+    if (!props.isMultiSelect) {
       toggleDropdown();
       setSelectedItems([id]);
-      onChange?.(id);
+      props.onChange?.(id);
       return;
     }
 
@@ -71,7 +82,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     else selectedItems.push(id);
     setSelectedItems([...selectedItems]);
 
-    onChange?.(selectedItems[0]);
+    props.onChange?.(selectedItems);
   };
 
   const selectedDropdownItem: DropDownItemProps[] = useMemo(
@@ -244,7 +255,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   checked={isItemSelected}
                   onCheckedChange={handleCheckedChange}
                   id={item.id}
-                  checkType={isMultiSelect ? 'checkbox' : 'radio'}
+                  checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
                   leftImage={noLeftImageInList ? undefined : item.leftImage}
                   $isFocused={isItemFocused}
                 />
@@ -255,13 +266,4 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
     </DropdownContainer>
   );
-};
-
-Dropdown.defaultProps = {
-  disabled: false,
-  noLeftImageInList: false,
-  leftImage: undefined,
-  defaultSelectedItems: [],
-  isMultiSelect: false,
-  onChange: undefined,
 };
