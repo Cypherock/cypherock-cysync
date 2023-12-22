@@ -29,6 +29,7 @@ export interface IParsedError extends ErrorHandlingDetails {
   code: string;
   heading: string;
   subtext?: string;
+  deviceNavigationText?: string;
   primaryAction: IErrorActionButtonDetails;
   secondaryAction?: IErrorActionButtonDetails;
 }

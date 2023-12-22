@@ -45,6 +45,7 @@ export const getParsedError = (params: {
 
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;
+  let deviceNavigationText: string | undefined;
   let details = defaultErrorHandlignDetails;
 
   if (errorToParse?.isDeviceError && errorToParse.code) {
@@ -54,6 +55,9 @@ export const getParsedError = (params: {
     subtext =
       lang.strings.errors.deviceErrors[errorToParse.code as DeviceErrorCodes]
         .subtext;
+    deviceNavigationText =
+      lang.strings.errors.deviceErrors[errorToParse.code as DeviceErrorCodes]
+        .deviceNavigationText;
 
     details =
       getDeviceErrorHandlingDetails(lang, errorToParse.code as any) ?? details;
@@ -97,6 +101,7 @@ export const getParsedError = (params: {
     code: errorToParse.code,
     heading,
     subtext,
+    deviceNavigationText,
     primaryAction,
     secondaryAction,
   };

@@ -20,4 +20,5 @@ export type DeviceErrorCodes =
 export interface IErrorMsg {
   heading: string;
   subtext?: string;
+  deviceNavigationText?: string;
 }

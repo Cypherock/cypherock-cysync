@@ -203,6 +203,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
     heading: 'Your X1 Card is currently not paired with your X1 Vault',
     subtext:
       'Pair your card by going to settings from the main menu on your device before performing an operation',
+    deviceNavigationText: 'Main menu > Settings > Pair Card',
   },
   [CardAppErrorType.SW_INCOMPATIBLE_APPLET]: {
     heading: 'Your X1 Card authentication failed',
@@ -269,6 +270,7 @@ const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   [CardAppErrorType.POW_SW_WALLET_LOCKED]: {
     heading: 'The wallet ${walletName} is currently locked on your X1 Vault',
     subtext: 'Unlock the wallet first before trying again',
+    deviceNavigationText: 'Main Menu > ${walletName}',
   },
   [CardAppErrorType.SW_INS_BLOCKED]: {
     heading: 'Your X1 Card has malfunctioned',
