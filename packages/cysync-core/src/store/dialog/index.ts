@@ -76,6 +76,9 @@ const initialState: IDialogState = {
   deleteAccount: {
     isOpen: false,
   },
+  betaNotificationDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

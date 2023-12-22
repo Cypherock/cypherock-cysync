@@ -8,6 +8,7 @@ import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { BetaNotificationDialog } from './BetaNotificationDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -51,4 +52,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   errorDialog: ErrorDialog,
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
+  betaNotificationDialog: BetaNotificationDialog,
 };
