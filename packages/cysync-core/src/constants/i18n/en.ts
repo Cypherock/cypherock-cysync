@@ -854,6 +854,10 @@ const en = {
     message: 'Firmware update version ${version} available',
     button: 'Download',
   },
+  betaNotificationBar: {
+    message: 'CySync v2.0.0 is available!',
+    button: 'Learn More',
+  },
   topbar: {
     statusTexts: {
       connection: {
@@ -1493,6 +1497,19 @@ const en = {
       success: {
         formSubmit: 'Support Form Submitted Successfully',
       },
+    },
+    betaNotification: {
+      title: 'CySync Update v2.0.0',
+      description: `We have done a major overhaul to the CySync app.
+The new CySync comes with all your favorite features and much more.
+Download from <a href="https://cypherock.com/get-started">https://cypherock.com/get-started</a>
+
+**Important**
+
+* You won’t lose your funds
+* After update, you will have to import your accounts again
+* No new updates to CySync v1 except security update
+`,
     },
   },
   toggle: {

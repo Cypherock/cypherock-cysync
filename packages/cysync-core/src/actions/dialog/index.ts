@@ -74,3 +74,6 @@ export const openContactSupportDialog = (props?: IContactSupportDialogProps) =>
 
 export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
   openDialog({ name: 'deleteAccount', data: props });
+
+export const openBetaNotificationDialog = () =>
+  openDialog({ name: 'betaNotificationDialog', data: undefined });
