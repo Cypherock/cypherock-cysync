@@ -28,7 +28,7 @@ export interface DropDownItemProps extends BorderProps {
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
   checkType?: 'checkbox' | 'radio';
-  id: string;
+  id?: string;
   onClick?: () => void;
   checked?: boolean;
   onCheckedChange?: (id: string) => void;
@@ -281,6 +281,7 @@ DropDownItem.defaultProps = {
   radioButtonValue: '',
   rightTextVariant: 'fineprint',
   checkType: undefined,
+  id: undefined,
   tag: undefined,
   onClick: undefined,
   $restrictedItem: false,

@@ -96,7 +96,11 @@ export const Dropdown: React.FC<
     () =>
       lodash.compact(
         items.filter(
-          item => item && !item.disabled && selectedItemIds.includes(item.id),
+          item =>
+            item &&
+            !item.disabled &&
+            item.id &&
+            selectedItemIds.includes(item.id),
         ),
       ),
     [items, selectedItemIds],
