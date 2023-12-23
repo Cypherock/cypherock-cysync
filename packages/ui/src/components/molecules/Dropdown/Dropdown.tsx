@@ -147,6 +147,8 @@ export const Dropdown: React.FC<
     };
   }, [isOpen, setIsOpen, containerRef]);
 
+  const selectionCount = selectedDropdownItem.length;
+
   return (
     <DropdownContainer
       ref={containerRef}
@@ -170,7 +172,7 @@ export const Dropdown: React.FC<
         <DropDownItem
           {...selectedDropdownItem[0]}
           $borderRadius={8}
-          checked={selectedDropdownItem.length > 0}
+          checked={selectionCount > 0}
           onCheckedChange={() =>
             handleCheckedChange(selectedDropdownItem[0].id ?? '')
           }
@@ -181,6 +183,7 @@ export const Dropdown: React.FC<
           rightText={selectedDropdownItem[0].rightText}
           $hasRightText={!!selectedDropdownItem[0].rightText}
           $parentId={selectedDropdownItem[0].$parentId}
+          tag={selectionCount > 1 ? `+${selectionCount - 1}` : undefined}
           color="white"
         />
       ) : (
