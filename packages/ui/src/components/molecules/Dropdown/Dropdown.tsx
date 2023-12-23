@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTheme } from 'styled-components';
 
 import {
@@ -61,7 +67,7 @@ export const Dropdown: React.FC<
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [selectedItems, setSelectedItems] = useState<string[]>(
+  const [selectedItemIds, setSelectedItemIds] = useState<string[]>(
     lodash.compact(
       props.isMultiSelect ? props.defaultValue : [props.defaultValue],
     ),
@@ -70,28 +76,41 @@ export const Dropdown: React.FC<
   const listRef = useRef<HTMLUListElement | null>(null);
 
   const handleCheckedChange = (id: string) => {
+    const targetItem = items.find(item => item.id === id);
+    if (targetItem === undefined) return;
+    if (targetItem.disabled) return;
+
     if (!props.isMultiSelect) {
       toggleDropdown();
-      setSelectedItems([id]);
-      props.onChange?.(id);
+      setSelectedItemIds([id]);
       return;
     }
 
-    if (selectedItems.includes(id))
-      selectedItems.splice(selectedItems.indexOf(id), 1);
-    else selectedItems.push(id);
-    setSelectedItems([...selectedItems]);
-
-    props.onChange?.(selectedItems);
+    if (selectedItemIds.includes(id))
+      selectedItemIds.splice(selectedItemIds.indexOf(id), 1);
+    else selectedItemIds.push(id);
+    setSelectedItemIds([...selectedItemIds]);
   };
 
-  const selectedDropdownItem: DropDownItemProps[] = useMemo(
+  const selectedItems: DropDownItemProps[] = useMemo(
     () =>
       lodash.compact(
-        selectedItems.map(itemId => items.find(item => item.id === itemId)),
+        items.filter(
+          item => item && !item.disabled && selectedItemIds.includes(item.id),
+        ),
       ),
-    [items, selectedItems],
+    [items, selectedItemIds],
   );
+
+  const onChange = useCallback(() => {
+    if (props.onChange === undefined) return;
+    if (props.isMultiSelect) {
+      props.onChange(lodash.compact(selectedItems.map(item => item.id)));
+    } else {
+      props.onChange(selectedItems[0]?.id);
+    }
+  }, [selectedItems, props.onChange, props.isMultiSelect]);
+  useEffect(onChange, [selectedItems, onChange]);
 
   const filteredItems = useMemo(
     () => searchInItems(items, search),
@@ -147,7 +166,7 @@ export const Dropdown: React.FC<
     };
   }, [isOpen, setIsOpen, containerRef]);
 
-  const selectionCount = selectedDropdownItem.length;
+  const selectionCount = selectedItems.length;
 
   return (
     <DropdownContainer
@@ -160,7 +179,7 @@ export const Dropdown: React.FC<
         isOpen,
         toggleDropdown,
         setFocusedIndex,
-        items,
+        props.isMultiSelect ?? false,
         focusedIndex,
         handleCheckedChange,
         filteredItems,
@@ -168,21 +187,19 @@ export const Dropdown: React.FC<
       )}
       tabIndex={disabled ? -1 : 0}
     >
-      {selectedDropdownItem[0] && !isOpen ? (
+      {selectedItems[0] && !isOpen ? (
         <DropDownItem
-          {...selectedDropdownItem[0]}
+          {...selectedItems[0]}
           $borderRadius={8}
           checked={selectionCount > 0}
-          onCheckedChange={() =>
-            handleCheckedChange(selectedDropdownItem[0].id ?? '')
-          }
+          onCheckedChange={() => handleCheckedChange(selectedItems[0].id ?? '')}
           onClick={toggleDropdown}
           $restrictedItem
-          text={selectedDropdownItem[0].text}
-          leftImage={selectedDropdownItem[0].leftImage}
-          rightText={selectedDropdownItem[0].rightText}
-          $hasRightText={!!selectedDropdownItem[0].rightText}
-          $parentId={selectedDropdownItem[0].$parentId}
+          text={selectedItems[0].text}
+          leftImage={selectedItems[0].leftImage}
+          rightText={selectedItems[0].rightText}
+          $hasRightText={!!selectedItems[0].rightText}
+          $parentId={selectedItems[0].$parentId}
           tag={selectionCount > 1 ? `+${selectionCount - 1}` : undefined}
           color="white"
         />
@@ -197,7 +214,7 @@ export const Dropdown: React.FC<
             isOpen,
             toggleDropdown,
             setFocusedIndex,
-            items,
+            props.isMultiSelect ?? false,
             focusedIndex,
             handleCheckedChange,
             filteredItems,
@@ -242,8 +259,10 @@ export const Dropdown: React.FC<
         >
           {filteredItems.map((item, index) => {
             const itemId = item.id ?? '';
-            const isItemFocused = focusedIndex === index;
-            const isItemSelected = selectedItems.includes(itemId);
+            const isItemFocused: boolean = focusedIndex === index;
+            const isItemSelected: boolean = selectedItems.some(
+              currItem => currItem.id === itemId,
+            );
             return (
               <DropdownListItem
                 key={itemId}

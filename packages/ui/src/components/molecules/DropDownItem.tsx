@@ -28,7 +28,7 @@ export interface DropDownItemProps extends BorderProps {
   shortForm?: string;
   rightTextVariant?: TypographyProps['variant'];
   checkType?: 'checkbox' | 'radio';
-  id?: string;
+  id: string;
   onClick?: () => void;
   checked?: boolean;
   onCheckedChange?: (id: string) => void;
@@ -188,6 +188,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
 
   return (
     <DropDownListItemHorizontalBox
+      id={id}
       onClick={handleBoxClick}
       $isChecked={checked}
       $borderRadius={$borderRadius}
@@ -280,7 +281,6 @@ DropDownItem.defaultProps = {
   radioButtonValue: '',
   rightTextVariant: 'fineprint',
   checkType: undefined,
-  id: undefined,
   tag: undefined,
   onClick: undefined,
   $restrictedItem: false,

@@ -32,16 +32,12 @@ export const searchInItems = (
   return filteredItems;
 };
 
-type MenuItem = DropDownItemProps & {
-  subMenu?: MenuItem[];
-};
-
 export const handleKeyDown =
   (
     isOpen: boolean,
     toggleDropdown: () => void,
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    items: MenuItem[],
+    isMultiSelect: boolean,
     focusedIndex: number | null,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
@@ -115,7 +111,7 @@ export const handleKeyDown =
       case ' ':
         event.preventDefault();
         event.stopPropagation();
-        if (!isOpen) {
+        if (!isOpen || (isMultiSelect && event.key === 'Enter')) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
