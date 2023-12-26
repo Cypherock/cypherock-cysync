@@ -37,6 +37,7 @@ import importWalletIcon from './import-wallet.png';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
+import pendriveIcon from './pendrive.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
@@ -121,6 +122,7 @@ export {
   goldLoaderIcon,
   openExternalLink,
   informationIcon,
+  pendriveIcon,
   greenTick,
   redDisconnectedIcon,
   goldFail,

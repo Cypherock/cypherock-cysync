@@ -23,6 +23,7 @@ export * from './Layouts';
 export * from './LeanBox';
 export * from './Markdown';
 export * from './MessageBox';
+export * from './WaitingBox';
 export * from './Milestone';
 export * from './Notification';
 export * from './Prefabs';

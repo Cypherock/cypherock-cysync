@@ -16,9 +16,14 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
 import {
-  GuidedFlowType,
+  openContactSupportDialog,
+  // openGuidedFlowDialog,
+  openTroubleShootDialog,
+} from '~/actions';
+import {
+  // GuidedFlowType,
+  TroubleShootType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -34,12 +39,14 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
+  // const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
+  const [selectedAction, setSelectedAction] = useState<TroubleShootType>();
 
   const switchToGuidedFlow = () => {
     if (selectedAction === undefined) return;
     dispatch(closeDialog('walletActions'));
-    dispatch(openGuidedFlowDialog(selectedAction));
+    // dispatch(openGuidedFlowDialog(selectedAction));
+    dispatch(openTroubleShootDialog(selectedAction));
   };
 
   return (

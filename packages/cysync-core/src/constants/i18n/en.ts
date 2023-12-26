@@ -1384,6 +1384,323 @@ const en = {
       },
     },
   },
+  troubleShoot: {
+    createWallet: {
+      title: 'Create New Wallet',
+      tabs: [
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title: 'Troubleshoot USB connection',
+              bulletList: [
+                'There seems to be a problem connecting your',
+                "device. Don't worry we got you covered",
+              ],
+              messageBoxList: [
+                {
+                  info: 'Try different solutions one by one until your device connects',
+                },
+              ],
+            },
+            {
+              title:
+                'Connect the correct side of the USB converter to the device',
+              subtitle:
+                'the converter side (usb-b to usb-c) should always' +
+                'be connected to the laptop. If that is connected to' +
+                'the device, then it wont work',
+              bulletList: [
+                'Open "System Settings"',
+                'Go to "Privacy & Security"',
+                'Click the pop-up next to "Allow accessories to connect"',
+                'Select "Askfor new accessories"',
+                'Enter your Password and allow in the next dialogue',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Try a different USB port',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Change the USB port used on your computer',
+                'Remove any other dongles',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Change the USB cable',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Use the original USB cable that comes in your packaging if possible',
+                'Try a different USB cable, making sure it supports data transfer',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Turn off antvirus and VPN',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Turn off any antivirus, firewall and VPN software',
+                "Reconnect your device to see if it's detected",
+                'Whitelist cySync in your antivirus if that worked',
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Try another computer',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Go to https://cypherock.com/gs on another computer to download and install cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Enable full disk access',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Open "System Preferences"',
+                'Go to "Security & Privacy"',
+                'In the "Privacy" tab, go to "Full Disk Access" in the left column',
+                'Add cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Reset NVRAM',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                "If your Mac has an intel processor, Follow Apple's insctructions to reset the NVRAM",
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Restart your computer',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Restart your computer',
+                'Start cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    importWallet: {
+      title: 'Import Wallet',
+      tabs: [
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title:
+                'From the Main Menu of your X1 Vault, click on "Create Wallet"',
+            },
+            {
+              title: 'Click "Restore from Seed Phrase" on your X1 Vault',
+            },
+            {
+              title: 'Enter a wallet name on your X1 Vault',
+              bulletList: [
+                'Upto 15 characters allowed',
+                'It can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  info: 'Make sure that the wallet name is unique to other wallet names on the device',
+                },
+                {
+                  warning:
+                    'Wallet name once set cannot be modified. Please set the name accordingly',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the wallet name on the X1 Vault',
+            },
+            {
+              title: 'Do you want to setup a PIN for your wallet?',
+              messageBoxList: [
+                {
+                  warning:
+                    'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+                },
+              ],
+            },
+            {
+              title: 'Setup a PIN on the X1 Vault',
+              bulletList: [
+                'Use between 4 and 8 characters',
+                'The PIN can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the entered PIN on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
+                },
+                {
+                  warning: 'Back it up in a safe place',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Sync X1 Cards',
+          pages: [
+            {
+              title:
+                'Count the number of words of the seed phrase which you are importing and select it on the X1 Vault',
+            },
+            {
+              title: 'Enter the seed phrase on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you do not make spelling mistakes while entering the words on the device. Words like "west" & "nest" are often confusing while reading and needs to be entered correctly',
+                },
+              ],
+            },
+            {
+              title: 'Verify the seed phrase that you entered on the X1 Vault',
+              subtitle:
+                'Match each and every to successfully import the correct wallet',
+            },
+            {
+              title: 'Tap X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your X1 Cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the X1 Cards in the correct order',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallet is now successfully created',
+            },
+            {
+              title:
+                'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+            },
+
+            {
+              title:
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
+            },
+            {
+              title: 'Important Note',
+              messageBoxList: [
+                {
+                  warning:
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
+                },
+              ],
+            },
+            {
+              title:
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
+              bulletList: [
+                'Homes of your family members or your friends',
+                'Secret hideout',
+                'Bank locker',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    finalIssue: {
+      title: 'USB connection problem still not fixed?',
+      subtitle:
+        "If you have tried every possible solution, please reach out to Cypherock support. Otherwise, please follow the instructions of any solution you haven't tried yet.",
+      buttons: {
+        secondary: 'Go Back',
+        primary: 'Contact',
+      },
+    },
+    walletNotCreatedDialog: {
+      title: "Seems like you haven't created a wallet yet",
+      subtitle: 'To add an account you have to first create a wallet',
+      buttons: {
+        secondary: 'I will do it later',
+        primary: 'Create Wallet',
+      },
+    },
+    closeDialog: {
+      title: 'Are you sure you want to exit?',
+      subtitle:
+        'You can always start this guide by clicking "Add Wallet" under the Wallets tab',
+      buttons: {
+        secondary: 'Cancel',
+        primary: 'Exit',
+      },
+    },
+  },
   dialogs: {
     close: {
       title: 'Are you sure you want to exit?',

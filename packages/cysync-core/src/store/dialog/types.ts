@@ -97,6 +97,13 @@ export interface IDialogState {
     };
   };
 
+  troubleShoot: {
+    isOpen: boolean;
+    data?: {
+      type: TroubleShootType;
+    };
+  };
+
   walletConnect: {
     isOpen: boolean;
     data?: undefined;
@@ -123,6 +130,13 @@ export const GuidedFlowMap = {
   importWallet: 'importWallet',
 } as const;
 
+export const TroubleShootMap = {
+  createWallet: 'createWallet',
+  importWallet: 'importWallet',
+} as const;
+
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
+export type TroubleShootType =
+  (typeof TroubleShootMap)[keyof typeof TroubleShootMap];
 
 export type DialogName = keyof IDialogState;

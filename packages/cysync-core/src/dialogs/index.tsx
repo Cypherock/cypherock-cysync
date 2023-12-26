@@ -27,12 +27,14 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { TroubleShootDialog } from './TroubleShoot';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
+  troubleShoot: TroubleShootDialog,
   addAccount: AddAccountDialog,
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,

@@ -5,15 +5,17 @@ import {
   SkeletonLoader,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
-import { openAddAccountDialog } from '~/actions';
+import { openAddAccountDialog, openTroubleShootDialog } from '~/actions';
 import {
   useAppSelector,
   selectLanguage,
   selectAccounts,
   selectWallets,
   useAppDispatch,
+  // GuidedFlowMap,
+  TroubleShootMap,
 } from '~/store';
 
 import PortfolioPageContent from './Content';
@@ -33,6 +35,10 @@ const selector = createSelector(
 export const Portfolio: FC = () => {
   const { lang, wallets, accounts } = useAppSelector(selector);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(openTroubleShootDialog(TroubleShootMap.createWallet));
+  }, []);
 
   const handleAddAccountClick = () => {
     dispatch(openAddAccountDialog());
