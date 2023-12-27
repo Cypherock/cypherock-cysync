@@ -245,7 +245,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     ));
 
   const init = () => {
-    const initTabs = lang.strings.guidedFlows[type].tabs.map((tab, index) => ({
+    const initTabs = lang.strings.troubleShoot[type].tabs.map((tab, index) => ({
       name: tab.asideTitle,
       dialogs: getDialogArray(
         dialogsImages[type][index],
@@ -255,7 +255,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     }));
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
-    setTitle(lang.strings.guidedFlows[type].title);
+    setTitle(lang.strings.troubleShoot[type].title);
   };
 
   useEffect(() => {

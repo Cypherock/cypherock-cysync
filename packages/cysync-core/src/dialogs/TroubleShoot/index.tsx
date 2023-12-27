@@ -15,10 +15,11 @@ import React, { FC } from 'react';
 import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
 import {
   closeDialog,
-  GuidedFlowType,
+  // GuidedFlowType,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
+  TroubleShootType,
 } from '~/store';
 
 import { GuidedFlowProvider, useGuidedFlow } from './context';
@@ -105,7 +106,7 @@ export const TroubleShootDialog: FC = () => {
   );
 };
 
-export const GuidedFlow: FC<{ type: GuidedFlowType }> = ({ type }) => (
+export const TroubleShoot: FC<{ type: TroubleShootType }> = ({ type }) => (
   <GuidedFlowProvider type={type}>
     <TroubleShootDialog />
   </GuidedFlowProvider>

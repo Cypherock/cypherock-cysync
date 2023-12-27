@@ -66,12 +66,12 @@ const Buttons: FC<{
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary" onClick={onCloseDialog}>
         <LangDisplay
-          text={lang.strings.guidedFlows.finalIssue.buttons.secondary}
+          text={lang.strings.troubleShoot.finalIssue.buttons.secondary}
         />
       </Button>
       <Button variant="primary" onClick={tryOpeningAddAccount}>
         <LangDisplay
-          text={lang.strings.guidedFlows.finalIssue.buttons.primary}
+          text={lang.strings.troubleShoot.finalIssue.buttons.primary}
         />
       </Button>
     </Flex>
@@ -91,8 +91,8 @@ export const FinalMessage: FC = () => {
         image={informationIconReactElement}
         onNext={onNext}
         onPrevious={onPrevious}
-        title={lang.strings.guidedFlows.finalIssue.title}
-        subtitle={lang.strings.guidedFlows.finalIssue.subtitle}
+        title={lang.strings.troubleShoot.finalIssue.title}
+        subtitle={lang.strings.troubleShoot.finalIssue.subtitle}
         footer={
           <Buttons
             setShowWalletNotCreatedDialog={setShowWalletNotCreatedDialog}
