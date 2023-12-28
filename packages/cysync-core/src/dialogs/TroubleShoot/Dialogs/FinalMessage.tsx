@@ -16,7 +16,7 @@ import React, {
 
 import { openAddAccountDialog, syncWalletsWithDevice } from '~/actions';
 import { useDevice } from '~/context';
-import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
+import { useTroubleShoot } from '~/dialogs/TroubleShoot/context';
 import {
   selectLanguage,
   selectWallets,
@@ -39,7 +39,7 @@ const informationIconReactElement = (
 const Buttons: FC<{
   setShowWalletNotCreatedDialog: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowWalletNotCreatedDialog }) => {
-  const { onCloseDialog } = useGuidedFlow();
+  const { onCloseDialog } = useTroubleShoot();
   const { lang, wallets } = useAppSelector(selectWalletsAndLang);
   const dispatch = useAppDispatch();
   const { connection, connectDevice } = useDevice();
@@ -80,7 +80,7 @@ const Buttons: FC<{
 
 export const FinalMessage: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useGuidedFlow();
+  const { onNext, onPrevious } = useTroubleShoot();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
     useState(false);
 

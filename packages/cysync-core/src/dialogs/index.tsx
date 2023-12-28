@@ -34,7 +34,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
-  troubleShoot: TroubleShoot,
+  usbTroubleshoot: TroubleShoot,
   addAccount: AddAccountDialog,
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,

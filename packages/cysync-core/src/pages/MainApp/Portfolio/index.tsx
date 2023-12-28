@@ -14,7 +14,6 @@ import {
   selectAccounts,
   selectWallets,
   useAppDispatch,
-  // GuidedFlowMap,
   TroubleShootMap,
 } from '~/store';
 

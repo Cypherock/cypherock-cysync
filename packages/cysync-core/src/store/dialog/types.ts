@@ -97,7 +97,7 @@ export interface IDialogState {
     };
   };
 
-  troubleShoot: {
+  usbTroubleshoot: {
     isOpen: boolean;
     data?: {
       type: TroubleShootType;

@@ -22,7 +22,7 @@ import {
   TroubleShootType,
 } from '~/store';
 
-import { GuidedFlowProvider, useGuidedFlow } from './context';
+import { GuidedFlowProvider, useTroubleShoot } from './context';
 import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
@@ -34,7 +34,7 @@ export const TroubleShootDialog: FC = () => {
     blastConfetti,
     showBackButton,
     title,
-  } = useGuidedFlow();
+  } = useTroubleShoot();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const dispatch = useAppDispatch();

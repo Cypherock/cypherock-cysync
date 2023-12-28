@@ -48,7 +48,7 @@ type ITabs = {
   dialogs: ReactNode[];
 }[];
 
-export interface GuidedFlowContextInterface {
+export interface TroubleShootContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: (data: number) => void;
@@ -62,10 +62,12 @@ export interface GuidedFlowContextInterface {
   title: string;
 }
 
-export const GuidedFlowContext: Context<GuidedFlowContextInterface> =
-  createContext<GuidedFlowContextInterface>({} as GuidedFlowContextInterface);
+export const TroubleShootContext: Context<TroubleShootContextInterface> =
+  createContext<TroubleShootContextInterface>(
+    {} as TroubleShootContextInterface,
+  );
 
-export interface GuidedFlowContextProviderProps {
+export interface TroubleShootContextProviderProps {
   children: ReactNode;
   type: GuidedFlowType;
 }
@@ -163,7 +165,7 @@ interface IGuidedDialogContent {
   messageBoxList?: Record<MessageBoxType, string>[];
 }
 
-export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
+export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   children,
   type,
 }) => {
@@ -305,12 +307,12 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   );
 
   return (
-    <GuidedFlowContext.Provider value={ctx}>
+    <TroubleShootContext.Provider value={ctx}>
       {children}
-    </GuidedFlowContext.Provider>
+    </TroubleShootContext.Provider>
   );
 };
 
-export function useGuidedFlow(): GuidedFlowContextInterface {
-  return useContext(GuidedFlowContext);
+export function useTroubleShoot(): TroubleShootContextInterface {
+  return useContext(TroubleShootContext);
 }

@@ -24,7 +24,7 @@ export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
 export const openTroubleShootDialog = (type: TroubleShootType) =>
-  openDialog({ name: 'troubleShoot', data: { type } });
+  openDialog({ name: 'usbTroubleshoot', data: { type } });
 
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });
