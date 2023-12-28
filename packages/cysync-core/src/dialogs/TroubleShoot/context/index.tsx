@@ -35,7 +35,8 @@ import React, {
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
-  GuidedFlowType,
+  // GuidedFlowType,
+  TroubleShootType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -68,12 +69,13 @@ export const TroubleShootContext: Context<TroubleShootContextInterface> =
 
 export interface TroubleShootContextProviderProps {
   children: ReactNode;
-  type: GuidedFlowType;
+  type: TroubleShootType;
+  // type: GuidedFlowType;
 }
 
 const successIconReactElement = <Image src={successIcon} alt="device" />;
 
-const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
+const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
   createWallet: [
     [
       <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
@@ -261,7 +263,7 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('usbTroubleshoot'));
   };
 
   const ctx = useMemo(
