@@ -56,7 +56,6 @@ export interface TroubleShootContextInterface {
   setCurrentDialog: (data: number) => void;
   onNext: () => void;
   onPrevious: () => void;
-  blastConfetti: boolean;
   showBackButton: boolean;
   onCloseDialog: () => void;
   title: string;
@@ -173,20 +172,12 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
   const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
   const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
-  const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
-  const [blastConfetti, setBlastConfetti] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
   const [title, setTitle] = useState('');
 
   const dispatch = useAppDispatch();
 
-  const checkConfettiBlastDone = () => {
-    if (tabRef.current === 2 && dialogRef.current === 0)
-      setIsConfettiBlastDone(true);
-  };
-
   const onNext = () => {
-    checkConfettiBlastDone();
     if (
       dialogRef.current + 1 >
       tabsRef.current[tabRef.current].dialogs.length - 1
@@ -210,7 +201,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   };
 
   const onPrevious = () => {
-    checkConfettiBlastDone();
     if (dialogRef.current - 1 < 0) {
       if (tabRef.current === 0) {
         setCurrentDialog(0);
@@ -265,9 +255,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   }, []);
 
   useEffect(() => {
-    setBlastConfetti(
-      !isConfettiBlastDone && currentTab === 2 && currentDialog === 0,
-    );
     setShowBackButton(currentTab === 0 && currentDialog === 0);
   }, [currentTab, currentDialog]);
 
@@ -286,7 +273,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
       tabs,
       onNext,
       onPrevious,
-      blastConfetti,
       showBackButton,
       onCloseDialog,
       title,
@@ -299,7 +285,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
       tabs,
       onNext,
       onPrevious,
-      blastConfetti,
       showBackButton,
       onCloseDialog,
       title,

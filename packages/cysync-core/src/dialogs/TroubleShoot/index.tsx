@@ -8,14 +8,13 @@ import {
   BlurOverlay,
   DialogBoxBackgroundBar,
   BackButton,
-  ConfettiBlast,
+  // ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
 import {
   closeDialog,
-  // GuidedFlowType,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
@@ -27,14 +26,8 @@ import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const {
-    tabs,
-    currentTab,
-    currentDialog,
-    blastConfetti,
-    showBackButton,
-    title,
-  } = useTroubleShoot();
+  const { tabs, currentTab, currentDialog, showBackButton, title } =
+    useTroubleShoot();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const dispatch = useAppDispatch();
@@ -58,7 +51,6 @@ export const TroubleShootDialog: FC = () => {
             activeTab={currentTab}
           />
           <WalletDialogMainContainer>
-            {blastConfetti && <ConfettiBlast />}
             <DialogBoxBody
               p={0}
               grow={2}

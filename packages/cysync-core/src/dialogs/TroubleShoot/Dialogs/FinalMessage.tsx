@@ -1,9 +1,9 @@
 import {
-  GuidedFlowDialogBox,
   Flex,
   Button,
   LangDisplay,
   GenerateNewWalletDeviceGraphics,
+  TroubleShootDialogBox,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, {
@@ -87,7 +87,7 @@ export const FinalMessage: FC = () => {
   return (
     <>
       {showWalletNotCreatedDialog && <WalletNotCreatedDialog />}
-      <GuidedFlowDialogBox
+      <TroubleShootDialogBox
         image={informationIconReactElement}
         onNext={onNext}
         onPrevious={onPrevious}
