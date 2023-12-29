@@ -136,6 +136,7 @@ export const TroubleShootMap = {
 } as const;
 
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
+
 export type TroubleShootType =
   (typeof TroubleShootMap)[keyof typeof TroubleShootMap];
 

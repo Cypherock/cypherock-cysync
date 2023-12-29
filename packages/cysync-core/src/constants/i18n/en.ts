@@ -1393,15 +1393,11 @@ const en = {
           pages: [
             {
               title: 'Troubleshoot USB connection',
-              bulletList: [
-                'There seems to be a problem connecting your',
+              subtitle:
+                'There seems to be a problem connecting your' +
                 "device. Don't worry we got you covered",
-              ],
-              messageBoxList: [
-                {
-                  info: 'Try different solutions one by one until your device connects',
-                },
-              ],
+              title2:
+                'Try different solutions one by one until your device connects',
             },
             {
               title:
@@ -1410,6 +1406,15 @@ const en = {
                 'the converter side (usb-b to usb-c) should always' +
                 'be connected to the laptop. If that is connected to' +
                 'the device, then it wont work',
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+            {
+              title: 'Allow accessories to connect',
+              subtitle: 'Follow the instructions below',
               bulletList: [
                 'Open "System Settings"',
                 'Go to "Privacy & Security"',

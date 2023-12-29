@@ -38,6 +38,7 @@ import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
 import pendriveIcon from './pendrive.svg';
+import loadingIcon from './loading.svg';
 import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
@@ -123,6 +124,7 @@ export {
   openExternalLink,
   informationIcon,
   pendriveIcon,
+  loadingIcon,
   greenTick,
   redDisconnectedIcon,
   goldFail,

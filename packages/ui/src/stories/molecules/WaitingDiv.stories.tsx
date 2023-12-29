@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { WaitingBox } from '../../components';
+import { WaitingDiv } from '../../components';
 
-const meta: Meta<typeof WaitingBox> = {
-  component: WaitingBox,
+const meta: Meta<typeof WaitingDiv> = {
+  component: WaitingDiv,
   tags: ['autodocs'],
 };
 

@@ -4,11 +4,9 @@ import {
   HelpButton,
   WalletDialogMainContainer,
   MilestoneAside,
-  CloseButton,
   BlurOverlay,
   DialogBoxBackgroundBar,
   BackButton,
-  // ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -22,13 +20,11 @@ import {
 } from '~/store';
 
 import { GuidedFlowProvider, useTroubleShoot } from './context';
-import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { tabs, currentTab, currentDialog, showBackButton, title } =
     useTroubleShoot();
-  const [showOnClose, setShowOnClose] = React.useState(false);
 
   const dispatch = useAppDispatch();
   const backToWalletActions = () => {
@@ -37,13 +33,7 @@ export const TroubleShootDialog: FC = () => {
   };
   return (
     <BlurOverlay>
-      <DialogBox
-        direction="row"
-        gap={0}
-        width="full"
-        onClose={() => setShowOnClose(true)}
-      >
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+      <DialogBox direction="row" gap={0} width="full">
         <>
           <MilestoneAside
             heading={title}
@@ -72,9 +62,6 @@ export const TroubleShootDialog: FC = () => {
                   text={lang.strings.help}
                   onClick={() => dispatch(openContactSupportDialog())}
                 />
-              }
-              rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
               }
               position="top"
               useLightPadding

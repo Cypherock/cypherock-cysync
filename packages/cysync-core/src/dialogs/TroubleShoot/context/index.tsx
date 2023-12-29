@@ -10,7 +10,7 @@ import {
   EnterWalletNameDeviceGraphics,
   TroubleShootDialogBox,
   Image,
-  MessageBoxType,
+  WaitingDivType,
   SelectSeedphraseWordCountDeviceGraphics,
   VerifyPinDeviceGraphics,
   VerifySeedphraseDeviceGraphics,
@@ -35,7 +35,6 @@ import React, {
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
-  // GuidedFlowType,
   TroubleShootType,
   closeDialog,
   selectLanguage,
@@ -70,7 +69,6 @@ export const TroubleShootContext: Context<TroubleShootContextInterface> =
 export interface TroubleShootContextProviderProps {
   children: ReactNode;
   type: TroubleShootType;
-  // type: GuidedFlowType;
 }
 
 const successIconReactElement = <Image src={successIcon} alt="device" />;
@@ -162,8 +160,9 @@ const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
 interface IGuidedDialogContent {
   title?: string;
   subtitle?: string;
+  title2?: string;
   bulletList?: string[];
-  messageBoxList?: Record<MessageBoxType, string>[];
+  messageBoxList?: Record<WaitingDivType, string>[];
 }
 
 export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
@@ -231,6 +230,7 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
       <TroubleShootDialogBox
         key={`${index + 1}`}
         image={images[index]}
+        isFirstDialog={first && index === 0}
         {...content}
         onNext={onNext}
         onPrevious={onPrevious}

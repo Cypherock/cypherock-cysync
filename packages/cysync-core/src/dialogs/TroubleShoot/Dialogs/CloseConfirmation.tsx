@@ -35,7 +35,7 @@ const Buttons: FC<{
       <Button
         onClick={() => {
           setShowOnClose(false);
-          dispatch(closeDialog('guidedFlow'));
+          dispatch(closeDialog('usbTroubleshoot'));
         }}
         variant="primary"
       >
@@ -56,7 +56,7 @@ export const CloseConfirmation: FC<{
       $isModal
       icon={<Image src={goldFail} alt="gold cross" />}
       title={lang.strings.troubleShoot.closeDialog.title}
-      subtext={lang.strings.troubleShoot.closeDialog.subtitle}
+      // subtext={lang.strings.troubleShoot.closeDialog.subtitle}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
       onClose={() => setShowOnClose(false)}
     />
