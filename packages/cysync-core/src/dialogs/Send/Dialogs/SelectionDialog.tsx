@@ -57,7 +57,7 @@ export const SelectionDialog: React.FC = () => {
         <Container display="flex" direction="column" gap={20} width="full">
           <Dropdown
             items={walletDropdownList}
-            defaultValue={selectedWallet?.__id}
+            selectedItem={selectedWallet?.__id}
             searchText={dialogText.searchText}
             placeholderText={dialogText.walletPlaceholder}
             onChange={handleWalletChange}
@@ -65,7 +65,7 @@ export const SelectionDialog: React.FC = () => {
           />
           <Dropdown
             items={accountDropdownList}
-            defaultValue={selectedAccount?.__id}
+            selectedItem={selectedAccount?.__id}
             disabled={!selectedWallet}
             searchText={dialogText.searchText}
             placeholderText={dialogText.accountPlaceholder}

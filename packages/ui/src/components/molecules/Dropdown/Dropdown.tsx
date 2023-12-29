@@ -41,13 +41,13 @@ interface DropdownProps {
 interface SingleSelectDropdownProps extends DropdownProps {
   onChange?: (selectedItemId: string | undefined) => void;
   isMultiSelect?: false;
-  defaultValue?: string | undefined | null;
+  selectedItem?: string | undefined | null;
 }
 
 interface MultiSelectDropdownProps extends DropdownProps {
   onChange?: (selectedItemIds: string[]) => void;
   isMultiSelect: true;
-  defaultValue?: (string | undefined | null)[];
+  selectedItems?: (string | undefined | null)[];
 }
 
 export const Dropdown: React.FC<
@@ -67,13 +67,23 @@ export const Dropdown: React.FC<
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [selectedItemIds, setSelectedItemIds] = useState<string[]>(
-    lodash.compact(
-      props.isMultiSelect ? props.defaultValue : [props.defaultValue],
-    ),
+  const selectedItemIds = lodash.compact(
+    props.isMultiSelect ? props.selectedItems : [props.selectedItem],
   );
 
   const listRef = useRef<HTMLUListElement | null>(null);
+
+  const onChange = useCallback(
+    (ids: string[]) => {
+      if (props.onChange === undefined) return;
+      if (props.isMultiSelect) {
+        props.onChange(ids);
+      } else {
+        props.onChange(ids[0]);
+      }
+    },
+    [props.onChange, props.isMultiSelect],
+  );
 
   const handleCheckedChange = (id: string) => {
     const targetItem = items.find(item => item.id === id);
@@ -82,14 +92,14 @@ export const Dropdown: React.FC<
 
     if (!props.isMultiSelect) {
       toggleDropdown();
-      setSelectedItemIds([id]);
+      onChange([id]);
       return;
     }
 
     if (selectedItemIds.includes(id))
       selectedItemIds.splice(selectedItemIds.indexOf(id), 1);
     else selectedItemIds.push(id);
-    setSelectedItemIds([...selectedItemIds]);
+    onChange([...selectedItemIds]);
   };
 
   const selectedItems: DropDownItemProps[] = useMemo(
@@ -105,16 +115,6 @@ export const Dropdown: React.FC<
       ),
     [items, selectedItemIds],
   );
-
-  const onChange = useCallback(() => {
-    if (props.onChange === undefined) return;
-    if (props.isMultiSelect) {
-      props.onChange(lodash.compact(selectedItems.map(item => item.id)));
-    } else {
-      props.onChange(selectedItems[0]?.id);
-    }
-  }, [selectedItems, props.onChange, props.isMultiSelect]);
-  useEffect(onChange, [selectedItems, onChange]);
 
   const filteredItems = useMemo(
     () => searchInItems(items, search),

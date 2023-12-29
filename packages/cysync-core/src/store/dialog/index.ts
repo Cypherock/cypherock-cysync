@@ -37,6 +37,9 @@ const initialState: IDialogState = {
   addAccount: {
     isOpen: false,
   },
+  addToken: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },

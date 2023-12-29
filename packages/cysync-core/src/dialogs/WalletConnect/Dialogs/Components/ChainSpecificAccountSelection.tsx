@@ -35,7 +35,7 @@ export const ChainSpecificAccountSelection: React.FC<{
     <Dropdown
       key={chain}
       items={accountDropdownList}
-      defaultValue={selectedAccount?.__id}
+      selectedItem={selectedAccount?.__id}
       disabled={!selectedWallet}
       searchText={
         parseLangTemplate(accountSelectionTab.chooseAccount, {
