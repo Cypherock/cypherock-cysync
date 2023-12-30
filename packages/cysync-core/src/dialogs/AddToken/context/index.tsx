@@ -148,9 +148,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     () =>
       accountDropdownListSrc.map(a => ({
         ...a,
-        shortForm: a.id
-          ? `(${accountList[a.id].unit.toUpperCase()})`
-          : undefined,
+        shortForm:
+          a.id && accountList[a.id]
+            ? `(${accountList[a.id].unit.toUpperCase()})`
+            : undefined,
         rightText: undefined,
         showRightTextOnBottom: undefined,
       })),
