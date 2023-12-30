@@ -14,6 +14,7 @@ import {
   initializeAndGetDb,
   installDeveloperExtensions,
   logger,
+  migrateDbFromBeta,
   setupProcessEventHandlers,
   setWCUri,
   windowUrls,
@@ -69,6 +70,7 @@ const prepareApp = () => {
 };
 
 const setupIntitialState = async () => {
+  await migrateDbFromBeta();
   await initializeAndGetDb();
 };
 
