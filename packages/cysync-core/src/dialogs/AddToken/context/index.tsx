@@ -171,7 +171,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
           <CoinIcon assetId={token.id} parentAssetId={token.parentId} />
         ),
         shortForm: `(${token.abbr.toUpperCase()})`,
-        rightText: `(${token.parentId.toUpperCase()})`,
+        rightText: `${
+          token.parentId[0].toUpperCase() +
+          token.parentId.slice(1).toLowerCase()
+        }`,
         text: token.name,
         disabled: family ? token.family !== family : false,
       }))
