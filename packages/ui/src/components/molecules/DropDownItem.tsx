@@ -77,6 +77,18 @@ export const DropDownListItemStretchedTypography = styled(Typography)<
   }};
 `;
 
+const RightTextTypography = styled(Typography)<{
+  $hasRightText?: boolean;
+  disabled?: boolean;
+  color: TypographyColor;
+}>`
+  font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
+  font-weight: 400;
+  white-space: nowrap;
+  color: ${({ theme, color, disabled }) =>
+    disabled ? theme.palette.text.disabled : color};
+`;
+
 export const DropDownListItemHorizontalBox = styled.div<
   DropDownListItemHorizontalBoxProps &
     DropDownItemProps &
@@ -114,6 +126,10 @@ export const DropDownListItemHorizontalBox = styled.div<
       color: ${({ theme, disabled }) =>
         disabled ? theme.palette.text.disabled : theme.palette.text.white};
     }
+    ${RightTextTypography} {
+      color: ${({ theme, disabled }) =>
+        disabled ? theme.palette.text.disabled : theme.palette.text.white};
+    }
   }
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.text.disabled : theme.palette.text.muted};
@@ -143,12 +159,6 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
-const RightTextTypography = styled(Typography)<{ $hasRightText?: boolean }>`
-  font-size: ${({ $hasRightText }) => ($hasRightText ? '14px' : '13px')};
-  font-weight: 400;
-  white-space: nowrap;
-`;
-
 export const DropDownItem: FC<DropDownItemProps> = ({
   leftImage,
   rightIcon,
@@ -159,7 +169,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   shortForm = '',
   tag,
   rightTextVariant = 'fineprint',
-  rightTextColor = 'gold',
+  rightTextColor = 'muted',
   checkType = undefined,
   checked = false,
   $hasRightText = false,
@@ -244,8 +254,9 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
-            color={disabled ? 'disabled' : rightTextColor}
+            color={rightTextColor}
             $hasRightText={$hasRightText}
+            disabled={disabled}
           >
             {rightText}
           </RightTextTypography>
@@ -256,8 +267,9 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
-              color={disabled ? 'disabled' : rightTextColor}
+              color={rightTextColor}
               $hasRightText={$hasRightText}
+              disabled={disabled}
             >
               {rightText}
             </RightTextTypography>
