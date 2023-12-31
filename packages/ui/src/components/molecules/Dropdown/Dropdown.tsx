@@ -206,6 +206,7 @@ export const Dropdown: React.FC<
           $parentId={selectedItems[0].$parentId}
           tag={selectionCount > 1 ? `+${selectionCount - 1}` : undefined}
           color="white"
+          tagType="gold"
         />
       ) : (
         <Input

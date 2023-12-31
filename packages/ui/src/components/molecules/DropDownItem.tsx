@@ -10,6 +10,7 @@ import {
   Typography,
   TypographyColor,
   TypographyProps,
+  TagType,
 } from '../atoms';
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
@@ -19,6 +20,7 @@ export interface DropDownItemProps extends BorderProps {
   rightText?: string;
   $hasRightText?: boolean;
   tag?: string;
+  tagType?: TagType;
   text: string;
   $textMaxWidth?: string;
   $textMaxWidthWhenSelected?: string;
@@ -168,6 +170,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   text,
   shortForm = '',
   tag,
+  tagType,
   rightTextVariant = 'fineprint',
   rightTextColor = 'muted',
   checkType = undefined,
@@ -249,7 +252,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
               </ShortFormTag>
             )}
           </DropDownListItemStretchedTypography>
-          {tag && <Tag>{tag}</Tag>}
+          {tag && <Tag type={tagType}>{tag}</Tag>}
         </Flex>
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
@@ -295,6 +298,7 @@ DropDownItem.defaultProps = {
   checkType: undefined,
   id: undefined,
   tag: undefined,
+  tagType: 'tag',
   onClick: undefined,
   $restrictedItem: false,
   checked: false,
