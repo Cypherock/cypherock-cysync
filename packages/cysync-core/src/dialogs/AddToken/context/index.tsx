@@ -1,11 +1,6 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
-import {
-  ICoinInfo,
-  IEvmErc20Token,
-  coinList,
-  evmCoinList,
-} from '@cypherock/coins';
+import { ICoinInfo, IEvmErc20Token, evmCoinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -48,7 +43,7 @@ export interface AddTokenDialogContextInterface {
   selectedTokens: ICoinInfo[];
   selectedWallet: IWallet | undefined;
   selectedAccounts: IAccount[];
-  setSelectedTokens: React.Dispatch<React.SetStateAction<ICoinInfo[]>>;
+  setSelectedTokens: React.Dispatch<React.SetStateAction<IEvmErc20Token[]>>;
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
   handleWalletChange: (id?: string) => void;
   setSelectedAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
@@ -65,13 +60,11 @@ export const AddTokenDialogContext: Context<AddTokenDialogContextInterface> =
 export interface AddTokenDialogContextProviderProps {
   children: ReactNode;
   walletId?: string;
-  coinId?: string;
 }
 
 export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   children,
   walletId: defaultWalletId,
-  coinId: defaultCoinId,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -83,14 +76,23 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     walletDropdownList,
   } = useWalletDropdown({ walletId: defaultWalletId });
 
-  const [selectedTokens, setSelectedTokens] = useState<ICoinInfo[]>(
-    defaultCoinId ? [coinList[defaultCoinId]] : [],
-  );
+  const [selectedAssetType, setSelectedAssetType] = useState<
+    string | undefined
+  >(undefined);
+  const [selectedTokens, setSelectedTokens] = useState<IEvmErc20Token[]>([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
 
   useEffect(() => {
     setSelectedAccounts([]);
   }, [selectedWallet]);
+
+  useEffect(() => {
+    if (selectedTokens.length > 0)
+      setSelectedAssetType(selectedTokens[0].parentId);
+    else if (selectedAccounts.length > 0)
+      setSelectedAssetType(selectedAccounts[0].assetId);
+    else setSelectedAssetType(undefined);
+  }, [selectedTokens, selectedAccounts]);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     1: [0],
@@ -137,7 +139,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
 
   const { accounts } = useAppSelector(selectAccounts);
   const accountList: Record<string, IAccount> = useMemo(
-    () => Object.fromEntries(accounts.map(a => [a.__id, a]).slice(0, 30)),
+    () => Object.fromEntries(accounts.map(a => [a.__id, a])),
     [accounts],
   );
 
@@ -146,22 +148,28 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   });
   const accountDropdownList = useMemo(
     () =>
-      accountDropdownListSrc.map(a => ({
-        ...a,
-        shortForm:
-          a.id && accountList[a.id]
-            ? `(${accountList[a.id].unit.toUpperCase()})`
-            : undefined,
-        rightText: undefined,
-        showRightTextOnBottom: undefined,
-      })),
-    [accountDropdownListSrc, accountList],
+      accountDropdownListSrc
+        .filter(a => Boolean(a.id && accountList[a.id]))
+        .map(a => ({
+          ...a,
+          shortForm:
+            a.id === undefined
+              ? undefined
+              : `(${accountList[a.id].unit.toUpperCase()})`,
+          rightText: undefined,
+          showRightTextOnBottom: undefined,
+          disabled:
+            a.id !== undefined &&
+            selectedAssetType !== undefined &&
+            selectedAssetType !== accountList[a.id].assetId,
+        }))
+        .sort((a, b) => (!a.disabled && b.disabled ? -1 : 0)),
+    [accountDropdownListSrc, accountList, selectedAssetType],
   );
 
   const tokenDropDownList: DropDownItemProps[] = useMemo<
     DropDownItemProps[]
   >(() => {
-    const family = selectedTokens[0]?.family;
     const tokens = Object.values(tokenList);
 
     return tokens
@@ -171,15 +179,16 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
           <CoinIcon assetId={token.id} parentAssetId={token.parentId} />
         ),
         shortForm: `(${token.abbr.toUpperCase()})`,
-        rightText: `${
+        rightText:
           token.parentId[0].toUpperCase() +
-          token.parentId.slice(1).toLowerCase()
-        }`,
+          token.parentId.slice(1).toLowerCase(),
         text: token.name,
-        disabled: family ? token.family !== family : false,
+        disabled:
+          selectedAssetType !== undefined &&
+          selectedAssetType !== token.parentId,
       }))
       .sort((a, b) => (!a.disabled && b.disabled ? -1 : 0));
-  }, [selectedTokens]);
+  }, [selectedTokens, selectedAssetType]);
 
   const ctx = useMemo(
     () => ({
@@ -235,7 +244,6 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
 
 AddTokenDialogProvider.defaultProps = {
   walletId: undefined,
-  coinId: undefined,
 };
 
 export function useAddTokenDialog(): AddTokenDialogContextInterface {

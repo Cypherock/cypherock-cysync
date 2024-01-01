@@ -5,7 +5,6 @@ import { AddTokenDialogProvider, useAddTokenDialog } from './context';
 
 export interface AddTokenDialogProps {
   walletId?: string;
-  coinId?: string;
 }
 
 const AddNewToken: FC = () => {
@@ -21,6 +20,5 @@ export const AddTokenDialog: FC<AddTokenDialogProps> = props => (
 );
 
 AddTokenDialog.defaultProps = {
-  coinId: undefined,
   walletId: undefined,
 };

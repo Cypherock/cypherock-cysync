@@ -1,28 +1,26 @@
 import { styled } from 'styled-components';
-import { CursorProps, cursor } from '../../utils';
+import { CursorProps, HeightProps, cursor, height } from '../../utils';
 
-export const List = styled.ul<{ disabled?: boolean }>`
+export const DropDownListContainer = styled.div<HeightProps & CursorProps>`
   position: absolute;
   top: 100%;
   right: 0;
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  max-height: 255px;
+  max-height: 244px;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 4px 4px 32px 4px
-    ${({ theme }) => theme.palette.background.separatorSecondary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
   padding: 16px 0px 16px 0px;
   z-index: 10;
   background-color: ${({ theme }) =>
     theme.palette.background.separatorSecondary};
-  &:hover {
-    cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
-  }
+  ${cursor}
+  ${height}
 `;
 
-export const DropdownListItem = styled.li<
+export const DropdownListItem = styled.div<
   CursorProps & { $isFocused?: boolean }
 >`
   background-color: ${({ theme }) => theme.palette.border.separatorSecondary};

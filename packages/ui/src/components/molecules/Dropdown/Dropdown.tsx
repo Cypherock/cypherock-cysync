@@ -6,21 +6,23 @@ import React, {
   useState,
 } from 'react';
 import { useTheme } from 'styled-components';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import {
   DropdownContainer,
   DropdownListItem,
   IconContainer,
-  List,
+  DropDownListContainer,
 } from './DropdownStyles';
 
 import lodash from 'lodash';
 import {
+  NotFound,
   searchIcon,
   triangleGreyIcon,
   triangleInverseIcon,
 } from '../../../assets';
-import { Image, Input } from '../../atoms';
+import { Flex, Image, Input, LangDisplay, Typography } from '../../atoms';
 import {
   handleClickOutside,
   handleEscapeKey,
@@ -71,7 +73,7 @@ export const Dropdown: React.FC<
     props.isMultiSelect ? props.selectedItems : [props.selectedItem],
   );
 
-  const listRef = useRef<HTMLUListElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   const onChange = useCallback(
     (ids: string[]) => {
@@ -124,6 +126,7 @@ export const Dropdown: React.FC<
   const handleInputChange = (value: string) => {
     if (!isOpen) toggleDropdown();
     setSearch(value);
+    setFocusedIndex(0);
   };
 
   const toggleDropdown = () => {
@@ -171,6 +174,38 @@ export const Dropdown: React.FC<
   }, [isOpen, setIsOpen, containerRef]);
 
   const selectionCount = selectedItems.length;
+
+  const rowRenderer = ({ index, style }: any) => {
+    const item = filteredItems[index];
+    const itemId = item.id ?? '';
+    const isItemFocused: boolean = focusedIndex === index;
+    const isItemSelected: boolean = selectedItems.some(
+      currItem => currItem.id === itemId,
+    );
+    return (
+      <DropdownListItem
+        style={style}
+        key={itemId}
+        role="option"
+        aria-selected={isItemSelected}
+        onMouseEnter={() => setFocusedIndex(index)}
+        onFocus={() => setFocusedIndex(index)}
+        $isFocused={isItemFocused}
+        $cursor={item.disabled ? 'not-allowed' : 'pointer'}
+      >
+        <DropDownItem
+          {...item}
+          checked={isItemSelected}
+          onCheckedChange={handleCheckedChange}
+          id={item.id}
+          checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
+          leftImage={noLeftImageInList ? undefined : item.leftImage}
+          $isFocused={isItemFocused}
+          disabled={item.disabled}
+        />
+      </DropdownListItem>
+    );
+  };
 
   return (
     <DropdownContainer
@@ -253,45 +288,44 @@ export const Dropdown: React.FC<
         )}
       </IconContainer>
 
-      {isOpen && (
-        <List
+      {isOpen && filteredItems.length > 0 && (
+        <DropDownListContainer
           ref={listRef}
-          disabled={disabled}
-          id="dropdown-list"
-          role="listbox"
-          aria-multiselectable={false}
-          aria-labelledby="dropdown-label"
+          height={53 * Math.min(filteredItems.length, 4) + 32}
+          $cursor={disabled ? 'not-allowed' : 'default'}
         >
-          {filteredItems.map((item, index) => {
-            const itemId = item.id ?? '';
-            const isItemFocused: boolean = focusedIndex === index;
-            const isItemSelected: boolean = selectedItems.some(
-              currItem => currItem.id === itemId,
-            );
-            return (
-              <DropdownListItem
-                key={itemId}
-                role="option"
-                aria-selected={isItemSelected}
-                onMouseEnter={() => setFocusedIndex(index)}
-                onFocus={() => setFocusedIndex(index)}
-                $isFocused={isItemFocused}
-                $cursor={item.disabled ? 'not-allowed' : 'pointer'}
-              >
-                <DropDownItem
-                  {...item}
-                  checked={isItemSelected}
-                  onCheckedChange={handleCheckedChange}
-                  id={item.id}
-                  checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
-                  leftImage={noLeftImageInList ? undefined : item.leftImage}
-                  $isFocused={isItemFocused}
-                  disabled={item.disabled}
-                />
-              </DropdownListItem>
-            );
-          })}
-        </List>
+          <Virtualize.AutoSizer>
+            {({ width, height }: any) => (
+              <Virtualize.List
+                height={height}
+                width={width}
+                rowCount={filteredItems.length}
+                rowHeight={53}
+                rowRenderer={rowRenderer}
+                scrollToIndex={focusedIndex}
+                overscanRowCount={10}
+              />
+            )}
+          </Virtualize.AutoSizer>
+        </DropDownListContainer>
+      )}
+
+      {isOpen && filteredItems.length === 0 && (
+        <DropDownListContainer $cursor="default">
+          <Flex
+            justify="center"
+            align="center"
+            direction="row"
+            gap={16}
+            px={3}
+            py={2}
+          >
+            <NotFound height={22} width={22} />
+            <Typography color="muted">
+              <LangDisplay text="No data found" />
+            </Typography>
+          </Flex>
+        </DropDownListContainer>
       )}
     </DropdownContainer>
   );

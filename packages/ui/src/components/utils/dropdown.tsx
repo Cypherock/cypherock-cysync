@@ -41,7 +41,7 @@ export const handleKeyDown =
     focusedIndex: number | null,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
-    listRef: MutableRefObject<HTMLUListElement | null>,
+    listRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const visibleItemsCount = filteredItems.length;
