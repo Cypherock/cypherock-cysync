@@ -9,6 +9,7 @@ import {
   Dropdown,
   LangDisplay,
   Typography,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -59,13 +60,21 @@ export const AddTokenSelectionDialog: React.FC = () => {
         </Typography>
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
-      <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Container display="flex" direction="column" gap={20} width="full">
+      <DialogBoxBody p={0} gap={0}>
+        <Container display="flex" direction="column" py={4} px={5} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={addToken.select.header} />
           </Typography>
         </Container>
-        <Container display="flex" direction="column" gap={20} width="full">
+        <Container
+          display="flex"
+          direction="column"
+          px={5}
+          pt={2}
+          pb={4}
+          gap={24}
+          width="full"
+        >
           <Dropdown
             items={walletDropdownList}
             selectedItem={selectedWallet?.__id}
@@ -93,8 +102,17 @@ export const AddTokenSelectionDialog: React.FC = () => {
             isMultiSelect
           />
         </Container>
+        <Container
+          display="flex"
+          direction="column"
+          px={5}
+          pt={2}
+          pb={4}
+          width="full"
+        >
+          <MessageBox type="warning" text={addToken.select.message} />
+        </Container>
       </DialogBoxBody>
-
       <DialogBoxFooter>
         <Button
           variant="primary"
