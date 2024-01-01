@@ -31,10 +31,7 @@ const selectWalletsAndLang = createSelector(
   (a, b) => ({ lang: a, ...b }),
 );
 
-const informationIconReactElement = (
-  // <Image src={informationIcon} alt="device" $maxWidth="full" />
-  <GenerateNewWalletDeviceGraphics />
-);
+const informationIconReactElement = <GenerateNewWalletDeviceGraphics />;
 
 const Buttons: FC<{
   setShowWalletNotCreatedDialog: Dispatch<SetStateAction<boolean>>;

@@ -1385,11 +1385,11 @@ const en = {
     },
   },
   troubleShoot: {
-    createWallet: {
-      title: 'Create New Wallet',
+    diagnostics: {
+      title: 'USB Diagnostics',
       tabs: [
         {
-          asideTitle: 'X1 Vault',
+          asideTitle: 'Solution #1',
           pages: [
             {
               title: 'Troubleshoot USB connection',
@@ -1399,6 +1399,11 @@ const en = {
               title2:
                 'Try different solutions one by one until your device connects',
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #2',
+          pages: [
             {
               title:
                 'Connect the correct side of the USB converter to the device',
@@ -1412,6 +1417,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #3',
+          pages: [
             {
               title: 'Allow accessories to connect',
               subtitle: 'Follow the instructions below',
@@ -1429,6 +1439,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #4',
+          pages: [
             {
               title: 'Try a different USB port',
               subtitle: 'Follow the instructions below',
@@ -1443,6 +1458,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #5',
+          pages: [
             {
               title: 'Change the USB cable',
               subtitle: 'Follow the instructions below',
@@ -1457,6 +1477,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #6',
+          pages: [
             {
               title: 'Turn off antvirus and VPN',
               subtitle: 'Follow the instructions below',
@@ -1471,6 +1496,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #7',
+          pages: [
             {
               title: 'Try another computer',
               subtitle: 'Follow the instructions below',
@@ -1484,6 +1514,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #8',
+          pages: [
             {
               title: 'Enable full disk access',
               subtitle: 'Follow the instructions below',
@@ -1500,6 +1535,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Solution #9',
+          pages: [
             {
               title: 'Reset NVRAM',
               subtitle: 'Follow the instructions below',
@@ -1513,6 +1553,11 @@ const en = {
                 },
               ],
             },
+          ],
+        },
+        {
+          asideTitle: 'Contact Support',
+          pages: [
             {
               title: 'Restart your computer',
               subtitle: 'Follow the instructions below',
@@ -1680,6 +1725,7 @@ const en = {
       ],
     },
     finalIssue: {
+      asideTitle: 'Contact Support',
       title: 'USB connection problem still not fixed?',
       subtitle:
         "If you have tried every possible solution, please reach out to Cypherock support. Otherwise, please follow the instructions of any solution you haven't tried yet.",

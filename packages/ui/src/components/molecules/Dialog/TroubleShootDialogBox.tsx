@@ -142,7 +142,7 @@ export const TroubleShootDialogBox: FC<TroubleShootDialogBoxProps> = ({
       {footer}
       {!footer &&
         (isFirstDialog ? (
-          <Button variant="secondary" onClick={onNext}>
+          <Button variant="primary" onClick={onNext}>
             <LangDisplay text="Next" />
           </Button>
         ) : (

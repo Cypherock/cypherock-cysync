@@ -56,7 +56,6 @@ export interface TroubleShootContextInterface {
   setCurrentDialog: (data: number) => void;
   onNext: () => void;
   onPrevious: () => void;
-  showBackButton: boolean;
   onCloseDialog: () => void;
   title: string;
 }
@@ -74,44 +73,17 @@ export interface TroubleShootContextProviderProps {
 const successIconReactElement = <Image src={successIcon} alt="device" />;
 
 const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
-  createWallet: [
-    [
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-      <Image src={pendriveIcon} alt="device" $maxWidth="full" />,
-    ],
-    [
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
-    [
-      successIconReactElement,
-      successIconReactElement,
-      successIconReactElement,
-      <Video
-        src={enterSeedphraseAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-      <Video
-        src={distributeToLocationsAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
+  diagnostics: [
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
   ],
   importWallet: [
     [
@@ -173,7 +145,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
   const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
   const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
-  const [showBackButton, setShowBackButton] = useState(false);
   const [title, setTitle] = useState('');
 
   const dispatch = useAppDispatch();
@@ -256,10 +227,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
     init();
   }, []);
 
-  useEffect(() => {
-    setShowBackButton(currentTab === 0 && currentDialog === 0);
-  }, [currentTab, currentDialog]);
-
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
@@ -275,7 +242,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
       tabs,
       onNext,
       onPrevious,
-      showBackButton,
       onCloseDialog,
       title,
     }),
@@ -287,7 +253,6 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
       tabs,
       onNext,
       onPrevious,
-      showBackButton,
       onCloseDialog,
       title,
     ],

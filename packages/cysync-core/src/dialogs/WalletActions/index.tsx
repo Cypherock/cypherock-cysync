@@ -79,9 +79,9 @@ export const WalletActionsDialogBox: FC = () => {
                 $borderWidth={1}
                 $borderRadius={16}
                 $borderColor={
-                  selectedAction === 'createWallet' ? 'gold' : 'card'
+                  selectedAction === 'diagnostics' ? 'gold' : 'card'
                 }
-                onClick={() => setSelectedAction('createWallet')}
+                onClick={() => setSelectedAction('diagnostics')}
                 align="center"
                 pt={3}
                 px={3}
@@ -148,7 +148,7 @@ export const WalletActionsDialogBox: FC = () => {
               </Flex>
             </Flex>
             <Flex pt={1} pb={4} px={4}>
-              {selectedAction === 'createWallet' && (
+              {selectedAction === 'diagnostics' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}

@@ -54,7 +54,7 @@ export const AppSettings: React.FC = () => {
   }, [isAutoUpdateCySyncEnabled]);
 
   const handleUsdTroubleShoot = () => {
-    dispatch(openTroubleShootDialog(TroubleShootMap.createWallet));
+    dispatch(openTroubleShootDialog(TroubleShootMap.diagnostics));
   };
 
   return (

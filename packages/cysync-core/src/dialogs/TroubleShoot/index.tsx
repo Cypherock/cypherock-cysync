@@ -1,36 +1,18 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   WalletDialogMainContainer,
   MilestoneAside,
   BlurOverlay,
-  DialogBoxBackgroundBar,
-  BackButton,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-  TroubleShootType,
-} from '~/store';
+import { TroubleShootType } from '~/store';
 
 import { GuidedFlowProvider, useTroubleShoot } from './context';
 
 export const TroubleShootDialog: FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const { tabs, currentTab, currentDialog, showBackButton, title } =
-    useTroubleShoot();
-
-  const dispatch = useAppDispatch();
-  const backToWalletActions = () => {
-    dispatch(closeDialog('guidedFlow'));
-    dispatch(openWalletActionsDialog());
-  };
+  const { tabs, currentTab, currentDialog, title } = useTroubleShoot();
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full">
@@ -55,29 +37,6 @@ export const TroubleShootDialog: FC = () => {
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>
-
-            <DialogBoxBackgroundBar
-              leftComponent={
-                <HelpButton
-                  text={lang.strings.help}
-                  onClick={() => dispatch(openContactSupportDialog())}
-                />
-              }
-              position="top"
-              useLightPadding
-            />
-            {showBackButton && (
-              <DialogBoxBackgroundBar
-                leftComponent={
-                  <BackButton
-                    text={lang.strings.back}
-                    onClick={backToWalletActions}
-                  />
-                }
-                position="bottom"
-                useLightPadding
-              />
-            )}
           </WalletDialogMainContainer>
         </>
       </DialogBox>

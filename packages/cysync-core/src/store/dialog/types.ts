@@ -131,7 +131,7 @@ export const GuidedFlowMap = {
 } as const;
 
 export const TroubleShootMap = {
-  createWallet: 'createWallet',
+  diagnostics: 'diagnostics',
   importWallet: 'importWallet',
 } as const;
 
