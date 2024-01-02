@@ -5,29 +5,36 @@ import { createDb, createKeyValueStore } from '@cypherock/database';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { config } from './config';
+import channelMigrations from '../../migrations/channel.json';
+import { logger } from './logger';
 
 let db: IDatabase | undefined;
 
 let keyDb: IKeyValueStore | undefined;
 
-export const migrateDbFromBeta = async () => {
-  if (config.CHANNEL !== 'latest') return;
+export const migrateDbBetweenChannels = async () => {
+  for (const migrationItem of channelMigrations) {
+    if (config.CHANNEL !== migrationItem.to) continue;
 
-  const betaDbPath = path.join(
-    config.USER_DATA_PATH,
-    '..',
-    'cypherock-cysync-beta',
-    'cysync-data',
-  );
-  const currentDbPath = path.join(config.USER_DATA_PATH, 'cysync-data');
+    const fromDbPath = path.join(
+      config.USER_DATA_PATH,
+      '..',
+      `cypherock-cysync-${migrationItem.from}`,
+      'cysync-data',
+    );
+    const toDbPath = path.join(config.USER_DATA_PATH, 'cysync-data');
 
-  if (fs.existsSync(betaDbPath)) {
-    if (fs.existsSync(currentDbPath)) {
-      console.log('DB already exists');
-      return;
+    if (fs.existsSync(fromDbPath)) {
+      if (fs.existsSync(toDbPath)) {
+        logger.info('DB already exists, skipping migration');
+        return;
+      }
+
+      logger.info(
+        `Migrating DB from ${migrationItem.from} to ${migrationItem.to}`,
+      );
+      await fs.promises.cp(fromDbPath, toDbPath, { recursive: true });
     }
-
-    await fs.promises.cp(betaDbPath, currentDbPath, { recursive: true });
   }
 };
 

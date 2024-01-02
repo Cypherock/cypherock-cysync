@@ -28,6 +28,7 @@ class AutoUpdater {
 
     electronAutoUpdater.logger = createServiceLogger('autoUpdater');
     electronAutoUpdater.autoDownload = false;
+    electronAutoUpdater.channel = config.CHANNEL;
   }
 
   public setup(webContents: WebContents) {

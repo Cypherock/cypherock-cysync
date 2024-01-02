@@ -3,6 +3,7 @@ const fs = require('fs');
 const semver = require('semver');
 
 const { getReleaseParams, config, execCommand } = require('./helpers');
+const channelMigrations = require('../apps/desktop/src/migrations/channel.json');
 
 const CHANNEL_CONFIG = {
   default: {
@@ -26,6 +27,15 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: false,
     SIMULATE_PRODUCTION: false,
   },
+};
+
+const getUpdateChannel = () => {
+  const channelMigrationItem = channelMigrations.find(
+    c => c.from === config.CHANNEL,
+  );
+  if (!channelMigrationItem) return config.CHANNEL;
+
+  return channelMigrationItem.to;
 };
 
 const setDesktopAppVersion = async params => {
@@ -80,7 +90,7 @@ const setDesktopAppConfig = async params => {
   const configJson = {
     ...(CHANNEL_CONFIG[config.CHANNEL] ?? CHANNEL_CONFIG.default),
     BUILD_VERSION: commitHash.slice(0, 7),
-    CHANNEL: config.CHANNEL,
+    CHANNEL: getUpdateChannel(),
   };
 
   let configStr = '{\n';
