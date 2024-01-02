@@ -61,9 +61,7 @@ export const Wallet: FC = () => {
           text={lang.strings.wallet.accountMissing.text}
           subText={lang.strings.wallet.accountMissing.subText}
           $buttonOne={lang.strings.buttons.addAccount}
-          $buttonTwo={lang.strings.buttons.addToken}
           onClick={handleAddAccountClick}
-          onClickTwo={handleAddTokenClick}
         />
       </NoAccountWrapper>
     );
