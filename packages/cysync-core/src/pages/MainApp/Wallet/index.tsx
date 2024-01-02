@@ -24,6 +24,7 @@ export const Wallet: FC = () => {
     handleAccountTableRow,
     sortedBy,
     handleAddAccountClick,
+    handleAddTokenClick,
     walletName,
     selectedWallet,
     onWalletChange,
@@ -94,6 +95,11 @@ export const Wallet: FC = () => {
           {hasAccounts && (
             <Button variant="primary" onClick={handleAddAccountClick}>
               {lang.strings.buttons.addAccount}
+            </Button>
+          )}
+          {hasAccounts && (
+            <Button variant="primary" onClick={handleAddTokenClick}>
+              {lang.strings.buttons.addToken}
             </Button>
           )}
         </Flex>

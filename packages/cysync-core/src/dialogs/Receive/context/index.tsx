@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -59,9 +59,9 @@ export interface ReceiveDialogContextInterface {
   isAddressVerified: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
-  walletDropdownList: DropDownListItemProps[];
+  walletDropdownList: DropDownItemProps[];
   handleWalletChange: () => void;
-  accountDropdownList: DropDownListItemProps[];
+  accountDropdownList: DropDownItemProps[];
   handleAccountChange: () => void;
   isStartedWithoutDevice: boolean;
   isFlowCompleted: boolean;

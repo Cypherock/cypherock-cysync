@@ -415,6 +415,23 @@ const en = {
       },
     },
   },
+  addToken: {
+    header: 'Add Token',
+    select: {
+      header: 'Select the wallet, account & tokens you want to add',
+      searchText: 'Search',
+      walletPlaceholder: 'Select Wallet',
+      tokenPlaceholder: 'Select Tokens',
+      accountPlaceholder: 'Select Accounts',
+      message:
+        'Ethereum account needs to be added first to continue adding the tokens',
+    },
+    congrats: {
+      title: 'Tokens added successfully',
+      subtitle: 'Add other tokens or return to portfolio',
+      buttonAddMore: 'Add more Tokens',
+    },
+  },
   receive: {
     title: 'Receive',
     showAnywayButton: "Don't have your device?",

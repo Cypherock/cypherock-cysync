@@ -6,7 +6,7 @@ import {
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
 import { coinList, ICoinInfo } from '@cypherock/coins';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -71,8 +71,8 @@ export interface AddAccountDialogContextInterface {
   deviceEvents: Record<number, boolean | undefined>;
   addAccountStatus: AddAccountStatus;
   error: any | undefined;
-  walletDropdownList: DropDownListItemProps[];
-  handleWalletChange: () => void;
+  walletDropdownList: DropDownItemProps[];
+  handleWalletChange: (id?: string) => void;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =

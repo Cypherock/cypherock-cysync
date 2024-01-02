@@ -28,6 +28,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { AddTokenDialog } from './AddToken';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -35,6 +36,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
+  addToken: AddTokenDialog,
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
