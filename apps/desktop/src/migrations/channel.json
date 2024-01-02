@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "from": "beta",
+    "to": "latest"
+  }
+]
