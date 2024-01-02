@@ -5,6 +5,8 @@ const semver = require('semver');
 const { getReleaseParams, config, execCommand } = require('./helpers');
 const channelMigrations = require('../apps/desktop/src/migrations/channel.json');
 
+const betaChannels = ['beta', 'betatest', 'pre'];
+
 const CHANNEL_CONFIG = {
   default: {
     BUILD_TYPE: 'debug',
@@ -13,13 +15,19 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
   },
-  beta: {
-    BUILD_TYPE: 'production',
-    LOG_LEVEL: 'debug',
-    API_CYPHEROCK: 'https://api.cypherock.com',
-    ALLOW_PRERELEASE: true,
-    SIMULATE_PRODUCTION: false,
-  },
+  ...betaChannels.reduce(
+    (a, c) => ({
+      ...a,
+      [c]: {
+        BUILD_TYPE: 'production',
+        LOG_LEVEL: 'debug',
+        API_CYPHEROCK: 'https://api.cypherock.com',
+        ALLOW_PRERELEASE: true,
+        SIMULATE_PRODUCTION: false,
+      },
+    }),
+    {},
+  ),
   [config.RELEASE_CHANNEL]: {
     BUILD_TYPE: 'production',
     LOG_LEVEL: 'info',
