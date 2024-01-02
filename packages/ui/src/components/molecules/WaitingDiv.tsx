@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { loadingIcon } from '../../assets';
 import {
   Container,
   Flex,
@@ -9,7 +10,6 @@ import {
   TypographyColor,
 } from '../atoms';
 import { BgColor, BorderColor } from '../utils';
-import { loadingIcon } from '../../assets';
 
 export type WaitingDivType = 'info' | 'warning' | 'danger';
 const borderColorMap: Record<WaitingDivType, BorderColor> = {
