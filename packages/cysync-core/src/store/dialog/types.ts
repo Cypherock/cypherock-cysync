@@ -132,7 +132,6 @@ export const GuidedFlowMap = {
 
 export const TroubleShootMap = {
   diagnostics: 'diagnostics',
-  importWallet: 'importWallet',
 } as const;
 
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];

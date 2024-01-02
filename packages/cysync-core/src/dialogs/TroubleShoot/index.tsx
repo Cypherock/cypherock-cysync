@@ -4,18 +4,29 @@ import {
   WalletDialogMainContainer,
   MilestoneAside,
   BlurOverlay,
+  DialogBoxBackgroundBar,
+  CloseButton,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { TroubleShootType } from '~/store';
 
 import { GuidedFlowProvider, useTroubleShoot } from './context';
+import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
   const { tabs, currentTab, currentDialog, title } = useTroubleShoot();
+  const [showOnClose, setShowOnClose] = React.useState(false);
+
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        onClose={() => setShowOnClose(true)}
+      >
+        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
         <>
           <MilestoneAside
             heading={title}
@@ -37,6 +48,14 @@ export const TroubleShootDialog: FC = () => {
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>
+            <DialogBoxBackgroundBar
+              leftComponent=""
+              rightComponent={
+                <CloseButton onClick={() => setShowOnClose(true)} />
+              }
+              position="top"
+              useLightPadding
+            />
           </WalletDialogMainContainer>
         </>
       </DialogBox>

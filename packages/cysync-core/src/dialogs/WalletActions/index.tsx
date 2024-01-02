@@ -18,11 +18,11 @@ import React, { FC, useState } from 'react';
 
 import {
   openContactSupportDialog,
-  // openGuidedFlowDialog,
+  openGuidedFlowDialog,
   openTroubleShootDialog,
 } from '~/actions';
 import {
-  // GuidedFlowType,
+  GuidedFlowType,
   TroubleShootType,
   closeDialog,
   selectLanguage,
@@ -39,14 +39,19 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  // const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
-  const [selectedAction, setSelectedAction] = useState<TroubleShootType>();
+  const [selectedTroubleShootAction, setSelectedTroubleShootAction] =
+    useState<TroubleShootType>();
+  const [selectedGuidedFlowAction, setSelectedGuidedFlowAction] =
+    useState<GuidedFlowType>();
 
   const switchToGuidedFlow = () => {
-    if (selectedAction === undefined) return;
     dispatch(closeDialog('walletActions'));
-    // dispatch(openGuidedFlowDialog(selectedAction));
-    dispatch(openTroubleShootDialog(selectedAction));
+    if (selectedGuidedFlowAction !== undefined) {
+      dispatch(openGuidedFlowDialog(selectedGuidedFlowAction));
+    }
+    if (selectedTroubleShootAction !== undefined) {
+      dispatch(openTroubleShootDialog(selectedTroubleShootAction));
+    }
   };
 
   return (
@@ -74,14 +79,18 @@ export const WalletActionsDialogBox: FC = () => {
             />
 
             <Flex direction="row" gap={16} justify="center">
+              {/* Create Wallet (GuidedFlowAction) */}
               <Flex
                 direction="column"
                 $borderWidth={1}
                 $borderRadius={16}
                 $borderColor={
-                  selectedAction === 'diagnostics' ? 'gold' : 'card'
+                  selectedGuidedFlowAction === 'createWallet' ? 'gold' : 'card'
                 }
-                onClick={() => setSelectedAction('diagnostics')}
+                onClick={() => {
+                  setSelectedGuidedFlowAction('createWallet');
+                  setSelectedTroubleShootAction(undefined);
+                }}
                 align="center"
                 pt={3}
                 px={3}
@@ -110,14 +119,18 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
+              {/* Import Wallet (GuidedFlowAction) */}
               <Flex
                 direction="column"
                 $borderWidth={1}
                 $borderRadius={16}
                 $borderColor={
-                  selectedAction === 'importWallet' ? 'gold' : 'card'
+                  selectedGuidedFlowAction === 'importWallet' ? 'gold' : 'card'
                 }
-                onClick={() => setSelectedAction('importWallet')}
+                onClick={() => {
+                  setSelectedGuidedFlowAction('importWallet');
+                  setSelectedTroubleShootAction(undefined);
+                }}
                 align="center"
                 pt={3}
                 px={3}
@@ -146,9 +159,44 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
+              {/* Diagnostics (TroubleShootAction) */}
+              <Flex
+                direction="column"
+                $borderWidth={1}
+                $borderRadius={16}
+                $borderColor={
+                  selectedTroubleShootAction === 'diagnostics' ? 'gold' : 'card'
+                }
+                onClick={() => {
+                  setSelectedTroubleShootAction('diagnostics');
+                  setSelectedGuidedFlowAction(undefined);
+                }}
+                align="center"
+                pt={3}
+                px={3}
+                pb={2}
+                gap={24}
+                width={400}
+                shadow="hover:popup"
+                $cursor="pointer"
+              >
+                <Typography
+                  variant="h5"
+                  $fontSize={18}
+                  color="white"
+                  $textAlign="center"
+                >
+                  <LangDisplay
+                    text={
+                      lang.strings.onboarding.walletActionsDialogBox.diagnostics
+                        .title
+                    }
+                  />
+                </Typography>
+              </Flex>
             </Flex>
             <Flex pt={1} pb={4} px={4}>
-              {selectedAction === 'diagnostics' && (
+              {selectedGuidedFlowAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -162,7 +210,7 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {selectedAction === 'importWallet' && (
+              {selectedGuidedFlowAction === 'importWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -172,6 +220,20 @@ export const WalletActionsDialogBox: FC = () => {
                   p={0}
                   items={
                     lang.strings.onboarding.walletActionsDialogBox.importWallet
+                      .list
+                  }
+                />
+              )}
+              {selectedTroubleShootAction === 'diagnostics' && (
+                <BulletList
+                  $fontSize={16}
+                  $borderWidth={0}
+                  $borderColor={undefined}
+                  $bgColor={undefined}
+                  color="white"
+                  p={0}
+                  items={
+                    lang.strings.onboarding.walletActionsDialogBox.diagnostics
                       .list
                   }
                 />
@@ -191,7 +253,7 @@ export const WalletActionsDialogBox: FC = () => {
           </Button>
           <Button
             variant="primary"
-            disabled={!selectedAction}
+            disabled={!selectedGuidedFlowAction && !selectedTroubleShootAction}
             onClick={switchToGuidedFlow}
           >
             <LangDisplay text={lang.strings.buttons.continue} />

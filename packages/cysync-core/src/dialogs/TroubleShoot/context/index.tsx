@@ -1,24 +1,9 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  ConfirmCreatePinDeviceGraphics,
-  ConfirmCreateWalletDeviceGraphics,
-  ConfirmRestoreFromSeedphraseDeviceGraphics,
-  ConfirmWalletNameDeviceGraphics,
-  EnterPinDeviceGraphics,
-  EnterSeedphraseDeviceGraphics,
-  EnterWalletNameDeviceGraphics,
   TroubleShootDialogBox,
   Image,
   WaitingDivType,
-  SelectSeedphraseWordCountDeviceGraphics,
-  VerifyPinDeviceGraphics,
-  VerifySeedphraseDeviceGraphics,
-  Video,
-  distributeToLocationsAnimationVideo,
-  enterSeedphraseAnimationVideo,
-  successIcon,
-  tapAllCardDeviceAnimation2DVideo,
   pendriveIcon,
 } from '@cypherock/cysync-ui';
 import React, {
@@ -70,8 +55,6 @@ export interface TroubleShootContextProviderProps {
   type: TroubleShootType;
 }
 
-const successIconReactElement = <Image src={successIcon} alt="device" />;
-
 const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
   diagnostics: [
     [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
@@ -84,48 +67,6 @@ const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
     [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
     [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
     [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  ],
-  importWallet: [
-    [
-      <ConfirmCreateWalletDeviceGraphics />,
-      <ConfirmRestoreFromSeedphraseDeviceGraphics />,
-      <EnterWalletNameDeviceGraphics />,
-      <ConfirmWalletNameDeviceGraphics />,
-      <ConfirmCreatePinDeviceGraphics />,
-      <EnterPinDeviceGraphics />,
-      <VerifyPinDeviceGraphics />,
-    ],
-    [
-      <SelectSeedphraseWordCountDeviceGraphics />,
-      <EnterSeedphraseDeviceGraphics />,
-      <VerifySeedphraseDeviceGraphics />,
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
-    [
-      successIconReactElement,
-      successIconReactElement,
-      successIconReactElement,
-      <Video
-        src={enterSeedphraseAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-      <Video
-        src={distributeToLocationsAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
   ],
 };
 
