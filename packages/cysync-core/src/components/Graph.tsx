@@ -1,5 +1,5 @@
 import { coinList, BtcIdMap } from '@cypherock/coins';
-import { DisplayGraph, DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DisplayGraph, DropDownItemProps } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { useGraph, UseGraphProps } from '~/hooks';
@@ -7,7 +7,7 @@ import { useGraph, UseGraphProps } from '~/hooks';
 export interface GraphProps extends UseGraphProps {
   color?: string;
   handleWalletChange: (walletId?: string) => void;
-  walletDropdownList: DropDownListItemProps[];
+  walletDropdownList: DropDownItemProps[];
 }
 
 export const Graph: React.FC<GraphProps> = ({

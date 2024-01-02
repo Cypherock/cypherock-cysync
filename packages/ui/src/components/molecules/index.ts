@@ -10,7 +10,7 @@ export * from './Clipboard';
 export * from './ConfettiBlast';
 export * from './CopyContainer';
 export * from './Dialog';
-export * from './DropDownListItem';
+export * from './DropDownItem';
 export * from './Dropdown';
 export * from './Filter';
 export * from './FloatContainer';

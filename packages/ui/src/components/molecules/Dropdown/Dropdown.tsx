@@ -1,63 +1,121 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTheme } from 'styled-components';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import {
   DropdownContainer,
   DropdownListItem,
   IconContainer,
-  List,
+  DropDownListContainer,
 } from './DropdownStyles';
 
+import lodash from 'lodash';
 import {
+  NotFound,
   searchIcon,
   triangleGreyIcon,
   triangleInverseIcon,
 } from '../../../assets';
-import { Image, Input } from '../../atoms';
+import { Flex, Image, Input, LangDisplay, Typography } from '../../atoms';
 import {
-  findSelectedItem,
   handleClickOutside,
   handleEscapeKey,
   handleKeyDown,
   searchInItems,
 } from '../../utils';
-import { DropDownListItem, DropDownListItemProps } from '../DropDownListItem';
+import { DropDownItem, DropDownItemProps } from '../DropDownItem';
 
 interface DropdownProps {
-  items: DropDownListItemProps[];
+  items: DropDownItemProps[];
   searchText: string;
   placeholderText: string;
   noLeftImageInList?: boolean;
-  selectedItem: string | undefined;
-  onChange: (selectedItemId: string | undefined) => void;
-  disabled?: boolean;
   leftImage?: React.ReactNode;
+  disabled?: boolean;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+interface SingleSelectDropdownProps extends DropdownProps {
+  onChange?: (selectedItemId: string | undefined) => void;
+  isMultiSelect?: false;
+  selectedItem?: string | undefined | null;
+}
+
+interface MultiSelectDropdownProps extends DropdownProps {
+  onChange?: (selectedItemIds: string[]) => void;
+  isMultiSelect: true;
+  selectedItems?: (string | undefined | null)[];
+}
+
+export const Dropdown: React.FC<
+  SingleSelectDropdownProps | MultiSelectDropdownProps
+> = ({
   items,
   searchText,
   noLeftImageInList,
   placeholderText,
-  selectedItem = undefined,
-  onChange,
   disabled = false,
   leftImage,
+  ...props
 }) => {
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const listRef = useRef<HTMLUListElement | null>(null);
+  const selectedItemIds = lodash.compact(
+    props.isMultiSelect ? props.selectedItems : [props.selectedItem],
+  );
+
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const onChange = useCallback(
+    (ids: string[]) => {
+      if (props.onChange === undefined) return;
+      if (props.isMultiSelect) {
+        props.onChange(ids);
+      } else {
+        props.onChange(ids[0]);
+      }
+    },
+    [props.onChange, props.isMultiSelect],
+  );
+
   const handleCheckedChange = (id: string) => {
-    onChange(id);
+    const targetItem = items.find(item => item.id === id);
+    if (targetItem === undefined) return;
+    if (targetItem.disabled) return;
+
+    if (!props.isMultiSelect) {
+      toggleDropdown();
+      onChange([id]);
+      return;
+    }
+
+    if (selectedItemIds.includes(id))
+      selectedItemIds.splice(selectedItemIds.indexOf(id), 1);
+    else selectedItemIds.push(id);
+    onChange([...selectedItemIds]);
   };
 
-  const selectedDropdownItem = useMemo(
-    () => findSelectedItem(items, selectedItem),
-    [items, selectedItem],
+  const selectedItems: DropDownItemProps[] = useMemo(
+    () =>
+      lodash.compact(
+        items.filter(
+          item =>
+            item &&
+            !item.disabled &&
+            item.id &&
+            selectedItemIds.includes(item.id),
+        ),
+      ),
+    [items, selectedItemIds],
   );
 
   const filteredItems = useMemo(
@@ -66,17 +124,27 @@ export const Dropdown: React.FC<DropdownProps> = ({
   );
 
   const handleInputChange = (value: string) => {
+    if (!isOpen) toggleDropdown();
     setSearch(value);
+    setFocusedIndex(0);
   };
 
   const toggleDropdown = () => {
-    if (!disabled) {
-      setIsOpen(!isOpen);
-      setSearch('');
-    }
+    if (disabled) return;
+    setIsOpen(!isOpen);
   };
 
-  const handleItemSelection = () => {
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+    } else {
+      setSearch('');
+      containerRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const handleDropDownContainerClick = () => {
+    if (isOpen) return;
     toggleDropdown();
   };
 
@@ -90,55 +158,90 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen, containerRef);
+    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen);
 
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
 
-    window.addEventListener('keydown', escapeKeyHandler);
+    window.addEventListener('keydown', escapeKeyHandler, { capture: true });
     window.addEventListener('click', clickOutsideHandler);
 
     return () => {
-      window.removeEventListener('keydown', escapeKeyHandler);
+      window.removeEventListener('keydown', escapeKeyHandler, {
+        capture: true,
+      });
       window.removeEventListener('click', clickOutsideHandler);
     };
   }, [isOpen, setIsOpen, containerRef]);
+
+  const selectionCount = selectedItems.length;
+
+  const rowRenderer = ({ index, style }: any) => {
+    const item = filteredItems[index];
+    const itemId = item.id ?? '';
+    const isItemFocused: boolean = focusedIndex === index;
+    const isItemSelected: boolean = selectedItems.some(
+      currItem => currItem.id === itemId,
+    );
+    return (
+      <DropdownListItem
+        style={style}
+        key={itemId}
+        role="option"
+        aria-selected={isItemSelected}
+        onMouseEnter={() => setFocusedIndex(index)}
+        onFocus={() => setFocusedIndex(index)}
+        $isFocused={isItemFocused}
+        $cursor={item.disabled ? 'not-allowed' : 'pointer'}
+      >
+        <DropDownItem
+          {...item}
+          checked={isItemSelected}
+          onCheckedChange={handleCheckedChange}
+          id={item.id}
+          checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
+          leftImage={noLeftImageInList ? undefined : item.leftImage}
+          $isFocused={isItemFocused}
+          disabled={item.disabled}
+        />
+      </DropdownListItem>
+    );
+  };
 
   return (
     <DropdownContainer
       ref={containerRef}
       $isOpen={isOpen || isHovered}
       disabled={disabled}
-      onClick={toggleDropdown}
+      onClick={handleDropDownContainerClick}
       onMouseEnter={() => setIsHovered(true)}
       onKeyDown={handleKeyDown(
         isOpen,
         toggleDropdown,
         setFocusedIndex,
-        items,
+        props.isMultiSelect ?? false,
         focusedIndex,
-        setSelectedIndex,
         handleCheckedChange,
         filteredItems,
         listRef,
-        containerRef,
       )}
       tabIndex={disabled ? -1 : 0}
     >
-      {selectedDropdownItem && !isOpen ? (
-        <DropDownListItem
-          {...selectedDropdownItem}
+      {selectedItems[0] && !isOpen ? (
+        <DropDownItem
+          {...selectedItems[0]}
           $borderRadius={8}
-          checked={!!selectedItem || false}
-          onCheckedChange={() =>
-            handleCheckedChange(selectedDropdownItem.id ?? '')
-          }
+          checked={selectionCount > 0}
+          onCheckedChange={() => handleCheckedChange(selectedItems[0].id ?? '')}
           onClick={toggleDropdown}
           $restrictedItem
-          leftImage={selectedDropdownItem.leftImage}
-          rightText={selectedDropdownItem.rightText}
-          $hasRightText={!!selectedDropdownItem.rightText}
-          $parentId={selectedDropdownItem.$parentId}
+          text={selectedItems[0].text}
+          leftImage={selectedItems[0].leftImage}
+          rightText={selectedItems[0].rightText}
+          $hasRightText={!!selectedItems[0].rightText}
+          $parentId={selectedItems[0].$parentId}
+          tag={selectionCount > 1 ? `+${selectionCount - 1}` : undefined}
           color="white"
+          tagType="gold"
         />
       ) : (
         <Input
@@ -146,19 +249,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
           ref={inputRef}
           value={search}
           name="choose"
-          onClick={toggleDropdown}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown(
             isOpen,
             toggleDropdown,
             setFocusedIndex,
-            items,
+            props.isMultiSelect ?? false,
             focusedIndex,
-            setSelectedIndex,
             handleCheckedChange,
             filteredItems,
             listRef,
-            containerRef,
           )}
           $bgColor={
             disabled
@@ -188,48 +288,45 @@ export const Dropdown: React.FC<DropdownProps> = ({
         )}
       </IconContainer>
 
-      {isOpen && (
-        <List
+      {isOpen && filteredItems.length > 0 && (
+        <DropDownListContainer
           ref={listRef}
-          disabled={disabled}
-          id="dropdown-list"
-          role="listbox"
-          aria-multiselectable={false}
-          aria-labelledby="dropdown-label"
+          height={53 * Math.min(filteredItems.length, 4) + 32}
+          $cursor={disabled ? 'not-allowed' : 'default'}
         >
-          {filteredItems.map((item, index) => {
-            const itemId = item.id ?? '';
-            const isItemFocused = focusedIndex === index;
-            const isItemSelected = selectedIndex === index;
-            return (
-              <DropdownListItem
-                key={itemId}
-                onClick={handleItemSelection}
-                role="option"
-                aria-selected={isItemSelected}
-                onMouseEnter={() => setFocusedIndex(index)}
-                onFocus={() => setFocusedIndex(index)}
-                $isFocused={isItemFocused}
-              >
-                <DropDownListItem
-                  {...item}
-                  checked={selectedItem === item.id}
-                  onCheckedChange={handleCheckedChange}
-                  id={item.id}
-                  leftImage={noLeftImageInList ? undefined : item.leftImage}
-                  $isFocused={isItemFocused}
-                />
-              </DropdownListItem>
-            );
-          })}
-        </List>
+          <Virtualize.AutoSizer>
+            {({ width, height }: any) => (
+              <Virtualize.List
+                height={height}
+                width={width}
+                rowCount={filteredItems.length}
+                rowHeight={53}
+                rowRenderer={rowRenderer}
+                scrollToIndex={focusedIndex}
+                overscanRowCount={10}
+              />
+            )}
+          </Virtualize.AutoSizer>
+        </DropDownListContainer>
+      )}
+
+      {isOpen && filteredItems.length === 0 && (
+        <DropDownListContainer $cursor="default">
+          <Flex
+            justify="center"
+            align="center"
+            direction="row"
+            gap={16}
+            px={3}
+            py={2}
+          >
+            <NotFound height={22} width={22} />
+            <Typography color="muted">
+              <LangDisplay text="No data found" />
+            </Typography>
+          </Flex>
+        </DropDownListContainer>
       )}
     </DropdownContainer>
   );
-};
-
-Dropdown.defaultProps = {
-  disabled: false,
-  noLeftImageInList: false,
-  leftImage: undefined,
 };

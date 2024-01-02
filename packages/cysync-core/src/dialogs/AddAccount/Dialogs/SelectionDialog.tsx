@@ -10,7 +10,7 @@ import {
   Button,
   Dropdown,
   addAccountIcon,
-  DropDownListItemProps,
+  DropDownItemProps,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -19,7 +19,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
-const coinDropDownList: DropDownListItemProps[] = Object.values(coinList)
+const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
   .filter(
     c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
   )
