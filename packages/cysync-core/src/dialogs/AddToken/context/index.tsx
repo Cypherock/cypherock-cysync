@@ -28,8 +28,6 @@ import {
 import { CoinIcon } from '~/components';
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
-export type AddTokenStatus = 'idle' | 'device' | 'sync' | 'done';
-
 export interface AddTokenDialogContextInterface {
   currentTab: number;
   currentDialog: number;
