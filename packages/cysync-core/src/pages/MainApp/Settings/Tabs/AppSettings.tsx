@@ -1,4 +1,4 @@
-import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
+import { LangDisplay } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -6,15 +6,10 @@ import {
   openRemovePasswordDialog,
   openResetCySyncDialog,
   openSetPasswordDialog,
-  openTroubleShootDialog,
+  openUsbTroubleShootDialog,
 } from '~/actions';
 import { useLockscreen } from '~/context';
-import {
-  TroubleShootMap,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
@@ -54,7 +49,7 @@ export const AppSettings: React.FC = () => {
   }, [isAutoUpdateCySyncEnabled]);
 
   const handleUsdTroubleShoot = () => {
-    dispatch(openTroubleShootDialog(TroubleShootMap.diagnostics));
+    dispatch(openUsbTroubleShootDialog());
   };
 
   return (
@@ -88,6 +83,7 @@ export const AppSettings: React.FC = () => {
           </>
         )}
       </SettingsStandardItem>
+      {/* TODO: enable the following setting when implemented
       <SettingsStandardItem
         title={{ text: item.anayticsAndBugReport.title }}
         description={{ text: item.anayticsAndBugReport.description }}
@@ -101,7 +97,7 @@ export const AppSettings: React.FC = () => {
           onToggle={setAnalyticsAndBugReportEnabled}
         />
       </SettingsStandardItem>
-
+      */}
       <SettingsStandardItem
         title={{ text: item.reset.title }}
         description={{ text: item.reset.description }}
@@ -113,7 +109,7 @@ export const AppSettings: React.FC = () => {
           <LangDisplay text={strings.buttons.reset} />
         </SettingsButton>
       </SettingsStandardItem>
-
+      {/* TODO: enable the following setting when implemented
       <SettingsStandardItem
         title={{ text: item.update.title }}
         description={{ text: item.update.description }}
@@ -127,7 +123,7 @@ export const AppSettings: React.FC = () => {
           onToggle={setAutoUpdateCySyncEnabled}
         />
       </SettingsStandardItem>
-
+    */}
       <SettingsStandardItem
         title={{ text: item.usb.title }}
         description={{ text: item.usb.description }}

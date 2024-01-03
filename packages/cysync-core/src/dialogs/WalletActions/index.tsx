@@ -16,14 +16,9 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import {
-  openContactSupportDialog,
-  openGuidedFlowDialog,
-  openTroubleShootDialog,
-} from '~/actions';
+import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
 import {
   GuidedFlowType,
-  TroubleShootType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -39,19 +34,12 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  const [selectedTroubleShootAction, setSelectedTroubleShootAction] =
-    useState<TroubleShootType>();
-  const [selectedGuidedFlowAction, setSelectedGuidedFlowAction] =
-    useState<GuidedFlowType>();
+  const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
 
   const switchToGuidedFlow = () => {
+    if (selectedAction === undefined) return;
     dispatch(closeDialog('walletActions'));
-    if (selectedGuidedFlowAction !== undefined) {
-      dispatch(openGuidedFlowDialog(selectedGuidedFlowAction));
-    }
-    if (selectedTroubleShootAction !== undefined) {
-      dispatch(openTroubleShootDialog(selectedTroubleShootAction));
-    }
+    dispatch(openGuidedFlowDialog(selectedAction));
   };
 
   return (
@@ -79,18 +67,14 @@ export const WalletActionsDialogBox: FC = () => {
             />
 
             <Flex direction="row" gap={16} justify="center">
-              {/* Create Wallet (GuidedFlowAction) */}
               <Flex
                 direction="column"
                 $borderWidth={1}
                 $borderRadius={16}
                 $borderColor={
-                  selectedGuidedFlowAction === 'createWallet' ? 'gold' : 'card'
+                  selectedAction === 'createWallet' ? 'gold' : 'card'
                 }
-                onClick={() => {
-                  setSelectedGuidedFlowAction('createWallet');
-                  setSelectedTroubleShootAction(undefined);
-                }}
+                onClick={() => setSelectedAction('createWallet')}
                 align="center"
                 pt={3}
                 px={3}
@@ -119,18 +103,14 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
-              {/* Import Wallet (GuidedFlowAction) */}
               <Flex
                 direction="column"
                 $borderWidth={1}
                 $borderRadius={16}
                 $borderColor={
-                  selectedGuidedFlowAction === 'importWallet' ? 'gold' : 'card'
+                  selectedAction === 'importWallet' ? 'gold' : 'card'
                 }
-                onClick={() => {
-                  setSelectedGuidedFlowAction('importWallet');
-                  setSelectedTroubleShootAction(undefined);
-                }}
+                onClick={() => setSelectedAction('importWallet')}
                 align="center"
                 pt={3}
                 px={3}
@@ -159,44 +139,9 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
-              {/* Diagnostics (TroubleShootAction) */}
-              <Flex
-                direction="column"
-                $borderWidth={1}
-                $borderRadius={16}
-                $borderColor={
-                  selectedTroubleShootAction === 'diagnostics' ? 'gold' : 'card'
-                }
-                onClick={() => {
-                  setSelectedTroubleShootAction('diagnostics');
-                  setSelectedGuidedFlowAction(undefined);
-                }}
-                align="center"
-                pt={3}
-                px={3}
-                pb={2}
-                gap={24}
-                width={400}
-                shadow="hover:popup"
-                $cursor="pointer"
-              >
-                <Typography
-                  variant="h5"
-                  $fontSize={18}
-                  color="white"
-                  $textAlign="center"
-                >
-                  <LangDisplay
-                    text={
-                      lang.strings.onboarding.walletActionsDialogBox.diagnostics
-                        .title
-                    }
-                  />
-                </Typography>
-              </Flex>
             </Flex>
             <Flex pt={1} pb={4} px={4}>
-              {selectedGuidedFlowAction === 'createWallet' && (
+              {selectedAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -210,7 +155,7 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {selectedGuidedFlowAction === 'importWallet' && (
+              {selectedAction === 'importWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -220,20 +165,6 @@ export const WalletActionsDialogBox: FC = () => {
                   p={0}
                   items={
                     lang.strings.onboarding.walletActionsDialogBox.importWallet
-                      .list
-                  }
-                />
-              )}
-              {selectedTroubleShootAction === 'diagnostics' && (
-                <BulletList
-                  $fontSize={16}
-                  $borderWidth={0}
-                  $borderColor={undefined}
-                  $bgColor={undefined}
-                  color="white"
-                  p={0}
-                  items={
-                    lang.strings.onboarding.walletActionsDialogBox.diagnostics
                       .list
                   }
                 />
@@ -253,7 +184,7 @@ export const WalletActionsDialogBox: FC = () => {
           </Button>
           <Button
             variant="primary"
-            disabled={!selectedGuidedFlowAction && !selectedTroubleShootAction}
+            disabled={!selectedAction}
             onClick={switchToGuidedFlow}
           >
             <LangDisplay text={lang.strings.buttons.continue} />

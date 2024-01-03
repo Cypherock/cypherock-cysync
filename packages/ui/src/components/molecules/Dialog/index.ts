@@ -6,4 +6,4 @@ export * from './ProgressDialog';
 export * from './ConfirmationDialog';
 export * from './IconDialogBox';
 export * from './GuidedFlowDialogBox';
-export * from './TroubleShootDialogBox';
+export * from './UsbTroubleShootDialogBox';

@@ -23,7 +23,7 @@ const InnerContainer = styled.div`
   overflow-y: auto;
 `;
 
-export interface TroubleShootDialogBoxProps {
+export interface UsbTroubleShootDialogBoxProps {
   title?: string;
   title2?: string;
   subtitle?: string;
@@ -42,7 +42,7 @@ export interface TroubleShootDialogBoxProps {
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
   isFirstDialog?: boolean;
 }
-export const TroubleShootDialogBox: FC<TroubleShootDialogBoxProps> = ({
+export const UsbTroubleShootDialogBox: FC<UsbTroubleShootDialogBoxProps> = ({
   heading,
   image,
   title,
@@ -163,7 +163,7 @@ export const TroubleShootDialogBox: FC<TroubleShootDialogBoxProps> = ({
   </>
 );
 
-TroubleShootDialogBox.defaultProps = {
+UsbTroubleShootDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,

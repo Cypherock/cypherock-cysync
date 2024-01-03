@@ -1390,7 +1390,7 @@ const en = {
       },
     },
   },
-  troubleShoot: {
+  usbtroubleShoot: {
     diagnostics: {
       title: 'USB Diagnostics',
       tabs: [
@@ -1590,14 +1590,6 @@ const en = {
       buttons: {
         secondary: 'Go Back',
         primary: 'Contact',
-      },
-    },
-    walletNotCreatedDialog: {
-      title: "Seems like you haven't created a wallet yet",
-      subtitle: 'To add an account you have to first create a wallet',
-      buttons: {
-        secondary: 'I will do it later',
-        primary: 'Create Wallet',
       },
     },
     closeDialog: {

@@ -99,9 +99,7 @@ export interface IDialogState {
 
   usbTroubleshoot: {
     isOpen: boolean;
-    data?: {
-      type: TroubleShootType;
-    };
+    data?: undefined;
   };
 
   walletConnect: {
@@ -130,13 +128,6 @@ export const GuidedFlowMap = {
   importWallet: 'importWallet',
 } as const;
 
-export const TroubleShootMap = {
-  diagnostics: 'diagnostics',
-} as const;
-
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
-
-export type TroubleShootType =
-  (typeof TroubleShootMap)[keyof typeof TroubleShootMap];
 
 export type DialogName = keyof IDialogState;

@@ -1,7 +1,7 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  TroubleShootDialogBox,
+  UsbTroubleShootDialogBox,
   Image,
   WaitingDivType,
   pendriveIcon,
@@ -20,7 +20,6 @@ import React, {
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
-  TroubleShootType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -52,23 +51,20 @@ export const TroubleShootContext: Context<TroubleShootContextInterface> =
 
 export interface TroubleShootContextProviderProps {
   children: ReactNode;
-  type: TroubleShootType;
 }
 
-const dialogsImages: Record<TroubleShootType, React.ReactElement[][]> = {
-  diagnostics: [
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-    [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  ],
-};
+const dialogsImages: React.ReactElement[][] = [
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+];
 
 interface IGuidedDialogContent {
   title?: string;
@@ -78,9 +74,8 @@ interface IGuidedDialogContent {
   messageBoxList?: Record<WaitingDivType, string>[];
 }
 
-export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
+export const UsbToubleShootProvider: FC<TroubleShootContextProviderProps> = ({
   children,
-  type,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
@@ -139,7 +134,7 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
     first?: boolean,
   ) =>
     contents.map((content, index) => (
-      <TroubleShootDialogBox
+      <UsbTroubleShootDialogBox
         key={`${index + 1}`}
         image={images[index]}
         isFirstDialog={first && index === 0}
@@ -151,17 +146,19 @@ export const GuidedFlowProvider: FC<TroubleShootContextProviderProps> = ({
     ));
 
   const init = () => {
-    const initTabs = lang.strings.troubleShoot[type].tabs.map((tab, index) => ({
-      name: tab.asideTitle,
-      dialogs: getDialogArray(
-        dialogsImages[type][index],
-        tab.pages as any,
-        index === 0,
-      ),
-    }));
+    const initTabs = lang.strings.usbtroubleShoot.diagnostics.tabs.map(
+      (tab, index) => ({
+        name: tab.asideTitle,
+        dialogs: getDialogArray(
+          dialogsImages[index],
+          tab.pages as any,
+          index === 0,
+        ),
+      }),
+    );
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
-    setTitle(lang.strings.troubleShoot[type].title);
+    setTitle(lang.strings.usbtroubleShoot.diagnostics.title);
   };
 
   useEffect(() => {

@@ -9,9 +9,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { TroubleShootType } from '~/store';
-
-import { GuidedFlowProvider, useTroubleShoot } from './context';
+import { UsbToubleShootProvider, useTroubleShoot } from './context';
 import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
@@ -63,8 +61,8 @@ export const TroubleShootDialog: FC = () => {
   );
 };
 
-export const TroubleShoot: FC<{ type: TroubleShootType }> = ({ type }) => (
-  <GuidedFlowProvider type={type}>
+export const UsbTroubleShoot: FC = () => (
+  <UsbToubleShootProvider>
     <TroubleShootDialog />
-  </GuidedFlowProvider>
+  </UsbToubleShootProvider>
 );

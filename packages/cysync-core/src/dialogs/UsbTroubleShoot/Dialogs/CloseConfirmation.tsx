@@ -29,7 +29,7 @@ const Buttons: FC<{
         variant="secondary"
       >
         <LangDisplay
-          text={lang.strings.troubleShoot.closeDialog.buttons.secondary}
+          text={lang.strings.usbtroubleShoot.closeDialog.buttons.secondary}
         />
       </Button>
       <Button
@@ -40,7 +40,7 @@ const Buttons: FC<{
         variant="primary"
       >
         <LangDisplay
-          text={lang.strings.troubleShoot.closeDialog.buttons.primary}
+          text={lang.strings.usbtroubleShoot.closeDialog.buttons.primary}
         />
       </Button>
     </Flex>
@@ -55,8 +55,7 @@ export const CloseConfirmation: FC<{
     <IconDialogBox
       $isModal
       icon={<Image src={goldFail} alt="gold cross" />}
-      title={lang.strings.troubleShoot.closeDialog.title}
-      // subtext={lang.strings.troubleShoot.closeDialog.subtitle}
+      title={lang.strings.usbtroubleShoot.closeDialog.title}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
       onClose={() => setShowOnClose(false)}
     />
