@@ -2,5 +2,9 @@
   {
     "from": "beta",
     "to": "latest"
+  },
+  {
+    "from": "betatest",
+    "to": "latest"
   }
 ]
