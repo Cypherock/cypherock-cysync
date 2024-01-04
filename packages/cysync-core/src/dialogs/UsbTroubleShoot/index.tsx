@@ -9,22 +9,17 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
+import { closeDialog, useAppDispatch } from '~/store';
+
 import { UsbToubleShootProvider, useTroubleShoot } from './context';
-import { CloseConfirmation } from './Dialogs';
 
 export const TroubleShootDialog: FC = () => {
   const { tabs, currentTab, currentDialog, title } = useTroubleShoot();
-  const [showOnClose, setShowOnClose] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <BlurOverlay>
-      <DialogBox
-        direction="row"
-        gap={0}
-        width="full"
-        onClose={() => setShowOnClose(true)}
-      >
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+      <DialogBox direction="row" gap={0} width="full">
         <>
           <MilestoneAside
             heading={title}
@@ -49,7 +44,9 @@ export const TroubleShootDialog: FC = () => {
             <DialogBoxBackgroundBar
               leftComponent=""
               rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
+                <CloseButton
+                  onClick={() => dispatch(closeDialog('usbTroubleshoot'))}
+                />
               }
               position="top"
               useLightPadding
