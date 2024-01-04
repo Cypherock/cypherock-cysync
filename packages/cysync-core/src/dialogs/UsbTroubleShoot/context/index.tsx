@@ -2,9 +2,8 @@
 /* eslint-disable react/jsx-key */
 import {
   UsbTroubleShootDialogBox,
-  Image,
   WaitingDivType,
-  pendriveIcon,
+  Pendrive,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -54,16 +53,16 @@ export interface TroubleShootContextProviderProps {
 }
 
 const dialogsImages: React.ReactElement[][] = [
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
-  [<Image src={pendriveIcon} alt="device" $maxWidth="full" />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
+  [<Pendrive />],
 ];
 
 interface IGuidedDialogContent {

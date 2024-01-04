@@ -41,12 +41,10 @@ import joystickTrainingAsideImage from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
-import loadingIcon from './loading.svg';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import openExternalLink from './open-external-link.svg';
-import pendriveIcon from './pendrive.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
@@ -123,8 +121,6 @@ export {
   goldLoaderIcon,
   openExternalLink,
   informationIcon,
-  pendriveIcon,
-  loadingIcon,
   greenTick,
   redDisconnectedIcon,
   goldFail,

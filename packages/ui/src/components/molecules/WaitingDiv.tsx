@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 
-import { loadingIcon } from '../../assets';
+import { Loading } from '../../assets';
 import {
   Container,
   Flex,
-  Image,
   LangDisplay,
   Typography,
   TypographyColor,
@@ -42,7 +41,7 @@ export const WaitingDiv: FC<{
     $alignSelf="stretch"
   >
     <div>
-      <Image src={loadingIcon} alt="device" />
+      <Loading />
     </div>
     <Flex direction="column" gap={4}>
       <Typography variant="fineprint" color={textColor ?? 'muted'}>
