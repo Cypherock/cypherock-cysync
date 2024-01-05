@@ -114,7 +114,6 @@ export const handleKeyDown =
           toggleDropdown();
         } else if (focusedIndex !== null) {
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
-          if (!isMultiSelect) toggleDropdown();
         }
         break;
       case 'Tab':
