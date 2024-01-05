@@ -152,12 +152,6 @@ export const Dropdown: React.FC<
   const theme = useTheme();
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
     const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen);
 
     const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
