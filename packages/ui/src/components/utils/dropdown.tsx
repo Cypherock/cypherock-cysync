@@ -108,13 +108,13 @@ export const handleKeyDown =
         }
         break;
       case 'Enter':
-      case ' ':
         event.preventDefault();
         event.stopPropagation();
-        if (!isOpen || (isMultiSelect && event.key === 'Enter')) {
+        if (!isOpen) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
+          if (!isMultiSelect) toggleDropdown();
         }
         break;
       case 'Tab':
