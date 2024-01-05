@@ -55,7 +55,7 @@ interface MultiSelectDropdownProps extends DropdownProps {
 export const Dropdown: React.FC<
   SingleSelectDropdownProps | MultiSelectDropdownProps
 > = ({
-  items,
+  items: dropdownItemsList,
   searchText,
   noLeftImageInList,
   placeholderText,
@@ -67,10 +67,19 @@ export const Dropdown: React.FC<
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [items, setItems] = useState<DropDownItemProps[]>(dropdownItemsList);
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const selectedItemIds = lodash.compact(
-    props.isMultiSelect ? props.selectedItems : [props.selectedItem],
+
+  const selectedItemIds = useMemo(
+    () =>
+      lodash.compact(
+        props.isMultiSelect ? props.selectedItems : [props.selectedItem],
+      ),
+    [
+      props.isMultiSelect,
+      props.isMultiSelect ? props.selectedItems : props.selectedItem,
+    ],
   );
 
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -126,7 +135,7 @@ export const Dropdown: React.FC<
   const handleInputChange = (value: string) => {
     if (!isOpen) toggleDropdown();
     setSearch(value);
-    setFocusedIndex(0);
+    setFocusedIndex(null);
   };
 
   const toggleDropdown = () => {
@@ -134,12 +143,54 @@ export const Dropdown: React.FC<
     setIsOpen(!isOpen);
   };
 
+  const sortItems = useCallback(
+    (_items: DropDownItemProps[]) => {
+      const result = [..._items];
+      result.sort((a, b) => (!a.disabled && b.disabled ? -1 : 0));
+      if (props.isMultiSelect) {
+        result.sort((a, b) =>
+          selectedItemIds.includes(a.id as string) &&
+          !selectedItemIds.includes(b.id as string)
+            ? -1
+            : 0,
+        );
+      }
+      return result;
+    },
+    [selectedItemIds, props.isMultiSelect],
+  );
+
+  const conditionallySortItems = useCallback(() => {
+    if (isOpen) return;
+    setItems(sortItems);
+  }, [isOpen, sortItems]);
+
+  const updateSortedItems = useCallback(
+    (_dropdownItemsList: DropDownItemProps[]) =>
+      (_items: DropDownItemProps[]) => {
+        const ids = _items.map(a => a.id);
+        _dropdownItemsList.sort(
+          (a, b) => ids.indexOf(a.id) - ids.indexOf(b.id),
+        );
+        return [..._dropdownItemsList];
+      },
+    [],
+  );
+
+  useEffect(() => {
+    setItems(updateSortedItems(dropdownItemsList));
+    conditionallySortItems();
+  }, [dropdownItemsList, updateSortedItems, conditionallySortItems]);
+
+  useEffect(conditionallySortItems, [isOpen]);
+
   useEffect(() => {
     if (isOpen) {
       inputRef.current?.focus();
     } else {
       setSearch('');
       containerRef.current?.focus();
+      setFocusedIndex(null);
     }
   }, [isOpen]);
 

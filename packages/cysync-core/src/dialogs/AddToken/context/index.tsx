@@ -92,6 +92,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     else setSelectedAssetType(undefined);
   }, [selectedTokens, selectedAccounts]);
 
+  useEffect(() => {
+    if (selectedTokens.length === 0) setSelectedAccounts([]);
+  }, [selectedTokens]);
+
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     1: [0],
   };
@@ -160,8 +164,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             a.id !== undefined &&
             selectedAssetType !== undefined &&
             selectedAssetType !== accountList[a.id].assetId,
-        }))
-        .sort((a, b) => (!a.disabled && b.disabled ? -1 : 0)),
+        })),
     [accountDropdownListSrc, accountList, selectedAssetType],
   );
 
@@ -170,23 +173,17 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   >(() => {
     const tokens = Object.values(tokenList);
 
-    return tokens
-      .map(token => ({
-        id: token.id,
-        leftImage: (
-          <CoinIcon assetId={token.id} parentAssetId={token.parentId} />
-        ),
-        shortForm: `(${token.abbr.toUpperCase()})`,
-        rightText:
-          token.parentId[0].toUpperCase() +
-          token.parentId.slice(1).toLowerCase(),
-        text: token.name,
-        disabled:
-          selectedAssetType !== undefined &&
-          selectedAssetType !== token.parentId,
-      }))
-      .sort((a, b) => (!a.disabled && b.disabled ? -1 : 0));
-  }, [selectedTokens, selectedAssetType]);
+    return tokens.map(token => ({
+      id: token.id,
+      leftImage: <CoinIcon assetId={token.id} parentAssetId={token.parentId} />,
+      shortForm: `(${token.abbr.toUpperCase()})`,
+      rightText:
+        token.parentId[0].toUpperCase() + token.parentId.slice(1).toLowerCase(),
+      text: token.name,
+      disabled:
+        selectedAssetType !== undefined && selectedAssetType !== token.parentId,
+    }));
+  }, [tokenList, selectedAssetType]);
 
   const ctx = useMemo(
     () => ({
