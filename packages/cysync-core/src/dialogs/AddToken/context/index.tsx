@@ -94,7 +94,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
 
   useEffect(() => {
     if (selectedTokens.length === 0) setSelectedAccounts([]);
-  }, [selectedTokens]);
+  }, [selectedTokens.length]);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
     1: [0],

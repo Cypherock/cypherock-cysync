@@ -5,14 +5,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useTheme } from 'styled-components';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
+import { useTheme } from 'styled-components';
 
 import {
+  DropDownListContainer,
   DropdownContainer,
   DropdownListItem,
   IconContainer,
-  DropDownListContainer,
 } from './DropdownStyles';
 
 import lodash from 'lodash';
@@ -276,7 +276,6 @@ export const Dropdown: React.FC<
           {...selectedItems[0]}
           $borderRadius={8}
           checked={selectionCount > 0}
-          onCheckedChange={() => handleCheckedChange(selectedItems[0].id ?? '')}
           onClick={toggleDropdown}
           $restrictedItem
           text={selectedItems[0].text}
@@ -287,6 +286,7 @@ export const Dropdown: React.FC<
           tag={selectionCount > 1 ? `+${selectionCount - 1}` : undefined}
           color="white"
           tagType="gold"
+          isShowCase
         />
       ) : (
         <Input

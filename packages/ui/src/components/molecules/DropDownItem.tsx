@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useMemo, useRef } from 'react';
-import styled, { css } from 'styled-components';
 import Marquee from 'react-fast-marquee';
+import styled, { css } from 'styled-components';
 
 import {
   CheckBox,
@@ -8,10 +8,10 @@ import {
   LangDisplay,
   RadioButton,
   Tag,
+  TagType,
   Typography,
   TypographyColor,
   TypographyProps,
-  TagType,
 } from '../atoms';
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
@@ -40,6 +40,7 @@ export interface DropDownItemProps extends BorderProps {
   $isFocused?: boolean;
   showRightTextOnBottom?: boolean;
   disabled?: boolean;
+  isShowCase?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -162,6 +163,18 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+export const SmartMarquee: FC<{
+  children: React.ReactNode | React.ReactNode[];
+  isOverflow: boolean;
+}> = ({ children, isOverflow }) => {
+  if (!isOverflow) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return <>{children}</>;
+  }
+
+  return <Marquee direction="left">{children}</Marquee>;
+};
+
 export const DropDownItem: FC<DropDownItemProps> = ({
   leftImage,
   rightIcon,
@@ -188,6 +201,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   $textMaxWidth,
   $textMaxWidthWhenSelected,
   disabled = false,
+  isShowCase = false,
 }): ReactElement => {
   const handleCheckChange = () => {
     if (disabled) return;
@@ -206,7 +220,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   const isOverflow = useMemo<boolean>(() => {
     if (parentRef.current === null) return false;
     if (childRef.current === null) return false;
-    return parentRef.current.scrollWidth < childRef.current.scrollWidth;
+    return parentRef.current.offsetWidth < childRef.current.offsetWidth;
   }, [parentRef.current, childRef.current]);
 
   return (
@@ -245,8 +259,14 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         </DropDownListItemIconContainer>
       )}
       <Flex direction="column" $overflowX="hidden" width="full" ref={parentRef}>
-        <Marquee direction="left" play={isOverflow}>
-          <Flex align="center" gap={16} pr={1} ref={childRef}>
+        <SmartMarquee isOverflow={isShowCase ? false : isOverflow}>
+          <Flex
+            align="center"
+            gap={16}
+            pr={1}
+            ref={childRef}
+            $width={isShowCase ? undefined : 'max-content'}
+          >
             <DropDownListItemStretchedTypography
               variant="h6"
               $color={disabled ? 'disabled' : color ?? 'muted'}
@@ -265,7 +285,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
             </DropDownListItemStretchedTypography>
             {tag && <Tag type={tagType}>{tag}</Tag>}
           </Flex>
-        </Marquee>
+        </SmartMarquee>
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
@@ -324,4 +344,5 @@ DropDownItem.defaultProps = {
   $textMaxWidth: undefined,
   $textMaxWidthWhenSelected: undefined,
   disabled: false,
+  isShowCase: false,
 };
