@@ -15,7 +15,12 @@ export const searchInItems = (
   const filteredItems: DropDownItemProps[] = [];
 
   for (const item of menuItems) {
-    const shouldAdd = item.text
+    const shouldAdd = (
+      item.text +
+      (item.shortForm ?? '') +
+      (item.rightText ?? '') +
+      (item.tag ?? '')
+    )
       .toLowerCase()
       .includes(searchString.toLowerCase());
 
