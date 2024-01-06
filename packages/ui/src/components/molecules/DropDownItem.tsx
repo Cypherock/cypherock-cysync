@@ -1,5 +1,6 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useMemo, useRef } from 'react';
 import styled, { css } from 'styled-components';
+import Marquee from 'react-fast-marquee';
 
 import {
   CheckBox,
@@ -199,6 +200,15 @@ export const DropDownItem: FC<DropDownItemProps> = ({
     if (onClick) onClick();
   };
 
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  const childRef = useRef<HTMLDivElement | null>(null);
+
+  const isOverflow = useMemo<boolean>(() => {
+    if (parentRef.current === null) return false;
+    if (childRef.current === null) return false;
+    return parentRef.current.scrollWidth < childRef.current.scrollWidth;
+  }, [parentRef.current, childRef.current]);
+
   return (
     <DropDownListItemHorizontalBox
       id={id}
@@ -234,26 +244,28 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {leftImage}
         </DropDownListItemIconContainer>
       )}
-      <Flex direction="column" width="full">
-        <Flex align="center" gap={16}>
-          <DropDownListItemStretchedTypography
-            variant="h6"
-            $color={disabled ? 'disabled' : color ?? 'muted'}
-            $isChecked={checked}
-            $restrictedItem={$restrictedItem}
-            $textMaxWidth={$textMaxWidth}
-            $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
-            disabled={disabled}
-          >
-            <LangDisplay text={text} $noPreWrap />
-            {shortForm && (
-              <ShortFormTag disabled={disabled}>
-                <LangDisplay text={shortForm} />
-              </ShortFormTag>
-            )}
-          </DropDownListItemStretchedTypography>
-          {tag && <Tag type={tagType}>{tag}</Tag>}
-        </Flex>
+      <Flex direction="column" $overflowX="hidden" width="full" ref={parentRef}>
+        <Marquee direction="left" play={isOverflow}>
+          <Flex align="center" gap={16} pr={1} ref={childRef}>
+            <DropDownListItemStretchedTypography
+              variant="h6"
+              $color={disabled ? 'disabled' : color ?? 'muted'}
+              $isChecked={checked}
+              $restrictedItem={$restrictedItem}
+              $textMaxWidth={$textMaxWidth}
+              $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
+              disabled={disabled}
+            >
+              <LangDisplay text={text} $noPreWrap />
+              {shortForm && (
+                <ShortFormTag disabled={disabled}>
+                  <LangDisplay text={shortForm} />
+                </ShortFormTag>
+              )}
+            </DropDownListItemStretchedTypography>
+            {tag && <Tag type={tagType}>{tag}</Tag>}
+          </Flex>
+        </Marquee>
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
