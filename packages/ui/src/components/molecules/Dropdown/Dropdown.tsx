@@ -135,7 +135,7 @@ export const Dropdown: React.FC<
   const handleInputChange = (value: string) => {
     if (!isOpen) toggleDropdown();
     setSearch(value);
-    setFocusedIndex(null);
+    setFocusedIndex(0);
   };
 
   const toggleDropdown = () => {
