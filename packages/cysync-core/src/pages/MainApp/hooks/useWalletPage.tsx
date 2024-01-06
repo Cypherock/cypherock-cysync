@@ -21,7 +21,11 @@ import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, { ReactNode, useState, useMemo, useEffect } from 'react';
 
-import { openAddAccountDialog, syncAccounts } from '~/actions';
+import {
+  openAddAccountDialog,
+  openAddTokenDialog,
+  syncAccounts,
+} from '~/actions';
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
 import { useNavigateTo, useQuery } from '~/hooks';
@@ -358,6 +362,10 @@ export const useWalletPage = () => {
     dispatch(openAddAccountDialog({ walletId: selectedWallet?.__id ?? '' }));
   };
 
+  const handleAddTokenClick = () => {
+    dispatch(openAddTokenDialog({ walletId: selectedWallet?.__id ?? '' }));
+  };
+
   const handleStatusClick = (row: AccountRowData) => {
     if (accountSyncMap[row.id]?.syncState === AccountSyncStateMap.syncing) {
       return;
@@ -389,6 +397,7 @@ export const useWalletPage = () => {
     ITEMS_PER_PAGE,
     sortedBy,
     handleAddAccountClick,
+    handleAddTokenClick,
     handleStatusClick,
     selectedWallet,
     walletName,

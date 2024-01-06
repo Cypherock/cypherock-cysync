@@ -3,13 +3,13 @@ import React, { ReactNode } from 'react';
 import { GraphIcon, GraphSwitchIcon } from '../../../assets';
 import { Container, Typography, Button } from '../../atoms';
 import { Dropdown } from '../Dropdown';
-import { DropDownListItemProps } from '../DropDownListItem';
+import { DropDownItemProps } from '../DropDownItem';
 
 export interface GraphHeaderProps {
   title: string;
   subTitle?: string;
   conversionRate?: string;
-  dropdownItems?: DropDownListItemProps[];
+  dropdownItems?: DropDownItemProps[];
   selectedDropdownItem?: string;
   onDropdownChange?: (id: string | undefined) => void;
   dropdownLeftImage?: ReactNode;

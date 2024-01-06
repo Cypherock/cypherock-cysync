@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
@@ -33,6 +34,11 @@ export interface IDialogState {
   addAccount: {
     isOpen: boolean;
     data?: AddAccountDialogProps;
+  };
+
+  addToken: {
+    isOpen: boolean;
+    data?: AddTokenDialogProps;
   };
 
   receive: {
@@ -115,6 +121,11 @@ export interface IDialogState {
   deleteAccount: {
     isOpen: boolean;
     data?: DeleteAccountDialogProps;
+  };
+
+  betaNotificationDialog: {
+    isOpen: boolean;
+    data?: undefined;
   };
 }
 

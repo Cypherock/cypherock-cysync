@@ -8,6 +8,7 @@ import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { BetaNotificationDialog } from './BetaNotificationDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -27,6 +28,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { AddTokenDialog } from './AddToken';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -34,6 +36,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
+  addToken: AddTokenDialog,
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
@@ -51,4 +54,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   errorDialog: ErrorDialog,
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
+  betaNotificationDialog: BetaNotificationDialog,
 };

@@ -16,7 +16,7 @@ import {
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -76,14 +76,14 @@ export interface SendDialogContextInterface {
   currentDialog: number;
   selectedWallet: IWallet | undefined;
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
-  walletDropdownList: DropDownListItemProps[];
+  walletDropdownList: DropDownItemProps[];
   handleWalletChange: () => void;
   selectedAccount: IAccount | undefined;
   selectedAccountParent: IAccount | undefined;
   setSelectedAccount: React.Dispatch<
     React.SetStateAction<IAccount | undefined>
   >;
-  accountDropdownList: DropDownListItemProps[];
+  accountDropdownList: DropDownItemProps[];
   handleAccountChange: () => void;
   transaction: IPreparedTransaction | undefined;
   setTransaction: React.Dispatch<

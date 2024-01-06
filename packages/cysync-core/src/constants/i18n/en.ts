@@ -427,6 +427,23 @@ const en = {
       },
     },
   },
+  addToken: {
+    header: 'Add Token',
+    select: {
+      header: 'Select the wallet, account & tokens you want to add',
+      searchText: 'Search',
+      walletPlaceholder: 'Select Wallet',
+      tokenPlaceholder: 'Select Tokens',
+      accountPlaceholder: 'Select Accounts',
+      message:
+        'Ethereum account needs to be added first to continue adding the tokens',
+    },
+    congrats: {
+      title: 'Tokens added successfully',
+      subtitle: 'Add other tokens or return to portfolio',
+      buttonAddMore: 'Add more Tokens',
+    },
+  },
   receive: {
     title: 'Receive',
     showAnywayButton: "Don't have your device?",
@@ -863,6 +880,10 @@ const en = {
   deviceUpdateBar: {
     message: 'Firmware update version ${version} available',
     button: 'Download',
+  },
+  betaNotificationBar: {
+    message: 'CySync v2.0.0 is available!',
+    button: 'Learn More',
   },
   topbar: {
     statusTexts: {
@@ -1503,6 +1524,19 @@ const en = {
       success: {
         formSubmit: 'Support Form Submitted Successfully',
       },
+    },
+    betaNotification: {
+      title: 'CySync Update v2.0.0',
+      description: `We have done a major overhaul to the CySync app.
+The new CySync comes with all your favorite features and much more.
+Download from <a href="https://cypherock.com/get-started">https://cypherock.com/get-started</a>
+
+**Important**
+
+* You won’t lose your funds
+* After update, you will have to import your accounts again
+* No new updates to CySync v1 except security update
+`,
     },
   },
   toggle: {

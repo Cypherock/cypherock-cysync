@@ -37,6 +37,9 @@ const initialState: IDialogState = {
   addAccount: {
     isOpen: false,
   },
+  addToken: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },
@@ -74,6 +77,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   deleteAccount: {
+    isOpen: false,
+  },
+  betaNotificationDialog: {
     isOpen: false,
   },
 };

@@ -1,4 +1,4 @@
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { GetLogsStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { AxiosError } from 'axios';
 import React, {
@@ -54,7 +54,7 @@ export interface ContactSupportDialogContextInterface {
   isSubmitDisabled: boolean;
   email: string | null;
   setEmail: React.Dispatch<React.SetStateAction<string | null>>;
-  categories: DropDownListItemProps[];
+  categories: DropDownItemProps[];
   selectedCategory: string | undefined;
   handleCategorySelection: (id: string | undefined) => void;
   description: string | null;
@@ -89,7 +89,7 @@ export const ContactSupportDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
   const { connection: deviceConnection } = useDevice();
 
-  const categories: DropDownListItemProps[] = [
+  const categories: DropDownItemProps[] = [
     { text: 'Feedback', id: SupportCategoryMap.Feedback },
     { text: 'Complaint', id: SupportCategoryMap.Complaint },
     { text: 'Others', id: SupportCategoryMap.Others },

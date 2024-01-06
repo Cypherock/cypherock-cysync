@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
@@ -25,6 +26,9 @@ export const openGuidedFlowDialog = (type: GuidedFlowType) =>
 
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });
+
+export const openAddTokenDialog = (props?: AddTokenDialogProps) =>
+  openDialog({ name: 'addToken', data: props });
 
 export const openReceiveDialog = (data?: ReceiveDialogProps) =>
   openDialog({ name: 'receive', data });
@@ -74,3 +78,6 @@ export const openContactSupportDialog = (props?: IContactSupportDialogProps) =>
 
 export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
   openDialog({ name: 'deleteAccount', data: props });
+
+export const openBetaNotificationDialog = () =>
+  openDialog({ name: 'betaNotificationDialog', data: undefined });
