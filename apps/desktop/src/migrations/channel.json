@@ -1,0 +1,10 @@
+[
+  {
+    "from": "beta",
+    "to": "latest"
+  },
+  {
+    "from": "betatest",
+    "to": "beta2test"
+  }
+]
