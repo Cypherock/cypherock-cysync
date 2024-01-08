@@ -116,7 +116,11 @@ export const AddTokenSelectionDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={selectedTokens.length === 0 || !selectedWallet}
+          disabled={
+            selectedTokens.length === 0 ||
+            selectedAccounts.length === 0 ||
+            !selectedWallet
+          }
           onClick={handleCreateToken}
         >
           <LangDisplay text={button.continue} />
