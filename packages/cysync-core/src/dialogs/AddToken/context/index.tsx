@@ -2,13 +2,15 @@
 /* eslint-disable react/jsx-key */
 import { ICoinInfo, IEvmErc20Token, evmCoinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
+
 import React, {
   Context,
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -25,7 +27,9 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { CoinIcon } from '~/components';
+import { getDB } from '~/utils';
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
 export interface AddTokenDialogContextInterface {
@@ -48,6 +52,7 @@ export interface AddTokenDialogContextInterface {
   walletDropdownList: DropDownItemProps[];
   tokenDropDownList: DropDownItemProps[];
   accountDropdownList: DropDownItemProps[];
+  handleCreateToken: () => void;
 }
 
 export const AddTokenDialogContext: Context<AddTokenDialogContextInterface> =
@@ -185,6 +190,37 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     }));
   }, [tokenList, selectedAssetType]);
 
+  const handleCreateToken = useCallback(async () => {
+    if (selectedAccounts.length === 0 || selectedTokens.length === 0) {
+      return;
+    }
+
+    const db = getDB();
+    // eslint-disable-next-line no-plusplus
+    for (let ai = 0; ai < selectedAccounts.length; ++ai) {
+      const account = selectedAccounts[ai];
+      // eslint-disable-next-line no-plusplus
+      for (let ti = 0; ti < selectedTokens.length; ++ti) {
+        const token = selectedTokens[ti];
+        await insertAccountIfNotExists(db, {
+          walletId: account.walletId,
+          assetId: token.id,
+          familyId: account.familyId,
+          parentAccountId: account.__id ?? '',
+          parentAssetId: account.parentAssetId,
+          type: AccountTypeMap.subAccount,
+          name: token.name,
+          derivationPath: account.derivationPath,
+          unit: token.units[0].abbr,
+          xpubOrAddress: account.xpubOrAddress,
+          balance: '0',
+        });
+      }
+    }
+
+    onNext();
+  }, [selectedAccounts, selectedTokens]);
+
   const ctx = useMemo(
     () => ({
       currentTab,
@@ -206,6 +242,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       accountDropdownList,
       selectedAccounts,
       setSelectedAccounts,
+      handleCreateToken,
     }),
     [
       currentTab,
@@ -227,6 +264,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       accountDropdownList,
       selectedAccounts,
       setSelectedAccounts,
+      handleCreateToken,
     ],
   );
 
