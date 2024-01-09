@@ -109,23 +109,20 @@ export const AccountPage: FC = () => {
                   <WalletConnectWithBgIcon />
                 </Button>
               )}
-
-              {!selectedAccount.parentAccount && (
-                <Button
-                  variant="icon"
-                  onClick={() => {
-                    if (selectedAccount)
-                      dispatch(
-                        openDeleteAccountDialog({
-                          account: selectedAccount,
-                          wallet: selectedAccount.wallet,
-                        }),
-                      );
-                  }}
-                >
-                  <DeleteIconWithBg />
-                </Button>
-              )}
+              <Button
+                variant="icon"
+                onClick={() => {
+                  if (selectedAccount)
+                    dispatch(
+                      openDeleteAccountDialog({
+                        account: selectedAccount,
+                        wallet: selectedAccount.wallet,
+                      }),
+                    );
+                }}
+              >
+                <DeleteIconWithBg />
+              </Button>
             </Container>
           </Flex>
         </Flex>

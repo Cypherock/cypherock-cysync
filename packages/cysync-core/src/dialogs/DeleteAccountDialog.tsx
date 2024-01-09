@@ -6,7 +6,7 @@ import {
   Tag,
   Typography,
 } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, { FC, useState } from 'react';
 
 import { getDB } from '~/utils';
@@ -58,6 +58,8 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
     walletName: wallet?.name,
   };
 
+  const isSubAccount: boolean = account.type === AccountTypeMap.subAccount;
+
   return (
     <BlurOverlay>
       <IconDialogBox
@@ -84,7 +86,11 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
             </div>
           </Typography>
         }
-        subtext={strings.deleteAccount.subTitle}
+        subtext={
+          isSubAccount
+            ? strings.deleteAccount.tokenSubtitle
+            : strings.deleteAccount.subTitle
+        }
         textVariables={textVariables}
         footerComponent={
           <>

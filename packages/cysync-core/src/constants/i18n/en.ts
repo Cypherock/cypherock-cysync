@@ -1071,6 +1071,8 @@ const en = {
     title: 'Are you sure you want to remove',
     subTitle:
       'You can add the account again from the ${walletName} wallet page. Note that this will not result in loss of assets',
+    tokenSubtitle:
+      'You can add the token again from the ${walletName} wallet page. Note that this will not result in loss of assets',
     buttons: {
       yes: 'Yes',
       no: 'No',
