@@ -14,6 +14,9 @@ patchedDependencies:
   bitcoinjs-lib@6.1.3:
     hash: 4ejbwv4r5ntzw6v5u3ozsksn5q
     path: patches/bitcoinjs-lib@6.1.3.patch
+  coinselect@3.1.13:
+    hash: w7ctbdrdl4sctyxj3zcjqsoscm
+    path: patches/coinselect@3.1.13.patch
   crc@3.8.0:
     hash: 2elhtkirubv6k56zon6hryqaqe
     path: patches/crc@3.8.0.patch
@@ -477,7 +480,7 @@ importers:
         version: 1.4.0
       coinselect:
         specifier: ^3.1.13
-        version: 3.1.13
+        version: 3.1.13(patch_hash=w7ctbdrdl4sctyxj3zcjqsoscm)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -14363,9 +14366,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /coinselect@3.1.13:
+  /coinselect@3.1.13(patch_hash=w7ctbdrdl4sctyxj3zcjqsoscm):
     resolution: {integrity: sha512-iJOrKH/7N9gX0jRkxgOHuGjvzvoxUMSeylDhH1sHn+CjLjdin5R0Hz2WEBu/jrZV5OrHcm+6DMzxwu9zb5mSZg==}
     dev: false
+    patched: true
 
   /collect-v8-coverage@1.0.2:
     resolution: {integrity: sha512-lHl4d5/ONEbLlJvaJNtsF/Lz+WvB07u2ycqTYbdrq7UypDXailES4valYb2eWiJFxZlVmpGekfqoxQhzyFdT4Q==}
@@ -19080,7 +19084,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -19121,7 +19125,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.4.7)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

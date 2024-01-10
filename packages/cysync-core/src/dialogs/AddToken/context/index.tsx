@@ -15,6 +15,7 @@ import React, {
   useState,
 } from 'react';
 
+import { CoinIcon } from '~/components';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -25,7 +26,6 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { CoinIcon } from '~/components';
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
 export interface AddTokenDialogContextInterface {

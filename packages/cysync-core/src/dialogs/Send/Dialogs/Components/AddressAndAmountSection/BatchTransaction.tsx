@@ -1,3 +1,4 @@
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedTransactionOutput } from '@cypherock/coin-support-interfaces';
 import {
   convertToUnit,
@@ -118,6 +119,21 @@ export const BatchTransaction: React.FC = () => {
     }
   }, [outputs, enableAutoScroll]);
 
+  const getAmountError = () => {
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        .isNotOverDustThreshold
+    ) {
+      return displayText.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return displayText.amount.error;
+    }
+
+    return '';
+  };
+
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <BatchContainer ref={containerRef}>
@@ -151,11 +167,7 @@ export const BatchTransaction: React.FC = () => {
                   label={displayText.amount.label}
                   coinUnit={selectedAccount?.unit ?? ''}
                   priceUnit={displayText.amount.dollar}
-                  error={
-                    transaction?.validation.hasEnoughBalance === false
-                      ? displayText.amount.error
-                      : ''
-                  }
+                  error={getAmountError()}
                   placeholder={displayText.amount.placeholder}
                   initialAmount={getConvertedAmount(output.amount)}
                   onChange={async val => {

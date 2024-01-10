@@ -352,7 +352,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           txn,
         });
 
-      setTransaction(preparedTransaction);
+      setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
       onError(e);
     }
