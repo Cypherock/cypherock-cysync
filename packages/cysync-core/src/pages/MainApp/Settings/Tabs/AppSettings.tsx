@@ -48,7 +48,7 @@ export const AppSettings: React.FC = () => {
     keyValueStore.isAutoUpdateCySyncEnabled.set(isAutoUpdateCySyncEnabled);
   }, [isAutoUpdateCySyncEnabled]);
 
-  const handleUsdTroubleShoot = () => {
+  const handleUsbTroubleShoot = () => {
     dispatch(openUsbTroubleShootDialog());
   };
 
@@ -128,7 +128,7 @@ export const AppSettings: React.FC = () => {
         title={{ text: item.usb.title }}
         description={{ text: item.usb.description }}
       >
-        <SettingsButton variant="primary" onClick={handleUsdTroubleShoot}>
+        <SettingsButton variant="primary" onClick={handleUsbTroubleShoot}>
           <LangDisplay text={strings.buttons.start} />
         </SettingsButton>
       </SettingsStandardItem>

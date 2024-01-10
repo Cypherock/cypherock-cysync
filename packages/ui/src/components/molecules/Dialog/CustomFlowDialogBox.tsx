@@ -11,6 +11,7 @@ import {
 } from '../../atoms';
 import { BulletList } from '../BulletList';
 import { GoldenArrowList } from '../GoldenArrowList';
+import { MessageBox, MessageBoxType } from '../MessageBox';
 import { WaitingDiv, WaitingDivType } from '../WaitingDiv';
 
 import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
@@ -23,7 +24,7 @@ const InnerContainer = styled.div`
   overflow-y: auto;
 `;
 
-export interface UsbTroubleShootDialogBoxProps {
+export interface CustomFlowDialogBoxProps {
   title?: string;
   title2?: string;
   subtitle?: string;
@@ -41,8 +42,9 @@ export interface UsbTroubleShootDialogBoxProps {
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
   isFirstDialog?: boolean;
+  waitingDiv?: boolean;
 }
-export const UsbTroubleShootDialogBox: FC<UsbTroubleShootDialogBoxProps> = ({
+export const CustomFlowDialogBox: FC<CustomFlowDialogBoxProps> = ({
   heading,
   image,
   title,
@@ -60,6 +62,7 @@ export const UsbTroubleShootDialogBox: FC<UsbTroubleShootDialogBoxProps> = ({
   disablePrev,
   disableNext,
   isFirstDialog,
+  waitingDiv,
 }) => (
   <>
     {heading && (
@@ -114,28 +117,51 @@ export const UsbTroubleShootDialogBox: FC<UsbTroubleShootDialogBoxProps> = ({
             <BulletList items={bulletList} />
           </Flex>
         )}
-        {messageBoxList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
-            {messageBoxList.map((messageBox, index) => {
-              const key = Object.keys(messageBox)[0];
-              const args = key.split('-');
-              const type = args[0] as WaitingDivType;
-              if (!type) return null;
+        {messageBoxList &&
+          (waitingDiv ? (
+            <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+              {messageBoxList.map((messageBox, index) => {
+                const key = Object.keys(messageBox)[0];
+                const args = key.split('-');
+                const type = args[0] as WaitingDivType;
+                if (!type) return null;
 
-              let textColor: TypographyColor | undefined;
-              if (args.length > 1) textColor = args[1] as TypographyColor;
+                let textColor: TypographyColor | undefined;
+                if (args.length > 1) textColor = args[1] as TypographyColor;
 
-              return (
-                <WaitingDiv
-                  key={`${type}-${index + 1}`}
-                  text={messageBox[key]}
-                  textColor={textColor}
-                  type={type}
-                />
-              );
-            })}
-          </Flex>
-        )}
+                return (
+                  <WaitingDiv
+                    key={`${type}-${index + 1}`}
+                    text={messageBox[key]}
+                    textColor={textColor}
+                    type={type}
+                  />
+                );
+              })}
+            </Flex>
+          ) : (
+            <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+              {messageBoxList.map((messageBox, index) => {
+                const key = Object.keys(messageBox)[0];
+                const args = key.split('-');
+
+                const type = args[0] as MessageBoxType;
+                if (!type) return null;
+
+                let textColor: TypographyColor | undefined;
+                if (args.length > 1) textColor = args[1] as TypographyColor;
+
+                return (
+                  <MessageBox
+                    key={`${type}-${index + 1}`}
+                    text={messageBox[key]}
+                    textColor={textColor}
+                    type={type}
+                  />
+                );
+              })}
+            </Flex>
+          ))}
       </DialogBoxBody>
     </InnerContainer>
     <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
@@ -163,7 +189,7 @@ export const UsbTroubleShootDialogBox: FC<UsbTroubleShootDialogBoxProps> = ({
   </>
 );
 
-UsbTroubleShootDialogBox.defaultProps = {
+CustomFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,
@@ -178,4 +204,5 @@ UsbTroubleShootDialogBox.defaultProps = {
   disablePrev: false,
   disableNext: false,
   isFirstDialog: false,
+  waitingDiv: false,
 };

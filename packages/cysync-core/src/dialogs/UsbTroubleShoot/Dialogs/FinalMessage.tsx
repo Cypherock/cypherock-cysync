@@ -3,7 +3,7 @@ import {
   Button,
   LangDisplay,
   GenerateNewWalletDeviceGraphics,
-  UsbTroubleShootDialogBox,
+  CustomFlowDialogBox,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useState } from 'react';
@@ -58,7 +58,7 @@ export const FinalMessage: FC = () => {
       <ContactForm key="contact-support-form" />
     </ContactSupportDialogProvider>
   ) : (
-    <UsbTroubleShootDialogBox
+    <CustomFlowDialogBox
       image={informationIconReactElement}
       onNext={onNext}
       onPrevious={onPrevious}

@@ -1,7 +1,7 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  UsbTroubleShootDialogBox,
+  CustomFlowDialogBox,
   WaitingDivType,
   Pendrive,
 } from '@cypherock/cysync-ui';
@@ -133,10 +133,11 @@ export const UsbToubleShootProvider: FC<TroubleShootContextProviderProps> = ({
     first?: boolean,
   ) =>
     contents.map((content, index) => (
-      <UsbTroubleShootDialogBox
+      <CustomFlowDialogBox
         key={`${index + 1}`}
         image={images[index]}
         isFirstDialog={first && index === 0}
+        waitingDiv
         {...content}
         onNext={onNext}
         onPrevious={onPrevious}
