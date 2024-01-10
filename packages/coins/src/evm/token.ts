@@ -47,7 +47,13 @@ export const getErc20Tokens = (
         throw new Error('Missing token data');
       }
 
-      const id = `${parentId}:${token.id}`;
+      /** token.version enables support for multiple versions of migrated contracts
+       * Example, TRX on BSC was migrated. With version, we can support both the contracts
+       * simulatneously. The price fetching is still dependent on token.id.
+       */
+      const id = `${parentId}:${token.id}${
+        token.version ? `|${token.version}` : ''
+      }`;
       const tokenObj: IEvmErc20Token = {
         id,
         parentId,
