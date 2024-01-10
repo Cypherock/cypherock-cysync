@@ -40,9 +40,9 @@ export const WaitingDiv: FC<{
     justify="flex-start"
     $alignSelf="stretch"
   >
-    <div>
+    <Container display="flex">
       <Loading />
-    </div>
+    </Container>
     <Flex direction="column" gap={4}>
       <Typography variant="fineprint" color={textColor ?? 'muted'}>
         <LangDisplay text={text} variables={variables} />
