@@ -34,6 +34,10 @@ export const syncAccounts = createAsyncThunk<
           );
         });
 
+        if (isSyncAll) {
+          dispatch(setAccountLastSyncedAt(Date.now()));
+        }
+
         resolve();
         return;
       }
@@ -103,6 +107,7 @@ export const syncAllAccounts =
           getState().lang.strings.topbar.statusTexts.sync.networkErrorTooltip,
         ),
       );
+      dispatch(setAccountLastSyncedAt(Date.now()));
     } else {
       dispatch(setSyncError(undefined));
       dispatch(
