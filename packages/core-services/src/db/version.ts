@@ -2,7 +2,7 @@ import { IDatabase } from '@cypherock/db-interfaces';
 
 export const setDBVersions = (database: IDatabase) => {
   database.wallet.setVersion(0);
-  database.account.setVersion(0);
+  database.account.setVersion(1);
   database.device.setVersion(0);
   database.priceInfo.setVersion(0);
   database.priceHistory.setVersion(0);
