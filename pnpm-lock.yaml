@@ -1039,6 +1039,9 @@ importers:
       '@cypherock/coin-support':
         specifier: workspace:^
         version: link:../coin-support
+      '@cypherock/coin-support-evm':
+        specifier: workspace:^
+        version: link:../coin-support-evm
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces

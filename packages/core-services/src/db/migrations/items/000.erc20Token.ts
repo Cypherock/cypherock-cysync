@@ -1,16 +1,19 @@
 import { getAsset } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, IEvmErc20Token } from '@cypherock/coins';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import { IEvmAccount } from '@cypherock/coin-support-evm';
 
 import logger from '../../../utils/logger';
-import { IMigration } from '../types';
+import { IMigrationItem } from '../types';
 
 /**
  * Account DB migration from 0 => 1
  * - Add contract address to ERC20 token account
+ * - Force the refetching of token history
  */
-const migration: IMigration = {
-  name: 'ERC20 token extra data contains contract address',
+const migration: IMigrationItem = {
+  id: '0',
+  name: 'ERC20 token migration',
   up: async db => {
     const allAccounts = await db.account.getAll({
       __version: 0,
@@ -34,6 +37,11 @@ const migration: IMigration = {
           dataToUpdate.extraData = {
             ...(account.extraData ?? {}),
             contractAddress: tokenObj.address,
+          };
+        } else if (account.familyId === coinFamiliesMap.evm) {
+          (dataToUpdate.extraData as IEvmAccount['extraData']) = {
+            ...(account.extraData ?? {}),
+            lastContractTransactionBlockHeight: undefined,
           };
         }
 

@@ -19,12 +19,15 @@ import {
   ITransactionNotificationClickRepository,
   ITransactionNotificationRead,
   ITransactionNotificationReadRepository,
+  IMigrationRepository,
+  IMigration,
 } from '@cypherock/db-interfaces';
 
 import { EncryptedDB } from './encryptedDb';
 import {
   Account,
   Device,
+  Migration,
   PriceHistory,
   PriceInfo,
   Transaction,
@@ -57,6 +60,8 @@ export class Database implements IDatabase {
 
   transactionNotificationRead: ITransactionNotificationReadRepository;
 
+  migration: IMigrationRepository;
+
   constructor(params: {
     database: EncryptedDB;
     device: IDeviceRepository;
@@ -67,6 +72,7 @@ export class Database implements IDatabase {
     priceInfo: IPriceInfoRepository;
     transactionNotificationClick: ITransactionNotificationClickRepository;
     transactionNotificationRead: ITransactionNotificationReadRepository;
+    migration: IMigrationRepository;
   }) {
     this.database = params.database;
 
@@ -78,6 +84,7 @@ export class Database implements IDatabase {
     this.priceInfo = params.priceInfo;
     this.transactionNotificationClick = params.transactionNotificationClick;
     this.transactionNotificationRead = params.transactionNotificationRead;
+    this.migration = params.migration;
   }
 
   public static async create(dirPath: string) {
@@ -125,6 +132,11 @@ export class Database implements IDatabase {
         TransactionNotificationRead.name,
         TransactionNotificationRead.schema,
       );
+    const migration = await Repository.create<IMigration>(
+      database,
+      Migration.name,
+      Migration.schema,
+    );
 
     return new Database({
       database,
@@ -136,6 +148,7 @@ export class Database implements IDatabase {
       priceInfo,
       transactionNotificationClick,
       transactionNotificationRead,
+      migration,
     });
   }
 
