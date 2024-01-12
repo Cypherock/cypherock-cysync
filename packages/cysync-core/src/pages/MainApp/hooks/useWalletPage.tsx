@@ -5,8 +5,9 @@ import {
   getDefaultUnit,
   formatDisplayPrice,
   formatDisplayAmount,
+  getAsset,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Throbber,
   Check,
@@ -163,6 +164,15 @@ const mapTokenAccounts = (
   const amountTooltip = isDiscreetMode
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
+  const asset = getAsset(a.parentAssetId, a.assetId);
+  let { name } = a;
+
+  if (
+    a.type === AccountTypeMap.subAccount &&
+    a.familyId === coinFamiliesMap.evm
+  ) {
+    name = asset.name;
+  }
 
   return {
     id: a.__id ?? '',
@@ -173,7 +183,7 @@ const mapTokenAccounts = (
         assetId={a.assetId}
       />
     ),
-    text: a.name,
+    text: name,
     displayAmount,
     amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,

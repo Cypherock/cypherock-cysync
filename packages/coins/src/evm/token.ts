@@ -65,6 +65,7 @@ export const getErc20Tokens = (
         feesUnit: 'Gwei',
         family: coinFamiliesMap.evm,
         isTest: false,
+        isZeroPriceCoin: Boolean(token.isZeroPriceCoin),
         units: [
           {
             name: token.name,
