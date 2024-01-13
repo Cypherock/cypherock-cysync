@@ -1,8 +1,8 @@
-import erc20List from './erc20.json';
+import { erc20JsonList } from './erc20';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
 
-export { default as erc20JsonList } from './erc20.json';
+export { erc20JsonList } from './erc20';
 
 export interface IEvmErc20Token extends ICoinInfo {
   parentId: string;
@@ -48,7 +48,7 @@ export const getErc20Tokens = (
 ) => {
   const tokensById: Record<string, IEvmErc20Token> = {};
   const tokensByContract: Record<string, IEvmErc20Token> = {};
-  const tokensList: any = erc20List;
+  const tokensList = erc20JsonList;
 
   for (const token of tokensList) {
     if (token.symbol.length <= 16 && token.platforms[parentId]) {
@@ -79,7 +79,7 @@ export const getErc20Tokens = (
         feesUnit: 'Gwei',
         family: coinFamiliesMap.evm,
         isTest: false,
-        isZeroPriceCoin: Boolean(token.isZeroPriceCoin),
+        isZeroPriceCoin: Boolean(token.is_zero_value_coin),
         units: [
           {
             name: token.name,

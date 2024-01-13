@@ -12,6 +12,7 @@ import { idChanges } from './idChanges';
  * Account DB migration from 0 => 1
  * - Add contract address to ERC20 token account
  * - Force the refetching of token history
+ * - Remove unit from ERC20 token account, so that default can be used
  */
 const migration: IMigrationItem = {
   id: '0',
@@ -38,6 +39,7 @@ const migration: IMigrationItem = {
             ...(account.extraData ?? {}),
             contractAddress: tokenObj.address,
           };
+          dataToUpdate.unit = undefined;
         } else if (account.familyId === coinFamiliesMap.evm) {
           (dataToUpdate.extraData as IEvmAccount['extraData']) = {
             ...(account.extraData ?? {}),

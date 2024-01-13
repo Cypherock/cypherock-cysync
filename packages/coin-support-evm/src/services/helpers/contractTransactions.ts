@@ -53,7 +53,7 @@ export const mapContractTransactionForDb = async (params: {
       type: AccountTypeMap.subAccount,
       name: tokenObj.name,
       derivationPath: account.derivationPath,
-      unit: tokenObj.units[0].abbr,
+      unit: undefined,
       xpubOrAddress: account.xpubOrAddress,
       balance: '0',
       extraData: {

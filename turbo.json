@@ -139,6 +139,14 @@
     "@cypherock/cysync-automation-scripts#erc20-diff": {
       "dependsOn": ["build"],
       "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#gen-erc20-list": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#download-erc20-images": {
+      "dependsOn": ["build"],
+      "cache": false
     }
   }
 }

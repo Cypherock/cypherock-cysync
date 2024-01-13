@@ -131,7 +131,7 @@ const mapTokenAccounts = (
   const { amount, unit } = getParsedAmount({
     coinId: a.parentAssetId,
     assetId: a.assetId,
-    unitAbbr: a.unit,
+    unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
     amount: a.balance,
   });
 
@@ -284,7 +284,7 @@ export const useWalletPage = () => {
       const { amount, unit } = getParsedAmount({
         coinId: a.parentAssetId,
         assetId: a.assetId,
-        unitAbbr: a.unit,
+        unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
         amount: a.balance,
       });
 

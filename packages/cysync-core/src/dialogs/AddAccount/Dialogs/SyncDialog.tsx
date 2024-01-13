@@ -1,4 +1,4 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   loaderGrayIcon,
   LangDisplay,
@@ -65,7 +65,7 @@ const createAccountDisplayList = (params: {
   return accountsList.map(a => {
     const { amount, unit } = getParsedAmount({
       coinId: a.assetId,
-      unitAbbr: a.unit,
+      unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
       amount: a.balance,
     });
 

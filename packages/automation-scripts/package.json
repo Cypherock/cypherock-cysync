@@ -16,7 +16,9 @@
     "build:esm": "tsc -p tsconfig.json",
     "build:dirty": "pnpm build:esm",
     "pre-commit": "lint-staged",
-    "erc20-diff": "node dist/cjs/commands/erc20/diff.js"
+    "erc20-diff": "node dist/cjs/commands/erc20/diff.js",
+    "gen-erc20-list": "node dist/cjs/commands/erc20/createNewList.js",
+    "download-erc20-images": "node dist/cjs/commands/erc20/downloadImages.js"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",
