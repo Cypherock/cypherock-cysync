@@ -1,7 +1,11 @@
 import crypto from 'crypto';
 import fs from 'fs';
 
-import { erc20JsonList, evmCoinList } from '@cypherock/coins';
+import {
+  createErc20AssetId,
+  erc20JsonList,
+  evmCoinList,
+} from '@cypherock/coins';
 import lodash from 'lodash';
 
 import {
@@ -92,7 +96,12 @@ const getChangedContracts = (params: {
   const { sameContracts, coingeckoCoinMap, existingCoinMap } = params;
   const changedContracts: string[] = [];
   const changedCoinList: Erc20ListItem[] = [];
-  const idChanges: { oldId: string; newId: string; platform: string }[] = [];
+  const idChanges: {
+    oldId: string;
+    oldVersion?: string;
+    newId: string;
+    platform: string;
+  }[] = [];
 
   for (const contractAddress of sameContracts) {
     const coingeckoCoin = coingeckoCoinMap[contractAddress];
@@ -114,6 +123,7 @@ const getChangedContracts = (params: {
       if (coingeckoCoin.id !== existingCoin.id) {
         idChanges.push({
           oldId: existingCoin.id,
+          oldVersion: existingCoin.version,
           newId: coingeckoCoin.id,
           platform: Object.keys(existingCoin.platforms ?? {})[0],
         });
@@ -164,9 +174,11 @@ const verifyDuplicateIds = (list: Erc20ListItem[]) => {
       const tokenDetails = coin.platforms[platform];
       if (!tokenDetails) continue;
 
-      const id = `${platform}:${coin.id}${
-        coin.version ? `|${coin.version}` : ''
-      }`;
+      const id = createErc20AssetId({
+        parentAssetId: platform,
+        assetId: coin.id,
+        version: coin.version,
+      });
 
       if (idSet.has(id)) {
         duplicateIdList.push(id);

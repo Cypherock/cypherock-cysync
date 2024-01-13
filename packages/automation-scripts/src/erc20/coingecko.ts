@@ -21,7 +21,7 @@ export interface CoingeckoCoinListItem {
 export const getCoingeckoCoinList = async (): Promise<
   CoingeckoCoinListItem[]
 > => {
-  const response = await http.get(`/coins/list`);
+  const response = await http.get(`/coins/list?include_platform=true`);
 
   assert(response.data, 'No data returned from coingecko coin list');
 

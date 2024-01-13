@@ -32,6 +32,16 @@ const units: ICoinUnit[] = [
   },
 ];
 
+export const createErc20AssetId = (params: {
+  parentAssetId: string;
+  assetId: string;
+  version?: string;
+}) => {
+  const { assetId, parentAssetId, version } = params;
+
+  return `${parentAssetId}:${assetId}${version ? `|${version}` : ''}`;
+};
+
 export const getErc20Tokens = (
   parentId: string,
   parentCoinInfo: { color: string },
@@ -53,9 +63,11 @@ export const getErc20Tokens = (
        * Example, TRX on BSC was migrated. With version, we can support both the contracts
        * simulatneously. The price fetching is still dependent on token.id.
        */
-      const id = `${parentId}:${token.id}${
-        token.version ? `|${token.version}` : ''
-      }`;
+      const id = createErc20AssetId({
+        parentAssetId: parentId,
+        assetId: token.id,
+        version: token.version,
+      });
       const tokenObj: IEvmErc20Token = {
         id,
         parentId,
