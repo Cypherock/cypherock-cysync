@@ -1,7 +1,7 @@
+import { IEvmAccount } from '@cypherock/coin-support-evm';
 import { getAsset } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, IEvmErc20Token } from '@cypherock/coins';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
-import { IEvmAccount } from '@cypherock/coin-support-evm';
 
 import logger from '../../../utils/logger';
 import { IMigrationItem } from '../types';
@@ -13,7 +13,7 @@ import { IMigrationItem } from '../types';
  */
 const migration: IMigrationItem = {
   id: '0',
-  name: 'ERC20 token migration',
+  name: 'ERC20 token account migration',
   up: async db => {
     const allAccounts = await db.account.getAll({
       __version: 0,

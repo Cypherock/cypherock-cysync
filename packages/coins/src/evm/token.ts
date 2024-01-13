@@ -2,6 +2,8 @@ import erc20List from './erc20.json';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
 
+export { default as erc20JsonList } from './erc20.json';
+
 export interface IEvmErc20Token extends ICoinInfo {
   parentId: string;
   address: string;

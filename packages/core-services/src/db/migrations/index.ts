@@ -1,7 +1,8 @@
 import { IDatabase } from '@cypherock/db-interfaces';
-import logger from '../../utils/logger';
 
 import { migrationItems } from './items';
+
+import logger from '../../utils/logger';
 
 export const runMigrations = async (db: IDatabase) => {
   for (const migration of migrationItems) {
