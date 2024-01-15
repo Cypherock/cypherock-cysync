@@ -170,37 +170,29 @@ export const calculatePortfolioGraphData = async (
   params: CalculatePortfolioGraphDataParams,
 ) => {
   const walletId = params.selectedWallet?.__id;
+  const balanceHistory = await getBalanceHistory({
+    accounts: params.accounts,
+    transactions: params.transactions,
+    priceHistories: params.priceHistories,
+    priceInfos: params.priceInfos,
+    currency: 'usd',
+    days: params.days,
+    walletId,
+    assetId: params.assetId,
+    parentAssetId: params.parentAssetId,
+    accountId: params.accountId,
+  });
 
-  try {
-    const balanceHistory = await getBalanceHistory({
-      accounts: params.accounts,
-      transactions: params.transactions,
-      priceHistories: params.priceHistories,
-      priceInfos: params.priceInfos,
-      currency: 'usd',
-      days: params.days,
-      walletId,
-      assetId: params.assetId,
-      parentAssetId: params.parentAssetId,
-      accountId: params.accountId,
-    });
+  const paramsWithComputedData = {
+    ...params,
+    computedData: balanceHistory,
+  };
 
-    const paramsWithComputedData = {
-      ...params,
-      computedData: balanceHistory,
-    };
+  const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
 
-    const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
+  const graphData = formatPortfolioGraphData(paramsWithComputedData);
 
-    const graphData = formatPortfolioGraphData(paramsWithComputedData);
-
-    return { balanceHistory, summary, graphData };
-  } catch (error) {
-    console.error('Error in calculating portfolio data');
-    console.error(error);
-  }
-
-  return undefined;
+  return { balanceHistory, summary, graphData };
 };
 
 export type CalculatePortfolioGraphDataType =
