@@ -27,7 +27,7 @@ export default {
   /**
    * Simuate production environment even in development mode
    */
-  SIMULATE_PRODUCTION: true,
+  SIMULATE_PRODUCTION: false,
 
   /**
    * Commit hash of the build
