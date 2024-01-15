@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -64,6 +64,10 @@ export const Image: FC<ImageProps> = ({
       onError(error);
     }
   };
+
+  useEffect(() => {
+    setImageSrc(src);
+  }, [src]);
 
   return (
     <ImageStyle {...props} src={imageSrc} alt={alt} onError={handleError} />
