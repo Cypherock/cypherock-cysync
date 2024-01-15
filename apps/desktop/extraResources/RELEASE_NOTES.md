@@ -1,3 +1,9 @@
+# v2.0.1
+
+### 🚀 Features
+
+- Updated ERC-20 token list for evm chains
+
 # v2.0.0
 
 ### 🚀 Features
