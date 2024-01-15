@@ -12,7 +12,7 @@ import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { openAddAccountDialog } from '~/actions';
+import { openAddAccountDialog, syncAllPriceHistories } from '~/actions';
 import {
   useGraphTimeRange,
   graphTimeRangeToDaysMap,
@@ -152,28 +152,40 @@ export const useGraph = (props?: UseGraphProps) => {
       days: graphTimeRangeToDaysMap[data.selectedRange],
     };
 
+    let result:
+      | Awaited<ReturnType<typeof calculatePortfolioGraphDataWithWorker>>
+      | undefined;
     try {
-      const result = await calculatePortfolioGraphDataWithWorker(params);
-      if (result?.summary.isIncreased || result?.summary.isDecreased) {
-        const changeIconColor = result.summary.isDecreased
-          ? theme.palette.text.error
-          : data.theme.palette.success.main;
-
-        result.summary.changeIcon = (
-          <TriangleIcon
-            fill={changeIconColor}
-            width={15}
-            height={15}
-            rotate={result.summary.isIncreased ? 0 : 180}
-          />
-        );
-      }
-
-      if (result) setCalculatedData(result);
+      result = await calculatePortfolioGraphDataWithWorker(params);
     } catch (error) {
-      logger.error('Error on useGraph');
-      logger.error(error);
+      if (
+        error instanceof Error &&
+        error.message === 'Price history not found'
+      ) {
+        logger.info('Price history not found, Syncing price history');
+        await syncAllPriceHistories();
+      } else {
+        logger.error('Error on useGraph');
+        logger.error(error);
+      }
     }
+
+    if (result?.summary.isIncreased || result?.summary.isDecreased) {
+      const changeIconColor = result.summary.isDecreased
+        ? theme.palette.text.error
+        : data.theme.palette.success.main;
+
+      result.summary.changeIcon = (
+        <TriangleIcon
+          fill={changeIconColor}
+          width={15}
+          height={15}
+          rotate={result.summary.isIncreased ? 0 : 180}
+        />
+      );
+    }
+
+    if (result) setCalculatedData(result);
 
     if (setLoading) setIsLoading(false);
   };
