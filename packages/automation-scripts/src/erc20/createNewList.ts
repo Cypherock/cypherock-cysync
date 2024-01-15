@@ -4,7 +4,11 @@ import path from 'path';
 import { sleep } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 
-import { CoingeckoCoinDetails, getCoingeckoCoinDetails } from './coingecko';
+import {
+  CoingeckoCoinDetails,
+  coingeckoPlatformReverseMapping,
+  getCoingeckoCoinDetails,
+} from './coingecko';
 import { config } from './config';
 import { Erc20ListItem, getERC20TokenDifference } from './diff';
 
@@ -128,14 +132,19 @@ export const createNewErc20List = async () => {
             [v[0]]: {
               ...v[1],
               decimal_place:
-                coinDetails.detail_platforms?.[v[0]]?.decimal_place ?? 18,
+                coinDetails.detail_platforms?.[
+                  coingeckoPlatformReverseMapping[v[0]] ?? ''
+                ]?.decimal_place ?? 18,
             },
           }),
           {},
         ),
         market_cap: coinDetails.market_data?.market_cap?.usd ?? 0,
         image: coinDetails.image,
-        description: { en: coinDetails.description?.en },
+        description: {
+          en: coinDetails.description?.en?.replace(/[\u2028]/g, '\n'),
+        },
+        last_updated_at: coinDetails.last_updated,
       });
     }
   }
@@ -143,7 +152,7 @@ export const createNewErc20List = async () => {
   const sortedList = lodash.orderBy(newCoinList, ['market_cap'], ['desc']);
 
   await fs.promises.writeFile(
-    'newCoinList.json',
+    path.join(config.DATA_FOLDER, 'erc20.json'),
     JSON.stringify(sortedList, undefined, 2),
   );
 };

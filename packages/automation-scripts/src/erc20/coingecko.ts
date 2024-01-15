@@ -73,3 +73,11 @@ export const coingeckoPlatformMapping: Record<string, string | undefined> = {
   'arbitrum-one': EvmIdMap.arbitrum,
   fantom: EvmIdMap.fantom,
 };
+
+export const coingeckoPlatformReverseMapping: Record<
+  string,
+  string | undefined
+> = Object.entries(coingeckoPlatformMapping).reduce(
+  (a, v) => ({ ...a, [v[1] ?? '']: v[0] }),
+  {},
+);

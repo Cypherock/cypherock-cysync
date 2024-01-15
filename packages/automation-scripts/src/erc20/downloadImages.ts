@@ -19,6 +19,10 @@ const downloadFile = async (fileUrl: string, filePath: string) =>
   // eslint-disable-next-line no-async-promise-executor
   new Promise<void>(async (resolve, reject) => {
     const localFilePath = path.resolve(filePath);
+    if (!fileUrl.startsWith('http')) {
+      resolve();
+      return;
+    }
     if (fs.existsSync(localFilePath)) {
       resolve();
       return;

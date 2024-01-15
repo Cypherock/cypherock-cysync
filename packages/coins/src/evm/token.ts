@@ -1,8 +1,8 @@
-import { erc20JsonList } from './erc20';
+import erc20List from './erc20.json';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
 
-export { erc20JsonList } from './erc20';
+export { default as erc20JsonList } from './erc20.json';
 
 export interface IEvmErc20Token extends ICoinInfo {
   parentId: string;
@@ -48,7 +48,7 @@ export const getErc20Tokens = (
 ) => {
   const tokensById: Record<string, IEvmErc20Token> = {};
   const tokensByContract: Record<string, IEvmErc20Token> = {};
-  const tokensList = erc20JsonList;
+  const tokensList: any = erc20List;
 
   for (const token of tokensList) {
     if (token.symbol.length <= 16 && token.platforms[parentId]) {

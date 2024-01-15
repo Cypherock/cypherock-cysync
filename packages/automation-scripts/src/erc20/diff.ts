@@ -35,6 +35,7 @@ export interface Erc20ListItem {
     small?: string;
     large?: string;
   };
+  last_updated_at?: string;
 }
 
 const createContractMapFromExistingList = (list: Erc20ListItem[]) => {
@@ -304,12 +305,7 @@ export const getERC20TokenDifference = async (dontSaveToFile?: boolean) => {
 
   if (!dontSaveToFile) {
     await fs.promises.writeFile(
-      path.join(config.DATA_FOLDER, 'erc20.json'),
-      JSON.stringify(newCoinList, undefined, 2),
-    );
-
-    await fs.promises.writeFile(
-      path.join(config.DATA_FOLDER, 'data.json'),
+      path.join(config.DATA_FOLDER, 'diff.json'),
       JSON.stringify(
         {
           removedContracts: removedContracts.length,

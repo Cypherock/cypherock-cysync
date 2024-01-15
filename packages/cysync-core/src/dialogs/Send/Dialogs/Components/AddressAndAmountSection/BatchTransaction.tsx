@@ -160,8 +160,8 @@ export const BatchTransaction: React.FC = () => {
                     selectedAccount
                       ? selectedAccount.unit ??
                         getDefaultUnit(
-                          selectedAccount?.parentAssetId,
-                          selectedAccount?.assetId,
+                          selectedAccount.parentAssetId,
+                          selectedAccount.assetId,
                         ).abbr
                       : ''
                   }

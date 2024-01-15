@@ -3,10 +3,11 @@ import { getAsset } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, IEvmErc20Token } from '@cypherock/coins';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 
+import { idChanges } from './idChanges';
+
 import logger from '../../../../utils/logger';
 import { migrateTokenIdChangeInDb } from '../../helpers';
 import { IMigrationItem } from '../../types';
-import { idChanges } from './idChanges';
 
 /**
  * Account DB migration from 0 => 1
