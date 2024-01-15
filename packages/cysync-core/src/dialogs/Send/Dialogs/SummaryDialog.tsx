@@ -54,7 +54,9 @@ export const SummaryDialog: React.FC = () => {
         coinId: account.parentAssetId,
         assetId: account.assetId,
         amount: output.amount,
-        unitAbbr: account.unit,
+        unitAbbr:
+          account.unit ??
+          getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       });
       const value = formatDisplayPrice(
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
@@ -100,7 +102,9 @@ export const SummaryDialog: React.FC = () => {
       coinId: account.parentAssetId,
       assetId: account.assetId,
       amount: totalAmount.toString(),
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     });
     const amountValue = new BigNumber(amount).multipliedBy(
       assetPrice.latestPrice,

@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import React, {
   useCallback,
   useEffect,
@@ -5,8 +6,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useTheme } from 'styled-components';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
+import { useTheme } from 'styled-components';
 
 import {
   DropdownContainer,
@@ -15,7 +16,6 @@ import {
   DropDownListContainer,
 } from './DropdownStyles';
 
-import lodash from 'lodash';
 import {
   NotFound,
   searchIcon,
