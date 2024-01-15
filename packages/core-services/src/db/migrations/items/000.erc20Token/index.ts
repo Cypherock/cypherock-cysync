@@ -3,10 +3,13 @@ import { getAsset } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, IEvmErc20Token } from '@cypherock/coins';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 
-import { idChanges } from './idChanges';
+import { changedCoins, idChanges } from './idChanges';
 
 import logger from '../../../../utils/logger';
-import { migrateTokenIdChangeInDb } from '../../helpers';
+import {
+  migrateTokenDetailsChangeInDb,
+  migrateTokenIdChangeInDb,
+} from '../../helpers';
 import { IMigrationItem } from '../../types';
 
 /**
@@ -20,6 +23,7 @@ const migration: IMigrationItem = {
   name: 'ERC20 token account migration',
   up: async db => {
     await migrateTokenIdChangeInDb(db, idChanges);
+    await migrateTokenDetailsChangeInDb(db, changedCoins);
 
     const allAccounts = await db.account.getAll({});
 

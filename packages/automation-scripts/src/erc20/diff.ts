@@ -21,7 +21,6 @@ export interface Erc20ListItem {
   symbol: string;
   name: string;
   market_cap?: number;
-  is_zero_value_coin?: boolean;
   version?: string;
   platforms?: Record<
     string,
@@ -36,6 +35,8 @@ export interface Erc20ListItem {
     large?: string;
   };
   last_updated_at?: string;
+  is_zero_value_coin?: boolean;
+  is_custom_coin?: boolean;
 }
 
 const createContractMapFromExistingList = (list: Erc20ListItem[]) => {
@@ -53,7 +54,7 @@ const createContractMapFromExistingList = (list: Erc20ListItem[]) => {
       const tokenDetails = coin.platforms[platform];
       if (!tokenDetails) continue;
 
-      map[tokenDetails.contract_address.toLowerCase()] = {
+      map[`${platform}:${tokenDetails.contract_address.toLowerCase()}`] = {
         ...coin,
         platforms: {
           [platform]: {
@@ -82,7 +83,7 @@ const createContractMapFromCoingeckoList = (list: CoingeckoCoinListItem[]) => {
       const contractAddress = coin.platforms[platform];
       if (!contractAddress) continue;
 
-      map[contractAddress.toLowerCase()] = {
+      map[`${mappedPlatform}:${contractAddress.toLowerCase()}`] = {
         id: coin.id,
         name: coin.name,
         symbol: coin.symbol,
@@ -113,6 +114,11 @@ const getChangedContracts = (params: {
     newId: string;
     platform: string;
   }[] = [];
+  const changedCoins: {
+    id: string;
+    platform: string;
+    version?: string;
+  }[] = [];
 
   for (const contractAddress of sameContracts) {
     const coingeckoCoin = coingeckoCoinMap[contractAddress];
@@ -139,6 +145,11 @@ const getChangedContracts = (params: {
           platform: Object.keys(existingCoin.platforms ?? {})[0],
         });
       }
+
+      changedCoins.push({
+        id: coingeckoCoin.id,
+        platform: Object.keys(existingCoin.platforms ?? {})[0],
+      });
     }
   }
 
@@ -150,6 +161,7 @@ const getChangedContracts = (params: {
   return {
     changedContracts,
     changedCoinList,
+    changedCoins,
     idChanges,
     unchangedCoinList,
   };
@@ -168,10 +180,16 @@ const getRemovedContracts = (params: {
 
     if (!existingCoin) continue;
 
-    removedCoinList.push({
-      ...existingCoin,
-      is_zero_value_coin: true,
-    });
+    if (existingCoin.is_custom_coin) {
+      removedCoinList.push({
+        ...existingCoin,
+      });
+    } else {
+      removedCoinList.push({
+        ...existingCoin,
+        is_zero_value_coin: true,
+      });
+    }
   }
 
   return { removedCoinList };
@@ -275,12 +293,17 @@ export const getERC20TokenDifference = async (dontSaveToFile?: boolean) => {
     existingContractAddresses,
   );
 
-  const { changedContracts, idChanges, changedCoinList, unchangedCoinList } =
-    getChangedContracts({
-      sameContracts,
-      coingeckoCoinMap,
-      existingCoinMap,
-    });
+  const {
+    changedContracts,
+    idChanges,
+    changedCoins,
+    changedCoinList,
+    unchangedCoinList,
+  } = getChangedContracts({
+    sameContracts,
+    coingeckoCoinMap,
+    existingCoinMap,
+  });
 
   const { removedCoinList } = getRemovedContracts({
     removedContracts,
@@ -314,11 +337,13 @@ export const getERC20TokenDifference = async (dontSaveToFile?: boolean) => {
           changedContracts: changedContracts.length,
           coingeckoContractAddresses: coingeckoContractAddresses.length,
           existingContractAddresses: existingContractAddresses.length,
-          removedCoinList,
           idChanges,
-          newCoinList: changedCoinList,
+          changedCoins,
+          removedCoinList,
+          changedCoinList,
           addedCoinList,
-          unchangedContracts: unchangedCoinList,
+          unchangedCoinList,
+          newCoinList,
         },
         undefined,
         2,
