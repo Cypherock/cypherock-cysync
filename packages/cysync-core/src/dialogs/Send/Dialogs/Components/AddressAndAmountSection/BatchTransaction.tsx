@@ -1,6 +1,7 @@
 import { IPreparedTransactionOutput } from '@cypherock/coin-support-interfaces';
 import {
   convertToUnit,
+  getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
@@ -90,7 +91,10 @@ export const BatchTransaction: React.FC = () => {
     const convertedAmount = convertToUnit({
       amount: val,
       coinId: selectedAccount.parentAssetId,
-      fromUnitAbbr: selectedAccount.unit,
+      fromUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       toUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
     });
     const outputIndex = outputsRef.current.findIndex(
@@ -107,7 +111,10 @@ export const BatchTransaction: React.FC = () => {
     return getParsedAmount({
       coinId: selectedAccount.parentAssetId,
       amount: val,
-      unitAbbr: selectedAccount.unit,
+      unitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
     }).amount;
   };
 
@@ -149,7 +156,15 @@ export const BatchTransaction: React.FC = () => {
                 />
                 <AmountInput
                   label={displayText.amount.label}
-                  coinUnit={selectedAccount?.unit ?? ''}
+                  coinUnit={
+                    selectedAccount
+                      ? selectedAccount.unit ??
+                        getDefaultUnit(
+                          selectedAccount.parentAssetId,
+                          selectedAccount.assetId,
+                        ).abbr
+                      : ''
+                  }
                   priceUnit={displayText.amount.dollar}
                   error={
                     transaction?.validation.hasEnoughBalance === false

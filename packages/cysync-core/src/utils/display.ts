@@ -1,11 +1,13 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 
 export const getBalanceToDisplay = (account: IAccount) => {
   const { amount, unit } = getParsedAmount({
     coinId: account.parentAssetId,
     assetId: account.assetId,
-    unitAbbr: account.unit,
+    unitAbbr:
+      account.unit ??
+      getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     amount: account.balance,
   });
   return `${amount} ${unit.abbr}`;

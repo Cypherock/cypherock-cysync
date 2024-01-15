@@ -10,6 +10,7 @@ import type {
   ObjectLiteral,
   ITransactionNotificationClickRepository,
   ITransactionNotificationReadRepository,
+  IMigrationRepository,
 } from './entities';
 
 export interface IDatabase {
@@ -23,6 +24,7 @@ export interface IDatabase {
   wallet: IWalletRepository;
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;
+  migration: IMigrationRepository;
   changeEncryptionKey(encryptionKey?: string): Promise<void>;
   createOrFetchRepository<T extends IEntity>(
     name: string,

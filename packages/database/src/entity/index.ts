@@ -7,3 +7,4 @@ export * from './wallet';
 export * from './types';
 export * from './transactionNotificationClick';
 export * from './transactionNotificationRead';
+export * from './migration';
