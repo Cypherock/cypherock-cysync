@@ -6,6 +6,24 @@ import {
   ITransaction,
   TransactionStatusMap,
 } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
+
+export const uniqueTransactionFields = [
+  'walletId',
+  'hash',
+  'type',
+  'accountId',
+  'assetId',
+  'familyId',
+  'subType',
+  'customId',
+];
+
+export const isSameTransaction = (txn1: ITransaction, txn2: ITransaction) =>
+  lodash.eq(
+    lodash.pick(txn1, uniqueTransactionFields),
+    lodash.pick(txn2, uniqueTransactionFields),
+  );
 
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
@@ -22,16 +40,10 @@ export const insertOrUpdateTransactions = async (
       currentCount = 0;
     }
 
-    const query: Partial<ITransaction> = {
-      walletId: transaction.walletId,
-      hash: transaction.hash,
-      type: transaction.type,
-      accountId: transaction.accountId,
-      assetId: transaction.assetId,
-      familyId: transaction.familyId,
-      subType: transaction.subType,
-      customId: transaction.customId,
-    };
+    const query: Partial<ITransaction> = lodash.pick(
+      transaction,
+      uniqueTransactionFields,
+    );
 
     const existingTxn = await db.transaction.getOne(query);
     if (existingTxn) {
