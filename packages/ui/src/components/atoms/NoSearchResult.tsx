@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
-
 import { Flex } from './Flex';
 import { Typography } from './Typography';
-
 import { NotFound } from '../../assets';
 
 interface NoSearchResultProps {
@@ -11,6 +9,7 @@ interface NoSearchResultProps {
   text: string;
   searchText?: string;
   subText?: string;
+  helpSection?: boolean;
 }
 
 const NoSearchResultWrapper = styled.div`
@@ -23,18 +22,38 @@ export const NoSearchResult: FC<NoSearchResultProps> = ({
   text,
   searchText,
   subText,
+  helpSection,
 }) => (
   <NoSearchResultWrapper>
     <Flex direction="column" gap={64} align="center">
       {image}
-      <Flex direction="column" align="center" px={2}>
-        <Typography $fontSize={24} $fontWeight="medium" $wordBreak="break-all">
-          {searchText ? `${text} "${searchText.trim()}"` : text}
-        </Typography>
-        <Typography $fontSize={16} color="muted">
-          {subText}
-        </Typography>
-      </Flex>
+      {helpSection ? (
+        <Flex direction="column" align="center" px={2}>
+          <Typography
+            $fontSize={24}
+            $fontWeight="medium"
+            $wordBreak="break-all"
+          >
+            {text}
+          </Typography>
+          <Typography $fontSize={16} color="muted">
+            {subText}
+          </Typography>
+        </Flex>
+      ) : (
+        <Flex direction="column" align="center" px={2}>
+          <Typography
+            $fontSize={24}
+            $fontWeight="medium"
+            $wordBreak="break-all"
+          >
+            {searchText ? `${text} "${searchText.trim()}"` : text}
+          </Typography>
+          <Typography $fontSize={16} color="muted">
+            {subText}
+          </Typography>
+        </Flex>
+      )}
     </Flex>
   </NoSearchResultWrapper>
 );
@@ -43,4 +62,5 @@ NoSearchResult.defaultProps = {
   subText: '',
   searchText: '',
   image: <NotFound width={100} height={100} />,
+  helpSection: false,
 };

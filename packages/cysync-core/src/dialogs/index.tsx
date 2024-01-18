@@ -29,6 +29,8 @@ import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
 import { AddTokenDialog } from './AddToken';
+import { HelpDialog } from './HelpDialog';
+import { VideoDialog } from './VideoDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -55,4 +57,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
   betaNotificationDialog: BetaNotificationDialog,
+  helpDialog: HelpDialog,
+  videoDialog: VideoDialog,
 };

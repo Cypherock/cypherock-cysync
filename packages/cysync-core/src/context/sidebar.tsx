@@ -7,7 +7,7 @@ import { IWallet } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { openContactSupportDialog } from '~/actions';
+// import { openContactSupportDialog } from '~/actions';
 import { useQuery, useNavigateTo, useWalletSync } from '~/hooks';
 
 import {
@@ -73,10 +73,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       window.open(constants.tutorialLink, '_blank', 'noopener,noreferrer');
       return;
     }
-    if (page === 'help') {
-      dispatch(openContactSupportDialog());
-      return;
-    }
     navigateTo(routes[page].path);
   };
 
@@ -86,7 +82,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
 
   const getState = (page: Page): State => {
-    if (page === 'help') return State.normal;
+    // if (page === 'help') return State.normal;
     if (page === 'tutorial') return State.normal;
     if (location.pathname === routes[page].path) return State.selected;
     return State.normal;

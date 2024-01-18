@@ -82,6 +82,12 @@ const initialState: IDialogState = {
   betaNotificationDialog: {
     isOpen: false,
   },
+  helpDialog: {
+    isOpen: false,
+  },
+  videoDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

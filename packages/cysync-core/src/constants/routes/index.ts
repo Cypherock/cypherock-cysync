@@ -25,6 +25,10 @@ const rootRoutes = {
     name: 'history',
     path: '/history',
   },
+  help: {
+    name: 'help',
+    path: '/help',
+  },
   settings: {
     name: 'settings',
     path: '/settings',
