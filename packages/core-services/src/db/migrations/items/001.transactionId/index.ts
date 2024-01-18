@@ -1,5 +1,6 @@
 import { createTransactionId } from '@cypherock/coin-support-utils';
 
+import logger from '../../../../utils/logger';
 import { IMigrationItem } from '../../types';
 
 /**
@@ -14,13 +15,17 @@ const migration: IMigrationItem = {
     const transactionIdChangesMap: Record<string, string | undefined> = {};
 
     for (const transaction of allTransactions) {
-      const oldId = transaction.__id;
-      const newId = await createTransactionId(transaction);
+      try {
+        const oldId = transaction.__id;
+        const newId = await createTransactionId(transaction);
 
-      transactionIdChangesMap[oldId] = newId;
+        transactionIdChangesMap[oldId] = newId;
 
-      await db.transaction.remove({ __id: oldId });
-      await db.transaction.insert({ ...transaction, __id: newId });
+        await db.transaction.remove({ __id: oldId });
+        await db.transaction.insert({ ...transaction, __id: newId });
+      } catch (error) {
+        logger.warn(error);
+      }
     }
 
     for (const transaction of allTransactions) {
