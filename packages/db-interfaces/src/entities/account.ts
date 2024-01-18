@@ -11,7 +11,7 @@ export interface IAccount extends IEntity {
   name: string;
   xpubOrAddress: string;
   balance: string;
-  unit: string;
+  unit?: string;
   derivationScheme?: string;
   derivationPath: string;
   type: AccountType;

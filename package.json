@@ -33,7 +33,10 @@
     "ci:version": "pnpm changeset version && pnpm i --no-frozen-lockfile",
     "storybook": "turbo storybook --no-daemon",
     "build:storybook": "turbo build:storybook --no-daemon",
-    "fix:hashbang": "bash scripts/hashBangFix.sh"
+    "fix:hashbang": "bash scripts/hashBangFix.sh",
+    "erc20-diff": "turbo run erc20-diff --no-daemon",
+    "gen-erc20-list": "turbo run gen-erc20-list --no-daemon",
+    "download-erc20-images": "turbo run download-erc20-images --no-daemon"
   },
   "keywords": [],
   "license": "AGPL-3.0",
