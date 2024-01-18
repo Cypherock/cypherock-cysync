@@ -14,8 +14,13 @@ export const runMigrations = async (db: IDatabase) => {
 
       if (!migrationRun) {
         logger.info(`Running migration: ${migration.id}`);
+        const startTime = Date.now();
         await migration.up(db);
-        logger.info(`Finished running migration: ${migration.id}`);
+        logger.info(
+          `Finished running migration: ${migration.id} (${
+            Date.now() - startTime
+          }ms)`,
+        );
         await db.migration.insert({
           id: migration.id,
           isSuccessful: true,

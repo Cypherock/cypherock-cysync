@@ -4,6 +4,7 @@ import * as testData from './__fixtures__/07.broadcastTransaction';
 import * as serviceMock from './__mocks__/services';
 
 import { BtcSupport } from '../src';
+import lodash from 'lodash';
 
 describe('07. Broadcast Transaction', () => {
   let support: BtcSupport;
@@ -54,9 +55,11 @@ describe('07. Broadcast Transaction', () => {
 
         expect(preparedTransaction).toBeDefined();
         expect(insertTransactionMock.mock.calls.length).toEqual(1);
-        expect(insertTransactionMock.mock.calls[0]).toEqual([
-          preparedTransaction,
-        ]);
+        expect(
+          insertTransactionMock.mock.calls[0].map((t: any) =>
+            lodash.omit(t, ['__id']),
+          ),
+        ).toEqual([preparedTransaction]);
         expect(preparedTransaction).toEqual(testCase.output);
       });
     });

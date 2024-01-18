@@ -7,6 +7,7 @@ import {
   IEvmCoinInfo,
 } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
 
 import { IPrepareEvmTransactionParams } from './types';
 
@@ -15,7 +16,6 @@ import logger from '../../utils/logger';
 import { getCoinSupportWeb3Lib } from '../../utils/web3';
 import { IPreparedEvmTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
-import { IAccount } from '@cypherock/db-interfaces';
 
 const validateAddresses = (
   params: IPrepareEvmTransactionParams,
