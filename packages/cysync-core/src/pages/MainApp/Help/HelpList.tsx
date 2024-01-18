@@ -1,5 +1,3 @@
-import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import {
   TableStructure as BaseTableStructure,
   TableSearch,
@@ -10,10 +8,14 @@ import {
   ArrowUp,
   PolygonRight,
 } from '@cypherock/cysync-ui';
-import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
-import { ListRowProps } from 'react-virtualized';
+import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { ListRowProps } from 'react-virtualized';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
+import styled from 'styled-components';
+
 import { openContactSupportDialog, openVideoDialog } from '~/actions';
+
 import { NoResult } from './NoResult';
 
 const RowContainer = styled.div`

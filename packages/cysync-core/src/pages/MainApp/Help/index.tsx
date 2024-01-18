@@ -1,14 +1,16 @@
-import React, { FC } from 'react';
-
-import { selectLanguage, useAppSelector } from '~/store';
-import { MainAppLayout } from '../Layout';
 import {
   // Button,
   Container,
   // QuestionMarkButton,
   // Typography,
 } from '@cypherock/cysync-ui';
+import React, { FC } from 'react';
+
+import { selectLanguage, useAppSelector } from '~/store';
+
 import HelpContent from './HelpList';
+
+import { MainAppLayout } from '../Layout';
 // import { useDispatch } from 'react-redux';
 // import { openHelpDialog } from '~/actions';
 

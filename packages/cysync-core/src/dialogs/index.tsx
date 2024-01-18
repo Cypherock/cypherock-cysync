@@ -17,6 +17,7 @@ import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
+import { HelpDialog } from './HelpDialog';
 import { HistoryDialog } from './HistoryDialog';
 import {
   ChangePasswordDialog,
@@ -26,11 +27,10 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
+import { VideoDialog } from './VideoDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { HelpDialog } from './HelpDialog';
-import { VideoDialog } from './VideoDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

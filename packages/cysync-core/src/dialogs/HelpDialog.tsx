@@ -1,8 +1,9 @@
 import { CloseButton, Flex } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+import styled from 'styled-components';
+
 import { closeDialog, useAppDispatch } from '..';
 import HelpContent from '../pages/MainApp/Help/HelpList';
-import styled from 'styled-components';
 
 const OuterDiv = styled.div`
   background-image: ${({ theme }) => theme.palette.background.primary};

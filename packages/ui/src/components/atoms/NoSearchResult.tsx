@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
+
 import { Flex } from './Flex';
 import { Typography } from './Typography';
+
 import { NotFound } from '../../assets';
 
 interface NoSearchResultProps {
