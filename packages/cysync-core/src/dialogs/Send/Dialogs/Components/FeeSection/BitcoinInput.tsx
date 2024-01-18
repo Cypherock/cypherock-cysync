@@ -32,6 +32,8 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
     if (typeof val === 'number') numberValue = val;
     else if (val !== '') numberValue = parseInt(val, 10);
 
+    if (Number.isNaN(numberValue)) return;
+
     setValue(numberValue);
     onChange(numberValue);
   };
