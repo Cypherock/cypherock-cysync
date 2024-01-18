@@ -37,8 +37,11 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
 
   const handlePriceChange = (val: string | number) => {
     let numberValue = 0;
-    if (typeof val === 'string') numberValue = parseFloat(val);
-    else numberValue = val;
+    if (typeof val === 'number') numberValue = val;
+    else if (val !== '') numberValue = parseFloat(val);
+
+    if (Number.isNaN(numberValue)) return;
+
     setGasPrice(numberValue);
     // on change gas price, prepare EVM fee
     onChange({ gasPrice: numberValue });
@@ -101,7 +104,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              value={initialGasPrice.toString()}
+              value={gasPrice.toString()}
               postfixText={unit}
               onChange={handlePriceChange}
             />

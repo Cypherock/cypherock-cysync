@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { CustomInputSend } from './RecipientAddress';
 
@@ -14,41 +14,30 @@ export const FeesInput: React.FC<FeesInputProps> = ({
   value,
   postfixText,
   onChange,
-}) => {
-  const [inputValue, setInputValue] = useState(value);
+}) => (
+  <CustomInputSend>
+    <Input
+      type="number"
+      name="fees"
+      value={value}
+      $textColor="white"
+      onChange={onChange}
+      $noBorder
+    />
 
-  const filterNumericInput = (val: string) => val.replace(/[^0-9.]/g, '');
-  const handleInputChange = (newValue: string) => {
-    const filteredValue = filterNumericInput(newValue);
-    setInputValue(filteredValue);
-    onChange(filteredValue);
-  };
-
-  return (
-    <CustomInputSend>
-      <Input
-        type="text"
-        name="address"
-        value={inputValue}
-        $textColor="white"
-        onChange={handleInputChange}
-        $noBorder
-      />
-
-      {postfixText !== '' ? (
-        <Typography
-          $fontSize={16}
-          color="muted"
-          $allowOverflow
-          $whiteSpace="nowrap"
-          $textOverflow="ellipsis"
-        >
-          {postfixText}
-        </Typography>
-      ) : undefined}
-    </CustomInputSend>
-  );
-};
+    {postfixText !== '' ? (
+      <Typography
+        $fontSize={16}
+        color="muted"
+        $allowOverflow
+        $whiteSpace="nowrap"
+        $textOverflow="ellipsis"
+      >
+        {postfixText}
+      </Typography>
+    ) : undefined}
+  </CustomInputSend>
+);
 
 FeesInput.defaultProps = {
   postfixText: '',
