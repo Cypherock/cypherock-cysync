@@ -29,7 +29,6 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { AddTokenDialog } from './AddToken';
 import { HelpDialog } from './HelpDialog';
 import { VideoDialog } from './VideoDialog';
 
