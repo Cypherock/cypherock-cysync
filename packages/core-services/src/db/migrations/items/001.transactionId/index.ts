@@ -23,6 +23,26 @@ const migration: IMigrationItem = {
       await db.transaction.insert({ ...transaction, __id: newId });
     }
 
+    for (const transaction of allTransactions) {
+      const newId = transactionIdChangesMap[transaction.__id];
+      const parentId = transaction.parentTransactionId;
+
+      if (!parentId || !newId) {
+        continue;
+      }
+
+      const newParentId = transactionIdChangesMap[parentId];
+
+      if (!newParentId) {
+        continue;
+      }
+
+      await db.transaction.update(
+        { __id: newId },
+        { parentTransactionId: newParentId },
+      );
+    }
+
     const transactionIdUpdateDetails = [
       {
         repository: db.transactionNotificationRead,
