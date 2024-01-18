@@ -13,7 +13,7 @@ import {
 import { IMigrationItem } from '../../types';
 
 /**
- * Account DB migration from 0 => 1
+ * Account DB migration
  * - Add contract address to ERC20 token account
  * - Force the refetching of token history
  * - Remove unit from ERC20 token account, so that default can be used
