@@ -1,5 +1,6 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
+import { getDefaultUnit } from '@cypherock/coin-support-utils';
 import { ICoinInfo, IEvmErc20Token, evmCoinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -15,6 +16,7 @@ import React, {
   useState,
 } from 'react';
 
+import { CoinIcon } from '~/components';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -25,7 +27,6 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { CoinIcon } from '~/components';
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
 export interface AddTokenDialogContextInterface {
@@ -148,19 +149,25 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     () =>
       accountDropdownListSrc
         .filter(a => Boolean(a.id && accountList[a.id]))
-        .map(a => ({
-          ...a,
-          shortForm:
-            a.id === undefined
-              ? undefined
-              : `(${accountList[a.id].unit.toUpperCase()})`,
-          rightText: undefined,
-          showRightTextOnBottom: undefined,
-          disabled:
-            a.id !== undefined &&
-            selectedAssetType !== undefined &&
-            selectedAssetType !== accountList[a.id].assetId,
-        }))
+        .map(a => {
+          const account = a.id ? accountList[a.id] : undefined;
+          const unit = account
+            ? account.unit ??
+              getDefaultUnit(account.parentAssetId, account.assetId).abbr
+            : undefined;
+
+          return {
+            ...a,
+            shortForm:
+              unit === undefined ? undefined : `(${unit.toUpperCase()})`,
+            rightText: undefined,
+            showRightTextOnBottom: undefined,
+            disabled:
+              a.id !== undefined &&
+              selectedAssetType !== undefined &&
+              selectedAssetType !== accountList[a.id].assetId,
+          };
+        })
         .sort((a, b) => (!a.disabled && b.disabled ? -1 : 0)),
     [accountDropdownListSrc, accountList, selectedAssetType],
   );
