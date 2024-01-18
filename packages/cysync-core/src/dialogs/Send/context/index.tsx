@@ -630,10 +630,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     ],
   );
 
-  useEffect(() => {
-    console.log(transaction);
-  }, [transaction]);
-
   return (
     <SendDialogContext.Provider value={ctx}>
       {children}
