@@ -1,3 +1,4 @@
+import { Sha256 } from '@aws-crypto/sha256-browser';
 import { isSubset, sleep } from '@cypherock/cysync-utils';
 import {
   IDatabase,
@@ -6,6 +7,37 @@ import {
   ITransaction,
   TransactionStatusMap,
 } from '@cypherock/db-interfaces';
+import { uint8ArrayToHex } from '@cypherock/sdk-utils';
+import lodash from 'lodash';
+
+export const uniqueTransactionFields = [
+  'walletId',
+  'hash',
+  'type',
+  'accountId',
+  'assetId',
+  'familyId',
+  'subType',
+  'customId',
+];
+
+export const createTransactionId = async (txn: ITransaction) => {
+  const uniqueString = uniqueTransactionFields.reduce(
+    (a, v) => `${a}-${(txn as any)[v]}`,
+    '',
+  );
+
+  const hash = new Sha256();
+  hash.update(uniqueString);
+
+  return uint8ArrayToHex(await hash.digest()).toLowerCase();
+};
+
+export const isSameTransaction = (txn1: ITransaction, txn2: ITransaction) =>
+  lodash.eq(
+    lodash.pick(txn1, uniqueTransactionFields),
+    lodash.pick(txn2, uniqueTransactionFields),
+  );
 
 export const insertOrUpdateTransactions = async (
   db: IDatabase,
@@ -22,18 +54,9 @@ export const insertOrUpdateTransactions = async (
       currentCount = 0;
     }
 
-    const query: Partial<ITransaction> = {
-      walletId: transaction.walletId,
-      hash: transaction.hash,
-      type: transaction.type,
-      accountId: transaction.accountId,
-      assetId: transaction.assetId,
-      familyId: transaction.familyId,
-      subType: transaction.subType,
-      customId: transaction.customId,
-    };
+    const id = await createTransactionId(transaction);
 
-    const existingTxn = await db.transaction.getOne(query);
+    const existingTxn = await db.transaction.getOne({ __id: id });
     if (existingTxn) {
       // Ignore already confirmed txns while comparing for subset
       if ((existingTxn.confirmations ?? 0) >= 1) {
@@ -47,7 +70,7 @@ export const insertOrUpdateTransactions = async (
 
       await db.transaction.update({ __id: existingTxn.__id }, transaction);
     } else {
-      await db.transaction.insert(transaction);
+      await db.transaction.insert({ ...transaction, __id: id });
     }
   }
 };

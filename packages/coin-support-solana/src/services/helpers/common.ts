@@ -16,14 +16,14 @@ export const parseTransactionItem = (params: {
   const result: ITransaction[] = [];
 
   const myAddress = account.xpubOrAddress;
-  const fees = new BigNumber(transactionItem.meta.fee || 0);
+  const fees = new BigNumber(transactionItem.meta?.fee ?? 0);
   // We show the fees only for the first parsable instruction to prevent double counting
   let isFeesAlreadyIncluded = false;
 
   // Only iterate through parsable instructions
-  for (const instruction of transactionItem.transaction.message.instructions.filter(
-    ins => ins.parsed !== undefined,
-  )) {
+  for (const instruction of (
+    transactionItem.transaction?.message?.instructions ?? []
+  ).filter(ins => ins.parsed !== undefined)) {
     const fromAddr = instruction.parsed?.info?.source;
     const toAddr = instruction.parsed?.info?.destination;
 
@@ -43,7 +43,7 @@ export const parseTransactionItem = (params: {
       fees: isFeesAlreadyIncluded ? '0' : fees.toString(),
       confirmations: 1,
       status:
-        transactionItem.meta.err || transactionItem.err
+        transactionItem.meta?.err || transactionItem.err
           ? TransactionStatusMap.failed
           : TransactionStatusMap.success,
       type:

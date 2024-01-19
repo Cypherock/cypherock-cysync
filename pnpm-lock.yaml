@@ -973,6 +973,9 @@ importers:
 
   packages/coin-support-utils:
     dependencies:
+      '@aws-crypto/sha256-browser':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces

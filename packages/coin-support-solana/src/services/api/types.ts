@@ -10,8 +10,8 @@ export interface ISolanaTransactionItem {
   memo?: string;
   signature: string;
   slot: number;
-  meta: Meta;
-  transaction: Transaction;
+  meta?: Meta;
+  transaction?: Transaction;
 }
 
 interface Meta {
@@ -37,19 +37,19 @@ interface Instruction {
   accounts?: string[];
   data?: string;
   programId: string;
-  stackHeight: any;
-  parsed: any;
+  stackHeight?: any;
+  parsed?: any;
   program?: string;
 }
 
 interface Transaction {
-  message: Message;
-  signatures: string[];
+  message?: Message;
+  signatures?: string[];
 }
 
 interface Message {
-  accountKeys: AccountKey[];
-  instructions: Instruction[];
+  accountKeys?: AccountKey[];
+  instructions?: Instruction[];
   recentBlockhash: string;
 }
 
