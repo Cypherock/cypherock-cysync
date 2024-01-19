@@ -2,7 +2,11 @@
 
 ### 🚀 Features
 
-- Updated ERC-20 token list for evm chains
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Various minor bug fixes
 
 # v2.0.0
 
