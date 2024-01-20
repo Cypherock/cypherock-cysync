@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+import { ResourceLock } from '@cypherock/cysync-utils';
 import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import { throttle, DebouncedFunc } from 'lodash';
 import JsonDB from 'lokijs';
+import * as uuid from 'uuid';
 
 import { encryptData, decryptData, createHash } from './utils/encryption';
 import logger from './utils/logger';
@@ -16,6 +18,8 @@ interface IFileData {
 export class EncryptedDB {
   private readonly dbPath: string;
 
+  private readonly backupDbPath: string;
+
   private readonly throttledHandleChange: DebouncedFunc<() => Promise<void>>;
 
   private isClosed = false;
@@ -26,10 +30,19 @@ export class EncryptedDB {
 
   private database: JsonDB;
 
+  private readonly dbResourceLock: ResourceLock<string>;
+
   private constructor(dbPath: string, db: JsonDB) {
     this.database = db;
     this.dbPath = dbPath;
     this.throttledHandleChange = throttle(this.handleChange.bind(this), 500);
+    this.dbResourceLock = new ResourceLock(k => k, {
+      maxLockTime: 10000,
+      timeout: 10000,
+    });
+
+    const baseFileName = path.basename(this.dbPath);
+    this.backupDbPath = path.join(dbPath, '..', `.backup-${baseFileName}`);
   }
 
   public getPath() {
@@ -46,7 +59,11 @@ export class EncryptedDB {
     this.updateKey(key);
 
     if (this.dbPath !== ':memory:') {
-      const data = await EncryptedDB.loadDB(this.dbPath, this.key);
+      const data = await EncryptedDB.loadDB(
+        this.dbPath,
+        this.backupDbPath,
+        this.key,
+      );
       this.database.loadJSON(data);
     }
 
@@ -120,41 +137,93 @@ export class EncryptedDB {
     }
 
     const fileData: IFileData = { isEncrypted, data };
-    await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
+
+    const runId = uuid.v4();
+
+    try {
+      await this.dbResourceLock.acquire(this.dbPath, runId);
+
+      await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
+
+      await fs.promises.writeFile(this.backupDbPath, JSON.stringify(fileData));
+    } catch (error) {
+      logger.warn(error);
+      logger.warn('Error while saving DB, failed to aquire resourceLock');
+    } finally {
+      this.dbResourceLock.release(this.dbPath, runId);
+    }
   }
 
-  private static async loadDB(dbPath: string, key?: Buffer) {
+  private static async loadDB(
+    dbPath: string,
+    backupDbPath: string,
+    key?: Buffer,
+  ) {
     if (dbPath === ':memory:') return '';
 
-    if (fs.existsSync(dbPath)) {
-      const data = await fs.promises.readFile(dbPath);
-      let fileData: IFileData;
-      try {
-        fileData = JSON.parse(data.toString()) as IFileData;
-      } catch (error) {
-        logger.error(error);
-        logger.error('Corrupt data found in database file, removing...');
-        await fs.promises.writeFile(dbPath, JSON.stringify({ data: '' }));
+    logger.info('Loading database...');
+    const doesDbFileExists = fs.existsSync(dbPath);
+    const doesBackupDbFileExists = fs.existsSync(backupDbPath);
+    let fileData: IFileData | undefined;
 
-        return '';
-      }
-
-      logger.info('Loading database...');
-      if (fileData.isEncrypted) {
-        if (!key) {
-          throw new Error('The database is encrypted but no key was provided');
-        }
-
-        if (fileData.data) {
-          return decryptData(fileData.data, key);
-        }
-        return '';
-      }
-
-      return fileData.data;
+    if (!doesDbFileExists && !doesBackupDbFileExists) {
+      return '';
     }
 
-    return '';
+    if (doesDbFileExists) {
+      const dbFileData = await EncryptedDB.readDBFile(dbPath);
+      if (dbFileData) {
+        fileData = dbFileData;
+      }
+    }
+
+    if (!fileData && doesBackupDbFileExists) {
+      logger.info('Loading database backup...');
+      const backupFileData = await EncryptedDB.readDBFile(backupDbPath);
+      if (backupFileData) {
+        fileData = backupFileData;
+        logger.info('Writing backup db to main db file...');
+        await fs.promises.writeFile(
+          backupDbPath,
+          JSON.stringify(backupFileData),
+        );
+      }
+    }
+
+    if (!fileData) {
+      logger.error('Corrupt data found in both database files, removing...');
+      await fs.promises.writeFile(dbPath, JSON.stringify({ data: '' }));
+      await fs.promises.writeFile(backupDbPath, JSON.stringify({ data: '' }));
+
+      return '';
+    }
+
+    if (fileData.isEncrypted) {
+      if (!key) {
+        throw new Error('The database is encrypted but no key was provided');
+      }
+
+      if (fileData.data) {
+        return decryptData(fileData.data, key);
+      }
+
+      return '';
+    }
+
+    return fileData.data;
+  }
+
+  private static async readDBFile(dbPath: string) {
+    const data = await fs.promises.readFile(dbPath);
+
+    try {
+      const fileData = JSON.parse(data.toString()) as IFileData;
+      return fileData;
+    } catch (error) {
+      logger.warn(error);
+      logger.warn(`Corrupt data found in ${path.basename(dbPath)}`);
+      return undefined;
+    }
   }
 
   private static createJsonDB(dbPath: string) {

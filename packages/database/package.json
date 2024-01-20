@@ -19,6 +19,7 @@
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
+    "@ngneat/falso": "^7.1.1",
     "@types/events": "^3.0.0",
     "@types/jest": "^29.5.2",
     "@types/lodash": "^4.14.195",
