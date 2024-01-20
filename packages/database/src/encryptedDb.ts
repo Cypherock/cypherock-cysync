@@ -101,12 +101,12 @@ export class EncryptedDB {
 
   public async changeEncryptionKey(key?: string) {
     this.updateKey(key);
-    await this.saveDB();
+    await this.handleChange();
   }
 
   public async close() {
     this.isClosed = true;
-    await this.saveDB();
+    await this.handleChange();
     this.database.close();
   }
 
@@ -124,6 +124,11 @@ export class EncryptedDB {
   }
 
   private async handleChange() {
+    const isAlreadyWaitingToWrite =
+      this.dbResourceLock.getWaitingIds(this.dbPath).length > 0;
+
+    if (isAlreadyWaitingToWrite) return;
+
     try {
       const promiseResult = await Promise.race([
         this.saveDB(),
@@ -143,27 +148,28 @@ export class EncryptedDB {
     } catch (error) {
       logger.error(error);
       logger.error(`Error in saving db file ${path.basename(this.dbPath)}`);
+      this.handleChange();
     }
   }
 
   private async saveDB() {
     if (this.dbPath === ':memory:') return;
-    const actualStartTime = Date.now();
-
-    let data = this.database.serialize();
-    let isEncrypted = false;
-
-    if (this.key) {
-      data = await encryptData(data, this.key);
-      isEncrypted = true;
-    }
-
-    const fileData: IFileData = { isEncrypted, data };
 
     const runId = uuid.v4();
 
     try {
       await this.dbResourceLock.acquire(this.dbPath, runId);
+      const actualStartTime = Date.now();
+
+      let data = this.database.serialize();
+      let isEncrypted = false;
+
+      if (this.key) {
+        data = await encryptData(data, this.key);
+        isEncrypted = true;
+      }
+
+      const fileData: IFileData = { isEncrypted, data };
 
       await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
 
@@ -181,7 +187,7 @@ export class EncryptedDB {
       }
     } catch (error) {
       logger.warn(error);
-      logger.warn('Error while saving DB, failed to aquire resourceLock');
+      logger.warn('Error while saving DB');
     } finally {
       this.dbResourceLock.release(this.dbPath, runId);
     }

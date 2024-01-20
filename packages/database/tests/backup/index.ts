@@ -123,7 +123,7 @@ describe('Backup DB test', () => {
     });
 
     test(`Wait for database to save`, async () => {
-      await sleep(2000);
+      await sleep(5000);
     }, 10000);
   });
 
@@ -137,7 +137,7 @@ describe('Backup DB test', () => {
 
     afterAll(done => {
       db.close().finally(done);
-    }, 2000);
+    }, 10000);
 
     test(`Some data should exist in backup db`, async () => {
       let totalBackupCollections = 0;
