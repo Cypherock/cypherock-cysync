@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ResourceLock } from '@cypherock/cysync-utils';
+import { ResourceLock, sleep } from '@cypherock/cysync-utils';
 import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import { throttle, DebouncedFunc } from 'lodash';
 import JsonDB from 'lokijs';
@@ -14,6 +14,8 @@ interface IFileData {
   isEncrypted: boolean;
   data: string;
 }
+
+const DB_SAVE_WARN_THRESHOLD_IN_MS = 1000;
 
 export class EncryptedDB {
   private readonly dbPath: string;
@@ -35,7 +37,7 @@ export class EncryptedDB {
   private constructor(dbPath: string, db: JsonDB) {
     this.database = db;
     this.dbPath = dbPath;
-    this.throttledHandleChange = throttle(this.handleChange.bind(this), 500);
+    this.throttledHandleChange = throttle(this.handleChange.bind(this), 800);
     this.dbResourceLock = new ResourceLock(k => k, {
       maxLockTime: 10000,
       timeout: 10000,
@@ -122,11 +124,31 @@ export class EncryptedDB {
   }
 
   private async handleChange() {
-    await this.saveDB();
+    try {
+      const promiseResult = await Promise.race([
+        this.saveDB(),
+        (async () => {
+          await sleep(DB_SAVE_WARN_THRESHOLD_IN_MS);
+          return true;
+        })(),
+      ]);
+
+      if (promiseResult) {
+        logger.warn(
+          `Warning: Saving db ${path.basename(
+            this.dbPath,
+          )} is taking more than ${DB_SAVE_WARN_THRESHOLD_IN_MS}ms`,
+        );
+      }
+    } catch (error) {
+      logger.error(error);
+      logger.error(`Error in saving db file ${path.basename(this.dbPath)}`);
+    }
   }
 
   private async saveDB() {
     if (this.dbPath === ':memory:') return;
+    const actualStartTime = Date.now();
 
     let data = this.database.serialize();
     let isEncrypted = false;
@@ -146,6 +168,17 @@ export class EncryptedDB {
       await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
 
       await fs.promises.writeFile(this.backupDbPath, JSON.stringify(fileData));
+
+      const actualEndTime = Date.now();
+      const actualTimeTakenToSave = actualEndTime - actualStartTime;
+
+      if (actualTimeTakenToSave > DB_SAVE_WARN_THRESHOLD_IN_MS) {
+        logger.warn(
+          `Warning: Saving the database ${path.basename(
+            this.dbPath,
+          )} took more than ${DB_SAVE_WARN_THRESHOLD_IN_MS}ms (${actualTimeTakenToSave}ms)`,
+        );
+      }
     } catch (error) {
       logger.warn(error);
       logger.warn('Error while saving DB, failed to aquire resourceLock');

@@ -32,7 +32,7 @@ interface IRepositoryItem {
   totalInsertions: number;
 }
 
-describe('Stress tests', () => {
+describe('Backup DB test', () => {
   const repositoriesList: IRepositoryItem[] = [
     {
       name: Account.name,
@@ -99,7 +99,7 @@ describe('Stress tests', () => {
 
       db = await createDb(dbPath);
       await db.load();
-    });
+    }, 10000);
 
     afterAll(done => {
       Promise.allSettled([
@@ -123,8 +123,8 @@ describe('Stress tests', () => {
     });
 
     test(`Wait for database to save`, async () => {
-      await sleep(1000);
-    }, 1500);
+      await sleep(2000);
+    }, 10000);
   });
 
   describe('Reading database', () => {
@@ -133,7 +133,7 @@ describe('Stress tests', () => {
     beforeAll(async () => {
       db = await createDb(dbPath);
       await db.load();
-    });
+    }, 10000);
 
     afterAll(done => {
       db.close().finally(done);
