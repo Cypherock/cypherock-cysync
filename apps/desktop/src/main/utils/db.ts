@@ -55,7 +55,7 @@ export const initializeAndGetDb = async () => {
 
 export const closeDbConnection = async () => {
   if (db) {
-    await db.clear();
+    await db.close();
   }
 
   if (keyDb) {

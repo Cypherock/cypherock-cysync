@@ -101,12 +101,12 @@ export class EncryptedDB {
 
   public async changeEncryptionKey(key?: string) {
     this.updateKey(key);
-    await this.handleChange();
+    await this.saveDB();
   }
 
   public async close() {
     this.isClosed = true;
-    await this.handleChange();
+    await this.saveDB();
     this.database.close();
   }
 
