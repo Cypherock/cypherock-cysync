@@ -1,3 +1,4 @@
+import { closeDbConnection } from './db';
 import * as deviceUtils from './device';
 import { logger } from './logger';
 
@@ -12,6 +13,7 @@ export const beforeQuitHook = async (
 
     if (e) e.preventDefault();
 
+    await closeDbConnection();
     await deviceUtils.abortAndRemoveConnectedDevice();
 
     logger.info('Before quit hook completed');
