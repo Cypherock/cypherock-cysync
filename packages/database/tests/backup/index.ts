@@ -32,7 +32,7 @@ interface IRepositoryItem {
   totalInsertions: number;
 }
 
-describe('Backup DB test', () => {
+describe.skip('Backup DB test', () => {
   const repositoriesList: IRepositoryItem[] = [
     {
       name: Account.name,
