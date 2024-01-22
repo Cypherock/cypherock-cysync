@@ -35,24 +35,15 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   const transaction = useSendDialog().transaction as IPreparedEvmTransaction;
   const { getDefaultGasLimit } = useSendDialog();
 
-  const handlePriceChange = (val: string | number) => {
-    let numberValue = 0;
-    if (typeof val === 'number') numberValue = val;
-    else if (val !== '') numberValue = parseFloat(val);
-
-    if (Number.isNaN(numberValue)) return;
-
-    setGasPrice(numberValue);
+  const handlePriceChange = (val: number) => {
+    setGasPrice(val);
     // on change gas price, prepare EVM fee
-    onChange({ gasPrice: numberValue });
+    onChange({ gasPrice: val });
   };
 
-  const handleLimitChange = (val: string | number) => {
-    let numberValue = 0;
-    if (typeof val === 'string') numberValue = parseFloat(val);
-    else numberValue = val;
+  const handleLimitChange = (val: number) => {
     // on change gas limit, prepare EVM fee
-    onChange({ gasLimit: numberValue });
+    onChange({ gasLimit: val });
   };
 
   useEffect(() => {
@@ -119,9 +110,9 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              key={transaction.computedData.gasLimit}
               value={transaction.computedData.gasLimit}
               onChange={handleLimitChange}
+              valueType="integer"
             />
           </Container>
         </>

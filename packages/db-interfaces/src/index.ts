@@ -16,6 +16,7 @@ import type {
 export interface IDatabase {
   load(key?: string): Promise<void>;
   unload(): Promise<void>;
+  isLoaded(): Promise<boolean>;
   device: IDeviceRepository;
   account: IAccountRepository;
   transaction: ITransactionRepository;
