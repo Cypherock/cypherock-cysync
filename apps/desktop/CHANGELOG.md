@@ -1,5 +1,22 @@
 # @cypherock/cysync-desktop
 
+## 2.0.2
+
+### Patch Changes
+
+- [#371](https://github.com/Cypherock/cypherock-cysync/pull/371) [`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added backup db to avoid database corruption
+
+- [#369](https://github.com/Cypherock/cypherock-cysync/pull/369) [`3ac29c1`](https://github.com/Cypherock/cypherock-cysync/commit/3ac29c1d16b52735c7cda24eb72aee08263a299d) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Fixed token transactions not visible in notification
+
+- [#370](https://github.com/Cypherock/cypherock-cysync/pull/370) [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - improved fees input ux & no negative fees value
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/database@0.0.3
+  - @cypherock/cysync-interfaces@0.0.3
+  - @cypherock/cysync-desktop-ui@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 2.0.1
 
 ### Patch Changes

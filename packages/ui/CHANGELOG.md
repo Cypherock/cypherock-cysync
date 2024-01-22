@@ -1,5 +1,11 @@
 # @cypherock/cysync-ui
 
+## 0.0.3
+
+### Patch Changes
+
+- [#370](https://github.com/Cypherock/cypherock-cysync/pull/370) [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - improved fees input ux & no negative fees value
+
 ## 0.0.2
 
 ### Patch Changes
