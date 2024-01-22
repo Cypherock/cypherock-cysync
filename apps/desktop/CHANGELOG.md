@@ -1,5 +1,22 @@
 # @cypherock/cysync-desktop
 
+## 2.0.1
+
+### Patch Changes
+
+- [#362](https://github.com/Cypherock/cypherock-cysync/pull/362) [`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list for evm chains
+
+- [#358](https://github.com/Cypherock/cypherock-cysync/pull/358) [`6718d1e`](https://github.com/Cypherock/cypherock-cysync/commit/6718d1e768a264738d3e81353e528d570b0b7131) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - Update trx decimal & keep old contract
+
+- [#354](https://github.com/Cypherock/cypherock-cysync/pull/354) [`0e7ea20`](https://github.com/Cypherock/cypherock-cysync/commit/0e7ea20b9ff331dcf057f707f9410e8b57efa9bc) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - migrate beta db to latest
+
+- Updated dependencies [[`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7)]:
+  - @cypherock/db-interfaces@0.0.2
+  - @cypherock/database@0.0.2
+  - @cypherock/cysync-interfaces@0.0.2
+  - @cypherock/cysync-desktop-ui@0.0.2
+  - @cypherock/cysync-utils@0.0.2
+
 ## 2.0.0
 
 ### Major Changes
