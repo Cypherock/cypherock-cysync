@@ -12,9 +12,6 @@ env:
   NPM_AUTH: ${{secrets.NPM_AUTH}}
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
-permissions:
-  contents: read # to fetch code (actions/checkout)
-
 jobs:
   npm-release:
     runs-on: ubuntu-latest
@@ -69,15 +66,15 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Setup git identity
-        uses: fregante/setup-git-user@v2
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> .npmrc
 
-      - name: create and publish versions
-        uses: changesets/action@v1
-        with:
-          version: pnpm ci:version
-          commit: "chore: update versions"
-          title: "chore: update versions"
-          publish: pnpm ci:publish
+      - name: Update versions
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:version
+
+      - name: Publish versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:publish
