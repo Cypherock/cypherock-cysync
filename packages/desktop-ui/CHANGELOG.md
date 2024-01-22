@@ -1,5 +1,15 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7), [`6718d1e`](https://github.com/Cypherock/cypherock-cysync/commit/6718d1e768a264738d3e81353e528d570b0b7131), [`75ce90a`](https://github.com/Cypherock/cypherock-cysync/commit/75ce90ab768395f00d07b0594ac2e664f34e60c2), [`641f705`](https://github.com/Cypherock/cypherock-cysync/commit/641f705f90769efa85d6d13df24c65405fddfd99), [`42913e4`](https://github.com/Cypherock/cypherock-cysync/commit/42913e44a152152300c54beda6e24e914d9ec4cd), [`144d089`](https://github.com/Cypherock/cypherock-cysync/commit/144d0895774292280cdaccce3c447b647e06869f), [`c197b39`](https://github.com/Cypherock/cypherock-cysync/commit/c197b39fc5607d3c35ba84bb16a8e9dcb4ab1659)]:
+  - @cypherock/cysync-core@0.0.2
+  - @cypherock/cysync-ui@0.0.2
+  - @cypherock/cysync-interfaces@0.0.2
+  - @cypherock/cysync-utils@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "@cypherock/cysync-desktop",
   "productName": "cypherock-cysync",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "description": "Cypherock CySync desktop application",
   "main": "dist-electron/main/index.js",
