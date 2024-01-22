@@ -19,7 +19,7 @@ export const FeesInput: React.FC<FeesInputProps> = ({
   onChange,
   valueType = 'float',
 }) => {
-  const [valueInternal, setValueInternal] = useState<string>(value || '');
+  const [valueInternal, setValueInternal] = useState<string>(value);
 
   const parseNumber = useCallback(
     (val: string) => {

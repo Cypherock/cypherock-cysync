@@ -112,6 +112,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
             <FeesInput
               value={transaction.computedData.gasLimit}
               onChange={handleLimitChange}
+              valueType="integer"
             />
           </Container>
         </>
