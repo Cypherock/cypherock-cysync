@@ -1,6 +1,11 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
-import { ICoinInfo, IEvmErc20Token, evmCoinList } from '@cypherock/coins';
+import {
+  ICoinInfo,
+  IEvmErc20Token,
+  coinFamiliesMap,
+  evmCoinList,
+} from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -28,8 +33,10 @@ import {
 } from '~/store';
 
 import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
 import { getDB } from '~/utils';
+import logger from '~/utils/logger';
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
 export interface AddTokenDialogContextInterface {
@@ -195,6 +202,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       return;
     }
 
+    const tokenAccountEntries: Awaited<
+      ReturnType<typeof insertAccountIfNotExists>
+    >[] = [];
+
     const db = getDB();
     // eslint-disable-next-line no-plusplus
     for (let ai = 0; ai < selectedAccounts.length; ++ai) {
@@ -202,12 +213,12 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       // eslint-disable-next-line no-plusplus
       for (let ti = 0; ti < selectedTokens.length; ++ti) {
         const token = selectedTokens[ti];
-        await insertAccountIfNotExists(db, {
+        const tokenAccountEntry = await insertAccountIfNotExists(db, {
           walletId: account.walletId,
           assetId: token.id,
           familyId: account.familyId,
           parentAccountId: account.__id ?? '',
-          parentAssetId: account.parentAssetId,
+          parentAssetId: account.assetId,
           type: AccountTypeMap.subAccount,
           name: token.name,
           derivationPath: account.derivationPath,
@@ -215,7 +226,20 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
           xpubOrAddress: account.xpubOrAddress,
           balance: '0',
         });
+        tokenAccountEntries.push(tokenAccountEntry);
       }
+    }
+
+    const newTokenAccounts = tokenAccountEntries
+      .filter(entry => entry.isInserted)
+      .map(entry => entry.account);
+
+    if (newTokenAccounts.length > 0) {
+      syncPrices({ families: [coinFamiliesMap.evm] }).catch(logger.error);
+      syncPriceHistories({ families: [coinFamiliesMap.evm] }).catch(
+        logger.error,
+      );
+      dispatch(syncAccounts({ accounts: newTokenAccounts }));
     }
 
     onNext();
