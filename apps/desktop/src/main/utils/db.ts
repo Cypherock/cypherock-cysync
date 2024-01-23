@@ -1,12 +1,13 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 import { createDb, createKeyValueStore } from '@cypherock/database';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { config } from './config';
-import channelMigrations from '../../migrations/channel.json';
 import { logger } from './logger';
+
+import channelMigrations from '../../migrations/channel.json';
 
 let db: IDatabase | undefined;
 
@@ -50,6 +51,16 @@ export const initializeAndGetDb = async () => {
   }
 
   return { db, keyDb };
+};
+
+export const closeDbConnection = async () => {
+  if (db) {
+    await db.close();
+  }
+
+  if (keyDb) {
+    await keyDb.close();
+  }
 };
 
 export const clearDatabase = async () => {

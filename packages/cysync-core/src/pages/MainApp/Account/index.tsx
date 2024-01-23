@@ -172,7 +172,7 @@ export const AccountPage: FC = () => {
             subIconSize={{ def: '12px', lg: '18px' }}
           />
         ) : undefined,
-        subTitle: lodash.upperCase(selectedAccount?.asset?.name ?? ''),
+        subTitle: (selectedAccount?.asset?.name ?? '').toUpperCase(),
         tag: lodash.upperCase(selectedAccount?.derivationScheme ?? ''),
       }}
     >

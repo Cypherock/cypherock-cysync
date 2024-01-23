@@ -1,4 +1,5 @@
 import {
+  AccountTypeMap,
   ITransaction,
   ITransactionNotificationClick,
   ITransactionNotificationRead,
@@ -86,7 +87,22 @@ const getTransactionsNotifications = async (state: RootState) => {
         return false;
       }
 
-      if (t.timestamp < account.meta.created) {
+      // handle subAccounts
+      if (account.type === AccountTypeMap.subAccount) {
+        const parentAccount = state.account.accounts.find(
+          a => a.__id === account.parentAccountId,
+        );
+
+        if (!parentAccount?.meta?.created) {
+          return false;
+        }
+
+        if (t.timestamp < parentAccount.meta.created) {
+          return false;
+        }
+      }
+      // handle main accounts
+      else if (t.timestamp < account.meta.created) {
         return false;
       }
 

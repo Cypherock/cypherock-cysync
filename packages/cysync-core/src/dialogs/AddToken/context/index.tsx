@@ -21,7 +21,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -160,23 +159,28 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const { accountDropdownList: accountDropdownListSrc } = useAccountDropdown({
     selectedWallet,
   });
+
   const accountDropdownList = useMemo(
     () =>
       accountDropdownListSrc
         .filter(a => Boolean(a.id && accountList[a.id]))
-        .map(a => ({
-          ...a,
-          shortForm:
-            a.id === undefined
-              ? undefined
-              : `(${accountList[a.id].unit.toUpperCase()})`,
-          rightText: undefined,
-          showRightTextOnBottom: undefined,
-          disabled:
-            a.id !== undefined &&
-            selectedAssetType !== undefined &&
-            selectedAssetType !== accountList[a.id].assetId,
-        })),
+        .map(a => {
+          const account = a.id ? accountList[a.id] : undefined;
+          const shortForm = account?.unit
+            ? `(${account.unit.toUpperCase()})`
+            : undefined;
+
+          return {
+            ...a,
+            shortForm,
+            rightText: undefined,
+            showRightTextOnBottom: undefined,
+            disabled:
+              account !== undefined &&
+              selectedAssetType !== undefined &&
+              selectedAssetType !== account.assetId,
+          };
+        }),
     [accountDropdownListSrc, accountList, selectedAssetType],
   );
 

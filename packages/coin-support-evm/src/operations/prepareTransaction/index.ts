@@ -4,8 +4,10 @@ import {
   ICoinInfo,
   IEvmErc20Token,
   erc20Abi,
+  IEvmCoinInfo,
 } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
 
 import { IPrepareEvmTransactionParams } from './types';
 
@@ -73,6 +75,29 @@ const generateDataField = (params: {
   }
 };
 
+async function estimateFees(params: {
+  coin: IEvmCoinInfo;
+  account: IAccount;
+  toAddressForEstimate: string;
+  data: string;
+  txn: IPreparedEvmTransaction;
+}) {
+  const { coin, account, toAddressForEstimate, data, txn } = params;
+
+  const gasEstimate = await estimateGas(coin.id, {
+    from: account.xpubOrAddress,
+    to: toAddressForEstimate,
+    value: '0',
+    data,
+  });
+
+  const gasLimit = txn.userInputs.gasLimit ?? gasEstimate.limit;
+  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
+  const l1Fee = gasEstimate.l1Cost;
+  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice).plus(l1Fee);
+  return { gasLimit, fee, gasEstimate, l1Fee, gasPrice };
+}
+
 export const prepareTransaction = async (
   params: IPrepareEvmTransactionParams,
 ): Promise<IPreparedEvmTransaction> => {
@@ -100,31 +125,17 @@ export const prepareTransaction = async (
 
   if (tokenDetails) {
     output = { amount: '0', address: tokenDetails.address };
-    data = generateDataField({
-      contractAddress: tokenDetails.address,
-      senderAddress: account.xpubOrAddress,
-      receiverAddress: txn.userInputs.outputs[0].address,
-      amount: new BigNumber(txn.userInputs.outputs[0].amount).toFixed(0),
-    });
   }
 
   let toAddressForEstimate = account.xpubOrAddress;
   if (outputsAddresses[0] && output.address)
     toAddressForEstimate = output.address;
 
-  const gasEstimate = await estimateGas(coin.id, {
-    from: account.xpubOrAddress,
-    to: toAddressForEstimate,
-    value: '0',
-    data,
-  });
-
-  const gasLimit = txn.userInputs.gasLimit ?? gasEstimate.limit;
-  const gasPrice = txn.userInputs.gasPrice ?? txn.staticData.averageGasPrice;
-  const l1Fee = gasEstimate.l1Cost;
-  const fee = new BigNumber(gasLimit).multipliedBy(gasPrice).plus(l1Fee);
-
-  txn.userInputs.gasLimit = gasLimit;
+  let gasLimit: string;
+  let gasEstimate: { limit: string; l1Cost: string };
+  let l1Fee: string;
+  let gasPrice: string;
+  let fee: BigNumber;
 
   let hasEnoughBalance: boolean;
 
@@ -135,11 +146,34 @@ export const prepareTransaction = async (
       txn.userInputs.outputs[0].amount = sendAmount.toString(10);
     }
 
+    data = generateDataField({
+      contractAddress: tokenDetails.address,
+      senderAddress: account.xpubOrAddress,
+      receiverAddress: txn.userInputs.outputs[0].address,
+      amount: new BigNumber(txn.userInputs.outputs[0].amount).toFixed(0),
+    });
+
+    ({ gasLimit, fee, gasEstimate, l1Fee, gasPrice } = await estimateFees({
+      coin,
+      account,
+      toAddressForEstimate,
+      data,
+      txn,
+    }));
+
     hasEnoughBalance =
       new BigNumber(parentAccount?.balance ?? '0').isGreaterThanOrEqualTo(
         fee,
       ) && new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
   } else {
+    ({ gasLimit, fee, gasEstimate, l1Fee, gasPrice } = await estimateFees({
+      coin,
+      account,
+      toAddressForEstimate,
+      data,
+      txn,
+    }));
+
     let sendAmount = new BigNumber(output.amount);
     if (txn.userInputs.isSendAll) {
       sendAmount = new BigNumber(
@@ -155,6 +189,9 @@ export const prepareTransaction = async (
       sendAmount.plus(fee),
     );
   }
+
+  txn.userInputs.gasLimit = gasLimit;
+
   const isValidFee = fee.isGreaterThan(0);
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;

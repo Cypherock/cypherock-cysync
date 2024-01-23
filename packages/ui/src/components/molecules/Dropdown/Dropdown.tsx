@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import React, {
   useCallback,
   useEffect,
@@ -15,7 +16,6 @@ import {
   IconContainer,
 } from './DropdownStyles';
 
-import lodash from 'lodash';
 import {
   NotFound,
   searchIcon,
