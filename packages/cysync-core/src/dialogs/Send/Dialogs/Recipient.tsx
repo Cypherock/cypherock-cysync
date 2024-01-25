@@ -1,4 +1,5 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Button,
   Container,
@@ -43,7 +44,9 @@ export const Recipient: React.FC = () => {
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       amount: account.balance,
     });
     return `${_amount} ${unit.abbr}`;
@@ -54,6 +57,8 @@ export const Recipient: React.FC = () => {
     handleButtonState(
       !!transaction &&
         transaction.validation.hasEnoughBalance &&
+        !(transaction.validation as IPreparedBtcTransaction['validation'])
+          .isNotOverDustThreshold &&
         transaction.validation.outputs.length > 0 &&
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(

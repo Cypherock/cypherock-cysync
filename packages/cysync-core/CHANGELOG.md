@@ -1,5 +1,39 @@
 # @cypherock/cysync-core
 
+## 0.0.2
+
+### Patch Changes
+
+- [#362](https://github.com/Cypherock/cypherock-cysync/pull/362) [`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list for evm chains
+
+- [#358](https://github.com/Cypherock/cypherock-cysync/pull/358) [`6718d1e`](https://github.com/Cypherock/cypherock-cysync/commit/6718d1e768a264738d3e81353e528d570b0b7131) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - Update trx decimal & keep old contract
+
+- [#359](https://github.com/Cypherock/cypherock-cysync/pull/359) [`75ce90a`](https://github.com/Cypherock/cypherock-cysync/commit/75ce90ab768395f00d07b0594ac2e664f34e60c2) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - avoid NaN while parsing string to float
+
+- [#361](https://github.com/Cypherock/cypherock-cysync/pull/361) [`641f705`](https://github.com/Cypherock/cypherock-cysync/commit/641f705f90769efa85d6d13df24c65405fddfd99) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Prevent cySync crash on input of float value of btc feeRate
+
+- [#353](https://github.com/Cypherock/cypherock-cysync/pull/353) [`42913e4`](https://github.com/Cypherock/cypherock-cysync/commit/42913e44a152152300c54beda6e24e914d9ec4cd) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add Token UI
+
+- [#360](https://github.com/Cypherock/cypherock-cysync/pull/360) [`144d089`](https://github.com/Cypherock/cypherock-cysync/commit/144d0895774292280cdaccce3c447b647e06869f) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fix auto sync when internet is restored
+
+- [#365](https://github.com/Cypherock/cypherock-cysync/pull/365) [`c197b39`](https://github.com/Cypherock/cypherock-cysync/commit/c197b39fc5607d3c35ba84bb16a8e9dcb4ab1659) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed token send max transaction
+
+- Updated dependencies [[`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7), [`6718d1e`](https://github.com/Cypherock/cypherock-cysync/commit/6718d1e768a264738d3e81353e528d570b0b7131), [`641f705`](https://github.com/Cypherock/cypherock-cysync/commit/641f705f90769efa85d6d13df24c65405fddfd99), [`42913e4`](https://github.com/Cypherock/cypherock-cysync/commit/42913e44a152152300c54beda6e24e914d9ec4cd), [`c2354f2`](https://github.com/Cypherock/cypherock-cysync/commit/c2354f266a4a9c07b409cae98246c5f34e726059), [`3a6ec76`](https://github.com/Cypherock/cypherock-cysync/commit/3a6ec76165c905ea5a581de0be50277c8d856624), [`f589557`](https://github.com/Cypherock/cypherock-cysync/commit/f5895576054a32dd53d77e59f701e1990f212046), [`c197b39`](https://github.com/Cypherock/cypherock-cysync/commit/c197b39fc5607d3c35ba84bb16a8e9dcb4ab1659)]:
+  - @cypherock/coin-support-utils@0.0.2
+  - @cypherock/coin-support-evm@0.0.2
+  - @cypherock/cysync-core-services@0.0.2
+  - @cypherock/db-interfaces@0.0.2
+  - @cypherock/coins@0.0.2
+  - @cypherock/cysync-ui@0.0.2
+  - @cypherock/coin-support-solana@0.0.2
+  - @cypherock/coin-support-btc@0.0.2
+  - @cypherock/coin-support-near@0.0.2
+  - @cypherock/cysync-core-workers@0.0.2
+  - @cypherock/coin-support@0.0.2
+  - @cypherock/coin-support-interfaces@0.0.2
+  - @cypherock/cysync-interfaces@0.0.2
+  - @cypherock/cysync-utils@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
