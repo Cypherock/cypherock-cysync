@@ -1,3 +1,4 @@
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Button,
@@ -56,6 +57,8 @@ export const Recipient: React.FC = () => {
     handleButtonState(
       !!transaction &&
         transaction.validation.hasEnoughBalance &&
+        !(transaction.validation as IPreparedBtcTransaction['validation'])
+          .isNotOverDustThreshold &&
         transaction.validation.outputs.length > 0 &&
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(

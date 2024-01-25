@@ -69,7 +69,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     if (transaction?.userInputs.isSendAll) {
       const value =
         computedAmountMap[selectedAccount?.familyId as CoinFamily](transaction);
-      setAmountOverride(getConvertedAmount(value) ?? '');
+      const convertedValue = getConvertedAmount(value);
+      setAmountOverride(convertedValue ?? '');
     }
   }, [transaction]);
 
@@ -84,6 +85,21 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
           .abbr,
     }).amount;
+  };
+
+  const getAmountError = () => {
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        .isNotOverDustThreshold
+    ) {
+      return displayText.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return displayText.amount.error;
+    }
+
+    return '';
   };
 
   return (
@@ -115,11 +131,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
-          error={
-            transaction?.validation.hasEnoughBalance === false && !disableInputs
-              ? displayText.amount.error
-              : ''
-          }
+          error={getAmountError()}
           placeholder={displayText.amount.placeholder}
           initialAmount={getConvertedAmount(
             transaction?.userInputs.outputs[0]?.amount,
