@@ -33,6 +33,7 @@ export const valid: IInitializeTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [],
         isValidFee: true,
+        isNotOverDustThreshold: false,
       },
     },
     mocks: {
