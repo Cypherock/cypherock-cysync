@@ -543,6 +543,7 @@ const en = {
         toggle: 'Send Max',
         dollar: '$',
         error: 'Insufficient funds',
+        notOverDustThreshold: 'Amount is lower than dust limit',
       },
       fees: {
         title: 'Fees',

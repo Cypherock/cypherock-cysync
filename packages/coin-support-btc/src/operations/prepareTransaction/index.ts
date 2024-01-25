@@ -1,5 +1,6 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { btcCoinList, ICoinInfo } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import coinselect from 'coinselect';
 import coinselectSplit from 'coinselect/split';
 
@@ -55,7 +56,10 @@ export const prepareTransaction = async (
     inputs: any[] | undefined;
     outputs: any[] | undefined;
     fee: number;
+    isNotOverDustThreshold?: boolean;
   };
+
+  let isNotOverDustThreshold = false;
 
   if (txn.userInputs.isSendAll) {
     // Send all requires only 1 output, if more than one output is present,
@@ -66,14 +70,26 @@ export const prepareTransaction = async (
 
     outputList.push({
       address: txn.userInputs.outputs[0].address,
-      value: undefined,
     });
 
     result = coinselectSplit(
       txn.staticData.utxos.map(mapUtxo),
       outputList,
       txn.userInputs.feeRate,
+      3,
     );
+    isNotOverDustThreshold = Boolean(result.isNotOverDustThreshold);
+    if (isNotOverDustThreshold) {
+      result.outputs = [
+        {
+          ...(txn.userInputs.outputs[0] ?? {}),
+          value: txn.staticData.utxos
+            .reduce((acc, utxo) => acc.plus(utxo.value), new BigNumber(0))
+            .minus(result.fee)
+            .toString(),
+        },
+      ];
+    }
   } else {
     for (const output of txn.userInputs.outputs) {
       let value = 0;
@@ -115,6 +131,7 @@ export const prepareTransaction = async (
       outputs: outputsAddresses,
       hasEnoughBalance,
       isValidFee,
+      isNotOverDustThreshold,
     },
     computedData: {
       inputs: result.inputs ?? [],
