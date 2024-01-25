@@ -148,7 +148,7 @@ export const useGraph = (props?: UseGraphProps) => {
 
     if (accountsWithoutPriceHistory.length > 0) {
       logger.warn('Price history not found', {
-        accounts: accountsWithoutPriceHistory,
+        accounts: accountsWithoutPriceHistory.map(a => a.assetId),
       });
     }
 
