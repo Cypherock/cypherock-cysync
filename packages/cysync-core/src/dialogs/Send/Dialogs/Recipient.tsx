@@ -1,5 +1,5 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Button,
   Container,
@@ -44,7 +44,9 @@ export const Recipient: React.FC = () => {
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       amount: account.balance,
     });
     return `${_amount} ${unit.abbr}`;

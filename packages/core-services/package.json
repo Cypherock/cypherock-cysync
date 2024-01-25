@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core-services",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@cypherock/coin-support": "workspace:^",
+    "@cypherock/coin-support-evm": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",

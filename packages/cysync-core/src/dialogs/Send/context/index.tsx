@@ -13,6 +13,7 @@ import {
   convertToUnit,
   formatDisplayAmount,
   formatDisplayPrice,
+  getDefaultUnit,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -428,7 +429,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: value,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      fromUnitAbbr: selectedAccount.unit,
+      fromUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       toUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,
@@ -457,7 +461,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      toUnitAbbr: selectedAccount.unit,
+      toUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       fromUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,

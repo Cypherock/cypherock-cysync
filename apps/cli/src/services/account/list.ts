@@ -1,4 +1,4 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IDatabase, IAccount } from '@cypherock/db-interfaces';
 import colors from 'colors/safe';
 import lodash from 'lodash';
@@ -13,7 +13,9 @@ const mapAccountToDisplay = async (db: IDatabase, account: IAccount) => {
   const { amount, unit } = getParsedAmount({
     coinId: account.parentAssetId,
     assetId: account.assetId,
-    unitAbbr: account.unit,
+    unitAbbr:
+      account.unit ??
+      getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     amount: account.balance,
   });
 

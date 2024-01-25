@@ -1,5 +1,15 @@
 # @cypherock/cysync-ui
 
+## 0.0.2
+
+### Patch Changes
+
+- [#362](https://github.com/Cypherock/cypherock-cysync/pull/362) [`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list for evm chains
+
+- [#361](https://github.com/Cypherock/cypherock-cysync/pull/361) [`641f705`](https://github.com/Cypherock/cypherock-cysync/commit/641f705f90769efa85d6d13df24c65405fddfd99) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Prevent cySync crash on input of float value of btc feeRate
+
+- [#353](https://github.com/Cypherock/cypherock-cysync/pull/353) [`42913e4`](https://github.com/Cypherock/cypherock-cysync/commit/42913e44a152152300c54beda6e24e914d9ec4cd) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add Token UI
+
 ## 0.0.1
 
 ### Patch Changes

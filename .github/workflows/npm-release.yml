@@ -1,0 +1,80 @@
+name: NPM Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: the branch to release from
+        required: true
+
+env:
+  NODE_OPTIONS: '--max-old-space-size=8192'
+  NPM_AUTH: ${{secrets.NPM_AUTH}}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+
+jobs:
+  npm-release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+          submodules: 'recursive'
+          fetch-depth: 0
+
+      - name: Get tags
+        run: git fetch --tags origin
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: next-8
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: Install linux dependencies
+        run: sudo apt-get install fakeroot dpkg rpm -y
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: Setup turbo cache
+        env:
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          TURBO_API: ${{ secrets.TURBO_API }}
+        run: node scripts/setupTurboCache.js
+
+      - name: Build
+        run: pnpm build
+
+      - name: Pretty check
+        run: pnpm pretty:check
+
+      - name: Lint check
+        run: pnpm lint:check
+
+      - name: Test
+        run: pnpm test
+
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> .npmrc
+
+      - name: Update versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:version
+
+      - name: Publish versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: pnpm ci:publish

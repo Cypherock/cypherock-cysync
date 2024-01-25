@@ -1,7 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -80,7 +80,10 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
       amount: val,
-      unitAbbr: selectedAccount.unit,
+      unitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
     }).amount;
   };
 
@@ -116,7 +119,15 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         />
         <AmountInput
           label={displayText.amount.label}
-          coinUnit={selectedAccount?.unit ?? ''}
+          coinUnit={
+            selectedAccount
+              ? selectedAccount.unit ??
+                getDefaultUnit(
+                  selectedAccount.parentAssetId,
+                  selectedAccount.assetId,
+                ).abbr
+              : ''
+          }
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
