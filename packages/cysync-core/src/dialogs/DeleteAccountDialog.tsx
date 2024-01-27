@@ -1,3 +1,4 @@
+import { hideAccount } from '@cypherock/coin-support-utils';
 import { deleteAccount } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
@@ -13,10 +14,10 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
-  closeDialog,
-  useAppDispatch,
   CoinIcon,
+  closeDialog,
   selectLanguage,
+  useAppDispatch,
   useAppSelector,
 } from '..';
 
@@ -42,7 +43,12 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
     setIsLoading(true);
 
     try {
-      await deleteAccount(getDB(), account);
+      const db = getDB();
+      if (account.type === AccountTypeMap.subAccount) {
+        await hideAccount(db, account);
+      } else {
+        await deleteAccount(db, account);
+      }
       onClose();
     } catch (error) {
       logger.error('Error while deleting account');

@@ -22,14 +22,14 @@ import {
   useWalletDropdown,
 } from '~/hooks';
 import {
-  selectAccounts,
   selectLanguage,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppSelector,
 } from '~/store';
 
 const selector = createSelector(
-  [selectAccounts, selectWallets, selectLanguage],
+  [selectUnHiddenAccounts, selectWallets, selectLanguage],
   ({ accounts }, { wallets }, lang) => ({ accounts, wallets, lang }),
 );
 

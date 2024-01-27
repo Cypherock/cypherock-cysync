@@ -5,7 +5,7 @@ import {
   ICreateAccountEvent,
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
-import { coinList, ICoinInfo } from '@cypherock/coins';
+import { ICoinInfo, coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -15,13 +15,14 @@ import React, {
   ReactNode,
   createContext,
   useContext,
-  useMemo,
   useEffect,
-  useState,
+  useMemo,
   useRef,
+  useState,
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -36,10 +37,10 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
-  AddAccountSelectionDialog,
-  AddAccountSyncDialog,
   AddAccountCongrats,
   AddAccountDeviceActionDialog,
+  AddAccountSelectionDialog,
+  AddAccountSyncDialog,
 } from '../Dialogs';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
@@ -273,7 +274,14 @@ export const AddAccountDialogProvider: FC<
 
     try {
       const db = getDB();
-      const addedAccounts = await db.account.insert(allAccountsToAdd);
+      const addedAccounts: IAccount[] = [];
+
+      for (let i = 0; i < allAccountsToAdd.length; i += 1) {
+        const account = allAccountsToAdd[i];
+        const response = await insertAccountIfNotExists(db, account);
+        if (response.isInserted) addedAccounts.push(response.account);
+      }
+
       dispatch(syncAccounts({ accounts: addedAccounts }));
       if (selectedCoin) {
         syncPrices({ families: [selectedCoin.family] });

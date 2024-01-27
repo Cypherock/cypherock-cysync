@@ -1,13 +1,13 @@
-import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
-  AccountTypeMap,
 } from '@cypherock/db-interfaces';
 
 import { formatAddress } from '../../operations';
@@ -59,9 +59,13 @@ export const mapContractTransactionForDb = async (params: {
       extraData: {
         contractAddress: tokenObj.address,
       },
+      isHidden: false,
     };
 
-    const insertedResult = await insertAccountIfNotExists(db, tokenAccount);
+    const insertedResult = await unhideOrInsertAccountIfNotExists(
+      db,
+      tokenAccount,
+    );
     tokenAccount = insertedResult.account as IEvmErc20TokenAccount;
 
     if (insertedResult.isInserted) {

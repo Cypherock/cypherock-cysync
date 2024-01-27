@@ -18,5 +18,6 @@ export const Account: ITableDetails<Omit<IAccount, BaseFields>> = {
     walletId: { type: 'string' },
     parentAccountId: { type: 'string', isOptional: true },
     parentAssetId: { type: 'string' },
+    isHidden: { type: 'boolean', isOptional: true },
   },
 };

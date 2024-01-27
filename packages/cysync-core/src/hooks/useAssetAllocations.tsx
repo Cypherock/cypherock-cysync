@@ -1,27 +1,27 @@
 import {
-  getParsedAmount,
-  getDefaultUnit,
-  getAsset,
   formatDisplayAmount,
   formatDisplayPrice,
+  getAsset,
+  getDefaultUnit,
+  getParsedAmount,
 } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import {
-  getCoinAllocations,
-  ICoinAllocationWithPercentage,
   IAccountAllocation,
+  ICoinAllocationWithPercentage,
   getAccountAllocations,
+  getCoinAllocations,
 } from '@cypherock/cysync-core-services';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
-  useState,
-  useEffect,
-  useCallback,
   ReactNode,
+  useCallback,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 import { getDB } from '~/utils';
@@ -30,15 +30,15 @@ import logger from '~/utils/logger';
 import { useStateToRef } from './useStateToRef';
 
 import {
-  selectLanguage,
-  selectWallets,
-  selectAccounts,
-  selectTransactions,
-  selectPriceInfos,
-  selectDiscreetMode,
-  useAppSelector,
-  useAppDispatch,
   CoinIcon,
+  selectDiscreetMode,
+  selectLanguage,
+  selectPriceInfos,
+  selectTransactions,
+  selectUnHiddenAccounts,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
 } from '..';
 
 export interface CoinAllocationRow {
@@ -67,7 +67,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectTransactions,
     selectPriceInfos,
     selectDiscreetMode,

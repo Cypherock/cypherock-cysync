@@ -12,9 +12,9 @@ import React, { useMemo } from 'react';
 
 import {
   CoinIcon,
-  selectAccounts,
   selectDiscreetMode,
   selectPriceInfos,
+  selectUnHiddenAccounts,
   useAppSelector,
 } from '..';
 
@@ -23,7 +23,7 @@ export interface UseSubAccountsProps {
 }
 
 const selector = createSelector(
-  [selectAccounts, selectPriceInfos, selectDiscreetMode],
+  [selectUnHiddenAccounts, selectPriceInfos, selectDiscreetMode],
   ({ accounts }, { priceInfos }, { active }) => ({
     accounts,
     priceInfos,

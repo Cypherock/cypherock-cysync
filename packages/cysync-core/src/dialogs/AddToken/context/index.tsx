@@ -25,13 +25,13 @@ import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
   closeDialog,
-  selectAccounts,
   selectLanguage,
+  selectUnHiddenAccounts,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
-import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
 import { getDB } from '~/utils';
@@ -150,7 +150,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     [],
   );
 
-  const { accounts } = useAppSelector(selectAccounts);
+  const { accounts } = useAppSelector(selectUnHiddenAccounts);
   const accountList: Record<string, IAccount> = useMemo(
     () => Object.fromEntries(accounts.map(a => [a.__id, a])),
     [accounts],
@@ -207,7 +207,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     }
 
     const tokenAccountEntries: Awaited<
-      ReturnType<typeof insertAccountIfNotExists>
+      ReturnType<typeof unhideOrInsertAccountIfNotExists>
     >[] = [];
 
     const db = getDB();
@@ -217,7 +217,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       // eslint-disable-next-line no-plusplus
       for (let ti = 0; ti < selectedTokens.length; ++ti) {
         const token = selectedTokens[ti];
-        const tokenAccountEntry = await insertAccountIfNotExists(db, {
+        const tokenAccountEntry = await unhideOrInsertAccountIfNotExists(db, {
           walletId: account.walletId,
           assetId: token.id,
           familyId: account.familyId,
@@ -229,21 +229,22 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
           unit: token.units[0].abbr,
           xpubOrAddress: account.xpubOrAddress,
           balance: '0',
+          isHidden: false,
         });
         tokenAccountEntries.push(tokenAccountEntry);
       }
     }
 
-    const newTokenAccounts = tokenAccountEntries
-      .filter(entry => entry.isInserted)
+    const unHiddenOrNewTokenAccounts = tokenAccountEntries
+      .filter(entry => entry.isInserted || entry.isUnHidden)
       .map(entry => entry.account);
 
-    if (newTokenAccounts.length > 0) {
+    if (unHiddenOrNewTokenAccounts.length > 0) {
       syncPrices({ families: [coinFamiliesMap.evm] }).catch(logger.error);
       syncPriceHistories({ families: [coinFamiliesMap.evm] }).catch(
         logger.error,
       );
-      dispatch(syncAccounts({ accounts: newTokenAccounts }));
+      dispatch(syncAccounts({ accounts: unHiddenOrNewTokenAccounts }));
     }
 
     onNext();

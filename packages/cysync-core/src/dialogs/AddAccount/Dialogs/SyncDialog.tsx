@@ -1,20 +1,20 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  loaderGrayIcon,
-  LangDisplay,
-  FlexGapContainer,
+  Button,
   DialogBox,
-  LeanBoxContainer,
-  LeanBox,
-  Typography,
+  DialogBoxFooter,
+  Flex,
+  FlexGapContainer,
   Image,
   InputLabel,
-  DialogBoxFooter,
-  Button,
-  addAccountIcon,
-  Flex,
-  Toggle,
+  LangDisplay,
+  LeanBox,
+  LeanBoxContainer,
   ScrollableContainer,
+  Toggle,
+  Typography,
+  addAccountIcon,
+  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -22,12 +22,16 @@ import lodash from 'lodash';
 import React, { FC, useMemo, useState } from 'react';
 
 import { CoinIcon } from '~/components';
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectUnHiddenAccounts,
+  useAppSelector,
+} from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
 const selectAccountsAndLang = createSelector(
-  [selectLanguage, selectAccounts],
+  [selectLanguage, selectUnHiddenAccounts],
   (a, b) => ({ lang: a, ...b }),
 );
 

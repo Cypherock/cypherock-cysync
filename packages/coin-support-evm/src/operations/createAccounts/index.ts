@@ -1,8 +1,8 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
 import {
-  ICreateEvmAccountParams,
   ICreateEvmAccountEvent,
+  ICreateEvmAccountParams,
   ICreatedEvmAccount,
 } from './types';
 
@@ -77,6 +77,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
       derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
       extraData: {},
+      isHidden: false,
     };
 
     return account;
