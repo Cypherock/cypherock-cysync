@@ -1,6 +1,9 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
-import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import {
+  getAsset,
+  unhideOrInsertAccountIfNotExists,
+} from '@cypherock/coin-support-utils';
 import {
   ICoinInfo,
   IEvmErc20Token,
@@ -166,8 +169,8 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
         .filter(a => Boolean(a.id && accountList[a.id]))
         .map(a => {
           const account = a.id ? accountList[a.id] : undefined;
-          const shortForm = account?.unit
-            ? `(${account.unit.toUpperCase()})`
+          const shortForm = account
+            ? getAsset(account.parentAssetId, account.assetId).abbr
             : undefined;
 
           return {
