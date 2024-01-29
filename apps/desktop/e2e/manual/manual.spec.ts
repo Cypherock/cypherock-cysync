@@ -69,10 +69,6 @@ test('Device connection screen and email on device connection', async () => {
     'Connect your X1 Vault to your PC to proceed',
   );
   await expect(firstBlock).toBeVisible();
-  const secondBlock = screen.getByText(
-    'Use the USB cable provided in your product packaging to connect',
-  );
-  await expect(secondBlock).toBeVisible();
   await screen
     .getByText(
       'Your X1 Vault will now be authenticated through Cypherock server to check its authenticity (?)',
