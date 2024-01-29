@@ -156,7 +156,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
   const { rejectCallRequest, approveCallRequest, callRequestData } =
     useWalletConnect();
@@ -379,7 +379,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const startFlow = async () => {
     logger.info('Starting send transaction');
 
-    if (!connection || !transaction) {
+    if (!connection?.connection || !transaction) {
       return;
     }
 
@@ -395,7 +395,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         deviceLock.release(connection.device, taskId);
       };
 
-      const deviceConnection = await connectDevice(connection.device);
+      const deviceConnection = connection.connection;
       flowSubscription.current = getCurrentCoinSupport()
         .signTransaction({
           connection: deviceConnection,
