@@ -139,8 +139,21 @@ export const useGraph = (props?: UseGraphProps) => {
 
     const data = refData.current;
 
+    const accountsWithPriceHistory = data.accounts.filter(a =>
+      data.priceHistories.find(h => h.assetId === a.assetId),
+    );
+    const accountsWithoutPriceHistory = data.accounts.filter(
+      a => !data.priceHistories.find(h => h.assetId === a.assetId),
+    );
+
+    if (accountsWithoutPriceHistory.length > 0) {
+      logger.warn('Price history not found', {
+        accounts: accountsWithoutPriceHistory.map(a => a.assetId),
+      });
+    }
+
     const params: CalculatePortfolioGraphDataParams = {
-      accounts: data.accounts,
+      accounts: accountsWithPriceHistory,
       transactions: data.transactions,
       priceHistories: data.priceHistories,
       priceInfos: data.priceInfos,

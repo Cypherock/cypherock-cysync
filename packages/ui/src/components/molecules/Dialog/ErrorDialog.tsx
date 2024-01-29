@@ -58,23 +58,25 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
       textVariables={textVariables}
       subtext={subtext}
       afterTextComponent={
-        <>
-          {messageBoxText && (
-            <MessageBox
-              text={messageBoxText}
-              type={messageBoxVariant ?? 'danger'}
-            />
-          )}
-          {deviceNavigationText && (
-            <Typography $textAlign="center" mt={2}>
-              <span style={{ color: theme?.palette.muted.main }}>Go to </span>
-              <LangDisplay
-                text={deviceNavigationText}
-                variables={textVariables}
+        messageBoxText || deviceNavigationText ? (
+          <>
+            {messageBoxText && (
+              <MessageBox
+                text={messageBoxText}
+                type={messageBoxVariant ?? 'danger'}
               />
-            </Typography>
-          )}
-        </>
+            )}
+            {deviceNavigationText && (
+              <Typography $textAlign="center" mt={2}>
+                <span style={{ color: theme?.palette.muted.main }}>Go to </span>
+                <LangDisplay
+                  text={deviceNavigationText}
+                  variables={textVariables}
+                />
+              </Typography>
+            )}
+          </>
+        ) : undefined
       }
       footerComponent={
         <>
