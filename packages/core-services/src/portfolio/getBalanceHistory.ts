@@ -3,7 +3,7 @@ import {
   IBalanceHistory,
   IGetAccountHistoryResult,
 } from '@cypherock/coin-support-interfaces';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { BigNumber, assert } from '@cypherock/cysync-utils';
 import {
   IDatabase,
   IAccount,
@@ -12,39 +12,30 @@ import {
   IPriceInfo,
 } from '@cypherock/db-interfaces';
 
-const timestampOverlapMapInSeconds: Record<number, number> = {
-  1: 60,
-  7: 60,
-  30: 60,
-  365: 360 * 60,
-};
-
-const getClosestTimestamp = (
-  balanceHistory: IGetAccountHistoryResult['history'],
+const getClosestTimestamps = (
+  sortedBalanceHistory: IGetAccountHistoryResult['history'],
   timestamp: number,
-  days: number,
-) => {
-  if (balanceHistory.length <= 0) {
+): [number, number] | undefined => {
+  if (sortedBalanceHistory.length <= 0) {
     return undefined;
   }
 
-  let closestTimestamp: number | undefined;
-  let closestTimestampDiff = Number.MAX_SAFE_INTEGER;
-
-  for (const item of balanceHistory) {
-    const currentDiff = Math.abs(item.timestamp - timestamp);
-    closestTimestampDiff = Math.min(closestTimestampDiff, currentDiff);
-
-    if (closestTimestampDiff === currentDiff) {
-      closestTimestamp = item.timestamp;
-    }
+  if (sortedBalanceHistory.find(h => h.timestamp === timestamp)) {
+    return [timestamp, timestamp];
   }
 
-  if (
-    closestTimestampDiff <=
-    (timestampOverlapMapInSeconds[days] ?? 1) * 1000
-  ) {
-    return closestTimestamp;
+  for (let i = 1; i < sortedBalanceHistory.length; i += 1) {
+    const prevItem = sortedBalanceHistory[i - 1];
+    const currItem = sortedBalanceHistory[i];
+
+    assert(
+      prevItem.timestamp <= currItem.timestamp,
+      'Balance History is not sorted in ascending order',
+    );
+
+    if (prevItem.timestamp < timestamp && timestamp < currItem.timestamp) {
+      return [prevItem.timestamp, currItem.timestamp];
+    }
   }
 
   return undefined;
@@ -134,59 +125,80 @@ export const getBalanceHistory = async (params: {
     );
   }
 
+  balanceHistoryList.forEach(balanceHistory => {
+    balanceHistory.history.sort((a, b) => a.timestamp - b.timestamp);
+  });
+
+  const baseHistory = balanceHistoryList[0].history;
+  const timestampList = baseHistory.map(b => b.timestamp);
   const allCoinHistoryData: IGetAccountHistoryResult['history'] = [];
 
-  let timestampList = [];
-  const baseHistory = balanceHistoryList[0].history;
-
-  for (let i = 1; i < baseHistory.length; i += 1) {
-    const allTimestamps = balanceHistoryList.map(b =>
-      getClosestTimestamp(b.history, baseHistory[i].timestamp, days),
-    );
-
-    if (!allTimestamps.includes(undefined)) {
-      timestampList.push(baseHistory[i].timestamp);
-    }
-  }
-
-  if (baseHistory.length <= 0) {
-    timestampList = baseHistory.map(b => b.timestamp);
-  }
-
   for (let i = 0; i < timestampList.length; i += 1) {
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let j = 0; j < balanceHistoryList.length; j += 1) {
-      if (!allCoinHistoryData[i]) {
-        allCoinHistoryData[i] = {
-          timestamp: timestampList[i],
-          balance: '0',
-          value: '0',
-        };
-      }
+    let allCoinValue = new BigNumber(0);
+    let allCoinBalance = new BigNumber(0);
+    let addedAllCoins = true;
 
-      const closestTimestamp = getClosestTimestamp(
+    for (let j = 0; j < balanceHistoryList.length; j += 1) {
+      const closestTimestamps = getClosestTimestamps(
         balanceHistoryList[j].history,
         timestampList[i],
-        days,
       );
 
-      const history = balanceHistoryList[j].history.find(
-        h => h.timestamp === closestTimestamp,
-      );
-
-      if (assetId || parentAssetId || accountId) {
-        allCoinHistoryData[i].balance = new BigNumber(
-          allCoinHistoryData[i].balance,
-        )
-          .plus(history?.balance ?? 0)
-          .toString();
-      } else {
-        allCoinHistoryData[i].balance = '0';
+      if (closestTimestamps === undefined) {
+        addedAllCoins = false;
+        break;
       }
 
-      allCoinHistoryData[i].value = new BigNumber(allCoinHistoryData[i].value)
-        .plus(history?.value ?? 0)
-        .toString();
+      const history1 = balanceHistoryList[j].history.find(
+        h => h.timestamp === closestTimestamps[0],
+      );
+
+      const history2 = balanceHistoryList[j].history.find(
+        h => h.timestamp === closestTimestamps[1],
+      );
+
+      if (history1 === undefined || history2 === undefined) {
+        addedAllCoins = false;
+        break;
+      }
+
+      const timestampTarget: BigNumber = new BigNumber(timestampList[i]);
+
+      const balance1: BigNumber = new BigNumber(history1.balance);
+      const value1: BigNumber = new BigNumber(history1.value);
+      const timestamp1: BigNumber = new BigNumber(history1.timestamp);
+
+      const balance2: BigNumber = new BigNumber(history2.balance);
+      const value2: BigNumber = new BigNumber(history2.value);
+      const timestamp2: BigNumber = new BigNumber(history2.timestamp);
+
+      const timeRange = timestamp2.minus(timestamp1);
+
+      const balanceSlope: BigNumber = timeRange.isZero()
+        ? new BigNumber(0)
+        : balance2.minus(balance1).dividedBy(timeRange);
+
+      const valueSlope: BigNumber = timeRange.isZero()
+        ? new BigNumber(0)
+        : value2.minus(value1).dividedBy(timeRange);
+
+      const value = value1.plus(
+        valueSlope.multipliedBy(timestampTarget.minus(timestamp1)),
+      );
+      const balance = balance1.plus(
+        balanceSlope.multipliedBy(timestampTarget.minus(timestamp1)),
+      );
+
+      allCoinBalance = allCoinBalance.plus(balance);
+      allCoinValue = allCoinValue.plus(value);
+    }
+
+    if (addedAllCoins) {
+      allCoinHistoryData.push({
+        timestamp: timestampList[i],
+        balance: allCoinBalance.toString(),
+        value: allCoinValue.toString(),
+      });
     }
   }
 
