@@ -217,21 +217,25 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       // eslint-disable-next-line no-plusplus
       for (let ti = 0; ti < selectedTokens.length; ++ti) {
         const token = selectedTokens[ti];
-        const tokenAccountEntry = await unhideOrInsertAccountIfNotExists(db, {
-          walletId: account.walletId,
-          assetId: token.id,
-          familyId: account.familyId,
-          parentAccountId: account.__id ?? '',
-          parentAssetId: account.assetId,
-          type: AccountTypeMap.subAccount,
-          name: token.name,
-          derivationPath: account.derivationPath,
-          unit: token.units[0].abbr,
-          xpubOrAddress: account.xpubOrAddress,
-          balance: '0',
-          isHidden: false,
-        });
-        tokenAccountEntries.push(tokenAccountEntry);
+        try {
+          const tokenAccountEntry = await unhideOrInsertAccountIfNotExists(db, {
+            walletId: account.walletId,
+            assetId: token.id,
+            familyId: account.familyId,
+            parentAccountId: account.__id ?? '',
+            parentAssetId: account.assetId,
+            type: AccountTypeMap.subAccount,
+            name: token.name,
+            derivationPath: account.derivationPath,
+            unit: token.units[0].abbr,
+            xpubOrAddress: account.xpubOrAddress,
+            balance: '0',
+            isHidden: false,
+          });
+          tokenAccountEntries.push(tokenAccountEntry);
+        } catch (err) {
+          logger.error(err);
+        }
       }
     }
 
