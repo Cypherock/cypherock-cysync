@@ -5,6 +5,7 @@ import {
   ICreateAccountEvent,
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { ICoinInfo, coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -22,7 +23,6 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';

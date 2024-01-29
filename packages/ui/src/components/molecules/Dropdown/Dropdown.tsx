@@ -149,8 +149,7 @@ export const Dropdown: React.FC<
       result.sort((a, b) => (!a.disabled && b.disabled ? -1 : 0));
       if (props.isMultiSelect) {
         result.sort((a, b) =>
-          selectedItemIds.includes(a.id as string) &&
-          !selectedItemIds.includes(b.id as string)
+          selectedItemIds.includes(a.id!) && !selectedItemIds.includes(b.id!)
             ? -1
             : 0,
         );

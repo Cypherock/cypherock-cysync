@@ -1,5 +1,6 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
+import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import {
   ICoinInfo,
   IEvmErc20Token,
@@ -9,7 +10,6 @@ import {
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-
 import React, {
   Context,
   FC,
@@ -21,6 +21,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+
+import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
+import { CoinIcon } from '~/components';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -30,12 +33,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
-import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
-import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
-import { CoinIcon } from '~/components';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
+
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
 
 export interface AddTokenDialogContextInterface {
