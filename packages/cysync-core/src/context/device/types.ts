@@ -33,6 +33,7 @@ export interface IDeviceConnectionInfo {
 export interface IDeviceConnectionRetry {
   device: IDevice;
   retries: number;
+  retryTimeout?: NodeJS.Timeout;
 }
 
 export interface IParseDeviceAction {

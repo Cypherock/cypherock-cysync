@@ -174,7 +174,13 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       );
     } else if (action.type === 'retry') {
       logger.info('Will retry device connection in next iteration');
-      connectionRetryRef.current = action.updatedRetry;
+
+      if (action.updatedRetry) {
+        connectionRetryRef.current = {
+          ...action.updatedRetry,
+          retryTimeout: setTimeout(deviceListenerDebounce, 1000),
+        };
+      }
     }
   };
 
@@ -226,6 +232,10 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
 
     return () => {
       removeUsbChangeListener();
+
+      if (connectionRetryRef.current?.retryTimeout) {
+        clearTimeout(connectionRetryRef.current.retryTimeout);
+      }
     };
   }, []);
 
