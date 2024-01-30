@@ -101,11 +101,11 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.26
-        version: 0.0.26
+        specifier: ^0.0.27
+        version: 0.0.27
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.19
-        version: 0.0.19
+        specifier: ^0.0.20
+        version: 0.0.20
       '@cypherock/sdk-hw-serialport':
         specifier: ^0.0.18
         version: 0.0.18
@@ -237,8 +237,8 @@ importers:
         specifier: ^0.0.21
         version: 0.0.21
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.19
-        version: 0.0.19
+        specifier: ^0.0.20
+        version: 0.0.20
       '@cypherock/sdk-hw-serialport':
         specifier: ^0.0.18
         version: 0.0.18
@@ -546,8 +546,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.32
-        version: 0.0.32
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -649,8 +649,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.28
-        version: 0.0.28
+        specifier: ^0.0.29
+        version: 0.0.29
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -795,8 +795,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-near':
-        specifier: ^0.0.26
-        version: 0.0.26
+        specifier: ^0.0.27
+        version: 0.0.27
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -892,8 +892,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-solana':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.3
+        version: 0.0.3
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -1146,8 +1146,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.26
-        version: 0.0.26
+        specifier: ^0.0.27
+        version: 0.0.27
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.14
         version: 0.0.14
@@ -1261,8 +1261,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.26
-        version: 0.0.26
+        specifier: ^0.0.27
+        version: 0.0.27
       '@cypherock/sdk-core':
         specifier: ^0.0.21
         version: 0.0.21
@@ -2300,6 +2300,16 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.22
       jsesc: 2.5.2
+
+  /@babel/generator@7.23.6:
+    resolution: {integrity: sha512-qrSfCYxYQB5owCmGLbl8XRpX1ytXlpueOb0N0UmQwA073KZxejgQTzAmJezxvpwQD9uGtK2shHdi55QT+MbjIw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/types': 7.23.9
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.22
+      jsesc: 2.5.2
+    dev: true
 
   /@babel/helper-annotate-as-pure@7.22.5:
     resolution: {integrity: sha512-LvBTxu8bQSQkcyKOU+a1btnNFQ1dMAd0R6PyW3arXes06F6QLWLIrd681bxRPIXlrMGR3XYnW9JyML7dP3qgxg==}
@@ -3714,6 +3724,15 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
+  /@babel/types@7.23.9:
+    resolution: {integrity: sha512-dQjSq/7HaSjRM43FFGnv5keM2HsxpmyV1PfaSVm0nzzjwwTmjOe6J4bC8e3+pTEIgHaHj+1ZlLThRJ2auc/w1Q==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-string-parser': 7.23.4
+      '@babel/helper-validator-identifier': 7.22.20
+      to-fast-properties: 2.0.0
+    dev: true
+
   /@base2/pretty-print-object@1.0.1:
     resolution: {integrity: sha512-4iri8i1AqYHJE2DstZYkyEprg6Pq6sKx3xn5FpySk9sNhH7qN2LLlHJCfDTZRILNwQNPD7mATWM0TBui7uC1pA==}
     dev: true
@@ -4115,36 +4134,38 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypherock/sdk-app-btc@0.0.32:
-    resolution: {integrity: sha512-IZygVC1rpoDr+QKdbIiOGoDioaUJEWeP7zKWz2hiQSvH9dAz7eokkmWS53EDZOwmbxOMZ99AyG90I4rhi9XolA==}
+  /@cypherock/sdk-app-btc@0.0.33:
+    resolution: {integrity: sha512-f1IFtdcMYHmxuxC4VgArPzGWkYabO1Obqgoqqv1V0MwVre1fhJlQip7OmgqfcBp6O5vLlhBrOBmmlzLtQP11sg==}
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-core': 0.0.22
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
       axios: 1.4.0
       bip66: 1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm)
       long: 5.2.3
       protobufjs: 7.2.6
+      protobufjs: 7.2.6
     transitivePeerDependencies:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.0.28:
-    resolution: {integrity: sha512-emjS7Mu//QQZIxpQ682bLIJmo2yPZyGcuUvhErYWyqAw3wqkk/NCkiZY7g+jnxzQNxjhE2rqpry9YbVc1SEdhQ==}
+  /@cypherock/sdk-app-evm@0.0.29:
+    resolution: {integrity: sha512-KwTvHFRFEsV4kk1VIuR8jdrKAhH+6ZHFJrIuyRcdP+Tu9rJdB++H02JR9pfbvzGQIIzmMFnWJcSiXMS79rraAw==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-core': 0.0.22
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
       bignumber.js: 9.1.2
       long: 5.2.3
       protobufjs: 7.2.6
+      protobufjs: 7.2.6
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.26:
-    resolution: {integrity: sha512-lBYIHxmm7KcDnVfUh40KB0hnE/PlpxrAaR8XIu4Vxnnf3gsRbTlVjRg7e8ilUk4k+8wJFd2jy8fV0s9pv7bJhQ==}
+  /@cypherock/sdk-app-manager@0.0.27:
+    resolution: {integrity: sha512-xR5z+TtCNgzctCD3kDi7lqLy1ZAVmco10yZOIw21A3Modh1v8VG6qZhEkYQQCHvd/ZutJuDsnTXann8Z8vxnZA==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-core': 0.0.22
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
       axios: 1.4.0
@@ -4155,25 +4176,27 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-near@0.0.26:
-    resolution: {integrity: sha512-4mc80Syc5rZUrqi6+wBoVmZ589V1Yq1ROhIwvSU298fWYENv6mN37NCFYE03jRrhHVHroEi5RqxM7veSB4IS2g==}
+  /@cypherock/sdk-app-near@0.0.27:
+    resolution: {integrity: sha512-892xvroCkO3xdp3/5azcQponZT9Hhtsuj2l4MZkpvqJLz3MvpGXwq9OE3A57Ovnxa9qbaXI7bpUqf1lDs7+cBg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-core': 0.0.22
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
       long: 5.2.3
       protobufjs: 7.2.6
+      protobufjs: 7.2.6
     dev: false
 
-  /@cypherock/sdk-app-solana@0.0.2:
-    resolution: {integrity: sha512-kI9k9EqVbauAW2ZmoPuMyZuuUtyrWU0JkizEi6+KTruEQOIJa/aOdA9/CajIlFmMbSa/eb6wpDkxm7t7GVY7qA==}
+  /@cypherock/sdk-app-solana@0.0.3:
+    resolution: {integrity: sha512-WHfQTmOZHqgRmpxg/fDCCwImZ/OUWZ4M6IP3QmGcNcEu+MXKoa5RHVE1RIzT/vOaNFWOVxIrewj5Mek69RQEBw==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.21
+      '@cypherock/sdk-core': 0.0.22
       '@cypherock/sdk-interfaces': 0.0.14
       '@cypherock/sdk-utils': 0.0.17
       axios: 1.4.0
       bs58: 5.0.0
       long: 5.2.3
+      protobufjs: 7.2.6
       protobufjs: 7.2.6
     transitivePeerDependencies:
       - debug
@@ -11599,7 +11622,10 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
+      get-intrinsic: 1.2.2
       es-abstract: 1.22.3
       get-intrinsic: 1.2.2
       is-string: 1.0.7
@@ -11624,7 +11650,10 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
+      es-shim-unscopables: 1.0.2
       es-abstract: 1.22.3
       es-shim-unscopables: 1.0.2
     dev: true
@@ -11645,7 +11674,10 @@ packages:
     dependencies:
       array-buffer-byte-length: 1.0.0
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
+      get-intrinsic: 1.2.2
       es-abstract: 1.22.3
       get-intrinsic: 1.2.2
       is-array-buffer: 3.0.2
@@ -12301,7 +12333,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001581
-      electron-to-chromium: 1.4.648
+      electron-to-chromium: 1.4.650
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.3)
 
@@ -13464,6 +13496,8 @@ packages:
 
   /crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /crypto-random-string@2.0.0:
@@ -14555,7 +14589,10 @@ packages:
       object-inspect: 1.13.1
       object-keys: 1.1.1
       object.assign: 4.1.5
+      object.assign: 4.1.5
       regexp.prototype.flags: 1.5.1
+      safe-array-concat: 1.1.0
+      safe-regex-test: 1.0.2
       safe-array-concat: 1.1.0
       safe-regex-test: 1.0.2
       string.prototype.trim: 1.2.8
@@ -14782,6 +14819,8 @@ packages:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
     dependencies:
       debug: 3.2.7
+      is-core-module: 2.13.1
+      resolve: 1.22.8
       is-core-module: 2.13.1
       resolve: 1.22.8
     transitivePeerDependencies:
@@ -15788,7 +15827,9 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
       es-abstract: 1.22.3
       functions-have-names: 1.2.3
     dev: true
@@ -15927,6 +15968,8 @@ packages:
     resolution: {integrity: sha512-2EmdH1YvIQiZpltCNgkuiUnyukzxM/R6NDJX31Ke3BG1Nq5b0S2PhX59UKi9vZpPDQVdqn+1IcaAwnzTT5vCjw==}
     engines: {node: '>= 0.4'}
     dependencies:
+      call-bind: 1.0.5
+      get-intrinsic: 1.2.2
       call-bind: 1.0.5
       get-intrinsic: 1.2.2
     dev: true
@@ -17142,6 +17185,7 @@ packages:
   /is-weakref@1.0.2:
     resolution: {integrity: sha512-qctsuLZmIQ0+vSSMfoVvyFe2+GSEvnmZ2ezTup1SBse9+twCCeial6EEi3Nc2KFcf6+qz2FBPnjXsk8xhKSaPQ==}
     dependencies:
+      call-bind: 1.0.5
       call-bind: 1.0.5
     dev: true
 
@@ -20019,6 +20063,16 @@ packages:
       has-symbols: 1.0.3
       object-keys: 1.1.1
 
+  /object.assign@4.1.5:
+    resolution: {integrity: sha512-byy+U7gp+FVwmyzKPYhW2h5l3crpmGsxl7X2s8y43IgxvG4g3QZ6CffDtsNQy1WsmZpQbO+ybo0AlW7TY6DcBQ==}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      call-bind: 1.0.5
+      define-properties: 1.2.1
+      has-symbols: 1.0.3
+      object-keys: 1.1.1
+    dev: true
+
   /object.entries@1.1.7:
     resolution: {integrity: sha512-jCBs/0plmPsOnrKAfFQXRG2NFjlhZgjjcBLSmTnEhU8U6vVTsVe8ANeQJCHTl3gSsI4J+0emOoCgoKlmQPMgmA==}
     engines: {node: '>= 0.4'}
@@ -20049,7 +20103,9 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
       es-abstract: 1.22.3
     dev: true
 
@@ -20990,6 +21046,25 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/node': 16.18.36
+      long: 5.2.3
+    dev: false
+
+  /protobufjs@7.2.6:
+    resolution: {integrity: sha512-dgJaEDDL6x8ASUZ1YqWciTRrdOuYNzoOf27oHNfdyvKqHr5i0FV7FSLU+aIeFjyFgVxrpTOtQUi0BLLBymZaBw==}
+    engines: {node: '>=12.0.0'}
+    requiresBuild: true
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.4
+      '@protobufjs/eventemitter': 1.1.0
+      '@protobufjs/fetch': 1.1.0
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/inquire': 1.1.0
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.0
+      '@types/node': 18.15.11
       long: 5.2.3
     dev: false
 
@@ -22370,9 +22445,12 @@ packages:
 
   /set-function-length@1.2.0:
     resolution: {integrity: sha512-4DBHDoyHlM1IRPGYcoxexgh67y4ueR53FKV1yyxwFMY7aCqcN/38M1+SwZ/qJQ8iLv7+ck385ot4CcisOAPT9w==}
+  /set-function-length@1.2.0:
+    resolution: {integrity: sha512-4DBHDoyHlM1IRPGYcoxexgh67y4ueR53FKV1yyxwFMY7aCqcN/38M1+SwZ/qJQ8iLv7+ck385ot4CcisOAPT9w==}
     engines: {node: '>= 0.4'}
     dependencies:
       define-data-property: 1.1.1
+      function-bind: 1.1.2
       function-bind: 1.1.2
       get-intrinsic: 1.2.2
       gopd: 1.0.1
@@ -22954,7 +23032,9 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
       es-abstract: 1.22.3
     dev: true
 
@@ -22962,7 +23042,9 @@ packages:
     resolution: {integrity: sha512-Ni79DqeB72ZFq1uH/L6zJ+DKZTkOtPIHovb3YZHQViE+HDouuU4mBrLOLDn5Dde3RF8qw5qVETEjhu9locMLvA==}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
       es-abstract: 1.22.3
     dev: true
 
@@ -22970,7 +23052,9 @@ packages:
     resolution: {integrity: sha512-NGhtDFu3jCEm7B4Fy0DpLewdJQOZcQ0rGbwQ/+stjnrp2i+rlKeCvos9hOIeCmqwratM47OBxY7uFZzjxHXmrg==}
     dependencies:
       call-bind: 1.0.5
+      call-bind: 1.0.5
       define-properties: 1.2.1
+      es-abstract: 1.22.3
       es-abstract: 1.22.3
     dev: true
 
@@ -24228,6 +24312,8 @@ packages:
     dependencies:
       call-bind: 1.0.5
       get-intrinsic: 1.2.2
+      call-bind: 1.0.5
+      get-intrinsic: 1.2.2
       is-typed-array: 1.1.12
     dev: true
 
@@ -24235,6 +24321,7 @@ packages:
     resolution: {integrity: sha512-Or/+kvLxNpeQ9DtSydonMxCx+9ZXOswtwJn17SNLvhptaXYDJvkFFP5zbfU/uLmvnBJlI4yrnXRxpdWH/M5tNA==}
     engines: {node: '>= 0.4'}
     dependencies:
+      call-bind: 1.0.5
       call-bind: 1.0.5
       for-each: 0.3.3
       has-proto: 1.0.1
@@ -24247,6 +24334,7 @@ packages:
     dependencies:
       available-typed-arrays: 1.0.5
       call-bind: 1.0.5
+      call-bind: 1.0.5
       for-each: 0.3.3
       has-proto: 1.0.1
       is-typed-array: 1.1.12
@@ -24255,6 +24343,7 @@ packages:
   /typed-array-length@1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
     dependencies:
+      call-bind: 1.0.5
       call-bind: 1.0.5
       for-each: 0.3.3
       is-typed-array: 1.1.12
@@ -24333,6 +24422,7 @@ packages:
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
     dependencies:
+      call-bind: 1.0.5
       call-bind: 1.0.5
       has-bigints: 1.0.2
       has-symbols: 1.0.3

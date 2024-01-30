@@ -59,9 +59,11 @@ export const getDeviceState = (
 export const createDeviceConnectionInfo = (
   device: IDevice,
   state: DeviceConnectionStatus,
+  connection?: IDeviceConnection,
   info?: IConnectedDeviceInfo,
 ): IDeviceConnectionInfo => ({
   device,
+  connection,
   status: state,
   firmwareVersion: info?.firmwareVersion
     ? `${info.firmwareVersion.major}.${info.firmwareVersion.minor}.${info.firmwareVersion.patch}`
@@ -105,38 +107,27 @@ export const tryEstablishingDeviceConnection = async (
   connectDevice: ConnectDevice,
   device: IDevice,
 ) => {
-  let connection: IDeviceConnection | undefined;
+  let info: IConnectedDeviceInfo | undefined;
+  let status = DeviceConnectionStatus.CONNECTED;
 
-  try {
-    let info: IConnectedDeviceInfo | undefined;
-    let status = DeviceConnectionStatus.CONNECTED;
+  const connection = await connectDevice(device);
 
-    if (device.deviceState !== DeviceState.BOOTLOADER) {
-      connection = await connectDevice(device);
-      const app = await ManagerApp.create(connection);
+  if (device.deviceState !== DeviceState.BOOTLOADER) {
+    const app = await ManagerApp.create(connection);
 
-      if (!(await app.isSupported())) {
-        status = DeviceConnectionStatus.INCOMPATIBLE;
-      } else {
-        info = { ...(await app.getDeviceInfo()), walletList: [] };
+    if (!(await app.isSupported())) {
+      status = DeviceConnectionStatus.INCOMPATIBLE;
+    } else {
+      info = { ...(await app.getDeviceInfo()), walletList: [] };
 
-        if (
-          device.deviceState !== DeviceState.INITIAL &&
-          info.isAuthenticated
-        ) {
-          const { walletList } = await app.getWallets();
-          info.walletList = walletList;
-        }
-
-        await connection.destroy();
+      if (device.deviceState !== DeviceState.INITIAL && info.isAuthenticated) {
+        const { walletList } = await app.getWallets();
+        info.walletList = walletList;
       }
     }
-
-    return { info, status };
-  } catch (error) {
-    await connection?.destroy();
-    throw error;
   }
+
+  return { info, status, connection };
 };
 
 export interface IDeviceConnectionErrorAction {

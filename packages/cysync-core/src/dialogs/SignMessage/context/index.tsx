@@ -74,7 +74,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     activeWallet,
   } = useWalletConnect();
 
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
@@ -165,9 +165,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = connection
-      ? await connectDevice(connection.device)
-      : undefined;
+    const deviceConnection = connection?.connection;
 
     if (!deviceConnection) return;
 

@@ -92,7 +92,7 @@ export const AddAccountDialogProvider: FC<
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const {
     selectedWallet,
@@ -224,7 +224,7 @@ export const AddAccountDialogProvider: FC<
   const startAddAccounts = async () => {
     logger.info('Started add account');
 
-    if (!connection || !selectedCoin || !selectedWallet) {
+    if (!connection?.connection || !selectedCoin || !selectedWallet) {
       return;
     }
 
@@ -242,7 +242,7 @@ export const AddAccountDialogProvider: FC<
       deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = await connectDevice(connection.device);
+    const deviceConnection = connection.connection;
     const subscription = coinSupport
       .createAccounts({
         walletId: selectedWallet.__id ?? '',

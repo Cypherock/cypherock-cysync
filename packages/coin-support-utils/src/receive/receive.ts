@@ -21,13 +21,6 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
           logger.warn('Error in aborting receive flow');
           logger.warn(error);
         }
-
-        try {
-          await app.destroy();
-        } catch (error) {
-          logger.warn('Error in destroying connection on receive flow');
-          logger.warn(error);
-        }
       }
     };
 

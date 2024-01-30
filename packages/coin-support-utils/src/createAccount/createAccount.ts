@@ -18,7 +18,6 @@ import { generateDerivationPathsPerScheme } from './schemes';
 import logger from '../utils/logger';
 
 interface App {
-  destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
@@ -59,13 +58,6 @@ export function makeCreateAccountsObservable<
           await app.abort();
         } catch (error) {
           logger.warn('Error in aborting create account');
-          logger.warn(error);
-        }
-
-        try {
-          await app.destroy();
-        } catch (error) {
-          logger.warn('Error in destroying connection on create account');
           logger.warn(error);
         }
       }
