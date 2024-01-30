@@ -100,7 +100,7 @@ export const unhideOrInsertAccountIfNotExists = async (
   if (existingAccount.isHidden) {
     const updatedAccounts = await db.account.update(
       { __id: existingAccount.__id },
-      { ...account, isHidden: false },
+      { isHidden: false },
     );
     return {
       account: updatedAccounts[0],

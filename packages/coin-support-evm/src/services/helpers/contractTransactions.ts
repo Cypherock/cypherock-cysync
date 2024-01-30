@@ -1,4 +1,4 @@
-import { unhideOrInsertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
@@ -62,10 +62,7 @@ export const mapContractTransactionForDb = async (params: {
       isHidden: false,
     };
 
-    const insertedResult = await unhideOrInsertAccountIfNotExists(
-      db,
-      tokenAccount,
-    );
+    const insertedResult = await insertAccountIfNotExists(db, tokenAccount);
     tokenAccount = insertedResult.account as IEvmErc20TokenAccount;
 
     if (insertedResult.isInserted) {
