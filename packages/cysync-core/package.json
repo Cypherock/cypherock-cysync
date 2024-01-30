@@ -77,7 +77,7 @@
     "@cypherock/cysync-ui": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.26",
+    "@cypherock/sdk-app-manager": "^0.0.27",
     "@cypherock/sdk-core": "^0.0.21",
     "@cypherock/sdk-interfaces": "^0.0.14",
     "@cypherock/sdk-utils": "^0.0.17",

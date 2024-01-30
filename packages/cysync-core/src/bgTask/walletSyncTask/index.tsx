@@ -8,10 +8,10 @@ export const WalletSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
   const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
 
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const onConnectionChange = async () => {
-    dispatch(syncWalletsWithDevice({ connection, connectDevice }));
+    dispatch(syncWalletsWithDevice({ connection }));
   };
 
   const onDeleteChange = () => {

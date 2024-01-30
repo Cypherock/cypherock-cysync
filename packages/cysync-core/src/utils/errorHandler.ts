@@ -12,6 +12,7 @@ export const errorHandler = async (
   let url = _url;
   let lineNumber = _lineNumber;
   let columnNumber = _columnNumber;
+  let stack = '';
 
   if (typeof errorEvent === 'string') {
     errorMessage = errorEvent;
@@ -19,6 +20,9 @@ export const errorHandler = async (
     errorMessage =
       (errorEvent as PromiseRejectionEvent).reason ??
       (errorEvent as PromiseRejectionEvent).type;
+  } else if ((errorEvent as PromiseRejectionEvent).reason instanceof Error) {
+    errorMessage = (errorEvent as PromiseRejectionEvent).reason.message;
+    stack = (errorEvent as PromiseRejectionEvent).reason.stack;
   } else if (typeof (errorEvent as ErrorEvent).message === 'string') {
     errorMessage = (errorEvent as ErrorEvent).message;
     url = (errorEvent as ErrorEvent).filename;
@@ -53,6 +57,7 @@ export const errorHandler = async (
     column: columnNumber,
     errorEvent,
     errorObj: JSON.stringify(errorObj),
+    stack,
     ...args,
   });
 };

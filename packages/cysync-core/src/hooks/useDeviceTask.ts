@@ -15,14 +15,13 @@ export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
 export interface DeviceTaskOptions {
   dontExecuteTask?: boolean;
-  dontDestroy?: boolean;
 }
 
 export function useDeviceTask<T>(
   handler: DeviceTask<T>,
   options?: DeviceTaskOptions,
 ) {
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const [taskError, setTaskError] = React.useState<Error | undefined>();
   const [taskResult, setTaskResult] = React.useState<T | undefined>();
@@ -47,14 +46,14 @@ export function useDeviceTask<T>(
       setTaskError(undefined);
       connectedRef.current = undefined;
 
-      if (!connection)
+      if (!connection?.connection)
         throw new DeviceConnectionError(
           DeviceConnectionErrorType.NOT_CONNECTED,
         );
 
       setIsRunning(true);
       await deviceLock.acquire(connection.device, taskId);
-      conn = await connectDevice(connection.device);
+      conn = connection.connection;
       connectedRef.current = { connection: conn, device: connection.device };
       result = await handler(conn);
 
@@ -75,10 +74,6 @@ export function useDeviceTask<T>(
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
-      if (!options?.dontDestroy) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        conn?.destroy().catch(() => {});
-      }
       setIsRunning(false);
     }
 
@@ -95,7 +90,6 @@ export function useDeviceTask<T>(
 
       if (connectedRef.current) {
         await SDK.sendAbort(connectedRef.current.connection);
-        await connectedRef.current.connection.destroy();
       }
       // eslint-disable-next-line no-empty
     } catch (error) {}

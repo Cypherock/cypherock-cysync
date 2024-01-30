@@ -6,7 +6,7 @@ import {
 } from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
-import { IDevice } from '@cypherock/sdk-interfaces';
+import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import lodash from 'lodash';
 import PropTypes from 'prop-types';
 import React, {
@@ -133,17 +133,22 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
 
   const markDeviceAsConnected = (
     device: IDevice,
+    connection: IDeviceConnection,
     status: DeviceConnectionStatus,
     info?: IConnectedDeviceInfo,
   ) => {
     const deviceConnectionInfo = createDeviceConnectionInfo(
       device,
       status,
+      connection,
       info,
     );
     setConnectionInfo(deviceConnectionInfo);
 
-    logger.info('Device connected successfully', deviceConnectionInfo);
+    logger.info('Device connected successfully', {
+      ...deviceConnectionInfo,
+      connection: undefined,
+    });
     connectionRetryRef.current = undefined;
   };
 
@@ -201,11 +206,9 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const tryToConnect = async (device: IDevice) => {
     try {
       logger.info('Trying to establish device connection', { device });
-      const { info, status } = await tryEstablishingDeviceConnection(
-        connectDevice,
-        device,
-      );
-      markDeviceAsConnected(device, status, info);
+      const { info, status, connection } =
+        await tryEstablishingDeviceConnection(connectDevice, device);
+      markDeviceAsConnected(device, connection, status, info);
     } catch (error) {
       logger.warn('Error connecting device', { device, error });
       markDeviceAsConnectionError(device, error);
