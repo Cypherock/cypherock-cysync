@@ -1,4 +1,5 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useMemo, useRef } from 'react';
+import Marquee from 'react-fast-marquee';
 import styled, { css } from 'styled-components';
 
 import {
@@ -7,10 +8,10 @@ import {
   LangDisplay,
   RadioButton,
   Tag,
+  TagType,
   Typography,
   TypographyColor,
   TypographyProps,
-  TagType,
 } from '../atoms';
 import { BorderProps, SpacingProps, border, spacing } from '../utils';
 
@@ -39,6 +40,7 @@ export interface DropDownItemProps extends BorderProps {
   $isFocused?: boolean;
   showRightTextOnBottom?: boolean;
   disabled?: boolean;
+  isShowCase?: boolean;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -161,6 +163,18 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+export const SmartMarquee: FC<{
+  children: React.ReactNode | React.ReactNode[];
+  isOverflow: boolean;
+}> = ({ children, isOverflow }) => {
+  if (!isOverflow) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return <>{children}</>;
+  }
+
+  return <Marquee direction="left">{children}</Marquee>;
+};
+
 export const DropDownItem: FC<DropDownItemProps> = ({
   leftImage,
   rightIcon,
@@ -187,6 +201,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   $textMaxWidth,
   $textMaxWidthWhenSelected,
   disabled = false,
+  isShowCase = false,
 }): ReactElement => {
   const handleCheckChange = () => {
     if (disabled) return;
@@ -198,6 +213,15 @@ export const DropDownItem: FC<DropDownItemProps> = ({
     handleCheckChange();
     if (onClick) onClick();
   };
+
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  const childRef = useRef<HTMLDivElement | null>(null);
+
+  const isOverflow = useMemo<boolean>(() => {
+    if (parentRef.current === null) return false;
+    if (childRef.current === null) return false;
+    return parentRef.current.offsetWidth < childRef.current.offsetWidth;
+  }, [parentRef.current, childRef.current]);
 
   return (
     <DropDownListItemHorizontalBox
@@ -234,26 +258,34 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {leftImage}
         </DropDownListItemIconContainer>
       )}
-      <Flex direction="column" width="full">
-        <Flex align="center" gap={16}>
-          <DropDownListItemStretchedTypography
-            variant="h6"
-            $color={disabled ? 'disabled' : color ?? 'muted'}
-            $isChecked={checked}
-            $restrictedItem={$restrictedItem}
-            $textMaxWidth={$textMaxWidth}
-            $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
-            disabled={disabled}
+      <Flex direction="column" $overflowX="hidden" width="full" ref={parentRef}>
+        <SmartMarquee isOverflow={isShowCase ? false : isOverflow}>
+          <Flex
+            align="center"
+            gap={16}
+            pr={1}
+            ref={childRef}
+            $width={isShowCase ? undefined : 'max-content'}
           >
-            <LangDisplay text={text} $noPreWrap />
-            {shortForm && (
-              <ShortFormTag disabled={disabled}>
-                <LangDisplay text={shortForm} />
-              </ShortFormTag>
-            )}
-          </DropDownListItemStretchedTypography>
-          {tag && <Tag type={tagType}>{tag}</Tag>}
-        </Flex>
+            <DropDownListItemStretchedTypography
+              variant="h6"
+              $color={disabled ? 'disabled' : color ?? 'muted'}
+              $isChecked={checked}
+              $restrictedItem={$restrictedItem}
+              $textMaxWidth={$textMaxWidth}
+              $textMaxWidthWhenSelected={$textMaxWidthWhenSelected}
+              disabled={disabled}
+            >
+              <LangDisplay text={text} $noPreWrap />
+              {shortForm && (
+                <ShortFormTag disabled={disabled}>
+                  <LangDisplay text={shortForm} />
+                </ShortFormTag>
+              )}
+            </DropDownListItemStretchedTypography>
+            {tag && <Tag type={tagType}>{tag}</Tag>}
+          </Flex>
+        </SmartMarquee>
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
@@ -312,4 +344,5 @@ DropDownItem.defaultProps = {
   $textMaxWidth: undefined,
   $textMaxWidthWhenSelected: undefined,
   disabled: false,
+  isShowCase: false,
 };

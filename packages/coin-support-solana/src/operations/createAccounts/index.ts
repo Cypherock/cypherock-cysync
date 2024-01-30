@@ -1,20 +1,20 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
-import { SolanaApp, GetPublicKeysEvent } from '@cypherock/sdk-app-solana';
+import { GetPublicKeysEvent, SolanaApp } from '@cypherock/sdk-app-solana';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
 import {
-  ICreateSolanaAccountParams,
   ICreateSolanaAccountEvent,
+  ICreateSolanaAccountParams,
   ICreatedSolanaAccount,
 } from './types';
 
@@ -77,6 +77,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<SolanaApp>['
       derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
       extraData: {},
+      isHidden: false,
     };
 
     return account;

@@ -9,11 +9,11 @@ import React, { FC } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
-  useAppSelector,
   selectLanguage,
-  selectAccounts,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
+  useAppSelector,
 } from '~/store';
 
 import PortfolioPageContent from './Content';
@@ -22,7 +22,7 @@ import { NoWallet } from './NoWallet';
 import { MainAppLayout } from '../Layout';
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectAccounts],
+  [selectLanguage, selectWallets, selectUnHiddenAccounts],
   (lang, { wallets }, { accounts }) => ({
     lang,
     wallets,

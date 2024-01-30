@@ -20,7 +20,7 @@ import { useAddTokenDialog } from '../context';
 export const AddTokenSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const {
-    onNext,
+    handleCreateToken,
     onClose,
     tokenList,
     accountList,
@@ -116,11 +116,12 @@ export const AddTokenSelectionDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={selectedTokens.length === 0 || !selectedWallet}
-          onClick={e => {
-            e.preventDefault();
-            onNext();
-          }}
+          disabled={
+            selectedTokens.length === 0 ||
+            selectedAccounts.length === 0 ||
+            !selectedWallet
+          }
+          onClick={handleCreateToken}
         >
           <LangDisplay text={button.continue} />
         </Button>

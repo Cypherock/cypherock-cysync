@@ -75,3 +75,39 @@ export const insertAccountIfNotExists = async (
 
   return { account: await db.account.insert(account), isInserted: true };
 };
+
+export const hideAccount = async (db: IDatabase, account: IAccount) => {
+  if (account.__id === undefined) return;
+  await updateAccount(db, account.__id, { ...account, isHidden: true });
+};
+
+export const unhideOrInsertAccountIfNotExists = async (
+  db: IDatabase,
+  account: IAccount,
+): Promise<{ account: IAccount; isInserted: boolean; isUnHidden: boolean }> => {
+  const query: Partial<IAccount> = getUniqueAccountQuery(account);
+
+  const existingAccount = await db.account.getOne(query);
+
+  if (!existingAccount) {
+    return {
+      account: await db.account.insert(account),
+      isInserted: true,
+      isUnHidden: false,
+    };
+  }
+
+  if (existingAccount.isHidden) {
+    const updatedAccounts = await db.account.update(
+      { __id: existingAccount.__id },
+      { isHidden: false },
+    );
+    return {
+      account: updatedAccounts[0],
+      isInserted: false,
+      isUnHidden: true,
+    };
+  }
+
+  return { account: existingAccount, isInserted: false, isUnHidden: false };
+};

@@ -15,7 +15,12 @@ export const searchInItems = (
   const filteredItems: DropDownItemProps[] = [];
 
   for (const item of menuItems) {
-    const shouldAdd = item.text
+    const shouldAdd = (
+      item.text +
+      (item.shortForm ?? '') +
+      (item.rightText ?? '') +
+      (item.tag ?? '')
+    )
       .toLowerCase()
       .includes(searchString.toLowerCase());
 
@@ -108,10 +113,9 @@ export const handleKeyDown =
         }
         break;
       case 'Enter':
-      case ' ':
         event.preventDefault();
         event.stopPropagation();
-        if (!isOpen || (isMultiSelect && event.key === 'Enter')) {
+        if (!isOpen) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');

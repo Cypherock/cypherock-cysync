@@ -31,10 +31,10 @@ import { mapTransactionForDisplay } from '~/hooks';
 import {
   closeDialog,
   openSnackBar,
-  selectAccounts,
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -84,7 +84,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectPriceInfos,
     selectDiscreetMode,
   ],

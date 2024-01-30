@@ -1,6 +1,6 @@
 import {
-  syncAccounts as syncAccountsCore,
   ISyncAccountsEvent,
+  syncAccounts as syncAccountsCore,
 } from '@cypherock/cysync-core-services';
 import { IAccount } from '@cypherock/db-interfaces';
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
@@ -22,10 +22,12 @@ export const syncAccounts = createAsyncThunk<
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts, isSyncAll }, { dispatch, getState }) =>
+  async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) =>
     new Promise<void>(resolve => {
+      const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
+
       if (!getState().network.active) {
-        accounts.forEach(account => {
+        unhiddenAccounts.forEach(account => {
           dispatch(
             updateAccountSyncMap({
               accountId: account.__id ?? '',
@@ -83,7 +85,7 @@ export const syncAccounts = createAsyncThunk<
         },
       };
 
-      accounts.forEach(account => {
+      unhiddenAccounts.forEach(account => {
         dispatch(
           updateAccountSyncMap({
             accountId: account.__id ?? '',
@@ -94,7 +96,7 @@ export const syncAccounts = createAsyncThunk<
 
       syncAccountsCore({
         db: getDB(),
-        accounts,
+        accounts: unhiddenAccounts,
       }).subscribe(observer);
     }),
 );

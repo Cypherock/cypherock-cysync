@@ -5,7 +5,7 @@ import {
 } from '@cypherock/coin-support-utils';
 import { ICoinUnit } from '@cypherock/coins';
 import type { CalculatePortfolioGraphDataParams } from '@cypherock/cysync-core-workers';
-import { useTheme, LineGraphProps, TriangleIcon } from '@cypherock/cysync-ui';
+import { LineGraphProps, TriangleIcon, useTheme } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
@@ -14,21 +14,21 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
-  useGraphTimeRange,
-  graphTimeRangeToDaysMap,
   GraphTimeRangeMap,
+  graphTimeRangeToDaysMap,
+  useGraphTimeRange,
   useStateToRef,
 } from '~/hooks';
 import {
-  useAppSelector,
-  selectLanguage,
-  selectAccounts,
   selectDiscreetMode,
-  selectWallets,
+  selectLanguage,
   selectPriceHistories,
-  selectTransactions,
-  useAppDispatch,
   selectPriceInfos,
+  selectTransactions,
+  selectUnHiddenAccounts,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
 } from '~/store';
 import logger from '~/utils/logger';
 
@@ -41,7 +41,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectPriceHistories,
     selectPriceInfos,
     selectTransactions,

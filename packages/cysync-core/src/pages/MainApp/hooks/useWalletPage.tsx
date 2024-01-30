@@ -1,26 +1,26 @@
 import {
-  getParsedAmount,
   convertToUnit,
-  getZeroUnit,
-  getDefaultUnit,
-  formatDisplayPrice,
   formatDisplayAmount,
+  formatDisplayPrice,
   getAsset,
+  getDefaultUnit,
+  getParsedAmount,
+  getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
-  Throbber,
+  AccountTableHeaderName,
+  ArrowRightBottom,
+  BreadcrumbDropdownItem,
   Check,
   Close,
-  AccountTableHeaderName,
-  BreadcrumbDropdownItem,
-  ArrowRightBottom,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap, IAccount, IPriceInfo } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
-import React, { ReactNode, useState, useMemo, useEffect } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import {
   openAddAccountDialog,
@@ -33,14 +33,14 @@ import { useNavigateTo, useQuery } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
-  selectLanguage,
-  selectWallets,
-  selectAccounts,
-  selectPriceInfos,
   selectAccountSync,
-  useAppSelector,
-  useAppDispatch,
   selectDiscreetMode,
+  selectLanguage,
+  selectPriceInfos,
+  selectUnHiddenAccounts,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
 } from '~/store';
 
 export interface AccountTokenType {
@@ -196,7 +196,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectPriceInfos,
     selectAccountSync,
     selectDiscreetMode,

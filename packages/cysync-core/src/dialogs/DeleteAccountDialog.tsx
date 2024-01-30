@@ -1,3 +1,4 @@
+import { hideAccount } from '@cypherock/coin-support-utils';
 import { deleteAccount } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
@@ -6,17 +7,17 @@ import {
   Tag,
   Typography,
 } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, { FC, useState } from 'react';
 
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
-  closeDialog,
-  useAppDispatch,
   CoinIcon,
+  closeDialog,
   selectLanguage,
+  useAppDispatch,
   useAppSelector,
 } from '..';
 
@@ -42,7 +43,12 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
     setIsLoading(true);
 
     try {
-      await deleteAccount(getDB(), account);
+      const db = getDB();
+      if (account.type === AccountTypeMap.subAccount) {
+        await hideAccount(db, account);
+      } else {
+        await deleteAccount(db, account);
+      }
       onClose();
     } catch (error) {
       logger.error('Error while deleting account');
@@ -57,6 +63,8 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
     accountTag: account.derivationScheme?.toUpperCase(),
     walletName: wallet?.name,
   };
+
+  const isSubAccount: boolean = account.type === AccountTypeMap.subAccount;
 
   return (
     <BlurOverlay>
@@ -84,7 +92,11 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
             </div>
           </Typography>
         }
-        subtext={strings.deleteAccount.subTitle}
+        subtext={
+          isSubAccount
+            ? strings.deleteAccount.tokenSubtitle
+            : strings.deleteAccount.subTitle
+        }
         textVariables={textVariables}
         footerComponent={
           <>
