@@ -93,35 +93,27 @@ export const ContactForm: React.FC = () => {
     deviceLogsLoadingText,
   } = useContactSupportDialog();
 
-  const {
-    deviceHandlingState: deviceState,
-    connection,
-    getDeviceHandlingState,
-  } = useDevice();
+  const { connection, getDeviceHandlingState } = useDevice();
   const { strings } = useAppSelector(selectLanguage);
   const theme = useTheme();
   const { buttons, dialogs } = strings;
   const { form } = dialogs.contactSupport;
   const containerRef = useRef<null | HTMLDivElement>(null);
   const deviceHandlingState = useMemo<DeviceHandlingState>(() => {
-    // potentially ContactForm is opened during onboarding; deviceState does not work
-    // in onboarding; perform checks on connections to verify
-    if (deviceState === DeviceHandlingState.NOT_CONNECTED) {
-      const newState = getDeviceHandlingState();
-      if (
-        [
-          DeviceHandlingState.NOT_ONBOARDED,
-          DeviceHandlingState.NOT_AUTHENTICATED,
-          DeviceHandlingState.USABLE,
-          DeviceHandlingState.BUSY,
-        ].includes(newState)
-      ) {
-        // during onboarding, convert all the functional states to USABLE
-        return DeviceHandlingState.USABLE;
-      }
+    const deviceState = getDeviceHandlingState();
+    if (
+      [
+        DeviceHandlingState.NOT_ONBOARDED,
+        DeviceHandlingState.NOT_AUTHENTICATED,
+        DeviceHandlingState.USABLE,
+        DeviceHandlingState.BUSY,
+      ].includes(deviceState)
+    ) {
+      // during onboarding, convert all the functional states to USABLE
+      return DeviceHandlingState.USABLE;
     }
     return deviceState;
-  }, [deviceState, connection]);
+  }, [connection]);
 
   useEffect(() => {
     // scroll to bottom to make the error visible
