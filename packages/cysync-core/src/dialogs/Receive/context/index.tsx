@@ -86,7 +86,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const [error, setError] = useState<any | undefined>();
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const {
     selectedWallet,
@@ -224,9 +224,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = connection
-      ? await connectDevice(connection.device)
-      : undefined;
+    const deviceConnection = connection?.connection;
 
     if (!deviceConnection) setIsStartedWithoutDevice(true);
 

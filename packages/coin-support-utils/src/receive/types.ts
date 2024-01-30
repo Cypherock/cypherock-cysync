@@ -7,7 +7,6 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Subscriber } from 'rxjs';
 
 export interface App {
-  destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
