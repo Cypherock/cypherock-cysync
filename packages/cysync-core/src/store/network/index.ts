@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import logger from '~/utils/logger';
 import { INetworkState } from './types';
 
 import { RootState } from '../store';
@@ -15,6 +16,7 @@ export const networkSlice = createSlice({
   initialState,
   reducers: {
     setNetworkState: (state, payload: PayloadAction<boolean>) => {
+      logger.info('Network State Updated', { isActive: payload.payload });
       state.active = payload.payload;
     },
   },

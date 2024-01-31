@@ -5,6 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '~/store';
 
+import logger from '~/utils/logger';
 import { DialogName, IDialogState } from './types';
 
 export * from './types';
@@ -92,15 +93,20 @@ export const dialogSlice = createSlice({
       state,
       payload: PayloadAction<{ name: DialogName; data: any }>,
     ) => {
+      logger.info('Open Dialog', payload.payload);
       state[payload.payload.name].isOpen = true;
       (state[payload.payload.name] as any).data = payload.payload.data;
     },
     closeDialog: (state, payload: PayloadAction<DialogName>) => {
+      logger.info('Close Dialog', { name: payload.payload });
       state[payload.payload].isOpen = false;
       state[payload.payload].data = undefined;
     },
     closeAllDialogs: state => {
+      logger.info('Close All Dialogs');
       Object.keys(state).forEach(key => {
+        if (state[key as DialogName].isOpen)
+          logger.verbose('Close Dialog', { name: key });
         state[key as DialogName].isOpen = false;
         state[key as DialogName].data = undefined;
       });

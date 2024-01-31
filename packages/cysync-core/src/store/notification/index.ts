@@ -4,6 +4,7 @@ import 'immer';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import logger from '~/utils/logger';
 import { INotificationState } from './types';
 
 import type { RootState } from '../store';
@@ -22,6 +23,7 @@ export const notificationSlice = createSlice({
   reducers: {
     toggleNotification: state => {
       state.isOpen = !state.isOpen;
+      logger.info('Toggle Notification', { isOpen: state.isOpen });
     },
     setTransactionNotifications: (
       state,
