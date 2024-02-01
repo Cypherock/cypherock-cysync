@@ -93,7 +93,7 @@ export const dialogSlice = createSlice({
       state,
       payload: PayloadAction<{ name: DialogName; data: any }>,
     ) => {
-      logger.info('Open Dialog', payload.payload);
+      logger.info('Open Dialog', { name: payload.payload.name });
       state[payload.payload.name].isOpen = true;
       (state[payload.payload.name] as any).data = payload.payload.data;
     },
