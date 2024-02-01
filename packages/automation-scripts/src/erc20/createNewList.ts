@@ -91,6 +91,55 @@ const getExistingCoinDetails = async () => {
   return map;
 };
 
+const sortByPlatform = (item: Erc20ListItem) => {
+  const platforms = Object.keys(item.platforms ?? {}).join('');
+  return `${item.id}${platforms}`;
+};
+
+const fixPropertyOrder = (list: Erc20ListItem[]) => {
+  const fixedPropertyOrder: Erc20ListItem[] = [];
+
+  for (const item of list) {
+    const sortedPlatformKeys = Object.keys(item.platforms ?? {}).sort();
+    const platforms: Record<
+      string,
+      { contract_address: string; decimal_place: number } | undefined
+    > = {};
+
+    for (const key of sortedPlatformKeys) {
+      const obj = (item.platforms ?? {})[key];
+      platforms[key] = obj
+        ? {
+            contract_address: obj.contract_address,
+            decimal_place: obj.decimal_place,
+          }
+        : undefined;
+    }
+
+    fixedPropertyOrder.push({
+      description: item.description ? { en: item.description.en } : undefined,
+      id: item.id,
+      image: item.image
+        ? {
+            large: item.image.large,
+            small: item.image.small,
+            thumb: item.image.thumb,
+          }
+        : undefined,
+      is_custom_coin: item.is_custom_coin,
+      is_zero_value_coin: item.is_zero_value_coin,
+      last_updated_at: item.last_updated_at,
+      market_cap: item.market_cap,
+      name: item.name,
+      platforms: item.platforms ? platforms : undefined,
+      symbol: item.symbol,
+      version: item.version,
+    });
+  }
+
+  return fixedPropertyOrder;
+};
+
 export const createNewErc20List = async () => {
   const list = await getERC20TokenDifference();
 
@@ -123,6 +172,16 @@ export const createNewErc20List = async () => {
       newCoinList.push({ ...coin, market_cap: 0 });
     } else if (!coinDetails) {
       console.warn(`No coin details found for ${coin.id}`);
+    } else if (coin.is_custom_coin) {
+      newCoinList.push({
+        ...coin,
+        market_cap: coinDetails.market_data?.market_cap?.usd ?? 0,
+        image: coinDetails.image,
+        description: {
+          en: coinDetails.description?.en?.replace(/[\u2028]/g, '\n'),
+        },
+        last_updated_at: coinDetails.last_updated,
+      });
     } else {
       newCoinList.push({
         ...coin,
@@ -149,10 +208,18 @@ export const createNewErc20List = async () => {
     }
   }
 
-  const sortedList = lodash.orderBy(newCoinList, ['market_cap'], ['desc']);
+  const sortedList = lodash.orderBy(
+    newCoinList,
+    ['market_cap', sortByPlatform],
+    ['desc'],
+  );
+
+  // re-generate list to fix order of properties to generate deterministic JSON object
+  // deterministic JSON object enables minimal diff when updating the list
+  const fixedPropOrderList = fixPropertyOrder(sortedList);
 
   await fs.promises.writeFile(
     path.join(config.DATA_FOLDER, 'erc20.json'),
-    JSON.stringify(sortedList, undefined, 2),
+    JSON.stringify(fixedPropOrderList, undefined, 2),
   );
 };
