@@ -23,6 +23,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
+import logger from '~/utils/logger';
 
 import {
   markAllTransactionNotificationRead,
@@ -128,6 +129,9 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   };
 
   const onShowMoreClick = () => {
+    logger.info('Button Click: Show More Notification', {
+      source: NotificationDisplay.name,
+    });
     onClose();
     navigate(routes.history.path);
   };

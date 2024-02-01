@@ -1,22 +1,23 @@
 import { coinList } from '@cypherock/coins';
 import {
-  LangDisplay,
+  Button,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  Image,
-  Container,
   DialogBoxFooter,
-  Button,
-  Dropdown,
-  addAccountIcon,
   DropDownItemProps,
+  Dropdown,
+  Image,
+  LangDisplay,
+  Typography,
+  addAccountIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import logger from '~/utils/logger';
 import { useAddAccountDialog } from '../context';
 
 const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
@@ -46,12 +47,12 @@ export const AddAccountSelectionDialog: React.FC = () => {
   const button = lang.strings.buttons;
 
   const handleCoinChange = (id: string | undefined) => {
-    if (!id) {
-      setSelectedCoin(undefined);
-      return;
-    }
-
-    setSelectedCoin(coinList[id]);
+    const targetCoin = id ? coinList[id] : undefined;
+    setSelectedCoin(targetCoin);
+    logger.info('Dropdown Change: Coin Change', {
+      source: AddAccountSelectionDialog.name,
+      coin: targetCoin?.name,
+    });
   };
 
   return (
