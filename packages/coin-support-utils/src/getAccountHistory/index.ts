@@ -85,13 +85,50 @@ async function getPriceHistory(
     )?.history;
   }
 
-  if (!history) {
-    throw new Error('Price history not found');
+  if (!history || history.length === 0) {
+    // We don't warn if history is present but with no value because
+    // it's not an error case. The price history will be empty for coins
+    // which are not supported by out coin API
+    if (!history) {
+      logger.warn('Price history not found', {
+        assetId: account.assetId,
+      });
+    }
+
+    const mockHistoryDetails: Record<
+      number,
+      { count: number; interval: number }
+    > = {
+      30: {
+        count: 720,
+        interval: 60 * 60 * 1000,
+      },
+      365: {
+        count: 365,
+        interval: 24 * 60 * 60 * 1000,
+      },
+    };
+
+    const startTime = Date.now();
+
+    history = new Array(mockHistoryDetails[daysToFetch ?? 30].count)
+      .fill(0)
+      .map((_, index) => ({
+        price: '0',
+        timestamp:
+          startTime - index * mockHistoryDetails[daysToFetch ?? 30].interval,
+      }))
+      .reverse();
   }
 
   if ([1, 7].includes(days)) {
     const firstTimestamp = history[history.length - 1].timestamp;
     const lastTimestampToStop = firstTimestamp - 24 * days * 60 * 60 * 1000;
+    console.log({
+      history,
+      firstTimestamp,
+      lastTimestampToStop,
+    });
     history = history.filter(
       h => h.timestamp < firstTimestamp && h.timestamp > lastTimestampToStop,
     );
@@ -181,6 +218,11 @@ export async function createGetAccountHistory(
     timestamp: e.timestamp,
   }));
 
+  console.log({
+    accountBalanceHistory,
+    priceHistory,
+  });
+
   for (
     let tIndex = transactions.length - 1, pIndex = priceHistory.length - 1;
     pIndex > 0;
@@ -243,7 +285,7 @@ export async function createGetAccountHistory(
     amount: account.balance,
     parentAssetId: account.parentAssetId,
     assetId: account.assetId,
-    price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
+    price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
   });
 
   const currentValue = calcValue({
