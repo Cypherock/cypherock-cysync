@@ -116,6 +116,7 @@ export class EncryptedDB {
     if (this.dbPath === ':memory:') return;
     try {
       await fs.promises.unlink(this.dbPath);
+      await fs.promises.unlink(this.backupDbPath);
     } catch (error: any) {
       if (error.code !== 'ENOENT') {
         throw error;
