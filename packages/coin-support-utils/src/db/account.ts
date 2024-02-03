@@ -30,6 +30,7 @@ export const getUniqueAccountQuery = (
   parentAccountId: account.parentAccountId,
   parentAssetId: account.parentAssetId,
   type: account.type,
+  derivationPath: account.derivationPath,
 });
 
 export const updateAccount = async (
