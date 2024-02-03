@@ -88,10 +88,12 @@ async function getPriceHistory(
   if (!history || history.length === 0) {
     // We don't warn if history is present but with no value because
     // it's not an error case. The price history will be empty for coins
-    // which are not supported by out coin API
+    // which are not supported by our coin API
     if (!history) {
       logger.warn('Price history not found', {
         assetId: account.assetId,
+        days,
+        currency,
       });
     }
 
@@ -124,11 +126,6 @@ async function getPriceHistory(
   if ([1, 7].includes(days)) {
     const firstTimestamp = history[history.length - 1].timestamp;
     const lastTimestampToStop = firstTimestamp - 24 * days * 60 * 60 * 1000;
-    console.log({
-      history,
-      firstTimestamp,
-      lastTimestampToStop,
-    });
     history = history.filter(
       h => h.timestamp < firstTimestamp && h.timestamp > lastTimestampToStop,
     );
@@ -217,11 +214,6 @@ export async function createGetAccountHistory(
     value: '0',
     timestamp: e.timestamp,
   }));
-
-  console.log({
-    accountBalanceHistory,
-    priceHistory,
-  });
 
   for (
     let tIndex = transactions.length - 1, pIndex = priceHistory.length - 1;
