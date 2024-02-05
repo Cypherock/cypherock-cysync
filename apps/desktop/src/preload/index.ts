@@ -8,6 +8,7 @@ import {
 } from './utils';
 
 import { ipcConfig } from '../main/ipc/helpers/config';
+import featureFlags from '../featureFlags';
 
 const exportedFunctions = [
   {
@@ -201,3 +202,4 @@ for (const env of ipcConfig.env) {
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI);
 contextBridge.exposeInMainWorld('cysyncEnv', cysyncEnv);
+contextBridge.exposeInMainWorld('cysyncFeatureFlags', featureFlags);
