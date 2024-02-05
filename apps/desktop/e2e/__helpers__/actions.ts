@@ -36,10 +36,6 @@ export const toFirstScreen = async (screen: Page) => {
   }
 };
 
-export const clearKeyDb = async () => {
-  removeCysyncDatabase('KeyDb');
-};
-
 export const clearDb = async () => {
-  removeCysyncDatabase('Db');
+  removeCysyncDatabase();
 };
