@@ -156,6 +156,8 @@ export class EncryptedDB {
   private async saveDB() {
     if (this.dbPath === ':memory:') return;
 
+    if (!this.isLoadedFromFile) return;
+
     const runId = uuid.v4();
 
     try {

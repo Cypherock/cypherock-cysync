@@ -1,18 +1,12 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
 
-import {
-  clearDb,
-  clearKeyDb,
-  prepElectronApp,
-  toFirstScreen,
-} from '../__helpers__';
+import { clearDb, prepElectronApp, toFirstScreen } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 
 let screen: Page;
 
 test.beforeEach(async () => {
-  await clearKeyDb();
   await clearDb();
   electronApp = await prepElectronApp();
   const splash = await electronApp.firstWindow();
