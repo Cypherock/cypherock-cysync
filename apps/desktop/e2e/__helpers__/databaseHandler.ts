@@ -15,18 +15,9 @@ const getCysyncUserDataPath = () => {
   return path.join(os.homedir(), ...osPath, PRODUCT_NAME);
 };
 
-type WhichDatabase = 'Db' | 'KeyDb';
-const dbFolderMap: Record<WhichDatabase, string> = {
-  Db: 'data.db',
-  KeyDb: 'storage.db',
-};
-export const removeCysyncDatabase = async (whichDatabase?: WhichDatabase) => {
+export const removeCysyncDatabase = async () => {
   const basePath = getCysyncUserDataPath();
   if (!basePath) return;
-  const databasePath = path.join(
-    getCysyncUserDataPath(),
-    'cysync-data',
-    dbFolderMap[whichDatabase ?? ''],
-  );
+  const databasePath = path.join(getCysyncUserDataPath(), 'cysync-data');
   await fs.rm(databasePath, { recursive: true, force: true });
 };
