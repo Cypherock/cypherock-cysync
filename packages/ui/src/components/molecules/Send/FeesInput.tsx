@@ -7,7 +7,7 @@ import { Input, Typography } from '../../atoms';
 
 interface FeesInputProps {
   value: string;
-  onChange?: (val: number) => void;
+  onChange?: (val: string) => void;
   postfixText?: string;
   valueType?: 'float' | 'integer';
 }
@@ -47,7 +47,7 @@ export const FeesInput: React.FC<FeesInputProps> = ({
     (newValue: BigNumber) => {
       if (!onChange) return;
       if (newValue.isEqualTo(parseNumber(value))) return;
-      onChange(newValue.toNumber());
+      onChange(newValue.toString());
     },
     [valueInternal, value, parseNumber, onChange],
   );

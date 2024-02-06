@@ -14,11 +14,11 @@ import { useSendDialog } from '~/dialogs/Send/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export interface EthereumInputProps {
-  initialGasPrice: number;
-  inputGasPrice: number;
+  initialGasPrice: string;
+  inputGasPrice: string;
   isTextInput: boolean;
   unit: string;
-  onChange: (param: { gasLimit?: number; gasPrice?: number }) => void;
+  onChange: (param: { gasLimit?: string; gasPrice?: string }) => void;
 }
 
 export const EthereumInput: React.FC<EthereumInputProps> = ({
@@ -35,13 +35,13 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
   const transaction = useSendDialog().transaction as IPreparedEvmTransaction;
   const { getDefaultGasLimit } = useSendDialog();
 
-  const handlePriceChange = (val: number) => {
+  const handlePriceChange = (val: string) => {
     setGasPrice(val);
     // on change gas price, prepare EVM fee
     onChange({ gasPrice: val });
   };
 
-  const handleLimitChange = (val: number) => {
+  const handleLimitChange = (val: string) => {
     // on change gas limit, prepare EVM fee
     onChange({ gasLimit: val });
   };
@@ -51,7 +51,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
     transaction.userInputs.gasPrice = initialGasPrice.toString();
     transaction.userInputs.gasLimit = getDefaultGasLimit();
     onChange({
-      gasLimit: Number(transaction.userInputs.gasLimit),
+      gasLimit: transaction.userInputs.gasLimit,
       gasPrice: initialGasPrice,
     });
   }, [isTextInput, transaction.computedData.gasLimitEstimate]);
@@ -95,7 +95,7 @@ export const EthereumInput: React.FC<EthereumInputProps> = ({
               </Flex>
             </Flex>
             <FeesInput
-              value={gasPrice.toString()}
+              value={gasPrice}
               postfixText={unit}
               onChange={handlePriceChange}
             />

@@ -10,10 +10,10 @@ import React, { useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export interface BitcoinInputProps {
-  initialValue: number;
+  initialValue: string;
   isTextInput: boolean;
   unit: string;
-  onChange: (newValue: number) => void;
+  onChange: (newValue: string) => void;
 }
 
 export const BitcoinInput: React.FC<BitcoinInputProps> = ({
@@ -26,7 +26,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
   const captions = lang.strings.send.fees.sliderLabels;
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = (val: number) => {
+  const handleChange = (val: string) => {
     setValue(val);
     onChange(val);
   };
@@ -35,7 +35,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
     <>
       {isTextInput && (
         <FeesInput
-          value={value.toString()}
+          value={value}
           postfixText={unit}
           onChange={handleChange}
           valueType="integer"

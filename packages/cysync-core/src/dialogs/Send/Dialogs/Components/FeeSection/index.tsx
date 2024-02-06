@@ -62,8 +62,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     return {
       isTextInput,
       unit: feesUnit,
-      initialValue: txn.staticData.averageFee,
-      onChange: debouncedPrepareFeeChanged,
+      initialValue: txn.staticData.averageFee.toString(10),
+      onChange: debouncedBtcPrepareFeeChanged,
     };
   };
 
@@ -124,27 +124,28 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     );
   };
 
-  const prepareFeeChanged = async (value: number) => {
+  const btcPrepareFee = async (value: string) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedBtcTransaction;
-    setIsFeeLow(value < (2 / 3) * txn.staticData.averageFee);
-    txn.userInputs.feeRate = value;
+    const valueBN = new BigNumber(value);
+    setIsFeeLow(valueBN.isLessThan((2 / 3) * txn.staticData.averageFee));
+    txn.userInputs.feeRate = Number(value);
     await prepare(txn);
     setIsFeeLoading(false);
   };
 
-  const debouncedPrepareFeeChanged = useCallback(
-    lodash.debounce(prepareFeeChanged, 300),
+  const debouncedBtcPrepareFeeChanged = useCallback(
+    lodash.debounce(btcPrepareFee, 300),
     [],
   );
 
   const evmPrepareFee = async (param: {
-    gasLimit?: number;
-    gasPrice?: number;
+    gasLimit?: string;
+    gasPrice?: string;
   }) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedEvmTransaction;
-    const gasPrice = param.gasPrice?.toString(10)
+    const gasPrice = param.gasPrice
       ? convertToUnit({
           amount: param.gasPrice,
           coinId: selectedAccount?.parentAssetId ?? '',
@@ -152,17 +153,21 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
           toUnitAbbr: getZeroUnit(selectedAccount?.parentAssetId ?? '').abbr,
         }).amount
       : txn.userInputs.gasPrice;
-    const gasLimit = param.gasLimit ?? Number(txn.computedData.gasLimit);
+    const gasLimit = param.gasLimit ?? txn.computedData.gasLimit;
 
     // the gas price check for 2/3 of the average is same as bitcoin
+    const gasPriceBN = gasPrice ? new BigNumber(gasPrice) : undefined;
+    const gasLimitBN = new BigNumber(gasLimit);
+    const averageGasPriceBN = new BigNumber(txn.staticData.averageGasPrice);
+    const gasLimitEstimateBN = new BigNumber(txn.computedData.gasLimitEstimate);
     setIsFeeLow(
-      Number(gasPrice) < (2 / 3) * Number(txn.staticData.averageGasPrice) ||
-        gasLimit < Number(txn.computedData.gasLimitEstimate),
+      gasPriceBN?.isLessThan(averageGasPriceBN.multipliedBy(2).dividedBy(3)) ??
+        gasLimitBN.isLessThan(gasLimitEstimateBN),
     );
 
     if (param.gasLimit !== undefined) {
       // user modified gas limit
-      txn.userInputs.gasLimit = gasLimit.toString(10);
+      txn.userInputs.gasLimit = gasLimit;
     }
     if (param.gasPrice !== undefined) {
       // user modified gas price
