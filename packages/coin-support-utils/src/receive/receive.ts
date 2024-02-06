@@ -25,8 +25,10 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -65,6 +67,7 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
           } as any);
         }
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {
