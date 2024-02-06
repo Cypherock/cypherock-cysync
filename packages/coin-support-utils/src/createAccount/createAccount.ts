@@ -64,8 +64,10 @@ export function makeCreateAccountsObservable<
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -145,6 +147,7 @@ export function makeCreateAccountsObservable<
           }
         }
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {
