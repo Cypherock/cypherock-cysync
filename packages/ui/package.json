@@ -83,7 +83,8 @@
     "react-tsparticles": "^2.10.1",
     "react-virtualized": "^9.22.5",
     "styled-components": "6.0.0-rc.1",
-    "tsparticles": "^2.10.1"
+    "tsparticles": "^2.10.1",
+    "@cypherock/cysync-utils": "workspace:^"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

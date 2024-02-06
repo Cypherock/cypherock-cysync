@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { BigNumber } from '@cypherock/cysync-utils';
 import { CustomInputSend } from './RecipientAddress';
 
 import { Input, Typography } from '../../atoms';
@@ -21,26 +22,32 @@ export const FeesInput: React.FC<FeesInputProps> = ({
 }) => {
   const [valueInternal, setValueInternal] = useState<string>(value);
 
-  const parseNumber = useCallback(
-    (val: string) => {
-      if (val === '') return 0;
-      return valueType === 'float' ? parseFloat(val) : parseInt(val, 10);
+  const parseNumber: (val: string) => BigNumber = useCallback(
+    (val: string): BigNumber => {
+      if (val === '') return new BigNumber(0);
+      const parsedResult =
+        valueType === 'float'
+          ? new BigNumber(val).toFixed()
+          : new BigNumber(val).toFixed(0);
+      return new BigNumber(parsedResult);
     },
     [valueType],
   );
 
   const updateInternalValue = useCallback(() => {
-    if (parseNumber(valueInternal) === parseNumber(value)) return;
-    setValueInternal(value);
+    const bigNumValueInternal = parseNumber(valueInternal);
+    const bigNumValueExternal = parseNumber(value);
+    if (bigNumValueInternal.isEqualTo(bigNumValueExternal)) return;
+    setValueInternal(bigNumValueExternal.toFixed());
   }, [valueInternal, value, parseNumber]);
 
   useEffect(updateInternalValue, [value]);
 
   const onChangeProxy = useCallback(
-    (newValue: number) => {
+    (newValue: BigNumber) => {
       if (!onChange) return;
-      if (newValue === parseNumber(value)) return;
-      onChange(newValue);
+      if (newValue.isEqualTo(parseNumber(value))) return;
+      onChange(newValue.toNumber());
     },
     [valueInternal, value, parseNumber, onChange],
   );
@@ -49,7 +56,7 @@ export const FeesInput: React.FC<FeesInputProps> = ({
     (val: string) => {
       if (val === '') {
         setValueInternal(val);
-        onChangeProxy(0);
+        onChangeProxy(new BigNumber(0));
         return;
       }
 
@@ -58,12 +65,11 @@ export const FeesInput: React.FC<FeesInputProps> = ({
       if (!isValidInput) return;
       if (valueType === 'integer' && val.includes('.')) return;
 
-      const numberValue = parseNumber(val);
-
-      if (Number.isNaN(numberValue)) return;
+      const bigNumVal = parseNumber(val);
+      if (bigNumVal.isNaN()) return;
 
       setValueInternal(val);
-      onChangeProxy(numberValue);
+      onChangeProxy(bigNumVal);
     },
     [valueType, onChangeProxy, parseNumber],
   );

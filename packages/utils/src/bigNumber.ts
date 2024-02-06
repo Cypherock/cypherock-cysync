@@ -121,6 +121,10 @@ export class BigNumber {
     return this.num.comparedTo(new BigNumberJS(BigNumber.getNumberLike(n)));
   }
 
+  isEqualTo(n: NumberLike) {
+    return this.num.isEqualTo(BigNumber.getNumberLike(n));
+  }
+
   private static getNumberLike(n: NumberLike) {
     if (n instanceof BigNumber) {
       return n.getRawNumber();
