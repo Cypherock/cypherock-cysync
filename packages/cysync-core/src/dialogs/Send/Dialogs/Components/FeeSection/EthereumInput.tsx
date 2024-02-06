@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { useSendDialog } from '~/dialogs/Send/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
-interface EthereumInputProps {
+export interface EthereumInputProps {
   initialGasPrice: number;
   inputGasPrice: number;
   isTextInput: boolean;

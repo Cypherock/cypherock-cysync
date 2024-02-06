@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-interface BitcoinInputProps {
+export interface BitcoinInputProps {
   initialValue: number;
   isTextInput: boolean;
   unit: string;

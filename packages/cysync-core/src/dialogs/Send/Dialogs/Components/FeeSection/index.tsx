@@ -17,8 +17,8 @@ import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
-import { BitcoinInput } from './BitcoinInput';
-import { EthereumInput } from './EthereumInput';
+import { BitcoinInput, BitcoinInputProps } from './BitcoinInput';
+import { EthereumInput, EthereumInputProps } from './EthereumInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
@@ -56,7 +56,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const [isFeeLoading, setIsFeeLoading] = useState(false);
 
   const getLabelSuffix = useLabelSuffix();
-  const getBitcoinProps = () => {
+  const getBitcoinProps = (): BitcoinInputProps => {
     const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
     const txn = transaction as IPreparedBtcTransaction;
     return {
@@ -67,7 +67,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     };
   };
 
-  const getEthereumProps = () => {
+  const getEthereumProps = (): Partial<EthereumInputProps> => {
     if (!selectedAccount) return {};
     const { feesUnit } = coinList[selectedAccount.parentAssetId];
     const txn = transaction as IPreparedEvmTransaction;
