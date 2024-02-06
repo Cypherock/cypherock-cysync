@@ -55,6 +55,12 @@ export const AccountPage: FC = () => {
       return null;
     }
 
+    const doAllowAccountDeletion = () => {
+      if (window.cysyncFeatureFlags.ADD_TOKEN) return true;
+
+      return !selectedAccount.parentAccount;
+    };
+
     return (
       <Container $noFlex m="20">
         <Flex justify="space-between" my={2}>
@@ -109,20 +115,23 @@ export const AccountPage: FC = () => {
                   <WalletConnectWithBgIcon />
                 </Button>
               )}
-              <Button
-                variant="icon"
-                onClick={() => {
-                  if (selectedAccount)
-                    dispatch(
-                      openDeleteAccountDialog({
-                        account: selectedAccount,
-                        wallet: selectedAccount.wallet,
-                      }),
-                    );
-                }}
-              >
-                <DeleteIconWithBg />
-              </Button>
+
+              {doAllowAccountDeletion() && (
+                <Button
+                  variant="icon"
+                  onClick={() => {
+                    if (selectedAccount)
+                      dispatch(
+                        openDeleteAccountDialog({
+                          account: selectedAccount,
+                          wallet: selectedAccount.wallet,
+                        }),
+                      );
+                  }}
+                >
+                  <DeleteIconWithBg />
+                </Button>
+              )}
             </Container>
           </Flex>
         </Flex>
