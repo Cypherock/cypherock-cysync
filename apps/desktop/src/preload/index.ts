@@ -7,8 +7,8 @@ import {
   createProxyListener,
 } from './utils';
 
-import { ipcConfig } from '../main/ipc/helpers/config';
 import featureFlags from '../featureFlags';
+import { ipcConfig } from '../main/ipc/helpers/config';
 
 const exportedFunctions = [
   {
