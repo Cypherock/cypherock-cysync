@@ -10,6 +10,7 @@ interface FeesInputProps {
   onChange?: (val: string) => void;
   postfixText?: string;
   valueType?: 'float' | 'integer';
+  isBigNumber?: boolean;
 }
 
 const validFeesRegex = /^\d*\.?\d*$/;
@@ -19,6 +20,7 @@ export const FeesInput: React.FC<FeesInputProps> = ({
   postfixText,
   onChange,
   valueType = 'float',
+  isBigNumber = false,
 }) => {
   const [valueInternal, setValueInternal] = useState<string>(value);
 
@@ -67,6 +69,8 @@ export const FeesInput: React.FC<FeesInputProps> = ({
 
       const bigNumVal = parseNumber(val);
       if (bigNumVal.isNaN()) return;
+      if (!isBigNumber && bigNumVal.isGreaterThan(Number.MAX_SAFE_INTEGER))
+        return;
 
       // avoid insignificant zero from start
       let finalInputValue = val;
@@ -117,4 +121,5 @@ FeesInput.defaultProps = {
   postfixText: '',
   valueType: 'float',
   onChange: undefined,
+  isBigNumber: false,
 };

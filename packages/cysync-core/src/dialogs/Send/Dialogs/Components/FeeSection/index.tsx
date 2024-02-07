@@ -62,7 +62,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     return {
       isTextInput,
       unit: feesUnit,
-      initialValue: txn.staticData.averageFee.toString(10),
+      initialValue: txn.staticData.averageFee,
       onChange: debouncedBtcPrepareFeeChanged,
     };
   };
@@ -128,8 +128,9 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedBtcTransaction;
     const valueBN = new BigNumber(value);
-    setIsFeeLow(valueBN.isLessThan((2 / 3) * txn.staticData.averageFee));
-    txn.userInputs.feeRate = Number(value);
+    const averageFeeBN = new BigNumber(txn.staticData.averageFee);
+    setIsFeeLow(valueBN.isLessThan(averageFeeBN.multipliedBy(2).dividedBy(3)));
+    txn.userInputs.feeRate = value;
     await prepare(txn);
     setIsFeeLoading(false);
   };

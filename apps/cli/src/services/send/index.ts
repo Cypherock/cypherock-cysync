@@ -110,7 +110,7 @@ const getTxnInputs = async (params: {
       throw new Error('Invalid fees');
     }
 
-    txn.userInputs.feeRate = feeRate;
+    txn.userInputs.feeRate = feeRate.toString(10);
   }
 
   if (coin.family === coinFamiliesMap.evm) {

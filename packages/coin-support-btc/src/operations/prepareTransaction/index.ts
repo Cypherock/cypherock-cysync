@@ -75,7 +75,7 @@ export const prepareTransaction = async (
     result = coinselectSplit(
       txn.staticData.utxos.map(mapUtxo),
       outputList,
-      txn.userInputs.feeRate,
+      Number(txn.userInputs.feeRate),
       3,
     );
     isNotOverDustThreshold = Boolean(result.isNotOverDustThreshold);
@@ -107,7 +107,7 @@ export const prepareTransaction = async (
     result = coinselect(
       txn.staticData.utxos.map(mapUtxo),
       outputList,
-      txn.userInputs.feeRate,
+      Number(txn.userInputs.feeRate),
     );
   }
 
@@ -135,7 +135,7 @@ export const prepareTransaction = async (
     },
     computedData: {
       inputs: result.inputs ?? [],
-      fee: result.fee,
+      fee: result.fee.toString(10),
       outputs: (result.outputs ?? []).map((e: any) => {
         if (e.address === undefined) {
           return {

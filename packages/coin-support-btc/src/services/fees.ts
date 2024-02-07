@@ -6,7 +6,7 @@ import { config } from '../config';
 
 const baseURL = `${config.API_CYPHEROCK}/transaction`;
 
-export const getAverageFee = async (coin: IBtcCoinInfo): Promise<number> => {
+export const getAverageFee = async (coin: IBtcCoinInfo): Promise<string> => {
   const url = `${baseURL}/fees`;
   const response = await axios.post(url, {
     coinType: coin.apiCoinType,
@@ -17,5 +17,5 @@ export const getAverageFee = async (coin: IBtcCoinInfo): Promise<number> => {
     new Error('Server: Invalid fees result from server'),
   );
 
-  return Math.round(response.data.medium_fee_per_kb / 1024);
+  return Math.round(response.data.medium_fee_per_kb / 1024).toString(10);
 };
