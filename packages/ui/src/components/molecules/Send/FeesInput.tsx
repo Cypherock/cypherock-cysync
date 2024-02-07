@@ -68,7 +68,19 @@ export const FeesInput: React.FC<FeesInputProps> = ({
       const bigNumVal = parseNumber(val);
       if (bigNumVal.isNaN()) return;
 
-      setValueInternal(val);
+      // avoid insignificant zero from start
+      let finalInputValue = val;
+      while (
+        finalInputValue.startsWith('00') ||
+        (finalInputValue.startsWith('0') && valueType === 'integer') ||
+        (finalInputValue.startsWith('0') &&
+          finalInputValue.includes('.') &&
+          !finalInputValue.startsWith('0.'))
+      ) {
+        finalInputValue = finalInputValue.slice(1);
+      }
+
+      setValueInternal(finalInputValue);
       onChangeProxy(bigNumVal);
     },
     [valueType, onChangeProxy, parseNumber],
