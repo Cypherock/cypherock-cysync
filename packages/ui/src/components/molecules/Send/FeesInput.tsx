@@ -67,13 +67,19 @@ export const FeesInput: React.FC<FeesInputProps> = ({
       if (!isValidInput) return;
       if (valueType === 'integer' && val.includes('.')) return;
 
-      const bigNumVal = parseNumber(val);
+      let finalInputValue = val;
+
+      // prepend zero if value starts with decimal
+      if (finalInputValue.startsWith('.')) {
+        finalInputValue = `0${finalInputValue}`;
+      }
+
+      const bigNumVal = parseNumber(finalInputValue);
       if (bigNumVal.isNaN()) return;
       if (!isBigNumber && bigNumVal.isGreaterThan(Number.MAX_SAFE_INTEGER))
         return;
 
       // avoid insignificant zero from start
-      let finalInputValue = val;
       while (
         finalInputValue.startsWith('00') ||
         (finalInputValue.startsWith('0') && valueType === 'integer') ||
