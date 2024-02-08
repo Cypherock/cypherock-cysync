@@ -4,6 +4,7 @@ const validNumberRegex = /^\d*\.?\d*$/;
 
 export type ProcessNonNegativeNumericInputParams = {
   input: string;
+  isPasted?: boolean;
   isInteger?: boolean;
   isBigNumber?: boolean;
   maximum?: string;
@@ -26,6 +27,7 @@ export type ProcessNonNegativeNumericInputFunction = (
 export const processNonNegativeNumericInput: ProcessNonNegativeNumericInputFunction =
   ({
     input,
+    isPasted = false,
     isInteger = false,
     isBigNumber = false,
     maximum = isBigNumber ? undefined : Number.MAX_SAFE_INTEGER.toString(10),
@@ -56,6 +58,15 @@ export const processNonNegativeNumericInput: ProcessNonNegativeNumericInputFunct
     if (numericValueBN.isNaN()) return { isValid: false };
     if (maximum && numericValueBN.isGreaterThan(maximum))
       return { isValid: false };
+
+    if (isPasted) {
+      const value = numericValueBN.toString();
+      return {
+        isValid: true,
+        inputValue: value,
+        numericValue: value,
+      };
+    }
 
     // avoid insignificant zero from start
     while (

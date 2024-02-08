@@ -92,14 +92,22 @@ export const AmountInput: React.FC<AmountInputProps> = ({
     if (!skipCall) debouncedOnValueChange(amount);
   };
 
-  const handleCoinAmountChange = (input: string) => {
-    const result = processNonNegativeNumericInput({ input, isBigNumber: true });
+  const handleCoinAmountChange = (input: string, isPasted: boolean) => {
+    const result = processNonNegativeNumericInput({
+      input,
+      isBigNumber: true,
+      isPasted,
+    });
     if (!result.isValid) return;
     updateValues(result.inputValue, converter(result.inputValue));
   };
 
-  const handleCoinValueChange = (input: string) => {
-    const result = processNonNegativeNumericInput({ input, isBigNumber: true });
+  const handleCoinValueChange = (input: string, isPasted: boolean) => {
+    const result = processNonNegativeNumericInput({
+      input,
+      isBigNumber: true,
+      isPasted,
+    });
     if (!result.isValid) return;
     updateValues(converter(result.inputValue, true), result.inputValue);
   };
@@ -125,7 +133,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             type="text"
             name="address"
             placeholder={placeholder}
-            onChange={handleCoinAmountChange}
+            onChange={val => handleCoinAmountChange(val, false)}
+            onPaste={val => handleCoinAmountChange(val, true)}
             value={coinAmount}
             disabled={isToggled || isDisabled}
             $textColor="white"
@@ -145,7 +154,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             type="text"
             name="address"
             placeholder={placeholder}
-            onChange={handleCoinValueChange}
+            onChange={val => handleCoinValueChange(val, false)}
+            onPaste={val => handleCoinValueChange(val, true)}
             value={coinValue}
             disabled={isToggled || isDisabled}
             $textColor="white"

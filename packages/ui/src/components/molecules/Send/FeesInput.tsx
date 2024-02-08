@@ -56,9 +56,10 @@ export const FeesInput: React.FC<FeesInputProps> = ({
   );
 
   const handleOnChange = useCallback(
-    (input: string) => {
+    (input: string, isPasted: boolean) => {
       const result = processNonNegativeNumericInput({
         input,
+        isPasted,
         isBigNumber,
         isInteger: valueType === 'integer',
       });
@@ -79,7 +80,8 @@ export const FeesInput: React.FC<FeesInputProps> = ({
         value={valueInternal}
         placeholder="0"
         $textColor="white"
-        onChange={handleOnChange}
+        onChange={val => handleOnChange(val, false)}
+        onPaste={val => handleOnChange(val, true)}
         $noBorder
       />
 
