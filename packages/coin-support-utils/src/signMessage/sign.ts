@@ -48,8 +48,10 @@ export function makeSignMessageObservable<
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -73,6 +75,7 @@ export function makeSignMessageObservable<
 
         observer.next(event as any);
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {

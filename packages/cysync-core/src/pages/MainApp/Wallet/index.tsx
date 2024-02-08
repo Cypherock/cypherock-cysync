@@ -97,7 +97,7 @@ export const Wallet: FC = () => {
               {lang.strings.buttons.addAccount}
             </Button>
           )}
-          {hasAccounts && (
+          {hasAccounts && window.cysyncFeatureFlags.ADD_TOKEN && (
             <Button variant="primary" onClick={handleAddTokenClick}>
               {lang.strings.buttons.addToken}
             </Button>

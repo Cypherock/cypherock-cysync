@@ -164,7 +164,9 @@ export const prepareTransaction = async (
     hasEnoughBalance =
       new BigNumber(parentAccount?.balance ?? '0').isGreaterThanOrEqualTo(
         fee,
-      ) && new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
+      ) &&
+      (sendAmount.isNaN() ||
+        new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount));
   } else {
     ({ gasLimit, fee, gasEstimate, l1Fee, gasPrice } = await estimateFees({
       coin,
@@ -185,9 +187,11 @@ export const prepareTransaction = async (
       // update userInput so that the max amount is editable & not reset to 0
       txn.userInputs.outputs[0].amount = output.amount;
     }
-    hasEnoughBalance = new BigNumber(account.balance).isGreaterThanOrEqualTo(
-      sendAmount.plus(fee),
-    );
+    hasEnoughBalance =
+      sendAmount.isNaN() ||
+      new BigNumber(account.balance).isGreaterThanOrEqualTo(
+        sendAmount.plus(fee),
+      );
   }
 
   txn.userInputs.gasLimit = gasLimit;

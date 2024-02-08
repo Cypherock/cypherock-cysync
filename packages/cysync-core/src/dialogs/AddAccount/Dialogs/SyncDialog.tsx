@@ -92,9 +92,7 @@ const createAccountDisplayList = (params: {
         b => a.derivationPath === b.derivationPath,
       ),
       bottomText: `${amount} ${unit.abbr}`,
-      onCheckChanged: checkboxHandler
-        ? () => checkboxHandler(a.derivationPath)
-        : undefined,
+      onCheckChanged: () => checkboxHandler(a.derivationPath),
     };
   });
 };
