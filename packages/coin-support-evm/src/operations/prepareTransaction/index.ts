@@ -47,7 +47,7 @@ const generateDataField = (params: {
   contractAddress: string;
   senderAddress: string;
   receiverAddress: string;
-  amount: string;
+  amount: BigNumber;
 }) => {
   try {
     const Web3 = getCoinSupportWeb3Lib();
@@ -60,9 +60,8 @@ const generateDataField = (params: {
       },
     );
     let amount = '0';
-    const parsedAmountParam = new BigNumber(params.amount);
-    if (!parsedAmountParam.isNaN()) {
-      amount = parsedAmountParam.toString();
+    if (!params.amount.isNaN()) {
+      amount = params.amount.toFixed(0);
     }
 
     return (erc20Contract.methods.transfer as any)(
@@ -150,7 +149,7 @@ export const prepareTransaction = async (
       contractAddress: tokenDetails.address,
       senderAddress: account.xpubOrAddress,
       receiverAddress: txn.userInputs.outputs[0].address,
-      amount: new BigNumber(txn.userInputs.outputs[0].amount).toFixed(0),
+      amount: new BigNumber(txn.userInputs.outputs[0].amount),
     });
 
     ({ gasLimit, fee, gasEstimate, l1Fee, gasPrice } = await estimateFees({
