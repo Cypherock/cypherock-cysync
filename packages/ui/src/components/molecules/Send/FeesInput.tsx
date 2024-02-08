@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { BigNumber } from '@cypherock/cysync-utils';
+import {
+  BigNumber,
+  processNonNegativeNumericInput,
+} from '@cypherock/cysync-utils';
 import { CustomInputSend } from './RecipientAddress';
 
 import { Input, Typography } from '../../atoms';
@@ -12,8 +15,6 @@ interface FeesInputProps {
   valueType?: 'float' | 'integer';
   isBigNumber?: boolean;
 }
-
-const validFeesRegex = /^\d*\.?\d*$/;
 
 export const FeesInput: React.FC<FeesInputProps> = ({
   value,
@@ -40,60 +41,34 @@ export const FeesInput: React.FC<FeesInputProps> = ({
     const bigNumValueInternal = parseNumber(valueInternal);
     const bigNumValueExternal = parseNumber(value);
     if (bigNumValueInternal.isEqualTo(bigNumValueExternal)) return;
-    setValueInternal(bigNumValueExternal.toFixed());
+    setValueInternal(bigNumValueExternal.toString());
   }, [valueInternal, value, parseNumber]);
 
   useEffect(updateInternalValue, [value]);
 
   const onChangeProxy = useCallback(
-    (newValue: BigNumber) => {
+    (newValue: string) => {
       if (!onChange) return;
-      if (newValue.isEqualTo(parseNumber(value))) return;
+      if (parseNumber(value).isEqualTo(newValue)) return;
       onChange(newValue.toString());
     },
-    [valueInternal, value, parseNumber, onChange],
+    [value, parseNumber, onChange],
   );
 
   const handleOnChange = useCallback(
-    (val: string) => {
-      if (val === '') {
-        setValueInternal(val);
-        onChangeProxy(new BigNumber(0));
-        return;
-      }
+    (input: string) => {
+      const result = processNonNegativeNumericInput({
+        input,
+        isBigNumber,
+        isInteger: valueType === 'integer',
+      });
 
-      const isValidInput = validFeesRegex.test(val);
+      if (!result.isValid) return;
 
-      if (!isValidInput) return;
-      if (valueType === 'integer' && val.includes('.')) return;
-
-      let finalInputValue = val;
-
-      // prepend zero if value starts with decimal
-      if (finalInputValue.startsWith('.')) {
-        finalInputValue = `0${finalInputValue}`;
-      }
-
-      const bigNumVal = parseNumber(finalInputValue);
-      if (bigNumVal.isNaN()) return;
-      if (!isBigNumber && bigNumVal.isGreaterThan(Number.MAX_SAFE_INTEGER))
-        return;
-
-      // avoid insignificant zero from start
-      while (
-        finalInputValue.startsWith('00') ||
-        (finalInputValue.startsWith('0') && valueType === 'integer') ||
-        (finalInputValue.startsWith('0') &&
-          finalInputValue.includes('.') &&
-          !finalInputValue.startsWith('0.'))
-      ) {
-        finalInputValue = finalInputValue.slice(1);
-      }
-
-      setValueInternal(finalInputValue);
-      onChangeProxy(bigNumVal);
+      setValueInternal(result.inputValue);
+      onChangeProxy(result.numericValue);
     },
-    [valueType, onChangeProxy, parseNumber],
+    [valueType, onChangeProxy, isBigNumber],
   );
 
   return (
