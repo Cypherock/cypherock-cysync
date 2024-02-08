@@ -5,7 +5,7 @@ export interface IInitializeTransactionTestCases {
   txn: IPreparedBtcTransaction;
   mocks: {
     account: Partial<IBtcAccount>;
-    averageFee: number;
+    averageFee: string;
     utxos: IUtxo[];
   };
 }
@@ -42,7 +42,7 @@ export const valid: IInitializeTransactionTestCases[] = [
         parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
       },
-      averageFee: 150,
+      averageFee: '150',
       utxos: [],
     },
   },
