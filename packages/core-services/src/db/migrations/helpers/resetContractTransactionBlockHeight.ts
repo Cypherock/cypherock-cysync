@@ -1,6 +1,7 @@
 import { IEvmAccount } from '@cypherock/coin-support-evm';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
+
 import logger from '../../../utils/logger';
 import { IMigrationItem } from '../types';
 
