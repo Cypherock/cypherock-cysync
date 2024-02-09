@@ -20,13 +20,13 @@ export const resetContractTransactionBlockHeight = async (
         };
         await db.account.update({ __id: account.__id }, dataToUpdate);
         logger.info('Contract Transaction Block Height: Reset Successful', {
-          account: account.name,
+          assetId: account.assetId,
           migration: migrationName,
         });
       }
     } catch (error) {
       logger.warn('Contract Transaction Block Height: Reset Failed', {
-        account: account.name,
+        assetId: account.assetId,
         migration: migrationName,
       });
       logger.warn(error);
