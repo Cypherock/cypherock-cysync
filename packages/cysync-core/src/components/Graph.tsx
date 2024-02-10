@@ -6,8 +6,8 @@ import { useGraph, UseGraphProps } from '~/hooks';
 
 export interface GraphProps extends UseGraphProps {
   color?: string;
-  handleWalletChange: (walletId?: string) => void;
-  walletDropdownList: DropDownItemProps[];
+  handleWalletChange?: (walletId?: string) => void;
+  walletDropdownList?: DropDownItemProps[];
 }
 
 export const Graph: React.FC<GraphProps> = ({
@@ -81,6 +81,8 @@ export const Graph: React.FC<GraphProps> = ({
 
 Graph.defaultProps = {
   color: undefined,
+  handleWalletChange: undefined,
+  walletDropdownList: undefined,
 };
 
 export default Graph;
