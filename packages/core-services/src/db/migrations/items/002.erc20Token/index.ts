@@ -1,6 +1,9 @@
 import { changedCoins } from './idChanges';
 
-import { migrateTokenDetailsChangeInDb } from '../../helpers';
+import {
+  migrateTokenDetailsChangeInDb,
+  resetContractTransactionBlockHeight,
+} from '../../helpers';
 import { IMigrationItem } from '../../types';
 
 /**
@@ -12,6 +15,7 @@ const migration: IMigrationItem = {
   name: 'ERC20 token account migration',
   up: async db => {
     await migrateTokenDetailsChangeInDb(db, changedCoins);
+    await resetContractTransactionBlockHeight(db, migration.name);
   },
   down: async () => {
     // Not required as of this migration
