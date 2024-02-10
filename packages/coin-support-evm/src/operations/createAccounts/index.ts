@@ -89,16 +89,24 @@ const createApp = async (connection: IDeviceConnection) =>
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateEvmAccountParams,
-) => ({
-  balance: await services.getBalance(address, params.coinId),
-  txnCount: (
-    await services.getTransactions({
-      address,
-      assetId: params.coinId,
-      limit: 1,
-    })
-  ).result.length,
-});
+) => {
+  const transactions = await services.getTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  const contractTransactions = await services.getContractTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  return {
+    balance: await services.getBalance(address, params.coinId),
+    txnCount: transactions.result.length + contractTransactions.result.length,
+  };
+};
 
 export const createAccounts = (
   params: ICreateEvmAccountParams,
