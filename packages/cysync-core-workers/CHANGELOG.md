@@ -1,5 +1,16 @@
 # @cypherock/cysync-core-workers
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428), [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd), [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02), [`33f5784`](https://github.com/Cypherock/cypherock-cysync/commit/33f578482ade3457add766ce2c53354c9b2c52e6)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/coin-support-utils@0.0.3
+  - @cypherock/cysync-core-services@0.0.3
+  - @cypherock/coin-support-interfaces@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

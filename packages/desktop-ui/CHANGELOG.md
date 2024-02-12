@@ -1,5 +1,15 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`18c75d5`](https://github.com/Cypherock/cypherock-cysync/commit/18c75d56b8528dccd39117e7025c3be187ebce01), [`3ac29c1`](https://github.com/Cypherock/cypherock-cysync/commit/3ac29c1d16b52735c7cda24eb72aee08263a299d), [`6272d42`](https://github.com/Cypherock/cypherock-cysync/commit/6272d42f3ec7bfd27a59517f76232648f101e343), [`9ca1ebf`](https://github.com/Cypherock/cypherock-cysync/commit/9ca1ebfcd623d355a940ce8d538c0bd84d10f6c5), [`d76b0c9`](https://github.com/Cypherock/cypherock-cysync/commit/d76b0c9da68c50aa4b9bc730f41cd0c80ee6555b), [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd), [`eb357ac`](https://github.com/Cypherock/cypherock-cysync/commit/eb357ac6a7b5e8671760293daf18599ae4d439f8), [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02), [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356), [`33f5784`](https://github.com/Cypherock/cypherock-cysync/commit/33f578482ade3457add766ce2c53354c9b2c52e6), [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31), [`9e75d08`](https://github.com/Cypherock/cypherock-cysync/commit/9e75d08f5e60de7907a7f1a912742804139890ba), [`585c6be`](https://github.com/Cypherock/cypherock-cysync/commit/585c6bef7c8bdad5394c601b08b93741406c78f3), [`742b7d3`](https://github.com/Cypherock/cypherock-cysync/commit/742b7d3bfa38b0ac238b0c47d5c1f2d0ead86142), [`cef10e3`](https://github.com/Cypherock/cypherock-cysync/commit/cef10e3f803cfd8be31bf153e14a5dba41425c46), [`db6ea0a`](https://github.com/Cypherock/cypherock-cysync/commit/db6ea0a093b6aa4e6c8acc601eeaa5315adb8a09)]:
+  - @cypherock/cysync-core@0.0.3
+  - @cypherock/cysync-interfaces@0.0.3
+  - @cypherock/cysync-ui@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

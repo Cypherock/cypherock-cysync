@@ -1,5 +1,14 @@
 # @cypherock/cysync-interfaces
 
+## 0.0.3
+
+### Patch Changes
+
+- [#388](https://github.com/Cypherock/cypherock-cysync/pull/388) [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added add token under static feature flag
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428)]:
+  - @cypherock/db-interfaces@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

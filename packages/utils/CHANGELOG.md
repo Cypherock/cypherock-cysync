@@ -1,5 +1,12 @@
 # @cypherock/cysync-utils
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356)]:
+  - @cypherock/cysync-interfaces@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
