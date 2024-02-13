@@ -255,6 +255,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'receive',
   });
 
   const ctx = useMemo(

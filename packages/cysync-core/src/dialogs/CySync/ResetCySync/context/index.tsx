@@ -77,6 +77,7 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'resetCySync',
   });
 
   const ctx = useMemo(

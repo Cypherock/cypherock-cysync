@@ -178,6 +178,7 @@ export const ChangePasswordDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'changePassword',
   });
 
   const ctx = useMemo(

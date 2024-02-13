@@ -551,6 +551,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'sendDialog',
   });
 
   const ctx = useMemo(
