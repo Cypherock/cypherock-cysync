@@ -1,5 +1,27 @@
 # @cypherock/coin-support-evm
 
+## 0.0.3
+
+### Patch Changes
+
+- [#380](https://github.com/Cypherock/cypherock-cysync/pull/380) [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed windows crashing bug
+
+- [#390](https://github.com/Cypherock/cypherock-cysync/pull/390) [`02db1ba`](https://github.com/Cypherock/cypherock-cysync/commit/02db1bafc1773259e1754f656fea06d9e9993b58) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - insufficient balance glitch on token transfer
+
+- [#389](https://github.com/Cypherock/cypherock-cysync/pull/389) [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed memory leaks and device abort handling
+
+- [#395](https://github.com/Cypherock/cypherock-cysync/pull/395) [`d36a616`](https://github.com/Cypherock/cypherock-cysync/commit/d36a6164aaeca2ddb510b12497d208b172dd6163) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - fix: accounts with txn history are not coming under "Account not yet synced"
+
+- [#392](https://github.com/Cypherock/cypherock-cysync/pull/392) [`9e75d08`](https://github.com/Cypherock/cypherock-cysync/commit/9e75d08f5e60de7907a7f1a912742804139890ba) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed token transaction for large values
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428), [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd), [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02), [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356), [`cef10e3`](https://github.com/Cypherock/cypherock-cysync/commit/cef10e3f803cfd8be31bf153e14a5dba41425c46)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/coin-support-utils@0.0.3
+  - @cypherock/cysync-interfaces@0.0.3
+  - @cypherock/coins@0.0.3
+  - @cypherock/coin-support-interfaces@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

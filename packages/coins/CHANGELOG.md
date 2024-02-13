@@ -1,5 +1,11 @@
 # @cypherock/coins
 
+## 0.0.3
+
+### Patch Changes
+
+- [#382](https://github.com/Cypherock/cypherock-cysync/pull/382) [`cef10e3`](https://github.com/Cypherock/cypherock-cysync/commit/cef10e3f803cfd8be31bf153e14a5dba41425c46) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - add new tokens on binance (shib, xlm, glmr, ocean), update automation script list ordering & migrate db
+
 ## 0.0.2
 
 ### Patch Changes
