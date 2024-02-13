@@ -33,6 +33,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
     accountDropdownList,
     selectedAccounts,
     setSelectedAccounts,
+    selectedChainNameWithNoAccount,
   } = useAddTokenDialog();
 
   const { addToken } = lang.strings;
@@ -102,16 +103,22 @@ export const AddTokenSelectionDialog: React.FC = () => {
             isMultiSelect
           />
         </Container>
-        <Container
-          display="flex"
-          direction="column"
-          px={5}
-          pt={2}
-          pb={4}
-          width="full"
-        >
-          <MessageBox type="warning" text={addToken.select.message} />
-        </Container>
+        {selectedChainNameWithNoAccount && (
+          <Container
+            display="flex"
+            direction="column"
+            px={5}
+            pt={2}
+            pb={4}
+            width="full"
+          >
+            <MessageBox
+              type="warning"
+              text={addToken.select.message}
+              variables={{ chainName: selectedChainNameWithNoAccount }}
+            />
+          </Container>
+        )}
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button
