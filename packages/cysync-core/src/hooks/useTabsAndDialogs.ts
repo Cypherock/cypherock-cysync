@@ -68,8 +68,8 @@ export function useTabsAndDialogs({
     logger.info('Dialog: Navigation', {
       source: useTabsAndDialogs.name,
       dialogName,
+      tabName,
       subDialogName,
-      tab: tabName,
       isDeviceRequired,
     });
 

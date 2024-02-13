@@ -93,12 +93,12 @@ export const dialogSlice = createSlice({
       state,
       payload: PayloadAction<{ name: DialogName; data: any }>,
     ) => {
-      logger.info('Dialog: Open', { name: payload.payload.name });
+      logger.info('Dialog: Open', { dialogName: payload.payload.name });
       state[payload.payload.name].isOpen = true;
       (state[payload.payload.name] as any).data = payload.payload.data;
     },
     closeDialog: (state, payload: PayloadAction<DialogName>) => {
-      logger.info('Dialog: Close', { name: payload.payload });
+      logger.info('Dialog: Close', { dialogName: payload.payload });
       state[payload.payload].isOpen = false;
       state[payload.payload].data = undefined;
     },
@@ -106,7 +106,7 @@ export const dialogSlice = createSlice({
       logger.info('Dialog: Close All');
       Object.keys(state).forEach(key => {
         if (state[key as DialogName].isOpen)
-          logger.verbose('Dialog: Close', { name: key });
+          logger.verbose('Dialog: Close', { dialogName: key });
         state[key as DialogName].isOpen = false;
         state[key as DialogName].data = undefined;
       });
