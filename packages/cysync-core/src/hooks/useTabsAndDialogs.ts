@@ -62,8 +62,8 @@ export function useTabsAndDialogs({
     const tabName = tabs[tab].name;
     const dialogName = getElementName(tabs[tab].dialogs[dialog ?? 0]);
 
-    logger.info('Dialog Navigation', {
-      hook: 'useTabsAndDialogs',
+    logger.info('Dialog: Navigation', {
+      source: useTabsAndDialogs.name,
       dialog: dialogName,
       tab: tabName,
       isDeviceRequired,
