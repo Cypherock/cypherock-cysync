@@ -46,14 +46,18 @@ export const AccountPage: FC = () => {
     selectedAccount,
     breadcrumbItems,
     onAccountChange,
-    handleWalletChange,
-    walletDropdownList,
   } = useAccountPage();
 
   const getMainContent = () => {
     if (!selectedAccount) {
       return null;
     }
+
+    const doAllowAccountDeletion = () => {
+      if (window.cysyncFeatureFlags.ADD_TOKEN) return true;
+
+      return !selectedAccount.parentAccount;
+    };
 
     return (
       <Container $noFlex m="20">
@@ -109,20 +113,23 @@ export const AccountPage: FC = () => {
                   <WalletConnectWithBgIcon />
                 </Button>
               )}
-              <Button
-                variant="icon"
-                onClick={() => {
-                  if (selectedAccount)
-                    dispatch(
-                      openDeleteAccountDialog({
-                        account: selectedAccount,
-                        wallet: selectedAccount.wallet,
-                      }),
-                    );
-                }}
-              >
-                <DeleteIconWithBg />
-              </Button>
+
+              {doAllowAccountDeletion() && (
+                <Button
+                  variant="icon"
+                  onClick={() => {
+                    if (selectedAccount)
+                      dispatch(
+                        openDeleteAccountDialog({
+                          account: selectedAccount,
+                          wallet: selectedAccount.wallet,
+                        }),
+                      );
+                  }}
+                >
+                  <DeleteIconWithBg />
+                </Button>
+              )}
             </Container>
           </Flex>
         </Flex>
@@ -130,8 +137,6 @@ export const AccountPage: FC = () => {
         <Container $noFlex mb={2}>
           <Graph
             selectedWallet={selectedWallet}
-            handleWalletChange={handleWalletChange}
-            walletDropdownList={walletDropdownList}
             accountId={accountId}
             color={
               selectedAccount.asset?.color ?? coinList[BtcIdMap.bitcoin].color
