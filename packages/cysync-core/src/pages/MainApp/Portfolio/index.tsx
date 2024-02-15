@@ -20,6 +20,7 @@ import PortfolioPageContent from './Content';
 import { NoWallet } from './NoWallet';
 
 import { MainAppLayout } from '../Layout';
+import logger from '~/utils/logger';
 
 const selector = createSelector(
   [selectLanguage, selectWallets, selectUnHiddenAccounts],
@@ -35,6 +36,9 @@ export const Portfolio: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleAddAccountClick = () => {
+    logger.info('Button Click: Add Account', {
+      source: `${Portfolio.name}/${NoAccountWrapper.name}`,
+    });
     dispatch(openAddAccountDialog());
   };
 
