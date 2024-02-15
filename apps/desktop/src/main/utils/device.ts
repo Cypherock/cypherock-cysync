@@ -7,6 +7,7 @@ import {
   IDevice,
   IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
+import lodash from 'lodash';
 
 import { logger as baseLogger } from './logger';
 
@@ -57,7 +58,23 @@ export const abortAndRemoveConnectedDevice = async () => {
   }
 };
 
-export const connectDevice = async (device: IDevice) => {
+export const connectDevice = async (
+  device: IDevice,
+  forceConnection?: boolean,
+) => {
+  if (!forceConnection && connectedDevice) {
+    if (
+      lodash.isEqual(connectedDevice.device, device) &&
+      (await connectedDevice.connection.isConnected())
+    ) {
+      logger.info(
+        'Requested device connection already exists, hence reusing it',
+        { device },
+      );
+      return connectedDevice;
+    }
+  }
+
   await abortAndRemoveConnectedDevice();
 
   let connection: IDeviceConnection;
