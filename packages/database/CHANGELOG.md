@@ -1,5 +1,11 @@
 # @cypherock/database
 
+## 0.0.4
+
+### Patch Changes
+
+- [#398](https://github.com/Cypherock/cypherock-cysync/pull/398) [`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed database corruption
+
 ## 0.0.3
 
 ### Patch Changes
