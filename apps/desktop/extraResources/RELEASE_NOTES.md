@@ -1,3 +1,10 @@
+# v2.0.3
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue
+- Fixed issues regarding device update
+
 # v2.0.2
 
 ### 🚀 Features
