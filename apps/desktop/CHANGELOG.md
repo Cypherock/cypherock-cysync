@@ -1,5 +1,16 @@
 # @cypherock/cysync-desktop
 
+## 2.0.3
+
+### Patch Changes
+
+- [#398](https://github.com/Cypherock/cypherock-cysync/pull/398) [`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed database corruption
+
+- [#399](https://github.com/Cypherock/cypherock-cysync/pull/399) [`4998462`](https://github.com/Cypherock/cypherock-cysync/commit/499846207a05bbf56a11dc2ce8557886372b3703) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed device update error
+
+- Updated dependencies [[`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a)]:
+  - @cypherock/database@0.0.4
+
 ## 2.0.2
 
 ### Patch Changes
