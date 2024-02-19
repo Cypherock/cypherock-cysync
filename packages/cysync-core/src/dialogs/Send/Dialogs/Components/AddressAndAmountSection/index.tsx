@@ -60,6 +60,7 @@ const anaInputMap: Record<CoinFamily, React.FC<any>> = {
   evm: EvmAddressAndAmount,
   solana: SolanaAddressAndAmount,
   near: SolanaAddressAndAmount,
+  starknet: SolanaAddressAndAmount,
 };
 
 const getAnaComponent = (coinFamily: CoinFamily, props: AnaProps) => {

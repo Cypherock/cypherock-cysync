@@ -16,6 +16,7 @@ export const useLabelSuffix = () => {
     evm: getEvmSuffix,
     near: getDefaultSuffix,
     solana: getDefaultSuffix,
+    starknet: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';

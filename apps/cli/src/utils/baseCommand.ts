@@ -11,9 +11,11 @@ import * as bitcoin from 'bitcoinjs-lib';
 import * as eip712 from 'eip-712';
 import { ethers } from 'ethers';
 import * as nearApiJs from 'near-api-js';
+import * as starknetApiJs from 'starknet';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof BaseCommand)['baseFlags'] & T['flags']
@@ -94,6 +96,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     EvmSupport.setEip712Library(eip712);
     NearSupport.setNearApiJs(nearApiJs);
     SolanaSupport.setWeb3Library(solanaWeb3);
+    StarknetSupport.setStarknetApiJs(starknetApiJs);
   }
 
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {
