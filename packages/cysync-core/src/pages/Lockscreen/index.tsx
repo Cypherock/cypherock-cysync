@@ -14,9 +14,9 @@ import React, { useEffect, useState } from 'react';
 
 import { useLockscreen } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { ForgotPasswordDialog } from './ForgotPasswordDialog';
-import logger from '~/utils/logger';
 
 export const Lockscreen: React.FC = () => {
   const { unlock } = useLockscreen();

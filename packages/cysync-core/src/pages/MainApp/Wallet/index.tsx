@@ -6,7 +6,9 @@ import {
   SkeletonLoader,
   NoAccountWrapper,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
+
+import logger from '~/utils/logger';
 
 import { AccountTable } from './AccountTable';
 
@@ -36,6 +38,18 @@ export const Wallet: FC = () => {
 
   const hasAccounts = accountList.length > 0;
 
+  type HandlersType = typeof handleAddAccountClick & typeof handleAddTokenClick;
+  const getHandlerProxy = useCallback(
+    (clickInfo: string, source: string, func: HandlersType): HandlersType =>
+      () => {
+        logger.info(`Button Click: ${clickInfo}`, {
+          source: `${Wallet.name}/${source}`,
+        });
+        func();
+      },
+    [],
+  );
+
   const getMainContent = () => {
     if (hasAccounts) {
       return (
@@ -61,7 +75,11 @@ export const Wallet: FC = () => {
           text={lang.strings.wallet.accountMissing.text}
           subText={lang.strings.wallet.accountMissing.subText}
           $buttonOne={lang.strings.buttons.addAccount}
-          onClick={handleAddAccountClick}
+          onClick={getHandlerProxy(
+            'Add Account',
+            NoAccountWrapper.name,
+            handleAddAccountClick,
+          )}
         />
       </NoAccountWrapper>
     );
@@ -93,12 +111,26 @@ export const Wallet: FC = () => {
         />
         <Flex gap={24}>
           {hasAccounts && (
-            <Button variant="primary" onClick={handleAddAccountClick}>
+            <Button
+              variant="primary"
+              onClick={getHandlerProxy(
+                'Add Account',
+                'TopBar',
+                handleAddAccountClick,
+              )}
+            >
               {lang.strings.buttons.addAccount}
             </Button>
           )}
           {hasAccounts && window.cysyncFeatureFlags.ADD_TOKEN && (
-            <Button variant="primary" onClick={handleAddTokenClick}>
+            <Button
+              variant="primary"
+              onClick={getHandlerProxy(
+                'Add Token',
+                'TopBar',
+                handleAddTokenClick,
+              )}
+            >
               {lang.strings.buttons.addToken}
             </Button>
           )}

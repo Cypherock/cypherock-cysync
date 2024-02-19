@@ -9,8 +9,8 @@ import { useLocation } from 'react-router-dom';
 
 import { openContactSupportDialog } from '~/actions';
 import { useNavigateTo, useQuery, useWalletSync } from '~/hooks';
-
 import logger from '~/utils/logger';
+
 import {
   AppDispatch,
   ILangState,

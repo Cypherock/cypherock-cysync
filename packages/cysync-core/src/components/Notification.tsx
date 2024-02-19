@@ -23,7 +23,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
-import logger from '~/utils/logger';
 
 import {
   markAllTransactionNotificationRead,
@@ -32,6 +31,7 @@ import {
 } from '~/actions';
 import { useNavigateTo } from '~/hooks';
 import { getDisplayTransactionType, transactionIconMap } from '~/utils';
+import logger from '~/utils/logger';
 
 import {
   CoinIcon,

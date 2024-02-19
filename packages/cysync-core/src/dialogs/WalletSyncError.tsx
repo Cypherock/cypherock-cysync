@@ -11,8 +11,8 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { deleteWallets } from '~/actions';
 import { closeDialog, selectWallets, useAppDispatch } from '~/store';
-
 import logger from '~/utils/logger';
+
 import { selectLanguage, useAppSelector } from '..';
 
 export const WalletSyncError: FC = () => {

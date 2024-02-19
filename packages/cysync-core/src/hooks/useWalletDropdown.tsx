@@ -4,6 +4,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import logger from '~/utils/logger';
+
 import { selectLanguage, selectWallets, useAppSelector } from '..';
 
 export interface UseWalletDropdownProps {

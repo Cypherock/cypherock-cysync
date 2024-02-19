@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import logger from '~/utils/logger';
+
 import { INetworkState } from './types';
 
 import { RootState } from '../store';

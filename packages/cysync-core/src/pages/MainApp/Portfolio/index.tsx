@@ -15,12 +15,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import logger from '~/utils/logger';
 
 import PortfolioPageContent from './Content';
 import { NoWallet } from './NoWallet';
 
 import { MainAppLayout } from '../Layout';
-import logger from '~/utils/logger';
 
 const selector = createSelector(
   [selectLanguage, selectWallets, selectUnHiddenAccounts],

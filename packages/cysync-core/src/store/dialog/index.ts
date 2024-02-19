@@ -4,8 +4,8 @@ import 'immer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '~/store';
-
 import logger from '~/utils/logger';
+
 import { DialogName, IDialogState } from './types';
 
 export * from './types';

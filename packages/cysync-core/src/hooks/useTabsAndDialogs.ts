@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
+
 import { getElementName } from '~/utils';
 import logger from '~/utils/logger';
+
 import { DialogName } from '..';
 
 export type ITabs = {

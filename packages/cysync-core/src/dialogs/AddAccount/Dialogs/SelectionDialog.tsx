@@ -16,8 +16,8 @@ import React from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import logger from '~/utils/logger';
+
 import { useAddAccountDialog } from '../context';
 
 const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
