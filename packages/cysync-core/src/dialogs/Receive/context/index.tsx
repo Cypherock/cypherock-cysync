@@ -60,9 +60,9 @@ export interface ReceiveDialogContextInterface {
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
   walletDropdownList: DropDownItemProps[];
-  handleWalletChange: () => void;
+  handleWalletChange: (id?: string | undefined) => void;
   accountDropdownList: DropDownItemProps[];
-  handleAccountChange: () => void;
+  handleAccountChange: (id?: string | undefined) => void;
   isStartedWithoutDevice: boolean;
   isFlowCompleted: boolean;
 }

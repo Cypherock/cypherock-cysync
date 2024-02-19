@@ -70,7 +70,10 @@ export const AddTokenSelectionDialog: React.FC = () => {
       const targetAccounts = ids.map(id => accountList[id]);
       logger.info('Dropdown Change: Account Change', {
         source: AddTokenSelectionDialog.name,
-        accounts: targetAccounts.map(account => account.assetId),
+        accounts: targetAccounts.map(a => ({
+          assetId: a.assetId,
+          derivationPath: a.derivationPath,
+        })),
       });
       setSelectedAccounts(targetAccounts);
     },
