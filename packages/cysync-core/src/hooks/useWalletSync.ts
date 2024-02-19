@@ -9,14 +9,13 @@ import { useAppDispatch, useDevice } from '..';
 
 export const useWalletSync = () => {
   const dispatch = useAppDispatch();
-  const { connection, connectDevice } = useDevice();
-  const deviceRef = useStateToRef({ connection, connectDevice });
+  const { connection } = useDevice();
+  const deviceRef = useStateToRef({ connection });
 
   const doWalletSync = () => {
     dispatch(
       syncWalletsWithDevice({
         connection: deviceRef.current.connection,
-        connectDevice: deviceRef.current.connectDevice,
         doFetchFromDevice: true,
       }),
     );

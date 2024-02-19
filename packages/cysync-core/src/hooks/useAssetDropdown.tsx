@@ -5,11 +5,11 @@ import React, { useMemo } from 'react';
 
 import { useNavigateTo } from './useNavigateTo';
 
-import { CoinIcon, routes, selectAccounts, useAppSelector } from '..';
+import { CoinIcon, routes, selectUnHiddenAccounts, useAppSelector } from '..';
 
 export const useAssetDropdown = () => {
   const navigateTo = useNavigateTo();
-  const { accounts } = useAppSelector(selectAccounts);
+  const { accounts } = useAppSelector(selectUnHiddenAccounts);
 
   const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
     () =>

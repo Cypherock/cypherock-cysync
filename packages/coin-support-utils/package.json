@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-utils",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -38,6 +38,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@aws-crypto/sha256-browser": "^4.0.0",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",

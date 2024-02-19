@@ -1,5 +1,19 @@
 # @cypherock/coin-support-interfaces
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428)]:
+  - @cypherock/db-interfaces@0.0.3
+
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7)]:
+  - @cypherock/db-interfaces@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

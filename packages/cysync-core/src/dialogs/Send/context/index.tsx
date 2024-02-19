@@ -13,6 +13,7 @@ import {
   convertToUnit,
   formatDisplayAmount,
   formatDisplayPrice,
+  getDefaultUnit,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -155,7 +156,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
   const { rejectCallRequest, approveCallRequest, callRequestData } =
     useWalletConnect();
@@ -352,7 +353,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           txn,
         });
 
-      setTransaction(preparedTransaction);
+      setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
       onError(e);
     }
@@ -378,7 +379,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const startFlow = async () => {
     logger.info('Starting send transaction');
 
-    if (!connection || !transaction) {
+    if (!connection?.connection || !transaction) {
       return;
     }
 
@@ -394,7 +395,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         deviceLock.release(connection.device, taskId);
       };
 
-      const deviceConnection = await connectDevice(connection.device);
+      const deviceConnection = connection.connection;
       flowSubscription.current = getCurrentCoinSupport()
         .signTransaction({
           connection: deviceConnection,
@@ -428,7 +429,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: value,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      fromUnitAbbr: selectedAccount.unit,
+      fromUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       toUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,
@@ -457,7 +461,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      toUnitAbbr: selectedAccount.unit,
+      toUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       fromUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,

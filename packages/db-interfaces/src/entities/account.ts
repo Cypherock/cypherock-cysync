@@ -1,4 +1,4 @@
-import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
+import type { IEntity, IGetOptions, IRepository, ObjectLiteral } from './base';
 
 export const AccountTypeMap = {
   account: 'account',
@@ -11,7 +11,7 @@ export interface IAccount extends IEntity {
   name: string;
   xpubOrAddress: string;
   balance: string;
-  unit: string;
+  unit?: string;
   derivationScheme?: string;
   derivationPath: string;
   type: AccountType;
@@ -22,6 +22,7 @@ export interface IAccount extends IEntity {
   walletId: string;
   parentAssetId: string;
   parentAccountId?: string;
+  isHidden?: boolean;
 }
 
 export interface IAccountDisplayInfo extends IAccount {

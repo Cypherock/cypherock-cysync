@@ -1,10 +1,10 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { CoinIcon, selectAccounts, useAppSelector } from '..';
+import { CoinIcon, selectUnHiddenAccounts, useAppSelector } from '..';
 
 export interface UseAccountDropdownProps {
   selectedWallet: IWallet | undefined;
@@ -14,7 +14,7 @@ export interface UseAccountDropdownProps {
 }
 
 export const useAccountDropdown = (props: UseAccountDropdownProps) => {
-  const { accounts } = useAppSelector(selectAccounts);
+  const { accounts } = useAppSelector(selectUnHiddenAccounts);
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();
@@ -26,7 +26,9 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
     const { amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       amount: account.balance,
     });
     return `${amount} ${unit.abbr}`;

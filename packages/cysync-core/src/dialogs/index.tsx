@@ -3,6 +3,7 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AddTokenDialog } from './AddToken';
 import { AppUpdateDialog } from './AppUpdateDialog';
 import {
   AuthenticateX1CardDialog,

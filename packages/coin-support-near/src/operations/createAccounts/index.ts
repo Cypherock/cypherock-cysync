@@ -1,17 +1,17 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { nearCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
-import { NearApp, GetPublicKeysEvent } from '@cypherock/sdk-app-near';
+import { GetPublicKeysEvent, NearApp } from '@cypherock/sdk-app-near';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
-import { ICreateNearAccountParams, ICreateNearAccountEvent } from './types';
+import { ICreateNearAccountEvent, ICreateNearAccountParams } from './types';
 
 import * as services from '../../services';
 import { createApp } from '../../utils';
@@ -72,6 +72,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<NearApp>['cr
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
       isNew: addressDetails.txnCount <= 0,
+      isHidden: false,
     };
   };
 

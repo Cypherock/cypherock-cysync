@@ -24,6 +24,7 @@ export const Wallet: FC = () => {
     handleAccountTableRow,
     sortedBy,
     handleAddAccountClick,
+    handleAddTokenClick,
     walletName,
     selectedWallet,
     onWalletChange,
@@ -96,13 +97,11 @@ export const Wallet: FC = () => {
               {lang.strings.buttons.addAccount}
             </Button>
           )}
-          {/* TODO: Uncomment when add token is functional
-          {hasAccounts && (
+          {hasAccounts && window.cysyncFeatureFlags.ADD_TOKEN && (
             <Button variant="primary" onClick={handleAddTokenClick}>
               {lang.strings.buttons.addToken}
             </Button>
           )}
-          */}
         </Flex>
       </Flex>
       {getMainContent()}

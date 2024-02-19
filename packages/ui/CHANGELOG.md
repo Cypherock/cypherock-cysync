@@ -1,5 +1,27 @@
 # @cypherock/cysync-ui
 
+## 0.0.3
+
+### Patch Changes
+
+- [#370](https://github.com/Cypherock/cypherock-cysync/pull/370) [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - improved fees input ux & no negative fees value
+
+- [#350](https://github.com/Cypherock/cypherock-cysync/pull/350) [`585c6be`](https://github.com/Cypherock/cypherock-cysync/commit/585c6bef7c8bdad5394c601b08b93741406c78f3) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - update user facing error messages & dialogs
+
+- [#356](https://github.com/Cypherock/cypherock-cysync/pull/356) [`742b7d3`](https://github.com/Cypherock/cypherock-cysync/commit/742b7d3bfa38b0ac238b0c47d5c1f2d0ead86142) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add token functionality and improvements
+
+- [#378](https://github.com/Cypherock/cypherock-cysync/pull/378) [`db6ea0a`](https://github.com/Cypherock/cypherock-cysync/commit/db6ea0a093b6aa4e6c8acc601eeaa5315adb8a09) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed slow hid communication
+
+## 0.0.2
+
+### Patch Changes
+
+- [#362](https://github.com/Cypherock/cypherock-cysync/pull/362) [`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list for evm chains
+
+- [#361](https://github.com/Cypherock/cypherock-cysync/pull/361) [`641f705`](https://github.com/Cypherock/cypherock-cysync/commit/641f705f90769efa85d6d13df24c65405fddfd99) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Prevent cySync crash on input of float value of btc feeRate
+
+- [#353](https://github.com/Cypherock/cypherock-cysync/pull/353) [`42913e4`](https://github.com/Cypherock/cypherock-cysync/commit/42913e44a152152300c54beda6e24e914d9ec4cd) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add Token UI
+
 ## 0.0.1
 
 ### Patch Changes

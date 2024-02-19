@@ -9,9 +9,9 @@ export const getLatestPrices = async (
   coinIds: { parentAssetId: string; assetId: string }[],
   currency: string,
 ): Promise<{ assetId: string; price: number }[]> => {
-  const coinGeckoIds = coinIds.map(
-    id => getAsset(id.parentAssetId, id.assetId).coinGeckoId,
-  );
+  const coinGeckoIds = coinIds
+    .filter(id => !getAsset(id.parentAssetId, id.assetId).isZeroPriceCoin)
+    .map(id => getAsset(id.parentAssetId, id.assetId).coinGeckoId);
 
   const response = await axios.post(`${baseURL}/current`, {
     vsCurrencies: [currency],
@@ -27,10 +27,11 @@ export const getLatestPrices = async (
     )
     .map(id => ({
       assetId: id.assetId,
-      price:
-        response.data.data[getAsset(id.parentAssetId, id.assetId).coinGeckoId][
-          currency
-        ],
+      price: getAsset(id.parentAssetId, id.assetId).isZeroPriceCoin
+        ? 0
+        : response.data.data[
+            getAsset(id.parentAssetId, id.assetId).coinGeckoId
+          ][currency],
     }));
 
   return result;
@@ -41,7 +42,14 @@ export const getPriceHistory = async (
   currency: string,
   days: number,
 ): Promise<number[][]> => {
-  const { coinGeckoId } = getAsset(coinId.parentAssetId, coinId.assetId);
+  const { coinGeckoId, isZeroPriceCoin } = getAsset(
+    coinId.parentAssetId,
+    coinId.assetId,
+  );
+
+  if (isZeroPriceCoin) {
+    return [];
+  }
 
   const url = `${baseURL}/history`;
 

@@ -31,6 +31,7 @@ const packages = {
   'packages/cysync-core-workers': [...commonFolders, 'lib', 'parcel'],
   'packages/interfaces': [...commonFolders],
   'packages/utils': [...commonFolders],
+  'packages/cysync-automation-scripts': [...commonFolders],
   'packages/util-eslint-config': ['node_modules'],
   'packages/util-prettier-config': ['node_modules'],
   'packages/util-jest-config': ['node_modules'],

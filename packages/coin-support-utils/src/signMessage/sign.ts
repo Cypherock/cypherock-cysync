@@ -9,7 +9,6 @@ import { Observable, Subscriber } from 'rxjs';
 import logger from '../utils/logger';
 
 interface App {
-  destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
@@ -45,19 +44,14 @@ export function makeSignMessageObservable<
           logger.warn('Error in aborting sign message');
           logger.warn(error);
         }
-
-        try {
-          await app.destroy();
-        } catch (error) {
-          logger.warn('Error in destroying connection on sign message');
-          logger.warn(error);
-        }
       }
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -81,6 +75,7 @@ export function makeSignMessageObservable<
 
         observer.next(event as any);
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {

@@ -7,6 +7,7 @@ import {
   createProxyListener,
 } from './utils';
 
+import featureFlags from '../featureFlags';
 import { ipcConfig } from '../main/ipc/helpers/config';
 
 const exportedFunctions = [
@@ -201,3 +202,4 @@ for (const env of ipcConfig.env) {
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI);
 contextBridge.exposeInMainWorld('cysyncEnv', cysyncEnv);
+contextBridge.exposeInMainWorld('cysyncFeatureFlags', featureFlags);

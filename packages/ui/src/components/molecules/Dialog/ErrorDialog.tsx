@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useTheme } from 'styled-components';
 
 import { DialogBoxProps } from './DialogBox';
 import { IconDialogBox } from './IconDialogBox';
@@ -9,7 +10,7 @@ import {
   SettingsWrongIcon,
   CySyncDownloadRedIcon,
 } from '../../../assets';
-import { Button } from '../../atoms';
+import { Button, LangDisplay, Typography } from '../../atoms';
 import { MessageBox, MessageBoxType } from '../MessageBox';
 
 export type ErrorIconType = 'device' | 'default' | 'server' | 'cySyncDownload';
@@ -24,6 +25,7 @@ export interface ErrorDialogProps extends DialogBoxProps {
   iconType?: ErrorIconType;
   textVariables?: object;
   messageBoxText?: string;
+  deviceNavigationText?: string;
   messageBoxVariant?: MessageBoxType;
 }
 
@@ -44,38 +46,56 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   textVariables,
   messageBoxVariant,
   messageBoxText,
+  deviceNavigationText,
   ...props
-}) => (
-  <IconDialogBox
-    icon={iconMap[iconType ?? 'default']}
-    title={title}
-    textVariables={textVariables}
-    subtext={subtext}
-    afterTextComponent={
-      messageBoxText ? (
-        <MessageBox
-          text={messageBoxText}
-          type={messageBoxVariant ?? 'danger'}
-        />
-      ) : undefined
-    }
-    footerComponent={
-      <>
-        {secondaryActionText && (
-          <Button variant="secondary" onClick={onSecondaryClick}>
-            {secondaryActionText}
-          </Button>
-        )}
-        {primaryActionText && (
-          <Button variant="primary" onClick={onPrimaryClick}>
-            {primaryActionText}
-          </Button>
-        )}
-      </>
-    }
-    {...props}
-  />
-);
+}) => {
+  const theme = useTheme();
+
+  return (
+    <IconDialogBox
+      icon={iconMap[iconType ?? 'default']}
+      title={title}
+      textVariables={textVariables}
+      subtext={subtext}
+      afterTextComponent={
+        messageBoxText || deviceNavigationText ? (
+          <>
+            {messageBoxText && (
+              <MessageBox
+                text={messageBoxText}
+                type={messageBoxVariant ?? 'danger'}
+              />
+            )}
+            {deviceNavigationText && (
+              <Typography $textAlign="center" mt={2}>
+                <span style={{ color: theme?.palette.muted.main }}>Go to </span>
+                <LangDisplay
+                  text={deviceNavigationText}
+                  variables={textVariables}
+                />
+              </Typography>
+            )}
+          </>
+        ) : undefined
+      }
+      footerComponent={
+        <>
+          {secondaryActionText && (
+            <Button variant="secondary" onClick={onSecondaryClick}>
+              {secondaryActionText}
+            </Button>
+          )}
+          {primaryActionText && (
+            <Button variant="primary" onClick={onPrimaryClick}>
+              {primaryActionText}
+            </Button>
+          )}
+        </>
+      }
+      {...props}
+    />
+  );
+};
 
 ErrorDialog.defaultProps = {
   subtext: undefined,
@@ -86,5 +106,6 @@ ErrorDialog.defaultProps = {
   iconType: 'default',
   textVariables: undefined,
   messageBoxText: undefined,
+  deviceNavigationText: undefined,
   messageBoxVariant: 'danger',
 };

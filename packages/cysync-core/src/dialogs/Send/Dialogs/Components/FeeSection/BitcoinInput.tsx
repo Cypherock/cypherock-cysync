@@ -26,14 +26,9 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
   const captions = lang.strings.send.fees.sliderLabels;
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = (val: string | number) => {
-    let numberValue = 0;
-
-    if (typeof val === 'number') numberValue = val;
-    else if (val !== '') numberValue = parseFloat(val);
-
-    setValue(numberValue);
-    onChange(numberValue);
+  const handleChange = (val: number) => {
+    setValue(val);
+    onChange(val);
   };
 
   return (
@@ -43,6 +38,7 @@ export const BitcoinInput: React.FC<BitcoinInputProps> = ({
           value={value.toString()}
           postfixText={unit}
           onChange={handleChange}
+          valueType="integer"
         />
       )}
       {!isTextInput && (

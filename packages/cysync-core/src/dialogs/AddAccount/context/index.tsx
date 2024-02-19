@@ -5,7 +5,8 @@ import {
   ICreateAccountEvent,
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
-import { coinList, ICoinInfo } from '@cypherock/coins';
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { ICoinInfo, coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -15,10 +16,10 @@ import React, {
   ReactNode,
   createContext,
   useContext,
-  useMemo,
   useEffect,
-  useState,
+  useMemo,
   useRef,
+  useState,
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
@@ -36,10 +37,10 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
-  AddAccountSelectionDialog,
-  AddAccountSyncDialog,
   AddAccountCongrats,
   AddAccountDeviceActionDialog,
+  AddAccountSelectionDialog,
+  AddAccountSyncDialog,
 } from '../Dialogs';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
@@ -91,7 +92,7 @@ export const AddAccountDialogProvider: FC<
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const {
     selectedWallet,
@@ -223,7 +224,7 @@ export const AddAccountDialogProvider: FC<
   const startAddAccounts = async () => {
     logger.info('Started add account');
 
-    if (!connection || !selectedCoin || !selectedWallet) {
+    if (!connection?.connection || !selectedCoin || !selectedWallet) {
       return;
     }
 
@@ -241,7 +242,7 @@ export const AddAccountDialogProvider: FC<
       deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = await connectDevice(connection.device);
+    const deviceConnection = connection.connection;
     const subscription = coinSupport
       .createAccounts({
         walletId: selectedWallet.__id ?? '',
@@ -273,7 +274,14 @@ export const AddAccountDialogProvider: FC<
 
     try {
       const db = getDB();
-      const addedAccounts = await db.account.insert(allAccountsToAdd);
+      const addedAccounts: IAccount[] = [];
+
+      for (let i = 0; i < allAccountsToAdd.length; i += 1) {
+        const account = allAccountsToAdd[i];
+        const response = await insertAccountIfNotExists(db, account);
+        if (response.isInserted) addedAccounts.push(response.account);
+      }
+
       dispatch(syncAccounts({ accounts: addedAccounts }));
       if (selectedCoin) {
         syncPrices({ families: [selectedCoin.family] });

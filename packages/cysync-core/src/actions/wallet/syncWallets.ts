@@ -1,5 +1,4 @@
 import { syncWalletsOnDb } from '@cypherock/cysync-core-services';
-import { ConnectDevice } from '@cypherock/cysync-interfaces';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { uniqueId } from 'lodash';
@@ -15,7 +14,6 @@ import logger from '~/utils/logger';
 
 export interface ISyncWalletsWithDeviceParams {
   connection?: IDeviceConnectionInfo;
-  connectDevice: ConnectDevice;
   doFetchFromDevice?: boolean;
 }
 
@@ -23,11 +21,12 @@ const syncWalletsWithConnectedDevice = async (
   params: ISyncWalletsWithDeviceParams,
 ) => {
   let taskId: string | undefined;
-  const { connection, connectDevice, doFetchFromDevice } = params;
+  const { connection, doFetchFromDevice } = params;
 
   try {
     if (
-      !connection?.isMain ||
+      !connection?.connection ||
+      !connection.isMain ||
       connection.status !== DeviceConnectionStatus.CONNECTED ||
       !connection.isAuthenticated
     ) {
@@ -45,13 +44,12 @@ const syncWalletsWithConnectedDevice = async (
       taskId = uniqueId('task-');
       await deviceLock.acquire(connection.device, taskId);
 
-      const con = await connectDevice(connection.device);
+      const con = connection.connection;
       const app = await ManagerApp.create(con);
 
       const deviceResult = await app.getWallets();
       walletList = deviceResult.walletList;
 
-      await app.destroy();
       deviceLock.release(connection.device, taskId);
     }
 

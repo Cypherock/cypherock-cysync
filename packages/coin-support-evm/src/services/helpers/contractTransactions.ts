@@ -2,15 +2,16 @@ import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
-  AccountTypeMap,
 } from '@cypherock/db-interfaces';
 
 import { formatAddress } from '../../operations';
+import { IEvmErc20TokenAccount } from '../../operations/types';
 import { IEvmContractTransactionItem } from '../api';
 
 export const mapContractTransactionForDb = async (params: {
@@ -43,7 +44,7 @@ export const mapContractTransactionForDb = async (params: {
 
   // Only add if it exists in our coin list
   if (tokenObj) {
-    let tokenAccount: IAccount = {
+    let tokenAccount: IEvmErc20TokenAccount = {
       walletId: account.walletId,
       assetId: tokenObj.id,
       familyId: account.familyId,
@@ -52,13 +53,17 @@ export const mapContractTransactionForDb = async (params: {
       type: AccountTypeMap.subAccount,
       name: tokenObj.name,
       derivationPath: account.derivationPath,
-      unit: tokenObj.units[0].abbr,
+      unit: undefined,
       xpubOrAddress: account.xpubOrAddress,
       balance: '0',
+      extraData: {
+        contractAddress: tokenObj.address,
+      },
+      isHidden: false,
     };
 
     const insertedResult = await insertAccountIfNotExists(db, tokenAccount);
-    tokenAccount = insertedResult.account;
+    tokenAccount = insertedResult.account as IEvmErc20TokenAccount;
 
     if (insertedResult.isInserted) {
       newAccounts.push(tokenAccount);

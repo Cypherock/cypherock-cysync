@@ -1,5 +1,17 @@
 # @cypherock/db-interfaces
 
+## 0.0.3
+
+### Patch Changes
+
+- [#371](https://github.com/Cypherock/cypherock-cysync/pull/371) [`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added backup db to avoid database corruption
+
+## 0.0.2
+
+### Patch Changes
+
+- [#362](https://github.com/Cypherock/cypherock-cysync/pull/362) [`1bdcfb1`](https://github.com/Cypherock/cypherock-cysync/commit/1bdcfb1c02a7369ae0810ca00bf19af42c65bef7) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list for evm chains
+
 ## 0.0.1
 
 ### Patch Changes

@@ -19,6 +19,8 @@ export interface ResourceLockOptions {
 }
 
 export class ResourceLock<T> {
+  private waitingLockMap: Record<string, string[] | undefined> = {};
+
   private lockMap: Record<string, ILock | undefined> = {};
 
   private readonly getKey: GetKey<T>;
@@ -56,6 +58,24 @@ export class ResourceLock<T> {
     this.lockMap[this.getKey(resource)] = { id, at: Date.now() };
   };
 
+  private readonly addWaitingId = (resource: T, id: string) => {
+    const waitingIds = this.waitingLockMap[this.getKey(resource)];
+    if (!waitingIds) {
+      this.waitingLockMap[this.getKey(resource)] = [id];
+    } else {
+      waitingIds.push(id);
+    }
+  };
+
+  private readonly removeWaitingId = (resource: T, id: string) => {
+    const waitingIds = this.waitingLockMap[this.getKey(resource)];
+    if (!waitingIds) {
+      return;
+    }
+
+    waitingIds.splice(waitingIds.indexOf(id), 1);
+  };
+
   public acquire = (
     resource: T,
     id: string,
@@ -79,18 +99,22 @@ export class ResourceLock<T> {
         return;
       }
 
+      this.addWaitingId(resource, id);
+
       const maxRecheckTime = Date.now() + (timeout ?? this.timeout);
 
       const recheck = () => {
         const lockId = this.getLockId(resource);
         if (!lockId || lockId === id) {
           this.addLock(resource, id);
+          this.removeWaitingId(resource, id);
           resolve(releaseLock);
           return;
         }
 
         if (Date.now() >= maxRecheckTime) {
           clearTimeout(timeoutId);
+          this.removeWaitingId(resource, id);
           reject(this.createAcquireError());
         } else {
           timeoutId = setTimeout(recheck, DEFAULT_RECHECK_TIME);
@@ -113,4 +137,8 @@ export class ResourceLock<T> {
   public forceRelease = (resource: T) => {
     this.lockMap[this.getKey(resource)] = undefined;
   };
+
+  public getWaitingIds = (resource: T) => [
+    ...(this.waitingLockMap[this.getKey(resource)] ?? []),
+  ];
 }
