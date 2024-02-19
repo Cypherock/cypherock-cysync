@@ -3,4 +3,4 @@
 '@cypherock/cysync-ui': patch
 ---
 
-Add Token UI
+Wallet Transfer

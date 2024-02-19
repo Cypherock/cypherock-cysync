@@ -10,13 +10,18 @@ import {
   LangDisplay,
   ScrollableContainer,
   Typography,
-  createWalletGraphics,
-  recoverWalletFromSeedphraseGraphics,
-  Image,
+  Container,
+  AddWalletNewUser,
+  ImportWalletNewUser,
+  RecoverWallet,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
+import {
+  openContactSupportDialog,
+  openGuidedFlowDialog,
+  openTransferFlowDialog,
+} from '~/actions';
 import {
   GuidedFlowType,
   closeDialog,
@@ -26,6 +31,7 @@ import {
 } from '~/store';
 
 import { Header } from './Sections';
+import { keyValueStore } from '~/utils';
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -41,6 +47,21 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
     dispatch(openGuidedFlowDialog(selectedAction));
   };
+
+  const switchToGuidedFlow2 = () => {
+    dispatch(closeDialog('walletActions'));
+    dispatch(openTransferFlowDialog('walletTransfer'));
+  };
+
+  const newWalletBulletList = [
+    'If you have brought a brand new Cypherock X1 and want to setup a new wallet',
+  ];
+
+  const ImportWalletBulletList = [
+    'You want to use Cypherock X1 as a backup of your other wallets',
+    'You want to transfer your assets from your other wallets into Cypherock X1 ',
+    'You want to see all portfolio of your other wallets through Cypherock X1 ',
+  ];
 
   return (
     <BlurOverlay>
@@ -62,10 +83,9 @@ export const WalletActionsDialogBox: FC = () => {
             height="full"
           >
             <Header
-              subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
+              subTitle=""
               title={lang.strings.onboarding.walletActionsDialogBox.title}
             />
-
             <Flex direction="row" gap={16} justify="center">
               <Flex
                 direction="column"
@@ -84,11 +104,7 @@ export const WalletActionsDialogBox: FC = () => {
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={createWalletGraphics}
-                  alt="Create Wallet"
-                />
+                <AddWalletNewUser height={100} />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -102,6 +118,12 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
+                <div style={{ height: '250px' }}>
+                  <BulletList items={newWalletBulletList} />
+                </div>
+                <Button onClick={() => setSelectedAction('createWallet')}>
+                  Create
+                </Button>
               </Flex>
               <Flex
                 direction="column"
@@ -120,11 +142,7 @@ export const WalletActionsDialogBox: FC = () => {
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={recoverWalletFromSeedphraseGraphics}
-                  alt="Recover Wallet From Seedphrase"
-                />
+                <ImportWalletNewUser height={100} />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -138,9 +156,13 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
+                <BulletList items={ImportWalletBulletList} />
+                <Button onClick={() => setSelectedAction('importWallet')}>
+                  Import
+                </Button>
               </Flex>
             </Flex>
-            <Flex pt={1} pb={4} px={4}>
+            {/* <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
@@ -169,7 +191,23 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-            </Flex>
+            </Flex> */}
+            {keyValueStore.isNewUser && (
+              <Container>
+                <RecoverWallet height={100} />
+                <Header
+                  subTitle={
+                    lang.strings.onboarding.walletActionsDialogBox.transfer
+                      .subtitle
+                  }
+                  title={
+                    lang.strings.onboarding.walletActionsDialogBox.transfer
+                      .title
+                  }
+                />
+                <Button onClick={switchToGuidedFlow2}>Transfer</Button>
+              </Container>
+            )}
           </DialogBoxBody>
         </ScrollableContainer>
         <DialogBoxFooter

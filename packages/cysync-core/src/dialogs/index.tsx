@@ -29,12 +29,18 @@ import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
 import { AddTokenDialog } from './AddToken';
+import { TransferFlow } from './TransferFlow';
+import { TransferLessCardsFlow } from './TransferFlowLessCards';
+import { TransferFlowLostValt } from './TransferFlowVaultLost';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
+  transferFlow: TransferFlow,
+  transferLessCardsFlow: TransferLessCardsFlow,
+  transferLostVaultFlow: TransferFlowLostValt,
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
   sendDialog: SendDialog,
