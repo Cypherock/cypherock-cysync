@@ -77,7 +77,7 @@ export const Wallet: FC = () => {
           $buttonOne={lang.strings.buttons.addAccount}
           onClick={getHandlerProxy(
             'Add Account',
-            NoAccountWrapper.name,
+            'NoAccountWrapper',
             handleAddAccountClick,
           )}
         />

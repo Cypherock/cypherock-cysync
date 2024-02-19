@@ -33,7 +33,7 @@ export const NoWallet = () => {
 
   const handleAddWalletClick = () => {
     logger.info('Button Click: Add Wallet', {
-      source: `${NoWallet.name}/${NoAccountWrapper.name}`,
+      source: `${NoWallet.name}/NoAccountWrapper`,
     });
     dispatch(openWalletActionsDialog());
   };
@@ -42,7 +42,7 @@ export const NoWallet = () => {
     useCallback(
       (e?: any) => {
         logger.info('Button Click: Sync Wallet', {
-          source: `${NoWallet.name}/${NoAccountWrapper.name}`,
+          source: `${NoWallet.name}/NoAccountWrapper`,
         });
         onWalletSync(e);
       },

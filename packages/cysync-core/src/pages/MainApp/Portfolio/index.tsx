@@ -37,7 +37,7 @@ export const Portfolio: FC = () => {
 
   const handleAddAccountClick = () => {
     logger.info('Button Click: Add Account', {
-      source: `${Portfolio.name}/${NoAccountWrapper.name}`,
+      source: `${Portfolio.name}/NoAccountWrapper`,
     });
     dispatch(openAddAccountDialog());
   };
