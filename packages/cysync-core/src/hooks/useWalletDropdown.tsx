@@ -3,8 +3,6 @@ import { IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import logger from '~/utils/logger';
-
 import { selectLanguage, selectWallets, useAppSelector } from '..';
 
 export interface UseWalletDropdownProps {
@@ -27,10 +25,6 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
     (id?: string) => {
       const targetWallet = id ? wallets.find(w => w.__id === id) : undefined;
       setSelectedWallet(targetWallet);
-      logger.info('Dropdown Change: Wallet Change', {
-        source: useWalletDropdown.name,
-        isWalletSelected: Boolean(targetWallet),
-      });
     },
     [wallets],
   );
