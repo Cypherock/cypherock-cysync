@@ -436,7 +436,7 @@ const en = {
       tokenPlaceholder: 'Select Tokens',
       accountPlaceholder: 'Select Accounts',
       message:
-        'Ethereum account needs to be added first to continue adding the tokens',
+        '${chainName} account needs to be added first to continue adding the tokens',
     },
     congrats: {
       title: 'Tokens added successfully',
