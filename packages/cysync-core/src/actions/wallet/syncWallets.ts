@@ -27,27 +27,27 @@ const syncWalletsWithConnectedDevice = async (
 
   try {
     if (!connection?.connection) {
-      logger.warn('Wallet Sync Failed: Connection is not set up');
+      logger.warn('Wallet Sync Abort: Connection is not set up');
       return undefined;
     }
 
     if (!connection.isMain) {
-      logger.warn('Wallet Sync Failed: Main App is not open');
+      logger.warn('Wallet Sync Abort: Device is not on main');
       return undefined;
     }
 
     if (connection.status !== DeviceConnectionStatus.CONNECTED) {
-      logger.warn('Wallet Sync Failed: Device is not connected');
+      logger.warn('Wallet Sync Abort: Device is not connected');
       return undefined;
     }
 
     if (!connection.isAuthenticated) {
-      logger.warn('Wallet Sync Failed: Device is not authenticated');
+      logger.warn('Wallet Sync Abort: Device is not authenticated');
       return undefined;
     }
 
     if (!connection.serial) {
-      logger.warn('Wallet Sync Failed: No serial found for connected device');
+      logger.warn('Wallet Sync Abort: No serial found for connected device');
       return undefined;
     }
 
@@ -82,7 +82,7 @@ const syncWalletsWithConnectedDevice = async (
       deviceLock.release(connection.device, taskId);
     }
 
-    logger.error('Wallet Sync Failed', error as any);
+    logger.error('Wallet Sync Abort', error as any);
     throw error;
   }
 };
