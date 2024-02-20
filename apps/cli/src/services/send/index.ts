@@ -28,6 +28,7 @@ import {
 } from '~/utils';
 
 import { queryAccount, queryWallet } from '../helpers';
+import { IPreparedStarknetTransaction } from '@cypherock/coin-support-starknet';
 
 const preparingTxnSpinnerText = 'Preparing transaction';
 const creatingTxnSpinnerText = 'Creating transaction';
@@ -45,6 +46,7 @@ const getTxnInputs = async (params: {
   let outputCount = 1;
 
   const transactionTypeChoices = [
+    { name: 'Deploy account', value: 'deploy' },
     { name: 'Single Transaction', value: 'single' },
     { name: 'Send all transaction', value: 'all' },
   ];
@@ -70,6 +72,9 @@ const getTxnInputs = async (params: {
   if (transactionType === 'all') {
     outputCount = 1;
     transaction.userInputs.isSendAll = true;
+  } else if (transactionType === 'deploy') {
+    outputCount = 0;
+    transaction.userInputs.isSendAll = false;
   } else {
     transaction.userInputs.isSendAll = false;
   }
@@ -134,6 +139,29 @@ const getTxnInputs = async (params: {
     txn.userInputs.gasLimit = gasLimit;
     txn.userInputs.gasPrice = convertToUnit({
       amount: gasPrice,
+      coinId: coin.id,
+      fromUnitAbbr: `Gwei`,
+      toUnitAbbr: getZeroUnit(coin.id).abbr,
+    }).amount;
+  }
+
+  if (coin.family === coinFamiliesMap.starknet) {
+    const txn = transaction as IPreparedStarknetTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.staticData.maxFee,
+      unitAbbr: 'Gwei',
+    });
+    const fee = await queryInput(
+      `Enter the fee for the transaction (Suggested: ${amount} ${unit.abbr})`,
+    );
+
+    if (transactionType !== 'deploy' && outputCount <= 0) {
+      throw new Error('Invalid output count');
+    }
+
+    txn.userInputs.maxFee = convertToUnit({
+      amount: fee,
       coinId: coin.id,
       fromUnitAbbr: `Gwei`,
       toUnitAbbr: getZeroUnit(coin.id).abbr,
@@ -207,6 +235,20 @@ const showTransactionSummary = async (params: {
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fees);
+  }
+
+  if (coin.family === coinFamiliesMap.starknet) {
+    console.log("TODO: Show transaction details");
+    const txn = transaction as IPreparedStarknetTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.computedData.maxFee,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
+    });
+    console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.maxFee);
   }
 
   const { amount, unit } = getParsedAmount({

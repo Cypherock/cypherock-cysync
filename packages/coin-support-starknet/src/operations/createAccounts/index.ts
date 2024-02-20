@@ -18,11 +18,8 @@ import {
 
 import * as services from '../../services';
 import { createApp } from '../../utils';
-import { getStarknetApiJs } from '@cypherock/sdk-app-starknet/dist/utils';
 
 const DERIVATION_PATH_LIMIT = 30;
-const contractAXclassHash =
-  '0x01a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003';
 
 const getAddressesFromDevice: GetAddressesFromDevice<
   StarknetApp
@@ -56,24 +53,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-
-  const starkAddresses = [];
-  const starknetjs = getStarknetApiJs();
-  for (let i = 0; i < publicKeys.length; i += 1) {
-    const constructorAXCallData = starknetjs.CallData.compile([
-      publicKeys[i],
-      0,
-    ]);
-    const accountAXAddress = starknetjs.hash.calculateContractAddressFromHash(
-      publicKeys[i],
-      contractAXclassHash,
-      constructorAXCallData,
-      0,
-    );
-    starkAddresses.push(accountAXAddress);
-  }
-
-  return starkAddresses;
+  return publicKeys;
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<StarknetApp>['createAccountFromAddress'] =

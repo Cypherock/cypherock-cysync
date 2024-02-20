@@ -11,6 +11,9 @@ import {
   IGetExplorerLink,
   ISignMessageEvent,
   IFormatAddressParams,
+  ISyncAccountsParams,
+  IInitializeTransactionParams,
+  ISignTransactionParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import {
@@ -20,7 +23,11 @@ import {
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
-import { ICreateStarknetAccountParams } from './operations/types';
+import {
+  IBroadcastStarknetTransactionParams,
+  ICreateStarknetAccountParams,
+  IPrepareStarknetTransactionParams,
+} from './operations/types';
 
 export * from './operations/types';
 export * from './services';
@@ -40,28 +47,36 @@ export class StarknetSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccount(): Observable<void> {
-    throw new Error('Not implemented');
+  public syncAccount(params: ISyncAccountsParams): Observable<void> {
+    return operations.syncAccount(params);
   }
 
-  public async initializeTransaction(): Promise<IPreparedTransaction> {
-    throw new Error('Not implemented');
+  public async initializeTransaction(
+    params: IInitializeTransactionParams,
+  ): Promise<IPreparedTransaction> {
+    return operations.initializeTransaction(params);
   }
 
-  public async prepareTransaction(): Promise<IPreparedTransaction> {
-    throw new Error('Not implemented');
+  public async prepareTransaction(
+    params: IPrepareStarknetTransactionParams,
+  ): Promise<IPreparedTransaction> {
+    return operations.prepareTransaction(params);
   }
 
-  public signTransaction(): Observable<ISignTransactionEvent> {
-    throw new Error(`Method not implemented`);
+  public signTransaction(
+    params: ISignTransactionParams,
+  ): Observable<ISignTransactionEvent> {
+    return operations.signTransaction(params);
   }
 
   public signMessage(): Observable<ISignMessageEvent> {
     throw new Error(`Method not implemented`);
   }
 
-  public broadcastTransaction(): Promise<ITransaction> {
-    throw new Error(`Method not implemented`);
+  public broadcastTransaction(
+    params: IBroadcastStarknetTransactionParams,
+  ): Promise<ITransaction> {
+    return operations.broadcastTransaction(params);
   }
 
   public validateAddress(): boolean {
