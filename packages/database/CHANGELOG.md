@@ -1,5 +1,22 @@
 # @cypherock/database
 
+## 0.0.4
+
+### Patch Changes
+
+- [#398](https://github.com/Cypherock/cypherock-cysync/pull/398) [`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed database corruption
+
+## 0.0.3
+
+### Patch Changes
+
+- [#371](https://github.com/Cypherock/cypherock-cysync/pull/371) [`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added backup db to avoid database corruption
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428), [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/cysync-interfaces@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

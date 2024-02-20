@@ -1,5 +1,63 @@
 # @cypherock/cysync-desktop
 
+## 2.0.3
+
+### Patch Changes
+
+- [#398](https://github.com/Cypherock/cypherock-cysync/pull/398) [`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed database corruption
+
+- [#399](https://github.com/Cypherock/cypherock-cysync/pull/399) [`4998462`](https://github.com/Cypherock/cypherock-cysync/commit/499846207a05bbf56a11dc2ce8557886372b3703) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed device update error
+
+- Updated dependencies [[`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a)]:
+  - @cypherock/database@0.0.4
+
+## 2.0.2
+
+### Patch Changes
+
+- [#379](https://github.com/Cypherock/cypherock-cysync/pull/379) [`18c75d5`](https://github.com/Cypherock/cypherock-cysync/commit/18c75d56b8528dccd39117e7025c3be187ebce01) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - enabled device log attachment in contact support form when device is in unauthenticated state
+
+- [#371](https://github.com/Cypherock/cypherock-cysync/pull/371) [`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added backup db to avoid database corruption
+
+- [#369](https://github.com/Cypherock/cypherock-cysync/pull/369) [`3ac29c1`](https://github.com/Cypherock/cypherock-cysync/commit/3ac29c1d16b52735c7cda24eb72aee08263a299d) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Fixed token transactions not visible in notification
+
+- [#357](https://github.com/Cypherock/cypherock-cysync/pull/357) [`6272d42`](https://github.com/Cypherock/cypherock-cysync/commit/6272d42f3ec7bfd27a59517f76232648f101e343) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added dust threshold error msg for btc fork txn
+
+- [#394](https://github.com/Cypherock/cypherock-cysync/pull/394) [`9ca1ebf`](https://github.com/Cypherock/cypherock-cysync/commit/9ca1ebfcd623d355a940ce8d538c0bd84d10f6c5) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed wallet connect pairing error
+
+- [#396](https://github.com/Cypherock/cypherock-cysync/pull/396) [`d76b0c9`](https://github.com/Cypherock/cypherock-cysync/commit/d76b0c9da68c50aa4b9bc730f41cd0c80ee6555b) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - fix: hidden wallet selector dropdown on coin page
+
+- [#380](https://github.com/Cypherock/cypherock-cysync/pull/380) [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed windows crashing bug
+
+- [#390](https://github.com/Cypherock/cypherock-cysync/pull/390) [`02db1ba`](https://github.com/Cypherock/cypherock-cysync/commit/02db1bafc1773259e1754f656fea06d9e9993b58) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - insufficient balance glitch on token transfer
+
+- [#381](https://github.com/Cypherock/cypherock-cysync/pull/381) [`eb357ac`](https://github.com/Cypherock/cypherock-cysync/commit/eb357ac6a7b5e8671760293daf18599ae4d439f8) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed device connection retry
+
+- [#389](https://github.com/Cypherock/cypherock-cysync/pull/389) [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed memory leaks and device abort handling
+
+- [#388](https://github.com/Cypherock/cypherock-cysync/pull/388) [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added add token under static feature flag
+
+- [#395](https://github.com/Cypherock/cypherock-cysync/pull/395) [`d36a616`](https://github.com/Cypherock/cypherock-cysync/commit/d36a6164aaeca2ddb510b12497d208b172dd6163) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - fix: accounts with txn history are not coming under "Account not yet synced"
+
+- [#376](https://github.com/Cypherock/cypherock-cysync/pull/376) [`33f5784`](https://github.com/Cypherock/cypherock-cysync/commit/33f578482ade3457add766ce2c53354c9b2c52e6) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - fixed graph rendering issue and improved graph alignment
+
+- [#370](https://github.com/Cypherock/cypherock-cysync/pull/370) [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - improved fees input ux & no negative fees value
+
+- [#392](https://github.com/Cypherock/cypherock-cysync/pull/392) [`9e75d08`](https://github.com/Cypherock/cypherock-cysync/commit/9e75d08f5e60de7907a7f1a912742804139890ba) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed token transaction for large values
+
+- [#350](https://github.com/Cypherock/cypherock-cysync/pull/350) [`585c6be`](https://github.com/Cypherock/cypherock-cysync/commit/585c6bef7c8bdad5394c601b08b93741406c78f3) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - update user facing error messages & dialogs
+
+- [#356](https://github.com/Cypherock/cypherock-cysync/pull/356) [`742b7d3`](https://github.com/Cypherock/cypherock-cysync/commit/742b7d3bfa38b0ac238b0c47d5c1f2d0ead86142) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add token functionality and improvements
+
+- [#378](https://github.com/Cypherock/cypherock-cysync/pull/378) [`db6ea0a`](https://github.com/Cypherock/cypherock-cysync/commit/db6ea0a093b6aa4e6c8acc601eeaa5315adb8a09) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed slow hid communication
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428), [`02ffff3`](https://github.com/Cypherock/cypherock-cysync/commit/02ffff30f1d552173f13e3501e5d643539571356)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/database@0.0.3
+  - @cypherock/cysync-interfaces@0.0.3
+  - @cypherock/cysync-desktop-ui@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 2.0.1
 
 ### Patch Changes

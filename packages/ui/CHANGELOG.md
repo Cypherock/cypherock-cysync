@@ -1,5 +1,17 @@
 # @cypherock/cysync-ui
 
+## 0.0.3
+
+### Patch Changes
+
+- [#370](https://github.com/Cypherock/cypherock-cysync/pull/370) [`633495d`](https://github.com/Cypherock/cypherock-cysync/commit/633495d37ba06798a90980f81e77f46b1d01fe31) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - improved fees input ux & no negative fees value
+
+- [#350](https://github.com/Cypherock/cypherock-cysync/pull/350) [`585c6be`](https://github.com/Cypherock/cypherock-cysync/commit/585c6bef7c8bdad5394c601b08b93741406c78f3) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - update user facing error messages & dialogs
+
+- [#356](https://github.com/Cypherock/cypherock-cysync/pull/356) [`742b7d3`](https://github.com/Cypherock/cypherock-cysync/commit/742b7d3bfa38b0ac238b0c47d5c1f2d0ead86142) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - Add token functionality and improvements
+
+- [#378](https://github.com/Cypherock/cypherock-cysync/pull/378) [`db6ea0a`](https://github.com/Cypherock/cypherock-cysync/commit/db6ea0a093b6aa4e6c8acc601eeaa5315adb8a09) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed slow hid communication
+
 ## 0.0.2
 
 ### Patch Changes

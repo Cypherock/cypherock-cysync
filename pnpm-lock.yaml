@@ -254,6 +254,9 @@ importers:
       electron-updater:
         specifier: ^6.1.0
         version: 6.1.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -297,6 +300,9 @@ importers:
       '@playwright/test':
         specifier: ^1.35.1
         version: 1.35.1
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
       '@types/react':
         specifier: ^18.2.13
         version: 18.2.13
@@ -1598,6 +1604,9 @@ importers:
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
+      write-file-atomic:
+        specifier: ^5.0.1
+        version: 5.0.1
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -1635,6 +1644,9 @@ importers:
       '@types/uuid':
         specifier: ^9.0.2
         version: 9.0.2
+      '@types/write-file-atomic':
+        specifier: ^4.0.3
+        version: 4.0.3
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -11367,6 +11379,12 @@ packages:
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
     dev: false
 
+  /@types/write-file-atomic@4.0.3:
+    resolution: {integrity: sha512-qdo+vZRchyJIHNeuI1nrpsLw+hnkgqP/8mlaN6Wle/NKhydHmUN9l4p3ZE8yP90AJNJW4uB8HQhedb4f1vNayQ==}
+    dependencies:
+      '@types/node': 16.18.36
+    dev: true
+
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
@@ -18846,7 +18864,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -26919,6 +26937,14 @@ packages:
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
+
+  /write-file-atomic@5.0.1:
+    resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      imurmurhash: 0.1.4
+      signal-exit: 4.1.0
+    dev: false
 
   /ws@6.2.2:
     resolution: {integrity: sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==}

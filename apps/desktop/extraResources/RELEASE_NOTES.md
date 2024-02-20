@@ -1,3 +1,21 @@
+# v2.0.3
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue
+- Fixed issues regarding device update
+
+# v2.0.2
+
+### 🚀 Features
+
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Faster and improved device communication
+- Various minor bug fixes
+
 # v2.0.1
 
 ### 🚀 Features

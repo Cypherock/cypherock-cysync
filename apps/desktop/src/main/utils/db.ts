@@ -64,10 +64,19 @@ export const closeDbConnection = async () => {
 };
 
 export const clearDatabase = async () => {
-  if (db) {
-    await db.clear();
-  }
-  if (keyDb) {
-    await keyDb.clear();
+  try {
+    if (db) {
+      await db.clear();
+    }
+    if (keyDb) {
+      await keyDb.clear();
+    }
+
+    const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
+
+    await fs.promises.rm(dbPath, { recursive: true, force: true });
+  } catch (error) {
+    logger.warn('Error while clearing database');
+    logger.warn(error);
   }
 };

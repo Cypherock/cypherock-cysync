@@ -1,5 +1,36 @@
 # @cypherock/cysync-cli
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`661e6c8`](https://github.com/Cypherock/cypherock-cysync/commit/661e6c87abbd41e2c095758056714cb61197ac7a)]:
+  - @cypherock/database@0.0.4
+
+## 0.0.3
+
+### Patch Changes
+
+- [#380](https://github.com/Cypherock/cypherock-cysync/pull/380) [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed windows crashing bug
+
+- [#389](https://github.com/Cypherock/cypherock-cysync/pull/389) [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed memory leaks and device abort handling
+
+- [#378](https://github.com/Cypherock/cypherock-cysync/pull/378) [`db6ea0a`](https://github.com/Cypherock/cypherock-cysync/commit/db6ea0a093b6aa4e6c8acc601eeaa5315adb8a09) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed slow hid communication
+
+- Updated dependencies [[`5b07854`](https://github.com/Cypherock/cypherock-cysync/commit/5b078541a56b479af48b2192e8e88059fb938428), [`6272d42`](https://github.com/Cypherock/cypherock-cysync/commit/6272d42f3ec7bfd27a59517f76232648f101e343), [`80ac2f8`](https://github.com/Cypherock/cypherock-cysync/commit/80ac2f8eb96a51950c34374fc6d6e1decb898bdd), [`02db1ba`](https://github.com/Cypherock/cypherock-cysync/commit/02db1bafc1773259e1754f656fea06d9e9993b58), [`55921b2`](https://github.com/Cypherock/cypherock-cysync/commit/55921b22cb0cafd39b7b940e0114088af8a49c02), [`d36a616`](https://github.com/Cypherock/cypherock-cysync/commit/d36a6164aaeca2ddb510b12497d208b172dd6163), [`33f5784`](https://github.com/Cypherock/cypherock-cysync/commit/33f578482ade3457add766ce2c53354c9b2c52e6), [`9e75d08`](https://github.com/Cypherock/cypherock-cysync/commit/9e75d08f5e60de7907a7f1a912742804139890ba), [`cef10e3`](https://github.com/Cypherock/cypherock-cysync/commit/cef10e3f803cfd8be31bf153e14a5dba41425c46)]:
+  - @cypherock/db-interfaces@0.0.3
+  - @cypherock/database@0.0.3
+  - @cypherock/coin-support-btc@0.0.3
+  - @cypherock/coin-support-solana@0.0.3
+  - @cypherock/coin-support-utils@0.0.3
+  - @cypherock/coin-support-near@0.0.3
+  - @cypherock/coin-support-evm@0.0.3
+  - @cypherock/cysync-core-services@0.0.3
+  - @cypherock/coins@0.0.3
+  - @cypherock/coin-support-interfaces@0.0.3
+  - @cypherock/coin-support@0.0.3
+  - @cypherock/cysync-utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
