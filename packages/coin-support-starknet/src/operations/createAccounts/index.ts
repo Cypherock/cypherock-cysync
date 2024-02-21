@@ -6,7 +6,11 @@ import {
 } from '@cypherock/coin-support-utils';
 import { starknetCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
-import { GetPublicKeysEvent, StarknetApp } from '@cypherock/sdk-app-starknet';
+import {
+  GetPublicKeysEvent,
+  StarknetApp,
+  getAddressFromPublicKey,
+} from '@cypherock/sdk-app-starknet';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -14,10 +18,12 @@ import { derivationPathSchemes } from './schemes';
 import {
   ICreateStarknetAccountEvent,
   ICreateStarknetAccountParams,
+  ICreatedStarknetAccount,
 } from './types';
 
 import * as services from '../../services';
 import { createApp } from '../../utils';
+import { StarknetDerivationSchemeMap } from './schemes/types';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -61,9 +67,13 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<StarknetApp>
     const coin = starknetCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
-    return {
+    const address = getAddressFromPublicKey(addressDetails.address);
+    const account: ICreatedStarknetAccount = {
       name,
-      xpubOrAddress: addressDetails.address,
+      xpubOrAddress: address,
+      extraData: {
+        salt: addressDetails.address,
+      },
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
@@ -72,18 +82,25 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<StarknetApp>
       assetId: params.coinId,
       parentAssetId: params.coinId,
       walletId: params.walletId,
-      derivationScheme: addressDetails.schemeName,
+      derivationScheme: StarknetDerivationSchemeMap.default,
       isNew: addressDetails.txnCount <= 0,
       isHidden: false,
     };
+
+    return account;
   };
 
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateStarknetAccountParams,
 ) => ({
-  balance: (await services.getBalance(address, params.coinId)).balance,
-  txnCount: await services.getTransactionCount(address, params.coinId),
+  balance: (
+    await services.getBalance(getAddressFromPublicKey(address), params.coinId)
+  ).balance,
+  txnCount: await services.getTransactionCount(
+    getAddressFromPublicKey(address),
+    params.coinId,
+  ),
 });
 
 export const createAccounts = (

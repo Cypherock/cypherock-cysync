@@ -147,25 +147,28 @@ const getTxnInputs = async (params: {
 
   if (coin.family === coinFamiliesMap.starknet) {
     const txn = transaction as IPreparedStarknetTransaction;
-    const { amount, unit } = getParsedAmount({
-      coinId: coin.id,
-      amount: txn.staticData.maxFee,
-      unitAbbr: 'Gwei',
-    });
-    const fee = await queryInput(
-      `Enter the fee for the transaction (Suggested: ${amount} ${unit.abbr})`,
-    );
+    txn.userInputs.txnType = transactionType !== 'deploy' ? 'transfer' : 'deploy';
+    if (txn.userInputs.txnType !== 'deploy') {
+      const { amount, unit } = getParsedAmount({
+        coinId: coin.id,
+        amount: txn.staticData.maxFee,
+        unitAbbr: 'ETH',
+      });
+      const fee = await queryInput(
+        `Enter the fee for the transaction (Suggested: ${amount} ${unit.abbr})`,
+      );
 
-    if (transactionType !== 'deploy' && outputCount <= 0) {
-      throw new Error('Invalid output count');
+      if (transactionType !== 'deploy' && outputCount <= 0) {
+        throw new Error('Invalid output count');
+      }
+
+      txn.userInputs.maxFee = convertToUnit({
+        amount: fee,
+        coinId: coin.id,
+        fromUnitAbbr: `ETH`,
+        toUnitAbbr: getZeroUnit(coin.id).abbr,
+      }).amount;
     }
-
-    txn.userInputs.maxFee = convertToUnit({
-      amount: fee,
-      coinId: coin.id,
-      fromUnitAbbr: `Gwei`,
-      toUnitAbbr: getZeroUnit(coin.id).abbr,
-    }).amount;
   }
 };
 
@@ -238,17 +241,16 @@ const showTransactionSummary = async (params: {
   }
 
   if (coin.family === coinFamiliesMap.starknet) {
-    console.log("TODO: Show transaction details");
     const txn = transaction as IPreparedStarknetTransaction;
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
-      amount: txn.computedData.maxFee,
+      amount: new BigNumber(txn.computedData.maxFee, 16).toString(10),
       unitAbbr:
         account.unit ??
         getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
-    totalToDeduct = totalToDeduct.plus(txn.computedData.maxFee);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.maxFee, 16);
   }
 
   const { amount, unit } = getParsedAmount({

@@ -19,18 +19,56 @@ import {
 import { createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedStarknetTransaction } from '../transaction';
+import { getStarknetApiJs } from '@cypherock/sdk-app-starknet/dist/utils';
+import { BigNumber } from '@cypherock/cysync-utils';
+
+const contractAXclassHash =
+  '0x01a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003';
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedStarknetTransaction,
   coin: IStarknetCoinInfo,
   account: IAccount,
 ): Promise<ISignTxnParams['txn']> => {
-  console.log({ transaction, coin, account });
-  const txn = { unsignedSerialized: '' };
+  assert(coin, new Error('Failed to prepare unsigned transaction'));
+  assert(account, new Error('Failed to prepare unsigned transaction'));
+  const txn: { unsignedSerialized: string | undefined } = {
+    unsignedSerialized: undefined,
+  };
+  assert(
+    account.extraData,
+    new Error('Starknet salt not found. Reset db and add account again'),
+  );
+  assert(
+    account.extraData.salt,
+    new Error('Starknet salt not found. Reset db and add account again'),
+  );
+  const starknetjs = getStarknetApiJs();
+  if (transaction.userInputs.txnType === 'deploy') {
+    const constructorAXCallData = starknetjs.CallData.compile([
+      account.extraData.salt,
+      0,
+    ]);
+    const deployAccountTxnHash =
+      starknetjs.hash.calculateDeployAccountTransactionHash(
+        account.xpubOrAddress,
+        contractAXclassHash,
+        constructorAXCallData,
+        account.extraData.salt,
+        1,
+        new BigNumber(transaction.computedData.maxFee, 16).toNumber(),
+        starknetjs.constants.StarknetChainId.SN_GOERLI,
+        0,
+      );
+    txn.unsignedSerialized = `${deployAccountTxnHash}`;
+  } else {
+    txn.unsignedSerialized = '';
+  }
   assert(
     txn.unsignedSerialized,
     new Error('Failed to prepare unsigned transaction'),
   );
+
   return txn.unsignedSerialized;
 };
 

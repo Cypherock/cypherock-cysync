@@ -1,6 +1,7 @@
 import { config } from '../../config';
 
 import { getStarknetApiJs } from '@cypherock/sdk-app-starknet/dist/utils';
+import logger from '../../utils/logger';
 
 const nodeUrl = `https://starknet-goerli.infura.io/v3/${config.INFURA_STARKNET_API_KEY}`;
 
@@ -52,10 +53,10 @@ export const getBalance = async (
 };
 
 export const getTransactionCount = async (address: string, assetId: string) => {
+  logger.verbose({ assetId });
   if (!provider) {
     provider = new (getStarknetApiJs().RpcProvider)({ nodeUrl });
   }
-  console.log({ assetId });
 
   try {
     const nonce = await provider.getNonceForAddress(address);

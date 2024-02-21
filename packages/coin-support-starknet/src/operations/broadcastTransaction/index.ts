@@ -13,23 +13,26 @@ import {
 import { IBroadcastStarknetTransactionParams } from './types';
 
 import { broadcastTransactionToBlockchain } from '../../services';
+import { IStarknetAccount } from '../types';
 
 export const broadcastTransaction = async (
   params: IBroadcastStarknetTransactionParams,
 ): Promise<ITransaction> => {
-  const { db, signedTransaction, transaction } = params;
-  const { account, coin } = await getAccountAndCoin(
+  const { db, transaction } = params;
+  const { account } = await getAccountAndCoin(
     db,
     starknetCoinList,
     transaction.accountId,
   );
-  const isMine =
-    params.transaction.computedData.output.address.toLowerCase() ===
+  let isMine = false;
+  isMine =
+    params.transaction.computedData.output.address?.toLowerCase() ===
     account.xpubOrAddress.toLowerCase();
 
   const txnHash = await broadcastTransactionToBlockchain(
-    signedTransaction,
-    coin.id,
+    params.transaction,
+    account as IStarknetAccount,
+    params.signedTransaction,
   );
 
   const parsedTransaction: ITransaction = {

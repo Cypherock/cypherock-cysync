@@ -9,10 +9,16 @@ import { StarknetDerivationSchemeName } from './schemes/types';
 
 export interface IStarknetAccount extends IAccount {
   derivationScheme: StarknetDerivationSchemeName;
+  extraData: {
+    salt?: string;
+  };
 }
 
 export interface ICreatedStarknetAccount extends ICreatedAccount {
   derivationScheme: StarknetDerivationSchemeName;
+  extraData: {
+    salt: string;
+  };
 }
 
 export type ICreateStarknetAccountParams = ICreateAccountParams;

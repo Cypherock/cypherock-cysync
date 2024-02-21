@@ -9,7 +9,11 @@ import {
   IGetReceiveAddressFromDevice,
   mapDerivationPath,
 } from '@cypherock/coin-support-utils';
-import { StarknetApp, GetPublicKeysEvent } from '@cypherock/sdk-app-starknet';
+import {
+  StarknetApp,
+  GetPublicKeysEvent,
+  getAddressFromPublicKey,
+} from '@cypherock/sdk-app-starknet';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -20,6 +24,7 @@ import {
 } from './types';
 
 import { createApp } from '../../utils';
+import { getStarknetApiJs } from '@cypherock/sdk-app-starknet/dist/utils';
 
 const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
@@ -52,7 +57,9 @@ const getReceiveAddressFromDevice = async (
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-  return publicKeys[0];
+  return getAddressFromPublicKey(
+    getStarknetApiJs().ec.starkCurve.getStarkKey(publicKeys[0].slice(0, 64)),
+  );
 };
 
 export const receive = (

@@ -1,6 +1,4 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
-import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import { starknetCoinList } from '@cypherock/coins';
 
 import { estimateFee } from '../../services';
 import { IPreparedStarknetTransaction } from '../transaction';
@@ -8,15 +6,9 @@ import { IPreparedStarknetTransaction } from '../transaction';
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedStarknetTransaction> => {
-  const { accountId, db } = params;
-  const { account } = await getAccountAndCoin(db, starknetCoinList, accountId);
+  const { accountId } = params;
 
-  const fees = await estimateFee('transfer', {
-    data: '',
-    from: account.xpubOrAddress,
-    to: '',
-    value: '0',
-  });
+  const fees = await estimateFee('transfer');
 
   return {
     accountId,
@@ -28,14 +20,15 @@ export const initializeTransaction = async (
     userInputs: {
       outputs: [],
       isSendAll: false,
+      txnType: 'deploy',
     },
     staticData: {
-      txnType: 'transfer',
+      txnType: 'deploy',
       maxFee: `${fees}`,
     },
     computedData: {
       output: { address: '', amount: '0' },
-      maxFee: fees.suggestedMaxFee?.toString(16) ?? '0x8110e6d36a8',
+      maxFee: fees.suggestedMaxFee ?? '0x8110e6d36a8',
       data: '',
     },
   };

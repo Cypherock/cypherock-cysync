@@ -35,22 +35,13 @@ async function estimateFees(params: {
   data: string;
   txn: IPreparedStarknetTransaction;
 }) {
-  const { account, toAddressForEstimate, data, txn } = params;
+  const { txn } = params;
 
   const gasEstimate = await estimateFee(
     txn.userInputs.txnType ?? txn.staticData.txnType,
-    {
-      from: account.xpubOrAddress,
-      to: toAddressForEstimate,
-      value: '0',
-      data,
-    },
   );
 
   const fee = txn.userInputs.maxFee ?? gasEstimate.suggestedMaxFee;
-  if (typeof fee !== 'string') {
-    return fee?.toString(16);
-  }
   return fee;
 }
 
@@ -59,35 +50,38 @@ export const prepareTransaction = async (
 ): Promise<IPreparedStarknetTransaction> => {
   const { accountId, db, txn } = params;
   const { account } = await getAccountAndCoin(db, starknetCoinList, accountId);
-  assert(
-    txn.userInputs.outputs.length === 1 || txn.userInputs.txnType === 'deploy',
-    new Error('Starknet transaction requires exactly 1 output'),
-  );
+  if (txn.userInputs.txnType !== 'deploy') {
+    assert(
+      txn.userInputs.outputs.length === 1,
+      new Error('Starknet transaction requires exactly 1 output'),
+    );
+  }
 
   const outputsAddresses = validateAddresses(params);
   const output = { ...txn.userInputs.outputs[0] };
   // Amount shouldn't have any decimal value as it's in lowest unit
-  output.amount = new BigNumber(output.amount).toFixed(0);
+  output.amount = new BigNumber(output?.amount ?? '0').toFixed(0);
 
   const { data } = txn.computedData;
 
-  let toAddressForEstimate = account.xpubOrAddress;
-  if (outputsAddresses[0] && output.address)
-    toAddressForEstimate = output.address;
+  const toAddressForEstimate = account.xpubOrAddress;
+  const maxFee =
+    (await estimateFees({ account, data, toAddressForEstimate, txn })) ??
+    txn.staticData.maxFee;
+  const isValidFee = new BigNumber(maxFee, 16).isGreaterThan(0);
 
-  return {
+  const resp = {
     ...txn,
     validation: {
       outputs: outputsAddresses,
-      hasEnoughBalance: false,
-      isValidFee: true,
+      hasEnoughBalance: true,
+      isValidFee,
     },
     computedData: {
-      maxFee:
-        (await estimateFees({ account, data, toAddressForEstimate, txn })) ??
-        txn.staticData.maxFee,
+      maxFee,
       output,
       data,
     },
   };
+  return resp;
 };
