@@ -15,6 +15,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import logger from '~/utils/logger';
 
 import PortfolioPageContent from './Content';
 import { NoWallet } from './NoWallet';
@@ -35,6 +36,9 @@ export const Portfolio: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleAddAccountClick = () => {
+    logger.info('Button Click: Add Account', {
+      source: `${Portfolio.name}/NoAccountWrapper`,
+    });
     dispatch(openAddAccountDialog());
   };
 

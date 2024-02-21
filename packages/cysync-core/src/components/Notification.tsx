@@ -31,6 +31,7 @@ import {
 } from '~/actions';
 import { useNavigateTo } from '~/hooks';
 import { getDisplayTransactionType, transactionIconMap } from '~/utils';
+import logger from '~/utils/logger';
 
 import {
   CoinIcon,
@@ -128,6 +129,9 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   };
 
   const onShowMoreClick = () => {
+    logger.info('Button Click: Show More Notification', {
+      source: NotificationDisplay.name,
+    });
     onClose();
     navigate(routes.history.path);
   };

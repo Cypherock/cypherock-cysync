@@ -1,5 +1,10 @@
 import { ReactNode, useState } from 'react';
 
+import { getElementName } from '~/utils';
+import logger from '~/utils/logger';
+
+import { DialogName } from '..';
+
 export type ITabs = {
   name: string;
   dialogs: ReactNode[];
@@ -9,11 +14,13 @@ export type ITabs = {
 export interface IUseTabsAndDialogs {
   deviceRequiredDialogsMap: Record<number, number[] | undefined>;
   tabs: ITabs;
+  dialogName: DialogName;
 }
 
 export function useTabsAndDialogs({
   deviceRequiredDialogsMap,
   tabs,
+  dialogName,
 }: IUseTabsAndDialogs) {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [currentDialog, setCurrentDialog] = useState<number>(0);
@@ -56,6 +63,17 @@ export function useTabsAndDialogs({
   const goTo = (tab: number, dialog?: number) => {
     setIsDeviceRequired(checkIfDeviceRequiredInDialog(tab, dialog ?? 0));
     setCurrentTab(tab);
+
+    const tabName = tabs[tab].name;
+    const subDialogName = getElementName(tabs[tab].dialogs[dialog ?? 0]);
+
+    logger.info('Dialog: Navigation', {
+      source: useTabsAndDialogs.name,
+      dialogName,
+      tabName,
+      subDialogName,
+      isDeviceRequired,
+    });
 
     if (dialog !== undefined) {
       setCurrentDialog(dialog);

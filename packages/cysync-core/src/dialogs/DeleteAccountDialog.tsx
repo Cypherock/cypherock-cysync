@@ -40,6 +40,9 @@ export const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
   };
 
   const onDeleteAccount = async () => {
+    logger.info('Button Click: Delete Account', {
+      source: DeleteAccountDialog.name,
+    });
     setIsLoading(true);
 
     try {

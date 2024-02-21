@@ -155,6 +155,7 @@ export const AddAccountDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'addAccount',
   });
 
   const resetAddAccountStates = () => {
