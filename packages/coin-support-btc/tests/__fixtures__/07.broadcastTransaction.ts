@@ -24,11 +24,11 @@ export const valid: IPrepareTransactionTestCases[] = [
         outputs: [
           { address: 'LPMmBEMdTVpoNYDKooGWjkFyQ2YduGZpyA', amount: '10000' },
         ],
-        feeRate: 150,
+        feeRate: '150',
         isSendAll: false,
       },
       staticData: {
-        averageFee: 150,
+        averageFee: '150',
         utxos: [
           {
             txid: '8b1720b139daa3231455348806a6d01f53bd6cb31f6068b4b206fc5a8bf46aba',
@@ -42,7 +42,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         ],
       },
       computedData: {
-        fee: 33900,
+        fee: '33900',
         inputs: [
           {
             address: 'LYzVffwKeuwnqeuwVikH59gk3iLvVaeZUN',

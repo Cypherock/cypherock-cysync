@@ -15,6 +15,7 @@ export interface InputProps {
   name: string;
   label?: string;
   onChange?: (val: string) => void;
+  onPaste?: (val: string) => void;
   onBlur?: (val: string) => void;
   value?: string;
   disabled?: boolean;
@@ -108,6 +109,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         name,
         label = undefined,
         onChange = undefined,
+        onPaste = undefined,
         onBlur = undefined,
         value = undefined,
         disabled = false,
@@ -158,6 +160,11 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             required={required}
             onClick={onClick}
             onPaste={e => {
+              if (pasteAllowed && onPaste) {
+                e.preventDefault();
+                onPaste(e.clipboardData.getData('text'));
+                return true;
+              }
               if (pasteAllowed) return true;
               e.preventDefault();
               return false;
@@ -202,6 +209,7 @@ Input.defaultProps = {
   placeholder: undefined,
   postfixText: undefined,
   onChange: undefined,
+  onPaste: undefined,
   onBlur: undefined,
   value: undefined,
   disabled: false,

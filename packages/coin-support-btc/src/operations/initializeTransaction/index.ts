@@ -34,7 +34,7 @@ export const initializeTransaction = async (
       utxos,
     },
     computedData: {
-      fee: 0,
+      fee: '0',
       inputs: [],
       outputs: [],
     },

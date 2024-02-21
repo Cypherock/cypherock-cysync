@@ -17,8 +17,8 @@ import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
-import { BitcoinInput } from './BitcoinInput';
-import { EthereumInput } from './EthereumInput';
+import { BitcoinInput, BitcoinInputProps } from './BitcoinInput';
+import { EthereumInput, EthereumInputProps } from './EthereumInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
@@ -56,18 +56,18 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const [isFeeLoading, setIsFeeLoading] = useState(false);
 
   const getLabelSuffix = useLabelSuffix();
-  const getBitcoinProps = () => {
+  const getBitcoinProps = (): BitcoinInputProps => {
     const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
     const txn = transaction as IPreparedBtcTransaction;
     return {
       isTextInput,
       unit: feesUnit,
       initialValue: txn.staticData.averageFee,
-      onChange: debouncedPrepareFeeChanged,
+      onChange: debouncedBtcPrepareFeeChanged,
     };
   };
 
-  const getEthereumProps = () => {
+  const getEthereumProps = (): Partial<EthereumInputProps> => {
     if (!selectedAccount) return {};
     const { feesUnit } = coinList[selectedAccount.parentAssetId];
     const txn = transaction as IPreparedEvmTransaction;
@@ -124,27 +124,29 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     );
   };
 
-  const prepareFeeChanged = async (value: number) => {
+  const btcPrepareFee = async (value: string) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedBtcTransaction;
-    setIsFeeLow(value < (2 / 3) * txn.staticData.averageFee);
+    const valueBN = new BigNumber(value);
+    const averageFeeBN = new BigNumber(txn.staticData.averageFee);
+    setIsFeeLow(valueBN.isLessThan(averageFeeBN.multipliedBy(2).dividedBy(3)));
     txn.userInputs.feeRate = value;
     await prepare(txn);
     setIsFeeLoading(false);
   };
 
-  const debouncedPrepareFeeChanged = useCallback(
-    lodash.debounce(prepareFeeChanged, 300),
+  const debouncedBtcPrepareFeeChanged = useCallback(
+    lodash.debounce(btcPrepareFee, 300),
     [],
   );
 
   const evmPrepareFee = async (param: {
-    gasLimit?: number;
-    gasPrice?: number;
+    gasLimit?: string;
+    gasPrice?: string;
   }) => {
     setIsFeeLoading(true);
     const txn = transaction as IPreparedEvmTransaction;
-    const gasPrice = param.gasPrice?.toString(10)
+    const gasPrice = param.gasPrice
       ? convertToUnit({
           amount: param.gasPrice,
           coinId: selectedAccount?.parentAssetId ?? '',
@@ -152,17 +154,21 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
           toUnitAbbr: getZeroUnit(selectedAccount?.parentAssetId ?? '').abbr,
         }).amount
       : txn.userInputs.gasPrice;
-    const gasLimit = param.gasLimit ?? Number(txn.computedData.gasLimit);
+    const gasLimit = param.gasLimit ?? txn.computedData.gasLimit;
 
     // the gas price check for 2/3 of the average is same as bitcoin
+    const gasPriceBN = gasPrice ? new BigNumber(gasPrice) : undefined;
+    const gasLimitBN = new BigNumber(gasLimit);
+    const averageGasPriceBN = new BigNumber(txn.staticData.averageGasPrice);
+    const gasLimitEstimateBN = new BigNumber(txn.computedData.gasLimitEstimate);
     setIsFeeLow(
-      Number(gasPrice) < (2 / 3) * Number(txn.staticData.averageGasPrice) ||
-        gasLimit < Number(txn.computedData.gasLimitEstimate),
+      gasPriceBN?.isLessThan(averageGasPriceBN.multipliedBy(2).dividedBy(3)) ??
+        gasLimitBN.isLessThan(gasLimitEstimateBN),
     );
 
     if (param.gasLimit !== undefined) {
       // user modified gas limit
-      txn.userInputs.gasLimit = gasLimit.toString(10);
+      txn.userInputs.gasLimit = gasLimit;
     }
     if (param.gasPrice !== undefined) {
       // user modified gas price

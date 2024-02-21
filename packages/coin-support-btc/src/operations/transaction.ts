@@ -31,16 +31,16 @@ export interface IPreparedBtcTransaction extends IPreparedTransaction {
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];
-    feeRate: number;
+    feeRate: string;
     isSendAll: boolean;
   };
   staticData: {
-    averageFee: number;
+    averageFee: string;
     utxos: IUtxo[];
   };
   computedData: {
     inputs: IPreparedBtcTransactionInput[];
     outputs: IPreparedBtcTransactionOutput[];
-    fee: number;
+    fee: string;
   };
 }

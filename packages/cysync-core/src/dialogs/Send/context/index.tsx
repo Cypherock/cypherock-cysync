@@ -513,7 +513,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     // return '0' in error scenarios because BigNumber cannot handle empty string
     if (!txn) return '0';
     const { computedData } = txn as IPreparedBtcTransaction;
-    return computedData.fee.toString() || '0';
+    return computedData.fee || '0';
   };
 
   const getEvmFeeAmount = (txn: IPreparedTransaction | undefined) => {

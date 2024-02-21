@@ -63,7 +63,7 @@ export const broadcastTransaction = async (
 
   const parsedTransaction: ITransaction = {
     hash: txnHash,
-    fees: transaction.computedData.fee.toString(),
+    fees: transaction.computedData.fee,
     amount: '0',
     status: TransactionStatusMap.pending,
     type: TransactionTypeMap.receive,
