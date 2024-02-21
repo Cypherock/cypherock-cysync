@@ -62,6 +62,7 @@ export interface AddTokenDialogContextInterface {
   tokenDropDownList: DropDownItemProps[];
   accountDropdownList: DropDownItemProps[];
   handleCreateToken: () => void;
+  selectedChainNameWithNoAccount: string | undefined;
 }
 
 export const AddTokenDialogContext: Context<AddTokenDialogContextInterface> =
@@ -88,9 +89,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     walletDropdownList,
   } = useWalletDropdown({ walletId: defaultWalletId });
 
-  const [selectedAssetType, setSelectedAssetType] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedChain, setSelectedChain] = useState<string | undefined>(
+    undefined,
+  );
   const [selectedTokens, setSelectedTokens] = useState<IEvmErc20Token[]>([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
 
@@ -99,11 +100,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   }, [selectedWallet]);
 
   useEffect(() => {
-    if (selectedTokens.length > 0)
-      setSelectedAssetType(selectedTokens[0].parentId);
+    if (selectedTokens.length > 0) setSelectedChain(selectedTokens[0].parentId);
     else if (selectedAccounts.length > 0)
-      setSelectedAssetType(selectedAccounts[0].assetId);
-    else setSelectedAssetType(undefined);
+      setSelectedChain(selectedAccounts[0].assetId);
+    else setSelectedChain(undefined);
   }, [selectedTokens, selectedAccounts]);
 
   useEffect(() => {
@@ -181,11 +181,11 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             showRightTextOnBottom: undefined,
             disabled:
               account !== undefined &&
-              selectedAssetType !== undefined &&
-              selectedAssetType !== account.assetId,
+              selectedChain !== undefined &&
+              selectedChain !== account.assetId,
           };
         }),
-    [accountDropdownListSrc, accountList, selectedAssetType],
+    [accountDropdownListSrc, accountList, selectedChain],
   );
 
   const tokenDropDownList: DropDownItemProps[] = useMemo<
@@ -200,10 +200,26 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       rightText:
         token.parentId[0].toUpperCase() + token.parentId.slice(1).toLowerCase(),
       text: token.name,
-      disabled:
-        selectedAssetType !== undefined && selectedAssetType !== token.parentId,
+      disabled: selectedChain !== undefined && selectedChain !== token.parentId,
     }));
-  }, [tokenList, selectedAssetType]);
+  }, [tokenList, selectedChain]);
+
+  const selectedChainNameWithNoAccount = useMemo<string | undefined>(() => {
+    if (selectedChain === undefined) return undefined;
+
+    if (
+      accountDropdownListSrc.find(a => {
+        const account = a.id ? accountList[a.id] : undefined;
+        if (account?.assetId === selectedChain) return true;
+        return false;
+      })
+    )
+      return undefined;
+
+    return (
+      selectedChain[0].toUpperCase() + selectedChain.slice(1).toLowerCase()
+    );
+  }, [selectedChain, accountDropdownListSrc]);
 
   const handleCreateToken = useCallback(async () => {
     if (selectedAccounts.length === 0 || selectedTokens.length === 0) {
@@ -280,6 +296,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       selectedAccounts,
       setSelectedAccounts,
       handleCreateToken,
+      selectedChainNameWithNoAccount,
     }),
     [
       currentTab,
@@ -302,6 +319,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       selectedAccounts,
       setSelectedAccounts,
       handleCreateToken,
+      selectedChainNameWithNoAccount,
     ],
   );
 

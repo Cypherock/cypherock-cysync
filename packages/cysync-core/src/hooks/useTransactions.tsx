@@ -357,32 +357,36 @@ export const useTransactions = ({
   const parseTransactionsList = () => {
     const mappedTransactions: TransactionRowData[] =
       refData.current.transactions
-        .filter(a => {
-          if (a.type === TransactionTypeMap.hidden) {
+        .filter(t => {
+          if (t.type === TransactionTypeMap.hidden) {
             return false;
           }
           if (
             refData.current.walletId &&
-            a.walletId !== refData.current.walletId
+            t.walletId !== refData.current.walletId
           ) {
             return false;
           }
           if (
             refData.current.assetId &&
-            a.assetId !== refData.current.assetId
+            t.assetId !== refData.current.assetId
           ) {
             return false;
           }
           if (
             refData.current.parentAssetId &&
-            a.parentAssetId !== refData.current.parentAssetId
+            t.parentAssetId !== refData.current.parentAssetId
           ) {
             return false;
           }
           if (
             refData.current.accountId &&
-            a.accountId !== refData.current.accountId
+            t.accountId !== refData.current.accountId
           ) {
+            return false;
+          }
+
+          if (!refData.current.accounts.find(a => a.__id === t.accountId)) {
             return false;
           }
 
