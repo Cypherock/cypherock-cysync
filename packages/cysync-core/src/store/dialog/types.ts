@@ -4,6 +4,7 @@ import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { SendDialogProps } from '~/dialogs/Send';
+import { VideoDialogProps } from '~/dialogs/VideoDialog';
 
 export interface IDialogState {
   deviceAuthenticationDialog: {
@@ -126,6 +127,16 @@ export interface IDialogState {
   betaNotificationDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  helpDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  videoDialog: {
+    isOpen: boolean;
+    data?: VideoDialogProps;
   };
 }
 

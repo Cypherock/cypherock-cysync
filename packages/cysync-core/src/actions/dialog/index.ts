@@ -7,6 +7,7 @@ import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
+import { VideoDialogProps } from '~/dialogs/VideoDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -81,3 +82,9 @@ export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
 
 export const openBetaNotificationDialog = () =>
   openDialog({ name: 'betaNotificationDialog', data: undefined });
+
+export const openHelpDialog = () =>
+  openDialog({ name: 'helpDialog', data: undefined });
+
+export const openVideoDialog = (props: VideoDialogProps) =>
+  openDialog({ name: 'videoDialog', data: props });
