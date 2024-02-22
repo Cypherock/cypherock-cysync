@@ -78,14 +78,14 @@ export interface SendDialogContextInterface {
   selectedWallet: IWallet | undefined;
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
   walletDropdownList: DropDownItemProps[];
-  handleWalletChange: () => void;
+  handleWalletChange: (id?: string | undefined) => void;
   selectedAccount: IAccount | undefined;
   selectedAccountParent: IAccount | undefined;
   setSelectedAccount: React.Dispatch<
     React.SetStateAction<IAccount | undefined>
   >;
   accountDropdownList: DropDownItemProps[];
-  handleAccountChange: () => void;
+  handleAccountChange: (id?: string | undefined) => void;
   transaction: IPreparedTransaction | undefined;
   setTransaction: React.Dispatch<
     React.SetStateAction<IPreparedTransaction | undefined>
@@ -551,6 +551,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'sendDialog',
   });
 
   const ctx = useMemo(

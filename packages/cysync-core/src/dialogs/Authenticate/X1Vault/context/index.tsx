@@ -78,6 +78,7 @@ export const AuthenticateX1VaultDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'authenticateX1Vault',
   });
 
   const ctx = useMemo(

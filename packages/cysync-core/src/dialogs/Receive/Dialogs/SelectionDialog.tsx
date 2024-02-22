@@ -10,11 +10,12 @@ import {
   svgGradients,
   ArrowReceivedIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
+import logger from '~/utils/logger';
 
 export const SelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -31,6 +32,31 @@ export const SelectionDialog: React.FC = () => {
 
   const dialogText = lang.strings.receive.source;
   const buttonText = lang.strings.buttons;
+  const { accounts: allAccounts } = useAppSelector(selectAccounts);
+
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: `Receive/${SelectionDialog.name}`,
+        isWalletSelected: Boolean(args[0]),
+      });
+      return handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
+
+  const handleAccountChangeProxy: typeof handleAccountChange = useCallback(
+    (id: string | undefined, ...args) => {
+      const targetAccount = allAccounts.find(a => a.__id === id);
+      logger.info('Dropdown Change: Account Change', {
+        source: `Receive/${SelectionDialog.name}`,
+        assetId: targetAccount?.assetId,
+        derivationPath: targetAccount?.derivationPath,
+      });
+      return handleAccountChange(id, ...args);
+    },
+    [allAccounts, handleAccountChange],
+  );
 
   return (
     <DialogBox width={500}>
@@ -60,7 +86,7 @@ export const SelectionDialog: React.FC = () => {
             selectedItem={selectedWallet?.__id}
             searchText={dialogText.searchText}
             placeholderText={dialogText.walletPlaceholder}
-            onChange={handleWalletChange}
+            onChange={handleWalletChangeProxy}
             noLeftImageInList
           />
           <Dropdown
@@ -69,7 +95,7 @@ export const SelectionDialog: React.FC = () => {
             disabled={!selectedWallet}
             searchText={dialogText.searchText}
             placeholderText={dialogText.accountPlaceholder}
-            onChange={handleAccountChange}
+            onChange={handleAccountChangeProxy}
           />
         </Container>
       </DialogBoxBody>

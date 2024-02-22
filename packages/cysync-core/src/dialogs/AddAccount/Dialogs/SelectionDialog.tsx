@@ -1,21 +1,22 @@
 import { coinList } from '@cypherock/coins';
 import {
-  LangDisplay,
+  Button,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  Image,
-  Container,
   DialogBoxFooter,
-  Button,
-  Dropdown,
-  addAccountIcon,
   DropDownItemProps,
+  Dropdown,
+  Image,
+  LangDisplay,
+  Typography,
+  addAccountIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { useAddAccountDialog } from '../context';
 
@@ -45,14 +46,28 @@ export const AddAccountSelectionDialog: React.FC = () => {
   const strings = lang.strings.addAccount.select;
   const button = lang.strings.buttons;
 
-  const handleCoinChange = (id: string | undefined) => {
-    if (!id) {
-      setSelectedCoin(undefined);
-      return;
-    }
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: AddAccountSelectionDialog.name,
+        isWalletSelected: Boolean(args[0]),
+      });
+      handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
 
-    setSelectedCoin(coinList[id]);
-  };
+  const handleCoinChange = useCallback(
+    (id: string | undefined) => {
+      const targetCoin = id ? coinList[id] : undefined;
+      setSelectedCoin(targetCoin);
+      logger.info('Dropdown Change: Coin Change', {
+        source: AddAccountSelectionDialog.name,
+        coin: targetCoin?.name,
+      });
+    },
+    [coinList],
+  );
 
   return (
     <DialogBox width={500}>
@@ -69,7 +84,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             selectedItem={selectedWallet?.__id}
             searchText={strings.searchText}
             placeholderText={strings.walletPlaceholder}
-            onChange={handleWalletChange}
+            onChange={handleWalletChangeProxy}
             noLeftImageInList
           />
           <Dropdown

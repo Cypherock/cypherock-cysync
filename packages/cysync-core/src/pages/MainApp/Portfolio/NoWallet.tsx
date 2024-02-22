@@ -4,7 +4,7 @@ import {
   GraphGreyIcon,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { DeviceHandlingState, useDevice } from '~/context';
@@ -15,6 +15,7 @@ import {
   useAppDispatch,
   selectWallets,
 } from '~/store';
+import logger from '~/utils/logger';
 
 const selector = createSelector(
   [selectLanguage, selectWallets],
@@ -31,8 +32,22 @@ export const NoWallet = () => {
   const { deviceHandlingState } = useDevice();
 
   const handleAddWalletClick = () => {
+    logger.info('Button Click: Add Wallet', {
+      source: `${NoWallet.name}/NoAccountWrapper`,
+    });
     dispatch(openWalletActionsDialog());
   };
+
+  const handleWalletSync: typeof onWalletSync = () =>
+    useCallback(
+      (e?: any) => {
+        logger.info('Button Click: Sync Wallet', {
+          source: `${NoWallet.name}/NoAccountWrapper`,
+        });
+        onWalletSync(e);
+      },
+      [onWalletSync],
+    );
 
   return (
     <NoAccountWrapper>
@@ -48,7 +63,7 @@ export const NoWallet = () => {
           deviceHandlingState !== DeviceHandlingState.USABLE
         }
         onClick={handleAddWalletClick}
-        onClickTwo={onWalletSync}
+        onClickTwo={handleWalletSync}
         $noLoaderContainer
       />
     </NoAccountWrapper>

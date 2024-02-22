@@ -158,6 +158,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'setPassword',
   });
 
   const ctx = useMemo(

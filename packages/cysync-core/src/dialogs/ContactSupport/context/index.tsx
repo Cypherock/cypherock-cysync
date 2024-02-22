@@ -326,6 +326,7 @@ export const ContactSupportDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'contactSupportDialog',
   });
 
   const ctx = useMemo(

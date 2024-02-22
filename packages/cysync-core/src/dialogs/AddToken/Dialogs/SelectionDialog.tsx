@@ -11,11 +11,12 @@ import {
   Typography,
   MessageBox,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddTokenDialog } from '../context';
+import logger from '~/utils/logger';
 
 export const AddTokenSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -39,13 +40,46 @@ export const AddTokenSelectionDialog: React.FC = () => {
   const { addToken } = lang.strings;
   const button = lang.strings.buttons;
 
-  const handleTokenChange = (ids: string[]) => {
-    setSelectedTokens(ids.map(id => tokenList[id]));
-  };
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: AddTokenSelectionDialog.name,
+        isWalletSelected: Boolean(args[0]),
+      });
+      handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
 
-  const handleAccountChange = (ids: string[]) => {
-    setSelectedAccounts(ids.map(id => accountList[id]));
-  };
+  const handleTokenChange = useCallback(
+    (ids: string[]) => {
+      const targetCoins = ids.map(id => tokenList[id]);
+      logger.info('Dropdown Change: Token Change', {
+        source: AddTokenSelectionDialog.name,
+        tokens: targetCoins.map(coin => ({
+          name: coin.name,
+          parentId: coin.parentId,
+        })),
+      });
+      setSelectedTokens(targetCoins);
+    },
+    [tokenList],
+  );
+
+  const handleAccountChange = useCallback(
+    (ids: string[]) => {
+      const targetAccounts = ids.map(id => accountList[id]);
+      logger.info('Dropdown Change: Account Change', {
+        source: AddTokenSelectionDialog.name,
+        accounts: targetAccounts.map(a => ({
+          assetId: a.assetId,
+          derivationPath: a.derivationPath,
+        })),
+      });
+      setSelectedAccounts(targetAccounts);
+    },
+    [accountList],
+  );
 
   return (
     <DialogBox width={500} onClose={onClose}>
@@ -81,7 +115,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
             selectedItem={selectedWallet?.__id}
             searchText={addToken.select.searchText}
             placeholderText={addToken.select.walletPlaceholder}
-            onChange={handleWalletChange}
+            onChange={handleWalletChangeProxy}
             noLeftImageInList
           />
           <Dropdown

@@ -129,6 +129,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     useTabsAndDialogs({
       deviceRequiredDialogsMap,
       tabs,
+      dialogName: 'addToken',
     });
 
   const onClose = () => {

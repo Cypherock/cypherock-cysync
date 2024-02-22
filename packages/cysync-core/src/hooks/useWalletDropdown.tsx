@@ -23,8 +23,8 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
 
   const handleWalletChange = useCallback(
     (id?: string) => {
-      if (!id) setSelectedWallet(undefined);
-      setSelectedWallet(wallets.find(w => w.__id === id));
+      const targetWallet = id ? wallets.find(w => w.__id === id) : undefined;
+      setSelectedWallet(targetWallet);
     },
     [wallets],
   );

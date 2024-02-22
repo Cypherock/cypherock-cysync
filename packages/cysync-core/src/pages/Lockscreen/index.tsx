@@ -10,10 +10,11 @@ import {
   PasswordInput,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useLockscreen } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
@@ -28,6 +29,15 @@ export const Lockscreen: React.FC = () => {
   const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
     useState(false);
 
+  useEffect(() => {
+    logger.info('Dialog: Navigation', {
+      source: Lockscreen.name,
+      dialogName: showForgotPasswordDialog
+        ? ForgotPasswordDialog.name
+        : Lockscreen.name,
+    });
+  }, [showForgotPasswordDialog]);
+
   const onPasswordSubmit: React.FormEventHandler<
     HTMLFormElement
   > = async event => {
@@ -38,6 +48,10 @@ export const Lockscreen: React.FC = () => {
     setIsLoading(true);
 
     const isCorrect = await unlock(password);
+    logger.info('Form Submit: Lockscreen Password', {
+      source: Lockscreen.name,
+      isCorrect,
+    });
 
     if (!isCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
