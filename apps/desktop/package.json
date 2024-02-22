@@ -85,7 +85,7 @@
     "@cypherock/sdk-interfaces": "^0.0.14",
     "buffer": "^6.0.3",
     "electron-playwright-helpers": "^1.5.5",
-    "electron-updater": "^6.1.0",
+    "electron-updater": "^6.1.9",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
