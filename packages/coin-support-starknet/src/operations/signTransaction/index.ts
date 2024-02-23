@@ -21,9 +21,17 @@ import logger from '../../utils/logger';
 import { IPreparedStarknetTransaction } from '../transaction';
 import { getStarknetApiJs } from '@cypherock/sdk-app-starknet/dist/utils';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { config } from '../../config';
 
 const contractAXclassHash =
   '0x01a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003';
+const ethContractAddress =
+  '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7';
+// const strkContractAddress =
+//   '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d';
+
+const nodeUrl = `https://starknet-goerli.infura.io/v3/${config.INFURA_STARKNET_API_KEY}`;
+let provider: any = null;
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedStarknetTransaction,
@@ -61,6 +69,36 @@ const prepareUnsignedTxn = async (
         0,
       );
     txn.unsignedSerialized = `${deployAccountTxnHash}`;
+  } else if (transaction.userInputs.txnType === 'transfer') {
+    const recipientAddress = transaction.userInputs.outputs[0].address;
+    const maxFee = new BigNumber(
+      transaction.computedData.maxFee,
+      16,
+    ).toNumber();
+    const { amount } = transaction.userInputs.outputs[0];
+
+    const txnVersion = '0x1';
+    const transferCallData = [
+      txnVersion,
+      ethContractAddress,
+      starknetjs.hash.getSelectorFromName('transfer'),
+      '0x3',
+      recipientAddress,
+      amount,
+      '0x0',
+    ];
+    if (!provider) {
+      provider = new (getStarknetApiJs().RpcProvider)({ nodeUrl });
+    }
+    const transferFundTxnHash = starknetjs.hash.calculateTransactionHash(
+      account.xpubOrAddress,
+      txnVersion,
+      transferCallData,
+      maxFee,
+      starknetjs.constants.StarknetChainId.SN_GOERLI,
+      await provider.getNonceForAddress(account.xpubOrAddress),
+    );
+    txn.unsignedSerialized = `${transferFundTxnHash}`;
   } else {
     txn.unsignedSerialized = '';
   }
