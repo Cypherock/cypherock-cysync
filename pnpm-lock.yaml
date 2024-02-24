@@ -269,6 +269,9 @@ importers:
       usb:
         specifier: 2.11.0
         version: 2.11.0
+      win-verify-signature:
+        specifier: ^1.7.0
+        version: 1.7.0
       winston:
         specifier: ^3.9.0
         version: 3.9.0
@@ -18864,7 +18867,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -20969,7 +20972,6 @@ packages:
 
   /node-addon-api@4.3.0:
     resolution: {integrity: sha512-73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==}
-    dev: true
 
   /node-addon-api@7.1.0:
     resolution: {integrity: sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==}
@@ -26855,6 +26857,15 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       string-width: 4.2.3
+
+  /win-verify-signature@1.7.0:
+    resolution: {integrity: sha512-4ZY44/nFJEA8mWl1rrTsqw+kz0xJLPPdkj+vpWSb1Vh92v15BZaQ//zN+zIQoId8ClVGvTz5WK4fkJHYLMdbPA==}
+    requiresBuild: true
+    dependencies:
+      bindings: 1.5.0
+      node-addon-api: 4.3.0
+      prebuild-install: 7.1.1
+    dev: false
 
   /winston-transport@4.6.0:
     resolution: {integrity: sha512-wbBA9PbPAHxKiygo7ub7BYRiKxms0tpfU2ljtWzb3SjRjv5yl6Ozuy/TkXf00HTAt+Uylo3gSkNwzc4ME0wiIg==}

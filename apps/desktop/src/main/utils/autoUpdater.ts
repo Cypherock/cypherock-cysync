@@ -1,4 +1,5 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
+import winVerifySign from 'win-verify-signature';
 import { WebContents } from 'electron';
 import {
   autoUpdater as electronAutoUpdater,
@@ -11,6 +12,8 @@ import { config } from './config';
 import { createServiceLogger } from './logger';
 
 import { ipcConfig } from '../ipc/helpers/config';
+
+const logger = createServiceLogger('autoUpdater');
 
 class AutoUpdater {
   private cancellationToken?: CancellationToken;
@@ -26,7 +29,7 @@ class AutoUpdater {
       return;
     }
 
-    electronAutoUpdater.logger = createServiceLogger('autoUpdater');
+    electronAutoUpdater.logger = logger;
     electronAutoUpdater.autoDownload = false;
     electronAutoUpdater.channel = config.CHANNEL;
   }
@@ -47,6 +50,35 @@ class AutoUpdater {
     electronAutoUpdater.on('error', e => {
       this.onError(e);
     });
+
+    // Verify application after update downloaded successfully
+    if (process.platform === 'win32') {
+      (electronAutoUpdater as any).verifyUpdateCodeSignature = (
+        publisherName: string[],
+        path: string,
+      ) => {
+        logger.info(
+          'autoUpdaterService.ts::verifyUpdateCodeSignature::starting verification::-',
+          {
+            path,
+            publisherName,
+          },
+        );
+        const result = winVerifySign.verifySignatureByPublishName(
+          path,
+          publisherName,
+        );
+        if (result.signed) return Promise.resolve(undefined);
+        logger.info(
+          'autoUpdaterService.ts::verifyUpdateCodeSignature::225::-',
+          {
+            result,
+            message: result.message,
+          },
+        );
+        return Promise.resolve(result.message);
+      };
+    }
   }
 
   public async checkForUpdates(): Promise<UpdateInfo | undefined> {
