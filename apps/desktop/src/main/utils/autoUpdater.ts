@@ -1,5 +1,4 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
-import winVerifySign from 'win-verify-signature';
 import { WebContents } from 'electron';
 import {
   autoUpdater as electronAutoUpdater,
@@ -7,6 +6,7 @@ import {
   UpdateDownloadedEvent,
   UpdateInfo as ElectronUpdateInfo,
 } from 'electron-updater';
+import winVerifySign from 'win-verify-signature';
 
 import { config } from './config';
 import { createServiceLogger } from './logger';
@@ -57,25 +57,19 @@ class AutoUpdater {
         publisherName: string[],
         path: string,
       ) => {
-        logger.info(
-          'autoUpdaterService.ts::verifyUpdateCodeSignature::starting verification::-',
-          {
-            path,
-            publisherName,
-          },
-        );
+        logger.info('Starting verification', {
+          path,
+          publisherName,
+        });
         const result = winVerifySign.verifySignatureByPublishName(
           path,
           publisherName,
         );
         if (result.signed) return Promise.resolve(undefined);
-        logger.info(
-          'autoUpdaterService.ts::verifyUpdateCodeSignature::225::-',
-          {
-            result,
-            message: result.message,
-          },
-        );
+        logger.info('verifyUpdateCodeSignatureResult', {
+          result,
+          message: result.message,
+        });
         return Promise.resolve(result.message);
       };
     }

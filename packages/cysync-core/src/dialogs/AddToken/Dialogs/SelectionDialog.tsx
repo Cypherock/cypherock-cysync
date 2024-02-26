@@ -14,9 +14,9 @@ import {
 import React, { useCallback } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { useAddTokenDialog } from '../context';
-import logger from '~/utils/logger';
 
 export const AddTokenSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
