@@ -52,6 +52,7 @@ class AutoUpdater {
     });
 
     // Verify application after update downloaded successfully
+    // https://github.com/electron-userland/electron-builder/issues/7127#issuecomment-1933413272
     if (process.platform === 'win32') {
       (electronAutoUpdater as any).verifyUpdateCodeSignature = (
         publisherName: string[],
