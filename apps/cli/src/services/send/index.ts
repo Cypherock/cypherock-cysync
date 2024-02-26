@@ -56,8 +56,6 @@ const getTxnInputs = async (params: {
   }
 
   const transactionType = await querySelect(transactionTypeChoices);
-  if (transactionType === 'single' || transactionType === 'all')
-    throw new Error("Not implemented");
 
   if (isBatchAllowed) {
     const isBatch = transactionType === 'batch';

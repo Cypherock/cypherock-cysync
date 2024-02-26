@@ -71,10 +71,7 @@ const prepareUnsignedTxn = async (
     txn.unsignedSerialized = `${deployAccountTxnHash}`;
   } else if (transaction.userInputs.txnType === 'transfer') {
     const recipientAddress = transaction.userInputs.outputs[0].address;
-    const maxFee = new BigNumber(
-      transaction.computedData.maxFee,
-      16,
-    ).toNumber();
+    const maxFee = new BigNumber(transaction.computedData.maxFee).toNumber();
     const { amount } = transaction.userInputs.outputs[0];
 
     const txnVersion = '0x1';
