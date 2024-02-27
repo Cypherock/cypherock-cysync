@@ -13,9 +13,9 @@ import {
 import React, { useCallback } from 'react';
 
 import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { useReceiveDialog } from '../context';
-import logger from '~/utils/logger';
 
 export const SelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

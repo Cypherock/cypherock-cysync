@@ -22,12 +22,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import {
   ChainSpecificAccountSelection,
   DappConnectionDisplay,
 } from './Components';
-import logger from '~/utils/logger';
 
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
