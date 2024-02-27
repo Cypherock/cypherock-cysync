@@ -1,5 +1,4 @@
 import React, { FC, ReactElement, useMemo, useRef } from 'react';
-import Marquee from 'react-fast-marquee';
 import styled, { css } from 'styled-components';
 
 import {
@@ -163,16 +162,43 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+export const ScrollReveal = styled.div<{
+  $duration: number;
+  $parentWidth: number;
+  $play: boolean;
+}>`
+  & > * {
+    transform: ${({ $play, $parentWidth }) =>
+      $play ? `translateX(calc(${$parentWidth}px - 100%))` : 'translateX(0%)'};
+    transition: transform linear
+      ${({ $duration, $play }) => ($play ? $duration : $duration / 2)}s 1s;
+  }
+`;
+
 export const SmartMarquee: FC<{
   children: React.ReactNode | React.ReactNode[];
-  isOverflow: boolean;
-}> = ({ children, isOverflow }) => {
-  if (!isOverflow) {
+  $isOverflow: boolean;
+  $isHovered: boolean;
+  $childRef: React.MutableRefObject<HTMLDivElement | null>;
+  $parentRef: React.MutableRefObject<HTMLDivElement | null>;
+}> = ({ children, $isOverflow, $childRef, $parentRef, $isHovered }) => {
+  if (!$isOverflow || !$childRef.current || !$parentRef.current) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
 
-  return <Marquee direction="left">{children}</Marquee>;
+  const duration =
+    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40;
+
+  return (
+    <ScrollReveal
+      $play={$isHovered}
+      $parentWidth={$parentRef.current.offsetWidth}
+      $duration={duration}
+    >
+      {children}
+    </ScrollReveal>
+  );
 };
 
 export const DropDownItem: FC<DropDownItemProps> = ({
@@ -259,7 +285,12 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         </DropDownListItemIconContainer>
       )}
       <Flex direction="column" $overflowX="hidden" width="full" ref={parentRef}>
-        <SmartMarquee isOverflow={isShowCase ? false : isOverflow}>
+        <SmartMarquee
+          $isHovered={$isFocused}
+          $parentRef={parentRef}
+          $childRef={childRef}
+          $isOverflow={isShowCase ? false : isOverflow}
+        >
           <Flex
             align="center"
             gap={16}
