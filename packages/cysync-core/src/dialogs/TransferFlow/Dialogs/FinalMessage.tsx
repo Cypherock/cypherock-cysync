@@ -43,7 +43,7 @@ const Buttons: FC<{
   const { onCloseDialog } = useTransferFlow();
   const { lang, wallets } = useAppSelector(selectWalletsAndLang);
   const dispatch = useAppDispatch();
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const tryOpeningAddAccount = () => {
     if (wallets.length > 0) {
       onCloseDialog();
@@ -57,7 +57,6 @@ const Buttons: FC<{
     dispatch(
       syncWalletsWithDevice({
         connection,
-        connectDevice,
         doFetchFromDevice: true,
       }),
     );
