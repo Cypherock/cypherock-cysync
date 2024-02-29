@@ -11,3 +11,7 @@ export * from './SetPassword';
 export * from './EmailAuth';
 export * from './AppUpdate';
 export * from './DeviceUpdate';
+export * from './ExistingWalletList';
+export * from './SupplChainCompromised';
+export * from './CardBeepThree';
+export * from './CardBeepTwo';

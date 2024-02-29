@@ -352,6 +352,7 @@ const en = {
     editAccount: 'Edit Account',
     submit: 'Submit',
     showMore: 'Show more',
+    notCreated: 'Not created by me',
   },
   deviceAuthentication: {
     success: {
@@ -716,6 +717,32 @@ const en = {
       success: 'Your cySync password has been successfully set',
       enterEmailLabel: 'Email',
       placeholder: 'Email',
+    },
+    walletList: {
+      heading: 'Wallet List',
+      title: 'Existing wallets ',
+      subtitle:
+        'The following wallets exist inside the cards. Click confirm if these wallets were created by you ',
+      success: 'Your cySync password has been successfully set',
+    },
+    supplyChainCompromised: {
+      heading: 'Email Auth',
+      title: 'Supply chain compromised  ',
+      subtitle:
+        'Your Cypherock X1 might have been compromised. Contact Cypherock support immediately. Close the app after you have contacted the support',
+      success: 'Your cySync password has been successfully set',
+    },
+    cardBeep3Wallet: {
+      heading: 'Card Authentication',
+      title:
+        'Tap X1 Cards one by one below the \nX1 Vault till you hear 3 beep sounds',
+      subtitle: 'Lift your card after 3 beep sounds',
+    },
+    cardBeep2Wallet: {
+      heading: 'Card Authentication',
+      title:
+        'Tap X1 Cards one by one below the \nX1 Vault till you hear 2 beep sounds',
+      subtitle: 'Lift your card after 2 beep sounds',
     },
     deviceDetection: {
       heading: 'Device Connection',
