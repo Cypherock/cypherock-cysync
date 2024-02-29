@@ -3,7 +3,7 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
-import { AddTokenDialog } from './AddToken';
+import { AddTokenDialog, AddTokenDialog } from './AddToken';
 import { AppUpdateDialog } from './AppUpdateDialog';
 import {
   AuthenticateX1CardDialog,
@@ -26,13 +26,12 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
-import { WalletActionsDialogBox } from './WalletActions';
-import { WalletConnectDialog } from './WalletConnect';
-import { WalletSyncError } from './WalletSyncError';
-import { AddTokenDialog } from './AddToken';
 import { TransferFlow } from './TransferFlow';
 import { TransferLessCardsFlow } from './TransferFlowLessCards';
 import { TransferFlowLostValt } from './TransferFlowVaultLost';
+import { WalletActionsDialogBox } from './WalletActions';
+import { WalletConnectDialog } from './WalletConnect';
+import { WalletSyncError } from './WalletSyncError';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

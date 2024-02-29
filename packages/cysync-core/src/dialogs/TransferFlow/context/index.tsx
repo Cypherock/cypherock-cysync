@@ -23,6 +23,7 @@ import React, {
   useState,
 } from 'react';
 
+import { openTransferLessCardsFlowDialog } from '~/actions';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -33,7 +34,6 @@ import {
   useAppSelector,
 } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
-import { openTransferLessCardsFlowDialog } from '~/actions';
 
 type ITabs = {
   name: string;

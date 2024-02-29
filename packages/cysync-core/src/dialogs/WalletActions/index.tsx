@@ -29,9 +29,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
-import { keyValueStore } from '~/utils';
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
