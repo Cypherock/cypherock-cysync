@@ -78,6 +78,21 @@ export const WalletTransferFlowDialogBox: FC<
       'I have lost my X1 vault and have less than 4 old X1 cards',
     ].includes(title);
 
+  const DialogBoxStyle = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 16px;
+    /* overflow-y: scroll; */
+    background-image: ${({ theme }) => theme.palette.background.primary};
+    box-shadow: ${({ theme }) => theme.shadow.popup};
+    border-color: ${({ theme }) => theme.palette.border.popup};
+    text-align: center;
+  `;
+
   return (
     <>
       {heading && (
@@ -91,83 +106,87 @@ export const WalletTransferFlowDialogBox: FC<
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <InnerContainer>
             {/* Dialog 1: "I have lost my X1 vault but I still have all of the 4 old X1 cards" */}
-            <DialogContainer>
-              <DialogBoxBody p={0} gap={0}>
-                <Flex
-                  gap={{ def: 12, lg: 32 }}
-                  align="center"
-                  justify="center"
-                  width="inherit"
-                  direction="column"
-                  pb={4}
-                >
-                  {image}
-                  <Flex direction="column" align="center" gap={4}>
-                    <Typography $textAlign="center" variant="h5">
-                      <LangDisplay text="I have lost my X1 vault but I still have all of the 4 old X1 cards" />
-                    </Typography>
-                    {isLoading && loadingText && (
-                      <Typography color="muted">
-                        <LangDisplay text={loadingText} />
+            <DialogBoxStyle>
+              <DialogContainer>
+                <DialogBoxBody p={0} gap={0}>
+                  <Flex
+                    gap={{ def: 12, lg: 32 }}
+                    align="center"
+                    justify="center"
+                    width="inherit"
+                    direction="column"
+                    pb={4}
+                  >
+                    {image}
+                    <Flex direction="column" align="center" gap={4}>
+                      <Typography $textAlign="center" variant="h5">
+                        <LangDisplay text="I have lost my X1 vault but I still have all of the 4 old X1 cards" />
                       </Typography>
-                    )}
+                      {isLoading && loadingText && (
+                        <Typography color="muted">
+                          <LangDisplay text={loadingText} />
+                        </Typography>
+                      )}
+                    </Flex>
                   </Flex>
-                </Flex>
-                <Flex direction="column" gap={8} pt={2} pb={4} width="full">
-                  <div style={{ height: '95px' }}>
-                    <MessageBox
-                      key="info-1"
-                      text="Use this flow if you have bought a completely new X1 Vault only"
-                      textColor="muted"
-                      type="info"
-                    />
-                  </div>
-                </Flex>
-              </DialogBoxBody>
-              <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
-                {footer}
-                {!footer && <Button onClick={onSelect}>Select</Button>}
-              </DialogBoxFooter>
-            </DialogContainer>
+                  <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+                    <div style={{ height: '95px' }}>
+                      <MessageBox
+                        key="info-1"
+                        text="Use this flow if you have bought a completely new X1 Vault only"
+                        textColor="muted"
+                        type="info"
+                      />
+                    </div>
+                  </Flex>
+                </DialogBoxBody>
+                <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+                  {footer}
+                  {!footer && <Button onClick={onSelect}>Select</Button>}
+                </DialogBoxFooter>
+              </DialogContainer>
+            </DialogBoxStyle>
           </InnerContainer>
           <InnerContainer>
             {/* Dialog 2: "I have lost my X1 vault and have less than 4 old X1 cards" */}
-            <DialogContainer>
-              <DialogBoxBody p={0} gap={0}>
-                <Flex
-                  gap={{ def: 12, lg: 32 }}
-                  align="center"
-                  justify="center"
-                  width="inherit"
-                  direction="column"
-                  pb={4}
-                >
-                  {image}
-                  <Flex direction="column" align="center" gap={4}>
-                    <Typography $textAlign="center" variant="h5">
-                      <LangDisplay text="I have lost my X1 vault and have less than 4 old X1 cards" />
-                    </Typography>
-                    {isLoading && loadingText && (
-                      <Typography color="muted">
-                        <LangDisplay text={loadingText} />
+            <DialogBoxStyle>
+              <DialogContainer>
+                <DialogBoxBody p={0} gap={0}>
+                  <Flex
+                    gap={{ def: 12, lg: 32 }}
+                    align="center"
+                    justify="center"
+                    width="inherit"
+                    direction="column"
+                    pb={4}
+                  >
+                    {image}
+                    <Flex direction="column" align="center" gap={4}>
+                      <Typography $textAlign="center" variant="h5">
+                        <LangDisplay text="I have lost my X1 vault and have less than 4 old X1 cards" />
                       </Typography>
-                    )}
+                      {isLoading && loadingText && (
+                        <Typography color="muted">
+                          <LangDisplay text={loadingText} />
+                        </Typography>
+                      )}
+                    </Flex>
                   </Flex>
-                </Flex>
-                <Flex direction="column" gap={8} pt={2} pb={4} width="full">
-                  <MessageBox
-                    key="info-2"
-                    text="Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1"
-                    textColor="muted"
-                    type="info"
-                  />
-                </Flex>
-              </DialogBoxBody>
-              <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
-                {footer}
-                {!footer && <Button onClick={changeCondition}>Select</Button>}
-              </DialogBoxFooter>
-            </DialogContainer>
+                  <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+                    <MessageBox
+                      key="info-2"
+                      text="Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1"
+                      textColor="muted"
+                      type="info"
+                    />
+                  </Flex>
+                </DialogBoxBody>
+                <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+                  {footer}
+                  {!footer && <Button onClick={changeCondition}>Select</Button>}
+                </DialogBoxFooter>
+              </DialogContainer>
+            </DialogBoxStyle>
           </InnerContainer>
         </div>
       ) : (

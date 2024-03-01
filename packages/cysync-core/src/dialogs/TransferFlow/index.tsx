@@ -11,6 +11,7 @@ import {
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+import styled from 'styled-components';
 
 import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
 import {
@@ -41,6 +42,19 @@ export const TransferFlowDialog: FC = () => {
     dispatch(closeDialog('guidedFlow'));
     dispatch(openWalletActionsDialog());
   };
+
+  const DialogBoxStyle = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-radius: 16px;
+    /* overflow-y: scroll; */
+    text-align: center;
+    width: 400px;
+  `;
+
   return (
     <BlurOverlay>
       <DialogBox
@@ -66,11 +80,19 @@ export const TransferFlowDialog: FC = () => {
               direction="column"
               height="full"
             >
-              <DialogBox width={900}>
-                <DialogBoxBody p="0" gap={0}>
-                  {tabs[currentTab]?.dialogs[currentDialog]}
-                </DialogBoxBody>
-              </DialogBox>
+              {currentTab === 0 ? (
+                <DialogBoxStyle>
+                  <DialogBoxBody p="0" gap={0}>
+                    {tabs[currentTab]?.dialogs[currentDialog]}
+                  </DialogBoxBody>
+                </DialogBoxStyle>
+              ) : (
+                <DialogBox>
+                  <DialogBoxBody p="0" gap={0}>
+                    {tabs[currentTab]?.dialogs[currentDialog]}
+                  </DialogBoxBody>
+                </DialogBox>
+              )}
             </DialogBoxBody>
 
             <DialogBoxBackgroundBar

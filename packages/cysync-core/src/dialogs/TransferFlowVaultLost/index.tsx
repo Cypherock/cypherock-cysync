@@ -66,7 +66,7 @@ export const TransferFlowLostVaultDialog: FC = () => {
               direction="column"
               height="full"
             >
-              <DialogBox width={900}>
+              <DialogBox width={400}>
                 <DialogBoxBody p="0" gap={0}>
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </DialogBoxBody>
