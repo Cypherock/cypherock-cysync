@@ -12,3 +12,5 @@ node_modules
 .DS_Store
 .turbo
 .parcel-cache
+coverage
+.nyc_output

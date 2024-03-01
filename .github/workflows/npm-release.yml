@@ -64,7 +64,7 @@ jobs:
         run: pnpm lint:check
 
       - name: Test
-        run: pnpm test
+        run: pnpm test:report
 
       - name: Setup npmrc
         run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> .npmrc

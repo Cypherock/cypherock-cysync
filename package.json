@@ -24,6 +24,7 @@
     "lint:check": "turbo run lint:check --no-daemon",
     "pretty:check": "pnpm pretty:root:check && turbo run pretty:check --no-daemon",
     "test": "cross-env NODE_ENV=test turbo run test --no-daemon",
+    "test:report": "cross-env NODE_ENV=test node scripts/testReport.js",
     "e2e": "turbo run e2e --no-daemon",
     "pre-commit": "turbo run pre-commit --concurrency=1 --no-daemon",
     "prepare": "husky install",
@@ -67,5 +68,8 @@
       "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch",
       "coinselect@3.1.13": "patches/coinselect@3.1.13.patch"
     }
+  },
+  "dependencies": {
+    "nyc": "^15.1.0"
   }
 }

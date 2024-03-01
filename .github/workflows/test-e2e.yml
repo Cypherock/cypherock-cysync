@@ -69,10 +69,18 @@ jobs:
         run: node scripts/prebuild.js
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm test:report
 
       - name: Run end to end tests
         run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-report
+          path: |
+            coverage
+          retention-days: 15
 
       - uses: actions/upload-artifact@v3
         if: always()
@@ -83,4 +91,4 @@ jobs:
             apps/desktop/test-results/
             apps/desktop/screenshots/
             apps/desktop/videos/
-          retention-days: 30
+          retention-days: 15
