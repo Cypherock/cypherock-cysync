@@ -39,7 +39,7 @@ export const TransferFlowDialog: FC = () => {
 
   const dispatch = useAppDispatch();
   const backToWalletActions = () => {
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferFlow'));
     dispatch(openWalletActionsDialog());
   };
 
@@ -87,7 +87,7 @@ export const TransferFlowDialog: FC = () => {
                   </DialogBoxBody>
                 </DialogBoxStyle>
               ) : (
-                <DialogBox>
+                <DialogBox width={500}>
                   <DialogBoxBody p="0" gap={0}>
                     {tabs[currentTab]?.dialogs[currentDialog]}
                   </DialogBoxBody>

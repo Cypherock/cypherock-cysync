@@ -311,7 +311,7 @@ export const TransferLessCardsFlowProvider: FC<
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferLessCardsFlow'));
   };
 
   const ctx = useMemo(

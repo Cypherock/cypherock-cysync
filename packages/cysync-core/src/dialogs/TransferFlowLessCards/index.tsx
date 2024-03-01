@@ -38,7 +38,7 @@ export const TransferFlowLessCardsDialog: FC = () => {
 
   const dispatch = useAppDispatch();
   const backToWalletActions = () => {
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferLessCardsFlow'));
     dispatch(openWalletActionsDialog());
   };
   return (

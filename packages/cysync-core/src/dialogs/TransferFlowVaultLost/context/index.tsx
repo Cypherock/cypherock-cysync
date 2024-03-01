@@ -268,7 +268,7 @@ export const TransferLostVaulFlowProvider: FC<
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferLostVaultFlow'));
   };
 
   const ctx = useMemo(

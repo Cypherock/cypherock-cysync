@@ -227,7 +227,7 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferFlow'));
   };
 
   const ctx = useMemo(

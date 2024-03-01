@@ -35,7 +35,7 @@ const Buttons: FC<{
       <Button
         onClick={() => {
           setShowOnClose(false);
-          dispatch(closeDialog('guidedFlow'));
+          dispatch(closeDialog('transferFlow'));
         }}
         variant="primary"
       >

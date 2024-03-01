@@ -38,7 +38,7 @@ export const TransferFlowLostVaultDialog: FC = () => {
 
   const dispatch = useAppDispatch();
   const backToWalletActions = () => {
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('transferLostVaultFlow'));
     dispatch(openWalletActionsDialog());
   };
   return (
