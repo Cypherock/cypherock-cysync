@@ -51,6 +51,7 @@
     "chalk": "^5.2.0",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
+    "nyc": "^15.1.0",
     "ora": "^6.3.1",
     "semver": "^7.5.3",
     "turbo": "^1.10.6",
@@ -68,8 +69,5 @@
       "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch",
       "coinselect@3.1.13": "patches/coinselect@3.1.13.patch"
     }
-  },
-  "dependencies": {
-    "nyc": "^15.1.0"
   }
 }

@@ -21,7 +21,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
 jobs:
-  test:
+  test-e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
