@@ -15,18 +15,18 @@ import { useAppSelector, selectLanguage } from '~/store';
 
 const StepRadioButtons = () => {
   const stepsColor: Record<number, string> = {
-    1: 'green',
+    1: '#51C61A',
     2: '#E9B873',
   };
 
   const getCircleStyle = (step: number) => ({
-    width: '16px',
-    height: '16px',
+    width: '12px',
+    height: '12px',
     borderRadius: '50%',
     backgroundColor: stepsColor[step],
     display: 'inline-block',
     cursor: 'pointer',
-    border: '1px solid gray',
+    border: stepsColor[step] === 'transparent' ? '2px solid #8B8682' : 'none',
   });
 
   return (
@@ -76,15 +76,15 @@ export const CardList: React.FC = () => {
       <DialogBoxBody>
         <Flex direction="column" gap={4}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={lang.strings.onboarding.cardBeep2Wallet.title} />
+            <LangDisplay text={lang.strings.onboarding.cardBeep3Wallet.title} />
             <Image src={questionMarkGoldIcon} alt="Qiestion Icon" />
           </Typography>
           <Typography variant="h6" $textAlign="center" mb={2} color="muted">
             <LangDisplay
-              text={lang.strings.onboarding.cardBeep2Wallet.subtitle}
+              text={lang.strings.onboarding.cardBeep3Wallet.subtitle}
             />
           </Typography>
-          <Flex direction="column" width="full">
+          <Flex direction="column" width="full" gap={8}>
             {[1, 2, 3, 4].map(cardId => (
               <div
                 key={cardId}

@@ -15,19 +15,19 @@ import { useAppSelector, selectLanguage } from '~/store';
 
 const StepRadioButtons = () => {
   const stepsColor: Record<number, string> = {
-    1: 'green',
+    1: '#51C61A',
     2: '#E9B873',
     3: 'transparent',
   };
 
   const getCircleStyle = (step: number) => ({
-    width: '16px',
-    height: '16px',
+    width: '12px',
+    height: '12px',
     borderRadius: '50%',
     backgroundColor: stepsColor[step],
     display: 'inline-block',
     cursor: 'pointer',
-    border: '1px solid gray',
+    border: stepsColor[step] === 'transparent' ? '2px solid #8B8682' : 'none',
   });
 
   return (
@@ -85,7 +85,7 @@ export const CardList: React.FC = () => {
               text={lang.strings.onboarding.cardBeep3Wallet.subtitle}
             />
           </Typography>
-          <Flex direction="column" width="full">
+          <Flex direction="column" width="full" gap={8}>
             {[1, 2, 3, 4].map(cardId => (
               <div
                 key={cardId}
