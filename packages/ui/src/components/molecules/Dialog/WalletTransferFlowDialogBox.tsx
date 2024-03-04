@@ -28,7 +28,7 @@ const DialogContainer = styled.div`
   &:not(:last-child) {
     margin-right: 20px;
   }
-  width: 400px;
+  width: 500px;
 `;
 
 export interface WalletTransferFlowDialogBoxProps {
@@ -129,7 +129,15 @@ export const WalletTransferFlowDialogBox: FC<
                       )}
                     </Flex>
                   </Flex>
-                  <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+                  <Flex
+                    direction="column"
+                    gap={8}
+                    pt={2}
+                    pb={4}
+                    width="full"
+                    pl={2}
+                    pr={2}
+                  >
                     <div style={{ height: '95px' }}>
                       <MessageBox
                         key="info-1"
@@ -172,7 +180,15 @@ export const WalletTransferFlowDialogBox: FC<
                       )}
                     </Flex>
                   </Flex>
-                  <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+                  <Flex
+                    direction="column"
+                    gap={8}
+                    pt={2}
+                    pb={4}
+                    width="full"
+                    pl={2}
+                    pr={2}
+                  >
                     <MessageBox
                       key="info-2"
                       text="Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1"

@@ -1503,7 +1503,7 @@ const en = {
       ],
     },
     walletTransferLessCards: {
-      title: 'Wallet Transfer Less Cards',
+      title: 'Wallet Transfer',
       tabs: [
         {
           asideTitle: 'Start',
@@ -1794,7 +1794,7 @@ const en = {
       ],
     },
     walletTransferLostVault: {
-      title: 'Wallet Transfer Less Cards',
+      title: 'Wallet Transfer',
       tabs: [
         {
           asideTitle: 'X1 Vault',
