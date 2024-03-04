@@ -99,7 +99,7 @@
     "test": {
       "dependsOn": ["build"],
       "inputs": ["src/**", "tests/**"],
-      "outputs": ["coverage"]
+      "outputs": ["coverage/**"]
     },
     "e2e": {
       "dependsOn": ["build"],
