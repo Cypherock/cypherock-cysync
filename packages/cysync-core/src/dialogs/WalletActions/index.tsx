@@ -100,7 +100,7 @@ export const WalletActionsDialogBox: FC = () => {
                 px={3}
                 pb={2}
                 gap={24}
-                width={400}
+                width={600}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
@@ -138,7 +138,7 @@ export const WalletActionsDialogBox: FC = () => {
                 px={3}
                 pb={2}
                 gap={24}
-                width={400}
+                width={600}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
@@ -156,7 +156,9 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
-                <BulletList items={ImportWalletBulletList} />
+                <div style={{ height: '250px' }}>
+                  <BulletList items={ImportWalletBulletList} />
+                </div>
                 <Button onClick={() => setSelectedAction('importWallet')}>
                   Import
                 </Button>
@@ -195,16 +197,42 @@ export const WalletActionsDialogBox: FC = () => {
             {keyValueStore.isNewUser && (
               <Container>
                 <RecoverWallet height={100} />
-                <Header
-                  subTitle={
-                    lang.strings.onboarding.walletActionsDialogBox.transfer
-                      .subtitle
-                  }
-                  title={
-                    lang.strings.onboarding.walletActionsDialogBox.transfer
-                      .title
-                  }
-                />
+                <div
+                  style={{
+                    width: '48vw',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    textAlign: 'left',
+                    alignItems: 'flex-start',
+                    padding: '0px 64px',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '20px',
+                      fontWeight: '400',
+                      color: 'white',
+                    }}
+                  >
+                    {
+                      lang.strings.onboarding.walletActionsDialogBox.transfer
+                        .title
+                    }
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: '400',
+                      color: '#827B77',
+                    }}
+                  >
+                    {
+                      lang.strings.onboarding.walletActionsDialogBox.transfer
+                        .subtitle
+                    }
+                  </div>
+                </div>
                 <Button onClick={switchToGuidedFlow2}>Transfer</Button>
               </Container>
             )}

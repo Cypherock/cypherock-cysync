@@ -64,9 +64,9 @@ export const DeviceSettings: React.FC = () => {
         description={{ text: item.transferWallet.description }}
       >
         {isListVisible ? (
-          <ArrowUp onClick={toggleListVisibility} />
+          <ArrowUp onClick={toggleListVisibility} $cursor="pointer" />
         ) : (
-          <ArrowDown onClick={toggleListVisibility} />
+          <ArrowDown onClick={toggleListVisibility} $cursor="pointer" />
         )}
       </SettingsStandardItem>
       {isListVisible && (

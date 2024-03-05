@@ -1,31 +1,21 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
   DialogBoxBackgroundBar,
-  BackButton,
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
-import {
-  closeDialog,
-  selectLanguage,
-  TransferLessCardsFlowType,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { TransferLessCardsFlowType } from '~/store';
 
 import { TransferLessCardsFlowProvider, useTransferFlow } from './context';
 import { CloseConfirmation } from './Dialogs';
 
 export const TransferFlowLessCardsDialog: FC = () => {
-  const lang = useAppSelector(selectLanguage);
   const {
     tabs,
     currentTab,
@@ -36,11 +26,6 @@ export const TransferFlowLessCardsDialog: FC = () => {
   } = useTransferFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
-  const dispatch = useAppDispatch();
-  const backToWalletActions = () => {
-    dispatch(closeDialog('transferLessCardsFlow'));
-    dispatch(openWalletActionsDialog());
-  };
   return (
     <BlurOverlay>
       <DialogBox
@@ -72,14 +57,7 @@ export const TransferFlowLessCardsDialog: FC = () => {
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>
-
             <DialogBoxBackgroundBar
-              leftComponent={
-                <HelpButton
-                  text={lang.strings.help}
-                  onClick={() => dispatch(openContactSupportDialog())}
-                />
-              }
               rightComponent={
                 <CloseButton onClick={() => setShowOnClose(true)} />
               }
@@ -87,16 +65,7 @@ export const TransferFlowLessCardsDialog: FC = () => {
               useLightPadding
             />
             {showBackButton && (
-              <DialogBoxBackgroundBar
-                leftComponent={
-                  <BackButton
-                    text={lang.strings.back}
-                    onClick={backToWalletActions}
-                  />
-                }
-                position="bottom"
-                useLightPadding
-              />
+              <DialogBoxBackgroundBar position="bottom" useLightPadding />
             )}
           </WalletDialogMainContainer>
         </>

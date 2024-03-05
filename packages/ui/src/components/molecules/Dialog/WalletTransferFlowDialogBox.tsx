@@ -78,6 +78,15 @@ export const WalletTransferFlowDialogBox: FC<
       'I have lost my X1 vault and have less than 4 old X1 cards',
     ].includes(title);
 
+  const dialogTexts = {
+    dialog1:
+      'I have lost my X1 vault but I still have all of the 4 old X1 cards',
+    message1: 'Use this flow if you have bought a completely new X1 Vault only',
+    dialog2: 'I have lost my X1 vault and have less than 4 old X1 cards',
+    message2:
+      'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+  };
+
   const DialogBoxStyle = styled.section`
     display: flex;
     flex-direction: column;
@@ -118,9 +127,15 @@ export const WalletTransferFlowDialogBox: FC<
                     pb={4}
                   >
                     {image}
-                    <Flex direction="column" align="center" gap={4}>
+                    <Flex
+                      direction="column"
+                      align="center"
+                      gap={4}
+                      pl={4}
+                      pr={4}
+                    >
                       <Typography $textAlign="center" variant="h5">
-                        <LangDisplay text="I have lost my X1 vault but I still have all of the 4 old X1 cards" />
+                        <LangDisplay text={dialogTexts.dialog1} />
                       </Typography>
                       {isLoading && loadingText && (
                         <Typography color="muted">
@@ -135,13 +150,13 @@ export const WalletTransferFlowDialogBox: FC<
                     pt={2}
                     pb={4}
                     width="full"
-                    pl={2}
-                    pr={2}
+                    pl={4}
+                    pr={4}
                   >
                     <div style={{ height: '95px' }}>
                       <MessageBox
                         key="info-1"
-                        text="Use this flow if you have bought a completely new X1 Vault only"
+                        text={dialogTexts.message1}
                         textColor="muted"
                         type="info"
                       />
@@ -169,9 +184,15 @@ export const WalletTransferFlowDialogBox: FC<
                     pb={4}
                   >
                     {image}
-                    <Flex direction="column" align="center" gap={4}>
+                    <Flex
+                      direction="column"
+                      align="center"
+                      gap={4}
+                      pl={4}
+                      pr={4}
+                    >
                       <Typography $textAlign="center" variant="h5">
-                        <LangDisplay text="I have lost my X1 vault and have less than 4 old X1 cards" />
+                        <LangDisplay text={dialogTexts.dialog2} />
                       </Typography>
                       {isLoading && loadingText && (
                         <Typography color="muted">
@@ -186,12 +207,12 @@ export const WalletTransferFlowDialogBox: FC<
                     pt={2}
                     pb={4}
                     width="full"
-                    pl={2}
-                    pr={2}
+                    pl={4}
+                    pr={4}
                   >
                     <MessageBox
                       key="info-2"
-                      text="Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1"
+                      text={dialogTexts.message2}
                       textColor="muted"
                       type="info"
                     />
