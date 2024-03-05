@@ -68,7 +68,7 @@ jobs:
         run: pnpm lint:check
 
       - name: Test
-        run: pnpm test:report
+        run: pnpm test
 
       - name: Setup git identity
         uses: fregante/setup-git-user@v2

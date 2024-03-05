@@ -74,7 +74,7 @@ jobs:
         run: pnpm lint:check
 
       - name: Test
-        run: pnpm test:report
+        run: pnpm test
 
   build-linux:
     runs-on: ubuntu-latest

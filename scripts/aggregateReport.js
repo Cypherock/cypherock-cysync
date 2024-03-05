@@ -8,13 +8,6 @@ const coverageFolderPath = path.join(ROOT_DIR, 'coverage');
 const coverageHtmlFolderPath = path.join(coverageFolderPath, 'html');
 const coverageJsonFolderPath = path.join(coverageFolderPath, 'json');
 
-const ensureTestRun = () => {
-  execSync('pnpm test', {
-    stdio: 'inherit',
-    shell: true,
-  });
-};
-
 const createFolderIfNotExists = folder => {
   if (!fs.existsSync(folder)) {
     fs.mkdirSync(folder);
@@ -103,7 +96,6 @@ const mergeCoverages = async () => {
 };
 
 const run = async () => {
-  ensureTestRun();
   createFolders();
   await mergeCoverages();
 };
