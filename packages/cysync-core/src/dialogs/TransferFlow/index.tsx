@@ -27,6 +27,10 @@ export const TransferFlowDialog: FC = () => {
   } = useTransferFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
+  const isFinalMessageShown =
+    currentTab === tabs.length - 1 &&
+    currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
+
   const DialogBoxStyle = styled.section`
     display: flex;
     flex-direction: column;
@@ -53,6 +57,7 @@ export const TransferFlowDialog: FC = () => {
             heading={title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
+            isFinalMessageShown={isFinalMessageShown}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}

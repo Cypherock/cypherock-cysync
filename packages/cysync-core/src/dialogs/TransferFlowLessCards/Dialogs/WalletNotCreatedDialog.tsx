@@ -8,12 +8,12 @@ import {
 import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { useTransferFlow } from '../context';
 
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onCloseDialog } = useGuidedFlow();
+  const { onCloseDialog } = useTransferFlow();
   const dispatch = useAppDispatch();
   return (
     <Flex gap={16} $zIndex={1}>

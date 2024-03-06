@@ -39,7 +39,8 @@ export const MilestoneAside: FC<{
   milestones: string[];
   activeTab: number;
   skippedTabs?: number[];
-}> = ({ milestones, activeTab, heading, skippedTabs }) => (
+  isFinalMessageShown?: boolean;
+}> = ({ milestones, activeTab, heading, skippedTabs, isFinalMessageShown }) => (
   <AsideStyle>
     {heading ? (
       <Typography $fontSize={18}>{heading}</Typography>
@@ -71,15 +72,25 @@ export const MilestoneAside: FC<{
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-            {!skippedTabs?.includes(index) &&
-              (activeTab > index ? (
+
+            {/* {!skippedTabs?.includes(index) &&
+              (activeTab > index || activeTab === milestones.length ? (
                 <Image src={greenTick} alt="greenTick" />
               ) : (
                 <Bullet
                   size="sm"
                   variant={textColor(activeTab, index, skippedTabs)}
                 />
-              ))}
+              ))} */}
+            {!skippedTabs?.includes(index) &&
+            (activeTab > index || isFinalMessageShown) ? (
+              <Image src={greenTick} alt="greenTick" />
+            ) : (
+              <Bullet
+                size="sm"
+                variant={textColor(activeTab, index, skippedTabs)}
+              />
+            )}
           </Flex>
         </Flex>
       ))}
@@ -90,4 +101,5 @@ export const MilestoneAside: FC<{
 MilestoneAside.defaultProps = {
   heading: undefined,
   skippedTabs: undefined,
+  isFinalMessageShown: false,
 };
