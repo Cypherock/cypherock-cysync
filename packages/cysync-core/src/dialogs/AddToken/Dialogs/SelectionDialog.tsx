@@ -10,6 +10,8 @@ import {
   LangDisplay,
   Typography,
   MessageBox,
+  addAccountIcon,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -96,7 +98,15 @@ export const AddTokenSelectionDialog: React.FC = () => {
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
       <DialogBoxBody p={0} gap={0}>
-        <Container display="flex" direction="column" py={4} px={5} width="full">
+        <Container
+          display="flex"
+          direction="column"
+          gap={32}
+          py={4}
+          px={5}
+          width="full"
+        >
+          <Image src={addAccountIcon} alt="Select Token" />
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={addToken.select.header} />
           </Typography>
