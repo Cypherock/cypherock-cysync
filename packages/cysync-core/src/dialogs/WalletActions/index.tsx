@@ -14,6 +14,7 @@ import {
   AddWalletNewUser,
   ImportWalletNewUser,
   RecoverWallet,
+  CloseButton,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -66,11 +67,16 @@ export const WalletActionsDialogBox: FC = () => {
   return (
     <BlurOverlay>
       <DialogBox py={2} pb={0} width="full" $height="80vh" onClose={onClose}>
-        <Flex width="full" px={3} justify="flex-end">
-          <HelpButton
-            text={lang.strings.help}
-            onClick={() => dispatch(openContactSupportDialog())}
-          />
+        <Flex display="flex" direction="row" width="full">
+          <Flex width="full" px={3} justify="flex-start">
+            <HelpButton
+              text={lang.strings.help}
+              onClick={() => dispatch(openContactSupportDialog())}
+            />
+          </Flex>
+          <Flex width="full" justify="flex-end" px={3}>
+            <CloseButton onClick={onClose} />
+          </Flex>
         </Flex>
         <ScrollableContainer height="full">
           <DialogBoxBody

@@ -9,6 +9,7 @@ import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+
 import { useTransferFlow } from '../context';
 
 const Buttons: FC = () => {
