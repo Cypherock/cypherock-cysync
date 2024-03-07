@@ -52,6 +52,29 @@ async function getTransactions(
   );
 }
 
+function fillMissingPriceHistory(
+  history: IPriceSnapshot[],
+  days: 1 | 7 | 30 | 365,
+) {
+  const expectedEntries = days === 365 ? days : days * 24;
+  const startTime = history[0].timestamp;
+  const interval = days === 365 ? 24 * 60 * 60 * 1000 : 60 * 60 * 1000;
+
+  if (history.length >= expectedEntries) {
+    return history;
+  }
+
+  const missingHistory = new Array(expectedEntries - history.length)
+    .fill(0)
+    .map((_, index) => ({
+      price: '0',
+      timestamp: startTime - (index + 1) * interval,
+    }))
+    .reverse();
+
+  return [...missingHistory, ...history];
+}
+
 async function getPriceHistory(
   allPriceHistories: IPriceHistory[] | undefined,
   account: IAccount,
@@ -131,7 +154,11 @@ async function getPriceHistory(
     );
   }
 
-  return lodash.orderBy(history, ['timestamp'], ['asc']);
+  return lodash.orderBy(
+    fillMissingPriceHistory(history, days),
+    ['timestamp'],
+    ['asc'],
+  );
 }
 
 async function getLatestPrice(
