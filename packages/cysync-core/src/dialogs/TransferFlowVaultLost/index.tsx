@@ -26,6 +26,10 @@ export const TransferFlowLostVaultDialog: FC = () => {
   } = useTransferFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
+  const isFinalMessageShown =
+    currentTab === tabs.length - 1 &&
+    currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
+
   return (
     <BlurOverlay>
       <DialogBox
@@ -40,6 +44,7 @@ export const TransferFlowLostVaultDialog: FC = () => {
             heading={title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
+            isFinalMessageShown={isFinalMessageShown}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}
