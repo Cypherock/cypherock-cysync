@@ -1,4 +1,6 @@
 import lodash from 'lodash';
 
-export const isSubset = (a: Record<string, any>, b: Record<string, any>) =>
-  Object.keys(a).every(key => lodash.isEqual(a[key], b[key]));
+export const isSubset = (
+  subset: Record<string, any>,
+  superSet: Record<string, any>,
+) => lodash.isMatch(superSet, subset);

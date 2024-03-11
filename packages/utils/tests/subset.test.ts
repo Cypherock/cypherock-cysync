@@ -25,6 +25,10 @@ describe('isSubset', () => {
         subset: { a: { a: 1 } },
         superSet: { a: { a: 1 } },
       },
+      {
+        subset: { a: { a: 1 } },
+        superSet: { a: { a: 1, b: 1 } },
+      },
     ];
 
     testCases.forEach(testCase => {
@@ -50,10 +54,9 @@ describe('isSubset', () => {
         subset: { a: { a: 1 } },
         superSet: { a: { b: 1 } },
       },
-      //  no deep check for subset
       {
-        subset: { a: { a: 1 } },
-        superSet: { a: { a: 1, b: 1 } },
+        subset: { a: { a: 1, b: 1 } },
+        superSet: { a: { a: 1 } },
       },
     ];
     testCases.forEach(testCase => {
