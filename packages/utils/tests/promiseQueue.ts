@@ -190,11 +190,50 @@ describe('PromiseQueue', () => {
       onComplete: onCompleteMock,
     });
 
-    const promiseRun = promiseQueue.run();
+    expect.assertions(5);
+
+    promiseQueue.run().catch(error => {
+      expect(error).toBeInstanceOf(TypeError);
+      expect(error.message).toBe('Expected function in tasks, Received: null');
+    });
 
     await jest.advanceTimersByTimeAsync(200);
 
-    await expect(promiseRun).resolves.toBeUndefined();
+    expect(onNextMock).toHaveBeenCalledWith('Task 1');
+    expect(onNextMock).not.toHaveBeenCalledWith('Task 2');
+    expect(onCompleteMock).not.toHaveBeenCalled();
+  });
+
+  test('should abort execution immediately if task is not a function', async () => {
+    const tasks = [
+      jest.fn(() => sleep(100).then(() => 'Task 1')),
+      { key: 'some value' },
+      jest.fn(() => sleep(100).then(() => 'Task 2')),
+    ] as (() => Promise<string>)[];
+
+    const onNextMock = jest.fn();
+    const onErrorMock = jest.fn();
+    const onCompleteMock = jest.fn();
+
+    const promiseQueue = new PromiseQueue({
+      tasks,
+      concurrentCount: 2,
+      onNext: onNextMock,
+      onError: onErrorMock,
+      onComplete: onCompleteMock,
+    });
+
+    expect.assertions(5);
+
+    promiseQueue.run().catch(error => {
+      expect(error).toBeInstanceOf(TypeError);
+      expect(error.message).toBe(
+        'Expected function in tasks, Received: [object Object]',
+      );
+    });
+
+    await jest.advanceTimersByTimeAsync(200);
+
     expect(onNextMock).toHaveBeenCalledWith('Task 1');
     expect(onNextMock).not.toHaveBeenCalledWith('Task 2');
     expect(onCompleteMock).not.toHaveBeenCalled();

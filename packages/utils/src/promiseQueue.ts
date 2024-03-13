@@ -53,9 +53,11 @@ export class PromiseQueue<T> {
       if (this.runNext()) {
         const promiseFunc = this.todo.shift();
 
-        if (!promiseFunc) {
+        if (typeof promiseFunc !== 'function') {
           await Promise.allSettled(this.running);
-          return;
+          throw new TypeError(
+            `Expected function in tasks, Received: ${promiseFunc}`,
+          );
         }
 
         const promise = promiseFunc();
