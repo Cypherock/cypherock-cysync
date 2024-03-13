@@ -1,3 +1,3 @@
 export default {
-  ADD_TOKEN: false,
+  ADD_TOKEN: true,
 };
