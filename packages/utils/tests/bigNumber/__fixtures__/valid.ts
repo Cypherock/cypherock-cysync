@@ -1,5 +1,5 @@
 import { BigNumber } from '../../../src/bigNumber';
-import { BigNumberValidTestCase } from './type';
+import { BigNumberValidTestCase } from './types';
 
 export const valid: BigNumberValidTestCase = {
   staticVariables: [
