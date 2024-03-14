@@ -47,14 +47,24 @@ describe('Logger', () => {
   });
 
   describe('createDefaultConsoleLogger', () => {
-    test('should log messages with meta based on log level priority', () => {
-      const actualConsole = global.console;
+    let actualConsole: Console;
 
+    beforeAll(() => {
+      actualConsole = global.console;
       console.info = jest.fn();
       console.debug = jest.fn();
       console.warn = jest.fn();
       console.error = jest.fn();
+    });
 
+    afterAll(() => {
+      console.info = actualConsole.info;
+      console.debug = actualConsole.debug;
+      console.warn = actualConsole.warn;
+      console.error = actualConsole.error;
+    });
+
+    test('should log messages with meta based on log level priority', () => {
       const logger = createDefaultConsoleLogger('test');
 
       logger.info(info.message, info.option);
@@ -88,16 +98,9 @@ describe('Logger', () => {
         ...error.option,
         ...logDefaultMeta,
       });
-
-      console.info = actualConsole.info;
-      console.debug = actualConsole.debug;
-      console.warn = actualConsole.warn;
-      console.error = actualConsole.error;
     });
 
     test('should log messages without meta based on log level priority', () => {
-      const infoLogger = jest.spyOn(console, 'info');
-
       const logger = createDefaultConsoleLogger('test');
 
       logger.info(info.message);
@@ -107,16 +110,11 @@ describe('Logger', () => {
         timestamp: expect.any(Date),
       };
 
-      expect(infoLogger).toHaveBeenCalledWith(info.message, logDefaultMeta);
+      expect(console.info).toHaveBeenCalledWith(info.message, logDefaultMeta);
     });
 
     test('should not log messages with less priority than the current log level', () => {
       mockedConfig.config.LOG_LEVEL = 'warn';
-
-      const actualConsole = global.console;
-
-      console.info = jest.fn();
-      console.error = jest.fn();
 
       const logger = createDefaultConsoleLogger('test');
 
@@ -125,19 +123,10 @@ describe('Logger', () => {
 
       expect(console.info).not.toHaveBeenCalled();
       expect(console.error).toHaveBeenCalled();
-
-      console.info = actualConsole.info;
-      console.error = actualConsole.error;
     });
 
     test('should default to info when LOG_LEVEL is undefined', () => {
       mockedConfig.config.LOG_LEVEL = undefined!;
-
-      const actualConsole = global.console;
-
-      console.debug = jest.fn();
-      console.info = jest.fn();
-      console.error = jest.fn();
 
       const logger = createDefaultConsoleLogger('test');
 
@@ -148,10 +137,6 @@ describe('Logger', () => {
       expect(console.debug).not.toHaveBeenCalled();
       expect(console.info).toHaveBeenCalled();
       expect(console.error).toHaveBeenCalled();
-
-      console.debug = actualConsole.debug;
-      console.info = actualConsole.info;
-      console.error = actualConsole.error;
     });
   });
 
