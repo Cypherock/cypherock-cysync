@@ -111,28 +111,17 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-self: stretch;
   min-height: 53px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
+  background-color: ${({ $restrictedItem, theme, $isFocused }) => {
     if ($isFocused) {
       return theme.palette.background.dropdownHover;
     }
     if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
-    if ($isChecked) {
-      return theme.palette.background.dropdownHover;
-    }
     return theme.palette.background.separatorSecondary;
   }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
-    ${DropDownListItemStretchedTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
-    ${RightTextTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
   }
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.text.disabled : theme.palette.text.muted};
@@ -320,7 +309,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
-            color={rightTextColor}
+            color={checked ? 'white' : rightTextColor}
             $hasRightText={$hasRightText}
             disabled={disabled}
           >
@@ -333,7 +322,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
-              color={rightTextColor}
+              color={checked ? 'white' : rightTextColor}
               $hasRightText={$hasRightText}
               disabled={disabled}
             >
