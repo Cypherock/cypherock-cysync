@@ -7,6 +7,8 @@ import {
   Image,
   ImportWalletNewUser,
   MessageBoxType,
+  RestoreWallets,
+  SettingsDevice,
   Video,
   WalletTransferFlowDialogBox,
   successIcon,
@@ -75,8 +77,8 @@ const dialogsImages: Record<TransferFlowType, React.ReactElement[][]> = {
       <ImportWalletNewUser height={100} />,
     ],
     [
-      <ConfirmTransferDeviceGraphics />,
-      <ConfirmTransferDeviceGraphics />,
+      <SettingsDevice />,
+      <RestoreWallets />,
       <ConfirmTransferDeviceGraphics />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}

@@ -1516,13 +1516,13 @@ const en = {
               title: 'From the Main Menu of your X1 Vault, click on "Settings"',
             },
             {
-              title: 'Click "Factory Reset" on your X1 Vault',
+              title: 'Click "Clear Device Data" on your X1 Vault',
             },
             {
-              title: 'Confirm factory reset on your X1 Vault',
+              title: 'Confirm "Clear Device Data" on your X1 Vault',
             },
             {
-              title: 'Factory Reset Done',
+              title: 'Device Data Cleared',
               subtitle: 'Proceed to pair old cards with new device',
             },
             {
@@ -1609,21 +1609,21 @@ const en = {
               title: 'From the Main Menu of your X1 Vault, click on "Settings"',
             },
             {
-              title: 'Click "Factory Reset" on your X1 Vault',
+              title: 'Click "Clear device data" on your X1 Vault',
             },
             {
-              title: 'Confirm factory reset on your X1 Vault',
+              title: 'Confirm "Clear Device Data" on your X1 Vault',
             },
             {
               title: 'Tap any 2 old X1 Cards below the X1 Vault',
               subtitle: 'Do not lift until you hear a beep sound',
             },
             {
-              title: 'Factory reset done',
+              title: 'Device Data Cleared',
               subtitle: 'Proceed to pair new cards with the new device',
               messageBoxList: [
                 {
-                  info: "RKeep the old cards aside, you won't be needing them any further in this process",
+                  info: "Keep the old cards aside, you won't be needing them any further in this process",
                 },
               ],
             },
@@ -1827,17 +1827,17 @@ const en = {
               title: 'From the Main Menu of your X1 Vault, click on "Settings"',
             },
             {
-              title: 'Click "Factory Reset" on your X1 Vault',
+              title: 'Click "Clear device data" on your X1 Vault',
             },
             {
-              title: 'Confirm factory reset on your X1 Vault',
+              title: 'Confirm "Clear Device Data" on your X1 Vault',
             },
             {
               title: 'Tap any tw old X1 Cards below the X1 Vault',
               bulletList: ['Do not lift until you hear a beep sound'],
             },
             {
-              title: 'Factory reset done',
+              title: 'Device data cleared',
               subtitle: 'Proceed to pair new cards with the new device',
               messageBoxList: [
                 {

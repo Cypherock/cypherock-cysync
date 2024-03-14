@@ -1,6 +1,7 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ClearDeviceData,
   ConfirmCreatePinDeviceGraphics,
   ConfirmCreateWalletDeviceGraphics,
   ConfirmRestoreFromSeedphraseDeviceGraphics,
@@ -9,7 +10,6 @@ import {
   EnterPinDeviceGraphics,
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
-  FactoryResetDevice,
   Image,
   MessageBoxType,
   SelectSeedphraseWordCountDeviceGraphics,
@@ -84,8 +84,8 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
       [],
       [
         <SettingsDevice />,
-        <FactoryResetDevice />,
-        <ConfirmTransferDeviceGraphics />,
+        <ClearDeviceData />,
+        <ClearDeviceData />,
         successIconReactElement,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
@@ -127,8 +127,8 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <SettingsDevice />,
-        <FactoryResetDevice />,
-        <ConfirmTransferDeviceGraphics />,
+        <ClearDeviceData />,
+        <ClearDeviceData />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
