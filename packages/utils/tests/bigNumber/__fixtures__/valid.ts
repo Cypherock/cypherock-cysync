@@ -18,16 +18,16 @@ export const valid: BigNumberValidTestCase = {
       method: BigNumber.max,
     },
     {
+      name: 'maximum',
+      method: BigNumber.maximum,
+    },
+    {
       name: 'min',
       method: BigNumber.min,
     },
     {
-      name: 'maximum',
-      method: BigNumber.max,
-    },
-    {
       name: 'minimum',
-      method: BigNumber.min,
+      method: BigNumber.minimum,
     },
   ],
   initialisation: [
