@@ -9,6 +9,10 @@ import {
 } from '@jest/globals';
 import { PromiseQueue, sleep } from '../src';
 
+const onNextMock = jest.fn();
+const onErrorMock = jest.fn();
+const onCompleteMock = jest.fn();
+
 describe('PromiseQueue', () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -36,10 +40,6 @@ describe('PromiseQueue', () => {
       jest.fn(() => Promise.resolve('Task 4')),
       jest.fn(() => Promise.resolve('Task 5')),
     ];
-
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
 
     const promiseQueue = new PromiseQueue({
       tasks,
@@ -73,10 +73,6 @@ describe('PromiseQueue', () => {
       jest.fn(() => sleep(1000).then(() => 'Task 4')),
     ];
 
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
-
     const promiseQueue = new PromiseQueue({
       tasks,
       concurrentCount: 2,
@@ -108,10 +104,6 @@ describe('PromiseQueue', () => {
       jest.fn(() => Promise.resolve('Task 3')),
     ];
 
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
-
     const promiseQueue = new PromiseQueue({
       tasks,
       concurrentCount: 2,
@@ -140,10 +132,6 @@ describe('PromiseQueue', () => {
       jest.fn(() => sleep(100).then(() => 'Task 3')),
       jest.fn(() => sleep(100).then(() => 'Task 4')),
     ];
-
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
 
     const promiseQueue = new PromiseQueue({
       tasks,
@@ -178,10 +166,6 @@ describe('PromiseQueue', () => {
       jest.fn(() => sleep(100).then(() => 'Task 2')),
     ] as (() => Promise<string>)[];
 
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
-
     const promiseQueue = new PromiseQueue({
       tasks,
       concurrentCount: 2,
@@ -210,10 +194,6 @@ describe('PromiseQueue', () => {
       { key: 'some value' },
       jest.fn(() => sleep(100).then(() => 'Task 2')),
     ] as (() => Promise<string>)[];
-
-    const onNextMock = jest.fn();
-    const onErrorMock = jest.fn();
-    const onCompleteMock = jest.fn();
 
     const promiseQueue = new PromiseQueue({
       tasks,
