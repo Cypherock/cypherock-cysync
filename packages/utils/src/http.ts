@@ -14,17 +14,12 @@ export const makePostRequest = async (
 ) => {
   let tries = 0;
   let doRetry = false;
-  let latestError: Error | undefined;
+  let latestError: Error = new Error('Unknown error');
 
-  const DEFAULT_WAIT_TIME = 2000;
+  const WAIT_TIME = options?.waitInMSBetweenEachAPIRetry ?? 2000;
 
-  let nextWaitTime = options?.waitInMSBetweenEachAPIRetry ?? DEFAULT_WAIT_TIME;
+  let nextWaitTime = WAIT_TIME;
   const maxTries = options?.maxTries ?? 3;
-
-  const updateNextWaitTime = (newTime?: number) => {
-    nextWaitTime =
-      newTime ?? options?.waitInMSBetweenEachAPIRetry ?? DEFAULT_WAIT_TIME;
-  };
 
   do {
     try {
@@ -40,8 +35,8 @@ export const makePostRequest = async (
       ) {
         tries += 1;
         doRetry = true;
-        latestError = new Error(`Max rate limit reached for API`);
-        updateNextWaitTime(tries * DEFAULT_WAIT_TIME);
+        latestError = new Error('Max rate limit reached for API');
+        nextWaitTime = tries * WAIT_TIME;
       } else {
         return response;
       }
@@ -52,9 +47,5 @@ export const makePostRequest = async (
     }
   } while (tries <= maxTries && doRetry);
 
-  if (latestError) {
-    throw latestError;
-  }
-
-  throw new Error('Unknown error');
+  throw latestError;
 };

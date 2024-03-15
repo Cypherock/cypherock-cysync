@@ -1,8 +1,8 @@
-import { ILogger } from '@cypherock/cysync-interfaces';
+import { ILogger, LogLevel } from '@cypherock/cysync-interfaces';
 
 import { config } from './config';
 
-const logLevelPriority: Record<string, number | undefined> = {
+const logLevelPriority: Record<LogLevel, number> = {
   error: 0,
   warn: 1,
   info: 2,
@@ -10,14 +10,9 @@ const logLevelPriority: Record<string, number | undefined> = {
   debug: 4,
 };
 
-const doLog = (level: string) => {
+const doLog = (level: LogLevel) => {
   const currentPriority = logLevelPriority[level];
-  const allowedPriority = logLevelPriority[config.LOG_LEVEL] ?? 2;
-
-  if (currentPriority === undefined) {
-    return false;
-  }
-
+  const allowedPriority = logLevelPriority[config.LOG_LEVEL as LogLevel] ?? 2;
   return allowedPriority >= currentPriority;
 };
 
