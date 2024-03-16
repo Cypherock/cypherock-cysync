@@ -24,6 +24,7 @@ import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
+import { useStateToRef } from '~/hooks';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -51,6 +52,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const { transaction, selectedAccount, prepare, getComputedFee } =
     useSendDialog();
+  const transactionRef = useStateToRef({ transaction });
   const [isFeeLow, setIsFeeLow] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
   const [isFeeLoading, setIsFeeLoading] = useState(false);
@@ -126,7 +128,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
   const prepareFeeChanged = async (value: number) => {
     setIsFeeLoading(true);
-    const txn = transaction as IPreparedBtcTransaction;
+    const txn = transactionRef.current.transaction as IPreparedBtcTransaction;
     setIsFeeLow(value < (2 / 3) * txn.staticData.averageFee);
     txn.userInputs.feeRate = value;
     await prepare(txn);
