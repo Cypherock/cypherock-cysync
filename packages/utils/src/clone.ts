@@ -24,5 +24,5 @@ function getClonableReplacer() {
   return replacer;
 }
 
-export const objectToClonableObject = (obj: object) =>
+export const objectToCloneableObject = (obj: object) =>
   JSON.parse(JSON.stringify(obj, getClonableReplacer()));
