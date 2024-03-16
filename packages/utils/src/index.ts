@@ -7,3 +7,4 @@ export * from './logger';
 export * from './promiseQueue';
 export * from './resourceLock';
 export * from './sleep';
+export * from './clone';
