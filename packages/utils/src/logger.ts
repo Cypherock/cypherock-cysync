@@ -1,5 +1,6 @@
 import { ILogger, LogLevel } from '@cypherock/cysync-interfaces';
 
+import { objectToClonableObject } from './clone';
 import { config } from './config';
 
 const logLevelPriority: Record<LogLevel, number> = {
@@ -48,12 +49,19 @@ export const updateLoggerObject = (params: {
         let newMessage = message;
         let newMeta = meta;
 
-        if (message && typeof message === 'object' && message.toJSON) {
-          newMessage = message.toJSON();
+        if (message && typeof message === 'object') {
+          if (message.toJSON) {
+            newMessage = message.toJSON();
+          }
+
+          newMessage = objectToClonableObject(message);
         }
 
-        if (meta && typeof meta === 'object' && meta.toJSON) {
-          newMeta = meta.toJSON();
+        if (meta && typeof meta === 'object') {
+          if (meta.toJSON) {
+            newMeta = meta.toJSON();
+          }
+          newMeta = objectToClonableObject(meta);
         }
 
         (newLogger as any)[key](newMessage, newMeta);
