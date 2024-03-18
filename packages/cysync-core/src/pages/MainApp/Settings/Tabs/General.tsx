@@ -1,11 +1,13 @@
 import { ArrowDown, Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { openEditAccountDialog } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
 
@@ -23,7 +25,10 @@ export const GeneralSettings: React.FC = () => {
         title={{ text: item.editAccount.title }}
         description={{ text: item.editAccount.description }}
       >
-        <SettingsButton variant="primary" onClick={console.log}>
+        <SettingsButton
+          variant="primary"
+          onClick={() => dispatch(openEditAccountDialog())}
+        >
           <LangDisplay text={strings.buttons.editAccount} />
         </SettingsButton>
       </SettingsStandardItem>

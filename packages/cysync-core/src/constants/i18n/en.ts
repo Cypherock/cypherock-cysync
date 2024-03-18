@@ -1541,6 +1541,46 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
 * No new updates to CySync v1 except security update
 `,
     },
+    editAccount: {
+      tab1: {
+        title: 'Select the Account to Edit',
+        subtitle: 'Choose the account you want to edit',
+        btn: 'continue',
+      },
+      tab2: {
+        title: 'Account details',
+        subtitle: 'Edit your account attributes',
+        input: {
+          first: {
+            title: 'Account Name',
+            subtitle: 'Description of the account',
+            type: 'text',
+          },
+          second: {
+            title: 'Unit',
+            subtitle: 'Choose the Unit to be used',
+            type: 'select',
+          },
+        },
+        btn: {
+          primary: {
+            text: 'Remove from portfolio',
+          },
+          secondary: {
+            text: 'Apply',
+          },
+        },
+      },
+      tab3: {
+        title: 'Are you sure you want to remove',
+        subtitle:
+          'You can add the account again from the xyz wallet page. Note that this will not result in loss of assets',
+        btn: {
+          primary: 'Yes',
+          secondary: 'No',
+        },
+      },
+    },
   },
   toggle: {
     on: 'ON',
