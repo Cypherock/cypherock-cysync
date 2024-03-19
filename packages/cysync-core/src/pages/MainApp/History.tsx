@@ -17,6 +17,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
+import { openSnackBar } from '~/store';
 
 import { MainAppLayout } from './Layout';
 
@@ -94,6 +95,18 @@ export const History: FC = () => {
     return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
   };
 
+  const handleDownloadCSV = () => {
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: 'Transaction csv downloaded successfully',
+      }),
+    );
+  };
+
+  // added dummy disabled remove this after getting from the api
+  const disabled = false;
+
   const getMainContent = () => {
     if (transactionList.length <= 0)
       return (
@@ -114,6 +127,8 @@ export const History: FC = () => {
           placeholder={strings.history.search.placeholder}
           value={searchTerm}
           onChange={setSearchTerm}
+          handleDownloadCSV={handleDownloadCSV}
+          disabled={disabled}
         />
         {displayedData.length > 0 ? (
           <>

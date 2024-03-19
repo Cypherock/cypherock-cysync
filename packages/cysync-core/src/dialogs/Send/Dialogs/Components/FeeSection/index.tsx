@@ -15,6 +15,7 @@ import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
+import { useStateToRef } from '~/hooks';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
@@ -24,7 +25,6 @@ import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
-import { useStateToRef } from '~/hooks';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,

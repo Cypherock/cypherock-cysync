@@ -1,12 +1,15 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
+import { DownloadCsv } from '../../../assets';
 import { Flex, SearchBar } from '../../atoms';
 
 interface SearchFilterProps {
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
+  handleDownloadCSV?: () => void;
+  disabled?: boolean;
 }
 
 const SearchContainer = styled.div`
@@ -22,21 +25,54 @@ const SearchContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.table.title};
 `;
 
+export const DownloadCSVButtonStyle = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #342f2c;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #453e3a;
+  }
+`;
+
 export const TableSearchFilter: FC<SearchFilterProps> = ({
   placeholder,
   value,
   onChange,
-}) => (
-  <SearchContainer>
-    <Flex align="center" gap={8} width="100%">
-      <SearchBar
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        $goldBorder={!!value}
-        width="100%"
-      />
-    </Flex>
-    {/* TODO: Add filter and calendar dropdown */}
-  </SearchContainer>
-);
+  handleDownloadCSV,
+  disabled,
+}) => {
+  const theme = useTheme();
+
+  return (
+    <SearchContainer>
+      <Flex align="center" gap={8} width="100%">
+        <SearchBar
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          $goldBorder={!!value}
+          width="100%"
+        />
+      </Flex>
+      <DownloadCSVButtonStyle onClick={handleDownloadCSV}>
+        <DownloadCsv
+          fill={
+            disabled ? theme?.palette.text.disabled : theme?.palette.text.white
+          }
+        />
+      </DownloadCSVButtonStyle>
+      {/* TODO: Add filter and calendar dropdown */}
+    </SearchContainer>
+  );
+};
+
+TableSearchFilter.defaultProps = {
+  handleDownloadCSV: undefined,
+  disabled: false,
+};
