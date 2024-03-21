@@ -99,7 +99,7 @@ export const History: FC = () => {
     dispatch(
       openSnackBar({
         icon: 'check',
-        text: 'Transaction csv downloaded successfully',
+        text: 'Transaction history exported',
       }),
     );
   };
