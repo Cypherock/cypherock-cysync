@@ -66,32 +66,23 @@ export const ChangePasswordDialogProvider: FC<
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
-  const validateNewPassword = () => {
-    if (newPassword.length > 0 && confirmNewPassword.length === 0) {
-      const validation = validatePassword(
-        { password: newPassword, confirm: newPassword },
-        lang,
-      );
-      if (!validation.success) {
-        setError(validation.error.errors[0].message);
-        return;
-      }
+  useEffect(() => {
+    if (oldPassword === newPassword || oldPassword === confirmNewPassword) {
+      setError(lang.strings.lockscreen.sameOldAndNewPassword);
+      return;
     }
 
-    if (newPassword.length === 0 && confirmNewPassword.length > 0) {
-      const validation = validatePassword(
-        { password: confirmNewPassword, confirm: confirmNewPassword },
-        lang,
-      );
-      if (!validation.success) {
-        setError(validation.error.errors[0].message);
-        return;
-      }
-    }
+    let _password: string | null = null;
+    if (newPassword.length > 0) _password = newPassword;
+    if (confirmNewPassword.length > 0) _password = confirmNewPassword;
 
-    if (newPassword.length > 0 && confirmNewPassword.length > 0) {
+    let _confirm: string | null = null;
+    if (confirmNewPassword.length > 0) _confirm = confirmNewPassword;
+    if (newPassword.length > 0) _confirm = newPassword;
+
+    if (_password && _confirm) {
       const validation = validatePassword(
-        { password: newPassword, confirm: confirmNewPassword },
+        { password: _password, confirm: _confirm },
         lang,
       );
       if (!validation.success) {
@@ -101,13 +92,7 @@ export const ChangePasswordDialogProvider: FC<
     }
 
     setError(null);
-  };
-
-  useEffect(validateNewPassword, [
-    oldPassword,
-    newPassword,
-    confirmNewPassword,
-  ]);
+  }, [oldPassword, newPassword, confirmNewPassword]);
 
   const validateForm = () => {
     let isSubmitDisabledNew = Boolean(error);
