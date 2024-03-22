@@ -148,6 +148,7 @@ export const Dropdown: React.FC<
 
   const sortItems = useCallback(
     (_items: DropDownItemProps[]) => {
+      if (!props.isMultiSelect) return _items;
       const _selectedItems: DropDownItemProps[] = [];
       const _unselectedItems: DropDownItemProps[] = [];
       const _disabledItems: DropDownItemProps[] = [];
@@ -161,6 +162,10 @@ export const Dropdown: React.FC<
     [selectedItemIdsSet, props.isMultiSelect],
   );
 
+  useEffect(() => {
+    setItems(sortItems);
+  }, [search]);
+
   const conditionallySortItems = useCallback(() => {
     if (isOpen) return;
     setItems(sortItems);
@@ -171,8 +176,10 @@ export const Dropdown: React.FC<
       const dropdownItemsMap = new Map<string | undefined, DropDownItemProps>(
         _dropdownItemsList.map(item => [item.id, item]),
       );
-      return (_items: DropDownItemProps[]) =>
-        _items.map(a => dropdownItemsMap.get(a.id)!);
+      return (_items: DropDownItemProps[]) => {
+        if (!props.isMultiSelect) return _items;
+        return _items.map(a => dropdownItemsMap.get(a.id)!);
+      };
     },
     [],
   );
