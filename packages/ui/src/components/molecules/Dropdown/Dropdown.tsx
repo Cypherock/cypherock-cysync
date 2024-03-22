@@ -177,11 +177,21 @@ export const Dropdown: React.FC<
         _dropdownItemsList.map(item => [item.id, item]),
       );
       return (_items: DropDownItemProps[]) => {
-        if (!props.isMultiSelect) return _items;
-        return _items.map(a => dropdownItemsMap.get(a.id)!);
+        if (!props.isMultiSelect) return _dropdownItemsList;
+
+        const sortedItems = lodash.compact(
+          _items.map(a => dropdownItemsMap.get(a.id)),
+        );
+
+        const includedItemIds = new Set(sortedItems.map(a => a.id));
+        const aditionalItems = _dropdownItemsList.filter(
+          a => !includedItemIds.has(a.id),
+        );
+
+        return [sortedItems, aditionalItems].flat();
       };
     },
-    [],
+    [props.isMultiSelect],
   );
 
   useEffect(() => {
