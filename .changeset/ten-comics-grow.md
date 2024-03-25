@@ -3,4 +3,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-fix: old password should not be equal to new password
+old password should not be equal to new password
