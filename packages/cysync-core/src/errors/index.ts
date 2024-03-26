@@ -18,17 +18,31 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
   },
 };
 
+export interface ServerErrorDetails {
+  advanceText?: string;
+  responseBody?: any;
+  url?: string;
+  status?: number;
+}
+
 export class ServerError extends Error {
   public code: string;
 
   public message: string;
 
+  public details?: ServerErrorDetails;
+
   public isServerError = true;
 
-  constructor(errorCode: ServerErrorType, message?: string) {
+  constructor(
+    errorCode: ServerErrorType,
+    message?: string,
+    details?: ServerErrorDetails,
+  ) {
     super();
     this.code = errorCode;
     this.message = message ?? serverErrorTypeDetails[errorCode].message;
+    this.details = details;
   }
 
   public toJSON() {
@@ -36,6 +50,7 @@ export class ServerError extends Error {
       isServerError: this.isServerError,
       code: this.code,
       message: `${this.code}: ${this.message}`,
+      ...(this.details ?? {}),
       stack: this.stack,
     };
   }
