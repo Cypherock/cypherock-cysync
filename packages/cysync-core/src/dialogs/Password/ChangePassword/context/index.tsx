@@ -72,13 +72,8 @@ export const ChangePasswordDialogProvider: FC<
       return;
     }
 
-    let _password: string | null = null;
-    if (newPassword.length > 0) _password = newPassword;
-    if (confirmNewPassword.length > 0) _password = confirmNewPassword;
-
-    let _confirm: string | null = null;
-    if (confirmNewPassword.length > 0) _confirm = confirmNewPassword;
-    if (newPassword.length > 0) _confirm = newPassword;
+    const _password = newPassword || confirmNewPassword || null;
+    const _confirm = confirmNewPassword || newPassword || null;
 
     if (_password && _confirm) {
       const validation = validatePassword(
