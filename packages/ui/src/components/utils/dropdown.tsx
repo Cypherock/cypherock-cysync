@@ -148,10 +148,11 @@ export const handleClickOutside =
     containerRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: MouseEvent) => {
-    if (
-      containerRef.current &&
-      !containerRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
+    if (containerRef.current === null) return;
+    if (event.composedPath().includes(containerRef.current)) {
+      event.stopPropagation();
+      event.preventDefault();
+      return;
     }
+    setIsOpen(false);
   };
