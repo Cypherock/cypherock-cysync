@@ -1548,6 +1548,7 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
   },
   snackbar: {
     copiedToClipboard: 'Copied to clipboard',
+    downloadCSV: 'Transaction history exported',
   },
   settings: {
     tabs: {
