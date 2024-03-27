@@ -50,31 +50,11 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
   const theme = useTheme();
 
   const downloadCSV = async () => {
-    try {
-      const response = await fetch('URL_TO_FETCH_CSV_FROM_BACKEND');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'filename.csv'; // Specify the filename for the CSV file
-      document.body.appendChild(a);
-      a.click();
-
-      if (handleDownloadCSV) {
-        handleDownloadCSV();
-      }
-
-      // Cleanup
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Download CSV error:', err);
-      // Handle errors, for example, by displaying an alert
-    }
+    // add the functionality here
+    console.log('downloaded csv file');
+    console.log(handleDownloadCSV);
   };
+
   return (
     <SearchContainer>
       <Flex align="center" gap={8} width="100%">
