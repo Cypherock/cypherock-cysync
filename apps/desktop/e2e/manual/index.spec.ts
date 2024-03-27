@@ -6,7 +6,7 @@ import {
   Locator,
 } from '@playwright/test';
 
-import { clearDb, clearKeyDb, prepElectronApp } from '../__helpers__';
+import { prepElectronApp } from '../__helpers__';
 
 let electronApp: ElectronApplication;
 
@@ -28,9 +28,7 @@ const waitForAttribute = async (
 };
 
 test.beforeEach(async () => {
-  await clearKeyDb();
-  await clearDb();
-  electronApp = await prepElectronApp();
+  ({ electronApp } = await prepElectronApp());
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
   screen = await electronApp.firstWindow();

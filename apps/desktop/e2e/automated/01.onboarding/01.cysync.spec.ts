@@ -1,14 +1,13 @@
 import { expect, test, ElectronApplication, Page } from '@playwright/test';
 
-import { clearDb, prepElectronApp, toFirstScreen } from '../__helpers__';
+import { prepElectronApp, toFirstScreen } from '../../__helpers__';
 
 let electronApp: ElectronApplication;
 
 let screen: Page;
 
 test.beforeEach(async () => {
-  await clearDb();
-  electronApp = await prepElectronApp();
+  ({ electronApp } = await prepElectronApp());
   const splash = await electronApp.firstWindow();
   await splash.waitForEvent('close');
   screen = await electronApp.firstWindow();
@@ -19,13 +18,10 @@ test.afterEach(async () => {
   await electronApp.close();
 });
 
-test('check the title of window', async () => {
+test('check title and first screen', async () => {
   const title = await screen.title();
   await screen.screenshot({ path: './screenshots/title.png' });
   expect(title).toBe('Cypherock cySync');
-});
-
-test('check first screen', async () => {
   const header = screen.getByRole('heading', {
     name: 'Ensure the following before you continue',
   });

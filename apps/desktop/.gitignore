@@ -105,3 +105,5 @@ coverage
 screenshots
 videos
 renderer/generated/
+
+.e2e-data
