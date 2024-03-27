@@ -14,9 +14,10 @@ import {
   Flex,
   Divider,
   ScrollableContainer,
+  EditAccountIcon,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import {
@@ -73,6 +74,12 @@ export const EditAccount: React.FC = () => {
   };
   console.log(asset);
 
+  useEffect(() => {
+    if (window.location.hash.includes('#/account?accountId')) {
+      setTab(2);
+    }
+  }, [window.location.hash]);
+
   return (
     <DialogBox
       width={tab === 2 ? 700 : 500}
@@ -90,13 +97,7 @@ export const EditAccount: React.FC = () => {
           {tab <= 2 && (
             <>
               <center>
-                <img
-                  height="60px"
-                  width="40px"
-                  src="https://as1.ftcdn.net/v2/jpg/02/22/70/10/1000_F_222701046_Sy6YusoW0rBK3eMUImKMA8Bi53qEZ3pr.jpg"
-                  alt=""
-                  style={{ marginTop: '20px' }}
-                />
+                <EditAccountIcon style={{ marginTop: '20px' }} />
               </center>
               <Flex px={5} py={4} gap={4} direction="column" align="center">
                 <Typography $fontSize={20} color="white">

@@ -1545,7 +1545,7 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
       tab1: {
         title: 'Select the Account to Edit',
         subtitle: 'Choose the account you want to edit',
-        btn: 'continue',
+        btn: 'Continue',
       },
       tab2: {
         title: 'Account details',

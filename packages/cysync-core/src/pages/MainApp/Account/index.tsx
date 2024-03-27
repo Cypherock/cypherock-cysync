@@ -8,13 +8,13 @@ import {
   ArrowReceivedIcon,
   SvgProps,
   WalletConnectWithBgIcon,
-  DeleteIconWithBg,
+  AccountSettingsIconBg,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import {
-  openDeleteAccountDialog,
+  openEditAccountDialog,
   openReceiveDialog,
   openSendDialog,
   openWalletConnectDialog,
@@ -113,21 +113,14 @@ export const AccountPage: FC = () => {
                   <WalletConnectWithBgIcon />
                 </Button>
               )}
-
               {doAllowAccountDeletion() && (
                 <Button
                   variant="icon"
                   onClick={() => {
-                    if (selectedAccount)
-                      dispatch(
-                        openDeleteAccountDialog({
-                          account: selectedAccount,
-                          wallet: selectedAccount.wallet,
-                        }),
-                      );
+                    if (selectedAccount) dispatch(openEditAccountDialog());
                   }}
                 >
-                  <DeleteIconWithBg />
+                  <AccountSettingsIconBg />
                 </Button>
               )}
             </Container>
