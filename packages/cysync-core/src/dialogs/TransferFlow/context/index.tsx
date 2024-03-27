@@ -198,6 +198,7 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
         disablePrev={first && index === 0}
         changeCondition={changeCondition}
         onSelect={onSelect}
+        lang={lang}
       />
     ));
 

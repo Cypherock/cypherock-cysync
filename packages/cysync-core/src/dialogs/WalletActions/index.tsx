@@ -54,16 +54,6 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(openTransferFlowDialog('walletTransfer'));
   };
 
-  const newWalletBulletList = [
-    'If you have brought a brand new Cypherock X1 and want to setup a new wallet',
-  ];
-
-  const ImportWalletBulletList = [
-    'You want to use Cypherock X1 as a backup of your other wallets',
-    'You want to transfer your assets from your other wallets into Cypherock X1 ',
-    'You want to see all portfolio of your other wallets through Cypherock X1 ',
-  ];
-
   return (
     <BlurOverlay>
       <DialogBox py={2} pb={0} width="full" $height="80vh" onClose={onClose}>
@@ -125,7 +115,12 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
                 <div style={{ height: '250px' }}>
-                  <BulletList items={newWalletBulletList} />
+                  <BulletList
+                    items={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .createWallet.bulletList
+                    }
+                  />
                 </div>
                 <Button onClick={() => setSelectedAction('createWallet')}>
                   Create
@@ -163,7 +158,12 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
                 <div style={{ height: '250px' }}>
-                  <BulletList items={ImportWalletBulletList} />
+                  <BulletList
+                    items={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .importWallet.bulletList
+                    }
+                  />
                 </div>
                 <Button onClick={() => setSelectedAction('importWallet')}>
                   Import

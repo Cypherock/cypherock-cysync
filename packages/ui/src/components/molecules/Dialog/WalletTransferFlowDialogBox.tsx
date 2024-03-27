@@ -49,6 +49,7 @@ export interface WalletTransferFlowDialogBoxProps {
   onSelect?: any;
   changeCondition: any;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
+  lang: any;
 }
 export const WalletTransferFlowDialogBox: FC<
   WalletTransferFlowDialogBoxProps
@@ -70,8 +71,10 @@ export const WalletTransferFlowDialogBox: FC<
   onPrevious,
   disablePrev,
   disableNext,
+  lang,
 }) => {
   const shouldRenderDoubleDialog =
+    // this is not hardcoded this is for check true or false
     title !== undefined &&
     [
       'I have lost my X1 vault but I still have all of the 4 old X1 cards',
@@ -80,12 +83,18 @@ export const WalletTransferFlowDialogBox: FC<
 
   const dialogTexts = {
     dialog1:
-      'I have lost my X1 vault but I still have all of the 4 old X1 cards',
-    message1: 'Use this flow if you have bought a completely new X1 Vault only',
-    dialog2: 'I have lost my X1 vault and have less than 4 old X1 cards',
+      lang.strings.settings.tabs.device.item.transferWalletSettings.case1.title,
+    message1:
+      lang.strings.settings.tabs.device.item.transferWalletSettings.case1
+        .message,
+    dialog2:
+      lang.strings.settings.tabs.device.item.transferWalletSettings.case2.title,
     message2:
-      'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+      lang.strings.settings.tabs.device.item.transferWalletSettings.case2
+        .message,
   };
+
+  console.log(lang);
 
   const DialogBoxStyle = styled.section`
     display: flex;

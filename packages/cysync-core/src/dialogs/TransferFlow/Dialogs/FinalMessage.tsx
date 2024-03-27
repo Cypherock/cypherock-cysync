@@ -99,6 +99,7 @@ export const FinalMessage: FC = () => {
             setShowWalletNotCreatedDialog={setShowWalletNotCreatedDialog}
           />
         }
+        lang={lang}
       />
     </>
   );

@@ -773,6 +773,9 @@ const en = {
         list: [
           'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
         ],
+        bulletList: [
+          'If you have brought a brand new Cypherock X1 and want to setup a new wallet',
+        ],
       },
       importWallet: {
         title: 'Import your wallet from a seed phrase',
@@ -780,6 +783,11 @@ const en = {
           `You want to use Cypherock X1 as a backup of your other wallets `,
           `You want to transfer your assets from your other wallets into Cypherock X1 `,
           `You want to manage and track portfolio of your other wallets through Cypherock X1 `,
+        ],
+        bulletList: [
+          'You want to use Cypherock X1 as a backup of your other wallets',
+          'You want to transfer your assets from your other wallets into Cypherock X1 ',
+          'You want to see all portfolio of your other wallets through Cypherock X1 ',
         ],
       },
       transfer: {
@@ -1519,7 +1527,7 @@ const en = {
               title: 'Click "Clear Device Data" on your X1 Vault',
             },
             {
-              title: 'Confirm "Clear Device Data" on your X1 Vault',
+              title: 'Confirm clearing device data on the X1 Vault',
             },
             {
               title: 'Device Data Cleared',
@@ -1612,7 +1620,7 @@ const en = {
               title: 'Click "Clear device data" on your X1 Vault',
             },
             {
-              title: 'Confirm "Clear Device Data" on your X1 Vault',
+              title: 'Confirm clearing device data on the X1 Vault',
             },
             {
               title: 'Tap any 2 old X1 Cards below the X1 Vault',
@@ -1830,7 +1838,7 @@ const en = {
               title: 'Click "Clear device data" on your X1 Vault',
             },
             {
-              title: 'Confirm "Clear Device Data" on your X1 Vault',
+              title: 'Confirm clearing device data on the X1 Vault',
             },
             {
               title: 'Tap any tw old X1 Cards below the X1 Vault',
@@ -2221,6 +2229,29 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
             title: 'Transfer Wallet',
             description:
               'If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever',
+          },
+          transferWalletSettings: {
+            case1: {
+              title:
+                'I have lost my X1 Vault but I still have all of the 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a completely new device only',
+              message:
+                'Use this flow if you have bought a completely new X1 Vault only',
+            },
+            case2: {
+              title:
+                'I have lost my X1 Vault and have less than 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+              message:
+                'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+            },
+            case3: {
+              title: 'I have my old X1 Vault and have less then 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a completely new set of cards only',
+            },
           },
         },
       },
