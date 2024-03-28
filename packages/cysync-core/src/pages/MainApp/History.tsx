@@ -130,6 +130,7 @@ export const History: FC = () => {
           onChange={setSearchTerm}
           handleDownloadCSV={handleDownloadCSV}
           disabled={disabled}
+          toolTip={lang.strings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
           <>

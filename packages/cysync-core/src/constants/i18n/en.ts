@@ -353,6 +353,9 @@ const en = {
     submit: 'Submit',
     showMore: 'Show more',
   },
+  tooltips: {
+    downloadCsv: 'Export as CSV',
+  },
   deviceAuthentication: {
     success: {
       title: 'Your X1 Vault is authenticated successfully',
