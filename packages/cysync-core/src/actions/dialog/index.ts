@@ -81,3 +81,6 @@ export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
 
 export const openBetaNotificationDialog = () =>
   openDialog({ name: 'betaNotificationDialog', data: undefined });
+
+export const openEditAccountDialog = () =>
+  openDialog({ name: 'editAccount', data: undefined });

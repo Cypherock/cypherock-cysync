@@ -1,38 +1,43 @@
-import { ArrowDown, Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
+import { Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { openEditAccountDialog } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { strings } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
 
   return (
     <>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.syncMobile.title }}
         description={{ text: item.syncMobile.description }}
       >
         <SettingsButton variant="primary" onClick={console.log}>
           <LangDisplay text={strings.buttons.showQRCode} />
         </SettingsButton>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.editAccount.title }}
         description={{ text: item.editAccount.description }}
       >
-        <SettingsButton variant="primary" onClick={console.log}>
+        <SettingsButton
+          variant="primary"
+          onClick={() => dispatch(openEditAccountDialog())}
+        >
           <LangDisplay text={strings.buttons.editAccount} />
         </SettingsButton>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.toggleWalletOnPortfolio.title }}
         description={{ text: item.toggleWalletOnPortfolio.description }}
       >
         <ArrowDown />
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.currency.title }}
         description={{ text: item.currency.description }}

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { InfoItalicsIcon } from '../../assets';
+import { GoldQuestionMark, InfoItalicsIcon } from '../../assets';
 import {
   Container,
   Flex,
@@ -29,13 +29,25 @@ export const MessageBox: FC<{
   type: MessageBoxType;
   rightImage?: React.ReactNode;
   variables?: any;
-}> = ({ text, altText, type, textColor, rightImage, variables }) => {
+  showIcon?: boolean;
+  showQuestionmark?: boolean;
+}> = ({
+  text,
+  altText,
+  type,
+  textColor,
+  rightImage,
+  variables,
+  showIcon,
+  showQuestionmark,
+}) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
     warning: theme?.palette.info.main,
     danger: theme?.palette.background.danger,
   };
+
   return (
     <Container
       $borderColor={borderColorMap[type]}
@@ -48,13 +60,18 @@ export const MessageBox: FC<{
       justify="flex-start"
       $alignSelf="stretch"
     >
-      <div>
-        <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-      </div>
+      {showIcon && (
+        <div>
+          <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
+        </div>
+      )}
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
           <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
+          {showQuestionmark && (
+            <GoldQuestionMark style={{ marginLeft: '10px' }} />
+          )}
         </Typography>
         {altText && (
           <Container align="center" gap={5}>
@@ -74,4 +91,6 @@ MessageBox.defaultProps = {
   altText: undefined,
   textColor: undefined,
   variables: undefined,
+  showIcon: true,
+  showQuestionmark: false,
 };

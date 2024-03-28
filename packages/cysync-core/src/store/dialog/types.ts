@@ -61,6 +61,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  editAccount: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   resetCySync: {
     isOpen: boolean;
     data?: undefined;
