@@ -1,16 +1,22 @@
-import { SuccessDialog } from '@cypherock/cysync-ui';
+import { SuccessDialog, parseLangTemplate } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { ErrorHandlerDialog, DeviceAuthenticating } from '~/components';
 import { routes } from '~/constants';
-import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
+import {
+  DeviceTask,
+  useDeviceTask,
+  useDeviceUpdate,
+  useNavigateTo,
+} from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getCloseAppMethod, keyValueStore } from '~/utils';
 
 export const DeviceAuthDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+  const { version } = useDeviceUpdate();
 
   const deviceAuth: DeviceTask<boolean> = async connection => {
     const app = await ManagerApp.create(connection);
@@ -36,6 +42,16 @@ export const DeviceAuthDialog: React.FC = () => {
     }
   }, [task.result]);
 
+  const successTitle = useMemo(
+    () =>
+      parseLangTemplate(
+        lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful
+          .headingWithVersion,
+        { version },
+      ),
+    [version],
+  );
+
   return (
     <ErrorHandlerDialog
       error={task.error}
@@ -45,13 +61,13 @@ export const DeviceAuthDialog: React.FC = () => {
     >
       {task.result === undefined && (
         <DeviceAuthenticating
-          title={lang.strings.onboarding.deviceAuth.title}
-          subtitle={lang.strings.onboarding.deviceAuth.subtext}
+          title={lang.strings.deviceAuthentication.loading.title}
+          subtitle={lang.strings.deviceAuthentication.loading.subtitle}
         />
       )}
       {task.result && (
         <SuccessDialog
-          title={lang.strings.onboarding.deviceAuth.success.title}
+          title={successTitle}
           subtext={lang.strings.onboarding.deviceAuth.success.subtext}
         />
       )}
