@@ -9,12 +9,14 @@ import {
   LangDisplay,
   Typography,
   CloseButton,
-  ArrowRightIcon,
   Input,
   Flex,
   Divider,
   ScrollableContainer,
   EditAccountIcon,
+  ArrowDown,
+  ArrowUp,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
@@ -79,6 +81,19 @@ export const EditAccount: React.FC = () => {
       setTab(2);
     }
   }, [window.location.hash]);
+
+  const [showAdvance, setShowAdvance] = useState(false);
+  const showIcon = false;
+  const showQuestionmark = true;
+
+  // this will be removed and replaced with dynamic value from API
+  const message2 = `"xpub": "tpubDCzetagUBW9jcbtJkAP4hpPkTCPa
+  G2QMWrSJZMXUP16j7H13Ce1NtAtstH4HffnERjJUcVY6CbYs5cV6Keyge5Q
+  2SuitSd2CXrKoVbMyHX1", "index": 0, "freshAddressPath":
+  "84'/1'/0'/0/2","id": "js:2:bitcoin_testnet:tpubDCzetag
+  UBW9jcbtJkAP4hpPkTCPaG2QMWrSJZMXUP16j7H13Ce1NtAtstH4HffnERj
+  JUcVY6CbYs5cV6Keyge5Q2SuitSd2CXrKoVbMyHX1:native_segwit",
+  "blockHeight": 2410257 }`;
 
   return (
     <DialogBox
@@ -176,7 +191,7 @@ export const EditAccount: React.FC = () => {
                       <LangDisplay text={tabSecond.input.first.subtitle} />
                     </Typography>
                   </div>
-                  <div style={{ width: '30%' }}>
+                  <div style={{ width: '294px' }}>
                     <Input
                       pasteAllowed
                       name="walletName"
@@ -202,7 +217,7 @@ export const EditAccount: React.FC = () => {
                       <LangDisplay text={tabSecond.input.second.subtitle} />
                     </Typography>
                   </div>
-                  <div style={{ width: '30%' }}>
+                  <div style={{ width: '294px' }}>
                     <Dropdown
                       items={walletType.map(item => ({
                         id: item.__id,
@@ -228,10 +243,34 @@ export const EditAccount: React.FC = () => {
                   <Typography $fontSize={18} color="white">
                     <LangDisplay text="Advanced" />
                   </Typography>
-                  <div>
-                    <ArrowRightIcon />
-                  </div>
+                  {showAdvance ? (
+                    <ArrowUp
+                      cursor="pointer"
+                      onClick={() => setShowAdvance(!showAdvance)}
+                    />
+                  ) : (
+                    <ArrowDown
+                      cursor="pointer"
+                      onClick={() => setShowAdvance(!showAdvance)}
+                    />
+                  )}
                 </div>
+                {showAdvance && (
+                  <>
+                    <MessageBox
+                      type="info"
+                      showQuestionmark={showQuestionmark}
+                      text="This is a native segwit xpub. When importing it into a third-party wallet,  choose the same derivation mode"
+                    />
+                    <div style={{ marginTop: '20px' }}>
+                      <MessageBox
+                        type="info"
+                        showIcon={showIcon}
+                        text={message2}
+                      />
+                    </div>
+                  </>
+                )}
                 <Divider variant="horizontal" />
               </div>
             )}
