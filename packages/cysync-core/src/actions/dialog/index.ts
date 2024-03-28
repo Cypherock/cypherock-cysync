@@ -7,7 +7,13 @@ import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
-import { GuidedFlowType, openDialog } from '~/store';
+import {
+  GuidedFlowType,
+  TransferFlowType,
+  openDialog,
+  TransferLessCardsFlowType,
+  TransferFlowLostVaultType,
+} from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
   openDialog({ name: 'walletSyncError', data: undefined });
@@ -23,6 +29,17 @@ export const openSignMessageDialog = () =>
 
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
+
+export const openTransferFlowDialog = (type: TransferFlowType) =>
+  openDialog({ name: 'transferFlow', data: { type } });
+
+export const openTransferLessCardsFlowDialog = (
+  type: TransferLessCardsFlowType,
+) => openDialog({ name: 'transferLessCardsFlow', data: { type } });
+
+export const openTransferFlowLostVaultDialog = (
+  type: TransferFlowLostVaultType,
+) => openDialog({ name: 'transferLostVaultFlow', data: { type } });
 
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });

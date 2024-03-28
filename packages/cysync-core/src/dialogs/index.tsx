@@ -26,6 +26,9 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
+import { TransferFlow } from './TransferFlow';
+import { TransferLessCardsFlow } from './TransferFlowLessCards';
+import { TransferFlowLostValt } from './TransferFlowVaultLost';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
@@ -35,6 +38,9 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
+  transferFlow: TransferFlow,
+  transferLessCardsFlow: TransferLessCardsFlow,
+  transferLostVaultFlow: TransferFlowLostValt,
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
   sendDialog: SendDialog,

@@ -774,6 +774,9 @@ const en = {
         list: [
           'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
         ],
+        bulletList: [
+          'If you have brought a brand new Cypherock X1 and want to setup a new wallet',
+        ],
       },
       importWallet: {
         title: 'Import your wallet from a seed phrase',
@@ -782,6 +785,16 @@ const en = {
           `You want to transfer your assets from your other wallets into Cypherock X1 `,
           `You want to manage and track portfolio of your other wallets through Cypherock X1 `,
         ],
+        bulletList: [
+          'You want to use Cypherock X1 as a backup of your other wallets',
+          'You want to transfer your assets from your other wallets into Cypherock X1 ',
+          'You want to see all portfolio of your other wallets through Cypherock X1 ',
+        ],
+      },
+      transfer: {
+        title: 'Transfer from Old to new Cypherock X1',
+        subtitle:
+          'If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 cards',
       },
     },
     success: {
@@ -1419,6 +1432,595 @@ const en = {
         primary: 'Exit',
       },
     },
+    walletTransfer: {
+      title: 'Wallet Transfer',
+      tabs: [
+        {
+          asideTitle: 'Start',
+          pages: [
+            {
+              title:
+                'I have lost my X1 vault but I still have all of the 4 old X1 cards',
+              messageBoxList: [
+                {
+                  info: 'Use this flow if you have bought a completely new X1 Vault only',
+                },
+              ],
+            },
+            {
+              title:
+                'I have lost my X1 vault and have less than 4 old X1 cards',
+              messageBoxList: [
+                {
+                  info: 'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+            },
+            {
+              title: 'Click "Restore wallets from cards" on your X1 Vault',
+            },
+            {
+              title: 'Confirm on the X1 Vault to start wallet syncing',
+            },
+            {
+              title: 'Tap any of the 4 old X1 Cards below the X1 Vault',
+              bulletList: ['Do not lift until you hear a beep sound'],
+              messageBoxList: [
+                {
+                  info: 'You can sync all your wallets on by one',
+                },
+              ],
+            },
+            {
+              title: 'Confirm on X1 Vault to sync your wallet',
+            },
+            {
+              title: 'Enter PIN if you had set it before',
+            },
+            {
+              title: 'Tap any 2 old X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Repeat the process for all wallets you want to sync',
+                },
+                {
+                  info: 'Follow the instructions on the X1 Vault to repeat',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallets are synced',
+              subtitle:
+                'In case there are some wallets that you did not sync, you can always go to that wallet from main menu on the device to resync with the cards',
+            },
+          ],
+        },
+      ],
+    },
+    walletTransferLessCards: {
+      title: 'Wallet Transfer',
+      tabs: [
+        {
+          asideTitle: 'Start',
+          pages: [],
+        },
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+            },
+            {
+              title: 'Click "Clear Device Data" on your X1 Vault',
+            },
+            {
+              title: 'Confirm clearing device data on the X1 Vault',
+            },
+            {
+              title: 'Device Data Cleared',
+              subtitle: 'Proceed to pair old cards with new device',
+            },
+            {
+              title: 'Tap any two old X1 cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure you tap the same numbered card as shown on the X! Vault',
+                },
+                {
+                  info: 'You can skip the card tapping for the cards you donot have',
+                },
+              ],
+            },
+            {
+              title: 'Your X1 Cards should now be paired successfully',
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+            },
+            {
+              title: 'Click "Restore wallets from cards" on your X1 Vault',
+            },
+            {
+              title: 'Confirm on the X1 Vault to start wallets syncing',
+            },
+            {
+              title: 'Tap any old X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'You can sync all your wallets one by one',
+                },
+              ],
+            },
+            {
+              title: 'Confirm on X1 Vault to sync your wallet',
+            },
+            {
+              title: 'Enter PIN if you had set it before',
+            },
+            {
+              title: 'Tap any 2 old X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Repeat the process for all the wallets you want to sync',
+                },
+                {
+                  info: 'Follow the instructions on X1 Vault to repeat',
+                },
+              ],
+            },
+            {
+              title: 'Congratulations, your wallets are synced',
+              subtitle:
+                'In case there are some wallets that you did not sync, you can always go to that wallet from main menu on the device to resync with the cards',
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, select a wallet',
+            },
+            {
+              title: 'Click "View Seed" on your X1 Vault',
+            },
+            {
+              title: 'Enter PIN if you had set it before',
+            },
+            {
+              title: 'Tap any X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+            },
+            {
+              title: 'The wallet seed phrase should now be visible',
+              messageBoxList: [
+                {
+                  info: 'Make a temporary physical seed phrase breakup',
+                },
+                {
+                  info: 'Repeat this process for all the wallets you intend to transfer to the new X1 Cards',
+                },
+              ],
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+            },
+            {
+              title: 'Click "Clear device data" on your X1 Vault',
+            },
+            {
+              title: 'Confirm clearing device data on the X1 Vault',
+            },
+            {
+              title: 'Tap any 2 old X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+            },
+            {
+              title: 'Device Data Cleared',
+              subtitle: 'Proceed to pair new cards with the new device',
+              messageBoxList: [
+                {
+                  info: "Keep the old cards aside, you won't be needing them any further in this process",
+                },
+              ],
+            },
+            {
+              title: 'Tap new set of X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the cards in correct order',
+                },
+                {
+                  info: 'Make sure to pair all of the 4 new cards with the device',
+                },
+              ],
+            },
+            {
+              title: 'X1 Cards paired successfully',
+              subtitle: 'Your new cards are sccessfully paired with the device',
+              messageBoxList: [
+                {
+                  info: 'Import all the wallet seed phrases into the new cards from the next step',
+                },
+              ],
+            },
+            {
+              title:
+                'From the Main Menu of your X1 Vault, click on "Create Wallet"',
+            },
+            {
+              title: 'Click "Restore from Seed Phrase" on your X1 Vault',
+            },
+            {
+              title: 'Enter a wallet name on your X1 Vault',
+              bulletList: [
+                'Upto 15 characters allowed',
+                'It can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  info: 'Make sure that the wallet name is unique to other wallet names on the device',
+                },
+                {
+                  warning:
+                    'Wallet name once set cannot be modified. Please set the name accordingly',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the wallet name on the X1 Vault',
+            },
+            {
+              title: 'Do you want to setup a PIN for your wallet?',
+              messageBoxList: [
+                {
+                  warning:
+                    'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+                },
+              ],
+            },
+            {
+              title: 'Setup a PIN on the X1 Vault',
+              bulletList: [
+                'Use between 4 and 8 characters',
+                'The PIN can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the entered PIN on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
+                },
+                {
+                  warning: 'Back it up in a safe place',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Sync X1 Vault',
+          pages: [
+            {
+              title:
+                'Count the number of words of the seed phrase which you are importing and select it on the X1 Vault',
+            },
+            {
+              title: 'Enter the seed phrase on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you do not make spelling mistakes while entering the words on the device. Words like "west" & "nest" are often confusing while reading and needs to be entered correctly',
+                },
+              ],
+            },
+            {
+              title: 'Verify the seed phrase that you entered on the X1 Vault',
+              subtitle:
+                'Match each and every to successfully import the correct wallet',
+            },
+            {
+              title: 'Tap X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your X1 Cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the X1 Cards in the correct order',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallet is now successfully created',
+            },
+            {
+              title:
+                'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+            },
+
+            {
+              title:
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
+            },
+            {
+              title: 'Important Note',
+              messageBoxList: [
+                {
+                  warning:
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
+                },
+              ],
+            },
+            {
+              title:
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
+              bulletList: [
+                'Homes of your family members or your friends',
+                'Secret hideout',
+                'Bank locker',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    walletTransferLostVault: {
+      title: 'Wallet Transfer',
+      tabs: [
+        {
+          asideTitle: 'X1 Vault',
+          pages: [
+            {
+              title: 'From the Main Menu of your X1 Vault, select a wallet',
+            },
+            {
+              title: 'Click "View Seed" on your X1 Vault',
+            },
+            {
+              title: 'Enter PIN if had set it before',
+            },
+            {
+              title: 'Tap any old X1 Cards below the X1 Vault',
+              bulletList: ['Do not lift until you hear a beep sound'],
+            },
+            {
+              title: 'The wallet seed phrase should now be visible',
+              messageBoxList: [
+                {
+                  info: 'Make a temporary physical seed phrase backup',
+                },
+                {
+                  info: 'Repeat this process for all the wallets you intend to transfer to the new X! Cards',
+                },
+              ],
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+            },
+            {
+              title: 'Click "Clear device data" on your X1 Vault',
+            },
+            {
+              title: 'Confirm clearing device data on the X1 Vault',
+            },
+            {
+              title: 'Tap any tw old X1 Cards below the X1 Vault',
+              bulletList: ['Do not lift until you hear a beep sound'],
+            },
+            {
+              title: 'Device data cleared',
+              subtitle: 'Proceed to pair new cards with the new device',
+              messageBoxList: [
+                {
+                  info: "Keep the old cards aside, you won't be needing them any further in this process",
+                },
+              ],
+            },
+            {
+              title: 'Tap new set of X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the cards in correct order',
+                },
+                {
+                  info: 'Make sure to pair all of the 4 new cards with the device',
+                },
+              ],
+            },
+            {
+              title: 'X1 cards paired sccuessfully',
+              subtitle:
+                'Your new cards are successfully paired with the device',
+              messageBoxList: [
+                {
+                  info: 'Import all the wallet seed phrases into the new cards from the next step',
+                },
+              ],
+            },
+            {
+              title:
+                'From the Main Menu of your X1 Vault, click on "Create Wallet"',
+            },
+            {
+              title: 'Click "Restore from Seed Phrase" on your X1 Vault',
+            },
+            {
+              title: 'Enter a wallet name on your X1 Vault',
+              bulletList: [
+                'Upto 15 characters allowed',
+                'It can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  info: 'Make sure that the wallet name is unique to other wallet names on the device',
+                },
+                {
+                  warning:
+                    'Wallet name once set cannot be modified. Please set the name accordingly',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the wallet name on the X1 Vault',
+            },
+            {
+              title: 'Do you want to setup a PIN for your wallet?',
+              messageBoxList: [
+                {
+                  warning:
+                    'The PIN once set cannot be changed. You will have to delete the wallet and create again in order to change the PIN',
+                },
+              ],
+            },
+            {
+              title: 'Setup a PIN on the X1 Vault',
+              bulletList: [
+                'Use between 4 and 8 characters',
+                'The PIN can be alphanumeric',
+              ],
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you make a backup of your PIN. If you lose it , you lose access to your funds',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+            {
+              title: 'Confirm the entered PIN on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets",
+                },
+                {
+                  warning: 'Back it up in a safe place',
+                },
+                {
+                  'warning-white':
+                    'Skip this step if you are not setting up a PIN',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Sync X1 Cards',
+          pages: [
+            {
+              title:
+                'Count the number of words of the seed phrase which you are importing and select it on the X1 Vault',
+            },
+            {
+              title: 'Enter the seed phrase on the X1 Vault',
+              messageBoxList: [
+                {
+                  warning:
+                    'Make sure you do not make spelling mistakes while entering the words on the device. Words like "west" & "nest" are often confusing while reading and needs to be entered correctly',
+                },
+              ],
+            },
+            {
+              title: 'Verify the seed phrase that you entered on the X1 Vault',
+              subtitle:
+                'Match each and every to successfully import the correct wallet',
+            },
+            {
+              title: 'Tap X1 Cards one by one below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
+              messageBoxList: [
+                {
+                  info: 'Make sure your X1 Cards belong to the same family',
+                },
+                {
+                  info: 'Make sure you tap the X1 Cards in the correct order',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Confirmation',
+          pages: [
+            {
+              title: 'Congratulations, your wallet is now successfully created',
+            },
+            {
+              title:
+                'The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault',
+            },
+
+            {
+              title:
+                'In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards',
+            },
+            {
+              title: 'Important Note',
+              messageBoxList: [
+                {
+                  warning:
+                    'In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle',
+                },
+              ],
+            },
+            {
+              title:
+                'As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ',
+              bulletList: [
+                'Homes of your family members or your friends',
+                'Secret hideout',
+                'Bank locker',
+              ],
+            },
+          ],
+        },
+      ],
+    },
   },
   dialogs: {
     close: {
@@ -1628,6 +2230,29 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
             title: 'Transfer Wallet',
             description:
               'If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever',
+          },
+          transferWalletSettings: {
+            case1: {
+              title:
+                'I have lost my X1 Vault but I still have all of the 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a completely new device only',
+              message:
+                'Use this flow if you have bought a completely new X1 Vault only',
+            },
+            case2: {
+              title:
+                'I have lost my X1 Vault and have less than 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+              message:
+                'Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1',
+            },
+            case3: {
+              title: 'I have my old X1 Vault and have less then 4 old X1 Cards',
+              description:
+                'Use this flow if you have bought a completely new set of cards only',
+            },
           },
         },
       },

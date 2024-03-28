@@ -10,13 +10,19 @@ import {
   LangDisplay,
   ScrollableContainer,
   Typography,
-  createWalletGraphics,
-  recoverWalletFromSeedphraseGraphics,
-  Image,
+  Container,
+  AddWalletNewUser,
+  ImportWalletNewUser,
+  RecoverWallet,
+  CloseButton,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
-import { openContactSupportDialog, openGuidedFlowDialog } from '~/actions';
+import {
+  openContactSupportDialog,
+  openGuidedFlowDialog,
+  openTransferFlowDialog,
+} from '~/actions';
 import {
   GuidedFlowType,
   closeDialog,
@@ -24,6 +30,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
 
@@ -42,14 +49,24 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(openGuidedFlowDialog(selectedAction));
   };
 
+  const switchToGuidedFlow2 = () => {
+    dispatch(closeDialog('walletActions'));
+    dispatch(openTransferFlowDialog('walletTransfer'));
+  };
+
   return (
     <BlurOverlay>
       <DialogBox py={2} pb={0} width="full" $height="80vh" onClose={onClose}>
-        <Flex width="full" px={3} justify="flex-end">
-          <HelpButton
-            text={lang.strings.help}
-            onClick={() => dispatch(openContactSupportDialog())}
-          />
+        <Flex display="flex" direction="row" width="full">
+          <Flex width="full" px={3} justify="flex-start">
+            <HelpButton
+              text={lang.strings.help}
+              onClick={() => dispatch(openContactSupportDialog())}
+            />
+          </Flex>
+          <Flex width="full" justify="flex-end" px={3}>
+            <CloseButton onClick={onClose} />
+          </Flex>
         </Flex>
         <ScrollableContainer height="full">
           <DialogBoxBody
@@ -62,10 +79,9 @@ export const WalletActionsDialogBox: FC = () => {
             height="full"
           >
             <Header
-              subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
+              subTitle=""
               title={lang.strings.onboarding.walletActionsDialogBox.title}
             />
-
             <Flex direction="row" gap={16} justify="center">
               <Flex
                 direction="column"
@@ -80,15 +96,11 @@ export const WalletActionsDialogBox: FC = () => {
                 px={3}
                 pb={2}
                 gap={24}
-                width={400}
+                width={600}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={createWalletGraphics}
-                  alt="Create Wallet"
-                />
+                <AddWalletNewUser height={100} />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -102,6 +114,17 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
+                <div style={{ height: '250px' }}>
+                  <BulletList
+                    items={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .createWallet.bulletList
+                    }
+                  />
+                </div>
+                <Button onClick={() => setSelectedAction('createWallet')}>
+                  Create
+                </Button>
               </Flex>
               <Flex
                 direction="column"
@@ -116,15 +139,11 @@ export const WalletActionsDialogBox: FC = () => {
                 px={3}
                 pb={2}
                 gap={24}
-                width={400}
+                width={600}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={recoverWalletFromSeedphraseGraphics}
-                  alt="Recover Wallet From Seedphrase"
-                />
+                <ImportWalletNewUser height={100} />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -138,9 +157,20 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
+                <div style={{ height: '250px' }}>
+                  <BulletList
+                    items={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .importWallet.bulletList
+                    }
+                  />
+                </div>
+                <Button onClick={() => setSelectedAction('importWallet')}>
+                  Import
+                </Button>
               </Flex>
             </Flex>
-            <Flex pt={1} pb={4} px={4}>
+            {/* <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
@@ -169,7 +199,49 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-            </Flex>
+            </Flex> */}
+            {keyValueStore.isNewUser && (
+              <Container>
+                <RecoverWallet height={100} />
+                <div
+                  style={{
+                    width: '48vw',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    textAlign: 'left',
+                    alignItems: 'flex-start',
+                    padding: '0px 64px',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '20px',
+                      fontWeight: '400',
+                      color: 'white',
+                    }}
+                  >
+                    {
+                      lang.strings.onboarding.walletActionsDialogBox.transfer
+                        .title
+                    }
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: '400',
+                      color: '#827B77',
+                    }}
+                  >
+                    {
+                      lang.strings.onboarding.walletActionsDialogBox.transfer
+                        .subtitle
+                    }
+                  </div>
+                </div>
+                <Button onClick={switchToGuidedFlow2}>Transfer</Button>
+              </Container>
+            )}
           </DialogBoxBody>
         </ScrollableContainer>
         <DialogBoxFooter

@@ -103,6 +103,27 @@ export interface IDialogState {
     };
   };
 
+  transferFlow: {
+    isOpen: boolean;
+    data?: {
+      type: TransferFlowType;
+    };
+  };
+
+  transferLessCardsFlow: {
+    isOpen: boolean;
+    data?: {
+      type: TransferLessCardsFlowType;
+    };
+  };
+
+  transferLostVaultFlow: {
+    isOpen: boolean;
+    data?: {
+      type: TransferFlowLostVaultType;
+    };
+  };
+
   walletConnect: {
     isOpen: boolean;
     data?: undefined;
@@ -134,6 +155,24 @@ export const GuidedFlowMap = {
   importWallet: 'importWallet',
 } as const;
 
+export const TransferFlowMap = {
+  walletTransfer: 'walletTransfer',
+} as const;
+
+export const TransferLessCardsFlowMap = {
+  walletTransferLessCards: 'walletTransferLessCards',
+} as const;
+
+export const TransferFlowLostVaultMap = {
+  walletTransferLostVault: 'walletTransferLostVault',
+} as const;
+
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
+export type TransferFlowType =
+  (typeof TransferFlowMap)[keyof typeof TransferFlowMap];
+export type TransferLessCardsFlowType =
+  (typeof TransferLessCardsFlowMap)[keyof typeof TransferLessCardsFlowMap];
+export type TransferFlowLostVaultType =
+  (typeof TransferFlowLostVaultMap)[keyof typeof TransferFlowLostVaultMap];
 
 export type DialogName = keyof IDialogState;
