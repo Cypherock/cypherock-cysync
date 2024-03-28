@@ -87,6 +87,10 @@ export const EditAccount: React.FC = () => {
   const showQuestionmark = true;
 
   // this will be removed and replaced with dynamic value from API
+  const message1 =
+    'This is a native segwit xpub. When importing it into a third-party wallet,  choose the same derivation mode';
+
+  // this will be removed and replaced with dynamic value from API
   const message2 = `"xpub": "tpubDCzetagUBW9jcbtJkAP4hpPkTCPa
   G2QMWrSJZMXUP16j7H13Ce1NtAtstH4HffnERjJUcVY6CbYs5cV6Keyge5Q
   2SuitSd2CXrKoVbMyHX1", "index": 0, "freshAddressPath":
@@ -112,7 +116,7 @@ export const EditAccount: React.FC = () => {
           {tab <= 2 && (
             <>
               <center>
-                <EditAccountIcon style={{ marginTop: '20px' }} />
+                <EditAccountIcon top={20} position="relative" />
               </center>
               <Flex px={5} py={4} gap={4} direction="column" align="center">
                 <Typography $fontSize={20} color="white">
@@ -143,7 +147,7 @@ export const EditAccount: React.FC = () => {
                 }}
                 id="edit-account-form"
               >
-                <div style={{ marginBottom: '24px' }}>
+                <Flex bottom={24} position="relative">
                   <Dropdown
                     items={accountList.map(item => ({
                       id: item.__id,
@@ -157,7 +161,7 @@ export const EditAccount: React.FC = () => {
                     onChange={val => (val ? handleAccountSelect(val) : '')}
                     selectedItem={selectedAccount}
                   />
-                </div>
+                </Flex>
                 <Dropdown
                   items={walletList.map(item => ({
                     id: item.__id,
@@ -175,23 +179,17 @@ export const EditAccount: React.FC = () => {
               </form>
             )}
             {tab === 2 && (
-              <div style={{ color: 'white', padding: '10px' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '10px',
-                  }}
-                >
-                  <div style={{ textAlign: 'left' }}>
-                    <Typography $fontSize={18} color="white">
+              <Flex p={1} direction="column">
+                <Flex justify="space-between" p={1}>
+                  <Flex direction="column">
+                    <Typography $fontSize={18} color="white" $textAlign="left">
                       <LangDisplay text={tabSecond.input.first.title} />
                     </Typography>
-                    <Typography $fontSize={14} color="muted">
+                    <Typography $fontSize={14} color="muted" $textAlign="left">
                       <LangDisplay text={tabSecond.input.first.subtitle} />
                     </Typography>
-                  </div>
-                  <div style={{ width: '294px' }}>
+                  </Flex>
+                  <Flex width={294}>
                     <Input
                       pasteAllowed
                       name="walletName"
@@ -199,16 +197,10 @@ export const EditAccount: React.FC = () => {
                       onChange={handleWalletNameChange}
                       type="text"
                     />
-                  </div>
-                </div>
+                  </Flex>
+                </Flex>
                 <Divider variant="horizontal" />
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '10px',
-                  }}
-                >
+                <Flex justify="space-between" p={1}>
                   <div>
                     <Typography $fontSize={18} color="white">
                       <LangDisplay text={tabSecond.input.second.title} />
@@ -217,7 +209,7 @@ export const EditAccount: React.FC = () => {
                       <LangDisplay text={tabSecond.input.second.subtitle} />
                     </Typography>
                   </div>
-                  <div style={{ width: '294px' }}>
+                  <Flex width={294}>
                     <Dropdown
                       items={walletType.map(item => ({
                         id: item.__id,
@@ -228,18 +220,10 @@ export const EditAccount: React.FC = () => {
                       onChange={val => (val ? handleWalletTypeChange(val) : '')}
                       selectedItem={selectedWalletType}
                     />
-                  </div>
-                </div>
+                  </Flex>
+                </Flex>
                 <Divider variant="horizontal" />
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '10px',
-                    marginTop: '12px',
-                    marginBottom: '12px',
-                  }}
-                >
+                <Flex justify="space-between" p={1} my={1} align="center">
                   <Typography $fontSize={18} color="white">
                     <LangDisplay text="Advanced" />
                   </Typography>
@@ -254,28 +238,28 @@ export const EditAccount: React.FC = () => {
                       onClick={() => setShowAdvance(!showAdvance)}
                     />
                   )}
-                </div>
+                </Flex>
                 {showAdvance && (
                   <>
                     <MessageBox
                       type="info"
                       showQuestionmark={showQuestionmark}
-                      text="This is a native segwit xpub. When importing it into a third-party wallet,  choose the same derivation mode"
+                      text={message1}
                     />
-                    <div style={{ marginTop: '20px' }}>
+                    <Flex top={20} position="relative">
                       <MessageBox
                         type="info"
                         showIcon={showIcon}
                         text={message2}
                       />
-                    </div>
+                    </Flex>
                   </>
                 )}
                 <Divider variant="horizontal" />
-              </div>
+              </Flex>
             )}
             {tab === 3 && (
-              <div style={{ color: 'white' }}>
+              <>
                 <center>
                   <img
                     height="50px"
@@ -291,7 +275,7 @@ export const EditAccount: React.FC = () => {
                 <Typography $fontSize={14} color="muted" $textAlign="center">
                   <LangDisplay text={tabThird.subtitle} />
                 </Typography>
-              </div>
+              </>
             )}
           </Flex>
         </DialogBoxBody>

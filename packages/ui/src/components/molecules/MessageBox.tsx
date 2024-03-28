@@ -69,9 +69,7 @@ export const MessageBox: FC<{
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
           <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
-          {showQuestionmark && (
-            <GoldQuestionMark style={{ marginLeft: '10px' }} />
-          )}
+          {showQuestionmark && <GoldQuestionMark ml={1} />}
         </Typography>
         {altText && (
           <Container align="center" gap={5}>
