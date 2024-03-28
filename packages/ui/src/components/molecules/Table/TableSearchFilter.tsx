@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { DownloadCsv } from '../../../assets';
-import { Flex, SearchBar } from '../../atoms';
+import { Flex, SearchBar, Tooltip } from '../../atoms';
 
 interface SearchFilterProps {
   placeholder: string;
@@ -66,13 +66,17 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
           width="100%"
         />
       </Flex>
-      <DownloadCSVButtonStyle onClick={disabled ? undefined : downloadCSV}>
-        <DownloadCsv
-          fill={
-            disabled ? theme?.palette.text.disabled : theme?.palette.text.white
-          }
-        />
-      </DownloadCSVButtonStyle>
+      <Tooltip text="Export as CSV" tooltipPlacement="bottom">
+        <DownloadCSVButtonStyle onClick={disabled ? undefined : downloadCSV}>
+          <DownloadCsv
+            fill={
+              disabled
+                ? theme?.palette.text.disabled
+                : theme?.palette.text.white
+            }
+          />
+        </DownloadCSVButtonStyle>
+      </Tooltip>
       {/* TODO: Add filter and calendar dropdown */}
     </SearchContainer>
   );
