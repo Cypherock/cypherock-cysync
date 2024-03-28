@@ -106,7 +106,7 @@ export const History: FC = () => {
   };
 
   // added dummy disabled remove this after getting from the api
-  const disabled = false;
+  const downloadCSVDisabled = false;
 
   const getMainContent = () => {
     if (transactionList.length <= 0)
@@ -129,8 +129,8 @@ export const History: FC = () => {
           value={searchTerm}
           onChange={setSearchTerm}
           handleDownloadCSV={handleDownloadCSV}
-          disabled={disabled}
-          toolTip={lang.strings.tooltips.downloadCsv}
+          downloadCSVDisabled={downloadCSVDisabled}
+          downloadCSVTooltip={lang.strings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
           <>

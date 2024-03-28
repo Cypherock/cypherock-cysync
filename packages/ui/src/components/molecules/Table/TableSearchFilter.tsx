@@ -9,8 +9,8 @@ interface SearchFilterProps {
   value: string;
   onChange: (value: string) => void;
   handleDownloadCSV?: () => void;
-  disabled?: boolean;
-  toolTip: string;
+  downloadCSVDisabled?: boolean;
+  downloadCSVTooltip: string;
 }
 
 const SearchContainer = styled.div`
@@ -46,8 +46,8 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
   value,
   onChange,
   handleDownloadCSV,
-  disabled,
-  toolTip,
+  downloadCSVDisabled,
+  downloadCSVTooltip,
 }) => {
   const theme = useTheme();
 
@@ -68,11 +68,13 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
           width="100%"
         />
       </Flex>
-      <Tooltip text={toolTip} tooltipPlacement="bottom">
-        <DownloadCSVButtonStyle onClick={disabled ? undefined : downloadCSV}>
+      <Tooltip text={downloadCSVTooltip} tooltipPlacement="bottom">
+        <DownloadCSVButtonStyle
+          onClick={downloadCSVDisabled ? undefined : downloadCSV}
+        >
           <DownloadCsv
             fill={
-              disabled
+              downloadCSVDisabled
                 ? theme?.palette.text.disabled
                 : theme?.palette.text.white
             }
@@ -86,5 +88,5 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
 
 TableSearchFilter.defaultProps = {
   handleDownloadCSV: undefined,
-  disabled: false,
+  downloadCSVDisabled: false,
 };
