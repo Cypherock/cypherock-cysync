@@ -11,6 +11,7 @@ import {
   IGetExplorerLink,
   ISignMessageEvent,
   IFormatAddressParams,
+  ISyncAccountsParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -37,8 +38,8 @@ export class NearSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccount(): Observable<void> {
-    throw new Error('Not implemented');
+  public syncAccount(params: ISyncAccountsParams): Observable<void> {
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(): Promise<IPreparedTransaction> {
