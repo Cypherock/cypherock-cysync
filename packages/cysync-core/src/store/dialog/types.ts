@@ -103,6 +103,11 @@ export interface IDialogState {
     };
   };
 
+  usbTroubleshoot: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   walletConnect: {
     isOpen: boolean;
     data?: undefined;

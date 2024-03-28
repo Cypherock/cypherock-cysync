@@ -9,7 +9,7 @@ import {
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
   GenerateNewWalletDeviceGraphics,
-  GuidedFlowDialogBox,
+  CustomFlowDialogBox,
   Image,
   MessageBoxType,
   SelectSeedphraseWordCountDeviceGraphics,
@@ -234,7 +234,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     first?: boolean,
   ) =>
     contents.map((content, index) => (
-      <GuidedFlowDialogBox
+      <CustomFlowDialogBox
         key={`${index + 1}`}
         image={images[index]}
         {...content}

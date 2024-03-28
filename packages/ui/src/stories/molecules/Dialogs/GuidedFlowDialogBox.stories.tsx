@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import { confirmAlphabeticDeviceImage } from '../../../assets';
-import { Button, GuidedFlowDialogBox } from '../../../components';
+import { Button, CustomFlowDialogBox } from '../../../components';
 import * as BulletListStories from '../BulletList.stories';
 import * as GoldenArrowListStories from '../GoldenArrowList.stories';
 import * as MessageBoxStories from '../MessageBox.stories';
 
-const meta: Meta<typeof GuidedFlowDialogBox> = {
-  component: GuidedFlowDialogBox,
+const meta: Meta<typeof CustomFlowDialogBox> = {
+  component: CustomFlowDialogBox,
   tags: ['autodocs'],
 };
 
