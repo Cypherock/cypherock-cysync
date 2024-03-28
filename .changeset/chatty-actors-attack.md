@@ -1,6 +1,7 @@
 ---
 '@cypherock/cysync-core': patch
 '@cypherock/cysync-ui': patch
+'@cypherock/cysync-desktop': patch
 ---
 
-ui added for edit accont
+changeset fix
