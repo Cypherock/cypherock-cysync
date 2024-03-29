@@ -17,6 +17,7 @@ import {
   ArrowDown,
   ArrowUp,
   MessageBox,
+  Container,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
@@ -148,34 +149,53 @@ export const EditAccount: React.FC = () => {
                 id="edit-account-form"
               >
                 <Flex bottom={24} position="relative">
-                  <Dropdown
-                    items={accountList.map(item => ({
-                      id: item.__id,
-                      leftImage: (
-                        <CoinIcon parentAssetId={item.parentAssetId} />
-                      ),
-                      text: item.name,
-                    }))}
-                    searchText="Search Account"
-                    placeholderText="Select Account"
-                    onChange={val => (val ? handleAccountSelect(val) : '')}
-                    selectedItem={selectedAccount}
-                  />
+                  <Container
+                    display="flex"
+                    direction="column"
+                    gap={20}
+                    width="full"
+                  >
+                    <Dropdown
+                      items={accountList.map(item => ({
+                        id: item.__id,
+                        leftImage: (
+                          <CoinIcon parentAssetId={item.parentAssetId} />
+                        ),
+                        text: item.name,
+                      }))}
+                      searchText="Search Account"
+                      placeholderText="Select Account"
+                      onChange={val => (val ? handleAccountSelect(val) : '')}
+                      selectedItem={selectedAccount}
+                    />
+                  </Container>
                 </Flex>
-                <Dropdown
-                  items={walletList.map(item => ({
-                    id: item.__id,
-                    rightText: `${item.balance} ${item.abbr}`,
-                    leftImage: (
-                      <img height="20px" width="25px" src={item.image} alt="" />
-                    ),
-                    text: `${item.name} (${item.abbr} )`,
-                  }))}
-                  searchText="Search Wallet"
-                  placeholderText="Select Wallet"
-                  onChange={val => (val ? handleWalletChange(val) : '')}
-                  selectedItem={selectedWallet}
-                />
+                <Container
+                  display="flex"
+                  direction="column"
+                  gap={20}
+                  width="full"
+                >
+                  <Dropdown
+                    items={walletList.map(item => ({
+                      id: item.__id,
+                      rightText: `${item.balance} ${item.abbr}`,
+                      leftImage: (
+                        <img
+                          height="20px"
+                          width="25px"
+                          src={item.image}
+                          alt=""
+                        />
+                      ),
+                      text: `${item.name} (${item.abbr} )`,
+                    }))}
+                    searchText="Search Wallet"
+                    placeholderText="Select Wallet"
+                    onChange={val => (val ? handleWalletChange(val) : '')}
+                    selectedItem={selectedWallet}
+                  />
+                </Container>
               </form>
             )}
             {tab === 2 && (
@@ -279,78 +299,78 @@ export const EditAccount: React.FC = () => {
             )}
           </Flex>
         </DialogBoxBody>
-      </ScrollableContainer>
-      <DialogBoxFooter>
-        {tab === 1 && (
-          <Button
-            variant="primary"
-            disabled={!isContinueDisabled}
-            onClick={e => {
-              e.preventDefault();
-              setTab(2);
-              handleGetAssets();
-            }}
-          >
-            <LangDisplay text={tabFirst.btn} />
-          </Button>
-        )}
-        {tab === 2 && (
-          <>
-            <Button
-              variant="danger"
-              disabled={isLoading}
-              onClick={e => {
-                e.preventDefault();
-                setTab(3);
-              }}
-            >
-              <LangDisplay text={tabSecond.btn.primary.text} />
-            </Button>
+        <DialogBoxFooter>
+          {tab === 1 && (
             <Button
               variant="primary"
-              disabled={!isApplyDisabled}
-              isLoading={isLoading}
-              onClick={async e => {
-                e.preventDefault();
-                await handleApply();
-              }}
-            >
-              <LangDisplay text={tabSecond.btn.secondary.text} />
-            </Button>
-          </>
-        )}
-        {tab === 3 && (
-          <>
-            <Button
-              variant="danger"
-              disabled={isLoading}
-              onClick={e => {
-                e.preventDefault();
-                onClose();
-                dispatch(
-                  openSnackBar({
-                    icon: 'check',
-                    text: 'Solona 1 removed from the portfolio',
-                    buttonText: 'Close',
-                  }),
-                );
-              }}
-            >
-              <LangDisplay text={tabThird.btn.primary} />
-            </Button>
-            <Button
-              variant="primary"
-              disabled={isLoading}
+              disabled={!isContinueDisabled}
               onClick={e => {
                 e.preventDefault();
                 setTab(2);
+                handleGetAssets();
               }}
             >
-              <LangDisplay text={tabThird.btn.secondary} />
+              <LangDisplay text={tabFirst.btn} />
             </Button>
-          </>
-        )}
-      </DialogBoxFooter>
+          )}
+          {tab === 2 && (
+            <>
+              <Button
+                variant="danger"
+                disabled={isLoading}
+                onClick={e => {
+                  e.preventDefault();
+                  setTab(3);
+                }}
+              >
+                <LangDisplay text={tabSecond.btn.primary.text} />
+              </Button>
+              <Button
+                variant="primary"
+                disabled={!isApplyDisabled}
+                isLoading={isLoading}
+                onClick={async e => {
+                  e.preventDefault();
+                  await handleApply();
+                }}
+              >
+                <LangDisplay text={tabSecond.btn.secondary.text} />
+              </Button>
+            </>
+          )}
+          {tab === 3 && (
+            <>
+              <Button
+                variant="danger"
+                disabled={isLoading}
+                onClick={e => {
+                  e.preventDefault();
+                  onClose();
+                  dispatch(
+                    openSnackBar({
+                      icon: 'check',
+                      text: 'Solona 1 removed from the portfolio',
+                      buttonText: 'Close',
+                    }),
+                  );
+                }}
+              >
+                <LangDisplay text={tabThird.btn.primary} />
+              </Button>
+              <Button
+                variant="primary"
+                disabled={isLoading}
+                onClick={e => {
+                  e.preventDefault();
+                  setTab(2);
+                }}
+              >
+                <LangDisplay text={tabThird.btn.secondary} />
+              </Button>
+            </>
+          )}
+        </DialogBoxFooter>
+      </ScrollableContainer>
     </DialogBox>
   );
 };
