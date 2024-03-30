@@ -10,8 +10,9 @@ import {
 } from '@cypherock/db-interfaces';
 import { getTransactions } from '../../services';
 
-import { ISyncNearAccountsParams } from './types';
 import { BigNumber } from '@cypherock/cysync-utils';
+import lodash from 'lodash';
+import { ISyncNearAccountsParams } from './types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -85,42 +86,40 @@ const getTransactionParser = (
 const getAddressDetails: IGetAddressDetails<{
   page: number;
   perPage: number;
-  order: 'desc' | 'asc';
+  transactionsInDb: ITransaction[];
 }> = async ({ db, account, iterationContext }) => {
-  let page = iterationContext?.page ?? 1;
-  const order = iterationContext?.order ?? 'asc';
+  const page = iterationContext?.page ?? 1;
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
-
-  if (iterationContext === undefined) {
-    const allSavedTransactions = await db.transaction.getAll({
+  const transactionsInDb =
+    iterationContext?.transactionsInDb ??
+    (await db.transaction.getAll({
       accountId: account.__id,
       assetId: account.parentAssetId,
-    });
-    const transactionCount = allSavedTransactions.length;
-    page = Math.floor(transactionCount / perPage) + 1;
-  }
+    }));
 
   const response = await getTransactions({
     address: account.xpubOrAddress,
     assetId: account.parentAssetId,
     page: iterationContext?.page ?? page,
     perPage: iterationContext?.perPage ?? perPage,
-    order: iterationContext?.order ?? order,
+    order: 'desc',
   });
 
   const transactionParser = getTransactionParser({
     address: account.xpubOrAddress,
     account,
   });
+
   const transactions = response.transactions.map(transactionParser);
-  await db.transaction.insert(transactions);
+  const hasMore =
+    lodash.intersectionBy(transactionsInDb, transactions, 'hash').length > 0;
 
   return {
-    hasMore: response.hasMore,
+    hasMore,
     nextIterationContext: {
-      order,
       page: page + 1,
       perPage,
+      transactionsInDb,
     },
     transactions,
     updatedAccountInfo: {},

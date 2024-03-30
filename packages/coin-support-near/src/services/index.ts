@@ -1,7 +1,9 @@
 import { nearCoinList } from '@cypherock/coins';
 import axios from 'axios';
 
+import { ServerError, ServerErrorType } from '@cypherock/coin-support-utils';
 import { config } from '../config';
+import { NearTransactionsApiResponseSchema } from '../validators';
 
 const baseURL = `${config.API_CYPHEROCK}/v2/near`;
 
@@ -17,7 +19,6 @@ export const getBalance = async (
   const response = await axios.post(url, {
     address,
     network: nearCoinList[assetId].network,
-    responseType: 'v2',
   });
 
   const { balance, nativeBalance, reservedStorage } = response.data;
@@ -48,16 +49,30 @@ export const getTransactions = async ({
   const response = await axios.post(url, {
     address,
     network: nearCoinList[assetId].network,
-    responseType: 'v2',
     page,
     perPage,
     order,
   });
 
-  const hasMore = response.data.length === perPage;
+  const parseResult = NearTransactionsApiResponseSchema.safeParse(
+    response.data,
+  );
 
+  if (parseResult.success === false) {
+    throw new ServerError(
+      ServerErrorType.INVALID_RESPONSE,
+      'Invalid Response for Near Transactions',
+      {
+        responseBody: response.data,
+        url,
+        status: response.status,
+      },
+    );
+  }
+
+  const hasMore = parseResult.data.length === perPage;
   return {
-    transactions: response.data,
+    transactions: parseResult.data,
     hasMore,
   };
 };

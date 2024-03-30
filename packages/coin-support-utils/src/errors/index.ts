@@ -1,6 +1,7 @@
 export enum ServerErrorType {
   UNKNOWN_ERROR = 'SER_0000',
   CONNOT_CONNECT = 'SER_0001',
+  INVALID_RESPONSE = 'SER_0002',
 }
 
 type CodeToErrorMap = {
@@ -15,6 +16,9 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
   },
   [ServerErrorType.CONNOT_CONNECT]: {
     message: 'Cannot connect to the server',
+  },
+  [ServerErrorType.INVALID_RESPONSE]: {
+    message: 'Invalid response from server',
   },
 };
 
