@@ -131,10 +131,13 @@ const getChangedContracts = (params: {
       coingeckoCoin.name !== existingCoin.name ||
       coingeckoCoin.symbol !== existingCoin.symbol
     ) {
+      const version =
+        coingeckoCoin.id === existingCoin.id ? existingCoin.version : undefined;
       changedContracts.push(contractAddress);
 
       changedCoinList.push({
         ...coingeckoCoin,
+        version,
       });
 
       if (coingeckoCoin.id !== existingCoin.id) {
@@ -149,6 +152,7 @@ const getChangedContracts = (params: {
       changedCoins.push({
         id: coingeckoCoin.id,
         platform: Object.keys(existingCoin.platforms ?? {})[0],
+        version,
       });
     }
   }

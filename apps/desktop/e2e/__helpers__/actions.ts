@@ -1,7 +1,5 @@
 import { Page } from '@playwright/test';
 
-import { removeCysyncDatabase } from './databaseHandler';
-
 const HARD_TIMEOUT_MS = 10000;
 const PEEK_TIME_MS = 250;
 
@@ -29,13 +27,9 @@ export const toFirstScreen = async (screen: Page) => {
       !(await screen.getByRole('img', { name: 'Loader Icon' }).isVisible()),
   );
 
-  const hasCheckbox = await screen.getByText('I have already run the command');
+  const hasCheckbox = screen.getByText('I have already run the command');
   if (await hasCheckbox.isVisible()) {
     await screen.getByText('I have already run the command').click();
     await screen.getByRole('button', { name: 'Continue' }).click();
   }
-};
-
-export const clearDb = async () => {
-  removeCysyncDatabase();
 };
