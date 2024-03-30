@@ -1,0 +1,22 @@
+diff --git a/dist/cjs/index.js b/dist/cjs/index.js
+index 797e6743fe48e3c7af581e45a24f52db1ec34f42..ccc79b005d83f95ac7b7340683d56b84e913a35c 100644
+--- a/dist/cjs/index.js
++++ b/dist/cjs/index.js
+@@ -259,6 +259,7 @@ _a = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExi
+  *
+  * Returns a function that may be used to unload signal-exit.
+  */
++exports.default = _a.onExit, 
+ exports.onExit = _a.onExit, 
+ /**
+  * Load the listeners.  Likely you never need to call this, unless
+diff --git a/dist/mjs/index.js b/dist/mjs/index.js
+index 4a78bad847d40736965b4dc94e9f7c94c0c62f4e..ebb2652334ff475157a505c3bd7e475c46b41c57 100644
+--- a/dist/mjs/index.js
++++ b/dist/mjs/index.js
+@@ -272,4 +272,5 @@ load,
+  * @internal
+  */
+ unload, } = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback());
++export default onExit;
+ //# sourceMappingURL=index.js.map
