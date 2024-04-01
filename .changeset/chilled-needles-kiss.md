@@ -1,6 +1,7 @@
 ---
 '@cypherock/cysync-core': patch
 '@cypherock/cysync-ui': patch
+'@cypherock/cysync-desktop': patch
 ---
 
-Wallet Transfer
+ui for wallet transfer flow

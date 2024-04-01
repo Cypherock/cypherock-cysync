@@ -203,14 +203,29 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
     ));
 
   const init = () => {
-    const initTabs = lang.strings.guidedFlows[type].tabs.map((tab, index) => ({
-      name: tab.asideTitle,
-      dialogs: getDialogArray(
-        dialogsImages[type][index],
-        tab.pages as any,
-        index === 0,
-      ),
-    }));
+    let initTabs = [];
+
+    if (currentTab === 0) {
+      const firstTabData = lang.strings.guidedFlows[type].tabs[0];
+      initTabs.push({
+        name: firstTabData.asideTitle,
+        dialogs: getDialogArray(
+          dialogsImages[type][0],
+          firstTabData.pages as any,
+          true,
+        ),
+      });
+    } else {
+      initTabs = lang.strings.guidedFlows[type].tabs.map((tab, index) => ({
+        name: tab.asideTitle,
+        dialogs: getDialogArray(
+          dialogsImages[type][index],
+          tab.pages as any,
+          index === 0,
+        ),
+      }));
+    }
+
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
     setTitle(lang.strings.guidedFlows[type].title);
@@ -218,7 +233,7 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
 
   useEffect(() => {
     init();
-  }, []);
+  }, [currentTab]);
 
   useEffect(() => {
     setBlastConfetti(
