@@ -4,4 +4,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-pr review changes
+ui added for download csv history feature
