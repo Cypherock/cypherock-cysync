@@ -65,6 +65,8 @@ export interface ReceiveDialogContextInterface {
   handleAccountChange: (id?: string | undefined) => void;
   isStartedWithoutDevice: boolean;
   isFlowCompleted: boolean;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -260,6 +262,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -287,6 +291,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isFlowCompleted,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,

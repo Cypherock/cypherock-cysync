@@ -108,6 +108,8 @@ export interface SendDialogContextInterface {
     coinFamily: CoinFamily,
     txn?: IPreparedTransaction,
   ) => string;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -556,6 +558,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -593,6 +597,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getComputedFee,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,
