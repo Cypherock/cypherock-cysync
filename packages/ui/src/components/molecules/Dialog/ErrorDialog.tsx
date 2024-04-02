@@ -10,7 +10,12 @@ import {
   SettingsWrongIcon,
   CySyncDownloadRedIcon,
 } from '../../../assets';
-import { Button, LangDisplay, Typography } from '../../atoms';
+import {
+  AdvanceTextDisplay,
+  Button,
+  LangDisplay,
+  Typography,
+} from '../../atoms';
 import { MessageBox, MessageBoxType } from '../MessageBox';
 
 export type ErrorIconType = 'device' | 'default' | 'server' | 'cySyncDownload';
@@ -25,6 +30,7 @@ export interface ErrorDialogProps extends DialogBoxProps {
   iconType?: ErrorIconType;
   textVariables?: object;
   messageBoxText?: string;
+  advanceText?: string;
   deviceNavigationText?: string;
   messageBoxVariant?: MessageBoxType;
 }
@@ -35,6 +41,7 @@ const iconMap: Record<ErrorIconType, ReactNode> = {
   server: <ServerErrorIcon />,
   cySyncDownload: <CySyncDownloadRedIcon />,
 };
+
 export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   title,
   subtext,
@@ -47,6 +54,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   messageBoxVariant,
   messageBoxText,
   deviceNavigationText,
+  advanceText,
   ...props
 }) => {
   const theme = useTheme();
@@ -58,8 +66,11 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
       textVariables={textVariables}
       subtext={subtext}
       afterTextComponent={
-        messageBoxText || deviceNavigationText ? (
+        messageBoxText || deviceNavigationText || advanceText ? (
           <>
+            {advanceText && (
+              <AdvanceTextDisplay>{advanceText}</AdvanceTextDisplay>
+            )}
             {messageBoxText && (
               <MessageBox
                 text={messageBoxText}
@@ -107,5 +118,6 @@ ErrorDialog.defaultProps = {
   textVariables: undefined,
   messageBoxText: undefined,
   deviceNavigationText: undefined,
+  advanceText: undefined,
   messageBoxVariant: 'danger',
 };

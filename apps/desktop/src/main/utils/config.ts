@@ -114,17 +114,24 @@ const getConfig = (): IConfig => {
   let IS_PRODUCTION: boolean;
   let VERSION: string;
 
-  if (!app && process.env.NODE_ENV === 'test') {
+  const IS_TEST = !app && process.env.NODE_ENV === 'test';
+  const IS_E2E = process.env.NODE_ENV === 'e2e' && !app?.isPackaged;
+
+  if (IS_TEST) {
     USER_DATA_PATH = '.';
     VERSION = '';
   } else {
     USER_DATA_PATH = app.getPath('userData');
+    if (IS_E2E && process.env.E2E_DATA_PATH) {
+      USER_DATA_PATH = path.resolve(process.env.E2E_DATA_PATH);
+      app.setPath('userData', USER_DATA_PATH);
+    }
     VERSION = app.getVersion();
   }
 
   // Treat test as a production environment
   if (
-    ['production', 'test'].includes(
+    ['production', 'test', 'e2e'].includes(
       process.env.NODE_ENV?.toLowerCase() as any,
     ) ||
     app.isPackaged
@@ -140,8 +147,8 @@ const getConfig = (): IConfig => {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
     BUILD_VERSION: jsonConfig.BUILD_VERSION,
     IS_PRODUCTION,
-    IS_TEST: process.env.NODE_ENV === 'test',
-    IS_E2E: process.env.NODE_ENV === 'e2e',
+    IS_TEST,
+    IS_E2E,
     ALLOW_PRERELEASE: jsonConfig.ALLOW_PRERELEASE,
     USER_DATA_PATH,
     CHANNEL: jsonConfig.CHANNEL,

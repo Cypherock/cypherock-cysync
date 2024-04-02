@@ -371,6 +371,7 @@ const en = {
     passwordLabel: 'Enter Password to unlock cySync',
     forgotPassword: 'Forgot password?',
     incorrectPassword: 'Incorrect password',
+    sameOldAndNewPassword: 'New password cannot be same as old password',
     button: 'Unlock',
     forgotPasswordDialog: {
       title:

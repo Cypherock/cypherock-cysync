@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useMemo, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import {
   CheckBox,
@@ -151,16 +151,26 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+const nameAnimation = ($parentWidth: number) => keyframes`
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(calc(${$parentWidth}px - 100%));
+  }
+`;
+
 export const ScrollReveal = styled.div<{
   $duration: number;
   $parentWidth: number;
   $play: boolean;
 }>`
   & > * {
-    transform: ${({ $play, $parentWidth }) =>
-      $play ? `translateX(calc(${$parentWidth}px - 100%))` : 'translateX(0%)'};
-    transition: transform linear
-      ${({ $duration, $play }) => ($play ? $duration : $duration / 2)}s 1s;
+    animation: ${({ $play, $parentWidth }) =>
+        $play ? nameAnimation($parentWidth) : null}
+      ${({ $duration }) => $duration}s cubic-bezier(0.1, 0, 0.9, 1) infinite
+      alternate;
   }
 `;
 
@@ -176,8 +186,11 @@ export const SmartMarquee: FC<{
     return <>{children}</>;
   }
 
-  const duration =
-    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40;
+  // use max funtion to prevent vibration effect due to very short duration
+  const duration = Math.max(
+    1,
+    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40,
+  );
 
   return (
     <ScrollReveal
