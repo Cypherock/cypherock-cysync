@@ -51,12 +51,6 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
 }) => {
   const theme = useTheme();
 
-  const downloadCSV = async () => {
-    // add the functionality here
-    console.log('downloaded csv file');
-    console.log(handleDownloadCSV);
-  };
-
   return (
     <SearchContainer>
       <Flex align="center" gap={8} width="100%">
@@ -70,7 +64,7 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
       </Flex>
       <Tooltip text={downloadCSVTooltip} tooltipPlacement="bottom">
         <DownloadCSVButtonStyle
-          onClick={downloadCSVDisabled ? undefined : downloadCSV}
+          onClick={downloadCSVDisabled ? undefined : handleDownloadCSV}
         >
           <DownloadCsv
             fill={

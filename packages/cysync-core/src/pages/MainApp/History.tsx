@@ -1,3 +1,4 @@
+import { createCSVFromTransactions } from '@cypherock/cysync-core-services';
 import {
   ArrowReceivedIcon,
   Container,
@@ -18,6 +19,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
 import { openSnackBar, selectLanguage, useAppSelector } from '~/store';
+import { downloadCSVToDesktop } from '~/utils';
 
 import { MainAppLayout } from './Layout';
 
@@ -97,6 +99,29 @@ export const History: FC = () => {
   };
 
   const handleDownloadCSV = () => {
+    const csvFile = createCSVFromTransactions(
+      displayedData
+        .filter(t => !t.isGroupHeader)
+        .map(t => ({
+          date: t.timestamp,
+          type: t.type,
+          currency: t.displayAmountUnit,
+          amount: t.displayAmountWithoutUnit,
+          feeCurrency: t.displayFeeUnit,
+          feeAmount: t.displayFeeWithoutUnit,
+          hash: t.hash,
+          walletName: t.walletName,
+          accountName: `${t.accountName}${
+            t.accountTag ? ` [${t.accountTag}]` : ''
+          }`,
+          xpub: t.xpubOrAddress,
+          countervalueCurrency: t.displayValueUnit,
+          countervalueAmount: t.displayValueWithoutUnit,
+        })),
+    );
+
+    downloadCSVToDesktop('CySync History.csv', csvFile);
+
     dispatch(
       openSnackBar({
         icon: 'check',
@@ -104,9 +129,6 @@ export const History: FC = () => {
       }),
     );
   };
-
-  // added dummy disabled remove this after getting from the api
-  const downloadCSVDisabled = false;
 
   const getMainContent = () => {
     if (transactionList.length <= 0)
@@ -129,7 +151,6 @@ export const History: FC = () => {
           value={searchTerm}
           onChange={setSearchTerm}
           handleDownloadCSV={handleDownloadCSV}
-          downloadCSVDisabled={downloadCSVDisabled}
           downloadCSVTooltip={lang.strings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
