@@ -86,7 +86,8 @@ export const ContactSupportDialogProvider: FC<
 > = ({ children, providedDescription, errorCategory }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
   const { connection: deviceConnection } = useDevice();
 
   const categories: DropDownItemProps[] = [
@@ -188,16 +189,19 @@ export const ContactSupportDialogProvider: FC<
     setSelectedCategory(id ?? SupportCategoryMap.Feedback);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.contactSupport.form.title,
-      dialogs: [<ContactForm key="contact-support-form" />],
-    },
-    {
-      name: lang.strings.dialogs.contactSupport.success.formSubmit,
-      dialogs: [<ContactSupportSuccess key="contact-support-success" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.contactSupport.form.title,
+        dialogs: [<ContactForm key="contact-support-form" />],
+      },
+      {
+        name: lang.strings.dialogs.contactSupport.success.formSubmit,
+        dialogs: [<ContactSupportSuccess key="contact-support-success" />],
+      },
+    ],
+    [lang],
+  );
 
   useEffect(() => {
     keyValueStore.email.get().then(setEmail);
