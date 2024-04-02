@@ -51,7 +51,7 @@ export function useTabsAndDialogs({
         dialogName,
         tabName,
         subDialogName,
-        _isDeviceRequired,
+        isDeviceRequired: _isDeviceRequired,
       });
 
       if (dialog !== undefined) {
