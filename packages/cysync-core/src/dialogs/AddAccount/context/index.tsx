@@ -74,6 +74,7 @@ export interface AddAccountDialogContextInterface {
   error: any | undefined;
   walletDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
+  defaultWalletId?: string;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -313,6 +314,7 @@ export const AddAccountDialogProvider: FC<
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
       isDeviceRequired,
       currentTab,
       currentDialog,
@@ -343,6 +345,7 @@ export const AddAccountDialogProvider: FC<
       walletDropdownList,
     }),
     [
+      defaultWalletId,
       isDeviceRequired,
       currentTab,
       currentDialog,
