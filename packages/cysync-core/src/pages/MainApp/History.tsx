@@ -17,6 +17,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
+import { openSnackBar, selectLanguage, useAppSelector } from '~/store';
 
 import { MainAppLayout } from './Layout';
 
@@ -40,6 +41,7 @@ export const History: FC = () => {
   const { windowHeight } = useWindowSize();
   const [topbarHeight, setTopbarHeight] = useState(0);
   const listRef = useRef<any>(null);
+  const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
     if (listRef.current?.recomputeRowHeights) {
@@ -94,6 +96,18 @@ export const History: FC = () => {
     return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
   };
 
+  const handleDownloadCSV = () => {
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: lang.strings.snackbar.downloadCSV,
+      }),
+    );
+  };
+
+  // added dummy disabled remove this after getting from the api
+  const downloadCSVDisabled = false;
+
   const getMainContent = () => {
     if (transactionList.length <= 0)
       return (
@@ -114,6 +128,9 @@ export const History: FC = () => {
           placeholder={strings.history.search.placeholder}
           value={searchTerm}
           onChange={setSearchTerm}
+          handleDownloadCSV={handleDownloadCSV}
+          downloadCSVDisabled={downloadCSVDisabled}
+          downloadCSVTooltip={lang.strings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
           <>

@@ -353,6 +353,9 @@ const en = {
     submit: 'Submit',
     showMore: 'Show more',
   },
+  tooltips: {
+    downloadCsv: 'Export as CSV',
+  },
   deviceAuthentication: {
     success: {
       title: 'Your X1 Vault is authenticated successfully',
@@ -1549,6 +1552,7 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
   },
   snackbar: {
     copiedToClipboard: 'Copied to clipboard',
+    downloadCSV: 'Transaction history exported',
   },
   settings: {
     tabs: {
