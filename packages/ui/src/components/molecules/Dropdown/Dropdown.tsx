@@ -38,6 +38,8 @@ interface DropdownProps {
   noLeftImageInList?: boolean;
   leftImage?: React.ReactNode;
   disabled?: boolean;
+  tabIndex?: number;
+  autoFocus?: boolean;
 }
 
 interface SingleSelectDropdownProps extends DropdownProps {
@@ -61,6 +63,8 @@ export const Dropdown: React.FC<
   placeholderText,
   disabled = false,
   leftImage,
+  tabIndex,
+  autoFocus,
   ...props
 }) => {
   const [search, setSearch] = useState('');
@@ -277,6 +281,14 @@ export const Dropdown: React.FC<
     ],
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (autoFocus) {
+        containerRef.current?.focus();
+      }
+    });
+  }, [autoFocus]);
+
   return (
     <DropdownContainer
       ref={containerRef}
@@ -294,7 +306,7 @@ export const Dropdown: React.FC<
         filteredItems,
         listRef,
       )}
-      tabIndex={disabled ? -1 : 0}
+      tabIndex={disabled ? undefined : tabIndex ?? 0}
     >
       {selectedItems[0] && !isOpen ? (
         <DropDownItem

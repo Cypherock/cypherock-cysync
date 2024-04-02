@@ -115,7 +115,7 @@ const getConfig = (): IConfig => {
   let VERSION: string;
 
   const IS_TEST = !app && process.env.NODE_ENV === 'test';
-  const IS_E2E = process.env.NODE_ENV === 'e2e' && !app?.isPackaged;
+  const IS_E2E = process.env.NODE_ENV === 'e2e' && app && !app.isPackaged;
 
   if (IS_TEST) {
     USER_DATA_PATH = '.';

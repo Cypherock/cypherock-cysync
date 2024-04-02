@@ -63,6 +63,7 @@ export interface AddTokenDialogContextInterface {
   accountDropdownList: DropDownItemProps[];
   handleCreateToken: () => void;
   selectedChainNameWithNoAccount: string | undefined;
+  defaultWalletId?: string;
 }
 
 export const AddTokenDialogContext: Context<AddTokenDialogContextInterface> =
@@ -276,6 +277,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
       currentTab,
       currentDialog,
       tabs,
@@ -299,6 +301,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       selectedChainNameWithNoAccount,
     }),
     [
+      defaultWalletId,
       currentTab,
       currentDialog,
       tabs,
