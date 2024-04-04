@@ -45,6 +45,7 @@ import { getDisplayTransactionType, transactionIconMap } from '~/utils';
 
 export interface TransactionRowData {
   id: string;
+  xpubOrAddress: string;
   hash: string;
   assetName: string;
   accountName: string;
@@ -56,6 +57,12 @@ export interface TransactionRowData {
   displayValue: string;
   displayFee: string;
   displayFeeValue: string;
+  displayFeeWithoutUnit: string;
+  displayFeeUnit: string;
+  displayAmountWithoutUnit: string;
+  displayAmountUnit: string;
+  displayValueWithoutUnit: string;
+  displayValueUnit: string;
   type: string;
   status: TransactionTableStatus;
   statusText: string;
@@ -142,7 +149,7 @@ export const mapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
-}) => {
+}): TransactionRowData => {
   const { transaction, priceInfos, wallets, accounts, lang, isDiscreetMode } =
     params;
 
@@ -225,12 +232,15 @@ export const mapTransactionForDisplay = (params: {
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
   }`;
+  const displayAmountWithoutUnit = formattedAmount.fixed;
+  const displayAmountUnit = unit.abbr;
   const amountTooltip = isDiscreetMode
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
 
   return {
     id: transaction.__id ?? '',
+    xpubOrAddress: account?.xpubOrAddress ?? '',
     hash: transaction.hash,
     timestamp: transaction.timestamp,
     time: timeString,
@@ -246,9 +256,15 @@ export const mapTransactionForDisplay = (params: {
     displayAmount,
     amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
+    displayValueWithoutUnit: value,
+    displayValueUnit: 'USD',
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
     amount: parseFloat(amount),
+    displayFeeWithoutUnit: fee,
+    displayFeeUnit: feeUnit.abbr,
+    displayAmountWithoutUnit,
+    displayAmountUnit,
     value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
       <CoinIcon
