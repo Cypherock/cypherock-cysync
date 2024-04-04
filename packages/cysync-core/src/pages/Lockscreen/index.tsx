@@ -47,13 +47,13 @@ export const Lockscreen: React.FC = () => {
     setError(undefined);
     setIsLoading(true);
 
-    const isCorrect = await unlock(password);
-    logger.info('Form Submit: Lockscreen Password', {
+    const isPasswordCorrect = await unlock(password);
+    logger.info('Form Submit: Unlock cySync using Password', {
       source: Lockscreen.name,
-      isCorrect,
+      isPasswordCorrect,
     });
 
-    if (!isCorrect) {
+    if (!isPasswordCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
     }
 
