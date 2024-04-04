@@ -34,11 +34,13 @@ import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
+  selectTransactionById,
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { LoaderDialog } from '../components';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -103,12 +105,17 @@ const selector = createSelector(
   }),
 );
 
-export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
+export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { lang, wallets, accounts, priceInfos, isDiscreetMode } =
     useAppSelector(selector);
   const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();
+  const txn = useAppSelector(selectTransactionById(_txn.__id));
+
+  if (txn === undefined) {
+    return <LoaderDialog />;
+  }
 
   const displayTransaction = useMemo(
     () =>
