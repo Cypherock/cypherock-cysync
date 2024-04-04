@@ -2,7 +2,8 @@ const createCSVRow = (row: (string | number)[]) => {
   let finalVal = '';
 
   for (let j = 0; j < row.length; j += 1) {
-    const innerValue = row[j] === null ? '' : row[j].toString();
+    const innerValue =
+      row[j] === null || row[j] === undefined ? '' : row[j].toString();
 
     let result = innerValue.replace(/"/g, '""');
     if (result.search(/("|,|\n)/g) >= 0) result = `"${result}"`;
