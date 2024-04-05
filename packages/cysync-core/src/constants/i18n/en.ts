@@ -394,7 +394,7 @@ const en = {
   addAccount: {
     header: 'Add Account',
     select: {
-      header: 'Select the Wallet & Coins you want to add',
+      header: 'Select the Wallet & Coin you want to add',
       searchText: 'Search',
       walletPlaceholder: 'Choose a wallet',
       coinPlaceholder: 'Choose a coin',
@@ -439,7 +439,7 @@ const en = {
   addToken: {
     header: 'Add Token',
     select: {
-      header: 'Select the wallet, account & tokens you want to add',
+      header: 'Select the wallet, accounts & tokens you want to add',
       searchText: 'Search',
       walletPlaceholder: 'Select Wallet',
       tokenPlaceholder: 'Select Tokens',
@@ -450,7 +450,7 @@ const en = {
     congrats: {
       title: 'Tokens added successfully',
       subtitle: 'Add other tokens or return to portfolio',
-      buttonAddMore: 'Add more Tokens',
+      buttonAddMore: 'Add more',
     },
   },
   receive: {
