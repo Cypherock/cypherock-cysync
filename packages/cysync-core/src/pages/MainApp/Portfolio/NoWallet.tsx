@@ -38,16 +38,15 @@ export const NoWallet = () => {
     dispatch(openWalletActionsDialog());
   };
 
-  const handleWalletSync: typeof onWalletSync = () =>
-    useCallback(
-      (e?: any) => {
-        logger.info('Button Click: Sync Wallet', {
-          source: `${NoWallet.name}/NoAccountWrapper`,
-        });
-        onWalletSync(e);
-      },
-      [onWalletSync],
-    );
+  const handleWalletSync = useCallback(
+    (e?: any) => {
+      logger.info('Button Click: Sync Wallet', {
+        source: `${NoWallet.name}/NoAccountWrapper`,
+      });
+      onWalletSync(e);
+    },
+    [onWalletSync],
+  );
 
   return (
     <NoAccountWrapper>
@@ -60,7 +59,8 @@ export const NoWallet = () => {
         $buttonTwo={lang.strings.buttons.syncWallets}
         $buttonTwoIsLoading={syncWalletStatus === 'loading'}
         $buttonTwoIsDisabled={
-          deviceHandlingState !== DeviceHandlingState.USABLE
+          deviceHandlingState !== DeviceHandlingState.USABLE ||
+          syncWalletStatus === 'loading'
         }
         onClick={handleAddWalletClick}
         onClickTwo={handleWalletSync}
