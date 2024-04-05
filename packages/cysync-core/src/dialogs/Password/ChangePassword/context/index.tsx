@@ -19,6 +19,7 @@ import {
 } from '~/store';
 import { validatePassword } from '~/utils';
 
+import logger from '~/utils/logger';
 import { ChangePasswordSuccess, CreateNewPassword } from '../Dialogs';
 
 export interface ChangePasswordDialogContextInterface {
@@ -125,9 +126,14 @@ export const ChangePasswordDialogProvider: FC<
 
   const handleChangePassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(newPassword, oldPassword);
+    const isPasswordCorrect = await setCySyncPassword(newPassword, oldPassword);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Change Password', {
+      source: ChangePasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
       setIsLoading(false);
       return;
