@@ -14,10 +14,12 @@ type Story = StoryObj<typeof meta>;
 export const Vertical: Story = {
   args: {
     variant: 'vertical',
+    $bgColor: 'white',
   },
 };
 export const Horizontal: Story = {
   args: {
+    ...Vertical,
     variant: 'horizontal',
   },
 };

@@ -33,6 +33,18 @@ export const Default: Story = {
     isLocked: false,
     isLockscreenLoading: false,
     isPasswordSet: true,
+    lock: () => {
+      console.log('Lock action');
+    },
+    toggleDiscreetMode: () => {
+      console.log('Toggling discreet mode');
+    },
+    onNotificationClick: () => {
+      console.log('Notification clicked');
+    },
+    onSyncClick: () => {
+      console.log('Sync clicked');
+    },
   },
 };
 
