@@ -113,22 +113,17 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const theme = useTheme();
   const txn = useAppSelector(selectTransactionById(_txn.__id));
 
-  if (txn === undefined) {
-    return <LoaderDialog />;
-  }
-
-  const displayTransaction = useMemo(
-    () =>
-      mapTransactionForDisplay({
-        transaction: txn,
-        isDiscreetMode,
-        priceInfos,
-        wallets,
-        accounts,
-        lang,
-      }),
-    [txn, wallets, accounts, lang, priceInfos, isDiscreetMode],
-  );
+  const displayTransaction = useMemo(() => {
+    if (txn === undefined) return undefined;
+    return mapTransactionForDisplay({
+      transaction: txn,
+      isDiscreetMode,
+      priceInfos,
+      wallets,
+      accounts,
+      lang,
+    });
+  }, [txn, wallets, accounts, lang, priceInfos, isDiscreetMode]);
 
   const onClose = () => dispatch(closeDialog('historyDialog'));
 
@@ -141,9 +136,14 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
     );
   };
 
-  const getFeePrefix = () => (keys.feePrefix as any)[txn.assetId] ?? '';
+  const getFeePrefix = () => {
+    if (txn === undefined) return '';
+    return (keys.feePrefix as any)[txn.assetId] ?? '';
+  };
 
   const formatTxnAddress = (address: string, index: number, total: number) => {
+    if (txn === undefined) return '';
+
     const formattedAddress = formatAddress({
       address,
       coinId: txn.parentAssetId,
@@ -157,6 +157,10 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
 
     return str;
   };
+
+  if (displayTransaction === undefined) {
+    return <LoaderDialog />;
+  }
 
   return (
     <BlurOverlay>
