@@ -18,8 +18,8 @@ import {
   useAppSelector,
 } from '~/store';
 import { validatePassword } from '~/utils';
-
 import logger from '~/utils/logger';
+
 import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 
 export interface SetPasswordDialogContextInterface {

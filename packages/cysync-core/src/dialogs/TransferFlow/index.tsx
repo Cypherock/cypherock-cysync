@@ -43,6 +43,26 @@ export const TransferFlowDialog: FC = () => {
     width: 400px;
   `;
 
+  const getTitleFromReactElement = (
+    node: React.ReactNode,
+  ): string | undefined => {
+    if (React.isValidElement(node)) {
+      return node.props.title;
+    }
+    return undefined;
+  };
+
+  let hasNoStart = false;
+
+  const arrayVl = tabs.map(t => t.dialogs[0]);
+  const title2 = getTitleFromReactElement(arrayVl[0]);
+  if (
+    title2 ===
+    'I have lost my X1 vault but I still have all of the 4 old X1 cards'
+  ) {
+    hasNoStart = true;
+  }
+
   return (
     <BlurOverlay>
       <DialogBox
@@ -58,6 +78,7 @@ export const TransferFlowDialog: FC = () => {
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
             isFinalMessageShown={isFinalMessageShown}
+            hasNoStart={hasNoStart}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}

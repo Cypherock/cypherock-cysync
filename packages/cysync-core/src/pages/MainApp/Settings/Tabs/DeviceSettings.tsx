@@ -24,7 +24,7 @@ export const DeviceSettings: React.FC = () => {
   };
 
   const handleWalletTransferCase1 = () => {
-    dispatch(openTransferFlowLostVaultDialog('walletTransferLostVault'));
+    dispatch(openTransferFlowDialog('walletTransfer'));
   };
 
   const handleWalletTransferCase2 = () => {
@@ -32,7 +32,7 @@ export const DeviceSettings: React.FC = () => {
   };
 
   const handleWalletTransferCase3 = () => {
-    dispatch(openTransferFlowDialog('walletTransfer'));
+    dispatch(openTransferFlowLostVaultDialog('walletTransferLostVault'));
   };
 
   return (

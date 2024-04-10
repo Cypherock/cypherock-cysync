@@ -40,7 +40,15 @@ export const MilestoneAside: FC<{
   activeTab: number;
   skippedTabs?: number[];
   isFinalMessageShown?: boolean;
-}> = ({ milestones, activeTab, heading, skippedTabs, isFinalMessageShown }) => (
+  hasNoStart?: boolean;
+}> = ({
+  milestones,
+  activeTab,
+  heading,
+  skippedTabs,
+  isFinalMessageShown,
+  hasNoStart,
+}) => (
   <AsideStyle>
     {heading ? (
       <Typography $fontSize={18}>{heading}</Typography>
@@ -55,6 +63,7 @@ export const MilestoneAside: FC<{
             activeTab={activeTab}
             length={milestones.length}
             skipped={skippedTabs}
+            hasNoStart={hasNoStart}
           />
           <Flex align="center" justify="space-between" width="full">
             <Flex align="center" gap={16}>
@@ -102,4 +111,5 @@ MilestoneAside.defaultProps = {
   heading: undefined,
   skippedTabs: undefined,
   isFinalMessageShown: false,
+  hasNoStart: false,
 };
