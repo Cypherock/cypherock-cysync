@@ -53,7 +53,8 @@ export const RemovePasswordDialogProvider: FC<
   const lang = useAppSelector(selectLanguage);
   const { setPassword: setCySyncPassword } = useLockscreen();
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
 
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>('');
@@ -103,16 +104,19 @@ export const RemovePasswordDialogProvider: FC<
     setPassword(val);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.password.confimPassword.title,
-      dialogs: [<ConfirmPassword key="remove-password-confirm" />],
-    },
-    {
-      name: lang.strings.dialogs.password.success.remove,
-      dialogs: [<RemovePasswordSuccess key="remove-password-success" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.password.confimPassword.title,
+        dialogs: [<ConfirmPassword key="remove-password-confirm" />],
+      },
+      {
+        name: lang.strings.dialogs.password.success.remove,
+        dialogs: [<RemovePasswordSuccess key="remove-password-success" />],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,
