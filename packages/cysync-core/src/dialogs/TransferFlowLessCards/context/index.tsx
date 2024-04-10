@@ -209,8 +209,12 @@ export const TransferLessCardsFlowProvider: FC<
   const dispatch = useAppDispatch();
 
   const checkConfettiBlastDone = () => {
-    if (tabRef.current === 2 && dialogRef.current === 0)
+    if (
+      (tabRef.current === 1 && dialogRef.current === 12) ||
+      (tabRef.current === 2 && dialogRef.current === 3)
+    ) {
       setIsConfettiBlastDone(true);
+    }
   };
 
   const onNext = () => {
@@ -302,9 +306,12 @@ export const TransferLessCardsFlowProvider: FC<
   }, []);
 
   useEffect(() => {
-    setBlastConfetti(
-      !isConfettiBlastDone && currentTab === 2 && currentDialog === 0,
-    );
+    const shouldBlastConfetti =
+      (isConfettiBlastDone && currentTab === 1 && currentDialog === 13) ||
+      (currentTab === 3 && currentDialog === 0);
+
+    setBlastConfetti(shouldBlastConfetti);
+
     setShowBackButton(currentTab === 0 && currentDialog === 0);
   }, [currentTab, currentDialog]);
 

@@ -18,7 +18,7 @@ export const ProgressLine: FC<{
 }> = ({ index, length, activeTab, skipped, hasNoStart }) => {
   if (hasNoStart && activeTab === 0) {
     return (
-      <Flex height={60} align="flex-start" mt={8}>
+      <Flex height={60} align="flex-start" mt={7}>
         <Container
           $bgColor={bgColor(activeTab, index, hasNoStart)}
           width={16}
