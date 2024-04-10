@@ -19,6 +19,7 @@ import {
 } from '~/store';
 import { validatePassword } from '~/utils';
 
+import logger from '~/utils/logger';
 import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 
 export interface SetPasswordDialogContextInterface {
@@ -113,9 +114,14 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
 
   const handleSetPassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(newPassword);
+    const isPasswordCorrect = await setCySyncPassword(newPassword);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Set Password', {
+      source: SetPasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.dialogs.password.error.failedToSet);
       setIsLoading(false);
       return;
@@ -158,6 +164,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'setPassword',
   });
 
   const ctx = useMemo(

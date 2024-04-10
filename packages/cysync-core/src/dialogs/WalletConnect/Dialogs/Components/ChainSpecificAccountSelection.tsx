@@ -1,10 +1,11 @@
 import { evmCoinList } from '@cypherock/coins';
 import { Dropdown, parseLangTemplate } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useAccountDropdown } from '~/hooks';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 const getAssetFromChain = (chainId: number) =>
   Object.values(evmCoinList).find(coin => coin.chain === chainId);
@@ -27,6 +28,20 @@ export const ChainSpecificAccountSelection: React.FC<{
       assetFilter: [asset.id],
     });
 
+  const { accounts: allAccounts } = useAppSelector(selectAccounts);
+  const handleAccountChangeProxy: typeof handleAccountChange = useCallback(
+    (id: string | undefined, ...args) => {
+      const targetAccount = allAccounts.find(a => a.__id === id);
+      logger.info('Dropdown Change: Account Change', {
+        source: `WalletConnect/${ChainSpecificAccountSelection.name}`,
+        assetId: targetAccount?.assetId,
+        derivationPath: targetAccount?.derivationPath,
+      });
+      return handleAccountChange(id, ...args);
+    },
+    [allAccounts, handleAccountChange],
+  );
+
   useEffect(() => {
     if (selectedAccount) updateChainToAccountMap(selectedAccount, chain);
   }, [selectedAccount]);
@@ -47,7 +62,7 @@ export const ChainSpecificAccountSelection: React.FC<{
           assetName: asset.name,
         }) + (asterisk ? '*' : '')
       }
-      onChange={handleAccountChange}
+      onChange={handleAccountChangeProxy}
     />
   );
 };

@@ -189,6 +189,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'signMessage',
   });
 
   const ctx = useMemo(

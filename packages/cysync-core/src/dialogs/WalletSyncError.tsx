@@ -11,6 +11,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { deleteWallets } from '~/actions';
 import { closeDialog, selectWallets, useAppDispatch } from '~/store';
+import logger from '~/utils/logger';
 
 import { selectLanguage, useAppSelector } from '..';
 
@@ -33,10 +34,16 @@ export const WalletSyncError: FC = () => {
     deletedWalletsCopy.length > 1 ? 'deletedMany' : 'deletedOne';
 
   const keepAllWallets = () => {
+    logger.info('Button Click: Keep All Wallets', {
+      source: WalletSyncError.name,
+    });
     dispatch(closeDialog('walletSyncError'));
   };
 
   const deleteSelectedWallets = () => {
+    logger.info('Button Click: Delete Selected Account', {
+      source: WalletSyncError.name,
+    });
     if (syncErrorType === 'deletedOne') {
       dispatch(deleteWallets(deletedWalletsCopy));
       return;

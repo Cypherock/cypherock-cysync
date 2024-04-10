@@ -24,7 +24,12 @@ export * from './types';
 const identifyServerErrors = (error: any) => {
   if (error?.isAxiosError) {
     if (error.response) {
-      return new ServerError(ServerErrorType.UNKNOWN_ERROR);
+      return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
+        advanceText: error?.response?.data?.cysyncError,
+        responseBody: error?.response?.data,
+        url: error?.request?.url,
+        status: error?.response?.status,
+      });
     }
 
     return new ServerError(ServerErrorType.CONNOT_CONNECT);
@@ -46,6 +51,7 @@ export const getParsedError = (params: {
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;
   let deviceNavigationText: string | undefined;
+  let advanceText: string | undefined;
   let details = defaultErrorHandlignDetails;
 
   if (errorToParse?.isDeviceError && errorToParse.code) {
@@ -74,6 +80,7 @@ export const getParsedError = (params: {
       lang.strings.errors.serverErrors[errorToParse.code as ServerErrorType]
         .subtext;
 
+    advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
   }
 
@@ -102,7 +109,9 @@ export const getParsedError = (params: {
     heading,
     subtext,
     deviceNavigationText,
+    advanceText,
     primaryAction,
     secondaryAction,
+    rawError: errorToParse?.toJSON ? errorToParse.toJSON() : errorToParse,
   };
 };

@@ -1,6 +1,5 @@
 import React, { FC, ReactElement, useMemo, useRef } from 'react';
-import Marquee from 'react-fast-marquee';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import {
   CheckBox,
@@ -112,28 +111,17 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-self: stretch;
   min-height: 53px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
+  background-color: ${({ $restrictedItem, theme, $isFocused }) => {
     if ($isFocused) {
       return theme.palette.background.dropdownHover;
     }
     if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
-    if ($isChecked) {
-      return theme.palette.background.dropdownHover;
-    }
     return theme.palette.background.separatorSecondary;
   }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
-    ${DropDownListItemStretchedTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
-    ${RightTextTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
   }
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.text.disabled : theme.palette.text.muted};
@@ -163,16 +151,56 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+const nameAnimation = ($parentWidth: number) => keyframes`
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(calc(${$parentWidth}px - 100%));
+  }
+`;
+
+export const ScrollReveal = styled.div<{
+  $duration: number;
+  $parentWidth: number;
+  $play: boolean;
+}>`
+  & > * {
+    animation: ${({ $play, $parentWidth }) =>
+        $play ? nameAnimation($parentWidth) : null}
+      ${({ $duration }) => $duration}s cubic-bezier(0.1, 0, 0.9, 1) infinite
+      alternate;
+  }
+`;
+
 export const SmartMarquee: FC<{
   children: React.ReactNode | React.ReactNode[];
-  isOverflow: boolean;
-}> = ({ children, isOverflow }) => {
-  if (!isOverflow) {
+  $isOverflow: boolean;
+  $isHovered: boolean;
+  $childRef: React.MutableRefObject<HTMLDivElement | null>;
+  $parentRef: React.MutableRefObject<HTMLDivElement | null>;
+}> = ({ children, $isOverflow, $childRef, $parentRef, $isHovered }) => {
+  if (!$isOverflow || !$childRef.current || !$parentRef.current) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
 
-  return <Marquee direction="left">{children}</Marquee>;
+  // use max funtion to prevent vibration effect due to very short duration
+  const duration = Math.max(
+    1,
+    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40,
+  );
+
+  return (
+    <ScrollReveal
+      $play={$isHovered}
+      $parentWidth={$parentRef.current.offsetWidth}
+      $duration={duration}
+    >
+      {children}
+    </ScrollReveal>
+  );
 };
 
 export const DropDownItem: FC<DropDownItemProps> = ({
@@ -259,7 +287,12 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         </DropDownListItemIconContainer>
       )}
       <Flex direction="column" $overflowX="hidden" width="full" ref={parentRef}>
-        <SmartMarquee isOverflow={isShowCase ? false : isOverflow}>
+        <SmartMarquee
+          $isHovered={$isFocused}
+          $parentRef={parentRef}
+          $childRef={childRef}
+          $isOverflow={isShowCase ? false : isOverflow}
+        >
           <Flex
             align="center"
             gap={16}
@@ -289,7 +322,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
-            color={rightTextColor}
+            color={checked ? 'white' : rightTextColor}
             $hasRightText={$hasRightText}
             disabled={disabled}
           >
@@ -302,7 +335,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
-              color={rightTextColor}
+              color={checked ? 'white' : rightTextColor}
               $hasRightText={$hasRightText}
               disabled={disabled}
             >

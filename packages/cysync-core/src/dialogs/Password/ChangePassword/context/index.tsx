@@ -19,6 +19,7 @@ import {
 } from '~/store';
 import { validatePassword } from '~/utils';
 
+import logger from '~/utils/logger';
 import { ChangePasswordSuccess, CreateNewPassword } from '../Dialogs';
 
 export interface ChangePasswordDialogContextInterface {
@@ -66,32 +67,18 @@ export const ChangePasswordDialogProvider: FC<
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
-  const validateNewPassword = () => {
-    if (newPassword.length > 0 && confirmNewPassword.length === 0) {
-      const validation = validatePassword(
-        { password: newPassword, confirm: newPassword },
-        lang,
-      );
-      if (!validation.success) {
-        setError(validation.error.errors[0].message);
-        return;
-      }
+  useEffect(() => {
+    if (oldPassword === newPassword || oldPassword === confirmNewPassword) {
+      setError(lang.strings.lockscreen.sameOldAndNewPassword);
+      return;
     }
 
-    if (newPassword.length === 0 && confirmNewPassword.length > 0) {
-      const validation = validatePassword(
-        { password: confirmNewPassword, confirm: confirmNewPassword },
-        lang,
-      );
-      if (!validation.success) {
-        setError(validation.error.errors[0].message);
-        return;
-      }
-    }
+    const _password = newPassword || confirmNewPassword || null;
+    const _confirm = confirmNewPassword || newPassword || null;
 
-    if (newPassword.length > 0 && confirmNewPassword.length > 0) {
+    if (_password && _confirm) {
       const validation = validatePassword(
-        { password: newPassword, confirm: confirmNewPassword },
+        { password: _password, confirm: _confirm },
         lang,
       );
       if (!validation.success) {
@@ -101,13 +88,7 @@ export const ChangePasswordDialogProvider: FC<
     }
 
     setError(null);
-  };
-
-  useEffect(validateNewPassword, [
-    oldPassword,
-    newPassword,
-    confirmNewPassword,
-  ]);
+  }, [oldPassword, newPassword, confirmNewPassword]);
 
   const validateForm = () => {
     let isSubmitDisabledNew = Boolean(error);
@@ -145,9 +126,14 @@ export const ChangePasswordDialogProvider: FC<
 
   const handleChangePassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(newPassword, oldPassword);
+    const isPasswordCorrect = await setCySyncPassword(newPassword, oldPassword);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Change Password', {
+      source: ChangePasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
       setIsLoading(false);
       return;
@@ -178,6 +164,7 @@ export const ChangePasswordDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'changePassword',
   });
 
   const ctx = useMemo(

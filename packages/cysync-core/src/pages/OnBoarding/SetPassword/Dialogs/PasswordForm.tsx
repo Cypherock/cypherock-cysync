@@ -17,6 +17,7 @@ import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { validatePassword } from '~/utils';
+import logger from '~/utils/logger';
 
 export const PasswordForm: React.FC<{
   passwordSetter: (val: boolean) => void;
@@ -42,6 +43,12 @@ export const PasswordForm: React.FC<{
       { password, confirm: confirmPassword },
       lang,
     );
+
+    logger.info('Button Click: Store Password', {
+      source: PasswordForm.name,
+      isValid: validation.success,
+    });
+
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
       setIsLoading(false);

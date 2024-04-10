@@ -189,17 +189,17 @@ jobs:
       - name: Prebuild config
         run: node scripts/prebuild.js
 
-      - name: Windows Certificate Config
-        id: write_file
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: 'win-certificate.pfx'
-          encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+      # - name: Windows Certificate Config
+      #   id: write_file
+      #   uses: timheuer/base64-to-file@v1
+      #   with:
+      #     fileName: 'win-certificate.pfx'
+      #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
       - name: Build
-        env:
-          WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-          WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+        # env:
+        #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+        #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: pnpm make
 
       - uses: actions/upload-artifact@v3

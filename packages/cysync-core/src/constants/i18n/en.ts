@@ -353,6 +353,9 @@ const en = {
     submit: 'Submit',
     showMore: 'Show more',
   },
+  tooltips: {
+    downloadCsv: 'Export as CSV',
+  },
   deviceAuthentication: {
     success: {
       title: 'Your X1 Vault is authenticated successfully',
@@ -368,6 +371,7 @@ const en = {
     passwordLabel: 'Enter Password to unlock cySync',
     forgotPassword: 'Forgot password?',
     incorrectPassword: 'Incorrect password',
+    sameOldAndNewPassword: 'New password cannot be same as old password',
     button: 'Unlock',
     forgotPasswordDialog: {
       title:
@@ -385,7 +389,7 @@ const en = {
   addAccount: {
     header: 'Add Account',
     select: {
-      header: 'Select the Wallet & Coins you want to add',
+      header: 'Select the Wallet & Coin you want to add',
       searchText: 'Search',
       walletPlaceholder: 'Choose a wallet',
       coinPlaceholder: 'Choose a coin',
@@ -430,18 +434,18 @@ const en = {
   addToken: {
     header: 'Add Token',
     select: {
-      header: 'Select the wallet, account & tokens you want to add',
+      header: 'Select the wallet, accounts & tokens you want to add',
       searchText: 'Search',
       walletPlaceholder: 'Select Wallet',
       tokenPlaceholder: 'Select Tokens',
       accountPlaceholder: 'Select Accounts',
       message:
-        'Ethereum account needs to be added first to continue adding the tokens',
+        '${chainName} account needs to be added first to continue adding the tokens',
     },
     congrats: {
       title: 'Tokens added successfully',
       subtitle: 'Add other tokens or return to portfolio',
-      buttonAddMore: 'Add more Tokens',
+      buttonAddMore: 'Add more',
     },
   },
   receive: {
@@ -2150,6 +2154,7 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
   },
   snackbar: {
     copiedToClipboard: 'Copied to clipboard',
+    downloadCSV: 'Transaction history exported',
   },
   settings: {
     tabs: {

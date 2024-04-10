@@ -54,9 +54,15 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
       logger.error(error);
     }
 
-    return error
+    const parsedError = error
       ? getParsedError({ error, defaultMsg, lang, retries })
       : undefined;
+
+    if (parsedError) {
+      logger.error('ParsedError', parsedError);
+    }
+
+    return parsedError;
   }, [error, lang, retries]);
 
   const onClickHandler = (details: IErrorActionButtonDetails) => {

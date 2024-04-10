@@ -38,6 +38,8 @@ interface DropdownProps {
   noLeftImageInList?: boolean;
   leftImage?: React.ReactNode;
   disabled?: boolean;
+  tabIndex?: number;
+  autoFocus?: boolean;
 }
 
 interface SingleSelectDropdownProps extends DropdownProps {
@@ -61,6 +63,8 @@ export const Dropdown: React.FC<
   placeholderText,
   disabled = false,
   leftImage,
+  tabIndex,
+  autoFocus,
   ...props
 }) => {
   const [search, setSearch] = useState('');
@@ -71,10 +75,12 @@ export const Dropdown: React.FC<
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
-  const selectedItemIds = useMemo(
+  const selectedItemIdsSet = useMemo(
     () =>
-      lodash.compact(
-        props.isMultiSelect ? props.selectedItems : [props.selectedItem],
+      new Set(
+        lodash.compact(
+          props.isMultiSelect ? props.selectedItems : [props.selectedItem],
+        ),
       ),
     [
       props.isMultiSelect,
@@ -96,22 +102,25 @@ export const Dropdown: React.FC<
     [props.onChange, props.isMultiSelect],
   );
 
-  const handleCheckedChange = (id: string) => {
-    const targetItem = items.find(item => item.id === id);
-    if (targetItem === undefined) return;
-    if (targetItem.disabled) return;
+  const toggleDropdown = useCallback(() => {
+    if (disabled) return;
+    setIsOpen(!isOpen);
+  }, [isOpen, disabled]);
 
-    if (!props.isMultiSelect) {
-      toggleDropdown();
-      onChange([id]);
-      return;
-    }
+  const handleCheckedChange = useCallback(
+    (id: string) => {
+      if (!props.isMultiSelect) {
+        toggleDropdown();
+        onChange([id]);
+        return;
+      }
+      if (selectedItemIdsSet.has(id)) selectedItemIdsSet.delete(id);
+      else selectedItemIdsSet.add(id);
 
-    if (selectedItemIds.includes(id))
-      selectedItemIds.splice(selectedItemIds.indexOf(id), 1);
-    else selectedItemIds.push(id);
-    onChange([...selectedItemIds]);
-  };
+      onChange(Array.from(selectedItemIdsSet));
+    },
+    [props.isMultiSelect, selectedItemIdsSet, onChange, toggleDropdown],
+  );
 
   const selectedItems: DropDownItemProps[] = useMemo(
     () =>
@@ -121,10 +130,10 @@ export const Dropdown: React.FC<
             item &&
             !item.disabled &&
             item.id &&
-            selectedItemIds.includes(item.id),
+            selectedItemIdsSet.has(item.id),
         ),
       ),
-    [items, selectedItemIds],
+    [items, selectedItemIdsSet],
   );
 
   const filteredItems = useMemo(
@@ -132,32 +141,34 @@ export const Dropdown: React.FC<
     [items, search],
   );
 
-  const handleInputChange = (value: string) => {
-    if (!isOpen) toggleDropdown();
-    setSearch(value);
-    setFocusedIndex(0);
-  };
-
-  const toggleDropdown = () => {
-    if (disabled) return;
-    setIsOpen(!isOpen);
-  };
+  const handleInputChange = useCallback(
+    (value: string) => {
+      if (!isOpen) toggleDropdown();
+      setSearch(value);
+      setFocusedIndex(0);
+    },
+    [isOpen, toggleDropdown],
+  );
 
   const sortItems = useCallback(
     (_items: DropDownItemProps[]) => {
-      const result = [..._items];
-      result.sort((a, b) => (!a.disabled && b.disabled ? -1 : 0));
-      if (props.isMultiSelect) {
-        result.sort((a, b) =>
-          selectedItemIds.includes(a.id!) && !selectedItemIds.includes(b.id!)
-            ? -1
-            : 0,
-        );
-      }
-      return result;
+      if (!props.isMultiSelect) return _items;
+      const _selectedItems: DropDownItemProps[] = [];
+      const _unselectedItems: DropDownItemProps[] = [];
+      const _disabledItems: DropDownItemProps[] = [];
+      _items.forEach(item => {
+        if (selectedItemIdsSet.has(item.id!)) _selectedItems.push(item);
+        else if (!item.disabled) _unselectedItems.push(item);
+        else _disabledItems.push(item);
+      });
+      return [_selectedItems, _unselectedItems, _disabledItems].flat();
     },
-    [selectedItemIds, props.isMultiSelect],
+    [selectedItemIdsSet, props.isMultiSelect],
   );
+
+  useEffect(() => {
+    setItems(sortItems);
+  }, [search]);
 
   const conditionallySortItems = useCallback(() => {
     if (isOpen) return;
@@ -165,15 +176,26 @@ export const Dropdown: React.FC<
   }, [isOpen, sortItems]);
 
   const updateSortedItems = useCallback(
-    (_dropdownItemsList: DropDownItemProps[]) =>
-      (_items: DropDownItemProps[]) => {
-        const ids = _items.map(a => a.id);
-        _dropdownItemsList.sort(
-          (a, b) => ids.indexOf(a.id) - ids.indexOf(b.id),
+    (_dropdownItemsList: DropDownItemProps[]) => {
+      const dropdownItemsMap = new Map<string | undefined, DropDownItemProps>(
+        _dropdownItemsList.map(item => [item.id, item]),
+      );
+      return (_items: DropDownItemProps[]) => {
+        if (!props.isMultiSelect) return _dropdownItemsList;
+
+        const sortedItems = lodash.compact(
+          _items.map(a => dropdownItemsMap.get(a.id)),
         );
-        return [..._dropdownItemsList];
-      },
-    [],
+
+        const includedItemIds = new Set(sortedItems.map(a => a.id));
+        const aditionalItems = _dropdownItemsList.filter(
+          a => !includedItemIds.has(a.id),
+        );
+
+        return [sortedItems, aditionalItems].flat();
+      };
+    },
+    [props.isMultiSelect],
   );
 
   useEffect(() => {
@@ -193,10 +215,10 @@ export const Dropdown: React.FC<
     }
   }, [isOpen]);
 
-  const handleDropDownContainerClick = () => {
+  const handleDropDownContainerClick = useCallback(() => {
     if (isOpen) return;
     toggleDropdown();
-  };
+  }, [isOpen, toggleDropdown]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const theme = useTheme();
@@ -219,37 +241,53 @@ export const Dropdown: React.FC<
 
   const selectionCount = selectedItems.length;
 
-  const rowRenderer = ({ index, style }: any) => {
-    const item = filteredItems[index];
-    const itemId = item.id ?? '';
-    const isItemFocused: boolean = focusedIndex === index;
-    const isItemSelected: boolean = selectedItems.some(
-      currItem => currItem.id === itemId,
-    );
-    return (
-      <DropdownListItem
-        style={style}
-        key={itemId}
-        role="option"
-        aria-selected={isItemSelected}
-        onMouseEnter={() => setFocusedIndex(index)}
-        onFocus={() => setFocusedIndex(index)}
-        $isFocused={isItemFocused}
-        $cursor={item.disabled ? 'not-allowed' : 'pointer'}
-      >
-        <DropDownItem
-          {...item}
-          checked={isItemSelected}
-          onCheckedChange={handleCheckedChange}
-          id={item.id}
-          checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
-          leftImage={noLeftImageInList ? undefined : item.leftImage}
+  const rowRenderer = useCallback(
+    ({ index, style }: any) => {
+      const item = filteredItems[index];
+      const itemId = item.id ?? '';
+      const isItemFocused: boolean = focusedIndex === index;
+      const isItemSelected: boolean = selectedItemIdsSet.has(item.id!);
+      return (
+        <DropdownListItem
+          style={style}
+          key={itemId}
+          role="option"
+          aria-selected={isItemSelected}
+          onMouseEnter={() => setFocusedIndex(index)}
+          onFocus={() => setFocusedIndex(index)}
           $isFocused={isItemFocused}
-          disabled={item.disabled}
-        />
-      </DropdownListItem>
-    );
-  };
+          $cursor={item.disabled ? 'not-allowed' : 'pointer'}
+        >
+          <DropDownItem
+            {...item}
+            checked={isItemSelected}
+            onCheckedChange={handleCheckedChange}
+            id={item.id}
+            checkType={props.isMultiSelect ? 'checkbox' : 'radio'}
+            leftImage={noLeftImageInList ? undefined : item.leftImage}
+            $isFocused={isItemFocused}
+            disabled={item.disabled}
+          />
+        </DropdownListItem>
+      );
+    },
+    [
+      filteredItems,
+      focusedIndex,
+      selectedItemIdsSet,
+      props.isMultiSelect,
+      noLeftImageInList,
+      handleCheckedChange,
+    ],
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (autoFocus) {
+        containerRef.current?.focus();
+      }
+    });
+  }, [autoFocus]);
 
   return (
     <DropdownContainer
@@ -268,7 +306,7 @@ export const Dropdown: React.FC<
         filteredItems,
         listRef,
       )}
-      tabIndex={disabled ? -1 : 0}
+      tabIndex={disabled ? undefined : tabIndex ?? 0}
     >
       {selectedItems[0] && !isOpen ? (
         <DropDownItem
@@ -348,6 +386,7 @@ export const Dropdown: React.FC<
                 rowRenderer={rowRenderer}
                 scrollToIndex={focusedIndex}
                 overscanRowCount={10}
+                style={{ outline: 'none' }}
               />
             )}
           </Virtualize.AutoSizer>

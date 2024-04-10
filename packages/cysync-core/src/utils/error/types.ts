@@ -30,8 +30,10 @@ export interface IParsedError extends ErrorHandlingDetails {
   heading: string;
   subtext?: string;
   deviceNavigationText?: string;
+  advanceText?: string;
   primaryAction: IErrorActionButtonDetails;
   secondaryAction?: IErrorActionButtonDetails;
+  rawError?: object;
 }
 
 export type GetErrorActionButtonDetails = (params: {

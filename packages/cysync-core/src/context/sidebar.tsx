@@ -8,17 +8,18 @@ import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { openContactSupportDialog } from '~/actions';
-import { useQuery, useNavigateTo, useWalletSync } from '~/hooks';
+import { useNavigateTo, useQuery, useWalletSync } from '~/hooks';
+import logger from '~/utils/logger';
 
 import {
-  useAppDispatch,
-  useAppSelector,
+  AppDispatch,
+  ILangState,
+  constants,
+  routes,
   selectLanguage,
   selectWallets,
-  routes,
-  ILangState,
-  AppDispatch,
-  constants,
+  useAppDispatch,
+  useAppSelector,
 } from '..';
 
 export type Page =
@@ -67,6 +68,10 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const { onWalletSync } = useWalletSync();
 
   const [isWalletCollapsed, setIsWalletCollapsed] = React.useState(false);
+
+  useEffect(() => {
+    logger.info('Route Change', location);
+  }, [location.pathname, location.search, location.hash]);
 
   const navigate = (page: Page) => {
     if (page === 'tutorial') {

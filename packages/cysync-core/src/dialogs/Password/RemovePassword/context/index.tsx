@@ -18,6 +18,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import logger from '~/utils/logger';
 import { ConfirmPassword, RemovePasswordSuccess } from '../Dialogs';
 
 export interface RemovePasswordDialogContextInterface {
@@ -76,9 +77,14 @@ export const RemovePasswordDialogProvider: FC<
 
   const handleRemovePassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(undefined, password);
+    const isPasswordCorrect = await setCySyncPassword(undefined, password);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Remove Password', {
+      source: RemovePasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
       setIsLoading(false);
       setIsSubmitDisabled(true);
@@ -118,6 +124,7 @@ export const RemovePasswordDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'removePassword',
   });
 
   const ctx = useMemo(

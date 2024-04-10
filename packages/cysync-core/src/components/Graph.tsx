@@ -1,8 +1,9 @@
 import { coinList, BtcIdMap } from '@cypherock/coins';
 import { DisplayGraph, DropDownItemProps } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useGraph, UseGraphProps } from '~/hooks';
+import logger from '~/utils/logger';
 
 export interface GraphProps extends UseGraphProps {
   color?: string;
@@ -35,6 +36,17 @@ export const Graph: React.FC<GraphProps> = ({
     formatGraphAmountDisplay,
   } = useGraph({ selectedWallet, accountId, assetId, parentAssetId });
 
+  const handleWalletChangeProxy = useMemo((): typeof handleWalletChange => {
+    if (!handleWalletChange) return undefined;
+    return (wallet?: string): void => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: Graph.name,
+        wallet,
+      });
+      handleWalletChange(wallet);
+    };
+  }, [handleWalletChange]);
+
   return (
     <DisplayGraph
       title={formatGraphAmountDisplay(
@@ -54,7 +66,7 @@ export const Graph: React.FC<GraphProps> = ({
       conversionRate={summaryDetails.conversionRate}
       dropdownItems={walletDropdownList}
       selectedDropdownItem={selectedWallet?.__id ?? 'all'}
-      onDropdownChange={handleWalletChange}
+      onDropdownChange={handleWalletChangeProxy}
       dropdownSearchText={lang.strings.graph.walletDropdown.search}
       pillButtonList={rangeList}
       selectedPill={selectedRange}
