@@ -1,5 +1,4 @@
 import {
-  ICreateAccountParams,
   IDerivationPathGenerator,
   IDerivationScheme,
 } from '@cypherock/coin-support-interfaces';
@@ -8,6 +7,8 @@ import { IAccount } from '@cypherock/db-interfaces';
 export const createDerivationPathGenerator =
   (basePath: string): IDerivationPathGenerator =>
   (existingDerivationPaths, limit) => {
+    if (!basePath.includes('i')) return [];
+
     const derivationPaths: { derivationPath: string; index: number }[] = [];
 
     let startIndex = 0;
@@ -23,22 +24,19 @@ export const createDerivationPathGenerator =
         });
       }
 
-      if (!basePath.includes('i')) break;
-
       startIndex += 1;
     }
 
     return derivationPaths;
   };
 
-export interface IGenerateDerivationPathsPerSchemeParams
-  extends ICreateAccountParams {
+export interface IGenerateDerivationPathsPerSchemeParams {
   derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   limit: number;
   existingAccounts: IAccount[];
 }
 
-export const generateDerivationPathsPerScheme = async (
+export const generateDerivationPathsPerScheme = (
   params: IGenerateDerivationPathsPerSchemeParams,
 ) => {
   const { derivationPathSchemes, limit, existingAccounts } = params;

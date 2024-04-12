@@ -1,0 +1,56 @@
+import { describe, test } from '@jest/globals';
+// import { testDatabase } from '../__helpers__/db';
+// import { IDatabase } from '@cypherock/db-interfaces';
+import { IDeviceConnection } from '@cypherock/sdk-interfaces';
+import { createDerivationPathGenerator, makeCreateAccountsObservable } from '../../src/createAccount';
+import { createAccountParams, db } from '../__mocks__';
+// import { mockObserver } from '../__mocks__';
+import { Observer } from 'rxjs';
+import { ICreateAccountEvent } from '@cypherock/coin-support-interfaces';
+
+describe('createAccount', () => {
+  // let db: IDatabase;
+  let connection: IDeviceConnection = {} as any;
+
+  beforeEach(async () => {
+    // await testDatabase.create();
+    // db = testDatabase.db!;
+  });
+
+  afterEach(async () => {
+    // await testDatabase.destroy();
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+  });
+
+  // describe('makeCreateAccountsObservable', () => {
+  //   test('should create accounts', done => {
+  //     const params = createAccountParams(db, connection);
+  //     const createAccountsObservable = makeCreateAccountsObservable(params);
+
+  //     const observer: Observer<ICreateAccountEvent> = {
+  //       next: data => {
+  //         // next actions
+  //       },
+  //       complete: () => {
+  //         expect(true).toBe(true);
+  //         done();
+  //       },
+  //       error: err => {
+  //         throw err;
+  //       },
+  //     };
+
+  //     createAccountsObservable.subscribe(observer);
+
+  //     // await new Promise<void>(resolve => {
+  //     //   mockObserver.complete.mockReturnValue(() => resolve());
+  //     //   mockObserver.error.mockReturnValue(() => resolve());
+  //     // });
+
+  //     // expect(mockObserver.next).toHaveBeenCalledTimes(1);
+  //     // expect(mockObserver.complete).toHaveBeenCalledTimes(1);
+  //     // expect(mockObserver.error).not.toHaveBeenCalled();
+  //   });
+  // });
+});
