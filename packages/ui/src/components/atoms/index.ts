@@ -15,6 +15,7 @@ export * from './Checkbox';
 export * from './Modal';
 export * from './Select';
 export * from './LeanBoxContainer';
+export * from './OneInMany';
 export * from './Tag';
 export * from './Toggle';
 export * from './RadioButton';
