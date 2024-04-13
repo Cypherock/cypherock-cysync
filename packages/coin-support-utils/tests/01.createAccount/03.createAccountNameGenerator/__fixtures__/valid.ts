@@ -20,4 +20,13 @@ export const valid: AccountNameGeneratorTestCases[] = [
     },
     output: 'Bitcoin 2',
   },
+  {
+    name: 'should generate derivation paths from index zero',
+    input: {
+      coinName: 'Bitcoin',
+      schemeName: 'something random',
+      existingAccounts: accounts,
+    },
+    output: 'Bitcoin 1',
+  },
 ];
