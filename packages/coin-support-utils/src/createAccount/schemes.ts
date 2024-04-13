@@ -7,8 +7,6 @@ import { IAccount } from '@cypherock/db-interfaces';
 export const createDerivationPathGenerator =
   (basePath: string): IDerivationPathGenerator =>
   (existingDerivationPaths, limit) => {
-    if (!basePath.includes('i')) return [];
-
     const derivationPaths: { derivationPath: string; index: number }[] = [];
 
     let startIndex = 0;
@@ -23,6 +21,8 @@ export const createDerivationPathGenerator =
           index: startIndex,
         });
       }
+
+      if (!basePath.includes('i')) break;
 
       startIndex += 1;
     }
