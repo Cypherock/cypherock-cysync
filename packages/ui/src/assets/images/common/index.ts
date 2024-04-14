@@ -70,8 +70,10 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import youtubeplay from './youtube-play.svg';
 
 export {
+  youtubeplay,
   addWalletIcon,
   walletIcon,
   tetherIcon,

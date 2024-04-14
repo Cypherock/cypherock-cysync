@@ -19,10 +19,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import logger from '~/utils/logger';
-import { useSendDialog } from '../context';
+
 import { AddressAndAmountSection, FeeSection } from './Components';
+
+import { useSendDialog } from '../context';
 
 export const Recipient: React.FC = () => {
   const {
