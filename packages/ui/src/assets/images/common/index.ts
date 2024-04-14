@@ -34,6 +34,7 @@ import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
+import info from './info.svg';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
@@ -72,6 +73,7 @@ import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 
 export {
+  info,
   addWalletIcon,
   walletIcon,
   tetherIcon,
