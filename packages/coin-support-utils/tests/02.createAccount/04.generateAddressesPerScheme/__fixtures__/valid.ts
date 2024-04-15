@@ -1,5 +1,5 @@
 import { mapDerivationPath } from '../../../../src';
-import { derivationPathAddressMap } from './derivationPathAddressMap';
+import { getAddressFromPath } from '../../../__fixtures__/derivationPathAddressMap';
 import { AddressesPerSchemeGeneratorTestCases } from './types';
 
 export const valid: AddressesPerSchemeGeneratorTestCases[] = [
@@ -18,9 +18,7 @@ export const valid: AddressesPerSchemeGeneratorTestCases[] = [
     output: {
       legacy: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/44'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/44'/0'/0'/0/0"))!,
           derivationPath: "m/44'/0'/0'/0/0",
           index: 0,
         },
@@ -54,27 +52,21 @@ export const valid: AddressesPerSchemeGeneratorTestCases[] = [
     output: {
       legacy: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/44'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/44'/0'/0'/0/0"))!,
           derivationPath: "m/44'/0'/0'/0/0",
           index: 0,
         },
       ],
       nativeSegwit: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/84'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/84'/0'/0'/0/0"))!,
           derivationPath: "m/84'/0'/0'/0/0",
           index: 0,
         },
       ],
       segwit: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/49'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/49'/0'/0'/0/0"))!,
           derivationPath: "m/49'/0'/0'/0/0",
           index: 0,
         },
@@ -132,69 +124,51 @@ export const valid: AddressesPerSchemeGeneratorTestCases[] = [
     output: {
       legacy: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/44'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/44'/0'/0'/0/0"))!,
           derivationPath: "m/44'/0'/0'/0/0",
           index: 0,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/44'/0'/0'/0/1"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/44'/0'/0'/0/1"))!,
           derivationPath: "m/44'/0'/0'/0/1",
           index: 1,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/44'/0'/0'/0/2"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/44'/0'/0'/0/2"))!,
           derivationPath: "m/44'/0'/0'/0/2",
           index: 2,
         },
       ],
       nativeSegwit: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/84'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/84'/0'/0'/0/0"))!,
           derivationPath: "m/84'/0'/0'/0/0",
           index: 0,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/84'/0'/0'/0/1"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/84'/0'/0'/0/1"))!,
           derivationPath: "m/84'/0'/0'/0/1",
           index: 1,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/84'/0'/0'/0/2"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/84'/0'/0'/0/2"))!,
           derivationPath: "m/84'/0'/0'/0/2",
           index: 2,
         },
       ],
       segwit: [
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/49'/0'/0'/0/0"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/49'/0'/0'/0/0"))!,
           derivationPath: "m/49'/0'/0'/0/0",
           index: 0,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/49'/0'/0'/0/1"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/49'/0'/0'/0/1"))!,
           derivationPath: "m/49'/0'/0'/0/1",
           index: 1,
         },
         {
-          address: derivationPathAddressMap.get(
-            mapDerivationPath("m/49'/0'/0'/0/2"),
-          )!,
+          address: getAddressFromPath(mapDerivationPath("m/49'/0'/0'/0/2"))!,
           derivationPath: "m/49'/0'/0'/0/2",
           index: 2,
         },

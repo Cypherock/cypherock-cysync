@@ -1,4 +1,4 @@
-import { accounts } from '../../../__fixtures__/accounts';
+import { accounts } from '../../../__fixtures__';
 import { AccountNameGeneratorTestCases } from './types';
 
 export const valid: AccountNameGeneratorTestCases[] = [

@@ -1,29 +1,36 @@
-import { IDatabase } from '@cypherock/db-interfaces';
-import { IMakeCreateAccountsObservableParams } from '../../src/createAccount';
-import { TestApp, testApp } from './app';
-import { IDeviceConnection } from '@cypherock/sdk-interfaces';
+import {
+  IMakeCreateAccountsObservableParams,
+  createDerivationPathGenerator,
+} from '../../src/createAccount';
+import { TestApp } from './app';
+import { db, getAddressesFromDeviceMock } from '.';
+import { createAppMock } from './createApp';
+import { getBalanceAndTxnCountMock } from './getBalanceAndTxnCount';
 
-export const createAccountParams = (
-  db: IDatabase,
-  connection: IDeviceConnection,
-): IMakeCreateAccountsObservableParams<TestApp> => ({
-  createApp: jest.fn().mockResolvedValue(testApp),
-  derivationPathSchemes: {
-    legacy: {
-      threshold: 2,
-      newAccountLimit: 3,
-      name: 'ac1',
-      generator: jest.fn(),
+export const createAccountParams =
+  (): IMakeCreateAccountsObservableParams<TestApp> => ({
+    createApp: createAppMock,
+    derivationPathSchemes: {
+      legacy: {
+        name: 'legacy',
+        generator: createDerivationPathGenerator("m/44'/0'/0'/0/i"),
+        threshold: 2,
+        newAccountLimit: 0,
+      },
+      segwit: {
+        name: 'segwit',
+        generator: createDerivationPathGenerator(`m/49'/0'/0'/0/i`),
+        threshold: 2,
+        newAccountLimit: 0,
+      },
     },
-  },
-  derivationPathLimit: 10,
-  getBalanceAndTxnCount: jest
-    .fn()
-    .mockResolvedValue({ balance: '0', txnCount: 0 }),
-  getAddressesFromDevice: jest.fn(),
-  createAccountFromAddress: jest.fn().mockResolvedValue({}),
-  coinId: 'testCoin',
-  walletId: 'testWallet',
-  db,
-  connection,
-});
+    derivationPathLimit: 2,
+    getBalanceAndTxnCount: getBalanceAndTxnCountMock,
+    getAddressesFromDevice: getAddressesFromDeviceMock,
+    createAccountFromAddress: jest.fn().mockResolvedValue({}),
+    coinId: 'testCoin',
+    walletId: 'testWallet',
+    db,
+    connection: {} as any,
+    waitInMSBetweenEachAccountAPI: 1,
+  });

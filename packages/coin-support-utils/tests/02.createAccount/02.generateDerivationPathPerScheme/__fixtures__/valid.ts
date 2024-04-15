@@ -1,5 +1,5 @@
 import { createDerivationPathGenerator } from '../../../../src/createAccount';
-import { accounts } from '../../../__fixtures__/accounts';
+import { accounts } from '../../../__fixtures__';
 import { DerivationPathPerSchemeGeneratorTestCases } from './types';
 
 export const valid: DerivationPathPerSchemeGeneratorTestCases[] = [
