@@ -111,20 +111,27 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     if (selectedTokens.length === 0) setSelectedAccounts([]);
   }, [selectedTokens.length]);
 
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    1: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+      }),
+      [],
+    );
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.addToken.header,
-      dialogs: [<AddTokenSelectionDialog />],
-    },
-    {
-      name: '',
-      dialogs: [<AddTokenCongrats />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.addToken.header,
+        dialogs: [<AddTokenSelectionDialog />],
+      },
+      {
+        name: '',
+        dialogs: [<AddTokenCongrats />],
+      },
+    ],
+    [lang],
+  );
 
   const { onNext, onPrevious, goTo, currentTab, currentDialog } =
     useTabsAndDialogs({

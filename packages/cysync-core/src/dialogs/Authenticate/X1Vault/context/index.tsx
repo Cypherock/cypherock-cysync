@@ -43,30 +43,34 @@ export const AuthenticateX1VaultDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
 
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Vault'));
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.auth.email2fa.title,
-      dialogs: [<X1VaultEmail2FA key="authenticate-x1-vault-email-2fa" />],
-    },
-    {
-      name: lang.strings.dialogs.auth.title,
-      dialogs: [
-        <X1VaultAuthProcessWithDevice key="authenticate-x1-vault-device-process" />,
-      ],
-    },
-    {
-      name: lang.strings.dialogs.auth.authX1Vault.success,
-      dialogs: [
-        <AuthenticateX1VaultSuccess key="authenticate-x1-vault-success" />,
-      ],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.auth.email2fa.title,
+        dialogs: [<X1VaultEmail2FA key="authenticate-x1-vault-email-2fa" />],
+      },
+      {
+        name: lang.strings.dialogs.auth.title,
+        dialogs: [
+          <X1VaultAuthProcessWithDevice key="authenticate-x1-vault-device-process" />,
+        ],
+      },
+      {
+        name: lang.strings.dialogs.auth.authX1Vault.success,
+        dialogs: [
+          <AuthenticateX1VaultSuccess key="authenticate-x1-vault-success" />,
+        ],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,

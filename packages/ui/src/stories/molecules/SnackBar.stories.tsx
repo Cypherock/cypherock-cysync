@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SnackBar } from '../../components/molecules';
+import { SnackBar } from '../../components';
 
 const meta: Meta<typeof SnackBar> = {
   component: SnackBar,
@@ -15,6 +15,6 @@ export const Info: Story = {
   args: {
     icon: 'check',
     buttonText: 'Placeholder Text',
-    text: 'String',
+    text: 'Sample Text',
   },
 };
