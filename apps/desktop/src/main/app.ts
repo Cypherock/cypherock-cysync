@@ -14,6 +14,7 @@ import {
   initializeAndGetDb,
   installDeveloperExtensions,
   logger,
+  migrateDbBetweenChannels,
   setupProcessEventHandlers,
   setWCUri,
   windowUrls,
@@ -69,6 +70,7 @@ const prepareApp = () => {
 };
 
 const setupIntitialState = async () => {
+  await migrateDbBetweenChannels();
   await initializeAndGetDb();
 };
 

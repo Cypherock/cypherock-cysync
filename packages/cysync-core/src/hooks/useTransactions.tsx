@@ -1,18 +1,18 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import {
-  getParsedAmount,
   convertToUnit,
-  getZeroUnit,
-  getDefaultUnit,
-  getAsset,
-  formatDisplayPrice,
   formatDisplayAmount,
+  formatDisplayPrice,
+  getAsset,
+  getDefaultUnit,
+  getParsedAmount,
+  getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import {
   SvgProps,
+  TransactionTableHeaderName,
   TransactionTableStatus,
   useTheme,
-  TransactionTableHeaderName,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
@@ -25,26 +25,27 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { useStateToRef, useWindowSize } from '~/hooks';
 import {
-  selectLanguage,
-  selectWallets,
-  selectPriceInfos,
-  useAppSelector,
   selectDiscreetMode,
+  selectLanguage,
+  selectPriceInfos,
   selectTransactions,
+  selectUnHiddenAccounts,
+  selectWallets,
   useAppDispatch,
-  selectAccounts,
+  useAppSelector,
 } from '~/store';
 import { ILangState } from '~/store/lang';
-import { transactionIconMap, getDisplayTransactionType } from '~/utils';
+import { getDisplayTransactionType, transactionIconMap } from '~/utils';
 
 export interface TransactionRowData {
   id: string;
+  xpubOrAddress: string;
   hash: string;
   assetName: string;
   accountName: string;
@@ -56,6 +57,12 @@ export interface TransactionRowData {
   displayValue: string;
   displayFee: string;
   displayFeeValue: string;
+  displayFeeWithoutUnit: string;
+  displayFeeUnit: string;
+  displayAmountWithoutUnit: string;
+  displayAmountUnit: string;
+  displayValueWithoutUnit: string;
+  displayValueUnit: string;
   type: string;
   status: TransactionTableStatus;
   statusText: string;
@@ -113,7 +120,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectTransactions,
     selectPriceInfos,
     selectDiscreetMode,
@@ -142,7 +149,7 @@ export const mapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
-}) => {
+}): TransactionRowData => {
   const { transaction, priceInfos, wallets, accounts, lang, isDiscreetMode } =
     params;
 
@@ -225,12 +232,15 @@ export const mapTransactionForDisplay = (params: {
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
   }`;
+  const displayAmountWithoutUnit = formattedAmount.fixed;
+  const displayAmountUnit = unit.abbr;
   const amountTooltip = isDiscreetMode
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
 
   return {
     id: transaction.__id ?? '',
+    xpubOrAddress: account?.xpubOrAddress ?? '',
     hash: transaction.hash,
     timestamp: transaction.timestamp,
     time: timeString,
@@ -246,9 +256,15 @@ export const mapTransactionForDisplay = (params: {
     displayAmount,
     amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
+    displayValueWithoutUnit: value,
+    displayValueUnit: 'USD',
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
     amount: parseFloat(amount),
+    displayFeeWithoutUnit: fee,
+    displayFeeUnit: feeUnit.abbr,
+    displayAmountWithoutUnit,
+    displayAmountUnit,
     value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
       <CoinIcon
@@ -357,32 +373,36 @@ export const useTransactions = ({
   const parseTransactionsList = () => {
     const mappedTransactions: TransactionRowData[] =
       refData.current.transactions
-        .filter(a => {
-          if (a.type === TransactionTypeMap.hidden) {
+        .filter(t => {
+          if (t.type === TransactionTypeMap.hidden) {
             return false;
           }
           if (
             refData.current.walletId &&
-            a.walletId !== refData.current.walletId
+            t.walletId !== refData.current.walletId
           ) {
             return false;
           }
           if (
             refData.current.assetId &&
-            a.assetId !== refData.current.assetId
+            t.assetId !== refData.current.assetId
           ) {
             return false;
           }
           if (
             refData.current.parentAssetId &&
-            a.parentAssetId !== refData.current.parentAssetId
+            t.parentAssetId !== refData.current.parentAssetId
           ) {
             return false;
           }
           if (
             refData.current.accountId &&
-            a.accountId !== refData.current.accountId
+            t.accountId !== refData.current.accountId
           ) {
+            return false;
+          }
+
+          if (!refData.current.accounts.find(a => a.__id === t.accountId)) {
             return false;
           }
 

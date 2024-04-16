@@ -55,6 +55,8 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [SolanaIdMap.solana]: SolanaIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 
+const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
+
 const requestErc20ImageFile = (id: string) =>
   `https://static.cypherock.com/images/erc20-by-id/${id}.png`;
 
@@ -143,6 +145,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
       <Container {...containerProps}>
         <Image
           src={requestErc20ImageFile(asset.coinGeckoId)}
+          fallbackSrc={fallbackIcon}
           alt={asset.name}
           {...iconProps}
         />
@@ -159,6 +162,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
             src={requestErc20ImageFile(
               getAsset(parentAssetId, assetId).coinGeckoId,
             )}
+            fallbackSrc={fallbackIcon}
             alt={getAsset(parentAssetId, assetId).name}
             {...subIconProps}
           />
@@ -174,6 +178,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
           src={requestErc20ImageFile(
             getAsset(parentAssetId, assetId).coinGeckoId,
           )}
+          fallbackSrc={fallbackIcon}
           alt={getAsset(parentAssetId, assetId).name}
           {...iconProps}
         />

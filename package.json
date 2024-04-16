@@ -23,17 +23,22 @@
     "pretty:root:check": "prettier --check scripts *.json",
     "lint:check": "turbo run lint:check --no-daemon",
     "pretty:check": "pnpm pretty:root:check && turbo run pretty:check --no-daemon",
-    "test": "cross-env NODE_ENV=test turbo run test --no-daemon",
+    "test": "cross-env NODE_ENV=test turbo run test --no-daemon && pnpm aggregate:report",
+    "aggregate:report": "cross-env NODE_ENV=test node scripts/aggregateReport.js",
     "e2e": "turbo run e2e --no-daemon",
     "pre-commit": "turbo run pre-commit --concurrency=1 --no-daemon",
     "prepare": "husky install",
     "clean": "node scripts/clean.js && bash ./scripts/clean.sh",
     "clean:force": "node scripts/clean.js -f && bash ./scripts/clean.sh",
     "build:submodules": "node scripts/submodules.js build",
+    "ci:publish": "pnpm publish -r --access public --no-git-checks --filter \"@cypherock/coins\"",
     "ci:version": "pnpm changeset version && pnpm i --no-frozen-lockfile",
     "storybook": "turbo storybook --no-daemon",
     "build:storybook": "turbo build:storybook --no-daemon",
-    "fix:hashbang": "bash scripts/hashBangFix.sh"
+    "fix:hashbang": "bash scripts/hashBangFix.sh",
+    "erc20-diff": "turbo run erc20-diff --no-daemon",
+    "gen-erc20-list": "turbo run gen-erc20-list --no-daemon",
+    "download-erc20-images": "turbo run download-erc20-images --no-daemon"
   },
   "keywords": [],
   "license": "AGPL-3.0",
@@ -46,6 +51,7 @@
     "chalk": "^5.2.0",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
+    "nyc": "15.1.0",
     "ora": "^6.3.1",
     "semver": "^7.5.3",
     "turbo": "^1.10.6",
@@ -60,7 +66,13 @@
       "base-x@3.0.9": "patches/base-x@3.0.9.patch",
       "crc@3.8.0": "patches/crc@3.8.0.patch",
       "bip66@1.1.5": "patches/bip66@1.1.5.patch",
-      "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch"
+      "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch",
+      "coinselect@3.1.13": "patches/coinselect@3.1.13.patch",
+      "signal-exit@4.1.0": "patches/signal-exit@4.1.0.patch"
+    },
+    "overrides": {
+      "write-file-atomic": "5.0.1",
+      "signal-exit": "4.1.0"
     }
   }
 }

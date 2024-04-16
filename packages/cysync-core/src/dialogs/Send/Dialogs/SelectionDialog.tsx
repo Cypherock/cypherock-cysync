@@ -10,9 +10,10 @@ import {
   svgGradients,
   ArrowSentIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { useSendDialog } from '../context';
 
@@ -27,10 +28,38 @@ export const SelectionDialog: React.FC = () => {
     handleWalletChange,
     walletDropdownList,
     accountDropdownList,
+    defaultWalletId,
+    defaultAccountId,
   } = useSendDialog();
 
   const dialogText = lang.strings.send.source;
   const buttonText = lang.strings.buttons;
+
+  const { accounts: allAccounts } = useAppSelector(selectAccounts);
+
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: `Send/${SelectionDialog.name}`,
+        isWalletSelected: Boolean(args[0]),
+      });
+      return handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
+
+  const handleAccountChangeProxy: typeof handleAccountChange = useCallback(
+    (id: string | undefined, ...args) => {
+      const targetAccount = allAccounts.find(a => a.__id === id);
+      logger.info('Dropdown Change: Account Change', {
+        source: `Send/${SelectionDialog.name}`,
+        assetId: targetAccount?.assetId,
+        derivationPath: targetAccount?.derivationPath,
+      });
+      return handleAccountChange(id, ...args);
+    },
+    [allAccounts, handleAccountChange],
+  );
 
   return (
     <DialogBox width={500}>
@@ -60,8 +89,9 @@ export const SelectionDialog: React.FC = () => {
             selectedItem={selectedWallet?.__id}
             searchText={dialogText.searchText}
             placeholderText={dialogText.walletPlaceholder}
-            onChange={handleWalletChange}
+            onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={accountDropdownList}
@@ -69,7 +99,8 @@ export const SelectionDialog: React.FC = () => {
             disabled={!selectedWallet}
             searchText={dialogText.searchText}
             placeholderText={dialogText.accountPlaceholder}
-            onChange={handleAccountChange}
+            onChange={handleAccountChangeProxy}
+            autoFocus={Boolean(defaultWalletId) && !defaultAccountId}
           />
         </Container>
       </DialogBoxBody>
@@ -78,6 +109,7 @@ export const SelectionDialog: React.FC = () => {
         <Button
           variant="primary"
           disabled={!selectedAccount || !selectedWallet}
+          autoFocus={Boolean(defaultWalletId) && Boolean(defaultAccountId)}
           onClick={e => {
             e.preventDefault();
             onNext();

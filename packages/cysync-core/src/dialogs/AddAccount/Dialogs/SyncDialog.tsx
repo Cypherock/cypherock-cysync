@@ -1,20 +1,20 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  loaderGrayIcon,
-  LangDisplay,
-  FlexGapContainer,
+  Button,
   DialogBox,
-  LeanBoxContainer,
-  LeanBox,
-  Typography,
+  DialogBoxFooter,
+  Flex,
+  FlexGapContainer,
   Image,
   InputLabel,
-  DialogBoxFooter,
-  Button,
-  addAccountIcon,
-  Flex,
-  Toggle,
+  LangDisplay,
+  LeanBox,
+  LeanBoxContainer,
   ScrollableContainer,
+  Toggle,
+  Typography,
+  addAccountIcon,
+  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -22,12 +22,16 @@ import lodash from 'lodash';
 import React, { FC, useMemo, useState } from 'react';
 
 import { CoinIcon } from '~/components';
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectUnHiddenAccounts,
+  useAppSelector,
+} from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
 const selectAccountsAndLang = createSelector(
-  [selectLanguage, selectAccounts],
+  [selectLanguage, selectUnHiddenAccounts],
   (a, b) => ({ lang: a, ...b }),
 );
 
@@ -65,7 +69,7 @@ const createAccountDisplayList = (params: {
   return accountsList.map(a => {
     const { amount, unit } = getParsedAmount({
       coinId: a.assetId,
-      unitAbbr: a.unit,
+      unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
       amount: a.balance,
     });
 
@@ -88,9 +92,7 @@ const createAccountDisplayList = (params: {
         b => a.derivationPath === b.derivationPath,
       ),
       bottomText: `${amount} ${unit.abbr}`,
-      onCheckChanged: checkboxHandler
-        ? () => checkboxHandler(a.derivationPath)
-        : undefined,
+      onCheckChanged: () => checkboxHandler(a.derivationPath),
     };
   });
 };

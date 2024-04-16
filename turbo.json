@@ -98,7 +98,8 @@
     },
     "test": {
       "dependsOn": ["build"],
-      "inputs": ["src/**", "tests/**"]
+      "inputs": ["src/**", "tests/**"],
+      "outputs": ["coverage/**"]
     },
     "e2e": {
       "dependsOn": ["build"],
@@ -135,6 +136,18 @@
       "inputs": ["src/**", "package.json", ".storybook/**"],
       "outputs": ["storybook-static/**"],
       "cache": true
+    },
+    "@cypherock/cysync-automation-scripts#erc20-diff": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#gen-erc20-list": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#download-erc20-images": {
+      "dependsOn": ["build"],
+      "cache": false
     }
   }
 }

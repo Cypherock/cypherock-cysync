@@ -3,11 +3,13 @@ import { ReactComponentLike } from 'prop-types';
 import { DialogName } from '~/store';
 
 import { AddAccountDialog } from './AddAccount';
+import { AddTokenDialog } from './AddToken';
 import { AppUpdateDialog } from './AppUpdateDialog';
 import {
   AuthenticateX1CardDialog,
   AuthenticateX1VaultDialog,
 } from './Authenticate';
+import { BetaNotificationDialog } from './BetaNotificationDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -34,6 +36,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
+  addToken: AddTokenDialog,
   sendDialog: SendDialog,
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
@@ -51,4 +54,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   errorDialog: ErrorDialog,
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
+  betaNotificationDialog: BetaNotificationDialog,
 };

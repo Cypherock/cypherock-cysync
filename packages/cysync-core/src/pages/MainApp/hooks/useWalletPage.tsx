@@ -1,41 +1,46 @@
 import {
-  getParsedAmount,
   convertToUnit,
-  getZeroUnit,
-  getDefaultUnit,
-  formatDisplayPrice,
   formatDisplayAmount,
+  formatDisplayPrice,
+  getAsset,
+  getDefaultUnit,
+  getParsedAmount,
+  getZeroUnit,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
-  Throbber,
+  AccountTableHeaderName,
+  ArrowRightBottom,
+  BreadcrumbDropdownItem,
   Check,
   Close,
-  AccountTableHeaderName,
-  BreadcrumbDropdownItem,
-  ArrowRightBottom,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap, IAccount, IPriceInfo } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
-import React, { ReactNode, useState, useMemo, useEffect } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { openAddAccountDialog, syncAccounts } from '~/actions';
+import {
+  openAddAccountDialog,
+  openAddTokenDialog,
+  syncAccounts,
+} from '~/actions';
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
 import { useNavigateTo, useQuery } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
-  selectLanguage,
-  selectWallets,
-  selectAccounts,
-  selectPriceInfos,
   selectAccountSync,
-  useAppSelector,
-  useAppDispatch,
   selectDiscreetMode,
+  selectLanguage,
+  selectPriceInfos,
+  selectUnHiddenAccounts,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
 } from '~/store';
 
 export interface AccountTokenType {
@@ -126,7 +131,7 @@ const mapTokenAccounts = (
   const { amount, unit } = getParsedAmount({
     coinId: a.parentAssetId,
     assetId: a.assetId,
-    unitAbbr: a.unit,
+    unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
     amount: a.balance,
   });
 
@@ -159,6 +164,15 @@ const mapTokenAccounts = (
   const amountTooltip = isDiscreetMode
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
+  const asset = getAsset(a.parentAssetId, a.assetId);
+  let { name } = a;
+
+  if (
+    a.type === AccountTypeMap.subAccount &&
+    a.familyId === coinFamiliesMap.evm
+  ) {
+    name = asset.name;
+  }
 
   return {
     id: a.__id ?? '',
@@ -169,7 +183,7 @@ const mapTokenAccounts = (
         assetId={a.assetId}
       />
     ),
-    text: a.name,
+    text: name,
     displayAmount,
     amountTooltip,
     displayValue: isDiscreetMode ? '$****' : displayValue,
@@ -182,7 +196,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectAccounts,
+    selectUnHiddenAccounts,
     selectPriceInfos,
     selectAccountSync,
     selectDiscreetMode,
@@ -270,7 +284,7 @@ export const useWalletPage = () => {
       const { amount, unit } = getParsedAmount({
         coinId: a.parentAssetId,
         assetId: a.assetId,
-        unitAbbr: a.unit,
+        unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
         amount: a.balance,
       });
 
@@ -358,6 +372,10 @@ export const useWalletPage = () => {
     dispatch(openAddAccountDialog({ walletId: selectedWallet?.__id ?? '' }));
   };
 
+  const handleAddTokenClick = () => {
+    dispatch(openAddTokenDialog({ walletId: selectedWallet?.__id ?? '' }));
+  };
+
   const handleStatusClick = (row: AccountRowData) => {
     if (accountSyncMap[row.id]?.syncState === AccountSyncStateMap.syncing) {
       return;
@@ -389,6 +407,7 @@ export const useWalletPage = () => {
     ITEMS_PER_PAGE,
     sortedBy,
     handleAddAccountClick,
+    handleAddTokenClick,
     handleStatusClick,
     selectedWallet,
     walletName,

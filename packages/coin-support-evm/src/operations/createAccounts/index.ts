@@ -1,8 +1,8 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
 import {
-  ICreateEvmAccountParams,
   ICreateEvmAccountEvent,
+  ICreateEvmAccountParams,
   ICreatedEvmAccount,
 } from './types';
 
@@ -77,6 +77,7 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
       derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
       extraData: {},
+      isHidden: false,
     };
 
     return account;
@@ -88,16 +89,24 @@ const createApp = async (connection: IDeviceConnection) =>
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateEvmAccountParams,
-) => ({
-  balance: await services.getBalance(address, params.coinId),
-  txnCount: (
-    await services.getTransactions({
-      address,
-      assetId: params.coinId,
-      limit: 1,
-    })
-  ).result.length,
-});
+) => {
+  const transactions = await services.getTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  const contractTransactions = await services.getContractTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  return {
+    balance: await services.getBalance(address, params.coinId),
+    txnCount: transactions.result.length + contractTransactions.result.length,
+  };
+};
 
 export const createAccounts = (
   params: ICreateEvmAccountParams,

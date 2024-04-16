@@ -14,3 +14,11 @@ export const getAsset = (parentId: string, assetId?: string) => {
 
   return coin;
 };
+
+export const getAssetOrUndefined = (parentId: string, assetId?: string) => {
+  try {
+    return getAsset(parentId, assetId);
+  } catch (err) {
+    return undefined;
+  }
+};

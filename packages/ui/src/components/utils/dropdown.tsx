@@ -1,21 +1,26 @@
 import { MutableRefObject } from 'react';
 
-import { DropDownListItemProps } from '../molecules';
+import { DropDownItemProps } from '../molecules';
 
 export const findSelectedItem = (
-  menuItems: DropDownListItemProps[],
+  menuItems: DropDownItemProps[],
   selectedId: string | undefined,
-): DropDownListItemProps | undefined =>
+): DropDownItemProps | undefined =>
   menuItems.find(item => item.id === selectedId);
 
 export const searchInItems = (
-  menuItems: DropDownListItemProps[],
+  menuItems: DropDownItemProps[],
   searchString: string,
-): DropDownListItemProps[] => {
-  const filteredItems: DropDownListItemProps[] = [];
+): DropDownItemProps[] => {
+  const filteredItems: DropDownItemProps[] = [];
 
   for (const item of menuItems) {
-    const shouldAdd = item.text
+    const shouldAdd = (
+      item.text +
+      (item.shortForm ?? '') +
+      (item.rightText ?? '') +
+      (item.tag ?? '')
+    )
       .toLowerCase()
       .includes(searchString.toLowerCase());
 
@@ -32,22 +37,16 @@ export const searchInItems = (
   return filteredItems;
 };
 
-type MenuItem = DropDownListItemProps & {
-  subMenu?: MenuItem[];
-};
-
 export const handleKeyDown =
   (
     isOpen: boolean,
     toggleDropdown: () => void,
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    items: MenuItem[],
+    isMultiSelect: boolean,
     focusedIndex: number | null,
-    setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
-    listRef: MutableRefObject<HTMLUListElement | null>,
-    dropdownRef: MutableRefObject<HTMLDivElement | null>,
+    listRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const visibleItemsCount = filteredItems.length;
@@ -114,16 +113,12 @@ export const handleKeyDown =
         }
         break;
       case 'Enter':
-      case ' ':
         event.preventDefault();
         event.stopPropagation();
         if (!isOpen) {
           toggleDropdown();
         } else if (focusedIndex !== null) {
-          setSelectedIndex(focusedIndex);
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
-          toggleDropdown();
-          dropdownRef.current?.focus();
         }
         break;
       case 'Tab':
@@ -139,15 +134,11 @@ export const handleKeyDown =
   };
 
 export const handleEscapeKey =
-  (
-    isOpen: boolean,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    dropdownRef: React.MutableRefObject<HTMLDivElement | null>,
-  ) =>
+  (isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) =>
   (event: KeyboardEvent) => {
     if (event.key === 'Escape' && isOpen) {
+      event.stopPropagation();
       setIsOpen(false);
-      dropdownRef.current?.focus();
     }
   };
 
@@ -157,10 +148,11 @@ export const handleClickOutside =
     containerRef: MutableRefObject<HTMLDivElement | null>,
   ) =>
   (event: MouseEvent) => {
-    if (
-      containerRef.current &&
-      !containerRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
+    if (containerRef.current === null) return;
+    if (event.composedPath().includes(containerRef.current)) {
+      event.stopPropagation();
+      event.preventDefault();
+      return;
     }
+    setIsOpen(false);
   };

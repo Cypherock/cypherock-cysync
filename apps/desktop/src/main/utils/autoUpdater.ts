@@ -6,11 +6,14 @@ import {
   UpdateDownloadedEvent,
   UpdateInfo as ElectronUpdateInfo,
 } from 'electron-updater';
+import winVerifySign from 'win-verify-signature';
 
 import { config } from './config';
 import { createServiceLogger } from './logger';
 
 import { ipcConfig } from '../ipc/helpers/config';
+
+const logger = createServiceLogger('autoUpdater');
 
 class AutoUpdater {
   private cancellationToken?: CancellationToken;
@@ -26,8 +29,9 @@ class AutoUpdater {
       return;
     }
 
-    electronAutoUpdater.logger = createServiceLogger('autoUpdater');
+    electronAutoUpdater.logger = logger;
     electronAutoUpdater.autoDownload = false;
+    electronAutoUpdater.channel = config.CHANNEL;
   }
 
   public setup(webContents: WebContents) {
@@ -46,6 +50,30 @@ class AutoUpdater {
     electronAutoUpdater.on('error', e => {
       this.onError(e);
     });
+
+    // Verify application after update downloaded successfully
+    // https://github.com/electron-userland/electron-builder/issues/7127#issuecomment-1933413272
+    if (process.platform === 'win32') {
+      (electronAutoUpdater as any).verifyUpdateCodeSignature = (
+        publisherName: string[],
+        path: string,
+      ) => {
+        logger.info('Starting verification', {
+          path,
+          publisherName,
+        });
+        const result = winVerifySign.verifySignatureByPublishName(
+          path,
+          publisherName,
+        );
+        if (result.signed) return Promise.resolve(undefined);
+        logger.info('verifyUpdateCodeSignatureResult', {
+          result,
+          message: result.message,
+        });
+        return Promise.resolve(result.message);
+      };
+    }
   }
 
   public async checkForUpdates(): Promise<UpdateInfo | undefined> {

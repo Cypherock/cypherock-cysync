@@ -1,8 +1,9 @@
-import { ILogger } from '@cypherock/cysync-interfaces';
+import { ILogger, LogLevel } from '@cypherock/cysync-interfaces';
 
+import { objectToCloneableObject } from './clone';
 import { config } from './config';
 
-const logLevelPriority: Record<string, number | undefined> = {
+const logLevelPriority: Record<LogLevel, number> = {
   error: 0,
   warn: 1,
   info: 2,
@@ -10,14 +11,9 @@ const logLevelPriority: Record<string, number | undefined> = {
   debug: 4,
 };
 
-const doLog = (level: string) => {
+const doLog = (level: LogLevel) => {
   const currentPriority = logLevelPriority[level];
-  const allowedPriority = logLevelPriority[config.LOG_LEVEL] ?? 2;
-
-  if (currentPriority === undefined) {
-    return false;
-  }
-
+  const allowedPriority = logLevelPriority[config.LOG_LEVEL as LogLevel] ?? 2;
   return allowedPriority >= currentPriority;
 };
 
@@ -53,12 +49,19 @@ export const updateLoggerObject = (params: {
         let newMessage = message;
         let newMeta = meta;
 
-        if (message && typeof message === 'object' && message.toJSON) {
-          newMessage = message.toJSON();
+        if (message && typeof message === 'object') {
+          if (message.toJSON) {
+            newMessage = message.toJSON();
+          }
+
+          newMessage = objectToCloneableObject(message);
         }
 
-        if (meta && typeof meta === 'object' && meta.toJSON) {
-          newMeta = meta.toJSON();
+        if (meta && typeof meta === 'object') {
+          if (meta.toJSON) {
+            newMeta = meta.toJSON();
+          }
+          newMeta = objectToCloneableObject(meta);
         }
 
         (newLogger as any)[key](newMessage, newMeta);

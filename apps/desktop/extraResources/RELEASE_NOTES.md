@@ -1,11 +1,32 @@
-# v2.0.0-beta.2
+# v2.0.3
 
 ### 🐛 Bugfixes
 
-- Fixed windows auto update issue
-- Windows/Linux full screen issue
+- Fixed white screen issue
+- Fixed issues regarding device update
 
-# v2.0.0-beta.1
+# v2.0.2
+
+### 🚀 Features
+
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Faster and improved device communication
+- Various minor bug fixes
+
+# v2.0.1
+
+### 🚀 Features
+
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Various minor bug fixes
+
+# v2.0.0
 
 ### 🚀 Features
 

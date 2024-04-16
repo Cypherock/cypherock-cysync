@@ -13,10 +13,11 @@ import {
   convertToUnit,
   formatDisplayAmount,
   formatDisplayPrice,
+  getDefaultUnit,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -76,15 +77,15 @@ export interface SendDialogContextInterface {
   currentDialog: number;
   selectedWallet: IWallet | undefined;
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
-  walletDropdownList: DropDownListItemProps[];
-  handleWalletChange: () => void;
+  walletDropdownList: DropDownItemProps[];
+  handleWalletChange: (id?: string | undefined) => void;
   selectedAccount: IAccount | undefined;
   selectedAccountParent: IAccount | undefined;
   setSelectedAccount: React.Dispatch<
     React.SetStateAction<IAccount | undefined>
   >;
-  accountDropdownList: DropDownListItemProps[];
-  handleAccountChange: () => void;
+  accountDropdownList: DropDownItemProps[];
+  handleAccountChange: (id?: string | undefined) => void;
   transaction: IPreparedTransaction | undefined;
   setTransaction: React.Dispatch<
     React.SetStateAction<IPreparedTransaction | undefined>
@@ -107,6 +108,8 @@ export interface SendDialogContextInterface {
     coinFamily: CoinFamily,
     txn?: IPreparedTransaction,
   ) => string;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -134,10 +137,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { priceInfos } = useAppSelector(selectPriceInfos);
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    3: [0],
-    4: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        3: [0],
+        4: [0],
+      }),
+      [],
+    );
 
   const [error, setError] = useState<any | undefined>();
   const [signedTransaction, setSignedTransaction] = useState<
@@ -155,7 +162,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
   const { rejectCallRequest, approveCallRequest, callRequestData } =
     useWalletConnect();
@@ -180,33 +187,36 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     includeSubAccounts: true,
   });
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.send.aside.tabs.source,
-      dialogs: [<SelectionDialog />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.recipient,
-      dialogs: [<Recipient />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.summary,
-      dialogs: [<SummaryDialog />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.x1vault,
-      dialogs: [<DeviceAction />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.confirm,
-      dialogs: [<LoaderDialog />],
-    },
-    {
-      name: '',
-      dialogs: [<FinalMessage />],
-      dontShowOnMilestone: true,
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.send.aside.tabs.source,
+        dialogs: [<SelectionDialog />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.recipient,
+        dialogs: [<Recipient />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.summary,
+        dialogs: [<SummaryDialog />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.x1vault,
+        dialogs: [<DeviceAction />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.confirm,
+        dialogs: [<LoaderDialog />],
+      },
+      {
+        name: '',
+        dialogs: [<FinalMessage />],
+        dontShowOnMilestone: true,
+      },
+    ],
+    [lang],
+  );
 
   useEffect(() => {
     if (disableAccountSelection) goTo(1, 0);
@@ -352,7 +362,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           txn,
         });
 
-      setTransaction(preparedTransaction);
+      setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
       onError(e);
     }
@@ -378,7 +388,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const startFlow = async () => {
     logger.info('Starting send transaction');
 
-    if (!connection || !transaction) {
+    if (!connection?.connection || !transaction) {
       return;
     }
 
@@ -394,7 +404,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         deviceLock.release(connection.device, taskId);
       };
 
-      const deviceConnection = await connectDevice(connection.device);
+      const deviceConnection = connection.connection;
       flowSubscription.current = getCurrentCoinSupport()
         .signTransaction({
           connection: deviceConnection,
@@ -428,7 +438,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: value,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      fromUnitAbbr: selectedAccount.unit,
+      fromUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       toUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,
@@ -457,7 +470,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,
       assetId: selectedAccount.assetId,
-      toUnitAbbr: selectedAccount.unit,
+      toUnitAbbr:
+        selectedAccount.unit ??
+        getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+          .abbr,
       fromUnitAbbr: getZeroUnit(
         selectedAccount.parentAssetId,
         selectedAccount.assetId,
@@ -544,10 +560,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'sendDialog',
   });
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -585,6 +604,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getComputedFee,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,

@@ -23,6 +23,30 @@ import logger from '../utils/logger';
 
 export * from './types';
 
+type HISTORY_RANGE = 1 | 7 | 30 | 365;
+
+const HOUR_INTERVAL = 60 * 60 * 1000;
+const DAY_INTERVAL = 24 * HOUR_INTERVAL;
+const mockHistoryDetails: Record<number, { count: number; interval: number }> =
+  {
+    1: {
+      count: 24,
+      interval: HOUR_INTERVAL,
+    },
+    7: {
+      count: 168,
+      interval: HOUR_INTERVAL,
+    },
+    30: {
+      count: 720,
+      interval: HOUR_INTERVAL,
+    },
+    365: {
+      count: 365,
+      interval: DAY_INTERVAL,
+    },
+  };
+
 async function getAccount(db: IDatabase | undefined, accountId: string) {
   assert(db, 'Database should be present if no account is given');
   return (await db.account.getOne({ __id: accountId })) as IAccount;
@@ -52,11 +76,34 @@ async function getTransactions(
   );
 }
 
+function fillMissingPriceHistory(
+  history: IPriceSnapshot[],
+  days: HISTORY_RANGE,
+) {
+  const expectedEntries = mockHistoryDetails[days].count;
+  const startTime = history[0].timestamp;
+  const { interval } = mockHistoryDetails[days];
+
+  if (history.length >= expectedEntries) {
+    return history;
+  }
+
+  const missingHistory = new Array(expectedEntries - history.length)
+    .fill(0)
+    .map((_, index) => ({
+      price: '0',
+      timestamp: startTime - (index + 1) * interval,
+    }))
+    .reverse();
+
+  return [...missingHistory, ...history];
+}
+
 async function getPriceHistory(
   allPriceHistories: IPriceHistory[] | undefined,
   account: IAccount,
   currency: string,
-  days: 1 | 7 | 30 | 365,
+  days: HISTORY_RANGE,
   db?: IDatabase,
 ) {
   let history: IPriceSnapshot[] | undefined;
@@ -85,19 +132,43 @@ async function getPriceHistory(
     )?.history;
   }
 
-  if (!history) {
-    throw new Error('Price history not found');
+  if (!history || history.length === 0) {
+    // We don't warn if history is present but with no value because
+    // it's not an error case. The price history will be empty for coins
+    // which are not supported by our coin API
+    if (!history) {
+      logger.warn('Price history not found', {
+        assetId: account.assetId,
+        days,
+        currency,
+      });
+    }
+
+    const startTime = Date.now();
+
+    history = new Array(mockHistoryDetails[daysToFetch ?? 30].count)
+      .fill(0)
+      .map((_, index) => ({
+        price: '0',
+        timestamp:
+          startTime - index * mockHistoryDetails[daysToFetch ?? 30].interval,
+      }))
+      .reverse();
   }
 
   if ([1, 7].includes(days)) {
     const firstTimestamp = history[history.length - 1].timestamp;
-    const lastTimestampToStop = firstTimestamp - 24 * days * 60 * 60 * 1000;
+    const lastTimestampToStop = firstTimestamp - days * DAY_INTERVAL;
     history = history.filter(
       h => h.timestamp < firstTimestamp && h.timestamp > lastTimestampToStop,
     );
   }
 
-  return lodash.orderBy(history, ['timestamp'], ['asc']);
+  return lodash.orderBy(
+    fillMissingPriceHistory(history, days),
+    ['timestamp'],
+    ['asc'],
+  );
 }
 
 async function getLatestPrice(
@@ -243,7 +314,7 @@ export async function createGetAccountHistory(
     amount: account.balance,
     parentAssetId: account.parentAssetId,
     assetId: account.assetId,
-    price: latestPrice ?? priceHistory[priceHistory.length - 1].price,
+    price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
   });
 
   const currentValue = calcValue({

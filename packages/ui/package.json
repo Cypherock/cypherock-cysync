@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-ui",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -69,6 +69,7 @@
     "@storybook/client-api": "^7.2.1",
     "@types/chart.js": "^2.9.37",
     "@types/lodash": "^4.14.195",
+    "@types/react-virtualized": "^9.21.22",
     "chart.js": "^4.3.2",
     "date-fns": "^2.30.0",
     "focus-trap-react": "^10.2.3",
@@ -79,6 +80,7 @@
     "react-json-view": "^1.21.3",
     "react-multi-date-picker": "^4.1.2",
     "react-tsparticles": "^2.10.1",
+    "react-virtualized": "^9.22.5",
     "styled-components": "6.0.0-rc.1",
     "tsparticles": "^2.10.1"
   },

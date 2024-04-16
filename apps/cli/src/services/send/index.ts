@@ -82,14 +82,16 @@ const getTxnInputs = async (params: {
     );
     let amount = '';
 
+    const unit =
+      account.unit ?? getZeroUnit(account.parentAssetId, account.assetId).abbr;
     if (!transaction.userInputs.isSendAll) {
       const amountInDefaultUnit = await queryInput(
-        `Enter amount you want to transfer in ${account.unit} (${i + 1})`,
+        `Enter amount you want to transfer in ${unit} (${i + 1})`,
       );
       const convertedAmount = convertToUnit({
         amount: amountInDefaultUnit,
         coinId: coin.id,
-        fromUnitAbbr: account.unit,
+        fromUnitAbbr: unit,
         toUnitAbbr: getZeroUnit(coin.id).abbr,
       });
       amount = convertedAmount.amount;
@@ -124,9 +126,16 @@ const getTxnInputs = async (params: {
     const gasLimit = await queryInput(
       `Enter the gas limit for the transaction`,
     );
+    const data = await queryInput(
+      `Enter the data (call data or input) for the transaction (Optional)`,
+    );
 
     if (outputCount <= 0) {
       throw new Error('Invalid fees');
+    }
+
+    if (data) {
+      txn.computedData.data = data;
     }
 
     txn.userInputs.gasLimit = gasLimit;
@@ -154,7 +163,9 @@ const showTransactionSummary = async (params: {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: output.amount,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
 
     console.log(
@@ -171,7 +182,9 @@ const showTransactionSummary = async (params: {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: txn.computedData.fee,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
@@ -182,7 +195,9 @@ const showTransactionSummary = async (params: {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: txn.computedData.fee,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
@@ -193,7 +208,9 @@ const showTransactionSummary = async (params: {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: txn.computedData.fees,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fees);
@@ -202,7 +219,8 @@ const showTransactionSummary = async (params: {
   const { amount, unit } = getParsedAmount({
     coinId: coin.id,
     amount: totalToDeduct.toString(),
-    unitAbbr: account.unit,
+    unitAbbr:
+      account.unit ?? getZeroUnit(account.parentAssetId, account.assetId).abbr,
   });
   console.log(`Total to deduct: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
 };

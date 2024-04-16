@@ -1,5 +1,7 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
+  BlockchainIcon,
   Button,
   Container,
   DialogBox,
@@ -11,17 +13,16 @@ import {
   ScrollableContainer,
   Typography,
   useTheme,
-  BlockchainIcon,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { AddressAndAmountSection, FeeSection } from './Components';
-
+import logger from '~/utils/logger';
 import { useSendDialog } from '../context';
+import { AddressAndAmountSection, FeeSection } from './Components';
 
 export const Recipient: React.FC = () => {
   const {
@@ -43,7 +44,9 @@ export const Recipient: React.FC = () => {
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       amount: account.balance,
     });
     return `${_amount} ${unit.abbr}`;
@@ -54,6 +57,8 @@ export const Recipient: React.FC = () => {
     handleButtonState(
       !!transaction &&
         transaction.validation.hasEnoughBalance &&
+        !(transaction.validation as IPreparedBtcTransaction['validation'])
+          .isNotOverDustThreshold &&
         transaction.validation.outputs.length > 0 &&
         transaction.validation.outputs.every(output => output) &&
         transaction.userInputs.outputs.every(
@@ -67,6 +72,14 @@ export const Recipient: React.FC = () => {
   useEffect(() => {
     initialize();
   }, []);
+
+  const handleSubmit = useCallback(() => {
+    logger.info('Form Submit: Recipient', {
+      source: `Send/${Recipient.name}`,
+      transaction: structuredClone(transaction),
+    });
+    onNext();
+  }, [onNext, transaction]);
 
   if (transaction === undefined) return <LoaderDialog />;
 
@@ -113,13 +126,7 @@ export const Recipient: React.FC = () => {
             <LangDisplay text={button.back} />
           </Button>
         )}
-        <Button
-          variant="primary"
-          disabled={!btnState}
-          onClick={() => {
-            onNext();
-          }}
-        >
+        <Button variant="primary" disabled={!btnState} onClick={handleSubmit}>
           <LangDisplay text={button.continue} />
         </Button>
       </DialogBoxFooter>

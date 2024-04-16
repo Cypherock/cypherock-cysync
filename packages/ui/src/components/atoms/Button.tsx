@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 
 import { Throbber } from './Throbber';
@@ -192,9 +192,11 @@ export const Button: FC<ButtonProps> = ({
   isLoading,
   children,
   iconComponent: IconComponent,
+  autoFocus,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
 
   let Icon = isLoading ? (
     <Throbber size={throbberSizeMap[props.size ?? 'md']} strokeWidth={2} />
@@ -210,8 +212,17 @@ export const Button: FC<ButtonProps> = ({
     );
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (autoFocus) {
+        ref.current?.focus();
+      }
+    });
+  }, [autoFocus]);
+
   return (
     <ButtonStyle
+      ref={ref}
       type="button"
       disabled={isLoading}
       {...props}

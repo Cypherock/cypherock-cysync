@@ -19,6 +19,7 @@ import {
 } from '~/store';
 import { validatePassword } from '~/utils';
 
+import logger from '~/utils/logger';
 import { AddPassword, SetPasswordSuccess } from '../Dialogs';
 
 export interface SetPasswordDialogContextInterface {
@@ -55,7 +56,8 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { setPassword: setCySyncPassword } = useLockscreen();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
 
   const [error, setError] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState<string>('');
@@ -113,9 +115,14 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
 
   const handleSetPassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(newPassword);
+    const isPasswordCorrect = await setCySyncPassword(newPassword);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Set Password', {
+      source: SetPasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.dialogs.password.error.failedToSet);
       setIsLoading(false);
       return;
@@ -137,16 +144,19 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
     setConfirmNewPassword(val);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.password.createNewPassword.title,
-      dialogs: [<AddPassword key="remove-password-confirm" />],
-    },
-    {
-      name: lang.strings.dialogs.password.success.set,
-      dialogs: [<SetPasswordSuccess key="remove-password-success" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.password.createNewPassword.title,
+        dialogs: [<AddPassword key="remove-password-confirm" />],
+      },
+      {
+        name: lang.strings.dialogs.password.success.set,
+        dialogs: [<SetPasswordSuccess key="remove-password-success" />],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,
@@ -158,6 +168,7 @@ export const SetPasswordDialogProvider: FC<SetPasswordDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'setPassword',
   });
 
   const ctx = useMemo(

@@ -217,7 +217,7 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
               text={
                 deviceUnavailable
                   ? lang.strings.onboarding.deviceDetection.unavailable.subtext
-                  : lang.strings.onboarding.deviceDetection.subtext
+                  : ''
               }
             />
           </Typography>

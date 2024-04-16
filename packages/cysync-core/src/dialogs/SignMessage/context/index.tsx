@@ -74,13 +74,17 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     activeWallet,
   } = useWalletConnect();
 
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    1: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+      }),
+      [],
+    );
   const flowSubscription = useRef<Subscription | undefined>();
 
   const payload: ISignMessageParamsPayload | undefined = useMemo(() => {
@@ -113,16 +117,19 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     dispatch(closeDialog('signMessage'));
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.signMessage.title,
-      dialogs: [<ViewMessageDialog key="view-message" />],
-    },
-    {
-      name: lang.strings.signMessage.title,
-      dialogs: [<ViewSigningStateDialog key="signing" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.signMessage.title,
+        dialogs: [<ViewMessageDialog key="view-message" />],
+      },
+      {
+        name: lang.strings.signMessage.title,
+        dialogs: [<ViewSigningStateDialog key="signing" />],
+      },
+    ],
+    [lang],
+  );
 
   const getFlowObserver = (onEnd: () => void): Observer<ISignMessageEvent> => ({
     next: payloadParam => {
@@ -165,9 +172,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = connection
-      ? await connectDevice(connection.device)
-      : undefined;
+    const deviceConnection = connection?.connection;
 
     if (!deviceConnection) return;
 
@@ -191,6 +196,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'signMessage',
   });
 
   const ctx = useMemo(

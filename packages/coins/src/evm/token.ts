@@ -2,6 +2,8 @@ import erc20List from './erc20.json';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
 
+export { default as erc20JsonList } from './erc20.json';
+
 export interface IEvmErc20Token extends ICoinInfo {
   parentId: string;
   address: string;
@@ -30,6 +32,16 @@ const units: ICoinUnit[] = [
   },
 ];
 
+export const createErc20AssetId = (params: {
+  parentAssetId: string;
+  assetId: string;
+  version?: string;
+}) => {
+  const { assetId, parentAssetId, version } = params;
+
+  return `${parentAssetId}:${assetId}${version ? `|${version}` : ''}`;
+};
+
 export const getErc20Tokens = (
   parentId: string,
   parentCoinInfo: { color: string },
@@ -47,7 +59,15 @@ export const getErc20Tokens = (
         throw new Error('Missing token data');
       }
 
-      const id = `${parentId}:${token.id}`;
+      /** token.version enables support for multiple versions of migrated contracts
+       * Example, TRX on BSC was migrated. With version, we can support both the contracts
+       * simulatneously. The price fetching is still dependent on token.id.
+       */
+      const id = createErc20AssetId({
+        parentAssetId: parentId,
+        assetId: token.id,
+        version: token.version,
+      });
       const tokenObj: IEvmErc20Token = {
         id,
         parentId,
@@ -59,6 +79,7 @@ export const getErc20Tokens = (
         feesUnit: 'Gwei',
         family: coinFamiliesMap.evm,
         isTest: false,
+        isZeroPriceCoin: Boolean(token.is_zero_value_coin),
         units: [
           {
             name: token.name,

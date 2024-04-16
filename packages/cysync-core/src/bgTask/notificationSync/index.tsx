@@ -4,9 +4,9 @@ import React, { useCallback, useEffect } from 'react';
 
 import { syncTransactionNotifications } from '~/actions';
 import {
-  selectAccounts,
   selectDiscreetMode,
   selectTransactions,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -14,7 +14,12 @@ import {
 import { getDB } from '~/utils';
 
 const selector = createSelector(
-  [selectWallets, selectAccounts, selectTransactions, selectDiscreetMode],
+  [
+    selectWallets,
+    selectUnHiddenAccounts,
+    selectTransactions,
+    selectDiscreetMode,
+  ],
   (
     { wallets },
     { accounts },

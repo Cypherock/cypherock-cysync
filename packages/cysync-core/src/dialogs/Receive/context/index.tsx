@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
@@ -59,12 +59,14 @@ export interface ReceiveDialogContextInterface {
   isAddressVerified: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
-  walletDropdownList: DropDownListItemProps[];
-  handleWalletChange: () => void;
-  accountDropdownList: DropDownListItemProps[];
-  handleAccountChange: () => void;
+  walletDropdownList: DropDownItemProps[];
+  handleWalletChange: (id?: string | undefined) => void;
+  accountDropdownList: DropDownItemProps[];
+  handleAccountChange: (id?: string | undefined) => void;
   isStartedWithoutDevice: boolean;
   isFlowCompleted: boolean;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -86,7 +88,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const [error, setError] = useState<any | undefined>();
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const {
     selectedWallet,
@@ -117,35 +119,42 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     useState<boolean>(false);
 
   const flowSubscription = useRef<Subscription | undefined>();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    1: [0],
-    2: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+        2: [0],
+      }),
+      [],
+    );
 
   const onRetry = () => {
     resetStates();
     goTo(1, 0);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.receive.aside.tabs.source,
-      dialogs: [<SelectionDialog />],
-    },
-    {
-      name: lang.strings.receive.aside.tabs.device,
-      dialogs: [<DeviceAction />],
-    },
-    {
-      name: lang.strings.receive.aside.tabs.receive,
-      dialogs: [<VerifyAddress />],
-    },
-    {
-      name: '',
-      dialogs: [<FinalMessage />],
-      dontShowOnMilestone: true,
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.receive.aside.tabs.source,
+        dialogs: [<SelectionDialog />],
+      },
+      {
+        name: lang.strings.receive.aside.tabs.device,
+        dialogs: [<DeviceAction />],
+      },
+      {
+        name: lang.strings.receive.aside.tabs.receive,
+        dialogs: [<VerifyAddress />],
+      },
+      {
+        name: '',
+        dialogs: [<FinalMessage />],
+        dontShowOnMilestone: true,
+      },
+    ],
+    [lang],
+  );
 
   const onClose = () => {
     cleanUp();
@@ -224,9 +233,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = connection
-      ? await connectDevice(connection.device)
-      : undefined;
+    const deviceConnection = connection?.connection;
 
     if (!deviceConnection) setIsStartedWithoutDevice(true);
 
@@ -257,10 +264,13 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'receive',
   });
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -288,6 +298,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isFlowCompleted,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,

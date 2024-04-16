@@ -1,17 +1,17 @@
-import { getParsedAmount, getDefaultUnit } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  parseLangTemplate,
   Button,
+  Check,
   Container,
   Flex,
+  FloatContainer,
   LangDisplay,
   NotificationContainer,
   NotificationGroupHeader,
   NotificationItem,
   Typography,
+  parseLangTemplate,
   useTheme,
-  Check,
-  FloatContainer,
 } from '@cypherock/cysync-ui';
 import {
   IAccount,
@@ -30,15 +30,16 @@ import {
   openHistoryDialog,
 } from '~/actions';
 import { useNavigateTo } from '~/hooks';
-import { transactionIconMap, getDisplayTransactionType } from '~/utils';
+import { getDisplayTransactionType, transactionIconMap } from '~/utils';
+import logger from '~/utils/logger';
 
 import {
   CoinIcon,
   ILangState,
   routes,
-  selectAccounts,
   selectLanguage,
   selectNotifications,
+  selectUnHiddenAccounts,
   selectWallets,
   toggleNotification,
   useAppDispatch,
@@ -50,7 +51,7 @@ export interface NotificationProps {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectNotifications, selectWallets, selectAccounts],
+  [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
   (lang, notifications, { wallets }, { accounts }) => ({
     lang,
     wallets,
@@ -128,6 +129,9 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   };
 
   const onShowMoreClick = () => {
+    logger.info('Button Click: Show More Notification', {
+      source: NotificationDisplay.name,
+    });
     onClose();
     navigate(routes.history.path);
   };

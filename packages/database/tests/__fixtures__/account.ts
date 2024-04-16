@@ -179,6 +179,7 @@ class AccountData implements ITestClass<IAccount> {
       extraData: { test: 'test' },
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      isHidden: false,
     },
     {
       name: 'Big name 78b25d27-bb93-4df5-8cdc-e17af3bff890',
@@ -194,6 +195,7 @@ class AccountData implements ITestClass<IAccount> {
       extraData: { array: [1, 2, 3, 4], random: null },
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      isHidden: false,
     },
     {
       name: 'Ethereum 1',
@@ -209,6 +211,7 @@ class AccountData implements ITestClass<IAccount> {
       extraData: { array: [1, 2, 3, 4] },
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      isHidden: false,
     },
     {
       name: 'Bitcoin 3',
@@ -224,6 +227,7 @@ class AccountData implements ITestClass<IAccount> {
       extraData: { random: 'test', something: true },
       parentAccountId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
       parentAssetId: '8e051490-ba72-49e7-a77f-4f601f7165f7',
+      isHidden: false,
     },
   ];
 

@@ -54,6 +54,8 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
       onSecondaryClick={suppressActions ? undefined : onSecondaryClick}
       title={`${errorToShow.heading} (${errorToShow.code})`}
       subtext={errorToShow.subtext}
+      deviceNavigationText={errorToShow.deviceNavigationText}
+      advanceText={errorToShow.advanceText}
       textVariables={{
         walletName: selectedWallet?.name,
         ...(textVariables ?? {}),

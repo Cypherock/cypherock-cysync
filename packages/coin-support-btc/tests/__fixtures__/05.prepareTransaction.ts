@@ -43,6 +43,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [],
         isValidFee: true,
+        isNotOverDustThreshold: false,
       },
     },
     mocks: {
@@ -106,6 +107,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [false],
         isValidFee: true,
+        isNotOverDustThreshold: false,
       },
     },
   },

@@ -46,14 +46,18 @@ export const AccountPage: FC = () => {
     selectedAccount,
     breadcrumbItems,
     onAccountChange,
-    handleWalletChange,
-    walletDropdownList,
   } = useAccountPage();
 
   const getMainContent = () => {
     if (!selectedAccount) {
       return null;
     }
+
+    const doAllowAccountDeletion = () => {
+      if (window.cysyncFeatureFlags.ADD_TOKEN) return true;
+
+      return !selectedAccount.parentAccount;
+    };
 
     return (
       <Container $noFlex m="20">
@@ -110,7 +114,7 @@ export const AccountPage: FC = () => {
                 </Button>
               )}
 
-              {!selectedAccount.parentAccount && (
+              {doAllowAccountDeletion() && (
                 <Button
                   variant="icon"
                   onClick={() => {
@@ -133,8 +137,6 @@ export const AccountPage: FC = () => {
         <Container $noFlex mb={2}>
           <Graph
             selectedWallet={selectedWallet}
-            handleWalletChange={handleWalletChange}
-            walletDropdownList={walletDropdownList}
             accountId={accountId}
             color={
               selectedAccount.asset?.color ?? coinList[BtcIdMap.bitcoin].color
@@ -175,7 +177,7 @@ export const AccountPage: FC = () => {
             subIconSize={{ def: '12px', lg: '18px' }}
           />
         ) : undefined,
-        subTitle: lodash.upperCase(selectedAccount?.asset?.name ?? ''),
+        subTitle: (selectedAccount?.asset?.name ?? '').toUpperCase(),
         tag: lodash.upperCase(selectedAccount?.derivationScheme ?? ''),
       }}
     >

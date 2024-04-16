@@ -4,6 +4,7 @@ import 'immer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '~/store';
+import logger from '~/utils/logger';
 
 import { DialogName, IDialogState } from './types';
 
@@ -35,6 +36,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   addAccount: {
+    isOpen: false,
+  },
+  addToken: {
     isOpen: false,
   },
   sendDialog: {
@@ -76,6 +80,9 @@ const initialState: IDialogState = {
   deleteAccount: {
     isOpen: false,
   },
+  betaNotificationDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
@@ -86,15 +93,20 @@ export const dialogSlice = createSlice({
       state,
       payload: PayloadAction<{ name: DialogName; data: any }>,
     ) => {
+      logger.info('Dialog: Open', { dialogName: payload.payload.name });
       state[payload.payload.name].isOpen = true;
       (state[payload.payload.name] as any).data = payload.payload.data;
     },
     closeDialog: (state, payload: PayloadAction<DialogName>) => {
+      logger.info('Dialog: Close', { dialogName: payload.payload });
       state[payload.payload].isOpen = false;
       state[payload.payload].data = undefined;
     },
     closeAllDialogs: state => {
+      logger.info('Dialog: Close All');
       Object.keys(state).forEach(key => {
+        if (state[key as DialogName].isOpen)
+          logger.verbose('Dialog: Close', { dialogName: key });
         state[key as DialogName].isOpen = false;
         state[key as DialogName].data = undefined;
       });

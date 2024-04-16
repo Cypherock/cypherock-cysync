@@ -17,11 +17,12 @@ import {
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import {
   ChainSpecificAccountSelection,
@@ -59,6 +60,32 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
     );
   };
 
+  const { accounts: allAccounts } = useAppSelector(selectAccounts);
+
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: WalletConnectAccountSelectionDialog.name,
+        isWalletSelected: Boolean(args[0]),
+      });
+      return handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
+
+  const handleAccountChangeProxy: typeof handleAccountChange = useCallback(
+    (id: string | undefined, ...args) => {
+      const targetAccount = allAccounts.find(a => a.__id === id);
+      logger.info('Dropdown Change: Account Change', {
+        source: WalletConnectAccountSelectionDialog.name,
+        assetId: targetAccount?.assetId,
+        derivationPath: targetAccount?.derivationPath,
+      });
+      return handleAccountChange(id, ...args);
+    },
+    [allAccounts, handleAccountChange],
+  );
+
   useEffect(() => {
     if (version === 1) setIsButtonDisabled(selectedAccount === undefined);
   }, [selectedAccount]);
@@ -95,7 +122,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
               selectedItem={selectedWallet?.__id}
               searchText={accountSelectionTab.chooseWallet}
               placeholderText={accountSelectionTab.chooseWallet}
-              onChange={handleWalletChange}
+              onChange={handleWalletChangeProxy}
               leftImage={<WalletIcon ml={3} />}
             />
             {version === 2 && (
@@ -136,7 +163,7 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
                     assetName: supportedWalletConnectFamilies[0].toUpperCase(),
                   },
                 )}*`}
-                onChange={handleAccountChange}
+                onChange={handleAccountChangeProxy}
               />
             )}
             {unsupportedOptionalChainsMessage && (

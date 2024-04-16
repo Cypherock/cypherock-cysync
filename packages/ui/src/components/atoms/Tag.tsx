@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 import { UtilsProps, utils } from '../utils';
 
+export type TagType = 'tag' | 'info' | 'gold';
+
 interface TagProps extends UtilsProps {
   children: React.ReactNode;
-  type?: 'tag' | 'info';
+  type?: TagType;
 }
 
 const StyledTag = styled.div<TagProps>`
@@ -39,11 +41,33 @@ const StyledTag = styled.div<TagProps>`
     color: ${theme.palette.text.muted};
     border: 1px solid ${theme.palette.border.popup};
   `}
+
+  ${({ type, theme }) =>
+    type === 'gold' &&
+    `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 21px;
+    padding: 0 4.5px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 7px;
+    background: ${theme.palette.background.separator};
+    border: 0.5px solid ${theme.palette.border.muted};
+    span {
+      background: ${theme.palette.text.gold};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  `}
   ${utils}
 `;
 
 export const Tag: FC<TagProps> = ({ children, ...props }) => (
-  <StyledTag {...props}>{children}</StyledTag>
+  <StyledTag {...props}>
+    <span>{children}</span>
+  </StyledTag>
 );
 
 Tag.defaultProps = {

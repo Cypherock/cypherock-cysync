@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core-services",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -48,13 +48,14 @@
   },
   "dependencies": {
     "@cypherock/coin-support": "workspace:^",
+    "@cypherock/coin-support-evm": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.26",
+    "@cypherock/sdk-app-manager": "^0.0.30",
     "@cypherock/sdk-interfaces": "^0.0.14",
     "@cypherock/sdk-utils": "^0.0.17",
     "lodash": "^4.17.21",

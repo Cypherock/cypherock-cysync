@@ -3,6 +3,9 @@ const fs = require('fs');
 const semver = require('semver');
 
 const { getReleaseParams, config, execCommand } = require('./helpers');
+const channelMigrations = require('../apps/desktop/src/migrations/channel.json');
+
+const betaChannels = ['beta', 'betatest', 'pre'];
 
 const CHANNEL_CONFIG = {
   default: {
@@ -12,13 +15,19 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
   },
-  beta: {
-    BUILD_TYPE: 'production',
-    LOG_LEVEL: 'debug',
-    API_CYPHEROCK: 'https://api.cypherock.com',
-    ALLOW_PRERELEASE: true,
-    SIMULATE_PRODUCTION: false,
-  },
+  ...betaChannels.reduce(
+    (a, c) => ({
+      ...a,
+      [c]: {
+        BUILD_TYPE: 'production',
+        LOG_LEVEL: 'debug',
+        API_CYPHEROCK: 'https://api.cypherock.com',
+        ALLOW_PRERELEASE: true,
+        SIMULATE_PRODUCTION: false,
+      },
+    }),
+    {},
+  ),
   [config.RELEASE_CHANNEL]: {
     BUILD_TYPE: 'production',
     LOG_LEVEL: 'info',
@@ -26,6 +35,15 @@ const CHANNEL_CONFIG = {
     ALLOW_PRERELEASE: false,
     SIMULATE_PRODUCTION: false,
   },
+};
+
+const getUpdateChannel = () => {
+  const channelMigrationItem = channelMigrations.find(
+    c => c.from === config.CHANNEL,
+  );
+  if (!channelMigrationItem) return config.CHANNEL;
+
+  return channelMigrationItem.to;
 };
 
 const setDesktopAppVersion = async params => {
@@ -46,7 +64,7 @@ const setDesktopAppVersion = async params => {
     let version = versionWithoutChannelPostfix;
 
     const existingTags = await execCommand(
-      `git tag -l "${tagNameWithoutChannelPostfix}*"`,
+      `git tag -l "${tagNameWithoutChannelPostfix}.*"`,
     );
     const channelVersions = existingTags
       .trim()
@@ -80,7 +98,7 @@ const setDesktopAppConfig = async params => {
   const configJson = {
     ...(CHANNEL_CONFIG[config.CHANNEL] ?? CHANNEL_CONFIG.default),
     BUILD_VERSION: commitHash.slice(0, 7),
-    CHANNEL: config.CHANNEL,
+    CHANNEL: getUpdateChannel(),
   };
 
   let configStr = '{\n';

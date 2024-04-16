@@ -2,7 +2,11 @@ import {
   IGetWalletsResultResponse,
   OnboardingStep,
 } from '@cypherock/sdk-app-manager';
-import { DeviceState, IDevice } from '@cypherock/sdk-interfaces';
+import {
+  DeviceState,
+  IDevice,
+  IDeviceConnection,
+} from '@cypherock/sdk-interfaces';
 
 export enum DeviceConnectionStatus {
   CONNECTED,
@@ -13,6 +17,7 @@ export enum DeviceConnectionStatus {
 
 export interface IDeviceConnectionInfo {
   device: IDevice;
+  connection?: IDeviceConnection;
   deviceState: DeviceState;
   firmwareVersion?: string;
   serial?: string;
@@ -28,6 +33,7 @@ export interface IDeviceConnectionInfo {
 export interface IDeviceConnectionRetry {
   device: IDevice;
   retries: number;
+  retryTimeout?: NodeJS.Timeout;
 }
 
 export interface IParseDeviceAction {

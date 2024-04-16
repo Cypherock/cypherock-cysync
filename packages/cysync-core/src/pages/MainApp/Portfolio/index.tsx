@@ -9,12 +9,13 @@ import React, { FC } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
-  useAppSelector,
   selectLanguage,
-  selectAccounts,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
+  useAppSelector,
 } from '~/store';
+import logger from '~/utils/logger';
 
 import PortfolioPageContent from './Content';
 import { NoWallet } from './NoWallet';
@@ -22,7 +23,7 @@ import { NoWallet } from './NoWallet';
 import { MainAppLayout } from '../Layout';
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectAccounts],
+  [selectLanguage, selectWallets, selectUnHiddenAccounts],
   (lang, { wallets }, { accounts }) => ({
     lang,
     wallets,
@@ -35,6 +36,9 @@ export const Portfolio: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleAddAccountClick = () => {
+    logger.info('Button Click: Add Account', {
+      source: `${Portfolio.name}/NoAccountWrapper`,
+    });
     dispatch(openAddAccountDialog());
   };
 

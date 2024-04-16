@@ -1,4 +1,4 @@
-import { DropDownListItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { GetLogsStatus, ManagerApp } from '@cypherock/sdk-app-manager';
 import { AxiosError } from 'axios';
 import React, {
@@ -54,7 +54,7 @@ export interface ContactSupportDialogContextInterface {
   isSubmitDisabled: boolean;
   email: string | null;
   setEmail: React.Dispatch<React.SetStateAction<string | null>>;
-  categories: DropDownListItemProps[];
+  categories: DropDownItemProps[];
   selectedCategory: string | undefined;
   handleCategorySelection: (id: string | undefined) => void;
   description: string | null;
@@ -86,10 +86,11 @@ export const ContactSupportDialogProvider: FC<
 > = ({ children, providedDescription, errorCategory }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
   const { connection: deviceConnection } = useDevice();
 
-  const categories: DropDownListItemProps[] = [
+  const categories: DropDownItemProps[] = [
     { text: 'Feedback', id: SupportCategoryMap.Feedback },
     { text: 'Complaint', id: SupportCategoryMap.Complaint },
     { text: 'Others', id: SupportCategoryMap.Others },
@@ -188,16 +189,19 @@ export const ContactSupportDialogProvider: FC<
     setSelectedCategory(id ?? SupportCategoryMap.Feedback);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.contactSupport.form.title,
-      dialogs: [<ContactForm key="contact-support-form" />],
-    },
-    {
-      name: lang.strings.dialogs.contactSupport.success.formSubmit,
-      dialogs: [<ContactSupportSuccess key="contact-support-success" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.contactSupport.form.title,
+        dialogs: [<ContactForm key="contact-support-form" />],
+      },
+      {
+        name: lang.strings.dialogs.contactSupport.success.formSubmit,
+        dialogs: [<ContactSupportSuccess key="contact-support-success" />],
+      },
+    ],
+    [lang],
+  );
 
   useEffect(() => {
     keyValueStore.email.get().then(setEmail);
@@ -326,6 +330,7 @@ export const ContactSupportDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
+    dialogName: 'contactSupportDialog',
   });
 
   const ctx = useMemo(

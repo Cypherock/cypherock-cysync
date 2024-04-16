@@ -22,14 +22,14 @@ import {
   useWalletDropdown,
 } from '~/hooks';
 import {
-  selectAccounts,
   selectLanguage,
+  selectUnHiddenAccounts,
   selectWallets,
   useAppSelector,
 } from '~/store';
 
 const selector = createSelector(
-  [selectAccounts, selectWallets, selectLanguage],
+  [selectUnHiddenAccounts, selectWallets, selectLanguage],
   ({ accounts }, { wallets }, lang) => ({ accounts, wallets, lang }),
 );
 
@@ -37,8 +37,7 @@ export const useAccountPage = () => {
   const query = useQuery();
   const navigateTo = useNavigateTo();
   const { accounts, wallets, lang } = useAppSelector(selector);
-  const { handleWalletChange, selectedWallet, walletDropdownList } =
-    useWalletDropdown({ withSelectAll: true });
+  const { selectedWallet } = useWalletDropdown({ withSelectAll: true });
 
   const accountId = useMemo(() => query.get('accountId') ?? undefined, [query]);
 
@@ -284,8 +283,6 @@ export const useAccountPage = () => {
     selectedAccount,
     onAccountChange,
     onAssetClick,
-    handleWalletChange,
     selectedWallet,
-    walletDropdownList,
   };
 };

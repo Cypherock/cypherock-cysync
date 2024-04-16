@@ -1,8 +1,4 @@
-import {
-  DropDownListItemProps,
-  WalletIcon,
-  useTheme,
-} from '@cypherock/cysync-ui';
+import { DropDownItemProps, WalletIcon, useTheme } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -27,13 +23,13 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
 
   const handleWalletChange = useCallback(
     (id?: string) => {
-      if (!id) setSelectedWallet(undefined);
-      setSelectedWallet(wallets.find(w => w.__id === id));
+      const targetWallet = id ? wallets.find(w => w.__id === id) : undefined;
+      setSelectedWallet(targetWallet);
     },
     [wallets],
   );
 
-  const walletDropdownList: DropDownListItemProps[] = useMemo(() => {
+  const walletDropdownList: DropDownItemProps[] = useMemo(() => {
     const $textMaxWidth = props?.dropdownWidth
       ? `${props.dropdownWidth - 100}px`
       : undefined;
@@ -47,7 +43,7 @@ export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
       $textMaxWidthWhenSelected,
     } as const;
 
-    const list: DropDownListItemProps[] = wallets.map(w => ({
+    const list: DropDownItemProps[] = wallets.map(w => ({
       ...defaultProps,
       id: w.__id ?? '',
       text: w.name,
