@@ -36,3 +36,4 @@ export const AllDirectionsCompleted: Story = {
     down: 'completed',
     left: 'completed',
   },
+};
