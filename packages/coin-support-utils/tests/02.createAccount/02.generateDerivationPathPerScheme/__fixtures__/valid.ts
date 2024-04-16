@@ -39,6 +39,17 @@ export const valid: DerivationPathPerSchemeGeneratorTestCases[] = [
     },
   },
   {
+    name: 'should ignore undefined derivation path scheme',
+    input: {
+      derivationPathSchemes: {
+        legacy: undefined,
+      },
+      limit: 4,
+      existingAccounts: [],
+    },
+    output: {},
+  },
+  {
     name: 'should generate derivation paths from index zero with multiple schemes',
     input: {
       derivationPathSchemes: {
@@ -97,6 +108,7 @@ export const valid: DerivationPathPerSchemeGeneratorTestCases[] = [
           threshold: 2,
           newAccountLimit: 0, // this is getting ignored
         },
+        somethingRandom: undefined,
       },
       limit: 4,
       existingAccounts: accounts,

@@ -43,11 +43,11 @@ export const generateDerivationPathsPerScheme = (
 
   const existingDerivationPaths = existingAccounts.map(e => e.derivationPath);
 
-  const derivationSchemeNames = Object.keys(derivationPathSchemes).filter(
-    n => !!derivationPathSchemes[n],
-  );
+  const derivationSchemes = Object.entries(derivationPathSchemes).filter(
+    ([, value]) => value !== undefined,
+  ) as [string, IDerivationScheme][];
   const pathLimitPerDerivationScheme = Math.floor(
-    limit / derivationSchemeNames.length,
+    limit / derivationSchemes.length,
   );
 
   const derivedPathsPerScheme: Record<
@@ -56,10 +56,7 @@ export const generateDerivationPathsPerScheme = (
   > = {};
   const derivedPaths: string[] = [];
 
-  for (const schemeName of derivationSchemeNames) {
-    const derivationPathSchemeDetails = derivationPathSchemes[schemeName];
-    if (!derivationPathSchemeDetails) continue;
-
+  for (const [schemeName, derivationPathSchemeDetails] of derivationSchemes) {
     const paths = derivationPathSchemeDetails.generator(
       // This is done because there can be overlapping derivation paths
       // between different schemes

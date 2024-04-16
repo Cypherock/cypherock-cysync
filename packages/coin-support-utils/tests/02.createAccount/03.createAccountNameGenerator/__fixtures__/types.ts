@@ -4,10 +4,10 @@ export interface AccountNameGeneratorTestCases {
   name: string;
   input: {
     coinName: string;
-    schemeName: string;
     existingAccounts: IAccount[];
+    schemeNames: string[];
   };
-  output: string;
+  output: string[];
 }
 
 export interface IFixtures {

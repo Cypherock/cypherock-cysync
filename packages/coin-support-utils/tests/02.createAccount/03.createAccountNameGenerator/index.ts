@@ -6,8 +6,10 @@ describe('createAccountNameGenerator', () => {
   fixtures.valid.forEach(({ name, input, output }) => {
     test(name, () => {
       const generator = createAccountNameGenerator(input.coinName);
-      const result = generator(input.schemeName, input.existingAccounts);
-      expect(result).toBe(output);
+      input.schemeNames.forEach((schemeName, i) => {
+        const result = generator(schemeName, input.existingAccounts);
+        expect(result).toBe(output[i]);
+      });
     });
   });
 });
