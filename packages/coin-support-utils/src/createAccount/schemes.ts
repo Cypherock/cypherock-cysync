@@ -46,6 +46,7 @@ export const generateDerivationPathsPerScheme = (
   const derivationSchemes = Object.entries(derivationPathSchemes).filter(
     ([, value]) => value !== undefined,
   ) as [string, IDerivationScheme][];
+
   const pathLimitPerDerivationScheme = Math.floor(
     limit / derivationSchemes.length,
   );
