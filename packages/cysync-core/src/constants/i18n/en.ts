@@ -1581,10 +1581,11 @@ const en = {
               subtitle: 'Do not lift until you hear a beep sound',
               messageBoxList: [
                 {
-                  info: 'Repeat the process for all the wallets you want to sync',
+                  warning:
+                    'Repeat the process for all the wallets you want to sync',
                 },
                 {
-                  info: 'Follow the instructions on X1 Vault to repeat',
+                  warning: 'Follow the instructions on X1 Vault to repeat',
                 },
               ],
             },
@@ -1594,7 +1595,7 @@ const en = {
                 'In case there are some wallets that you did not sync, you can always go to that wallet from main menu on the device to resync with the cards',
             },
             {
-              title: 'From the Main Menu of your X1 Vault, select a wallet',
+              title: 'From the Main Menu of your X1 Vault, Select a wallet',
             },
             {
               title: 'Click "View Seed" on your X1 Vault',
@@ -1644,13 +1645,14 @@ const en = {
               subtitle: 'Do not lift until you hear a beep sound',
               messageBoxList: [
                 {
-                  info: 'Make sure your cards belong to the same family',
+                  warning: 'Make sure your cards belong to the same family',
                 },
                 {
-                  info: 'Make sure you tap the cards in correct order',
+                  warning: 'Make sure you tap the cards in correct order',
                 },
                 {
-                  info: 'Make sure to pair all of the 4 new cards with the device',
+                  warning:
+                    'Make sure to pair all of the 4 new cards with the device',
                 },
               ],
             },
@@ -1812,7 +1814,7 @@ const en = {
           asideTitle: 'X1 Vault',
           pages: [
             {
-              title: 'From the Main Menu of your X1 Vault, select a wallet',
+              title: 'From the Main Menu of your X1 Vault, Select a wallet',
             },
             {
               title: 'Click "View Seed" on your X1 Vault',
@@ -1822,7 +1824,7 @@ const en = {
             },
             {
               title: 'Tap any old X1 Cards below the X1 Vault',
-              bulletList: ['Do not lift until you hear a beep sound'],
+              subtitle: 'Do not lift until you hear a beep sound',
             },
             {
               title: 'The wallet seed phrase should now be visible',
@@ -1836,17 +1838,17 @@ const en = {
               ],
             },
             {
-              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
             },
             {
-              title: 'Click "Clear device data" on your X1 Vault',
+              title: 'Click "Clear Device Data" on your X1 Vault',
             },
             {
               title: 'Confirm clearing device data on the X1 Vault',
             },
             {
-              title: 'Tap any tw old X1 Cards below the X1 Vault',
-              bulletList: ['Do not lift until you hear a beep sound'],
+              title: 'Tap any two old X1 Cards below the X1 Vault',
+              subtitle: 'Do not lift until you hear a beep sound',
             },
             {
               title: 'Device data cleared',
@@ -1862,18 +1864,19 @@ const en = {
               subtitle: 'Do not lift until you hear a beep sound',
               messageBoxList: [
                 {
-                  info: 'Make sure your cards belong to the same family',
+                  warning: 'Make sure your cards belong to the same family',
                 },
                 {
-                  info: 'Make sure you tap the cards in correct order',
+                  warning: 'Make sure you tap the cards in correct order',
                 },
                 {
-                  info: 'Make sure to pair all of the 4 new cards with the device',
+                  warning:
+                    'Make sure to pair all of the 4 new cards with the device',
                 },
               ],
             },
             {
-              title: 'X1 cards paired sccuessfully',
+              title: 'X1 Cards paired sccuessfully',
               subtitle:
                 'Your new cards are successfully paired with the device',
               messageBoxList: [

@@ -115,7 +115,11 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
-  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
+  const getInitialDialogValue = () =>
+    window.location.hash === '#/settings' ? 1 : 0;
+  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(
+    getInitialDialogValue(),
+  );
   const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
   const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
   const [blastConfetti, setBlastConfetti] = useState(false);
@@ -163,6 +167,14 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   };
 
   const onPrevious = () => {
+    if (
+      window.location.hash === '#/settings' &&
+      currentTab === 1 &&
+      dialogRef.current === 0 &&
+      tabRef.current === 1
+    ) {
+      return;
+    }
     checkConfettiBlastDone();
     if (dialogRef.current - 1 < 0) {
       if (tabRef.current === 0) {
