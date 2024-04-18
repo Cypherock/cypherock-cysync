@@ -25,10 +25,10 @@ const DowngradeImage = styled.img.attrs({
 })``;
 
 export interface ChangePlanProps {
-  isDowngrade: boolean;
+  downgrade: boolean;
 }
 
-export const ChangePlan: FC<ChangePlanProps> = ({ isDowngrade }) => {
+export const ChangePlan: FC<ChangePlanProps> = ({ downgrade }) => {
   const [isHover, setIsHover] = useState(false);
   // const [isselected, setisSelected] = useState(false);
   const downgradeHover = 'Some features will not work anymore';
@@ -98,7 +98,7 @@ export const ChangePlan: FC<ChangePlanProps> = ({ isDowngrade }) => {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   `;
-  return isDowngrade ? (
+  return downgrade ? (
     <DowngradeContainer
       onMouseEnter={() => setIsHover(true)}
       onClick={() => setIsHover(true)}
