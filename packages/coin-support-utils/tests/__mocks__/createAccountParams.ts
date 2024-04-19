@@ -1,12 +1,12 @@
+import { IDatabase } from '@cypherock/db-interfaces';
+import { getAddressesFromDeviceMock } from '.';
 import {
   IMakeCreateAccountsObservableParams,
   createDerivationPathGenerator,
 } from '../../src/createAccount';
 import { TestApp } from './app';
-import { getAddressesFromDeviceMock } from '.';
 import { createAppMock } from './createApp';
 import { getBalanceAndTxnCountMock } from './getBalanceAndTxnCount';
-import { IDatabase } from '@cypherock/db-interfaces';
 
 export const createAccountParams = (
   db: IDatabase,
@@ -18,16 +18,17 @@ export const createAccountParams = (
       name: 'legacy',
       generator: createDerivationPathGenerator("m/44'/0'/0'/0/i"),
       threshold: 2,
-      newAccountLimit: 0,
+      newAccountLimit: 2,
     },
+    nativeSegwit: undefined,
     segwit: {
       name: 'segwit',
       generator: createDerivationPathGenerator(`m/49'/0'/0'/0/i`),
       threshold: 2,
-      newAccountLimit: 0,
+      newAccountLimit: 2,
     },
   },
-  derivationPathLimit: 4,
+  derivationPathLimit: 2,
   getBalanceAndTxnCount: getBalanceAndTxnCountMock,
   getAddressesFromDevice: getAddressesFromDeviceMock,
   createAccountFromAddress: jest.fn().mockResolvedValue({}),

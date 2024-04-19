@@ -1,13 +1,21 @@
 import { ICreateAccountEvent } from '@cypherock/coin-support-interfaces';
 import { describe, test } from '@jest/globals';
-import { Observer } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
 import { makeCreateAccountsObservable } from '../../../src';
-import { createAccountParams, db } from '../../__mocks__';
-import { fixtures } from './__fixtures__';
+import {
+  createAccountParams,
+  createAppMock,
+  db,
+  testApp,
+} from '../../__mocks__';
 
 describe('makeCreateAccountsObservable', () => {
   beforeAll(() => {
     jest.useFakeTimers();
+  });
+
+  beforeEach(() => {
+    jest.restoreAllMocks();
   });
 
   afterEach(() => {
@@ -19,60 +27,117 @@ describe('makeCreateAccountsObservable', () => {
     jest.useRealTimers();
   });
 
-  fixtures.valid.forEach(({ name }) => {
-    test(name, done => {
-      // mocks
-      db.account.getAll.mockResolvedValue([]);
+  test('should create new accounts', done => {
+    db.account.getAll.mockResolvedValue([]);
 
-      const waitInMSBetweenEachAccountAPI: number | undefined = 250;
+    const waitInMSBetweenEachAccountAPI: number | undefined = 250;
 
-      const params = createAccountParams(db, waitInMSBetweenEachAccountAPI);
-      const createAccountsObservable = makeCreateAccountsObservable(params);
+    const params = createAccountParams(db, waitInMSBetweenEachAccountAPI);
+    const createAccountsObservable = makeCreateAccountsObservable(params);
 
-      const derivationSchemeCount = Object.values(
-        params.derivationPathSchemes,
-      ).filter(Boolean).length;
+    const derivationSchemeCount = Object.values(
+      params.derivationPathSchemes,
+    ).filter(Boolean).length;
 
-      const totalThreshold = Object.values(params.derivationPathSchemes).reduce(
-        (acc, scheme) => acc + (scheme?.threshold ?? 0),
-        0,
-      );
+    const totalNewAccountLimit = Object.values(
+      params.derivationPathSchemes,
+    ).reduce((acc, scheme) => acc + (scheme?.newAccountLimit ?? 0), 0);
 
-      const newAccountsCount = Math.min(
-        totalThreshold,
-        Math.floor(params.derivationPathLimit / derivationSchemeCount) *
-          derivationSchemeCount,
-      );
+    const newAccountsCount = Math.min(
+      totalNewAccountLimit,
+      Math.floor(params.derivationPathLimit / derivationSchemeCount) *
+        derivationSchemeCount,
+    );
 
-      // expect.assertions(newAccountsCount + 6)
+    expect.assertions(newAccountsCount + 5);
 
-      const observer: Observer<ICreateAccountEvent> = {
-        next: value => {
-          console.log(value);
-          if (value.type === 'Account') {
-            expect(value.account).toBeDefined();
-          }
-        },
-        complete: () => {
-          expect(db.account.getAll).toHaveBeenCalledTimes(1);
-          expect(params.createApp).toHaveBeenCalledTimes(1);
-          expect(params.getAddressesFromDevice).toHaveBeenCalledTimes(1);
-          expect(params.getBalanceAndTxnCount).toHaveBeenCalledTimes(
-            newAccountsCount,
-          );
-          expect(params.createAccountFromAddress).toHaveBeenCalledTimes(
-            newAccountsCount,
-          );
-          done();
-        },
-        error: done,
-      };
+    const observer: Observer<ICreateAccountEvent> = {
+      next: value => {
+        if (value.type === 'Account') {
+          expect(value.account).toBeDefined();
+        }
+      },
+      complete: () => {
+        expect(db.account.getAll).toHaveBeenCalledTimes(1);
+        expect(params.createApp).toHaveBeenCalledTimes(1);
+        expect(params.getAddressesFromDevice).toHaveBeenCalledTimes(1);
+        expect(params.getBalanceAndTxnCount).toHaveBeenCalledTimes(
+          newAccountsCount,
+        );
+        expect(params.createAccountFromAddress).toHaveBeenCalledTimes(
+          newAccountsCount,
+        );
+        done();
+      },
+      error: done,
+    };
 
-      createAccountsObservable.subscribe(observer);
+    createAccountsObservable.subscribe(observer);
 
-      for (let i = 0; i < newAccountsCount; i += 1) {
-        jest.advanceTimersByTimeAsync(waitInMSBetweenEachAccountAPI ?? 500);
-      }
+    for (let i = 0; i < newAccountsCount; i += 1) {
+      jest.advanceTimersByTimeAsync(waitInMSBetweenEachAccountAPI ?? 500);
+    }
+  });
+
+  test('should unsubscribe', done => {
+    let subscription: Subscription | undefined;
+    db.account.getAll.mockResolvedValue([]);
+
+    const waitInMSBetweenEachAccountAPI: number | undefined = 250;
+
+    const params = createAccountParams(db, waitInMSBetweenEachAccountAPI);
+
+    createAppMock.mockImplementation(async () => {
+      subscription?.unsubscribe();
+      return testApp;
     });
+
+    const createAccountsObservable = makeCreateAccountsObservable(params);
+
+    const derivationSchemeCount = Object.values(
+      params.derivationPathSchemes,
+    ).filter(Boolean).length;
+
+    const totalNewAccountLimit = Object.values(
+      params.derivationPathSchemes,
+    ).reduce((acc, scheme) => acc + (scheme?.newAccountLimit ?? 0), 0);
+
+    const newAccountsCount = Math.min(
+      totalNewAccountLimit,
+      Math.floor(params.derivationPathLimit / derivationSchemeCount) *
+        derivationSchemeCount,
+    );
+
+    expect.assertions(5);
+
+    const observer: Observer<ICreateAccountEvent> = {
+      next: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+      complete: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+      error: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+    };
+
+    subscription = createAccountsObservable.subscribe(observer);
+
+    setTimeout(() => {
+      expect(db.account.getAll).toHaveBeenCalledTimes(1);
+      expect(params.createApp).toHaveBeenCalledTimes(1);
+      expect(params.getAddressesFromDevice).toHaveBeenCalledTimes(0);
+      expect(params.getBalanceAndTxnCount).toHaveBeenCalledTimes(0);
+      expect(params.createAccountFromAddress).toHaveBeenCalledTimes(0);
+      done();
+    }, 0);
+
+    for (let i = 0; i < newAccountsCount; i += 1) {
+      jest.advanceTimersByTimeAsync(waitInMSBetweenEachAccountAPI ?? 500);
+    }
   });
 });
