@@ -15,7 +15,7 @@ env:
 
 jobs:
   integrity-check:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -86,7 +86,7 @@ jobs:
           git push origin ${{ inputs.ref }}
 
   build-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: [integrity-check]
 
     strategy:
@@ -293,7 +293,7 @@ jobs:
           retention-days: 1
 
   publish-build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: [build-win, build-linux, build-macos]
 
     strategy:
