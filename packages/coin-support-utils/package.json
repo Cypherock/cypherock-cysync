@@ -15,7 +15,8 @@
     "build:cjs": "tsc -p tsconfig_cjs.json",
     "build:esm": "tsc -p tsconfig.json",
     "build:dirty": "pnpm build:esm",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "test": "jest"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",
