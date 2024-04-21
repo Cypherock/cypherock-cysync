@@ -1,4 +1,4 @@
-# Cypherock cySync
+# Cypherock cySync 2.0
 
 ## Table of contents
 
