@@ -6,9 +6,14 @@ import {
   createAccountParams,
   createAppMock,
   db,
+  getAddressesFromDeviceImplementation,
+  getAddressesFromDeviceMock,
   testApp,
 } from '../../__mocks__';
 
+/**
+ * @todo Increase branch coverage
+ */
 describe('makeCreateAccountsObservable', () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -79,7 +84,7 @@ describe('makeCreateAccountsObservable', () => {
     }
   });
 
-  test('should unsubscribe', done => {
+  test('should unsubscribe after creating app', done => {
     let subscription: Subscription | undefined;
     db.account.getAll.mockResolvedValue([]);
 
@@ -131,6 +136,68 @@ describe('makeCreateAccountsObservable', () => {
       expect(db.account.getAll).toHaveBeenCalledTimes(1);
       expect(params.createApp).toHaveBeenCalledTimes(1);
       expect(params.getAddressesFromDevice).toHaveBeenCalledTimes(0);
+      expect(params.getBalanceAndTxnCount).toHaveBeenCalledTimes(0);
+      expect(params.createAccountFromAddress).toHaveBeenCalledTimes(0);
+      done();
+    }, 0);
+
+    for (let i = 0; i < newAccountsCount; i += 1) {
+      jest.advanceTimersByTimeAsync(waitInMSBetweenEachAccountAPI ?? 500);
+    }
+  });
+
+  test('should unsubscribe after generating address from device', done => {
+    let subscription: Subscription | undefined;
+    db.account.getAll.mockResolvedValue([]);
+
+    const waitInMSBetweenEachAccountAPI: number | undefined = 250;
+
+    const params = createAccountParams(db, waitInMSBetweenEachAccountAPI);
+
+    getAddressesFromDeviceMock.mockImplementation(async (...args) => {
+      subscription?.unsubscribe();
+      return getAddressesFromDeviceImplementation(...args);
+    });
+
+    const createAccountsObservable = makeCreateAccountsObservable(params);
+
+    const derivationSchemeCount = Object.values(
+      params.derivationPathSchemes,
+    ).filter(Boolean).length;
+
+    const totalNewAccountLimit = Object.values(
+      params.derivationPathSchemes,
+    ).reduce((acc, scheme) => acc + (scheme?.newAccountLimit ?? 0), 0);
+
+    const newAccountsCount = Math.min(
+      totalNewAccountLimit,
+      Math.floor(params.derivationPathLimit / derivationSchemeCount) *
+        derivationSchemeCount,
+    );
+
+    expect.assertions(5);
+
+    const observer: Observer<ICreateAccountEvent> = {
+      next: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+      complete: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+      error: () => {
+        // shouldn't reach here
+        expect(true).toBe(false);
+      },
+    };
+
+    subscription = createAccountsObservable.subscribe(observer);
+
+    setTimeout(() => {
+      expect(db.account.getAll).toHaveBeenCalledTimes(1);
+      expect(params.createApp).toHaveBeenCalledTimes(1);
+      expect(params.getAddressesFromDevice).toHaveBeenCalledTimes(1);
       expect(params.getBalanceAndTxnCount).toHaveBeenCalledTimes(0);
       expect(params.createAccountFromAddress).toHaveBeenCalledTimes(0);
       done();
