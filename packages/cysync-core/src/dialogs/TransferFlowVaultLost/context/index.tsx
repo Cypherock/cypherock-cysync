@@ -22,6 +22,7 @@ import {
   SettingsDevice,
   ClearDeviceData,
   ViewSeed,
+  ConfirmTransferDeviceGraphics,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -94,7 +95,7 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
         successIconReactElement,
         <SettingsDevice />,
         <ClearDeviceData />,
-        <ClearDeviceData />,
+        <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay

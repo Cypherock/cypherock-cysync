@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Button,
-  LangDisplay,
-  goldFail,
-  IconDialogBox,
-  Image,
-} from '@cypherock/cysync-ui';
+import { Flex, Button, LangDisplay, IconDialogBox } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import {
@@ -29,7 +22,10 @@ const Buttons: FC<{
         variant="secondary"
       >
         <LangDisplay
-          text={lang.strings.guidedFlows.closeDialog.buttons.secondary}
+          text={
+            lang.strings.guidedFlows.walletTransfer.closeDialog.buttons
+              .secondary
+          }
         />
       </Button>
       <Button
@@ -40,7 +36,9 @@ const Buttons: FC<{
         variant="primary"
       >
         <LangDisplay
-          text={lang.strings.guidedFlows.closeDialog.buttons.primary}
+          text={
+            lang.strings.guidedFlows.walletTransfer.closeDialog.buttons.primary
+          }
         />
       </Button>
     </Flex>
@@ -54,11 +52,14 @@ export const CloseConfirmation: FC<{
   return (
     <IconDialogBox
       $isModal
-      icon={<Image src={goldFail} alt="gold cross" />}
-      title={lang.strings.guidedFlows.closeDialog.title}
-      subtext={lang.strings.guidedFlows.closeDialog.subtitle}
+      title={lang.strings.guidedFlows.walletTransfer.closeDialog.title}
+      subtext={lang.strings.guidedFlows.walletTransfer.closeDialog.subtitle}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
-      onClose={() => setShowOnClose(false)}
+      transferFlow
+      messageBoxList={
+        lang.strings.guidedFlows.walletTransfer.closeDialog.messageBoxList
+      }
+      pathText={lang.strings.guidedFlows.walletTransfer.closeDialog.pathText}
     />
   );
 };

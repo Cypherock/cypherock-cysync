@@ -1,7 +1,6 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  ConfirmCreatePinDeviceGraphics,
   ConfirmTransferDeviceGraphics,
   EnterPinDeviceGraphics,
   Image,
@@ -89,7 +88,6 @@ const dialogsImages: Record<TransferFlowType, React.ReactElement[][]> = {
       />,
       <ConfirmTransferDeviceGraphics />,
       <EnterPinDeviceGraphics />,
-      <ConfirmCreatePinDeviceGraphics />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
@@ -134,6 +132,15 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   };
 
   const onNext = () => {
+    if (
+      window.location.hash === '#/portfolio' &&
+      tabRef.current === 0 &&
+      currentTab === 0 &&
+      currentDialog === 0
+    ) {
+      console.log('Navigation disabled on portfolio landing');
+      return;
+    }
     checkConfettiBlastDone();
     if (
       dialogRef.current + 1 >
@@ -167,6 +174,30 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   };
 
   const onPrevious = () => {
+    if (
+      window.location.hash === '#/portfolio' &&
+      tabRef.current === 1 &&
+      currentTab === 1 &&
+      currentDialog === 0
+    ) {
+      if (tabRef.current > 0) {
+        setCurrentTab(tabRef.current - 1);
+        setCurrentDialog(
+          tabsRef.current[tabRef.current - 1].dialogs.length - 1,
+        );
+      }
+      return;
+    }
+
+    if (
+      window.location.hash === '#/portfolio' &&
+      tabRef.current === 0 &&
+      currentTab === 0 &&
+      currentDialog === 0
+    ) {
+      console.log('Navigation disabled on portfolio landing');
+      return;
+    }
     if (
       window.location.hash === '#/settings' &&
       currentTab === 1 &&

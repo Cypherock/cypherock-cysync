@@ -17,6 +17,7 @@ import {
   VerifyPinDeviceGraphics,
   VerifySeedphraseDeviceGraphics,
   Video,
+  ViewSeed,
   WalletTransferLessCardsFlowDialogBox,
   distributeToLocationsAnimationVideo,
   enterSeedphraseAnimationVideo,
@@ -115,9 +116,9 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        <ConfirmTransferDeviceGraphics />,
-        <ConfirmTransferDeviceGraphics />,
-        <ConfirmCreatePinDeviceGraphics />,
+        <ConfirmWalletNameDeviceGraphics />,
+        <ViewSeed />,
+        <EnterPinDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -128,7 +129,7 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         successIconReactElement,
         <SettingsDevice />,
         <ClearDeviceData />,
-        <ClearDeviceData />,
+        <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -242,6 +243,14 @@ export const TransferLessCardsFlowProvider: FC<
   };
 
   const onPrevious = () => {
+    if (
+      window.location.hash === '#/settings' &&
+      tabRef.current === 1 &&
+      dialogRef.current === 0
+    ) {
+      console.log('Navigation disabled under specific settings');
+      return;
+    }
     checkConfettiBlastDone();
     if (tabRef.current === 1 && dialogRef.current === 0) {
       dispatch(openTransferFlowDialog('walletTransfer'));
@@ -250,7 +259,6 @@ export const TransferLessCardsFlowProvider: FC<
       checkConfettiBlastDone();
       if (dialogRef.current - 1 < 0) {
         if (tabRef.current > 1) {
-          // Adjusted to ensure we're navigating within bounds
           setCurrentDialog(
             tabsRef.current[tabRef.current - 1].dialogs.length - 1,
           );

@@ -29,7 +29,18 @@ export const MessageBox: FC<{
   type: MessageBoxType;
   rightImage?: React.ReactNode;
   variables?: any;
-}> = ({ text, altText, type, textColor, rightImage, variables }) => {
+  transferFlow?: boolean;
+  pathText?: string;
+}> = ({
+  text,
+  altText,
+  type,
+  textColor,
+  rightImage,
+  variables,
+  transferFlow,
+  pathText,
+}) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
@@ -64,6 +75,7 @@ export const MessageBox: FC<{
             {rightImage && rightImage}
           </Container>
         )}
+        {transferFlow && <Typography color="gold">{pathText}</Typography>}
       </Flex>
     </Container>
   );
@@ -74,4 +86,6 @@ MessageBox.defaultProps = {
   altText: undefined,
   textColor: undefined,
   variables: undefined,
+  transferFlow: false,
+  pathText: undefined,
 };

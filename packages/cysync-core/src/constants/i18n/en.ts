@@ -1465,7 +1465,7 @@ const en = {
           asideTitle: 'X1 Vault',
           pages: [
             {
-              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
             },
             {
               title: 'Click "Restore wallets from cards" on your X1 Vault',
@@ -1475,7 +1475,7 @@ const en = {
             },
             {
               title: 'Tap any of the 4 old X1 Cards below the X1 Vault',
-              bulletList: ['Do not lift until you hear a beep sound'],
+              subtitle: 'Do not lift until you hear a beep sound',
               messageBoxList: [
                 {
                   info: 'You can sync all your wallets on by one',
@@ -1496,7 +1496,7 @@ const en = {
                   info: 'Repeat the process for all wallets you want to sync',
                 },
                 {
-                  info: 'Follow the instructions on the X1 Vault to repeat',
+                  info: 'Follow instructions on the X1 Vault to repeat',
                 },
               ],
             },
@@ -1513,6 +1513,20 @@ const en = {
           ],
         },
       ],
+      closeDialog: {
+        title: 'Are you sure you want to exit?',
+        subtitle: 'You can restart the flow from the settings',
+        messageBoxList: [
+          {
+            info: 'To restart the flow, go to',
+          },
+        ],
+        pathText: 'Settings -> Advanced -> Transfer Wallets',
+        buttons: {
+          secondary: 'Cancel',
+          primary: 'Exit',
+        },
+      },
     },
     walletTransferLessCards: {
       title: 'Wallet Transfer',
@@ -1525,17 +1539,17 @@ const en = {
           asideTitle: 'X1 Vault',
           pages: [
             {
-              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
             },
             {
               title: 'Click "Clear Device Data" on your X1 Vault',
             },
             {
-              title: 'Confirm clearing device data on the X1 Vault',
+              title: 'Confirm "Clear device data" on X1 Vault',
             },
             {
               title: 'Device Data Cleared',
-              subtitle: 'Proceed to pair old cards with new device',
+              subtitle: 'Proceed to pair old cards with the new device',
             },
             {
               title: 'Tap any two old X1 cards below the X1 Vault',
@@ -1545,7 +1559,7 @@ const en = {
                   info: 'Make sure you tap the same numbered card as shown on the X! Vault',
                 },
                 {
-                  info: 'You can skip the card tapping for the cards you donot have',
+                  info: 'You can skip the card tapping for the cards that you do not have',
                 },
               ],
             },
@@ -1553,7 +1567,7 @@ const en = {
               title: 'Your X1 Cards should now be paired successfully',
             },
             {
-              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
             },
             {
               title: 'Click "Restore wallets from cards" on your X1 Vault',
@@ -1582,7 +1596,7 @@ const en = {
               messageBoxList: [
                 {
                   warning:
-                    'Repeat the process for all the wallets you want to sync',
+                    'Repeat the process for all wallets you want to sync',
                 },
                 {
                   warning: 'Follow the instructions on X1 Vault to repeat',
@@ -1590,7 +1604,8 @@ const en = {
               ],
             },
             {
-              title: 'Congratulations, your wallets are synced',
+              title:
+                'Congratulations, your wallets are synced with your X1 Vault',
               subtitle:
                 'In case there are some wallets that you did not sync, you can always go to that wallet from main menu on the device to resync with the cards',
             },
@@ -1619,7 +1634,7 @@ const en = {
               ],
             },
             {
-              title: 'From the Main Menu of your X1 Vault, click on "Settings"',
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
             },
             {
               title: 'Click "Clear device data" on your X1 Vault',
@@ -1806,6 +1821,20 @@ const en = {
           ],
         },
       ],
+      closeDialog: {
+        title: 'Are you sure you want to exit?',
+        subtitle: 'You can restart the flow from the settings',
+        messageBoxList: [
+          {
+            info: 'To restart the flow, go to',
+          },
+        ],
+        pathText: 'Settings -> Advanced -> Transfer Wallets',
+        buttons: {
+          secondary: 'Cancel',
+          primary: 'Exit',
+        },
+      },
     },
     walletTransferLostVault: {
       title: 'Wallet Transfer',
@@ -2026,6 +2055,20 @@ const en = {
           ],
         },
       ],
+      closeDialog: {
+        title: 'Are you sure you want to exit?',
+        subtitle: 'You can restart the flow from the settings',
+        messageBoxList: [
+          {
+            info: 'To restart the flow, go to',
+          },
+        ],
+        pathText: 'Settings -> Advanced -> Transfer Wallets',
+        buttons: {
+          secondary: 'Cancel',
+          primary: 'Exit',
+        },
+      },
     },
   },
   dialogs: {

@@ -8,7 +8,14 @@ import {
   DialogBoxProps,
 } from './DialogBox';
 
-import { CloseButton, Flex, LangDisplay, Typography } from '../../atoms';
+import {
+  CloseButton,
+  Flex,
+  LangDisplay,
+  Typography,
+  TypographyColor,
+} from '../../atoms';
+import { MessageBox, MessageBoxType } from '../MessageBox';
 
 interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
@@ -18,6 +25,9 @@ interface IconDialogBoxProps extends DialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
+  transferFlow?: boolean;
+  messageBoxList?: Record<string, string>[];
+  pathText?: string;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -29,6 +39,9 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   footerComponent,
   textVariables,
   onClose,
+  transferFlow,
+  messageBoxList,
+  pathText,
   ...props
 }) => (
   <DialogBox width={500} {...props} onClose={onClose}>
@@ -85,6 +98,31 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
           )}
         </Flex>
       </Flex>
+      {transferFlow && (
+        <Flex direction="column" gap={8} pt={2} pb={4}>
+          {messageBoxList?.map((messageBox, index) => {
+            const key = Object.keys(messageBox)[0];
+            const args = key.split('-');
+
+            const type = args[0] as MessageBoxType;
+            if (!type) return null;
+
+            let textColor: TypographyColor | undefined;
+            if (args.length > 1) textColor = args[1] as TypographyColor;
+
+            return (
+              <MessageBox
+                key={`${type}-${index + 1}`}
+                text={messageBox[key]}
+                textColor={textColor}
+                type={type}
+                transferFlow={transferFlow}
+                pathText={pathText}
+              />
+            );
+          })}
+        </Flex>
+      )}
       {afterTextComponent && (
         <Flex width="full" direction="column" gap={{ def: 24, lg: 48 }} px={5}>
           {afterTextComponent}
@@ -103,4 +141,7 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
+  transferFlow: false,
+  pathText: undefined,
+  messageBoxList: undefined,
 };
