@@ -16,7 +16,7 @@ export const getServerErrorHandlingDetails = (
     ServerErrorType,
     ErrorHandlingDetails | undefined
   > = {
-    [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.retry(),
+    [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.report(),
     [ServerErrorType.CONNOT_CONNECT]: generateErrorHandlingDetails.retry(),
   };
 

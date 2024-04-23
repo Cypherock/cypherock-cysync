@@ -174,6 +174,9 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
 
+      - name: Fix hashBang in pnpm.cjs
+        run: pnpm fix:hashbang "C:\Users\runneradmin\setup-pnpm\node_modules\.pnpm\pnpm@$(pnpm --version)\node_modules\pnpm\bin\pnpm.cjs"
+
       - name: pnpm install
         run: pnpm install
 
@@ -186,17 +189,17 @@ jobs:
       - name: Prebuild config
         run: node scripts/prebuild.js
 
-      - name: Windows Certificate Config
-        id: write_file
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: 'win-certificate.pfx'
-          encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+      # - name: Windows Certificate Config
+      #   id: write_file
+      #   uses: timheuer/base64-to-file@v1
+      #   with:
+      #     fileName: 'win-certificate.pfx'
+      #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
       - name: Build
-        env:
-          WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-          WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+        # env:
+        #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+        #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: pnpm make
 
       - uses: actions/upload-artifact@v3
@@ -204,7 +207,6 @@ jobs:
           name: build-win
           path: |
             apps/desktop/release/**/*.exe
-            apps/desktop/release/**/*.blockmap
             apps/desktop/release/**/*.yml
             !apps/desktop/release/**/builder-debug.yml
             !apps/desktop/release/**/win-unpacked/*
@@ -273,6 +275,7 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           # no hardlinks so dependencies are copied
           USE_HARD_LINKS: false
         run: |

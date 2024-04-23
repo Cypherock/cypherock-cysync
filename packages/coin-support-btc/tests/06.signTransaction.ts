@@ -56,6 +56,7 @@ const transaction = {
   validation: {
     hasEnoughBalance: true,
     outputs: [true],
+    isValidFee: true,
   },
 };
 
@@ -66,6 +67,7 @@ describe('06. Sign Transaction', () => {
   const getOneMock = jest.fn().mockReturnValue({
     walletId: '00000000',
     assetId: 'litecoin',
+    parentAssetId: 'litecoin',
     familyId: 'bitcoin',
     xpubOrAddress: 'xpub1234',
     derivationPath: "m/44'/2'/0'",

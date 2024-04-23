@@ -1,7 +1,8 @@
 export const screens = {
   def: '0px',
   md: '1024px',
-  lg: '1440px',
+  mdlg: '1200px',
+  lg: '1439px',
   xl: '2560px',
 };
 

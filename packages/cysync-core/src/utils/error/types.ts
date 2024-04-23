@@ -29,8 +29,11 @@ export interface IParsedError extends ErrorHandlingDetails {
   code: string;
   heading: string;
   subtext?: string;
+  deviceNavigationText?: string;
+  advanceText?: string;
   primaryAction: IErrorActionButtonDetails;
   secondaryAction?: IErrorActionButtonDetails;
+  rawError?: object;
 }
 
 export type GetErrorActionButtonDetails = (params: {
@@ -138,7 +141,7 @@ export const actionButtonDetailsMap: Record<
       handler: ErrorActionButtonHandlerMap.deleteWallets,
     },
     secondaryAction: {
-      text: lang.strings.walletSync.buttons.keepAll,
+      text: lang.strings.walletSync.buttons.keepIt,
       action,
       handler: ErrorActionButtonHandlerMap.close,
     },

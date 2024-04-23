@@ -1,0 +1,12 @@
+{
+  "name": "dependencies",
+  "private": true,
+  "source": [
+    "index.js"
+  ],
+  "scripts": {
+    "build": "pnpm clean && pnpm build:dirty",
+    "build:dirty": "cross-env PARCEL_WORKERS=0 parcel build --no-cache --no-source-maps",
+    "clean": "rimraf dist"
+  }
+}

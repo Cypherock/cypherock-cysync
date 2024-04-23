@@ -2,32 +2,33 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Typography } from '../../atoms';
+import { UtilsProps, utils } from '../../utils';
 
-interface AllocationShareProps {
+interface AllocationShareProps extends UtilsProps {
   percentage: number;
   color: string;
 }
 
 const AllocationShareStyle = styled.div<AllocationShareProps>`
   padding: 16px 24px 16px 16px;
-  width: 144px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   @media ${({ theme }) => theme.screens.lg} {
     padding: 16px 20px 16px 40px;
-    width: 300px;
     flex-direction: row;
     align-items: center;
     gap: 0;
   }
+
+  ${utils}
 `;
 
 const BackgroundStyle = styled.div<AllocationShareProps>`
-  width: 104px;
+  width: 100%;
   height: 6px;
   border-radius: 5px;
   background: ${({ theme }) => theme.palette.background.inputSecondary};
@@ -46,8 +47,8 @@ const FillerStyle = styled.div<AllocationShareProps>`
 
 export const AllocationShare: FC<AllocationShareProps> = ({ ...props }) => (
   <AllocationShareStyle {...props}>
-    <Typography variant="p" color="muted">
-      {props.percentage}%
+    <Typography variant="p" color="muted" mr={2} $minWidth="70px">
+      {props.percentage.toFixed(2)}%
     </Typography>
     <BackgroundStyle {...props}>
       <FillerStyle percentage={props.percentage} color={props.color} />

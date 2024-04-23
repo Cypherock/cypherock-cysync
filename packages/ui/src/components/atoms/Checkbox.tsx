@@ -3,19 +3,31 @@ import styled from 'styled-components';
 
 import { Flex, FlexComponentProps } from './Flex';
 import { LangDisplay } from './LangDisplay';
-import { Typography } from './Typography';
+import { Throbber } from './Throbber';
+import { Typography, TypographyProps } from './Typography';
+
+export type CheckBoxSize = 'small' | 'big';
 
 interface ISize {
-  size?: 'small' | 'big';
+  size?: CheckBoxSize;
 }
+
 interface CheckBoxProps extends ISize {
   checked: boolean;
   onChange: () => void;
   id?: string;
   label?: string;
+  labelProps?: TypographyProps;
   flexProps?: FlexComponentProps;
   isDisabled?: boolean;
+  isLoading?: boolean;
+  $isHovered?: boolean;
 }
+
+const throbberSizeMap: Record<CheckBoxSize, number> = {
+  small: 12,
+  big: 16,
+};
 
 const CheckBoxWrapper = styled.div<ISize>`
   display: flex;
@@ -30,8 +42,11 @@ const CheckBoxStyle = styled.input.attrs(props => ({
   -webkit-appearance: none;
 `;
 
-const CheckBoxIcon = styled.div<ISize>`
-  background-image: ${({ theme }) => theme.palette.golden};
+const CheckBoxIcon = styled.div<ISize & { disabled?: boolean }>`
+  background-image: ${({ theme, disabled }) =>
+    disabled ? undefined : theme.palette.golden};
+  background: ${({ theme, disabled }) =>
+    disabled ? theme.palette.text.disabled : undefined};
   width: ${({ size }) => (size === 'big' ? '8px' : '7px')};
   height: ${({ size }) => (size === 'big' ? '8px' : '7px')};
   position: absolute;
@@ -44,16 +59,19 @@ interface StyledLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   $isHovered?: boolean;
 }
 
-const CheckBoxLabelStyle = styled.label.attrs<StyledLabelProps & ISize>(
-  props => ({
-    htmlFor: props.id,
-  }),
-)`
+const CheckBoxLabelStyle = styled.label.attrs<
+  StyledLabelProps & ISize & { disabled?: boolean }
+>(props => ({
+  htmlFor: props.id,
+}))`
   display: inline-block;
   width: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   height: ${({ size }) => (size === 'big' ? '16px' : '12px')};
   border-radius: 3px;
-  background-image: ${({ theme }) => theme.palette.golden};
+  background-image: ${({ theme, disabled }) =>
+    disabled ? undefined : theme.palette.golden};
+  background: ${({ theme, disabled }) =>
+    disabled ? theme.palette.text.disabled : undefined};
   position: relative;
 
   &:before {
@@ -82,27 +100,47 @@ const CheckBoxTextLabelStyle = styled.label.attrs<{ disabled: boolean }>(
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
-export const CheckBox = React.forwardRef<
-  HTMLInputElement,
-  CheckBoxProps & { $isHovered?: boolean }
->(
+export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
   (
-    { checked, onChange, id, label, flexProps, size, isDisabled, $isHovered },
+    {
+      checked,
+      onChange,
+      id,
+      label,
+      flexProps,
+      size,
+      isDisabled,
+      $isHovered,
+      isLoading,
+      labelProps,
+    },
     ref,
   ) => (
     <Flex align="center" $alignSelf="start" {...flexProps}>
-      <CheckBoxWrapper size={size}>
-        <CheckBoxStyle
-          checked={checked}
-          onChange={onChange}
-          id={id}
-          disabled={isDisabled}
-          ref={ref}
-        />
-        <CheckBoxLabelStyle id={id} size={size} $isHovered={$isHovered}>
-          {checked && <CheckBoxIcon id={id} size={size} />}
-        </CheckBoxLabelStyle>
-      </CheckBoxWrapper>
+      {isLoading && (
+        <Throbber size={throbberSizeMap[size ?? 'small']} strokeWidth={2} />
+      )}
+      {!isLoading && (
+        <CheckBoxWrapper size={size}>
+          <CheckBoxStyle
+            checked={checked}
+            onChange={onChange}
+            id={id}
+            disabled={isDisabled}
+            ref={ref}
+          />
+          <CheckBoxLabelStyle
+            id={id}
+            size={size}
+            $isHovered={$isHovered}
+            disabled={isDisabled}
+          >
+            {checked && (
+              <CheckBoxIcon id={id} size={size} disabled={isDisabled} />
+            )}
+          </CheckBoxLabelStyle>
+        </CheckBoxWrapper>
+      )}
 
       {label && (
         <CheckBoxTextLabelStyle id={id}>
@@ -111,6 +149,7 @@ export const CheckBox = React.forwardRef<
             color="muted"
             $textAlign="left"
             ml={2}
+            {...labelProps}
           >
             <LangDisplay text={label} />
           </Typography>
@@ -124,9 +163,11 @@ CheckBox.displayName = 'CheckBox';
 
 CheckBox.defaultProps = {
   label: undefined,
+  labelProps: undefined,
   flexProps: undefined,
   isDisabled: false,
   id: undefined,
   size: 'big',
   $isHovered: false,
+  isLoading: false,
 };

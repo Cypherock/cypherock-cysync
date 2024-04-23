@@ -9,5 +9,6 @@ export default [
     feesUnit: 'SOL',
     network: 'mainnet',
     curve: 'ed25519',
+    color: '#0FF0A9',
   },
 ];

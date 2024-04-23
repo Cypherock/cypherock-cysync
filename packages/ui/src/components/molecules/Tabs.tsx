@@ -2,28 +2,24 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Typography } from '../atoms';
-import { goldenGradient, utils } from '../utils';
+import { FlexProps, goldenGradient, utils } from '../utils';
 
-interface Tab {
+export interface Tab {
   label: string;
   content: React.ReactNode;
 }
 interface TabsProps {
   tabs: Tab[];
+  $alignContent?: FlexProps['$alignSelf'];
 }
 
 export const TabContentContainer = styled.div`
-  min-height: 200px;
   display: flex;
   flex-direction: column;
   color: white;
-  min-height: 505px;
-  max-height: 510px;
   padding-left: 40px;
   padding-right: 30px;
   margin-right: 10px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 `;
 
 const TabsContainer = styled.div`
@@ -32,8 +28,6 @@ const TabsContainer = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 16px;
-  padding-bottom: 32px;
-  max-height: 633px;
   ${utils}
 `;
 const TabHeaders = styled.div`
@@ -50,9 +44,11 @@ const TabHeader = styled.div`
   flex: 1;
 `;
 
-const TabContent = styled.div`
+const TabContent = styled.div<{ $align: FlexProps['$alignSelf'] }>`
   padding-top: 12px;
   padding-bottom: 12px;
+  align-self: ${props => props.$align};
+  width: 100%;
 `;
 
 const StyledTypography = styled(Typography)<{ $active: boolean }>`
@@ -76,7 +72,7 @@ const StyledTypography = styled(Typography)<{ $active: boolean }>`
   }
 `;
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, $alignContent }) => {
   const [activeTab, setActiveTab] = useState(0);
   const handleTabClick = (index: number) => {
     setActiveTab(index);
@@ -97,7 +93,11 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
           </TabHeader>
         ))}
       </TabHeaders>
-      <TabContent>{tabs[activeTab].content}</TabContent>
+      <TabContent $align={$alignContent}>{tabs[activeTab].content}</TabContent>
     </TabsContainer>
   );
+};
+
+Tabs.defaultProps = {
+  $alignContent: 'initial',
 };

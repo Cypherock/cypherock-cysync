@@ -21,15 +21,12 @@ export const NoAccountWrapper = styled.div<NoAccountWrapperProps>`
   flex: 1 0 0;
   align-self: stretch;
   border-radius: ${({ $hasCustomStyles }) => ($hasCustomStyles ? '0' : '24px')};
-  background: ${({ theme, $hasCustomStyles }) =>
-    $hasCustomStyles ? 'transparent' : theme.palette.primary.primary};
+  background: transparent;
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
-  min-height: 606px;
-  max-width: ${({ $hasCustomStyles }) =>
-    $hasCustomStyles ? 'auto' : '1376px'};
-  @media ${({ theme }) => theme.screens.lg} {
-    background: transparent;
-  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const NoAccountLoader = styled.div`
@@ -64,10 +61,15 @@ const LoaderContainer = styled.div`
 
 interface SkeletonLoaderProps {
   loader: React.ReactNode;
+  $noLoaderContainer?: boolean;
   text?: string;
   subText?: string;
+  subText2?: string;
   $buttonOne?: string;
   $buttonTwo?: string;
+  $buttonOneIsLoading?: boolean;
+  $buttonTwoIsLoading?: boolean;
+  $buttonTwoIsDisabled?: boolean;
   onClick?: () => void;
   onClickTwo?: () => void;
 }
@@ -76,38 +78,59 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
   loader,
   text,
   subText,
+  subText2,
   $buttonOne,
   $buttonTwo,
+  $noLoaderContainer,
   onClick,
   onClickTwo,
+  $buttonOneIsLoading,
+  $buttonTwoIsLoading,
+  $buttonTwoIsDisabled,
 }) => (
   <>
-    <NoAccountLoader>
-      <LeftLoaderContainer>
-        {loader}
-        <SkeletonLoadingLeft />
-      </LeftLoaderContainer>
-      <LoaderContainer>
-        <SkeletonLoading />
-      </LoaderContainer>
-      <RightLoaderContainer>
-        <SkeletonLoadingRight />
-      </RightLoaderContainer>
-    </NoAccountLoader>
+    {$noLoaderContainer ? (
+      loader
+    ) : (
+      <NoAccountLoader>
+        <LeftLoaderContainer>
+          {loader}
+          <SkeletonLoadingLeft />
+        </LeftLoaderContainer>
+        <LoaderContainer>
+          <SkeletonLoading />
+        </LoaderContainer>
+        <RightLoaderContainer>
+          <SkeletonLoadingRight />
+        </RightLoaderContainer>
+      </NoAccountLoader>
+    )}
     <Flex direction="column" gap={16} align="center">
       <Typography $fontSize={24} $fontWeight="medium">
         {text}
       </Typography>
-      <Typography $fontSize={16} color="muted">
+      <Typography $fontSize={16} color="muted" $textAlign="center">
         {subText}
+      </Typography>
+      <Typography $fontSize={16} color="muted" $textAlign="center">
+        {subText2}
       </Typography>
     </Flex>
     <Flex gap={24}>
-      <Button variant="primary" onClick={onClick}>
+      <Button
+        variant="primary"
+        onClick={onClick}
+        isLoading={$buttonOneIsLoading}
+      >
         {$buttonOne}
       </Button>
       {$buttonTwo && (
-        <Button variant="primary" onClick={onClickTwo}>
+        <Button
+          variant="primary"
+          onClick={onClickTwo}
+          disabled={$buttonTwoIsDisabled}
+          isLoading={$buttonTwoIsLoading}
+        >
           {$buttonTwo}
         </Button>
       )}
@@ -118,8 +141,13 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = ({
 SkeletonLoader.defaultProps = {
   text: '',
   subText: '',
+  subText2: '',
   $buttonOne: '',
   $buttonTwo: '',
+  $noLoaderContainer: undefined,
   onClick: undefined,
   onClickTwo: undefined,
+  $buttonOneIsLoading: undefined,
+  $buttonTwoIsLoading: undefined,
+  $buttonTwoIsDisabled: undefined,
 };

@@ -1,38 +1,62 @@
 import {
   DialogBox,
   DialogBoxBody,
-  Container,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
+  DialogBoxBackgroundBar,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SendDialogProvider, useSendDialog } from './context';
-import { CloseConfirmation } from './Dialogs';
+import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
+
+export type { SendDialogProps } from './context';
+
+const DeviceConnectionWrapper: React.FC<{
+  isDeviceRequired: boolean;
+  children: React.ReactNode;
+}> = ({ isDeviceRequired, children }) => {
+  if (isDeviceRequired)
+    return <WithConnectedDevice>{children}</WithConnectedDevice>;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{children}</>;
+};
 
 export const SendFlow: FC = () => {
-  const { tabs, currentTab, currentDialog } = useSendDialog();
+  const {
+    tabs,
+    currentTab,
+    currentDialog,
+    onClose,
+    isDeviceRequired,
+    error,
+    onRetry,
+    selectedWallet,
+  } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const [showOnClose, setShowOnClose] = React.useState(false);
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
         <>
           <MilestoneAside
-            milestones={tabs.map(t => t.name)}
-            heading={lang.strings.send.aside.tabs.heading}
+            milestones={tabs
+              .filter(t => !t.dontShowOnMilestone)
+              .map(t => t.name)}
             activeTab={currentTab}
+            heading={lang.strings.send.title}
           />
           <WalletDialogMainContainer>
-            <Container width="full" p={2} justify="flex-end">
-              <CloseButton onClick={() => setShowOnClose(true)} />
-            </Container>
             <DialogBoxBody
               p="20"
               grow={2}
@@ -41,8 +65,22 @@ export const SendFlow: FC = () => {
               direction="column"
               height="full"
             >
-              {tabs[currentTab]?.dialogs[currentDialog]}
+              <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
+                <ErrorHandlerDialog
+                  error={error}
+                  onClose={onClose}
+                  onRetry={onRetry}
+                  selectedWallet={selectedWallet}
+                >
+                  {tabs[currentTab]?.dialogs[currentDialog]}
+                </ErrorHandlerDialog>
+              </DeviceConnectionWrapper>
             </DialogBoxBody>
+            <DialogBoxBackgroundBar
+              rightComponent={<CloseButton onClick={() => onClose()} />}
+              position="top"
+              useLightPadding
+            />
           </WalletDialogMainContainer>
         </>
       </DialogBox>
@@ -50,8 +88,8 @@ export const SendFlow: FC = () => {
   );
 };
 
-export const SendDialog: FC = () => (
-  <SendDialogProvider>
+export const SendDialog: FC<SendDialogProps> = props => (
+  <SendDialogProvider {...props}>
     <SendFlow />
   </SendDialogProvider>
 );

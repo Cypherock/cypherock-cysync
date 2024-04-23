@@ -11,7 +11,6 @@ import { getAccountAndCoin } from '../db';
 import logger from '../utils/logger';
 
 interface App {
-  destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
@@ -49,19 +48,14 @@ export function makeSignTransactionsObservable<
           logger.warn('Error in aborting sign transaction');
           logger.warn(error);
         }
-
-        try {
-          await app.destroy();
-        } catch (error) {
-          logger.warn('Error in destroying connection on sign transaction');
-          logger.warn(error);
-        }
       }
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -90,6 +84,7 @@ export function makeSignTransactionsObservable<
 
         observer.next(event as any);
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {

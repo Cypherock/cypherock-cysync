@@ -1,31 +1,31 @@
 import { styled } from 'styled-components';
 
-export const List = styled.ul<{ disabled?: boolean }>`
+import { CursorProps, HeightProps, cursor, height } from '../../utils';
+
+export const DropDownListContainer = styled.div<HeightProps & CursorProps>`
   position: absolute;
   top: 100%;
   right: 0;
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  max-height: 300px;
+  max-height: 244px;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 4px 4px 32px 4px
-    ${({ theme }) => theme.palette.background.separatorSecondary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
   padding: 16px 0px 16px 0px;
   z-index: 10;
   background-color: ${({ theme }) =>
     theme.palette.background.separatorSecondary};
-  &:hover {
-    cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
-  }
+  ${cursor}
+  ${height}
 `;
 
-export const DropdownListItem = styled.li<{ $isFocused?: boolean }>`
-  background-color: ${({ theme, $isFocused }) =>
-    $isFocused
-      ? theme.palette.background.dropdownHover
-      : theme.palette.border.list};
+export const DropdownListItem = styled.div<
+  CursorProps & { $isFocused?: boolean }
+>`
+  background-color: ${({ theme }) => theme.palette.border.separatorSecondary};
+  ${cursor}
 `;
 
 export const DropdownContainer = styled.div<{
@@ -69,11 +69,10 @@ export const DropdownContainer = styled.div<{
       }
       `}
   }
-  input {
+  & > input {
     padding-right: 30px;
     cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   }
-  border: ${({ disabled }) => (disabled ? 'none' : 'default')};
 `;
 
 export const IconContainer = styled.div`

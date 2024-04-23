@@ -18,9 +18,14 @@ export interface ICoinInfo {
   name: string;
   abbr: string;
   isTest: boolean;
+  // Value is forced to zero
+  isZeroPriceCoin?: boolean;
+  // Coin should not be present on bundled environment
+  isUnderDevelopment?: boolean;
   coinGeckoId: string;
   coinIndex: string;
   feesUnit: string;
   family: string;
+  color: string;
   units: ICoinUnit[];
 }

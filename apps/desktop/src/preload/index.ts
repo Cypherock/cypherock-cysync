@@ -7,6 +7,7 @@ import {
   createProxyListener,
 } from './utils';
 
+import featureFlags from '../featureFlags';
 import { ipcConfig } from '../main/ipc/helpers/config';
 
 const exportedFunctions = [
@@ -23,8 +24,16 @@ const exportedFunctions = [
     key: ipcConfig.methods.resetCySync,
   },
   {
+    name: 'getCySyncLogs',
+    key: ipcConfig.methods.getCySyncLogs,
+  },
+  {
     name: 'closeApp',
     key: ipcConfig.methods.closeApp,
+  },
+  {
+    name: 'focusApp',
+    key: ipcConfig.methods.focusApp,
   },
   {
     name: 'checkForUpdates',
@@ -37,6 +46,14 @@ const exportedFunctions = [
   {
     name: 'installUpdate',
     key: ipcConfig.methods.installUpdates,
+  },
+  {
+    name: 'initWCUri',
+    key: ipcConfig.methods.getInitialWCUri,
+  },
+  {
+    name: 'getSystemInfo',
+    key: ipcConfig.methods.getSystemInfo,
   },
 ];
 
@@ -60,6 +77,22 @@ const exportedListeners = [
       ipcConfig.listeners.downloadUpdateProgress,
       ipcConfig.listeners.downloadUpdateError,
     ],
+  },
+  {
+    name: 'addExternalLinkListener',
+    key: ipcConfig.listeners.wcConnection,
+  },
+  {
+    name: 'removeExternalLinkListener',
+    remove: [ipcConfig.listeners.wcConnection],
+  },
+  {
+    name: 'addUsbChangeListener',
+    key: ipcConfig.listeners.usbConnectionChange,
+  },
+  {
+    name: 'removeUsbChangeListener',
+    remove: [ipcConfig.listeners.usbConnectionChange],
   },
 ];
 
@@ -98,6 +131,8 @@ const electronAPI = {
       'device',
       'priceHistory',
       'priceInfo',
+      'transactionNotificationRead',
+      'transactionNotificationClick',
     ];
 
     const eventNames = ['change'];
@@ -167,3 +202,4 @@ for (const env of ipcConfig.env) {
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI);
 contextBridge.exposeInMainWorld('cysyncEnv', cysyncEnv);
+contextBridge.exposeInMainWorld('cysyncFeatureFlags', featureFlags);

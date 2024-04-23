@@ -1,6 +1,9 @@
 import coinList from './coins';
+import { getErc20Tokens, IEvmErc20Token } from './token';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+export * from './token';
 
 type EvmFamily = typeof coinFamiliesMap.evm;
 
@@ -8,6 +11,8 @@ export interface IEvmCoinInfo extends ICoinInfo {
   family: EvmFamily;
   chain: number;
   network: string;
+  tokens: Record<string, IEvmErc20Token>;
+  tokensByContract: Record<string, IEvmErc20Token>;
 }
 
 export const EvmIdMap = {
@@ -45,6 +50,19 @@ const units: ICoinUnit[] = [
   },
 ];
 
+const coinSpecificUnits: Record<string, ICoinUnit[]> = {
+  [EvmIdMap.ethereum]: units,
+  [EvmIdMap.polygon]: units,
+  [EvmIdMap.binance]: units,
+  [EvmIdMap.fantom]: units,
+  [EvmIdMap.avalanche]: [
+    { name: 'NanoAvax', abbr: 'nAVAX', magnitude: 9 },
+    ...units,
+  ],
+  [EvmIdMap.arbitrum]: units,
+  [EvmIdMap.optimism]: units,
+};
+
 export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
   Record<string, IEvmCoinInfo>
 >(
@@ -61,10 +79,12 @@ export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<
       feesUnit: coin.feesUnit,
       chain: coin.chain,
       network: coin.network,
+      color: coin.color,
       units: [
         { name: coin.name, abbr: coin.abbr, magnitude: coin.magnitude },
-        ...units,
+        ...coinSpecificUnits[coin.id],
       ],
+      ...getErc20Tokens(coin.id, { color: coin.color }),
     },
   }),
   {},

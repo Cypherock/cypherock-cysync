@@ -1,4 +1,4 @@
-import { IDatabase } from '@cypherock/db-interfaces';
+import { IDatabase, IRepository } from '@cypherock/db-interfaces';
 import { WebContents } from 'electron';
 
 import { ipcConfig } from './helpers/config';
@@ -6,19 +6,22 @@ import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
 
 import { initializeAndGetDb } from '../utils';
 
+const collectionNameList: (keyof IDatabase)[] = [
+  'account',
+  'wallet',
+  'transaction',
+  'device',
+  'priceHistory',
+  'priceInfo',
+  'transactionNotificationRead',
+  'transactionNotificationClick',
+];
+
 export const setupDbListeners = async (webContents: WebContents) => {
   const { db } = await initializeAndGetDb();
-  const collectionNameList: (keyof IDatabase)[] = [
-    'account',
-    'wallet',
-    'transaction',
-    'device',
-    'priceHistory',
-    'priceInfo',
-  ];
 
   for (const collectionName of collectionNameList) {
-    const collection = db[collectionName] as any;
+    const collection = db[collectionName] as IRepository<any>;
 
     if (collection.addListener) {
       collection.addListener('change', () =>
@@ -26,6 +29,18 @@ export const setupDbListeners = async (webContents: WebContents) => {
           `${ipcConfig.listeners.dbListenerPrefix}:${collectionName}:change`,
         ),
       );
+    }
+  }
+};
+
+export const removeDbListeners = async () => {
+  const { db } = await initializeAndGetDb();
+
+  for (const collectionName of collectionNameList) {
+    const collection = db[collectionName] as IRepository<any>;
+
+    if (collection.removeAllListener) {
+      collection.removeAllListener('change');
     }
   }
 };

@@ -1,7 +1,13 @@
 import React, { FC, ReactNode } from 'react';
 import { styled } from 'styled-components';
 
-import { ArrowButton, Flex, Image, LangDisplay, Typography } from '../../atoms';
+import {
+  ArrowButton,
+  Flex,
+  LangDisplay,
+  Typography,
+  TypographyColor,
+} from '../../atoms';
 import { BulletList } from '../BulletList';
 import { GoldenArrowList } from '../GoldenArrowList';
 import { MessageBox, MessageBoxType } from '../MessageBox';
@@ -20,9 +26,9 @@ export interface GuidedFlowDialogBoxProps {
   title?: string;
   subtitle?: string;
   bulletList?: string[];
-  messageBoxList?: Record<MessageBoxType, string>[];
+  messageBoxList?: Record<string, string>[];
   heading?: string;
-  image: string;
+  image: React.ReactElement;
   children?: ReactNode;
   isLoading?: boolean;
   loadingText?: string;
@@ -68,7 +74,7 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           direction="column"
           pb={4}
         >
-          <Image src={image} alt="device" />
+          {image}
           <Flex direction="column" align="center" gap={4}>
             {title && (
               <Typography $textAlign="center" variant="h5">
@@ -101,12 +107,20 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
         {messageBoxList && (
           <Flex direction="column" gap={8} pt={2} pb={4} width="full">
             {messageBoxList.map((messageBox, index) => {
-              const type = Object.keys(messageBox)[0] as MessageBoxType;
+              const key = Object.keys(messageBox)[0];
+              const args = key.split('-');
+
+              const type = args[0] as MessageBoxType;
               if (!type) return null;
+
+              let textColor: TypographyColor | undefined;
+              if (args.length > 1) textColor = args[1] as TypographyColor;
+
               return (
                 <MessageBox
                   key={`${type}-${index + 1}`}
-                  text={messageBox[type]}
+                  text={messageBox[key]}
+                  textColor={textColor}
                   type={type}
                 />
               );

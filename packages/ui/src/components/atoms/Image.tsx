@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -8,8 +8,6 @@ import {
   AnimateProps,
   height,
   width,
-  ImageHeightProps,
-  ImageWidthProps,
   FlexProps,
   flex,
   TransformProps,
@@ -18,19 +16,23 @@ import {
   position,
   BorderProps,
   border,
+  HeightProps,
+  WidthProps,
 } from '../utils';
 
 export interface ImageProps
   extends SpacingProps,
     AnimateProps,
-    ImageHeightProps,
-    ImageWidthProps,
+    Omit<HeightProps, 'height'>,
+    Omit<WidthProps, 'width'>,
     TransformProps,
     PositionProps,
     FlexProps,
     BorderProps {
+  fallbackSrc?: string;
   src: string;
   alt: string;
+  onError?: React.ReactEventHandler<HTMLImageElement>;
 }
 
 const ImageStyle = styled.img<ImageProps>`
@@ -44,6 +46,35 @@ const ImageStyle = styled.img<ImageProps>`
   ${border}
 `;
 
-export const Image: FC<ImageProps> = ({ src, alt, ...props }) => (
-  <ImageStyle {...props} src={src} alt={alt} />
-);
+export const Image: FC<ImageProps> = ({
+  src,
+  fallbackSrc,
+  alt,
+  onError,
+  ...props
+}) => {
+  const [imageSrc, setImageSrc] = useState(src);
+
+  const handleError = (error: any) => {
+    if (fallbackSrc) {
+      setImageSrc(fallbackSrc);
+    }
+
+    if (onError) {
+      onError(error);
+    }
+  };
+
+  useEffect(() => {
+    setImageSrc(src);
+  }, [src]);
+
+  return (
+    <ImageStyle {...props} src={imageSrc} alt={alt} onError={handleError} />
+  );
+};
+
+Image.defaultProps = {
+  fallbackSrc: undefined,
+  onError: undefined,
+};

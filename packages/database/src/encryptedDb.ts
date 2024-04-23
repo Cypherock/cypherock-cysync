@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
+import { ResourceLock, sleep } from '@cypherock/cysync-utils';
 import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 import { throttle, DebouncedFunc } from 'lodash';
 import JsonDB from 'lokijs';
+import * as uuid from 'uuid';
+import writeFileAtomic from 'write-file-atomic';
 
 import { encryptData, decryptData, createHash } from './utils/encryption';
 import logger from './utils/logger';
@@ -12,6 +15,8 @@ interface IFileData {
   isEncrypted: boolean;
   data: string;
 }
+
+const DB_SAVE_WARN_THRESHOLD_IN_MS = 1000;
 
 export class EncryptedDB {
   private readonly dbPath: string;
@@ -26,10 +31,16 @@ export class EncryptedDB {
 
   private database: JsonDB;
 
+  private readonly dbResourceLock: ResourceLock<string>;
+
   private constructor(dbPath: string, db: JsonDB) {
     this.database = db;
     this.dbPath = dbPath;
-    this.throttledHandleChange = throttle(this.handleChange.bind(this), 500);
+    this.throttledHandleChange = throttle(this.handleChange.bind(this), 800);
+    this.dbResourceLock = new ResourceLock(k => k, {
+      maxLockTime: 10000,
+      timeout: 10000,
+    });
   }
 
   public getPath() {
@@ -95,66 +106,141 @@ export class EncryptedDB {
     await this.unload();
 
     if (this.dbPath === ':memory:') return;
+
+    const runId = uuid.v4();
+
     try {
+      await this.dbResourceLock.acquire(this.dbPath, runId);
+
       await fs.promises.unlink(this.dbPath);
     } catch (error: any) {
       if (error.code !== 'ENOENT') {
         throw error;
       }
+    } finally {
+      this.dbResourceLock.release(this.dbPath, runId);
     }
   }
 
   private async handleChange() {
-    await this.saveDB();
+    const isAlreadyWaitingToWrite =
+      this.dbResourceLock.getWaitingIds(this.dbPath).length > 0;
+
+    if (isAlreadyWaitingToWrite) return;
+
+    try {
+      const promiseResult = await Promise.race([
+        this.saveDB(),
+        (async () => {
+          await sleep(DB_SAVE_WARN_THRESHOLD_IN_MS);
+          return true;
+        })(),
+      ]);
+
+      if (promiseResult) {
+        logger.warn(
+          `Warning: Saving db ${path.basename(
+            this.dbPath,
+          )} is taking more than ${DB_SAVE_WARN_THRESHOLD_IN_MS}ms`,
+        );
+      }
+    } catch (error) {
+      logger.error(error);
+      logger.error(`Error in saving db file ${path.basename(this.dbPath)}`);
+      this.handleChange();
+    }
   }
 
   private async saveDB() {
     if (this.dbPath === ':memory:') return;
 
-    let data = this.database.serialize();
-    let isEncrypted = false;
+    if (!this.isLoadedFromFile) return;
 
-    if (this.key) {
-      data = await encryptData(data, this.key);
-      isEncrypted = true;
+    const runId = uuid.v4();
+
+    try {
+      await this.dbResourceLock.acquire(this.dbPath, runId);
+      const actualStartTime = Date.now();
+
+      let data = this.database.serialize();
+      let isEncrypted = false;
+
+      if (this.key) {
+        data = await encryptData(data, this.key);
+        isEncrypted = true;
+      }
+
+      const fileData: IFileData = { isEncrypted, data };
+
+      await writeFileAtomic(this.dbPath, JSON.stringify(fileData));
+
+      const actualEndTime = Date.now();
+      const actualTimeTakenToSave = actualEndTime - actualStartTime;
+
+      if (actualTimeTakenToSave > DB_SAVE_WARN_THRESHOLD_IN_MS) {
+        logger.warn(
+          `Warning: Saving the database ${path.basename(
+            this.dbPath,
+          )} took more than ${DB_SAVE_WARN_THRESHOLD_IN_MS}ms (${actualTimeTakenToSave}ms)`,
+        );
+      }
+    } catch (error) {
+      logger.warn(error);
+      logger.warn('Error while saving DB');
+    } finally {
+      this.dbResourceLock.release(this.dbPath, runId);
     }
-
-    const fileData: IFileData = { isEncrypted, data };
-    await fs.promises.writeFile(this.dbPath, JSON.stringify(fileData));
   }
 
   private static async loadDB(dbPath: string, key?: Buffer) {
     if (dbPath === ':memory:') return '';
 
-    if (fs.existsSync(dbPath)) {
-      const data = await fs.promises.readFile(dbPath);
-      let fileData: IFileData;
-      try {
-        fileData = JSON.parse(data.toString()) as IFileData;
-      } catch (error) {
-        logger.error(error);
-        logger.error('Corrupt data found in database file, removing...');
-        await fs.promises.writeFile(dbPath, JSON.stringify({ data: '' }));
+    logger.info('Loading database...');
+    const doesDbFileExists = fs.existsSync(dbPath);
+    let fileData: IFileData | undefined;
 
-        return '';
-      }
-
-      logger.info('Loading database...');
-      if (fileData.isEncrypted) {
-        if (!key) {
-          throw new Error('The database is encrypted but no key was provided');
-        }
-
-        if (fileData.data) {
-          return decryptData(fileData.data, key);
-        }
-        return '';
-      }
-
-      return fileData.data;
+    if (!doesDbFileExists) {
+      return '';
     }
 
-    return '';
+    const dbFileData = await EncryptedDB.readDBFile(dbPath);
+    if (dbFileData) {
+      fileData = dbFileData;
+    }
+
+    if (!fileData) {
+      logger.error('Corrupt data found in both database file, removing...');
+      await writeFileAtomic(dbPath, JSON.stringify({ data: '' }));
+
+      return '';
+    }
+
+    if (fileData.isEncrypted) {
+      if (!key) {
+        throw new Error('The database is encrypted but no key was provided');
+      }
+
+      if (fileData.data) {
+        return decryptData(fileData.data, key);
+      }
+
+      return '';
+    }
+
+    return fileData.data;
+  }
+
+  private static async readDBFile(dbPath: string) {
+    const data = await fs.promises.readFile(dbPath);
+
+    try {
+      const fileData = JSON.parse(data.toString()) as IFileData;
+      return fileData;
+    } catch (error) {
+      logger.warn(error);
+      logger.warn(`Corrupt data found in ${path.basename(dbPath)}`);
+      return undefined;
+    }
   }
 
   private static createJsonDB(dbPath: string) {

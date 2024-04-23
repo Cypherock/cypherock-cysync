@@ -1,5 +1,5 @@
 import { UpdateInfo } from '@cypherock/cysync-interfaces';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { autoUpdater } from '~/utils';
 import logger from '~/utils/logger';
@@ -22,11 +22,7 @@ export enum InternalAppUpdateState {
   Installing,
 }
 
-interface AppUpdateProps {
-  shouldInstallAfterUpdate?: boolean;
-}
-
-export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
+export const useAppUpdate = () => {
   const maxTries = 3;
 
   const [appUpdateState, setAppUpdateState] = useState<AppUpdateState>(
@@ -39,11 +35,15 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
   const [internalState, setInternalState] = useState<InternalAppUpdateState>(
     InternalAppUpdateState.Checking,
   );
+  const [error, setError] = useState<Error | undefined>();
+  const [, setShouldInstallAfterUpdate, shouldInstallAfterUpdateRef] =
+    useStateWithRef(false);
 
-  const onError = (error: any) => {
+  const onError = (e: any) => {
     setTries(triesRef.current + 1);
     logger.error('App update error');
-    logger.error(error);
+    logger.error(e);
+    setError(e);
 
     if (triesRef.current > maxTries) {
       setAppUpdateState(AppUpdateState.FailedFallback);
@@ -52,14 +52,15 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
     }
   };
 
-  const downloadUpdate = async () => {
+  const downloadUpdate = async (installAfterUpdate = false) => {
     try {
+      setShouldInstallAfterUpdate(installAfterUpdate);
       setInternalState(InternalAppUpdateState.Downloading);
       setDownloadProgress(0);
       setAppUpdateState(AppUpdateState.Downloading);
       await autoUpdater.downloadUpdate();
-    } catch (error) {
-      onError(error);
+    } catch (e) {
+      onError(e);
     }
   };
 
@@ -68,9 +69,18 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
       setInternalState(InternalAppUpdateState.Installing);
       await autoUpdater.installUpdate();
       setAppUpdateState(AppUpdateState.Successful);
-    } catch (error) {
-      onError(error);
+    } catch (e) {
+      onError(e);
     }
+  };
+
+  const installUpdateListener = async () => {
+    // if auto-installation is disabled, don't trigger install; just change appUpdateState
+    if (!shouldInstallAfterUpdateRef.current) {
+      setAppUpdateState(AppUpdateState.Downloaded);
+      return;
+    }
+    installUpdate();
   };
 
   const onRetry = () => {
@@ -83,7 +93,7 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
     retryFuncMap[internalState]();
   };
 
-  const checkForUpdates = async () => {
+  const checkForUpdates = useCallback(async () => {
     try {
       setIsUpdatesChecked(false);
       setAppUpdateState(AppUpdateState.Checking);
@@ -93,29 +103,23 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
       if (result) {
         setAppUpdateState(AppUpdateState.Confirmation);
       }
-    } catch (error) {
-      onError(error);
+    } catch (e) {
+      onError(e);
     } finally {
       setIsUpdatesChecked(true);
     }
-  };
+  }, []);
 
   const addListeners = () => {
     autoUpdater.addUpdateErrorListener(onError);
     autoUpdater.addUpdateProgressListener(p => setDownloadProgress(p));
-    if (shouldInstallAfterUpdate)
-      autoUpdater.addUpdateCompletedListener(installUpdate);
+    autoUpdater.addUpdateCompletedListener(installUpdateListener);
   };
 
   useEffect(() => {
     addListeners();
     checkForUpdates();
   }, []);
-
-  useEffect(() => {
-    if (!shouldInstallAfterUpdate && downloadProgress === 100)
-      setAppUpdateState(AppUpdateState.Downloaded);
-  }, [shouldInstallAfterUpdate, downloadProgress]);
 
   return {
     updateInfo,
@@ -128,5 +132,6 @@ export const useAppUpdate = ({ shouldInstallAfterUpdate }: AppUpdateProps) => {
     checkForUpdates,
     onRetry,
     onError,
+    error,
   };
 };

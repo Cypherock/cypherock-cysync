@@ -12,6 +12,7 @@ import {
 import React from 'react';
 
 import { useAppSelector, selectLanguage } from '~/store';
+import logger from '~/utils/logger';
 import { getResetCySyncMethod } from '~/utils/reset';
 
 export interface ForgotPasswordDialogProps {
@@ -25,6 +26,9 @@ export const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   const [isLoading, setIsLoading] = React.useState(false);
 
   const onReset = async () => {
+    logger.info('Button Click: Reset Password', {
+      source: ForgotPasswordDialog.name,
+    });
     setIsLoading(true);
     await getResetCySyncMethod()();
     setIsLoading(false);

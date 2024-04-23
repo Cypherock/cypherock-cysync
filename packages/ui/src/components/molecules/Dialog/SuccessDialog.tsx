@@ -20,6 +20,8 @@ export interface SuccessDialogProps {
   alertText?: string;
   handleClick?: () => void;
   handleSecButtonClick?: () => void;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -31,11 +33,17 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   alertText,
   handleClick,
   handleSecButtonClick,
+  onClose,
+  dontCloseOnEscape,
 }) => (
-  <DialogBox width={500}>
+  <DialogBox
+    width={500}
+    onClose={onClose}
+    dontCloseOnEscape={dontCloseOnEscape}
+  >
     {headerText && (
       <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
+        <Typography variant="fineprint" color="muted">
           <LangDisplay text={headerText} />
         </Typography>
       </DialogBoxHeader>
@@ -78,4 +86,6 @@ SuccessDialog.defaultProps = {
   handleSecButtonClick: undefined,
   alertText: undefined,
   headerText: undefined,
+  onClose: undefined,
+  dontCloseOnEscape: undefined,
 };

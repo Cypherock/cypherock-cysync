@@ -1,0 +1,17 @@
+<svg width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="tabler:graph" clip-path="url(#clip0_4468_958)">
+<g id="Group">
+<path id="Vector" d="M1 9L7 3L11 7L17 1L21 5" stroke="url(#paint0_linear_4468_958)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_4468_958" x1="1.03817" y1="5" x2="21.0382" y2="5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E9B873"/>
+<stop offset="0.369792" stop-color="#FEDD8F"/>
+<stop offset="1" stop-color="#B78D51"/>
+</linearGradient>
+<clipPath id="clip0_4468_958">
+<rect width="22" height="10" fill="white"/>
+</clipPath>
+</defs>
+</svg>

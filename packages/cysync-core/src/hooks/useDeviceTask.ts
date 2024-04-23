@@ -15,14 +15,13 @@ export type DeviceTask<T> = (connection: IDeviceConnection) => Promise<T>;
 
 export interface DeviceTaskOptions {
   dontExecuteTask?: boolean;
-  dontDestroy?: boolean;
 }
 
 export function useDeviceTask<T>(
   handler: DeviceTask<T>,
   options?: DeviceTaskOptions,
 ) {
-  const { connection, connectDevice } = useDevice();
+  const { connection } = useDevice();
 
   const [taskError, setTaskError] = React.useState<Error | undefined>();
   const [taskResult, setTaskResult] = React.useState<T | undefined>();
@@ -33,28 +32,32 @@ export function useDeviceTask<T>(
   >();
   const isAbortedRef = React.useRef<boolean>(false);
 
-  const run = async (): Promise<Error | undefined> => {
+  const run = async (): Promise<{
+    error?: Error;
+    result?: T;
+  }> => {
     let conn: IDeviceConnection | undefined;
     const taskId = lodash.uniqueId('task-');
     let error: Error | undefined;
+    let result: T | undefined;
 
     try {
       isAbortedRef.current = false;
       setTaskError(undefined);
       connectedRef.current = undefined;
 
-      if (!connection)
+      if (!connection?.connection)
         throw new DeviceConnectionError(
           DeviceConnectionErrorType.NOT_CONNECTED,
         );
 
       setIsRunning(true);
       await deviceLock.acquire(connection.device, taskId);
-      conn = await connectDevice(connection.device);
+      conn = connection.connection;
       connectedRef.current = { connection: conn, device: connection.device };
-      const res = await handler(conn);
+      result = await handler(conn);
 
-      setTaskResult(res);
+      setTaskResult(result);
 
       // Don't abort if no error
       isAbortedRef.current = true;
@@ -71,14 +74,10 @@ export function useDeviceTask<T>(
       if (connection?.device) {
         deviceLock.release(connection.device, taskId);
       }
-      if (!options?.dontDestroy) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        conn?.destroy().catch(() => {});
-      }
       setIsRunning(false);
     }
 
-    return error;
+    return { error, result };
   };
 
   const abort = async () => {
@@ -91,7 +90,6 @@ export function useDeviceTask<T>(
 
       if (connectedRef.current) {
         await SDK.sendAbort(connectedRef.current.connection);
-        await connectedRef.current.connection.destroy();
       }
       // eslint-disable-next-line no-empty
     } catch (error) {}
@@ -105,9 +103,7 @@ export function useDeviceTask<T>(
     }
 
     return () => {
-      if (doExecute) {
-        abort();
-      }
+      abort();
     };
   }, []);
 

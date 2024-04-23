@@ -1,7 +1,7 @@
 import { Sha256 } from '@aws-crypto/sha256-browser';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
-import bcrypt from 'bcryptjs';
 
+import { createBcryptHash, verifyBcryptHash } from './bcrypt';
 import { keyValueStore } from './keyValueStore';
 
 //! Not meant to be used by UI, see: useLockscreen
@@ -19,12 +19,12 @@ const createHash = async (data: string) => {
 };
 
 const createDoubleHash = async (passHash: string): Promise<string> =>
-  bcrypt.hash(passHash, 16);
+  createBcryptHash({ value: passHash, salt: 16 });
 
 const verifyDoubleHash = async (
   passHash: string,
   doubleHash: string,
-): Promise<boolean> => bcrypt.compare(passHash, doubleHash);
+): Promise<boolean> => verifyBcryptHash({ value: passHash, hash: doubleHash });
 
 export const getPasswordHash = async () => {
   const passwordHash = await keyValueStore.passwordHash.get();

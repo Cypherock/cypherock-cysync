@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { IEvmReceiveEvent, IEvmReceiveParams, statusMap } from './types';
 
 import { createApp } from '../../utils';
+import { formatAddress } from '../formatAddress';
 
 const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
@@ -24,7 +25,10 @@ const getExternalAddress = async (
   const { xpubOrAddress, derivationPath } = params.account;
 
   return {
-    address: xpubOrAddress,
+    address: formatAddress({
+      address: xpubOrAddress,
+      coinId: params.account.parentAssetId,
+    }),
     derivationPath,
     expectedFromDevice: xpubOrAddress,
   };
@@ -40,7 +44,7 @@ const getReceiveAddressFromDevice = async (
   const { address } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
-    chainId: evmCoinList[account.assetId].chain,
+    chainId: evmCoinList[account.parentAssetId].chain,
     onEvent: (event: GetPublicKeysEvent) => {
       const receiveEvent = statusMap[event];
       if (receiveEvent !== undefined) events[receiveEvent] = true;
@@ -49,7 +53,7 @@ const getReceiveAddressFromDevice = async (
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-  return address;
+  return formatAddress({ address, coinId: account.parentAssetId });
 };
 
 export const receive = (params: IEvmReceiveParams): Observable<IReceiveEvent> =>

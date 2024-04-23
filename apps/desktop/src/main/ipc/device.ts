@@ -6,6 +6,8 @@ import {
   DeviceConnectionErrorType,
   IDevice,
 } from '@cypherock/sdk-interfaces';
+import { WebContents } from 'electron';
+import { usb } from 'usb';
 
 import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
@@ -50,6 +52,21 @@ const connectedDeviceMethodCall = async (
   }
 
   return res;
+};
+
+export const setupDeviceListeners = async (webContents: WebContents) => {
+  const onChange = () => {
+    if (!webContents.isDestroyed()) {
+      webContents.send(`${ipcConfig.listeners.usbConnectionChange}`);
+    }
+  };
+
+  usb.on('attach', onChange);
+  usb.on('detach', onChange);
+};
+
+export const removeDeviceListeners = async () => {
+  usb.removeAllListeners();
 };
 
 export const getDeviceIPCHandlers = () => [

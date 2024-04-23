@@ -6,3 +6,4 @@ export * from './transaction';
 export * from './portfolio';
 export * from './receive';
 export * from './send';
+export * from './sign';

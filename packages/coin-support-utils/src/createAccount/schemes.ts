@@ -23,6 +23,8 @@ export const createDerivationPathGenerator =
         });
       }
 
+      if (!basePath.includes('i')) break;
+
       startIndex += 1;
     }
 

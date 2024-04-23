@@ -1,0 +1,76 @@
+diff --git a/dist/cjs/index.js b/dist/cjs/index.js
+index 797e6743fe48e3c7af581e45a24f52db1ec34f42..d5dd8a0b9d6fa4d92fc49bb969a514a58ce8bffb 100644
+--- a/dist/cjs/index.js
++++ b/dist/cjs/index.js
+@@ -1,13 +1,10 @@
+ "use strict";
+ var _a;
+-Object.defineProperty(exports, "__esModule", { value: true });
+-exports.unload = exports.load = exports.onExit = exports.signals = void 0;
+ // Note: since nyc uses this module to output coverage, any lines
+ // that are in the direct sync flow of nyc's outputCoverage are
+ // ignored, since we can never get coverage for them.
+ // grab a reference to node's real process object right away
+ const signals_js_1 = require("./signals.js");
+-Object.defineProperty(exports, "signals", { enumerable: true, get: function () { return signals_js_1.signals; } });
+ const processOk = (process) => !!process &&
+     typeof process === 'object' &&
+     typeof process.removeListener === 'function' &&
+@@ -249,17 +246,18 @@ class SignalExit extends SignalExitBase {
+ const process = globalThis.process;
+ // wrap so that we call the method on the actual handler, without
+ // exporting it directly.
+-_a = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback()), 
+-/**
+- * Called when the process is exiting, whether via signal, explicit
+- * exit, or running out of stuff to do.
+- *
+- * If the global process object is not suitable for instrumentation,
+- * then this will be a no-op.
+- *
+- * Returns a function that may be used to unload signal-exit.
+- */
+-exports.onExit = _a.onExit, 
++_a = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback()),
++  /**
++   * Called when the process is exiting, whether via signal, explicit
++   * exit, or running out of stuff to do.
++   *
++   * If the global process object is not suitable for instrumentation,
++   * then this will be a no-op.
++   *
++   * Returns a function that may be used to unload signal-exit.
++   */
++module.exports = _a.onExit;
++module.exports.onExit = _a.onExit,
+ /**
+  * Load the listeners.  Likely you never need to call this, unless
+  * doing a rather deep integration with signal-exit functionality.
+@@ -267,7 +265,7 @@ exports.onExit = _a.onExit,
+  *
+  * @internal
+  */
+-exports.load = _a.load, 
++module.exports.load = _a.load, 
+ /**
+  * Unload the listeners.  Likely you never need to call this, unless
+  * doing a rather deep integration with signal-exit functionality.
+@@ -275,5 +273,7 @@ exports.load = _a.load,
+  *
+  * @internal
+  */
+-exports.unload = _a.unload;
++module.exports.unload = _a.unload;
++Object.defineProperty(module.exports, "__esModule", { value: true });
++Object.defineProperty(module.exports, "signals", { enumerable: true, get: function () { return signals_js_1.signals; } });
+ //# sourceMappingURL=index.js.map
+diff --git a/dist/mjs/index.js b/dist/mjs/index.js
+index 4a78bad847d40736965b4dc94e9f7c94c0c62f4e..01ed730a993dddaea59512c3243f647ca094e456 100644
+--- a/dist/mjs/index.js
++++ b/dist/mjs/index.js
+@@ -272,4 +272,5 @@ load,
+  * @internal
+  */
+ unload, } = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback());
++export default onExit;
+ //# sourceMappingURL=index.js.map

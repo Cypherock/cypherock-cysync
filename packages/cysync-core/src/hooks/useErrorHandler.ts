@@ -1,7 +1,11 @@
+import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
+import { openContactSupportDialog } from '~/actions/dialog';
+import { deleteWallets } from '~/actions/wallet/deleteWallets';
 import { DEVICE_LISTENER_INTERVAL } from '~/context/device/helpers';
-import { selectLanguage, useAppSelector } from '~/store';
+import { SupportCategoryMap } from '~/dialogs/ContactSupport';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import {
   ErrorActionButtonHandler,
   ErrorActionButtonHandlerMap,
@@ -21,13 +25,24 @@ export interface IErrorHandlerParams {
   onRetry?: () => void;
   onClose: () => void;
   isOnboarding?: boolean;
+  selectedWallet?: IWallet;
+  noDelay?: boolean;
 }
 
 export const useErrorHandler = (params: IErrorHandlerParams) => {
-  const { error, defaultMsg, onRetry, onClose, isOnboarding } = params;
+  const {
+    error,
+    defaultMsg,
+    onRetry,
+    onClose,
+    isOnboarding,
+    noDelay,
+    selectedWallet,
+  } = params;
 
   const lang = useAppSelector(selectLanguage);
   const navigateTo = useNavigateTo();
+  const dispatch = useAppDispatch();
 
   const [errorToShow, setErrorToShow] = React.useState<
     IParsedError | undefined
@@ -39,9 +54,15 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
       logger.error(error);
     }
 
-    return error
+    const parsedError = error
       ? getParsedError({ error, defaultMsg, lang, retries })
       : undefined;
+
+    if (parsedError) {
+      logger.error('ParsedError', parsedError);
+    }
+
+    return parsedError;
   }, [error, lang, retries]);
 
   const onClickHandler = (details: IErrorActionButtonDetails) => {
@@ -53,15 +74,19 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         }
       },
       [ErrorActionButtonHandlerMap.report]: () => {
-        // TODO: Add Report button handling
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.report}`,
+        dispatch(
+          openContactSupportDialog({
+            providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
+            errorCategory: SupportCategoryMap.Complaint,
+          }),
         );
       },
       [ErrorActionButtonHandlerMap.help]: () => {
-        // TODO: Add Help button handling
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.help}`,
+        dispatch(
+          openContactSupportDialog({
+            providedDescription: `${errorToShow?.heading} (${errorToShow?.code})`,
+            errorCategory: SupportCategoryMap.Complaint,
+          }),
         );
       },
       [ErrorActionButtonHandlerMap.updateFirmware]: () => {
@@ -89,10 +114,8 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
         navigateTo(routes.onboarding.info.path);
       },
       [ErrorActionButtonHandlerMap.deleteWallets]: () => {
-        // TODO: Add support for deleting wallet
-        logger.warn(
-          `Unimplemented handler ${ErrorActionButtonHandlerMap.deleteWallets}`,
-        );
+        if (selectedWallet) dispatch(deleteWallets([selectedWallet]));
+        onClose();
       },
       [ErrorActionButtonHandlerMap.close]: () => {
         onClose();
@@ -127,9 +150,13 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
     let timeout: any;
 
     if (errorMsg) {
-      timeout = setTimeout(() => {
+      if (!noDelay) {
+        timeout = setTimeout(() => {
+          setErrorToShow(errorMsg);
+        }, DEVICE_LISTENER_INTERVAL);
+      } else {
         setErrorToShow(errorMsg);
-      }, DEVICE_LISTENER_INTERVAL);
+      }
     } else if (errorToShow) {
       setErrorToShow(undefined);
     }

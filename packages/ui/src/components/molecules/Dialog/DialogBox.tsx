@@ -1,21 +1,22 @@
 import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
+import { addKeyboardEvents } from '../../../hooks';
 import {
-  WidthProps,
-  FlexProps,
-  DisplayProps,
-  SpacingProps,
-  flex,
-  width,
-  spacing,
-  PositionProps,
-  position,
-  display,
-  HeightProps,
-  height,
   BgColorProps,
+  DisplayProps,
+  FlexProps,
+  HeightProps,
+  PositionProps,
+  SpacingProps,
+  WidthProps,
   bgColor,
+  display,
+  flex,
+  height,
+  position,
+  spacing,
+  width,
 } from '../../utils';
 
 export interface DialogBoxUtilityProps
@@ -33,6 +34,8 @@ export interface DialogBoxUtilityProps
 
 export interface DialogBoxProps extends DialogBoxUtilityProps {
   $isModal?: boolean;
+  onClose?: () => void;
+  dontCloseOnEscape?: boolean;
 }
 
 const modalCss = css`
@@ -76,18 +79,6 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${spacing}
   ${position}
   ${bgColor}
-`;
-
-export const CustomDialogBox = styled(DialogBoxStyle)`
-  display: block;
-  width: 517px;
-  max-height: 70vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  @media ${({ theme }) => theme.screens.lg} {
-    max-height: 83vh;
-  }
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -163,12 +154,30 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
   ${spacing}
 `;
 
-export const DialogBox: FC<DialogBoxProps> = ({ children, ...props }) => (
-  <>
-    {props.$isModal && <ModalOverlay />}
-    <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
-  </>
-);
+export const DialogBox: FC<DialogBoxProps> = ({
+  children,
+  onClose,
+  dontCloseOnEscape,
+  ...props
+}) => {
+  const onEscape = (e: KeyboardEvent) => {
+    if (!dontCloseOnEscape && onClose) {
+      (onClose as any)(e);
+      e.stopPropagation();
+    }
+  };
+
+  addKeyboardEvents({
+    Escape: onEscape,
+  });
+
+  return (
+    <>
+      {props.$isModal && <ModalOverlay />}
+      <DialogBoxStyle {...props}>{children}</DialogBoxStyle>
+    </>
+  );
+};
 
 export const DialogBoxHeader: FC<DialogBoxUtilityProps> = ({
   children,
@@ -191,6 +200,8 @@ DialogBox.defaultProps = {
   children: undefined,
   $isModal: false,
   overflowY: undefined,
+  dontCloseOnEscape: undefined,
+  onClose: undefined,
 };
 
 DialogBoxBody.defaultProps = {

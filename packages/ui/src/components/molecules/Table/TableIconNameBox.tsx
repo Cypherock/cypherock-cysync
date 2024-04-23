@@ -1,22 +1,25 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
+import React, { FC, ReactNode } from 'react';
+import styled, { css } from 'styled-components';
 
 import { TableMutedTextBox } from './TableMutedTextBox';
 
-import { Container, Image, Typography } from '../../atoms';
+import { Container, Flex, Tag, Typography } from '../../atoms';
+import { UtilsProps, utils } from '../../utils';
 
-interface IconNameBoxProps {
-  icon: string;
+interface IconNameBoxProps extends UtilsProps {
+  icon: ReactNode;
   title: string;
   subtitle?: string;
+  tag?: string;
   mutedSubtitle?: string;
   mutedBox?: string;
 }
 
-const IconNameBoxStyle = styled.div<IconNameBoxProps>`
-  padding: 16px 16px 16px 24px;
-  width: 200px;
-  gap: 16px;
+export const iconBoxStyles = css<{ size?: string }>`
+  padding: ${({ size }) =>
+    size === 'small' ? '16px 16px 16px 24px' : '16px 20px 16px 40px'};
+  width: ${({ size }) => (size === 'small' ? '200px' : '300px')};
+  gap: ${({ size }) => (size === 'small' ? '16px' : '24px')};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,32 +31,82 @@ const IconNameBoxStyle = styled.div<IconNameBoxProps>`
   }
 `;
 
-export const TableIconNameBox: FC<IconNameBoxProps> = ({ ...props }) => (
-  <IconNameBoxStyle {...props}>
-    <Image src={props.icon} alt="Asset Icon" />
-    <Container direction="column" gap={0} align="flex-start">
-      <Typography variant="p" $fontWeight="semibold">
-        {props.title}
-      </Typography>
-      {props.subtitle && (
-        <Typography variant="p" $fontWeight="semibold">
-          {props.subtitle}
+export const IconNameBoxStyle = styled.div<IconNameBoxProps>`
+  ${iconBoxStyles}
+  ${utils}
+`;
+
+export const TableIconNameBox: FC<IconNameBoxProps> = props => {
+  const { icon, title, subtitle, tag, mutedSubtitle, mutedBox } = props;
+
+  return (
+    <IconNameBoxStyle {...props}>
+      <Flex width="24px" shrink={0} grow={0} p={0}>
+        {icon}
+      </Flex>
+      <Container
+        direction="column"
+        gap={0}
+        align="flex-start"
+        $maxWidth="calc(100% - 30px)"
+      >
+        <Typography
+          variant="p"
+          $fontWeight="semibold"
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+        >
+          {title}
         </Typography>
-      )}
-      {props.mutedSubtitle && (
-        <Container gap={8} display="flex" direction="row">
-          <Typography variant="p" $fontSize={12} color="muted">
-            {props.mutedSubtitle}
+        {subtitle && (
+          <Typography
+            variant="p"
+            $fontWeight="semibold"
+            $textOverflow="ellipsis"
+            $whiteSpace="nowrap"
+          >
+            {subtitle}
           </Typography>
-          {props.mutedBox && <TableMutedTextBox text={props.mutedBox} />}
-        </Container>
-      )}
-    </Container>
-  </IconNameBoxStyle>
-);
+        )}
+        {mutedSubtitle && (
+          <Container
+            gap={{ def: 4, mdlg: 8 }}
+            display="flex"
+            direction={{ def: 'column', mdlg: 'row' }}
+            align={tag ? 'flex-start' : 'center'}
+          >
+            <Typography
+              variant="p"
+              $fontSize={12}
+              color="muted"
+              $textOverflow="ellipsis"
+              $whiteSpace="nowrap"
+            >
+              {mutedSubtitle}
+            </Typography>
+            {mutedBox && (
+              <TableMutedTextBox
+                text={mutedBox}
+                $textOverflow="ellipsis"
+                $whiteSpace="nowrap"
+              />
+            )}
+            {tag && <Tag>{tag}</Tag>}
+          </Container>
+        )}
+        {tag && !mutedSubtitle && (
+          <div>
+            <Tag>{tag}</Tag>
+          </div>
+        )}
+      </Container>
+    </IconNameBoxStyle>
+  );
+};
 
 TableIconNameBox.defaultProps = {
   subtitle: undefined,
   mutedSubtitle: undefined,
   mutedBox: undefined,
+  tag: undefined,
 };

@@ -6,6 +6,7 @@ import {
   OnboardingStep,
 } from '@cypherock/sdk-app-manager';
 import {
+  DeviceAppErrorType,
   DeviceState,
   IDevice,
   IDeviceConnection,
@@ -42,7 +43,7 @@ export const getDeviceState = (
 ) => {
   let { deviceState } = device;
 
-  if (info && info.isInitial) {
+  if (info?.isInitial) {
     deviceState = DeviceState.INITIAL;
   }
 
@@ -58,15 +59,18 @@ export const getDeviceState = (
 export const createDeviceConnectionInfo = (
   device: IDevice,
   state: DeviceConnectionStatus,
+  connection?: IDeviceConnection,
   info?: IConnectedDeviceInfo,
 ): IDeviceConnectionInfo => ({
   device,
+  connection,
   status: state,
   firmwareVersion: info?.firmwareVersion
     ? `${info.firmwareVersion.major}.${info.firmwareVersion.minor}.${info.firmwareVersion.patch}`
     : undefined,
   serial: info?.deviceSerial ? uint8ArrayToHex(info.deviceSerial) : undefined,
   walletList: info?.walletList,
+  isAuthenticated: info?.isAuthenticated,
   ...getDeviceState(device, info),
 });
 
@@ -103,35 +107,27 @@ export const tryEstablishingDeviceConnection = async (
   connectDevice: ConnectDevice,
   device: IDevice,
 ) => {
-  let connection: IDeviceConnection | undefined;
+  let info: IConnectedDeviceInfo | undefined;
+  let status = DeviceConnectionStatus.CONNECTED;
 
-  try {
-    let info: IConnectedDeviceInfo | undefined;
-    let status = DeviceConnectionStatus.CONNECTED;
+  const connection = await connectDevice(device);
 
-    if (device.deviceState !== DeviceState.BOOTLOADER) {
-      connection = await connectDevice(device);
-      const app = await ManagerApp.create(connection);
+  if (device.deviceState !== DeviceState.BOOTLOADER) {
+    const app = await ManagerApp.create(connection);
 
-      if (!(await app.isSupported())) {
-        status = DeviceConnectionStatus.INCOMPATIBLE;
-      } else {
-        info = { ...(await app.getDeviceInfo()), walletList: [] };
+    if (!(await app.isSupported())) {
+      status = DeviceConnectionStatus.INCOMPATIBLE;
+    } else {
+      info = { ...(await app.getDeviceInfo()), walletList: [] };
 
-        if (device.deviceState !== DeviceState.INITIAL) {
-          const { walletList } = await app.getWallets();
-          info.walletList = walletList;
-        }
-
-        await connection.destroy();
+      if (device.deviceState !== DeviceState.INITIAL && info.isAuthenticated) {
+        const { walletList } = await app.getWallets();
+        info.walletList = walletList;
       }
     }
-
-    return { info, status };
-  } catch (error) {
-    connection?.destroy();
-    throw error;
   }
+
+  return { info, status, connection };
 };
 
 export interface IDeviceConnectionErrorAction {
@@ -142,12 +138,14 @@ export interface IDeviceConnectionErrorAction {
 
 export const parseDeviceConnectionError = (
   device: IDevice,
-  _error?: any,
+  error?: any,
   connectionRetry?: IDeviceConnectionRetry,
 ) => {
   let action: IDeviceConnectionErrorAction;
 
-  if ((connectionRetry?.retries ?? 0) >= MAX_CONNECTION_RETRY) {
+  if (error?.code === DeviceAppErrorType.EXECUTING_OTHER_COMMAND) {
+    action = { type: 'error', state: DeviceConnectionStatus.BUSY };
+  } else if ((connectionRetry?.retries ?? 0) >= MAX_CONNECTION_RETRY) {
     action = { type: 'error', state: DeviceConnectionStatus.UNKNOWN_ERROR };
   } else {
     const isSameDeviceRetry = connectionRetry

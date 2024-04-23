@@ -2,13 +2,11 @@ import { SuccessDialog } from '@cypherock/cysync-ui';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { useEffect } from 'react';
 
-import { ErrorHandlerDialog } from '~/components';
+import { ErrorHandlerDialog, DeviceAuthenticating } from '~/components';
 import { routes } from '~/constants';
 import { DeviceTask, useDeviceTask, useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getCloseAppMethod, keyValueStore } from '~/utils';
-
-import { DeviceAuthenticating } from './Authenticating';
 
 export const DeviceAuthDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -45,7 +43,12 @@ export const DeviceAuthDialog: React.FC = () => {
       onClose={getCloseAppMethod()}
       isOnboarding
     >
-      {task.result === undefined && <DeviceAuthenticating />}
+      {task.result === undefined && (
+        <DeviceAuthenticating
+          title={lang.strings.onboarding.deviceAuth.title}
+          subtitle={lang.strings.onboarding.deviceAuth.subtext}
+        />
+      )}
       {task.result && (
         <SuccessDialog
           title={lang.strings.onboarding.deviceAuth.success.title}

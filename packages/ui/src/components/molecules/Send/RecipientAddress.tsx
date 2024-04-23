@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { QrCode } from '../../../assets';
+import { PasteIcon } from '../../..';
 import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
 
 interface RecipientAddressProps {
@@ -14,7 +14,8 @@ interface RecipientAddressProps {
   onChange: (val: string) => void;
   isThrobberActive?: boolean;
   index?: number;
-  length?: number;
+  isButtonDisabled?: boolean;
+  isDisabled?: boolean;
 }
 
 interface CustomInputSendProps {
@@ -75,14 +76,17 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
   deleteButton = false,
   onDelete,
   value,
-  length = 0,
+  isButtonDisabled,
   index = 0,
   onChange,
   isThrobberActive,
+  isDisabled,
 }) => {
   const throbber = <Throbber size={15} strokeWidth={2} />;
-  const image = <QrCode width="25px" height="20px" />;
-  const postfixIcon = isThrobberActive ? throbber : image;
+  const handleCopyFromClipboard = async () => {
+    const clipboardText = (await navigator.clipboard.readText()).trim();
+    onChange(clipboardText);
+  };
 
   return (
     <RecipientAddressContainer>
@@ -95,20 +99,17 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
               </Typography>
             </Numbering>
           )}
-          <Typography variant="span" width="100%" color="muted" $fontSize={13}>
+          <Typography variant="span" color="muted" $fontSize={13}>
             {text}
           </Typography>
         </Flex>
-        {deleteButton && length > 2 && (
-          <MiniButton onClick={onDelete}>-</MiniButton>
-        )}
-        {deleteButton && length <= 2 && (
-          <MiniButton disabled onClick={onDelete}>
+        {deleteButton && (
+          <MiniButton disabled={isButtonDisabled} onClick={onDelete}>
             -
           </MiniButton>
         )}
       </Flex>
-      <CustomInputSend error={error}>
+      <CustomInputSend error={error} style={{ paddingRight: 0 }}>
         <Input
           type="text"
           name="address"
@@ -116,14 +117,17 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           value={value}
           onChange={onChange}
           $textColor="white"
+          disabled={isDisabled}
           $noBorder
+          postfixIcon={isThrobberActive ? throbber : <PasteIcon />}
+          onPostfixIconClick={
+            isThrobberActive ? undefined : handleCopyFromClipboard
+          }
         />
-        {postfixIcon}
       </CustomInputSend>
       {error && (
         <Typography
           variant="span"
-          width="100%"
           color="error"
           $alignSelf="start"
           $fontSize={12}
@@ -142,5 +146,6 @@ RecipientAddress.defaultProps = {
   onDelete: undefined,
   isThrobberActive: false,
   index: 0,
-  length: 0,
+  isButtonDisabled: false,
+  isDisabled: false,
 };

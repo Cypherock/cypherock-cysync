@@ -1,28 +1,41 @@
-import React, { FC } from 'react';
+import lodash from 'lodash';
+import React, { FC, ReactNode, useCallback } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import {
-  Check,
+  SyncingIcon,
   Connected,
   VisibilityHide,
   Visibility,
   Lock,
   LockOpen,
   Disconnected,
+  DeviceErrorIcon,
   SyncProblem,
-  SyncronizingBold,
+  SynchronizingBold,
   NoNotifications,
   Notifications,
   PushpinBold,
 } from '../../assets';
-import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
+import {
+  Button,
+  Container,
+  Flex,
+  LangDisplay,
+  Tag,
+  Tooltip,
+  Typography,
+} from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 
-export type SyncStatusType = 'syncronized' | 'syncronizing' | 'error';
+export type SyncStatusType = 'synchronized' | 'synchronizing' | 'error';
 export type ConnectionStatusType = 'connected' | 'error' | 'disconnected';
 
-interface ITopbar {
+export interface TopbarProps {
   title: string;
+  subTitle?: string;
+  tag?: string;
+  icon?: ReactNode;
   statusTexts: {
     connection: {
       connected: string;
@@ -30,8 +43,8 @@ interface ITopbar {
       disconnected: string;
     };
     sync: {
-      syncronized: string;
-      syncronizing: string;
+      synchronized: string;
+      synchronizing: string;
       error: string;
     };
   };
@@ -44,7 +57,9 @@ interface ITopbar {
   syncStatus: SyncStatusType;
   connectionStatus: ConnectionStatusType;
   toggleDiscreetMode: () => void;
+  onNotificationClick: () => void;
   onSyncClick: () => void;
+  tooltipText?: string;
   showIcon?: boolean;
   onIconClick?: () => void;
 }
@@ -62,8 +77,11 @@ const TitleStyle = styled.div`
   gap: 16px;
 `;
 
-export const Topbar: FC<ITopbar> = ({
+export const Topbar: FC<TopbarProps> = ({
   title,
+  subTitle,
+  tag,
+  icon,
   statusTexts,
   connectionStatus,
   haveNotifications,
@@ -73,32 +91,39 @@ export const Topbar: FC<ITopbar> = ({
   isPasswordSet,
   isDiscreetMode,
   syncStatus,
+  tooltipText,
   toggleDiscreetMode,
   onSyncClick,
   showIcon,
   onIconClick,
+  onNotificationClick,
 }) => {
   const theme = useTheme();
 
+  const debouncedToggleDiscreteMode = useCallback(
+    lodash.debounce(toggleDiscreetMode, 100),
+    [],
+  );
+
   const connectionStatusMap = {
     connected: <Connected fill={theme?.palette.success.main} />,
-    error: <Disconnected fill={theme?.palette.warn.main} />,
+    error: <DeviceErrorIcon fill={theme?.palette.warn.main} />,
     disconnected: <Disconnected fill={theme?.palette.warn.main} />,
   };
 
   const syncStatusMap = {
-    syncronized: <Check stroke={theme?.palette.success.main} />,
-    syncronizing: (
-      <SyncronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
+    synchronized: <SyncingIcon />,
+    synchronizing: (
+      <SynchronizingBold fill={`url(#${svgGradients.gold})`} animate="spin" />
     ),
     error: <SyncProblem fill={theme?.palette.warn.main} />,
   };
 
   return (
     <Container
-      px={{ def: 4, lg: 5 }}
-      pt={{ def: '8', lg: '50' }}
-      pb={{ def: '8', lg: '10' }}
+      px={{ def: 4, mdlg: 5 }}
+      pt={{ def: '8', mdlg: '50' }}
+      pb={{ def: '8', mdlg: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
       $borderColor="topbar"
@@ -107,9 +132,30 @@ export const Topbar: FC<ITopbar> = ({
       shadow="popup"
     >
       <TitleStyle>
-        <Typography variant="h4" $fontWeight="semibold" color="silver">
-          <LangDisplay text={title} />
-        </Typography>
+        <Container direction="row">
+          {icon ?? null}
+          <Container direction="column" ml={icon ? 2 : 0} align="flex-start">
+            <Typography variant="h4" $fontWeight="semibold" color="silver">
+              <LangDisplay text={title} />
+            </Typography>
+            {(subTitle || tag) && (
+              <Container direction="row">
+                {subTitle && (
+                  <Typography
+                    $fontWeight="semibold"
+                    $fontSize={14}
+                    color="muted"
+                    mr={1}
+                  >
+                    <LangDisplay text={subTitle} />
+                  </Typography>
+                )}
+                {tag && <Tag>{tag}</Tag>}
+              </Container>
+            )}
+          </Container>
+        </Container>
+
         {showIcon && (
           <Button variant="icon" onClick={onIconClick} pl={5}>
             <PushpinBold />
@@ -117,29 +163,36 @@ export const Topbar: FC<ITopbar> = ({
         )}
       </TitleStyle>
       <Flex align="center">
-        <Button variant="none" onClick={onSyncClick}>
-          <Flex pr={2} align="center" gap={16}>
-            {syncStatusMap[syncStatus]}
-            <Typography display={{ def: 'none', lg: 'block' }} color="muted">
-              <LangDisplay text={statusTexts.sync[syncStatus]} />
-            </Typography>
-          </Flex>
-        </Button>
+        <Tooltip text={tooltipText} tooltipPlacement="bottom">
+          <Button variant="none" onClick={onSyncClick}>
+            <Flex pr={2} align="center" gap={16}>
+              {syncStatusMap[syncStatus]}
+              <Typography
+                display={{ def: 'none', mdlg: 'block' }}
+                color="muted"
+              >
+                <LangDisplay text={statusTexts.sync[syncStatus]} />
+              </Typography>
+            </Flex>
+          </Button>
+        </Tooltip>
         <DividingLine />
         <Flex px={2} align="center" gap={16}>
           {connectionStatusMap[connectionStatus]}
-          <Typography display={{ def: 'none', lg: 'block' }} color="muted">
+          <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
             <LangDisplay text={statusTexts.connection[connectionStatus]} />
           </Typography>
         </Flex>
         <DividingLine />
-        <Flex px={2} py="3" height="full" align="center" gap={16}>
-          {haveNotifications ? <Notifications /> : <NoNotifications />}
-        </Flex>
+        <Button variant="icon" onClick={onNotificationClick}>
+          <Flex px={2} py="3" height="full" align="center" gap={16}>
+            {haveNotifications ? <Notifications /> : <NoNotifications />}
+          </Flex>
+        </Button>
         <DividingLine />
-        <Button variant="icon" onClick={toggleDiscreetMode}>
+        <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
           <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <Visibility /> : <VisibilityHide />}
+            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
           </Flex>
         </Button>
         {isPasswordSet && !isLockscreenLoading && (
@@ -160,4 +213,8 @@ export const Topbar: FC<ITopbar> = ({
 Topbar.defaultProps = {
   showIcon: false,
   onIconClick: undefined,
+  icon: undefined,
+  subTitle: undefined,
+  tag: undefined,
+  tooltipText: undefined,
 };

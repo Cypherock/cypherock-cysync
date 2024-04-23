@@ -31,4 +31,4 @@ export const Default: Story = {
       },
     ],
   },
-};
+} as Story;

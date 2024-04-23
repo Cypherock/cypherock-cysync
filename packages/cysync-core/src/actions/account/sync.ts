@@ -1,6 +1,6 @@
 import {
-  syncAccounts as syncAccountsCore,
   ISyncAccountsEvent,
+  syncAccounts as syncAccountsCore,
 } from '@cypherock/cysync-core-services';
 import { IAccount } from '@cypherock/db-interfaces';
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
@@ -11,6 +11,7 @@ import {
   RootState,
   setAccountLastSyncedAt,
   setAccountSyncState,
+  setSyncError,
   updateAccountSyncMap,
 } from '~/store';
 import { getDB } from '~/utils';
@@ -21,9 +22,30 @@ export const syncAccounts = createAsyncThunk<
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts, isSyncAll }, { dispatch }) =>
+  async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) =>
     new Promise<void>(resolve => {
+      const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
+
+      if (!getState().network.active) {
+        unhiddenAccounts.forEach(account => {
+          dispatch(
+            updateAccountSyncMap({
+              accountId: account.__id ?? '',
+              syncState: AccountSyncStateMap.failed,
+            }),
+          );
+        });
+
+        if (isSyncAll) {
+          dispatch(setAccountLastSyncedAt(Date.now()));
+        }
+
+        resolve();
+        return;
+      }
+
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
+      dispatch(setSyncError(undefined));
 
       const observer: Observer<ISyncAccountsEvent> = {
         error: () => {
@@ -63,7 +85,7 @@ export const syncAccounts = createAsyncThunk<
         },
       };
 
-      accounts.forEach(account => {
+      unhiddenAccounts.forEach(account => {
         dispatch(
           updateAccountSyncMap({
             accountId: account.__id ?? '',
@@ -74,14 +96,27 @@ export const syncAccounts = createAsyncThunk<
 
       syncAccountsCore({
         db: getDB(),
-        accounts,
+        accounts: unhiddenAccounts,
       }).subscribe(observer);
     }),
 );
 
 export const syncAllAccounts =
   (): ActionCreator<void> => (dispatch, getState) => {
-    dispatch(
-      syncAccounts({ accounts: getState().account.accounts, isSyncAll: true }),
-    );
+    if (!getState().network.active) {
+      dispatch(
+        setSyncError(
+          getState().lang.strings.topbar.statusTexts.sync.networkErrorTooltip,
+        ),
+      );
+      dispatch(setAccountLastSyncedAt(Date.now()));
+    } else {
+      dispatch(setSyncError(undefined));
+      dispatch(
+        syncAccounts({
+          accounts: getState().account.accounts,
+          isSyncAll: true,
+        }),
+      );
+    }
   };

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { InputLabel } from './InputLabel';
 
+import { UtilsProps } from '../../utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
@@ -14,6 +15,7 @@ export interface InputProps {
   name: string;
   label?: string;
   onChange?: (val: string) => void;
+  onBlur?: (val: string) => void;
   value?: string;
   disabled?: boolean;
   postfixIcon?: React.ReactNode;
@@ -29,6 +31,8 @@ export interface InputProps {
   leftImage?: React.ReactNode;
   $customImageSpacing?: boolean;
   $noBorder?: boolean;
+  required?: boolean;
+  utilProps?: UtilsProps;
 }
 
 const InputStyle = styled.input<{
@@ -59,10 +63,12 @@ const InputStyle = styled.input<{
     color: ${({ disabled, theme }) =>
       disabled ? theme.palette.text.disabled : theme.palette.text.muted};
   }
+  text-overflow: ellipsis;
 `;
 
 const InputWrapper = styled.div<{
   $customImageSpacing?: boolean;
+  $isPostFixIcon?: boolean;
   $noBorder: boolean;
 }>`
   width: 100%;
@@ -72,6 +78,7 @@ const InputWrapper = styled.div<{
   gap: ${({ $customImageSpacing }) => (!$customImageSpacing ? '12px' : '0px')};
   padding-left: ${({ $customImageSpacing }) =>
     !$customImageSpacing ? '0px' : '24px'};
+  padding-right: ${({ $isPostFixIcon }) => (!$isPostFixIcon ? '0px' : '24px')};
   align-items: center;
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.background.separatorSecondary};
@@ -101,6 +108,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         name,
         label = undefined,
         onChange = undefined,
+        onBlur = undefined,
         value = undefined,
         disabled = false,
         postfixText = undefined,
@@ -113,13 +121,21 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         copyAllowed = true,
         onKeyDown = undefined,
         $error = false,
+        required = false,
         leftImage,
         $customImageSpacing,
         $noBorder = false,
+        utilProps,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
-      <Flex direction="column" width="full" align="center" justify="center">
+      <Flex
+        direction="column"
+        width="full"
+        align="center"
+        justify="center"
+        {...(utilProps ?? {})}
+      >
         {label && (
           <InputLabel>
             <LangDisplay text={label} />
@@ -128,6 +144,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         <InputWrapper
           $noBorder={$noBorder}
           $customImageSpacing={$customImageSpacing}
+          $isPostFixIcon={Boolean(postfixIcon)}
         >
           {leftImage}
           <InputStyle
@@ -138,6 +155,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             disabled={disabled}
             $bgColor={$bgColor}
             value={value}
+            required={required}
             onClick={onClick}
             onPaste={e => {
               if (pasteAllowed) return true;
@@ -150,6 +168,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
               return false;
             }}
             onChange={e => onChange?.(e.target.value)}
+            onBlur={e => onBlur?.(e.target.value)}
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
@@ -183,6 +202,7 @@ Input.defaultProps = {
   placeholder: undefined,
   postfixText: undefined,
   onChange: undefined,
+  onBlur: undefined,
   value: undefined,
   disabled: false,
   $noBorder: false,
@@ -197,6 +217,8 @@ Input.defaultProps = {
   $error: false,
   leftImage: undefined,
   $customImageSpacing: false,
+  required: false,
+  utilProps: undefined,
 };
 
 Input.displayName = 'Input';

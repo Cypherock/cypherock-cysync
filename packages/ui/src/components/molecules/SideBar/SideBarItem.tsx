@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useTheme, styled } from 'styled-components';
 
 import { CaretIcon, SvgProps } from '../../../assets';
@@ -42,6 +42,7 @@ export interface SideBarItemProps {
   extraRight?: ReactNode;
   children?: ReactNode;
   onClick?: React.MouseEventHandler<HTMLElement>;
+  setIsCollapsed?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const SideBarItem: FC<SideBarItemProps> = ({
@@ -54,10 +55,9 @@ export const SideBarItem: FC<SideBarItemProps> = ({
   extraLeft,
   extraRight,
   children,
+  setIsCollapsed,
   onClick,
 }) => {
-  const [collapsed, setCollapsed] = useState(isCollapsed);
-
   const theme = useTheme()!;
 
   const int = (x: string) => parseInt(x, 10);
@@ -86,7 +86,11 @@ export const SideBarItem: FC<SideBarItemProps> = ({
   };
 
   return (
-    <Flex direction="column" width="full">
+    <Flex
+      direction="column"
+      width="full"
+      $cursor={state === SideBarState.disabled ? 'not-allowed' : undefined}
+    >
       <Flex gap={int(theme.spacing.two.spacing)} width="full">
         {child && (
           <svg
@@ -98,7 +102,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
           >
             <line x1={0} y1={0} x2={0} y2={50} {...lineProps} />
             <line x1={0} y1={50} x2={100} y2={50} {...lineProps} />
-            {child === 'regular' && collapsed && (
+            {child === 'regular' && isCollapsed && (
               <line x1={0} y1={50} x2={0} y2={100} {...lineProps} />
             )}
           </svg>
@@ -106,8 +110,11 @@ export const SideBarItem: FC<SideBarItemProps> = ({
         <ClickableFlex
           disabled={state === SideBarState.disabled}
           py={1}
-          onClick={children ? () => setCollapsed(!collapsed) : onClick}
-          title={text}
+          onClick={
+            children && setIsCollapsed
+              ? () => setIsCollapsed(!isCollapsed)
+              : onClick
+          }
           align="center"
           $overflowX="hidden"
           width="full"
@@ -134,6 +141,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
               $fontWeight="medium"
               $whiteSpace="nowrap"
               $textOverflow="ellipsis"
+              title={text}
             >
               {text}
             </Typography>
@@ -147,7 +155,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
             {extraRight}
             {children && (
               <CaretIcon
-                rotate={collapsed ? 90 : 0}
+                rotate={isCollapsed ? 90 : 0}
                 fill={
                   state === SideBarState.disabled
                     ? theme.palette.text.disabled
@@ -158,7 +166,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
           </Flex>
         </ClickableFlex>
       </Flex>
-      {!collapsed && (
+      {!isCollapsed && (
         <Flex pl="13" direction="column">
           {children}
         </Flex>
@@ -177,4 +185,5 @@ SideBarItem.defaultProps = {
   extraRight: undefined,
   children: undefined,
   onClick: undefined,
+  setIsCollapsed: undefined,
 };

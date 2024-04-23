@@ -1,6 +1,5 @@
 import {
   PasswordInput,
-  QuestionMarkButton,
   DialogBoxFooter,
   Button,
   Typography,
@@ -9,6 +8,7 @@ import {
   LangDisplay,
   Flex,
   Container,
+  PasswordGraphics,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -17,6 +17,7 @@ import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { validatePassword } from '~/utils';
+import logger from '~/utils/logger';
 
 export const PasswordForm: React.FC<{
   passwordSetter: (val: boolean) => void;
@@ -42,6 +43,12 @@ export const PasswordForm: React.FC<{
       { password, confirm: confirmPassword },
       lang,
     );
+
+    logger.info('Button Click: Store Password', {
+      source: PasswordForm.name,
+      isValid: validation.success,
+    });
+
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
       setIsLoading(false);
@@ -61,10 +68,10 @@ export const PasswordForm: React.FC<{
     <DialogBox width={500}>
       <form onSubmit={tryStoringPassword}>
         <DialogBoxBody>
+          <PasswordGraphics width={48} />
           <Flex direction="column" gap={4}>
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={lang.strings.onboarding.setPassword.title} /> (
-              <QuestionMarkButton />)
+              <LangDisplay text={lang.strings.onboarding.setPassword.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" mb={2} color="muted">
               <LangDisplay
