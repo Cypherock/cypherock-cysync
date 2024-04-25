@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 
 import { Container } from '../../components/atoms';
 
@@ -13,11 +14,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    $noFlex: false,
+    $noFlex: true,
     size: 'lg',
     $bgColor: 'white',
     p: '10',
-    children: 'This is the container ',
+    children: (
+      <>
+        <div>This is the first container</div>
+        <div>This is the second container</div>
+      </>
+    ),
   },
 };
 
@@ -29,7 +35,7 @@ export const FlexGapContainer: Story = {
   },
 };
 
-export const BatchContainer: Story = {
+export const RoundedContainer: Story = {
   args: {
     ...Default.args,
     p: '16',

@@ -10,10 +10,13 @@ const meta: Meta<typeof ToggleSection> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
+let toggleValue = true;
 export const Default: Story = {
   args: {
     text: 'Placeholder',
-    value: true,
+    value: toggleValue,
+    onChange: newToggleValue => {
+      toggleValue = newToggleValue;
+    },
   },
 };

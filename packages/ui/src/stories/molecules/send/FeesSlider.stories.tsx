@@ -10,12 +10,25 @@ const meta: Meta<typeof FeesSlider> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
+let value = 2;
 export const Default: Story = {
   args: {
     overrideDecimal: undefined,
     error: undefined,
-    value: 2,
-    captions: [],
+    value,
+    captions: [
+      {
+        id: 1,
+        name: 'first',
+      },
+      {
+        id: 2,
+        name: 'second',
+      },
+    ],
+    average: value,
+    onChange: newValue => {
+      value = newValue;
+    },
   },
 };

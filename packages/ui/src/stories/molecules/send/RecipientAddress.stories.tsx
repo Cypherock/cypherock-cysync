@@ -10,7 +10,12 @@ const meta: Meta<typeof RecipientAddress> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
+let address = 'Noida, Delhi';
 export const Default: Story = {
-  args: {},
+  args: {
+    value: address,
+    onChange: newAddress => {
+      address = newAddress;
+    },
+  },
 };
