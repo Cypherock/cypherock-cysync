@@ -1,5 +1,15 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/Cypherock/cypherock-cysync/pull/423) [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list
+
+- Updated dependencies [[`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10)]:
+  - @cypherock/cysync-utils@0.0.4
+  - @cypherock/coins@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
