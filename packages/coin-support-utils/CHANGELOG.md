@@ -1,5 +1,19 @@
 # @cypherock/coin-support-utils
 
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/Cypherock/cypherock-cysync/pull/423) [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list
+
+- [#409](https://github.com/Cypherock/cypherock-cysync/pull/409) [`d7b6c7d8`](https://github.com/Cypherock/cypherock-cysync/commit/d7b6c7d8e4e2fdb43e46705fa8f354eccc81c4d7) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - use 0 value for graph datapoint prior to token launch
+
+- [#414](https://github.com/Cypherock/cypherock-cysync/pull/414) [`06abd955`](https://github.com/Cypherock/cypherock-cysync/commit/06abd955a95f2e4589ffa5345a036fa7e3e62222) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed infinite sync bug after deleting account
+
+- Updated dependencies [[`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10)]:
+  - @cypherock/cysync-utils@0.0.4
+  - @cypherock/coins@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

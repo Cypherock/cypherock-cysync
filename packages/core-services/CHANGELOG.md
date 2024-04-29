@@ -1,5 +1,22 @@
 # @cypherock/cysync-core-services
 
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/Cypherock/cypherock-cysync/pull/423) [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list
+
+- [#407](https://github.com/Cypherock/cypherock-cysync/pull/407) [`6555bece`](https://github.com/Cypherock/cypherock-cysync/commit/6555bece4751f8cfe02b3a35ee7541bec935d4d0) Thanks [@ParnikaGupta9](https://github.com/ParnikaGupta9)! - Throw error in Cysync intitiated USB operations when vault is busy with device operations
+
+- [#428](https://github.com/Cypherock/cypherock-cysync/pull/428) [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added download csv history feature
+
+- Updated dependencies [[`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735), [`6555bece`](https://github.com/Cypherock/cypherock-cysync/commit/6555bece4751f8cfe02b3a35ee7541bec935d4d0), [`d7b6c7d8`](https://github.com/Cypherock/cypherock-cysync/commit/d7b6c7d8e4e2fdb43e46705fa8f354eccc81c4d7), [`06abd955`](https://github.com/Cypherock/cypherock-cysync/commit/06abd955a95f2e4589ffa5345a036fa7e3e62222), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10)]:
+  - @cypherock/cysync-utils@0.0.4
+  - @cypherock/coin-support-utils@0.0.4
+  - @cypherock/coins@0.0.4
+  - @cypherock/coin-support-evm@0.0.4
+  - @cypherock/coin-support@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @cypherock/database
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10)]:
+  - @cypherock/cysync-utils@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
