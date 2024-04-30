@@ -25,6 +25,13 @@ describe('Hashing', () => {
       }).toThrow();
     });
   });
+  test('Should create the same hash for the same input', () => {
+    const message = 'sampleMessage';
+    const hash1 = createHash(message).toString('hex');
+    const hash2 = createHash(message).toString('hex');
+
+    expect(hash1).toEqual(hash2);
+  });
 });
 
 describe('Encryption', () => {
@@ -98,9 +105,9 @@ describe('Decryption', () => {
   });
 
   test('Should not decrypt with invalid decryption key', async () => {
-    const { valid: validTestCases } = decryption;
+    const { invalid: invalidTestCases } = decryption;
 
-    for (const testCase of validTestCases) {
+    for (const testCase of invalidTestCases) {
       const { data, key, decryptionKey } = testCase;
 
       for (let i = 0; i < data.length; i += 1) {
@@ -109,14 +116,12 @@ describe('Decryption', () => {
         const _decryptionKey = decryptionKey[i];
 
         if (_data && _key && _decryptionKey) {
-          const encryptedData = await encryptData(
-            _data as any,
-            createHash(_key as any),
-          );
+          const encryptedData = await encryptData(_data, createHash(_key));
 
-          expect(
-            decryptData(encryptedData, createHash(_decryptionKey as any)),
-          ).not.toEqual(_data);
+          // expect(decryptedData).not.toEqual(data[i])
+          await expect(
+            decryptData(encryptedData, createHash(_decryptionKey)),
+          ).rejects.toThrow();
         }
       }
     }
