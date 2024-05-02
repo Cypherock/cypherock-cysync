@@ -15,10 +15,11 @@ import {
   WalletIcon,
   WalletInfoIcon,
   TutorialIcon,
+  WalletConnectWhiteIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openReceiveDialog, openSendDialog } from '~/actions';
+import { openReceiveDialog, openSendDialog, openWalletConnectDialog } from '~/actions';
 import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
@@ -130,13 +131,21 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             onClick={() => navigate('history')}
           />
           <SideBarItem
+            text={strings.walletConnect}
+            Icon={WalletConnectWhiteIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
+            onClick={() => {
+              dispatch(openWalletConnectDialog());
+            }}
+          />
+        </Flex>
+        <Flex direction="column" gap={0}>
+          <SideBarItem
             text={strings.tutorial}
             Icon={TutorialIcon}
             state={getState('tutorial')}
             onClick={() => navigate('tutorial')}
           />
-        </Flex>
-        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.settings}
             Icon={SettingsIcon}
