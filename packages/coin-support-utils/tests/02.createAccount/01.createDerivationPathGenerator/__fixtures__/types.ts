@@ -1,3 +1,5 @@
+import { createDerivationPathGenerator } from '../../../../src';
+
 export interface DerivationPathGeneratorTestCases {
   name: string;
   input: {
@@ -5,10 +7,7 @@ export interface DerivationPathGeneratorTestCases {
     existingDerivationPaths: string[];
     limit: number;
   };
-  output: {
-    derivationPath: string;
-    index: number;
-  }[];
+  output: ReturnType<ReturnType<typeof createDerivationPathGenerator>>;
 }
 
 export interface IFixtures {

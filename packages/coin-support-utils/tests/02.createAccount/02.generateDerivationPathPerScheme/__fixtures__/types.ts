@@ -1,15 +1,12 @@
-import { IGenerateDerivationPathsPerSchemeParams } from '../../../../src';
+import {
+  IGenerateDerivationPathsPerSchemeParams,
+  generateDerivationPathsPerScheme,
+} from '../../../../src';
 
 export interface DerivationPathPerSchemeGeneratorTestCases {
   name: string;
   input: IGenerateDerivationPathsPerSchemeParams;
-  output: Record<
-    string,
-    {
-      derivationPath: string;
-      index: number;
-    }[]
-  >;
+  output: ReturnType<typeof generateDerivationPathsPerScheme>;
 }
 
 export interface IFixtures {
