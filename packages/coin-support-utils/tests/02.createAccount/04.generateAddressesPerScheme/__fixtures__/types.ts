@@ -1,17 +1,11 @@
-import { generateAddressesPerScheme } from '../../../../src';
+import { IGenerateAddressesPerSchemeParams, generateAddressesPerScheme } from '../../../../src';
 
 export interface AddressesPerSchemeGeneratorTestCases {
   name: string;
   input: {
-    derivationPathsPerScheme: Record<
-      string,
-      {
-        derivationPath: string;
-        index: number;
-      }[]
-    >;
+    derivationPathsPerScheme: IGenerateAddressesPerSchemeParams<any>['derivationPathsPerScheme'];
   };
-  output: Awaited<ReturnType<typeof generateAddressesPerScheme>>;
+  output: Awaited<ReturnType<typeof generateAddressesPerScheme<any>>>;
 }
 
 export interface IFixtures {
