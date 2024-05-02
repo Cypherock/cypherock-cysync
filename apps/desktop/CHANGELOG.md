@@ -1,5 +1,14 @@
 # @cypherock/cysync-desktop
 
+## 2.0.5
+
+### Patch Changes
+
+- [#455](https://github.com/Cypherock/cypherock-cysync/pull/455) [`3c21df54`](https://github.com/Cypherock/cypherock-cysync/commit/3c21df54f01f856623c0531fc43a8b66eb37421b) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added missing erc20 tokens
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.5
+
 ## 2.0.4
 
 ### Patch Changes
