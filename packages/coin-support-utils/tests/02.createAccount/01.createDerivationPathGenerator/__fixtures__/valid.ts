@@ -56,7 +56,7 @@ export const valid: DerivationPathGeneratorTestCases[] = [
     ],
   },
   {
-    name: 'should return return empty array if base path is alreadty derived and it does not include i',
+    name: 'should return return empty array if base path is already derived and it does not include i',
     input: {
       basePath: "m/44'/0'/0'/0/0",
       existingDerivationPaths: ["m/44'/0'/0'/0/0"],
