@@ -1,4 +1,4 @@
-import { IGenerateDerivationPathsPerSchemeParams } from '../../../../src/createAccount';
+import { IGenerateDerivationPathsPerSchemeParams } from '../../../../src';
 
 export interface DerivationPathPerSchemeGeneratorTestCases {
   name: string;
