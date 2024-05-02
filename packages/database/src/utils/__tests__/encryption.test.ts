@@ -3,8 +3,8 @@ import { createHash, decryptData, encryptData } from '../encryption';
 
 const { hashing, encryption, decryption } = testData;
 
-describe('Hashing', () => {
-  test('Should create hash the valid values', () => {
+describe('createHash', () => {
+  test('Should create hash with valid values', () => {
     const { valid: validTestCases } = hashing;
 
     validTestCases.forEach(item => {
@@ -34,96 +34,90 @@ describe('Hashing', () => {
   });
 });
 
-describe('Encryption', () => {
-  test('Should encrypt valid data', async () => {
-    const { valid: validTestCases } = encryption;
-
-    for (const testCase of validTestCases) {
-      const { data, key } = testCase;
-
-      for (let i = 0; i < data.length; i += 1) {
-        const _data = data[i];
-        const _key = key[i];
-        if (_data && _key) {
-          if (_data.length === 1 && _key.length === 1) {
-            const encryptedData = encryptData(_data, createHash(_key));
-            expect(encryptedData).toMatch(/^[0-9a-fA-F]+\.[0-9a-fA-F]+$/);
+describe('encryptData', () => {
+  describe('Should encrypt valid data', () => {
+    encryption.valid.forEach(testCase => {
+      testCase.data.forEach((data, index) => {
+        const key = testCase.key[index];
+        if (data && key) {
+          if (data.length === 1 && key.length === 1) {
+            test(`Data: ${data}, Key: ${key}`, () => {
+              const encryptedData = encryptData(data, createHash(key));
+              expect(encryptedData).toMatch(/^[0-9a-fA-F]+\.[0-9a-fA-F]+$/);
+            });
           } else {
-            const encryptedData1 = await encryptData(_data, createHash(_key));
-            const encryptedData2 = await encryptData(_data, createHash(_key));
-            expect(encryptedData1).not.toEqual(encryptedData2);
+            test(`Data: ${data}, Key: ${key}`, async () => {
+              const encryptedData1 = await encryptData(data, createHash(key));
+              const encryptedData2 = await encryptData(data, createHash(key));
+              expect(encryptedData1).not.toEqual(encryptedData2);
+            });
           }
         }
-      }
-    }
+      });
+    });
   });
 
-  test('Should not encrypt invalid data', async () => {
-    const { invalid: invalidTestCases } = encryption;
-
-    for (const testCase of invalidTestCases) {
-      const { data, key } = testCase;
-
-      for (let i = 0; i < data.length; i += 1) {
-        const _data = data[i];
-        const _key = key[i];
-
-        if (_key) {
-          await expect(
-            encryptData(data as any, createHash(_key)),
-          ).rejects.toThrow();
-        } else if (_data) {
-          await expect(encryptData(_data, _key as any)).rejects.toThrow();
-        }
-      }
-    }
+  describe('Should not encrypt invalid data', () => {
+    encryption.invalid.forEach(testCase => {
+      testCase.data.forEach((data, index) => {
+        const key = testCase.key[index];
+        test(`Data: ${data}, Key: ${key}`, async () => {
+          if (key) {
+            const hashedKey = createHash(key);
+            if (typeof data !== 'string') {
+              await expect(
+                encryptData(data as any, hashedKey),
+              ).rejects.toThrow();
+            } else if (data === '') {
+              await expect(encryptData(data, hashedKey)).rejects.toThrow();
+            }
+          } else {
+            await expect(
+              encryptData(data as any, key as any),
+            ).rejects.toThrow();
+          }
+        });
+      });
+    });
   });
 });
 
-describe('Decryption', () => {
-  test('Should decrypt with valid decryption key', async () => {
-    const { valid: validTestCases } = decryption;
+describe('decryptData', () => {
+  describe('Should decrypt with valid decryption key', () => {
+    decryption.valid.forEach(testCase => {
+      testCase.data.forEach((data, index) => {
+        const key = testCase.key[index];
+        const decryptionKey = testCase.decryptionKey[index];
 
-    for (const testCase of validTestCases) {
-      const { data, key, decryptionKey } = testCase;
-
-      for (let i = 0; i < data.length; i += 1) {
-        const _data = data[i];
-        const _key = key[i];
-        const _decryptionKey = decryptionKey[i];
-
-        if (_data && _key && _decryptionKey) {
-          const encryptedData = await encryptData(_data, createHash(_key));
-          const decryptedData = await decryptData(
-            encryptedData,
-            createHash(_decryptionKey),
-          );
-          expect(decryptedData).toEqual(data[i]);
-        }
-      }
-    }
+        test(`Data: ${data}, Key: ${key}, Decryption Key: ${decryptionKey}`, async () => {
+          if (data && key && decryptionKey) {
+            const encryptedData = await encryptData(data, createHash(key));
+            const decryptedData = await decryptData(
+              encryptedData,
+              createHash(decryptionKey),
+            );
+            expect(decryptedData).toEqual(data);
+          }
+        });
+      });
+    });
   });
 
-  test('Should not decrypt with invalid decryption key', async () => {
-    const { invalid: invalidTestCases } = decryption;
+  describe('Should not decrypt with invalid decryption key', () => {
+    decryption.invalid.forEach(testCase => {
+      testCase.data.forEach((data, index) => {
+        const key = testCase.key[index];
+        const decryptionKey = testCase.decryptionKey[index];
 
-    for (const testCase of invalidTestCases) {
-      const { data, key, decryptionKey } = testCase;
-
-      for (let i = 0; i < data.length; i += 1) {
-        const _data = data[i];
-        const _key = key[i];
-        const _decryptionKey = decryptionKey[i];
-
-        if (_data && _key && _decryptionKey) {
-          const encryptedData = await encryptData(_data, createHash(_key));
-
-          // expect(decryptedData).not.toEqual(data[i])
-          await expect(
-            decryptData(encryptedData, createHash(_decryptionKey)),
-          ).rejects.toThrow();
-        }
-      }
-    }
+        test(`Data: ${data}, Key: ${key}, Decryption Key: ${decryptionKey}`, async () => {
+          if (data && key && decryptionKey) {
+            const encryptedData = await encryptData(data, createHash(key));
+            await expect(
+              decryptData(encryptedData, createHash(decryptionKey)),
+            ).rejects.toThrow();
+          }
+        });
+      });
+    });
   });
 });
