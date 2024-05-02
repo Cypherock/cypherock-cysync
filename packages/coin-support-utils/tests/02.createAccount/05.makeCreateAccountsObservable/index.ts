@@ -84,7 +84,7 @@ describe('makeCreateAccountsObservable', () => {
     }
   });
 
-  test('should unsubscribe after creating app', done => {
+  test('should stop when unsubscribed after creating app', done => {
     let subscription: Subscription | undefined;
     db.account.getAll.mockResolvedValue([]);
 
