@@ -1,3 +1,9 @@
+# v2.0.5
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue due to missing tokens
+
 # v2.0.4
 
 ### 🚀 Features
