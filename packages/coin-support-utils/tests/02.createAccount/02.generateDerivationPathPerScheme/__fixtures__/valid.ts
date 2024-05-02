@@ -1,4 +1,4 @@
-import { createDerivationPathGenerator } from '../../../../src/createAccount';
+import { createDerivationPathGenerator } from '../../../../src';
 import { accounts } from '../../../__fixtures__';
 import { DerivationPathPerSchemeGeneratorTestCases } from './types';
 
