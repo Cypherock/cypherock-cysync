@@ -2,7 +2,7 @@ import { describe, test } from '@jest/globals';
 import { createAccountNameGenerator } from '../../../src';
 import { fixtures } from './__fixtures__';
 
-describe('createAccountNameGenerator', () => {
+describe('03. createAccountNameGenerator', () => {
   fixtures.valid.forEach(({ name, input, output }) => {
     test(name, () => {
       const generator = createAccountNameGenerator(input.coinName);

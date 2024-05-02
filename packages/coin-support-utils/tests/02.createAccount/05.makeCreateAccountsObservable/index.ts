@@ -14,7 +14,7 @@ import {
 /**
  * @todo Increase branch coverage
  */
-describe('makeCreateAccountsObservable', () => {
+describe('05. makeCreateAccountsObservable', () => {
   beforeAll(() => {
     jest.useFakeTimers();
   });
