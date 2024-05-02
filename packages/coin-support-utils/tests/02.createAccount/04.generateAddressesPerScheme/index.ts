@@ -7,7 +7,7 @@ import {
   generateAddressesPerScheme,
 } from '../../../src';
 
-describe('04. Generate Addresses Per Scheme', () => {
+describe('04. generateAddressesPerScheme', () => {
   fixtures.valid.forEach(({ name, input, output }) => {
     test(name, async () => {
       const params: IGenerateAddressesPerSchemeParams<TestApp> = {
