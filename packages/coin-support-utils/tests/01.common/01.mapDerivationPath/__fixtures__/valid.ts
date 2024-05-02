@@ -4,7 +4,7 @@ export const valid: MapDerivationPathTestCases[] = [
   {
     name: 'should map derivation path with single index',
     input: "m/44'",
-    output: [2147483692],
+    output: [0x80000000 + 44],
   },
   {
     name: 'should map derivation path with multiple index',
