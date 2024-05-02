@@ -2,7 +2,7 @@ import { describe, test } from '@jest/globals';
 import { createDerivationPathGenerator } from '../../../src/createAccount';
 import { fixtures } from './__fixtures__';
 
-describe('createDerivationPathGenerator', () => {
+describe('01. createDerivationPathGenerator', () => {
   fixtures.valid.forEach(({ name, input, output }) => {
     test(name, () => {
       const generator = createDerivationPathGenerator(input.basePath);
