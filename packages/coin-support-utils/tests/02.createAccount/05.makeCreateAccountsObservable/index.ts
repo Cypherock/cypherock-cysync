@@ -146,7 +146,7 @@ describe('makeCreateAccountsObservable', () => {
     }
   });
 
-  test('should unsubscribe after generating address from device', done => {
+  test('should stop when unsubscribed after generating address from device', done => {
     let subscription: Subscription | undefined;
     db.account.getAll.mockResolvedValue([]);
 
