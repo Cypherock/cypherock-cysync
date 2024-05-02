@@ -1,5 +1,5 @@
 import { describe, test } from '@jest/globals';
-import { createDerivationPathGenerator } from '../../../src/createAccount';
+import { createDerivationPathGenerator } from '../../../src';
 import { fixtures } from './__fixtures__';
 
 describe('01. createDerivationPathGenerator', () => {
