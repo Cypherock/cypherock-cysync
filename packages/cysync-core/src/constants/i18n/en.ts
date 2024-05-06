@@ -1552,6 +1552,15 @@ const en = {
               subtitle: 'Proceed to pair old cards with the new device',
             },
             {
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
+            },
+            {
+              title: 'Click "Pair Cards" on your X1 Vault',
+            },
+            {
+              title: 'Confirm "Card Pairing" on X1 Vault',
+            },
+            {
               title: 'Tap any two old X1 cards below the X1 Vault',
               subtitle: 'Do not lift until you hear a beep sound',
               messageBoxList: [
@@ -1626,7 +1635,7 @@ const en = {
               title: 'The wallet seed phrase should now be visible',
               messageBoxList: [
                 {
-                  info: 'Make a temporary physical seed phrase breakup',
+                  danger: 'Make a temporary physical seed phrase breakup',
                 },
                 {
                   info: 'Repeat this process for all the wallets you intend to transfer to the new X1 Cards',
@@ -1654,6 +1663,15 @@ const en = {
                   info: "Keep the old cards aside, you won't be needing them any further in this process",
                 },
               ],
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
+            },
+            {
+              title: 'Click "Pair Cards" on your X1 Vault',
+            },
+            {
+              title: 'Confirm "Card Pairing" on X1 Vault',
             },
             {
               title: 'Tap new set of X1 Cards one by one below the X1 Vault',

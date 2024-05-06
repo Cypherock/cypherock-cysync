@@ -11,7 +11,10 @@ import {
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
   Image,
+  MainMenu,
   MessageBoxType,
+  PairCards,
+  Restore,
   SelectSeedphraseWordCountDeviceGraphics,
   SettingsDevice,
   VerifyPinDeviceGraphics,
@@ -88,6 +91,9 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         <ClearDeviceData />,
         <ClearDeviceData />,
         successIconReactElement,
+        <SettingsDevice />,
+        <PairCards />,
+        <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -96,8 +102,10 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        <ConfirmTransferDeviceGraphics />,
-        <ConfirmTransferDeviceGraphics />,
+        <MainMenu />,
+        // <ConfirmTransferDeviceGraphics />,
+        <Restore />,
+        // <ConfirmTransferDeviceGraphics />,
         <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
@@ -116,7 +124,8 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        <ConfirmWalletNameDeviceGraphics />,
+        // <ConfirmWalletNameDeviceGraphics />,
+        <MainMenu />,
         <ViewSeed />,
         <EnterPinDeviceGraphics />,
         <Video
@@ -138,6 +147,9 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
+        <SettingsDevice />,
+        <PairCards />,
+        <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -315,7 +327,7 @@ export const TransferLessCardsFlowProvider: FC<
 
   useEffect(() => {
     const shouldBlastConfetti =
-      (isConfettiBlastDone && currentTab === 1 && currentDialog === 13) ||
+      (isConfettiBlastDone && currentTab === 1 && currentDialog === 16) ||
       (currentTab === 3 && currentDialog === 0);
 
     setBlastConfetti(shouldBlastConfetti);

@@ -22,6 +22,29 @@ const bgColorMap: Record<MessageBoxType, BgColor> = {
   warning: 'warning',
   danger: 'error',
 };
+
+interface StyledPathTextProps {
+  pathText: string;
+}
+
+const StyledPathText: React.FC<StyledPathTextProps> = ({ pathText }) => {
+  const parts = pathText.split(' -> ');
+  return (
+    <Flex direction="row">
+      {parts.map((part, index) => (
+        <React.Fragment key={parts.length}>
+          <Typography color="gold">{part}</Typography>
+          {index < parts.length - 1 && (
+            <Typography color="muted" mb="2px">
+              {'->'}
+            </Typography>
+          )}
+        </React.Fragment>
+      ))}
+    </Flex>
+  );
+};
+
 export const MessageBox: FC<{
   text: string;
   altText?: string;
@@ -75,7 +98,7 @@ export const MessageBox: FC<{
             {rightImage && rightImage}
           </Container>
         )}
-        {transferFlow && <Typography color="gold">{pathText}</Typography>}
+        {transferFlow && pathText && <StyledPathText pathText={pathText} />}
       </Flex>
     </Container>
   );

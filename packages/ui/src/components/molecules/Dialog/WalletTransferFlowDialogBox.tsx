@@ -305,7 +305,7 @@ export const WalletTransferFlowDialogBox: FC<
       {shouldRenderDoubleDialog ? (
         ''
       ) : (
-        <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+        <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={16}>
           {footer}
           {!footer && (
             <>
