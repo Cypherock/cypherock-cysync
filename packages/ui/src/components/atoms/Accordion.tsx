@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { ArrowDown, ArrowUp, info } from '../../assets';
+import { Flex } from './Flex';
 
 export interface AccordionProps {
   header: string;
@@ -22,16 +23,6 @@ const StyledContainer = styled.div`
   font-weight: 300;
   line-height: 18px;
   text-align: left;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  height: 44px;
-  color: #ffffff;
-  gap: 10px;
-  padding: 0px 16px 0px 16px;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 const First = styled.div`
