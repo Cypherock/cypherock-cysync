@@ -7,7 +7,6 @@ import {
   EnterPinDeviceGraphics,
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
-  GenerateNewWalletDeviceGraphics,
   Image,
   MessageBoxType,
   SelectSeedphraseWordCountDeviceGraphics,
@@ -23,6 +22,9 @@ import {
   ClearDeviceData,
   ViewSeed,
   ConfirmTransferDeviceGraphics,
+  MainMenu,
+  PairCards,
+  ConfirmRestoreFromSeedphraseDeviceGraphics,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -82,7 +84,8 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
   {
     walletTransferLostVault: [
       [
-        <ConfirmWalletNameDeviceGraphics />,
+        // <ConfirmWalletNameDeviceGraphics />,
+        <MainMenu />,
         <ViewSeed />,
         <EnterPinDeviceGraphics />,
         <Video
@@ -104,6 +107,9 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
+        <SettingsDevice />,
+        <PairCards />,
+        <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -113,7 +119,8 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <ConfirmCreateWalletDeviceGraphics />,
-        <GenerateNewWalletDeviceGraphics />,
+        // <GenerateNewWalletDeviceGraphics />,
+        <ConfirmRestoreFromSeedphraseDeviceGraphics />,
         <EnterWalletNameDeviceGraphics />,
         <ConfirmWalletNameDeviceGraphics />,
         <ConfirmCreatePinDeviceGraphics />,

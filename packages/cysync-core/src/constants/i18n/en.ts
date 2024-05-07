@@ -1877,7 +1877,7 @@ const en = {
               title: 'The wallet seed phrase should now be visible',
               messageBoxList: [
                 {
-                  info: 'Make a temporary physical seed phrase backup',
+                  danger: 'Make a temporary physical seed phrase backup',
                 },
                 {
                   info: 'Repeat this process for all the wallets you intend to transfer to the new X! Cards',
@@ -1905,6 +1905,15 @@ const en = {
                   info: "Keep the old cards aside, you won't be needing them any further in this process",
                 },
               ],
+            },
+            {
+              title: 'From the Main Menu of your X1 Vault, click "Settings"',
+            },
+            {
+              title: 'Click "Pair Cards" on your X1 Vault',
+            },
+            {
+              title: 'Confirm "Card Pairing" on X1 Vault',
             },
             {
               title: 'Tap new set of X1 Cards one by one below the X1 Vault',

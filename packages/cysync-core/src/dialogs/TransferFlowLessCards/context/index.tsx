@@ -103,9 +103,7 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <MainMenu />,
-        // <ConfirmTransferDeviceGraphics />,
         <Restore />,
-        // <ConfirmTransferDeviceGraphics />,
         <ConfirmTransferDeviceGraphics />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
@@ -124,7 +122,6 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        // <ConfirmWalletNameDeviceGraphics />,
         <MainMenu />,
         <ViewSeed />,
         <EnterPinDeviceGraphics />,
