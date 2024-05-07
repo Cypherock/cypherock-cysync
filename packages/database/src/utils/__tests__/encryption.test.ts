@@ -2,29 +2,27 @@ import { testData } from '../__fixtures__';
 import { createHash, decryptData, encryptData } from '../encryption';
 
 const { hashing, encryption, decryption } = testData;
-
 describe('createHash', () => {
-  test('Should create hash with valid values', () => {
-    const { valid: validTestCases } = hashing;
-
-    validTestCases.forEach(item => {
-      if (item.expectedHashKey && item.message) {
-        expect(createHash(item.message).toString('hex')).toEqual(
-          item.expectedHashKey,
-        );
-      }
+  describe('Should generate expected hash for valid input messages', () => {
+    hashing.valid.forEach(testCase => {
+      const { message, expectedHashKey } = testCase;
+      test(`Message: ${message}`, () => {
+        expect(createHash(message).toString('hex')).toEqual(expectedHashKey);
+      });
     });
   });
 
-  test('Should not create hash the invalid values', () => {
-    const { invalid: invalidTestCases } = hashing;
-
-    invalidTestCases.forEach(item => {
-      expect(() => {
-        createHash(item as any);
-      }).toThrow();
+  describe('Should throw an error for invalid values', () => {
+    hashing.invalid.forEach(testCase => {
+      const { message } = testCase;
+      test(`Message: ${message}`, () => {
+        expect(() => {
+          createHash(message as any);
+        }).toThrow();
+      });
     });
   });
+
   test('Should create the same hash for the same input', () => {
     const message = 'sampleMessage';
     const hash1 = createHash(message).toString('hex');
