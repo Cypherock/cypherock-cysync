@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { oneInManyFirst, oneInManySecond, oneInManyThird } from '../../assets';
-
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  flex-direction: row;
-  justify-content: space-evenly;
-  font-family: Poppins;
-`;
+import {
+  oneInManyBgImage,
+  oneInManyBgHoverImage,
+  oneInManyBgSelectedImage,
+} from '../../assets';
+import { Flex } from './Flex';
 
 const Second = styled.p`
   font-size: 12px;
@@ -25,6 +21,8 @@ export interface OIMProps {
   description: string;
 }
 
+const Title = 'YES';
+
 export const OneInMany: FC<OIMProps> = ({ description }) => {
   const [isHover, setIsHover] = useState(false);
   const [isSelected, setisSelected] = useState(false);
@@ -35,14 +33,14 @@ export const OneInMany: FC<OIMProps> = ({ description }) => {
         ? '0px 0px 12px 4px #1B1813'
         : '0px 0px 12px 4px #1B1813 inset'};
       background-image: ${!isSelected
-        ? `linear-gradient(105.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManySecond}), linear-gradient(0deg, #332F2D, #332F2D)`
+        ? `linear-gradient(105.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManyBgHoverImage}), linear-gradient(0deg, #332F2D, #332F2D)`
         : ''};
     }
     border: ${isSelected ? '1px solid #e0bb74' : ''};
     background: #2a2827;
     background: ${!isSelected
-      ? `linear-gradient(285.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManyFirst}), linear-gradient(0deg, #2A2827, #2A2827)`
-      : `url(${oneInManyThird}), #2A2827`};
+      ? `linear-gradient(285.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManyBgImage}), linear-gradient(0deg, #2A2827, #2A2827)`
+      : `url(${oneInManyBgSelectedImage}), #2A2827`};
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px;
@@ -55,6 +53,7 @@ export const OneInMany: FC<OIMProps> = ({ description }) => {
   font-size: 64px;
   font-weight: 700;
   line-height: 96px;
+  cursor: pointer;
   background: ${
     isHover && !isSelected
       ? 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%);'
@@ -68,15 +67,13 @@ export const OneInMany: FC<OIMProps> = ({ description }) => {
   `;
   return (
     <StyledContainer
-      onMouseDown={() => setisSelected(true)}
-      onMouseUp={() => setisSelected(false)}
       onMouseEnter={() => setIsHover(true)}
-      onClick={() => setIsHover(true)}
+      onClick={() => setisSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
       className="oneInManyContainer"
     >
       <Flex>
-        <First className={isHover ? 'hoverFirst' : ''}>YES</First>
+        <First className={isHover ? 'hoverFirst' : ''}>{Title}</First>
         <Second>{description}</Second>
       </Flex>
     </StyledContainer>
