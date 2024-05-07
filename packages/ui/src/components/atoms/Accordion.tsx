@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { ArrowDown, ArrowUp, info } from '../../assets';
 import { Flex } from './Flex';
+
+import { ArrowDown, ArrowUp, info } from '../../assets';
 
 export interface AccordionProps {
   header: string;
