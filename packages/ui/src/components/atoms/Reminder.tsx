@@ -9,17 +9,10 @@ import {
   clockDisabled,
   ClockInfo,
 } from '../../assets';
-
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  flex-direction: row;
-  padding-left: 24px;
-  font-family: Poppins;
-`;
+import { Flex } from './Flex';
 
 const DisableContainer = styled.div`
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
   width: 348px;
@@ -100,20 +93,19 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
     background-repeat: no-repeat;
     border-radius: 8px;
     overflow: hidden;
+    cursor: pointer;
     width: 348px;
     height: 53px;
     color: #ffffff;
   `;
   return !disabled ? (
     <StyledContainer
-      onMouseDown={() => setisSelected(true)}
-      onMouseUp={() => setisSelected(false)}
       onMouseEnter={() => setIsHover(true)}
-      onClick={() => setIsHover(true)}
+      onClick={() => setisSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
       className="oneInManyContainer"
     >
-      <Flex>
+      <Flex p={2}>
         {isHover && !isSelected ? <ClockHoverImage /> : <ClockDefaultImage />}
         <DateLabel>{date}</DateLabel>
       </Flex>
