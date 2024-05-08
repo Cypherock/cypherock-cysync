@@ -82,9 +82,9 @@ export const MessageBox: FC<{
       justify="flex-start"
       $alignSelf="stretch"
     >
-      <div>
+      <Flex>
         <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-      </div>
+      </Flex>
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
           <LangDisplay text={text} variables={variables} />
