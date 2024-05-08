@@ -257,7 +257,6 @@ export const TransferLessCardsFlowProvider: FC<
       tabRef.current === 1 &&
       dialogRef.current === 0
     ) {
-      console.log('Navigation disabled under specific settings');
       return;
     }
     checkConfettiBlastDone();

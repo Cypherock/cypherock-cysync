@@ -138,7 +138,6 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
       currentTab === 0 &&
       currentDialog === 0
     ) {
-      console.log('Navigation disabled on portfolio landing');
       return;
     }
     checkConfettiBlastDone();
@@ -195,7 +194,6 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
       currentTab === 0 &&
       currentDialog === 0
     ) {
-      console.log('Navigation disabled on portfolio landing');
       return;
     }
     if (

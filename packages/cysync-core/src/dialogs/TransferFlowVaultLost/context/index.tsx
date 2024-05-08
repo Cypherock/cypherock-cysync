@@ -84,7 +84,6 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
   {
     walletTransferLostVault: [
       [
-        // <ConfirmWalletNameDeviceGraphics />,
         <MainMenu />,
         <ViewSeed />,
         <EnterPinDeviceGraphics />,
@@ -119,7 +118,6 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <ConfirmCreateWalletDeviceGraphics />,
-        // <GenerateNewWalletDeviceGraphics />,
         <ConfirmRestoreFromSeedphraseDeviceGraphics />,
         <EnterWalletNameDeviceGraphics />,
         <ConfirmWalletNameDeviceGraphics />,

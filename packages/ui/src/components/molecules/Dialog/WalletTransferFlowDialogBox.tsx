@@ -31,6 +31,21 @@ const DialogContainer = styled.div`
   width: 500px;
 `;
 
+const DialogBoxStyle = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 16px;
+  /* overflow-y: scroll; */
+  background-image: ${({ theme }) => theme.palette.background.primary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
+  border-color: ${({ theme }) => theme.palette.border.popup};
+  text-align: center;
+`;
+
 export interface WalletTransferFlowDialogBoxProps {
   title?: string;
   subtitle?: string;
@@ -93,23 +108,6 @@ export const WalletTransferFlowDialogBox: FC<
       lang.strings.settings.tabs.device.item.transferWalletSettings.case2
         .message,
   };
-
-  console.log(lang);
-
-  const DialogBoxStyle = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 16px;
-    /* overflow-y: scroll; */
-    background-image: ${({ theme }) => theme.palette.background.primary};
-    box-shadow: ${({ theme }) => theme.shadow.popup};
-    border-color: ${({ theme }) => theme.palette.border.popup};
-    text-align: center;
-  `;
 
   return (
     <>

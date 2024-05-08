@@ -16,6 +16,18 @@ import { TransferFlowType } from '~/store';
 import { TransferFlowProvider, useTransferFlow } from './context';
 import { CloseConfirmation } from './Dialogs';
 
+const DialogBoxStyle = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-radius: 16px;
+  /* overflow-y: scroll; */
+  text-align: center;
+  width: 400px;
+`;
+
 export const TransferFlowDialog: FC = () => {
   const {
     tabs,
@@ -30,18 +42,6 @@ export const TransferFlowDialog: FC = () => {
   const isFinalMessageShown =
     currentTab === tabs.length - 1 &&
     currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
-
-  const DialogBoxStyle = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-width: 1px;
-    border-radius: 16px;
-    /* overflow-y: scroll; */
-    text-align: center;
-    width: 400px;
-  `;
 
   const getTitleFromReactElement = (
     node: React.ReactNode,
