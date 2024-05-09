@@ -1,4 +1,5 @@
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import { parseUri } from '@walletconnect/utils';
 import PropTypes from 'prop-types';
 import React, {
@@ -74,11 +75,13 @@ export const WalletConnectContext: Context<WalletConnectContextInterface> =
     {} as WalletConnectContextInterface,
   );
 
+const selector = createSelector([selectWallets], ({ wallets }) => wallets);
+
 export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   children,
 }) => {
   const dispatch = useAppDispatch();
-  const { wallets } = useAppSelector(selectWallets);
+  const wallets = useAppSelector(selector);
   const walletsRef = useStateToRef(wallets);
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>();
   const [activeAccount, setActiveAccount] = useState<IAccount | undefined>();

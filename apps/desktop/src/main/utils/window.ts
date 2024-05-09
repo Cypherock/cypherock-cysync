@@ -105,9 +105,9 @@ export const createWindowAndOpenUrl = (
   if (url.startsWith('http')) {
     win.loadURL(url);
 
-    if (!config.IS_PRODUCTION && !config.IS_TEST) {
+    // if (!config.IS_PRODUCTION && !config.IS_TEST) {
       win.webContents.openDevTools();
-    }
+    // }
   } else {
     win.loadFile(url);
   }

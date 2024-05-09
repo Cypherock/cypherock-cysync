@@ -13,7 +13,7 @@ import {
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import logger from '~/utils/logger';
 
@@ -32,7 +32,7 @@ const selector = createSelector(
 );
 
 export const Portfolio: FC = () => {
-  const { lang, wallets, accounts } = useAppSelector(selector);
+  const { lang, wallets, accounts } = useShallowEqualAppSelector(selector);
   const dispatch = useAppDispatch();
 
   const handleAddAccountClick = () => {

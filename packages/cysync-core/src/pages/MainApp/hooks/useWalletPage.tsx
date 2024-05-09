@@ -40,7 +40,7 @@ import {
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 export interface AccountTokenType {
@@ -226,7 +226,7 @@ export const useWalletPage = () => {
     priceInfos,
     accountSyncMap,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useShallowEqualAppSelector(selector);
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
   const query = useQuery();

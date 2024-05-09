@@ -25,7 +25,7 @@ import {
   selectLanguage,
   selectUnHiddenAccounts,
   selectWallets,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 const selector = createSelector(
@@ -36,7 +36,7 @@ const selector = createSelector(
 export const useAccountPage = () => {
   const query = useQuery();
   const navigateTo = useNavigateTo();
-  const { accounts, wallets, lang } = useAppSelector(selector);
+  const { accounts, wallets, lang } = useShallowEqualAppSelector(selector);
   const { selectedWallet } = useWalletDropdown({ withSelectAll: true });
 
   const accountId = useMemo(() => query.get('accountId') ?? undefined, [query]);

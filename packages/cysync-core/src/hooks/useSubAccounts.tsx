@@ -15,7 +15,7 @@ import {
   selectDiscreetMode,
   selectPriceInfos,
   selectUnHiddenAccounts,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '..';
 
 export interface UseSubAccountsProps {
@@ -32,7 +32,8 @@ const selector = createSelector(
 );
 
 export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
-  const { accounts, priceInfos, isDiscreetMode } = useAppSelector(selector);
+  const { accounts, priceInfos, isDiscreetMode } =
+    useShallowEqualAppSelector(selector);
 
   const subAccounts = useMemo(
     () =>

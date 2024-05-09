@@ -5,6 +5,7 @@ import {
   DeviceCommunicationError,
   DeviceCommunicationErrorType,
 } from '@cypherock/sdk-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 
 import {
@@ -20,7 +21,7 @@ import {
   closeAllDialogs,
   selectDialogs,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -39,12 +40,20 @@ const OnboardingMap: Record<OnboardingStep, string> = {
   [OnboardingStep.UNRECOGNIZED]: routes.onboarding.info.path,
 };
 
+const selector = createSelector(
+  [selectDialogs],
+  ({ deviceAuthenticationDialog, deviceUpdateDialog }) => ({
+    deviceAuthenticationDialog,
+    deviceUpdateDialog,
+  }),
+);
+
 export const DeviceHandlingTask: React.FC = () => {
   const { deviceHandlingState, connection } = useDevice();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
   const { deviceAuthenticationDialog, deviceUpdateDialog } =
-    useAppSelector(selectDialogs);
+    useShallowEqualAppSelector(selector);
 
   const handlingStateToActionMap: Partial<
     Record<DeviceHandlingState, () => Promise<void>>

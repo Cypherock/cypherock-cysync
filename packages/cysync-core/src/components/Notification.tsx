@@ -44,6 +44,7 @@ import {
   toggleNotification,
   useAppDispatch,
   useAppSelector,
+  useShallowEqualAppSelector,
 } from '..';
 
 export interface NotificationProps {
@@ -52,11 +53,12 @@ export interface NotificationProps {
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
-  (lang, notifications, { wallets }, { accounts }) => ({
+  (lang, { unreadTransactions, transactions }, { wallets }, { accounts }) => ({
     lang,
     wallets,
     accounts,
-    ...notifications,
+    unreadTransactions,
+    transactions,
   }),
 );
 
@@ -121,7 +123,7 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const theme = useTheme();
   const navigate = useNavigateTo();
   const { transactions, lang, wallets, accounts, unreadTransactions } =
-    useAppSelector(selector);
+    useShallowEqualAppSelector(selector);
 
   const onClose = () => {
     markAllTransactionNotificationRead(transactions);

@@ -7,18 +7,27 @@ import {
   LangDisplay,
   walletErrorIcon,
 } from '@cypherock/cysync-ui';
+import {createSelector} from '@reduxjs/toolkit';
 import React, { FC, useEffect, useState } from 'react';
 
 import { deleteWallets } from '~/actions';
 import { closeDialog, selectWallets, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
-import { selectLanguage, useAppSelector } from '..';
+import { selectLanguage, useShallowEqualAppSelector } from '..';
+
+const selector = createSelector(
+  [selectLanguage, selectWallets],
+  (lang, { deletedWallets, deleteWalletStatus }) => ({
+    lang,
+    deletedWallets,
+    deleteWalletStatus,
+  }),
+);
 
 export const WalletSyncError: FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const { deletedWallets, deleteWalletStatus, lang } = useShallowEqualAppSelector(selector);
   const dispatch = useAppDispatch();
-  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
   const [deletedWalletsCopy] = useState(deletedWallets);
 
   const [selectedCheckboxListItems, setSelectedCheckboxListItems] =

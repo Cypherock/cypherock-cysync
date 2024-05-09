@@ -9,6 +9,7 @@ import {
   TypedUseSelectorHook,
   useSelector,
   useDispatch,
+  shallowEqual,
 } from 'react-redux';
 
 import accountReducer, { IAccountState } from './account';
@@ -65,5 +66,11 @@ export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction> &
   Dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+export const useShallowEqualAppSelector: TypedUseSelectorHook<
+  RootState
+> = selector => {
+  return useSelector(selector, shallowEqual);
+};
 
 export const useAppDispatch: () => AppDispatch = useDispatch;

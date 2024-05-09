@@ -22,14 +22,14 @@ import {
   selectLanguage,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 import { WalletNotCreatedDialog } from './WalletNotCreatedDialog';
 
 const selectWalletsAndLang = createSelector(
   [selectLanguage, selectWallets],
-  (a, b) => ({ lang: a, ...b }),
+  (a, { wallets }) => ({ lang: a, wallets }),
 );
 
 const informationIconReactElement = (
@@ -40,7 +40,7 @@ const Buttons: FC<{
   setShowWalletNotCreatedDialog: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowWalletNotCreatedDialog }) => {
   const { onCloseDialog } = useGuidedFlow();
-  const { lang, wallets } = useAppSelector(selectWalletsAndLang);
+  const { lang, wallets } = useShallowEqualAppSelector(selectWalletsAndLang);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
   const tryOpeningAddAccount = () => {
@@ -78,7 +78,7 @@ const Buttons: FC<{
 };
 
 export const FinalMessage: FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const lang = useShallowEqualAppSelector(selectLanguage);
   const { onNext, onPrevious } = useGuidedFlow();
   const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
     useState(false);

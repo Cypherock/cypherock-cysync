@@ -3,7 +3,7 @@ import { IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { selectLanguage, selectWallets, useAppSelector } from '..';
+import { selectLanguage, selectWallets, useShallowEqualAppSelector } from '..';
 
 export interface UseWalletDropdownProps {
   walletId?: string;
@@ -18,7 +18,7 @@ const selector = createSelector(
 
 export const useWalletDropdown = (props?: UseWalletDropdownProps) => {
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const { wallets, lang } = useAppSelector(selector);
+  const { wallets, lang } = useShallowEqualAppSelector(selector);
   const theme = useTheme();
 
   const handleWalletChange = useCallback(

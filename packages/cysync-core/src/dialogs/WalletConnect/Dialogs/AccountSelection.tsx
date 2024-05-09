@@ -17,11 +17,16 @@ import {
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { supportedWalletConnectFamilies, useWalletConnect } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import {
+  selectAccounts,
+  selectLanguage,
+  useShallowEqualAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
 import {
@@ -29,8 +34,16 @@ import {
   DappConnectionDisplay,
 } from './Components';
 
+const selector = createSelector(
+  [selectAccounts, selectLanguage],
+  ({ accounts }, lang) => ({
+    accounts,
+    lang,
+  }),
+);
+
 export const WalletConnectAccountSelectionDialog: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const { accounts: allAccounts, lang } = useShallowEqualAppSelector(selector);
   const { buttons, walletConnect } = lang.strings;
   const { accountSelectionTab, common } = walletConnect;
   const { selectedWallet, walletDropdownList, handleWalletChange } =
@@ -59,8 +72,6 @@ export const WalletConnectAccountSelectionDialog: React.FC = () => {
         : Object.values(chainToAccountMapRef.current),
     );
   };
-
-  const { accounts: allAccounts } = useAppSelector(selectAccounts);
 
   const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
     (...args) => {

@@ -10,15 +10,24 @@ import {
   svgGradients,
   ArrowReceivedIcon,
 } from '@cypherock/cysync-ui';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback } from 'react';
 
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import { selectAccounts, selectLanguage, useShallowEqualAppSelector } from '~/store';
 import logger from '~/utils/logger';
 
 import { useReceiveDialog } from '../context';
 
+const selector = createSelector(
+  [selectAccounts, selectLanguage],
+  ({ accounts }, lang) => ({
+    accounts,
+    lang,
+  }),
+);
+
 export const SelectionDialog: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const { accounts: allAccounts, lang } = useShallowEqualAppSelector(selector);
 
   const {
     onNext,
@@ -34,7 +43,6 @@ export const SelectionDialog: React.FC = () => {
 
   const dialogText = lang.strings.receive.source;
   const buttonText = lang.strings.buttons;
-  const { accounts: allAccounts } = useAppSelector(selectAccounts);
 
   const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
     (...args) => {

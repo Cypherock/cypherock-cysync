@@ -5,11 +5,16 @@ import React, { useMemo } from 'react';
 
 import { useNavigateTo } from './useNavigateTo';
 
-import { CoinIcon, routes, selectUnHiddenAccounts, useAppSelector } from '..';
+import { CoinIcon, routes, selectUnHiddenAccounts, useShallowEqualAppSelector } from '..';
+import { createSelector } from '@reduxjs/toolkit';
+
+const selector = createSelector([selectUnHiddenAccounts], ({ accounts }) => ({
+  accounts,
+}));
 
 export const useAssetDropdown = () => {
   const navigateTo = useNavigateTo();
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const { accounts } = useShallowEqualAppSelector(selector);
 
   const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
     () =>

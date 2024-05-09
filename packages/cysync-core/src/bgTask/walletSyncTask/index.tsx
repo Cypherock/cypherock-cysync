@@ -1,12 +1,21 @@
+import {createSelector} from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 
 import { openWalletSyncErrorDialog, syncWalletsWithDevice } from '~/actions';
 import { useDevice } from '~/context';
-import { selectWallets, useAppDispatch, useAppSelector } from '~/store';
+import { selectWallets, useAppDispatch, useShallowEqualAppSelector } from '~/store';
+
+const selector = createSelector(
+  [selectWallets],
+  ({ deletedWallets, deleteWalletStatus }) => ({
+    deletedWallets,
+    deleteWalletStatus,
+  }),
+);
 
 export const WalletSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { deletedWallets, deleteWalletStatus } = useAppSelector(selectWallets);
+  const { deletedWallets, deleteWalletStatus } = useShallowEqualAppSelector(selector);
 
   const { connection } = useDevice();
 

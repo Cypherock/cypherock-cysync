@@ -4,6 +4,7 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ import {
   selectLanguage,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '..';
 
 export type Page =
@@ -54,15 +55,25 @@ export interface SidebarProviderProps {
   children: React.ReactNode;
 }
 
+const selector = createSelector(
+  [selectLanguage, selectWallets],
+  (lang, { wallets, deletedWallets, syncWalletStatus }) => ({
+    lang,
+    wallets,
+    deletedWallets,
+    syncWalletStatus,
+  }),
+);
+
 export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   children,
 }) => {
   const location = useLocation();
   const query = useQuery();
   const dispatch = useAppDispatch();
-  const strings = useAppSelector(selectLanguage).strings.sidebar;
-  const { wallets, deletedWallets, syncWalletStatus } =
-    useAppSelector(selectWallets);
+  const { wallets, deletedWallets, syncWalletStatus, lang } =
+    useShallowEqualAppSelector(selector);
+  const strings = lang.strings.sidebar;
   const theme = useTheme();
   const navigateTo = useNavigateTo();
   const { onWalletSync } = useWalletSync();

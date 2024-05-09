@@ -39,6 +39,7 @@ import {
   selectWallets,
   useAppDispatch,
   useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 import { LoaderDialog } from '../components';
@@ -108,7 +109,7 @@ const selector = createSelector(
 
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { lang, wallets, accounts, priceInfos, isDiscreetMode } =
-    useAppSelector(selector);
+    useShallowEqualAppSelector(selector);
   const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();

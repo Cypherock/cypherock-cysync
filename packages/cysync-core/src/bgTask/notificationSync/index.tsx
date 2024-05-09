@@ -7,26 +7,14 @@ import {
   selectDiscreetMode,
   selectTransactions,
   selectUnHiddenAccounts,
-  selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import { getDB } from '~/utils';
 
 const selector = createSelector(
-  [
-    selectWallets,
-    selectUnHiddenAccounts,
-    selectTransactions,
-    selectDiscreetMode,
-  ],
-  (
-    { wallets },
-    { accounts },
-    { transactions },
-    { active: isDiscreetMode },
-  ) => ({
-    wallets,
+  [selectUnHiddenAccounts, selectTransactions, selectDiscreetMode],
+  ({ accounts }, { transactions }, { active: isDiscreetMode }) => ({
     accounts,
     transactions,
     isDiscreetMode,
@@ -35,7 +23,7 @@ const selector = createSelector(
 
 export const NotificationSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { transactions, accounts, isDiscreetMode } = useAppSelector(selector);
+  const { transactions, accounts, isDiscreetMode } = useShallowEqualAppSelector(selector);
 
   const debounceParseTransactionList = useCallback(
     lodash.throttle(() => dispatch(syncTransactionNotifications()), 1000, {

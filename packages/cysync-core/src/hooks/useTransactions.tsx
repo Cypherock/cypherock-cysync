@@ -38,7 +38,7 @@ import {
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import { ILangState } from '~/store/lang';
 import { getDisplayTransactionType, transactionIconMap } from '~/utils';
@@ -314,7 +314,7 @@ export const useTransactions = ({
     transactions: allTransactions,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useShallowEqualAppSelector(selector);
   const refData = useStateToRef({
     lang,
     wallets,

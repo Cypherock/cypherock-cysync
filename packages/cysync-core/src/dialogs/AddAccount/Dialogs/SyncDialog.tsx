@@ -25,7 +25,7 @@ import { CoinIcon } from '~/components';
 import {
   selectLanguage,
   selectUnHiddenAccounts,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 import { useAddAccountDialog } from '../context';
@@ -98,7 +98,7 @@ const createAccountDisplayList = (params: {
 };
 
 export const AddAccountSyncDialog: FC = () => {
-  const { lang, accounts: existingAccounts } = useAppSelector(
+  const { lang, accounts: existingAccounts } = useShallowEqualAppSelector(
     selectAccountsAndLang,
   );
   const strings = lang.strings.addAccount.sync;

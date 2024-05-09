@@ -13,6 +13,7 @@ import type { RootState } from '../store';
 export * from './types';
 
 const initialState: INotificationState = {
+  hasUnreadTransactions: false,
   unreadTransactions: 0,
   isOpen: false,
   transactions: [],
@@ -35,6 +36,7 @@ export const notificationSlice = createSlice({
     ) => {
       state.transactions = payload.payload.transactions;
       state.unreadTransactions = payload.payload.unRead;
+      state.hasUnreadTransactions = payload.payload.unRead > 0;
     },
   },
 });

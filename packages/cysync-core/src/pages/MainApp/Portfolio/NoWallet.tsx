@@ -10,7 +10,7 @@ import { openWalletActionsDialog } from '~/actions';
 import { DeviceHandlingState, useDevice } from '~/context';
 import { useWalletSync } from '~/hooks';
 import {
-  useAppSelector,
+  useShallowEqualAppSelector,
   selectLanguage,
   useAppDispatch,
   selectWallets,
@@ -26,7 +26,7 @@ const selector = createSelector(
 );
 
 export const NoWallet = () => {
-  const { lang, syncWalletStatus } = useAppSelector(selector);
+  const { lang, syncWalletStatus } = useShallowEqualAppSelector(selector);
   const dispatch = useAppDispatch();
   const { onWalletSync } = useWalletSync();
   const { deviceHandlingState } = useDevice();

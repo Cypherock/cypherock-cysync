@@ -12,6 +12,7 @@ import {
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
+import {createSelector} from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -34,7 +35,7 @@ import {
   selectLanguage,
   selectUnHiddenAccounts,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
@@ -76,11 +77,19 @@ export interface AddTokenDialogContextProviderProps {
   walletId?: string;
 }
 
+const selector = createSelector(
+  [selectUnHiddenAccounts, selectLanguage],
+  ({ accounts }, lang) => ({
+    accounts,
+    lang,
+  }),
+);
+
 export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   children,
   walletId: defaultWalletId,
 }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { accounts, lang } = useShallowEqualAppSelector(selector);
   const dispatch = useAppDispatch();
 
   const {
@@ -162,7 +171,6 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     [],
   );
 
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
   const accountList: Record<string, IAccount> = useMemo(
     () => Object.fromEntries(accounts.map(a => [a.__id, a])),
     [accounts],

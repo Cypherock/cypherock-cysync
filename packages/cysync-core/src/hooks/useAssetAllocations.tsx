@@ -38,7 +38,7 @@ import {
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '..';
 
 export interface CoinAllocationRow {
@@ -113,7 +113,7 @@ export const useAssetAllocations = ({
     transactions: allTransactions,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useShallowEqualAppSelector(selector);
   const refData = useStateToRef({
     lang,
     wallets,

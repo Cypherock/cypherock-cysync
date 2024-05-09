@@ -19,17 +19,17 @@ import {
   toggleDiscreetMode,
   toggleNotification,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
-  (a, b, c, { isOpen, unreadTransactions }) => ({
+  (a, b, { syncState, syncError }, { hasUnreadTransactions }) => ({
     lang: a,
     discreetMode: b,
-    accountSync: c,
-    isNotificationOpen: isOpen,
-    unreadTransactions,
+    syncState,
+    syncError,
+    hasUnreadTransactions,
   }),
 );
 
@@ -58,14 +58,14 @@ export interface TopbarProps {
 
 const TopbarComponent: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
-  const { lang, discreetMode, accountSync, unreadTransactions } =
-    useAppSelector(selector);
+  const { lang, discreetMode, syncState, syncError, hasUnreadTransactions } =
+    useShallowEqualAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
-  const syncState = useMemo<SyncStatusType>(
-    () => accountSyncMap[accountSync.syncState],
-    [accountSync.syncState],
+  const syncStatus = useMemo<SyncStatusType>(
+    () => accountSyncMap[syncState],
+    [syncState],
   );
 
   const connectionState: ConnectionStatusType = useMemo(
@@ -88,16 +88,16 @@ const TopbarComponent: FC<TopbarProps> = props => {
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
-      syncStatus={syncState}
+      syncStatus={syncStatus}
       isPasswordSet={isPasswordSet}
       connectionStatus={connectionState}
-      haveNotifications={unreadTransactions > 0}
+      haveNotifications={hasUnreadTransactions}
       onNotificationClick={onNotificationClick}
       isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}
       toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
       onSyncClick={onSyncClick}
-      tooltipText={accountSync.syncError}
+      tooltipText={syncError}
     />
   );
 };

@@ -1,14 +1,27 @@
 import { evmCoinList } from '@cypherock/coins';
 import { Dropdown, parseLangTemplate } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect } from 'react';
 
 import { useAccountDropdown } from '~/hooks';
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import {
+  selectAccounts,
+  selectLanguage,
+  useShallowEqualAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
 const getAssetFromChain = (chainId: number) =>
   Object.values(evmCoinList).find(coin => coin.chain === chainId);
+
+const selector = createSelector(
+  [selectAccounts, selectLanguage],
+  ({ accounts }, lang) => ({
+    accounts,
+    lang,
+  }),
+);
 
 export const ChainSpecificAccountSelection: React.FC<{
   chain: string;
@@ -16,7 +29,7 @@ export const ChainSpecificAccountSelection: React.FC<{
   updateChainToAccountMap: (account: IAccount, chain: string) => void;
   asterisk?: boolean;
 }> = ({ selectedWallet, chain, updateChainToAccountMap, asterisk }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { accounts: allAccounts, lang } = useShallowEqualAppSelector(selector);
   const { accountSelectionTab } = lang.strings.walletConnect;
   const chainId = parseInt(chain.split(':')[1], 10);
   const asset = getAssetFromChain(chainId);
@@ -28,7 +41,6 @@ export const ChainSpecificAccountSelection: React.FC<{
       assetFilter: [asset.id],
     });
 
-  const { accounts: allAccounts } = useAppSelector(selectAccounts);
   const handleAccountChangeProxy: typeof handleAccountChange = useCallback(
     (id: string | undefined, ...args) => {
       const targetAccount = allAccounts.find(a => a.__id === id);

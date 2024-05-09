@@ -1,3 +1,4 @@
+import { AnyAction } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 
 import { syncAccounts } from '~/actions';
@@ -28,77 +29,106 @@ const createFuncWithErrorHandler =
     }
   };
 
-const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
-  const db = getDB();
+async function runFunctionOrLogError<T>(func: () => Promise<T>) {
+  try {
+    return await func();
+  } catch (error) {
+    logger.error(error);
+  }
+}
 
-  const wallets = await db.wallet.getAll(undefined, {
-    sortBy: { key: 'name' },
-  });
+const getAllWallets = () =>
+  getDB().wallet.getAll(undefined, { sortBy: { key: 'name' } });
+
+const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
+  const wallets = await getAllWallets();
   store.dispatch(setWallets(wallets));
 });
 
+const getAllAccounts = () =>
+  getDB().account.getAll(undefined, { sortBy: { key: 'name' } });
+
 const syncAccountsDb = createFuncWithErrorHandler(
   'syncAccountsDb',
-  async isFirst => {
-    const db = getDB();
-
-    const accounts = await db.account.getAll(undefined, {
-      sortBy: { key: 'name' },
-    });
+  async () => {
+    const accounts = await getAllAccounts();
     store.dispatch(setAccounts(accounts));
-
-    if (isFirst) {
-      if (window.cysyncEnv.IS_PRODUCTION === 'true') {
-        store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
-      }
-    }
   },
 );
 
-const syncDevicesDb = createFuncWithErrorHandler('syncDevicesDb', async () => {
-  const db = getDB();
+const getAllDevices = () => getDB().device.getAll();
 
-  const devices = await db.device.getAll();
+const syncDevicesDb = createFuncWithErrorHandler('syncDevicesDb', async () => {
+  const devices = await getAllDevices();
   store.dispatch(setDevices(devices));
 });
+
+const getAllPriceInfo = () => getDB().priceInfo.getAll();
 
 const syncPriceInfosDb = createFuncWithErrorHandler(
   'syncPriceInfosDb',
   async () => {
-    const db = getDB();
-
-    const priceInfos = await db.priceInfo.getAll();
+    const priceInfos = await getAllPriceInfo();
     store.dispatch(setPriceInfos(priceInfos));
   },
 );
 
+const getAllPriceHistories = () => getDB().priceHistory.getAll();
+
 const syncPriceHistoriesDb = createFuncWithErrorHandler(
   'syncPriceHistoriesDb',
   async () => {
-    const db = getDB();
-
-    const priceHistories = await db.priceHistory.getAll();
+    const priceHistories = await getAllPriceHistories();
     store.dispatch(setPriceHistories(priceHistories));
   },
 );
 
+const getAllTransactions = () => getDB().transaction.getAll();
 const syncTransactionsDb = createFuncWithErrorHandler(
   'syncTransactionsDb',
   async () => {
-    const db = getDB();
-
-    const transactions = await db.transaction.getAll();
+    const transactions = await getAllTransactions();
     store.dispatch(setTransactions(transactions));
   },
 );
 
 export const syncAllDb = async (isFirst: boolean) => {
-  await syncAccountsDb(isFirst);
-  await syncWalletsDb();
-  await syncDevicesDb();
-  await syncPriceInfosDb();
-  await syncPriceHistoriesDb();
-  await syncTransactionsDb();
+  const accounts = await runFunctionOrLogError(getAllAccounts);
+  const wallets = await runFunctionOrLogError(getAllWallets);
+  const devices = await runFunctionOrLogError(getAllDevices);
+  const priceInfos = await runFunctionOrLogError(getAllPriceInfo);
+  const priceHistories = await runFunctionOrLogError(getAllPriceHistories);
+  const transactions = await runFunctionOrLogError(getAllTransactions);
+
+  const allActions: AnyAction[] = [];
+  if (wallets) {
+    allActions.push(setWallets(wallets));
+  }
+  if (devices) {
+    allActions.push(setDevices(devices));
+  }
+  if (priceInfos) {
+    allActions.push(setPriceInfos(priceInfos));
+  }
+  if (priceHistories) {
+    allActions.push(setPriceHistories(priceHistories));
+  }
+  if (transactions) {
+    allActions.push(setTransactions(transactions));
+  }
+  if (accounts) {
+    allActions.push(setAccounts(accounts));
+  }
+
+  if (allActions.length > 0) {
+    allActions.forEach(action => store.dispatch(action));
+  }
+
+  if (accounts && isFirst) {
+    if (window.cysyncEnv.IS_PRODUCTION === 'true') {
+      store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+    }
+  }
 };
 
 const throttleDbFunction = (func: any) =>

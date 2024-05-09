@@ -10,7 +10,7 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import {
@@ -28,7 +28,7 @@ import {
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
-  useAppSelector,
+  useShallowEqualAppSelector,
 } from '~/store';
 import logger from '~/utils/logger';
 
@@ -77,7 +77,7 @@ export const useGraph = (props?: UseGraphProps) => {
     priceHistories,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useShallowEqualAppSelector(selector);
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
@@ -205,32 +205,37 @@ export const useGraph = (props?: UseGraphProps) => {
     throttledCalculatePortfolioDataOnDataChange();
   }, [accounts, transactions, priceHistories, priceInfos]);
 
-  const formatGraphAmountDisplay = (
-    value: string | number,
-    showInUSD?: boolean,
-    includeUnit = false,
-  ) => {
-    const { parentAssetId, assetId } = getAssetDetailsFromProps();
-    if (new BigNumber(value).isNaN()) return '';
-    const showUnitInUSD = showInUSD ?? showGraphInUSD;
-    let unit: ICoinUnit | undefined;
+  const formatGraphAmountDisplay = useCallback(
+    (value: string | number, showInUSD?: boolean, includeUnit = false) => {
+      const { parentAssetId, assetId } = getAssetDetailsFromProps();
+      if (new BigNumber(value).isNaN()) return '';
+      const showUnitInUSD = showInUSD ?? showGraphInUSD;
+      let unit: ICoinUnit | undefined;
 
-    if (parentAssetId) {
-      unit = getDefaultUnit(parentAssetId, assetId);
-    }
+      if (parentAssetId) {
+        unit = getDefaultUnit(parentAssetId, assetId);
+      }
 
-    const appendUnit = (v: string) => {
-      if (!includeUnit) return v;
+      const appendUnit = (v: string) => {
+        if (!includeUnit) return v;
 
-      if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
-      return `$${v}`;
-    };
+        if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
+        return `$${v}`;
+      };
 
-    if (isDiscreetMode) return appendUnit('****');
+      if (isDiscreetMode) return appendUnit('****');
 
-    if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
-    return appendUnit(formatDisplayAmount(value).complete);
-  };
+      if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
+      return appendUnit(formatDisplayAmount(value).complete);
+    },
+    [
+      props?.accountId,
+      props?.assetId,
+      props?.parentAssetId,
+      showGraphInUSD,
+      isDiscreetMode,
+    ],
+  );
 
   const formatTooltipValue = useCallback<
     Exclude<LineGraphProps['formatTooltipValue'], undefined>
@@ -275,31 +280,54 @@ export const useGraph = (props?: UseGraphProps) => {
     ],
   );
 
-  const handleAddAccountClick = () => {
+  const handleAddAccountClick = useCallback(() => {
     dispatch(openAddAccountDialog());
-  };
+  }, [dispatch]);
 
-  const onGraphSwitch = () => {
+  const onGraphSwitch = useCallback(() => {
     setShowGraphInUSD(v => !v);
-  };
+  }, [setShowGraphInUSD]);
 
-  return {
-    lang,
-    rangeList,
-    selectedRange,
-    setSelectedRange,
-    theme,
-    graphData: calculatedData.graphData,
-    formatTooltipValue,
-    formatTimestamp,
-    formatYAxisTick,
-    summaryDetails: calculatedData.summary,
-    accounts,
-    handleAddAccountClick,
-    wallets,
-    onGraphSwitch,
-    showGraphInUSD,
-    isLoading,
-    formatGraphAmountDisplay,
-  };
+  const returnValue = useMemo(
+    () => ({
+      lang,
+      rangeList,
+      selectedRange,
+      setSelectedRange,
+      theme,
+      graphData: calculatedData.graphData,
+      formatTooltipValue,
+      formatTimestamp,
+      formatYAxisTick,
+      summaryDetails: calculatedData.summary,
+      accounts,
+      handleAddAccountClick,
+      wallets,
+      onGraphSwitch,
+      showGraphInUSD,
+      isLoading,
+      formatGraphAmountDisplay,
+    }),
+    [
+      lang,
+      rangeList,
+      selectedRange,
+      setSelectedRange,
+      theme,
+      calculatedData.graphData,
+      formatTooltipValue,
+      formatTimestamp,
+      formatYAxisTick,
+      calculatedData.summary,
+      accounts,
+      handleAddAccountClick,
+      wallets,
+      onGraphSwitch,
+      showGraphInUSD,
+      isLoading,
+      formatGraphAmountDisplay,
+    ],
+  );
+
+  return returnValue;
 };
