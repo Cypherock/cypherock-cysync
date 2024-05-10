@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import {
   ConfirmTransferDeviceGraphics,
-  EnterPinDeviceGraphics,
+  EnterPin,
   Image,
   ImportWalletNewUser,
   MessageBoxType,
@@ -87,7 +87,7 @@ const dialogsImages: Record<TransferFlowType, React.ReactElement[][]> = {
         $aspectRatio="16/9"
       />,
       <ConfirmTransferDeviceGraphics />,
-      <EnterPinDeviceGraphics />,
+      <EnterPin />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay

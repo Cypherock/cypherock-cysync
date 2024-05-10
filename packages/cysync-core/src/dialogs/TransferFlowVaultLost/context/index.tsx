@@ -4,7 +4,7 @@ import {
   ConfirmCreatePinDeviceGraphics,
   ConfirmCreateWalletDeviceGraphics,
   ConfirmWalletNameDeviceGraphics,
-  EnterPinDeviceGraphics,
+  EnterPin,
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
   Image,
@@ -47,6 +47,7 @@ import {
   useAppSelector,
 } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
+import { openGuidedFlowDialog } from '~/actions';
 
 type ITabs = {
   name: string;
@@ -86,7 +87,7 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
       [
         <MainMenu />,
         <ViewSeed />,
-        <EnterPinDeviceGraphics />,
+        <EnterPin />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -122,7 +123,7 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
         <EnterWalletNameDeviceGraphics />,
         <ConfirmWalletNameDeviceGraphics />,
         <ConfirmCreatePinDeviceGraphics />,
-        <EnterPinDeviceGraphics />,
+        <EnterPin />,
         <VerifyPinDeviceGraphics />,
       ],
       [
@@ -208,6 +209,11 @@ export const TransferLostVaulFlowProvider: FC<
       );
     }
   };
+
+  if (dialogRef.current === 15) {
+    dispatch(closeDialog('transferLostVaultFlow'));
+    dispatch(openGuidedFlowDialog('importWallet'));
+  }
 
   const onPrevious = () => {
     checkConfettiBlastDone();

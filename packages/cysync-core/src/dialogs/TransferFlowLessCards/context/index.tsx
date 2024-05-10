@@ -7,7 +7,7 @@ import {
   ConfirmRestoreFromSeedphraseDeviceGraphics,
   ConfirmTransferDeviceGraphics,
   ConfirmWalletNameDeviceGraphics,
-  EnterPinDeviceGraphics,
+  EnterPin,
   EnterSeedphraseDeviceGraphics,
   EnterWalletNameDeviceGraphics,
   Image,
@@ -38,7 +38,7 @@ import React, {
   useState,
 } from 'react';
 
-import { openTransferFlowDialog } from '~/actions';
+import { openGuidedFlowDialog, openTransferFlowDialog } from '~/actions';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -102,7 +102,8 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        <MainMenu />,
+        // <MainMenu />,
+        <SettingsDevice />,
         <Restore />,
         <ConfirmTransferDeviceGraphics />,
         <Video
@@ -113,7 +114,7 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         <ConfirmTransferDeviceGraphics />,
-        <EnterPinDeviceGraphics />,
+        <EnterPin />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -124,7 +125,7 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         successIconReactElement,
         <MainMenu />,
         <ViewSeed />,
-        <EnterPinDeviceGraphics />,
+        <EnterPin />,
         <Video
           src={tapAllCardDeviceAnimation2DVideo}
           autoPlay
@@ -160,7 +161,7 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         <EnterWalletNameDeviceGraphics />,
         <ConfirmWalletNameDeviceGraphics />,
         <ConfirmCreatePinDeviceGraphics />,
-        <EnterPinDeviceGraphics />,
+        <EnterPin />,
         <VerifyPinDeviceGraphics />,
       ],
       [
@@ -250,6 +251,11 @@ export const TransferLessCardsFlowProvider: FC<
       );
     }
   };
+
+  if (dialogRef.current === 32) {
+    dispatch(closeDialog('transferLessCardsFlow'));
+    dispatch(openGuidedFlowDialog('importWallet'));
+  }
 
   const onPrevious = () => {
     if (
