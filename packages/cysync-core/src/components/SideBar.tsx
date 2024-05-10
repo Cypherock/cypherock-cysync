@@ -1,24 +1,36 @@
 import {
   ArrowReceivedIcon,
   ArrowSentIcon,
-  Button, DropDownItemProps, Flex, FloatingMenu, HistoryIcon, PortfolioIcon,
+  Button,
+  DropDownItemProps,
+  Flex,
+  FloatingMenu,
+  HistoryIcon,
+  PortfolioIcon,
   SettingsIcon,
   SideBarItem,
   SideBarWrapper,
   SideBarState as State,
   SupportIcon,
-  Synchronizing, TutorialIcon,
-  WalletConnectWhiteIcon, WalletIcon,
-  WalletInfoIcon, parseLangTemplate
+  Synchronizing,
+  TutorialIcon,
+  WalletConnectWhiteIcon,
+  WalletIcon,
+  WalletInfoIcon,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC, useState } from 'react';
 
-import { openReceiveDialog, openSendDialog, openWalletConnectDialog } from '~/actions';
+import {
+  openReceiveDialog,
+  openSendDialog,
+  openWalletConnectDialog,
+} from '~/actions';
 import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
 
 export interface SideBarWalletSubMenuProps {
-  wallets: IWallet[]
+  wallets: IWallet[];
 }
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
@@ -41,7 +53,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const { deviceHandlingState } = useDevice();
   const [isWalletSubMenuOpen, setIsWalletSubMenuOpen] = useState(false);
 
-  const walletsSubMenuOptions: DropDownItemProps[] = wallets.map((wallet, idx) => {
+  const walletsSubMenuOptions: DropDownItemProps[] = wallets.map(wallet => {
     const deleted = deletedWallets.some(
       deletedWallet => wallet.__id === deletedWallet.__id,
     );
@@ -55,19 +67,20 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           onClick={e => {
             e.stopPropagation();
           }}
-          title={parseLangTemplate(
-            strings.tooltip.walletDeleted,
-            { walletName: wallet.name },
-          )}
+          title={parseLangTemplate(strings.tooltip.walletDeleted, {
+            walletName: wallet.name,
+          })}
         >
           <WalletInfoIcon fill={theme.palette.muted.main} />
         </Button>
       ) : undefined,
       color: deleted ? 'errorDark' : undefined,
     };
-  })
+  });
 
-  const selectedWallet = wallets.find(wallet => getWalletState(wallet.__id) === State.active);
+  const selectedWallet = wallets.find(
+    wallet => getWalletState(wallet.__id) === State.active,
+  );
 
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
@@ -82,7 +95,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           <FloatingMenu
             isMultiSelect={false}
             items={walletsSubMenuOptions}
-            onChange={(id) => id && navigateWallet(id)}
+            onChange={id => id && navigateWallet(id)}
             selectedItem={selectedWallet?.__id}
             maxVisibleItemCount={8}
             placement="right-start"
@@ -104,9 +117,13 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
                   <Synchronizing
                     fill={theme.palette.muted.main}
                     opacity={
-                      deviceHandlingState !== DeviceHandlingState.USABLE ? 0.5 : 1
+                      deviceHandlingState !== DeviceHandlingState.USABLE
+                        ? 0.5
+                        : 1
                     }
-                    animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
+                    animate={
+                      syncWalletStatus === 'loading' ? 'spin' : undefined
+                    }
                   />
                 </Button>
               }

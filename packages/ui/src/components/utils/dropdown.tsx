@@ -75,7 +75,7 @@ export const handleKeyDown =
     }
   };
 
-  export const handleKeyBoadNavigation =
+export const handleKeyBoadNavigation =
   (
     toggleDropdown: () => void,
     setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
@@ -91,7 +91,7 @@ export const handleKeyDown =
       case 'ArrowDown':
         event.preventDefault();
         event.stopPropagation();
-        
+
         setFocusedIndex(prevIndex =>
           prevIndex === null
             ? 0
@@ -117,7 +117,7 @@ export const handleKeyDown =
             listRef.current?.scrollTo({ top: scrollOffset });
           }
         }
-      
+
         break;
       case 'ArrowUp':
         event.preventDefault();
