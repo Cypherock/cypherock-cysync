@@ -59,7 +59,7 @@ export const FloatingMenu: React.FC<
       <span ref={refs.setReference} {...getReferenceProps()}>
         {children}
       </span>
-      {isOpen && (
+      {isOpen && !props.disabled && (
         <FloatingFocusManager context={context} modal={false}>
           <span
             ref={refs.setFloating}

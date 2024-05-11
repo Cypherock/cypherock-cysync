@@ -100,6 +100,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             placement="right-start"
             noLeftImageInList
             width={200}
+            disabled={wallets.length === 0}
           >
             <SideBarItem
               text={strings.wallets}
