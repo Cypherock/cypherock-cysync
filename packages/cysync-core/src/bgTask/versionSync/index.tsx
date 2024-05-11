@@ -1,0 +1,27 @@
+import React, { useEffect } from 'react';
+import { openReleaseNotesDialog } from '~/actions';
+import { useAppDispatch } from '~/store';
+import { keyValueStore } from '~/utils';
+import logger from '~/utils/logger';
+
+export const VersionSyncTask: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const checkVersion = async () => {
+    const storedVersion = await keyValueStore.cysyncVersion.get();
+    const currentVersion = window.cysyncEnv.VERSION;
+    try {
+      if (storedVersion !== currentVersion || !storedVersion) {
+        dispatch(openReleaseNotesDialog());
+        await keyValueStore.cysyncVersion.set(currentVersion);
+      }
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+  useEffect(() => {
+    checkVersion();
+  }, [dispatch]);
+
+  return null;
+};
