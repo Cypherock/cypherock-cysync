@@ -2,28 +2,18 @@
 /* eslint-disable react/jsx-key */
 import {
   ClearDeviceData,
-  ConfirmCreatePinDeviceGraphics,
   ConfirmCreateWalletDeviceGraphics,
-  ConfirmRestoreFromSeedphraseDeviceGraphics,
   ConfirmTransferDeviceGraphics,
-  ConfirmWalletNameDeviceGraphics,
   EnterPin,
-  EnterSeedphraseDeviceGraphics,
-  EnterWalletNameDeviceGraphics,
   Image,
   MainMenu,
   MessageBoxType,
   PairCards,
   Restore,
-  SelectSeedphraseWordCountDeviceGraphics,
   SettingsDevice,
-  VerifyPinDeviceGraphics,
-  VerifySeedphraseDeviceGraphics,
   Video,
   ViewSeed,
   WalletTransferLessCardsFlowDialogBox,
-  distributeToLocationsAnimationVideo,
-  enterSeedphraseAnimationVideo,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
@@ -102,7 +92,6 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
           $aspectRatio="16/9"
         />,
         successIconReactElement,
-        // <MainMenu />,
         <SettingsDevice />,
         <Restore />,
         <ConfirmTransferDeviceGraphics />,
@@ -157,44 +146,9 @@ const dialogsImages: Record<TransferLessCardsFlowType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <ConfirmCreateWalletDeviceGraphics />,
-        <ConfirmRestoreFromSeedphraseDeviceGraphics />,
-        <EnterWalletNameDeviceGraphics />,
-        <ConfirmWalletNameDeviceGraphics />,
-        <ConfirmCreatePinDeviceGraphics />,
-        <EnterPin />,
-        <VerifyPinDeviceGraphics />,
       ],
-      [
-        <SelectSeedphraseWordCountDeviceGraphics />,
-        <EnterSeedphraseDeviceGraphics />,
-        <VerifySeedphraseDeviceGraphics />,
-        <Video
-          src={tapAllCardDeviceAnimation2DVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-      ],
-      [
-        successIconReactElement,
-        successIconReactElement,
-        successIconReactElement,
-        <Video
-          src={enterSeedphraseAnimationVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-        <Video
-          src={distributeToLocationsAnimationVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-      ],
+      [],
+      [],
     ],
   };
 

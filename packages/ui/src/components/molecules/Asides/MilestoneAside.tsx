@@ -27,10 +27,11 @@ const AsideStyle = styled.div`
 const textColor = (
   activeTab: number,
   index: number,
+  isFinalMessageShown?: boolean,
   skipped: number[] = [],
 ) => {
   if (index > activeTab || skipped.includes(index)) return 'muted';
-  if (index < activeTab) return 'gold';
+  if (index < activeTab || isFinalMessageShown) return 'gold';
   return undefined;
 };
 
@@ -64,6 +65,7 @@ export const MilestoneAside: FC<{
             length={milestones.length}
             skipped={skippedTabs}
             hasNoStart={hasNoStart}
+            isFinalMessageShown={isFinalMessageShown}
           />
           <Flex align="center" justify="space-between" width="full">
             <Flex align="center" gap={16}>
@@ -73,15 +75,28 @@ export const MilestoneAside: FC<{
                 width={28}
                 height={28}
               >
-                <Typography color={textColor(activeTab, index, skippedTabs)}>
+                <Typography
+                  color={textColor(
+                    activeTab,
+                    index,
+                    isFinalMessageShown,
+                    skippedTabs,
+                  )}
+                >
                   {index + 1}
                 </Typography>
               </Container>
-              <Typography color={textColor(activeTab, index, skippedTabs)}>
+              <Typography
+                color={textColor(
+                  activeTab,
+                  index,
+                  isFinalMessageShown,
+                  skippedTabs,
+                )}
+              >
                 <LangDisplay text={milestone} />
               </Typography>
             </Flex>
-
             {/* {!skippedTabs?.includes(index) &&
               (activeTab > index || activeTab === milestones.length ? (
                 <Image src={greenTick} alt="greenTick" />
@@ -97,7 +112,12 @@ export const MilestoneAside: FC<{
             ) : (
               <Bullet
                 size="sm"
-                variant={textColor(activeTab, index, skippedTabs)}
+                variant={textColor(
+                  activeTab,
+                  index,
+                  isFinalMessageShown,
+                  skippedTabs,
+                )}
               />
             )}
           </Flex>

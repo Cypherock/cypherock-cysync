@@ -1,21 +1,12 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  ConfirmCreatePinDeviceGraphics,
   ConfirmCreateWalletDeviceGraphics,
-  ConfirmWalletNameDeviceGraphics,
   EnterPin,
-  EnterSeedphraseDeviceGraphics,
-  EnterWalletNameDeviceGraphics,
   Image,
   MessageBoxType,
-  SelectSeedphraseWordCountDeviceGraphics,
-  VerifyPinDeviceGraphics,
-  VerifySeedphraseDeviceGraphics,
   Video,
   WalletTransferLessCardsFlowDialogBox,
-  distributeToLocationsAnimationVideo,
-  enterSeedphraseAnimationVideo,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
   SettingsDevice,
@@ -24,7 +15,6 @@ import {
   ConfirmTransferDeviceGraphics,
   MainMenu,
   PairCards,
-  ConfirmRestoreFromSeedphraseDeviceGraphics,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -37,6 +27,7 @@ import React, {
   useState,
 } from 'react';
 
+import { openGuidedFlowDialog } from '~/actions';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -47,7 +38,6 @@ import {
   useAppSelector,
 } from '../../..';
 import { FinalMessage } from '../Dialogs/FinalMessage';
-import { openGuidedFlowDialog } from '~/actions';
 
 type ITabs = {
   name: string;
@@ -119,44 +109,9 @@ const dialogsImages: Record<TransferFlowLostVaultType, React.ReactElement[][]> =
         />,
         successIconReactElement,
         <ConfirmCreateWalletDeviceGraphics />,
-        <ConfirmRestoreFromSeedphraseDeviceGraphics />,
-        <EnterWalletNameDeviceGraphics />,
-        <ConfirmWalletNameDeviceGraphics />,
-        <ConfirmCreatePinDeviceGraphics />,
-        <EnterPin />,
-        <VerifyPinDeviceGraphics />,
       ],
-      [
-        <SelectSeedphraseWordCountDeviceGraphics />,
-        <EnterSeedphraseDeviceGraphics />,
-        <VerifySeedphraseDeviceGraphics />,
-        <Video
-          src={tapAllCardDeviceAnimation2DVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-      ],
-      [
-        successIconReactElement,
-        successIconReactElement,
-        successIconReactElement,
-        <Video
-          src={enterSeedphraseAnimationVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-        <Video
-          src={distributeToLocationsAnimationVideo}
-          autoPlay
-          loop
-          $width="full"
-          $aspectRatio="16/9"
-        />,
-      ],
+      [],
+      [],
     ],
   };
 
