@@ -1,4 +1,3 @@
-// __fixtures__/db.ts
 import { IWallet } from '@cypherock/db-interfaces';
 
 interface IWalletTestData {
