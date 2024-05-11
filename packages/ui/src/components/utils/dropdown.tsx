@@ -38,15 +38,8 @@ export const searchInItems = (
 };
 
 export const handleKeyDown =
-  (
-    isOpen: boolean,
-    toggleDropdown: () => void,
-    setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    filteredItems: any,
-  ) =>
+  (isOpen: boolean, toggleDropdown: () => void) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const visibleItemsCount = filteredItems.length;
-
     switch (event.key) {
       case 'ArrowDown':
         if (!isOpen) {
@@ -60,7 +53,6 @@ export const handleKeyDown =
           event.preventDefault();
           event.stopPropagation();
           toggleDropdown();
-          setFocusedIndex(visibleItemsCount - 1);
         }
         break;
       case 'Enter':
@@ -78,7 +70,7 @@ export const handleKeyDown =
 export const handleKeyBoadNavigation =
   (
     toggleDropdown: () => void,
-    setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
+    setFocusedIndex: React.Dispatch<React.SetStateAction<number>>,
     focusedIndex: number | null,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,

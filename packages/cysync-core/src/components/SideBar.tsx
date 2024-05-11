@@ -20,7 +20,7 @@ import {
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import {
   openReceiveDialog,
@@ -51,7 +51,6 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
     isWalletPage,
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
-  const [isWalletSubMenuOpen, setIsWalletSubMenuOpen] = useState(false);
 
   const walletsSubMenuOptions: DropDownItemProps[] = wallets.map(wallet => {
     const deleted = deletedWallets.some(
@@ -99,8 +98,6 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             selectedItem={selectedWallet?.__id}
             maxVisibleItemCount={8}
             placement="right-start"
-            isOpen={isWalletSubMenuOpen}
-            setIsOpen={setIsWalletSubMenuOpen}
             noLeftImageInList
             width={200}
           >

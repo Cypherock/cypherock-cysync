@@ -53,8 +53,6 @@ export const Dropdown: React.FC<
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [items, setItems] = useState<DropDownItemProps[]>(dropdownItemsList);
 
-  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-
   const selectedItemIdsSet = useMemo(
     () =>
       new Set(
@@ -96,7 +94,6 @@ export const Dropdown: React.FC<
     (value: string) => {
       if (!isOpen) toggleDropdown();
       setSearch(value);
-      setFocusedIndex(0);
     },
     [isOpen, toggleDropdown],
   );
@@ -162,7 +159,6 @@ export const Dropdown: React.FC<
     } else {
       setSearch('');
       containerRef.current?.focus();
-      setFocusedIndex(null);
     }
   }, [isOpen]);
 
@@ -191,12 +187,7 @@ export const Dropdown: React.FC<
       disabled={disabled}
       onClick={handleDropDownContainerClick}
       onMouseEnter={() => setIsHovered(true)}
-      onKeyDown={handleKeyDown(
-        isOpen,
-        toggleDropdown,
-        setFocusedIndex,
-        filteredItems,
-      )}
+      onKeyDown={handleKeyDown(isOpen, toggleDropdown)}
       tabIndex={disabled ? undefined : tabIndex ?? 0}
     >
       <FloatingMenu
@@ -231,12 +222,7 @@ export const Dropdown: React.FC<
             value={search}
             name="choose"
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown(
-              isOpen,
-              toggleDropdown,
-              setFocusedIndex,
-              filteredItems,
-            )}
+            onKeyDown={handleKeyDown(isOpen, toggleDropdown)}
             $bgColor={
               disabled
                 ? theme?.palette.background.separatorSecondary
@@ -247,11 +233,6 @@ export const Dropdown: React.FC<
             aria-expanded={isOpen}
             aria-owns={isOpen ? 'dropdown-list' : undefined}
             aria-haspopup="listbox"
-            aria-activedescendant={
-              focusedIndex !== null
-                ? `dropdown-item-${focusedIndex}`
-                : undefined
-            }
             leftImage={leftImage}
             utilProps={{ $minHeight: '53px' }}
           />

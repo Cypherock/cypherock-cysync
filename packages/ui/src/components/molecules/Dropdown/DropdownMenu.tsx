@@ -51,7 +51,7 @@ export const DropdownMenu: React.FC<
   maxVisibleItemCount = 4,
   ...props
 }) => {
-  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number>(0);
 
   const selectedItemIdsSet = useMemo(
     () =>
