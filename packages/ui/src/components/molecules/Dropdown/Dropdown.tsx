@@ -25,7 +25,12 @@ import {
   triangleInverseIcon,
 } from '../../../assets';
 import { Image, Input } from '../../atoms';
-import { handleKeyDown, searchInItems } from '../../utils';
+import {
+  handleClickOutside,
+  handleEscapeKey,
+  handleKeyDown,
+  searchInItems,
+} from '../../utils';
 import { DropDownItem, DropDownItemProps } from '../DropDownItem';
 
 interface DropdownProps {
@@ -179,6 +184,22 @@ export const Dropdown: React.FC<
       }
     });
   }, [autoFocus]);
+
+  useEffect(() => {
+    const escapeKeyHandler = handleEscapeKey(isOpen, setIsOpen);
+
+    const clickOutsideHandler = handleClickOutside(setIsOpen, containerRef);
+
+    window.addEventListener('keydown', escapeKeyHandler, { capture: true });
+    window.addEventListener('click', clickOutsideHandler);
+
+    return () => {
+      window.removeEventListener('keydown', escapeKeyHandler, {
+        capture: true,
+      });
+      window.removeEventListener('click', clickOutsideHandler);
+    };
+  }, [isOpen, setIsOpen, containerRef]);
 
   return (
     <DropdownContainer
