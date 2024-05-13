@@ -19,13 +19,10 @@ import {
   MessageBox,
   Container,
 } from '@cypherock/cysync-ui';
-import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import {
-  selectUnHiddenAccounts,
-  selectWallets,
   openSnackBar,
   useAppDispatch,
   selectLanguage,
@@ -34,14 +31,7 @@ import {
 
 import { useEditAccountDialog } from '../context';
 
-const selector = createSelector(
-  [selectUnHiddenAccounts, selectWallets, selectLanguage],
-  ({ accounts }, { wallets }, lang) => ({ accounts, wallets, lang }),
-);
-
 export const EditAccount: React.FC = () => {
-  const { accounts, wallets, lang } = useAppSelector(selector);
-  console.log('account data', accounts, wallets, lang);
   const dispatch = useAppDispatch();
   const {
     onClose,
@@ -67,15 +57,14 @@ export const EditAccount: React.FC = () => {
   const tabFirst = dialogs.editAccount.tab1;
   const tabSecond = dialogs.editAccount.tab2;
   const tabThird = dialogs.editAccount.tab3;
-  let asset;
   const handleGetAssets = () => {
     const tempAccount = accountList.filter(e => e.__id === selectedAccount)[0];
-    asset = getAsset(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const asset = getAsset(
       tempAccount.parentAssetId,
       tempAccount.assetId,
     ) as IEvmErc20Token;
   };
-  console.log(asset);
 
   useEffect(() => {
     if (window.location.hash.includes('#/account?accountId')) {

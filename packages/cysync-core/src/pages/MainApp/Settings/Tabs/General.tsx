@@ -1,4 +1,4 @@
-import { Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
+import { LangDisplay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { openEditAccountDialog } from '~/actions';
@@ -38,7 +38,7 @@ export const GeneralSettings: React.FC = () => {
       >
         <ArrowDown />
       </SettingsStandardItem> */}
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.currency.title }}
         description={{ text: item.currency.description }}
       >
@@ -53,8 +53,8 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="usd"
           />
         </Flex>
-      </SettingsStandardItem>
-      <SettingsStandardItem
+      </SettingsStandardItem> */}
+      {/* <SettingsStandardItem
         title={{ text: item.language.title }}
         description={{ text: item.language.description }}
       >
@@ -69,8 +69,8 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="en"
           />
         </Flex>
-      </SettingsStandardItem>
-      <SettingsStandardItem
+      </SettingsStandardItem> */}
+      {/* <SettingsStandardItem
         title={{ text: item.region.title }}
         description={{ text: item.region.description }}
       >
@@ -87,7 +87,7 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="in"
           />
         </Flex>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };

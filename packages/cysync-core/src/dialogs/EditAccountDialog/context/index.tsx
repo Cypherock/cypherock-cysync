@@ -109,6 +109,7 @@ export const EditAccountDialogProvider: FC<EditAccountDialogProviderProps> = ({
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [isContinueDisabled, setIsContinueDisabled] = useState<boolean>(true);
   const [isApplyDisabled, setIsApplyDisabled] = useState<boolean>(true);
+  // this will be replaced with dynamic data
   const accountList = [
     {
       name: 'Bitcoin 1',
@@ -174,21 +175,13 @@ export const EditAccountDialogProvider: FC<EditAccountDialogProviderProps> = ({
   ];
 
   const validateFirstTab = () => {
-    console.log(selectedAccount !== '' && selectedWallet !== '');
-
     setIsContinueDisabled(selectedAccount !== '' && selectedWallet !== '');
   };
-
   useEffect(validateFirstTab, [selectedAccount, selectedWallet]);
-
   const validateSecondTab = () => {
-    console.log(selectedWalletName !== '' && selectedWalletType !== '');
-
     setIsApplyDisabled(selectedWalletName !== '' && selectedWalletType !== '');
   };
-
   useEffect(validateSecondTab, [selectedWalletName, selectedWalletType]);
-
   const handleAccountSelect = (id?: string) => {
     if (id) setSelectedAccount(id);
   };
