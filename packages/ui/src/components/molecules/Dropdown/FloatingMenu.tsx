@@ -4,11 +4,14 @@ import {
   autoUpdate,
   flip,
   shift,
+  offset,
   useClick,
   useDismiss,
   useFloating,
   useInteractions,
   useRole,
+  OffsetOptions,
+  FloatingOverlay,
 } from '@floating-ui/react';
 import React, { useState } from 'react';
 
@@ -21,6 +24,7 @@ import {
 export interface FloatingMenuProps {
   children: React.ReactNode | React.ReactNode[];
   placement?: Placement;
+  offset?: OffsetOptions;
   isOpen?: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,7 +32,7 @@ export interface FloatingMenuProps {
 export const FloatingMenu: React.FC<
   FloatingMenuProps &
     (SingleSelectDropdownMenuProps | MultiSelectDropdownMenuProps)
-> = ({ children, placement, ...props }) => {
+> = ({ children, placement, offset: offsetOptions, ...props }) => {
   const [isOpenInternal, setIsOpenInternal] = useState(false);
 
   const isControlled =
@@ -40,7 +44,11 @@ export const FloatingMenu: React.FC<
     open: isControlled ? props.isOpen : isOpenInternal,
     onOpenChange: isControlled ? undefined : setIsOpenInternal,
     placement,
-    middleware: [flip({ fallbackAxisSideDirection: 'end' }), shift()],
+    middleware: [
+      flip({ fallbackAxisSideDirection: 'end' }),
+      shift(),
+      offset(offsetOptions ?? 0),
+    ],
     whileElementsMounted: autoUpdate,
   });
 
@@ -60,15 +68,18 @@ export const FloatingMenu: React.FC<
         {children}
       </span>
       {isOpen && !props.disabled && (
-        <FloatingFocusManager context={context} modal={false}>
-          <span
-            ref={refs.setFloating}
-            style={{ ...floatingStyles, zIndex: 20, width: 'inherit' }}
-            {...getFloatingProps()}
-          >
-            <DropdownMenu {...props} isOpen={isOpen} setIsOpen={setIsOpen} />
-          </span>
-        </FloatingFocusManager>
+        <>
+          {!isControlled && <FloatingOverlay style={{ zIndex: 10 }} />}
+          <FloatingFocusManager context={context} modal={false}>
+            <span
+              ref={refs.setFloating}
+              style={{ ...floatingStyles, zIndex: 20, width: 'inherit' }}
+              {...getFloatingProps()}
+            >
+              <DropdownMenu {...props} isOpen={isOpen} setIsOpen={setIsOpen} />
+            </span>
+          </FloatingFocusManager>
+        </>
       )}
     </>
   );
@@ -78,4 +89,5 @@ FloatingMenu.defaultProps = {
   placement: undefined,
   isOpen: undefined,
   setIsOpen: undefined,
+  offset: undefined,
 };

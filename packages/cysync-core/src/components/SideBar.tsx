@@ -1,4 +1,5 @@
 import {
+  AngleRight,
   ArrowReceivedIcon,
   ArrowSentIcon,
   Button,
@@ -100,15 +101,18 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             placement="right-start"
             noLeftImageInList
             width={200}
+            offset={{ mainAxis: 32, crossAxis: 12 }}
             disabled={wallets.length === 0}
           >
             <SideBarItem
               text={strings.wallets}
+              extraRight={<AngleRight />}
               extraLeft={
                 <Button
                   variant="text"
                   align="center"
                   title="Sync Wallets"
+                  pr={1}
                   disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
                   onClick={onWalletSync}
                 >
