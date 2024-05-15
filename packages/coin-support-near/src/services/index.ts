@@ -3,7 +3,10 @@ import axios from 'axios';
 
 import { ServerError, ServerErrorType } from '@cypherock/coin-support-utils';
 import { config } from '../config';
-import { NearTransactionsApiResponseSchema } from '../validators';
+import {
+  NearBalanceApiResponseSchema,
+  NearTransactionsApiResponseSchema,
+} from '../validators';
 
 const baseURL = `${config.API_CYPHEROCK}/v2/near`;
 
@@ -12,8 +15,6 @@ export const getBalance = async (
   assetId: string,
 ): Promise<{
   balance: string;
-  nativeBalance: string;
-  reservedStorage: string;
 }> => {
   const url = `${baseURL}/wallet/balance`;
   const response = await axios.post(url, {
@@ -21,37 +22,45 @@ export const getBalance = async (
     network: nearCoinList[assetId].network,
   });
 
-  const { balance, nativeBalance, reservedStorage } = response.data;
+  const parseResult = NearBalanceApiResponseSchema.safeParse(response.data);
 
+  if (parseResult.success === false) {
+    throw new ServerError(
+      ServerErrorType.INVALID_RESPONSE,
+      'Invalid Response for Near Balance',
+      {
+        responseBody: response.data,
+        url,
+        status: response.status,
+      },
+    );
+  }
+
+  const balance = parseResult.data.nearBalance;
   return {
-    balance: balance ?? '0',
-    nativeBalance: nativeBalance ?? '0',
-    reservedStorage: reservedStorage ?? '0',
+    balance: balance.toString(),
   };
 };
 
 interface GetTransactionsParams {
   address: string;
   assetId: string;
-  page: number;
-  perPage: number;
-  order: 'desc' | 'asc';
+  limit: number;
+  offset: number;
 }
 
 export const getTransactions = async ({
   address,
   assetId,
-  page,
-  perPage,
-  order,
+  limit,
+  offset,
 }: GetTransactionsParams) => {
   const url = `${baseURL}/transaction/history`;
   const response = await axios.post(url, {
     address,
     network: nearCoinList[assetId].network,
-    page,
-    perPage,
-    order,
+    limit,
+    offset,
   });
 
   const parseResult = NearTransactionsApiResponseSchema.safeParse(
@@ -70,7 +79,7 @@ export const getTransactions = async ({
     );
   }
 
-  const hasMore = parseResult.data.length === perPage;
+  const hasMore = parseResult.data.length === limit;
   return {
     transactions: parseResult.data,
     hasMore,
@@ -81,9 +90,8 @@ export const getTransactionCount = async (address: string, assetId: string) => {
   const { transactions } = await getTransactions({
     address,
     assetId,
-    page: 1,
-    perPage: 1,
-    order: 'asc',
+    limit: 50,
+    offset: 0,
   });
 
   const isUsed = transactions && transactions.length > 0;

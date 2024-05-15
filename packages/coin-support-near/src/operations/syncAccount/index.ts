@@ -13,8 +13,9 @@ import { getTransactions } from '../../services';
 import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import { ISyncNearAccountsParams } from './types';
+import { NearTransaction } from '../../validators';
 
-const PER_PAGE_TXN_LIMIT = 100;
+const PER_PAGE_TXN_LIMIT = 50;
 
 interface GetTransactionParserParams {
   address: string;
@@ -23,32 +24,32 @@ interface GetTransactionParserParams {
 
 const getTransactionParser = (
   _params: GetTransactionParserParams,
-): ((transaction: any) => ITransaction) => {
+): ((transaction: NearTransaction) => ITransaction) => {
   const myAddress = _params.address;
   const { account } = _params;
 
-  return (transaction: any): ITransaction => {
-    const fromAddr = transaction.predecessor_account_id;
-    const toAddr = transaction.receiver_account_id;
-    const amount = new BigNumber(transaction.actions_agg.deposit).toFixed();
-    const fees = new BigNumber(
-      transaction.outcomes_agg.transaction_fee,
-    ).toFixed();
-    const timestamp = new BigNumber(transaction.block_timestamp)
+  return (transaction: NearTransaction): ITransaction => {
+    const fromAddr = transaction.sender;
+    const toAddr = transaction.receiver;
+    const amount = new BigNumber(transaction.amount).toFixed();
+    // const fees = new BigNumber(
+    //   transaction.outcomes_agg.transaction_fee,
+    // ).toFixed();
+    const timestamp = new BigNumber(transaction.timestamp)
       .dividedBy(1_000_000)
       .toNumber();
 
     const txn: ITransaction = {
-      hash: transaction.transaction_hash,
+      hash: transaction.transaction_id /* @todo: transaction_hash is not present in the NearTransaction type */,
       accountId: account.__id ?? '',
       walletId: account.walletId,
       assetId: account.parentAssetId,
       parentAssetId: account.parentAssetId,
       familyId: account.familyId,
       amount,
-      fees,
+      fees: '0' /* @todo: fees is not present in the NearTransaction type */,
       confirmations: 1,
-      status: transaction.outcomes.status
+      status: transaction.status
         ? TransactionStatusMap.success
         : TransactionStatusMap.failed,
       type:
@@ -56,7 +57,7 @@ const getTransactionParser = (
           ? TransactionTypeMap.send
           : TransactionTypeMap.receive,
       timestamp,
-      blockHeight: transaction.block.block_height,
+      blockHeight: transaction.block_height,
       inputs: [
         {
           address: fromAddr,
@@ -73,9 +74,7 @@ const getTransactionParser = (
       ],
       extraData: {
         receiptId: transaction.receipt_id,
-        includedInBlockHash: transaction.included_in_block_hash,
-        actions: transaction.actions,
-        logs: transaction.logs,
+        transaction_id: transaction.transaction_id,
       },
     };
 
@@ -84,12 +83,12 @@ const getTransactionParser = (
 };
 
 const getAddressDetails: IGetAddressDetails<{
-  page: number;
-  perPage: number;
+  offset: number;
+  limit: number;
   transactionsInDb: ITransaction[];
 }> = async ({ db, account, iterationContext }) => {
-  const page = iterationContext?.page ?? 1;
-  const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
+  const offset = iterationContext?.offset ?? 0;
+  const limit = iterationContext?.limit ?? PER_PAGE_TXN_LIMIT;
   const transactionsInDb =
     iterationContext?.transactionsInDb ??
     (await db.transaction.getAll({
@@ -100,9 +99,8 @@ const getAddressDetails: IGetAddressDetails<{
   const response = await getTransactions({
     address: account.xpubOrAddress,
     assetId: account.parentAssetId,
-    page: iterationContext?.page ?? page,
-    perPage: iterationContext?.perPage ?? perPage,
-    order: 'desc',
+    offset: iterationContext?.offset ?? offset,
+    limit: iterationContext?.limit ?? limit,
   });
 
   const transactionParser = getTransactionParser({
@@ -117,8 +115,8 @@ const getAddressDetails: IGetAddressDetails<{
   return {
     hasMore,
     nextIterationContext: {
-      page: page + 1,
-      perPage,
+      offset: offset + limit,
+      limit,
       transactionsInDb,
     },
     transactions,
