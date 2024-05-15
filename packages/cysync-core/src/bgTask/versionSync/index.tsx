@@ -8,10 +8,10 @@ export const VersionSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const checkVersion = async () => {
-    const storedVersion = await keyValueStore.cysyncVersion.get();
-    const currentVersion = window.cysyncEnv.VERSION;
     try {
-      if (storedVersion !== currentVersion || !storedVersion) {
+      const storedVersion = await keyValueStore.cysyncVersion.get();
+      const currentVersion = window.cysyncEnv.VERSION;
+      if (!storedVersion || storedVersion !== currentVersion) {
         dispatch(openReleaseNotesDialog());
         await keyValueStore.cysyncVersion.set(currentVersion);
       }
