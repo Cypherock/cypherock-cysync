@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { openReleaseNotesDialog } from '~/actions';
 import { useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
