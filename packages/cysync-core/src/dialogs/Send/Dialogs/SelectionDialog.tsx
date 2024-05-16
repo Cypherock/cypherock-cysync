@@ -28,6 +28,8 @@ export const SelectionDialog: React.FC = () => {
     handleWalletChange,
     walletDropdownList,
     accountDropdownList,
+    defaultWalletId,
+    defaultAccountId,
   } = useSendDialog();
 
   const dialogText = lang.strings.send.source;
@@ -89,6 +91,7 @@ export const SelectionDialog: React.FC = () => {
             placeholderText={dialogText.walletPlaceholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={accountDropdownList}
@@ -97,6 +100,7 @@ export const SelectionDialog: React.FC = () => {
             searchText={dialogText.searchText}
             placeholderText={dialogText.accountPlaceholder}
             onChange={handleAccountChangeProxy}
+            autoFocus={Boolean(defaultWalletId) && !defaultAccountId}
           />
         </Container>
       </DialogBoxBody>
@@ -105,6 +109,7 @@ export const SelectionDialog: React.FC = () => {
         <Button
           variant="primary"
           disabled={!selectedAccount || !selectedWallet}
+          autoFocus={Boolean(defaultWalletId) && Boolean(defaultAccountId)}
           onClick={e => {
             e.preventDefault();
             onNext();

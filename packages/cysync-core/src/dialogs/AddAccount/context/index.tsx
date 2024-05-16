@@ -74,6 +74,7 @@ export interface AddAccountDialogContextInterface {
   error: any | undefined;
   walletDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
+  defaultWalletId?: string;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -121,29 +122,36 @@ export const AddAccountDialogProvider: FC<
 
   const addAccountSubscriptionRef = useRef<Subscription | undefined>();
 
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    1: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+      }),
+      [],
+    );
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.addAccount.aside.tabs.asset,
-      dialogs: [<AddAccountSelectionDialog />],
-    },
-    {
-      name: lang.strings.addAccount.aside.tabs.device,
-      dialogs: [<AddAccountDeviceActionDialog />],
-    },
-    {
-      name: lang.strings.addAccount.aside.tabs.confirmation,
-      dialogs: [<AddAccountSyncDialog />],
-    },
-    {
-      name: '',
-      dialogs: [<AddAccountCongrats />],
-      dontShowOnMilestone: true,
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.addAccount.aside.tabs.asset,
+        dialogs: [<AddAccountSelectionDialog />],
+      },
+      {
+        name: lang.strings.addAccount.aside.tabs.device,
+        dialogs: [<AddAccountDeviceActionDialog />],
+      },
+      {
+        name: lang.strings.addAccount.aside.tabs.confirmation,
+        dialogs: [<AddAccountSyncDialog />],
+      },
+      {
+        name: '',
+        dialogs: [<AddAccountCongrats />],
+        dontShowOnMilestone: true,
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,
@@ -313,6 +321,7 @@ export const AddAccountDialogProvider: FC<
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
       isDeviceRequired,
       currentTab,
       currentDialog,
@@ -343,6 +352,7 @@ export const AddAccountDialogProvider: FC<
       walletDropdownList,
     }),
     [
+      defaultWalletId,
       isDeviceRequired,
       currentTab,
       currentDialog,

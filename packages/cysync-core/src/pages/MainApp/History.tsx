@@ -1,3 +1,4 @@
+import { createCSVFromTransactions } from '@cypherock/cysync-core-services';
 import {
   ArrowReceivedIcon,
   Container,
@@ -17,6 +18,8 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
+import { openSnackBar, selectLanguage, useAppSelector } from '~/store';
+import { downloadCSVToDesktop } from '~/utils';
 
 import { MainAppLayout } from './Layout';
 
@@ -40,6 +43,7 @@ export const History: FC = () => {
   const { windowHeight } = useWindowSize();
   const [topbarHeight, setTopbarHeight] = useState(0);
   const listRef = useRef<any>(null);
+  const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
     if (listRef.current?.recomputeRowHeights) {
@@ -94,6 +98,38 @@ export const History: FC = () => {
     return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
   };
 
+  const handleDownloadCSV = () => {
+    const csvFile = createCSVFromTransactions(
+      displayedData
+        .filter(t => !t.isGroupHeader)
+        .map(t => ({
+          date: t.timestamp,
+          type: t.type,
+          currency: t.displayAmountUnit,
+          amount: t.displayAmountWithoutUnit,
+          feeCurrency: t.displayFeeUnit,
+          feeAmount: t.displayFeeWithoutUnit,
+          hash: t.hash,
+          walletName: t.walletName,
+          accountName: `${t.accountName}${
+            t.accountTag ? ` [${t.accountTag}]` : ''
+          }`,
+          xpub: t.xpubOrAddress,
+          countervalueCurrency: t.displayValueUnit,
+          countervalueAmount: t.displayValueWithoutUnit,
+        })),
+    );
+
+    downloadCSVToDesktop('CySync History.csv', csvFile);
+
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: lang.strings.snackbar.downloadCSV,
+      }),
+    );
+  };
+
   const getMainContent = () => {
     if (transactionList.length <= 0)
       return (
@@ -114,6 +150,8 @@ export const History: FC = () => {
           placeholder={strings.history.search.placeholder}
           value={searchTerm}
           onChange={setSearchTerm}
+          handleDownloadCSV={handleDownloadCSV}
+          downloadCSVTooltip={lang.strings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
           <>

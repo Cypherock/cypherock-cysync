@@ -37,6 +37,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
     selectedAccounts,
     setSelectedAccounts,
     selectedChainNameWithNoAccount,
+    defaultWalletId,
   } = useAddTokenDialog();
 
   const { addToken } = lang.strings;
@@ -127,6 +128,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
             placeholderText={addToken.select.walletPlaceholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={tokenDropDownList}
@@ -136,6 +138,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
             placeholderText={addToken.select.tokenPlaceholder}
             onChange={handleTokenChange}
             isMultiSelect
+            autoFocus={Boolean(defaultWalletId)}
           />
           <Dropdown
             items={accountDropdownList}

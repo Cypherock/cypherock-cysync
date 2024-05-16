@@ -108,6 +108,8 @@ export interface SendDialogContextInterface {
     coinFamily: CoinFamily,
     txn?: IPreparedTransaction,
   ) => string;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -135,10 +137,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { priceInfos } = useAppSelector(selectPriceInfos);
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    3: [0],
-    4: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        3: [0],
+        4: [0],
+      }),
+      [],
+    );
 
   const [error, setError] = useState<any | undefined>();
   const [signedTransaction, setSignedTransaction] = useState<
@@ -181,33 +187,36 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     includeSubAccounts: true,
   });
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.send.aside.tabs.source,
-      dialogs: [<SelectionDialog />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.recipient,
-      dialogs: [<Recipient />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.summary,
-      dialogs: [<SummaryDialog />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.x1vault,
-      dialogs: [<DeviceAction />],
-    },
-    {
-      name: lang.strings.send.aside.tabs.confirm,
-      dialogs: [<LoaderDialog />],
-    },
-    {
-      name: '',
-      dialogs: [<FinalMessage />],
-      dontShowOnMilestone: true,
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.send.aside.tabs.source,
+        dialogs: [<SelectionDialog />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.recipient,
+        dialogs: [<Recipient />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.summary,
+        dialogs: [<SummaryDialog />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.x1vault,
+        dialogs: [<DeviceAction />],
+      },
+      {
+        name: lang.strings.send.aside.tabs.confirm,
+        dialogs: [<LoaderDialog />],
+      },
+      {
+        name: '',
+        dialogs: [<FinalMessage />],
+        dontShowOnMilestone: true,
+      },
+    ],
+    [lang],
+  );
 
   useEffect(() => {
     if (disableAccountSelection) goTo(1, 0);
@@ -556,6 +565,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -593,6 +604,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getComputedFee,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,

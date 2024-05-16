@@ -46,7 +46,8 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onClose = () => {
@@ -60,12 +61,15 @@ export const ResetCySyncDialogProvider: FC<ResetCySyncDialogProviderProps> = ({
     onClose();
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.settings.tabs.app.title,
-      dialogs: [<ConfirmReset key="reset-cysync-confirm" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.settings.tabs.app.title,
+        dialogs: [<ConfirmReset key="reset-cysync-confirm" />],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,

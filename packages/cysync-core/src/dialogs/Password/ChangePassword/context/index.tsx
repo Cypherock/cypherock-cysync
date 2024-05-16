@@ -18,6 +18,7 @@ import {
   useAppSelector,
 } from '~/store';
 import { validatePassword } from '~/utils';
+import logger from '~/utils/logger';
 
 import { ChangePasswordSuccess, CreateNewPassword } from '../Dialogs';
 
@@ -57,7 +58,8 @@ export const ChangePasswordDialogProvider: FC<
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { setPassword: setCySyncPassword } = useLockscreen();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
 
   const [error, setError] = useState<string | null>(null);
   const [oldPassword, setOldPassword] = useState<string>('');
@@ -125,9 +127,14 @@ export const ChangePasswordDialogProvider: FC<
 
   const handleChangePassword = async () => {
     setIsLoading(true);
-    const isCorrectPassword = await setCySyncPassword(newPassword, oldPassword);
+    const isPasswordCorrect = await setCySyncPassword(newPassword, oldPassword);
 
-    if (!isCorrectPassword) {
+    logger.info('Form Submit: Change Password', {
+      source: ChangePasswordDialogProvider.name,
+      isPasswordCorrect,
+    });
+
+    if (!isPasswordCorrect) {
       setError(lang.strings.lockscreen.incorrectPassword);
       setIsLoading(false);
       return;
@@ -137,16 +144,19 @@ export const ChangePasswordDialogProvider: FC<
     onNext();
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.password.confimPassword.title,
-      dialogs: [<CreateNewPassword key="change-password-create-new" />],
-    },
-    {
-      name: lang.strings.dialogs.password.success.change,
-      dialogs: [<ChangePasswordSuccess key="change-password-success" />],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.password.confimPassword.title,
+        dialogs: [<CreateNewPassword key="change-password-create-new" />],
+      },
+      {
+        name: lang.strings.dialogs.password.success.change,
+        dialogs: [<ChangePasswordSuccess key="change-password-success" />],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,
