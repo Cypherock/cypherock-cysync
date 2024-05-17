@@ -1,5 +1,5 @@
 {
-  "name": "@cypherock/coin-support",
+  "name": "@cypherock/coin-support-tron",
   "version": "0.0.5",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -7,8 +7,8 @@
   "license": "AGPL-3.0",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .ts,tsx,js,jsx src/ tests/ --fix",
-    "lint:check": "eslint --ext .ts,tsx,js,jsx src/ tests/",
+    "lint": "eslint --ext .ts,tsx,js,jsx src/ --fix",
+    "lint:check": "eslint --ext .ts,tsx,js,jsx src/",
     "pretty": "prettier --write \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
@@ -28,8 +28,11 @@
     "@stryker-mutator/jest-runner": "^7.0.2",
     "@stryker-mutator/typescript-checker": "^7.0.2",
     "@types/jest": "^29.5.2",
+    "@types/lodash": "^4.14.195",
+    "@types/multicoin-address-validator": "^0.5.0",
     "@types/node": "18.15.11",
     "eslint": "^8.43.0",
+    "ethers": "^6.7.0",
     "jest": "^29.5.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
@@ -38,14 +41,17 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@cypherock/coin-support-btc": "workspace:^",
-    "@cypherock/coin-support-evm": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
-    "@cypherock/coin-support-near": "workspace:^",
-    "@cypherock/coin-support-solana": "workspace:^",
-    "@cypherock/coin-support-tron": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
-    "@cypherock/cysync-utils": "workspace:^"
+    "@cypherock/cysync-interfaces": "workspace:^",
+    "@cypherock/cysync-utils": "workspace:^",
+    "@cypherock/db-interfaces": "workspace:^",
+    "@cypherock/sdk-interfaces": "^0.0.14",
+    "@cypherock/sdk-utils": "^0.0.17",
+    "lodash": "^4.17.21",
+    "multicoin-address-validator": "^0.5.12",
+    "rxjs": "^7.8.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

@@ -63,6 +63,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     evm: getEvmMaxSendAmount,
     near: () => '',
     solana: () => '',
+    tron: () => '',
   };
 
   useEffect(() => {

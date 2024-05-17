@@ -16,6 +16,7 @@ export const useLabelSuffix = () => {
     evm: getEvmSuffix,
     near: getDefaultSuffix,
     solana: getDefaultSuffix,
+    tron: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';

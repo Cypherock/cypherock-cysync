@@ -545,6 +545,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     evm: getEvmFeeAmount,
     near: () => '0',
     solana: getSolanaFeeAmount,
+    tron: () => '0',
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
