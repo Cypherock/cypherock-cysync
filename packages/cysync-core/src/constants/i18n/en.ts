@@ -731,15 +731,9 @@ const en = {
     },
     deviceAuth: {
       heading: 'Device Authentication',
-      title:
-        'Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity ',
-      subtext:
-        'Do not disconnect your device while the operation is being done',
       success: {
-        title: 'Your X1 Vault is successfully authenticated',
         subtext: 'Wait while we take you to the next screen',
       },
-      error: 'X1 Vault authentication has failed',
     },
     joystickTraining: {
       heading: 'Joystick Instructions',
@@ -859,7 +853,6 @@ const en = {
           subtext: 'Please wait while we update your X1 Vault',
         },
         updateSuccessful: {
-          heading: 'X1 Vault updated successfully',
           headingWithVersion: 'X1 Vault updated to v${version} successfully',
           subtext: 'Your device is now operating on the latest firmware',
         },
