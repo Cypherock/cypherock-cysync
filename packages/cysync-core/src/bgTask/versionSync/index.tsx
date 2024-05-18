@@ -10,6 +10,7 @@ export const VersionSyncTask: React.FC = () => {
 
   const checkVersion = async () => {
     try {
+      if (!(await keyValueStore.isOnboardingCompleted.get())) return;
       const storedVersion = await keyValueStore.cysyncVersion.get();
       const currentVersion = window.cysyncEnv.VERSION;
       if (!storedVersion || storedVersion !== currentVersion) {
