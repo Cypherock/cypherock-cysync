@@ -26,6 +26,7 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
+import { UsbTroubleShoot } from './UsbTroubleShoot';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
@@ -35,6 +36,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
+  usbTroubleshoot: UsbTroubleShoot,
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
   sendDialog: SendDialog,

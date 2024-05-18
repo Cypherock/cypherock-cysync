@@ -778,6 +778,12 @@ const en = {
           'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
         ],
       },
+      diagnostics: {
+        title: 'USB Diagnostics',
+        list: [
+          'If you have bought a brand new Cypherock X1 and want to setup a new wallet',
+        ],
+      },
       importWallet: {
         title: 'Import your wallet from a seed phrase',
         list: [
@@ -1411,6 +1417,218 @@ const en = {
       buttons: {
         secondary: 'I will do it later',
         primary: 'Create Wallet',
+      },
+    },
+    closeDialog: {
+      title: 'Are you sure you want to exit?',
+      subtitle:
+        'You can always start this guide by clicking "Add Wallet" under the Wallets tab',
+      buttons: {
+        secondary: 'Cancel',
+        primary: 'Exit',
+      },
+    },
+  },
+  usbtroubleShoot: {
+    diagnostics: {
+      title: 'USB Diagnostics',
+      tabs: [
+        {
+          asideTitle: 'Solution #1',
+          pages: [
+            {
+              title: 'Troubleshoot USB connection',
+              subtitle:
+                'There seems to be a problem connecting your' +
+                "device. Don't worry we got you covered",
+              title2:
+                'Try different solutions one by one until your device connects',
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #2',
+          pages: [
+            {
+              title:
+                'Connect the correct side of the USB converter to the device',
+              subtitle:
+                'the converter side (usb-b to usb-c) should always' +
+                'be connected to the laptop. If that is connected to' +
+                'the device, then it wont work',
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #3',
+          pages: [
+            {
+              title: 'Allow accessories to connect',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Open "System Settings"',
+                'Go to "Privacy & Security"',
+                'Click the pop-up next to "Allow accessories to connect"',
+                'Select "Askfor new accessories"',
+                'Enter your Password and allow in the next dialogue',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #4',
+          pages: [
+            {
+              title: 'Try a different USB port',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Change the USB port used on your computer',
+                'Remove any other dongles',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #5',
+          pages: [
+            {
+              title: 'Change the USB cable',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Use the original USB cable that comes in your packaging if possible',
+                'Try a different USB cable, making sure it supports data transfer',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #6',
+          pages: [
+            {
+              title: 'Turn off antvirus and VPN',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Turn off any antivirus, firewall and VPN software',
+                "Reconnect your device to see if it's detected",
+                'Whitelist cySync in your antivirus if that worked',
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #7',
+          pages: [
+            {
+              title: 'Try another computer',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Go to https://cypherock.com/gs on another computer to download and install cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #8',
+          pages: [
+            {
+              title: 'Enable full disk access',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Open "System Preferences"',
+                'Go to "Security & Privacy"',
+                'In the "Privacy" tab, go to "Full Disk Access" in the left column',
+                'Add cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Solution #9',
+          pages: [
+            {
+              title: 'Reset NVRAM',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                "If your Mac has an intel processor, Follow Apple's insctructions to reset the NVRAM",
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          asideTitle: 'Contact Support',
+          pages: [
+            {
+              title: 'Restart your computer',
+              subtitle: 'Follow the instructions below',
+              bulletList: [
+                'Restart your computer',
+                'Start cySync',
+                "Reconnect your device to see if it's detected",
+              ],
+              messageBoxList: [
+                {
+                  info: 'waiting for the device',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    finalIssue: {
+      asideTitle: 'Contact Support',
+      title: 'USB connection problem still not fixed?',
+      subtitle:
+        "If you have tried every possible solution, please reach out to Cypherock support. Otherwise, please follow the instructions of any solution you haven't tried yet.",
+      buttons: {
+        secondary: 'Go Back',
+        primary: 'Contact',
       },
     },
     closeDialog: {

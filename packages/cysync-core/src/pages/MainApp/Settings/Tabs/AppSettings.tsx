@@ -6,6 +6,7 @@ import {
   openRemovePasswordDialog,
   openResetCySyncDialog,
   openSetPasswordDialog,
+  openUsbTroubleShootDialog,
 } from '~/actions';
 import { useLockscreen } from '~/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
@@ -46,6 +47,10 @@ export const AppSettings: React.FC = () => {
 
     keyValueStore.isAutoUpdateCySyncEnabled.set(isAutoUpdateCySyncEnabled);
   }, [isAutoUpdateCySyncEnabled]);
+
+  const handleUsbTroubleShoot = () => {
+    dispatch(openUsbTroubleShootDialog());
+  };
 
   return (
     <>
@@ -118,15 +123,15 @@ export const AppSettings: React.FC = () => {
           onToggle={setAutoUpdateCySyncEnabled}
         />
       </SettingsStandardItem>
-      */}
-      {/* <SettingsStandardItem
+    */}
+      <SettingsStandardItem
         title={{ text: item.usb.title }}
         description={{ text: item.usb.description }}
       >
-        <SettingsButton variant="primary" onClick={console.log}>
+        <SettingsButton variant="primary" onClick={handleUsbTroubleShoot}>
           <LangDisplay text={strings.buttons.start} />
         </SettingsButton>
-      </SettingsStandardItem> */}
+      </SettingsStandardItem>
     </>
   );
 };

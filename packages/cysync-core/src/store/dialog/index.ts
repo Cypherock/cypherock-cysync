@@ -32,6 +32,9 @@ const initialState: IDialogState = {
   guidedFlow: {
     isOpen: false,
   },
+  usbTroubleshoot: {
+    isOpen: false,
+  },
   walletSyncError: {
     isOpen: false,
   },

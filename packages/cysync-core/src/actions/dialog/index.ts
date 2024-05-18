@@ -24,6 +24,9 @@ export const openSignMessageDialog = () =>
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
+export const openUsbTroubleShootDialog = () =>
+  openDialog({ name: 'usbTroubleshoot', data: undefined });
+
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });
 

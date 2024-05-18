@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 import {
   ArrowButton,
+  Button,
   Flex,
   LangDisplay,
   Typography,
@@ -11,6 +12,7 @@ import {
 import { BulletList } from '../BulletList';
 import { GoldenArrowList } from '../GoldenArrowList';
 import { MessageBox, MessageBoxType } from '../MessageBox';
+import { WaitingDiv, WaitingDivType } from '../WaitingDiv';
 
 import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
 
@@ -22,8 +24,9 @@ const InnerContainer = styled.div`
   overflow-y: auto;
 `;
 
-export interface GuidedFlowDialogBoxProps {
+export interface CustomFlowDialogBoxProps {
   title?: string;
+  title2?: string;
   subtitle?: string;
   bulletList?: string[];
   messageBoxList?: Record<string, string>[];
@@ -38,11 +41,14 @@ export interface GuidedFlowDialogBoxProps {
   disableNext?: boolean;
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
+  isFirstDialog?: boolean;
+  waitingDiv?: boolean;
 }
-export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
+export const CustomFlowDialogBox: FC<CustomFlowDialogBoxProps> = ({
   heading,
   image,
   title,
+  title2,
   children,
   isLoading,
   loadingText,
@@ -55,6 +61,8 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
   onPrevious,
   disablePrev,
   disableNext,
+  isFirstDialog,
+  waitingDiv,
 }) => (
   <>
     {heading && (
@@ -86,6 +94,11 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
                 <LangDisplay text={subtitle} />
               </Typography>
             )}
+            {title2 && (
+              <Typography gap={8} pt={2} $textAlign="center" variant="h5">
+                <LangDisplay text={title2} />
+              </Typography>
+            )}
             {isLoading && loadingText && (
               <Typography color="muted">
                 <LangDisplay text={loadingText} />
@@ -104,57 +117,85 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
             <BulletList items={bulletList} />
           </Flex>
         )}
-        {messageBoxList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
-            {messageBoxList.map((messageBox, index) => {
-              const key = Object.keys(messageBox)[0];
-              const args = key.split('-');
+        {messageBoxList &&
+          (waitingDiv ? (
+            <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+              {messageBoxList.map((messageBox, index) => {
+                const key = Object.keys(messageBox)[0];
+                const args = key.split('-');
+                const type = args[0] as WaitingDivType;
+                if (!type) return null;
 
-              const type = args[0] as MessageBoxType;
-              if (!type) return null;
+                let textColor: TypographyColor | undefined;
+                if (args.length > 1) textColor = args[1] as TypographyColor;
 
-              let textColor: TypographyColor | undefined;
-              if (args.length > 1) textColor = args[1] as TypographyColor;
+                return (
+                  <WaitingDiv
+                    key={`${type}-${index + 1}`}
+                    text={messageBox[key]}
+                    textColor={textColor}
+                    type={type}
+                  />
+                );
+              })}
+            </Flex>
+          ) : (
+            <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+              {messageBoxList.map((messageBox, index) => {
+                const key = Object.keys(messageBox)[0];
+                const args = key.split('-');
 
-              return (
-                <MessageBox
-                  key={`${type}-${index + 1}`}
-                  text={messageBox[key]}
-                  textColor={textColor}
-                  type={type}
-                />
-              );
-            })}
-          </Flex>
-        )}
+                const type = args[0] as MessageBoxType;
+                if (!type) return null;
+
+                let textColor: TypographyColor | undefined;
+                if (args.length > 1) textColor = args[1] as TypographyColor;
+
+                return (
+                  <MessageBox
+                    key={`${type}-${index + 1}`}
+                    text={messageBox[key]}
+                    textColor={textColor}
+                    type={type}
+                  />
+                );
+              })}
+            </Flex>
+          ))}
       </DialogBoxBody>
     </InnerContainer>
     <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
       {footer}
-      {!footer && (
-        <>
-          <ArrowButton
-            direction="left"
-            onClick={onPrevious}
-            variant={disablePrev ? 'disabled' : 'enabled'}
-          />
-          <ArrowButton
-            direction="right"
-            onClick={onNext}
-            variant={disableNext ? 'disabled' : 'enabled'}
-          />
-        </>
-      )}
+      {!footer &&
+        (isFirstDialog ? (
+          <Button variant="primary" onClick={onNext}>
+            <LangDisplay text="Next" />
+          </Button>
+        ) : (
+          <>
+            <ArrowButton
+              direction="left"
+              onClick={onPrevious}
+              variant={disablePrev ? 'disabled' : 'enabled'}
+            />
+            <ArrowButton
+              direction="right"
+              onClick={onNext}
+              variant={disableNext ? 'disabled' : 'enabled'}
+            />
+          </>
+        ))}
     </DialogBoxFooter>
   </>
 );
 
-GuidedFlowDialogBox.defaultProps = {
+CustomFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,
   subtitle: undefined,
   title: undefined,
+  title2: undefined,
   footer: undefined,
   heading: undefined,
   goldenArrowList: undefined,
@@ -162,4 +203,6 @@ GuidedFlowDialogBox.defaultProps = {
   messageBoxList: undefined,
   disablePrev: false,
   disableNext: false,
+  isFirstDialog: false,
+  waitingDiv: false,
 };
