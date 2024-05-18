@@ -1,4 +1,4 @@
-import { ServerErrorType } from '~/errors';
+import { ServerErrorType } from '@cypherock/coin-support-utils';
 import { ILangState } from '~/store';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';
@@ -18,6 +18,8 @@ export const getServerErrorHandlingDetails = (
   > = {
     [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.report(),
     [ServerErrorType.CONNOT_CONNECT]: generateErrorHandlingDetails.retry(),
+    [ServerErrorType.INVALID_RESPONSE]:
+      generateErrorHandlingDetails.retryWithReport(),
   };
 
   return serverErrorHandlingDetailsMap[errorCode];

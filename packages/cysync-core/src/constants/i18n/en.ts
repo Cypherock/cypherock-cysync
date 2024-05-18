@@ -1,15 +1,15 @@
 /* eslint-disable no-template-curly-in-string */
 import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
+  CardAppErrorType,
   DeviceAppErrorType,
   DeviceBootloaderErrorType,
   DeviceCommunicationErrorType,
   DeviceCompatibilityErrorType,
   DeviceConnectionErrorType,
-  CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
-import { ServerErrorType } from '~/errors';
+import { ServerErrorType } from '@cypherock/coin-support-utils';
 import { DeviceErrorCodes, IErrorMsg } from '~/types/deviceError';
 
 const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
@@ -306,6 +306,11 @@ const serverErrors: Record<ServerErrorType, IErrorMsg> = {
   },
   [ServerErrorType.CONNOT_CONNECT]: {
     heading: 'Please connect to the internet to continue',
+  },
+  [ServerErrorType.INVALID_RESPONSE]: {
+    heading: 'An unexpected response was received from the server',
+    subtext:
+      'Try again and if the problem persists, contact Cypherock support for assistance',
   },
 };
 

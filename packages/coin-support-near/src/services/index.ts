@@ -1,9 +1,11 @@
 import { nearCoinList } from '@cypherock/coins';
 import axios from 'axios';
 
+import { ServerError, ServerErrorType } from '@cypherock/coin-support-utils';
 import { config } from '../config';
+import { NearTransactionsApiResponseSchema } from '../validators';
 
-const baseURL = `${config.API_CYPHEROCK}/near`;
+const baseURL = `${config.API_CYPHEROCK}/v2/near`;
 
 export const getBalance = async (
   address: string,
@@ -17,7 +19,6 @@ export const getBalance = async (
   const response = await axios.post(url, {
     address,
     network: nearCoinList[assetId].network,
-    responseType: 'v2',
   });
 
   const { balance, nativeBalance, reservedStorage } = response.data;
@@ -29,34 +30,61 @@ export const getBalance = async (
   };
 };
 
-export const getTransactions = async (
-  address: string,
-  assetId: string,
-  from?: number,
-  limit?: number,
-) => {
+interface GetTransactionsParams {
+  address: string;
+  assetId: string;
+  page: number;
+  perPage: number;
+  order: 'desc' | 'asc';
+}
+
+export const getTransactions = async ({
+  address,
+  assetId,
+  page,
+  perPage,
+  order,
+}: GetTransactionsParams) => {
   const url = `${baseURL}/transaction/history`;
   const response = await axios.post(url, {
     address,
     network: nearCoinList[assetId].network,
-    responseType: 'v2',
-    limit,
-    from,
+    page,
+    perPage,
+    order,
   });
 
+  const parseResult = NearTransactionsApiResponseSchema.safeParse(
+    response.data,
+  );
+
+  if (parseResult.success === false) {
+    throw new ServerError(
+      ServerErrorType.INVALID_RESPONSE,
+      'Invalid Response for Near Transactions',
+      {
+        responseBody: response.data,
+        url,
+        status: response.status,
+      },
+    );
+  }
+
+  const hasMore = parseResult.data.length === perPage;
   return {
-    transactions: response.data.data,
-    hasMore: response.data.more,
+    transactions: parseResult.data,
+    hasMore,
   };
 };
 
 export const getTransactionCount = async (address: string, assetId: string) => {
-  const { transactions } = await getTransactions(
+  const { transactions } = await getTransactions({
     address,
     assetId,
-    undefined,
-    1,
-  );
+    page: 1,
+    perPage: 1,
+    order: 'asc',
+  });
 
   const isUsed = transactions && transactions.length > 0;
 

@@ -1,3 +1,4 @@
+import { ServerError, ServerErrorType } from '@cypherock/coin-support-utils';
 import {
   defaultErrorHandlignDetails,
   ErrorActionMap,
@@ -5,7 +6,6 @@ import {
   getDeviceErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
-import { ServerError, ServerErrorType } from '~/errors';
 import { ILangState } from '~/store';
 import { DeviceErrorCodes } from '~/types/deviceError';
 
@@ -31,7 +31,6 @@ const identifyServerErrors = (error: any) => {
         status: error?.response?.status,
       });
     }
-
     return new ServerError(ServerErrorType.CONNOT_CONNECT);
   }
 
