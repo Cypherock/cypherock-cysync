@@ -1,3 +1,3 @@
-# Coin Support EVM
+# Coin Support Tron
 
-- All coin operations related to EVM
+- All coin operations related to Tron
