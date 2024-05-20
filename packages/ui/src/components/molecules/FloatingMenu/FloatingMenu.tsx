@@ -15,34 +15,27 @@ import {
 } from '@floating-ui/react';
 import React, { useState } from 'react';
 
-import {
-  DropdownMenu,
-  MultiSelectDropdownMenuProps,
-  SingleSelectDropdownMenuProps,
-} from '.';
+import { DropdownMenu, DropdownMenuProps } from './DropdownMenu';
 
-export interface FloatingMenuProps {
+export interface FloatingMenuProps
+  extends Omit<DropdownMenuProps, 'isOpen' | 'setIsOpen'> {
   children: React.ReactNode | React.ReactNode[];
+  disabled?: boolean;
   placement?: Placement;
   offset?: OffsetOptions;
-  isOpen?: boolean;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const FloatingMenu: React.FC<
-  FloatingMenuProps &
-    (SingleSelectDropdownMenuProps | MultiSelectDropdownMenuProps)
-> = ({ children, placement, offset: offsetOptions, ...props }) => {
-  const [isOpenInternal, setIsOpenInternal] = useState(false);
-
-  const isControlled =
-    props.isOpen !== undefined && props.setIsOpen !== undefined;
-  const isOpen = isControlled ? props.isOpen! : isOpenInternal;
-  const setIsOpen = isControlled ? props.setIsOpen! : setIsOpenInternal;
+export const FloatingMenu: React.FC<FloatingMenuProps> = ({
+  children,
+  placement,
+  offset: offsetOptions,
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
-    open: isControlled ? props.isOpen : isOpenInternal,
-    onOpenChange: isControlled ? undefined : setIsOpenInternal,
+    open: isOpen,
+    onOpenChange: setIsOpen,
     placement,
     middleware: [
       flip({ fallbackAxisSideDirection: 'end' }),
@@ -69,7 +62,7 @@ export const FloatingMenu: React.FC<
       </span>
       {isOpen && !props.disabled && (
         <>
-          {!isControlled && <FloatingOverlay style={{ zIndex: 10 }} />}
+          <FloatingOverlay style={{ zIndex: 10 }} />
           <FloatingFocusManager context={context} modal={false}>
             <span
               ref={refs.setFloating}
@@ -86,8 +79,7 @@ export const FloatingMenu: React.FC<
 };
 
 FloatingMenu.defaultProps = {
+  disabled: false,
   placement: undefined,
-  isOpen: undefined,
-  setIsOpen: undefined,
   offset: undefined,
 };

@@ -38,39 +38,11 @@ export const searchInItems = (
 };
 
 export const handleKeyDown =
-  (isOpen: boolean, toggleDropdown: () => void) =>
-  (event: React.KeyboardEvent<HTMLInputElement>) => {
-    switch (event.key) {
-      case 'ArrowDown':
-        if (!isOpen) {
-          event.preventDefault();
-          event.stopPropagation();
-          toggleDropdown();
-        }
-        break;
-      case 'ArrowUp':
-        if (!isOpen) {
-          event.preventDefault();
-          event.stopPropagation();
-          toggleDropdown();
-        }
-        break;
-      case 'Enter':
-        if (!isOpen) {
-          event.preventDefault();
-          event.stopPropagation();
-          toggleDropdown();
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
-export const handleKeyBoadNavigation =
   (
+    isOpen: boolean,
     toggleDropdown: () => void,
-    setFocusedIndex: React.Dispatch<React.SetStateAction<number>>,
+    setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>>,
+    isMultiSelect: boolean,
     focusedIndex: number | null,
     handleCheckedChange: (id: string) => void,
     filteredItems: any,
@@ -83,67 +55,78 @@ export const handleKeyBoadNavigation =
       case 'ArrowDown':
         event.preventDefault();
         event.stopPropagation();
+        if (!isOpen) {
+          toggleDropdown();
+        } else {
+          setFocusedIndex(prevIndex =>
+            prevIndex === null
+              ? 0
+              : Math.min(prevIndex + 1, visibleItemsCount - 1),
+          );
+          listRef.current?.focus();
 
-        setFocusedIndex(prevIndex =>
-          prevIndex === null
-            ? 0
-            : Math.min(prevIndex + 1, visibleItemsCount - 1),
-        );
-        listRef.current?.focus();
+          if (focusedIndex !== null && focusedIndex < visibleItemsCount - 1) {
+            const nextItem = listRef.current?.children[
+              focusedIndex + 1
+            ] as HTMLElement | null;
 
-        if (focusedIndex !== null && focusedIndex < visibleItemsCount - 1) {
-          const nextItem = listRef.current?.children[
-            focusedIndex + 1
-          ] as HTMLElement | null;
+            const nextItemBottom =
+              (nextItem?.offsetTop ?? 0) + (nextItem?.offsetHeight ?? 0);
 
-          const nextItemBottom =
-            (nextItem?.offsetTop ?? 0) + (nextItem?.offsetHeight ?? 0);
+            const visibleBottom =
+              (listRef.current?.scrollTop ?? 0) +
+              (listRef.current?.offsetHeight ?? 0);
 
-          const visibleBottom =
-            (listRef.current?.scrollTop ?? 0) +
-            (listRef.current?.offsetHeight ?? 0);
-
-          if (nextItemBottom > visibleBottom) {
-            const scrollOffset =
-              nextItemBottom - (listRef.current?.offsetHeight ?? 0);
-            listRef.current?.scrollTo({ top: scrollOffset });
+            if (nextItemBottom > visibleBottom) {
+              const scrollOffset =
+                nextItemBottom - (listRef.current?.offsetHeight ?? 0);
+              listRef.current?.scrollTo({ top: scrollOffset });
+            }
           }
         }
-
         break;
       case 'ArrowUp':
         event.preventDefault();
         event.stopPropagation();
-        setFocusedIndex(prevIndex =>
-          prevIndex === null
-            ? visibleItemsCount - 1
-            : Math.max(prevIndex - 1, 0),
-        );
-        listRef.current?.focus();
+        if (!isOpen) {
+          toggleDropdown();
+          setFocusedIndex(visibleItemsCount - 1);
+        } else {
+          setFocusedIndex(prevIndex =>
+            prevIndex === null
+              ? visibleItemsCount - 1
+              : Math.max(prevIndex - 1, 0),
+          );
+          listRef.current?.focus();
 
-        if (focusedIndex !== null) {
-          if (focusedIndex === 0) {
-            listRef.current?.scrollTo({ top: 0 });
-          } else {
-            const prevItem = listRef.current?.children[focusedIndex - 1] as
-              | HTMLElement
-              | undefined;
-            const scrollOffset = prevItem?.offsetTop;
-            listRef.current?.scrollTo({ top: scrollOffset });
+          if (focusedIndex !== null) {
+            if (focusedIndex === 0) {
+              listRef.current?.scrollTo({ top: 0 });
+            } else {
+              const prevItem = listRef.current?.children[focusedIndex - 1] as
+                | HTMLElement
+                | undefined;
+              const scrollOffset = prevItem?.offsetTop;
+              listRef.current?.scrollTo({ top: scrollOffset });
+            }
           }
         }
         break;
       case 'Enter':
         event.preventDefault();
         event.stopPropagation();
-        if (focusedIndex !== null) {
+        if (!isOpen) {
+          toggleDropdown();
+        } else if (focusedIndex !== null) {
           handleCheckedChange(filteredItems[focusedIndex].id ?? '');
         }
         break;
       case 'Tab':
-        event.preventDefault();
-        event.stopPropagation();
-        toggleDropdown();
+        if (isOpen) {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleDropdown();
+        }
         break;
       default:
         break;

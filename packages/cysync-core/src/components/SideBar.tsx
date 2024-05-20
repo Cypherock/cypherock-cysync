@@ -93,7 +93,6 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             onClick={() => navigate('portfolio')}
           />
           <FloatingMenu
-            isMultiSelect={false}
             items={walletsSubMenuOptions}
             onChange={id => id && navigateWallet(id)}
             selectedItem={selectedWallet?.__id}

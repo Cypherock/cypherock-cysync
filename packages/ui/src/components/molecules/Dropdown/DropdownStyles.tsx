@@ -1,8 +1,17 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { CursorProps, UtilsProps, cursor, utils } from '../../utils';
 
-export const DropDownListContainer = styled.div<UtilsProps & CursorProps>`
+const positionAbsolute = css`
+  position: absolute;
+  top: 100%;
+  right: 0;
+`;
+
+export const DropDownListContainer = styled.div<
+  UtilsProps & { isSelfPositioned?: boolean }
+>`
+  ${({ isSelfPositioned }) => !isSelfPositioned && positionAbsolute}
   width: 100%;
   list-style: none;
   border-radius: 8px;
