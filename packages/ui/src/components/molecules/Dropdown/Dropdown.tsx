@@ -381,6 +381,7 @@ export const Dropdown: React.FC<
         <DropDownListContainer
           ref={listRef}
           height={baseHeight * Math.min(filteredItems.length, 4) + 32}
+          $maxHeight={244}
           $cursor={disabled ? 'not-allowed' : 'default'}
         >
           <Virtualize.AutoSizer>
