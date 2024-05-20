@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import {
@@ -96,10 +96,18 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   if (!isOpen) return null;
   if (items.length === 0) return null;
 
+  const baseHeight = useMemo(
+    () =>
+      items.some(item => item.showRightTextOnBottom && item.rightText)
+        ? 69
+        : 53,
+    [items],
+  );
+
   return (
     <DropDownListContainer
       ref={listRef}
-      height={53 * Math.min(items.length, maxVisibleItemCount) + 32}
+      height={baseHeight * Math.min(items.length, maxVisibleItemCount) + 32}
       $cursor={disabled ? 'not-allowed' : 'default'}
       tabIndex={disabled ? undefined : tabIndex ?? 0}
       width={dropdownWidth}
@@ -121,7 +129,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             height={height}
             width={width}
             rowCount={items.length}
-            rowHeight={53}
+            rowHeight={baseHeight}
             rowRenderer={rowRenderer}
             scrollToIndex={focusedIndex}
             overscanRowCount={10}

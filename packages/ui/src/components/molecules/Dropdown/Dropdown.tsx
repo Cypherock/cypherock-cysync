@@ -240,6 +240,13 @@ export const Dropdown: React.FC<
   }, [isOpen, setIsOpen, containerRef]);
 
   const selectionCount = selectedItems.length;
+  const baseHeight = useMemo(
+    () =>
+      filteredItems.some(item => item.showRightTextOnBottom && item.rightText)
+        ? 69
+        : 53,
+    [filteredItems],
+  );
 
   const rowRenderer = useCallback(
     ({ index, style }: any) => {
@@ -373,7 +380,7 @@ export const Dropdown: React.FC<
       {isOpen && filteredItems.length > 0 && (
         <DropDownListContainer
           ref={listRef}
-          height={53 * Math.min(filteredItems.length, 4) + 32}
+          height={baseHeight * Math.min(filteredItems.length, 4) + 32}
           $cursor={disabled ? 'not-allowed' : 'default'}
         >
           <Virtualize.AutoSizer>
@@ -382,7 +389,7 @@ export const Dropdown: React.FC<
                 height={height}
                 width={width}
                 rowCount={filteredItems.length}
-                rowHeight={53}
+                rowHeight={baseHeight}
                 rowRenderer={rowRenderer}
                 scrollToIndex={focusedIndex}
                 overscanRowCount={10}
