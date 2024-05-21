@@ -6,7 +6,6 @@ type TronFamily = typeof coinFamiliesMap.tron;
 
 export interface ITronCoinInfo extends ICoinInfo {
   family: TronFamily;
-  apiCoinType: string;
 }
 
 export const TronIdMap = {
@@ -29,7 +28,6 @@ export const tronCoinList: Record<string, ITronCoinInfo> = coinList.reduce<
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
-      apiCoinType: coin.apiCoinType,
       units: coin.units,
       color: coin.color,
     },

@@ -9,7 +9,6 @@ const coinList: ITronCoinInfo[] = [
     coinGeckoId: 'tron',
     coinIndex: '800000c3',
     feesUnit: 'sun/byte',
-    apiCoinType: 'trx',
     color: '#eb0029',
     family: 'tron',
     isUnderDevelopment: true,
