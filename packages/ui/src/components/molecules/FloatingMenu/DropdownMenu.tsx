@@ -1,12 +1,11 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
+import { UtilsProps, handleKeyDown } from '../../utils';
 import {
   DropDownListContainer,
   DropdownListItem,
 } from '../Dropdown/DropdownStyles';
-
-import { UtilsProps, handleKeyDown } from '../../utils';
 import { DropDownItem, DropDownItemProps } from '../DropDownItem';
 
 export type MaxVisibleItemCount = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;

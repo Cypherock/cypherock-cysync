@@ -9,8 +9,7 @@ import {
   CardAppErrorType,
 } from '@cypherock/sdk-interfaces';
 
-import { ServerErrorType } from '~/errors';
-import { DeviceErrorCodes, IErrorMsg } from '~/types/deviceError';
+import { DeviceErrorCodes, IErrorMsg, ServerErrorType } from '../types';
 
 const deviceErrors: Record<DeviceErrorCodes, IErrorMsg> = {
   // Connection Errors
