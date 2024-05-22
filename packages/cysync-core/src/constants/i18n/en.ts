@@ -923,6 +923,7 @@ const en = {
     sendCrypto: 'Send Crypto',
     receiveCrypto: 'Receive Crypto',
     history: 'History',
+    walletConnect: 'Wallet Connect',
     tutorial: 'Tutorial',
     settings: 'Settings',
     help: 'Help',
