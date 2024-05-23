@@ -232,7 +232,7 @@ export const EditAccountDialogProvider: FC<EditAccountDialogProviderProps> = ({
 
   const tabs: ITabs = [
     {
-      name: lang.strings.dialogs.editAccount.tab1.title,
+      name: lang.strings.dialogs.editAccount.accountSelection.title,
       dialogs: [<EditAccount key="edit-account-new" />],
     },
   ];

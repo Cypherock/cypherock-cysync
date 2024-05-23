@@ -1542,42 +1542,35 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
 `,
     },
     editAccount: {
-      tab1: {
+      accountSelection: {
         title: 'Select the Account to Edit',
         subtitle: 'Choose the account you want to edit',
-        btn: 'Continue',
       },
-      tab2: {
+      accountEdit: {
         title: 'Account details',
         subtitle: 'Edit your account attributes',
         input: {
-          first: {
+          accountName: {
             title: 'Account Name',
             subtitle: 'Description of the account',
-            type: 'text',
           },
-          second: {
+          unit: {
             title: 'Unit',
             subtitle: 'Choose the Unit to be used',
-            type: 'select',
           },
         },
-        btn: {
-          primary: {
-            text: 'Remove from portfolio',
-          },
-          secondary: {
-            text: 'Apply',
-          },
+        buttons: {
+          remove: 'Remove from portfolio',
+          apply: 'Apply',
         },
       },
-      tab3: {
+      confirmation: {
         title: 'Are you sure you want to remove',
         subtitle:
           'You can add the account again from the xyz wallet page. Note that this will not result in loss of assets',
-        btn: {
-          primary: 'Yes',
-          secondary: 'No',
+        buttons: {
+          yes: 'Yes',
+          no: 'No',
         },
       },
     },

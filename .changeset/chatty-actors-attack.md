@@ -4,4 +4,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-changeset fix
+Added edit account feature

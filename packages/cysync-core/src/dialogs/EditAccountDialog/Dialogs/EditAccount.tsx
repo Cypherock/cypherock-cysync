@@ -1,5 +1,5 @@
-import { getAsset } from '@cypherock/coin-support-utils';
-import { IEvmErc20Token } from '@cypherock/coins';
+// import { getAsset } from '@cypherock/coin-support-utils';
+// import { IEvmErc20Token } from '@cypherock/coins';
 import {
   Button,
   Dropdown,
@@ -19,13 +19,13 @@ import {
   MessageBox,
   Container,
 } from '@cypherock/cysync-ui';
-import { createSelector } from '@reduxjs/toolkit';
+// import { createSelector } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import {
-  selectUnHiddenAccounts,
-  selectWallets,
+  // selectUnHiddenAccounts,
+  // selectWallets,
   openSnackBar,
   useAppDispatch,
   selectLanguage,
@@ -34,14 +34,7 @@ import {
 
 import { useEditAccountDialog } from '../context';
 
-const selector = createSelector(
-  [selectUnHiddenAccounts, selectWallets, selectLanguage],
-  ({ accounts }, { wallets }, lang) => ({ accounts, wallets, lang }),
-);
-
 export const EditAccount: React.FC = () => {
-  const { accounts, wallets, lang } = useAppSelector(selector);
-  console.log('account data', accounts, wallets, lang);
   const dispatch = useAppDispatch();
   const {
     onClose,
@@ -63,19 +56,18 @@ export const EditAccount: React.FC = () => {
   } = useEditAccountDialog();
   const [tab, setTab] = useState(1);
   const { strings } = useAppSelector(selectLanguage);
-  const { dialogs } = strings;
-  const tabFirst = dialogs.editAccount.tab1;
-  const tabSecond = dialogs.editAccount.tab2;
-  const tabThird = dialogs.editAccount.tab3;
-  let asset;
-  const handleGetAssets = () => {
-    const tempAccount = accountList.filter(e => e.__id === selectedAccount)[0];
-    asset = getAsset(
-      tempAccount.parentAssetId,
-      tempAccount.assetId,
-    ) as IEvmErc20Token;
-  };
-  console.log(asset);
+  const { dialogs, buttons } = strings;
+  const { accountSelection } = dialogs.editAccount;
+  const { accountEdit } = dialogs.editAccount;
+  const { confirmation } = dialogs.editAccount;
+  // let asset;
+  // const handleGetAssets = () => {
+  //   // const tempAccount = accountList.filter(e => e.__id === selectedAccount)[0];
+  //   // asset = getAsset(
+  //   //   tempAccount.parentAssetId,
+  //   //   tempAccount.assetId,
+  //   // ) as IEvmErc20Token;
+  // };
 
   useEffect(() => {
     if (window.location.hash.includes('#/account?accountId')) {
@@ -122,12 +114,18 @@ export const EditAccount: React.FC = () => {
               <Flex px={5} py={4} gap={4} direction="column" align="center">
                 <Typography $fontSize={20} color="white">
                   <LangDisplay
-                    text={tab === 1 ? tabFirst.title : tabSecond.title}
+                    text={
+                      tab === 1 ? accountSelection.title : accountEdit.title
+                    }
                   />
                 </Typography>
                 <Typography $fontSize={16} color="muted">
                   <LangDisplay
-                    text={tab === 1 ? tabFirst.subtitle : tabSecond.subtitle}
+                    text={
+                      tab === 1
+                        ? accountSelection.subtitle
+                        : accountEdit.subtitle
+                    }
                   />
                 </Typography>
               </Flex>
@@ -203,10 +201,12 @@ export const EditAccount: React.FC = () => {
                 <Flex justify="space-between" p={1}>
                   <Flex direction="column">
                     <Typography $fontSize={18} color="white" $textAlign="left">
-                      <LangDisplay text={tabSecond.input.first.title} />
+                      <LangDisplay text={accountEdit.input.accountName.title} />
                     </Typography>
                     <Typography $fontSize={14} color="muted" $textAlign="left">
-                      <LangDisplay text={tabSecond.input.first.subtitle} />
+                      <LangDisplay
+                        text={accountEdit.input.accountName.subtitle}
+                      />
                     </Typography>
                   </Flex>
                   <Flex width={294}>
@@ -223,10 +223,10 @@ export const EditAccount: React.FC = () => {
                 <Flex justify="space-between" p={1}>
                   <div>
                     <Typography $fontSize={18} color="white">
-                      <LangDisplay text={tabSecond.input.second.title} />
+                      <LangDisplay text={accountEdit.input.unit.title} />
                     </Typography>
                     <Typography $fontSize={14} color="muted">
-                      <LangDisplay text={tabSecond.input.second.subtitle} />
+                      <LangDisplay text={accountEdit.input.unit.subtitle} />
                     </Typography>
                   </div>
                   <Flex width={294}>
@@ -290,10 +290,10 @@ export const EditAccount: React.FC = () => {
                   />
                 </center>
                 <Typography $fontSize={18} color="white" $textAlign="center">
-                  <LangDisplay text={tabThird.title} />
+                  <LangDisplay text={confirmation.title} />
                 </Typography>
                 <Typography $fontSize={14} color="muted" $textAlign="center">
-                  <LangDisplay text={tabThird.subtitle} />
+                  <LangDisplay text={confirmation.subtitle} />
                 </Typography>
               </>
             )}
@@ -307,10 +307,10 @@ export const EditAccount: React.FC = () => {
               onClick={e => {
                 e.preventDefault();
                 setTab(2);
-                handleGetAssets();
+                // handleGetAssets();
               }}
             >
-              <LangDisplay text={tabFirst.btn} />
+              <LangDisplay text={buttons.continue} />
             </Button>
           )}
           {tab === 2 && (
@@ -323,7 +323,7 @@ export const EditAccount: React.FC = () => {
                   setTab(3);
                 }}
               >
-                <LangDisplay text={tabSecond.btn.primary.text} />
+                <LangDisplay text={accountEdit.buttons.remove} />
               </Button>
               <Button
                 variant="primary"
@@ -334,7 +334,7 @@ export const EditAccount: React.FC = () => {
                   await handleApply();
                 }}
               >
-                <LangDisplay text={tabSecond.btn.secondary.text} />
+                <LangDisplay text={accountEdit.buttons.apply} />
               </Button>
             </>
           )}
@@ -355,7 +355,7 @@ export const EditAccount: React.FC = () => {
                   );
                 }}
               >
-                <LangDisplay text={tabThird.btn.primary} />
+                <LangDisplay text={confirmation.buttons.yes} />
               </Button>
               <Button
                 variant="primary"
@@ -365,7 +365,7 @@ export const EditAccount: React.FC = () => {
                   setTab(2);
                 }}
               >
-                <LangDisplay text={tabThird.btn.secondary} />
+                <LangDisplay text={confirmation.buttons.no} />
               </Button>
             </>
           )}
