@@ -794,6 +794,12 @@ const en = {
           'You want to see all portfolio of your other wallets through Cypherock X1 ',
         ],
       },
+      transferWallet: {
+        title: 'Transfer from Old to new Cypherock X1',
+        list: [
+          `If you ever had a Cypherock X1 and want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or moreof the X1 cards`,
+        ],
+      },
       transfer: {
         title: 'Transfer from Old to new Cypherock X1',
         subtitle:

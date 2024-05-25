@@ -10,11 +10,11 @@ import {
   LangDisplay,
   ScrollableContainer,
   Typography,
-  Container,
-  AddWalletNewUser,
-  ImportWalletNewUser,
-  RecoverWallet,
   CloseButton,
+  Image,
+  createWalletGraphics,
+  recoverWalletFromSeedphraseGraphics,
+  transferWalletGraphics,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -25,12 +25,13 @@ import {
 } from '~/actions';
 import {
   GuidedFlowType,
+  TransferFlowType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { keyValueStore } from '~/utils';
+// import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
 
@@ -42,6 +43,7 @@ export const WalletActionsDialogBox: FC = () => {
   };
 
   const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
+  const [selectedAction2, setSelectedAction2] = useState<TransferFlowType>();
 
   const switchToGuidedFlow = () => {
     if (selectedAction === undefined) return;
@@ -49,9 +51,23 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(openGuidedFlowDialog(selectedAction));
   };
 
-  const switchToGuidedFlow2 = () => {
+  const switchToTransferFlow = () => {
     dispatch(closeDialog('walletActions'));
     dispatch(openTransferFlowDialog('walletTransfer'));
+  };
+
+  const handleSetSelectedAction = (action: GuidedFlowType) => {
+    setSelectedAction(action);
+    if (selectedAction2) {
+      setSelectedAction2(undefined);
+    }
+  };
+
+  const handleSetSelectedAction2 = (action: TransferFlowType) => {
+    setSelectedAction2(action);
+    if (selectedAction) {
+      setSelectedAction(undefined);
+    }
   };
 
   return (
@@ -79,7 +95,7 @@ export const WalletActionsDialogBox: FC = () => {
             height="full"
           >
             <Header
-              subTitle=""
+              subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
               title={lang.strings.onboarding.walletActionsDialogBox.title}
             />
             <Flex direction="row" gap={16} justify="center">
@@ -90,17 +106,21 @@ export const WalletActionsDialogBox: FC = () => {
                 $borderColor={
                   selectedAction === 'createWallet' ? 'gold' : 'card'
                 }
-                onClick={() => setSelectedAction('createWallet')}
+                onClick={() => handleSetSelectedAction('createWallet')}
                 align="center"
                 pt={3}
                 px={3}
                 pb={2}
                 gap={24}
-                width={600}
+                width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <AddWalletNewUser height={100} />
+                <Image
+                  $height={100}
+                  src={createWalletGraphics}
+                  alt="Create Wallet"
+                />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -114,17 +134,6 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
-                <div style={{ height: '250px' }}>
-                  <BulletList
-                    items={
-                      lang.strings.onboarding.walletActionsDialogBox
-                        .createWallet.bulletList
-                    }
-                  />
-                </div>
-                <Button onClick={() => setSelectedAction('createWallet')}>
-                  Create
-                </Button>
               </Flex>
               <Flex
                 direction="column"
@@ -133,17 +142,21 @@ export const WalletActionsDialogBox: FC = () => {
                 $borderColor={
                   selectedAction === 'importWallet' ? 'gold' : 'card'
                 }
-                onClick={() => setSelectedAction('importWallet')}
+                onClick={() => handleSetSelectedAction('importWallet')}
                 align="center"
                 pt={3}
                 px={3}
                 pb={2}
                 gap={24}
-                width={600}
+                width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <ImportWalletNewUser height={100} />
+                <Image
+                  $height={100}
+                  src={recoverWalletFromSeedphraseGraphics}
+                  alt="Recover Wallet From Seedphrase"
+                />
                 <Typography
                   variant="h5"
                   $fontSize={18}
@@ -157,20 +170,45 @@ export const WalletActionsDialogBox: FC = () => {
                     }
                   />
                 </Typography>
-                <div style={{ height: '250px' }}>
-                  <BulletList
-                    items={
+              </Flex>
+              <Flex
+                direction="column"
+                $borderWidth={1}
+                $borderRadius={16}
+                $borderColor={
+                  selectedAction2 === 'walletTransfer' ? 'gold' : 'card'
+                }
+                onClick={() => handleSetSelectedAction2('walletTransfer')}
+                align="center"
+                pt={3}
+                px={3}
+                pb={2}
+                gap={24}
+                width={400}
+                shadow="hover:popup"
+                $cursor="pointer"
+              >
+                <Image
+                  $height={100}
+                  src={transferWalletGraphics}
+                  alt="Transfer Wallet From Old to New Cypherock X1"
+                />
+                <Typography
+                  variant="h5"
+                  $fontSize={18}
+                  color="white"
+                  $textAlign="center"
+                >
+                  <LangDisplay
+                    text={
                       lang.strings.onboarding.walletActionsDialogBox
-                        .importWallet.bulletList
+                        .transferWallet.title
                     }
                   />
-                </div>
-                <Button onClick={() => setSelectedAction('importWallet')}>
-                  Import
-                </Button>
+                </Typography>
               </Flex>
             </Flex>
-            {/* <Flex pt={1} pb={4} px={4}>
+            <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
@@ -199,8 +237,24 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-            </Flex> */}
-            {keyValueStore.isNewUser && (
+              {selectedAction2 === 'walletTransfer' && (
+                <BulletList
+                  $fontSize={16}
+                  $borderWidth={0}
+                  $borderColor={undefined}
+                  $bgColor={undefined}
+                  color="white"
+                  pt={0}
+                  pb={0}
+                  px="356px"
+                  items={
+                    lang.strings.onboarding.walletActionsDialogBox
+                      .transferWallet.list
+                  }
+                />
+              )}
+            </Flex>
+            {/* {keyValueStore.isNewUser && (
               <Container>
                 <RecoverWallet height={100} />
                 <div
@@ -241,7 +295,7 @@ export const WalletActionsDialogBox: FC = () => {
                 </div>
                 <Button onClick={switchToGuidedFlow2}>Transfer</Button>
               </Container>
-            )}
+            )} */}
           </DialogBoxBody>
         </ScrollableContainer>
         <DialogBoxFooter
@@ -254,13 +308,27 @@ export const WalletActionsDialogBox: FC = () => {
           <Button variant="secondary" onClick={onClose}>
             <LangDisplay text={lang.strings.buttons.close} />
           </Button>
-          <Button
-            variant="primary"
-            disabled={!selectedAction}
-            onClick={switchToGuidedFlow}
-          >
-            <LangDisplay text={lang.strings.buttons.continue} />
-          </Button>
+          {selectedAction2 === 'walletTransfer' ? (
+            <Button
+              variant="primary"
+              disabled={
+                !(selectedAction ?? selectedAction2 === 'walletTransfer')
+              }
+              onClick={switchToTransferFlow}
+            >
+              <LangDisplay text={lang.strings.buttons.continue} />
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              disabled={
+                !(selectedAction ?? selectedAction2 === 'walletTransfer')
+              }
+              onClick={switchToGuidedFlow}
+            >
+              <LangDisplay text={lang.strings.buttons.continue} />
+            </Button>
+          )}
         </DialogBoxFooter>
       </DialogBox>
     </BlurOverlay>
