@@ -110,7 +110,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       $cursor={disabled ? 'not-allowed' : 'default'}
       tabIndex={disabled ? undefined : tabIndex ?? 0}
       width={dropdownWidth}
-      isSelfPositioned
+      $isSelfPositioned
       onKeyDown={handleKeyDown(
         isOpen,
         toggleDropdown,
