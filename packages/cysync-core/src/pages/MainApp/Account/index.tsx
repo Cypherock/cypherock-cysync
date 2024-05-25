@@ -117,7 +117,14 @@ export const AccountPage: FC = () => {
                 <Button
                   variant="icon"
                   onClick={() => {
-                    if (selectedAccount) dispatch(openEditAccountDialog());
+                    if (selectedAccount)
+                      dispatch(
+                        openEditAccountDialog({
+                          walletId: selectedAccount.walletId,
+                          accountId: selectedAccount.__id,
+                          isSkipAccountSelection: true,
+                        }),
+                      );
                   }}
                 >
                   <AccountSettingsIconBg />

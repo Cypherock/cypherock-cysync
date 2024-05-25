@@ -3,14 +3,25 @@ import React, { FC } from 'react';
 
 import { EditAccountDialogProvider, useEditAccountDialog } from './context';
 
-const EditAccount: FC = () => {
-  const { tabs } = useEditAccountDialog();
+export interface EditAccountDialogProps {
+  walletId?: string;
+  accountId?: string;
+  isSkipAccountSelection?: boolean;
+}
 
-  return <BlurOverlay>{tabs[0]?.dialogs[0]}</BlurOverlay>;
+const EditAccount: FC = () => {
+  const { tabs, currentTab, currentDialog } = useEditAccountDialog();
+  return <BlurOverlay>{tabs[currentTab]?.dialogs[currentDialog]}</BlurOverlay>;
 };
 
-export const EditAccountDialog: FC = () => (
-  <EditAccountDialogProvider>
+export const EditAccountDialog: FC<EditAccountDialogProps> = props => (
+  <EditAccountDialogProvider {...props}>
     <EditAccount />
   </EditAccountDialogProvider>
 );
+
+EditAccountDialog.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+  isSkipAccountSelection: false,
+};

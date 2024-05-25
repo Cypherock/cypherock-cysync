@@ -1,90 +1,56 @@
+import { coinList } from '@cypherock/coins';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
-  useEffect,
 } from 'react';
 
-import { ITabs } from '~/hooks';
+import { useAccountDropdown, useWalletDropdown } from '~/hooks';
+import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
-  selectLanguage,
   openSnackBar,
+  selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
-import { EditAccount } from '../Dialogs';
+import { EditAccountDialogProps } from '..';
+import { AccountDetails, AccountSelection } from '../Dialogs';
 
 export interface EditAccountDialogContextInterface {
   tabs: ITabs;
+  onNext: (tab?: number, dialog?: number) => void;
+  goTo: (tab: number, dialog?: number) => void;
+  onPrevious: () => void;
+  currentTab: number;
+  currentDialog: number;
+  isDeviceRequired: boolean;
   onClose: () => void;
-  handleApply: () => Promise<void>;
-  isLoading: boolean;
-  selectedAccount: string;
-  selectedWallet: string;
-  selectedWalletType: string;
-  selectedWalletName: string;
-  accountList: Account[];
-  walletList: Wallet[];
-  walletType: WalletType[];
-  handleAccountSelect: (id?: string) => void;
-  handleWalletChange: (id?: string) => void;
-  handleWalletTypeChange: (id?: string) => void;
-  handleWalletNameChange: (id?: string) => void;
-  isContinueDisabled: boolean;
-  isApplyDisabled: boolean;
-}
-export interface Account {
-  name: string;
-  balance: string;
-  xpubOrAddress: string;
-  unit: string;
-  derivationPath: string;
-  type: string;
-  familyId: string;
-  assetId: string;
-  parentAssetId: string;
-  walletId: string;
-  derivationScheme: string;
-  isHidden: boolean;
-  __version: number;
-  __id: string;
-  meta: {
-    revision: number;
-    created: number;
-    version: number;
-    updated: number;
-  };
-  $loki: number;
-  extraData: {
-    unconfirmedBalance: string;
-  };
-}
-export interface Wallet {
-  name: string;
-  abbr: string;
-  balance: number;
-  image: string;
-  __id: string;
-  hasPassphrase: boolean;
-  hasPin: boolean;
-  deviceId: string;
-  __version: number;
-  meta: {
-    revision: number;
-    created: number;
-    version: number;
-  };
-  $loki: number;
-}
-export interface WalletType {
-  name: string;
-  __id: string;
+  selectedWallet: IWallet | undefined;
+  setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
+  selectedAccount: IAccount | undefined;
+  setSelectedAccount: React.Dispatch<
+    React.SetStateAction<IAccount | undefined>
+  >;
+  walletDropdownList: DropDownItemProps[];
+  handleWalletChange: (id?: string | undefined) => void;
+  accountDropdownList: DropDownItemProps[];
+  handleAccountChange: (id?: string | undefined) => void;
+  accountName: string;
+  setAccountName: React.Dispatch<React.SetStateAction<string>>;
+  onApply: () => void;
+  unitDropdownList: DropDownItemProps[];
+  setSelectedUnit: React.Dispatch<React.SetStateAction<string | undefined>>;
+  selectedUnit: string | undefined;
 }
 
 export const EditAccountDialogContext: Context<EditAccountDialogContextInterface> =
@@ -92,189 +58,159 @@ export const EditAccountDialogContext: Context<EditAccountDialogContextInterface
     {} as EditAccountDialogContextInterface,
   );
 
-export interface EditAccountDialogProviderProps {
+export interface EditAccountDialogContextProviderProps
+  extends EditAccountDialogProps {
   children: ReactNode;
 }
 
-export const EditAccountDialogProvider: FC<EditAccountDialogProviderProps> = ({
+export const EditAccountDialogProvider: FC<
+  EditAccountDialogContextProviderProps
+> = ({
   children,
+  walletId: defaultWalletId,
+  accountId: defaultAccountId,
+  isSkipAccountSelection = false,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedAccount, setSelectedAccount] = useState('');
-  const [selectedWallet, setSelectedWallet] = useState('');
-  const [selectedWalletType, setSelectedWalletType] = useState('');
-  const [selectedWalletName, setSelectedWalletName] = useState('');
-  const [isContinueDisabled, setIsContinueDisabled] = useState<boolean>(true);
-  const [isApplyDisabled, setIsApplyDisabled] = useState<boolean>(true);
-  const accountList = [
+  const {
+    selectedWallet,
+    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+  } = useWalletDropdown({
+    walletId: defaultWalletId,
+  });
+
+  const {
+    selectedAccount,
+    setSelectedAccount,
+    handleAccountChange,
+    accountDropdownList,
+  } = useAccountDropdown({
+    selectedWallet,
+    defaultAccountId,
+    includeSubAccounts: false,
+  });
+
+  const unitDropdownList: DropDownItemProps[] = useMemo(() => {
+    if (!selectedAccount) return [];
+    const coinSupport = coinList[selectedAccount.parentAssetId];
+    return coinSupport.units.map(unit => ({
+      id: unit.abbr,
+      text: unit.abbr,
+    }));
+  }, [selectedAccount]);
+
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const tabs: ITabs = [
     {
-      name: 'Bitcoin 1',
-      balance: '0',
-      xpubOrAddress:
-        'zpub6r4DktU16uhotjk1N2fBRLvU1jMkAV3S51hmB1Gx4Qrb3qxVoaEGJXFYLorPrsF5hff6nK2hDd2gTaXedo2iS9ChHUZiYxFrtWbvMrXJQAn',
-      unit: 'BTC',
-      derivationPath: "m/84'/0'/0'",
-      type: 'account',
-      familyId: 'bitcoin',
-      assetId: 'bitcoin',
-      parentAssetId: 'bitcoin',
-      walletId:
-        '969564e505cc0cedafbcd9bdfd015c89657ee49a3b1cd52f087f26362428bc0b',
-      derivationScheme: 'nativeSegwit',
-      isHidden: false,
-      __version: 0,
-      __id: '2521a270-2626-47a6-8bb7-47029d055e76',
-      meta: {
-        revision: 1,
-        created: 1710238689575,
-        version: 0,
-        updated: 1710238692842,
-      },
-      $loki: 1,
-      extraData: {
-        unconfirmedBalance: '0',
-      },
+      name: lang.strings.dialogs.editAccount.accountSelection.title,
+      dialogs: [<AccountSelection key="AccountSelection" />],
+    },
+    {
+      name: lang.strings.dialogs.editAccount.accountEdit.title,
+      dialogs: [<AccountDetails key="AccountDetails" />],
     },
   ];
 
-  const walletList = [
-    {
-      name: 'ISHAAN',
-      abbr: 'SOL',
-      balance: 0.234,
-      image:
-        'https://as1.ftcdn.net/v2/jpg/02/22/70/10/1000_F_222701046_Sy6YusoW0rBK3eMUImKMA8Bi53qEZ3pr.jpg',
-      __id: '969564e505cc0cedafbcd9bdfd015c89657ee49a3b1cd52f087f26362428bc0b',
-      hasPassphrase: false,
-      hasPin: true,
-      deviceId:
-        '020307e80300010041003200135056395532312024e904e3372966dfeac89532',
-      __version: 0,
-      meta: {
-        revision: 0,
-        created: 1710238537599,
-        version: 0,
-      },
-      $loki: 1,
-    },
-  ];
+  const {
+    onNext,
+    onPrevious,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+  } = useTabsAndDialogs({
+    deviceRequiredDialogsMap,
+    tabs,
+    dialogName: 'editAccount',
+    defaultTab: isSkipAccountSelection ? 1 : 0,
+  });
 
-  const walletType = [
-    {
-      name: 'Solana',
-      __id: 'SOL',
-    },
-    {
-      name: 'New',
-      __id: 'NE',
-    },
-  ];
+  const [accountName, setAccountName] = useState(selectedAccount?.name ?? '');
+  const [selectedUnit, setSelectedUnit] = useState<string | undefined>(
+    selectedAccount?.unit,
+  );
 
-  const validateFirstTab = () => {
-    console.log(selectedAccount !== '' && selectedWallet !== '');
-
-    setIsContinueDisabled(selectedAccount !== '' && selectedWallet !== '');
-  };
-
-  useEffect(validateFirstTab, [selectedAccount, selectedWallet]);
-
-  const validateSecondTab = () => {
-    console.log(selectedWalletName !== '' && selectedWalletType !== '');
-
-    setIsApplyDisabled(selectedWalletName !== '' && selectedWalletType !== '');
-  };
-
-  useEffect(validateSecondTab, [selectedWalletName, selectedWalletType]);
-
-  const handleAccountSelect = (id?: string) => {
-    if (id) setSelectedAccount(id);
-  };
-
-  const handleWalletChange = (id?: string) => {
-    if (id) {
-      setSelectedWallet(id);
-      const tempWallet = walletList.filter(e => e.__id === id)[0];
-      setSelectedWalletType(tempWallet.abbr);
-      setSelectedWalletName(tempWallet.name);
-    }
-  };
-
-  const handleWalletTypeChange = (id?: string) => {
-    if (id) setSelectedWalletType(id);
-  };
-
-  const handleWalletNameChange = (id?: string) => {
-    if (id) setSelectedWalletName(id);
-    else setSelectedWalletName('');
-  };
+  useEffect(() => {
+    setAccountName(selectedAccount?.name ?? '');
+    setSelectedUnit(selectedAccount?.unit);
+  }, [selectedAccount]);
 
   const onClose = () => {
     dispatch(closeDialog('editAccount'));
   };
 
-  const handleApply = async () => {
-    setIsLoading(true);
-    setTimeout(async () => {
-      setIsLoading(false);
-      await dispatch(closeDialog('editAccount'));
-      dispatch(
-        openSnackBar({
-          icon: 'check',
-          text: 'Account name changed',
-          buttonText: 'Close',
-        }),
-      );
-    }, 3000);
+  const onApply = async () => {
+    if (!selectedAccount) return;
+    const db = getDB();
+    await db.account.update(
+      { __id: selectedAccount.__id },
+      {
+        name: accountName,
+        unit: selectedUnit,
+      },
+    );
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: lang.strings.snackbar.accountUpdated,
+        buttonText: 'Close',
+      }),
+    );
+    onClose();
   };
-
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.editAccount.accountSelection.title,
-      dialogs: [<EditAccount key="edit-account-new" />],
-    },
-  ];
 
   const ctx = useMemo(
     () => ({
+      onNext,
+      onPrevious,
       tabs,
       onClose,
-      handleApply,
-      isLoading,
-      selectedAccount,
+      goTo,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
       selectedWallet,
-      selectedWalletType,
-      selectedWalletName,
-      accountList,
-      walletList,
-      walletType,
-      handleAccountSelect,
+      setSelectedWallet,
+      selectedAccount,
+      setSelectedAccount,
+      handleAccountChange,
       handleWalletChange,
-      handleWalletTypeChange,
-      handleWalletNameChange,
-      isContinueDisabled,
-      isApplyDisabled,
+      accountDropdownList,
+      walletDropdownList,
+      accountName,
+      setAccountName,
+      onApply,
+      unitDropdownList,
+      selectedUnit,
+      setSelectedUnit,
     }),
     [
+      onNext,
+      onPrevious,
       tabs,
       onClose,
-      handleApply,
-      isLoading,
-      selectedAccount,
+      goTo,
+      currentTab,
+      currentDialog,
+      isDeviceRequired,
       selectedWallet,
-      selectedWalletType,
-      selectedWalletName,
-      accountList,
-      walletList,
-      walletType,
-      handleAccountSelect,
+      setSelectedWallet,
+      selectedAccount,
+      setSelectedAccount,
+      handleAccountChange,
       handleWalletChange,
-      handleWalletTypeChange,
-      handleWalletNameChange,
-      isContinueDisabled,
-      isApplyDisabled,
+      accountDropdownList,
+      walletDropdownList,
+      accountName,
+      setAccountName,
+      onApply,
+      unitDropdownList,
+      selectedUnit,
+      setSelectedUnit,
     ],
   );
 

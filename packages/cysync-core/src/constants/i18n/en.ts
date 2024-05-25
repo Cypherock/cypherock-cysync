@@ -1542,9 +1542,13 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
 `,
     },
     editAccount: {
+      header: 'Edit Account',
       accountSelection: {
         title: 'Select the Account to Edit',
         subtitle: 'Choose the account you want to edit',
+        searchText: 'Search',
+        accountPlaceholder: 'Select Accounts',
+        walletPlaceholder: 'Choose a wallet',
       },
       accountEdit: {
         title: 'Account details',
@@ -1563,15 +1567,8 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
           remove: 'Remove from portfolio',
           apply: 'Apply',
         },
-      },
-      confirmation: {
-        title: 'Are you sure you want to remove',
-        subtitle:
-          'You can add the account again from the xyz wallet page. Note that this will not result in loss of assets',
-        buttons: {
-          yes: 'Yes',
-          no: 'No',
-        },
+        info: 'This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode',
+        advanced: 'Advanced',
       },
     },
   },
@@ -1581,6 +1578,7 @@ Download from <a href="https://cypherock.com/get-started">https://cypherock.com/
   },
   snackbar: {
     copiedToClipboard: 'Copied to clipboard',
+    accountUpdated: 'Account Updated Successfully',
   },
   settings: {
     tabs: {
