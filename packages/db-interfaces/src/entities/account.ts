@@ -9,11 +9,11 @@ export type AccountType = (typeof AccountTypeMap)[keyof typeof AccountTypeMap];
 
 export interface IAccount extends IEntity {
   name: string;
-  xpubOrAddress: string; // show this
+  xpubOrAddress: string;
   balance: string;
   unit?: string;
-  derivationScheme?: string; // show this
-  derivationPath: string; // show this
+  derivationScheme?: string;
+  derivationPath: string;
   type: AccountType;
   extraData?: ObjectLiteral;
   // foreign keys
