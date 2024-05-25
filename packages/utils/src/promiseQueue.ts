@@ -19,12 +19,15 @@ export class PromiseQueue<T> {
 
   private isAborted: boolean;
 
+  private readonly checkInterval: number;
+
   constructor(params: {
     tasks: (() => Promise<T>)[];
     concurrentCount: number;
     onNext: (result: T) => void;
     onError: (error: any) => void;
     onComplete: () => void;
+    checkInterval?: number;
   }) {
     const { tasks, concurrentCount, onNext, onError, onComplete } = params;
     this.total = tasks.length;
@@ -36,6 +39,7 @@ export class PromiseQueue<T> {
     this.onError = onError;
     this.onComplete = onComplete;
     this.isAborted = false;
+    this.checkInterval = params.checkInterval ?? 200;
   }
 
   private runNext() {
@@ -44,12 +48,17 @@ export class PromiseQueue<T> {
 
   async run() {
     while (this.total !== this.completed) {
-      if (this.isAborted) break;
+      if (this.isAborted) return;
 
       if (this.runNext()) {
         const promiseFunc = this.todo.shift();
 
-        if (!promiseFunc) break;
+        if (typeof promiseFunc !== 'function') {
+          await Promise.allSettled(this.running);
+          throw new TypeError(
+            `Expected function in tasks, Received: ${promiseFunc}`,
+          );
+        }
 
         const promise = promiseFunc();
 
@@ -67,7 +76,7 @@ export class PromiseQueue<T> {
 
         this.running.push(promise);
       } else {
-        await sleep(200);
+        await sleep(this.checkInterval);
       }
     }
 

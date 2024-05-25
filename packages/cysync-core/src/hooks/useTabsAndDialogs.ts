@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 import { getElementName } from '~/utils';
 import logger from '~/utils/logger';
@@ -30,15 +30,44 @@ export function useTabsAndDialogs({
   const [currentDialog, setCurrentDialog] = useState<number>(defaultDialog);
   const [isDeviceRequired, setIsDeviceRequired] = useState<boolean>(false);
 
-  const onNext = () => {
-    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      goToNextTab();
-    } else {
-      goToNextDialog();
-    }
-  };
+  const checkIfDeviceRequiredInDialog = useCallback(
+    (tab: number, dialog: number) => {
+      const deviceRequiredDialogs = deviceRequiredDialogsMap[tab] ?? [];
+      if (!deviceRequiredDialogs) return false;
 
-  const goToNextTab = () => {
+      return deviceRequiredDialogs.includes(dialog);
+    },
+    [deviceRequiredDialogsMap],
+  );
+
+  const goTo = useCallback(
+    (tab: number, dialog = 0) => {
+      const _isDeviceRequired = checkIfDeviceRequiredInDialog(tab, dialog);
+
+      setIsDeviceRequired(_isDeviceRequired);
+      setCurrentTab(tab);
+
+      const tabName = tabs[tab].name;
+      const subDialogName = getElementName(tabs[tab].dialogs[dialog]);
+
+      logger.info('Dialog: Navigation', {
+        source: useTabsAndDialogs.name,
+        dialogName,
+        tabName,
+        subDialogName,
+        isDeviceRequired: _isDeviceRequired,
+      });
+
+      if (dialog !== undefined) {
+        setCurrentDialog(dialog);
+      } else {
+        setCurrentDialog(0);
+      }
+    },
+    [checkIfDeviceRequiredInDialog, tabs, dialogName],
+  );
+
+  const goToNextTab = useCallback(() => {
     const newTab = Math.min(tabs.length - 1, currentTab + 1);
 
     if (currentTab !== tabs.length - 1) {
@@ -46,47 +75,26 @@ export function useTabsAndDialogs({
     } else {
       goTo(newTab);
     }
-  };
+  }, [currentTab, tabs, goTo]);
 
-  const goToNextDialog = () => {
+  const goToNextDialog = useCallback(() => {
     const nextDialog = Math.min(
       tabs[currentTab].dialogs.length - 1,
       currentDialog + 1,
     );
 
     goTo(currentTab, nextDialog);
-  };
+  }, [currentDialog, currentTab, tabs, goTo]);
 
-  const checkIfDeviceRequiredInDialog = (tab: number, dialog: number) => {
-    const deviceRequiredDialogs = deviceRequiredDialogsMap[tab] ?? [];
-    if (!deviceRequiredDialogs) return false;
-
-    return deviceRequiredDialogs.includes(dialog);
-  };
-
-  const goTo = (tab: number, dialog?: number) => {
-    setIsDeviceRequired(checkIfDeviceRequiredInDialog(tab, dialog ?? 0));
-    setCurrentTab(tab);
-
-    const tabName = tabs[tab].name;
-    const subDialogName = getElementName(tabs[tab].dialogs[dialog ?? 0]);
-
-    logger.info('Dialog: Navigation', {
-      source: useTabsAndDialogs.name,
-      dialogName,
-      tabName,
-      subDialogName,
-      isDeviceRequired,
-    });
-
-    if (dialog !== undefined) {
-      setCurrentDialog(dialog);
+  const onNext = useCallback(() => {
+    if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
+      goToNextTab();
     } else {
-      setCurrentDialog(0);
+      goToNextDialog();
     }
-  };
+  }, [currentDialog, currentTab, tabs, goToNextTab, goToNextDialog]);
 
-  const onPrevious = () => {
+  const onPrevious = useCallback(() => {
     if (currentDialog - 1 < 0) {
       if (currentTab === 0) {
         goTo(currentTab, 0);
@@ -100,7 +108,7 @@ export function useTabsAndDialogs({
       const nextDialog = Math.max(0, currentDialog - 1);
       goTo(currentTab, nextDialog);
     }
-  };
+  }, [currentDialog, currentTab, tabs, goTo]);
 
   return {
     onNext,

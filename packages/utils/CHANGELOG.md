@@ -1,5 +1,13 @@
 # @cypherock/cysync-utils
 
+## 0.0.4
+
+### Patch Changes
+
+- [#413](https://github.com/Cypherock/cypherock-cysync/pull/413) [`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - improved object logging
+
+- [#428](https://github.com/Cypherock/cypherock-cysync/pull/428) [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added download csv history feature
+
 ## 0.0.3
 
 ### Patch Changes

@@ -41,6 +41,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
     setSelectedCoin,
     handleWalletChange,
     walletDropdownList,
+    defaultWalletId,
   } = useAddAccountDialog();
 
   const strings = lang.strings.addAccount.select;
@@ -86,6 +87,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             placeholderText={strings.walletPlaceholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={coinDropDownList}
@@ -94,6 +96,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             searchText={strings.searchText}
             placeholderText={strings.coinPlaceholder}
             onChange={handleCoinChange}
+            autoFocus={Boolean(defaultWalletId)}
           />
         </Container>
       </DialogBoxBody>

@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-cli",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Cypherock CySync CLI",
   "types": "dist/index.d.ts",
   "author": "support@cypherock.com",
@@ -40,7 +40,7 @@
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/database": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.28",
+    "@cypherock/sdk-app-manager": "^0.0.30",
     "@cypherock/sdk-hw-hid": "^0.0.21",
     "@cypherock/sdk-hw-serialport": "^0.0.18",
     "@cypherock/sdk-interfaces": "^0.0.14",

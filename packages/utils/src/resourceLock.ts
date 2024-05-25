@@ -1,3 +1,5 @@
+import { assert } from './assert';
+
 const DEFAULT_TIMEOUT = 10_000;
 const DEFAULT_RECHECK_TIME = 100;
 const MAX_LOCK_TIME = 10 * 1000;
@@ -69,10 +71,7 @@ export class ResourceLock<T> {
 
   private readonly removeWaitingId = (resource: T, id: string) => {
     const waitingIds = this.waitingLockMap[this.getKey(resource)];
-    if (!waitingIds) {
-      return;
-    }
-
+    assert(waitingIds, 'waiting ids cannot be undefined');
     waitingIds.splice(waitingIds.indexOf(id), 1);
   };
 

@@ -15,6 +15,7 @@ import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
+import { useStateToRef } from '~/hooks';
 import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
@@ -51,6 +52,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const { transaction, selectedAccount, prepare, getComputedFee } =
     useSendDialog();
+  const transactionRef = useStateToRef({ transaction });
   const [isFeeLow, setIsFeeLow] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
   const [isFeeLoading, setIsFeeLoading] = useState(false);
@@ -126,7 +128,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
   const prepareFeeChanged = async (value: number) => {
     setIsFeeLoading(true);
-    const txn = transaction as IPreparedBtcTransaction;
+    const txn = transactionRef.current.transaction as IPreparedBtcTransaction;
     setIsFeeLow(value < (2 / 3) * txn.staticData.averageFee);
     txn.userInputs.feeRate = value;
     await prepare(txn);

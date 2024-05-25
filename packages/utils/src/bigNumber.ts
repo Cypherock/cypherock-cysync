@@ -21,6 +21,12 @@ export class BigNumber {
 
   public static maximum = this.max;
 
+  public static min(...values: NumberLike[]) {
+    return new BigNumber(BigNumberJS.min(...values.map(this.getNumberLike)));
+  }
+
+  public static minimum = this.min;
+
   getRawNumber() {
     return this.num;
   }
@@ -51,8 +57,12 @@ export class BigNumber {
     return new BigNumber(this.num.modulo(BigNumber.getNumberLike(n), base));
   }
 
-  pow(n: NumberLike, base?: number) {
-    return new BigNumber(this.num.pow(BigNumber.getNumberLike(n), base));
+  pow(n: NumberLike, modBy?: NumberLike) {
+    if (modBy === undefined)
+      return new BigNumber(this.num.pow(BigNumber.getNumberLike(n)));
+    return new BigNumber(
+      this.num.pow(BigNumber.getNumberLike(n), BigNumber.getNumberLike(modBy)),
+    );
   }
 
   abs() {
@@ -60,6 +70,7 @@ export class BigNumber {
   }
 
   isNegative() {
+    if (this.num.isZero()) return false;
     return this.num.isNegative();
   }
 
@@ -92,6 +103,7 @@ export class BigNumber {
   }
 
   isPositive() {
+    if (this.num.isZero()) return false;
     return this.num.isPositive();
   }
 

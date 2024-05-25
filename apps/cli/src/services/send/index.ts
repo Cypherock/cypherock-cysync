@@ -126,9 +126,16 @@ const getTxnInputs = async (params: {
     const gasLimit = await queryInput(
       `Enter the gas limit for the transaction`,
     );
+    const data = await queryInput(
+      `Enter the data (call data or input) for the transaction (Optional)`,
+    );
 
     if (outputCount <= 0) {
       throw new Error('Invalid fees');
+    }
+
+    if (data) {
+      txn.computedData.data = data;
     }
 
     txn.userInputs.gasLimit = gasLimit;

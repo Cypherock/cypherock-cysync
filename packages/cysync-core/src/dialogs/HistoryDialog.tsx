@@ -34,11 +34,14 @@ import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
+  selectTransactionById,
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+
+import { LoaderDialog } from '../components';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -103,25 +106,25 @@ const selector = createSelector(
   }),
 );
 
-export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
+export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { lang, wallets, accounts, priceInfos, isDiscreetMode } =
     useAppSelector(selector);
   const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();
+  const txn = useAppSelector(selectTransactionById(_txn.__id));
 
-  const displayTransaction = useMemo(
-    () =>
-      mapTransactionForDisplay({
-        transaction: txn,
-        isDiscreetMode,
-        priceInfos,
-        wallets,
-        accounts,
-        lang,
-      }),
-    [txn, wallets, accounts, lang, priceInfos, isDiscreetMode],
-  );
+  const displayTransaction = useMemo(() => {
+    if (txn === undefined) return undefined;
+    return mapTransactionForDisplay({
+      transaction: txn,
+      isDiscreetMode,
+      priceInfos,
+      wallets,
+      accounts,
+      lang,
+    });
+  }, [txn, wallets, accounts, lang, priceInfos, isDiscreetMode]);
 
   const onClose = () => dispatch(closeDialog('historyDialog'));
 
@@ -134,9 +137,14 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
     );
   };
 
-  const getFeePrefix = () => (keys.feePrefix as any)[txn.assetId] ?? '';
+  const getFeePrefix = () => {
+    if (txn === undefined) return '';
+    return (keys.feePrefix as any)[txn.assetId] ?? '';
+  };
 
   const formatTxnAddress = (address: string, index: number, total: number) => {
+    if (txn === undefined) return '';
+
     const formattedAddress = formatAddress({
       address,
       coinId: txn.parentAssetId,
@@ -150,6 +158,10 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn }) => {
 
     return str;
   };
+
+  if (displayTransaction === undefined) {
+    return <LoaderDialog />;
+  }
 
   return (
     <BlurOverlay>

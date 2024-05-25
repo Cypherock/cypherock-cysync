@@ -65,6 +65,8 @@ export interface ReceiveDialogContextInterface {
   handleAccountChange: (id?: string | undefined) => void;
   isStartedWithoutDevice: boolean;
   isFlowCompleted: boolean;
+  defaultWalletId?: string;
+  defaultAccountId?: string;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -117,35 +119,42 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     useState<boolean>(false);
 
   const flowSubscription = useRef<Subscription | undefined>();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {
-    1: [0],
-    2: [0],
-  };
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+        2: [0],
+      }),
+      [],
+    );
 
   const onRetry = () => {
     resetStates();
     goTo(1, 0);
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.receive.aside.tabs.source,
-      dialogs: [<SelectionDialog />],
-    },
-    {
-      name: lang.strings.receive.aside.tabs.device,
-      dialogs: [<DeviceAction />],
-    },
-    {
-      name: lang.strings.receive.aside.tabs.receive,
-      dialogs: [<VerifyAddress />],
-    },
-    {
-      name: '',
-      dialogs: [<FinalMessage />],
-      dontShowOnMilestone: true,
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.receive.aside.tabs.source,
+        dialogs: [<SelectionDialog />],
+      },
+      {
+        name: lang.strings.receive.aside.tabs.device,
+        dialogs: [<DeviceAction />],
+      },
+      {
+        name: lang.strings.receive.aside.tabs.receive,
+        dialogs: [<VerifyAddress />],
+      },
+      {
+        name: '',
+        dialogs: [<FinalMessage />],
+        dontShowOnMilestone: true,
+      },
+    ],
+    [lang],
+  );
 
   const onClose = () => {
     cleanUp();
@@ -260,6 +269,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       tabs,
@@ -287,6 +298,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isFlowCompleted,
     }),
     [
+      defaultWalletId,
+      defaultAccountId,
       onNext,
       onPrevious,
       goTo,

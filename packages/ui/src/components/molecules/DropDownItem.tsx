@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useMemo, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import {
   CheckBox,
@@ -111,28 +111,17 @@ export const DropDownListItemHorizontalBox = styled.div<
   align-self: stretch;
   min-height: 53px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.border.list};
-  background-color: ${({ $restrictedItem, $isChecked, theme, $isFocused }) => {
+  background-color: ${({ $restrictedItem, theme, $isFocused }) => {
     if ($isFocused) {
       return theme.palette.background.dropdownHover;
     }
     if ($restrictedItem) {
       return theme.palette.background.separatorSecondary;
     }
-    if ($isChecked) {
-      return theme.palette.background.dropdownHover;
-    }
     return theme.palette.background.separatorSecondary;
   }};
   &:hover {
     background-color: ${({ theme }) => theme.palette.background.dropdownHover};
-    ${DropDownListItemStretchedTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
-    ${RightTextTypography} {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.palette.text.disabled : theme.palette.text.white};
-    }
   }
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.text.disabled : theme.palette.text.muted};
@@ -162,16 +151,26 @@ export const DropDownListItemRightContent = styled.div`
   gap: 16px;
 `;
 
+const nameAnimation = ($parentWidth: number) => keyframes`
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(calc(${$parentWidth}px - 100%));
+  }
+`;
+
 export const ScrollReveal = styled.div<{
   $duration: number;
   $parentWidth: number;
   $play: boolean;
 }>`
   & > * {
-    transform: ${({ $play, $parentWidth }) =>
-      $play ? `translateX(calc(${$parentWidth}px - 100%))` : 'translateX(0%)'};
-    transition: transform linear
-      ${({ $duration, $play }) => ($play ? $duration : $duration / 2)}s 1s;
+    animation: ${({ $play, $parentWidth }) =>
+        $play ? nameAnimation($parentWidth) : null}
+      ${({ $duration }) => $duration}s cubic-bezier(0.1, 0, 0.9, 1) infinite
+      alternate;
   }
 `;
 
@@ -187,8 +186,11 @@ export const SmartMarquee: FC<{
     return <>{children}</>;
   }
 
-  const duration =
-    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40;
+  // use max funtion to prevent vibration effect due to very short duration
+  const duration = Math.max(
+    1,
+    ($childRef.current.offsetWidth - $parentRef.current.offsetWidth) / 40,
+  );
 
   return (
     <ScrollReveal
@@ -320,7 +322,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
         {showRightTextOnBottom && rightText && (
           <RightTextTypography
             variant={rightTextVariant}
-            color={rightTextColor}
+            color={checked ? 'white' : rightTextColor}
             $hasRightText={$hasRightText}
             disabled={disabled}
           >
@@ -333,7 +335,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
           {!showRightTextOnBottom && rightText && (
             <RightTextTypography
               variant={rightTextVariant}
-              color={rightTextColor}
+              color={checked ? 'white' : rightTextColor}
               $hasRightText={$hasRightText}
               disabled={disabled}
             >

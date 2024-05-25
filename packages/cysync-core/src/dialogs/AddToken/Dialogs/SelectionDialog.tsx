@@ -10,6 +10,8 @@ import {
   LangDisplay,
   Typography,
   MessageBox,
+  addAccountIcon,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -35,6 +37,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
     selectedAccounts,
     setSelectedAccounts,
     selectedChainNameWithNoAccount,
+    defaultWalletId,
   } = useAddTokenDialog();
 
   const { addToken } = lang.strings;
@@ -96,7 +99,15 @@ export const AddTokenSelectionDialog: React.FC = () => {
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
       <DialogBoxBody p={0} gap={0}>
-        <Container display="flex" direction="column" py={4} px={5} width="full">
+        <Container
+          display="flex"
+          direction="column"
+          gap={32}
+          py={4}
+          px={5}
+          width="full"
+        >
+          <Image src={addAccountIcon} alt="Select Token" />
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={addToken.select.header} />
           </Typography>
@@ -117,6 +128,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
             placeholderText={addToken.select.walletPlaceholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={tokenDropDownList}
@@ -126,6 +138,7 @@ export const AddTokenSelectionDialog: React.FC = () => {
             placeholderText={addToken.select.tokenPlaceholder}
             onChange={handleTokenChange}
             isMultiSelect
+            autoFocus={Boolean(defaultWalletId)}
           />
           <Dropdown
             items={accountDropdownList}

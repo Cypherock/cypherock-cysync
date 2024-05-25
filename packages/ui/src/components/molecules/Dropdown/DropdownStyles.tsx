@@ -1,15 +1,20 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
-import { CursorProps, HeightProps, cursor, height } from '../../utils';
+import { CursorProps, UtilsProps, cursor, utils } from '../../utils';
 
-export const DropDownListContainer = styled.div<HeightProps & CursorProps>`
+const positionAbsolute = css`
   position: absolute;
   top: 100%;
   right: 0;
+`;
+
+export const DropDownListContainer = styled.div<
+  UtilsProps & { isSelfPositioned?: boolean }
+>`
+  ${({ isSelfPositioned }) => !isSelfPositioned && positionAbsolute}
   width: 100%;
   list-style: none;
   border-radius: 8px;
-  max-height: 244px;
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: ${({ theme }) => theme.shadow.popup};
@@ -17,8 +22,7 @@ export const DropDownListContainer = styled.div<HeightProps & CursorProps>`
   z-index: 10;
   background-color: ${({ theme }) =>
     theme.palette.background.separatorSecondary};
-  ${cursor}
-  ${height}
+  ${utils}
 `;
 
 export const DropdownListItem = styled.div<

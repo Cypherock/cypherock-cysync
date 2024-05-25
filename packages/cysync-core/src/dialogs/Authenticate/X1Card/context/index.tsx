@@ -43,30 +43,34 @@ export const AuthenticateX1CardDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
 
   const onClose = () => {
     dispatch(closeDialog('authenticateX1Card'));
   };
 
-  const tabs: ITabs = [
-    {
-      name: lang.strings.dialogs.auth.email2fa.title,
-      dialogs: [<X1CardEmail2FA key="authenticate-x1-card-email -2fa" />],
-    },
-    {
-      name: lang.strings.dialogs.auth.title,
-      dialogs: [
-        <X1CardAuthProcessWithDevice key="authenticate-x1-card-device-process" />,
-      ],
-    },
-    {
-      name: lang.strings.dialogs.auth.authX1Card.success,
-      dialogs: [
-        <AuthenticateX1CardSuccess key="authenticate-x1-card-success" />,
-      ],
-    },
-  ];
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.dialogs.auth.email2fa.title,
+        dialogs: [<X1CardEmail2FA key="authenticate-x1-card-email -2fa" />],
+      },
+      {
+        name: lang.strings.dialogs.auth.title,
+        dialogs: [
+          <X1CardAuthProcessWithDevice key="authenticate-x1-card-device-process" />,
+        ],
+      },
+      {
+        name: lang.strings.dialogs.auth.authX1Card.success,
+        dialogs: [
+          <AuthenticateX1CardSuccess key="authenticate-x1-card-success" />,
+        ],
+      },
+    ],
+    [lang],
+  );
 
   const {
     onNext,
