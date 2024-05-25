@@ -13,6 +13,7 @@ import {
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
   Image,
+  transferWalletGraphics,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -139,6 +140,42 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
+              <Flex
+                direction="column"
+                $borderWidth={1}
+                $borderRadius={16}
+                $borderColor={
+                  selectedAction === 'importWallet' ? 'gold' : 'card'
+                }
+                onClick={() => setSelectedAction('importWallet')}
+                align="center"
+                pt={3}
+                px={3}
+                pb={2}
+                gap={24}
+                width={400}
+                shadow="hover:popup"
+                $cursor="pointer"
+              >
+                <Image
+                  $height={100}
+                  src={transferWalletGraphics}
+                  alt="Transfer Wallet From Old to New Cypherock X1"
+                />
+                <Typography
+                  variant="h5"
+                  $fontSize={18}
+                  color="white"
+                  $textAlign="center"
+                >
+                  <LangDisplay
+                    text={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .transferWallet.title
+                    }
+                  />
+                </Typography>
+              </Flex>
             </Flex>
             <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
@@ -166,6 +203,20 @@ export const WalletActionsDialogBox: FC = () => {
                   items={
                     lang.strings.onboarding.walletActionsDialogBox.importWallet
                       .list
+                  }
+                />
+              )}
+              {selectedAction === 'importWallet' && (
+                <BulletList
+                  $fontSize={16}
+                  $borderWidth={0}
+                  $borderColor={undefined}
+                  $bgColor={undefined}
+                  color="white"
+                  p={0}
+                  items={
+                    lang.strings.onboarding.walletActionsDialogBox
+                      .transferWallet.list
                   }
                 />
               )}

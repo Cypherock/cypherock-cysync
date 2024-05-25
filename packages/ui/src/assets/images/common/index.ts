@@ -50,6 +50,7 @@ import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
+import transferWalletGraphics from './transfer-wallet-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -144,4 +145,5 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  transferWalletGraphics,
 };
