@@ -173,52 +173,21 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   };
 
   const onPrevious = () => {
-    if (
-      window.location.hash === '#/portfolio' &&
-      tabRef.current === 1 &&
-      currentTab === 1 &&
-      currentDialog === 0
-    ) {
-      if (tabRef.current > 0) {
-        setCurrentTab(tabRef.current - 1);
-        setCurrentDialog(
-          tabsRef.current[tabRef.current - 1].dialogs.length - 1,
-        );
-      }
-      return;
-    }
-
-    if (
-      window.location.hash === '#/portfolio' &&
-      tabRef.current === 0 &&
-      currentTab === 0 &&
-      currentDialog === 0
-    ) {
-      return;
-    }
-    if (
-      window.location.hash === '#/settings' &&
-      currentTab === 1 &&
-      dialogRef.current === 0 &&
-      tabRef.current === 1
-    ) {
-      return;
-    }
     checkConfettiBlastDone();
+
     if (dialogRef.current - 1 < 0) {
-      if (tabRef.current === 0) {
-        setCurrentDialog(0);
+      if (tabRef.current > 1) {
+        const newTab = Math.max(1, tabRef.current - 1);
+        setCurrentTab(newTab);
+        setCurrentDialog(tabsRef.current[newTab].dialogs.length - 1);
       } else {
-        setCurrentDialog(
-          tabsRef.current[tabRef.current - 1].dialogs.length - 1,
-        );
-        setCurrentTab(Math.max(0, tabRef.current - 1));
+        // This condition is met if we're already at the first dialog of the first tab,
+        // so you might not need to do anything here or adjust based on your flow.
       }
     } else {
       setCurrentDialog(Math.max(0, dialogRef.current - 1));
     }
   };
-
   addKeyboardEvents({
     ArrowRight: onNext,
     ArrowLeft: onPrevious,

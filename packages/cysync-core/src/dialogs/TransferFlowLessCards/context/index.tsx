@@ -28,7 +28,7 @@ import React, {
   useState,
 } from 'react';
 
-import { openGuidedFlowDialog, openTransferFlowDialog } from '~/actions';
+import { openGuidedFlowDialog } from '~/actions';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -210,7 +210,6 @@ export const TransferLessCardsFlowProvider: FC<
     dispatch(closeDialog('transferLessCardsFlow'));
     dispatch(openGuidedFlowDialog('importWallet'));
   }
-
   const onPrevious = () => {
     if (
       window.location.hash === '#/settings' &&
@@ -219,26 +218,20 @@ export const TransferLessCardsFlowProvider: FC<
     ) {
       return;
     }
+
     checkConfettiBlastDone();
-    if (tabRef.current === 1 && dialogRef.current === 0) {
-      dispatch(openTransferFlowDialog('walletTransfer'));
-      dispatch(closeDialog('transferLessCardsFlow'));
-    } else {
-      checkConfettiBlastDone();
-      if (dialogRef.current - 1 < 0) {
-        if (tabRef.current > 1) {
-          setCurrentDialog(
-            tabsRef.current[tabRef.current - 1].dialogs.length - 1,
-          );
-          setCurrentTab(Math.max(1, tabRef.current - 1));
-        } else {
-          // This condition is met if we're already at the first dialog of the first tab,
-          // so you might not need to do anything here or adjust based on your flow.
-          // setCurrentDialog(0); // Potentially redundant
-        }
+
+    if (dialogRef.current - 1 < 0) {
+      if (tabRef.current > 1) {
+        const newTab = Math.max(1, tabRef.current - 1);
+        setCurrentTab(newTab);
+        setCurrentDialog(tabsRef.current[newTab].dialogs.length - 1);
       } else {
-        setCurrentDialog(Math.max(0, dialogRef.current - 1));
+        // This condition is met if we're already at the first dialog of the first tab,
+        // so you might not need to do anything here or adjust based on your flow.
       }
+    } else {
+      setCurrentDialog(Math.max(0, dialogRef.current - 1));
     }
   };
 

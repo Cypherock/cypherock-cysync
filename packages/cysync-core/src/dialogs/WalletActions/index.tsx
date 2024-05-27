@@ -31,7 +31,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-// import { keyValueStore } from '~/utils';
+import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
 
@@ -171,42 +171,44 @@ export const WalletActionsDialogBox: FC = () => {
                   />
                 </Typography>
               </Flex>
-              <Flex
-                direction="column"
-                $borderWidth={1}
-                $borderRadius={16}
-                $borderColor={
-                  selectedAction2 === 'walletTransfer' ? 'gold' : 'card'
-                }
-                onClick={() => handleSetSelectedAction2('walletTransfer')}
-                align="center"
-                pt={3}
-                px={3}
-                pb={2}
-                gap={24}
-                width={400}
-                shadow="hover:popup"
-                $cursor="pointer"
-              >
-                <Image
-                  $height={100}
-                  src={transferWalletGraphics}
-                  alt="Transfer Wallet From Old to New Cypherock X1"
-                />
-                <Typography
-                  variant="h5"
-                  $fontSize={18}
-                  color="white"
-                  $textAlign="center"
+              {!keyValueStore.isNewUser && (
+                <Flex
+                  direction="column"
+                  $borderWidth={1}
+                  $borderRadius={16}
+                  $borderColor={
+                    selectedAction2 === 'walletTransfer' ? 'gold' : 'card'
+                  }
+                  onClick={() => handleSetSelectedAction2('walletTransfer')}
+                  align="center"
+                  pt={3}
+                  px={3}
+                  pb={2}
+                  gap={24}
+                  width={400}
+                  shadow="hover:popup"
+                  $cursor="pointer"
                 >
-                  <LangDisplay
-                    text={
-                      lang.strings.onboarding.walletActionsDialogBox
-                        .transferWallet.title
-                    }
+                  <Image
+                    $height={100}
+                    src={transferWalletGraphics}
+                    alt="Transfer Wallet From Old to New Cypherock X1"
                   />
-                </Typography>
-              </Flex>
+                  <Typography
+                    variant="h5"
+                    $fontSize={18}
+                    color="white"
+                    $textAlign="center"
+                  >
+                    <LangDisplay
+                      text={
+                        lang.strings.onboarding.walletActionsDialogBox
+                          .transferWallet.title
+                      }
+                    />
+                  </Typography>
+                </Flex>
+              )}
             </Flex>
             <Flex pt={1} pb={4} px={4}>
               {selectedAction === 'createWallet' && (
@@ -254,48 +256,6 @@ export const WalletActionsDialogBox: FC = () => {
                 />
               )}
             </Flex>
-            {/* {keyValueStore.isNewUser && (
-              <Container>
-                <RecoverWallet height={100} />
-                <div
-                  style={{
-                    width: '48vw',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    textAlign: 'left',
-                    alignItems: 'flex-start',
-                    padding: '0px 64px',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: '20px',
-                      fontWeight: '400',
-                      color: 'white',
-                    }}
-                  >
-                    {
-                      lang.strings.onboarding.walletActionsDialogBox.transfer
-                        .title
-                    }
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: '400',
-                      color: '#827B77',
-                    }}
-                  >
-                    {
-                      lang.strings.onboarding.walletActionsDialogBox.transfer
-                        .subtitle
-                    }
-                  </div>
-                </div>
-                <Button onClick={switchToGuidedFlow2}>Transfer</Button>
-              </Container>
-            )} */}
           </DialogBoxBody>
         </ScrollableContainer>
         <DialogBoxFooter
