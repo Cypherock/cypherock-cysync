@@ -1,0 +1,1525 @@
+{
+  "help": "Hilfe",
+  "allWallets": "Alle Wallets",
+  "x1Card": "X1 Karte",
+  "back": "Zurück",
+  "tooltips": {
+    "downloadCsv": "Als CSV exportieren"
+  },
+  "deviceAuthentication": {
+    "success": {
+      "title": "Ihr X1 Vault wurde erfolgreich authentifiziert"
+    },
+    "loading": {
+      "title": "Bitte warten Sie, während Ihr X1 Vault authentifiziert wird",
+      "subtitle": "Trennen Sie Ihr X1 Vault nicht, während der Vorgang ausgeführt wird"
+    }
+  },
+  "permissionSetup": {
+    "title": "Führen Sie den folgenden Befehl in Ihrem Terminal aus, um der Anwendung den Zugriff auf den USB-Port zu erlauben",
+    "subtext": "Starten Sie die Anwendung neu, nachdem Sie das Skript ausgeführt haben",
+    "checkbox": "Ich habe den Befehl bereits ausgeführt"
+  },
+  "deviceUpdateBar": {
+    "message": "Firmware-Update-Version ${version} verfügbar",
+    "button": "Herunterladen"
+  },
+  "addToken": {
+    "header": "Token hinzufügen",
+    "select": {
+      "header": "Wählen Sie die Wallets, Konten und Token aus, die Sie hinzufügen möchten",
+      "searchText": "Suche",
+      "walletPlaceholder": "Wallet auswählen",
+      "tokenPlaceholder": "Token auswählen",
+      "accountPlaceholder": "Konten auswählen",
+      "message": "${chainName}-Konto muss zuerst hinzugefügt werden, um das Hinzufügen der Token fortzusetzen"
+    },
+    "congrats": {
+      "title": "Token erfolgreich hinzugefügt",
+      "subtitle": "Weitere Token hinzufügen oder zum Portfolio zurückkehren",
+      "buttonAddMore": "Weitere hinzufügen"
+    }
+  },
+  "lockscreen": {
+    "title": "Ihr Tor zur Selbstsouveränität",
+    "passwordLabel": "Geben Sie das Passwort ein, um cySync zu entsperren",
+    "forgotPassword": "Passwort vergessen?",
+    "incorrectPassword": "Falsches Passwort",
+    "sameOldAndNewPassword": "Das neue Passwort darf nicht dasselbe wie das alte Passwort sein",
+    "button": "Entsperren",
+    "forgotPasswordDialog": {
+      "title": "Durch das Zurücksetzen des Passworts wird Ihre cySync-App zurückgesetzt. Möchten Sie fortfahren?",
+      "subtext": "Dadurch werden alle Ihre Daten in Ihrer cySync-App gelöscht. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt"
+    }
+  },
+  "betaNotificationBar": {
+    "message": "CySync v2.0.0 ist verfügbar!",
+    "button": "Mehr erfahren"
+  },
+  "appUpdateBar": {
+    "confirmation": "Update auf CySync-Version ${version} ist verfügbar",
+    "downloading": "CySync-Version ${version} wird heruntergeladen",
+    "error": "Fehler beim Herunterladen des CySync-Updates",
+    "successful": "CySync-Update heruntergeladen, es wird automatisch installiert, wenn Sie die App schließen",
+    "buttons": {
+      "download": "Herunterladen",
+      "tryAgain": "Erneut versuchen",
+      "installUpdate": "Update installieren"
+    }
+  },
+  "sidebar": {
+    "portfolio": "Portfolio",
+    "wallets": "Geldbörsen",
+    "sendCrypto": "Krypto senden",
+    "receiveCrypto": "Krypto empfangen",
+    "history": "Verlauf",
+    "walletConnect": "Wallet Connect",
+    "tutorial": "Tutorial",
+    "settings": "Einstellungen",
+    "help": "Hilfe",
+    "tooltip": {
+      "walletDeleted": "${walletName} wurde aus Ihrem Cypherock X1 Vault gelöscht"
+    }
+  },
+  "buttons": {
+    "addWallet": "Wallet hinzufügen",
+    "addAccount": "Konto hinzufügen",
+    "syncWallets": "Wallets synchronisieren",
+    "addToken": "Token hinzufügen",
+    "reverify": "Erneut verifizieren",
+    "continue": "Weiter",
+    "confirm": "Bestätigen",
+    "skip": "Überspringen",
+    "send": "Senden",
+    "receive": "Empfangen",
+    "back": "Zurück",
+    "retry": "Erneut versuchen",
+    "update": "Aktualisieren",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "done": "Fertig",
+    "close": "Schließen",
+    "report": "Melden",
+    "help": "Hilfe",
+    "stop": "Stoppen",
+    "exit": "Beenden",
+    "resync": "Erneut synchronisieren",
+    "showAll": "Alle anzeigen",
+    "connect": "Verbinden",
+    "disconnect": "Trennen",
+    "reject": "Ablehnen",
+    "check": "Prüfen",
+    "authenticate": "Authentifizieren",
+    "start": "Starten",
+    "setPassword": "Passwort festlegen",
+    "changePassword": "Passwort ändern",
+    "removePassword": "Passwort entfernen",
+    "details": "Details",
+    "showQRCode": "QR-Code anzeigen",
+    "editAccount": "Konto bearbeiten",
+    "submit": "Einreichen",
+    "showMore": "Mehr anzeigen"
+  },
+  "graph": {
+    "totalBalance": "Gesamtguthaben",
+    "walletDropdown": {
+      "search": "Suche"
+    },
+    "timeRange": {
+      "day": "1T",
+      "week": "1W",
+      "month": "1M",
+      "year": "1J"
+    }
+  },
+  "history": {
+    "tableTitle": "Transaktionen",
+    "tableHeader": {
+      "time": "Zeit",
+      "asset": "Vermögenswert",
+      "walletAndAccount": "Wallet / Konto",
+      "wallet": "Wallet",
+      "account": "Konto",
+      "amount": "Betrag",
+      "value": "Wert"
+    },
+    "transactionStatus": {
+      "send": {
+        "failed": "Senden fehlgeschlagen",
+        "pending": "Wird gesendet",
+        "success": "Gesendet"
+      },
+      "receive": {
+        "failed": "Empfang fehlgeschlagen",
+        "pending": "Wird empfangen",
+        "success": "Empfangen"
+      }
+    },
+    "dialogBox": {
+      "value": "Wert",
+      "view": "Im Explorer ansehen",
+      "fee": "Gebühr",
+      "type": "Typ",
+      "status": "Status",
+      "wallet": "Wallet",
+      "account": "Konto",
+      "asset": "Vermögenswert",
+      "sender": "Absender",
+      "receiver": "Empfänger",
+      "mine": "Meine",
+      "transactionHash": "Transaktions-Hash",
+      "description": "Beschreibung",
+      "feePrefix": {
+        "optimism": "L2 "
+      }
+    },
+    "noData": {
+      "text": "Noch keine Transaktionen",
+      "subText": "Erhalten Sie heute Krypto, um Ihre Transaktionshistorie hier zu sehen",
+      "buttonText": "Empfangen"
+    },
+    "search": {
+      "placeholder": "Suchen...",
+      "notFound": {
+        "text": "Keine Ergebnisse gefunden für",
+        "subText": "Bitte versuchen Sie es mit anderen Suchbegriffen"
+      }
+    }
+  },
+  "receive": {
+    "title": "Empfangen",
+    "showAnywayButton": "Haben Sie Ihr Gerät nicht?",
+    "source": {
+      "title": "Empfangen",
+      "subtitle": "Wählen Sie eine Wallet und ein Konto zur Gutschrift aus",
+      "searchText": "Suche",
+      "walletPlaceholder": "Wählen Sie eine Wallet",
+      "accountPlaceholder": "Konto zur Gutschrift"
+    },
+    "x1Vault": {
+      "title": "Folgen Sie den Anweisungen auf dem X1 Vault",
+      "subtitle": "Bestätigen Sie den Vorgang auf Ihrem Gerät, um ihn abzuschließen",
+      "actions": {
+        "verifyCoin": "Überprüfen Sie den Vermögenswert und den Wallet-Namen auf dem Gerät",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
+      }
+    },
+    "receive": {
+      "title": {
+        "prefix": "Adresse für ",
+        "suffix": "in ${walletName}"
+      },
+      "addressLabel": "Adresse",
+      "actions": {
+        "verify": "Überprüfen Sie, ob die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt"
+      },
+      "messageBox": {
+        "warning": "Diese Empfangsadresse wurde NICHT VOM GERÄT VERIFIZIERT. Verwenden Sie sie auf Ihr eigenes Risiko"
+      }
+    },
+    "congrats": {
+      "title": "Adresse erfolgreich verifiziert"
+    },
+    "finalButtons": {
+      "secondary": "Erneut überprüfen",
+      "secondaryUnverified": "Adresse verifizieren",
+      "primary": "Fertig"
+    },
+    "aside": {
+      "tabs": {
+        "source": "Quelle",
+        "device": "X1 Vault",
+        "receive": "Empfangen"
+      }
+    }
+  },
+  "topbar": {
+    "statusTexts": {
+      "connection": {
+        "connected": "Verbunden",
+        "disconnected": "Getrennt",
+        "error": "Verbindungsfehler!"
+      },
+      "sync": {
+        "synchronized": "Synchronisiert",
+        "synchronizing": "Synchronisiert...",
+        "error": "Synchronisierungsfehler!",
+        "networkErrorTooltip": "Netzwerkfehler"
+      }
+    },
+    "notification": {
+      "title": "Transaktionen",
+      "sendTransaction": "${amount} ${unit} ${type} an ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} an mehrere Adressen",
+      "receiveTransaction": "${amount} ${unit} ${type} auf das Konto ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "Alles erledigt",
+        "subTitle": "Keine neuen Transaktionen anzuzeigen"
+      }
+    }
+  },
+  "signMessage": {
+    "title": "Nachricht signieren",
+    "subTitle": "Verbunden mit dem folgenden Konto",
+    "actions": {
+      "confirmDevice": "Auf dem Gerät bestätigen",
+      "verifyData": "Daten überprüfen",
+      "enterPassphrase": "Passphrase eingeben",
+      "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+      "tapCard": "Tippen Sie auf eine Karte"
+    }
+  },
+  "walletSync": {
+    "deletedOne": {
+      "title": "Es scheint, als hätten Sie das Wallet ${walletName} aus dem X1 Vault gelöscht. Möchten Sie es auch von CySync löschen?"
+    },
+    "deletedMany": {
+      "title": "Es scheint, als hätten Sie Wallets aus dem X1 Vault gelöscht. Möchten Sie sie auch von CySync löschen?",
+      "subTitle": "Sie können wählen, welche Sie behalten und welche Sie löschen möchten"
+    },
+    "freshOneCreated": {
+      "title": "Es scheint, als hätten Sie Wallets aus dem X1 Vault gelöscht und gleichzeitig neue mit demselben Namen erstellt. Möchten Sie die alten Wallets auf CySync löschen?",
+      "subTitle": "Sie können wählen, welches Sie behalten und welches Sie löschen möchten",
+      "checkboxText": "Nicht mehr anzeigen"
+    },
+    "buttons": {
+      "keepIt": "Behalten",
+      "keepAll": "Alle behalten",
+      "delete": "Löschen"
+    }
+  },
+  "deleteAccount": {
+    "title": "Möchten Sie wirklich entfernen",
+    "subTitle": "Sie können das Konto erneut von der ${walletName}-Wallet-Seite hinzufügen. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt",
+    "tokenSubtitle": "Sie können das Token erneut von der ${walletName}-Wallet-Seite hinzufügen. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt",
+    "buttons": {
+      "yes": "Ja",
+      "no": "Nein"
+    }
+  },
+  "addAccount": {
+    "header": "Konto hinzufügen",
+    "select": {
+      "header": "Wählen Sie das Wallet und die Münze, die Sie hinzufügen möchten",
+      "searchText": "Suchen",
+      "walletPlaceholder": "Wählen Sie ein Wallet",
+      "coinPlaceholder": "Wählen Sie eine Münze"
+    },
+    "deviceActions": {
+      "header": "Befolgen Sie die Anweisungen auf dem X1 Vault",
+      "subtext": "Fügen Sie eine Münze/ein Konto zum Wallet hinzu",
+      "walletName": "${walletName}",
+      "actions": {
+        "verifyCoin": "Überprüfen Sie die Münzen auf dem Gerät",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
+      }
+    },
+    "sync": {
+      "syncingHeader": "Synchronisiere das Konto",
+      "header": "Neue Konten hinzufügen",
+      "newAccount": "Neue Konten",
+      "advancedButton": "Alle Adresstypen anzeigen",
+      "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
+      "deselectAllButton": "Alle abwählen",
+      "selectAllButton": "Alle auswählen",
+      "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
+      "addAccountButton": "Konten hinzufügen",
+      "resyncButton": "Erneut synchronisieren"
+    },
+    "congrats": {
+      "header": "Münze/Konto hinzufügen",
+      "subtext": "Weitere Konten hinzufügen oder zum Portfolio zurückkehren",
+      "title": "Konten erfolgreich hinzugefügt",
+      "buttonAddMore": "Mehr hinzufügen"
+    },
+    "aside": {
+      "tabs": {
+        "asset": "Vermögenswert",
+        "device": "X1 Vault",
+        "confirmation": "Bestätigung"
+      }
+    }
+  },
+  "wallet": {
+    "title": "Geldbörsen",
+    "tableTitle": "Konten",
+    "buttons": {
+      "less": "Weniger anzeigen",
+      "more": "Mehr anzeigen",
+      "hide": "Token ausblenden",
+      "show": "Token anzeigen"
+    },
+    "tableHeader": {
+      "account": "Konto",
+      "syncStatus": "Synchronisationsstatus",
+      "balance": "Saldo",
+      "value": "Wert"
+    },
+    "accountMissing": {
+      "text": "Noch kein Konto",
+      "subText": "Es wurden keine Münzen/Konten in der Geldbörse gefunden"
+    },
+    "search": {
+      "placeholder": "Suchen",
+      "text": "Keine Ergebnisse gefunden für",
+      "subText": "Bitte versuchen Sie, andere Schlüsselwörter zu suchen"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "tokenTable": {
+      "title": "Tokens",
+      "tableHeader": {
+        "token": "Tokens",
+        "amount": "Menge",
+        "value": "Wert"
+      }
+    },
+    "assetAllocation": {
+      "title": "Vermögensaufteilung",
+      "accountTitle": "Konten",
+      "tableHeader": {
+        "asset": "Anlage",
+        "account": "Konto",
+        "wallet": "Brieftasche",
+        "price": "Preis",
+        "balance": "Balance",
+        "value": "Wert",
+        "allocation": "Allokation"
+      }
+    },
+    "walletMissing": {
+      "text": "Brieftaschen fehlen",
+      "subText": "Erstellen Sie eine neue Brieftasche oder importieren Sie sie aus der Seed-Phrase, um loszulegen",
+      "subText2": "Wenn Sie bereits Brieftaschen im Gerät erstellt haben, synchronisieren Sie sie einfach mit CySync"
+    },
+    "accountMissing": {
+      "text": "Konten fehlen",
+      "subText": "Erstellen oder importieren Sie ein Konto, um loszulegen"
+    }
+  },
+  "toggle": {
+    "on": "EIN",
+    "off": "AUS"
+  },
+  "send": {
+    "title": "Senden",
+    "fees": {
+      "header": [
+        {
+          "id": 1,
+          "label": "Standard",
+          "type": "slider"
+        },
+        {
+          "id": 2,
+          "label": "Erweitert",
+          "type": "input"
+        }
+      ],
+      "sliderLabels": [
+        {
+          "id": 1,
+          "name": "Min"
+        },
+        {
+          "id": 2,
+          "name": "Durchschnitt"
+        },
+        {
+          "id": 3,
+          "name": "Max"
+        }
+      ],
+      "inputLabels": {
+        "gasPrice": "Gaspreis",
+        "gasLimit": "Gaslimit"
+      }
+    },
+    "source": {
+      "title": "Quelle",
+      "subtitle": "Wählen Sie eine Wallet und ein Konto",
+      "searchText": "Suche",
+      "walletPlaceholder": "Wählen Sie eine Wallet",
+      "accountPlaceholder": "Konto zum Belasten"
+    },
+    "x1Vault": {
+      "title": "Befolgen Sie die Anweisungen auf der X1 Vault",
+      "actions": {
+        "verifyCoin": "Verifizieren",
+        "verifyDetails": "Transaktionsdetails auf dem Gerät verifizieren",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
+      },
+      "token": {
+        "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName} Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
+      },
+      "messageBox": {
+        "warning": "Überprüfen Sie immer, ob die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt"
+      }
+    },
+    "recipient": {
+      "title": "Empfänger",
+      "subtitle": "Geben Sie den Betrag und die Adresse des Empfängers ein, an den Sie die Gelder senden möchten",
+      "recipient": {
+        "label": "Empfängeradresse",
+        "placeholder": "Adresse eingeben",
+        "error": "Ungültige Adresse"
+      },
+      "tabs": {
+        "single": "Einzeltransaktion",
+        "batch": "Batch Transaktion"
+      },
+      "amount": {
+        "label": "Zu sendender Betrag",
+        "placeholder": "0",
+        "toggle": "Max senden",
+        "dollar": "$",
+        "error": "Unzureichende Mittel",
+        "notOverDustThreshold": "Betrag liegt unter der dust limit"
+      },
+      "fees": {
+        "title": "Gebühren",
+        "label": "Netzwerkgebühren"
+      },
+      "warning": "Die Transaktion könnte storniert werden, wenn die Gebühren zu niedrig sind",
+      "feeError": "Transaktionen mit 0 Gebühr sind nicht erlaubt",
+      "notEnoughBalance": "Unzureichende Mittel für die Transaktion",
+      "toggleText": {
+        "replace": "Erlauben Sie, die Transaktion zu ersetzen (Replace by fees)",
+        "unconfirmed": "Münzen aus unbestätigten, ersetzbaren Transaktionen einbeziehen"
+      },
+      "infoBox": "Maximal verfügbarer Betrag ist ",
+      "addButton": "Weiteren Empfänger hinzufügen"
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "from": "Von",
+      "to": "An",
+      "amount": "Betrag",
+      "network": "Netzwerkgebühr",
+      "debit": "Gesamt zu belasten"
+    },
+    "finalMessage": {
+      "button": "Transaktionen überprüfen",
+      "title": "Transaktion gesendet",
+      "hashLabel": "Transaktions-Hash",
+      "messageBox": {
+        "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
+      }
+    },
+    "aside": {
+      "tabs": {
+        "source": "Quelle",
+        "recipient": "Empfänger",
+        "summary": "Zusammenfassung",
+        "x1vault": "X1 Vault",
+        "confirm": "Bestätigung"
+      }
+    },
+    "optimism": {
+      "deviceAction": "L1 Gebühr: ${fee}. Ihre L1 Gebühr wird nicht vom Gerät verifiziert",
+      "l1": " (L1)",
+      "l2": " (L2)",
+      "suffix": " (L1 + L2)"
+    }
+  },
+  "onboarding": {
+    "info": {
+      "aside": {
+        "title": "Willkommen bei der CySync-App",
+        "subTitle": "Ihr Gateway zur Selbstsouveränität"
+      },
+      "dialogBox": {
+        "title": "Stellen Sie sicher, dass Sie Folgendes beachtet haben, bevor Sie fortfahren",
+        "listItems": [
+          "Sie befinden sich in einer sicheren und geschützten Umgebung",
+          "Sie haben mindestens 10-15 Minuten Zeit, um Ihre Wallet einzurichten",
+          "Sie haben eine aktive Internetverbindung",
+          "Das manipulationssichere Siegel der Verpackung ist intakt",
+          "Cypherock wird Sie niemals nach Ihrer Seed-Phrase fragen und wird Sie auch niemals auffordern, eine Transaktion zu signieren",
+          "Cypherock wird Ihnen nur von cypherock.com aus E-Mails senden. Vertrauen Sie keiner E-Mail von einer anderen Website-Domain"
+        ]
+      }
+    },
+    "usage": {
+      "userNew": {
+        "title": "Ich benutze Cypherock X1 zum ersten Mal",
+        "note": "Wählen Sie dies, wenn Sie Cypherock X1 noch nie zuvor verwendet haben"
+      },
+      "userExpert": {
+        "title": "Ich habe bereits ein Cypherock X1 verwendet",
+        "note": "Wählen Sie dies, wenn Sie Ihre Wallets auf ein neues Cypherock X1 migrieren möchten. Dies könnte erforderlich sein, falls Sie Ihr X1 Vault und eine oder mehrere der X1 Karten verloren haben"
+      }
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "subtext": "Nehmen Sie sich etwas Zeit, um unsere Nutzungsbedingungen und Datenschutzrichtlinie zu überprüfen",
+      "bulletPoints": {
+        "terms": "Nutzungsbedingungen",
+        "privacyPolicy": "Datenschutzrichtlinie"
+      },
+      "consent": "Ich habe die Nutzungsbedingungen und die Datenschutzrichtlinie gelesen und stimme zu"
+    },
+    "setPassword": {
+      "heading": "Passwort festlegen",
+      "title": "Legen Sie Ihr CySync-Passwort fest",
+      "subtitle": "Wir speichern Ihr Passwort nicht auf unseren Servern",
+      "success": "Ihr CySync-Passwort wurde erfolgreich festgelegt",
+      "newPasswordLabel": "Neues Passwort",
+      "confirmPasswordLabel": "Passwort bestätigen",
+      "hint": "Verwenden Sie 8 oder mehr Zeichen mit einer Mischung aus Buchstaben, Zahlen und Symbolen"
+    },
+    "emailAuth": {
+      "heading": "E-Mail-Authentifizierung",
+      "title": "Es wird empfohlen, eine E-Mail-ID als 2FA einzugeben, um Authentizitätsergebnisse zu erhalten",
+      "subtitle": "Wir speichern diese E-Mail-ID nicht dauerhaft auf unseren Servern",
+      "success": "Ihr CySync-Passwort wurde erfolgreich festgelegt",
+      "enterEmailLabel": "E-Mail",
+      "placeholder": "E-Mail"
+    },
+    "deviceDetection": {
+      "heading": "Geräteverbindung",
+      "title": "Verbinden Sie Ihr X1 Vault mit Ihrem PC, um fortzufahren",
+      "unavailable": {
+        "title": "Ihr X1 Vault kann nicht kommunizieren",
+        "subtext": "Versuchen Sie, das Gerät erneut zu verbinden"
+      }
+    },
+    "deviceAuth": {
+      "heading": "Geräteauthentifizierung",
+      "title": "Ihr X1 Vault wird jetzt über den Cypherock-Server authentifiziert, um seine Authentizität zu überprüfen",
+      "subtext": "Trennen Sie Ihr Gerät während des Vorgangs nicht",
+      "success": {
+        "title": "Ihr X1 Vault wurde erfolgreich authentifiziert",
+        "subtext": "Warten Sie, während wir Sie zum nächsten Bildschirm weiterleiten"
+      },
+      "error": "Die Authentifizierung des X1 Vault ist fehlgeschlagen"
+    },
+    "joystickTraining": {
+      "heading": "Joystick-Anweisungen",
+      "subtext": "X1 Vault bietet einen 4-Wege-Joystick zur Bildschirmnavigation",
+      "upTitle": "Nach oben schalten",
+      "rightTitle": "Nach rechts schalten",
+      "downTitle": "Nach unten schalten",
+      "leftTitle": "Nach links schalten",
+      "centerTitle": "Klicken Sie in die Mitte des Joysticks, um fortzufahren",
+      "centerSubtext": "X1 Vault hat eine Mitteltaste zum Klicken",
+      "footer": "Folgen Sie den Anweisungen auf dem Gerät",
+      "success": "Joystick-Anweisungen abgeschlossen",
+      "error": "Joystick-Anweisungen sind fehlgeschlagen"
+    },
+    "cardTraining": {
+      "heading": "Kartentippanweisungen",
+      "title": "Tippen Sie eine beliebige X1 Karte unter das X1 Vault, um das Kartentipping zu testen",
+      "subtext": "Ihre Karten kommunizieren verschlüsselt per NFC mit dem Gerät. Stellen Sie sicher, dass Sie es gedrückt halten, bis Sie einen Piepton hören",
+      "error": "Das Kartentippen ist fehlgeschlagen"
+    },
+    "cardAuth": {
+      "heading": "Kartenauthentifizierung",
+      "title": "Tippen Sie die X1 Karten nacheinander unter das X1 Vault, bis Sie 3 Pieptöne hören",
+      "subtext": "Heben Sie Ihre Karte nach 3 Pieptönen an"
+    },
+    "walletActionsDialogBox": {
+      "title": "Lassen Sie uns eine Wallet erstellen, bevor wir fortfahren. Stellen Sie sicher, dass Sie alle 4 X1 Karten bei sich haben",
+      "subTitle": "Die folgenden Tutorials sollen Ihnen nur Ihr Gerät zeigen. Sie können eine Wallet auch ohne diese Tutorials unabhängig auf Ihrem Cypherock X1 erstellen",
+      "createWallet": {
+        "title": "Erstellen Sie eine neue Wallet",
+        "list": [
+          "Wenn Sie ein brandneues Cypherock X1 gekauft haben und eine neue Wallet einrichten möchten"
+        ]
+      },
+      "importWallet": {
+        "title": "Importieren Sie Ihre Wallet aus einer Seed-Phrase",
+        "list": [
+          "Sie möchten Cypherock X1 als Backup für Ihre anderen Wallets verwenden",
+          "Sie möchten Ihre Vermögenswerte von Ihren anderen Wallets auf Cypherock X1 übertragen",
+          "Sie möchten das Portfolio Ihrer anderen Wallets über Cypherock X1 verwalten und verfolgen"
+        ]
+      }
+    },
+    "success": {
+      "title": "Herzlichen Glückwunsch",
+      "subtext": "Cypherock X1 ist jetzt einsatzbereit"
+    },
+    "appUpdate": {
+      "heading": "App-Aktualisierung",
+      "dialogs": {
+        "checking": {
+          "heading": "App-Aktualisierung",
+          "title": "Bitte warten Sie, während wir nach Updates für Cypherock CySync suchen"
+        },
+        "checkingFailed": {
+          "heading": "App-Aktualisierung",
+          "title": "Beim Überprüfen auf Updates ist ein Fehler aufgetreten",
+          "subtext": "Etwas ist schief gelaufen, überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut"
+        },
+        "confirmation": {
+          "heading": "App-Aktualisierung",
+          "title": "Ein neues Update ist für Ihre CySync-App verfügbar. Aktualisieren Sie die App auf v${version}, um fortzufahren",
+          "subtext": "Ihr X1 Vault scheint mit der aktuellen CySync-App nicht kompatibel zu sein. Aktualisieren Sie Ihre Desktop-App auf v${version}, um fortzufahren"
+        },
+        "downloading": {
+          "heading": "Aktualisierung...",
+          "subtext": "Bitte warten Sie, während wir Ihre CySync-App aktualisieren",
+          "version": "Version ${version}"
+        },
+        "updateSuccessful": {
+          "heading": "CySync-App erfolgreich aktualisiert",
+          "subtext": "Bitte warten Sie, während wir die App neu starten, um das neueste Update anzuwenden",
+          "bubbleText": "Falls sich die App nicht von selbst neu startet, starten Sie sie manuell erneut"
+        },
+        "updateFailed": {
+          "heading": "Die CySync-Aktualisierung auf Version ${version} ist fehlgeschlagen",
+          "subtext": "Etwas ist schief gelaufen, versuchen Sie es erneut zu aktualisieren oder kontaktieren Sie den Support",
+          "buttons": {
+            "retry": "Erneut versuchen"
+          }
+        },
+        "updateFailedFallback": {
+          "heading": "Die CySync-App-Aktualisierung auf Version ${version} ist fehlgeschlagen",
+          "subtext": "Laden Sie die Desktop-App über den folgenden Link herunter und installieren Sie sie neu",
+          "alertText": "Schließen Sie diese App, bevor Sie die neueste CySync-App neu installieren"
+        }
+      }
+    },
+    "deviceUpdate": {
+      "heading": "Geräte-Aktualisierung",
+      "version": "Version ${version}",
+      "dialogs": {
+        "checking": {
+          "title": "Bitte warten Sie, während wir nach Updates für X1 Vault suchen"
+        },
+        "confirmation": {
+          "heading": "Geräte-Aktualisierung",
+          "title": "Ein neues Update ist für Ihr X1 Vault verfügbar. Aktualisieren Sie das Gerät auf v${version}, um fortzufahren",
+          "subtext": "Folgen Sie den Anweisungen auf dem Gerät"
+        },
+        "loading": {
+          "text": "Bitte warten Sie, während wir nach Updates für X1 Vault suchen"
+        },
+        "updating": {
+          "heading": "Aktualisierung...",
+          "subtext": "Bitte warten Sie, während wir Ihr X1 Vault aktualisieren"
+        },
+        "updateSuccessful": {
+          "heading": "X1 Vault erfolgreich aktualisiert",
+          "headingWithVersion": "X1 Vault erfolgreich auf v${version} aktualisiert",
+          "subtext": "Ihr Gerät arbeitet jetzt mit der neuesten Firmware"
+        },
+        "updateFailed": {
+          "heading": "Firmware-Aktualisierung fehlgeschlagen",
+          "subtext": "Verbinden Sie das Gerät erneut, um fortzufahren"
+        }
+      }
+    }
+  },
+  "walletConnect": {
+    "uriTab": {
+      "title": "WalletConnect",
+      "subTitle": "Geben Sie WalletConnect URI ein, um eine Verbindung mit der DApp herzustellen",
+      "inputLabel": "Geben Sie die Verbindungs-URI ein",
+      "placeholder": "URI einfügen"
+    },
+    "accountSelectionTab": {
+      "title": "Mit ${dappName}-Schnittstelle verbinden",
+      "chooseWallet": "Wählen Sie eine Wallet",
+      "chooseAccount": "Wählen Sie ${assetName}-Konten aus",
+      "supportInfo": "Diese Blockchains werden unterstützt, aber fügen Sie ihre Konten vor der Verwendung hinzu",
+      "notSupportedWarning": {
+        "title": "Diese Blockchains werden nicht unterstützt"
+      }
+    },
+    "accountConnectedTab": {
+      "title": "Mit ${dappName}-Schnittstelle verbunden",
+      "subTitle": "Konten",
+      "info": "Sie können jetzt auf die ${dappName} DApp in Ihrem Webbrowser zugreifen"
+    },
+    "common": {
+      "info": {
+        "title": "Diese App wird in der Lage sein:",
+        "points": [
+          "Überprüfen Sie Ihr Kontoguthaben und Ihre Aktivitäten",
+          "Anforderungen für Transaktionsgenehmigungen stellen"
+        ]
+      },
+      "error": {
+        "default": {
+          "title": "Fehler beim Verbinden aufgetreten",
+          "subtitle": "Wiederholen Sie die Verbindung von der DApp aus"
+        },
+        "unsupportedChains": {
+          "title": "${dappName} hat angefordert, sich mit Kette${s} zu verbinden, die wir noch nicht unterstützen",
+          "subtitle": "Wir unterstützen derzeit ${chains}",
+          "message": "Nicht unterstützte Ketten: ${chains}"
+        }
+      },
+      "reject": {
+        "call": "Benutzer abgelehnt"
+      }
+    }
+  },
+  "errors": {
+    "deviceErrors": {
+      "CON_0100": {
+        "heading": "Verbinden Sie den X1 Vault mit Ihrem PC, um fortzufahren"
+      },
+      "CON_0101": {
+        "heading": "Verbinden Sie den X1 Vault mit Ihrem PC, um fortzufahren"
+      },
+      "CON_0102": {
+        "heading": "Ihr X1 Vault kann keine Verbindung herstellen",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0000": {
+        "heading": "Ihr X1 Vault befindet sich im Sicherheitsmodus",
+        "subtext": "Aktualisieren Sie Ihr Gerät, um fortzufahren"
+      },
+      "COM_0104": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0101": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0102": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0103": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0100": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "COM_0200": {
+        "heading": "Ihr X1 Vault unterstützt diesen Vorgang nicht",
+        "subtext": "Aktualisieren Sie die CySync-App und das Gerät auf die neueste Version"
+      },
+      "COM_0201": {
+        "heading": "Ihr X1 Vault ist nicht mit der CySync-App kompatibel",
+        "subtext": "Aktualisieren Sie die CySync-App und das Gerät auf die neueste Version"
+      },
+      "BTL_0000": {
+        "heading": "Vorgang auf dem X1 Vault fehlgeschlagen",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut"
+      },
+      "BTL_0100": {
+        "heading": "Ihr X1 Vault unterstützt diese Firmware nicht",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0101": {
+        "heading": "Ihr X1 Vault unterstützt diese Firmware nicht",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0102": {
+        "heading": "Ihr X1 Vault unterstützt diese Firmware nicht",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0103": {
+        "heading": "Die Firmware Ihres X1 Vault ist nicht authentisch",
+        "subtext": "Dies passiert normalerweise, wenn Sie versuchen, eine Firmware zu installieren, die nicht von Cypherock entwickelt wurde"
+      },
+      "BTL_0104": {
+        "heading": "Ihr X1 Vault kann nicht auf eine niedrigere Firmware-Version aktualisiert werden",
+        "subtext": "Das Gerät unterstützt nur ein Firmware-Update auf eine höhere Version"
+      },
+      "BTL_0106": {
+        "heading": "X1 Vault-Update fehlgeschlagen",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0107": {
+        "heading": "Ihr X1 Vault unterstützt diese Firmware nicht",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0108": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0109": {
+        "heading": "Etwas ist schief gelaufen",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "BTL_0105": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0000": {
+        "heading": "Etwas ist schief gelaufen",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0101": {
+        "heading": "Ihr X1 Vault ist derzeit beschäftigt",
+        "subtext": "Navigation zum Hauptmenü im Gerät und erneut versuchen"
+      },
+      "APP_0102": {
+        "heading": "Ihr X1 Vault hat diesen Vorgang abgebrochen",
+        "subtext": "Sie können dort weitermachen, wo Sie aufgehört haben"
+      },
+      "APP_0103": {
+        "heading": "Ihr X1 Vault hat diesen Vorgang abgebrochen",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0200": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0201": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0202": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Schließen Sie das Gerät erneut an, versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0203": {
+        "heading": "Die App existiert nicht auf dem Gerät"
+      },
+      "APP_0204": {
+        "heading": "Ihr X1 Vault ist derzeit beschäftigt",
+        "subtext": "Versuchen Sie es nach einiger Zeit erneut, wenn das Problem weiterhin besteht, schließen Sie das Gerät erneut an."
+      },
+      "APP_0205": {
+        "heading": "Ihr X1 Vault ist derzeit nicht richtig eingerichtet",
+        "subtext": "Drücken Sie auf Fortfahren, um die Einrichtung zu starten"
+      },
+      "APP_0300": {
+        "heading": "Sie haben die Wallet ${walletName} aus dem X1 Vault gelöscht. Möchten Sie sie auch aus der CySync-App löschen?"
+      },
+      "APP_0301": {
+        "heading": "Ihr Wallet ${walletName} ist derzeit auf Ihrem X1 Vault fehlkonfiguriert",
+        "subtext": "Gehen Sie vom Hauptmenü Ihres Geräts zur Wallet ${walletName}, um das Problem zu beheben"
+      },
+      "APP_0206": {
+        "heading": "Ihr X1 Vault hat eine Zeitüberschreitung",
+        "subtext": "Navigieren Sie zum Hauptmenü auf dem Gerät und versuchen Sie es erneut"
+      },
+      "APP_0400": {
+        "heading": "Unbekannter X1-Kartenfehler",
+        "subtext": "Versuchen Sie es erneut oder klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "APP_0501": {
+        "heading": "Sie haben diesen Vorgang auf Ihrem X1 Vault abgebrochen"
+      },
+      "APP_0600": {
+        "heading": "Ihr X1 Vault hat Kommunikationsprobleme",
+        "subtext": "Versuchen Sie es erneut oder kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0700": {
+        "heading": "Das Gerät scheint kompromittiert zu sein. Kontaktieren Sie sofort den Cypherock-Support"
+      },
+      "APP_0701": {
+        "heading": "Die Karte scheint kompromittiert zu sein. Kontaktieren Sie sofort den Cypherock-Support"
+      },
+      "APP_0400_001": {
+        "heading": "Unbekannter X1-Kartenfehler",
+        "subtext": "Versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_002": {
+        "heading": "Ihre X1-Karte ist derzeit nicht mit Ihrem X1 Vault gekoppelt",
+        "subtext": "Koppeln Sie Ihre Karte, indem Sie im Hauptmenü Ihres Geräts zu den Einstellungen gehen, bevor Sie einen Vorgang ausführen",
+        "deviceNavigationText": "Hauptmenü > Einstellungen > Karte koppeln"
+      },
+      "APP_0400_003": {
+        "heading": "Ihre X1-Kartenauthentifizierung ist fehlgeschlagen",
+        "subtext": "Versuchen Sie eine andere Karte und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_004": {
+        "heading": "Ihre X1-Karte hat eine Fehlfunktion",
+        "subtext": "Versuchen Sie es erneut oder klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "APP_0400_005": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Versuchen Sie es erneut oder klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "APP_0400_006": {
+        "heading": "Sie haben eine falsche X1-Karte angetippt",
+        "subtext": "Stellen Sie sicher, dass Ihre Karte zum selben Satz gehört"
+      },
+      "APP_0400_007": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_008": {
+        "heading": "Sie haben eine falsche X1-Karte angetippt",
+        "subtext": "Bitte tippen Sie die Karten in der richtigen Reihenfolge an"
+      },
+      "APP_0400_009": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_010": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_011": {
+        "heading": "Ihre X1-Karte ist nicht mit Ihrem X1 Vault synchronisiert",
+        "subtext": "Synchronisieren Sie Ihre Karte neu, indem Sie im Hauptmenü Ihres Geräts zur Wallet ${walletName} gehen, bevor Sie einen Vorgang ausführen"
+      },
+      "APP_0400_012": {
+        "heading": "Der Speicher Ihrer X1-Karte ist voll",
+        "subtext": "Sie können eine Wallet löschen, um eine neue hinzuzufügen, oder einen weiteren Cypherock X1 kaufen"
+      },
+      "APP_0400_013": {
+        "heading": "Sie haben eine falsche PIN eingegeben",
+        "subtext": "Geben Sie die korrekte PIN ein, bevor die Karte gesperrt wird"
+      },
+      "APP_0400_014": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_015": {
+        "heading": "Ihre X1-Karte muss mit Ihrem X1 Vault gekoppelt werden",
+        "subtext": "Sie können die Kartenkopplung aus dem Einstellungsmenü im Gerät starten oder ein anderes Kartenset verwenden"
+      },
+      "APP_0400_016": {
+        "heading": "Ihre X1-Karte hat Kommunikationsprobleme",
+        "subtext": "Kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "APP_0400_017": {
+        "heading": "Die Wallet ${walletName} ist derzeit auf Ihrem X1 Vault gesperrt",
+        "subtext": "Entsperren Sie die Wallet zuerst, bevor Sie es erneut versuchen",
+        "deviceNavigationText": "Hauptmenü > ${walletName}"
+      },
+      "APP_0400_018": {
+        "heading": "Ihre X1-Karte hat eine Fehlfunktion",
+        "subtext": "Klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "APP_0400_019": {
+        "heading": "Ihre X1-Karte hat eine Fehlfunktion",
+        "subtext": "Versuchen Sie es erneut oder klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "APP_0400_000": {
+        "heading": "Unbekannter X1-Kartenfehler",
+        "subtext": "Versuchen Sie es erneut oder klicken Sie auf Hilfe, um eine Lösung zu finden"
+      },
+      "MGA_GL_0000": {
+        "heading": "Protokolle sind auf dem X1 Vault deaktiviert",
+        "subtext": "Aktivieren Sie Protokolle in den X1 Vault Einstellungen und versuchen Sie es erneut"
+      }
+    },
+    "databaseError": {
+      "heading": "Ihre CySync-App hat ein internes Problem",
+      "subtext": "Versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+    },
+    "serverErrors": {
+      "SER_0000": {
+        "heading": "Ihre CySync-App hat ein Verbindungsproblem",
+        "subtext": "Schließen Sie das Gerät erneut an und versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung"
+      },
+      "SER_0001": {
+        "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
+      }
+    },
+    "default": "Ein interner Fehler ist aufgetreten"
+  },
+  "validation": {
+    "generic": {
+      "required": "Dieses Feld ist erforderlich"
+    },
+    "email": {
+      "invalid": "Dies ist keine gültige E-Mail"
+    },
+    "password": {
+      "mismatch": "Passwörter stimmen nicht überein",
+      "passwordFieldPrefix": "Passwort ",
+      "confirmPasswordFieldPrefix": "Passwort bestätigen ",
+      "minLength": "muss mindestens 8 Zeichen lang sein",
+      "containNumber": "muss mindestens 1 Zahl enthalten",
+      "containSymbol": "muss mindestens 1 Symbol enthalten",
+      "required": "ist erforderlich",
+      "containUppercase": "muss mindestens 1 Großbuchstaben enthalten",
+      "containLowercase": "muss mindestens 1 Kleinbuchstaben enthalten"
+    }
+  },
+  "guidedFlows": {
+    "createWallet": {
+      "title": "Neue Wallet erstellen",
+      "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Klicken Sie im Hauptmenü Ihres X1 Vault auf \"Wallet erstellen\""
+            },
+            {
+              "title": "Klicken Sie auf \"Neue Wallet generieren\" auf Ihrem X1 Vault"
+            },
+            {
+              "title": "Geben Sie einen Wallet-Namen auf Ihrem X1 Vault ein",
+              "bulletList": [
+                "Bis zu 15 Zeichen erlaubt",
+                "Es kann alphanumerisch sein"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Stellen Sie sicher, dass der Wallet-Name einzigartig zu anderen Wallet-Namen auf dem Gerät ist"
+                },
+                {
+                  "warning": "Der Wallet-Name kann nach der Setzung nicht mehr geändert werden. Bitte setzen Sie den Namen entsprechend"
+                }
+              ]
+            },
+            {
+              "title": "Bestätigen Sie den Wallet-Namen auf dem X1 Vault"
+            },
+            {
+              "title": "Möchten Sie eine PIN für Ihre Wallet einrichten?",
+              "messageBoxList": [
+                {
+                  "warning": "Die PIN kann nach der Setzung nicht mehr geändert werden. Sie müssen die Wallet löschen und neu erstellen, um die PIN zu ändern"
+                }
+              ]
+            },
+            {
+              "title": "Richten Sie eine PIN auf dem X1 Vault ein",
+              "bulletList": [
+                "Verwenden Sie zwischen 4 und 8 Zeichen",
+                "Die PIN kann alphanumerisch sein"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Stellen Sie sicher, dass Sie eine Sicherung Ihrer PIN machen. Wenn Sie sie verlieren, verlieren Sie den Zugriff auf Ihre Gelder"
+                },
+                {
+                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten"
+                }
+              ]
+            },
+            {
+              "title": "Bestätigen Sie die eingegebene PIN auf dem X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Merken Sie sich Ihre PIN. Wenn Sie sie verlieren, verlieren Sie den Zugriff auf Ihre Gelder. Selbst Cypherock kann Ihnen nicht helfen, Ihre Assets wiederherzustellen"
+                },
+                {
+                  "warning": "Sichern Sie sie an einem sicheren Ort"
+                },
+                {
+                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "X1 Cards synchronisieren",
+          "pages": [
+            {
+              "title": "Tippen Sie die X1 Cards nacheinander unter den X1 Vault",
+              "subtitle": "Heben Sie sie nicht an, bis Sie ein Piepsen hören",
+              "messageBoxList": [
+                {
+                  "info": "Stellen Sie sicher, dass Ihre X1 Cards zur gleichen Familie gehören"
+                },
+                {
+                  "info": "Stellen Sie sicher, dass Sie die X1 Cards in der richtigen Reihenfolge tippen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Bestätigung",
+          "pages": [
+            {
+              "title": "Herzlichen Glückwunsch, Ihre Wallet wurde erfolgreich erstellt"
+            },
+            {
+              "title": "Das nächste Mal, wenn Sie eine Transaktion durchführen müssen, holen Sie einfach eine beliebige X1 Card zusammen mit dem X1 Vault"
+            },
+            {
+              "title": "Falls Sie Ihren X1 Vault verlieren, können Sie einen neuen X1 Vault separat kaufen und mit Ihren alten X1 Cards verwenden"
+            },
+            {
+              "title": "Wichtiger Hinweis",
+              "messageBoxList": [
+                {
+                  "warning": "Falls Sie eine weitere Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammen holen. Falls Sie Ihre anderen Wallets in Cypherock X1 importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftige Probleme zu vermeiden"
+                }
+              ]
+            },
+            {
+              "title": "Als nächster Schritt bewahren Sie Ihre X1 Cards sicher in den Kartenhüllen auf und verteilen Sie sie an verschiedene Orte. Einige Beispiele für Orte könnten sein: ",
+              "bulletList": [
+                "Heime Ihrer Familienmitglieder oder Ihrer Freunde",
+                "Geheimes Versteck",
+                "Bankschließfach"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "importWallet": {
+      "title": "Wallet importieren",
+      "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Klicken Sie im Hauptmenü Ihres X1 Vault auf \"Wallet erstellen\""
+            },
+            {
+              "title": "Klicken Sie auf \"Von Seed-Phrase wiederherstellen\" auf Ihrem X1 Vault"
+            },
+            {
+              "title": "Geben Sie einen Wallet-Namen auf Ihrem X1 Vault ein",
+              "bulletList": [
+                "Bis zu 15 Zeichen erlaubt",
+                "Es kann alphanumerisch sein"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Stellen Sie sicher, dass der Wallet-Name einzigartig zu anderen Wallet-Namen auf dem Gerät ist"
+                },
+                {
+                  "warning": "Der Wallet-Name kann nach der Setzung nicht mehr geändert werden. Bitte setzen Sie den Namen entsprechend"
+                }
+              ]
+            },
+            {
+              "title": "Bestätigen Sie den Wallet-Namen auf dem X1 Vault"
+            },
+            {
+              "title": "Möchten Sie eine PIN für Ihre Wallet einrichten?",
+              "messageBoxList": [
+                {
+                  "warning": "Die PIN kann nach der Setzung nicht mehr geändert werden. Sie müssen die Wallet löschen und neu erstellen, um die PIN zu ändern"
+                }
+              ]
+            },
+            {
+              "title": "Richten Sie eine PIN auf dem X1 Vault ein",
+              "bulletList": [
+                "Verwenden Sie zwischen 4 und 8 Zeichen",
+                "Die PIN kann alphanumerisch sein"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Stellen Sie sicher, dass Sie eine Sicherung Ihrer PIN machen. Wenn Sie sie verlieren, verlieren Sie den Zugriff auf Ihre Gelder"
+                },
+                {
+                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten"
+                }
+              ]
+            },
+            {
+              "title": "Bestätigen Sie die eingegebene PIN auf dem X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Merken Sie sich Ihre PIN. Wenn Sie sie verlieren, verlieren Sie den Zugriff auf Ihre Gelder. Selbst Cypherock kann Ihnen nicht helfen, Ihre Assets wiederherzustellen"
+                },
+                {
+                  "warning": "Sichern Sie sie an einem sicheren Ort"
+                },
+                {
+                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "X1 Cards synchronisieren",
+          "pages": [
+            {
+              "title": "Zählen Sie die Anzahl der Wörter der Seed-Phrase, die Sie importieren, und wählen Sie sie auf dem X1 Vault aus"
+            },
+            {
+              "title": "Geben Sie die Seed-Phrase auf dem X1 Vault ein",
+              "messageBoxList": [
+                {
+                  "warning": "Stellen Sie sicher, dass Sie keine Rechtschreibfehler beim Eingeben der Wörter auf dem Gerät machen. Wörter wie \"west\" und \"nest\" sind beim Lesen oft verwirrend und müssen korrekt eingegeben werden"
+                }
+              ]
+            },
+            {
+              "title": "Überprüfen Sie die Seed-Phrase, die Sie auf dem X1 Vault eingegeben haben",
+              "subtitle": "Vergleichen Sie jedes einzelne Wort, um die korrekte Wallet erfolgreich zu importieren"
+            },
+            {
+              "title": "Tippen Sie die X1 Cards nacheinander unter den X1 Vault",
+              "subtitle": "Heben Sie sie nicht an, bis Sie ein Piepsen hören",
+              "messageBoxList": [
+                {
+                  "info": "Stellen Sie sicher, dass Ihre X1 Cards zur gleichen Familie gehören"
+                },
+                {
+                  "info": "Stellen Sie sicher, dass Sie die X1 Cards in der richtigen Reihenfolge tippen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Bestätigung",
+          "pages": [
+            {
+              "title": "Herzlichen Glückwunsch, Ihre Wallet wurde erfolgreich erstellt"
+            },
+            {
+              "title": "Das nächste Mal, wenn Sie eine Transaktion durchführen müssen, holen Sie einfach eine beliebige X1 Card zusammen mit dem X1 Vault"
+            },
+            {
+              "title": "Falls Sie Ihren X1 Vault verlieren, können Sie einen neuen X1 Vault separat kaufen und mit Ihren alten X1 Cards verwenden"
+            },
+            {
+              "title": "Wichtiger Hinweis",
+              "messageBoxList": [
+                {
+                  "warning": "Falls Sie eine weitere Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammen holen. Falls Sie Ihre anderen Wallets in Cypherock X1 importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftige Probleme zu vermeiden"
+                }
+              ]
+            },
+            {
+              "title": "Als nächster Schritt bewahren Sie Ihre X1 Cards sicher in den Kartenhüllen auf und verteilen Sie sie an verschiedene Orte. Einige Beispiele für Orte könnten sein: ",
+              "bulletList": [
+                "Heime Ihrer Familienmitglieder oder Ihrer Freunde",
+                "Geheimes Versteck",
+                "Bankschließfach"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "finalMessage": {
+      "title": "Um Münzen und Token in der Wallet hinzuzufügen, müssen Sie zuerst ein Konto hinzufügen. Stellen Sie sicher, dass Sie den X1 Vault und eine X1 Card zur Hand haben",
+      "buttons": {
+        "secondary": "Überspringen",
+        "primary": "Konto hinzufügen"
+      }
+    },
+    "walletNotCreatedDialog": {
+      "title": "Es scheint, dass Sie noch keine Wallet erstellt haben",
+      "subtitle": "Um ein Konto hinzuzufügen, müssen Sie zuerst eine Wallet erstellen",
+      "buttons": {
+        "secondary": "Ich mache es später",
+        "primary": "Wallet erstellen"
+      }
+    },
+    "closeDialog": {
+      "title": "Sind Sie sicher, dass Sie beenden möchten?",
+      "subtitle": "Sie können diese Anleitung jederzeit starten, indem Sie unter dem Reiter \"Wallets\" auf \"Wallet hinzufügen\" klicken",
+      "buttons": {
+        "secondary": "Abbrechen",
+        "primary": "Beenden"
+      }
+    }
+  },
+  "dialogs": {
+    "close": {
+      "title": "Sind Sie sicher, dass Sie beenden möchten?"
+    },
+    "reset": {
+      "confim": {
+        "title": "Sind Sie sicher, dass Sie die CySync App zurücksetzen möchten?",
+        "subTitle": "Dies wird alle Ihre Daten in Ihrer CySync App löschen. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt"
+      }
+    },
+    "releaseNote": {
+      "title": "Versionshinweise"
+    },
+    "auth": {
+      "title": "Folgen Sie den Anweisungen auf der X1 Vault",
+      "email2fa": {
+        "title": "Es wird empfohlen, eine E-Mail-ID als 2FA einzugeben, um Authentizitätsergebnisse zu erhalten",
+        "emailInput": "E-Mail"
+      },
+      "authX1Vault": {
+        "description": "Ihr Gerät wird jetzt authentifiziert",
+        "info": "Trennen Sie das Gerät nicht, während es authentifiziert wird",
+        "steps": {
+          "confirm": "Bestätigen Sie die Authentifizierung auf dem Gerät"
+        },
+        "success": "Ihre X1 Vault wurde erfolgreich authentifiziert",
+        "authenticating": {
+          "title": "Bitte warten Sie, während Ihre X1 Vault authentifiziert wird",
+          "description": "Trennen Sie Ihre X1 Vault nicht, während der Vorgang durchgeführt wird"
+        }
+      },
+      "authX1Card": {
+        "description": "Ihre Karte wird jetzt authentifiziert",
+        "info": "Trennen Sie das Gerät nicht, während die Karte authentifiziert wird",
+        "steps": {
+          "confirm": "Bestätigen Sie die Kartenauthentifizierung auf dem Gerät",
+          "tapCard": "Tippen Sie eine beliebige Karte unter das Gerät"
+        },
+        "success": "Ihre X1 Card wurde erfolgreich authentifiziert"
+      }
+    },
+    "password": {
+      "input": {
+        "enterPassword": "Passwort eingeben",
+        "oldPassword": "Altes Passwort",
+        "newPassword": "Neues Passwort",
+        "confirmPassword": "Passwort bestätigen"
+      },
+      "error": {
+        "mismatchError": "Passwort stimmt nicht überein",
+        "lengthError": "Passwortlänge sollte mehr als 8 Zeichen betragen",
+        "failedToSet": "Fehler beim Festlegen des Passworts"
+      },
+      "success": {
+        "change": "Passwort erfolgreich geändert",
+        "set": "Passwort erfolgreich festgelegt",
+        "remove": "Passwort erfolgreich entfernt"
+      },
+      "info": {
+        "constraints": "Verwenden Sie 8 oder mehr Zeichen mit einer Mischung aus Buchstaben, Zahlen und Symbolen"
+      },
+      "confimPassword": {
+        "title": "Bestätigen Sie das Passwort, um fortzufahren",
+        "subTitle": "Geben Sie das Passwort ein, um fortzufahren"
+      },
+      "createNewPassword": {
+        "title": "Setzen Sie Ihr CySync-Passwort",
+        "subTitle": "Wir speichern Ihr Passwort nicht auf unseren Servern"
+      }
+    },
+    "contactSupport": {
+      "form": {
+        "header": "Support kontaktieren",
+        "title": "Wie können wir helfen?",
+        "description": "Unser Team würde gerne von Ihnen hören",
+        "field": {
+          "email": {
+            "label": "E-Mail",
+            "placeholder": "Ihre E-Mail"
+          },
+          "category": {
+            "label": "Kategorie",
+            "placeholder": "Kategorie auswählen"
+          },
+          "description": {
+            "label": "Beschreibung",
+            "placeholder": "Beschreiben Sie Ihr Problem hier"
+          }
+        },
+        "checks": {
+          "attachAppLogs": "Anwendungsprotokolle anhängen",
+          "attachDeviceLogs": "Geräteprotokolle anhängen",
+          "confirmDevice": "Bitte bestätigen Sie auf dem Gerät, um fortzufahren",
+          "fetchingDeviceLogs": "Protokolle vom Gerät werden abgerufen",
+          "attachedDeviceLogs": "Geräteprotokolle erfolgreich angehängt"
+        },
+        "errors": {
+          "connectDevice": "Verbinden Sie das Gerät, um Geräteprotokolle anzuhängen",
+          "bootloaderMode": "Gerät befindet sich im Bootloader-Modus"
+        }
+      },
+      "success": {
+        "formSubmit": "Support-Formular erfolgreich eingereicht"
+      }
+    },
+    "betaNotification": {
+      "title": "CySync Update v2.0.0",
+      "description": "Wir haben eine umfassende Überarbeitung der CySync App vorgenommen.\nDie neue CySync kommt mit all Ihren Lieblingsfunktionen und noch viel mehr.\nHerunterladen von <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Wichtig**\n\n* Sie verlieren keine Gelder\n* Nach dem Update müssen Sie Ihre Konten erneut importieren\n* Keine neuen Updates für CySync v1 außer Sicherheitsupdates\n"
+    }
+  },
+  "snackbar": {
+    "copiedToClipboard": "In die Zwischenablage kopiert",
+    "downloadCSV": "Transaktionshistorie exportiert"
+  },
+  "settings": {
+    "tabs": {
+      "general": {
+        "title": "Allgemein",
+        "item": {
+          "syncMobile": {
+            "title": "Synchronisieren Sie die cySync Mobile App",
+            "description": "Synchronisieren Sie Ihre Konten mit der cySync Mobile App über einen QR-Code"
+          },
+          "editAccount": {
+            "title": "Konten bearbeiten",
+            "description": "Bearbeiten Sie den Namen, die bevorzugte Währung des Kontos oder entfernen Sie sie aus dem Portfolio"
+          },
+          "toggleWalletOnPortfolio": {
+            "title": "Brieftaschen im Portfolio anzeigen/ausblenden",
+            "description": "Sie können hier eine bestimmte Brieftasche deaktivieren. Sie wird auf der Portfolio-Seite nicht angezeigt"
+          },
+          "currency": {
+            "title": "Bevorzugte Währung",
+            "description": "Wählen Sie die Währung, die neben Ihrem Kontostand und Ihren Transaktionen angezeigt wird"
+          },
+          "language": {
+            "title": "Anzeigesprache",
+            "description": "Legen Sie die Sprache für die cySync App fest"
+          },
+          "region": {
+            "title": "Region",
+            "description": "Wählen Sie Ihre Region, um die Formate von Datum und Uhrzeit zu aktualisieren"
+          }
+        }
+      },
+      "app": {
+        "title": "App-Einstellungen",
+        "item": {
+          "password": {
+            "title": "Passwort",
+            "description": "Ändern oder aktivieren/deaktivieren Sie das Passwort für Ihre cySync App"
+          },
+          "anayticsAndBugReport": {
+            "title": "Analysen & Fehlerbericht",
+            "description": "Aktivieren Sie Analysen und Fehlerberichte, um Cypherock zu helfen, die Benutzererfahrung zu verbessern und Ihre Probleme schneller zu lösen. Dies umfasst Klicks, Seitenbesuche, Weiterleitungen, Aktionen (senden, empfangen, sperren usw.), Endes-der-Seite-Scrolls, (De-) Installation und App-Version, Anzahl der Konten, Krypto-Assets und Transaktionen, Sitzungsdauern, der Cypherock-Gerätetyp und die Firmware"
+          },
+          "reset": {
+            "title": "cySync zurücksetzen",
+            "description": "Löschen Sie alle auf Ihrem PC gespeicherten cySync-Daten, einschließlich Ihrer Konten, Transaktionsverläufe und Einstellungen. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt"
+          },
+          "update": {
+            "title": "cySync-Update",
+            "description": "Laden Sie das cySync-Update automatisch herunter, wenn es verfügbar ist"
+          },
+          "usb": {
+            "title": "USB-Diagnose",
+            "description": "Fehlerbehebung bei der USB-Verbindung mit dem Gerät"
+          }
+        }
+      },
+      "device": {
+        "title": "Geräteeinstellungen",
+        "item": {
+          "x1VaultAuth": {
+            "title": "X1 Vault-Authentifizierung",
+            "description": "Authentifizieren Sie Ihr Gerät"
+          },
+          "x1CardAuth": {
+            "title": "X1 Card-Authentifizierung",
+            "description": "Authentifizieren Sie Ihre Karte"
+          },
+          "transferWallet": {
+            "title": "Wallet übertragen",
+            "description": "Falls Sie jemals eine Cypherock X1 hatten und Ihre Wallets mit Ihren Karten übertragen möchten, falls Sie es verloren haben oder aus irgendeinem Grund"
+          }
+        }
+      },
+      "about": {
+        "title": "Über",
+        "item": {
+          "cySyncVersion": {
+            "title": "cySync-Version",
+            "description": "Version ${version}"
+          },
+          "termsOfUse": {
+            "title": "Nutzungsbedingungen",
+            "description": "Durch die Nutzung von cySync stimmen Sie unseren Nutzungsbedingungen zu"
+          },
+          "privacyPolicy": {
+            "title": "Datenschutz-Bestimmungen",
+            "description": "Lesen Sie unsere Datenschutz-Bestimmungen, um zu erfahren, welche personenbezogenen Daten wir erfassen, warum und wie wir sie verwenden"
+          }
+        }
+      }
+    }
+  }
+}

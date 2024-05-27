@@ -9,8 +9,9 @@ import {
   coingeckoPlatformReverseMapping,
   getCoingeckoCoinDetails,
 } from './coingecko';
-import { config } from './config';
 import { Erc20ListItem, getERC20TokenDifference } from './diff';
+
+import { config } from '../config';
 
 const MAX_RETRIES = 3;
 const SLEEP_TIME = 10000;

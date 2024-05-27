@@ -29,6 +29,7 @@ const packages = {
   'packages/db-interfaces': [...commonFolders],
   'packages/cysync-core': [...commonFolders, 'src/generated'],
   'packages/cysync-core-workers': [...commonFolders, 'lib', 'parcel'],
+  'packages/cysync-core-constants': [...commonFolders],
   'packages/interfaces': [...commonFolders],
   'packages/utils': [...commonFolders],
   'packages/cysync-automation-scripts': [...commonFolders],

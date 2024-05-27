@@ -9,9 +9,9 @@ const positionAbsolute = css`
 `;
 
 export const DropDownListContainer = styled.div<
-  UtilsProps & { isSelfPositioned?: boolean }
+  UtilsProps & { $isSelfPositioned?: boolean }
 >`
-  ${({ isSelfPositioned }) => !isSelfPositioned && positionAbsolute}
+  ${({ $isSelfPositioned }) => !$isSelfPositioned && positionAbsolute}
   width: 100%;
   list-style: none;
   border-radius: 8px;
