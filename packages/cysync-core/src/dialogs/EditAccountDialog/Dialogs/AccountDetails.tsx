@@ -9,7 +9,6 @@ import {
   DialogBoxFooter,
   DialogBoxHeader,
   Divider,
-  Dropdown,
   EditAccountIcon,
   Flex,
   Input,
@@ -20,11 +19,10 @@ import {
   Typography,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { openDeleteAccountDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
-import logger from '~/utils/logger';
 
 import { useEditAccountDialog } from '../context';
 
@@ -38,25 +36,25 @@ export const AccountDetails: React.FC = () => {
     selectedWallet,
     accountName,
     setAccountName,
-    unitDropdownList,
-    selectedUnit,
-    setSelectedUnit,
+    // unitDropdownList,
+    // selectedUnit,
+    // setSelectedUnit,
   } = useEditAccountDialog();
 
   const { accountEdit, header: headerText } = lang.strings.dialogs.editAccount;
   const [showAdvance, setShowAdvance] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleUnitChangeProxy: typeof setSelectedUnit = useCallback(
-    (...args) => {
-      logger.info('Dropdown Change: Unit Change', {
-        source: `EditAccount/${AccountDetails.name}`,
-        unit: args[0],
-      });
-      return setSelectedUnit(...args);
-    },
-    [setSelectedUnit],
-  );
+  // const handleUnitChangeProxy: typeof setSelectedUnit = useCallback(
+  //   (...args) => {
+  //     logger.info('Dropdown Change: Unit Change', {
+  //       source: `EditAccount/${AccountDetails.name}`,
+  //       unit: args[0],
+  //     });
+  //     return setSelectedUnit(...args);
+  //   },
+  //   [setSelectedUnit],
+  // );
 
   const accountData = useMemo(
     () => ({
@@ -139,7 +137,7 @@ export const AccountDetails: React.FC = () => {
             </Flex>
           </Flex>
           <Divider variant="horizontal" />
-          <Flex
+          {/* <Flex
             gap={4}
             pt="12px"
             pb="12px"
@@ -160,7 +158,7 @@ export const AccountDetails: React.FC = () => {
               />
             </Flex>
           </Flex>
-          <Divider variant="horizontal" />
+          <Divider variant="horizontal" /> */}
           <Container
             display="flex"
             direction="column"
@@ -189,11 +187,7 @@ export const AccountDetails: React.FC = () => {
                 />
                 <ScrollContainer $bgColor="container" p={2} $maxHeight="210px">
                   <Typography variant="span" color="muted" $fontSize={13}>
-                    <JsonView
-                      src={accountData}
-                      iconStyle="triangle"
-                      enableClipboard
-                    />
+                    <JsonView src={accountData} iconStyle="triangle" />
                   </Typography>
                 </ScrollContainer>
               </>
