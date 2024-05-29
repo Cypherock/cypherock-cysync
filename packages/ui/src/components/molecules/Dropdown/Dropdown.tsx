@@ -40,6 +40,7 @@ interface DropdownProps {
   disabled?: boolean;
   tabIndex?: number;
   autoFocus?: boolean;
+  noVirtualization?: boolean;
 }
 
 interface SingleSelectDropdownProps extends DropdownProps {
@@ -65,6 +66,7 @@ export const Dropdown: React.FC<
   leftImage,
   tabIndex,
   autoFocus,
+  noVirtualization,
   ...props
 }) => {
   const [search, setSearch] = useState('');
@@ -377,29 +379,38 @@ export const Dropdown: React.FC<
         )}
       </IconContainer>
 
-      {isOpen && filteredItems.length > 0 && (
-        <DropDownListContainer
-          ref={listRef}
-          height={baseHeight * Math.min(filteredItems.length, 4) + 32}
-          $maxHeight={244}
-          $cursor={disabled ? 'not-allowed' : 'default'}
-        >
-          <Virtualize.AutoSizer style={{ width: '100%' }}>
-            {({ width, height }: any) => (
-              <Virtualize.List
-                height={height}
-                width={width}
-                rowCount={filteredItems.length}
-                rowHeight={baseHeight}
-                rowRenderer={rowRenderer}
-                scrollToIndex={focusedIndex}
-                overscanRowCount={10}
-                style={{ outline: 'none' }}
-              />
-            )}
-          </Virtualize.AutoSizer>
-        </DropDownListContainer>
-      )}
+      {isOpen &&
+        filteredItems.length > 0 &&
+        (noVirtualization ? (
+          <DropDownListContainer
+            ref={listRef}
+            $cursor={disabled ? 'not-allowed' : 'default'}
+          >
+            {filteredItems.map((_, index) => rowRenderer({ index }))}
+          </DropDownListContainer>
+        ) : (
+          <DropDownListContainer
+            ref={listRef}
+            height={baseHeight * Math.min(filteredItems.length, 4) + 32}
+            $maxHeight={244}
+            $cursor={disabled ? 'not-allowed' : 'default'}
+          >
+            <Virtualize.AutoSizer style={{ width: '100%' }}>
+              {({ width, height }: any) => (
+                <Virtualize.List
+                  height={height}
+                  width={width}
+                  rowCount={filteredItems.length}
+                  rowHeight={baseHeight}
+                  rowRenderer={rowRenderer}
+                  scrollToIndex={focusedIndex}
+                  overscanRowCount={10}
+                  style={{ outline: 'none' }}
+                />
+              )}
+            </Virtualize.AutoSizer>
+          </DropDownListContainer>
+        ))}
 
       {isOpen && filteredItems.length === 0 && (
         <DropDownListContainer $cursor="default">

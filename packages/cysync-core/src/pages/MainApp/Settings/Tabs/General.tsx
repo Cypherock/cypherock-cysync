@@ -1,15 +1,31 @@
+import { getDefaultLang, LanguageList } from '@cypherock/cysync-core-constants';
 import { Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { openEditAccountDialog } from '~/actions';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  setLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
+import { keyValueStore } from '~/utils';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { strings } = useAppSelector(selectLanguage);
+  const { strings, lang } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
+
+  const onLangChange = useCallback(
+    async (id?: string) => {
+      const langId = (id as any) ?? getDefaultLang();
+      await keyValueStore.appLanguage.set(langId);
+      dispatch(setLanguage(langId));
+    },
+    [dispatch],
+  );
 
   return (
     <>
@@ -60,17 +76,19 @@ export const GeneralSettings: React.FC = () => {
       >
         <Flex width={300}>
           <Dropdown
-            items={[
-              { text: 'English', id: 'en' },
-              { text: 'Hindi (India)', id: 'hi' },
-            ]}
+            items={LanguageList.map(l => ({
+              text: l.name,
+              id: l.id,
+            }))}
+            onChange={onLangChange}
             searchText="Search Language"
             placeholderText="Select Language"
-            selectedItem="en"
+            selectedItem={lang}
+            noVirtualization
           />
         </Flex>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.region.title }}
         description={{ text: item.region.description }}
       >
@@ -87,7 +105,7 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="in"
           />
         </Flex>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };

@@ -38,7 +38,8 @@
     "fix:hashbang": "bash scripts/hashBangFix.sh",
     "erc20-diff": "turbo run erc20-diff --no-daemon",
     "gen-erc20-list": "turbo run gen-erc20-list --no-daemon",
-    "download-erc20-images": "turbo run download-erc20-images --no-daemon"
+    "download-erc20-images": "turbo run download-erc20-images --no-daemon",
+    "gen-translations": "turbo run gen-translations --no-daemon"
   },
   "keywords": [],
   "license": "AGPL-3.0",
