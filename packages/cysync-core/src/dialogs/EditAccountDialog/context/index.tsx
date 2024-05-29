@@ -6,6 +6,7 @@ import React, {
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -46,7 +47,7 @@ export interface EditAccountDialogContextInterface {
   accountDropdownList: DropDownItemProps[];
   handleAccountChange: (id?: string | undefined) => void;
   accountName: string;
-  setAccountName: React.Dispatch<React.SetStateAction<string>>;
+  handleAccountNameChange: React.Dispatch<React.SetStateAction<string>>;
   onApply: () => void;
   unitDropdownList: DropDownItemProps[];
   setSelectedUnit: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -134,8 +135,13 @@ export const EditAccountDialogProvider: FC<
     selectedAccount?.unit,
   );
 
+  const handleAccountNameChange: typeof setAccountName = useCallback(name => {
+    if (name.length > 20) return;
+    setAccountName(name);
+  }, []);
+
   useEffect(() => {
-    setAccountName(selectedAccount?.name ?? '');
+    handleAccountNameChange(selectedAccount?.name ?? '');
     setSelectedUnit(selectedAccount?.unit);
   }, [selectedAccount]);
 
@@ -182,7 +188,7 @@ export const EditAccountDialogProvider: FC<
       accountDropdownList,
       walletDropdownList,
       accountName,
-      setAccountName,
+      handleAccountNameChange,
       onApply,
       unitDropdownList,
       selectedUnit,
@@ -206,7 +212,7 @@ export const EditAccountDialogProvider: FC<
       accountDropdownList,
       walletDropdownList,
       accountName,
-      setAccountName,
+      handleAccountNameChange,
       onApply,
       unitDropdownList,
       selectedUnit,
