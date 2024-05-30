@@ -143,7 +143,7 @@ jobs:
           retention-days: 1
 
   build-win:
-    runs-on: windows-latest
+    runs-on: win-cy
     needs: [integrity-check]
 
     strategy:
@@ -173,7 +173,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Fix hashBang in pnpm.cjs
-        run: pnpm fix:hashbang "C:\Users\runneradmin\setup-pnpm\node_modules\.pnpm\pnpm@$(pnpm --version)\node_modules\pnpm\bin\pnpm.cjs"
+        env:
+          WINDOWS_USERNAME: ${{ secrets.WINDOWS_USERNAME }}
+          IS_CI: "true"
+        run: pnpm fix:hashbang
 
       - name: pnpm install
         run: pnpm install
@@ -192,17 +195,9 @@ jobs:
       - name: Prebuild config
         run: node scripts/prebuild.js
 
-      # - name: Windows Certificate Config
-      #   id: write_file
-      #   uses: timheuer/base64-to-file@v1
-      #   with:
-      #     fileName: 'win-certificate.pfx'
-      #     encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
-
       - name: Build
-        # env:
-        #   WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-        #   WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+        env:
+          WINDOWS_CERT_SUBJECT: ${{ secrets.WINDOWS_CERT_SUBJECT }}
         run: pnpm make
 
       - uses: actions/upload-artifact@v3

@@ -1,3 +1,2 @@
+export * from '@cypherock/cysync-core-constants';
 export * from './routes';
-export * from './i18n';
-export * from './constants';

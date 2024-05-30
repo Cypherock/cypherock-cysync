@@ -1,3 +1,22 @@
+# v2.0.5
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue due to missing tokens
+
+# v2.0.4
+
+### 🚀 Features
+
+- "Add token" button to quickly add ERC-20 tokens from the list of 9000+ supported tokens.
+- Download transaction history as CSV
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Various minor bug fixes
+- Improved error reporting
+
 # v2.0.3
 
 ### 🐛 Bugfixes
