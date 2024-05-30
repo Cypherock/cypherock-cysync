@@ -14,6 +14,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { LanguageDropdown } from '~/components';
 import { constants } from '~/constants';
 import {
   openSnackBar,
@@ -55,7 +56,18 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
       justify="center"
       align="center"
       $bgColor="contentGradient"
+      position="relative"
     >
+      <Container
+        position="absolute"
+        top={0}
+        left="50%"
+        $translateX={-0.5}
+        pt={2}
+        $zIndex={10}
+      >
+        <LanguageDropdown $fontSize={16} />
+      </Container>
       <DialogBox width={500}>
         <DialogBoxBody>
           <Image rotate={90} src={usbIcon} alt="Usb Icon" />
@@ -98,7 +110,7 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
             </Container>
 
             <CheckBox
-              flexProps={{ align: 'stretch' }}
+              flexProps={{ align: 'center' }}
               checked={isChecked}
               onChange={() => setIsChecked(!isChecked)}
               id="permission_setup_checkbox"

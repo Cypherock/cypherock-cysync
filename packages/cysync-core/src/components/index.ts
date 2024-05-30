@@ -17,3 +17,4 @@ export * from './Notification';
 export * from './Graph';
 export * from './DeviceAuthenticating';
 export * from './BetaNotificationBar';
+export * from './LangDropdown';

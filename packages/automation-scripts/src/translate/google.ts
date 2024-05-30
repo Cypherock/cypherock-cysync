@@ -1,6 +1,7 @@
+import fs from 'fs';
+
 import { sleep } from '@cypherock/cysync-utils';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import fs from 'fs';
 
 const getGoogleAPIKey = () => {
   if (!process.env.GOOGLE_API_KEY) {

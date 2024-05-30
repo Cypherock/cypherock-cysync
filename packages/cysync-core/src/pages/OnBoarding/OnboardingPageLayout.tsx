@@ -9,6 +9,7 @@ import {
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import { openContactSupportDialog } from '~/actions';
+import { LanguageDropdown } from '~/components';
 import { useNavigateTo, useOnboardingCheckpoint } from '~/hooks';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
@@ -49,11 +50,11 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   }, []);
 
   const parseHeaderProps = () => {
-    let headerProps: DialogBoxBackgroundBarProps | undefined;
+    const headerProps: DialogBoxBackgroundBarProps = {
+      leftComponent: <LanguageDropdown />,
+    };
 
     if (withHelp || withEmail) {
-      headerProps = {};
-
       if (withHelp) {
         headerProps.rightComponent = (
           <HelpButton

@@ -1,14 +1,9 @@
-import { getDefaultLang, LanguageList } from '@cypherock/cysync-core-constants';
+import { LanguageList } from '@cypherock/cysync-core-constants';
 import { Dropdown, Flex } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
-import {
-  selectLanguage,
-  setLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
-import { keyValueStore } from '~/utils';
+import { setAppLanguage } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsStandardItem } from '../components';
 
@@ -18,10 +13,8 @@ export const GeneralSettings: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const onLangChange = useCallback(
-    async (id?: string) => {
-      const langId = (id as any) ?? getDefaultLang();
-      await keyValueStore.appLanguage.set(langId);
-      dispatch(setLanguage(langId));
+    (id?: string) => {
+      dispatch(setAppLanguage(id));
     },
     [dispatch],
   );
