@@ -20,7 +20,7 @@ import {
   Typography,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { openDeleteAccountDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
@@ -65,13 +65,6 @@ export const AccountDetails: React.FC = () => {
     }),
     [selectedAccount],
   );
-
-  const accountNameInputRef = React.useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    if (accountNameInputRef.current) {
-      accountNameInputRef.current.focus();
-    }
-  }, [accountNameInputRef]);
 
   return (
     <DialogBox width={700} onClose={onClose} $maxHeight="90vh">
@@ -135,7 +128,7 @@ export const AccountDetails: React.FC = () => {
               </Typography>
               <Flex width={292}>
                 <Input
-                  ref={accountNameInputRef}
+                  autoFocus
                   type="text"
                   name="accountName"
                   value={accountName}
