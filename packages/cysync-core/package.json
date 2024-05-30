@@ -71,6 +71,7 @@
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
+    "@cypherock/cysync-core-constants": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-core-workers": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",

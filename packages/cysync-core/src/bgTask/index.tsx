@@ -6,6 +6,7 @@ import { DeviceHandlingTask } from './deviceHandlingTask';
 import { NetworkPingTask } from './networkTask';
 import { NotificationSyncTask } from './notificationSync';
 import { PriceSyncTask } from './pricesSync';
+import { VersionSyncTask } from './versionSync';
 import { WalletSyncTask } from './walletSyncTask';
 
 export const BackgroundTasks = () => (
@@ -17,5 +18,6 @@ export const BackgroundTasks = () => (
     <DeviceHandlingTask />
     <NetworkPingTask />
     <NotificationSyncTask />
+    <VersionSyncTask />
   </>
 );

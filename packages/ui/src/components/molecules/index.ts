@@ -14,6 +14,7 @@ export * from './DropDownItem';
 export * from './Dropdown';
 export * from './Filter';
 export * from './FloatContainer';
+export * from './FloatingMenu';
 export * from './FullPageLoader';
 export * from './GoldenArrowList';
 export * from './Graph';

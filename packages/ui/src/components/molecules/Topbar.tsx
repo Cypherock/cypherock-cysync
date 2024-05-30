@@ -122,7 +122,7 @@ export const Topbar: FC<TopbarProps> = ({
   return (
     <Container
       px={{ def: 4, mdlg: 5 }}
-      pt={{ def: '8', mdlg: '50' }}
+      pt={{ def: '8', mdlg: 3 }}
       pb={{ def: '8', mdlg: '10' }}
       $bgColor="contentGradient"
       $borderWidthB={1}
