@@ -1426,39 +1426,39 @@
       "description": "Wir haben eine umfassende Überarbeitung der CySync App vorgenommen.\nDie neue CySync kommt mit all Ihren Lieblingsfunktionen und noch viel mehr.\nHerunterladen von <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Wichtig**\n\n* Sie verlieren keine Gelder\n* Nach dem Update müssen Sie Ihre Konten erneut importieren\n* Keine neuen Updates für CySync v1 außer Sicherheitsupdates\n"
     },
     "editAccount": {
-      "header": "",
+      "header": "Edit Account",
       "accountSelection": {
-        "title": "",
-        "subtitle": "",
-        "searchText": "",
-        "accountPlaceholder": "",
-        "walletPlaceholder": ""
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
       },
       "accountEdit": {
-        "title": "",
-        "subtitle": "",
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
         "input": {
           "accountName": {
-            "title": "",
-            "subtitle": ""
+            "title": "Account Name",
+            "subtitle": "Description of the account"
           },
           "unit": {
-            "title": "",
-            "subtitle": ""
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
           }
         },
         "buttons": {
-          "remove": "",
-          "apply": ""
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
         },
-        "info": "",
-        "advanced": ""
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
       }
     }
   },
   "snackbar": {
     "copiedToClipboard": "In die Zwischenablage kopiert",
-    "accountUpdated": "",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "Transaktionshistorie exportiert"
   },
   "settings": {

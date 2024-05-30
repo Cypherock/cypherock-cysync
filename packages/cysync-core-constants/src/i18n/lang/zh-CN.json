@@ -1401,39 +1401,39 @@
       "description": "我们对 CySync 应用程序进行了重大改进。\n新版本 CySync 提供了您所有喜欢的功能和更多内容。\n从 <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a> 下载\n\n**重要**\n\n* 您不会丢失资金\n* 更新后，您需要再次导入账户\n* 除安全更新外，CySync v1 不再有新的更新\n"
     },
     "editAccount": {
-      "header": "",
+      "header": "Edit Account",
       "accountSelection": {
-        "title": "",
-        "subtitle": "",
-        "searchText": "",
-        "accountPlaceholder": "",
-        "walletPlaceholder": ""
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
       },
       "accountEdit": {
-        "title": "",
-        "subtitle": "",
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
         "input": {
           "accountName": {
-            "title": "",
-            "subtitle": ""
+            "title": "Account Name",
+            "subtitle": "Description of the account"
           },
           "unit": {
-            "title": "",
-            "subtitle": ""
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
           }
         },
         "buttons": {
-          "remove": "",
-          "apply": ""
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
         },
-        "info": "",
-        "advanced": ""
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
       }
     }
   },
   "snackbar": {
     "copiedToClipboard": "已复制到剪贴板",
-    "accountUpdated": "",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "交易历史已导出"
   },
   "settings": {

@@ -1423,39 +1423,39 @@
       "description": "قمنا بتجديد ضخم لتطبيق CySync.\nيأتي CySync الجديد مع جميع ميزاتك المفضلة والمزيد.\nقم بالتنزيل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**مهم**\n\n* لن تفقد أموالك\n* بعد التحديث، ستحتاج إلى استيراد حساباتك مرة أخرى\n* لا توجد تحديثات جديدة لـ CySync v1 باستثناء تحديثات الأمان\n"
     },
     "editAccount": {
-      "header": "",
+      "header": "Edit Account",
       "accountSelection": {
-        "title": "",
-        "subtitle": "",
-        "searchText": "",
-        "accountPlaceholder": "",
-        "walletPlaceholder": ""
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
       },
       "accountEdit": {
-        "title": "",
-        "subtitle": "",
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
         "input": {
           "accountName": {
-            "title": "",
-            "subtitle": ""
+            "title": "Account Name",
+            "subtitle": "Description of the account"
           },
           "unit": {
-            "title": "",
-            "subtitle": ""
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
           }
         },
         "buttons": {
-          "remove": "",
-          "apply": ""
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
         },
-        "info": "",
-        "advanced": ""
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
       }
     }
   },
   "snackbar": {
     "copiedToClipboard": "تم النسخ إلى الحافظة",
-    "accountUpdated": "",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "تم تصدير سجل المعاملات"
   },
   "settings": {

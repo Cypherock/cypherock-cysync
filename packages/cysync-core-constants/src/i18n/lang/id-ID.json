@@ -1419,33 +1419,33 @@
       "description": "Kami telah melakukan perombakan besar-besaran pada aplikasi CySync.\nCySync baru hadir dengan semua fitur favorit Anda dan banyak lagi.\nUnduh dari <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana\n* Setelah pembaruan, Anda harus mengimpor akun Anda kembali\n* Tidak ada pembaruan baru untuk CySync v1 kecuali pembaruan keamanan\n"
     },
     "editAccount": {
-      "header": "",
+      "header": "Edit Account",
       "accountSelection": {
-        "title": "",
-        "subtitle": "",
-        "searchText": "",
-        "accountPlaceholder": "",
-        "walletPlaceholder": ""
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
       },
       "accountEdit": {
-        "title": "",
-        "subtitle": "",
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
         "input": {
           "accountName": {
-            "title": "",
-            "subtitle": ""
+            "title": "Account Name",
+            "subtitle": "Description of the account"
           },
           "unit": {
-            "title": "",
-            "subtitle": ""
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
           }
         },
         "buttons": {
-          "remove": "",
-          "apply": ""
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
         },
-        "info": "",
-        "advanced": ""
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
       }
     }
   },
@@ -1455,7 +1455,7 @@
   },
   "snackbar": {
     "copiedToClipboard": "Disalin ke clipboard",
-    "accountUpdated": "",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "Riwayat transaksi diekspor"
   },
   "settings": {
