@@ -26,6 +26,7 @@ import { getDB } from '~/utils';
 
 import { EditAccountDialogProps } from '..';
 import { AccountDetails, AccountSelection } from '../Dialogs';
+import { updateAccount } from '@cypherock/coin-support-utils';
 
 export interface EditAccountDialogContextInterface {
   tabs: ITabs;
@@ -150,15 +151,13 @@ export const EditAccountDialogProvider: FC<
   };
 
   const onApply = async () => {
-    if (!selectedAccount) return;
+    const id = selectedAccount?.__id;
+    if (!id) return;
     const db = getDB();
-    await db.account.update(
-      { __id: selectedAccount.__id },
-      {
-        name: accountName,
-        unit: selectedUnit,
-      },
-    );
+    updateAccount(db, id, {
+      name: accountName,
+      unit: selectedUnit,
+    });
     dispatch(
       openSnackBar({
         icon: 'check',
