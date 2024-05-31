@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
+    title: 'YES',
     description: 'Description goes here',
   },
 };
