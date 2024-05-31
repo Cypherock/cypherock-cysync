@@ -1,12 +1,12 @@
 {
-  "x1Card": "بطاقة X1",
+  "x1Card": "X1 Card",
   "help": "مساعدة",
   "back": "عودة",
-  "allWallets": "جميع المحافظ",
+  "allWallets": "جميع Wallets",
   "buttons": {
-    "addWallet": "إضافة محفظة",
+    "addWallet": "إضافة Wallets",
     "addAccount": "إضافة حساب",
-    "syncWallets": "مزامنة المحافظ",
+    "syncWallets": "مزامنة Wallets",
     "addToken": "إضافة رمز مميز",
     "reverify": "إعادة التحقق",
     "continue": "متابعة",
@@ -62,8 +62,8 @@
     "sameOldAndNewPassword": "لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور القديمة",
     "button": "فتح القفل",
     "forgotPasswordDialog": {
-      "title": "سوف يؤدي إعادة تعيين كلمة المرور إلى إعادة تعيين تطبيق cySync الخاص بك هل تريد المتابعة؟",
-      "subtext": "سوف يؤدي ذلك إلى مسح جميع بياناتك على تطبيق cySync الخاص بك. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
+      "title": "سوف يؤدي إعادة تعيين كلمة المرور إلى إعادة تعيين cySync app الخاص بك هل تريد المتابعة؟",
+      "subtext": "سيؤدي هذا إلى محو جميع بياناتك الموجودة على cySync app. لاحظ أن هذا لن يؤدي إلى خسارة الأصول"
     }
   },
   "permissionSetup": {
@@ -76,7 +76,7 @@
     "select": {
       "header": "اختر المحفظة والعملة التي تريد إضافتها",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر محفظة",
+      "walletPlaceholder": "اختر wallet",
       "coinPlaceholder": "اختر عملة"
     },
     "deviceActions": {
@@ -85,7 +85,7 @@
       "walletName": "${walletName}",
       "actions": {
         "verifyCoin": "تحقق من العملات على الجهاز",
-        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPassphrase": "أدخل passphrase",
         "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       }
@@ -98,13 +98,13 @@
       "accountsNotSynced": "لم يتم مزامنة الحساب بعد (${count})",
       "deselectAllButton": "إلغاء تحديد الكل",
       "selectAllButton": "تحديد الكل",
-      "accountsInPortfolio": "الحسابات الموجودة بالفعل في المحفظة (${count})",
+      "accountsInPortfolio": "الحسابات الموجودة بالفعل في portfolio (${count})",
       "addAccountButton": "أضف الحسابات",
       "resyncButton": "إعادة المزامنة"
     },
     "congrats": {
       "header": "أضف عملة/حساب",
-      "subtext": "أضف حسابات أخرى أو عد إلى المحفظة",
+      "subtext": "أضف حسابات أخرى أو ارجع إلى portfolio",
       "title": "تمت إضافة الحسابات بنجاح",
       "buttonAddMore": "أضف المزيد"
     },
@@ -121,14 +121,14 @@
     "select": {
       "header": "حدد المحفظة والحسابات والرموز المميزة التي تريد إضافتها",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر المحفظة",
+      "walletPlaceholder": "اختر Wallet",
       "tokenPlaceholder": "اختر الرموز المميزة",
       "accountPlaceholder": "اختر الحسابات",
       "message": "يجب إضافة حساب ${chainName} أولاً للمتابعة بإضافة الرموز المميزة"
     },
     "congrats": {
       "title": "تمت إضافة الرموز المميزة بنجاح",
-      "subtitle": "أضف رموزًا مميزة أخرى أو عد إلى المحفظة",
+      "subtitle": "أضف رموزًا أخرى أو ارجع إلى portfolio",
       "buttonAddMore": "أضف المزيد"
     }
   },
@@ -139,7 +139,7 @@
       "title": "استلام",
       "subtitle": "اختر محفظة وحسابًا ليتم الائتمان",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر محفظة",
+      "walletPlaceholder": "اختر Wallet",
       "accountPlaceholder": "الحساب المراد الائتمان"
     },
     "x1Vault": {
@@ -147,7 +147,7 @@
       "subtitle": "أكد العملية على جهازك لإنهاء",
       "actions": {
         "verifyCoin": "تحقق من اسم الأصل والمحفظة على الجهاز",
-        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPassphrase": "أدخل passphrase",
         "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       }
@@ -219,7 +219,7 @@
       "title": "المصدر",
       "subtitle": "اختر محفظة وحسابًا",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر محفظة",
+      "walletPlaceholder": "اختر Wallet",
       "accountPlaceholder": "الحساب الذي سيتم خصم منه"
     },
     "x1Vault": {
@@ -227,7 +227,7 @@
       "actions": {
         "verifyCoin": "التحقق",
         "verifyDetails": "التحقق من تفاصيل المعاملة على الجهاز",
-        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPassphrase": "أدخل passphrase",
         "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       },
@@ -309,8 +309,8 @@
     "tableHeader": {
       "time": "الوقت",
       "asset": "الأصل",
-      "walletAndAccount": "المحفظة / الحساب",
-      "wallet": "المحفظة",
+      "walletAndAccount": "Wallet / الحساب",
+      "wallet": "Wallet",
       "account": "الحساب",
       "amount": "الكمية",
       "value": "القيمة"
@@ -333,7 +333,7 @@
       "fee": "الرسوم",
       "type": "النوع",
       "status": "الحالة",
-      "wallet": "المحفظة",
+      "wallet": "Wallet",
       "account": "الحساب",
       "asset": "الأصل",
       "sender": "المرسل",
@@ -361,7 +361,7 @@
   "onboarding": {
     "info": {
       "aside": {
-        "title": "مرحبا بكم في تطبيق CySync",
+        "title": "مرحبا بكم في cySync app",
         "subTitle": "بوابة الوصول إلى السيادة الذاتية"
       },
       "dialogBox": {
@@ -371,7 +371,7 @@
           "توفر 10-15 دقائق على الأقل لإعداد محفظتك",
           "اتصال نشط بالإنترنت",
           "ختم العبوة مُقاوم للتلاعب سليم",
-          "لن يطلب منك Cypherock أبدًا عبارة البذور الخاصة بك ولن يطلب منك أبدًا التوقيع على معاملة",
+          "لن تطلب منك Cypherock أبدًا seed phrase ولن تطلب منك أبدًا التوقيع على معاملة",
           "سيتواصل معك Cypherock فقط عبر البريد الإلكتروني من cypherock.com. لا تثق بأي بريد إلكتروني من أي مجال نطاق موقع ويب آخر"
         ]
       }
@@ -383,7 +383,7 @@
       },
       "userExpert": {
         "title": "لقد استخدمت Cypherock X1 من قبل",
-        "note": "اختر هذا الخيار إذا كنت ترغب في نقل محافظك إلى Cypherock X1 جديد. قد يكون ذلك ضروريًا في حالة فقدان X1 Vault أو واحد أو أكثر من بطاقات X1"
+        "note": "اختر هذا الخيار إذا كنت ترغب في نقل محافظك إلى Cypherock X1 جديد. قد يكون ذلك ضروريًا في حالة فقدان X1 Vault أو واحد أو أكثر من X1 Cards"
       }
     },
     "terms": {
@@ -445,24 +445,24 @@
     },
     "cardTraining": {
       "heading": "تعليمات النقر على البطاقة",
-      "title": "انقر على أي بطاقة X1 أسفل X1 Vault لاختبار النقر على البطاقة",
+      "title": "اضغط على أي X1 Card أسفل X1 Vault لاختبار النقر على البطاقة",
       "subtext": "تتواصل بطاقاتك مع الجهاز من خلال NFC المشفر. تأكد من الاحتفاظ بها مُلصقة حتى تسمع صوتًا صوتيًا",
       "error": "فشل النقر على البطاقة"
     },
     "cardAuth": {
       "heading": "مصادقة البطاقة",
-      "title": "انقر على بطاقات X1 واحدة تلو الأخرى أسفل \nX1 Vault حتى تسمع 3 أصوات صوتية",
+      "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault حتى تسمع 3 أصوات صفير",
       "subtext": "ارفع بطاقتك بعد 3 أصوات صوتية"
     },
     "walletActionsDialogBox": {
-      "title": "دعنا ننشئ محفظة قبل المتابعة. تأكد من وجود جميع بطاقات X1 الأربع معك",
+      "title": "دعنا ننشئ محفظة قبل المتابعة. تأكد من وجود جميع X1 Cards الأربع معك",
       "subTitle": "توجد الدروس التعليمية التالية فقط لتوجيهك على جهازك. يمكنك إنشاء محفظة حتى بدون هذه الدروس التعليمية بشكل مستقل على Cypherock X1",
       "createWallet": {
-        "title": "إنشاء محفظة جديدة",
+        "title": "إنشاء wallet جديدة",
         "list": ["إذا اشتريت Cypherock X1 جديدًا وترغب في إعداد محفظة جديدة"]
       },
       "importWallet": {
-        "title": "استيراد محفظتك من عبارة البذور",
+        "title": "قم باستيراد محفظتك من seed phrase",
         "list": [
           "ترغب في استخدام Cypherock X1 كنسخة احتياطية لمحافظك الأخرى",
           "ترغب في نقل أصولك من محافظك الأخرى إلى Cypherock X1",
@@ -488,16 +488,16 @@
         },
         "confirmation": {
           "heading": "تحديث التطبيق",
-          "title": "يتوفر تحديث جديد لتطبيق cySync الخاص بك. قم بتحديث التطبيق إلى الإصدار ${version} للمتابعة",
-          "subtext": "يبدو أن X1 Vault الخاص بك غير متوافق مع تطبيق cySync الحالي. قم بتحديث تطبيق سطح المكتب إلى الإصدار ${version} للمتابعة"
+          "title": "يتوفر تحديث جديد cySync app الخاص بك. قم بتحديث التطبيق إلى الإصدار ${version} للمتابعة",
+          "subtext": "يبدو أن X1 Vault الخاص بك غير متوافق مع cySync app الحالي. قم بتحديث تطبيق سطح المكتب إلى الإصدار ${version} للمتابعة"
         },
         "downloading": {
           "heading": "التحديث...",
-          "subtext": "يرجى الانتظار بينما نقوم بتحديث تطبيق cySync الخاص بك",
+          "subtext": "يرجى الانتظار بينما نقوم بتحديث cySync app الخاص بك",
           "version": "الإصدار ${version}"
         },
         "updateSuccessful": {
-          "heading": "تم تحديث تطبيق cySync بنجاح",
+          "heading": "تم تحديث cySync app بنجاح",
           "subtext": "يرجى الانتظار بينما نقوم بإعادة تشغيل التطبيق لتطبيق أحدث تحديث",
           "bubbleText": "في حالة عدم إعادة تشغيل التطبيق بنفسه، أعد تشغيله يدويًا"
         },
@@ -511,7 +511,7 @@
         "updateFailedFallback": {
           "heading": "فشل تحديث تطبيق cySync إلى الإصدار ${version}",
           "subtext": "قم بتنزيل وإعادة تثبيت تطبيق سطح المكتب من الرابط أدناه",
-          "alertText": "أغلق هذا التطبيق قبل إعادة تثبيت أحدث تطبيق cySync"
+          "alertText": "أغلق هذا التطبيق قبل إعادة تثبيت أحدث cySync app"
         }
       }
     },
@@ -547,8 +547,8 @@
     }
   },
   "appUpdateBar": {
-    "confirmation": "تتوفر تحديثات لـ cySync الإصدار ${version}",
-    "downloading": "جاري تنزيل cySync الإصدار ${version}",
+    "confirmation": "التحديث إلى cySync version ${version} متاح",
+    "downloading": "تنزيل cySync version ${version}",
     "error": "خطأ في تنزيل تحديث cySync",
     "successful": "تم تنزيل تحديث cySync، وسيتم تثبيته تلقائيًا عند إغلاق التطبيق",
     "buttons": {
@@ -591,8 +591,8 @@
     }
   },
   "sidebar": {
-    "portfolio": "المحفظة",
-    "wallets": "المحافظ",
+    "portfolio": "Portfolio",
+    "wallets": "Wallets",
     "sendCrypto": "إرسال العملات المشفرة",
     "receiveCrypto": "استقبال العملات المشفرة",
     "history": "السجل",
@@ -644,7 +644,7 @@
     },
     "accountSelectionTab": {
       "title": "الاتصال بواجهة ${dappName}",
-      "chooseWallet": "اختر محفظة",
+      "chooseWallet": "اختر Wallet",
       "chooseAccount": "حدد حسابات ${assetName}",
       "supportInfo": "يتم دعم هذه السلاسل الأساسية ولكن أضف حساباتها قبل الاستخدام",
       "notSupportedWarning": {
@@ -683,13 +683,13 @@
     "actions": {
       "confirmDevice": "تأكيد على الجهاز",
       "verifyData": "التحقق من البيانات",
-      "enterPassphrase": "أدخل عبارة المرور",
+      "enterPassphrase": "أدخل passphrase",
       "enterPin": "أدخل الرمز السري واضغط على أي بطاقة",
       "tapCard": "اضغط على أي بطاقة"
     }
   },
   "portfolio": {
-    "title": "المحفظة",
+    "title": "Portfolio",
     "tokenTable": {
       "title": "العُملات",
       "tableHeader": {
@@ -713,8 +713,8 @@
     },
     "walletMissing": {
       "text": "المحافظ مفقودة",
-      "subText": "أنشئ محفظة جديدة أو استوردها من عبارة البذور للبدء",
-      "subText2": "إذا كنت قد أنشأت محافظ بالفعل في الجهاز، فما عليك سوى مزامنتها مع CySync"
+      "subText": "أنشئ محفظة جديدة أو قم بالاستيراد من seed phrase للبدء",
+      "subText2": "إذا كنت قد أنشأت محافظ بالفعل في الجهاز، فما عليك سوى مزامنتها مع cySync"
     },
     "accountMissing": {
       "text": "الحسابات مفقودة",
@@ -722,7 +722,7 @@
     }
   },
   "wallet": {
-    "title": "المحافظ",
+    "title": "Wallets",
     "tableTitle": "الحسابات",
     "buttons": {
       "less": "إظهار أقل",
@@ -796,8 +796,8 @@
         "subtext": "قم بتحديث تطبيق cySync والجهاز إلى أحدث إصدار"
       },
       "COM_0201": {
-        "heading": "جهاز X1 Vault الخاص بك غير متوافق مع تطبيق cySync",
-        "subtext": "قم بتحديث تطبيق cySync والجهاز إلى أحدث إصدار"
+        "heading": "جهاز X1 Vault الخاص بك غير متوافق مع cySync app",
+        "subtext": "قم بتحديث cySync app والجهاز إلى أحدث إصدار"
       },
       "BTL_0000": {
         "heading": "فشلت العملية على جهاز X1 Vault",
@@ -883,7 +883,7 @@
         "subtext": "اضغط على المتابعة لبدء الإعداد"
       },
       "APP_0300": {
-        "heading": "لقد حذفت المحفظة ${walletName} من جهاز X1 Vault. هل تريد حذفها من تطبيق cySync أيضًا؟"
+        "heading": "لقد قمت بحذف المحفظة ${walletName} من X1 Vault. هل تريد حذفه من cySync app أيضًا؟"
       },
       "APP_0301": {
         "heading": "محفظتك ${walletName} مضبوطة بشكل خاطئ حاليًا على جهاز X1 Vault الخاص بك",
@@ -998,12 +998,12 @@
       }
     },
     "databaseError": {
-      "heading": "يواجه تطبيق cySync الخاص بك بعض المشكلات الداخلية",
+      "heading": "يواجه cySync app الخاص بك بعض المشكلات الداخلية",
       "subtext": "حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
     },
     "serverErrors": {
       "SER_0000": {
-        "heading": "يواجه تطبيق cySync الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه cySync app الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_0001": {
@@ -1033,7 +1033,7 @@
   },
   "guidedFlows": {
     "createWallet": {
-      "title": "إنشاء محفظة جديدة",
+      "title": "إنشاء wallet جديدة",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
@@ -1102,17 +1102,17 @@
           ]
         },
         {
-          "asideTitle": "مزامنة بطاقات X1",
+          "asideTitle": "مزامنة X1 Cards",
           "pages": [
             {
-              "title": "اضغط على بطاقات X1 واحدة تلو الأخرى أسفل X1 Vault",
+              "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault",
               "subtitle": "لا ترفعها حتى تسمع صوتًا طنينًا",
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن بطاقات X1 تنتمي إلى نفس العائلة"
+                  "info": "تأكد من أن X1 Cards تنتمي إلى نفس العائلة"
                 },
                 {
-                  "info": "تأكد من أنك تضغط على بطاقات X1 بالترتيب الصحيح"
+                  "info": "تأكد من أنك تضغط على X1 Cards بالترتيب الصحيح"
                 }
               ]
             }
@@ -1125,10 +1125,10 @@
               "title": "تهانينا ، تم إنشاء محفظتك بنجاح الآن"
             },
             {
-              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار بطاقة X1 واحدة مع X1 Vault"
+              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار X1 Card واحدة مع X1 Vault"
             },
             {
-              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع بطاقات X1 القديمة الخاصة بك"
+              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع X1 Cards القديمة الخاصة بك"
             },
             {
               "title": "ملاحظة هامة",
@@ -1151,7 +1151,7 @@
       ]
     },
     "importWallet": {
-      "title": "استيراد محفظة",
+      "title": "استيراد Wallet",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
@@ -1160,7 +1160,7 @@
               "title": "من القائمة الرئيسية لـ X1 Vault ، انقر على \"إنشاء محفظة\""
             },
             {
-              "title": "انقر فوق \"استعادة من عبارة البذور\" على X1 Vault"
+              "title": "انقر فوق \"استعادة من Seed Phrase\" في X1 Vault الخاص بك"
             },
             {
               "title": "أدخل اسمًا للمحفظة على X1 Vault",
@@ -1220,13 +1220,13 @@
           ]
         },
         {
-          "asideTitle": "مزامنة بطاقات X1",
+          "asideTitle": "مزامنة X1 Cards",
           "pages": [
             {
-              "title": "عد عدد كلمات عبارة البذور التي تقوم باستيرادها واخترها على X1 Vault"
+              "title": "احسب عدد كلمات seed phrase التي تقوم باستيرادها وحددها في X1 Vault"
             },
             {
-              "title": "أدخل عبارة البذور على X1 Vault",
+              "title": "أدخل seed phrase في X1 Vault",
               "messageBoxList": [
                 {
                   "warning": "تأكد من عدم ارتكاب أخطاء إملائية أثناء إدخال الكلمات على الجهاز. غالبًا ما تكون الكلمات مثل \"غرب\" و \"عش\" مربكة أثناء القراءة وتحتاج إلى إدخالها بشكل صحيح"
@@ -1234,18 +1234,18 @@
               ]
             },
             {
-              "title": "تحقق من عبارة البذور التي أدخلتها على X1 Vault",
+              "title": "تحقق من seed phrase التي أدخلتها على X1 Vault",
               "subtitle": "طابق كل كلمة وكل كلمة بنجاح لاستيراد المحفظة الصحيحة"
             },
             {
-              "title": "اضغط على بطاقات X1 واحدة تلو الأخرى أسفل X1 Vault",
+              "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault",
               "subtitle": "لا ترفعها حتى تسمع صوتًا طنينًا",
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن بطاقات X1 تنتمي إلى نفس العائلة"
+                  "info": "تأكد من أن X1 Cards تنتمي إلى نفس العائلة"
                 },
                 {
-                  "info": "تأكد من أنك تضغط على بطاقات X1 بالترتيب الصحيح"
+                  "info": "تأكد من أنك تضغط على X1 Cards بالترتيب الصحيح"
                 }
               ]
             }
@@ -1258,10 +1258,10 @@
               "title": "تهانينا ، تم إنشاء محفظتك بنجاح الآن"
             },
             {
-              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار بطاقة X1 واحدة مع X1 Vault"
+              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار X1 Card واحدة مع X1 Vault"
             },
             {
-              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع بطاقات X1 القديمة الخاصة بك"
+              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع X1 Cards القديمة الخاصة بك"
             },
             {
               "title": "ملاحظة هامة",
@@ -1272,7 +1272,7 @@
               ]
             },
             {
-              "title": "كخطوة تالية ، احتفظ ببطاقات X1 الخاصة بك بأمان داخل أكمام البطاقات وقم بتوزيعها في أماكن مختلفة. بعض الأمثلة على الأماكن يمكن أن تكون: ",
+              "title": "كخطوة تالية، احتفظ بـ X1 Cards الخاصة بك بأمان داخل أغلفة البطاقات وقم بتوزيعها في أماكن مختلفة. بعض الأمثلة على الأماكن يمكن أن تكون: ",
               "bulletList": [
                 "منازل أفراد عائلتك أو أصدقائك",
                 "مخبأ سري",
@@ -1284,7 +1284,7 @@
       ]
     },
     "finalMessage": {
-      "title": "لإضافة العملات المعدنية والرموز المميزة إلى المحفظة ، عليك أولاً إضافة حساب. تأكد من أن X1 Vault وبطاقة X1 جاهزة معك",
+      "title": "لإضافة العملات المعدنية والرموز المميزة إلى المحفظة، يجب عليك إضافة حساب أولاً. تأكد من أن لديك X1 Vault وبطاقة X1 Card في متناول يديك",
       "buttons": {
         "secondary": "تخطّ",
         "primary": "أضف حسابًا"
@@ -1295,12 +1295,12 @@
       "subtitle": "لإضافة حساب ، يجب عليك أولاً إنشاء محفظة",
       "buttons": {
         "secondary": "سأفعل ذلك لاحقًا",
-        "primary": "إنشاء محفظة"
+        "primary": "إنشاء Wallet"
       }
     },
     "closeDialog": {
       "title": "هل أنت متأكد من أنك تريد الخروج؟",
-      "subtitle": "يمكنك دائمًا بدء هذا الدليل بالنقر على \"إضافة محفظة\" ضمن علامة التبويب \"المحافظ\"",
+      "subtitle": "يمكنك دائمًا بدء هذا الدليل بالنقر فوق \"Add Wallet\" ضمن علامة التبويب Wallets",
       "buttons": {
         "secondary": "إلغاء",
         "primary": "الخروج"
@@ -1313,8 +1313,8 @@
     },
     "reset": {
       "confim": {
-        "title": "هل أنت متأكد من رغبتك في إعادة ضبط تطبيق cySync؟",
-        "subTitle": "سيتم مسح جميع بياناتك على تطبيق cySync. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
+        "title": "هل أنت متأكد من رغبتك في إعادة ضبط cySync app؟",
+        "subTitle": "سيتم مسح جميع بياناتك على cySync app. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
       }
     },
     "releaseNote": {
@@ -1345,7 +1345,7 @@
           "confirm": "تأكيد مصادقة البطاقة على الجهاز",
           "tapCard": "انقر فوق أي بطاقة أسفل الجهاز"
         },
-        "success": "تمت مصادقة بطاقة X1 بنجاح"
+        "success": "تمت مصادقة X1 Card بنجاح"
       }
     },
     "password": {
@@ -1405,7 +1405,7 @@
         },
         "errors": {
           "connectDevice": "قم بتوصيل الجهاز لإرفاق سجلات الجهاز",
-          "bootloaderMode": "الجهاز في وضع التشغيل الأولي"
+          "bootloaderMode": "الجهاز في وضع bootloader"
         }
       },
       "success": {
@@ -1414,7 +1414,37 @@
     },
     "betaNotification": {
       "title": "تحديث CySync v2.0.0",
-      "description": "لقد قمنا بإجراء إصلاح شامل لتطبيق CySync.\n يأتي CySync الجديد مع جميع ميزاتك المفضلة والمزيد.\n حمل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**مهم**\n\n* لن تفقد أموالك\n* بعد التحديث، سيتعين عليك استيراد حساباتك مرة أخرى\n* لن تكون هناك تحديثات جديدة لـ CySync v1 باستثناء تحديث الأمان\n"
+      "description": "لقد أجرينا إصلاحًا شاملاً على تطبيق cySync app.\nيأتي CySync الجديد مزودًا بجميع الميزات المفضلة لديك وغير ذلك الكثير.\nالتنزيل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**مهم**\n\n* لن تخسر أموالك\n* بعد التحديث، سيتعين عليك استيراد حساباتك مرة أخرى\n* لا توجد تحديثات جديدة لبرنامج cySync v1 باستثناء التحديث الأمني\n"
+    },
+    "editAccount": {
+      "header": "Edit Account",
+      "accountSelection": {
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "accountEdit": {
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
+        "input": {
+          "accountName": {
+            "title": "Account Name",
+            "subtitle": "Description of the account"
+          },
+          "unit": {
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
+          }
+        },
+        "buttons": {
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
+        },
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
+      }
     }
   },
   "toggle": {
@@ -1423,6 +1453,7 @@
   },
   "snackbar": {
     "copiedToClipboard": "نسخ إلى الحافظة",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "تم تصدير سجل المعاملات"
   },
   "settings": {
@@ -1436,11 +1467,11 @@
           },
           "editAccount": {
             "title": "تحرير الحسابات",
-            "description": "تحرير اسم الحساب أو العملة المفضلة أو إزالته من المحفظة"
+            "description": "قم بتحرير الاسم والعملة المفضلة للحساب أو قم بإزالتها من portfolio"
           },
           "toggleWalletOnPortfolio": {
-            "title": "إظهار / إخفاء المحافظ في المحفظة",
-            "description": "يمكنك تعطيل محفظة محددة من هنا. لن يتم عرضها على صفحة المحفظة"
+            "title": "إظهار/إخفاء المحافظ في Portfolio",
+            "description": "يمكنك تعطيل محفظة معينة من هنا. ولن يتم عرضه على صفحة portfolio"
           },
           "currency": {
             "title": "العملة المفضلة",
@@ -1448,7 +1479,7 @@
           },
           "language": {
             "title": "لغة العرض",
-            "description": "تعيين لغة تطبيق cySync"
+            "description": "تعيين لغة cySync app"
           },
           "region": {
             "title": "المنطقة",
@@ -1461,7 +1492,7 @@
         "item": {
           "password": {
             "title": "كلمة السر",
-            "description": "تغيير أو إيقاف / تشغيل كلمة مرور تطبيق cySync"
+            "description": "تغيير أو إيقاف / تشغيل كلمة مرور cySync app"
           },
           "anayticsAndBugReport": {
             "title": "تحليلات وتقرير الأخطاء",
@@ -1489,11 +1520,11 @@
             "description": "مصادقة جهازك"
           },
           "x1CardAuth": {
-            "title": "مصادقة بطاقة X1",
+            "title": "مصادقة X1 Card",
             "description": "مصادقة بطاقتك"
           },
           "transferWallet": {
-            "title": "نقل المحفظة",
+            "title": "تحويل Wallet",
             "description": "إذا كان لديك من قبل جهاز Cypherock X1 وترغب في نقل محافظك باستخدام بطاقاتك في حالة فقدانها أو لأي سبب من الأسباب"
           }
         }
