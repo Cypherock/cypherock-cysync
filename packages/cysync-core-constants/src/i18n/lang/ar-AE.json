@@ -667,7 +667,7 @@
           "subtitle": "أعد محاولة الاتصال من dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} طلب الاتصال بالسلسلة${s} التي لا ندعمها بعد",
+          "title": "${dappName} طلب الاتصال بسلسلة (سلاسل) لا ندعمها بعد",
           "subtitle": "نحن ندعم حاليًا ${chains}",
           "message": "سلاسل غير مدعومة: ${chains}"
         }
@@ -1417,33 +1417,33 @@
       "description": "لقد أجرينا إصلاحًا شاملاً على تطبيق cySync app.\nيأتي CySync الجديد مزودًا بجميع الميزات المفضلة لديك وغير ذلك الكثير.\nالتنزيل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**مهم**\n\n* لن تخسر أموالك\n* بعد التحديث، سيتعين عليك استيراد حساباتك مرة أخرى\n* لا توجد تحديثات جديدة لبرنامج cySync v1 باستثناء التحديث الأمني\n"
     },
     "editAccount": {
-      "header": "Edit Account",
+      "header": "تحرير الحساب",
       "accountSelection": {
-        "title": "Select the Account to Edit",
-        "subtitle": "Choose the account you want to edit",
-        "searchText": "Search",
-        "accountPlaceholder": "Select Accounts",
-        "walletPlaceholder": "Choose a wallet"
+        "title": "حدد الحساب الذي تريد تحريره",
+        "subtitle": "اختر الحساب الذي تريد تحريره",
+        "searchText": "بحث",
+        "accountPlaceholder": "حدد الحسابات",
+        "walletPlaceholder": "اختر محفظة"
       },
       "accountEdit": {
-        "title": "Account details",
-        "subtitle": "Edit your account attributes",
+        "title": "تفاصيل الحساب",
+        "subtitle": "عدّل سمات حسابك",
         "input": {
           "accountName": {
-            "title": "Account Name",
-            "subtitle": "Description of the account"
+            "title": "اسم الحساب",
+            "subtitle": "وصف الحساب"
           },
           "unit": {
-            "title": "Unit",
-            "subtitle": "Choose the Unit to be used"
+            "title": "الوحدة",
+            "subtitle": "اختر الوحدة التي سيتم استخدامها"
           }
         },
         "buttons": {
-          "remove": "Remove from portfolio",
-          "apply": "Apply"
+          "remove": "إزالة من المحفظة",
+          "apply": "تطبيق"
         },
-        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
-        "advanced": "Advanced"
+        "info": "هذا هو ${derivationSchemeName} xpub. عند استيراده إلى محفظة تابعة لجهة خارجية، اختر نفس وضع الاستنتاج",
+        "advanced": "متقدم"
       }
     }
   },
@@ -1453,7 +1453,7 @@
   },
   "snackbar": {
     "copiedToClipboard": "نسخ إلى الحافظة",
-    "accountUpdated": "Account Updated Successfully",
+    "accountUpdated": "تم تحديث الحساب بنجاح",
     "downloadCSV": "تم تصدير سجل المعاملات"
   },
   "settings": {

@@ -672,7 +672,7 @@
           "subtitle": "Wiederholen Sie die Verbindung aus der dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} hat angefordert, eine Verbindung zu Ketten herzustellen, die wir noch nicht unterstützen",
+          "title": "${dappName} hat die Verbindung zu Kette(n) angefordert, die wir noch nicht unterstützen",
           "subtitle": "Wir unterstützen derzeit ${chains}",
           "message": "Nicht unterstützte Ketten: ${chains}"
         }
@@ -1422,33 +1422,33 @@
       "description": "Wir haben eine umfassende Überarbeitung der CySync App vorgenommen.\nDas neue CySync enthält all Ihre Lieblingsfunktionen und vieles mehr.\nDownload von <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Wichtig**\n\n* Sie werden Ihre Gelder nicht verlieren\n* Nach dem Update müssen Sie Ihre Konten erneut importieren\n* Keine neuen Updates für CySync v1 außer Sicherheitsupdates\n"
     },
     "editAccount": {
-      "header": "Edit Account",
+      "header": "Konto bearbeiten",
       "accountSelection": {
-        "title": "Select the Account to Edit",
-        "subtitle": "Choose the account you want to edit",
-        "searchText": "Search",
-        "accountPlaceholder": "Select Accounts",
-        "walletPlaceholder": "Choose a wallet"
+        "title": "Wählen Sie das zu bearbeitende Konto aus",
+        "subtitle": "Wählen Sie das Konto, das Sie bearbeiten möchten",
+        "searchText": "Suche",
+        "accountPlaceholder": "Konten auswählen",
+        "walletPlaceholder": "Wählen Sie eine Wallet"
       },
       "accountEdit": {
-        "title": "Account details",
-        "subtitle": "Edit your account attributes",
+        "title": "Kontodetails",
+        "subtitle": "Bearbeiten Sie Ihre Kontoattribute",
         "input": {
           "accountName": {
-            "title": "Account Name",
-            "subtitle": "Description of the account"
+            "title": "Kontoname",
+            "subtitle": "Beschreibung des Kontos"
           },
           "unit": {
-            "title": "Unit",
-            "subtitle": "Choose the Unit to be used"
+            "title": "Einheit",
+            "subtitle": "Wählen Sie die zu verwendende Einheit"
           }
         },
         "buttons": {
-          "remove": "Remove from portfolio",
-          "apply": "Apply"
+          "remove": "Aus dem Portfolio entfernen",
+          "apply": "Anwenden"
         },
-        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
-        "advanced": "Advanced"
+        "info": "Dies ist ein ${derivationSchemeName} xpub. Wenn Sie es in eine Drittanbieter-Wallet importieren, wählen Sie denselben Derivationsmodus",
+        "advanced": "Erweitert"
       }
     }
   },
@@ -1458,7 +1458,7 @@
   },
   "snackbar": {
     "copiedToClipboard": "In die Zwischenablage kopiert",
-    "accountUpdated": "Account Updated Successfully",
+    "accountUpdated": "Konto erfolgreich aktualisiert",
     "downloadCSV": "Transaktionsverlauf exportiert"
   },
   "settings": {

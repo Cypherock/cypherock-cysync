@@ -692,6 +692,36 @@ interface LangDialogs {
     success: { formSubmit: string };
   };
   betaNotification: { title: string; description: string };
+  editAccount: {
+    header: string;
+    accountSelection: {
+      title: string;
+      subtitle: string;
+      searchText: string;
+      accountPlaceholder: string;
+      walletPlaceholder: string;
+    };
+    accountEdit: {
+      title: string;
+      subtitle: string;
+      input: {
+        accountName: {
+          title: string;
+          subtitle: string;
+        };
+        unit: {
+          title: string;
+          subtitle: string;
+        };
+      };
+      buttons: {
+        remove: string;
+        apply: string;
+      };
+      info: string;
+      advanced: string;
+    };
+  };
 }
 
 interface LangToggle {
