@@ -12,7 +12,7 @@ import {
   EditAccountIcon,
   Flex,
   Input,
-  JsonView,
+  SimpleJsonView,
   LangDisplay,
   MessageBox,
   ScrollContainer,
@@ -193,7 +193,7 @@ export const AccountDetails: React.FC = () => {
                     $maxHeight="210px"
                   >
                     <Typography variant="span" color="muted" $fontSize={13}>
-                      <JsonView src={accountData} iconStyle="triangle" />
+                      <SimpleJsonView src={accountData} />
                     </Typography>
                   </ScrollContainer>
                 </>
