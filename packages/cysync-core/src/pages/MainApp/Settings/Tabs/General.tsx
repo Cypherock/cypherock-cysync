@@ -54,7 +54,7 @@ export const GeneralSettings: React.FC = () => {
       >
         <ArrowDown />
       </SettingsStandardItem> */}
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.currency.title }}
         description={{ text: item.currency.description }}
       >
@@ -69,7 +69,7 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="usd"
           />
         </Flex>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.language.title }}
         description={{ text: item.language.description }}
