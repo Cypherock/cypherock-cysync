@@ -22,8 +22,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useMemo, useState } from 'react';
 
-import { openDeleteAccountDialog } from '~/actions';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useEditAccountDialog } from '../context';
 
@@ -31,6 +30,7 @@ export const AccountDetails: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const {
+    onNext,
     onClose,
     onApply,
     selectedAccount,
@@ -44,7 +44,6 @@ export const AccountDetails: React.FC = () => {
 
   const { accountEdit, header: headerText } = lang.strings.dialogs.editAccount;
   const [showAdvance, setShowAdvance] = useState(false);
-  const dispatch = useAppDispatch();
 
   // const handleUnitChangeProxy: typeof setSelectedUnit = useCallback(
   //   (...args) => {
@@ -180,12 +179,14 @@ export const AccountDetails: React.FC = () => {
               </Flex>
               {showAdvance && (
                 <>
-                  <MessageBox
-                    type="info"
-                    text={parseLangTemplate(accountEdit.info, {
-                      derivationSchemeName: selectedAccount?.derivationScheme,
-                    })}
-                  />
+                  {selectedAccount?.familyId === 'bitcoin' && (
+                    <MessageBox
+                      type="info"
+                      text={parseLangTemplate(accountEdit.info, {
+                        derivationSchemeName: selectedAccount?.derivationScheme,
+                      })}
+                    />
+                  )}
                   <ScrollContainer
                     $bgColor="container"
                     p={2}
@@ -206,13 +207,7 @@ export const AccountDetails: React.FC = () => {
           variant="danger"
           onClick={e => {
             e.preventDefault();
-            onClose();
-            dispatch(
-              openDeleteAccountDialog({
-                account: selectedAccount!,
-                wallet: selectedWallet!,
-              }),
-            );
+            onNext();
           }}
         >
           <LangDisplay text={accountEdit.buttons.remove} />

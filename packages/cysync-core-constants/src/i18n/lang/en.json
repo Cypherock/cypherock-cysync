@@ -1447,7 +1447,7 @@
           "remove": "Remove from portfolio",
           "apply": "Apply"
         },
-        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
         "advanced": "Advanced"
       }
     }

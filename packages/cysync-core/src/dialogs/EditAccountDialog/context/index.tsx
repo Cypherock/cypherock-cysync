@@ -24,9 +24,13 @@ import {
 } from '~/store';
 import { getDB } from '~/utils';
 
-import { EditAccountDialogProps } from '..';
-import { AccountDetails, AccountSelection } from '../Dialogs';
 import { updateAccount } from '@cypherock/coin-support-utils';
+import { EditAccountDialogProps } from '..';
+import {
+  AccountDetails,
+  AccountSelection,
+  DeleteAccountDialog,
+} from '../Dialogs';
 
 export interface EditAccountDialogContextInterface {
   tabs: ITabs;
@@ -115,6 +119,10 @@ export const EditAccountDialogProvider: FC<
       name: lang.strings.dialogs.editAccount.accountEdit.title,
       dialogs: [<AccountDetails key="AccountDetails" />],
     },
+    {
+      name: lang.strings.deleteAccount.title,
+      dialogs: [<DeleteAccountDialog key="DeleteAccountDialog" />],
+    },
   ];
 
   const {
@@ -137,7 +145,7 @@ export const EditAccountDialogProvider: FC<
   );
 
   const handleAccountNameChange: typeof setAccountName = useCallback(name => {
-    if (name.length > 20) return;
+    if (name.length > 24) return;
     setAccountName(name);
   }, []);
 
@@ -155,7 +163,7 @@ export const EditAccountDialogProvider: FC<
     if (!id) return;
     const db = getDB();
     updateAccount(db, id, {
-      name: accountName,
+      name: accountName.trim(),
       unit: selectedUnit,
     });
     dispatch(
