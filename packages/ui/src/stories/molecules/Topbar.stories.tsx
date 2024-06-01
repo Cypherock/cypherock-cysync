@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const withWidthDecorator: Decorator = Story => (
-  <div style={{ width: '150%' }}>
+  <div style={{ width: '130%' }}>
     <Story />
   </div>
 );

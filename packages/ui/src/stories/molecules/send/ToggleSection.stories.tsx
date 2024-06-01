@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
 
 import { ToggleSection } from '../../../components';
 
@@ -10,13 +11,17 @@ const meta: Meta<typeof ToggleSection> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-let toggleValue = true;
+
 export const Default: Story = {
-  args: {
-    text: 'Placeholder',
-    value: toggleValue,
-    onChange: newToggleValue => {
-      toggleValue = newToggleValue;
-    },
+  render: () => {
+    const [toggleValue, setToggleValue] = useState(true);
+
+    return (
+      <ToggleSection
+        text="Placeholder"
+        value={toggleValue}
+        onChange={setToggleValue}
+      />
+    );
   },
 };
