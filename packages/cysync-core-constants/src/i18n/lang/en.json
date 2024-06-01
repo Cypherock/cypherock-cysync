@@ -672,7 +672,7 @@
           "subtitle": "Retry the connection from the dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} requested to connect to chain${s} we don't support yet",
+          "title": "${dappName} requested to connect to chain(s) we don't support yet",
           "subtitle": "We currently support ${chains}",
           "message": "Unsupported Chains: ${chains}"
         }

@@ -1,88 +1,12 @@
 {
-  "back": "Kembali",
-  "help": "Bantuan",
-  "allWallets": "Semua Wallets",
-  "tooltips": {
-    "downloadCsv": "Ekspor sebagai CSV"
-  },
-  "permissionSetup": {
-    "title": "Tekan jalankan perintah berikut di terminal Anda untuk mengizinkan aplikasi mengakses port USB",
-    "subtext": "Mulai ulang aplikasi setelah menjalankan skrip",
-    "checkbox": "Saya sudah menjalankan perintah"
-  },
   "x1Card": "X1 Card",
-  "deviceAuthentication": {
-    "success": {
-      "title": "X1 Vault Anda telah diautentikasi dengan sukses"
-    },
-    "loading": {
-      "title": "Silakan tunggu sementara X1 Vault Anda sedang diautentikasi",
-      "subtitle": "Jangan putuskan koneksi X1 Vault Anda sementara operasi sedang dilakukan"
-    }
-  },
-  "deviceUpdateBar": {
-    "message": "Pembaruan Firmware versi ${version} tersedia",
-    "button": "Unduh"
-  },
-  "addToken": {
-    "header": "Tambahkan Token",
-    "select": {
-      "header": "Pilih dompet, akun & token yang ingin Anda tambahkan",
-      "searchText": "Cari",
-      "walletPlaceholder": "Pilih Dompet",
-      "tokenPlaceholder": "Pilih Token",
-      "accountPlaceholder": "Pilih Akun",
-      "message": "Akun ${chainName} harus ditambahkan terlebih dahulu untuk melanjutkan penambahan token"
-    },
-    "congrats": {
-      "title": "Token berhasil ditambahkan",
-      "subtitle": "Tambahkan token lain atau kembali ke portofolio",
-      "buttonAddMore": "Tambah lagi"
-    }
-  },
-  "betaNotificationBar": {
-    "message": "CySync v2.0.0 sudah tersedia!",
-    "button": "Pelajari Lebih Lanjut"
-  },
-  "lockscreen": {
-    "title": "Gerbang Anda Menuju Kedaulatan Diri",
-    "passwordLabel": "Masukkan Kata Sandi untuk membuka cySync",
-    "forgotPassword": "Lupa kata sandi?",
-    "incorrectPassword": "Kata sandi salah",
-    "sameOldAndNewPassword": "Kata sandi baru tidak boleh sama dengan kata sandi lama",
-    "button": "Buka",
-    "forgotPasswordDialog": {
-      "title": "Mengatur ulang kata sandi akan mengatur ulang aplikasi cySync Anda, apakah Anda ingin melanjutkan?",
-      "subtext": "Ini akan menghapus semua data Anda di aplikasi cySync Anda. Catat ini tidak akan menyebabkan kehilangan aset"
-    }
-  },
-  "appUpdateBar": {
-    "confirmation": "Pembaruan ke versi CySync ${version} tersedia",
-    "downloading": "Mengunduh versi CySync ${version}",
-    "error": "Kesalahan saat mengunduh pembaruan CySync",
-    "successful": "Pembaruan CySync berhasil diunduh, akan otomatis terinstal saat Anda menutup aplikasi",
-    "buttons": {
-      "download": "Unduh",
-      "tryAgain": "Coba Lagi",
-      "installUpdate": "Instal Update"
-    }
-  },
-  "graph": {
-    "totalBalance": "Total Saldo",
-    "walletDropdown": {
-      "search": "Cari"
-    },
-    "timeRange": {
-      "day": "1D",
-      "week": "1W",
-      "month": "1M",
-      "year": "1Y"
-    }
-  },
+  "help": "Help",
+  "back": "Kembali",
+  "allWallets": "Semua Wallets",
   "buttons": {
     "addWallet": "Tambah Dompet",
     "addAccount": "Tambah Akun",
-    "syncWallets": "Sinkronisasi Dompet",
+    "syncWallets": "Sinkronisasi Wallets",
     "addToken": "Tambah Token",
     "reverify": "Verifikasi Ulang",
     "continue": "Lanjutkan",
@@ -98,7 +22,7 @@
     "done": "Selesai",
     "close": "Tutup",
     "report": "Laporkan",
-    "help": "Bantuan",
+    "help": "Help",
     "stop": "Berhenti",
     "exit": "Keluar",
     "resync": "Sinkronisasi Ulang",
@@ -117,6 +41,35 @@
     "editAccount": "Sunting Akun",
     "submit": "Kirim",
     "showMore": "Tampilkan lebih banyak"
+  },
+  "tooltips": {
+    "downloadCsv": "Ekspor sebagai CSV"
+  },
+  "deviceAuthentication": {
+    "success": {
+      "title": "X1 Vault Anda telah diautentikasi dengan sukses"
+    },
+    "loading": {
+      "title": "Silakan tunggu sementara X1 Vault Anda sedang diautentikasi",
+      "subtitle": "Jangan putuskan koneksi X1 Vault Anda sementara operasi sedang dilakukan"
+    }
+  },
+  "lockscreen": {
+    "title": "Gerbang Anda Menuju Kedaulatan Diri",
+    "passwordLabel": "Masukkan Kata Sandi untuk membuka cySync",
+    "forgotPassword": "Lupa kata sandi?",
+    "incorrectPassword": "Kata sandi salah",
+    "sameOldAndNewPassword": "Kata sandi baru tidak boleh sama dengan kata sandi lama",
+    "button": "Buka",
+    "forgotPasswordDialog": {
+      "title": "Mengatur ulang kata sandi akan mengatur ulang cySync app Anda, apakah Anda ingin melanjutkan?",
+      "subtext": "Ini akan menghapus semua data Anda di cySync app Anda. Catat ini tidak akan menyebabkan kehilangan aset"
+    }
+  },
+  "permissionSetup": {
+    "title": "Tekan jalankan perintah berikut di terminal Anda untuk mengizinkan aplikasi mengakses port USB",
+    "subtext": "Mulai ulang aplikasi setelah menjalankan skrip",
+    "checkbox": "Saya sudah menjalankan perintah"
   },
   "addAccount": {
     "header": "Tambahkan Akun",
@@ -163,6 +116,22 @@
       }
     }
   },
+  "addToken": {
+    "header": "Tambahkan Token",
+    "select": {
+      "header": "Pilih dompet, akun & token yang ingin Anda tambahkan",
+      "searchText": "Cari",
+      "walletPlaceholder": "Pilih Dompet",
+      "tokenPlaceholder": "Pilih Token",
+      "accountPlaceholder": "Pilih Akun",
+      "message": "Akun ${chainName} harus ditambahkan terlebih dahulu untuk melanjutkan penambahan token"
+    },
+    "congrats": {
+      "title": "Token berhasil ditambahkan",
+      "subtitle": "Tambahkan token lain atau kembali ke portofolio",
+      "buttonAddMore": "Tambah lagi"
+    }
+  },
   "receive": {
     "title": "Terima",
     "showAnywayButton": "Tidak memiliki perangkat Anda?",
@@ -178,7 +147,7 @@
       "subtitle": "Konfirmasikan operasi pada perangkat Anda untuk menyelesaikannya",
       "actions": {
         "verifyCoin": "Verifikasi aset dan nama dompet pada perangkat",
-        "enterPassphrase": "Masukkan frasa sandi",
+        "enterPassphrase": "Masukkan passphrase",
         "enterPin": "Masukkan PIN dan ketuk kartu apapun",
         "tapCard": "Ketuk kartu apapun"
       }
@@ -210,200 +179,6 @@
         "device": "X1 Vault",
         "receive": "Terima"
       }
-    }
-  },
-  "topbar": {
-    "statusTexts": {
-      "connection": {
-        "connected": "Terhubung",
-        "disconnected": "Terputus",
-        "error": "Kesalahan koneksi!"
-      },
-      "sync": {
-        "synchronized": "Tersinkronisasi",
-        "synchronizing": "Menyinkronkan...",
-        "error": "Kesalahan sinkronisasi!",
-        "networkErrorTooltip": "Kesalahan Jaringan"
-      }
-    },
-    "notification": {
-      "title": "Transaksi",
-      "sendTransaction": "${amount} ${unit} ${type} ke ${address}",
-      "sendTransactionMultiple": "${amount} ${unit} ${type} ke beberapa alamat",
-      "receiveTransaction": "${amount} ${unit} ${type} di akun ${walletName}/${accountName}",
-      "noTransactions": {
-        "title": "Semua sudah selesai",
-        "subTitle": "Tidak ada transaksi baru untuk ditampilkan"
-      }
-    }
-  },
-  "history": {
-    "tableTitle": "Transaksi",
-    "tableHeader": {
-      "time": "Waktu",
-      "asset": "Aset",
-      "walletAndAccount": "Dompet / Akun",
-      "wallet": "Dompet",
-      "account": "Akun",
-      "amount": "Jumlah",
-      "value": "Nilai"
-    },
-    "transactionStatus": {
-      "send": {
-        "failed": "Pengiriman Gagal",
-        "pending": "Mengirim",
-        "success": "Dikirim"
-      },
-      "receive": {
-        "failed": "Penerimaan Gagal",
-        "pending": "Menerima",
-        "success": "Diterima"
-      }
-    },
-    "dialogBox": {
-      "value": "Nilai",
-      "view": "Lihat di explorer",
-      "fee": "Biaya",
-      "type": "Jenis",
-      "status": "Status",
-      "wallet": "Dompet",
-      "account": "Akun",
-      "asset": "Aset",
-      "sender": "Pengirim",
-      "receiver": "Penerima",
-      "mine": "Milikku",
-      "transactionHash": "Hash Transaksi",
-      "description": "Deskripsi",
-      "feePrefix": {
-        "optimism": "L2 "
-      }
-    },
-    "noData": {
-      "text": "Belum ada transaksi",
-      "subText": "Terima Kripto hari ini untuk melihat riwayat transaksi Anda di sini",
-      "buttonText": "Terima"
-    },
-    "search": {
-      "placeholder": "Cari...",
-      "notFound": {
-        "text": "Tidak ada hasil yang ditemukan untuk",
-        "subText": "Silakan coba mencari kata kunci lain"
-      }
-    }
-  },
-  "sidebar": {
-    "portfolio": "Portfolio",
-    "wallets": "Wallets",
-    "sendCrypto": "Kirim Crypto",
-    "receiveCrypto": "Terima Crypto",
-    "history": "Riwayat",
-    "walletConnect": "Wallet Connect",
-    "tutorial": "Tutorial",
-    "settings": "Pengaturan",
-    "help": "Help",
-    "tooltip": {
-      "walletDeleted": "${walletName} telah dihapus dari Cypherock X1 Vault Anda"
-    }
-  },
-  "walletSync": {
-    "deletedOne": {
-      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda juga ingin menghapusnya di CySync?"
-    },
-    "deletedMany": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault. Apakah Anda ingin menghapusnya dari CySync juga?",
-      "subTitle": "Anda dapat memilih yang mana yang ingin disimpan dan yang mana yang ingin dihapus"
-    },
-    "freshOneCreated": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di CySync?",
-      "subTitle": "Anda dapat memilih yang mana yang ingin disimpan dan yang mana yang ingin dihapus",
-      "checkboxText": "Jangan tampilkan ini lagi"
-    },
-    "buttons": {
-      "keepIt": "Simpan",
-      "keepAll": "Simpan Semua",
-      "delete": "Hapus"
-    }
-  },
-  "signMessage": {
-    "title": "Tandatangani Pesan",
-    "subTitle": "Terhubung ke akun berikut",
-    "actions": {
-      "confirmDevice": "Konfirmasi pada perangkat",
-      "verifyData": "Verifikasi data",
-      "enterPassphrase": "Masukkan frasa sandi",
-      "enterPin": "Masukkan PIN dan ketuk kartu apapun",
-      "tapCard": "Ketuk kartu apapun"
-    }
-  },
-  "deleteAccount": {
-    "title": "Apakah Anda yakin ingin menghapus",
-    "subTitle": "Anda dapat menambahkan akun lagi dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan menyebabkan kehilangan aset",
-    "tokenSubtitle": "Anda dapat menambahkan token lagi dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan menyebabkan kehilangan aset",
-    "buttons": {
-      "yes": "Ya",
-      "no": "Tidak"
-    }
-  },
-  "toggle": {
-    "on": "NYALA",
-    "off": "MATI"
-  },
-  "wallet": {
-    "title": "Wallets",
-    "tableTitle": "Akun",
-    "buttons": {
-      "less": "Tampilkan Lebih Sedikit",
-      "more": "Tampilkan Lebih Banyak",
-      "hide": "Sembunyikan Token",
-      "show": "Tampilkan Token"
-    },
-    "tableHeader": {
-      "account": "Akun",
-      "syncStatus": "Status Sinkronisasi",
-      "balance": "Saldo",
-      "value": "Nilai"
-    },
-    "accountMissing": {
-      "text": "Belum Ada Akun",
-      "subText": "Tidak ditemukan koin/akun di dalam dompet"
-    },
-    "search": {
-      "placeholder": "Cari",
-      "text": "Tidak ada hasil yang ditemukan untuk",
-      "subText": "Silakan coba mencari kata kunci lainnya"
-    }
-  },
-  "portfolio": {
-    "title": "Portfolio",
-    "tokenTable": {
-      "title": "Token",
-      "tableHeader": {
-        "token": "Token",
-        "amount": "Jumlah",
-        "value": "Nilai"
-      }
-    },
-    "assetAllocation": {
-      "title": "Alokasi Aset",
-      "accountTitle": "Akun",
-      "tableHeader": {
-        "asset": "Aset",
-        "account": "Akun",
-        "wallet": "Dompet",
-        "price": "Harga",
-        "balance": "Saldo",
-        "value": "Nilai",
-        "allocation": "Alokasi"
-      }
-    },
-    "walletMissing": {
-      "text": "Dompet Hilang",
-      "subText": "Buat dompet baru atau impor dari frase seed untuk memulai",
-      "subText2": "Jika kamu sudah membuat dompet di perangkat, cukup sinkronkan dengan CySync"
-    },
-    "accountMissing": {
-      "text": "Akun Hilang",
-      "subText": "Buat atau impor akun untuk memulai"
     }
   },
   "send": {
@@ -452,7 +227,7 @@
       "actions": {
         "verifyCoin": "Verifikasi",
         "verifyDetails": "Verifikasi detail transaksi di perangkat",
-        "enterPassphrase": "Masukkan kata sandi",
+        "enterPassphrase": "Masukkan passphrase",
         "enterPin": "Masukkan PIN dan ketuk kartu mana saja",
         "tapCard": "Ketuk kartu mana saja"
       },
@@ -529,10 +304,64 @@
       "suffix": " (L1 + L2)"
     }
   },
+  "history": {
+    "tableTitle": "Transaksi",
+    "tableHeader": {
+      "time": "Waktu",
+      "asset": "Aset",
+      "walletAndAccount": "Dompet / Akun",
+      "wallet": "Wallet",
+      "account": "Akun",
+      "amount": "Jumlah",
+      "value": "Nilai"
+    },
+    "transactionStatus": {
+      "send": {
+        "failed": "Pengiriman Gagal",
+        "pending": "Mengirim",
+        "success": "Dikirim"
+      },
+      "receive": {
+        "failed": "Penerimaan Gagal",
+        "pending": "Menerima",
+        "success": "Diterima"
+      }
+    },
+    "dialogBox": {
+      "value": "Nilai",
+      "view": "Lihat di explorer",
+      "fee": "Biaya",
+      "type": "Jenis",
+      "status": "Status",
+      "wallet": "Wallet",
+      "account": "Akun",
+      "asset": "Aset",
+      "sender": "Pengirim",
+      "receiver": "Penerima",
+      "mine": "Milikku",
+      "transactionHash": "Hash Transaksi",
+      "description": "Deskripsi",
+      "feePrefix": {
+        "optimism": "L2 "
+      }
+    },
+    "noData": {
+      "text": "Belum ada transaksi",
+      "subText": "Terima Kripto hari ini untuk melihat riwayat transaksi Anda di sini",
+      "buttonText": "Terima"
+    },
+    "search": {
+      "placeholder": "Cari...",
+      "notFound": {
+        "text": "Tidak ada hasil yang ditemukan untuk",
+        "subText": "Silakan coba mencari kata kunci lain"
+      }
+    }
+  },
   "onboarding": {
     "info": {
       "aside": {
-        "title": "Selamat datang di aplikasi CySync",
+        "title": "Selamat datang di cySync app",
         "subTitle": "Gerbang Anda menuju Kedaulatan Diri"
       },
       "dialogBox": {
@@ -635,7 +464,7 @@
         ]
       },
       "importWallet": {
-        "title": "Impor dompet Anda dari frasa seed",
+        "title": "Impor dompet Anda dari seed phrase",
         "list": [
           "Anda ingin menggunakan Cypherock X1 sebagai cadangan dari dompet Anda yang lain",
           "Anda ingin mentransfer aset Anda dari dompet lain ke Cypherock X1",
@@ -661,36 +490,36 @@
         },
         "confirmation": {
           "heading": "Pembaruan Aplikasi",
-          "title": "Pembaruan baru tersedia untuk aplikasi CySync Anda. Perbarui aplikasi ke v${version} untuk melanjutkan",
-          "subtext": "X1 Vault Anda tampaknya tidak kompatibel dengan aplikasi CySync saat ini. Perbarui aplikasi desktop Anda ke v${version} untuk melanjutkan"
+          "title": "Pembaruan baru tersedia untuk cySync app Anda. Perbarui aplikasi ke v${version} untuk melanjutkan",
+          "subtext": "X1 Vault Anda tampaknya tidak kompatibel dengan cySync app saat ini. Perbarui aplikasi desktop Anda ke v${version} untuk melanjutkan"
         },
         "downloading": {
           "heading": "Memperbarui...",
-          "subtext": "Harap tunggu sementara kami memperbarui aplikasi CySync Anda",
-          "version": "Versi ${version}"
+          "subtext": "Harap tunggu sementara kami memperbarui cySync app Anda",
+          "version": "Version ${version}"
         },
         "updateSuccessful": {
-          "heading": "Aplikasi CySync berhasil diperbarui",
+          "heading": "cySync app berhasil diperbarui",
           "subtext": "Harap tunggu sementara kami memulai ulang aplikasi untuk menerapkan pembaruan terbaru",
           "bubbleText": "Jika aplikasi tidak memulai ulang dengan sendirinya, mulai ulang secara manual"
         },
         "updateFailed": {
-          "heading": "Pembaruan CySync ke versi ${version} gagal",
+          "heading": "pembaruan CySync ke Version ${version} gagal",
           "subtext": "Sesuatu tidak beres, coba perbarui lagi atau hubungi bantuan",
           "buttons": {
             "retry": "Coba Lagi"
           }
         },
         "updateFailedFallback": {
-          "heading": "Pembaruan aplikasi CySync ke versi ${version} gagal",
+          "heading": "pembaruan cySync app ke Version ${version} gagal",
           "subtext": "Unduh dan instal ulang aplikasi desktop dari tautan di bawah",
-          "alertText": "Tutup aplikasi ini sebelum memasang ulang aplikasi CySync terbaru"
+          "alertText": "Tutup aplikasi ini sebelum memasang ulang cySync app terbaru"
         }
       }
     },
     "deviceUpdate": {
       "heading": "Pembaruan Perangkat",
-      "version": "Versi ${version}",
+      "version": "Version ${version}",
       "dialogs": {
         "checking": {
           "title": "Harap tunggu sementara kami memeriksa pembaruan X1 Vault"
@@ -717,6 +546,95 @@
           "subtext": "Sambungkan kembali perangkat untuk melanjutkan"
         }
       }
+    }
+  },
+  "appUpdateBar": {
+    "confirmation": "Pembaruan ke Version CySync ${version} tersedia",
+    "downloading": "Mengunduh Version CySync ${version}",
+    "error": "Kesalahan saat mengunduh pembaruan CySync",
+    "successful": "Pembaruan CySync berhasil diunduh, akan otomatis terinstal saat Anda menutup aplikasi",
+    "buttons": {
+      "download": "Unduh",
+      "tryAgain": "Coba Lagi",
+      "installUpdate": "Instal Update"
+    }
+  },
+  "deviceUpdateBar": {
+    "message": "Pembaruan Firmware Version ${version} tersedia",
+    "button": "Unduh"
+  },
+  "betaNotificationBar": {
+    "message": "CySync v2.0.0 sudah tersedia!",
+    "button": "Pelajari Lebih Lanjut"
+  },
+  "topbar": {
+    "statusTexts": {
+      "connection": {
+        "connected": "Terhubung",
+        "disconnected": "Terputus",
+        "error": "Kesalahan koneksi!"
+      },
+      "sync": {
+        "synchronized": "Tersinkronisasi",
+        "synchronizing": "Menyinkronkan...",
+        "error": "Kesalahan sinkronisasi!",
+        "networkErrorTooltip": "Kesalahan Jaringan"
+      }
+    },
+    "notification": {
+      "title": "Transaksi",
+      "sendTransaction": "${amount} ${unit} ${type} ke ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} ke beberapa alamat",
+      "receiveTransaction": "${amount} ${unit} ${type} di akun ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "Semua sudah selesai",
+        "subTitle": "Tidak ada transaksi baru untuk ditampilkan"
+      }
+    }
+  },
+  "sidebar": {
+    "portfolio": "Portfolio",
+    "wallets": "Wallets",
+    "sendCrypto": "Kirim Crypto",
+    "receiveCrypto": "Terima Crypto",
+    "history": "Riwayat",
+    "walletConnect": "Wallet Connect",
+    "tutorial": "Tutorial",
+    "settings": "Pengaturan",
+    "help": "Help",
+    "tooltip": {
+      "walletDeleted": "${walletName} telah dihapus dari Cypherock X1 Vault Anda"
+    }
+  },
+  "walletSync": {
+    "deletedOne": {
+      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda juga ingin menghapusnya di CySync?"
+    },
+    "deletedMany": {
+      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault. Apakah Anda ingin menghapusnya dari CySync juga?",
+      "subTitle": "Anda dapat memilih yang mana yang ingin disimpan dan yang mana yang ingin dihapus"
+    },
+    "freshOneCreated": {
+      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di CySync?",
+      "subTitle": "Anda dapat memilih yang mana yang ingin disimpan dan yang mana yang ingin dihapus",
+      "checkboxText": "Jangan tampilkan ini lagi"
+    },
+    "buttons": {
+      "keepIt": "Simpan",
+      "keepAll": "Simpan Semua",
+      "delete": "Hapus"
+    }
+  },
+  "graph": {
+    "totalBalance": "Total Saldo",
+    "walletDropdown": {
+      "search": "Cari"
+    },
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
     }
   },
   "walletConnect": {
@@ -754,7 +672,7 @@
           "subtitle": "Coba kembali koneksi dari dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} meminta untuk terhubung ke chain${s} yang belum kami dukung",
+          "title": "${dappName} diminta untuk terhubung ke chain(s) kami belum mendukung",
           "subtitle": "Kami saat ini mendukung ${chains}",
           "message": "Chain yang tidak didukung: ${chains}"
         }
@@ -762,6 +680,84 @@
       "reject": {
         "call": "Pengguna menolak"
       }
+    }
+  },
+  "signMessage": {
+    "title": "Tandatangani Pesan",
+    "subTitle": "Terhubung ke akun berikut",
+    "actions": {
+      "confirmDevice": "Konfirmasi pada perangkat",
+      "verifyData": "Verifikasi data",
+      "enterPassphrase": "Masukkan passphrase",
+      "enterPin": "Masukkan PIN dan ketuk kartu apapun",
+      "tapCard": "Ketuk kartu apapun"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "tokenTable": {
+      "title": "Token",
+      "tableHeader": {
+        "token": "Token",
+        "amount": "Jumlah",
+        "value": "Nilai"
+      }
+    },
+    "assetAllocation": {
+      "title": "Alokasi Aset",
+      "accountTitle": "Akun",
+      "tableHeader": {
+        "asset": "Aset",
+        "account": "Akun",
+        "wallet": "Wallet",
+        "price": "Harga",
+        "balance": "Saldo",
+        "value": "Nilai",
+        "allocation": "Alokasi"
+      }
+    },
+    "walletMissing": {
+      "text": "Wallets Hilang",
+      "subText": "Buat dompet baru atau impor dari seed phrase untuk memulai",
+      "subText2": "Jika kamu sudah membuat dompet di perangkat, cukup sinkronkan dengan CySync"
+    },
+    "accountMissing": {
+      "text": "Akun Hilang",
+      "subText": "Buat atau impor akun untuk memulai"
+    }
+  },
+  "wallet": {
+    "title": "Wallets",
+    "tableTitle": "Akun",
+    "buttons": {
+      "less": "Tampilkan Lebih Sedikit",
+      "more": "Tampilkan Lebih Banyak",
+      "hide": "Sembunyikan Token",
+      "show": "Tampilkan Token"
+    },
+    "tableHeader": {
+      "account": "Akun",
+      "syncStatus": "Status Sinkronisasi",
+      "balance": "Saldo",
+      "value": "Nilai"
+    },
+    "accountMissing": {
+      "text": "Belum Ada Akun",
+      "subText": "Tidak ditemukan koin/akun di dalam dompet"
+    },
+    "search": {
+      "placeholder": "Cari",
+      "text": "Tidak ada hasil yang ditemukan untuk",
+      "subText": "Silakan coba mencari kata kunci lainnya"
+    }
+  },
+  "deleteAccount": {
+    "title": "Apakah Anda yakin ingin menghapus",
+    "subTitle": "Anda dapat menambahkan akun lagi dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan menyebabkan kehilangan aset",
+    "tokenSubtitle": "Anda dapat menambahkan token lagi dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan menyebabkan kehilangan aset",
+    "buttons": {
+      "yes": "Ya",
+      "no": "Tidak"
     }
   },
   "errors": {
@@ -802,11 +798,11 @@
       },
       "COM_0200": {
         "heading": "X1 Vault Anda tidak mendukung operasi ini",
-        "subtext": "Perbarui cySync app dan perangkat ke versi terbaru"
+        "subtext": "Perbarui cySync app dan perangkat ke Version terbaru"
       },
       "COM_0201": {
         "heading": "X1 Vault Anda tidak kompatibel dengan cySync app",
-        "subtext": "Perbarui cySync app dan perangkat ke versi terbaru"
+        "subtext": "Perbarui cySync app dan perangkat ke Version terbaru"
       },
       "BTL_0000": {
         "heading": "Operasi gagal di X1 Vault",
@@ -829,7 +825,7 @@
         "subtext": "Ini biasanya terjadi saat Anda mencoba menginstal firmware yang tidak dikembangkan oleh Cypherock"
       },
       "BTL_0104": {
-        "heading": "X1 Vault Anda tidak dapat diperbarui ke versi firmware yang lebih rendah",
+        "heading": "X1 Vault Anda tidak dapat diperbarui ke Version firmware yang lebih rendah",
         "subtext": "Perangkat hanya mendukung pembaruan firmware ke versi yang lebih tinggi"
       },
       "BTL_0106": {
@@ -1309,7 +1305,7 @@
     },
     "closeDialog": {
       "title": "Anda yakin ingin keluar?",
-      "subtitle": "Anda selalu bisa memulai panduan ini dengan mengklik \"Add Wallet\" di bawah tab Dompet",
+      "subtitle": "Anda selalu bisa memulai panduan ini dengan mengklik \"Add Wallet\" di bawah tab Wallets",
       "buttons": {
         "secondary": "Batal",
         "primary": "Keluar"
@@ -1322,8 +1318,8 @@
     },
     "reset": {
       "confim": {
-        "title": "Apakah Anda yakin ingin mengatur ulang aplikasi CySync?",
-        "subTitle": "Ini akan menghapus semua data Anda di aplikasi CySync Anda. Catat bahwa ini tidak akan menyebabkan kehilangan aset"
+        "title": "Apakah Anda yakin ingin mengatur ulang cySync app?",
+        "subTitle": "Ini akan menghapus semua data Anda di cySync app Anda. Catat bahwa ini tidak akan menyebabkan kehilangan aset"
       }
     },
     "releaseNote": {
@@ -1388,7 +1384,7 @@
     },
     "contactSupport": {
       "form": {
-        "header": "Hubungi Dukungan",
+        "header": "Hubungi Support",
         "title": "Bagaimana kami bisa membantu?",
         "description": "Tim kami akan senang mendengar dari Anda",
         "field": {
@@ -1418,47 +1414,51 @@
         }
       },
       "success": {
-        "formSubmit": "Formulir Dukungan Berhasil Dikirim"
+        "formSubmit": "Formulir Support Berhasil Dikirim"
       }
     },
     "betaNotification": {
       "title": "Pembaharuan CySync v2.0.0",
-      "description": "Kami telah melakukan perombakan besar pada aplikasi CySync.\nCySync baru hadir dengan semua fitur favorit Anda dan masih banyak lagi.\nUnduh dari <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana Anda\n* Setelah update, Anda harus mengimpor akun Anda lagi\n* Tidak ada pembaharuan baru untuk CySync v1 kecuali pembaharuan keamanan\n"
+      "description": "Kami telah melakukan perombakan besar pada cySync app.\nCySync baru hadir dengan semua fitur favorit Anda dan masih banyak lagi.\nUnduh dari <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana Anda\n* Setelah update, Anda harus mengimpor akun Anda lagi\n* Tidak ada pembaharuan baru untuk CySync v1 kecuali pembaharuan keamanan\n"
     },
     "editAccount": {
-      "header": "Edit Account",
+      "header": "Edit Akun",
       "accountSelection": {
-        "title": "Select the Account to Edit",
-        "subtitle": "Choose the account you want to edit",
-        "searchText": "Search",
-        "accountPlaceholder": "Select Accounts",
-        "walletPlaceholder": "Choose a wallet"
+        "title": "Pilih Akun untuk Diedit",
+        "subtitle": "Pilih akun yang ingin Anda edit",
+        "searchText": "Cari",
+        "accountPlaceholder": "Pilih Akun",
+        "walletPlaceholder": "Pilih Dompet"
       },
       "accountEdit": {
-        "title": "Account details",
-        "subtitle": "Edit your account attributes",
+        "title": "Detail Akun",
+        "subtitle": "Edit atribut akun Anda",
         "input": {
           "accountName": {
-            "title": "Account Name",
-            "subtitle": "Description of the account"
+            "title": "Nama Akun",
+            "subtitle": "Deskripsi akun"
           },
           "unit": {
             "title": "Unit",
-            "subtitle": "Choose the Unit to be used"
+            "subtitle": "Pilih Unit yang akan digunakan"
           }
         },
         "buttons": {
-          "remove": "Remove from portfolio",
-          "apply": "Apply"
+          "remove": "Hapus dari portfolio",
+          "apply": "Terapkan"
         },
-        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
-        "advanced": "Advanced"
+        "info": "Ini adalah ${derivationSchemeName} xpub. Saat mengimpor ke dalam dompet pihak ketiga, pilih mode derivasi yang sama",
+        "advanced": "Lanjutan"
       }
     }
   },
+  "toggle": {
+    "on": "NYALA",
+    "off": "MATI"
+  },
   "snackbar": {
     "copiedToClipboard": "Disalin ke clipboard",
-    "accountUpdated": "Account Updated Successfully",
+    "accountUpdated": "Akun Berhasil Diperbarui",
     "downloadCSV": "Riwayat transaksi diekspor"
   },
   "settings": {
@@ -1538,8 +1538,8 @@
         "title": "Tentang",
         "item": {
           "cySyncVersion": {
-            "title": "Versi CySync",
-            "description": "Versi ${version}"
+            "title": "Version CySync",
+            "description": "Version ${version}"
           },
           "termsOfUse": {
             "title": "Ketentuan Penggunaan",

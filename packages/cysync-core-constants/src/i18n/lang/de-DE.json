@@ -1,84 +1,8 @@
 {
   "x1Card": "X1 Card",
+  "help": "Help",
   "back": "Zurück",
   "allWallets": "Alle Wallets",
-  "help": "Hilfe",
-  "tooltips": {
-    "downloadCsv": "Als CSV exportieren"
-  },
-  "permissionSetup": {
-    "title": "Führen Sie den folgenden Befehl in Ihrem Terminal aus, um der Anwendung Zugriff auf den USB-Port zu gewähren",
-    "subtext": "Starten Sie die Anwendung nach dem Ausführen des Skripts neu",
-    "checkbox": "Ich habe den Befehl bereits ausgeführt"
-  },
-  "deviceAuthentication": {
-    "success": {
-      "title": "Ihr X1 Vault wurde erfolgreich authentifiziert"
-    },
-    "loading": {
-      "title": "Bitte warten Sie, während Ihr X1 Vault authentifiziert wird",
-      "subtitle": "Trennen Sie Ihr X1 Vault nicht, während der Vorgang durchgeführt wird"
-    }
-  },
-  "deviceUpdateBar": {
-    "message": "Firmware-Aktualisierung Version ${version} verfügbar",
-    "button": "Herunterladen"
-  },
-  "lockscreen": {
-    "title": "Ihr Tor zur Selbstsouveränität",
-    "passwordLabel": "Passwort eingeben, um CySync zu entsperren",
-    "forgotPassword": "Passwort vergessen?",
-    "incorrectPassword": "Falsches Passwort",
-    "sameOldAndNewPassword": "Das neue Passwort darf nicht mit dem alten Passwort identisch sein",
-    "button": "Entsperren",
-    "forgotPasswordDialog": {
-      "title": "Durch das Zurücksetzen des Passworts wird Ihre CySync App zurückgesetzt. Möchten Sie fortfahren?",
-      "subtext": "Dadurch werden alle Ihre Daten in Ihrer CySync App gelöscht. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt"
-    }
-  },
-  "betaNotificationBar": {
-    "message": "CySync v2.0.0 ist verfügbar!",
-    "button": "Erfahren Sie mehr"
-  },
-  "addToken": {
-    "header": "Token hinzufügen",
-    "select": {
-      "header": "Wählen Sie die Wallet, Konten und Token aus, die Sie hinzufügen möchten",
-      "searchText": "Suchen",
-      "walletPlaceholder": "Wallet auswählen",
-      "tokenPlaceholder": "Token auswählen",
-      "accountPlaceholder": "Konten auswählen",
-      "message": "${chainName} Konto muss zuerst hinzugefügt werden, um mit dem Hinzufügen der Token fortzufahren"
-    },
-    "congrats": {
-      "title": "Tokens erfolgreich hinzugefügt",
-      "subtitle": "Weitere Token hinzufügen oder zum Portfolio zurückkehren",
-      "buttonAddMore": "Mehr hinzufügen"
-    }
-  },
-  "appUpdateBar": {
-    "confirmation": "Update auf cySync Version ${version} ist verfügbar",
-    "downloading": "Lädt cySync Version ${version} herunter",
-    "error": "Fehler beim Herunterladen des cySync Updates",
-    "successful": "cySync Update heruntergeladen, es wird automatisch installiert, wenn Sie die App schließen",
-    "buttons": {
-      "download": "Herunterladen",
-      "tryAgain": "Erneut versuchen",
-      "installUpdate": "Update installieren"
-    }
-  },
-  "graph": {
-    "totalBalance": "Gesamtbilanz",
-    "walletDropdown": {
-      "search": "Suche"
-    },
-    "timeRange": {
-      "day": "1D",
-      "week": "1W",
-      "month": "1M",
-      "year": "1Y"
-    }
-  },
   "buttons": {
     "addWallet": "Wallet hinzufügen",
     "addAccount": "Konto hinzufügen",
@@ -98,7 +22,7 @@
     "done": "Fertig",
     "close": "Schließen",
     "report": "Bericht",
-    "help": "Hilfe",
+    "help": "Help",
     "stop": "Stopp",
     "exit": "Beenden",
     "resync": "Erneut synchronisieren",
@@ -118,97 +42,94 @@
     "submit": "Absenden",
     "showMore": "Mehr anzeigen"
   },
-  "sidebar": {
-    "portfolio": "Portfolio",
-    "wallets": "Wallets",
-    "sendCrypto": "Krypto senden",
-    "receiveCrypto": "Krypto empfangen",
-    "history": "Verlauf",
-    "walletConnect": "Wallet Connect",
-    "tutorial": "Anleitung",
-    "settings": "Einstellungen",
-    "help": "Hilfe",
-    "tooltip": {
-      "walletDeleted": "${walletName} wurde aus deinem Cypherock X1 Vault gelöscht"
+  "tooltips": {
+    "downloadCsv": "Als CSV exportieren"
+  },
+  "deviceAuthentication": {
+    "success": {
+      "title": "Ihr X1 Vault wurde erfolgreich authentifiziert"
+    },
+    "loading": {
+      "title": "Bitte warten Sie, während Ihr X1 Vault authentifiziert wird",
+      "subtitle": "Trennen Sie Ihr X1 Vault nicht, während der Vorgang durchgeführt wird"
     }
   },
-  "history": {
-    "tableTitle": "Transaktionen",
-    "tableHeader": {
-      "time": "Zeit",
-      "asset": "Asset",
-      "walletAndAccount": "Wallet / Konto",
-      "wallet": "Wallet",
-      "account": "Konto",
-      "amount": "Betrag",
-      "value": "Wert"
+  "lockscreen": {
+    "title": "Ihr Tor zur Selbstsouveränität",
+    "passwordLabel": "Passwort eingeben, um CySync zu entsperren",
+    "forgotPassword": "Passwort vergessen?",
+    "incorrectPassword": "Falsches Passwort",
+    "sameOldAndNewPassword": "Das neue Passwort darf nicht mit dem alten Passwort identisch sein",
+    "button": "Entsperren",
+    "forgotPasswordDialog": {
+      "title": "Durch das Zurücksetzen des Passworts wird Ihre CySync App zurückgesetzt. Möchten Sie fortfahren?",
+      "subtext": "Dadurch werden alle Ihre Daten in Ihrer CySync App gelöscht. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt"
+    }
+  },
+  "permissionSetup": {
+    "title": "Führen Sie den folgenden Befehl in Ihrem Terminal aus, um der Anwendung Zugriff auf den USB-Port zu gewähren",
+    "subtext": "Starten Sie die Anwendung nach dem Ausführen des Skripts neu",
+    "checkbox": "Ich habe den Befehl bereits ausgeführt"
+  },
+  "addAccount": {
+    "header": "Konto hinzufügen",
+    "select": {
+      "header": "Wählen Sie die Wallet & Coin, die Sie hinzufügen möchten",
+      "searchText": "Suche",
+      "walletPlaceholder": "Wählen Sie eine Wallet",
+      "coinPlaceholder": "Wählen Sie eine Coin"
     },
-    "transactionStatus": {
-      "send": {
-        "failed": "Senden fehlgeschlagen",
-        "pending": "Wird gesendet",
-        "success": "Gesendet"
-      },
-      "receive": {
-        "failed": "Empfang fehlgeschlagen",
-        "pending": "Wird empfangen",
-        "success": "Empfangen"
+    "deviceActions": {
+      "header": "Folgen Sie den Anweisungen auf dem X1 Vault",
+      "subtext": "Fügen Sie eine Coin/Konto zur Wallet hinzu",
+      "walletName": "${walletName}",
+      "actions": {
+        "verifyCoin": "Überprüfen Sie die Coins auf dem Gerät",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
       }
     },
-    "dialogBox": {
-      "value": "Wert",
-      "view": "Im Explorer anzeigen",
-      "fee": "Gebühr",
-      "type": "Typ",
-      "status": "Status",
-      "wallet": "Wallet",
-      "account": "Konto",
-      "asset": "Asset",
-      "sender": "Absender",
-      "receiver": "Empfänger",
-      "mine": "Mein",
-      "transactionHash": "Transaktions-Hash",
-      "description": "Beschreibung",
-      "feePrefix": {
-        "optimism": "L2 "
-      }
+    "sync": {
+      "syncingHeader": "Das Konto wird synchronisiert",
+      "header": "Neue Konten hinzufügen",
+      "newAccount": "Neue Konten",
+      "advancedButton": "Alle Adresstypen anzeigen",
+      "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
+      "deselectAllButton": "Alle abwählen",
+      "selectAllButton": "Alle auswählen",
+      "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
+      "addAccountButton": "Konten hinzufügen",
+      "resyncButton": "Erneut synchronisieren"
     },
-    "noData": {
-      "text": "Noch keine Transaktionen",
-      "subText": "Empfangen Sie heute Krypto, um hier Ihre Transaktionshistorie zu sehen",
-      "buttonText": "Empfangen"
+    "congrats": {
+      "header": "Coin/Konto hinzufügen",
+      "subtext": "Weitere Konten hinzufügen oder zum Portfolio zurückkehren",
+      "title": "Konten erfolgreich hinzugefügt",
+      "buttonAddMore": "Mehr hinzufügen"
     },
-    "search": {
-      "placeholder": "Suchen...",
-      "notFound": {
-        "text": "Keine Ergebnisse gefunden für",
-        "subText": "Bitte versuchen Sie es mit anderen Stichwörtern"
+    "aside": {
+      "tabs": {
+        "asset": "Vermögenswert",
+        "device": "X1 Vault",
+        "confirmation": "Bestätigung"
       }
     }
   },
-  "topbar": {
-    "statusTexts": {
-      "connection": {
-        "connected": "Verbunden",
-        "disconnected": "Getrennt",
-        "error": "Verbindungsfehler!"
-      },
-      "sync": {
-        "synchronized": "Synchronisiert",
-        "synchronizing": "Synchronisiert...",
-        "error": "Synchronisierungsfehler!",
-        "networkErrorTooltip": "Netzwerkfehler"
-      }
+  "addToken": {
+    "header": "Token hinzufügen",
+    "select": {
+      "header": "Wählen Sie die Wallet, Konten und Token aus, die Sie hinzufügen möchten",
+      "searchText": "Suchen",
+      "walletPlaceholder": "Wallet auswählen",
+      "tokenPlaceholder": "Token auswählen",
+      "accountPlaceholder": "Konten auswählen",
+      "message": "${chainName} Konto muss zuerst hinzugefügt werden, um mit dem Hinzufügen der Token fortzufahren"
     },
-    "notification": {
-      "title": "Transaktionen",
-      "sendTransaction": "${amount} ${unit} ${type} an ${address}",
-      "sendTransactionMultiple": "${amount} ${unit} ${type} an mehrere Adressen",
-      "receiveTransaction": "${amount} ${unit} ${type} im Konto ${walletName}/${accountName}",
-      "noTransactions": {
-        "title": "Alles erledigt",
-        "subTitle": "Keine neuen Transaktionen zum Anzeigen"
-      }
+    "congrats": {
+      "title": "Tokens erfolgreich hinzugefügt",
+      "subtitle": "Weitere Token hinzufügen oder zum Portfolio zurückkehren",
+      "buttonAddMore": "Mehr hinzufügen"
     }
   },
   "receive": {
@@ -260,138 +181,6 @@
       }
     }
   },
-  "walletSync": {
-    "deletedOne": {
-      "title": "Es scheint, dass Sie das Wallet ${walletName} aus dem X1 Vault gelöscht haben. Möchten Sie es auch auf CySync löschen?"
-    },
-    "deletedMany": {
-      "title": "Es scheint, dass Sie Wallets aus dem X1 Vault gelöscht haben. Möchten Sie sie auch von CySync löschen?",
-      "subTitle": "Sie können wählen, welche Sie behalten und welche Sie löschen möchten"
-    },
-    "freshOneCreated": {
-      "title": "Es scheint, dass Sie Wallets aus dem X1 Vault gelöscht haben, während Sie neue mit demselben Namen erstellt haben. Möchten Sie die alten Wallets auf CySync löschen?",
-      "subTitle": "Sie können wählen, welches Sie behalten und welches Sie löschen möchten",
-      "checkboxText": "Nicht wieder anzeigen"
-    },
-    "buttons": {
-      "keepIt": "Behalten",
-      "keepAll": "Alle behalten",
-      "delete": "Löschen"
-    }
-  },
-  "addAccount": {
-    "header": "Konto hinzufügen",
-    "select": {
-      "header": "Wählen Sie die Wallet & Coin, die Sie hinzufügen möchten",
-      "searchText": "Suche",
-      "walletPlaceholder": "Wählen Sie eine Wallet",
-      "coinPlaceholder": "Wählen Sie eine Coin"
-    },
-    "deviceActions": {
-      "header": "Folgen Sie den Anweisungen auf dem X1 Vault",
-      "subtext": "Fügen Sie eine Coin/Konto zur Wallet hinzu",
-      "walletName": "${walletName}",
-      "actions": {
-        "verifyCoin": "Überprüfen Sie die Coins auf dem Gerät",
-        "enterPassphrase": "Passphrase eingeben",
-        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
-        "tapCard": "Tippen Sie auf eine Karte"
-      }
-    },
-    "sync": {
-      "syncingHeader": "Das Konto wird synchronisiert",
-      "header": "Neue Konten hinzufügen",
-      "newAccount": "Neue Konten",
-      "advancedButton": "Alle Adresstypen anzeigen",
-      "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
-      "deselectAllButton": "Alle abwählen",
-      "selectAllButton": "Alle auswählen",
-      "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
-      "addAccountButton": "Konten hinzufügen",
-      "resyncButton": "Erneut synchronisieren"
-    },
-    "congrats": {
-      "header": "Coin/Konto hinzufügen",
-      "subtext": "Weitere Konten hinzufügen oder zum Portfolio zurückkehren",
-      "title": "Konten erfolgreich hinzugefügt",
-      "buttonAddMore": "Mehr hinzufügen"
-    },
-    "aside": {
-      "tabs": {
-        "asset": "Vermögenswert",
-        "device": "X1 Vault",
-        "confirmation": "Bestätigung"
-      }
-    }
-  },
-  "deleteAccount": {
-    "title": "Sind Sie sicher, dass Sie entfernen möchten",
-    "subTitle": "Sie können das Konto auf der ${walletName}-Wallet-Seite erneut hinzufügen. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt",
-    "tokenSubtitle": "Sie können das Token auf der ${walletName}-Wallet-Seite erneut hinzufügen. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt",
-    "buttons": {
-      "yes": "Ja",
-      "no": "Nein"
-    }
-  },
-  "validation": {
-    "generic": {
-      "required": "Dieses Feld ist erforderlich"
-    },
-    "email": {
-      "invalid": "Dies ist keine gültige E-Mail-Adresse"
-    },
-    "password": {
-      "mismatch": "Passwörter stimmen nicht überein",
-      "passwordFieldPrefix": "Passwort ",
-      "confirmPasswordFieldPrefix": "Passwort bestätigen ",
-      "minLength": "muss aus mindestens 8 Zeichen bestehen",
-      "containNumber": "muss mindestens 1 Nummer enthalten",
-      "containSymbol": "muss mindestens 1 Symbol enthalten",
-      "required": "ist erforderlich",
-      "containUppercase": "muss mindestens 1 Großbuchstaben enthalten",
-      "containLowercase": "muss mindestens 1 Kleinbuchstaben enthalten"
-    }
-  },
-  "wallet": {
-    "title": "Wallets",
-    "tableTitle": "Konten",
-    "buttons": {
-      "less": "Weniger anzeigen",
-      "more": "Mehr anzeigen",
-      "hide": "Token ausblenden",
-      "show": "Token anzeigen"
-    },
-    "tableHeader": {
-      "account": "Konto",
-      "syncStatus": "Synchronisierungsstatus",
-      "balance": "Kontostand",
-      "value": "Wert"
-    },
-    "accountMissing": {
-      "text": "Noch kein Konto",
-      "subText": "Keine Coins/Konten wurden in der Wallet gefunden"
-    },
-    "search": {
-      "placeholder": "Suchen",
-      "text": "Keine Ergebnisse gefunden für",
-      "subText": "Bitte versuchen Sie, andere Schlüsselwörter zu suchen"
-    }
-  },
-  "signMessage": {
-    "title": "Nachricht signieren",
-    "subTitle": "Verbunden mit dem folgenden Konto",
-    "actions": {
-      "confirmDevice": "Auf Gerät bestätigen",
-      "verifyData": "Daten überprüfen",
-      "enterPassphrase": "Passphrase eingeben",
-      "enterPin": "PIN eingeben und eine Karte tippen",
-      "tapCard": "Irgendeine Karte tippen"
-    }
-  },
-  "toggle": {
-    "on": "EIN",
-    "off": "AUS"
-  },
   "send": {
     "title": "Senden",
     "fees": {
@@ -439,8 +228,8 @@
         "verifyCoin": "Überprüfen",
         "verifyDetails": "Transaktionsdetails auf dem Gerät überprüfen",
         "enterPassphrase": "Passphrase eingeben",
-        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
-        "tapCard": "Tippen Sie auf eine Karte"
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine beliebige Karte",
+        "tapCard": "Tippen Sie auf eine beliebige Karte"
       },
       "token": {
         "info": "Denken Sie daran, ${tokenName} ist ein ${parentCoinName}-Token, daher wird die Gebühr in ${parentCoinUnit} berechnet"
@@ -513,6 +302,60 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
+    }
+  },
+  "history": {
+    "tableTitle": "Transaktionen",
+    "tableHeader": {
+      "time": "Zeit",
+      "asset": "Asset",
+      "walletAndAccount": "Wallet / Konto",
+      "wallet": "Wallet",
+      "account": "Konto",
+      "amount": "Betrag",
+      "value": "Wert"
+    },
+    "transactionStatus": {
+      "send": {
+        "failed": "Senden fehlgeschlagen",
+        "pending": "Wird gesendet",
+        "success": "Gesendet"
+      },
+      "receive": {
+        "failed": "Empfang fehlgeschlagen",
+        "pending": "Wird empfangen",
+        "success": "Empfangen"
+      }
+    },
+    "dialogBox": {
+      "value": "Wert",
+      "view": "Im Explorer anzeigen",
+      "fee": "Gebühr",
+      "type": "Typ",
+      "status": "Status",
+      "wallet": "Wallet",
+      "account": "Konto",
+      "asset": "Asset",
+      "sender": "Absender",
+      "receiver": "Empfänger",
+      "mine": "Mein",
+      "transactionHash": "Transaktions-Hash",
+      "description": "Beschreibung",
+      "feePrefix": {
+        "optimism": "L2 "
+      }
+    },
+    "noData": {
+      "text": "Noch keine Transaktionen",
+      "subText": "Empfangen Sie heute Krypto, um hier Ihre Transaktionshistorie zu sehen",
+      "buttonText": "Empfangen"
+    },
+    "search": {
+      "placeholder": "Suchen...",
+      "notFound": {
+        "text": "Keine Ergebnisse gefunden für",
+        "subText": "Bitte versuchen Sie es mit anderen Stichwörtern"
+      }
     }
   },
   "onboarding": {
@@ -705,6 +548,95 @@
       }
     }
   },
+  "appUpdateBar": {
+    "confirmation": "Update auf cySync Version ${version} ist verfügbar",
+    "downloading": "Lädt cySync Version ${version} herunter",
+    "error": "Fehler beim Herunterladen des cySync Updates",
+    "successful": "cySync Update heruntergeladen, es wird automatisch installiert, wenn Sie die App schließen",
+    "buttons": {
+      "download": "Herunterladen",
+      "tryAgain": "Erneut versuchen",
+      "installUpdate": "Update installieren"
+    }
+  },
+  "deviceUpdateBar": {
+    "message": "Firmware-Aktualisierung Version ${version} verfügbar",
+    "button": "Herunterladen"
+  },
+  "betaNotificationBar": {
+    "message": "CySync v2.0.0 ist verfügbar!",
+    "button": "Erfahren Sie mehr"
+  },
+  "topbar": {
+    "statusTexts": {
+      "connection": {
+        "connected": "Verbunden",
+        "disconnected": "Getrennt",
+        "error": "Verbindungsfehler!"
+      },
+      "sync": {
+        "synchronized": "Synchronisiert",
+        "synchronizing": "Synchronisieren...",
+        "error": "Synchronisierungsfehler!",
+        "networkErrorTooltip": "Netzwerkfehler"
+      }
+    },
+    "notification": {
+      "title": "Transaktionen",
+      "sendTransaction": "${amount} ${unit} ${type} an ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} an mehrere Adressen",
+      "receiveTransaction": "${amount} ${unit} ${type} im Konto ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "Alles erledigt",
+        "subTitle": "Keine neuen Transaktionen zum Anzeigen"
+      }
+    }
+  },
+  "sidebar": {
+    "portfolio": "Portfolio",
+    "wallets": "Wallets",
+    "sendCrypto": "Krypto senden",
+    "receiveCrypto": "Krypto empfangen",
+    "history": "Verlauf",
+    "walletConnect": "Wallet Connect",
+    "tutorial": "Anleitung",
+    "settings": "Einstellungen",
+    "help": "Help",
+    "tooltip": {
+      "walletDeleted": "${walletName} wurde aus deinem Cypherock X1 Vault gelöscht"
+    }
+  },
+  "walletSync": {
+    "deletedOne": {
+      "title": "Es scheint, dass Sie das Wallet ${walletName} aus dem X1 Vault gelöscht haben. Möchten Sie es auch auf CySync löschen?"
+    },
+    "deletedMany": {
+      "title": "Es scheint, dass Sie Wallets aus dem X1 Vault gelöscht haben. Möchten Sie sie auch von CySync löschen?",
+      "subTitle": "Sie können wählen, welche Sie behalten und welche Sie löschen möchten"
+    },
+    "freshOneCreated": {
+      "title": "Es scheint, dass Sie Wallets aus dem X1 Vault gelöscht haben, während Sie neue mit demselben Namen erstellt haben. Möchten Sie die alten Wallets auf CySync löschen?",
+      "subTitle": "Sie können wählen, welches Sie behalten und welches Sie löschen möchten",
+      "checkboxText": "Nicht wieder anzeigen"
+    },
+    "buttons": {
+      "keepIt": "Behalten",
+      "keepAll": "Alle behalten",
+      "delete": "Löschen"
+    }
+  },
+  "graph": {
+    "totalBalance": "Gesamtbilanz",
+    "walletDropdown": {
+      "search": "Suche"
+    },
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
+    }
+  },
   "walletConnect": {
     "uriTab": {
       "title": "WalletConnect",
@@ -740,14 +672,25 @@
           "subtitle": "Wiederholen Sie die Verbindung aus der dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} hat angefordert, eine Verbindung zu Ketten herzustellen, die wir noch nicht unterstützen",
+          "title": "${dappName} hat die Verbindung zu Chain(s) angefordert, die wir noch nicht unterstützen",
           "subtitle": "Wir unterstützen derzeit ${chains}",
-          "message": "Nicht unterstützte Ketten: ${chains}"
+          "message": "Nicht unterstützte Chain(s): ${chains}"
         }
       },
       "reject": {
         "call": "Benutzer abgelehnt"
       }
+    }
+  },
+  "signMessage": {
+    "title": "Nachricht signieren",
+    "subTitle": "Verbunden mit dem folgenden Konto",
+    "actions": {
+      "confirmDevice": "Auf Gerät bestätigen",
+      "verifyData": "Daten überprüfen",
+      "enterPassphrase": "Passphrase eingeben",
+      "enterPin": "PIN eingeben und eine Karte tippen",
+      "tapCard": "Irgendeine Karte tippen"
     }
   },
   "portfolio": {
@@ -781,6 +724,40 @@
     "accountMissing": {
       "text": "Konten fehlen",
       "subText": "Erstellen oder importieren Sie ein Konto, um loszulegen"
+    }
+  },
+  "wallet": {
+    "title": "Wallets",
+    "tableTitle": "Konten",
+    "buttons": {
+      "less": "Weniger anzeigen",
+      "more": "Mehr anzeigen",
+      "hide": "Token ausblenden",
+      "show": "Token anzeigen"
+    },
+    "tableHeader": {
+      "account": "Konto",
+      "syncStatus": "Synchronisierungsstatus",
+      "balance": "Kontostand",
+      "value": "Wert"
+    },
+    "accountMissing": {
+      "text": "Noch kein Konto",
+      "subText": "Keine Coins/Konten wurden in der Wallet gefunden"
+    },
+    "search": {
+      "placeholder": "Suchen",
+      "text": "Keine Ergebnisse gefunden für",
+      "subText": "Bitte versuchen Sie, andere Schlüsselwörter zu suchen"
+    }
+  },
+  "deleteAccount": {
+    "title": "Sind Sie sicher, dass Sie entfernen möchten",
+    "subTitle": "Sie können das Konto auf der ${walletName}-Wallet-Seite erneut hinzufügen. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt",
+    "tokenSubtitle": "Sie können das Token auf der ${walletName}-Wallet-Seite erneut hinzufügen. Beachten Sie, dass dies nicht zu einem Verlust von Vermögenswerten führt",
+    "buttons": {
+      "yes": "Ja",
+      "no": "Nein"
     }
   },
   "errors": {
@@ -1039,6 +1016,25 @@
       }
     },
     "default": "Ein interner Fehler ist aufgetreten"
+  },
+  "validation": {
+    "generic": {
+      "required": "Dieses Feld ist erforderlich"
+    },
+    "email": {
+      "invalid": "Dies ist keine gültige E-Mail-Adresse"
+    },
+    "password": {
+      "mismatch": "Passwörter stimmen nicht überein",
+      "passwordFieldPrefix": "Passwort ",
+      "confirmPasswordFieldPrefix": "Passwort bestätigen ",
+      "minLength": "muss aus mindestens 8 Zeichen bestehen",
+      "containNumber": "muss mindestens 1 Nummer enthalten",
+      "containSymbol": "muss mindestens 1 Symbol enthalten",
+      "required": "ist erforderlich",
+      "containUppercase": "muss mindestens 1 Großbuchstaben enthalten",
+      "containLowercase": "muss mindestens 1 Kleinbuchstaben enthalten"
+    }
   },
   "guidedFlows": {
     "createWallet": {
@@ -1426,39 +1422,43 @@
       "description": "Wir haben eine umfassende Überarbeitung der CySync App vorgenommen.\nDas neue CySync enthält all Ihre Lieblingsfunktionen und vieles mehr.\nDownload von <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Wichtig**\n\n* Sie werden Ihre Gelder nicht verlieren\n* Nach dem Update müssen Sie Ihre Konten erneut importieren\n* Keine neuen Updates für CySync v1 außer Sicherheitsupdates\n"
     },
     "editAccount": {
-      "header": "Edit Account",
+      "header": "Konto bearbeiten",
       "accountSelection": {
-        "title": "Select the Account to Edit",
-        "subtitle": "Choose the account you want to edit",
-        "searchText": "Search",
-        "accountPlaceholder": "Select Accounts",
-        "walletPlaceholder": "Choose a wallet"
+        "title": "Wählen Sie das zu bearbeitende Konto aus",
+        "subtitle": "Wählen Sie das Konto, das Sie bearbeiten möchten",
+        "searchText": "Suche",
+        "accountPlaceholder": "Konten auswählen",
+        "walletPlaceholder": "Wählen Sie eine Wallet"
       },
       "accountEdit": {
-        "title": "Account details",
-        "subtitle": "Edit your account attributes",
+        "title": "Kontodetails",
+        "subtitle": "Bearbeiten Sie Ihre Kontoattribute",
         "input": {
           "accountName": {
-            "title": "Account Name",
-            "subtitle": "Description of the account"
+            "title": "Kontoname",
+            "subtitle": "Beschreibung des Kontos"
           },
           "unit": {
-            "title": "Unit",
-            "subtitle": "Choose the Unit to be used"
+            "title": "Einheit",
+            "subtitle": "Wählen Sie die zu verwendende Einheit"
           }
         },
         "buttons": {
-          "remove": "Remove from portfolio",
-          "apply": "Apply"
+          "remove": "Aus dem Portfolio entfernen",
+          "apply": "Anwenden"
         },
-        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
-        "advanced": "Advanced"
+        "info": "Dies ist ein ${derivationSchemeName} xpub. Wenn Sie es in eine Drittanbieter-Wallet importieren, wählen Sie denselben Derivationsmodus",
+        "advanced": "Erweitert"
       }
     }
   },
+  "toggle": {
+    "on": "EIN",
+    "off": "AUS"
+  },
   "snackbar": {
     "copiedToClipboard": "In die Zwischenablage kopiert",
-    "accountUpdated": "Account Updated Successfully",
+    "accountUpdated": "Konto erfolgreich aktualisiert",
     "downloadCSV": "Transaktionsverlauf exportiert"
   },
   "settings": {
