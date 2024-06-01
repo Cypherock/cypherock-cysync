@@ -1,3 +1,15 @@
+# v2.0.6
+
+### 🐛 Bugfixes
+
+- Fixed Bitcoin send transaction issues
+
+### 🚀 Features
+
+- CySync app is now available in German, Chinese, Indonesian and Arabic
+- Improved sidebar UI
+- Now you can edit account names
+
 # v2.0.5
 
 ### 🐛 Bugfixes
