@@ -1424,10 +1424,41 @@
     "betaNotification": {
       "title": "Pembaharuan CySync v2.0.0",
       "description": "Kami telah melakukan perombakan besar pada aplikasi CySync.\nCySync baru hadir dengan semua fitur favorit Anda dan masih banyak lagi.\nUnduh dari <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana Anda\n* Setelah update, Anda harus mengimpor akun Anda lagi\n* Tidak ada pembaharuan baru untuk CySync v1 kecuali pembaharuan keamanan\n"
+    },
+    "editAccount": {
+      "header": "Edit Account",
+      "accountSelection": {
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "accountEdit": {
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
+        "input": {
+          "accountName": {
+            "title": "Account Name",
+            "subtitle": "Description of the account"
+          },
+          "unit": {
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
+          }
+        },
+        "buttons": {
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
+        },
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
+        "advanced": "Advanced"
+      }
     }
   },
   "snackbar": {
     "copiedToClipboard": "Disalin ke clipboard",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "Riwayat transaksi diekspor"
   },
   "settings": {

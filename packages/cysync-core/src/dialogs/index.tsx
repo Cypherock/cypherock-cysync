@@ -15,6 +15,7 @@ import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
+import { EditAccountDialog } from './EditAccountDialog';
 import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
@@ -41,6 +42,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
   removePassword: RemovePasswordDialog,
+  editAccount: EditAccountDialog,
   changePassword: ChangePasswordDialog,
   resetCySync: ResetCySyncDialog,
   setPassword: SetPasswordDialog,

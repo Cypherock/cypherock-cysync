@@ -395,7 +395,7 @@ export const Dropdown: React.FC<
             $maxHeight={244}
             $cursor={disabled ? 'not-allowed' : 'default'}
           >
-            <Virtualize.AutoSizer>
+            <Virtualize.AutoSizer style={{ width: '100%' }}>
               {({ width, height }: any) => (
                 <Virtualize.List
                   height={height}

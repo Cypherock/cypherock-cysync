@@ -7,13 +7,13 @@ import {
   ArrowSentIcon,
   ArrowReceivedIcon,
   SvgProps,
-  DeleteIconWithBg,
+  AccountSettingsIconBg,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import {
-  openDeleteAccountDialog,
+  openEditAccountDialog,
   openReceiveDialog,
   openSendDialog,
 } from '~/actions';
@@ -104,14 +104,15 @@ export const AccountPage: FC = () => {
                   onClick={() => {
                     if (selectedAccount)
                       dispatch(
-                        openDeleteAccountDialog({
-                          account: selectedAccount,
-                          wallet: selectedAccount.wallet,
+                        openEditAccountDialog({
+                          walletId: selectedAccount.walletId,
+                          accountId: selectedAccount.__id,
+                          isSkipAccountSelection: true,
                         }),
                       );
                   }}
                 >
-                  <DeleteIconWithBg />
+                  <AccountSettingsIconBg />
                 </Button>
               )}
             </Container>
