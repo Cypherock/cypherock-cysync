@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { DeleteAccount } from '~/components';
+
 import { useEditAccountDialog } from '../context';
 
 export const DeleteAccountDialog: React.FC = () => {

@@ -1,3 +1,4 @@
+import { updateAccount } from '@cypherock/coin-support-utils';
 import { coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -24,7 +25,6 @@ import {
 } from '~/store';
 import { getDB } from '~/utils';
 
-import { updateAccount } from '@cypherock/coin-support-utils';
 import { EditAccountDialogProps } from '..';
 import {
   AccountDetails,

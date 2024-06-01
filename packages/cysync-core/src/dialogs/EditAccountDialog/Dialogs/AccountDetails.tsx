@@ -183,7 +183,7 @@ export const AccountDetails: React.FC = () => {
                     <MessageBox
                       type="info"
                       text={parseLangTemplate(accountEdit.info, {
-                        derivationSchemeName: selectedAccount?.derivationScheme,
+                        derivationSchemeName: selectedAccount.derivationScheme,
                       })}
                     />
                   )}
