@@ -1424,10 +1424,41 @@
     "betaNotification": {
       "title": "CySync Update v2.0.0",
       "description": "Wir haben eine umfassende Überarbeitung der CySync App vorgenommen.\nDas neue CySync enthält all Ihre Lieblingsfunktionen und vieles mehr.\nDownload von <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Wichtig**\n\n* Sie werden Ihre Gelder nicht verlieren\n* Nach dem Update müssen Sie Ihre Konten erneut importieren\n* Keine neuen Updates für CySync v1 außer Sicherheitsupdates\n"
+    },
+    "editAccount": {
+      "header": "Edit Account",
+      "accountSelection": {
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "accountEdit": {
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
+        "input": {
+          "accountName": {
+            "title": "Account Name",
+            "subtitle": "Description of the account"
+          },
+          "unit": {
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
+          }
+        },
+        "buttons": {
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
+        },
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
+        "advanced": "Advanced"
+      }
     }
   },
   "snackbar": {
     "copiedToClipboard": "In die Zwischenablage kopiert",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "Transaktionsverlauf exportiert"
   },
   "settings": {

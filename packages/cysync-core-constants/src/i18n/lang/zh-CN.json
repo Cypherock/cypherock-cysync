@@ -1400,7 +1400,42 @@
     "betaNotification": {
       "title": "CySync Update v2.0.0",
       "description": "我们对CySync应用进行了重大调整。\n新的CySync带来了您所有喜欢的功能以及更多。\n请从<a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>下载\n\n**重要**\n\n* 您不会失去资金\n* 更新后，您需要重新导入您的账户\n* 除了安全更新外，不会再有新的CySync v1更新\n"
+    },
+    "editAccount": {
+      "header": "Edit Account",
+      "accountSelection": {
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "accountEdit": {
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
+        "input": {
+          "accountName": {
+            "title": "Account Name",
+            "subtitle": "Description of the account"
+          },
+          "unit": {
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
+          }
+        },
+        "buttons": {
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
+        },
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet,  choose the same derivation mode",
+        "advanced": "Advanced"
+      }
     }
+  },
+  "snackbar": {
+    "copiedToClipboard": "已复制到剪贴板",
+    "accountUpdated": "Account Updated Successfully",
+    "downloadCSV": "交易历史已导出"
   },
   "settings": {
     "tabs": {

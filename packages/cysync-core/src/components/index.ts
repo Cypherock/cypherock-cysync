@@ -18,3 +18,4 @@ export * from './Graph';
 export * from './DeviceAuthenticating';
 export * from './BetaNotificationBar';
 export * from './LangDropdown';
+export * from './DeleteAccount';
