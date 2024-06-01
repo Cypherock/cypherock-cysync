@@ -672,9 +672,9 @@
           "subtitle": "Wiederholen Sie die Verbindung aus der dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} hat die Verbindung zu Kette(n) angefordert, die wir noch nicht unterstützen",
+          "title": "${dappName} hat die Verbindung zu Chain(s) angefordert, die wir noch nicht unterstützen",
           "subtitle": "Wir unterstützen derzeit ${chains}",
-          "message": "Nicht unterstützte Ketten: ${chains}"
+          "message": "Nicht unterstützte Chain(s): ${chains}"
         }
       },
       "reject": {

@@ -310,7 +310,7 @@
       "time": "Waktu",
       "asset": "Aset",
       "walletAndAccount": "Dompet / Akun",
-      "wallet": "Dompet",
+      "wallet": "Wallet",
       "account": "Akun",
       "amount": "Jumlah",
       "value": "Nilai"
@@ -333,7 +333,7 @@
       "fee": "Biaya",
       "type": "Jenis",
       "status": "Status",
-      "wallet": "Dompet",
+      "wallet": "Wallet",
       "account": "Akun",
       "asset": "Aset",
       "sender": "Pengirim",
@@ -672,7 +672,7 @@
           "subtitle": "Coba kembali koneksi dari dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} meminta untuk menghubungkan ke chain yang belum kami dukung",
+          "title": "${dappName} diminta untuk terhubung ke chain(s) kami belum mendukung",
           "subtitle": "Kami saat ini mendukung ${chains}",
           "message": "Chain yang tidak didukung: ${chains}"
         }

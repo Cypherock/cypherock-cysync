@@ -310,7 +310,7 @@
       "time": "时间",
       "asset": "资产",
       "walletAndAccount": "钱包 / 账户",
-      "wallet": "钱包",
+      "wallet": "Wallet",
       "account": "账户",
       "amount": "数量",
       "value": "价值"
@@ -333,7 +333,7 @@
       "fee": "费",
       "type": "类型",
       "status": "状态",
-      "wallet": "钱包",
+      "wallet": "Wallet",
       "account": "账户",
       "asset": "资产",
       "sender": "发送者",
@@ -558,7 +558,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "固件更新版本 ${version} 可用",
+    "message": "固件更新 version ${version} 可用",
     "button": "下载"
   },
   "betaNotificationBar": {
@@ -667,9 +667,9 @@
           "subtitle": "请从 dApp 重试连接"
         },
         "unsupportedChains": {
-          "title": "${dappName} 请求连接到我们尚不支持的链",
+          "title": "${dappName} 请求连接到我们尚不支持的chain(s)",
           "subtitle": "我们目前支持 ${chains}",
-          "message": "不支持的链: ${chains}"
+          "message": "不支持的Chain(s)：${chains}"
         }
       },
       "reject": {
