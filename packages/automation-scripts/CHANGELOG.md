@@ -1,5 +1,16 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.0.6
+
+### Patch Changes
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- Updated dependencies [[`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5), [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52), [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581)]:
+  - @cypherock/cysync-core-constants@0.0.1
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/cysync-utils@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes
