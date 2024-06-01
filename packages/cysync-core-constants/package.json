@@ -46,7 +46,7 @@
     ]
   },
   "dependencies": {
-    "@cypherock/sdk-app-manager": "^0.0.30",
-    "@cypherock/sdk-interfaces": "^0.0.14"
+    "@cypherock/sdk-app-manager": "^0.0.31",
+    "@cypherock/sdk-interfaces": "^0.0.15"
   }
 }
