@@ -21,6 +21,19 @@ const DONT_TRANSLATE_PHRASES = [
   'Cypherock',
   'WalletConnect',
   'Wallet Connect',
+  'X1 Card',
+  'CySync App',
+  'Firmware',
+  'Update',
+  'Portfolio',
+  'Wallets',
+  'Version',
+  '1D',
+  '1W',
+  '1M',
+  '1Y',
+  'Help',
+  'Support',
 ];
 
 export const generateTranslationFiles = async () => {
