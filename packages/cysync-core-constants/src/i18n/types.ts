@@ -731,6 +731,7 @@ interface LangToggle {
 
 interface LangSnackbar {
   copiedToClipboard: string;
+  accountUpdated: string;
   downloadCSV: string;
 }
 
