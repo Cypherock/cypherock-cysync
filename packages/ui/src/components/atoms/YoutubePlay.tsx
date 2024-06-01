@@ -11,9 +11,11 @@ const YoutubeImage = styled.img.attrs({
   src: youtubeplay,
   alt: 'youtube',
 })``;
+
+const Placeholder = styled.div`
+  width: 75px;
+  height: 60px;
+`;
+
 export const YoutubePlay: FC<YoutubeProps> = ({ visible }) =>
-  visible ? (
-    <YoutubeImage />
-  ) : (
-    <div style={{ width: '75px', height: '60px' }} />
-  );
+  visible ? <YoutubeImage /> : <Placeholder />;
