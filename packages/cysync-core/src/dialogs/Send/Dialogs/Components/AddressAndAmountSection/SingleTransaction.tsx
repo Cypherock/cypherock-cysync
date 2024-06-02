@@ -13,6 +13,7 @@ import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
 
 import { useSendDialog } from '../../../context';
+import { NotesInput } from './NotesInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -141,6 +142,10 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           onToggle={prepareSendMax}
           converter={priceConverter}
           isDisabled={disableInputs}
+        />
+        <NotesInput
+          label={displayText.remarks.label}
+          placeholder={displayText.remarks.placeholder}
         />
       </Container>
     </Container>

@@ -195,6 +195,13 @@ export const SummaryDialog: React.FC = () => {
     }
     return fromDetails;
   };
+  const getTransactionRemarks = () => [
+    {
+      id: 'transaction-remarks',
+      leftText: displayText.remarks,
+      rightText: 'personal notes goes here(static entry)',
+    },
+  ];
 
   return (
     <DialogBox width={600}>
@@ -226,6 +233,8 @@ export const SummaryDialog: React.FC = () => {
                 ...getFeeDetails(),
                 { isDivider: true, id: '5' },
                 ...getTotalAmount(),
+                { isDivider: true, id: '6' },
+                ...getTransactionRemarks(),
               ]}
             />
           </DialogBoxBody>

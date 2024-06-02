@@ -24,6 +24,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import { NotesInput } from './NotesInput';
 
 export const BatchTransaction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -189,6 +190,10 @@ export const BatchTransaction: React.FC = () => {
                     await handleAmountChange(val, output.id);
                   }}
                   converter={priceConverter}
+                />
+                <NotesInput
+                  label={displayText.remarks.label}
+                  placeholder={displayText.remarks.placeholder}
                 />
                 {i !== outputs.length - 1 && <Divider variant="horizontal" />}
               </Flex>

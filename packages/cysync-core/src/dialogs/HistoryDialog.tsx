@@ -425,6 +425,17 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
+              <HistoryItem leftText={keys.remarks}>
+                <Container direction="row" gap={8}>
+                  <Typography
+                    variant="span"
+                    $maxWidth="400"
+                    $textOverflow="ellipsis"
+                  >
+                    Personal Notes goes here (static)
+                  </Typography>
+                </Container>
+              </HistoryItem>
               {displayTransaction.txn.description && (
                 <HistoryItem leftText={keys.description}>
                   <Container direction="row" gap={8}>

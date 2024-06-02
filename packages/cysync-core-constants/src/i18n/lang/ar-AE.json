@@ -262,6 +262,10 @@
         "title": "الرسوم",
         "label": "رسوم الشبكة"
       },
+      "remarks": {
+        "label": "Personal Notes",
+        "placeholder": "Enter your personal notes here"
+      },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
       "notEnoughBalance": "أموال غير كافية لإجراء المعاملة",
@@ -278,7 +282,8 @@
       "to": "إلى",
       "amount": "المبلغ",
       "network": "رسوم الشبكة",
-      "debit": "المبلغ الإجمالي الذي سيتم خصمه"
+      "debit": "المبلغ الإجمالي الذي سيتم خصمه",
+      "remarks": "Personal Notes"
     },
     "finalMessage": {
       "button": "تحقق من المعاملات",
@@ -343,7 +348,8 @@
       "description": "الوصف",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Notes"
     },
     "noData": {
       "text": "لا توجد تعاملات حتى الآن",
