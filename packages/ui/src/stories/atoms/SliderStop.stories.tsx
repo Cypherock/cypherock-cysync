@@ -11,10 +11,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Info: Story = {
+export const Default: Story = {
   args: {
     Label: '5 Years',
-    isSelected: false,
     isActive: false,
+  },
+};
+
+export const Active: Story = {
+  args: {
+    Label: '5 Years',
+    isActive: true,
   },
 };
