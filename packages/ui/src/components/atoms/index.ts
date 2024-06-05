@@ -46,3 +46,4 @@ export * from './SilverButton';
 export * from './SliderStop';
 export * from './Tertiary';
 export * from './Wallet';
+export * from './YoutubePlay';

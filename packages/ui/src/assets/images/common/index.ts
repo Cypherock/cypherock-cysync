@@ -103,6 +103,7 @@ import walletErrorIcon from './wallet-error.svg';
 import wallet from './wallet-img.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import youtubeplay from './youtube-play.svg';
 
 export {
   downgrade,
@@ -118,6 +119,7 @@ export {
   mimDefaultWallet,
   mimHover,
   mimHovertWallet,
+  youtubeplay,
   addWalletIcon,
   walletIcon,
   tetherIcon,
