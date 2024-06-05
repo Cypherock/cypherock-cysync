@@ -29,11 +29,11 @@ const WalletName = styled.div`
   margin-left: 14px;
 `;
 
-export interface ReminderProps {
+export interface WalletProps {
   walletName: string;
 }
 
-export const Wallet: FC<ReminderProps> = ({ walletName }) => (
+export const Wallet: FC<WalletProps> = ({ walletName }) => (
   <Flex>
     <WalletDefaultImage /> <WalletName>{walletName}</WalletName>
   </Flex>
