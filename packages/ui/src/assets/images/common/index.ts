@@ -11,6 +11,7 @@ import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
 import bnbChainIcon from './bnb-chain.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
+import checkTick from './check-tick.svg';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
 import closeIcon from './close.svg';
@@ -20,6 +21,8 @@ import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
+import dashWallet from './dash-wallet.svg';
+import dashedWallet from './dashed-wallet-dash.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
@@ -28,12 +31,15 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
+import expireHoverWallet from './expire-hover-wallet.svg';
 import { FailIcon } from './FailIcon';
+import goldHoverWallet from './gold-hover-wallet.svg';
 import goldSendIcon from './gold-send.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
+import info from './info.svg';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
@@ -44,6 +50,8 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
+import noneDefaultPlus from './none-default-plus.svg';
+import noneHoverPlus from './none-hover-plus.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -57,6 +65,7 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
+import silverHoverWallet from './silver-hover-wallet.svg';
 import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
@@ -70,10 +79,8 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import youtubeplay from './youtube-play.svg';
 
 export {
-  youtubeplay,
   addWalletIcon,
   walletIcon,
   tetherIcon,
@@ -146,4 +153,13 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  goldHoverWallet,
+  checkTick,
+  info,
+  silverHoverWallet,
+  dashWallet,
+  noneDefaultPlus,
+  noneHoverPlus,
+  expireHoverWallet,
+  dashedWallet,
 };
