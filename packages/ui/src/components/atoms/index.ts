@@ -42,3 +42,4 @@ export * from './Edit';
 export * from './LoadingCircle';
 export * from './ManyInMany';
 export * from './Reminder';
+export * from './SilverButton';
