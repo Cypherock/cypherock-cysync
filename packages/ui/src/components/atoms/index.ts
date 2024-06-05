@@ -36,3 +36,4 @@ export * from './AdvanceTextDiaplay';
 export * from './CheckoutPrivacyPolicy';
 export * from './DashboardWallet';
 export * from './ChangePlan';
+export * from './Edit';

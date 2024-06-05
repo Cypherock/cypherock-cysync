@@ -27,6 +27,9 @@ import deviceAuthAsideImage from './DeviceAuthAside.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
 import downgrade from './downgrade.svg';
+import editDefault from './edit-default.svg';
+import editDisable from './edit-disable.svg';
+import editHover from './edit-hover.svg';
 import emailIcon from './email-icon.svg';
 import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
@@ -87,6 +90,9 @@ export {
   downgrade,
   upgrade,
   upgradeHover,
+  editDefault,
+  editHover,
+  editDisable,
   addWalletIcon,
   walletIcon,
   tetherIcon,
