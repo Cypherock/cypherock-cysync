@@ -34,3 +34,4 @@ export * from './Tooltip';
 export * from './Video';
 export * from './AdvanceTextDiaplay';
 export * from './CheckoutPrivacyPolicy';
+export * from './DashboardWallet';
