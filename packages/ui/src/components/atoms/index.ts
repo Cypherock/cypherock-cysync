@@ -44,3 +44,4 @@ export * from './ManyInMany';
 export * from './Reminder';
 export * from './SilverButton';
 export * from './SliderStop';
+export * from './Tertiary';

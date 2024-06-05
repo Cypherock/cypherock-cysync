@@ -1,5 +1,6 @@
 import addAccountIcon from './add-account.svg';
 import addWalletIcon from './add-wallet.png';
+import plus from './Add.svg';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
@@ -88,6 +89,7 @@ import silverHoverWallet from './silver-hover-wallet.svg';
 import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
+import minus from './Subtract.svg';
 import successIcon from './success.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
@@ -204,4 +206,6 @@ export {
   clockHover,
   clockDisabled,
   ClockInfo,
+  plus,
+  minus,
 };
