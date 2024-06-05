@@ -35,3 +35,4 @@ export * from './Video';
 export * from './AdvanceTextDiaplay';
 export * from './CheckoutPrivacyPolicy';
 export * from './DashboardWallet';
+export * from './ChangePlan';
