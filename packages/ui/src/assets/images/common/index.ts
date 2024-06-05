@@ -61,6 +61,9 @@ import mimDefault from './mim-default.svg';
 import mimDisableWallet from './mim-disable-wallet.svg';
 import mimHovertWallet from './mim-hover-wallet.svg';
 import mimHover from './mim-hover.svg';
+import oneInManyBgImage from './onetomany1.svg';
+import oneInManyBgHoverImage from './onetomany2.svg';
+import oneInManyBgSelectedImage from './onetomany3.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -156,6 +159,9 @@ export {
   openExternalLink,
   informationIcon,
   greenTick,
+  oneInManyBgImage,
+  oneInManyBgHoverImage,
+  oneInManyBgSelectedImage,
   redDisconnectedIcon,
   goldFail,
   emailIconOutlined,
