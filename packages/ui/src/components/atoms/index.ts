@@ -39,3 +39,4 @@ export * from './DashboardWallet';
 export * from './ChangePlan';
 export * from './Edit';
 export * from './LoadingCircle';
+export * from './ManyInMany';

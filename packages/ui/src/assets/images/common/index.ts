@@ -56,6 +56,11 @@ import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import noneDefaultPlus from './none-default-plus.svg';
 import noneHoverPlus from './none-hover-plus.svg';
+import mimDefaultWallet from './mim-default-wallet.svg';
+import mimDefault from './mim-default.svg';
+import mimDisableWallet from './mim-disable-wallet.svg';
+import mimHovertWallet from './mim-hover-wallet.svg';
+import mimHover from './mim-hover.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -64,6 +69,7 @@ import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
+import redInfo from './red-info.svg';
 import searchIcon from './search-icon.svg';
 import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
@@ -94,6 +100,12 @@ export {
   editHover,
   editDisable,
   info,
+  mimDisableWallet,
+  redInfo,
+  mimDefault,
+  mimDefaultWallet,
+  mimHover,
+  mimHovertWallet,
   addWalletIcon,
   walletIcon,
   tetherIcon,
