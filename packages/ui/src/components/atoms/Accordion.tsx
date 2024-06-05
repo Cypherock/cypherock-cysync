@@ -50,7 +50,7 @@ export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
       onClick={() => setIsOpen(!IsOpen)}
       className="oneInManyContainer"
     >
-      <Flex>
+      <Flex align="center" justify="space-between" m="0px 10px 0px 10px">
         <First>
           <InfoImage />
           <p style={{ marginLeft: '16px' }}> {header} </p>
