@@ -100,6 +100,7 @@ import upgrade from './upgrade.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
+import wallet from './wallet-img.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 
@@ -208,4 +209,5 @@ export {
   ClockInfo,
   plus,
   minus,
+  wallet,
 };
