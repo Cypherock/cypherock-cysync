@@ -14,6 +14,12 @@ import cardTapAsideImage from './CardTapAsideImage.png';
 import checkTick from './check-tick.svg';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
+import clockBgDefault from './clock-bg-default.svg';
+import clockBgHover from './clock-bg-hover.svg';
+import clockHover from './clock-hover.svg';
+import ClockInfo from './clock-info.svg';
+import clockDefault from './clock.svg';
+import clockDisabled from './clockDisabled.svg';
 import closeIcon from './close.svg';
 import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
@@ -192,4 +198,10 @@ export {
   noneHoverPlus,
   expireHoverWallet,
   dashedWallet,
+  clockBgDefault,
+  clockBgHover,
+  clockDefault,
+  clockHover,
+  clockDisabled,
+  ClockInfo,
 };

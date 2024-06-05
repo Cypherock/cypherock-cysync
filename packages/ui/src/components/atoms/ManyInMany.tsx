@@ -62,13 +62,13 @@ const RedInfoImage = styled.img.attrs({
   alt: 'Info',
 })``;
 
-export interface ReminderProps {
+export interface ManyInManyProps {
   title: string;
   disabled: boolean;
   selected: boolean;
 }
 
-export const ManyInMany: FC<ReminderProps> = ({
+export const ManyInMany: FC<ManyInManyProps> = ({
   disabled,
   selected,
   title,

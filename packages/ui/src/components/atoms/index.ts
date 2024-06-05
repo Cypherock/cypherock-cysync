@@ -41,3 +41,4 @@ export * from './ChangePlan';
 export * from './Edit';
 export * from './LoadingCircle';
 export * from './ManyInMany';
+export * from './Reminder';
