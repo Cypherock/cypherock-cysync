@@ -1,5 +1,17 @@
 # @cypherock/coin-support-solana
 
+## 0.0.6
+
+### Patch Changes
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
+- Updated dependencies [[`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581)]:
+  - @cypherock/coin-support-interfaces@0.0.4
+  - @cypherock/coin-support-utils@0.0.6
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/cysync-utils@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes

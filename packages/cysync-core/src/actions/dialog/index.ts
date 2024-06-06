@@ -3,6 +3,7 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
+import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
@@ -81,3 +82,6 @@ export const openDeleteAccountDialog = (props: DeleteAccountDialogProps) =>
 
 export const openBetaNotificationDialog = () =>
   openDialog({ name: 'betaNotificationDialog', data: undefined });
+
+export const openEditAccountDialog = (props?: EditAccountDialogProps) =>
+  openDialog({ name: 'editAccount', data: props });

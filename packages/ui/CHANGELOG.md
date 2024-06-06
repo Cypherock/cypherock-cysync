@@ -1,5 +1,17 @@
 # @cypherock/cysync-ui
 
+## 0.0.5
+
+### Patch Changes
+
+- [#417](https://github.com/Cypherock/cypherock-cysync/pull/417) [`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - Added edit account feature
+
+- [#460](https://github.com/Cypherock/cypherock-cysync/pull/460) [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - updated sidebar ui adding popup for navigating wallets
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- [#462](https://github.com/Cypherock/cypherock-cysync/pull/462) [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Enabled copy paste feature on the password input fields
+
 ## 0.0.4
 
 ### Patch Changes

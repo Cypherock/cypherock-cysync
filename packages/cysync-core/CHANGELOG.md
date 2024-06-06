@@ -1,5 +1,34 @@
 # @cypherock/cysync-core
 
+## 0.0.6
+
+### Patch Changes
+
+- [#417](https://github.com/Cypherock/cypherock-cysync/pull/417) [`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - Added edit account feature
+
+- [#460](https://github.com/Cypherock/cypherock-cysync/pull/460) [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - updated sidebar ui adding popup for navigating wallets
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- [#463](https://github.com/Cypherock/cypherock-cysync/pull/463) [`93bacb86`](https://github.com/Cypherock/cypherock-cysync/commit/93bacb86d0b340687ec6acfe1bcddcf52accbac9) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Release Notes will be displayed once after version update
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
+- Updated dependencies [[`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5), [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88), [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52), [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581), [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b)]:
+  - @cypherock/cysync-core-constants@0.0.1
+  - @cypherock/cysync-ui@0.0.5
+  - @cypherock/coin-support-interfaces@0.0.4
+  - @cypherock/coin-support-solana@0.0.6
+  - @cypherock/coin-support-utils@0.0.6
+  - @cypherock/coin-support-near@0.0.6
+  - @cypherock/coin-support-btc@0.0.6
+  - @cypherock/coin-support-evm@0.0.6
+  - @cypherock/cysync-core-services@0.0.6
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/coin-support@0.0.6
+  - @cypherock/cysync-core-workers@0.0.6
+  - @cypherock/cysync-utils@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes

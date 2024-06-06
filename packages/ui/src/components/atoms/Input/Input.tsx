@@ -33,6 +33,7 @@ export interface InputProps {
   $noBorder?: boolean;
   required?: boolean;
   utilProps?: UtilsProps;
+  autoFocus?: boolean;
 }
 
 const InputStyle = styled.input<{
@@ -126,6 +127,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         $customImageSpacing,
         $noBorder = false,
         utilProps,
+        autoFocus = false,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -157,6 +159,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             value={value}
             required={required}
             onClick={onClick}
+            autoFocus={autoFocus}
             onPaste={e => {
               if (pasteAllowed) return true;
               e.preventDefault();
@@ -219,6 +222,7 @@ Input.defaultProps = {
   $customImageSpacing: false,
   required: false,
   utilProps: undefined,
+  autoFocus: false,
 };
 
 Input.displayName = 'Input';

@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-automation-scripts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -47,6 +47,7 @@
     "@cypherock/cysync-core-constants": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
+    "@google/generative-ai": "^0.11.4",
     "axios": "^1.4.0",
     "bignumber.js": "^9.1.1",
     "jsdom": "^24.0.0",
