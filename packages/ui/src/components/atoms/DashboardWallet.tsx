@@ -97,7 +97,8 @@ const Check = styled.div<{ isVerified: boolean; isHover: boolean }>`
   ${({ isHover }) =>
     css`
       height: ${isHover ? 'unset' : '15px'};
-      left: ${isHover ? '30%' : '42%'};
+      left: ${isHover ? '30%' : '35%'};
+      top: ${isHover ? '' : '10px'};
     `}
 `;
 
