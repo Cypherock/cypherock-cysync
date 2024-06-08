@@ -1,3 +1,4 @@
+export * from './createAccounts';
 export * from './getAccountHistory';
 export * from './getCoinAllocations';
 export * from './getExplorerLink';

@@ -17,6 +17,7 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import { ICreateTronAccountParams } from './operations/types';
 
 export * from './operations/types';
 export * from './services';
@@ -28,8 +29,10 @@ export class TronSupport implements CoinSupport {
     throw new Error(`Method not implemented`);
   }
 
-  public createAccounts(): Observable<ICreateAccountEvent> {
-    throw new Error(`Method not implemented`);
+  public createAccounts(
+    params: ICreateTronAccountParams,
+  ): Observable<ICreateAccountEvent> {
+    return operations.createAccounts(params);
   }
 
   public syncAccount(): Observable<void> {
