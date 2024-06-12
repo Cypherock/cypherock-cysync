@@ -195,14 +195,15 @@ export const SummaryDialog: React.FC = () => {
     }
     return fromDetails;
   };
-  const getTransactionRemarks = () => [
-    {
-      id: 'transaction-remarks',
-      leftText: displayText.remarks,
-      rightText: 'personal notes goes here(static entry)',
-    },
-  ];
+  const getTransactionRemarks = () => {
+    if (!transaction) return [];
 
+    return transaction.userInputs.outputs.map((output, index) => ({
+      id: `remark-${transaction.accountId}-${index}`,
+      leftText: displayText.remarks,
+      rightText: output.remarks ?? '',
+    }));
+  };
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -230,11 +231,11 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
-                ...getFeeDetails(),
-                { isDivider: true, id: '5' },
-                ...getTotalAmount(),
-                { isDivider: true, id: '6' },
                 ...getTransactionRemarks(),
+                { isDivider: true, id: '5' },
+                ...getFeeDetails(),
+                { isDivider: true, id: '6' },
+                ...getTotalAmount(),
               ]}
             />
           </DialogBoxBody>

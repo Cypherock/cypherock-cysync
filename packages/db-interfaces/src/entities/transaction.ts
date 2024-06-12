@@ -54,6 +54,7 @@ export interface ITransaction extends IEntity {
   subType?: string;
   customId?: string;
   description?: string;
+  remarks?: string;
 }
 
 export interface IDetailedTransaction extends ITransaction {

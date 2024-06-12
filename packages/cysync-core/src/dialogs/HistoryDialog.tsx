@@ -321,7 +321,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
               </HistoryItem>
               <HistoryItem leftText={keys.sender}>
                 <NestedContainer>
-                  {displayTransaction.txn.inputs.map((input, i) => (
+                  {displayTransaction.txn.inputs.map((input: any, i: any) => (
                     <Container
                       direction="row"
                       gap={8}
@@ -365,7 +365,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
               </HistoryItem>
               <HistoryItem leftText={keys.receiver}>
                 <NestedContainer>
-                  {displayTransaction.txn.outputs.map((output, i) => (
+                  {displayTransaction.txn.outputs.map((output: any, i: any) => (
                     <Container
                       direction="row"
                       gap={8}
@@ -425,17 +425,20 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
-              <HistoryItem leftText={keys.remarks}>
-                <Container direction="row" gap={8}>
-                  <Typography
-                    variant="span"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    Personal Notes goes here (static)
-                  </Typography>
-                </Container>
-              </HistoryItem>
+              {displayTransaction.txn.remarks && (
+                <HistoryItem leftText={keys.remarks} key={keys.receiver}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.txn.remarks}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
+
               {displayTransaction.txn.description && (
                 <HistoryItem leftText={keys.description}>
                   <Container direction="row" gap={8}>

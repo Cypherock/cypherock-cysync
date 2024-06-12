@@ -11,9 +11,9 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
-import { NotesInput } from './NotesInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -30,6 +30,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     transaction,
     prepareAddressChanged,
     prepareAmountChanged,
+    prepareTransactionRemarks,
     prepareSendMax,
     priceConverter,
     updateUserInputs,
@@ -146,6 +147,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         <NotesInput
           label={displayText.remarks.label}
           placeholder={displayText.remarks.placeholder}
+          initialValue=""
+          onChange={prepareTransactionRemarks}
         />
       </Container>
     </Container>

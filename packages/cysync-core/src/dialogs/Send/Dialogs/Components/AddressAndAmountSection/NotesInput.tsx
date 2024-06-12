@@ -6,26 +6,36 @@ import {
   Typography,
   CustomInputSend,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import lodash from 'lodash';
+import React, { useCallback, useState } from 'react';
 
 interface NotesInputProps {
-  label: any;
-  placeholder?: any;
-  onChange?: (value: string) => void;
+  label: string;
+  placeholder?: string;
+  initialValue?: string;
+  onChange: (value: string) => Promise<void>;
 }
 
 export const NotesInput: React.FC<NotesInputProps> = ({
   label,
   placeholder,
+  initialValue,
   onChange,
 }) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initialValue ?? '');
+
+  const onValueChange = async (val: string) => {
+    await onChange(val);
+  };
+
+  const debouncedOnValueChange = useCallback(
+    lodash.debounce(onValueChange, 300),
+    [],
+  );
 
   const handleValueChange = (newValue: string) => {
     setValue(newValue);
-    if (onChange) {
-      onChange(newValue);
-    }
+    debouncedOnValueChange(newValue);
   };
 
   return (
@@ -52,5 +62,5 @@ export const NotesInput: React.FC<NotesInputProps> = ({
 
 NotesInput.defaultProps = {
   placeholder: '',
-  onChange: undefined,
+  initialValue: '',
 };

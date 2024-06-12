@@ -99,6 +99,7 @@ export interface SendDialogContextInterface {
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
+  prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
@@ -339,6 +340,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         if (txnData.gasPrice) txn.userInputs.gasPrice = txnData.gasPrice;
         if (txnData.gasLimit) txn.userInputs.gasLimit = txnData.gasLimit;
         if (txnData.gas) txn.userInputs.gasLimit = txnData.gas;
+        if (txnData.remarks)
+          txn.userInputs.outputs[0].remarks = txnData.remarks;
         await prepare(txn);
       }
     } catch (e: any) {
@@ -427,6 +430,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: val,
           amount: '',
+          remarks: '',
         },
       ];
     await prepare(txn);
@@ -455,11 +459,26 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: '',
           amount: convertedAmount.amount,
+          remarks: '',
         },
       ];
     await prepare(txn);
   };
-
+  const prepareTransactionRemarks = async (remark: string) => {
+    if (!transaction) return;
+    const txn = transaction;
+    if (txn.userInputs.outputs.length > 0)
+      txn.userInputs.outputs[0].remarks = remark;
+    else
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          remarks: remark,
+        },
+      ];
+    await prepare(txn);
+  };
   const prepareSendMax = async (state: boolean) => {
     if (!selectedAccount || !transaction) return '';
     const txn = transaction;
@@ -513,6 +532,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         txn.userInputs.outputs.push({
           address: '',
           amount: '',
+          remarks: '',
         });
     }
     setTransaction(txn);
@@ -596,6 +616,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,
@@ -635,6 +656,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,

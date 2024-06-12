@@ -97,7 +97,10 @@ const getTxnInputs = async (params: {
       amount = convertedAmount.amount;
     }
 
-    transaction.userInputs.outputs.push({ address, amount });
+    transaction.userInputs.outputs.push({
+      address,
+      amount,
+    });
   }
 
   if (coin.family === coinFamiliesMap.bitcoin) {

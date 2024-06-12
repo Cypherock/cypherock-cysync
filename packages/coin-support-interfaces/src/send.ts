@@ -4,6 +4,7 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 export interface IPreparedTransactionOutput {
   address: string;
   amount: string;
+  remarks?: string;
 }
 
 export interface IPreparedTransaction {

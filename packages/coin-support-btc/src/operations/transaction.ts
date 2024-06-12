@@ -19,6 +19,7 @@ export interface IPreparedBtcTransactionOutput {
   address: string;
   value: number;
   // if it is a change address
+
   derivationPath?: string;
 }
 
