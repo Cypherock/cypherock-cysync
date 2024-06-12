@@ -21,6 +21,7 @@ interface SummaryRowProps {
   leftText?: string;
   leftIcon?: ReactNode;
   rightText?: string;
+  bottomText?: string;
   rightComponent?: FromItem[];
   rightSubText?: string;
   margin?: number;
@@ -31,6 +32,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
   leftIcon,
   rightText,
+  bottomText,
   rightSubText,
   rightComponent,
   margin,
@@ -87,12 +89,18 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
       )
     }
     margin={margin}
+    bottomComponent={
+      <Typography variant="p" $fontSize={14}>
+        {bottomText}
+      </Typography>
+    }
   />
 );
 
 SummaryRow.defaultProps = {
   leftText: undefined,
   rightText: undefined,
+  bottomText: undefined,
   rightComponent: undefined,
   margin: undefined,
   leftIcon: undefined,

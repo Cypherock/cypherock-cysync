@@ -83,6 +83,7 @@ export const broadcastTransaction = async (
     assetId: account.assetId,
     parentAssetId: account.parentAssetId,
     familyId: account.familyId,
+    remarks: transaction.userInputs.outputs.map(output => output.remarks ?? ''),
   };
 
   const totalInputs = parsedTransaction.inputs.reduce(

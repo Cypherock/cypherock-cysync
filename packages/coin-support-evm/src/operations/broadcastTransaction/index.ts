@@ -60,7 +60,7 @@ export const broadcastTransaction = async (
     parentAssetId: account.parentAssetId,
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
-    remarks: transaction.userInputs.outputs[0].remarks,
+    remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
   };
 
   const amount = parsedTransaction.outputs.reduce(

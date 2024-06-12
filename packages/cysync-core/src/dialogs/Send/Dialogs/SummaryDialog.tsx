@@ -42,7 +42,6 @@ export const SummaryDialog: React.FC = () => {
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
   const getLabelSuffix = useLabelSuffix();
-
   const getToDetails = () => {
     const account = selectedAccount;
     const coinPrice = priceInfos.find(
@@ -77,7 +76,44 @@ export const SummaryDialog: React.FC = () => {
         },
       ];
     });
-    if (details && details.length > 2) return [details];
+    if (details && details.length > 2) {
+      const finalDetails =
+        transaction?.userInputs.outputs.flatMap((output, index) => {
+          const { amount, unit } = getParsedAmount({
+            coinId: account.parentAssetId,
+            assetId: account.assetId,
+            amount: output.amount,
+            unitAbbr:
+              account.unit ??
+              getDefaultUnit(account.parentAssetId, account.assetId).abbr,
+          });
+          const value = formatDisplayPrice(
+            new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+          );
+
+          return [
+            {
+              id: `toDetail-address-${output.address}`,
+              leftIcon: <QrCode width="11px" height="20px" />,
+              leftText: displayText.to,
+              rightText: output.address,
+            },
+            {
+              id: `toDetail-amount-${output.address}`,
+              leftText: displayText.amount,
+              rightText: `${amount} ${unit.abbr}`,
+              rightSubText: `$${value}`,
+            },
+            {
+              id: `remarks-${output.address}`,
+              leftText: `${displayText.remarks}-${index + 1}`,
+              bottomText: output.remarks ?? '',
+            },
+          ];
+        }) ?? [];
+      console.log('FINAL DETAILS', finalDetails);
+      return [finalDetails];
+    }
     return details ?? [];
   };
 
@@ -201,9 +237,10 @@ export const SummaryDialog: React.FC = () => {
     return transaction.userInputs.outputs.map((output, index) => ({
       id: `remark-${transaction.accountId}-${index}`,
       leftText: displayText.remarks,
-      rightText: output.remarks ?? '',
+      bottomText: output.remarks ?? '',
     }));
   };
+  const toDetails = getToDetails();
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -231,8 +268,9 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
-                ...getTransactionRemarks(),
+                ...(toDetails.length <= 2 ? getTransactionRemarks() : []),
                 { isDivider: true, id: '5' },
+
                 ...getFeeDetails(),
                 { isDivider: true, id: '6' },
                 ...getTotalAmount(),

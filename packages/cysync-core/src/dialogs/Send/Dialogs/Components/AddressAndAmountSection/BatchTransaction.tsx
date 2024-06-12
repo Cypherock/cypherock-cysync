@@ -124,6 +124,7 @@ export const BatchTransaction: React.FC = () => {
   };
 
   const handleTransactionRemarks = async (remark: string, id: string) => {
+    if (!transaction) return;
     const outputIndex = outputsRef.current.findIndex(
       output => output.id === id,
     );

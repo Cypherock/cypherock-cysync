@@ -425,20 +425,23 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
-              {displayTransaction.txn.remarks && (
-                <HistoryItem leftText={keys.remarks} key={keys.receiver}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.txn.remarks}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-
+              {displayTransaction.txn.remarks &&
+                displayTransaction.txn.remarks.length > 0 && (
+                  <HistoryItem leftText={keys.remarks} key={keys.receiver}>
+                    <Container direction="row" gap={8}>
+                      {displayTransaction.txn.remarks.map((remark, index) => (
+                        <Typography
+                          key={`${remark + index}`}
+                          variant="span"
+                          $maxWidth="400"
+                          $textOverflow="ellipsis"
+                        >
+                          {remark}
+                        </Typography>
+                      ))}
+                    </Container>
+                  </HistoryItem>
+                )}
               {displayTransaction.txn.description && (
                 <HistoryItem leftText={keys.description}>
                   <Container direction="row" gap={8}>

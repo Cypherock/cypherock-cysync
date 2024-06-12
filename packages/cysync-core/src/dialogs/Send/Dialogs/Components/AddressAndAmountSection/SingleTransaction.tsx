@@ -12,7 +12,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
 import { NotesInput } from './NotesInput';
-
 import { useSendDialog } from '../../../context';
 
 interface SingleTransactionProps {

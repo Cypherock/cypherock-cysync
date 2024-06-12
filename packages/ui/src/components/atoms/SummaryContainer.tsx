@@ -25,7 +25,14 @@ export const RightContainer = styled.div`
   margin-left: auto;
   ${commonContainerStyles};
 `;
-
+export const BottomContainer = styled.div`
+  margin-top: auto;
+  ${commonContainerStyles};
+  display: flex;
+  justify-content: flex-start;
+  align-self: stretch;
+  align-items: flex-start;
+`;
 export const NestedContainer = styled.div`
   margin-left: auto;
   display: flex;
@@ -55,21 +62,27 @@ interface SummaryContainerProps {
   margin?: number;
   leftComponent?: ReactNode;
   rightComponent?: ReactNode;
+  bottomComponent?: ReactNode;
 }
 
 export const SummaryContainer: React.FC<SummaryContainerProps> = ({
   margin,
   leftComponent,
   rightComponent,
+  bottomComponent,
 }) => (
-  <Main top={margin}>
-    <LeftContainer>{leftComponent}</LeftContainer>
-    <RightContainer>{rightComponent}</RightContainer>
-  </Main>
+  <>
+    <Main top={margin}>
+      <LeftContainer>{leftComponent}</LeftContainer>
+      <RightContainer>{rightComponent}</RightContainer>
+    </Main>
+    <BottomContainer>{bottomComponent}</BottomContainer>
+  </>
 );
 
 SummaryContainer.defaultProps = {
   margin: undefined,
   leftComponent: undefined,
   rightComponent: undefined,
+  bottomComponent: undefined,
 };
