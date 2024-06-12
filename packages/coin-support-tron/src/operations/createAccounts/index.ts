@@ -7,7 +7,6 @@ import {
 import { tronCoinList } from '@cypherock/coins';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { GetPublicKeysEvent, TronApp } from '@cypherock/sdk-app-tron';
-import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -19,6 +18,7 @@ import {
 } from './types';
 
 import * as services from '../../services';
+import { createApp } from '../../utils';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -82,9 +82,6 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<TronApp>['cr
 
     return account;
   };
-
-const createApp = async (connection: IDeviceConnection) =>
-  TronApp.create(connection);
 
 const getBalanceAndTxnCount = async (
   address: string,

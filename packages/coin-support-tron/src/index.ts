@@ -7,6 +7,7 @@ import {
   IGetExplorerLink,
   IPreparedTransaction,
   IReceiveEvent,
+  IReceiveParams,
   ISignMessageEvent,
   ISignTransactionEvent,
   ISyncPriceHistoriesParams,
@@ -25,8 +26,8 @@ export * from './services';
 export { updateLogger } from './utils/logger';
 
 export class TronSupport implements CoinSupport {
-  public receive(): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented`);
+  public receive(params: IReceiveParams): Observable<IReceiveEvent> {
+    return operations.receive(params);
   }
 
   public createAccounts(
