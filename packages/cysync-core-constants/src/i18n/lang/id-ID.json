@@ -1409,7 +1409,7 @@
             "info": "To restart the flow, go to"
           }
         ],
-        "pathText": "Settings -> Advanced -> Transfer Wallets",
+        "pathText": "Settings -> Device Settings -> Transfer Wallet",
         "buttons": {
           "secondary": "Cancel",
           "primary": "Exit"
@@ -1604,7 +1604,7 @@
             "info": "To restart the flow, go to"
           }
         ],
-        "pathText": "Settings -> Advanced -> Transfer Wallets",
+        "pathText": "Settings -> Device Settings -> Transfer Wallet",
         "buttons": {
           "secondary": "Cancel",
           "primary": "Exit"
@@ -1718,7 +1718,7 @@
             "info": "To restart the flow, go to"
           }
         ],
-        "pathText": "Settings -> Advanced -> Transfer Wallets",
+        "pathText": "Settings -> Device Settings -> Transfer Wallet",
         "buttons": {
           "secondary": "Cancel",
           "primary": "Exit"

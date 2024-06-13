@@ -16,7 +16,7 @@ import {
   recoverWalletFromSeedphraseGraphics,
   transferWalletGraphics,
 } from '@cypherock/cysync-ui';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import {
   openContactSupportDialog,
@@ -34,6 +34,13 @@ import {
 import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
+import styled from 'styled-components';
+
+const HovorableDiv = styled.div`
+  padding: 8px 42px 8px 42px;
+  height: 100%;
+  width: 100%;
+`;
 
 export const WalletActionsDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -44,6 +51,10 @@ export const WalletActionsDialogBox: FC = () => {
 
   const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
   const [selectedAction2, setSelectedAction2] = useState<TransferFlowType>();
+  const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
+  const [hoveredAction, setHoveredAction] = useState<
+    GuidedFlowType | TransferFlowType | undefined
+  >(undefined);
 
   const switchToGuidedFlow = () => {
     if (selectedAction === undefined) return;
@@ -57,6 +68,9 @@ export const WalletActionsDialogBox: FC = () => {
   };
 
   const handleSetSelectedAction = (action: GuidedFlowType) => {
+    if (String(selectedAction) !== hoveredAction) {
+      setHoveredAction(undefined);
+    }
     setSelectedAction(action);
     if (selectedAction2) {
       setSelectedAction2(undefined);
@@ -64,9 +78,62 @@ export const WalletActionsDialogBox: FC = () => {
   };
 
   const handleSetSelectedAction2 = (action: TransferFlowType) => {
+    if (String(selectedAction) !== hoveredAction) {
+      setHoveredAction(undefined);
+    }
     setSelectedAction2(action);
     if (selectedAction) {
       setSelectedAction(undefined);
+    }
+  };
+
+  useEffect(() => {
+    const fetchIsNewUser = async () => {
+      const value = await keyValueStore.isNewUser.get();
+      setIsNewUser(value);
+    };
+    fetchIsNewUser();
+  }, []);
+
+  const handleMouseEnterCreateWallet = (action: GuidedFlowType) => {
+    setHoveredAction(action);
+    if (String(selectedAction) !== String(action)) {
+      setSelectedAction(undefined);
+      setSelectedAction2(undefined);
+    }
+  };
+
+  const handleMouseLeaveCreateWallet = (action: GuidedFlowType) => {
+    if (String(selectedAction) !== String(action)) {
+      setHoveredAction(undefined);
+    }
+  };
+
+  const handleMouseEnterImportWallet = (action: GuidedFlowType) => {
+    setHoveredAction(action);
+    if (String(selectedAction) !== String(action)) {
+      setSelectedAction(undefined);
+      setSelectedAction2(undefined);
+    }
+  };
+
+  const handleMouseLeaveImportWallet = (action: GuidedFlowType) => {
+    if (String(selectedAction) !== String(action)) {
+      setHoveredAction(undefined);
+    }
+  };
+
+  const handleMouseEnterWalletTransfer = (action: TransferFlowType) => {
+    setHoveredAction(action);
+    if (String(selectedAction2) !== String(action)) {
+      setSelectedAction(undefined);
+      setSelectedAction2(undefined);
+    }
+  };
+
+  const handleMouseLeaveWalletTransfer = (action: TransferFlowType) => {
+    if (String(selectedAction2) !== String(action)) {
+      setHoveredAction(undefined);
     }
   };
 
@@ -98,7 +165,7 @@ export const WalletActionsDialogBox: FC = () => {
               subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
               title={lang.strings.onboarding.walletActionsDialogBox.title}
             />
-            <Flex direction="row" gap={16} justify="center">
+            <Flex direction="row" gap={16} justify="center" mt="64px" mb="24px">
               <Flex
                 direction="column"
                 $borderWidth={1}
@@ -108,32 +175,41 @@ export const WalletActionsDialogBox: FC = () => {
                 }
                 onClick={() => handleSetSelectedAction('createWallet')}
                 align="center"
-                pt={3}
-                px={3}
-                pb={2}
                 gap={24}
                 width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={createWalletGraphics}
-                  alt="Create Wallet"
-                />
-                <Typography
-                  variant="h5"
-                  $fontSize={18}
-                  color="white"
-                  $textAlign="center"
+                <HovorableDiv
+                  onMouseEnter={() =>
+                    handleMouseEnterCreateWallet('createWallet')
+                  }
+                  onMouseLeave={() =>
+                    handleMouseLeaveCreateWallet('createWallet')
+                  }
                 >
-                  <LangDisplay
-                    text={
-                      lang.strings.onboarding.walletActionsDialogBox
-                        .createWallet.title
-                    }
+                  <Image
+                    $height={100}
+                    src={createWalletGraphics}
+                    alt="Create Wallet"
+                    mt="32px"
                   />
-                </Typography>
+                  <Typography
+                    variant="h5"
+                    $fontSize={18}
+                    color="white"
+                    $textAlign="center"
+                    mt="40px"
+                    mb="16px"
+                  >
+                    <LangDisplay
+                      text={
+                        lang.strings.onboarding.walletActionsDialogBox
+                          .createWallet.title
+                      }
+                    />
+                  </Typography>
+                </HovorableDiv>
               </Flex>
               <Flex
                 direction="column"
@@ -144,34 +220,43 @@ export const WalletActionsDialogBox: FC = () => {
                 }
                 onClick={() => handleSetSelectedAction('importWallet')}
                 align="center"
-                pt={3}
-                px={3}
-                pb={2}
                 gap={24}
                 width={400}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
-                <Image
-                  $height={100}
-                  src={recoverWalletFromSeedphraseGraphics}
-                  alt="Recover Wallet From Seedphrase"
-                />
-                <Typography
-                  variant="h5"
-                  $fontSize={18}
-                  color="white"
-                  $textAlign="center"
+                <HovorableDiv
+                  onMouseEnter={() =>
+                    handleMouseEnterImportWallet('importWallet')
+                  }
+                  onMouseLeave={() =>
+                    handleMouseLeaveImportWallet('importWallet')
+                  }
                 >
-                  <LangDisplay
-                    text={
-                      lang.strings.onboarding.walletActionsDialogBox
-                        .importWallet.title
-                    }
+                  <Image
+                    $height={100}
+                    src={recoverWalletFromSeedphraseGraphics}
+                    alt="Recover Wallet From Seedphrase"
+                    mt="32px"
                   />
-                </Typography>
+                  <Typography
+                    variant="h5"
+                    $fontSize={18}
+                    color="white"
+                    $textAlign="center"
+                    mt="40px"
+                    mb="16px"
+                  >
+                    <LangDisplay
+                      text={
+                        lang.strings.onboarding.walletActionsDialogBox
+                          .importWallet.title
+                      }
+                    />
+                  </Typography>
+                </HovorableDiv>
               </Flex>
-              {!keyValueStore.isNewUser && (
+              {!isNewUser && (
                 <Flex
                   direction="column"
                   $borderWidth={1}
@@ -181,37 +266,47 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                   onClick={() => handleSetSelectedAction2('walletTransfer')}
                   align="center"
-                  pt={3}
-                  px={3}
-                  pb={2}
                   gap={24}
                   width={400}
                   shadow="hover:popup"
                   $cursor="pointer"
                 >
-                  <Image
-                    $height={100}
-                    src={transferWalletGraphics}
-                    alt="Transfer Wallet From Old to New Cypherock X1"
-                  />
-                  <Typography
-                    variant="h5"
-                    $fontSize={18}
-                    color="white"
-                    $textAlign="center"
+                  <HovorableDiv
+                    onMouseEnter={() =>
+                      handleMouseEnterWalletTransfer('walletTransfer')
+                    }
+                    onMouseLeave={() =>
+                      handleMouseLeaveWalletTransfer('walletTransfer')
+                    }
                   >
-                    <LangDisplay
-                      text={
-                        lang.strings.onboarding.walletActionsDialogBox
-                          .transferWallet.title
-                      }
+                    <Image
+                      $height={100}
+                      src={transferWalletGraphics}
+                      alt="Transfer Wallet From Old to New Cypherock X1"
+                      mt="32px"
                     />
-                  </Typography>
+                    <Typography
+                      variant="h5"
+                      $fontSize={18}
+                      color="white"
+                      $textAlign="center"
+                      mt="40px"
+                      mb="16px"
+                    >
+                      <LangDisplay
+                        text={
+                          lang.strings.onboarding.walletActionsDialogBox
+                            .transferWallet.title
+                        }
+                      />
+                    </Typography>
+                  </HovorableDiv>
                 </Flex>
               )}
             </Flex>
             <Flex pt={1} pb={4} px={4}>
-              {selectedAction === 'createWallet' && (
+              {(selectedAction === 'createWallet' ||
+                hoveredAction === 'createWallet') && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -225,7 +320,8 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {selectedAction === 'importWallet' && (
+              {(selectedAction === 'importWallet' ||
+                hoveredAction === 'importWallet') && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -239,7 +335,8 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {selectedAction2 === 'walletTransfer' && (
+              {(selectedAction2 === 'walletTransfer' ||
+                hoveredAction === 'walletTransfer') && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
