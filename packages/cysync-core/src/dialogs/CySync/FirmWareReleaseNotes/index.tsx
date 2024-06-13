@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import {
   BlurOverlay,
   Button,
@@ -21,6 +22,68 @@ import {
 } from './context';
 import { useLatestDeviceVersion } from '~/context';
 import { openDeviceUpdateDialog } from '~/actions';
+
+const Title = styled(Typography)`
+  font-size: 24px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+`;
+
+const ReleaseNotesTitle = styled.h3`
+  margin-bottom: 48px;
+  color: #8b8682;
+  font-weight: 400;
+  font-size: 16px;
+  position: inherit;
+  top: -28px;
+`;
+
+const NotesContainer = styled.div`
+  color: #8b8682;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  top: -56px;
+  position: inherit;
+`;
+
+const ReleaseDate = styled.p`
+  margin-bottom: 24px;
+  padding: 4px 16px;
+  background: linear-gradient(89.76deg, #16120f 0.23%, #1f1915 99.82%);
+`;
+
+const NoteSection = styled.div`
+  border-radius: 5px;
+  margin-bottom: 20px;
+`;
+
+const NoteTitle = styled.h4`
+  margin-bottom: 16px;
+  font-weight: 400;
+  color: #fff;
+  font-size: 18px;
+`;
+
+const NoteContent = styled.p`
+  margin-bottom: 16px;
+  color: #8b8682;
+  font-weight: 400;
+  font-size: 16px;
+`;
+
+const NoteList = styled.ul`
+  margin-bottom: 20px;
+  padding-left: 32px;
+  font-weight: 400;
+  font-size: 16px;
+`;
+
+const NoteItem = styled.li`
+  margin-bottom: 5px;
+`;
 
 const FirmWareReleaseNotes: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -58,143 +121,46 @@ const FirmWareReleaseNotes: FC = () => {
             direction="column"
             align="stretch"
           >
-            <Typography
-              $fontSize={24}
-              justify="center"
-              display="flex"
-              align="center"
-              mt="32px"
-            >
+            <Title>
               <LangDisplay
                 text={firmwareNote.title}
                 variables={{ version: version ?? 'N/A' }}
               />
-            </Typography>
-            <h3
-              style={{
-                marginBottom: '48px',
-                color: '#8B8682',
-                fontWeight: '400',
-                fontSize: '16px',
-                position: 'inherit',
-                top: '-28px',
-              }}
-            >
-              Release Notes
-            </h3>
-            <div
-              style={{
-                color: '#8B8682',
-                width: '100%',
-                boxSizing: 'border-box',
-                textAlign: 'left',
-                top: '-56px',
-                position: 'inherit',
-              }}
-            >
-              <p
-                style={{
-                  marginBottom: '24px',
-                  padding: '4px 16px',
-                  background:
-                    'linear-gradient(89.76deg, #16120F 0.23%, #1F1915 99.82%)',
-                }}
-              >
-                Released February 31, 2023
-              </p>
-              <div
-                style={{
-                  borderRadius: '5px',
-                  marginBottom: '20px',
-                }}
-              >
-                <h4
-                  style={{
-                    marginBottom: '16px',
-                    fontWeight: '400',
-                    color: '#fff',
-                    fontSize: '18px',
-                  }}
-                >
-                  Lorem ipsum
-                </h4>
-                <p
-                  style={{
-                    marginBottom: '16px',
-                    color: '#8B8682',
-                    fontWeight: '400',
-                    fontSize: '16px',
-                  }}
-                >
-                  Duis a arcu quis velit commodo volutpat. Suspendisse enim
-                  ipsum, blandit elementum nibh non, convallis consectetur
-                  justo. Etiam ornare commodo orci.
-                </p>
-                <ul
-                  style={{
-                    marginBottom: '20px',
-                    paddingLeft: '32px',
-                    fontWeight: '400',
-                    fontSize: '16px',
-                  }}
-                >
-                  <li style={{ marginBottom: '5px' }}>
-                    Duis a arcu quis velit commodo
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
-                    volutpat. Suspendisse enim ipsum,
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
-                    blandit elementum nibh non, convallis
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
+            </Title>
+            <ReleaseNotesTitle>Release Notes</ReleaseNotesTitle>
+            <NotesContainer>
+              <ReleaseDate>Released February 31, 2023</ReleaseDate>
+              <NoteSection>
+                <NoteTitle>Lorem ipsum</NoteTitle>
+                <NoteContent>
+                  {
+                    ' Duis a arcu quis velit commodo volutpat. Suspendisse enim ipsum, blandit elementum nibh non, convallis consectetur justo. Etiam ornare commodo orci.'
+                  }
+                </NoteContent>
+                <NoteList>
+                  <NoteItem>Duis a arcu quis velit commodo</NoteItem>
+                  <NoteItem>volutpat. Suspendisse enim ipsum,</NoteItem>
+                  <NoteItem>blandit elementum nibh non, convallis</NoteItem>
+                  <NoteItem>
                     consectetur justo. Etiam ornare commodo orci.
-                  </li>
-                </ul>
-                <h4
-                  style={{
-                    marginBottom: '16px',
-                    fontWeight: '400',
-                    color: '#fff',
-                    fontSize: '18px',
-                  }}
-                >
-                  Lorem ipsum
-                </h4>
-                <p
-                  style={{
-                    marginBottom: '16px',
-                    fontWeight: '400',
-                    fontSize: '16px',
-                  }}
-                >
-                  Duis a arcu quis velit commodo volutpat. Suspendisse enim
-                  ipsum, blandit elementum nibh non, convallis consectetur
-                  justo. Etiam ornare commodo orci.
-                </p>
-                <ul
-                  style={{
-                    marginBottom: '20px',
-                    paddingLeft: '32px',
-                    fontWeight: '400',
-                    fontSize: '16px',
-                  }}
-                >
-                  <li style={{ marginBottom: '5px' }}>
-                    Duis a arcu quis velit commodo
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
-                    volutpat. Suspendisse enim ipsum,
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
-                    blandit elementum nibh non, convallis
-                  </li>
-                  <li style={{ marginBottom: '5px' }}>
+                  </NoteItem>
+                </NoteList>
+                <NoteTitle>Lorem ipsum</NoteTitle>
+                <NoteContent>
+                  {
+                    ' Duis a arcu quis velit commodo volutpat. Suspendisse enim ipsum, blandit elementum nibh non, convallis consectetur justo. Etiam ornare commodo orci.'
+                  }
+                </NoteContent>
+                <NoteList>
+                  <NoteItem>Duis a arcu quis velit commodo</NoteItem>
+                  <NoteItem>volutpat. Suspendisse enim ipsum,</NoteItem>
+                  <NoteItem>blandit elementum nibh non, convallis</NoteItem>
+                  <NoteItem>
                     consectetur justo. Etiam ornare commodo orci.
-                  </li>
-                </ul>
-              </div>
-            </div>
+                  </NoteItem>
+                </NoteList>
+              </NoteSection>
+            </NotesContainer>
           </DialogBoxBody>
         </ScrollableContainer>
         <DialogBoxFooter>
