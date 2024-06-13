@@ -40,7 +40,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<
     [GetPublicKeysEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
   };
 
-  const { publicKeys: addresses } = await app.getPublicKeys({
+  const { addresses } = await app.getPublicKeys({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     onEvent: event => {

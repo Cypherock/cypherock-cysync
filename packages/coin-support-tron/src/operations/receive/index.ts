@@ -36,7 +36,7 @@ const getReceiveAddressFromDevice = async (
 
   const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
 
-  const { publicKey } = await app.getUserVerifiedPublicKey({
+  const { address } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
     onEvent: (event: GetPublicKeysEvent) => {
@@ -47,7 +47,7 @@ const getReceiveAddressFromDevice = async (
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-  return publicKey;
+  return address;
 };
 
 export const receive = (
