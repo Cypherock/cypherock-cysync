@@ -40,7 +40,8 @@
     "showQRCode": "Show QR Code",
     "editAccount": "Edit Account",
     "submit": "Submit",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "downloadUpdate": "Download Update"
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
@@ -562,6 +563,10 @@
   "deviceUpdateBar": {
     "message": "Firmware update version ${version} available",
     "button": "Download"
+  },
+  "firmwareUpdateBar": {
+    "message": "Device firmware update version ${version} available",
+    "button": "Update firmware"
   },
   "betaNotificationBar": {
     "message": "CySync v2.0.0 is available!",
@@ -1324,6 +1329,9 @@
     },
     "releaseNote": {
       "title": "Release Notes"
+    },
+    "firmwareNote": {
+      "title": "X1 Vault firmware version ${version} update"
     },
     "auth": {
       "title": "Follow instructions on the X1 Vault",
