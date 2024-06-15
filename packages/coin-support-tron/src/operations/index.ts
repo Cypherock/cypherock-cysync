@@ -11,3 +11,4 @@ export * from './prepareTransaction';
 export * from './signTransaction';
 export * from './broadcastTransaction';
 export * from './formatAddress';
+export * from './syncAccount';

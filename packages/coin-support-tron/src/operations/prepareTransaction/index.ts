@@ -1,9 +1,11 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { tronCoinList, ICoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
 
 import { IPrepareTronTransactionParams } from './types';
 
+import { estimateBandwidth, prepareUnsignedSendTxn } from '../../utils';
 import { IPreparedTronTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
@@ -33,6 +35,41 @@ const validateAddresses = (
   return outputAddressValidation;
 };
 
+const calculateBandwidthAndFees = (
+  unsignedTransaction: IUnsignedTransaction | undefined,
+  txn: IPreparedTronTransaction,
+) => {
+  const bandwidth = unsignedTransaction
+    ? estimateBandwidth(unsignedTransaction)
+    : 268;
+
+  let paidBandwidth = bandwidth;
+  if (
+    txn.staticData.totalFreeBandwidthAvailable > bandwidth ||
+    txn.staticData.totalFreeBandwidthAvailable > bandwidth
+  ) {
+    paidBandwidth = 0;
+  }
+
+  let fees = '0';
+  if (paidBandwidth > 0) {
+    let dustFees = 0;
+    if (txn.userInputs.isSendAll) {
+      dustFees = 5 * 1000;
+    }
+
+    fees = new BigNumber(paidBandwidth)
+      .multipliedBy(1000)
+      .plus(dustFees)
+      .toFixed(0);
+  }
+
+  return {
+    fees,
+    bandwidth,
+  };
+};
+
 export const prepareTransaction = async (
   params: IPrepareTronTransactionParams,
 ): Promise<IPreparedTronTransaction> => {
@@ -52,22 +89,46 @@ export const prepareTransaction = async (
   const output = { ...txn.userInputs.outputs[0] };
   // Amount shouldn't have any decimal value as it's in lowest unit
   output.amount = new BigNumber(output.amount).toFixed(0);
+  let sendAmount = new BigNumber(output.amount);
 
+  let unsignedTransaction: IUnsignedTransaction | undefined;
+
+  const createUnsignedTransaction = async () => {
+    if (output.address && outputsAddresses[0]) {
+      unsignedTransaction = await prepareUnsignedSendTxn({
+        from: account.xpubOrAddress,
+        to: output.address,
+        amount: sendAmount.isGreaterThan(0) ? sendAmount.toString() : '1',
+      });
+    }
+  };
+
+  const calculateMaxSend = () => {
+    sendAmount = new BigNumber(
+      BigNumber.max(new BigNumber(account.balance).minus(fees), 0).toFixed(0),
+    );
+    output.amount = sendAmount.toString(10);
+    // update userInput so that the max amount is editable & not reset to 0
+    txn.userInputs.outputs[0].amount = output.amount;
+  };
+
+  await createUnsignedTransaction();
+  const { fees, bandwidth } = calculateBandwidthAndFees(
+    unsignedTransaction,
+    txn,
+  );
   let hasEnoughBalance: boolean;
 
-  const sendAmount = new BigNumber(output.amount);
   if (txn.userInputs.isSendAll) {
-    // sendAmount = new BigNumber(
-    //   BigNumber.max(new BigNumber(account.balance).minus(fee), 0).toFixed(0),
-    // );
-    // output.amount = sendAmount.toString(10);
-    // // update userInput so that the max amount is editable & not reset to 0
-    // txn.userInputs.outputs[0].amount = output.amount;
+    calculateMaxSend();
+    await createUnsignedTransaction();
   }
+
   hasEnoughBalance =
     sendAmount.isNaN() ||
-    new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
-
+    new BigNumber(account.balance).isGreaterThanOrEqualTo(
+      sendAmount.plus(fees),
+    );
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
@@ -79,8 +140,10 @@ export const prepareTransaction = async (
       isValidFee: true,
     },
     computedData: {
-      fee: '0',
+      fee: fees.toString(),
       output,
+      unsignedTransaction,
+      bandwidth,
     },
   };
 };

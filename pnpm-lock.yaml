@@ -5484,7 +5484,7 @@ packages:
       '@cypherock/sdk-core': 0.0.25
       '@cypherock/sdk-interfaces': 0.0.15
       '@cypherock/sdk-utils': 0.0.18
-      axios: 1.4.0
+      axios: 1.7.2
       bip66: 1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm)
       long: 5.2.3
       protobufjs: 7.3.0
@@ -5533,7 +5533,7 @@ packages:
       '@cypherock/sdk-core': 0.0.25
       '@cypherock/sdk-interfaces': 0.0.15
       '@cypherock/sdk-utils': 0.0.18
-      axios: 1.4.0
+      axios: 1.7.2
       bs58: 5.0.0
       long: 5.2.3
       protobufjs: 7.3.0
@@ -19426,7 +19426,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -19467,7 +19467,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

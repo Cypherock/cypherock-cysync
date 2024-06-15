@@ -9,6 +9,7 @@ import {
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -537,6 +538,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getTronFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedTronTransaction;
+    return computedData.fee || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -545,7 +552,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     evm: getEvmFeeAmount,
     near: () => '0',
     solana: getSolanaFeeAmount,
-    tron: () => '0',
+    tron: getTronFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>

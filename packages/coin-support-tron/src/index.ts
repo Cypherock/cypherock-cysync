@@ -20,6 +20,7 @@ import { setTronWeb } from '@cypherock/sdk-app-tron';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import { ISyncTronAccountsParams } from './operations/syncAccount/types';
 import {
   IBroadcastTronTransactionParams,
   ICreateTronAccountParams,
@@ -50,8 +51,8 @@ export class TronSupport implements CoinSupport {
     return operations.createAccounts(params);
   }
 
-  public syncAccount(): Observable<void> {
-    throw new Error(`Method not implemented`);
+  public syncAccount(params: ISyncTronAccountsParams) {
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(

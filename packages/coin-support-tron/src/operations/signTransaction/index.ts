@@ -4,12 +4,7 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
-import { IAccount } from '@cypherock/db-interfaces';
-import {
-  TronApp,
-  ISignTxnParams,
-  ISignedTransaction,
-} from '@cypherock/sdk-app-tron';
+import { TronApp, ISignedTransaction } from '@cypherock/sdk-app-tron';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -19,22 +14,9 @@ import {
   signTronToDeviceEventMap,
 } from './types';
 
-import { createApp, getCoinSupportTronWeb } from '../../utils';
+import { createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedTronTransaction } from '../transaction';
-
-const prepareUnsignedTxn = async (
-  transaction: IPreparedTronTransaction,
-  account: IAccount,
-): Promise<ISignTxnParams['txn']> => {
-  const txn = await getCoinSupportTronWeb().transactionBuilder.sendTrx(
-    transaction.computedData.output.address,
-    parseInt(transaction.computedData.output.amount, 10),
-    account.xpubOrAddress,
-  );
-
-  return txn;
-};
 
 const signTransactionFromDevice: SignTransactionFromDevice<
   TronApp,
@@ -46,10 +28,10 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
 
-  const txn = await prepareUnsignedTxn(
-    transaction as IPreparedTronTransaction,
-    account,
-  );
+  const txn = (transaction as IPreparedTronTransaction).computedData
+    .unsignedTransaction;
+
+  assert(txn, 'Missing unsigned transaction');
 
   const { signedTransaction } = await app.signTxn({
     walletId: hexToUint8Array(account.walletId),
