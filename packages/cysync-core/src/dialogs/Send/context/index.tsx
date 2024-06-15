@@ -370,7 +370,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const getFlowObserver = (
     onEnd: () => void,
-  ): Observer<ISignTransactionEvent> => ({
+  ): Observer<ISignTransactionEvent<any>> => ({
     next: payload => {
       if (payload.device) setDeviceEvents({ ...payload.device.events });
       if (payload.transaction) setSignedTransaction(payload.transaction);

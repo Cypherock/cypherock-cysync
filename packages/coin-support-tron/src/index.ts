@@ -2,23 +2,32 @@
 import {
   CoinSupport,
   ICreateAccountEvent,
+  IFormatAddressParams,
   IGetAccountHistoryParams,
   IGetCoinAllocationsParams,
   IGetExplorerLink,
+  IInitializeTransactionParams,
   IPreparedTransaction,
   IReceiveEvent,
   IReceiveParams,
   ISignMessageEvent,
-  ISignTransactionEvent,
   ISyncPriceHistoriesParams,
   ISyncPricesParams,
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
+import { setTronWeb } from '@cypherock/sdk-app-tron';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
-import { ICreateTronAccountParams } from './operations/types';
+import {
+  IBroadcastTronTransactionParams,
+  ICreateTronAccountParams,
+  IPrepareTronTransactionParams,
+  ISignTronTransactionEvent,
+  ISignTronTransactionParams,
+} from './operations/types';
+import { setCoinSupportTronWeb } from './utils';
 
 export * from './operations/types';
 export * from './services';
@@ -26,6 +35,11 @@ export * from './services';
 export { updateLogger } from './utils/logger';
 
 export class TronSupport implements CoinSupport {
+  public static setTronWeb(tronweb: any): void {
+    setTronWeb(tronweb);
+    setCoinSupportTronWeb(tronweb);
+  }
+
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     return operations.receive(params);
   }
@@ -40,24 +54,32 @@ export class TronSupport implements CoinSupport {
     throw new Error(`Method not implemented`);
   }
 
-  public async initializeTransaction(): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented`);
+  public async initializeTransaction(
+    params: IInitializeTransactionParams,
+  ): Promise<IPreparedTransaction> {
+    return operations.initializeTransaction(params);
   }
 
-  public async prepareTransaction(): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented`);
+  public async prepareTransaction(
+    params: IPrepareTronTransactionParams,
+  ): Promise<IPreparedTransaction> {
+    return operations.prepareTransaction(params);
   }
 
-  public signTransaction(): Observable<ISignTransactionEvent> {
-    throw new Error(`Method not implemented`);
+  public signTransaction(
+    params: ISignTronTransactionParams,
+  ): Observable<ISignTronTransactionEvent> {
+    return operations.signTransaction(params);
   }
 
   public signMessage(): Observable<ISignMessageEvent> {
     throw new Error(`Method not implemented`);
   }
 
-  public broadcastTransaction(): Promise<ITransaction> {
-    throw new Error(`Method not implemented`);
+  public broadcastTransaction(
+    params: IBroadcastTronTransactionParams,
+  ): Promise<ITransaction> {
+    return operations.broadcastTransaction(params);
   }
 
   public getCoinAllocations(params: IGetCoinAllocationsParams) {
@@ -84,7 +106,7 @@ export class TronSupport implements CoinSupport {
     return operations.getExplorerLink(params);
   }
 
-  public formatAddress(): string {
-    throw new Error(`Method not implemented`);
+  public formatAddress(params: IFormatAddressParams) {
+    return operations.formatAddress(params);
   }
 }

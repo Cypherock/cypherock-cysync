@@ -6,21 +6,11 @@ import {
 export interface IPreparedTronTransaction extends IPreparedTransaction {
   userInputs: {
     outputs: IPreparedTransactionOutput[];
-    gasPrice?: string;
-    gasLimit?: string;
     isSendAll: boolean;
-    nonce?: string;
   };
-  staticData: {
-    averageGasPrice: string;
-  };
+  staticData: object;
   computedData: {
     output: IPreparedTransactionOutput;
-    data: string;
     fee: string;
-    gasPrice: string;
-    gasLimit: string;
-    gasLimitEstimate: string;
-    l1Fee: string;
   };
 }
