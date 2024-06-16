@@ -263,8 +263,9 @@
         "label": "网络费用"
       },
       "remarks": {
-        "label": "Personal Notes",
-        "placeholder": "Enter your personal notes here"
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "如果 fee 非常低，交易可能会被取消",
       "feeError": "不允许 0 fee 的交易",

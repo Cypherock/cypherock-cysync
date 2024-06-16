@@ -263,8 +263,9 @@
         "label": "رسوم الشبكة"
       },
       "remarks": {
-        "label": "Personal Notes",
-        "placeholder": "Enter your personal notes here"
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",

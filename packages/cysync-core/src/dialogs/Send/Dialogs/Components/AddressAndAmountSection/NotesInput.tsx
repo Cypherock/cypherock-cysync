@@ -8,6 +8,7 @@ import {
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
+import { selectLanguage, useAppSelector } from '~/store';
 
 interface NotesInputProps {
   label: string;
@@ -23,19 +24,29 @@ export const NotesInput: React.FC<NotesInputProps> = ({
   onChange,
 }) => {
   const [value, setValue] = useState(initialValue ?? '');
+  const [error, setError] = useState('');
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.send.recipient;
 
   const onValueChange = async (val: string) => {
-    await onChange(val);
+    if (!error) {
+      await onChange(val);
+    }
   };
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onValueChange, 300),
-    [],
+    [error],
   );
 
   const handleValueChange = (newValue: string) => {
-    setValue(newValue);
-    debouncedOnValueChange(newValue);
+    if (newValue.length <= 120) {
+      setValue(newValue);
+      setError('');
+      debouncedOnValueChange(newValue);
+    } else {
+      setError(displayText.remarks.error);
+    }
   };
 
   return (
@@ -45,7 +56,7 @@ export const NotesInput: React.FC<NotesInputProps> = ({
           <LangDisplay text={label} />
         </Typography>
       </Flex>
-      <CustomInputSend>
+      <CustomInputSend error={error}>
         <Input
           type="text"
           name="notes"
@@ -56,6 +67,16 @@ export const NotesInput: React.FC<NotesInputProps> = ({
           $noBorder
         />
       </CustomInputSend>
+      {error && (
+        <Typography
+          variant="span"
+          color="error"
+          $alignSelf="start"
+          $fontSize={12}
+        >
+          {error}
+        </Typography>
+      )}
     </Container>
   );
 };

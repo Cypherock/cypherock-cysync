@@ -27,11 +27,13 @@ export const RightContainer = styled.div`
 `;
 export const BottomContainer = styled.div`
   margin-top: auto;
-  ${commonContainerStyles};
   display: flex;
   justify-content: flex-start;
   align-self: stretch;
   align-items: flex-start;
+  color: var(--Cypherock-Web-Background-Solid-White, #fff);
+  padding-bottom: 18px;
+  margin-top: -10px;
 `;
 export const NestedContainer = styled.div`
   margin-left: auto;

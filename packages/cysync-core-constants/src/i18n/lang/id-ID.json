@@ -263,8 +263,9 @@
         "label": "Biaya Jaringan"
       },
       "remarks": {
-        "label": "Personal Notes",
-        "placeholder": "Enter your personal notes here"
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan 0 fee tidak diizinkan",

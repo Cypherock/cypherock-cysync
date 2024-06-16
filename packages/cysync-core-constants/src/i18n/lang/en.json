@@ -263,8 +263,9 @@
         "label": "Network Fees"
       },
       "remarks": {
-        "label": "Personal Notes",
-        "placeholder": "Enter your personal notes here"
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "Transaction might cancel if fees is very low",
       "feeError": "Transaction with 0 fee is not allowed",
@@ -283,7 +284,7 @@
       "amount": "Amount",
       "network": "Network Fee",
       "debit": "Total to debit",
-      "remarks": "Personal Notes"
+      "remarks": "Personal Note"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -349,7 +350,7 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "Personal Notes"
+      "remarks": "Personal Note"
     },
     "noData": {
       "text": "No transactions yet",

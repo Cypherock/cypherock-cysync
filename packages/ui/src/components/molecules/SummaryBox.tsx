@@ -48,6 +48,11 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
         </Typography>
       </ImageContainer>
     }
+    bottomComponent={
+      <Typography variant="p" $fontSize={14} pt="-10px">
+        {bottomText}
+      </Typography>
+    }
     rightComponent={
       rightComponent ? (
         <>
@@ -89,11 +94,6 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
       )
     }
     margin={margin}
-    bottomComponent={
-      <Typography variant="p" $fontSize={14}>
-        {bottomText}
-      </Typography>
-    }
   />
 );
 

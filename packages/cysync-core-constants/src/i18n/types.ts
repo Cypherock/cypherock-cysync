@@ -236,7 +236,7 @@ interface LangSend {
     toggleText: { replace: string; unconfirmed: string };
     infoBox: string;
     addButton: string;
-    remarks: { label: string; placeholder: string };
+    remarks: { label: string; placeholder: string; error: string };
   };
   summary: {
     title: string;
