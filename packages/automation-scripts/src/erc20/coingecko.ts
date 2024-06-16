@@ -71,6 +71,7 @@ export const coingeckoPlatformMapping: Record<string, string | undefined> = {
   'optimistic-ethereum': EvmIdMap.optimism,
   'polygon-pos': EvmIdMap.polygon,
   'arbitrum-one': EvmIdMap.arbitrum,
+  base: EvmIdMap.base,
   fantom: EvmIdMap.fantom,
 };
 

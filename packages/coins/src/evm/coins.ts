@@ -91,4 +91,17 @@ export default [
     chain: 42161,
     color: '#12AAFF',
   },
+  {
+    id: 'base',
+    abbr: 'ETH',
+    name: 'Base',
+    magnitude: 18,
+    isTest: false,
+    coinGeckoId: 'ethereum',
+    coinIndex: '8000003c',
+    feesUnit: 'Gwei',
+    network: 'base',
+    chain: 8453,
+    color: '#0052FF',
+  },
 ];
