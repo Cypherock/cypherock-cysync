@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TronApiErrorSchema } from './apiErrort';
+import { TronApiErrorSchema } from './apiError';
 
 const TronAccountDetailSchema = z.object({
   balance: z.number(),

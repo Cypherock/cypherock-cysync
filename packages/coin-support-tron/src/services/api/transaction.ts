@@ -1,7 +1,7 @@
 import { config } from '../../config';
 import {
-  TronAccountTransactionsApiResponseSchema,
-  TronTransactions,
+  TronAccountTransactionsApiResponse,
+  TronAccountTransactionsApiResponseWithErrorSchema,
 } from '../validators';
 
 const baseURL = `${config.API_CYPHEROCK}`;
@@ -9,18 +9,20 @@ const baseURL = `${config.API_CYPHEROCK}`;
 export const getAccountsTransactionsByAddress = async (
   address: string,
   fingerprint?: string,
-): Promise<TronTransactions> => {
+  perPageTxnLimit = 100,
+): Promise<TronAccountTransactionsApiResponse> => {
   const url = `${baseURL}/accounts/${address}/transactions?${
     fingerprint !== undefined
       ? `fingerprint?=${fingerprint}`
-      : `limit=100&order_by=block_timestamp%2Casc`
+      : `limit=${perPageTxnLimit}&order_by=block_timestamp%2Casc`
   }`;
 
   const options = { method: 'GET', headers: { accept: 'application/json' } };
 
   const rawResult = await fetch(url, options).then(response => response.json());
 
-  const result = TronAccountTransactionsApiResponseSchema.safeParse(rawResult);
+  const result =
+    TronAccountTransactionsApiResponseWithErrorSchema.safeParse(rawResult);
 
   if (!result.success) throw new Error('Failed to fetch tron account details');
 
@@ -28,10 +30,12 @@ export const getAccountsTransactionsByAddress = async (
     throw new Error(result.data.error);
   }
 
-  return result.data.data;
+  return result.data;
 };
 
 export const getTransactionCount = async (address: string): Promise<number> => {
-  const transactions = await getAccountsTransactionsByAddress(address);
+  const { data: transactions } = await getAccountsTransactionsByAddress(
+    address,
+  );
   return transactions.length > 0 ? 1 : 0;
 };

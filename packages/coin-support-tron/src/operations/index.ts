@@ -6,3 +6,4 @@ export * from './syncPriceHistories';
 export * from './syncPrices';
 export * from './validateAddress';
 export * from './receive';
+export * from './syncAccount';
