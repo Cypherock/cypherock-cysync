@@ -241,7 +241,6 @@ export const SummaryDialog: React.FC = () => {
     }));
   };
   const toDetails = getToDetails();
-  console.log('To details is', toDetails[0]);
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -269,7 +268,7 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
-                ...(toDetails.length > 1 && toDetails.length <= 2
+                ...(toDetails.length === 2 && typeof toDetails[0] === 'object'
                   ? getTransactionRemarks()
                   : []),
 
