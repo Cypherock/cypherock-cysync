@@ -93,8 +93,11 @@ export const prepareTransaction = async (
 
   let unsignedTransaction: IUnsignedTransaction | undefined;
 
+  const isOwnOutputAddress =
+    (output.address ?? '').toLowerCase() ===
+    account.xpubOrAddress.toLowerCase();
   const createUnsignedTransaction = async () => {
-    if (output.address && outputsAddresses[0]) {
+    if (output.address && outputsAddresses[0] && !isOwnOutputAddress) {
       unsignedTransaction = await prepareUnsignedSendTxn({
         from: account.xpubOrAddress,
         to: output.address,
@@ -138,6 +141,8 @@ export const prepareTransaction = async (
       outputs: outputsAddresses,
       hasEnoughBalance,
       isValidFee: true,
+      ownOutputAddressNotAllowed: [isOwnOutputAddress],
+      zeroAmountNotAllowed: sendAmount.isZero(),
     },
     computedData: {
       fee: fees.toString(),

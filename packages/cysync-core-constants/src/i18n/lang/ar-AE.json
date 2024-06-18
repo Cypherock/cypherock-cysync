@@ -244,7 +244,8 @@
       "recipient": {
         "label": "عنوان المستلم",
         "placeholder": "أدخل العنوان",
-        "error": "عنوان غير صالح"
+        "error": "عنوان غير صالح",
+        "ownAddress": "Own address is not allowed"
       },
       "tabs": {
         "single": "معاملة واحدة",
@@ -256,6 +257,7 @@
         "toggle": "إرسال أقصى قدر ممكن",
         "dollar": "$",
         "error": "أموال غير كافية",
+        "zeroAmount": "Zero amount is not allowed",
         "notOverDustThreshold": "المبلغ أقل من الحد الأدنى"
       },
       "fees": {

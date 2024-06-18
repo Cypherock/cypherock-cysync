@@ -244,7 +244,8 @@
       "recipient": {
         "label": "Recipient Address",
         "placeholder": "Enter address",
-        "error": "Invalid address"
+        "error": "Invalid address",
+        "ownAddress": "Own address is not allowed"
       },
       "tabs": {
         "single": "Single Transaction",
@@ -256,6 +257,7 @@
         "toggle": "Send Max",
         "dollar": "$",
         "error": "Insufficient funds",
+        "zeroAmount": "Zero amount is not allowed",
         "notOverDustThreshold": "Amount is lower than dust limit"
       },
       "fees": {

@@ -32,6 +32,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useCallback,
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
@@ -111,6 +112,8 @@ export interface SendDialogContextInterface {
   ) => string;
   defaultWalletId?: string;
   defaultAccountId?: string;
+  getOutputError: (index: number) => string;
+  getAmountError: () => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -571,6 +574,40 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     dialogName: 'sendDialog',
   });
 
+  const getOutputError = useCallback(
+    (index: number) => {
+      if (transaction?.validation.outputs[index] === false) {
+        return lang.strings.send.recipient.recipient.error;
+      }
+
+      if (transaction?.validation.ownOutputAddressNotAllowed[index]) {
+        return lang.strings.send.recipient.recipient.ownAddress;
+      }
+
+      return '';
+    },
+    [transaction, lang],
+  );
+
+  const getAmountError = useCallback(() => {
+    if (transaction?.validation.zeroAmountNotAllowed) {
+      return lang.strings.send.recipient.amount.zeroAmount;
+    }
+
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        .isNotOverDustThreshold
+    ) {
+      return lang.strings.send.recipient.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return lang.strings.send.recipient.amount.error;
+    }
+
+    return '';
+  }, [transaction, lang]);
+
   const ctx = useMemo(
     () => ({
       defaultWalletId,
@@ -610,6 +647,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       isAccountSelectionDisabled: disableAccountSelection,
       getDefaultGasLimit,
       getComputedFee,
+      getOutputError,
+      getAmountError,
     }),
     [
       defaultWalletId,
@@ -649,6 +688,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       disableAccountSelection,
       getDefaultGasLimit,
       getComputedFee,
+      getOutputError,
+      getAmountError,
     ],
   );
 

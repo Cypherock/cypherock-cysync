@@ -12,6 +12,8 @@ export interface IPreparedTransaction {
     outputs: boolean[];
     hasEnoughBalance: boolean;
     isValidFee: boolean;
+    ownOutputAddressNotAllowed: boolean[];
+    zeroAmountNotAllowed: boolean;
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];
