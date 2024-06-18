@@ -135,6 +135,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       assetId: 'litecoin',
       parentAssetId: 'litecoin',
       familyId: 'bitcoin',
+      remarks: [''],
     },
   },
 ];
