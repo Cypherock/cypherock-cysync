@@ -245,7 +245,7 @@
         "label": "Empfängeradresse",
         "placeholder": "Adresse eingeben",
         "error": "Ungültige Adresse",
-        "ownAddress": "Own address is not allowed"
+        "ownAddress": "Recipient address is the same as sender address"
       },
       "tabs": {
         "single": "Einzeltransaktion",
@@ -257,7 +257,7 @@
         "toggle": "Maximal senden",
         "dollar": "$",
         "error": "Unzureichende Mittel",
-        "zeroAmount": "Zero amount is not allowed",
+        "zeroAmount": "Amount can't be zero",
         "notOverDustThreshold": "Betrag ist geringer als dust limit"
       },
       "fees": {
