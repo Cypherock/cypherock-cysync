@@ -269,10 +269,8 @@ export const SummaryDialog: React.FC = () => {
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
                 ...(toDetails.length === 2 && typeof toDetails[0] === 'object'
-                  ? getTransactionRemarks()
+                  ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
-
-                { isDivider: true, id: '5' },
 
                 ...getFeeDetails(),
                 { isDivider: true, id: '6' },
