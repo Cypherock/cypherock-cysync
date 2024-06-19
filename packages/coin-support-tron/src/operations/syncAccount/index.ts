@@ -30,8 +30,8 @@ const getTransactionParser = (
   const { account } = params;
 
   return (transaction: TronTransaction): ITransaction => {
-    const fromAddr = transaction.fromAddress.toLowerCase();
-    const toAddr = transaction.toAddress.toLowerCase();
+    const fromAddr = transaction.fromAddress;
+    const toAddr = transaction.toAddress;
     const amount = transaction.value;
     const fees = new BigNumber(transaction.fees).toFixed();
     const timestamp = (transaction.blockTime ?? 0) * 1000;
@@ -51,7 +51,7 @@ const getTransactionParser = (
           ? TransactionStatusMap.success
           : TransactionStatusMap.failed,
       type:
-        myAddress === fromAddr
+        myAddress.toLowerCase() === fromAddr.toLowerCase()
           ? TransactionTypeMap.send
           : TransactionTypeMap.receive,
       timestamp,
@@ -60,14 +60,14 @@ const getTransactionParser = (
         {
           address: fromAddr,
           amount,
-          isMine: myAddress === fromAddr,
+          isMine: myAddress.toLowerCase() === fromAddr.toLowerCase(),
         },
       ],
       outputs: [
         {
           address: toAddr,
           amount,
-          isMine: myAddress === toAddr,
+          isMine: myAddress.toLowerCase() === toAddr.toLowerCase(),
         },
       ],
       extraData: {},
