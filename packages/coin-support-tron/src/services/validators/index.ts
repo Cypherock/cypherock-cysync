@@ -3,12 +3,12 @@ import { z } from 'zod';
 const TronTXReceiptSchema = z.object({
   status: z.number(),
   fees: z.number(),
-  energyusage: z.number(),
-  energyfee: z.number(),
-  originenergyusage: z.number(),
-  energyusagetotal: z.number(),
-  netusage: z.number(),
-  netfee: z.number(),
+  energyusage: z.number().nullish(),
+  energyfee: z.number().nullish(),
+  originenergyusage: z.number().nullish(),
+  energyusagetotal: z.number().nullish(),
+  netusage: z.number().nullish(),
+  netfee: z.number().nullish(),
 });
 
 const TokenTransferSchema = z.object({
@@ -44,9 +44,9 @@ const TokenSchema = z.object({
   name: z.string(),
   id: z.string(),
   transfers: z.number(),
+  balance: z.string(),
   symbol: z.string().optional(),
   decimals: z.number().optional(),
-  balance: z.string(),
 });
 
 const FrozenListV2Schema = z.object({
@@ -56,25 +56,25 @@ const FrozenListV2Schema = z.object({
 });
 
 const DetailsSchema = z.object({
-  bandwidthTotal: z.number(),
-  bandwidthUsed: z.number(),
-  energyTotal: z.number(),
-  energyUsed: z.number(),
-  tronPower: z.number(),
-  tronPowerUsed: z.number(),
-  lastWithdraw: z.number(),
-  isActive: z.boolean(),
-  allowance: z.number(),
-  rewards: z.number(),
-  isWitness: z.boolean(),
-  isElected: z.boolean(),
-  type: z.string(),
-  frozenListV2: z.array(FrozenListV2Schema).nullable(),
-  frozenBalanceV2: z.number(),
-  withdrawableBalance: z.number(),
-  countUnfreezeLeft: z.number(),
-  maxCanDelegateBandwidth: z.number(),
-  maxCanDelegateEnergy: z.number(),
+  bandwidthTotal: z.number().nullish(),
+  bandwidthUsed: z.number().nullish(),
+  energyTotal: z.number().nullish(),
+  energyUsed: z.number().nullish(),
+  tronPower: z.number().nullish(),
+  tronPowerUsed: z.number().nullish(),
+  lastWithdraw: z.number().nullish(),
+  isActive: z.boolean().nullish(),
+  allowance: z.number().nullish(),
+  rewards: z.number().nullish(),
+  isWitness: z.boolean().nullish(),
+  isElected: z.boolean().nullish(),
+  type: z.string().nullish(),
+  frozenListV2: z.array(FrozenListV2Schema).nullish(),
+  frozenBalanceV2: z.number().nullish(),
+  withdrawableBalance: z.number().nullish(),
+  countUnfreezeLeft: z.number().nullish(),
+  maxCanDelegateBandwidth: z.number().nullish(),
+  maxCanDelegateEnergy: z.number().nullish(),
 });
 
 export const TronTransactionsApiResponseSchema = z.object({

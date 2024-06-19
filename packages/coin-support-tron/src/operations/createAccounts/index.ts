@@ -83,13 +83,15 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<TronApp>['cr
     return account;
   };
 
-const getBalanceAndTxnCount = async (
-  address: string,
-  // params: ICreateTronAccountParams,
-) => ({
-  balance: await services.getBalance(address),
-  txnCount: await services.getTransactionCount(address),
-});
+const getBalanceAndTxnCount = async (address: string) => {
+  const { balance, txnCount } = await services.getBalanceAndTransactionsCount(
+    address,
+  );
+  return {
+    balance,
+    txnCount,
+  };
+};
 
 export const createAccounts = (
   params: ICreateTronAccountParams,

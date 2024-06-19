@@ -23,19 +23,17 @@ interface GetTransactionParserParams {
 }
 
 const getTransactionParser = (
-  _params: GetTransactionParserParams,
+  params: GetTransactionParserParams,
 ): ((transaction: any) => ITransaction) => {
-  const myAddress = _params.address;
-  const { account } = _params;
+  const myAddress = params.address;
+  const { account } = params;
 
   return (transaction: TronTransaction): ITransaction => {
-    const fromAddr = transaction.fromAddress;
-    const toAddr = transaction.toAddress;
+    const fromAddr = transaction.fromAddress.toLowerCase();
+    const toAddr = transaction.toAddress.toLowerCase();
     const amount = transaction.value;
     const fees = new BigNumber(transaction.fees).toFixed();
-    const timestamp = new BigNumber(transaction.blockTime)
-      .dividedBy(1_000_000)
-      .toNumber();
+    const timestamp = (transaction.blockTime ?? 0) * 1000;
 
     const txn: ITransaction = {
       hash: transaction.txid,

@@ -31,7 +31,12 @@ export const getAccountsDetailByAddress = async (
   };
 };
 
-export const getBalance = async (address: string): Promise<string> => {
+export const getBalanceAndTransactionsCount = async (
+  address: string,
+): Promise<{ balance: string; txnCount: number }> => {
   const accountDetails = await getAccountsDetailByAddress(address);
-  return accountDetails.balance;
+  return {
+    balance: accountDetails.balance,
+    txnCount: accountDetails.txs,
+  };
 };
