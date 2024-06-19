@@ -2,17 +2,18 @@ import {
   createSyncAccountsObservable,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
+import { BigNumber } from '@cypherock/cysync-utils';
 import {
   IAccount,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { getAccountsTransactionsByAddress } from '../../services';
-
-import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
+
 import { ISyncTronAccountsParams } from './types';
+
+import { getAccountsTransactionsByAddress } from '../../services';
 import { TronTransaction } from '../../services/validators';
 
 const PER_PAGE_TXN_LIMIT = 100;
