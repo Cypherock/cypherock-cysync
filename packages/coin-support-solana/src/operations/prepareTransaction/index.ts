@@ -84,6 +84,8 @@ export const prepareTransaction = async (
       outputs: outputsAddresses,
       hasEnoughBalance,
       isValidFee,
+      ownOutputAddressNotAllowed: [],
+      zeroAmountNotAllowed: false,
     },
     computedData: {
       fees: fetchedFee,

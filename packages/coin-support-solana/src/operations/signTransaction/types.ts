@@ -7,7 +7,7 @@ import { SignTxnEvent } from '@cypherock/sdk-app-solana';
 
 export type ISignSolanaTransactionParams = ISignTransactionParams;
 
-export type ISignSolanaTransactionEvent = ISignTransactionEvent;
+export type ISignSolanaTransactionEvent = ISignTransactionEvent<string>;
 
 export const signSolanaToDeviceEventMap: Partial<
   Record<SignTxnEvent, SignTransactionDeviceEvent | undefined>

@@ -219,7 +219,12 @@ interface LangSend {
   recipient: {
     title: string;
     subtitle: string;
-    recipient: { label: string; placeholder: string; error: string };
+    recipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
     tabs: { single: string; batch: string };
     amount: {
       label: string;
@@ -227,6 +232,7 @@ interface LangSend {
       toggle: string;
       dollar: string;
       error: string;
+      zeroAmount: string;
       notOverDustThreshold: string;
     };
     fees: { title: string; label: string };
