@@ -2,6 +2,8 @@ import coinList from './coins';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
 
+export * from './token';
+
 type TronFamily = typeof coinFamiliesMap.tron;
 
 export interface ITronCoinInfo extends ICoinInfo {

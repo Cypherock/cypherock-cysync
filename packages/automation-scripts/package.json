@@ -19,6 +19,9 @@
     "erc20-diff": "node dist/cjs/commands/erc20/diff.js",
     "gen-erc20-list": "node dist/cjs/commands/erc20/createNewList.js",
     "download-erc20-images": "node dist/cjs/commands/erc20/downloadImages.js",
+    "trc20-diff": "node dist/cjs/commands/trc20/diff.js",
+    "gen-trc20-list": "node dist/cjs/commands/trc20/createNewList.js",
+    "download-trc20-images": "node dist/cjs/commands/trc20/downloadImages.js",
     "gen-translations": "node dist/cjs/commands/translate.js"
   },
   "devDependencies": {
