@@ -1,6 +1,7 @@
 import coinList from './coins';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
+import { ITronTrc20Token, getTrc20Tokens } from './token';
 
 export * from './token';
 
@@ -8,6 +9,8 @@ type TronFamily = typeof coinFamiliesMap.tron;
 
 export interface ITronCoinInfo extends ICoinInfo {
   family: TronFamily;
+  tokens: Record<string, ITronTrc20Token>;
+  tokensByContract: Record<string, ITronTrc20Token>;
 }
 
 export const TronIdMap = {
@@ -32,6 +35,7 @@ export const tronCoinList: Record<string, ITronCoinInfo> = coinList.reduce<
       feesUnit: coin.feesUnit,
       units: coin.units,
       color: coin.color,
+      ...getTrc20Tokens(coin.id, { color: coin.color }),
     },
   }),
   {},

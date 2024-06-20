@@ -7,8 +7,10 @@ import {
 import {
   ICoinInfo,
   IEvmErc20Token,
+  ITronTrc20Token,
   coinFamiliesMap,
   evmCoinList,
+  tronCoinList,
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -49,12 +51,14 @@ export interface AddTokenDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  tokenList: Record<string, IEvmErc20Token>;
+  tokenList: Record<string, IEvmErc20Token | ITronTrc20Token>;
   accountList: Record<string, IAccount>;
   selectedTokens: ICoinInfo[];
   selectedWallet: IWallet | undefined;
   selectedAccounts: IAccount[];
-  setSelectedTokens: React.Dispatch<React.SetStateAction<IEvmErc20Token[]>>;
+  setSelectedTokens: React.Dispatch<
+    React.SetStateAction<(IEvmErc20Token | ITronTrc20Token)[]>
+  >;
   setSelectedWallet: React.Dispatch<React.SetStateAction<IWallet | undefined>>;
   handleWalletChange: (id?: string) => void;
   setSelectedAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
@@ -93,7 +97,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const [selectedChain, setSelectedChain] = useState<string | undefined>(
     undefined,
   );
-  const [selectedTokens, setSelectedTokens] = useState<IEvmErc20Token[]>([]);
+  const [selectedTokens, setSelectedTokens] = useState<
+    (IEvmErc20Token | ITronTrc20Token)[]
+  >([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
 
   useEffect(() => {
@@ -144,12 +150,12 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     dispatch(closeDialog('addToken'));
   };
 
-  const tokenList: Record<string, IEvmErc20Token> = useMemo(
+  const tokenList: Record<string, IEvmErc20Token | ITronTrc20Token> = useMemo(
     () =>
       Object.fromEntries(
         lodash
           .concat(
-            ...Object.values(evmCoinList)
+            ...[...Object.values(evmCoinList), ...Object.values(tronCoinList)]
               .filter(
                 c =>
                   window.cysyncEnv.IS_PRODUCTION === 'false' ||
