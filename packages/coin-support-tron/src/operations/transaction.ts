@@ -2,25 +2,23 @@ import {
   IPreparedTransaction,
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
+import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
 
 export interface IPreparedTronTransaction extends IPreparedTransaction {
   userInputs: {
     outputs: IPreparedTransactionOutput[];
-    gasPrice?: string;
-    gasLimit?: string;
     isSendAll: boolean;
-    nonce?: string;
   };
   staticData: {
-    averageGasPrice: string;
+    averageEnergyPrice: string;
+    totalFreeBandwidthAvailable: number;
+    totalBandwidthAvailable: number;
+    totalEnergyAvailable: number;
   };
   computedData: {
     output: IPreparedTransactionOutput;
-    data: string;
     fee: string;
-    gasPrice: string;
-    gasLimit: string;
-    gasLimitEstimate: string;
-    l1Fee: string;
+    bandwidth: number;
+    unsignedTransaction?: IUnsignedTransaction;
   };
 }
