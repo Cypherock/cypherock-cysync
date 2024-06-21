@@ -5,13 +5,17 @@ import { sleep } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 
 import {
-  CoingeckoCoinDetails,
-  coingeckoPlatformReverseMapping,
+  getCoingeckoPlatformReverseMapping,
   getCoingeckoCoinDetails,
 } from './coingecko';
-import { Trc20ListItem, getTRC20TokenDifference } from './diff';
+import { getTokenDifference } from './diff';
 
 import { config } from '../config';
+import {
+  CoingeckoCoinDetails,
+  TokenAutomationParams,
+  TokenListItem,
+} from './types';
 
 const MAX_RETRIES = 3;
 const SLEEP_TIME = 10000;
@@ -92,13 +96,13 @@ const getExistingCoinDetails = async () => {
   return map;
 };
 
-const sortByPlatform = (item: Trc20ListItem) => {
+const sortByPlatform = (item: TokenListItem) => {
   const platforms = Object.keys(item.platforms ?? {}).join('');
   return `${item.id}${platforms}`;
 };
 
-const fixPropertyOrder = (list: Trc20ListItem[]) => {
-  const fixedPropertyOrder: Trc20ListItem[] = [];
+const fixPropertyOrder = (list: TokenListItem[]) => {
+  const fixedPropertyOrder: TokenListItem[] = [];
 
   for (const item of list) {
     const sortedPlatformKeys = Object.keys(item.platforms ?? {}).sort();
@@ -141,11 +145,15 @@ const fixPropertyOrder = (list: Trc20ListItem[]) => {
   return fixedPropertyOrder;
 };
 
-export const createNewTrc20List = async () => {
-  const list = await getTRC20TokenDifference();
+export const createNewTokenList = async (params: TokenAutomationParams) => {
+  const list = await getTokenDifference(params);
 
   const uniqueIds = lodash.uniq(
     list.filter(e => !e.is_zero_value_coin).map(e => e.id),
+  );
+
+  const coingeckoPlatformReverseMapping = getCoingeckoPlatformReverseMapping(
+    params.coingeckoPlatformMapping,
   );
 
   const existingCoinDetails = await getExistingCoinDetails();
@@ -164,7 +172,7 @@ export const createNewTrc20List = async () => {
     ...(await getAllCoinDetails(remaingIds)),
   };
 
-  const newCoinList: Trc20ListItem[] = [];
+  const newCoinList: TokenListItem[] = [];
 
   for (const coin of list) {
     const coinDetails = allCoinDetails[coin.id];
@@ -220,7 +228,7 @@ export const createNewTrc20List = async () => {
   const fixedPropOrderList = fixPropertyOrder(sortedList);
 
   await fs.promises.writeFile(
-    path.join(config.DATA_FOLDER, 'trc20.json'),
+    path.join(config.DATA_FOLDER, `${params.filePrefix}-token.json`),
     JSON.stringify(fixedPropOrderList, undefined, 2),
   );
 };

@@ -1,5 +1,6 @@
-import { createNewTrc20List } from '../../trc20';
+import { createNewTokenList } from '../../tokens';
+import { trc20TokenAutomationParams } from './params';
 
-createNewTrc20List();
+createNewTokenList(trc20TokenAutomationParams);
 
 export default {};

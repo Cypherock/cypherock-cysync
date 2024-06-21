@@ -1,5 +1,6 @@
-import { getERC20TokenDifference } from '../../erc20';
+import { getTokenDifference } from '../../tokens';
+import { erc20TokenAutomationParams } from './params';
 
-getERC20TokenDifference();
+getTokenDifference(erc20TokenAutomationParams);
 
 export default {};

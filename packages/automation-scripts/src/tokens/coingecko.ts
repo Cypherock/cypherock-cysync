@@ -1,8 +1,12 @@
-import { TronIdMap } from '@cypherock/coins';
 import { assert } from '@cypherock/cysync-utils';
 import axios from 'axios';
 
 import { config } from '../config';
+import {
+  CoingeckoCoinDetails,
+  CoingeckoCoinListItem,
+  CoingeckoPlatformMapping,
+} from './types';
 
 const http = axios.create({
   baseURL: config.COINGECKO_URL,
@@ -10,37 +14,6 @@ const http = axios.create({
     ? { 'x-cg-pro-api-key': config.COINGECKO_API_KEY }
     : undefined,
 });
-
-export interface CoingeckoCoinListItem {
-  id: string;
-  symbol: string;
-  name: string;
-  platforms?: Record<string, string | undefined>;
-}
-
-export interface CoingeckoCoinDetails {
-  id: string;
-  symbol: string;
-  name: string;
-  detail_platforms?: Record<
-    string,
-    { decimal_place: number; contract_address: string }
-  >;
-  market_data?: {
-    market_cap?: {
-      usd?: number;
-    };
-  };
-  description?: {
-    en?: string;
-  };
-  image?: {
-    thumb?: string;
-    small?: string;
-    large?: string;
-  };
-  last_updated?: string;
-}
 
 export const getCoingeckoCoinList = async (): Promise<
   CoingeckoCoinListItem[]
@@ -64,14 +37,10 @@ export const getCoingeckoCoinDetails = async (
   return response.data;
 };
 
-export const coingeckoPlatformMapping: Record<string, string | undefined> = {
-  tron: TronIdMap.tron,
-};
-
-export const coingeckoPlatformReverseMapping: Record<
-  string,
-  string | undefined
-> = Object.entries(coingeckoPlatformMapping).reduce(
-  (a, v) => ({ ...a, [v[1] ?? '']: v[0] }),
-  {},
-);
+export const getCoingeckoPlatformReverseMapping = (
+  coingeckoPlatformMapping: CoingeckoPlatformMapping,
+): Record<string, string> =>
+  Object.entries(coingeckoPlatformMapping).reduce(
+    (a, v) => ({ ...a, [v[1] ?? '']: v[0] }),
+    {},
+  );

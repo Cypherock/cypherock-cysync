@@ -1,14 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-import { trc20JsonList } from '@cypherock/coins';
 import { sleep } from '@cypherock/cysync-utils';
 import axios from 'axios';
 import lodash from 'lodash';
 
-import { Trc20ListItem } from './diff';
-
 import { config } from '../config';
+import { TokenAutomationParams, TokenListItem } from './types';
 
 const MAX_RETRIES = 3;
 const SLEEP_TIME = 10000;
@@ -49,7 +47,7 @@ const downloadFile = async (fileUrl: string, filePath: string) =>
     }
   });
 
-const fetchInBatch = async (coins: Trc20ListItem[]) => {
+const fetchInBatch = async (coins: TokenListItem[]) => {
   let retries = 0;
   let coinsToFetch = coins;
 
@@ -83,14 +81,14 @@ const fetchInBatch = async (coins: Trc20ListItem[]) => {
   } while (coinsToFetch.length > 0 && retries < MAX_RETRIES);
 };
 
-export const downloadTrc20Images = async () => {
+export const downloadTokenImages = async (params: TokenAutomationParams) => {
   if (!fs.existsSync(IMAGE_FOLDER_PATH)) {
     await fs.promises.mkdir(IMAGE_FOLDER_PATH, { recursive: true });
   }
 
-  const coinMap: Record<string, Trc20ListItem> = {};
+  const coinMap: Record<string, TokenListItem> = {};
 
-  for (const coin of trc20JsonList as Trc20ListItem[]) {
+  for (const coin of params.tokenJsonList) {
     if (!coin.is_zero_value_coin && coin.image?.large) {
       coinMap[coin.id] = coin;
     }

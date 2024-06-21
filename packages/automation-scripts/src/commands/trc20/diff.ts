@@ -1,5 +1,6 @@
-import { getTRC20TokenDifference } from '../../trc20';
+import { getTokenDifference } from '../../tokens';
+import { trc20TokenAutomationParams } from './params';
 
-getTRC20TokenDifference();
+getTokenDifference(trc20TokenAutomationParams);
 
 export default {};

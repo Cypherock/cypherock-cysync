@@ -1,5 +1,6 @@
-import { downloadTrc20Images } from '../../trc20';
+import { downloadTokenImages } from '../../tokens';
+import { trc20TokenAutomationParams } from './params';
 
-downloadTrc20Images();
+downloadTokenImages(trc20TokenAutomationParams);
 
 export default {};

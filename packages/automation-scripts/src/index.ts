@@ -1,2 +1,1 @@
-export * from './erc20';
-export * from './trc20';
+export * from './tokens';
