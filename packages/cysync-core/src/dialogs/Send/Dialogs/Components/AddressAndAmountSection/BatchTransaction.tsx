@@ -208,7 +208,7 @@ export const BatchTransaction: React.FC = () => {
                 <NotesInput
                   label={displayText.remarks.label}
                   placeholder={displayText.remarks.placeholder}
-                  initialValue=""
+                  initialValue={output.remarks ?? ''}
                   onChange={async remark => {
                     await handleTransactionRemarks(remark, output.id);
                   }}

@@ -146,7 +146,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         <NotesInput
           label={displayText.remarks.label}
           placeholder={displayText.remarks.placeholder}
-          initialValue=""
+          initialValue={transaction?.userInputs.outputs[0]?.remarks ?? ''}
           onChange={prepareTransactionRemarks}
         />
       </Container>

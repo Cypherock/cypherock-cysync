@@ -425,9 +425,9 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
-              <HistoryItem leftText={keys.remarks} key={keys.receiver}>
-                {displayTransaction.txn.remarks &&
-                  displayTransaction.txn.remarks?.length > 0 && (
+              {displayTransaction.txn.remarks &&
+                displayTransaction.txn.remarks?.length > 0 && (
+                  <HistoryItem leftText={keys.remarks} key={keys.receiver}>
                     <Container
                       display="flex"
                       direction="column"
@@ -449,8 +449,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                         </Typography>
                       ))}
                     </Container>
-                  )}
-              </HistoryItem>
+                  </HistoryItem>
+                )}
               {displayTransaction.txn.description && (
                 <HistoryItem leftText={keys.description}>
                   <Container direction="row" gap={8}>

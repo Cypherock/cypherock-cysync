@@ -91,7 +91,7 @@ export const SummaryDialog: React.FC = () => {
             new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
           );
 
-          return [
+          const baseDetails: any = [
             {
               id: `toDetail-address-${output.address}`,
               leftIcon: <QrCode width="11px" height="20px" />,
@@ -104,12 +104,17 @@ export const SummaryDialog: React.FC = () => {
               rightText: `${amount} ${unit.abbr}`,
               rightSubText: `$${value}`,
             },
-            {
+          ];
+
+          if (output.remarks) {
+            baseDetails.push({
               id: `remarks-${output.address}`,
               leftText: `${displayText.remarks}`,
-              bottomText: output.remarks ?? '',
-            },
-          ];
+              bottomText: output.remarks,
+            });
+          }
+
+          return baseDetails;
         }) ?? [];
       console.log('FINAL DETAILS', finalDetails);
       return [finalDetails];
@@ -232,15 +237,22 @@ export const SummaryDialog: React.FC = () => {
     return fromDetails;
   };
   const getTransactionRemarks = () => {
-    if (!transaction) return [];
+    if (!transaction || !transaction.userInputs.outputs) return [];
 
-    return transaction.userInputs.outputs.map((output, index) => ({
-      id: `remark-${transaction.accountId}-${index}`,
-      leftText: displayText.remarks,
-      bottomText: output.remarks ?? '',
-    }));
+    const transactionDetails = transaction.userInputs.outputs
+      .filter(output => output.remarks)
+      .map((output, index) => ({
+        id: `remark-${transaction.accountId}-${index}`,
+        leftText: displayText.remarks,
+        bottomText: output.remarks,
+      }));
+
+    return transactionDetails;
   };
+
   const toDetails = getToDetails();
+  const transactionRemarks = getTransactionRemarks();
+  console.log('Transaction Remarks', transactionRemarks);
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -268,7 +280,9 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
-                ...(toDetails.length === 2 && typeof toDetails[0] === 'object'
+                ...(toDetails.length === 2 &&
+                typeof toDetails[0] === 'object' &&
+                transactionRemarks.length > 0
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
 
