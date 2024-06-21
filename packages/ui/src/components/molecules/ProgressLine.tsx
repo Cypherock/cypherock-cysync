@@ -2,12 +2,17 @@ import React, { FC } from 'react';
 
 import { Container, Flex } from '../atoms';
 
-const bgColor = (
-  activeTab: number,
-  index: number,
-  hasNoStart?: boolean,
-  isFinalMessageShown?: boolean,
-) => {
+const bgColor = ({
+  activeTab,
+  index,
+  hasNoStart,
+  isFinalMessageShown,
+}: {
+  activeTab: number;
+  index: number;
+  hasNoStart?: boolean;
+  isFinalMessageShown?: boolean;
+}) => {
   if (index > activeTab) return 'muted';
   if (index < activeTab) return 'golden';
   if (isFinalMessageShown) return 'golden';
@@ -34,7 +39,7 @@ export const ProgressLine: FC<{
     return (
       <Flex height={60} align="flex-start" mt={7}>
         <Container
-          $bgColor={bgColor(activeTab, index, hasNoStart)}
+          $bgColor={bgColor({ activeTab, index, hasNoStart })}
           width={16}
           height={1.5}
         />
@@ -48,32 +53,37 @@ export const ProgressLine: FC<{
         align={index === length ? 'flex-end' : 'flex-start'}
       >
         <Container
-          $bgColor={bgColor(activeTab, index, hasNoStart, isFinalMessageShown)}
+          $bgColor={bgColor({
+            activeTab,
+            index,
+            hasNoStart,
+            isFinalMessageShown,
+          })}
           width={1.5}
           height={30.5}
         />
         {skipped?.includes(index) && activeTab > index ? (
           <Container
-            $bgColor={bgColor(activeTab, index, isFinalMessageShown)}
+            $bgColor={bgColor({ activeTab, index, isFinalMessageShown })}
             width={1.5}
             height={1.5}
             mr="14.5px"
           />
         ) : (
           <Container
-            $bgColor={bgColor(
+            $bgColor={bgColor({
               activeTab,
               index,
               hasNoStart,
               isFinalMessageShown,
-            )}
+            })}
             width={16}
             height={1.5}
           />
         )}
         {index !== 0 && index !== length - 1 && (
           <Container
-            $bgColor={bgColor(activeTab, index, isFinalMessageShown)}
+            $bgColor={bgColor({ activeTab, index, isFinalMessageShown })}
             width={1.5}
             height={30.5}
           />

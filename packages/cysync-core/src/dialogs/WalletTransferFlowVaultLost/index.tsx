@@ -10,12 +10,15 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { TransferLessCardsFlowType } from '~/store';
+import { WalletTransferFlowLostVaultType } from '~/store';
 
-import { TransferLessCardsFlowProvider, useTransferFlow } from './context';
+import {
+  WalletTransferLostVaultFlowProvider,
+  useWalletTransferLostVaulFlow,
+} from './context';
 import { CloseConfirmation } from './Dialogs';
 
-export const TransferFlowLessCardsDialog: FC = () => {
+export const WalletTransferFlowLostVaultDialog: FC = () => {
   const {
     tabs,
     currentTab,
@@ -23,31 +26,12 @@ export const TransferFlowLessCardsDialog: FC = () => {
     blastConfetti,
     showBackButton,
     title,
-  } = useTransferFlow();
+  } = useWalletTransferLostVaulFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const isFinalMessageShown =
     currentTab === tabs.length - 1 &&
     currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
-
-  const getTitleFromReactElement = (
-    node: React.ReactNode,
-  ): string | undefined => {
-    if (React.isValidElement(node)) {
-      return node.props.title;
-    }
-    return undefined;
-  };
-  let hasNoStart = false;
-
-  const arrayVl = tabs.map(t => t.dialogs[0]);
-  const title2 = getTitleFromReactElement(arrayVl[0]);
-  if (
-    title2 ===
-    'I have lost my X1 vault but I still have all of the 4 old X1 cards'
-  ) {
-    hasNoStart = true;
-  }
 
   return (
     <BlurOverlay>
@@ -64,7 +48,6 @@ export const TransferFlowLessCardsDialog: FC = () => {
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
             isFinalMessageShown={isFinalMessageShown}
-            hasNoStart={hasNoStart}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}
@@ -99,10 +82,10 @@ export const TransferFlowLessCardsDialog: FC = () => {
   );
 };
 
-export const TransferLessCardsFlow: FC<{ type: TransferLessCardsFlowType }> = ({
-  type,
-}) => (
-  <TransferLessCardsFlowProvider type={type}>
-    <TransferFlowLessCardsDialog />
-  </TransferLessCardsFlowProvider>
+export const WalletTransferFlowLostValt: FC<{
+  type: WalletTransferFlowLostVaultType;
+}> = ({ type }) => (
+  <WalletTransferLostVaultFlowProvider type={type}>
+    <WalletTransferFlowLostVaultDialog />
+  </WalletTransferLostVaultFlowProvider>
 );

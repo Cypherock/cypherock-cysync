@@ -22,7 +22,7 @@ const InnerContainer = styled.div`
   overflow-y: auto;
 `;
 
-export interface WalletTransferLessCardsFlowDialogBoxProps {
+export interface WalletTransferLostCardsFlowDialogBoxProps {
   title?: string;
   subtitle?: string;
   bulletList?: string[];
@@ -39,8 +39,8 @@ export interface WalletTransferLessCardsFlowDialogBoxProps {
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const WalletTransferLessCardsFlowDialogBox: FC<
-  WalletTransferLessCardsFlowDialogBoxProps
+export const WalletTransferLostCardsFlowDialogBox: FC<
+  WalletTransferLostCardsFlowDialogBoxProps
 > = ({
   heading,
   image,
@@ -148,7 +148,7 @@ export const WalletTransferLessCardsFlowDialogBox: FC<
   </>
 );
 
-WalletTransferLessCardsFlowDialogBox.defaultProps = {
+WalletTransferLostCardsFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,

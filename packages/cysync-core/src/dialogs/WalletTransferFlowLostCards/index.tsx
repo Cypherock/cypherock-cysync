@@ -9,26 +9,16 @@ import {
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import styled from 'styled-components';
 
-import { TransferFlowType } from '~/store';
+import { WalletTransferLostCardsFlowType } from '~/store';
 
-import { TransferFlowProvider, useTransferFlow } from './context';
+import {
+  WalletTransferLostCardsFlowProvider,
+  useWalletTransferLostCardsFlow,
+} from './context';
 import { CloseConfirmation } from './Dialogs';
 
-const DialogBoxStyle = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-width: 1px;
-  border-radius: 16px;
-  /* overflow-y: scroll; */
-  text-align: center;
-  width: 400px;
-`;
-
-export const TransferFlowDialog: FC = () => {
+export const WalletTransferFlowLostCardsDialog: FC = () => {
   const {
     tabs,
     currentTab,
@@ -36,7 +26,7 @@ export const TransferFlowDialog: FC = () => {
     blastConfetti,
     showBackButton,
     title,
-  } = useTransferFlow();
+  } = useWalletTransferLostCardsFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const isFinalMessageShown =
@@ -51,7 +41,6 @@ export const TransferFlowDialog: FC = () => {
     }
     return undefined;
   };
-
   let hasNoStart = false;
 
   const arrayVl = tabs.map(t => t.dialogs[0]);
@@ -90,19 +79,11 @@ export const TransferFlowDialog: FC = () => {
               direction="column"
               height="full"
             >
-              {currentTab === 0 ? (
-                <DialogBoxStyle>
-                  <DialogBoxBody p="0" gap={0}>
-                    {tabs[currentTab]?.dialogs[currentDialog]}
-                  </DialogBoxBody>
-                </DialogBoxStyle>
-              ) : (
-                <DialogBox width={500}>
-                  <DialogBoxBody p="0" gap={0}>
-                    {tabs[currentTab]?.dialogs[currentDialog]}
-                  </DialogBoxBody>
-                </DialogBox>
-              )}
+              <DialogBox width={500}>
+                <DialogBoxBody p="0" gap={0}>
+                  {tabs[currentTab]?.dialogs[currentDialog]}
+                </DialogBoxBody>
+              </DialogBox>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
               rightComponent={
@@ -121,8 +102,10 @@ export const TransferFlowDialog: FC = () => {
   );
 };
 
-export const TransferFlow: FC<{ type: TransferFlowType }> = ({ type }) => (
-  <TransferFlowProvider type={type}>
-    <TransferFlowDialog />
-  </TransferFlowProvider>
+export const WalletTransferLostCardsFlow: FC<{
+  type: WalletTransferLostCardsFlowType;
+}> = ({ type }) => (
+  <WalletTransferLostCardsFlowProvider type={type}>
+    <WalletTransferFlowLostCardsDialog />
+  </WalletTransferLostCardsFlowProvider>
 );

@@ -9,13 +9,26 @@ import {
   ConfettiBlast,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+import styled from 'styled-components';
 
-import { TransferFlowLostVaultType } from '~/store';
+import { WalletTransferFlowType } from '~/store';
 
-import { TransferLostVaulFlowProvider, useTransferFlow } from './context';
+import { WalletTransferFlowProvider, useWalletTransferFlow } from './context';
 import { CloseConfirmation } from './Dialogs';
 
-export const TransferFlowLostVaultDialog: FC = () => {
+const DialogBoxStyle = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-radius: 16px;
+  /* overflow-y: scroll; */
+  text-align: center;
+  width: 400px;
+`;
+
+export const WalletTransferFlowDialog: FC = () => {
   const {
     tabs,
     currentTab,
@@ -23,12 +36,32 @@ export const TransferFlowLostVaultDialog: FC = () => {
     blastConfetti,
     showBackButton,
     title,
-  } = useTransferFlow();
+  } = useWalletTransferFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
 
   const isFinalMessageShown =
     currentTab === tabs.length - 1 &&
     currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
+
+  const getTitleFromReactElement = (
+    node: React.ReactNode,
+  ): string | undefined => {
+    if (React.isValidElement(node)) {
+      return node.props.title;
+    }
+    return undefined;
+  };
+
+  let hasNoStart = false;
+
+  const arrayVl = tabs.map(t => t.dialogs[0]);
+  const title2 = getTitleFromReactElement(arrayVl[0]);
+  if (
+    title2 ===
+    'I have lost my X1 vault but I still have all of the 4 old X1 cards'
+  ) {
+    hasNoStart = true;
+  }
 
   return (
     <BlurOverlay>
@@ -45,6 +78,7 @@ export const TransferFlowLostVaultDialog: FC = () => {
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
             isFinalMessageShown={isFinalMessageShown}
+            hasNoStart={hasNoStart}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}
@@ -56,11 +90,19 @@ export const TransferFlowLostVaultDialog: FC = () => {
               direction="column"
               height="full"
             >
-              <DialogBox width={500}>
-                <DialogBoxBody p="0" gap={0}>
-                  {tabs[currentTab]?.dialogs[currentDialog]}
-                </DialogBoxBody>
-              </DialogBox>
+              {currentTab === 0 ? (
+                <DialogBoxStyle>
+                  <DialogBoxBody p="0" gap={0}>
+                    {tabs[currentTab]?.dialogs[currentDialog]}
+                  </DialogBoxBody>
+                </DialogBoxStyle>
+              ) : (
+                <DialogBox width={500}>
+                  <DialogBoxBody p="0" gap={0}>
+                    {tabs[currentTab]?.dialogs[currentDialog]}
+                  </DialogBoxBody>
+                </DialogBox>
+              )}
             </DialogBoxBody>
             <DialogBoxBackgroundBar
               rightComponent={
@@ -79,10 +121,10 @@ export const TransferFlowLostVaultDialog: FC = () => {
   );
 };
 
-export const TransferFlowLostValt: FC<{ type: TransferFlowLostVaultType }> = ({
+export const WalletTransferFlow: FC<{ type: WalletTransferFlowType }> = ({
   type,
 }) => (
-  <TransferLostVaulFlowProvider type={type}>
-    <TransferFlowLostVaultDialog />
-  </TransferLostVaulFlowProvider>
+  <WalletTransferFlowProvider type={type}>
+    <WalletTransferFlowDialog />
+  </WalletTransferFlowProvider>
 );

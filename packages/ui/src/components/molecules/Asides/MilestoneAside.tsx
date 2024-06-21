@@ -24,12 +24,17 @@ const AsideStyle = styled.div`
   background-image: ${({ theme }) => theme.palette.background.sideBar};
 `;
 
-const textColor = (
-  activeTab: number,
-  index: number,
-  isFinalMessageShown?: boolean,
-  skipped: number[] = [],
-) => {
+const textColor = ({
+  activeTab,
+  index,
+  isFinalMessageShown,
+  skipped = [],
+}: {
+  activeTab: number;
+  index: number;
+  isFinalMessageShown?: boolean;
+  skipped?: number[];
+}) => {
   if (index > activeTab || skipped.includes(index)) return 'muted';
   if (index < activeTab || isFinalMessageShown) return 'gold';
   return undefined;
@@ -76,23 +81,23 @@ export const MilestoneAside: FC<{
                 height={28}
               >
                 <Typography
-                  color={textColor(
+                  color={textColor({
                     activeTab,
                     index,
                     isFinalMessageShown,
-                    skippedTabs,
-                  )}
+                    skipped: skippedTabs,
+                  })}
                 >
                   {index + 1}
                 </Typography>
               </Container>
               <Typography
-                color={textColor(
+                color={textColor({
                   activeTab,
                   index,
                   isFinalMessageShown,
-                  skippedTabs,
-                )}
+                  skipped: skippedTabs,
+                })}
               >
                 <LangDisplay text={milestone} />
               </Typography>
@@ -112,12 +117,12 @@ export const MilestoneAside: FC<{
             ) : (
               <Bullet
                 size="sm"
-                variant={textColor(
+                variant={textColor({
                   activeTab,
                   index,
                   isFinalMessageShown,
-                  skippedTabs,
-                )}
+                  skipped: skippedTabs,
+                })}
               />
             )}
           </Flex>

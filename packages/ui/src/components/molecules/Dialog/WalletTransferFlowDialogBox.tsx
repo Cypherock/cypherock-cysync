@@ -88,25 +88,20 @@ export const WalletTransferFlowDialogBox: FC<
   disableNext,
   lang,
 }) => {
+  const displayTextTitle = lang.strings.guidedFlows.walletTransfer.tabs[0];
+  const displayTextSettingsTitle =
+    lang.strings.settings.tabs.device.item.transferWalletSettings;
   const shouldRenderDoubleDialog =
-    // this is not hardcoded this is for check true or false
     title !== undefined &&
-    [
-      'I have lost my X1 vault but I still have all of the 4 old X1 cards',
-      'I have lost my X1 vault and have less than 4 old X1 cards',
-    ].includes(title);
+    [displayTextTitle.pages[0].title, displayTextTitle.pages[1].title].includes(
+      title,
+    );
 
   const dialogTexts = {
-    dialog1:
-      lang.strings.settings.tabs.device.item.transferWalletSettings.case1.title,
-    message1:
-      lang.strings.settings.tabs.device.item.transferWalletSettings.case1
-        .message,
-    dialog2:
-      lang.strings.settings.tabs.device.item.transferWalletSettings.case2.title,
-    message2:
-      lang.strings.settings.tabs.device.item.transferWalletSettings.case2
-        .message,
+    dialog1: displayTextSettingsTitle.lostVault.title,
+    message1: displayTextSettingsTitle.lostVault.message,
+    dialog2: displayTextSettingsTitle.lostCards.title,
+    message2: displayTextSettingsTitle.lostCards.message,
   };
 
   return (

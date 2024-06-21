@@ -1416,7 +1416,7 @@
         }
       }
     },
-    "walletTransferLessCards": {
+    "walletTransferLostCards": {
       "title": "Wallet Transfer",
       "tabs": [
         {
@@ -1916,17 +1916,17 @@
             "description": "Jika Anda pernah memiliki Cypherock X1 dan ingin mentransfer dompet Anda menggunakan kartu Anda jika Anda kehilangannya atau alasan lainnya"
           },
           "transferWalletSettings": {
-            "case1": {
+            "lostVault": {
               "title": "I have lost my X1 Vault but I still have all of the 4 old X1 Cards",
               "description": "Use this flow if you have bought a completely new device only",
               "message": "Use this flow if you have bought a completely new X1 Vault only"
             },
-            "case2": {
+            "lostCards": {
               "title": "I have lost my X1 Vault and have less than 4 old X1 Cards",
               "description": "Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1",
               "message": "Use this flow if you have bought a complete new Cypherock X1 and want to transfer from your old Cypherock X1"
             },
-            "case3": {
+            "oldVault": {
               "title": "I have my old X1 Vault and have less then 4 old X1 Cards",
               "description": "Use this flow if you have bought a completely new set of cards only"
             }

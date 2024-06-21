@@ -9,10 +9,10 @@ import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import {
   GuidedFlowType,
-  TransferFlowType,
+  WalletTransferFlowType,
   openDialog,
-  TransferLessCardsFlowType,
-  TransferFlowLostVaultType,
+  WalletTransferLostCardsFlowType,
+  WalletTransferFlowLostVaultType,
 } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -30,16 +30,16 @@ export const openSignMessageDialog = () =>
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });
 
-export const openTransferFlowDialog = (type: TransferFlowType) =>
-  openDialog({ name: 'transferFlow', data: { type } });
+export const openWalletTransferFlowDialog = (type: WalletTransferFlowType) =>
+  openDialog({ name: 'walletTransferFlow', data: { type } });
 
-export const openTransferLessCardsFlowDialog = (
-  type: TransferLessCardsFlowType,
-) => openDialog({ name: 'transferLessCardsFlow', data: { type } });
+export const openWalletTransferLostCardsFlowDialog = (
+  type: WalletTransferLostCardsFlowType,
+) => openDialog({ name: 'walletTransferLostCardsFlow', data: { type } });
 
-export const openTransferFlowLostVaultDialog = (
-  type: TransferFlowLostVaultType,
-) => openDialog({ name: 'transferLostVaultFlow', data: { type } });
+export const openWalletTransferFlowLostVaultDialog = (
+  type: WalletTransferFlowLostVaultType,
+) => openDialog({ name: 'walletTransferLostVaultFlow', data: { type } });
 
 export const openAddAccountDialog = (props?: AddAccountDialogProps) =>
   openDialog({ name: 'addAccount', data: props });

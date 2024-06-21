@@ -7,4 +7,4 @@ export * from './ConfirmationDialog';
 export * from './IconDialogBox';
 export * from './GuidedFlowDialogBox';
 export * from './WalletTransferFlowDialogBox';
-export * from './WalletTransferLessCardsFlowDialogBox';
+export * from './WalletTransferLostCardsFlowDialogBox';

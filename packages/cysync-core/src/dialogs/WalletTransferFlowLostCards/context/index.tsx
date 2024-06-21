@@ -1,17 +1,21 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ClearDeviceData,
+  ConfirmCreateWalletDeviceGraphics,
   ConfirmTransferDeviceGraphics,
   EnterPin,
   Image,
-  ImportWalletNewUser,
+  MainMenu,
   MessageBoxType,
-  RestoreWallets,
+  PairCards,
+  Restore,
   SettingsDevice,
   Video,
-  WalletTransferFlowDialogBox,
+  ViewSeed,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
+  WalletTransferLostCardsFlowDialogBox,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -24,31 +28,30 @@ import React, {
   useState,
 } from 'react';
 
-import { openTransferLessCardsFlowDialog } from '~/actions';
+import { openGuidedFlowDialog } from '~/actions';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
-  TransferFlowType,
+  WalletTransferLostCardsFlowType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { FinalMessage } from '../Dialogs/FinalMessage';
+import { FinalMessage } from '../Dialogs';
 
 type ITabs = {
   name: string;
   dialogs: ReactNode[];
 }[];
 
-export interface TransferFlowContextInterface {
+export interface WalletTransferLostCardsFlowContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: (data: number) => void;
   currentDialog: number;
   setCurrentDialog: (data: number) => void;
   onNext: () => void;
-  onSelect: () => void;
   changeCondition?: () => void;
   onPrevious: () => void;
   blastConfetti: boolean;
@@ -57,27 +60,42 @@ export interface TransferFlowContextInterface {
   title: string;
 }
 
-export const TransferFlowContext: Context<TransferFlowContextInterface> =
-  createContext<TransferFlowContextInterface>(
-    {} as TransferFlowContextInterface,
+export const WalletTransferLostCardsFlowContext: Context<WalletTransferLostCardsFlowContextInterface> =
+  createContext<WalletTransferLostCardsFlowContextInterface>(
+    {} as WalletTransferLostCardsFlowContextInterface,
   );
 
-export interface TransferFlowContextProviderProps {
+export interface WalletTransferLostCardsFlowContextProviderProps {
   children: ReactNode;
-  type: TransferFlowType;
+  type: WalletTransferLostCardsFlowType;
 }
 
 const successIconReactElement = <Image src={successIcon} alt="device" />;
 
-const dialogsImages: Record<TransferFlowType, React.ReactElement[][]> = {
-  walletTransfer: [
-    [
-      <ImportWalletNewUser height={100} />,
-      <ImportWalletNewUser height={100} />,
-    ],
+const dialogsImages: Record<
+  WalletTransferLostCardsFlowType,
+  React.ReactElement[][]
+> = {
+  walletTransferLostCards: [
+    [],
     [
       <SettingsDevice />,
-      <RestoreWallets />,
+      <ClearDeviceData />,
+      <ClearDeviceData />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <PairCards />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <Restore />,
       <ConfirmTransferDeviceGraphics />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}
@@ -95,8 +113,44 @@ const dialogsImages: Record<TransferFlowType, React.ReactElement[][]> = {
         $width="full"
         $aspectRatio="16/9"
       />,
+      successIconReactElement,
+      <MainMenu />,
+      <ViewSeed />,
+      <EnterPin />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <ClearDeviceData />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <PairCards />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <ConfirmCreateWalletDeviceGraphics />,
     ],
-    [successIconReactElement],
+    [],
+    [],
   ],
 };
 
@@ -107,39 +161,31 @@ interface ITransferDialogContent {
   messageBoxList?: Record<MessageBoxType, string>[];
 }
 
-export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
-  children,
-  type,
-}) => {
+export const WalletTransferLostCardsFlowProvider: FC<
+  WalletTransferLostCardsFlowContextProviderProps
+> = ({ children, type }) => {
   const lang = useAppSelector(selectLanguage);
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
-  const getInitialDialogValue = () =>
-    window.location.hash === '#/settings' ? 1 : 0;
-  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(
-    getInitialDialogValue(),
-  );
+  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(1);
   const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
   const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
   const [blastConfetti, setBlastConfetti] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
   const [title, setTitle] = useState('');
+  const displayText = lang.strings.guidedFlows[type];
 
   const dispatch = useAppDispatch();
 
   const checkConfettiBlastDone = () => {
-    if (tabRef.current === 2 && dialogRef.current === 0)
+    if (
+      (tabRef.current === 1 && dialogRef.current === 12) ||
+      (tabRef.current === 2 && dialogRef.current === 3)
+    ) {
       setIsConfettiBlastDone(true);
+    }
   };
 
   const onNext = () => {
-    if (
-      window.location.hash === '#/portfolio' &&
-      tabRef.current === 0 &&
-      currentTab === 0 &&
-      currentDialog === 0
-    ) {
-      return;
-    }
     checkConfettiBlastDone();
     if (
       dialogRef.current + 1 >
@@ -163,16 +209,19 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
     }
   };
 
-  const onSelect = () => {
-    setCurrentTab(1);
-  };
-
-  const changeCondition = () => {
-    dispatch(closeDialog('transferFlow'));
-    dispatch(openTransferLessCardsFlowDialog('walletTransferLessCards'));
-  };
-
+  if (dialogRef.current === 32) {
+    dispatch(closeDialog('walletTransferLostCardsFlow'));
+    dispatch(openGuidedFlowDialog('importWallet'));
+  }
   const onPrevious = () => {
+    if (
+      window.location.hash === '#/settings' &&
+      tabRef.current === 1 &&
+      dialogRef.current === 0
+    ) {
+      return;
+    }
+
     checkConfettiBlastDone();
 
     if (dialogRef.current - 1 < 0) {
@@ -188,6 +237,7 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
       setCurrentDialog(Math.max(0, dialogRef.current - 1));
     }
   };
+
   addKeyboardEvents({
     ArrowRight: onNext,
     ArrowLeft: onPrevious,
@@ -199,63 +249,48 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
     first?: boolean,
   ) =>
     contents.map((content, index) => (
-      <WalletTransferFlowDialogBox
+      <WalletTransferLostCardsFlowDialogBox
         key={`${index + 1}`}
         image={images[index]}
         {...content}
         onNext={onNext}
         onPrevious={onPrevious}
         disablePrev={first && index === 0}
-        changeCondition={changeCondition}
-        onSelect={onSelect}
-        lang={lang}
       />
     ));
 
   const init = () => {
-    let initTabs = [];
-
-    if (currentTab === 0) {
-      const firstTabData = lang.strings.guidedFlows[type].tabs[0];
-      initTabs.push({
-        name: firstTabData.asideTitle,
-        dialogs: getDialogArray(
-          dialogsImages[type][0],
-          firstTabData.pages as any,
-          true,
-        ),
-      });
-    } else {
-      initTabs = lang.strings.guidedFlows[type].tabs.map((tab, index) => ({
-        name: tab.asideTitle,
-        dialogs: getDialogArray(
-          dialogsImages[type][index],
-          tab.pages as any,
-          index === 0,
-        ),
-      }));
-    }
-
+    const initTabs = displayText.tabs.map((tab, index) => ({
+      name: tab.asideTitle,
+      dialogs: getDialogArray(
+        dialogsImages[type][index],
+        tab.pages as any,
+        index === 0,
+      ),
+    }));
     initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
     setTabs(initTabs);
-    setTitle(lang.strings.guidedFlows[type].title);
+    setTitle(displayText.title);
   };
 
   useEffect(() => {
     init();
-  }, [currentTab]);
+  }, []);
 
   useEffect(() => {
-    setBlastConfetti(
-      !isConfettiBlastDone && currentTab === 2 && currentDialog === 0,
-    );
+    const shouldBlastConfetti =
+      (isConfettiBlastDone && currentTab === 1 && currentDialog === 16) ||
+      (currentTab === 3 && currentDialog === 0);
+
+    setBlastConfetti(shouldBlastConfetti);
+
     setShowBackButton(currentTab === 0 && currentDialog === 0);
   }, [currentTab, currentDialog]);
 
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('transferFlow'));
+    dispatch(closeDialog('walletTransferLostCardsFlow'));
   };
 
   const ctx = useMemo(
@@ -266,8 +301,6 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
       setCurrentDialog,
       tabs,
       onNext,
-      changeCondition,
-      onSelect,
       onPrevious,
       blastConfetti,
       showBackButton,
@@ -281,8 +314,6 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
       setCurrentDialog,
       tabs,
       onNext,
-      onSelect,
-      changeCondition,
       onPrevious,
       blastConfetti,
       showBackButton,
@@ -292,12 +323,12 @@ export const TransferFlowProvider: FC<TransferFlowContextProviderProps> = ({
   );
 
   return (
-    <TransferFlowContext.Provider value={ctx}>
+    <WalletTransferLostCardsFlowContext.Provider value={ctx}>
       {children}
-    </TransferFlowContext.Provider>
+    </WalletTransferLostCardsFlowContext.Provider>
   );
 };
 
-export function useTransferFlow(): TransferFlowContextInterface {
-  return useContext(TransferFlowContext);
+export function useWalletTransferLostCardsFlow(): WalletTransferLostCardsFlowContextInterface {
+  return useContext(WalletTransferLostCardsFlowContext);
 }

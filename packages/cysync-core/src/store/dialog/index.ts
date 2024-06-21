@@ -32,13 +32,13 @@ const initialState: IDialogState = {
   guidedFlow: {
     isOpen: false,
   },
-  transferFlow: {
+  walletTransferFlow: {
     isOpen: false,
   },
-  transferLessCardsFlow: {
+  walletTransferLostCardsFlow: {
     isOpen: false,
   },
-  transferLostVaultFlow: {
+  walletTransferLostVaultFlow: {
     isOpen: false,
   },
   walletSyncError: {

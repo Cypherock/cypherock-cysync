@@ -21,11 +21,11 @@ import React, { FC, useEffect, useState } from 'react';
 import {
   openContactSupportDialog,
   openGuidedFlowDialog,
-  openTransferFlowDialog,
+  openWalletTransferFlowDialog,
 } from '~/actions';
 import {
   GuidedFlowType,
-  TransferFlowType,
+  WalletTransferFlowType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
@@ -49,42 +49,33 @@ export const WalletActionsDialogBox: FC = () => {
     dispatch(closeDialog('walletActions'));
   };
 
-  const [selectedAction, setSelectedAction] = useState<GuidedFlowType>();
-  const [selectedAction2, setSelectedAction2] = useState<TransferFlowType>();
+  const [selectedAction, setSelectedAction] = useState<
+    GuidedFlowType | WalletTransferFlowType | undefined
+  >(undefined);
   const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
   const [hoveredAction, setHoveredAction] = useState<
-    GuidedFlowType | TransferFlowType | undefined
+    GuidedFlowType | WalletTransferFlowType | undefined
   >(undefined);
 
   const switchToGuidedFlow = () => {
-    if (selectedAction === undefined) return;
+    if (selectedAction === undefined || selectedAction === 'walletTransfer')
+      return;
     dispatch(closeDialog('walletActions'));
-    dispatch(openGuidedFlowDialog(selectedAction));
+    dispatch(openGuidedFlowDialog(selectedAction as GuidedFlowType));
   };
 
   const switchToTransferFlow = () => {
     dispatch(closeDialog('walletActions'));
-    dispatch(openTransferFlowDialog('walletTransfer'));
+    dispatch(openWalletTransferFlowDialog('walletTransfer'));
   };
 
-  const handleSetSelectedAction = (action: GuidedFlowType) => {
+  const handleSetSelectedAction = (
+    action: GuidedFlowType | WalletTransferFlowType,
+  ) => {
     if (String(selectedAction) !== hoveredAction) {
       setHoveredAction(undefined);
     }
     setSelectedAction(action);
-    if (selectedAction2) {
-      setSelectedAction2(undefined);
-    }
-  };
-
-  const handleSetSelectedAction2 = (action: TransferFlowType) => {
-    if (String(selectedAction) !== hoveredAction) {
-      setHoveredAction(undefined);
-    }
-    setSelectedAction2(action);
-    if (selectedAction) {
-      setSelectedAction(undefined);
-    }
   };
 
   useEffect(() => {
@@ -95,44 +86,19 @@ export const WalletActionsDialogBox: FC = () => {
     fetchIsNewUser();
   }, []);
 
-  const handleMouseEnterCreateWallet = (action: GuidedFlowType) => {
+  const handleMouseEnter = (
+    action: GuidedFlowType | WalletTransferFlowType,
+  ) => {
     setHoveredAction(action);
     if (String(selectedAction) !== String(action)) {
       setSelectedAction(undefined);
-      setSelectedAction2(undefined);
     }
   };
 
-  const handleMouseLeaveCreateWallet = (action: GuidedFlowType) => {
+  const handleMouseLeave = (
+    action: GuidedFlowType | WalletTransferFlowType,
+  ) => {
     if (String(selectedAction) !== String(action)) {
-      setHoveredAction(undefined);
-    }
-  };
-
-  const handleMouseEnterImportWallet = (action: GuidedFlowType) => {
-    setHoveredAction(action);
-    if (String(selectedAction) !== String(action)) {
-      setSelectedAction(undefined);
-      setSelectedAction2(undefined);
-    }
-  };
-
-  const handleMouseLeaveImportWallet = (action: GuidedFlowType) => {
-    if (String(selectedAction) !== String(action)) {
-      setHoveredAction(undefined);
-    }
-  };
-
-  const handleMouseEnterWalletTransfer = (action: TransferFlowType) => {
-    setHoveredAction(action);
-    if (String(selectedAction2) !== String(action)) {
-      setSelectedAction(undefined);
-      setSelectedAction2(undefined);
-    }
-  };
-
-  const handleMouseLeaveWalletTransfer = (action: TransferFlowType) => {
-    if (String(selectedAction2) !== String(action)) {
       setHoveredAction(undefined);
     }
   };
@@ -181,12 +147,8 @@ export const WalletActionsDialogBox: FC = () => {
                 $cursor="pointer"
               >
                 <HovorableDiv
-                  onMouseEnter={() =>
-                    handleMouseEnterCreateWallet('createWallet')
-                  }
-                  onMouseLeave={() =>
-                    handleMouseLeaveCreateWallet('createWallet')
-                  }
+                  onMouseEnter={() => handleMouseEnter('createWallet')}
+                  onMouseLeave={() => handleMouseLeave('createWallet')}
                 >
                   <Image
                     $height={100}
@@ -226,12 +188,8 @@ export const WalletActionsDialogBox: FC = () => {
                 $cursor="pointer"
               >
                 <HovorableDiv
-                  onMouseEnter={() =>
-                    handleMouseEnterImportWallet('importWallet')
-                  }
-                  onMouseLeave={() =>
-                    handleMouseLeaveImportWallet('importWallet')
-                  }
+                  onMouseEnter={() => handleMouseEnter('importWallet')}
+                  onMouseLeave={() => handleMouseLeave('importWallet')}
                 >
                   <Image
                     $height={100}
@@ -262,9 +220,9 @@ export const WalletActionsDialogBox: FC = () => {
                   $borderWidth={1}
                   $borderRadius={16}
                   $borderColor={
-                    selectedAction2 === 'walletTransfer' ? 'gold' : 'card'
+                    selectedAction === 'walletTransfer' ? 'gold' : 'card'
                   }
-                  onClick={() => handleSetSelectedAction2('walletTransfer')}
+                  onClick={() => handleSetSelectedAction('walletTransfer')}
                   align="center"
                   gap={24}
                   width={400}
@@ -272,12 +230,8 @@ export const WalletActionsDialogBox: FC = () => {
                   $cursor="pointer"
                 >
                   <HovorableDiv
-                    onMouseEnter={() =>
-                      handleMouseEnterWalletTransfer('walletTransfer')
-                    }
-                    onMouseLeave={() =>
-                      handleMouseLeaveWalletTransfer('walletTransfer')
-                    }
+                    onMouseEnter={() => handleMouseEnter('walletTransfer')}
+                    onMouseLeave={() => handleMouseLeave('walletTransfer')}
                   >
                     <Image
                       $height={100}
@@ -335,7 +289,7 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {(selectedAction2 === 'walletTransfer' ||
+              {(selectedAction === 'walletTransfer' ||
                 hoveredAction === 'walletTransfer') && (
                 <BulletList
                   $fontSize={16}
@@ -365,11 +319,11 @@ export const WalletActionsDialogBox: FC = () => {
           <Button variant="secondary" onClick={onClose}>
             <LangDisplay text={lang.strings.buttons.close} />
           </Button>
-          {selectedAction2 === 'walletTransfer' ? (
+          {selectedAction === 'walletTransfer' ? (
             <Button
               variant="primary"
               disabled={
-                !(selectedAction ?? selectedAction2 === 'walletTransfer')
+                !(selectedAction ?? selectedAction === 'walletTransfer')
               }
               onClick={switchToTransferFlow}
             >
@@ -379,7 +333,7 @@ export const WalletActionsDialogBox: FC = () => {
             <Button
               variant="primary"
               disabled={
-                !(selectedAction ?? selectedAction2 === 'walletTransfer')
+                !(selectedAction ?? selectedAction === 'walletTransfer')
               }
               onClick={switchToGuidedFlow}
             >

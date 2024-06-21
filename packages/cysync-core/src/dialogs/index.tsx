@@ -26,21 +26,21 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
-import { TransferFlow } from './TransferFlow';
-import { TransferLessCardsFlow } from './TransferFlowLessCards';
-import { TransferFlowLostValt } from './TransferFlowVaultLost';
+import { WalletTransferFlow } from './WalletTransferFlow';
+import { WalletTransferLostCardsFlow } from './WalletTransferFlowLostCards';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { WalletTransferFlowLostValt } from './WalletTransferFlowVaultLost';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
   walletActions: WalletActionsDialogBox,
   walletConnect: WalletConnectDialog,
   guidedFlow: GuidedFlow,
-  transferFlow: TransferFlow,
-  transferLessCardsFlow: TransferLessCardsFlow,
-  transferLostVaultFlow: TransferFlowLostValt,
+  walletTransferFlow: WalletTransferFlow,
+  walletTransferLostCardsFlow: WalletTransferLostCardsFlow,
+  walletTransferLostVaultFlow: WalletTransferFlowLostValt,
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
   sendDialog: SendDialog,

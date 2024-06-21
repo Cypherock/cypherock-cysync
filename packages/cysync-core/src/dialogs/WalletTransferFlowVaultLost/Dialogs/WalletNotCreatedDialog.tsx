@@ -10,12 +10,13 @@ import React, { FC } from 'react';
 import { openWalletActionsDialog } from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
-import { useTransferFlow } from '../context';
+import { useWalletTransferLostVaulFlow } from '../context';
 
 const Buttons: FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onCloseDialog } = useTransferFlow();
+  const { onCloseDialog } = useWalletTransferLostVaulFlow();
   const dispatch = useAppDispatch();
+  const displayText = lang.strings.guidedFlows.walletNotCreatedDialog;
   return (
     <Flex gap={16} $zIndex={1}>
       <Button
@@ -24,11 +25,7 @@ const Buttons: FC = () => {
           onCloseDialog();
         }}
       >
-        <LangDisplay
-          text={
-            lang.strings.guidedFlows.walletNotCreatedDialog.buttons.secondary
-          }
-        />
+        <LangDisplay text={displayText.buttons.secondary} />
       </Button>
       <Button
         onClick={() => {
@@ -37,9 +34,7 @@ const Buttons: FC = () => {
         }}
         variant="primary"
       >
-        <LangDisplay
-          text={lang.strings.guidedFlows.walletNotCreatedDialog.buttons.primary}
-        />
+        <LangDisplay text={displayText.buttons.primary} />
       </Button>
     </Flex>
   );
@@ -47,12 +42,14 @@ const Buttons: FC = () => {
 
 export const WalletNotCreatedDialog: FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.guidedFlows.walletNotCreatedDialog;
+
   return (
     <IconDialogBox
       $isModal
       icon={<NoWalletIcon />}
-      title={lang.strings.guidedFlows.walletNotCreatedDialog.title}
-      subtext={lang.strings.guidedFlows.walletNotCreatedDialog.subtitle}
+      title={displayText.title}
+      subtext={displayText.subtitle}
       footerComponent={<Buttons />}
     />
   );

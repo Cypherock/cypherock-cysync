@@ -1,5 +1,5 @@
 import { Flex, Button, LangDisplay, IconDialogBox } from '@cypherock/cysync-ui';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 
 import {
   closeDialog,
@@ -13,6 +13,8 @@ const Buttons: FC<{
 }> = ({ setShowOnClose }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const displayText = lang.strings.guidedFlows.walletTransfer.closeDialog;
+
   return (
     <Flex gap={16} $zIndex={1}>
       <Button
@@ -21,26 +23,16 @@ const Buttons: FC<{
         }}
         variant="secondary"
       >
-        <LangDisplay
-          text={
-            lang.strings.guidedFlows.walletTransferLessCards.closeDialog.buttons
-              .secondary
-          }
-        />
+        <LangDisplay text={displayText.buttons.secondary} />
       </Button>
       <Button
         onClick={() => {
           setShowOnClose(false);
-          dispatch(closeDialog('transferLessCardsFlow'));
+          dispatch(closeDialog('walletTransferFlow'));
         }}
         variant="primary"
       >
-        <LangDisplay
-          text={
-            lang.strings.guidedFlows.walletTransferLessCards.closeDialog.buttons
-              .primary
-          }
-        />
+        <LangDisplay text={displayText.buttons.primary} />
       </Button>
     </Flex>
   );
@@ -50,22 +42,32 @@ export const CloseConfirmation: FC<{
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowOnClose }) => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
+  const displayText = lang.strings.guidedFlows.walletTransfer.closeDialog;
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowOnClose(false);
+        dispatch(closeDialog('walletTransferFlow'));
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setShowOnClose, dispatch]);
   return (
     <IconDialogBox
       $isModal
-      title={lang.strings.guidedFlows.walletTransferLessCards.closeDialog.title}
-      subtext={
-        lang.strings.guidedFlows.walletTransferLessCards.closeDialog.subtitle
-      }
+      title={displayText.title}
+      subtext={displayText.subtitle}
       footerComponent={<Buttons setShowOnClose={setShowOnClose} />}
       transferFlow
-      messageBoxList={
-        lang.strings.guidedFlows.walletTransferLessCards.closeDialog
-          .messageBoxList
-      }
-      pathText={
-        lang.strings.guidedFlows.walletTransferLessCards.closeDialog.pathText
-      }
+      messageBoxList={displayText.messageBoxList}
+      pathText={displayText.pathText}
     />
   );
 };

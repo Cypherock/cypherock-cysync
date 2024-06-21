@@ -103,24 +103,24 @@ export interface IDialogState {
     };
   };
 
-  transferFlow: {
+  walletTransferFlow: {
     isOpen: boolean;
     data?: {
-      type: TransferFlowType;
+      type: WalletTransferFlowType;
     };
   };
 
-  transferLessCardsFlow: {
+  walletTransferLostCardsFlow: {
     isOpen: boolean;
     data?: {
-      type: TransferLessCardsFlowType;
+      type: WalletTransferLostCardsFlowType;
     };
   };
 
-  transferLostVaultFlow: {
+  walletTransferLostVaultFlow: {
     isOpen: boolean;
     data?: {
-      type: TransferFlowLostVaultType;
+      type: WalletTransferFlowLostVaultType;
     };
   };
 
@@ -159,20 +159,20 @@ export const TransferFlowMap = {
   walletTransfer: 'walletTransfer',
 } as const;
 
-export const TransferLessCardsFlowMap = {
-  walletTransferLessCards: 'walletTransferLessCards',
+export const WalletTransferLostCardsFlowMap = {
+  walletTransferLostCards: 'walletTransferLostCards',
 } as const;
 
-export const TransferFlowLostVaultMap = {
+export const WalletTransferFlowLostVaultMap = {
   walletTransferLostVault: 'walletTransferLostVault',
 } as const;
 
 export type GuidedFlowType = (typeof GuidedFlowMap)[keyof typeof GuidedFlowMap];
-export type TransferFlowType =
+export type WalletTransferFlowType =
   (typeof TransferFlowMap)[keyof typeof TransferFlowMap];
-export type TransferLessCardsFlowType =
-  (typeof TransferLessCardsFlowMap)[keyof typeof TransferLessCardsFlowMap];
-export type TransferFlowLostVaultType =
-  (typeof TransferFlowLostVaultMap)[keyof typeof TransferFlowLostVaultMap];
+export type WalletTransferLostCardsFlowType =
+  (typeof WalletTransferLostCardsFlowMap)[keyof typeof WalletTransferLostCardsFlowMap];
+export type WalletTransferFlowLostVaultType =
+  (typeof WalletTransferFlowLostVaultMap)[keyof typeof WalletTransferFlowLostVaultMap];
 
 export type DialogName = keyof IDialogState;

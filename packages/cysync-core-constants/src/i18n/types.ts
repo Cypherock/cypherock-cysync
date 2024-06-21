@@ -663,7 +663,7 @@ interface LangGuidedFlows {
       };
     };
   };
-  walletTransferLessCards: {
+  walletTransferLostCards: {
     title: string;
     tabs: {
       asideTitle: string;
@@ -817,17 +817,17 @@ interface LangSettings {
         x1CardAuth: { title: string; description: string };
         transferWallet: { title: string; description: string };
         transferWalletSettings: {
-          case1: {
+          lostVault: {
             title: string;
             description: string;
             message?: string;
           };
-          case2: {
+          lostCards: {
             title: string;
             description: string;
             message?: string;
           };
-          case3: {
+          oldVault: {
             title: string;
             description: string;
           };
