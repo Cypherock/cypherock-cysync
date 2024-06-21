@@ -9,6 +9,7 @@ import {
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -31,6 +32,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useCallback,
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
@@ -110,6 +112,8 @@ export interface SendDialogContextInterface {
   ) => string;
   defaultWalletId?: string;
   defaultAccountId?: string;
+  getOutputError: (index: number) => string;
+  getAmountError: () => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -370,7 +374,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const getFlowObserver = (
     onEnd: () => void,
-  ): Observer<ISignTransactionEvent> => ({
+  ): Observer<ISignTransactionEvent<any>> => ({
     next: payload => {
       if (payload.device) setDeviceEvents({ ...payload.device.events });
       if (payload.transaction) setSignedTransaction(payload.transaction);
@@ -537,6 +541,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getTronFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedTronTransaction;
+    return computedData.fee || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -545,7 +555,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     evm: getEvmFeeAmount,
     near: () => '0',
     solana: getSolanaFeeAmount,
-    tron: () => '0',
+    tron: getTronFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -563,6 +573,40 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     tabs,
     dialogName: 'sendDialog',
   });
+
+  const getOutputError = useCallback(
+    (index: number) => {
+      if (transaction?.validation.outputs[index] === false) {
+        return lang.strings.send.recipient.recipient.error;
+      }
+
+      if (transaction?.validation.ownOutputAddressNotAllowed[index]) {
+        return lang.strings.send.recipient.recipient.ownAddress;
+      }
+
+      return '';
+    },
+    [transaction, lang],
+  );
+
+  const getAmountError = useCallback(() => {
+    if (transaction?.validation.zeroAmountNotAllowed) {
+      return lang.strings.send.recipient.amount.zeroAmount;
+    }
+
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        .isNotOverDustThreshold
+    ) {
+      return lang.strings.send.recipient.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return lang.strings.send.recipient.amount.error;
+    }
+
+    return '';
+  }, [transaction, lang]);
 
   const ctx = useMemo(
     () => ({
@@ -603,6 +647,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       isAccountSelectionDisabled: disableAccountSelection,
       getDefaultGasLimit,
       getComputedFee,
+      getOutputError,
+      getAmountError,
     }),
     [
       defaultWalletId,
@@ -642,6 +688,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       disableAccountSelection,
       getDefaultGasLimit,
       getComputedFee,
+      getOutputError,
+      getAmountError,
     ],
   );
 

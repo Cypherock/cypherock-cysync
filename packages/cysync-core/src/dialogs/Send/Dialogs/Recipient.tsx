@@ -66,7 +66,11 @@ export const Recipient: React.FC = () => {
           output =>
             output.address !== '' && !new BigNumber(output.amount).isNaN(),
         ) &&
-        transaction.validation.isValidFee,
+        transaction.validation.isValidFee &&
+        transaction.validation.ownOutputAddressNotAllowed.every(
+          output => !output,
+        ) &&
+        !transaction.validation.zeroAmountNotAllowed,
     );
   }, [transaction]);
 

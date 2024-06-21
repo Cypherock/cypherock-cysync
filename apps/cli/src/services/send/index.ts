@@ -311,7 +311,7 @@ const signTransaction = async (params: {
 
       let signedTransaction = '';
 
-      const observer: Observer<ISignTransactionEvent> = {
+      const observer: Observer<ISignTransactionEvent<any>> = {
         complete: () => {
           deviceSpinner.succeed();
           resolve(signedTransaction);

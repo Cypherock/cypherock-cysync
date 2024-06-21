@@ -244,7 +244,8 @@
       "recipient": {
         "label": "Alamat Penerima",
         "placeholder": "Masukkan alamat",
-        "error": "Alamat tidak valid"
+        "error": "Alamat tidak valid",
+        "ownAddress": "Recipient address is the same as sender address"
       },
       "tabs": {
         "single": "Transaksi Tunggal",
@@ -256,6 +257,7 @@
         "toggle": "Kirim Maks",
         "dollar": "$",
         "error": "Dana tidak mencukupi",
+        "zeroAmount": "Amount can't be zero",
         "notOverDustThreshold": "Jumlah lebih rendah dari dust limit"
       },
       "fees": {
