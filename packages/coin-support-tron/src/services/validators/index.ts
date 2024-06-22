@@ -38,6 +38,15 @@ const TokenSchema = z.object({
   decimals: z.number().optional(),
 });
 
+const AddressDetailsSchema = z.object({
+  bandwidthTotal: z.number().optional(),
+  bandwidthUsed: z.number().optional(),
+  energyTotal: z.number().optional(),
+  energyUsed: z.number().optional(),
+  tronPower: z.number().optional(),
+  tronPowerUsed: z.number().optional(),
+});
+
 export const TronTransactionsApiResponseSchema = z.object({
   page: z.number(),
   totalPages: z.number(),
@@ -55,6 +64,7 @@ export const TronAccountDetailApiResponseSchema = z.object({
   balance: z.string(),
   txs: z.number(),
   nonTokenTxs: z.number().optional(),
+  details: AddressDetailsSchema.optional(),
 });
 
 export type TronTransactionsApiResponse = z.infer<

@@ -1,5 +1,6 @@
 import {
   createSyncAccountsObservable,
+  getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -9,7 +10,6 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import lodash from 'lodash';
 
 import { ISyncTronAccountsParams } from './types';
 
@@ -35,9 +35,12 @@ const getTransactionParser = (
     const amount = transaction.value;
     const fees = new BigNumber(transaction.fees).toFixed();
     const timestamp = (transaction.blockTime ?? 0) * 1000;
+    const hash = transaction.txid
+      ? transaction.txid.replace('0x', '')
+      : transaction.txid;
 
     const txn: ITransaction = {
-      hash: transaction.txid,
+      hash,
       accountId: account.__id ?? '',
       walletId: account.walletId,
       assetId: account.parentAssetId,
@@ -80,10 +83,25 @@ const getTransactionParser = (
 const getAddressDetails: IGetAddressDetails<{
   page: number;
   perPage: number;
+  afterBlock?: number;
   transactionsInDb: ITransaction[];
 }> = async ({ db, account, iterationContext }) => {
-  const page = iterationContext?.page ?? 1;
+  const afterBlock =
+    iterationContext?.afterBlock ??
+    (await getLatestTransactionBlock(db, {
+      accountId: account.__id,
+    }));
+
+  let page = iterationContext?.page ?? 1;
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
+
+  const updatedAccountInfo = {
+    balance: account.balance,
+    extraData: {
+      ...(account.extraData ?? {}),
+    },
+  };
+
   const transactionsInDb =
     iterationContext?.transactionsInDb ??
     (await db.transaction.getAll({
@@ -91,11 +109,14 @@ const getAddressDetails: IGetAddressDetails<{
       assetId: account.parentAssetId,
     }));
 
-  const response = await getAccountsTransactionsByAddress(
-    account.xpubOrAddress,
-    iterationContext?.page ?? page,
-    iterationContext?.perPage ?? perPage,
-  );
+  const response = await getAccountsTransactionsByAddress({
+    address: account.xpubOrAddress,
+    page: iterationContext?.page ?? page,
+    pageSize: iterationContext?.perPage ?? perPage,
+    from: afterBlock,
+  });
+
+  updatedAccountInfo.balance = response.balance;
 
   const transactionParser = getTransactionParser({
     address: account.xpubOrAddress,
@@ -103,18 +124,21 @@ const getAddressDetails: IGetAddressDetails<{
   });
 
   const transactions = response.transactions.map(transactionParser);
-  const hasMore =
-    lodash.intersectionBy(transactionsInDb, transactions, 'hash').length > 0;
+  const hasMore = Boolean(
+    response.page && response.totalPages && response.totalPages > response.page,
+  );
+  page = response.page + 1;
 
   return {
     hasMore,
     nextIterationContext: {
       page: page + 1,
       perPage,
+      afterBlock,
       transactionsInDb,
     },
     transactions,
-    updatedAccountInfo: {},
+    updatedAccountInfo,
   };
 };
 
