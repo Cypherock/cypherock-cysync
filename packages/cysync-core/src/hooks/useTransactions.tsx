@@ -81,6 +81,7 @@ export interface TransactionRowData {
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
+  network: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -227,7 +228,7 @@ export const mapTransactionForDisplay = (params: {
     transaction.parentAssetId,
     transaction.assetId,
   ).name;
-
+  const networkName = getAsset(transaction.parentAssetId).name;
   const formattedAmount = formatDisplayAmount(amount, 8);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
@@ -291,6 +292,7 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
+    network: networkName,
   };
 };
 
