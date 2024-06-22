@@ -9,6 +9,7 @@ import {
   DialogBoxBackgroundBar,
   BackButton,
   ConfettiBlast,
+  goldFail,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -49,7 +50,21 @@ export const GuidedFlowDialog: FC = () => {
         width="full"
         onClose={() => setShowOnClose(true)}
       >
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+        {showOnClose && (
+          <CloseConfirmation
+            setShowOnClose={setShowOnClose}
+            dialogText={{
+              title: lang.strings.guidedFlows.closeDialog.title,
+              subtitle: lang.strings.guidedFlows.closeDialog.subtitle,
+              primaryButton:
+                lang.strings.guidedFlows.closeDialog.buttons.primary,
+              secondaryButton:
+                lang.strings.guidedFlows.closeDialog.buttons.secondary,
+            }}
+            closeDialogType="guidedFlow"
+            iconSrc={goldFail}
+          />
+        )}
         <>
           <MilestoneAside
             heading={title}

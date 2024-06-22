@@ -11,10 +11,15 @@ import {
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { WalletTransferFlowType } from '~/store';
+import {
+  WalletTransferFlowType,
+  useAppSelector,
+  selectLanguage,
+} from '~/store';
 
 import { WalletTransferFlowProvider, useWalletTransferFlow } from './context';
-import { CloseConfirmation } from './Dialogs';
+
+import { CloseConfirmation } from '../GuidedFlow/Dialogs';
 
 const DialogBoxStyle = styled.section`
   display: flex;
@@ -53,13 +58,12 @@ export const WalletTransferFlowDialog: FC = () => {
   };
 
   let hasNoStart = false;
-
+  const lang = useAppSelector(selectLanguage);
   const arrayVl = tabs.map(t => t.dialogs[0]);
   const title2 = getTitleFromReactElement(arrayVl[0]);
-  if (
-    title2 ===
-    'I have lost my X1 vault but I still have all of the 4 old X1 cards'
-  ) {
+  const displayText = lang.strings.guidedFlows.walletTransfer;
+
+  if (title2 === displayText.tabs[0].pages[0].title) {
     hasNoStart = true;
   }
 
@@ -71,7 +75,29 @@ export const WalletTransferFlowDialog: FC = () => {
         width="full"
         onClose={() => setShowOnClose(true)}
       >
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+        {showOnClose && (
+          <CloseConfirmation
+            setShowOnClose={setShowOnClose}
+            dialogText={{
+              title: lang.strings.guidedFlows.walletTransfer.closeDialog.title,
+              subtitle:
+                lang.strings.guidedFlows.walletTransfer.closeDialog.subtitle,
+              primaryButton:
+                lang.strings.guidedFlows.walletTransfer.closeDialog.buttons
+                  .primary,
+              secondaryButton:
+                lang.strings.guidedFlows.walletTransfer.closeDialog.buttons
+                  .secondary,
+              messageBoxList:
+                lang.strings.guidedFlows.walletTransfer.closeDialog
+                  .messageBoxList,
+              pathText:
+                lang.strings.guidedFlows.walletTransfer.closeDialog.pathText,
+            }}
+            closeDialogType="walletTransferFlow"
+            isWalletTransfer
+          />
+        )}
         <>
           <MilestoneAside
             heading={title}

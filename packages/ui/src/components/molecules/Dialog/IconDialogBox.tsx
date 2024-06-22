@@ -25,7 +25,7 @@ interface IconDialogBoxProps extends DialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
-  transferFlow?: boolean;
+  isWalletTransfer?: boolean;
   messageBoxList?: Record<string, string>[];
   pathText?: string;
 }
@@ -39,142 +39,162 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   footerComponent,
   textVariables,
   onClose,
-  transferFlow,
+  isWalletTransfer,
   messageBoxList,
   pathText,
   ...props
-}) => (
-  <DialogBox width={500} {...props} onClose={onClose}>
-    {(header || onClose) && (
-      <DialogBoxHeader height={56} width={500} px={3}>
-        <Flex position="relative" width="full" justify="center" align="center">
-          {header && (
-            <Typography variant="fineprint" color="muted" $fontWeight="medium">
-              <LangDisplay text={header} />
-            </Typography>
-          )}
+}) => {
+  console.log(isWalletTransfer, pathText);
 
-          {onClose && (
-            <CloseButton
-              onClick={onClose}
-              $alignSelf="end"
-              position="absolute"
-              top={0.5}
-              $translateY={-0.5}
-              right={0}
-            />
-          )}
-        </Flex>
-      </DialogBoxHeader>
-    )}
-    {transferFlow ? (
-      <DialogBoxBody
-        gap={{
-          def: 0,
-          lg: 0,
-        }}
-        p="0"
-        pt={4}
-        pb="0"
-      >
-        <Flex
-          gap={{ def: 12, lg: 32 }}
-          align="center"
-          justify="center"
-          width="inherit"
-          direction="column"
-        >
-          <Flex direction="column" align="center" gap={12} px={5} pb={4} pt={2}>
-            {title && typeof title === 'string' && (
-              <Typography variant="h5" $textAlign="center">
-                <LangDisplay text={title} variables={textVariables} />
+  return (
+    <DialogBox width={500} {...props} onClose={onClose}>
+      {(header || onClose) && (
+        <DialogBoxHeader height={56} width={500} px={3}>
+          <Flex
+            position="relative"
+            width="full"
+            justify="center"
+            align="center"
+          >
+            {header && (
+              <Typography
+                variant="fineprint"
+                color="muted"
+                $fontWeight="medium"
+              >
+                <LangDisplay text={header} />
               </Typography>
             )}
-            {title && typeof title !== 'string' && title}
-            {subtext && (
-              <Typography variant="h6" $textAlign="center" color="muted">
-                <LangDisplay text={subtext} variables={textVariables} />
-              </Typography>
-            )}
-          </Flex>
-        </Flex>
-        <Flex direction="column" gap={8} pt={2} pb={4}>
-          {messageBoxList?.map((messageBox, index) => {
-            const key = Object.keys(messageBox)[0];
-            const args = key.split('-');
-            const type = args[0] as MessageBoxType;
-            if (!type) return null;
-            let textColor: TypographyColor | undefined;
-            if (args.length > 1) textColor = args[1] as TypographyColor;
-            return (
-              <MessageBox
-                key={`${type}-${index + 1}`}
-                text={messageBox[key]}
-                textColor={textColor}
-                type={type}
-                transferFlow={transferFlow}
-                pathText={pathText}
+
+            {onClose && (
+              <CloseButton
+                onClick={onClose}
+                $alignSelf="end"
+                position="absolute"
+                top={0.5}
+                $translateY={-0.5}
+                right={0}
               />
-            );
-          })}
-        </Flex>
-        {afterTextComponent && (
-          <Flex
-            width="full"
-            direction="column"
-            gap={{ def: 24, lg: 48 }}
-            px={5}
-          >
-            {afterTextComponent}
+            )}
           </Flex>
-        )}
-      </DialogBoxBody>
-    ) : (
-      <DialogBoxBody
-        gap={{
-          def: 12,
-          lg: 48,
-        }}
-        p="0"
-        py={4}
-      >
-        <Flex
-          gap={{ def: 12, lg: 32 }}
-          align="center"
-          justify="center"
-          width="inherit"
-          direction="column"
+        </DialogBoxHeader>
+      )}
+      {isWalletTransfer ? (
+        <DialogBoxBody
+          gap={{
+            def: 0,
+            lg: 0,
+          }}
+          p="0"
+          pt={4}
+          pb="0"
         >
-          {icon}
-          <Flex direction="column" align="center" gap={4} px={5}>
-            {title && typeof title === 'string' && (
-              <Typography variant="h5" $textAlign="center">
-                <LangDisplay text={title} variables={textVariables} />
-              </Typography>
-            )}
-            {title && typeof title !== 'string' && title}
-            {subtext && (
-              <Typography variant="h6" $textAlign="center" color="muted">
-                <LangDisplay text={subtext} variables={textVariables} />
-              </Typography>
-            )}
-          </Flex>
-        </Flex>
-        {afterTextComponent && (
           <Flex
-            width="full"
+            gap={{ def: 12, lg: 32 }}
+            align="center"
+            justify="center"
+            width="inherit"
             direction="column"
-            gap={{ def: 24, lg: 48 }}
-            px={5}
           >
-            {afterTextComponent}
+            <Flex
+              direction="column"
+              align="center"
+              gap={12}
+              px={5}
+              pb={4}
+              pt={2}
+            >
+              {title && typeof title === 'string' && (
+                <Typography variant="h5" $textAlign="center">
+                  <LangDisplay text={title} variables={textVariables} />
+                </Typography>
+              )}
+              {title && typeof title !== 'string' && title}
+              {subtext && (
+                <Typography variant="h6" $textAlign="center" color="muted">
+                  <LangDisplay text={subtext} variables={textVariables} />
+                </Typography>
+              )}
+            </Flex>
           </Flex>
-        )}
-      </DialogBoxBody>
-    )}
-    {footerComponent && <DialogBoxFooter>{footerComponent}</DialogBoxFooter>}
-  </DialogBox>
-);
+          <Flex direction="column" gap={8} pt={2} pb={4}>
+            {messageBoxList?.map((messageBox, index) => {
+              const key = Object.keys(messageBox)[0];
+              const args = key.split('-');
+              const type = args[0] as MessageBoxType;
+              if (!type) return null;
+              let textColor: TypographyColor | undefined;
+              if (args.length > 1) textColor = args[1] as TypographyColor;
+              return (
+                <MessageBox
+                  key={`${type}-${index + 1}`}
+                  text={messageBox[key]}
+                  textColor={textColor}
+                  type={type}
+                  isWalletTransfer={isWalletTransfer}
+                  pathText={pathText}
+                />
+              );
+            })}
+          </Flex>
+          {afterTextComponent && (
+            <Flex
+              width="full"
+              direction="column"
+              gap={{ def: 24, lg: 48 }}
+              px={5}
+            >
+              {afterTextComponent}
+            </Flex>
+          )}
+        </DialogBoxBody>
+      ) : (
+        <DialogBoxBody
+          gap={{
+            def: 12,
+            lg: 48,
+          }}
+          p="0"
+          py={4}
+        >
+          <Flex
+            gap={{ def: 12, lg: 32 }}
+            align="center"
+            justify="center"
+            width="inherit"
+            direction="column"
+          >
+            {icon}
+            <Flex direction="column" align="center" gap={4} px={5}>
+              {title && typeof title === 'string' && (
+                <Typography variant="h5" $textAlign="center">
+                  <LangDisplay text={title} variables={textVariables} />
+                </Typography>
+              )}
+              {title && typeof title !== 'string' && title}
+              {subtext && (
+                <Typography variant="h6" $textAlign="center" color="muted">
+                  <LangDisplay text={subtext} variables={textVariables} />
+                </Typography>
+              )}
+            </Flex>
+          </Flex>
+          {afterTextComponent && (
+            <Flex
+              width="full"
+              direction="column"
+              gap={{ def: 24, lg: 48 }}
+              px={5}
+            >
+              {afterTextComponent}
+            </Flex>
+          )}
+        </DialogBoxBody>
+      )}
+      {footerComponent && <DialogBoxFooter>{footerComponent}</DialogBoxFooter>}
+    </DialogBox>
+  );
+};
 
 IconDialogBox.defaultProps = {
   icon: undefined,
@@ -184,7 +204,7 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
-  transferFlow: false,
+  isWalletTransfer: false,
   pathText: undefined,
   messageBoxList: undefined,
 };

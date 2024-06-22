@@ -8,21 +8,19 @@ import {
 import React, { FC } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
-import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
-const Buttons: FC = () => {
+interface ButtonsProps {
+  onClose: () => void;
+}
+
+const Buttons: FC<ButtonsProps> = ({ onClose }) => {
   const lang = useAppSelector(selectLanguage);
-  const { onCloseDialog } = useGuidedFlow();
   const dispatch = useAppDispatch();
+
   return (
     <Flex gap={16} $zIndex={1}>
-      <Button
-        variant="secondary"
-        onClick={() => {
-          onCloseDialog();
-        }}
-      >
+      <Button variant="secondary" onClick={onClose}>
         <LangDisplay
           text={
             lang.strings.guidedFlows.walletNotCreatedDialog.buttons.secondary
@@ -30,11 +28,11 @@ const Buttons: FC = () => {
         />
       </Button>
       <Button
+        variant="primary"
         onClick={() => {
-          onCloseDialog();
+          onClose();
           dispatch(openWalletActionsDialog());
         }}
-        variant="primary"
       >
         <LangDisplay
           text={lang.strings.guidedFlows.walletNotCreatedDialog.buttons.primary}
@@ -44,15 +42,22 @@ const Buttons: FC = () => {
   );
 };
 
-export const WalletNotCreatedDialog: FC = () => {
+interface WalletNotCreatedDialogProps {
+  onCloseDialog: () => void;
+}
+
+export const WalletNotCreatedDialog: FC<WalletNotCreatedDialogProps> = ({
+  onCloseDialog,
+}) => {
   const lang = useAppSelector(selectLanguage);
+
   return (
     <IconDialogBox
       $isModal
       icon={<NoWalletIcon />}
       title={lang.strings.guidedFlows.walletNotCreatedDialog.title}
       subtext={lang.strings.guidedFlows.walletNotCreatedDialog.subtitle}
-      footerComponent={<Buttons />}
+      footerComponent={<Buttons onClose={onCloseDialog} />}
     />
   );
 };

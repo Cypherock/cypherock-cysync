@@ -10,13 +10,18 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { WalletTransferFlowLostVaultType } from '~/store';
+import {
+  WalletTransferFlowLostVaultType,
+  selectLanguage,
+  useAppSelector,
+} from '~/store';
 
 import {
   WalletTransferLostVaultFlowProvider,
   useWalletTransferLostVaulFlow,
 } from './context';
-import { CloseConfirmation } from './Dialogs';
+
+import { CloseConfirmation } from '../GuidedFlow/Dialogs';
 
 export const WalletTransferFlowLostVaultDialog: FC = () => {
   const {
@@ -28,6 +33,7 @@ export const WalletTransferFlowLostVaultDialog: FC = () => {
     title,
   } = useWalletTransferLostVaulFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
+  const lang = useAppSelector(selectLanguage);
 
   const isFinalMessageShown =
     currentTab === tabs.length - 1 &&
@@ -41,7 +47,33 @@ export const WalletTransferFlowLostVaultDialog: FC = () => {
         width="full"
         onClose={() => setShowOnClose(true)}
       >
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+        {showOnClose && (
+          <CloseConfirmation
+            setShowOnClose={setShowOnClose}
+            dialogText={{
+              title:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .title,
+              subtitle:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .subtitle,
+              primaryButton:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .buttons.primary,
+              secondaryButton:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .buttons.secondary,
+              messageBoxList:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .messageBoxList,
+              pathText:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .pathText,
+            }}
+            closeDialogType="walletTransferLostVaultFlow"
+            isWalletTransfer
+          />
+        )}
         <>
           <MilestoneAside
             heading={title}

@@ -29,6 +29,7 @@ import React, {
 } from 'react';
 
 import { openGuidedFlowDialog } from '~/actions';
+import { FinalMessage } from '~/dialogs/GuidedFlow/Dialogs/FinalMessage';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -38,7 +39,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { FinalMessage } from '../Dialogs';
 
 type ITabs = {
   name: string;
@@ -268,7 +268,12 @@ export const WalletTransferLostCardsFlowProvider: FC<
         index === 0,
       ),
     }));
-    initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
+    initTabs[initTabs.length - 1].dialogs.push(
+      <FinalMessage
+        DialogBox={WalletTransferLostCardsFlowDialogBox}
+        contextHook={useWalletTransferLostCardsFlow}
+      />,
+    );
     setTabs(initTabs);
     setTitle(displayText.title);
   };

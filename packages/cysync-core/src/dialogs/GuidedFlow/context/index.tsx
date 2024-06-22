@@ -253,7 +253,12 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
         index === 0,
       ),
     }));
-    initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
+    initTabs[initTabs.length - 1].dialogs.push(
+      <FinalMessage
+        DialogBox={GuidedFlowDialogBox}
+        contextHook={useGuidedFlow}
+      />,
+    );
     setTabs(initTabs);
     setTitle(lang.strings.guidedFlows[type].title);
   };

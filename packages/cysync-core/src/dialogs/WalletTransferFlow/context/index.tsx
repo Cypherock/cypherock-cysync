@@ -10,6 +10,7 @@ import {
   SettingsDevice,
   Video,
   WalletTransferFlowDialogBox,
+  WalletTransferLostCardsFlowDialogBox,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
@@ -25,6 +26,7 @@ import React, {
 } from 'react';
 
 import { openWalletTransferLostCardsFlowDialog } from '~/actions';
+import { FinalMessage } from '~/dialogs/GuidedFlow/Dialogs/FinalMessage';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
@@ -34,7 +36,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { FinalMessage } from '../Dialogs';
+// import { FinalMessage } from '../Dialogs';
 
 type ITabs = {
   name: string;
@@ -236,7 +238,12 @@ export const WalletTransferFlowProvider: FC<
       }));
     }
 
-    initTabs[initTabs.length - 1].dialogs.push(<FinalMessage />);
+    initTabs[initTabs.length - 1].dialogs.push(
+      <FinalMessage
+        DialogBox={WalletTransferLostCardsFlowDialogBox}
+        contextHook={useWalletTransferFlow}
+      />,
+    );
     setTabs(initTabs);
     setTitle(displayText.title);
   };

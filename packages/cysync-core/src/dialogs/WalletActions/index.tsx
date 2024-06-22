@@ -17,6 +17,7 @@ import {
   transferWalletGraphics,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 import {
   openContactSupportDialog,
@@ -34,7 +35,6 @@ import {
 import { keyValueStore } from '~/utils';
 
 import { Header } from './Sections';
-import styled from 'styled-components';
 
 const HovorableDiv = styled.div`
   padding: 8px 42px 8px 42px;
@@ -214,7 +214,7 @@ export const WalletActionsDialogBox: FC = () => {
                   </Typography>
                 </HovorableDiv>
               </Flex>
-              {!isNewUser && (
+              {isNewUser && (
                 <Flex
                   direction="column"
                   $borderWidth={1}
