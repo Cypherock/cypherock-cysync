@@ -426,7 +426,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                 </Container>
               </HistoryItem>
               {displayTransaction.txn.remarks &&
-                displayTransaction.txn.remarks?.length > 0 && (
+                displayTransaction.txn.remarks.length > 0 && (
                   <HistoryItem leftText={keys.remarks} key={keys.receiver}>
                     <Container
                       display="flex"

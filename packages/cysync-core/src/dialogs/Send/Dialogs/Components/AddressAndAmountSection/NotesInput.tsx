@@ -8,6 +8,7 @@ import {
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
 
 interface NotesInputProps {
