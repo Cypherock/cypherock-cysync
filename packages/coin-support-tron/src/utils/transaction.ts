@@ -10,11 +10,17 @@ export const prepareUnsignedSendTxn = async (params: {
   to: string;
   amount: string;
 }): Promise<IUnsignedTransaction> => {
-  const txn = await getCoinSupportTronWeb().transactionBuilder.sendTrx(
+  const tronWeb = getCoinSupportTronWeb();
+  const txn = await tronWeb.transactionBuilder.sendTrx(
     params.to,
     parseInt(params.amount, 10),
     params.from,
   );
+  txn.raw_data.expiration = txn.raw_data.timestamp + 5 * 60 * 1000;
+  const hex = tronWeb.utils.transaction.txPbToRawDataHex(
+    tronWeb.utils.transaction.txJsonToPb(txn),
+  );
+  txn.raw_data_hex = hex;
 
   return txn;
 };

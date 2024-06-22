@@ -20,13 +20,13 @@ import { setTronWeb } from '@cypherock/sdk-app-tron';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
-import { ISyncTronAccountsParams } from './operations/syncAccount/types';
 import {
   IBroadcastTronTransactionParams,
   ICreateTronAccountParams,
   IPrepareTronTransactionParams,
   ISignTronTransactionEvent,
   ISignTronTransactionParams,
+  ISyncTronAccountsParams,
 } from './operations/types';
 import { setCoinSupportTronWeb } from './utils';
 

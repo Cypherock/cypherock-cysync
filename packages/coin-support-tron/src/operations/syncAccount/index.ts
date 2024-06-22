@@ -1,28 +1,144 @@
 import {
-  IGetAddressDetails,
   createSyncAccountsObservable,
+  getLatestTransactionBlock,
+  IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
+import { BigNumber } from '@cypherock/cysync-utils';
+import {
+  IAccount,
+  ITransaction,
+  TransactionStatusMap,
+  TransactionTypeMap,
+} from '@cypherock/db-interfaces';
 
 import { ISyncTronAccountsParams } from './types';
 
-import { getBalance } from '../../services';
+import { getAccountsTransactionsByAddress } from '../../services';
+import { TronTransaction } from '../../services/validators';
 
-const getAddressDetails: IGetAddressDetails<any> = async ({ account }) => {
-  const updatedBalance = await getBalance(
-    account.xpubOrAddress,
-    account.parentAssetId,
-  );
+const PER_PAGE_TXN_LIMIT = 100;
+
+interface GetTransactionParserParams {
+  address: string;
+  account: IAccount;
+}
+
+const getTransactionParser = (
+  params: GetTransactionParserParams,
+): ((transaction: any) => ITransaction) => {
+  const myAddress = params.address;
+  const { account } = params;
+
+  return (transaction: TronTransaction): ITransaction => {
+    const fromAddr = transaction.fromAddress;
+    const toAddr = transaction.toAddress;
+    const amount = transaction.value;
+    const fees = new BigNumber(transaction.fees).toFixed();
+    const timestamp = (transaction.blockTime ?? 0) * 1000;
+    const hash = transaction.txid
+      ? transaction.txid.replace('0x', '')
+      : transaction.txid;
+
+    const txn: ITransaction = {
+      hash,
+      accountId: account.__id ?? '',
+      walletId: account.walletId,
+      assetId: account.parentAssetId,
+      parentAssetId: account.parentAssetId,
+      familyId: account.familyId,
+      amount,
+      fees,
+      confirmations: 1,
+      status:
+        transaction.tronTXReceipt.status === 1
+          ? TransactionStatusMap.success
+          : TransactionStatusMap.failed,
+      type:
+        myAddress.toLowerCase() === fromAddr.toLowerCase()
+          ? TransactionTypeMap.send
+          : TransactionTypeMap.receive,
+      timestamp,
+      blockHeight: transaction.blockHeight,
+      inputs: [
+        {
+          address: fromAddr,
+          amount,
+          isMine: myAddress.toLowerCase() === fromAddr.toLowerCase(),
+        },
+      ],
+      outputs: [
+        {
+          address: toAddr,
+          amount,
+          isMine: myAddress.toLowerCase() === toAddr.toLowerCase(),
+        },
+      ],
+      extraData: {},
+    };
+
+    return txn;
+  };
+};
+
+const getAddressDetails: IGetAddressDetails<{
+  page: number;
+  perPage: number;
+  afterBlock?: number;
+  transactionsInDb: ITransaction[];
+}> = async ({ db, account, iterationContext }) => {
+  const afterBlock =
+    iterationContext?.afterBlock ??
+    (await getLatestTransactionBlock(db, {
+      accountId: account.__id,
+    }));
+
+  let page = iterationContext?.page ?? 1;
+  const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
   const updatedAccountInfo = {
-    balance: updatedBalance,
-    extraData: { ...(account.extraData ?? {}) },
+    balance: account.balance,
+    extraData: {
+      ...(account.extraData ?? {}),
+    },
   };
 
+  const transactionsInDb =
+    iterationContext?.transactionsInDb ??
+    (await db.transaction.getAll({
+      accountId: account.__id,
+      assetId: account.parentAssetId,
+    }));
+
+  const response = await getAccountsTransactionsByAddress({
+    address: account.xpubOrAddress,
+    page: iterationContext?.page ?? page,
+    pageSize: iterationContext?.perPage ?? perPage,
+    from: afterBlock,
+  });
+
+  updatedAccountInfo.balance = response.balance;
+
+  const transactionParser = getTransactionParser({
+    address: account.xpubOrAddress,
+    account,
+  });
+
+  const transactions = response.transactions.map(transactionParser);
+  const hasMore = Boolean(
+    response.page && response.totalPages && response.totalPages > response.page,
+  );
+  page = response.page + 1;
+
   return {
-    hasMore: false,
-    transactions: [],
+    hasMore,
+    nextIterationContext: {
+      page: page + 1,
+      perPage,
+      afterBlock,
+      transactionsInDb,
+    },
+    transactions,
     updatedAccountInfo,
-    nextIterationContext: {},
   };
 };
 

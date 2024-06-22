@@ -52,7 +52,8 @@
     "@cypherock/sdk-utils": "^0.0.18",
     "lodash": "^4.17.21",
     "multicoin-address-validator": "^0.5.12",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^3.21.4"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

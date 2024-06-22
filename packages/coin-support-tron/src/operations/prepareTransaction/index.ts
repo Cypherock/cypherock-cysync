@@ -44,23 +44,20 @@ const calculateBandwidthAndFees = (
     : 268;
 
   let paidBandwidth = bandwidth;
-  if (
-    txn.staticData.totalFreeBandwidthAvailable > bandwidth ||
-    txn.staticData.totalFreeBandwidthAvailable > bandwidth
-  ) {
+  if (txn.staticData.totalBandwidthAvailable > bandwidth) {
     paidBandwidth = 0;
   }
 
   let fees = '0';
   if (paidBandwidth > 0) {
-    let dustFees = 0;
+    let dustFee = 0;
     if (txn.userInputs.isSendAll) {
-      dustFees = 5 * 1000;
+      dustFee = 5 * 1000;
     }
 
     fees = new BigNumber(paidBandwidth)
       .multipliedBy(1000)
-      .plus(dustFees)
+      .plus(dustFee)
       .toFixed(0);
   }
 

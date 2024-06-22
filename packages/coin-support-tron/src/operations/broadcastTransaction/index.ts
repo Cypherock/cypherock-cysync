@@ -18,7 +18,7 @@ export const broadcastTransaction = async (
   params: IBroadcastTronTransactionParams,
 ): Promise<ITransaction> => {
   const { db, signedTransaction, transaction } = params;
-  const { account, coin } = await getAccountAndCoin(
+  const { account } = await getAccountAndCoin(
     db,
     tronCoinList,
     transaction.accountId,
@@ -27,10 +27,7 @@ export const broadcastTransaction = async (
     params.transaction.computedData.output.address.toLowerCase() ===
     account.xpubOrAddress.toLowerCase();
 
-  const txnHash = await broadcastTransactionToBlockchain(
-    signedTransaction,
-    coin.id,
-  );
+  const txnHash = await broadcastTransactionToBlockchain(signedTransaction);
 
   const parsedTransaction: ITransaction = {
     hash: txnHash,
