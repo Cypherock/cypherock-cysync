@@ -214,7 +214,7 @@ export const WalletActionsDialogBox: FC = () => {
                   </Typography>
                 </HovorableDiv>
               </Flex>
-              {isNewUser && (
+              {!isNewUser && (
                 <Flex
                   direction="column"
                   $borderWidth={1}
