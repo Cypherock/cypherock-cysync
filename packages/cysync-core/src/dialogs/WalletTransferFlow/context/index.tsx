@@ -1,18 +1,9 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  ConfirmTransferDeviceGraphics,
-  EnterPin,
-  Image,
-  ImportWalletNewUser,
   MessageBoxType,
-  RestoreWallets,
-  SettingsDevice,
-  Video,
   WalletTransferFlowDialogBox,
   WalletTransferLostCardsFlowDialogBox,
-  successIcon,
-  tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -36,7 +27,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-// import { FinalMessage } from '../Dialogs';
+import { guidedFlowDialogsImages } from '~/dialogs/GuidedFlow/context';
 
 type ITabs = {
   name: string;
@@ -68,39 +59,6 @@ export interface WalletTransferFlowContextProviderProps {
   children: ReactNode;
   type: WalletTransferFlowType;
 }
-
-const successIconReactElement = <Image src={successIcon} alt="device" />;
-
-const dialogsImages: Record<WalletTransferFlowType, React.ReactElement[][]> = {
-  walletTransfer: [
-    [
-      <ImportWalletNewUser height={100} />,
-      <ImportWalletNewUser height={100} />,
-    ],
-    [
-      <SettingsDevice />,
-      <RestoreWallets />,
-      <ConfirmTransferDeviceGraphics />,
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-      <ConfirmTransferDeviceGraphics />,
-      <EnterPin />,
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
-    [successIconReactElement],
-  ],
-};
 
 interface ITransferDialogContent {
   title?: string;
@@ -222,7 +180,7 @@ export const WalletTransferFlowProvider: FC<
       initTabs.push({
         name: firstTabData.asideTitle,
         dialogs: getDialogArray(
-          dialogsImages[type][0],
+          guidedFlowDialogsImages[type][0],
           firstTabData.pages as any,
           true,
         ),
@@ -231,7 +189,7 @@ export const WalletTransferFlowProvider: FC<
       initTabs = displayText.tabs.map((tab, index) => ({
         name: tab.asideTitle,
         dialogs: getDialogArray(
-          dialogsImages[type][index],
+          guidedFlowDialogsImages[type][index],
           tab.pages as any,
           index === 0,
         ),
