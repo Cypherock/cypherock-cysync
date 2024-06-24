@@ -30,11 +30,11 @@ export const createCSVFromTransactions = (
       { name: 'Fee Amount', key: 'feeAmount' },
       { name: 'Transaction Hash', key: 'hash' },
       { name: 'Wallet Name', key: 'walletName' },
+      { name: 'Network', key: 'network' },
       { name: 'Account Name', key: 'accountName' },
       { name: 'Account xpub', key: 'xpub' },
       { name: 'Countervalue Currency', key: 'countervalueCurrency' },
       { name: 'Countervalue at CSV Export', key: 'countervalueAmount' },
-      { name: 'Network', key: 'network' },
     ],
     rows: transactions.map(t => ({
       date: formatDateToUTCString(t.date),
