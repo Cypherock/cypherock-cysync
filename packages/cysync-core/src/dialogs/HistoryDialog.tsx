@@ -321,7 +321,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
               </HistoryItem>
               <HistoryItem leftText={keys.sender}>
                 <NestedContainer>
-                  {displayTransaction.txn.inputs.map((input: any, i: any) => (
+                  {displayTransaction.txn.inputs.map((input, i) => (
                     <Container
                       direction="row"
                       gap={8}
@@ -365,7 +365,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
               </HistoryItem>
               <HistoryItem leftText={keys.receiver}>
                 <NestedContainer>
-                  {displayTransaction.txn.outputs.map((output: any, i: any) => (
+                  {displayTransaction.txn.outputs.map((output, i) => (
                     <Container
                       direction="row"
                       gap={8}

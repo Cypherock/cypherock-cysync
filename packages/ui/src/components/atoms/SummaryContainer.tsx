@@ -31,7 +31,6 @@ export const BottomContainer = styled.div`
   justify-content: flex-start;
   align-self: stretch;
   align-items: flex-start;
-  color: var(--Cypherock-Web-Background-Solid-White, #fff);
   padding-bottom: 18px;
   margin-top: -10px;
 `;
@@ -78,7 +77,7 @@ export const SummaryContainer: React.FC<SummaryContainerProps> = ({
       <LeftContainer>{leftComponent}</LeftContainer>
       <RightContainer>{rightComponent}</RightContainer>
     </Main>
-    <BottomContainer>{bottomComponent}</BottomContainer>
+    {bottomComponent && <BottomContainer>{bottomComponent}</BottomContainer>}
   </>
 );
 
