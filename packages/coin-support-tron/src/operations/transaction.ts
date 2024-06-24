@@ -11,7 +11,6 @@ export interface IPreparedTronTransaction extends IPreparedTransaction {
   };
   staticData: {
     averageEnergyPrice: string;
-    totalFreeBandwidthAvailable: number;
     totalBandwidthAvailable: number;
     totalEnergyAvailable: number;
   };

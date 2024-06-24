@@ -14,5 +14,7 @@ export const getExplorerLink = (params: IGetExplorerLink) => {
     query.append(key, value.toString());
   }
 
-  return `${config.API_CYPHEROCK}/trx/transaction/open-txn?${query.toString()}`;
+  return `${
+    config.API_CYPHEROCK
+  }/tron/transaction/open-txn?${query.toString()}`;
 };

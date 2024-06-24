@@ -2,23 +2,21 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { tronCoinList } from '@cypherock/coins';
 
-import { getAccountResources, getAverageEnergyPrice } from '../../services';
+import {
+  getAccountsDetailByAddress,
+  getAverageEnergyPrice,
+} from '../../services';
 import { IPreparedTronTransaction } from '../transaction';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedTronTransaction> => {
   const { accountId, db } = params;
-  const { account, coin } = await getAccountAndCoin(
-    db,
-    tronCoinList,
-    accountId,
-  );
+  const { account } = await getAccountAndCoin(db, tronCoinList, accountId);
 
-  const averageEnergyPrice = await getAverageEnergyPrice(coin.id);
-  const accountResources = await getAccountResources(
+  const averageEnergyPrice = await getAverageEnergyPrice();
+  const accountDetails = await getAccountsDetailByAddress(
     account.xpubOrAddress,
-    coin.id,
   );
 
   return {
@@ -36,14 +34,12 @@ export const initializeTransaction = async (
     },
     staticData: {
       averageEnergyPrice,
-      totalFreeBandwidthAvailable:
-        (accountResources.freeNetLimit ?? 0) -
-        (accountResources.freeNetUsed ?? 0),
       totalBandwidthAvailable:
-        (accountResources.NetLimit ?? 0) - (accountResources.NetUsed ?? 0),
+        (accountDetails.details.bandwidthTotal ?? 0) -
+        (accountDetails.details.bandwidthUsed ?? 0),
       totalEnergyAvailable:
-        (accountResources.EnergyLimit ?? 0) -
-        (accountResources.EnergyUsed ?? 0),
+        (accountDetails.details.energyTotal ?? 0) -
+        (accountDetails.details.energyUsed ?? 0),
     },
     computedData: {
       output: { address: '', amount: '0' },
