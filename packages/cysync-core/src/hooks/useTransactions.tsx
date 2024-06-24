@@ -81,6 +81,7 @@ export interface TransactionRowData {
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
+  remarks: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -160,7 +161,19 @@ export const mapTransactionForDisplay = (params: {
       .abbr,
     amount: transaction.amount,
   });
+  let remarksValue: string;
 
+  if (Array.isArray(transaction.remarks) && transaction.remarks.length > 1) {
+    remarksValue = transaction.remarks.join(', ');
+  } else if (
+    Array.isArray(transaction.remarks) &&
+    transaction.remarks.length === 1
+  ) {
+    const [firstRemark] = transaction.remarks;
+    remarksValue = firstRemark;
+  } else {
+    remarksValue = ' ';
+  }
   const { amount: fee, unit: feeUnit } = getParsedAmount({
     coinId: transaction.parentAssetId,
     unitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
@@ -291,6 +304,7 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
+    remarks: remarksValue,
   };
 };
 
