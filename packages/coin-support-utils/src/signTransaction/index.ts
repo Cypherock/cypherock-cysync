@@ -14,28 +14,29 @@ interface App {
   abort: () => Promise<void>;
 }
 
-export interface ISignTransactionFromDeviceParams<T>
+export interface ISignTransactionFromDeviceParams<T, R>
   extends ISignTransactionParams {
-  observer: Subscriber<ISignTransactionEvent>;
+  observer: Subscriber<ISignTransactionEvent<R>>;
   app: T;
   account: IAccount;
   coin: ICoinInfo;
 }
 
-export type SignTransactionFromDevice<T> = (
-  params: ISignTransactionFromDeviceParams<T>,
-) => Promise<string>;
+export type SignTransactionFromDevice<T, R> = (
+  params: ISignTransactionFromDeviceParams<T, R>,
+) => Promise<R>;
 
-export interface IMakeSignTransactionsObservableParams<T extends App>
+export interface IMakeSignTransactionsObservableParams<T extends App, R>
   extends ISignTransactionParams {
   createApp: (connection: IDeviceConnection) => Promise<T>;
-  signTransactionFromDevice: SignTransactionFromDevice<T>;
+  signTransactionFromDevice: SignTransactionFromDevice<T, R>;
 }
 
 export function makeSignTransactionsObservable<
   T extends App,
-  K extends ISignTransactionEvent,
->(params: IMakeSignTransactionsObservableParams<T>) {
+  K extends ISignTransactionEvent<R>,
+  R,
+>(params: IMakeSignTransactionsObservableParams<T, R>) {
   return new Observable<K>(observer => {
     let finished = false;
     let app: T | undefined;
@@ -77,7 +78,7 @@ export function makeSignTransactionsObservable<
 
         if (finished) return;
 
-        const event: ISignTransactionEvent = {
+        const event: any = {
           type: 'Transaction',
           transaction: signedTransaction,
         };

@@ -5,7 +5,6 @@ import {
   IReceiveEvent,
   IReceiveParams,
   IValidateAddressParams,
-  ISignTransactionEvent,
   ISyncPricesParams,
   ISyncPriceHistoriesParams,
   IGetCoinAllocationsParams,
@@ -31,6 +30,7 @@ import {
   IPrepareEvmTransactionParams,
   ISignEvmTransactionParams,
   IBroadcastEvmTransactionParams,
+  ISignEvmTransactionEvent,
 } from './operations/types';
 import { setCoinSupportEthersLib } from './utils';
 import { setCoinSupportWeb3Lib } from './utils/web3';
@@ -80,7 +80,7 @@ export class EvmSupport implements CoinSupport {
 
   public signTransaction(
     params: ISignEvmTransactionParams,
-  ): Observable<ISignTransactionEvent> {
+  ): Observable<ISignEvmTransactionEvent> {
     return operations.signTransaction(params);
   }
 
