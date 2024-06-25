@@ -62,7 +62,7 @@ export const SummaryDialog: React.FC = () => {
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
       );
 
-      const baseDetails: any = [
+      return [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
@@ -76,19 +76,50 @@ export const SummaryDialog: React.FC = () => {
           rightSubText: `$${value}`,
         },
       ];
-
-      if (output.remarks) {
-        baseDetails.push({
-          id: `remarks-${output.address}`,
-          leftText: `${displayText.remarks}`,
-          bottomText: output.remarks,
-        });
-      }
-
-      return baseDetails;
     });
-    if (details && details.length > 3) {
-      return [details];
+
+    if (details && details.length > 2) {
+      const finalDetails =
+        transaction?.userInputs.outputs.flatMap(output => {
+          const { amount, unit } = getParsedAmount({
+            coinId: account.parentAssetId,
+            assetId: account.assetId,
+            amount: output.amount,
+            unitAbbr:
+              account.unit ??
+              getDefaultUnit(account.parentAssetId, account.assetId).abbr,
+          });
+          const value = formatDisplayPrice(
+            new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+          );
+
+          const baseDetails: any = [
+            {
+              id: `toDetail-address-${output.address}`,
+              leftIcon: <QrCode width="11px" height="20px" />,
+              leftText: displayText.to,
+              rightText: output.address,
+            },
+            {
+              id: `toDetail-amount-${output.address}`,
+              leftText: displayText.amount,
+              rightText: `${amount} ${unit.abbr}`,
+              rightSubText: `$${value}`,
+            },
+          ];
+
+          if (output.remarks) {
+            baseDetails.push({
+              id: `remarks-${output.address}`,
+              leftText: `${displayText.remarks}`,
+              bottomText: output.remarks,
+            });
+          }
+
+          return baseDetails;
+        }) ?? [];
+
+      return [finalDetails];
     }
 
     return details ?? [];
