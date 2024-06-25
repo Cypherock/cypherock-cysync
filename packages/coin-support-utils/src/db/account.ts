@@ -47,6 +47,22 @@ export const updateAccount = async (
   }
 };
 
+export const updateAccountByQuery = async (
+  db: IDatabase,
+  query: Partial<IAccount>,
+  updatedAccountField: Partial<IAccount>,
+): Promise<{ isUpdated: boolean }> => {
+  const existingAccount = await db.account.getOne(query);
+  if (existingAccount) {
+    await db.account.update(
+      { __id: existingAccount.__id },
+      updatedAccountField,
+    );
+    return { isUpdated: true };
+  }
+  return { isUpdated: false };
+};
+
 export const insertOrUpdateAccounts = async (
   db: IDatabase,
   accounts: IAccount[],

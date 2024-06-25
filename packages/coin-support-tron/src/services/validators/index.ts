@@ -67,6 +67,8 @@ export const TronAccountDetailApiResponseSchema = z.object({
   details: AddressDetailsSchema.optional(),
 });
 
+export const TronTokensDetailApiResponseSchema = z.array(z.record(z.string()));
+
 export type TronTransactionsApiResponse = z.infer<
   typeof TronTransactionsApiResponseSchema
 >;
@@ -74,3 +76,6 @@ export type TronAccountDetail = z.infer<
   typeof TronAccountDetailApiResponseSchema
 >;
 export type TronTransaction = z.infer<typeof TransactionSchema>;
+export type TronTokensDetailApiResponse = z.infer<
+  typeof TronTokensDetailApiResponseSchema
+>;
