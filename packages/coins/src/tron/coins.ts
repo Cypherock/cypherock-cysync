@@ -1,6 +1,4 @@
-import { ITronCoinInfo } from '.';
-
-const coinList: ITronCoinInfo[] = [
+export default [
   {
     id: 'tron',
     abbr: 'TRX',
@@ -27,5 +25,3 @@ const coinList: ITronCoinInfo[] = [
     ],
   },
 ];
-
-export default coinList;

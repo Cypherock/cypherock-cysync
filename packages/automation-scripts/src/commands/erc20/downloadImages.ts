@@ -1,5 +1,6 @@
-import { downloadErc20Images } from '../../erc20';
+import { downloadTokenImages } from '../../tokens';
+import { erc20TokenAutomationParams } from './params';
 
-downloadErc20Images();
+downloadTokenImages(erc20TokenAutomationParams);
 
 export default {};

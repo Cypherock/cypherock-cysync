@@ -2,55 +2,28 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
-import {
-  createErc20AssetId,
-  erc20JsonList,
-  evmCoinList,
-} from '@cypherock/coins';
 import lodash from 'lodash';
 
-import {
-  CoingeckoCoinListItem,
-  coingeckoPlatformMapping,
-  getCoingeckoCoinList,
-} from './coingecko';
+import { getCoingeckoCoinList } from './coingecko';
 
 import { config } from '../config';
+import {
+  CoingeckoCoinListItem,
+  TokenAutomationParams,
+  TokenListItem,
+} from './types';
 
-export interface Erc20ListItem {
-  id: string;
-  symbol: string;
-  name: string;
-  market_cap?: number;
-  version?: string;
-  platforms?: Record<
-    string,
-    { contract_address: string; decimal_place: number } | undefined
-  >;
-  description?: {
-    en?: string;
-  };
-  image?: {
-    thumb?: string;
-    small?: string;
-    large?: string;
-  };
-  last_updated_at?: string;
-  is_zero_value_coin?: boolean;
-  is_custom_coin?: boolean;
-}
+const createContractMapFromExistingList = (params: TokenAutomationParams) => {
+  const map: Record<string, TokenListItem | undefined> = {};
 
-const createContractMapFromExistingList = (list: Erc20ListItem[]) => {
-  const map: Record<string, Erc20ListItem | undefined> = {};
-
-  for (const coin of list) {
+  for (const coin of params.tokenJsonList) {
     if (!coin.platforms) continue;
 
     for (const platform in coin.platforms) {
       if (!coin.platforms[platform]) continue;
 
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (!evmCoinList[platform]) continue;
+      if (!params.coinList[platform]) continue;
 
       const tokenDetails = coin.platforms[platform];
       if (!tokenDetails) continue;
@@ -69,8 +42,11 @@ const createContractMapFromExistingList = (list: Erc20ListItem[]) => {
   return map;
 };
 
-const createContractMapFromCoingeckoList = (list: CoingeckoCoinListItem[]) => {
-  const map: Record<string, Erc20ListItem | undefined> = {};
+const createContractMapFromCoingeckoList = (
+  list: CoingeckoCoinListItem[],
+  params: TokenAutomationParams,
+) => {
+  const map: Record<string, TokenListItem | undefined> = {};
 
   for (const coin of list) {
     if (!coin.platforms) continue;
@@ -78,7 +54,7 @@ const createContractMapFromCoingeckoList = (list: CoingeckoCoinListItem[]) => {
     for (const platform in coin.platforms) {
       if (!coin.platforms[platform]) continue;
 
-      const mappedPlatform = coingeckoPlatformMapping[platform];
+      const mappedPlatform = params.coingeckoPlatformMapping[platform];
       if (!mappedPlatform) continue;
 
       const contractAddress = coin.platforms[platform];
@@ -103,12 +79,12 @@ const createContractMapFromCoingeckoList = (list: CoingeckoCoinListItem[]) => {
 
 const getChangedContracts = (params: {
   sameContracts: string[];
-  coingeckoCoinMap: Record<string, Erc20ListItem | undefined>;
-  existingCoinMap: Record<string, Erc20ListItem | undefined>;
+  coingeckoCoinMap: Record<string, TokenListItem | undefined>;
+  existingCoinMap: Record<string, TokenListItem | undefined>;
 }) => {
   const { sameContracts, coingeckoCoinMap, existingCoinMap } = params;
   const changedContracts: string[] = [];
-  const changedCoinList: Erc20ListItem[] = [];
+  const changedCoinList: TokenListItem[] = [];
   const idChanges: {
     oldId: string;
     oldVersion?: string;
@@ -161,7 +137,7 @@ const getChangedContracts = (params: {
   const unchangedCoinList = lodash
     .difference(sameContracts, changedContracts)
     .map(e => existingCoinMap[e])
-    .filter(e => !!e) as Erc20ListItem[];
+    .filter(e => !!e) as TokenListItem[];
 
   return {
     changedContracts,
@@ -174,11 +150,11 @@ const getChangedContracts = (params: {
 
 const getRemovedContracts = (params: {
   removedContracts: string[];
-  coingeckoCoinMap: Record<string, Erc20ListItem | undefined>;
-  existingCoinMap: Record<string, Erc20ListItem | undefined>;
+  coingeckoCoinMap: Record<string, TokenListItem | undefined>;
+  existingCoinMap: Record<string, TokenListItem | undefined>;
 }) => {
   const { removedContracts, existingCoinMap } = params;
-  const removedCoinList: Erc20ListItem[] = [];
+  const removedCoinList: TokenListItem[] = [];
 
   for (const contractAddress of removedContracts) {
     const existingCoin = existingCoinMap[contractAddress];
@@ -200,7 +176,10 @@ const getRemovedContracts = (params: {
   return { removedCoinList };
 };
 
-const verifyDuplicateIds = (list: Erc20ListItem[]) => {
+const verifyDuplicateIds = (
+  list: TokenListItem[],
+  params: TokenAutomationParams,
+) => {
   const idSet = new Set();
   const duplicateIdList: string[] = [];
 
@@ -213,7 +192,7 @@ const verifyDuplicateIds = (list: Erc20ListItem[]) => {
       const tokenDetails = coin.platforms[platform];
       if (!tokenDetails) continue;
 
-      const id = createErc20AssetId({
+      const id = params.createTokenAssetId({
         parentAssetId: platform,
         assetId: coin.id,
         version: coin.version,
@@ -236,11 +215,11 @@ const verifyDuplicateIds = (list: Erc20ListItem[]) => {
 
 const getAddedContracts = (params: {
   addedContracts: string[];
-  coingeckoCoinMap: Record<string, Erc20ListItem | undefined>;
-  existingCoinMap: Record<string, Erc20ListItem | undefined>;
+  coingeckoCoinMap: Record<string, TokenListItem | undefined>;
+  existingCoinMap: Record<string, TokenListItem | undefined>;
 }) => {
   const { addedContracts, coingeckoCoinMap, existingCoinMap } = params;
-  const addedCoinList: Erc20ListItem[] = [];
+  const addedCoinList: TokenListItem[] = [];
 
   for (const contractAddress of addedContracts) {
     const coingeckoCoin = coingeckoCoinMap[contractAddress];
@@ -274,13 +253,15 @@ const getAddedContracts = (params: {
   return { addedCoinList };
 };
 
-export const getERC20TokenDifference = async (dontSaveToFile?: boolean) => {
+export const getTokenDifference = async (
+  params: TokenAutomationParams,
+  dontSaveToFile?: boolean,
+) => {
   const coingeckoCoinMap = createContractMapFromCoingeckoList(
     await getCoingeckoCoinList(),
+    params,
   );
-  const existingCoinMap = createContractMapFromExistingList(
-    erc20JsonList as any,
-  );
+  const existingCoinMap = createContractMapFromExistingList(params);
 
   const coingeckoContractAddresses = Object.keys(coingeckoCoinMap);
   const existingContractAddresses = Object.keys(existingCoinMap);
@@ -329,11 +310,11 @@ export const getERC20TokenDifference = async (dontSaveToFile?: boolean) => {
     ...removedCoinList,
   ];
 
-  verifyDuplicateIds(newCoinList);
+  verifyDuplicateIds(newCoinList, params);
 
   if (!dontSaveToFile) {
     await fs.promises.writeFile(
-      path.join(config.DATA_FOLDER, 'diff.json'),
+      path.join(config.DATA_FOLDER, `${params.filePrefix}-diff.json`),
       JSON.stringify(
         {
           removedContracts: removedContracts.length,
