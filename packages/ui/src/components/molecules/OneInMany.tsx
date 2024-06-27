@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { Flex } from './Flex';
+import { Flex } from '../atoms/Flex';
 
-import {
-  oneInManyBgImage,
-  oneInManyBgHoverImage,
-  oneInManyBgSelectedImage,
-} from '../../assets';
+import { Onetomany1, Onetomany2, Onetomany3 } from '../../assets';
 
 const Second = {
   fontSize: '12px',
@@ -27,8 +23,8 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   border: ${({ isSelected }) => (isSelected ? '1px solid #e0bb74' : '')};
   background: ${({ isSelected }) =>
     !isSelected
-      ? `linear-gradient(285.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManyBgImage}), linear-gradient(0deg, #2A2827, #2A2827)`
-      : `url(${oneInManyBgSelectedImage}), #2A2827`};
+      ? `linear-gradient(285.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${Onetomany1}), linear-gradient(0deg, #2A2827, #2A2827)`
+      : `url(${Onetomany3}), #2A2827`};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -45,7 +41,7 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
         : '0px 0px 12px 4px #1B1813 inset'};
     background-image: ${({ isSelected }) =>
       !isSelected
-        ? `linear-gradient(105.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${oneInManyBgHoverImage}), linear-gradient(0deg, #332F2D, #332F2D)`
+        ? `linear-gradient(105.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${Onetomany2}), linear-gradient(0deg, #332F2D, #332F2D)`
         : ''};
     .title {
       background: linear-gradient(

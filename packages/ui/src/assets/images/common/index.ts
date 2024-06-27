@@ -44,9 +44,6 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import oneInManyBgImage from './onetomany1.svg';
-import oneInManyBgHoverImage from './onetomany2.svg';
-import oneInManyBgSelectedImage from './onetomany3.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -125,9 +122,6 @@ export {
   openExternalLink,
   informationIcon,
   greenTick,
-  oneInManyBgImage,
-  oneInManyBgHoverImage,
-  oneInManyBgSelectedImage,
   redDisconnectedIcon,
   goldFail,
   emailIconOutlined,

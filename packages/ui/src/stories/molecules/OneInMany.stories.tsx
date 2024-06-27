@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { OneInMany } from '../../components';
 
 const meta: Meta<typeof OneInMany> = {
