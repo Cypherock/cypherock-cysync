@@ -46,6 +46,7 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fee: '0',
       bandwidth: 0,
+      estimatedEnergy: 0,
     },
   };
 };

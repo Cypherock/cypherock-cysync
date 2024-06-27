@@ -26,6 +26,7 @@ export interface IPreparedTronTransaction extends IPreparedTransaction {
     output: IPreparedTransactionOutput;
     fee: string;
     bandwidth: number;
+    estimatedEnergy: number;
     unsignedTransaction?: IUnsignedTransaction;
   };
 }

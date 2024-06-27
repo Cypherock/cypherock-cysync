@@ -1,6 +1,7 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { tronCoinList, ICoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { IAccount } from '@cypherock/db-interfaces';
 import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
 
 import { IPrepareTronTransactionParams } from './types';
@@ -35,31 +36,42 @@ const validateAddresses = (
   return outputAddressValidation;
 };
 
-const calculateBandwidthAndFees = (
-  unsignedTransaction: IUnsignedTransaction | undefined,
-  txn: IPreparedTronTransaction,
-) => {
+const calculateBandwidthAndFees = async (params: {
+  unsignedTransaction: IUnsignedTransaction | undefined;
+  txn: IPreparedTronTransaction;
+  tokenDetails?: ITronTrc20Token;
+  account: IAccount;
+}) => {
+  const { unsignedTransaction, txn, tokenDetails } = params;
+
   const bandwidth = unsignedTransaction
     ? estimateBandwidth(unsignedTransaction)
     : 268;
 
   let paidBandwidth = bandwidth;
+  let dustFee = 0;
+  const { estimatedEnergy } = txn.computedData;
+
   if (txn.staticData.totalBandwidthAvailable > bandwidth) {
     paidBandwidth = 0;
   }
 
-  let fees = '0';
-  if (paidBandwidth > 0) {
-    let dustFee = 0;
-    if (txn.userInputs.isSendAll) {
-      dustFee = 5 * 1000;
-    }
-
-    fees = new BigNumber(paidBandwidth)
-      .multipliedBy(1000)
-      .plus(dustFee)
-      .toFixed(0);
+  if (paidBandwidth > 0 && txn.userInputs.isSendAll && !tokenDetails) {
+    dustFee = 5 * 1000;
   }
+
+  const paidEnergy = Math.max(
+    0,
+    estimatedEnergy - txn.staticData.totalEnergyAvailable,
+  );
+
+  const fees = new BigNumber(paidBandwidth)
+    .multipliedBy(1000)
+    .plus(dustFee)
+    .plus(
+      new BigNumber(paidEnergy).multipliedBy(txn.staticData.averageEnergyPrice),
+    )
+    .toFixed(0);
 
   return {
     fees,
@@ -99,12 +111,16 @@ export const prepareTransaction = async (
     account.xpubOrAddress.toLowerCase();
   const createUnsignedTransaction = async () => {
     if (output.address && outputsAddresses[0] && !isOwnOutputAddress) {
-      unsignedTransaction = await prepareUnsignedSendTxn({
+      const result = await prepareUnsignedSendTxn({
         from: account.xpubOrAddress,
         to: output.address,
         amount: sendAmount.isGreaterThan(0) ? sendAmount.toString() : '1',
         tokenDetails,
+        averageEnergyPrice: txn.staticData.averageEnergyPrice,
       });
+
+      unsignedTransaction = result.txn;
+      txn.computedData.estimatedEnergy = result.estimatedEnergy ?? 0;
     }
   };
 
@@ -122,10 +138,12 @@ export const prepareTransaction = async (
   };
 
   await createUnsignedTransaction();
-  const { fees, bandwidth } = calculateBandwidthAndFees(
+  const { fees, bandwidth } = await calculateBandwidthAndFees({
     unsignedTransaction,
     txn,
-  );
+    tokenDetails,
+    account,
+  });
   let hasEnoughBalance: boolean;
   let notEnoughEnergy = false;
 
@@ -168,6 +186,7 @@ export const prepareTransaction = async (
       output,
       unsignedTransaction,
       bandwidth,
+      estimatedEnergy: txn.computedData.estimatedEnergy,
     },
   };
 };
