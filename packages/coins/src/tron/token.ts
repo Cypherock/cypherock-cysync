@@ -49,10 +49,6 @@ export const getTrc20Tokens = (
         throw new Error('Missing token data');
       }
 
-      /** token.version enables support for multiple versions of migrated contracts
-       * Example, TRX on BSC was migrated. With version, we can support both the contracts
-       * simulatneously. The price fetching is still dependent on token.id.
-       */
       const id = createTrc20AssetId({
         parentAssetId: parentId,
         assetId: token.id,

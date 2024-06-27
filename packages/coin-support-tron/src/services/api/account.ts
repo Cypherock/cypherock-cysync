@@ -1,6 +1,7 @@
 import { BigNumber, makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
+import { getCoinSupportTronWeb } from '../../utils';
 import {
   TronAccountDetailsApiResponse,
   TronAccountDetailsApiResponseSchema,
@@ -8,7 +9,6 @@ import {
 import { getAsset } from '@cypherock/coin-support-utils';
 import { ITronTrc20Token } from '@cypherock/coins';
 import { triggerConstantContractCall } from './triggerconstantcontract';
-import { getCoinSupportTronWeb } from '../../utils';
 
 const baseURL = `${config.API_CYPHEROCK}/tron/wallet`;
 
@@ -62,4 +62,40 @@ export const getContractBalance = async (params: {
   const balance = new BigNumber(response.constant_result[0], 16).toString();
 
   return balance;
+};
+
+export interface IEstimateTrc20SendEnergyConsumptionResult {
+  result?: {
+    result?: boolean;
+    code?: string;
+    message?: string;
+  };
+  energy_required?: number;
+}
+
+export const estimateTrc20SendEnergyConsumption = async (params: {
+  from: string;
+  to: string;
+  contract: string;
+  amount: string;
+}): Promise<IEstimateTrc20SendEnergyConsumptionResult> => {
+  const tronWeb = getCoinSupportTronWeb();
+
+  const amount = new BigNumber(params.amount).toString(16).padStart(64, '0');
+  const fromAddress = tronWeb.address.toHex(params.from);
+  const toAddress = tronWeb.address.toHex(params.to);
+  const contractAddress = tronWeb.address.toHex(params.contract);
+
+  const data = {
+    contract_address: contractAddress,
+    owner_address: fromAddress,
+    function_selector: 'transfer(address,uint256)',
+    parameter: `${toAddress.padStart(64, '0')}${amount}`,
+  };
+
+  const url = `${baseURL}/estimateenergy`;
+
+  const response = await makePostRequest(url, data);
+
+  return response.data;
 };
