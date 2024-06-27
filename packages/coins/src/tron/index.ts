@@ -1,7 +1,7 @@
 import coinList from './coins';
+import { ITronTrc20Token, getTrc20Tokens } from './token';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
-import { ITronTrc20Token, getTrc20Tokens } from './token';
 
 export * from './token';
 

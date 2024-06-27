@@ -5,6 +5,7 @@ import {
 } from '@cypherock/coin-support-utils';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   IAccount,
   ITransaction,
   TransactionStatusMap,
@@ -86,6 +87,19 @@ const getAddressDetails: IGetAddressDetails<{
   afterBlock?: number;
   transactionsInDb: ITransaction[];
 }> = async ({ db, account, iterationContext }) => {
+  if (account.type === AccountTypeMap.subAccount) {
+    return {
+      hasMore: false,
+      nextIterationContext: {
+        page: 0,
+        perPage: 0,
+        transactionsInDb: [],
+      },
+      transactions: [],
+      updatedAccountInfo: {},
+    };
+  }
+
   const afterBlock =
     iterationContext?.afterBlock ??
     (await getLatestTransactionBlock(db, {

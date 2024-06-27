@@ -5,8 +5,9 @@ import { sleep } from '@cypherock/cysync-utils';
 import axios from 'axios';
 import lodash from 'lodash';
 
-import { config } from '../config';
 import { TokenAutomationParams, TokenListItem } from './types';
+
+import { config } from '../config';
 
 const MAX_RETRIES = 3;
 const SLEEP_TIME = 10000;

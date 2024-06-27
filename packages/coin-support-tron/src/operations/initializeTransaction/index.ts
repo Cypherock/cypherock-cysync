@@ -24,6 +24,7 @@ export const initializeTransaction = async (
     validation: {
       outputs: [],
       hasEnoughBalance: true,
+      notEnoughEnergy: false,
       isValidFee: true,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
@@ -45,6 +46,7 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fee: '0',
       bandwidth: 0,
+      estimatedEnergy: 0,
     },
   };
 };

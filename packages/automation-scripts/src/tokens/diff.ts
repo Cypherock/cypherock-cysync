@@ -5,13 +5,13 @@ import path from 'path';
 import lodash from 'lodash';
 
 import { getCoingeckoCoinList } from './coingecko';
-
-import { config } from '../config';
 import {
   CoingeckoCoinListItem,
   TokenAutomationParams,
   TokenListItem,
 } from './types';
+
+import { config } from '../config';
 
 const createContractMapFromExistingList = (params: TokenAutomationParams) => {
   const map: Record<string, TokenListItem | undefined> = {};

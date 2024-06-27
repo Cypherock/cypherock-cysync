@@ -1,12 +1,13 @@
 import { assert } from '@cypherock/cysync-utils';
 import axios from 'axios';
 
-import { config } from '../config';
 import {
   CoingeckoCoinDetails,
   CoingeckoCoinListItem,
   CoingeckoPlatformMapping,
 } from './types';
+
+import { config } from '../config';
 
 const http = axios.create({
   baseURL: config.COINGECKO_URL,
