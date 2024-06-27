@@ -1,10 +1,10 @@
 import {
   createSyncAccountsObservable,
+  createSyncPriceHistoriesObservable,
+  createSyncPricesObservable,
   getLatestTransactionBlock,
-  getUniqueAccountQuery,
   IGetAddressDetails,
   insertAccountIfNotExists,
-  updateAccountByQuery,
 } from '@cypherock/coin-support-utils';
 import { coinList, ITronCoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -21,10 +21,12 @@ import { ISyncTronAccountsParams, ITronTrc20TokenAccount } from './types';
 
 import {
   getAccountsTransactionsByAddress,
-  getAccountDetailsByAddress,
+  getContractBalance,
 } from '../../services';
 import { TronTransaction } from '../../services/validators';
 import logger from '../../utils/logger';
+import { lastValueFrom } from 'rxjs';
+import { ITronAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -32,6 +34,48 @@ interface GetTransactionParserParams {
   address: string;
   account: IAccount;
 }
+
+const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+  for (const newAccount of newAccounts) {
+    lastValueFrom(
+      syncAccount({
+        db,
+        accountId: newAccount.__id ?? '',
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token account');
+      logger.error(error);
+    });
+  }
+
+  if (newAccounts.length > 0) {
+    const getCoinIds = async () =>
+      newAccounts.map(e => ({
+        parentAssetId: e.parentAssetId,
+        assetId: e.assetId,
+      }));
+
+    lastValueFrom(
+      createSyncPricesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token prices');
+      logger.error(error);
+    });
+
+    lastValueFrom(
+      createSyncPriceHistoriesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing evm token price histories');
+      logger.error(error);
+    });
+  }
+};
 
 const getTransactionParser = (
   params: GetTransactionParserParams,
@@ -122,17 +166,28 @@ const getTronTokenAccount = (account: IAccount, tokenObj: ITronTrc20Token) => {
   return tokenAccount;
 };
 
+type GetTokenTransactionParserReturnParams = {
+  tokenTransactions: ITransaction[];
+  newTokenAccounts: IAccount[];
+};
 const getTokenTransactionParser = (
   params: GetTransactionParserParams,
   db: IDatabase,
-): ((transaction: any) => Promise<ITransaction[]>) => {
+): ((transaction: any) => Promise<GetTokenTransactionParserReturnParams>) => {
   const myAddress = params.address;
   const { account } = params;
 
-  return async (transaction: TronTransaction): Promise<ITransaction[]> => {
-    if (transaction.tokenTransfers === undefined) return [];
+  return async (
+    transaction: TronTransaction,
+  ): Promise<GetTokenTransactionParserReturnParams> => {
+    if (transaction.tokenTransfers === undefined)
+      return {
+        tokenTransactions: [],
+        newTokenAccounts: [],
+      };
 
     const tokenTransactions: ITransaction[] = [];
+    const newTokenAccounts: IAccount[] = [];
 
     for (let i = 0; i < transaction.tokenTransfers.length; i += 1) {
       const tokenTransfer = transaction.tokenTransfers[i];
@@ -157,7 +212,7 @@ const getTokenTransactionParser = (
         await insertAccountIfNotExists(db, tokenAccount);
 
       if (isInserted) {
-        logger.info('Tron Token Account Created', { tokenAccount });
+        newTokenAccounts.push(newTokenAccount);
       }
 
       const fromAddr = tokenTransfer.from;
@@ -207,7 +262,7 @@ const getTokenTransactionParser = (
       };
       tokenTransactions.push(txn);
     }
-    return tokenTransactions;
+    return { tokenTransactions, newTokenAccounts };
   };
 };
 
@@ -222,15 +277,30 @@ const getAddressDetails: IGetAddressDetails<{
       accountId: account.__id,
     }));
 
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
   const page = iterationContext?.page ?? 1;
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
-  const updatedAccountInfo = {
-    balance: account.balance,
-    extraData: {
-      ...(account.extraData ?? {}),
-    },
-  };
+  if (isTokenAccount) {
+    const tokenBalance = await getContractBalance({
+      address: account.xpubOrAddress,
+      assetId: account.assetId,
+      parentAssetId: account.parentAssetId,
+    });
+
+    return {
+      hasMore: false,
+      nextIterationContext: {
+        page: page + 1,
+        perPage,
+        afterBlock,
+      },
+      transactions: [],
+      updatedAccountInfo: {
+        balance: tokenBalance,
+      },
+    };
+  }
 
   const response = await getAccountsTransactionsByAddress({
     address: account.xpubOrAddress,
@@ -239,7 +309,9 @@ const getAddressDetails: IGetAddressDetails<{
     from: afterBlock,
   });
 
-  updatedAccountInfo.balance = response.balance;
+  const updatedAccountInfo: Partial<ITronAccount> = {
+    balance: response.balance,
+  };
 
   const transactionParser = getTransactionParser({
     address: account.xpubOrAddress,
@@ -256,44 +328,49 @@ const getAddressDetails: IGetAddressDetails<{
 
   // filter out token transactions
   const transactions: ITransaction[] = [];
+  const newAccounts: IAccount[] = [];
 
   for (let i = 0; i < response.transactions.length; i += 1) {
     const transaction = response.transactions[i];
     if (transaction.tokenTransfers) {
-      const tokenTransactions = await tokenTransactionParser(transaction);
+      const { tokenTransactions, newTokenAccounts } =
+        await tokenTransactionParser(transaction);
       transactions.push(...tokenTransactions);
+      newAccounts.push(...newTokenAccounts);
     } else {
       transactions.push(transactionParser(transaction));
     }
   }
+
+  onNewAccounts(newAccounts, db);
 
   const hasMore = Boolean(
     response.page && response.totalPages && response.totalPages > response.page,
   );
 
   // update token balances
-  if (!hasMore) {
-    const accountDetails = await getAccountDetailsByAddress(
-      account.xpubOrAddress,
-    );
+  // if (!hasMore) {
+  //   const accountDetails = await getAccountDetailsByAddress(
+  //     account.xpubOrAddress,
+  //   );
 
-    const tokens: Record<string, string>[] = [];
-    for (let i = 0; i < accountDetails.data.length; i += 1) {
-      tokens.push(...accountDetails.data[i].trc20);
-    }
+  //   const tokens: Record<string, string>[] = [];
+  //   for (let i = 0; i < accountDetails.data.length; i += 1) {
+  //     tokens.push(...accountDetails.data[i].trc20);
+  //   }
 
-    for (let i = 0; i < tokens.length; i += 1) {
-      const [[contractAddress, tokenBalance]] = Object.entries(tokens[i]);
-      const tokenObj = getTokenObject(account, contractAddress);
-      if (!tokenObj) continue;
-      const tokenAccountQuery = getUniqueAccountQuery(
-        getTronTokenAccount(account, tokenObj),
-      );
-      await updateAccountByQuery(db, tokenAccountQuery, {
-        balance: tokenBalance,
-      });
-    }
-  }
+  //   for (let i = 0; i < tokens.length; i += 1) {
+  //     const [[contractAddress, tokenBalance]] = Object.entries(tokens[i]);
+  //     const tokenObj = getTokenObject(account, contractAddress);
+  //     if (!tokenObj) continue;
+  //     const tokenAccountQuery = getUniqueAccountQuery(
+  //       getTronTokenAccount(account, tokenObj),
+  //     );
+  //     await updateAccountByQuery(db, tokenAccountQuery, {
+  //       balance: tokenBalance,
+  //     });
+  //   }
+  // }
 
   return {
     hasMore,

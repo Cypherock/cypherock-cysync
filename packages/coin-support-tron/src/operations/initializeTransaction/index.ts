@@ -3,7 +3,7 @@ import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { tronCoinList } from '@cypherock/coins';
 
 import {
-  getAccountResourcesByAddress,
+  getAccountDetailsByAddress,
   getAverageEnergyPrice,
 } from '../../services';
 import { IPreparedTronTransaction } from '../transaction';
@@ -15,7 +15,7 @@ export const initializeTransaction = async (
   const { account } = await getAccountAndCoin(db, tronCoinList, accountId);
 
   const averageEnergyPrice = await getAverageEnergyPrice();
-  const accountResources = await getAccountResourcesByAddress(
+  const accountDetails = await getAccountDetailsByAddress(
     account.xpubOrAddress,
   );
 
@@ -35,10 +35,11 @@ export const initializeTransaction = async (
     staticData: {
       averageEnergyPrice,
       totalBandwidthAvailable:
-        (accountResources.NetLimit ?? 0) - (accountResources.NetUsed ?? 0),
+        (accountDetails.details?.bandwidthTotal ?? 0) -
+        (accountDetails.details?.bandwidthUsed ?? 0),
       totalEnergyAvailable:
-        (accountResources.EnergyLimit ?? 0) -
-        (accountResources.EnergyUsed ?? 0),
+        (accountDetails.details?.energyTotal ?? 0) -
+        (accountDetails.details?.energyUsed ?? 0),
     },
     computedData: {
       output: { address: '', amount: '0' },

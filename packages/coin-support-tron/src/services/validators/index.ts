@@ -39,6 +39,15 @@ const TokenSchema = z.object({
   decimals: z.number().optional(),
 });
 
+const AddressDetailsSchema = z.object({
+  bandwidthTotal: z.number().optional(),
+  bandwidthUsed: z.number().optional(),
+  energyTotal: z.number().optional(),
+  energyUsed: z.number().optional(),
+  tronPower: z.number().optional(),
+  tronPowerUsed: z.number().optional(),
+});
+
 export const TronTransactionsApiResponseSchema = z.object({
   page: z.number(),
   totalPages: z.number(),
@@ -54,30 +63,46 @@ export type TronTransactionsApiResponse = z.infer<
   typeof TronTransactionsApiResponseSchema
 >;
 
-export const TronAddressDetailsApiResponseSchema = z.object({
-  data: z.array(
-    z.object({
-      balance: z.number(),
-      trc20: z.array(z.record(z.string())),
-    }),
-  ),
-  success: z.boolean(),
+export const TronAccountDetailsApiResponseSchema = z.object({
+  address: z.string(),
+  balance: z.string(),
+  txs: z.number(),
+  nonTokenTxs: z.number().optional(),
+  details: AddressDetailsSchema.optional(),
 });
-export type TronAddressDetailsApiResponse = z.infer<
-  typeof TronAddressDetailsApiResponseSchema
+
+export type TronAccountDetailsApiResponse = z.infer<
+  typeof TronAccountDetailsApiResponseSchema
 >;
 
-export const TronAccountResourcesApiResponseSchema = z.object({
-  freeNetLimit: z.number(),
-  NetUsed: z.number(),
-  NetLimit: z.number(),
-  TotalNetLimit: z.number(),
-  TotalNetWeight: z.number(),
-  EnergyUsed: z.number(),
-  EnergyLimit: z.number(),
-  TotalEnergyLimit: z.number(),
-  TotalEnergyWeight: z.number(),
+export interface ITriggerConstantContractCallResult {
+  result?: {
+    result?: boolean;
+  };
+  energy_used?: number;
+  energy_penalty?: number;
+  constant_result?: string[];
+}
+
+export const TronTriggerConstantContractCallApiResponseSchema = z.object({
+  result: z.object({
+    result: z.boolean(),
+  }),
+  energy_used: z.number(),
+  energy_penalty: z.number(),
+  constant_result: z.array(z.string()),
 });
-export type TronAccountResourcesApiResponse = z.infer<
-  typeof TronAccountResourcesApiResponseSchema
+export type TronTriggerConstantContractCallApiResponse = z.infer<
+  typeof TronTriggerConstantContractCallApiResponseSchema
 >;
+
+export const TronTriggerConstantContractCallWithErrorApiResponseSchema =
+  z.union([
+    z.object({
+      result: z.object({
+        code: z.string(),
+        message: z.string(),
+      }),
+    }),
+    TronTriggerConstantContractCallApiResponseSchema,
+  ]);

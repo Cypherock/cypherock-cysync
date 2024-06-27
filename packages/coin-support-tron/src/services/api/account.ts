@@ -1,23 +1,25 @@
-import { makePostRequest } from '@cypherock/cysync-utils';
+import { BigNumber, makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
 import {
-  TronAccountResourcesApiResponse,
-  TronAccountResourcesApiResponseSchema,
-  TronAddressDetailsApiResponse,
-  TronAddressDetailsApiResponseSchema,
+  TronAccountDetailsApiResponse,
+  TronAccountDetailsApiResponseSchema,
 } from '../validators';
+import { getAsset } from '@cypherock/coin-support-utils';
+import { ITronTrc20Token } from '@cypherock/coins';
+import { triggerConstantContractCall } from './triggerconstantcontract';
+import { getCoinSupportTronWeb } from '../../utils';
 
 const baseURL = `${config.API_CYPHEROCK}/tron/wallet`;
 
 export const getAccountDetailsByAddress = async (
   address: string,
-): Promise<TronAddressDetailsApiResponse> => {
+): Promise<TronAccountDetailsApiResponse> => {
   const url = `${baseURL}/address`;
 
   const response = await makePostRequest(url, { address });
 
-  const result = TronAddressDetailsApiResponseSchema.safeParse(response.data);
+  const result = TronAccountDetailsApiResponseSchema.safeParse(response.data);
 
   if (!result.success) throw new Error('Failed to fetch tron account details');
 
@@ -30,24 +32,34 @@ export const getBalanceAndTransactionsCount = async (
   const addressDetails = await getAccountDetailsByAddress(address);
 
   return {
-    balance: addressDetails.data
-      .reduce((acc, curr) => acc + curr.balance, 0)
-      .toString(),
-    txnCount: addressDetails.data.length,
+    balance: addressDetails.balance,
+    txnCount: addressDetails.txs,
   };
 };
 
-export const getAccountResourcesByAddress = async (
-  address: string,
-): Promise<TronAccountResourcesApiResponse> => {
-  const url = `${baseURL}/resource`;
+export const getContractBalance = async (params: {
+  address: string;
+  parentAssetId: string;
+  assetId: string;
+}) => {
+  const tronWeb = getCoinSupportTronWeb();
+  const asset = getAsset(
+    params.parentAssetId,
+    params.assetId,
+  ) as ITronTrc20Token;
 
-  const response = await makePostRequest(url, { address });
+  const ownerAddress = tronWeb.address.toHex(params.address) as string;
+  const contractAddress = tronWeb.address.toHex(asset.address) as string;
+  const parameter = ownerAddress.padStart(64, '0');
 
-  const result = TronAccountResourcesApiResponseSchema.safeParse(response.data);
+  const response = await triggerConstantContractCall({
+    contract_address: contractAddress,
+    function_selector: 'balanceOf(address)',
+    parameter,
+    owner_address: ownerAddress,
+  });
 
-  if (!result.success)
-    throw new Error('Failed to fetch tron account resources');
+  const balance = new BigNumber(response.constant_result[0], 16).toString();
 
-  return result.data;
+  return balance;
 };
