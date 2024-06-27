@@ -9,13 +9,13 @@ import {
   getCoingeckoCoinDetails,
 } from './coingecko';
 import { getTokenDifference } from './diff';
-
-import { config } from '../config';
 import {
   CoingeckoCoinDetails,
   TokenAutomationParams,
   TokenListItem,
 } from './types';
+
+import { config } from '../config';
 
 const MAX_RETRIES = 3;
 const SLEEP_TIME = 10000;

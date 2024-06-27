@@ -27,6 +27,7 @@ const TransactionSchema = z.object({
   tronTXReceipt: TronTXReceiptSchema,
   tokenTransfers: z.array(TokenTransferSchema).optional(),
 });
+export type TronTransaction = z.infer<typeof TransactionSchema>;
 
 const TokenSchema = z.object({
   type: z.string(),
@@ -36,15 +37,6 @@ const TokenSchema = z.object({
   balance: z.string(),
   symbol: z.string().optional(),
   decimals: z.number().optional(),
-});
-
-const AddressDetailsSchema = z.object({
-  bandwidthTotal: z.number().optional(),
-  bandwidthUsed: z.number().optional(),
-  energyTotal: z.number().optional(),
-  energyUsed: z.number().optional(),
-  tronPower: z.number().optional(),
-  tronPowerUsed: z.number().optional(),
 });
 
 export const TronTransactionsApiResponseSchema = z.object({
@@ -58,24 +50,34 @@ export const TronTransactionsApiResponseSchema = z.object({
   transactions: z.array(TransactionSchema).optional(),
   tokens: z.array(TokenSchema).optional(),
 });
-
-export const TronAccountDetailApiResponseSchema = z.object({
-  address: z.string(),
-  balance: z.string(),
-  txs: z.number(),
-  nonTokenTxs: z.number().optional(),
-  details: AddressDetailsSchema.optional(),
-});
-
-export const TronTokensDetailApiResponseSchema = z.array(z.record(z.string()));
-
 export type TronTransactionsApiResponse = z.infer<
   typeof TronTransactionsApiResponseSchema
 >;
-export type TronAccountDetail = z.infer<
-  typeof TronAccountDetailApiResponseSchema
+
+export const TronAddressDetailsApiResponseSchema = z.object({
+  data: z.array(
+    z.object({
+      balance: z.number(),
+      trc20: z.array(z.record(z.string())),
+    }),
+  ),
+  success: z.boolean(),
+});
+export type TronAddressDetailsApiResponse = z.infer<
+  typeof TronAddressDetailsApiResponseSchema
 >;
-export type TronTransaction = z.infer<typeof TransactionSchema>;
-export type TronTokensDetailApiResponse = z.infer<
-  typeof TronTokensDetailApiResponseSchema
+
+export const TronAccountResourcesApiResponseSchema = z.object({
+  freeNetLimit: z.number(),
+  NetUsed: z.number(),
+  NetLimit: z.number(),
+  TotalNetLimit: z.number(),
+  TotalNetWeight: z.number(),
+  EnergyUsed: z.number(),
+  EnergyLimit: z.number(),
+  TotalEnergyLimit: z.number(),
+  TotalEnergyWeight: z.number(),
+});
+export type TronAccountResourcesApiResponse = z.infer<
+  typeof TronAccountResourcesApiResponseSchema
 >;

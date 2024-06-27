@@ -6,6 +6,7 @@ import {
   insertAccountIfNotExists,
   updateAccountByQuery,
 } from '@cypherock/coin-support-utils';
+import { coinList, ITronCoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
@@ -20,10 +21,9 @@ import { ISyncTronAccountsParams, ITronTrc20TokenAccount } from './types';
 
 import {
   getAccountsTransactionsByAddress,
-  getTokensDetailByAddress,
+  getAccountDetailsByAddress,
 } from '../../services';
 import { TronTransaction } from '../../services/validators';
-import { coinList, ITronCoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import logger from '../../utils/logger';
 
 const PER_PAGE_TXN_LIMIT = 100;
@@ -273,7 +273,15 @@ const getAddressDetails: IGetAddressDetails<{
 
   // update token balances
   if (!hasMore) {
-    const tokens = await getTokensDetailByAddress(account.xpubOrAddress);
+    const accountDetails = await getAccountDetailsByAddress(
+      account.xpubOrAddress,
+    );
+
+    const tokens: Record<string, string>[] = [];
+    for (let i = 0; i < accountDetails.data.length; i += 1) {
+      tokens.push(...accountDetails.data[i].trc20);
+    }
+
     for (let i = 0; i < tokens.length; i += 1) {
       const [[contractAddress, tokenBalance]] = Object.entries(tokens[i]);
       const tokenObj = getTokenObject(account, contractAddress);
