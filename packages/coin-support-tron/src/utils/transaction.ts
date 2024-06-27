@@ -1,3 +1,5 @@
+import { ITronTrc20Token } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import {
   ISignedTransaction,
   IUnsignedTransaction,
@@ -9,13 +11,42 @@ export const prepareUnsignedSendTxn = async (params: {
   from: string;
   to: string;
   amount: string;
+  tokenDetails?: ITronTrc20Token;
 }): Promise<IUnsignedTransaction> => {
   const tronWeb = getCoinSupportTronWeb();
-  const txn = await tronWeb.transactionBuilder.sendTrx(
-    params.to,
-    parseInt(params.amount, 10),
-    params.from,
-  );
+  let txn: IUnsignedTransaction;
+
+  if (params.tokenDetails) {
+    txn = (
+      await tronWeb.transactionBuilder.triggerSmartContract(
+        params.tokenDetails.address,
+        'transfer(address,uint256)',
+        {
+          // 100 TRX fee limit
+          feeLimit: 100_000_000,
+          callValue: 0,
+        },
+        [
+          {
+            type: 'address',
+            value: params.to,
+          },
+          {
+            type: 'uint256',
+            value: new BigNumber(params.amount).toNumber(),
+          },
+        ],
+        tronWeb.address.toHex(params.from),
+      )
+    ).transaction;
+  } else {
+    txn = await tronWeb.transactionBuilder.sendTrx(
+      params.to,
+      parseInt(params.amount, 10),
+      params.from,
+    );
+  }
+
   txn.raw_data.expiration = txn.raw_data.timestamp + 5 * 60 * 1000;
   const hex = tronWeb.utils.transaction.txPbToRawDataHex(
     tronWeb.utils.transaction.txJsonToPb(txn),

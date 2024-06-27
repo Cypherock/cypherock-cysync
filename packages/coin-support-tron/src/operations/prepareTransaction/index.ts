@@ -1,5 +1,5 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import { tronCoinList, ICoinInfo } from '@cypherock/coins';
+import { tronCoinList, ICoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
 
@@ -71,7 +71,7 @@ export const prepareTransaction = async (
   params: IPrepareTronTransactionParams,
 ): Promise<IPreparedTronTransaction> => {
   const { accountId, db, txn } = params;
-  const { account, coin } = await getAccountAndCoin(
+  const { account, coin, parentAccount } = await getAccountAndCoin(
     db,
     tronCoinList,
     accountId,
@@ -81,6 +81,10 @@ export const prepareTransaction = async (
     txn.userInputs.outputs.length === 1,
     new Error('Tron transaction requires exactly 1 output'),
   );
+
+  let tokenDetails: ITronTrc20Token | undefined;
+  if (parentAccount !== undefined)
+    tokenDetails = tronCoinList[account.parentAssetId].tokens[account.assetId];
 
   const outputsAddresses = validateAddresses(params, coin);
   const output = { ...txn.userInputs.outputs[0] };
@@ -99,14 +103,19 @@ export const prepareTransaction = async (
         from: account.xpubOrAddress,
         to: output.address,
         amount: sendAmount.isGreaterThan(0) ? sendAmount.toString() : '1',
+        tokenDetails,
       });
     }
   };
 
   const calculateMaxSend = () => {
-    sendAmount = new BigNumber(
-      BigNumber.max(new BigNumber(account.balance).minus(fees), 0).toFixed(0),
-    );
+    if (tokenDetails) {
+      sendAmount = new BigNumber(account.balance);
+    } else {
+      sendAmount = new BigNumber(
+        BigNumber.max(new BigNumber(account.balance).minus(fees), 0).toFixed(0),
+      );
+    }
     output.amount = sendAmount.toString(10);
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
@@ -118,17 +127,29 @@ export const prepareTransaction = async (
     txn,
   );
   let hasEnoughBalance: boolean;
+  let notEnoughEnergy = false;
+
+  if (tokenDetails && txn.staticData.totalEnergyAvailable < 65000) {
+    notEnoughEnergy = true;
+  }
 
   if (txn.userInputs.isSendAll) {
     calculateMaxSend();
     await createUnsignedTransaction();
   }
 
-  hasEnoughBalance =
-    sendAmount.isNaN() ||
-    new BigNumber(account.balance).isGreaterThanOrEqualTo(
-      sendAmount.plus(fees),
-    );
+  if (tokenDetails) {
+    hasEnoughBalance =
+      sendAmount.isNaN() ||
+      new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
+  } else {
+    hasEnoughBalance =
+      sendAmount.isNaN() ||
+      new BigNumber(account.balance).isGreaterThanOrEqualTo(
+        sendAmount.plus(fees),
+      );
+  }
+
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
@@ -137,6 +158,7 @@ export const prepareTransaction = async (
     validation: {
       outputs: outputsAddresses,
       hasEnoughBalance,
+      notEnoughEnergy,
       isValidFee: true,
       ownOutputAddressNotAllowed: [isOwnOutputAddress],
       zeroAmountNotAllowed: sendAmount.isZero(),

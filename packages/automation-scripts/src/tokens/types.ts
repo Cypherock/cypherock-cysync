@@ -39,14 +39,14 @@ export type TokenAssetIdGenerator = (params: {
   version?: string | undefined;
 }) => string;
 
-export type TokenAutomationParams = {
+export interface TokenAutomationParams {
   createTokenAssetId: TokenAssetIdGenerator;
   tokenJsonList: TokenListItem[];
   coinList: Record<string, IEvmCoinInfo | ITronCoinInfo>;
   coinIdMap: Record<string, string>;
   coingeckoPlatformMapping: CoingeckoPlatformMapping;
   filePrefix: string;
-};
+}
 
 export interface TokenListItem {
   id: string;
