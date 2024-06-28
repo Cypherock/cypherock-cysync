@@ -1,11 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
-
 import { Flex } from '../atoms/Flex';
-
-import { Onetomany1, Onetomany2, Onetomany3 } from '../../assets';
+import Onetomany1 from '../../../icons/onetomany1.svg';
+import Onetomany2 from '../../../icons/onetomany2.svg';
 
 const Second = {
   fontSize: '12px',
@@ -20,11 +19,12 @@ export interface OIMProps {
 }
 
 const StyledContainer = styled.div<{ isSelected: boolean }>`
+  position: relative;
   border: ${({ isSelected }) => (isSelected ? '1px solid #e0bb74' : '')};
   background: ${({ isSelected }) =>
-    !isSelected
-      ? `linear-gradient(285.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${Onetomany1}), linear-gradient(0deg, #2A2827, #2A2827)`
-      : `url(${Onetomany3}), #2A2827`};
+    isSelected
+      ? 'linear-gradient(0deg, #2A2827, #2A2827)'
+      : 'linear-gradient(0deg, #2A2827, #2A2827)'};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -33,26 +33,74 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   width: 348px;
   height: 128px;
   color: #ffffff;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
 
-  &:hover {
-    box-shadow: ${({ isSelected }) =>
-      !isSelected
-        ? '0px 0px 12px 4px #1B1813'
-        : '0px 0px 12px 4px #1B1813 inset'};
-    background-image: ${({ isSelected }) =>
-      !isSelected
-        ? `linear-gradient(105.14deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 60.65%), url(${Onetomany2}), linear-gradient(0deg, #332F2D, #332F2D)`
-        : ''};
-    .title {
-      background: linear-gradient(
-        90deg,
-        #e9b873 0.19%,
-        #fedd8f 37.17%,
-        #b78d51 100.19%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+  &:before,
+  &:after {
+    color: #ffffff;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: initial;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    backface-visibility: hidden;
+    z-index: 0;
+  }
+
+  &:before {
+    background-image: url(${Onetomany1});
+    opacity: ${({ isSelected }) => (isSelected ? 0 : 1)};
+    transform: ${({ isSelected }) =>
+      isSelected ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  }
+
+  &:after {
+    background-image: url(${Onetomany2});
+    opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
+    transform: ${({ isSelected }) =>
+      isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
+    background-position: ${({ isSelected }) =>
+      isSelected ? 'right' : 'right'};
+  }
+
+  ${({ isSelected }) =>
+    !isSelected &&
+    `
+    &:hover {
+      background: linear-gradient(0deg, #332F2D, #332F2D);
+    background-position: right;
+      &:before {
+        opacity: 0;
+        transform: rotateY(180deg);
+      }
+      &:after {
+        opacity: 1;
+        transform: rotateY(0deg);
+      }
+      .title {
+        position: relative;
+        z-index: 3;
+        background: linear-gradient(
+          90deg,
+          #e9b873 0.19%,
+          #fedd8f 37.17%,
+          #b78d51 100.19%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
+    `}
+  .title {
+    z-index: 3;
+  }
+  .description {
+    z-index: 3;
   }
 `;
 
@@ -62,7 +110,7 @@ const firstStyle = {
   lineHeight: '96px',
 };
 
-export const OneInMany: FC<OIMProps> = ({ title, description }) => {
+export const OneInMany = ({ title, description }: OIMProps) => {
   const [isSelected, setisSelected] = useState(false);
 
   return (
@@ -73,10 +121,11 @@ export const OneInMany: FC<OIMProps> = ({ title, description }) => {
     >
       <Flex align="center" direction="row" justify="space-around" height="100%">
         <div className="title" style={firstStyle}>
-          {' '}
-          {title}{' '}
+          {title}
         </div>
-        <div style={Second}>{description}</div>
+        <div style={Second} className="description">
+          {description}
+        </div>
       </Flex>
     </StyledContainer>
   );
