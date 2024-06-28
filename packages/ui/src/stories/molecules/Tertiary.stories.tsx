@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { Tertiary } from '../../components/atoms';
+import { Tertiary } from '../../components';
 
 const meta: Meta<typeof Tertiary> = {
   component: Tertiary,
@@ -11,4 +10,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    textLabel: 'Add second email',
+  },
+};

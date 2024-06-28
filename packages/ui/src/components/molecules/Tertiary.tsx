@@ -1,19 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { Addition } from '../../assets';
 
-import { plus, minus } from '../../assets';
+interface TertiaryProps {
+  textLabel: string;
+}
 
-const Plus = styled.img.attrs({
-  src: plus,
-  alt: 'plus',
-})``;
-
-const Minus = styled.img.attrs({
-  src: minus,
-  alt: 'minus',
-})``;
-
-export const Tertiary: FC = () => {
+export const Tertiary = ({ textLabel }: TertiaryProps) => {
   const [isHover, setIsHover] = useState(false);
   const StyledContainer = styled.div`
     display: flex;
@@ -48,9 +41,8 @@ export const Tertiary: FC = () => {
       onClick={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <Plus />
-      <Minus />
-      <TextLabel>Add second email</TextLabel>
+      <Addition />
+      <TextLabel>{textLabel}</TextLabel>
     </StyledContainer>
   );
 };
