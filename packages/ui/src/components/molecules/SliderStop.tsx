@@ -25,8 +25,8 @@ const StyledContainer = styled.div<{
   isSelected: boolean;
   isHover: boolean;
 }>`
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-top: ${({ isActive, isSelected, isHover }) =>
     !isActive && (isSelected || isHover) ? '0px' : '8px'};

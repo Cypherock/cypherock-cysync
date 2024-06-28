@@ -33,4 +33,3 @@ export * from './MainAppStyles';
 export * from './Tooltip';
 export * from './Video';
 export * from './AdvanceTextDiaplay';
-export * from './SliderStop';
