@@ -152,14 +152,19 @@ const OTP: React.FC<OTPProps> = ({ status, heading, email }) => {
   const [timer, setTimer] = useState(25);
 
   useEffect(() => {
-    if (timer > 0) {
-      const timeout = setTimeout(() => setTimer(timer - 1), 1000);
-      return () => clearTimeout(timeout);
-    }
-    setResendDisabled(false);
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return () => {};
-  }, [timer]);
+    const interval = setInterval(() => {
+      setTimer(prevTimer => {
+        if (prevTimer > 0) {
+          return prevTimer - 1;
+        }
+        setResendDisabled(false);
+        clearInterval(interval);
+        return prevTimer;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
