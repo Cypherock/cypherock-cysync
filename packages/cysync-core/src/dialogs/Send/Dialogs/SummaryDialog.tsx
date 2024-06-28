@@ -10,12 +10,12 @@ import {
   DialogBoxFooter,
   DialogBoxBody,
   Typography,
-  walletIcon,
   Button,
   QrCode,
   Image,
   SummaryBox,
   ScrollableContainer,
+  walletIcon,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
