@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { SilverButton } from '../../components';
 
 const meta: Meta<typeof SilverButton> = {
@@ -12,5 +11,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    title: 'SELECT',
+  },
 };
