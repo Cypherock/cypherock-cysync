@@ -9,6 +9,14 @@ export interface IPreparedTronTransaction extends IPreparedTransaction {
     outputs: IPreparedTransactionOutput[];
     isSendAll: boolean;
   };
+  validation: {
+    outputs: boolean[];
+    hasEnoughBalance: boolean;
+    notEnoughEnergy: boolean;
+    isValidFee: boolean;
+    ownOutputAddressNotAllowed: boolean[];
+    zeroAmountNotAllowed: boolean;
+  };
   staticData: {
     averageEnergyPrice: string;
     totalBandwidthAvailable: number;
@@ -18,6 +26,7 @@ export interface IPreparedTronTransaction extends IPreparedTransaction {
     output: IPreparedTransactionOutput;
     fee: string;
     bandwidth: number;
+    estimatedEnergy: number;
     unsignedTransaction?: IUnsignedTransaction;
   };
 }

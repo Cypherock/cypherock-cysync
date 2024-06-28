@@ -1,3 +1,13 @@
+# v2.0.7
+
+### 🚀 Features
+
+- **TRON Network Support**: Dive into the world of TRON with our brand new TRON network integration within cySync! Now you can seamlessly manage your TRON assets directly through the app.
+- **TRON Token Support**: Say hello to managing your TRON-based tokens! This update empowers you to view, send, and receive tokens built on the TRON network, all within the familiar cySync interface.
+- **Export with Confidence**: We've enriched the information exported in the Transactions history CSV file, providing you with even more detailed data for your records.
+- **Transfer with Ease**: Introducing a guided wallet transfer flow for a smoother and more intuitive experience when sending your crypto assets.
+- **Clearer Error Messages**: No more confusion! We've improved the user experience for "Device busy state" error messages, making it easier to understand and resolve any connectivity issues.
+
 # v2.0.6
 
 ### 🐛 Bugfixes
