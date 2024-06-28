@@ -6,7 +6,16 @@ interface OTPProps {
   heading: string;
   email: string;
 }
-
+const getBorderColor = (theme: any, status: 'idle' | 'success' | 'error') => {
+  switch (status) {
+    case 'success':
+      return theme.palette.success.main;
+    case 'error':
+      return theme.palette.text.danger;
+    default:
+      return theme.palette.border.primary;
+  }
+};
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,14 +51,7 @@ const OTPInput = styled.input<{ status: 'idle' | 'success' | 'error' }>`
   margin: 0 16px;
   text-align: center;
   font-size: 24px;
-  border: 1px solid
-    ${({ theme, status }) =>
-      // eslint-disable-next-line no-nested-ternary
-      status === 'success'
-        ? theme.palette.success.main
-        : status === 'error'
-        ? theme.palette.background.danger
-        : theme.palette.border.primary};
+  border: 1px solid ${({ theme, status }) => getBorderColor(theme, status)};
   border-radius: 8px;
   padding: 12px;
   background-color: ${({ theme }) =>
@@ -58,13 +60,7 @@ const OTPInput = styled.input<{ status: 'idle' | 'success' | 'error' }>`
 
   &:focus {
     outline: none;
-    border-color: ${({ theme, status }) =>
-      // eslint-disable-next-line no-nested-ternary
-      status === 'success'
-        ? theme.palette.border.success
-        : status === 'error'
-        ? '#FF0000'
-        : theme.palette.primary.main};
+    border-color: ${({ theme, status }) => getBorderColor(theme, status)};
   }
 `;
 
