@@ -39,3 +39,4 @@ export * from './Topbar';
 export * from './UpdateBar';
 export * from './WallectConnect';
 export * from './WalletDialogMainContainer';
+export * from './Reminder';
