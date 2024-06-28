@@ -75,21 +75,12 @@ export type TronAccountDetailsApiResponse = z.infer<
   typeof TronAccountDetailsApiResponseSchema
 >;
 
-export interface ITriggerConstantContractCallResult {
-  result?: {
-    result?: boolean;
-  };
-  energy_used?: number;
-  energy_penalty?: number;
-  constant_result?: string[];
-}
-
 export const TronTriggerConstantContractCallApiResponseSchema = z.object({
   result: z.object({
     result: z.boolean(),
   }),
-  energy_used: z.number(),
-  energy_penalty: z.number(),
+  energy_used: z.number().optional(),
+  energy_penalty: z.number().optional(),
   constant_result: z.array(z.string()),
 });
 export type TronTriggerConstantContractCallApiResponse = z.infer<
