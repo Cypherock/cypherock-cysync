@@ -28,6 +28,8 @@ const StyledContainer = styled.div`
 
 const First = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
 `;
 
