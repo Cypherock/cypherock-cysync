@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
-
 import { Flex } from '../atoms/Flex';
 import { Clock, ClockDisabled, ClockHover, ClockInfo } from '../../assets';
 import ClockBgHoverURL from '../../../icons/clock-bg-hover.svg';
@@ -44,26 +43,6 @@ const DisabledDate = styled.p`
   margin-left: 24px;
   color: #39322c;
 `;
-
-// const ClockDefaultImage = styled.img.attrs({
-//   src: clockDefault,
-//   alt: 'clock',
-// })``;
-
-// const ClockHoverImage = styled.img.attrs({
-//   src: clockHover,
-//   alt: 'clock hover',
-// })``;
-
-// const ClockDisableImage = styled.img.attrs({
-//   src: clockDisabled,
-//   alt: 'clock disabled',
-// })``;
-
-// const ClockInfoImage = styled.img.attrs({
-//   src: ClockInfo,
-//   alt: 'clock info',
-// })``;
 
 export interface ReminderProps {
   date: string;
