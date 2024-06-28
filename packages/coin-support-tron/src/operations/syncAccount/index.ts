@@ -339,7 +339,16 @@ const getAddressDetails: IGetAddressDetails<{
         await tokenTransactionParser(rawTransaction);
       transactions.push(...tokenTransactions);
       newAccounts.push(...newTokenAccounts);
-      normalTransactionParsed.type = TransactionTypeMap.hidden;
+
+      // Add hidden fees transaction to parent account if token is transfered
+      if (normalTransactionParsed.type === TransactionTypeMap.send) {
+        normalTransactionParsed.type = TransactionTypeMap.hidden;
+
+        // Fee is deducted on failed transactions
+        if (normalTransactionParsed.status === TransactionStatusMap.failed) {
+          normalTransactionParsed.status = TransactionStatusMap.success;
+        }
+      }
     }
     transactions.push(normalTransactionParsed);
   }
