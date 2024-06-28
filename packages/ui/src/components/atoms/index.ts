@@ -1,4 +1,3 @@
-export * from './Accordion';
 export * from './Button';
 export * from './Bullet';
 export * from './Container';

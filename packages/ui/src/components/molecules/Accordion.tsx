@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { Flex } from './Flex';
+import { Flex } from '../atoms/Flex';
 
-import { ArrowDown, ArrowUp, info } from '../../assets';
+import { ArrowDown, ArrowUp, Info } from '../../assets';
 
 export interface AccordionProps {
   header: string;
@@ -37,10 +37,10 @@ const DetailContainer = styled.div`
   color: #8b8682;
 `;
 
-const InfoImage = styled.img.attrs({
-  src: info,
-  alt: 'clock',
-})``;
+// const InfoImage = styled.img.attrs({
+//   src: Info,
+//   alt: 'clock',
+// })``;
 
 export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
   const [IsOpen, setIsOpen] = useState(false);
@@ -52,7 +52,7 @@ export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
     >
       <Flex align="center" justify="space-between" m="0px 10px 0px 10px">
         <First>
-          <InfoImage />
+          <Info />
           <p style={{ marginLeft: '16px' }}> {header} </p>
         </First>
         <div>{IsOpen ? <ArrowUp /> : <ArrowDown />}</div>
