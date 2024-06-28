@@ -331,15 +331,17 @@ const getAddressDetails: IGetAddressDetails<{
   const newAccounts: IAccount[] = [];
 
   for (let i = 0; i < response.transactions.length; i += 1) {
-    const transaction = response.transactions[i];
-    if (transaction.tokenTransfers) {
+    const rawTransaction = response.transactions[i];
+    const normalTransactionParsed: ITransaction =
+      transactionParser(rawTransaction);
+    if (rawTransaction.tokenTransfers) {
       const { tokenTransactions, newTokenAccounts } =
-        await tokenTransactionParser(transaction);
+        await tokenTransactionParser(rawTransaction);
       transactions.push(...tokenTransactions);
       newAccounts.push(...newTokenAccounts);
-    } else {
-      transactions.push(transactionParser(transaction));
+      normalTransactionParsed.type = TransactionTypeMap.hidden;
     }
+    transactions.push(normalTransactionParsed);
   }
 
   onNewAccounts(newAccounts, db);
