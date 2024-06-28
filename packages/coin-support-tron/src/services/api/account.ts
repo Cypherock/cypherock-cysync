@@ -1,4 +1,8 @@
+import { getAsset } from '@cypherock/coin-support-utils';
+import { ITronTrc20Token } from '@cypherock/coins';
 import { BigNumber, makePostRequest } from '@cypherock/cysync-utils';
+
+import { triggerConstantContractCall } from './triggerconstantcontract';
 
 import { config } from '../../config';
 import { getCoinSupportTronWeb } from '../../utils';
@@ -6,9 +10,6 @@ import {
   TronAccountDetailsApiResponse,
   TronAccountDetailsApiResponseSchema,
 } from '../validators';
-import { getAsset } from '@cypherock/coin-support-utils';
-import { ITronTrc20Token } from '@cypherock/coins';
-import { triggerConstantContractCall } from './triggerconstantcontract';
 
 const baseURL = `${config.API_CYPHEROCK}/tron/wallet`;
 

@@ -1,11 +1,11 @@
 import { makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
+import logger from '../../utils/logger';
 import {
   TronTriggerConstantContractCallApiResponse,
   TronTriggerConstantContractCallWithErrorApiResponseSchema,
 } from '../validators';
-import logger from '../../utils/logger';
 
 const baseURL = `${config.API_CYPHEROCK}/tron/wallet`;
 

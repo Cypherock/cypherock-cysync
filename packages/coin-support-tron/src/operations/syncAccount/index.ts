@@ -16,6 +16,7 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
+import { lastValueFrom } from 'rxjs';
 
 import { ISyncTronAccountsParams, ITronTrc20TokenAccount } from './types';
 
@@ -25,7 +26,6 @@ import {
 } from '../../services';
 import { TronTransaction } from '../../services/validators';
 import logger from '../../utils/logger';
-import { lastValueFrom } from 'rxjs';
 import { ITronAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
@@ -43,7 +43,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
         accountId: newAccount.__id ?? '',
       }),
     ).catch(error => {
-      logger.error('Error in syncing evm token account');
+      logger.error('Error in syncing tron token account');
       logger.error(error);
     });
   }
@@ -61,7 +61,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
         getCoinIds,
       }),
     ).catch(error => {
-      logger.error('Error in syncing evm token prices');
+      logger.error('Error in syncing tron token prices');
       logger.error(error);
     });
 
@@ -71,7 +71,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
         getCoinIds,
       }),
     ).catch(error => {
-      logger.error('Error in syncing evm token price histories');
+      logger.error('Error in syncing tron token price histories');
       logger.error(error);
     });
   }
@@ -166,10 +166,10 @@ const getTronTokenAccount = (account: IAccount, tokenObj: ITronTrc20Token) => {
   return tokenAccount;
 };
 
-type GetTokenTransactionParserReturnParams = {
+interface GetTokenTransactionParserReturnParams {
   tokenTransactions: ITransaction[];
   newTokenAccounts: IAccount[];
-};
+}
 const getTokenTransactionParser = (
   params: GetTransactionParserParams,
   db: IDatabase,
@@ -347,30 +347,6 @@ const getAddressDetails: IGetAddressDetails<{
   const hasMore = Boolean(
     response.page && response.totalPages && response.totalPages > response.page,
   );
-
-  // update token balances
-  // if (!hasMore) {
-  //   const accountDetails = await getAccountDetailsByAddress(
-  //     account.xpubOrAddress,
-  //   );
-
-  //   const tokens: Record<string, string>[] = [];
-  //   for (let i = 0; i < accountDetails.data.length; i += 1) {
-  //     tokens.push(...accountDetails.data[i].trc20);
-  //   }
-
-  //   for (let i = 0; i < tokens.length; i += 1) {
-  //     const [[contractAddress, tokenBalance]] = Object.entries(tokens[i]);
-  //     const tokenObj = getTokenObject(account, contractAddress);
-  //     if (!tokenObj) continue;
-  //     const tokenAccountQuery = getUniqueAccountQuery(
-  //       getTronTokenAccount(account, tokenObj),
-  //     );
-  //     await updateAccountByQuery(db, tokenAccountQuery, {
-  //       balance: tokenBalance,
-  //     });
-  //   }
-  // }
 
   return {
     hasMore,
