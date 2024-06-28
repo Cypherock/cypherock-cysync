@@ -2,8 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
-
-import { wallet } from '../../assets';
+import { WalletName } from '../../assets';
 
 const Flex = styled.div`
   display: flex;
@@ -11,14 +10,7 @@ const Flex = styled.div`
   justify-content: center;
 `;
 
-const WalletDefaultImage = styled.img.attrs({
-  src: wallet,
-  alt: 'wallet',
-  width: '15px',
-  height: '12.27px',
-})``;
-
-const WalletName = styled.div`
+const WalletTitle = styled.div`
   display: inline;
   font-family: Poppins;
   font-size: 12px;
@@ -30,14 +22,14 @@ const WalletName = styled.div`
 `;
 
 export interface WalletProps {
-  walletName: string;
+  title: string;
 }
 
-export const Wallet: FC<WalletProps> = ({ walletName }) => (
+export const Wallet: FC<WalletProps> = ({ title }) => (
   <Flex>
-    <WalletDefaultImage /> <WalletName>{walletName}</WalletName>
+    <WalletName /> <WalletTitle>{title}</WalletTitle>
   </Flex>
 );
 Wallet.propTypes = {
-  walletName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
