@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
-import SvgYoutubePlay from '../../assets/icons/generated/YoutubePlay';
+import YoutubePlayIcon from '../../assets/icons/generated/YoutubePlayIcon';
 
 export interface YoutubeProps {
   visible: boolean;
@@ -12,4 +12,4 @@ const Placeholder = styled.div`
 `;
 
 export const YoutubePlay: FC<YoutubeProps> = ({ visible }) =>
-  visible ? <SvgYoutubePlay /> : <Placeholder />;
+  visible ? <YoutubePlayIcon /> : <Placeholder />;
