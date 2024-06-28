@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { YoutubePlay } from '../../components/atoms';
+import { YoutubePlay } from '../../components';
 
 const meta: Meta<typeof YoutubePlay> = {
   component: YoutubePlay,
