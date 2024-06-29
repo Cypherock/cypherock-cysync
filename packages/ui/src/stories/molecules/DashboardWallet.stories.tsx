@@ -16,7 +16,6 @@ export const Info: Story = {
     isNone: false,
     isSilver: false,
     isExpiring: false,
-    isVerified: true,
     timerDate: '21 JAN 2024',
     name: 'Mynonamewallet',
     walletSubtitle: 'Setup Cypherock Cover',

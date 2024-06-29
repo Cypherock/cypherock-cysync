@@ -11,7 +11,6 @@ import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
 import bnbChainIcon from './bnb-chain.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
-import checkTick from './check-tick.svg';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
 import closeIcon from './close.svg';
@@ -39,7 +38,6 @@ import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
-import info from './info.svg';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
@@ -154,8 +152,6 @@ export {
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
   goldHoverWallet,
-  checkTick,
-  info,
   silverHoverWallet,
   dashWallet,
   noneDefaultPlus,

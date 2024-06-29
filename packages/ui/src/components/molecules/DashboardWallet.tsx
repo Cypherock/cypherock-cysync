@@ -2,8 +2,6 @@ import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import {
-  checkTick,
-  info,
   goldHoverWallet,
   silverHoverWallet,
   dashWallet,
@@ -17,25 +15,10 @@ export interface DashboardWalletProps {
   isNone: boolean;
   isSilver: boolean;
   isExpiring: boolean;
-  isVerified: boolean;
   timerDate: string;
   name: string;
   walletSubtitle: string;
 }
-
-const InfoImage = styled.img.attrs({
-  src: info,
-  alt: 'info',
-  width: '14px',
-  height: '14px',
-})``;
-
-const TickImage = styled.img.attrs({
-  src: checkTick,
-  alt: 'checkTick',
-  width: '12px',
-  height: '10px',
-})``;
 
 const NoneHoverPlusImage = styled.img.attrs({
   src: noneHoverPlus,
@@ -76,7 +59,6 @@ const Container = styled.div<{ backgroundImage: string }>`
 const Flex = styled.div<{ isHover: boolean }>`
   display: flex;
   width: 45%;
-  justify-content: space-between;
   padding: 8px 15px;
   ${({ isHover }) =>
     css`
@@ -84,36 +66,17 @@ const Flex = styled.div<{ isHover: boolean }>`
     `}
 `;
 
-const Check = styled.div<{ isVerified: boolean; isHover: boolean }>`
-  display: flex;
-  justify-content: end;
-  font-family: 'Poppins';
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 15px;
-  text-align: center;
-  color: ${({ isVerified }) => (isVerified ? '#51C61A' : '#F1AE4A')};
-  position: relative;
-  ${({ isHover }) =>
-    css`
-      height: ${isHover ? 'unset' : '15px'};
-      left: ${isHover ? '30%' : '35%'};
-      top: ${isHover ? '' : '10px'};
-    `}
-`;
-
-const Type = styled.div`
+const Type = styled.div<{ isSilver: boolean }>`
   font-family: 'Poppins';
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
   text-align: left;
-  background: linear-gradient(
-    90deg,
-    #e9b873 0.19%,
-    #fedd8f 37.17%,
-    #b78d51 100.19%
-  );
+  text-transform: uppercase;
+  background: ${({ isSilver }) =>
+    isSilver
+      ? 'linear-gradient(90deg, #A2ADB3 1.67%, #F3F1F2 35.99%, #BCC3C9 66.2%, #DCDFE4 100%)'
+      : 'linear-gradient(90deg, #e9b873 0.19%, #fedd8f 37.17%, #b78d51 100.19%)'};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
@@ -178,26 +141,33 @@ const getTimerTextBackgroundColor = (
 
 const TimerHead = styled.div<{ isHover: boolean }>`
   font-family: 'Poppins';
-  font-size: 11px;
+  font-size: ${({ isHover }) => (isHover ? '11px' : '10px')};
   font-weight: ${({ isHover }) => (isHover ? '700' : '400')};
   line-height: 16.5px;
   text-align: left;
   color: ${({ isHover }) => (isHover ? 'white' : '#8B8682')};
 `;
 
-const TimerSubtitle = styled.div<{ isHover: boolean }>`
+const getColor = (isExpiring: boolean, isHover: boolean) => {
+  if (isExpiring && isHover) return '#8B8682';
+  if (isExpiring) return '#FF624C';
+  if (isHover) return '#8B8682';
+  return 'white';
+};
+
+const TimerSubtitle = styled.div<{ isHover: boolean; isExpiring: boolean }>`
   font-family: 'Poppins';
-  font-size: 12px;
+  font-size: 10px;
   font-weight: ${({ isHover }) => (isHover ? '400' : '700')};
   line-height: 18px;
   text-align: left;
-  color: ${({ isHover }) => (isHover ? '#8B8682' : 'white')};
+  color: ${({ isExpiring, isHover }) => getColor(isExpiring, isHover)};
 `;
 
 const WalletName = styled.div<{ isHover: boolean; isExpiring: boolean }>`
   font-family: 'Poppins';
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 27px;
   text-align: center;
   margin-bottom: 30px;
@@ -210,7 +180,6 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   isNone,
   isSilver,
   isExpiring,
-  isVerified,
   timerDate,
   name,
   walletSubtitle,
@@ -255,13 +224,6 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
     return ' ';
   };
 
-  const getCheckText = () => {
-    if (isHover) {
-      return isVerified ? 'Verified' : 'Not Verified';
-    }
-    return isVerified ? <TickImage /> : <InfoImage />;
-  };
-
   return !isNone ? (
     <Container
       backgroundImage={getBackgroundImage()}
@@ -275,12 +237,9 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       }}
     >
       <Flex isHover={isHover}>
-        <Type>{getTypeText()}</Type>
+        <Type isSilver={isSilver}>{getTypeText()}</Type>
         <Expiring>{getExpiringText()}</Expiring>
       </Flex>
-      <Check isVerified={isVerified} isHover={isHover}>
-        {getCheckText()}
-      </Check>
       <TimerContainer>
         <Timer background={getTimerBackground()}>
           <TimerText
@@ -291,7 +250,9 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
             <TimerHead isHover={isHover}>
               {isHover ? 'Created' : 'Expiry'}
             </TimerHead>
-            <TimerSubtitle isHover={isHover}>{timerDate}</TimerSubtitle>
+            <TimerSubtitle isHover={isHover} isExpiring={isExpiring}>
+              {timerDate}
+            </TimerSubtitle>
           </TimerText>
         </Timer>
       </TimerContainer>
