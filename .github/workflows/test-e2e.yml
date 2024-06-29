@@ -38,12 +38,24 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        with:
+          run_install: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
         run: pnpm install
@@ -70,9 +82,7 @@ jobs:
         run: pnpm test
 
       - name: Run end to end tests
-        run: |
-          cd apps/desktop
-          xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
 
       - uses: actions/upload-artifact@v3
         if: always()
