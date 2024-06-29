@@ -1,9 +1,16 @@
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
-import { Clock, ClockDisabled, ClockHover, ClockInfo } from '../../assets';
-import ClockBgHoverURL from '../../../icons/clock-bg-hover.svg';
-import ClockBgDefaultURL from '../../../icons/clock-bg-default.svg';
+import {
+  Clock,
+  ClockDisabled,
+  ClockHover,
+  ClockInfo,
+  clockBackgroundDefault,
+  clockBackgroundHover,
+  clockBgDefault,
+  clockBgHover,
+} from '../../assets';
 
 const DisableContainer = styled.div`
   position: relative;
@@ -54,39 +61,54 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
   const [isSelected, setisSelected] = useState(false);
 
   const StyledContainer = styled.div`
-  transition: background 1s ease-in-out, box-shadow 1s ease-in-out; 
-  &:hover {
-    box-shadow: ${
-      !isSelected
+    &:hover {
+      box-shadow: ${!isSelected
         ? '0px 0px 12px 4px #1B1813'
-        : '0px 0px 12px 4px #1B1813 inset'
-    };
-    background: ${
-      !isSelected
-        ? `linear-gradient(92.96deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 52.46%), url(${ClockBgHoverURL}), linear-gradient(0deg, #332F2D, #332F2D)`
-        : ''
-    };
-  }
+        : '0px 0px 12px 4px #1B1813 inset'};
+      animation: ${!isSelected && isHover
+        ? 'zoomAnimation 1s ease-in-out'
+        : 'none'};
+      animation-fill-mode: forwards;
+      transition: background 0.5s ease-in-out 0.5s;
+    }
 
-  border: ${isSelected ? '1px solid #e0bb74' : ''};
-  background: ${
-    !isSelected
-      ? `linear-gradient(273.07deg, rgba(96, 58, 23, 0.2) 1.52%, rgba(0, 0, 0, 0) 52.42%), url(${ClockBgDefaultURL}),linear-gradient(0deg, #2A2A27, #2A2A27)`
-      : `#2A2827`
-  };
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  width: 348px;
-  height: 53px;
-  color: #ffffff;
-  animation: ${
-    !isSelected && isHover ? 'backgroundAnimation 1s ease-in-out' : 'none'
-  };
-  }
-`;
+    &:hover::after {
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: ${!isSelected
+        ? `linear-gradient(92.96deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 52.46%), url(${clockBgHover}), linear-gradient(0deg, #332F2D, #332F2D)`
+        : '#2A2827'};
+      transition: background 0.5s ease-in-out 0.5s;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    border: ${isSelected ? '1px solid #e0bb74' : ''};
+    background: ${!isSelected
+      ? `linear-gradient(273.07deg, rgba(96, 58, 23, 0.2) 1.52%, rgba(0, 0, 0, 0) 52.42%), url(${clockBgDefault}),linear-gradient(0deg, #2A2A27, #2A2A27)`
+      : `#2A2827`};
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    width: 348px;
+    height: 53px;
+    color: #ffffff;
+    transition: background 0.5s ease-in-out;
+
+    @keyframes zoomAnimation {
+      0% {
+        background-image: url(${clockBackgroundDefault});
+      }
+      100% {
+        background-image: url(${clockBackgroundHover});
+      }
+    }
+  `;
 
   return !disabled ? (
     <StyledContainer
