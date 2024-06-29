@@ -70,6 +70,8 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import oneInMany1 from './onetomany1.svg';
+import oneInMany2 from './onetomany2.svg';
 
 export {
   addWalletIcon,
@@ -144,4 +146,6 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  oneInMany1,
+  oneInMany2,
 };

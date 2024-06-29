@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
-import Onetomany1 from '../../../icons/onetomany1.svg';
-import Onetomany2 from '../../../icons/onetomany2.svg';
+import { oneInMany1, oneInMany2 } from '../../assets';
 
 const Second = {
   fontSize: '12px',
@@ -53,14 +52,14 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   }
 
   &:before {
-    background-image: url(${Onetomany1});
+    background-image: url(${oneInMany1});
     opacity: ${({ isSelected }) => (isSelected ? 0 : 1)};
     transform: ${({ isSelected }) =>
       isSelected ? 'rotateY(180deg)' : 'rotateY(0deg)'};
   }
 
   &:after {
-    background-image: url(${Onetomany2});
+    background-image: url(${oneInMany2});
     opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
     transform: ${({ isSelected }) =>
       isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
