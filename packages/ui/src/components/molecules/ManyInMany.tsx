@@ -1,7 +1,7 @@
 import React, { FC, useState, CSSProperties } from 'react';
 import { styled } from 'styled-components';
 
-import { Flex } from './Flex';
+import { Flex } from '../atoms/Flex';
 
 import {
   mimDefault,
