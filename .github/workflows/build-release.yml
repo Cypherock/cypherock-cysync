@@ -15,7 +15,7 @@ env:
 
 jobs:
   integrity-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
@@ -33,15 +33,25 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.6.0
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install linux dependencies
         run: sudo apt-get install fakeroot dpkg rpm -y
@@ -86,7 +96,7 @@ jobs:
           git push origin ${{ inputs.ref }}
 
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [integrity-check]
 
     strategy:
@@ -104,16 +114,25 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.6.0
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
 
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
       - name: Install linux dependencies
         run: sudo apt-get install fakeroot dpkg rpm -y
 
@@ -164,15 +183,25 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.6.0
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Fix hashBang in pnpm.cjs
         env:
@@ -226,15 +255,25 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.6.0
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
         run: pnpm install
@@ -288,7 +327,7 @@ jobs:
           retention-days: 1
 
   publish-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [build-win, build-linux, build-macos]
 
     strategy:
@@ -309,15 +348,25 @@ jobs:
         uses: fregante/setup-git-user@v2
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.6.0
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - uses: actions/download-artifact@v3
 
