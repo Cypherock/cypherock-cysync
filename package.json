@@ -69,7 +69,8 @@
       "bip66@1.1.5": "patches/bip66@1.1.5.patch",
       "bitcoinjs-lib@6.1.3": "patches/bitcoinjs-lib@6.1.3.patch",
       "coinselect@3.1.13": "patches/coinselect@3.1.13.patch",
-      "signal-exit@4.1.0": "patches/signal-exit@4.1.0.patch"
+      "signal-exit@4.1.0": "patches/signal-exit@4.1.0.patch",
+      "@solana/web3.js@1.87.6": "patches/@solana__web3.js@1.87.6.patch"
     },
     "overrides": {
       "write-file-atomic": "5.0.1",
