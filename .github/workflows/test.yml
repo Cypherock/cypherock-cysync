@@ -45,7 +45,7 @@ jobs:
         run: node scripts/setupTurboCache.js
 
       - name: Run build
-        run: pnpm build
+        run: pnpm make
 
       - name: Run linter checks
         run: pnpm lint:check

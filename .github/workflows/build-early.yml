@@ -100,6 +100,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          cache: 'pnpm'
 
       - name: Install linux dependencies
         run: sudo apt-get install fakeroot dpkg rpm -y
@@ -163,6 +164,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          cache: 'pnpm'
 
       - name: Fix hashBang in pnpm.cjs
         env:
@@ -228,6 +230,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          cache: 'pnpm'
 
       - name: pnpm install
         run: pnpm install
