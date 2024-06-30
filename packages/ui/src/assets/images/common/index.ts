@@ -46,9 +46,9 @@ import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import mimDefaultWallet from './mim-default-wallet.svg';
 import mimDefault from './mim-default.svg';
+import mimDefaultBg from './mim-default-bg.svg';
 import mimDisableWallet from './mim-disable-wallet.svg';
 import mimHovertWallet from './mim-hover-wallet.svg';
-import mimHover from './mim-hover.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -81,8 +81,8 @@ export {
   mimDisableWallet,
   redInfo,
   mimDefault,
+  mimDefaultBg,
   mimDefaultWallet,
-  mimHover,
   mimHovertWallet,
   addWalletIcon,
   walletIcon,
