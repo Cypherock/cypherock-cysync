@@ -1,3 +1,4 @@
+import { DeviceErrorCodes } from '@cypherock/cysync-core-constants';
 import { GetLogsErrorType } from '@cypherock/sdk-app-manager';
 import {
   DeviceConnectionErrorType,
@@ -9,7 +10,6 @@ import {
 } from '@cypherock/sdk-interfaces';
 
 import { ILangState } from '~/store';
-import { DeviceErrorCodes } from '~/types/deviceError';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';
 import { ErrorHandlingDetails, ErrorIconNameMap } from './types';

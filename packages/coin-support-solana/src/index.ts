@@ -3,7 +3,6 @@ import {
   CoinSupport,
   IPreparedTransaction,
   IReceiveParams,
-  ISignTransactionEvent,
   ISyncPricesParams,
   ISyncPriceHistoriesParams,
   IGetCoinAllocationsParams,
@@ -21,7 +20,10 @@ import { Observable } from 'rxjs';
 import * as operations from './operations';
 import { IBroadcastSolanaTransactionParams } from './operations/broadcastTransaction/types';
 import { IPrepareSolanaTransactionParams } from './operations/prepareTransaction/types';
-import { ISignSolanaTransactionParams } from './operations/signTransaction/types';
+import {
+  ISignSolanaTransactionEvent,
+  ISignSolanaTransactionParams,
+} from './operations/signTransaction/types';
 import { ISyncSolanaAccountsParams } from './operations/syncAccount/types';
 import {
   ICreateSolanaAccountEvent,
@@ -66,7 +68,7 @@ export class SolanaSupport implements CoinSupport {
 
   public signTransaction(
     params: ISignSolanaTransactionParams,
-  ): Observable<ISignTransactionEvent> {
+  ): Observable<ISignSolanaTransactionEvent> {
     return operations.signTransaction(params);
   }
 

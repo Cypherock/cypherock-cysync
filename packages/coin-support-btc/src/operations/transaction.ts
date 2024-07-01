@@ -28,6 +28,8 @@ export interface IPreparedBtcTransaction extends IPreparedTransaction {
     hasEnoughBalance: boolean;
     isValidFee: boolean;
     isNotOverDustThreshold: boolean;
+    ownOutputAddressNotAllowed: boolean[];
+    zeroAmountNotAllowed: boolean;
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];

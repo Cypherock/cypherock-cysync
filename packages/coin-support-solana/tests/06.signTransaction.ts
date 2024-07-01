@@ -30,6 +30,8 @@ const transaction = {
     hasEnoughBalance: true,
     outputs: [true],
     isValidFee: true,
+    ownOutputAddressNotAllowed: [],
+    zeroAmountNotAllowed: false,
   },
 };
 

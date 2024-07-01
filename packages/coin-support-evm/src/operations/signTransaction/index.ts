@@ -50,7 +50,8 @@ const prepareUnsignedTxn = async (
 };
 
 const signTransactionFromDevice: SignTransactionFromDevice<
-  EvmApp
+  EvmApp,
+  string
 > = async params => {
   const { app, observer, transaction, account, coin } = params;
   logger.info({ transaction });
@@ -88,7 +89,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 export const signTransaction = (
   params: ISignEvmTransactionParams,
 ): Observable<ISignEvmTransactionEvent> =>
-  makeSignTransactionsObservable<EvmApp, ISignEvmTransactionEvent>({
+  makeSignTransactionsObservable<EvmApp, ISignEvmTransactionEvent, string>({
     ...params,
     signTransactionFromDevice,
     createApp,

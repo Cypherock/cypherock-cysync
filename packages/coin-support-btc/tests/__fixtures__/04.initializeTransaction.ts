@@ -34,6 +34,8 @@ export const valid: IInitializeTransactionTestCases[] = [
         outputs: [],
         isValidFee: true,
         isNotOverDustThreshold: false,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
     mocks: {

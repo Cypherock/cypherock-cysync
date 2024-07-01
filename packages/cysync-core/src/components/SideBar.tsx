@@ -1,10 +1,12 @@
 import {
+  AngleRight,
   ArrowReceivedIcon,
   ArrowSentIcon,
   Button,
+  DropDownItemProps,
   Flex,
+  FloatingMenu,
   HistoryIcon,
-  parseLangTemplate,
   PortfolioIcon,
   SettingsIcon,
   SideBarItem,
@@ -12,14 +14,25 @@ import {
   SideBarState as State,
   SupportIcon,
   Synchronizing,
+  TutorialIcon,
+  WalletConnectWhiteIcon,
   WalletIcon,
   WalletInfoIcon,
-  TutorialIcon,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
+import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
-import { openReceiveDialog, openSendDialog } from '~/actions';
+import {
+  openReceiveDialog,
+  openSendDialog,
+  openWalletConnectDialog,
+} from '~/actions';
 import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
+
+export interface SideBarWalletSubMenuProps {
+  wallets: IWallet[];
+}
 
 const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   const {
@@ -40,6 +53,35 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
 
+  const walletsSubMenuOptions: DropDownItemProps[] = wallets.map(wallet => {
+    const deleted = deletedWallets.some(
+      deletedWallet => wallet.__id === deletedWallet.__id,
+    );
+    return {
+      id: wallet.__id,
+      text: wallet.name,
+      rightIcon: deleted ? (
+        <Button
+          variant="text"
+          align="center"
+          onClick={e => {
+            e.stopPropagation();
+          }}
+          title={parseLangTemplate(strings.tooltip.walletDeleted, {
+            walletName: wallet.name,
+          })}
+        >
+          <WalletInfoIcon fill={theme.palette.muted.main} />
+        </Button>
+      ) : undefined,
+      color: deleted ? 'errorDark' : undefined,
+    };
+  });
+
+  const selectedWallet = wallets.find(
+    wallet => getWalletState(wallet.__id) === State.active,
+  );
+
   return (
     <SideBarWrapper title="cySync" width={312} height="screen">
       <Flex direction="column" gap={8} justify="space-between" height="full">
@@ -50,63 +92,49 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             state={getState('portfolio')}
             onClick={() => navigate('portfolio')}
           />
-          <SideBarItem
-            text={strings.wallets}
-            extraLeft={
-              <Button
-                variant="text"
-                align="center"
-                title="Sync Wallets"
-                disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
-                onClick={onWalletSync}
-              >
-                <Synchronizing
-                  fill={theme.palette.muted.main}
-                  opacity={
-                    deviceHandlingState !== DeviceHandlingState.USABLE ? 0.5 : 1
-                  }
-                  animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
-                />
-              </Button>
-            }
-            isCollapsed={isWalletCollapsed}
-            setIsCollapsed={setIsWalletCollapsed}
-            state={isWalletPage ? State.selected : undefined}
-            Icon={WalletIcon}
+          <FloatingMenu
+            items={walletsSubMenuOptions}
+            onChange={id => id && navigateWallet(id)}
+            selectedItem={selectedWallet?.__id}
+            maxVisibleItemCount={8}
+            placement="right-start"
+            noLeftImageInList
+            width={200}
+            offset={{ mainAxis: 32, crossAxis: 12 }}
+            disabled={wallets.length === 0}
           >
-            {wallets.map((wallet, idx) => {
-              const child = idx === wallets.length - 1 ? 'last' : 'regular';
-              const deleted = deletedWallets.some(
-                deletedWallet => wallet.__id === deletedWallet.__id,
-              );
-              return (
-                <SideBarItem
-                  key={`wallet-${wallet.__id}`}
-                  text={wallet.name}
-                  onClick={() => navigateWallet(wallet.__id)}
-                  state={deleted ? State.error : getWalletState(wallet.__id)}
-                  extraRight={
-                    deleted && (
-                      <Button
-                        variant="text"
-                        align="center"
-                        onClick={e => {
-                          e.stopPropagation();
-                        }}
-                        title={parseLangTemplate(
-                          strings.tooltip.walletDeleted,
-                          { walletName: wallet.name },
-                        )}
-                      >
-                        <WalletInfoIcon fill={theme.palette.muted.main} />
-                      </Button>
-                    )
-                  }
-                  child={child}
-                />
-              );
-            })}
-          </SideBarItem>
+            <SideBarItem
+              text={strings.wallets}
+              extraRight={<AngleRight />}
+              extraLeft={
+                <Button
+                  variant="text"
+                  align="center"
+                  title="Sync Wallets"
+                  pr={1}
+                  disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
+                  onClick={onWalletSync}
+                >
+                  <Synchronizing
+                    fill={theme.palette.muted.main}
+                    opacity={
+                      deviceHandlingState !== DeviceHandlingState.USABLE
+                        ? 0.5
+                        : 1
+                    }
+                    animate={
+                      syncWalletStatus === 'loading' ? 'spin' : undefined
+                    }
+                  />
+                </Button>
+              }
+              isCollapsed={isWalletCollapsed}
+              setIsCollapsed={setIsWalletCollapsed}
+              state={isWalletPage ? State.selected : undefined}
+              Icon={WalletIcon}
+            />
+          </FloatingMenu>
+
           <SideBarItem
             text={strings.sendCrypto}
             Icon={ArrowSentIcon}
@@ -130,13 +158,21 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             onClick={() => navigate('history')}
           />
           <SideBarItem
+            text={strings.walletConnect}
+            Icon={WalletConnectWhiteIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
+            onClick={() => {
+              dispatch(openWalletConnectDialog());
+            }}
+          />
+        </Flex>
+        <Flex direction="column" gap={0}>
+          <SideBarItem
             text={strings.tutorial}
             Icon={TutorialIcon}
             state={getState('tutorial')}
             onClick={() => navigate('tutorial')}
           />
-        </Flex>
-        <Flex direction="column" gap={0}>
           <SideBarItem
             text={strings.settings}
             Icon={SettingsIcon}

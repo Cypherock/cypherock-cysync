@@ -27,7 +27,8 @@ export async function prepElectronApp() {
     args: [appPath],
     env: {
       ...process.env,
-      NODE_ENV: 'e2e',
+      NODE_ENV: 'development',
+      IS_E2E: 'true',
       E2E_DATA_PATH: userDataPath,
     },
   });

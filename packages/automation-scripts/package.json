@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-automation-scripts",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -11,14 +11,18 @@
     "lint:check": "eslint --ext .ts,tsx,js,jsx,js src/",
     "pretty": "prettier --write \"src/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"src/**/*.ts?(x)\"",
-    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build": "rimraf dist && pnpm build:cjs",
     "build:cjs": "tsc -p tsconfig_cjs.json",
     "build:esm": "tsc -p tsconfig.json",
     "build:dirty": "pnpm build:esm",
     "pre-commit": "lint-staged",
     "erc20-diff": "node dist/cjs/commands/erc20/diff.js",
     "gen-erc20-list": "node dist/cjs/commands/erc20/createNewList.js",
-    "download-erc20-images": "node dist/cjs/commands/erc20/downloadImages.js"
+    "download-erc20-images": "node dist/cjs/commands/erc20/downloadImages.js",
+    "trc20-diff": "node dist/cjs/commands/trc20/diff.js",
+    "gen-trc20-list": "node dist/cjs/commands/trc20/createNewList.js",
+    "download-trc20-images": "node dist/cjs/commands/trc20/downloadImages.js",
+    "gen-translations": "node dist/cjs/commands/translate.js"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",
@@ -43,11 +47,15 @@
   },
   "dependencies": {
     "@cypherock/coins": "workspace:^",
+    "@cypherock/cysync-core-constants": "workspace:^",
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
+    "@google/generative-ai": "^0.11.4",
     "axios": "^1.4.0",
     "bignumber.js": "^9.1.1",
-    "lodash": "^4.17.21"
+    "jsdom": "^24.0.0",
+    "lodash": "^4.17.21",
+    "openai": "^4.47.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
