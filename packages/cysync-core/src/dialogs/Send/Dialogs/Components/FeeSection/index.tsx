@@ -1,6 +1,5 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -246,13 +245,6 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       )}
       {!transaction?.validation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
-      )}
-      {(transaction?.validation as IPreparedTronTransaction['validation'])
-        .notEnoughEnergy && (
-        <MessageBox
-          type="warning"
-          text={lang.strings.send.tron.notEnoughEnergyWarning}
-        />
       )}
       {showErrors && transaction?.validation.hasEnoughBalance === false && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />
