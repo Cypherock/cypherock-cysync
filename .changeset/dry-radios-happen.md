@@ -3,4 +3,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-Changeset for feat/device-busy-retry
+Implemented Retry Button in Device Busy state
