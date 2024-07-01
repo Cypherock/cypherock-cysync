@@ -11,7 +11,7 @@ const getBorderColor = (theme: any, status: 'idle' | 'success' | 'error') => {
     case 'success':
       return theme.palette.success.main;
     case 'error':
-      return theme.palette.text.danger;
+      return theme.palette.text.error;
     default:
       return theme.palette.border.primary;
   }
@@ -183,8 +183,7 @@ const OTP: React.FC<OTPProps> = ({ status, heading, email }) => {
       <OTPBoxContainer>
         {otp.map((value, index) => (
           <OTPInput
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
+            key={`otpinput-${index + 1}`}
             id={`otp-input-${index}`}
             type="text"
             maxLength={1}
