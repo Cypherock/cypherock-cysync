@@ -162,7 +162,6 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   if (displayTransaction === undefined) {
     return <LoaderDialog />;
   }
-
   return (
     <BlurOverlay>
       <DialogBox width={700} onClose={onClose}>
@@ -431,17 +430,18 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                     <Container
                       display="flex"
                       direction="column"
-                      justify="flex-start"
-                      align="flex-start"
+                      justify="flex-end"
+                      align="flex-end"
                       width="440"
                       gap={8}
                     >
                       {displayTransaction.txn.remarks.map((remark, index) => (
                         <Typography
-                          key={`${remark + index}`}
+                          $textAlign="right"
                           variant="span"
-                          $textOverflow="ellipsis"
+                          width="full"
                           color="muted"
+                          key={`${remark + index}`}
                         >
                           {displayTransaction.txn.remarks?.length === 1
                             ? `${remark}`

@@ -164,7 +164,9 @@ export const mapTransactionForDisplay = (params: {
   let remarksValue: string;
 
   if (Array.isArray(transaction.remarks) && transaction.remarks.length > 1) {
-    remarksValue = transaction.remarks.join(', ');
+    remarksValue = transaction.remarks
+      .map((remark, index) => `${index + 1}. ${remark}`)
+      .join('\n');
   } else if (
     Array.isArray(transaction.remarks) &&
     transaction.remarks.length === 1
