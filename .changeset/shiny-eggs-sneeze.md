@@ -4,4 +4,4 @@
 '@cypherock/cysync-desktop': patch
 ---
 
-Changeset for feat/network-csv
+Added network section in csv file
