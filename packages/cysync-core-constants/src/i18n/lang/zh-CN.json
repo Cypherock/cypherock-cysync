@@ -245,7 +245,7 @@
         "label": "接收者地址",
         "placeholder": "输入地址",
         "error": "无效地址",
-        "ownAddress": "Recipient address is the same as sender address"
+        "ownAddress": "收件人地址与寄件人地址相同"
       },
       "tabs": {
         "single": "单笔交易",
@@ -257,7 +257,7 @@
         "toggle": "发送最大",
         "dollar": "$",
         "error": "资金不足",
-        "zeroAmount": "Amount can't be zero",
+        "zeroAmount": "金额不能为零",
         "notOverDustThreshold": "金额低于 dust limit"
       },
       "fees": {
