@@ -1,13 +1,14 @@
 import { SnackBar } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { selectSnackBar } from '~/store';
+import { closeSnackBar, selectSnackBar, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
 import { useAppSelector } from '..';
 
 export const SnackBarManager = () => {
   const snackBarState = useAppSelector(selectSnackBar);
+  const dispatch = useAppDispatch();
 
   if (!snackBarState.isOpen) {
     return null;
@@ -18,5 +19,9 @@ export const SnackBarManager = () => {
     return null;
   }
 
-  return <SnackBar {...snackBarState.props} />;
+  const onButtonClick = () => {
+    dispatch(closeSnackBar());
+  };
+
+  return <SnackBar {...snackBarState.props} onButtonClick={onButtonClick} />;
 };

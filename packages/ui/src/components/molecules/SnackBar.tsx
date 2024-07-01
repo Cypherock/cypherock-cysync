@@ -22,6 +22,7 @@ const SnackBarWrapper = styled.div`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.palette.border.input};
   z-index: 100;
+  box-shadow: ${({ theme }) => theme.shadow.popup};
 `;
 
 const SnackBarPadding = styled.div`
@@ -39,21 +40,23 @@ const SnackBarButton = styled(Button)`
 
 export type SnackBarIconsType = 'check' | 'info';
 
-export interface SnackBarProps {
-  text: string;
-  icon?: SnackBarIconsType;
-  buttonText?: string;
-}
-
 const snackBarIcons: Record<SnackBarIconsType, React.ReactNode> = {
   check: <Check width={16} height={16} />,
   info: <InformationIcon width={16} height={16} />,
 };
 
+export interface SnackBarProps {
+  text: string;
+  icon?: SnackBarIconsType;
+  buttonText?: string;
+  onButtonClick?: () => void;
+}
+
 export const SnackBar: React.FC<SnackBarProps> = ({
   text,
   icon = 'check',
   buttonText,
+  onButtonClick,
 }) => (
   <SnackBarWrapper>
     <SnackBarPadding>
@@ -63,7 +66,7 @@ export const SnackBar: React.FC<SnackBarProps> = ({
       </StretchedTypography>
     </SnackBarPadding>
     {buttonText && (
-      <SnackBarButton variant="primary" size="sm">
+      <SnackBarButton variant="primary" size="sm" onClick={onButtonClick}>
         {buttonText}
       </SnackBarButton>
     )}
@@ -73,4 +76,5 @@ export const SnackBar: React.FC<SnackBarProps> = ({
 SnackBar.defaultProps = {
   icon: 'check',
   buttonText: undefined,
+  onButtonClick: undefined,
 };

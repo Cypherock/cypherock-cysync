@@ -1,4 +1,5 @@
-import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
+import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
+import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -7,20 +8,17 @@ import {
   ArrowSentIcon,
   ArrowReceivedIcon,
   SvgProps,
-  WalletConnectWithBgIcon,
-  DeleteIconWithBg,
+  AccountSettingsIconBg,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import {
-  openDeleteAccountDialog,
+  openEditAccountDialog,
   openReceiveDialog,
   openSendDialog,
-  openWalletConnectDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
-import { supportedWalletConnectFamilies } from '~/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { TokenTable } from './TokenTable';
@@ -101,33 +99,21 @@ export const AccountPage: FC = () => {
               {lang.strings.buttons.receive}
             </Button>
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
-              {supportedWalletConnectFamilies.includes(
-                selectedAccount.familyId ?? '',
-              ) && (
-                <Button
-                  variant="icon"
-                  onClick={() => {
-                    dispatch(openWalletConnectDialog());
-                  }}
-                >
-                  <WalletConnectWithBgIcon />
-                </Button>
-              )}
-
               {doAllowAccountDeletion() && (
                 <Button
                   variant="icon"
                   onClick={() => {
                     if (selectedAccount)
                       dispatch(
-                        openDeleteAccountDialog({
-                          account: selectedAccount,
-                          wallet: selectedAccount.wallet,
+                        openEditAccountDialog({
+                          walletId: selectedAccount.walletId,
+                          accountId: selectedAccount.__id,
+                          isSkipAccountSelection: true,
                         }),
                       );
                   }}
                 >
-                  <DeleteIconWithBg />
+                  <AccountSettingsIconBg />
                 </Button>
               )}
             </Container>
@@ -144,11 +130,12 @@ export const AccountPage: FC = () => {
           />
         </Container>
 
-        {selectedAccount.familyId === coinFamiliesMap.evm && accountId && (
-          <Container $noFlex mb={2}>
-            <TokenTable accountId={accountId} onClick={onAccountChange} />
-          </Container>
-        )}
+        {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
+          accountId && (
+            <Container $noFlex mb={2}>
+              <TokenTable accountId={accountId} onClick={onAccountChange} />
+            </Container>
+          )}
 
         <Container $noFlex mb={2}>
           <TransactionTable

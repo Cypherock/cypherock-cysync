@@ -115,7 +115,7 @@ const getConfig = (): IConfig => {
   let VERSION: string;
 
   const IS_TEST = !app && process.env.NODE_ENV === 'test';
-  const IS_E2E = process.env.NODE_ENV === 'e2e' && app && !app.isPackaged;
+  const IS_E2E = process.env.IS_E2E === 'true' && app && !app.isPackaged;
 
   if (IS_TEST) {
     USER_DATA_PATH = '.';
@@ -131,9 +131,10 @@ const getConfig = (): IConfig => {
 
   // Treat test as a production environment
   if (
-    ['production', 'test', 'e2e'].includes(
+    ['production', 'test'].includes(
       process.env.NODE_ENV?.toLowerCase() as any,
     ) ||
+    process.env.IS_E2E === 'true' ||
     app.isPackaged
   ) {
     IS_PRODUCTION = true;

@@ -1,4 +1,5 @@
-import { ServerErrorType } from '~/errors';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
+
 import { ILangState } from '~/store';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';

@@ -28,5 +28,7 @@ export const keyValueStore = {
   isAutoUpdateCySyncEnabled: createBooleanValueStore(
     'isAutoUpdateCySyncEnabled',
   ),
+  cysyncVersion: createStringValueStore('cysyncVersion'),
   uuid: createStringValueStore('uuid'),
+  appLanguage: createStringValueStore('appLanguage'),
 };
