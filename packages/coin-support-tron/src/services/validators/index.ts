@@ -27,6 +27,7 @@ const TransactionSchema = z.object({
   tronTXReceipt: TronTXReceiptSchema,
   tokenTransfers: z.array(TokenTransferSchema).optional(),
 });
+export type TronTransaction = z.infer<typeof TransactionSchema>;
 
 const TokenSchema = z.object({
   type: z.string(),
@@ -58,8 +59,11 @@ export const TronTransactionsApiResponseSchema = z.object({
   transactions: z.array(TransactionSchema).optional(),
   tokens: z.array(TokenSchema).optional(),
 });
+export type TronTransactionsApiResponse = z.infer<
+  typeof TronTransactionsApiResponseSchema
+>;
 
-export const TronAccountDetailApiResponseSchema = z.object({
+export const TronAccountDetailsApiResponseSchema = z.object({
   address: z.string(),
   balance: z.string(),
   txs: z.number(),
@@ -67,10 +71,29 @@ export const TronAccountDetailApiResponseSchema = z.object({
   details: AddressDetailsSchema.optional(),
 });
 
-export type TronTransactionsApiResponse = z.infer<
-  typeof TronTransactionsApiResponseSchema
+export type TronAccountDetailsApiResponse = z.infer<
+  typeof TronAccountDetailsApiResponseSchema
 >;
-export type TronAccountDetail = z.infer<
-  typeof TronAccountDetailApiResponseSchema
+
+export const TronTriggerConstantContractCallApiResponseSchema = z.object({
+  result: z.object({
+    result: z.boolean(),
+  }),
+  energy_used: z.number().optional(),
+  energy_penalty: z.number().optional(),
+  constant_result: z.array(z.string()),
+});
+export type TronTriggerConstantContractCallApiResponse = z.infer<
+  typeof TronTriggerConstantContractCallApiResponseSchema
 >;
-export type TronTransaction = z.infer<typeof TransactionSchema>;
+
+export const TronTriggerConstantContractCallWithErrorApiResponseSchema =
+  z.union([
+    z.object({
+      result: z.object({
+        code: z.string(),
+        message: z.string(),
+      }),
+    }),
+    TronTriggerConstantContractCallApiResponseSchema,
+  ]);
