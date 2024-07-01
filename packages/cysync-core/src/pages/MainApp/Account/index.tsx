@@ -1,4 +1,5 @@
-import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
+import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
+import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -129,11 +130,12 @@ export const AccountPage: FC = () => {
           />
         </Container>
 
-        {selectedAccount.familyId === coinFamiliesMap.evm && accountId && (
-          <Container $noFlex mb={2}>
-            <TokenTable accountId={accountId} onClick={onAccountChange} />
-          </Container>
-        )}
+        {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
+          accountId && (
+            <Container $noFlex mb={2}>
+              <TokenTable accountId={accountId} onClick={onAccountChange} />
+            </Container>
+          )}
 
         <Container $noFlex mb={2}>
           <TransactionTable
