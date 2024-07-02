@@ -39,10 +39,9 @@ const DetailContainer = styled.div`
   color: #8b8682;
 `;
 
-// const InfoImage = styled.img.attrs({
-//   src: Info,
-//   alt: 'clock',
-// })``;
+const HeaderText = styled.p`
+  margin-left: 16px;
+`;
 
 export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
   const [IsOpen, setIsOpen] = useState(false);
@@ -55,9 +54,9 @@ export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
       <Flex align="center" justify="space-between" m="0px 10px 0px 10px">
         <First>
           <Info />
-          <p style={{ marginLeft: '16px' }}> {header} </p>
+          <HeaderText>{header}</HeaderText>
         </First>
-        <div>{IsOpen ? <ArrowUp /> : <ArrowDown />}</div>
+        <Flex>{IsOpen ? <ArrowUp /> : <ArrowDown />}</Flex>
       </Flex>
       {IsOpen && <DetailContainer>{detail}</DetailContainer>}
     </StyledContainer>
