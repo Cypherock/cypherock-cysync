@@ -1,4 +1,4 @@
-import React, { FC, useState, CSSProperties } from 'react';
+import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
 
@@ -11,25 +11,25 @@ import {
   redInfo,
 } from '../../assets';
 
-const disableContainerStyle: CSSProperties = {
-  position: 'relative',
-  background: '#282522',
-  overflow: 'hidden',
-  borderRadius: '8px',
-  width: '276px',
-  height: '128px',
-  padding: '24px 16px 24px 16px',
-  color: '#39322c',
-};
+const StyledDisableContainer = styled.div`
+  position: relative;
+  background: #282522;
+  overflow: hidden;
+  border-radius: 8px;
+  width: 276px;
+  height: 128px;
+  padding: 24px 16px;
+  color: #39322c;
+`;
 
-const dateLabelStyle: CSSProperties = {
-  fontFamily: 'Poppins',
-  fontSize: '14px',
-  fontWeight: 400,
-  lineHeight: '21px',
-  textAlign: 'center',
-  zIndex: 1,
-};
+const StyledDateLabel = styled.div`
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  z-index: 1;
+`;
 
 const WalletDefaultImage = styled.img.attrs({
   src: mimDefaultWallet,
@@ -137,11 +137,11 @@ export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
         $zIndex={2}
       >
         {isHover ? <WalletHoverImage /> : <WalletDefaultImage />}
-        <div style={dateLabelStyle}>{title}</div>
+        <StyledDateLabel>{title}</StyledDateLabel>
       </Flex>
     </StyledContainer>
   ) : (
-    <div style={disableContainerStyle}>
+    <StyledDisableContainer>
       <StyledRedInfoImage />
       <Flex
         align="center"
@@ -153,6 +153,6 @@ export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
         <WalletDisableImage />
         <div>{title}</div>
       </Flex>
-    </div>
+    </StyledDisableContainer>
   );
 };
