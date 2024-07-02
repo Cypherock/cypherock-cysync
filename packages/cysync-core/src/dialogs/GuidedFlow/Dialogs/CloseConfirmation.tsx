@@ -7,7 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
+import { IDialogState, closeDialog, useAppDispatch } from '~/store';
 
 interface CloseConfirmationProps {
   setShowOnClose: Dispatch<SetStateAction<boolean>>;
@@ -19,10 +19,10 @@ interface CloseConfirmationProps {
     pathText?: string;
     messageBoxList?: Record<string, string>[];
   };
-  closeDialogType: any;
-  iconSrc?: any;
+  closeDialogType: keyof IDialogState;
+  iconSrc?: string;
   handleEscapeKey?: boolean;
-  isWalletTransfer?: boolean;
+  isTextDifferent?: boolean;
 }
 
 export const CloseConfirmation: FC<CloseConfirmationProps> = ({
@@ -31,7 +31,7 @@ export const CloseConfirmation: FC<CloseConfirmationProps> = ({
   closeDialogType,
   iconSrc,
   handleEscapeKey = true,
-  isWalletTransfer = false,
+  isTextDifferent = false,
 }) => {
   const {
     title,
@@ -63,7 +63,7 @@ export const CloseConfirmation: FC<CloseConfirmationProps> = ({
   return (
     <IconDialogBox
       $isModal
-      icon={<Image src={iconSrc} alt="Icon" />}
+      icon={<Image src={iconSrc ?? ''} alt="Icon" />}
       title={title}
       subtext={subtitle}
       footerComponent={
@@ -82,7 +82,7 @@ export const CloseConfirmation: FC<CloseConfirmationProps> = ({
           </Button>
         </Flex>
       }
-      isWalletTransfer={isWalletTransfer}
+      isTextDifferent={isTextDifferent}
       messageBoxList={messageBoxList}
       pathText={pathText}
     />
@@ -92,5 +92,5 @@ export const CloseConfirmation: FC<CloseConfirmationProps> = ({
 CloseConfirmation.defaultProps = {
   iconSrc: undefined,
   handleEscapeKey: true,
-  isWalletTransfer: false,
+  isTextDifferent: false,
 };

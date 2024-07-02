@@ -52,7 +52,7 @@ export const MessageBox: FC<{
   type: MessageBoxType;
   rightImage?: React.ReactNode;
   variables?: any;
-  isWalletTransfer?: boolean;
+  isTextDifferent?: boolean;
   pathText?: string;
 }> = ({
   text,
@@ -61,7 +61,7 @@ export const MessageBox: FC<{
   textColor,
   rightImage,
   variables,
-  isWalletTransfer,
+  isTextDifferent,
   pathText,
 }) => {
   const theme = useTheme();
@@ -98,7 +98,7 @@ export const MessageBox: FC<{
             {rightImage && rightImage}
           </Container>
         )}
-        {isWalletTransfer && pathText && <StyledPathText pathText={pathText} />}
+        {isTextDifferent && pathText && <StyledPathText pathText={pathText} />}
       </Flex>
     </Container>
   );
@@ -109,6 +109,6 @@ MessageBox.defaultProps = {
   altText: undefined,
   textColor: undefined,
   variables: undefined,
-  isWalletTransfer: false,
+  isTextDifferent: false,
   pathText: undefined,
 };

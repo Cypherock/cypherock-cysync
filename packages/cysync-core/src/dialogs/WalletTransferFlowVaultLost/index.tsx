@@ -71,7 +71,7 @@ export const WalletTransferFlowLostVaultDialog: FC = () => {
                   .pathText,
             }}
             closeDialogType="walletTransferLostVaultFlow"
-            isWalletTransfer
+            isTextDifferent
           />
         )}
         <>

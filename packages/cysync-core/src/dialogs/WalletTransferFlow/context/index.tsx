@@ -1,9 +1,16 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ConfirmTransferDeviceGraphics,
+  EnterPin,
+  Image,
+  ImportWalletNewUser,
   MessageBoxType,
-  WalletTransferFlowDialogBox,
-  WalletTransferLostCardsFlowDialogBox,
+  RestoreWallets,
+  SettingsDevice,
+  Video,
+  successIcon,
+  tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -27,7 +34,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { guidedFlowDialogsImages } from '~/dialogs/GuidedFlow/context';
+import { WalletTransferFlowDialogBox } from '~/dialogs/WalletTransferFlowDialogBox';
+import { WalletTransferLostCardsFlowDialogBox } from '~/dialogs/WalletTransferLostCardsFlowDialogBox';
 
 type ITabs = {
   name: string;
@@ -59,6 +67,39 @@ export interface WalletTransferFlowContextProviderProps {
   children: ReactNode;
   type: WalletTransferFlowType;
 }
+
+const successIconReactElement = <Image src={successIcon} alt="device" />;
+
+const dialogsImages: Record<WalletTransferFlowType, React.ReactElement[][]> = {
+  walletTransfer: [
+    [
+      <ImportWalletNewUser height={100} />,
+      <ImportWalletNewUser height={100} />,
+    ],
+    [
+      <SettingsDevice />,
+      <RestoreWallets />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      <ConfirmTransferDeviceGraphics />,
+      <EnterPin />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+    ],
+    [successIconReactElement],
+  ],
+};
 
 interface ITransferDialogContent {
   title?: string;
@@ -180,20 +221,22 @@ export const WalletTransferFlowProvider: FC<
       initTabs.push({
         name: firstTabData.asideTitle,
         dialogs: getDialogArray(
-          guidedFlowDialogsImages[type][0],
+          dialogsImages[type][0],
           firstTabData.pages as any,
           true,
         ),
       });
     } else {
-      initTabs = displayText.tabs.map((tab, index) => ({
-        name: tab.asideTitle,
-        dialogs: getDialogArray(
-          guidedFlowDialogsImages[type][index],
-          tab.pages as any,
-          index === 0,
-        ),
-      }));
+      initTabs = displayText.tabs.map(
+        (tab: { asideTitle: any; pages: any }, index: number) => ({
+          name: tab.asideTitle,
+          dialogs: getDialogArray(
+            dialogsImages[type][index],
+            tab.pages as any,
+            index === 0,
+          ),
+        }),
+      );
     }
 
     initTabs[initTabs.length - 1].dialogs.push(

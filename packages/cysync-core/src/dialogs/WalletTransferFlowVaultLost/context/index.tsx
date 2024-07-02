@@ -1,8 +1,19 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
+  ConfirmCreateWalletDeviceGraphics,
+  EnterPin,
+  Image,
   MessageBoxType,
-  WalletTransferLostCardsFlowDialogBox,
+  Video,
+  successIcon,
+  tapAllCardDeviceAnimation2DVideo,
+  SettingsDevice,
+  ClearDeviceData,
+  ViewSeed,
+  ConfirmTransferDeviceGraphics,
+  MainMenu,
+  PairCards,
 } from '@cypherock/cysync-ui';
 import React, {
   Context,
@@ -26,7 +37,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { guidedFlowDialogsImages } from '~/dialogs/GuidedFlow/context';
+import { WalletTransferLostCardsFlowDialogBox } from '~/dialogs/WalletTransferLostCardsFlowDialogBox';
 
 type ITabs = {
   name: string;
@@ -57,6 +68,54 @@ export interface WalletTransferLostVaultFlowContextProviderProps {
   children: ReactNode;
   type: WalletTransferFlowLostVaultType;
 }
+
+const successIconReactElement = <Image src={successIcon} alt="device" />;
+
+const dialogsImages: Record<
+  WalletTransferFlowLostVaultType,
+  React.ReactElement[][]
+> = {
+  walletTransferLostVault: [
+    [
+      <MainMenu />,
+      <ViewSeed />,
+      <EnterPin />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <ClearDeviceData />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <PairCards />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <ConfirmCreateWalletDeviceGraphics />,
+    ],
+    [],
+    [],
+  ],
+};
 
 interface ITransferDialogContent {
   title?: string;
@@ -152,14 +211,16 @@ export const WalletTransferLostVaultFlowProvider: FC<
     ));
 
   const init = () => {
-    const initTabs = displayText.tabs.map((tab, index) => ({
-      name: tab.asideTitle,
-      dialogs: getDialogArray(
-        guidedFlowDialogsImages[type][index],
-        tab.pages as any,
-        index === 0,
-      ),
-    }));
+    const initTabs = displayText.tabs.map(
+      (tab: { asideTitle: any; pages: any }, index: number) => ({
+        name: tab.asideTitle,
+        dialogs: getDialogArray(
+          dialogsImages[type][index],
+          tab.pages as any,
+          index === 0,
+        ),
+      }),
+    );
     initTabs[initTabs.length - 1].dialogs.push(
       <FinalMessage
         DialogBox={WalletTransferLostCardsFlowDialogBox}

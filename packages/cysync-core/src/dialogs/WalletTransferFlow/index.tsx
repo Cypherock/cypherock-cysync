@@ -95,7 +95,7 @@ export const WalletTransferFlowDialog: FC = () => {
                 lang.strings.guidedFlows.walletTransfer.closeDialog.pathText,
             }}
             closeDialogType="walletTransferFlow"
-            isWalletTransfer
+            isTextDifferent
           />
         )}
         <>

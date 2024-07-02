@@ -8,12 +8,19 @@ import {
   LangDisplay,
   Typography,
   TypographyColor,
-} from '../../atoms';
-import { BulletList } from '../BulletList';
-import { GoldenArrowList } from '../GoldenArrowList';
-import { MessageBox, MessageBoxType } from '../MessageBox';
+} from '@cypherock/cysync-ui/src/components/atoms';
+import { BulletList } from '@cypherock/cysync-ui/src/components/molecules/BulletList';
+import { GoldenArrowList } from '@cypherock/cysync-ui/src/components/molecules/GoldenArrowList';
+import {
+  MessageBox,
+  MessageBoxType,
+} from '@cypherock/cysync-ui/src/components/molecules/MessageBox';
 
-import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
+import {
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxHeader,
+} from '@cypherock/cysync-ui/src/components/molecules/Dialog';
 
 const InnerContainer = styled.div`
   padding-top: 32px;

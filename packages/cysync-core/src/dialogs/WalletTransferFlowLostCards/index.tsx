@@ -90,7 +90,7 @@ export const WalletTransferFlowLostCardsDialog: FC = () => {
                   .pathText,
             }}
             closeDialogType="walletTransferLostCardsFlow"
-            isWalletTransfer
+            isTextDifferent
           />
         )}
         <>
