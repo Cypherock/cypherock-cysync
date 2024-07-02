@@ -5,13 +5,6 @@ import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
 import { oneInMany1, oneInMany2 } from '../../assets';
 
-const Second = {
-  fontSize: '12px',
-  fontWeight: 400,
-  lineHeight: '18px',
-  color: 'white',
-};
-
 export interface OIMProps {
   title: string;
   description: string;
@@ -95,19 +88,22 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
       }
     }
     `}
-  .title {
-    z-index: 3;
-  }
-  .description {
-    z-index: 3;
-  }
 `;
 
-const firstStyle = {
-  fontSize: '64px',
-  fontWeight: 700,
-  lineHeight: '96px',
-};
+const StyledTitle = styled.div`
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 96px;
+  z-index: 3;
+`;
+
+const StyledDescription = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: white;
+  z-index: 3;
+`;
 
 export const OneInMany = ({ title, description }: OIMProps) => {
   const [isSelected, setisSelected] = useState(false);
@@ -119,12 +115,8 @@ export const OneInMany = ({ title, description }: OIMProps) => {
       className="oneInManyContainer"
     >
       <Flex align="center" direction="row" justify="space-around" height="100%">
-        <div className="title" style={firstStyle}>
-          {title}
-        </div>
-        <div style={Second} className="description">
-          {description}
-        </div>
+        <StyledTitle>{title}</StyledTitle>
+        <StyledDescription>{description}</StyledDescription>
       </Flex>
     </StyledContainer>
   );
