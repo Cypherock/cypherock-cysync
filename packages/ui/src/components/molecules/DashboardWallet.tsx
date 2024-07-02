@@ -176,6 +176,14 @@ const WalletName = styled.div<{ isHover: boolean; isExpiring: boolean }>`
   margin-top: 18px;
 `;
 
+const HoverPlusContainer = styled.div`
+  padding-top: 10px;
+`;
+
+const WalletSubtitle = styled.div`
+  margin-top: 16px;
+`;
+
 export const DashboardWallet: FC<DashboardWalletProps> = ({
   isNone,
   isSilver,
@@ -273,10 +281,10 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       }}
     >
       {isHover ? (
-        <div style={{ paddingTop: '10px' }}>
+        <HoverPlusContainer>
           <NoneHoverPlusImage />
-          <div style={{ marginTop: '16px' }}>{walletSubtitle}</div>
-        </div>
+          <WalletSubtitle>{walletSubtitle}</WalletSubtitle>
+        </HoverPlusContainer>
       ) : (
         <NoneDefaultPlusImage />
       )}
