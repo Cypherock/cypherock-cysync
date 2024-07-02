@@ -11,5 +11,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
-  args: {},
+  args: {
+    text: "I have read and agree to Cypherock's privacy policy",
+  },
 };

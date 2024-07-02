@@ -46,16 +46,21 @@ const Text = styled.div`
   color: #8b8682;
 `;
 
-export const CheckoutPrivacyPolicy = () => {
+interface CheckoutPrivacyPolicyProps {
+  text: string;
+}
+
+export const CheckoutPrivacyPolicy: React.FC<CheckoutPrivacyPolicyProps> = ({
+  text,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
     <Container>
       <StyledCheckbox onClick={() => setIsChecked(!isChecked)}>
-        {' '}
-        {!isChecked && <InnerBox />}{' '}
+        {!isChecked && <InnerBox />}
       </StyledCheckbox>
-      <Text>I have read and agree to Cypherock&apos;s privacy policy</Text>
+      <Text>{text}</Text>
     </Container>
   );
 };
