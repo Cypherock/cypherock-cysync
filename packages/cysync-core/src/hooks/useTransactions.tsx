@@ -163,16 +163,10 @@ export const mapTransactionForDisplay = (params: {
   });
   let remarksValue: string;
 
-  if (Array.isArray(transaction.remarks) && transaction.remarks.length > 1) {
+  if (Array.isArray(transaction.remarks) && transaction.remarks.length > 0) {
     remarksValue = transaction.remarks
       .map((remark, index) => `${index + 1}. ${remark}`)
       .join('\n');
-  } else if (
-    Array.isArray(transaction.remarks) &&
-    transaction.remarks.length === 1
-  ) {
-    const [firstRemark] = transaction.remarks;
-    remarksValue = firstRemark;
   } else {
     remarksValue = ' ';
   }

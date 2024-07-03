@@ -61,8 +61,15 @@ export const SummaryDialog: React.FC = () => {
       const value = formatDisplayPrice(
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
       );
-
-      const outputDetails: any = [
+      interface OutputDetailsProps {
+        id: string;
+        leftIcon?: React.ReactElement;
+        leftText?: string;
+        rightText?: string;
+        rightSubText?: string;
+        bottomText?: string;
+      }
+      const outputDetails: OutputDetailsProps[] = [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
@@ -221,12 +228,7 @@ export const SummaryDialog: React.FC = () => {
     return transactionDetails;
   };
 
-  const toDetails = getToDetails();
-  const transactionRemarks = getTransactionRemarks();
-  const isSingleTransaction =
-    toDetails.length === 2 &&
-    typeof toDetails[0] === 'object' &&
-    transactionRemarks.length > 0;
+  const isSingleTransaction = transaction?.userInputs.outputs?.length === 1;
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -252,10 +254,10 @@ export const SummaryDialog: React.FC = () => {
                   rightComponent: getFromDetails(),
                 },
                 { isDivider: true, id: '2' },
-                ...toDetails,
+                ...getToDetails(),
                 { isDivider: true, id: '3' },
                 ...(isSingleTransaction
-                  ? [...transactionRemarks, { isDivider: true, id: '5' }]
+                  ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
 
                 ...getFeeDetails(),
