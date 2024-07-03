@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
 import { WalletName } from '../../assets';
+import { colors } from '../../themes/color.styled';
 
 const Flex = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const WalletTitle = styled.div`
   font-weight: 400;
   line-height: 18px;
   text-align: left;
-  color: #ffffff;
+  color: ${colors.text.white};
   margin-left: 14px;
 `;
 
