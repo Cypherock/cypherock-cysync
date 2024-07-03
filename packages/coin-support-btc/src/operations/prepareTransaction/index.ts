@@ -132,6 +132,8 @@ export const prepareTransaction = async (
       hasEnoughBalance,
       isValidFee,
       isNotOverDustThreshold,
+      ownOutputAddressNotAllowed: [],
+      zeroAmountNotAllowed: false,
     },
     computedData: {
       inputs: result.inputs ?? [],

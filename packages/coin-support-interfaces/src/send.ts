@@ -14,6 +14,8 @@ export interface IPreparedTransaction {
     outputs: boolean[];
     hasEnoughBalance: boolean;
     isValidFee: boolean;
+    ownOutputAddressNotAllowed: boolean[];
+    zeroAmountNotAllowed: boolean;
   };
   userInputs: {
     outputs: IPreparedTransactionOutput[];
@@ -50,17 +52,17 @@ export interface ISignTransactionParams {
 
 export type ISignTransactionEventType = 'Transaction' | 'Device';
 
-export interface ISignTransactionEvent {
+export interface ISignTransactionEvent<T> {
   type: ISignTransactionEventType;
-  transaction?: string;
+  transaction?: T;
   device?: {
     isDone: boolean;
     events: Record<SignTransactionDeviceEvent, boolean | undefined>;
   };
 }
 
-export interface IBroadcastTransactionParams {
+export interface IBroadcastTransactionParams<T> {
   db: IDatabase;
   transaction: IPreparedTransaction;
-  signedTransaction: string;
+  signedTransaction: T;
 }

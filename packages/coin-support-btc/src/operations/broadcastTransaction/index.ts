@@ -114,7 +114,7 @@ export const broadcastTransaction = async (
 
   parsedTransaction.amount = amount.abs().toString();
 
-  await insertOrUpdateTransactions(db, [parsedTransaction]);
+  const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
 
-  return parsedTransaction;
+  return addedTxn;
 };

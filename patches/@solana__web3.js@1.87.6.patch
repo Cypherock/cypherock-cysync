@@ -1,0 +1,15 @@
+diff --git a/lib/index.cjs.js b/lib/index.cjs.js
+index a4bf29d3fa231a1360fec465fccf4b4b1930e20d..05d5ac786644ac7215bd9ae44065953cdd629832 100644
+--- a/lib/index.cjs.js
++++ b/lib/index.cjs.js
+@@ -16,8 +16,8 @@ var require$$0$4 = require('https');
+ var superstruct = require('superstruct');
+ var RpcClient = require('jayson/lib/client/browser');
+ var nodeFetch = require('node-fetch');
+-var RpcWebSocketCommonClient = require('rpc-websockets/dist/lib/client');
+-var WebsocketFactory = require('rpc-websockets/dist/lib/client/websocket');
++var RpcWebSocketCommonClient = require('rpc-websockets/dist/lib/client.cjs');
++var WebsocketFactory = require('rpc-websockets/dist/lib/client/websocket.cjs');
+ var sha3 = require('@noble/hashes/sha3');
+ var secp256k1 = require('@noble/curves/secp256k1');
+ 

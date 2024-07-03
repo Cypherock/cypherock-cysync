@@ -39,6 +39,8 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [],
         isValidFee: true,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
     mocks: {

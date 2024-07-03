@@ -1,3 +1,10 @@
+# v2.0.7
+
+### 🚀 Features
+
+- **TRON Network Support**: Now you can seamlessly manage your TRON assets directly through the app.
+- **TRON Token Support**: Now view, send, and receive tokens on the TRON network, all within the familiar cySync interface.
+
 # v2.0.6
 
 ### 🐛 Bugfixes

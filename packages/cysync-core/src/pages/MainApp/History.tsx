@@ -118,6 +118,7 @@ export const History: FC = () => {
           countervalueCurrency: t.displayValueUnit,
           countervalueAmount: t.displayValueWithoutUnit,
           remarks: t.remarks,
+          network: t.network,
         })),
     );
 

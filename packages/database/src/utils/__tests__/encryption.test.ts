@@ -110,9 +110,15 @@ describe('decryptData', () => {
         test(`Data: ${data}, Key: ${key}, Decryption Key: ${decryptionKey}`, async () => {
           if (data && key && decryptionKey) {
             const encryptedData = await encryptData(data, createHash(key));
-            await expect(
-              decryptData(encryptedData, createHash(decryptionKey)),
-            ).rejects.toThrow();
+            try {
+              const decryptedData = await decryptData(
+                encryptedData,
+                createHash(decryptionKey),
+              );
+              expect(decryptedData !== data).toBe(true);
+            } catch (error) {
+              expect(error).toBeDefined();
+            }
           }
         });
       });

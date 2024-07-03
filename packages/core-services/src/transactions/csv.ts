@@ -18,6 +18,7 @@ export const createCSVFromTransactions = (
     countervalueCurrency: string;
     countervalueAmount: string;
     remarks: string;
+    network: string;
   }[],
 ) =>
   createCSVFromObject({
@@ -30,6 +31,7 @@ export const createCSVFromTransactions = (
       { name: 'Fee Amount', key: 'feeAmount' },
       { name: 'Transaction Hash', key: 'hash' },
       { name: 'Wallet Name', key: 'walletName' },
+      { name: 'Network', key: 'network' },
       { name: 'Account Name', key: 'accountName' },
       { name: 'Account xpub', key: 'xpub' },
       { name: 'Countervalue Currency', key: 'countervalueCurrency' },
@@ -50,5 +52,6 @@ export const createCSVFromTransactions = (
       countervalueCurrency: t.countervalueCurrency,
       countervalueAmount: t.countervalueAmount,
       remarks: t.remarks,
+      network: t.network,
     })),
   });
