@@ -60,6 +60,7 @@ export const colors = {
     separator: '#39322C',
     bar: '#3A3937',
     muted: '#8B8682',
+    separatorTertiary: '#2e2c2b',
     separatorSecondary: '#272320',
     gold: '#E9B873',
     dropdownHover: '#191715',
