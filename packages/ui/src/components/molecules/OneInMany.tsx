@@ -4,19 +4,18 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
 import { oneInMany1, oneInMany2 } from '../../assets';
+import { colors } from '../../themes/color.styled';
 
-export interface OIMProps {
+export interface OneInManyProps {
   title: string;
   description: string;
 }
 
 const StyledContainer = styled.div<{ isSelected: boolean }>`
   position: relative;
-  border: ${({ isSelected }) => (isSelected ? '1px solid #e0bb74' : '')};
-  background: ${({ isSelected }) =>
-    isSelected
-      ? 'linear-gradient(0deg, #2A2827, #2A2827)'
-      : 'linear-gradient(0deg, #2A2827, #2A2827)'};
+  border: ${({ isSelected }) =>
+    isSelected ? `1px solid ${colors.border.selected}` : ''};
+  background: ${colors.gradients.selected};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -24,12 +23,12 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   cursor: pointer;
   width: 348px;
   height: 128px;
-  color: #ffffff;
+  color: ${colors.text.white};
   transition: background 0.5s ease, box-shadow 0.5s ease;
 
   &:before,
   &:after {
-    color: #ffffff;
+    color: ${colors.text.white};
     content: '';
     position: absolute;
     top: 0;
@@ -64,7 +63,7 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
     !isSelected &&
     `
     &:hover {
-      background: linear-gradient(0deg, #332F2D, #332F2D);
+      background: ${colors.gradients.oneInManyHover};
     background-position: right;
       &:before {
         opacity: 0;
@@ -74,15 +73,10 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
         opacity: 1;
         transform: rotateY(0deg);
       }
-      .title {
+      ${StyledTitle} {
         position: relative;
         z-index: 3;
-        background: linear-gradient(
-          90deg,
-          #e9b873 0.19%,
-          #fedd8f 37.17%,
-          #b78d51 100.19%
-        );
+        background: ${colors.gradients.oneInManyTitle};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -98,14 +92,15 @@ const StyledTitle = styled.div`
 `;
 
 const StyledDescription = styled.div`
+  width: 148px;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
-  color: white;
+  color: ${colors.text.white};
   z-index: 3;
 `;
 
-export const OneInMany = ({ title, description }: OIMProps) => {
+export const OneInMany = ({ title, description }: OneInManyProps) => {
   const [isSelected, setisSelected] = useState(false);
 
   return (
