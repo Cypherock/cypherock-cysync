@@ -1,5 +1,6 @@
 import React, { CSSProperties, FC, useState } from 'react';
 import { styled } from 'styled-components';
+import { colors } from '../../themes/color.styled';
 
 export interface SliderStopProps {
   Label: string;
@@ -32,18 +33,16 @@ const StyledContainer = styled.div<{
     !isActive && (isSelected || isHover) ? '0px' : '8px'};
   border: 8px solid
     ${({ isActive, isSelected, isHover }) =>
-      !isActive && (isSelected || isHover) ? '#3c3329' : 'inherit'};
+      !isActive && (isSelected || isHover) ? colors.active.main : 'inherit'};
   background: ${({ isActive, isSelected, isHover }) =>
     isActive || isSelected || isHover
-      ? 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)'
-      : '#39322C'};
+      ? colors.text.gold
+      : colors.background.separator};
 `;
 
 const TextStyle = (isSelected: boolean, isHover: boolean): CSSProperties => ({
   background:
-    isSelected && !isHover
-      ? 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)'
-      : '#8B8682',
+    isSelected && !isHover ? colors.text.gold : colors.background.muted,
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
 });
