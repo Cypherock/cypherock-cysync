@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { colors } from '../../themes/color.styled';
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const InnerBox = styled.div`
   height: 12px;
   z-index: 10;
   border-radius: 3px;
-  background-color: #1e1e1e;
+  background-color: ${colors.background.checkBoxInner};
 `;
 
 const StyledCheckbox = styled.div`
@@ -24,14 +25,9 @@ const StyledCheckbox = styled.div`
   align-items: center;
   text-align: center;
   justify-content: center;
-  background: linear-gradient(
-    90deg,
-    #e9b873 0.19%,
-    #fedd8f 37.17%,
-    #b78d51 100.19%
-  );
+  background: ${colors.gradients.golden};
   &:hover {
-    border-color: #aaa;
+    border-color: ${colors.border.checkBoxHover};
   }
 `;
 
@@ -43,7 +39,7 @@ const Text = styled.div`
   line-height: 21px;
   letter-spacing: 0.05em;
   text-align: left;
-  color: #8b8682;
+  color: ${colors.text.muted};
 `;
 
 interface CheckoutPrivacyPolicyProps {
