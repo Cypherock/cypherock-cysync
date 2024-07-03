@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Flex } from '../atoms/Flex';
-import { oneInMany1, oneInMany2 } from '../../assets';
+import {
+  oneInMany1Default,
+  oneInMany1Hover,
+  oneInMany2Default,
+  oneInMany2Hover,
+} from '../../assets';
 import { colors } from '../../themes/color.styled';
 
 export interface OneInManyProps {
   title: string;
   description: string;
+  styleType: 1 | 2;
 }
 
-const StyledContainer = styled.div<{ isSelected: boolean }>`
+const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
   position: relative;
   border: ${({ isSelected }) =>
     isSelected ? `1px solid ${colors.border.oneInManyselected}` : ''};
@@ -37,26 +43,30 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
     height: 100%;
     background-position: initial;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: ${({ styleType }) => (styleType === 1 ? 'cover' : '')};
     transition: opacity 0.5s ease, transform 0.5s ease;
     backface-visibility: hidden;
     z-index: 0;
   }
 
   &:before {
-    background-image: url(${oneInMany1});
+    background-image: ${({ styleType }) =>
+      styleType === 1
+        ? `url(${oneInMany1Default})`
+        : `url(${oneInMany2Default})`};
     opacity: ${({ isSelected }) => (isSelected ? 0 : 1)};
     transform: ${({ isSelected }) =>
       isSelected ? 'rotateY(180deg)' : 'rotateY(0deg)'};
   }
 
   &:after {
-    background-image: url(${oneInMany2});
+    background-image: ${({ styleType }) =>
+      styleType === 1 ? `url(${oneInMany1Hover})` : `url(${oneInMany2Hover})`};
     opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
     transform: ${({ isSelected }) =>
       isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
-    background-position: ${({ isSelected }) =>
-      isSelected ? 'right' : 'right'};
+    background-position: ${({ styleType }) =>
+      styleType === 1 ? 'right' : 'left'};
   }
 
   ${({ isSelected }) =>
@@ -64,7 +74,7 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
     `
     &:hover {
       background: ${colors.gradients.oneInManyHover};
-    background-position: right;
+      background-position: right;
       &:before {
         opacity: 0;
         transform: rotateY(180deg);
@@ -100,12 +110,17 @@ const StyledDescription = styled.div`
   z-index: 3;
 `;
 
-export const OneInMany = ({ title, description }: OneInManyProps) => {
+export const OneInMany = ({
+  title,
+  description,
+  styleType,
+}: OneInManyProps) => {
   const [isSelected, setisSelected] = useState(false);
 
   return (
     <StyledContainer
       isSelected={isSelected}
+      styleType={styleType}
       onClick={() => setisSelected(!isSelected)}
       className="oneInManyContainer"
     >
