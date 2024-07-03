@@ -30,26 +30,29 @@ const StyledDateLabel = styled.div`
   line-height: 21px;
   text-align: center;
   z-index: 1;
+  margin-top: 16px;
 `;
 
 const WalletDefaultImage = styled.img.attrs({
   src: mimDefaultWallet,
   alt: 'wallet',
 })`
-  zindex: 1;
+  z-index: 1;
 `;
 
 const WalletHoverImage = styled.img.attrs({
   src: mimHovertWallet,
   alt: 'wallet hover',
 })`
-  zindex: 1;
+  z-index: 1;
 `;
 
 const WalletDisableImage = styled.img.attrs({
   src: mimDisableWallet,
   alt: 'wallet hover',
-})``;
+})`
+  margin-bottom: 16px;
+`;
 
 const StyledRedInfoImage = styled.img.attrs({
   src: redInfo,
@@ -125,7 +128,6 @@ export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
       onMouseEnter={() => setIsHover(true)}
       onClick={() => setIsSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
-      className="oneInManyContainer"
       isSelected={isSelected}
     >
       <Flex
@@ -151,7 +153,7 @@ export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
         pl="24px"
       >
         <WalletDisableImage />
-        <div>{title}</div>
+        {title}
       </Flex>
     </StyledDisableContainer>
   );
