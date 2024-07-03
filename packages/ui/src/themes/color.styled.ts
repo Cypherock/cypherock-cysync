@@ -17,6 +17,20 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    conicGradient: {
+      default:
+        'conic-gradient(from 0deg, transparent,90deg, transparent, 90deg, #E9B873 ,180deg, #FEDD8F, 270deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+      secondary:
+        'conic-gradient(from 0deg, #A2ADB3 ,33deg, #F3F1F2, 67deg, #BCC3C9, 101deg, #DCDFE4,135deg ,transparent, 135deg, transparent)',
+      expirig:
+        'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,transparent, 270deg, transparent)',
+      golden:
+        'conic-gradient(from 0deg, #E9B873 ,30deg, #FEDD8F, 60deg, #B78D51, 90deg ,transparent, 90deg, transparent)',
+      silver:
+        'conic-gradient(from 0deg, transparent,135deg, transparent, 135deg, #A2ADB3 ,191deg, #F3F1F2, 247deg, #BCC3C9, 304deg, #DCDFE4, 360deg ,transparent, 360deg, transparent)',
+      notExpiring:
+        'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #E9B873 ,300deg, #FEDD8F, 330deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+    },
   },
   info: {
     main: '#F1AE4A',
@@ -52,6 +66,12 @@ export const colors = {
     divider: '#333130',
     dialog: '#2B2420',
   },
+  boxShadow: {
+    timer: {
+      main: '#2e2523',
+      text: '#242322',
+    },
+  },
   background: {
     progressBar: '#1F1915',
     input: '#27221D',
@@ -82,6 +102,13 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    timer: {
+      main: '#3e3a38',
+      deafult: '#261f17',
+      silver: '#26221e',
+      expiring: '#271a15',
+      secondary: '#2a2827',
+    },
   },
   border: {
     popup: '#2C2520',
