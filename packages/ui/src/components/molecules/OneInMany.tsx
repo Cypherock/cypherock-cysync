@@ -14,8 +14,8 @@ export interface OneInManyProps {
 const StyledContainer = styled.div<{ isSelected: boolean }>`
   position: relative;
   border: ${({ isSelected }) =>
-    isSelected ? `1px solid ${colors.border.selected}` : ''};
-  background: ${colors.gradients.selected};
+    isSelected ? `1px solid ${colors.border.oneInManyselected}` : ''};
+  background: ${colors.gradients.oneInManyselected};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
