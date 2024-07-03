@@ -1,15 +1,12 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
+import { colors } from '../../themes/color.styled';
 
 const StyledContainer = styled.div`
   border-radius: 50%;
   overflow: hidden;
   padding: 3px;
-  background: conic-gradient(
-    from -0.2deg at 50.19% 50%,
-    #e9b873 0deg,
-    rgba(233, 184, 115, 0.3) 360deg
-  );
+  background: ${colors.gradients.conicGradient.container};
   animation: spin 1s infinite linear;
   @keyframes spin {
     0% {
@@ -22,7 +19,7 @@ const StyledContainer = styled.div`
 `;
 
 const InnerCircle = styled.div`
-  background: black;
+  background: ${colors.background.black};
   border-radius: 50%;
   width: 12px;
   height: 12px;

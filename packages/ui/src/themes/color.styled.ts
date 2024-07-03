@@ -17,6 +17,10 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    conicGradient: {
+      container:
+        'conic-gradient( from -0.2deg at 50.19% 50%, #e9b873 0deg, rgba(233, 184, 115, 0.3) 360deg)',
+    },
   },
   info: {
     main: '#F1AE4A',
