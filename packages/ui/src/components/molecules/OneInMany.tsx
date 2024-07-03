@@ -122,7 +122,6 @@ export const OneInMany = ({
       isSelected={isSelected}
       styleType={styleType}
       onClick={() => setisSelected(!isSelected)}
-      className="oneInManyContainer"
     >
       <Flex align="center" direction="row" justify="space-around" height="100%">
         <StyledTitle>{title}</StyledTitle>
