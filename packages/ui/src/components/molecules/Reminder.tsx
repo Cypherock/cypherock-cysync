@@ -11,6 +11,7 @@ import {
   clockBgDefault,
   clockBgHover,
 } from '../../assets';
+import { colors } from '../../themes/color.styled';
 
 const DisableContainer = styled.div`
   position: relative;
@@ -18,7 +19,7 @@ const DisableContainer = styled.div`
   overflow: hidden;
   width: 348px;
   height: 53px;
-  background: #282522;
+  background: ${colors.background.disabled};
   display: flex;
   justify-content: left;
   align-items: center;
@@ -38,7 +39,7 @@ const DateLabel = styled.p`
   line-height: 21px;
   text-align: left;
   margin-left: 24px;
-  color: white !important;
+  color: ${colors.text.white} !important;
 `;
 
 const DisabledDate = styled.p`
@@ -48,7 +49,7 @@ const DisabledDate = styled.p`
   line-height: 21px;
   text-align: left;
   margin-left: 24px;
-  color: #39322c;
+  color: ${colors.background.separator};
 `;
 
 export interface ReminderProps {
@@ -63,8 +64,8 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
   const StyledContainer = styled.div`
     &:hover {
       box-shadow: ${!isSelected
-        ? '0px 0px 12px 4px #1B1813'
-        : '0px 0px 12px 4px #1B1813 inset'};
+        ? `0px 0px 12px 4px ${colors.boxShadow.selected}`
+        : `0px 0px 12px 4px ${colors.boxShadow.selected} inset`};
       animation: ${!isSelected && isHover
         ? 'zoomAnimation 1s ease-in-out'
         : 'none'};
@@ -80,16 +81,16 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
       height: 100%;
       background: ${!isSelected
         ? `linear-gradient(92.96deg, rgba(96, 58, 23, 0.2) 0%, rgba(0, 0, 0, 0) 52.46%), url(${clockBgHover}), linear-gradient(0deg, #332F2D, #332F2D)`
-        : '#2A2827'};
+        : colors.selected.default};
       transition: background 0.5s ease-in-out 0.5s;
       z-index: -1;
       pointer-events: none;
     }
 
-    border: ${isSelected ? '1px solid #e0bb74' : ''};
+    border: ${isSelected ? `1px solid ${colors.border.selected}` : ''};
     background: ${!isSelected
       ? `linear-gradient(273.07deg, rgba(96, 58, 23, 0.2) 1.52%, rgba(0, 0, 0, 0) 52.42%), url(${clockBgDefault}),linear-gradient(0deg, #2A2A27, #2A2A27)`
-      : `#2A2827`};
+      : colors.selected.default};
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px;
@@ -97,7 +98,7 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
     cursor: pointer;
     width: 348px;
     height: 53px;
-    color: #ffffff;
+    color: ${colors.text.white};
     transition: background 0.5s ease-in-out;
 
     @keyframes zoomAnimation {
@@ -115,7 +116,6 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
       onMouseEnter={() => setIsHover(true)}
       onClick={() => setisSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
-      className="oneInManyContainer"
     >
       <Flex p={2}>
         {isHover && !isSelected ? <ClockHover /> : <Clock />}

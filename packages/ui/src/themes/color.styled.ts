@@ -32,6 +32,9 @@ export const colors = {
     background: '#332E29',
     text: '#544D47',
   },
+  selected: {
+    default: '#2A2827',
+  },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
     silver:
@@ -51,6 +54,9 @@ export const colors = {
     normal: '#CCC4BE',
     divider: '#333130',
     dialog: '#2B2420',
+  },
+  boxShadow: {
+    selected: '#1B1813',
   },
   background: {
     progressBar: '#1F1915',
@@ -82,6 +88,7 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    disabled: '#282522',
   },
   border: {
     popup: '#2C2520',
@@ -108,6 +115,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
+    selected: '#e0bb74',
   },
   shadow: {
     dropdown: '#0f0d0b',
