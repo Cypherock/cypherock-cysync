@@ -17,9 +17,9 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
-    oneInManyselected: 'linear-gradient(0deg, #2A2827, #2A2827)',
-    oneInManyHover: `linear-gradient(0deg, #332F2D, #332F2D)`,
-    oneInManyTitle: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
+    cardSelected: 'linear-gradient(0deg, #2A2827, #2A2827)',
+    cardHover: `linear-gradient(0deg, #332F2D, #332F2D)`,
+    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
   },
   info: {
     main: '#F1AE4A',
@@ -111,7 +111,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
-    oneInManyselected: `#e0bb74`,
+    cardSelected: `#e0bb74`,
   },
   shadow: {
     dropdown: '#0f0d0b',

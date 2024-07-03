@@ -20,8 +20,8 @@ export interface OneInManyProps {
 const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
   position: relative;
   border: ${({ isSelected }) =>
-    isSelected ? `1px solid ${colors.border.oneInManyselected}` : ''};
-  background: ${colors.gradients.oneInManyselected};
+    isSelected ? `1px solid ${colors.border.cardSelected}` : ''};
+  background: ${colors.gradients.cardSelected};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -73,7 +73,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
     !isSelected &&
     `
     &:hover {
-      background: ${colors.gradients.oneInManyHover};
+      background: ${colors.gradients.cardSelected};
       background-position: right;
       &:before {
         opacity: 0;
@@ -86,7 +86,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
       ${StyledTitle} {
         position: relative;
         z-index: 3;
-        background: ${colors.gradients.oneInManyTitle};
+        background: ${colors.gradients.title};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
