@@ -17,6 +17,12 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    selected: {
+      hover:
+        'linear-gradient(120deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), #332F2D',
+      default:
+        'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827',
+    },
   },
   info: {
     main: '#F1AE4A',
@@ -31,6 +37,9 @@ export const colors = {
   disabled: {
     background: '#332E29',
     text: '#544D47',
+  },
+  selected: {
+    default: '#2A2827',
   },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
@@ -51,6 +60,9 @@ export const colors = {
     normal: '#CCC4BE',
     divider: '#333130',
     dialog: '#2B2420',
+  },
+  boxShadow: {
+    selected: '#1B1813',
   },
   background: {
     progressBar: '#1F1915',
@@ -82,6 +94,7 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    disabled: '#282522',
   },
   border: {
     popup: '#2C2520',
@@ -108,6 +121,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
+    selected: '#e0bb74',
   },
   shadow: {
     dropdown: '#0f0d0b',

@@ -10,16 +10,17 @@ import {
   mimHovertWallet,
   redInfo,
 } from '../../assets';
+import { colors } from '../../themes/color.styled';
 
 const StyledDisableContainer = styled.div`
   position: relative;
-  background: #282522;
+  background: ${colors.background.disabled};
   overflow: hidden;
   border-radius: 8px;
   width: 276px;
   height: 128px;
   padding: 24px 16px;
-  color: #39322c;
+  color: ${colors.border.separator};
 `;
 
 const StyledDateLabel = styled.div`
@@ -70,18 +71,17 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   width: 276px;
   height: 128px;
   padding: 24px 16px;
-  color: #ffffff;
+  color: ${colors.text.white};
   cursor: pointer;
   border-radius: 8px;
-  border: ${({ isSelected }) => (isSelected ? '1px solid #e0bb74' : 'none')};
+  border: ${({ isSelected }) =>
+    isSelected ? `1px solid ${colors.border.selected}` : 'none'};
   box-shadow: ${({ isSelected }) =>
     !isSelected
-      ? '0px 0px 12px 4px #1B1813'
-      : '0px 0px 12px 4px #1B1813 inset'};
+      ? `0px 0px 12px 4px ${colors.boxShadow.selected}`
+      : `0px 0px 12px 4px ${colors.boxShadow.selected} inset`};
   background: ${({ isSelected }) =>
-    !isSelected
-      ? `linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827`
-      : `#2A2827`};
+    !isSelected ? colors.gradients.selected.default : colors.selected.default};
   &::after {
     content: '';
     position: absolute;
@@ -108,9 +108,9 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
   &:hover {
     background: ${({ isSelected }) =>
       !isSelected
-        ? `linear-gradient(120deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), #332F2D`
-        : 'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827'};
-    box-shadow: 0px 4px 12px 4px #1b1813;
+        ? colors.gradients.selected.hover
+        : colors.gradients.selected.default};
+    box-shadow: 0px 4px 12px 4px ${colors.boxShadow.selected};
   }
   position: relative;
   z-index: 1;
