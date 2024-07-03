@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { colors } from '../../themes/color.styled';
 
 export interface SilverButtonProps {
   title: string;
@@ -14,9 +15,7 @@ const StyledContainer = styled.div<{ isHover: boolean }>`
   height: 48px;
   border-radius: 8px;
   background: ${({ isHover }) =>
-    isHover
-      ? 'linear-gradient(180deg, #A2ADB3 0%, #F3F1F2 36%, #BCC3C9 91.5%, #DCDFE4 100%)'
-      : 'linear-gradient(90deg, #A2ADB3 1.67%, #F3F1F2 35.99%, #BCC3C9 66.2%, #DCDFE4 100%)'};
+    isHover ? colors.gradients.silverHover : colors.text.silver};
   font-family: Poppins;
   font-size: 16px;
   font-weight: 500;

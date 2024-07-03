@@ -16,6 +16,8 @@ export const colors = {
       'linear-gradient(269.94deg, #312B26 0.05%, rgba(26, 22, 18, 0) 51.82%)',
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
+    silverHover:
+      'linear-gradient(180deg, #A2ADB3 0%, #F3F1F2 36%, #BCC3C9 91.5%, #DCDFE4 100%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
   },
   info: {
