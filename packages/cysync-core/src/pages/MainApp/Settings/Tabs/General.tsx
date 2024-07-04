@@ -1,39 +1,52 @@
-import { ArrowDown, Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
-import React from 'react';
+import { LanguageList } from '@cypherock/cysync-core-constants';
+import { Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
+import React, { useCallback } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { setAppLanguage, openEditAccountDialog } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
 export const GeneralSettings: React.FC = () => {
-  const { strings } = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
+  const { strings, lang } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
+
+  const onLangChange = useCallback(
+    (id?: string) => {
+      dispatch(setAppLanguage(id));
+    },
+    [dispatch],
+  );
 
   return (
     <>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.syncMobile.title }}
         description={{ text: item.syncMobile.description }}
       >
         <SettingsButton variant="primary" onClick={console.log}>
           <LangDisplay text={strings.buttons.showQRCode} />
         </SettingsButton>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.editAccount.title }}
         description={{ text: item.editAccount.description }}
       >
-        <SettingsButton variant="primary" onClick={console.log}>
+        <SettingsButton
+          variant="primary"
+          onClick={() => dispatch(openEditAccountDialog())}
+        >
           <LangDisplay text={strings.buttons.editAccount} />
         </SettingsButton>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.toggleWalletOnPortfolio.title }}
         description={{ text: item.toggleWalletOnPortfolio.description }}
       >
         <ArrowDown />
-      </SettingsStandardItem>
-      <SettingsStandardItem
+      </SettingsStandardItem> */}
+      {/* <SettingsStandardItem
         title={{ text: item.currency.title }}
         description={{ text: item.currency.description }}
       >
@@ -48,24 +61,26 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="usd"
           />
         </Flex>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.language.title }}
         description={{ text: item.language.description }}
       >
         <Flex width={300}>
           <Dropdown
-            items={[
-              { text: 'English', id: 'en' },
-              { text: 'Hindi (India)', id: 'hi' },
-            ]}
+            items={LanguageList.map(l => ({
+              text: l.name,
+              id: l.id,
+            }))}
+            onChange={onLangChange}
             searchText="Search Language"
             placeholderText="Select Language"
-            selectedItem="en"
+            selectedItem={lang}
+            noVirtualization
           />
         </Flex>
       </SettingsStandardItem>
-      <SettingsStandardItem
+      {/* <SettingsStandardItem
         title={{ text: item.region.title }}
         description={{ text: item.region.description }}
       >
@@ -82,7 +97,7 @@ export const GeneralSettings: React.FC = () => {
             selectedItem="in"
           />
         </Flex>
-      </SettingsStandardItem>
+      </SettingsStandardItem> */}
     </>
   );
 };
