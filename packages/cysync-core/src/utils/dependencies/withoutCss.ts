@@ -3,6 +3,7 @@ import { BtcSupport } from '@cypherock/coin-support-btc';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
+import { TronSupport } from '@cypherock/coin-support-tron';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
 
@@ -15,4 +16,7 @@ export const setGlobalDependencies = () => {
   EvmSupport.setEip712Library((globalThis as any).eip712);
   EvmSupport.setWeb3Library((globalThis as any).web3);
   SolanaSupport.setWeb3Library((globalThis as any).solanaWeb3);
+  TronSupport.setTronWeb(
+    new (globalThis as any).TronWeb({ fullHost: 'https://api.trongrid.io' }),
+  );
 };

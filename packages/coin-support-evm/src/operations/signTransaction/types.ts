@@ -7,7 +7,7 @@ import { SignTxnEvent } from '@cypherock/sdk-app-evm';
 
 export type ISignEvmTransactionParams = ISignTransactionParams;
 
-export type ISignEvmTransactionEvent = ISignTransactionEvent;
+export type ISignEvmTransactionEvent = ISignTransactionEvent<string>;
 
 export const signEvmToDeviceEventMap: Partial<
   Record<SignTxnEvent, SignTransactionDeviceEvent | undefined>

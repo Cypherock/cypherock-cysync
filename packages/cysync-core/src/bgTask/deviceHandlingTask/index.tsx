@@ -40,7 +40,7 @@ const OnboardingMap: Record<OnboardingStep, string> = {
 };
 
 export const DeviceHandlingTask: React.FC = () => {
-  const { deviceHandlingState, connection } = useDevice();
+  const { deviceHandlingState, connection, reconnectDevice } = useDevice();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
   const { deviceAuthenticationDialog, deviceUpdateDialog } =
@@ -77,7 +77,11 @@ export const DeviceHandlingTask: React.FC = () => {
         openErrorDialog({
           error,
           showCloseButton: true,
-          suppressActions: true,
+          suppressActions: false,
+          onRetry: async () => {
+            await reconnectDevice();
+            dispatch(closeAllDialogs());
+          },
         }),
       );
     },
