@@ -1,3 +1,41 @@
+# v2.0.7
+
+### 🚀 Features
+
+- **TRON Network Support**: Now you can seamlessly manage your TRON assets directly through the app.
+- **TRON Token Support**: Now view, send, and receive tokens on the TRON network, all within the familiar cySync interface.
+
+# v2.0.6
+
+### 🐛 Bugfixes
+
+- Fixed Bitcoin send transaction issues
+
+### 🚀 Features
+
+- CySync app is now available in German, Chinese, Indonesian and Arabic
+- Improved sidebar UI
+- Now you can edit account names
+
+# v2.0.5
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue due to missing tokens
+
+# v2.0.4
+
+### 🚀 Features
+
+- "Add token" button to quickly add ERC-20 tokens from the list of 9000+ supported tokens.
+- Download transaction history as CSV
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Various minor bug fixes
+- Improved error reporting
+
 # v2.0.3
 
 ### 🐛 Bugfixes

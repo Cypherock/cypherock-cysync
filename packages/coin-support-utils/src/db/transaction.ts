@@ -45,6 +45,7 @@ export const insertOrUpdateTransactions = async (
   BATCH_SIZE = 100,
 ) => {
   let currentCount = 0;
+  const updatedTransactions: ITransaction[] = [];
 
   for (const transaction of transactions) {
     currentCount += 1;
@@ -64,15 +65,23 @@ export const insertOrUpdateTransactions = async (
         delete newTxn.confirmations;
 
         if (isSubset(newTxn, existingTxn)) {
+          updatedTransactions.push({ ...newTxn, __id: id });
           continue;
         }
       }
 
-      await db.transaction.update({ __id: existingTxn.__id }, transaction);
+      const result = await db.transaction.update(
+        { __id: existingTxn.__id },
+        transaction,
+      );
+      updatedTransactions.push(...result);
     } else {
-      await db.transaction.insert({ ...transaction, __id: id });
+      const result = await db.transaction.insert({ ...transaction, __id: id });
+      updatedTransactions.push(result);
     }
   }
+
+  return updatedTransactions;
 };
 
 export const getLatestTransactionBlock = async (

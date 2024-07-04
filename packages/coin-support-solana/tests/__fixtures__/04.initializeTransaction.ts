@@ -18,6 +18,8 @@ export const valid: IInitializeTransactionTestCases[] = [
         outputs: [],
         hasEnoughBalance: true,
         isValidFee: true,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
       userInputs: {
         outputs: [],
