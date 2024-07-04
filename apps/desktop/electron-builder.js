@@ -37,6 +37,9 @@ const config = {
       },
     ],
   },
+  dmg: {
+    writeUpdateInfo: false,
+  },
   win: {
     target: [
       {
@@ -65,9 +68,8 @@ const config = {
   },
 };
 
-if (process.env.WINDOWS_PFX_FILE && process.env.WINDOWS_PFX_PASSWORD) {
-  config.win.certificateFile = process.env.WINDOWS_PFX_FILE;
-  config.win.certificatePassword = process.env.WINDOWS_PFX_PASSWORD;
+if (process.env.WINDOWS_CERT_SUBJECT) {
+  config.win.certificateSubjectName = process.env.WINDOWS_CERT_SUBJECT;
 }
 
 module.exports = config;

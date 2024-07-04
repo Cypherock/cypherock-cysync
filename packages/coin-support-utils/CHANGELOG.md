@@ -1,5 +1,49 @@
 # @cypherock/coin-support-utils
 
+## 0.0.7
+
+### Patch Changes
+
+- [#485](https://github.com/Cypherock/cypherock-cysync/pull/485) [`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron support without tokens
+
+- [#493](https://github.com/Cypherock/cypherock-cysync/pull/493) [`9fdf45a2`](https://github.com/Cypherock/cypherock-cysync/commit/9fdf45a29638f7da26a65688e1444b7ccc6db575) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed opening history dialog box after transaction
+
+- Updated dependencies [[`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66), [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256)]:
+  - @cypherock/coin-support-interfaces@0.0.5
+  - @cypherock/coins@0.0.6
+
+## 0.0.6
+
+### Patch Changes
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
+- Updated dependencies [[`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581)]:
+  - @cypherock/coin-support-interfaces@0.0.4
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/cysync-utils@0.0.5
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`3c21df54`](https://github.com/Cypherock/cypherock-cysync/commit/3c21df54f01f856623c0531fc43a8b66eb37421b)]:
+  - @cypherock/coins@0.0.5
+
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/Cypherock/cypherock-cysync/pull/423) [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list
+
+- [#409](https://github.com/Cypherock/cypherock-cysync/pull/409) [`d7b6c7d8`](https://github.com/Cypherock/cypherock-cysync/commit/d7b6c7d8e4e2fdb43e46705fa8f354eccc81c4d7) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - use 0 value for graph datapoint prior to token launch
+
+- [#414](https://github.com/Cypherock/cypherock-cysync/pull/414) [`06abd955`](https://github.com/Cypherock/cypherock-cysync/commit/06abd955a95f2e4589ffa5345a036fa7e3e62222) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed infinite sync bug after deleting account
+
+- Updated dependencies [[`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10)]:
+  - @cypherock/cysync-utils@0.0.4
+  - @cypherock/coins@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

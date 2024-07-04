@@ -1,5 +1,110 @@
 # @cypherock/cysync-core
 
+## 0.0.7
+
+### Patch Changes
+
+- [#485](https://github.com/Cypherock/cypherock-cysync/pull/485) [`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron support without tokens
+
+- [#493](https://github.com/Cypherock/cypherock-cysync/pull/493) [`9fdf45a2`](https://github.com/Cypherock/cypherock-cysync/commit/9fdf45a29638f7da26a65688e1444b7ccc6db575) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed opening history dialog box after transaction
+
+- [#491](https://github.com/Cypherock/cypherock-cysync/pull/491) [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron trc20 tokens
+
+- Updated dependencies [[`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66), [`9fdf45a2`](https://github.com/Cypherock/cypherock-cysync/commit/9fdf45a29638f7da26a65688e1444b7ccc6db575), [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256)]:
+  - @cypherock/coin-support-interfaces@0.0.5
+  - @cypherock/cysync-core-constants@0.0.2
+  - @cypherock/coin-support-solana@0.0.7
+  - @cypherock/coin-support-utils@0.0.7
+  - @cypherock/coin-support-near@0.0.7
+  - @cypherock/coin-support-tron@0.0.1
+  - @cypherock/coin-support-btc@0.0.7
+  - @cypherock/coin-support-evm@0.0.7
+  - @cypherock/coin-support@0.0.7
+  - @cypherock/coins@0.0.6
+  - @cypherock/cysync-core-services@0.0.7
+  - @cypherock/cysync-core-workers@0.0.7
+
+## 0.0.6
+
+### Patch Changes
+
+- [#417](https://github.com/Cypherock/cypherock-cysync/pull/417) [`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - Added edit account feature
+
+- [#460](https://github.com/Cypherock/cypherock-cysync/pull/460) [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - updated sidebar ui adding popup for navigating wallets
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- [#463](https://github.com/Cypherock/cypherock-cysync/pull/463) [`93bacb86`](https://github.com/Cypherock/cypherock-cysync/commit/93bacb86d0b340687ec6acfe1bcddcf52accbac9) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Release Notes will be displayed once after version update
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
+- Updated dependencies [[`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5), [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88), [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52), [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581), [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b)]:
+  - @cypherock/cysync-core-constants@0.0.1
+  - @cypherock/cysync-ui@0.0.5
+  - @cypherock/coin-support-interfaces@0.0.4
+  - @cypherock/coin-support-solana@0.0.6
+  - @cypherock/coin-support-utils@0.0.6
+  - @cypherock/coin-support-near@0.0.6
+  - @cypherock/coin-support-btc@0.0.6
+  - @cypherock/coin-support-evm@0.0.6
+  - @cypherock/cysync-core-services@0.0.6
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/coin-support@0.0.6
+  - @cypherock/cysync-core-workers@0.0.6
+  - @cypherock/cysync-utils@0.0.5
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`3c21df54`](https://github.com/Cypherock/cypherock-cysync/commit/3c21df54f01f856623c0531fc43a8b66eb37421b)]:
+  - @cypherock/coins@0.0.5
+  - @cypherock/coin-support@0.0.5
+  - @cypherock/coin-support-btc@0.0.5
+  - @cypherock/coin-support-evm@0.0.5
+  - @cypherock/coin-support-near@0.0.5
+  - @cypherock/coin-support-solana@0.0.5
+  - @cypherock/coin-support-utils@0.0.5
+  - @cypherock/cysync-core-services@0.0.5
+  - @cypherock/cysync-core-workers@0.0.5
+
+## 0.0.4
+
+### Patch Changes
+
+- [#418](https://github.com/Cypherock/cypherock-cysync/pull/418) [`23761a0f`](https://github.com/Cypherock/cypherock-cysync/commit/23761a0f82add2c7d69a4d0b550d9156059fb95a) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - ui added for download csv history feature
+
+- [#432](https://github.com/Cypherock/cypherock-cysync/pull/432) [`6080c342`](https://github.com/Cypherock/cypherock-cysync/commit/6080c34237e2e42d73551cecb6bac139dbe3ab44) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - sync transaction status in history dialog
+
+- [#433](https://github.com/Cypherock/cypherock-cysync/pull/433) [`31227d79`](https://github.com/Cypherock/cypherock-cysync/commit/31227d79bc5110fb742d9afc7523339b22abb0d5) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed sync wallet btn on portfolio page
+
+- [#415](https://github.com/Cypherock/cypherock-cysync/pull/415) [`06698656`](https://github.com/Cypherock/cypherock-cysync/commit/06698656a66b9fdf7ddb02c4a7a31ccc6b289ae2) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - fixed btc batch transaction
+
+- [#427](https://github.com/Cypherock/cypherock-cysync/pull/427) [`43481cb7`](https://github.com/Cypherock/cypherock-cysync/commit/43481cb70f718a2a1eba19428a59da4fb96d2223) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - improved auto focus for dialogs
+
+- [#407](https://github.com/Cypherock/cypherock-cysync/pull/407) [`6555bece`](https://github.com/Cypherock/cypherock-cysync/commit/6555bece4751f8cfe02b3a35ee7541bec935d4d0) Thanks [@ParnikaGupta9](https://github.com/ParnikaGupta9)! - Throw error in Cysync intitiated USB operations when vault is busy with device operations
+
+- [#421](https://github.com/Cypherock/cypherock-cysync/pull/421) [`42cd2a7b`](https://github.com/Cypherock/cypherock-cysync/commit/42cd2a7b5c76661b734adc64b9ca49d0bb93173e) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - old password should not be equal to new password
+
+- [#431](https://github.com/Cypherock/cypherock-cysync/pull/431) [`4e94fa65`](https://github.com/Cypherock/cypherock-cysync/commit/4e94fa65a649588d168abed32c098adcb95e9e73) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - corrected add account and add token texts
+
+- [#428](https://github.com/Cypherock/cypherock-cysync/pull/428) [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added download csv history feature
+
+- [#422](https://github.com/Cypherock/cypherock-cysync/pull/422) [`0ba18e76`](https://github.com/Cypherock/cypherock-cysync/commit/0ba18e7661289fc35b33fb45c0f2acd3e92d14dc) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added advance server error display and logging
+
+- Updated dependencies [[`9033423c`](https://github.com/Cypherock/cypherock-cysync/commit/9033423cf0f4808cd8e8cfea1eb4304072064ddd), [`d60fece4`](https://github.com/Cypherock/cypherock-cysync/commit/d60fece42cd3ae968614b80ca4c5886cdcf2614a), [`23761a0f`](https://github.com/Cypherock/cypherock-cysync/commit/23761a0f82add2c7d69a4d0b550d9156059fb95a), [`937fe414`](https://github.com/Cypherock/cypherock-cysync/commit/937fe41443ab7c60ba7076cd03986e45c7d9926a), [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735), [`43481cb7`](https://github.com/Cypherock/cypherock-cysync/commit/43481cb70f718a2a1eba19428a59da4fb96d2223), [`6555bece`](https://github.com/Cypherock/cypherock-cysync/commit/6555bece4751f8cfe02b3a35ee7541bec935d4d0), [`d7b6c7d8`](https://github.com/Cypherock/cypherock-cysync/commit/d7b6c7d8e4e2fdb43e46705fa8f354eccc81c4d7), [`06abd955`](https://github.com/Cypherock/cypherock-cysync/commit/06abd955a95f2e4589ffa5345a036fa7e3e62222), [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10), [`0ba18e76`](https://github.com/Cypherock/cypherock-cysync/commit/0ba18e7661289fc35b33fb45c0f2acd3e92d14dc)]:
+  - @cypherock/cysync-ui@0.0.4
+  - @cypherock/cysync-utils@0.0.4
+  - @cypherock/coin-support-utils@0.0.4
+  - @cypherock/cysync-core-services@0.0.4
+  - @cypherock/coins@0.0.4
+  - @cypherock/coin-support-solana@0.0.4
+  - @cypherock/coin-support-near@0.0.4
+  - @cypherock/coin-support-btc@0.0.4
+  - @cypherock/coin-support-evm@0.0.4
+  - @cypherock/coin-support@0.0.4
+  - @cypherock/cysync-core-workers@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
