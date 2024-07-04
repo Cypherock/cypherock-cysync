@@ -189,8 +189,7 @@ const getTokenTransactionParser = (
     const tokenTransactions: ITransaction[] = [];
     const newTokenAccounts: IAccount[] = [];
 
-    for (let i = 0; i < transaction.tokenTransfers.length; i += 1) {
-      const tokenTransfer = transaction.tokenTransfers[i];
+    for (const tokenTransfer of transaction.tokenTransfers) {
       const tokenObj = getTokenObject(account, tokenTransfer.token);
 
       if (tokenObj === undefined) {
@@ -227,6 +226,7 @@ const getTokenTransactionParser = (
       const txn: ITransaction = {
         hash,
         accountId: newTokenAccount.__id ?? '',
+        parentAccountId: account.__id ?? '',
         walletId: newTokenAccount.walletId,
         assetId: newTokenAccount.assetId,
         parentAssetId: newTokenAccount.parentAssetId,
