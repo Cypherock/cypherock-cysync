@@ -97,6 +97,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     evm: getEthereumProps,
     near: () => ({}),
     solana: () => ({}),
+    tron: () => ({}),
   };
 
   const getFeeInputComponent = () => {

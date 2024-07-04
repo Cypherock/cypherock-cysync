@@ -1,5 +1,33 @@
 # @cypherock/cysync-ui
 
+## 0.0.5
+
+### Patch Changes
+
+- [#417](https://github.com/Cypherock/cypherock-cysync/pull/417) [`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - Added edit account feature
+
+- [#460](https://github.com/Cypherock/cypherock-cysync/pull/460) [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - updated sidebar ui adding popup for navigating wallets
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- [#462](https://github.com/Cypherock/cypherock-cysync/pull/462) [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Enabled copy paste feature on the password input fields
+
+## 0.0.4
+
+### Patch Changes
+
+- [#141](https://github.com/Cypherock/cypherock-cysync/pull/141) [`9033423c`](https://github.com/Cypherock/cypherock-cysync/commit/9033423cf0f4808cd8e8cfea1eb4304072064ddd) Thanks [@subinsk](https://github.com/subinsk)! - Storybook components and styled-components integration fixes
+
+- [#418](https://github.com/Cypherock/cypherock-cysync/pull/418) [`23761a0f`](https://github.com/Cypherock/cypherock-cysync/commit/23761a0f82add2c7d69a4d0b550d9156059fb95a) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - ui added for download csv history feature
+
+- [#412](https://github.com/Cypherock/cypherock-cysync/pull/412) [`937fe414`](https://github.com/Cypherock/cypherock-cysync/commit/937fe41443ab7c60ba7076cd03986e45c7d9926a) Thanks [@ujjwal-cyph](https://github.com/ujjwal-cyph)! - change ui effect for hover & effect in dropdownitem
+
+- [#427](https://github.com/Cypherock/cypherock-cysync/pull/427) [`43481cb7`](https://github.com/Cypherock/cypherock-cysync/commit/43481cb70f718a2a1eba19428a59da4fb96d2223) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - improved auto focus for dialogs
+
+- [#428](https://github.com/Cypherock/cypherock-cysync/pull/428) [`c25efafc`](https://github.com/Cypherock/cypherock-cysync/commit/c25efafcee92cc1c9f1eac51f0641edddff73b10) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added download csv history feature
+
+- [#422](https://github.com/Cypherock/cypherock-cysync/pull/422) [`0ba18e76`](https://github.com/Cypherock/cypherock-cysync/commit/0ba18e7661289fc35b33fb45c0f2acd3e92d14dc) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - added advance server error display and logging
+
 ## 0.0.3
 
 ### Patch Changes
