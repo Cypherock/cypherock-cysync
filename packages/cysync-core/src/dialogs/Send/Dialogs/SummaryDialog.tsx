@@ -2,8 +2,9 @@ import {
   getDefaultUnit,
   getParsedAmount,
   formatDisplayPrice,
+  getAsset,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily, evmCoinList } from '@cypherock/coins';
+import { CoinFamily } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -178,12 +179,14 @@ export const SummaryDialog: React.FC = () => {
       },
     ];
     if (selectedAccount?.type === AccountTypeMap.subAccount) {
+      const token = getAsset(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      );
+
       fromDetails.push({
         id: 'asset',
-        // TODO: make this not depend on evmCoinList
-        name: evmCoinList[selectedAccount.parentAssetId].tokens[
-          selectedAccount.assetId
-        ].name,
+        name: token.name,
         muted: false,
         icon: (
           <CoinIcon

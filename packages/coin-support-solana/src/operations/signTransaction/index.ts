@@ -65,7 +65,8 @@ const prepareUnsignedTxn = async (
 };
 
 const signTransactionFromDevice: SignTransactionFromDevice<
-  SolanaApp
+  SolanaApp,
+  string
 > = async params => {
   const { app, observer, transaction, account, coin } = params;
   logger.info({ transaction });
@@ -103,7 +104,11 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 export const signTransaction = (
   params: ISignSolanaTransactionParams,
 ): Observable<ISignSolanaTransactionEvent> =>
-  makeSignTransactionsObservable<SolanaApp, ISignSolanaTransactionEvent>({
+  makeSignTransactionsObservable<
+    SolanaApp,
+    ISignSolanaTransactionEvent,
+    string
+  >({
     ...params,
     signTransactionFromDevice,
     createApp,

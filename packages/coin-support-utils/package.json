@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-utils",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -44,8 +44,8 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-interfaces": "^0.0.14",
-    "@cypherock/sdk-utils": "^0.0.17",
+    "@cypherock/sdk-interfaces": "^0.0.15",
+    "@cypherock/sdk-utils": "^0.0.18",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "rxjs": "^7.8.1"
