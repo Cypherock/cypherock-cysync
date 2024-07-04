@@ -49,7 +49,7 @@ export class NearSupport implements CoinSupport {
     throw new Error('Not implemented');
   }
 
-  public signTransaction(): Observable<ISignTransactionEvent> {
+  public signTransaction(): Observable<ISignTransactionEvent<string>> {
     throw new Error(`Method not implemented`);
   }
 

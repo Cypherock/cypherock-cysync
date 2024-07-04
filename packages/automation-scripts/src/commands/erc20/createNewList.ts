@@ -1,5 +1,7 @@
-import { createNewErc20List } from '../../erc20';
+import { erc20TokenAutomationParams } from './params';
 
-createNewErc20List();
+import { createNewTokenList } from '../../tokens';
+
+createNewTokenList(erc20TokenAutomationParams);
 
 export default {};

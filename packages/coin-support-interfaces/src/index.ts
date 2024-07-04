@@ -61,10 +61,10 @@ export interface CoinSupport {
   validateAddress(params: IValidateAddressParams): boolean;
   signTransaction(
     params: ISignTransactionParams,
-  ): Observable<ISignTransactionEvent>;
+  ): Observable<ISignTransactionEvent<any>>;
   signMessage(params: ISignMessageParams): Observable<ISignMessageEvent>;
   broadcastTransaction(
-    params: IBroadcastTransactionParams,
+    params: IBroadcastTransactionParams<any>,
   ): Promise<ITransaction>;
   syncPrices(params: ISyncPricesParams): Observable<void>;
   syncPriceHistories(params: ISyncPriceHistoriesParams): Observable<void>;

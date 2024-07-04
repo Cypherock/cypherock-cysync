@@ -1,5 +1,25 @@
 # @cypherock/coins
 
+## 0.0.6
+
+### Patch Changes
+
+- [#485](https://github.com/Cypherock/cypherock-cysync/pull/485) [`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron support without tokens
+
+- [#491](https://github.com/Cypherock/cypherock-cysync/pull/491) [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron trc20 tokens
+
+## 0.0.5
+
+### Patch Changes
+
+- [#455](https://github.com/Cypherock/cypherock-cysync/pull/455) [`3c21df54`](https://github.com/Cypherock/cypherock-cysync/commit/3c21df54f01f856623c0531fc43a8b66eb37421b) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added missing erc20 tokens
+
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/Cypherock/cypherock-cysync/pull/423) [`e1d692d8`](https://github.com/Cypherock/cypherock-cysync/commit/e1d692d8b847b620ef4149ae0f43b82bfcc54735) Thanks [@irshadCypherock](https://github.com/irshadCypherock)! - updated erc20 token list
+
 ## 0.0.3
 
 ### Patch Changes

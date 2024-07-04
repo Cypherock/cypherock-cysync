@@ -55,7 +55,8 @@ const mapPreparedTxnToSdkTxn = (
 });
 
 const signTransactionFromDevice: SignTransactionFromDevice<
-  BtcApp
+  BtcApp,
+  string
 > = async params => {
   const { app, observer, transaction, account } = params;
   logger.info({ transaction });
@@ -85,7 +86,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 export const signTransaction = (
   params: ISignBtcTransactionParams,
 ): Observable<ISignBtcTransactionEvent> =>
-  makeSignTransactionsObservable<BtcApp, ISignBtcTransactionEvent>({
+  makeSignTransactionsObservable<BtcApp, ISignBtcTransactionEvent, string>({
     ...params,
     signTransactionFromDevice,
     createApp,
