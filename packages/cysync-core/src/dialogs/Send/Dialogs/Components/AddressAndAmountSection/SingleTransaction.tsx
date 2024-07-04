@@ -33,6 +33,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     priceConverter,
     updateUserInputs,
     prepare,
+    getOutputError,
+    getAmountError,
   } = useSendDialog();
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     evm: getEvmMaxSendAmount,
     near: () => '',
     solana: () => '',
+    tron: () => '',
   };
 
   useEffect(() => {
@@ -87,21 +90,6 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     }).amount;
   };
 
-  const getAmountError = () => {
-    if (
-      (transaction?.validation as IPreparedBtcTransaction['validation'])
-        .isNotOverDustThreshold
-    ) {
-      return displayText.amount.notOverDustThreshold;
-    }
-
-    if (transaction?.validation.hasEnoughBalance === false) {
-      return displayText.amount.error;
-    }
-
-    return '';
-  };
-
   return (
     <Container display="flex" direction="column" gap={16} width="full">
       <Container display="flex" direction="column" gap={8} width="full">
@@ -109,11 +97,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           label={displayText.recipient.label}
           placeholder={displayText.recipient.placeholder}
           initialValue={transaction?.userInputs.outputs[0]?.address}
-          error={
-            transaction?.validation.outputs[0] === false
-              ? displayText.recipient.error
-              : ''
-          }
+          error={getOutputError(0)}
           onChange={prepareAddressChanged}
           isDisabled={disableInputs}
         />
