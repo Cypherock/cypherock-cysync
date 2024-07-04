@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",

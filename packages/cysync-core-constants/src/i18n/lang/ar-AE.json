@@ -245,7 +245,7 @@
         "label": "عنوان المستلم",
         "placeholder": "أدخل العنوان",
         "error": "عنوان غير صالح",
-        "ownAddress": "Recipient address is the same as sender address"
+        "ownAddress": "نوان المستلم هو نفسه عنوان المرسل"
       },
       "tabs": {
         "single": "معاملة واحدة",
@@ -257,7 +257,7 @@
         "toggle": "إرسال أقصى قدر ممكن",
         "dollar": "$",
         "error": "أموال غير كافية",
-        "zeroAmount": "Amount can't be zero",
+        "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
         "notOverDustThreshold": "المبلغ أقل من الحد الأدنى"
       },
       "fees": {
@@ -304,9 +304,6 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
-    },
-    "tron": {
-      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "history": {
