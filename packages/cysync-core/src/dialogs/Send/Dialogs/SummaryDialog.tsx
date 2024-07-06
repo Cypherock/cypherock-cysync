@@ -260,7 +260,8 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
-                ...(isSingleTransaction
+                ...(isSingleTransaction &&
+                transaction?.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
 
