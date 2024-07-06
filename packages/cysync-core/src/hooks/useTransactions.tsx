@@ -165,11 +165,15 @@ export const mapTransactionForDisplay = (params: {
   let remarksValue: string;
 
   if (Array.isArray(transaction.remarks) && transaction.remarks.length > 0) {
-    remarksValue = transaction.remarks
-      .map((remark, index) => `${index + 1}. ${remark}`)
-      .join('\n');
+    if (transaction.remarks.length === 1) {
+      [remarksValue] = transaction.remarks;
+    } else {
+      remarksValue = transaction.remarks
+        .map((remark, index) => `${index + 1}. ${remark}`)
+        .join('\n');
+    }
   } else {
-    remarksValue = ' ';
+    remarksValue = '';
   }
   const { amount: fee, unit: feeUnit } = getParsedAmount({
     coinId: transaction.parentAssetId,

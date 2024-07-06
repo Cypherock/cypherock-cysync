@@ -28,6 +28,14 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 
+interface OutputDetailsProps {
+  id: string;
+  leftIcon?: React.ReactElement;
+  leftText?: string;
+  rightText?: string;
+  rightSubText?: string;
+  bottomText?: string;
+}
 export const SummaryDialog: React.FC = () => {
   const {
     onNext,
@@ -62,14 +70,7 @@ export const SummaryDialog: React.FC = () => {
       const value = formatDisplayPrice(
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
       );
-      interface OutputDetailsProps {
-        id: string;
-        leftIcon?: React.ReactElement;
-        leftText?: string;
-        rightText?: string;
-        rightSubText?: string;
-        bottomText?: string;
-      }
+
       const outputDetails: OutputDetailsProps[] = [
         {
           id: `toDetail-address-${output.address}`,
