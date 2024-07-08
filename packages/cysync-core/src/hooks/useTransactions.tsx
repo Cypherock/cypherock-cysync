@@ -164,11 +164,20 @@ export const mapTransactionForDisplay = (params: {
   });
   let remarksValue = '';
   if (Array.isArray(transaction.remarks) && transaction.remarks.length > 0) {
-    if (transaction.remarks.length === 1) {
-      [remarksValue] = transaction.remarks;
+    const filteredRemarks = transaction.remarks.filter(
+      remark => remark.trim() !== '',
+    );
+
+    if (filteredRemarks.length === 1) {
+      [remarksValue] = filteredRemarks;
     } else {
-      remarksValue = transaction.remarks
-        .map((remark, index) => `${index + 1}. ${remark}`)
+      remarksValue = filteredRemarks
+        .map(
+          remark =>
+            `${
+              transaction.remarks && transaction.remarks.indexOf(remark) + 1
+            }. ${remark}`,
+        )
         .join('\n');
     }
   }
