@@ -162,24 +162,15 @@ export const mapTransactionForDisplay = (params: {
       .abbr,
     amount: transaction.amount,
   });
-  let remarksValue: string;
+  let remarksValue = '';
   if (Array.isArray(transaction.remarks) && transaction.remarks.length > 0) {
     if (transaction.remarks.length === 1) {
       [remarksValue] = transaction.remarks;
     } else {
-      const filteredRemarks = transaction.remarks.filter(
-        remark => remark.trim() !== '',
-      );
-      if (filteredRemarks.length > 0) {
-        remarksValue = filteredRemarks
-          .map((remark, index) => `${index + 1}. ${remark}`)
-          .join('\n');
-      } else {
-        remarksValue = '';
-      }
+      remarksValue = transaction.remarks
+        .map((remark, index) => `${index + 1}. ${remark}`)
+        .join('\n');
     }
-  } else {
-    remarksValue = '';
   }
   const { amount: fee, unit: feeUnit } = getParsedAmount({
     coinId: transaction.parentAssetId,
