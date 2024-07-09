@@ -425,7 +425,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                 </Container>
               </HistoryItem>
               {displayTransaction.txn.remarks &&
-                displayTransaction.txn.remarks?.length > 0 && (
+                displayTransaction.txn.remarks.length > 0 && (
                   <HistoryItem leftText={keys.remarks} key={keys.receiver}>
                     <Container
                       display="flex"
@@ -435,19 +435,35 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                       width="440"
                       gap={8}
                     >
-                      {displayTransaction.txn.remarks.map((remark, index) => (
+                      {displayTransaction.txn.remarks.length === 1 ? (
                         <Typography
                           $textAlign="right"
                           variant="span"
                           width="full"
                           color="muted"
-                          key={`${remark + index}`}
+                          key={`${displayTransaction.txn.remarks[0]}`}
                         >
-                          {displayTransaction.txn.remarks?.length === 1
-                            ? `${remark}`
-                            : `${index + 1}. ${remark}`}
+                          {displayTransaction.txn.remarks[0]}
                         </Typography>
-                      ))}
+                      ) : (
+                        displayTransaction.txn.remarks
+                          .filter(remark => remark.trim() !== '')
+                          .map((remark, index) => (
+                            <Typography
+                              $textAlign="right"
+                              variant="span"
+                              width="full"
+                              color="muted"
+                              key={`${remark + index}`}
+                            >
+                              {`${
+                                displayTransaction?.txn.remarks &&
+                                displayTransaction.txn.remarks.indexOf(remark) +
+                                  1
+                              }. ${remark.trim()}`}
+                            </Typography>
+                          ))
+                      )}
                     </Container>
                   </HistoryItem>
                 )}
