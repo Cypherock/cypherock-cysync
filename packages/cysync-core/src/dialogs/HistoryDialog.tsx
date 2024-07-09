@@ -424,50 +424,30 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
-              {displayTransaction.txn.remarks &&
-                displayTransaction.txn.remarks.length > 0 && (
-                  <HistoryItem leftText={keys.remarks} key={keys.receiver}>
-                    <Container
-                      display="flex"
-                      direction="column"
-                      justify="flex-end"
-                      align="flex-end"
-                      width="440"
-                      gap={8}
-                    >
-                      {displayTransaction.txn.remarks.length === 1 &&
-                      displayTransaction.txn.remarks[0].trim() !== '' ? (
-                        <Typography
-                          $textAlign="right"
-                          variant="span"
-                          width="full"
-                          color="muted"
-                          key={`${displayTransaction.txn.remarks[0]}`}
-                        >
-                          {displayTransaction.txn.remarks[0].trim()}
-                        </Typography>
-                      ) : (
-                        displayTransaction.txn.remarks
-                          .filter(remark => remark.trim() !== '')
-                          .map((remark, index) => (
-                            <Typography
-                              $textAlign="right"
-                              variant="span"
-                              width="full"
-                              color="muted"
-                              key={`${remark + index}`}
-                            >
-                              {`${
-                                displayTransaction?.txn.remarks &&
-                                displayTransaction.txn.remarks.indexOf(remark) +
-                                  1
-                              }. ${remark.trim()}`}
-                            </Typography>
-                          ))
-                      )}
-                    </Container>
-                  </HistoryItem>
-                )}
+              {displayTransaction.remarks.length > 0 && (
+                <HistoryItem leftText={keys.remarks} key={keys.receiver}>
+                  <Container
+                    display="flex"
+                    direction="column"
+                    justify="flex-end"
+                    align="flex-end"
+                    width="440"
+                    gap={8}
+                  >
+                    {displayTransaction.remarks.map((remark, index) => (
+                      <Typography
+                        $textAlign="right"
+                        variant="span"
+                        width="full"
+                        color="muted"
+                        key={`${remark + index}`}
+                      >
+                        {remark}
+                      </Typography>
+                    ))}
+                  </Container>
+                </HistoryItem>
+              )}
               {displayTransaction.txn.description && (
                 <HistoryItem leftText={keys.description}>
                   <Container direction="row" gap={8}>

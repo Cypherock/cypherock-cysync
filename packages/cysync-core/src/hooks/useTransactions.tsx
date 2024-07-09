@@ -81,7 +81,7 @@ export interface TransactionRowData {
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
-  remarks: string;
+  remarks: string[];
   network: string;
 }
 
@@ -162,23 +162,7 @@ export const mapTransactionForDisplay = (params: {
       .abbr,
     amount: transaction.amount,
   });
-  let remarksValue = '';
 
-  if (Array.isArray(transaction.remarks) && transaction.remarks.length > 0) {
-    if (transaction.remarks.length === 1) {
-      remarksValue = transaction.remarks[0].trim();
-    } else {
-      remarksValue = transaction.remarks
-        .filter(remark => remark.trim() !== '')
-        .map(
-          remark =>
-            `${
-              transaction.remarks && transaction.remarks.indexOf(remark) + 1
-            }. ${remark.trim()}`,
-        )
-        .join('\n');
-    }
-  }
   const { amount: fee, unit: feeUnit } = getParsedAmount({
     coinId: transaction.parentAssetId,
     unitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
@@ -256,6 +240,20 @@ export const mapTransactionForDisplay = (params: {
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
 
+  const remarks: string[] = [];
+  if (transaction.remarks) {
+    for (let i = 0; i < transaction.remarks.length; i += 1) {
+      const remark = transaction.remarks[i].trim();
+      if (remark) {
+        if (transaction.remarks.length === 1) {
+          remarks.push(remark);
+        } else {
+          remarks.push(`${i + 1}. ${remark}`);
+        }
+      }
+    }
+  }
+
   return {
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
@@ -309,7 +307,7 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
-    remarks: remarksValue,
+    remarks,
     network: networkName,
   };
 };

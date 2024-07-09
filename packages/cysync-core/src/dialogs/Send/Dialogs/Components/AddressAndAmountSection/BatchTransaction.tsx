@@ -32,6 +32,7 @@ export const BatchTransaction: React.FC = () => {
   const {
     selectedAccount,
     transaction,
+    transactionRef,
     priceConverter,
     prepare,
     getOutputError,
@@ -58,8 +59,9 @@ export const BatchTransaction: React.FC = () => {
   }, []);
 
   const parseAndPrepare = async (newOutputs: typeof outputs) => {
-    if (!transaction) return;
-    const txn = transaction;
+    const txn = transactionRef.current;
+
+    if (!txn) return;
     txn.userInputs.outputs = newOutputs.map(({ address, amount, remarks }) => ({
       address,
       amount,
@@ -129,10 +131,10 @@ export const BatchTransaction: React.FC = () => {
   };
 
   const handleTransactionRemarks = async (remark: string, id: string) => {
-    if (!transaction) return;
+    const txn = transactionRef.current;
+    if (!txn) return;
 
     const trimmedRemark = remark.trim();
-    if (trimmedRemark === '') return;
 
     const outputIndex = outputsRef.current.findIndex(
       output => output.id === id,

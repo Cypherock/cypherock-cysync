@@ -90,6 +90,7 @@ export interface SendDialogContextInterface {
   accountDropdownList: DropDownItemProps[];
   handleAccountChange: (id?: string | undefined) => void;
   transaction: IPreparedTransaction | undefined;
+  transactionRef: React.MutableRefObject<IPreparedTransaction | undefined>;
   setTransaction: (txn: IPreparedTransaction) => void;
   initialize: () => Promise<void>;
   prepare: (txn: IPreparedTransaction) => Promise<void>;
@@ -126,6 +127,7 @@ export interface SendDialogProps {
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
 }
+
 export interface SendDialogContextProviderProps extends SendDialogProps {
   children: ReactNode;
 }
@@ -469,13 +471,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       ];
     await prepare(txn);
   };
+
   const prepareTransactionRemarks = async (remark: string) => {
-    if (!transaction) return;
+    const txn = transactionRef.current;
+    if (!txn) return;
 
     const trimmedRemark = remark.trim();
-    if (trimmedRemark === '') return;
 
-    const txn = transaction;
     if (txn.userInputs.outputs.length > 0) {
       txn.userInputs.outputs[0].remarks = trimmedRemark;
     } else {
@@ -487,8 +489,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         },
       ];
     }
-    await prepare(txn);
+    setTransaction(structuredClone(txn));
   };
+
   const prepareSendMax = async (state: boolean) => {
     const txn = transactionRef.current;
     if (!selectedAccount || !txn) return '';
@@ -655,6 +658,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
@@ -697,6 +701,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
