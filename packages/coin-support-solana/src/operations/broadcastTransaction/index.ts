@@ -39,8 +39,19 @@ export const broadcastTransaction = async (
     type: TransactionTypeMap.send,
     timestamp: Date.now(),
     blockHeight: -1,
-    inputs: [{ address: account.xpubOrAddress, amount: '0', isMine: true }],
-    outputs: [{ ...params.transaction.userInputs.outputs[0], isMine }],
+    inputs: [
+      {
+        address: account.xpubOrAddress,
+        amount: '0',
+        isMine: true,
+      },
+    ],
+    outputs: [
+      {
+        ...params.transaction.userInputs.outputs[0],
+        isMine,
+      },
+    ],
     confirmations: 0,
     accountId: account.__id,
     walletId: account.walletId,
@@ -48,6 +59,7 @@ export const broadcastTransaction = async (
     parentAssetId: account.parentAssetId,
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
+    remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
   };
 
   const amount = parsedTransaction.outputs.reduce(

@@ -264,6 +264,11 @@
         "title": "Biaya",
         "label": "Biaya Jaringan"
       },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
+      },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan 0 fee tidak diizinkan",
       "notEnoughBalance": "Dana tidak mencukupi untuk transaksi",
@@ -280,7 +285,8 @@
       "to": "Ke",
       "amount": "Jumlah",
       "network": "Biaya Jaringan",
-      "debit": "Total yang didebet"
+      "debit": "Total yang didebet",
+      "remarks": "Personal Notes"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -345,7 +351,8 @@
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Notes"
     },
     "noData": {
       "text": "Belum ada transaksi",

@@ -90,6 +90,7 @@ export interface SendDialogContextInterface {
   accountDropdownList: DropDownItemProps[];
   handleAccountChange: (id?: string | undefined) => void;
   transaction: IPreparedTransaction | undefined;
+  transactionRef: React.MutableRefObject<IPreparedTransaction | undefined>;
   setTransaction: (txn: IPreparedTransaction) => void;
   initialize: () => Promise<void>;
   prepare: (txn: IPreparedTransaction) => Promise<void>;
@@ -100,6 +101,7 @@ export interface SendDialogContextInterface {
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
+  prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
@@ -125,6 +127,7 @@ export interface SendDialogProps {
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
 }
+
 export interface SendDialogContextProviderProps extends SendDialogProps {
   children: ReactNode;
 }
@@ -343,6 +346,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         if (txnData.gasPrice) txn.userInputs.gasPrice = txnData.gasPrice;
         if (txnData.gasLimit) txn.userInputs.gasLimit = txnData.gasLimit;
         if (txnData.gas) txn.userInputs.gasLimit = txnData.gas;
+        if (txnData.remarks)
+          txn.userInputs.outputs[0].remarks = txnData.remarks;
         await prepare(txn);
       }
     } catch (e: any) {
@@ -432,6 +437,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: val,
           amount: '',
+          remarks: '',
         },
       ];
     await prepare(txn);
@@ -460,9 +466,30 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: '',
           amount: convertedAmount.amount,
+          remarks: '',
         },
       ];
     await prepare(txn);
+  };
+
+  const prepareTransactionRemarks = async (remark: string) => {
+    const txn = transactionRef.current;
+    if (!txn) return;
+
+    const trimmedRemark = remark.trim();
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].remarks = trimmedRemark;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          remarks: trimmedRemark,
+        },
+      ];
+    }
+    setTransaction(structuredClone(txn));
   };
 
   const prepareSendMax = async (state: boolean) => {
@@ -518,6 +545,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         txn.userInputs.outputs.push({
           address: '',
           amount: '',
+          remarks: '',
         });
     }
     setTransaction(txn);
@@ -630,6 +658,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
@@ -641,6 +670,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,
@@ -671,6 +701,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
@@ -682,6 +713,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,
