@@ -23,7 +23,11 @@ export interface IPreparedTronTransaction extends IPreparedTransaction {
     totalEnergyAvailable: number;
   };
   computedData: {
-    output: IPreparedTransactionOutput;
+    output: {
+      address: string;
+      amount: string;
+      isActivated?: boolean;
+    };
     fee: string;
     bandwidth: number;
     estimatedEnergy: number;

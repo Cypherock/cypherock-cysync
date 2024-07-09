@@ -6,6 +6,7 @@ import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
 
 import { IPrepareTronTransactionParams } from './types';
 
+import { getAccountDetailsByAddress } from '../../services';
 import { estimateBandwidth, prepareUnsignedSendTxn } from '../../utils';
 import { IPreparedTronTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
@@ -40,23 +41,38 @@ const calculateBandwidthAndFees = async (params: {
   unsignedTransaction: IUnsignedTransaction | undefined;
   txn: IPreparedTronTransaction;
   tokenDetails?: ITronTrc20Token;
+  outputsValidation?: boolean[];
   account: IAccount;
 }) => {
   const { unsignedTransaction, txn, tokenDetails } = params;
+  const { estimatedEnergy } = txn.computedData;
 
-  const bandwidth = unsignedTransaction
+  let bandwidth = unsignedTransaction
     ? estimateBandwidth(unsignedTransaction)
     : 268;
 
   let paidBandwidth = bandwidth;
   let dustFee = 0;
-  const { estimatedEnergy } = txn.computedData;
+  let specialFee = 0;
+  const isUnactivatedAccount = txn.computedData.output.isActivated === false;
 
-  if (txn.staticData.totalBandwidthAvailable > bandwidth) {
+  if (isUnactivatedAccount && !tokenDetails) {
+    // Account activation fee of 1 TRX is deducted
+    specialFee += 1 * 1_000_000;
+
+    // 100 Bandwidth is used to activate account even if free bandwidth is available
+    paidBandwidth = 100;
+    bandwidth = 100;
+  } else if (txn.staticData.totalBandwidthAvailable > bandwidth) {
     paidBandwidth = 0;
   }
 
-  if (paidBandwidth > 0 && txn.userInputs.isSendAll && !tokenDetails) {
+  if (
+    paidBandwidth > 0 &&
+    txn.userInputs.isSendAll &&
+    !tokenDetails &&
+    !isUnactivatedAccount
+  ) {
     dustFee = 5 * 1000;
   }
 
@@ -68,6 +84,7 @@ const calculateBandwidthAndFees = async (params: {
   const fees = new BigNumber(paidBandwidth)
     .multipliedBy(1000)
     .plus(dustFee)
+    .plus(specialFee)
     .plus(
       new BigNumber(paidEnergy).multipliedBy(txn.staticData.averageEnergyPrice),
     )
@@ -98,8 +115,24 @@ export const prepareTransaction = async (
   if (parentAccount !== undefined)
     tokenDetails = tronCoinList[account.parentAssetId].tokens[account.assetId];
 
-  const outputsAddresses = validateAddresses(params, coin);
-  const output = { ...txn.userInputs.outputs[0] };
+  const outputsValidation = validateAddresses(params, coin);
+  let isActivated: boolean | undefined;
+  if (txn.userInputs.outputs[0].address === txn.computedData.output.address) {
+    isActivated = txn.computedData.output.isActivated;
+  }
+
+  const output = { ...txn.userInputs.outputs[0], isActivated };
+
+  if (
+    output.address &&
+    outputsValidation[0] &&
+    output.isActivated === undefined
+  ) {
+    const result = await getAccountDetailsByAddress(output.address);
+    output.isActivated = !!result.details?.isActive;
+    txn.computedData.output.isActivated = output.isActivated;
+  }
+
   // Amount shouldn't have any decimal value as it's in lowest unit
   output.amount = new BigNumber(output.amount).toFixed(0);
   let sendAmount = new BigNumber(output.amount);
@@ -110,7 +143,7 @@ export const prepareTransaction = async (
     (output.address ?? '').toLowerCase() ===
     account.xpubOrAddress.toLowerCase();
   const createUnsignedTransaction = async () => {
-    if (output.address && outputsAddresses[0] && !isOwnOutputAddress) {
+    if (output.address && outputsValidation[0] && !isOwnOutputAddress) {
       const result = await prepareUnsignedSendTxn({
         from: account.xpubOrAddress,
         to: output.address,
@@ -143,6 +176,7 @@ export const prepareTransaction = async (
     txn,
     tokenDetails,
     account,
+    outputsValidation,
   });
   let hasEnoughBalance: boolean;
   let notEnoughEnergy = false;
@@ -174,7 +208,7 @@ export const prepareTransaction = async (
   return {
     ...txn,
     validation: {
-      outputs: outputsAddresses,
+      outputs: outputsValidation,
       hasEnoughBalance,
       notEnoughEnergy,
       isValidFee: true,
