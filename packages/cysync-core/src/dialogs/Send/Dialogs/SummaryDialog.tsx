@@ -232,7 +232,7 @@ export const SummaryDialog: React.FC = () => {
     return transactionDetails;
   };
 
-  const isSingleTransaction = transaction?.userInputs.outputs?.length === 1;
+  const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -261,7 +261,7 @@ export const SummaryDialog: React.FC = () => {
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
                 ...(isSingleTransaction &&
-                transaction?.userInputs.outputs[0].remarks
+                transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
 

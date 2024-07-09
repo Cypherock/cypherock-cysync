@@ -1,5 +1,4 @@
 import { IDatabase } from '@cypherock/db-interfaces';
-
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface IPreparedTransactionOutput {
