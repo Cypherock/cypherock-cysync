@@ -72,10 +72,8 @@ export const WalletActionsDialogBox: FC = () => {
   const handleSetSelectedAction = (
     action: GuidedFlowType | WalletTransferFlowType,
   ) => {
-    if (String(selectedAction) !== hoveredAction) {
-      setHoveredAction(undefined);
-    }
     setSelectedAction(action);
+    setHoveredAction(undefined);
   };
 
   useEffect(() => {
@@ -90,18 +88,13 @@ export const WalletActionsDialogBox: FC = () => {
     action: GuidedFlowType | WalletTransferFlowType,
   ) => {
     setHoveredAction(action);
-    if (String(selectedAction) !== String(action)) {
-      setSelectedAction(undefined);
-    }
   };
 
-  const handleMouseLeave = (
-    action: GuidedFlowType | WalletTransferFlowType,
-  ) => {
-    if (String(selectedAction) !== String(action)) {
-      setHoveredAction(undefined);
-    }
+  const handleMouseLeave = () => {
+    setHoveredAction(undefined);
   };
+
+  const getDisplayedAction = () => hoveredAction ?? selectedAction;
 
   return (
     <BlurOverlay>
@@ -148,7 +141,7 @@ export const WalletActionsDialogBox: FC = () => {
               >
                 <HovorableDiv
                   onMouseEnter={() => handleMouseEnter('createWallet')}
-                  onMouseLeave={() => handleMouseLeave('createWallet')}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Image
                     $height={100}
@@ -189,7 +182,7 @@ export const WalletActionsDialogBox: FC = () => {
               >
                 <HovorableDiv
                   onMouseEnter={() => handleMouseEnter('importWallet')}
-                  onMouseLeave={() => handleMouseLeave('importWallet')}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Image
                     $height={100}
@@ -214,7 +207,7 @@ export const WalletActionsDialogBox: FC = () => {
                   </Typography>
                 </HovorableDiv>
               </Flex>
-              {!isNewUser && (
+              {isNewUser && (
                 <Flex
                   direction="column"
                   $borderWidth={1}
@@ -231,7 +224,7 @@ export const WalletActionsDialogBox: FC = () => {
                 >
                   <HovorableDiv
                     onMouseEnter={() => handleMouseEnter('walletTransfer')}
-                    onMouseLeave={() => handleMouseLeave('walletTransfer')}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <Image
                       $height={100}
@@ -259,8 +252,7 @@ export const WalletActionsDialogBox: FC = () => {
               )}
             </Flex>
             <Flex pt={1} pb={4} px={4}>
-              {(selectedAction === 'createWallet' ||
-                hoveredAction === 'createWallet') && (
+              {getDisplayedAction() === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -274,8 +266,7 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {(selectedAction === 'importWallet' ||
-                hoveredAction === 'importWallet') && (
+              {getDisplayedAction() === 'importWallet' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}
@@ -289,8 +280,7 @@ export const WalletActionsDialogBox: FC = () => {
                   }
                 />
               )}
-              {(selectedAction === 'walletTransfer' ||
-                hoveredAction === 'walletTransfer') && (
+              {getDisplayedAction() === 'walletTransfer' && (
                 <BulletList
                   $fontSize={16}
                   $borderWidth={0}

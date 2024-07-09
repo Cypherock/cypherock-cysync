@@ -47,7 +47,6 @@ export const CloseConfirmation: FC<CloseConfirmationProps> = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setShowOnClose(false);
-        dispatch(closeDialog(closeDialogType));
       }
     };
 
