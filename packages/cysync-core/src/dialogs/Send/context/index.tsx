@@ -470,17 +470,22 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
   const prepareTransactionRemarks = async (remark: string) => {
     if (!transaction) return;
+
+    const trimmedRemark = remark.trim();
+    if (trimmedRemark === '') return;
+
     const txn = transaction;
-    if (txn.userInputs.outputs.length > 0)
-      txn.userInputs.outputs[0].remarks = remark;
-    else
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].remarks = trimmedRemark;
+    } else {
       txn.userInputs.outputs = [
         {
           address: '',
           amount: '',
-          remarks: remark,
+          remarks: trimmedRemark,
         },
       ];
+    }
     await prepare(txn);
   };
   const prepareSendMax = async (state: boolean) => {

@@ -130,11 +130,16 @@ export const BatchTransaction: React.FC = () => {
 
   const handleTransactionRemarks = async (remark: string, id: string) => {
     if (!transaction) return;
+
+    const trimmedRemark = remark.trim();
+    if (trimmedRemark === '') return;
+
     const outputIndex = outputsRef.current.findIndex(
       output => output.id === id,
     );
+
     const newOutputs = [...outputsRef.current];
-    newOutputs[outputIndex].remarks = remark;
+    newOutputs[outputIndex].remarks = trimmedRemark;
     setOutputs(newOutputs);
     await parseAndPrepare(newOutputs);
   };
@@ -194,7 +199,7 @@ export const BatchTransaction: React.FC = () => {
                 <NotesInput
                   label={displayText.remarks.label}
                   placeholder={displayText.remarks.placeholder}
-                  initialValue={output.remarks ?? ''}
+                  initialValue=""
                   onChange={async remark => {
                     await handleTransactionRemarks(remark, output.id);
                   }}
