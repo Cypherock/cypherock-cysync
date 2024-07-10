@@ -46,6 +46,7 @@ export const broadcastTransaction = async (
     parentAssetId: account.parentAssetId,
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
+    remarks: transaction.userInputs.outputs.map(output => output.remarks ?? ''),
   };
 
   const amount = parsedTransaction.outputs.reduce(

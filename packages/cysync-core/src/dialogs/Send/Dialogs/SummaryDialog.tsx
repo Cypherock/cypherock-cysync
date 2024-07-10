@@ -16,6 +16,7 @@ import {
   QrCode,
   Image,
   SummaryBox,
+  SummaryItemType,
   ScrollableContainer,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -28,14 +29,6 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 
-interface OutputDetailsProps {
-  id: string;
-  leftIcon?: React.ReactElement;
-  leftText?: string;
-  rightText?: string;
-  rightSubText?: string;
-  bottomText?: string;
-}
 export const SummaryDialog: React.FC = () => {
   const {
     onNext,
@@ -58,7 +51,7 @@ export const SummaryDialog: React.FC = () => {
     );
     if (!account || !coinPrice) return [];
 
-    const details = transaction?.userInputs.outputs.flatMap(output => {
+    const details = transaction?.userInputs.outputs.flatMap((output, index) => {
       const { amount, unit } = getParsedAmount({
         coinId: account.parentAssetId,
         assetId: account.assetId,
@@ -71,7 +64,7 @@ export const SummaryDialog: React.FC = () => {
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
       );
 
-      const outputDetails: OutputDetailsProps[] = [
+      const outputDetails: SummaryItemType = [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
@@ -90,7 +83,14 @@ export const SummaryDialog: React.FC = () => {
         outputDetails.push({
           id: `remarks-${output.address}`,
           leftText: `${displayText.remarks}`,
-          bottomText: output.remarks,
+          rightText: output.remarks,
+        });
+      }
+
+      if (index !== transaction.userInputs.outputs.length - 1) {
+        outputDetails.push({
+          id: `remarks-${output.address}-divider`,
+          isDivider: true,
         });
       }
 
@@ -226,7 +226,7 @@ export const SummaryDialog: React.FC = () => {
       .map((output, index) => ({
         id: `remark-${transaction.accountId}-${index}`,
         leftText: displayText.remarks,
-        bottomText: output.remarks,
+        rightText: output.remarks,
       }));
 
     return transactionDetails;
@@ -241,7 +241,7 @@ export const SummaryDialog: React.FC = () => {
         </Typography>
 
         <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
-          <DialogBoxBody p={0} px={4} pb={5}>
+          <DialogBoxBody p={0} px={4} pb={5} gap={24}>
             <SummaryBox
               items={[
                 {
@@ -259,7 +259,6 @@ export const SummaryDialog: React.FC = () => {
                 },
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
-                { isDivider: true, id: '3' },
                 ...(isSingleTransaction &&
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
