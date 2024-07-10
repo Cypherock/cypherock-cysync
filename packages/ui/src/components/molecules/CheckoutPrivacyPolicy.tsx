@@ -32,7 +32,7 @@ const StyledCheckbox = styled.div`
 `;
 
 const Text = styled.div`
-  margin-left: 10px;
+  margin-left: 8px;
   font-family: Poppins;
   font-size: 14px;
   font-weight: 400;
