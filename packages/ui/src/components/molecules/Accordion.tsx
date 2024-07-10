@@ -29,9 +29,11 @@ const StyledContainer = styled.div`
 
 const First = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   color: ${colors.text.message};
+  height: auto;
+  width: 100%;
 `;
 
 const DetailContainer = styled.div`
@@ -42,22 +44,26 @@ const DetailContainer = styled.div`
 
 const HeaderText = styled.p`
   margin-left: 16px;
+  display: flex;
 `;
 
 export const Accordion: FC<AccordionProps> = ({ header, detail }) => {
   const [IsOpen, setIsOpen] = useState(false);
 
   return (
-    <StyledContainer
-      onClick={() => setIsOpen(!IsOpen)}
-      className="oneInManyContainer"
-    >
-      <Flex align="center" justify="space-between" m="0px 10px 0px 10px">
+    <StyledContainer onClick={() => setIsOpen(!IsOpen)}>
+      <Flex
+        align="center"
+        justify="space-between"
+        m="0px 16px"
+        width="688px"
+        height="44px"
+      >
         <First>
           <Info />
           <HeaderText>{header}</HeaderText>
         </First>
-        <Flex>{IsOpen ? <ArrowUp /> : <ArrowDown />}</Flex>
+        <Flex>{IsOpen ? <ArrowDown /> : <ArrowUp />}</Flex>
       </Flex>
       {IsOpen && <DetailContainer>{detail}</DetailContainer>}
     </StyledContainer>
