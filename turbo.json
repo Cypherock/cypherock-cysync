@@ -148,6 +148,10 @@
     "@cypherock/cysync-automation-scripts#download-erc20-images": {
       "dependsOn": ["build"],
       "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#gen-translations": {
+      "dependsOn": ["build"],
+      "cache": true
     }
   }
 }

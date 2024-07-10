@@ -4,13 +4,14 @@ import { syncAccounts } from '~/actions';
 import {
   setAccounts,
   setDevices,
+  setLanguage,
   setPriceHistories,
   setPriceInfos,
   setTransactions,
   setWallets,
   store,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
 
 const createFuncWithErrorHandler =
@@ -99,6 +100,8 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncPriceInfosDb();
   await syncPriceHistoriesDb();
   await syncTransactionsDb();
+
+  store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
 };
 
 const throttleDbFunction = (func: any) =>

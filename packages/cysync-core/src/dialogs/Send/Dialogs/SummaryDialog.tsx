@@ -2,8 +2,9 @@ import {
   getDefaultUnit,
   getParsedAmount,
   formatDisplayPrice,
+  getAsset,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily, evmCoinList } from '@cypherock/coins';
+import { CoinFamily } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -27,6 +28,14 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 
+interface OutputDetailsProps {
+  id: string;
+  leftIcon?: React.ReactElement;
+  leftText?: string;
+  rightText?: string;
+  rightSubText?: string;
+  bottomText?: string;
+}
 export const SummaryDialog: React.FC = () => {
   const {
     onNext,
@@ -42,13 +51,13 @@ export const SummaryDialog: React.FC = () => {
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
   const getLabelSuffix = useLabelSuffix();
-
   const getToDetails = () => {
     const account = selectedAccount;
     const coinPrice = priceInfos.find(
       p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
+
     const details = transaction?.userInputs.outputs.flatMap(output => {
       const { amount, unit } = getParsedAmount({
         coinId: account.parentAssetId,
@@ -62,7 +71,7 @@ export const SummaryDialog: React.FC = () => {
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
       );
 
-      return [
+      const outputDetails: OutputDetailsProps[] = [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
@@ -76,8 +85,20 @@ export const SummaryDialog: React.FC = () => {
           rightSubText: `$${value}`,
         },
       ];
+
+      if (transaction.userInputs.outputs.length > 1 && output.remarks) {
+        outputDetails.push({
+          id: `remarks-${output.address}`,
+          leftText: `${displayText.remarks}`,
+          bottomText: output.remarks,
+        });
+      }
+
+      return outputDetails;
     });
-    if (details && details.length > 2) return [details];
+    if (details && details.length > 2) {
+      return [details];
+    }
     return details ?? [];
   };
 
@@ -178,12 +199,14 @@ export const SummaryDialog: React.FC = () => {
       },
     ];
     if (selectedAccount?.type === AccountTypeMap.subAccount) {
+      const token = getAsset(
+        selectedAccount.parentAssetId,
+        selectedAccount.assetId,
+      );
+
       fromDetails.push({
         id: 'asset',
-        // TODO: make this not depend on evmCoinList
-        name: evmCoinList[selectedAccount.parentAssetId].tokens[
-          selectedAccount.assetId
-        ].name,
+        name: token.name,
         muted: false,
         icon: (
           <CoinIcon
@@ -195,7 +218,21 @@ export const SummaryDialog: React.FC = () => {
     }
     return fromDetails;
   };
+  const getTransactionRemarks = () => {
+    if (!transaction || !transaction.userInputs.outputs) return [];
 
+    const transactionDetails = transaction.userInputs.outputs
+      .filter(output => output.remarks)
+      .map((output, index) => ({
+        id: `remark-${transaction.accountId}-${index}`,
+        leftText: displayText.remarks,
+        bottomText: output.remarks,
+      }));
+
+    return transactionDetails;
+  };
+
+  const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -223,8 +260,13 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 { isDivider: true, id: '3' },
+                ...(isSingleTransaction &&
+                transaction.userInputs.outputs[0].remarks
+                  ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
+                  : []),
+
                 ...getFeeDetails(),
-                { isDivider: true, id: '5' },
+                { isDivider: true, id: '6' },
                 ...getTotalAmount(),
               ]}
             />

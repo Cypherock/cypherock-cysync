@@ -1,3 +1,55 @@
+# v2.0.8
+
+### 🚀 Features
+
+- **Export with Confidence**: More detailed data can be exported in the Transaction CSV for your records.
+- **Clearer Error Messages**: Improved "Device busy state" dialog, making it easier to resolve any connectivity issues.
+- **Transaction Remarks**: You can now add personal notes while doing transactions.
+- **Kendu Inu ERC20 Token Added**: Kendu Inu (KENDU) is now a supported token on CySync.
+
+### 🐛 Bugfixes
+
+- **Tron Send Max**: Added fix for account activation send max scenario.
+- **Bitcoin Send Max**: Added fix for fee calculations when using the send max in Bitcoin.
+
+# v2.0.7
+
+### 🚀 Features
+
+- **TRON Network Support**: Now you can seamlessly manage your TRON assets directly through the app.
+- **TRON Token Support**: Now view, send, and receive tokens on the TRON network, all within the familiar cySync interface.
+
+# v2.0.6
+
+### 🐛 Bugfixes
+
+- Fixed Bitcoin send transaction issues
+
+### 🚀 Features
+
+- CySync app is now available in German, Chinese, Indonesian and Arabic
+- Improved sidebar UI
+- Now you can edit account names
+
+# v2.0.5
+
+### 🐛 Bugfixes
+
+- Fixed white screen issue due to missing tokens
+
+# v2.0.4
+
+### 🚀 Features
+
+- "Add token" button to quickly add ERC-20 tokens from the list of 9000+ supported tokens.
+- Download transaction history as CSV
+- Added more ERC-20 token for evm chains
+
+### 🐛 Bugfixes
+
+- Various minor bug fixes
+- Improved error reporting
+
 # v2.0.3
 
 ### 🐛 Bugfixes

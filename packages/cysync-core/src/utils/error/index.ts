@@ -1,13 +1,17 @@
 import {
+  ServerErrorType,
+  DeviceErrorCodes,
+  ServerError,
+} from '@cypherock/cysync-core-constants';
+
+import {
   defaultErrorHandlignDetails,
   ErrorActionMap,
   getDatabaseErrorHandlingDetails,
   getDeviceErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
-import { ServerError, ServerErrorType } from '~/errors';
 import { ILangState } from '~/store';
-import { DeviceErrorCodes } from '~/types/deviceError';
 
 import {
   actionButtonDetailsMap,

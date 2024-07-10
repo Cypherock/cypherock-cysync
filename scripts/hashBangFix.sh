@@ -6,12 +6,15 @@ set -e
 echo Fixing hash bang for pnpm.cjs...
 echo ""
 
-pnpmPath=$(where pnpm | sed -n 1p)
-path=$(dirname "$pnpmPath")
-file="$path\\node_modules\\pnpm\\bin\\pnpm.cjs"
-
 if [ $# -gt 0 ]; then 
 	file="$1"
+elif [ "$IS_CI" == "true" ]; then
+  if [ "$WINDOWS_USERNAME" == "" ]; then USERNAME="runneradmin"; else USERNAME="$WINDOWS_USERNAME"; fi
+  file="C:\Users\\$USERNAME\setup-pnpm\node_modules\.pnpm\pnpm@$(pnpm --version)\node_modules\pnpm\bin\pnpm.cjs"
+else 
+  pnpmPath=$(where pnpm | sed -n 1p)
+  path=$(dirname "$pnpmPath")
+  file="$path\\node_modules\\pnpm\\bin\\pnpm.cjs"
 fi
 
 oldLine=$(head -n 1 "$file")

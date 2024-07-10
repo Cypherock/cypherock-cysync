@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
-import { getDefaultTheme, ThemeProvider } from '../src';
+import { getDefaultTheme, GlobalStyles, ThemeProvider } from '../src';
 import '../src/stories/style.css';
 
 const theme = getDefaultTheme();
@@ -54,9 +54,6 @@ const preview: Preview = {
       ],
     },
   },
-  args: {
-    $fontFamily: 'monospace',
-  },
 };
 
 export default preview;
@@ -68,5 +65,6 @@ export const decorators = [
     },
     defaultTheme: 'default',
     Provider: ThemeProvider,
+    GlobalStyles: GlobalStyles,
   }),
 ];
