@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { NomineeMessage } from '../../components/atoms/NomineeMessages';
-import { DocumentEncryption1, SystemUiconsMessage } from '../../assets';
 import React from 'react';
+
+import { DocumentEncryption1, SystemUiconsMessage } from '../../assets';
+import { NomineeMessage } from '../../components/atoms/NomineeMessages';
 
 const meta: Meta<typeof NomineeMessage> = {
   component: NomineeMessage,
