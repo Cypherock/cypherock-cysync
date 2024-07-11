@@ -265,9 +265,9 @@
         "label": "网络费用"
       },
       "remarks": {
-        "label": "Personal Note (Optional)",
-        "placeholder": "Enter your personal notes here",
-        "error": "Maximum character limit exceeded (120 characters)"
+        "label": "个人笔记(可选)",
+        "placeholder": "在此输入您的个人便笺",
+        "error": "超过最大字符限制 (120 个字符)"
       },
       "warning": "如果 fee 非常低，交易可能会被取消",
       "feeError": "不允许 0 fee 的交易",
@@ -286,7 +286,7 @@
       "amount": "金额",
       "network": "网络费用",
       "debit": "总扣款",
-      "remarks": "Personal Notes"
+      "remarks": "个人笔记"
     },
     "finalMessage": {
       "button": "检查交易",
@@ -352,7 +352,7 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "Personal Notes"
+      "remarks": "个人笔记"
     },
     "noData": {
       "text": "暂无交易记录",
@@ -1222,7 +1222,7 @@
               "title": "在 X1 Vault 上输入 seed phrase",
               "messageBoxList": [
                 {
-                  "warning": "Make sure you do not make spelling mistakes while entering the words on the device. Words like \"west\" & \"nest\" are often confusing while reading and needs to be entered correctly"
+                  "warning": "请确保您在设备上输入单词时不会发生拼写错误。 像“west”和“nest”这样的词在阅读时常被混淆，需要正确输入"
                 }
               ]
             },
@@ -1231,14 +1231,14 @@
               "subtitle": "直到听到哔声才抬起"
             },
             {
-              "title": "Tap X1 Cards one by one below the X1 Vault",
-              "subtitle": "Do not lift until you hear a beep sound",
+              "title": "将X1 Cards一张一张地放在X1 Vault下方",
+              "subtitle": "直到听到哔声才抬起",
               "messageBoxList": [
                 {
-                  "info": "Make sure your X1 Cards belong to the same family"
+                  "info": "确保你的X1 Cards 属于同一个家庭"
                 },
                 {
-                  "info": "Make sure you tap the X1 Cards in the correct order"
+                  "info": "确保按正确的顺序放置X1 Cards"
                 }
               ]
             }

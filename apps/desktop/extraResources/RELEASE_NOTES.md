@@ -11,6 +11,7 @@
 
 - **Tron Send Max**: Added fix for account activation send max scenario.
 - **Bitcoin Send Max**: Added fix for fee calculations when using the send max in Bitcoin.
+- **ETH Add Account**: Fixed SER_0000 for ethereum accounts.
 
 # v2.0.7
 
