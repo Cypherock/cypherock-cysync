@@ -63,9 +63,9 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
 
   const StyledContainer = styled.div`
     &:hover {
-      box-shadow: ${!isSelected
-        ? `0px 0px 12px 4px ${colors.boxShadow.selected}`
-        : `0px 0px 12px 4px ${colors.boxShadow.selected} inset`};
+      box-shadow: ${isSelected
+        ? `0px 0px 12px 4px ${colors.boxShadow.selected} inset`
+        : `0px 0px 12px 4px ${colors.boxShadow.selected}`};
       animation: ${!isSelected && isHover
         ? 'zoomAnimation 1s ease-in-out'
         : 'none'};
@@ -87,6 +87,9 @@ export const Reminder: FC<ReminderProps> = ({ date, disabled }) => {
       pointer-events: none;
     }
 
+    box-shadow: ${isSelected
+      ? `0px 0px 12px 4px ${colors.boxShadow.selected} inset`
+      : 'none'};
     border: ${isSelected ? `1px solid ${colors.border.selected}` : ''};
     background: ${!isSelected
       ? `linear-gradient(273.07deg, rgba(96, 58, 23, 0.2) 1.52%, rgba(0, 0, 0, 0) 52.42%), url(${clockBgDefault}),linear-gradient(0deg, #2A2A27, #2A2A27)`
