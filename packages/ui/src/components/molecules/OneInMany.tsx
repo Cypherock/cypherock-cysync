@@ -45,7 +45,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
     height: 100%;
     background-position: initial;
     background-repeat: no-repeat;
-    background-size: ${({ styleType }) => (styleType === '1' ? 'cover' : '')};
+    background-size: ${({ styleType }) => (styleType === '1' ? 'initial' : '')};
     transition: opacity 0.5s ease, transform 0.5s ease;
     backface-visibility: hidden;
     z-index: 0;
