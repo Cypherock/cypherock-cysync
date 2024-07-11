@@ -59,6 +59,9 @@ export const theme = {
     shadow: {
       dropdown: colors.shadow.dropdown,
     },
+    cardSelected: colors.gradients.cardSelected,
+    cardHover: colors.gradients.cardHover,
+    title: colors.gradients.title,
     background: {
       progress: colors.background.progressBar,
       input: colors.background.input,
@@ -126,6 +129,7 @@ export const theme = {
       subMenuLeft: colors.border.subMenuLeft,
       topbar: colors.border.topbar,
       card: colors.border.card,
+      cardSelected: colors.border.cardSelected,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

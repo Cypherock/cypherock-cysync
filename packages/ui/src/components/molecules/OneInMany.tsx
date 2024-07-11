@@ -9,21 +9,23 @@ import {
   oneInMany2Default,
   oneInMany2Hover,
 } from '../../assets';
-import { colors } from '../../themes/color.styled';
+import { WidthProps, width } from '../utils';
 
-export interface OneInManyProps {
+export interface OneInManyProps extends WidthProps {
   title: string;
   description: string;
   styleType: string;
 }
 
-const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
+const StyledContainer = styled.div<
+  { isSelected: boolean; styleType: string } & WidthProps
+>`
   position: relative;
-  border: ${({ isSelected }) =>
-    isSelected ? `1px solid ${colors.border.cardSelected}` : ''};
+  border: ${({ isSelected, theme }) =>
+    isSelected ? `1px solid ${theme.palette.border.cardSelected}` : ''};
   box-shadow: ${({ isSelected }) =>
     isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
-  background: ${colors.gradients.cardSelected};
+  background: ${({ theme }) => theme.palette.cardSelected};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -31,12 +33,12 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
   cursor: pointer;
   width: 348px;
   height: 128px;
-  color: ${colors.text.white};
+  color: ${({ theme }) => theme.palette.text.white};
   transition: background 0.5s ease, box-shadow 0.5s ease;
-
+  ${width}
   &:before,
   &:after {
-    color: ${colors.text.white};
+    color: ${({ theme }) => theme.palette.text.white};
     content: '';
     position: absolute;
     top: 0;
@@ -73,11 +75,11 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
       styleType === '1' ? 'right' : 'initial'};
   }
 
-  ${({ isSelected }) =>
+  ${({ isSelected, theme }) =>
     !isSelected &&
     `
     &:hover {
-      background: ${colors.gradients.cardHover};
+      background: ${theme.palette.cardHover};
       background-position: right;
       &:before {
         opacity: 0;
@@ -90,7 +92,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
       ${StyledTitle} {
         position: relative;
         z-index: 3;
-        background: ${colors.gradients.title};
+        background: ${theme.palette.title};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -111,15 +113,17 @@ const StyledDescription = styled.div`
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
-  color: ${colors.text.white};
+  color: ${({ theme }) => theme.palette.text.white};
   z-index: 3;
   text-align: end;
+  margin-left: 16px;
 `;
 
 export const OneInMany = ({
   title,
   description,
   styleType,
+  ...restProps
 }: OneInManyProps) => {
   const [isSelected, setisSelected] = useState(false);
 
@@ -128,8 +132,9 @@ export const OneInMany = ({
       isSelected={isSelected}
       styleType={styleType}
       onClick={() => setisSelected(!isSelected)}
+      {...restProps}
     >
-      <Flex align="center" direction="row" justify="space-around" height="100%">
+      <Flex align="center" direction="row" height="100%" mx="32px">
         <StyledTitle>{title}</StyledTitle>
         <StyledDescription>{description}</StyledDescription>
       </Flex>
