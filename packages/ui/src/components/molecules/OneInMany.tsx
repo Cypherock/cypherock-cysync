@@ -14,13 +14,15 @@ import { colors } from '../../themes/color.styled';
 export interface OneInManyProps {
   title: string;
   description: string;
-  styleType: 1 | 2;
+  styleType: string;
 }
 
-const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
+const StyledContainer = styled.div<{ isSelected: boolean; styleType: string }>`
   position: relative;
   border: ${({ isSelected }) =>
     isSelected ? `1px solid ${colors.border.cardSelected}` : ''};
+  box-shadow: ${({ isSelected }) =>
+    isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
   background: ${colors.gradients.cardSelected};
   background-position: center;
   background-repeat: no-repeat;
@@ -43,7 +45,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
     height: 100%;
     background-position: initial;
     background-repeat: no-repeat;
-    background-size: ${({ styleType }) => (styleType === 1 ? 'cover' : '')};
+    background-size: ${({ styleType }) => (styleType === '1' ? 'cover' : '')};
     transition: opacity 0.5s ease, transform 0.5s ease;
     backface-visibility: hidden;
     z-index: 0;
@@ -51,7 +53,7 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
 
   &:before {
     background-image: ${({ styleType }) =>
-      styleType === 1
+      styleType === '1'
         ? `url(${oneInMany1Default})`
         : `url(${oneInMany2Default})`};
     opacity: ${({ isSelected }) => (isSelected ? 0 : 1)};
@@ -61,19 +63,21 @@ const StyledContainer = styled.div<{ isSelected: boolean; styleType: 1 | 2 }>`
 
   &:after {
     background-image: ${({ styleType }) =>
-      styleType === 1 ? `url(${oneInMany1Hover})` : `url(${oneInMany2Hover})`};
+      styleType === '1'
+        ? `url(${oneInMany1Hover})`
+        : `url(${oneInMany2Hover})`};
     opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
     transform: ${({ isSelected }) =>
       isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
     background-position: ${({ styleType }) =>
-      styleType === 1 ? 'right' : 'left'};
+      styleType === '1' ? 'right' : 'initial'};
   }
 
   ${({ isSelected }) =>
     !isSelected &&
     `
     &:hover {
-      background: ${colors.gradients.cardSelected};
+      background: ${colors.gradients.cardHover};
       background-position: right;
       &:before {
         opacity: 0;
@@ -99,6 +103,7 @@ const StyledTitle = styled.div`
   font-weight: 700;
   line-height: 96px;
   z-index: 3;
+  width: 120px;
 `;
 
 const StyledDescription = styled.div`
@@ -108,6 +113,7 @@ const StyledDescription = styled.div`
   line-height: 18px;
   color: ${colors.text.white};
   z-index: 3;
+  text-align: end;
 `;
 
 export const OneInMany = ({
