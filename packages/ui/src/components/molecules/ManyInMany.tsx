@@ -97,14 +97,17 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
       !isSelected ? mimDefault : 'none'});
     background-position: bottom center;
     background-repeat: no-repeat;
-    background-size: 450px;
+    background-size: 280px;
     transition: transform 0.4s ease-in-out;
     transform-origin: bottom center;
   }
   &:hover::after {
     transform: ${({ isSelected }) =>
       !isSelected ? 'translateX(-30%) rotate(45deg) scale(1.5)' : 'none'};
-    background-position: bottom left;
+    background-position: bottom left 180%;
+    width: 167%;
+    height: 170%;
+    background-size: 496px;
     background-image: url(${({ isSelected }) =>
       !isSelected ? mimDefaultBg : 'none'});
   }
