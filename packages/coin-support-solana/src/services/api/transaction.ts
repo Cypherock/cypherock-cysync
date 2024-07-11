@@ -58,10 +58,16 @@ export const broadcastTransactionToBlockchain = async (
   assetId: string,
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
-  const response = await makePostRequest(url, {
-    transaction,
-    network: solanaCoinList[assetId].network,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      transaction,
+      network: solanaCoinList[assetId].network,
+    },
+    {
+      maxTries: 0,
+    },
+  );
 
   assert(
     response.data.signature,

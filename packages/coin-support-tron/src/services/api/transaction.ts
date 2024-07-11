@@ -37,7 +37,13 @@ export const broadcastTransactionToBlockchain = async (
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
 
-  const response = await makePostRequest(url, { transaction });
+  const response = await makePostRequest(
+    url,
+    { transaction },
+    {
+      maxTries: 0,
+    },
+  );
 
   return response.data.txid;
 };
