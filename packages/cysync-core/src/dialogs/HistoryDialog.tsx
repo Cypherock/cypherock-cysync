@@ -440,6 +440,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                         variant="span"
                         width="full"
                         color="muted"
+                        $wordBreak="break-word"
                         key={`${remark + index}`}
                       >
                         {remark}
