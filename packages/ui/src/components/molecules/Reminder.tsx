@@ -96,7 +96,7 @@ const StyledContainer = styled.div<
   }
 `;
 
-const DisableContainer = styled.div`
+const DisableContainer = styled.div<WidthProps>`
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -107,6 +107,7 @@ const DisableContainer = styled.div`
   justify-content: left;
   align-items: center;
   cursor: not-allowed;
+  ${width}
 `;
 
 const ClockInfoContainer = styled.div`
@@ -164,7 +165,7 @@ export const Reminder: FC<ReminderProps> = ({
       </Flex>
     </StyledContainer>
   ) : (
-    <DisableContainer>
+    <DisableContainer {...restProps}>
       <Flex p="1rem">
         <ClockDisabled />
         <DisabledDate>{date}</DisabledDate>
