@@ -44,6 +44,10 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
+import oneInMany1Default from './oneInmany1Default.svg';
+import oneInMany1Hover from './oneInmany1Hover.svg';
+import oneInMany2Default from './oneInMany2Default.svg';
+import oneInMany2Hover from './oneInMany2Hover.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -70,10 +74,6 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import oneInMany1Default from './oneInmany1Default.svg';
-import oneInMany1Hover from './oneInmany1Hover.svg';
-import oneInMany2Hover from './oneInMany2Hover.svg';
-import oneInMany2Default from './oneInMany2Default.svg';
 
 export {
   addWalletIcon,

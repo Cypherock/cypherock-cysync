@@ -2,27 +2,178 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { Flex } from '../atoms/Flex';
+
 import {
   oneInMany1Default,
   oneInMany1Hover,
   oneInMany2Default,
   oneInMany2Hover,
 } from '../../assets';
+import { ThemeType } from '../../themes';
+import { Flex } from '../atoms';
 import { WidthProps, width } from '../utils';
+
+export type OneInManyStyleType = '1' | '2';
 
 export interface OneInManyProps extends WidthProps {
   title: string;
   description: string;
-  styleType: string;
+  styleType: OneInManyStyleType;
 }
 
+interface BgStyleProps {
+  isSelected: boolean;
+  theme: ThemeType;
+}
+
+const getBgStyle1 = ({ isSelected, theme }: BgStyleProps) => `
+  &:before,
+  &:after {
+    color: ${theme.palette.text.white};
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: initial;
+    background-repeat: no-repeat;
+    backface-visibility: hidden;
+    z-index: 0;
+    transition: opacity 0.5s ease-in-out;
+    background-position: right;
+    animation: rotateBounceOut 0.5s ease-in-out forwards;
+    ${isSelected && `animation: rotateBounceIn 0.5s ease-in-out forwards;`}
+  }
+
+  &:before {
+    background-image: url(${oneInMany1Default});
+    opacity: 1;
+  }
+
+  &:after {
+    background-image: url(${oneInMany1Hover});
+    opacity: 0;
+  }
+
+  ${
+    !isSelected &&
+    `
+    &:hover:before {
+      animation: rotateBounceIn 0.5s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    &:hover:after {
+      animation: rotateBounceIn 0.5s ease-in-out forwards;
+      opacity: 1;
+    }
+    `
+  }
+
+  @keyframes rotateBounceIn {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    10% {
+      transform: rotateZ(10deg);
+    }
+    20% {
+      transform: rotateZ(10deg);
+    }
+    80% {
+      transform: rotateZ(-190deg);
+    }
+    90% {
+      transform: rotateZ(-190deg);
+    }
+    100% {
+      transform: rotateZ(-180deg);
+    }
+  }
+
+  @keyframes rotateBounceOut {
+    0% {
+      transform: rotateZ(-180deg);
+    }
+    10% {
+      transform: rotateZ(-190deg);
+    }
+    20% {
+      transform: rotateZ(-190deg);
+    }
+    80% {
+      transform: rotateZ(10deg);
+    }
+    90% {
+      transform: rotateZ(10deg);
+    }
+    100% {
+      transform: rotateZ(0deg);
+    }
+  }
+`;
+
+const getBgStyle2 = ({ isSelected, theme }: BgStyleProps) => `
+  &:before,
+  &:after {
+    color: ${theme.palette.text.white};
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: initial;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    backface-visibility: hidden;
+    z-index: 0;
+  }
+
+  &:before {
+    background-image: url(${oneInMany2Default});
+    opacity: ${isSelected ? 0 : 1};
+    transform: ${isSelected ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  }
+
+  &:after {
+    background-image: url(${oneInMany2Hover});
+    opacity: ${isSelected ? 1 : 0};
+    transform: ${isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
+    background-position: initial;
+  }
+
+  ${
+    !isSelected &&
+    `
+    &:hover:before {
+      opacity: 0;
+      transform: rotateY(180deg);
+    }
+    &:hover:after {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+    `
+  }
+`;
+
+const getBgStyleMap: Record<
+  OneInManyStyleType,
+  (props: BgStyleProps) => string
+> = {
+  '1': getBgStyle1,
+  '2': getBgStyle2,
+};
+
 const StyledContainer = styled.div<
-  { isSelected: boolean; styleType: string } & WidthProps
+  Omit<OneInManyProps, 'title' | 'description'> & { isSelected: boolean }
 >`
   position: relative;
-  border: ${({ isSelected, theme }) =>
-    isSelected ? `1px solid ${theme.palette.border.cardSelected}` : ''};
+  border: 1px solid
+    ${({ isSelected, theme }) =>
+      isSelected ? `${theme.palette.border.cardSelected}` : 'transparent'};
   box-shadow: ${({ isSelected }) =>
     isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
   background: ${({ theme }) => theme.palette.cardSelected};
@@ -35,45 +186,11 @@ const StyledContainer = styled.div<
   height: 128px;
   color: ${({ theme }) => theme.palette.text.white};
   transition: background 0.5s ease, box-shadow 0.5s ease;
+
   ${width}
-  &:before,
-  &:after {
-    color: ${({ theme }) => theme.palette.text.white};
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-position: initial;
-    background-repeat: no-repeat;
-    background-size: ${({ styleType }) => (styleType === '1' ? 'initial' : '')};
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    backface-visibility: hidden;
-    z-index: 0;
-  }
 
-  &:before {
-    background-image: ${({ styleType }) =>
-      styleType === '1'
-        ? `url(${oneInMany1Default})`
-        : `url(${oneInMany2Default})`};
-    opacity: ${({ isSelected }) => (isSelected ? 0 : 1)};
-    transform: ${({ isSelected }) =>
-      isSelected ? 'rotateY(180deg)' : 'rotateY(0deg)'};
-  }
-
-  &:after {
-    background-image: ${({ styleType }) =>
-      styleType === '1'
-        ? `url(${oneInMany1Hover})`
-        : `url(${oneInMany2Hover})`};
-    opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
-    transform: ${({ isSelected }) =>
-      isSelected ? 'rotateY(0deg)' : 'rotateY(180deg)'};
-    background-position: ${({ styleType }) =>
-      styleType === '1' ? 'right' : 'initial'};
-  }
+  ${({ styleType, isSelected, theme }) =>
+    getBgStyleMap[styleType]({ isSelected, theme } as any)}
 
   ${({ isSelected, theme }) =>
     !isSelected &&
@@ -81,14 +198,7 @@ const StyledContainer = styled.div<
     &:hover {
       background: ${theme.palette.cardHover};
       background-position: right;
-      &:before {
-        opacity: 0;
-        transform: rotateY(180deg);
-      }
-      &:after {
-        opacity: 1;
-        transform: rotateY(0deg);
-      }
+
       ${StyledTitle} {
         position: relative;
         z-index: 3;
@@ -119,12 +229,12 @@ const StyledDescription = styled.div`
   margin-left: 16px;
 `;
 
-export const OneInMany = ({
+export const OneInMany: React.FC<OneInManyProps> = ({
   title,
   description,
   styleType,
   ...restProps
-}: OneInManyProps) => {
+}) => {
   const [isSelected, setisSelected] = useState(false);
 
   return (
@@ -143,6 +253,7 @@ export const OneInMany = ({
 };
 
 OneInMany.propTypes = {
-  description: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  styleType: PropTypes.oneOf<OneInManyStyleType>(['1', '2']).isRequired,
 };
