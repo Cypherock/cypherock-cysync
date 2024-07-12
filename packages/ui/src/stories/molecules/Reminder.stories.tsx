@@ -11,6 +11,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    date: '3 Months',
+    disabled: false,
+  },
+};
+
 export const Disabled: Story = {
   args: {
     date: '3 Months',

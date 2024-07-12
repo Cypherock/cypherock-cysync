@@ -70,10 +70,7 @@ import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import clockBgHover from './clock-bg-hover.svg';
-import clockBgDefault from './clock-bg-default.svg';
-import clockBackgroundHover from './clock-background-hover.svg';
-import clockBackgroundDefault from './clock-background-default.svg';
+import mainClock from './mainClock.svg';
 
 export {
   addWalletIcon,
@@ -148,8 +145,5 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
-  clockBgDefault,
-  clockBgHover,
-  clockBackgroundHover,
-  clockBackgroundDefault,
+  mainClock,
 };

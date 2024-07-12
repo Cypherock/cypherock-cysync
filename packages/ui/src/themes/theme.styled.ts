@@ -55,9 +55,12 @@ export const theme = {
     text: {
       ...colors.text,
       disabled: colors.disabled.text,
+      disabledBackground: colors.background.disabled,
+      selected: colors.selected.default,
     },
     shadow: {
       dropdown: colors.shadow.dropdown,
+      selected: colors.boxShadow.selected,
     },
     background: {
       progress: colors.background.progressBar,
@@ -126,6 +129,7 @@ export const theme = {
       subMenuLeft: colors.border.subMenuLeft,
       topbar: colors.border.topbar,
       card: colors.border.card,
+      selected: colors.border.selected,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
