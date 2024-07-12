@@ -10,27 +10,20 @@ import {
   mimHovertWallet,
   redInfo,
 } from '../../assets';
-import { colors } from '../../themes/color.styled';
+import { WidthProps, width } from '../utils';
+import { theme } from '../../themes/theme.styled';
 
-const StyledDisableContainer = styled.div`
+const StyledDisableContainer = styled.div<WidthProps>`
   position: relative;
-  background: ${colors.background.disabled};
+  background: ${theme.palette.background.disabledBackground};
   overflow: hidden;
   border-radius: 8px;
   width: 276px;
   height: 128px;
   padding: 24px 16px;
-  color: ${colors.border.separator};
-`;
-
-const StyledDateLabel = styled.div`
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: center;
-  z-index: 1;
-  margin-top: 16px;
+  color: ${theme.palette.border.separatorSecondary};
+  cursor: not-allowed;
+  ${width}
 `;
 
 const WalletDefaultImage = styled.img.attrs({
@@ -63,28 +56,31 @@ const StyledRedInfoImage = styled.img.attrs({
   top: 10px;
 `;
 
-export interface ManyInManyProps {
+export interface ManyInManyProps extends WidthProps {
   title: string;
   disabled: boolean;
 }
 
-const StyledContainer = styled.div<{ isSelected: boolean }>`
+const StyledContainer = styled.div<{ isSelected: boolean } & WidthProps>`
   position: relative;
   overflow: hidden;
   width: 276px;
   height: 128px;
   padding: 24px 16px;
-  color: ${colors.text.white};
+  color: ${theme.palette.bullet.white};
   cursor: pointer;
   border-radius: 8px;
   border: ${({ isSelected }) =>
-    isSelected ? `1px solid ${colors.border.selected}` : 'none'};
+    isSelected ? `1px solid ${theme.palette.border.selected}` : 'none'};
   box-shadow: ${({ isSelected }) =>
     !isSelected
-      ? `0px 0px 12px 4px ${colors.boxShadow.selected}`
-      : `0px 0px 12px 4px ${colors.boxShadow.selected} inset`};
+      ? `0px 0px 12px 4px ${theme.palette.shadow.selected}`
+      : `0px 0px 12px 4px ${theme.palette.shadow.selected} inset`};
   background: ${({ isSelected }) =>
-    !isSelected ? colors.gradients.selected.default : colors.selected.default};
+    !isSelected ? theme.palette.selected.default : theme.palette.text.selected};
+
+  ${width}
+
   &::after {
     content: '';
     position: absolute;
@@ -98,7 +94,7 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: 280px;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.8s ease-in-out;
     transform-origin: bottom center;
   }
   &:hover::after {
@@ -106,23 +102,38 @@ const StyledContainer = styled.div<{ isSelected: boolean }>`
       !isSelected ? 'translateX(-30%) rotate(45deg) scale(1.5)' : 'none'};
     background-position: bottom left 180%;
     width: 167%;
-    height: 170%;
+    height: 175%;
     background-size: 496px;
     background-image: url(${({ isSelected }) =>
       !isSelected ? mimDefaultBg : 'none'});
   }
   &:hover {
     background: ${({ isSelected }) =>
-      !isSelected
-        ? colors.gradients.selected.hover
-        : colors.gradients.selected.default};
-    box-shadow: 0px 4px 12px 4px ${colors.boxShadow.selected};
+      !isSelected ? theme.palette.selected.hover : theme.palette.text.selected};
   }
   position: relative;
   z-index: 1;
 `;
+const StyledDateLabel = styled.div<{ isSelected: boolean }>`
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  z-index: 1;
+  margin-top: 16px;
+  transition: font-size 1s ease;
 
-export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
+  ${StyledContainer}:hover & {
+    font-size: ${({ isSelected }) => (!isSelected ? '15px' : '14px')};
+  }
+`;
+
+export const ManyInMany: FC<ManyInManyProps> = ({
+  title,
+  disabled,
+  ...restProps
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
 
@@ -132,29 +143,23 @@ export const ManyInMany: FC<ManyInManyProps> = ({ title, disabled }) => {
       onClick={() => setIsSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
       isSelected={isSelected}
+      {...restProps}
     >
       <Flex
         align="center"
         direction="column"
         $height="100%"
         justify="center"
-        pl="24px"
         $zIndex={2}
       >
-        {isHover ? <WalletHoverImage /> : <WalletDefaultImage />}
-        <StyledDateLabel>{title}</StyledDateLabel>
+        {isHover && !isSelected ? <WalletHoverImage /> : <WalletDefaultImage />}
+        <StyledDateLabel isSelected={isSelected}>{title}</StyledDateLabel>
       </Flex>
     </StyledContainer>
   ) : (
     <StyledDisableContainer>
       <StyledRedInfoImage />
-      <Flex
-        align="center"
-        direction="column"
-        $height="100%"
-        justify="center"
-        pl="24px"
-      >
+      <Flex align="center" direction="column" $height="100%" justify="center">
         <WalletDisableImage />
         {title}
       </Flex>
