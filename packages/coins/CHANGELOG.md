@@ -1,5 +1,11 @@
 # @cypherock/coins
 
+## 0.0.7
+
+### Patch Changes
+
+- [#496](https://github.com/Cypherock/cypherock-cysync/pull/496) [`7f65473a`](https://github.com/Cypherock/cypherock-cysync/commit/7f65473a422396390d6cd35e66ed8dd898e9311a) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added kendu inu to eth erc20 token list
+
 ## 0.0.6
 
 ### Patch Changes

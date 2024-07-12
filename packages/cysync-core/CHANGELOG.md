@@ -1,5 +1,35 @@
 # @cypherock/cysync-core
 
+## 0.0.8
+
+### Patch Changes
+
+- [#487](https://github.com/Cypherock/cypherock-cysync/pull/487) [`4a31823f`](https://github.com/Cypherock/cypherock-cysync/commit/4a31823fb83163c4573c6f0b0281cc15c12c0be3) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Implemented Retry Button in Device Busy state
+
+- [#474](https://github.com/Cypherock/cypherock-cysync/pull/474) [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added transaction remarks feature
+
+- [#495](https://github.com/Cypherock/cypherock-cysync/pull/495) [`937aaac1`](https://github.com/Cypherock/cypherock-cysync/commit/937aaac1ae68ea767d828539344a2ee360d1019f) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed tron send max to new account
+
+- [#484](https://github.com/Cypherock/cypherock-cysync/pull/484) [`59c5bba0`](https://github.com/Cypherock/cypherock-cysync/commit/59c5bba09f166a195baf20dcc52d41cb4ffce2fb) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added network section in csv file
+
+- Updated dependencies [[`7f65473a`](https://github.com/Cypherock/cypherock-cysync/commit/7f65473a422396390d6cd35e66ed8dd898e9311a), [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8), [`937aaac1`](https://github.com/Cypherock/cypherock-cysync/commit/937aaac1ae68ea767d828539344a2ee360d1019f), [`59c5bba0`](https://github.com/Cypherock/cypherock-cysync/commit/59c5bba09f166a195baf20dcc52d41cb4ffce2fb), [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87)]:
+  - @cypherock/coins@0.0.7
+  - @cypherock/coin-support-interfaces@0.0.6
+  - @cypherock/cysync-core-constants@0.0.3
+  - @cypherock/coin-support-solana@0.0.8
+  - @cypherock/coin-support-btc@0.0.8
+  - @cypherock/coin-support-evm@0.0.8
+  - @cypherock/db-interfaces@0.0.4
+  - @cypherock/cysync-ui@0.0.6
+  - @cypherock/coin-support-tron@0.0.2
+  - @cypherock/cysync-core-services@0.0.8
+  - @cypherock/cysync-utils@0.0.6
+  - @cypherock/coin-support@0.0.8
+  - @cypherock/coin-support-near@0.0.8
+  - @cypherock/coin-support-utils@0.0.8
+  - @cypherock/cysync-core-workers@0.0.8
+  - @cypherock/cysync-interfaces@0.0.5
+
 ## 0.0.7
 
 ### Patch Changes
