@@ -104,7 +104,7 @@ export const colors = {
     calendarHeader: '#211C18',
     timer: {
       main: '#3e3a38',
-      deafult: '#261f17',
+      default: '#261f17',
       silver: '#26221e',
       expiring: '#271a15',
       secondary: '#2a2827',

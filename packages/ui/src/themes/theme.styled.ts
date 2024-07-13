@@ -46,6 +46,9 @@ export const theme = {
     muted: {
       main: colors.text.muted,
     },
+    error: {
+      main: colors.text.error,
+    },
     golden: colors.gradients.golden,
     silver: colors.gradients.silver,
     highlight: colors.gradients.highlight,

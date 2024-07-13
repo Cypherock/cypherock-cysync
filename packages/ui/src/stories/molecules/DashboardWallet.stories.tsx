@@ -11,13 +11,28 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Info: Story = {
+export const Default: Story = {
   args: {
     isNone: false,
-    isSilver: false,
+    planType: 'silver',
     isExpiring: false,
     timerDate: '21 JAN 2024',
-    name: 'Mynonamewallet',
+    name: 'My Default Wallet',
     walletSubtitle: 'Setup Cypherock Cover',
+  },
+};
+
+export const SilverPlan: Story = {
+  args: {
+    ...Default.args,
+    planType: 'silver',
+  },
+};
+
+export const GoldPlan: Story = {
+  args: {
+    ...Default.args,
+    planType: 'gold',
+    name: 'My Gold Wallet',
   },
 };
