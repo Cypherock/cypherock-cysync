@@ -21,7 +21,7 @@ import createWalletGraphics from './create-wallet-graphics.png';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import dashWallet from './dash-wallet.svg';
-import dashedWallet from './dashed-wallet-dash.svg';
+import dashedWallet from './dashed-wallet.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';

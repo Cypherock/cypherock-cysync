@@ -94,7 +94,7 @@ const Expiring = styled.div`
   text-align: left;
   color: ${theme.palette.error.main};
   position: relative;
-  right: 20%;
+  right: 35%;
 `;
 
 const TimerContainer = styled.div<{ isHover: boolean }>`
