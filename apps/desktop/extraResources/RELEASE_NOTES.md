@@ -1,3 +1,9 @@
+# v2.0.9
+
+### 🐛 Bugfixes
+
+- **Fixed Send Token Transaction on EVM Networks**: Fixed continue button disabled state in evm tokens send flow
+
 # v2.0.8
 
 ### 🚀 Features
