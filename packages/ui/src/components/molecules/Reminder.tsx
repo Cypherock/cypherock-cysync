@@ -1,15 +1,11 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+
+import { ClockIcon, InformationIcon, bgClockIcon } from '../../assets';
+import { useTheme } from '../../themes';
 import { Flex } from '../atoms/Flex';
-import {
-  Clock,
-  ClockDisabled,
-  ClockHover,
-  ClockInfo,
-  mainClock,
-} from '../../assets';
+import { svgGradients } from '../GlobalStyles';
 import { WidthProps, width } from '../utils';
-import { theme } from '../../themes/theme.styled';
 
 const StyledContainer = styled.div<
   WidthProps & { isSelected: boolean; isHover: boolean }
@@ -18,20 +14,23 @@ const StyledContainer = styled.div<
   background: ${props =>
     !props.isSelected
       ? `linear-gradient(273deg, rgba(96, 58, 23, 0.20) 1.52%, rgba(0, 0, 0, 0.00) 52.42%), #2A2A27`
-      : theme.palette.text.selected};
+      : props.theme.palette.text.selected};
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   width: 348px;
   height: 53px;
-  color: ${theme.palette.bullet.white};
+  color: ${({ theme }) => theme.palette.bullet.white};
   z-index: 1;
   box-shadow: ${props =>
     props.isSelected
-      ? `0px 0px 12px 4px ${theme.palette.shadow.selected} inset`
-      : `0px 0px 12px 4px ${theme.palette.shadow.selected}`};
-  border: ${props =>
-    props.isSelected ? `1px solid ${theme.palette.border.selected}` : ''};
+      ? `0px 0px 12px 4px ${props.theme.palette.shadow.selected} inset`
+      : `0px 0px 12px 4px ${props.theme.palette.shadow.selected}`};
+  border: 1px solid
+    ${props =>
+      props.isSelected
+        ? `${props.theme.palette.border.selected}`
+        : 'transparent'};
 
   ${width}
 
@@ -45,8 +44,8 @@ const StyledContainer = styled.div<
     background-image: ${props =>
         props.isSelected
           ? ''
-          : `url(${mainClock}), url(${mainClock}), url(${mainClock})`},
-      url(${mainClock}), url(${mainClock}), url(${mainClock});
+          : `url(${bgClockIcon}), url(${bgClockIcon}), url(${bgClockIcon})`},
+      url(${bgClockIcon}), url(${bgClockIcon}), url(${bgClockIcon});
     background-size: 40px 40px;
     background-repeat: no-repeat;
     background-position: -20px -15px, 30px 30px, 80px -30px, 140px 30px, 200px 0,
@@ -102,7 +101,7 @@ const DisableContainer = styled.div<WidthProps>`
   overflow: hidden;
   width: 348px;
   height: 53px;
-  background: ${theme.palette.text.disabledBackground};
+  background: ${({ theme }) => theme.palette.text.disabledBackground};
   display: flex;
   justify-content: left;
   align-items: center;
@@ -112,9 +111,11 @@ const DisableContainer = styled.div<WidthProps>`
 
 const ClockInfoContainer = styled.div`
   position: absolute;
-  top: 13px;
+  display: flex;
+  justify-content: center;
+  top: 50%;
   right: 18px;
-  cursor: pointer;
+  transform: translateY(-50%);
 `;
 
 const DateLabel = styled.p`
@@ -124,7 +125,7 @@ const DateLabel = styled.p`
   line-height: 21px;
   text-align: left;
   margin-left: 24px;
-  color: ${theme.palette.bullet.white} !important;
+  color: ${({ theme }) => theme.palette.bullet.white} !important;
 `;
 
 const DisabledDate = styled.p`
@@ -134,7 +135,7 @@ const DisabledDate = styled.p`
   line-height: 21px;
   text-align: left;
   margin-left: 24px;
-  color: ${theme.palette.background.separator};
+  color: ${({ theme }) => theme.palette.background.separator};
 `;
 
 export interface ReminderProps extends WidthProps {
@@ -149,6 +150,7 @@ export const Reminder: FC<ReminderProps> = ({
 }) => {
   const [isHover, setIsHover] = useState(false);
   const [isSelected, setisSelected] = useState(false);
+  const theme = useTheme();
 
   return !disabled ? (
     <StyledContainer
@@ -160,17 +162,27 @@ export const Reminder: FC<ReminderProps> = ({
       {...restProps}
     >
       <Flex p={2}>
-        {isHover && !isSelected ? <ClockHover /> : <Clock />}
+        <ClockIcon
+          fill={
+            isHover && !isSelected
+              ? `url(#${svgGradients.gold})`
+              : theme.palette.bullet.white
+          }
+        />
         <DateLabel>{date}</DateLabel>
       </Flex>
     </StyledContainer>
   ) : (
     <DisableContainer {...restProps}>
       <Flex p="1rem">
-        <ClockDisabled />
+        <ClockIcon fill={theme.palette.background.separator} />
         <DisabledDate>{date}</DisabledDate>
         <ClockInfoContainer>
-          <ClockInfo />
+          <InformationIcon
+            fill={theme.palette.background.danger}
+            $width={15}
+            $height={15}
+          />
         </ClockInfoContainer>
       </Flex>
     </DisableContainer>
