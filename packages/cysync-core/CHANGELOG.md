@@ -1,5 +1,11 @@
 # @cypherock/cysync-core
 
+## 0.0.9
+
+### Patch Changes
+
+- [#500](https://github.com/Cypherock/cypherock-cysync/pull/500) [`bddf6240`](https://github.com/Cypherock/cypherock-cysync/commit/bddf624080a41b4a5a4c40264b4394b55b4a3641) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed evm send transaction issues
+
 ## 0.0.8
 
 ### Patch Changes
