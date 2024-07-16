@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import { WidthProps, width } from '../utils';
 
-interface NomineeMessageProps {
+interface NomineeMessageProps extends WidthProps {
   icon: React.ReactNode;
   placeholder: string;
   onEdit: (value: string) => void;
@@ -13,8 +14,9 @@ const StyledNomineeMessage = styled.div`
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
-  background: #312d2a;
+  background: ${({ theme }) => theme.palette.background.slate};
   border-radius: 8px;
+  ${width}
 `;
 
 const IconWrapper = styled.div`

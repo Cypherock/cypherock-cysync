@@ -33,3 +33,11 @@ export const ExecutorMessage: Story = {
     onEdit: () => console.log('edit clicked'),
   },
 };
+
+export const DefaultMessage: Story = {
+  args: {
+    icon: null,
+    placeholder: 'Default Message',
+    onEdit: () => console.log('edit clicked'),
+  },
+};
