@@ -15,14 +15,22 @@ describe('getTokenDifference', () => {
     );
   });
 
-  describe('validation', () => {
-    describe('should throw error with invalid params', () => {
-      testCases.invalid.forEach(testCase => {
-        test(testCase.name, async () => {
-          await expect(getTokenDifference(testCase.params)).rejects.toThrow(
-            'AssertionError',
-          );
-        });
+  describe('should throw error with invalid params', () => {
+    testCases.invalid.forEach(testCase => {
+      test(testCase.name, async () => {
+        await expect(getTokenDifference(testCase.params)).rejects.toThrow(
+          'AssertionError',
+        );
+      });
+    });
+  });
+
+  describe('should return correct response', () => {
+    testCases.invalid.forEach(testCase => {
+      test(testCase.name, async () => {
+        await expect(getTokenDifference(testCase.params)).rejects.toThrow(
+          'AssertionError',
+        );
       });
     });
   });
