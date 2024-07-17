@@ -3,16 +3,16 @@ import styled from 'styled-components';
 
 import { ClockIcon, InformationIcon, bgClockIcon } from '../../assets';
 import { useTheme } from '../../themes';
-import { Flex } from '../atoms/Flex';
+import { Typography, Flex } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
 import { WidthProps, width } from '../utils';
 
 const StyledContainer = styled.div<
-  WidthProps & { isSelected: boolean; isHover: boolean }
+  WidthProps & { $isSelected: boolean; $isHover: boolean }
 >`
   position: relative;
   background: ${props =>
-    !props.isSelected
+    !props.$isSelected
       ? `linear-gradient(273deg, rgba(96, 58, 23, 0.20) 1.52%, rgba(0, 0, 0, 0.00) 52.42%), #2A2A27`
       : props.theme.palette.background.cardSelected};
   border-radius: 8px;
@@ -23,12 +23,12 @@ const StyledContainer = styled.div<
   color: ${({ theme }) => theme.palette.bullet.white};
   z-index: 1;
   box-shadow: ${props =>
-    props.isSelected
+    props.$isSelected
       ? `0px 0px 12px 4px ${props.theme.palette.shadow.selected} inset`
       : `0px 0px 12px 4px ${props.theme.palette.shadow.selected}`};
   border: 1px solid
     ${props =>
-      props.isSelected
+      props.$isSelected
         ? `${props.theme.palette.border.selected}`
         : 'transparent'};
 
@@ -42,7 +42,7 @@ const StyledContainer = styled.div<
     width: 100%;
     height: 100%;
     background-image: ${props =>
-        props.isSelected
+        props.$isSelected
           ? ''
           : `url(${bgClockIcon}), url(${bgClockIcon}), url(${bgClockIcon})`},
       url(${bgClockIcon}), url(${bgClockIcon}), url(${bgClockIcon});
@@ -52,7 +52,7 @@ const StyledContainer = styled.div<
       270px 30px;
     z-index: -1;
     animation: ${props =>
-      !props.isSelected && props.isHover
+      !props.$isSelected && props.$isHover
         ? 'moveBackgrounds 1s ease-in-out forwards'
         : ''};
   }
@@ -60,7 +60,7 @@ const StyledContainer = styled.div<
   &:hover {
     border-radius: var(--8-px, 8px);
     background: ${props =>
-      props.isSelected
+      props.$isSelected
         ? ''
         : `linear-gradient(93deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 52.46%), #332F2D`};
     &:before {
@@ -118,23 +118,19 @@ const ClockInfoContainer = styled.div`
   transform: translateY(-50%);
 `;
 
-const DateLabel = styled.p`
-  font-family: Poppins;
+const DateLabel = styled(Typography)`
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
   text-align: left;
-  margin-left: 24px;
-  color: ${({ theme }) => theme.palette.bullet.white} !important;
+  color: ${({ theme }) => theme.palette.bullet.white};
 `;
 
-const DisabledDate = styled.p`
-  font-family: Poppins;
+const DisabledDate = styled(Typography)`
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   text-align: left;
-  margin-left: 24px;
   color: ${({ theme }) => theme.palette.background.separator};
 `;
 
@@ -157,8 +153,8 @@ export const Reminder: FC<ReminderProps> = ({
       onMouseEnter={() => setIsHover(true)}
       onClick={() => setisSelected(!isSelected)}
       onMouseLeave={() => setIsHover(false)}
-      isSelected={isSelected}
-      isHover={isHover}
+      $isSelected={isSelected}
+      $isHover={isHover}
       {...restProps}
     >
       <Flex p={2}>
@@ -169,14 +165,14 @@ export const Reminder: FC<ReminderProps> = ({
               : theme.palette.bullet.white
           }
         />
-        <DateLabel>{date}</DateLabel>
+        <DateLabel ml={3}>{date}</DateLabel>
       </Flex>
     </StyledContainer>
   ) : (
     <DisableContainer {...restProps}>
       <Flex p="1rem">
         <ClockIcon fill={theme.palette.background.separator} />
-        <DisabledDate>{date}</DisabledDate>
+        <DisabledDate ml={3}>{date}</DisabledDate>
         <ClockInfoContainer>
           <InformationIcon
             fill={theme.palette.background.danger}
