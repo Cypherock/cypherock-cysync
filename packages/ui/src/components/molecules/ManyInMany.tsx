@@ -89,6 +89,15 @@ const StyledContainer = styled.div<{ $isSelected: boolean } & WidthProps>`
   }
   position: relative;
   z-index: 1;
+
+  &:hover .wallet-icon {
+    stroke: ${({ $isSelected }) =>
+      !$isSelected ? `url(#${svgGradients.gold})` : 'none'};
+  }
+
+  &:hover .date-label {
+    font-size: ${({ $isSelected }) => (!$isSelected ? '15px' : '14px')};
+  }
 `;
 
 const StyledDateLabel = styled.div<{ $isSelected: boolean }>`
@@ -100,10 +109,6 @@ const StyledDateLabel = styled.div<{ $isSelected: boolean }>`
   z-index: 1;
   margin-top: 16px;
   transition: font-size 1s ease;
-
-  ${StyledContainer}:hover & {
-    font-size: ${({ $isSelected }) => (!$isSelected ? '15px' : '14px')};
-  }
 `;
 
 export interface ManyInManyProps extends WidthProps {
@@ -116,15 +121,15 @@ export const ManyInMany: FC<ManyInManyProps> = ({
   disabled,
   ...restProps
 }) => {
-  const [isHover, setIsHover] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+  const [isHover, setIsHover] = useState(false);
 
   return !disabled ? (
     <StyledContainer
-      onMouseEnter={() => setIsHover(true)}
       onClick={() => setIsSelected(!isSelected)}
-      onMouseLeave={() => setIsHover(false)}
       $isSelected={isSelected}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
       {...restProps}
     >
       <Flex
@@ -139,7 +144,9 @@ export const ManyInMany: FC<ManyInManyProps> = ({
         ) : (
           <MimDefaultWallet $zIndex={1} />
         )}
-        <StyledDateLabel $isSelected={isSelected}>{title}</StyledDateLabel>
+        <StyledDateLabel className="date-label" $isSelected={isSelected}>
+          {title}
+        </StyledDateLabel>
       </Flex>
     </StyledContainer>
   ) : (
