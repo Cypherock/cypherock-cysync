@@ -44,11 +44,8 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import mimDefaultWallet from './mim-default-wallet.svg';
-import mimDefault from './mim-default.svg';
-import mimDefaultBg from './mim-default-bg.svg';
-import mimDisableWallet from './mim-disable-wallet.svg';
-import mimHovertWallet from './mim-hover-wallet.svg';
+import manyIManyDefault from './mim-default.svg';
+import manyInManyBackground from './mim-default-bg.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -57,7 +54,6 @@ import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
-import redInfo from './red-info.svg';
 import searchIcon from './search-icon.svg';
 import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
@@ -78,12 +74,8 @@ import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 
 export {
-  mimDisableWallet,
-  redInfo,
-  mimDefault,
-  mimDefaultBg,
-  mimDefaultWallet,
-  mimHovertWallet,
+  manyIManyDefault,
+  manyInManyBackground,
   addWalletIcon,
   walletIcon,
   tetherIcon,
