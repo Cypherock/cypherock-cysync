@@ -17,6 +17,11 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    cardSelected:
+      'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
+    cardHover:
+      'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
+    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
   },
   info: {
     main: '#F1AE4A',
@@ -31,9 +36,6 @@ export const colors = {
   disabled: {
     background: '#332E29',
     text: '#544D47',
-  },
-  selected: {
-    default: '#2A2827',
   },
   text: {
     gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
@@ -88,7 +90,8 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
-    disabled: '#282522',
+    cardDisabled: '#282522',
+    cardSelected: '#2A2827',
   },
   border: {
     popup: '#2C2520',

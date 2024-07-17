@@ -81,6 +81,8 @@ export const valid: IPrepareTransactionTestCases[] = [
       assetId: 'solana',
       parentAssetId: 'solana',
       familyId: 'solana',
+      parentAccountId: undefined,
+      remarks: [''],
     },
   },
 ];

@@ -14,7 +14,7 @@ const StyledContainer = styled.div<
   background: ${props =>
     !props.isSelected
       ? `linear-gradient(273deg, rgba(96, 58, 23, 0.20) 1.52%, rgba(0, 0, 0, 0.00) 52.42%), #2A2A27`
-      : props.theme.palette.text.selected};
+      : props.theme.palette.background.cardSelected};
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -101,7 +101,7 @@ const DisableContainer = styled.div<WidthProps>`
   overflow: hidden;
   width: 348px;
   height: 53px;
-  background: ${({ theme }) => theme.palette.text.disabledBackground};
+  background: ${({ theme }) => theme.palette.background.cardDisabled};
   display: flex;
   justify-content: left;
   align-items: center;
