@@ -69,6 +69,7 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   icon,
   placeholder,
   onEdit,
+  ...props
 }) => {
   const [inputValue, setInputValue] = useState('');
 
@@ -79,7 +80,7 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   };
 
   return (
-    <StyledNomineeMessage>
+    <StyledNomineeMessage {...props}>
       <IconAndInputWrapper>
         <IconWrapper>{icon}</IconWrapper>
         <PlaceholderInput
