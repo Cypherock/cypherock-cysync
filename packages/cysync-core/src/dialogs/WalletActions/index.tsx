@@ -120,11 +120,15 @@ export const WalletActionsDialogBox: FC = () => {
             justify="flex-start"
             height="full"
           >
-            <Header
-              subTitle={lang.strings.onboarding.walletActionsDialogBox.subTitle}
-              title={lang.strings.onboarding.walletActionsDialogBox.title}
-            />
-            <Flex direction="row" gap={16} justify="center" mt="64px" mb="24px">
+            <Flex mb="32px" mt="32px">
+              <Header
+                subTitle={
+                  lang.strings.onboarding.walletActionsDialogBox.subTitle
+                }
+                title={lang.strings.onboarding.walletActionsDialogBox.title}
+              />
+            </Flex>
+            <Flex direction="row" gap={16} justify="center" mb="32px">
               <Flex
                 direction="column"
                 $borderWidth={1}
@@ -135,7 +139,7 @@ export const WalletActionsDialogBox: FC = () => {
                 onClick={() => handleSetSelectedAction('createWallet')}
                 align="center"
                 gap={24}
-                width={400}
+                width={350}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
@@ -176,7 +180,7 @@ export const WalletActionsDialogBox: FC = () => {
                 onClick={() => handleSetSelectedAction('importWallet')}
                 align="center"
                 gap={24}
-                width={400}
+                width={350}
                 shadow="hover:popup"
                 $cursor="pointer"
               >
@@ -218,7 +222,7 @@ export const WalletActionsDialogBox: FC = () => {
                   onClick={() => handleSetSelectedAction('walletTransfer')}
                   align="center"
                   gap={24}
-                  width={400}
+                  width={350}
                   shadow="hover:popup"
                   $cursor="pointer"
                 >
@@ -251,7 +255,7 @@ export const WalletActionsDialogBox: FC = () => {
                 </Flex>
               )}
             </Flex>
-            <Flex pt={1} pb={4} px={4}>
+            <Flex pt={4} pb={4} px={4} width="872px">
               {getDisplayedAction() === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
