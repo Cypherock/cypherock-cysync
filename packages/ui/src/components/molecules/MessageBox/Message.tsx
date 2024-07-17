@@ -1,7 +1,10 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-interface MessageBoxProps {
+import { WidthProps, width } from '../../utils';
+
+interface MessageBoxProps extends WidthProps {
   heading: string;
   placeholder: string;
 }
@@ -11,6 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   background-color: ${({ theme }) => theme.palette.background.primary};
+  ${width}
 `;
 
 const Heading = styled.h2`
@@ -49,8 +53,12 @@ const TextArea = styled.textarea`
   }
 `;
 
-const MessageBox: React.FC<MessageBoxProps> = ({ heading, placeholder }) => (
-  <Container>
+const MessageBox: React.FC<MessageBoxProps> = ({
+  heading,
+  placeholder,
+  ...props
+}) => (
+  <Container {...props}>
     <Heading>{heading}</Heading>
     <TextArea placeholder={placeholder} />
   </Container>
