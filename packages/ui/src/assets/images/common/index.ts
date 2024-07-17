@@ -5,6 +5,7 @@ import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import bgClockIcon from './bgClockIcon.svg';
 import binanceIcon from './binance.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
 import blockIcon from './Block-unselectedsvg.svg';
@@ -148,6 +149,7 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  bgClockIcon,
   oneInMany1Default,
   oneInMany1Hover,
   oneInMany2Hover,

@@ -173,10 +173,10 @@ const StyledContainer = styled.div<
   position: relative;
   border: 1px solid
     ${({ isSelected, theme }) =>
-      isSelected ? `${theme.palette.border.cardSelected}` : 'transparent'};
+      isSelected ? `${theme.palette.border.selected}` : 'transparent'};
   box-shadow: ${({ isSelected }) =>
     isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
-  background: ${({ theme }) => theme.palette.cardSelected};
+  background: ${({ theme }) => theme.palette.gradients.cardSelected};
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -196,13 +196,13 @@ const StyledContainer = styled.div<
     !isSelected &&
     `
     &:hover {
-      background: ${theme.palette.cardHover};
+      background: ${theme.palette.gradients.cardHover};
       background-position: right;
 
       ${StyledTitle} {
         position: relative;
         z-index: 3;
-        background: ${theme.palette.title};
+        background: ${theme.palette.gradients.title};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }

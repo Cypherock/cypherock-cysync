@@ -57,6 +57,9 @@ export const colors = {
     divider: '#333130',
     dialog: '#2B2420',
   },
+  boxShadow: {
+    selected: '#1B1813',
+  },
   background: {
     progressBar: '#1F1915',
     input: '#27221D',
@@ -87,6 +90,8 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    cardDisabled: '#282522',
+    cardSelected: '#2A2827',
   },
   border: {
     popup: '#2C2520',
@@ -113,7 +118,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
-    cardSelected: `#e0bb74`,
+    selected: '#e0bb74',
   },
   shadow: {
     dropdown: '#0f0d0b',
