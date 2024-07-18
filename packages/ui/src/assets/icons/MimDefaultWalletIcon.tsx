@@ -1,7 +1,7 @@
 import React from 'react';
 import { SvgStyle as Svg, SvgProps } from './Svg';
 
-export const MimDefaultWallet: React.FC<SvgProps> = ({
+export const MimDefaultWalletIcon: React.FC<SvgProps> = ({
   stroke,
   fill,
   ...props
