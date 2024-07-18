@@ -1,3 +1,3 @@
 export * from './generated';
 export * from './Svg';
-export * from './MimDefaultWalletIcon';
+export * from './MimDefaultWallet';

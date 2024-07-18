@@ -5,8 +5,8 @@ import {
   InfoItalicsIcon,
   manyInManyBackground,
   manyIManyDefault,
-  MimHoverWallet,
-  MimDefaultWalletIcon,
+  MimDefaultWallet,
+  MimHoverWalletIcon,
 } from '../../assets';
 import { WidthProps, width } from '../utils';
 
@@ -148,10 +148,10 @@ export const ManyInMany: FC<ManyInManyProps> = ({
           $zIndex={2}
         >
           <div className="default-wallet">
-            <MimDefaultWalletIcon $zIndex={1} />
+            <MimDefaultWallet $zIndex={1} />
           </div>
           <div className="hover-wallet">
-            <MimHoverWallet $zIndex={1} />
+            <MimHoverWalletIcon $zIndex={1} />
           </div>
           <StyledDateLabel className="date-label" $isSelected={isSelected}>
             {title}
@@ -169,7 +169,7 @@ export const ManyInMany: FC<ManyInManyProps> = ({
             justify="center"
           >
             <div>
-              <MimDefaultWalletIcon $zIndex={1} stroke="#39322C" />
+              <MimDefaultWallet $zIndex={1} stroke="#39322C" />
             </div>
             {title}
           </Flex>
