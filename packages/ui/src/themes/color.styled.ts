@@ -21,6 +21,9 @@ export const colors = {
   info: {
     main: '#F1AE4A',
   },
+  active: {
+    main: '#3c3329',
+  },
   warning: {
     main: '#FF624C',
   },
