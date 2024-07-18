@@ -65,6 +65,11 @@ export const theme = {
       dropdown: colors.shadow.dropdown,
       selected: colors.boxShadow.selected,
     },
+    gradients: {
+      cardSelected: colors.gradients.cardSelected,
+      cardHover: colors.gradients.cardHover,
+      title: colors.gradients.title,
+    },
     background: {
       progress: colors.background.progressBar,
       input: colors.background.input,
@@ -106,6 +111,8 @@ export const theme = {
       danger: colors.background.danger,
       error: colors.background.error,
       disabledBackground: colors.background.disabled,
+      cardSelected: colors.background.cardSelected,
+      cardDisabled: colors.background.cardDisabled,
     },
     border: {
       popup: colors.border.popup,

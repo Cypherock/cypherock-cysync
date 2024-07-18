@@ -33,7 +33,7 @@ interface HeadingProps
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: string | number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
-  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
+  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap' | 'pre-line';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
   $filter?: string;
 }

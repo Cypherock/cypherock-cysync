@@ -23,6 +23,11 @@ export const colors = {
       default:
         'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827',
     },
+    cardSelected:
+      'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
+    cardHover:
+      'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
+    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
   },
   info: {
     main: '#F1AE4A',
@@ -95,6 +100,8 @@ export const colors = {
     calendar: '#342F2C',
     calendarHeader: '#211C18',
     disabled: '#282522',
+    cardDisabled: '#282522',
+    cardSelected: '#2A2827',
   },
   border: {
     popup: '#2C2520',

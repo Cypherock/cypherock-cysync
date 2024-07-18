@@ -46,6 +46,7 @@ const AddressDetailsSchema = z.object({
   energyUsed: z.number().optional(),
   tronPower: z.number().optional(),
   tronPowerUsed: z.number().optional(),
+  isActive: z.boolean().optional(),
 });
 
 export const TronTransactionsApiResponseSchema = z.object({
