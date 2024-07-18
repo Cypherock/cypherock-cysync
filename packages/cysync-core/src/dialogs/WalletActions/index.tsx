@@ -120,7 +120,7 @@ export const WalletActionsDialogBox: FC = () => {
             justify="flex-start"
             height="full"
           >
-            <Flex mb="32px" mt="32px">
+            <Flex mt="32px">
               <Header
                 subTitle={
                   lang.strings.onboarding.walletActionsDialogBox.subTitle
@@ -255,7 +255,7 @@ export const WalletActionsDialogBox: FC = () => {
                 </Flex>
               )}
             </Flex>
-            <Flex pt={4} pb={4} px={4} width="872px">
+            <Flex pt={4} pb={4} px={4}>
               {getDisplayedAction() === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
