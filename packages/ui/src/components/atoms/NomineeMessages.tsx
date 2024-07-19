@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { WidthProps, width } from '../utils';
+import { Flex } from './Flex';
 
 interface NomineeMessageProps extends WidthProps {
   icon: React.ReactNode;
   placeholder: string;
   onEdit: (value: string) => void;
 }
-
 const StyledNomineeMessage = styled.div`
   display: flex;
   width: 624px;
@@ -17,12 +17,6 @@ const StyledNomineeMessage = styled.div`
   background: ${({ theme }) => theme.palette.background.slate};
   border-radius: 8px;
   ${width}
-`;
-
-const IconWrapper = styled.div`
-  widhth: 13.803px;
-  height: 16px;
-  flex-shrink: 0;
 `;
 
 const PlaceholderInput = styled.input`
@@ -45,13 +39,7 @@ const PlaceholderInput = styled.input`
     color: ${({ theme }) => theme.palette.text.white};
   }
 `;
-const IconAndInputWrapper = styled.div`
-  display: flex;
-  width: 367.167px;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-`;
+
 const EditButton = styled.div`
   background: ${({ theme }) => theme.palette.text.gold};
   font-family: Poppins;
@@ -81,14 +69,16 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
 
   return (
     <StyledNomineeMessage {...props}>
-      <IconAndInputWrapper>
-        <IconWrapper>{icon}</IconWrapper>
+      <Flex width="367.167px" align="center" gap={16} shrink={0}>
+        <Flex width="13.803px" height="16px" shrink={0}>
+          {icon}
+        </Flex>
         <PlaceholderInput
           value={inputValue}
           onChange={handleInputChange}
           placeholder={placeholder}
         />
-      </IconAndInputWrapper>
+      </Flex>
       <EditButton onClick={() => onEdit('')}>Edit</EditButton>
     </StyledNomineeMessage>
   );
