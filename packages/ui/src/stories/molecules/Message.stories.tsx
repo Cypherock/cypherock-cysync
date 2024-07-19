@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import MessageBox from '../../components/molecules/MessageBox/Message';
 
 const meta: Meta<typeof MessageBox> = {

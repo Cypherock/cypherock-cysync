@@ -1,9 +1,8 @@
 import React from 'react';
-
 import styled from 'styled-components';
 
-import { WidthProps, width } from '../../utils';
 import { Typography } from '../../atoms';
+import { WidthProps, width } from '../../utils';
 
 interface MessageBoxProps extends WidthProps {
   heading: string;
