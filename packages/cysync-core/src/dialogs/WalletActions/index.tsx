@@ -40,6 +40,29 @@ const HovorableDiv = styled.div`
   padding: 8px 42px 8px 42px;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const BulletListContainer = styled.div`
+  width: 100%;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    padding: 0 100px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 200px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 0 285px;
+  }
+  @media (min-width: 1920px) {
+    padding: 0 555px;
+  }
 `;
 
 export const WalletActionsDialogBox: FC = () => {
@@ -98,7 +121,7 @@ export const WalletActionsDialogBox: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox py={2} pb={0} width="full" $height="80vh" onClose={onClose}>
+      <DialogBox py={2} pb={0} width="full" $height="72vh" onClose={onClose}>
         <Flex display="flex" direction="row" width="full">
           <Flex width="full" px={3} justify="flex-start">
             <HelpButton
@@ -120,7 +143,7 @@ export const WalletActionsDialogBox: FC = () => {
             justify="flex-start"
             height="full"
           >
-            <Flex mt="32px">
+            <Flex>
               <Header
                 subTitle={
                   lang.strings.onboarding.walletActionsDialogBox.subTitle
@@ -128,7 +151,7 @@ export const WalletActionsDialogBox: FC = () => {
                 title={lang.strings.onboarding.walletActionsDialogBox.title}
               />
             </Flex>
-            <Flex direction="row" gap={16} justify="center" mb="32px">
+            <Flex direction="row" gap={16} justify="center" mb="8px">
               <Flex
                 direction="column"
                 $borderWidth={1}
@@ -148,26 +171,26 @@ export const WalletActionsDialogBox: FC = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   <Image
-                    $height={100}
+                    $height={110}
                     src={createWalletGraphics}
                     alt="Create Wallet"
-                    mt="32px"
                   />
-                  <Typography
-                    variant="h5"
-                    $fontSize={18}
-                    color="white"
-                    $textAlign="center"
-                    mt="40px"
-                    mb="16px"
-                  >
-                    <LangDisplay
-                      text={
-                        lang.strings.onboarding.walletActionsDialogBox
-                          .createWallet.title
-                      }
-                    />
-                  </Typography>
+                  <Flex height="60px" display="flex" justify="center">
+                    <Typography
+                      variant="h5"
+                      $fontSize={18}
+                      color="white"
+                      $textAlign="center"
+                      mb="8px"
+                    >
+                      <LangDisplay
+                        text={
+                          lang.strings.onboarding.walletActionsDialogBox
+                            .createWallet.title
+                        }
+                      />
+                    </Typography>
+                  </Flex>
                 </HovorableDiv>
               </Flex>
               <Flex
@@ -189,26 +212,26 @@ export const WalletActionsDialogBox: FC = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   <Image
-                    $height={100}
+                    $height={110}
                     src={recoverWalletFromSeedphraseGraphics}
                     alt="Recover Wallet From Seedphrase"
-                    mt="32px"
                   />
-                  <Typography
-                    variant="h5"
-                    $fontSize={18}
-                    color="white"
-                    $textAlign="center"
-                    mt="40px"
-                    mb="16px"
-                  >
-                    <LangDisplay
-                      text={
-                        lang.strings.onboarding.walletActionsDialogBox
-                          .importWallet.title
-                      }
-                    />
-                  </Typography>
+                  <Flex height="60px" display="flex" justify="center">
+                    <Typography
+                      variant="h5"
+                      $fontSize={18}
+                      color="white"
+                      $textAlign="center"
+                      mb="8px"
+                    >
+                      <LangDisplay
+                        text={
+                          lang.strings.onboarding.walletActionsDialogBox
+                            .importWallet.title
+                        }
+                      />
+                    </Typography>
+                  </Flex>
                 </HovorableDiv>
               </Flex>
               {isNewUser && (
@@ -231,31 +254,31 @@ export const WalletActionsDialogBox: FC = () => {
                     onMouseLeave={handleMouseLeave}
                   >
                     <Image
-                      $height={100}
+                      $height={110}
                       src={transferWalletGraphics}
                       alt="Transfer Wallet From Old to New Cypherock X1"
-                      mt="32px"
                     />
-                    <Typography
-                      variant="h5"
-                      $fontSize={18}
-                      color="white"
-                      $textAlign="center"
-                      mt="40px"
-                      mb="16px"
-                    >
-                      <LangDisplay
-                        text={
-                          lang.strings.onboarding.walletActionsDialogBox
-                            .transferWallet.title
-                        }
-                      />
-                    </Typography>
+                    <Flex height="60px" display="flex" justify="center">
+                      <Typography
+                        variant="h5"
+                        $fontSize={18}
+                        color="white"
+                        $textAlign="center"
+                        mb="8px"
+                      >
+                        <LangDisplay
+                          text={
+                            lang.strings.onboarding.walletActionsDialogBox
+                              .transferWallet.title
+                          }
+                        />
+                      </Typography>
+                    </Flex>
                   </HovorableDiv>
                 </Flex>
               )}
             </Flex>
-            <Flex pt={4} pb={4} px={4}>
+            <Flex pb={4} px={4}>
               {getDisplayedAction() === 'createWallet' && (
                 <BulletList
                   $fontSize={16}
@@ -285,20 +308,20 @@ export const WalletActionsDialogBox: FC = () => {
                 />
               )}
               {getDisplayedAction() === 'walletTransfer' && (
-                <BulletList
-                  $fontSize={16}
-                  $borderWidth={0}
-                  $borderColor={undefined}
-                  $bgColor={undefined}
-                  color="white"
-                  pt={0}
-                  pb={0}
-                  px="356px"
-                  items={
-                    lang.strings.onboarding.walletActionsDialogBox
-                      .transferWallet.list
-                  }
-                />
+                <BulletListContainer>
+                  <BulletList
+                    $fontSize={16}
+                    $borderWidth={0}
+                    $borderColor={undefined}
+                    $bgColor={undefined}
+                    color="white"
+                    p={0}
+                    items={
+                      lang.strings.onboarding.walletActionsDialogBox
+                        .transferWallet.list
+                    }
+                  />
+                </BulletListContainer>
               )}
             </Flex>
           </DialogBoxBody>
