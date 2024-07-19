@@ -51,6 +51,7 @@ export const colors = {
     normal: '#CCC4BE',
     divider: '#333130',
     dialog: '#2B2420',
+    separator: '#39322C',
   },
   background: {
     progressBar: '#1F1915',
