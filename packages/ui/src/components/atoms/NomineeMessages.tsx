@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { WidthProps, width } from '../utils';
+
 import { Flex } from './Flex';
+
+import { WidthProps, width } from '../utils';
 
 interface NomineeMessageProps extends WidthProps {
   icon: React.ReactNode;
