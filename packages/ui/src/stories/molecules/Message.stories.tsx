@@ -11,9 +11,23 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const CardLocation: Story = {
   args: {
     heading: 'Card Location',
     placeholder: 'Provide Card location',
+  },
+};
+
+export const PersonalMessage: Story = {
+  args: {
+    heading: 'Personal Message',
+    placeholder: 'Write your message',
+  },
+};
+
+export const Default: Story = {
+  args: {
+    heading: 'Default Heading',
+    placeholder: 'Default placeholder',
   },
 };

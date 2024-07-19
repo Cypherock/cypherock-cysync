@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { WidthProps, width } from '../../utils';
+import { Typography } from '../../atoms';
 
 interface MessageBoxProps extends WidthProps {
   heading: string;
@@ -15,16 +16,6 @@ const Container = styled.div`
   align-items: flex-start;
   background-color: ${({ theme }) => theme.palette.background.primary};
   ${width}
-`;
-
-const Heading = styled.h2`
-  color: ${({ theme }) => theme.palette.text.muted};
-  font-family: Poppins;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: 8px;
 `;
 
 const TextArea = styled.textarea`
@@ -59,7 +50,15 @@ const MessageBox: React.FC<MessageBoxProps> = ({
   ...props
 }) => (
   <Container {...props}>
-    <Heading>{heading}</Heading>
+    <Typography
+      color="muted"
+      $fontFamily="normal"
+      $fontWeight="normal"
+      mb="8px"
+      $fontSize={16}
+    >
+      {heading}
+    </Typography>
     <TextArea placeholder={placeholder} />
   </Container>
 );
