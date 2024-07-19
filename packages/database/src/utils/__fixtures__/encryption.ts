@@ -4,6 +4,12 @@ export const testData: ITestData = {
   hashing: {
     valid: [
       {
+        message:
+          'conference therapist cylinder pass commemorate snub license reinforce compromise sphere coffin abridge get headquarters executive popular daughter publicity confusion berry oak spokesperson plagiarize linear',
+        expectedHashKey:
+          '6ac05d4017d8109cb92ecd7dc250a5a45809959f6587dc14cbba9f03d1c0e8bd',
+      },
+      {
         message: '',
         expectedHashKey:
           'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -96,6 +102,22 @@ export const testData: ITestData = {
           '91c1a82ca71c39245ea10611525c3a11a7c6ab0986ad6d2b3b56c319df544db5',
         ],
       },
+      {
+        data: [
+          'xY7Gh2Qm9 FpLwEaKiRs eUbJdNcZtV OoIhGfCxYz mNqPrStUvW AiBjCkDlEm sGtHuIvJwK cXdYeZfAgB TnOpQrRsLt kUlVmWnXoY HzIaJbKcLd qWxYzAbBcD EfGhIjKlMn OpPqRsTuVw XyZaBcDeFg HiJkLmNoPq RsTuVwXyZa BcDeFgHiJk LmNoPqRsTu VwXyZaBcDe fghijklmno pqrstuvwxy zabcdefghi jklmnopqrs tuvwxyzabc defghijklm nopqrstuvw xyzabcdefg hijklmnopq rstuvwxyza bcdefghijk lmnopqrstu vwxyzabcde fghijklmno pqrstuvwxy zabcdefghi jklmnopqrs tuvwxyzabc defghijklm nopqrstuvw',
+        ],
+        key: [
+          '5dcd80714cb9986afe2fb0b178d9fa1a79d57c5611a9f63b7bfec1d14ffd06f1',
+        ],
+      },
+      {
+        data: [
+          'conference therapist cylinder pass commemorate snub license reinforce compromise sphere coffin abridge get headquarters executive popular daughter publicity confusion berry oak spokesperson plagiarize linear',
+        ],
+        key: [
+          '6ac05d4017d8109cb92ecd7dc250a5a45809959f6587dc14cbba9f03d1c0e8bd',
+        ],
+      },
     ],
     invalid: [
       {
@@ -123,6 +145,17 @@ export const testData: ITestData = {
   decryption: {
     valid: [
       {
+        data: [
+          'xY7Gh2Qm9 FpLwEaKiRs eUbJdNcZtV OoIhGfCxYz mNqPrStUvW AiBjCkDlEm sGtHuIvJwK cXdYeZfAgB TnOpQrRsLt kUlVmWnXoY HzIaJbKcLd qWxYzAbBcD EfGhIjKlMn OpPqRsTuVw XyZaBcDeFg HiJkLmNoPq RsTuVwXyZa BcDeFgHiJk LmNoPqRsTu VwXyZaBcDe fghijklmno pqrstuvwxy zabcdefghi jklmnopqrs tuvwxyzabc defghijklm nopqrstuvw xyzabcdefg hijklmnopq rstuvwxyza bcdefghijk lmnopqrstu vwxyzabcde fghijklmno pqrstuvwxy zabcdefghi jklmnopqrs tuvwxyzabc defghijklm nopqrstuvw',
+        ],
+        key: [
+          '5dcd80714cb9986afe2fb0b178d9fa1a79d57c5611a9f63b7bfec1d14ffd06f1',
+        ],
+        decryptionKey: [
+          '5dcd80714cb9986afe2fb0b178d9fa1a79d57c5611a9f63b7bfec1d14ffd06f1',
+        ],
+      },
+      {
         data: [''],
         key: [
           '91c1a82ca71c39245ea10611525c3a11a7c6ab0986ad6d2b3b56c319df544db5',
@@ -148,7 +181,7 @@ export const testData: ITestData = {
           '2a6e89d7c82b924c31825d6699ef9447e02d149a74fcb6d2f63f2f1c2f1583a8',
         ],
         decryptionKey: [
-          '2a6e89d7c82b924c31825d6699ef9447e02d149a74fcb6d2f63f2f1c2f1583a8',
+          '2a6e89d7c82b924c31825d6699ef9447e02d149a74fcb6d2f63f2f1c2f1583a9',
         ],
       },
       {
