@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent, KeyboardEvent, useRef } from 'react';
 import styled from 'styled-components';
+
 import Counter from './Counter';
+
 import { Flex, Typography } from '../atoms';
 
 type StateOfOtp = 'idle' | 'success' | 'error';
