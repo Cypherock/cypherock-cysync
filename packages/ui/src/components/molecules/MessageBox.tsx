@@ -33,7 +33,7 @@ const StyledPathText: React.FC<StyledPathTextProps> = ({ pathText }) => {
   return (
     <Flex direction="row">
       {parts.map((part, index) => (
-        <React.Fragment key={`${index}-${JSON.stringify(part)}`}>
+        <React.Fragment key={`${part}-${index}`}>
           <Typography color="gold">{part}</Typography>
           {index < parts.length - 1 && (
             <Typography color="muted" mb="2px">
