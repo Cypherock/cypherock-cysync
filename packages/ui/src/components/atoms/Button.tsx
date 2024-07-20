@@ -15,8 +15,11 @@ type ButtonVariant =
   | 'danger'
   | 'text'
   | 'icon'
-  | 'none';
+  | 'none'
+  | 'silver';
+
 type ButtonSize = 'lg' | 'md' | 'sm';
+
 export interface ButtonProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -150,6 +153,16 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     background: transparent;
     border: none;
     padding: 0;
+  `,
+  silver: css<ButtonProps>`
+    background: ${({ theme }) => theme.palette.background.secondary};
+    border-radius: 8px;
+    color: ${({ theme }) => theme.palette.text.primary};
+    &:hover {
+      background: ${({ theme }) => theme.palette.background.silverHover};
+      transition: background ${buttonAnimationData.duration}
+        ${buttonAnimationData.curve};
+    }
   `,
 };
 

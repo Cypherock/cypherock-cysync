@@ -99,6 +99,7 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      silverHover: colors.gradients.silverHover,
     },
     border: {
       popup: colors.border.popup,

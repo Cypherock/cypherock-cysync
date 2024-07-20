@@ -54,3 +54,11 @@ export const Icon: Story = {
     icon: <Lock />,
   },
 };
+
+export const Silver: Story = {
+  args: {
+    ...Primary.args,
+    variant: 'silver',
+    children: 'Silver Button',
+  },
+};
