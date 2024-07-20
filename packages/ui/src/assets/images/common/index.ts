@@ -45,6 +45,8 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
+import manyInManyBgImage from './mim-bg.svg';
+import manyInManyHoverBgImage from './mim-hover-bg.svg';
 import oneInMany1Default from './oneInmany1Default.svg';
 import oneInMany1Hover from './oneInmany1Hover.svg';
 import oneInMany2Default from './oneInMany2Default.svg';
@@ -154,4 +156,6 @@ export {
   oneInMany1Hover,
   oneInMany2Hover,
   oneInMany2Default,
+  manyInManyBgImage,
+  manyInManyHoverBgImage,
 };
