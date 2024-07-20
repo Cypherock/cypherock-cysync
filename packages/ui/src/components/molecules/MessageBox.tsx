@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
@@ -32,7 +33,7 @@ const StyledPathText: React.FC<StyledPathTextProps> = ({ pathText }) => {
   return (
     <Flex direction="row">
       {parts.map((part, index) => (
-        <React.Fragment key={parts.length}>
+        <React.Fragment key={`${index}-${JSON.stringify(part)}`}>
           <Typography color="gold">{part}</Typography>
           {index < parts.length - 1 && (
             <Typography color="muted" mb="2px">
