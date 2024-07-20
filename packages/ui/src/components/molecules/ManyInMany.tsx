@@ -9,7 +9,7 @@ import {
   MimHoverWalletIcon,
 } from '../../assets';
 import { useTheme } from '../../themes';
-import { Flex } from '../atoms';
+import { Flex, Typography } from '../atoms';
 import { WidthProps, width } from '../utils';
 
 const getBoxShadow = (params: {
@@ -38,8 +38,7 @@ const getBackground = (params: {
 const StyledMimDefaultWalletIcon = styled(MimDefaultWalletIcon)``;
 const StyledMimHoverWalletIcon = styled(MimHoverWalletIcon)``;
 
-const StyledDateLabel = styled.div<{ $isSelected: boolean }>`
-  font-family: Poppins;
+const StyledDateLabel = styled(Typography)<{ $isSelected: boolean }>`
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
