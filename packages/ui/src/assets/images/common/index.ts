@@ -45,8 +45,8 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import manyIManyDefault from './mim-default.svg';
-import manyInManyBackground from './mim-default-bg.svg';
+import manyInManyBgImage from './mim-bg.svg';
+import manyInManyHoverBgImage from './mim-hover-bg.svg';
 import oneInMany1Default from './oneInmany1Default.svg';
 import oneInMany1Hover from './oneInmany1Hover.svg';
 import oneInMany2Default from './oneInMany2Default.svg';
@@ -79,8 +79,6 @@ import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 
 export {
-  manyIManyDefault,
-  manyInManyBackground,
   addWalletIcon,
   walletIcon,
   tetherIcon,
@@ -158,4 +156,6 @@ export {
   oneInMany1Hover,
   oneInMany2Hover,
   oneInMany2Default,
+  manyInManyBgImage,
+  manyInManyHoverBgImage,
 };

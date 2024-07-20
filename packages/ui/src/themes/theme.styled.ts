@@ -34,10 +34,6 @@ export const theme = {
     secondary: {
       secondary: colors.gradients.secondary,
     },
-    selected: {
-      hover: colors.gradients.selected.hover,
-      default: colors.gradients.selected.default,
-    },
     content: {
       content: colors.gradients.content,
     },
@@ -59,7 +55,6 @@ export const theme = {
     text: {
       ...colors.text,
       disabled: colors.disabled.text,
-      selected: colors.selected.default,
     },
     shadow: {
       dropdown: colors.shadow.dropdown,
@@ -110,7 +105,6 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
-      disabledBackground: colors.background.disabled,
       cardSelected: colors.background.cardSelected,
       cardDisabled: colors.background.cardDisabled,
     },

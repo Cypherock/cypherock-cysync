@@ -1,27 +1,53 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { Flex } from '../atoms';
+
 import {
-  InfoItalicsIcon,
-  manyInManyBackground,
-  manyIManyDefault,
-  MimDefaultWallet,
+  InformationIcon,
+  manyInManyBgImage,
+  manyInManyHoverBgImage,
+  MimDefaultWalletIcon,
   MimHoverWalletIcon,
 } from '../../assets';
+import { useTheme } from '../../themes';
+import { Flex } from '../atoms';
 import { WidthProps, width } from '../utils';
 
-const getBoxShadow = ($isSelected: boolean, theme: any, disabled: boolean) => {
-  if (disabled) return 'none';
-  if ($isSelected)
-    return `0px 0px 12px 4px ${theme.palette.shadow.selected} inset`;
-  return `0px 0px 12px 4px ${theme.palette.shadow.selected}`;
+const getBoxShadow = (params: {
+  $isSelected: boolean;
+  theme: any;
+  disabled: boolean;
+}) => {
+  if (params.disabled) return 'none';
+  if (params.$isSelected)
+    return `0px 0px 12px 4px ${params.theme.palette.shadow.selected} inset`;
+  return `0px 0px 12px 4px ${params.theme.palette.shadow.selected}`;
 };
 
-const getBackground = ($isSelected: boolean, theme: any, disabled: boolean) => {
-  if (disabled) return theme.palette.background.disabledBackground;
-  if ($isSelected) return theme.palette.text.selected;
-  return theme.palette.selected.default;
+const getBackground = (params: {
+  $isSelected: boolean;
+  theme: any;
+  disabled: boolean;
+  isHovered?: boolean;
+}) => {
+  if (params.$isSelected) return params.theme.palette.background.cardSelected;
+  if (params.disabled) return params.theme.palette.background.cardDisabled;
+  if (params.isHovered) return params.theme.palette.gradients.cardHover;
+  return params.theme.palette.background.cardSelected;
 };
+
+const StyledMimDefaultWalletIcon = styled(MimDefaultWalletIcon)``;
+const StyledMimHoverWalletIcon = styled(MimHoverWalletIcon)``;
+
+const StyledDateLabel = styled.div<{ $isSelected: boolean }>`
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  z-index: 1;
+  margin-top: 16px;
+  transition: font-size 0.5s ease;
+`;
 
 const StyledContainer = styled.div<
   { $isSelected: boolean; disabled: boolean } & WidthProps
@@ -35,14 +61,11 @@ const StyledContainer = styled.div<
     disabled ? theme.palette.border.separator : theme.palette.bullet.white};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   border-radius: 8px;
-  border: ${({ $isSelected, theme, disabled }) =>
-    $isSelected && !disabled
-      ? `1px solid ${theme.palette.border.selected}`
-      : 'none'};
-  box-shadow: ${({ $isSelected, theme, disabled }) =>
-    getBoxShadow($isSelected, theme, disabled)};
-  background: ${({ $isSelected, theme, disabled }) =>
-    getBackground($isSelected, theme, disabled)};
+  border: 1px solid
+    ${({ $isSelected, theme, disabled }) =>
+      $isSelected && !disabled ? theme.palette.border.selected : 'transparent'};
+  box-shadow: ${getBoxShadow};
+  background: ${getBackground};
   ${width}
 
   &::after {
@@ -54,70 +77,60 @@ const StyledContainer = styled.div<
     left: 0;
     z-index: 0;
     background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyIManyDefault})` : 'none'};
+      !disabled && !$isSelected ? `url(${manyInManyBgImage})` : 'none'};
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: 280px;
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     transform-origin: bottom center;
   }
 
   &:hover::after {
     transform: ${({ $isSelected, disabled }) =>
       !disabled && !$isSelected
-        ? 'translateX(-30%) rotate(45deg) scale(1.5)'
+        ? 'translateX(-30%) rotate(45deg) scale(1)'
         : 'none'};
     background-position: bottom left 180%;
     width: 167%;
     height: 175%;
     background-size: 496px;
     background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyInManyBackground})` : 'none'};
+      !disabled && !$isSelected ? `url(${manyInManyHoverBgImage})` : 'none'};
   }
 
   &:hover {
-    background: ${({ $isSelected, theme, disabled }) =>
-      getBackground($isSelected, theme, disabled)};
+    background: ${({ theme, $isSelected, disabled }) =>
+      getBackground({ $isSelected, theme, disabled, isHovered: true })};
   }
 
-  .default-wallet {
+  ${StyledMimDefaultWalletIcon} {
     display: block;
   }
 
-  .hover-wallet {
+  ${StyledMimHoverWalletIcon} {
     display: none;
   }
 
-  &:hover .default-wallet {
+  &:hover ${StyledMimDefaultWalletIcon} {
     display: ${({ disabled, $isSelected }) =>
       !disabled && !$isSelected ? 'none' : 'block'};
   }
 
-  &:hover .hover-wallet {
+  &:hover ${StyledMimHoverWalletIcon} {
     display: ${({ disabled, $isSelected }) =>
       !disabled && !$isSelected ? 'block' : 'none'};
   }
 
-  &:hover .date-label {
-    font-size: ${({ $isSelected }) => (!$isSelected ? '15px' : '14px')};
+  &:hover ${StyledDateLabel} {
+    font-size: ${({ $isSelected, disabled }) =>
+      !$isSelected && !disabled ? '15px' : '14px'};
   }
 `;
 
 const StyledRedInfoImage = styled.div`
   position: absolute;
-  right: 10px;
-  top: 10px;
-`;
-
-const StyledDateLabel = styled.div<{ $isSelected: boolean }>`
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: center;
-  z-index: 1;
-  margin-top: 16px;
-  transition: font-size 1s ease;
+  right: 8px;
+  top: 8px;
 `;
 
 export interface ManyInManyProps extends WidthProps {
@@ -131,6 +144,7 @@ export const ManyInMany: FC<ManyInManyProps> = ({
   ...restProps
 }) => {
   const [isSelected, setIsSelected] = useState(false);
+  const theme = useTheme();
 
   return (
     <StyledContainer
@@ -139,42 +153,29 @@ export const ManyInMany: FC<ManyInManyProps> = ({
       disabled={disabled}
       {...restProps}
     >
-      {!disabled ? (
-        <Flex
-          align="center"
-          direction="column"
-          $height="100%"
-          justify="center"
-          $zIndex={2}
-        >
-          <div className="default-wallet">
-            <MimDefaultWallet $zIndex={1} />
-          </div>
-          <div className="hover-wallet">
-            <MimHoverWalletIcon $zIndex={1} />
-          </div>
-          <StyledDateLabel className="date-label" $isSelected={isSelected}>
-            {title}
-          </StyledDateLabel>
-        </Flex>
-      ) : (
-        <>
-          <StyledRedInfoImage>
-            <InfoItalicsIcon fill="#FF624C" />
-          </StyledRedInfoImage>
-          <Flex
-            align="center"
-            direction="column"
-            $height="100%"
-            justify="center"
-          >
-            <div>
-              <MimDefaultWallet $zIndex={1} stroke="#39322C" />
-            </div>
-            {title}
-          </Flex>
-        </>
+      {disabled && (
+        <StyledRedInfoImage>
+          <InformationIcon
+            fill={theme.palette.background.danger}
+            $width={15}
+            $height={15}
+          />
+        </StyledRedInfoImage>
       )}
+      <Flex
+        align="center"
+        direction="column"
+        $height="100%"
+        justify="center"
+        $zIndex={2}
+      >
+        <StyledMimDefaultWalletIcon
+          $zIndex={1}
+          stroke={disabled ? theme.palette.background.separator : undefined}
+        />
+        <StyledMimHoverWalletIcon $zIndex={1} />
+        <StyledDateLabel $isSelected={isSelected}>{title}</StyledDateLabel>
+      </Flex>
     </StyledContainer>
   );
 };
