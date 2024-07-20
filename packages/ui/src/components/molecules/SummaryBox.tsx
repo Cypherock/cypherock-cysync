@@ -21,6 +21,7 @@ interface SummaryRowProps {
   leftText?: string;
   leftIcon?: ReactNode;
   rightText?: string;
+  bottomText?: string;
   rightComponent?: FromItem[];
   rightSubText?: string;
   margin?: number;
@@ -31,6 +32,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
   leftIcon,
   rightText,
+  bottomText,
   rightSubText,
   rightComponent,
   margin,
@@ -41,10 +43,23 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
     leftComponent={
       <ImageContainer gap={8}>
         {leftIcon && leftIcon}
-        <Typography variant="p" $fontSize={14} color="muted">
+        <Typography
+          variant="p"
+          $fontSize={14}
+          color="muted"
+          mr={3}
+          $whiteSpace="nowrap"
+        >
           {leftText}
         </Typography>
       </ImageContainer>
+    }
+    bottomComponent={
+      bottomText && (
+        <Typography variant="p" $fontSize={14} pt="-10px">
+          {bottomText}
+        </Typography>
+      )
     }
     rightComponent={
       rightComponent ? (
@@ -75,7 +90,12 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
         </>
       ) : (
         <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
+          <Typography
+            variant="p"
+            $fontSize={14}
+            $textAlign="right"
+            $wordBreak="break-word"
+          >
             {rightText}
           </Typography>
           {rightSubText && (
@@ -93,6 +113,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
 SummaryRow.defaultProps = {
   leftText: undefined,
   rightText: undefined,
+  bottomText: undefined,
   rightComponent: undefined,
   margin: undefined,
   leftIcon: undefined,
@@ -100,10 +121,10 @@ SummaryRow.defaultProps = {
   id: undefined,
 };
 
-type SummaryItemType =
+export type SummaryItemType =
   | (SummaryRowProps & { id: string })
   | { isDivider: boolean; id: string }
-  | SummaryRowProps[];
+  | ((SummaryRowProps & { id: string }) | { isDivider: boolean; id: string })[];
 
 export interface SummaryBoxProps {
   items: SummaryItemType[];

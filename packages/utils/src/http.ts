@@ -41,9 +41,15 @@ export const makePostRequest = async (
         return response;
       }
     } catch (e: any) {
+      doRetry = false;
+      if (
+        e?.response?.status &&
+        (e?.response?.status === 429 || e?.response?.status >= 500)
+      ) {
+        doRetry = true;
+      }
       tries += 1;
       latestError = e;
-      doRetry = false;
     }
   } while (tries <= maxTries && doRetry);
 

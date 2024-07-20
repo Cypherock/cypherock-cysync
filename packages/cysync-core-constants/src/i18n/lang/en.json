@@ -244,7 +244,8 @@
       "recipient": {
         "label": "Recipient Address",
         "placeholder": "Enter address",
-        "error": "Invalid address"
+        "error": "Invalid address",
+        "ownAddress": "Recipient address is the same as sender address"
       },
       "tabs": {
         "single": "Single Transaction",
@@ -256,11 +257,17 @@
         "toggle": "Send Max",
         "dollar": "$",
         "error": "Insufficient funds",
+        "zeroAmount": "Amount can't be zero",
         "notOverDustThreshold": "Amount is lower than dust limit"
       },
       "fees": {
         "title": "Fees",
         "label": "Network Fees"
+      },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "Transaction might cancel if fees is very low",
       "feeError": "Transaction with 0 fee is not allowed",
@@ -278,7 +285,8 @@
       "to": "To",
       "amount": "Amount",
       "network": "Network Fee",
-      "debit": "Total to debit"
+      "debit": "Total to debit",
+      "remarks": "Personal Note"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -343,7 +351,8 @@
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Note"
     },
     "noData": {
       "text": "No transactions yet",
@@ -690,7 +699,7 @@
           "subtitle": "Retry the connection from the dApp"
         },
         "unsupportedChains": {
-          "title": "${dappName} requested to connect to chain${s} we don't support yet",
+          "title": "${dappName} requested to connect to chain(s) we don't support yet",
           "subtitle": "We currently support ${chains}",
           "message": "Unsupported Chains: ${chains}"
         }
@@ -1837,6 +1846,36 @@
     "betaNotification": {
       "title": "CySync Update v2.0.0",
       "description": "We have done a major overhaul to the CySync app.\nThe new CySync comes with all your favorite features and much more.\nDownload from <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Important**\n\n* You won’t lose your funds\n* After update, you will have to import your accounts again\n* No new updates to CySync v1 except security update\n"
+    },
+    "editAccount": {
+      "header": "Edit Account",
+      "accountSelection": {
+        "title": "Select the Account to Edit",
+        "subtitle": "Choose the account you want to edit",
+        "searchText": "Search",
+        "accountPlaceholder": "Select Accounts",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "accountEdit": {
+        "title": "Account details",
+        "subtitle": "Edit your account attributes",
+        "input": {
+          "accountName": {
+            "title": "Account Name",
+            "subtitle": "Description of the account"
+          },
+          "unit": {
+            "title": "Unit",
+            "subtitle": "Choose the Unit to be used"
+          }
+        },
+        "buttons": {
+          "remove": "Remove from portfolio",
+          "apply": "Apply"
+        },
+        "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
+        "advanced": "Advanced"
+      }
     }
   },
   "toggle": {
@@ -1845,6 +1884,7 @@
   },
   "snackbar": {
     "copiedToClipboard": "Copied to clipboard",
+    "accountUpdated": "Account Updated Successfully",
     "downloadCSV": "Transaction history exported"
   },
   "settings": {

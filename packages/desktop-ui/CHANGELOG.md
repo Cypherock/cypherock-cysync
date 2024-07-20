@@ -1,5 +1,39 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`bddf6240`](https://github.com/Cypherock/cypherock-cysync/commit/bddf624080a41b4a5a4c40264b4394b55b4a3641)]:
+  - @cypherock/cysync-core@0.0.9
+
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`4a31823f`](https://github.com/Cypherock/cypherock-cysync/commit/4a31823fb83163c4573c6f0b0281cc15c12c0be3), [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8), [`937aaac1`](https://github.com/Cypherock/cypherock-cysync/commit/937aaac1ae68ea767d828539344a2ee360d1019f), [`59c5bba0`](https://github.com/Cypherock/cypherock-cysync/commit/59c5bba09f166a195baf20dcc52d41cb4ffce2fb), [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87)]:
+  - @cypherock/cysync-core@0.0.8
+  - @cypherock/cysync-ui@0.0.6
+  - @cypherock/cysync-utils@0.0.6
+  - @cypherock/cysync-interfaces@0.0.5
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66), [`9fdf45a2`](https://github.com/Cypherock/cypherock-cysync/commit/9fdf45a29638f7da26a65688e1444b7ccc6db575), [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256)]:
+  - @cypherock/cysync-core@0.0.7
+
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5), [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88), [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52), [`93bacb86`](https://github.com/Cypherock/cypherock-cysync/commit/93bacb86d0b340687ec6acfe1bcddcf52accbac9), [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581), [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b)]:
+  - @cypherock/cysync-core@0.0.6
+  - @cypherock/cysync-ui@0.0.5
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/cysync-utils@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes

@@ -73,7 +73,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   displayNode,
 }) => {
   const handleBoxClick = () => {
-    if (checkType && checkType === 'radio') {
+    if (!checkType || checkType === 'radio') {
       onChange();
     }
   };

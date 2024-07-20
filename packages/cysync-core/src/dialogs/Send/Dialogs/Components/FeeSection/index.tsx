@@ -97,6 +97,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     evm: getEthereumProps,
     near: () => ({}),
     solana: () => ({}),
+    tron: () => ({}),
   };
 
   const getFeeInputComponent = () => {
@@ -145,7 +146,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     gasPrice?: number;
   }) => {
     setIsFeeLoading(true);
-    const txn = transaction as IPreparedEvmTransaction;
+    const txn = transactionRef.current.transaction as IPreparedEvmTransaction;
     const gasPrice = param.gasPrice?.toString(10)
       ? convertToUnit({
           amount: param.gasPrice,

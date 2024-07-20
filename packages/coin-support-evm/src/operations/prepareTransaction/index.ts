@@ -123,7 +123,7 @@ export const prepareTransaction = async (
   let { data } = txn.computedData;
 
   if (tokenDetails) {
-    output = { amount: '0', address: tokenDetails.address };
+    output = { amount: '0', address: tokenDetails.address, remarks: '' };
   }
 
   let toAddressForEstimate = account.xpubOrAddress;
@@ -205,6 +205,8 @@ export const prepareTransaction = async (
       outputs: outputsAddresses,
       hasEnoughBalance,
       isValidFee,
+      ownOutputAddressNotAllowed: [],
+      zeroAmountNotAllowed: false,
     },
     computedData: {
       gasLimit,

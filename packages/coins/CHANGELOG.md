@@ -1,5 +1,19 @@
 # @cypherock/coins
 
+## 0.0.7
+
+### Patch Changes
+
+- [#496](https://github.com/Cypherock/cypherock-cysync/pull/496) [`7f65473a`](https://github.com/Cypherock/cypherock-cysync/commit/7f65473a422396390d6cd35e66ed8dd898e9311a) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added kendu inu to eth erc20 token list
+
+## 0.0.6
+
+### Patch Changes
+
+- [#485](https://github.com/Cypherock/cypherock-cysync/pull/485) [`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron support without tokens
+
+- [#491](https://github.com/Cypherock/cypherock-cysync/pull/491) [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron trc20 tokens
+
 ## 0.0.5
 
 ### Patch Changes

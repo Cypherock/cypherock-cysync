@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-evm",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -47,9 +47,9 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-app-evm": "^0.0.31",
-    "@cypherock/sdk-interfaces": "^0.0.14",
-    "@cypherock/sdk-utils": "^0.0.17",
+    "@cypherock/sdk-app-evm": "^0.0.32",
+    "@cypherock/sdk-interfaces": "^0.0.15",
+    "@cypherock/sdk-utils": "^0.0.18",
     "lodash": "^4.17.21",
     "multicoin-address-validator": "^0.5.12",
     "rxjs": "^7.8.1"

@@ -1,4 +1,3 @@
-import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedTransactionOutput } from '@cypherock/coin-support-interfaces';
 import {
   convertToUnit,
@@ -24,22 +23,32 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import { NotesInput } from './NotesInput';
 
 export const BatchTransaction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
 
-  const { selectedAccount, transaction, priceConverter, prepare } =
-    useSendDialog();
+  const {
+    selectedAccount,
+    transaction,
+    transactionRef,
+    priceConverter,
+    prepare,
+    getOutputError,
+    getAmountError,
+  } = useSendDialog();
   const [outputs, setOutputs, outputsRef] = useStateWithRef<
     (IPreparedTransactionOutput & { id: string })[]
   >([
     {
       address: transaction?.userInputs.outputs[0]?.address ?? '',
       amount: transaction?.userInputs.outputs[0]?.amount ?? '',
+      remarks: transaction?.userInputs.outputs[0]?.remarks ?? '',
+
       id: uniqueId(),
     },
-    { address: '', amount: '', id: uniqueId() },
+    { address: '', amount: '', remarks: '', id: uniqueId() },
   ]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -50,11 +59,13 @@ export const BatchTransaction: React.FC = () => {
   }, []);
 
   const parseAndPrepare = async (newOutputs: typeof outputs) => {
-    if (!transaction) return;
-    const txn = transaction;
-    txn.userInputs.outputs = newOutputs.map(({ address, amount }) => ({
+    const txn = transactionRef.current;
+
+    if (!txn) return;
+    txn.userInputs.outputs = newOutputs.map(({ address, amount, remarks }) => ({
       address,
       amount,
+      remarks,
     }));
     txn.userInputs.isSendAll = false;
     await prepare(txn);
@@ -119,27 +130,27 @@ export const BatchTransaction: React.FC = () => {
     }).amount;
   };
 
+  const handleTransactionRemarks = async (remark: string, id: string) => {
+    const txn = transactionRef.current;
+    if (!txn) return;
+
+    const trimmedRemark = remark.trim();
+
+    const outputIndex = outputsRef.current.findIndex(
+      output => output.id === id,
+    );
+
+    const newOutputs = [...outputsRef.current];
+    newOutputs[outputIndex].remarks = trimmedRemark;
+    setOutputs(newOutputs);
+    await parseAndPrepare(newOutputs);
+  };
   useEffect(() => {
     if (containerRef.current && enableAutoScroll) {
       const lastChild = containerRef.current.lastElementChild;
       lastChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [outputs, enableAutoScroll]);
-
-  const getAmountError = () => {
-    if (
-      (transaction?.validation as IPreparedBtcTransaction['validation'])
-        .isNotOverDustThreshold
-    ) {
-      return displayText.amount.notOverDustThreshold;
-    }
-
-    if (transaction?.validation.hasEnoughBalance === false) {
-      return displayText.amount.error;
-    }
-
-    return '';
-  };
 
   return (
     <Container display="flex" direction="column" gap={16} width="full">
@@ -157,11 +168,7 @@ export const BatchTransaction: React.FC = () => {
                   label={displayText.recipient.label}
                   placeholder={displayText.recipient.placeholder}
                   initialValue={output.address}
-                  error={
-                    transaction?.validation.outputs[i] === false
-                      ? displayText.recipient.error
-                      : ''
-                  }
+                  error={getOutputError(i)}
                   onChange={async val => {
                     await handleAddressChange(val, output.id);
                   }}
@@ -189,6 +196,14 @@ export const BatchTransaction: React.FC = () => {
                     await handleAmountChange(val, output.id);
                   }}
                   converter={priceConverter}
+                />
+                <NotesInput
+                  label={displayText.remarks.label}
+                  placeholder={displayText.remarks.placeholder}
+                  initialValue=""
+                  onChange={async remark => {
+                    await handleTransactionRemarks(remark, output.id);
+                  }}
                 />
                 {i !== outputs.length - 1 && <Divider variant="horizontal" />}
               </Flex>

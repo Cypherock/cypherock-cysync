@@ -15,15 +15,19 @@ export interface IUseTabsAndDialogs {
   deviceRequiredDialogsMap: Record<number, number[] | undefined>;
   tabs: ITabs;
   dialogName: DialogName;
+  defaultTab?: number;
+  defaultDialog?: number;
 }
 
 export function useTabsAndDialogs({
   deviceRequiredDialogsMap,
   tabs,
   dialogName,
+  defaultTab = 0,
+  defaultDialog = 0,
 }: IUseTabsAndDialogs) {
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [currentDialog, setCurrentDialog] = useState<number>(0);
+  const [currentTab, setCurrentTab] = useState<number>(defaultTab);
+  const [currentDialog, setCurrentDialog] = useState<number>(defaultDialog);
   const [isDeviceRequired, setIsDeviceRequired] = useState<boolean>(false);
 
   const checkIfDeviceRequiredInDialog = useCallback(

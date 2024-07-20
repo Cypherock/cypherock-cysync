@@ -1,5 +1,18 @@
 # @cypherock/cysync-interfaces
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8)]:
+  - @cypherock/db-interfaces@0.0.4
+
+## 0.0.4
+
+### Patch Changes
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
 ## 0.0.3
 
 ### Patch Changes

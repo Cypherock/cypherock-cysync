@@ -1,5 +1,73 @@
 # @cypherock/cysync-desktop
 
+## 2.0.9
+
+### Patch Changes
+
+- [#500](https://github.com/Cypherock/cypherock-cysync/pull/500) [`bddf6240`](https://github.com/Cypherock/cypherock-cysync/commit/bddf624080a41b4a5a4c40264b4394b55b4a3641) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed evm send transaction issues
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.9
+
+## 2.0.8
+
+### Patch Changes
+
+- [#487](https://github.com/Cypherock/cypherock-cysync/pull/487) [`4a31823f`](https://github.com/Cypherock/cypherock-cysync/commit/4a31823fb83163c4573c6f0b0281cc15c12c0be3) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Implemented Retry Button in Device Busy state
+
+- [#496](https://github.com/Cypherock/cypherock-cysync/pull/496) [`7f65473a`](https://github.com/Cypherock/cypherock-cysync/commit/7f65473a422396390d6cd35e66ed8dd898e9311a) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added kendu inu to eth erc20 token list
+
+- [#474](https://github.com/Cypherock/cypherock-cysync/pull/474) [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added transaction remarks feature
+
+- [#495](https://github.com/Cypherock/cypherock-cysync/pull/495) [`937aaac1`](https://github.com/Cypherock/cypherock-cysync/commit/937aaac1ae68ea767d828539344a2ee360d1019f) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed tron send max to new account
+
+- [#484](https://github.com/Cypherock/cypherock-cysync/pull/484) [`59c5bba0`](https://github.com/Cypherock/cypherock-cysync/commit/59c5bba09f166a195baf20dcc52d41cb4ffce2fb) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added network section in csv file
+
+- [#498](https://github.com/Cypherock/cypherock-cysync/pull/498) [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - retry on server api error
+
+- Updated dependencies [[`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8), [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87)]:
+  - @cypherock/db-interfaces@0.0.4
+  - @cypherock/database@0.0.8
+  - @cypherock/cysync-utils@0.0.6
+  - @cypherock/cysync-desktop-ui@0.0.8
+  - @cypherock/cysync-interfaces@0.0.5
+
+## 2.0.7
+
+### Patch Changes
+
+- [#485](https://github.com/Cypherock/cypherock-cysync/pull/485) [`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron support without tokens
+
+- [#493](https://github.com/Cypherock/cypherock-cysync/pull/493) [`9fdf45a2`](https://github.com/Cypherock/cypherock-cysync/commit/9fdf45a29638f7da26a65688e1444b7ccc6db575) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - fixed opening history dialog box after transaction
+
+- [#491](https://github.com/Cypherock/cypherock-cysync/pull/491) [`c314aee1`](https://github.com/Cypherock/cypherock-cysync/commit/c314aee19c6dcc6dc719d4c405b343d87529c256) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added tron trc20 tokens
+
+- Updated dependencies [[`6072f974`](https://github.com/Cypherock/cypherock-cysync/commit/6072f974a47a8ab0905e1ec91a749936b80e7f66)]:
+  - @cypherock/database@0.0.7
+  - @cypherock/cysync-desktop-ui@0.0.7
+
+## 2.0.6
+
+### Patch Changes
+
+- [#417](https://github.com/Cypherock/cypherock-cysync/pull/417) [`d5759845`](https://github.com/Cypherock/cypherock-cysync/commit/d5759845f2d9e8c69af492b21a7109749995d1b5) Thanks [@Ishaan28malik](https://github.com/Ishaan28malik)! - Added edit account feature
+
+- [#460](https://github.com/Cypherock/cypherock-cysync/pull/460) [`48fc8976`](https://github.com/Cypherock/cypherock-cysync/commit/48fc89764762884f5a7648b543a02be378158c88) Thanks [@jhasuraj01](https://github.com/jhasuraj01)! - updated sidebar ui adding popup for navigating wallets
+
+- [#467](https://github.com/Cypherock/cypherock-cysync/pull/467) [`50605199`](https://github.com/Cypherock/cypherock-cysync/commit/506051992b5880f7e8a205b29a93cc2cac3f4a52) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added language support for German, Arabic, Chinese, Indonesian
+
+- [#463](https://github.com/Cypherock/cypherock-cysync/pull/463) [`93bacb86`](https://github.com/Cypherock/cypherock-cysync/commit/93bacb86d0b340687ec6acfe1bcddcf52accbac9) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Release Notes will be displayed once after version update
+
+- [#472](https://github.com/Cypherock/cypherock-cysync/pull/472) [`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - send btc txn input in chunks to device
+
+- [#462](https://github.com/Cypherock/cypherock-cysync/pull/462) [`5b179e40`](https://github.com/Cypherock/cypherock-cysync/commit/5b179e408af4f849d141d2cb88c06bd0f3d0e95b) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Enabled copy paste feature on the password input fields
+
+- Updated dependencies [[`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581)]:
+  - @cypherock/cysync-interfaces@0.0.4
+  - @cypherock/cysync-desktop-ui@0.0.6
+  - @cypherock/database@0.0.6
+  - @cypherock/cysync-utils@0.0.5
+
 ## 2.0.5
 
 ### Patch Changes

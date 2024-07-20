@@ -1,5 +1,21 @@
 # @cypherock/cysync-utils
 
+## 0.0.6
+
+### Patch Changes
+
+- [#498](https://github.com/Cypherock/cypherock-cysync/pull/498) [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - retry on server api error
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.5
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`c02dfec5`](https://github.com/Cypherock/cypherock-cysync/commit/c02dfec50489c172b7086f8e2b7a3020cfd43581)]:
+  - @cypherock/cysync-interfaces@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

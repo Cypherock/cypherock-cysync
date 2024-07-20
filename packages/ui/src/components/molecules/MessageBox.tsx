@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { InfoItalicsIcon } from '../../assets';
+import { GoldQuestionMark, InfoItalicsIcon } from '../../assets';
 import {
   Container,
   Flex,
@@ -55,6 +55,8 @@ export const MessageBox: FC<{
   variables?: any;
   isTextDifferent?: boolean;
   pathText?: string;
+  showIcon?: boolean;
+  showQuestionmark?: boolean;
 }> = ({
   text,
   altText,
@@ -64,6 +66,8 @@ export const MessageBox: FC<{
   variables,
   isTextDifferent,
   pathText,
+  showIcon,
+  showQuestionmark,
 }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
@@ -71,6 +75,7 @@ export const MessageBox: FC<{
     warning: theme?.palette.info.main,
     danger: theme?.palette.background.danger,
   };
+
   return (
     <Container
       $borderColor={borderColorMap[type]}
@@ -86,10 +91,16 @@ export const MessageBox: FC<{
       <Flex>
         <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
       </Flex>
+      {showIcon && (
+        <div>
+          <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
+        </div>
+      )}
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
           <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
+          {showQuestionmark && <GoldQuestionMark ml={1} />}
         </Typography>
         {altText && (
           <Container align="center" gap={5}>
@@ -112,4 +123,6 @@ MessageBox.defaultProps = {
   variables: undefined,
   isTextDifferent: false,
   pathText: undefined,
+  showIcon: true,
+  showQuestionmark: false,
 };

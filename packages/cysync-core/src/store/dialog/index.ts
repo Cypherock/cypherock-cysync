@@ -68,6 +68,9 @@ const initialState: IDialogState = {
   changePassword: {
     isOpen: false,
   },
+  editAccount: {
+    isOpen: false,
+  },
   resetCySync: {
     isOpen: false,
   },

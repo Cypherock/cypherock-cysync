@@ -219,7 +219,12 @@ interface LangSend {
   recipient: {
     title: string;
     subtitle: string;
-    recipient: { label: string; placeholder: string; error: string };
+    recipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
     tabs: { single: string; batch: string };
     amount: {
       label: string;
@@ -227,6 +232,7 @@ interface LangSend {
       toggle: string;
       dollar: string;
       error: string;
+      zeroAmount: string;
       notOverDustThreshold: string;
     };
     fees: { title: string; label: string };
@@ -236,6 +242,7 @@ interface LangSend {
     toggleText: { replace: string; unconfirmed: string };
     infoBox: string;
     addButton: string;
+    remarks: { label: string; placeholder: string; error: string };
   };
   summary: {
     title: string;
@@ -244,6 +251,7 @@ interface LangSend {
     amount: string;
     network: string;
     debit: string;
+    remarks: string;
   };
   finalMessage: {
     button: string;
@@ -298,6 +306,7 @@ interface LangHistory {
     transactionHash: string;
     description: string;
     feePrefix: { optimism: string };
+    remarks: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
@@ -775,6 +784,36 @@ interface LangDialogs {
     success: { formSubmit: string };
   };
   betaNotification: { title: string; description: string };
+  editAccount: {
+    header: string;
+    accountSelection: {
+      title: string;
+      subtitle: string;
+      searchText: string;
+      accountPlaceholder: string;
+      walletPlaceholder: string;
+    };
+    accountEdit: {
+      title: string;
+      subtitle: string;
+      input: {
+        accountName: {
+          title: string;
+          subtitle: string;
+        };
+        unit: {
+          title: string;
+          subtitle: string;
+        };
+      };
+      buttons: {
+        remove: string;
+        apply: string;
+      };
+      info: string;
+      advanced: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -784,6 +823,7 @@ interface LangToggle {
 
 interface LangSnackbar {
   copiedToClipboard: string;
+  accountUpdated: string;
   downloadCSV: string;
 }
 

@@ -97,7 +97,10 @@ const getTxnInputs = async (params: {
       amount = convertedAmount.amount;
     }
 
-    transaction.userInputs.outputs.push({ address, amount });
+    transaction.userInputs.outputs.push({
+      address,
+      amount,
+    });
   }
 
   if (coin.family === coinFamiliesMap.bitcoin) {
@@ -311,7 +314,7 @@ const signTransaction = async (params: {
 
       let signedTransaction = '';
 
-      const observer: Observer<ISignTransactionEvent> = {
+      const observer: Observer<ISignTransactionEvent<any>> = {
         complete: () => {
           deviceSpinner.succeed();
           resolve(signedTransaction);

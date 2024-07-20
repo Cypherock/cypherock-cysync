@@ -45,6 +45,7 @@ describe('07. Broadcast Transaction', () => {
         serviceMock.getDerivedAddresses.mockReturnValue(
           Promise.resolve(testCase.mocks.addresses),
         );
+        insertTransactionMock.mockReturnValue(Promise.resolve(testCase.output));
         global.Date.now = jest.fn(() => testCase.output.timestamp);
 
         const preparedTransaction = await support.broadcastTransaction({
