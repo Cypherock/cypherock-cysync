@@ -81,6 +81,7 @@ export interface TransactionRowData {
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
+  remarks: string[];
   network: string;
 }
 
@@ -239,6 +240,20 @@ export const mapTransactionForDisplay = (params: {
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
 
+  const remarks: string[] = [];
+  if (transaction.remarks) {
+    for (let i = 0; i < transaction.remarks.length; i += 1) {
+      const remark = transaction.remarks[i].trim();
+      if (remark) {
+        if (transaction.remarks.length === 1) {
+          remarks.push(remark);
+        } else {
+          remarks.push(`${i + 1}. ${remark}`);
+        }
+      }
+    }
+  }
+
   return {
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
@@ -292,6 +307,7 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
+    remarks,
     network: networkName,
   };
 };

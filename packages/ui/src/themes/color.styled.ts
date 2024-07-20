@@ -19,6 +19,11 @@ export const colors = {
     silverHover:
       'linear-gradient(180deg, #A2ADB3 0%, #F3F1F2 36%, #BCC3C9 91.5%, #DCDFE4 100%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    cardSelected:
+      'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
+    cardHover:
+      'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
+    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
   },
   info: {
     main: '#F1AE4A',
@@ -52,6 +57,9 @@ export const colors = {
     divider: '#333130',
     dialog: '#2B2420',
   },
+  boxShadow: {
+    selected: '#1B1813',
+  },
   background: {
     progressBar: '#1F1915',
     input: '#27221D',
@@ -82,6 +90,8 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    cardDisabled: '#282522',
+    cardSelected: '#2A2827',
   },
   border: {
     popup: '#2C2520',
@@ -108,6 +118,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
+    selected: '#e0bb74',
   },
   shadow: {
     dropdown: '#0f0d0b',
