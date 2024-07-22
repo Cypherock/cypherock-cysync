@@ -11,6 +11,10 @@ import {
   noneHoverPlus,
   expireHoverWallet,
   dashedWallet,
+  ExpiredPlanIcon,
+  ExpiredClockIcon,
+  WalletDefaultExpiredIcon,
+  WalletHoverExpiredIcon,
 } from '../../assets';
 import { theme } from '../../themes/theme.styled';
 import { WidthProps, width } from '../utils';
@@ -19,6 +23,8 @@ export interface DashboardWalletProps extends WidthProps {
   isNone: boolean;
   planType: 'silver' | 'gold';
   isExpiring: boolean;
+  isExpired: boolean;
+  paymentPending: boolean;
   timerDate: string;
   name: string;
   walletSubtitle: string;
@@ -35,8 +41,8 @@ const NoneDefaultPlusImage = styled.img.attrs({
 })``;
 
 const NoneContainer = styled.div<{ isHover: boolean } & WidthProps>`
-  width: 250px;
-  height: 220px;
+  width: 200px;
+  height: 176px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,22 +57,41 @@ const NoneContainer = styled.div<{ isHover: boolean } & WidthProps>`
 `;
 
 const Container = styled.div<{ backgroundImage: string } & WidthProps>`
-  width: 250px;
-  height: 220px;
+  width: 200px;
+  height: 176px;
   background: ${({ backgroundImage }) => `url(${backgroundImage})`};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  position: relative;
   ${width}
+`;
+
+const StyledExpiredPlanIcon = styled(ExpiredPlanIcon)`
+  position: absolute;
+  top: 24px;
+  right: 10px;
+  height: 14px;
+  width: 14px;
+`;
+
+const StyledExpiredClockIcon = styled(ExpiredClockIcon)`
+  position: absolute;
+  top: 24px;
+  right: 10px;
+  height: 14px;
+  width: 14px;
 `;
 
 const Flex = styled.div<{ isHover: boolean }>`
   display: flex;
   width: 45%;
-  padding: 8px 15px;
-  ${({ isHover }) => (isHover ? 'height: unset;' : 'height: 18px;')}
+  ${({ isHover }) =>
+    isHover
+      ? 'height: unset;padding: 8px 15px;'
+      : 'height: unset;padding: 10px 15px;'}
 `;
 
 const Type = styled.div<{ planType: string }>`
@@ -83,7 +108,7 @@ const Type = styled.div<{ planType: string }>`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
-  right: 85%;
+  right: 95%;
 `;
 
 const Expiring = styled.div`
@@ -94,7 +119,7 @@ const Expiring = styled.div`
   text-align: left;
   color: ${theme.palette.error.main};
   position: relative;
-  right: 35%;
+  right: 70%;
 `;
 
 const TimerContainer = styled.div<{ isHover: boolean }>`
@@ -103,7 +128,7 @@ const TimerContainer = styled.div<{ isHover: boolean }>`
   width: 90px;
   height: 90px;
   align-items: center;
-  margin-top: ${({ isHover }) => (isHover ? '0' : '14px')};
+  margin-top: ${({ isHover }) => (isHover ? '6px' : '20px')};
 `;
 
 const TimerText = styled.div<{ isHover: boolean }>`
@@ -120,19 +145,51 @@ const TimerText = styled.div<{ isHover: boolean }>`
   height: 78px;
   width: 78px;
   fill: #3e3a38;
-  filter: drop-shadow(0px 0px 2px #242322);
+  box-shadow: inset 0 0 2px 1px #242322;
 `;
 
-const TimerHead = styled.div<{ isHover: boolean }>`
+const TimerHead = styled.div<{
+  isHover: boolean;
+  isExpired: boolean;
+  paymentPending: boolean;
+}>`
   font-family: 'Poppins';
-  font-size: ${({ isHover }) => (isHover ? '11px' : '10px')};
-  font-weight: ${({ isHover }) => (isHover ? '700' : '400')};
+  font-size: ${({ isHover, paymentPending }) => {
+    if (isHover) {
+      if (paymentPending) {
+        return '13px';
+      }
+      return '11px';
+    }
+    return '10px';
+  }};
+  font-weight: ${({ isHover, isExpired }) => {
+    if (isExpired) {
+      return '700';
+    }
+    if (isHover) {
+      return '700';
+    }
+    return '400';
+  }};
   line-height: 16.5px;
   text-align: left;
-  color: ${({ isHover }) => (isHover ? 'white' : theme.palette.muted.main)};
+  color: ${({ isExpired, isHover }) => {
+    if (isExpired) {
+      return '#FF624C';
+    }
+    if (isHover) {
+      return 'white';
+    }
+    return theme.palette.muted.main;
+  }};
 `;
 
-const getColor = (isExpiring: boolean, isHover: boolean) => {
+const getColor = (
+  isExpiring: boolean,
+  isHover: boolean,
+  isExpired: boolean,
+) => {
   if (isExpiring && isHover) {
     return theme.palette.muted.main;
   }
@@ -142,27 +199,37 @@ const getColor = (isExpiring: boolean, isHover: boolean) => {
   if (isHover) {
     return theme.palette.muted.main;
   }
+  if (isExpired) {
+    return theme.palette.muted.main;
+  }
   return 'white';
 };
 
-const getFontWeight = (isHover: boolean) => (isHover ? '400' : '700');
+const getFontWeight = (isHover: boolean, isExpired: boolean) =>
+  isHover || isExpired ? '400' : '700';
 
-const TimerSubtitle = styled.div<{ isHover: boolean; isExpiring: boolean }>`
+const TimerSubtitle = styled.div<{
+  isHover: boolean;
+  isExpiring: boolean;
+  isExpired: boolean;
+}>`
   font-family: 'Poppins';
   font-size: 10px;
-  font-weight: ${({ isHover }) => getFontWeight(isHover)};
+  font-weight: ${({ isHover, isExpired }) => getFontWeight(isHover, isExpired)};
   line-height: 18px;
   text-align: left;
-  color: ${({ isExpiring, isHover }) => getColor(isExpiring, isHover)};
+  color: ${({ isExpiring, isHover, isExpired }) =>
+    getColor(isExpiring, isHover, isExpired)};
 `;
 
 const getWalletNameColor = (
   isHover: boolean,
   isExpiring: boolean,
-  planType: string,
+  isExpired: boolean,
+  paymentPending: boolean,
 ) => {
-  if (isHover && isExpiring) {
-    return planType === 'silver' ? '#A2ADB3' : '#E9B873';
+  if (isHover && (isExpiring || isExpired || paymentPending)) {
+    return '#E9B873';
   }
   return theme.palette.muted.main;
 };
@@ -170,7 +237,8 @@ const getWalletNameColor = (
 const WalletName = styled.div<{
   isHover: boolean;
   isExpiring: boolean;
-  planType: string;
+  isExpired: boolean;
+  paymentPending: boolean;
 }>`
   font-family: 'Poppins';
   font-size: 14px;
@@ -178,9 +246,9 @@ const WalletName = styled.div<{
   line-height: 27px;
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 18px;
-  color: ${({ isHover, isExpiring, planType }) =>
-    getWalletNameColor(isHover, isExpiring, planType)};
+  margin-top: 12px;
+  color: ${({ isHover, isExpiring, isExpired, paymentPending }) =>
+    getWalletNameColor(isHover, isExpiring, isExpired, paymentPending)};
 `;
 
 const HoverPlusContainer = styled.div`
@@ -195,6 +263,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   isNone,
   planType,
   isExpiring,
+  isExpired,
+  paymentPending,
   timerDate,
   name,
   walletSubtitle,
@@ -202,12 +272,33 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
 }) => {
   const [isHover, setIsHover] = useState(false);
 
+  const getCurrentTime = () => {
+    const date = new Date();
+    return date.toLocaleTimeString([], {
+      hourCycle: 'h23',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  const getRemainingTime = () => {
+    const date = new Date();
+    return date.toLocaleTimeString([], {
+      hourCycle: 'h23',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  };
+
   const getBackgroundImage = () => {
     if (isHover) {
+      if (isExpired) return WalletHoverExpiredIcon;
       if (planType === 'silver') return silverHoverWallet;
       if (isExpiring) return expireHoverWallet;
       return goldHoverWallet;
     }
+    if (isExpired) return WalletDefaultExpiredIcon;
     return dashWallet;
   };
 
@@ -222,15 +313,33 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
     if (isHover && isExpiring) {
       return 'Expiring';
     }
+    if (isHover && isExpired) {
+      return 'Expired';
+    }
     return ' ';
   };
 
   const getProgressProps = () => {
     if (isExpiring) {
+      if (planType === 'silver') {
+        if (isHover) {
+          return { value: 40, rotation: 0.01 };
+        }
+        return { value: 60, rotation: 0.4 };
+      }
       if (isHover) {
         return { value: 75, rotation: 0.01 };
       }
       return { value: 25, rotation: 0.75 };
+    }
+    if (isExpired) {
+      if (isHover) {
+        return { value: 100, rotation: 0.01 };
+      }
+      return { value: 0, rotation: 0.75 };
+    }
+    if (paymentPending) {
+      return { value: 0, rotation: 0.75 };
     }
     if (planType === 'silver') {
       if (isHover) {
@@ -247,7 +356,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   const progressProps = getProgressProps();
 
   const getPathColor = () => {
-    if (isHover && isExpiring) {
+    if (isHover && (isExpiring || isExpired)) {
       return '#FF624C';
     }
     if (planType === 'silver') {
@@ -284,16 +393,64 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
           })}
         />
         <TimerText isHover={isHover}>
-          <TimerHead isHover={isHover}>
-            {isHover ? 'Created' : 'Expiry'}
+          <TimerHead
+            isHover={isHover}
+            isExpired={isExpired}
+            paymentPending={paymentPending}
+          >
+            {(() => {
+              if (isHover) {
+                if (paymentPending) {
+                  return '05';
+                }
+                return 'Created';
+              }
+              if (isExpired) {
+                return 'Expired on';
+              }
+              if (paymentPending) {
+                return 'Expires in';
+              }
+              return 'Expiry';
+            })()}
           </TimerHead>
-          <TimerSubtitle isHover={isHover} isExpiring={isExpiring}>
-            {timerDate}
+          <TimerSubtitle
+            isHover={isHover}
+            isExpiring={isExpiring}
+            isExpired={isExpired}
+          >
+            {(() => {
+              if (paymentPending) {
+                if (isHover) {
+                  return getRemainingTime();
+                }
+                return `${getCurrentTime()} Hours`;
+              }
+              return timerDate;
+            })()}
           </TimerSubtitle>
         </TimerText>
       </TimerContainer>
-      <WalletName isHover={isHover} isExpiring={isExpiring} planType={planType}>
-        {isHover && isExpiring ? 'Renew Now' : name}
+      {isHover && isExpired && <StyledExpiredPlanIcon />}
+      {paymentPending && <StyledExpiredClockIcon />}
+      <WalletName
+        isHover={isHover}
+        isExpiring={isExpiring}
+        isExpired={isExpired}
+        paymentPending={paymentPending}
+      >
+        {(() => {
+          if (isHover) {
+            if (isExpiring || isExpired) {
+              return 'Renew Now';
+            }
+            if (paymentPending) {
+              return 'Buy Now';
+            }
+            return name;
+          }
+          return name;
+        })()}
       </WalletName>
     </Container>
   ) : (

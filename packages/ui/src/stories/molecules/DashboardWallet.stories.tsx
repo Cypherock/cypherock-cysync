@@ -16,6 +16,8 @@ export const Default: Story = {
     isNone: false,
     planType: 'silver',
     isExpiring: false,
+    isExpired: false,
+    paymentPending: false,
     timerDate: '21 JAN 2024',
     name: 'My Default Wallet',
     walletSubtitle: 'Setup Cypherock Cover',
