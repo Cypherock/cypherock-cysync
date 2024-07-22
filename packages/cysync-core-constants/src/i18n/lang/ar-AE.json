@@ -245,7 +245,7 @@
         "label": "عنوان المستلم",
         "placeholder": "أدخل العنوان",
         "error": "عنوان غير صالح",
-        "ownAddress": "Recipient address is the same as sender address"
+        "ownAddress": "نوان المستلم هو نفسه عنوان المرسل"
       },
       "tabs": {
         "single": "معاملة واحدة",
@@ -257,12 +257,17 @@
         "toggle": "إرسال أقصى قدر ممكن",
         "dollar": "$",
         "error": "أموال غير كافية",
-        "zeroAmount": "Amount can't be zero",
+        "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
         "notOverDustThreshold": "المبلغ أقل من الحد الأدنى"
       },
       "fees": {
         "title": "الرسوم",
         "label": "رسوم الشبكة"
+      },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
@@ -280,7 +285,8 @@
       "to": "إلى",
       "amount": "المبلغ",
       "network": "رسوم الشبكة",
-      "debit": "المبلغ الإجمالي الذي سيتم خصمه"
+      "debit": "المبلغ الإجمالي الذي سيتم خصمه",
+      "remarks": "Personal Notes"
     },
     "finalMessage": {
       "button": "تحقق من المعاملات",
@@ -304,9 +310,6 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
-    },
-    "tron": {
-      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "history": {
@@ -348,7 +351,8 @@
       "description": "الوصف",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Notes"
     },
     "noData": {
       "text": "لا توجد تعاملات حتى الآن",

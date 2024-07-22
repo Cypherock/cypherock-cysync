@@ -307,6 +307,7 @@ class TransactionData implements ITestClass<ITransaction> {
       subType: 'internal',
       customId: 'test',
       description: 'Desc',
+      remarks: ['test'],
     },
     {
       hash: 'hash',
@@ -330,6 +331,7 @@ class TransactionData implements ITestClass<ITransaction> {
       subType: 'internal',
       customId: 'test',
       description: 'Desc',
+      remarks: ['test'],
     },
     {
       hash: 'hash',
@@ -353,6 +355,7 @@ class TransactionData implements ITestClass<ITransaction> {
       subType: 'internal',
       customId: 'test',
       description: 'Desc',
+      remarks: ['test'],
     },
     {
       hash: 'hash',
@@ -376,6 +379,7 @@ class TransactionData implements ITestClass<ITransaction> {
       subType: 'internal',
       customId: 'test',
       description: 'Desc',
+      remarks: ['test'],
     },
   ];
 

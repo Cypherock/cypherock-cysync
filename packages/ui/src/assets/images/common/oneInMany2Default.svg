@@ -1,0 +1,31 @@
+<svg width="200" height="128" viewBox="0 0 200 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_160)">
+<path d="M193 1L182 17L149 7L199 73L129 60L151 31L85 25L120 92L48 83L31 54" stroke="#4D4639" stroke-width="0.5"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 194 0)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 183 16)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 150 6)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 152 30)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 200 72)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 121 91)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 49 82)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 32 53)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 86 24)" fill="#4D4639"/>
+<circle cx="1" cy="1" r="1" transform="matrix(-1 0 0 1 130 59)" fill="#4D4639"/>
+<path d="M163 127L152 111L119 121L169 55L99 68L121 97L55 103L90 36L18 45L1 74" stroke="#4D4639" stroke-width="0.5"/>
+<circle cx="163" cy="127" r="1" transform="rotate(180 163 127)" fill="#4D4639"/>
+<circle cx="152" cy="111" r="1" transform="rotate(180 152 111)" fill="#4D4639"/>
+<circle cx="119" cy="121" r="1" transform="rotate(180 119 121)" fill="#4D4639"/>
+<circle cx="121" cy="97" r="1" transform="rotate(180 121 97)" fill="#4D4639"/>
+<circle cx="169" cy="55" r="1" transform="rotate(180 169 55)" fill="#4D4639"/>
+<circle cx="90" cy="36" r="1" transform="rotate(180 90 36)" fill="#4D4639"/>
+<circle cx="18" cy="45" r="1" transform="rotate(180 18 45)" fill="#4D4639"/>
+<circle cx="1" cy="74" r="1" transform="rotate(180 1 74)" fill="#4D4639"/>
+<circle cx="55" cy="103" r="1" transform="rotate(180 55 103)" fill="#4D4639"/>
+<circle cx="99" cy="68" r="1" transform="rotate(180 99 68)" fill="#4D4639"/>
+</g>
+<defs>
+<clipPath id="clip0_1_160">
+<rect width="200" height="128" fill="white"/>
+</clipPath>
+</defs>
+</svg>

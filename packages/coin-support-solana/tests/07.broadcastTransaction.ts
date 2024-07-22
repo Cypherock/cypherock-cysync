@@ -42,6 +42,7 @@ describe('07. Broadcast Transaction', () => {
         serviceMock.broadcastTransactionToBlockchain.mockReturnValue(
           Promise.resolve(testCase.output.hash),
         );
+        insertTransactionMock.mockReturnValue(Promise.resolve(testCase.output));
         global.Date.now = jest.fn(() => testCase.output.timestamp);
 
         const preparedTransaction = await support.broadcastTransaction({

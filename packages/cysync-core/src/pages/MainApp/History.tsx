@@ -117,6 +117,8 @@ export const History: FC = () => {
           xpub: t.xpubOrAddress,
           countervalueCurrency: t.displayValueUnit,
           countervalueAmount: t.displayValueWithoutUnit,
+          remarks: t.remarks.join('\n'),
+          network: t.network,
         })),
     );
 

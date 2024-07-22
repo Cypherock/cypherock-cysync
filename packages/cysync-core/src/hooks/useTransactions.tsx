@@ -81,6 +81,8 @@ export interface TransactionRowData {
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
+  remarks: string[];
+  network: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -227,7 +229,7 @@ export const mapTransactionForDisplay = (params: {
     transaction.parentAssetId,
     transaction.assetId,
   ).name;
-
+  const networkName = getAsset(transaction.parentAssetId).name;
   const formattedAmount = formatDisplayAmount(amount, 8);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
     unit.abbr
@@ -237,6 +239,20 @@ export const mapTransactionForDisplay = (params: {
   const amountTooltip = isDiscreetMode
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
+
+  const remarks: string[] = [];
+  if (transaction.remarks) {
+    for (let i = 0; i < transaction.remarks.length; i += 1) {
+      const remark = transaction.remarks[i].trim();
+      if (remark) {
+        if (transaction.remarks.length === 1) {
+          remarks.push(remark);
+        } else {
+          remarks.push(`${i + 1}. ${remark}`);
+        }
+      }
+    }
+  }
 
   return {
     id: transaction.__id ?? '',
@@ -291,6 +307,8 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
+    remarks,
+    network: networkName,
   };
 };
 

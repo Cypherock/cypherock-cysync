@@ -123,7 +123,7 @@ export const prepareTransaction = async (
   let { data } = txn.computedData;
 
   if (tokenDetails) {
-    output = { amount: '0', address: tokenDetails.address };
+    output = { amount: '0', address: tokenDetails.address, remarks: '' };
   }
 
   let toAddressForEstimate = account.xpubOrAddress;

@@ -264,6 +264,11 @@
         "title": "Fees",
         "label": "Network Fees"
       },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
+      },
       "warning": "Transaction might cancel if fees is very low",
       "feeError": "Transaction with 0 fee is not allowed",
       "notEnoughBalance": "Insufficient funds for transaction",
@@ -280,7 +285,8 @@
       "to": "To",
       "amount": "Amount",
       "network": "Network Fee",
-      "debit": "Total to debit"
+      "debit": "Total to debit",
+      "remarks": "Personal Note"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -304,9 +310,6 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
-    },
-    "tron": {
-      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "history": {
@@ -348,7 +351,8 @@
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Note"
     },
     "noData": {
       "text": "No transactions yet",

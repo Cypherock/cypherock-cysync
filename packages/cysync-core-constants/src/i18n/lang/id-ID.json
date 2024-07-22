@@ -245,7 +245,7 @@
         "label": "Alamat Penerima",
         "placeholder": "Masukkan alamat",
         "error": "Alamat tidak valid",
-        "ownAddress": "Recipient address is the same as sender address"
+        "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
       "tabs": {
         "single": "Transaksi Tunggal",
@@ -257,12 +257,17 @@
         "toggle": "Kirim Maks",
         "dollar": "$",
         "error": "Dana tidak mencukupi",
-        "zeroAmount": "Amount can't be zero",
+        "zeroAmount": "Jumlah tidak boleh nol",
         "notOverDustThreshold": "Jumlah lebih rendah dari dust limit"
       },
       "fees": {
         "title": "Biaya",
         "label": "Biaya Jaringan"
+      },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan 0 fee tidak diizinkan",
@@ -280,7 +285,8 @@
       "to": "Ke",
       "amount": "Jumlah",
       "network": "Biaya Jaringan",
-      "debit": "Total yang didebet"
+      "debit": "Total yang didebet",
+      "remarks": "Personal Notes"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -304,9 +310,6 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
-    },
-    "tron": {
-      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "history": {
@@ -348,7 +351,8 @@
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Notes"
     },
     "noData": {
       "text": "Belum ada transaksi",

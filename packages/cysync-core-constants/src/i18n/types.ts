@@ -242,6 +242,7 @@ interface LangSend {
     toggleText: { replace: string; unconfirmed: string };
     infoBox: string;
     addButton: string;
+    remarks: { label: string; placeholder: string; error: string };
   };
   summary: {
     title: string;
@@ -250,6 +251,7 @@ interface LangSend {
     amount: string;
     network: string;
     debit: string;
+    remarks: string;
   };
   finalMessage: {
     button: string;
@@ -271,9 +273,6 @@ interface LangSend {
     l1: string;
     l2: string;
     suffix: string;
-  };
-  tron: {
-    notEnoughEnergyWarning: string;
   };
 }
 
@@ -307,6 +306,7 @@ interface LangHistory {
     transactionHash: string;
     description: string;
     feePrefix: { optimism: string };
+    remarks: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };

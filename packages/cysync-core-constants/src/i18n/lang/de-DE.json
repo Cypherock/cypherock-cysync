@@ -245,7 +245,7 @@
         "label": "Empfängeradresse",
         "placeholder": "Adresse eingeben",
         "error": "Ungültige Adresse",
-        "ownAddress": "Recipient address is the same as sender address"
+        "ownAddress": "Empfängeradresse ist die gleiche wie die Absenderadresse"
       },
       "tabs": {
         "single": "Einzeltransaktion",
@@ -257,12 +257,17 @@
         "toggle": "Maximal senden",
         "dollar": "$",
         "error": "Unzureichende Mittel",
-        "zeroAmount": "Amount can't be zero",
+        "zeroAmount": "Betrag kann nicht null sein",
         "notOverDustThreshold": "Betrag ist geringer als dust limit"
       },
       "fees": {
         "title": "Gebühren",
         "label": "Netzwerkgebühren"
+      },
+      "remarks": {
+        "label": "Personal Note (Optional)",
+        "placeholder": "Enter your personal notes here",
+        "error": "Maximum character limit exceeded (120 characters)"
       },
       "warning": "Die Transaktion könnte abgebrochen werden, wenn die Gebühren sehr niedrig sind",
       "feeError": "Transaktionen ohne Gebühr sind nicht erlaubt",
@@ -280,7 +285,8 @@
       "to": "An",
       "amount": "Betrag",
       "network": "Netzwerkgebühr",
-      "debit": "Gesamtbetrag"
+      "debit": "Gesamtbetrag",
+      "remarks": "Personal Notes"
     },
     "finalMessage": {
       "button": "Transaktionen prüfen",
@@ -304,9 +310,6 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
-    },
-    "tron": {
-      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "history": {
@@ -348,7 +351,8 @@
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Personal Notes"
     },
     "noData": {
       "text": "Noch keine Transaktionen",

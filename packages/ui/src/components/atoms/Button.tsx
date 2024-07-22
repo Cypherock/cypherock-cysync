@@ -5,18 +5,21 @@ import { Throbber } from './Throbber';
 
 import { SvgProps } from '../../assets';
 import { svgGradients } from '../GlobalStyles';
-import { UtilsProps, goldenGradient, utils } from '../utils';
+import { UtilsProps, goldenGradient, silverGradient, utils } from '../utils';
 
 type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'secondaryLight'
+  | 'silver'
   | 'warning'
   | 'danger'
   | 'text'
   | 'icon'
   | 'none';
+
 type ButtonSize = 'lg' | 'md' | 'sm';
+
 export interface ButtonProps
   extends UtilsProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -150,6 +153,10 @@ const buttonVariantCssMap: Record<ButtonVariant, RuleSet<ButtonProps>> = {
     background: transparent;
     border: none;
     padding: 0;
+  `,
+  silver: css<ButtonProps>`
+    ${silverGradient('background')};
+    border: 1px solid transparent;
   `,
 };
 
