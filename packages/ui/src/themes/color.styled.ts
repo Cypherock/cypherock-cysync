@@ -91,6 +91,7 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    slate: '#312d2a',
     cardDisabled: '#282522',
     cardSelected: '#2A2827',
   },

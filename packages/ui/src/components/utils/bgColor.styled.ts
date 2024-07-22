@@ -23,6 +23,7 @@ export type BgColor =
   | 'warning'
   | 'calendar'
   | 'container'
+  | 'slate'
   | 'error';
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -65,11 +66,17 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.background.separatorSecondary};
     `}
+    ${props =>
+    props.$bgColor === 'slate' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.slate};
+    `}
   ${props =>
     props.$bgColor === 'muted' &&
     css`
       background: ${({ theme }) => theme.palette.text.muted};
     `}
+   
   ${props =>
     props.$bgColor === 'golden' &&
     css`

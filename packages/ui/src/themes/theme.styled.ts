@@ -105,6 +105,7 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      slate: colors.background.slate,
       cardSelected: colors.background.cardSelected,
       cardDisabled: colors.background.cardDisabled,
     },
