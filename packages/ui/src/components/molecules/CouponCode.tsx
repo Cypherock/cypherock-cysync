@@ -53,13 +53,13 @@ const ApplyButton = styled.button`
 `;
 
 export interface CouponProps extends WidthProps {
-  initialState?: {
+  initialState: {
     applied: boolean;
     code: string;
   };
 }
 
-const Coupon: React.FC<CouponProps> = ({ initialState }) => {
+export const Coupon: React.FC<CouponProps> = ({ initialState }) => {
   const [couponCode, setCouponCode] = useState(initialState?.code ?? '');
   const [applied, setApplied] = useState(initialState?.applied ?? false);
 
@@ -116,12 +116,3 @@ const Coupon: React.FC<CouponProps> = ({ initialState }) => {
     </Container>
   );
 };
-
-Coupon.defaultProps = {
-  initialState: {
-    applied: false,
-    code: '',
-  },
-};
-
-export default Coupon;

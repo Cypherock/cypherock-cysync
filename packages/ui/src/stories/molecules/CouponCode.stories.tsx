@@ -1,18 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Coupon from '../../components/molecules/Coupon';
+import { Coupon } from '../../components';
 
 const meta: Meta<typeof Coupon> = {
-  title: 'Components/Coupon',
   component: Coupon,
-  argTypes: {
-    initialState: {
-      control: 'object',
-      description: 'Initial state of the coupon code application form',
-    },
-  },
+  tags: ['autodocs'],
 };
-
 export default meta;
 
 type Story = StoryObj<typeof meta>;
