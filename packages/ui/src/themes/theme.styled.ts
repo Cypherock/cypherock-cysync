@@ -99,6 +99,7 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      slate: colors.background.slate,
     },
     border: {
       popup: colors.border.popup,
