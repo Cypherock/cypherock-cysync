@@ -250,7 +250,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   useEffect(() => {
     resetInputStates();
-  }, [selectedAccount, selectedWallet]);
+  }, [selectedAccount?.__id, selectedWallet?.__id]);
 
   const resetStates = () => {
     setSignedTransaction(undefined);
