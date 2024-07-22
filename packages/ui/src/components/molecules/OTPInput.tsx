@@ -10,6 +10,7 @@ export interface OTPInputProps {
   title: string;
   status: OTPInputStatus;
   otpLength: number;
+  actionText?: string;
   isActionDisbaled?: boolean;
   disabled?: boolean;
   subText?: string;
@@ -84,6 +85,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   onChange,
   subText,
   isActionDisbaled,
+  actionText,
   disabled,
   onAction,
 }) => {
@@ -139,14 +141,16 @@ export const OTPInput: React.FC<OTPInputProps> = ({
               </Typography>
             </Flex>
 
-            <ActionButton
-              /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */
-              disabled={disabled || isActionDisbaled}
-              onClick={onAction}
-              variant="text"
-            >
-              Resend OTP
-            </ActionButton>
+            {actionText && (
+              <ActionButton
+                /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */
+                disabled={disabled || isActionDisbaled}
+                onClick={onAction}
+                variant="text"
+              >
+                {actionText}
+              </ActionButton>
+            )}
           </Flex>
 
           {infoText && infoText.length > 0 && (
@@ -192,4 +196,5 @@ OTPInput.defaultProps = {
   subText: undefined,
   infoText: undefined,
   errorSubText: undefined,
+  actionText: undefined,
 };

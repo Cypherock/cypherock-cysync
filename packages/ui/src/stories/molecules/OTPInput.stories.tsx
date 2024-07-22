@@ -23,6 +23,7 @@ export const Idle: Story = {
     title: 'Enter OTP',
     status: 'idle',
     otpLength: 6,
+    actionText: 'Resend OTP',
     subText: '4 tries remaining 25..',
     infoText: [
       'An email has been sent to **${email}**',
@@ -30,6 +31,9 @@ export const Idle: Story = {
     ],
     textVariables: {
       email: 'john@gmail.com',
+    },
+    onAction: () => {
+      console.log('Action');
     },
   },
 };
@@ -39,6 +43,7 @@ export const Error: Story = {
     title: 'Wrong OTP',
     status: 'error',
     otpLength: 6,
+    actionText: 'Resend OTP',
     subText: '3 tries remaining 25..',
     infoText: [
       'An email has been sent to **${email}**',
@@ -46,6 +51,9 @@ export const Error: Story = {
     ],
     textVariables: {
       email: 'john@gmail.com',
+    },
+    onAction: () => {
+      console.log('Action');
     },
   },
 };
@@ -55,6 +63,7 @@ export const Success: Story = {
     title: 'Please wait while we redirect you...',
     status: 'success',
     otpLength: 6,
+    actionText: 'Resend OTP',
     disabled: true,
     subText: '3 tries remaining 25..',
     infoText: [
@@ -63,6 +72,9 @@ export const Success: Story = {
     ],
     textVariables: {
       email: 'john@gmail.com',
+    },
+    onAction: () => {
+      console.log('Action');
     },
   },
 };
@@ -73,6 +85,7 @@ export const RetryExceeded: Story = {
     status: 'retryExceeded',
     errorSubText: 'Please exit the flow and restart',
     otpLength: 6,
+    actionText: 'Resend OTP',
     disabled: true,
     subText: '3 tries remaining 25..',
     infoText: [
@@ -81,6 +94,9 @@ export const RetryExceeded: Story = {
     ],
     textVariables: {
       email: 'john@gmail.com',
+    },
+    onAction: () => {
+      console.log('Action');
     },
   },
 };
