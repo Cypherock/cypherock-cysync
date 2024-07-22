@@ -82,6 +82,7 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    slate: '#423F3C',
   },
   border: {
     popup: '#2C2520',
@@ -94,6 +95,7 @@ export const colors = {
     error: '#FF624C',
     danger: '#4A0900',
     bar: '#474747',
+    success: '#51C61A',
     table: {
       title: '#363535',
       row: '#2C2929',

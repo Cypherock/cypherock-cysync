@@ -99,6 +99,7 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      slate: colors.background.slate,
     },
     border: {
       popup: colors.border.popup,
@@ -126,6 +127,7 @@ export const theme = {
       subMenuLeft: colors.border.subMenuLeft,
       topbar: colors.border.topbar,
       card: colors.border.card,
+      success: colors.border.success,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
