@@ -20,7 +20,6 @@ export const Default: Story = {
     paymentPending: false,
     timerDate: '21 JAN 2024',
     name: 'My Default Wallet',
-    walletSubtitle: 'Setup Cypherock Cover',
   },
 };
 

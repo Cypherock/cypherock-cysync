@@ -4,13 +4,12 @@ import styled from 'styled-components';
 import 'react-circular-progressbar/dist/styles.css';
 
 import {
-  goldHoverWallet,
-  silverHoverWallet,
-  dashWallet,
+  goldHoverWalletIcon,
+  silverHoverWalletIcon,
+  dashWalletDefaultBgIcon,
   noneDefaultPlus,
-  noneHoverPlus,
-  expireHoverWallet,
-  dashedWallet,
+  expireHoverWalletIcon,
+  dashWalletHoverBgIcon,
   ExpiredPlanIcon,
   ExpiredClockIcon,
   WalletDefaultExpiredIcon,
@@ -27,13 +26,7 @@ export interface DashboardWalletProps extends WidthProps {
   paymentPending: boolean;
   timerDate: string;
   name: string;
-  walletSubtitle: string;
 }
-
-const NoneHoverPlusImage = styled.img.attrs({
-  src: noneHoverPlus,
-  alt: 'noneHoverPlus',
-})``;
 
 const NoneDefaultPlusImage = styled.img.attrs({
   src: noneDefaultPlus,
@@ -52,7 +45,8 @@ const NoneContainer = styled.div<{ isHover: boolean } & WidthProps>`
   line-height: 21px;
   text-align: center;
   color: white;
-  background: ${({ isHover }) => `url(${isHover ? dashedWallet : dashWallet})`};
+  background: ${({ isHover }) =>
+    `url(${isHover ? dashWalletHoverBgIcon : dashWalletDefaultBgIcon})`};
   ${width}
 `;
 
@@ -255,10 +249,6 @@ const HoverPlusContainer = styled.div`
   padding-top: 10px;
 `;
 
-const WalletSubtitle = styled.div`
-  margin-top: 16px;
-`;
-
 export const DashboardWallet: FC<DashboardWalletProps> = ({
   isNone,
   planType,
@@ -267,7 +257,6 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   paymentPending,
   timerDate,
   name,
-  walletSubtitle,
   ...restProps
 }) => {
   const [isHover, setIsHover] = useState(false);
@@ -294,12 +283,12 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   const getBackgroundImage = () => {
     if (isHover) {
       if (isExpired) return WalletHoverExpiredIcon;
-      if (planType === 'silver') return silverHoverWallet;
-      if (isExpiring) return expireHoverWallet;
-      return goldHoverWallet;
+      if (planType === 'silver') return silverHoverWalletIcon;
+      if (isExpiring) return expireHoverWalletIcon;
+      return goldHoverWalletIcon;
     }
     if (isExpired) return WalletDefaultExpiredIcon;
-    return dashWallet;
+    return dashWalletDefaultBgIcon;
   };
 
   const getTypeText = () => {
@@ -466,14 +455,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       }}
       {...restProps}
     >
-      {isHover ? (
-        <HoverPlusContainer>
-          <NoneHoverPlusImage />
-          <WalletSubtitle>{walletSubtitle}</WalletSubtitle>
-        </HoverPlusContainer>
-      ) : (
-        <NoneDefaultPlusImage />
-      )}
+      {isHover ? <HoverPlusContainer /> : <NoneDefaultPlusImage />}
     </NoneContainer>
   );
 };
