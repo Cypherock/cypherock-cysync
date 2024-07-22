@@ -1,5 +1,25 @@
 # @cypherock/cysync-cli
 
+## 0.0.9
+
+### Patch Changes
+
+- [#474](https://github.com/Cypherock/cypherock-cysync/pull/474) [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added transaction remarks feature
+
+- Updated dependencies [[`7f65473a`](https://github.com/Cypherock/cypherock-cysync/commit/7f65473a422396390d6cd35e66ed8dd898e9311a), [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8), [`59c5bba0`](https://github.com/Cypherock/cypherock-cysync/commit/59c5bba09f166a195baf20dcc52d41cb4ffce2fb), [`98bc408a`](https://github.com/Cypherock/cypherock-cysync/commit/98bc408a8625ad9d945dd9ea8103ab540f2cea87)]:
+  - @cypherock/coins@0.0.7
+  - @cypherock/coin-support-interfaces@0.0.6
+  - @cypherock/coin-support-solana@0.0.8
+  - @cypherock/coin-support-btc@0.0.8
+  - @cypherock/coin-support-evm@0.0.8
+  - @cypherock/db-interfaces@0.0.4
+  - @cypherock/database@0.0.8
+  - @cypherock/cysync-core-services@0.0.8
+  - @cypherock/cysync-utils@0.0.6
+  - @cypherock/coin-support@0.0.8
+  - @cypherock/coin-support-near@0.0.8
+  - @cypherock/coin-support-utils@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes

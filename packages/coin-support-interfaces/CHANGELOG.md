@@ -1,5 +1,14 @@
 # @cypherock/coin-support-interfaces
 
+## 0.0.6
+
+### Patch Changes
+
+- [#474](https://github.com/Cypherock/cypherock-cysync/pull/474) [`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8) Thanks [@moayaan1911](https://github.com/moayaan1911)! - Added transaction remarks feature
+
+- Updated dependencies [[`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8)]:
+  - @cypherock/db-interfaces@0.0.4
+
 ## 0.0.5
 
 ### Patch Changes

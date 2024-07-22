@@ -43,7 +43,13 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
     leftComponent={
       <ImageContainer gap={8}>
         {leftIcon && leftIcon}
-        <Typography variant="p" $fontSize={14} color="muted">
+        <Typography
+          variant="p"
+          $fontSize={14}
+          color="muted"
+          mr={3}
+          $whiteSpace="nowrap"
+        >
           {leftText}
         </Typography>
       </ImageContainer>
@@ -84,7 +90,12 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
         </>
       ) : (
         <NestedContainer>
-          <Typography variant="p" $fontSize={14}>
+          <Typography
+            variant="p"
+            $fontSize={14}
+            $textAlign="right"
+            $wordBreak="break-word"
+          >
             {rightText}
           </Typography>
           {rightSubText && (
@@ -110,10 +121,10 @@ SummaryRow.defaultProps = {
   id: undefined,
 };
 
-type SummaryItemType =
+export type SummaryItemType =
   | (SummaryRowProps & { id: string })
   | { isDivider: boolean; id: string }
-  | SummaryRowProps[];
+  | ((SummaryRowProps & { id: string }) | { isDivider: boolean; id: string })[];
 
 export interface SummaryBoxProps {
   items: SummaryItemType[];

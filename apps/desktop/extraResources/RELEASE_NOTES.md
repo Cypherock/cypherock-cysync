@@ -1,3 +1,9 @@
+# v2.0.9
+
+### 🐛 Bugfixes
+
+- **Fixed Send Token Transaction on EVM Networks**: Fixed continue button disabled state in evm tokens send flow
+
 # v2.0.8
 
 ### 🚀 Features
@@ -11,6 +17,7 @@
 
 - **Tron Send Max**: Added fix for account activation send max scenario.
 - **Bitcoin Send Max**: Added fix for fee calculations when using the send max in Bitcoin.
+- **ETH Add Account**: Fixed SER_0000 for ethereum accounts.
 
 # v2.0.7
 

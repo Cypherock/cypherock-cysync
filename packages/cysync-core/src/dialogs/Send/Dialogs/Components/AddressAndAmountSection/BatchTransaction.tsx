@@ -197,7 +197,6 @@ export const BatchTransaction: React.FC = () => {
                   }}
                   converter={priceConverter}
                 />
-                {i !== outputs.length - 1 && <Divider variant="horizontal" />}
                 <NotesInput
                   label={displayText.remarks.label}
                   placeholder={displayText.remarks.placeholder}
@@ -206,6 +205,7 @@ export const BatchTransaction: React.FC = () => {
                     await handleTransactionRemarks(remark, output.id);
                   }}
                 />
+                {i !== outputs.length - 1 && <Divider variant="horizontal" />}
               </Flex>
             ))}
           </Flex>

@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core-workers",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "AGPL-3.0",
