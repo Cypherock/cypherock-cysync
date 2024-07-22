@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import Coupon from '../../components/molecules/Coupon';
 
 const meta: Meta<typeof Coupon> = {

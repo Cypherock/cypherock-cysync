@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { width, WidthProps } from '../utils';
-import { Flex, Typography } from '../atoms';
+
 import { Delete } from '../../assets';
+import { Flex, Typography } from '../atoms';
+import { width, WidthProps } from '../utils';
 
 const Container = styled.div`
   display: flex;
