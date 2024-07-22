@@ -1,4 +1,5 @@
-import { ServerErrorType } from '~/errors';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
+
 import { ILangState } from '~/store';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';
@@ -16,7 +17,7 @@ export const getServerErrorHandlingDetails = (
     ServerErrorType,
     ErrorHandlingDetails | undefined
   > = {
-    [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.retry(),
+    [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.report(),
     [ServerErrorType.CONNOT_CONNECT]: generateErrorHandlingDetails.retry(),
   };
 

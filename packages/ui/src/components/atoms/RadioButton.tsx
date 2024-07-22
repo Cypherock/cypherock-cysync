@@ -7,12 +7,15 @@ interface RadioButtonProps {
   checked: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  disabled?: boolean;
 }
 
 const StyledRadioButton = styled.div<RadioButtonProps>`
   display: inline-block;
   width: 12px;
   height: 12px;
+  min-width: 12px;
+  min-height: 12px;
   border-radius: 50%;
   position: relative;
   cursor: pointer;
@@ -23,7 +26,9 @@ const StyledRadioButton = styled.div<RadioButtonProps>`
     inset: 0;
     border-radius: 50%;
     border: 2px solid transparent;
-    background: ${props => props.theme.palette.golden} border-box;
+    background: ${({ disabled, theme }) =>
+        disabled ? theme.palette.text.disabled : theme.palette.golden}
+      border-box;
     -webkit-mask: linear-gradient(#fff 0 0) padding-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -48,9 +53,11 @@ export const RadioButton: FC<RadioButtonProps> = ({
   checked,
   value = '',
   onChange,
+  disabled = false,
 }) => (
   <StyledRadioButton
     checked={checked}
+    disabled={disabled}
     onClick={() => onChange && onChange(value)}
   />
 );
@@ -58,4 +65,5 @@ export const RadioButton: FC<RadioButtonProps> = ({
 RadioButton.defaultProps = {
   value: '',
   onChange: undefined,
+  disabled: false,
 };

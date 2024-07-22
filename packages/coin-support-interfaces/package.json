@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-interfaces",
-  "version": "0.0.0",
+  "version": "0.0.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@cypherock/db-interfaces": "workspace:^",
-    "@cypherock/sdk-interfaces": "^0.0.12",
+    "@cypherock/sdk-interfaces": "^0.0.15",
     "rxjs": "^7.8.1"
   }
 }

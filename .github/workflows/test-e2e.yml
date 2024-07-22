@@ -21,8 +21,8 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  test-e2e:
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
 
     strategy:
@@ -37,15 +37,25 @@ jobs:
           fetch-depth: 0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: next-8
+          run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm store path
+        run: pnpm config set store-dir ~/.pnpm-store
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
         run: pnpm install
@@ -72,7 +82,17 @@ jobs:
         run: pnpm test
 
       - name: Run end to end tests
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
+        run: |
+          cd apps/desktop
+          xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm e2e
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-report
+          path: |
+            coverage
+          retention-days: 15
 
       - uses: actions/upload-artifact@v3
         if: always()
@@ -83,4 +103,4 @@ jobs:
             apps/desktop/test-results/
             apps/desktop/screenshots/
             apps/desktop/videos/
-          retention-days: 30
+          retention-days: 15

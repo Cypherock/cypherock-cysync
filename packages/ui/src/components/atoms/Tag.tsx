@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { FontProps, SpacingProps, font, spacing } from '../utils';
+import { UtilsProps, utils } from '../utils';
 
-interface TagProps extends SpacingProps, FontProps {
+export type TagType = 'tag' | 'info' | 'gold';
+
+interface TagProps extends UtilsProps {
   children: React.ReactNode;
-  type?: 'tag' | 'info';
+  type?: TagType;
 }
 
 const StyledTag = styled.div<TagProps>`
   font-weight: 500;
-  align-self: flex-start;
   flex-shrink: 0;
 
   ${({ type, theme }) =>
@@ -21,6 +22,7 @@ const StyledTag = styled.div<TagProps>`
     border-radius: 4px;
     border: 1px solid ${theme.palette.border.muted};
     font-size: 10px;
+    align-self: center;
   `}
 
   ${({ type, theme }) =>
@@ -39,12 +41,33 @@ const StyledTag = styled.div<TagProps>`
     color: ${theme.palette.text.muted};
     border: 1px solid ${theme.palette.border.popup};
   `}
-  ${spacing}
-  ${font}
+
+  ${({ type, theme }) =>
+    type === 'gold' &&
+    `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 21px;
+    padding: 0 4.5px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 7px;
+    background: ${theme.palette.background.separator};
+    border: 0.5px solid ${theme.palette.border.muted};
+    span {
+      background: ${theme.palette.text.gold};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  `}
+  ${utils}
 `;
 
 export const Tag: FC<TagProps> = ({ children, ...props }) => (
-  <StyledTag {...props}>{children}</StyledTag>
+  <StyledTag {...props}>
+    <span>{children}</span>
+  </StyledTag>
 );
 
 Tag.defaultProps = {

@@ -12,6 +12,10 @@ export type TransactionStatus =
 export const TransactionTypeMap = {
   receive: 'receive',
   send: 'send',
+  // Will be treated as send for calculations but will not be
+  // displayed to the user.
+  // Usage: for eth fees when sending tokens
+  hidden: 'hidden',
 };
 
 export type TransactionType =
@@ -27,7 +31,9 @@ export interface ITransaction extends IEntity {
   hash: string;
   fees: string;
   amount: string;
+  // Success, failed, pending
   status: TransactionStatus;
+  // Send, Receive, Hidden
   type: TransactionType;
   timestamp: number;
   blockHeight: number;
@@ -42,7 +48,13 @@ export interface ITransaction extends IEntity {
   familyId: string;
   parentTransactionId?: string;
   parentAccountId?: string;
-  parentAssetId?: string;
+  parentAssetId: string;
+  // Used when we need to add a child transaction with the same txn hash as
+  // it's parent
+  subType?: string;
+  customId?: string;
+  description?: string;
+  remarks?: string[];
 }
 
 export interface IDetailedTransaction extends ITransaction {

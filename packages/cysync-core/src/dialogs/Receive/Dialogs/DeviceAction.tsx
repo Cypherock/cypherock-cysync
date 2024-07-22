@@ -4,19 +4,18 @@ import {
   DialogBox,
   DialogBoxBody,
   Typography,
-  Image,
   Container,
-  confirmIcon,
+  GenericConfirmDeviceGraphics,
   LeanBoxContainer,
   LeanBox,
   Throbber,
   LeanBoxProps,
   ArrowRightIcon,
   Check,
-  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
@@ -106,23 +105,12 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  if (derivedAddress === undefined)
-    return (
-      <DialogBox width={500} height={300}>
-        <Image
-          src={loaderGrayIcon}
-          width={68}
-          alt="Loader icon"
-          animate="spin"
-          $animDuration={3}
-        />
-      </DialogBox>
-    );
+  if (derivedAddress === undefined) return <LoaderDialog />;
 
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={confirmIcon} alt="Verify Coin" />
+        <GenericConfirmDeviceGraphics />
         <Container display="flex" direction="column" width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={texts.title} />

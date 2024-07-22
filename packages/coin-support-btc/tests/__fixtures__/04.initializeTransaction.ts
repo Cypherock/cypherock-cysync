@@ -32,11 +32,16 @@ export const valid: IInitializeTransactionTestCases[] = [
       validation: {
         hasEnoughBalance: true,
         outputs: [],
+        isValidFee: true,
+        isNotOverDustThreshold: false,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
     mocks: {
       account: {
         assetId: 'bitcoin',
+        parentAssetId: 'bitcoin',
         familyId: 'bitcoin',
       },
       averageFee: 150,

@@ -4,7 +4,7 @@ import {
   ICreateAccountParams,
   IDerivationScheme,
 } from '@cypherock/coin-support-interfaces';
-import { sleep } from '@cypherock/cysync-utils';
+import { BigNumber, sleep } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Observable } from 'rxjs';
@@ -18,7 +18,6 @@ import { generateDerivationPathsPerScheme } from './schemes';
 import logger from '../utils/logger';
 
 interface App {
-  destroy: () => Promise<void>;
   abort: () => Promise<void>;
 }
 
@@ -61,19 +60,14 @@ export function makeCreateAccountsObservable<
           logger.warn('Error in aborting create account');
           logger.warn(error);
         }
-
-        try {
-          await app.destroy();
-        } catch (error) {
-          logger.warn('Error in destroying connection on create account');
-          logger.warn(error);
-        }
       }
     };
 
     const unsubscribe = () => {
-      finished = true;
-      cleanUp();
+      if (!finished) {
+        finished = true;
+        cleanUp();
+      }
     };
 
     const main = async () => {
@@ -112,7 +106,7 @@ export function makeCreateAccountsObservable<
             continue;
           }
 
-          const { threshold } = derivationSchemeDetails;
+          const { threshold, newAccountLimit } = derivationSchemeDetails;
           const addresses = addressesPerScheme[schemeName];
 
           let zeroTxnAddressCount = 0;
@@ -126,7 +120,7 @@ export function makeCreateAccountsObservable<
               params,
             );
 
-            if (txnCount <= 0) {
+            if (txnCount <= 0 && new BigNumber(balance).isZero()) {
               zeroTxnAddressCount += 1;
               isThresholdReached = zeroTxnAddressCount >= threshold;
             }
@@ -141,7 +135,9 @@ export function makeCreateAccountsObservable<
               { ...params, existingAccounts },
             );
 
-            observer.next({ type: 'Account', account } as any);
+            if (newAccountLimit >= zeroTxnAddressCount) {
+              observer.next({ type: 'Account', account } as any);
+            }
 
             await sleep(params.waitInMSBetweenEachAccountAPI ?? 500);
 
@@ -151,6 +147,7 @@ export function makeCreateAccountsObservable<
           }
         }
 
+        finished = true;
         observer.complete();
       } catch (error) {
         if (!finished) {

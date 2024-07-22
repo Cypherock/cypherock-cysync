@@ -1,21 +1,20 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  loaderGrayIcon,
-  LangDisplay,
-  FlexGapContainer,
+  Button,
   DialogBox,
-  LeanBoxContainer,
-  LeanBox,
-  Typography,
+  DialogBoxFooter,
+  Flex,
+  FlexGapContainer,
   Image,
   InputLabel,
-  DialogBoxFooter,
-  Button,
-  settingsIcon,
-  Flex,
-  Toggle,
-  QuestionMarkButton,
+  LangDisplay,
+  LeanBox,
+  LeanBoxContainer,
   ScrollableContainer,
+  Toggle,
+  Typography,
+  addAccountIcon,
+  loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -23,12 +22,16 @@ import lodash from 'lodash';
 import React, { FC, useMemo, useState } from 'react';
 
 import { CoinIcon } from '~/components';
-import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectUnHiddenAccounts,
+  useAppSelector,
+} from '~/store';
 
 import { useAddAccountDialog } from '../context';
 
 const selectAccountsAndLang = createSelector(
-  [selectLanguage, selectAccounts],
+  [selectLanguage, selectUnHiddenAccounts],
   (a, b) => ({ lang: a, ...b }),
 );
 
@@ -63,36 +66,35 @@ const createAccountDisplayList = (params: {
 }) => {
   const { accountsList, selectedAccountsList, checkboxHandler } = params;
 
-  if (!checkboxHandler) {
-    return accountsList.map(a => {
-      const { amount, unit } = getParsedAmount({
-        coinId: a.assetId,
-        unitAbbr: a.unit,
-        amount: a.balance,
-      });
+  return accountsList.map(a => {
+    const { amount, unit } = getParsedAmount({
+      coinId: a.assetId,
+      unitAbbr: a.unit ?? getDefaultUnit(a.parentAssetId, a.assetId).abbr,
+      amount: a.balance,
+    });
 
+    if (!checkboxHandler) {
       return {
         text: a.name,
         id: a.__id,
         tag: lodash.upperCase(a.derivationScheme),
-        rightText: `${amount} ${unit.abbr}`,
-        leftImage: <CoinIcon assetId={a.assetId} />,
+        bottomText: `${amount} ${unit.abbr}`,
+        leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
       };
-    });
-  }
+    }
 
-  return accountsList.map(a => ({
-    text: a.name,
-    id: a.derivationPath,
-    tag: lodash.upperCase(a.derivationScheme),
-    leftImage: <CoinIcon assetId={a.assetId} />,
-    $isChecked: !!selectedAccountsList?.find(
-      b => a.derivationPath === b.derivationPath,
-    ),
-    onCheckChanged: checkboxHandler
-      ? () => checkboxHandler(a.derivationPath)
-      : undefined,
-  }));
+    return {
+      text: a.name,
+      id: a.derivationPath,
+      tag: lodash.upperCase(a.derivationScheme),
+      leftImage: <CoinIcon parentAssetId={a.parentAssetId} />,
+      $isChecked: !!selectedAccountsList?.find(
+        b => a.derivationPath === b.derivationPath,
+      ),
+      bottomText: `${amount} ${unit.abbr}`,
+      onCheckChanged: () => checkboxHandler(a.derivationPath),
+    };
+  });
 };
 
 export const AddAccountSyncDialog: FC = () => {
@@ -233,7 +235,7 @@ export const AddAccountSyncDialog: FC = () => {
             </>
           ) : (
             <>
-              <Image src={settingsIcon} alt="Loader" />
+              <Image src={addAccountIcon} alt="Loader" />
               <Typography variant="h5" $textAlign="center">
                 <LangDisplay text={strings.header} />
               </Typography>
@@ -275,8 +277,7 @@ export const AddAccountSyncDialog: FC = () => {
                     $fontWeight="normal"
                     $textAlign="right"
                   >
-                    <LangDisplay text={strings.advancedButton} />(
-                    <QuestionMarkButton />)
+                    <LangDisplay text={strings.advancedButton} />
                   </InputLabel>
                   <Toggle
                     checked={isAdvanceChecked}

@@ -1,10 +1,12 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import {
   CoinSupport,
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import {
   convertToUnit,
   getZeroUnit,
@@ -80,23 +82,28 @@ const getTxnInputs = async (params: {
     );
     let amount = '';
 
+    const unit =
+      account.unit ?? getZeroUnit(account.parentAssetId, account.assetId).abbr;
     if (!transaction.userInputs.isSendAll) {
       const amountInDefaultUnit = await queryInput(
-        `Enter amount you want to transfer in ${account.unit} (${i + 1})`,
+        `Enter amount you want to transfer in ${unit} (${i + 1})`,
       );
       const convertedAmount = convertToUnit({
         amount: amountInDefaultUnit,
         coinId: coin.id,
-        fromUnitAbbr: account.unit,
+        fromUnitAbbr: unit,
         toUnitAbbr: getZeroUnit(coin.id).abbr,
       });
       amount = convertedAmount.amount;
     }
 
-    transaction.userInputs.outputs.push({ address, amount });
+    transaction.userInputs.outputs.push({
+      address,
+      amount,
+    });
   }
 
-  if (coin.family === 'bitcoin') {
+  if (coin.family === coinFamiliesMap.bitcoin) {
     const txn = transaction as IPreparedBtcTransaction;
     const feeRate = await queryNumber(
       `Enter the fee rate for the transaction (Average: ${txn.staticData.averageFee})`,
@@ -107,6 +114,40 @@ const getTxnInputs = async (params: {
     }
 
     txn.userInputs.feeRate = feeRate;
+  }
+
+  if (coin.family === coinFamiliesMap.evm) {
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.staticData.averageGasPrice,
+      unitAbbr: 'Gwei',
+    });
+    const gasPrice = await queryInput(
+      `Enter the gas price for the transaction (Average: ${amount} ${unit.abbr})`,
+    );
+    const gasLimit = await queryInput(
+      `Enter the gas limit for the transaction`,
+    );
+    const data = await queryInput(
+      `Enter the data (call data or input) for the transaction (Optional)`,
+    );
+
+    if (outputCount <= 0) {
+      throw new Error('Invalid fees');
+    }
+
+    if (data) {
+      txn.computedData.data = data;
+    }
+
+    txn.userInputs.gasLimit = gasLimit;
+    txn.userInputs.gasPrice = convertToUnit({
+      amount: gasPrice,
+      coinId: coin.id,
+      fromUnitAbbr: `Gwei`,
+      toUnitAbbr: getZeroUnit(coin.id).abbr,
+    }).amount;
   }
 };
 
@@ -125,7 +166,9 @@ const showTransactionSummary = async (params: {
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: output.amount,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
 
     console.log(
@@ -137,21 +180,50 @@ const showTransactionSummary = async (params: {
     i += 1;
   }
 
-  if (coin.family === 'bitcoin') {
+  if (coin.family === coinFamiliesMap.bitcoin) {
     const txn = transaction as IPreparedBtcTransaction;
     const { amount, unit } = getParsedAmount({
       coinId: coin.id,
       amount: txn.computedData.fee,
-      unitAbbr: account.unit,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
     });
     console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
     totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
   }
 
+  if (coin.family === coinFamiliesMap.evm) {
+    const txn = transaction as IPreparedEvmTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.computedData.fee,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
+    });
+    console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.fee);
+  }
+
+  if (coin.family === coinFamiliesMap.solana) {
+    const txn = transaction as IPreparedSolanaTransaction;
+    const { amount, unit } = getParsedAmount({
+      coinId: coin.id,
+      amount: txn.computedData.fees,
+      unitAbbr:
+        account.unit ??
+        getZeroUnit(account.parentAssetId, account.assetId).abbr,
+    });
+    console.log(`Transaction fees: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
+    totalToDeduct = totalToDeduct.plus(txn.computedData.fees);
+  }
+
   const { amount, unit } = getParsedAmount({
     coinId: coin.id,
     amount: totalToDeduct.toString(),
-    unitAbbr: account.unit,
+    unitAbbr:
+      account.unit ?? getZeroUnit(account.parentAssetId, account.assetId).abbr,
   });
   console.log(`Total to deduct: ${colors.cyan(`${amount} ${unit.abbr}`)}`);
 };
@@ -242,7 +314,7 @@ const signTransaction = async (params: {
 
       let signedTransaction = '';
 
-      const observer: Observer<ISignTransactionEvent> = {
+      const observer: Observer<ISignTransactionEvent<any>> = {
         complete: () => {
           deviceSpinner.succeed();
           resolve(signedTransaction);
@@ -291,7 +363,7 @@ export const sendFunds = async (params: {
     'Select an account to send funds from',
   );
 
-  const coin = coinList[account.assetId];
+  const coin = coinList[account.parentAssetId];
   const coinSupport = getCoinSupport(account.familyId);
 
   const spinner = await Spinner.create(creatingTxnSpinnerText);

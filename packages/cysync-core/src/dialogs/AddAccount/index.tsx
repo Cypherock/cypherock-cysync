@@ -14,6 +14,11 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddAccountDialogProvider, useAddAccountDialog } from './context';
 
+export interface AddAccountDialogProps {
+  walletId?: string;
+  coinId?: string;
+}
+
 const AddNewAccount: FC = () => {
   const {
     tabs,
@@ -23,6 +28,7 @@ const AddNewAccount: FC = () => {
     isDeviceRequired,
     error,
     onRetry,
+    selectedWallet,
   } = useAddAccountDialog();
 
   const WrapperComponent = isDeviceRequired
@@ -32,7 +38,7 @@ const AddNewAccount: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
+      <DialogBox direction="row" gap={0} width="full" onClose={onClose}>
         <>
           <MilestoneAside
             milestones={tabs
@@ -55,6 +61,7 @@ const AddNewAccount: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
@@ -62,7 +69,7 @@ const AddNewAccount: FC = () => {
             </DialogBoxBody>
 
             <DialogBoxBackgroundBar
-              rightComponent={<CloseButton onClick={onClose} />}
+              rightComponent={<CloseButton onClick={() => onClose()} />}
               position="top"
               useLightPadding
             />
@@ -73,8 +80,13 @@ const AddNewAccount: FC = () => {
   );
 };
 
-export const AddAccountDialog: FC = () => (
-  <AddAccountDialogProvider>
+export const AddAccountDialog: FC<AddAccountDialogProps> = props => (
+  <AddAccountDialogProvider {...props}>
     <AddNewAccount />
   </AddAccountDialogProvider>
 );
+
+AddAccountDialog.defaultProps = {
+  coinId: undefined,
+  walletId: undefined,
+};

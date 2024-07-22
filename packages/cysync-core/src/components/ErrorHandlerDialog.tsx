@@ -1,4 +1,5 @@
 import { ErrorDialog } from '@cypherock/cysync-ui';
+import { IWallet } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
@@ -6,6 +7,9 @@ import { IErrorHandlerParams, useErrorHandler } from '~/hooks';
 export interface ErrorHandlerDialogProps extends IErrorHandlerParams {
   children?: React.ReactNode;
   textVariables?: object;
+  selectedWallet?: IWallet;
+  showCloseButton?: boolean;
+  suppressActions?: boolean;
 }
 
 export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
@@ -16,13 +20,19 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   isOnboarding,
   textVariables,
   defaultMsg,
+  selectedWallet,
+  showCloseButton,
+  suppressActions,
+  noDelay,
 }) => {
   const { errorToShow, onPrimaryClick, onSecondaryClick } = useErrorHandler({
     error,
+    noDelay,
     isOnboarding,
     onRetry,
     onClose,
     defaultMsg,
+    selectedWallet,
   });
 
   if (!errorToShow) {
@@ -34,13 +44,23 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
   return (
     <ErrorDialog
       iconType={errorToShow.iconName}
-      primaryActionText={errorToShow.primaryAction.text}
-      secondaryActionText={errorToShow.secondaryAction?.text}
-      onPrimaryClick={onPrimaryClick}
-      onSecondaryClick={onSecondaryClick}
+      primaryActionText={
+        suppressActions ? undefined : errorToShow.primaryAction.text
+      }
+      secondaryActionText={
+        suppressActions ? undefined : errorToShow.secondaryAction?.text
+      }
+      onPrimaryClick={suppressActions ? undefined : onPrimaryClick}
+      onSecondaryClick={suppressActions ? undefined : onSecondaryClick}
       title={`${errorToShow.heading} (${errorToShow.code})`}
       subtext={errorToShow.subtext}
-      textVariables={textVariables}
+      deviceNavigationText={errorToShow.deviceNavigationText}
+      advanceText={errorToShow.advanceText}
+      textVariables={{
+        walletName: selectedWallet?.name,
+        ...(textVariables ?? {}),
+      }}
+      onClose={showCloseButton ? onClose : undefined}
     />
   );
 };
@@ -48,4 +68,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
 ErrorHandlerDialog.defaultProps = {
   children: undefined,
   textVariables: undefined,
+  selectedWallet: undefined,
+  showCloseButton: undefined,
+  suppressActions: undefined,
 };

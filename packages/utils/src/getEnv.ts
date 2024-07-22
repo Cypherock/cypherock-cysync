@@ -10,5 +10,5 @@ export const getEnvVariable = (key: string, defaultValue?: string): string => {
   if (value) return value;
   if (defaultValue) return defaultValue;
 
-  throw new Error(`ENVIREMENT VARIABLE '${key}' NOT SPECIFIED.`);
+  throw new Error(`ENVIRONMENT VARIABLE '${key}' NOT SPECIFIED.`);
 };

@@ -13,7 +13,6 @@ import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { ReceiveDialogProvider, useReceiveDialog } from './context';
-import { CloseConfirmation } from './Dialogs/Components';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -31,6 +30,11 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 
+export interface ReceiveDialogProps {
+  walletId?: string;
+  accountId?: string;
+}
+
 export const Receive: FC = () => {
   const {
     tabs,
@@ -42,20 +46,21 @@ export const Receive: FC = () => {
     onRetry,
     onSkip,
     isStartedWithoutDevice,
+    selectedWallet,
+    isAddressVerified,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
-  const [showOnClose, setShowOnClose] = React.useState(false);
 
   return (
     <BlurOverlay>
-      <DialogBox direction="row" gap={0} width="full">
-        {showOnClose && <CloseConfirmation setShowOnClose={setShowOnClose} />}
+      <DialogBox direction="row" gap={0} width="full" onClose={onClose}>
         <>
           <MilestoneAside
             milestones={tabs
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
+            skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
             heading={lang.strings.receive.title}
           />
           <WalletDialogMainContainer>
@@ -76,15 +81,14 @@ export const Receive: FC = () => {
                   error={error}
                   onClose={onClose}
                   onRetry={onRetry}
+                  selectedWallet={selectedWallet}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={
-                <CloseButton onClick={() => setShowOnClose(true)} />
-              }
+              rightComponent={<CloseButton onClick={() => onClose()} />}
               position="top"
               useLightPadding
             />
@@ -95,8 +99,13 @@ export const Receive: FC = () => {
   );
 };
 
-export const ReceiveDialog: FC = () => (
-  <ReceiveDialogProvider>
+export const ReceiveDialog: FC<ReceiveDialogProps> = props => (
+  <ReceiveDialogProvider {...props}>
     <Receive />
   </ReceiveDialogProvider>
 );
+
+ReceiveDialog.defaultProps = {
+  walletId: undefined,
+  accountId: undefined,
+};

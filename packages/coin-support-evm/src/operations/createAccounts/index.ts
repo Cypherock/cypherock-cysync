@@ -1,19 +1,25 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { evmCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { EvmApp, GetPublicKeysEvent } from '@cypherock/sdk-app-evm';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { derivationPathSchemes } from './schemes';
-import { ICreateEvmAccountParams, ICreateEvmAccountEvent } from './types';
+import {
+  ICreateEvmAccountEvent,
+  ICreateEvmAccountParams,
+  ICreatedEvmAccount,
+} from './types';
 
 import * as services from '../../services';
+import { formatAddress } from '../formatAddress';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -49,7 +55,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<EvmApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return addresses;
+  return addresses.map(a => formatAddress({ address: a, coinId }));
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['createAccountFromAddress'] =
@@ -57,20 +63,24 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<EvmApp>['cre
     const coin = evmCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
-    return {
-      // TODO: name to be decided later
+    const account: ICreatedEvmAccount = {
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
-      type: 'account',
+      type: AccountTypeMap.account,
       familyId: coin.family,
       assetId: params.coinId,
+      parentAssetId: params.coinId,
       walletId: params.walletId,
-      derivationScheme: addressDetails.schemeName,
+      derivationScheme: addressDetails.schemeName as any,
       isNew: addressDetails.txnCount <= 0,
+      extraData: {},
+      isHidden: false,
     };
+
+    return account;
   };
 
 const createApp = async (connection: IDeviceConnection) =>
@@ -79,10 +89,24 @@ const createApp = async (connection: IDeviceConnection) =>
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateEvmAccountParams,
-) => ({
-  balance: await services.getBalance(address, params.coinId),
-  txnCount: await services.getTransactionCount(address, params.coinId),
-});
+) => {
+  const transactions = await services.getTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  const contractTransactions = await services.getContractTransactions({
+    address,
+    assetId: params.coinId,
+    limit: 1,
+  });
+
+  return {
+    balance: await services.getBalance(address, params.coinId),
+    txnCount: transactions.result.length + contractTransactions.result.length,
+  };
+};
 
 export const createAccounts = (
   params: ICreateEvmAccountParams,

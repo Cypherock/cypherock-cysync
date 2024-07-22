@@ -2,6 +2,7 @@ import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import { Observer } from 'rxjs';
+import * as ethers from 'ethers';
 
 import * as evmAppMock from './__mocks__/evmApp';
 import * as serviceMock from './__mocks__/services';
@@ -15,11 +16,13 @@ describe('03. Receive', () => {
   const getOneMock = jest.fn<() => Partial<IAccount>>().mockReturnValue({
     walletId: '00000000',
     assetId: 'ethereum',
+    parentAssetId: 'ethereum',
     xpubOrAddress: '0xF45b75b2b30f6d0ebC8dbdd57985433463260140',
     derivationPath: `m/44'/60'/0'/0/0`,
   });
 
   beforeEach(() => {
+    EvmSupport.setEthersLibrary(ethers);
     support = new EvmSupport();
     connection = {} as any;
     db = {

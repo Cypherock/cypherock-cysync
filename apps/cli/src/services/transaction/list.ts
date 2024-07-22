@@ -1,4 +1,4 @@
-import { getParsedAmount } from '@cypherock/coin-support-utils';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IDatabase, ITransaction } from '@cypherock/db-interfaces';
 import colors from 'colors/safe';
 import lodash from 'lodash';
@@ -22,8 +22,11 @@ const mapTransactionToDisplay = async (
   );
 
   const { amount, unit } = getParsedAmount({
-    coinId: transaction.assetId,
-    unitAbbr: account.unit,
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
+    unitAbbr:
+      account.unit ??
+      getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     amount: transaction.amount,
   });
 
@@ -52,8 +55,11 @@ const mapTransactionToShortDisplay = async (
   );
 
   const { amount, unit } = getParsedAmount({
-    coinId: transaction.assetId,
-    unitAbbr: account.unit,
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
+    unitAbbr:
+      account.unit ??
+      getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     amount: transaction.amount,
   });
 

@@ -69,6 +69,10 @@ export const valid: IPrepareTransactionTestCases[] = [
       validation: {
         hasEnoughBalance: true,
         outputs: [true],
+        isValidFee: true,
+        isNotOverDustThreshold: false,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
     mocks: {
@@ -76,6 +80,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         __id: 'accountId1',
         walletId: '00000000',
         assetId: 'litecoin',
+        parentAssetId: 'litecoin',
         familyId: 'bitcoin',
         xpubOrAddress: 'xpub1234',
         derivationPath: "m/44'/2'/0'",
@@ -130,7 +135,9 @@ export const valid: IPrepareTransactionTestCases[] = [
       accountId: 'accountId1',
       walletId: '00000000',
       assetId: 'litecoin',
+      parentAssetId: 'litecoin',
       familyId: 'bitcoin',
+      remarks: [''],
     },
   },
 ];

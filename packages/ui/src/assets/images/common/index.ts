@@ -1,5 +1,5 @@
+import addAccountIcon from './add-account.svg';
 import addWalletIcon from './add-wallet.png';
-import addIcon from './add.svg';
 import arrowBlackBackward from './arrow-black-backward.svg';
 import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
@@ -17,6 +17,7 @@ import closeIcon from './close.svg';
 import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
+import createWalletGraphics from './create-wallet-graphics.png';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
@@ -48,6 +49,7 @@ import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
 import questionMarkIcon from './question-mark.svg';
+import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -62,8 +64,8 @@ import successIcon from './success.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
+import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
-import verifyAmountIcon from './verify-amount.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import walletErrorIcon from './wallet-error.svg';
 import walletIcon from './wallet.svg';
@@ -85,7 +87,7 @@ export {
   binanceIcon,
   etheriumBlueIcon,
   verifyCoinIcon,
-  addIcon,
+  addAccountIcon,
   confirmIcon,
   cypherockRedIcon,
   triangleInverseIcon,
@@ -139,5 +141,7 @@ export {
   qrImage,
   goldSendIcon,
   warningIcon,
-  verifyAmountIcon,
+  UniSwapLogo,
+  createWalletGraphics,
+  recoverWalletFromSeedphraseGraphics,
 };

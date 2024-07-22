@@ -15,15 +15,24 @@ import {
   ITransactionRepository,
   IWallet,
   IWalletRepository,
+  ITransactionNotificationClick,
+  ITransactionNotificationClickRepository,
+  ITransactionNotificationRead,
+  ITransactionNotificationReadRepository,
+  IMigrationRepository,
+  IMigration,
 } from '@cypherock/db-interfaces';
 
 import { EncryptedDB } from './encryptedDb';
 import {
   Account,
   Device,
+  Migration,
   PriceHistory,
   PriceInfo,
   Transaction,
+  TransactionNotificationClick,
+  TransactionNotificationRead,
   Wallet,
 } from './entity';
 import {
@@ -47,6 +56,12 @@ export class Database implements IDatabase {
 
   priceInfo: IPriceInfoRepository;
 
+  transactionNotificationClick: ITransactionNotificationClickRepository;
+
+  transactionNotificationRead: ITransactionNotificationReadRepository;
+
+  migration: IMigrationRepository;
+
   constructor(params: {
     database: EncryptedDB;
     device: IDeviceRepository;
@@ -55,6 +70,9 @@ export class Database implements IDatabase {
     wallet: IWalletRepository;
     priceHistory: IPriceHistoryRepository;
     priceInfo: IPriceInfoRepository;
+    transactionNotificationClick: ITransactionNotificationClickRepository;
+    transactionNotificationRead: ITransactionNotificationReadRepository;
+    migration: IMigrationRepository;
   }) {
     this.database = params.database;
 
@@ -64,6 +82,9 @@ export class Database implements IDatabase {
     this.wallet = params.wallet;
     this.priceHistory = params.priceHistory;
     this.priceInfo = params.priceInfo;
+    this.transactionNotificationClick = params.transactionNotificationClick;
+    this.transactionNotificationRead = params.transactionNotificationRead;
+    this.migration = params.migration;
   }
 
   public static async create(dirPath: string) {
@@ -99,6 +120,23 @@ export class Database implements IDatabase {
       PriceInfo.name,
       PriceInfo.schema,
     );
+    const transactionNotificationClick =
+      await Repository.create<ITransactionNotificationClick>(
+        database,
+        TransactionNotificationClick.name,
+        TransactionNotificationClick.schema,
+      );
+    const transactionNotificationRead =
+      await Repository.create<ITransactionNotificationRead>(
+        database,
+        TransactionNotificationRead.name,
+        TransactionNotificationRead.schema,
+      );
+    const migration = await Repository.create<IMigration>(
+      database,
+      Migration.name,
+      Migration.schema,
+    );
 
     return new Database({
       database,
@@ -108,6 +146,9 @@ export class Database implements IDatabase {
       transaction,
       priceHistory,
       priceInfo,
+      transactionNotificationClick,
+      transactionNotificationRead,
+      migration,
     });
   }
 

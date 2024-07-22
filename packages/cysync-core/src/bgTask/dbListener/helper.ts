@@ -1,14 +1,17 @@
+import lodash from 'lodash';
+
 import { syncAccounts } from '~/actions';
 import {
   setAccounts,
   setDevices,
+  setLanguage,
   setPriceHistories,
   setPriceInfos,
   setTransactions,
   setWallets,
   store,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
 
 const createFuncWithErrorHandler =
@@ -46,7 +49,9 @@ const syncAccountsDb = createFuncWithErrorHandler(
     store.dispatch(setAccounts(accounts));
 
     if (isFirst) {
-      store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+      if (window.cysyncEnv.IS_PRODUCTION === 'true') {
+        store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+      }
     }
   },
 );
@@ -95,17 +100,25 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncPriceInfosDb();
   await syncPriceHistoriesDb();
   await syncTransactionsDb();
+
+  store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
 };
+
+const throttleDbFunction = (func: any) =>
+  lodash.throttle(func, 3000, { leading: true });
 
 export const addListeners = () => {
   const db = getDB();
 
-  db.wallet.addListener('change', syncWalletsDb);
-  db.account.addListener('change', syncAccountsDb);
-  db.device.addListener('change', syncDevicesDb);
-  db.priceInfo.addListener('change', syncPriceInfosDb);
-  db.priceHistory.addListener('change', syncPriceHistoriesDb);
-  db.transaction.addListener('change', syncTransactionsDb);
+  db.wallet.addListener('change', throttleDbFunction(syncWalletsDb));
+  db.account.addListener('change', throttleDbFunction(syncAccountsDb));
+  db.device.addListener('change', throttleDbFunction(syncDevicesDb));
+  db.priceInfo.addListener('change', throttleDbFunction(syncPriceInfosDb));
+  db.priceHistory.addListener(
+    'change',
+    throttleDbFunction(syncPriceHistoriesDb),
+  );
+  db.transaction.addListener('change', throttleDbFunction(syncTransactionsDb));
 };
 
 export const removeListeners = () => {

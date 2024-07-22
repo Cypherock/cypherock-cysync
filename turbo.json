@@ -26,29 +26,58 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "tsconfig_cjs.json"]
     },
+    "@cypherock/cysync-ui#build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "!src/assets/icons/generated/**",
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig_cjs.json"
+      ]
+    },
     "@cypherock/cysync-ui#prebuild": {
       "cache": true,
       "outputs": ["src/assets/icons/generated/**"],
       "inputs": ["icons/**"]
     },
     "@cypherock/cysync-core#prebuild": {
+      "dependsOn": ["^build"],
       "cache": true,
       "outputs": ["src/generated/**"],
-      "inputs": ["package.json", "scripts/prebuild.sh"]
+      "inputs": [
+        "package.json",
+        "scripts/prebuild.sh",
+        "scripts/dependencies/index.js",
+        "scripts/dependencies/package.json"
+      ]
+    },
+    "@cypherock/cysync-core#build": {
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig_cjs.json",
+        "!src/generated/**"
+      ]
+    },
+    "@cypherock/cysync-core-workers#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json"]
     },
     "@cypherock/cysync-cli#dev": {
       "dependsOn": ["build"],
       "cache": false
     },
-    "@cypherock/cysync-desktop#prebuild": {
-      "cache": true,
-      "outputs": ["renderer/generated/**"],
-      "inputs": ["package.json", "scripts/prebuild.sh"]
-    },
     "@cypherock/cysync-desktop#build": {
       "dependsOn": ["@cypherock/cysync-desktop#prebuild", "^build"],
       "outputs": ["dist/**", "dist-electron/**"],
       "inputs": [
+        "!renderer/generated/**",
         "src/**",
         "renderer/**",
         "public/**",
@@ -69,7 +98,8 @@
     },
     "test": {
       "dependsOn": ["build"],
-      "inputs": ["src/**", "tests/**"]
+      "inputs": ["src/**", "tests/**"],
+      "outputs": ["coverage/**"]
     },
     "e2e": {
       "dependsOn": ["build"],
@@ -105,6 +135,22 @@
       "dependsOn": ["^build"],
       "inputs": ["src/**", "package.json", ".storybook/**"],
       "outputs": ["storybook-static/**"],
+      "cache": true
+    },
+    "@cypherock/cysync-automation-scripts#erc20-diff": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#gen-erc20-list": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#download-erc20-images": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "@cypherock/cysync-automation-scripts#gen-translations": {
+      "dependsOn": ["build"],
       "cache": true
     }
   }

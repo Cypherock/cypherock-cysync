@@ -81,7 +81,9 @@ export const broadcastTransaction = async (
     accountId: account.__id,
     walletId: account.walletId,
     assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
     familyId: account.familyId,
+    remarks: transaction.userInputs.outputs.map(output => output.remarks ?? ''),
   };
 
   const totalInputs = parsedTransaction.inputs.reduce(
@@ -112,7 +114,7 @@ export const broadcastTransaction = async (
 
   parsedTransaction.amount = amount.abs().toString();
 
-  await insertOrUpdateTransactions(db, [parsedTransaction]);
+  const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
 
-  return parsedTransaction;
+  return addedTxn;
 };

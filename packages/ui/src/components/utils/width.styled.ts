@@ -10,9 +10,9 @@ type IImageType = number | string | WidthType;
 
 export interface WidthProps {
   width?: MediaQuery<IImageType>;
-}
-export interface ImageWidthProps {
-  width?: IImageType;
+  $width?: MediaQuery<IImageType>;
+  $minWidth?: MediaQuery<IImageType>;
+  $maxWidth?: MediaQuery<IImageType>;
 }
 
 const widthMap: Record<WidthType, string> = {
@@ -26,4 +26,9 @@ const getWidth = (item: WidthType | number | string) =>
 
 export const width = css<WidthProps>`
   ${props => props.width && generateCss(['width'], getWidth, props.width)}
+  ${props => props.$width && generateCss(['width'], getWidth, props.$width)}
+  ${props =>
+    props.$maxWidth && generateCss(['max-width'], getWidth, props.$maxWidth)}
+  ${props =>
+    props.$minWidth && generateCss(['min-width'], getWidth, props.$minWidth)}
 `;

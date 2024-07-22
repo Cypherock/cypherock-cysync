@@ -6,11 +6,14 @@ import {
   UpdateDownloadedEvent,
   UpdateInfo as ElectronUpdateInfo,
 } from 'electron-updater';
+import winVerifySign from 'win-verify-signature';
 
 import { config } from './config';
 import { createServiceLogger } from './logger';
 
 import { ipcConfig } from '../ipc/helpers/config';
+
+const logger = createServiceLogger('autoUpdater');
 
 class AutoUpdater {
   private cancellationToken?: CancellationToken;
@@ -26,8 +29,9 @@ class AutoUpdater {
       return;
     }
 
-    electronAutoUpdater.logger = createServiceLogger('autoUpdater');
+    electronAutoUpdater.logger = logger;
     electronAutoUpdater.autoDownload = false;
+    electronAutoUpdater.channel = config.CHANNEL;
   }
 
   public setup(webContents: WebContents) {
@@ -46,6 +50,30 @@ class AutoUpdater {
     electronAutoUpdater.on('error', e => {
       this.onError(e);
     });
+
+    // Verify application after update downloaded successfully
+    // https://github.com/electron-userland/electron-builder/issues/7127#issuecomment-1933413272
+    if (process.platform === 'win32') {
+      (electronAutoUpdater as any).verifyUpdateCodeSignature = (
+        publisherName: string[],
+        path: string,
+      ) => {
+        logger.info('Starting verification', {
+          path,
+          publisherName,
+        });
+        const result = winVerifySign.verifySignatureByPublishName(
+          path,
+          publisherName,
+        );
+        if (result.signed) return Promise.resolve(undefined);
+        logger.info('verifyUpdateCodeSignatureResult', {
+          result,
+          message: result.message,
+        });
+        return Promise.resolve(result.message);
+      };
+    }
   }
 
   public async checkForUpdates(): Promise<UpdateInfo | undefined> {
@@ -80,7 +108,7 @@ class AutoUpdater {
 
   // eslint-disable-next-line class-methods-use-this
   public async installUpdate() {
-    electronAutoUpdater.quitAndInstall();
+    electronAutoUpdater.quitAndInstall(true, true);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -101,9 +129,18 @@ class AutoUpdater {
     };
   }
 
+  private getWebContents() {
+    if (this.webContents && !this.webContents.isDestroyed()) {
+      return this.webContents;
+    }
+
+    return undefined;
+  }
+
   private onProgress(percent: number) {
-    if (this.webContents) {
-      this.webContents.send(
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(
         ipcConfig.listeners.downloadUpdateProgress,
         Number(percent.toFixed(0)),
       );
@@ -113,8 +150,10 @@ class AutoUpdater {
   private onComplete(info: UpdateDownloadedEvent | UpdateInfo) {
     this.downloadedInfo = this.parseUpdateInfo(info);
 
-    if (this.webContents) {
-      this.webContents.send(
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(ipcConfig.listeners.downloadUpdateProgress, Number(100));
+      webContents.send(
         ipcConfig.listeners.downloadUpdateCompleted,
         this.downloadedInfo,
       );
@@ -122,8 +161,9 @@ class AutoUpdater {
   }
 
   private onError(error: Error) {
-    if (this.webContents) {
-      this.webContents.send(ipcConfig.listeners.downloadUpdateError, error);
+    const webContents = this.getWebContents();
+    if (webContents) {
+      webContents.send(ipcConfig.listeners.downloadUpdateError, error);
     }
   }
 }

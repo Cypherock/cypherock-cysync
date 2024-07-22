@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
-import { InfoItalicsIcon } from '../../assets';
+import { GoldQuestionMark, InfoItalicsIcon } from '../../assets';
 import {
   Container,
   Flex,
@@ -11,14 +11,16 @@ import {
 } from '../atoms';
 import { BgColor, BorderColor } from '../utils';
 
-export type MessageBoxType = 'info' | 'warning';
+export type MessageBoxType = 'info' | 'warning' | 'danger';
 const borderColorMap: Record<MessageBoxType, BorderColor> = {
   info: 'input',
   warning: 'warning',
+  danger: 'danger',
 };
 const bgColorMap: Record<MessageBoxType, BgColor> = {
   info: 'input',
   warning: 'warning',
+  danger: 'error',
 };
 export const MessageBox: FC<{
   text: string;
@@ -26,12 +28,26 @@ export const MessageBox: FC<{
   textColor?: TypographyColor;
   type: MessageBoxType;
   rightImage?: React.ReactNode;
-}> = ({ text, altText, type, textColor, rightImage }) => {
+  variables?: any;
+  showIcon?: boolean;
+  showQuestionmark?: boolean;
+}> = ({
+  text,
+  altText,
+  type,
+  textColor,
+  rightImage,
+  variables,
+  showIcon,
+  showQuestionmark,
+}) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
     info: theme?.palette.bullet.white,
     warning: theme?.palette.info.main,
+    danger: theme?.palette.background.danger,
   };
+
   return (
     <Container
       $borderColor={borderColorMap[type]}
@@ -44,18 +60,21 @@ export const MessageBox: FC<{
       justify="flex-start"
       $alignSelf="stretch"
     >
-      <div>
-        <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-      </div>
+      {showIcon && (
+        <div>
+          <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
+        </div>
+      )}
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
-          <LangDisplay text={text} />
+          <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
+          {showQuestionmark && <GoldQuestionMark ml={1} />}
         </Typography>
         {altText && (
           <Container align="center" gap={5}>
             <Typography variant="fineprint">
-              <LangDisplay text={altText} />
+              <LangDisplay text={altText} variables={variables} />
             </Typography>
             {rightImage && rightImage}
           </Container>
@@ -69,4 +88,7 @@ MessageBox.defaultProps = {
   rightImage: undefined,
   altText: undefined,
   textColor: undefined,
+  variables: undefined,
+  showIcon: true,
+  showQuestionmark: false,
 };

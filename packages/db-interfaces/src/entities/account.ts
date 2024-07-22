@@ -1,20 +1,28 @@
-import type { IEntity, IRepository, IGetOptions, ObjectLiteral } from './base';
+import type { IEntity, IGetOptions, IRepository, ObjectLiteral } from './base';
+
+export const AccountTypeMap = {
+  account: 'account',
+  subAccount: 'subAccount',
+} as const;
+
+export type AccountType = (typeof AccountTypeMap)[keyof typeof AccountTypeMap];
 
 export interface IAccount extends IEntity {
   name: string;
   xpubOrAddress: string;
   balance: string;
-  unit: string;
+  unit?: string;
   derivationScheme?: string;
   derivationPath: string;
-  type: string;
+  type: AccountType;
   extraData?: ObjectLiteral;
   // foreign keys
   assetId: string;
   familyId: string;
   walletId: string;
-  parentAssetId?: string;
+  parentAssetId: string;
   parentAccountId?: string;
+  isHidden?: boolean;
 }
 
 export interface IAccountDisplayInfo extends IAccount {

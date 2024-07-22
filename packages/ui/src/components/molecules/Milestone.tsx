@@ -27,7 +27,7 @@ export const Milestone = (props: MilestoneProps): ReactElement => {
     .fill(0)
     .map((_, i) => (
       <React.Fragment key={`selected-${i + 1}`}>
-        <Image src={blockSelectedIcon} alt="device" width={blockSize} />
+        <Image src={blockSelectedIcon} alt="device" $width={blockSize} />
         {i === currentState - 1 || <Line bg={theme.palette.golden} />}
       </React.Fragment>
     ));
@@ -38,7 +38,7 @@ export const Milestone = (props: MilestoneProps): ReactElement => {
         {i === totalState - currentState + 1 || (
           <Line bg={theme.palette.text.muted} />
         )}
-        <Image src={blockIcon} alt="device" width={blockSize} />
+        <Image src={blockIcon} alt="device" $width={blockSize} />
       </React.Fragment>
     ));
 

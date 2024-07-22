@@ -3,6 +3,7 @@ import { EvmSupport } from '@cypherock/coin-support-evm';
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
+import { TronSupport } from '@cypherock/coin-support-tron';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 
 const coinSupportMap: Record<CoinFamily, CoinSupport> = {
@@ -10,6 +11,7 @@ const coinSupportMap: Record<CoinFamily, CoinSupport> = {
   [coinFamiliesMap.evm]: new EvmSupport(),
   [coinFamiliesMap.near]: new NearSupport(),
   [coinFamiliesMap.solana]: new SolanaSupport(),
+  [coinFamiliesMap.tron]: new TronSupport(),
 };
 
 export const getCoinSupport = (coinFamily: string) => {

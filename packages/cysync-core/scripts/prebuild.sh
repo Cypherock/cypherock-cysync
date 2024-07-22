@@ -2,14 +2,20 @@
 
 set -e
 
-# browserify library function $1:Global variable name, $2:Library name
+TEMPDIR='scripts/dependencies/dist'
 BASEPATH='src/generated'
-browserify_library () {
-	./node_modules/.bin/browserify --standalone $1 - -o ${BASEPATH}/$2 <<<"module.exports = require('$2');"
-	echo "/* eslint-disable */" > ${BASEPATH}/$2.js
-	cat ${BASEPATH}/$2 >> ${BASEPATH}/$2.js
-	rm ${BASEPATH}/$2
-}
+WORKER_PACKAGE_PATH='./node_modules/@cypherock/cysync-core-workers'
 
-browserify_library 'BitcoinJsLib' 'bitcoinjs-lib'
-browserify_library 'NearApiJs' 'near-api-js'
+rm -rf ${BASEPATH}
+mkdir -p ${BASEPATH}
+mkdir -p ${BASEPATH}/workers
+
+cd scripts/dependencies
+# https://github.com/parcel-bundler/parcel/issues/7702
+pnpm build
+cd ../../
+
+echo "/* eslint-disable */" > ${BASEPATH}/index.js
+cat ${TEMPDIR}/index.js >> ${BASEPATH}/index.js
+
+cp ${WORKER_PACKAGE_PATH}/lib/index.js ${BASEPATH}/workers/index.js

@@ -4,6 +4,9 @@
 export interface IEntity {
   __id?: string;
   __version?: number;
+  meta?: {
+    created?: number;
+  };
 }
 
 export type ListenerType = 'change';

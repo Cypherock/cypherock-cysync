@@ -42,11 +42,16 @@ export const valid: IPrepareTransactionTestCases[] = [
       validation: {
         hasEnoughBalance: true,
         outputs: [],
+        isValidFee: true,
+        isNotOverDustThreshold: false,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
     mocks: {
       account: {
         assetId: 'litecoin',
+        parentAssetId: 'litecoin',
         familyId: 'bitcoin',
       },
       changeAddress: {
@@ -103,6 +108,10 @@ export const valid: IPrepareTransactionTestCases[] = [
       validation: {
         hasEnoughBalance: true,
         outputs: [false],
+        isValidFee: true,
+        isNotOverDustThreshold: false,
+        ownOutputAddressNotAllowed: [],
+        zeroAmountNotAllowed: false,
       },
     },
   },

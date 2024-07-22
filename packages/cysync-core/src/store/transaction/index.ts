@@ -26,5 +26,7 @@ export const transactionSlice = createSlice({
 export const { setTransactions } = transactionSlice.actions;
 
 export const selectTransactions = (state: RootState) => state.transaction;
+export const selectTransactionById = (__id?: string) => (state: RootState) =>
+  state.transaction.transactions.find((t: ITransaction) => t.__id === __id);
 
 export default transactionSlice.reducer;

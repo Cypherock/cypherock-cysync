@@ -5,13 +5,14 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
 
 export const showPortfolio = async (db: IDatabase) => {
-  const allocations = await getCoinAllocations(db);
+  const allocations = await getCoinAllocations({ db });
 
   const displayTable = allocations
     .sort((a, b) => b.percentage - a.percentage)
     .map(a => {
       const { amount, unit } = getParsedAmount({
-        coinId: a.assetId,
+        coinId: a.parentAssetId,
+        assetId: a.assetId,
         unitAbbr: getDefaultUnit(a.assetId).abbr,
         amount: a.balance,
       });

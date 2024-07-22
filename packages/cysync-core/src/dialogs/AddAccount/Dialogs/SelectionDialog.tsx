@@ -1,33 +1,36 @@
 import { coinList } from '@cypherock/coins';
 import {
-  LangDisplay,
+  Button,
+  Container,
   DialogBox,
   DialogBoxBody,
-  Typography,
-  Image,
-  Container,
   DialogBoxFooter,
-  Button,
+  DropDownItemProps,
   Dropdown,
-  addIcon,
-  DropDownListItemProps,
+  Image,
+  LangDisplay,
+  Typography,
+  addAccountIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
 
 import { useAddAccountDialog } from '../context';
 
-const coinDropDownList: DropDownListItemProps[] = Object.values(coinList).map(
-  coin => ({
+const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
+  .filter(
+    c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
+  )
+  .map(coin => ({
     id: coin.id,
-    leftImage: <CoinIcon assetId={coin.id} />,
+    leftImage: <CoinIcon parentAssetId={coin.id} />,
     shortForm: `(${coin.abbr.toUpperCase()})`,
     text: coin.name,
     checkType: 'radio',
-  }),
-);
+  }));
 
 export const AddAccountSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -38,24 +41,39 @@ export const AddAccountSelectionDialog: React.FC = () => {
     setSelectedCoin,
     handleWalletChange,
     walletDropdownList,
+    defaultWalletId,
   } = useAddAccountDialog();
 
   const strings = lang.strings.addAccount.select;
   const button = lang.strings.buttons;
 
-  const handleCoinChange = (id: string | undefined) => {
-    if (!id) {
-      setSelectedCoin(undefined);
-      return;
-    }
+  const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
+    (...args) => {
+      logger.info('Dropdown Change: Wallet Change', {
+        source: AddAccountSelectionDialog.name,
+        isWalletSelected: Boolean(args[0]),
+      });
+      handleWalletChange(...args);
+    },
+    [handleWalletChange],
+  );
 
-    setSelectedCoin(coinList[id]);
-  };
+  const handleCoinChange = useCallback(
+    (id: string | undefined) => {
+      const targetCoin = id ? coinList[id] : undefined;
+      setSelectedCoin(targetCoin);
+      logger.info('Dropdown Change: Coin Change', {
+        source: AddAccountSelectionDialog.name,
+        coin: targetCoin?.name,
+      });
+    },
+    [coinList],
+  );
 
   return (
     <DialogBox width={500}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
-        <Image src={addIcon} alt="Verify Coin" />
+        <Image src={addAccountIcon} alt="Verify Coin" />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={strings.header} />
@@ -67,8 +85,9 @@ export const AddAccountSelectionDialog: React.FC = () => {
             selectedItem={selectedWallet?.__id}
             searchText={strings.searchText}
             placeholderText={strings.walletPlaceholder}
-            onChange={handleWalletChange}
+            onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus={!defaultWalletId}
           />
           <Dropdown
             items={coinDropDownList}
@@ -77,6 +96,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             searchText={strings.searchText}
             placeholderText={strings.coinPlaceholder}
             onChange={handleCoinChange}
+            autoFocus={Boolean(defaultWalletId)}
           />
         </Container>
       </DialogBoxBody>

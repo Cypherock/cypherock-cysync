@@ -1,21 +1,27 @@
 import {
+  Button,
+  CheckBox,
+  Clipboard,
   Container,
   DialogBox,
+  DialogBoxBody,
+  DialogBoxFooter,
+  Flex,
   Image,
+  LangDisplay,
   Typography,
   usbIcon,
-  DialogBoxBody,
-  LangDisplay,
-  Flex,
-  Button,
-  DialogBoxFooter,
-  Clipboard,
-  CheckBox,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { LanguageDropdown } from '~/components';
 import { constants } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  openSnackBar,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
 export interface PermissionSetupDialogProps {
@@ -28,10 +34,20 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
   const [isChecked, setIsChecked] = React.useState(false);
 
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     logger.info('On linux permission setup page');
   }, []);
+
+  const handlePermissionScriptCopy = () => {
+    dispatch(
+      openSnackBar({
+        icon: 'check',
+        text: lang.strings.snackbar.copiedToClipboard,
+      }),
+    );
+  };
 
   return (
     <Flex
@@ -40,7 +56,18 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
       justify="center"
       align="center"
       $bgColor="contentGradient"
+      position="relative"
     >
+      <Container
+        position="absolute"
+        top={0}
+        left="50%"
+        $translateX={-0.5}
+        pt={2}
+        $zIndex={10}
+      >
+        <LanguageDropdown $fontSize={16} />
+      </Container>
       <DialogBox width={500}>
         <DialogBoxBody>
           <Image rotate={90} src={usbIcon} alt="Usb Icon" />
@@ -78,11 +105,12 @@ export const PermissionSetupDialog: React.FC<PermissionSetupDialogProps> = ({
               <Clipboard
                 content={constants.linuxPermissionScript}
                 variant="gold"
+                onCopy={handlePermissionScriptCopy}
               />
             </Container>
 
             <CheckBox
-              flexProps={{ align: 'stretch' }}
+              flexProps={{ align: 'center' }}
               checked={isChecked}
               onChange={() => setIsChecked(!isChecked)}
               id="permission_setup_checkbox"

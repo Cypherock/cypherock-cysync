@@ -1,0 +1,14 @@
+diff --git a/src/address.js b/src/address.js
+index 2712168a14bc1f99d4d6bfb6b186714c405c8ac7..5b5b4669c1e3dd1089ce6e51072deede9bbfc850 100644
+--- a/src/address.js
++++ b/src/address.js
+@@ -23,6 +23,9 @@ const FUTURE_SEGWIT_VERSION_WARNING =
+   'End users MUST be warned carefully in the GUI and asked if they wish to proceed ' +
+   'with caution. Wallets should verify the segwit version from the output of fromBech32, ' +
+   'then decide when it is safe to use which version of segwit.';
++
++Buffer = typeof window === 'undefined' ? globalThis.Buffer : window.Buffer;
++
+ function _toFutureSegwitAddress(output, network) {
+   const data = output.slice(2);
+   if (

@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { DefaultTheme, styled } from 'styled-components';
 
 import { LangDisplay, RadioButton, Typography } from '../../atoms';
 
 interface ListItemDropdownProps {
-  text: string;
+  text?: string;
+  icon?: ReactNode;
+  displayNode?: ReactNode;
   checkType?: string;
   checked: boolean;
   onChange: () => void;
@@ -14,6 +16,7 @@ interface ListItemDropdownProps {
 
 const LocalTypography = styled(Typography)`
   color: ${({ theme }) => theme.palette.text.muted};
+  text-overflow: ellipsis;
 `;
 
 interface ItemsProps {
@@ -60,15 +63,17 @@ const Items = styled.div<ItemsProps>`
 `;
 
 export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
-  text: itemText,
+  text,
+  icon,
   checkType,
   checked,
   onChange,
   focused = false,
   id,
+  displayNode,
 }) => {
   const handleBoxClick = () => {
-    if (checkType && checkType === 'radio') {
+    if (!checkType || checkType === 'radio') {
       onChange();
     }
   };
@@ -78,7 +83,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       const divElement = document.getElementById(`${id}`);
       divElement?.focus();
     }
-  }, [focused, itemText]);
+  }, [focused, text]);
 
   return (
     <Items
@@ -89,9 +94,17 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       id={id}
     >
       {checkType && checkType === 'radio' && <RadioButton checked={checked} />}
-      <LocalTypography>
-        <LangDisplay text={itemText} />
-      </LocalTypography>
+
+      {displayNode ?? (
+        <>
+          {icon}
+          {text && (
+            <LocalTypography>
+              <LangDisplay text={text} />
+            </LocalTypography>
+          )}
+        </>
+      )}
     </Items>
   );
 };
@@ -99,4 +112,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
 ListItemDropdown.defaultProps = {
   checkType: '',
   focused: false,
+  icon: undefined,
+  displayNode: undefined,
+  text: undefined,
 };

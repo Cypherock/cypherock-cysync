@@ -1,18 +1,19 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   GetAddressesFromDevice,
-  makeCreateAccountsObservable,
   IMakeCreateAccountsObservableParams,
+  makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { btcCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { BtcApp } from '@cypherock/sdk-app-btc';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { createDerivationPathSchemes } from './schemes';
 import {
-  ICreateBtcAccountParams,
   ICreateBtcAccountEvent,
+  ICreateBtcAccountParams,
   btcToDeviceEventMap,
 } from './types';
 
@@ -51,18 +52,19 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<BtcApp>['cre
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
     return {
-      // TODO: name to be decided later
       name,
       xpubOrAddress: addressDetails.address,
       balance: addressDetails.balance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
-      type: 'account',
+      type: AccountTypeMap.account,
       familyId: coin.family,
       assetId: params.coinId,
+      parentAssetId: params.coinId,
       walletId: params.walletId,
       derivationScheme: addressDetails.schemeName,
       isNew: addressDetails.txnCount <= 0,
+      isHidden: false,
     };
   };
 

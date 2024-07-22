@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/",
+    "lib": ["DOM"]
+  },
+  "extends": "@cypherock/tsconfig/browser.json",
+  "include": ["./src/**/*"]
+}

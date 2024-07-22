@@ -16,7 +16,7 @@ const getWindowUrls = () => {
   let mainWindowUrl = path.join(DIST, mainWindowHtml);
   let loadingWindowUrl = path.join(DIST, loadingWindowHtml);
 
-  const iconPath = path.join(PUBLIC, 'icon.ico');
+  const iconPath = path.join(PUBLIC, 'icon.png');
 
   if (devServerUrl) {
     mainWindowUrl = path.join(devServerUrl, mainWindowHtml);

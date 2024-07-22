@@ -1,12 +1,13 @@
 import {
-  AppUpdateIcon,
   ConfirmationDialog,
   ErrorDialog,
   ProgressDialog,
   SuccessDialog,
+  CySyncDownloadGreenIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC, ReactElement, useEffect } from 'react';
 
+import { AppUpdateFailedFallback } from '~/components';
 import { constants, routes } from '~/constants';
 import {
   AppUpdateState,
@@ -17,7 +18,6 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AppUpdateChecking } from './AppUpdateChecking';
-import { AppUpdateFailedFallback } from './AppUpdateFailedFallback';
 
 export const AppUpdateDialogBox: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -31,7 +31,7 @@ export const AppUpdateDialogBox: FC = () => {
     downloadProgress,
     appUpdateState,
     isUpdatesChecked,
-  } = useAppUpdate({ shouldInstallAfterUpdate: true });
+  } = useAppUpdate();
 
   useEffect(() => {
     if (isUpdatesChecked && !updateInfo) {
@@ -48,11 +48,10 @@ export const AppUpdateDialogBox: FC = () => {
     [AppUpdateState.Confirmation]: (
       <ConfirmationDialog
         title={lang.strings.onboarding.appUpdate.dialogs.confirmation.title}
-        subtext={lang.strings.onboarding.appUpdate.dialogs.confirmation.subtext}
         buttonText={lang.strings.buttons.update}
         textVariables={updateInfo}
-        icon={<AppUpdateIcon />}
-        handleClick={downloadUpdate}
+        icon={<CySyncDownloadGreenIcon />}
+        handleClick={() => downloadUpdate(true)}
       />
     ),
     [AppUpdateState.Downloading]: (
@@ -62,8 +61,8 @@ export const AppUpdateDialogBox: FC = () => {
         versionText={
           lang.strings.onboarding.appUpdate.dialogs.downloading.version
         }
-        versionTextVaribles={updateInfo}
-        icon={<AppUpdateIcon />}
+        versionTextVariables={updateInfo}
+        icon={<CySyncDownloadGreenIcon />}
         progress={downloadProgress}
       />
     ),
@@ -82,6 +81,7 @@ export const AppUpdateDialogBox: FC = () => {
     ),
     [AppUpdateState.Failed]: (
       <ErrorDialog
+        iconType="cySyncDownload"
         title={
           internalState === InternalAppUpdateState.Checking
             ? lang.strings.onboarding.appUpdate.dialogs.checkingFailed.title

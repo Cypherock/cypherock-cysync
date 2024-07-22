@@ -1,6 +1,5 @@
 import { syncWalletsOnDb } from '@cypherock/cysync-core-services';
-import { ConnectDevice } from '@cypherock/cysync-interfaces';
-import { ManagerApp } from '@cypherock/sdk-app-manager/dist/app';
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { uniqueId } from 'lodash';
 
@@ -15,50 +14,77 @@ import logger from '~/utils/logger';
 
 export interface ISyncWalletsWithDeviceParams {
   connection?: IDeviceConnectionInfo;
-  connectDevice: ConnectDevice;
   doFetchFromDevice?: boolean;
 }
 
 const syncWalletsWithConnectedDevice = async (
   params: ISyncWalletsWithDeviceParams,
 ) => {
-  const { connection, connectDevice, doFetchFromDevice } = params;
+  let taskId: string | undefined;
+  const { connection, doFetchFromDevice } = params;
 
-  if (
-    !connection?.isMain ||
-    connection.status !== DeviceConnectionStatus.CONNECTED
-  ) {
-    return undefined;
+  logger.info('Wallet Sync Started');
+
+  try {
+    if (!connection?.connection) {
+      logger.warn('Wallet Sync Abort: Connection is not set up');
+      return undefined;
+    }
+
+    if (!connection.isMain) {
+      logger.warn('Wallet Sync Abort: Device is not on main');
+      return undefined;
+    }
+
+    if (connection.status !== DeviceConnectionStatus.CONNECTED) {
+      logger.warn('Wallet Sync Abort: Device is not connected');
+      return undefined;
+    }
+
+    if (!connection.isAuthenticated) {
+      logger.warn('Wallet Sync Abort: Device is not authenticated');
+      return undefined;
+    }
+
+    if (!connection.serial) {
+      logger.warn('Wallet Sync Abort: No serial found for connected device');
+      return undefined;
+    }
+
+    let walletList = connection.walletList ?? [];
+
+    if (doFetchFromDevice) {
+      taskId = uniqueId('task-');
+      await deviceLock.acquire(connection.device, taskId);
+
+      const con = connection.connection;
+      const app = await ManagerApp.create(con);
+
+      const deviceResult = await app.getWallets();
+      walletList = deviceResult.walletList;
+
+      deviceLock.release(connection.device, taskId);
+    }
+
+    const db = getDB();
+
+    const deletedWallets = await syncWalletsOnDb({
+      db,
+      wallets: walletList,
+      deviceId: connection.serial,
+    });
+
+    logger.info('Wallet Sync Completed');
+
+    return deletedWallets;
+  } catch (error) {
+    if (taskId && connection?.device) {
+      deviceLock.release(connection.device, taskId);
+    }
+
+    logger.error('Wallet Sync Abort', error as any);
+    throw error;
   }
-
-  if (!connection.serial) {
-    logger.warn('No serial found for connected device');
-    return undefined;
-  }
-
-  let walletList = connection.walletList ?? [];
-
-  if (doFetchFromDevice) {
-    const taskId = uniqueId('task-');
-    deviceLock.acquire(connection.device, taskId);
-
-    const con = await connectDevice(connection.device);
-    const app = await ManagerApp.create(con);
-
-    const deviceResult = await app.getWallets();
-    walletList = deviceResult.walletList;
-
-    await app.destroy();
-    deviceLock.release(connection.device, taskId);
-  }
-
-  const db = getDB();
-
-  return syncWalletsOnDb({
-    db,
-    wallets: walletList,
-    deviceId: connection.serial,
-  });
 };
 
 export const syncWalletsWithDevice = createAsyncThunk<

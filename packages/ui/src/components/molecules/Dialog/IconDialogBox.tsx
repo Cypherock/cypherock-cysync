@@ -8,12 +8,12 @@ import {
   DialogBoxProps,
 } from './DialogBox';
 
-import { Flex, LangDisplay, Typography } from '../../atoms';
+import { CloseButton, Flex, LangDisplay, Typography } from '../../atoms';
 
 interface IconDialogBoxProps extends DialogBoxProps {
   icon?: ReactNode;
   header?: string;
-  title?: string;
+  title?: React.ReactNode;
   subtext?: string;
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
@@ -28,14 +28,30 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   afterTextComponent,
   footerComponent,
   textVariables,
+  onClose,
   ...props
 }) => (
-  <DialogBox width={500} {...props}>
-    {header && (
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" width="100%" color="muted">
-          <LangDisplay text={header} />
-        </Typography>
+  <DialogBox width={500} {...props} onClose={onClose}>
+    {(header || onClose) && (
+      <DialogBoxHeader height={56} width={500} px={3}>
+        <Flex position="relative" width="full" justify="center" align="center">
+          {header && (
+            <Typography variant="fineprint" color="muted" $fontWeight="medium">
+              <LangDisplay text={header} />
+            </Typography>
+          )}
+
+          {onClose && (
+            <CloseButton
+              onClick={onClose}
+              $alignSelf="end"
+              position="absolute"
+              top={0.5}
+              $translateY={-0.5}
+              right={0}
+            />
+          )}
+        </Flex>
       </DialogBoxHeader>
     )}
 
@@ -56,11 +72,12 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
       >
         {icon}
         <Flex direction="column" align="center" gap={4} px={5}>
-          {title && (
+          {title && typeof title === 'string' && (
             <Typography variant="h5" $textAlign="center">
               <LangDisplay text={title} variables={textVariables} />
             </Typography>
           )}
+          {title && typeof title !== 'string' && title}
           {subtext && (
             <Typography variant="h6" $textAlign="center" color="muted">
               <LangDisplay text={subtext} variables={textVariables} />

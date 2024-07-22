@@ -6,8 +6,11 @@ import {
   ISignTransactionEvent,
   ISyncPricesParams,
   ISyncPriceHistoriesParams,
-  IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
+  IGetAccountHistoryParams,
+  IGetExplorerLink,
+  ISignMessageEvent,
+  IFormatAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -46,7 +49,11 @@ export class NearSupport implements CoinSupport {
     throw new Error('Not implemented');
   }
 
-  public signTransaction(): Observable<ISignTransactionEvent> {
+  public signTransaction(): Observable<ISignTransactionEvent<string>> {
+    throw new Error(`Method not implemented`);
+  }
+
+  public signMessage(): Observable<ISignMessageEvent> {
     throw new Error(`Method not implemented`);
   }
 
@@ -62,8 +69,8 @@ export class NearSupport implements CoinSupport {
     return operations.getCoinAllocations(params);
   }
 
-  public getAccountHistory(): Promise<IGetAccountHistoryResult> {
-    throw new Error(`Method not implemented`);
+  public getAccountHistory(params: IGetAccountHistoryParams) {
+    return operations.getAccountHistory(params);
   }
 
   public syncPrices(params: ISyncPricesParams) {
@@ -72,5 +79,13 @@ export class NearSupport implements CoinSupport {
 
   public syncPriceHistories(params: ISyncPriceHistoriesParams) {
     return operations.syncPriceHistories(params);
+  }
+
+  public getExplorerLink(params: IGetExplorerLink) {
+    return operations.getExplorerLink(params);
+  }
+
+  public formatAddress(params: IFormatAddressParams) {
+    return params.address;
   }
 }

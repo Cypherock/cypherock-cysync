@@ -1,10 +1,12 @@
 import { getCoinSupport } from '@cypherock/coin-support';
+import { PromiseQueue } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
-import { lastValueFrom, merge, from, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
 
 const MAX_RETRIES = 3;
+const PRICE_SYNC_CONCURRENCY = 5;
 
 export interface ISyncPricesEvent {
   family: string;
@@ -53,17 +55,45 @@ export const syncSinglePrice = async (params: {
 export const syncPrices = (params: { db: IDatabase; families: string[] }) => {
   const { db, families } = params;
 
-  const allObservables: Observable<ISyncPricesEvent>[] = [];
-  for (const family of families) {
-    const observable = from(
-      syncSinglePrice({
-        family,
-        db,
-      }),
-    );
+  return new Observable<ISyncPricesEvent>(observer => {
+    let promiseQueue: PromiseQueue<ISyncPricesEvent> | undefined;
 
-    allObservables.push(observable);
-  }
+    const unsubscribe = () => {
+      if (promiseQueue) {
+        promiseQueue.abort();
+      }
+    };
 
-  return merge(...allObservables);
+    const main = async () => {
+      try {
+        promiseQueue = new PromiseQueue({
+          tasks: families.map(
+            f => () =>
+              syncSinglePrice({
+                family: f,
+                db,
+              }),
+          ),
+          concurrentCount: PRICE_SYNC_CONCURRENCY,
+          onComplete: () => {
+            observer.complete();
+          },
+          onNext: result => {
+            observer.next(result);
+          },
+          onError: error => {
+            observer.error(error);
+          },
+        });
+
+        promiseQueue.run();
+      } catch (error) {
+        observer.error(error);
+      }
+    };
+
+    main();
+
+    return unsubscribe;
+  });
 };

@@ -19,7 +19,7 @@ export const DeviceDetection: React.FC = () => {
       withHelp
       backTo={routes.onboarding.emailAuth.path}
     >
-      <WithConnectedDevice onInitial />
+      <WithConnectedDevice onInitial showAnimation={false} />
     </OnboardingPageLayout>
   );
 };

@@ -4,10 +4,12 @@ import { styled } from 'styled-components';
 import { Flex } from './Flex';
 import { Typography } from './Typography';
 
+import { NotFound } from '../../assets';
+
 interface NoSearchResultProps {
-  image: React.ReactNode;
+  image?: React.ReactNode;
   text: string;
-  searchText: string;
+  searchText?: string;
   subText?: string;
 }
 
@@ -25,9 +27,9 @@ export const NoSearchResult: FC<NoSearchResultProps> = ({
   <NoSearchResultWrapper>
     <Flex direction="column" gap={64} align="center">
       {image}
-      <Flex direction="column" align="center">
-        <Typography $fontSize={24} $fontWeight="medium">
-          {`${text} "${searchText}"`}
+      <Flex direction="column" align="center" px={2}>
+        <Typography $fontSize={24} $fontWeight="medium" $wordBreak="break-all">
+          {searchText ? `${text} "${searchText.trim()}"` : text}
         </Typography>
         <Typography $fontSize={16} color="muted">
           {subText}
@@ -39,4 +41,6 @@ export const NoSearchResult: FC<NoSearchResultProps> = ({
 
 NoSearchResult.defaultProps = {
   subText: '',
+  searchText: '',
+  image: <NotFound width={100} height={100} />,
 };

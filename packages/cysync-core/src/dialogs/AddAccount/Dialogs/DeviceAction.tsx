@@ -14,8 +14,9 @@ import {
   ArrowRightIcon,
   Throbber,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
@@ -107,17 +108,17 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
       });
     }
 
-    actions.push({
-      id: '4',
-      text: lang.strings.addAccount.deviceActions.actions.processing,
-      leftImage: rightArrowIcon,
-      rightImage: deviceEvents[CreateAccountDeviceEvent.CARD_TAPPED]
-        ? throbber
-        : undefined,
-    });
-
     return actions;
   }, [deviceEvents]);
+
+  const isProcessing = useMemo(
+    () => deviceEvents[CreateAccountDeviceEvent.CARD_TAPPED] === true,
+    [deviceEvents],
+  );
+
+  if (isProcessing) {
+    return <LoaderDialog />;
+  }
 
   return (
     <DialogBox width={500}>

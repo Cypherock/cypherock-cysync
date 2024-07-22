@@ -1,5 +1,4 @@
 import {
-  QuestionMarkButton,
   DialogBoxFooter,
   Button,
   Typography,
@@ -18,6 +17,7 @@ import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
+import logger from '~/utils/logger';
 
 export const EmailForm: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -39,6 +39,11 @@ export const EmailForm: React.FC = () => {
     setIsLoading(true);
 
     const validation = validateEmail(emailAddress, lang);
+    logger.info('Button Click: Store Email', {
+      source: EmailForm.name,
+      isValid: validation.success,
+    });
+
     if (!validation.success) {
       setErrorMessage(validation.error.issues[0].message);
       setIsLoading(false);
@@ -51,6 +56,9 @@ export const EmailForm: React.FC = () => {
   };
 
   const removeEmail = async () => {
+    logger.info('Button Click: Skip Email', {
+      source: EmailForm.name,
+    });
     await keyValueStore.email.remove();
     toNextPage();
   };
@@ -66,13 +74,10 @@ export const EmailForm: React.FC = () => {
           <Image src={emailIconOutlined} alt="Email Icon" />
           <Flex direction="column" gap={4}>
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={lang.strings.onboarding.emailAuth.title} /> (
-              <QuestionMarkButton />)
+              <LangDisplay text={lang.strings.onboarding.emailAuth.title} />
             </Typography>
             <Typography variant="h6" $textAlign="center" mb={2} color="muted">
               <LangDisplay text={lang.strings.onboarding.emailAuth.subtitle} />{' '}
-              (
-              <QuestionMarkButton />)
             </Typography>
           </Flex>
 

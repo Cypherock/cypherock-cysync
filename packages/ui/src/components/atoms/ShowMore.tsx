@@ -14,26 +14,18 @@ const ShowMoreWrapper = styled.div`
   border: 1px dashed ${({ theme }) => theme.palette.border.muted};
   box-shadow: ${({ theme }) => theme.palette.shadow.popup};
   margin-top: 16px;
-  margin-bottom: 20px;
   cursor: pointer;
 `;
 
 interface ShowMoreProps {
-  showMoreClicked: boolean;
-  handleShowMore: () => void;
-  less: string;
-  more: string;
+  text: string;
+  onClick: () => void;
 }
 
-export const ShowMore: React.FC<ShowMoreProps> = ({
-  showMoreClicked,
-  handleShowMore,
-  less,
-  more,
-}) => (
-  <ShowMoreWrapper onClick={handleShowMore}>
+export const ShowMore: React.FC<ShowMoreProps> = ({ text, onClick }) => (
+  <ShowMoreWrapper onClick={onClick}>
     <Typography $fontSize={20} color="muted">
-      {showMoreClicked ? less : more}
+      {text}
     </Typography>
   </ShowMoreWrapper>
 );

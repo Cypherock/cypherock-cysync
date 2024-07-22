@@ -8,8 +8,10 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import { openContactSupportDialog } from '~/actions';
+import { LanguageDropdown } from '~/components';
 import { useNavigateTo, useOnboardingCheckpoint } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 
 export interface OnboardingPageLayoutProps
@@ -37,6 +39,7 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   const lang = useAppSelector(selectLanguage);
   const [email, setEmail] = useState('');
   const navigateTo = useNavigateTo();
+  const dispatch = useAppDispatch();
   useOnboardingCheckpoint();
 
   const fetchEmail = async () =>
@@ -47,13 +50,18 @@ export const OnboardingPageLayout: React.FC<OnboardingPageLayoutProps> = ({
   }, []);
 
   const parseHeaderProps = () => {
-    let headerProps: DialogBoxBackgroundBarProps | undefined;
+    const headerProps: DialogBoxBackgroundBarProps = {
+      leftComponent: <LanguageDropdown />,
+    };
 
     if (withHelp || withEmail) {
-      headerProps = {};
-
       if (withHelp) {
-        headerProps.rightComponent = <HelpButton text={lang.strings.help} />;
+        headerProps.rightComponent = (
+          <HelpButton
+            text={lang.strings.help}
+            onClick={() => dispatch(openContactSupportDialog())}
+          />
+        );
       }
       if (withEmail && email) {
         headerProps.leftComponent = <EmailDisplay email={email} />;

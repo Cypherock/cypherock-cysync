@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ICreateSyncAccountsObservableParams } from './types';
 
-import { insertOrUpdateTransactions } from '../db';
-import logger from '../utils/logger';
+import { insertOrUpdateTransactions, updateAccount } from '../db';
 
 export * from './types';
 
@@ -25,8 +24,7 @@ export function createSyncAccountsObservable<T>(
         const account = await db.account.getOne({ __id: accountId });
 
         if (!account) {
-          logger.warn(`Account not found while syncing: ${accountId}`);
-          return;
+          throw new Error(`Account not found while syncing: ${accountId}`);
         }
 
         let hasMore = false;
@@ -58,7 +56,7 @@ export function createSyncAccountsObservable<T>(
           }
         } while (hasMore);
 
-        await db.account.update({ __id: accountId }, updatedAccountInfo);
+        await updateAccount(db, accountId, updatedAccountInfo);
         await insertOrUpdateTransactions(db, transactions);
 
         observer.next();

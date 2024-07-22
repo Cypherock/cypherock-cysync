@@ -8,6 +8,7 @@ import { utils, UtilsProps } from '../utils';
 
 interface CopyContainerProps extends UtilsProps {
   link: string;
+  copyValue?: string;
   variant?: ClipboardVariants;
   typographyProps?: TypographyProps;
 }
@@ -28,6 +29,7 @@ const MaskStyle = styled.div<Omit<CopyContainerProps, 'link'>>`
 export const CopyContainer: FC<CopyContainerProps> = ({
   link,
   variant,
+  copyValue,
   typographyProps = {},
   ...props
 }) => (
@@ -41,11 +43,12 @@ export const CopyContainer: FC<CopyContainerProps> = ({
     >
       {link}
     </Typography>
-    <Clipboard content={link} size="md" variant={variant} />
+    <Clipboard content={copyValue ?? link} size="md" variant={variant} />
   </MaskStyle>
 );
 
 CopyContainer.defaultProps = {
   variant: 'white',
+  copyValue: undefined,
   typographyProps: {},
 };
