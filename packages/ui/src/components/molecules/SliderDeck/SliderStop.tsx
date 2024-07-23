@@ -1,5 +1,6 @@
 import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+
 import { colors } from '../../../themes/color.styled';
 
 export interface SliderStopProps {

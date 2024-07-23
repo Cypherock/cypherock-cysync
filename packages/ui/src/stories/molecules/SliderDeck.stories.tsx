@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { SliderDeck } from '../../components';
 
 const meta: Meta<typeof SliderDeck> = {

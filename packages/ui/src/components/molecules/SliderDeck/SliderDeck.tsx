@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
 import { styled } from 'styled-components';
-import { colors } from '../../../themes/color.styled';
+
 import { SliderStop } from './SliderStop';
+
+import { colors } from '../../../themes/color.styled';
 
 const SliderContainer = styled.div`
   position: relative;
