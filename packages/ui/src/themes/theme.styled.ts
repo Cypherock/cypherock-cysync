@@ -102,6 +102,20 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      silver: colors.background.silver,
+      timer: {
+        main: colors.background.timer.main,
+        default: colors.background.timer.default,
+        silver: colors.background.timer.silver,
+        expiring: colors.background.timer.expiring,
+        secondary: colors.background.timer.secondary,
+      },
+    },
+    boxShadow: {
+      timer: {
+        main: colors.boxShadow.timer.main,
+        text: colors.boxShadow.timer.text,
+      },
     },
     border: {
       popup: colors.border.popup,

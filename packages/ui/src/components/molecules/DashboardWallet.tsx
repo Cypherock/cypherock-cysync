@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
 import 'react-circular-progressbar/dist/styles.css';
+import { useTheme } from '../../themes';
 
 import {
   goldHoverWalletIcon,
@@ -15,8 +16,8 @@ import {
   WalletDefaultExpiredIcon,
   WalletHoverExpiredIcon,
 } from '../../assets';
-import { theme } from '../../themes/theme.styled';
 import { WidthProps, width } from '../utils';
+import { DefaultTheme } from 'styled-components/dist/types';
 
 export interface DashboardWalletProps extends WidthProps {
   isNone: boolean;
@@ -95,7 +96,7 @@ const Type = styled.div<{ planType: string }>`
   line-height: 18px;
   text-align: left;
   text-transform: uppercase;
-  background: ${({ planType }) =>
+  background: ${({ planType, theme }) =>
     planType === 'silver'
       ? theme.palette.background.secondary
       : theme.palette.text.gold};
@@ -111,7 +112,7 @@ const Expiring = styled.div`
   font-weight: 500;
   line-height: 18px;
   text-align: left;
-  color: ${theme.palette.error.main};
+  color: ${({ theme }) => theme.palette.error.main};
   position: relative;
   right: 70%;
 `;
@@ -125,7 +126,7 @@ const TimerContainer = styled.div<{ isHover: boolean }>`
   margin-top: ${({ isHover }) => (isHover ? '6px' : '20px')};
 `;
 
-const TimerText = styled.div<{ isHover: boolean }>`
+const TimerText = styled.div<{ isHover: boolean; theme: any }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -138,8 +139,9 @@ const TimerText = styled.div<{ isHover: boolean }>`
   border-radius: 40px;
   height: 78px;
   width: 78px;
-  fill: #3e3a38;
-  box-shadow: inset 0 0 2px 1px #242322;
+  fill: ${({ theme }) => theme.palette.background.timer.main};
+  box-shadow: inset 0 0 2px 1px
+    ${({ theme }) => theme.palette.boxShadow.timer.main};
 `;
 
 const TimerHead = styled.div<{
@@ -151,9 +153,9 @@ const TimerHead = styled.div<{
   font-size: ${({ isHover, paymentPending }) => {
     if (isHover) {
       if (paymentPending) {
-        return '13px';
+        return '16px';
       }
-      return '11px';
+      return '10px';
     }
     return '10px';
   }};
@@ -168,9 +170,9 @@ const TimerHead = styled.div<{
   }};
   line-height: 16.5px;
   text-align: left;
-  color: ${({ isExpired, isHover }) => {
+  color: ${({ isExpired, isHover, theme }) => {
     if (isExpired) {
-      return '#FF624C';
+      return theme.palette.warn.main;
     }
     if (isHover) {
       return 'white';
@@ -183,6 +185,7 @@ const getColor = (
   isExpiring: boolean,
   isHover: boolean,
   isExpired: boolean,
+  theme: any,
 ) => {
   if (isExpiring && isHover) {
     return theme.palette.muted.main;
@@ -212,8 +215,8 @@ const TimerSubtitle = styled.div<{
   font-weight: ${({ isHover, isExpired }) => getFontWeight(isHover, isExpired)};
   line-height: 18px;
   text-align: left;
-  color: ${({ isExpiring, isHover, isExpired }) =>
-    getColor(isExpiring, isHover, isExpired)};
+  color: ${({ isExpiring, isHover, isExpired, theme }) =>
+    getColor(isExpiring, isHover, isExpired, theme)};
 `;
 
 const getWalletNameColor = (
@@ -221,9 +224,10 @@ const getWalletNameColor = (
   isExpiring: boolean,
   isExpired: boolean,
   paymentPending: boolean,
+  theme: any,
 ) => {
   if (isHover && (isExpiring || isExpired || paymentPending)) {
-    return '#E9B873';
+    return theme.palette.background.golden;
   }
   return theme.palette.muted.main;
 };
@@ -241,8 +245,8 @@ const WalletName = styled.div<{
   text-align: center;
   margin-bottom: 30px;
   margin-top: 12px;
-  color: ${({ isHover, isExpiring, isExpired, paymentPending }) =>
-    getWalletNameColor(isHover, isExpiring, isExpired, paymentPending)};
+  color: ${({ isHover, isExpiring, isExpired, paymentPending, theme }) =>
+    getWalletNameColor(isHover, isExpiring, isExpired, paymentPending, theme)};
 `;
 
 const HoverPlusContainer = styled.div`
@@ -260,7 +264,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   ...restProps
 }) => {
   const [isHover, setIsHover] = useState(false);
-
+  const theme = useTheme() as DefaultTheme;
   const getCurrentTime = () => {
     const date = new Date();
     return date.toLocaleTimeString([], {
@@ -346,12 +350,12 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
 
   const getPathColor = () => {
     if (isHover && (isExpiring || isExpired)) {
-      return '#FF624C';
+      return theme.palette.warn.main;
     }
     if (planType === 'silver') {
-      return '#A2ADB3';
+      return theme.palette.background.silver;
     }
-    return '#E9B873';
+    return theme.palette.background.golden;
   };
 
   return !isNone ? (
@@ -377,7 +381,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
           strokeWidth={6}
           styles={buildStyles({
             pathColor: getPathColor(),
-            trailColor: '#3E3A38',
+            trailColor: theme.palette.background.timer.main,
             rotation: progressProps.rotation,
           })}
         />
@@ -420,7 +424,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
           </TimerSubtitle>
         </TimerText>
       </TimerContainer>
-      {isHover && isExpired && <StyledExpiredPlanIcon />}
+      {isExpired && <StyledExpiredPlanIcon />}
       {paymentPending && <StyledExpiredClockIcon />}
       <WalletName
         isHover={isHover}

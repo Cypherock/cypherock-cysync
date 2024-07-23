@@ -109,6 +109,7 @@ export const colors = {
       expiring: '#271a15',
       secondary: '#2a2827',
     },
+    silver: '#a2adb3',
   },
   border: {
     popup: '#2C2520',
