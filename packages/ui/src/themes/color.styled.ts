@@ -74,8 +74,6 @@ export const colors = {
   },
   boxShadow: {
     selected: '#1B1813',
-  },
-  boxShadow: {
     timer: {
       main: '#2e2523',
       text: '#242322',
