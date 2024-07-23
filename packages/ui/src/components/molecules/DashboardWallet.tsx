@@ -3,7 +3,6 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
 import 'react-circular-progressbar/dist/styles.css';
 import { useTheme } from '../../themes';
-
 import {
   goldHoverWalletIcon,
   silverHoverWalletIcon,
@@ -34,31 +33,26 @@ const NoneDefaultPlusImage = styled.img.attrs({
   alt: 'noneDefaultPlus',
 })``;
 
-const NoneContainer = styled.div<{ isHover: boolean } & WidthProps>`
+const Container = styled.div<
+  { isHover: boolean; isNone: boolean; backgroundImage: string } & WidthProps
+>`
   width: 200px;
   height: 176px;
   display: flex;
-  justify-content: center;
+  ${({ isNone }) =>
+    isNone ? 'justify-content:  center' : 'justify-content:normal'};
   align-items: center;
+  flex-direction: column;
   font-family: 'Poppins';
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   text-align: center;
   color: white;
-  background: ${({ isHover }) =>
-    `url(${isHover ? dashWalletHoverBgIcon : dashWalletDefaultBgIcon})`};
-  ${width}
-`;
-
-const Container = styled.div<{ backgroundImage: string } & WidthProps>`
-  width: 200px;
-  height: 176px;
-  background: ${({ backgroundImage }) => `url(${backgroundImage})`};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  background: ${({ isHover, isNone, backgroundImage }) =>
+    isNone
+      ? `url(${isHover ? dashWalletHoverBgIcon : dashWalletDefaultBgIcon})`
+      : `url(${backgroundImage})`};
   cursor: pointer;
   position: relative;
   ${width}
@@ -265,6 +259,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
 }) => {
   const [isHover, setIsHover] = useState(false);
   const theme = useTheme() as DefaultTheme;
+
   const getCurrentTime = () => {
     const date = new Date();
     return date.toLocaleTimeString([], {
@@ -358,9 +353,11 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
     return theme.palette.background.golden;
   };
 
-  return !isNone ? (
+  return (
     <Container
+      isHover={isHover}
       backgroundImage={getBackgroundImage()}
+      isNone={isNone}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       onClick={() => setIsHover(true)}
@@ -371,95 +368,85 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       }}
       {...restProps}
     >
-      <Flex isHover={isHover}>
-        <Type planType={planType}>{getTypeText()}</Type>
-        <Expiring>{getExpiringText()}</Expiring>
-      </Flex>
-      <TimerContainer isHover={isHover}>
-        <CircularProgressbar
-          value={progressProps.value}
-          strokeWidth={6}
-          styles={buildStyles({
-            pathColor: getPathColor(),
-            trailColor: theme.palette.background.timer.main,
-            rotation: progressProps.rotation,
-          })}
-        />
-        <TimerText isHover={isHover}>
-          <TimerHead
+      {isNone && (isHover ? <HoverPlusContainer /> : <NoneDefaultPlusImage />)}
+      {!isNone && (
+        <>
+          <Flex isHover={isHover}>
+            <Type planType={planType}>{getTypeText()}</Type>
+            <Expiring>{getExpiringText()}</Expiring>
+          </Flex>
+          <TimerContainer isHover={isHover}>
+            <CircularProgressbar
+              value={progressProps.value}
+              strokeWidth={6}
+              styles={buildStyles({
+                pathColor: getPathColor(),
+                trailColor: theme.palette.background.timer.main,
+                rotation: progressProps.rotation,
+              })}
+            />
+            <TimerText isHover={isHover}>
+              <TimerHead
+                isHover={isHover}
+                isExpired={isExpired}
+                paymentPending={paymentPending}
+              >
+                {(() => {
+                  if (isHover) {
+                    if (paymentPending) {
+                      return '05';
+                    }
+                    return 'Created';
+                  }
+                  if (isExpired) {
+                    return 'Expired on';
+                  }
+                  if (paymentPending) {
+                    return 'Expires in';
+                  }
+                  return 'Expiry';
+                })()}
+              </TimerHead>
+              <TimerSubtitle
+                isHover={isHover}
+                isExpiring={isExpiring}
+                isExpired={isExpired}
+              >
+                {(() => {
+                  if (paymentPending) {
+                    if (isHover) {
+                      return getRemainingTime();
+                    }
+                    return `${getCurrentTime()} Hours`;
+                  }
+                  return timerDate;
+                })()}
+              </TimerSubtitle>
+            </TimerText>
+          </TimerContainer>
+          {isExpired && <StyledExpiredPlanIcon />}
+          {paymentPending && <StyledExpiredClockIcon />}
+          <WalletName
             isHover={isHover}
+            isExpiring={isExpiring}
             isExpired={isExpired}
             paymentPending={paymentPending}
           >
             {(() => {
               if (isHover) {
+                if (isExpiring || isExpired) {
+                  return 'Renew Now';
+                }
                 if (paymentPending) {
-                  return '05';
+                  return 'Buy Now';
                 }
-                return 'Created';
+                return name;
               }
-              if (isExpired) {
-                return 'Expired on';
-              }
-              if (paymentPending) {
-                return 'Expires in';
-              }
-              return 'Expiry';
+              return name;
             })()}
-          </TimerHead>
-          <TimerSubtitle
-            isHover={isHover}
-            isExpiring={isExpiring}
-            isExpired={isExpired}
-          >
-            {(() => {
-              if (paymentPending) {
-                if (isHover) {
-                  return getRemainingTime();
-                }
-                return `${getCurrentTime()} Hours`;
-              }
-              return timerDate;
-            })()}
-          </TimerSubtitle>
-        </TimerText>
-      </TimerContainer>
-      {isExpired && <StyledExpiredPlanIcon />}
-      {paymentPending && <StyledExpiredClockIcon />}
-      <WalletName
-        isHover={isHover}
-        isExpiring={isExpiring}
-        isExpired={isExpired}
-        paymentPending={paymentPending}
-      >
-        {(() => {
-          if (isHover) {
-            if (isExpiring || isExpired) {
-              return 'Renew Now';
-            }
-            if (paymentPending) {
-              return 'Buy Now';
-            }
-            return name;
-          }
-          return name;
-        })()}
-      </WalletName>
+          </WalletName>
+        </>
+      )}
     </Container>
-  ) : (
-    <NoneContainer
-      isHover={isHover}
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-      onClick={() => setIsHover(true)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') setIsHover(true);
-      }}
-      {...restProps}
-    >
-      {isHover ? <HoverPlusContainer /> : <NoneDefaultPlusImage />}
-    </NoneContainer>
   );
 };
