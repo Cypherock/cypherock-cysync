@@ -40,5 +40,6 @@ export * from './Topbar';
 export * from './UpdateBar';
 export * from './WallectConnect';
 export * from './WalletDialogMainContainer';
-export * from './SliderStop';
+export * from './SliderDeck/SliderStop';
 export * from './SimpleJsonView';
+export * from './SliderDeck';

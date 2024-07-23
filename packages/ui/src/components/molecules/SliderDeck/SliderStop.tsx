@@ -1,10 +1,11 @@
-import React, { CSSProperties, FC, useState } from 'react';
+import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { colors } from '../../themes/color.styled';
+import { colors } from '../../../themes/color.styled';
 
 export interface SliderStopProps {
   Label: string;
   isActive: boolean;
+  onClick: () => void;
 }
 
 const ContainerStyle: CSSProperties = {
@@ -19,6 +20,9 @@ const ContainerStyle: CSSProperties = {
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
+  position: 'absolute',
+  top: '0',
+  zIndex: 8,
 };
 
 const StyledContainer = styled.div<{
@@ -47,13 +51,24 @@ const TextStyle = (isSelected: boolean, isHover: boolean): CSSProperties => ({
   WebkitTextFillColor: 'transparent',
 });
 
-export const SliderStop: FC<SliderStopProps> = ({ Label, isActive }) => {
+export const SliderStop: FC<SliderStopProps> = ({
+  Label,
+  isActive,
+  onClick,
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isSelected, setisSelected] = useState(false);
 
+  useEffect(() => {
+    if (!isActive) {
+      setisSelected(false);
+    }
+  }, [isActive]);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      setisSelected(!isSelected);
+      setisSelected(true);
+      onClick();
     }
   };
 
@@ -61,7 +76,10 @@ export const SliderStop: FC<SliderStopProps> = ({ Label, isActive }) => {
     <div
       style={ContainerStyle}
       onMouseEnter={() => setIsHover(true)}
-      onClick={() => setisSelected(!isSelected)}
+      onClick={() => {
+        setisSelected(true);
+        onClick();
+      }}
       onMouseLeave={() => setIsHover(false)}
       onKeyDown={handleKeyDown}
       role="button"
