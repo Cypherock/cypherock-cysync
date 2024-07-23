@@ -31,6 +31,11 @@ export const colors = {
       notExpiring:
         'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #E9B873 ,300deg, #FEDD8F, 330deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
     },
+    cardSelected:
+      'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
+    cardHover:
+      'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
+    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
   },
   info: {
     main: '#F1AE4A',
@@ -65,6 +70,10 @@ export const colors = {
     normal: '#CCC4BE',
     divider: '#333130',
     dialog: '#2B2420',
+    separator: '#39322C',
+  },
+  boxShadow: {
+    selected: '#1B1813',
   },
   boxShadow: {
     timer: {
@@ -110,6 +119,9 @@ export const colors = {
       secondary: '#2a2827',
     },
     silver: '#a2adb3',
+    slate: '#312d2a',
+    cardDisabled: '#282522',
+    cardSelected: '#2A2827',
   },
   border: {
     popup: '#2C2520',
@@ -136,6 +148,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
+    selected: '#e0bb74',
   },
   shadow: {
     dropdown: '#0f0d0b',

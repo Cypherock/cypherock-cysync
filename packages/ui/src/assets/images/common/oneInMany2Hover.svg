@@ -1,0 +1,27 @@
+<svg width="216" height="95" viewBox="0 0 216 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_388)">
+<path d="M206 94L215 64L175 72L154 30L99 57L105 94L64 81L39 46L23 77L1 63" stroke="#634F3C" stroke-width="0.5"/>
+<circle cx="175" cy="72" r="1" transform="rotate(180 175 72)" fill="#634F3C"/>
+<circle cx="105" cy="94" r="1" transform="rotate(180 105 94)" fill="#634F3C"/>
+<circle cx="154" cy="30" r="1" transform="rotate(180 154 30)" fill="#634F3C"/>
+<circle cx="39" cy="46" r="1" transform="rotate(180 39 46)" fill="#634F3C"/>
+<circle cx="23" cy="77" r="1" transform="rotate(180 23 77)" fill="#634F3C"/>
+<circle cx="1" cy="63" r="1" transform="rotate(180 1 63)" fill="#634F3C"/>
+<circle cx="64" cy="81" r="1" transform="rotate(180 64 81)" fill="#634F3C"/>
+<circle cx="99" cy="57" r="1" transform="rotate(180 99 57)" fill="#634F3C"/>
+<path d="M10 1L1 31L41 23L62 65L117 38L111 1L152 14L177 49L193 18L215 32" stroke="#634F3C" stroke-width="0.5"/>
+<circle cx="41" cy="23" r="1" fill="#634F3C"/>
+<circle cx="111" cy="1" r="1" fill="#634F3C"/>
+<circle cx="62" cy="65" r="1" fill="#634F3C"/>
+<circle cx="177" cy="49" r="1" fill="#634F3C"/>
+<circle cx="193" cy="18" r="1" fill="#634F3C"/>
+<circle cx="215" cy="32" r="1" fill="#634F3C"/>
+<circle cx="152" cy="14" r="1" fill="#634F3C"/>
+<circle cx="117" cy="38" r="1" fill="#634F3C"/>
+</g>
+<defs>
+<clipPath id="clip0_2_388">
+<rect width="216" height="95" fill="white"/>
+</clipPath>
+</defs>
+</svg>

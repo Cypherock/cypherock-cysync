@@ -46,6 +46,7 @@ import {
 import {
   ITabs,
   useAccountDropdown,
+  useStateWithRef,
   useTabsAndDialogs,
   useWalletDropdown,
 } from '~/hooks';
@@ -89,9 +90,8 @@ export interface SendDialogContextInterface {
   accountDropdownList: DropDownItemProps[];
   handleAccountChange: (id?: string | undefined) => void;
   transaction: IPreparedTransaction | undefined;
-  setTransaction: React.Dispatch<
-    React.SetStateAction<IPreparedTransaction | undefined>
-  >;
+  transactionRef: React.MutableRefObject<IPreparedTransaction | undefined>;
+  setTransaction: (txn: IPreparedTransaction) => void;
   initialize: () => Promise<void>;
   prepare: (txn: IPreparedTransaction) => Promise<void>;
   isDeviceRequired: boolean;
@@ -101,6 +101,7 @@ export interface SendDialogContextInterface {
   transactionLink: string | undefined;
   prepareAddressChanged: (val: string) => Promise<void>;
   prepareAmountChanged: (val: string) => Promise<void>;
+  prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
@@ -126,6 +127,7 @@ export interface SendDialogProps {
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
 }
+
 export interface SendDialogContextProviderProps extends SendDialogProps {
   children: ReactNode;
 }
@@ -158,9 +160,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     ITransaction | undefined
   >();
   const [transactionLink, setTransactionLink] = useState<string | undefined>();
-  const [transaction, setTransaction] = useState<
+  const [transaction, setTransaction, transactionRef] = useStateWithRef<
     IPreparedTransaction | undefined
-  >();
+  >(undefined);
 
   const coinSupport = useRef<CoinSupport | undefined>();
   const [deviceEvents, setDeviceEvents] = useState<
@@ -248,7 +250,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   useEffect(() => {
     resetInputStates();
-  }, [selectedAccount, selectedWallet]);
+  }, [selectedAccount?.__id, selectedWallet?.__id]);
 
   const resetStates = () => {
     setSignedTransaction(undefined);
@@ -294,26 +296,27 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const broadcast = async () => {
-    if (!transaction || !signedTransaction) {
+    const txn = transactionRef.current;
+    if (!txn || !signedTransaction) {
       logger.warn('Transaction not ready');
       return;
     }
 
     try {
-      const txn = await getCurrentCoinSupport().broadcastTransaction({
+      const storedTxn = await getCurrentCoinSupport().broadcastTransaction({
         db: getDB(),
         signedTransaction,
-        transaction,
+        transaction: txn,
       });
 
       if (isWalletConnectRequest) {
-        approveCallRequest(txn.hash);
+        approveCallRequest(storedTxn.hash);
         onClose(true);
         return;
       }
-      setStoredTransaction(txn);
+      setStoredTransaction(storedTxn);
       setTransactionLink(
-        getCurrentCoinSupport().getExplorerLink({ transaction: txn }),
+        getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
       );
       onNext();
     } catch (e: any) {
@@ -343,6 +346,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         if (txnData.gasPrice) txn.userInputs.gasPrice = txnData.gasPrice;
         if (txnData.gasLimit) txn.userInputs.gasLimit = txnData.gasLimit;
         if (txnData.gas) txn.userInputs.gasLimit = txnData.gas;
+        if (txnData.remarks)
+          txn.userInputs.outputs[0].remarks = txnData.remarks;
         await prepare(txn);
       }
     } catch (e: any) {
@@ -390,9 +395,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   });
 
   const startFlow = async () => {
+    const txn = transactionRef.current;
     logger.info('Starting send transaction');
 
-    if (!connection?.connection || !transaction) {
+    if (!connection?.connection || !txn) {
       return;
     }
 
@@ -413,7 +419,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         .signTransaction({
           connection: deviceConnection,
           db: getDB(),
-          transaction,
+          transaction: txn,
         })
         .subscribe(getFlowObserver(onEnd));
     } catch (e) {
@@ -422,8 +428,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const prepareAddressChanged = async (val: string) => {
-    if (!transaction) return;
-    const txn = transaction;
+    const txn = transactionRef.current;
+    if (!txn) return;
     if (txn.userInputs.outputs.length > 0)
       txn.userInputs.outputs[0].address = val;
     else
@@ -431,13 +437,15 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: val,
           amount: '',
+          remarks: '',
         },
       ];
     await prepare(txn);
   };
 
   const prepareAmountChanged = async (value: string) => {
-    if (!selectedAccount || !transaction) return;
+    const txn = transactionRef.current;
+    if (!selectedAccount || !txn) return;
     const convertedAmount = convertToUnit({
       amount: value,
       coinId: selectedAccount.parentAssetId,
@@ -451,7 +459,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         selectedAccount.assetId,
       ).abbr,
     });
-    const txn = transaction;
     if (txn.userInputs.outputs.length > 0)
       txn.userInputs.outputs[0].amount = convertedAmount.amount;
     else
@@ -459,17 +466,38 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           address: '',
           amount: convertedAmount.amount,
+          remarks: '',
         },
       ];
     await prepare(txn);
   };
 
+  const prepareTransactionRemarks = async (remark: string) => {
+    const txn = transactionRef.current;
+    if (!txn) return;
+
+    const trimmedRemark = remark.trim();
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].remarks = trimmedRemark;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          remarks: trimmedRemark,
+        },
+      ];
+    }
+    setTransaction(structuredClone(txn));
+  };
+
   const prepareSendMax = async (state: boolean) => {
-    if (!selectedAccount || !transaction) return '';
-    const txn = transaction;
+    const txn = transactionRef.current;
+    if (!selectedAccount || !txn) return '';
     txn.userInputs.isSendAll = state;
     await prepare(txn);
-    const outputAmount = transaction.userInputs.outputs[0].amount;
+    const outputAmount = txn.userInputs.outputs[0].amount;
     const convertedAmount = convertToUnit({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,
@@ -507,8 +535,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const updateUserInputs = (count: number) => {
-    if (!transaction) return;
-    const txn = transaction;
+    const txn = transactionRef.current;
+    if (!txn) return;
     const { length } = txn.userInputs.outputs;
     if (length > count) {
       txn.userInputs.outputs.splice(count, 1);
@@ -517,11 +545,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         txn.userInputs.outputs.push({
           address: '',
           amount: '',
+          remarks: '',
         });
     }
     setTransaction(txn);
   };
-
   const getBitcoinFeeAmount = (txn: IPreparedTransaction | undefined) => {
     // return '0' in error scenarios because BigNumber cannot handle empty string
     if (!txn) return '0';
@@ -630,6 +658,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
@@ -641,6 +670,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,
@@ -671,6 +701,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       handleAccountChange,
       accountDropdownList,
       transaction,
+      transactionRef,
       setTransaction,
       initialize,
       prepare,
@@ -682,6 +713,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       transactionLink,
       prepareAddressChanged,
       prepareAmountChanged,
+      prepareTransactionRemarks,
       prepareSendMax,
       priceConverter,
       updateUserInputs,

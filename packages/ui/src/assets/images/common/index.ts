@@ -5,6 +5,7 @@ import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import bgClockIcon from './bgClockIcon.svg';
 import binanceIcon from './binance.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
 import blockIcon from './Block-unselectedsvg.svg';
@@ -49,6 +50,12 @@ import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import noneDefaultPlus from './none-default-plus.svg';
+import manyInManyBgImage from './mim-bg.svg';
+import manyInManyHoverBgImage from './mim-hover-bg.svg';
+import oneInMany1Default from './oneInmany1Default.svg';
+import oneInMany1Hover from './oneInmany1Hover.svg';
+import oneInMany2Default from './oneInMany2Default.svg';
+import oneInMany2Hover from './oneInMany2Hover.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
@@ -160,4 +167,11 @@ export {
   noneDefaultPlus,
   expireHoverWalletIcon,
   dashWalletHoverBgIcon,
+  bgClockIcon,
+  oneInMany1Default,
+  oneInMany1Hover,
+  oneInMany2Hover,
+  oneInMany2Default,
+  manyInManyBgImage,
+  manyInManyHoverBgImage,
 };

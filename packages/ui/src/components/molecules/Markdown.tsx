@@ -1,4 +1,4 @@
-import MarkedReact from 'marked-react';
+import { Marked } from 'marked';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -33,12 +33,17 @@ const StyledContainer = styled.div`
   }
 `;
 
+const marked = new Marked({
+  async: false,
+  gfm: false,
+});
+
 export interface MarkdownProps {
   children: string;
 }
 
 export const Markdown: React.FC<MarkdownProps> = ({ children }) => (
   <StyledContainer>
-    <MarkedReact>{children}</MarkedReact>
+    <p dangerouslySetInnerHTML={{ __html: marked.parse(children) as string }} />
   </StyledContainer>
 );

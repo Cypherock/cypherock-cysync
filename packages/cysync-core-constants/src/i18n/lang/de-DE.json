@@ -264,6 +264,11 @@
         "title": "Gebühren",
         "label": "Netzwerkgebühren"
       },
+      "remarks": {
+        "label": "Persönliche Notiz (optional)",
+        "placeholder": "Geben Sie hier Ihre persönlichen Notizen ein",
+        "error": "Maximale Zeichengrenze überschritten (120 Zeichen)"
+      },
       "warning": "Die Transaktion könnte abgebrochen werden, wenn die Gebühren sehr niedrig sind",
       "feeError": "Transaktionen ohne Gebühr sind nicht erlaubt",
       "notEnoughBalance": "Unzureichende Mittel für die Transaktion",
@@ -280,7 +285,8 @@
       "to": "An",
       "amount": "Betrag",
       "network": "Netzwerkgebühr",
-      "debit": "Gesamtbetrag"
+      "debit": "Gesamtbetrag",
+      "remarks": "Persönliche Notizen"
     },
     "finalMessage": {
       "button": "Transaktionen prüfen",
@@ -345,7 +351,8 @@
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "
-      }
+      },
+      "remarks": "Persönliche Notizen"
     },
     "noData": {
       "text": "Noch keine Transaktionen",

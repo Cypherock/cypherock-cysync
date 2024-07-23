@@ -112,6 +112,16 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
     return accountsList;
   }, [accounts, props.selectedWallet, props.includeSubAccounts]);
 
+  useEffect(() => {
+    if (selectedAccount) {
+      const updatedAccountInfo = accounts.find(
+        account => account.__id === selectedAccount.__id,
+      );
+
+      setSelectedAccount(updatedAccountInfo);
+    }
+  }, [accounts]);
+
   return {
     selectedAccount,
     setSelectedAccount,

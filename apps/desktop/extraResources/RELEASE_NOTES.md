@@ -1,3 +1,24 @@
+# v2.0.9
+
+### 🐛 Bugfixes
+
+- **Fixed Send Token Transaction on EVM Networks**: Fixed continue button disabled state in evm tokens send flow
+
+# v2.0.8
+
+### 🚀 Features
+
+- **Export with Confidence**: More detailed data can be exported in the Transaction CSV for your records.
+- **Clearer Error Messages**: Improved "Device busy state" dialog, making it easier to resolve any connectivity issues.
+- **Transaction Remarks**: You can now add personal notes while doing transactions.
+- **Kendu Inu ERC20 Token Added**: Kendu Inu (KENDU) is now a supported token on CySync.
+
+### 🐛 Bugfixes
+
+- **Tron Send Max**: Added fix for account activation send max scenario.
+- **Bitcoin Send Max**: Added fix for fee calculations when using the send max in Bitcoin.
+- **ETH Add Account**: Fixed SER_0000 for ethereum accounts.
+
 # v2.0.7
 
 ### 🚀 Features

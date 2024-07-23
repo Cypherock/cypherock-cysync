@@ -1,5 +1,12 @@
 # @cypherock/cysync-interfaces
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`76b61b51`](https://github.com/Cypherock/cypherock-cysync/commit/76b61b51d3241e03af82b36d2f1a6b392f576ee8)]:
+  - @cypherock/db-interfaces@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

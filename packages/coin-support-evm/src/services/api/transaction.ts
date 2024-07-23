@@ -60,12 +60,18 @@ export const broadcastTransactionToBlockchain = async (
   assetId: string,
 ): Promise<string> => {
   const url = `${baseURL}/broadcast`;
-  const response = await makePostRequest(url, {
-    transaction: transaction.startsWith('0x')
-      ? transaction.substring(2)
-      : transaction,
-    network: evmCoinList[assetId].network,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      transaction: transaction.startsWith('0x')
+        ? transaction.substring(2)
+        : transaction,
+      network: evmCoinList[assetId].network,
+    },
+    {
+      maxTries: 0,
+    },
+  );
 
   assert(
     response.data.result,

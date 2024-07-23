@@ -23,6 +23,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import { NotesInput } from './NotesInput';
 
 export const BatchTransaction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -31,6 +32,7 @@ export const BatchTransaction: React.FC = () => {
   const {
     selectedAccount,
     transaction,
+    transactionRef,
     priceConverter,
     prepare,
     getOutputError,
@@ -42,9 +44,11 @@ export const BatchTransaction: React.FC = () => {
     {
       address: transaction?.userInputs.outputs[0]?.address ?? '',
       amount: transaction?.userInputs.outputs[0]?.amount ?? '',
+      remarks: transaction?.userInputs.outputs[0]?.remarks ?? '',
+
       id: uniqueId(),
     },
-    { address: '', amount: '', id: uniqueId() },
+    { address: '', amount: '', remarks: '', id: uniqueId() },
   ]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -55,11 +59,13 @@ export const BatchTransaction: React.FC = () => {
   }, []);
 
   const parseAndPrepare = async (newOutputs: typeof outputs) => {
-    if (!transaction) return;
-    const txn = transaction;
-    txn.userInputs.outputs = newOutputs.map(({ address, amount }) => ({
+    const txn = transactionRef.current;
+
+    if (!txn) return;
+    txn.userInputs.outputs = newOutputs.map(({ address, amount, remarks }) => ({
       address,
       amount,
+      remarks,
     }));
     txn.userInputs.isSendAll = false;
     await prepare(txn);
@@ -124,6 +130,21 @@ export const BatchTransaction: React.FC = () => {
     }).amount;
   };
 
+  const handleTransactionRemarks = async (remark: string, id: string) => {
+    const txn = transactionRef.current;
+    if (!txn) return;
+
+    const trimmedRemark = remark.trim();
+
+    const outputIndex = outputsRef.current.findIndex(
+      output => output.id === id,
+    );
+
+    const newOutputs = [...outputsRef.current];
+    newOutputs[outputIndex].remarks = trimmedRemark;
+    setOutputs(newOutputs);
+    await parseAndPrepare(newOutputs);
+  };
   useEffect(() => {
     if (containerRef.current && enableAutoScroll) {
       const lastChild = containerRef.current.lastElementChild;
@@ -175,6 +196,14 @@ export const BatchTransaction: React.FC = () => {
                     await handleAmountChange(val, output.id);
                   }}
                   converter={priceConverter}
+                />
+                <NotesInput
+                  label={displayText.remarks.label}
+                  placeholder={displayText.remarks.placeholder}
+                  initialValue=""
+                  onChange={async remark => {
+                    await handleTransactionRemarks(remark, output.id);
+                  }}
                 />
                 {i !== outputs.length - 1 && <Divider variant="horizontal" />}
               </Flex>
