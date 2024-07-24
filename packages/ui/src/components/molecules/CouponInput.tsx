@@ -107,7 +107,14 @@ export const CouponInput: React.FC<CouponInputProps> = ({
             {couponCode}
           </Typography>
         </Flex>
-        <Flex width={52} justify="center" align="center" p="16px">
+        <Flex
+          width={52}
+          justify="center"
+          align="center"
+          p="12px 16px"
+          gap={16}
+          $alignSelf="stretch"
+        >
           <DeleteIcon
             width="20px"
             height="16px"
