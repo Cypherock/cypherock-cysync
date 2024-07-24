@@ -5,6 +5,7 @@ import { InputLabel } from './InputLabel';
 
 import { UtilsProps } from '../../utils';
 import { Button } from '../Button';
+import { Container } from '../Container';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
 import { Typography } from '../Typography';
@@ -14,6 +15,8 @@ export interface InputProps {
   placeholder?: string;
   name: string;
   label?: string;
+  rightLabel?: string;
+  showRequiredStar?: boolean;
   onChange?: (val: string) => void;
   onBlur?: (val: string) => void;
   value?: string;
@@ -108,6 +111,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         type,
         name,
         label = undefined,
+        showRequiredStar = undefined,
+        rightLabel = undefined,
         onChange = undefined,
         onBlur = undefined,
         value = undefined,
@@ -139,8 +144,19 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         {...(utilProps ?? {})}
       >
         {label && (
-          <InputLabel>
-            <LangDisplay text={label} />
+          <InputLabel p={0}>
+            <Container $variant="span" align="center" justify="space-between">
+              <LangDisplay text={label} />
+              <span>
+                {rightLabel && <LangDisplay text={rightLabel} />}
+                {showRequiredStar && (
+                  <Typography variant="span" color="error">
+                    {' '}
+                    *
+                  </Typography>
+                )}
+              </span>
+            </Container>
           </InputLabel>
         )}
         <InputWrapper
@@ -202,6 +218,8 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
 
 Input.defaultProps = {
   label: undefined,
+  rightLabel: undefined,
+  showRequiredStar: undefined,
   placeholder: undefined,
   postfixText: undefined,
   onChange: undefined,

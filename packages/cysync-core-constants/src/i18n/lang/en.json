@@ -3,6 +3,10 @@
   "help": "Help",
   "back": "Back",
   "allWallets": "All Wallets",
+  "labels": {
+    "email": "Email",
+    "required": "Required"
+  },
   "buttons": {
     "addWallet": "Add Wallet",
     "addAccount": "Add Account",
@@ -40,7 +44,8 @@
     "showQRCode": "Show QR Code",
     "editAccount": "Edit Account",
     "submit": "Submit",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "resendOTP": "Resend OTP"
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
@@ -1459,6 +1464,16 @@
         "info": "This is a ${derivationSchemeName} xpub. When importing it into a third-party wallet, choose the same derivation mode",
         "advanced": "Advanced"
       }
+    },
+    "inheritanceSyncPlans": {
+      "enterEmail": {
+        "title": "Please enter your primary email associated with this plan",
+        "subTitle": "An OTP will be sent to this email",
+        "button": "Verify"
+      },
+      "verifyEmail": {
+        "title": "OTP verification"
+      }
     }
   },
   "toggle": {
@@ -1560,6 +1575,20 @@
           }
         }
       }
+    }
+  },
+  "otp": {
+    "title": "Enter OTP",
+    "wrongOtpTitle": "Wrong OTP",
+    "successRedirectTitle": "Please wait while we redirect you...",
+    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "infoTexts": [
+      "An email has been sent to **${email}**",
+      "Please enter the code received on the email"
+    ],
+    "noRetries": {
+      "title": "You have 0 retries remaining",
+      "subTitle": "Please exit the flow and restart"
     }
   }
 }
