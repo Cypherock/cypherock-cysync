@@ -108,6 +108,7 @@ export const theme = {
       slate: colors.background.slate,
       cardSelected: colors.background.cardSelected,
       cardDisabled: colors.background.cardDisabled,
+      slateDark: colors.background.slateDark,
     },
     border: {
       popup: colors.border.popup,
@@ -136,6 +137,7 @@ export const theme = {
       topbar: colors.border.topbar,
       card: colors.border.card,
       selected: colors.border.selected,
+      success: colors.border.success,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
