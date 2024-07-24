@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import { DatabaseError, DatabaseErrorType } from '@cypherock/db-interfaces';
 
 import { EncryptedDB } from '../src/encryptedDb'; // Adjust the import based on your directory structure
@@ -9,6 +11,12 @@ describe('EncryptedDB', () => {
   afterEach(async () => {
     if (db) {
       await db.close();
+    }
+  });
+
+  afterAll(async () => {
+    if (fs.existsSync(dbPath)) {
+      fs.unlinkSync(dbPath);
     }
   });
 
