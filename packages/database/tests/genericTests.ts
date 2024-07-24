@@ -1,7 +1,8 @@
-import { IEntity } from '@cypherock/db-interfaces';
+import { IDatabase, IEntity } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 
 import fixtures from './__fixtures__';
+import { deviceData } from './__fixtures__/device';
 import {
   compareEntityArray as expectEqualEntityArray,
   removeBaseFelids,
@@ -21,10 +22,11 @@ describe('Basic tests', () => {
   });
 
   describe('Database Instance', () => {
-    let db: any;
+    let db: IDatabase;
+    const dbPath = 'testDir';
 
     afterEach(async () => {
-      if (db && db.isLoaded()) {
+      if (db && (await db.isLoaded())) {
         await db.close();
       }
     });
@@ -45,11 +47,19 @@ describe('Basic tests', () => {
     });
 
     test('Can create a new database instance with a path other than :memory:', async () => {
-      db = await createDb('test.db');
+      db = await createDb(dbPath);
       await db.load();
-      expect(db).toBeDefined();
-      await db.clear();
+      const testData = deviceData.all[0];
+      db.device.setVersion(0);
+      await db.device.insert(testData);
       await db.close();
+      const savedDb = await createDb(dbPath);
+      await savedDb.load();
+      savedDb.device.setVersion(0);
+      const devices = await savedDb.device.getAll();
+      const cleanedDevices = removeBaseFelids(devices);
+      expect(cleanedDevices[0]).toEqual(testData);
+      await savedDb.close();
     });
   });
 
