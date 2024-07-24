@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Check, CrossMark } from '../../assets';
+import { colors } from '../../themes/color.styled';
 import { Button, Flex, Typography } from '../atoms';
 import { WidthProps, width } from '../utils';
 
@@ -27,7 +28,7 @@ const PlanContainer = styled.div<{ planType: PlanType }>`
   background: ${({ planType, theme }) =>
     planType === 'silver'
       ? theme.palette.text.secondaryDark
-      : 'linear-gradient(90deg, rgba(224, 187, 117, 0.10) 0%, rgba(39, 35, 32, 0.00) 100%), #272320;'};
+      : colors.gradients.plan};
   box-shadow: 4px 4px 30px 0px #030303;
   border: ${({ planType }) => planType === 'gold' && '2px solid #FFD700'};
   ${width}
