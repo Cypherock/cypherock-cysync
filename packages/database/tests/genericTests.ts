@@ -20,14 +20,37 @@ describe('Basic tests', () => {
     testHelper.teardownTestDB();
   });
 
-  test('Can create a new database instance', async () => {
-    const db = await createDb(':memory:');
-    await db.load();
-    expect(db).toBeDefined();
-    const devices = await db.device.getAll();
-    expect(devices.length).toEqual(0);
-    await db.close();
-    expect(db.device.getAll()).rejects.toThrow();
+  describe('Database Instance', () => {
+    let db: any;
+
+    afterEach(async () => {
+      if (db && db.isLoaded()) {
+        await db.close();
+      }
+    });
+
+    test('Can create a new database instance', async () => {
+      db = await createDb(':memory:');
+      await db.load();
+      expect(db).toBeDefined();
+      await expect(db.isLoaded()).resolves.toBeTruthy();
+
+      const devices = await db.device.getAll();
+      expect(devices).toHaveLength(0);
+
+      await expect(db.unload()).resolves.toBeFalsy();
+
+      await db.close();
+      await expect(db.device.getAll()).rejects.toThrow();
+    });
+
+    test('Can create a new database instance with a path other than :memory:', async () => {
+      db = await createDb('test.db');
+      await db.load();
+      expect(db).toBeDefined();
+      await db.clear();
+      await db.close();
+    });
   });
 
   fixtures.forEach(entity => {
