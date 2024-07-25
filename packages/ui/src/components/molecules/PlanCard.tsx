@@ -158,7 +158,6 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         $fontWeight="medium"
         $fontFamily="normal"
         height={48}
-        width={352}
       >
         {buttonText}
       </Button>
