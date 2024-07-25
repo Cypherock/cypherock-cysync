@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import { DeleteIcon } from '../../assets';
-import { Flex, Typography } from '../atoms';
+import { Button, Flex, Typography } from '../atoms';
 import { width, WidthProps } from '../utils';
 
 const Container = styled.div<WidthProps>`
@@ -55,70 +55,70 @@ const ApplyButton = styled.button`
 `;
 
 export interface CouponInputProps extends WidthProps {
-  applied: boolean;
-  couponCode: string;
-  code: string;
+  isApplied: boolean;
+  value: string;
   onApply: () => void;
   onDelete: () => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  couponText: string;
-  buttonText: string;
+  onChange: (value: string) => void;
+  appliedText: string;
+  applyButtonText: string;
+  placeholderText: string;
 }
 
 export const CouponInput: React.FC<CouponInputProps> = ({
-  applied,
-  couponCode,
-  code,
+  isApplied,
+  value,
   onApply,
   onDelete,
   onChange,
-  couponText,
-  buttonText,
+  appliedText,
+  placeholderText,
+  applyButtonText,
   ...restProps
 }) => (
   <Container {...restProps}>
-    {!applied ? (
+    {!isApplied ? (
       <>
         <InputField
-          placeholder="Enter coupon code"
-          value={code}
+          placeholder={placeholderText}
+          value={value}
           type="text"
           name="coupon"
-          onChange={onChange}
+          onChange={event => onChange(event.target.value)}
         />
-        <ApplyButton onClick={onApply}>{buttonText}</ApplyButton>
+        <ApplyButton onClick={onApply}>{applyButtonText}</ApplyButton>
       </>
     ) : (
       <Flex
+        width="full"
         $borderRadius={8}
         $borderWidth={1}
-        width={320}
         height={45}
         justify="space-between"
         $fontSize={12}
         $fontFamily="normal"
         $borderColor="success"
+        $bgColor="separatorSecondary"
       >
-        <Flex gap={8} $fontFamily="normal" width={268} p="12px 16px">
+        <Flex gap={8} $fontFamily="normal" p="12px 16px">
           <Typography color="muted" $fontSize={12} $fontWeight="normal">
-            {couponText}
+            {appliedText}
           </Typography>
           <Typography color="white" $fontWeight="semibold" $fontSize={12}>
-            {couponCode}
+            {value}
           </Typography>
         </Flex>
         <Flex
-          width={52}
           justify="center"
           align="center"
           p="12px 16px"
           gap={16}
           $alignSelf="stretch"
         >
-          <DeleteIcon
+          <Button
+            icon={<DeleteIcon color={useTheme()?.palette.text.muted} />}
             width="20px"
-            height="16px"
-            cursor="pointer"
+            variant="none"
             onClick={onDelete}
           />
         </Flex>

@@ -6,19 +6,32 @@ import { CouponInput } from '../../components';
 const meta: Meta<typeof CouponInput> = {
   component: CouponInput,
   render: args => {
-    const [code, setCode] = React.useState('');
+    const [value, setValue] = React.useState('');
+    const [applied, setApplied] = React.useState(args.isApplied || false);
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCode(event.target.value);
+    const onChange = (_value: string) => {
+      setValue(_value);
+    };
+
+    const onApply = () => {
+      if (value.trim() !== '') {
+        setApplied(true);
+      }
+    };
+
+    const onDelete = () => {
+      setValue('');
+      setApplied(false);
     };
 
     return (
       <CouponInput
         {...args}
-        code={code}
+        value={applied ? args.value || value : value}
+        isApplied={applied}
         onChange={onChange}
-        onApply={() => console.log('Coupon applied')}
-        onDelete={() => console.log('Coupon deleted')}
+        onApply={onApply}
+        onDelete={onDelete}
       />
     );
   },
@@ -30,18 +43,18 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    applied: false,
-    couponCode: '',
-    couponText: 'Coupon Applied:',
-    buttonText: 'APPLY',
+    appliedText: 'Coupon Applied:',
+    applyButtonText: 'APPLY',
+    placeholderText: 'Enter Coupon Code',
   },
 };
 
 export const AppliedState: Story = {
   args: {
-    applied: true,
-    couponCode: 'WXAR4450',
-    couponText: 'Coupon Applied :',
-    buttonText: 'APPLY',
+    appliedText: 'Coupon Applied:',
+    applyButtonText: 'APPLY',
+    value: 'WW3vfAt',
+    isApplied: true,
+    placeholderText: 'Enter Coupon Code',
   },
 };
