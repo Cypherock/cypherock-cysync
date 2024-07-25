@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Plan } from '../../components';
+import { PlanCard } from '../../components';
 
-const meta: Meta<typeof Plan> = {
-  component: Plan,
+const meta: Meta<typeof PlanCard> = {
+  component: PlanCard,
   tags: ['autodocs'],
 };
 
@@ -25,6 +25,9 @@ export const SilverPlan: Story = {
       { text: 'PIN Recovery', available: true },
       { text: 'Estate Recovery', available: false },
     ],
+    duration: '/Wallet/Year',
+    buttonText: 'SELECT',
+    popularTagText: 'MOST POPULAR',
   },
 };
 
@@ -42,5 +45,8 @@ export const GoldPlan: Story = {
       { text: 'PIN Recovery', available: true },
       { text: 'Estate Recovery', available: true },
     ],
+    duration: '/Wallet/Year',
+    buttonText: 'SELECT',
+    popularTagText: 'MOST POPULAR',
   },
 };
