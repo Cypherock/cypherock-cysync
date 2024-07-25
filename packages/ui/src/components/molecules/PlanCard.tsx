@@ -1,25 +1,26 @@
 import React from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 
 import { Check, CrossIcon } from '../../assets';
+import { useTheme } from '../../themes';
 import { Button, Flex, Typography } from '../atoms';
 import { WidthProps, width } from '../utils';
 
-export type PlanType = 'silver' | 'gold';
+export type PlanCardType = 'silver' | 'gold';
 
 export interface PlanCardProps extends WidthProps {
-  planType: PlanType;
+  plantype: PlanCardType;
   heading: string;
   tagline: string;
   description: string;
   price: string;
   duration: string;
   buttonText: string;
-  popularTagText: string;
+  popularTagText?: string;
   features: { text: string; available: boolean }[];
 }
 
-const PlanContainer = styled.div<{ planType: PlanType } & WidthProps>`
+const PlanContainer = styled.div<{ plantype: PlanCardType } & WidthProps>`
   position: relative;
   display: flex;
   width: 400px;
@@ -28,13 +29,13 @@ const PlanContainer = styled.div<{ planType: PlanType } & WidthProps>`
   align-items: flex-start;
   gap: 32px;
   border-radius: 16px;
-  background: ${({ planType, theme }) =>
-    planType === 'silver'
+  background: ${({ plantype, theme }) =>
+    plantype === 'silver'
       ? theme.palette.background.slateLight
       : theme.palette.background.plan};
   box-shadow: 4px 4px 30px 0px ${({ theme }) => theme.palette.border.darkSlate};
-  border: ${({ planType, theme }) =>
-    planType === 'gold' && `1px solid ${theme.palette.background.golden}`};
+  border: ${({ plantype, theme }) =>
+    plantype === 'gold' && `1px solid ${theme.palette.background.golden}`};
   ${width}
 `;
 const PopularTag = styled.div`
@@ -49,8 +50,9 @@ const PopularTag = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 export const PlanCard: React.FC<PlanCardProps> = ({
-  planType,
+  plantype,
   heading,
   tagline,
   description,
@@ -63,8 +65,8 @@ export const PlanCard: React.FC<PlanCardProps> = ({
 }) => {
   const theme = useTheme();
   return (
-    <PlanContainer planType={planType} {...restProps}>
-      {planType === 'gold' && (
+    <PlanContainer plantype={plantype} {...restProps}>
+      {popularTagText && (
         <PopularTag>
           <Typography
             $fontFamily="normal"
@@ -78,7 +80,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       )}
       <Flex direction="column" gap={0} $fontFamily="normal" align="flex-start">
         <Typography
-          color={planType === 'silver' ? 'silver' : 'gold'}
+          color={plantype === 'silver' ? 'silver' : 'gold'}
           $fontSize={30}
           $fontWeight="bold"
         >
@@ -118,9 +120,9 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         {description}
       </Typography>
       <Flex height={1} $bgColor="headlineLight" $alignSelf="stretch" />
-      <Flex direction="column" gap={32} mb="32px" justify="center">
+      <Flex direction="column" gap={32} justify="center">
         {features.map((feature, index) => (
-          <Flex key={`${index + 1}`} align="center" gap={24}>
+          <Flex key={`${feature.text}-${index + 1}`} align="center" gap={24}>
             {feature.available ? (
               <Check
                 stroke={theme?.palette.text.greenStroke}
@@ -148,7 +150,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         ))}
       </Flex>
       <Button
-        variant={planType === 'silver' ? 'silver' : 'primary'}
+        variant={plantype === 'silver' ? 'silver' : 'primary'}
         display="flex"
         $alignSelf="stretch"
         align="center"
@@ -163,4 +165,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       </Button>
     </PlanContainer>
   );
+};
+PlanCard.defaultProps = {
+  popularTagText: undefined,
 };

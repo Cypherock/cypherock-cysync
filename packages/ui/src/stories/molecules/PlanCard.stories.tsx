@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const SilverPlan: Story = {
   args: {
-    planType: 'silver',
+    plantype: 'silver',
     heading: 'Silver',
     tagline: 'PIN Recovery',
     description:
@@ -27,13 +27,12 @@ export const SilverPlan: Story = {
     ],
     duration: '/Wallet/Year',
     buttonText: 'SELECT',
-    popularTagText: 'MOST POPULAR',
   },
 };
 
 export const GoldPlan: Story = {
   args: {
-    planType: 'gold',
+    plantype: 'gold',
     heading: 'Gold',
     tagline: 'Non-Custodial Estate Recovery',
     description:
