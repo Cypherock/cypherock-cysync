@@ -24,6 +24,7 @@ export type BgColor =
   | 'calendar'
   | 'container'
   | 'slate'
+  | 'slateDark'
   | 'error';
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -138,6 +139,11 @@ ${props =>
     props.$bgColor === 'calendar' &&
     css`
       background: ${({ theme }) => theme.palette.background.calendar};
+    `}
+     ${props =>
+    props.$bgColor === 'slateDark' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.slateDark};
     `}
     ${props =>
     props.$bgColor === 'error' &&
