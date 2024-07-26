@@ -90,7 +90,7 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritanceExecutorMessage: {
-    isOpen: false,
+    isOpen: true,
   },
 };
 

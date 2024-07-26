@@ -31,6 +31,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { InheritanceExecutorMessageDialog } from './Inheritance/ExecutorMessage';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -59,4 +60,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   deleteAccount: DeleteAccountDialog,
   betaNotificationDialog: BetaNotificationDialog,
   inheritanceSyncPlans: InheritanceSyncPlansDialog,
+  inheritanceExecutorMessage: InheritanceExecutorMessageDialog,
 };
