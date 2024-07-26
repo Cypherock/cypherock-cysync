@@ -1457,8 +1457,10 @@
       },
       "editMessage": {
         "title": "Executor Message",
-        "input": {
-          "message": "Message"
+        "form": {
+          "field": {
+            "message": { "label": "Message", "placeholder": "Executor Message" }
+          }
         },
         "buttons": {
           "exit": "Exit without saving",

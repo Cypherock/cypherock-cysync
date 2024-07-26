@@ -756,8 +756,10 @@ interface LangDialogs {
     };
     editMessage: {
       title: string;
-      input: {
-        message: string;
+      form: {
+        field: {
+          message: { label: string; placeholder: string };
+        };
       };
       buttons: {
         exit: string;

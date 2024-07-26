@@ -1,14 +1,10 @@
 import React from 'react';
 import { LoaderDialog } from '~/components';
-import { InheritanceExecutorMessageLayout } from '../Layout';
-import { useInheritanceExecutorMessageDialog } from '../context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const FetchData = () => {
-  const { onClose } = useInheritanceExecutorMessageDialog();
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.dialogs.inheritanceExecutorMessage.fetchData;
 
-  return (
-    <InheritanceExecutorMessageLayout onClose={onClose}>
-      <LoaderDialog />
-    </InheritanceExecutorMessageLayout>
-  );
+  return <LoaderDialog title={strings.title} subtext={strings.subTitle} />;
 };
