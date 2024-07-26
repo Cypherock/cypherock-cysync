@@ -749,6 +749,30 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceExecutorMessage: {
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+    editMessage: {
+      title: string;
+      input: {
+        message: string;
+      };
+      buttons: {
+        exit: string;
+        save: string;
+      };
+      loading: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    success: {
+      title: string;
+      button: string;
+    };
+  };
 }
 
 interface LangToggle {

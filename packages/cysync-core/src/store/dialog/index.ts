@@ -89,6 +89,9 @@ const initialState: IDialogState = {
   inheritanceSyncPlans: {
     isOpen: false,
   },
+  inheritanceExecutorMessage: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

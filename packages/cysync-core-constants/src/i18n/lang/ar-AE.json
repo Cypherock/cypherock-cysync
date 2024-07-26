@@ -1469,6 +1469,30 @@
       "verifyEmail": {
         "title": "OTP verification"
       }
+    },
+    "inheritanceExecutorMessage": {
+      "fetchData": {
+        "title": "Please wait while we fetch the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "editMessage": {
+        "title": "Executor Message",
+        "input": {
+          "message": "Message"
+        },
+        "buttons": {
+          "exit": "Exit without saving",
+          "save": "Save changes"
+        },
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtitle": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Executor message successfully encrypted",
+        "button": "Done"
+      }
     }
   },
   "toggle": {
