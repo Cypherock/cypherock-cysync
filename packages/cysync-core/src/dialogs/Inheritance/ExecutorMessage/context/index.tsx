@@ -10,9 +10,7 @@ import React, {
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 
 import { closeDialog, useAppDispatch } from '~/store';
-import { FetchData } from '../Dialogs/FetchData';
-import { EditMessage } from '../Dialogs/EditMessage';
-import { Success } from '../Dialogs/Success';
+import { FetchData, EditMessage, Success } from '../Dialogs';
 
 export interface InheritanceExecutorMessageDialogContextInterface {
   tabs: ITabs;
