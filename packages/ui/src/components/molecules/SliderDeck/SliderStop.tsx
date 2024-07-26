@@ -6,6 +6,7 @@ import { colors } from '../../../themes/color.styled';
 export interface SliderStopProps {
   Label: string;
   isActive: boolean;
+  isSelected: boolean;
   onClick: () => void;
 }
 
@@ -31,14 +32,21 @@ const StyledContainer = styled.div<{
   isSelected: boolean;
   isHover: boolean;
 }>`
-  width: 40px;
-  height: 40px;
+  width: ${({ isSelected }) => (isSelected ? '48px' : '40px')};
+  height: ${({ isSelected }) => (isSelected ? '48px' : '40px')};
   border-radius: 50%;
-  margin-top: ${({ isActive, isSelected, isHover }) =>
-    !isActive && (isSelected || isHover) ? '0px' : '8px'};
-  border: 8px solid
-    ${({ isActive, isSelected, isHover }) =>
-      !isActive && (isSelected || isHover) ? colors.active.main : 'inherit'};
+  margin-top: ${({ isActive, isSelected, isHover }) => {
+    if (isSelected) {
+      return '-1px';
+    }
+    if (!isActive && isHover) {
+      return '0px';
+    }
+    return '8px';
+  }};
+  border: ${({ isSelected }) => (isSelected ? '8px solid' : 'none')};
+  border-color: ${({ isActive, isSelected, isHover }) =>
+    isSelected || (!isActive && isHover) ? colors.active.main : 'inherit'};
   background: ${({ isActive, isSelected, isHover }) =>
     isActive || isSelected || isHover
       ? colors.text.gold
@@ -50,25 +58,31 @@ const TextStyle = (isSelected: boolean, isHover: boolean): CSSProperties => ({
     isSelected && !isHover ? colors.text.gold : colors.background.muted,
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
+  marginTop: '8px',
+  textAlign: 'center',
+  fontFamily: 'Poppins',
+  fontSize: '12px',
+  fontStyle: ' normal',
+  fontWeight: '500',
+  lineHeight: ' normal',
 });
 
 export const SliderStop: FC<SliderStopProps> = ({
   Label,
   isActive,
+  isSelected,
   onClick,
 }) => {
   const [isHover, setIsHover] = useState(false);
-  const [isSelected, setisSelected] = useState(false);
 
   useEffect(() => {
     if (!isActive) {
-      setisSelected(false);
+      setIsHover(false);
     }
   }, [isActive]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      setisSelected(true);
       onClick();
     }
   };
@@ -77,10 +91,7 @@ export const SliderStop: FC<SliderStopProps> = ({
     <div
       style={ContainerStyle}
       onMouseEnter={() => setIsHover(true)}
-      onClick={() => {
-        setisSelected(true);
-        onClick();
-      }}
+      onClick={onClick}
       onMouseLeave={() => setIsHover(false)}
       onKeyDown={handleKeyDown}
       role="button"
