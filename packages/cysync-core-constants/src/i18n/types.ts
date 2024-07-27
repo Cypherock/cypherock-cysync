@@ -749,6 +749,21 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritancePlanLogin: {
+    walletAuth: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+  };
   inheritanceExecutorMessage: {
     fetchData: {
       title: string;

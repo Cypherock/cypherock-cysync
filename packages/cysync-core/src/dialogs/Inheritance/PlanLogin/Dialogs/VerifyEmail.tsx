@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { OTPInputDialog } from '../../components';
-import { useInheritanceSyncPlansDialog } from '../context';
+import { useInheritancePlanLoginDialog } from '../context';
 
 export const VerifyEmail: React.FC = () => {
   const {
     onClose,
-    email,
+    emails,
     onPrevious,
     otpLength,
     verifyEmail,
@@ -16,12 +16,12 @@ export const VerifyEmail: React.FC = () => {
     retriesRemaining,
     otpExpireTime,
     wrongOtpError,
-  } = useInheritanceSyncPlansDialog();
+  } = useInheritancePlanLoginDialog();
 
   return (
     <OTPInputDialog
       onClose={onClose}
-      emails={email}
+      emails={emails}
       onBack={onPrevious}
       onResendOtp={onResendOtp}
       onVerify={verifyEmail}

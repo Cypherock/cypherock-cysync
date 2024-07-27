@@ -11,7 +11,7 @@ import {
   InheritanceSyncPlansVerifyResponse,
 } from './schema';
 
-import { runAndHandleServerErrors } from '../utils';
+import { runAndHandleServerErrors } from '../../utils';
 
 export {
   type InheritanceSyncPlansResendResponse,
