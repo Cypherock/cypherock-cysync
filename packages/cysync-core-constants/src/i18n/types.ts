@@ -775,6 +775,37 @@ interface LangDialogs {
       button: string;
     };
   };
+  inheritanceEditReminderTime: {
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+    reminderSetup: {
+      title: string;
+      reminderInfo: {
+        subtitle: string;
+        subtext: string;
+      };
+      form: {
+        field: {
+          reminder: { label: string; month: string; months: string };
+        };
+      };
+      buttons: {
+        back: string;
+        continue: string;
+      };
+      currentReminder: string;
+      loading: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    success: {
+      title: string;
+      button: string;
+    };
+  };
 }
 
 interface LangToggle {

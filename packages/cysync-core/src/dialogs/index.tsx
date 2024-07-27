@@ -32,6 +32,7 @@ import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
 import { InheritanceExecutorMessageDialog } from './Inheritance/ExecutorMessage';
+import { InheritanceEditReminderTimeDialog } from './Inheritance/EditReminderTime';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -61,4 +62,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   betaNotificationDialog: BetaNotificationDialog,
   inheritanceSyncPlans: InheritanceSyncPlansDialog,
   inheritanceExecutorMessage: InheritanceExecutorMessageDialog,
+  inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
 };
