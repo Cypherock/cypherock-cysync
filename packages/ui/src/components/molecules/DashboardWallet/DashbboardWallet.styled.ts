@@ -65,6 +65,7 @@ export const StyledExpiredClockIcon = styled(ClockIcon)`
   right: 10px;
   height: 14px;
   width: 14px;
+  fill: #2a2827;
 `;
 
 export const Flex = styled.div<{ isHover: boolean }>`
