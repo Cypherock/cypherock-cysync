@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 
 import {
-  WalletPlusIcon,
   AlertIcon,
   ClockIcon,
+  PlusIcon,
   dashWalletDefaultBgIcon,
   dashWalletHoverBgIcon,
 } from '../../../assets';
 import { WidthProps, width } from '../../utils';
 
-export const NoneDefaultPlusImage = styled.img.attrs({
-  src: WalletPlusIcon,
-  alt: 'noneDefaultPlus',
-})<{ isHover: boolean }>`
+export const NoneDefaultPlusImage = styled(PlusIcon)<{ isHover: boolean }>`
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   transform: ${({ isHover }) => (isHover ? 'rotate(90deg)' : 'rotate(0)')};
   opacity: ${({ isHover }) => (isHover ? 1 : 0)};

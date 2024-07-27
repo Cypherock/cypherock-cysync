@@ -81,7 +81,6 @@ import verifyCoinIcon from './verify-coin.svg';
 import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
 import walletErrorIcon from './wallet-error.svg';
 import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
-import WalletPlusIcon from './wallet-plus-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
@@ -164,7 +163,6 @@ export {
   goldHoverWalletIcon,
   WalletHoverSilverBgIcon,
   dashWalletDefaultBgIcon,
-  WalletPlusIcon,
   expireHoverWalletIcon,
   dashWalletHoverBgIcon,
   bgClockIcon,
