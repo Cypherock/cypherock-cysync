@@ -49,7 +49,6 @@ import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmall from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
-import noneDefaultPlus from './none-default-plus.svg';
 import manyInManyBgImage from './mim-bg.svg';
 import manyInManyHoverBgImage from './mim-hover-bg.svg';
 import oneInMany1Default from './oneInmany1Default.svg';
@@ -69,7 +68,6 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
-import silverHoverWalletIcon from './silver-hover-wallet-icon.svg';
 import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
@@ -80,11 +78,13 @@ import triangleGreyIcon from './triangleGrey.svg';
 import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
+import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
 import walletErrorIcon from './wallet-error.svg';
+import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
+import WalletPlusIcon from './wallet-plus-icon.svg';
+import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
-import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 
 export {
   WalletDefaultExpiredIcon,
@@ -162,9 +162,9 @@ export {
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
   goldHoverWalletIcon,
-  silverHoverWalletIcon,
+  WalletHoverSilverBgIcon,
   dashWalletDefaultBgIcon,
-  noneDefaultPlus,
+  WalletPlusIcon,
   expireHoverWalletIcon,
   dashWalletHoverBgIcon,
   bgClockIcon,

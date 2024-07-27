@@ -40,7 +40,7 @@ export * from './Topbar';
 export * from './UpdateBar';
 export * from './WallectConnect';
 export * from './WalletDialogMainContainer';
-export * from './DashboardWallet';
+export * from './DashboardWallet/DashboardWallet';
 export * from './ManyInMany';
 export * from './Reminder';
 export * from './Accordion';
