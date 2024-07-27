@@ -76,18 +76,20 @@ export const getTypeText = (planType: string, lang: any) =>
     : lang.dashboard.wallet.gold;
 
 export const getExpiringText = (
-  isExpiring: boolean,
   isHover: boolean,
   isExpired: boolean,
+  isExpiring: boolean,
   lang: any,
-): string | undefined => {
-  if (isExpiring) {
-    return lang.dashboard.wallet.expiring;
+): string => {
+  if (isHover && (isExpiring || isExpired)) {
+    if (isExpiring) {
+      return lang.dashboard.wallet.expiring;
+    }
+    if (isExpired) {
+      return lang.dashboard.wallet.expired;
+    }
   }
-  if (isHover && isExpired) {
-    return lang.dashboard.wallet.expired;
-  }
-  return undefined;
+  return '';
 };
 
 export const getPathColor = (
@@ -193,7 +195,6 @@ export const updateHoverOnly = (
 ) => {
   const { value, rotation } = calculateProgress(startDate, expiryDate, status);
   const hoverValue = 100 - value;
-  console.log(value);
   const hoverRotation = 1;
   setProgress({ value, rotation });
   setHoverProgress({ value: hoverValue, rotation: hoverRotation });
