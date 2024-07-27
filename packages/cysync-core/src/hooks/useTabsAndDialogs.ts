@@ -28,7 +28,6 @@ export function useTabsAndDialogs({
 }: IUseTabsAndDialogs) {
   const [currentTab, setCurrentTab] = useState<number>(defaultTab);
   const [currentDialog, setCurrentDialog] = useState<number>(defaultDialog);
-  const [isDeviceRequired, setIsDeviceRequired] = useState<boolean>(false);
 
   const checkIfDeviceRequiredInDialog = useCallback(
     (tab: number, dialog: number) => {
@@ -38,6 +37,10 @@ export function useTabsAndDialogs({
       return deviceRequiredDialogs.includes(dialog);
     },
     [deviceRequiredDialogsMap],
+  );
+
+  const [isDeviceRequired, setIsDeviceRequired] = useState<boolean>(
+    checkIfDeviceRequiredInDialog(defaultTab, defaultDialog),
   );
 
   const goTo = useCallback(

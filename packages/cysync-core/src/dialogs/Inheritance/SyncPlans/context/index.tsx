@@ -89,7 +89,7 @@ export const InheritanceSyncPlansDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'editAccount',
+    dialogName: 'inheritanceSyncPlans',
   });
 
   const onClose = () => {
