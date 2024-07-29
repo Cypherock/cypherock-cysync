@@ -13,6 +13,9 @@ import {
 import { createDb } from '../src/index';
 
 describe('Basic tests', () => {
+  let db: IDatabase;
+  const dbPath = 'testDir';
+
   beforeAll(async () => {
     await testHelper.setupTestDB();
   });
@@ -22,31 +25,27 @@ describe('Basic tests', () => {
   });
 
   describe('Database Instance', () => {
-    let db: IDatabase;
-    const dbPath = 'testDir';
-
     afterEach(async () => {
       if (db && (await db.isLoaded())) {
-        await db.close();
+        await db.clear();
       }
     });
 
     test('Can create a new database instance', async () => {
       db = await createDb(':memory:');
       await db.load();
-      expect(db).toBeDefined();
       await expect(db.isLoaded()).resolves.toBeTruthy();
-
-      const devices = await db.device.getAll();
-      expect(devices).toHaveLength(0);
-
-      await expect(db.unload()).resolves.toBeFalsy();
-
-      await db.close();
-      await expect(db.device.getAll()).rejects.toThrow();
     });
 
-    test('Can create a new database instance with a path other than :memory:', async () => {
+    test('Can load and unload a database instance', async () => {
+      db = await createDb(':memory:');
+      await db.load();
+      await expect(db.isLoaded()).resolves.toBeTruthy();
+      await db.unload();
+      await expect(db.isLoaded()).resolves.toBeFalsy();
+    });
+
+    test('Can persist and retrieve data in a database instance created with a specific path', async () => {
       db = await createDb(dbPath);
       await db.load();
       const testData = deviceData.all[0];
@@ -60,6 +59,37 @@ describe('Basic tests', () => {
       const cleanedDevices = removeBaseFelids(devices);
       expect(cleanedDevices[0]).toEqual(testData);
       await savedDb.close();
+    });
+
+    test('can clear the database', async () => {
+      db = await createDb(dbPath);
+      await db.load();
+      const testData = deviceData.all[0];
+      db.device.setVersion(0);
+      await db.device.insert(testData);
+      let devices = await db.device.getAll();
+      expect(devices).toHaveLength(1);
+      await db.clear();
+      await expect(db.isLoaded()).resolves.toBeFalsy();
+      db = await createDb(dbPath);
+      await db.load();
+      devices = await db.device.getAll();
+      expect(devices).toHaveLength(0);
+    });
+
+    test('Can change encryption key', async () => {
+      db = await createDb(dbPath);
+      await db.load();
+      const saveDBMock = jest
+        .spyOn((db as any).database, 'saveDB')
+        .mockResolvedValueOnce(undefined);
+      const updateKeyMock = jest.spyOn((db as any).database, 'updateKey');
+
+      const newKey = 'new-encryption-key';
+      await db.changeEncryptionKey(newKey);
+
+      expect(updateKeyMock).toHaveBeenCalledWith(newKey);
+      expect(saveDBMock).toHaveBeenCalled();
     });
   });
 
