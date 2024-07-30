@@ -12,7 +12,7 @@ import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 import { FetchData, EditMessage, Success } from '../Dialogs';
 
-export interface InheritanceExecutorMessageDialogContextInterface {
+export interface InheritanceEditExecutorMessageDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
@@ -24,17 +24,17 @@ export interface InheritanceExecutorMessageDialogContextInterface {
   unhandledError?: any;
 }
 
-export const InheritanceExecutorMessageDialogContext: Context<InheritanceExecutorMessageDialogContextInterface> =
-  createContext<InheritanceExecutorMessageDialogContextInterface>(
-    {} as InheritanceExecutorMessageDialogContextInterface,
+export const InheritanceEditExecutorMessageDialogContext: Context<InheritanceEditExecutorMessageDialogContextInterface> =
+  createContext<InheritanceEditExecutorMessageDialogContextInterface>(
+    {} as InheritanceEditExecutorMessageDialogContextInterface,
   );
 
-export interface InheritanceExecutorMessageDialogContextProviderProps {
+export interface InheritanceEditExecutorMessageDialogContextProviderProps {
   children: ReactNode;
 }
 
-export const InheritanceExecutorMessageDialogProvider: FC<
-  InheritanceExecutorMessageDialogContextProviderProps
+export const InheritanceEditExecutorMessageDialogProvider: FC<
+  InheritanceEditExecutorMessageDialogContextProviderProps
 > = ({ children }) => {
   const dispatch = useAppDispatch();
 
@@ -64,11 +64,11 @@ export const InheritanceExecutorMessageDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'inheritanceExecutorMessage',
+    dialogName: 'inheritanceEditExecutorMessage',
   });
 
   const onClose = () => {
-    dispatch(closeDialog('inheritanceExecutorMessage'));
+    dispatch(closeDialog('inheritanceEditExecutorMessage'));
   };
 
   const ctx = useMemo(
@@ -95,12 +95,12 @@ export const InheritanceExecutorMessageDialogProvider: FC<
   );
 
   return (
-    <InheritanceExecutorMessageDialogContext.Provider value={ctx}>
+    <InheritanceEditExecutorMessageDialogContext.Provider value={ctx}>
       {children}
-    </InheritanceExecutorMessageDialogContext.Provider>
+    </InheritanceEditExecutorMessageDialogContext.Provider>
   );
 };
 
-export function useInheritanceExecutorMessageDialog(): InheritanceExecutorMessageDialogContextInterface {
-  return useContext(InheritanceExecutorMessageDialogContext);
+export function useInheritanceEditExecutorMessageDialog(): InheritanceEditExecutorMessageDialogContextInterface {
+  return useContext(InheritanceEditExecutorMessageDialogContext);
 }

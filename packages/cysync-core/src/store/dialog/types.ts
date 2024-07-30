@@ -138,7 +138,7 @@ export interface IDialogState {
     data?: undefined;
   };
 
-  inheritanceExecutorMessage: {
+  inheritanceEditExecutorMessage: {
     isOpen: boolean;
     data?: undefined;
   };

@@ -4,13 +4,13 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog } from '~/components';
 
 import {
-  InheritanceExecutorMessageDialogProvider,
-  useInheritanceExecutorMessageDialog,
+  InheritanceEditExecutorMessageDialogProvider,
+  useInheritanceEditExecutorMessageDialog,
 } from './context';
 
-const InheritanceExecutorMessage: FC = () => {
+const InheritanceEditExecutorMessage: FC = () => {
   const { tabs, currentTab, currentDialog, unhandledError, onClose } =
-    useInheritanceExecutorMessageDialog();
+    useInheritanceEditExecutorMessageDialog();
 
   return (
     <BlurOverlay>
@@ -26,8 +26,8 @@ const InheritanceExecutorMessage: FC = () => {
   );
 };
 
-export const InheritanceExecutorMessageDialog = () => (
-  <InheritanceExecutorMessageDialogProvider>
-    <InheritanceExecutorMessage />
-  </InheritanceExecutorMessageDialogProvider>
+export const InheritanceEditExecutorMessageDialog = () => (
+  <InheritanceEditExecutorMessageDialogProvider>
+    <InheritanceEditExecutorMessage />
+  </InheritanceEditExecutorMessageDialogProvider>
 );

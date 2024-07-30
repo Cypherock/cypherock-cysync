@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useInheritanceExecutorMessageDialog } from '../context';
+import { useInheritanceEditExecutorMessageDialog } from '../context';
 import { LoaderDialog } from '~/components';
 import {
   Button,
@@ -19,17 +19,18 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { onClose } = useInheritanceExecutorMessageDialog();
-  const strings = lang.strings.dialogs.inheritanceExecutorMessage.editMessage;
+  const { onClose } = useInheritanceEditExecutorMessageDialog();
+  const strings =
+    lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
 
   useEffect(() => {
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <LoaderDialog
         title={strings.loading.title}
@@ -58,11 +59,11 @@ export const EditMessage = () => {
             width="100%"
           >
             <InputLabel>
-              <LangDisplay text={form.field.message.label} />
+              <LangDisplay text={form.messageField.label} />
             </InputLabel>
             <TextAreaInput
-              placeholder={form.field.message.placeholder}
-              value={message ?? ''}
+              placeholder={form.messageField.placeholder}
+              value={message}
               onChange={setMessage}
             />
           </Flex>
@@ -70,21 +71,14 @@ export const EditMessage = () => {
       </ScrollableContainer>
 
       <DialogBoxFooter py={4} px={5}>
-        <Button
-          variant="secondary"
-          onClick={e => {
-            e.preventDefault();
-            console.log('exiting without saving');
-          }}
-          type="button"
-        >
+        <Button variant="secondary" onClick={onClose} type="button">
           <LangDisplay text={strings.buttons.exit} />
         </Button>
         <Button
           variant="primary"
           onClick={e => {
             e.preventDefault();
-            setLoading(true);
+            setIsLoading(true);
             console.log('saving changes');
           }}
           type="button"

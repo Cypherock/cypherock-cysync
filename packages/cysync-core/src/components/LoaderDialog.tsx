@@ -24,7 +24,7 @@ export const LoaderDialog: React.FC<LoaderProps> = ({ title, subtext }) => (
         animate="spin"
         $animDuration={3}
       />
-      {title && subtext && (
+      {title && (
         <Container display="flex" direction="column" gap={4}>
           <Typography variant="h4" $textAlign="center">
             <LangDisplay text={title} />
