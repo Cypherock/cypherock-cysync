@@ -8,7 +8,14 @@ import {
 } from './DialogBox';
 
 import { successIcon } from '../../../assets/images';
-import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
+import {
+  Typography,
+  LangDisplay,
+  Image,
+  Container,
+  Button,
+  TypographyProps,
+} from '../../atoms';
 import { AlertBox } from '../AlertBox';
 
 export interface SuccessDialogProps {
@@ -22,6 +29,8 @@ export interface SuccessDialogProps {
   handleSecButtonClick?: () => void;
   onClose?: () => void;
   dontCloseOnEscape?: boolean;
+  width?: number;
+  headerType?: TypographyProps['variant'];
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -35,14 +44,16 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   handleSecButtonClick,
   onClose,
   dontCloseOnEscape,
+  width,
+  headerType,
 }) => (
   <DialogBox
-    width={500}
+    width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
     {headerText && (
-      <DialogBoxHeader height={56} width={500}>
+      <DialogBoxHeader height={56} width={width}>
         <Typography variant="fineprint" color="muted">
           <LangDisplay text={headerText} />
         </Typography>
@@ -51,7 +62,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
     <DialogBoxBody>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h4" $textAlign="center">
+        <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
         </Typography>
         {subtext && (
@@ -88,4 +99,6 @@ SuccessDialog.defaultProps = {
   headerText: undefined,
   onClose: undefined,
   dontCloseOnEscape: undefined,
+  width: 500,
+  headerType: 'h4',
 };

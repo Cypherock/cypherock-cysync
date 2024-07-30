@@ -1485,7 +1485,7 @@
         "subTitle": "Do not disconnect or close the app"
       }
     },
-    "inheritanceExecutorMessage": {
+    "inheritanceEditExecutorMessage": {
       "fetchData": {
         "title": "Please wait while we fetch the data",
         "subTitle": "Do not disconnect or close the app"
@@ -1493,8 +1493,9 @@
       "editMessage": {
         "title": "Executor Message",
         "form": {
-          "field": {
-            "message": { "label": "Message", "placeholder": "Executor Message" }
+          "messageField": {
+            "label": "Message",
+            "placeholder": "Executor Message"
           }
         },
         "buttons": {

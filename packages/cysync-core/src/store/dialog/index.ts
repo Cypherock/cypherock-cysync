@@ -89,14 +89,14 @@ const initialState: IDialogState = {
   inheritanceSyncPlans: {
     isOpen: false,
   },
-  inheritanceExecutorMessage: {
+  inheritancePlanLogin: {
     isOpen: false,
+  },
+  inheritanceEditExecutorMessage: {
+    isOpen: true,
   },
   inheritanceEditReminderTime: {
     isOpen: true,
-  },
-  inheritancePlanLogin: {
-    isOpen: false,
   },
 };
 

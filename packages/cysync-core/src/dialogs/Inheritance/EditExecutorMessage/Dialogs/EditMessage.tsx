@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useInheritanceExecutorMessageDialog } from '../context';
+import { useInheritanceEditExecutorMessageDialog } from '../context';
 import { LoaderDialog } from '~/components';
 import {
   Button,
@@ -19,17 +19,18 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { onClose } = useInheritanceExecutorMessageDialog();
-  const strings = lang.strings.dialogs.inheritanceExecutorMessage.editMessage;
+  const { onClose } = useInheritanceEditExecutorMessageDialog();
+  const strings =
+    lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
 
   useEffect(() => {
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <LoaderDialog
         title={strings.loading.title}
@@ -44,8 +45,8 @@ export const EditMessage = () => {
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
       <ScrollableContainer>
-        <DialogBoxBody px={5} py={4} gap={0}>
-          <Flex px={5} gap={0} pb={4} direction="column" align="center">
+        <DialogBoxBody px={5} py={4} gap={32}>
+          <Flex gap={0} direction="column" align="center">
             <Typography $fontSize={20} color="white">
               <LangDisplay text={strings.title} />
             </Typography>
@@ -56,35 +57,30 @@ export const EditMessage = () => {
             align="stretch"
             $flex="1"
             width="100%"
+            pt={2}
           >
-            <InputLabel>
-              <LangDisplay text={form.field.message.label} />
+            <InputLabel $textAlign="left" px={0}>
+              <LangDisplay text={form.messageField.label} />
             </InputLabel>
             <TextAreaInput
-              placeholder={form.field.message.placeholder}
-              value={message ?? ''}
+              placeholder={form.messageField.placeholder}
+              value={message}
               onChange={setMessage}
+              height={120}
             />
           </Flex>
         </DialogBoxBody>
       </ScrollableContainer>
 
       <DialogBoxFooter py={4} px={5}>
-        <Button
-          variant="secondary"
-          onClick={e => {
-            e.preventDefault();
-            console.log('exiting without saving');
-          }}
-          type="button"
-        >
+        <Button variant="secondary" onClick={onClose} type="button">
           <LangDisplay text={strings.buttons.exit} />
         </Button>
         <Button
           variant="primary"
           onClick={e => {
             e.preventDefault();
-            setLoading(true);
+            setIsLoading(true);
             console.log('saving changes');
           }}
           type="button"

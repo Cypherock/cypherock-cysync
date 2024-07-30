@@ -764,7 +764,7 @@ interface LangDialogs {
       subTitle: string;
     };
   };
-  inheritanceExecutorMessage: {
+  inheritanceEditExecutorMessage: {
     fetchData: {
       title: string;
       subTitle: string;
@@ -772,9 +772,7 @@ interface LangDialogs {
     editMessage: {
       title: string;
       form: {
-        field: {
-          message: { label: string; placeholder: string };
-        };
+        messageField: { label: string; placeholder: string };
       };
       buttons: {
         exit: string;
@@ -787,7 +785,6 @@ interface LangDialogs {
     };
     success: {
       title: string;
-      button: string;
     };
   };
   inheritanceEditReminderTime: {

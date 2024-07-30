@@ -34,7 +34,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { InheritanceExecutorMessageDialog } from './Inheritance/ExecutorMessage';
+import { InheritanceEditExecutorMessageDialog } from './Inheritance/EditExecutorMessage';
 import { InheritanceEditReminderTimeDialog } from './Inheritance/EditReminderTime';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
@@ -64,7 +64,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   deleteAccount: DeleteAccountDialog,
   betaNotificationDialog: BetaNotificationDialog,
   inheritanceSyncPlans: InheritanceSyncPlansDialog,
-  inheritanceExecutorMessage: InheritanceExecutorMessageDialog,
-  inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
   inheritancePlanLogin: InheritancePlanLoginDialog,
+  inheritanceEditExecutorMessage: InheritanceEditExecutorMessageDialog,
+  inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
 };
