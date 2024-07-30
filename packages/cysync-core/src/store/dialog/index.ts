@@ -93,10 +93,10 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritanceEditExecutorMessage: {
-    isOpen: true,
+    isOpen: false,
   },
   inheritanceEditReminderTime: {
-    isOpen: true,
+    isOpen: false,
   },
 };
 

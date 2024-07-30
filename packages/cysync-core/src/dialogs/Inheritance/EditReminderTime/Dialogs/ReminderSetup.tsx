@@ -48,35 +48,35 @@ export const ReminderSetup = () => {
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
       <ScrollableContainer>
-        <DialogBoxBody px={5} py={4} gap={0}>
-          <Flex px={5} gap={0} pb={4} direction="column" align="center">
-            <Typography $fontSize={20} color="white">
+        <DialogBoxBody px={5} py={4} gap={32}>
+          <Flex gap={0} direction="column" align="center">
+            <Typography variant="h5" color="white">
               <LangDisplay text={strings.title} />
             </Typography>
           </Flex>
-          <Flex gap={16} pb={4} direction="column" align="stretch">
+          <Flex gap={24} direction="column" my={2} align="stretch">
             <Accordion
               id="ReminderInfo"
               title={strings.reminderInfo.subtitle}
               content={strings.reminderInfo.subtext}
             />
             <Flex direction="column" align="stretch" $flex="1" width="100%">
-              <InputLabel>
-                <LangDisplay text={form.field.reminder.label} />
+              <InputLabel px={0}>
+                <LangDisplay text={form.reminderField.label} />
               </InputLabel>
-              <Flex justify="space-between" gap={16}>
+              <Flex justify="space-between" gap={24}>
                 <Reminder
-                  date={`${1} ${form.field.reminder.month}`}
+                  date={`${1} ${form.reminderField.month}`}
                   disabled={false}
                   width="100%"
                 />
                 <Reminder
-                  date={`${3} ${form.field.reminder.months}`}
+                  date={`${3} ${form.reminderField.months}`}
                   disabled={false}
                   width="100%"
                 />
                 <Reminder
-                  date={`${6} ${form.field.reminder.months}`}
+                  date={`${6} ${form.reminderField.months}`}
                   disabled={false}
                   width="100%"
                 />
@@ -84,7 +84,8 @@ export const ReminderSetup = () => {
             </Flex>
           </Flex>
           <MessageBox
-            text={`${strings.currentReminder} ${reminder} ${form.field.reminder.month}`}
+            text={`${strings.currentReminder} ${form.reminderField.month}`}
+            variables={{ month: reminder }}
             type="info"
           />
         </DialogBoxBody>
@@ -95,11 +96,10 @@ export const ReminderSetup = () => {
           variant="secondary"
           onClick={e => {
             e.preventDefault();
-            console.log('exiting without saving');
           }}
           type="button"
         >
-          <LangDisplay text={strings.buttons.back} />
+          <LangDisplay text={lang.strings.buttons.back} />
         </Button>
         <Button
           variant="primary"
@@ -110,7 +110,7 @@ export const ReminderSetup = () => {
           }}
           type="button"
         >
-          <LangDisplay text={strings.buttons.continue} />
+          <LangDisplay text={lang.strings.buttons.continue} />
         </Button>
       </DialogBoxFooter>
     </DialogBox>

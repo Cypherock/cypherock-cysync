@@ -1488,8 +1488,7 @@
         }
       },
       "success": {
-        "title": "Executor message successfully encrypted",
-        "button": "Done"
+        "title": "Executor message successfully encrypted"
       }
     },
     "inheritanceEditReminderTime": {
@@ -1504,27 +1503,20 @@
           "subtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et scelerisque nulla. Aenean elementum, ex non malesuada bibendum, elit ex ullamcorper elit, eu imperdiet ipsum tortor placerat ipsum. Etiam iaculis vehicula tortor sit amet tempor. Pellentesque condimentum semper ex, sit amet accumsan augue aliquam nec. Nulla bibendum arcu sit amet mauris aliquam dignissim. Aenean eleifend convallis nulla ac sagittis. Pellentesque cursus nisi ipsum, sed hendrerit ante elementum id. Maecenas et elit a ex cursus vestibulum. Curabitur ornare ac velit ac convallis. Aenean auctor mattis quam, sodales vulputate leo bibendum non. Nullam iaculis feugiat mattis. Praesent gravida sit amet lectus eget blandit."
         },
         "form": {
-          "field": {
-            "reminder": {
-              "label": "Set reminder time interval",
-              "month": "Month",
-              "months": "Months"
-            }
+          "reminderField": {
+            "label": "Set reminder time interval",
+            "month": "Month",
+            "months": "Months"
           }
         },
-        "buttons": {
-          "back": "Back",
-          "continue": "Continue"
-        },
-        "currentReminder": "The current reminder is set at",
+        "currentReminder": "The current reminder is set at ${month}",
         "loading": {
           "title": "Please wait while we update the data",
           "subtitle": "Do not disconnect or close the app"
         }
       },
       "success": {
-        "title": "Reminders duration updated successfully",
-        "button": "Done"
+        "title": "Reminders duration updated successfully"
       }
     }
   },

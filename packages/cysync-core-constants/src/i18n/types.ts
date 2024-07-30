@@ -799,13 +799,7 @@ interface LangDialogs {
         subtext: string;
       };
       form: {
-        field: {
-          reminder: { label: string; month: string; months: string };
-        };
-      };
-      buttons: {
-        back: string;
-        continue: string;
+        reminderField: { label: string; month: string; months: string };
       };
       currentReminder: string;
       loading: {
@@ -815,7 +809,6 @@ interface LangDialogs {
     };
     success: {
       title: string;
-      button: string;
     };
   };
 }

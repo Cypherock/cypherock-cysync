@@ -11,11 +11,10 @@ export const Success = () => {
   return (
     <SuccessDialog
       title={strings.title}
-      buttonText={strings.button}
+      buttonText={lang.strings.buttons.done}
       onClose={onClose}
       handleClick={() => {
         onClose();
-        console.log('closed dialog');
       }}
     />
   );

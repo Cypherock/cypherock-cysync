@@ -8,10 +8,8 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
-
 import { closeDialog, useAppDispatch } from '~/store';
 import { FetchData, Success } from '../Dialogs';
-import { sleep } from '@cypherock/cysync-utils';
 import { ReminderSetup } from '../Dialogs/ReminderSetup';
 
 export interface InheritanceEditReminderTimeDialogContextInterface {
@@ -75,17 +73,12 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
     dispatch(closeDialog('inheritanceEditReminderTime'));
   };
 
-  const fetchData = async () => {
-    // mock fetch data
-    const seconds = 5;
-    await sleep(1000 * seconds);
-    goTo(1);
+  const fetchData = () => {
+    // TODO: Implement this function
   };
 
-  const updateData = async () => {
-    const seconds = 5;
-    await sleep(1000 * seconds);
-    goTo(2);
+  const updateData = () => {
+    // TODO: Implement this function
   };
 
   const ctx = useMemo(
