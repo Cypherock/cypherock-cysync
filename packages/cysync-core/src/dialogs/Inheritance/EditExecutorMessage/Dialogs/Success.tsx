@@ -16,6 +16,8 @@ export const Success = () => {
       handleClick={onClose}
       width={560}
       headerType="h5"
+      bodyBottomPadding={4}
+      showCloseBtn
     />
   );
 };

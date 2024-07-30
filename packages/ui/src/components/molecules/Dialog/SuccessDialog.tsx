@@ -15,8 +15,10 @@ import {
   Container,
   Button,
   TypographyProps,
+  CloseButton,
 } from '../../atoms';
 import { AlertBox } from '../AlertBox';
+import { SpacingProps } from '../../utils';
 
 export interface SuccessDialogProps {
   title: string;
@@ -31,6 +33,8 @@ export interface SuccessDialogProps {
   dontCloseOnEscape?: boolean;
   width?: number;
   headerType?: TypographyProps['variant'];
+  bodyBottomPadding?: SpacingProps['pb'];
+  showCloseBtn?: boolean;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -46,20 +50,32 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   dontCloseOnEscape,
   width,
   headerType,
+  bodyBottomPadding,
+  showCloseBtn,
 }) => (
   <DialogBox
     width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
-    {headerText && (
-      <DialogBoxHeader height={56} width={width}>
-        <Typography variant="fineprint" color="muted">
-          <LangDisplay text={headerText} />
-        </Typography>
+    {(headerText || showCloseBtn) && (
+      <DialogBoxHeader
+        height={56}
+        width={width}
+        justify={showCloseBtn ? 'flex-end' : undefined}
+      >
+        {headerText && (
+          <Typography variant="fineprint" color="muted">
+            <LangDisplay text={headerText} />
+          </Typography>
+        )}
+
+        {onClose && showCloseBtn && (
+          <CloseButton width={24} onClick={onClose} />
+        )}
       </DialogBoxHeader>
     )}
-    <DialogBoxBody>
+    <DialogBoxBody pb={bodyBottomPadding}>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
@@ -101,4 +117,6 @@ SuccessDialog.defaultProps = {
   dontCloseOnEscape: undefined,
   width: 500,
   headerType: 'h4',
+  bodyBottomPadding: undefined,
+  showCloseBtn: false,
 };
