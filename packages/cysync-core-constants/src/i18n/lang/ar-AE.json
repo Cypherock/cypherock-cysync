@@ -3,6 +3,10 @@
   "help": "مساعدة",
   "back": "عودة",
   "allWallets": "جميع Wallets",
+  "labels": {
+    "email": "Email",
+    "required": "Required"
+  },
   "buttons": {
     "addWallet": "إضافة Wallets",
     "addAccount": "إضافة حساب",
@@ -40,7 +44,8 @@
     "showQRCode": "إظهار رمز الاستجابة السريعة",
     "editAccount": "تحرير الحساب",
     "submit": "إرسال",
-    "showMore": "عرض المزيد"
+    "showMore": "عرض المزيد",
+    "resendOTP": "Resend OTP"
   },
   "tooltips": {
     "downloadCsv": "تصدير كملف CSV"
@@ -1454,6 +1459,31 @@
         "info": "هذا هو ${derivationSchemeName} xpub. عند استيراده إلى محفظة تابعة لجهة خارجية، اختر نفس وضع الاستنتاج",
         "advanced": "متقدم"
       }
+    },
+    "inheritanceSyncPlans": {
+      "enterEmail": {
+        "title": "Please enter your primary email associated with this plan",
+        "subTitle": "An OTP will be sent to this email",
+        "button": "Verify"
+      },
+      "verifyEmail": {
+        "title": "OTP verification"
+      }
+    },
+    "inheritancePlanLogin": {
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "tapCard": "Tap a valid card"
+        },
+        "messageBox": {
+          "warning": "Authenticating"
+        }
+      },
+      "fetchData": {
+        "title": "Please wait while we fetch the plan data",
+        "subTitle": "Do not disconnect or close the app"
+      }
     }
   },
   "toggle": {
@@ -1555,6 +1585,20 @@
           }
         }
       }
+    }
+  },
+  "otp": {
+    "title": "Enter OTP",
+    "wrongOtpTitle": "Wrong OTP",
+    "successRedirectTitle": "Please wait while we redirect you...",
+    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "infoTexts": [
+      "An email has been sent to **${email}**",
+      "Please enter the code received on the email"
+    ],
+    "noRetries": {
+      "title": "You have 0 retries remaining",
+      "subTitle": "Please exit the flow and restart"
     }
   }
 }

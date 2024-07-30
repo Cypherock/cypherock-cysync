@@ -20,6 +20,10 @@ import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
+  InheritancePlanLoginDialog,
+  InheritanceSyncPlansDialog,
+} from './Inheritance';
+import {
   ChangePasswordDialog,
   RemovePasswordDialog,
   SetPasswordDialog,
@@ -57,4 +61,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
   betaNotificationDialog: BetaNotificationDialog,
+  inheritanceSyncPlans: InheritanceSyncPlansDialog,
+  inheritancePlanLogin: InheritancePlanLoginDialog,
 };

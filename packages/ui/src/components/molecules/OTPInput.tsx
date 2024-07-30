@@ -3,10 +3,11 @@ import OtpInput from 'react-otp-input';
 import styled from 'styled-components';
 
 import { Button, Container, Flex, LangDisplay, Typography } from '../atoms';
+import { UtilsProps } from '../utils';
 
 export type OTPInputStatus = 'idle' | 'success' | 'error' | 'retryExceeded';
 
-export interface OTPInputProps {
+export interface OTPInputProps extends UtilsProps {
   title: string;
   status: OTPInputStatus;
   otpLength: number;
@@ -88,6 +89,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   actionText,
   disabled,
   onAction,
+  ...rest
 }) => {
   const isRetryExceeded = status === 'retryExceeded';
 
@@ -98,6 +100,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
       align="center"
       justify="center"
       $alignSelf="stretch"
+      {...rest}
     >
       <Typography
         $textAlign="center"
@@ -131,14 +134,16 @@ export const OTPInput: React.FC<OTPInputProps> = ({
 
           <Flex $width="100%" px="92px" align="center" justify="space-between">
             <Flex gap={5} align="center">
-              <Typography
-                color={disabled ? 'separator' : 'muted'}
-                $fontFamily="normal"
-                $fontSize={14}
-                $fontWeight="normal"
-              >
-                {subText}
-              </Typography>
+              {subText && (
+                <Typography
+                  color={disabled ? 'separator' : 'muted'}
+                  $fontFamily="normal"
+                  $fontSize={14}
+                  $fontWeight="normal"
+                >
+                  <LangDisplay text={subText} variables={textVariables} />
+                </Typography>
+              )}
             </Flex>
 
             {actionText && (

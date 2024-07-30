@@ -3,6 +3,10 @@
   "help": "Help",
   "back": "返回",
   "allWallets": "所有 Wallets",
+  "labels": {
+    "email": "Email",
+    "required": "Required"
+  },
   "buttons": {
     "addWallet": "添加 Wallet",
     "addAccount": "添加账户",
@@ -40,7 +44,8 @@
     "showQRCode": "显示二维码",
     "editAccount": "编辑账户",
     "submit": "提交",
-    "showMore": "显示更多"
+    "showMore": "显示更多",
+    "resendOTP": "Resend OTP"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -1434,6 +1439,31 @@
         "info": "这是一个 ${derivationSchemeName} xpub。将其导入第三方钱包时，请选择相同的派生模式",
         "advanced": "高级"
       }
+    },
+    "inheritanceSyncPlans": {
+      "enterEmail": {
+        "title": "Please enter your primary email associated with this plan",
+        "subTitle": "An OTP will be sent to this email",
+        "button": "Verify"
+      },
+      "verifyEmail": {
+        "title": "OTP verification"
+      }
+    },
+    "inheritancePlanLogin": {
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "tapCard": "Tap a valid card"
+        },
+        "messageBox": {
+          "warning": "Authenticating"
+        }
+      },
+      "fetchData": {
+        "title": "Please wait while we fetch the plan data",
+        "subTitle": "Do not disconnect or close the app"
+      }
     }
   },
   "toggle": {
@@ -1535,6 +1565,20 @@
           }
         }
       }
+    }
+  },
+  "otp": {
+    "title": "Enter OTP",
+    "wrongOtpTitle": "Wrong OTP",
+    "successRedirectTitle": "Please wait while we redirect you...",
+    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "infoTexts": [
+      "An email has been sent to **${email}**",
+      "Please enter the code received on the email"
+    ],
+    "noRetries": {
+      "title": "You have 0 retries remaining",
+      "subTitle": "Please exit the flow and restart"
     }
   }
 }

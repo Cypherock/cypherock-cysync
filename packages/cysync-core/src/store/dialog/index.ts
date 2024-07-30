@@ -86,6 +86,12 @@ const initialState: IDialogState = {
   betaNotificationDialog: {
     isOpen: false,
   },
+  inheritanceSyncPlans: {
+    isOpen: false,
+  },
+  inheritancePlanLogin: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

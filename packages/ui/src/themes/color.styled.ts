@@ -97,6 +97,7 @@ export const colors = {
     slate: '#312d2a',
     cardDisabled: '#282522',
     cardSelected: '#2A2827',
+    slateDark: '#423F3C',
     slateLight: '#302C29',
     headlineLight: '#655F53',
   },
@@ -127,6 +128,7 @@ export const colors = {
     topbar: '#342C26',
     card: '#534A44',
     selected: '#e0bb74',
+    success: '#51C61A',
   },
   shadow: {
     dropdown: '#0f0d0b',

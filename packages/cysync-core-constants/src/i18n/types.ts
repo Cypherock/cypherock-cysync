@@ -5,6 +5,7 @@ export interface LanguageStrings {
   help: string;
   back: string;
   allWallets: string;
+  labels: LangLabels;
   buttons: LangButtons;
   tooltips: LangTooltips;
   deviceAuthentication: LangDeviceAuthentication;
@@ -35,6 +36,12 @@ export interface LanguageStrings {
   toggle: LangToggle;
   snackbar: LangSnackbar;
   settings: LangSettings;
+  otp: LangOTP;
+}
+
+interface LangLabels {
+  email: string;
+  required: string;
 }
 
 interface LangButtons {
@@ -75,6 +82,7 @@ interface LangButtons {
   editAccount: string;
   submit: string;
   showMore: string;
+  resendOTP: string;
 }
 
 interface LangTooltips {
@@ -731,6 +739,31 @@ interface LangDialogs {
       advanced: string;
     };
   };
+  inheritanceSyncPlans: {
+    enterEmail: {
+      title: string;
+      subTitle: string;
+      button: string;
+    };
+    verifyEmail: {
+      title: string;
+    };
+  };
+  inheritancePlanLogin: {
+    walletAuth: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -783,5 +816,17 @@ interface LangSettings {
         privacyPolicy: { title: string; description: string };
       };
     };
+  };
+}
+
+interface LangOTP {
+  title: string;
+  wrongOtpTitle: string;
+  successRedirectTitle: string;
+  triesRemaining: string;
+  infoTexts: string[];
+  noRetries: {
+    title: string;
+    subTitle: string;
   };
 }

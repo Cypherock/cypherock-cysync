@@ -132,6 +132,16 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  inheritanceSyncPlans: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritancePlanLogin: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
