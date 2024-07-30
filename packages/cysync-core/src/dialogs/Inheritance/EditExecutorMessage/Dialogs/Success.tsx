@@ -14,6 +14,8 @@ export const Success = () => {
       buttonText={strings.buttons.done}
       onClose={onClose}
       handleClick={onClose}
+      width={560}
+      headerType="h5"
     />
   );
 };

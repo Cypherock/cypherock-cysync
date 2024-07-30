@@ -26,7 +26,7 @@ export const LoaderDialog: React.FC<LoaderProps> = ({ title, subtext }) => (
       />
       {title && (
         <Container display="flex" direction="column" gap={4}>
-          <Typography variant="h4" $textAlign="center">
+          <Typography variant="h5" $textAlign="center">
             <LangDisplay text={title} />
           </Typography>
           {subtext && (

@@ -45,8 +45,8 @@ export const EditMessage = () => {
         <CloseButton width={24} onClick={onClose} />
       </DialogBoxHeader>
       <ScrollableContainer>
-        <DialogBoxBody px={5} py={4} gap={0}>
-          <Flex px={5} gap={0} pb={4} direction="column" align="center">
+        <DialogBoxBody px={5} py={4} gap={32}>
+          <Flex gap={0} direction="column" align="center">
             <Typography $fontSize={20} color="white">
               <LangDisplay text={strings.title} />
             </Typography>
@@ -57,14 +57,16 @@ export const EditMessage = () => {
             align="stretch"
             $flex="1"
             width="100%"
+            pt={2}
           >
-            <InputLabel>
+            <InputLabel $textAlign="left" px={0}>
               <LangDisplay text={form.messageField.label} />
             </InputLabel>
             <TextAreaInput
               placeholder={form.messageField.placeholder}
               value={message}
               onChange={setMessage}
+              height={120}
             />
           </Flex>
         </DialogBoxBody>
