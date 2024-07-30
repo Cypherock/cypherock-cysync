@@ -138,6 +138,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  inheritancePlanLogin: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   inheritanceEditExecutorMessage: {
     isOpen: boolean;
     data?: undefined;

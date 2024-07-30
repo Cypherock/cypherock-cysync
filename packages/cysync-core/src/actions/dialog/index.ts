@@ -89,5 +89,8 @@ export const openEditAccountDialog = (props?: EditAccountDialogProps) =>
 export const openInheritanceSyncPlansDialog = () =>
   openDialog({ name: 'inheritanceSyncPlans', data: undefined });
 
+export const openInheritancePlanLoginDialog = () =>
+  openDialog({ name: 'inheritancePlanLogin', data: undefined });
+
 export const openInheritanceEditExecutorMessageDialog = () =>
   openDialog({ name: 'inheritanceEditExecutorMessage', data: undefined });
