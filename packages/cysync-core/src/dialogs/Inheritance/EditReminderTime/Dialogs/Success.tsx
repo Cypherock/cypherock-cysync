@@ -13,9 +13,11 @@ export const Success = () => {
       title={strings.title}
       buttonText={lang.strings.buttons.done}
       onClose={onClose}
-      handleClick={() => {
-        onClose();
-      }}
+      width={560}
+      handleClick={onClose}
+      headerType="h5"
+      bodyBottomPadding={4}
+      showCloseBtn
     />
   );
 };
