@@ -45,7 +45,8 @@
     "editAccount": "Konto bearbeiten",
     "submit": "Absenden",
     "showMore": "Mehr anzeigen",
-    "resendOTP": "Resend OTP"
+    "resendOTP": "Resend OTP",
+    "next": "Next"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -1604,6 +1605,34 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    }
+  },
+  "inheritance": {
+    "termsOfService": {
+      "title": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    }
+  },
+  "inheritanceSilverPlanPurchase": {
+    "title": "Silver Plan Setup",
+    "ensure": {
+      "title": "Ensure the following before you continue",
+      "instructions": [
+        "Make sure you have 15-30 minutes to set it up",
+        "You are present in a safe environment",
+        "You need to have one device and one card handy to set it up"
+      ]
+    },
+    "instructions": {
+      "heading": "Instructions",
+      "title": "Watch the whole video before you proceed",
+      "subTitle": "The video will help you take the right decisions"
+    },
+    "selectWallet": {
+      "heading": "Select Wallet",
+      "title": "Select the wallet you want to cover in this will",
+      "subTitle": "Your nominee will get an email for the selected wallet"
     }
   }
 }

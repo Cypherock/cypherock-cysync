@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '../../assets';
 import { useTheme } from '../../themes';
 import { Flex, Typography } from '../atoms';
-import { WidthProps, width } from '../utils';
+import { UtilsProps, WidthProps, utils } from '../utils';
 
 const getBoxShadow = (params: {
   $isSelected: boolean;
@@ -65,7 +65,7 @@ const StyledContainer = styled.div<
       $isSelected && !disabled ? theme.palette.border.selected : 'transparent'};
   box-shadow: ${getBoxShadow};
   background: ${getBackground};
-  ${width}
+  ${utils}
 
   &::after {
     content: '';
@@ -132,24 +132,27 @@ const StyledRedInfoImage = styled.div`
   top: 8px;
 `;
 
-export interface ManyInManyProps extends WidthProps {
+export interface ManyInManyProps extends UtilsProps {
   title: string;
-  disabled: boolean;
+  disabled?: boolean;
+  isSelected?: boolean;
+  onClick: () => void;
 }
 
 export const ManyInMany: FC<ManyInManyProps> = ({
   title,
   disabled,
+  isSelected,
+  onClick,
   ...restProps
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
   const theme = useTheme();
 
   return (
     <StyledContainer
-      onClick={() => !disabled && setIsSelected(!isSelected)}
-      $isSelected={isSelected}
-      disabled={disabled}
+      onClick={() => !disabled && onClick()}
+      $isSelected={Boolean(isSelected)}
+      disabled={Boolean(disabled)}
       {...restProps}
     >
       {disabled && (
@@ -173,8 +176,15 @@ export const ManyInMany: FC<ManyInManyProps> = ({
           stroke={disabled ? theme.palette.background.separator : undefined}
         />
         <StyledMimHoverWalletIcon $zIndex={1} />
-        <StyledDateLabel $isSelected={isSelected}>{title}</StyledDateLabel>
+        <StyledDateLabel $isSelected={Boolean(isSelected)}>
+          {title}
+        </StyledDateLabel>
       </Flex>
     </StyledContainer>
   );
+};
+
+ManyInMany.defaultProps = {
+  isSelected: undefined,
+  disabled: undefined,
 };

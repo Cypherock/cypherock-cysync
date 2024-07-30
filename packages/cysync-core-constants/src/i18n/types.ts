@@ -37,6 +37,8 @@ export interface LanguageStrings {
   snackbar: LangSnackbar;
   settings: LangSettings;
   otp: LangOTP;
+  inheritance: LangInheritance;
+  inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
 }
 
 interface LangLabels {
@@ -83,6 +85,7 @@ interface LangButtons {
   submit: string;
   showMore: string;
   resendOTP: string;
+  next: string;
 }
 
 interface LangTooltips {
@@ -826,6 +829,32 @@ interface LangOTP {
   triesRemaining: string;
   infoTexts: string[];
   noRetries: {
+    title: string;
+    subTitle: string;
+  };
+}
+
+interface LangInheritance {
+  termsOfService: {
+    title: string;
+    privacyPolicy: string;
+    checkBoxLabel: string;
+  };
+}
+
+interface LangInheritanceSilverPlanPurchase {
+  title: string;
+  ensure: {
+    title: string;
+    instructions: string[];
+  };
+  instructions: {
+    heading: string;
+    title: string;
+    subTitle: string;
+  };
+  selectWallet: {
+    heading: string;
     title: string;
     subTitle: string;
   };

@@ -7,4 +7,7 @@ export const constants = {
   termsOfUseLink: 'https://www.cypherock.com/terms',
   tutorialLink:
     'https://youtube.com/playlist?list=PL0db5IfQ4iyo7GxBtFVBxxvanAngjdjLn&feature=shared',
+  inheritance: {
+    silverPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
+  },
 };
