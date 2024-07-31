@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { useInheritanceEditExecutorMessageDialog } from '../context';
-import { LoaderDialog } from '~/components';
 import {
   Button,
   CloseButton,
@@ -15,7 +12,12 @@ import {
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, { useState } from 'react';
+
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useInheritanceEditExecutorMessageDialog } from '../context';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
@@ -25,10 +27,6 @@ export const EditMessage = () => {
   const strings =
     lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   if (isLoading) {
     return (
@@ -81,7 +79,6 @@ export const EditMessage = () => {
           onClick={e => {
             e.preventDefault();
             setIsLoading(true);
-            console.log('saving changes');
           }}
           type="button"
         >

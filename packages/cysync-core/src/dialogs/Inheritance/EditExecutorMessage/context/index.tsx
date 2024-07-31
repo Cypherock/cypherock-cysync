@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
-
 import { closeDialog, useAppDispatch } from '~/store';
+
 import { FetchData, EditMessage, Success } from '../Dialogs';
 
 export interface InheritanceEditExecutorMessageDialogContextInterface {
