@@ -20,6 +20,7 @@ import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
+  InheritanceEditExecutorMessageDialog,
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
 } from './Inheritance';
@@ -34,7 +35,6 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { InheritanceEditExecutorMessageDialog } from './Inheritance/EditExecutorMessage';
 import { InheritanceEditReminderTimeDialog } from './Inheritance/EditReminderTime';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
