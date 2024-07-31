@@ -12,7 +12,6 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
-import { inheritanceLoginService } from '~/services';
 import {
   closeDialog,
   selectLanguage,
@@ -20,10 +19,27 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { Ensure, Instructions, SelectWallet, Terms } from '../Dialogs';
+import {
+  DeviceEncryption,
+  EncryptionLoader,
+  EncryptionSuccess,
+  Ensure,
+  Instructions,
+  SelectWallet,
+  Terms,
+  UserDetails,
+  VerifyOTP,
+  WalletAuth,
+} from '../Dialogs';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
+}
+
+export interface IUserDetails {
+  name: string;
+  email: string;
+  alternateEmail: string;
 }
 
 export interface InheritanceSilverPlanPurchaseDialogContextInterface {
@@ -35,24 +51,14 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
-  startWalletAuth: () => void;
-  emails: string[];
-  isAuthenticatingWallet: boolean;
-  unhandledError?: any;
-  onRetry: () => void;
-  otpLength: number;
-  verifyEmail: (otp: string) => void;
-  isVerifyingEmail: boolean;
-  verifyingEmailError?: string;
-  onResendOtp: () => void;
-  isResendingOtp: boolean;
-  resendOtpError?: string;
-  retriesRemaining: number;
-  otpExpireTime?: string;
-  wrongOtpError?: boolean;
   allWallets: IWalletWithDeleted[];
   selectedWallet?: IWalletWithDeleted;
   setSelectedWallet: (wallet: IWalletWithDeleted) => void;
+  onUserDetailsSubmit: (params: IUserDetails) => void;
+  isSubmittingUserDetails: boolean;
+  userDetails?: IUserDetails;
+  unhandledError?: any;
+  onRetry: () => void;
 }
 
 export const InheritanceSilverPlanPurchaseDialogContext: Context<InheritanceSilverPlanPurchaseDialogContextInterface> =
@@ -71,7 +77,12 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const lang = useAppSelector(selectLanguage);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
-    useMemo(() => ({}), []);
+    useMemo(
+      () => ({
+        3: [0],
+      }),
+      [],
+    );
 
   const tabs: ITabs = useMemo(
     () => [
@@ -86,6 +97,25 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       {
         name: lang.strings.inheritanceSilverPlanPurchase.selectWallet.heading,
         dialogs: [<SelectWallet key="Select Wallet" />],
+      },
+      {
+        name: lang.strings.inheritanceSilverPlanPurchase.walletAuth.heading,
+        dialogs: [<WalletAuth key="Wallet Auth" />],
+      },
+      {
+        name: lang.strings.inheritanceSilverPlanPurchase.email.heading,
+        dialogs: [
+          <UserDetails key="User Details" />,
+          <VerifyOTP key="Verify OTP" />,
+        ],
+      },
+      {
+        name: lang.strings.inheritanceSilverPlanPurchase.encryption.heading,
+        dialogs: [
+          <DeviceEncryption key="Device Encryption" />,
+          <EncryptionLoader key="Encryption Loader" />,
+          <EncryptionSuccess key="Encryption Success" />,
+        ],
       },
     ],
     [],
@@ -108,20 +138,6 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     dispatch(closeDialog('inheritanceSilverPlanPurchase'));
   };
 
-  const [emails, setEmails] = useState<string[]>([]);
-  const [isAuthenticatingWallet, setIsAuthenticatingWallet] = useState(false);
-  const [unhandledError, setUnhandledError] = useState<any>();
-  const [otpLength, setOtpLength] = useState<number>(6);
-  const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
-  const [verifyingEmailError, setVerifyingEmailError] = useState<
-    string | undefined
-  >();
-  const [wrongOtpError, setWrongOtpError] = useState(false);
-  const [isResendingOtp, setIsResendingOtp] = useState(false);
-  const [resendOtpError, setResendOtpError] = useState<string | undefined>();
-  const [retriesRemaining, setRetriesRemaining] = useState<number>(3);
-  const [otpExpireTime, setOtpExpireTime] = useState<string>('');
-
   const wallets = useAppSelector(state => state.wallet.wallets);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
 
@@ -136,92 +152,25 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
+  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
+  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [unhandledError, setUnhandledError] = useState<any>();
 
-  const startWalletAuth = useCallback(async () => {
-    setIsAuthenticatingWallet(true);
-    try {
-      await sleep(2000);
-      setEmails(['dummy@dum.com', 'test@dum.com']);
-      setOtpLength(6);
-      goTo(1);
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsAuthenticatingWallet(false);
-    }
+  const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
+    setIsSubmittingUserDetails(true);
+    setUserDetails(params);
+    await sleep(2000);
+    setIsSubmittingUserDetails(false);
+    goTo(4, 1);
   }, []);
 
   const onRetry = useCallback(() => {
-    setIsAuthenticatingWallet(false);
+    setUserDetails(undefined);
+    setSelectedWallet(undefined);
     setUnhandledError(undefined);
-    goTo(0);
-  }, []);
-
-  const fetchPlanData = async () => {
-    try {
-      await sleep(2000);
-      onClose();
-    } catch (error) {
-      setUnhandledError(error);
-    }
-  };
-
-  const verifyEmail = useCallback(async (otp: string) => {
-    setIsVerifyingEmail(true);
-    setVerifyingEmailError(undefined);
-    try {
-      const response = await inheritanceLoginService.verify({
-        requestId: '',
-        otp,
-      });
-      if (response.result) {
-        if (response.result.otpExpiry) {
-          setOtpExpireTime(response.result.otpExpiry);
-        }
-
-        if (response.result.retriesRemaining !== undefined) {
-          setRetriesRemaining(response.result.retriesRemaining);
-        }
-
-        if (response.result.isSuccess) {
-          goTo(2);
-          fetchPlanData();
-        }
-
-        if (!response.result.isSuccess) {
-          setWrongOtpError(true);
-        }
-      } else {
-        setVerifyingEmailError(response.error ?? lang.strings.errors.default);
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsVerifyingEmail(false);
-    }
-  }, []);
-
-  const onResendOtp = useCallback(async () => {
-    setIsResendingOtp(true);
-    setResendOtpError(undefined);
-
-    try {
-      const response = await inheritanceLoginService.resendOTP({
-        requestId: '',
-      });
-
-      if (response.result) {
-        setOtpExpireTime(response.result.otpExpiry);
-        setRetriesRemaining(response.result.retriesRemaining);
-      } else {
-        setResendOtpError(response.error ?? lang.strings.errors.default);
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsResendingOtp(false);
-    }
+    setIsSubmittingUserDetails(false);
+    goTo(0, 0);
   }, []);
 
   const ctx = useMemo(
@@ -234,24 +183,14 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
-      emails,
-      isAuthenticatingWallet,
-      unhandledError,
-      onRetry,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      retriesRemaining,
-      otpExpireTime,
-      wrongOtpError,
-      startWalletAuth,
       allWallets,
       selectedWallet,
       setSelectedWallet,
+      onUserDetailsSubmit,
+      isSubmittingUserDetails,
+      userDetails,
+      unhandledError,
+      onRetry,
     }),
     [
       onNext,
@@ -262,23 +201,14 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
-      emails,
-      isAuthenticatingWallet,
-      unhandledError,
-      onRetry,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      otpExpireTime,
-      wrongOtpError,
-      startWalletAuth,
       allWallets,
       selectedWallet,
       setSelectedWallet,
+      onUserDetailsSubmit,
+      isSubmittingUserDetails,
+      userDetails,
+      unhandledError,
+      onRetry,
     ],
   );
 

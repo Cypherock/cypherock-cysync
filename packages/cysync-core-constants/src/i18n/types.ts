@@ -858,4 +858,52 @@ interface LangInheritanceSilverPlanPurchase {
     title: string;
     subTitle: string;
   };
+  walletAuth: {
+    heading: string;
+    title: string;
+    actions: {
+      tapCard: string;
+    };
+    footer: string;
+  };
+  email: {
+    heading: string;
+    userDetails: {
+      title: string;
+      subTitle: string;
+      form: {
+        name: string;
+        email: string;
+        alternateEmail: string;
+      };
+      buttons: {
+        sendOTP: string;
+      };
+    };
+    primaryEmailOTP: {
+      title: string;
+    };
+    alternateEmailOTP: {
+      title: string;
+    };
+  };
+  encryption: {
+    heading: string;
+    device: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    loading: {
+      title: string;
+      subTitle: string;
+    };
+    success: {
+      title: string;
+    };
+  };
 }

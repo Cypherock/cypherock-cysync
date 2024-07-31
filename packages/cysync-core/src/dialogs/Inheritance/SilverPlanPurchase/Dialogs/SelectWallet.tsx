@@ -28,7 +28,11 @@ export const SelectWallet = () => {
           <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button
+            onClick={() => onNext()}
+            variant="primary"
+            disabled={!selectedWallet}
+          >
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
