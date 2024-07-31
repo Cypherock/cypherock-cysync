@@ -18,6 +18,7 @@ export interface PlanCardProps extends WidthProps {
   buttonText: string;
   popularTagText?: string;
   features: { text: string; available: boolean }[];
+  handleClick: () => void;
 }
 
 const PlanContainer = styled.div<{ plantype: PlanCardType } & WidthProps>`
@@ -40,7 +41,7 @@ const PlanContainer = styled.div<{ plantype: PlanCardType } & WidthProps>`
 `;
 const PopularTag = styled.div`
   position: absolute;
-  top: 0.5px;
+  top: 0px;
   right: 32px;
   background: ${({ theme }) => theme.palette.golden};
   z-index: 1;
@@ -61,6 +62,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
   duration,
   buttonText,
   popularTagText,
+  handleClick,
   ...restProps
 }) => {
   const theme = useTheme();
@@ -73,16 +75,20 @@ export const PlanCard: React.FC<PlanCardProps> = ({
             $fontWeight="semibold"
             $fontSize={14}
             color="black"
+            $lineHeight={10}
           >
             {popularTagText}
           </Typography>
         </PopularTag>
       )}
-      <Flex direction="column" gap={0} $fontFamily="normal" align="flex-start">
+      <Flex direction="column" $fontFamily="normal" align="flex-start">
         <Typography
           color={plantype === 'silver' ? 'silver' : 'gold'}
           $fontSize={30}
           $fontWeight="bold"
+          $lineHeight={22}
+          $allowOverflow
+          mb={1}
         >
           {heading}
         </Typography>
@@ -96,6 +102,8 @@ export const PlanCard: React.FC<PlanCardProps> = ({
           $fontWeight="bold"
           $fontFamily="normal"
           $fontSize={48}
+          $lineHeight={33}
+          $allowOverflow
         >
           {price}
         </Typography>
@@ -105,7 +113,8 @@ export const PlanCard: React.FC<PlanCardProps> = ({
           $fontFamily="normal"
           $fontWeight="normal"
           color="normal"
-          pb="14px"
+          $lineHeight={11}
+          $allowOverflow
         >
           {duration}
         </Typography>
@@ -116,11 +125,12 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         $fontFamily="normal"
         $fontWeight="normal"
         $fontSize={16}
+        $lineHeight={24}
       >
         {description}
       </Typography>
       <Flex height={1} $bgColor="headlineLight" $alignSelf="stretch" />
-      <Flex direction="column" gap={32} justify="center">
+      <Flex direction="column" gap={32} mt={2} mb={4} justify="center">
         {features.map((feature, index) => (
           <Flex key={`${feature.text}-${index + 1}`} align="center" gap={24}>
             {feature.available ? (
@@ -143,6 +153,8 @@ export const PlanCard: React.FC<PlanCardProps> = ({
               $fontSize={20}
               $fontFamily="normal"
               $fontWeight="normal"
+              $lineHeight={14}
+              $allowOverflow
             >
               {feature.text}
             </Typography>
@@ -160,6 +172,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         $fontWeight="medium"
         $fontFamily="normal"
         height={48}
+        onClick={handleClick}
       >
         {buttonText}
       </Button>
