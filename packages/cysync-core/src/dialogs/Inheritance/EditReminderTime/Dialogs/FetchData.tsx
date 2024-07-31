@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceEditReminderTimeDialog } from '../context';
 
 export const FetchData = () => {

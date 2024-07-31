@@ -21,6 +21,7 @@ import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
   InheritanceEditExecutorMessageDialog,
+  InheritanceEditReminderTimeDialog,
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
 } from './Inheritance';
@@ -35,7 +36,6 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { InheritanceEditReminderTimeDialog } from './Inheritance/EditReminderTime';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

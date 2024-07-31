@@ -9,8 +9,8 @@ import React, {
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
-import { FetchData, Success } from '../Dialogs';
-import { ReminderSetup } from '../Dialogs/ReminderSetup';
+
+import { FetchData, ReminderSetup, Success } from '../Dialogs';
 
 export interface InheritanceEditReminderTimeDialogContextInterface {
   tabs: ITabs;

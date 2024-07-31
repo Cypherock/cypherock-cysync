@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { LoaderDialog } from '~/components';
 import {
   Accordion,
   Button,
@@ -16,7 +14,11 @@ import {
   ScrollableContainer,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, { useEffect, useState } from 'react';
+
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceEditReminderTimeDialog } from '../context';
 
 export const ReminderSetup = () => {
@@ -29,7 +31,6 @@ export const ReminderSetup = () => {
   const { form } = strings;
 
   useEffect(() => {
-    setLoading(false);
     setReminder(1);
   }, []);
 
@@ -84,7 +85,11 @@ export const ReminderSetup = () => {
             </Flex>
           </Flex>
           <MessageBox
-            text={`${strings.currentReminder} ${form.reminderField.month}`}
+            text={`${strings.currentReminder} ${
+              reminder === 1
+                ? form.reminderField.month.toLocaleLowerCase()
+                : form.reminderField.months.toLocaleLowerCase()
+            }`}
             variables={{ month: reminder }}
             type="info"
           />
