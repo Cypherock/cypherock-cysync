@@ -27,7 +27,7 @@ export interface FontProps {
   $fontSize?: MediaQuery<number>;
   $fontFamily?: MediaQuery<FontFamily>;
   $wordBreak?: MediaQuery<WordBreak>;
-  $lineHeight?: MediaQuery<number>;
+  $lineHeight?: MediaQuery<number | string>;
 }
 
 export const fontWeightObj: Record<string, string> = {
@@ -75,7 +75,8 @@ export const font = css<FontProps>`
     props.$lineHeight &&
     generateCss(
       ['line-height'],
-      (item: number) => `${item}px`,
+      (item: number | string) =>
+        typeof item === 'number' ? `${item}px` : item,
       props.$lineHeight,
     )}
 `;

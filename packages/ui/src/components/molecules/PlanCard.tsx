@@ -9,7 +9,7 @@ import { WidthProps, width } from '../utils';
 export type PlanCardType = 'silver' | 'gold';
 
 export interface PlanCardProps extends WidthProps {
-  plantype: PlanCardType;
+  type: PlanCardType;
   heading: string;
   tagline: string;
   description: string;
@@ -18,10 +18,10 @@ export interface PlanCardProps extends WidthProps {
   buttonText: string;
   popularTagText?: string;
   features: { text: string; available: boolean }[];
-  handleClick: () => void;
+  onClick: () => void;
 }
 
-const PlanContainer = styled.div<{ plantype: PlanCardType } & WidthProps>`
+const PlanContainer = styled.div<{ type: PlanCardType } & WidthProps>`
   position: relative;
   display: flex;
   width: 400px;
@@ -30,13 +30,13 @@ const PlanContainer = styled.div<{ plantype: PlanCardType } & WidthProps>`
   align-items: flex-start;
   gap: 32px;
   border-radius: 16px;
-  background: ${({ plantype, theme }) =>
-    plantype === 'silver'
+  background: ${({ type, theme }) =>
+    type === 'silver'
       ? theme.palette.background.slateLight
       : theme.palette.background.plan};
   box-shadow: 4px 4px 30px 0px ${({ theme }) => theme.palette.border.darkSlate};
-  border: ${({ plantype, theme }) =>
-    plantype === 'gold' && `1px solid ${theme.palette.background.golden}`};
+  border: ${({ type, theme }) =>
+    type === 'gold' && `1px solid ${theme.palette.background.golden}`};
   ${width}
 `;
 const PopularTag = styled.div`
@@ -53,7 +53,7 @@ const PopularTag = styled.div`
 `;
 
 export const PlanCard: React.FC<PlanCardProps> = ({
-  plantype,
+  type,
   heading,
   tagline,
   description,
@@ -62,12 +62,12 @@ export const PlanCard: React.FC<PlanCardProps> = ({
   duration,
   buttonText,
   popularTagText,
-  handleClick,
+  onClick,
   ...restProps
 }) => {
   const theme = useTheme();
   return (
-    <PlanContainer plantype={plantype} {...restProps}>
+    <PlanContainer type={type} {...restProps}>
       {popularTagText && (
         <PopularTag>
           <Typography
@@ -83,7 +83,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       )}
       <Flex direction="column" $fontFamily="normal" align="flex-start">
         <Typography
-          color={plantype === 'silver' ? 'silver' : 'gold'}
+          color={type === 'silver' ? 'silver' : 'gold'}
           $fontSize={30}
           $fontWeight="bold"
           $lineHeight={22}
@@ -162,7 +162,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         ))}
       </Flex>
       <Button
-        variant={plantype === 'silver' ? 'silver' : 'primary'}
+        variant={type === 'silver' ? 'silver' : 'primary'}
         display="flex"
         $alignSelf="stretch"
         align="center"
@@ -172,7 +172,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         $fontWeight="medium"
         $fontFamily="normal"
         height={48}
-        onClick={handleClick}
+        onClick={onClick}
       >
         {buttonText}
       </Button>
