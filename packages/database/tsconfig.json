@@ -12,7 +12,7 @@
     "sourceMap": true
   },
   "extends": "@cypherock/tsconfig/node.json",
-  "include": ["./src/**/*", "tests/encryptDbTests.ts"],
+  "include": ["./src/**/*"],
   "exclude": [
     "node_modules",
     "src/coverage",
