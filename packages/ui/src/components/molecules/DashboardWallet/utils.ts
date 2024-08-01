@@ -57,12 +57,12 @@ export const getCurrentFullTime = () => {
 export const getBackgroundImage = (
   isHover: boolean,
   isExpired: boolean,
-  planType: string,
+  type: string,
   isExpiring: boolean,
 ) => {
   if (isHover) {
     if (isExpired) return WalletHoverExpiredIcon;
-    if (planType === 'silver') return WalletHoverSilverBgIcon;
+    if (type === 'silver') return WalletHoverSilverBgIcon;
     if (isExpiring) return expireHoverWalletIcon;
     return goldHoverWalletIcon;
   }
@@ -70,24 +70,19 @@ export const getBackgroundImage = (
   return dashWalletDefaultBgIcon;
 };
 
-export const getTypeText = (planType: string, lang: any) =>
-  planType === 'silver'
-    ? lang.dashboard.wallet.silver
-    : lang.dashboard.wallet.gold;
+export const getTypeText = (type: string, lang: any) =>
+  type === 'silver' ? lang.dashboard.wallet.silver : lang.dashboard.wallet.gold;
 
 export const getExpiringText = (
-  isHover: boolean,
-  isExpired: boolean,
   isExpiring: boolean,
+  isExpired: boolean,
   lang: any,
 ): string => {
-  if (isHover && (isExpiring || isExpired)) {
-    if (isExpiring) {
-      return lang.dashboard.wallet.expiring;
-    }
-    if (isExpired) {
-      return lang.dashboard.wallet.expired;
-    }
+  if (isExpiring) {
+    return lang.dashboard.wallet.expiring;
+  }
+  if (isExpired) {
+    return lang.dashboard.wallet.expired;
   }
   return '';
 };
@@ -97,12 +92,12 @@ export const getPathColor = (
   isExpiring: boolean,
   isExpired: boolean,
   theme: DefaultTheme,
-  planType: string,
+  type: string,
 ) => {
   if (isHover && (isExpiring || isExpired)) {
     return theme.palette.warn.main;
   }
-  if (planType === 'silver') {
+  if (type === 'silver') {
     return theme.palette.background.silver;
   }
   return theme.palette.background.golden;
@@ -124,10 +119,9 @@ export const getTimerHeadText = (
   lang: any,
 ) => {
   if (isHover) {
-    if (paymentPending) {
-      return `${calculateDiffDays(expiryDate)}`;
-    }
-    return lang.dashboard.wallet.created;
+    return paymentPending
+      ? `${calculateDiffDays(expiryDate)}`
+      : lang.dashboard.wallet.created;
   }
   if (isExpired) {
     return lang.dashboard.wallet.expiredOn;
@@ -195,7 +189,7 @@ export const updateHoverOnly = (
 ) => {
   const { value, rotation } = calculateProgress(startDate, expiryDate, status);
   const hoverValue = 100 - value;
-  const hoverRotation = 1;
+  const hoverRotation = 0;
   setProgress({ value, rotation });
   setHoverProgress({ value: hoverValue, rotation: hoverRotation });
 };

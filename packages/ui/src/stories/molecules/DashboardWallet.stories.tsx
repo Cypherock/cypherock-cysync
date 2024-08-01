@@ -33,7 +33,7 @@ const lang = {
 export const Default: Story = {
   args: {
     isNone: false,
-    planType: 'silver',
+    type: 'silver',
     isExpiring: false,
     isExpired: false,
     paymentPending: false,
@@ -48,14 +48,14 @@ export const Default: Story = {
 export const SilverPlan: Story = {
   args: {
     ...Default.args,
-    planType: 'silver',
+    type: 'silver',
   },
 };
 
 export const GoldPlan: Story = {
   args: {
     ...Default.args,
-    planType: 'gold',
+    type: 'gold',
     name: 'My Gold Wallet',
   },
 };

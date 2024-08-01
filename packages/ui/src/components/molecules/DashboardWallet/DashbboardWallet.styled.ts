@@ -36,7 +36,6 @@ export const Container = styled.div<
   font-family: 'Poppins';
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
   text-align: center;
   color: white;
   background: ${({ isHover, isNone, backgroundImage }) =>
@@ -68,21 +67,19 @@ export const StyledExpiredClockIcon = styled(ClockIcon)`
 export const Flex = styled.div<{ isHover: boolean }>`
   display: flex;
   width: 45%;
-  ${({ isHover }) =>
-    isHover
-      ? 'height: unset;padding: 8px 15px;'
-      : 'height: unset;padding: 10px 15px;'}
+  height: unset;
+  padding: 8px 15px;
 `;
 
-export const Type = styled.div<{ planType: string; isHover: boolean }>`
+export const Type = styled.div<{ type: string; isHover: boolean }>`
   font-family: 'Poppins';
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
   text-align: left;
   text-transform: uppercase;
-  background: ${({ planType, theme }) =>
-    planType === 'silver'
+  background: ${({ type, theme }) =>
+    type === 'silver'
       ? theme.palette.background.secondary
       : theme.palette.text.gold};
   -webkit-background-clip: text;
@@ -90,7 +87,7 @@ export const Type = styled.div<{ planType: string; isHover: boolean }>`
   position: relative;
   right: 95%;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
   ${({ isHover }) =>
     isHover &&
     `
@@ -98,7 +95,10 @@ export const Type = styled.div<{ planType: string; isHover: boolean }>`
   `}
 `;
 
-export const Expiring = styled.div<{ isHover: boolean }>`
+export const Expiring = styled.div<{
+  isHover: boolean;
+  disableTransform: boolean;
+}>`
   font-family: 'Poppins';
   font-size: 12px;
   font-weight: 500;
@@ -107,11 +107,12 @@ export const Expiring = styled.div<{ isHover: boolean }>`
   color: ${({ theme }) => theme.palette.error.main};
   position: relative;
   right: 70%;
-  transform: ${({ isHover }) =>
-    isHover ? 'translateX(0)' : 'translateX(100%)'};
+  transform: ${({ isHover, disableTransform }) => {
+    if (disableTransform) return 'none';
+    return isHover ? 'translateX(0)' : 'translateX(40%)';
+  }};
   opacity: ${({ isHover }) => (isHover ? 1 : 0)};
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  transition-delay: 0s;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
 `;
 
 export const TimerContainer = styled.div<{ isHover: boolean }>`
@@ -120,7 +121,7 @@ export const TimerContainer = styled.div<{ isHover: boolean }>`
   width: 90px;
   height: 90px;
   align-items: center;
-  margin-top: ${({ isHover }) => (isHover ? '6px' : '2px')};
+  margin-top: 2px;
 `;
 
 export const TimerText = styled.div<{ isHover: boolean; theme: any }>`
@@ -145,22 +146,17 @@ export const TimerHead = styled.div<{
   isHover: boolean;
   isExpired: boolean;
   paymentPending: boolean;
+  disableFontChange: boolean;
 }>`
   font-family: 'Poppins';
-  font-size: ${({ isHover, paymentPending }) => {
-    if (isHover) {
-      if (paymentPending) {
-        return '16px';
-      }
-      return '10px';
+  font-size: ${({ isHover, paymentPending, disableFontChange }) => {
+    if (isHover && paymentPending && !disableFontChange) {
+      return '16px';
     }
     return '10px';
   }};
-  font-weight: ${({ isHover, isExpired }) => {
-    if (isExpired) {
-      return '700';
-    }
-    if (isHover) {
+  font-weight: ${({ isHover, isExpired, disableFontChange }) => {
+    if ((isExpired || isHover) && !disableFontChange) {
       return '700';
     }
     return '400';
@@ -237,14 +233,14 @@ export const WalletNameContainer = styled.div<{
 }>`
   position: relative;
   width: 100%;
-  height: 27px;
+  height: 21px;
   overflow: hidden;
   font-family: 'Poppins';
   font-size: 14px;
   font-weight: 600;
-  line-height: 27px;
+  line-height: 21px;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 8px;
   color: ${({ isHover, isExpiring, isExpired, paymentPending, theme }) =>
     getWalletNameColor(isHover, isExpiring, isExpired, paymentPending, theme)};
 `;
@@ -258,9 +254,9 @@ export const WalletNameText = styled.div<{
   transition: ${({ disableAnimation }) =>
     disableAnimation
       ? 'none'
-      : 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out'};
+      : 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out'};
   transform: ${({ isHover, disableAnimation }) =>
-    isHover && !disableAnimation ? 'translateX(0)' : 'translateX(-15%)'};
+    isHover && !disableAnimation ? 'translateX(0)' : 'translateX(15%)'};
   opacity: ${({ isHover, disableAnimation }) =>
     isHover && !disableAnimation ? 1 : 0};
 `;
@@ -270,7 +266,7 @@ export const WalletNameHoverText = styled(WalletNameText)<{
   disableAnimation?: boolean;
 }>`
   transform: ${({ isHover, disableAnimation }) =>
-    isHover && !disableAnimation ? 'translateX(0)' : 'translateX(15%)'};
+    isHover && !disableAnimation ? 'translateX(0)' : 'translateX(-15%)'};
   opacity: ${({ isHover, disableAnimation }) =>
     isHover && !disableAnimation ? 1 : 0};
 `;
@@ -285,10 +281,12 @@ export const TransitionTextWrapper = styled.div`
 
 export const TransitionText = styled.div<{ isHover: boolean }>`
   position: absolute;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
   opacity: ${props => (props.isHover ? 1 : 0)};
   transform: ${props =>
-    props.isHover ? 'translateY(0)' : 'translateY(-10px)'};
+    props.isHover
+      ? 'translateY(0px) translateX(0px)'
+      : 'translateY(1px) translateX(-1px)'};
   width: max-content;
   text-align: center;
   margin-top: 20px;
@@ -296,10 +294,12 @@ export const TransitionText = styled.div<{ isHover: boolean }>`
 
 export const TransitionTextSubtitle = styled.div<{ isHover: boolean }>`
   position: absolute;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
   opacity: ${props => (props.isHover ? 1 : 0)};
   transform: ${props =>
-    props.isHover ? 'translateY(0)' : 'translateY(-10px)'};
+    props.isHover
+      ? 'translateY(0px) translateX(0px)'
+      : 'translateY(1px) translateX(-1px)'};
   width: max-content;
   text-align: center;
   margin-bottom: 20px;

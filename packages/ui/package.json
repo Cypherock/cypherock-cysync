@@ -18,7 +18,7 @@
     "build:icons": "svgr icons --out-dir ./src/assets/icons/generated --no-svgo",
     "prebuild": "pnpm clean:icons && pnpm build:icons",
     "clean": "rimraf dist",
-    "clean:icons": "rimraf ./src/assets/icons/generated/*",
+    "clean:icons": "rimraf ./src/assets/icons/generated",
     "test": "jest",
     "pre-commit": "lint-staged",
     "storybook": "storybook dev -p 6006",
