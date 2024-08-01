@@ -1,7 +1,7 @@
 import React, { FC, ForwardedRef } from 'react';
 import styled from 'styled-components';
 
-import { InputLabel } from './InputLabel';
+import { InputLabel, InputLabelProps } from './InputLabel';
 
 import { UtilsProps } from '../../utils';
 import { Button } from '../Button';
@@ -37,6 +37,7 @@ export interface InputProps {
   required?: boolean;
   utilProps?: UtilsProps;
   autoFocus?: boolean;
+  inputLabelProps?: InputLabelProps;
 }
 
 const InputStyle = styled.input<{
@@ -133,6 +134,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         $noBorder = false,
         utilProps,
         autoFocus = false,
+        inputLabelProps,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -144,7 +146,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         {...(utilProps ?? {})}
       >
         {label && (
-          <InputLabel p={0}>
+          <InputLabel p={0} {...(inputLabelProps ?? {})}>
             <Container $variant="span" align="center" justify="space-between">
               <LangDisplay text={label} />
               <span>
@@ -241,6 +243,7 @@ Input.defaultProps = {
   required: false,
   utilProps: undefined,
   autoFocus: false,
+  inputLabelProps: undefined,
 };
 
 Input.displayName = 'Input';

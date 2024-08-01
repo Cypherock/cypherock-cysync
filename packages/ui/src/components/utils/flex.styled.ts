@@ -27,6 +27,13 @@ type AlignSelfType =
   | 'initial'
   | 'inherit';
 
+export type FlexWrapType =
+  | 'nowrap'
+  | 'wrap'
+  | 'wrap-reverse'
+  | 'initial'
+  | 'inherit';
+
 const alignSelfObj: Record<string, string> = {
   start: 'flex-start',
   end: 'flex-end',
@@ -44,6 +51,7 @@ export interface FlexProps {
   shrink?: MediaQuery<number>;
   $alignSelf?: MediaQuery<AlignSelfType>;
   $flex?: MediaQuery<number | string>;
+  $flexWrap?: MediaQuery<FlexWrapType>;
 }
 
 const flexProperty = css<FlexProps>`
@@ -105,6 +113,12 @@ const alignSelf = css<FlexProps>`
     )}
 `;
 
+const flexWrap = css<FlexProps>`
+  ${props =>
+    props.$flexWrap &&
+    generateCss(['flex-wrap'], (item: string) => item, props.$flexWrap)}
+`;
+
 export const flex = css<FlexProps>`
   ${justifyContent}
   ${align}
@@ -114,4 +128,5 @@ export const flex = css<FlexProps>`
   ${shrink}
   ${alignSelf}
   ${flexProperty}
+  ${flexWrap}
 `;
