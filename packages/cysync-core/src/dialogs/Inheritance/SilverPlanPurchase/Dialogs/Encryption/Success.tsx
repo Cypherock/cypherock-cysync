@@ -18,6 +18,9 @@ export const EncryptionSuccess: React.FC = () => {
       buttonText={lang.strings.buttons.next}
       handleClick={onClose}
       onClose={onClose}
+      width={560}
+      headerType="h5"
+      bodyBottomPadding={4}
     />
   );
 };
