@@ -8,8 +8,17 @@ import {
 } from './DialogBox';
 
 import { successIcon } from '../../../assets/images';
-import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
+import {
+  Typography,
+  LangDisplay,
+  Image,
+  Container,
+  Button,
+  TypographyProps,
+  CloseButton,
+} from '../../atoms';
 import { AlertBox } from '../AlertBox';
+import { SpacingProps } from '../../utils';
 
 export interface SuccessDialogProps {
   title: string;
@@ -22,6 +31,10 @@ export interface SuccessDialogProps {
   handleSecButtonClick?: () => void;
   onClose?: () => void;
   dontCloseOnEscape?: boolean;
+  width?: number;
+  headerType?: TypographyProps['variant'];
+  bodyBottomPadding?: SpacingProps['pb'];
+  showCloseBtn?: boolean;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -35,23 +48,37 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   handleSecButtonClick,
   onClose,
   dontCloseOnEscape,
+  width,
+  headerType,
+  bodyBottomPadding,
+  showCloseBtn,
 }) => (
   <DialogBox
-    width={500}
+    width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
-    {headerText && (
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" color="muted">
-          <LangDisplay text={headerText} />
-        </Typography>
+    {(headerText || showCloseBtn) && (
+      <DialogBoxHeader
+        height={56}
+        width={width}
+        justify={showCloseBtn ? 'flex-end' : undefined}
+      >
+        {headerText && (
+          <Typography variant="fineprint" color="muted">
+            <LangDisplay text={headerText} />
+          </Typography>
+        )}
+
+        {onClose && showCloseBtn && (
+          <CloseButton width={24} onClick={onClose} />
+        )}
       </DialogBoxHeader>
     )}
-    <DialogBoxBody>
+    <DialogBoxBody pb={bodyBottomPadding}>
       <Image src={successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h4" $textAlign="center">
+        <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
         </Typography>
         {subtext && (
@@ -88,4 +115,8 @@ SuccessDialog.defaultProps = {
   headerText: undefined,
   onClose: undefined,
   dontCloseOnEscape: undefined,
+  width: 500,
+  headerType: 'h4',
+  bodyBottomPadding: undefined,
+  showCloseBtn: false,
 };

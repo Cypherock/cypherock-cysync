@@ -95,6 +95,9 @@ const initialState: IDialogState = {
   inheritanceSilverPlanPurchase: {
     isOpen: false,
   },
+  inheritanceEditExecutorMessage: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

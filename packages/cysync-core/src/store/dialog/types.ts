@@ -147,6 +147,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  inheritanceEditExecutorMessage: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
