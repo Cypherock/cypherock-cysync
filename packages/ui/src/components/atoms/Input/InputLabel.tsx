@@ -13,7 +13,7 @@ import {
 } from '../../utils';
 import { goldenGradient } from '../../utils/Gradient';
 
-interface InputLabelProps
+export interface InputLabelProps
   extends LabelHTMLAttributes<HTMLLabelElement>,
     SpacingProps,
     BorderProps,
