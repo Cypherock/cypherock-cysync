@@ -80,6 +80,7 @@ export const theme = {
       disabled: colors.disabled.background,
       bar: colors.background.bar,
       gold: colors.gradients.golden,
+      plan: colors.gradients.plan,
       golden: colors.background.gold,
       success: colors.success.main,
       successSecondary: colors.success.secondary,
@@ -99,6 +100,7 @@ export const theme = {
       message: colors.background.message,
       breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
+      slateLight: colors.background.slateLight,
       filterItem: colors.background.filterItem,
       calendar: colors.background.calendar,
       calendarHeader: colors.background.calendarHeader,
@@ -109,6 +111,7 @@ export const theme = {
       cardSelected: colors.background.cardSelected,
       cardDisabled: colors.background.cardDisabled,
       slateDark: colors.background.slateDark,
+      headlineLight: colors.background.headlineLight,
     },
     border: {
       popup: colors.border.popup,
@@ -122,6 +125,7 @@ export const theme = {
       danger: colors.border.danger,
       bar: colors.border.bar,
       white: colors.border.white,
+      darkSlate: colors.border.darkSlate,
       table: {
         title: colors.border.table.title,
         row: colors.border.table.row,
