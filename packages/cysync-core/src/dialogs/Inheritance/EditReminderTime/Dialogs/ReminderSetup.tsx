@@ -24,14 +24,15 @@ import { useInheritanceEditReminderTimeDialog } from '../context';
 export const ReminderSetup = () => {
   const lang = useAppSelector(selectLanguage);
   const [loading, setLoading] = useState(false);
-  const [reminder, setReminder] = useState(1);
+  const [currentReminder, setCurrentReminder] = useState(1);
+  const [newReminder, setNewReminder] = useState(1);
   const { onClose, updateData } = useInheritanceEditReminderTimeDialog();
   const strings =
     lang.strings.dialogs.inheritanceEditReminderTime.reminderSetup;
   const { form } = strings;
 
   useEffect(() => {
-    setReminder(1);
+    setCurrentReminder(1);
   }, []);
 
   if (loading) {
@@ -70,27 +71,33 @@ export const ReminderSetup = () => {
                   date={`${1} ${form.reminderField.month}`}
                   disabled={false}
                   width="100%"
+                  isSelected={newReminder === 1}
+                  onClick={() => setNewReminder(1)}
                 />
                 <Reminder
                   date={`${3} ${form.reminderField.months}`}
                   disabled={false}
                   width="100%"
+                  isSelected={newReminder === 3}
+                  onClick={() => setNewReminder(3)}
                 />
                 <Reminder
                   date={`${6} ${form.reminderField.months}`}
                   disabled={false}
                   width="100%"
+                  isSelected={newReminder === 6}
+                  onClick={() => setNewReminder(6)}
                 />
               </Flex>
             </Flex>
           </Flex>
           <MessageBox
             text={`${strings.currentReminder} ${
-              reminder === 1
+              currentReminder === 1
                 ? form.reminderField.month.toLocaleLowerCase()
                 : form.reminderField.months.toLocaleLowerCase()
             }`}
-            variables={{ month: reminder }}
+            variables={{ month: currentReminder }}
             type="info"
           />
         </DialogBoxBody>
