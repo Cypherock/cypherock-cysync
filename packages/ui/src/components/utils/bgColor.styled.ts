@@ -25,6 +25,7 @@ export type BgColor =
   | 'container'
   | 'slate'
   | 'slateDark'
+  | 'headlineLight'
   | 'error';
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -66,6 +67,11 @@ export const bgColor = css<BgColorProps>`
     props.$bgColor === 'separatorSecondary' &&
     css`
       background: ${({ theme }) => theme.palette.background.separatorSecondary};
+    `}
+    ${props =>
+    props.$bgColor === 'headlineLight' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.headlineLight};
     `}
     ${props =>
     props.$bgColor === 'slate' &&

@@ -47,3 +47,4 @@ export * from './SimpleJsonView';
 export * from './OTPInput';
 export * from './OneInMany';
 export * from './CouponInput';
+export * from './PlanCard';

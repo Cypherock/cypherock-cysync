@@ -22,6 +22,7 @@ export const colors = {
     cardHover:
       'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
     title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
+    plan: 'linear-gradient(90deg, rgba(224, 187, 117, 0.10) 0%, rgba(39, 35, 32, 0.00) 100%), #272320',
   },
   info: {
     main: '#F1AE4A',
@@ -57,6 +58,8 @@ export const colors = {
     divider: '#333130',
     dialog: '#2B2420',
     separator: '#39322C',
+    greenStroke: '#00FF75',
+    redStroke: '#FF0202',
   },
   boxShadow: {
     selected: '#1B1813',
@@ -95,8 +98,11 @@ export const colors = {
     cardDisabled: '#282522',
     cardSelected: '#2A2827',
     slateDark: '#423F3C',
+    slateLight: '#302C29',
+    headlineLight: '#655F53',
   },
   border: {
+    darkSlate: '#030303',
     popup: '#2C2520',
     list: '#2C2824',
     input: '#3C3937',
