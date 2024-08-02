@@ -24,6 +24,7 @@ import {
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
   InheritanceSilverPlanPurchaseDialog,
+  InheritanceGoldPlanPurchaseDialog,
 } from './Inheritance';
 import {
   ChangePasswordDialog,
@@ -67,4 +68,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritancePlanLogin: InheritancePlanLoginDialog,
   inheritanceSilverPlanPurchase: InheritanceSilverPlanPurchaseDialog,
   inheritanceEditExecutorMessage: InheritanceEditExecutorMessageDialog,
+  inheritanceGoldPlanPurchase: InheritanceGoldPlanPurchaseDialog,
 };
