@@ -92,6 +92,9 @@ export const openInheritanceSyncPlansDialog = () =>
 export const openInheritancePlanLoginDialog = () =>
   openDialog({ name: 'inheritancePlanLogin', data: undefined });
 
+export const openInheritanceSilverPlanPurchaseDialog = () =>
+  openDialog({ name: 'inheritanceSilverPlanPurchase', data: undefined });
+
 export const openInheritanceEditExecutorMessageDialog = () =>
   openDialog({ name: 'inheritanceEditExecutorMessage', data: undefined });
 

@@ -143,6 +143,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  inheritanceSilverPlanPurchase: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   inheritanceEditExecutorMessage: {
     isOpen: boolean;
     data?: undefined;

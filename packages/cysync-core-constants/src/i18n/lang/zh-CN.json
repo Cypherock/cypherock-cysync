@@ -45,7 +45,8 @@
     "editAccount": "编辑账户",
     "submit": "提交",
     "showMore": "显示更多",
-    "resendOTP": "Resend OTP"
+    "resendOTP": "Resend OTP",
+    "next": "Next"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -1633,6 +1634,82 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    }
+  },
+  "inheritance": {
+    "termsOfService": {
+      "title": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    }
+  },
+  "inheritanceSilverPlanPurchase": {
+    "title": "Silver Plan Setup",
+    "ensure": {
+      "title": "Ensure the following before you continue",
+      "instructions": [
+        "Make sure you have 15-30 minutes to set it up",
+        "You are present in a safe environment",
+        "You need to have one device and one card handy to set it up"
+      ]
+    },
+    "instructions": {
+      "heading": "Instructions",
+      "title": "Watch the whole video before you proceed",
+      "subTitle": "The video will help you take the right decisions"
+    },
+    "selectWallet": {
+      "heading": "Select Wallet",
+      "title": "Select the wallet you want to cover in this plan",
+      "subTitle": "Your plan will be linked with the selected wallet"
+    },
+    "walletAuth": {
+      "heading": "Wallet Authentication",
+      "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+      "actions": {
+        "tapCard": "Tap any one card"
+      },
+      "footer": "Authenticating the wallet, "
+    },
+    "email": {
+      "heading": "Email",
+      "userDetails": {
+        "title": "User Details",
+        "subTitle": "All the fields are mandatory",
+        "form": {
+          "name": "Name",
+          "email": "Primary Email",
+          "alternateEmail": "Alternate Email"
+        },
+        "buttons": {
+          "sendOTP": "Send OTP"
+        }
+      },
+      "primaryEmailOTP": {
+        "title": "OTP Verification for primary email"
+      },
+      "alternateEmailOTP": {
+        "title": "OTP Verification for alternate email"
+      }
+    },
+    "encryption": {
+      "heading": "Encryption",
+      "device": {
+        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "actions": {
+          "tapCard": "Enter PIN and tap any one card"
+        },
+        "messageBox": {
+          "warning": "The PIN will be encrypted by the X1 card"
+        }
+      },
+      "loading": {
+        "title": "Please wait while we encrypt the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "success": {
+        "title": "PIN recovery message successfully encrypted"
+      }
     }
   }
 }
