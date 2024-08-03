@@ -790,6 +790,30 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditReminderTime: {
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+    reminderSetup: {
+      title: string;
+      reminderInfo: {
+        subtitle: string;
+        subtext: string;
+      };
+      form: {
+        reminderField: { label: string; month: string; months: string };
+      };
+      currentReminder: string;
+      loading: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {

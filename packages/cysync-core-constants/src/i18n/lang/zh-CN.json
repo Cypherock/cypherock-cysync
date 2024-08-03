@@ -1491,6 +1491,34 @@
       "success": {
         "title": "Executor message successfully encrypted"
       }
+    },
+    "inheritanceEditReminderTime": {
+      "fetchData": {
+        "title": "Please wait while we fetch the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "reminderSetup": {
+        "title": "Reminder setup",
+        "reminderInfo": {
+          "subtitle": "What is reminder time?",
+          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your nominee will receive the recovery instruction email from Cypherock"
+        },
+        "form": {
+          "reminderField": {
+            "label": "Set reminder time interval",
+            "month": "Month",
+            "months": "Months"
+          }
+        },
+        "currentReminder": "The current reminder is set at ${month}",
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtitle": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Reminders duration updated successfully"
+      }
     }
   },
   "toggle": {

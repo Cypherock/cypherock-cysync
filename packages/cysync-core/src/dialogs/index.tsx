@@ -21,6 +21,7 @@ import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
   InheritanceEditExecutorMessageDialog,
+  InheritanceEditReminderTimeDialog,
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
   InheritanceSilverPlanPurchaseDialog,
@@ -67,4 +68,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritancePlanLogin: InheritancePlanLoginDialog,
   inheritanceSilverPlanPurchase: InheritanceSilverPlanPurchaseDialog,
   inheritanceEditExecutorMessage: InheritanceEditExecutorMessageDialog,
+  inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
 };
