@@ -55,7 +55,8 @@
       "pendingTime": "05",
       "silver": "Silver",
       "gold": "Gold",
-      "hours": "Hours"
+      "hours": "Hours",
+      "setupCover": "Setup Cypherock Cover"
     }
   },
   "tooltips": {

@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { DefaultTheme } from 'styled-components/dist/types';
 
 import {
-  NoneDefaultPlusImage,
+  SetupCoverPlusImage,
   ProgressbarWrapper,
   Container,
   StyledExpiredPlanIcon,
@@ -23,6 +23,8 @@ import {
   TransitionTextWrapper,
   TransitionText,
   TransitionTextSubtitle,
+  SetupCoverContainer,
+  SetupCoverText,
 } from './DashbboardWallet.styled';
 import {
   calculateHoverText,
@@ -63,6 +65,7 @@ export interface DashboardWalletProps extends WidthProps {
         silver: string;
         gold: string;
         hours: string;
+        setupCover: string;
       };
     };
   };
@@ -134,7 +137,14 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       }}
       {...restProps}
     >
-      {isNone && <NoneDefaultPlusImage isHover={isHover} />}
+      {isNone && (
+        <SetupCoverContainer>
+          <SetupCoverPlusImage isHover={isHover} />
+          <SetupCoverText isHover={isHover}>
+            {lang.dashboard.wallet.setupCover}
+          </SetupCoverText>
+        </SetupCoverContainer>
+      )}
       {!isNone && (
         <>
           <Flex isHover={isHover}>

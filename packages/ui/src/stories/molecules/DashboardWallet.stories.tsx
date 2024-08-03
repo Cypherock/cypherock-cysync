@@ -26,6 +26,7 @@ const lang = {
       silver: 'Silver',
       gold: 'Gold',
       hours: 'Hours',
+      setupCover: 'Setup Cypherock Cover',
     },
   },
 };
@@ -42,6 +43,13 @@ export const Default: Story = {
     startDate: '2024-01-21',
     expiryDate: '2024-09-21',
     status: 'Active',
+  },
+};
+
+export const SetupCover: Story = {
+  args: {
+    ...Default.args,
+    isNone: true,
   },
 };
 

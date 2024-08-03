@@ -9,14 +9,38 @@ import {
 } from '../../../assets';
 import { WidthProps, width } from '../../utils';
 
-export const NoneDefaultPlusImage = styled(PlusIcon)<{ isHover: boolean }>`
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  transform: ${({ isHover }) => (isHover ? 'rotate(90deg)' : 'rotate(0)')};
-  opacity: ${({ isHover }) => (isHover ? 1 : 0)};
+export const SetupCoverContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transform: translateY(10px);
 `;
 
-export const HoverPlusContainer = styled.div`
-  padding-top: 10px;
+export const SetupCoverPlusImage = styled(PlusIcon)<{ isHover: boolean }>`
+  transition: transform 0.3s ease-in-out, margin-bottom 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+  width: 34px;
+  height: 34px;
+  transform: ${({ isHover }) =>
+    isHover ? 'rotate(-90deg) scale(2)' : 'rotate(0) scale(1)'};
+  margin-bottom: ${({ isHover }) => (isHover ? '-10px' : '16px')};
+  opacity: ${({ isHover }) => (isHover ? '1' : '0.4')};
+`;
+
+export const SetupCoverText = styled.div<{ isHover: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins';
+  font-size: 12px;
+  color: white;
+  transition: transform 0.3s ease-in-out;
+  transform: ${({ isHover }) =>
+    isHover ? 'translateY(500%) translateX(10%)' : 'translateY(0)'};
 `;
 
 export const ProgressbarWrapper = styled.div`
@@ -44,6 +68,7 @@ export const Container = styled.div<
       : `url(${backgroundImage})`};
   cursor: pointer;
   position: relative;
+  overflow: hidden;
   ${width}
 `;
 
@@ -87,7 +112,7 @@ export const Type = styled.div<{ type: string; isHover: boolean }>`
   position: relative;
   right: 95%;
   opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   ${({ isHover }) =>
     isHover &&
     `
@@ -112,7 +137,7 @@ export const Expiring = styled.div<{
     return isHover ? 'translateX(0)' : 'translateX(40%)';
   }};
   opacity: ${({ isHover }) => (isHover ? 1 : 0)};
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 `;
 
 export const TimerContainer = styled.div<{ isHover: boolean }>`
@@ -254,7 +279,7 @@ export const WalletNameText = styled.div<{
   transition: ${({ disableAnimation }) =>
     disableAnimation
       ? 'none'
-      : 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out'};
+      : 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out'};
   transform: ${({ isHover, disableAnimation }) =>
     isHover && !disableAnimation ? 'translateX(0)' : 'translateX(15%)'};
   opacity: ${({ isHover, disableAnimation }) =>
@@ -281,7 +306,7 @@ export const TransitionTextWrapper = styled.div`
 
 export const TransitionText = styled.div<{ isHover: boolean }>`
   position: absolute;
-  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   opacity: ${props => (props.isHover ? 1 : 0)};
   transform: ${props =>
     props.isHover
@@ -294,7 +319,7 @@ export const TransitionText = styled.div<{ isHover: boolean }>`
 
 export const TransitionTextSubtitle = styled.div<{ isHover: boolean }>`
   position: absolute;
-  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   opacity: ${props => (props.isHover ? 1 : 0)};
   transform: ${props =>
     props.isHover
