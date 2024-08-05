@@ -88,6 +88,7 @@ export const Payment: FC<PaymentProps> = ({
           </Typography>
           <CouponInput
             isApplied={applied}
+            isInvalid={error}
             value={coupon}
             onApply={onApply}
             onDelete={onDelete}

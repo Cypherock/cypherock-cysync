@@ -44,9 +44,8 @@ export const Default: Story = {
 };
 
 export const Applied: Story = {
-  ...Default.args,
   args: {
-    lang,
+    ...Default.args,
     applied: true,
     year: 2,
     amount: '$100',
@@ -54,9 +53,8 @@ export const Applied: Story = {
 };
 
 export const Error: Story = {
-  ...Default.args,
   args: {
-    lang,
+    ...Default.args,
     error: true,
   },
 };
