@@ -814,6 +814,23 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditUserDetails: {
+    editDetails: {
+      title: string;
+      buttons: {
+        verifyEmail: string;
+      };
+    };
+    verifyOtp: {
+      loading: {
+        title: string;
+        subtext: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {

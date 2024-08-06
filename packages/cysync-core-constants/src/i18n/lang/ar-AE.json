@@ -1539,6 +1539,23 @@
       "success": {
         "title": "Reminders duration updated successfully"
       }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Edit Details",
+        "buttons": {
+          "verifyEmail": "Verify Email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtext": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Owner details successfully updated"
+      }
     }
   },
   "toggle": {
