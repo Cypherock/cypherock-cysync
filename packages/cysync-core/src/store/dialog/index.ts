@@ -102,7 +102,7 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritanceEditUserDetails: {
-    isOpen: true,
+    isOpen: false,
   },
 };
 

@@ -26,7 +26,7 @@ export const EditDetails = () => {
   const [alternateEmail, setAlternateEmail] = useState('');
 
   const strings = lang.strings.dialogs.inheritanceEditUserDetails.editDetails;
-  const { form } = lang.strings.inheritanceSilverPlanPurchase.email.userDetails;
+  const { form } = lang.strings.inheritance.dialog.userDetails;
 
   const formId = 'inheritance-edit-user-details';
 

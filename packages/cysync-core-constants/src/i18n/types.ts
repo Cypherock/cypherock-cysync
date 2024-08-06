@@ -904,6 +904,23 @@ interface LangInheritance {
     privacyPolicy: string;
     checkBoxLabel: string;
   };
+  dialog: {
+    userDetails: {
+      form: {
+        name: string;
+        email: string;
+        alternateEmail: string;
+      };
+    };
+    verifyOTP: {
+      primaryEmailOTP: {
+        title: string;
+      };
+      alternateEmailOTP: {
+        title: string;
+      };
+    };
+  };
 }
 
 interface LangInheritanceSilverPlanPurchase {
@@ -935,20 +952,9 @@ interface LangInheritanceSilverPlanPurchase {
     userDetails: {
       title: string;
       subTitle: string;
-      form: {
-        name: string;
-        email: string;
-        alternateEmail: string;
-      };
       buttons: {
         sendOTP: string;
       };
-    };
-    primaryEmailOTP: {
-      title: string;
-    };
-    alternateEmailOTP: {
-      title: string;
     };
   };
   encryption: {
