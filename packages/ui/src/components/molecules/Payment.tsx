@@ -28,7 +28,6 @@ export interface PaymentProps {
       };
       error: {
         errorHeading: string;
-        errorDescription: string;
       };
     };
   };
@@ -36,7 +35,8 @@ export interface PaymentProps {
   applied: boolean;
   year: number;
   amount: string;
-  error: boolean;
+  isError: boolean;
+  error: string;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -44,6 +44,7 @@ export const Payment: FC<PaymentProps> = ({
   applied,
   year,
   amount,
+  isError,
   error,
 }) => {
   const theme = useTheme();
@@ -88,7 +89,7 @@ export const Payment: FC<PaymentProps> = ({
           </Typography>
           <CouponInput
             isApplied={applied}
-            isInvalid={error}
+            isInvalid={isError}
             value={coupon}
             onApply={onApply}
             onDelete={onDelete}
@@ -98,56 +99,51 @@ export const Payment: FC<PaymentProps> = ({
             placeholderText={lang.payment.form.promoField.placeholder}
           />
         </Flex>
-        {(() => {
-          if (applied) {
-            return (
-              <Flex direction="column" gap={8}>
-                <Flex justify="space-between">
+        {applied && (
+          <Flex direction="column" gap={8}>
+            <Flex justify="space-between">
+              <Typography $fontSize={12} color="muted">
+                {lang.payment.noOfYear}
+              </Typography>
+              <Typography
+                $fontSize={12}
+              >{`${year} ${lang.payment.year}`}</Typography>
+            </Flex>
+            <Divider
+              variant="horizontal"
+              background={theme.palette.border.separator}
+            />
+            <Flex justify="space-between">
+              <Typography $fontSize={12} $fontWeight="bold" color="muted">
+                {lang.payment.total}
+              </Typography>
+              <Typography $fontSize={12} $fontWeight="bold" color="muted">
+                {amount}
+              </Typography>
+            </Flex>
+          </Flex>
+        )}
+        {isError && (
+          <Flex gap={16} direction="column">
+            <Divider
+              variant="horizontal"
+              background={theme.palette.border.separator}
+            />
+            <Flex gap={16} align="center">
+              <Image src={errorIcon} $width={25} $height={20} alt="error" />
+              <Flex direction="column">
+                <Typography $fontSize={14}>
+                  {lang.payment.error.errorHeading}
+                </Typography>
+                <Flex $maxHeight={50} align="flex-start" $overflowY="auto">
                   <Typography $fontSize={12} color="muted">
-                    {lang.payment.noOfYear}
-                  </Typography>
-                  <Typography
-                    $fontSize={12}
-                  >{`${year} ${lang.payment.year}`}</Typography>
-                </Flex>
-                <Divider
-                  variant="horizontal"
-                  background={theme.palette.border.separator}
-                />
-                <Flex justify="space-between">
-                  <Typography $fontSize={12} $fontWeight="bold" color="muted">
-                    {lang.payment.total}
-                  </Typography>
-                  <Typography $fontSize={12} $fontWeight="bold" color="muted">
-                    {amount}
+                    {error}
                   </Typography>
                 </Flex>
               </Flex>
-            );
-          }
-          if (error) {
-            return (
-              <Flex gap={16} direction="column">
-                <Divider
-                  variant="horizontal"
-                  background={theme.palette.border.separator}
-                />
-                <Flex gap={16} align="center">
-                  <Image src={errorIcon} $width={25} $height={20} alt="error" />
-                  <Flex direction="column">
-                    <Typography $fontSize={14}>
-                      {lang.payment.error.errorHeading}
-                    </Typography>
-                    <Typography $fontSize={12} color="muted">
-                      {lang.payment.error.errorDescription}
-                    </Typography>
-                  </Flex>
-                </Flex>
-              </Flex>
-            );
-          }
-          return null;
-        })()}
+            </Flex>
+          </Flex>
+        )}
       </Flex>
     </Container>
   );

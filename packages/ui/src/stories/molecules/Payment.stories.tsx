@@ -29,8 +29,6 @@ const lang = {
     year: 'year',
     error: {
       errorHeading: 'Invalid Coupon Code',
-      errorDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
   },
 };
@@ -39,7 +37,7 @@ export const Default: Story = {
   args: {
     lang,
     applied: false,
-    error: false,
+    isError: false,
   },
 };
 
@@ -55,6 +53,7 @@ export const Applied: Story = {
 export const Error: Story = {
   args: {
     ...Default.args,
-    error: true,
+    isError: true,
+    error: 'This coupon is invalid!This coupon is invalid!',
   },
 };
