@@ -76,7 +76,7 @@ export const OTPInputDialog: React.FC<
       setOtp(val);
 
       if (val.length === otpLength) {
-        onVerify(otp);
+        onVerify(val);
       }
     };
 

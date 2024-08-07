@@ -1,4 +1,3 @@
-import { sleep } from '@cypherock/cysync-utils';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
@@ -20,26 +19,28 @@ import {
 } from '~/store';
 
 import {
+  IOtpVerificationDetails,
+  IUserDetails,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
+import {
   DeviceEncryption,
   EncryptionLoader,
   EncryptionSuccess,
   Ensure,
+  FetchRequestId,
   Instructions,
   SelectWallet,
   Terms,
   UserDetails,
+  ValidateSignature,
   VerifyOTP,
   WalletAuth,
 } from '../Dialogs';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
-}
-
-export interface IUserDetails {
-  name: string;
-  email: string;
-  alternateEmail: string;
 }
 
 export interface InheritanceSilverPlanPurchaseDialogContextInterface {
@@ -54,11 +55,22 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   allWallets: IWalletWithDeleted[];
   selectedWallet?: IWalletWithDeleted;
   setSelectedWallet: (wallet: IWalletWithDeleted) => void;
-  onUserDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingUserDetails: boolean;
-  userDetails?: IUserDetails;
+  registerUser: (params: IUserDetails) => void;
+  isRegisteringUser: boolean;
   unhandledError?: any;
   onRetry: () => void;
+  retryIndex: number;
+  walletAuthDeviceEvents: Record<number, boolean | undefined>;
+  walletAuthFetchRequestId: () => void;
+  walletAuthIsFetchingRequestId: boolean;
+  walletAuthStart: () => void;
+  walletAuthAbort: () => void;
+  walletAuthIsValidatingSignature: boolean;
+  walletAuthValidateSignature: () => Promise<boolean>;
+  walletAuthStep: WalletAuthLoginStep;
+  otpVerificationDetails?: IOtpVerificationDetails;
+  verifyOtp: (otp: string) => Promise<boolean>;
+  isVerifyingOtp: boolean;
 }
 
 export const InheritanceSilverPlanPurchaseDialogContext: Context<InheritanceSilverPlanPurchaseDialogContextInterface> =
@@ -79,7 +91,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        3: [0],
+        3: [1],
       }),
       [],
     );
@@ -100,7 +112,11 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       },
       {
         name: lang.strings.inheritanceSilverPlanPurchase.walletAuth.heading,
-        dialogs: [<WalletAuth key="Wallet Auth" />],
+        dialogs: [
+          <FetchRequestId key="Fetch Request ID" />,
+          <WalletAuth key="Wallet Auth" />,
+          <ValidateSignature key="Validate Signature" />,
+        ],
       },
       {
         name: lang.strings.inheritanceSilverPlanPurchase.email.heading,
@@ -152,26 +168,59 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
-  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [retryIndex, setRetryIndex] = useState(0);
   const [unhandledError, setUnhandledError] = useState<any>();
 
-  const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
-    setIsSubmittingUserDetails(true);
-    setUserDetails(params);
-    await sleep(2000);
-    setIsSubmittingUserDetails(false);
-    goTo(4, 1);
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
   }, []);
 
+  const walletAuthService = useWalletAuth(onError);
+
+  const walletAuthFetchRequestId = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    walletAuthService.fetchRequestId(selectedWallet.__id);
+  }, [selectedWallet]);
+
+  const onRetryFuncMap = useMemo<Record<number, { func?: () => void }[]>>(
+    () => ({
+      3: [{}, {}, {}],
+    }),
+    [],
+  );
+
   const onRetry = useCallback(() => {
-    setUserDetails(undefined);
-    setSelectedWallet(undefined);
+    const retryLogic = onRetryFuncMap[currentTab][currentDialog];
+
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      if (retryLogic.func) {
+        retryLogic.func();
+      }
+    } else {
+      setSelectedWallet(undefined);
+      setRetryIndex(v => v + 1);
+      walletAuthService.reset();
+      goTo(0, 0);
+    }
+
     setUnhandledError(undefined);
-    setIsSubmittingUserDetails(false);
-    goTo(0, 0);
-  }, []);
+  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
+
+  const registerUser = useCallback(
+    async (params: IUserDetails) => {
+      const isSuccess = await walletAuthService.registerUser(params);
+
+      if (isSuccess) {
+        goTo(4, 1);
+      }
+    },
+    [walletAuthService.registerUser],
+  );
 
   const ctx = useMemo(
     () => ({
@@ -186,11 +235,23 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       allWallets,
       selectedWallet,
       setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
+      registerUser,
       unhandledError,
       onRetry,
+      retryIndex,
+      walletAuthDeviceEvents: walletAuthService.deviceEvents,
+      walletAuthFetchRequestId,
+      walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
+      walletAuthStart: walletAuthService.startWalletAuth,
+      walletAuthValidateSignature: walletAuthService.validateSignature,
+      walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
+      walletAuthStep: walletAuthService.currentStep,
+      walletAuthAbort: walletAuthService.abortWalletAuth,
+      onRegister: walletAuthService.registerUser,
+      isRegisteringUser: walletAuthService.isRegisteringUser,
+      otpVerificationDetails: walletAuthService.otpVerificationDetails,
+      verifyOtp: walletAuthService.verifyOtp,
+      isVerifyingOtp: walletAuthService.isVerifyingOtp,
     }),
     [
       onNext,
@@ -204,11 +265,22 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       allWallets,
       selectedWallet,
       setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
+      registerUser,
       unhandledError,
       onRetry,
+      retryIndex,
+      walletAuthService.deviceEvents,
+      walletAuthFetchRequestId,
+      walletAuthService.isFetchingRequestId,
+      walletAuthService.startWalletAuth,
+      walletAuthService.isValidatingSignature,
+      walletAuthService.currentStep,
+      walletAuthService.abortWalletAuth,
+      walletAuthService.registerUser,
+      walletAuthService.isRegisteringUser,
+      walletAuthService.otpVerificationDetails,
+      walletAuthService.verifyOtp,
+      walletAuthService.isVerifyingOtp,
     ],
   );
 

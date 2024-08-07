@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
@@ -14,8 +14,9 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../context';
-import { Layout } from '../Layout';
+import { WalletAuthLoginStep } from '../../../hooks';
+import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { Layout } from '../../Layout';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -26,18 +27,22 @@ export const WalletAuth = () => {
 
   const strings = lang.strings.inheritanceSilverPlanPurchase;
 
-  const { onNext, selectedWallet } = useInheritanceSilverPlanPurchaseDialog();
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onNext,
+    selectedWallet,
+    walletAuthDeviceEvents,
+    walletAuthStep,
+    walletAuthStart,
+    walletAuthAbort,
+    retryIndex,
+  } = useInheritanceSilverPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceWalletAuthDeviceEvent,
+    completedEvent: InheritanceWalletAuthDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (walletAuthDeviceEvents[completedEvent]) return checkIconComponent;
+    if (walletAuthDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -48,20 +53,29 @@ export const WalletAuth = () => {
         id: '1',
         text: strings.walletAuth.actions.tapCard,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.INIT,
+          InheritanceWalletAuthDeviceEvent.CARD_TAP,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
+    walletAuthStart();
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => {
+      walletAuthAbort();
+    };
+  }, [retryIndex]);
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.walletAuth) {
+      onNext();
+    }
+  }, [walletAuthStep]);
 
   return (
     <Layout>

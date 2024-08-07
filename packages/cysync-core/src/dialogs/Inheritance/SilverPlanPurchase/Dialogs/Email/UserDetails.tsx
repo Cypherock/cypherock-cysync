@@ -5,8 +5,9 @@ import {
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
@@ -21,22 +22,33 @@ export const UserDetails = () => {
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
 
-  const { onUserDetailsSubmit, onPrevious, isSubmittingUserDetails } =
-    useInheritanceSilverPlanPurchaseDialog();
+  const {
+    registerUser,
+    onPrevious,
+    onNext,
+    isRegisteringUser,
+    walletAuthStep,
+  } = useInheritanceSilverPlanPurchaseDialog();
 
   const formId = 'inheritance-silver-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isSubmittingUserDetails) return;
+    if (isRegisteringUser) return;
 
-    onUserDetailsSubmit({
+    registerUser({
       name,
       email,
       alternateEmail,
     });
   };
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.userDetails) {
+      onNext();
+    }
+  }, []);
 
   return (
     <Layout
@@ -45,7 +57,7 @@ export const UserDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
@@ -53,8 +65,8 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isSubmittingUserDetails}
-            isLoading={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
+            isLoading={isRegisteringUser}
           >
             <LangDisplay text={strings.buttons.sendOTP} />
           </Button>
@@ -91,7 +103,7 @@ export const UserDetails = () => {
               $fontSize: 12,
               $letterSpacing: 'unset',
             }}
-            disabled={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
           />
         </Container>
         <Container direction="row" $width="full" gap={24}>
@@ -109,7 +121,7 @@ export const UserDetails = () => {
               $fontSize: 12,
               $letterSpacing: 'unset',
             }}
-            disabled={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
           />
           <Input
             pasteAllowed
@@ -125,7 +137,7 @@ export const UserDetails = () => {
               $fontSize: 12,
               $letterSpacing: 'unset',
             }}
-            disabled={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
           />
         </Container>
       </form>

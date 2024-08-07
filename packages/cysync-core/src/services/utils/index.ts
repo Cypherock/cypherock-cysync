@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 export interface WithServerError<T> {
   error?: string;
@@ -26,4 +26,15 @@ export async function runAndHandleServerErrors<T>(
 
     throw error;
   }
+}
+
+export async function makePostRequest<T>(
+  schema: Zod.Schema<T>,
+  url: string,
+  data: any,
+  config?: AxiosRequestConfig,
+) {
+  const response = await axios.post(url, data, config);
+  const result = schema.parse(response.data);
+  return result;
 }
