@@ -94,6 +94,7 @@ export const Flex = styled.div<{ isHover: boolean }>`
   width: 45%;
   height: unset;
   padding: 8px 15px;
+  fill: #2a2827;
 `;
 
 export const Type = styled.div<{ type: string; isHover: boolean }>`
@@ -171,28 +172,22 @@ export const TimerHead = styled.div<{
   isHover: boolean;
   isExpired: boolean;
   paymentPending: boolean;
-  disableFontChange: boolean;
 }>`
   font-family: 'Poppins';
-  font-size: ${({ isHover, paymentPending, disableFontChange }) => {
-    if (isHover && paymentPending && !disableFontChange) {
-      return '16px';
-    }
-    return '10px';
-  }};
-  font-weight: ${({ isHover, isExpired, disableFontChange }) => {
-    if ((isExpired || isHover) && !disableFontChange) {
+  font-size: 10px;
+  font-weight: ${({ isHover, isExpired, paymentPending }) => {
+    if (isExpired || isHover || paymentPending) {
       return '700';
     }
     return '400';
   }};
   line-height: 16.5px;
   text-align: left;
-  color: ${({ isExpired, isHover, theme }) => {
+  color: ${({ isExpired, isHover, theme, paymentPending }) => {
     if (isExpired) {
       return theme.palette.warn.main;
     }
-    if (isHover) {
+    if (isHover || paymentPending) {
       return 'white';
     }
     return theme.palette.muted.main;
@@ -203,6 +198,7 @@ export const getColor = (
   isExpiring: boolean,
   isHover: boolean,
   isExpired: boolean,
+  paymentPending: boolean,
   theme: any,
 ) => {
   if (isExpiring && isHover) {
@@ -214,27 +210,33 @@ export const getColor = (
   if (isHover) {
     return theme.palette.muted.main;
   }
-  if (isExpired) {
+  if (isExpired || paymentPending) {
     return theme.palette.muted.main;
   }
   return 'white';
 };
 
-export const getFontWeight = (isHover: boolean, isExpired: boolean) =>
-  isHover || isExpired ? '400' : '700';
+export const getFontWeight = (
+  isHover: boolean,
+  isExpired: boolean,
+  paymentPending: boolean,
+) => (isHover || isExpired || paymentPending ? '400' : '700');
 
 export const TimerSubtitle = styled.div<{
   isHover: boolean;
   isExpiring: boolean;
   isExpired: boolean;
+  paymentPending: boolean;
 }>`
   font-family: 'Poppins';
   font-size: 10px;
-  font-weight: ${({ isHover, isExpired }) => getFontWeight(isHover, isExpired)};
+  font-weight: ${({ isHover, isExpired, paymentPending }) =>
+    getFontWeight(isHover, isExpired, paymentPending)};
   line-height: 18px;
   text-align: left;
-  color: ${({ isExpiring, isHover, isExpired, theme }) =>
-    getColor(isExpiring, isHover, isExpired, theme)};
+  text-transform: uppercase;
+  color: ${({ isExpiring, isHover, isExpired, paymentPending, theme }) =>
+    getColor(isExpiring, isHover, isExpired, paymentPending, theme)};
 `;
 
 export const getWalletNameColor = (

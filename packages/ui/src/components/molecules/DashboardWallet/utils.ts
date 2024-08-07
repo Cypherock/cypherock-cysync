@@ -6,6 +6,7 @@ import {
   expireHoverWalletIcon,
   goldHoverWalletIcon,
   WalletDefaultExpiredIcon,
+  WalletDefaultPendingIcon,
   dashWalletDefaultBgIcon,
 } from '../../../assets';
 
@@ -59,6 +60,7 @@ export const getBackgroundImage = (
   isExpired: boolean,
   type: string,
   isExpiring: boolean,
+  paymentPending: boolean,
 ) => {
   if (isHover) {
     if (isExpired) return WalletHoverExpiredIcon;
@@ -66,6 +68,7 @@ export const getBackgroundImage = (
     if (isExpiring) return expireHoverWalletIcon;
     return goldHoverWalletIcon;
   }
+  if (paymentPending) return WalletDefaultPendingIcon;
   if (isExpired) return WalletDefaultExpiredIcon;
   return dashWalletDefaultBgIcon;
 };
@@ -91,13 +94,14 @@ export const getPathColor = (
   isHover: boolean,
   isExpiring: boolean,
   isExpired: boolean,
+  paymentPending: boolean,
   theme: DefaultTheme,
   type: string,
 ) => {
   if (isHover && (isExpiring || isExpired)) {
     return theme.palette.warn.main;
   }
-  if (type === 'silver') {
+  if (type === 'silver' && !paymentPending) {
     return theme.palette.background.silver;
   }
   return theme.palette.background.golden;
@@ -115,19 +119,13 @@ export const getTimerHeadText = (
   isHover: boolean,
   isExpired: boolean,
   paymentPending: boolean,
-  expiryDate: string,
   lang: any,
 ) => {
-  if (isHover) {
-    return paymentPending
-      ? `${calculateDiffDays(expiryDate)}`
-      : lang.dashboard.wallet.created;
+  if (isHover || paymentPending) {
+    return lang.dashboard.wallet.created;
   }
   if (isExpired) {
     return lang.dashboard.wallet.expiredOn;
-  }
-  if (paymentPending) {
-    return lang.dashboard.wallet.expiresIn;
   }
   return lang.dashboard.wallet.expiry;
 };

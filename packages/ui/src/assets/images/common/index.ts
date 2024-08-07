@@ -79,6 +79,7 @@ import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
+import WalletDefaultPendingIcon from './wallet-default-pending.svg';
 import walletErrorIcon from './wallet-error.svg';
 import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
@@ -87,6 +88,7 @@ import warningIcon from './warning.svg';
 
 export {
   WalletDefaultExpiredIcon,
+  WalletDefaultPendingIcon,
   WalletHoverExpiredIcon,
   addWalletIcon,
   walletIcon,

@@ -29,8 +29,6 @@ import {
 import {
   calculateHoverText,
   getBackgroundImage,
-  getCurrentFullTime,
-  getCurrentTime,
   getExpiringText,
   getPathColor,
   getTimerHeadText,
@@ -125,7 +123,13 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   return (
     <Container
       isHover={isHover}
-      backgroundImage={getBackgroundImage(isHover, isExpired, type, isExpiring)}
+      backgroundImage={getBackgroundImage(
+        isHover,
+        isExpired,
+        type,
+        isExpiring,
+        paymentPending,
+      )}
       isNone={isNone}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -165,6 +169,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover,
                     isExpired,
                     isExpiring,
+                    paymentPending,
                     theme,
                     type,
                   ),
@@ -172,9 +177,10 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                   rotation: isHover
                     ? hoverProgress.rotation
                     : progress.rotation,
-                  pathTransition: isExpired
-                    ? 'none'
-                    : 'all 0.4s ease-in-out 0s',
+                  pathTransition:
+                    isExpired || paymentPending
+                      ? 'none'
+                      : 'all 0.4s ease-in-out 0s',
                 })}
               />
             </ProgressbarWrapper>
@@ -185,15 +191,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover={isHover}
                     isExpired={isExpired}
                     paymentPending={paymentPending}
-                    disableFontChange={false}
                   >
-                    {getTimerHeadText(
-                      isHover,
-                      isExpired,
-                      paymentPending,
-                      expiryDate,
-                      lang,
-                    )}
+                    {getTimerHeadText(isHover, isExpired, paymentPending, lang)}
                   </TimerHead>
                 </TransitionText>
                 <TransitionText isHover={!isHover}>
@@ -201,17 +200,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover={isHover}
                     isExpired={isExpired}
                     paymentPending={paymentPending}
-                    disableFontChange
                   >
-                    {(() => {
-                      if (isExpired) {
-                        return lang.dashboard.wallet.expiredOn;
-                      }
-                      if (paymentPending) {
-                        return lang.dashboard.wallet.expiresIn;
-                      }
-                      return lang.dashboard.wallet.expiry;
-                    })()}
+                    {getTimerHeadText(isHover, isExpired, paymentPending, lang)}
                   </TimerHead>
                 </TransitionText>
               </TransitionTextWrapper>
@@ -221,10 +211,9 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover={isHover}
                     isExpiring={isExpiring}
                     isExpired={isExpired}
+                    paymentPending={paymentPending}
                   >
-                    {paymentPending
-                      ? getCurrentFullTime()
-                      : format(new Date(startDate), 'dd MMM yyyy')}
+                    {format(new Date(startDate), 'dd MMM yyyy')}
                   </TimerSubtitle>
                 </TransitionTextSubtitle>
                 <TransitionTextSubtitle isHover={!isHover}>
@@ -232,17 +221,18 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover={isHover}
                     isExpiring={isExpiring}
                     isExpired={isExpired}
+                    paymentPending={paymentPending}
                   >
-                    {paymentPending
-                      ? `${getCurrentTime()} ${lang.dashboard.wallet.hours}`
-                      : format(new Date(expiryDate), 'dd MMM yyyy')}
+                    {format(new Date(expiryDate), 'dd MMM yyyy')}
                   </TimerSubtitle>
                 </TransitionTextSubtitle>
               </TransitionTextWrapper>
             </TimerText>
           </TimerContainer>
           {isExpired && <StyledExpiredPlanIcon />}
-          {paymentPending && <StyledExpiredClockIcon />}
+          {paymentPending && (
+            <StyledExpiredClockIcon fill={theme.palette.info.main} />
+          )}
           <WalletNameContainer
             isHover={isHover}
             isExpiring={isExpiring}
