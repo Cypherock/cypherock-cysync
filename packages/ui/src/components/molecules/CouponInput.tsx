@@ -15,7 +15,7 @@ const Container = styled.div<WidthProps>`
   ${width}
 `;
 
-const InputField = styled.input`
+const InputField = styled.input<{ isInvalid: boolean }>`
   display: flex;
   padding: 12px 16px;
   font-size: 14px;
@@ -38,11 +38,14 @@ const InputField = styled.input`
   }
   border-radius: 8px 0px 0px 8px;
 
-  border: 1px solid ${({ theme }) => theme.palette.border.separator};
+  border: 1px solid ${({ theme, isInvalid }) =>
+    isInvalid
+      ? theme.palette.background.danger
+      : theme.palette.border.separator};
   border-right: none;
 `;
 
-const ApplyButton = styled.button`
+const ApplyButton = styled.button<{ isInvalid: boolean }>`
   border-radius: 0px 8px 8px 0px;
   height: 45px;
   color: ${({ theme }) => theme.palette.text.muted};
@@ -50,12 +53,15 @@ const ApplyButton = styled.button`
   padding: 12px 16px;
   cursor: pointer;
   border: none;
-  border: 1px solid ${({ theme }) => theme.palette.border.separator};
-  border-color: transparent;
+  border: 1px solid
+    ${({ theme, isInvalid }) =>
+      isInvalid ? theme.palette.background.danger : 'transparent'};
+  border-left: none;
 `;
 
 export interface CouponInputProps extends WidthProps {
   isApplied: boolean;
+  isInvalid: boolean;
   value: string;
   onApply: () => void;
   onDelete: () => void;
@@ -67,6 +73,7 @@ export interface CouponInputProps extends WidthProps {
 
 export const CouponInput: React.FC<CouponInputProps> = ({
   isApplied,
+  isInvalid,
   value,
   onApply,
   onDelete,
@@ -85,8 +92,11 @@ export const CouponInput: React.FC<CouponInputProps> = ({
           type="text"
           name="coupon"
           onChange={event => onChange(event.target.value)}
+          isInvalid={isInvalid}
         />
-        <ApplyButton onClick={onApply}>{applyButtonText}</ApplyButton>
+        <ApplyButton onClick={onApply} isInvalid={isInvalid}>
+          {applyButtonText}
+        </ApplyButton>
       </>
     ) : (
       <Flex
