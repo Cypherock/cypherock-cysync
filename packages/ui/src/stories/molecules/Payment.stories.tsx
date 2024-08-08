@@ -38,6 +38,12 @@ export const Default: Story = {
     lang,
     applied: false,
     isError: false,
+    onApply: () => {
+      // Dummy functions
+    },
+    onDelete: () => {
+      // Dummy functions
+    },
   },
 };
 

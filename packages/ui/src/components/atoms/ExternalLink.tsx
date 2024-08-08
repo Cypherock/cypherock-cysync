@@ -19,6 +19,16 @@ export interface ExternalLinkProps extends UtilsProps {
   href: string;
 }
 
+const bgColorMap: Record<string, BgColor> = {
+  golden: 'golden',
+  disabled: 'slate',
+};
+
+const textColorMap: Record<string, TypographyColor> = {
+  golden: 'black',
+  disabled: 'disabled',
+};
+
 export const ExternalLink: React.FC<ExternalLinkProps> = ({
   type,
   icon,
@@ -27,14 +37,20 @@ export const ExternalLink: React.FC<ExternalLinkProps> = ({
   ...restProps
 }) => {
   const theme = useTheme();
+  const fillColorMap: Record<string, string> = {
+    golden: theme.palette.text.black,
+    disabled: theme.palette.text.disabled,
+    default: theme.palette.text.white,
+  };
+
   let bgColor: BgColor = 'input';
   let textColor: TypographyColor = 'heading';
-  if (type === 'golden') {
-    bgColor = 'golden';
-    textColor = 'black';
-  } else if (type === 'disabled') {
-    bgColor = 'slate';
-    textColor = 'disabled';
+  let fillColor = fillColorMap.default;
+
+  if (type) {
+    bgColor = bgColorMap[type] ?? 'input';
+    textColor = textColorMap[type] ?? 'heading';
+    fillColor = fillColorMap[type];
   }
 
   return (
@@ -60,33 +76,7 @@ export const ExternalLink: React.FC<ExternalLinkProps> = ({
           rel="noopener noreferrer"
           style={{ textDecoration: 'none' }}
         >
-          {(() => {
-            if (type === 'golden') {
-              return (
-                <OpenExternalLinkIcon
-                  height={12}
-                  width={12}
-                  fill={theme.palette.text.black}
-                />
-              );
-            }
-            if (type === 'disabled') {
-              return (
-                <OpenExternalLinkIcon
-                  fill={theme.palette.text.disabled}
-                  height={12}
-                  width={12}
-                />
-              );
-            }
-            return (
-              <OpenExternalLinkIcon
-                height={12}
-                width={12}
-                fill={theme.palette.text.white}
-              />
-            );
-          })()}
+          <OpenExternalLinkIcon height={12} width={12} fill={fillColor} />
         </a>
       </Flex>
     </Container>

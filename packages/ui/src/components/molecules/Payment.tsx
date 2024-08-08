@@ -31,12 +31,13 @@ export interface PaymentProps {
       };
     };
   };
-
   applied: boolean;
   year: number;
   amount: string;
   isError: boolean;
   error: string;
+  onApply: () => void;
+  onDelete: () => void;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -46,17 +47,11 @@ export const Payment: FC<PaymentProps> = ({
   amount,
   isError,
   error,
+  onApply,
+  onDelete,
 }) => {
   const theme = useTheme();
   const [coupon, setCoupon] = useState('');
-
-  const onApply = () => {
-    // TODO: implement this function
-  };
-
-  const onDelete = () => {
-    // TODO: implement this function
-  };
 
   return (
     <Container display="flex" direction="column" width="720px" gap={8}>
