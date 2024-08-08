@@ -21,6 +21,8 @@ import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
+import dashWalletDefaultBgIcon from './dash-wallet-default-bg-icon.svg';
+import dashWalletHoverBgIcon from './dash-wallet-hover-bg-icon.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
@@ -29,7 +31,9 @@ import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
+import expireHoverWalletIcon from './expire-hover-wallet-icon.svg';
 import { FailIcon } from './FailIcon';
+import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
 import goldSendIcon from './gold-send.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
@@ -74,11 +78,18 @@ import triangleGreyIcon from './triangleGrey.svg';
 import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
+import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
+import WalletDefaultPendingIcon from './wallet-default-pending.svg';
 import walletErrorIcon from './wallet-error.svg';
+import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
+import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 
 export {
+  WalletDefaultExpiredIcon,
+  WalletDefaultPendingIcon,
+  WalletHoverExpiredIcon,
   addWalletIcon,
   walletIcon,
   tetherIcon,
@@ -151,6 +162,11 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  goldHoverWalletIcon,
+  WalletHoverSilverBgIcon,
+  dashWalletDefaultBgIcon,
+  expireHoverWalletIcon,
+  dashWalletHoverBgIcon,
   bgClockIcon,
   oneInMany1Default,
   oneInMany1Hover,

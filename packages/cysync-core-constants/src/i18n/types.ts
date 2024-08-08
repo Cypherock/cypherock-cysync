@@ -7,6 +7,7 @@ export interface LanguageStrings {
   allWallets: string;
   labels: LangLabels;
   buttons: LangButtons;
+  dashboard: LangDashboard;
   tooltips: LangTooltips;
   deviceAuthentication: LangDeviceAuthentication;
   lockscreen: LangLockscreen;
@@ -86,6 +87,24 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+}
+
+interface LangDashboard {
+  wallet: {
+    renewNow: string;
+    buyNow: string;
+    created: string;
+    expiredOn: string;
+    expiresIn: string;
+    expiry: string;
+    expiring: string;
+    expired: string;
+    pendingTime: string;
+    silver: string;
+    gold: string;
+    hours: string;
+    setupCover: string;
+  };
 }
 
 interface LangTooltips {

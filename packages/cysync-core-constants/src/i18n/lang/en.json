@@ -48,6 +48,23 @@
     "resendOTP": "Resend OTP",
     "next": "Next"
   },
+  "dashboard": {
+    "wallet": {
+      "renewNow": "Renew Now",
+      "buyNow": "Buy Now",
+      "created": "Created",
+      "expiredOn": "Expired on",
+      "expiresIn": "Expires in",
+      "expiry": "Expiry",
+      "expiring": "Expiring",
+      "expired": "Expired",
+      "pendingTime": "05",
+      "silver": "Silver",
+      "gold": "Gold",
+      "hours": "Hours",
+      "setupCover": "Setup Cypherock Cover"
+    }
+  },
   "tooltips": {
     "downloadCsv": "Export as CSV"
   },
