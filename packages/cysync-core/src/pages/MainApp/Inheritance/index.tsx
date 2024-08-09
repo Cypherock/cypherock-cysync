@@ -8,7 +8,11 @@ export const Inheritance = () => {
 
   return (
     <MainAppLayout topbar={{ title: lang.strings.inheritance.title }}>
-      <InheritancePageLayout headingOnly lang={lang.strings.inheritance} />
+      <InheritancePageLayout
+        headingOnly
+        lang={lang.strings.inheritance}
+        actionButtonText={lang.strings.inheritance.buttons.syncPlans}
+      />
     </MainAppLayout>
   );
 };

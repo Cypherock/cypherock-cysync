@@ -1685,7 +1685,8 @@
       "title": "Choose a plan"
     },
     "buttons": {
-      "syncPlans": "Sync Plans"
+      "syncPlans": "Sync Plans",
+      "recoverPin": "Recover Pin"
     },
     "termsOfService": {
       "title": "Terms of Service",

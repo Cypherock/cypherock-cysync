@@ -908,6 +908,7 @@ interface LangInheritance {
   };
   buttons: {
     syncPlans: string;
+    recoverPin: string;
   };
   termsOfService: {
     title: string;

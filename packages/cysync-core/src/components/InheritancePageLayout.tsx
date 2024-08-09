@@ -18,10 +18,8 @@ interface InheritancePageLayoutProps {
     choosePlan: {
       title: string;
     };
-    buttons: {
-      syncPlans: string;
-    };
   };
+  actionButtonText?: string;
 }
 
 export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
@@ -30,6 +28,7 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
   headingOnly,
   lang,
   onClick,
+  actionButtonText,
 }) => (
   <Container
     $flex={1}
@@ -56,7 +55,7 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
           </Typography>
         </Flex>
       ) : (
-        <Button onClick={onClick}>{lang.buttons.syncPlans}</Button>
+        <Button onClick={onClick}>{actionButtonText}</Button>
       )}
     </Container>
     <Container $flex={1} px={5} pb={4}>
@@ -70,4 +69,5 @@ InheritancePageLayout.defaultProps = {
   headingOnly: undefined,
   breadcrumbs: undefined,
   onClick: undefined,
+  actionButtonText: undefined,
 };
