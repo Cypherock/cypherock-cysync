@@ -629,6 +629,7 @@
     "receiveCrypto": "استقبال العملات المشفرة",
     "history": "السجل",
     "walletConnect": "Wallet Connect",
+    "cypherockCover": "Cypherock Cover",
     "tutorial": "تعليمات",
     "settings": "الإعدادات",
     "help": "مساعدة",
@@ -1674,6 +1675,13 @@
     }
   },
   "inheritance": {
+    "title": "Cypherock Cover",
+    "choosePlan": {
+      "title": "Choose a plan"
+    },
+    "buttons": {
+      "syncPlans": "Sync Plans"
+    },
     "termsOfService": {
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",

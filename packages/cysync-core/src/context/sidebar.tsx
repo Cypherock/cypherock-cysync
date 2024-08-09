@@ -25,6 +25,7 @@ import {
 export type Page =
   | 'portfolio'
   | 'wallet'
+  | 'inheritance'
   | 'history'
   | 'settings'
   | 'help'
