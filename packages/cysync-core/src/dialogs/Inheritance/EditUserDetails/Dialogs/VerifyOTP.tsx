@@ -6,23 +6,28 @@ import {
 } from '~/dialogs/Inheritance/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { useInheritanceEditUserDetailsDialog } from '../context';
+import { LoaderDialog } from '~/components';
+import { sleep } from '@cypherock/sdk-utils';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance.dialog.verifyOTP;
 
   const { onClose, onPrevious, userDetails, onNext } =
-    useInheritanceSilverPlanPurchaseDialog();
+    useInheritanceEditUserDetailsDialog();
 
   const [email, setEmail] = useState(userDetails?.email ?? '');
   const [title, setTitle] = useState(strings.primaryEmailOTP.title);
+  const [loading, setLoading] = useState(false);
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
-  const onVerify = () => {
+  const onVerify = async () => {
     // DUMMY FUNCTION
     if (email === userDetails?.alternateEmail) {
+      setLoading(true);
+      await sleep(2000);
       onNext();
       return;
     }
@@ -42,6 +47,21 @@ export const VerifyOTP: React.FC = () => {
   );
   const otpLength = 6;
   const retriesRemaining = 3;
+
+  if (loading) {
+    return (
+      <LoaderDialog
+        title={
+          lang.strings.dialogs.inheritanceEditUserDetails.verifyOtp.loading
+            .title
+        }
+        subtext={
+          lang.strings.dialogs.inheritanceEditUserDetails.verifyOtp.loading
+            .subtext
+        }
+      />
+    );
+  }
 
   return (
     <OTPInputDialog

@@ -101,6 +101,9 @@ const initialState: IDialogState = {
   inheritanceEditReminderTime: {
     isOpen: false,
   },
+  inheritanceEditUserDetails: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

@@ -1561,6 +1561,23 @@
       "success": {
         "title": "Reminders duration updated successfully"
       }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Edit Details",
+        "buttons": {
+          "verifyEmail": "Verify Email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtext": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Owner details successfully updated"
+      }
     }
   },
   "toggle": {
@@ -1683,6 +1700,23 @@
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    },
+    "dialog": {
+      "userDetails": {
+        "form": {
+          "name": "Name",
+          "email": "Primary Email",
+          "alternateEmail": "Alternate Email"
+        }
+      },
+      "verifyOTP": {
+        "primaryEmailOTP": {
+          "title": "OTP Verification for primary email"
+        },
+        "alternateEmailOTP": {
+          "title": "OTP Verification for alternate email"
+        }
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {
@@ -1718,20 +1752,9 @@
       "userDetails": {
         "title": "User Details",
         "subTitle": "All the fields are mandatory",
-        "form": {
-          "name": "Name",
-          "email": "Primary Email",
-          "alternateEmail": "Alternate Email"
-        },
         "buttons": {
           "sendOTP": "Send OTP"
         }
-      },
-      "primaryEmailOTP": {
-        "title": "OTP Verification for primary email"
-      },
-      "alternateEmailOTP": {
-        "title": "OTP Verification for alternate email"
       }
     },
     "encryption": {

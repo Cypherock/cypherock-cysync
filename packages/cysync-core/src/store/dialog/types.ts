@@ -152,7 +152,13 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
   inheritanceEditReminderTime: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceEditUserDetails: {
     isOpen: boolean;
     data?: undefined;
   };

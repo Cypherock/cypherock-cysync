@@ -100,3 +100,6 @@ export const openInheritanceEditExecutorMessageDialog = () =>
 
 export const openInheritanceEditReminderTimeDialog = () =>
   openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
+
+export const openEditUserDetailsDialog = () =>
+  openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
