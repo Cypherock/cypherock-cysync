@@ -12,12 +12,7 @@ import React, {
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { closeDialog, useAppDispatch } from '~/store';
 
 import { WalletAuth, VerifyEmail, FetchData } from '../Dialogs';
 
@@ -60,7 +55,6 @@ export const InheritancePlanLoginDialogProvider: FC<
   InheritancePlanLoginDialogContextProviderProps
 > = ({ children }) => {
   const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -156,6 +150,7 @@ export const InheritancePlanLoginDialogProvider: FC<
         requestId: '',
         otp,
       });
+
       if (response.result) {
         if (response.result.otpExpiry) {
           setOtpExpireTime(response.result.otpExpiry);
@@ -174,7 +169,7 @@ export const InheritancePlanLoginDialogProvider: FC<
           setWrongOtpError(true);
         }
       } else {
-        setVerifyingEmailError(response.error ?? lang.strings.errors.default);
+        throw response.error;
       }
     } catch (error) {
       setUnhandledError(error);
@@ -196,7 +191,7 @@ export const InheritancePlanLoginDialogProvider: FC<
         setOtpExpireTime(response.result.otpExpiry);
         setRetriesRemaining(response.result.retriesRemaining);
       } else {
-        setResendOtpError(response.error ?? lang.strings.errors.default);
+        throw response.error;
       }
     } catch (error) {
       setUnhandledError(error);

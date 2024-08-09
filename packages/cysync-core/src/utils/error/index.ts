@@ -25,10 +25,13 @@ export * from './types';
 /**
  * Assuming we are using axios for server calls
  */
-const identifyServerErrors = (error: any) => {
+export const createServerErrorFromError = (
+  error: any,
+  type?: ServerErrorType,
+) => {
   if (error?.isAxiosError) {
     if (error.response) {
-      return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
+      return new ServerError(type ?? ServerErrorType.UNKNOWN_ERROR, undefined, {
         advanceText: error?.response?.data?.cysyncError,
         responseBody: error?.response?.data,
         url: error?.request?.url,
@@ -50,7 +53,7 @@ export const getParsedError = (params: {
 }): IParsedError => {
   const { error, lang, retries } = params;
 
-  const errorToParse = identifyServerErrors(error) ?? error;
+  const errorToParse = createServerErrorFromError(error) ?? error;
 
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;

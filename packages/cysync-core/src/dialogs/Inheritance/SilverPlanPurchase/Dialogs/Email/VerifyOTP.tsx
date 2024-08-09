@@ -85,6 +85,7 @@ export const VerifyOTP: React.FC = () => {
       otpExpireTime={otpExpireTime}
       isVerifyingEmail={isVerifyingOtp}
       isResendingOtp={false}
+      wrongOtpError={otpVerificationDetails.showIncorrectError}
       ref={otpRef}
     />
   );

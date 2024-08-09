@@ -14,12 +14,7 @@ import {
   inheritanceSyncPlansService,
   InheritanceSyncPlansStartResponse,
 } from '~/services';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { closeDialog, useAppDispatch } from '~/store';
 
 import { EnterEmail, VerifyEmail } from '../Dialogs';
 
@@ -65,7 +60,6 @@ export const InheritanceSyncPlansDialogProvider: FC<
   InheritanceSyncPlansDialogContextProviderProps
 > = ({ children }) => {
   const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
   const tabs: ITabs = [
@@ -128,7 +122,7 @@ export const InheritanceSyncPlansDialogProvider: FC<
         setStartResponse(response.result);
         goTo(1);
       } else {
-        setSendingEmailError(response.error ?? lang.strings.errors.default);
+        throw response.error;
       }
     } catch (error) {
       setUnhandledError(error);
@@ -192,7 +186,7 @@ export const InheritanceSyncPlansDialogProvider: FC<
             setWrongOtpError(true);
           }
         } else {
-          setVerifyingEmailError(response.error ?? lang.strings.errors.default);
+          throw response.error;
         }
       } catch (error) {
         setUnhandledError(error);
@@ -220,7 +214,7 @@ export const InheritanceSyncPlansDialogProvider: FC<
         setOtpExpireTime(response.result.otpExpiry);
         setRetriesRemaining(response.result.retriesRemaining);
       } else {
-        setResendOtpError(response.error ?? lang.strings.errors.default);
+        throw response.error;
       }
     } catch (error) {
       setUnhandledError(error);

@@ -1,4 +1,5 @@
 import { IInheritanceWalletAuthEvent } from '@cypherock/app-support-inheritance';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import lodash from 'lodash';
 import { useState, useRef, useCallback } from 'react';
 import { Subscription, Observer } from 'rxjs';
@@ -33,6 +34,7 @@ export interface IOtpVerificationDetails {
   email: string;
   retriesRemaining: number;
   otpExpiry: string;
+  showIncorrectError?: boolean;
 }
 
 export interface IWalletAuthTokens {
@@ -124,7 +126,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       const result = await inheritanceLoginService.init({ walletId });
 
       if (result.error) {
-        throw new Error('Server error');
+        throw result.error;
       }
 
       initResponse.current = result.result;
@@ -198,7 +200,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       });
 
       if (result.error) {
-        throw new Error('Server error');
+        throw result.error;
       }
 
       setCurrentStep(WalletAuthLoginStep.userDetails);
@@ -226,8 +228,8 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       alternateEmail: params.alternateEmail,
     });
 
-    if (result.error || !result.result) {
-      throw new Error('Server error');
+    if (result.error) {
+      throw result.error;
     }
 
     userDetails.current = params;
@@ -273,8 +275,22 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
           : InheritanceLoginEmailTypeMap.ALTERNATE,
     });
 
-    if (result.error || !result.result) {
-      throw new Error('Server error');
+    if (result.error) {
+      if (result.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
+        setOtpVerificationDetails({
+          ...otpVerificationDetailsRef.current,
+          showIncorrectError: true,
+          otpExpiry:
+            result.error.details?.responseBody.otpExpiry ??
+            otpVerificationDetailsRef.current.otpExpiry,
+          retriesRemaining:
+            result.error.details?.responseBody.retriesRemaining ??
+            otpVerificationDetailsRef.current.retriesRemaining,
+        });
+        return false;
+      }
+
+      throw result.error;
     }
 
     if (
