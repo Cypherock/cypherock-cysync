@@ -58,9 +58,9 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
         <Button onClick={onClick}>{actionButtonText}</Button>
       )}
     </Container>
-    <Container $flex={1} px={5} pb={4}>
+    <Flex $flex={1} width="100%" px={5} pb={4}>
       {children}
-    </Container>
+    </Flex>
   </Container>
 );
 

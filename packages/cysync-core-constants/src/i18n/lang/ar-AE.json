@@ -1683,6 +1683,18 @@
       "syncPlans": "Sync Plans",
       "recoverPin": "Recover Pin"
     },
+    "homePage": {
+      "headers": {
+        "owner": {
+          "title": "Owner",
+          "subtitle": "You have setup Cypherock cover for these wallets"
+        },
+        "nominee": {
+          "title": "Nominee",
+          "subtitle": "Somebody made you a nominee of their assets"
+        }
+      }
+    },
     "termsOfService": {
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",

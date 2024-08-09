@@ -910,6 +910,18 @@ interface LangInheritance {
     syncPlans: string;
     recoverPin: string;
   };
+  homePage: {
+    headers: {
+      owner: {
+        title: string;
+        subtitle: string;
+      };
+      nominee: {
+        title: string;
+        subtitle: string;
+      };
+    };
+  };
   termsOfService: {
     title: string;
     privacyPolicy: string;
