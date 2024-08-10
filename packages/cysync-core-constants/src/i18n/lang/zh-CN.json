@@ -629,6 +629,7 @@
     "receiveCrypto": "接收加密货币",
     "history": "历史",
     "walletConnect": "Wallet Connect",
+    "cypherockCover": "Cypherock Cover",
     "tutorial": "教程",
     "settings": "设置",
     "help": "Help",
@@ -1671,6 +1672,14 @@
     }
   },
   "inheritance": {
+    "title": "Cypherock Cover",
+    "choosePlan": {
+      "title": "Choose a plan"
+    },
+    "buttons": {
+      "syncPlans": "Sync Plans",
+      "recoverPin": "Recover Pin"
+    },
     "termsOfService": {
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",

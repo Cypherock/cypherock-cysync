@@ -503,6 +503,7 @@ interface LangSidebar {
   receiveCrypto: string;
   history: string;
   walletConnect: string;
+  cypherockCover: string;
   tutorial: string;
   settings: string;
   help: string;
@@ -918,6 +919,14 @@ interface LangOTP {
 }
 
 interface LangInheritance {
+  title: string;
+  choosePlan: {
+    title: string;
+  };
+  buttons: {
+    syncPlans: string;
+    recoverPin: string;
+  };
   termsOfService: {
     title: string;
     privacyPolicy: string;

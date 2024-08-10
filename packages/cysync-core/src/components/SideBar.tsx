@@ -3,6 +3,7 @@ import {
   ArrowReceivedIcon,
   ArrowSentIcon,
   Button,
+  CypherockCoverIcon,
   DropDownItemProps,
   Flex,
   FloatingMenu,
@@ -164,6 +165,12 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             onClick={() => {
               dispatch(openWalletConnectDialog());
             }}
+          />
+          <SideBarItem
+            text={strings.cypherockCover}
+            Icon={CypherockCoverIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
+            onClick={() => navigate('inheritance')}
           />
         </Flex>
         <Flex direction="column" gap={0}>

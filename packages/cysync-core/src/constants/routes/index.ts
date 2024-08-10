@@ -13,6 +13,10 @@ const rootRoutes = {
     name: 'wallet',
     path: '/wallet',
   },
+  inheritance: {
+    name: 'inheritance',
+    path: '/inheritance',
+  },
   asset: {
     name: 'asset',
     path: '/asset',
