@@ -35,7 +35,6 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
     m="20"
     $borderRadius={24}
     direction="column"
-    justify="space-between"
     shadow="popup"
   >
     <Container width="100%" justify="space-between" py={4} px={5}>
@@ -58,7 +57,7 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
         <Button onClick={onClick}>{actionButtonText}</Button>
       )}
     </Container>
-    <Flex $flex={1} width="100%" px={5} pb={4}>
+    <Flex $flex={1} px={5} pb={4} width="100%">
       {children}
     </Flex>
   </Container>

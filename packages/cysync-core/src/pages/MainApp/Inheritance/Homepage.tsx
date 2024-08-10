@@ -16,10 +16,10 @@ export const Homepage: FC<HomepageProps> = ({ lang }) => (
     <Flex direction="column" gap={24}>
       <Flex direction="column" gap={8}>
         <Typography variant="h6">
-          {lang.strings.inheritance.homePage.headers.title.owner}
+          {lang.strings.inheritance.homePage.headers.owner.title}
         </Typography>
         <Typography variant="p" color="muted" $fontSize={14}>
-          {lang.strings.inheritance.homePage.headers.subtitle.owner}
+          {lang.strings.inheritance.homePage.headers.owner.subtitle}
         </Typography>
       </Flex>
       <Flex gap={16} $flex={1} width="100%" $flexWrap="wrap">
@@ -62,10 +62,10 @@ export const Homepage: FC<HomepageProps> = ({ lang }) => (
     <Flex direction="column" gap={24}>
       <Flex direction="column" gap={8}>
         <Typography variant="h6">
-          {lang.strings.inheritance.homePage.headers.title.nominee}
+          {lang.strings.inheritance.homePage.headers.nominee.title}
         </Typography>
         <Typography variant="p" color="muted" $fontSize={14}>
-          {lang.strings.inheritance.homePage.headers.subtitle.nominee}
+          {lang.strings.inheritance.homePage.headers.nominee.subtitle}
         </Typography>
       </Flex>
       <Flex gap={16} $flex={1} width="100%" $flexWrap="wrap">

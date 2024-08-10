@@ -507,6 +507,7 @@ interface LangSidebar {
   tutorial: string;
   settings: string;
   help: string;
+  new: string;
   tooltip: { walletDeleted: string };
 }
 

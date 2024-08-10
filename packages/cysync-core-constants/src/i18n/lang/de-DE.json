@@ -635,6 +635,7 @@
     "tutorial": "Anleitung",
     "settings": "Einstellungen",
     "help": "Help",
+    "new": "New",
     "tooltip": {
       "walletDeleted": "${walletName} wurde aus deinem Cypherock X1 Vault gelöscht"
     }
