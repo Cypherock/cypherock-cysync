@@ -51,14 +51,17 @@ export const registerVerifyResultSchema = z.object({
   refreshToken: z.string().optional(),
 });
 
+export const verifyResultSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+});
+
 export const registerResultSchema = z.object({
   otpDetails: z.array(otpDetailSchema),
 });
 
-export const verifyResultSchema = z.object({
-  isSuccess: z.boolean(),
-  retriesRemaining: z.number().optional(),
-  otpExpiry: z.string().datetime().optional(),
+export const refreshAccessTokenResultSchema = z.object({
+  accessToken: z.string(),
 });
 
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
@@ -72,4 +75,7 @@ export type InheritanceLoginValidateResponse = z.infer<
 >;
 export type InheritanceLoginRegisterResponse = z.infer<
   typeof registerResultSchema
+>;
+export type InheritanceLoginRefreshAccessTokenResponse = z.infer<
+  typeof refreshAccessTokenResultSchema
 >;

@@ -1,3 +1,4 @@
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import { sleep } from '@cypherock/cysync-utils';
 import React, {
   Context,
@@ -152,22 +153,23 @@ export const InheritancePlanLoginDialogProvider: FC<
       });
 
       if (response.result) {
-        if (response.result.otpExpiry) {
-          setOtpExpireTime(response.result.otpExpiry);
+        goTo(2);
+        fetchPlanData();
+      } else if (
+        response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED
+      ) {
+        if (
+          response.error.details?.responseBody?.retriesRemaining !== undefined
+        ) {
+          setRetriesRemaining(
+            response.error.details.responseBody?.retriesRemaining,
+          );
+        }
+        if (response.error.details?.responseBody?.otpExpiry !== undefined) {
+          setOtpExpireTime(response.error.details.responseBody?.otpExpiry);
         }
 
-        if (response.result.retriesRemaining !== undefined) {
-          setRetriesRemaining(response.result.retriesRemaining);
-        }
-
-        if (response.result.isSuccess) {
-          goTo(2);
-          fetchPlanData();
-        }
-
-        if (!response.result.isSuccess) {
-          setWrongOtpError(true);
-        }
+        setWrongOtpError(true);
       } else {
         throw response.error;
       }

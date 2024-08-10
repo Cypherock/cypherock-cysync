@@ -93,7 +93,7 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritanceSilverPlanPurchase: {
-    isOpen: true,
+    isOpen: false,
   },
   inheritanceEditExecutorMessage: {
     isOpen: false,

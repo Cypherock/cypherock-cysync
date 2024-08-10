@@ -35,6 +35,7 @@ export const WalletAuth = () => {
     walletAuthStart,
     walletAuthAbort,
     retryIndex,
+    clearErrors,
   } = useInheritanceSilverPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
@@ -64,12 +65,13 @@ export const WalletAuth = () => {
   }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
+    clearErrors();
     walletAuthStart();
 
     return () => {
       walletAuthAbort();
     };
-  }, [retryIndex]);
+  }, [retryIndex, clearErrors]);
 
   useEffect(() => {
     if (walletAuthStep > WalletAuthLoginStep.walletAuth) {

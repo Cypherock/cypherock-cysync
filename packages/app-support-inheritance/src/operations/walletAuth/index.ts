@@ -56,7 +56,7 @@ export const walletAuth = (
         const { publicKey, signature } = await app.authWallet({
           walletId: hexToUint8Array(walletId),
           challenge: hexToUint8Array(challenge),
-          isPublickey: isPublicKey,
+          isPublicKey,
           onEvent: event => {
             const deviceEvent = walletAuthToDeviceEventMap[event];
             if (deviceEvent !== undefined) {

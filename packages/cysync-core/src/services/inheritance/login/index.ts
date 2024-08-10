@@ -8,6 +8,7 @@ import {
   registerResultSchema,
   InheritanceLoginEmailType,
   verifyResultSchema,
+  refreshAccessTokenResultSchema,
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
@@ -21,6 +22,7 @@ export {
   type InheritanceLoginRegisterResponse,
   type InheritanceLoginEmailType,
   type InheritanceLoginVerifyResponse,
+  type InheritanceLoginRefreshAccessTokenResponse,
   InheritanceLoginEmailTypeMap,
   InheritanceLoginConcernMap,
 } from './schema';
@@ -71,7 +73,19 @@ const registerVerify = async (params: {
 
 const verify = async (params: { requestId: string; otp: string }) =>
   runAndHandleServerErrors(() =>
-    makePostRequest(verifyResultSchema, `${baseUrl}/verify`, params),
+    makePostRequest(verifyResultSchema, `${baseUrl}/login`, {
+      requestId: params.requestId,
+      challenge: params.otp,
+    }),
+  );
+
+const refreshAccessToken = async (params: { refreshToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      refreshAccessTokenResultSchema,
+      `${baseUrl}/refresh-token`,
+      params,
+    ),
   );
 
 export const inheritanceLoginService = {
@@ -81,4 +95,5 @@ export const inheritanceLoginService = {
   registerVerify,
   validate,
   register,
+  refreshAccessToken,
 };

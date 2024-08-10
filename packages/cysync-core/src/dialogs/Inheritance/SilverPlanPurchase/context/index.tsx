@@ -60,6 +60,7 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   unhandledError?: any;
   onRetry: () => void;
   retryIndex: number;
+  clearErrors: () => void;
   walletAuthDeviceEvents: Record<number, boolean | undefined>;
   walletAuthFetchRequestId: () => void;
   walletAuthIsFetchingRequestId: boolean;
@@ -81,6 +82,51 @@ export const InheritanceSilverPlanPurchaseDialogContext: Context<InheritanceSilv
 export interface InheritanceSilverPlanPurchaseDialogContextProviderProps {
   children: ReactNode;
 }
+
+const tabIndicies = {
+  terms: {
+    tabNumber: 0,
+    dialogs: {
+      terms: 0,
+      ensure: 1,
+    },
+  },
+  instructions: {
+    tabNumber: 1,
+    dialogs: {
+      instructions: 0,
+    },
+  },
+  selectWallet: {
+    tabNumber: 2,
+    dialogs: {
+      selectWallet: 0,
+    },
+  },
+  walletAuth: {
+    tabNumber: 3,
+    dialogs: {
+      fetchRequestId: 0,
+      walletAuth: 1,
+      validateSignature: 2,
+    },
+  },
+  email: {
+    tabNumber: 4,
+    dialogs: {
+      userDetails: 0,
+      verifyOtp: 1,
+    },
+  },
+  encryption: {
+    tabNumber: 5,
+    dialogs: {
+      deviceEncryption: 0,
+      encryptionLoader: 1,
+      encryptionSuccess: 2,
+    },
+  },
+};
 
 export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   InheritanceSilverPlanPurchaseDialogContextProviderProps
@@ -176,6 +222,10 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setUnhandledError(e);
   }, []);
 
+  const clearErrors = useCallback(() => {
+    setUnhandledError(undefined);
+  }, []);
+
   const walletAuthService = useWalletAuth(onError);
 
   const walletAuthFetchRequestId = useCallback(() => {
@@ -186,21 +236,25 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     walletAuthService.fetchRequestId(selectedWallet.__id);
   }, [selectedWallet]);
 
-  const onRetryFuncMap = useMemo<Record<number, { func?: () => void }[]>>(
+  const onRetryFuncMap = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
     () => ({
-      3: [{}, {}, {}],
+      [tabIndicies.walletAuth.tabNumber]: {
+        [tabIndicies.walletAuth.dialogs.fetchRequestId]: () => true,
+        [tabIndicies.walletAuth.dialogs.walletAuth]: () => true,
+        [tabIndicies.walletAuth.dialogs.validateSignature]: () => true,
+      },
     }),
     [],
   );
 
   const onRetry = useCallback(() => {
-    const retryLogic = onRetryFuncMap[currentTab][currentDialog];
+    const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
 
     if (retryLogic) {
       setRetryIndex(v => v + 1);
-      if (retryLogic.func) {
-        retryLogic.func();
-      }
+      retryLogic();
     } else {
       setSelectedWallet(undefined);
       setRetryIndex(v => v + 1);
@@ -216,15 +270,61 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       const isSuccess = await walletAuthService.registerUser(params);
 
       if (isSuccess) {
-        goTo(4, 1);
+        goTo(tabIndicies.email.tabNumber, tabIndicies.email.dialogs.verifyOtp);
       }
     },
     [walletAuthService.registerUser],
   );
 
+  const onNextActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.walletAuth.tabNumber]: {
+        [tabIndicies.walletAuth.dialogs.fetchRequestId]: () => {
+          if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
+            goTo(
+              tabIndicies.encryption.tabNumber,
+              tabIndicies.encryption.dialogs.deviceEncryption,
+            );
+            return true;
+          }
+
+          return false;
+        },
+        [tabIndicies.walletAuth.dialogs.validateSignature]: () => {
+          if (!walletAuthService.isRegisteringUser) {
+            goTo(
+              tabIndicies.email.tabNumber,
+              tabIndicies.email.dialogs.verifyOtp,
+            );
+            return true;
+          }
+
+          return false;
+        },
+      },
+    }),
+    [walletAuthService.isRegisteringUser, walletAuthService.currentStep],
+  );
+
+  const onNextCallback = useCallback(() => {
+    const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doNext = true;
+
+    if (action) {
+      doNext = !action();
+    }
+
+    if (doNext) {
+      onNext();
+    }
+  }, [onNext, currentTab, currentDialog]);
+
   const ctx = useMemo(
     () => ({
-      onNext,
+      onNext: onNextCallback,
       onPrevious,
       tabs,
       onClose,
@@ -239,6 +339,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       unhandledError,
       onRetry,
       retryIndex,
+      clearErrors,
       walletAuthDeviceEvents: walletAuthService.deviceEvents,
       walletAuthFetchRequestId,
       walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
@@ -254,7 +355,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       isVerifyingOtp: walletAuthService.isVerifyingOtp,
     }),
     [
-      onNext,
+      onNextCallback,
       onPrevious,
       tabs,
       onClose,
@@ -269,6 +370,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       unhandledError,
       onRetry,
       retryIndex,
+      clearErrors,
       walletAuthService.deviceEvents,
       walletAuthFetchRequestId,
       walletAuthService.isFetchingRequestId,

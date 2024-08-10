@@ -13,6 +13,13 @@ import {
   InheritanceLoginRegisterResponse,
   inheritanceLoginService,
 } from '~/services';
+import { ServerResponseWithError } from '~/services/utils';
+import {
+  IWalletAuthTokens,
+  updateWalletAuthTokens,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import { inheritanceSupport } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -37,11 +44,6 @@ export interface IOtpVerificationDetails {
   showIncorrectError?: boolean;
 }
 
-export interface IWalletAuthTokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export const WalletAuthLoginStep = {
   fetchRequestId: 0,
   walletAuth: 1,
@@ -58,6 +60,12 @@ export type WalletAuthLoginStep =
 
 export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const { connection } = useDevice();
+  const dispatch = useAppDispatch();
+
+  const authTokensPerWallet = useAppSelector(
+    state => state.inheritance.walletAuthTokens,
+  );
+
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
@@ -66,7 +74,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   );
 
   const flowSubscription = useRef<Subscription | undefined>();
-  const walletRef = useRef<string | undefined>();
+  const walletIdRef = useRef<string | undefined>();
   const initResponse = useRef<InheritanceLoginInitResponse | undefined>();
   const registerResponse = useRef<
     InheritanceLoginRegisterResponse | undefined
@@ -77,6 +85,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     setOtpVerificationDetails,
     otpVerificationDetailsRef,
   ] = useStateWithRef<IOtpVerificationDetails | undefined>(undefined);
+  const [isRegisterationRequired, setIsRegisterationRequired] = useState(false);
   const deviceResponse = useRef<
     { publicKey?: string; signature: string } | undefined
   >();
@@ -91,10 +100,15 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     }
   }, []);
 
-  const onError = useCallback((e?: any) => {
-    cleanUp();
-    onErrorCallback(e);
-  }, []);
+  const onError = useCallback(
+    (e?: any) => {
+      logger.error('Error on wallet auth flow');
+      logger.error(e);
+      cleanUp();
+      onErrorCallback(e);
+    },
+    [onErrorCallback, cleanUp],
+  );
 
   const getFlowObserver = useCallback(
     (onEnd: () => void): Observer<IInheritanceWalletAuthEvent> => ({
@@ -117,28 +131,70 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
         onEnd();
       },
     }),
-    [],
+    [onError],
   );
 
-  const fetchRequestIdCallback = useCallback(async (walletId: string) => {
-    try {
-      walletRef.current = walletId;
-      const result = await inheritanceLoginService.init({ walletId });
+  const onLogin = useCallback(
+    (accessToken: string, refreshToken: string) => {
+      if (!walletIdRef.current) return;
 
-      if (result.error) {
-        throw result.error;
+      dispatch(
+        updateWalletAuthTokens({
+          walletId: walletIdRef.current,
+          authTokens: { accessToken, refreshToken },
+        }),
+      );
+      setAuthTokens({ accessToken, refreshToken });
+      setCurrentStep(WalletAuthLoginStep.completed);
+    },
+    [dispatch],
+  );
+
+  const fetchRequestIdCallback = useCallback(
+    async (walletId: string) => {
+      try {
+        walletIdRef.current = walletId;
+
+        const existingTokens = authTokensPerWallet[walletId];
+        if (existingTokens) {
+          const result = await inheritanceLoginService.refreshAccessToken({
+            refreshToken: existingTokens.refreshToken,
+          });
+
+          const isLoggedOut =
+            result.error?.code === ServerErrorType.UNAUTHORIZED_ACCESS;
+
+          if (result.result) {
+            onLogin(result.result.accessToken, existingTokens.refreshToken);
+            return true;
+          }
+
+          if (!isLoggedOut) {
+            throw result.error;
+          }
+        }
+
+        const result = await inheritanceLoginService.init({ walletId });
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        initResponse.current = result.result;
+        setIsRegisterationRequired(
+          result.result.concern === InheritanceLoginConcernMap.REGISTER,
+        );
+
+        setCurrentStep(WalletAuthLoginStep.walletAuth);
+        return true;
+      } catch (error) {
+        onError(error);
+
+        return false;
       }
-
-      initResponse.current = result.result;
-
-      setCurrentStep(WalletAuthLoginStep.walletAuth);
-      return true;
-    } catch (error) {
-      onError(error);
-
-      return false;
-    }
-  }, []);
+    },
+    [authTokensPerWallet, onLogin],
+  );
 
   const [fetchRequestId, isFetchingRequestId] = useAsync(
     fetchRequestIdCallback,
@@ -149,7 +205,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
 
     if (
       !connection?.connection ||
-      !walletRef.current ||
+      !walletIdRef.current ||
       !initResponse.current
     ) {
       return;
@@ -171,7 +227,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       flowSubscription.current = inheritanceSupport
         .walletAuth({
           connection: deviceConnection,
-          walletId: walletRef.current,
+          walletId: walletIdRef.current,
           challenge: initResponse.current.challenge,
           isPublicKey:
             initResponse.current.concern ===
@@ -186,7 +242,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const validateSignatureCallback = useCallback(async () => {
     try {
       if (
-        !walletRef.current ||
+        !walletIdRef.current ||
         !initResponse.current ||
         !deviceResponse.current
       ) {
@@ -203,7 +259,17 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
         throw result.error;
       }
 
-      setCurrentStep(WalletAuthLoginStep.userDetails);
+      if (result.result.otpDetails) {
+        setOtpVerificationDetails({
+          id: 'emailVerificationOnLogin',
+          concern: OtpVerificationConcern.login,
+          email: result.result.otpDetails[0].maskedEmail,
+          ...result.result.otpDetails[0],
+        });
+        setCurrentStep(WalletAuthLoginStep.loginOtpVerify);
+      } else {
+        setCurrentStep(WalletAuthLoginStep.userDetails);
+      }
       return true;
     } catch (error) {
       onError(error);
@@ -250,85 +316,105 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     onError,
   );
 
-  const onVerifyOtpCallback = useCallback(async (otp: string) => {
-    if (!initResponse.current || !otpVerificationDetailsRef.current) {
-      return false;
-    }
-
-    if (
-      otpVerificationDetailsRef.current.concern === OtpVerificationConcern.login
-    ) {
-      throw new Error('Not implemented');
-    }
-
-    if (!registerResponse.current || !userDetails.current) {
-      return false;
-    }
-
-    const result = await inheritanceLoginService.registerVerify({
-      requestId: initResponse.current.requestId,
-      otp,
-      emailType:
-        otpVerificationDetailsRef.current.concern ===
-        OtpVerificationConcern.primary
-          ? InheritanceLoginEmailTypeMap.PRIMARY
-          : InheritanceLoginEmailTypeMap.ALTERNATE,
-    });
-
-    if (result.error) {
-      if (result.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
-        setOtpVerificationDetails({
-          ...otpVerificationDetailsRef.current,
-          showIncorrectError: true,
-          otpExpiry:
-            result.error.details?.responseBody.otpExpiry ??
-            otpVerificationDetailsRef.current.otpExpiry,
-          retriesRemaining:
-            result.error.details?.responseBody.retriesRemaining ??
-            otpVerificationDetailsRef.current.retriesRemaining,
-        });
+  const onVerifyOtpCallback = useCallback(
+    async (otp: string) => {
+      if (
+        !walletIdRef.current ||
+        !initResponse.current ||
+        !otpVerificationDetailsRef.current
+      ) {
         return false;
       }
 
-      throw result.error;
-    }
+      let result:
+        | ServerResponseWithError<{
+            accessToken?: string;
+            refreshToken?: string;
+          }>
+        | undefined;
 
-    if (
-      otpVerificationDetailsRef.current.concern ===
-      OtpVerificationConcern.primary
-    ) {
-      setOtpVerificationDetails({
-        id: 'alternateVerificationOnRegister',
-        concern: OtpVerificationConcern.alternate,
-        email: userDetails.current.alternateEmail ?? '',
-        ...registerResponse.current.otpDetails[1],
-      });
+      if (
+        otpVerificationDetailsRef.current.concern ===
+        OtpVerificationConcern.login
+      ) {
+        result = await inheritanceLoginService.verify({
+          requestId: initResponse.current.requestId,
+          otp,
+        });
+      } else {
+        if (!registerResponse.current || !userDetails.current) {
+          return false;
+        }
 
-      setCurrentStep(WalletAuthLoginStep.alternateOtpVerify);
-    } else {
-      if (!result.result.accessToken || !result.result.refreshToken) {
-        throw new Error('Server error');
+        result = await inheritanceLoginService.registerVerify({
+          requestId: initResponse.current.requestId,
+          otp,
+          emailType:
+            otpVerificationDetailsRef.current.concern ===
+            OtpVerificationConcern.primary
+              ? InheritanceLoginEmailTypeMap.PRIMARY
+              : InheritanceLoginEmailTypeMap.ALTERNATE,
+        });
       }
 
-      setOtpVerificationDetails(undefined);
-      setAuthTokens({
-        accessToken: result.result.accessToken,
-        refreshToken: result.result.refreshToken,
-      });
-      setCurrentStep(WalletAuthLoginStep.completed);
-    }
+      if (result.error) {
+        if (result.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
+          setOtpVerificationDetails({
+            ...otpVerificationDetailsRef.current,
+            showIncorrectError: true,
+            otpExpiry:
+              result.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetailsRef.current.otpExpiry,
+            retriesRemaining:
+              result.error.details?.responseBody.retriesRemaining ??
+              otpVerificationDetailsRef.current.retriesRemaining,
+          });
+          return false;
+        }
 
-    return true;
-  }, []);
+        throw result.error;
+      }
+
+      if (
+        otpVerificationDetailsRef.current.concern ===
+        OtpVerificationConcern.primary
+      ) {
+        if (!registerResponse.current || !userDetails.current) {
+          return false;
+        }
+
+        setOtpVerificationDetails({
+          id: 'alternateVerificationOnRegister',
+          concern: OtpVerificationConcern.alternate,
+          email: userDetails.current.alternateEmail,
+          ...registerResponse.current.otpDetails[1],
+        });
+
+        setCurrentStep(WalletAuthLoginStep.alternateOtpVerify);
+      } else {
+        if (!result.result.accessToken || !result.result.refreshToken) {
+          throw new Error('Server error');
+        }
+
+        setOtpVerificationDetails(undefined);
+        onLogin(result.result.accessToken, result.result.refreshToken);
+      }
+
+      return true;
+    },
+    [onLogin],
+  );
 
   const [verifyOtp, isVerifyingOtp] = useAsync(onVerifyOtpCallback, onError);
 
   const reset = useCallback(() => {
-    walletRef.current = undefined;
+    walletIdRef.current = undefined;
     initResponse.current = undefined;
     deviceResponse.current = undefined;
     userDetails.current = undefined;
     registerResponse.current = undefined;
+    setIsRegisterationRequired(false);
+    setAuthTokens(undefined);
     setDeviceEvents({});
     setOtpVerificationDetails(undefined);
     cleanUp();
@@ -351,5 +437,6 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     authTokens,
     verifyOtp,
     isVerifyingOtp,
+    isRegisterationRequired,
   };
 };
