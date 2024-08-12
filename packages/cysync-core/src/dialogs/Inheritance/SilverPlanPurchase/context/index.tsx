@@ -10,7 +10,8 @@ import React, {
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useAsync, useTabsAndDialogs } from '~/hooks';
+import { inheritancePlanService } from '~/services';
 import {
   closeDialog,
   selectLanguage,
@@ -19,8 +20,13 @@ import {
 } from '~/store';
 
 import {
-  IOtpVerificationDetails,
+  InheritanceSilverPlanPurchaseDialogContextInterface,
+  IWalletWithDeleted,
+} from './types';
+
+import {
   IUserDetails,
+  useEncryptMessage,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
@@ -39,40 +45,7 @@ import {
   WalletAuth,
 } from '../Dialogs';
 
-export interface IWalletWithDeleted extends IWallet {
-  isDeleted?: boolean;
-}
-
-export interface InheritanceSilverPlanPurchaseDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  onClose: () => void;
-  allWallets: IWalletWithDeleted[];
-  selectedWallet?: IWalletWithDeleted;
-  setSelectedWallet: (wallet: IWalletWithDeleted) => void;
-  registerUser: (params: IUserDetails) => void;
-  isRegisteringUser: boolean;
-  unhandledError?: any;
-  onRetry: () => void;
-  retryIndex: number;
-  clearErrors: () => void;
-  walletAuthDeviceEvents: Record<number, boolean | undefined>;
-  walletAuthFetchRequestId: () => void;
-  walletAuthIsFetchingRequestId: boolean;
-  walletAuthStart: () => void;
-  walletAuthAbort: () => void;
-  walletAuthIsValidatingSignature: boolean;
-  walletAuthValidateSignature: () => Promise<boolean>;
-  walletAuthStep: WalletAuthLoginStep;
-  otpVerificationDetails?: IOtpVerificationDetails;
-  verifyOtp: (otp: string) => Promise<boolean>;
-  isVerifyingOtp: boolean;
-}
+export * from './types';
 
 export const InheritanceSilverPlanPurchaseDialogContext: Context<InheritanceSilverPlanPurchaseDialogContextInterface> =
   createContext<InheritanceSilverPlanPurchaseDialogContextInterface>(
@@ -227,6 +200,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   }, []);
 
   const walletAuthService = useWalletAuth(onError);
+  const encryptMessageService = useEncryptMessage(onError);
 
   const walletAuthFetchRequestId = useCallback(() => {
     if (!selectedWallet?.__id) {
@@ -234,7 +208,16 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     }
 
     walletAuthService.fetchRequestId(selectedWallet.__id);
-  }, [selectedWallet]);
+  }, [selectedWallet, walletAuthService.fetchRequestId]);
+
+  const encryptPinStart = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    // TODO: Remove hard coded message when empty encryption is implemented on device
+    encryptMessageService.start(selectedWallet.__id, ['Delete me!']);
+  }, [selectedWallet, encryptMessageService.start]);
 
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -245,9 +228,48 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         [tabIndicies.walletAuth.dialogs.walletAuth]: () => true,
         [tabIndicies.walletAuth.dialogs.validateSignature]: () => true,
       },
+      [tabIndicies.encryption.tabNumber]: {
+        [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
+        [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
+      },
     }),
     [],
   );
+
+  const setupPlanHandler = useCallback(async () => {
+    if (
+      !encryptMessageService.encryptedMessages ||
+      !walletAuthService.authTokens
+    )
+      return false;
+
+    const result = await inheritancePlanService.create({
+      secretMessage: encryptMessageService.encryptedMessages,
+      accessToken: walletAuthService.authTokens.accessToken,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    return true;
+  }, [
+    onError,
+    encryptMessageService.encryptedMessages,
+    walletAuthService.authTokens,
+  ]);
+
+  const [setupPlan, isSettingUpPlan, isSetupPlanCompleted, resetSetupPlan] =
+    useAsync(setupPlanHandler, onError);
+
+  const resetAll = useCallback(() => {
+    resetSetupPlan();
+    setSelectedWallet(undefined);
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+    goTo(0, 0);
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
 
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
@@ -256,10 +278,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       setRetryIndex(v => v + 1);
       retryLogic();
     } else {
-      setSelectedWallet(undefined);
-      setRetryIndex(v => v + 1);
-      walletAuthService.reset();
-      goTo(0, 0);
+      resetAll();
     }
 
     setUnhandledError(undefined);
@@ -293,7 +312,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
           return false;
         },
         [tabIndicies.walletAuth.dialogs.validateSignature]: () => {
-          if (!walletAuthService.isRegisteringUser) {
+          if (!walletAuthService.isRegisterationRequired) {
             goTo(
               tabIndicies.email.tabNumber,
               tabIndicies.email.dialogs.verifyOtp,
@@ -305,7 +324,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         },
       },
     }),
-    [walletAuthService.isRegisteringUser, walletAuthService.currentStep],
+    [walletAuthService.isRegisterationRequired, walletAuthService.currentStep],
   );
 
   const onNextCallback = useCallback(() => {
@@ -353,6 +372,13 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       otpVerificationDetails: walletAuthService.otpVerificationDetails,
       verifyOtp: walletAuthService.verifyOtp,
       isVerifyingOtp: walletAuthService.isVerifyingOtp,
+      encryptPinStart,
+      encryptPinAbort: encryptMessageService.abort,
+      encryptPinDeviceEvents: encryptMessageService.deviceEvents,
+      encryptPinIsCompleted: encryptMessageService.isEncrypted,
+      setupPlan,
+      isSettingUpPlan,
+      isSetupPlanCompleted,
     }),
     [
       onNextCallback,
@@ -383,6 +409,13 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       walletAuthService.otpVerificationDetails,
       walletAuthService.verifyOtp,
       walletAuthService.isVerifyingOtp,
+      encryptPinStart,
+      encryptMessageService.abort,
+      encryptMessageService.deviceEvents,
+      encryptMessageService.isEncrypted,
+      setupPlan,
+      isSettingUpPlan,
+      isSetupPlanCompleted,
     ],
   );
 

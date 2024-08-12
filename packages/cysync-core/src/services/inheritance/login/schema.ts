@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const InheritanceLoginConcernMap = {
-  LOGIN: 'LOGIN',
-  REGISTER: 'WALLET',
+  LOGIN: 'WALLET_LOGIN_CHALLENGE',
+  REGISTER: 'WALLET_REGISTRATION_CHALLENGE',
 } as const;
 
 export type InheritanceLoginConcern =

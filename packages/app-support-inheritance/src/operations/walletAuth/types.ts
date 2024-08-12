@@ -1,4 +1,3 @@
-import { WalletAuthEvent } from '@cypherock/sdk-app-inheritance';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface IInheritanceWalletAuthParams {
@@ -12,7 +11,7 @@ export type IInheritanceWalletAuthEventType = 'Result' | 'Device';
 
 export enum InheritanceWalletAuthDeviceEvent {
   INIT = 0,
-  CARD_TAP = 1,
+  CARD_TAPPED = 1,
 }
 
 export interface IInheritanceWalletAuthEvent {
@@ -21,6 +20,6 @@ export interface IInheritanceWalletAuthEvent {
   signature?: string;
   device?: {
     isDone: boolean;
-    events: Record<WalletAuthEvent, boolean | undefined>;
+    events: Record<InheritanceWalletAuthDeviceEvent, boolean | undefined>;
   };
 }

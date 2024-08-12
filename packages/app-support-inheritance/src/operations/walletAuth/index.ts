@@ -17,7 +17,7 @@ const walletAuthToDeviceEventMap: Partial<
   Record<WalletAuthEvent, InheritanceWalletAuthDeviceEvent | undefined>
 > = {
   [WalletAuthEvent.INIT]: InheritanceWalletAuthDeviceEvent.INIT,
-  [WalletAuthEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAP,
+  [WalletAuthEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
 };
 
 export const walletAuth = (

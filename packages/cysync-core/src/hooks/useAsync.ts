@@ -5,6 +5,7 @@ export function useAsync<T extends any[]>(
   onError?: (e?: any) => void,
 ) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const run = useCallback(
     async (...params: T) => {
@@ -13,6 +14,7 @@ export function useAsync<T extends any[]>(
       let result: boolean | undefined;
       try {
         result = await callback(...params);
+        setIsCompleted(true);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -27,5 +29,10 @@ export function useAsync<T extends any[]>(
     [callback, onError],
   );
 
-  return [run, isLoading] as const;
+  const reset = useCallback(() => {
+    setIsLoading(false);
+    setIsCompleted(false);
+  }, []);
+
+  return [run, isLoading, isCompleted, reset] as const;
 }

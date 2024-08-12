@@ -75,7 +75,7 @@ const verify = async (params: { requestId: string; otp: string }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(verifyResultSchema, `${baseUrl}/login`, {
       requestId: params.requestId,
-      challenge: params.otp,
+      secret: params.otp,
     }),
   );
 
