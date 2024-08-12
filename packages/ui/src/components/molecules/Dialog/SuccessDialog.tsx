@@ -17,8 +17,8 @@ import {
   TypographyProps,
   CloseButton,
 } from '../../atoms';
-import { AlertBox } from '../AlertBox';
 import { SpacingProps } from '../../utils';
+import { AlertBox } from '../AlertBox';
 
 export interface SuccessDialogProps {
   title: string;

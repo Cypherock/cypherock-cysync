@@ -30,6 +30,14 @@ import {
   UserDetails,
   VerifyOTP,
   WalletAuth,
+  Nominee,
+  NomineeDetails,
+  VerifyNomineeOtp,
+  ConfirmNomineeVerification,
+  ExecutorDetails,
+  ConfirmExecutor,
+  ExecutorMessageTutorial,
+  ExecutorPrivateMessageInput,
 } from '../Dialogs';
 
 export interface IWalletWithDeleted extends IWallet {
@@ -57,8 +65,15 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   onUserDetailsSubmit: (params: IUserDetails) => void;
   isSubmittingUserDetails: boolean;
   userDetails?: IUserDetails;
+  onNomineeDetailsSubmit: (params: IUserDetails) => void;
+  isSubmittingNomineeDetails: boolean;
+  nomineeDetails?: IUserDetails;
   unhandledError?: any;
   onRetry: () => void;
+  nomineeCount: number;
+  setNomineeCount: (nomineeCount: number) => void;
+  isSubmittingExecutorDetails: boolean;
+  onExecutorDetailsSubmit: (params: IUserDetails) => void;
 }
 
 export const InheritanceGoldPlanPurchaseDialogContext: Context<InheritanceGoldPlanPurchaseDialogContextInterface> =
@@ -110,6 +125,19 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         ],
       },
       {
+        name: 'Nominee & Executer',
+        dialogs: [
+          <Nominee key="Nominee" />,
+          <NomineeDetails key="Nominee Details" />,
+          <ConfirmNomineeVerification key="Confirm Nominee Verification" />,
+          <VerifyNomineeOtp key="Verify Nominee Otp" />,
+          <ConfirmExecutor key="Confirm Executor" />,
+          <ExecutorDetails key="Executor Details" />,
+          <ExecutorMessageTutorial key="Executor Details" />,
+          <ExecutorPrivateMessageInput key="Executor Private Message" />,
+        ],
+      },
+      {
         name: lang.strings.inheritanceGoldPlanPurchase.encryption.heading,
         dialogs: [
           <DeviceEncryption key="Device Encryption" />,
@@ -143,7 +171,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const allWallets = useMemo<IWalletWithDeleted[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
-
     return [
       ...wallets.map(e => ({
         ...e,
@@ -153,9 +180,20 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   }, [wallets, deletedWallets]);
 
   const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
+  const [nomineeDetails, setNomineeDetails] = useState<
+    IUserDetails | undefined
+  >();
+  const [executorDetails, setExecutorDetails] = useState<
+    IUserDetails | undefined
+  >();
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [isSubmittingExecutorDetails, setIsSubmittingExecutorDetails] =
+    useState(false);
+  const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
+    useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
+  const [nomineeCount, setNomineeCount] = useState(1);
 
   const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
     setIsSubmittingUserDetails(true);
@@ -163,6 +201,22 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     await sleep(2000);
     setIsSubmittingUserDetails(false);
     goTo(4, 1);
+  }, []);
+
+  const onNomineeDetailsSubmit = useCallback(async (params: IUserDetails) => {
+    setIsSubmittingNomineeDetails(true);
+    setNomineeDetails(params);
+    await sleep(2000);
+    setIsSubmittingNomineeDetails(false);
+    goTo(5, 2);
+  }, []);
+
+  const onExecutorDetailsSubmit = useCallback(async (params: IUserDetails) => {
+    setIsSubmittingExecutorDetails(true);
+    setExecutorDetails(params);
+    await sleep(2000);
+    setIsSubmittingExecutorDetails(false);
+    goTo(5, 2);
   }, []);
 
   const onRetry = useCallback(() => {
@@ -191,6 +245,14 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       userDetails,
       unhandledError,
       onRetry,
+      onNomineeDetailsSubmit,
+      isSubmittingNomineeDetails,
+      onExecutorDetailsSubmit,
+      isSubmittingExecutorDetails,
+      executorDetails,
+      nomineeDetails,
+      nomineeCount,
+      setNomineeCount,
     }),
     [
       onNext,
@@ -209,6 +271,14 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       userDetails,
       unhandledError,
       onRetry,
+      onNomineeDetailsSubmit,
+      isSubmittingNomineeDetails,
+      onExecutorDetailsSubmit,
+      isSubmittingExecutorDetails,
+      executorDetails,
+      nomineeDetails,
+      nomineeCount,
+      setNomineeCount,
     ],
   );
 

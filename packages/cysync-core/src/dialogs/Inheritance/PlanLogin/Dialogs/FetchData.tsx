@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoaderDialog } from '~/components';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const FetchData: React.FC = () => {

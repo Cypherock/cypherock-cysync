@@ -87,6 +87,9 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+  yes: string;
+  no: string;
+  saveAndContinue: string;
 }
 
 interface LangTooltips {
@@ -977,6 +980,64 @@ interface LangInheritanceGoldPlanPurchase {
       title: string;
     };
   };
+  nominee: {
+    title: string;
+    subtitle: string;
+    options: {
+      one: string;
+      two: string;
+    };
+    nomineeDetails: {
+      first: {
+        title: string;
+        warning: string;
+      };
+      second: {
+        title: string;
+        warning: string;
+      };
+      confirm: {
+        title: string;
+        subtext: string;
+        warning: string;
+      };
+    };
+    executor: {
+      confirm: {
+        title: string;
+        subtext: string;
+        options: {
+          one: {
+            yes: string;
+            desc: string;
+          };
+          two: {
+            no: string;
+            desc: string;
+          };
+        };
+      };
+      executorDetails: {
+        title: string;
+      };
+      tutorial: {
+        title: string;
+        subtext: string;
+      };
+      nomineeMessage: {
+        title: string;
+        subtitle: string;
+        form: {
+          locationPlaceholder: string;
+          personalMessage: {
+            label: string;
+            placeholder: string;
+          };
+        };
+        warning: string;
+      };
+    };
+  };
   encryption: {
     heading: string;
     device: {
@@ -995,5 +1056,9 @@ interface LangInheritanceGoldPlanPurchase {
     success: {
       title: string;
     };
+  };
+  greeting: {
+    title: string;
+    subtext: string;
   };
 }

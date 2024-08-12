@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
-import { LoaderDialog } from '~/components';
 
 export const EncryptionLoader: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

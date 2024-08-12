@@ -7,7 +7,7 @@ import { UserDetailsForm } from '../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
-export const UserDetails = () => {
+export const ExecutorDetails = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
@@ -16,7 +16,7 @@ export const UserDetails = () => {
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
 
-  const { onUserDetailsSubmit, onPrevious, isSubmittingUserDetails } =
+  const { onExecutorDetailsSubmit, onPrevious, isSubmittingExecutorDetails } =
     useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
@@ -24,9 +24,9 @@ export const UserDetails = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isSubmittingUserDetails) return;
+    if (isSubmittingExecutorDetails) return;
 
-    onUserDetailsSubmit({
+    onExecutorDetailsSubmit({
       name,
       email,
       alternateEmail,
@@ -40,7 +40,7 @@ export const UserDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingUserDetails}
+            disabled={isSubmittingExecutorDetails}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
@@ -48,8 +48,8 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isSubmittingUserDetails}
-            isLoading={isSubmittingUserDetails}
+            disabled={isSubmittingExecutorDetails}
+            isLoading={isSubmittingExecutorDetails}
           >
             <LangDisplay text={strings.buttons.sendOTP} />
           </Button>
@@ -62,7 +62,7 @@ export const UserDetails = () => {
         strings={strings}
         name={name}
         setName={setName}
-        isSubmittingUserDetails={isSubmittingUserDetails}
+        isSubmittingUserDetails={isSubmittingExecutorDetails}
         email={email}
         setEmail={setEmail}
         alternateEmail={alternateEmail}
