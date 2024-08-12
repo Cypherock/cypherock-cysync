@@ -1,118 +1,73 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Button } from './Button';
-import { Divider } from './Divider';
 import { Flex } from './Flex';
-import { Typography } from './Typography';
+import { Typography, TypographyColor } from './Typography';
 
 import { WidthProps } from '../utils';
 
+export type NomineeMessageVariant = 'danger';
+
 export interface NomineeMessageProps extends WidthProps {
-  text: string;
-  icon?: React.ReactNode;
-  actionText?: string;
-  secondaryActionText?: string;
+  label: string;
   value?: string;
-  isEditable?: boolean;
-  onAction?: () => void;
-  linearGradient?: string;
-  customStyles?: React.CSSProperties;
-  showEditBelow?: boolean;
-  showFullCard?: boolean;
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
+  variant?: NomineeMessageVariant;
+  withBackground?: boolean;
+  withHeaderFont?: boolean;
 }
 
-const StyledNomineeMessage = styled.div<NomineeMessageProps>`
+const StyledNomineeMessage = styled.div<{ withBackground: boolean }>`
   display: flex;
-  width: 624px;
+  min-width: 624px;
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
-  background: ${({ linearGradient, theme }) =>
-    linearGradient ?? theme.palette.background.separatorSecondary};
+  background: ${({ withBackground, theme }) =>
+    withBackground ? theme.palette.background.slate : 'none'};
   border-radius: 8px;
-  ${({ customStyles }) => customStyles && { ...customStyles }}
 `;
 
+const variantColorMap: Record<NomineeMessageVariant, TypographyColor> = {
+  danger: 'error',
+};
+
 export const NomineeMessage: FC<NomineeMessageProps> = ({
-  text,
-  icon,
-  actionText,
-  secondaryActionText,
+  label,
   value,
-  isEditable,
-  showEditBelow,
-  onAction,
-  linearGradient,
-  customStyles,
-  showFullCard,
-  ...props
+  leading,
+  trailing,
+  variant,
+  withBackground,
+  withHeaderFont,
 }) => (
-  <StyledNomineeMessage
-    {...props}
-    text={text}
-    linearGradient={linearGradient}
-    customStyles={customStyles}
-  >
-    <Flex
-      direction={showFullCard ? 'column' : 'row'}
-      justify={showFullCard ? 'flex-start' : 'space-between'}
-      width="100%"
-    >
-      <Flex
-        justify="space-between"
-        width="100%"
-        p={showFullCard ? '16px 0px' : '0'}
+  <StyledNomineeMessage withBackground={withBackground ?? false}>
+    <Flex gap={16} align="center">
+      {leading}
+      <Typography
+        color={(variant && variantColorMap[variant]) ?? 'muted'}
+        {...(withHeaderFont
+          ? { $fontSize: 18, $fontWeight: 'medium', $letterSpacing: '0.9px' }
+          : {})}
       >
-        <Flex align="center" gap={16} shrink={0}>
-          {icon && icon}
-          <Typography $fontSize={16} color="muted">
-            {text}
-          </Typography>
-        </Flex>
-        {!showEditBelow && isEditable && actionText && (
-          <Button onClick={onAction} variant="text">
-            <Typography $fontSize={14} $fontWeight="medium" color="gold">
-              {actionText}
-            </Typography>
-          </Button>
-        )}
-      </Flex>
-      {showFullCard && (
-        <Divider
-          mb={2}
-          variant="horizontal"
-          background="#39322C"
-          height="2px"
-        />
-      )}
-      {value && (
-        <Flex justify="flex-end" width="100%">
-          <Typography $fontSize={16} color="muted">
-            {value}
-          </Typography>
-          {showEditBelow && isEditable && secondaryActionText && (
-            <Button onClick={onAction} variant="text" ml={2}>
-              <Typography $fontSize={14} $fontWeight="medium" color="gold">
-                {secondaryActionText}
-              </Typography>
-            </Button>
-          )}
-        </Flex>
-      )}
+        {label}
+      </Typography>
+    </Flex>
+    <Flex gap={16} align="center">
+      <Typography color={(variant && variantColorMap[variant]) ?? 'white'}>
+        {value}
+      </Typography>
+      {trailing}
     </Flex>
   </StyledNomineeMessage>
 );
 
 NomineeMessage.defaultProps = {
-  icon: null,
-  actionText: '',
-  secondaryActionText: '',
-  value: '',
-  isEditable: false,
-  onAction: undefined,
-  linearGradient: '',
-  customStyles: {},
-  showEditBelow: false,
-  showFullCard: false,
+  value: undefined,
+  leading: undefined,
+  trailing: undefined,
+  variant: undefined,
+  withBackground: undefined,
+  withHeaderFont: undefined,
 };

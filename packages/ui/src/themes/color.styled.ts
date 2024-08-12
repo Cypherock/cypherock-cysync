@@ -17,6 +17,10 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    goldenhint:
+      'linear-gradient(263deg, rgba(139, 100, 41, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+    silverhint:
+      'linear-gradient(263deg, rgba(194, 194, 194, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
     cardSelected:
       'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
     cardHover:

@@ -80,6 +80,8 @@ export const theme = {
       disabled: colors.disabled.background,
       bar: colors.background.bar,
       gold: colors.gradients.golden,
+      goldenhint: colors.gradients.goldenhint,
+      silverhint: colors.gradients.silverhint,
       plan: colors.gradients.plan,
       golden: colors.background.gold,
       success: colors.success.main,

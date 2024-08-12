@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 
-import { ClockIcon, WalletIcon, EmailIcon, UserIcon } from '../../assets';
-import { Summary } from '../../components';
+import { SummaryCard } from '../../components';
 
-const meta: Meta<typeof Summary> = {
-  component: Summary,
+const meta: Meta<typeof SummaryCard> = {
+  component: SummaryCard,
   tags: ['autodocs'],
 };
 
@@ -15,100 +13,164 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    details: [
-      {
-        title: 'MyFunnyWallet',
-        icon: <WalletIcon fill="#E9B873" />,
-        actionText: 'Edit',
-        value: '',
-        isEditable: true,
-      },
-    ],
-    onAction: () => alert('Action clicked'),
-    showHeaderView: true,
-    linearGradient:
-      'linear-gradient(263deg, rgba(139, 100, 41, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
-    width: '100%',
+    headerIcon: 'wallet',
+    headerText: 'MyFunnyWallet',
+    onHeaderEdit: () => alert('Header Edited'),
+    backgroundType: 'gold',
   },
 };
 
-export const withOwnerDetails: Story = {
+export const OwnerDetails: Story = {
   args: {
-    details: [
+    headerText: 'Owner Details',
+    onHeaderEdit: () => alert('Header Edited'),
+    fields: [
       {
-        title: 'Owner Details',
-        icon: '',
-        actionText: 'Edit',
-        value: '',
-        isEditable: true,
-      },
-      {
-        title: 'User Name',
-        icon: <UserIcon width={16} height={16} key="wallet" />,
+        label: 'User Name',
+        icon: 'user',
         value: 'Alfred Bellows',
-        isEditable: false,
       },
       {
-        title: 'Primary Email',
-        icon: <WalletIcon width={16} height={16} key="encrypted" />,
+        label: 'Primary Email',
+        icon: 'email',
         value: 'doc.bellows@yahoo.com',
-        isEditable: false,
       },
       {
-        title: 'Secondary Email',
-        icon: <WalletIcon width={16} height={16} key="edit" />,
+        label: 'Secondary Email',
+        icon: 'email',
         value: 'alfred@psych.com',
-        isEditable: false,
       },
       {
-        title: 'Reminder Period',
-        icon: <ClockIcon key="clock" width={16} height={16} stroke="white" />,
-        actionText: 'Edit',
+        label: 'Reminder Period',
+        icon: 'clock',
         value: 'Every 3 Months',
-        isEditable: true,
+        onEdit: () => {
+          alert('Edited Reminder');
+        },
       },
     ],
-    onAction: () => alert('Action clicked'),
-    showPersonDetails: true,
-    width: '100%',
   },
 };
 
-export const withNomineeOne: Story = {
+export const WalletDetail: Story = {
   args: {
-    details: [
+    headerIcon: 'wallet',
+    headerText: 'MyNoNameWallet',
+    backgroundType: 'gold',
+    fields: [
       {
-        title: 'Nominee #1',
-        icon: '',
-        actionText: 'Edit',
-        value: '',
-        isEditable: true,
+        label: 'Created on',
+        icon: 'clock',
+        value: '01 July 2024',
       },
       {
-        title: 'Nominee Name',
-        icon: <UserIcon width={16} height={16} key="wallet" />,
-        value: 'Alfred Bellows',
-        isEditable: false,
+        label: 'Expiring on',
+        icon: 'clock',
+        value: '30 June 2024',
+        isDanger: true,
       },
       {
-        title: 'Primary Email',
-        icon: <WalletIcon width={16} height={16} key="encrypted" />,
-        value: 'doc.bellows@yahoo.com',
-        isEditable: false,
-      },
-      {
-        title: 'Secondary Email',
-        icon: <EmailIcon key="email" width={16} height={16} stroke="white" />,
-        value: 'alfred@psych.com',
-        isEditable: false,
+        label: 'Reminder Period',
+        icon: 'clock',
+        value: 'Every 3 Months',
+        onEdit: () => {
+          alert('Edited Reminder');
+        },
       },
     ],
-    onAction: () => alert('Action clicked'),
-    showPersonDetails: true,
-    width: '100%',
   },
 };
 
+export const WalletDetailSilver: Story = {
+  args: {
+    headerIcon: 'wallet',
+    headerText: 'MyNoNameWallet',
+    backgroundType: 'silver',
+    fields: [
+      {
+        label: 'Created on',
+        icon: 'clock',
+        value: '01 July 2024',
+      },
+      {
+        label: 'Expiring on',
+        icon: 'clock',
+        value: '30 June 2024',
+        isDanger: true,
+      },
+      {
+        label: 'Reminder Period',
+        icon: 'clock',
+        value: 'Every 3 Months',
+        onEdit: () => {
+          alert('Edited Reminder');
+        },
+      },
+    ],
+  },
+};
+
+export const Nominee: Story = {
+  args: {
+    headerText: 'Nominee #1',
+    onHeaderEdit: () => alert('Header Edited'),
+    fields: [
+      {
+        label: 'Nominee Name',
+        icon: 'user',
+        value: 'Alfred Bellows',
+      },
+      {
+        label: 'Primary Email',
+        icon: 'email',
+        value: 'doc.bellows@yahoo.com',
+      },
+      {
+        label: 'Secondary Email',
+        icon: 'email',
+        value: 'alfred@psych.com',
+      },
+    ],
+  },
+};
+
+export const NomineeWithEncryptedMessage: Story = {
+  args: {
+    headerText: 'Nominee #1',
+    onHeaderEdit: () => alert('Header Edited'),
+    fields: [
+      {
+        label: 'Nominee Name',
+        icon: 'user',
+        value: 'Alfred Bellows',
+      },
+      {
+        label: 'Primary Email',
+        icon: 'email',
+        value: 'doc.bellows@yahoo.com',
+      },
+      {
+        label: 'Secondary Email',
+        icon: 'email',
+        value: 'alfred@psych.com',
+      },
+    ],
+    footer: {
+      label: 'Encrypted Message',
+      icon: 'encrypted',
+      onEdit: () => alert('Edited message'),
+    },
+  },
+};
+export const CardLocation: Story = {
+  args: {
+    headerText: 'Card Location',
+    onHeaderEdit: () => alert('Edited Card location'),
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget  dapibus est. Mauris varius sapien a diam elementum posuere. Maecenas  aliquam nec justo a dictum. Aliquam eu condimentum mi, eu vulputate  ipsum. Proin vel semper nisl. Donec ultricies consectetur dapibus. Donec  suscipit, mi sed tristique feugiat, urna ipsum viverra risus, vitae  commodo tortor est interdum ligula. Fusce tellus mi, malesuada tristique  mauris a, pulvinar varius metus. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Donec in nulla  sit amet ex cursus dictum. Nam felis odio, egestas sed porttitor eu,  consequat eget dolor. Phasellus luctus, arcu non auctor euismod, lectus  quam tempus lacus, in sollicitudin elit risus ut ex.',
+  },
+};
+
+/*
 export const withNomineeTwo: Story = {
   args: {
     details: [
@@ -259,3 +321,4 @@ export const withExecutorMessage: Story = {
     width: '100%',
   },
 };
+*/
