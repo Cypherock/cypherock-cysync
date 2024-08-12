@@ -9,22 +9,22 @@ import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const UserDetails = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceSilverPlanPurchase.email.userDetails;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
 
   const { onUserDetailsSubmit, onPrevious, isSubmittingUserDetails } =
-    useInheritanceSilverPlanPurchaseDialog();
+    useInheritanceGoldPlanPurchaseDialog();
 
-  const formId = 'inheritance-silver-plan-user-details';
+  const formId = 'inheritance-gold-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

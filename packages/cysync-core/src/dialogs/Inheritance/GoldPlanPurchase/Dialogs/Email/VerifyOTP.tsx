@@ -6,14 +6,14 @@ import {
 } from '~/dialogs/Inheritance/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceSilverPlanPurchase.email;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.email;
 
   const { onClose, onPrevious, userDetails, onNext } =
-    useInheritanceSilverPlanPurchaseDialog();
+    useInheritanceGoldPlanPurchaseDialog();
 
   const [email, setEmail] = useState(userDetails?.email ?? '');
   const [title, setTitle] = useState(strings.primaryEmailOTP.title);

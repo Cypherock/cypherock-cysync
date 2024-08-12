@@ -10,16 +10,16 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
 export const SelectWallet = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceSilverPlanPurchase;
+  const strings = lang.strings.inheritanceGoldPlanPurchase;
 
   const { onNext, onPrevious, allWallets, selectedWallet, setSelectedWallet } =
-    useInheritanceSilverPlanPurchaseDialog();
+    useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout

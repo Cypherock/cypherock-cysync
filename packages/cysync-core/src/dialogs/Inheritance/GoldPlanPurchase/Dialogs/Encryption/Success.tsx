@@ -3,18 +3,16 @@ import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 
 export const EncryptionSuccess: React.FC = () => {
-  const { onClose } = useInheritanceSilverPlanPurchaseDialog();
+  const { onClose } = useInheritanceGoldPlanPurchaseDialog();
 
   const lang = useAppSelector(selectLanguage);
 
   return (
     <SuccessDialog
-      title={
-        lang.strings.inheritanceSilverPlanPurchase.encryption.success.title
-      }
+      title={lang.strings.inheritanceGoldPlanPurchase.encryption.success.title}
       buttonText={lang.strings.buttons.next}
       handleClick={onClose}
       onClose={onClose}

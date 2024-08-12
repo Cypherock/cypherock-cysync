@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { LoaderDialog } from '~/components';
 
 export const EncryptionLoader: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
 
-  const strings = lang.strings.inheritanceSilverPlanPurchase.encryption.loading;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.encryption.loading;
 
   useEffect(() => {
     const timeout = setTimeout(() => {

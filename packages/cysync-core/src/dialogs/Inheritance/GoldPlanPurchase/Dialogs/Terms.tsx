@@ -12,7 +12,7 @@ import React from 'react';
 import { constants } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
 export const Terms = () => {
@@ -21,7 +21,7 @@ export const Terms = () => {
 
   const strings = lang.strings.inheritance.termsOfService;
 
-  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
 
   const toNextPage = async () => {
     if (isChecked) onNext();

@@ -14,7 +14,7 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceSilverPlanPurchaseDialog } from '../context';
+import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
 const checkIconComponent = <Check width={15} height={12} />;
@@ -24,9 +24,9 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceSilverPlanPurchase;
+  const strings = lang.strings.inheritanceGoldPlanPurchase;
 
-  const { onNext, selectedWallet } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext, selectedWallet } = useInheritanceGoldPlanPurchaseDialog();
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
