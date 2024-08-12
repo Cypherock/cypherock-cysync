@@ -27,7 +27,7 @@ const meta: Meta<typeof CouponInput> = {
     return (
       <CouponInput
         {...args}
-        value={applied ? args.value || value : value}
+        value={applied || args.isInvalid ? args.value || value : value}
         isApplied={applied}
         onChange={onChange}
         onApply={onApply}
@@ -55,6 +55,15 @@ export const AppliedState: Story = {
     applyButtonText: 'APPLY',
     value: 'WW3vfAt',
     isApplied: true,
+    placeholderText: 'Enter Coupon Code',
+  },
+};
+
+export const InvalidState: Story = {
+  args: {
+    ...Default.args,
+    value: 'WW3vfAt',
+    isInvalid: true,
     placeholderText: 'Enter Coupon Code',
   },
 };

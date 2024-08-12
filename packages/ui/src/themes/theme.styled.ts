@@ -46,6 +46,9 @@ export const theme = {
     muted: {
       main: colors.text.muted,
     },
+    error: {
+      main: colors.text.error,
+    },
     golden: colors.gradients.golden,
     silver: colors.gradients.silver,
     highlight: colors.gradients.highlight,
@@ -109,6 +112,20 @@ export const theme = {
       popup: colors.border.popup,
       danger: colors.background.danger,
       error: colors.background.error,
+      silver: colors.background.silver,
+      timer: {
+        main: colors.background.timer.main,
+        default: colors.background.timer.default,
+        silver: colors.background.timer.silver,
+        expiring: colors.background.timer.expiring,
+        secondary: colors.background.timer.secondary,
+      },
+    },
+    boxShadow: {
+      timer: {
+        main: colors.boxShadow.timer.main,
+        text: colors.boxShadow.timer.text,
+      },
       slate: colors.background.slate,
       cardSelected: colors.background.cardSelected,
       cardDisabled: colors.background.cardDisabled,

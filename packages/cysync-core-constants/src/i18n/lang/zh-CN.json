@@ -48,6 +48,23 @@
     "resendOTP": "Resend OTP",
     "next": "Next"
   },
+  "dashboard": {
+    "wallet": {
+      "renewNow": "Renew Now",
+      "buyNow": "Buy Now",
+      "created": "Created",
+      "expiredOn": "Expired on",
+      "expiresIn": "Expires in",
+      "expiry": "Expiry",
+      "expiring": "Expiring",
+      "expired": "Expired",
+      "pendingTime": "05",
+      "silver": "Silver",
+      "gold": "Gold",
+      "hours": "Hours",
+      "setupCover": "Setup Cypherock Cover"
+    }
+  },
   "tooltips": {
     "downloadCsv": "导出为CSV"
   },
@@ -612,6 +629,7 @@
     "receiveCrypto": "接收加密货币",
     "history": "历史",
     "walletConnect": "Wallet Connect",
+    "cypherockCover": "Cypherock Cover",
     "tutorial": "教程",
     "settings": "设置",
     "help": "Help",
@@ -1491,6 +1509,51 @@
       "success": {
         "title": "Executor message successfully encrypted"
       }
+    },
+    "inheritanceEditReminderTime": {
+      "fetchData": {
+        "title": "Please wait while we fetch the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "reminderSetup": {
+        "title": "Reminder setup",
+        "reminderInfo": {
+          "subtitle": "What is reminder time?",
+          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your nominee will receive the recovery instruction email from Cypherock"
+        },
+        "form": {
+          "reminderField": {
+            "label": "Set reminder time interval",
+            "month": "Month",
+            "months": "Months"
+          }
+        },
+        "currentReminder": "The current reminder is set at ${month}",
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtitle": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Reminders duration updated successfully"
+      }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Edit Details",
+        "buttons": {
+          "verifyEmail": "Verify Email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtext": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Owner details successfully updated"
+      }
     }
   },
   "toggle": {
@@ -1609,10 +1672,35 @@
     }
   },
   "inheritance": {
+    "title": "Cypherock Cover",
+    "choosePlan": {
+      "title": "Choose a plan"
+    },
+    "buttons": {
+      "syncPlans": "Sync Plans",
+      "recoverPin": "Recover Pin"
+    },
     "termsOfService": {
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    },
+    "dialog": {
+      "userDetails": {
+        "form": {
+          "name": "Name",
+          "email": "Primary Email",
+          "alternateEmail": "Alternate Email"
+        }
+      },
+      "verifyOTP": {
+        "primaryEmailOTP": {
+          "title": "OTP Verification for primary email"
+        },
+        "alternateEmailOTP": {
+          "title": "OTP Verification for alternate email"
+        }
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {
@@ -1648,20 +1736,9 @@
       "userDetails": {
         "title": "User Details",
         "subTitle": "All the fields are mandatory",
-        "form": {
-          "name": "Name",
-          "email": "Primary Email",
-          "alternateEmail": "Alternate Email"
-        },
         "buttons": {
           "sendOTP": "Send OTP"
         }
-      },
-      "primaryEmailOTP": {
-        "title": "OTP Verification for primary email"
-      },
-      "alternateEmailOTP": {
-        "title": "OTP Verification for alternate email"
       }
     },
     "encryption": {
