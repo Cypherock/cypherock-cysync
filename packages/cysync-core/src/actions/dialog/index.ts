@@ -100,3 +100,9 @@ export const openInheritanceGoldPlanPurchaseDialog = () =>
 
 export const openInheritanceEditExecutorMessageDialog = () =>
   openDialog({ name: 'inheritanceEditExecutorMessage', data: undefined });
+
+export const openInheritanceEditReminderTimeDialog = () =>
+  openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
+
+export const openEditUserDetailsDialog = () =>
+  openDialog({ name: 'inheritanceEditUserDetails', data: undefined });

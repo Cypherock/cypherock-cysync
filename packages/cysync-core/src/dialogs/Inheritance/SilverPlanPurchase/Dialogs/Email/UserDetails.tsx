@@ -15,7 +15,9 @@ import { Layout } from '../../Layout';
 export const UserDetails = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceSilverPlanPurchase.email.userDetails;
+  const strings = lang.strings.inheritance.dialog.userDetails;
+  const silverPlanStrings =
+    lang.strings.inheritanceSilverPlanPurchase.email.userDetails;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -56,7 +58,7 @@ export const UserDetails = () => {
             disabled={isSubmittingUserDetails}
             isLoading={isSubmittingUserDetails}
           >
-            <LangDisplay text={strings.buttons.sendOTP} />
+            <LangDisplay text={silverPlanStrings.buttons.sendOTP} />
           </Button>
         </>
       }
@@ -70,10 +72,10 @@ export const UserDetails = () => {
             $fontSize={20}
             mb="4px"
           >
-            <LangDisplay text={strings.title} />
+            <LangDisplay text={silverPlanStrings.title} />
           </Typography>
           <Typography color="muted" $textAlign="center" $fontSize={16}>
-            <LangDisplay text={strings.subTitle} />
+            <LangDisplay text={silverPlanStrings.subTitle} />
           </Typography>
         </Container>
         <Container direction="column" $width="full" mb={3}>

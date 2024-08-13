@@ -137,21 +137,24 @@ const DisabledDate = styled(Typography)`
 export interface ReminderProps extends WidthProps {
   date: string;
   disabled: boolean;
+  isSelected: boolean;
+  onClick: () => void;
 }
 
 export const Reminder: FC<ReminderProps> = ({
   date,
   disabled,
+  onClick,
+  isSelected,
   ...restProps
 }) => {
   const [isHover, setIsHover] = useState(false);
-  const [isSelected, setisSelected] = useState(false);
   const theme = useTheme();
 
   return !disabled ? (
     <StyledContainer
       onMouseEnter={() => setIsHover(true)}
-      onClick={() => setisSelected(!isSelected)}
+      onClick={onClick}
       onMouseLeave={() => setIsHover(false)}
       $isSelected={isSelected}
       $isHover={isHover}

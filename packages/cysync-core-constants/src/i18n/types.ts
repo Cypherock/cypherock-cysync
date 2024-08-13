@@ -7,6 +7,7 @@ export interface LanguageStrings {
   allWallets: string;
   labels: LangLabels;
   buttons: LangButtons;
+  dashboard: LangDashboard;
   tooltips: LangTooltips;
   deviceAuthentication: LangDeviceAuthentication;
   lockscreen: LangLockscreen;
@@ -90,6 +91,24 @@ interface LangButtons {
   yes: string;
   no: string;
   saveAndContinue: string;
+}
+
+interface LangDashboard {
+  wallet: {
+    renewNow: string;
+    buyNow: string;
+    created: string;
+    expiredOn: string;
+    expiresIn: string;
+    expiry: string;
+    expiring: string;
+    expired: string;
+    pendingTime: string;
+    silver: string;
+    gold: string;
+    hours: string;
+    setupCover: string;
+  };
 }
 
 interface LangTooltips {
@@ -488,6 +507,7 @@ interface LangSidebar {
   receiveCrypto: string;
   history: string;
   walletConnect: string;
+  cypherockCover: string;
   tutorial: string;
   settings: string;
   help: string;
@@ -794,6 +814,47 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditReminderTime: {
+    fetchData: {
+      title: string;
+      subTitle: string;
+    };
+    reminderSetup: {
+      title: string;
+      reminderInfo: {
+        subtitle: string;
+        subtext: string;
+      };
+      form: {
+        reminderField: { label: string; month: string; months: string };
+      };
+      currentReminder: string;
+      loading: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
+  inheritanceEditUserDetails: {
+    editDetails: {
+      title: string;
+      buttons: {
+        verifyEmail: string;
+      };
+    };
+    verifyOtp: {
+      loading: {
+        title: string;
+        subtext: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -862,10 +923,35 @@ interface LangOTP {
 }
 
 interface LangInheritance {
+  title: string;
+  choosePlan: {
+    title: string;
+  };
+  buttons: {
+    syncPlans: string;
+    recoverPin: string;
+  };
   termsOfService: {
     title: string;
     privacyPolicy: string;
     checkBoxLabel: string;
+  };
+  dialog: {
+    userDetails: {
+      form: {
+        name: string;
+        email: string;
+        alternateEmail: string;
+      };
+    };
+    verifyOTP: {
+      primaryEmailOTP: {
+        title: string;
+      };
+      alternateEmailOTP: {
+        title: string;
+      };
+    };
   };
 }
 
@@ -898,20 +984,9 @@ interface LangInheritanceSilverPlanPurchase {
     userDetails: {
       title: string;
       subTitle: string;
-      form: {
-        name: string;
-        email: string;
-        alternateEmail: string;
-      };
       buttons: {
         sendOTP: string;
       };
-    };
-    primaryEmailOTP: {
-      title: string;
-    };
-    alternateEmailOTP: {
-      title: string;
     };
   };
   encryption: {
