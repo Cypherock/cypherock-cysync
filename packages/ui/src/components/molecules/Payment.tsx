@@ -1,4 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+
+import { CouponInput } from './CouponInput';
+
+import { errorIcon, ShoppingCart } from '../../assets';
+import { useTheme } from '../../themes';
 import {
   Container,
   Divider,
@@ -7,10 +12,6 @@ import {
   Image,
   Typography,
 } from '../atoms';
-
-import { CouponInput } from './CouponInput';
-import { useTheme } from '../../themes';
-import { errorIcon, ShoppingCart } from '../../assets';
 
 export interface PaymentProps {
   lang: {
@@ -32,12 +33,14 @@ export interface PaymentProps {
     };
   };
   applied: boolean;
-  year: number;
-  amount: string;
+  year?: number;
+  amount?: string;
   isError: boolean;
-  error: string;
+  error?: string;
   onApply: () => void;
   onDelete: () => void;
+  coupon: string;
+  onChange: (coupon: string) => void;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -49,9 +52,10 @@ export const Payment: FC<PaymentProps> = ({
   error,
   onApply,
   onDelete,
+  coupon,
+  onChange,
 }) => {
   const theme = useTheme();
-  const [coupon, setCoupon] = useState('');
 
   return (
     <Container display="flex" direction="column" width="720px" gap={8}>
@@ -88,7 +92,7 @@ export const Payment: FC<PaymentProps> = ({
             value={coupon}
             onApply={onApply}
             onDelete={onDelete}
-            onChange={setCoupon}
+            onChange={onChange}
             appliedText={lang.payment.couponInput.appliedButtonText}
             applyButtonText={lang.payment.couponInput.applyButtonText}
             placeholderText={lang.payment.form.promoField.placeholder}
@@ -142,4 +146,10 @@ export const Payment: FC<PaymentProps> = ({
       </Flex>
     </Container>
   );
+};
+
+Payment.defaultProps = {
+  year: undefined,
+  amount: undefined,
+  error: undefined,
 };

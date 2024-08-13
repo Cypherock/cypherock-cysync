@@ -35,10 +35,14 @@ import {
   VerifyNomineeOtp,
   ConfirmNomineeVerification,
   ExecutorDetails,
-  ConfirmExecutor,
+  SelectExecutor,
   ExecutorMessageTutorial,
   ExecutorPrivateMessageInput,
+  ExecutorMessage,
+  ExecutorReminderSetup,
+  GoldPlanSubscription,
 } from '../Dialogs';
+import { Greeting } from '../Dialogs/Greeting';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -125,17 +129,28 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         ],
       },
       {
-        name: 'Nominee & Executer',
+        name: lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor
+          .heading,
         dialogs: [
           <Nominee key="Nominee" />,
           <NomineeDetails key="Nominee Details" />,
           <ConfirmNomineeVerification key="Confirm Nominee Verification" />,
           <VerifyNomineeOtp key="Verify Nominee Otp" />,
-          <ConfirmExecutor key="Confirm Executor" />,
+          <SelectExecutor key="Confirm Executor" />,
           <ExecutorDetails key="Executor Details" />,
-          <ExecutorMessageTutorial key="Executor Details" />,
-          <ExecutorPrivateMessageInput key="Executor Private Message" />,
         ],
+      },
+      {
+        name: lang.strings.inheritanceGoldPlanPurchase.message.heading,
+        dialogs: [
+          <ExecutorMessageTutorial key="Message Tutorial" />,
+          <ExecutorPrivateMessageInput key="Executor Private Message" />,
+          <ExecutorMessage key="Executor Message" />,
+        ],
+      },
+      {
+        name: lang.strings.inheritanceGoldPlanPurchase.reminder.heading,
+        dialogs: [<ExecutorReminderSetup key="Reminder Setup" />],
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.encryption.heading,
@@ -143,6 +158,13 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           <DeviceEncryption key="Device Encryption" />,
           <EncryptionLoader key="Encryption Loader" />,
           <EncryptionSuccess key="Encryption Success" />,
+        ],
+      },
+      {
+        name: lang.strings.inheritanceGoldPlanPurchase.checkout.heading,
+        dialogs: [
+          <GoldPlanSubscription key="Subscription" />,
+          <Greeting key="Greeting" />,
         ],
       },
     ],
@@ -216,7 +238,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setExecutorDetails(params);
     await sleep(2000);
     setIsSubmittingExecutorDetails(false);
-    goTo(5, 2);
   }, []);
 
   const onRetry = useCallback(() => {

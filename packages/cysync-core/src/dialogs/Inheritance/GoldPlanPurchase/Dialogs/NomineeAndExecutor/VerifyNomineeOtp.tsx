@@ -23,7 +23,7 @@ export const VerifyNomineeOtp: React.FC = () => {
   const onVerify = () => {
     // DUMMY FUNCTION
     if (email === nomineeDetails?.alternateEmail) {
-      goTo(5, 3);
+      goTo(5, 4);
       return;
     }
 

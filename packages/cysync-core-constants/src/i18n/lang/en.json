@@ -49,7 +49,8 @@
     "next": "Next",
     "yes": "Yes",
     "no": "No",
-    "saveAndContinue": "Save and continue"
+    "saveAndContinue": "Save and continue",
+    "checkout": "Checkout"
   },
   "dashboard": {
     "wallet": {
@@ -1729,6 +1730,25 @@
           "title": "OTP Verification for alternate email"
         }
       }
+    },
+    "payment": {
+      "heading": "Buy plan on the Cypherock website",
+      "form": {
+        "promoField": {
+          "label": "Promo code / coupon",
+          "placeholder": "Enter code"
+        }
+      },
+      "couponInput": {
+        "appliedButtonText": "Coupon applied:",
+        "applyButtonText": "Apply"
+      },
+      "noOfYear": "Number of years",
+      "total": "Total",
+      "year": "year",
+      "error": {
+        "errorHeading": "Invalid Coupon Code"
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {
@@ -1838,12 +1858,15 @@
         "title": "OTP Verification for alternate email"
       }
     },
-    "nominee": {
-      "title": "How many nominees do you want?",
-      "subtitle": "You can have up to 2 nominees for this will",
-      "options": {
-        "one": "Select if you want to have only one nominee",
-        "two": "Select if you want to have two nominees"
+    "nomineeAndExecutor": {
+      "heading": "Nominee & Executor",
+      "select": {
+        "title": "How many nominees do you want?",
+        "subtitle": "You can have up to 2 nominees for this will",
+        "options": {
+          "descOne": "Select if you want to have only one nominee",
+          "descTwo": "Select if you want to have two nominees"
+        }
       },
       "nomineeDetails": {
         "first": {
@@ -1861,7 +1884,7 @@
         }
       },
       "executor": {
-        "confirm": {
+        "select": {
           "title": "Do you want to have an executor for this will?",
           "subtext": "The executor will help the nominee to recover funds ",
           "options": {
@@ -1876,24 +1899,87 @@
           }
         },
         "executorDetails": {
-          "title": "Add executor"
-        },
-        "tutorial": {
-          "title": "Watch the whole video before you proceed",
-          "subtext": "The video will help you understand how messages work"
-        },
-        "nomineeMessage": {
-          "title": "Provide the messages for the nominee",
-          "subtitle": "The nominee messages will be end-to-end encrypted",
-          "form": {
-            "locationPlaceholder": "Provide card location",
-            "personalMessage": {
-              "label": "Personal Message",
-              "placeholder": "Write your message"
+          "title": "Add executor",
+          "radio": {
+            "label": "Who this executor serve?",
+            "options": {
+              "labelOne": "Nominee 1",
+              "labelTwo": "Nominee 2"
             }
-          },
-          "warning": "Make sure you describe the card's location clearly for the nominee"
+          }
         }
+      }
+    },
+    "message": {
+      "heading": "Message",
+      "tutorial": {
+        "title": "Watch the whole video before you proceed",
+        "subtext": "The video will help you understand how messages work"
+      },
+      "nominee": {
+        "title": "Provide the messages for the nominee",
+        "subtitle": "The nominee messages will be end-to-end encrypted",
+        "form": {
+          "locationPlaceholder": "Provide card location",
+          "personalMessage": {
+            "label": "Personal Message",
+            "placeholder": "Write your message"
+          }
+        },
+        "warning": "Make sure you describe the card's location clearly for the nominee"
+      },
+      "executor": {
+        "title": "Add a message for the executor",
+        "subtitle": "Please note that the message to the executor is not encrypted",
+        "form": {
+          "messageField": {
+            "label": "Message",
+            "placeholder": "Write your message"
+          }
+        }
+      }
+    },
+    "reminder": {
+      "heading": "Reminder",
+      "title": "Reminder setup"
+    },
+    "summary": {
+      "heading": "Summary",
+      "title": "Summary",
+      "subtitle": "Please verify all the details before it gets encrypted with the device",
+      "ownerDetails": {
+        "title": "Owner Details",
+        "form": {
+          "userNameField": { "label": "User Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "reminderPeriodField": { "label": "Every {month} month" }
+        }
+      },
+      "nomineeDetails": {
+        "title": "Nominee #{number}",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" }
+        }
+      },
+      "cardLocation": {
+        "title": "Card Location"
+      },
+      "personalmessage": {
+        "title": "Personal Message"
+      },
+      "executorDetails": {
+        "title": "Executor",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" }
+        }
+      },
+      "executorMessage": {
+        "title": "Executor Message"
       }
     },
     "encryption": {
@@ -1915,9 +2001,16 @@
         "title": "PIN recovery message successfully encrypted"
       }
     },
-    "greeting": {
-      "title": "Thank you!",
-      "subtext": "Your {year} year + {months} months free asset inheritance plan is activated with immediate effect"
+    "checkout": {
+      "heading": "Checkout",
+      "payment": {
+        "title": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+      },
+      "greeting": {
+        "title": "Thank you!",
+        "subtext": "Your Gold Plan is now activated"
+      }
     }
   }
 }

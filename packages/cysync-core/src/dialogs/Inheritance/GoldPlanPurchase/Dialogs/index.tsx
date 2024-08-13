@@ -5,5 +5,6 @@ export * from './SelectWallet';
 export * from './WalletAuth';
 export * from './Email';
 export * from './Encryption';
-export * from './Executor';
-export * from './Nominee';
+export * from './NomineeAndExecutor';
+export * from './GoldPlanSubscription';
+export * from './Message';

@@ -12,9 +12,9 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
-export const ConfirmExecutor = () => {
+export const SelectExecutor = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
   const { goTo } = useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout
@@ -23,7 +23,7 @@ export const ConfirmExecutor = () => {
           <Button onClick={() => goTo(5, 3)} variant="secondary">
             <LangDisplay text={lang.strings.buttons.yes} />
           </Button>
-          <Button onClick={() => goTo(5, 3)} variant="primary">
+          <Button onClick={() => goTo(5, 5)} variant="primary">
             <LangDisplay text={lang.strings.buttons.no} />
           </Button>
         </>
@@ -36,23 +36,23 @@ export const ConfirmExecutor = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.executor.confirm.title} />
+          <LangDisplay text={strings.executor.select.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.executor.confirm.subtext} />
+          <LangDisplay text={strings.executor.select.subtext} />
         </Typography>
       </Container>
       <Container>
         <Container direction="row" gap={8}>
           <OneInMany
-            title={strings.executor.confirm.options.one.yes}
-            description={strings.executor.confirm.options.one.desc}
+            title={strings.executor.select.options.one.yes}
+            description={strings.executor.select.options.one.desc}
             styleType="2"
             $width={340}
           />
           <OneInMany
-            title={strings.executor.confirm.options.two.no}
-            description={strings.executor.confirm.options.two.desc}
+            title={strings.executor.select.options.two.no}
+            description={strings.executor.select.options.two.desc}
             styleType="2"
             $width={340}
           />

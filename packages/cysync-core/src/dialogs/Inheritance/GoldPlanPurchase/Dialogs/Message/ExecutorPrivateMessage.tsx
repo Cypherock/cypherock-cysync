@@ -18,18 +18,18 @@ import { Layout } from '../../Layout';
 export const ExecutorPrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button onClick={() => goTo(6, 0)} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button onClick={() => goTo(6, 2)} variant="primary">
             <LangDisplay text={lang.strings.buttons.continue} />
           </Button>
         </>
@@ -42,33 +42,26 @@ export const ExecutorPrivateMessageInput = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.executor.nomineeMessage.title} />
+          <LangDisplay text={strings.nominee.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.executor.nomineeMessage.subtitle} />
+          <LangDisplay text={strings.nominee.subtitle} />
         </Typography>
       </Container>
-      <Container direction="column" gap={16}>
+      <Flex direction="column" gap={16} $flex={1} width="100%">
         <TextAreaInput
-          placeholder={strings.executor.nomineeMessage.form.locationPlaceholder}
+          placeholder={strings.nominee.form.locationPlaceholder}
           height={120}
         />
-        <Flex direction="column" gap={8}>
-          <InputLabel>
-            {strings.executor.nomineeMessage.form.personalMessage.label}
-          </InputLabel>
+        <Flex direction="column" gap={8} $flex={1} width="100%">
+          <InputLabel>{strings.nominee.form.personalMessage.label}</InputLabel>
           <TextAreaInput
-            placeholder={
-              strings.executor.nomineeMessage.form.personalMessage.placeholder
-            }
+            placeholder={strings.nominee.form.personalMessage.placeholder}
             height={120}
           />
         </Flex>
-        <MessageBox
-          type="warning"
-          text={strings.executor.nomineeMessage.warning}
-        />
-      </Container>
+        <MessageBox type="warning" text={strings.nominee.warning} />
+      </Flex>
     </Layout>
   );
 };

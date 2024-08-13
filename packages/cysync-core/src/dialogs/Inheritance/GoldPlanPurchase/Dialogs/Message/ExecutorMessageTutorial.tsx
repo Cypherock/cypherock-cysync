@@ -16,18 +16,18 @@ import { Layout } from '../../Layout';
 export const ExecutorMessageTutorial = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button onClick={() => goTo(5, 5)} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button onClick={() => goTo(6, 1)} variant="primary">
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
@@ -40,10 +40,10 @@ export const ExecutorMessageTutorial = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.executor.tutorial.title} />
+          <LangDisplay text={strings.tutorial.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.executor.tutorial.subtext} />
+          <LangDisplay text={strings.tutorial.subtext} />
         </Typography>
       </Container>
       <ReactPlayer

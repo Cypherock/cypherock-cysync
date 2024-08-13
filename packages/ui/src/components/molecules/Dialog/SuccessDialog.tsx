@@ -7,7 +7,7 @@ import {
   DialogBoxHeader,
 } from './DialogBox';
 
-import { successIcon } from '../../../assets/images';
+import { goldTick, successIcon } from '../../../assets/images';
 import {
   Typography,
   LangDisplay,
@@ -25,6 +25,7 @@ export interface SuccessDialogProps {
   subtext?: string;
   headerText?: string;
   buttonText?: string;
+  goldenIcon?: boolean;
   secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
@@ -52,6 +53,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   headerType,
   bodyBottomPadding,
   showCloseBtn,
+  goldenIcon,
 }) => (
   <DialogBox
     width={width}
@@ -76,7 +78,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       </DialogBoxHeader>
     )}
     <DialogBoxBody pb={bodyBottomPadding}>
-      <Image src={successIcon} alt="Success Icon" />
+      <Image src={goldenIcon ? goldTick : successIcon} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
@@ -119,4 +121,5 @@ SuccessDialog.defaultProps = {
   headerType: 'h4',
   bodyBottomPadding: undefined,
   showCloseBtn: false,
+  goldenIcon: false,
 };

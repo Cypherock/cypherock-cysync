@@ -1,4 +1,6 @@
 export * from './Nominee';
 export * from './NomineeDetails';
 export * from './ConfirmNomineeVerification';
-export * from './VerifyOtp';
+export * from './VerifyNomineeOtp';
+export * from './ExecutorDetails';
+export * from './SelectExecutor';

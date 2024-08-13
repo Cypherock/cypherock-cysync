@@ -39,6 +39,7 @@ import {
 
 import { useTheme } from '../../../themes';
 import { WidthProps } from '../../utils';
+
 import { format } from 'date-fns';
 
 export interface DashboardWalletProps extends WidthProps {

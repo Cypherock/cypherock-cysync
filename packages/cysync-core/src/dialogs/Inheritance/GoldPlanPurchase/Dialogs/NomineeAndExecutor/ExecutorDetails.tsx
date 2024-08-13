@@ -7,29 +7,36 @@ import { UserDetailsForm } from '../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
-export const NomineeDetails = () => {
+export const ExecutorDetails = () => {
   const lang = useAppSelector(selectLanguage);
+
+  const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
+  const { form } = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
 
-  const { form } = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
-
-  const { onNomineeDetailsSubmit, onPrevious, isSubmittingNomineeDetails } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onExecutorDetailsSubmit,
+    onPrevious,
+    onNext,
+    isSubmittingExecutorDetails,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmittingNomineeDetails) return;
-    onNomineeDetailsSubmit({
+
+    if (isSubmittingExecutorDetails) return;
+
+    onExecutorDetailsSubmit({
       name,
       email,
       alternateEmail,
     });
+    onNext();
   };
 
   return (
@@ -39,7 +46,7 @@ export const NomineeDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingNomineeDetails}
+            disabled={isSubmittingExecutorDetails}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
@@ -47,8 +54,8 @@ export const NomineeDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isSubmittingNomineeDetails}
-            isLoading={isSubmittingNomineeDetails}
+            disabled={isSubmittingExecutorDetails}
+            isLoading={isSubmittingExecutorDetails}
           >
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
@@ -58,14 +65,10 @@ export const NomineeDetails = () => {
       <UserDetailsForm
         onSubmit={onSubmit}
         formId={formId}
-        strings={{
-          title: strings.nomineeDetails.first.title,
-          subTitle: strings.title,
-          form,
-        }}
+        strings={{ title: strings.executor.executorDetails.title, form }}
         name={name}
         setName={setName}
-        isSubmittingUserDetails={isSubmittingNomineeDetails}
+        isSubmittingUserDetails={isSubmittingExecutorDetails}
         email={email}
         setEmail={setEmail}
         alternateEmail={alternateEmail}

@@ -15,19 +15,19 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorMessage = () => {
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
-  const { form } =
-    lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.message;
+  const { form } = strings.executor;
   const [message, setMessage] = useState('');
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(5, 3)} variant="secondary">
+          <Button onClick={() => goTo(6, 1)} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => goTo(5, 3)} variant="primary">
+          <Button onClick={() => onNext()} variant="primary">
             <LangDisplay text={lang.strings.buttons.saveAndContinue} />
           </Button>
         </>
@@ -35,10 +35,10 @@ export const ExecutorMessage = () => {
     >
       <Flex gap={0} direction="column" align="center">
         <Typography $fontSize={20} color="white">
-          <LangDisplay text="Add message for the Executor" />
+          <LangDisplay text={strings.executor.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text="Please note that the message to the executor is not encrypted" />
+          <LangDisplay text={strings.executor.subtitle} />
         </Typography>
       </Flex>
       <Flex

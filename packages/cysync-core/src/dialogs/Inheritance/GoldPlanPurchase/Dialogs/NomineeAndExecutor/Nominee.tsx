@@ -17,7 +17,8 @@ export const Nominee = () => {
   const lang = useSelector(selectLanguage);
   const { onPrevious, goTo, nomineeCount } =
     useInheritanceGoldPlanPurchaseDialog();
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
+  const strings =
+    lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.select;
 
   return (
     <Layout
@@ -52,13 +53,13 @@ export const Nominee = () => {
       <Container direction="row" gap={8}>
         <OneInMany
           title="1"
-          description={strings.options.one}
+          description={strings.options.descOne}
           styleType="1"
           $width={340}
         />
         <OneInMany
           title="2"
-          description={strings.options.two}
+          description={strings.options.descTwo}
           styleType="1"
           $width={340}
         />

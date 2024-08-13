@@ -91,6 +91,7 @@ interface LangButtons {
   yes: string;
   no: string;
   saveAndContinue: string;
+  checkout: string;
 }
 
 interface LangDashboard {
@@ -953,6 +954,22 @@ interface LangInheritance {
       };
     };
   };
+  payment: {
+    heading: string;
+    form: {
+      promoField: { label: string; placeholder: string };
+    };
+    noOfYear: string;
+    total: string;
+    year: string;
+    couponInput: {
+      applyButtonText: string;
+      appliedButtonText: string;
+    };
+    error: {
+      errorHeading: string;
+    };
+  };
 }
 
 interface LangInheritanceSilverPlanPurchase {
@@ -1055,12 +1072,15 @@ interface LangInheritanceGoldPlanPurchase {
       title: string;
     };
   };
-  nominee: {
-    title: string;
-    subtitle: string;
-    options: {
-      one: string;
-      two: string;
+  nomineeAndExecutor: {
+    heading: string;
+    select: {
+      title: string;
+      subtitle: string;
+      options: {
+        descOne: string;
+        descTwo: string;
+      };
     };
     nomineeDetails: {
       first: {
@@ -1078,7 +1098,7 @@ interface LangInheritanceGoldPlanPurchase {
       };
     };
     executor: {
-      confirm: {
+      select: {
         title: string;
         subtext: string;
         options: {
@@ -1094,23 +1114,86 @@ interface LangInheritanceGoldPlanPurchase {
       };
       executorDetails: {
         title: string;
-      };
-      tutorial: {
-        title: string;
-        subtext: string;
-      };
-      nomineeMessage: {
-        title: string;
-        subtitle: string;
-        form: {
-          locationPlaceholder: string;
-          personalMessage: {
-            label: string;
-            placeholder: string;
+        radio: {
+          label: string;
+          options: {
+            labelOne: string;
+            labelTwo: string;
           };
         };
-        warning: string;
       };
+    };
+  };
+  message: {
+    heading: string;
+    tutorial: {
+      title: string;
+      subtext: string;
+    };
+    nominee: {
+      title: string;
+      subtitle: string;
+      form: {
+        locationPlaceholder: string;
+        personalMessage: {
+          label: string;
+          placeholder: string;
+        };
+      };
+      warning: string;
+    };
+    executor: {
+      title: string;
+      subtitle: string;
+      form: {
+        messageField: {
+          label: string;
+          placeholder: string;
+        };
+      };
+    };
+  };
+  reminder: {
+    heading: string;
+    title: string;
+  };
+  summary: {
+    heading: string;
+    title: string;
+    subtitle: string;
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        reminderPeriodField: { label: string; input: string };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    cardLocation: {
+      title: string;
+    };
+    personalMessage: {
+      title: string;
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    executorMessage: {
+      title: string;
     };
   };
   encryption: {
@@ -1132,8 +1215,15 @@ interface LangInheritanceGoldPlanPurchase {
       title: string;
     };
   };
-  greeting: {
-    title: string;
-    subtext: string;
+  checkout: {
+    heading: string;
+    payment: {
+      title: string;
+      subtext: string;
+    };
+    greeting: {
+      title: string;
+      subtext: string;
+    };
   };
 }

@@ -14,7 +14,7 @@ import { Layout } from '../../Layout';
 
 export const ConfirmNomineeVerification = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceGoldPlanPurchase.nominee;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
   const { goTo } = useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout

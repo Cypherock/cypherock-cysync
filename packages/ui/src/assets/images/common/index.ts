@@ -35,6 +35,7 @@ import expireHoverWalletIcon from './expire-hover-wallet-icon.svg';
 import { FailIcon } from './FailIcon';
 import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
 import goldSendIcon from './gold-send.svg';
+import goldTick from './gold-tick.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
@@ -174,4 +175,5 @@ export {
   oneInMany2Default,
   manyInManyBgImage,
   manyInManyHoverBgImage,
+  goldTick,
 };
