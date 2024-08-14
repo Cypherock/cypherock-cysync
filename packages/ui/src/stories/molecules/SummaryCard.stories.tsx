@@ -5,6 +5,7 @@ import { SummaryCard } from '../../components';
 const meta: Meta<typeof SummaryCard> = {
   component: SummaryCard,
   tags: ['autodocs'],
+  parameters: { actions: { argTypesRegex: null } },
 };
 
 export default meta;
@@ -16,7 +17,7 @@ export const Default: Story = {
     headerIcon: 'wallet',
     headerText: 'MyFunnyWallet',
     onHeaderEdit: () => alert('Header Edited'),
-    backgroundType: 'gold',
+    $backgroundType: 'gold',
   },
 };
 
@@ -56,7 +57,7 @@ export const WalletDetail: Story = {
   args: {
     headerIcon: 'wallet',
     headerText: 'MyNoNameWallet',
-    backgroundType: 'gold',
+    $backgroundType: 'gold',
     fields: [
       {
         label: 'Created on',
@@ -85,7 +86,7 @@ export const WalletDetailSilver: Story = {
   args: {
     headerIcon: 'wallet',
     headerText: 'MyNoNameWallet',
-    backgroundType: 'silver',
+    $backgroundType: 'silver',
     fields: [
       {
         label: 'Created on',

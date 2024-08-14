@@ -5,7 +5,7 @@ import { EditButton } from './Prefabs';
 
 import {
   ClockIcon,
-  EmailIcon,
+  EmailIconSmall,
   EncryptedMessageIcon,
   MessageIcon,
   SvgProps,
@@ -14,12 +14,13 @@ import {
 } from '../../assets';
 import { Flex, NomineeMessage, Divider, Typography } from '../atoms';
 import { svgGradients } from '../GlobalStyles';
+import { utils, UtilsProps } from '../utils';
 
 const iconMap: Record<string, React.FC<SvgProps>> = {
   wallet: WalletIcon,
   clock: ClockIcon,
   user: UserIcon,
-  email: EmailIcon,
+  email: EmailIconSmall,
   message: MessageIcon,
   encrypted: EncryptedMessageIcon,
 };
@@ -35,14 +36,14 @@ export interface SummaryField {
   isDanger?: boolean;
 }
 
-export interface SummaryCardProps {
+export interface SummaryCardProps extends UtilsProps {
   headerText: string;
   headerIcon?: IconType;
   onHeaderEdit?: () => void;
   fields?: SummaryField[];
   footer?: SummaryField;
   text?: string;
-  backgroundType?: BackgroundType;
+  $backgroundType?: BackgroundType;
 }
 
 const backgroundMap: Record<BackgroundType, string> = {
@@ -51,17 +52,18 @@ const backgroundMap: Record<BackgroundType, string> = {
   default: 'separatorSecondary',
 };
 
-const StyledBackground = styled.div<{ backgroundType?: BackgroundType }>`
+const StyledBackground = styled.div<Partial<SummaryCardProps>>`
   display: flex;
   flex-direction: column;
-  background: ${({ theme, backgroundType }) =>
-    theme.palette.background[backgroundMap[backgroundType ?? 'default']]};
+  background: ${({ theme, $backgroundType }) =>
+    theme.palette.background[backgroundMap[$backgroundType ?? 'default']]};
   border-radius: 8px;
   padding: 8px 8px;
+  ${utils};
 `;
 
 interface FieldDisplayProps extends SummaryField {
-  withBackground?: boolean;
+  $withBackground?: boolean;
 }
 
 const FieldDisplay: React.FC<FieldDisplayProps> = ({
@@ -70,21 +72,20 @@ const FieldDisplay: React.FC<FieldDisplayProps> = ({
   value,
   isDanger,
   onEdit,
-  withBackground,
+  $withBackground,
 }) => {
   const theme = useTheme();
   return (
     <NomineeMessage
       label={label}
       leading={React.createElement(iconMap[icon], {
-        width: 16,
         height: 16,
         fill: isDanger ? theme?.palette.text.error : undefined,
       })}
       value={value}
       variant={isDanger ? 'danger' : undefined}
       trailing={onEdit ? <EditButton onClick={onEdit} /> : undefined}
-      withBackground={withBackground}
+      withBackground={$withBackground}
     />
   );
 };
@@ -93,7 +94,7 @@ FieldDisplay.defaultProps = {
   value: undefined,
   onEdit: undefined,
   isDanger: undefined,
-  withBackground: undefined,
+  $withBackground: undefined,
 };
 
 export const SummaryCard: FC<SummaryCardProps> = ({
@@ -103,12 +104,12 @@ export const SummaryCard: FC<SummaryCardProps> = ({
   fields,
   footer,
   text,
-  backgroundType,
+  ...rest
 }) => {
   const theme = useTheme();
 
   return (
-    <StyledBackground backgroundType={backgroundType}>
+    <StyledBackground {...rest}>
       <NomineeMessage
         leading={
           !!headerIcon &&
@@ -118,33 +119,38 @@ export const SummaryCard: FC<SummaryCardProps> = ({
         }
         label={headerText}
         withHeaderFont
-        trailing={!!onHeaderEdit && <EditButton onClick={onHeaderEdit} />}
+        trailing={
+          onHeaderEdit !== undefined ? (
+            <EditButton onClick={onHeaderEdit} />
+          ) : undefined
+        }
       />
       {(fields || footer || text) && (
-        <Divider
-          variant="horizontal"
-          background={theme?.palette.background.separator}
-          mt={1}
-        />
-      )}
-      {fields && (
-        <Flex direction="column" mt={3}>
-          {fields.map(field => (
-            <FieldDisplay {...field} key={field.label} />
-          ))}
+        <Flex direction="column" mb={2}>
+          <Divider
+            variant="horizontal"
+            background={theme?.palette.background.separator}
+            mt={1}
+          />
+          {fields && (
+            <Flex direction="column" mt={3}>
+              {fields.map(field => (
+                <FieldDisplay {...field} key={field.label} />
+              ))}
+            </Flex>
+          )}
+          {footer && (
+            <Flex mt={3}>
+              <FieldDisplay {...footer} $withBackground />
+            </Flex>
+          )}
+          {text && (
+            <Typography $maxWidth="640px" color="muted" px={2} pt={4} pb={1}>
+              {text}
+            </Typography>
+          )}
         </Flex>
       )}
-      {footer && (
-        <Flex mt={3}>
-          <FieldDisplay {...footer} withBackground />
-        </Flex>
-      )}
-      {text && (
-        <Typography $maxWidth="640px" color="muted" px={2} pt={4} pb={1}>
-          {text}
-        </Typography>
-      )}
-      {(fields || footer || text) && <Flex mt={2} />}
     </StyledBackground>
   );
 };
@@ -155,5 +161,5 @@ SummaryCard.defaultProps = {
   fields: undefined,
   footer: undefined,
   text: undefined,
-  backgroundType: undefined,
+  $backgroundType: undefined,
 };

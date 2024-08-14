@@ -106,6 +106,7 @@ export const theme = {
       breadcrumbSeparator: colors.background.breadcrumbSeparator,
       batchTransactionBody: colors.background.batchTransactionBody,
       slateLight: colors.background.slateLight,
+      slate: colors.background.slate,
       filterItem: colors.background.filterItem,
       calendar: colors.background.calendar,
       calendarHeader: colors.background.calendarHeader,

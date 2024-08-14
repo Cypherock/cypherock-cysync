@@ -18,14 +18,14 @@ export interface NomineeMessageProps extends WidthProps {
   withHeaderFont?: boolean;
 }
 
-const StyledNomineeMessage = styled.div<{ withBackground: boolean }>`
+const StyledNomineeMessage = styled.div<{ $withBackground: boolean }>`
   display: flex;
   min-width: 624px;
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
-  background: ${({ withBackground, theme }) =>
-    withBackground ? theme.palette.background.slate : 'none'};
+  background: ${({ $withBackground, theme }) =>
+    $withBackground ? theme.palette.background.slate : 'none'};
   border-radius: 8px;
 `;
 
@@ -42,7 +42,7 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   withBackground,
   withHeaderFont,
 }) => (
-  <StyledNomineeMessage withBackground={withBackground ?? false}>
+  <StyledNomineeMessage $withBackground={withBackground ?? false}>
     <Flex gap={16} align="center">
       {leading}
       <Typography
