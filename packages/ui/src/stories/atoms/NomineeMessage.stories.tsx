@@ -17,7 +17,7 @@ export const EncryptedMessage: Story = {
   args: {
     label: 'Encrypted Message',
     leading: <EncryptedMessageIcon />,
-    trailing: <EditButton />,
+    trailing: <EditButton text="Edit" />,
     withBackground: true,
   },
 };
@@ -26,7 +26,7 @@ export const ExecutorMessage: Story = {
   args: {
     label: 'Executor Message',
     leading: <MessageIcon />,
-    trailing: <EditButton />,
+    trailing: <EditButton text="Edit" />,
     withBackground: true,
   },
 };
