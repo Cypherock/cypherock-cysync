@@ -1,47 +1,26 @@
-import React, { FC } from 'react';
+import React, { createElement, FC, ReactNode } from 'react';
 import styled, { useTheme } from 'styled-components';
 
-import { EditButton } from './Prefabs';
-
-import {
-  ClockIcon,
-  EmailIconSmall,
-  EncryptedMessageIcon,
-  MessageIcon,
-  SvgProps,
-  UserIcon,
-  WalletIcon,
-} from '../../assets';
+import { SvgProps } from '../../assets';
 import { Flex, NomineeMessage, Divider, Typography } from '../atoms';
-import { svgGradients } from '../GlobalStyles';
 import { utils, UtilsProps } from '../utils';
 
-const iconMap: Record<string, React.FC<SvgProps>> = {
-  wallet: WalletIcon,
-  clock: ClockIcon,
-  user: UserIcon,
-  email: EmailIconSmall,
-  message: MessageIcon,
-  encrypted: EncryptedMessageIcon,
-};
-
-export type IconType = keyof typeof iconMap;
 export type BackgroundType = 'gold' | 'silver' | 'default';
 
-export interface SummaryField {
-  icon: IconType;
+export interface DetailField {
+  icon: FC<SvgProps>;
   label: string;
   value?: string;
-  onEdit?: () => void;
+  trailing?: ReactNode;
   isDanger?: boolean;
 }
 
-export interface SummaryCardProps extends UtilsProps {
+export interface DetailsCardProps extends UtilsProps {
   headerText: string;
-  headerIcon?: IconType;
-  onHeaderEdit?: () => void;
-  fields?: SummaryField[];
-  footer?: SummaryField;
+  headerLeading?: ReactNode;
+  headerTrailing?: ReactNode;
+  fields?: DetailField[];
+  footer?: DetailField;
   text?: string;
   $backgroundType?: BackgroundType;
 }
@@ -52,39 +31,41 @@ const backgroundMap: Record<BackgroundType, string> = {
   default: 'separatorSecondary',
 };
 
-const StyledBackground = styled.div<Partial<SummaryCardProps>>`
+const StyledBackground = styled.div<Partial<DetailsCardProps>>`
   display: flex;
   flex-direction: column;
   background: ${({ theme, $backgroundType }) =>
-    theme.palette.background[backgroundMap[$backgroundType ?? 'default']]};
+    theme.palette.background[
+      backgroundMap[$backgroundType ?? 'default'] ?? backgroundMap.default
+    ]};
   border-radius: 8px;
   padding: 8px 8px;
   ${utils};
 `;
 
-interface FieldDisplayProps extends SummaryField {
+interface FieldDisplayProps extends DetailField {
   $withBackground?: boolean;
 }
 
-const FieldDisplay: React.FC<FieldDisplayProps> = ({
+const FieldDisplay: FC<FieldDisplayProps> = ({
   label,
   icon,
   value,
   isDanger,
-  onEdit,
+  trailing,
   $withBackground,
 }) => {
   const theme = useTheme();
   return (
     <NomineeMessage
       label={label}
-      leading={React.createElement(iconMap[icon], {
+      leading={createElement(icon, {
         height: 16,
         fill: isDanger ? theme?.palette.text.error : undefined,
       })}
       value={value}
       variant={isDanger ? 'danger' : undefined}
-      trailing={onEdit ? <EditButton onClick={onEdit} /> : undefined}
+      trailing={trailing}
       withBackground={$withBackground}
     />
   );
@@ -92,15 +73,15 @@ const FieldDisplay: React.FC<FieldDisplayProps> = ({
 
 FieldDisplay.defaultProps = {
   value: undefined,
-  onEdit: undefined,
+  trailing: undefined,
   isDanger: undefined,
   $withBackground: undefined,
 };
 
-export const SummaryCard: FC<SummaryCardProps> = ({
-  headerIcon,
+export const DetailsCard: FC<DetailsCardProps> = ({
+  headerLeading,
   headerText,
-  onHeaderEdit,
+  headerTrailing,
   fields,
   footer,
   text,
@@ -111,19 +92,10 @@ export const SummaryCard: FC<SummaryCardProps> = ({
   return (
     <StyledBackground {...rest}>
       <NomineeMessage
-        leading={
-          !!headerIcon &&
-          React.createElement(iconMap[headerIcon], {
-            fill: `url(#${svgGradients.gold})`,
-          })
-        }
+        leading={headerLeading}
         label={headerText}
-        withHeaderFont
-        trailing={
-          onHeaderEdit !== undefined ? (
-            <EditButton onClick={onHeaderEdit} />
-          ) : undefined
-        }
+        isHeader
+        trailing={headerTrailing}
       />
       {(fields || footer || text) && (
         <Flex direction="column" mb={2}>
@@ -155,9 +127,9 @@ export const SummaryCard: FC<SummaryCardProps> = ({
   );
 };
 
-SummaryCard.defaultProps = {
-  headerIcon: undefined,
-  onHeaderEdit: undefined,
+DetailsCard.defaultProps = {
+  headerLeading: undefined,
+  headerTrailing: undefined,
   fields: undefined,
   footer: undefined,
   text: undefined,

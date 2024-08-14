@@ -3,12 +3,12 @@ import React from 'react';
 import { Button, Typography } from '../../atoms';
 
 export interface EditButtonProps {
-  text?: string;
+  text: string;
   onClick?: () => void;
 }
 
 export const EditButton: React.FC<EditButtonProps> = ({ text, onClick }) => (
-  <Button variant="none" color="golden" onClick={onClick}>
+  <Button variant="none" onClick={onClick}>
     <Typography $fontSize={14} $fontWeight="medium" color="gold">
       {text}
     </Typography>
@@ -16,6 +16,5 @@ export const EditButton: React.FC<EditButtonProps> = ({ text, onClick }) => (
 );
 
 EditButton.defaultProps = {
-  text: 'Edit',
   onClick: undefined,
 };

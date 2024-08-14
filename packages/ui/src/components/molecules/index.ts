@@ -49,5 +49,5 @@ export * from './OTPInput';
 export * from './OneInMany';
 export * from './CouponInput';
 export * from './PlanCard';
-export * from './SummaryCard';
+export * from './DetailsCard';
 export * from './Payment';

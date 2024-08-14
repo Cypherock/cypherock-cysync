@@ -15,7 +15,7 @@ export interface NomineeMessageProps extends WidthProps {
   trailing?: React.ReactNode;
   variant?: NomineeMessageVariant;
   withBackground?: boolean;
-  withHeaderFont?: boolean;
+  isHeader?: boolean;
 }
 
 const StyledNomineeMessage = styled.div<{ $withBackground: boolean }>`
@@ -40,7 +40,7 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   trailing,
   variant,
   withBackground,
-  withHeaderFont,
+  isHeader: withHeaderFont,
 }) => (
   <StyledNomineeMessage $withBackground={withBackground ?? false}>
     <Flex gap={16} align="center">
@@ -69,5 +69,5 @@ NomineeMessage.defaultProps = {
   trailing: undefined,
   variant: undefined,
   withBackground: undefined,
-  withHeaderFont: undefined,
+  isHeader: undefined,
 };
