@@ -11,22 +11,25 @@ import {
 } from '../atoms';
 import { BgColor, BorderColor } from '../utils';
 
-export type MessageBoxType = 'info' | 'warning' | 'danger';
+export type MessageBoxType = 'info' | 'warning' | 'danger' | 'success';
 const borderColorMap: Record<MessageBoxType, BorderColor> = {
   info: 'input',
   warning: 'warning',
   danger: 'danger',
+  success: 'success',
 };
 const bgColorMap: Record<MessageBoxType, BgColor> = {
   info: 'input',
   warning: 'warning',
   danger: 'error',
+  success: 'message',
 };
 export const MessageBox: FC<{
   text: string;
   altText?: string;
   textColor?: TypographyColor;
   type: MessageBoxType;
+  icon?: React.ReactNode;
   rightImage?: React.ReactNode;
   variables?: any;
   showIcon?: boolean;
@@ -39,6 +42,7 @@ export const MessageBox: FC<{
   rightImage,
   variables,
   showIcon,
+  icon,
   showQuestionmark,
 }) => {
   const theme = useTheme();
@@ -46,6 +50,7 @@ export const MessageBox: FC<{
     info: theme?.palette.bullet.white,
     warning: theme?.palette.info.main,
     danger: theme?.palette.background.danger,
+    success: theme?.palette.background.success,
   };
 
   return (
@@ -61,9 +66,9 @@ export const MessageBox: FC<{
       $alignSelf="stretch"
     >
       {showIcon && (
-        <div>
-          <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-        </div>
+        <Container>
+          {icon ?? <InfoItalicsIcon width={16} fill={iconFillMap[type]} />}
+        </Container>
       )}
       <Flex direction="column" gap={4}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
@@ -91,4 +96,5 @@ MessageBox.defaultProps = {
   variables: undefined,
   showIcon: true,
   showQuestionmark: false,
+  icon: undefined,
 };

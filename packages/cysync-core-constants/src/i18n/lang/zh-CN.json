@@ -1554,6 +1554,37 @@
       "success": {
         "title": "Owner details successfully updated"
       }
+    },
+    "inheritancePinRecovery": {
+      "fetch": {
+        "title": "Please wait while we fetch the encrypted PIN",
+        "subTitle": "Do no disconnect or close the app"
+      },
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "tapCard": "Tap a valid card"
+        },
+        "messageBox": {
+          "warning": "The PIN will be decrypted by the card"
+        }
+      },
+      "viewPin": {
+        "error": {
+          "title": "PIN Decryption Failed",
+          "subTitle": "PIN decryption was unsuccessful. Wallet ABC was not found in the card"
+        },
+        "decrypted": {
+          "title": "View Pin",
+          "subTitle": "PIN for this wallet",
+          "messageBox": {
+            "info": "You can view the PIN on your device"
+          }
+        }
+      },
+      "success": {
+        "title": "Congratulations, Pin recovery is complete"
+      }
     }
   },
   "toggle": {

@@ -851,6 +851,37 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritancePinRecovery: {
+    fetch: {
+      title: string;
+      subTitle: string;
+    };
+    walletAuth: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    viewPin: {
+      error: {
+        title: string;
+        subTitle: string;
+      };
+      decrypted: {
+        title: string;
+        subTitle: string;
+        messageBox: {
+          info: string;
+        };
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {

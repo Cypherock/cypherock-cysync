@@ -24,3 +24,10 @@ export const Warning: Story = {
     type: 'warning',
   },
 };
+
+export const Success: Story = {
+  args: {
+    text: 'This is a success message',
+    type: 'success',
+  },
+};

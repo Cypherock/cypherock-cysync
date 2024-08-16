@@ -4,13 +4,13 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog } from '~/components';
 
 import {
-  InheritanceEditUserDetailsDialogProvider,
-  useInheritanceEditUserDetailsDialog,
+  InheritancePinRecoveryDialogProvider,
+  useInheritancePinRecoveryDialog,
 } from './context';
 
-const InheritanceEditUserDetails: FC = () => {
+const InheritancePinRecovery: FC = () => {
   const { tabs, currentTab, currentDialog, unhandledError, onClose } =
-    useInheritanceEditUserDetailsDialog();
+    useInheritancePinRecoveryDialog();
 
   return (
     <BlurOverlay>
@@ -26,8 +26,8 @@ const InheritanceEditUserDetails: FC = () => {
   );
 };
 
-export const InheritanceEditUserDetailsDialog = () => (
-  <InheritanceEditUserDetailsDialogProvider>
-    <InheritanceEditUserDetails />
-  </InheritanceEditUserDetailsDialogProvider>
+export const InheritancePinRecoveryDialog = () => (
+  <InheritancePinRecoveryDialogProvider>
+    <InheritancePinRecovery />
+  </InheritancePinRecoveryDialogProvider>
 );

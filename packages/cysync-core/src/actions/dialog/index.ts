@@ -103,3 +103,6 @@ export const openInheritanceEditReminderTimeDialog = () =>
 
 export const openEditUserDetailsDialog = () =>
   openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
+
+export const openInheritancePinRecoveryDialog = () =>
+  openDialog({ name: 'inheritancePinRecovery', data: undefined });

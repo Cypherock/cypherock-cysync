@@ -1,6 +1,3 @@
-import React, { useState } from 'react';
-
-import { useInheritanceEditUserDetailsDialog } from '../context';
 import {
   Button,
   CloseButton,
@@ -14,8 +11,12 @@ import {
   ScrollableContainer,
   Typography,
 } from '@cypherock/cysync-ui';
-import { selectLanguage } from '~/store/lang';
+import React, { useState } from 'react';
+
 import { useAppSelector } from '~/store';
+import { selectLanguage } from '~/store/lang';
+
+import { useInheritanceEditUserDetailsDialog } from '../context';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);
