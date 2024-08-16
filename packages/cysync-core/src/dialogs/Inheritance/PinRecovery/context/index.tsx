@@ -8,7 +8,12 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import {
   DecryptedPin,
@@ -41,6 +46,7 @@ export interface InheritancePinRecoveryDialogContextProviderProps {
 export const InheritancePinRecoveryDialogProvider: FC<
   InheritancePinRecoveryDialogContextProviderProps
 > = ({ children }) => {
+  const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -52,17 +58,20 @@ export const InheritancePinRecoveryDialogProvider: FC<
     );
 
   const tabs: ITabs = [
-    { name: 'Fetch data', dialogs: [<FetchData key="Fetch data" />] },
     {
-      name: 'Wallet auth',
+      name: lang.strings.dialogs.inheritancePinRecovery.fetch.name,
+      dialogs: [<FetchData key="Fetch data" />],
+    },
+    {
+      name: lang.strings.dialogs.inheritancePinRecovery.walletAuth.name,
       dialogs: [<WalletAuth key="Wallet auth" />],
     },
     {
-      name: 'Decrypted pin',
+      name: lang.strings.dialogs.inheritancePinRecovery.viewPin.name,
       dialogs: [<DecryptedPin key="Decrypted pin" />],
     },
     {
-      name: 'Success',
+      name: lang.strings.dialogs.inheritancePinRecovery.success.name,
       dialogs: [<SuccessPinRecovery key="Success" />],
     },
   ];

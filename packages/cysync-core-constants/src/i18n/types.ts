@@ -853,10 +853,12 @@ interface LangDialogs {
   };
   inheritancePinRecovery: {
     fetch: {
+      name: string;
       title: string;
       subTitle: string;
     };
     walletAuth: {
+      name: string;
       title: string;
       actions: {
         tapCard: string;
@@ -866,6 +868,7 @@ interface LangDialogs {
       };
     };
     viewPin: {
+      name: string;
       error: {
         title: string;
         subTitle: string;
@@ -879,6 +882,7 @@ interface LangDialogs {
       };
     };
     success: {
+      name: string;
       title: string;
     };
   };
