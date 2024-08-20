@@ -852,12 +852,13 @@ interface LangDialogs {
     };
   };
   inheritancePinRecovery: {
+    title: string;
     fetch: {
       name: string;
       title: string;
       subTitle: string;
     };
-    walletAuth: {
+    decryptPin: {
       name: string;
       title: string;
       actions: {
@@ -866,19 +867,16 @@ interface LangDialogs {
       messageBox: {
         warning: string;
       };
-    };
-    viewPin: {
-      name: string;
       error: {
         title: string;
         subTitle: string;
       };
-      decrypted: {
-        title: string;
-        subTitle: string;
-        messageBox: {
-          info: string;
-        };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      actions: {
+        viewDevice: string;
       };
     };
     success: {

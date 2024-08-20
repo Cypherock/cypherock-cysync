@@ -15,12 +15,7 @@ import {
   useAppSelector,
 } from '~/store';
 
-import {
-  DecryptedPin,
-  FetchData,
-  WalletAuth,
-  SuccessPinRecovery,
-} from '../Dialogs';
+import { ViewPin, FetchData, SuccessPinRecovery, DecryptPin } from '../Dialogs';
 
 export interface InheritancePinRecoveryDialogContextInterface {
   tabs: ITabs;
@@ -52,7 +47,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        1: [0],
+        0: [0],
       }),
       [],
     );
@@ -63,12 +58,12 @@ export const InheritancePinRecoveryDialogProvider: FC<
       dialogs: [<FetchData key="Fetch data" />],
     },
     {
-      name: lang.strings.dialogs.inheritancePinRecovery.walletAuth.name,
-      dialogs: [<WalletAuth key="Wallet auth" />],
+      name: lang.strings.dialogs.inheritancePinRecovery.decryptPin.name,
+      dialogs: [<DecryptPin key="Decrypt pin" />],
     },
     {
       name: lang.strings.dialogs.inheritancePinRecovery.viewPin.name,
-      dialogs: [<DecryptedPin key="Decrypted pin" />],
+      dialogs: [<ViewPin key="View pin" />],
     },
     {
       name: lang.strings.dialogs.inheritancePinRecovery.success.name,

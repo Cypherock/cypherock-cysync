@@ -63,7 +63,7 @@ const InheritancePinRecovery: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            heading={lang.strings.inheritanceSilverPlanPurchase.title}
+            heading={lang.strings.dialogs.inheritancePinRecovery.title}
           />
           <DialogBoxBody
             p="20"

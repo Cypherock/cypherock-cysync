@@ -1,4 +1,4 @@
-export * from './WalletAuth';
+export * from './DecryptPin';
 export * from './Success';
-export * from './DecryptedPin';
+export * from './ViewPin';
 export * from './FetchData';

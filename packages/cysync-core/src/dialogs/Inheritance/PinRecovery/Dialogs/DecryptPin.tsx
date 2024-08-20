@@ -3,6 +3,7 @@ import {
   ArrowRightIcon,
   Check,
   Container,
+  ErrorDialog,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
@@ -21,12 +22,13 @@ const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
 
-export const WalletAuth = () => {
+export const DecryptPin = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.dialogs.inheritancePinRecovery;
 
   const { onNext } = useInheritancePinRecoveryDialog();
+  const error = false;
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -46,7 +48,7 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.walletAuth.actions.tapCard,
+        text: strings.decryptPin.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
@@ -59,15 +61,32 @@ export const WalletAuth = () => {
     const timeout = setTimeout(() => {
       onNext();
     }, 2000);
-
     return () => clearTimeout(timeout);
   }, []);
+
+  if (error) {
+    return (
+      <ErrorDialog
+        title={strings.decryptPin.error.title}
+        advanceText={strings.decryptPin.error.subTitle}
+        advanceTextColor="error"
+        primaryActionText={lang.strings.buttons.retry}
+        secondaryActionText={lang.strings.buttons.exit}
+        onPrimaryClick={() => {
+          onNext();
+        }}
+        onSecondaryClick={() => {
+          // TODO: implement this function
+        }}
+      />
+    );
+  }
 
   return (
     <Layout>
       <Container direction="column" width="100%" $flex={1} gap={16}>
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.walletAuth.title}
+          {strings.decryptPin.title}
         </Typography>
         <LeanBoxContainer mb={4}>
           {actionsList.map(data => (
@@ -84,7 +103,7 @@ export const WalletAuth = () => {
         </LeanBoxContainer>
         <MessageBox
           type="warning"
-          text={strings.walletAuth.messageBox.warning}
+          text={strings.decryptPin.messageBox.warning}
         />
       </Container>
     </Layout>
