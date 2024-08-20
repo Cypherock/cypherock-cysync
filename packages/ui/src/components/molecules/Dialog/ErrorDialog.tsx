@@ -15,7 +15,6 @@ import {
   Button,
   LangDisplay,
   Typography,
-  TypographyColor,
 } from '../../atoms';
 import { MessageBox, MessageBoxType } from '../MessageBox';
 
@@ -32,7 +31,6 @@ export interface ErrorDialogProps extends DialogBoxProps {
   textVariables?: object;
   messageBoxText?: string;
   advanceText?: string;
-  advanceTextColor?: TypographyColor;
   deviceNavigationText?: string;
   messageBoxVariant?: MessageBoxType;
 }
@@ -57,7 +55,6 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
   messageBoxText,
   deviceNavigationText,
   advanceText,
-  advanceTextColor,
   ...props
 }) => {
   const theme = useTheme();
@@ -72,14 +69,7 @@ export const ErrorDialog: React.FC<ErrorDialogProps> = ({
         messageBoxText || deviceNavigationText || advanceText ? (
           <>
             {advanceText && (
-              <AdvanceTextDisplay>
-                <Typography
-                  color={advanceTextColor ?? 'muted'}
-                  $wordBreak="keep-all"
-                >
-                  {advanceText}
-                </Typography>
-              </AdvanceTextDisplay>
+              <AdvanceTextDisplay>{advanceText}</AdvanceTextDisplay>
             )}
             {messageBoxText && (
               <MessageBox
@@ -130,5 +120,4 @@ ErrorDialog.defaultProps = {
   deviceNavigationText: undefined,
   advanceText: undefined,
   messageBoxVariant: 'danger',
-  advanceTextColor: undefined,
 };

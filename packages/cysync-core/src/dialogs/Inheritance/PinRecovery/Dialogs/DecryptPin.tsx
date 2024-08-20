@@ -69,7 +69,6 @@ export const DecryptPin = () => {
       <ErrorDialog
         title={strings.decryptPin.error.title}
         advanceText={strings.decryptPin.error.subTitle}
-        advanceTextColor="error"
         primaryActionText={lang.strings.buttons.retry}
         secondaryActionText={lang.strings.buttons.exit}
         onPrimaryClick={() => {
