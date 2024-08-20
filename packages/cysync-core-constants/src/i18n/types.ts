@@ -851,6 +851,83 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEstateRecovery: {
+    title: string;
+    walletAuth: {
+      heading: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    verification: {
+      heading: string;
+    };
+    syncing: {
+      heading: string;
+      title: string;
+      subTitle: string;
+    };
+    decryption: {
+      heading: string;
+      device: {
+        title: string;
+        subTitle: string;
+        actions: {
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+      };
+      success: {
+        subTitle: string;
+        actions: {
+          viewDevice: string;
+        };
+      };
+      error: {
+        title: string;
+        message: string;
+      };
+    };
+    decryptedMessage: {
+      heading: string;
+      title: string;
+      tooltip: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+      };
+      messageBox: {
+        info: string;
+      };
+    };
+    successMessage: {
+      heading: string;
+      title: string;
+      subTitle: string;
+    };
+    walletTransfer: {
+      title: string;
+      subTitle: string;
+      messageBox: {
+        warning: string;
+      };
+    };
+  };
 }
 
 interface LangToggle {

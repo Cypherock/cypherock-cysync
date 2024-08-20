@@ -1,4 +1,9 @@
 import React, { FC, useState } from 'react';
+
+import { CouponInput } from './CouponInput';
+
+import { errorIcon, ShoppingCart } from '../../assets';
+import { useTheme } from '../../themes';
 import {
   Container,
   Divider,
@@ -7,10 +12,6 @@ import {
   Image,
   Typography,
 } from '../atoms';
-
-import { CouponInput } from './CouponInput';
-import { useTheme } from '../../themes';
-import { errorIcon, ShoppingCart } from '../../assets';
 
 export interface PaymentProps {
   lang: {

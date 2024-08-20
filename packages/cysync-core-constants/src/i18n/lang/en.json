@@ -1579,6 +1579,83 @@
       "success": {
         "title": "Owner details successfully updated"
       }
+    },
+    "inheritanceEstateRecovery": {
+      "title": "Estate recovery",
+      "walletAuth": {
+        "heading": "Wallet Authentication",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet, ",
+        "actions": {
+          "tapCard": "Tap the card you received as a nominee"
+        },
+        "messageBox": {
+          "warning": "Do not lift until you hear 2 beep sound"
+        }
+      },
+      "verification": {
+        "heading": "OTP verification"
+      },
+      "syncing": {
+        "heading": "Syncing",
+        "title": "Please wait while we fetch the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "decryption": {
+        "heading": "Decryption",
+        "device": {
+          "title": "Follow instructions on the X1 Vault",
+          "subTitle": "Do not remove the card till you hear a beep",
+          "actions": {
+            "tapCard": "Tap the card you received as a nominee"
+          },
+          "messageBox": {
+            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+          }
+        },
+        "success": {
+          "subTitle": "PIN for this wallet",
+          "actions": {
+            "viewDevice": "View & copy the PIN on your device and then confirm"
+          }
+        },
+        "error": {
+          "title": "Decrypted message",
+          "message": "Update was unsuccessful. Wallet ABC was not found in the card"
+        }
+      },
+      "decryptedMessage": {
+        "heading": "Decrypted Message",
+        "title": "Message from ",
+        "tooltip": "Something goes here",
+        "form": {
+          "cardLocationField": {
+            "label": "Card location",
+            "placeholder": "Please enter card location",
+            "tooltip": "The location of your cards"
+          },
+          "personalMessageField": {
+            "label": "Personal message",
+            "placeholder": "Please enter your message",
+            "tooltip": "This is the message for you"
+          }
+        },
+        "messageBox": {
+          "info": "Click next to view the Wallet PIN on your device"
+        }
+      },
+      "successMessage": {
+        "heading": "Confirmation",
+        "title": "Congratulations, you just decrypted the message from ",
+        "subTitle": "Watch the video to understand the next steps"
+      },
+      "walletTransfer": {
+        "title": "Wallet transfer",
+        "subTitle": "Before you proceed to transfer the wallet to your new Cypherock X1, make sure you read the message below",
+        "messageBox": {
+          "warning": "You need to have at least 2 cards to transfer wallet. Make sure you have read the nominee message carefully and fetched the second card from the location mentioned in the message"
+        }
+      }
     }
   },
   "toggle": {
