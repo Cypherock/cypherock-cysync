@@ -1,6 +1,6 @@
 import {
   InheritanceApp,
-  WalletAuthEvent,
+  AuthWalletEvent,
 } from '@cypherock/sdk-app-inheritance';
 import { hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -14,10 +14,10 @@ import {
 import logger from '../../utils/logger';
 
 const walletAuthToDeviceEventMap: Partial<
-  Record<WalletAuthEvent, InheritanceWalletAuthDeviceEvent | undefined>
+  Record<AuthWalletEvent, InheritanceWalletAuthDeviceEvent | undefined>
 > = {
-  [WalletAuthEvent.INIT]: InheritanceWalletAuthDeviceEvent.INIT,
-  [WalletAuthEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
+  [AuthWalletEvent.INIT]: InheritanceWalletAuthDeviceEvent.INIT,
+  [AuthWalletEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
 };
 
 export const walletAuth = (

@@ -1,22 +1,29 @@
-import { InheritanceApp } from '@cypherock/sdk-app-inheritance';
+import {
+  EncryptMessagesWithPinEvent,
+  InheritanceApp,
+} from '@cypherock/sdk-app-inheritance';
 import { hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import {
   IInheritanceEncryptMessageEvent,
   IInheritanceEncryptMessageParams,
+  InheritanceEncryptMessageDeviceEvent,
 } from './types';
 
 import logger from '../../utils/logger';
 
-// const encryptMessageToDeviceEventMap: Partial<
-//   Record<number, InheritanceEncryptionDeviceEvent | undefined>
-// > = {
-//   [0]: InheritanceEncryptionDeviceEvent.INIT,
-//   [1]: InheritanceEncryptionDeviceEvent.CONFIRMED,
-//   [2]: InheritanceEncryptionDeviceEvent.VERIFIED,
-//   [3]: InheritanceEncryptionDeviceEvent.CARD_TAPPED,
-// };
+const encryptMessageToDeviceEventMap: Partial<
+  Record<
+    EncryptMessagesWithPinEvent,
+    InheritanceEncryptMessageDeviceEvent | undefined
+  >
+> = {
+  [EncryptMessagesWithPinEvent.INIT]: InheritanceEncryptMessageDeviceEvent.INIT,
+  [EncryptMessagesWithPinEvent.CONFIRMED]: InheritanceEncryptMessageDeviceEvent.CONFIRMED,
+  [EncryptMessagesWithPinEvent.MESSAGE_VERIFIED]: InheritanceEncryptMessageDeviceEvent.VERIFIED,
+  [EncryptMessagesWithPinEvent.PIN_ENTERED]: InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
+};
 
 export const encryptMessage = (
   params: IInheritanceEncryptMessageParams,
@@ -56,17 +63,17 @@ export const encryptMessage = (
           messages: messages.map(m => ({
             value: m,
           })),
-          // onEvent: event => {
-          //   const deviceEvent = encryptMessageToDeviceEventMap[event];
-          //   if (deviceEvent !== undefined) {
-          //     events[deviceEvent] = true;
-          //   }
+          onEvent: event => {
+            const deviceEvent = encryptMessageToDeviceEventMap[event];
+            if (deviceEvent !== undefined) {
+              events[deviceEvent] = true;
+            }
 
-          //   observer.next({
-          //     type: 'Device',
-          //     device: { isDone: false, events },
-          //   });
-          // },
+            observer.next({
+              type: 'Device',
+              device: { isDone: false, events },
+            });
+          },
         });
 
         observer.next({ type: 'Device', device: { isDone: true, events } });
