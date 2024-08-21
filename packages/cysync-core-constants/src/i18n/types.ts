@@ -851,6 +851,76 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditEncryptedMessage: {
+    confirmation: {
+      title: string;
+      subTitle: string;
+    };
+    syncing: {
+      title: string;
+      subTitle: string;
+    };
+    decryption: {
+      wallet: {
+        title: string;
+        actions: {
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+        decryption: {
+          title: string;
+          subTitle: string;
+        };
+      };
+    };
+    editMessage: {
+      title: string;
+      subTitle: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+        };
+      };
+      messageBox: {
+        warning: string;
+      };
+      confirmMessage: {
+        title: string;
+        subTitle: string;
+        actions: {
+          confirmOnDevice: string;
+          verifyLocation: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+      };
+      encryption: {
+        title: string;
+        subTitle: string;
+        actions: {
+          enterPinAndTap: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+        syncing: {
+          title: string;
+          subTitle: string;
+        };
+      };
+      success: {
+        title: string;
+      };
+    };
+  };
 }
 
 interface LangToggle {
