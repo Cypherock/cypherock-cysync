@@ -104,6 +104,9 @@ const initialState: IDialogState = {
   inheritanceEditUserDetails: {
     isOpen: false,
   },
+  inheritanceEditEncryptedMessage: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

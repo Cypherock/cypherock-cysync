@@ -162,6 +162,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  inheritanceEditEncryptedMessage: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

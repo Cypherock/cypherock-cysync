@@ -87,6 +87,10 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+  yes: string;
+  no: string;
+  exitWithoutSaving: string;
+  saveChanges: string;
 }
 
 interface LangDashboard {
@@ -891,34 +895,34 @@ interface LangDialogs {
       messageBox: {
         warning: string;
       };
-      confirmMessage: {
+    };
+    confirmMessage: {
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    encryption: {
+      title: string;
+      subTitle: string;
+      actions: {
+        enterPinAndTap: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      syncing: {
         title: string;
         subTitle: string;
-        actions: {
-          confirmOnDevice: string;
-          verifyLocation: string;
-        };
-        messageBox: {
-          warning: string;
-        };
       };
-      encryption: {
-        title: string;
-        subTitle: string;
-        actions: {
-          enterPinAndTap: string;
-        };
-        messageBox: {
-          warning: string;
-        };
-        syncing: {
-          title: string;
-          subTitle: string;
-        };
-      };
-      success: {
-        title: string;
-      };
+    };
+    success: {
+      title: string;
     };
   };
 }

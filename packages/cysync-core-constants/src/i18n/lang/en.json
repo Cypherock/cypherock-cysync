@@ -46,7 +46,11 @@
     "submit": "Submit",
     "showMore": "Show more",
     "resendOTP": "Resend OTP",
-    "next": "Next"
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No",
+    "exitWithoutSaving": "Exit without saving",
+    "saveChanges": "Save changes"
   },
   "dashboard": {
     "wallet": {
@@ -1619,35 +1623,35 @@
         },
         "messageBox": {
           "warning": "Make sure you describe the card's location clearly for the nominee"
-        },
-        "confirmMessage": {
-          "title": "Follow instructions on the X1 Vault to verify the nominee message",
-          "subTitle": "You can encrypt the message in the next step",
-          "actions": {
-            "confirmOnDevice": "Confirm on device",
-            "verifyLocation": "Verify Card location in your device"
-          },
-          "messageBox": {
-            "warning": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
-          }
-        },
-        "encryption": {
-          "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
-          "subTitle": "Lift your card after 2 beep sounds",
-          "actions": {
-            "enterPinAndTap": "Enter PIN and tap any one card"
-          },
-          "messageBox": {
-            "warning": "The nominee message will be encrypted by the Card"
-          },
-          "syncing": {
-            "title": "Please wait while we save the encrypted data on the server",
-            "subTitle": "Do not disconnect or close the app"
-          }
-        },
-        "success": {
-          "title": "Nominee message successfully updated"
         }
+      },
+      "confirmMessage": {
+        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "subTitle": "You can encrypt the message in the next step",
+        "actions": {
+          "confirmOnDevice": "Confirm on device",
+          "verifyLocation": "Verify Card location in your device"
+        },
+        "messageBox": {
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+        }
+      },
+      "encryption": {
+        "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
+        "subTitle": "Lift your card after 2 beep sounds",
+        "actions": {
+          "enterPinAndTap": "Enter PIN and tap any one card"
+        },
+        "messageBox": {
+          "warning": "The nominee message will be encrypted by the Card"
+        },
+        "syncing": {
+          "title": "Please wait while we save the encrypted data on the server",
+          "subTitle": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Nominee message successfully updated"
       }
     }
   },
