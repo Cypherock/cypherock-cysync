@@ -80,19 +80,17 @@ const StyledContainer = styled.div<
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: 280px;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     transform-origin: bottom center;
   }
 
   &:hover::after {
     transform: ${({ $isSelected, disabled }) =>
       !disabled && !$isSelected
-        ? 'translateX(-30%) rotate(45deg) scale(1)'
+        ? 'translateX(-40%) translateY(15%) rotate(35deg) scaleY(1.9) scaleX(.9)'
         : 'none'};
-    background-position: bottom left 180%;
-    width: 167%;
-    height: 175%;
-    background-size: 496px;
+    background-position: bottom left;
+    background-size: 280px;
     background-image: ${({ $isSelected, disabled }) =>
       !disabled && !$isSelected ? `url(${manyInManyHoverBgImage})` : 'none'};
   }
