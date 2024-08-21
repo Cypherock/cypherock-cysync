@@ -31,6 +31,8 @@ export const colors = {
       notExpiring:
         'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #E9B873 ,300deg, #FEDD8F, 330deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
     },
+    cardDefault:
+      'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827',
     cardSelected:
       'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
     cardHover:

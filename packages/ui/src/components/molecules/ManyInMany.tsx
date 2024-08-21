@@ -32,7 +32,7 @@ const getBackground = (params: {
   if (params.$isSelected) return params.theme.palette.background.cardSelected;
   if (params.disabled) return params.theme.palette.background.cardDisabled;
   if (params.isHovered) return params.theme.palette.gradients.cardHover;
-  return params.theme.palette.background.cardSelected;
+  return params.theme.palette.gradients.cardDefault;
 };
 
 const StyledMimDefaultWalletIcon = styled(MimDefaultWalletIcon)``;
@@ -53,7 +53,7 @@ const StyledContainer = styled.div<
 >`
   position: relative;
   overflow: hidden;
-  width: 276px;
+  width: 340px;
   height: 128px;
   padding: 24px 16px;
   color: ${({ theme, disabled }) =>
@@ -65,6 +65,8 @@ const StyledContainer = styled.div<
       $isSelected && !disabled ? theme.palette.border.selected : 'transparent'};
   box-shadow: ${getBoxShadow};
   background: ${getBackground};
+  transition: font-weight 0.3s ease-in-out, background 0.3s ease-in-out;
+
   ${utils}
 
   &::after {
@@ -79,7 +81,7 @@ const StyledContainer = styled.div<
       !disabled && !$isSelected ? `url(${manyInManyBgImage})` : 'none'};
     background-position: bottom center;
     background-repeat: no-repeat;
-    background-size: 280px;
+    background-size: contain;
     transition: transform 0.3s ease-in-out;
     transform-origin: bottom center;
   }
@@ -87,10 +89,10 @@ const StyledContainer = styled.div<
   &:hover::after {
     transform: ${({ $isSelected, disabled }) =>
       !disabled && !$isSelected
-        ? 'translateX(-40%) translateY(15%) rotate(35deg) scaleY(1.9) scaleX(.9)'
+        ? 'translateX(-40%) translateY(15%) rotate(30deg) scaleY(1.8) scaleX(.8)'
         : 'none'};
     background-position: bottom left;
-    background-size: 280px;
+    background-size: contain;
     background-image: ${({ $isSelected, disabled }) =>
       !disabled && !$isSelected ? `url(${manyInManyHoverBgImage})` : 'none'};
   }
@@ -119,8 +121,8 @@ const StyledContainer = styled.div<
   }
 
   &:hover ${StyledDateLabel} {
-    font-size: ${({ $isSelected, disabled }) =>
-      !$isSelected && !disabled ? '15px' : '14px'};
+    font-weight: ${({ $isSelected, disabled }) =>
+      !$isSelected && !disabled ? '500' : '400'};
   }
 `;
 

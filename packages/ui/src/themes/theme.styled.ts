@@ -64,6 +64,7 @@ export const theme = {
       selected: colors.boxShadow.selected,
     },
     gradients: {
+      cardDefault: colors.gradients.cardDefault,
       cardSelected: colors.gradients.cardSelected,
       cardHover: colors.gradients.cardHover,
       title: colors.gradients.title,
