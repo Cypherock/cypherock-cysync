@@ -10,15 +10,14 @@ import { useInheritanceEstateRecoveryDialog } from '../context';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.dialogs.inheritanceEstateRecovery.verification;
+  const strings =
+    lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.verification;
 
   const { onClose, onPrevious, onNext, userDetails } =
     useInheritanceEstateRecoveryDialog();
 
   const email = userDetails?.email ?? '';
   const alternateEmail = userDetails?.alternateEmail ?? '';
-
-  const title = strings.heading;
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
@@ -41,7 +40,7 @@ export const VerifyOTP: React.FC = () => {
 
   return (
     <OTPInputDialog
-      title={title}
+      title={strings.title}
       onClose={onClose}
       emails={[email, alternateEmail]}
       onBack={onPrevious}

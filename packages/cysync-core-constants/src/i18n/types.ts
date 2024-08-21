@@ -854,7 +854,7 @@ interface LangDialogs {
   inheritanceEstateRecovery: {
     title: string;
     walletAuth: {
-      heading: string;
+      name: string;
       title: string;
       subTitle: string;
       actions: {
@@ -863,17 +863,16 @@ interface LangDialogs {
       messageBox: {
         warning: string;
       };
-    };
-    verification: {
-      heading: string;
-    };
-    syncing: {
-      heading: string;
-      title: string;
-      subTitle: string;
+      verification: {
+        title: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
     };
     decryption: {
-      heading: string;
+      name: string;
       device: {
         title: string;
         subTitle: string;
@@ -894,37 +893,38 @@ interface LangDialogs {
         title: string;
         message: string;
       };
-    };
-    decryptedMessage: {
-      heading: string;
-      title: string;
-      tooltip: string;
-      form: {
-        cardLocationField: {
-          label: string;
-          placeholder: string;
-          tooltip: string;
+      decryptedMessage: {
+        title: string;
+        tooltip: string;
+        form: {
+          cardLocationField: {
+            label: string;
+            placeholder: string;
+            tooltip: string;
+          };
+          personalMessageField: {
+            label: string;
+            placeholder: string;
+            tooltip: string;
+          };
         };
-        personalMessageField: {
-          label: string;
-          placeholder: string;
-          tooltip: string;
+        messageBox: {
+          info: string;
         };
       };
-      messageBox: {
-        info: string;
+    };
+    confirmation: {
+      name: string;
+      success: {
+        title: string;
+        subTitle: string;
       };
-    };
-    successMessage: {
-      heading: string;
-      title: string;
-      subTitle: string;
-    };
-    walletTransfer: {
-      title: string;
-      subTitle: string;
-      messageBox: {
-        warning: string;
+      walletTransfer: {
+        title: string;
+        subTitle: string;
+        messageBox: {
+          warning: string;
+        };
       };
     };
   };

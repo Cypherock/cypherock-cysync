@@ -80,39 +80,27 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
         dialogs: [<Terms key="Terms of services" />],
       },
       {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.heading,
-        dialogs: [<WalletAuth key="Wallet authentication" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.verification
-          .heading,
-        dialogs: [<VerifyOTP key="Verify otp" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.syncing.heading,
-        dialogs: [<FetchData key="Syncing" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.decryption.heading,
+        name: lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.name,
         dialogs: [
-          <DecryptMessage key="Decrypt message" />,
-          <ViewPin key="View pin" />,
+          <WalletAuth key="Wallet authentication" />,
+          <VerifyOTP key="Verify otp" />,
+          <FetchData key="Syncing" />,
         ],
       },
       {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.decryptedMessage
-          .heading,
-        dialogs: [<Message key="Decrypted message" />],
+        name: lang.strings.dialogs.inheritanceEstateRecovery.decryption.name,
+        dialogs: [
+          <DecryptMessage key="Decrypt message" />,
+          <ViewPin key="View pin" />,
+          <Message key="Decrypted message" />,
+        ],
       },
       {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.successMessage
-          .heading,
-        dialogs: [<Success key="Success message" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.walletTransfer
-          .title,
-        dialogs: [<WalletTransfer key="Wallet transfer" />],
+        name: lang.strings.dialogs.inheritanceEstateRecovery.confirmation.name,
+        dialogs: [
+          <Success key="Success message" />,
+          <WalletTransfer key="Wallet transfer" />,
+        ],
       },
     ],
     [],

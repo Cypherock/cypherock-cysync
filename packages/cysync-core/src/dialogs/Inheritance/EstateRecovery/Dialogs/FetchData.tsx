@@ -7,7 +7,8 @@ import { useInheritanceEstateRecoveryDialog } from '../context';
 
 export const FetchData = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.dialogs.inheritanceEstateRecovery.syncing;
+  const strings =
+    lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.syncing;
   const { onNext } = useInheritanceEstateRecoveryDialog();
 
   useEffect(() => {

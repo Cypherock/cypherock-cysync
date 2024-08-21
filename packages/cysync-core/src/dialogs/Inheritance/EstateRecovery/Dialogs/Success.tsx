@@ -18,7 +18,8 @@ import { Layout } from '../Layout';
 export const Success = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.dialogs.inheritanceEstateRecovery.successMessage;
+  const strings =
+    lang.strings.dialogs.inheritanceEstateRecovery.confirmation.success;
 
   const { onNext, onPrevious } = useInheritanceEstateRecoveryDialog();
 

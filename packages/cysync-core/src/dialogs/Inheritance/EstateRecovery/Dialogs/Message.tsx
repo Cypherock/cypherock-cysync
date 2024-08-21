@@ -17,7 +17,7 @@ export const Message = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext } = useInheritanceEstateRecoveryDialog();
   const strings =
-    lang.strings.dialogs.inheritanceEstateRecovery.decryptedMessage;
+    lang.strings.dialogs.inheritanceEstateRecovery.decryption.decryptedMessage;
   const cardLocation = 'Some location';
   return (
     <Layout

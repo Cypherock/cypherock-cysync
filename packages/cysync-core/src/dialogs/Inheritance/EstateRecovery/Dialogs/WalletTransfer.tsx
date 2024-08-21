@@ -14,13 +14,14 @@ import { Layout } from '../Layout';
 export const WalletTransfer = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.dialogs.inheritanceEstateRecovery.walletTransfer;
+  const strings =
+    lang.strings.dialogs.inheritanceEstateRecovery.confirmation.walletTransfer;
 
-  const { onNext, onPrevious } = useInheritanceEstateRecoveryDialog();
+  const { onNext, onPrevious, onClose } = useInheritanceEstateRecoveryDialog();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      onNext();
+      onClose();
     }, 2000);
 
     return () => clearTimeout(timeout);
@@ -51,7 +52,7 @@ export const WalletTransfer = () => {
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="white">
+        <Typography $fontSize={16} $textAlign="center" color="muted">
           {strings.subTitle}
         </Typography>
       </Container>
