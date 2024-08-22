@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
 import { BlurOverlay } from '@cypherock/cysync-ui';
+import React, { FC } from 'react';
+
 import { ErrorHandlerDialog } from '~/components';
+
 import {
   InheritanceEditUserDetailsDialogProvider,
   useInheritanceEditUserDetailsDialog,

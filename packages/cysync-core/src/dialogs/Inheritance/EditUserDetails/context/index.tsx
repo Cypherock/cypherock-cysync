@@ -1,3 +1,4 @@
+import { sleep } from '@cypherock/sdk-utils';
 import React, {
   Context,
   FC,
@@ -13,7 +14,6 @@ import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
 import { EditDetails, Success, VerifyOTP } from '../Dialogs';
-import { sleep } from '@cypherock/sdk-utils';
 
 export interface IUserDetails {
   name: string;

@@ -1,5 +1,7 @@
+import { sleep } from '@cypherock/sdk-utils';
 import React, { useMemo, useRef, useState } from 'react';
 
+import { LoaderDialog } from '~/components';
 import {
   OTPInputDialog,
   OTPInputDialogRef,
@@ -7,8 +9,6 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEditUserDetailsDialog } from '../context';
-import { LoaderDialog } from '~/components';
-import { sleep } from '@cypherock/sdk-utils';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
