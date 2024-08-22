@@ -85,6 +85,8 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import questionMarkGearIcon from './question-mark-gear-icon.svg';
+import syncIcon from './sync-icon.svg';
 
 export {
   WalletDefaultExpiredIcon,
@@ -174,4 +176,6 @@ export {
   oneInMany2Default,
   manyInManyBgImage,
   manyInManyHoverBgImage,
+  questionMarkGearIcon,
+  syncIcon,
 };

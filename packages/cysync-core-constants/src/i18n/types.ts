@@ -87,6 +87,9 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+  setup: string;
+  sync: string;
+  learnMore: string;
 }
 
 interface LangDashboard {
@@ -904,13 +907,7 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
-  choosePlan: {
-    title: string;
-  };
-  buttons: {
-    syncPlans: string;
-    recoverPin: string;
-  };
+
   homePage: {
     headers: {
       owner: {
@@ -922,6 +919,23 @@ interface LangInheritance {
         subtitle: string;
       };
     };
+    setup: {
+      setupCover: {
+        title: string;
+        subTitle: string;
+      };
+      syncFromMail: {
+        title: string;
+        subTitle: string;
+      };
+      learnMore: {
+        title: string;
+        subTitle: string;
+      };
+    };
+  };
+  buttons: {
+    syncFromEmail: string;
   };
   termsOfService: {
     title: string;

@@ -1,33 +1,15 @@
-import {
-  ArrowBackGoldenIcon,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Container,
-  Flex,
-  Typography,
-} from '@cypherock/cysync-ui';
+import { Button, Container, Flex, LangDisplay } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode } from 'react';
 
 interface InheritancePageLayoutProps {
   children?: ReactNode;
-  headingOnly?: boolean;
-  breadcrumbs?: BreadcrumbItem[];
-  onClick?: () => void;
-  lang: {
-    choosePlan: {
-      title: string;
-    };
-  };
   actionButtonText?: string;
+  onActionButtonClick?: () => void;
 }
 
 export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
   children,
-  breadcrumbs,
-  headingOnly,
-  lang,
-  onClick,
+  onActionButtonClick,
   actionButtonText,
 }) => (
   <Container
@@ -37,26 +19,13 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
     direction="column"
     shadow="popup"
   >
-    <Container width="100%" justify="space-between" py={4} px={5}>
-      {breadcrumbs ? (
-        <Breadcrumb items={breadcrumbs} />
-      ) : (
-        <Button
-          variant="icon"
-          icon={<ArrowBackGoldenIcon />}
-          onClick={onClick}
-        />
-      )}
-      {headingOnly ? (
-        <Flex width="100%" justify="center">
-          <Typography variant="h2" $fontWeight="medium">
-            {lang.choosePlan.title}
-          </Typography>
-        </Flex>
-      ) : (
-        <Button onClick={onClick}>{actionButtonText}</Button>
-      )}
-    </Container>
+    {onActionButtonClick && actionButtonText && (
+      <Container width="100%" justify="flex-end" py={4} px={5}>
+        <Button onClick={onActionButtonClick}>
+          <LangDisplay text={actionButtonText} />
+        </Button>
+      </Container>
+    )}
     <Flex $flex={1} px={5} pb={4} width="100%">
       {children}
     </Flex>
@@ -65,8 +34,6 @@ export const InheritancePageLayout: FC<InheritancePageLayoutProps> = ({
 
 InheritancePageLayout.defaultProps = {
   children: undefined,
-  headingOnly: undefined,
-  breadcrumbs: undefined,
-  onClick: undefined,
+  onActionButtonClick: undefined,
   actionButtonText: undefined,
 };

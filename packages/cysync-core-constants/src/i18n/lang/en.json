@@ -46,7 +46,10 @@
     "submit": "Submit",
     "showMore": "Show more",
     "resendOTP": "Resend OTP",
-    "next": "Next"
+    "next": "Next",
+    "setup": "Setup",
+    "sync": "Sync",
+    "learnMore": "Learn More"
   },
   "dashboard": {
     "wallet": {
@@ -1682,13 +1685,6 @@
   },
   "inheritance": {
     "title": "Cypherock Cover",
-    "choosePlan": {
-      "title": "Choose a plan"
-    },
-    "buttons": {
-      "syncPlans": "Sync Plans",
-      "recoverPin": "Recover Pin"
-    },
     "homePage": {
       "headers": {
         "owner": {
@@ -1699,7 +1695,24 @@
           "title": "Nominee",
           "subtitle": "Somebody made you a nominee of their assets"
         }
+      },
+      "setup": {
+        "setupCover": {
+          "title": "Setup Cypherock Cover",
+          "subTitle": ""
+        },
+        "syncFromMail": {
+          "title": "Sync from Email",
+          "subTitle": ""
+        },
+        "learnMore": {
+          "title": "What is Cypherock Cover?",
+          "subTitle": ""
+        }
       }
+    },
+    "buttons": {
+      "syncFromEmail": "Sync from Email"
     },
     "termsOfService": {
       "title": "Terms of Service",
