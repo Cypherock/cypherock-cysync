@@ -16,6 +16,9 @@ export const Inheritance = () => {
   return (
     <MainAppLayout topbar={{ title: lang.strings.inheritance.title }}>
       <InheritancePageLayout
+        onActionButtonClick={() => {
+          'Implement this function';
+        }}
         actionButtonText={lang.strings.inheritance.buttons.syncFromEmail}
       >
         {renderMap['home']}
