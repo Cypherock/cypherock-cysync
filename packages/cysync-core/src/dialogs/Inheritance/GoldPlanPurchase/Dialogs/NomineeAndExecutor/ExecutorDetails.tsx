@@ -1,4 +1,12 @@
-import { Button, LangDisplay } from '@cypherock/cysync-ui';
+import {
+  Button,
+  CheckBox,
+  Container,
+  Flex,
+  LangDisplay,
+  QuestionMarkButton,
+  Typography,
+} from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -56,24 +64,63 @@ export const ExecutorDetails = () => {
             form={formId}
             disabled={isSubmittingExecutorDetails}
             isLoading={isSubmittingExecutorDetails}
+            onClick={() => onNext()}
           >
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
       }
     >
-      <UserDetailsForm
-        onSubmit={onSubmit}
-        formId={formId}
-        strings={{ title: strings.executor.executorDetails.title, form }}
-        name={name}
-        setName={setName}
-        isSubmittingUserDetails={isSubmittingExecutorDetails}
-        email={email}
-        setEmail={setEmail}
-        alternateEmail={alternateEmail}
-        setAlternateEmail={setAlternateEmail}
-      />
+      <Container direction="column" $flex={1} width="100%" gap={24}>
+        <UserDetailsForm
+          onSubmit={onSubmit}
+          formId={formId}
+          strings={{
+            title: strings.executor.executorDetails.title,
+            form: {
+              ...form,
+              emailField: {
+                label: form.emailField.label,
+                tooltip: strings.executor.executorDetails.tooltip,
+              },
+            },
+          }}
+          name={name}
+          setName={setName}
+          isSubmittingUserDetails={isSubmittingExecutorDetails}
+          email={email}
+          setEmail={setEmail}
+          alternateEmail={alternateEmail}
+          setAlternateEmail={setAlternateEmail}
+        />
+        <Container direction="column" gap={16}>
+          <Flex>
+            <Typography>
+              {strings.executor.executorDetails.radio.label}
+            </Typography>
+            <QuestionMarkButton
+              content={strings.executor.executorDetails.tooltip}
+              position="right"
+            />
+          </Flex>
+          <Flex gap={40}>
+            <CheckBox
+              checked={false}
+              onChange={() => {
+                'implement this function';
+              }}
+              label={strings.executor.executorDetails.radio.options.labelOne}
+            />
+            <CheckBox
+              checked={false}
+              onChange={() => {
+                'implement this function';
+              }}
+              label={strings.executor.executorDetails.radio.options.labelTwo}
+            />
+          </Flex>
+        </Container>
+      </Container>
     </Layout>
   );
 };

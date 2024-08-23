@@ -1765,7 +1765,9 @@
       }
     },
     "payment": {
-      "heading": "Buy plan on the Cypherock website",
+      "name": "Checkout",
+      "heading": "Complete your payment",
+      "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
       "form": {
         "promoField": {
           "label": "Promo code / coupon",
@@ -1780,7 +1782,8 @@
       "total": "Total",
       "year": "year",
       "error": {
-        "errorHeading": "Invalid Coupon Code"
+        "errorHeading": "Invalid Coupon Code",
+        "subtext": "Please try a different coupon code"
       }
     }
   },
@@ -1858,9 +1861,9 @@
       "subTitle": "The video will help you take the right decisions"
     },
     "selectWallet": {
-      "heading": "Select Wallet",
+      "heading": "Wallet",
       "title": "Select the wallet you want to cover in this plan",
-      "subTitle": "Your plan will be linked with the selected wallet"
+      "subTitle": "For setting up additional wallets, individual plans can be created later"
     },
     "walletAuth": {
       "heading": "Wallet Authentication",
@@ -1868,16 +1871,25 @@
       "actions": {
         "tapCard": "Tap any one card"
       },
-      "footer": "Authenticating the wallet, "
+      "footer": "Authenticating the wallet ",
+      "error": {
+        "title": "Wallet Authentication failed",
+        "subtext": "We could not authenticate the selected wallet",
+        "messageBox": {
+          "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+        }
+      }
     },
     "email": {
-      "heading": "Email",
+      "heading": "Owner",
       "userDetails": {
-        "title": "User Details",
-        "subTitle": "All the fields are mandatory",
+        "title": "Your Details",
         "form": {
           "name": "Name",
-          "email": "Primary Email",
+          "emailField": {
+            "label": "Primary Email",
+            "tooltip": "Enter the email on which you want to receive all reminder emails"
+          },
           "alternateEmail": "Alternate Email"
         },
         "buttons": {
@@ -1896,6 +1908,7 @@
       "select": {
         "title": "How many nominees do you want?",
         "subtitle": "You can have up to 2 nominees for this will",
+        "tooltip": "In case if you select two nominees then the 2nd nominee will receive the recovery email three months after the 1st nominee receives it\nNote - Both nominees will receive the same recovery email and same message written by you on the CySync app",
         "options": {
           "descOne": "Select if you want to have only one nominee",
           "descTwo": "Select if you want to have two nominees"
@@ -1904,7 +1917,8 @@
       "nomineeDetails": {
         "first": {
           "title": "Add first nominee",
-          "warning": "Make sure you give a card to your nominee"
+          "warning": "Make sure you give a card to your nominee",
+          "tooltip": "Your Nominee will receive recovery instructions on this email"
         },
         "second": {
           "title": "Add second nominee",
@@ -1919,7 +1933,8 @@
       "executor": {
         "select": {
           "title": "Do you want to have an executor for this will?",
-          "subtext": "The executor will help the nominee to recover funds ",
+          "subtext": "The executor will help the nominee to recover funds ",
+          "tooltip": "An executor/helper can be someone you trust who does not have any financial stake but can be assigned as a helper to the nominee for funds recovery\nThe executor will receive the email on the same time as the nominee.",
           "options": {
             "one": {
               "yes": "Yes",
@@ -1933,8 +1948,10 @@
         },
         "executorDetails": {
           "title": "Add executor",
+          "tooltip": "Executor will receive instructions  to help nominee on this email",
           "radio": {
-            "label": "Who this executor serve?",
+            "label": "Choose a nominee to link with executor",
+            "tooltip": "",
             "options": {
               "labelOne": "Nominee 1",
               "labelTwo": "Nominee 2"
@@ -1950,20 +1967,29 @@
         "subtext": "The video will help you understand how messages work"
       },
       "nominee": {
-        "title": "Provide the messages for the nominee",
+        "title": "Draft the final mesage for the nominee",
         "subtitle": "The nominee messages will be end-to-end encrypted",
+        "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
         "form": {
-          "locationPlaceholder": "Provide card location",
+          "locationField": {
+            "label": "Card Location* & Passphrase",
+            "placeholder": "Write your location",
+            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
+          },
           "personalMessage": {
-            "label": "Personal Message",
-            "placeholder": "Write your message"
+            "label": "Personal Message*",
+            "placeholder": "Write your message",
+            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
-        "warning": "Make sure you describe the card's location clearly for the nominee"
+        "messageBox": {
+          "warning": "Make sure you describe the card's location clearly for the nominee"
+        }
       },
       "executor": {
         "title": "Add a message for the executor",
         "subtitle": "Please note that the message to the executor is not encrypted",
+        "tooltip": "This message will be received by the executor in case recovery is triggered, it's recommended to NOT add any critical information here",
         "form": {
           "messageField": {
             "label": "Message",
@@ -1986,7 +2012,10 @@
           "userNameField": { "label": "User Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
-          "reminderPeriodField": { "label": "Every {month} month" }
+          "reminderPeriodField": {
+            "label": "Reminder Perioc",
+            "input": "Every {month} month"
+          }
         }
       },
       "nomineeDetails": {
@@ -2000,7 +2029,7 @@
       "cardLocation": {
         "title": "Card Location"
       },
-      "personalmessage": {
+      "personalMessage": {
         "title": "Personal Message"
       },
       "executorDetails": {
@@ -2017,8 +2046,21 @@
     },
     "encryption": {
       "heading": "Encryption",
+      "confirm": {
+        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "subtext": "You can encrypt the message in the next step",
+        "actions": {
+          "confirmOnDevice": "Confirm message verification on device",
+          "verifyLocation": "Verify Card Location in your device"
+        },
+        "messageBox": {
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+        }
+      },
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "subtext": "Lift your card after 2 beep sounds ",
+        "tooltip": "",
         "actions": {
           "tapCard": "Enter PIN and tap any one card"
         },
@@ -2027,11 +2069,12 @@
         }
       },
       "loading": {
-        "title": "Please wait while we encrypt the data",
+        "title": "Please wait while we send the encrypted data to the server",
         "subTitle": "Do not disconnect or close the app"
       },
       "success": {
-        "title": "PIN recovery message successfully encrypted"
+        "title": "Nominee message successfully encrypted",
+        "subtext": "To complete your gold plan setup, you can now proceed with the plan purchase"
       }
     },
     "checkout": {

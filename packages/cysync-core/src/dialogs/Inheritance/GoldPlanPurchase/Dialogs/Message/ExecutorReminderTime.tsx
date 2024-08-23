@@ -17,7 +17,7 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorReminderSetup = () => {
-  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const [newReminder, setNewReminder] = useState(1);
   const strings =
@@ -28,11 +28,11 @@ export const ExecutorReminderSetup = () => {
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onNext()} variant="secondary">
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button onClick={() => onNext()} variant="primary">
-            <LangDisplay text={lang.strings.buttons.saveAndContinue} />
+            <LangDisplay text={lang.strings.buttons.continue} />
           </Button>
         </>
       }

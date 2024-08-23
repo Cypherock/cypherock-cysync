@@ -37,10 +37,11 @@ import {
   ExecutorDetails,
   SelectExecutor,
   ExecutorMessageTutorial,
-  ExecutorPrivateMessageInput,
   ExecutorMessage,
   ExecutorReminderSetup,
-  GoldPlanSubscription,
+  Checkout,
+  NomineePrivateMessageInput,
+  ConfirmOnDevice,
 } from '../Dialogs';
 import { Greeting } from '../Dialogs/Greeting';
 
@@ -144,7 +145,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         name: lang.strings.inheritanceGoldPlanPurchase.message.heading,
         dialogs: [
           <ExecutorMessageTutorial key="Message Tutorial" />,
-          <ExecutorPrivateMessageInput key="Executor Private Message" />,
+          <NomineePrivateMessageInput key="Executor Private Message" />,
           <ExecutorMessage key="Executor Message" />,
         ],
       },
@@ -155,6 +156,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       {
         name: lang.strings.inheritanceGoldPlanPurchase.encryption.heading,
         dialogs: [
+          <ConfirmOnDevice key="Confirm On Device" />,
           <DeviceEncryption key="Device Encryption" />,
           <EncryptionLoader key="Encryption Loader" />,
           <EncryptionSuccess key="Encryption Success" />,
@@ -162,10 +164,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.checkout.heading,
-        dialogs: [
-          <GoldPlanSubscription key="Subscription" />,
-          <Greeting key="Greeting" />,
-        ],
+        dialogs: [<Checkout key="Checkout" />, <Greeting key="Greeting" />],
       },
     ],
     [],

@@ -13,6 +13,9 @@ export const EncryptionSuccess: React.FC = () => {
   return (
     <SuccessDialog
       title={lang.strings.inheritanceGoldPlanPurchase.encryption.success.title}
+      subtext={
+        lang.strings.inheritanceGoldPlanPurchase.encryption.success.subtext
+      }
       buttonText={lang.strings.buttons.next}
       handleClick={onNext}
       onClose={onClose}

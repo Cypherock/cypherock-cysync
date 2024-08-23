@@ -1001,6 +1001,7 @@ interface LangInheritance {
     };
     error: {
       errorHeading: string;
+      subtext: string;
     };
   };
 }
@@ -1083,15 +1084,24 @@ interface LangInheritanceGoldPlanPurchase {
       tapCard: string;
     };
     footer: string;
+    error: {
+      title: string;
+      subtext: string;
+      messageBox: {
+        warning: string;
+      };
+    };
   };
   email: {
     heading: string;
     userDetails: {
       title: string;
-      subTitle: string;
       form: {
         name: string;
-        email: string;
+        emailField: {
+          label: string;
+          tooltip: string;
+        };
         alternateEmail: string;
       };
       buttons: {
@@ -1110,6 +1120,7 @@ interface LangInheritanceGoldPlanPurchase {
     select: {
       title: string;
       subtitle: string;
+      tooltip: string;
       options: {
         descOne: string;
         descTwo: string;
@@ -1119,6 +1130,7 @@ interface LangInheritanceGoldPlanPurchase {
       first: {
         title: string;
         warning: string;
+        tooltip: string;
       };
       second: {
         title: string;
@@ -1134,6 +1146,7 @@ interface LangInheritanceGoldPlanPurchase {
       select: {
         title: string;
         subtext: string;
+        tooltip: string;
         options: {
           one: {
             yes: string;
@@ -1147,8 +1160,10 @@ interface LangInheritanceGoldPlanPurchase {
       };
       executorDetails: {
         title: string;
+        tooltip: string;
         radio: {
           label: string;
+          tooltip: string;
           options: {
             labelOne: string;
             labelTwo: string;
@@ -1166,18 +1181,27 @@ interface LangInheritanceGoldPlanPurchase {
     nominee: {
       title: string;
       subtitle: string;
+      tooltip: string;
       form: {
-        locationPlaceholder: string;
+        locationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
         personalMessage: {
           label: string;
           placeholder: string;
+          tooltip: string;
         };
       };
-      warning: string;
+      messageBox: {
+        warning: string;
+      };
     };
     executor: {
       title: string;
       subtitle: string;
+      tooltip: string;
       form: {
         messageField: {
           label: string;
@@ -1231,8 +1255,21 @@ interface LangInheritanceGoldPlanPurchase {
   };
   encryption: {
     heading: string;
+    confirm: {
+      title: string;
+      subtext: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
     device: {
       title: string;
+      subtext: string;
+      tooltip: string;
       actions: {
         tapCard: string;
       };
@@ -1246,6 +1283,7 @@ interface LangInheritanceGoldPlanPurchase {
     };
     success: {
       title: string;
+      subtext: string;
     };
   };
   checkout: {

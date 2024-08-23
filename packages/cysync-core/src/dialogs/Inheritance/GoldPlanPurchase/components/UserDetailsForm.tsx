@@ -16,7 +16,10 @@ interface UserDetailsFormProps {
     subTitle?: string;
     form: {
       name: string;
-      email: string;
+      emailField: {
+        label: string;
+        tooltip?: string;
+      };
       alternateEmail: string;
     };
   };
@@ -83,9 +86,10 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           pasteAllowed
           name="email"
           type="email"
-          label={strings.form.email}
+          label={strings.form.emailField.label}
           rightLabel={lang.strings.labels.required}
           value={email}
+          tooltip={strings.form.emailField?.tooltip}
           required
           onChange={setEmail}
           showRequiredStar

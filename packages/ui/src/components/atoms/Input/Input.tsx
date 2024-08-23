@@ -9,6 +9,7 @@ import { Container } from '../Container';
 import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
 import { Typography } from '../Typography';
+import { QuestionMarkButton } from '../../molecules';
 
 export interface InputProps {
   type: string;
@@ -38,6 +39,7 @@ export interface InputProps {
   utilProps?: UtilsProps;
   autoFocus?: boolean;
   inputLabelProps?: InputLabelProps;
+  tooltip?: string;
 }
 
 const InputStyle = styled.input<{
@@ -135,6 +137,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         utilProps,
         autoFocus = false,
         inputLabelProps,
+        tooltip = undefined,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -148,7 +151,12 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         {label && (
           <InputLabel p={0} {...(inputLabelProps ?? {})}>
             <Container $variant="span" align="center" justify="space-between">
-              <LangDisplay text={label} />
+              <Flex gap={4}>
+                <LangDisplay text={label} />
+                {tooltip && (
+                  <QuestionMarkButton content={tooltip} position="right" />
+                )}
+              </Flex>
               <span>
                 {rightLabel && <LangDisplay text={rightLabel} />}
                 {showRequiredStar && (
@@ -244,6 +252,7 @@ Input.defaultProps = {
   utilProps: undefined,
   autoFocus: false,
   inputLabelProps: undefined,
+  tooltip: undefined,
 };
 
 Input.displayName = 'Input';

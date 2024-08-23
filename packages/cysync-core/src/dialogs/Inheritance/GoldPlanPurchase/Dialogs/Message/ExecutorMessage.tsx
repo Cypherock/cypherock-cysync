@@ -5,6 +5,7 @@ import {
   InputLabel,
   TextAreaInput,
   Button,
+  QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,9 +38,15 @@ export const ExecutorMessage = () => {
         <Typography $fontSize={20} color="white">
           <LangDisplay text={strings.executor.title} />
         </Typography>
-        <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.executor.subtitle} />
-        </Typography>
+        <Flex gap={4}>
+          <Typography color="muted" $textAlign="center" $fontSize={16}>
+            <LangDisplay text={strings.executor.subtitle} />
+          </Typography>
+          <QuestionMarkButton
+            content={strings.executor.tooltip}
+            position="right"
+          />
+        </Flex>
       </Flex>
       <Flex
         gap={0}

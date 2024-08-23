@@ -3,10 +3,12 @@ import {
   ArrowRightIcon,
   Check,
   Container,
+  ErrorDialog,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
@@ -16,6 +18,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
+import ReactPlayer from 'react-player';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -26,7 +29,8 @@ export const WalletAuth = () => {
 
   const strings = lang.strings.inheritanceGoldPlanPurchase;
 
-  const { onNext, selectedWallet } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, selectedWallet, onClose, onRetry } =
+    useInheritanceGoldPlanPurchaseDialog();
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -63,9 +67,33 @@ export const WalletAuth = () => {
     return () => clearTimeout(timeout);
   }, []);
 
+  const error = false;
+
+  if (error) {
+    return (
+      <ErrorDialog
+        title={strings.walletAuth.error.title}
+        subtext={strings.walletAuth.error.subtext}
+        messageBoxText={strings.walletAuth.error.messageBox.warning}
+        messageBoxVariant="warning"
+        onSecondaryClick={onRetry}
+        onPrimaryClick={onClose}
+        primaryActionText={lang.strings.buttons.exit}
+        secondaryActionText={lang.strings.buttons.retry}
+      />
+    );
+  }
+
   return (
     <Layout>
       <Container direction="column">
+        <ReactPlayer
+          url={tapAnyCardDeviceAnimation2DVideo}
+          width={420}
+          height={236}
+          loop
+          playing
+        />
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.walletAuth.title}
         </Typography>

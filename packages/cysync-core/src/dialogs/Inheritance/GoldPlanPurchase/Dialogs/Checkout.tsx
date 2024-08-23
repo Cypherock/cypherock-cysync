@@ -12,7 +12,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
-export const GoldPlanSubscription = () => {
+export const Checkout = () => {
   const [applied, setApplied] = useState(false);
   const [isError, setIsError] = useState(false);
   const [coupon, setCoupon] = useState('');
@@ -51,6 +51,7 @@ export const GoldPlanSubscription = () => {
       </Container>
       <Payment
         lang={lang.strings.inheritance}
+        externalLink="link to checkout page"
         applied={applied}
         isError={isError}
         coupon={coupon}

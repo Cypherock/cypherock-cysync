@@ -4,6 +4,8 @@ import {
   LangDisplay,
   OneInMany,
   Button,
+  Flex,
+  QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -15,16 +17,16 @@ import { Layout } from '../../Layout';
 export const SelectExecutor = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout
       footerComponent={
         <>
           <Button onClick={() => goTo(5, 3)} variant="secondary">
-            <LangDisplay text={lang.strings.buttons.yes} />
-          </Button>
-          <Button onClick={() => goTo(5, 5)} variant="primary">
             <LangDisplay text={lang.strings.buttons.no} />
+          </Button>
+          <Button onClick={() => onNext()} variant="primary">
+            <LangDisplay text={lang.strings.buttons.yes} />
           </Button>
         </>
       }
@@ -38,9 +40,15 @@ export const SelectExecutor = () => {
         >
           <LangDisplay text={strings.executor.select.title} />
         </Typography>
-        <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.executor.select.subtext} />
-        </Typography>
+        <Flex gap={4}>
+          <Typography color="muted" $textAlign="center" $fontSize={16}>
+            <LangDisplay text={strings.executor.select.subtext} />
+          </Typography>
+          <QuestionMarkButton
+            content={strings.executor.select.tooltip}
+            position="right"
+          />
+        </Flex>
       </Container>
       <Container>
         <Container direction="row" gap={8}>

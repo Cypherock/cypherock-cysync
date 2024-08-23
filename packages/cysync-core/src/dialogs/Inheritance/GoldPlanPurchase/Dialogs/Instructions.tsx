@@ -42,9 +42,6 @@ export const Instructions = () => {
         >
           <LangDisplay text={strings.instructions.title} />
         </Typography>
-        <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.instructions.subTitle} />
-        </Typography>
       </Container>
       <ReactPlayer
         url={constants.inheritance.silverPlanPurchaseTutorialLink}

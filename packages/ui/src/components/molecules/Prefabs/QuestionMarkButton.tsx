@@ -34,6 +34,8 @@ const TooltipContent = styled(Container)<UtilsProps>`
   opacity: 0;
   transform: scale(80%);
 
+  z-index: 1000;
+
   ${utils};
 `;
 
@@ -47,10 +49,10 @@ const TooltipCard = styled(Container)`
 `;
 
 const positionMap = {
-  left: { right: '110%' },
-  right: { left: '110%' },
-  top: { bottom: '110%' },
-  bottom: { top: '110%' },
+  left: { right: '140%' },
+  right: { left: '140%' },
+  top: { bottom: '130%' },
+  bottom: { top: '130%' },
 };
 
 export const QuestionMarkButton: React.FC<QuestionMarkButtonProps> = ({
@@ -64,22 +66,22 @@ export const QuestionMarkButton: React.FC<QuestionMarkButtonProps> = ({
       color="golden"
       $borderColor="gold"
       $borderRadius={100}
-      width={25}
-      height={25}
+      width={14}
+      height={14}
       display="flex"
       justify="center"
       align="center"
     >
-      <Typography variant="h5" color="gold">
+      <Typography color="gold" $fontSize={11}>
         ?
       </Typography>
     </Button>
-    <TooltipContent {...positionMap[position]} $width={width}>
+    <TooltipContent {...positionMap[position]} $maxWidth={width}>
       {content}
     </TooltipContent>
   </TooltipCard>
 );
 
 QuestionMarkButton.defaultProps = {
-  width: undefined,
+  width: 200,
 };

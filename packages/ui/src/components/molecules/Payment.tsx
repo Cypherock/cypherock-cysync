@@ -29,14 +29,15 @@ export interface PaymentProps {
       };
       error: {
         errorHeading: string;
+        subtext: string;
       };
     };
   };
   applied: boolean;
+  externalLink: string;
   year?: number;
   amount?: string;
   isError: boolean;
-  error?: string;
   onApply: () => void;
   onDelete: () => void;
   coupon: string;
@@ -49,19 +50,19 @@ export const Payment: FC<PaymentProps> = ({
   year,
   amount,
   isError,
-  error,
   onApply,
   onDelete,
   coupon,
   onChange,
+  externalLink,
 }) => {
   const theme = useTheme();
 
   return (
     <Container display="flex" direction="column" width="720px" gap={8}>
       <ExternalLink
-        text="Terms and Conditions"
-        href="Some link"
+        text={lang.payment.heading}
+        href={externalLink}
         $flex={1}
         type={applied ? 'disabled' : 'golden'}
         icon={
@@ -136,7 +137,7 @@ export const Payment: FC<PaymentProps> = ({
                 </Typography>
                 <Flex $maxHeight={50} align="flex-start" $overflowY="auto">
                   <Typography $fontSize={12} color="muted">
-                    {error}
+                    {lang.payment.error.subtext}
                   </Typography>
                 </Flex>
               </Flex>
@@ -151,5 +152,4 @@ export const Payment: FC<PaymentProps> = ({
 Payment.defaultProps = {
   year: undefined,
   amount: undefined,
-  error: undefined,
 };

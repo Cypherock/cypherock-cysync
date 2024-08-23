@@ -56,10 +56,12 @@ const lang = {
       applyButtonText: 'Apply',
     },
     noOfYear: 'Number of years',
+    externalLink: 'some link',
     total: 'Total',
     year: 'year',
     error: {
       errorHeading: 'Invalid Coupon Code',
+      subtext: 'Please try a different coupon code',
     },
   },
 };
@@ -91,6 +93,5 @@ export const Error: Story = {
   args: {
     ...Default.args,
     isError: true,
-    error: 'This coupon is invalid!This coupon is invalid!',
   },
 };

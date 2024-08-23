@@ -15,16 +15,16 @@ import { Layout } from '../../Layout';
 export const ConfirmNomineeVerification = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(5, 3)} variant="secondary">
-            <LangDisplay text={lang.strings.buttons.yes} />
-          </Button>
-          <Button onClick={() => goTo(5, 3)} variant="primary">
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.no} />
+          </Button>
+          <Button onClick={() => onNext()} variant="primary">
+            <LangDisplay text={lang.strings.buttons.yes} />
           </Button>
         </>
       }

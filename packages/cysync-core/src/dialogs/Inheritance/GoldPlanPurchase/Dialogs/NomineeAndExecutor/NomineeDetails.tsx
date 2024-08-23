@@ -61,7 +61,13 @@ export const NomineeDetails = () => {
         formId={formId}
         strings={{
           title: strings.first.title,
-          form,
+          form: {
+            ...form,
+            emailField: {
+              tooltip: strings.first.tooltip,
+              label: form.emailField.label,
+            },
+          },
         }}
         name={name}
         setName={setName}

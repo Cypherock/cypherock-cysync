@@ -2,14 +2,13 @@ import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
   Check,
+  confirmGenericDeviceImage,
   Container,
-  Flex,
+  Image,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
   MessageBox,
-  QuestionMarkButton,
-  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
@@ -19,16 +18,15 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
-import ReactPlayer from 'react-player';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
 
-export const DeviceEncryption = () => {
+export const ConfirmOnDevice = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase.encryption.device;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.encryption.confirm;
 
   const { onNext } = useInheritanceGoldPlanPurchaseDialog();
 
@@ -50,7 +48,13 @@ export const DeviceEncryption = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.actions.tapCard,
+        text: strings.actions.confirmOnDevice,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(0, 1),
+      },
+      {
+        id: '2',
+        text: strings.actions.verifyLocation,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
@@ -69,23 +73,11 @@ export const DeviceEncryption = () => {
 
   return (
     <Layout>
-      <ReactPlayer
-        url={tapAnyCardDeviceAnimation2DVideo}
-        width={420}
-        height={236}
-        loop
-        playing
-      />
+      <Image src={confirmGenericDeviceImage} alt="device image" />
       <Container direction="column" $width="full">
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.title}
         </Typography>
-        <Flex>
-          <Typography $fontSize={16} $textAlign="center" color="muted" mb={4}>
-            {strings.subtext}
-          </Typography>
-          <QuestionMarkButton content={strings.tooltip} position="right" />
-        </Flex>
         <LeanBoxContainer mb={6}>
           {actionsList.map(data => (
             <LeanBox
@@ -99,7 +91,7 @@ export const DeviceEncryption = () => {
             />
           ))}
         </LeanBoxContainer>
-        <MessageBox text={strings.messageBox.warning} type="warning" showIcon />
+        <MessageBox text={strings.messageBox.danger} type="danger" />
       </Container>
     </Layout>
   );

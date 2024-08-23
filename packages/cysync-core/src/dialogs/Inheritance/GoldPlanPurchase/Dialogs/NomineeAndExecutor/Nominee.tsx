@@ -1,8 +1,10 @@
 import {
   Button,
   Container,
+  Flex,
   LangDisplay,
   OneInMany,
+  QuestionMarkButton,
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -46,9 +48,12 @@ export const Nominee = () => {
         >
           <LangDisplay text={strings.title} />
         </Typography>
-        <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.subtitle} />
-        </Typography>
+        <Flex gap={4}>
+          <Typography color="muted" $textAlign="center" $fontSize={16}>
+            <LangDisplay text={strings.subtitle} />
+          </Typography>
+          <QuestionMarkButton content={strings.tooltip} position="right" />
+        </Flex>
       </Container>
       <Container direction="row" gap={8}>
         <OneInMany
