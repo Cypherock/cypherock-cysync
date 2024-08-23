@@ -21,7 +21,7 @@ export const Inheritance = () => {
         }}
         actionButtonText={lang.strings.inheritance.buttons.syncFromEmail}
       >
-        {renderMap['home']}
+        {renderMap['setup']}
       </InheritancePageLayout>
     </MainAppLayout>
   );

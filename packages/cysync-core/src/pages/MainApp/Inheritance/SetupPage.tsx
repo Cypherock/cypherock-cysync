@@ -8,7 +8,7 @@ import {
   Flex,
   Image,
   LangDisplay,
-  questionMarkGearIcon,
+  questionMarkEllipseIcon,
   syncIcon,
   Typography,
 } from '@cypherock/cysync-ui';
@@ -24,11 +24,11 @@ export const SetupPage: FC = () => {
           <DialogBox width={500}>
             <DialogBoxBody>
               <Image src={cysyncLogoSmall} alt="Cysync Logo" />
-              <Container>
+              <Container direction="column">
                 <Typography $fontSize={20} color="white">
                   {lang.strings.inheritance.homePage.setup.setupCover.title}
                 </Typography>
-                <Typography $fontSize={16} color="muted">
+                <Typography $fontSize={16} color="muted" $textAlign="center">
                   {lang.strings.inheritance.homePage.setup.setupCover.subTitle}
                 </Typography>
               </Container>
@@ -40,11 +40,11 @@ export const SetupPage: FC = () => {
           <DialogBox width={500}>
             <DialogBoxBody>
               <Image src={syncIcon} alt="Sync Icon" />
-              <Container>
+              <Container direction="column">
                 <Typography $fontSize={20} color="white">
                   {lang.strings.inheritance.homePage.setup.syncFromMail.title}
                 </Typography>
-                <Typography $fontSize={16} color="muted">
+                <Typography $fontSize={16} color="muted" $textAlign="center">
                   {
                     lang.strings.inheritance.homePage.setup.syncFromMail
                       .subTitle
@@ -61,7 +61,7 @@ export const SetupPage: FC = () => {
           <DialogBoxBody>
             <Flex gap={32} $flex={1} width="100%" align="center">
               <Image
-                src={questionMarkGearIcon}
+                src={questionMarkEllipseIcon}
                 $width={48}
                 $height={48}
                 alt="question mark"

@@ -1699,15 +1699,15 @@
       "setup": {
         "setupCover": {
           "title": "Setup Cypherock Cover",
-          "subTitle": ""
+          "subTitle": "Create a new Cypherock Cover plan to safeguard your crypto assets and ensure a seamless transfer to your designated beneficiaries in case of unforeseen circumstances."
         },
         "syncFromMail": {
           "title": "Sync from Email",
-          "subTitle": ""
+          "subTitle": "If you've already have a Cypherock Cover plan, log in with your email to view your existing plans"
         },
         "learnMore": {
           "title": "What is Cypherock Cover?",
-          "subTitle": ""
+          "subTitle": "Discover Cypherock Cover's innovative solutions designed to protect your crypto assets and ensure a smooth transition to your beneficiaries. Explore our Gold and Silver plans to find the perfect fit for your needs."
         }
       }
     },
