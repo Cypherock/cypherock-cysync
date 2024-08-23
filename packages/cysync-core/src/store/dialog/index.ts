@@ -107,6 +107,9 @@ const initialState: IDialogState = {
   inheritanceEditUserDetails: {
     isOpen: false,
   },
+  inheritancePinRecovery: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

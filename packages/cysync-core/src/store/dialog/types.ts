@@ -167,6 +167,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  inheritancePinRecovery: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

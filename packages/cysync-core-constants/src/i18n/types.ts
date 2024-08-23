@@ -856,6 +856,39 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritancePinRecovery: {
+    title: string;
+    fetch: {
+      name: string;
+      title: string;
+      subTitle: string;
+    };
+    decryptPin: {
+      name: string;
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      error: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      actions: {
+        viewDevice: string;
+      };
+    };
+    success: {
+      name: string;
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {
