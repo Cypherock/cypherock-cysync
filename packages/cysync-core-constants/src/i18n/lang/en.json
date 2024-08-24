@@ -1811,7 +1811,8 @@
       "heading": "Wallet Authentication",
       "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
       "actions": {
-        "tapCard": "Tap any one card"
+        "confirmOnDevice": "Confirm wallet authentication on device",
+        "tapCard": "Enter PIN and tap any one card"
       },
       "footer": "Authenticating the wallet, "
     },
@@ -1830,6 +1831,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "actions": {
+          "confirmOnDevice": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
@@ -1869,7 +1871,8 @@
       "heading": "Wallet Authentication",
       "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
       "actions": {
-        "tapCard": "Tap any one card"
+        "confirmOnDevice": "Confirm wallet authentication on device",
+        "tapCard": "Enter PIN and tap any one card"
       },
       "footer": "Authenticating the wallet ",
       "error": {
@@ -2062,6 +2065,7 @@
         "subtext": "Lift your card after 2 beep sounds ",
         "tooltip": "",
         "actions": {
+          "confirmOnDevice": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {

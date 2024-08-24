@@ -46,6 +46,12 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.walletAuth.actions.confirmOnDevice,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(0, 1),
+      },
+      {
+        id: '2',
         text: strings.walletAuth.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),

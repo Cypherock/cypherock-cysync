@@ -1,10 +1,10 @@
 import {
   Button,
-  CheckBox,
   Container,
   Flex,
   LangDisplay,
   QuestionMarkButton,
+  RadioButton,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -24,6 +24,7 @@ export const ExecutorDetails = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
+  const [selectedNominee, setSelectedNominee] = useState<number | undefined>();
 
   const {
     onExecutorDetailsSubmit,
@@ -93,9 +94,15 @@ export const ExecutorDetails = () => {
           alternateEmail={alternateEmail}
           setAlternateEmail={setAlternateEmail}
         />
-        <Container direction="column" gap={16}>
-          <Flex>
-            <Typography>
+        <Container
+          direction="column"
+          gap={16}
+          $flex={1}
+          width="100%"
+          align="flex-start"
+        >
+          <Flex gap={4}>
+            <Typography $fontSize={16} color="muted">
               {strings.executor.executorDetails.radio.label}
             </Typography>
             <QuestionMarkButton
@@ -104,20 +111,28 @@ export const ExecutorDetails = () => {
             />
           </Flex>
           <Flex gap={40}>
-            <CheckBox
-              checked={false}
-              onChange={() => {
-                'implement this function';
-              }}
-              label={strings.executor.executorDetails.radio.options.labelOne}
-            />
-            <CheckBox
-              checked={false}
-              onChange={() => {
-                'implement this function';
-              }}
-              label={strings.executor.executorDetails.radio.options.labelTwo}
-            />
+            <Flex gap={8} align="center">
+              <RadioButton
+                checked={selectedNominee === 1}
+                onChange={() => {
+                  setSelectedNominee(1);
+                }}
+              />
+              <Typography $fontSize={14} color="muted">
+                {strings.executor.executorDetails.radio.options.labelOne}
+              </Typography>
+            </Flex>
+            <Flex gap={8} align="center">
+              <RadioButton
+                checked={selectedNominee === 2}
+                onChange={() => {
+                  setSelectedNominee(2);
+                }}
+              />
+              <Typography $fontSize={14} color="muted">
+                {strings.executor.executorDetails.radio.options.labelTwo}
+              </Typography>
+            </Flex>
           </Flex>
         </Container>
       </Container>

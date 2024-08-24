@@ -1026,6 +1026,7 @@ interface LangInheritanceSilverPlanPurchase {
     heading: string;
     title: string;
     actions: {
+      confirmOnDevice: string;
       tapCard: string;
     };
     footer: string;
@@ -1045,6 +1046,7 @@ interface LangInheritanceSilverPlanPurchase {
     device: {
       title: string;
       actions: {
+        confirmOnDevice: string;
         tapCard: string;
       };
       messageBox: {
@@ -1081,6 +1083,7 @@ interface LangInheritanceGoldPlanPurchase {
     heading: string;
     title: string;
     actions: {
+      confirmOnDevice: string;
       tapCard: string;
     };
     footer: string;
@@ -1271,6 +1274,7 @@ interface LangInheritanceGoldPlanPurchase {
       subtext: string;
       tooltip: string;
       actions: {
+        confirmOnDevice: string;
         tapCard: string;
       };
       messageBox: {

@@ -42,8 +42,9 @@ import {
   Checkout,
   NomineePrivateMessageInput,
   ConfirmOnDevice,
+  Greeting,
+  Summary,
 } from '../Dialogs';
-import { Greeting } from '../Dialogs/Greeting';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -152,6 +153,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       {
         name: lang.strings.inheritanceGoldPlanPurchase.reminder.heading,
         dialogs: [<ExecutorReminderSetup key="Reminder Setup" />],
+      },
+      {
+        name: lang.strings.inheritanceGoldPlanPurchase.summary.heading,
+        dialogs: [<Summary key="Summary" />],
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.encryption.heading,

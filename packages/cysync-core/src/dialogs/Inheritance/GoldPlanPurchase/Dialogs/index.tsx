@@ -8,3 +8,5 @@ export * from './Encryption';
 export * from './NomineeAndExecutor';
 export * from './Checkout';
 export * from './Message';
+export * from './Summary';
+export * from './Greeting';
