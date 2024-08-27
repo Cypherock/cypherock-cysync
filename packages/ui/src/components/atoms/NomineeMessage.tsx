@@ -1,49 +1,73 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Button } from './Button';
 import { Flex } from './Flex';
-import { Typography } from './Typography';
+import { Typography, TypographyColor } from './Typography';
 
-import { WidthProps, width } from '../utils';
+import { WidthProps } from '../utils';
+
+export type NomineeMessageVariant = 'danger';
 
 export interface NomineeMessageProps extends WidthProps {
-  text: string;
-  icon: React.ReactNode;
-  actionText: string;
-  onAction: () => void;
+  label: string;
+  value?: string;
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
+  variant?: NomineeMessageVariant;
+  withBackground?: boolean;
+  isHeader?: boolean;
 }
 
-const StyledNomineeMessage = styled.div`
+const StyledNomineeMessage = styled.div<{ $withBackground: boolean }>`
   display: flex;
-  width: 624px;
+  min-width: 624px;
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
-  background: ${({ theme }) => theme.palette.background.slate};
+  background: ${({ $withBackground, theme }) =>
+    $withBackground ? theme.palette.background.slate : 'none'};
   border-radius: 8px;
-
-  ${width}
 `;
 
+const variantColorMap: Record<NomineeMessageVariant, TypographyColor> = {
+  danger: 'error',
+};
+
 export const NomineeMessage: FC<NomineeMessageProps> = ({
-  text,
-  icon,
-  onAction,
-  actionText,
-  ...props
+  label,
+  value,
+  leading,
+  trailing,
+  variant,
+  withBackground,
+  isHeader: withHeaderFont,
 }) => (
-  <StyledNomineeMessage {...props}>
-    <Flex align="center" gap={16} shrink={0}>
-      {icon}
-      <Typography $fontSize={16} color="muted">
-        {text}
+  <StyledNomineeMessage $withBackground={withBackground ?? false}>
+    <Flex gap={16} align="center">
+      {leading}
+      <Typography
+        color={(variant && variantColorMap[variant]) ?? 'muted'}
+        {...(withHeaderFont
+          ? { $fontSize: 18, $fontWeight: 'medium', $letterSpacing: '0.9px' }
+          : {})}
+      >
+        {label}
       </Typography>
     </Flex>
-    <Button onClick={onAction} variant="text">
-      <Typography $fontSize={14} $fontWeight="medium" color="gold">
-        {actionText}
+    <Flex gap={16} align="center">
+      <Typography color={(variant && variantColorMap[variant]) ?? 'white'}>
+        {value}
       </Typography>
-    </Button>
+      {trailing}
+    </Flex>
   </StyledNomineeMessage>
 );
+
+NomineeMessage.defaultProps = {
+  value: undefined,
+  leading: undefined,
+  trailing: undefined,
+  variant: undefined,
+  withBackground: undefined,
+  isHeader: undefined,
+};

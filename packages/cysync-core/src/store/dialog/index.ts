@@ -105,7 +105,7 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritancePinRecovery: {
-    isOpen: true,
+    isOpen: false,
   },
 };
 
