@@ -1,6 +1,8 @@
 import {
   ArrowRightIcon,
+  confirmPinDeviceImage,
   Container,
+  Image,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
@@ -47,6 +49,7 @@ export const ViewPin = () => {
 
   return (
     <Layout>
+      <Image src={confirmPinDeviceImage} alt="confirm pin image" />
       <Container direction="column" width="100%" $flex={1} gap={16}>
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.title}

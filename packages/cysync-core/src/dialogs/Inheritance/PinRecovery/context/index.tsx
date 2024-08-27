@@ -15,7 +15,21 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { ViewPin, FetchData, SuccessPinRecovery, DecryptPin } from '../Dialogs';
+import {
+  ViewPin,
+  FetchData,
+  SuccessPinRecovery,
+  DecryptPin,
+  WalletAuth,
+  VerifyOTP,
+} from '../Dialogs';
+import { IWallet } from '@cypherock/db-interfaces';
+
+export interface IUserDetails {
+  name: string;
+  email: string;
+  alternateEmail: string;
+}
 
 export interface InheritancePinRecoveryDialogContextInterface {
   tabs: ITabs;
@@ -27,6 +41,8 @@ export interface InheritancePinRecoveryDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   unhandledError?: any;
+  selectedWallet?: IWallet;
+  userDetails?: IUserDetails;
 }
 
 export const InheritancePinRecoveryDialogContext: Context<InheritancePinRecoveryDialogContextInterface> =
@@ -43,6 +59,8 @@ export const InheritancePinRecoveryDialogProvider: FC<
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
+  const selectedWallet = undefined;
+  const userDetails = undefined;
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -54,8 +72,12 @@ export const InheritancePinRecoveryDialogProvider: FC<
 
   const tabs: ITabs = [
     {
-      name: lang.strings.dialogs.inheritancePinRecovery.fetch.name,
-      dialogs: [<FetchData key="Fetch data" />],
+      name: lang.strings.dialogs.inheritancePinRecovery.sync.name,
+      dialogs: [
+        <WalletAuth key="wallet Auth" />,
+        <VerifyOTP key="Verify Otp" />,
+        <FetchData key="Fetch data" />,
+      ],
     },
     {
       name: lang.strings.dialogs.inheritancePinRecovery.decryptPin.name,
@@ -98,6 +120,8 @@ export const InheritancePinRecoveryDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      selectedWallet,
+      userDetails,
     }),
     [
       onNext,
@@ -108,6 +132,8 @@ export const InheritancePinRecoveryDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      selectedWallet,
+      userDetails,
     ],
   );
 

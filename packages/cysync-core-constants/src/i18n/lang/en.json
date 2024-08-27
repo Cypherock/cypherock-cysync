@@ -1582,16 +1582,30 @@
     },
     "inheritancePinRecovery": {
       "title": "Pin Recovery",
-      "fetch": {
+      "sync": {
         "name": "Syncing",
-        "title": "Please wait while we fetch the encrypted PIN",
-        "subTitle": "Do no disconnect or close the app"
+        "walletAuth": {
+          "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+          "subTitle": "Authenticating the wallet ",
+          "actions": {
+            "confirmAuth": "Confirm wallet authentication on device",
+            "enterPinAndTapCard": "Enter Pin and tap any one card"
+          }
+        },
+        "verifyOtp": {
+          "title": "OTP verification"
+        },
+        "fetch": {
+          "title": "Please wait while we fetch the encrypted PIN",
+          "subTitle": "Do no disconnect or close the app"
+        }
       },
       "decryptPin": {
         "name": "Decryption",
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirmOnDevice": "Confirm decryption on device",
+          "tapCard": "Tap any one card"
         },
         "messageBox": {
           "warning": "The PIN will be decrypted by the card"
@@ -1602,7 +1616,7 @@
         }
       },
       "viewPin": {
-        "name": "View pin",
+        "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
         "actions": {
           "viewDevice": "View the PIN on your device and confirm"

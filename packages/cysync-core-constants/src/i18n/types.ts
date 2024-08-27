@@ -853,15 +853,29 @@ interface LangDialogs {
   };
   inheritancePinRecovery: {
     title: string;
-    fetch: {
+    sync: {
       name: string;
-      title: string;
-      subTitle: string;
+      walletAuth: {
+        title: string;
+        subTitle: string;
+        actions: {
+          confirmAuth: string;
+          enterPinAndTapCard: string;
+        };
+      };
+      verifyOtp: {
+        title: string;
+      };
+      fetch: {
+        title: string;
+        subTitle: string;
+      };
     };
     decryptPin: {
       name: string;
       title: string;
       actions: {
+        confirmOnDevice: string;
         tapCard: string;
       };
       messageBox: {
