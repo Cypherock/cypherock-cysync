@@ -2,8 +2,9 @@ import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
   Check,
+  confirmPinDeviceImage,
   Container,
-  ErrorDialog,
+  Image,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
@@ -24,10 +25,9 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const ViewPin = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.dialogs.inheritanceEstateRecovery.decryption;
+  const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewPin;
 
   const { onNext } = useInheritanceEstateRecoveryDialog();
-  const error = false;
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -47,7 +47,7 @@ export const ViewPin = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.success.actions.viewDevice,
+        text: strings.actions.viewDevice,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
@@ -64,31 +64,15 @@ export const ViewPin = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  if (error) {
-    return (
-      <ErrorDialog
-        title={strings.error.title}
-        advanceText={strings.error.message}
-        primaryActionText={lang.strings.buttons.retry}
-        onPrimaryClick={() => {
-          // TODO: implement this function
-        }}
-        secondaryActionText={lang.strings.buttons.exit}
-        onSecondaryClick={() => {
-          // TODO: implement this function
-        }}
-      />
-    );
-  }
-
   return (
     <Layout>
+      <Image src={confirmPinDeviceImage} alt="confirm pin" />
       <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
-          {strings.device.title}
+          {strings.title}
         </Typography>
         <Typography $fontSize={16} $textAlign="center" color="white" mb={2}>
-          {strings.success.subTitle}
+          {strings.subTitle}
         </Typography>
       </Container>
       <LeanBoxContainer>

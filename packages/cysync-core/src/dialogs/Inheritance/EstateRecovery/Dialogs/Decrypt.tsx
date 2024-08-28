@@ -3,14 +3,17 @@ import {
   ArrowRightIcon,
   Check,
   Container,
+  ErrorDialog,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
   MessageBox,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
+import ReactPlayer from 'react-player';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -27,6 +30,7 @@ export const DecryptMessage = () => {
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.decryption;
 
   const { onNext } = useInheritanceEstateRecoveryDialog();
+  const error = false;
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -46,6 +50,12 @@ export const DecryptMessage = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.device.actions.confirmOnDevice,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(0, 1),
+      },
+      {
+        id: '2',
         text: strings.device.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
@@ -63,8 +73,32 @@ export const DecryptMessage = () => {
     return () => clearTimeout(timeout);
   }, []);
 
+  if (error) {
+    return (
+      <ErrorDialog
+        title={strings.error.title}
+        advanceText={strings.error.message}
+        primaryActionText={lang.strings.buttons.retry}
+        onPrimaryClick={() => {
+          // TODO: implement this function
+        }}
+        secondaryActionText={lang.strings.buttons.exit}
+        onSecondaryClick={() => {
+          // TODO: implement this function
+        }}
+      />
+    );
+  }
+
   return (
     <Layout>
+      <ReactPlayer
+        url={tapAnyCardDeviceAnimation2DVideo}
+        width={506}
+        height={285}
+        loop
+        playing
+      />
       <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.device.title}

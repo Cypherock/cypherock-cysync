@@ -7,3 +7,4 @@ export * from './ViewPin';
 export * from './Message';
 export * from './Success';
 export * from './WalletTransfer';
+export * from './Note';

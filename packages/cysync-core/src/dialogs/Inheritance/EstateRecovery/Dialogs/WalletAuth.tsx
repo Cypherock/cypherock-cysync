@@ -8,10 +8,12 @@ import {
   LeanBoxContainer,
   LeanBoxProps,
   MessageBox,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
+import ReactPlayer from 'react-player';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -47,8 +49,13 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.walletAuth.actions.tapCard,
+        text: strings.walletAuth.actions.confirmOnDevice,
         leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(0, 1),
+      },
+      {
+        id: '2',
+        text: strings.walletAuth.actions.tapCard,
         rightImage: getDeviceEventIcon(0, 1),
       },
     ];
@@ -66,6 +73,13 @@ export const WalletAuth = () => {
 
   return (
     <Layout>
+      <ReactPlayer
+        url={tapAnyCardDeviceAnimation2DVideo}
+        width={506}
+        height={285}
+        loop
+        playing
+      />
       <Container direction="column" mb={2}>
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.walletAuth.title}

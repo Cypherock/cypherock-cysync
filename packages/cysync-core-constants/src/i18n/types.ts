@@ -858,6 +858,7 @@ interface LangDialogs {
       title: string;
       subTitle: string;
       actions: {
+        confirmOnDevice: string;
         tapCard: string;
       };
       messageBox: {
@@ -877,44 +878,58 @@ interface LangDialogs {
         title: string;
         subTitle: string;
         actions: {
+          confirmOnDevice: string;
           tapCard: string;
         };
         messageBox: {
           warning: string;
         };
       };
-      success: {
-        subTitle: string;
-        actions: {
-          viewDevice: string;
-        };
-      };
       error: {
         title: string;
         message: string;
       };
-      decryptedMessage: {
-        title: string;
-        tooltip: string;
-        form: {
-          cardLocationField: {
-            label: string;
-            placeholder: string;
-            tooltip: string;
-          };
-          personalMessageField: {
-            label: string;
-            placeholder: string;
-            tooltip: string;
-          };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        viewDevice: string;
+      };
+    };
+    viewMessage: {
+      name: string;
+      title: string;
+      tooltip: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
         };
-        messageBox: {
-          info: string;
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
         };
+      };
+      messageBox: {
+        info: string;
       };
     };
     confirmation: {
       name: string;
+      importantNote: {
+        title: string;
+        subTitle: string;
+        messageBox: {
+          warnings: {
+            settings: string;
+            deletePermanently: string;
+          };
+        };
+      };
       success: {
         title: string;
         subTitle: string;

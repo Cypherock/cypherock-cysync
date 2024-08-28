@@ -28,6 +28,7 @@ import {
   Message,
   Success,
   WalletTransfer,
+  Note,
 } from '../Dialogs';
 
 export interface IWalletWithDeleted extends IWallet {
@@ -98,6 +99,7 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
       {
         name: lang.strings.dialogs.inheritanceEstateRecovery.confirmation.name,
         dialogs: [
+          <Note key="Important note" />,
           <Success key="Success message" />,
           <WalletTransfer key="Wallet transfer" />,
         ],
