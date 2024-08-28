@@ -12,6 +12,7 @@ import {
   InheritanceLoginInitResponse,
   InheritanceLoginRegisterResponse,
   inheritanceLoginService,
+  InheritanceLoginVerifyResponse,
 } from '~/services';
 import { ServerResponseWithError } from '~/services/utils';
 import {
@@ -102,7 +103,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
 
   const onError = useCallback(
     (e?: any) => {
-      logger.error('Error on wallet auth flow');
+      logger.error('Error on useWalletAuth');
       logger.error(e);
       cleanUp();
       onErrorCallback(e);
@@ -165,7 +166,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
             result.error?.code === ServerErrorType.UNAUTHORIZED_ACCESS;
 
           if (result.result) {
-            onLogin(result.result.accessToken, existingTokens.refreshToken);
+            onLogin(result.result.authToken, existingTokens.refreshToken);
             return true;
           }
 
@@ -327,10 +328,12 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       }
 
       let result:
-        | ServerResponseWithError<{
-            accessToken?: string;
-            refreshToken?: string;
-          }>
+        | ServerResponseWithError<
+            Pick<
+              Partial<InheritanceLoginVerifyResponse>,
+              'authToken' | 'refreshToken'
+            >
+          >
         | undefined;
 
       if (
@@ -392,12 +395,12 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
 
         setCurrentStep(WalletAuthLoginStep.alternateOtpVerify);
       } else {
-        if (!result.result.accessToken || !result.result.refreshToken) {
+        if (!result.result.authToken || !result.result.refreshToken) {
           throw new Error('Server error');
         }
 
         setOtpVerificationDetails(undefined);
-        onLogin(result.result.accessToken, result.result.refreshToken);
+        onLogin(result.result.authToken, result.result.refreshToken);
       }
 
       return true;

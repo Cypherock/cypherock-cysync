@@ -939,6 +939,7 @@ interface LangInheritanceSilverPlanPurchase {
     device: {
       title: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
       messageBox: {

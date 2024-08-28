@@ -38,8 +38,7 @@ export const VerifyOTP: React.FC = () => {
 
   const onVerify = useCallback(
     async (otp: string) => {
-      const result = await verifyOtp(otp);
-      console.log(result);
+      await verifyOtp(otp);
     },
     [verifyOtp],
   );

@@ -50,6 +50,15 @@ export const DeviceEncryption = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.actions.confirm,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          InheritanceEncryptMessageDeviceEvent.INIT,
+          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
+        ),
+      },
+      {
+        id: '2',
         text: strings.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
@@ -60,7 +69,7 @@ export const DeviceEncryption = () => {
     ];
 
     return actions;
-  }, []);
+  }, [encryptPinDeviceEvents]);
 
   useEffect(() => {
     clearErrors();

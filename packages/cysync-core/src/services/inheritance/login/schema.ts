@@ -47,12 +47,12 @@ export const resendResultSchema = z.object({
 });
 
 export const registerVerifyResultSchema = z.object({
-  accessToken: z.string().optional(),
+  authToken: z.string().optional(),
   refreshToken: z.string().optional(),
 });
 
 export const verifyResultSchema = z.object({
-  accessToken: z.string(),
+  authToken: z.string(),
   refreshToken: z.string(),
 });
 
@@ -61,7 +61,7 @@ export const registerResultSchema = z.object({
 });
 
 export const refreshAccessTokenResultSchema = z.object({
-  accessToken: z.string(),
+  authToken: z.string(),
 });
 
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;

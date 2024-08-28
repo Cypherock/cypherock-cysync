@@ -1753,6 +1753,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "actions": {
+          "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {

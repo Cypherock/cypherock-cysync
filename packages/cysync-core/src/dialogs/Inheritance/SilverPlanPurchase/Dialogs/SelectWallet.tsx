@@ -57,7 +57,7 @@ export const SelectWallet = () => {
             <ManyInMany
               key={wallet.__id ?? ''}
               title={wallet.name}
-              disabled={Boolean(wallet.isDeleted)}
+              disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
               isSelected={selectedWallet?.__id === wallet.__id}
               onClick={() => setSelectedWallet(wallet)}
               $width={340}

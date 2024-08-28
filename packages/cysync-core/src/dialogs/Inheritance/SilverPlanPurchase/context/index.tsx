@@ -244,7 +244,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       return false;
 
     const result = await inheritancePlanService.create({
-      secretMessage: encryptMessageService.encryptedMessages,
+      encryptedData: encryptMessageService.encryptedMessages,
       accessToken: walletAuthService.authTokens.accessToken,
     });
 
