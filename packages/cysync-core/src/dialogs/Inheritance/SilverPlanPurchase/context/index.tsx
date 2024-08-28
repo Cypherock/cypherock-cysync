@@ -339,7 +339,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     if (doNext) {
       onNext();
     }
-  }, [onNext, currentTab, currentDialog]);
+  }, [onNext, currentTab, currentDialog, onNextActionMapPerDialog]);
 
   const ctx = useMemo(
     () => ({

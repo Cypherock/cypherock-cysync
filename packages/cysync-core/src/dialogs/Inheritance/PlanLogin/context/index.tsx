@@ -1,5 +1,3 @@
-import { ServerErrorType } from '@cypherock/cysync-core-constants';
-import { sleep } from '@cypherock/cysync-utils';
 import React, {
   Context,
   FC,
@@ -12,10 +10,22 @@ import React, {
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
-import { inheritanceLoginService } from '~/services';
 import { closeDialog, useAppDispatch } from '~/store';
 
-import { WalletAuth, VerifyEmail, FetchData } from '../Dialogs';
+import { InheritancePlanLoginDialogProps } from './types';
+
+import {
+  IOtpVerificationDetails,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
+import {
+  WalletAuth,
+  VerifyEmail,
+  FetchData,
+  FetchRequestId,
+  ValidateSignature,
+} from '../Dialogs';
 
 export interface InheritancePlanLoginDialogContextInterface {
   tabs: ITabs;
@@ -26,21 +36,21 @@ export interface InheritancePlanLoginDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
-  startWalletAuth: () => void;
-  emails: string[];
-  isAuthenticatingWallet: boolean;
   unhandledError?: any;
   onRetry: () => void;
-  otpLength: number;
-  verifyEmail: (otp: string) => void;
-  isVerifyingEmail: boolean;
-  verifyingEmailError?: string;
-  onResendOtp: () => void;
-  isResendingOtp: boolean;
-  resendOtpError?: string;
-  retriesRemaining: number;
-  otpExpireTime?: string;
-  wrongOtpError?: boolean;
+  retryIndex: number;
+  clearErrors: () => void;
+  walletAuthDeviceEvents: Record<number, boolean | undefined>;
+  walletAuthFetchRequestId: () => void;
+  walletAuthIsFetchingRequestId: boolean;
+  walletAuthStart: () => void;
+  walletAuthAbort: () => void;
+  walletAuthIsValidatingSignature: boolean;
+  walletAuthValidateSignature: () => Promise<boolean>;
+  walletAuthStep: WalletAuthLoginStep;
+  otpVerificationDetails?: IOtpVerificationDetails;
+  verifyOtp: (otp: string) => Promise<boolean>;
+  isVerifyingOtp: boolean;
 }
 
 export const InheritancePlanLoginDialogContext: Context<InheritancePlanLoginDialogContextInterface> =
@@ -48,19 +58,55 @@ export const InheritancePlanLoginDialogContext: Context<InheritancePlanLoginDial
     {} as InheritancePlanLoginDialogContextInterface,
   );
 
-export interface InheritancePlanLoginDialogContextProviderProps {
+export interface InheritancePlanLoginDialogContextProviderProps
+  extends InheritancePlanLoginDialogProps {
   children: ReactNode;
 }
 
+const tabIndicies = {
+  fetchRequestId: {
+    tabNumber: 0,
+    dialogs: {
+      fetchRequestId: 0,
+    },
+  },
+  walletAuth: {
+    tabNumber: 1,
+    dialogs: {
+      walletAuth: 0,
+    },
+  },
+  validateSignature: {
+    tabNumber: 2,
+    dialogs: {
+      validateSignature: 0,
+    },
+  },
+  verifyEmail: {
+    tabNumber: 3,
+    dialogs: {
+      verifyEmail: 0,
+    },
+  },
+  fetchData: {
+    tabNumber: 4,
+    dialogs: {
+      fetchData: 0,
+    },
+  },
+};
+
 export const InheritancePlanLoginDialogProvider: FC<
   InheritancePlanLoginDialogContextProviderProps
-> = ({ children }) => {
+> = ({ children, walletId }) => {
   const dispatch = useAppDispatch();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        0: [0],
+        [tabIndicies.walletAuth.tabNumber]: [
+          tabIndicies.walletAuth.dialogs.walletAuth,
+        ],
       }),
       [],
     );
@@ -68,8 +114,16 @@ export const InheritancePlanLoginDialogProvider: FC<
   const tabs: ITabs = useMemo(
     () => [
       {
+        name: 'Fetch Request Id',
+        dialogs: [<FetchRequestId key="Fetch Request Id" />],
+      },
+      {
         name: 'Wallet Auth',
         dialogs: [<WalletAuth key="Wallet Auth" />],
+      },
+      {
+        name: 'Validate Signature',
+        dialogs: [<ValidateSignature key="Validate Signature" />],
       },
       {
         name: 'Verify Email',
@@ -100,111 +154,92 @@ export const InheritancePlanLoginDialogProvider: FC<
     dispatch(closeDialog('inheritancePlanLogin'));
   };
 
-  const [emails, setEmails] = useState<string[]>([]);
-  const [isAuthenticatingWallet, setIsAuthenticatingWallet] = useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
-  const [otpLength, setOtpLength] = useState<number>(6);
-  const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
-  const [verifyingEmailError, setVerifyingEmailError] = useState<
-    string | undefined
-  >();
-  const [wrongOtpError, setWrongOtpError] = useState(false);
-  const [isResendingOtp, setIsResendingOtp] = useState(false);
-  const [resendOtpError, setResendOtpError] = useState<string | undefined>();
-  const [retriesRemaining, setRetriesRemaining] = useState<number>(3);
-  const [otpExpireTime, setOtpExpireTime] = useState<string>('');
+  const [retryIndex, setRetryIndex] = useState(0);
 
-  const startWalletAuth = useCallback(async () => {
-    setIsAuthenticatingWallet(true);
-    try {
-      await sleep(2000);
-      setEmails(['dummy@dum.com', 'test@dum.com']);
-      setOtpLength(6);
-      goTo(1);
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsAuthenticatingWallet(false);
-    }
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
   }, []);
+
+  const clearErrors = useCallback(() => {
+    setUnhandledError(undefined);
+  }, []);
+
+  const walletAuthService = useWalletAuth(onError);
+
+  const walletAuthFetchRequestId = useCallback(() => {
+    walletAuthService.fetchRequestId(walletId);
+  }, [walletId]);
+
+  const onRetryFuncMap = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.fetchRequestId.tabNumber]: {
+        [tabIndicies.fetchRequestId.dialogs.fetchRequestId]: () => true,
+      },
+      [tabIndicies.walletAuth.tabNumber]: {
+        [tabIndicies.walletAuth.dialogs.walletAuth]: () => true,
+      },
+      [tabIndicies.validateSignature.tabNumber]: {
+        [tabIndicies.validateSignature.dialogs.validateSignature]: () => true,
+      },
+    }),
+    [],
+  );
 
   const onRetry = useCallback(() => {
-    setIsAuthenticatingWallet(false);
+    const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
+
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      retryLogic();
+    } else {
+      setRetryIndex(v => v + 1);
+      walletAuthService.reset();
+      goTo(0, 0);
+    }
+
     setUnhandledError(undefined);
-    goTo(0);
-  }, []);
+  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
 
-  const fetchPlanData = async () => {
-    try {
-      await sleep(2000);
-      onClose();
-    } catch (error) {
-      setUnhandledError(error);
+  const onNextActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.fetchRequestId.tabNumber]: {
+        [tabIndicies.fetchRequestId.dialogs.fetchRequestId]: () => {
+          if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
+            goTo(
+              tabIndicies.fetchData.tabNumber,
+              tabIndicies.fetchData.dialogs.fetchData,
+            );
+            return true;
+          }
+
+          return false;
+        },
+      },
+    }),
+    [walletAuthService.currentStep],
+  );
+
+  const onNextCallback = useCallback(() => {
+    const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
+    let doNext = true;
+
+    if (action) {
+      doNext = !action();
     }
-  };
 
-  const verifyEmail = useCallback(async (otp: string) => {
-    setIsVerifyingEmail(true);
-    setVerifyingEmailError(undefined);
-    try {
-      const response = await inheritanceLoginService.verify({
-        requestId: '',
-        otp,
-      });
-
-      if (response.result) {
-        goTo(2);
-        fetchPlanData();
-      } else if (
-        response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED
-      ) {
-        if (
-          response.error.details?.responseBody?.retriesRemaining !== undefined
-        ) {
-          setRetriesRemaining(
-            response.error.details.responseBody?.retriesRemaining,
-          );
-        }
-        if (response.error.details?.responseBody?.otpExpiry !== undefined) {
-          setOtpExpireTime(response.error.details.responseBody?.otpExpiry);
-        }
-
-        setWrongOtpError(true);
-      } else {
-        throw response.error;
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsVerifyingEmail(false);
+    if (doNext) {
+      onNext();
     }
-  }, []);
-
-  const onResendOtp = useCallback(async () => {
-    setIsResendingOtp(true);
-    setResendOtpError(undefined);
-
-    try {
-      const response = await inheritanceLoginService.resendOTP({
-        requestId: '',
-      });
-
-      if (response.result) {
-        setOtpExpireTime(response.result.otpExpiry);
-        setRetriesRemaining(response.result.retriesRemaining);
-      } else {
-        throw response.error;
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsResendingOtp(false);
-    }
-  }, []);
+  }, [onNext, currentTab, currentDialog, onNextActionMapPerDialog]);
 
   const ctx = useMemo(
     () => ({
-      onNext,
+      onNext: onNextCallback,
       onPrevious,
       tabs,
       onClose,
@@ -212,24 +247,25 @@ export const InheritancePlanLoginDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
-      emails,
-      isAuthenticatingWallet,
       unhandledError,
       onRetry,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      retriesRemaining,
-      otpExpireTime,
-      wrongOtpError,
-      startWalletAuth,
+      retryIndex,
+      clearErrors,
+      walletAuthDeviceEvents: walletAuthService.deviceEvents,
+      walletAuthFetchRequestId,
+      walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
+      walletAuthStart: walletAuthService.startWalletAuth,
+      walletAuthValidateSignature: walletAuthService.validateSignature,
+      walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
+      walletAuthStep: walletAuthService.currentStep,
+      walletAuthAbort: walletAuthService.abortWalletAuth,
+      isRegisteringUser: walletAuthService.isRegisteringUser,
+      otpVerificationDetails: walletAuthService.otpVerificationDetails,
+      verifyOtp: walletAuthService.verifyOtp,
+      isVerifyingOtp: walletAuthService.isVerifyingOtp,
     }),
     [
-      onNext,
+      onNextCallback,
       onPrevious,
       tabs,
       onClose,
@@ -237,20 +273,21 @@ export const InheritancePlanLoginDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
-      emails,
-      isAuthenticatingWallet,
       unhandledError,
       onRetry,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      otpExpireTime,
-      wrongOtpError,
-      startWalletAuth,
+      retryIndex,
+      clearErrors,
+      walletAuthService.deviceEvents,
+      walletAuthFetchRequestId,
+      walletAuthService.isFetchingRequestId,
+      walletAuthService.startWalletAuth,
+      walletAuthService.isValidatingSignature,
+      walletAuthService.currentStep,
+      walletAuthService.abortWalletAuth,
+      walletAuthService.isRegisteringUser,
+      walletAuthService.otpVerificationDetails,
+      walletAuthService.verifyOtp,
+      walletAuthService.isVerifyingOtp,
     ],
   );
 

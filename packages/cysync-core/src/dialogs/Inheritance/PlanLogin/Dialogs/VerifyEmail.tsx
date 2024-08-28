@@ -1,36 +1,88 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { OTPInputDialog } from '../../components';
+import { selectLanguage, useAppSelector } from '~/store';
+
+import { OTPInputDialog, OTPInputDialogRef } from '../../components';
+import { OtpVerificationConcern } from '../../hooks';
 import { useInheritancePlanLoginDialog } from '../context';
 
 export const VerifyEmail: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.inheritanceSilverPlanPurchase.email;
+
   const {
     onClose,
-    emails,
     onPrevious,
-    otpLength,
-    verifyEmail,
-    isVerifyingEmail,
-    isResendingOtp,
-    onResendOtp,
-    retriesRemaining,
-    otpExpireTime,
-    wrongOtpError,
+    onNext,
+    otpVerificationDetails,
+    verifyOtp,
+    isVerifyingOtp,
   } = useInheritancePlanLoginDialog();
+
+  const title = useMemo(() => {
+    const map: Record<OtpVerificationConcern, string> = {
+      [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
+      [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
+      [OtpVerificationConcern.login]: lang.strings.otp.title,
+    };
+
+    if (!otpVerificationDetails) return '';
+
+    return map[otpVerificationDetails.concern];
+  }, [otpVerificationDetails?.concern, lang]);
+
+  const otpRef = useRef<OTPInputDialogRef | null>(null);
+
+  const onVerify = useCallback(
+    async (otp: string) => {
+      await verifyOtp(otp);
+    },
+    [verifyOtp],
+  );
+
+  const onResend = () => {
+    // DUMMY FUNCTION
+  };
+
+  const otpExpireTime = useMemo(
+    () => otpVerificationDetails?.otpExpiry ?? '',
+    [otpVerificationDetails?.otpExpiry],
+  );
+
+  const otpLength = 6;
+
+  const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
+  const email = otpVerificationDetails?.email ?? '';
+
+  useEffect(() => {
+    if (otpRef.current) {
+      otpRef.current.reset();
+    }
+  }, [otpVerificationDetails?.id]);
+
+  useEffect(() => {
+    if (!otpVerificationDetails) onNext();
+  }, [otpVerificationDetails]);
+
+  if (!otpVerificationDetails) {
+    return null;
+  }
 
   return (
     <OTPInputDialog
+      title={title}
       onClose={onClose}
-      emails={emails}
+      emails={email}
       onBack={onPrevious}
-      onResendOtp={onResendOtp}
-      onVerify={verifyEmail}
+      onResendOtp={onResend}
+      onVerify={onVerify}
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
-      wrongOtpError={wrongOtpError}
       otpExpireTime={otpExpireTime}
-      isVerifyingEmail={isVerifyingEmail}
-      isResendingOtp={isResendingOtp}
+      isVerifyingEmail={isVerifyingOtp}
+      isResendingOtp={false}
+      wrongOtpError={otpVerificationDetails.showIncorrectError}
+      ref={otpRef}
     />
   );
 };

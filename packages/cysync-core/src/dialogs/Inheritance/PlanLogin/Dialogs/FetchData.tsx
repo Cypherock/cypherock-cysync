@@ -5,14 +5,22 @@ import {
   loaderGrayIcon,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import { sleep } from '@cypherock/cysync-utils';
+import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { useInheritancePlanLoginDialog } from '../context';
+
 export const FetchData: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const { onClose } = useInheritancePlanLoginDialog();
 
   const strings = lang.strings.dialogs.inheritancePlanLogin.fetchData;
+
+  useEffect(() => {
+    sleep(2000).then(onClose);
+  }, []);
 
   return (
     <DialogBox width={500} height={300} gap={32}>
