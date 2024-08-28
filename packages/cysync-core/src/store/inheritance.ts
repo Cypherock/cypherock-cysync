@@ -11,7 +11,7 @@ export interface IWalletAuthTokens {
 }
 
 export interface IInheritanceState {
-  walletAuthTokens: Record<string, IWalletAuthTokens>;
+  walletAuthTokens: Record<string, IWalletAuthTokens | undefined>;
 }
 
 const initialState: IInheritanceState = {

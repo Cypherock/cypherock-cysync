@@ -1,10 +1,6 @@
-import { IInheritanceWalletAuthEvent } from '@cypherock/app-support-inheritance';
 import { ServerErrorType } from '@cypherock/cysync-core-constants';
-import lodash from 'lodash';
-import { useState, useRef, useCallback } from 'react';
-import { Subscription, Observer } from 'rxjs';
+import { useState, useRef, useCallback, useMemo } from 'react';
 
-import { deviceLock, useDevice } from '~/context';
 import { useAsync, useStateWithRef } from '~/hooks';
 import {
   InheritanceLoginConcernMap,
@@ -21,60 +17,29 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { inheritanceSupport } from '~/utils';
 import logger from '~/utils/logger';
 
-export interface IUserDetails {
-  name: string;
-  email: string;
-  alternateEmail: string;
-}
+import {
+  WalletAuthLoginStep,
+  IUserDetails,
+  IOtpVerificationDetails,
+  OtpVerificationConcern,
+} from './types';
+import { useWalletAuthDevice } from './useWalletAuthDevice';
 
-export enum OtpVerificationConcern {
-  primary = 'primary',
-  alternate = 'alternate',
-  login = 'login',
-}
-
-export interface IOtpVerificationDetails {
-  id: string;
-  concern: OtpVerificationConcern;
-  email: string;
-  retriesRemaining: number;
-  otpExpiry: string;
-  showIncorrectError?: boolean;
-}
-
-export const WalletAuthLoginStep = {
-  fetchRequestId: 0,
-  walletAuth: 1,
-  validateSignature: 2,
-  userDetails: 3,
-  primaryOtpVerify: 4,
-  alternateOtpVerify: 5,
-  loginOtpVerify: 6,
-  completed: 7,
-} as const;
-
-export type WalletAuthLoginStep =
-  (typeof WalletAuthLoginStep)[keyof typeof WalletAuthLoginStep];
+export * from './types';
 
 export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
-  const { connection } = useDevice();
   const dispatch = useAppDispatch();
 
   const authTokensPerWallet = useAppSelector(
     state => state.inheritance.walletAuthTokens,
   );
 
-  const [deviceEvents, setDeviceEvents] = useState<
-    Record<number, boolean | undefined>
-  >({});
   const [currentStep, setCurrentStep] = useState<WalletAuthLoginStep>(
     WalletAuthLoginStep.fetchRequestId,
   );
 
-  const flowSubscription = useRef<Subscription | undefined>();
   const walletIdRef = useRef<string | undefined>();
   const initResponse = useRef<InheritanceLoginInitResponse | undefined>();
   const registerResponse = useRef<
@@ -87,52 +52,27 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     otpVerificationDetailsRef,
   ] = useStateWithRef<IOtpVerificationDetails | undefined>(undefined);
   const [isRegisterationRequired, setIsRegisterationRequired] = useState(false);
-  const deviceResponse = useRef<
-    { publicKey?: string; signature: string } | undefined
-  >();
   const [authTokens, setAuthTokens] = useState<IWalletAuthTokens | undefined>(
     undefined,
   );
 
-  const cleanUp = useCallback(() => {
-    if (flowSubscription.current) {
-      flowSubscription.current.unsubscribe();
-      flowSubscription.current = undefined;
-    }
+  const onWalletAuthDeviceCallback = useCallback(() => {
+    setCurrentStep(WalletAuthLoginStep.validateSignature);
   }, []);
+
+  const deviceWalletAuth = useWalletAuthDevice(
+    onErrorCallback,
+    onWalletAuthDeviceCallback,
+  );
 
   const onError = useCallback(
     (e?: any) => {
       logger.error('Error on useWalletAuth');
       logger.error(e);
-      cleanUp();
+      deviceWalletAuth.cleanUp();
       onErrorCallback(e);
     },
-    [onErrorCallback, cleanUp],
-  );
-
-  const getFlowObserver = useCallback(
-    (onEnd: () => void): Observer<IInheritanceWalletAuthEvent> => ({
-      next: payload => {
-        if (payload.device) setDeviceEvents({ ...payload.device.events });
-        if (payload.signature) {
-          deviceResponse.current = {
-            publicKey: payload.publicKey,
-            signature: payload.signature,
-          };
-        }
-      },
-      error: err => {
-        onEnd();
-        onError(err);
-      },
-      complete: () => {
-        setCurrentStep(WalletAuthLoginStep.validateSignature);
-        cleanUp();
-        onEnd();
-      },
-    }),
-    [onError],
+    [onErrorCallback, deviceWalletAuth.cleanUp],
   );
 
   const onLogin = useCallback(
@@ -150,6 +90,21 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     },
     [dispatch],
   );
+
+  const startWalletAuth = useCallback(() => {
+    if (!walletIdRef.current || !initResponse.current) {
+      return false;
+    }
+
+    deviceWalletAuth.startWalletAuth({
+      walletId: walletIdRef.current,
+      challenge: initResponse.current.challenge,
+      isPublicKey:
+        initResponse.current.concern === InheritanceLoginConcernMap.REGISTER,
+    });
+
+    return true;
+  }, [deviceWalletAuth.startWalletAuth]);
 
   const fetchRequestIdCallback = useCallback(
     async (walletId: string) => {
@@ -201,59 +156,20 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     fetchRequestIdCallback,
   );
 
-  const startWalletAuth = useCallback(async () => {
-    logger.info('Starting wallet auth');
-
-    if (
-      !connection?.connection ||
-      !walletIdRef.current ||
-      !initResponse.current
-    ) {
-      return;
-    }
-
-    try {
-      cleanUp();
-
-      const taskId = lodash.uniqueId('task-');
-
-      await deviceLock.acquire(connection.device, taskId);
-
-      const onEnd = () => {
-        deviceLock.release(connection.device, taskId);
-      };
-
-      const deviceConnection = connection.connection;
-
-      flowSubscription.current = inheritanceSupport
-        .walletAuth({
-          connection: deviceConnection,
-          walletId: walletIdRef.current,
-          challenge: initResponse.current.challenge,
-          isPublicKey:
-            initResponse.current.concern ===
-            InheritanceLoginConcernMap.REGISTER,
-        })
-        .subscribe(getFlowObserver(onEnd));
-    } catch (e) {
-      onError(e);
-    }
-  }, [connection]);
-
   const validateSignatureCallback = useCallback(async () => {
     try {
       if (
         !walletIdRef.current ||
         !initResponse.current ||
-        !deviceResponse.current
+        !deviceWalletAuth.deviceResponse.current
       ) {
         return false;
       }
 
       const result = await inheritanceLoginService.validate({
         requestId: initResponse.current.requestId,
-        publicKey: deviceResponse.current.publicKey,
-        signature: deviceResponse.current.signature,
+        publicKey: deviceWalletAuth.deviceResponse.current.publicKey,
+        signature: deviceWalletAuth.deviceResponse.current.signature,
       });
 
       if (result.error) {
@@ -413,33 +329,51 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const reset = useCallback(() => {
     walletIdRef.current = undefined;
     initResponse.current = undefined;
-    deviceResponse.current = undefined;
     userDetails.current = undefined;
     registerResponse.current = undefined;
     setIsRegisterationRequired(false);
     setAuthTokens(undefined);
-    setDeviceEvents({});
     setOtpVerificationDetails(undefined);
-    cleanUp();
+    deviceWalletAuth.reset();
     setCurrentStep(WalletAuthLoginStep.fetchRequestId);
-  }, [cleanUp]);
+  }, [deviceWalletAuth.reset]);
 
-  return {
-    fetchRequestId,
-    isFetchingRequestId,
-    startWalletAuth,
-    deviceEvents,
-    validateSignature,
-    isValidatingSignature,
-    reset,
-    currentStep,
-    registerUser,
-    isRegisteringUser,
-    abortWalletAuth: cleanUp,
-    otpVerificationDetails,
-    authTokens,
-    verifyOtp,
-    isVerifyingOtp,
-    isRegisterationRequired,
-  };
+  return useMemo(
+    () => ({
+      fetchRequestId,
+      isFetchingRequestId,
+      startWalletAuth,
+      deviceEvents: deviceWalletAuth.deviceEvents,
+      validateSignature,
+      isValidatingSignature,
+      reset,
+      currentStep,
+      registerUser,
+      isRegisteringUser,
+      abortWalletAuth: deviceWalletAuth.cleanUp,
+      otpVerificationDetails,
+      authTokens,
+      verifyOtp,
+      isVerifyingOtp,
+      isRegisterationRequired,
+    }),
+    [
+      fetchRequestId,
+      isFetchingRequestId,
+      startWalletAuth,
+      deviceWalletAuth.deviceEvents,
+      validateSignature,
+      isValidatingSignature,
+      reset,
+      currentStep,
+      registerUser,
+      isRegisteringUser,
+      deviceWalletAuth.cleanUp,
+      otpVerificationDetails,
+      authTokens,
+      verifyOtp,
+      isVerifyingOtp,
+      isRegisterationRequired,
+    ],
+  );
 };

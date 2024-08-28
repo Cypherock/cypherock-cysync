@@ -20,9 +20,12 @@ const encryptMessageToDeviceEventMap: Partial<
   >
 > = {
   [EncryptMessagesWithPinEvent.INIT]: InheritanceEncryptMessageDeviceEvent.INIT,
-  [EncryptMessagesWithPinEvent.CONFIRMED]: InheritanceEncryptMessageDeviceEvent.CONFIRMED,
-  [EncryptMessagesWithPinEvent.MESSAGE_VERIFIED]: InheritanceEncryptMessageDeviceEvent.VERIFIED,
-  [EncryptMessagesWithPinEvent.PIN_ENTERED]: InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
+  [EncryptMessagesWithPinEvent.CONFIRMED]:
+    InheritanceEncryptMessageDeviceEvent.CONFIRMED,
+  [EncryptMessagesWithPinEvent.MESSAGE_VERIFIED]:
+    InheritanceEncryptMessageDeviceEvent.VERIFIED,
+  [EncryptMessagesWithPinEvent.PIN_ENTERED]:
+    InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
 };
 
 export const encryptMessage = (
