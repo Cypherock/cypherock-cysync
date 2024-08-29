@@ -11,12 +11,12 @@ import {
   WithConnectedDevice,
   WithConnectedDeviceProps,
 } from '~/components';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import {
   InheritancePinRecoveryDialogProvider,
   useInheritancePinRecoveryDialog,
 } from './context';
-import { selectLanguage, useAppSelector } from '~/store';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;

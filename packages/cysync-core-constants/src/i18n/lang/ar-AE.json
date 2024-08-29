@@ -1730,6 +1730,27 @@
   },
   "inheritance": {
     "title": "Cypherock Cover",
+    "choosePlan": {
+      "title": "Choose a plan",
+      "plans": {
+        "silver": {
+          "heading": "Silver",
+          "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+        },
+        "gold": {
+          "heading": "Gold",
+          "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+        },
+        "buttonText": "SELECT",
+        "popularTagText": "MOST POPULAR",
+        "features": [
+          "No KYC required",
+          "Multi-Chain",
+          "PIN Recovery",
+          "Estate Recovery"
+        ]
+      }
+    },
     "homePage": {
       "headers": {
         "owner": {

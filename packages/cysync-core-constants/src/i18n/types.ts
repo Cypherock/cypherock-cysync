@@ -957,7 +957,22 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
-
+  choosePlan: {
+    title: string;
+    plans: {
+      silver: {
+        heading: string;
+        description: string;
+      };
+      gold: {
+        heading: string;
+        description: string;
+      };
+      buttonText: string;
+      popularTagText: string;
+      features: string[];
+    };
+  };
   homePage: {
     headers: {
       owner: {
