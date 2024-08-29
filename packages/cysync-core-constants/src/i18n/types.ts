@@ -507,7 +507,6 @@ interface LangSidebar {
   history: string;
   walletConnect: string;
   cypherockCover: string;
-  cypherockCover: string;
   tutorial: string;
   settings: string;
   help: string;
