@@ -27,7 +27,8 @@ export type BgColor =
   | 'slateDark'
   | 'headlineLight'
   | 'error'
-  | 'disabled';
+  | 'disabled'
+  | 'message';
 
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -159,8 +160,13 @@ ${props =>
       background: ${({ theme }) => theme.palette.background.error};
     `}
     ${props =>
-    props.$bgColor === 'error' &&
+    props.$bgColor === 'disabled' &&
     css`
       background: ${({ theme }) => theme.palette.background.disabled};
+    `}
+    ${props =>
+    props.$bgColor === 'message' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.message};
     `}
 `;

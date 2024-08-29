@@ -22,10 +22,12 @@ import { HistoryDialog } from './HistoryDialog';
 import {
   InheritanceEditExecutorMessageDialog,
   InheritanceEditReminderTimeDialog,
+  InheritanceEditUserDetailsDialog,
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
   InheritanceSilverPlanPurchaseDialog,
 } from './Inheritance';
+import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
 import {
   ChangePasswordDialog,
   RemovePasswordDialog,
@@ -69,4 +71,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceSilverPlanPurchase: InheritanceSilverPlanPurchaseDialog,
   inheritanceEditExecutorMessage: InheritanceEditExecutorMessageDialog,
   inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
+  inheritanceEditUserDetails: InheritanceEditUserDetailsDialog,
+  inheritancePinRecovery: InheritancePinRecoveryDialog,
 };

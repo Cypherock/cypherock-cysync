@@ -635,6 +635,7 @@
     "history": "History",
     "walletConnect": "Wallet Connect",
     "cypherockCover": "Cypherock Cover",
+    "cypherockCover": "Cypherock Cover",
     "tutorial": "Tutorial",
     "settings": "Settings",
     "help": "Help",
@@ -1566,6 +1567,56 @@
       "success": {
         "title": "Reminders duration updated successfully"
       }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Edit Details",
+        "buttons": {
+          "verifyEmail": "Verify Email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtext": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Owner details successfully updated"
+      }
+    },
+    "inheritancePinRecovery": {
+      "title": "Pin Recovery",
+      "fetch": {
+        "name": "Syncing",
+        "title": "Please wait while we fetch the encrypted PIN",
+        "subTitle": "Do no disconnect or close the app"
+      },
+      "decryptPin": {
+        "name": "Decryption",
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "tapCard": "Tap a valid card"
+        },
+        "messageBox": {
+          "warning": "The PIN will be decrypted by the card"
+        },
+        "error": {
+          "title": "PIN Decryption Failed",
+          "subTitle": "PIN decryption was unsuccessful. Wallet ABC was not found in the card"
+        }
+      },
+      "viewPin": {
+        "name": "View pin",
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "viewDevice": "View the PIN on your device and confirm"
+        }
+      },
+      "success": {
+        "name": "Confirmation",
+        "title": "Congratulations, Pin recovery is complete"
+      }
     }
   },
   "toggle": {
@@ -1718,6 +1769,23 @@
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    },
+    "dialog": {
+      "userDetails": {
+        "form": {
+          "name": "Name",
+          "email": "Primary Email",
+          "alternateEmail": "Alternate Email"
+        }
+      },
+      "verifyOTP": {
+        "primaryEmailOTP": {
+          "title": "OTP Verification for primary email"
+        },
+        "alternateEmailOTP": {
+          "title": "OTP Verification for alternate email"
+        }
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {
@@ -1753,20 +1821,9 @@
       "userDetails": {
         "title": "User Details",
         "subTitle": "All the fields are mandatory",
-        "form": {
-          "name": "Name",
-          "email": "Primary Email",
-          "alternateEmail": "Alternate Email"
-        },
         "buttons": {
           "sendOTP": "Send OTP"
         }
-      },
-      "primaryEmailOTP": {
-        "title": "OTP Verification for primary email"
-      },
-      "alternateEmailOTP": {
-        "title": "OTP Verification for alternate email"
       }
     },
     "encryption": {

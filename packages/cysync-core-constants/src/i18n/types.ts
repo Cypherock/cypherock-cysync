@@ -507,6 +507,7 @@ interface LangSidebar {
   history: string;
   walletConnect: string;
   cypherockCover: string;
+  cypherockCover: string;
   tutorial: string;
   settings: string;
   help: string;
@@ -838,6 +839,56 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditUserDetails: {
+    editDetails: {
+      title: string;
+      buttons: {
+        verifyEmail: string;
+      };
+    };
+    verifyOtp: {
+      loading: {
+        title: string;
+        subtext: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
+  inheritancePinRecovery: {
+    title: string;
+    fetch: {
+      name: string;
+      title: string;
+      subTitle: string;
+    };
+    decryptPin: {
+      name: string;
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      error: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      actions: {
+        viewDevice: string;
+      };
+    };
+    success: {
+      name: string;
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -942,6 +993,23 @@ interface LangInheritance {
     privacyPolicy: string;
     checkBoxLabel: string;
   };
+  dialog: {
+    userDetails: {
+      form: {
+        name: string;
+        email: string;
+        alternateEmail: string;
+      };
+    };
+    verifyOTP: {
+      primaryEmailOTP: {
+        title: string;
+      };
+      alternateEmailOTP: {
+        title: string;
+      };
+    };
+  };
 }
 
 interface LangInheritanceSilverPlanPurchase {
@@ -973,20 +1041,9 @@ interface LangInheritanceSilverPlanPurchase {
     userDetails: {
       title: string;
       subTitle: string;
-      form: {
-        name: string;
-        email: string;
-        alternateEmail: string;
-      };
       buttons: {
         sendOTP: string;
       };
-    };
-    primaryEmailOTP: {
-      title: string;
-    };
-    alternateEmailOTP: {
-      title: string;
     };
   };
   encryption: {
