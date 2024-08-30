@@ -87,6 +87,7 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import cypherockCoverIcon from './cypherock-cover-icon.svg';
 
 export {
   WalletDefaultExpiredIcon,
@@ -178,4 +179,5 @@ export {
   manyInManyHoverBgImage,
   questionMarkEllipseIcon,
   syncIcon,
+  cypherockCoverIcon,
 };
