@@ -101,8 +101,8 @@ export const openInheritanceEditExecutorMessageDialog = () =>
 export const openInheritanceEditReminderTimeDialog = () =>
   openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
 
-export const openEditUserDetailsDialog = () =>
+export const openInheritanceEditUserDetailsDialog = () =>
   openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
 
-export const openEditEncryptedMessageDialog = () =>
+export const openInheritanceEditEncryptedMessageDialog = () =>
   openDialog({ name: 'inheritanceEditEncryptedMessage', data: undefined });

@@ -26,6 +26,7 @@ import {
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
   InheritanceSilverPlanPurchaseDialog,
+  InheritanceEditEncryptedMessageDialog,
 } from './Inheritance';
 import {
   ChangePasswordDialog,
@@ -38,7 +39,6 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { InheritanceEditEncryptedMessageDialog } from './Inheritance/EditEncryptedMessage';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

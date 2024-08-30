@@ -10,6 +10,7 @@ import {
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -18,7 +19,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
 import { Layout } from '../Layout';
 import { LoaderDialog } from '~/components';
-import ReactPlayer from 'react-player';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -79,13 +79,12 @@ export const Encryption = () => {
 
   return (
     <Layout>
-      <ReactPlayer
-        width={506}
-        height={285}
-        url={tapAnyCardDeviceAnimation2DVideo}
-        alt="tap any card"
-        playing
+      <Video
+        src={tapAnyCardDeviceAnimation2DVideo}
+        autoPlay
         loop
+        $width={506}
+        $height={285}
       />
       <Container direction="column" gap={4}>
         <Typography $fontSize={20} $textAlign="center" color="white">
