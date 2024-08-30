@@ -1,3 +1,9 @@
+# v2.0.10
+
+### 🚀 Features
+
+- **MATIC to POL migration**: Support for POL token.
+
 # v2.0.9
 
 ### 🐛 Bugfixes
