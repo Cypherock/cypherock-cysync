@@ -135,14 +135,14 @@ export const PlanCard: React.FC<PlanCardProps> = ({
           <Flex key={`${feature.text}-${index + 1}`} align="center" gap={24}>
             {feature.available ? (
               <Check
-                stroke={theme?.palette.text.greenStroke}
+                stroke={theme.palette.text.greenStroke}
                 strokeWidth="3.5 px"
                 height={20}
                 width={24}
               />
             ) : (
               <CrossIcon
-                stroke={theme?.palette.text.redStroke}
+                stroke={theme.palette.text.redStroke}
                 strokeWidth="3.5 px"
                 height={20}
                 width={24}

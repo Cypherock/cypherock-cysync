@@ -163,6 +163,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  inheritancePinRecovery: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   inheritanceEditEncryptedMessage: {
     isOpen: boolean;
     data?: undefined;

@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { InheritancePageLayout } from '~/components';
-import { MainAppLayout } from '../Layout';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { MainAppLayout } from '../Layout';
 
 export const Inheritance = () => {
   const lang = useAppSelector(selectLanguage);

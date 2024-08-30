@@ -7,8 +7,8 @@ import { LangDisplay } from './LangDisplay';
 import { Typography, TypographyColor } from './Typography';
 
 import { OpenExternalLinkIcon } from '../../assets';
-import { BgColor, UtilsProps } from '../utils';
 import { useTheme } from '../../themes';
+import { BgColor, UtilsProps } from '../utils';
 
 export type ExternalLinkVariantTypes = 'disabled' | 'golden';
 
