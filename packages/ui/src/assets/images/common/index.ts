@@ -59,6 +59,7 @@ import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
+import questionMarkEllipseIcon from './question-mark-ellipse-icon.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
@@ -72,6 +73,7 @@ import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
+import syncIcon from './sync-icon.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
@@ -85,6 +87,7 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import cypherockCoverIcon from './cypherock-cover-icon.svg';
 
 export {
   WalletDefaultExpiredIcon,
@@ -174,4 +177,7 @@ export {
   oneInMany2Default,
   manyInManyBgImage,
   manyInManyHoverBgImage,
+  questionMarkEllipseIcon,
+  syncIcon,
+  cypherockCoverIcon,
 };

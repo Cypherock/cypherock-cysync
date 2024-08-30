@@ -1,20 +1,25 @@
 import React from 'react';
 
-import { InheritancePageLayout } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { ChoosePlan } from './ChoosePlan';
+import { Homepage } from './Homepage';
+import { SetupPage } from './SetupPage';
+
 import { MainAppLayout } from '../Layout';
+
+const renderMap = {
+  setup: <SetupPage />,
+  home: <Homepage />,
+  choosePlan: <ChoosePlan />,
+};
 
 export const Inheritance = () => {
   const lang = useAppSelector(selectLanguage);
 
   return (
     <MainAppLayout topbar={{ title: lang.strings.inheritance.title }}>
-      <InheritancePageLayout
-        headingOnly
-        lang={lang.strings.inheritance}
-        actionButtonText={lang.strings.inheritance.buttons.syncPlans}
-      />
+      {renderMap.choosePlan}
     </MainAppLayout>
   );
 };
