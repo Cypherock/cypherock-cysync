@@ -9,5 +9,6 @@ export const constants = {
     'https://youtube.com/playlist?list=PL0db5IfQ4iyo7GxBtFVBxxvanAngjdjLn&feature=shared',
   inheritance: {
     silverPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
+    learnMore: 'https://www.cypherock.com',
   },
 };
