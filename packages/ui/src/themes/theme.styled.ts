@@ -112,6 +112,8 @@ export const theme = {
       danger: colors.background.danger,
       error: colors.background.error,
       silver: colors.background.silver,
+      cardDisabled: colors.background.cardDisabled,
+      cardSelected: colors.background.cardSelected,
       timer: {
         main: colors.background.timer.main,
         default: colors.background.timer.default,
