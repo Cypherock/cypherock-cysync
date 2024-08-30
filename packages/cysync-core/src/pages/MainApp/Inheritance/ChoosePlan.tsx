@@ -6,14 +6,21 @@ import {
   Button,
   ArrowBackGoldenIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { InheritancePageLayout } from '~/components';
+import { openInheritanceSilverPlanPurchaseDialog } from '~/actions';
+import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const ChoosePlan: FC = () => {
+import { InheritancePageLayout } from './Layout';
+
+export const InheritanceChoosePlan: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance.choosePlan;
+  const navigateTo = useNavigateTo();
+  const dispatch = useDispatch();
 
   const SilverPlanFeatures = strings.plans.features.map((cur, i) => ({
     text: cur,
@@ -25,6 +32,14 @@ export const ChoosePlan: FC = () => {
     available: true,
   }));
 
+  const onBack = useCallback(() => {
+    navigateTo(routes.inheritance.home.path);
+  }, [navigateTo]);
+
+  const openSilverPlanSetup = useCallback(() => {
+    dispatch(openInheritanceSilverPlanPurchaseDialog());
+  }, [dispatch]);
+
   return (
     <InheritancePageLayout>
       <Container direction="column" gap={24} $flex={1}>
@@ -32,9 +47,7 @@ export const ChoosePlan: FC = () => {
           <Button
             variant="icon"
             icon={<ArrowBackGoldenIcon />}
-            onClick={() => {
-              'implement this function';
-            }}
+            onClick={onBack}
           />
           <Flex width="100%" justify="center">
             <Typography variant="h2" $fontWeight="medium">
@@ -50,9 +63,7 @@ export const ChoosePlan: FC = () => {
               description={strings.plans.silver.description}
               buttonText={strings.plans.buttonText}
               features={SilverPlanFeatures}
-              onClick={() => {
-                'implement this function';
-              }}
+              onClick={openSilverPlanSetup}
             />
             <PlanCard
               type="gold"
