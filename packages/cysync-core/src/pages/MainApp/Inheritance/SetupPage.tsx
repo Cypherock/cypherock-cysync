@@ -19,19 +19,15 @@ import { selectLanguage, useAppSelector } from '~/store';
 export const SetupPage: FC = () => {
   const lang = useAppSelector(selectLanguage);
   return (
-    <InheritancePageLayout
-      onActionButtonClick={() => {
-        'Implement this function';
-      }}
-      actionButtonText={lang.strings.inheritance.buttons.syncFromEmail}
-    >
+    <InheritancePageLayout>
       <Container $flex={1}>
         <Flex
           direction="column"
-          gap={64}
+          gap={32}
           width="100%"
           $flex={1}
           justify="center"
+          align="center"
         >
           <Flex gap={24}>
             <DialogBox width={500} height={351}>
