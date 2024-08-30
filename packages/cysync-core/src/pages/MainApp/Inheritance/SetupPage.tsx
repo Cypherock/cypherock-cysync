@@ -1,7 +1,7 @@
 import {
   Button,
   Container,
-  cysyncLogoSmall,
+  cypherockCoverIcon,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
@@ -20,10 +20,10 @@ export const SetupPage: FC = () => {
   return (
     <Container $flex={1}>
       <Flex direction="column" gap={64}>
-        <Flex gap={24}>
-          <DialogBox width={500}>
-            <DialogBoxBody>
-              <Image src={cysyncLogoSmall} alt="Cysync Logo" />
+        <Flex gap={24} width="100%" $flex={1} justify="center">
+          <DialogBox width={500} height={351}>
+            <DialogBoxBody justify="flex-start" $flex={1}>
+              <Image src={cypherockCoverIcon} alt="cypherock cover icon" />
               <Container direction="column">
                 <Typography $fontSize={20} color="white">
                   {lang.strings.inheritance.homePage.setup.setupCover.title}
@@ -37,8 +37,8 @@ export const SetupPage: FC = () => {
               <Button>{lang.strings.buttons.setup}</Button>
             </DialogBoxFooter>
           </DialogBox>
-          <DialogBox width={500}>
-            <DialogBoxBody>
+          <DialogBox width={500} height={351}>
+            <DialogBoxBody justify="flex-start" $flex={1}>
               <Image src={syncIcon} alt="Sync Icon" />
               <Container direction="column">
                 <Typography $fontSize={20} color="white">
@@ -57,7 +57,7 @@ export const SetupPage: FC = () => {
             </DialogBoxFooter>
           </DialogBox>
         </Flex>
-        <DialogBox width="100%" $flex={1} pb={2}>
+        <DialogBox width="1024px" $flex={1} pb={2}>
           <DialogBoxBody>
             <Flex gap={32} $flex={1} width="100%" align="center">
               <Image

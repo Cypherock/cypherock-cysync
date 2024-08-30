@@ -175,7 +175,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
               wallets.length === 0 ? State.disabled : getState('inheritance')
             }
             extraRight={
-              <Chip gradient>
+              <Chip $gradient>
                 <Typography $fontSize={10} $fontWeight="semibold" color="black">
                   {strings.new}
                 </Typography>

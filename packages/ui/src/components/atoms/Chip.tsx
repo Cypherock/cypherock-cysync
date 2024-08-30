@@ -11,7 +11,7 @@ import {
 
 interface ChipProps extends SpacingProps, FontProps {
   children: React.ReactNode;
-  gradient?: boolean;
+  $gradient?: boolean;
 }
 
 const ChipStyle = styled.div<ChipProps>`
@@ -23,7 +23,7 @@ const ChipStyle = styled.div<ChipProps>`
   border: 1px solid ${({ theme }) => theme.palette.border.muted};
   ${spacing}
   ${font}
-  ${({ gradient }) => (gradient ? silverGradient('background') : '')}
+  ${({ $gradient }) => ($gradient ? silverGradient('background') : '')}
 `;
 
 export const Chip: FC<ChipProps> = ({ children, ...props }) => (
@@ -31,5 +31,5 @@ export const Chip: FC<ChipProps> = ({ children, ...props }) => (
 );
 
 Chip.defaultProps = {
-  gradient: undefined,
+  $gradient: undefined,
 };
