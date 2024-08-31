@@ -2,7 +2,7 @@
 
 ### 🚀 Features
 
-- **MATIC to POL migration**: Support for POL token.
+- **MATIC to POL Migration Support**: CySync now supports migrating MATIC tokens to POL tokens on Polygon POS and Ethereum networks.
 
 # v2.0.9
 
