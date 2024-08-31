@@ -12,3 +12,4 @@ export * from './accountSync';
 export * from './snackBar';
 export * from './notification';
 export * from './network';
+export * from './inheritancePlan';

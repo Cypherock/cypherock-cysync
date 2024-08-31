@@ -8,3 +8,4 @@ export * from './wallet';
 export * from './transactionNotificationRead';
 export * from './transactionNotificationClick';
 export * from './migrations';
+export * from './inheritancePlan';

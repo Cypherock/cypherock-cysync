@@ -37,12 +37,11 @@ export const Default: Story = {
     type: 'silver',
     isExpiring: false,
     isExpired: false,
-    paymentPending: false,
+    isPaymentPending: false,
     name: 'My Default Wallet',
     lang,
-    startDate: '2024-01-21',
-    expiryDate: '2024-09-21',
-    status: 'Active',
+    startDate: new Date('2024-01-21').getTime(),
+    expiryDate: new Date('2024-09-21').getTime(),
   },
 };
 
@@ -79,13 +78,13 @@ export const ExpiredPlan: Story = {
   args: {
     ...Default.args,
     isExpired: true,
-    expiryDate: '2023-01-21',
+    expiryDate: new Date('2023-01-21').getTime(),
   },
 };
 
 export const PendingPayment: Story = {
   args: {
     ...Default.args,
-    paymentPending: true,
+    isPaymentPending: true,
   },
 };
