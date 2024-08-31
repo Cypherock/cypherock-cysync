@@ -984,6 +984,46 @@ interface LangInheritance {
       };
     };
   };
+  planDetails: {
+    walletDetails: {
+      plan: {
+        gold: string;
+        silver: string;
+      };
+      createdOn: string;
+      expiringOn: string;
+      reminderPeriodField: {
+        label: string;
+        input: string;
+      };
+    };
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        encryptedMessage: { label: string };
+      };
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        executorMessage: { label: string };
+      };
+    };
+  };
   buttons: {
     syncFromEmail: string;
   };

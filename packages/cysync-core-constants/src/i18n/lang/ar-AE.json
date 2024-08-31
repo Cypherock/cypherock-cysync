@@ -1756,6 +1756,46 @@
         }
       }
     },
+    "planDetails": {
+      "walletDetails": {
+        "plan": {
+          "gold": "GOLD",
+          "silver": "SILVER"
+        },
+        "createdOn": "Created on",
+        "expiringOn": "Expiring on",
+        "reminderPeriodField": {
+          "label": "Reminder Period",
+          "input": "Every {month} month"
+        }
+      },
+      "ownerDetails": {
+        "title": "Owner Details",
+        "form": {
+          "userNameField": { "label": "User Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" }
+        }
+      },
+      "nomineeDetails": {
+        "title": "Nominee #{number}",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "encryptedMessage": { "label": "Encrypted Message" }
+        }
+      },
+      "executorDetails": {
+        "title": "Executor",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "executorMessage": { "label": "Executor Message" }
+        }
+      }
+    },
     "buttons": {
       "syncFromEmail": "Sync from Email"
     },
