@@ -133,6 +133,7 @@ const electronAPI = {
       'priceInfo',
       'transactionNotificationRead',
       'transactionNotificationClick',
+      'inheritancePlan',
     ];
 
     const eventNames = ['change'];

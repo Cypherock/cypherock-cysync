@@ -17,6 +17,26 @@ export const colors = {
     silver:
       'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
     stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    goldenhint:
+      'linear-gradient(263deg, rgba(139, 100, 41, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+    silverhint:
+      'linear-gradient(263deg, rgba(194, 194, 194, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+    conicGradient: {
+      default:
+        'conic-gradient(from 0deg, transparent,90deg, transparent, 90deg, #E9B873 ,180deg, #FEDD8F, 270deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+      secondary:
+        'conic-gradient(from 0deg, #A2ADB3 ,33deg, #F3F1F2, 67deg, #BCC3C9, 101deg, #DCDFE4,135deg ,transparent, 135deg, transparent)',
+      expirig:
+        'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,transparent, 270deg, transparent)',
+      golden:
+        'conic-gradient(from 0deg, #E9B873 ,30deg, #FEDD8F, 60deg, #B78D51, 90deg ,transparent, 90deg, transparent)',
+      silver:
+        'conic-gradient(from 0deg, transparent,135deg, transparent, 135deg, #A2ADB3 ,191deg, #F3F1F2, 247deg, #BCC3C9, 304deg, #DCDFE4, 360deg ,transparent, 360deg, transparent)',
+      notExpiring:
+        'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #E9B873 ,300deg, #FEDD8F, 330deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+    },
+    cardDefault:
+      'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827',
     cardSelected:
       'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
     cardHover:
@@ -63,6 +83,10 @@ export const colors = {
   },
   boxShadow: {
     selected: '#1B1813',
+    timer: {
+      main: '#2e2523',
+      text: '#242322',
+    },
   },
   background: {
     progressBar: '#1F1915',
@@ -94,6 +118,14 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    timer: {
+      main: '#3e3a38',
+      default: '#261f17',
+      silver: '#26221e',
+      expiring: '#271a15',
+      secondary: '#2a2827',
+    },
+    silver: '#a2adb3',
     slate: '#312d2a',
     cardDisabled: '#282522',
     cardSelected: '#2A2827',

@@ -23,6 +23,8 @@ import {
   AppUpdate,
   AssetPage,
   AccountPage,
+  InheritanceHome,
+  InheritanceChoosePlan,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -48,6 +50,8 @@ const components: Record<RouteName, ReactNode> = {
   account: <AccountPage />,
   history: <History />,
   settings: <Settings />,
+  inheritance: <InheritanceHome />,
+  'inheritance-choose-plan': <InheritanceChoosePlan />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

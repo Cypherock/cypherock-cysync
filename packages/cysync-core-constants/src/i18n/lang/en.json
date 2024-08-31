@@ -46,7 +46,27 @@
     "submit": "Submit",
     "showMore": "Show more",
     "resendOTP": "Resend OTP",
-    "next": "Next"
+    "next": "Next",
+    "setup": "Setup",
+    "sync": "Sync",
+    "learnMore": "Learn More"
+  },
+  "dashboard": {
+    "wallet": {
+      "renewNow": "Renew Now",
+      "buyNow": "Buy Now",
+      "created": "Created",
+      "expiredOn": "Expired on",
+      "expiresIn": "Expires in",
+      "expiry": "Expiry",
+      "expiring": "Expiring",
+      "expired": "Expired",
+      "pendingTime": "05",
+      "silver": "Silver",
+      "gold": "Gold",
+      "hours": "Hours",
+      "setupCover": "Setup Cypherock Cover"
+    }
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
@@ -614,9 +634,11 @@
     "receiveCrypto": "Receive Crypto",
     "history": "History",
     "walletConnect": "Wallet Connect",
+    "cypherockCover": "Cypherock Cover",
     "tutorial": "Tutorial",
     "settings": "Settings",
     "help": "Help",
+    "new": "New",
     "tooltip": {
       "walletDeleted": "${walletName} has been deleted from your Cypherock X1 Vault"
     }
@@ -1600,6 +1622,56 @@
       "success": {
         "title": "Reminders duration updated successfully"
       }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Edit Details",
+        "buttons": {
+          "verifyEmail": "Verify Email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Please wait while we update the data",
+          "subtext": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Owner details successfully updated"
+      }
+    },
+    "inheritancePinRecovery": {
+      "title": "Pin Recovery",
+      "fetch": {
+        "name": "Syncing",
+        "title": "Please wait while we fetch the encrypted PIN",
+        "subTitle": "Do no disconnect or close the app"
+      },
+      "decryptPin": {
+        "name": "Decryption",
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "tapCard": "Tap a valid card"
+        },
+        "messageBox": {
+          "warning": "The PIN will be decrypted by the card"
+        },
+        "error": {
+          "title": "PIN Decryption Failed",
+          "subTitle": "PIN decryption was unsuccessful. Wallet ABC was not found in the card"
+        }
+      },
+      "viewPin": {
+        "name": "View pin",
+        "title": "Follow instructions on the X1 Vault",
+        "actions": {
+          "viewDevice": "View the PIN on your device and confirm"
+        }
+      },
+      "success": {
+        "name": "Confirmation",
+        "title": "Congratulations, Pin recovery is complete"
+      }
     }
   },
   "toggle": {
@@ -1718,10 +1790,78 @@
     }
   },
   "inheritance": {
+    "title": "Cypherock Cover",
+    "choosePlan": {
+      "title": "Choose a plan",
+      "plans": {
+        "silver": {
+          "heading": "Silver",
+          "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+        },
+        "gold": {
+          "heading": "Gold",
+          "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+        },
+        "buttonText": "SELECT",
+        "popularTagText": "MOST POPULAR",
+        "features": [
+          "No KYC required",
+          "Multi-Chain",
+          "PIN Recovery",
+          "Estate Recovery"
+        ]
+      }
+    },
+    "homePage": {
+      "headers": {
+        "owner": {
+          "title": "Owner",
+          "subtitle": "You have setup Cypherock cover for these wallets"
+        },
+        "nominee": {
+          "title": "Nominee",
+          "subtitle": "Somebody made you a nominee of their assets"
+        }
+      },
+      "setup": {
+        "setupCover": {
+          "title": "Setup Cypherock Cover",
+          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances."
+        },
+        "syncFromMail": {
+          "title": "Sync from Email",
+          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary."
+        },
+        "learnMore": {
+          "title": "What is Cypherock Cover?",
+          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones."
+        }
+      }
+    },
+    "buttons": {
+      "syncFromEmail": "Sync from Email"
+    },
     "termsOfService": {
       "title": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+    },
+    "dialog": {
+      "userDetails": {
+        "form": {
+          "name": "Name",
+          "email": "Primary Email",
+          "alternateEmail": "Alternate Email"
+        }
+      },
+      "verifyOTP": {
+        "primaryEmailOTP": {
+          "title": "OTP Verification for primary email"
+        },
+        "alternateEmailOTP": {
+          "title": "OTP Verification for alternate email"
+        }
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {
@@ -1757,20 +1897,9 @@
       "userDetails": {
         "title": "User Details",
         "subTitle": "All the fields are mandatory",
-        "form": {
-          "name": "Name",
-          "email": "Primary Email",
-          "alternateEmail": "Alternate Email"
-        },
         "buttons": {
           "sendOTP": "Send OTP"
         }
-      },
-      "primaryEmailOTP": {
-        "title": "OTP Verification for primary email"
-      },
-      "alternateEmailOTP": {
-        "title": "OTP Verification for alternate email"
       }
     },
     "encryption": {

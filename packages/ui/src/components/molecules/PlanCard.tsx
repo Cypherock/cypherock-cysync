@@ -11,10 +11,7 @@ export type PlanCardType = 'silver' | 'gold';
 export interface PlanCardProps extends WidthProps {
   type: PlanCardType;
   heading: string;
-  tagline: string;
   description: string;
-  price: string;
-  duration: string;
   buttonText: string;
   popularTagText?: string;
   features: { text: string; available: boolean }[];
@@ -55,11 +52,8 @@ const PopularTag = styled.div`
 export const PlanCard: React.FC<PlanCardProps> = ({
   type,
   heading,
-  tagline,
   description,
-  price,
   features,
-  duration,
   buttonText,
   popularTagText,
   onClick,
@@ -92,34 +86,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         >
           {heading}
         </Typography>
-        <Typography $fontWeight="normal" $fontSize={20} color="muted">
-          {tagline}
-        </Typography>
       </Flex>
-      <Flex align="flex-end" gap={16}>
-        <Typography
-          color="white"
-          $fontWeight="bold"
-          $fontFamily="normal"
-          $fontSize={48}
-          $lineHeight={33}
-          $allowOverflow
-        >
-          {price}
-        </Typography>
-
-        <Typography
-          $fontSize={16}
-          $fontFamily="normal"
-          $fontWeight="normal"
-          color="normal"
-          $lineHeight={11}
-          $allowOverflow
-        >
-          {duration}
-        </Typography>
-      </Flex>
-
       <Typography
         color="muted"
         $fontFamily="normal"
@@ -129,7 +96,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       >
         {description}
       </Typography>
-      <Flex height={1} $bgColor="headlineLight" $alignSelf="stretch" />
+      <Flex height={1} $bgColor="separator" $alignSelf="stretch" />
       <Flex direction="column" gap={32} mt={2} mb={4} justify="center">
         {features.map((feature, index) => (
           <Flex key={`${feature.text}-${index + 1}`} align="center" gap={24}>

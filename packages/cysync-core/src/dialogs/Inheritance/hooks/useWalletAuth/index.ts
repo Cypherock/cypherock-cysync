@@ -13,6 +13,7 @@ import {
 import { ServerResponseWithError } from '~/services/utils';
 import {
   IWalletAuthTokens,
+  selectInheritanceAuthTokens,
   updateWalletAuthTokens,
   useAppDispatch,
   useAppSelector,
@@ -32,9 +33,7 @@ export * from './types';
 export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const dispatch = useAppDispatch();
 
-  const authTokensPerWallet = useAppSelector(
-    state => state.inheritance.walletAuthTokens,
-  );
+  const authTokensPerWallet = useAppSelector(selectInheritanceAuthTokens);
 
   const [currentStep, setCurrentStep] = useState<WalletAuthLoginStep>(
     WalletAuthLoginStep.fetchRequestId,

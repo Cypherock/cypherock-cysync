@@ -7,6 +7,7 @@ export interface LanguageStrings {
   allWallets: string;
   labels: LangLabels;
   buttons: LangButtons;
+  dashboard: LangDashboard;
   tooltips: LangTooltips;
   deviceAuthentication: LangDeviceAuthentication;
   lockscreen: LangLockscreen;
@@ -86,6 +87,27 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+  setup: string;
+  sync: string;
+  learnMore: string;
+}
+
+interface LangDashboard {
+  wallet: {
+    renewNow: string;
+    buyNow: string;
+    created: string;
+    expiredOn: string;
+    expiresIn: string;
+    expiry: string;
+    expiring: string;
+    expired: string;
+    pendingTime: string;
+    silver: string;
+    gold: string;
+    hours: string;
+    setupCover: string;
+  };
 }
 
 interface LangTooltips {
@@ -484,9 +506,11 @@ interface LangSidebar {
   receiveCrypto: string;
   history: string;
   walletConnect: string;
+  cypherockCover: string;
   tutorial: string;
   settings: string;
   help: string;
+  new: string;
   tooltip: { walletDeleted: string };
 }
 
@@ -814,6 +838,56 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditUserDetails: {
+    editDetails: {
+      title: string;
+      buttons: {
+        verifyEmail: string;
+      };
+    };
+    verifyOtp: {
+      loading: {
+        title: string;
+        subtext: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
+  inheritancePinRecovery: {
+    title: string;
+    fetch: {
+      name: string;
+      title: string;
+      subTitle: string;
+    };
+    decryptPin: {
+      name: string;
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      error: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      actions: {
+        viewDevice: string;
+      };
+    };
+    success: {
+      name: string;
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -882,10 +956,73 @@ interface LangOTP {
 }
 
 interface LangInheritance {
+  title: string;
+  choosePlan: {
+    title: string;
+    plans: {
+      silver: {
+        heading: string;
+        description: string;
+      };
+      gold: {
+        heading: string;
+        description: string;
+      };
+      buttonText: string;
+      popularTagText: string;
+      features: string[];
+    };
+  };
+  homePage: {
+    headers: {
+      owner: {
+        title: string;
+        subtitle: string;
+      };
+      nominee: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    setup: {
+      setupCover: {
+        title: string;
+        subTitle: string;
+      };
+      syncFromMail: {
+        title: string;
+        subTitle: string;
+      };
+      learnMore: {
+        title: string;
+        subTitle: string;
+      };
+    };
+  };
+  buttons: {
+    syncFromEmail: string;
+  };
   termsOfService: {
     title: string;
     privacyPolicy: string;
     checkBoxLabel: string;
+  };
+  dialog: {
+    userDetails: {
+      form: {
+        name: string;
+        email: string;
+        alternateEmail: string;
+      };
+    };
+    verifyOTP: {
+      primaryEmailOTP: {
+        title: string;
+      };
+      alternateEmailOTP: {
+        title: string;
+      };
+    };
   };
 }
 
@@ -918,20 +1055,9 @@ interface LangInheritanceSilverPlanPurchase {
     userDetails: {
       title: string;
       subTitle: string;
-      form: {
-        name: string;
-        email: string;
-        alternateEmail: string;
-      };
       buttons: {
         sendOTP: string;
       };
-    };
-    primaryEmailOTP: {
-      title: string;
-    };
-    alternateEmailOTP: {
-      title: string;
     };
   };
   encryption: {

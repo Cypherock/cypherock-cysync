@@ -11,7 +11,7 @@ import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceSilverPlanPurchase.email;
+  const strings = lang.strings.inheritance.dialog.verifyOTP;
 
   const {
     onClose,
