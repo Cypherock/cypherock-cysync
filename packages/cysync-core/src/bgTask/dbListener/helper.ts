@@ -4,6 +4,7 @@ import { syncAccounts } from '~/actions';
 import {
   setAccounts,
   setDevices,
+  setInheritancePlans,
   setLanguage,
   setPriceHistories,
   setPriceInfos,
@@ -93,6 +94,16 @@ const syncTransactionsDb = createFuncWithErrorHandler(
   },
 );
 
+const syncInheritancePlanDb = createFuncWithErrorHandler(
+  'syncInheritancePlanDb',
+  async () => {
+    const db = getDB();
+
+    const plans = await db.inheritancePlan.getAll();
+    store.dispatch(setInheritancePlans(plans));
+  },
+);
+
 export const syncAllDb = async (isFirst: boolean) => {
   await syncAccountsDb(isFirst);
   await syncWalletsDb();
@@ -100,6 +111,7 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncPriceInfosDb();
   await syncPriceHistoriesDb();
   await syncTransactionsDb();
+  await syncInheritancePlanDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
 };
@@ -119,6 +131,10 @@ export const addListeners = () => {
     throttleDbFunction(syncPriceHistoriesDb),
   );
   db.transaction.addListener('change', throttleDbFunction(syncTransactionsDb));
+  db.inheritancePlan.addListener(
+    'change',
+    throttleDbFunction(syncInheritancePlanDb),
+  );
 };
 
 export const removeListeners = () => {
@@ -130,4 +146,5 @@ export const removeListeners = () => {
   db.priceInfo.removeAllListener();
   db.priceHistory.removeAllListener();
   db.transaction.removeAllListener();
+  db.inheritancePlan.removeAllListener();
 };

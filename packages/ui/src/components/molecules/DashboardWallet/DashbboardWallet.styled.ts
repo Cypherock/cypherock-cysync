@@ -19,18 +19,18 @@ export const SetupCoverContainer = styled.div`
   transform: translateY(10px);
 `;
 
-export const SetupCoverPlusImage = styled(PlusIcon)<{ isHover: boolean }>`
+export const SetupCoverPlusImage = styled(PlusIcon)<{ $isHover: boolean }>`
   transition: transform 0.3s ease-in-out, margin-bottom 0.3s ease-in-out,
     opacity 0.3s ease-in-out;
   width: 34px;
   height: 34px;
-  transform: ${({ isHover }) =>
-    isHover ? 'rotate(-90deg) scale(2)' : 'rotate(0) scale(1)'};
-  margin-bottom: ${({ isHover }) => (isHover ? '-10px' : '16px')};
-  opacity: ${({ isHover }) => (isHover ? '1' : '0.4')};
+  transform: ${({ $isHover }) =>
+    $isHover ? 'rotate(-90deg) scale(2)' : 'rotate(0) scale(1)'};
+  margin-bottom: ${({ $isHover }) => ($isHover ? '-10px' : '16px')};
+  opacity: ${({ $isHover }) => ($isHover ? '1' : '0.4')};
 `;
 
-export const SetupCoverText = styled.div<{ isHover: boolean }>`
+export const SetupCoverText = styled.div<{ $isHover: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,8 +39,8 @@ export const SetupCoverText = styled.div<{ isHover: boolean }>`
   font-size: 12px;
   color: white;
   transition: transform 0.3s ease-in-out;
-  transform: ${({ isHover }) =>
-    isHover ? 'translateY(500%) translateX(10%)' : 'translateY(0)'};
+  transform: ${({ $isHover }) =>
+    $isHover ? 'translateY(500%) translateX(10%)' : 'translateY(0)'};
 `;
 
 export const ProgressbarWrapper = styled.div`
@@ -48,13 +48,13 @@ export const ProgressbarWrapper = styled.div`
 `;
 
 export const Container = styled.div<
-  { isHover: boolean; isNone: boolean; backgroundImage: string } & WidthProps
+  { $isHover: boolean; $isNone: boolean; $backgroundImage: string } & WidthProps
 >`
   width: 200px;
   height: 176px;
   display: flex;
-  ${({ isNone }) =>
-    isNone ? 'justify-content:  center' : 'justify-content:normal'};
+  ${({ $isNone }) =>
+    $isNone ? 'justify-content:  center' : 'justify-content:normal'};
   align-items: center;
   flex-direction: column;
   font-family: 'Poppins';
@@ -62,10 +62,10 @@ export const Container = styled.div<
   font-weight: 500;
   text-align: center;
   color: white;
-  background: ${({ isHover, isNone, backgroundImage }) =>
-    isNone
-      ? `url(${isHover ? dashWalletDefaultBgIcon : dashWalletHoverBgIcon})`
-      : `url(${backgroundImage})`};
+  background: ${({ $isHover, $isNone, $backgroundImage }) =>
+    $isNone
+      ? `url(${$isHover ? dashWalletDefaultBgIcon : dashWalletHoverBgIcon})`
+      : `url(${$backgroundImage})`};
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -89,7 +89,7 @@ export const StyledExpiredClockIcon = styled(ClockIcon)`
   fill: #2a2827;
 `;
 
-export const Flex = styled.div<{ isHover: boolean }>`
+export const Flex = styled.div<{ $isHover: boolean }>`
   display: flex;
   width: 45%;
   height: unset;
@@ -97,7 +97,7 @@ export const Flex = styled.div<{ isHover: boolean }>`
   fill: #2a2827;
 `;
 
-export const Type = styled.div<{ type: string; isHover: boolean }>`
+export const Type = styled.div<{ type: string; $isHover: boolean }>`
   font-family: 'Poppins';
   font-size: 12px;
   font-weight: 700;
@@ -114,16 +114,16 @@ export const Type = styled.div<{ type: string; isHover: boolean }>`
   right: 95%;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  ${({ isHover }) =>
-    isHover &&
+  ${({ $isHover }) =>
+    $isHover &&
     `
     opacity: 1;
   `}
 `;
 
 export const Expiring = styled.div<{
-  isHover: boolean;
-  disableTransform: boolean;
+  $isHover: boolean;
+  $disableTransform: boolean;
 }>`
   font-family: 'Poppins';
   font-size: 12px;
@@ -133,15 +133,15 @@ export const Expiring = styled.div<{
   color: ${({ theme }) => theme.palette.error.main};
   position: relative;
   right: 70%;
-  transform: ${({ isHover, disableTransform }) => {
-    if (disableTransform) return 'none';
-    return isHover ? 'translateX(0)' : 'translateX(40%)';
+  transform: ${({ $isHover, $disableTransform }) => {
+    if ($disableTransform) return 'none';
+    return $isHover ? 'translateX(0)' : 'translateX(40%)';
   }};
-  opacity: ${({ isHover }) => (isHover ? 1 : 0)};
+  opacity: ${({ $isHover }) => ($isHover ? 1 : 0)};
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 `;
 
-export const TimerContainer = styled.div<{ isHover: boolean }>`
+export const TimerContainer = styled.div<{ $isHover: boolean }>`
   display: flex;
   justify-content: center;
   width: 90px;
@@ -150,7 +150,7 @@ export const TimerContainer = styled.div<{ isHover: boolean }>`
   margin-top: 2px;
 `;
 
-export const TimerText = styled.div<{ isHover: boolean; theme: any }>`
+export const TimerText = styled.div<{ $isHover: boolean; theme: any }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -169,25 +169,25 @@ export const TimerText = styled.div<{ isHover: boolean; theme: any }>`
 `;
 
 export const TimerHead = styled.div<{
-  isHover: boolean;
-  isExpired: boolean;
-  paymentPending: boolean;
+  $isHover: boolean;
+  $isExpired: boolean;
+  $isPaymentPending: boolean;
 }>`
   font-family: 'Poppins';
   font-size: 10px;
-  font-weight: ${({ isHover, isExpired, paymentPending }) => {
-    if (isExpired || isHover || paymentPending) {
+  font-weight: ${({ $isHover, $isExpired, $isPaymentPending }) => {
+    if ($isExpired || $isHover || $isPaymentPending) {
       return '700';
     }
     return '400';
   }};
   line-height: 16.5px;
   text-align: left;
-  color: ${({ isExpired, isHover, theme, paymentPending }) => {
-    if (isExpired) {
+  color: ${({ $isExpired, $isHover, theme, $isPaymentPending }) => {
+    if ($isExpired) {
       return theme.palette.warn.main;
     }
-    if (isHover || paymentPending) {
+    if ($isHover || $isPaymentPending) {
       return 'white';
     }
     return theme.palette.muted.main;
@@ -198,7 +198,7 @@ export const getColor = (
   isExpiring: boolean,
   isHover: boolean,
   isExpired: boolean,
-  paymentPending: boolean,
+  isPaymentPending: boolean,
   theme: any,
 ) => {
   if (isExpiring && isHover) {
@@ -210,7 +210,7 @@ export const getColor = (
   if (isHover) {
     return theme.palette.muted.main;
   }
-  if (isExpired || paymentPending) {
+  if (isExpired || isPaymentPending) {
     return theme.palette.muted.main;
   }
   return 'white';
@@ -219,44 +219,44 @@ export const getColor = (
 export const getFontWeight = (
   isHover: boolean,
   isExpired: boolean,
-  paymentPending: boolean,
-) => (isHover || isExpired || paymentPending ? '400' : '700');
+  isPaymentPending: boolean,
+) => (isHover || isExpired || isPaymentPending ? '400' : '700');
 
 export const TimerSubtitle = styled.div<{
-  isHover: boolean;
-  isExpiring: boolean;
-  isExpired: boolean;
-  paymentPending: boolean;
+  $isHover: boolean;
+  $isExpiring: boolean;
+  $isExpired: boolean;
+  $isPaymentPending: boolean;
 }>`
   font-family: 'Poppins';
   font-size: 10px;
-  font-weight: ${({ isHover, isExpired, paymentPending }) =>
-    getFontWeight(isHover, isExpired, paymentPending)};
+  font-weight: ${({ $isHover, $isExpired, $isPaymentPending }) =>
+    getFontWeight($isHover, $isExpired, $isPaymentPending)};
   line-height: 18px;
   text-align: left;
   text-transform: uppercase;
-  color: ${({ isExpiring, isHover, isExpired, paymentPending, theme }) =>
-    getColor(isExpiring, isHover, isExpired, paymentPending, theme)};
+  color: ${({ $isExpiring, $isHover, $isExpired, $isPaymentPending, theme }) =>
+    getColor($isExpiring, $isHover, $isExpired, $isPaymentPending, theme)};
 `;
 
 export const getWalletNameColor = (
   isHover: boolean,
   isExpiring: boolean,
   isExpired: boolean,
-  paymentPending: boolean,
+  isPaymentPending: boolean,
   theme: any,
 ) => {
-  if (isHover && (isExpiring || isExpired || paymentPending)) {
+  if (isHover && (isExpiring || isExpired || isPaymentPending)) {
     return theme.palette.background.golden;
   }
   return theme.palette.muted.main;
 };
 
 export const WalletNameContainer = styled.div<{
-  isHover: boolean;
-  isExpiring: boolean;
-  isExpired: boolean;
-  paymentPending: boolean;
+  $isHover: boolean;
+  $isExpiring: boolean;
+  $isExpired: boolean;
+  $isPaymentPending: boolean;
 }>`
   position: relative;
   width: 100%;
@@ -268,34 +268,40 @@ export const WalletNameContainer = styled.div<{
   line-height: 21px;
   text-align: center;
   margin-top: 8px;
-  color: ${({ isHover, isExpiring, isExpired, paymentPending, theme }) =>
-    getWalletNameColor(isHover, isExpiring, isExpired, paymentPending, theme)};
+  color: ${({ $isHover, $isExpiring, $isExpired, $isPaymentPending, theme }) =>
+    getWalletNameColor(
+      $isHover,
+      $isExpiring,
+      $isExpired,
+      $isPaymentPending,
+      theme,
+    )};
 `;
 
 export const WalletNameText = styled.div<{
-  isHover: boolean;
-  disableAnimation?: boolean;
+  $isHover: boolean;
+  $disableAnimation?: boolean;
 }>`
   position: absolute;
   width: 100%;
-  transition: ${({ disableAnimation }) =>
+  transition: ${({ $disableAnimation: disableAnimation }) =>
     disableAnimation
       ? 'none'
       : 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out'};
-  transform: ${({ isHover, disableAnimation }) =>
+  transform: ${({ $isHover: isHover, $disableAnimation: disableAnimation }) =>
     isHover && !disableAnimation ? 'translateX(0)' : 'translateX(15%)'};
-  opacity: ${({ isHover, disableAnimation }) =>
+  opacity: ${({ $isHover: isHover, $disableAnimation: disableAnimation }) =>
     isHover && !disableAnimation ? 1 : 0};
 `;
 
 export const WalletNameHoverText = styled(WalletNameText)<{
-  isHover: boolean;
-  disableAnimation?: boolean;
+  $isHover: boolean;
+  $disableAnimation?: boolean;
 }>`
-  transform: ${({ isHover, disableAnimation }) =>
-    isHover && !disableAnimation ? 'translateX(0)' : 'translateX(-15%)'};
-  opacity: ${({ isHover, disableAnimation }) =>
-    isHover && !disableAnimation ? 1 : 0};
+  transform: ${({ $isHover, $disableAnimation }) =>
+    $isHover && !$disableAnimation ? 'translateX(0)' : 'translateX(-15%)'};
+  opacity: ${({ $isHover, $disableAnimation }) =>
+    $isHover && !$disableAnimation ? 1 : 0};
 `;
 
 export const TransitionTextWrapper = styled.div`
@@ -306,12 +312,12 @@ export const TransitionTextWrapper = styled.div`
   height: 100%;
 `;
 
-export const TransitionText = styled.div<{ isHover: boolean }>`
+export const TransitionText = styled.div<{ $isHover: boolean }>`
   position: absolute;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  opacity: ${props => (props.isHover ? 1 : 0)};
+  opacity: ${props => (props.$isHover ? 1 : 0)};
   transform: ${props =>
-    props.isHover
+    props.$isHover
       ? 'translateY(0px) translateX(0px)'
       : 'translateY(1px) translateX(-1px)'};
   width: max-content;
@@ -319,12 +325,12 @@ export const TransitionText = styled.div<{ isHover: boolean }>`
   margin-top: 20px;
 `;
 
-export const TransitionTextSubtitle = styled.div<{ isHover: boolean }>`
+export const TransitionTextSubtitle = styled.div<{ $isHover: boolean }>`
   position: absolute;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  opacity: ${props => (props.isHover ? 1 : 0)};
+  opacity: ${props => (props.$isHover ? 1 : 0)};
   transform: ${props =>
-    props.isHover
+    props.$isHover
       ? 'translateY(0px) translateX(0px)'
       : 'translateY(1px) translateX(-1px)'};
   width: max-content;
