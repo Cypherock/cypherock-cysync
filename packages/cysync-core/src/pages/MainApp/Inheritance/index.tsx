@@ -1,13 +1,17 @@
 import React from 'react';
+
 import { MainAppLayout } from '../Layout';
 import { selectLanguage, useAppSelector } from '~/store';
-import { SetupPage } from './SetupPage';
+
 import { Homepage } from './Homepage';
+import { SetupPage } from './SetupPage';
+import { ChoosePlan } from './ChoosePlan';
 import { PlanDetails } from './PlanDetails';
 
 const renderMap = {
   setup: <SetupPage />,
   home: <Homepage />,
+  choosePlan: <ChoosePlan />,
   planDetails: <PlanDetails />,
 };
 
