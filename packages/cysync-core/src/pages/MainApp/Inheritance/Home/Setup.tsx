@@ -11,15 +11,39 @@ import {
   syncIcon,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { InheritancePageLayout } from '~/components';
+import { openInheritanceSyncPlansDialog } from '~/actions';
+import { constants, routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const SetupPage: FC = () => {
+import { MainAppLayout } from '../../Layout';
+
+export const InheritanceSetup: FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const navigateTo = useNavigateTo();
+  const dispatch = useDispatch();
+
+  const toSetup = useCallback(() => {
+    navigateTo(routes.inheritance.choosePlan.path);
+  }, [navigateTo]);
+
+  const openSyncPlans = useCallback(() => {
+    dispatch(openInheritanceSyncPlansDialog());
+  }, [dispatch]);
+
+  const openLearnMore = useCallback(() => {
+    window.open(
+      constants.inheritance.learnMore,
+      '_blank',
+      'noopener,noreferrer',
+    );
+  }, []);
+
   return (
-    <InheritancePageLayout>
+    <MainAppLayout topbar={{ title: lang.strings.inheritance.title }}>
       <Container $flex={1}>
         <Flex
           direction="column"
@@ -46,7 +70,7 @@ export const SetupPage: FC = () => {
                 </Container>
               </DialogBoxBody>
               <DialogBoxFooter>
-                <Button>{lang.strings.buttons.setup}</Button>
+                <Button onClick={toSetup}>{lang.strings.buttons.setup}</Button>
               </DialogBoxFooter>
             </DialogBox>
             <DialogBox width={500} height={351}>
@@ -65,7 +89,9 @@ export const SetupPage: FC = () => {
                 </Container>
               </DialogBoxBody>
               <DialogBoxFooter>
-                <Button>{lang.strings.buttons.sync}</Button>
+                <Button onClick={openSyncPlans}>
+                  {lang.strings.buttons.sync}
+                </Button>
               </DialogBoxFooter>
             </DialogBox>
           </Flex>
@@ -86,7 +112,7 @@ export const SetupPage: FC = () => {
                     {lang.strings.inheritance.homePage.setup.learnMore.subTitle}
                   </Typography>
                 </Flex>
-                <Button variant="secondary">
+                <Button variant="secondary" onClick={openLearnMore}>
                   <LangDisplay text={lang.strings.buttons.learnMore} />
                 </Button>
               </Flex>
@@ -94,6 +120,6 @@ export const SetupPage: FC = () => {
           </DialogBox>
         </Flex>
       </Container>
-    </InheritancePageLayout>
+    </MainAppLayout>
   );
 };

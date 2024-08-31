@@ -19,6 +19,7 @@ import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
+import cypherockCoverIcon from './cypherock-cover-icon.svg';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import dashWalletDefaultBgIcon from './dash-wallet-default-bg-icon.svg';
@@ -87,7 +88,6 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import cypherockCoverIcon from './cypherock-cover-icon.svg';
 
 export {
   WalletDefaultExpiredIcon,

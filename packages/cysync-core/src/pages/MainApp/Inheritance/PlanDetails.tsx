@@ -13,7 +13,7 @@ import {
   WalletIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import { InheritancePageLayout } from '~/components';
+import { InheritancePageLayout } from './Layout';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const PlanDetails: FC = () => {

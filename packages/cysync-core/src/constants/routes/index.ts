@@ -1,3 +1,4 @@
+import { inheritance, InheritanceRouteName } from './inheritance';
 import { OnboardingRouteName, onboarding } from './onboarding';
 
 const rootRoutes = {
@@ -12,10 +13,6 @@ const rootRoutes = {
   wallet: {
     name: 'wallet',
     path: '/wallet',
-  },
-  inheritance: {
-    name: 'inheritance',
-    path: '/inheritance',
   },
   asset: {
     name: 'asset',
@@ -37,12 +34,16 @@ const rootRoutes = {
 
 export const routes = {
   onboarding,
+  inheritance,
   ...rootRoutes,
 };
 
 type RootRouteName = (typeof rootRoutes)[keyof typeof rootRoutes]['name'];
 
-export type RouteName = RootRouteName | OnboardingRouteName;
+export type RouteName =
+  | RootRouteName
+  | OnboardingRouteName
+  | InheritanceRouteName;
 
 export interface IRoute {
   name: RouteName;

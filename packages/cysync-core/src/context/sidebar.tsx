@@ -83,6 +83,10 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       dispatch(openContactSupportDialog());
       return;
     }
+    if (page === 'inheritance') {
+      navigateTo(routes[page].home.path);
+      return;
+    }
     navigateTo(routes[page].path);
   };
 
@@ -94,9 +98,13 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const getState = (page: Page): State => {
     if (page === 'help') return State.normal;
     if (page === 'tutorial') return State.normal;
-    if (location.pathname === routes[page].path) return State.selected;
+    const path =
+      page === 'inheritance' ? routes[page].home.path : routes[page].path;
+
+    if (location.pathname.startsWith(path)) return State.selected;
     return State.normal;
   };
+
   const getWalletState = (id: string | undefined): State => {
     if (
       (id &&

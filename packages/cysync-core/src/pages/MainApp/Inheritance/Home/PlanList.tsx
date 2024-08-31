@@ -4,18 +4,25 @@ import {
   Flex,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { InheritancePageLayout } from '~/components';
+import { openInheritanceSyncPlansDialog } from '~/actions';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const Homepage: FC = () => {
+import { InheritancePageLayout } from '../Layout';
+
+export const InheritancePlanList: FC = () => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useDispatch();
+
+  const openSyncPlans = useCallback(() => {
+    dispatch(openInheritanceSyncPlansDialog());
+  }, [dispatch]);
+
   return (
     <InheritancePageLayout
-      onActionButtonClick={() => {
-        'Implement this function';
-      }}
+      onActionButtonClick={openSyncPlans}
       actionButtonText={lang.strings.inheritance.buttons.syncFromEmail}
     >
       <Flex direction="column" $flex={1} gap={32}>
