@@ -1657,7 +1657,7 @@
       },
       "viewMessage": {
         "name": "View Message",
-        "title": "Message from ",
+        "title": "Message from ${name}",
         "tooltip": "Something goes here",
         "form": {
           "cardLocationField": {

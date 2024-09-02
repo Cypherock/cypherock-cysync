@@ -11,9 +11,9 @@ import {
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
-import ReactPlayer from 'react-player';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -92,18 +92,18 @@ export const DecryptMessage = () => {
 
   return (
     <Layout>
-      <ReactPlayer
-        url={tapAnyCardDeviceAnimation2DVideo}
-        width={506}
-        height={285}
+      <Video
+        src={tapAnyCardDeviceAnimation2DVideo}
+        $width={506}
+        $height={285}
         loop
-        playing
+        autoPlay
       />
       <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.device.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="white" mb={2}>
+        <Typography $fontSize={16} $textAlign="center" color="muted" mb={2}>
           {strings.device.subTitle}
         </Typography>
       </Container>

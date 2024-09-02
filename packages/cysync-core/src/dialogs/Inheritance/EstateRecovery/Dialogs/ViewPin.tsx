@@ -2,14 +2,13 @@ import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
   Check,
-  confirmPinDeviceImage,
   Container,
-  Image,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
   Throbber,
   Typography,
+  VerifyPinDeviceGraphics,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -66,12 +65,12 @@ export const ViewPin = () => {
 
   return (
     <Layout>
-      <Image src={confirmPinDeviceImage} alt="confirm pin" />
+      <VerifyPinDeviceGraphics />
       <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="white" mb={2}>
+        <Typography $fontSize={16} $textAlign="center" color="muted" mb={2}>
           {strings.subTitle}
         </Typography>
       </Container>
