@@ -1,8 +1,11 @@
 import {
   BlurOverlay,
+  CloseButton,
   DialogBox,
+  DialogBoxBackgroundBar,
   DialogBoxBody,
   MilestoneAside,
+  WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -50,42 +53,49 @@ const InheritancePinRecovery: FC = () => {
 
   return (
     <BlurOverlay>
-      <DialogBox
-        direction="row"
-        gap={0}
-        width="full"
-        $maxHeight="90vh"
-        onClose={onClose}
-      >
-        <>
-          <MilestoneAside
-            milestones={tabs
-              .filter(t => !t.dontShowOnMilestone)
-              .map(t => t.name)}
-            activeTab={currentTab}
-            heading={lang.strings.dialogs.inheritancePinRecovery.title}
-          />
-          <DialogBoxBody
-            p="20"
-            grow={2}
-            align="center"
-            gap={110}
-            direction="column"
-            height="full"
-          >
-            <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
-              <ErrorHandlerDialog
-                onClose={onClose}
-                error={unhandledError}
-                showCloseButton
-                noDelay
-              >
-                {tabs[currentTab]?.dialogs[currentDialog]}
-              </ErrorHandlerDialog>
-            </DeviceConnectionWrapper>
-          </DialogBoxBody>
-        </>
-      </DialogBox>
+      <WalletDialogMainContainer>
+        <DialogBox
+          direction="row"
+          gap={0}
+          width="full"
+          $maxHeight="90vh"
+          onClose={onClose}
+        >
+          <>
+            <MilestoneAside
+              milestones={tabs
+                .filter(t => !t.dontShowOnMilestone)
+                .map(t => t.name)}
+              activeTab={currentTab}
+              heading={lang.strings.dialogs.inheritancePinRecovery.title}
+            />
+            <DialogBoxBody
+              p="20"
+              grow={2}
+              align="center"
+              gap={110}
+              direction="column"
+              height="full"
+            >
+              <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
+                <ErrorHandlerDialog
+                  onClose={onClose}
+                  error={unhandledError}
+                  showCloseButton
+                  noDelay
+                >
+                  {tabs[currentTab]?.dialogs[currentDialog]}
+                </ErrorHandlerDialog>
+              </DeviceConnectionWrapper>
+            </DialogBoxBody>
+            <DialogBoxBackgroundBar
+              rightComponent={<CloseButton onClick={() => onClose()} />}
+              position="top"
+              useLightPadding
+            />
+          </>
+        </DialogBox>
+      </WalletDialogMainContainer>
     </BlurOverlay>
   );
 };
