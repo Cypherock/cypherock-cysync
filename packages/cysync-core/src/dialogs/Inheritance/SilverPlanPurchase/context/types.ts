@@ -50,4 +50,14 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   isSetupPlanCompleted: boolean;
   isTermsAccepted: boolean;
   setIsTermsAccepted: (value: boolean) => void;
+  coupon: string;
+  applyCoupon: (coupon: string) => Promise<boolean>;
+  isApplyingCoupon: boolean;
+  isCouponApplied: boolean;
+  activateCoupon: () => Promise<boolean>;
+  isActivatingCoupon: boolean;
+  isCouponActivated: boolean;
+  removeCoupon: () => void;
+  applyingCouponError?: { heading: string; subtext: string };
+  couponDuration: number;
 }

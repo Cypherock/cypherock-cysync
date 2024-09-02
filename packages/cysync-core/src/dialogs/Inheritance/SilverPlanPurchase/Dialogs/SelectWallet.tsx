@@ -45,10 +45,10 @@ export const SelectWallet = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.selectWallet.title} />
+          <LangDisplay text={strings.wallet.selectWallet.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.selectWallet.subTitle} />
+          <LangDisplay text={strings.wallet.selectWallet.subTitle} />
         </Typography>
       </Container>
       <ScrollableContainer $maxHeight={264}>

@@ -46,7 +46,11 @@ export const Terms = () => {
       </Container>
       <Flex width="full" direction="column" gap={16}>
         <ExternalLink
-          href={constants.termsOfUseLink}
+          href={constants.inheritance.termsOfServiceLink}
+          text={strings.termsOfService}
+        />
+        <ExternalLink
+          href={constants.inheritance.privacyPolicyLink}
           text={strings.privacyPolicy}
         />
       </Flex>

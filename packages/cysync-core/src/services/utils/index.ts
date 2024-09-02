@@ -75,8 +75,21 @@ export async function makePostRequest<T>(
   schema: Zod.Schema<T>,
   url: string,
   data: any,
-  config?: AxiosRequestConfig,
+  authToken?: string,
+  _config?: AxiosRequestConfig,
 ) {
+  let config = _config;
+
+  if (authToken) {
+    config = {
+      ...(config ?? {}),
+      headers: {
+        ...config?.headers,
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+  }
+
   const response = await axios.post(url, data, config);
   const result = schema.parse(response.data);
   return result;

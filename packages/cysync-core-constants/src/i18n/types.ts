@@ -90,6 +90,7 @@ interface LangButtons {
   setup: string;
   sync: string;
   learnMore: string;
+  checkout: string;
 }
 
 interface LangDashboard {
@@ -1004,6 +1005,7 @@ interface LangInheritance {
   };
   termsOfService: {
     title: string;
+    termsOfService: string;
     privacyPolicy: string;
     checkBoxLabel: string;
   };
@@ -1026,32 +1028,52 @@ interface LangInheritance {
         title: string;
       };
     };
+    payment: {
+      heading: string;
+      form: {
+        promoField: { label: string; placeholder: string };
+      };
+      noOfYear: string;
+      total: string;
+      year: string;
+      couponInput: {
+        applyButtonText: string;
+        appliedButtonText: string;
+      };
+      error: {
+        errorHeading: string;
+        subtext: string;
+      };
+    };
   };
 }
 
 interface LangInheritanceSilverPlanPurchase {
   title: string;
-  ensure: {
-    title: string;
-    instructions: string[];
-  };
   instructions: {
     heading: string;
-    title: string;
-    subTitle: string;
-  };
-  selectWallet: {
-    heading: string;
-    title: string;
-    subTitle: string;
-  };
-  walletAuth: {
-    heading: string;
-    title: string;
-    actions: {
-      tapCard: string;
+    ensure: {
+      title: string;
+      instructions: string[];
     };
-    footer: string;
+    video: {
+      title: string;
+      subTitle: string;
+    };
+  };
+  wallet: {
+    heading: string;
+    selectWallet: {
+      title: string;
+      subTitle: string;
+    };
+    walletAuth: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      footer: string;
+    };
   };
   email: {
     heading: string;
@@ -1081,6 +1103,17 @@ interface LangInheritanceSilverPlanPurchase {
     };
     success: {
       title: string;
+    };
+  };
+  checkout: {
+    heading: string;
+    payment: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      title: string;
+      subtext: string;
     };
   };
 }

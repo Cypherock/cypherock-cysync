@@ -49,7 +49,8 @@
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "checkout": "Checkout"
   },
   "dashboard": {
     "wallet": {
@@ -1818,8 +1819,9 @@
     },
     "termsOfService": {
       "title": "Terms of Service",
+      "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
-      "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+      "checkBoxLabel": "I have read and agree to Terms of service and Privacy policy"
     },
     "dialog": {
       "userDetails": {
@@ -1839,36 +1841,60 @@
         "alternateEmailOTP": {
           "title": "OTP Verification for alternate email"
         }
+      },
+      "payment": {
+        "heading": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
+        "form": {
+          "promoField": {
+            "label": "Promo code / coupon",
+            "placeholder": "Enter code"
+          }
+        },
+        "couponInput": {
+          "appliedButtonText": "Coupon applied:",
+          "applyButtonText": "Apply"
+        },
+        "noOfYear": "Number of years",
+        "total": "Total",
+        "year": "year",
+        "error": {
+          "errorHeading": "Invalid Coupon Code",
+          "subtext": "Please try a different coupon code"
+        }
       }
     }
   },
   "inheritanceSilverPlanPurchase": {
     "title": "Silver Plan Setup",
-    "ensure": {
-      "title": "Ensure the following before you continue",
-      "instructions": [
-        "Make sure you have 15-30 minutes to set it up",
-        "You are present in a safe environment",
-        "You need to have one device and one card handy to set it up"
-      ]
-    },
     "instructions": {
       "heading": "Instructions",
-      "title": "Watch the whole video before you proceed",
-      "subTitle": "The video will help you take the right decisions"
-    },
-    "selectWallet": {
-      "heading": "Select Wallet",
-      "title": "Select the wallet you want to cover in this plan",
-      "subTitle": "Your plan will be linked with the selected wallet"
-    },
-    "walletAuth": {
-      "heading": "Wallet Authentication",
-      "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-      "actions": {
-        "tapCard": "Tap any one card"
+      "ensure": {
+        "title": "Ensure the following before you continue",
+        "instructions": [
+          "Make sure you have 15-30 minutes to set it up",
+          "You are present in a safe environment",
+          "You need to have one device and one card handy to set it up"
+        ]
       },
-      "footer": "Authenticating the wallet, "
+      "video": {
+        "title": "Watch the whole video before you proceed",
+        "subTitle": "The video will help you take the right decisions"
+      }
+    },
+    "wallet": {
+      "heading": "Wallet",
+      "selectWallet": {
+        "title": "Select the wallet you want to cover in this plan",
+        "subTitle": "For setting up additional wallets individual plans can be created later"
+      },
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "actions": {
+          "tapCard": "Tap any one card"
+        },
+        "footer": "Authenticating the wallet, "
+      }
     },
     "email": {
       "heading": "Email",
@@ -1898,6 +1924,17 @@
       },
       "success": {
         "title": "PIN recovery message successfully encrypted"
+      }
+    },
+    "checkout": {
+      "heading": "Checkout",
+      "payment": {
+        "title": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+      },
+      "success": {
+        "title": "Thank you!",
+        "subtext": "Your Gold Plan is now activated"
       }
     }
   }
