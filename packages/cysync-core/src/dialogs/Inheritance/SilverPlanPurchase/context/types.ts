@@ -48,4 +48,6 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   setupPlan: () => void;
   isSettingUpPlan: boolean;
   isSetupPlanCompleted: boolean;
+  isTermsAccepted: boolean;
+  setIsTermsAccepted: (value: boolean) => void;
 }

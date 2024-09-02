@@ -101,6 +101,7 @@ export const useWalletAuthDevice = (
 
   const reset = useCallback(() => {
     deviceResponse.current = undefined;
+    setDeviceEvents({});
     cleanUp();
   }, [cleanUp]);
 

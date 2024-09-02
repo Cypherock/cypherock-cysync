@@ -1852,6 +1852,9 @@
           "name": "Name",
           "email": "Primary Email",
           "alternateEmail": "Alternate Email"
+        },
+        "error": {
+          "sameEmail": "Alternate email cannot be same as primary email"
         }
       },
       "verifyOTP": {

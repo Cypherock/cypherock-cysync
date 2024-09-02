@@ -187,6 +187,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [retryIndex, setRetryIndex] = useState(0);
   const [unhandledError, setUnhandledError] = useState<any>();
@@ -268,7 +269,6 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setRetryIndex(v => v + 1);
     walletAuthService.reset();
     encryptMessageService.reset();
-    goTo(0, 0);
   }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
 
   const onRetry = useCallback(() => {
@@ -279,6 +279,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       retryLogic();
     } else {
       resetAll();
+      goTo(0, 0);
     }
 
     setUnhandledError(undefined);
@@ -327,6 +328,17 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     [walletAuthService.isRegisterationRequired, walletAuthService.currentStep],
   );
 
+  const fallbackToWalletSelect = useCallback(() => {
+    resetSetupPlan();
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+    goTo(
+      tabIndicies.selectWallet.tabNumber,
+      tabIndicies.selectWallet.dialogs.selectWallet,
+    );
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+
   const onNextCallback = useCallback(() => {
     const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
 
@@ -341,10 +353,42 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     }
   }, [onNext, currentTab, currentDialog]);
 
+  const onPreviousActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.email.tabNumber]: {
+        [tabIndicies.email.dialogs.userDetails]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+        [tabIndicies.email.dialogs.verifyOtp]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+      },
+    }),
+    [fallbackToWalletSelect],
+  );
+
+  const onPreviousCallback = useCallback(() => {
+    const action = onPreviousActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doPrevious = true;
+
+    if (action) {
+      doPrevious = !action();
+    }
+
+    if (doPrevious) {
+      onPrevious();
+    }
+  }, [onPrevious, currentTab, currentDialog]);
+
   const ctx = useMemo(
     () => ({
       onNext: onNextCallback,
-      onPrevious,
+      onPrevious: onPreviousCallback,
       tabs,
       onClose,
       goTo,
@@ -379,10 +423,12 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       setupPlan,
       isSettingUpPlan,
       isSetupPlanCompleted,
+      isTermsAccepted,
+      setIsTermsAccepted,
     }),
     [
       onNextCallback,
-      onPrevious,
+      onPreviousCallback,
       tabs,
       onClose,
       goTo,
@@ -416,6 +462,8 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       setupPlan,
       isSettingUpPlan,
       isSetupPlanCompleted,
+      isTermsAccepted,
+      setIsTermsAccepted,
     ],
   );
 

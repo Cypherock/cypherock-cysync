@@ -1014,6 +1014,9 @@ interface LangInheritance {
         email: string;
         alternateEmail: string;
       };
+      error: {
+        sameEmail: string;
+      };
     };
     verifyOTP: {
       primaryEmailOTP: {

@@ -52,6 +52,8 @@ export const UserDetails = () => {
     }
   }, []);
 
+  const isSameEmail = Boolean(email && email === alternateEmail);
+
   return (
     <Layout
       footerComponent={
@@ -67,7 +69,7 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isRegisteringUser}
+            disabled={isRegisteringUser || isSameEmail}
             isLoading={isRegisteringUser}
           >
             <LangDisplay text={silverPlanStrings.buttons.sendOTP} />
@@ -142,6 +144,11 @@ export const UserDetails = () => {
             disabled={isRegisteringUser}
           />
         </Container>
+        {isSameEmail && (
+          <Typography $fontSize={16} pt={2} color="error">
+            {strings.error.sameEmail}
+          </Typography>
+        )}
       </form>
     </Layout>
   );
