@@ -19,6 +19,7 @@ import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
+import cypherockCoverIcon from './cypherock-cover-icon.svg';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import dashWalletDefaultBgIcon from './dash-wallet-default-bg-icon.svg';
@@ -60,6 +61,7 @@ import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
+import questionMarkEllipseIcon from './question-mark-ellipse-icon.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
@@ -73,6 +75,7 @@ import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
+import syncIcon from './sync-icon.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
@@ -175,5 +178,8 @@ export {
   oneInMany2Default,
   manyInManyBgImage,
   manyInManyHoverBgImage,
+  questionMarkEllipseIcon,
+  syncIcon,
+  cypherockCoverIcon,
   goldTick,
 };

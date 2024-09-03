@@ -47,6 +47,9 @@
     "showMore": "显示更多",
     "resendOTP": "Resend OTP",
     "next": "Next",
+    "setup": "Setup",
+    "sync": "Sync",
+    "learnMore": "Learn More",
     "yes": "Yes",
     "no": "No",
     "saveAndContinue": "Save and continue",
@@ -637,6 +640,7 @@
     "tutorial": "教程",
     "settings": "设置",
     "help": "Help",
+    "new": "New",
     "tooltip": {
       "walletDeleted": "${walletName} 已从您的 Cypherock X1 Vault 中删除"
     }
@@ -1711,11 +1715,54 @@
   "inheritance": {
     "title": "Cypherock Cover",
     "choosePlan": {
-      "title": "Choose a plan"
+      "title": "Choose a plan",
+      "plans": {
+        "silver": {
+          "heading": "Silver",
+          "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+        },
+        "gold": {
+          "heading": "Gold",
+          "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+        },
+        "buttonText": "SELECT",
+        "popularTagText": "MOST POPULAR",
+        "features": [
+          "No KYC required",
+          "Multi-Chain",
+          "PIN Recovery",
+          "Estate Recovery"
+        ]
+      }
+    },
+    "homePage": {
+      "headers": {
+        "owner": {
+          "title": "Owner",
+          "subtitle": "You have setup Cypherock cover for these wallets"
+        },
+        "nominee": {
+          "title": "Nominee",
+          "subtitle": "Somebody made you a nominee of their assets"
+        }
+      },
+      "setup": {
+        "setupCover": {
+          "title": "Setup Cypherock Cover",
+          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances."
+        },
+        "syncFromMail": {
+          "title": "Sync from Email",
+          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary."
+        },
+        "learnMore": {
+          "title": "What is Cypherock Cover?",
+          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones."
+        }
+      }
     },
     "buttons": {
-      "syncPlans": "Sync Plans",
-      "recoverPin": "Recover Pin"
+      "syncFromEmail": "Sync from Email"
     },
     "termsOfService": {
       "title": "Terms of Service",

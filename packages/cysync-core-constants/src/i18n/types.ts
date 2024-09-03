@@ -88,6 +88,9 @@ interface LangButtons {
   showMore: string;
   resendOTP: string;
   next: string;
+  setup: string;
+  sync: string;
+  learnMore: string;
   yes: string;
   no: string;
   saveAndContinue: string;
@@ -512,6 +515,7 @@ interface LangSidebar {
   tutorial: string;
   settings: string;
   help: string;
+  new: string;
   tooltip: { walletDeleted: string };
 }
 
@@ -960,10 +964,48 @@ interface LangInheritance {
   title: string;
   choosePlan: {
     title: string;
+    plans: {
+      silver: {
+        heading: string;
+        description: string;
+      };
+      gold: {
+        heading: string;
+        description: string;
+      };
+      buttonText: string;
+      popularTagText: string;
+      features: string[];
+    };
+  };
+  homePage: {
+    headers: {
+      owner: {
+        title: string;
+        subtitle: string;
+      };
+      nominee: {
+        title: string;
+        subtitle: string;
+      };
+    };
+    setup: {
+      setupCover: {
+        title: string;
+        subTitle: string;
+      };
+      syncFromMail: {
+        title: string;
+        subTitle: string;
+      };
+      learnMore: {
+        title: string;
+        subTitle: string;
+      };
+    };
   };
   buttons: {
-    syncPlans: string;
-    recoverPin: string;
+    syncFromEmail: string;
   };
   termsOfService: {
     title: string;
