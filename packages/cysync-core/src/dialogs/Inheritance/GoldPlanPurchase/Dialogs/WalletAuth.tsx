@@ -11,6 +11,7 @@ import {
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -18,7 +19,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
-import ReactPlayer from 'react-player';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -93,12 +93,12 @@ export const WalletAuth = () => {
   return (
     <Layout>
       <Container direction="column">
-        <ReactPlayer
-          url={tapAnyCardDeviceAnimation2DVideo}
-          width={420}
-          height={236}
+        <Video
+          src={tapAnyCardDeviceAnimation2DVideo}
+          $width={420}
+          $height={236}
           loop
-          playing
+          autoPlay
         />
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.walletAuth.title}

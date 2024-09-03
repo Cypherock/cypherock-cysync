@@ -12,6 +12,7 @@ import {
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -19,7 +20,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
-import ReactPlayer from 'react-player';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -50,12 +50,6 @@ export const DeviceEncryption = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.actions.confirmOnDevice,
-        leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
-      },
-      {
-        id: '2',
         text: strings.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
@@ -75,12 +69,12 @@ export const DeviceEncryption = () => {
 
   return (
     <Layout>
-      <ReactPlayer
-        url={tapAnyCardDeviceAnimation2DVideo}
-        width={420}
-        height={236}
+      <Video
+        src={tapAnyCardDeviceAnimation2DVideo}
+        $width={420}
+        $height={236}
         loop
-        playing
+        autoPlay
       />
       <Container direction="column" $width="full">
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
