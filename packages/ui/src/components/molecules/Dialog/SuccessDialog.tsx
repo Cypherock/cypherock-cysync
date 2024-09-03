@@ -19,6 +19,7 @@ import {
 } from '../../atoms';
 import { SpacingProps } from '../../utils';
 import { AlertBox } from '../AlertBox';
+import { ConfettiBlast } from '../ConfettiBlast';
 
 export interface SuccessDialogProps {
   title: string;
@@ -35,6 +36,8 @@ export interface SuccessDialogProps {
   headerType?: TypographyProps['variant'];
   bodyBottomPadding?: SpacingProps['pb'];
   showCloseBtn?: boolean;
+  icon?: React.ReactNode;
+  withConfetti?: boolean;
 }
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
@@ -52,12 +55,15 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   headerType,
   bodyBottomPadding,
   showCloseBtn,
+  icon,
+  withConfetti,
 }) => (
   <DialogBox
     width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
+    {withConfetti && <ConfettiBlast />}
     {(headerText || showCloseBtn) && (
       <DialogBoxHeader
         height={56}
@@ -76,7 +82,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       </DialogBoxHeader>
     )}
     <DialogBoxBody pb={bodyBottomPadding}>
-      <Image src={successIcon} alt="Success Icon" />
+      {icon ?? <Image src={successIcon} alt="Success Icon" />}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
@@ -119,4 +125,6 @@ SuccessDialog.defaultProps = {
   headerType: 'h4',
   bodyBottomPadding: undefined,
   showCloseBtn: false,
+  icon: undefined,
+  withConfetti: false,
 };

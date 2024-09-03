@@ -16,9 +16,7 @@ import accountSyncReducer, { IAccountSyncState } from './accountSync';
 import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
 import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
-import inheritancePlanReducer, {
-  IInheritancePlanState,
-} from './inheritancePlan';
+import inheritanceReducer, { IInheritanceState } from './inheritance';
 import langReducers, { ILangState } from './lang';
 import networkReducer, { INetworkState } from './network';
 import notificationReducer, { INotificationState } from './notification';
@@ -42,7 +40,7 @@ export interface RootState {
   snackBar: ISnackBarState;
   notification: INotificationState;
   network: INetworkState;
-  inheritancePlan: IInheritancePlanState;
+  inheritance: IInheritanceState;
 }
 
 export const store = configureStore({
@@ -60,7 +58,7 @@ export const store = configureStore({
     snackBar: snackBarReducer,
     notification: notificationReducer,
     network: networkReducer,
-    inheritancePlan: inheritancePlanReducer,
+    inheritance: inheritanceReducer,
   },
 });
 

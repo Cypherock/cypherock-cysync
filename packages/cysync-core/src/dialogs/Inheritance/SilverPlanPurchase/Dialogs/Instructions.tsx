@@ -40,10 +40,7 @@ export const Instructions = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.instructions.title} />
-        </Typography>
-        <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.instructions.subTitle} />
+          <LangDisplay text={strings.instructions.video.title} />
         </Typography>
       </Container>
       <ReactPlayer

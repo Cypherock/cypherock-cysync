@@ -45,10 +45,10 @@ export const SelectWallet = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.selectWallet.title} />
+          <LangDisplay text={strings.wallet.selectWallet.title} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
-          <LangDisplay text={strings.selectWallet.subTitle} />
+          <LangDisplay text={strings.wallet.selectWallet.subTitle} />
         </Typography>
       </Container>
       <ScrollableContainer $maxHeight={264}>
@@ -57,7 +57,7 @@ export const SelectWallet = () => {
             <ManyInMany
               key={wallet.__id ?? ''}
               title={wallet.name}
-              disabled={Boolean(wallet.isDeleted)}
+              disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
               isSelected={selectedWallet?.__id === wallet.__id}
               onClick={() => setSelectedWallet(wallet)}
               $width={340}
