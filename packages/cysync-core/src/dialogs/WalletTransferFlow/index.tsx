@@ -118,7 +118,7 @@ export const WalletTransferFlowDialog: FC = () => {
             >
               {currentTab === 0 ? (
                 <DialogBoxStyle>
-                  <DialogBoxBody p="0" gap={0}>
+                  <DialogBoxBody p={0} gap={0}>
                     {tabs[currentTab]?.dialogs[currentDialog]}
                   </DialogBoxBody>
                 </DialogBoxStyle>

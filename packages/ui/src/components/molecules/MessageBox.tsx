@@ -10,7 +10,7 @@ import {
   Typography,
   TypographyColor,
 } from '../atoms';
-import { BgColor, BorderColor } from '../utils';
+import { BgColor, BorderColor, HeightProps } from '../utils';
 
 export type MessageBoxType = 'info' | 'warning' | 'danger';
 const borderColorMap: Record<MessageBoxType, BorderColor> = {
@@ -46,18 +46,20 @@ const StyledPathText: React.FC<StyledPathTextProps> = ({ pathText }) => {
   );
 };
 
-export const MessageBox: FC<{
-  text: string;
-  altText?: string;
-  textColor?: TypographyColor;
-  type: MessageBoxType;
-  rightImage?: React.ReactNode;
-  variables?: any;
-  isTextDifferent?: boolean;
-  pathText?: string;
-  showIcon?: boolean;
-  showQuestionmark?: boolean;
-}> = ({
+export const MessageBox: FC<
+  {
+    text: string;
+    altText?: string;
+    textColor?: TypographyColor;
+    type: MessageBoxType;
+    rightImage?: React.ReactNode;
+    variables?: any;
+    isTextDifferent?: boolean;
+    pathText?: string;
+    showIcon?: boolean;
+    showQuestionmark?: boolean;
+  } & HeightProps
+> = ({
   text,
   altText,
   type,
@@ -68,6 +70,7 @@ export const MessageBox: FC<{
   pathText,
   showIcon,
   showQuestionmark,
+  ...heightProps
 }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
@@ -87,10 +90,8 @@ export const MessageBox: FC<{
       px={2}
       justify="flex-start"
       $alignSelf="stretch"
+      {...heightProps}
     >
-      <Flex>
-        <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-      </Flex>
       {showIcon && (
         <div>
           <InfoItalicsIcon width={16} fill={iconFillMap[type]} />

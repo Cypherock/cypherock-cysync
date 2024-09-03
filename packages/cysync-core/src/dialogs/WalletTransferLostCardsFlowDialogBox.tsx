@@ -22,9 +22,6 @@ import {
 } from '@cypherock/cysync-ui/src/components/molecules/Dialog';
 
 const InnerContainer = styled.div`
-  padding-top: 32px;
-  padding-left: 40px;
-  padding-right: 40px;
   max-height: 58vh;
   overflow-y: auto;
 `;
@@ -74,14 +71,14 @@ export const WalletTransferLostCardsFlowDialogBox: FC<
       </DialogBoxHeader>
     )}
     <InnerContainer>
-      <DialogBoxBody p={0} gap={0}>
+      <DialogBoxBody gap={0}>
         <Flex
           gap={{ def: 12, lg: 32 }}
           align="center"
           justify="center"
           width="inherit"
           direction="column"
-          pb={4}
+          pb={2}
         >
           {image}
           <Flex direction="column" align="center" gap={4}>
@@ -104,17 +101,17 @@ export const WalletTransferLostCardsFlowDialogBox: FC<
           </Flex>
         </Flex>
         {goldenArrowList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             <GoldenArrowList items={goldenArrowList} />
           </Flex>
         )}
         {bulletList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             <BulletList items={bulletList} />
           </Flex>
         )}
         {messageBoxList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             {messageBoxList.map((messageBox, index) => {
               const key = Object.keys(messageBox)[0];
               const args = key.split('-');
