@@ -1,3 +1,4 @@
+import { IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -23,7 +24,6 @@ import {
   WalletAuth,
   VerifyOTP,
 } from '../Dialogs';
-import { IWallet } from '@cypherock/db-interfaces';
 
 export interface IUserDetails {
   name: string;

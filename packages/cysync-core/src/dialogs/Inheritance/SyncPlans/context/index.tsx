@@ -1,3 +1,10 @@
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
+import { insertInheritancePlan } from '@cypherock/cysync-core-services';
+import {
+  IInheritancePlan,
+  InheritancePlanType,
+  InheritancePlanTypeMap,
+} from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -5,18 +12,34 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useMemo,
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
+  ITabs,
+  useAsync,
+  useMemoReturn,
+  useStateWithRef,
+  useTabsAndDialogs,
+} from '~/hooks';
+import {
+  inheritancePlanService,
   inheritanceSyncPlansService,
-  InheritanceSyncPlansStartResponse,
+  InheritanceSyncPlansInitResponse,
 } from '~/services';
 import { closeDialog, useAppDispatch } from '~/store';
+import { getDB } from '~/utils';
+import logger from '~/utils/logger';
 
 import { EnterEmail, VerifyEmail } from '../Dialogs';
+
+export interface IOtpVerificationDetails {
+  id: string;
+  email: string;
+  retriesRemaining: number;
+  otpExpiry: string;
+  showIncorrectError?: boolean;
+}
 
 export interface InheritanceSyncPlansDialogContextInterface {
   tabs: ITabs;
@@ -30,21 +53,12 @@ export interface InheritanceSyncPlansDialogContextInterface {
   email: string;
   onEnterEmail: (email: string) => void;
   isSendingEmail: boolean;
-  startResponse?: InheritanceSyncPlansStartResponse;
+  startResponse?: InheritanceSyncPlansInitResponse;
   unhandledError?: any;
-  sendingEmailError?: string;
   onRetry: () => void;
-  resetServerErrors: () => void;
-  otpLength: number;
   verifyEmail: (otp: string) => void;
   isVerifyingEmail: boolean;
-  verifyingEmailError?: string;
-  onResendOtp: () => void;
-  isResendingOtp: boolean;
-  resendOtpError?: string;
-  retriesRemaining: number;
-  otpExpireTime?: string;
-  wrongOtpError?: boolean;
+  otpVerificationDetails?: IOtpVerificationDetails;
 }
 
 export const InheritanceSyncPlansDialogContext: Context<InheritanceSyncPlansDialogContextInterface> =
@@ -92,194 +106,181 @@ export const InheritanceSyncPlansDialogProvider: FC<
 
   const [email, setEmail] = useState('');
   const [startResponse, setStartResponse] = useState<
-    InheritanceSyncPlansStartResponse | undefined
+    InheritanceSyncPlansInitResponse | undefined
   >(undefined);
-  const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
-  const [sendingEmailError, setSendingEmailError] = useState<
-    string | undefined
-  >();
-  const [otpLength, setOtpLength] = useState<number>(6);
-  const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
-  const [verifyingEmailError, setVerifyingEmailError] = useState<
-    string | undefined
-  >();
-  const [wrongOtpError, setWrongOtpError] = useState(false);
-  const [isResendingOtp, setIsResendingOtp] = useState(false);
-  const [resendOtpError, setResendOtpError] = useState<string | undefined>();
-  const [retriesRemaining, setRetriesRemaining] = useState<number>(3);
-  const [otpExpireTime, setOtpExpireTime] = useState<string>('');
+  const [
+    otpVerificationDetails,
+    setOtpVerificationDetails,
+    otpVerificationDetailsRef,
+  ] = useStateWithRef<IOtpVerificationDetails | undefined>(undefined);
 
-  const sendEmail = useCallback(async (params: { email: string }) => {
-    setIsSendingEmail(true);
-    setSendingEmailError(undefined);
-    try {
-      const response = await inheritanceSyncPlansService.start(params);
-      if (response.result) {
-        setOtpExpireTime(response.result.otpExpiry);
-        setRetriesRemaining(response.result.retriesRemaining);
-        setOtpLength(response.result.otpLength);
-        setStartResponse(response.result);
-        goTo(1);
-      } else {
-        throw response.error;
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsSendingEmail(false);
-    }
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
   }, []);
 
-  const onEnterEmail = useCallback(
-    (val: string) => {
-      setEmail(val);
-      sendEmail({ email: val });
-    },
-    [sendEmail],
+  const sendEmailHanlder = useCallback(async (emailId: string) => {
+    setEmail(emailId);
+    const response = await inheritancePlanService.sync.init({ email: emailId });
+
+    if (response.error) {
+      throw response.error;
+    }
+
+    const otpDetails = response.result.otpDetails?.[0];
+
+    if (otpDetails) {
+      setOtpVerificationDetails({
+        id: 'emailVerification',
+        email: emailId,
+        ...otpDetails,
+      });
+    }
+
+    setStartResponse(response.result);
+    goTo(1);
+
+    return true;
+  }, []);
+
+  const [sendEmail, isSendingEmail, , resetSendEmail] = useAsync(
+    sendEmailHanlder,
+    onError,
   );
 
   const onRetry = useCallback(() => {
-    setIsSendingEmail(false);
-    setSendingEmailError(undefined);
+    resetSendEmail();
     setUnhandledError(undefined);
     setStartResponse(undefined);
     goTo(0);
   }, []);
 
-  const resetServerErrors = useCallback(() => {
-    setSendingEmailError(undefined);
-  }, []);
-
-  const syncPlans = () => {
-    // TODO: Implement this function
-  };
-
-  const verifyEmail = useCallback(
+  const verifyEmailHandler = useCallback(
     async (otp: string) => {
-      if (!startResponse) {
-        return;
+      if (!startResponse || !otpVerificationDetailsRef.current) {
+        return false;
       }
 
-      setIsVerifyingEmail(true);
-      setVerifyingEmailError(undefined);
-      try {
-        const response = await inheritanceSyncPlansService.verify({
-          requestId: startResponse.requestId,
-          otp,
-        });
-        if (response.result) {
-          if (response.result.otpExpiry) {
-            setOtpExpireTime(response.result.otpExpiry);
-          }
+      const response = await inheritanceSyncPlansService.verify({
+        requestId: startResponse.requestId,
+        otp,
+      });
 
-          if (response.result.retriesRemaining !== undefined) {
-            setRetriesRemaining(response.result.retriesRemaining);
-          }
-
-          if (response.result.isSuccess && response.result.plans) {
-            syncPlans();
-            onClose();
-          }
-
-          if (!response.result.isSuccess) {
-            setWrongOtpError(true);
-          }
-        } else {
-          throw response.error;
+      if (response.error) {
+        if (response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
+          setOtpVerificationDetails({
+            ...otpVerificationDetailsRef.current,
+            showIncorrectError: true,
+            otpExpiry:
+              response.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetailsRef.current.otpExpiry,
+            retriesRemaining:
+              response.error.details?.responseBody.retriesRemaining ??
+              otpVerificationDetailsRef.current.retriesRemaining,
+          });
+          return false;
         }
-      } catch (error) {
-        setUnhandledError(error);
-      } finally {
-        setIsVerifyingEmail(false);
+
+        throw response.error;
       }
+
+      const db = getDB();
+
+      if (response.result.wallets) {
+        for (const wallet of response.result.wallets) {
+          let isNominee = false;
+          let isOwner = false;
+
+          for (const nominee of wallet.nominee ?? []) {
+            if (nominee.email && nominee.email === email) {
+              isNominee = true;
+            }
+          }
+
+          if (wallet.owner && wallet.owner.email === email) {
+            isOwner = true;
+          }
+
+          if (!isNominee && !isOwner) {
+            logger.warn(
+              `SyncPlans: Wallet ${wallet._id} is not a nominee or owner`,
+            );
+            continue;
+          }
+
+          if (isNominee && isOwner) {
+            logger.warn(
+              `SyncPlans: Wallet ${wallet._id} is both a nominee and owner`,
+            );
+            continue;
+          }
+
+          let serverPlanType = wallet.order?.planType;
+          if (!serverPlanType) {
+            logger.warn("SyncPlans: Wallet doesn't have plan type");
+            continue;
+          }
+          serverPlanType = serverPlanType.toLowerCase();
+
+          if (
+            !(Object.values(InheritancePlanTypeMap) as any).includes(
+              serverPlanType,
+            )
+          ) {
+            logger.warn(`SyncPlans: Unknown plan type ${serverPlanType}`);
+            continue;
+          }
+
+          const plan: IInheritancePlan = {
+            walletId: wallet._id,
+            walletName: wallet.fullName ?? '',
+            isNominee,
+            purchasedAt: wallet.order?.activationDate
+              ? new Date(wallet.order.activationDate).getTime()
+              : undefined,
+            expireAt: wallet.order?.expiryDate
+              ? new Date(wallet.order.expiryDate).getTime()
+              : undefined,
+            type: serverPlanType as InheritancePlanType,
+          };
+
+          await insertInheritancePlan(db, plan);
+        }
+      }
+
+      setOtpVerificationDetails(undefined);
+
+      return true;
     },
     [startResponse],
   );
 
+  const [verifyEmail, isVerifyingEmail] = useAsync(verifyEmailHandler, onError);
+
   const onResendOtp = useCallback(async () => {
-    if (!startResponse) {
-      return;
-    }
+    // TODO: Implement this function
+  }, []);
 
-    setIsResendingOtp(true);
-    setResendOtpError(undefined);
-
-    try {
-      const response = await inheritanceSyncPlansService.resendOTP({
-        requestId: startResponse.requestId,
-      });
-
-      if (response.result) {
-        setOtpExpireTime(response.result.otpExpiry);
-        setRetriesRemaining(response.result.retriesRemaining);
-      } else {
-        throw response.error;
-      }
-    } catch (error) {
-      setUnhandledError(error);
-    } finally {
-      setIsResendingOtp(false);
-    }
-  }, [startResponse]);
-
-  const ctx = useMemo(
-    () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      email,
-      onEnterEmail,
-      isSendingEmail,
-      startResponse,
-      unhandledError,
-      sendingEmailError,
-      onRetry,
-      resetServerErrors,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      retriesRemaining,
-      otpExpireTime,
-      wrongOtpError,
-    }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      email,
-      onEnterEmail,
-      isSendingEmail,
-      startResponse,
-      unhandledError,
-      sendingEmailError,
-      onRetry,
-      resetServerErrors,
-      otpLength,
-      verifyEmail,
-      isVerifyingEmail,
-      verifyingEmailError,
-      onResendOtp,
-      isResendingOtp,
-      resendOtpError,
-      otpExpireTime,
-      wrongOtpError,
-    ],
-  );
+  const ctx = useMemoReturn({
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    email,
+    onEnterEmail: sendEmail,
+    isSendingEmail,
+    startResponse,
+    unhandledError,
+    onRetry,
+    verifyEmail,
+    isVerifyingEmail,
+    onResendOtp,
+    otpVerificationDetails,
+  });
 
   return (
     <InheritanceSyncPlansDialogContext.Provider value={ctx}>

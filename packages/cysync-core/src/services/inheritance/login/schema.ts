@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { otpDetailSchema } from '../common';
+
 export const InheritanceLoginConcernMap = {
   LOGIN: 'WALLET_LOGIN_CHALLENGE',
   REGISTER: 'WALLET_REGISTRATION_CHALLENGE',
@@ -20,12 +22,6 @@ const loginConcernSchema = z.enum([
   InheritanceLoginConcernMap.LOGIN,
   InheritanceLoginConcernMap.REGISTER,
 ]);
-
-const otpDetailSchema = z.object({
-  maskedEmail: z.string(),
-  retriesRemaining: z.number(),
-  otpExpiry: z.string().datetime(),
-});
 
 export const initResultSchema = z.object({
   requestId: z.string(),
