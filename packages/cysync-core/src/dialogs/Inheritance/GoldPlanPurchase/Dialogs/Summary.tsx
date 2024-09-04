@@ -9,11 +9,15 @@ import {
   EmailIconSmall,
   LangDisplay,
   ScrollableContainer,
+  svgGradients,
   Typography,
   UserIcon,
+  WalletIcon,
 } from '@cypherock/cysync-ui';
 import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
+
+const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
 
 export const Summary = () => {
   const lang = useAppSelector(selectLanguage);
@@ -43,7 +47,12 @@ export const Summary = () => {
         gap={8}
         $maxHeight={400}
       >
-        <DetailsCard headerText="somewallet" $backgroundType="gold" />
+        <DetailsCard
+          headerLeading={goldWalletIcon}
+          headerText="somewallet"
+          headerOnly
+          $backgroundType="gold"
+        />
         <DetailsCard
           headerText={strings.ownerDetails.title}
           headerTrailing={

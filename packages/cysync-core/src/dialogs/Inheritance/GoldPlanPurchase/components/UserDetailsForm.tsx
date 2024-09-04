@@ -45,6 +45,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
   setAlternateEmail,
 }) => {
   const lang = useAppSelector(selectLanguage);
+
   return (
     <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
       <Container direction="column" $width="full" mb={4}>

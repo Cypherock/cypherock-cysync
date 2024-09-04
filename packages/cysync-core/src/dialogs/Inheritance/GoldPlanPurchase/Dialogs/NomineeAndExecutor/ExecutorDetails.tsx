@@ -5,6 +5,7 @@ import {
   LangDisplay,
   QuestionMarkButton,
   RadioButton,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -101,14 +102,16 @@ export const ExecutorDetails = () => {
           width="100%"
           align="flex-start"
         >
-          <Flex gap={4}>
+          <Flex gap={4} align="center">
             <Typography $fontSize={16} color="muted">
               {strings.executor.executorDetails.radio.label}
             </Typography>
-            <QuestionMarkButton
-              content={strings.executor.executorDetails.tooltip}
-              position="right"
-            />
+            <Tooltip
+              text={strings.executor.executorDetails.tooltip}
+              tooltipPlacement="bottom"
+            >
+              <QuestionMarkButton />
+            </Tooltip>
           </Flex>
           <Flex gap={40}>
             <Flex gap={8} align="center">

@@ -2064,12 +2064,12 @@
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
             "label": "Reminder Perioc",
-            "input": "Every {month} month"
+            "input": "Every ${month} month"
           }
         }
       },
       "nomineeDetails": {
-        "title": "Nominee #{number}",
+        "title": "Nominee #",
         "form": {
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },

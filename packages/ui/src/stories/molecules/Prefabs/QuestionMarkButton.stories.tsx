@@ -11,9 +11,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    content: 'this is a tooltip and it can never change its shape',
-    position: 'right',
-  },
-};
+export const Default: Story = {};

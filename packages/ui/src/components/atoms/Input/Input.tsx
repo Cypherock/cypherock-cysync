@@ -10,6 +10,7 @@ import { Flex } from '../Flex';
 import { LangDisplay } from '../LangDisplay';
 import { Typography } from '../Typography';
 import { QuestionMarkButton } from '../../molecules';
+import { Tooltip } from '../Tooltip';
 
 export interface InputProps {
   type: string;
@@ -151,10 +152,12 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         {label && (
           <InputLabel p={0} {...(inputLabelProps ?? {})}>
             <Container $variant="span" align="center" justify="space-between">
-              <Flex gap={4}>
+              <Flex gap={4} align="center">
                 <LangDisplay text={label} />
                 {tooltip && (
-                  <QuestionMarkButton content={tooltip} position="right" />
+                  <Tooltip text={tooltip} tooltipPlacement="bottom">
+                    <QuestionMarkButton />
+                  </Tooltip>
                 )}
               </Flex>
               <span>

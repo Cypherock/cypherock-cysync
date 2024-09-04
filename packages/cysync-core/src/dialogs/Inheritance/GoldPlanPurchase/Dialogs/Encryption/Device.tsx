@@ -11,6 +11,7 @@ import {
   QuestionMarkButton,
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
+  Tooltip,
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
@@ -80,11 +81,13 @@ export const DeviceEncryption = () => {
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.title}
         </Typography>
-        <Flex>
-          <Typography $fontSize={16} $textAlign="center" color="muted" mb={4}>
+        <Flex align="center" mb={4}>
+          <Typography $fontSize={16} $textAlign="center" color="muted">
             {strings.subtext}
           </Typography>
-          <QuestionMarkButton content={strings.tooltip} position="right" />
+          <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
+            <QuestionMarkButton />
+          </Tooltip>
         </Flex>
         <LeanBoxContainer mb={6}>
           {actionsList.map(data => (

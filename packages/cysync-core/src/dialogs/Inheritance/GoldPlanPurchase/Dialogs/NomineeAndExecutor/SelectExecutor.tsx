@@ -6,6 +6,7 @@ import {
   Button,
   Flex,
   QuestionMarkButton,
+  Tooltip,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -18,6 +19,7 @@ export const SelectExecutor = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
   const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
+
   return (
     <Layout
       footerComponent={
@@ -40,14 +42,16 @@ export const SelectExecutor = () => {
         >
           <LangDisplay text={strings.executor.select.title} />
         </Typography>
-        <Flex gap={4}>
+        <Flex gap={4} align="center">
           <Typography color="muted" $textAlign="center" $fontSize={16}>
             <LangDisplay text={strings.executor.select.subtext} />
           </Typography>
-          <QuestionMarkButton
-            content={strings.executor.select.tooltip}
-            position="right"
-          />
+          <Tooltip
+            text={strings.executor.select.tooltip}
+            tooltipPlacement="bottom"
+          >
+            <QuestionMarkButton />
+          </Tooltip>
         </Flex>
       </Container>
       <Container>
@@ -55,13 +59,13 @@ export const SelectExecutor = () => {
           <OneInMany
             title={strings.executor.select.options.one.yes}
             description={strings.executor.select.options.one.desc}
-            styleType="2"
+            $styleType="2"
             $width={340}
           />
           <OneInMany
             title={strings.executor.select.options.two.no}
             description={strings.executor.select.options.two.desc}
-            styleType="2"
+            $styleType="2"
             $width={340}
           />
         </Container>

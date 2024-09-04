@@ -18,7 +18,7 @@ export type OneInManyStyleType = '1' | '2';
 export interface OneInManyProps extends WidthProps {
   title: string;
   description: string;
-  styleType: OneInManyStyleType;
+  $styleType: OneInManyStyleType;
 }
 
 interface BgStyleProps {
@@ -168,14 +168,14 @@ const getBgStyleMap: Record<
 };
 
 const StyledContainer = styled.div<
-  Omit<OneInManyProps, 'title' | 'description'> & { isSelected: boolean }
+  Omit<OneInManyProps, 'title' | 'description'> & { $isSelected: boolean }
 >`
   position: relative;
   border: 1px solid
-    ${({ isSelected, theme }) =>
-      isSelected ? `${theme.palette.border.selected}` : 'transparent'};
-  box-shadow: ${({ isSelected }) =>
-    isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
+    ${({ $isSelected, theme }) =>
+      $isSelected ? `${theme.palette.border.selected}` : 'transparent'};
+  box-shadow: ${({ $isSelected }) =>
+    $isSelected ? '0px 0px 12px 4px #1B1813 inset' : ''};
   background: ${({ theme }) => theme.palette.gradients.cardSelected};
   background-position: center;
   background-repeat: no-repeat;
@@ -189,11 +189,11 @@ const StyledContainer = styled.div<
 
   ${width}
 
-  ${({ styleType, isSelected, theme }) =>
-    getBgStyleMap[styleType]({ isSelected, theme } as any)}
+  ${({ $styleType, $isSelected, theme }) =>
+    getBgStyleMap[$styleType]({ $isSelected, theme } as any)}
 
-  ${({ isSelected, theme }) =>
-    !isSelected &&
+  ${({ $isSelected, theme }) =>
+    !$isSelected &&
     `
     &:hover {
       background: ${theme.palette.gradients.cardHover};
@@ -232,16 +232,16 @@ const StyledDescription = styled.div`
 export const OneInMany: React.FC<OneInManyProps> = ({
   title,
   description,
-  styleType,
+  $styleType,
   ...restProps
 }) => {
-  const [isSelected, setisSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   return (
     <StyledContainer
-      isSelected={isSelected}
-      styleType={styleType}
-      onClick={() => setisSelected(!isSelected)}
+      $isSelected={isSelected}
+      $styleType={$styleType}
+      onClick={() => setIsSelected(!isSelected)}
       {...restProps}
     >
       <Flex align="center" direction="row" height="100%" mx="32px">
@@ -255,5 +255,5 @@ export const OneInMany: React.FC<OneInManyProps> = ({
 OneInMany.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  styleType: PropTypes.oneOf<OneInManyStyleType>(['1', '2']).isRequired,
+  $styleType: PropTypes.oneOf<OneInManyStyleType>(['1', '2']).isRequired,
 };

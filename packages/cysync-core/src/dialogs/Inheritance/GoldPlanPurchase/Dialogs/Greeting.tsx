@@ -11,7 +11,7 @@ export const Greeting = () => {
       title={strings.title}
       subtext={strings.subtext}
       buttonText={lang.strings.buttons.done}
-      goldenIcon
+      variant="gold"
       handleClick={() => {
         // TODO: implement this function
       }}

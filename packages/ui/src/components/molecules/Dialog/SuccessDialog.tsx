@@ -25,7 +25,7 @@ export interface SuccessDialogProps {
   subtext?: string;
   headerText?: string;
   buttonText?: string;
-  goldenIcon?: boolean;
+  variant?: keyof typeof TickIconVariantMap;
   secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
@@ -37,6 +37,11 @@ export interface SuccessDialogProps {
   bodyBottomPadding?: SpacingProps['pb'];
   showCloseBtn?: boolean;
 }
+
+const TickIconVariantMap = {
+  default: successIcon,
+  gold: goldTick,
+};
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
@@ -53,7 +58,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   headerType,
   bodyBottomPadding,
   showCloseBtn,
-  goldenIcon,
+  variant = 'default',
 }) => (
   <DialogBox
     width={width}
@@ -78,7 +83,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       </DialogBoxHeader>
     )}
     <DialogBoxBody pb={bodyBottomPadding}>
-      <Image src={goldenIcon ? goldTick : successIcon} alt="Success Icon" />
+      <Image src={TickIconVariantMap[variant]} alt="Success Icon" />
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
@@ -121,5 +126,5 @@ SuccessDialog.defaultProps = {
   headerType: 'h4',
   bodyBottomPadding: undefined,
   showCloseBtn: false,
-  goldenIcon: false,
+  variant: 'default',
 };

@@ -7,6 +7,7 @@ import {
   MessageBox,
   QuestionMarkButton,
   TextAreaInput,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -45,37 +46,40 @@ export const NomineePrivateMessageInput = () => {
         >
           <LangDisplay text={strings.nominee.title} />
         </Typography>
-        <Flex>
+        <Flex gap={4} align="center">
           <Typography color="muted" $textAlign="center" $fontSize={16}>
             <LangDisplay text={strings.nominee.subtitle} />
           </Typography>
-          <QuestionMarkButton
-            content={strings.nominee.tooltip}
-            position="right"
-          />
+          <Tooltip text={strings.nominee.tooltip} tooltipPlacement="bottom">
+            <QuestionMarkButton />
+          </Tooltip>
         </Flex>
       </Container>
-      <Flex direction="column" gap={16} $flex={1} width="100%">
+      <Flex direction="column" $flex={1} width="100%">
         <Flex>
           <InputLabel>{strings.nominee.form.locationField.label}</InputLabel>
-          <QuestionMarkButton
-            content={strings.nominee.form.locationField.tooltip}
-            position="right"
-          />
+          <Tooltip
+            text={strings.nominee.form.locationField.tooltip}
+            tooltipPlacement="bottom"
+          >
+            <QuestionMarkButton />
+          </Tooltip>
         </Flex>
         <TextAreaInput
           placeholder={strings.nominee.form.locationField.placeholder}
           height={120}
         />
-        <Flex direction="column" gap={8} $flex={1} width="100%">
+        <Flex direction="column" $flex={1} width="100%">
           <Flex>
             <InputLabel>
               {strings.nominee.form.personalMessage.label}
             </InputLabel>
-            <QuestionMarkButton
-              content={strings.nominee.form.personalMessage.tooltip}
-              position="right"
-            />
+            <Tooltip
+              text={strings.nominee.form.personalMessage.tooltip}
+              tooltipPlacement="bottom"
+            >
+              <QuestionMarkButton />
+            </Tooltip>
           </Flex>
           <TextAreaInput
             placeholder={strings.nominee.form.personalMessage.placeholder}
