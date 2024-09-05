@@ -2,7 +2,7 @@ import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
   Check,
-  confirmGenericDeviceImage,
+  confirmOnDevice,
   Container,
   Image,
   LeanBox,
@@ -73,7 +73,7 @@ export const ConfirmOnDevice = () => {
 
   return (
     <Layout>
-      <Image src={confirmGenericDeviceImage} alt="device image" />
+      <Image src={confirmOnDevice} alt="device image" />
       <Container direction="column" $width="full">
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.title}
