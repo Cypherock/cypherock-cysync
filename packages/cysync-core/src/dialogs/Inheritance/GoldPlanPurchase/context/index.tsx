@@ -116,12 +116,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         dialogs: [<Instructions key="Instructions" />],
       },
       {
-        name: lang.strings.inheritanceGoldPlanPurchase.selectWallet.heading,
-        dialogs: [<SelectWallet key="Select Wallet" />],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.walletAuth.heading,
-        dialogs: [<WalletAuth key="Wallet Auth" />],
+        name: lang.strings.inheritanceGoldPlanPurchase.wallet.heading,
+        dialogs: [
+          <SelectWallet key="Select Wallet" />,
+          <WalletAuth key="Wallet Auth" />,
+        ],
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.email.heading,

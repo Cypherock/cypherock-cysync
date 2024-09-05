@@ -78,18 +78,20 @@ export const DeviceEncryption = () => {
         autoPlay
       />
       <Container direction="column" $width="full">
-        <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.title}
-        </Typography>
-        <Flex align="center" mb={4}>
-          <Typography $fontSize={16} $textAlign="center" color="muted">
-            {strings.subtext}
+        <Container direction="column" gap={4}>
+          <Typography $fontSize={20} $textAlign="center" color="white">
+            {strings.title}
           </Typography>
-          <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
-            <QuestionMarkButton />
-          </Tooltip>
-        </Flex>
-        <LeanBoxContainer mb={6}>
+          <Flex align="center" mb={4} gap={4}>
+            <Typography $fontSize={16} $textAlign="center" color="muted">
+              {strings.subtext}
+            </Typography>
+            <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
+              <QuestionMarkButton />
+            </Tooltip>
+          </Flex>
+        </Container>
+        <LeanBoxContainer mb={2}>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}

@@ -27,7 +27,7 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase;
+  const strings = lang.strings.inheritanceGoldPlanPurchase.wallet;
 
   const { onNext, selectedWallet, onClose, onRetry } =
     useInheritanceGoldPlanPurchaseDialog();
@@ -100,10 +100,18 @@ export const WalletAuth = () => {
           loop
           autoPlay
         />
-        <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.walletAuth.title}
-        </Typography>
-        <LeanBoxContainer mb={4}>
+        <Container direction="column" gap={4} mb={4}>
+          <Typography $fontSize={20} $textAlign="center" color="white">
+            {strings.walletAuth.title}
+          </Typography>
+          <Typography $fontSize={16} $textAlign="center" color="muted">
+            <LangDisplay text={strings.walletAuth.subTitle} />
+            <Typography variant="span" $fontWeight="bold" $fontSize={16}>
+              {selectedWallet?.name}
+            </Typography>
+          </Typography>
+        </Container>
+        <LeanBoxContainer>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}
@@ -116,12 +124,6 @@ export const WalletAuth = () => {
             />
           ))}
         </LeanBoxContainer>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mt={2}>
-          <LangDisplay text={strings.walletAuth.footer} />
-          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
-          </Typography>
-        </Typography>
       </Container>
     </Layout>
   );

@@ -1009,6 +1009,7 @@ interface LangInheritance {
   };
   termsOfService: {
     title: string;
+    termsOfService: string;
     privacyPolicy: string;
     checkBoxLabel: string;
   };
@@ -1107,33 +1108,39 @@ interface LangInheritanceSilverPlanPurchase {
 
 interface LangInheritanceGoldPlanPurchase {
   title: string;
-  ensure: {
-    title: string;
-    instructions: string[];
-  };
   instructions: {
     heading: string;
-    title: string;
-    subTitle: string;
-  };
-  selectWallet: {
-    heading: string;
-    title: string;
-    subTitle: string;
-  };
-  walletAuth: {
-    heading: string;
-    title: string;
-    actions: {
-      confirmOnDevice: string;
-      tapCard: string;
-    };
-    footer: string;
-    error: {
+    ensure: {
       title: string;
-      subtext: string;
+      instructions: string[];
+    };
+    video: {
+      title: string;
+    };
+  };
+  wallet: {
+    heading: string;
+    selectWallet: {
+      title: string;
+      subTitle: string;
+    };
+    walletAuth: {
+      heading: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        tapCard: string;
+      };
       messageBox: {
         warning: string;
+      };
+      error: {
+        title: string;
+        subtext: string;
+        messageBox: {
+          warning: string;
+        };
       };
     };
   };

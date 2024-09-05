@@ -1790,9 +1790,10 @@
       "syncFromEmail": "Sync from Email"
     },
     "termsOfService": {
-      "title": "Terms of Service",
+      "title": "Terms of Use",
+      "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
-      "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+      "checkBoxLabel": "I have read and agree to Terms of service and Privacy policy"
     },
     "dialog": {
       "userDetails": {
@@ -1896,37 +1897,44 @@
   },
   "inheritanceGoldPlanPurchase": {
     "title": "Gold Plan Setup",
-    "ensure": {
-      "title": "Ensure the following before you continue",
-      "instructions": [
-        "Make sure you have 15-30 minutes to set it up",
-        "You are present in a safe environment",
-        "You need to have one device and one card handy to set it up"
-      ]
-    },
     "instructions": {
       "heading": "Instructions",
-      "title": "Watch the whole video before you proceed",
-      "subTitle": "The video will help you take the right decisions"
-    },
-    "selectWallet": {
-      "heading": "Wallet",
-      "title": "Select the wallet you want to cover in this plan",
-      "subTitle": "For setting up additional wallets, individual plans can be created later"
-    },
-    "walletAuth": {
-      "heading": "Wallet Authentication",
-      "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-      "actions": {
-        "confirmOnDevice": "Confirm wallet authentication on device",
-        "tapCard": "Tap any one card"
+      "ensure": {
+        "title": "Ensure the following before you continue",
+        "instructions": [
+          "Make sure you have 15-30 minutes to set it up",
+          "You are present in a safe environment",
+          "You need to have one device and one card handy to set it up"
+        ]
       },
-      "footer": "Authenticating the wallet ",
-      "error": {
-        "title": "Wallet Authentication failed",
-        "subtext": "We could not authenticate the selected wallet",
+      "video": {
+        "title": "Watch the whole video before you proceed",
+        "subTitle": "The video will help you take the right decisions"
+      }
+    },
+    "wallet": {
+      "heading": "Wallet",
+      "selectWallet": {
+        "title": "Select the wallet you want to cover in this plan",
+        "subTitle": "For setting up additional wallets, individual plans can be created later"
+      },
+      "walletAuth": {
+        "heading": "Wallet Authentication",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
+        "actions": {
+          "confirmOnDevice": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
+        },
         "messageBox": {
-          "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+          "warning": "Lift your card after 3 beep sounds"
+        },
+        "error": {
+          "title": "Wallet Authentication failed",
+          "subtext": "We could not authenticate the selected wallet",
+          "messageBox": {
+            "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+          }
         }
       }
     },
@@ -2001,7 +2009,7 @@
           "tooltip": "Executor will receive instructions  to help nominee on this email",
           "radio": {
             "label": "Choose a nominee to link with executor",
-            "tooltip": "",
+            "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
               "labelOne": "Nominee 1",
               "labelTwo": "Nominee 2"
@@ -2013,11 +2021,11 @@
     "message": {
       "heading": "Message",
       "tutorial": {
-        "title": "Watch the whole video before you proceed",
-        "subtext": "The video will help you understand how messages work"
+        "title": "Watch the whole video before you proceed further",
+        "subtext": "How to write the final messages"
       },
       "nominee": {
-        "title": "Draft the final mesage for the nominee",
+        "title": "Draft the final message for the nominee",
         "subtitle": "The nominee messages will be end-to-end encrypted",
         "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
         "form": {
@@ -2077,7 +2085,7 @@
         }
       },
       "cardLocation": {
-        "title": "Card Location"
+        "title": "Card Location & Passphrase"
       },
       "personalMessage": {
         "title": "Personal Message"
@@ -2087,7 +2095,8 @@
         "form": {
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "assignTo": { "label": "Assign to" }
         }
       },
       "executorMessage": {
@@ -2116,7 +2125,6 @@
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
-          "confirmOnDevice": "Confirm encryption on device",
           "warning": "The PIN will be encrypted by the X1 card"
         }
       },
