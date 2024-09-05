@@ -1,5 +1,11 @@
 # @cypherock/coins
 
+## 0.0.8
+
+### Patch Changes
+
+- [#531](https://github.com/Cypherock/cypherock-cysync/pull/531) [`99eccbb6`](https://github.com/Cypherock/cypherock-cysync/commit/99eccbb6df848a2051a1c6872294fd42e238e3cf) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - added pol erc20 token
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @cypherock/cysync-core-services
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`99eccbb6`](https://github.com/Cypherock/cypherock-cysync/commit/99eccbb6df848a2051a1c6872294fd42e238e3cf)]:
+  - @cypherock/coins@0.0.8
+  - @cypherock/coin-support@0.0.9
+  - @cypherock/coin-support-evm@0.0.9
+  - @cypherock/coin-support-utils@0.0.9
+
 ## 0.0.8
 
 ### Patch Changes
