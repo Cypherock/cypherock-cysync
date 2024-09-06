@@ -91,10 +91,10 @@ interface LangButtons {
   setup: string;
   sync: string;
   learnMore: string;
+  checkout: string;
   yes: string;
   no: string;
   saveAndContinue: string;
-  checkout: string;
 }
 
 interface LangDashboard {
@@ -862,15 +862,29 @@ interface LangDialogs {
   };
   inheritancePinRecovery: {
     title: string;
-    fetch: {
+    sync: {
       name: string;
-      title: string;
-      subTitle: string;
+      walletAuth: {
+        title: string;
+        subTitle: string;
+        actions: {
+          confirmAuth: string;
+          enterPinAndTapCard: string;
+        };
+      };
+      verifyOtp: {
+        title: string;
+      };
+      fetch: {
+        title: string;
+        subTitle: string;
+      };
     };
     decryptPin: {
       name: string;
       title: string;
       actions: {
+        confirmOnDevice: string;
         tapCard: string;
       };
       messageBox: {
@@ -1020,6 +1034,9 @@ interface LangInheritance {
         email: string;
         alternateEmail: string;
       };
+      error: {
+        sameEmail: string;
+      };
     };
     verifyOTP: {
       primaryEmailOTP: {
@@ -1029,50 +1046,52 @@ interface LangInheritance {
         title: string;
       };
     };
-  };
-  payment: {
-    heading: string;
-    form: {
-      promoField: { label: string; placeholder: string };
-    };
-    noOfYear: string;
-    total: string;
-    year: string;
-    couponInput: {
-      applyButtonText: string;
-      appliedButtonText: string;
-    };
-    error: {
-      errorHeading: string;
-      subtext: string;
+    payment: {
+      heading: string;
+      form: {
+        promoField: { label: string; placeholder: string };
+      };
+      noOfYear: string;
+      total: string;
+      year: string;
+      couponInput: {
+        applyButtonText: string;
+        appliedButtonText: string;
+      };
+      error: {
+        errorHeading: string;
+        subtext: string;
+      };
     };
   };
 }
 
 interface LangInheritanceSilverPlanPurchase {
   title: string;
-  ensure: {
-    title: string;
-    instructions: string[];
-  };
   instructions: {
     heading: string;
-    title: string;
-    subTitle: string;
-  };
-  selectWallet: {
-    heading: string;
-    title: string;
-    subTitle: string;
-  };
-  walletAuth: {
-    heading: string;
-    title: string;
-    actions: {
-      confirmOnDevice: string;
-      tapCard: string;
+    ensure: {
+      title: string;
+      instructions: string[];
     };
-    footer: string;
+    video: {
+      title: string;
+      subTitle: string;
+    };
+  };
+  wallet: {
+    heading: string;
+    selectWallet: {
+      title: string;
+      subTitle: string;
+    };
+    walletAuth: {
+      title: string;
+      actions: {
+        tapCard: string;
+      };
+      footer: string;
+    };
   };
   email: {
     heading: string;
@@ -1089,7 +1108,7 @@ interface LangInheritanceSilverPlanPurchase {
     device: {
       title: string;
       actions: {
-        confirmOnDevice: string;
+        confirm: string;
         tapCard: string;
       };
       messageBox: {
@@ -1102,6 +1121,17 @@ interface LangInheritanceSilverPlanPurchase {
     };
     success: {
       title: string;
+    };
+  };
+  checkout: {
+    heading: string;
+    payment: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      title: string;
+      subtext: string;
     };
   };
 }

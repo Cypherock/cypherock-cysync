@@ -14,7 +14,6 @@ import { Layout } from '../Layout';
 
 export const Checkout = () => {
   const [applied, setApplied] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [coupon, setCoupon] = useState('');
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.checkout;
@@ -22,7 +21,6 @@ export const Checkout = () => {
 
   useEffect(() => {
     setApplied(false);
-    setIsError(false);
   }, []);
 
   const onApply = () => {
@@ -50,10 +48,9 @@ export const Checkout = () => {
         </Typography>
       </Container>
       <Payment
-        lang={lang.strings.inheritance}
+        lang={lang.strings.inheritance.dialog.payment}
         externalLink="link to checkout page"
         applied={applied}
-        isError={isError}
         coupon={coupon}
         onChange={setCoupon}
         onApply={onApply}

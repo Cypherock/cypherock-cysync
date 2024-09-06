@@ -7,7 +7,7 @@ import { useInheritancePinRecoveryDialog } from '../context';
 
 export const FetchData = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.dialogs.inheritancePinRecovery.fetch;
+  const strings = lang.strings.dialogs.inheritancePinRecovery.sync.fetch;
   const { onNext } = useInheritancePinRecoveryDialog();
 
   useEffect(() => {

@@ -117,6 +117,7 @@ export const theme = {
       silver: colors.background.silver,
       cardDisabled: colors.background.cardDisabled,
       cardSelected: colors.background.cardSelected,
+      slateDark: colors.background.slateDark,
       timer: {
         main: colors.background.timer.main,
         default: colors.background.timer.default,

@@ -5,6 +5,7 @@ import { Payment } from '../../components';
 
 const meta: Meta<typeof Payment> = {
   component: Payment,
+  tags: ['autodocs'],
   render: args => {
     const [value, setValue] = React.useState('');
     const [applied, setApplied] = React.useState(args.applied || false);
@@ -27,7 +28,7 @@ const meta: Meta<typeof Payment> = {
     return (
       <Payment
         {...args}
-        coupon={applied || args.isError ? args.coupon || value : value}
+        coupon={applied || args.error ? args.coupon || value : value}
         applied={applied}
         onChange={onChange}
         onApply={onApply}
@@ -35,7 +36,6 @@ const meta: Meta<typeof Payment> = {
       />
     );
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
@@ -43,26 +43,24 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const lang = {
-  payment: {
-    heading: 'Buy plan on the Cypherock website',
-    form: {
-      promoField: {
-        label: 'Promo code / coupon',
-        placeholder: 'Enter code',
-      },
+  heading: 'Buy plan on the Cypherock website',
+  form: {
+    promoField: {
+      label: 'Promo code / coupon',
+      placeholder: 'Enter code',
     },
-    couponInput: {
-      appliedButtonText: 'Coupon applied:',
-      applyButtonText: 'Apply',
-    },
-    noOfYear: 'Number of years',
-    externalLink: 'some link',
-    total: 'Total',
-    year: 'year',
-    error: {
-      errorHeading: 'Invalid Coupon Code',
-      subtext: 'Please try a different coupon code',
-    },
+  },
+  couponInput: {
+    appliedButtonText: 'Coupon applied:',
+    applyButtonText: 'Apply',
+  },
+  noOfYear: 'Number of years',
+  externalLink: 'some link',
+  total: 'Total',
+  year: 'year',
+  error: {
+    heading: 'Invalid Coupon Code',
+    subtext: 'Please try a different coupon code',
   },
 };
 
@@ -70,7 +68,6 @@ export const Default: Story = {
   args: {
     lang,
     applied: false,
-    isError: false,
     onApply: () => {
       // Dummy functions
     },
@@ -85,13 +82,12 @@ export const Applied: Story = {
     ...Default.args,
     applied: true,
     year: 2,
-    amount: '$100',
   },
 };
 
 export const Error: Story = {
   args: {
     ...Default.args,
-    isError: true,
+    error: lang.error,
   },
 };

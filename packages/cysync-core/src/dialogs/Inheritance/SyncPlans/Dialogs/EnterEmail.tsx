@@ -15,8 +15,6 @@ export const EnterEmail: React.FC = () => {
     onEnterEmail,
     email: existingEmail,
     isSendingEmail,
-    sendingEmailError,
-    resetServerErrors,
   } = useInheritanceSyncPlansDialog();
   const strings = lang.strings.dialogs.inheritanceSyncPlans;
 
@@ -44,10 +42,6 @@ export const EnterEmail: React.FC = () => {
   const onEmailChange = (val: string) => {
     setEmail(val);
     validateInputEmail(val);
-
-    if (sendingEmailError) {
-      resetServerErrors();
-    }
   };
 
   const onSubmit = (e?: React.FormEvent) => {
@@ -61,7 +55,7 @@ export const EnterEmail: React.FC = () => {
   };
 
   const formId = 'inheritance-sync-plans-enter-email';
-  const displayError = validationError ?? sendingEmailError;
+  const displayError = validationError;
 
   return (
     <InheritanceSyncPlansLayout

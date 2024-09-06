@@ -50,10 +50,10 @@
     "setup": "Setup",
     "sync": "Sync",
     "learnMore": "Learn More",
+    "checkout": "Checkout",
     "yes": "Yes",
     "no": "No",
-    "saveAndContinue": "Save and continue",
-    "checkout": "Checkout"
+    "saveAndContinue": "Save and continue"
   },
   "dashboard": {
     "wallet": {
@@ -1054,6 +1054,62 @@
       },
       "SER_0001": {
         "heading": "Please connect to the internet to continue"
+      },
+      "SER_1001": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1003": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1004": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1005": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1006": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1007": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1008": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1009": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1010": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1011": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1012": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1013": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1014": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1015": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
     "default": "Some internal error occurred"
@@ -1590,16 +1646,30 @@
     },
     "inheritancePinRecovery": {
       "title": "Pin Recovery",
-      "fetch": {
+      "sync": {
         "name": "Syncing",
-        "title": "Please wait while we fetch the encrypted PIN",
-        "subTitle": "Do no disconnect or close the app"
+        "walletAuth": {
+          "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+          "subTitle": "Authenticating the wallet ",
+          "actions": {
+            "confirmAuth": "Confirm wallet authentication on device",
+            "enterPinAndTapCard": "Enter Pin and tap any one card"
+          }
+        },
+        "verifyOtp": {
+          "title": "OTP verification"
+        },
+        "fetch": {
+          "title": "Please wait while we fetch the encrypted PIN",
+          "subTitle": "Do no disconnect or close the app"
+        }
       },
       "decryptPin": {
         "name": "Decryption",
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirmOnDevice": "Confirm decryption on device",
+          "tapCard": "Tap any one card"
         },
         "messageBox": {
           "warning": "The PIN will be decrypted by the card"
@@ -1610,7 +1680,7 @@
         }
       },
       "viewPin": {
-        "name": "View pin",
+        "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
         "actions": {
           "viewDevice": "View the PIN on your device and confirm"
@@ -1801,6 +1871,9 @@
           "name": "Name",
           "email": "Primary Email",
           "alternateEmail": "Alternate Email"
+        },
+        "error": {
+          "sameEmail": "Alternate email cannot be same as primary email"
         }
       },
       "verifyOTP": {
@@ -1810,62 +1883,63 @@
         "alternateEmailOTP": {
           "title": "OTP Verification for alternate email"
         }
-      }
-    },
-    "payment": {
-      "name": "Checkout",
-      "heading": "Complete your payment",
-      "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
-      "form": {
-        "promoField": {
-          "label": "Promo code / coupon",
-          "placeholder": "Enter code"
+      },
+      "payment": {
+        "heading": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
+        "form": {
+          "promoField": {
+            "label": "Promo code / coupon",
+            "placeholder": "Enter code"
+          }
+        },
+        "couponInput": {
+          "appliedButtonText": "Coupon applied:",
+          "applyButtonText": "Apply"
+        },
+        "noOfYear": "Number of years",
+        "total": "Total",
+        "year": "year",
+        "error": {
+          "errorHeading": "Invalid Coupon Code",
+          "subtext": "Please try a different coupon code"
         }
-      },
-      "couponInput": {
-        "appliedButtonText": "Coupon applied:",
-        "applyButtonText": "Apply"
-      },
-      "noOfYear": "Number of years",
-      "total": "Total",
-      "year": "year",
-      "error": {
-        "errorHeading": "Invalid Coupon Code",
-        "subtext": "Please try a different coupon code"
       }
     }
   },
   "inheritanceSilverPlanPurchase": {
     "title": "Silver Plan Setup",
-    "ensure": {
-      "title": "Ensure the following before you continue",
-      "instructions": [
-        "Make sure you have 15-30 minutes to set it up",
-        "You are present in a safe environment",
-        "You need to have one device and one card handy to set it up"
-      ]
-    },
     "instructions": {
       "heading": "Instructions",
-      "title": "Watch the whole video before you proceed",
-      "subTitle": "The video will help you take the right decisions"
-    },
-    "selectWallet": {
-      "heading": "Select Wallet",
-      "title": "Select the wallet you want to cover in this plan",
-      "subTitle": "Your plan will be linked with the selected wallet"
-    },
-    "walletAuth": {
-      "heading": "Wallet Authentication",
-      "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-      "actions": {
-        "confirmOnDevice": "Confirm wallet authentication on device",
-        "tapCard": "Enter PIN and tap any one card"
+      "ensure": {
+        "title": "Ensure the following before you continue",
+        "instructions": [
+          "Make sure you have 15-30 minutes to set it up",
+          "You are present in a safe environment",
+          "You need to have one device and one card handy to set it up"
+        ]
       },
-      "footer": "Authenticating the wallet, "
+      "video": {
+        "title": "Watch the whole video before you proceed",
+        "subTitle": "The video will help you take the right decisions"
+      }
+    },
+    "wallet": {
+      "heading": "Wallet",
+      "selectWallet": {
+        "title": "Select the wallet you want to cover in this plan",
+        "subTitle": "For setting up additional wallets individual plans can be created later"
+      },
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "actions": {
+          "tapCard": "Tap any one card"
+        },
+        "footer": "Authenticating the wallet, "
+      }
     },
     "email": {
-      "heading": "Email",
+      "heading": "Owner",
       "userDetails": {
         "title": "User Details",
         "subTitle": "All the fields are mandatory",
@@ -1879,7 +1953,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "actions": {
-          "confirmOnDevice": "Confirm encryption on device",
+          "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
@@ -1892,6 +1966,17 @@
       },
       "success": {
         "title": "PIN recovery message successfully encrypted"
+      }
+    },
+    "checkout": {
+      "heading": "Checkout",
+      "payment": {
+        "title": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+      },
+      "success": {
+        "title": "Thank you!",
+        "subtext": "Your Silver Plan is now activated"
       }
     }
   },

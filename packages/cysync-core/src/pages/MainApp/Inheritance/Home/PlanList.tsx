@@ -22,7 +22,7 @@ import { InheritancePageLayout } from '../Layout';
 export const InheritancePlanList: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
-  const { inheritancePlans } = useAppSelector(selectInheritancePlans);
+  const inheritancePlans = useAppSelector(selectInheritancePlans);
   const navigateTo = useNavigateTo();
 
   const openSyncPlans = useCallback(() => {

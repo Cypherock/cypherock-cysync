@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { OTPInputDialog } from '../../components';
+import { OTPInputDialog, OTPInputDialogRef } from '../../components';
 import { useInheritanceSyncPlansDialog } from '../context';
 
 export const VerifyEmail: React.FC = () => {
@@ -8,15 +8,46 @@ export const VerifyEmail: React.FC = () => {
     onClose,
     email,
     onPrevious,
-    otpLength,
     verifyEmail,
     isVerifyingEmail,
-    isResendingOtp,
-    onResendOtp,
-    retriesRemaining,
-    otpExpireTime,
-    wrongOtpError,
+    otpVerificationDetails,
   } = useInheritanceSyncPlansDialog();
+
+  const otpRef = useRef<OTPInputDialogRef | null>(null);
+
+  const onVerify = useCallback(
+    (otp: string) => {
+      verifyEmail(otp);
+    },
+    [verifyEmail],
+  );
+
+  const onResendOtp = () => {
+    // TODO: resend otp
+  };
+
+  const otpExpireTime = useMemo(
+    () => otpVerificationDetails?.otpExpiry ?? '',
+    [otpVerificationDetails?.otpExpiry],
+  );
+
+  const otpLength = 6;
+
+  const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
+
+  useEffect(() => {
+    if (otpRef.current) {
+      otpRef.current.reset();
+    }
+  }, [otpVerificationDetails?.id]);
+
+  useEffect(() => {
+    if (!otpVerificationDetails) onClose();
+  }, [otpVerificationDetails]);
+
+  if (!otpVerificationDetails) {
+    return null;
+  }
 
   return (
     <OTPInputDialog
@@ -24,13 +55,13 @@ export const VerifyEmail: React.FC = () => {
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResendOtp}
-      onVerify={verifyEmail}
+      onVerify={onVerify}
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
-      wrongOtpError={wrongOtpError}
+      wrongOtpError={otpVerificationDetails.showIncorrectError}
       otpExpireTime={otpExpireTime}
       isVerifyingEmail={isVerifyingEmail}
-      isResendingOtp={isResendingOtp}
+      isResendingOtp={false}
     />
   );
 };

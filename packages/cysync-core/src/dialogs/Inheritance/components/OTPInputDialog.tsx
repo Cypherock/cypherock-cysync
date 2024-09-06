@@ -76,7 +76,7 @@ export const OTPInputDialog: React.FC<
       setOtp(val);
 
       if (val.length === otpLength) {
-        onVerify(otp);
+        onVerify(val);
       }
     };
 
@@ -86,7 +86,10 @@ export const OTPInputDialog: React.FC<
 
     const textVariables = useMemo(
       () => ({
-        email: Array.isArray(emails) ? emails.join('&') : emails,
+        email: (Array.isArray(emails) ? emails.join('&') : emails).replace(
+          /\*/g,
+          `\\*`,
+        ),
         retries: retriesRemaining.toString(),
         timeout: expireSeconds.toString(),
       }),
@@ -133,6 +136,9 @@ export const OTPInputDialog: React.FC<
       [],
     );
 
+    const otpTitle = getTitle();
+    const status = getStatus();
+
     return (
       <DialogBox width={800} onClose={onClose}>
         <DialogBoxHeader direction="row" justify="flex-end" py={2} px={3}>
@@ -156,8 +162,8 @@ export const OTPInputDialog: React.FC<
               </Typography>
               <OTPInput
                 mx="auto"
-                title={getTitle()}
-                status={getStatus()}
+                title={otpTitle}
+                status={status}
                 onAction={onResend}
                 otpLength={otpLength}
                 subText={lang.strings.otp.triesRemaining}
@@ -176,13 +182,16 @@ export const OTPInputDialog: React.FC<
           <Button
             variant="secondary"
             disabled={isVerifyingEmail || isResendingOtp}
-            onClick={e => {
-              e.preventDefault();
-              onBack();
-            }}
+            onClick={status === 'retryExceeded' ? onClose : onBack}
             type="button"
           >
-            <LangDisplay text={lang.strings.buttons.back} />
+            <LangDisplay
+              text={
+                status === 'retryExceeded'
+                  ? lang.strings.buttons.exit
+                  : lang.strings.buttons.back
+              }
+            />
           </Button>
         </DialogBoxFooter>
       </DialogBox>

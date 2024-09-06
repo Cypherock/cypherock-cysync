@@ -10,5 +10,8 @@ export const constants = {
   inheritance: {
     silverPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
     learnMore: 'https://www.cypherock.com',
+    termsOfServiceLink: 'https://www.cypherock.com/terms',
+    privacyPolicyLink: 'https://www.cypherock.com/terms',
+    silverPlanPurchaseLink: 'https://www.cypherock.com',
   },
 };

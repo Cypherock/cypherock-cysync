@@ -71,6 +71,7 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
+import silverTickIcon from './silver-tick-icon.png';
 import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
@@ -184,4 +185,5 @@ export {
   cypherockCoverIcon,
   goldTick,
   confirmOnDevice,
+  silverTickIcon,
 };
