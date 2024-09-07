@@ -1610,12 +1610,38 @@
     },
     "inheritanceEstateRecovery": {
       "title": "Estate recovery",
-      "walletAuth": {
+      "instructions": {
+        "name": "Clear Device Data",
+        "dialogs": {
+          "settings": {
+            "title": "From the Main Menu of your X1 Vault, click \"Settings\""
+          },
+          "clearData": {
+            "title": "Click \"Clear Device Data\" on your X1 Vault"
+          },
+          "confirmClearData": {
+            "title": "Confirm \"Clear device data\" on the X1 Vault"
+          },
+          "tapCards": {
+            "title": "Tap any 2 old X1 Cards below the X1 Vault",
+            "subTitle": "Do not lift until you hear a beep sound",
+            "messageBoxList": [
+              {
+                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
+              },
+              {
+                "warning": "Your X1 device will restart after this process"
+              }
+            ]
+          }
+        }
+      },
+      "wallet": {
         "name": "Wallet",
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
         "subTitle": "Authenticating the wallet ",
         "actions": {
-          "confirmOnDevice": "Confirm wallet authentication on device",
+          "confirm": "Confirm wallet authentication on device",
           "tapCard": "Tap the card you received as a nominee"
         },
         "messageBox": {
@@ -1635,7 +1661,7 @@
           "title": "Follow instructions on the X1 Vault",
           "subTitle": "Do not remove the card till you hear a beep",
           "actions": {
-            "confirmOnDevice": "Confirm decryption on device",
+            "confirm": "Confirm decryption on device",
             "tapCard": "Tap the card you received as a nominee"
           },
           "messageBox": {
@@ -1650,9 +1676,12 @@
       "viewPin": {
         "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
-        "subTitle": "PIN for this wallet",
+        "subTitle": "PIN for wallet",
         "actions": {
-          "viewDevice": "View & copy the PIN on your device and then confirm"
+          "view": "View & copy the PIN on your device and then confirm"
+        },
+        "messageBox": {
+          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
         }
       },
       "viewMessage": {
@@ -1669,34 +1698,17 @@
             "label": "Personal message",
             "placeholder": "Please enter your message",
             "tooltip": "This is the message for you"
+          },
+          "checkBox": {
+            "label": "I have read and copied the above messages"
           }
-        },
-        "messageBox": {
-          "info": "Click next to view the Wallet PIN on your device"
         }
       },
       "confirmation": {
         "name": "Confirmation",
-        "importantNote": {
-          "title": "Important Note",
-          "subTitle": "Delete the plan after you have recovered the other card and noted down the wallet PIN",
-          "messageBox": {
-            "warnings": {
-              "settings": "To delete the plan go to Settings -> General -> Delete Something",
-              "deletePermanently": "Once deleted the data will be removed from the Cypherock servers permanently"
-            }
-          }
-        },
         "success": {
           "title": "Congratulations, you just decrypted the message from ",
           "subTitle": "Watch the video to understand the next steps"
-        },
-        "walletTransfer": {
-          "title": "Wallet transfer",
-          "subTitle": "Before you proceed to transfer the wallet to your new Cypherock X1, make sure you read the message below",
-          "messageBox": {
-            "warning": "You need to have at least 2 cards to transfer wallet. Make sure you have read the nominee message carefully and fetched the second card from the location mentioned in the message"
-          }
         }
       }
     }

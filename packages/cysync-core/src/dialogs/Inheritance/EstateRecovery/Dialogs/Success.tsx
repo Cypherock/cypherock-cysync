@@ -21,19 +21,14 @@ export const Success = () => {
   const strings =
     lang.strings.dialogs.inheritanceEstateRecovery.confirmation.success;
 
-  const { onNext, onPrevious } = useInheritanceEstateRecoveryDialog();
+  const { onClose } = useInheritanceEstateRecoveryDialog();
 
   return (
     <Layout
       footerComponent={
-        <>
-          <Button onClick={() => onPrevious()} variant="secondary">
-            <LangDisplay text={lang.strings.buttons.back} />
-          </Button>
-          <Button onClick={() => onNext()} variant="primary">
-            <LangDisplay text={lang.strings.buttons.next} />
-          </Button>
-        </>
+        <Button onClick={() => onClose()} variant="secondary">
+          <LangDisplay text={lang.strings.buttons.done} />
+        </Button>
       }
     >
       <Container direction="column">

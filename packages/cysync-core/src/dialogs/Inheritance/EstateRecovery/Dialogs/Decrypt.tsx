@@ -50,7 +50,7 @@ export const DecryptMessage = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.device.actions.confirmOnDevice,
+        text: strings.device.actions.confirm,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },

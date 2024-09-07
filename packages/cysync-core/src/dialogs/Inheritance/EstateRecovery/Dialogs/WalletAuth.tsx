@@ -49,13 +49,13 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.walletAuth.actions.confirmOnDevice,
+        text: strings.wallet.actions.confirm,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
       {
         id: '2',
-        text: strings.walletAuth.actions.tapCard,
+        text: strings.wallet.actions.tapCard,
         rightImage: getDeviceEventIcon(0, 1),
       },
     ];
@@ -82,10 +82,10 @@ export const WalletAuth = () => {
       />
       <Container direction="column" mb={2}>
         <Typography $fontSize={20} $textAlign="center" color="white">
-          {strings.walletAuth.title}
+          {strings.wallet.title}
         </Typography>
         <Typography $fontSize={16} $textAlign="center" color="muted">
-          <LangDisplay text={strings.walletAuth.subTitle} />
+          <LangDisplay text={strings.wallet.subTitle} />
           <Typography variant="span" $fontWeight="bold" $fontSize={16}>
             {selectedWallet?.name}
           </Typography>
@@ -104,7 +104,7 @@ export const WalletAuth = () => {
           />
         ))}
       </LeanBoxContainer>
-      <MessageBox type="warning" text={strings.walletAuth.messageBox.warning} />
+      <MessageBox type="warning" text={strings.wallet.messageBox.warning} />
     </Layout>
   );
 };

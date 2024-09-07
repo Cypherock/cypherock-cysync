@@ -27,8 +27,10 @@ import {
   WalletAuth,
   Message,
   Success,
-  WalletTransfer,
-  Note,
+  ClearData,
+  ConfirmClearData,
+  AuthenticateClearData,
+  Settings,
 } from '../Dialogs';
 
 export interface IWalletWithDeleted extends IWallet {
@@ -81,7 +83,16 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
         dialogs: [<Terms key="Terms of services" />],
       },
       {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.name,
+        name: lang.strings.dialogs.inheritanceEstateRecovery.instructions.name,
+        dialogs: [
+          <Settings key="Settings" />,
+          <ClearData key="Clear Data" />,
+          <ConfirmClearData key="Confirm Clear Data" />,
+          <AuthenticateClearData key="Autheticate Clear Data" />,
+        ],
+      },
+      {
+        name: lang.strings.dialogs.inheritanceEstateRecovery.wallet.name,
         dialogs: [
           <WalletAuth key="Wallet authentication" />,
           <VerifyOTP key="Verify otp" />,
@@ -90,19 +101,20 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
       },
       {
         name: lang.strings.dialogs.inheritanceEstateRecovery.decryption.name,
-        dialogs: [
-          <DecryptMessage key="Decrypt message" />,
-          <ViewPin key="View pin" />,
-          <Message key="Decrypted message" />,
-        ],
+        dialogs: [<DecryptMessage key="Decrypt message" />],
       },
       {
+        name: lang.strings.dialogs.inheritanceEstateRecovery.viewPin.name,
+        dialogs: [<ViewPin key="View pin" />],
+      },
+      {
+        name: lang.strings.dialogs.inheritanceEstateRecovery.viewMessage.name,
+        dialogs: [<Message key="Decrypted message" />],
+      },
+
+      {
         name: lang.strings.dialogs.inheritanceEstateRecovery.confirmation.name,
-        dialogs: [
-          <Note key="Important note" />,
-          <Success key="Success message" />,
-          <WalletTransfer key="Wallet transfer" />,
-        ],
+        dialogs: [<Success key="Success message" />],
       },
     ],
     [],

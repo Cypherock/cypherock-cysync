@@ -5,7 +5,6 @@ import {
   Flex,
   InputLabel,
   LangDisplay,
-  MessageBox,
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
@@ -58,7 +57,6 @@ export const Message = () => {
           />
         </Container>
       </Container>
-      <MessageBox type="info" text={strings.messageBox.info} />
     </Layout>
   );
 };

@@ -886,12 +886,25 @@ interface LangDialogs {
   };
   inheritanceEstateRecovery: {
     title: string;
-    walletAuth: {
+    instructions: {
+      name: string;
+      dialogs: {
+        settings: { title: string };
+        clearData: { title: string };
+        confirmClearData: { title: string };
+        tapCards: {
+          title: string;
+          subTitle: string;
+          messageBoxList: { warning: string }[];
+        };
+      };
+    };
+    wallet: {
       name: string;
       title: string;
       subTitle: string;
       actions: {
-        confirmOnDevice: string;
+        confirm: string;
         tapCard: string;
       };
       messageBox: {
@@ -911,7 +924,7 @@ interface LangDialogs {
         title: string;
         subTitle: string;
         actions: {
-          confirmOnDevice: string;
+          confirm: string;
           tapCard: string;
         };
         messageBox: {
@@ -928,7 +941,10 @@ interface LangDialogs {
       title: string;
       subTitle: string;
       actions: {
-        viewDevice: string;
+        view: string;
+      };
+      messageBox: {
+        warning: string;
       };
     };
     viewMessage: {
@@ -946,33 +962,16 @@ interface LangDialogs {
           placeholder: string;
           tooltip: string;
         };
-      };
-      messageBox: {
-        info: string;
+        checkBox: {
+          label: string;
+        };
       };
     };
     confirmation: {
       name: string;
-      importantNote: {
-        title: string;
-        subTitle: string;
-        messageBox: {
-          warnings: {
-            settings: string;
-            deletePermanently: string;
-          };
-        };
-      };
       success: {
         title: string;
         subTitle: string;
-      };
-      walletTransfer: {
-        title: string;
-        subTitle: string;
-        messageBox: {
-          warning: string;
-        };
       };
     };
   };

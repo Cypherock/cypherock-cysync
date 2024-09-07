@@ -11,7 +11,7 @@ import { useInheritanceEstateRecoveryDialog } from '../context';
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings =
-    lang.strings.dialogs.inheritanceEstateRecovery.walletAuth.verification;
+    lang.strings.dialogs.inheritanceEstateRecovery.wallet.verification;
 
   const { onClose, onPrevious, onNext, userDetails } =
     useInheritanceEstateRecoveryDialog();
