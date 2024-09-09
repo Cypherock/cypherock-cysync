@@ -1710,17 +1710,19 @@
   },
   "inheritance": {
     "title": "Cypherock Cover",
+    "plans": {
+      "silver": {
+        "title": "Silver",
+        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+      },
+      "gold": {
+        "title": "Gold",
+        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+      }
+    },
     "choosePlan": {
       "title": "Choose a plan",
       "plans": {
-        "silver": {
-          "heading": "Silver",
-          "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
-        },
-        "gold": {
-          "heading": "Gold",
-          "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
-        },
         "buttonText": "SELECT",
         "popularTagText": "MOST POPULAR",
         "features": [
@@ -1759,15 +1761,11 @@
     },
     "planDetails": {
       "walletDetails": {
-        "plan": {
-          "gold": "GOLD",
-          "silver": "SILVER"
-        },
         "createdOn": "Created on",
         "expiringOn": "Expiring on",
         "reminderPeriodField": {
           "label": "Reminder Period",
-          "input": "Every {month} month"
+          "input": "Every ${month} month"
         }
       },
       "ownerDetails": {
@@ -1779,7 +1777,7 @@
         }
       },
       "nomineeDetails": {
-        "title": "Nominee #{number}",
+        "title": "Nominee #${number}",
         "form": {
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },

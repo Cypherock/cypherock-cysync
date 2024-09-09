@@ -7,6 +7,7 @@ import {
   EditButton,
   EmailIconSmall,
   EncryptedMessageIcon,
+  parseLangTemplate,
   svgGradients,
   Typography,
   UserIcon,
@@ -16,7 +17,7 @@ import React, { FC } from 'react';
 import { InheritancePageLayout } from './Layout';
 import { selectLanguage, useAppSelector } from '~/store';
 
-export const PlanDetails: FC = () => {
+export const InheritancePlanDetails: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
   const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
@@ -38,19 +39,20 @@ export const PlanDetails: FC = () => {
         </Container>
         <Container
           direction="row"
-          $flexWrap="wrap"
           gap={16}
+          $flexWrap="wrap"
           $flex={1}
           width="100%"
           justify="flex-start"
           align="flex-start"
         >
           <DetailsCard
+            $flex={1}
             headerLeading={goldWalletIcon}
             headerText="MyFunnyWallet"
             headerTrailing={
               <Typography color="gold" $fontSize={16} $fontWeight="semibold">
-                {strings.planDetails.walletDetails.plan.gold}
+                {strings.plans.gold.title.toLocaleUpperCase()}
               </Typography>
             }
             $backgroundType="gold"
@@ -70,13 +72,16 @@ export const PlanDetails: FC = () => {
                 label:
                   strings.planDetails.walletDetails.reminderPeriodField.label,
                 icon: ClockIcon,
-                value:
+                value: parseLangTemplate(
                   strings.planDetails.walletDetails.reminderPeriodField.input,
+                  { month: 12 },
+                ),
                 trailing: editButton,
               },
             ]}
           />
           <DetailsCard
+            $flex={1}
             headerText={strings.planDetails.ownerDetails.title}
             headerTrailing={editButton}
             fields={[
@@ -102,7 +107,11 @@ export const PlanDetails: FC = () => {
             ]}
           />
           <DetailsCard
-            headerText={strings.planDetails.nomineeDetails.title}
+            $flex={1}
+            headerText={parseLangTemplate(
+              strings.planDetails.nomineeDetails.title,
+              { number: 1 },
+            )}
             headerTrailing={editButton}
             fields={[
               {
@@ -135,7 +144,11 @@ export const PlanDetails: FC = () => {
             }}
           />
           <DetailsCard
-            headerText={strings.planDetails.nomineeDetails.title}
+            $flex={1}
+            headerText={parseLangTemplate(
+              strings.planDetails.nomineeDetails.title,
+              { number: 2 },
+            )}
             headerTrailing={editButton}
             fields={[
               {
@@ -168,6 +181,7 @@ export const PlanDetails: FC = () => {
             }}
           />
           <DetailsCard
+            $flex={1}
             headerText={strings.planDetails.executorDetails.title}
             headerTrailing={editButton}
             fields={[

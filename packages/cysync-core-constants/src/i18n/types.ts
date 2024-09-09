@@ -957,17 +957,19 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
+  plans: {
+    silver: {
+      title: string;
+      description: string;
+    };
+    gold: {
+      title: string;
+      description: string;
+    };
+  };
   choosePlan: {
     title: string;
     plans: {
-      silver: {
-        heading: string;
-        description: string;
-      };
-      gold: {
-        heading: string;
-        description: string;
-      };
       buttonText: string;
       popularTagText: string;
       features: string[];
@@ -1001,10 +1003,6 @@ interface LangInheritance {
   };
   planDetails: {
     walletDetails: {
-      plan: {
-        gold: string;
-        silver: string;
-      };
       createdOn: string;
       expiringOn: string;
       reminderPeriodField: {
