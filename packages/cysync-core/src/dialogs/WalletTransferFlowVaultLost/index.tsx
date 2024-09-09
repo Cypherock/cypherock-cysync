@@ -1,32 +1,29 @@
 import {
   DialogBox,
   DialogBoxBody,
-  HelpButton,
   WalletDialogMainContainer,
   MilestoneAside,
   CloseButton,
   BlurOverlay,
   DialogBoxBackgroundBar,
-  BackButton,
   ConfettiBlast,
-  goldFail,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { openContactSupportDialog, openWalletActionsDialog } from '~/actions';
 import {
-  closeDialog,
-  GuidedFlowType,
+  WalletTransferFlowLostVaultType,
   selectLanguage,
-  useAppDispatch,
   useAppSelector,
 } from '~/store';
 
-import { GuidedFlowProvider, useGuidedFlow } from './context';
-import { CloseConfirmation } from './Dialogs';
+import {
+  WalletTransferLostVaultFlowProvider,
+  useWalletTransferLostVaulFlow,
+} from './context';
 
-export const GuidedFlowDialog: FC = () => {
-  const lang = useAppSelector(selectLanguage);
+import { CloseConfirmation } from '../GuidedFlow/Dialogs';
+
+export const WalletTransferFlowLostVaultDialog: FC = () => {
   const {
     tabs,
     currentTab,
@@ -34,14 +31,14 @@ export const GuidedFlowDialog: FC = () => {
     blastConfetti,
     showBackButton,
     title,
-  } = useGuidedFlow();
+  } = useWalletTransferLostVaulFlow();
   const [showOnClose, setShowOnClose] = React.useState(false);
+  const lang = useAppSelector(selectLanguage);
 
-  const dispatch = useAppDispatch();
-  const backToWalletActions = () => {
-    dispatch(closeDialog('guidedFlow'));
-    dispatch(openWalletActionsDialog());
-  };
+  const isFinalMessageShown =
+    currentTab === tabs.length - 1 &&
+    currentDialog === tabs[tabs.length - 1].dialogs.length - 1;
+
   return (
     <BlurOverlay>
       <DialogBox
@@ -54,15 +51,27 @@ export const GuidedFlowDialog: FC = () => {
           <CloseConfirmation
             setShowOnClose={setShowOnClose}
             dialogText={{
-              title: lang.strings.guidedFlows.closeDialog.title,
-              subtitle: lang.strings.guidedFlows.closeDialog.subtitle,
+              title:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .title,
+              subtitle:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .subtitle,
               primaryButton:
-                lang.strings.guidedFlows.closeDialog.buttons.primary,
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .buttons.primary,
               secondaryButton:
-                lang.strings.guidedFlows.closeDialog.buttons.secondary,
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .buttons.secondary,
+              messageBoxList:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .messageBoxList,
+              pathText:
+                lang.strings.guidedFlows.walletTransferLostVault.closeDialog
+                  .pathText,
             }}
-            closeDialogType="guidedFlow"
-            iconSrc={goldFail}
+            closeDialogType="walletTransferLostVaultFlow"
+            isTextDifferent
           />
         )}
         <>
@@ -70,6 +79,7 @@ export const GuidedFlowDialog: FC = () => {
             heading={title}
             milestones={tabs.map(t => t.name)}
             activeTab={currentTab}
+            isFinalMessageShown={isFinalMessageShown}
           />
           <WalletDialogMainContainer>
             {blastConfetti && <ConfettiBlast />}
@@ -87,14 +97,7 @@ export const GuidedFlowDialog: FC = () => {
                 </DialogBoxBody>
               </DialogBox>
             </DialogBoxBody>
-
             <DialogBoxBackgroundBar
-              leftComponent={
-                <HelpButton
-                  text={lang.strings.help}
-                  onClick={() => dispatch(openContactSupportDialog())}
-                />
-              }
               rightComponent={
                 <CloseButton onClick={() => setShowOnClose(true)} />
               }
@@ -102,16 +105,7 @@ export const GuidedFlowDialog: FC = () => {
               useLightPadding
             />
             {showBackButton && (
-              <DialogBoxBackgroundBar
-                leftComponent={
-                  <BackButton
-                    text={lang.strings.back}
-                    onClick={backToWalletActions}
-                  />
-                }
-                position="bottom"
-                useLightPadding
-              />
+              <DialogBoxBackgroundBar position="bottom" useLightPadding />
             )}
           </WalletDialogMainContainer>
         </>
@@ -120,8 +114,10 @@ export const GuidedFlowDialog: FC = () => {
   );
 };
 
-export const GuidedFlow: FC<{ type: GuidedFlowType }> = ({ type }) => (
-  <GuidedFlowProvider type={type}>
-    <GuidedFlowDialog />
-  </GuidedFlowProvider>
+export const WalletTransferFlowLostValt: FC<{
+  type: WalletTransferFlowLostVaultType;
+}> = ({ type }) => (
+  <WalletTransferLostVaultFlowProvider type={type}>
+    <WalletTransferFlowLostVaultDialog />
+  </WalletTransferLostVaultFlowProvider>
 );

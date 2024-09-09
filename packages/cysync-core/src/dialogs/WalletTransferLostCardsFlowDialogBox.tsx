@@ -7,22 +7,26 @@ import {
   LangDisplay,
   Typography,
   TypographyColor,
-} from '../../atoms';
-import { BulletList } from '../BulletList';
-import { GoldenArrowList } from '../GoldenArrowList';
-import { MessageBox, MessageBoxType } from '../MessageBox';
+} from '@cypherock/cysync-ui/src/components/atoms';
+import { BulletList } from '@cypherock/cysync-ui/src/components/molecules/BulletList';
+import { GoldenArrowList } from '@cypherock/cysync-ui/src/components/molecules/GoldenArrowList';
+import {
+  MessageBox,
+  MessageBoxType,
+} from '@cypherock/cysync-ui/src/components/molecules/MessageBox';
 
-import { DialogBoxBody, DialogBoxFooter, DialogBoxHeader } from '.';
+import {
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxHeader,
+} from '@cypherock/cysync-ui/src/components/molecules/Dialog';
 
 const InnerContainer = styled.div`
-  padding-top: 32px;
-  padding-left: 40px;
-  padding-right: 40px;
   max-height: 58vh;
   overflow-y: auto;
 `;
 
-export interface GuidedFlowDialogBoxProps {
+export interface WalletTransferLostCardsFlowDialogBoxProps {
   title?: string;
   subtitle?: string;
   bulletList?: string[];
@@ -39,7 +43,9 @@ export interface GuidedFlowDialogBoxProps {
   onNext: React.MouseEventHandler<HTMLButtonElement>;
   onPrevious: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
+export const WalletTransferLostCardsFlowDialogBox: FC<
+  WalletTransferLostCardsFlowDialogBoxProps
+> = ({
   heading,
   image,
   title,
@@ -65,14 +71,14 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
       </DialogBoxHeader>
     )}
     <InnerContainer>
-      <DialogBoxBody p={0} gap={0}>
+      <DialogBoxBody gap={0}>
         <Flex
           gap={{ def: 12, lg: 32 }}
           align="center"
           justify="center"
           width="inherit"
           direction="column"
-          pb={4}
+          pb={2}
         >
           {image}
           <Flex direction="column" align="center" gap={4}>
@@ -95,27 +101,24 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           </Flex>
         </Flex>
         {goldenArrowList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             <GoldenArrowList items={goldenArrowList} />
           </Flex>
         )}
         {bulletList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             <BulletList items={bulletList} />
           </Flex>
         )}
         {messageBoxList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={8} pt={2} pb={2} width="full">
             {messageBoxList.map((messageBox, index) => {
               const key = Object.keys(messageBox)[0];
               const args = key.split('-');
-
               const type = args[0] as MessageBoxType;
               if (!type) return null;
-
               let textColor: TypographyColor | undefined;
               if (args.length > 1) textColor = args[1] as TypographyColor;
-
               return (
                 <MessageBox
                   key={`${type}-${index + 1}`}
@@ -149,7 +152,7 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
   </>
 );
 
-GuidedFlowDialogBox.defaultProps = {
+WalletTransferLostCardsFlowDialogBox.defaultProps = {
   children: undefined,
   isLoading: false,
   loadingText: undefined,

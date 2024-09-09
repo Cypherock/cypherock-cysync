@@ -1,23 +1,14 @@
 import {
-  GuidedFlowDialogBox,
   Flex,
-  informationIcon,
   Button,
   LangDisplay,
   Image,
+  informationIcon,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { openAddAccountDialog, syncWalletsWithDevice } from '~/actions';
-import { useDevice } from '~/context';
-import { useGuidedFlow } from '~/dialogs/GuidedFlow/context';
+import { openAddAccountDialog } from '~/actions';
 import {
   selectLanguage,
   selectWallets,
@@ -32,68 +23,63 @@ const selectWalletsAndLang = createSelector(
   (a, b) => ({ lang: a, ...b }),
 );
 
-const informationIconReactElement = (
-  <Image src={informationIcon} alt="device" $maxWidth="full" />
-);
-
 const Buttons: FC<{
-  setShowWalletNotCreatedDialog: Dispatch<SetStateAction<boolean>>;
-}> = ({ setShowWalletNotCreatedDialog }) => {
-  const { onCloseDialog } = useGuidedFlow();
-  const { lang, wallets } = useAppSelector(selectWalletsAndLang);
+  setShowDialog: Dispatch<SetStateAction<boolean>>;
+  onCloseDialog: () => void;
+}> = ({ setShowDialog, onCloseDialog }) => {
   const dispatch = useAppDispatch();
-  const { connection } = useDevice();
+  const { lang, wallets } = useAppSelector(selectWalletsAndLang);
+  const displayText = lang.strings.guidedFlows.finalMessage;
   const tryOpeningAddAccount = () => {
     if (wallets.length > 0) {
       onCloseDialog();
       dispatch(openAddAccountDialog());
     } else {
-      setShowWalletNotCreatedDialog(true);
+      setShowDialog(true);
     }
   };
-
-  useEffect(() => {
-    dispatch(
-      syncWalletsWithDevice({
-        connection,
-        doFetchFromDevice: true,
-      }),
-    );
-  }, []);
-
   return (
     <Flex gap={16} $zIndex={1}>
       <Button variant="secondary" onClick={onCloseDialog}>
-        <LangDisplay
-          text={lang.strings.guidedFlows.finalMessage.buttons.secondary}
-        />
+        <LangDisplay text={displayText.buttons.secondary} />
       </Button>
       <Button variant="primary" onClick={tryOpeningAddAccount}>
-        <LangDisplay
-          text={lang.strings.guidedFlows.finalMessage.buttons.primary}
-        />
+        <LangDisplay text={displayText.buttons.primary} />
       </Button>
     </Flex>
   );
 };
 
-export const FinalMessage: FC = () => {
+export const FinalMessage: FC<{
+  DialogBox: React.ComponentType<any>;
+  contextHook: () => {
+    onNext: () => void;
+    onPrevious: () => void;
+    onCloseDialog: () => void;
+    changeCondition?: () => void;
+    onSelect?: () => void;
+  };
+}> = ({ DialogBox, contextHook }) => {
+  const { onNext, onPrevious, onCloseDialog, changeCondition, onSelect } =
+    contextHook();
+  const [showDialog, setShowDialog] = useState(false);
   const lang = useAppSelector(selectLanguage);
-  const { onNext, onPrevious } = useGuidedFlow();
-  const [showWalletNotCreatedDialog, setShowWalletNotCreatedDialog] =
-    useState(false);
 
   return (
     <>
-      {showWalletNotCreatedDialog && <WalletNotCreatedDialog />}
-      <GuidedFlowDialogBox
-        image={informationIconReactElement}
+      {showDialog && <WalletNotCreatedDialog onCloseDialog={onCloseDialog} />}
+      <DialogBox
+        image={<Image src={informationIcon} alt="device" $maxWidth="full" />}
         onNext={onNext}
         onPrevious={onPrevious}
+        changeCondition={changeCondition}
+        onSelect={onSelect}
         title={lang.strings.guidedFlows.finalMessage.title}
+        lang={lang}
         footer={
           <Buttons
-            setShowWalletNotCreatedDialog={setShowWalletNotCreatedDialog}
+            setShowDialog={setShowDialog}
+            onCloseDialog={onCloseDialog}
           />
         }
       />
