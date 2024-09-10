@@ -1008,6 +1008,8 @@ interface LangInheritance {
       reminderPeriodField: {
         label: string;
         input: string;
+        month: string;
+        months: string;
       };
     };
     ownerDetails: {

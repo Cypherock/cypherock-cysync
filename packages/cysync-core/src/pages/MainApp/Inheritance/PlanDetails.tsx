@@ -25,6 +25,17 @@ export const InheritancePlanDetails: FC = () => {
     <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
   );
 
+  const getReminderPeriodInputText = (reminderPeriod: number) => {
+    const reminderPeriodInput =
+      strings.planDetails.walletDetails.reminderPeriodField;
+    return (
+      parseLangTemplate(reminderPeriodInput.input, { month: reminderPeriod }) +
+      (reminderPeriod === 1
+        ? reminderPeriodInput.month
+        : reminderPeriodInput.months)
+    );
+  };
+
   return (
     <InheritancePageLayout>
       <Container direction="column" gap={32} justify="flex-start">
@@ -72,10 +83,7 @@ export const InheritancePlanDetails: FC = () => {
                 label:
                   strings.planDetails.walletDetails.reminderPeriodField.label,
                 icon: ClockIcon,
-                value: parseLangTemplate(
-                  strings.planDetails.walletDetails.reminderPeriodField.input,
-                  { month: 12 },
-                ),
+                value: getReminderPeriodInputText(1),
                 trailing: editButton,
               },
             ]}

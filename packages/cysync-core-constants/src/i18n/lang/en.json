@@ -1790,7 +1790,9 @@
         "expiringOn": "Expiring on",
         "reminderPeriodField": {
           "label": "Reminder Period",
-          "input": "Every ${month} month"
+          "input": "Every ${month} ",
+          "month": "month",
+          "months": "months"
         }
       },
       "ownerDetails": {

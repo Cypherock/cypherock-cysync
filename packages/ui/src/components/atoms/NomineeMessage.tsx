@@ -22,7 +22,7 @@ const StyledNomineeMessage = styled.div<
   { $withBackground: boolean } & WidthProps
 >`
   display: flex;
-  min-width: 624px;
+  min-width: 460px;
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
