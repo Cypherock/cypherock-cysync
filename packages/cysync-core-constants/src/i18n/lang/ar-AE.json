@@ -1887,7 +1887,8 @@
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" }
+          "executorMessage": { "label": "Executor Message" },
+          "assignTo": { "label": "Assign to" }
         }
       }
     },
@@ -2192,7 +2193,9 @@
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
             "label": "Reminder Perioc",
-            "input": "Every ${month} month"
+            "input": "Every ${month} ",
+            "month": "month",
+            "months": "months"
           }
         }
       },

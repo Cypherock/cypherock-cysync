@@ -1055,6 +1055,7 @@ interface LangInheritance {
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
         executorMessage: { label: string };
+        assignTo: { label: string };
       };
     };
   };
@@ -1346,7 +1347,12 @@ interface LangInheritanceGoldPlanPurchase {
         userNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
-        reminderPeriodField: { label: string; input: string };
+        reminderPeriodField: {
+          label: string;
+          input: string;
+          month: string;
+          months: string;
+        };
       };
     };
     nomineeDetails: {
