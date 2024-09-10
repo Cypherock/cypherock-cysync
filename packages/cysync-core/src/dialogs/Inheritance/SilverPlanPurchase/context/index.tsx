@@ -1,3 +1,4 @@
+import { insertInheritancePlan } from '@cypherock/cysync-core-services';
 import { sleep } from '@cypherock/cysync-utils';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, {
@@ -11,55 +12,31 @@ import React, {
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { routes } from '~/constants';
 import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+  useAsync,
+  useMemoReturn,
+  useNavigateTo,
+  useStateWithRef,
+} from '~/hooks';
+import { inheritancePlanService } from '~/services';
+import { useAppSelector } from '~/store';
+import { getDB } from '~/utils';
 
 import {
-  DeviceEncryption,
-  EncryptionLoader,
-  EncryptionSuccess,
-  Ensure,
-  Instructions,
-  SelectWallet,
-  Terms,
-  UserDetails,
-  VerifyOTP,
-  WalletAuth,
-} from '../Dialogs';
+  InheritanceSilverPlanPurchaseDialogContextInterface,
+  IWalletWithDeleted,
+} from './types';
+import { tabIndicies, useSilverPlanDialogHanlders } from './useDialogHandler';
 
-export interface IWalletWithDeleted extends IWallet {
-  isDeleted?: boolean;
-}
+import {
+  IUserDetails,
+  useEncryptMessage,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
 
-export interface IUserDetails {
-  name: string;
-  email: string;
-  alternateEmail: string;
-}
-
-export interface InheritanceSilverPlanPurchaseDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  onClose: () => void;
-  allWallets: IWalletWithDeleted[];
-  selectedWallet?: IWalletWithDeleted;
-  setSelectedWallet: (wallet: IWalletWithDeleted) => void;
-  onUserDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingUserDetails: boolean;
-  userDetails?: IUserDetails;
-  unhandledError?: any;
-  onRetry: () => void;
-}
+export * from './types';
 
 export const InheritanceSilverPlanPurchaseDialogContext: Context<InheritanceSilverPlanPurchaseDialogContextInterface> =
   createContext<InheritanceSilverPlanPurchaseDialogContextInterface>(
@@ -73,73 +50,20 @@ export interface InheritanceSilverPlanPurchaseDialogContextProviderProps {
 export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   InheritanceSilverPlanPurchaseDialogContextProviderProps
 > = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
-
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
-    useMemo(
-      () => ({
-        3: [0],
-      }),
-      [],
-    );
-
-  const tabs: ITabs = useMemo(
-    () => [
-      {
-        name: lang.strings.inheritance.termsOfService.title,
-        dialogs: [<Terms key="Terms" />, <Ensure key="Ensure" />],
-      },
-      {
-        name: lang.strings.inheritanceSilverPlanPurchase.instructions.heading,
-        dialogs: [<Instructions key="Instructions" />],
-      },
-      {
-        name: lang.strings.inheritanceSilverPlanPurchase.selectWallet.heading,
-        dialogs: [<SelectWallet key="Select Wallet" />],
-      },
-      {
-        name: lang.strings.inheritanceSilverPlanPurchase.walletAuth.heading,
-        dialogs: [<WalletAuth key="Wallet Auth" />],
-      },
-      {
-        name: lang.strings.inheritanceSilverPlanPurchase.email.heading,
-        dialogs: [
-          <UserDetails key="User Details" />,
-          <VerifyOTP key="Verify OTP" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceSilverPlanPurchase.encryption.heading,
-        dialogs: [
-          <DeviceEncryption key="Device Encryption" />,
-          <EncryptionLoader key="Encryption Loader" />,
-          <EncryptionSuccess key="Encryption Success" />,
-        ],
-      },
-    ],
-    [],
-  );
-
   const {
+    onClose,
     onNext,
     onPrevious,
     goTo,
     currentTab,
     currentDialog,
     isDeviceRequired,
-  } = useTabsAndDialogs({
-    deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'inheritanceSilverPlanPurchase',
-  });
-
-  const onClose = () => {
-    dispatch(closeDialog('inheritanceSilverPlanPurchase'));
-  };
+  } = useSilverPlanDialogHanlders();
 
   const wallets = useAppSelector(state => state.wallet.wallets);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
+  const navigateTo = useNavigateTo();
 
   const allWallets = useMemo<IWalletWithDeleted[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
@@ -152,65 +76,349 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
-  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [retryIndex, setRetryIndex] = useState(0);
   const [unhandledError, setUnhandledError] = useState<any>();
+  const [coupon, setCoupon, couponRef] = useStateWithRef('');
+  const [applyingCouponError, setApplyingCouponError] = useState<
+    { heading: string; subtext: string } | undefined
+  >();
+  const [couponDuration, setCouponDuration] = useState(0);
 
-  const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
-    setIsSubmittingUserDetails(true);
-    setUserDetails(params);
-    await sleep(2000);
-    setIsSubmittingUserDetails(false);
-    goTo(4, 1);
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
   }, []);
+
+  const clearErrors = useCallback(() => {
+    setUnhandledError(undefined);
+  }, []);
+
+  const walletAuthService = useWalletAuth(onError);
+  const encryptMessageService = useEncryptMessage(onError);
+
+  const walletAuthFetchRequestId = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    walletAuthService.fetchRequestId(selectedWallet.__id);
+  }, [selectedWallet, walletAuthService.fetchRequestId]);
+
+  const encryptPinStart = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    // TODO: Remove hard coded message when empty encryption is implemented on device
+    encryptMessageService.start(selectedWallet.__id, ['Delete me!']);
+  }, [selectedWallet, encryptMessageService.start]);
+
+  const onRetryFuncMap = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
+        [tabIndicies.wallet.dialogs.walletAuth]: () => true,
+        [tabIndicies.wallet.dialogs.validateSignature]: () => true,
+      },
+      [tabIndicies.encryption.tabNumber]: {
+        [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
+        [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
+      },
+    }),
+    [],
+  );
+
+  const setupPlanHandler = useCallback(async () => {
+    if (
+      !encryptMessageService.encryptedMessages ||
+      !walletAuthService.authTokens ||
+      !selectedWallet
+    )
+      return false;
+
+    const result = await inheritancePlanService.create({
+      encryptedData: encryptMessageService.encryptedMessages,
+      accessToken: walletAuthService.authTokens.accessToken,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const db = getDB();
+    await insertInheritancePlan(db, {
+      walletId: selectedWallet.__id ?? '',
+      isNominee: false,
+      type: 'silver',
+      walletName: selectedWallet.name,
+    });
+
+    return true;
+  }, [
+    encryptMessageService.encryptedMessages,
+    walletAuthService.authTokens,
+    selectedWallet,
+  ]);
+
+  const [setupPlan, isSettingUpPlan, isSetupPlanCompleted, resetSetupPlan] =
+    useAsync(setupPlanHandler, onError);
+
+  const applyCouponHandler = useCallback(
+    async (_coupon: string) => {
+      setApplyingCouponError(undefined);
+
+      if (!walletAuthService.authTokens) return false;
+
+      /*
+       * TODO: Uncomment when implemented on server
+        const result = await inheritancePlanService.applyCoupon({
+          coupon: _coupon,
+          accessToken: walletAuthService.authTokens.accessToken,
+        });
+
+        if (result.error) {
+          throw result.error;
+        }
+     */
+
+      await sleep(2000);
+      setCoupon(_coupon);
+      setCouponDuration(2);
+
+      return true;
+    },
+    [walletAuthService.authTokens, onNext],
+  );
+
+  const [applyCoupon, isApplyingCoupon, isCouponApplied, resetApplyCoupon] =
+    useAsync(applyCouponHandler, onError);
+
+  const activateCouponHandler = useCallback(async () => {
+    if (!walletAuthService.authTokens || !couponRef.current || !selectedWallet)
+      return false;
+
+    const result = await inheritancePlanService.activate({
+      coupon: couponRef.current,
+      accessToken: walletAuthService.authTokens.accessToken,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const db = getDB();
+    await insertInheritancePlan(db, {
+      walletId: selectedWallet.__id ?? '',
+      isNominee: false,
+      type: 'silver',
+      walletName: selectedWallet.name,
+      purchasedAt: Date.now(),
+      expireAt: Date.now() + 1000 * 60 * 60 * 24 * 365 * couponDuration,
+    });
+
+    return true;
+  }, [walletAuthService.authTokens, selectedWallet, couponDuration]);
+
+  const [
+    activateCoupon,
+    isActivatingCoupon,
+    isCouponActivated,
+    resetActivateCoupon,
+  ] = useAsync(activateCouponHandler, onError);
+
+  const removeCoupon = useCallback(() => {
+    setCoupon('');
+    resetApplyCoupon();
+    resetActivateCoupon();
+  }, []);
+
+  const resetAll = useCallback(() => {
+    resetSetupPlan();
+    resetApplyCoupon();
+    resetActivateCoupon();
+    setApplyingCouponError(undefined);
+    setCoupon('');
+    setCouponDuration(0);
+    setSelectedWallet(undefined);
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
 
   const onRetry = useCallback(() => {
-    setUserDetails(undefined);
-    setSelectedWallet(undefined);
-    setUnhandledError(undefined);
-    setIsSubmittingUserDetails(false);
-    goTo(0, 0);
-  }, []);
+    const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
 
-  const ctx = useMemo(
-    () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
-      unhandledError,
-      onRetry,
-    }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
-      unhandledError,
-      onRetry,
-    ],
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      retryLogic();
+    } else {
+      resetAll();
+      goTo(0, 0);
+    }
+
+    setUnhandledError(undefined);
+  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
+
+  const registerUser = useCallback(
+    async (params: IUserDetails) => {
+      const isSuccess = await walletAuthService.registerUser(params);
+
+      if (isSuccess) {
+        goTo(tabIndicies.email.tabNumber, tabIndicies.email.dialogs.verifyOtp);
+      }
+    },
+    [walletAuthService.registerUser],
   );
+
+  const onNextActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.fetchRequestId]: () => {
+          if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
+            goTo(
+              tabIndicies.encryption.tabNumber,
+              tabIndicies.encryption.dialogs.deviceEncryption,
+            );
+            return true;
+          }
+
+          return false;
+        },
+        [tabIndicies.wallet.dialogs.validateSignature]: () => {
+          if (!walletAuthService.isRegisterationRequired) {
+            goTo(
+              tabIndicies.email.tabNumber,
+              tabIndicies.email.dialogs.verifyOtp,
+            );
+            return true;
+          }
+
+          return false;
+        },
+      },
+    }),
+    [walletAuthService.isRegisterationRequired, walletAuthService.currentStep],
+  );
+
+  const fallbackToWalletSelect = useCallback(() => {
+    resetSetupPlan();
+    resetApplyCoupon();
+    resetActivateCoupon();
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+    goTo(tabIndicies.wallet.tabNumber, tabIndicies.wallet.dialogs.selectWallet);
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+
+  const onNextCallback = useCallback(() => {
+    const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doNext = true;
+
+    if (action) {
+      doNext = !action();
+    }
+
+    if (doNext) {
+      onNext();
+    }
+  }, [onNext, currentTab, currentDialog]);
+
+  const onPreviousActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.email.tabNumber]: {
+        [tabIndicies.email.dialogs.userDetails]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+        [tabIndicies.email.dialogs.verifyOtp]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+      },
+    }),
+    [fallbackToWalletSelect],
+  );
+
+  const onPreviousCallback = useCallback(() => {
+    const action = onPreviousActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doPrevious = true;
+
+    if (action) {
+      doPrevious = !action();
+    }
+
+    if (doPrevious) {
+      onPrevious();
+    }
+  }, [onPrevious, currentTab, currentDialog]);
+
+  const onCloseCallback = useCallback(() => {
+    if (isSetupPlanCompleted || isCouponActivated) {
+      navigateTo(routes.inheritance.home.path);
+    }
+
+    onClose();
+  }, [isSetupPlanCompleted, isCouponActivated, onClose]);
+
+  const ctx = useMemoReturn({
+    onNext: onNextCallback,
+    onPrevious: onPreviousCallback,
+    onClose: onCloseCallback,
+    tabs,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    allWallets,
+    selectedWallet,
+    setSelectedWallet,
+    registerUser,
+    unhandledError,
+    onRetry,
+    retryIndex,
+    clearErrors,
+    walletAuthDeviceEvents: walletAuthService.deviceEvents,
+    walletAuthFetchRequestId,
+    walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
+    walletAuthStart: walletAuthService.startWalletAuth,
+    walletAuthValidateSignature: walletAuthService.validateSignature,
+    walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
+    walletAuthStep: walletAuthService.currentStep,
+    walletAuthAbort: walletAuthService.abortWalletAuth,
+    onRegister: walletAuthService.registerUser,
+    isRegisteringUser: walletAuthService.isRegisteringUser,
+    otpVerificationDetails: walletAuthService.otpVerificationDetails,
+    verifyOtp: walletAuthService.verifyOtp,
+    isVerifyingOtp: walletAuthService.isVerifyingOtp,
+    encryptPinStart,
+    encryptPinAbort: encryptMessageService.abort,
+    encryptPinDeviceEvents: encryptMessageService.deviceEvents,
+    encryptPinIsCompleted: encryptMessageService.isEncrypted,
+    setupPlan,
+    isSettingUpPlan,
+    isSetupPlanCompleted,
+    isTermsAccepted,
+    setIsTermsAccepted,
+    coupon,
+    applyCoupon,
+    isApplyingCoupon,
+    isCouponApplied,
+    activateCoupon,
+    isActivatingCoupon,
+    isCouponActivated,
+    removeCoupon,
+    applyingCouponError,
+    couponDuration,
+  });
 
   return (
     <InheritanceSilverPlanPurchaseDialogContext.Provider value={ctx}>

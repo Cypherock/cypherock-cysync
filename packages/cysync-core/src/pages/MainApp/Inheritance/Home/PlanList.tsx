@@ -4,21 +4,76 @@ import {
   Flex,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback } from 'react';
+import { IInheritancePlan } from '@cypherock/db-interfaces';
+import React, { FC, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { openInheritanceSyncPlansDialog } from '~/actions';
-import { selectLanguage, useAppSelector } from '~/store';
+import { routes } from '~/constants';
+import { useNavigateTo } from '~/hooks';
+import {
+  selectInheritancePlans,
+  selectLanguage,
+  useAppSelector,
+} from '~/store';
 
 import { InheritancePageLayout } from '../Layout';
 
 export const InheritancePlanList: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
+  const inheritancePlans = useAppSelector(selectInheritancePlans);
+  const navigateTo = useNavigateTo();
 
   const openSyncPlans = useCallback(() => {
     dispatch(openInheritanceSyncPlansDialog());
   }, [dispatch]);
+
+  const toSetup = useCallback(() => {
+    navigateTo(routes.inheritance.choosePlan.path);
+  }, [navigateTo]);
+
+  const ownerPlans = useMemo(
+    () => inheritancePlans.filter(p => !p.isNominee),
+    [inheritancePlans],
+  );
+  const nomineePlans = useMemo(
+    () => inheritancePlans.filter(p => p.isNominee),
+    [inheritancePlans],
+  );
+
+  const hasNomineePlans = nomineePlans.length > 0;
+
+  const getPlanCardComponent = (plan: IInheritancePlan) => {
+    const currentDate = Date.now();
+
+    const isExpiring = Boolean(
+      plan.purchasedAt &&
+        plan.expireAt &&
+        plan.expireAt < currentDate + 1 * 30 * 24 * 60 * 60 * 1000,
+    );
+
+    const isExpired = Boolean(
+      plan.purchasedAt && plan.expireAt && plan.expireAt < currentDate,
+    );
+
+    const isPaymentPending = !(plan.purchasedAt && plan.expireAt);
+
+    return (
+      <DashboardWallet
+        key={plan.__id}
+        isNone={false}
+        type={plan.type}
+        isExpiring={isExpiring}
+        isExpired={isExpired}
+        isPaymentPending={isPaymentPending}
+        name={plan.walletName}
+        lang={lang.strings}
+        startDate={plan.purchasedAt ?? plan.meta?.created ?? currentDate}
+        expiryDate={plan.expireAt ?? currentDate}
+      />
+    );
+  };
 
   return (
     <InheritancePageLayout
@@ -41,70 +96,34 @@ export const InheritancePlanList: FC = () => {
               type="silver"
               isExpiring={false}
               isExpired={false}
-              paymentPending={false}
+              isPaymentPending={false}
               name=""
               lang={lang.strings}
-              startDate=""
-              expiryDate=""
-              status="Active"
+              startDate={0}
+              expiryDate={0}
+              onClick={toSetup}
             />
-            {Array(8)
-              .fill(0)
-              .map(i => (
-                <DashboardWallet
-                  key={i}
-                  isNone={false}
-                  type={
-                    ['silver', 'gold'][(Math.random() * 100) % 2] as
-                      | 'silver'
-                      | 'gold'
-                  }
-                  isExpiring={false}
-                  isExpired={false}
-                  paymentPending={false}
-                  name="Something"
-                  lang={lang.strings}
-                  startDate="09-08-2024"
-                  expiryDate="09-09-2024"
-                  status="Active"
-                />
-              ))}
+            {ownerPlans.map(getPlanCardComponent)}
           </Flex>
         </Flex>
-        <Divider variant="horizontal" />
-        <Flex direction="column" gap={24}>
-          <Flex direction="column" gap={8}>
-            <Typography variant="h6">
-              {lang.strings.inheritance.homePage.headers.nominee.title}
-            </Typography>
-            <Typography variant="p" color="muted" $fontSize={14}>
-              {lang.strings.inheritance.homePage.headers.nominee.subtitle}
-            </Typography>
-          </Flex>
-          <Flex gap={16} $flex={1} width="100%" $flexWrap="wrap">
-            {Array(2)
-              .fill(0)
-              .map(i => (
-                <DashboardWallet
-                  key={i}
-                  isNone={false}
-                  type={
-                    ['silver', 'gold'][(Math.random() * 100) % 2] as
-                      | 'silver'
-                      | 'gold'
-                  }
-                  isExpiring={false}
-                  isExpired
-                  paymentPending={false}
-                  name="Something"
-                  lang={lang.strings}
-                  startDate="09-01-2024"
-                  expiryDate="09-07-2024"
-                  status="Active"
-                />
-              ))}
-          </Flex>
-        </Flex>
+        {hasNomineePlans && (
+          <>
+            <Divider variant="horizontal" />
+            <Flex direction="column" gap={24}>
+              <Flex direction="column" gap={8}>
+                <Typography variant="h6">
+                  {lang.strings.inheritance.homePage.headers.nominee.title}
+                </Typography>
+                <Typography variant="p" color="muted" $fontSize={14}>
+                  {lang.strings.inheritance.homePage.headers.nominee.subtitle}
+                </Typography>
+              </Flex>
+              <Flex gap={16} $flex={1} width="100%" $flexWrap="wrap">
+                {nomineePlans.map(getPlanCardComponent)}
+              </Flex>
+            </Flex>
+          </>
+        )}
       </Flex>
     </InheritancePageLayout>
   );

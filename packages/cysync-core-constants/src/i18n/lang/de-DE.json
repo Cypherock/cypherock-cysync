@@ -49,7 +49,11 @@
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "checkout": "Checkout",
+    "yes": "Yes",
+    "no": "No",
+    "saveAndContinue": "Save and continue"
   },
   "dashboard": {
     "wallet": {
@@ -1050,6 +1054,62 @@
       },
       "SER_0001": {
         "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
+      },
+      "SER_1001": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1003": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1004": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1005": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1006": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1007": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1008": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1009": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1010": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1011": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1012": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1013": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1014": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1015": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
     "default": "Ein interner Fehler ist aufgetreten"
@@ -1586,16 +1646,30 @@
     },
     "inheritancePinRecovery": {
       "title": "Pin Recovery",
-      "fetch": {
+      "sync": {
         "name": "Syncing",
-        "title": "Please wait while we fetch the encrypted PIN",
-        "subTitle": "Do no disconnect or close the app"
+        "walletAuth": {
+          "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+          "subTitle": "Authenticating the wallet ",
+          "actions": {
+            "confirmAuth": "Confirm wallet authentication on device",
+            "enterPinAndTapCard": "Enter Pin and tap any one card"
+          }
+        },
+        "verifyOtp": {
+          "title": "OTP verification"
+        },
+        "fetch": {
+          "title": "Please wait while we fetch the encrypted PIN",
+          "subTitle": "Do no disconnect or close the app"
+        }
       },
       "decryptPin": {
         "name": "Decryption",
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirmOnDevice": "Confirm decryption on device",
+          "tapCard": "Tap any one card"
         },
         "messageBox": {
           "warning": "The PIN will be decrypted by the card"
@@ -1826,9 +1900,10 @@
       "syncFromEmail": "Sync from Email"
     },
     "termsOfService": {
-      "title": "Terms of Service",
+      "title": "Terms of Use",
+      "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
-      "checkBoxLabel": "I have read and agree to Terms of use and Privacy policy"
+      "checkBoxLabel": "I have read and agree to Terms of service and Privacy policy"
     },
     "dialog": {
       "userDetails": {
@@ -1836,6 +1911,9 @@
           "name": "Name",
           "email": "Primary Email",
           "alternateEmail": "Alternate Email"
+        },
+        "error": {
+          "sameEmail": "Alternate email cannot be same as primary email"
         }
       },
       "verifyOTP": {
@@ -1845,36 +1923,60 @@
         "alternateEmailOTP": {
           "title": "OTP Verification for alternate email"
         }
+      },
+      "payment": {
+        "heading": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
+        "form": {
+          "promoField": {
+            "label": "Promo code / coupon",
+            "placeholder": "Enter code"
+          }
+        },
+        "couponInput": {
+          "appliedButtonText": "Coupon applied:",
+          "applyButtonText": "Apply"
+        },
+        "noOfYear": "Number of years",
+        "total": "Total",
+        "year": "year",
+        "error": {
+          "errorHeading": "Invalid Coupon Code",
+          "subtext": "Please try a different coupon code"
+        }
       }
     }
   },
   "inheritanceSilverPlanPurchase": {
     "title": "Silver Plan Setup",
-    "ensure": {
-      "title": "Ensure the following before you continue",
-      "instructions": [
-        "Make sure you have 15-30 minutes to set it up",
-        "You are present in a safe environment",
-        "You need to have one device and one card handy to set it up"
-      ]
-    },
     "instructions": {
       "heading": "Instructions",
-      "title": "Watch the whole video before you proceed",
-      "subTitle": "The video will help you take the right decisions"
-    },
-    "selectWallet": {
-      "heading": "Select Wallet",
-      "title": "Select the wallet you want to cover in this plan",
-      "subTitle": "Your plan will be linked with the selected wallet"
-    },
-    "walletAuth": {
-      "heading": "Wallet Authentication",
-      "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-      "actions": {
-        "tapCard": "Tap any one card"
+      "ensure": {
+        "title": "Ensure the following before you continue",
+        "instructions": [
+          "Make sure you have 15-30 minutes to set it up",
+          "You are present in a safe environment",
+          "You need to have one device and one card handy to set it up"
+        ]
       },
-      "footer": "Authenticating the wallet, "
+      "video": {
+        "title": "Watch the whole video before you proceed",
+        "subTitle": "The video will help you take the right decisions"
+      }
+    },
+    "wallet": {
+      "heading": "Wallet",
+      "selectWallet": {
+        "title": "Select the wallet you want to cover in this plan",
+        "subTitle": "For setting up additional wallets individual plans can be created later"
+      },
+      "walletAuth": {
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "actions": {
+          "tapCard": "Tap any one card"
+        },
+        "footer": "Authenticating the wallet, "
+      }
     },
     "email": {
       "heading": "Email",
@@ -1891,6 +1993,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "actions": {
+          "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
@@ -1903,6 +2006,271 @@
       },
       "success": {
         "title": "PIN recovery message successfully encrypted"
+      }
+    },
+    "checkout": {
+      "heading": "Checkout",
+      "payment": {
+        "title": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+      },
+      "success": {
+        "title": "Thank you!",
+        "subtext": "Your Gold Plan is now activated"
+      }
+    }
+  },
+  "inheritanceGoldPlanPurchase": {
+    "title": "Gold Plan Setup",
+    "instructions": {
+      "heading": "Instructions",
+      "ensure": {
+        "title": "Ensure the following before you continue",
+        "instructions": [
+          "Make sure you have 15-30 minutes to set it up",
+          "You are present in a safe environment",
+          "You need to have one device and one card handy to set it up"
+        ]
+      },
+      "video": {
+        "title": "Watch the whole video before you proceed",
+        "subTitle": "The video will help you take the right decisions"
+      }
+    },
+    "wallet": {
+      "heading": "Wallet",
+      "selectWallet": {
+        "title": "Select the wallet you want to cover in this plan",
+        "subTitle": "For setting up additional wallets, individual plans can be created later"
+      },
+      "walletAuth": {
+        "heading": "Wallet Authentication",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
+        "actions": {
+          "confirmOnDevice": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
+        },
+        "messageBox": {
+          "warning": "Lift your card after 3 beep sounds"
+        },
+        "error": {
+          "title": "Wallet Authentication failed",
+          "subtext": "We could not authenticate the selected wallet",
+          "messageBox": {
+            "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+          }
+        }
+      }
+    },
+    "email": {
+      "heading": "Owner",
+      "userDetails": {
+        "title": "Your Details",
+        "form": {
+          "name": "Name",
+          "emailField": {
+            "label": "Primary Email",
+            "tooltip": "Enter the email on which you want to receive all reminder emails"
+          },
+          "alternateEmail": "Alternate Email"
+        },
+        "buttons": {
+          "sendOTP": "Send OTP"
+        }
+      },
+      "primaryEmailOTP": {
+        "title": "OTP Verification for primary email"
+      },
+      "alternateEmailOTP": {
+        "title": "OTP Verification for alternate email"
+      }
+    },
+    "nomineeAndExecutor": {
+      "heading": "Nominee & Executor",
+      "select": {
+        "title": "How many nominees do you want?",
+        "subtitle": "You can have up to 2 nominees for this will",
+        "tooltip": "In case if you select two nominees then the 2nd nominee will receive the recovery email three months after the 1st nominee receives it\nNote - Both nominees will receive the same recovery email and same message written by you on the CySync app",
+        "options": {
+          "descOne": "Select if you want to have only one nominee",
+          "descTwo": "Select if you want to have two nominees"
+        }
+      },
+      "nomineeDetails": {
+        "first": {
+          "title": "Add first nominee",
+          "warning": "Make sure you give a card to your nominee",
+          "tooltip": "Your Nominee will receive recovery instructions on this email"
+        },
+        "second": {
+          "title": "Add second nominee",
+          "warning": "Make sure you give a card to your second nominee"
+        },
+        "confirm": {
+          "title": "Do you want to verify nominee emails?",
+          "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
+          "warning": "Make sure you provide correct emails."
+        }
+      },
+      "executor": {
+        "select": {
+          "title": "Do you want to have an executor for this will?",
+          "subtext": "The executor will help the nominee to recover funds ",
+          "tooltip": "An executor/helper can be someone you trust who does not have any financial stake but can be assigned as a helper to the nominee for funds recovery\nThe executor will receive the email on the same time as the nominee.",
+          "options": {
+            "one": {
+              "yes": "Yes",
+              "desc": "A tech savvy person whom you trust"
+            },
+            "two": {
+              "no": "No",
+              "desc": "If your nominees are tech savvy"
+            }
+          }
+        },
+        "executorDetails": {
+          "title": "Add executor",
+          "tooltip": "Executor will receive instructions  to help nominee on this email",
+          "radio": {
+            "label": "Choose a nominee to link with executor",
+            "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
+            "options": {
+              "labelOne": "Nominee 1",
+              "labelTwo": "Nominee 2"
+            }
+          }
+        }
+      }
+    },
+    "message": {
+      "heading": "Message",
+      "tutorial": {
+        "title": "Watch the whole video before you proceed further",
+        "subtext": "How to write the final messages"
+      },
+      "nominee": {
+        "title": "Draft the final message for the nominee",
+        "subtitle": "The nominee messages will be end-to-end encrypted",
+        "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
+        "form": {
+          "locationField": {
+            "label": "Card Location* & Passphrase",
+            "placeholder": "Write your location",
+            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
+          },
+          "personalMessage": {
+            "label": "Personal Message*",
+            "placeholder": "Write your message",
+            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+          }
+        },
+        "messageBox": {
+          "warning": "Make sure you describe the card's location clearly for the nominee"
+        }
+      },
+      "executor": {
+        "title": "Add a message for the executor",
+        "subtitle": "Please note that the message to the executor is not encrypted",
+        "tooltip": "This message will be received by the executor in case recovery is triggered, it's recommended to NOT add any critical information here",
+        "form": {
+          "messageField": {
+            "label": "Message",
+            "placeholder": "Write your message"
+          }
+        }
+      }
+    },
+    "reminder": {
+      "heading": "Reminder",
+      "title": "Reminder setup"
+    },
+    "summary": {
+      "heading": "Summary",
+      "title": "Summary",
+      "subtitle": "Please verify all the details before it gets encrypted with the device",
+      "ownerDetails": {
+        "title": "Owner Details",
+        "form": {
+          "userNameField": { "label": "User Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "reminderPeriodField": {
+            "label": "Reminder Perioc",
+            "input": "Every ${month} month"
+          }
+        }
+      },
+      "nomineeDetails": {
+        "title": "Nominee #",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" }
+        }
+      },
+      "cardLocation": {
+        "title": "Card Location & Passphrase"
+      },
+      "personalMessage": {
+        "title": "Personal Message"
+      },
+      "executorDetails": {
+        "title": "Executor",
+        "form": {
+          "nomineeNameField": { "label": "Nominee Name" },
+          "primaryEmailField": { "label": "Primary Email" },
+          "secondaryEmailField": { "label": "Secondary Email" },
+          "assignTo": { "label": "Assign to" }
+        }
+      },
+      "executorMessage": {
+        "title": "Executor Message"
+      }
+    },
+    "encryption": {
+      "heading": "Encryption",
+      "confirm": {
+        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "subtext": "You can encrypt the message in the next step",
+        "actions": {
+          "confirmOnDevice": "Confirm message verification on device",
+          "verifyLocation": "Verify Card Location in your device"
+        },
+        "messageBox": {
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+        }
+      },
+      "device": {
+        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "subtext": "Lift your card after 2 beep sounds ",
+        "tooltip": "",
+        "actions": {
+          "confirmOnDevice": "Confirm encryption on device",
+          "tapCard": "Enter PIN and tap any one card"
+        },
+        "messageBox": {
+          "warning": "The PIN will be encrypted by the X1 card"
+        }
+      },
+      "loading": {
+        "title": "Please wait while we send the encrypted data to the server",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "success": {
+        "title": "Nominee message successfully encrypted",
+        "subtext": "To complete your gold plan setup, you can now proceed with the plan purchase"
+      }
+    },
+    "checkout": {
+      "heading": "Checkout",
+      "payment": {
+        "title": "Complete your payment",
+        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+      },
+      "greeting": {
+        "title": "Thank you!",
+        "subtext": "Your Gold Plan is now activated"
       }
     }
   }

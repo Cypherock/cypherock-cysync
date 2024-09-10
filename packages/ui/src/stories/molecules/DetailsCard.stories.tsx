@@ -40,6 +40,16 @@ export const Default: Story = {
   },
 };
 
+export const HeaderOnly: Story = {
+  args: {
+    headerLeading: goldWalletIcon,
+    headerText: 'MyFunnyWallet',
+    headerTrailing: editButton,
+    headerOnly: true,
+    $backgroundType: 'gold',
+  },
+};
+
 export const OwnerDetails: Story = {
   args: {
     headerText: 'Owner Details',

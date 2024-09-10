@@ -16,6 +16,7 @@ const packages = {
   ],
   'apps/cli': [...commonFolders, 'release'],
   'packages/coin-support': [...commonFolders],
+  'packages/app-support-inheritance': [...commonFolders],
   'packages/coin-support-evm': [...commonFolders],
   'packages/coin-support-btc': [...commonFolders],
   'packages/coin-support-solana': [...commonFolders],

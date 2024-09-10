@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceEncryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
@@ -26,18 +26,22 @@ export const DeviceEncryption = () => {
 
   const strings = lang.strings.inheritanceSilverPlanPurchase.encryption.device;
 
-  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onNext,
+    encryptPinDeviceEvents,
+    encryptPinAbort,
+    encryptPinStart,
+    clearErrors,
+    retryIndex,
+    encryptPinIsCompleted,
+  } = useInheritanceSilverPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceEncryptMessageDeviceEvent,
+    completedEvent: InheritanceEncryptMessageDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (encryptPinDeviceEvents[completedEvent]) return checkIconComponent;
+    if (encryptPinDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -46,22 +50,41 @@ export const DeviceEncryption = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.actions.confirm,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          InheritanceEncryptMessageDeviceEvent.INIT,
+          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
+        ),
+      },
+      {
+        id: '2',
         text: strings.actions.tapCard,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
+          InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [encryptPinDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
+    clearErrors();
+    encryptPinStart();
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => {
+      encryptPinAbort();
+    };
+  }, [retryIndex, clearErrors]);
+
+  useEffect(() => {
+    if (encryptPinIsCompleted) {
+      onNext();
+    }
+  }, [encryptPinIsCompleted]);
 
   return (
     <Layout>

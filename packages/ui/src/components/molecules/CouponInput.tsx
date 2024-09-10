@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { DeleteIcon } from '../../assets';
-import { Button, Flex, Typography } from '../atoms';
+import { Button, Flex, Throbber, Typography } from '../atoms';
 import { width, WidthProps } from '../utils';
 
 const Container = styled.div<WidthProps>`
@@ -15,7 +15,7 @@ const Container = styled.div<WidthProps>`
   ${width}
 `;
 
-const InputField = styled.input<{ isInvalid: boolean }>`
+const InputField = styled.input<{ $isInvalid: boolean }>`
   display: flex;
   padding: 12px 16px;
   font-size: 14px;
@@ -38,14 +38,14 @@ const InputField = styled.input<{ isInvalid: boolean }>`
   }
   border-radius: 8px 0px 0px 8px;
 
-  border: 1px solid ${({ theme, isInvalid }) =>
-    isInvalid
+  border: 1px solid ${({ theme, $isInvalid }) =>
+    $isInvalid
       ? theme.palette.background.danger
       : theme.palette.border.separator};
   border-right: none;
 `;
 
-const ApplyButton = styled.button<{ isInvalid: boolean }>`
+const ApplyButton = styled.button<{ $isInvalid: boolean }>`
   border-radius: 0px 8px 8px 0px;
   height: 45px;
   color: ${({ theme }) => theme.palette.text.muted};
@@ -54,8 +54,8 @@ const ApplyButton = styled.button<{ isInvalid: boolean }>`
   cursor: pointer;
   border: none;
   border: 1px solid
-    ${({ theme, isInvalid }) =>
-      isInvalid ? theme.palette.background.danger : 'transparent'};
+    ${({ theme, $isInvalid }) =>
+      $isInvalid ? theme.palette.background.danger : 'transparent'};
   border-left: none;
 `;
 
@@ -69,6 +69,8 @@ export interface CouponInputProps extends WidthProps {
   appliedText: string;
   applyButtonText: string;
   placeholderText: string;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const CouponInput: React.FC<CouponInputProps> = ({
@@ -81,6 +83,8 @@ export const CouponInput: React.FC<CouponInputProps> = ({
   appliedText,
   placeholderText,
   applyButtonText,
+  disabled,
+  isLoading,
   ...restProps
 }) => (
   <Container {...restProps}>
@@ -91,11 +95,18 @@ export const CouponInput: React.FC<CouponInputProps> = ({
           value={value}
           type="text"
           name="coupon"
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          disabled={disabled || isLoading}
           onChange={event => onChange(event.target.value)}
-          isInvalid={isInvalid}
+          $isInvalid={isInvalid}
         />
-        <ApplyButton onClick={onApply} isInvalid={isInvalid}>
-          {applyButtonText}
+        <ApplyButton
+          onClick={onApply}
+          $isInvalid={isInvalid}
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          disabled={disabled || isLoading}
+        >
+          {isLoading ? <Throbber size={16} strokeWidth={2} /> : applyButtonText}
         </ApplyButton>
       </>
     ) : (
@@ -136,3 +147,8 @@ export const CouponInput: React.FC<CouponInputProps> = ({
     )}
   </Container>
 );
+
+CouponInput.defaultProps = {
+  disabled: false,
+  isLoading: false,
+};

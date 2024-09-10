@@ -8,10 +8,9 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { openInheritanceSilverPlanPurchaseDialog } from '~/actions';
-import { routes } from '~/constants';
-import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from './Layout';
@@ -19,7 +18,7 @@ import { InheritancePageLayout } from './Layout';
 export const InheritanceChoosePlan: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance.choosePlan;
-  const navigateTo = useNavigateTo();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const SilverPlanFeatures = strings.plans.features.map((cur, i) => ({
@@ -33,8 +32,8 @@ export const InheritanceChoosePlan: FC = () => {
   }));
 
   const onBack = useCallback(() => {
-    navigateTo(routes.inheritance.home.path);
-  }, [navigateTo]);
+    navigate(-1);
+  }, [navigate]);
 
   const openSilverPlanSetup = useCallback(() => {
     dispatch(openInheritanceSilverPlanPurchaseDialog());
