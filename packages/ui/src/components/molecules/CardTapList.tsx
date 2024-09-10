@@ -3,15 +3,19 @@ import { styled } from 'styled-components';
 
 import { Flex, Indicator, LangDisplay, Typography } from '../atoms';
 
+type VariantType = 'onboarding' | 'other';
+
 interface CardTapItemProps {
   text: string;
   currentState: number;
   totalState: number;
   currentFailed?: boolean;
+  variant?: VariantType;
 }
 
 interface CardTapListProps {
   items: CardTapItemProps[];
+  variant?: VariantType;
 }
 
 const getBgColor = (currentState: number, totalState: number) => {
@@ -64,6 +68,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
   currentState,
   totalState,
   currentFailed,
+  variant = 'onboarding',
 }) => {
   const indicators = Array(totalState)
     .fill(0)
@@ -76,17 +81,26 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
     ));
 
   return (
-    <BackgroundStyle $bgColor={getBgColor(currentState, totalState)}>
+    <BackgroundStyle
+      $bgColor={
+        variant === 'other'
+          ? 'inputSecondary'
+          : getBgColor(currentState, totalState)
+      }
+    >
       <MaskStyle>
         <Typography
           variant="h6"
-          color={getTextColor(currentState, totalState)}
-          $fontWeight="medium"
+          color={
+            variant === 'other'
+              ? 'muted'
+              : getTextColor(currentState, totalState)
+          }
+          $fontWeight={variant === 'other' ? 'normal' : 'medium'}
           grow={1}
         >
           <LangDisplay text={text} />
         </Typography>
-
         {indicators}
       </MaskStyle>
     </BackgroundStyle>
@@ -95,8 +109,13 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
 
 CardTapListItem.defaultProps = {
   currentFailed: false,
+  variant: 'onboarding',
 };
-export const CardTapList: React.FC<CardTapListProps> = ({ items }) => (
+
+export const CardTapList: React.FC<CardTapListProps> = ({
+  items,
+  variant = 'onboarding',
+}) => (
   <Flex direction="column" gap={8} width="full">
     {items.map(({ text, currentState, totalState, currentFailed }, i) => (
       <CardTapListItem
@@ -105,7 +124,12 @@ export const CardTapList: React.FC<CardTapListProps> = ({ items }) => (
         currentState={currentState}
         totalState={totalState}
         currentFailed={currentFailed}
+        variant={variant}
       />
     ))}
   </Flex>
 );
+
+CardTapList.defaultProps = {
+  variant: 'onboarding',
+};

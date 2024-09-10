@@ -1,6 +1,7 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   ErrorDialog,
@@ -13,7 +14,7 @@ import {
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -31,6 +32,8 @@ export const DecryptPin = () => {
 
   const { onNext } = useInheritancePinRecoveryDialog();
   const error = false;
+
+  const [cardTapState, setCardTapState] = useState(0);
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -54,18 +57,13 @@ export const DecryptPin = () => {
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
-      {
-        id: '2',
-        text: strings.decryptPin.actions.tapCard,
-        leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
-      },
     ];
 
     return actions;
   }, []);
 
   useEffect(() => {
+    setCardTapState(0);
     const timeout = setTimeout(() => {
       onNext();
     }, 2000);
@@ -114,6 +112,16 @@ export const DecryptPin = () => {
               id={data.id}
             />
           ))}
+          <CardTapList
+            items={[
+              {
+                text: strings.decryptPin.actions.tapCard,
+                currentState: cardTapState,
+                totalState: 2,
+              },
+            ]}
+            variant="other"
+          />
         </LeanBoxContainer>
         <MessageBox
           type="warning"
