@@ -62,6 +62,7 @@ export const Payment: FC<PaymentProps> = ({
         text={lang.heading}
         href={externalLink}
         $flex={1}
+        width="100%"
         type={applied ? 'disabled' : 'golden'}
         icon={
           <ShoppingCart

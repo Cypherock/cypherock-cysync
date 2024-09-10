@@ -36,6 +36,7 @@ import expireHoverWalletIcon from './expire-hover-wallet-icon.svg';
 import { FailIcon } from './FailIcon';
 import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
 import goldSendIcon from './gold-send.svg';
+import goldTick from './gold-tick.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
@@ -89,6 +90,7 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import confirmOnDevice from './confirm-on-device.png';
 
 export {
   WalletDefaultExpiredIcon,
@@ -181,5 +183,7 @@ export {
   questionMarkEllipseIcon,
   syncIcon,
   cypherockCoverIcon,
+  goldTick,
+  confirmOnDevice,
   silverTickIcon,
 };
