@@ -89,6 +89,8 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import unlockGoldPlan from './unlock-gold-plan.png';
+import unlockSilverPlan from './unlock-silver-plan.png';
 
 export {
   WalletDefaultExpiredIcon,
@@ -182,4 +184,6 @@ export {
   syncIcon,
   cypherockCoverIcon,
   silverTickIcon,
+  unlockGoldPlan,
+  unlockSilverPlan,
 };

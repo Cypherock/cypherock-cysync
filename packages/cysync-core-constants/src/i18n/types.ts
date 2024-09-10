@@ -1016,6 +1016,9 @@ interface LangInheritance {
   };
   buttons: {
     syncFromEmail: string;
+    recoverPin: string;
+    renewPlan: string;
+    unlock: string;
   };
   termsOfService: {
     title: string;

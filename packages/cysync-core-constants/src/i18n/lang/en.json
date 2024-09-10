@@ -1854,7 +1854,10 @@
       }
     },
     "buttons": {
-      "syncFromEmail": "Sync from Email"
+      "syncFromEmail": "Sync from Email",
+      "recoverPin": "Recover PIN",
+      "renewPlan": "Renew Plan",
+      "unlock": "Unlock"
     },
     "termsOfService": {
       "title": "Terms of Service",
