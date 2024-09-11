@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout } from '../Layout';
 import { selectLanguage, useAppSelector } from '~/store';
 import {
   Button,
-  CheckBox,
   Container,
+  Flex,
   InputLabel,
   LangDisplay,
   MessageBox,
+  QuestionMarkButton,
   TextAreaInput,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
@@ -18,8 +20,6 @@ export const EditMessage = () => {
   const strings =
     lang.strings.dialogs.inheritanceEditEncryptedMessage.editMessage;
   const { onClose, onNext } = useInheritanceEditEncryptedMessageDialog();
-
-  const [checked, setChecked] = useState(false);
 
   return (
     <Layout
@@ -50,7 +50,12 @@ export const EditMessage = () => {
       <Container direction="column" width="100%" $flex={1}>
         <Container direction="column" width="100%" $flex={1}>
           <InputLabel>
-            <LangDisplay text={strings.form.cardLocationField.label} />
+            <Flex gap={4} align="center">
+              <LangDisplay text={strings.form.cardLocationField.label} />
+              <Tooltip text={strings.form.cardLocationField.tooltip}>
+                <QuestionMarkButton />
+              </Tooltip>
+            </Flex>
           </InputLabel>
           <TextAreaInput
             placeholder={strings.form.cardLocationField.placeholder}
@@ -59,19 +64,18 @@ export const EditMessage = () => {
         </Container>
         <Container direction="column" width="100%" $flex={1}>
           <InputLabel>
-            <LangDisplay text={strings.form.personalMessageField.label} />
+            <Flex gap={4} align="center">
+              <LangDisplay text={strings.form.personalMessageField.label} />
+              <Tooltip text={strings.form.personalMessageField.tooltip}>
+                <QuestionMarkButton />
+              </Tooltip>
+            </Flex>
           </InputLabel>
           <TextAreaInput
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
           />
         </Container>
-
-        <CheckBox
-          checked={checked}
-          onChange={() => setChecked(p => !p)}
-          label={strings.form.checkbox.label}
-        />
       </Container>
       <MessageBox type="warning" text={strings.messageBox.warning} />
     </Layout>

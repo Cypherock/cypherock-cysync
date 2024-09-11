@@ -1724,13 +1724,14 @@
         "form": {
           "cardLocationField": {
             "label": "Card location & Passphrase",
-            "placeholder": "Enter your card's location"
+            "placeholder": "Enter your card's location",
+            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Enter your personal message here"
-          },
-          "checkbox": { "label": "I have read and copied the above messages" }
+            "placeholder": "Enter your personal message here",
+            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+          }
         },
         "messageBox": {
           "warning": "Make sure you describe the card's location clearly for the nominee"
@@ -1750,6 +1751,7 @@
       "encryption": {
         "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
         "subTitle": "Lift your card after 2 beep sounds",
+        "tooltip": "",
         "actions": {
           "enterPinAndTap": "Enter PIN and tap any one card"
         },

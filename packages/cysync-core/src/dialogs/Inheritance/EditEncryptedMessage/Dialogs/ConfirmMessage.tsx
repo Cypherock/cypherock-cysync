@@ -2,6 +2,7 @@ import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
   Check,
+  confirmOnDevice,
   Image,
   LeanBox,
   LeanBoxContainer,
@@ -9,7 +10,6 @@ import {
   MessageBox,
   Throbber,
   Typography,
-  verifyOnDevice,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -73,7 +73,7 @@ export const ConfirmMessage = () => {
 
   return (
     <Layout>
-      <Image src={verifyOnDevice} alt="verify on device" />
+      <Image src={confirmOnDevice} alt="confirm on device" />
       <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
         {strings.title}
       </Typography>

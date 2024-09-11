@@ -941,12 +941,13 @@ interface LangDialogs {
         cardLocationField: {
           label: string;
           placeholder: string;
+          tooltip: string;
         };
         personalMessageField: {
           label: string;
           placeholder: string;
+          tooltip: string;
         };
-        checkbox: { label: string };
       };
       messageBox: {
         warning: string;
@@ -966,6 +967,7 @@ interface LangDialogs {
     encryption: {
       title: string;
       subTitle: string;
+      tooltip: string;
       actions: {
         enterPinAndTap: string;
       };

@@ -3,12 +3,16 @@ import {
   ArrowRightIcon,
   Check,
   Container,
+  Flex,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
   MessageBox,
+  QuestionMarkButton,
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
+  Tooltip,
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
@@ -91,7 +95,12 @@ export const Encryption = () => {
           {strings.title}
         </Typography>
         <Typography $fontSize={16} $textAlign="center" color="muted">
-          {strings.subTitle}
+          <Flex gap={4} align="center">
+            <LangDisplay text={strings.subTitle} />
+            <Tooltip text={strings.tooltip}>
+              <QuestionMarkButton />
+            </Tooltip>
+          </Flex>
         </Typography>
       </Container>
       <LeanBoxContainer>

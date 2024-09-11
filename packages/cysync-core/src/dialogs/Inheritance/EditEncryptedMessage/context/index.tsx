@@ -46,7 +46,14 @@ export const InheritanceEditEncryptedMessageDialogProvider: FC<
 > = ({ children }) => {
   const dispatch = useAppDispatch();
 
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        1: [0],
+      }),
+      [],
+    );
+
   const tabs: ITabs = [
     { name: 'Confirmation', dialogs: [<Confirmation key="Confirmation" />] },
     { name: 'Fetch Data', dialogs: [<FetchData key="Fetch Data" />] },
