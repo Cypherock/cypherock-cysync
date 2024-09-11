@@ -1,12 +1,12 @@
-import { InheritanceEncryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
+import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
   Container,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
-  MessageBox,
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
@@ -14,6 +14,7 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { WalletAuthLoginStep } from '../../../hooks';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
@@ -21,27 +22,28 @@ const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
 
-export const DeviceEncryption = () => {
+export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase.encryption.device;
+  const strings = lang.strings.inheritanceGoldPlanPurchase;
 
   const {
     onNext,
-    encryptPinDeviceEvents,
-    encryptPinAbort,
-    encryptPinStart,
-    clearErrors,
+    selectedWallet,
+    walletAuthDeviceEvents,
+    walletAuthStep,
+    walletAuthStart,
+    walletAuthAbort,
     retryIndex,
-    encryptPinIsCompleted,
+    clearErrors,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: InheritanceEncryptMessageDeviceEvent,
-    completedEvent: InheritanceEncryptMessageDeviceEvent,
+    loadingEvent: InheritanceWalletAuthDeviceEvent,
+    completedEvent: InheritanceWalletAuthDeviceEvent,
   ) => {
-    if (encryptPinDeviceEvents[completedEvent]) return checkIconComponent;
-    if (encryptPinDeviceEvents[loadingEvent]) return throbberComponent;
+    if (walletAuthDeviceEvents[completedEvent]) return checkIconComponent;
+    if (walletAuthDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -50,49 +52,40 @@ export const DeviceEncryption = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.actions.confirmOnDevice,
+        text: strings.wallet.walletAuth.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
-          InheritanceEncryptMessageDeviceEvent.INIT,
-          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
-        ),
-      },
-      {
-        id: '2',
-        text: strings.actions.tapCard,
-        leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(
-          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
-          InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
+          InheritanceWalletAuthDeviceEvent.INIT,
+          InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
         ),
       },
     ];
 
     return actions;
-  }, [encryptPinDeviceEvents]);
+  }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
     clearErrors();
-    encryptPinStart();
+    walletAuthStart();
 
     return () => {
-      encryptPinAbort();
+      walletAuthAbort();
     };
   }, [retryIndex, clearErrors]);
 
   useEffect(() => {
-    if (encryptPinIsCompleted) {
+    if (walletAuthStep > WalletAuthLoginStep.walletAuth) {
       onNext();
     }
-  }, [encryptPinIsCompleted]);
+  }, [walletAuthStep]);
 
   return (
     <Layout>
-      <Container direction="column" $width="full">
+      <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.title}
+          {strings.wallet.walletAuth.title}
         </Typography>
-        <LeanBoxContainer mb={6}>
+        <LeanBoxContainer mb={4}>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}
@@ -105,7 +98,12 @@ export const DeviceEncryption = () => {
             />
           ))}
         </LeanBoxContainer>
-        <MessageBox text={strings.messageBox.warning} type="warning" showIcon />
+        <Typography $fontSize={16} $textAlign="center" color="muted" mt={2}>
+          <LangDisplay text={strings.wallet.walletAuth.subTitle} />
+          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
+            {selectedWallet?.name}
+          </Typography>
+        </Typography>
       </Container>
     </Layout>
   );

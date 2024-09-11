@@ -1,3 +1,4 @@
+import { insertInheritancePlan } from '@cypherock/cysync-core-services';
 import { sleep } from '@cypherock/cysync-utils';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, {
@@ -10,41 +11,24 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-
-import { ITabs, useTabsAndDialogs } from '~/hooks';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { routes } from '~/constants';
 
 import {
-  DeviceEncryption,
-  EncryptionLoader,
-  EncryptionSuccess,
-  Ensure,
-  Instructions,
-  SelectWallet,
-  Terms,
-  UserDetails,
-  VerifyOTP,
-  WalletAuth,
-  Nominee,
-  NomineeDetails,
-  VerifyNomineeOtp,
-  ConfirmNomineeVerification,
-  ExecutorDetails,
-  SelectExecutor,
-  ExecutorMessageTutorial,
-  ExecutorMessage,
-  ExecutorReminderSetup,
-  Checkout,
-  NomineePrivateMessageInput,
-  ConfirmOnDevice,
-  Greeting,
-  Summary,
-} from '../Dialogs';
+  useAsync,
+  useMemoReturn,
+  useNavigateTo,
+  useStateWithRef,
+} from '~/hooks';
+import { inheritancePlanService } from '~/services';
+import { useAppSelector } from '~/store';
+import { getDB } from '~/utils';
+import {
+  useEncryptMessage,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
+import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
+import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -54,32 +38,6 @@ export interface IUserDetails {
   name: string;
   email: string;
   alternateEmail: string;
-}
-
-export interface InheritanceGoldPlanPurchaseDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  onClose: () => void;
-  allWallets: IWalletWithDeleted[];
-  selectedWallet?: IWalletWithDeleted;
-  setSelectedWallet: (wallet: IWalletWithDeleted) => void;
-  onUserDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingUserDetails: boolean;
-  userDetails?: IUserDetails;
-  onNomineeDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingNomineeDetails: boolean;
-  nomineeDetails?: IUserDetails;
-  unhandledError?: any;
-  onRetry: () => void;
-  nomineeCount: number;
-  setNomineeCount: (nomineeCount: number) => void;
-  isSubmittingExecutorDetails: boolean;
-  onExecutorDetailsSubmit: (params: IUserDetails) => void;
 }
 
 export const InheritanceGoldPlanPurchaseDialogContext: Context<InheritanceGoldPlanPurchaseDialogContextInterface> =
@@ -94,102 +52,16 @@ export interface InheritanceGoldPlanPurchaseDialogContextProviderProps {
 export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   InheritanceGoldPlanPurchaseDialogContextProviderProps
 > = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
-
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
-    useMemo(
-      () => ({
-        3: [0],
-      }),
-      [],
-    );
-
-  const tabs: ITabs = useMemo(
-    () => [
-      {
-        name: lang.strings.inheritance.termsOfService.title,
-        dialogs: [<Terms key="Terms" />, <Ensure key="Ensure" />],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.instructions.heading,
-        dialogs: [<Instructions key="Instructions" />],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.wallet.heading,
-        dialogs: [
-          <SelectWallet key="Select Wallet" />,
-          <WalletAuth key="Wallet Auth" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.email.heading,
-        dialogs: [
-          <UserDetails key="User Details" />,
-          <VerifyOTP key="Verify OTP" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor
-          .heading,
-        dialogs: [
-          <Nominee key="Nominee" />,
-          <NomineeDetails key="Nominee Details" />,
-          <ConfirmNomineeVerification key="Confirm Nominee Verification" />,
-          <VerifyNomineeOtp key="Verify Nominee Otp" />,
-          <SelectExecutor key="Confirm Executor" />,
-          <ExecutorDetails key="Executor Details" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.message.heading,
-        dialogs: [
-          <ExecutorMessageTutorial key="Message Tutorial" />,
-          <NomineePrivateMessageInput key="Executor Private Message" />,
-          <ExecutorMessage key="Executor Message" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.reminder.heading,
-        dialogs: [<ExecutorReminderSetup key="Reminder Setup" />],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.summary.heading,
-        dialogs: [<Summary key="Summary" />],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.encryption.heading,
-        dialogs: [
-          <ConfirmOnDevice key="Confirm On Device" />,
-          <DeviceEncryption key="Device Encryption" />,
-          <EncryptionLoader key="Encryption Loader" />,
-          <EncryptionSuccess key="Encryption Success" />,
-        ],
-      },
-      {
-        name: lang.strings.inheritanceGoldPlanPurchase.checkout.heading,
-        dialogs: [<Checkout key="Checkout" />, <Greeting key="Greeting" />],
-      },
-    ],
-    [],
-  );
-
   const {
+    onClose,
     onNext,
     onPrevious,
     goTo,
     currentTab,
     currentDialog,
     isDeviceRequired,
-  } = useTabsAndDialogs({
-    deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'inheritanceGoldPlanPurchase',
-  });
-
-  const onClose = () => {
-    dispatch(closeDialog('inheritanceGoldPlanPurchase'));
-  };
+  } = useGoldPlanDialogHanlders();
 
   const wallets = useAppSelector(state => state.wallet.wallets);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
@@ -220,6 +92,16 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const [unhandledError, setUnhandledError] = useState<any>();
   const [nomineeCount, setNomineeCount] = useState(1);
 
+  const navigateTo = useNavigateTo();
+
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  const [retryIndex, setRetryIndex] = useState(0);
+  const [coupon, setCoupon, couponRef] = useStateWithRef('');
+  const [applyingCouponError, setApplyingCouponError] = useState<
+    { heading: string; subtext: string } | undefined
+  >();
+  const [couponDuration, setCouponDuration] = useState(0);
+
   const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
     setIsSubmittingUserDetails(true);
     setUserDetails(params);
@@ -243,68 +125,350 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setIsSubmittingExecutorDetails(false);
   }, []);
 
-  const onRetry = useCallback(() => {
-    setUserDetails(undefined);
-    setSelectedWallet(undefined);
-    setUnhandledError(undefined);
-    setIsSubmittingUserDetails(false);
-    goTo(0, 0);
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
   }, []);
 
-  const ctx = useMemo(
+  const clearErrors = useCallback(() => {
+    setUnhandledError(undefined);
+  }, []);
+
+  const walletAuthService = useWalletAuth(onError);
+  const encryptMessageService = useEncryptMessage(onError);
+
+  const onRetryFuncMap = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
     () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
-      unhandledError,
-      onRetry,
-      onNomineeDetailsSubmit,
-      isSubmittingNomineeDetails,
-      onExecutorDetailsSubmit,
-      isSubmittingExecutorDetails,
-      executorDetails,
-      nomineeDetails,
-      nomineeCount,
-      setNomineeCount,
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
+        [tabIndicies.wallet.dialogs.walletAuth]: () => true,
+        [tabIndicies.wallet.dialogs.validateSignature]: () => true,
+      },
+      [tabIndicies.encryption.tabNumber]: {
+        [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
+        [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
+      },
     }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userDetails,
-      unhandledError,
-      onRetry,
-      onNomineeDetailsSubmit,
-      isSubmittingNomineeDetails,
-      onExecutorDetailsSubmit,
-      isSubmittingExecutorDetails,
-      executorDetails,
-      nomineeDetails,
-      nomineeCount,
-      setNomineeCount,
-    ],
+    [],
   );
+
+  const onRetry = useCallback(() => {
+    const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
+
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      retryLogic();
+    } else {
+      resetAll();
+      goTo(0, 0);
+    }
+
+    setUnhandledError(undefined);
+  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
+
+  const walletAuthFetchRequestId = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    walletAuthService.fetchRequestId(selectedWallet.__id);
+  }, [selectedWallet, walletAuthService.fetchRequestId]);
+
+  const encryptPinStart = useCallback(() => {
+    if (!selectedWallet?.__id) {
+      return;
+    }
+
+    // TODO: Remove hard coded message when empty encryption is implemented on device
+    encryptMessageService.start(selectedWallet.__id, ['Delete me!']);
+  }, [selectedWallet, encryptMessageService.start]);
+
+  const setupPlanHandler = useCallback(async () => {
+    if (
+      !encryptMessageService.encryptedMessages ||
+      !walletAuthService.authTokens ||
+      !selectedWallet
+    )
+      return false;
+
+    const result = await inheritancePlanService.create({
+      encryptedData: encryptMessageService.encryptedMessages,
+      accessToken: walletAuthService.authTokens.accessToken,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const db = getDB();
+    await insertInheritancePlan(db, {
+      walletId: selectedWallet.__id ?? '',
+      isNominee: false,
+      type: 'gold',
+      walletName: selectedWallet.name,
+    });
+
+    return true;
+  }, [
+    encryptMessageService.encryptedMessages,
+    walletAuthService.authTokens,
+    selectedWallet,
+  ]);
+
+  const [setupPlan, isSettingUpPlan, isSetupPlanCompleted, resetSetupPlan] =
+    useAsync(setupPlanHandler, onError);
+
+  const applyCouponHandler = useCallback(
+    async (_coupon: string) => {
+      setApplyingCouponError(undefined);
+
+      if (!walletAuthService.authTokens) return false;
+
+      /*
+       * TODO: Uncomment when implemented on server
+        const result = await inheritancePlanService.applyCoupon({
+          coupon: _coupon,
+          accessToken: walletAuthService.authTokens.accessToken,
+        });
+
+        if (result.error) {
+          throw result.error;
+        }
+     */
+
+      await sleep(2000);
+      setCoupon(_coupon);
+      setCouponDuration(2);
+
+      return true;
+    },
+    [walletAuthService.authTokens, onNext],
+  );
+
+  const [applyCoupon, isApplyingCoupon, isCouponApplied, resetApplyCoupon] =
+    useAsync(applyCouponHandler, onError);
+
+  const activateCouponHandler = useCallback(async () => {
+    if (!walletAuthService.authTokens || !couponRef.current || !selectedWallet)
+      return false;
+
+    const result = await inheritancePlanService.activate({
+      coupon: couponRef.current,
+      accessToken: walletAuthService.authTokens.accessToken,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const db = getDB();
+    await insertInheritancePlan(db, {
+      walletId: selectedWallet.__id ?? '',
+      isNominee: false,
+      type: 'gold',
+      walletName: selectedWallet.name,
+      purchasedAt: Date.now(),
+      expireAt: Date.now() + 1000 * 60 * 60 * 24 * 365 * couponDuration,
+    });
+
+    return true;
+  }, [walletAuthService.authTokens, selectedWallet, couponDuration]);
+
+  const [
+    activateCoupon,
+    isActivatingCoupon,
+    isCouponActivated,
+    resetActivateCoupon,
+  ] = useAsync(activateCouponHandler, onError);
+
+  const removeCoupon = useCallback(() => {
+    setCoupon('');
+    resetApplyCoupon();
+    resetActivateCoupon();
+  }, []);
+
+  const resetAll = useCallback(() => {
+    resetSetupPlan();
+    resetApplyCoupon();
+    resetActivateCoupon();
+    setApplyingCouponError(undefined);
+    setCoupon('');
+    setCouponDuration(0);
+    setSelectedWallet(undefined);
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+
+  const registerUser = useCallback(
+    async (params: IUserDetails) => {
+      const isSuccess = await walletAuthService.registerUser(params);
+
+      if (isSuccess) {
+        goTo(tabIndicies.owner.tabNumber, tabIndicies.owner.dialogs.verifyOtp);
+      }
+    },
+    [walletAuthService.registerUser],
+  );
+
+  const onNextActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.fetchRequestId]: () => {
+          if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
+            goTo(
+              tabIndicies.encryption.tabNumber,
+              tabIndicies.encryption.dialogs.deviceEncryption,
+            );
+            return true;
+          }
+
+          return false;
+        },
+        [tabIndicies.wallet.dialogs.validateSignature]: () => {
+          if (!walletAuthService.isRegisterationRequired) {
+            goTo(
+              tabIndicies.owner.tabNumber,
+              tabIndicies.owner.dialogs.verifyOtp,
+            );
+            return true;
+          }
+
+          return false;
+        },
+      },
+    }),
+    [walletAuthService.isRegisterationRequired, walletAuthService.currentStep],
+  );
+
+  const fallbackToWalletSelect = useCallback(() => {
+    resetSetupPlan();
+    resetApplyCoupon();
+    resetActivateCoupon();
+    setRetryIndex(v => v + 1);
+    walletAuthService.reset();
+    encryptMessageService.reset();
+    goTo(tabIndicies.wallet.tabNumber, tabIndicies.wallet.dialogs.selectWallet);
+  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+
+  const onNextCallback = useCallback(() => {
+    const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doNext = true;
+
+    if (action) {
+      doNext = !action();
+    }
+
+    if (doNext) {
+      onNext();
+    }
+  }, [onNext, currentTab, currentDialog]);
+
+  const onPreviousActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.owner.tabNumber]: {
+        [tabIndicies.owner.dialogs.userDetails]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+        [tabIndicies.owner.dialogs.verifyOtp]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+      },
+    }),
+    [fallbackToWalletSelect],
+  );
+
+  const onPreviousCallback = useCallback(() => {
+    const action = onPreviousActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doPrevious = true;
+
+    if (action) {
+      doPrevious = !action();
+    }
+
+    if (doPrevious) {
+      onPrevious();
+    }
+  }, [onPrevious, currentTab, currentDialog]);
+
+  const onCloseCallback = useCallback(() => {
+    if (isSetupPlanCompleted || isCouponActivated) {
+      navigateTo(routes.inheritance.home.path);
+    }
+
+    onClose();
+  }, [isSetupPlanCompleted, isCouponActivated, onClose]);
+
+  const ctx = useMemoReturn({
+    onNext: onNextCallback,
+    onPrevious: onPreviousCallback,
+    onClose: onCloseCallback,
+    tabs,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    allWallets,
+    selectedWallet,
+    setSelectedWallet,
+    registerUser,
+    unhandledError,
+    onRetry,
+    retryIndex,
+    clearErrors,
+    walletAuthDeviceEvents: walletAuthService.deviceEvents,
+    walletAuthFetchRequestId,
+    walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
+    walletAuthStart: walletAuthService.startWalletAuth,
+    walletAuthValidateSignature: walletAuthService.validateSignature,
+    walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
+    walletAuthStep: walletAuthService.currentStep,
+    walletAuthAbort: walletAuthService.abortWalletAuth,
+    onRegister: walletAuthService.registerUser,
+    isRegisteringUser: walletAuthService.isRegisteringUser,
+    otpVerificationDetails: walletAuthService.otpVerificationDetails,
+    verifyOtp: walletAuthService.verifyOtp,
+    isVerifyingOtp: walletAuthService.isVerifyingOtp,
+    encryptPinStart,
+    encryptPinAbort: encryptMessageService.abort,
+    encryptPinDeviceEvents: encryptMessageService.deviceEvents,
+    encryptPinIsCompleted: encryptMessageService.isEncrypted,
+    setupPlan,
+    isSettingUpPlan,
+    isSetupPlanCompleted,
+    isTermsAccepted,
+    setIsTermsAccepted,
+    coupon,
+    applyCoupon,
+    isApplyingCoupon,
+    isCouponApplied,
+    activateCoupon,
+    isActivatingCoupon,
+    isCouponActivated,
+    removeCoupon,
+    applyingCouponError,
+    couponDuration,
+    onUserDetailsSubmit,
+    isSubmittingUserDetails,
+    userDetails,
+    onNomineeDetailsSubmit,
+    isSubmittingNomineeDetails,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
+    executorDetails,
+    nomineeDetails,
+    nomineeCount,
+    setNomineeCount,
+  });
 
   return (
     <InheritanceGoldPlanPurchaseDialogContext.Provider value={ctx}>
