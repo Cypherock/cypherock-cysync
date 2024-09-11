@@ -1859,9 +1859,8 @@
         "expiringOn": "Expiring on",
         "reminderPeriodField": {
           "label": "Reminder Period",
-          "input": "Every ${month}",
-          "month": "month",
-          "months": "months"
+          "input": "Every ${month} month",
+          "inputPlural": "Every ${month} months"
         }
       },
       "ownerDetails": {
@@ -2193,9 +2192,8 @@
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
             "label": "Reminder Perioc",
-            "input": "Every ${month} ",
-            "month": "month",
-            "months": "months"
+            "input": "Every ${month} month",
+            "inputPlural": "Every ${month} months"
           }
         }
       },

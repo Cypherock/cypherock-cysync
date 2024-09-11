@@ -1027,8 +1027,7 @@ interface LangInheritance {
       reminderPeriodField: {
         label: string;
         input: string;
-        month: string;
-        months: string;
+        inputPlural: string;
       };
     };
     ownerDetails: {
@@ -1350,8 +1349,7 @@ interface LangInheritanceGoldPlanPurchase {
         reminderPeriodField: {
           label: string;
           input: string;
-          month: string;
-          months: string;
+          inputPlural: string;
         };
       };
     };

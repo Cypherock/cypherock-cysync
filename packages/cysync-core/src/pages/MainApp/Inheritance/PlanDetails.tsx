@@ -28,11 +28,11 @@ export const InheritancePlanDetails: FC = () => {
   const getReminderPeriodInputText = (reminderPeriod: number) => {
     const reminderPeriodInput =
       strings.planDetails.walletDetails.reminderPeriodField;
-    return (
-      parseLangTemplate(reminderPeriodInput.input, { month: reminderPeriod }) +
-      (reminderPeriod === 1
-        ? reminderPeriodInput.month
-        : reminderPeriodInput.months)
+    return parseLangTemplate(
+      reminderPeriod === 1
+        ? reminderPeriodInput.input
+        : reminderPeriodInput.inputPlural,
+      { month: reminderPeriod },
     );
   };
 

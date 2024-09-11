@@ -28,11 +28,11 @@ export const Summary = () => {
 
   const getReminderPeriodInputText = (reminderPeriod: number) => {
     const reminderPeriodInput = strings.ownerDetails.form.reminderPeriodField;
-    return (
-      parseLangTemplate(reminderPeriodInput.input, { month: reminderPeriod }) +
-      (reminderPeriod === 1
-        ? reminderPeriodInput.month
-        : reminderPeriodInput.months)
+    return parseLangTemplate(
+      reminderPeriod === 1
+        ? reminderPeriodInput.input
+        : reminderPeriodInput.inputPlural,
+      { month: reminderPeriod },
     );
   };
 
