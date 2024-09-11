@@ -1625,6 +1625,7 @@
         "wallet": {
           "title": "Follow instructions on the X1 Vault",
           "actions": {
+            "confirm": "Confirm decryption on device",
             "tapCard": "Tap any card"
           },
           "messageBox": {
@@ -1641,13 +1642,14 @@
         "subTitle": "The nominee messages will be end-to-end encrypted",
         "form": {
           "cardLocationField": {
-            "label": "Card location",
+            "label": "Card location & Passphrase",
             "placeholder": "Enter your card's location"
           },
           "personalMessageField": {
             "label": "Personal message",
             "placeholder": "Enter your personal message here"
-          }
+          },
+          "checkbox": { "label": "I have read and copied the above messages" }
         },
         "messageBox": {
           "warning": "Make sure you describe the card's location clearly for the nominee"

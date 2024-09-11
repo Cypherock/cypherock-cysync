@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout } from '../Layout';
 import { selectLanguage, useAppSelector } from '~/store';
 import {
   Button,
+  CheckBox,
   Container,
   InputLabel,
   LangDisplay,
@@ -17,6 +18,8 @@ export const EditMessage = () => {
   const strings =
     lang.strings.dialogs.inheritanceEditEncryptedMessage.editMessage;
   const { onClose, onNext } = useInheritanceEditEncryptedMessageDialog();
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <Layout
@@ -63,6 +66,12 @@ export const EditMessage = () => {
             height={120}
           />
         </Container>
+
+        <CheckBox
+          checked={checked}
+          onChange={() => setChecked(p => !p)}
+          label={strings.form.checkbox.label}
+        />
       </Container>
       <MessageBox type="warning" text={strings.messageBox.warning} />
     </Layout>

@@ -901,6 +901,7 @@ interface LangDialogs {
       wallet: {
         title: string;
         actions: {
+          confirm: string;
           tapCard: string;
         };
         messageBox: {
@@ -924,6 +925,7 @@ interface LangDialogs {
           label: string;
           placeholder: string;
         };
+        checkbox: { label: string };
       };
       messageBox: {
         warning: string;
