@@ -2,7 +2,6 @@ import React, { FC, useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
-import { DefaultTheme } from 'styled-components/dist/types';
 
 import {
   SetupCoverPlusImage,
@@ -33,7 +32,6 @@ import {
   getPathColor,
   getTimerHeadText,
   getTypeText,
-  updateHoverOnly,
   updateProgressAndHover,
 } from './utils';
 
@@ -47,7 +45,7 @@ export interface DashboardWalletProps extends WidthProps {
   type: 'silver' | 'gold';
   isExpiring: boolean;
   isExpired: boolean;
-  paymentPending: boolean;
+  isPaymentPending: boolean;
   name: string;
   lang: {
     dashboard: {
@@ -68,9 +66,9 @@ export interface DashboardWalletProps extends WidthProps {
       };
     };
   };
-  startDate: string;
-  expiryDate: string;
-  status: 'Active' | 'Inactive' | 'Pending';
+  startDate: number;
+  expiryDate: number;
+  onClick?: () => void;
 }
 
 export const DashboardWallet: FC<DashboardWalletProps> = ({
@@ -78,21 +76,21 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   type,
   isExpiring,
   isExpired,
-  paymentPending,
+  isPaymentPending,
   name,
   lang,
   startDate,
   expiryDate,
-  status,
+  onClick,
   ...restProps
 }) => {
   const [isHover, setIsHover] = useState(false);
   const [progress, setProgress] = useState({ value: 0, rotation: 0 });
-  const theme = useTheme() as DefaultTheme;
+  const theme = useTheme();
   const hoverText = calculateHoverText(
     isExpiring,
     isExpired,
-    paymentPending,
+    isPaymentPending,
     name,
     lang,
   );
@@ -100,41 +98,30 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
   const [hoverProgress, setHoverProgress] = useState({ value: 0, rotation: 0 });
 
   useEffect(() => {
-    updateProgressAndHover(
+    updateProgressAndHover({
       startDate,
       expiryDate,
-      status,
       isExpired,
-      paymentPending,
+      isPaymentPending,
       setProgress,
       setHoverProgress,
-    );
-  }, [startDate, expiryDate, status, isExpired, paymentPending]);
-
-  useEffect(() => {
-    updateHoverOnly(
-      startDate,
-      expiryDate,
-      status,
-      setProgress,
-      setHoverProgress,
-    );
-  }, [startDate, expiryDate, status]);
+    });
+  }, [startDate, expiryDate, isExpired, isPaymentPending]);
 
   return (
     <Container
-      isHover={isHover}
-      backgroundImage={getBackgroundImage(
+      $isHover={isHover}
+      $backgroundImage={getBackgroundImage(
         isHover,
         isExpired,
         type,
         isExpiring,
-        paymentPending,
+        isPaymentPending,
       )}
-      isNone={isNone}
+      $isNone={isNone}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      onClick={() => setIsHover(true)}
+      onClick={onClick}
       role="button"
       tabIndex={0}
       onKeyDown={e => {
@@ -144,23 +131,23 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
     >
       {isNone && (
         <SetupCoverContainer>
-          <SetupCoverPlusImage isHover={isHover} />
-          <SetupCoverText isHover={isHover}>
+          <SetupCoverPlusImage $isHover={isHover} />
+          <SetupCoverText $isHover={isHover}>
             {lang.dashboard.wallet.setupCover}
           </SetupCoverText>
         </SetupCoverContainer>
       )}
       {!isNone && (
         <>
-          <Flex isHover={isHover}>
-            <Type type={type} isHover={isHover}>
+          <Flex $isHover={isHover}>
+            <Type type={type} $isHover={isHover}>
               {getTypeText(type, lang)}
             </Type>
-            <Expiring isHover={isHover} disableTransform={isExpired}>
+            <Expiring $isHover={isHover} $disableTransform={isExpired}>
               {getExpiringText(isExpiring, isExpired, lang)}
             </Expiring>
           </Flex>
-          <TimerContainer isHover={isHover}>
+          <TimerContainer $isHover={isHover}>
             <ProgressbarWrapper>
               <CircularProgressbar
                 value={isHover ? hoverProgress.value : progress.value}
@@ -170,7 +157,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     isHover,
                     isExpired,
                     isExpiring,
-                    paymentPending,
+                    isPaymentPending,
                     theme,
                     type,
                   ),
@@ -179,50 +166,60 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                     ? hoverProgress.rotation
                     : progress.rotation,
                   pathTransition:
-                    isExpired || paymentPending
+                    isExpired || isPaymentPending
                       ? 'none'
                       : 'all 0.4s ease-in-out 0s',
                 })}
               />
             </ProgressbarWrapper>
-            <TimerText isHover={isHover}>
+            <TimerText $isHover={isHover}>
               <TransitionTextWrapper>
-                <TransitionText isHover={isHover}>
+                <TransitionText $isHover={isHover}>
                   <TimerHead
-                    isHover={isHover}
-                    isExpired={isExpired}
-                    paymentPending={paymentPending}
+                    $isHover={isHover}
+                    $isExpired={isExpired}
+                    $isPaymentPending={isPaymentPending}
                   >
-                    {getTimerHeadText(isHover, isExpired, paymentPending, lang)}
+                    {getTimerHeadText(
+                      isHover,
+                      isExpired,
+                      isPaymentPending,
+                      lang,
+                    )}
                   </TimerHead>
                 </TransitionText>
-                <TransitionText isHover={!isHover}>
+                <TransitionText $isHover={!isHover}>
                   <TimerHead
-                    isHover={isHover}
-                    isExpired={isExpired}
-                    paymentPending={paymentPending}
+                    $isHover={isHover}
+                    $isExpired={isExpired}
+                    $isPaymentPending={isPaymentPending}
                   >
-                    {getTimerHeadText(isHover, isExpired, paymentPending, lang)}
+                    {getTimerHeadText(
+                      isHover,
+                      isExpired,
+                      isPaymentPending,
+                      lang,
+                    )}
                   </TimerHead>
                 </TransitionText>
               </TransitionTextWrapper>
               <TransitionTextWrapper>
-                <TransitionTextSubtitle isHover={isHover}>
+                <TransitionTextSubtitle $isHover={isHover}>
                   <TimerSubtitle
-                    isHover={isHover}
-                    isExpiring={isExpiring}
-                    isExpired={isExpired}
-                    paymentPending={paymentPending}
+                    $isHover={isHover}
+                    $isExpiring={isExpiring}
+                    $isExpired={isExpired}
+                    $isPaymentPending={isPaymentPending}
                   >
                     {format(new Date(startDate), 'dd MMM yyyy')}
                   </TimerSubtitle>
                 </TransitionTextSubtitle>
-                <TransitionTextSubtitle isHover={!isHover}>
+                <TransitionTextSubtitle $isHover={!isHover}>
                   <TimerSubtitle
-                    isHover={isHover}
-                    isExpiring={isExpiring}
-                    isExpired={isExpired}
-                    paymentPending={paymentPending}
+                    $isHover={isHover}
+                    $isExpiring={isExpiring}
+                    $isExpired={isExpired}
+                    $isPaymentPending={isPaymentPending}
                   >
                     {format(new Date(expiryDate), 'dd MMM yyyy')}
                   </TimerSubtitle>
@@ -231,25 +228,25 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
             </TimerText>
           </TimerContainer>
           {isExpired && <StyledExpiredPlanIcon />}
-          {paymentPending && (
+          {isPaymentPending && (
             <StyledExpiredClockIcon fill={theme.palette.info.main} />
           )}
           <WalletNameContainer
-            isHover={isHover}
-            isExpiring={isExpiring}
-            isExpired={isExpired}
-            paymentPending={paymentPending}
+            $isHover={isHover}
+            $isExpiring={isExpiring}
+            $isExpired={isExpired}
+            $isPaymentPending={isPaymentPending}
           >
             {disableAnimation && name}
             <WalletNameText
-              isHover={!isHover}
-              disableAnimation={disableAnimation}
+              $isHover={!isHover}
+              $disableAnimation={disableAnimation}
             >
               {name}
             </WalletNameText>
             <WalletNameHoverText
-              isHover={isHover}
-              disableAnimation={disableAnimation}
+              $isHover={isHover}
+              $disableAnimation={disableAnimation}
             >
               {hoverText}
             </WalletNameHoverText>
@@ -258,4 +255,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
       )}
     </Container>
   );
+};
+
+DashboardWallet.defaultProps = {
+  onClick: undefined,
 };

@@ -13,17 +13,20 @@ import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
 
 export const EncryptionLoader: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext, setupPlan, isSetupPlanCompleted, retryIndex } =
+    useInheritanceSilverPlanPurchaseDialog();
 
   const strings = lang.strings.inheritanceSilverPlanPurchase.encryption.loading;
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
+    setupPlan();
+  }, [retryIndex]);
 
-    return () => clearTimeout(timeout);
-  }, []);
+  useEffect(() => {
+    if (isSetupPlanCompleted) {
+      onNext();
+    }
+  }, [isSetupPlanCompleted]);
 
   return (
     <DialogBox width={500} height={300} gap={32}>

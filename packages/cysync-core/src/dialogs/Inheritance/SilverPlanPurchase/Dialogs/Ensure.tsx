@@ -34,7 +34,7 @@ export const Ensure = () => {
       }
     >
       <Typography variant="h5" color="heading" $textAlign="center">
-        <LangDisplay text={strings.ensure.title} />
+        <LangDisplay text={strings.instructions.ensure.title} />
       </Typography>
       <Container $bgColor="list" direction="column" $width="full">
         <ListContainer
@@ -45,7 +45,7 @@ export const Ensure = () => {
           width="full"
           gap={16}
         >
-          {strings.ensure.instructions.map((listItem, index) => (
+          {strings.instructions.ensure.instructions.map((listItem, index) => (
             <ListItem key={`list-item-${index + 1}`} width="full">
               <Typography
                 variant="h6"

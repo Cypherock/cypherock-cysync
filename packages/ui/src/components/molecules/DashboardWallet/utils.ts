@@ -1,5 +1,3 @@
-import { DefaultTheme } from 'styled-components/dist/types';
-
 import {
   WalletHoverExpiredIcon,
   WalletHoverSilverBgIcon,
@@ -9,51 +7,7 @@ import {
   WalletDefaultPendingIcon,
   dashWalletDefaultBgIcon,
 } from '../../../assets';
-
-export const calculateProgress = (
-  startDate: string,
-  expiryDate: string,
-  status: 'Active' | 'Inactive' | 'Pending',
-) => {
-  const start = new Date(startDate);
-  const expiry = new Date(expiryDate);
-  const now = new Date();
-
-  const totalDuration = expiry.getTime() - start.getTime();
-  const elapsedDuration = now.getTime() - start.getTime();
-
-  let value = (elapsedDuration / totalDuration) * 100;
-  let rotation = 1 - elapsedDuration / totalDuration;
-
-  if (status === 'Pending') {
-    value = 0;
-    rotation = 0;
-  }
-
-  return {
-    value: value > 100 ? 100 : value,
-    rotation: rotation > 1 ? 1 : rotation,
-  };
-};
-
-export const getCurrentTime = () => {
-  const date = new Date();
-  return date.toLocaleTimeString([], {
-    hourCycle: 'h23',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
-
-export const getCurrentFullTime = () => {
-  const date = new Date();
-  return date.toLocaleTimeString([], {
-    hourCycle: 'h23',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  });
-};
+import { ThemeType } from '../../../themes';
 
 export const getBackgroundImage = (
   isHover: boolean,
@@ -95,7 +49,7 @@ export const getPathColor = (
   isExpiring: boolean,
   isExpired: boolean,
   paymentPending: boolean,
-  theme: DefaultTheme,
+  theme: ThemeType,
   type: string,
 ) => {
   if (isHover && (isExpiring || isExpired)) {
@@ -105,14 +59,6 @@ export const getPathColor = (
     return theme.palette.background.silver;
   }
   return theme.palette.background.golden;
-};
-
-export const calculateDiffDays = (expiryDate: string) => {
-  const diffTime = Math.abs(
-    new Date(expiryDate).getTime() - new Date().getTime(),
-  );
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
 };
 
 export const getTimerHeadText = (
@@ -146,48 +92,59 @@ export const calculateHoverText = (
   return name;
 };
 
-export const updateProgressAndHover = (
-  startDate: string,
-  expiryDate: string,
-  status: 'Active' | 'Inactive' | 'Pending',
-  isExpired: any,
-  paymentPending: any,
-  setProgress: (arg0: { value: number; rotation: number }) => void,
-  setHoverProgress: (arg0: { value: number; rotation: number }) => void,
-) => {
+export const updateProgressAndHover = (params: {
+  startDate: number;
+  expiryDate: number;
+  isExpired: boolean;
+  isPaymentPending: boolean;
+  setProgress: (params: { value: number; rotation: number }) => void;
+  setHoverProgress: (params: { value: number; rotation: number }) => void;
+}) => {
+  const {
+    startDate,
+    expiryDate,
+    isExpired,
+    isPaymentPending,
+    setProgress,
+    setHoverProgress,
+  } = params;
   let value = 0;
   let rotation = 0;
-  let hoverValue = 100;
+  let hoverValue = 0;
+  let hoverRotation = 0;
 
   if (isExpired) {
     value = 0;
+    rotation = 0;
+
     hoverValue = 100;
-    rotation = 0;
-  } else if (paymentPending) {
+    hoverRotation = 0;
+  } else if (isPaymentPending) {
     value = 0;
-    hoverValue = 0;
     rotation = 0;
+
+    hoverValue = 0;
+    hoverRotation = 0;
   } else {
-    const progressData = calculateProgress(startDate, expiryDate, status);
-    value = progressData.value;
-    rotation = progressData.rotation;
-    hoverValue = 100 - value;
+    const now = Date.now();
+
+    const totalDuration = expiryDate - startDate;
+    const elapsedDuration = now - startDate;
+    const timeRemaining = expiryDate - now;
+
+    hoverValue = (elapsedDuration / totalDuration) * 100;
+    hoverRotation = 0;
+
+    value = (timeRemaining / totalDuration) * 100;
+    rotation = hoverValue / 100;
+
+    value = Math.min(100, value);
+    hoverValue = Math.min(100, hoverValue);
+
+    rotation = Math.min(1, rotation);
+    hoverRotation = Math.min(1, hoverRotation);
   }
 
-  setProgress({ value, rotation });
-  setHoverProgress({ value: hoverValue, rotation });
-};
-
-export const updateHoverOnly = (
-  startDate: string,
-  expiryDate: string,
-  status: 'Active' | 'Inactive' | 'Pending',
-  setProgress: (arg0: { value: number; rotation: number }) => void,
-  setHoverProgress: (arg0: { value: number; rotation: number }) => void,
-) => {
-  const { value, rotation } = calculateProgress(startDate, expiryDate, status);
-  const hoverValue = 100 - value;
-  const hoverRotation = 0;
   setProgress({ value, rotation });
   setHoverProgress({ value: hoverValue, rotation: hoverRotation });
 };

@@ -8,8 +8,10 @@ import {
   LeanBoxContainer,
   LeanBoxProps,
   MessageBox,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -48,6 +50,12 @@ export const DecryptPin = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.decryptPin.actions.confirmOnDevice,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(0, 1),
+      },
+      {
+        id: '2',
         text: strings.decryptPin.actions.tapCard,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
@@ -83,6 +91,13 @@ export const DecryptPin = () => {
 
   return (
     <Layout>
+      <Video
+        src={tapAnyCardDeviceAnimation2DVideo}
+        loop
+        autoPlay
+        $width={420}
+        $height={236}
+      />
       <Container direction="column" width="100%" $flex={1} gap={16}>
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.decryptPin.title}

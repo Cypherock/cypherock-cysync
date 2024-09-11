@@ -26,6 +26,7 @@ import {
   InheritancePlanLoginDialog,
   InheritanceSyncPlansDialog,
   InheritanceSilverPlanPurchaseDialog,
+  InheritanceGoldPlanPurchaseDialog,
   InheritanceEditEncryptedMessageDialog,
 } from './Inheritance';
 import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
@@ -74,5 +75,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
   inheritanceEditUserDetails: InheritanceEditUserDetailsDialog,
   inheritancePinRecovery: InheritancePinRecoveryDialog,
+  inheritanceGoldPlanPurchase: InheritanceGoldPlanPurchaseDialog,
   inheritanceEditEncryptedMessage: InheritanceEditEncryptedMessageDialog,
 };

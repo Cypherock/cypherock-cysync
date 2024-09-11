@@ -78,6 +78,8 @@ export function useTabsAndDialogs({
     } else {
       goTo(newTab);
     }
+
+    return newTab;
   }, [currentTab, tabs, goTo]);
 
   const goToNextDialog = useCallback(() => {
@@ -87,30 +89,33 @@ export function useTabsAndDialogs({
     );
 
     goTo(currentTab, nextDialog);
+    return nextDialog;
   }, [currentDialog, currentTab, tabs, goTo]);
 
-  const onNext = useCallback(() => {
+  const onNext = useCallback((): [number, number] => {
     if (currentDialog + 1 > tabs[currentTab].dialogs.length - 1) {
-      goToNextTab();
-    } else {
-      goToNextDialog();
+      const tab = goToNextTab();
+      return [tab, 0];
     }
+    const dialog = goToNextDialog();
+    return [currentTab, dialog];
   }, [currentDialog, currentTab, tabs, goToNextTab, goToNextDialog]);
 
-  const onPrevious = useCallback(() => {
+  const onPrevious = useCallback((): [number, number] => {
     if (currentDialog - 1 < 0) {
       if (currentTab === 0) {
         goTo(currentTab, 0);
-      } else {
-        const nextDialog = tabs[currentTab - 1].dialogs.length - 1;
-        const nextTab = Math.max(0, currentTab - 1);
-
-        goTo(nextTab, nextDialog);
+        return [currentTab, 0];
       }
-    } else {
-      const nextDialog = Math.max(0, currentDialog - 1);
-      goTo(currentTab, nextDialog);
+      const nextDialog = tabs[currentTab - 1].dialogs.length - 1;
+      const nextTab = Math.max(0, currentTab - 1);
+
+      goTo(nextTab, nextDialog);
+      return [nextTab, nextDialog];
     }
+    const nextDialog = Math.max(0, currentDialog - 1);
+    goTo(currentTab, nextDialog);
+    return [currentTab, nextDialog];
   }, [currentDialog, currentTab, tabs, goTo]);
 
   return {

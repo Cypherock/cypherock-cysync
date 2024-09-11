@@ -16,23 +16,23 @@ import { useInheritanceSilverPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
 export const Terms = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritance.termsOfService;
 
-  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext, isTermsAccepted, setIsTermsAccepted } =
+    useInheritanceSilverPlanPurchaseDialog();
 
   const toNextPage = async () => {
-    if (isChecked) onNext();
+    if (isTermsAccepted) onNext();
   };
 
   return (
     <Layout
       footerComponent={
         <Button
-          variant={isChecked ? 'primary' : 'secondary'}
-          disabled={!isChecked}
+          variant={isTermsAccepted ? 'primary' : 'secondary'}
+          disabled={!isTermsAccepted}
           onClick={() => toNextPage()}
         >
           <LangDisplay text={lang.strings.buttons.next} />
@@ -46,13 +46,17 @@ export const Terms = () => {
       </Container>
       <Flex width="full" direction="column" gap={16}>
         <ExternalLink
-          href={constants.termsOfUseLink}
+          href={constants.inheritance.termsOfServiceLink}
+          text={strings.termsOfService}
+        />
+        <ExternalLink
+          href={constants.inheritance.privacyPolicyLink}
           text={strings.privacyPolicy}
         />
       </Flex>
       <CheckBox
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        checked={isTermsAccepted}
+        onChange={() => setIsTermsAccepted(!isTermsAccepted)}
         id="privacy_policy_accepted"
         label={strings.checkBoxLabel}
       />
