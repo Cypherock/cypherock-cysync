@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Zod from 'zod';
 
 import { sleep } from './sleep';
 
@@ -55,3 +56,14 @@ export const makePostRequest = async (
 
   throw latestError;
 };
+
+export async function makePostRequestWithValidation<T>(
+  schema: Zod.Schema<T>,
+  url: string,
+  data?: Record<string, any>,
+  options?: MakeRequestOptions,
+) {
+  const response = await makePostRequest(url, data, options);
+  const result = schema.parse(response.data);
+  return result;
+}

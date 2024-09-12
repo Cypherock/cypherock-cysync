@@ -23,6 +23,7 @@ import {
   AppUpdate,
   AssetPage,
   AccountPage,
+  BuySell,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -48,6 +49,7 @@ const components: Record<RouteName, ReactNode> = {
   account: <AccountPage />,
   history: <History />,
   settings: <Settings />,
+  'buy-sell': <BuySell />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

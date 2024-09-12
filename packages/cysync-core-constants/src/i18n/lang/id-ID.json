@@ -611,6 +611,7 @@
     "tutorial": "Tutorial",
     "settings": "Pengaturan",
     "help": "Help",
+    "buysell": "Buy",
     "tooltip": {
       "walletDeleted": "${walletName} telah dihapus dari Cypherock X1 Vault Anda"
     }
